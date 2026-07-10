@@ -6,20 +6,21 @@
 <title>KVKK Aydınlatma Metni | Mevzuat Radarı</title>
 <meta name="robots" content="noindex">
 <style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.08);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--amber:#ffc24b}
 *{box-sizing:border-box}
-body{margin:0;background:#f6f7f9;color:#141a1f;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.65}
-@media(prefers-color-scheme:dark){body{background:#0e1216;color:#e9edf1}}
-a{color:#0f5ea8}@media(prefers-color-scheme:dark){a{color:#4aa3e6}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
 .wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
-.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:18px}
-.logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0f5ea8,#0a4a86);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px}
-h1{font-size:23px;margin:6px 0 14px;letter-spacing:-.3px}
-h2{font-size:16px;margin:24px 0 8px}
-.uyari{background:#fff6e0;border:1px solid #f0d68a;color:#7a5500;border-radius:10px;padding:12px 14px;font-size:13px;margin:0 0 20px}
-@media(prefers-color-scheme:dark){.uyari{background:#2a2110;border-color:#584613;color:#f0c451}}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim)}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2f7bff,#26d0fe);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(22px,4vw,28px);margin:6px 0 16px;letter-spacing:-.8px;font-weight:800;line-height:1.2}
+h2{font-size:15.5px;margin:26px 0 8px;letter-spacing:-.2px}
+p,li{color:var(--muted);font-size:14.5px}
+p b,li b{color:var(--ink)}
+.uyari{background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.3);color:var(--amber);border-radius:12px;padding:13px 15px;font-size:13px;margin:0 0 22px}
 ul{padding-left:20px}
-.dip{font-size:12px;color:#5b6773;margin-top:30px;padding-top:14px;border-top:1px solid #e4e8ed}
-@media(prefers-color-scheme:dark){.dip{color:#9aa7b3;border-color:#26303a}}
+.dip{font-size:12px;color:var(--dim);margin-top:32px;padding-top:15px;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>

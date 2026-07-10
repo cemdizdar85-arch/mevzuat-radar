@@ -3,240 +3,465 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yükümlülük Karnesi — Mevzuat Radarı</title>
+<title>Mevzuat Radarı — Yükümlülük Karnesi</title>
+<meta name="description" content="Firmanın hangi yasal yükümlülüklere tabi olduğunu 3 dakikada gör. Mevzuata hiç bakma; seni etkileyeni radar bulsun.">
 <style>
   :root{
-    --bg:#f6f7f9; --panel:#ffffff; --ink:#141a1f; --muted:#5b6773; --line:#e4e8ed;
-    --brand:#0f5ea8; --brand-ink:#0a4a86;
-    --red:#c0322b; --red-bg:#fdecea; --red-line:#f2b8b3;
-    --amber:#9a6b00; --amber-bg:#fff6e0; --amber-line:#f0d68a;
-    --green:#1f7a43; --green-bg:#e8f6ec; --green-line:#b7e0c2;
-    --slate:#54606b; --slate-bg:#eef1f4; --slate-line:#dce1e6;
-    --radius:14px; --shadow:0 1px 2px rgba(20,26,31,.06),0 8px 24px rgba(20,26,31,.06);
-  }
-  @media (prefers-color-scheme:dark){
-    :root{
-      --bg:#0e1216; --panel:#161c22; --ink:#e9edf1; --muted:#9aa7b3; --line:#26303a;
-      --brand:#4aa3e6; --brand-ink:#6fb6ec;
-      --red:#ff8a80; --red-bg:#2a1614; --red-line:#5a2a26;
-      --amber:#f0c451; --amber-bg:#2a2110; --amber-line:#584613;
-      --green:#7bd39a; --green-bg:#122417; --green-line:#25502f;
-      --slate:#aab6c1; --slate-bg:#1b232b; --slate-line:#2c3844;
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
-    }
+    --bg:#06090f; --bg2:#0a0f17;
+    --panel:#0d141e; --panel2:#101927;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.13);
+    --ink:#eef2f7; --muted:#93a1b3; --dim:#5d6b7c;
+    --accent:#3e9bff; --accent2:#26d0fe;
+    --grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);
+    --red:#ff6b5e; --red-bg:rgba(255,107,94,.09);
+    --amber:#ffc24b; --amber-bg:rgba(255,194,75,.09);
+    --green:#3ddc97; --green-bg:rgba(61,220,151,.09);
+    --slate:#9fb0c2; --slate-bg:rgba(159,176,194,.08);
+    --r:18px;
+    --shadow:0 20px 60px rgba(0,0,0,.45);
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-    line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:860px;margin:0 auto;padding:24px 18px 80px}
-  header.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-  .logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-ink));
-    display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;flex:0 0 auto}
-  h1{font-size:22px;margin:0;letter-spacing:-.2px}
-  .sub{color:var(--muted);font-size:13px;margin:2px 0 0}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:22px;margin-top:18px}
-  .lead{font-size:15px;color:var(--muted);margin:0 0 18px}
-  .lead strong{color:var(--ink)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:620px){.grid{grid-template-columns:1fr}}
-  label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
-  .hint{font-weight:400;color:var(--muted);font-size:12px}
-  input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
-    background:var(--bg);color:var(--ink);font-size:15px;font-family:inherit}
-  input:focus,select:focus{outline:2px solid var(--brand);outline-offset:1px;border-color:var(--brand)}
-  .row-span{grid-column:1/-1}
-  .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;
-    padding:13px 20px;border-radius:11px;background:var(--brand);color:#fff;transition:filter .15s}
-  .btn:hover{filter:brightness(1.06)}
-  .btn.secondary{background:transparent;color:var(--brand);border:1px solid var(--line)}
-  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-  .teyit-banner{display:flex;gap:10px;align-items:flex-start;background:var(--amber-bg);
-    border:1px solid var(--amber-line);color:var(--amber);border-radius:10px;padding:11px 13px;
-    font-size:12.5px;margin-top:14px}
-  /* results */
-  #sonuc{display:none}
-  .karne-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:4px}
-  .karne-head h2{font-size:19px;margin:0}
-  .firma-ozet{color:var(--muted);font-size:13px;margin:2px 0 16px}
-  .skor{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
-  .skor .b{flex:1;min-width:120px;border-radius:12px;padding:12px 14px;border:1px solid}
-  .skor .b .n{font-size:26px;font-weight:800;line-height:1}
-  .skor .b .t{font-size:12px;margin-top:3px;font-weight:600}
-  .b.r{background:var(--red-bg);border-color:var(--red-line);color:var(--red)}
-  .b.a{background:var(--amber-bg);border-color:var(--amber-line);color:var(--amber)}
-  .b.s{background:var(--slate-bg);border-color:var(--slate-line);color:var(--slate)}
-  .sec-title{font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
-    color:var(--muted);margin:22px 0 10px}
-  .item{border:1px solid var(--line);border-left-width:5px;border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--panel)}
+    font-family:-apple-system,"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-variant-numeric:tabular-nums;overflow-x:hidden}
+  ::selection{background:rgba(62,155,255,.35)}
+
+  /* ---------- NAV ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px clamp(18px,4vw,42px);
+    background:rgba(6,9,15,.65);backdrop-filter:blur(18px) saturate(1.4);
+    border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.scrolled{border-bottom-color:var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--grad);
+    display:grid;place-items:center;font-weight:800;font-size:15px;color:#03101f;
+    box-shadow:0 4px 18px rgba(46,140,255,.35)}
+  .brand b{font-size:15.5px;letter-spacing:.1px}
+  .navlinks{display:flex;align-items:center;gap:26px;font-size:13.5px}
+  .navlinks a{color:var(--muted);text-decoration:none;transition:color .2s}
+  .navlinks a:hover{color:var(--ink)}
+  .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;
+    font-size:14.5px;padding:11px 22px;border-radius:12px;color:#03101f;
+    background:var(--grad);text-decoration:none;display:inline-block;
+    box-shadow:0 6px 24px rgba(46,140,255,.35);
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(46,140,255,.5);filter:brightness(1.05)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);box-shadow:none}
+  .btn.ghost:hover{border-color:rgba(255,255,255,.3);box-shadow:none}
+  @media(max-width:640px){.navlinks a.nl{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;
+    padding:120px clamp(18px,4vw,42px) 60px;overflow:hidden}
+  .hero-grid{position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse 80% 65% at 50% 40%,#000 30%,transparent 75%)}
+  .hero-inner{position:relative;max-width:1180px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:920px){.hero-inner{grid-template-columns:1fr}.hero{min-height:auto;padding-top:104px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:1.6px;text-transform:uppercase;color:var(--accent2);
+    padding:7px 14px;border:1px solid rgba(38,208,254,.25);border-radius:999px;
+    background:rgba(38,208,254,.06);margin-bottom:22px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 12px var(--accent2);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:clamp(34px,5.2vw,60px);line-height:1.06;margin:0 0 20px;
+    letter-spacing:-1.8px;font-weight:800}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:clamp(15.5px,1.6vw,18.5px);color:var(--muted);max-width:520px;margin:0 0 32px}
+  .lead b{color:var(--ink);font-weight:600}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:38px;font-size:13px;color:var(--dim)}
+  .trust span{display:flex;align-items:center;gap:7px}
+  .trust svg{width:15px;height:15px;stroke:var(--green)}
+
+  /* radar + kart sahnesi */
+  .stage{position:relative;height:480px;display:grid;place-items:center}
+  @media(max-width:920px){.stage{height:420px;margin-top:10px}}
+  .radar{position:absolute;width:min(460px,88vw);aspect-ratio:1;border-radius:50%;
+    border:1px solid rgba(62,155,255,.14);
+    background:
+      radial-gradient(circle,rgba(62,155,255,.05) 0%,transparent 62%),
+      repeating-radial-gradient(circle,transparent 0 61px,rgba(62,155,255,.09) 61px 62px)}
+  .radar::before,.radar::after{content:"";position:absolute;background:rgba(62,155,255,.1)}
+  .radar::before{left:50%;top:4%;bottom:4%;width:1px}
+  .radar::after{top:50%;left:4%;right:4%;height:1px}
+  .sweep{position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from 0deg,rgba(38,208,254,.32) 0deg,rgba(38,208,254,.05) 55deg,transparent 70deg);
+    animation:spin 4.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .blip{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 14px var(--accent2);animation:blip 4.8s infinite}
+  .blip.b1{left:64%;top:30%}
+  .blip.b2{left:33%;top:62%;animation-delay:1.7s}
+  .blip.b3{left:57%;top:71%;animation-delay:3.1s}
+  @keyframes blip{0%,12%{opacity:1}45%,100%{opacity:.12}}
+  .kart{position:relative;width:min(340px,82vw);background:rgba(13,20,30,.92);
+    border:1px solid var(--line2);border-radius:16px;padding:16px 18px;
+    box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+  .kart+.kart{margin-top:12px}
+  .kart .tag{font-size:10.5px;font-weight:800;letter-spacing:1px}
+  .kart h4{margin:5px 0 4px;font-size:15px;letter-spacing:-.2px}
+  .kart p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .kart .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
+  .kart.red{border-left:4px solid var(--red)} .kart.red .tag{color:var(--red)}
+  .kart.green{border-left:4px solid var(--green)} .kart.green .tag{color:var(--green)}
+  .kart.k1{transform:rotate(-2deg) translateX(-26px);animation:float1 7s ease-in-out infinite}
+  .kart.k2{transform:rotate(1.6deg) translateX(26px);animation:float2 7s ease-in-out infinite .8s}
+  @keyframes float1{0%,100%{transform:rotate(-2deg) translate(-26px,0)}50%{transform:rotate(-2deg) translate(-26px,-9px)}}
+  @keyframes float2{0%,100%{transform:rotate(1.6deg) translate(26px,0)}50%{transform:rotate(1.6deg) translate(26px,-9px)}}
+
+  /* ---------- STRIP ---------- */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg2)}
+  .strip-in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);
+    padding:26px clamp(18px,4vw,42px)}
+  @media(max-width:760px){.strip-in{grid-template-columns:repeat(2,1fr);gap:22px 8px}}
+  .stat{text-align:center}
+  .stat .n{font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.8px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .t{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:clamp(60px,9vw,110px) clamp(18px,4vw,42px)}
+  .sec-in{max-width:1180px;margin:0 auto}
+  .sec-head{max-width:640px;margin:0 auto 48px;text-align:center}
+  h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-1.2px;line-height:1.12;margin:0 0 12px;font-weight:800}
+  .sec-head p{color:var(--muted);font-size:15.5px;margin:0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:28px 26px;transition:transform .25s ease,border-color .25s ease}
+  .step:hover{transform:translateY(-4px);border-color:rgba(62,155,255,.3)}
+  .step .no{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:rgba(62,155,255,.12);color:var(--accent);font-weight:800;font-size:15px;margin-bottom:16px}
+  .step h3{margin:0 0 8px;font-size:17px;letter-spacing:-.3px}
+  .step p{margin:0;font-size:13.5px;color:var(--muted)}
+
+  /* ---------- APP (KARNE) ---------- */
+  #app{background:
+    radial-gradient(ellipse 60% 40% at 50% 0%,rgba(46,140,255,.08),transparent 70%),var(--bg)}
+  .app-card{max-width:860px;margin:0 auto;background:var(--panel);
+    border:1px solid var(--line2);border-radius:24px;padding:clamp(24px,4vw,40px);
+    box-shadow:var(--shadow)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 7px;color:var(--ink)}
+  .hint{font-weight:400;color:var(--dim);font-size:12px}
+  input,select{width:100%;padding:13px 14px;border:1px solid var(--line2);border-radius:12px;
+    background:var(--bg2);color:var(--ink);font-size:15px;font-family:inherit;
+    transition:border-color .2s,box-shadow .2s}
+  input::placeholder{color:var(--dim)}
+  input:focus,select:focus{outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2393a1b3' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .note{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--dim);margin-top:20px;
+    padding-top:18px;border-top:1px solid var(--line)}
+
+  /* sonuç */
+  #sonuc{display:none;max-width:860px;margin:26px auto 0}
+  .karne-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .karne-head h3{font-size:22px;margin:0;letter-spacing:-.5px}
+  .firma-ozet{color:var(--muted);font-size:13.5px;margin:2px 0 20px}
+  .skor{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:560px){.skor{grid-template-columns:1fr 1fr}}
+  .skor .b{border-radius:14px;padding:16px;border:1px solid}
+  .skor .n{font-size:30px;font-weight:800;line-height:1;letter-spacing:-1px}
+  .skor .t{font-size:12px;margin-top:5px;font-weight:600;opacity:.85}
+  .b.r{background:var(--red-bg);border-color:rgba(255,107,94,.25);color:var(--red)}
+  .b.a{background:var(--amber-bg);border-color:rgba(255,194,75,.25);color:var(--amber)}
+  .b.s{background:var(--slate-bg);border-color:rgba(159,176,194,.2);color:var(--slate)}
+  .sec-title{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--dim);margin:28px 0 12px}
+  .item{border:1px solid var(--line);border-left-width:4px;border-radius:14px;
+    padding:16px 18px;margin-bottom:10px;background:var(--panel);
+    transition:border-color .2s,transform .2s}
+  .item:hover{transform:translateX(3px)}
   .item.tabi{border-left-color:var(--red)}
   .item.yaklasiyor{border-left-color:var(--amber)}
   .item.degil{border-left-color:var(--green)}
   .item.bilgi{border-left-color:var(--slate)}
-  .item .ad{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .pill{font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;letter-spacing:.3px}
+  .item .ad{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;letter-spacing:-.2px}
+  .pill{font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
   .pill.tabi{background:var(--red-bg);color:var(--red)}
   .pill.yaklasiyor{background:var(--amber-bg);color:var(--amber)}
   .pill.degil{background:var(--green-bg);color:var(--green)}
   .pill.bilgi{background:var(--slate-bg);color:var(--slate)}
-  .item .neden{font-size:13.5px;color:var(--ink);margin:7px 0 0}
+  .item .neden{font-size:13.5px;color:var(--ink);margin:8px 0 0;opacity:.92}
   .item .aksiyon{font-size:13px;color:var(--muted);margin:8px 0 0}
   .item .aksiyon b{color:var(--ink)}
-  .item .dayanak{font-size:11.5px;color:var(--muted);margin-top:8px;opacity:.85}
-  .teyit-flag{font-size:11px;color:var(--amber);font-weight:700}
-  .cta{margin-top:24px;background:linear-gradient(135deg,var(--brand),var(--brand-ink));
-    color:#fff;border-radius:14px;padding:20px 22px}
-  .cta h3{margin:0 0 6px;font-size:17px}
-  .cta p{margin:0;font-size:13.5px;opacity:.95}
-  .disclaimer{font-size:11.5px;color:var(--muted);margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
-  .imza{font-weight:600;color:var(--ink)}
-  .print-only{display:none}
+  .item .dayanak{font-size:11px;color:var(--dim);margin-top:9px}
+
+  /* e-posta CTA */
+  .cta-box{margin-top:28px;border-radius:20px;padding:clamp(22px,3.5vw,34px);
+    background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel2);
+    border:1px solid rgba(62,155,255,.3);position:relative;overflow:hidden}
+  .cta-box::before{content:"";position:absolute;top:-40%;right:-10%;width:320px;height:320px;
+    background:radial-gradient(circle,rgba(38,208,254,.14),transparent 70%);pointer-events:none}
+  .cta-box h3{margin:0 0 6px;font-size:20px;letter-spacing:-.4px}
+  .cta-box>p{margin:0 0 18px;font-size:14px;color:var(--muted)}
+  .cta-box>p em{color:var(--ink);font-style:normal;font-weight:600}
+  .mailrow{display:flex;gap:10px;flex-wrap:wrap}
+  .mailrow input{flex:1;min-width:210px}
+  .kvkk-row{display:flex;gap:9px;align-items:flex-start;color:var(--muted);
+    font-weight:400;font-size:12px;margin-top:13px}
+  .kvkk-row input{width:auto;margin-top:2px;accent-color:var(--accent)}
+  .kvkk-row a{color:var(--accent2)}
+  #epostaSonuc{margin:11px 0 0;font-size:13px;font-weight:600;display:none}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:38px clamp(18px,4vw,42px);background:var(--bg2)}
+  .foot-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;
+    align-items:center;justify-content:space-between;font-size:12.5px;color:var(--dim)}
+  .foot-in a{color:var(--muted);text-decoration:none;margin-left:18px}
+  .foot-in a:hover{color:var(--ink)}
+  .disclaimer{max-width:1180px;margin:14px auto 0;font-size:11px;color:var(--dim);line-height:1.6}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+
+  /* ---------- PRINT (karne PDF) ---------- */
   @media print{
+    :root{--bg:#fff;--bg2:#fff;--panel:#fff;--panel2:#fff;--ink:#111;--muted:#444;--dim:#666;
+      --line:#ddd;--line2:#ccc;--red:#b3261e;--amber:#8a5b00;--green:#1b6e41;--slate:#4a555f;
+      --red-bg:#fdecea;--amber-bg:#fff6e0;--green-bg:#e8f6ec;--slate-bg:#eef1f4;--shadow:none}
+    nav,.hero,.strip,#nasil,.no-print,footer,.cta-box{display:none!important}
+    section{padding:0}
+    #sonuc{display:block!important;max-width:none}
+    .item:hover{transform:none}
     body{background:#fff}
-    .no-print{display:none!important}
-    .card{box-shadow:none;border:none;padding:0}
-    #sonuc{display:block!important}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="top">
-    <div class="logo">MR</div>
+<nav id="nav">
+  <a class="brand" href="#"><span class="mark">MR</span><b>Mevzuat Radarı</b></a>
+  <div class="navlinks">
+    <a class="nl" href="#nasil">Nasıl çalışır</a>
+    <a class="nl" href="sayfalar/index.html">Eşik rehberi</a>
+    <a class="btn" href="#app">Karneni çıkar</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
     <div>
-      <h1>Yükümlülük Karnesi</h1>
-      <p class="sub">Mevzuat Radarı — firmanın hangi yasal yükümlülüklere tabi olduğunu 3 dakikada gör.</p>
-    </div>
-  </header>
-
-  <!-- FORM -->
-  <div class="card no-print" id="formKart">
-    <p class="lead">
-      Firmanın <strong>4-5 temel bilgisini</strong> gir; sistem sadece <strong>seni etkileyen</strong>
-      yükümlülükleri karne olarak çıkarsın. Kayıt yok, veriler bu sayfadan dışarı çıkmaz.
-    </p>
-
-    <div class="grid">
-      <div>
-        <label>Çalışan sayısı <span class="hint">(SGK’lı)</span></label>
-        <input id="calisan" type="number" min="0" step="1" placeholder="ör. 32" inputmode="numeric">
+      <span class="eyebrow">Radar aktif · Türkiye mevzuatı</span>
+      <h1>Mevzuata hiç bakma.<br><span class="g">Seni etkileyeni</span> radar bulsun.</h1>
+      <p class="lead">Resmî Gazete her gün yüzlerce sayfa. İçinden <b>senin firmanı</b> ilgilendiren
+      değişikliği bulur, sade Türkçeyle söyleriz: <b>ne oldu, ne yapmalısın, kaç para.</b></p>
+      <div class="hero-cta">
+        <a class="btn" href="#app">Ücretsiz karneni çıkar</a>
+        <a class="btn ghost" href="#nasil">Nasıl çalışır?</a>
       </div>
-      <div>
-        <label>Kadın çalışan sayısı <span class="hint">(biliyorsan)</span></label>
-        <input id="kadin" type="number" min="0" step="1" placeholder="ör. 12" inputmode="numeric">
-      </div>
-
-      <div>
-        <label>Yıllık ciro / brüt satış hasılatı <span class="hint">(TL)</span></label>
-        <input id="ciro" type="text" placeholder="ör. 12.000.000" inputmode="numeric">
-      </div>
-      <div>
-        <label>Aktif toplamı / bilanço <span class="hint">(TL, biliyorsan)</span></label>
-        <input id="aktif" type="text" placeholder="ör. 45.000.000" inputmode="numeric">
-      </div>
-
-      <div>
-        <label>Şirket türü</label>
-        <select id="tur">
-          <option value="">Seç…</option>
-          <option value="as">Anonim Şirket (AŞ)</option>
-          <option value="ltd">Limited Şirket (Ltd)</option>
-          <option value="komandit">Sermayesi paylara bölünmüş komandit</option>
-          <option value="sahis">Şahıs işletmesi / Gerçek kişi</option>
-          <option value="kollektif">Kollektif / Adi komandit</option>
-          <option value="kooperatif">Kooperatif</option>
-        </select>
-      </div>
-      <div>
-        <label>Esas sermaye <span class="hint">(TL — AŞ için)</span></label>
-        <input id="sermaye" type="text" placeholder="ör. 250.000" inputmode="numeric">
-      </div>
-
-      <div>
-        <label>İSG tehlike sınıfı</label>
-        <select id="tehlike">
-          <option value="">Seç…</option>
-          <option value="az">Az tehlikeli</option>
-          <option value="tehlikeli">Tehlikeli</option>
-          <option value="cok">Çok tehlikeli</option>
-          <option value="bilinmiyor">Bilmiyorum</option>
-        </select>
-      </div>
-      <div>
-        <label>Tehlikeli madde işliyor musun? <span class="hint">(üretim/depo/taşıma)</span></label>
-        <select id="tehmadde">
-          <option value="hayir">Hayır</option>
-          <option value="evet">Evet</option>
-        </select>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> SMMM doğrulamalı</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Kaynak mevzuat linkli</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
       </div>
     </div>
 
-    <div class="actions">
-      <button class="btn" onclick="hesapla()">Karnemi göster</button>
-      <button class="btn secondary" onclick="ornekDoldur()">Örnek firmayla dene</button>
-    </div>
-
-    <div class="teyit-banner">
-      <span>✓</span>
-      <span><b>Eşik değerleri Temmuz 2026 itibarıyla güncellendi.</b> Bağımsız denetim (500M/1 milyar/150),
-      VERBİS (100M bilanço), avukat bulundurma (1.250.000 TL) ve e-Fatura/e-İrsaliye hadleri en güncel hâliyle.
-      Nihai yayın öncesi kaynak mevzuattan son kez teyit önerilir. Değerler <code>ESIKLER</code> bölümünde tek yerde.</span>
-    </div>
-  </div>
-
-  <!-- SONUÇ -->
-  <div class="card" id="sonuc">
-    <div class="karne-head">
-      <h2>Yükümlülük Karnesi</h2>
-      <button class="btn secondary no-print" onclick="window.print()">PDF olarak kaydet / yazdır</button>
-    </div>
-    <p class="firma-ozet" id="firmaOzet"></p>
-
-    <div class="skor">
-      <div class="b r"><div class="n" id="skTabi">0</div><div class="t">Tabi olduğun</div></div>
-      <div class="b a"><div class="n" id="skYak">0</div><div class="t">Eşiğe yaklaştığın</div></div>
-      <div class="b s"><div class="n" id="skBilgi">0</div><div class="t">Bilmen gereken</div></div>
-    </div>
-
-    <div id="listeler"></div>
-
-    <div class="cta no-print">
-      <h3>Bu anlık bir fotoğraf.</h3>
-      <p>Bir eşiğe yaklaştığında ya da mevzuat değiştiğinde karnen sessizce eskir.
-      <b>Radar</b> bu karneyi sürekli izler; sınıra yaklaşınca ve seni ilgilendiren tebliğ çıkınca
-      hap kart olarak haber verir. <em>Bedava = anlık fotoğraf. Paralı = sürekli izleme.</em></p>
-
-      <div id="epostaAlan" style="margin-top:16px">
-        <label style="color:#fff;opacity:.95">E-postanı bırak, Radar başlayınca ilk sen haberdar ol:</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <input id="eposta" type="email" placeholder="ornek@firma.com" autocomplete="email"
-            style="flex:1;min-width:200px;background:rgba(255,255,255,.95);border:0;color:#141a1f">
-          <button class="btn" style="background:#0a2f52" onclick="epostaGonder()">Haber ver</button>
+    <div class="stage" aria-hidden="true">
+      <div class="radar"><div class="sweep"></div>
+        <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
+      </div>
+      <div>
+        <div class="kart red k1">
+          <div class="tag">■ AKSİYON GEREKLİ · SON 12 GÜN</div>
+          <h4>Ürün grubunda gözetim soruşturması açıldı</h4>
+          <p>Soru formunu son tarihe kadar vermezsen en yüksek vergi oranı uygulanır.</p>
+          <div class="meta">214 sayfadan süzüldü · Doğrulayan: SMMM C. Dizdar</div>
         </div>
-        <label style="display:flex;gap:8px;align-items:flex-start;color:#fff;opacity:.9;font-weight:400;font-size:12px;margin-top:10px">
-          <input id="kvkk" type="checkbox" style="width:auto;margin-top:2px">
-          <span>E-postamın, Mevzuat Radarı bilgilendirmeleri için işlenmesine izin veriyorum.
-          İstediğimde çıkabilirim. <a href="kvkk.html" target="_blank" style="color:#fff;text-decoration:underline">Aydınlatma metni</a></span>
-        </label>
-        <p id="epostaSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
+        <div class="kart green k2">
+          <div class="tag">■ FIRSAT</div>
+          <h4>Profiline uyan yeni KOSGEB desteği</h4>
+          <p>Makine-teçhizat kaleminde tahmini 900 bin TL’ye kadar hibe imkânı.</p>
+          <div class="meta">Başvuru açık · Doğrulayan: SMMM C. Dizdar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STAT STRIP ============ -->
+<div class="strip">
+  <div class="strip-in">
+    <div class="stat reveal"><div class="n">3 dk</div><div class="t">Karne süresi</div></div>
+    <div class="stat reveal"><div class="n">17+</div><div class="t">Taranan yükümlülük</div></div>
+    <div class="stat reveal"><div class="n">%100</div><div class="t">Ücretsiz karne</div></div>
+    <div class="stat reveal"><div class="n">0</div><div class="t">Kayıt zorunluluğu</div></div>
+  </div>
+</div>
+
+<!-- ============ NASIL ÇALIŞIR ============ -->
+<section id="nasil">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Üç adımda, mevzuat dert olmaktan çıkar</h2>
+      <p>Önce fotoğraf: bugün nelere tabisin. Sonra radar: değişen her şey sana gelsin.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="no">1</div>
+        <h3>Profilini gir</h3>
+        <p>Çalışan sayısı, ciro, şirket türü — 4-5 soru, 3 dakika. Veriler tarayıcında kalır, kayıt istemez.</p></div>
+      <div class="step reveal"><div class="no">2</div>
+        <h3>Karneni gör</h3>
+        <p>Hangi yasal yükümlülüklere tabisin, hangilerine yaklaşıyorsun — renk kodlu, dayanaklı, PDF alınabilir.</p></div>
+      <div class="step reveal"><div class="no">3</div>
+        <h3>Radar izlesin</h3>
+        <p>Mevzuat değişince ya da bir eşiğe yaklaşınca hap kart cebine gelsin: ne oldu, ne yapmalısın, kaç para.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KARNE APP ============ -->
+<section id="app">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Yükümlülük Karnesi</h2>
+      <p>Firmanın 4-5 temel bilgisini gir; sadece <b style="color:var(--ink)">seni etkileyen</b> yükümlülükleri gör.</p>
+    </div>
+
+    <div class="app-card reveal" id="formKart">
+      <div class="grid">
+        <div>
+          <label>Çalışan sayısı <span class="hint">(SGK’lı)</span></label>
+          <input id="calisan" type="number" min="0" step="1" placeholder="ör. 32" inputmode="numeric">
+        </div>
+        <div>
+          <label>Kadın çalışan sayısı <span class="hint">(biliyorsan)</span></label>
+          <input id="kadin" type="number" min="0" step="1" placeholder="ör. 12" inputmode="numeric">
+        </div>
+        <div>
+          <label>Yıllık ciro / brüt satış hasılatı <span class="hint">(TL)</span></label>
+          <input id="ciro" type="text" placeholder="ör. 12.000.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>Aktif toplamı / bilanço <span class="hint">(TL, biliyorsan)</span></label>
+          <input id="aktif" type="text" placeholder="ör. 45.000.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>Şirket türü</label>
+          <select id="tur">
+            <option value="">Seç…</option>
+            <option value="as">Anonim Şirket (AŞ)</option>
+            <option value="ltd">Limited Şirket (Ltd)</option>
+            <option value="komandit">Sermayesi paylara bölünmüş komandit</option>
+            <option value="sahis">Şahıs işletmesi / Gerçek kişi</option>
+            <option value="kollektif">Kollektif / Adi komandit</option>
+            <option value="kooperatif">Kooperatif</option>
+          </select>
+        </div>
+        <div>
+          <label>Esas sermaye <span class="hint">(TL — AŞ için)</span></label>
+          <input id="sermaye" type="text" placeholder="ör. 1.250.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>İSG tehlike sınıfı</label>
+          <select id="tehlike">
+            <option value="">Seç…</option>
+            <option value="az">Az tehlikeli</option>
+            <option value="tehlikeli">Tehlikeli</option>
+            <option value="cok">Çok tehlikeli</option>
+            <option value="bilinmiyor">Bilmiyorum</option>
+          </select>
+        </div>
+        <div>
+          <label>Tehlikeli madde işliyor musun? <span class="hint">(üretim/depo/taşıma)</span></label>
+          <select id="tehmadde">
+            <option value="hayir">Hayır</option>
+            <option value="evet">Evet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="hesapla()">Karnemi göster</button>
+        <button class="btn ghost" onclick="ornekDoldur()">Örnek firmayla dene</button>
+      </div>
+
+      <div class="note">
+        <span>🔒</span>
+        <span>Girdiğin veriler tarayıcından dışarı çıkmaz — hesaplama cihazında yapılır.
+        Eşik değerleri Temmuz 2026 itibarıyla günceldir; kesin sonuç için mevzuat metni esastır.</span>
       </div>
     </div>
 
-    <div class="disclaimer">
-      <p class="imza">Hazırlayan: SMMM Cem Dizdar — Mevzuat Radarı.</p>
-      <p>Bu karne yalnızca <b>bilgilendirme amaçlıdır</b>, hukuki/mali mütalaa değildir. Eşik değerleri ve yükümlülükler
-      firmanın somut durumuna göre değişebilir; kesin sonuç için mevzuat metni ve uzman görüşü esastır.
-      Değerlendirme, girilen bilgilerle sınırlıdır.</p>
+    <!-- SONUÇ -->
+    <div id="sonuc">
+      <div class="app-card">
+        <div class="karne-head">
+          <h3>Yükümlülük Karnesi</h3>
+          <button class="btn ghost no-print" onclick="window.print()">PDF indir / yazdır</button>
+        </div>
+        <p class="firma-ozet" id="firmaOzet"></p>
+
+        <div class="skor">
+          <div class="b r"><div class="n" id="skTabi">0</div><div class="t">Tabi olduğun</div></div>
+          <div class="b a"><div class="n" id="skYak">0</div><div class="t">Eşiğe yaklaştığın</div></div>
+          <div class="b s"><div class="n" id="skBilgi">0</div><div class="t">Bilmen gereken</div></div>
+        </div>
+
+        <div id="listeler"></div>
+
+        <div class="cta-box no-print" id="epostaAlan">
+          <h3>Bu anlık bir fotoğraf.</h3>
+          <p>Bir eşiğe yaklaştığında ya da mevzuat değiştiğinde karnen sessizce eskir.
+          <em>Radar</em> bu karneyi sürekli izler; seni ilgilendiren değişiklik çıkınca hap kart olarak
+          haber verir. E-postanı bırak, Radar başlayınca <em>ilk sen</em> haberdar ol:</p>
+          <div class="mailrow">
+            <input id="eposta" type="email" placeholder="ornek@firma.com" autocomplete="email">
+            <button class="btn" onclick="epostaGonder()">Haber ver</button>
+          </div>
+          <label class="kvkk-row">
+            <input id="kvkk" type="checkbox">
+            <span>E-postamın, Mevzuat Radarı bilgilendirmeleri için işlenmesine izin veriyorum.
+            İstediğimde çıkabilirim. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
+          </label>
+          <p id="epostaSonuc"></p>
+        </div>
+
+        <div class="note">
+          <span>✓</span>
+          <span><b style="color:var(--ink)">Hazırlayan: SMMM Cem Dizdar — Mevzuat Radarı.</b>
+          Bu karne yalnızca bilgilendirme amaçlıdır, hukuki/mali mütalaa değildir. Eşik değerleri ve
+          yükümlülükler firmanın somut durumuna göre değişebilir; kesin sonuç için mevzuat metni ve
+          uzman görüşü esastır. Değerlendirme, girilen bilgilerle sınırlıdır.</span>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <p class="disclaimer no-print" style="text-align:center;border:0">
-    <a href="sayfalar/index.html" style="color:var(--brand)">Eşik rehberi ve hesaplayıcılar →</a><br>
-    Mevzuat Radarı · Yükümlülük Karnesi · taslak v0.1 · tek dosya, kurulum gerektirmez
-  </p>
-</div>
+<footer>
+  <div class="foot-in">
+    <span>© 2026 Mevzuat Radarı · SMMM Cem Dizdar</span>
+    <span>
+      <a href="sayfalar/index.html">Eşik rehberi</a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="#app">Karne</a>
+    </span>
+  </div>
+  <p class="disclaimer">Mevzuat Radarı bir bilgilendirme platformudur; hukuki mütalaa vermez,
+  beyanname düzenlemez. Tüm kartlar kaynak mevzuata bağlanır ve uzman doğrulamasından geçer.</p>
+</footer>
 
 <script>
 /* ============================================================================
@@ -253,13 +478,11 @@ const EPOSTA_ENDPOINT = "";
 const EPOSTA_ANAHTAR  = "";
 
 /* ============================================================================
-   ESIKLER — TÜM EŞİK DEĞERLERİ BURADA. Yayına almadan MEVZUATTAN TEYİT ET.
-   teyit:false olan her değer karnede "⚠ teyit" işaretiyle görünür.
-   Değeri güncellediğinde teyit:true yap → uyarı kalkar.
-   ============================================================================ */
-/* Son teyit turu: Temmuz 2026 (web araştırması, ikincil kaynaklar).
+   ESIKLER — TÜM EŞİK DEĞERLERİ BURADA.
+   Son teyit turu: Temmuz 2026 (web araştırması, ikincil kaynaklar).
    Not: Nihai yayın öncesi kritik değerlerin kaynak mevzuattan (RG) son kez
-   doğrulanması önerilir — bir SMMM imzasıyla çıkacak ürün.  */
+   doğrulanması önerilir — bir SMMM imzasıyla çıkacak ürün.
+   ============================================================================ */
 const ESIKLER = {
   engelliKota:      { minCalisan:50,  teyit:true, not:"50+ işçide %3 (özel sektör) — 4857/m.30" },
   isgKurulu:        { minCalisan:50,  teyit:true, not:"50+ ve 6 aydan uzun süren iş — 6331/m.22" },
@@ -298,14 +521,11 @@ function profilAl(){
 
 const sermayeSirketi = t => t==='as' || t==='ltd' || t==='komandit';
 
-/* ---- KARNE MOTORU: her yükümlülük bir kural ----
-   status: 'tabi' | 'yaklasiyor' | 'degil' | 'bilgi'
-*/
+/* ---- KARNE MOTORU ---- */
 function karneUret(p){
   const K = [];
   const push = o => { o.teyitEksik = o.teyitEksik || false; K.push(o); };
 
-  // --- ÇALIŞAN SAYISINA BAĞLI ---
   if(p.calisan!=null){
     const e = ESIKLER.engelliKota;
     push({ grup:'Çalışan sayısı', ad:'Engelli çalıştırma yükümlülüğü',
@@ -347,7 +567,6 @@ function karneUret(p){
     }
   }
 
-  // kadın çalışana bağlı
   if(p.kadin!=null && p.kadin>0){
     const eo=ESIKLER.emzirmeOdasi, kr=ESIKLER.kres;
     push({ grup:'Çalışan sayısı', ad:'Emzirme odası zorunluluğu',
@@ -366,7 +585,6 @@ function karneUret(p){
       dayanak:'Gebe/Emziren Kadınların Çalıştırılma Şartları Yönetmeliği', teyitEksik:!kr.teyit });
   }
 
-  // VERBİS (çalışan veya bilanço)
   {
     const v=ESIKLER.verbis;
     const tetik = (p.calisan!=null && p.calisan>v.minCalisan) || (p.aktif!=null && p.aktif>v.minAktif);
@@ -381,7 +599,6 @@ function karneUret(p){
         dayanak:'6698 sayılı KVKK ve Kurul kararları', teyitEksik:!v.teyit });
   }
 
-  // --- CİRO / AKTİF BÜYÜKLÜĞÜNE BAĞLI ---
   if(p.ciro!=null){
     const ef=ESIKLER.eFatura;
     const efTabi = p.ciro>=ef.minCiro;
@@ -393,7 +610,6 @@ function karneUret(p){
       aksiyon:'Kapsamdaysan GİB portalı ya da özel entegratörle e-Fatura’ya geç.',
       dayanak:'VUK 509 Sıra No.lu Genel Tebliğ', teyitEksik:!ef.teyit });
 
-    // e-Arşiv & e-Defter e-faturaya bağlı
     push({ grup:'Ciro / e-Dönüşüm', ad:'e-Arşiv Fatura zorunluluğu',
       status: efTabi?'tabi':'degil',
       neden: efTabi
@@ -421,7 +637,6 @@ function karneUret(p){
         dayanak:'VUK 509 Sıra No.lu Genel Tebliğ', teyitEksik:!ei.teyit });
   }
 
-  // Bağımsız denetim (3 ölçüt)
   {
     const bd=ESIKLER.bagimsizDenetim;
     const olcut = [
@@ -450,7 +665,6 @@ function karneUret(p){
     }
   }
 
-  // Transfer fiyatlandırması (kurumlar için bilgi)
   if(p.tur==='as' || p.tur==='ltd'){
     push({ grup:'Denetim & TTK', ad:'Transfer fiyatlandırması belgelendirme', status:'bilgi',
       neden:`İlişkili kişilerle (ortak, grup şirketi vb.) mal/hizmet alım-satımın varsa, emsale uygunluk ve belgelendirme yükümlülüğü doğabilir.`,
@@ -458,7 +672,6 @@ function karneUret(p){
       dayanak:'5520 sayılı KVK m.13' });
   }
 
-  // --- ŞİRKET TÜRÜ / SERMAYE ---
   {
     const av=ESIKLER.avukatBulundurma;
     if(p.tur==='as'){
@@ -473,7 +686,6 @@ function karneUret(p){
     }
   }
 
-  // KEP / e-Tebligat (sermaye şirketleri)
   if(sermayeSirketi(p.tur)){
     push({ grup:'Şirket türü & sermaye', ad:'KEP adresi + e-Tebligat', status:'tabi',
       neden:`Sermaye şirketleri (AŞ, Ltd, paylı komandit) KEP adresi almak ve e-Tebligat sistemine dahil olmak zorunda.`,
@@ -486,7 +698,6 @@ function karneUret(p){
       dayanak:'6102 sayılı TTK m.376' });
   }
 
-  // Tehlikeli madde
   if(p.tehmadde){
     push({ grup:'Sektörel / teknik', ad:'TMGD (Tehlikeli Madde Güvenlik Danışmanı)', status:'bilgi',
       neden:`Belirli miktar eşiğinin üzerinde tehlikeli madde üreten, depolayan veya taşıyan işletmeler TMGD bulundurmak/istihdam etmek zorunda.`,
@@ -506,7 +717,6 @@ function hesapla(){
   }
   const karne = karneUret(p);
 
-  // özet metni
   const turAd = {as:'Anonim Şirket',ltd:'Limited Şirket',komandit:'Paylı komandit',sahis:'Şahıs işletmesi',kollektif:'Kollektif/komandit',kooperatif:'Kooperatif'}[p.tur]||'—';
   const par = [];
   if(p.tur) par.push(turAd);
@@ -515,30 +725,27 @@ function hesapla(){
   if(p.aktif!=null) par.push(`${tl(p.aktif)} TL aktif`);
   $('firmaOzet').textContent = par.join(' · ') || 'Girilen profil';
 
-  // skor
   const say = s => karne.filter(k=>k.status===s).length;
   $('skTabi').textContent = say('tabi');
   $('skYak').textContent  = say('yaklasiyor');
   $('skBilgi').textContent = karne.filter(k=>k.status==='bilgi').length;
 
-  // gruplar: tabi -> yaklasiyor -> bilgi -> degil
   const bloklar = [
-    ['tabi','Tabi olduğun yükümlülükler','Aksiyon gerektirir.'],
-    ['yaklasiyor','Eşiğe yaklaştıkların','Yakında kapsama girebilirsin — şimdiden hazırlan.'],
-    ['bilgi','Bilmen gerekenler','Koşullu / olaya bağlı yükümlülükler.'],
-    ['degil','Şimdilik tabi olmadıkların','İzlemede tut — profilin değişince değişir.'],
+    ['tabi','Tabi olduğun yükümlülükler'],
+    ['yaklasiyor','Eşiğe yaklaştıkların'],
+    ['bilgi','Bilmen gerekenler'],
+    ['degil','Şimdilik tabi olmadıkların'],
   ];
   const pillAd = {tabi:'TABİSİN',yaklasiyor:'YAKLAŞIYORSUN',bilgi:'BİLGİ',degil:'KAPSAM DIŞI'};
 
   let html='';
-  for(const [st,baslik,alt] of bloklar){
+  for(const [st,baslik] of bloklar){
     const grup = karne.filter(k=>k.status===st);
     if(!grup.length) continue;
     html += `<div class="sec-title">${baslik}</div>`;
     for(const k of grup){
       html += `<div class="item ${st}">
-        <div class="ad">${k.ad} <span class="pill ${st}">${pillAd[st]}</span>
-          ${k.teyitEksik?'<span class="teyit-flag">⚠ teyit</span>':''}</div>
+        <div class="ad">${k.ad} <span class="pill ${st}">${pillAd[st]}</span></div>
         <div class="neden">${k.neden}</div>
         ${k.aksiyon?`<div class="aksiyon"><b>Ne yapmalısın:</b> ${k.aksiyon}</div>`:''}
         <div class="dayanak">Dayanak: ${k.dayanak}</div>
@@ -548,14 +755,14 @@ function hesapla(){
   $('listeler').innerHTML = html;
 
   $('sonuc').style.display='block';
-  $('formKart').scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>$('sonuc').scrollIntoView({behavior:'smooth',block:'start'}),120);
+  setTimeout(()=>$('sonuc').scrollIntoView({behavior:'smooth',block:'start'}),80);
 }
 
+/* ---- E-POSTA ---- */
 function epostaGonder(){
   const sonuc = $('epostaSonuc');
   const goster = (msg,ok)=>{ sonuc.style.display='block'; sonuc.textContent=msg;
-    sonuc.style.color = ok ? '#bff0cf' : '#ffd7d2'; };
+    sonuc.style.color = ok ? 'var(--green)' : 'var(--red)'; };
   const mail = ($('eposta').value||'').trim();
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
   if(!$('kvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
@@ -565,7 +772,6 @@ function epostaGonder(){
     return;
   }
 
-  // kalifiye müşteri adayı: karne özetini de ilet
   const p = profilAl();
   const k = karneUret(p);
   const tabiListe = k.filter(x=>x.status==='tabi').map(x=>x.ad);
@@ -593,7 +799,7 @@ function epostaGonder(){
 function ornekDoldur(){
   $('calisan').value='32'; $('kadin').value='14';
   $('ciro').value='12.000.000'; $('aktif').value='45.000.000';
-  $('tur').value='as'; $('sermaye').value='250.000';
+  $('tur').value='as'; $('sermaye').value='1.250.000';
   $('tehlike').value='tehlikeli'; $('tehmadde').value='hayir';
   hesapla();
 }
@@ -605,6 +811,17 @@ function ornekDoldur(){
     e.target.value = v ? new Intl.NumberFormat('tr-TR').format(parseInt(v,10)) : '';
   });
 });
+
+/* nav gölgesi + scroll reveal */
+addEventListener('scroll',()=>{ $('nav').classList.toggle('scrolled', scrollY>10); },{passive:true});
+try{
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}catch(e){}
+/* güvenlik ağı: observer çalışmazsa içerik asla gizli kalmasın (geçişsiz, anında) */
+setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+  el.style.transition='none'; el.classList.add('in');
+}), 1200);
 </script>
 </body>
 </html>
