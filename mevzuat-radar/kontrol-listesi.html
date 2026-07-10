@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eşik Teyit Kontrol Listesi — Mevzuat Radarı (iç belge)</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--amber:#ffc24b;--green:#3ddc97;--red:#ff6b5e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:860px;margin:0 auto;padding:26px 18px 80px}
+h1{font-size:clamp(21px,4vw,27px);letter-spacing:-.7px;margin:4px 0 6px;font-weight:800}
+.sub{color:var(--muted);font-size:13.5px;margin:0 0 6px}
+.ilerleme{position:sticky;top:0;z-index:5;background:rgba(6,9,15,.85);backdrop-filter:blur(12px);padding:10px 0;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.bar{height:8px;background:var(--panel);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2f7bff,#26d0fe);transition:width .3s}
+.bar-t{font-size:12px;color:var(--muted);margin-top:5px}
+.grup{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent2);margin:30px 0 10px}
+.md{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr;gap:13px}
+.md.onemli{border-color:rgba(255,194,75,.4)}
+.md input[type=checkbox]{width:21px;height:21px;margin-top:2px;accent-color:var(--green);cursor:pointer}
+.md .baslik{font-weight:700;font-size:14.5px;letter-spacing:-.2px}
+.md .satir{font-size:13px;color:var(--muted);margin-top:4px}
+.md .satir b{color:var(--ink);font-weight:600}
+.md .etiket{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:99px;background:rgba(255,194,75,.12);color:var(--amber);margin-left:6px;vertical-align:2px}
+.md .duzelt{font-size:11.5px;color:var(--dim);margin-top:6px}
+.md .duzelt code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:5px;font-size:11px}
+.md textarea{width:100%;margin-top:8px;background:#0a0f17;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-family:inherit;font-size:12.5px;padding:8px 10px;resize:vertical;min-height:34px}
+.md textarea::placeholder{color:var(--dim)}
+.md.ok{opacity:.55}
+.giris{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:13.5px;color:var(--muted);margin:14px 0 4px}
+.giris b{color:var(--ink)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--ink:#111;--muted:#444;--dim:#666;--line:#ccc;--accent2:#036}
+  body{background:#fff}.ilerleme{position:static;background:#fff}
+  .md{break-inside:avoid}.md textarea{border:1px solid #ccc}
+  a{color:#036}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Eşik Teyit Kontrol Listesi</h1>
+  <p class="sub">İç belge — siteye yüklenmez. Amaç: üründeki her eşiği <b>kaynak mevzuattan</b> son kez doğrulamak (SMMM imzası öncesi son kontrol).</p>
+
+  <div class="ilerleme">
+    <div class="bar"><i id="barIc"></i></div>
+    <div class="bar-t" id="barYazi">0 / 0 madde kontrol edildi</div>
+  </div>
+
+  <div class="giris">
+    <b>Nasıl kullanılır:</b> Her maddede "üründe yazan" değeri resmî kaynaktan kontrol et → doğruysa kutuyu işaretle, farklıysa not alanına doğrusunu yaz. İşaretler bu tarayıcıda kayıtlı kalır; yarıda bırakıp devam edebilirsin. Yanlış çıkan olursa Claude'a notunla birlikte söyle — kod tek yerden düzeltilir. ⚠ etiketli maddeler ekstra dikkat ister.
+  </div>
+
+  <div id="liste"></div>
+
+  <div class="dip">
+    Mevzuat Radarı iç belgesi · Değerlerin üründeki yeri: <b>index.html → ESIKLER bloğu</b> (motor)
+    ve <b>sayfalar/olustur.ps1 → $pages tablosu</b> (SEO sayfaları; düzeltince yeniden üretilir).
+    Genel kanun metinleri için: <a href="https://www.mevzuat.gov.tr" target="_blank">mevzuat.gov.tr</a> ·
+    RG arşivi: <a href="https://www.resmigazete.gov.tr" target="_blank">resmigazete.gov.tr</a> ·
+    e-Belge tebliğleri: <a href="https://ebelge.gib.gov.tr" target="_blank">ebelge.gib.gov.tr</a>
+  </div>
+</div>
+
+<script>
+const MADDELER = [
+ {g:"CİRO / e-DÖNÜŞÜM", b:"e-Fatura genel ciro eşiği", u:"3.000.000 TL (2025 hasılatı → 1 Temmuz 2026 geçiş)",
+  k:'VUK 509 Sıra No.lu Genel Tebliğ (güncel birleştirilmiş metin) — <a href="https://ebelge.gib.gov.tr" target="_blank">ebelge.gib.gov.tr</a> → Mevzuat',
+  s:"Tebliğin IV.1.4 bölümündeki güncel brüt satış hasılatı haddi ve geçiş tarihi",
+  d:"ESIKLER.eFatura + sayfalar: e-fatura-zorunlulugu"},
+ {g:"CİRO / e-DÖNÜŞÜM", b:"e-Fatura sektörel eşik (e-ticaret, gayrimenkul, motorlu araç)", u:"500.000 TL",
+  k:'VUK 509 — aynı tebliğ, sektörel geçiş şartları',
+  s:"Sektör listesi ve 500 bin TL haddi hâlâ geçerli mi",
+  d:"sayfalar: e-fatura-zorunlulugu (gövde metni)"},
+ {g:"CİRO / e-DÖNÜŞÜM", b:"e-İrsaliye ciro eşiği", u:"10.000.000 TL genel · İDİS kapsamı 1.000.000 TL · ÖTV I/III, şeker, demir-çelik, maden, hal kayıt: ciro şartsız",
+  k:'VUK 509 — e-İrsaliye bölümü',
+  s:"Genel had, İDİS haddi ve ciro şartsız sektör listesi",
+  d:"ESIKLER.eIrsaliye + sayfalar: e-irsaliye-zorunlulugu"},
+ {g:"CİRO / e-DÖNÜŞÜM", b:"e-Arşiv ve e-Defter'in e-Fatura'ya bağlılığı", u:"e-Fatura mükellefi → e-Arşiv + e-Defter de zorunlu",
+  k:'VUK 509 + e-Defter Genel Tebliği (1 Sıra No, güncel hali)',
+  s:"Bağlantı kuralı + e-Arşiv'in mükellef olmayanlara fatura tutar sınırları (üründe sayı verilmedi, genel ifade yeterli mi?)",
+  d:"sayfalar: e-defter-zorunlulugu, karne motoru e-Arşiv/e-Defter kartları"},
+
+ {g:"DENETİM & TTK", b:"Bağımsız denetim eşikleri (2026)", u:"Aktif 500 milyon · net satış 1 milyar · 150 çalışan — 3 ölçütten 2'si, 2 yıl üst üste", onemli:true,
+  k:'11066 sayılı CB Kararı — <a href="https://www.resmigazete.gov.tr/17.03.2026" target="_blank">17.03.2026 tarihli RG</a>',
+  s:"Karar metnindeki üç değer + yürürlük (1.1.2026 sonrası hesap dönemleri) + 'aşan' ifadesinin yorumu (eşit=aşmış mı?)",
+  d:"ESIKLER.bagimsizDenetim + sayfalar: bagimsiz-denetim-esigi"},
+ {g:"DENETİM & TTK", b:"İnternet sitesi zorunluluğu bağı", u:"Bağımsız denetime tabi sermaye şirketi → TTK 1524 sitesi zorunlu",
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6102&MevzuatTur=1&MevzuatTertip=5" target="_blank">TTK m.1524</a> + İnternet Sitesi Yönetmeliği',
+  s:"Kapsam tanımı ve açılış süresi (3 ay kuralı — üründe süre verilmedi)",
+  d:"karne motoru TTK 1524 kartı + sayfalar: ttk-1524-internet-sitesi"},
+ {g:"DENETİM & TTK", b:"TTK 376 sermaye kaybı oranları", u:"Sermaye+yedeklerin 1/2'si veya 2/3'ü karşılıksız → genel kurul yükümlülüğü",
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6102&MevzuatTur=1&MevzuatTertip=5" target="_blank">TTK m.376</a> + uygulama tebliği',
+  s:"1/2 ve 2/3 oranları + tebliğdeki hesaplama kolaylıkları hâlâ yürürlükte mi",
+  d:"karne motoru TTK 376 kartı"},
+
+ {g:"ŞİRKET TÜRÜ & SERMAYE", b:"Sözleşmeli avukat sermaye eşiği", u:"1.250.000 TL (TTK asgari sermaye 250.000 × 5)", onemli:true,
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=1136&MevzuatTur=1&MevzuatTertip=5" target="_blank">Avukatlık K. m.35</a> + TTK m.332 asgari sermaye (7887 s. CB Kararı: 250.000 TL)',
+  s:"TTK 332 asgari sermayenin hâlâ 250.000 TL olduğu (değişirse eşik otomatik değişir!)",
+  d:"ESIKLER.avukatBulundurma + sayfalar: avukat-bulundurma"},
+ {g:"ŞİRKET TÜRÜ & SERMAYE", b:"Avukat bulundurmama cezası ifadesi", u:"Avukat tayin edilmeyen her ay için, asgari ücretin iki aylık brüt tutarı",
+  k:'Avukatlık K. m.35/3 metni',
+  s:"Kanun metnindeki ceza formülünün birebir aynı olduğu",
+  d:"sayfalar: avukat-bulundurma (gövde)"},
+ {g:"ŞİRKET TÜRÜ & SERMAYE", b:"KEP / e-Tebligat kapsamı", u:"AŞ, Ltd, paylı komandit → zorunlu",
+  k:'7201 s. Tebligat K. m.7/a + Elektronik Tebligat Yönetmeliği (6.12.2018 RG)',
+  s:"Zorunlu tutulanlar listesi (sermaye şirketleri ifadesi doğru mu)",
+  d:"karne motoru KEP kartı + sayfalar: kep-e-tebligat"},
+
+ {g:"ÇALIŞAN SAYISI / İSG", b:"İSG uzmanı + işyeri hekimi — 'tek çalışan bile yeter' ifadesi", u:"1+ SGK'lı çalışan → hizmet zorunlu", onemli:true,
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6331&MevzuatTur=1&MevzuatTertip=5" target="_blank">6331 m.6 + m.38 (yürürlük)</a>',
+  s:"⚠ EN KRİTİK KONTROL: 50'den az çalışanı olan AZ TEHLİKELİ işyerleri için m.38'deki yürürlük ertelemesi bitti mi? (Defalarca ertelendi — bugün fiilen yürürlükte mi?) Değilse karnede bu grup için ifade yumuşatılmalı.",
+  d:"karne motoru İSG uzmanı kartı + sayfalar: isg-uzmani-isyeri-hekimi"},
+ {g:"ÇALIŞAN SAYISI / İSG", b:"İSG kurulu", u:"50+ çalışan VE 6 aydan uzun süren iş",
+  k:'6331 m.22',
+  s:"İki koşulun birlikte arandığı",
+  d:"ESIKLER.isgKurulu"},
+ {g:"ÇALIŞAN SAYISI / İSG", b:"Çalışan temsilcisi kademesi", u:"2+ çalışanda 1 temsilci; kademeli artar (2-50→1, 51-100→2...)",
+  k:'6331 m.20',
+  s:"Kademe tablosu (SEO sayfasında örnek verildi)",
+  d:"ESIKLER.calisanTemsilcisi + sayfalar: calisan-temsilcisi"},
+ {g:"ÇALIŞAN SAYISI / İSG", b:"Engelli kotası + kesir kuralı", u:"50+ işçide %3 (özel sektör); yarıma kadar atılır, yarım ve üzeri tama",
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=4857&MevzuatTur=1&MevzuatTertip=5" target="_blank">4857 m.30</a>',
+  s:"%3 oranı, 50 eşiği, kesir cümlesi + aynı il içindeki işyerlerinin toplanması kuralı (üründe yok — eklensin mi?)",
+  d:"ESIKLER.engelliKota + sayfalar: engelli-calistirma"},
+ {g:"ÇALIŞAN SAYISI / İSG", b:"Toplu işten çıkarma bildirimi", u:"20+ çalışanlı işyerinde, 30 gün önceden bildirim",
+  k:'4857 m.29',
+  s:"20 eşiği + kaç işçinin çıkarılmasının 'toplu' sayıldığı kademeler (üründe kademeler yok — genel ifade yeterli mi?)",
+  d:"ESIKLER.topluIsten + sayfalar: toplu-isten-cikarma"},
+ {g:"ÇALIŞAN SAYISI / İSG", b:"Emzirme odası / kreş (yurt)", u:"100-150 kadın → emzirme odası · 150'den çok → yurt/kreş (0-6 yaş); 150+ iken emzirme ihtiyacı yurt içinde karşılanır",
+  k:'Gebe veya Emziren Kadınların Çalıştırılma Şartları Yönetmeliği m.13 (16.08.2013 RG, 28737)',
+  s:"100/150 eşikleri, yaş grupları, 'yaş ve medeni hâl dikkate alınmaz' kuralı",
+  d:"ESIKLER.emzirmeOdasi/.kres + sayfalar: emzirme-odasi-kres"},
+
+ {g:"VERİ / KVKK", b:"VERBİS eşikleri", u:"Yıllık çalışan 50'den çok VEYA yıllık mali bilanço toplamı 100 milyon TL'den çok", onemli:true,
+  k:'<a href="https://www.kvkk.gov.tr" target="_blank">kvkk.gov.tr</a> → Kurul kararları/duyurular (istisna kriterini güncelleyen güncel karar)',
+  s:"100 milyon TL sınırını getiren Kurul kararının sayısı/tarihi (üründe karar no yok — bulunca dayanağa ekleyelim)",
+  d:"ESIKLER.verbis + sayfalar: verbis-kayit"},
+ {g:"VERİ / KVKK", b:"KVKK başvuru cevap süresi (aydınlatma sayfası)", u:"En geç 30 gün",
+  k:'<a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6698&MevzuatTur=1&MevzuatTertip=5" target="_blank">6698 m.13</a>',
+  s:"'En kısa sürede ve en geç otuz gün' ifadesi",
+  d:"kvkk.html"},
+
+ {g:"DİĞER", b:"Transfer fiyatlandırması (genel bilgi kartı)", u:"Sayı verilmedi; 'ilişkili işlem varsa form/rapor gerekebilir' genel ifadesi",
+  k:'5520 m.13 + 1 Seri No.lu TF Genel Tebliği',
+  s:"Genel ifadenin yeterliliği; belgelendirme eşiklerini (rapor sınırları) eklemeye değer mi",
+  d:"karne motoru TF kartı + sayfalar: transfer-fiyatlandirmasi"},
+ {g:"DİĞER", b:"TMGD (genel bilgi kartı)", u:"Sayı verilmedi; 'miktar eşiği üzerinde işleyenler' genel ifadesi",
+  k:'Tehlikeli Madde Güvenlik Danışmanlığı Yönetmeliği (Ulaştırma Bak.)',
+  s:"Yükümlülük tanımı; 50 ton eşiği gibi net değer varsa eklenmesi",
+  d:"karne motoru TMGD kartı"}
+];
+
+const liste=document.getElementById('liste');
+let sonGrup='';
+MADDELER.forEach((m,i)=>{
+  if(m.g!==sonGrup){ sonGrup=m.g; liste.insertAdjacentHTML('beforeend',`<div class="grup">${m.g}</div>`); }
+  liste.insertAdjacentHTML('beforeend',`
+   <div class="md ${m.onemli?'onemli':''}" id="md${i}">
+     <input type="checkbox" id="cb${i}" onchange="kaydet(${i})">
+     <div>
+       <div class="baslik">${m.b}${m.onemli?'<span class="etiket">⚠ ÖNCELİKLİ</span>':''}</div>
+       <div class="satir"><b>Üründe yazan:</b> ${m.u}</div>
+       <div class="satir"><b>Kaynak:</b> ${m.k}</div>
+       <div class="satir"><b>Kontrol et:</b> ${m.s}</div>
+       <div class="duzelt">Yanlışsa düzeltme yeri: <code>${m.d}</code></div>
+       <textarea id="not${i}" placeholder="Not (farklıysa doğrusu ne, kaynak neresi)" oninput="kaydet(${i})"></textarea>
+     </div>
+   </div>`);
+});
+
+function kaydet(i){
+  const durum={c:document.getElementById('cb'+i).checked, n:document.getElementById('not'+i).value};
+  localStorage.setItem('mr-kontrol-'+i, JSON.stringify(durum));
+  document.getElementById('md'+i).classList.toggle('ok', durum.c);
+  guncelle();
+}
+function guncelle(){
+  const t=MADDELER.length;
+  let s=0; for(let i=0;i<t;i++) if(document.getElementById('cb'+i).checked) s++;
+  document.getElementById('barIc').style.width=(s/t*100)+'%';
+  document.getElementById('barYazi').textContent=`${s} / ${t} madde kontrol edildi`+(s===t?" — TAMAM! Notlarınla birlikte Claude'a dön.":"");
+}
+// yükle
+MADDELER.forEach((m,i)=>{
+  try{
+    const d=JSON.parse(localStorage.getItem('mr-kontrol-'+i)||'null');
+    if(d){ document.getElementById('cb'+i).checked=!!d.c;
+      document.getElementById('not'+i).value=d.n||'';
+      document.getElementById('md'+i).classList.toggle('ok',!!d.c); }
+  }catch(e){}
+});
+guncelle();
+</script>
+</body>
+</html>

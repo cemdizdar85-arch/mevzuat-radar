@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VERBİS Kayıt Zorunluluğu 2026: Eşikler | Mevzuat Radarı</title>
+<meta name="description" content="Yıllık çalışan sayısı 50'den çok VEYA bilançosu 100 milyon TL'den çok olan veri sorumluları VERBİS'e kayıt olmak zorunda.">
+<style>:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;
+--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);
+--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--slate:#9fb0c2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+::selection{background:rgba(62,155,255,.35)}
+a{color:var(--accent2)}
+.wrap{max-width:760px;margin:0 auto;padding:22px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim)}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px;box-shadow:0 4px 18px rgba(46,140,255,.3)}
+h1{font-size:clamp(24px,4.5vw,32px);line-height:1.18;margin:6px 0 6px;letter-spacing:-.9px;font-weight:800}
+.ust{color:var(--accent2);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px}
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:24px;margin:20px 0;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.hesap label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+.hesap input,.hesap select{width:100%;padding:13px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit;transition:border-color .2s,box-shadow .2s}
+.hesap input::placeholder{color:var(--dim)}
+.hesap input:focus,.hesap select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:16px;box-shadow:0 6px 24px rgba(46,140,255,.35);transition:transform .18s,box-shadow .18s,filter .18s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(46,140,255,.5);filter:brightness(1.05)}
+.sonuc{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;border:1px solid;border-left-width:4px;font-size:14.5px}
+.sonuc.evet{background:rgba(255,107,94,.09);border-color:rgba(255,107,94,.3);color:var(--red)}
+.sonuc.yak{background:rgba(255,194,75,.09);border-color:rgba(255,194,75,.3);color:var(--amber)}
+.sonuc.hayir{background:rgba(61,220,151,.09);border-color:rgba(61,220,151,.3);color:var(--green)}
+.sonuc.bilgi,.sonuc.notr{background:rgba(159,176,194,.08);border-color:rgba(159,176,194,.25);color:var(--slate)}
+.govde p{margin:13px 0;color:var(--muted);font-size:14.5px}
+.govde p b{color:var(--ink)}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);color:var(--ink);border-radius:18px;padding:26px;margin-top:30px}
+.cta h2{margin:0 0 6px;font-size:19px;letter-spacing:-.4px}
+.cta p{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.cta a.btn{display:inline-block;text-decoration:none;margin-top:0}
+.ilgili{font-size:14px;color:var(--muted)}.ilgili a{display:inline-block;margin:4px 12px 4px 0}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:15px;border-top:1px solid var(--line)}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"VERBİS'e kayıt zorunlu mu?","acceptedAnswer":{"@type":"Answer","text":"Yıllık çalışan sayısı 50'den çok olan ya da yıllık mali bilanço toplamı 100 milyon TL'den çok olan veri sorumluları VERBİS'e kayıt olmak zorundadır (2026 güncel sınır)."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="../index.html">Mevzuat Radarı</a> · <a href="index.html">Eşik rehberi</a></div>
+  <div class="ust">Veri / KVKK</div>
+  <h1>VERBİS'e kayıt zorunlu mu?</h1>
+
+  <div class="card hesap">
+    <div id="hesapKutu"></div>
+    <button class="btn" id="hesapBtn" onclick="hesapla()">Hesapla</button>
+    <div class="sonuc" id="sonuc"></div>
+  </div>
+
+  <div class="govde"><p>Yıllık çalışan sayısı <b>50'den çok</b> olan ya da yıllık mali bilanço toplamı <b>100 milyon TL'den çok</b> olan veri sorumluları VERBİS'e kayıt olmak zorundadır (2026 güncel sınır).</p>
+<p>Bu eşiklerin altında olsan bile, ana faaliyetin özel nitelikli kişisel veri (sağlık, biyometrik vb.) işlemekse kayıt zorunludur.</p>
+<p>Kayıtla birlikte veri işleme envanteri hazırlanır. Kayıt yükümlülüğünü yerine getirmemek idari para cezası doğurur.</p></div>
+
+  <div class="cta">
+    <h2>Bu tek yükümlülük. Peki diğerleri?</h2>
+    <p>Firmanın tabi olduğu <b>tüm</b> yasal yükümlülükleri 3 dakikada, tek seferde gör — ücretsiz Yükümlülük Karnesi.</p>
+    <a class="btn" href="../index.html">Ücretsiz karnemi çıkar →</a>
+  </div>
+
+  <p class="ilgili"><b>İlgili:</b> <a href="kep-e-tebligat.html">KEP / e-Tebligat</a> <a href="bagimsiz-denetim-esigi.html">Bağımsız denetim eşiği</a></p>
+
+  <div class="dip">
+    Dayanak: 6698 sayılı KVKK ve Kişisel Verileri Koruma Kurulu kararları · Hazırlayan SMMM Cem Dizdar — Mevzuat Radarı.
+    Bilgilendirme amaçlıdır; kesin sonuç için mevzuat metni ve uzman görüşü esastır.
+    Eşik değerleri Temmuz 2026 itibarıyla güncellenmiştir.
+  </div>
+</div>
+
+<script>
+const HESAP = {"tip":"veya","kriterler":[{"esik":51,"birim":"kişi","ad":"Yıllık çalışan sayısı"},{"esik":100000001,"birim":"TL","ad":"Yıllık mali bilanço (aktif) toplamı"}]};
+const fmt = n => new Intl.NumberFormat('tr-TR').format(n);
+const pnum = id => { const v=(document.getElementById(id).value||'').replace(/[^\d]/g,''); return v===''?null:parseInt(v,10); };
+const lbl = t => `<label>${t}</label>`;
+const inpt = (id,ph)=>`<input id="${id}" inputmode="numeric" autocomplete="off" placeholder="${ph}">`;
+function goster(msg,cls){ const s=document.getElementById('sonuc'); s.innerHTML=msg; s.className='sonuc '+cls; s.style.display='block'; }
+
+(function(){
+  const H=HESAP, box=document.getElementById('hesapKutu');
+  if(H.tip==='sayi') box.innerHTML=lbl(H.etiket)+inpt('v0',H.birim==='TL'?'ör. 3.000.000':'ör. 25');
+  else if(H.tip==='veya'||H.tip==='coklu') box.innerHTML=H.kriterler.map((k,i)=>lbl(k.ad+' ('+k.birim+')')+inpt('v'+i,k.birim==='TL'?'ör. 100.000.000':'ör. 150')).join('');
+  else if(H.tip==='kademeli') box.innerHTML=lbl(H.etiket)+inpt('v0','ör. 120');
+  else if(H.tip==='kategori') box.innerHTML='<label>Şirket türü</label><select id="tur"><option value="as">Anonim Şirket (AŞ)</option><option value="diger">Diğer</option></select>'+lbl('Esas sermaye (TL)')+inpt('v0','ör. 1.250.000');
+  else if(H.tip==='bilgi'){ document.getElementById('hesapBtn').style.display='none'; goster(H.metin,'bilgi'); }
+  box.querySelectorAll('input').forEach(el=>el.addEventListener('input',e=>{const v=e.target.value.replace(/[^\d]/g,'');e.target.value=v?fmt(parseInt(v,10)):'';}));
+})();
+
+function hesapla(){
+  const H=HESAP;
+  if(H.tip==='sayi'){
+    const v=pnum('v0'); if(v===null){goster('Bir sayı gir.','notr');return;}
+    if(v>=H.esik){ let m='<b>Evet, kapsamdasın.</b> '+(H.evet||('Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.'));
+      if(H.kota) m+=' En az <b>'+Math.floor(v*H.kota+0.5)+'</b> '+(H.kotaBirim||'')+' gerekir. Kesir kuralı: yarıma kadar dikkate alınmaz, yarım ve üzeri tama yuvarlanır.'; goster(m,'evet'); }
+    else if(v>=H.esik*0.8) goster('<b>Sınırdasın.</b> Eşik '+fmt(H.esik)+' '+H.birim+'; '+fmt(v)+' ile çok yaklaştın.','yak');
+    else goster('<b>Şimdilik kapsam dışısın.</b> Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.','hayir');
+  } else if(H.tip==='veya'){
+    const vals=H.kriterler.map((k,i)=>pnum('v'+i));
+    if(vals.every(x=>x===null)){goster('En az bir değer gir.','notr');return;}
+    const asan=H.kriterler.filter((k,i)=>vals[i]!==null&&vals[i]>=k.esik);
+    if(asan.length) goster('<b>Evet, kapsamdasın.</b> '+asan.map(k=>k.ad).join(' / ')+' eşiğini aşıyorsun.','evet');
+    else goster('<b>Şimdilik kapsam dışısın.</b> İki eşikten birini aşınca kapsama girersin.','hayir');
+  } else if(H.tip==='coklu'){
+    const vals=H.kriterler.map((k,i)=>pnum('v'+i));
+    if(vals.every(x=>x===null)){goster('En az iki değer gir.','notr');return;}
+    const asan=H.kriterler.filter((k,i)=>vals[i]!==null&&vals[i]>=k.esik);
+    if(asan.length>=H.gerek) goster('<b>Evet, kapsamdasın.</b> '+asan.length+' ölçütü aşıyorsun ('+asan.map(k=>k.ad).join(', ')+'); en az '+H.gerek+' yeterli.','evet');
+    else goster('<b>Şimdilik kapsam dışısın.</b> '+asan.length+' ölçüt aşılı; kapsam için en az '+H.gerek+' gerekir (2 yıl üst üste).','hayir');
+  } else if(H.tip==='kademeli'){
+    const v=pnum('v0'); if(v===null){goster('Bir sayı gir.','notr');return;}
+    const b=H.basamaklar.find(x=>v>=x.alt);
+    if(b) goster('<b>'+b.ad+'.</b> '+fmt(v)+' '+(H.birimAd||'')+' ile bu basamaktasın.','evet');
+    else goster('<b>Şimdilik kapsam dışısın.</b> İlk basamak '+H.basamaklar[H.basamaklar.length-1].alt+' değerinde başlar.','hayir');
+  } else if(H.tip==='kategori'){
+    const tur=document.getElementById('tur').value, v=pnum('v0');
+    if(tur!=='as'){goster('<b>Kapsam dışı.</b> Bu yükümlülük anonim şirketler içindir.','hayir');return;}
+    if(v===null){goster('Sermayeni gir.','notr');return;}
+    if(v>=H.esik) goster('<b>Evet, kapsamdasın.</b> '+fmt(H.esik)+' TL ve üzeri sermayeli anonim şirketler için zorunlu; sen '+fmt(v)+' TL.','evet');
+    else goster('<b>Şimdilik kapsam dışısın.</b> Eşik '+fmt(H.esik)+' TL sermaye; sen '+fmt(v)+' TL.','hayir');
+  }
+}
+</script>
+</body>
+</html>
