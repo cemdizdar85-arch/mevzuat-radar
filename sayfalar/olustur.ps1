@@ -234,7 +234,7 @@ $pages = @(
      hesap=@{tip='kategori';esik=1250000;birim='TL'};
      body=@('Esas sermayesi <b>1.250.000 TL</b> ve üzeri olan anonim şirketler, sözleşmeli bir avukat bulundurmak zorundadır. Bu eşik, TTK''daki asgari AŞ sermayesinin (250.000 TL) beş katıdır.',
             'Yükümlülük yalnızca anonim şirketleri (ve belirli üye sayısındaki yapı kooperatiflerini) kapsar; limited şirketler için böyle bir zorunluluk yoktur.',
-            'Uymayan anonim şirketlere, her ay brüt asgari ücret tutarında idari para cezası uygulanır.');
+            'Uymayan anonim şirketlere, avukat tayin edilmeyen <b>her ay için</b>, asgari ücretin <b>iki aylık brüt tutarı</b> kadar idari para cezası uygulanır (Av. K. m.35 — tutar asgari ücretle birlikte her yıl değişir).');
      dayanak='1136 sayılı Avukatlık Kanunu m.35'; ilgili=@('kep-e-tebligat','ttk-1524-internet-sitesi') },
 
   @{ slug='emzirme-odasi-kres'; ust='Çalışan sayısı'; kisa='Emzirme odası / kreş';
