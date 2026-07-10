@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mevzuat Radarı — Yükümlülük Karnesi</title>
+<meta name="description" content="Firmanın hangi yasal yükümlülüklere tabi olduğunu 3 dakikada gör. Mevzuata hiç bakma; seni etkileyeni radar bulsun.">
+<style>
+  :root{
+    --bg:#06090f; --bg2:#0a0f17;
+    --panel:#0d141e; --panel2:#101927;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.13);
+    --ink:#eef2f7; --muted:#93a1b3; --dim:#5d6b7c;
+    --accent:#3e9bff; --accent2:#26d0fe;
+    --grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);
+    --red:#ff6b5e; --red-bg:rgba(255,107,94,.09);
+    --amber:#ffc24b; --amber-bg:rgba(255,194,75,.09);
+    --green:#3ddc97; --green-bg:rgba(61,220,151,.09);
+    --slate:#9fb0c2; --slate-bg:rgba(159,176,194,.08);
+    --r:18px;
+    --shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,Roboto,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-variant-numeric:tabular-nums;overflow-x:hidden}
+  ::selection{background:rgba(62,155,255,.35)}
+
+  /* ---------- NAV ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px clamp(18px,4vw,42px);
+    background:rgba(6,9,15,.65);backdrop-filter:blur(18px) saturate(1.4);
+    border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.scrolled{border-bottom-color:var(--line)}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--grad);
+    display:grid;place-items:center;font-weight:800;font-size:15px;color:#03101f;
+    box-shadow:0 4px 18px rgba(46,140,255,.35)}
+  .brand b{font-size:15.5px;letter-spacing:.1px}
+  .navlinks{display:flex;align-items:center;gap:26px;font-size:13.5px}
+  .navlinks a{color:var(--muted);text-decoration:none;transition:color .2s}
+  .navlinks a:hover{color:var(--ink)}
+  .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;
+    font-size:14.5px;padding:11px 22px;border-radius:12px;color:#03101f;
+    background:var(--grad);text-decoration:none;display:inline-block;
+    box-shadow:0 6px 24px rgba(46,140,255,.35);
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(46,140,255,.5);filter:brightness(1.05)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);box-shadow:none}
+  .btn.ghost:hover{border-color:rgba(255,255,255,.3);box-shadow:none}
+  @media(max-width:640px){.navlinks a.nl{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;
+    padding:120px clamp(18px,4vw,42px) 60px;overflow:hidden}
+  .hero-grid{position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse 80% 65% at 50% 40%,#000 30%,transparent 75%)}
+  .hero-inner{position:relative;max-width:1180px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:920px){.hero-inner{grid-template-columns:1fr}.hero{min-height:auto;padding-top:104px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:1.6px;text-transform:uppercase;color:var(--accent2);
+    padding:7px 14px;border:1px solid rgba(38,208,254,.25);border-radius:999px;
+    background:rgba(38,208,254,.06);margin-bottom:22px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 12px var(--accent2);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:clamp(34px,5.2vw,60px);line-height:1.06;margin:0 0 20px;
+    letter-spacing:-1.8px;font-weight:800}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:clamp(15.5px,1.6vw,18.5px);color:var(--muted);max-width:520px;margin:0 0 32px}
+  .lead b{color:var(--ink);font-weight:600}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:38px;font-size:13px;color:var(--dim)}
+  .trust span{display:flex;align-items:center;gap:7px}
+  .trust svg{width:15px;height:15px;stroke:var(--green)}
+
+  /* radar + kart sahnesi */
+  .stage{position:relative;height:480px;display:grid;place-items:center}
+  @media(max-width:920px){.stage{height:420px;margin-top:10px}}
+  .radar{position:absolute;width:min(460px,88vw);aspect-ratio:1;border-radius:50%;
+    border:1px solid rgba(62,155,255,.14);
+    background:
+      radial-gradient(circle,rgba(62,155,255,.05) 0%,transparent 62%),
+      repeating-radial-gradient(circle,transparent 0 61px,rgba(62,155,255,.09) 61px 62px)}
+  .radar::before,.radar::after{content:"";position:absolute;background:rgba(62,155,255,.1)}
+  .radar::before{left:50%;top:4%;bottom:4%;width:1px}
+  .radar::after{top:50%;left:4%;right:4%;height:1px}
+  .sweep{position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from 0deg,rgba(38,208,254,.32) 0deg,rgba(38,208,254,.05) 55deg,transparent 70deg);
+    animation:spin 4.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .blip{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 14px var(--accent2);animation:blip 4.8s infinite}
+  .blip.b1{left:64%;top:30%}
+  .blip.b2{left:33%;top:62%;animation-delay:1.7s}
+  .blip.b3{left:57%;top:71%;animation-delay:3.1s}
+  @keyframes blip{0%,12%{opacity:1}45%,100%{opacity:.12}}
+  .kart{position:relative;width:min(340px,82vw);background:rgba(13,20,30,.92);
+    border:1px solid var(--line2);border-radius:16px;padding:16px 18px;
+    box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+  .kart+.kart{margin-top:12px}
+  .kart .tag{font-size:10.5px;font-weight:800;letter-spacing:1px}
+  .kart h4{margin:5px 0 4px;font-size:15px;letter-spacing:-.2px}
+  .kart p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .kart .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
+  .kart.red{border-left:4px solid var(--red)} .kart.red .tag{color:var(--red)}
+  .kart.green{border-left:4px solid var(--green)} .kart.green .tag{color:var(--green)}
+  .kart.k1{transform:rotate(-2deg) translateX(-26px);animation:float1 7s ease-in-out infinite}
+  .kart.k2{transform:rotate(1.6deg) translateX(26px);animation:float2 7s ease-in-out infinite .8s}
+  @keyframes float1{0%,100%{transform:rotate(-2deg) translate(-26px,0)}50%{transform:rotate(-2deg) translate(-26px,-9px)}}
+  @keyframes float2{0%,100%{transform:rotate(1.6deg) translate(26px,0)}50%{transform:rotate(1.6deg) translate(26px,-9px)}}
+
+  /* ---------- STRIP ---------- */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg2)}
+  .strip-in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);
+    padding:26px clamp(18px,4vw,42px)}
+  @media(max-width:760px){.strip-in{grid-template-columns:repeat(2,1fr);gap:22px 8px}}
+  .stat{text-align:center}
+  .stat .n{font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.8px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .t{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:clamp(60px,9vw,110px) clamp(18px,4vw,42px)}
+  .sec-in{max-width:1180px;margin:0 auto}
+  .sec-head{max-width:640px;margin:0 auto 48px;text-align:center}
+  h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-1.2px;line-height:1.12;margin:0 0 12px;font-weight:800}
+  .sec-head p{color:var(--muted);font-size:15.5px;margin:0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:28px 26px;transition:transform .25s ease,border-color .25s ease}
+  .step:hover{transform:translateY(-4px);border-color:rgba(62,155,255,.3)}
+  .step .no{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:rgba(62,155,255,.12);color:var(--accent);font-weight:800;font-size:15px;margin-bottom:16px}
+  .step h3{margin:0 0 8px;font-size:17px;letter-spacing:-.3px}
+  .step p{margin:0;font-size:13.5px;color:var(--muted)}
+
+  /* ---------- APP (KARNE) ---------- */
+  #app{background:
+    radial-gradient(ellipse 60% 40% at 50% 0%,rgba(46,140,255,.08),transparent 70%),var(--bg)}
+  .app-card{max-width:860px;margin:0 auto;background:var(--panel);
+    border:1px solid var(--line2);border-radius:24px;padding:clamp(24px,4vw,40px);
+    box-shadow:var(--shadow)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 7px;color:var(--ink)}
+  .hint{font-weight:400;color:var(--dim);font-size:12px}
+  input,select{width:100%;padding:13px 14px;border:1px solid var(--line2);border-radius:12px;
+    background:var(--bg2);color:var(--ink);font-size:15px;font-family:inherit;
+    transition:border-color .2s,box-shadow .2s}
+  input::placeholder{color:var(--dim)}
+  input:focus,select:focus{outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2393a1b3' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .note{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--dim);margin-top:20px;
+    padding-top:18px;border-top:1px solid var(--line)}
+
+  /* sonuç */
+  #sonuc{display:none;max-width:860px;margin:26px auto 0}
+  .karne-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .karne-head h3{font-size:22px;margin:0;letter-spacing:-.5px}
+  .firma-ozet{color:var(--muted);font-size:13.5px;margin:2px 0 20px}
+  .skor{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 22px}
+  @media(max-width:560px){.skor{grid-template-columns:1fr 1fr}}
+  .skor .b{border-radius:14px;padding:16px;border:1px solid}
+  .skor .n{font-size:30px;font-weight:800;line-height:1;letter-spacing:-1px}
+  .skor .t{font-size:12px;margin-top:5px;font-weight:600;opacity:.85}
+  .b.r{background:var(--red-bg);border-color:rgba(255,107,94,.25);color:var(--red)}
+  .b.a{background:var(--amber-bg);border-color:rgba(255,194,75,.25);color:var(--amber)}
+  .b.s{background:var(--slate-bg);border-color:rgba(159,176,194,.2);color:var(--slate)}
+  .sec-title{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--dim);margin:28px 0 12px}
+  .item{border:1px solid var(--line);border-left-width:4px;border-radius:14px;
+    padding:16px 18px;margin-bottom:10px;background:var(--panel);
+    transition:border-color .2s,transform .2s}
+  .item:hover{transform:translateX(3px)}
+  .item.tabi{border-left-color:var(--red)}
+  .item.yaklasiyor{border-left-color:var(--amber)}
+  .item.degil{border-left-color:var(--green)}
+  .item.bilgi{border-left-color:var(--slate)}
+  .item .ad{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;letter-spacing:-.2px}
+  .pill{font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+  .pill.tabi{background:var(--red-bg);color:var(--red)}
+  .pill.yaklasiyor{background:var(--amber-bg);color:var(--amber)}
+  .pill.degil{background:var(--green-bg);color:var(--green)}
+  .pill.bilgi{background:var(--slate-bg);color:var(--slate)}
+  .item .neden{font-size:13.5px;color:var(--ink);margin:8px 0 0;opacity:.92}
+  .item .aksiyon{font-size:13px;color:var(--muted);margin:8px 0 0}
+  .item .aksiyon b{color:var(--ink)}
+  .item .dayanak{font-size:11px;color:var(--dim);margin-top:9px}
+
+  /* e-posta CTA */
+  .cta-box{margin-top:28px;border-radius:20px;padding:clamp(22px,3.5vw,34px);
+    background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel2);
+    border:1px solid rgba(62,155,255,.3);position:relative;overflow:hidden}
+  .cta-box::before{content:"";position:absolute;top:-40%;right:-10%;width:320px;height:320px;
+    background:radial-gradient(circle,rgba(38,208,254,.14),transparent 70%);pointer-events:none}
+  .cta-box h3{margin:0 0 6px;font-size:20px;letter-spacing:-.4px}
+  .cta-box>p{margin:0 0 18px;font-size:14px;color:var(--muted)}
+  .cta-box>p em{color:var(--ink);font-style:normal;font-weight:600}
+  .mailrow{display:flex;gap:10px;flex-wrap:wrap}
+  .mailrow input{flex:1;min-width:210px}
+  .kvkk-row{display:flex;gap:9px;align-items:flex-start;color:var(--muted);
+    font-weight:400;font-size:12px;margin-top:13px}
+  .kvkk-row input{width:auto;margin-top:2px;accent-color:var(--accent)}
+  .kvkk-row a{color:var(--accent2)}
+  #epostaSonuc{margin:11px 0 0;font-size:13px;font-weight:600;display:none}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:38px clamp(18px,4vw,42px);background:var(--bg2)}
+  .foot-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;
+    align-items:center;justify-content:space-between;font-size:12.5px;color:var(--dim)}
+  .foot-in a{color:var(--muted);text-decoration:none;margin-left:18px}
+  .foot-in a:hover{color:var(--ink)}
+  .disclaimer{max-width:1180px;margin:14px auto 0;font-size:11px;color:var(--dim);line-height:1.6}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+
+  /* ---------- PRINT (karne PDF) ---------- */
+  @media print{
+    :root{--bg:#fff;--bg2:#fff;--panel:#fff;--panel2:#fff;--ink:#111;--muted:#444;--dim:#666;
+      --line:#ddd;--line2:#ccc;--red:#b3261e;--amber:#8a5b00;--green:#1b6e41;--slate:#4a555f;
+      --red-bg:#fdecea;--amber-bg:#fff6e0;--green-bg:#e8f6ec;--slate-bg:#eef1f4;--shadow:none}
+    nav,.hero,.strip,#nasil,.no-print,footer,.cta-box{display:none!important}
+    section{padding:0}
+    #sonuc{display:block!important;max-width:none}
+    .item:hover{transform:none}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#"><span class="mark">MR</span><b>Mevzuat Radarı</b></a>
+  <div class="navlinks">
+    <a class="nl" href="#nasil">Nasıl çalışır</a>
+    <a class="nl" href="sayfalar/index.html">Eşik rehberi</a>
+    <a class="btn" href="#app">Karneni çıkar</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Radar aktif · Türkiye mevzuatı</span>
+      <h1>Mevzuata hiç bakma.<br><span class="g">Seni etkileyeni</span> radar bulsun.</h1>
+      <p class="lead">Resmî Gazete her gün yüzlerce sayfa. İçinden <b>senin firmanı</b> ilgilendiren
+      değişikliği bulur, sade Türkçeyle söyleriz: <b>ne oldu, ne yapmalısın, kaç para.</b></p>
+      <div class="hero-cta">
+        <a class="btn" href="#app">Ücretsiz karneni çıkar</a>
+        <a class="btn ghost" href="#nasil">Nasıl çalışır?</a>
+      </div>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> SMMM doğrulamalı</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Kaynak mevzuat linkli</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <div class="radar"><div class="sweep"></div>
+        <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
+      </div>
+      <div>
+        <div class="kart red k1">
+          <div class="tag">■ AKSİYON GEREKLİ · SON 12 GÜN</div>
+          <h4>Ürün grubunda damping soruşturması açıldı</h4>
+          <p>Soru formunu son tarihe kadar vermezsen en yüksek vergi oranı uygulanır.</p>
+          <div class="meta">214 sayfadan süzüldü · Doğrulayan: SMMM C. Dizdar</div>
+        </div>
+        <div class="kart green k2">
+          <div class="tag">■ FIRSAT</div>
+          <h4>Profiline uyan yeni KOSGEB çağrısı yayınlandı</h4>
+          <p>Makine-teçhizat kalemi destek kapsamında; başvuru şartlarını karşılıyorsun.</p>
+          <div class="meta">Başvuru açık · Doğrulayan: SMMM C. Dizdar</div>
+        </div>
+        <div style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px">Temsilî örnek kartlardır</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STAT STRIP ============ -->
+<div class="strip">
+  <div class="strip-in">
+    <div class="stat reveal"><div class="n">3 dk</div><div class="t">Karne süresi</div></div>
+    <div class="stat reveal"><div class="n">17+</div><div class="t">Taranan yükümlülük</div></div>
+    <div class="stat reveal"><div class="n">%100</div><div class="t">Ücretsiz karne</div></div>
+    <div class="stat reveal"><div class="n">0</div><div class="t">Kayıt zorunluluğu</div></div>
+  </div>
+</div>
+
+<!-- ============ NASIL ÇALIŞIR ============ -->
+<section id="nasil">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Üç adımda, mevzuat dert olmaktan çıkar</h2>
+      <p>Önce fotoğraf: bugün nelere tabisin. Sonra radar: değişen her şey sana gelsin.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="no">1</div>
+        <h3>Profilini gir</h3>
+        <p>Çalışan sayısı, ciro, şirket türü — 4-5 soru, 3 dakika. Veriler tarayıcında kalır, kayıt istemez.</p></div>
+      <div class="step reveal"><div class="no">2</div>
+        <h3>Karneni gör</h3>
+        <p>Hangi yasal yükümlülüklere tabisin, hangilerine yaklaşıyorsun — renk kodlu, dayanaklı, PDF alınabilir.</p></div>
+      <div class="step reveal"><div class="no">3</div>
+        <h3>Radar izlesin</h3>
+        <p>Mevzuat değişince ya da bir eşiğe yaklaşınca hap kart cebine gelsin: ne oldu, ne yapmalısın, kaç para.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KARNE APP ============ -->
+<section id="app">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Yükümlülük Karnesi</h2>
+      <p>Firmanın 4-5 temel bilgisini gir; sadece <b style="color:var(--ink)">seni etkileyen</b> yükümlülükleri gör.</p>
+    </div>
+
+    <div class="app-card reveal" id="formKart">
+      <div class="grid">
+        <div>
+          <label>Çalışan sayısı <span class="hint">(SGK’lı)</span></label>
+          <input id="calisan" type="number" min="0" step="1" placeholder="ör. 32" inputmode="numeric">
+        </div>
+        <div>
+          <label>Kadın çalışan sayısı <span class="hint">(biliyorsan)</span></label>
+          <input id="kadin" type="number" min="0" step="1" placeholder="ör. 12" inputmode="numeric">
+        </div>
+        <div>
+          <label>Yıllık ciro / brüt satış hasılatı <span class="hint">(TL)</span></label>
+          <input id="ciro" type="text" placeholder="ör. 12.000.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>Aktif toplamı / bilanço <span class="hint">(TL, biliyorsan)</span></label>
+          <input id="aktif" type="text" placeholder="ör. 45.000.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>Şirket türü</label>
+          <select id="tur">
+            <option value="">Seç…</option>
+            <option value="as">Anonim Şirket (AŞ)</option>
+            <option value="ltd">Limited Şirket (Ltd)</option>
+            <option value="komandit">Sermayesi paylara bölünmüş komandit</option>
+            <option value="sahis">Şahıs işletmesi / Gerçek kişi</option>
+            <option value="kollektif">Kollektif / Adi komandit</option>
+            <option value="kooperatif">Kooperatif</option>
+          </select>
+        </div>
+        <div>
+          <label>Esas sermaye <span class="hint">(TL — AŞ için)</span></label>
+          <input id="sermaye" type="text" placeholder="ör. 1.250.000" inputmode="numeric">
+        </div>
+        <div>
+          <label>İSG tehlike sınıfı</label>
+          <select id="tehlike">
+            <option value="">Seç…</option>
+            <option value="az">Az tehlikeli</option>
+            <option value="tehlikeli">Tehlikeli</option>
+            <option value="cok">Çok tehlikeli</option>
+            <option value="bilinmiyor">Bilmiyorum</option>
+          </select>
+        </div>
+        <div>
+          <label>Tehlikeli madde işliyor musun? <span class="hint">(üretim/depo/taşıma)</span></label>
+          <select id="tehmadde">
+            <option value="hayir">Hayır</option>
+            <option value="evet">Evet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="hesapla()">Karnemi göster</button>
+        <button class="btn ghost" onclick="ornekDoldur()">Örnek firmayla dene</button>
+      </div>
+
+      <div class="note">
+        <span>🔒</span>
+        <span>Girdiğin veriler tarayıcından dışarı çıkmaz — hesaplama cihazında yapılır.
+        Eşik değerleri Temmuz 2026 itibarıyla günceldir; kesin sonuç için mevzuat metni esastır.</span>
+      </div>
+    </div>
+
+    <!-- SONUÇ -->
+    <div id="sonuc">
+      <div class="app-card">
+        <div class="karne-head">
+          <h3>Yükümlülük Karnesi</h3>
+          <button class="btn ghost no-print" onclick="window.print()">PDF indir / yazdır</button>
+        </div>
+        <p class="firma-ozet" id="firmaOzet"></p>
+
+        <div class="skor">
+          <div class="b r"><div class="n" id="skTabi">0</div><div class="t">Tabi olduğun</div></div>
+          <div class="b a"><div class="n" id="skYak">0</div><div class="t">Eşiğe yaklaştığın</div></div>
+          <div class="b s"><div class="n" id="skBilgi">0</div><div class="t">Bilmen gereken</div></div>
+        </div>
+
+        <div id="listeler"></div>
+
+        <div class="cta-box no-print" id="epostaAlan">
+          <h3>Bu anlık bir fotoğraf.</h3>
+          <p>Bir eşiğe yaklaştığında ya da mevzuat değiştiğinde karnen sessizce eskir.
+          <em>Radar</em> bu karneyi sürekli izler; seni ilgilendiren değişiklik çıkınca hap kart olarak
+          haber verir. E-postanı bırak, Radar başlayınca <em>ilk sen</em> haberdar ol:</p>
+          <div class="mailrow">
+            <input id="eposta" type="email" placeholder="ornek@firma.com" autocomplete="email">
+            <button class="btn" onclick="epostaGonder()">Haber ver</button>
+          </div>
+          <label class="kvkk-row">
+            <input id="kvkk" type="checkbox">
+            <span>E-postamın, Mevzuat Radarı bilgilendirmeleri için işlenmesine izin veriyorum.
+            İstediğimde çıkabilirim. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
+          </label>
+          <p id="epostaSonuc"></p>
+        </div>
+
+        <div class="note">
+          <span>✓</span>
+          <span><b style="color:var(--ink)">Hazırlayan: SMMM Cem Dizdar — Mevzuat Radarı.</b>
+          Bu karne yalnızca bilgilendirme amaçlıdır, hukuki/mali mütalaa değildir. Eşik değerleri ve
+          yükümlülükler firmanın somut durumuna göre değişebilir; kesin sonuç için mevzuat metni ve
+          uzman görüşü esastır. Değerlendirme, girilen bilgilerle sınırlıdır.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <span>© 2026 Mevzuat Radarı · SMMM Cem Dizdar</span>
+    <span>
+      <a href="sayfalar/index.html">Eşik rehberi</a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="#app">Karne</a>
+    </span>
+  </div>
+  <p class="disclaimer">Mevzuat Radarı bir bilgilendirme platformudur; hukuki mütalaa vermez,
+  beyanname düzenlemez. Tüm kartlar kaynak mevzuata bağlanır ve uzman doğrulamasından geçer.</p>
+</footer>
+
+<script>
+/* ============================================================================
+   E-POSTA TOPLAMA AYARI  —  iki seçenekten BİRİNİ doldur:
+   A) Web3Forms (ÜYELİK YOK, sadece e-posta doğrulama):
+      EPOSTA_ENDPOINT = "https://api.web3forms.com/submit"
+      EPOSTA_ANAHTAR  = "web3forms'tan aldığın access key"
+   B) Formspree (ücretsiz hesap):
+      EPOSTA_ENDPOINT = "https://formspree.io/f/xxxxxxx"
+      EPOSTA_ANAHTAR  = ""   (boş)
+   Her ikisi de boşsa e-posta kutusu "yakında" moduna geçer, hata vermez.
+   ============================================================================ */
+const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
+const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+
+/* ============================================================================
+   ESIKLER — TÜM EŞİK DEĞERLERİ BURADA.
+   Son teyit turu: Temmuz 2026 (web araştırması, ikincil kaynaklar).
+   Not: Nihai yayın öncesi kritik değerlerin kaynak mevzuattan (RG) son kez
+   doğrulanması önerilir — bir SMMM imzasıyla çıkacak ürün.
+   ============================================================================ */
+const ESIKLER = {
+  engelliKota:      { minCalisan:50,  teyit:true, not:"50+ işçide %3 (özel sektör) — 4857/m.30" },
+  isgKurulu:        { minCalisan:50,  teyit:true, not:"50+ ve 6 aydan uzun süren iş — 6331/m.22" },
+  calisanTemsilcisi:{ minCalisan:2,   teyit:true, not:"2-50 arası 1, kademeli artar — 6331/m.20" },
+  verbis:           { minCalisan:50, minAktif:100000000, teyit:true, not:">50 çalışan VEYA >100M bilanço (2026 güncel)" },
+  emzirmeOdasi:     { minKadin:100,   teyit:true, not:"100-150 kadın çalışan" },
+  kres:             { minKadin:150,   teyit:true, not:"150+ kadın çalışan (yurt/bakımevi)" },
+  topluIsten:       { minCalisan:20,  teyit:true, not:"20+ çalışanda bildirim — 4857/m.29" },
+  eFatura:          { minCiro:3000000,  teyit:true, not:"genel eşik 3M; e-ticaret/gayrimenkul/araç 500K" },
+  eIrsaliye:        { minCiro:10000000, teyit:true, not:"genel 10M; ÖTV/demir-çelik/hal ciro şartsız" },
+  bagimsizDenetim:  { aktif:500000000, ciro:1000000000, calisan:150, kacKriter:2, teyit:true, not:"11066 s. Karar (17.03.2026 RG), 2026 hesap dönemi; 3 ölçütten 2'si, 2 yıl üst üste" },
+  avukatBulundurma: { minSermaye:1250000, teyit:true, not:"esas sermaye 1.250.000 TL+ AŞ (TTK asgari 250K x5)" },
+};
+
+/* ---- yardımcılar ---- */
+const $ = id => document.getElementById(id);
+const tl = n => new Intl.NumberFormat('tr-TR').format(n);
+const num = id => {
+  const v = ($(id).value||'').replace(/[^\d]/g,'');
+  return v==='' ? null : parseInt(v,10);
+};
+const yaklasiyor = (v,esik) => v!=null && v < esik && v >= esik*0.8;
+
+function profilAl(){
+  return {
+    calisan: num('calisan'),
+    kadin: num('kadin'),
+    ciro: num('ciro'),
+    aktif: num('aktif'),
+    tur: $('tur').value,
+    sermaye: num('sermaye'),
+    tehlike: $('tehlike').value,
+    tehmadde: $('tehmadde').value === 'evet',
+  };
+}
+
+const sermayeSirketi = t => t==='as' || t==='ltd' || t==='komandit';
+
+/* ---- KARNE MOTORU ---- */
+function karneUret(p){
+  const K = [];
+  const push = o => { o.teyitEksik = o.teyitEksik || false; K.push(o); };
+
+  if(p.calisan!=null){
+    const e = ESIKLER.engelliKota;
+    push({ grup:'Çalışan sayısı', ad:'Engelli çalıştırma yükümlülüğü',
+      status: p.calisan>=e.minCalisan ? 'tabi' : (yaklasiyor(p.calisan,e.minCalisan)?'yaklasiyor':'degil'),
+      neden: p.calisan>=e.minCalisan
+        ? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar — en az ${Math.floor(p.calisan*0.03+0.5)} kişi — engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`
+        : `Engelli kotası 50 çalışanda başlar; şu an ${p.calisan} çalışanınla kapsam dışısın.`,
+      aksiyon:'İŞKUR’dan açık kontenjanı kontrol et; kapatmazsan her ay <b>idari para cezası</b> işler.',
+      dayanak:'4857 sayılı İş Kanunu m.30', teyitEksik:!e.teyit });
+
+    const k = ESIKLER.isgKurulu;
+    push({ grup:'Çalışan sayısı', ad:'İş Sağlığı ve Güvenliği Kurulu kurma',
+      status: p.calisan>=k.minCalisan ? 'tabi' : (yaklasiyor(p.calisan,k.minCalisan)?'yaklasiyor':'degil'),
+      neden: p.calisan>=k.minCalisan
+        ? `50 ve üzeri çalışanı olan, 6 aydan uzun süren işyerlerinde İSG kurulu kurmak zorunlu.`
+        : `İSG kurulu 50 çalışanda başlar; ${p.calisan} çalışanınla henüz kapsam dışısın.`,
+      aksiyon:'Kurulu oluştur, üyeleri eğit ve düzenli toplantı tut.',
+      dayanak:'6331 sayılı İSG Kanunu m.22', teyitEksik:!k.teyit });
+
+    if(p.calisan>=1){
+      push({ grup:'Çalışan sayısı', ad:'İSG uzmanı + işyeri hekimi bulundurma', status:'tabi',
+        neden:`Bir kişi bile SGK’lı çalıştıran her işyeri, tehlike sınıfına göre İSG uzmanı ve işyeri hekimi hizmeti almak zorunda.${p.tehlike&&p.tehlike!=='bilinmiyor'?` Senin sınıfın: ${({az:'az tehlikeli',tehlikeli:'tehlikeli',cok:'çok tehlikeli'})[p.tehlike]} — hizmet süreleri buna göre değişir.`:''}`,
+        aksiyon:'OSGB’den hizmet al ya da kendi uzmanını görevlendir.',
+        dayanak:'6331 sayılı İSG Kanunu m.6' });
+
+      const ct = ESIKLER.calisanTemsilcisi;
+      if(p.calisan>=ct.minCalisan)
+        push({ grup:'Çalışan sayısı', ad:'Çalışan temsilcisi belirleme', status:'tabi',
+          neden:`2 ve üzeri çalışanı olan işyerinde İSG çalışan temsilcisi seçilmeli (sayı arttıkça temsilci sayısı artar).`,
+          aksiyon:'Çalışanlar arasından temsilci(leri) belirle ve görevlendir.',
+          dayanak:'6331 sayılı İSG Kanunu m.20', teyitEksik:!ct.teyit });
+
+      const ti = ESIKLER.topluIsten;
+      if(p.calisan>=ti.minCalisan)
+        push({ grup:'Çalışan sayısı', ad:'Toplu işten çıkarma bildirimi', status:'bilgi',
+          neden:`20+ çalışanı olan işyerinde toplu işten çıkarma yaparsan, önceden İŞKUR ve sendikaya bildirim zorunlu.`,
+          aksiyon:'Toplu çıkarma planlıyorsan 30 gün önceden yazılı bildir.',
+          dayanak:'4857 sayılı İş Kanunu m.29', teyitEksik:!ti.teyit });
+    }
+  }
+
+  if(p.kadin!=null && p.kadin>0){
+    const eo=ESIKLER.emzirmeOdasi, kr=ESIKLER.kres;
+    push({ grup:'Çalışan sayısı', ad:'Emzirme odası zorunluluğu',
+      status: p.kadin>=eo.minKadin ? 'tabi' : (yaklasiyor(p.kadin,eo.minKadin)?'yaklasiyor':'degil'),
+      neden: p.kadin>kr.minKadin
+        ? `${p.kadin} kadın çalışanınla bu ihtiyaç, kurman gereken yurt/kreş içindeki anne-çocuk (emzirme) bölümüyle birlikte karşılanır.`
+        : (p.kadin>=eo.minKadin
+          ? `${p.kadin} kadın çalışanınla emzirme odası bulundurman gerekiyor.`
+          : `Emzirme odası 100 kadın çalışanda başlar; şu an ${p.kadin}.`),
+      aksiyon: p.kadin>kr.minKadin
+        ? 'Yurt/kreş planına anne-çocuk (emzirme) bölümünü dahil et.'
+        : '0-1 yaş çocuklar için emzirme odası düzenle.',
+      dayanak:'Gebe/Emziren Kadınların Çalıştırılma Şartları Yönetmeliği', teyitEksik:!eo.teyit });
+    push({ grup:'Çalışan sayısı', ad:'Kreş / yurt (çocuk bakım) zorunluluğu',
+      status: p.kadin>kr.minKadin ? 'tabi' : (yaklasiyor(p.kadin,kr.minKadin)?'yaklasiyor':'degil'),
+      neden: p.kadin>kr.minKadin
+        ? `150’den fazla kadın çalışanınla kreş/yurt (bakım hizmeti) sağlaman gerekiyor.`
+        : `Kreş yükümlülüğü 150 kadın çalışanın üzerinde başlar; şu an ${p.kadin}.`,
+      aksiyon:'Kreş kur ya da anlaşmalı bakım hizmeti sağla.',
+      dayanak:'Gebe/Emziren Kadınların Çalıştırılma Şartları Yönetmeliği', teyitEksik:!kr.teyit });
+  }
+
+  {
+    const v=ESIKLER.verbis;
+    const tetik = (p.calisan!=null && p.calisan>v.minCalisan) || (p.aktif!=null && p.aktif>v.minAktif);
+    const yak = (p.calisan!=null && yaklasiyor(p.calisan,v.minCalisan)) || (p.aktif!=null && yaklasiyor(p.aktif,v.minAktif));
+    if(p.calisan!=null || p.aktif!=null)
+      push({ grup:'Veri / KVKK', ad:'VERBİS kayıt yükümlülüğü',
+        status: tetik?'tabi':(yak?'yaklasiyor':'degil'),
+        neden: tetik
+          ? `Yıllık çalışan sayısı 50’den çok ya da bilançosu 100M TL’den çok olan veri sorumluları VERBİS’e kayıt olmak zorunda.`
+          : `VERBİS eşiği (50+ çalışan veya 100M+ bilanço) altında görünüyorsun; yine de özel nitelikli veri işliyorsan kapsama girebilirsin.`,
+        aksiyon:'Kapsamdaysan VERBİS’e kaydol ve <b>veri işleme envanterini</b> hazırla.',
+        dayanak:'6698 sayılı KVKK ve Kurul kararları', teyitEksik:!v.teyit });
+  }
+
+  if(p.ciro!=null){
+    const ef=ESIKLER.eFatura;
+    const efTabi = p.ciro>=ef.minCiro;
+    push({ grup:'Ciro / e-Dönüşüm', ad:'e-Fatura zorunluluğu',
+      status: efTabi?'tabi':(yaklasiyor(p.ciro,ef.minCiro)?'yaklasiyor':'degil'),
+      neden: efTabi
+        ? `${tl(p.ciro)} TL cironla e-Fatura mükellefiyeti kapsamındasın (genel eşik ${tl(ef.minCiro)} TL).`
+        : `e-Fatura genel eşiği ${tl(ef.minCiro)} TL; ${tl(p.ciro)} TL ile ${yaklasiyor(p.ciro,ef.minCiro)?'sınıra yaklaşıyorsun':'henüz altındasın'}. (Bazı sektörlerde eşik daha düşük.)`,
+      aksiyon:'Kapsamdaysan GİB portalı ya da özel entegratörle e-Fatura’ya geç.',
+      dayanak:'VUK 509 Sıra No.lu Genel Tebliğ', teyitEksik:!ef.teyit });
+
+    push({ grup:'Ciro / e-Dönüşüm', ad:'e-Arşiv Fatura zorunluluğu',
+      status: efTabi?'tabi':'degil',
+      neden: efTabi
+        ? `e-Fatura kapsamındaki mükellefler e-Arşiv Fatura da düzenlemek zorunda.`
+        : `e-Fatura kapsamına girmeden e-Arşiv zorunluluğu (genelde) doğmaz; belirli işlem tutarlarında istisnai olarak gelebilir.`,
+      aksiyon:'e-Fatura’ya geçerken e-Arşiv’i de aktive et.',
+      dayanak:'VUK 509 Sıra No.lu Genel Tebliğ' });
+
+    push({ grup:'Ciro / e-Dönüşüm', ad:'e-Defter zorunluluğu',
+      status: efTabi?'tabi':'degil',
+      neden: efTabi
+        ? `e-Fatura’ya geçen mükellefler e-Defter (yevmiye + kebir) tutmak zorunda.`
+        : `e-Defter yükümlülüğü çoğunlukla e-Fatura mükellefiyetiyle birlikte doğar.`,
+      aksiyon:'e-Defter beratlarını düzenli olarak GİB’e yükle.',
+      dayanak:'VUK ve ilgili tebliğler' });
+
+    const ei=ESIKLER.eIrsaliye;
+    if(efTabi)
+      push({ grup:'Ciro / e-Dönüşüm', ad:'e-İrsaliye zorunluluğu',
+        status: p.ciro>=ei.minCiro?'tabi':(yaklasiyor(p.ciro,ei.minCiro)?'yaklasiyor':'degil'),
+        neden: p.ciro>=ei.minCiro
+          ? `e-Fatura mükellefi olup ${tl(ei.minCiro)} TL ciro eşiğini aştığın için e-İrsaliye kapsamındasın.`
+          : `e-İrsaliye ciro eşiği ${tl(ei.minCiro)} TL; ${tl(p.ciro)} TL ile ${yaklasiyor(p.ciro,ei.minCiro)?'yaklaşıyorsun':'altındasın'} (sektörel farklar var).`,
+        aksiyon:'Sevk irsaliyelerini elektronik düzenlemeye geç.',
+        dayanak:'VUK 509 Sıra No.lu Genel Tebliğ', teyitEksik:!ei.teyit });
+  }
+
+  {
+    const bd=ESIKLER.bagimsizDenetim;
+    const olcut = [
+      {ad:'aktif toplamı', v:p.aktif, e:bd.aktif},
+      {ad:'net satış / ciro', v:p.ciro, e:bd.ciro},
+      {ad:'çalışan sayısı', v:p.calisan, e:bd.calisan},
+    ];
+    const bilinen = olcut.filter(o=>o.v!=null);
+    if(bilinen.length){
+      const asan = bilinen.filter(o=>o.v>=o.e);
+      const denetimTabi = asan.length>=bd.kacKriter;
+      const yak = !denetimTabi && bilinen.some(o=>yaklasiyor(o.v,o.e));
+      push({ grup:'Denetim & TTK', ad:'Bağımsız denetim yükümlülüğü',
+        status: denetimTabi?'tabi':(yak?'yaklasiyor':'degil'),
+        neden: denetimTabi
+          ? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=>o.ad).join(', ')}) — bağımsız denetime tabisin.`
+          : `Eşikler: aktif ${tl(bd.aktif)} TL, ciro ${tl(bd.ciro)} TL, çalışan ${bd.calisan}. En az 2’sini (2 yıl üst üste) aşınca kapsama girersin.`,
+        aksiyon:'Kapsamdaysan <b>bağımsız denetçiyle</b> sözleşme yap — bu, internet sitesi (TTK 1524) yükümlülüğünü de tetikler.',
+        dayanak:'6102 sayılı TTK m.397 ve Cumhurbaşkanı Kararı', teyitEksik:!bd.teyit });
+      if(denetimTabi){
+        push({ grup:'Denetim & TTK', ad:'İnternet sitesi açma (TTK 1524)', status:'tabi',
+          neden:`Bağımsız denetime tabi sermaye şirketlerinin kanunen internet sitesi açma ve belirli bilgileri yayınlama zorunluluğu var.`,
+          aksiyon:'İnternet sitesini aç, MTHS/ilan bölümünü hazırla.',
+          dayanak:'6102 sayılı TTK m.1524' });
+      }
+    }
+  }
+
+  if(p.tur==='as' || p.tur==='ltd'){
+    push({ grup:'Denetim & TTK', ad:'Transfer fiyatlandırması belgelendirme', status:'bilgi',
+      neden:`İlişkili kişilerle (ortak, grup şirketi vb.) mal/hizmet alım-satımın varsa, emsale uygunluk ve belgelendirme yükümlülüğü doğabilir.`,
+      aksiyon:'İlişkili işlemin varsa yıllık TF formunu ve gerekli raporu hazırlat.',
+      dayanak:'5520 sayılı KVK m.13' });
+  }
+
+  {
+    const av=ESIKLER.avukatBulundurma;
+    if(p.tur==='as'){
+      const tabi = p.sermaye!=null && p.sermaye>=av.minSermaye;
+      push({ grup:'Şirket türü & sermaye', ad:'Sözleşmeli avukat bulundurma',
+        status: tabi?'tabi':(p.sermaye!=null&&yaklasiyor(p.sermaye,av.minSermaye)?'yaklasiyor':'degil'),
+        neden: tabi
+          ? `Esas sermayesi ${tl(av.minSermaye)} TL ve üzeri anonim şirketler sözleşmeli avukat bulundurmak zorunda.`
+          : `Avukat bulundurma eşiği ${tl(av.minSermaye)} TL esas sermaye; ${p.sermaye!=null?tl(p.sermaye)+' TL ile altındasın':'sermayeni girmedin'}.`,
+        aksiyon:'Kapsamdaysan bir avukatla sözleşme yap; yokluğu <b>idari para cezası</b> doğurur.',
+        dayanak:'1136 sayılı Avukatlık Kanunu m.35', teyitEksik:!av.teyit });
+    }
+  }
+
+  if(sermayeSirketi(p.tur)){
+    push({ grup:'Şirket türü & sermaye', ad:'KEP adresi + e-Tebligat', status:'tabi',
+      neden:`Sermaye şirketleri (AŞ, Ltd, paylı komandit) KEP adresi almak ve e-Tebligat sistemine dahil olmak zorunda.`,
+      aksiyon:'PTT/KEP sağlayıcısından KEP adresi al, e-Tebligat kutunu düzenli kontrol et.',
+      dayanak:'TTK ve Elektronik Tebligat Yönetmeliği' });
+
+    push({ grup:'Şirket türü & sermaye', ad:'TTK 376 — sermaye kaybı takibi', status:'bilgi',
+      neden:`Sermaye + yasal yedeklerin yarısı ya da üçte ikisi zararla karşılıksız kaldıysa, genel kurulu toplama ve önlem alma yükümlülüğü doğar. Piyasada kimse bunu otomatik izlemiyor.`,
+      aksiyon:'Yıl sonu bilançonda sermaye erimesi var mı, mali müşavirine <b>kontrol ettir</b>.',
+      dayanak:'6102 sayılı TTK m.376' });
+  }
+
+  if(p.tehmadde){
+    push({ grup:'Sektörel / teknik', ad:'TMGD (Tehlikeli Madde Güvenlik Danışmanı)', status:'bilgi',
+      neden:`Belirli miktar eşiğinin üzerinde tehlikeli madde üreten, depolayan veya taşıyan işletmeler TMGD bulundurmak/istihdam etmek zorunda.`,
+      aksiyon:'Yıllık tehlikeli madde miktarını hesapla; eşiği aşıyorsan TMGD ile çalış.',
+      dayanak:'Tehlikeli Maddelerin Karayoluyla Taşınması Hakkında Yönetmelik' });
+  }
+
+  return K;
+}
+
+/* ---- RENDER ---- */
+function hesapla(){
+  const p = profilAl();
+  if(p.calisan==null && p.ciro==null && !p.tur){
+    alert('En az çalışan sayısı, ciro ya da şirket türünden birini gir.');
+    return;
+  }
+  const karne = karneUret(p);
+
+  const turAd = {as:'Anonim Şirket',ltd:'Limited Şirket',komandit:'Paylı komandit',sahis:'Şahıs işletmesi',kollektif:'Kollektif/komandit',kooperatif:'Kooperatif'}[p.tur]||'—';
+  const par = [];
+  if(p.tur) par.push(turAd);
+  if(p.calisan!=null) par.push(`${p.calisan} çalışan`);
+  if(p.ciro!=null) par.push(`${tl(p.ciro)} TL ciro`);
+  if(p.aktif!=null) par.push(`${tl(p.aktif)} TL aktif`);
+  $('firmaOzet').textContent = par.join(' · ') || 'Girilen profil';
+
+  const say = s => karne.filter(k=>k.status===s).length;
+  $('skTabi').textContent = say('tabi');
+  $('skYak').textContent  = say('yaklasiyor');
+  $('skBilgi').textContent = karne.filter(k=>k.status==='bilgi').length;
+
+  const bloklar = [
+    ['tabi','Tabi olduğun yükümlülükler'],
+    ['yaklasiyor','Eşiğe yaklaştıkların'],
+    ['bilgi','Bilmen gerekenler'],
+    ['degil','Şimdilik tabi olmadıkların'],
+  ];
+  const pillAd = {tabi:'TABİSİN',yaklasiyor:'YAKLAŞIYORSUN',bilgi:'BİLGİ',degil:'KAPSAM DIŞI'};
+
+  let html='';
+  for(const [st,baslik] of bloklar){
+    const grup = karne.filter(k=>k.status===st);
+    if(!grup.length) continue;
+    html += `<div class="sec-title">${baslik}</div>`;
+    for(const k of grup){
+      html += `<div class="item ${st}">
+        <div class="ad">${k.ad} <span class="pill ${st}">${pillAd[st]}</span></div>
+        <div class="neden">${k.neden}</div>
+        ${(k.aksiyon && st!=='degil')?`<div class="aksiyon"><b>Ne yapmalısın:</b> ${k.aksiyon}</div>`:''}
+        <div class="dayanak">Dayanak: ${k.dayanak}</div>
+      </div>`;
+    }
+  }
+  $('listeler').innerHTML = html;
+
+  $('sonuc').style.display='block';
+  setTimeout(()=>$('sonuc').scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+/* ---- E-POSTA ---- */
+function epostaGonder(){
+  const sonuc = $('epostaSonuc');
+  const goster = (msg,ok)=>{ sonuc.style.display='block'; sonuc.textContent=msg;
+    sonuc.style.color = ok ? 'var(--green)' : 'var(--red)'; };
+  const mail = ($('eposta').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
+  if(!$('kvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
+
+  if(!EPOSTA_ENDPOINT){
+    goster('Teşekkürler! (E-posta toplama henüz bağlanmadı — yayına alınınca aktifleşecek.)',true);
+    return;
+  }
+
+  const p = profilAl();
+  const k = karneUret(p);
+  const tabiListe = k.filter(x=>x.status==='tabi').map(x=>x.ad);
+  const yakListe  = k.filter(x=>x.status==='yaklasiyor').map(x=>x.ad);
+  const turAd = {as:'Anonim Şirket',ltd:'Limited Şirket',komandit:'Paylı komandit',sahis:'Şahıs işletmesi',kollektif:'Kollektif/komandit',kooperatif:'Kooperatif'}[p.tur]||'';
+  const profil = [];
+  if(turAd) profil.push(turAd);
+  if(p.calisan!=null) profil.push(p.calisan+' çalışan');
+  if(p.ciro!=null) profil.push(tl(p.ciro)+' TL ciro');
+  if(p.aktif!=null) profil.push(tl(p.aktif)+' TL aktif');
+  const payload = {
+    subject: 'Yeni müşteri adayı — Yükümlülük Karnesi',
+    from_name: 'Mevzuat Radarı',
+    email: mail, // cevapla (reply-to) adresi olarak da kullanılır
+    'Firma profili': profil.join(' · ') || 'Belirtilmedi',
+    'Tabi olduğu yükümlülükler': tabiListe.length ? (tabiListe.length+' adet — '+tabiListe.join(', ')) : 'Yok',
+    'Eşiğe yaklaştıkları': yakListe.length ? yakListe.join(', ') : 'Yok',
+    'Kayıt kaynağı': 'Yükümlülük Karnesi (site)'
+  };
+  if(EPOSTA_ANAHTAR) payload.access_key = EPOSTA_ANAHTAR; // Web3Forms için
+  goster('Gönderiliyor…',true);
+  fetch(EPOSTA_ENDPOINT, {
+    method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(r=>{
+    if(r.ok){ $('eposta').value=''; $('kvkk').checked=false;
+      goster('Teşekkürler! Radar başlayınca ilk sana haber vereceğiz.',true); }
+    else goster('Bir sorun oldu, birazdan tekrar dene.',false);
+  }).catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
+}
+
+function ornekDoldur(){
+  $('calisan').value='32'; $('kadin').value='14';
+  $('ciro').value='12.000.000'; $('aktif').value='45.000.000';
+  $('tur').value='as'; $('sermaye').value='1.250.000';
+  $('tehlike').value='tehlikeli'; $('tehmadde').value='hayir';
+  hesapla();
+}
+
+/* ciro/sermaye alanlarına binlik ayraç */
+['ciro','aktif','sermaye'].forEach(id=>{
+  $(id).addEventListener('input', e=>{
+    const v = e.target.value.replace(/[^\d]/g,'');
+    e.target.value = v ? new Intl.NumberFormat('tr-TR').format(parseInt(v,10)) : '';
+  });
+});
+
+/* nav gölgesi + scroll reveal */
+addEventListener('scroll',()=>{ $('nav').classList.toggle('scrolled', scrollY>10); },{passive:true});
+try{
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}catch(e){}
+/* güvenlik ağı: observer çalışmazsa içerik asla gizli kalmasın (geçişsiz, anında) */
+setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+  el.style.transition='none'; el.classList.add('in');
+}), 1200);
+</script>
+</body>
+</html>
