@@ -780,14 +780,21 @@ function epostaGonder(){
   const p = profilAl();
   const k = karneUret(p);
   const tabiListe = k.filter(x=>x.status==='tabi').map(x=>x.ad);
+  const yakListe  = k.filter(x=>x.status==='yaklasiyor').map(x=>x.ad);
+  const turAd = {as:'Anonim Şirket',ltd:'Limited Şirket',komandit:'Paylı komandit',sahis:'Şahıs işletmesi',kollektif:'Kollektif/komandit',kooperatif:'Kooperatif'}[p.tur]||'';
+  const profil = [];
+  if(turAd) profil.push(turAd);
+  if(p.calisan!=null) profil.push(p.calisan+' çalışan');
+  if(p.ciro!=null) profil.push(tl(p.ciro)+' TL ciro');
+  if(p.aktif!=null) profil.push(tl(p.aktif)+' TL aktif');
   const payload = {
-    eposta: mail,
-    kaynak: 'Yükümlülük Karnesi',
-    subject: 'Yeni karne kaydı — Mevzuat Radarı',
-    tabi_sayisi: tabiListe.length,
-    yaklasiyor_sayisi: k.filter(x=>x.status==='yaklasiyor').length,
-    tabi_yukumlulukler: tabiListe.join(', '),
-    sirket_turu: p.tur || '', calisan: p.calisan!=null?p.calisan:'', ciro: p.ciro!=null?p.ciro:''
+    subject: 'Yeni müşteri adayı — Yükümlülük Karnesi',
+    from_name: 'Mevzuat Radarı',
+    email: mail, // cevapla (reply-to) adresi olarak da kullanılır
+    'Firma profili': profil.join(' · ') || 'Belirtilmedi',
+    'Tabi olduğu yükümlülükler': tabiListe.length ? (tabiListe.length+' adet — '+tabiListe.join(', ')) : 'Yok',
+    'Eşiğe yaklaştıkları': yakListe.length ? yakListe.join(', ') : 'Yok',
+    'Kayıt kaynağı': 'Yükümlülük Karnesi (site)'
   };
   if(EPOSTA_ANAHTAR) payload.access_key = EPOSTA_ANAHTAR; // Web3Forms için
   goster('Gönderiliyor…',true);
