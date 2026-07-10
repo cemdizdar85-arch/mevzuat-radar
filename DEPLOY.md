@@ -7,27 +7,37 @@ Toplam süre: ~20 dakika. İki hesap açman gerekecek (ikisi de ücretsiz): **Gi
 
 ---
 
-## ADIM 1 — E-posta formunu bağla (Formspree, ~5 dk)
+## ADIM 1 — E-posta formunu bağla (~5 dk, İKİ SEÇENEK)
 
 GitHub Pages "statik"tir; kendi başına e-posta gönderemez. Araya ücretsiz bir form
-servisi koyuyoruz: ziyaretçi e-posta bırakınca Formspree **sana** mail atar.
+servisi koyuyoruz: ziyaretçi e-posta bırakınca servis **sana** mail atar.
+İki seçenekten birini kullan — **A önerilir (üyelik yok).**
 
-1. https://formspree.io adresine gir → **Sign up** (ücretsiz plan: ayda 50 gönderim yeter).
-2. Hesabını `cemdizdar85@hotmail.com` (ya da işi yürüteceğin adres) ile aç.
-3. **+ New form** → adını "Mevzuat Radarı Karne" koy → oluştur.
-4. Sana şuna benzer bir **endpoint** verir: `https://formspree.io/f/abcdwxyz`
-5. `index.html`'i bir metin düzenleyiciyle (Not Defteri de olur) aç, en üstteki şu satırı bul:
+### Seçenek A — Web3Forms (ÜYELİK YOK, önerilen)
+
+1. https://web3forms.com adresine gir → e-posta adresini yaz → **Create Access Key**.
+2. E-postana gelen **access key**'i kopyala (hesap/şifre yok, bu kadar).
+3. `index.html`'i bir metin düzenleyiciyle (Not Defteri de olur) aç, en üstteki
+   şu iki satırı bul ve doldur:
    ```js
-   const EPOSTA_ENDPOINT = ""; // ör: "https://formspree.io/f/xxxxxxx"
+   const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
+   const EPOSTA_ANAHTAR  = "buraya-access-key";
    ```
-   Tırnakların arasına kendi endpoint'ini yapıştır:
+4. Kaydet. Gönderimler e-postana düşer (ücretsiz plan ayda 250 gönderim).
+
+### Seçenek B — Formspree (ücretsiz hesap ister)
+
+1. https://formspree.io → **Sign up** (ücretsiz plan: ayda 50 gönderim).
+2. **+ New form** → adını "Mevzuat Radarı Karne" koy → oluştur.
+3. Verdiği endpoint'i (`https://formspree.io/f/abcdwxyz` gibi) `index.html`'de doldur:
    ```js
    const EPOSTA_ENDPOINT = "https://formspree.io/f/abcdwxyz";
+   const EPOSTA_ANAHTAR  = "";
    ```
-6. Kaydet. (İlk gerçek gönderimde Formspree bir onay maili atar — bir kez onayla.)
+4. İlk gönderimde Formspree onay maili atar — bir kez onayla.
 
-> Not: İlk e-posta gelene kadar Formspree formu "aktif" saymayabilir; kendi
-> e-postanla bir test gönderimi yapıp onay mailini tıkla.
+> Bu adımı sonraya da bırakabilirsin: ikisi de boşsa site yine çalışır,
+> e-posta kutusu "yakında" der.
 
 ---
 

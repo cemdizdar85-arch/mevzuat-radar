@@ -44,7 +44,7 @@ h1{font-size:clamp(24px,4.5vw,32px);line-height:1.18;margin:6px 0 6px;letter-spa
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Eşik rehberi</div>
+  <div class="top"><span class="logo">MR</span><a href="../index.html">Mevzuat Radarı</a> · <a href="index.html">Eşik rehberi</a></div>
   <div class="ust">Şirket türü &amp; sermaye</div>
   <h1>Şirketin avukat bulundurmak zorunda mı?</h1>
 
@@ -96,7 +96,7 @@ function hesapla(){
   if(H.tip==='sayi'){
     const v=pnum('v0'); if(v===null){goster('Bir sayı gir.','notr');return;}
     if(v>=H.esik){ let m='<b>Evet, kapsamdasın.</b> '+(H.evet||('Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.'));
-      if(H.kota) m+=' En az <b>'+Math.ceil(v*H.kota)+'</b> '+(H.kotaBirim||'')+' gerekir.'; goster(m,'evet'); }
+      if(H.kota) m+=' En az <b>'+Math.floor(v*H.kota+0.5)+'</b> '+(H.kotaBirim||'')+' gerekir. Kesir kuralı: yarıma kadar dikkate alınmaz, yarım ve üzeri tama yuvarlanır.'; goster(m,'evet'); }
     else if(v>=H.esik*0.8) goster('<b>Sınırdasın.</b> Eşik '+fmt(H.esik)+' '+H.birim+'; '+fmt(v)+' ile çok yaklaştın.','yak');
     else goster('<b>Şimdilik kapsam dışısın.</b> Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.','hayir');
   } else if(H.tip==='veya'){

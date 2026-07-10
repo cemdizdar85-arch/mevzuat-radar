@@ -62,7 +62,7 @@ $TPL = @'
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Eşik rehberi</div>
+  <div class="top"><span class="logo">MR</span><a href="../index.html">Mevzuat Radarı</a> · <a href="index.html">Eşik rehberi</a></div>
   <div class="ust">@@UST@@</div>
   <h1>@@H1@@</h1>
 
@@ -112,7 +112,7 @@ function hesapla(){
   if(H.tip==='sayi'){
     const v=pnum('v0'); if(v===null){goster('Bir sayı gir.','notr');return;}
     if(v>=H.esik){ let m='<b>Evet, kapsamdasın.</b> '+(H.evet||('Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.'));
-      if(H.kota) m+=' En az <b>'+Math.ceil(v*H.kota)+'</b> '+(H.kotaBirim||'')+' gerekir.'; goster(m,'evet'); }
+      if(H.kota) m+=' En az <b>'+Math.floor(v*H.kota+0.5)+'</b> '+(H.kotaBirim||'')+' gerekir. Kesir kuralı: yarıma kadar dikkate alınmaz, yarım ve üzeri tama yuvarlanır.'; goster(m,'evet'); }
     else if(v>=H.esik*0.8) goster('<b>Sınırdasın.</b> Eşik '+fmt(H.esik)+' '+H.birim+'; '+fmt(v)+' ile çok yaklaştın.','yak');
     else goster('<b>Şimdilik kapsam dışısın.</b> Eşik '+fmt(H.esik)+' '+H.birim+', sen '+fmt(v)+'.','hayir');
   } else if(H.tip==='veya'){
@@ -214,7 +214,7 @@ $pages = @(
      hesap=@{tip='sayi';etiket='İşçi sayın';esik=50;birim='kişi';kota=0.03;kotaBirim='engelli çalışan';evet='50 ve üzeri işçide %3 engelli çalıştırma zorunlu.'};
      body=@('50 veya daha fazla işçi çalıştıran <b>özel sektör</b> işyerleri, işçi sayısının <b>%3''ü</b> kadar engelli çalıştırmak zorundadır (kamuda oran farklıdır).',
             'Kontenjan İŞKUR üzerinden takip edilir. Açık kontenjanı doldurmayan işveren, çalıştırmadığı her engelli ve her ay için idari para cezası öder.',
-            'Hesaplayıcı, işçi sayına göre en az kaç engelli çalıştırman gerektiğini gösterir (kesirler yukarı yuvarlanır).');
+            'Hesaplayıcı, işçi sayına göre en az kaç engelli çalıştırman gerektiğini gösterir. Kesir kuralı kanundan: yarıma kadar kesirler dikkate alınmaz, yarım ve daha fazlası tama dönüştürülür.');
      dayanak='4857 sayılı İş Kanunu m.30'; ilgili=@('isg-kurulu','toplu-isten-cikarma') },
 
   @{ slug='verbis-kayit'; ust='Veri / KVKK'; kisa='VERBİS kaydı';

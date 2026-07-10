@@ -285,14 +285,14 @@
       <div>
         <div class="kart red k1">
           <div class="tag">■ AKSİYON GEREKLİ · SON 12 GÜN</div>
-          <h4>Ürün grubunda gözetim soruşturması açıldı</h4>
+          <h4>Ürün grubunda damping soruşturması açıldı</h4>
           <p>Soru formunu son tarihe kadar vermezsen en yüksek vergi oranı uygulanır.</p>
           <div class="meta">214 sayfadan süzüldü · Doğrulayan: SMMM C. Dizdar</div>
         </div>
         <div class="kart green k2">
           <div class="tag">■ FIRSAT</div>
-          <h4>Profiline uyan yeni KOSGEB desteği</h4>
-          <p>Makine-teçhizat kaleminde tahmini 900 bin TL’ye kadar hibe imkânı.</p>
+          <h4>Profiline uyan yeni KOSGEB çağrısı yayınlandı</h4>
+          <p>Makine-teçhizat kalemi destek kapsamında; başvuru şartlarını karşılıyorsun.</p>
           <div class="meta">Başvuru açık · Doğrulayan: SMMM C. Dizdar</div>
         </div>
       </div>
@@ -531,7 +531,7 @@ function karneUret(p){
     push({ grup:'Çalışan sayısı', ad:'Engelli çalıştırma yükümlülüğü',
       status: p.calisan>=e.minCalisan ? 'tabi' : (yaklasiyor(p.calisan,e.minCalisan)?'yaklasiyor':'degil'),
       neden: p.calisan>=e.minCalisan
-        ? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar engelli çalıştırmak zorundasın.`
+        ? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar — en az ${Math.floor(p.calisan*0.03+0.5)} kişi — engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`
         : `Engelli kotası 50 çalışanda başlar; şu an ${p.calisan} çalışanınla kapsam dışısın.`,
       aksiyon:'İŞKUR’dan açık kontenjanı kontrol et; kapatmazsan her ay <b>idari para cezası</b> işler.',
       dayanak:'4857 sayılı İş Kanunu m.30', teyitEksik:!e.teyit });
@@ -571,10 +571,14 @@ function karneUret(p){
     const eo=ESIKLER.emzirmeOdasi, kr=ESIKLER.kres;
     push({ grup:'Çalışan sayısı', ad:'Emzirme odası zorunluluğu',
       status: p.kadin>=eo.minKadin ? 'tabi' : (yaklasiyor(p.kadin,eo.minKadin)?'yaklasiyor':'degil'),
-      neden: p.kadin>=eo.minKadin
-        ? `${p.kadin} kadın çalışanınla emzirme odası bulundurman gerekiyor.`
-        : `Emzirme odası 100 kadın çalışanda başlar; şu an ${p.kadin}.`,
-      aksiyon:'0-1 yaş çocuklar için emzirme odası düzenle.',
+      neden: p.kadin>kr.minKadin
+        ? `${p.kadin} kadın çalışanınla bu ihtiyaç, kurman gereken yurt/kreş içindeki anne-çocuk (emzirme) bölümüyle birlikte karşılanır.`
+        : (p.kadin>=eo.minKadin
+          ? `${p.kadin} kadın çalışanınla emzirme odası bulundurman gerekiyor.`
+          : `Emzirme odası 100 kadın çalışanda başlar; şu an ${p.kadin}.`),
+      aksiyon: p.kadin>kr.minKadin
+        ? 'Yurt/kreş planına anne-çocuk (emzirme) bölümünü dahil et.'
+        : '0-1 yaş çocuklar için emzirme odası düzenle.',
       dayanak:'Gebe/Emziren Kadınların Çalıştırılma Şartları Yönetmeliği', teyitEksik:!eo.teyit });
     push({ grup:'Çalışan sayısı', ad:'Kreş / yurt (çocuk bakım) zorunluluğu',
       status: p.kadin>kr.minKadin ? 'tabi' : (yaklasiyor(p.kadin,kr.minKadin)?'yaklasiyor':'degil'),
@@ -747,7 +751,7 @@ function hesapla(){
       html += `<div class="item ${st}">
         <div class="ad">${k.ad} <span class="pill ${st}">${pillAd[st]}</span></div>
         <div class="neden">${k.neden}</div>
-        ${k.aksiyon?`<div class="aksiyon"><b>Ne yapmalısın:</b> ${k.aksiyon}</div>`:''}
+        ${(k.aksiyon && st!=='degil')?`<div class="aksiyon"><b>Ne yapmalısın:</b> ${k.aksiyon}</div>`:''}
         <div class="dayanak">Dayanak: ${k.dayanak}</div>
       </div>`;
     }
@@ -782,7 +786,7 @@ function epostaGonder(){
     tabi_sayisi: tabiListe.length,
     yaklasiyor_sayisi: k.filter(x=>x.status==='yaklasiyor').length,
     tabi_yukumlulukler: tabiListe.join(', '),
-    sirket_turu: p.tur || '', calisan: p.calisan ?? '', ciro: p.ciro ?? ''
+    sirket_turu: p.tur || '', calisan: p.calisan!=null?p.calisan:'', ciro: p.ciro!=null?p.ciro:''
   };
   if(EPOSTA_ANAHTAR) payload.access_key = EPOSTA_ANAHTAR; // Web3Forms için
   goster('Gönderiliyor…',true);
