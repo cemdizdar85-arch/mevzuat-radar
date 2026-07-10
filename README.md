@@ -44,15 +44,28 @@ Adım adım: **`DEPLOY.md`** dosyasına bak. Özet:
 2. GitHub'a ücretsiz repo aç → `index.html`'i yükle → Settings ▸ Pages ile yayınla
 3. `https://KULLANICI.github.io/mevzuat-radar/` adresinden canlı
 
+## SEO sayfaları (`sayfalar/`)
+
+Her eşik için Google'da aranan bir soruyu mini hesaplayıcıyla cevaplayan, altında
+karneye CTA veren statik sayfalar. 15 sayfa + bir hub (`sayfalar/index.html`).
+Örnekler: e-fatura-zorunlulugu, bagimsiz-denetim-esigi, engelli-calistirma,
+verbis-kayit, avukat-bulundurma, emzirme-odasi-kres…
+
+- **Üreteç:** `sayfalar/olustur.ps1`. Yeni sayfa eklemek için içindeki `$pages`
+  tablosuna bir kayıt ekle, sonra çalıştır:
+  `powershell -ExecutionPolicy Bypass -File sayfalar/olustur.ps1`
+  (Not: .ps1 dosyası Türkçe için UTF-8 **BOM'lu** kaydedilmeli — düz apostrof `'`
+  kullan, kıvrık `’` kullanma; PowerShell kıvrık tırnağı sınırlayıcı sanıyor.)
+- Her sayfada: mini hesaplayıcı + açıklama + FAQ (JSON-LD) + "ücretsiz karne" CTA'sı.
+
 ## Yol haritası (İş Planı — Faz 1)
 
-Açılış üçlüsü: **[✓] Yükümlülük Karnesi (e-posta yakalamalı)** · [ ] GTİP Sağlık Kontrolü · [ ] Haftalık bülten
+Açılış üçlüsü: **[✓] Yükümlülük Karnesi (e-posta yakalamalı)** · **[✓] Eşik SEO sayfaları** · [ ] GTİP Sağlık Kontrolü · [ ] Haftalık bülten
 
 Sonraki adımlar:
-1. Canlıya al (DEPLOY.md) + reklam/LinkedIn ile trafik
-2. Eşik hesaplayıcı SEO sayfaları (~20 eşik = 20 sayfa, aynı motordan)
-3. GTİP Sağlık Kontrolü (gerçek tarama motoru — Node.js kurulumu gerekir)
-4. Resmî Gazete gece tarayıcısı + hap kart üretim hattı + abonelik
+1. Canlıya al (DEPLOY.md) — index.html **+ sayfalar/ klasörü** birlikte + reklam/LinkedIn trafiği
+2. GTİP Sağlık Kontrolü (gerçek tarama motoru — Node.js kurulumu gerekir)
+3. Resmî Gazete gece tarayıcısı + hap kart üretim hattı + abonelik
 
 ## Teknik not
 Karne bilinçli olarak **sıfır bağımlılıkla** yazıldı — sadece tarayıcı yeter.

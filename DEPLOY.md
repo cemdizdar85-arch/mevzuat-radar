@@ -43,8 +43,9 @@ Programcı yolu (git) gerekmiyor; tarayıcıdan sürükle-bırak yeterli.
    - **Create repository**.
 3. Açılan boş repo sayfasında **uploading an existing file** bağlantısına tıkla
    (ya da **Add file ▸ Upload files**).
-4. Bu klasördeki **`index.html`** dosyasını sürükleyip bırak. (README.md ve DEPLOY.md'yi
-   de ekleyebilirsin, şart değil.)
+4. Bu klasördeki **`index.html`** dosyasını **ve `sayfalar` klasörünü** birlikte
+   sürükleyip bırak (SEO hesaplayıcı sayfaları o klasörde; karnedeki "Eşik rehberi"
+   linki oraya gider). README.md ve DEPLOY.md şart değil.
 5. Altta **Commit changes** de.
 
 ---

@@ -233,18 +233,24 @@
   </div>
 
   <p class="disclaimer no-print" style="text-align:center;border:0">
+    <a href="sayfalar/index.html" style="color:var(--brand)">Eşik rehberi ve hesaplayıcılar →</a><br>
     Mevzuat Radarı · Yükümlülük Karnesi · taslak v0.1 · tek dosya, kurulum gerektirmez
   </p>
 </div>
 
 <script>
 /* ============================================================================
-   E-POSTA TOPLAMA AYARI
-   Canlıya almadan önce buraya Formspree/Web3Forms endpoint'ini yapıştır.
-   Formspree:  https://formspree.io → ücretsiz hesap → form → endpoint URL
-   Boş bırakılırsa e-posta kutusu "yakında" moduna geçer, hata vermez.
+   E-POSTA TOPLAMA AYARI  —  iki seçenekten BİRİNİ doldur:
+   A) Web3Forms (ÜYELİK YOK, sadece e-posta doğrulama):
+      EPOSTA_ENDPOINT = "https://api.web3forms.com/submit"
+      EPOSTA_ANAHTAR  = "web3forms'tan aldığın access key"
+   B) Formspree (ücretsiz hesap):
+      EPOSTA_ENDPOINT = "https://formspree.io/f/xxxxxxx"
+      EPOSTA_ANAHTAR  = ""   (boş)
+   Her ikisi de boşsa e-posta kutusu "yakında" moduna geçer, hata vermez.
    ============================================================================ */
-const EPOSTA_ENDPOINT = ""; // ör: "https://formspree.io/f/xxxxxxx"
+const EPOSTA_ENDPOINT = "";
+const EPOSTA_ANAHTAR  = "";
 
 /* ============================================================================
    ESIKLER — TÜM EŞİK DEĞERLERİ BURADA. Yayına almadan MEVZUATTAN TEYİT ET.
@@ -566,11 +572,13 @@ function epostaGonder(){
   const payload = {
     eposta: mail,
     kaynak: 'Yükümlülük Karnesi',
+    subject: 'Yeni karne kaydı — Mevzuat Radarı',
     tabi_sayisi: tabiListe.length,
     yaklasiyor_sayisi: k.filter(x=>x.status==='yaklasiyor').length,
     tabi_yukumlulukler: tabiListe.join(', '),
     sirket_turu: p.tur || '', calisan: p.calisan ?? '', ciro: p.ciro ?? ''
   };
+  if(EPOSTA_ANAHTAR) payload.access_key = EPOSTA_ANAHTAR; // Web3Forms için
   goster('Gönderiliyor…',true);
   fetch(EPOSTA_ENDPOINT, {
     method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
