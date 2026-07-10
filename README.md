@@ -58,14 +58,28 @@ verbis-kayit, avukat-bulundurma, emzirme-odasi-kres…
   kullan, kıvrık `’` kullanma; PowerShell kıvrık tırnağı sınırlayıcı sanıyor.)
 - Her sayfada: mini hesaplayıcı + açıklama + FAQ (JSON-LD) + "ücretsiz karne" CTA'sı.
 
+## KVKK (`kvkk.html`)
+
+E-posta formu için aydınlatma metni taslağı; karnedeki onay kutusu buna link verir.
+**Yayından önce avukata kontrol ettirilmeli** — içindeki [köşeli parantezli] alanlar
+(adres, iletişim, kullanılan form servisi, tarih) doldurulacak.
+
+## Haftalık bülten (`bulten/`)
+
+- `sablon.html` — e-posta uyumlu hap kart şablonu (kırmızı/sarı/yeşil, 5 kart,
+  1 doldurulmuş örnek). Her hafta kopyala-doldur-gönder.
+- `KILAVUZ.md` — haftalık ritim (~1 saat), kaynak listesi, kart seçim kriteri,
+  LinkedIn/WhatsApp metin kalıbı.
+
 ## Yol haritası (İş Planı — Faz 1)
 
-Açılış üçlüsü: **[✓] Yükümlülük Karnesi (e-posta yakalamalı)** · **[✓] Eşik SEO sayfaları** · [ ] GTİP Sağlık Kontrolü · [ ] Haftalık bülten
+Açılış üçlüsü: **[✓] Yükümlülük Karnesi (e-posta yakalamalı)** · **[✓] Eşik SEO sayfaları** · **[✓] Haftalık bülten (iskelet — ilk sayı Cem'de)** · [ ] GTİP Sağlık Kontrolü
 
 Sonraki adımlar:
-1. Canlıya al (DEPLOY.md) — index.html **+ sayfalar/ klasörü** birlikte + reklam/LinkedIn trafiği
-2. GTİP Sağlık Kontrolü (gerçek tarama motoru — Node.js kurulumu gerekir)
-3. Resmî Gazete gece tarayıcısı + hap kart üretim hattı + abonelik
+1. Canlıya al (DEPLOY.md) — index.html + kvkk.html **+ sayfalar/ klasörü** birlikte
+2. KVKK metnini avukata onaylat, ilk bülteni gönder
+3. GTİP Sağlık Kontrolü (gerçek tarama motoru — Node.js kurulumu gerekir)
+4. Resmî Gazete gece tarayıcısı + hap kart üretim hattı + abonelik
 
 ## Teknik not
 Karne bilinçli olarak **sıfır bağımlılıkla** yazıldı — sadece tarayıcı yeter.

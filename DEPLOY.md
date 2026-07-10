@@ -43,9 +43,10 @@ Programcı yolu (git) gerekmiyor; tarayıcıdan sürükle-bırak yeterli.
    - **Create repository**.
 3. Açılan boş repo sayfasında **uploading an existing file** bağlantısına tıkla
    (ya da **Add file ▸ Upload files**).
-4. Bu klasördeki **`index.html`** dosyasını **ve `sayfalar` klasörünü** birlikte
-   sürükleyip bırak (SEO hesaplayıcı sayfaları o klasörde; karnedeki "Eşik rehberi"
-   linki oraya gider). README.md ve DEPLOY.md şart değil.
+4. Bu klasördeki **`index.html`**, **`kvkk.html`** dosyalarını **ve `sayfalar` klasörünü**
+   birlikte sürükleyip bırak (SEO hesaplayıcılar o klasörde; karnedeki "Eşik rehberi"
+   ve "Aydınlatma metni" linkleri bunlara gider). `bulten/` klasörü siteye yüklenmez —
+   o e-posta malzemesidir. README.md ve DEPLOY.md şart değil.
 5. Altta **Commit changes** de.
 
 ---
