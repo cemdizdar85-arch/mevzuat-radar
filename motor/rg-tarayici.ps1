@@ -63,7 +63,35 @@ foreach($m in $rx.Matches($html)){
   $madde += [pscustomobject]@{ baslik=$t; url=$u }
 }
 if(-not $madde.Count){ Write-Host "Fihristte madde bulunamadi - sayfa yapisi degismis olabilir." -ForegroundColor Red; exit 1 }
-Write-Host ("Fihristte {0} madde bulundu." -f $madde.Count)
+Write-Host ("Fihristte {0} asil madde bulundu." -f $madde.Count)
+
+# ---- MUKERRER SAYILAR (yilbasi kabusu: 2026 gozetim seti 4. mukerrerde cikmisti) ----
+$gg,$aa,$yyyy = $Tarih.Split(".")
+$iso = "$yyyy-$aa-$gg"
+# gun sayfasindan bu tarihe ait mukerrer numaralarini oku (kor yoklama degil)
+$mukNolar = [regex]::Matches($html, [regex]::Escape("tarih=$iso") + "[^""']*?mukerrer=(\d+)") | ForEach-Object { [int]$_.Groups[1].Value } | Sort-Object -Unique
+$mukToplam = 0
+foreach($mk in $mukNolar){
+  $mf = $null
+  foreach($deneme in 1..3){
+    try { $mf = (Invoke-WebRequest -Uri "https://www.resmigazete.gov.tr/fihrist?tarih=$iso&mukerrer=$mk" -UserAgent "Mozilla/5.0" -TimeoutSec 45 -UseBasicParsing).Content; break }
+    catch { Start-Sleep -Seconds 3 }
+  }
+  if(-not $mf){ Write-Host ("  mukerrer $mk alinamadi (zaman asimi)") -ForegroundColor Yellow; continue }
+  $mrx = [regex]('(?is)<a[^>]+href="([^"]*eskiler/\d{4}/\d{2}/\d{8}M' + $mk + '(?:-\d+)?\.pdf)"[^>]*>(.*?)</a>')
+  foreach($m in $mrx.Matches($mf)){
+    $u = $m.Groups[1].Value
+    if($u -match "^//"){ $u = "https:" + $u } elseif($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+    $t = ($m.Groups[2].Value -replace "<[^>]+>"," " -replace "\s+"," ").Trim()
+    $t = [System.Net.WebUtility]::HtmlDecode($t).TrimStart([char]0x2013,[char]0x2014,[char]0x2015,'-',' ')
+    if($t.Length -lt 15){ continue }
+    if($madde | Where-Object { $_.url -eq $u }){ continue }
+    $madde += [pscustomobject]@{ baslik=("[$mk. Mükerrer] " + $t); url=$u }
+    $mukToplam++
+  }
+  Start-Sleep -Milliseconds 800   # kamu sunucusuna nazik
+}
+if($mukToplam -gt 0){ Write-Host ("MUKERRER: {0} madde eklendi (mukerrer sayilar: {1}) -> toplam {2}." -f $mukToplam, ($mukNolar -join ","), $madde.Count) -ForegroundColor Cyan }
 
 # ---- kategorize et ----------------------------------------------------------
 $sonuc = [ordered]@{}
