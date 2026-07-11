@@ -100,15 +100,43 @@ function vergiKart(kod){
   if(!sat) return '';
   // KDV: GTİP bazlı temiz kaynak yok — standart oran + istisna notu (uydurma değil, dürüst genel)
   sat += `<div class="satir"><b>KDV</b><span>%20 standart<sup style="color:var(--amber)">*</sup></span></div>`;
+  const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
     ${sat}
     <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV standart %20’dir; temel gıda %1, bazı ürünler %10 indirimli listede olabilir — ürün tanımına göre değişir. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 BKK.</div>
+    <div style="margin-top:12px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 CEBİNE ETKİSİ — yıllık ithalat tutarını gir</div>
+      <div class="ara">
+        <input id="${sid}" placeholder="ör. 1.500.000 (TL, gümrük kıymeti)" inputmode="numeric" autocomplete="off" style="font-size:15px;padding:11px 13px">
+        <button class="btn" style="font-size:14px;padding:11px 18px" onclick="etkiHesapla('${kod}','${sid}')">Hesapla</button>
+      </div>
+      <div id="${sid}_out" style="margin-top:8px;font-size:13.5px;color:var(--muted)"></div>
+    </div>
   </div>`;
 }
 
 // "1.000 ABD Doları/Ton" -> sayi (kiyas icin)
 function say(s){ if(!s) return null; const m=(''+s).replace(/\./g,'').match(/\d+/); return m?parseInt(m[0],10):null; }
+
+// cebine etkisi: kullanicinin tutari x kodun GERCEK oranlari (kaynak: Ithalat Rejimi Karari)
+function etkiHesapla(kod, sid){
+  const out = document.getElementById(sid+'_out');
+  const ham = (document.getElementById(sid).value||'').replace(/[^\d]/g,'');
+  const tutar = parseInt(ham,10);
+  if(!tutar){ out.innerHTML = '<span style="color:var(--red)">Geçerli bir tutar gir (sadece rakam).</span>'; return; }
+  const v = VERGI && VERGI[kod];
+  if(!v){ out.innerHTML = 'Bu kod için oran verisi yok.'; return; }
+  const tl = n => n.toLocaleString('tr-TR');
+  const gvMin = v[0]!=null ? tutar*v[0]/100 : null, gvMax = v[0]!=null ? tutar*v[1]/100 : null;
+  const igvMin = v[2]!=null ? tutar*v[2]/100 : null, igvMax = v[2]!=null ? tutar*v[3]/100 : null;
+  let sat = '';
+  if(gvMin!=null) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${gvMin===gvMax ? tl(gvMin)+' TL' : tl(gvMin)+' – '+tl(gvMax)+' TL'}</span></div>`;
+  if(igvMin!=null) sat += `<div class="satir"><b>İGV</b><span>${igvMin===igvMax ? tl(igvMin)+' TL' : tl(igvMin)+' – '+tl(igvMax)+' TL'}</span></div>`;
+  const topMin = (gvMin||0)+(igvMin||0), topMax = (gvMax||0)+(igvMax||0);
+  sat += `<div class="satir"><b>Tahmini yıllık toplam</b><span style="color:var(--amber);font-weight:700">${topMin===topMax ? tl(topMin)+' TL' : tl(topMin)+' – '+tl(topMax)+' TL'}</span></div>`;
+  out.innerHTML = sat + `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">Kaba tahmindir: alt uç tercihli menşe (ör. AB), üst uç diğer ülkeler. KDV ve varsa damping/EMY hariç; gerçek vergi matraha (CIF + yurt dışı giderler) göre hesaplanır. İşlem öncesi gümrük müşavirine danış.</div>`;
+}
 
 function sorgula(){
   const s = document.getElementById('sonuc');
