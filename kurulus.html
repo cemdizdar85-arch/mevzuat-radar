@@ -366,8 +366,21 @@ function oner(){
   else { p.ltd+=1; p.sahis+=1; }
 
   if(CEVAP.sermaye==='yuksek'){ p.as+=1; neden.as.push('250.000 TL asgari sermayeyi ayırabiliyorsun — AŞ\'nin giriş şartı sende hazır.'); }
-  else if(CEVAP.sermaye==='orta'){ p.ltd+=1; p.as-=3; neden.ltd.push('50.000 TL bandındaki sermaye LTD\'nin asgari şartına birebir oturuyor (AŞ için 250.000 TL gerekir).'); }
+  else if(CEVAP.sermaye==='orta'){
+    p.ltd+=1;
+    // satış planı olana AŞ kapısı kapatılmaz: 250.000 taahhüdün yalnız 1/4'ü (62.500 TL) peşin bloke edilir
+    p.as += (CEVAP.satis==='evet') ? -1 : -3;
+    if(CEVAP.satis!=='evet') neden.ltd.push('50.000 TL bandındaki sermaye LTD\'nin asgari şartına birebir oturuyor (AŞ için 250.000 TL gerekir).');
+  }
   else { p.sahis+=2; p.ltd-=1; p.as-=3; neden.sahis.push('Asgari düzeyde başlamak istiyorsun — şahıs işletmesinde sermaye şartı hiç yok.'); }
+
+  // SATIŞ PLANI BASKIN KURAL: satacak kişi için tür seçimi satış günü vergisini belirler.
+  // LTD kurup sonradan AŞ'ye dönmek hem masraflıdır hem 2 yıllık istisna saati pay senedi
+  // bastırılınca yeniden başlar — bu yüzden satış planı + karşılanabilir sermaye = AŞ öne geçer.
+  if(CEVAP.satis==='evet' && CEVAP.sermaye!=='dusuk'){
+    p.as+=2;
+    neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: 250.000 TL taahhüdün kuruluşta yalnız 1/4\'ü (62.500 TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Satış planın için istisna saatini bugünden başlatmak, yarın tür değiştirmekten çok daha ucuz.');
+  }
 
   if(CEVAP.risk==='yuksek'){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
   else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
@@ -390,7 +403,7 @@ function oner(){
       p.sahis+=2;
       neden.sahis.push(`Vergi kıyası senin lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini vergi ~${TLf(sahisVergi)} TL${istisna? ' (genç girişimci istisnası düşülmüş)':''}; şirkette KV + kâr çekme stopajı ~${TLf(sirketVergi)} TL.`);
     } else if(sirketVergi < sahisVergi*0.9){
-      p.ltd+=2; p.as+=1;
+      p.ltd+=2; p.as+=2; // vergi düzeni iki sermaye şirketinde özdeş — puan da eşit
       neden.ltd.push(`Vergi kıyası şirket lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini gelir vergisi ~${TLf(sahisVergi)} TL; şirkette ~${TLf(sirketVergi)} TL${CEVAP.cek==='birak' ? ' (kârı şirkette bıraktığın için stopaj yok — büyüme sermayesi vergiden korunuyor)' : ''}.`);
       neden.as.push('Vergi avantajı LTD ile aynı — kurumlar vergisi düzeni her iki sermaye şirketinde özdeş.');
     }
@@ -416,12 +429,20 @@ function oner(){
   const gerekce = (neden[kazanan].length ? neden[kazanan] : ['Cevaplarının genel dengesi bu türü işaret ediyor.'])
     .map(n=>`<div class="adim"><div class="no">✓</div><div><p style="margin:0;color:var(--muted)">${n}</p></div></div>`).join('');
 
+  // satış planı var ama öneri AŞ değilse: bedelini açıkça söyle (sessiz çelişki bırakma)
+  let uyariHtml = '';
+  if(CEVAP.satis==='evet' && kazanan!=='as'){
+    uyariHtml = `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
+      ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">istisna saati pay senedi bastırılınca sıfırdan başlar</b>. Unutma: AŞ için kuruluşta peşin gereken tutar 250.000 TL değil, ¼'ü = <b style="color:var(--ink)">62.500 TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
+  }
+
   out.innerHTML = `
     <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
       <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
       <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]} — koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
       ${gerekce}
+      ${uyariHtml}
       ${hesapHtml}
       <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">📖 ${OKU[kazanan]}</p>
       <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Bu bir ön öneridir, kişisel durumuna göre değişebilir — son kararı muhasebecinle ver. İstersen bu sonucu ve kuruluş yol haritanı e-postana gönderelim:</p>
