@@ -55,12 +55,34 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </div>
 
 <script>
-let VERI = null, RADAR = null, VERGI = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c])=>{ VERI=a; RADAR=b; VERGI=c; });
+  fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([]))
+]).then(([a,b,c,d])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; });
+
+// damping/anti-damping önlem uyarısı: sorgulanan kod bir önleme dokunuyor mu?
+function dampingKart(q){
+  if(!DAMPING || !DAMPING.length) return '';
+  const qd = q.replace(/\./g,'');
+  const bulunan = DAMPING.filter(m => (m.k||'').split(' ').some(k => k && (k.startsWith(qd) || qd.startsWith(k))));
+  if(!bulunan.length) return '';
+  let html = '';
+  for(const m of bulunan.slice(0,12)){
+    const oran = m.o ? `<div class="satir"><b>Önlem oranı</b><span>${m.o}</span></div>` : `<div class="satir"><b>Önlem oranı</b><span>kaynağa bakınız</span></div>`;
+    html += `<div class="kart" style="border-left-color:var(--amber)">
+      <div class="et" style="color:var(--amber)">⚠ DAMPİNGE KARŞI ÖNLEM VAR</div>
+      <h3>${m.m||'Bu ürün grubu'}</h3>
+      <div class="satir"><b>Menşe ülke</b><span>${m.u}</span></div>
+      ${oran}
+      <div class="satir"><b>Önlem türü</b><span>${m.t||'—'}${m.tur==='Gecici'?' (geçici)':''}</span></div>
+      <div class="satir"><b>Dayanak tebliğ</b><span>${m.tb||'—'}</span></div>
+      <p style="color:var(--muted);font-size:13px;margin:10px 0 0">Anlamı: bu koddan <b>${m.u}</b> menşeli ithalatta, normal gümrük vergisine <b>ek olarak</b> dampinge karşı vergi ödenir. Kaçıran en yüksek oranı yer — mutlaka kontrol et.</p></div>`;
+  }
+  return html;
+}
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax]
 function vergiKart(kod){
@@ -88,6 +110,7 @@ function sorgula(){
   if(!VERI){ s.innerHTML='<div class="kart"><h3>Veri yükleniyor, bir saniye…</h3></div>'; return; }
 
   const say2 = q.replace(/\./g,'');
+  const dHtml = dampingKart(q);   // damping uyarısı (varsa en üstte)
   const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(say2));
   if(!kodlar.length){
     // gözetim yok ama vergi olabilir: tam koda ya da önekine bak
@@ -97,9 +120,9 @@ function sorgula(){
       const kod = vk.find(k=>k===q) || vk[0];
       vHtml = vergiKart(kod).replace('margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)','');
     }
-    s.innerHTML = `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
+    s.innerHTML = dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${vk.length?' Ama vergi oranları aşağıda:':' Damping/ÜGD gibi başka bir yükümlülük için karneni çıkar.'}</p>${vHtml}</div>` + ctaHtml();
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${vk.length?' Vergi oranları aşağıda:':''}</p>${vHtml}</div>` + ctaHtml();
     return;
   }
   let html = '';
@@ -128,7 +151,7 @@ function sorgula(){
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
   }
-  s.innerHTML = html + ctaHtml();
+  s.innerHTML = dHtml + html + ctaHtml();
 }
 function ctaHtml(){
   return `<div class="cta"><h3>Bu tek kod. Ya diğerleri, ya değişiklikler?</h3>
