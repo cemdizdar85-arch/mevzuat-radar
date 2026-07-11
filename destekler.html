@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devlet Destekleri Radarı — KOSGEB destekleri, hangisi sana uygun? | Mevzuat Radarı</title>
+<meta name="description" content="KOSGEB ve devlet destekleri dağınık ve tarihli. İşletme aşamanı seç, sana uygun destek programlarını gör; başvuru dönemi açılınca haber verelim.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 22px}
+.filtre{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.fbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;padding:9px 15px;border-radius:11px;background:#0a0f17;color:var(--muted);border:1px solid var(--line2);transition:.15s}
+.fbtn:hover{color:var(--ink);border-color:var(--accent)}
+.fbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
+.kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.kart .et{font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--accent2)}
+.kart h3{margin:5px 0 8px;font-size:17px;letter-spacing:-.3px}
+.kart p{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.kart .gore{display:inline-block;text-decoration:none;font-weight:700;font-size:13px;color:var(--accent2)}
+.kart .gore:hover{color:var(--ink)}
+.rozet{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;background:rgba(62,155,255,.13);color:var(--accent2);margin-left:6px;vertical-align:middle}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:22px;margin-top:24px}
+.cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.ara{display:flex;gap:10px;flex-wrap:wrap}
+.ara input{flex:1;min-width:200px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+.ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(46,140,255,.35);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
+  <h1>Devlet Destekleri Radarı</h1>
+  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç, sana uygun <b style="color:var(--ink)">KOSGEB destek programlarını</b> gör; yeni çağrı açıldığında haber verelim.</p>
+
+  <div class="filtre" id="filtre">
+    <button class="fbtn on" data-a="hepsi">Tümü</button>
+    <button class="fbtn" data-a="kurulus">Yeni kuruyorum</button>
+    <button class="fbtn" data-a="buyume">Büyüyorum</button>
+    <button class="fbtn" data-a="ihracat">İhracat / yurtdışı</button>
+    <button class="fbtn" data-a="donusum">Dijital / yeşil dönüşüm</button>
+    <button class="fbtn" data-a="arge">Ar-Ge / üretim</button>
+    <button class="fbtn" data-a="istihdam">İstihdam</button>
+  </div>
+
+  <div id="liste"></div>
+
+  <div class="uyari">⚠ Bu sayfa <b>yön vericidir</b>: hangi destek türünün var olduğunu gösterir. <b>Güncel destek tutarı, oranı ve başvuru tarihi</b> dönemsel açılan çağrılara göre değişir — her kartın altındaki resmî KOSGEB bağlantısından teyit et. Burada bilerek tutar/tarih yazmıyoruz; yanlış rakam vermektense kaynağa yönlendiriyoruz.</div>
+
+  <div class="cta" id="takipKutu">
+    <h3>🔔 Destek çağrısı açılınca ilk sen duy</h3>
+    <p>E-postanı bırak; ilgilendiğin destek türünde <b style="color:var(--ink)">yeni başvuru dönemi açıldığı gün</b> haber verelim. Başvuru dönemleri kısa olur — kaçırma. Ücretsiz, istediğinde çık.</p>
+    <div class="ara" style="margin-bottom:8px">
+      <input id="takipMail" type="email" placeholder="ornek@firma.com" autocomplete="email">
+      <button class="btn" onclick="takibeAl()">Beni haberdar et</button>
+    </div>
+    <label style="display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:12px">
+      <input id="takipKvkk" type="checkbox" style="width:auto;margin-top:2px;accent-color:var(--accent)">
+      <span>E-postamın destek bilgilendirmesi amacıyla işlenmesine izin veriyorum. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
+    </label>
+    <p id="takipSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
+    <p style="margin:12px 0 0;font-size:12px;color:var(--dim)">Firmanın tüm yükümlülüklerini de görmek ister misin? <a href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></p>
+  </div>
+
+  <div class="dip">Mevzuat Radarı · Destek Radarı · Program adları ve bağlantılar resmî kaynak: <a href="https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler" target="_blank" rel="noopener">kosgeb.gov.tr/destekler</a> · SMMM Cem Dizdar</div>
+</div>
+
+<script>
+const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
+const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+
+// Program adları + resmî KOSGEB detay bağlantıları kosgeb.gov.tr'den bire bir alındı.
+// "amac" = program adından açık, genel amaç (tutar/tarih iddiası YOK).
+const PROGRAMLAR = [
+  {ad:"Girişimci Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi", asama:["kurulus"], amac:"İşini yeni kuran girişimciler için kuruluş ve ilk dönem giderlerine yönelik destek programı."},
+  {ad:"Kapasite Geliştirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9200/kapasite-gelistirme-destek-programi", asama:["buyume"], amac:"Mevcut KOBİ'nin üretim, verimlilik ve kurumsal kapasitesini büyütmeye yönelik program."},
+  {ad:"Küresel Rekabetçilik Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9206/kuresel-rekabetcilik-destek-programi", asama:["ihracat","buyume"], amac:"İhracata ve uluslararası pazarlara açılan KOBİ'lerin rekabet gücünü artırmaya yönelik program."},
+  {ad:"KOBİ Dijital Dönüşüm Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9144/kobi-dijital-donusum-destek-programi", asama:["donusum"], amac:"Dijitalleşme, otomasyon ve teknoloji yatırımı yapan KOBİ'ler için dönüşüm programı."},
+  {ad:"Yeşil Sanayi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9022/yesil-sanayi-destek-programi", asama:["donusum"], amac:"Çevre, enerji verimliliği ve yeşil dönüşüm yatırımlarına yönelik program."},
+  {ad:"1507 – TÜBİTAK KOBİ Ar-Ge Başlangıç Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9146/1507-tubitak-kobi-arge-baslangic-destek-programi", asama:["arge"], amac:"İlk kez Ar-Ge projesi yürüten KOBİ'ler için (TÜBİTAK iş birliğiyle) başlangıç desteği."},
+  {ad:"Teknoloji Merkezi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9297/teknoloji-merkezi-destek-programi", asama:["arge","kurulus"], amac:"Teknoloji Merkezleri (TEKMER) bünyesinde teknoloji geliştiren girişimlere yönelik program."},
+  {ad:"Stratejik Ürün Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/6492/stratejik-urun-destek-programi", asama:["arge","donusum"], amac:"İthalatı yüksek, kritik ürünlerin yerli üretimini (yerlileştirme) desteklemeye yönelik program."},
+  {ad:"Sektörel Gelişim Merkezi (SEGEM) Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9327/sektorel-gelisim-merkezi-segem-destek-programi", asama:["buyume"], amac:"Sektörel gelişim merkezleri üzerinden işletmelerin ortak ihtiyaçlarını gidermeye yönelik program."},
+  {ad:"YÖNDE – Yönderlik ve Değerlendirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9165/yonde-yonderlik-ve-degerlendirme-destek-programi", asama:["buyume"], amac:"İşletmelere yönderlik (mentorluk) ve değerlendirme hizmeti sunmaya yönelik program."},
+  {ad:"İstihdamı Koruma Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9224/istihdami-koruma-destek-programi", asama:["istihdam"], amac:"İşletmelerin mevcut istihdamını sürdürmesine yönelik destek programı."}
+];
+const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
+
+let SECILI = "hepsi";
+function ciz(){
+  const liste = document.getElementById('liste');
+  const veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
+  liste.innerHTML = veri.map(p=>{
+    const roz = p.asama.map(a=>`<span class="rozet">${ETIKET[a]||a}</span>`).join('');
+    return `<div class="kart">
+      <div class="et">KOSGEB DESTEK PROGRAMI${roz}</div>
+      <h3>${p.ad}</h3>
+      <p>${p.amac}</p>
+      <a class="gore" href="${p.url}" target="_blank" rel="noopener">Koşulları ve güncel çağrıyı KOSGEB'de gör →</a>
+    </div>`;
+  }).join('') || `<div class="kart"><h3>Bu aşamaya uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
+}
+document.getElementById('filtre').addEventListener('click',e=>{
+  const b = e.target.closest('.fbtn'); if(!b) return;
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); SECILI=b.dataset.a; ciz();
+});
+ciz();
+
+function takibeAl(){
+  const s = document.getElementById('takipSonuc');
+  const goster = (m,ok)=>{ s.style.display='block'; s.textContent=m; s.style.color = ok?'var(--green)':'var(--red)'; };
+  const mail = (document.getElementById('takipMail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
+  if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
+  const ilgi = SECILI==="hepsi" ? "tüm destekler" : (ETIKET[SECILI]||SECILI);
+  const payload = {
+    access_key: EPOSTA_ANAHTAR,
+    subject: 'Destek takip kaydı — ' + ilgi,
+    from_name: 'Mevzuat Radarı',
+    email: mail,
+    'İlgi alanı': ilgi,
+    'Kayıt kaynağı': 'Devlet Destekleri Radarı'
+  };
+  goster('Kaydediliyor…',true);
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{ if(r.ok){ document.getElementById('takipMail').value=''; document.getElementById('takipKvkk').checked=false;
+      goster('✓ Kaydedildi! '+ilgi+' için yeni bir başvuru dönemi açıldığında ilk sana haber vereceğiz.',true); }
+      else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
+    .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
+}
+document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key==='Enter') takibeAl(); });
+</script>
+</body>
+</html>
