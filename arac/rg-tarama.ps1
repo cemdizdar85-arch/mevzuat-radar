@@ -52,7 +52,34 @@ foreach($m in $rx.Matches($html)){
   $madde += [pscustomobject]@{ baslik=$t; url=$u }
 }
 if(-not $madde.Count){ Write-Host "Fihrist maddesi bulunamadi - sayfa yapisi degismis olabilir. Cikiliyor."; exit 0 }
-Write-Host ("Madde: {0}" -f $madde.Count)
+Write-Host ("Asil madde: {0}" -f $madde.Count)
+
+# ---- MUKERRER SAYILAR (yilbasi kabusu: onemli setler mukerrerde cikar) ----
+$gg,$aa,$yyyy = $Tarih.Split(".")
+$iso = "$yyyy-$aa-$gg"
+$mukNolar = [regex]::Matches($html, [regex]::Escape("tarih=$iso") + "[^""']*?mukerrer=(\d+)") | ForEach-Object { [int]$_.Groups[1].Value } | Sort-Object -Unique
+$mukToplam = 0
+foreach($mk in $mukNolar){
+  $mf = $null
+  foreach($deneme in 1..3){
+    try { $mf = (Invoke-WebRequest -Uri "https://www.resmigazete.gov.tr/fihrist?tarih=$iso&mukerrer=$mk" -UserAgent "Mozilla/5.0 (MevzuatRadar-CI)" -TimeoutSec 45 -UseBasicParsing).Content; break }
+    catch { Start-Sleep -Seconds 3 }
+  }
+  if(-not $mf){ continue }
+  $mrx = [regex]('(?is)<a[^>]+href="([^"]*eskiler/\d{4}/\d{2}/\d{8}M' + $mk + '(?:-\d+)?\.pdf)"[^>]*>(.*?)</a>')
+  foreach($m in $mrx.Matches($mf)){
+    $u = $m.Groups[1].Value
+    if($u -match "^//"){ $u = "https:" + $u } elseif($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+    $t = ($m.Groups[2].Value -replace "<[^>]+>"," " -replace "\s+"," ").Trim()
+    $t = [System.Net.WebUtility]::HtmlDecode($t).TrimStart([char]0x2013,[char]0x2014,[char]0x2015,'-',' ')
+    if($t.Length -lt 15){ continue }
+    if($madde | Where-Object { $_.url -eq $u }){ continue }
+    $madde += [pscustomobject]@{ baslik=("[$mk. Mükerrer] " + $t); url=$u }
+    $mukToplam++
+  }
+  Start-Sleep -Milliseconds 800
+}
+Write-Host ("Toplam madde: {0} (mukerrer: {1})" -f $madde.Count, $mukToplam)
 
 $sonuc = [ordered]@{}
 foreach($k in $KATEGORILER.Keys){ $sonuc[$k] = @() }
