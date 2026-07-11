@@ -93,10 +93,12 @@ function vergiKart(kod){
   if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
   if(v[2]!==null && v[2]!==undefined) sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
   if(!sat) return '';
+  // KDV: GTİP bazlı temiz kaynak yok — standart oran + istisna notu (uydurma değil, dürüst genel)
+  sat += `<div class="satir"><b>KDV</b><span>%20 standart<sup style="color:var(--amber)">*</sup></span></div>`;
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
-    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ VERGİ ORANLARI (menşe ülkeye göre)</div>
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
     ${sat}
-    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">En düşük oran genelde AB/tercihli ülkeler, en yüksek diğer ülkeler (ör. Çin) içindir. Kaynak: İthalat Rejimi Kararı + İGV Kararı (Ticaret Bak., 2026 konsolide). KDV/ÖTV ayrıca hesaplanır.</div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV standart %20’dir; temel gıda %1, bazı ürünler %10 indirimli listede olabilir — ürün tanımına göre değişir. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 BKK.</div>
   </div>`;
 }
 
