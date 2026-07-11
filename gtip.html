@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTİP Sağlık Kontrolü — kodunda gözetim var mı? | Mevzuat Radarı</title>
+<meta name="description" content="GTİP kodunu gir; o kodda ithalatta gözetim uygulaması var mı, birim kıymeti kaç, hangi tebliğe dayanıyor — saniyede gör.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 22px}
+.ara{display:flex;gap:10px;flex-wrap:wrap}
+.ara input{flex:1;min-width:220px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17;color:var(--ink);font-size:17px;font-family:inherit;letter-spacing:.5px}
+.ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:14px 24px;border-radius:13px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(46,140,255,.35);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.ipucu{font-size:12px;color:var(--dim);margin-top:8px}
+#sonuc{margin-top:24px}
+.kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:14px;padding:20px;margin-bottom:14px}
+.kart.yok{border-left-color:var(--green)}
+.kart .et{font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--red)}
+.kart.yok .et{color:var(--green)}
+.kart h3{margin:6px 0 12px;font-size:18px;letter-spacing:-.3px}
+.satir{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.satir:last-child{border:0}.satir b{color:var(--ink)}.satir span{color:var(--muted);text-align:right}
+.kiyas{background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.3);color:var(--amber);border-radius:10px;padding:11px 14px;font-size:13.5px;margin-top:12px}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:22px;margin-top:20px}
+.cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.cta a.btn{display:inline-block;text-decoration:none}
+.uyari{font-size:12px;color:var(--dim);margin-top:18px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="radar.html">Bugün RG'de</a> · GTİP Sağlık Kontrolü</div>
+  <h1>GTİP Sağlık Kontrolü</h1>
+  <p class="lead">Kodunu gir; o kodda <b style="color:var(--ink)">ithalatta gözetim uygulaması</b> var mı, birim kıymeti kaç, hangi tebliğe dayanıyor — saniyede gör.</p>
+
+  <div class="ara">
+    <input id="gtip" placeholder="ör. 6910.10.00.00.00" inputmode="numeric" autocomplete="off">
+    <button class="btn" onclick="sorgula()">Kontrol et</button>
+  </div>
+  <div class="ipucu">Tam kod ya da başlangıcını yazabilirsin (ör. 6907 → o grubun tüm kodları).</div>
+
+  <div id="sonuc"></div>
+
+  <div class="uyari">Kapsam: yürürlükteki ithalatta gözetim tebliğleri (resmî birleşik metinlerden). Damping, gümrük vergisi ve ÜGD katmanları eklenmektedir. Bilgilendirme amaçlıdır; işlem öncesi kaynak tebliğe bakınız.</div>
+  <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler · SMMM Cem Dizdar</div>
+</div>
+
+<script>
+let VERI = null;
+fetch('veri/gtip-durum.json').then(r=>r.json()).then(j=>VERI=j).catch(()=>VERI={});
+
+function tl(s){ return s; }
+function sorgula(){
+  const s = document.getElementById('sonuc');
+  const q = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();
+  if(!q){ s.innerHTML='<div class="kart yok"><div class="et">■ BİLGİ</div><h3>Bir GTİP kodu gir.</h3></div>'; return; }
+  if(!VERI){ s.innerHTML='<div class="kart"><h3>Veri yükleniyor, bir saniye…</h3></div>'; return; }
+
+  // tam eşleşme ya da önek eşleşmesi
+  const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(q.replace(/\./g,'')));
+  if(!kodlar.length){
+    s.innerHTML = `<div class="kart yok"><div class="et">■ TEMİZ</div>
+      <h3>${q} kodunda kayıtlı gözetim bulunamadı.</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin:0">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı. Yine de damping/ÜGD gibi başka bir yükümlülük olabilir — tam radar için karneni çıkar.</p></div>` + ctaHtml();
+    return;
+  }
+  let html = '';
+  for(const kod of kodlar.slice(0,25)){
+    const kayitlar = VERI[kod];
+    let satirlar = kayitlar.map(k=>`<div class="satir"><b>Birim kıymet</b><span>${k.deger}</span></div>
+      <div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
+      <div class="satir"><b>Resmî metin</b><span><a href="${k.kaynak}" target="_blank" rel="noopener">mevzuat.gov.tr →</a></span></div>`).join('');
+    html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
+      <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}
+      <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p></div>`;
+  }
+  s.innerHTML = html + ctaHtml();
+}
+function ctaHtml(){
+  return `<div class="cta"><h3>Bu tek kod. Ya diğerleri, ya değişiklikler?</h3>
+    <p>Kodlarını kaydet, birine gözetim/damping geldiği gün cebine kart düşsün. Ücretsiz karneyle başla.</p>
+    <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>`;
+}
+document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Enter') sorgula(); });
+</script>
+</body>
+</html>
