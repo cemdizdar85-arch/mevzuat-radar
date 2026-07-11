@@ -2,8 +2,8 @@
     {
         "dosya":  "20260711-31.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-31.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması birim kiymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatçıların denetim kapsamına girmesi için gerekli olan birim kiymet limitlerini yeni tabloda belirtilen değerlerle değiştirmiştir. Değişiklik 16/4/2018 tarihli Tebliğ No: 2018/5\u0027in eki tablosunun güncellenmesi şeklinde gerçekleştirilmiştir.",
+        "baslik_sade":  "İthalatta gözetim uygulanmasına ilişkin tebliğde tablo değiştirilmiştir.",
+        "ne_oldu":  "Ticaret Bakanlığı, 16/4/2018 tarihli İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2018/5) 1. maddesindeki tabloyu değiştirmiştir. Tabloda GTIP kodlarına karşılık gelen birim kıymetler güncellenmiştir.",
         "gtip_kodlari":  [
                              "6907.21.00.00.00",
                              "6907.22.00.00.00",
@@ -13,46 +13,49 @@
                              "6910.10.00.00.00",
                              "6910.90.00.00.00"
                          ],
-        "urun_tanimi":  "Seramik ve mozaik ürünleri (kaplama malzemeleri, mozaik küpler, benzerler)",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden işletmeler ve dış ticaret danışmanları",
-        "ne_yapmali":  "İthalatçılar, söz konusu GTIP kodlarındaki gönderilerin birim kiymet limitlerini tabloya göre güncelleyerek gümrük işlemlerini buna göre düzenlemeli",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "GTIP 6907.21.00.00.00, 6907.23.00.00.00 ve 6910.10.00.00.00 kodlarının birim kiymet değerleri tabloda gösterilmemiştir. Yürürlük tarihi 11 Temmuz 2026 tarihinden itibaren 30 gün sonra olacaktır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Seramik ürünler (kütleler, mozaik küpler, bitirme seramikleri, parçalanmış ürünler, dişliler)",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal eden işletmeler",
+        "ne_yapmali":  "Tebliğ yürürlüğe girdikten sonra ilgili GTIP kodları için belirtilen birim kıymetlere göre işlem yapmak",
+        "yururluk":  "yayimini takip eden 30. gun",
+        "kesin_kiymetler":  {
+                                "6907.22.00.00.00":  "1.000 ABD Dolari/Ton",
+                                "6907.30.00.00.00":  "1.500 ABD Dolari/Ton",
+                                "6907.23.00.00.00":  "kaynakta belirtilmemis",
+                                "6907.21.00.00.00":  "kaynakta belirtilmemis",
+                                "6907.40.00.00.00":  "1.000 ABD Dolari/Ton"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metninde 6907.21.00.00.00, 6907.23.00.00.00 ve 6910.90.00.00.00 kodlarının birim kıymetleri açıkça belirtilmemiştir. Tablo görüntüsünde bu kodlar için \u0027Asyılığa suyu absorbe etme katsayısı\u0027 başlığı görülmekte ancak sayısal değer okunamadığından kaynakta belirtilmemiş işaretlenmiştir. | Hakem gecisi basarisiz oldu | Su kodlarin kiymeti guvenle okunamadi: 6910.90.00.00.00, 6910.10.00.00.00"
     },
     {
         "dosya":  "20260711-32.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-32.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması kapsamındaki ürünler ve birim kiymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatta gözetim uygulanmasına ilişkin tebliğde yer alan ürün listesi ve birim kiymetlerini güncelleştirmiştir. Tablo aşağıdaki 6 ürün grubunu kapsamaktadır.",
+        "baslik_sade":  "İthalatta gözetim uygulamasına ilişkin tebliğde ürün listesi güncellenmesi.",
+        "ne_oldu":  "Ticaret Bakanlığı, 3/5/2018 tarihli Tebliğ No: 2018/7\u0027nin 1. maddesindeki tabloyu güncelleştirmiştir. Tabloda elektrikli kornalar, sireneler, değerli taşlar, kurultulu telefon cihazları, kapalı devre konuşma sistemleri ve dipterenler için birim kıymetler belirlenmiştir.",
         "gtip_kodlari":  [
-                             "8512.30.90.00.011",
-                             "8512.30.90.00.012",
-                             "8512.30.90.00.019",
-                             "8517.69.10.00.00"
+                             "8517.69.10.00.00",
+                             "8531.10.30.00.12"
                          ],
-        "urun_tanimi":  "Elektrikli kornalar, sirenler, diyafralar, görüştülü telefon cihazları, kapalı devre konuşma sistemleri",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden işletmeler ve dış ticaret yapan KOBİ\u0027ler",
-        "ne_yapmali":  "Söz konusu ürünleri ithal ederken tabloda belirtilen birim kiymetleri göz önünde bulundurmak",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğ metni \u0027Madde 1\u0027de \u0027tablo aşağıdaki şekilde değiştirilmiştir\u0027 denilmesine rağmen, orijinal tebliğin (2018/7) tam metni verilmemiş, yalnızca yeni tablonun bir bölümü görüntülenmiştir. Kapalı devre konuşma sistemleri ve görüştülü telefon cihazlarının birim kiymetleri tabloda görünmemektedir. Yürürlük tarihi: 11 Temmuz 2026 + 30 gün | GTIP listesi iki okumada farkli cikti - kesin liste icin kaynaga bakin | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  false,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Elektrikli kornalar, sireneler, değerli taşlar ve iletişim cihazları",
+        "kimi_ilgilendirir":  "İthalatçı KOBİ\u0027ler ve ticari işletmeler",
+        "ne_yapmali":  "İlgili GTIP kodları altındaki ürünlerin ithalatında tabloda belirtilen birim kıymetlere uyum sağlanmalıdır.",
+        "yururluk":  "yayimini takip eden 30. gun",
+        "kesin_kiymetler":  {
+                                "8531.10.30.00.12":  "25 ABD Dolari/Adet",
+                                "8517.69.10.00.00":  "100 ABD Dolari/Kilogram"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "GTIP 8512.30.90.00.12 ve 8517.69.20.00.00 kodlarının birim kıymetleri tabloda görüntülenmemiş olup kaynakta belirtilmemiştir. Yürürlük tarihi hesaplama: Tebliğ yayım tarihi olarak 11 Temmuz 2026\u0027den 30 gün sonra başlangıç tarihi alınması gerekmektedir. | GTIP listesi iki okumada farkli - kesisim alindi | Hakem gecisi basarisiz oldu | Su kodlarin kiymeti guvenle okunamadi: 8512.30.90.00.19, 8512.30.90.00.12, 8512.30.90.00.11, 8517.69.20.00.00, 8512.30.90.00.012, 8512.30.90.00.011, 8517.62.20.00.00, 8512.30.90.00.019"
     },
     {
         "dosya":  "20260711-33.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-33.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması birim kıymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatçıların ödeyeceği gözetim birim kıymetlerini yeni değerlerle güncelleştirmiştir. Tabloda GTIP kodlarına göre ABD Doları/kg cinsinden yeni birim kıymetler belirlenmiştir.",
+        "baslik_sade":  "İthalatta gözetim uygulaması kapsamında belirli ürün gruplarının birim kıymetleri güncellenmiştir.",
+        "ne_oldu":  "16/9/2018 tarihli Tebliğ No: 2018/8\u0027de yer alan ithalatta gözetim uygulaması tablosu değiştirilmiştir. Tablo 6 GTIP koduna ait birim kıymetler belirlenmiştir.",
         "gtip_kodlari":  [
                              "8708.93.90.00.11",
                              "8708.93.90.00.21",
@@ -62,149 +65,114 @@
                              "8708.93.90.00.32",
                              "8708.93.90.00.39"
                          ],
-        "urun_tanimi":  "Motor parçaları (otomotiv sektörü - debriyaj ve disk komplesi)",
-        "kimi_ilgilendirir":  "Motor parçaları ithalatçısı ve ihracatçı KOBİ\u0027ler",
-        "ne_yapmali":  "Söz konusu GTIP kodları altında ürün ithal ederken yeni birim kıymetlere (9-10 ABD Doları/kg arası) göre gözetim uygulaması ödeneğini hesaplamak",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Teblig metni yalnızca tablo güncellenmesini belirtmiştir; diğer hükümler değişmemiştir (Tebliğ No: 2018/8 geçerli kalmaktadır). Yürürlük tarihi: 11 Temmuz 2026 + 30 gün = kaynakta açık tarih belirtilmemiş | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Otomotiv sektörü parçaları (disk sistemleri, kompleksi ve diğerleri)",
+        "kimi_ilgilendirir":  "Bu ürün gruplarını ithal eden işletmeler",
+        "ne_yapmali":  "Güncellenmiş birim kıymetleri gözetim uygulaması kapsamında dikkate almak",
+        "yururluk":  "yayimini takip eden 30. gun",
+        "kesin_kiymetler":  {
+                                "8708.93.90.00.21":  "9 ABD Dolari/Kg",
+                                "8708.93.90.00.31":  "9 ABD Dolari/Kg",
+                                "8708.93.90.00.32":  "kaynakta belirtilmemis",
+                                "8708.93.90.00.29":  "2 ABD Dolari/Kg",
+                                "8708.93.90.00.11":  "10 ABD Dolari/Kg",
+                                "8708.93.90.00.22":  "kaynakta belirtilmemis",
+                                "8708.93.90.00.39":  "2 ABD Dolari/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "8708.93.90.00.22 ve 8708.93.90.00.32 kodlarının birim kıymetleri tabloda net olarak görülmemektedir."
     },
     {
         "dosya":  "20260711-34.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-34.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması birim kıymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatta gözetim uygulamasına ilişkin tebliğin birim kıymet tablosunu değiştirmiştir. Yeni birim kıymetler tabloda belirtilmiştir.",
+        "baslik_sade":  "İthalatta gözetim uygulamasına ilişkin tebliğde tablo değişikliği yapılmıştır.",
+        "ne_oldu":  "13/6/2018 tarihli Tebliğ No: 2018/10\u0027un 1. maddesindeki tablo güncellenmiştir. Bazı GTIP kodlarının birim kıymet değerleri değiştirilmiştir.",
         "gtip_kodlari":  [
                              "8431.31.00.00.11",
                              "8431.31.00.00.12",
                              "8431.31.00.00.19"
                          ],
-        "urun_tanimi":  "Boyu 1 metreye kadar ve üzeri asansör ışık perdesi (boy fotoselii), asansör kılavuz rayları, diğerleri",
-        "kimi_ilgilendirir":  "İthalatçı KOBİ\u0027ler, gümrük müşavirler, bu GTIP kodlarından ithalatçı firmalar",
-        "ne_yapmali":  "Söz konusu GTIP kodlarından ithalatınızda yeni birim kıymet değerlerini uygulamaya başlayınız",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "8431.31.00.00.11: 25 ABD Dolar/kg; 8431.31.00.00.12: 2 ABD Dolar/kg; 8431.31.00.00.19: 8 ABD Dolar/kg",
-        "guven_notu":  "Tebliğ metni açıklanmamıştır, tablo ek görüntüden okunmuştur. Yayım tarihi 11 Temmuz 2026 olarak belirtilmektedir.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
-    },
-    {
-        "dosya":  "20260711-35.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-35.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması birim kiymetleri ve kapsamı güncellendi",
-        "ne_oldu":  "11 Temmuz 2026 tarihli Tebliğ No: 2019/6\u0027da değişiklik yapılmıştır. Gözetim uygulaması kapsamındaki ürünlerin birim kiymetleri ve denetim kuralları yeniden belirlenmiştir.",
-        "gtip_kodlari":  [
-                             "9503.00.10.00.11",
-                             "9503.00.10.00.12",
-                             "9503.00.10.00.13",
-                             "9503.00.10.00.19",
-                             "9503.00.21.00.00",
-                             "9503.00.29.00.00",
-                             "9503.00.30.00.11",
-                             "9503.00.35.00.11",
-                             "9503.00.39.00.11",
-                             "9503.00.41.00.11",
-                             "9503.00.49.00.11",
-                             "9503.00.55.00.11",
-                             "9503.00.61.00.11",
-                             "9503.00.69.00.11",
-                             "9503.00.70.00.11",
-                             "9503.00.79.00.11",
-                             "9503.00.81.00.11",
-                             "9503.00.85.00.11",
-                             "9503.00.87.00.11",
-                             "9503.00.95.00.11",
-                             "9503.00.99.00.11",
-                             "9504.00.00.00.00",
-                             "9505.10.90.00.00",
-                             "9505.10.90.00.00 hariç"
-                         ],
-        "urun_tanimi":  "Oyuncaklar, oyun ve spor malzemeleri (GTIP 9503 ve 9504 grupları)",
-        "kimi_ilgilendirir":  "Oyuncak ve oyun malzemeleri ithalatçı ve ihracatçı işletmeleri",
-        "ne_yapmali":  "İthalatçılar, söz konusu ürün gruplarında gözetim uygulamasına tabi olduklarını ve tabloda belirtilen birim kiymetleri dikkate alarak gümrük işlemlerini yapmalıdırlar",
-        "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tablodaki para birimi (Dolar/TL) açık belirtilmemiştir. Tebliğ metninde 2. maddenin ikinci fıkrasının yürürlükten kaldırılması hakkında detay verilmemiştir. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Tarım makineleri ve hasat makinelerine ait yedek parçalar (boy 1 metre ve üzeri asansör ışık perdesi, asansör kılav­uz rayları, diğerleri)",
+        "kimi_ilgilendirir":  "Bu ürün gruplarını ithal eden işletmeler",
+        "ne_yapmali":  "Söz konusu GTIP kodları altında ithalat yapılırken güncellenmiş birim kıymet değerlerini esas almak",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+                                "8431.31.00.00.19":  "8 ABD Dolari/Kg",
+                                "8431.31.00.00.11":  "25 ABD Dolari/Kg",
+                                "8431.31.00.00.12":  "2 ABD Dolari/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ tarihi 11 Temmuz 2026 olarak Resmî Gazete\u0027de belirtilmiş olup yürürlük tarihi 30. gün sonrası (10 Ağustos 2026 civarı) olacaktır. Tabloda gösterilen tüm GTIP kodları okunabilmiştir."
     },
     {
         "dosya":  "20260711-36.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-36.htm",
-        "baslik_sade":  "İthalatta gözetim uygulamasında birim kiymet tablosu güncellendi ve ihracatçı bilgi formu şartı kaldırıldı",
-        "ne_oldu":  "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ\u0027in 1. maddesindeki tablo yeniden düzenlenmiştir. Ayrıca, 7007.19.80.00.15 GTIP\u0027li güneş paneli malzemeleri için ihracatçı-üretici bilgi formu şartı, kapasite raporu sunulması durumunda kaldırılmıştır.",
+        "baslik_sade":  "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ\u0027de tablo ve form gereklilikleri değiştirilmiştir.",
+        "ne_oldu":  "22/2/2020 tarihli Tebliğ No: 2020/1\u0027in 1. maddesindeki tablo güncellenmiş, Ek-2\u0027deki 7007.19.80.00.15 GTIP kodlu güneş paneli malzemeleri için form şartı kaldırılmıştır.",
         "gtip_kodlari":  {
 
                          },
-        "urun_tanimi":  "Cam ve camdan yapılmış eşyalar (düz cam, işlenmiş cam, emaye boyalı cam, güneş paneli malzemeleri vb.)",
-        "kimi_ilgilendirir":  "Cam ve cam ürünleri ithalatçıları, güneş paneli üreticileri, gözetim kapsamında ithalatı yapan firmalar",
-        "ne_yapmali":  "İthalat yapanlar güncel birim kiymet tablosuna göre gözetim işlemlerini yürütmeli; 7007.19.80.00.15 GTIP\u0027li güneş paneli malzemeleri için kapasite raporu sunulması halinde ihracatçı bilgi formu ibraz etmemelidirler",
+        "urun_tanimi":  "Güneş paneli üretiminde kullanılan cam ve cam malzemeleri",
+        "kimi_ilgilendirir":  "Güneş paneli üreten veya bileşen ithal eden işletmeler",
+        "ne_yapmali":  "Güneş paneli üretimine ilişkin kapasite raporu sunulması halinde 2B-İhracatçı-Üretici Bilgi Formu ibraz etmeye gerek yoktur.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Teblig metninde tam tablo yer almamaktadır - görüntüdeki tablo ile metinde verilen bilgiler birleştirilmiştir. 7007.19.80.00.15 GTIP kodunun tam tanımı kaynakta belirtilmemiş; 7007.19.80.00.28 olarak gösterilen değerle eşleşme kontrol edilmelidir. | GTIP listesi iki okumada farkli cikti - kesin liste icin kaynaga bakin | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  false,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablodaki birim kıymetler görüntüde yer almakta ancak değerler net okunamadığı için listeye dahil edilmemiştir. Kaynakta belirtilen GTIP kodu: 7007.19.80.00.15 (başlıkta 7007.19.80.00.15 olarak geçmektedir). | GTIP listesi iki okumada farkli - kesisim alindi | Hakem gecisi basarisiz oldu | Su kodlarin kiymeti guvenle okunamadi: 70.05, 7005.29, 70.06, 7007.19.80.00.28, 7007.11.10.00.19, 7007.11.10.00.12, 70.07, 7007.21.20.00.31"
     },
     {
         "dosya":  "20260711-37.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-37.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması kapsamındaki ürünler ve birim kiymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatta gözetim uygulanmasına ilişkin tebliğde değişiklik yaptı. Tebliğin 1. maddesindeki tablo güncellenmiştir.",
+        "baslik_sade":  "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ\u0027de ürün tablosu değiştirilmiştir.",
+        "ne_oldu":  "Ticaret Bakanlığı, 8/5/2020 tarihli Tebliğ No: 2020/6\u0027nın 1. maddesindeki tabloyu güncellenmiştir. Değişiklik yayımını takip eden 30. günde yürürlüğe girecektir.",
         "gtip_kodlari":  "8517.13.00.00.19",
-        "urun_tanimi":  "Diğerleri (8517 GTIP koduna bağlı)",
-        "kimi_ilgilendirir":  "İthalatçı KOBİ\u0027ler, özellikle 8517.13.00.00.19 kodlu ürün ithal edenler",
-        "ne_yapmali":  "Bu ürünleri ithal ederken gözetim birim kiymetini (250 ABD Doları/Adet) referans alarak işlem yapmalısınız; detaylar için Ticaret Bakanlığı\u0027ndan resmi bilgi talep edin",
+        "urun_tanimi":  "Diğer haberleşme cihazları ve ekipmanları (GTIP 8517.13)",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal eden KOBI\u0027ler",
+        "ne_yapmali":  "İthalatçılar, tablodaki ürünlere ilişkin gözetim uygulamalarının güncellenen kurallarını Resmî Gazete\u0027den öğrenmelidir.",
         "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tablodaki tam içerik ve diğer GTIP kodlarının yer alıp almadığı kaynakta belirtilmemiş; görüntüde yalnızca bir satır visible. Tebliğin tam metnine Resmi Gazete No: 33307 (11 Temmuz 2026) üzerinden erişilmesi önerilir. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "8517.13.00.00.19":  "250 ABD Doları/Adet"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metninde sadece 1. maddesinde tablo değişikliğinden söz edilmektedir ancak tablonun tam içeriği metinde yer almamaktadır. Görüntüdeki tablo tek bir ürün koduna ait değer içermektedir; diğer kodlar kaynakta belirtilmemiştir."
     },
     {
         "dosya":  "20260711-38.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-38.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması kapsamındaki ürünler ve birim kıymetleri güncellendi.",
-        "ne_oldu":  "Ticaret Bakanlığı tarafından ithalatta gözetim uygulamasına ilişkin tebliğde değişiklik yapıldı. Tablodaki bazı ürünlerin birim kıymet değerleri (ABD Dolar/kg) güncellendi.",
+        "baslik_sade":  "İthalatta gözetim uygulaması kapsamında bazı ürünlerin birim kıymetleri değiştirilmiştir.",
+        "ne_oldu":  "11 Ocak 2025 tarihli tebliğin 1. maddesinde yer alan tablo güncellenmiştir. Tabloda bakalı, aseptik kağıtlar ve diğer ürünlerin birim kıymetleri belirlenmiştir.",
         "gtip_kodlari":  [
-                             "3009.40.00.00.12",
                              "4811.59.00.90.01",
                              "4811.90.00.90.01",
                              "4811.90.00.90.09"
                          ],
-        "urun_tanimi":  "Bakalit, aseptik kâğıtlar, karton ve diyetleri kapsayan ürün grubu",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden KOBİ ve işletmeler",
-        "ne_yapmali":  "Söz konusu GTIP kodlarındaki ürünlerin ithalatında yeni birim kıymet değerlerini dikkate almak",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tablo görselde \"Kg: Brüt ağırlık\" notu vardır. Aseptik kâğıtlar satırında birim kıymet değeri tam olarak okunamamıştır (1 veya 1.75 olabilir). Değişikliğin orijinal tebliğ numarası (2025/1) ve yayım tarihi (11/1/2025) kaynaktan doğrudan alınmıştır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Bakalı, aseptik kağıtlar ve diğer kağıt ürünleri",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal eden işletmeler",
+        "ne_yapmali":  "İthalatçılar tabloda belirtilen birim kıymet değerlerini gözetim uygulaması kapsamında dikkate almalıdır.",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+                                "4811.90.00.90.09":  "kaynakta belirtilmemis",
+                                "4811.59.00.90.01":  "kaynakta belirtilmemis"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablo görüntüsünde GTIP 4811.59.00.90.01 ve 4811.90.00.90.09 kodlarının birim kıymet değerleri net olarak okunamamıştır. Resmi Gazete metninde tablo detayları sınırlı görünmektedir. | GTIP listesi iki okumada farkli - kesisim alindi | Hakem gecisi basarisiz oldu | Su kodlarin kiymeti guvenle okunamadi: 3009.40.00.00.12, 4811.90.00.90.01, 3909.40.00.00.12"
     },
     {
         "dosya":  "20260711-39.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-39.htm",
-        "baslik_sade":  "İthalatında gözetim uygulaması kapsamındaki ürünlerin birim kıymetleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatta gözetim uygulanmasına ilişkin tebliğde yer alan birim kıymet tablosunu güncellemiştir. Tabloda yer alan GTIP kodlarına karşılık gelen birim kıymetler yeni değerlerle belirlenmiştir.",
+        "baslik_sade":  "İthalatта gözetim uygulanmasına ilişkin tebliğde tablo değiştirilmiştir.",
+        "ne_oldu":  "Ticaret Bakanlığı, 19/9/2025 tarihli Tebliğ No: 2025/9\u0027un 1. maddesindeki tabloyu değiştirmiştir. Tabloda belirtilen GTIP kodlarına ait birim kıymetler güncellenmiştir.",
         "gtip_kodlari":  [
                              "4011.10.00.10.00",
                              "4011.10.00.90.09",
@@ -215,344 +183,367 @@
                              "4011.20.10.00.19",
                              "4011.20.90.00.11",
                              "4011.20.90.00.19",
+                             "4011.40.00.00.00",
                              "4011.50.00.00.00",
+                             "4011.70.00.00.00",
                              "4012.90.20.00.11",
                              "4013.20.00.00.00",
                              "4013.90.00.00.11"
                          ],
-        "urun_tanimi":  "Otomobil lastikleri ve diğer lastik ürünleri",
-        "kimi_ilgilendirir":  "Söz konusu GTIP kodları kapsamında lastik ürünleri ithal eden işletmeler",
-        "ne_yapmali":  "Güncellenen tebliğ hükümlerine göre ithalatını gerçekleştiren işletmeler, yürürlük tarihinden itibaren yeni birim kıymet tablosunu uygulamalıdır",
-        "yururluk":  "yayımını takip eden 30. gün",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğin tam metni ve değişikliğe konu olan önceki tebliğ (19/9/2025 tarih, 33022 sayılı Resmî Gazete) birlikte incelenmelidir; tabloda yer alan tüm GTIP kodları ve kıymetler görüntüden okunmuştur | GTIP listesi iki okumada farkli cikti - kesin liste icin kaynaga bakin | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  false,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "urun_tanimi":  "Otomotiv ve endüstriyel amaçlı lastikler",
+        "kimi_ilgilendirir":  "Lastik ithalatçıları ve ihracatçıları",
+        "ne_yapmali":  "Gözetim kapsamındaki GTIP kodlarında ithalat yapacak işletmeler, tebliğde belirtilen birim kıymetleri dikkate almalıdır.",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "4013.90.00.00.11 GTIP kodunun birim kıymet değeri tabloda okunamadığı için listelenmiştir. Yürürlük tarihi 11 Temmuz 2026 tarihinden 30 gün sonrasıdır. | GTIP listesi iki okumada farkli - kesisim alindi | Hakem gecisi basarisiz oldu | Su kodlarin kiymeti guvenle okunamadi: 4011.10.00.90.11, 4011.20.90.00.19, 4011.20.90.00.11, 4013.90.00.00.11, 4012.90.20.00.11, 4011.20.10.00.11, 4011.40.00.00.00, 4011.70.00.00.00, 4011.20.10.00.12, 4013.20.00.00.00, 4011.10.00.90.12, 4011.10.00.10.00, 4011.20.10.00.19, 4011.10.00.90.09, 4011.50.00.00.00, 4011.10.00.90.13, 4011.10.00.90.19"
     },
     {
         "dosya":  "20260711-40.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-40.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması kapsamında ihracatçı-üretici form şartı hayvan yatağı üreticileri için değiştirildi",
-        "ne_oldu":  "Hayvan yatağı üretiminde kullanılmak üzere ihraç edilen ürünler için, kapasite raporu sunulması halinde \u00272B-İhracatçı-Üretici Bilgi Formu\u0027 aranmayacak. Formun gerekli olup olmadığı şartı güncellenmiştir.",
+        "baslik_sade":  "İthalatta gözetim uygulamasına ilişkin tebliğde hayvan yatağı üretimi için form şartı değiştirilmiştir.",
+        "ne_oldu":  "2026/29 numaralı Tebliğ\u0027in Ek-2\u0027sinde yer alan 2B-İhracatçı-Üretici Bilgi Formu şartı, hayvan yatağı üretimine ilişkin kapasite raporu sunulması halinde aranmayacak şekilde değiştirilmiştir.",
         "gtip_kodlari":  {
 
                          },
-        "urun_tanimi":  "Hayvan yatağı ve hayvan yatağı üretiminde kullanılacak ürünler",
-        "kimi_ilgilendirir":  "Hayvan yatağı üreticisi ve tedarikçi ihracatçılar",
-        "ne_yapmali":  "Hayvan yatağı üretiminde kullanılmak üzere ihraç yapacaksanız, kapasite raporu hazırlayarak ibraz edebilirsiniz; bu durumda 2B formunu sunmayabilirsiniz.",
+        "urun_tanimi":  "Hayvan yatağı üretiminde kullanılacak mallar",
+        "kimi_ilgilendirir":  "Hayvan yatağı üretimi amacıyla ithal yapan işletmeler",
+        "ne_yapmali":  "Hayvan yatağı üretimine ilişkin kapasite raporunu sunarak 2B-İhracatçı-Üretici Bilgi Formu sunma şartından muaf olabilir.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "GTIP kodu verilmemiştir. Hayvan yatağı tanımının kapsamı (örn: kullanılmış/yeni, malzeme türü) kaynakta belirtilmemiştir. Kapasite raporu formatı ve gerekli detaylar tebliğde tanımlanmamıştır.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Metinde GTIP kodu belirtilmemiştir. Kapasite raporu niteliği ve sunma prosedürü kaynakta belirtilmemiştir. Form muafiyetinin kapsamı net şekilde tanımlanmadığı için ihraç eden işletmelerin ilgili makamdan yazılı açıklama alması önerilir. | GTIP listesi iki okumada farkli - kesisim alindi"
     },
     {
         "dosya":  "20260711-41.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-41.htm",
-        "baslik_sade":  "Serum ampulleri ithalatında gözetim belgesi zorunlu hale getirildi",
-        "ne_oldu":  "7010.10.00.00 GTIP kodlu serum ampulleri ithalatında, birim kıymeti 10 ABD Doları/kg altında olanlar için Ticaret Bakanlığından gözetim belgesi alınması zorunlu kılındı. Belgeler elektronik ortamda düzenlenecek ve 6 ay geçerli olacak.",
+        "baslik_sade":  "Serum ampulleri ithalatında gözetim uygulaması yapılacaktır.",
+        "ne_oldu":  "Ticaret Bakanlığı, belirtilen GTİP kodundaki serum ampullerinin ithalatında gözetim belgesi şartı getirmiştir. İthalatçılar, gümrük kıymetinin altında birim kıymete sahip ürünler için elektronik başvuru yaparak gözetim belgesi almak zorundadırlar.",
         "gtip_kodlari":  "7010.10.00.00",
         "urun_tanimi":  "Serum ampulleri",
-        "kimi_ilgilendirir":  "Serum ampulleri ithalatçı KOBİ\u0027ler ve ithalatçı firmalar",
-        "ne_yapmali":  "İthalatçılar www.ticaret.gov.tr adresindeki E-Hizmetler \u003e İthalat Belge İşlemleri bölümünde elektronik imza ile gözetim belgesi başvurusu yapmalı; gümrük beyannamesinde belge referans numarası ve tarihi 44 nolu kutuya yazmalı. Gümrük kayıtları yoksa 5 iş gün içinde sisteme kayıt yaptırmalı.",
+        "kimi_ilgilendirir":  "Serum ampulleri ithal eden işletmeler",
+        "ne_yapmali":  "Ticaret Bakanlığı E-Hizmetler portalından (www.ticaret.gov.tr) veya e-Devlet (www.turkiye.gov.tr) üzerinden elektronik imza ile gözetim belgesi başvurusu yapınız. Başvuruda belge türü olarak \u0027TPS-0964-Gözetim Belgesi Sanayi\u0027 seçiniz.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğ numarası 2026/38. Başvuru formu Ek-1 ve Ek-2\u0027de yer almakta olup, doküman metinde ekte sunulmamaktadır. Elektronik ortamda sorun yaşanması durumunda fiziksel başvuru da mümkün. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "7010.10.00.00":  "10 ABD Doları/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ numarası ve tarih metinden açık şekilde okunmuştur. Tablo görüntüsündeki tüm değerler metinde doğrulandığından güven düzeyi yüksektir."
     },
     {
         "dosya":  "20260711-42.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-42.htm",
-        "baslik_sade":  "Kaplamış teller ithalatında gözetim belgesi zorunlu hale geldi",
-        "ne_oldu":  "GTIP 7229.90.90.00.12 kodlu kaplamış teller için, birim kıymeti 1,8 ABD Doları/Kg altında olan ithalatlar artık Ticaret Bakanlığından alınacak gözetim belgesi ile yapılacak. Gözetim belgesi, gümrük beyannamesinin tescilinde gümrük idaresi tarafından aranacak.",
+        "baslik_sade":  "Kaplamış teller ithalatında gözetim uygulaması için gümrük kıymet eşiği belirlenmiştir.",
+        "ne_oldu":  "Ticaret Bakanlığı, GTIP 7229.90.90.00.12 kodlu kaplamış tellerin ithalatında gözetim uygulamasını düzenleyen tebliğ yayımlamıştır. İthalatçılar, belirtilen gümrük kıymetinin altında bu ürünleri ithal edeceklerse Bakanlıktan gözetim belgesi almak zorundadır.",
         "gtip_kodlari":  "7229.90.90.00.12",
         "urun_tanimi":  "Kaplamış teller",
-        "kimi_ilgilendirir":  "GTIP 7229.90.90.00.12 kodlu kaplamış teller ithal eden firmalar",
-        "ne_yapmali":  "İthalatçılar e-imzayla www.ticaret.gov.tr üzerinden veya e-Devlet (www.turkiye.gov.tr) aracılığıyla \u0027İthalat Belge İşlemleri\u0027 bölümünde \u0027TPS-0964-Gözetim Belgesi Sanayi\u0027 belgesi için başvuru yapmalı; gözetim belgesi alınana kadar ithalat yapmamalı.",
-        "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğ metninde \u0027Ek-1\u0027 ve \u0027Ek-2\u0027 formlarına referans verilmektedir ancak bu ekler metinde yer almamıştır; gözetim belgesinin geçerlilik süresi 6 aydır; elektronik başvuru yapılamama durumunda fiziksel başvuru mümkündür. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kimi_ilgilendirir":  "Kaplamış tel ithalatçıları ve ihracatçıları",
+        "ne_yapmali":  "GTIP 7229.90.90.00.12 kodlu ürün ithal edecek firmalar, www.ticaret.gov.tr adresinden e-imza ile Gözetim Belgesi başvurusu yapmalı ve belgesi olmadan gümrük beyannamesini tescil ettirememelidir.",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+                                "7229.90.90.00.12":  "1,8 ABD Doları/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablodaki \u0027Kg: Brüt ağırlık\u0027 notu, birim kıymetin Kg başına olduğunu açıklamaktadır. Tebliğ metninde başka GTIP kodu ve kıymet değeri bulunmamaktadır."
     },
     {
         "dosya":  "20260711-43.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-43.htm",
-        "baslik_sade":  "İskele kurmaya ve beton kalıplamasına destek vurmaya yönelik ithalatında gözetim belgesi zorunlu hale getirildi",
-        "ne_oldu":  "Ticaret Bakanlığı, 7308.40.00.00 GTIP kodlu eşyanın ithalatında gözetim uygulamasını başlatmıştır. 4 ABD Doları/kg altında birim kıymetli ürünler gözetim belgesi alınması şartı ile ithal edilebilecektir.",
+        "baslik_sade":  "İthalatçılar, belirtilen ürünleri ithal etmek için Ticaret Bakanlığından gözetim belgesi alması zorunludur.",
+        "ne_oldu":  "Ticaret Bakanlığı, belirli gümrük tarife istatistik pozisyonlarındaki ürünlerin ithalatında gözetim uygulaması başlatmıştır. İthalatçılar bu ürünleri ancak bakanlıktan aldıkları gözetim belgesi ile gümrükten geçirebilir.",
         "gtip_kodlari":  "7308.40.00.00",
-        "urun_tanimi":  "İskele kurmaya ve beton kalıplamasına destek vurmaya yönelik demir/çelik eşya",
-        "kimi_ilgilendirir":  "Bu ürün grubunu ithal eden işletmeler ve gümrük müşevirler",
-        "ne_yapmali":  "Söz konusu ürünlerin ithalatında Ticaret Bakanlığı\u0027ndan gözetim belgesi alınması gereklidir. Başvuru, e-Devlet veya www.ticaret.gov.tr adresindeki \u0027E-Hizmetler\u0027 kısmından elektronik imzayla yapılır. Gümrük beyannamesi 44 nolu kutuda belge referans numarası ve tarihi beyan edilmelidir.",
-        "yururluk":  "Kaynak tebligdeki yururluk maddesine bakin",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Teblig metni ve tablonun tam uyumunun kontrolü sağlanmıştır. Belge geçerlilik süresi 6 aydır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  false
-                       }
+        "urun_tanimi":  "İskele kurmaya ve beton kalıplamaya destek vurmaya veya maden direkleri yerleştirme amacıyla yaşlanmış malzeme (brüt ağırlık ölçü)",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal eden şirketler ve gümrük müşaviri firmalar",
+        "ne_yapmali":  "Ticaret Bakanlığı internet sayfasından (www.ticaret.gov.tr) veya e-Devlet (www.turkiye.gov.tr) üzerinden elektronik imza ile gözetim belgesi talep etme; fiziksel başvuru söz konusu ise Ek-1 formunu kullanma",
+        "yururluk":  "yayimini takip eden 30. gun",
+        "kesin_kiymetler":  {
+                                "7308.40.00.00":  "4 ABD Doları/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablo görüntüsünde \u0027Birim Gümrük Kıymeti\u0027 değeri 4 olarak okunmuş, birimi tabloda \u0027ABD Doları/Kg\u0027 olarak belirtilmiştir. Ek-1 ve Ek-2 formları kaynak metinde bulunmamaktadır."
     },
     {
         "dosya":  "20260711-44.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-44.htm",
-        "baslik_sade":  "Belirli ithal ürünleri için gözetim belgesi alınması zorunlu hale getirildi",
-        "ne_oldu":  "Ticaret Bakanlığı, GTIP 7324.10.00.00.00 kapsamındaki paslanmaz çelikten eviyeleri ve lavabolar için ithalatında gözetim uygulaması başlatmaktadır. Bundan sonra bu ürünler ancak Bakanlıktan alınan gözetim belgesi ile ithal edilebilecektir.",
+        "baslik_sade":  "7324.10.00.00.00 pozisyonundaki paslanmaz çelikten eviyeler ve lavabolar için ithalatında gözetim belgesi zorunlu kılınmıştır.",
+        "ne_oldu":  "Ticaret Bakanlığı, belirtilen GTİP kodundaki ürünlerin ithalatında gözetim belgesi uygulamasına başlıyor. Gözetim belgesi olmaksızın bu ürünler gümrük beyannamesinin tescili sırasında kabul edilmeyecektir.",
         "gtip_kodlari":  "7324.10.00.00.00",
-        "urun_tanimi":  "Paslanmaz çelikten eviyeleri ve lavabolar",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden ve ihraç eden işletmeler",
-        "ne_yapmali":  "İthalatçılar, e-ticaret.gov.tr veya e-Devlet üzerinden elektronik imzayla gözetim belgesi talep etmelidir. Belge alındıktan sonra sistem tarafından verilen 23 haneli belge numarası ve tarihi gümrük beyannamesinin 44 nolu kutusunda beyan etmelidir.",
+        "urun_tanimi":  "Paslanmaz çelikten eviyeler ve lavabolar",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal etmek isteyen ithalatçı firmalar",
+        "ne_yapmali":  "İthalatçı, gümrük beyannamesini vermeden önce Ticaret Bakanlığından elektronik imza ile gözetim belgesi talep etmelidir. Başvuru www.ticaret.gov.tr veya www.turkiye.gov.tr üzerinden yapılacaktır.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tabloda yalnızca birim kıymet ve ürün tanımı bulunmaktadır. Tebliğin tam metni eklerden ulaşılabilir. Gözetim belgesi 6 ay geçerlidir. Belgeler arasında tutarsızlık tespit edilirse başvuru reddedilebilir. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metninde sadece bir GTIP kodu ve bir birim kıymet değeri yer almaktadır. Tablo görüntüsü net şekilde okunmuştur. Diğer koşullar (marka, menşei, kalite vb.) kaynakta belirtilmemiştir. | Su kodlarin kiymeti guvenle okunamadi: 7324.10.00.00.00"
     },
     {
         "dosya":  "20260711-45.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-45.htm",
-        "baslik_sade":  "Terzi makaslı ve istindeki makaslara (GTIP 8213.00.00.10.11) ithalatında gözetim belgesi zorunlu hale geldi",
-        "ne_oldu":  "Ticaret Bakanlığı, belirtilen makas ürünlerinin ithalatında gözetim uygulaması başlatmıştır. İthalatçılar bu ürünleri getirmeden önce Bakanlıktan gözetim belgesi almak zorundadırlar.",
+        "baslik_sade":  "Terzi makaşları (yalnız istindeki makaşlar) ithalatında gözetim uygulaması yapılacaktır.",
+        "ne_oldu":  "Ticaret Bakanlığı, belirtilen GTİP kodundaki ürünlerin ithalatında gözetim belgesi şartı getirmiştir. İthalatçılar, bu ürünleri ithal etmek için Bakanlıktan gözetim belgesi alması gerekecektir.",
         "gtip_kodlari":  "8213.00.00.10.11",
-        "urun_tanimi":  "Terzi makaslı ve istindeki makaslı (12,7 cm ve altında)",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden firmalar ve gümrük müşevirler",
-        "ne_yapmali":  "Başvuruyu www.ticaret.gov.tr adresindeki E-Hizmetler/İthalat Belge İşlemleri bölümünden elektronik imzayla yapın veya e-Devlet üzerinden başvuru yapın. Belge türü olarak \u0027TPS-0964-Gözetim Belgesi Sanayi\u0027 seçin.",
+        "urun_tanimi":  "Terzi makaşları (yalnız istindeki makaşlar)",
+        "kimi_ilgilendirir":  "Terzi makaşı ithalatçıları ve ihracatçıları",
+        "ne_yapmali":  "İthalatçılar, Ticaret Bakanlığı web sitesinde (www.ticaret.gov.tr) elektronik imza ile gözetim belgesi başvurusu yapmalı; alternatif olarak e-Devlet (www.turkiye.gov.tr) üzerinden de başvuru yapabilirler.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğ metninde sadece 8213.00.00.10.11 GTIP kodu ve 20 USD/Kg birim kıymeti yer almaktadır. Başvuru formlarında (Ek-1, Ek-2) yer alan detaylar kaynakta belirtilmemişdir. Gözetim belgesi geçerlilik süresi 6 aydır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "8213.00.00.10.11":  "20 ABD Dolari/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablo görüntüsünde birim kıymet NET olarak 20 ABD Dolari/Kg okunmaktadır. Gümrük kıymetinin altında birim kıymetleri haiz ürünler kapsamında gözetim uygulaması yapılacaktır. Gözetim belgesinin geçerlilik süresi altı aydır."
     },
     {
         "dosya":  "20260711-47.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-47.htm",
-        "baslik_sade":  "Belirli motorlu araçlar ve motosikletlerin ithalatında gözetim belgesi sistemi başlatıldı",
-        "ne_oldu":  "Ticaret Bakanlığı, GTIP 8409.91.00.00.12 ve 8409.99.00.00.12 kodlu pistonlu motorlar (motosikletlerde kullanılan) ithalatında gözetim uygulaması getirmiştir. Söz konusu ürünlerin ithalatı için Bakanlıktan gözetim belgesi alınması zorunlu hale gelmiştir.",
+        "baslik_sade":  "Motorlu pistonlu kompresörler ile aksesuar ve parçaları ithalatında gözetim uygulaması yapılacaktır.",
+        "ne_oldu":  "Ticaret Bakanlığı, belirtilen GTİP kodlarına giren motorlu pistonlu kompresörlerin (25 ABD Dolari/Kg altında birim kıymetlilerin) ithalatında gözetim belgesi zorunlu hale getirmiştir. İthalatçılar, Ticaret Bakanlığından elektronik ortamda gözetim belgesi almak zorundadır.",
         "gtip_kodlari":  [
                              "8409.91.00.00.12",
                              "8409.99.00.00.12"
                          ],
-        "urun_tanimi":  "Pistonlu motorlar (motosikletlerde kullanılanlar) - birim kıymeti 25 ABD Doları/kg altında olanlar",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden şirketler ve ithalatçılar",
-        "ne_yapmali":  "İthalat yapmadan önce Ticaret Bakanlığı İthalat Genel Müdürlüğü\u0027nden elektronik ortamda (www.ticaret.gov.tr E-Hizmetler \u003e İthalat Belge İşlemleri) veya e-Devlet (www.turkiye.gov.tr) üzerinden gözetim belgesi talep etmeli; gümrük beyannamesine belge referans numarasını 44 nolu kutuda yazmalıdır",
+        "urun_tanimi":  "Motorlu pistonlu kompresörler, aksesuar ve parçaları",
+        "kimi_ilgilendirir":  "Belirtilen GTİP kodlarında ürün ithal eden işletmeler",
+        "ne_yapmali":  "Ticaret Bakanlığı İthalat Genel Müdürlüğünden (www.ticaret.gov.tr veya www.turkiye.gov.tr üzerinden) gözetim belgesi talep etmeli ve gümrük beyannamesinde belge numarası ile tarihi 44 nolu kutuya yazmalıdır.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "25 ABD Doları/kg",
-        "guven_notu":  "Tablo görselde yer alan \u002725\u0027 değerinin tam birim tanımı (\u0027ABD Doları/kg\u0027) belgede açıkça yazılmadığı için, tablo başlığından (\u0027Birim Gümrük Kıymeti (ABD Doları/Kg)\u0027) okunarak tamamlanmıştır. Gözetim belgesinin 6 ay geçerli olduğu ve gümrük kıymeti değerlemesini etkilemediği belirtilmiştir.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablo görüntüsündeki birim kıymet değeri (25) yorumlanarak \u0027ABD Dolari/Kg\u0027 birimi eklenmiştir. Tabloda tam açıklama yer almadığı için kıymetin \u0027altında\u0027 olanlar için uygulanması hükmü metinden alınmıştır. | Su kodlarin kiymeti guvenle okunamadi: 8409.91.00.00.12, 8409.99.00.00.12"
     },
     {
         "dosya":  "20260711-48.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-48.htm",
-        "baslik_sade":  "Belirli ürünlerin ithalatında gözetim belgesi zorunlu hale getirildi",
-        "ne_oldu":  "Ticaret Bakanlığı, tanımı ve GTIP kodu belirlenen ürünlerin ithalatında gözetim belgesi alma zorunluluğu getirmiştir. İthalatçılar artık gümrük beyannamesini vermeden önce elektronik ortamda gözetim belgesi talep etmelidir.",
+        "baslik_sade":  "Belirli gümrük tarife kodlu eşyaların ithalatında gözetim belgesi uygulaması başlatılmaktadır.",
+        "ne_oldu":  "Ticaret Bakanlığı, tanımı ve GTİP kodu belirtilen eşyaların belirli gümrük kıymetinin altında ithal edilmesi durumunda gözetim belgesi zorunluluğu getirmektedir. Başvurular elektronik imza ile E-Hizmetler platformu üzerinden yapılacaktır.",
         "gtip_kodlari":  "8433.90.00.10.01",
-        "urun_tanimi":  "Biçerdöver zıpkraları",
-        "kimi_ilgilendirir":  "Bu ürünü ithal eden işletmeler ve dış ticaret uzmanları",
-        "ne_yapmali":  "İthalatçılar, gümrük beyannamesinden önce www.ticaret.gov.tr adresindeki \u0027E-Hizmetler\u0027 bölümünden elektronik imza ile gözetim belgesi talep etmeli ve belgede verilen referans numarasını gümrük beyannamesinin 44 nolu kutusuna yazmalıdır.",
+        "urun_tanimi":  "Biyçerdöver zıpkaları",
+        "kimi_ilgilendirir":  "Bu ürünleri ithal eden KOBI\u0027ler ve ithalatçılar",
+        "ne_yapmali":  "Söz konusu ürün ithalatında Ticaret Bakanlığı\u0027ndan gözetim belgesi talep etmek. Başvuru www.ticaret.gov.tr veya www.turkiye.gov.tr üzerinden elektronik imza ile yapılacak. Belgede belirtilen referans numarası ve tarihi gümrük beyannamelerinin 44 nolu kutusunda beyan etmek.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tebliğ metninde sadece bir GTIP kodu ve birim kıymeti yer almaktadır. Tablo görsüründe başka ürünler olabilir ancak kaynakta belirtilmemiştir. Gözetim belgesinin geçerlilik süresi 6 aydır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "8433.90.00.10.01":  "15 ABD Dolari/Kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tabloda \u0027*Kg: Brut ağırlık\u0027 notu bulunmaktadır. Tebliğ metninde diğer GTIP kodları yer almayabilir; eki kontrol edilmesi önerilir."
     },
     {
         "dosya":  "20260711-49.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-49.htm",
-        "baslik_sade":  "Belirli ürünlerin ithalatında gözetim belgesi zorunlu hale getirildi",
-        "ne_oldu":  "Ticaret Bakanlığı, tanımlanmış ürünlerin (belirli birim kıymetin altında olanlar) ithalatında gözetim belgesi şartını getirdi. İthalatçılar, gümrük beyannamesini vermeden önce Bakanlıktan gözetim belgesi almalıdır.",
+        "baslik_sade":  "Belirli gümrük tarife kodlarındaki ürünlerin ithalatında gözetim belgesi uygulaması başlatılmıştır.",
+        "ne_oldu":  "Ticaret Bakanlığı, tanımlanmış gümrük tarife pozisyonlarına ait ve belirtilen kıymetin altındaki ürünlerin ithalatında gözetim belgesi düzenlemesini öngören bir uygulama başlatmıştır. Bu belgeler elektronik ortamda e-İmza ile başvuru yapılarak alınır.",
         "gtip_kodlari":  [
                              "8708.99.93.99.17",
                              "8708.99.97.99.17"
                          ],
-        "urun_tanimi":  "Rot, rotbaşı ve rotiller (motor parçaları)",
-        "kimi_ilgilendirir":  "Bu ürünleri ithal eden firmalar",
-        "ne_yapmali":  "E-İmza ile www.ticaret.gov.tr veya www.turkiye.gov.tr üzerinden \u0027İthalat Belge İşlemleri\u0027 bölümünde \u0027Gözetim Belgesi Sanayi\u0027 belgesi talep etmek; belgesi olmadan gümrük beyannamesini tescil ettiremez",
+        "urun_tanimi":  "Rot, rotbaşı ve rotiller",
+        "kimi_ilgilendirir":  "Söz konusu ürünleri ithal eden işletmeler",
+        "ne_yapmali":  "Ticaret Bakanlığı (İthalat Genel Müdürlüğü) tarafından düzenlenecek gözetim belgesi almak; belgeyi gümrük beyannamesinin 44 nolu kutusundaki \u0027Belge Referans No\u0027 ve \u0027Belge Tarihi\u0027 alanlarında beyan etmek; başvurular için www.ticaret.gov.tr veya www.turkiye.gov.tr üzerinden E-İmza ile işlem yapmak.",
         "yururluk":  "yayimini takip eden 30. gun",
-        "birim_kiymet":  "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin",
-        "guven_notu":  "Tablo görüntüsünde iki GTIP kodunun aynı ürüne ait olduğu görülmektedir ancak tabloda birim kıymet değeri her iki satırda da 10 olarak gösterilmiştir. Ek formlar (Ek-1, Ek-2) metinde referans verilmesine rağmen görüntüde yer almamaktadır. | Birim kiymet degerleri iki okumada farkli cikti",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  false,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "8708.99.93.99.17":  "10 ABD Dolari/kg",
+                                "8708.99.97.99.17":  "10 ABD Dolari/kg"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablo başlığında \u0027Birim Gümrük Kıymeti (ABD Dolar/Kg*)\u0027 yazılı olmakla birlikte, tebliğ metninde birim kıymetlere ilişkin detaylı açıklama yer almamıştır. Gözetim belgesi geçerlilik süresi altı aydır. Tebliğ tam metni ekler kısmında bulunmaktadır."
     },
     {
         "dosya":  "20260711-50.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-50.htm",
-        "baslik_sade":  "78 ml/g ve üzeri viskoziteli ürünlerin ithalatına 3 yıl süreyle ek mali yükümlülük uygulanacak",
-        "ne_oldu":  "Ticaret Bakanlığı tarafından yürütülen soruşturma sonucunda, GTIP 3907.61.00.00.00 pozisyonundaki 78 ml/g veya daha fazla viskozitesi olan eşyalar için ithalatta korunma önlemi olarak ek mali yükümlülük kararı alınmıştır. Ek mali yükümlülüğün tutarı tabloda belirtilen döviz kurlarına göre dönemsel olarak değişecektir.",
+        "baslik_sade":  "3907.61.00.00.00 GTIP kodlu yüksek viskoziteli ürünlerin ithalatına 3 yıl süreyle ek mali yükümlülük uygulanması.",
+        "ne_oldu":  "İthalatta Korunma Önlemleri Değerlendirme Kurulu, soruşturma sonucunda 78 ml/g veya daha fazla viskozitesi olan ürünlere karşı koruma önlemi kararı almıştır. Ek mali yükümlülük tablosu ile belirtilen seviyelerde uygulanacaktır.",
         "gtip_kodlari":  "3907.61.00.00.00",
-        "urun_tanimi":  "78 ml/g veya daha fazla viskozitesi olan eşya (petrokimya ürünü)",
-        "kimi_ilgilendirir":  "Bu ürünleri ithalatçılar ve ihracatçılar; özellikle gelişmekte olan ülkeler muafiyet kapsamında olabilir",
-        "ne_yapmali":  "İthalatçılar gümrük beyannamelerinde ek mali yükümlülüğü tablodaki birim kiymetlere göre hesaplayarak ödemeleri gerekir; ihracatçılar konuya ilişkin istişare talepte bulunabilir",
-        "yururluk":  "Kaynak tebligdeki yururluk maddesine bakin",
-        "birim_kiymet":  "1. Dönem (19.7.2026-30.12.2026): 120 ABD Dolar/Ton | 2. Dönem (31.12.2026-30.12.2027): 115 ABD Dolar/Ton | 3. Dönem (31.12.2027-30.12.2028): 110 ABD Dolar/Ton",
-        "guven_notu":  "Tabloda gösterilen fiyatlar kaynaktan aynen alınmıştır. Önlemin kesin yürürlüğe giriş tarihi Cumhurbaşkanlığı Kararının yayımlanmasına bağlıdır (tebliğ yayımı tarihi ile Cumhuriyet Kararı yürürlük tarihi ayrı olabilir). Gelişmekte olan ülkelere muafiyet şartları kaynakta belirtilmemiş.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  false
-                       }
+        "urun_tanimi":  "78 ml/g veya daha fazla viskozitesi olan eşya",
+        "kimi_ilgilendirir":  "İthalatçılar ve ihracatçılar",
+        "ne_yapmali":  "İthalatçılar, ilgili ürünlerin ithalatında tebliğde belirtilen ek mali yükümlülüğü karşılamalıdır. Gelişmekte olan ülkeler muafiyet talebinde bulunabilir.",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+                                "3907.61.00.00.00":  null
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tablodaki dönem tarihleri ve nihai yürürlük tarihi Cumhurbaşkanlığı Kararının yürürlüğe girmesiyle değişebilir. Gelişmekte olan ülkelere tanınan muafiyet koşulları kaynakta belirtilmemiştir. Ek-1\u0027de yer alan özet sonuç raporu kontrol edilmeli."
     },
     {
         "dosya":  "20260711-51.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-51.htm",
-        "baslik_sade":  "Polietilen Tereftalat Cips ithalatı için korunma önlemi soruşturması açılmıştır",
-        "ne_oldu":  "GTIP 3907.69.00.00.00 altında sınıflandırılan Polietilen Tereftalat Cips\u0027e uygulanan korunma önleminin gözden geçirilmesi için soruşturma başlatılmıştır. Ön inceleme sonucu, mevcut koruma önlemine rağmen ithalatın arttığı ve yerli üretim sektöründe ekonomik bozulmalar tespit edilmiştir.",
+        "baslik_sade":  "Polietilen Tereftalat Cips ithalatında mevcut koruma önleminin gözden geçirilmesi için soruşturma açılmıştır.",
+        "ne_oldu":  "GTIP 3907.69.00.00.00 altında sınıflandırılan Polietilen Tereftalat Cips ithalatında, yerli üreticilerin başvurusu üzerine koruma önleminin süresinin uzatılıp uzatılmayacağının incelenmesi amacıyla Ticaret Bakanlığı tarafından soruşturma açılmıştır. Soruşturma dokuz ay içinde tamamlanacak olup gerekli hallerde altı ay daha uzatılabilir.",
         "gtip_kodlari":  "3907.69.00.00.00",
-        "urun_tanimi":  "Polietilen Tereftalat Cips ve \u0027Diğerleri\u0027 tanımlı ürünler",
-        "kimi_ilgilendirir":  "Türkiye\u0027de ve yurtdışında yerleşik, Polietilen Tereftalat Cips ithalatı yapan firmalar; yerli üreticiler",
-        "ne_yapmali":  "İthalatçılar ve ilgili taraflar: (1) Tebliğ yayımından itibaren 30 gün içinde soru formunu doldurarak Ticaret Bakanlığı İthalat Genel Müdürlüğüne KEP (ticaretbakanligi@hs01.kep.tr) veya e-posta (korunma@ticaret.gov.tr) yoluyla göndermek; (2) Soru formlarını http://www.ticaret.gov.tr adresinde \u0027Korunma Önlemleri/Soruşturmalar\u0027 bağlantısından indirmek; (3) Tüm yazışmaları Türkçe yapılmak.",
+        "urun_tanimi":  "Polietilen Tereftalat Cips ve ilgili diğer ürünler",
+        "kimi_ilgilendirir":  "Polietilen Tereftalat Cips ithalatçıları, yerli üreticileri ve ihracatçıları",
+        "ne_yapmali":  "İlgili taraflar (ithalatçı, ihracatçı, üretici) tebliğ yayım tarihinden itibaren 30 gün içinde soru formunu doldurarak Ticaret Bakanlığı İthalat Genel Müdürlüğü\u0027ne göndermelidir. Formlar www.ticaret.gov.tr adresinden \u0027Korunma Önlemleri/Soruşturmalar\u0027 bağlantısından indirilir. İletişim: korunma@ticaret.gov.tr veya KEP: ticaretbakanligi@hs01.kep.tr",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Soruşturma süresi 9 aydır ve gerekli hallerde 6 ay uzatılabilir. Tebliğ yayım tarihi 11 Temmuz 2026 olarak belirtilmiştir. Soru formlarının doldurulması işi 30 gün içinde tamamlanmalıdır. Formların erişim adresi tebliğde \u0027kaynakta belirtilmemis\u0027 durumundadır - Bakanlık web sitesinden indirilmesi gerekir.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metni birim kıymet değerleri (fiyat, vergi oranı vb.) içermemektedir. Soruşturmanın başlama tarihi belirtilmemiştir. Tebliğ 11 Temmuz 2026 tarihinde yayımlanmıştır."
     },
     {
         "dosya":  "20260711-52.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-52.htm",
-        "baslik_sade":  "Filmaşin ithalatında koruma önleminin sürdürülüp sürdürülmeyeceği soruşturması açıldı",
-        "ne_oldu":  "Ticaret Bakanlığı, yerli üretim dalının başvurusu üzerine filmaşin ithalatında mevcut koruma önleminin gözden geçirilmesi için resmi soruşturma açmıştır. Soruşturma kapsamında önlemin ciddi zararı önlemek için hala gerekli olup olmadığı belirlenecektir.",
+        "baslik_sade":  "Filmaşin ithalatında korunma önleminin süresinin uzatılması için soruşturma açılmıştır.",
+        "ne_oldu":  "Yerli üretim dalının başvurusu üzerine, mevcut korunma önleminin gözden geçirilmesi için resmi soruşturma başlatılmıştır. Soruşturma Ticaret Bakanlığı İthalat Genel Müdürlüğü tarafından yürütülecektir.",
         "gtip_kodlari":  "kaynakta belirtilmemis",
-        "urun_tanimi":  "Filmaşin (ekte tablo ile belirtilen GTIP kodlu eşya)",
-        "kimi_ilgilendirir":  "Filmaşin ithalatçıları, yerli filmaşin üreticileri ve tedarikçileri, soruşturmada ilgili taraf olmak isteyen tüm firmalar",
-        "ne_yapmali":  "İlgili taraflar: (1) Bakanlık internet sitesinden soru formunu indirip 30 gün içinde doldurup göndermek, (2) Türkçe yazılı yanıt sunmak, (3) Gizli olmayan özeti talep edebilmek, (4) Sözlü dinleme talebini form içinde belirtmek",
+        "urun_tanimi":  "Filmaşin",
+        "kimi_ilgilendirir":  "Filmaşin ithalatçıları ve yerli üreticileri",
+        "ne_yapmali":  "İthalatçılar ve ilgili taraflar, Bakanlığın internet sitesinden soru formunu indirerek 30 gün içinde doldurup korunma@ticaret.gov.tr adresine göndermeli ve ilgili taraf olarak kaydettirmelidir.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Ek tabloda GTIP kodları ve ürün tanımlarının tam detayları bulunmakta olup metinde görselle paylaşılmadığı için kodlar alınamadı. Soruşturma süresi 9 ay (6 ay uzatılabilir). Tüm yazışmalar Türkçe yapılacak. İlgili taraf olmak için 30 gün önemli bir tarih sınırı.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "GTIP kodları eke referans verilmiş ancak ek metin sağlanmamıştır. Birim kıymetler tebliğde belirtilmemiştir. Soruşturma süresi 9 ay, gerekli hallerde 6 ay uzatılabilir. Soru formunun doldurulma ve gönderilme süresi: tebliğ yayım tarihinden itibaren 30 gün."
     },
     {
         "dosya":  "20260711-53.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-53.htm",
-        "baslik_sade":  "Telsiz ekipmanları ithalat denetiminde GTIP kodlaması güncellendi",
-        "ne_oldu":  "Akıllı saatler ile kablosuz kulaklıklar için GTIP kodları ayrıştırılmıştır. Akıllı saatler 8517.62.00.90.11, kablosuz kulaklıklar 8518.30.00.90.11 kodları ile denetim kapsamına alınmıştır.",
+        "baslik_sade":  "Telsiz ekipmanları ithalat denetimi tebliğinde GTIP kodları ve ürün tanımları değiştirilmiştir.",
+        "ne_oldu":  "Önceki tebliğde yer alan \u00278517.62.00.90.00-Diğerleri (akıllı kol saatleri ve kablosuz bluetooth kulaklıkları)\u0027 satırı \u00278517.62.00.90.11-Akıllı Saatler\u0027 olarak düzeltilmiş ve yeni bir satır olarak \u00278518.30.00.90.11-Kablosuz Kulaklıklar\u0027 eklenmiştir.",
         "gtip_kodlari":  [
                              "8517.62.00.90.11",
                              "8518.30.00.90.11"
                          ],
         "urun_tanimi":  "Akıllı saatler ve kablosuz kulaklıklar",
-        "kimi_ilgilendirir":  "Telsiz ekipmanları (akıllı saatler, kablosuz kulaklıklar) ithalatçıları",
-        "ne_yapmali":  "Söz konusu ürünleri ithal ederken güncellenmiş GTIP kodlarını kullanarak gümrük işlemleri yapınız",
+        "kimi_ilgilendirir":  "Telsiz ekipmanları ithalatçı ve ihracatçı KOBİ\u0027ler",
+        "ne_yapmali":  "İthalatı yapılan akıllı saatler için 8517.62.00.90.11, kablosuz kulaklıklar için 8518.30.00.90.11 GTIP kodlarını kullanmalıdır.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Denetim kapsamı ve muameleler hakkında ayrıntı kaynakta belirtilmemiştir. İthalatçılar Ticaret Bakanlığı\u0027ndan detaylı bilgi almalıdır.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metninde birim kıymet/değer bilgisi yer almamaktadır. Yayım tarihi olarak \u002711 Temmuz 2026\u0027 belirtilmiş; bu tarih gelecektedir. | Su kodlarin kiymeti guvenle okunamadi: 8518.30.00.90.11, 8517.62.00.90.11"
     },
     {
         "dosya":  "20260711-54.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-54.htm",
-        "baslik_sade":  "CE işaretli hareket algılama özelliğine sahip elektrik anahtarlarının ithalat denetim listesi güncellendi.",
-        "ne_oldu":  "İthalat denetim kapsamındaki ürünler listesine yeni bir GTIP kodu (8536.50.80.00.10 - hareket algılama özelliğine sahip anahtarlar) eklendi. Mevcut \u0027Ev tipi anahtarlar\u0027 tanımı, hareket algılama özelliğine sahip olanları hariç tutacak şekilde değiştirildi.",
+        "baslik_sade":  "CE işareti taşıyan hareket algılama özelliğine sahip elektrik ürünlerinin ithalat denetimi listesi güncellendi.",
+        "ne_oldu":  "Hareket algılama özelliği olan ürünler (GTIP 8536.50.80.00.10) ithalat denetimi listesine eklendi. Ev tipi anahtarlar tanımı, hareket algılama özelliği olanların hariç tutulacak şekilde değiştirildi.",
         "gtip_kodlari":  "8536.50.80.00.10",
-        "urun_tanimi":  "Hareket algılama özelliğine sahip elektrik anahtarları (CE işaretli)",
-        "kimi_ilgilendirir":  "Bu ürünleri ithalatçı olan KOBİ\u0027ler ve distribütörler",
-        "ne_yapmali":  "8536.50.80.00.10 kodu ile hareket algılama anahtarı ithal edecekler, ithalat gümrük işlemlerinde güncellenmiş denetim listesini dikkate almalıdır.",
+        "urun_tanimi":  "Hareket algılama özelliğine sahip elektriksel araçlar ve cihazlar",
+        "kimi_ilgilendirir":  "CE işareti taşıyan elektrik ürünleri ithalatçıları",
+        "ne_yapmali":  "İthalat yapacak KOBİ\u0027ler bu ürünlerin CE işareti ve denetim şartlarını kontrol etmeli, gümrük işlemlerinde güncellenmiş listeyi referans almalıdır.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Tablonun tam içeriği (eski-yeni satır numaralandırması detayları) metinde belirtilmemiş; Ek-2 tablosunun tam metni kaynakta görülmemiştir.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "8536.50.80.00.10":  "kaynakta belirtilmemis"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğde birim kıymet (malın değeri) belirtilmemiştir. Ek-2 tablosunun tam içeriği metinde görüntü olarak sunulmadığından, diğer satırların detaylı listesi kaynakta belirtilmemiştir."
+    },
+    {
+        "dosya":  "20260711-55.htm",
+        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-55.htm",
+        "baslik_sade":  "Oyuncakların ithalat denetimi kurallarında değişiklik yapılmıştır.",
+        "ne_oldu":  "Ticaret Bakanlığı, 31/12/2025 tarihli Oyuncakların İthalat Denetimi Tebliğinin Ek-1 bölümünü değiştirmiştir. Değişiklik yayım tarihinde yürürlüğe girmektedir.",
+        "gtip_kodlari":  {
+
+                         },
+        "urun_tanimi":  "Oyuncaklar",
+        "kimi_ilgilendirir":  "Oyuncak ithalatçıları ve ihracatçıları",
+        "ne_yapmali":  "Yürürlüğe giren değişiklikleri dikkate alarak ithalat denetim prosedürlerini güncellemeli",
+        "yururluk":  "yayimi tarihinde",
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metni değişikliğin özünü içermemekte, sadece Ek-1\u0027in değiştirildiğini belirtmektedir. Ek-1\u0027in tam içeriği kaynakta belirtilmemiştir. GTIP kodları ve birim kıymetler tabloda yer almamaktadır. | GTIP listesi iki okumada farkli - kesisim alindi"
     },
     {
         "dosya":  "20260711-56.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-56.htm",
-        "baslik_sade":  "İthalat denetim tebliğinde GTIP kodu ve ürün tanımı değiştirildi",
-        "ne_oldu":  "Tüketici ürünlerinin ithalat denetimi kapsamında, Ek-1 tablosundaki 3 numaralı satırdaki mürekkep ürün için GTIP kodu 3215.90.70.00.19\u0027dan 3215.90.70.00.12\u0027ye çekildi. Aynı satırda ürün tanımı \u0027Diğerleri\u0027nden \u0027Dövme Mürekkepleri\u0027ne değiştirildi.",
+        "baslik_sade":  "Tüketici Ürünlerinin İthalat Denetimi Tebliğinde GTIP kodu ve ürün tanımı düzeltmesi yapılmıştır.",
+        "ne_oldu":  "3215.90.70.00.19 GTIP kodu 3215.90.70.00.12 olarak değiştirilmiş, ürün tanımı \u0027Diğerleri\u0027 yerine \u0027Dövme Mürekkepleri\u0027 olarak düzeltilmiştir.",
         "gtip_kodlari":  "3215.90.70.00.12",
         "urun_tanimi":  "Dövme Mürekkepleri",
-        "kimi_ilgilendirir":  "Mürekkep ürünü ithal eden işletmeler ve gümrük müşevirler",
-        "ne_yapmali":  "İthal edilen dövme mürekkeplerinde yeni GTIP kodunu (3215.90.70.00.12) kullanarak gümrük işlemleri yapın",
+        "kimi_ilgilendirir":  "Tüketici ürünleri ithalatçıları ve denetim yapan kurumlar",
+        "ne_yapmali":  "İthalatçılar, bu ürün grubunun ithalatında 3215.90.70.00.12 GTIP kodunu kullanmalı ve denetim gerekliliklerine uymalıdır.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Tebliğ metni tablonun görsülünü içermemektedir; Ek-1 tablosunun tamamı kaynakta gösterilmemiştir. Değişiklik sadece 3 numaralı satırda yapılmıştır.",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+                                "3215.90.70.00.12":  "kaynakta belirtilmemis"
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metninde birim kıymet değeri belirtilmemiştir. Eski kod (3215.90.70.00.19) referans olarak verilmiştir ancak yürürlükteki tebliğ metni (2026/12) kaynakta bulunmamaktadır."
     },
     {
         "dosya":  "20260711-57.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-57.htm",
-        "baslik_sade":  "Anne ve bebek ürünleri ithalat denetiminde oyuncak GTIP kodları güncellendi",
-        "ne_oldu":  "Oyuncak ürünlerine ait üç GTIP kodunun numaraları değiştirildi ve ürün tanımları düzeltildi. Denetim kapsamında kullanılan kodlama hassaslaştırıldı.",
+        "baslik_sade":  "Anne ve bebek ürünleri ithalat denetimi tebliğinde oyuncak ürünlerine ilişkin GTIP kodları ve tanımları düzeltilmiştir.",
+        "ne_oldu":  "Ticaret Bakanlığı, 31/12/2025 tarihli tebliğin Ek-2 tablosunda üç GTIP kodunun son rakamlarını değiştirmiş ve ürün tanımlarını güncellenmiştir. Değişiklikler oyuncak ürünlerinin sınıflandırılmasını açıklığa kavuşturmaktadır.",
         "gtip_kodlari":  [
                              "9503.00.49.00.11",
                              "9503.00.95.00.11",
                              "9503.00.99.00.11"
                          ],
-        "urun_tanimi":  "Oyuncaklar (hayvanları ve insan dışı yaratıkları tasvir eden oyuncaklar dahil, plastik maddelerden yapılanlar)",
-        "kimi_ilgilendirir":  "Oyuncak ithalatçıları, gümrük müşevirler, denetim birimlerine sunulan ürün belgelerine bakacak KOBİ\u0027ler",
-        "ne_yapmali":  "İthalatçılar gönderecekleri oyuncak ürünleri için güncel GTIP kodlarını (9503.00.49.00.11, 9503.00.95.00.11, 9503.00.99.00.11) kullanmalı; eski kodlarla başvuru yapmamali",
+        "urun_tanimi":  "Oyuncaklar (hayvanları ve insan dışı yaratıkları tasvir eden oyuncaklar ile plastik maddelerden ve diğer malzemelerden yapılmış oyuncaklar)",
+        "kimi_ilgilendirir":  "Anne ve bebek ürünleri ithalatçıları ve ihracatçıları",
+        "ne_yapmali":  "Söz konusu GTIP kodları altında ürün gümrüğe sunacak ithalatçılar, güncellenen kod ve tanımları ithalatçı beyan ve gümrük işlemlerinde kullanmalıdır.",
         "yururluk":  "yayimi tarihinde",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Tebliğ numarası (2026/40) ve referans teblağ numarası (2026/17) belliyken, değişikliklerin somut denetim veya tarife etkisinin detayları (ilave ücret, denetim şiddeti vb.) kaynakta belirtilmemiş",
-        "cift_gecis":  {
-                           "gtip":  true,
-                           "kiymet":  true,
-                           "yururluk":  true
-                       }
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Tebliğ metni sadece GTIP kodları ve ürün tanımlarının değiştirilmesini içermektedir; birim kıymet, vergi oranı veya denetim bedeli gibi finansal veriler belirtilmemiştir. Önceki tebliğin (2026/17) tam metni ve Ek-2 tablosu başvuru amacıyla incelenmelidir. | Su kodlarin kiymeti guvenle okunamadi: 9503.00.49.00.11, 9503.00.99.00.11, 9503.00.95.00.11"
     },
     {
         "dosya":  "20260711-58.htm",
         "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-58.htm",
-        "baslik_sade":  "Makinaların ithalat denetimi tebliğinde ek tablonun 8. sıra numarası kaldırıldı",
-        "ne_oldu":  "31/12/2025 tarihli Makinaların İthalat Denetimi Tebliği (2026/32) Ek-2/A tablosundaki 8 numaralı satır yürürlükten kaldırılmıştır. Bu değişiklik yeni bir tebliğ (2026/41) ile resmiyet kazanmıştır.",
+        "baslik_sade":  "Makinaların İthalat Denetimi Tebliği\u0027nde değişiklik yapılmıştır.",
+        "ne_oldu":  "31/12/2025 tarihli Makinaların İthalat Denetimi Tebliği (2026/32) Ek-2/A tablosundaki 8 sıra numaralı satır yürürlükten kaldırılmıştır.",
         "gtip_kodlari":  {
 
                          },
         "urun_tanimi":  "Makinalar",
-        "kimi_ilgilendirir":  "Makine ithal eden işletmeler ve KOBI\u0027ler",
-        "ne_yapmali":  "İthalatçılar mevcut denetim prosedürlerini gözden geçirmeli; kaldırılan satırda yer alan gerekliliklerin artık uygulanmadığını teyit etmeli",
-        "yururluk":  "Kaynak tebligdeki yururluk maddesine bakin",
-        "birim_kiymet":  "kaynakta belirtilmemis",
-        "guven_notu":  "Tebligde kaldırılan satırın tam içeriği ve etkilenen makine türleri belirtilmemiştir; orijinal tebliğ (2026/32) ile karşılaştırma yapılması önerilir | GTIP listesi iki okumada farkli cikti - kesin liste icin kaynaga bakin",
-        "cift_gecis":  {
-                           "gtip":  false,
-                           "kiymet":  true,
-                           "yururluk":  false
-                       }
+        "kimi_ilgilendirir":  "Makina ithalatçıları ve ithalat denetim yapan kurumlar",
+        "ne_yapmali":  "İthalatçılar, makina ithalatında 01.01.2026 tarihinden itibaren güncellenmiş Ek-2/A tablosuna uygun hareket etmelidir.",
+        "yururluk":  "Kaynak tebliğdeki yürürlük maddesine bakın",
+        "kesin_kiymetler":  {
+
+                            },
+        "kiyaslar":  [
+
+                     ],
+        "guven_notu":  "Kaldırılan 8. sıra satırının içeriği (GTIP kodu, ürün tanımı, denetim kriterleri) metinde yer almamaktadır. Detaylı bilgi için 31/12/2025 tarihli 33124 sayılı Resmî Gazete\u0027nin Ek-2/A tablosuna bakılmalıdır. | GTIP listesi iki okumada farkli - kesisim alindi"
     }
 ]
