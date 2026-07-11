@@ -403,6 +403,16 @@ function oner(){
     p.sahis-=2; p.ltd+=1;
     const had = SABIT && SABIT.bilancoHadleri ? TLf(SABIT.bilancoHadleri.satis)+' TL' : 'bilanço haddi';
     neden.ltd.push(`Ciro beklentin bilanço esası haddini aşıyor (VUK m.177 — ${SABIT?SABIT.yil:''} satış haddi ${had}): şahıs kalsan bile birinci sınıf tüccar olarak şirketle aynı defter düzenine geçersin. Aynı muhasebe yükünü sınırlı sorumluluk korumasıyla taşımak daha akıllıca.`);
+    // KESİN KURAL: ciro haddi aşılıyor VE kâr (istisna düşüldükten sonra) %35-40
+    // dilimlerine giriyorsa şahısta kalmanın rasyonel gerekçesi kalmaz — şahıs elenir.
+    if(SABIT){
+      const esik35 = SABIT.gvDilimler[2][0]; // %35 diliminin başladığı tutar
+      const istisnaOn = (CEVAP.genc==='evet') ? SABIT.gencIstisnaTutar : 0;
+      if(kar - istisnaOn > esik35){
+        p.sahis = -99;
+        neden.ltd.push(`Net konuşalım: hem ciron bilanço haddini aşıyor hem ${TLf(kar)} TL kâr hedefin${istisnaOn?' (genç girişimci istisnası düşülse bile)':''} gelir vergisinin %35-40 dilimlerine giriyor — bu ölçekte şahıs işletmesi seçenek olmaktan çıkar, doğrudan şirket kurman gerekir.`);
+      }
+    }
   }
 
   // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
