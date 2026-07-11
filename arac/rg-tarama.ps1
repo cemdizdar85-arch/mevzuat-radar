@@ -94,6 +94,31 @@ foreach($md in $madde){
 }
 Write-Host ("Ilgili: {0}" -f $ilgiliToplam)
 
+# ---- SABIT NOBETCISI: sitedeki vergi/sermaye sabitlerini degistiren teblig ----
+# cikinca Cem'e mail atar (veri/vergi-sabitleri.json elle guncellenir - guven kurali)
+$nobetKaliplar = @("gelir vergisi genel tebli", "kurumlar vergisi genel tebli", "yeniden değerleme oran", "asgari ücret", "harçlar kanunu genel tebli", "vergi usul kanunu genel tebli")
+$nobetVuran = @()
+foreach($md in $madde){
+  $n = Norm $md.baslik
+  foreach($kalip in $nobetKaliplar){ if($n.Contains((Norm $kalip))){ $nobetVuran += $md; break } }
+}
+if($nobetVuran.Count -gt 0){
+  Write-Host ("NOBETCI: {0} sabit-tebligi yakalandi, mail gonderiliyor" -f $nobetVuran.Count)
+  $liste = ($nobetVuran | ForEach-Object { "- " + $_.baslik + " => " + $_.url }) -join "`n"
+  $mailGovde = @{
+    access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"
+    subject    = "SABIT NOBETCISI: vergi-sabitleri.json guncellenmeli ($Tarih)"
+    from_name  = "Mevzuat Radari Robotu"
+    email      = "cemdizdar85@hotmail.com"
+    "Yakalanan tebligler" = $liste
+    "Yapilacak" = "Claude'a 'sabitleri guncelle' de - tebligden yeni degerleri okuyup veri/vergi-sabitleri.json'u birlikte guncelleyin. Site otomatik beslenir."
+  } | ConvertTo-Json
+  try {
+    Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" -Body ([System.Text.Encoding]::UTF8.GetBytes($mailGovde)) -ContentType "application/json" -TimeoutSec 30 | Out-Null
+    Write-Host "NOBETCI: mail gonderildi"
+  } catch { Write-Host ("NOBETCI: mail gonderilemedi - " + $_.Exception.Message) }
+}
+
 # --- radar.html uret (repo koku) ---------------------------------------------
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')

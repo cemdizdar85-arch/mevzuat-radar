@@ -57,10 +57,10 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="destekler.html">Destek Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · Şirket Kuruluşu</div>
   <h1>Şirket Kuruluşu Rehberi</h1>
-  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — bilmiyorsun. Herkese aynı listeyi sunmayacağız: <b style="color:var(--ink)">5 soruya cevap ver, sana uygun türü gerekçesiyle önerelim</b> — adım adım kuruluş yolu ve seni bekleyen yükümlülüklerle birlikte.</p>
+  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — bilmiyorsun. Herkese aynı listeyi sunmayacağız: <b style="color:var(--ink)">7 soruya cevap ver, sana uygun türü gerekçesiyle ve vergi kıyasıyla önerelim</b> — adım adım kuruluş yolu ve seni bekleyen yükümlülüklerle birlikte.</p>
 
   <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
-    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 5 soruda söyleyelim</h3>
+    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 7 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim — diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
     <div class="soru" data-k="ortak">
       <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
@@ -97,6 +97,20 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="evet">Evet, ikisi de doğru</button>
         <button class="sbtn kck" data-v="hayir">Hayır</button>
+      </div>
+    </div>
+    <div class="soru" data-k="_kar">
+      <b style="font-size:14px">6. İlk yılın sonunda hedeflediğin yıllık net KÂR ne kadar? (ciro değil, kâr)</b>
+      <div class="ara" style="margin:8px 0 14px">
+        <input id="karInput" placeholder="ör. 1.500.000 (TL)" inputmode="numeric" autocomplete="off" style="font-size:15px;padding:11px 13px">
+      </div>
+    </div>
+    <div class="soru" data-k="cek">
+      <b style="font-size:14px">7. Kazandığın kârı ne yapacaksın?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="cek">Her yıl cebime çekeceğim</button>
+        <button class="sbtn kck" data-v="birak">Şirkette bırakıp büyüteceğim</button>
+        <button class="sbtn kck" data-v="karisik">Karışık / bilmiyorum</button>
       </div>
     </div>
     <button class="btn" onclick="oner()">Bana uygun türü göster</button>
@@ -305,6 +319,26 @@ document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key===
 
 // ================= TÜR SİHİRBAZI =================
 const CEVAP = {};
+// Vergi sabitleri TEK dosyadan gelir (veri/vergi-sabitleri.json) — yeni tebliğ çıkınca yalnız o dosya güncellenir.
+let SABIT = null;
+fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{ SABIT=j;
+  const ki = document.getElementById('karInput');
+  if(ki) ki.placeholder = 'ör. 1.500.000 (TL, ' + j.yil + ' hedefi)';
+}).catch(()=>{});
+
+// artan oranlı gelir vergisi (GİB tarifesi, ücret dışı)
+function gvHesap(matrah){
+  if(!SABIT || matrah<=0) return 0;
+  let vergi = 0, onceki = 0;
+  for(const [ust, oran] of SABIT.gvDilimler){
+    const tavan = (ust===null) ? matrah : Math.min(matrah, ust);
+    if(tavan > onceki) vergi += (tavan - onceki) * oran / 100;
+    if(ust!==null && matrah <= ust) break;
+    if(ust!==null) onceki = ust;
+  }
+  return Math.round(vergi);
+}
+const TLf = n => Math.round(n).toLocaleString('tr-TR');
 document.getElementById('sihirbaz').addEventListener('click',e=>{
   const b = e.target.closest('.sbtn.kck'); if(!b) return;
   const grup = b.closest('.soru');
@@ -315,9 +349,10 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
 
 function oner(){
   const out = document.getElementById('oneri');
-  const gerekli = ['ortak','satis','sermaye','risk','genc'];
+  const gerekli = ['ortak','satis','sermaye','risk','genc','cek'];
   const eksik = gerekli.filter(k=>!CEVAP[k]);
-  if(eksik.length){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length} soru cevapsız kaldı, hepsini işaretle.</p>`; return; }
+  const kar = parseInt((document.getElementById('karInput').value||'').replace(/[^\d]/g,''),10) || 0;
+  if(eksik.length || !kar){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length ? eksik.length + ' soru cevapsız' : ''}${eksik.length && !kar ? ' ve ' : ''}${!kar ? 'kâr hedefi boş' : ''}. Hepsini doldur, öneri ona göre şekillenecek.</p>`; return; }
 
   // puanlama
   let p = {sahis:0, ltd:0, as:0};
@@ -339,6 +374,37 @@ function oner(){
 
   if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına 3 yıl kazanç istisnası (GVK mük. m.20) — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. Tutar her yıl değişir, güncelini GİB\'den teyit et. (Not: eski 1 yıllık Bağ-Kur prim desteği 2026 başında kaldırıldı.)'); }
 
+  if(CEVAP.cek==='birak'){ p.ltd+=1; p.as+=1; }
+
+  // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
+  let hesapHtml = '';
+  if(SABIT && kar>0){
+    const istisna = (CEVAP.genc==='evet') ? Math.min(kar, SABIT.gencIstisnaTutar) : 0;
+    const sahisVergi = gvHesap(kar - istisna);
+    const kv = kar * SABIT.kvOran / 100;
+    const dagitilan = (CEVAP.cek==='cek') ? (kar - kv) : (CEVAP.cek==='karisik' ? (kar - kv)/2 : 0);
+    const stopaj = dagitilan * SABIT.karPayiStopaj / 100;
+    const sirketVergi = Math.round(kv + stopaj);
+    // puana etki: belirgin fark varsa (%10+) tarafına yaz
+    if(sahisVergi < sirketVergi*0.9 && CEVAP.ortak==='tek'){
+      p.sahis+=2;
+      neden.sahis.push(`Vergi kıyası senin lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini vergi ~${TLf(sahisVergi)} TL${istisna? ' (genç girişimci istisnası düşülmüş)':''}; şirkette KV + kâr çekme stopajı ~${TLf(sirketVergi)} TL.`);
+    } else if(sirketVergi < sahisVergi*0.9){
+      p.ltd+=2; p.as+=1;
+      neden.ltd.push(`Vergi kıyası şirket lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini gelir vergisi ~${TLf(sahisVergi)} TL; şirkette ~${TLf(sirketVergi)} TL${CEVAP.cek==='birak' ? ' (kârı şirkette bıraktığın için stopaj yok — büyüme sermayesi vergiden korunuyor)' : ''}.`);
+      neden.as.push('Vergi avantajı LTD ile aynı — kurumlar vergisi düzeni her iki sermaye şirketinde özdeş.');
+    }
+    hesapHtml = `
+      <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 ${SABIT.yil} VERGİ KIYASI — ${TLf(kar)} TL kâr hedefine göre</div>
+        <div class="satir"><b>Şahıs: gelir vergisi</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${TLf(istisna)} TL genç girişimci istisnası düşüldü)</span>`:''}</span></div>
+        <div class="satir"><b>Şirket: kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
+        <div class="satir"><b>Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
+        <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
+      </div>`;
+  }
+
   const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
   const kazanan = sira[0], ikinci = sira[1];
   const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket (LTD)', as:'Anonim şirket (AŞ)'};
@@ -356,6 +422,7 @@ function oner(){
       <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
       <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]} — koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
       ${gerekce}
+      ${hesapHtml}
       <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">📖 ${OKU[kazanan]}</p>
       <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Bu bir ön öneridir, kişisel durumuna göre değişebilir — son kararı muhasebecinle ver. İstersen bu sonucu ve kuruluş yol haritanı e-postana gönderelim:</p>
       <div class="ara" style="margin-top:10px">
@@ -384,6 +451,8 @@ function oneriGonder(tur){
     'Önerilen tür': AD[tur],
     'Ortaklık': CEVAP.ortak||'', 'Satış/yatırım planı': CEVAP.satis||'',
     'Sermaye bandı': CEVAP.sermaye||'', 'Risk profili': CEVAP.risk||'', 'Genç girişimci': CEVAP.genc||'',
+    'Kâr hedefi (TL)': (document.getElementById('karInput').value||'').replace(/[^\d]/g,''),
+    'Kâr politikası': CEVAP.cek||'',
     'Kayıt kaynağı': 'Şirket Kuruluşu Sihirbazı'
   };
   goster('Gönderiliyor…',true);
