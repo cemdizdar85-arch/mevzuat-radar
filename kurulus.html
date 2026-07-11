@@ -6,6 +6,14 @@
 <title>Şirket Kuruluşu Rehberi — şahıs mı, limited mi, anonim mi? | Mevzuat Radarı</title>
 <meta name="description" content="Şirket kurmak istiyorsun ama nereden başlayacağını bilmiyorsun. Şahıs, limited, anonim karşılaştırması + adım adım kuruluş yolu + kuruluş sonrası yükümlülükler.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Limited mi anonim mi kurmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Tek başına veya küçük başlıyorsan LTD (asgari sermaye 50.000 TL); yatırım almayı ya da şirketi ileride satmayı planlıyorsan AŞ (asgari sermaye 250.000 TL) daha uygundur. AŞ'de pay devri kolaydır ve şartları sağlayan gerçek kişi ortağın pay senedi satışı vergiden istisna olabilir."}},
+ {"@type":"Question","name":"Anonim şirket ile limited şirketin farkı nedir?","acceptedAnswer":{"@type":"Answer","text":"Başlıca farklar: asgari sermaye (LTD 50.000 TL, AŞ 250.000 TL), pay devri (AŞ'de noter gerekmez, LTD'de noter + genel kurul onayı + tescil gerekir), satış kazancı vergisi (AŞ'de pay senedi 2 tam yıl elde tutulursa gerçek kişi ortakta istisna, LTD'de her durumda vergili) ve kamu borcu sorumluluğu düzeni."}},
+ {"@type":"Question","name":"Şirketi ileride satmak istiyorsam hangi türü kurmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Satış planı varsa anonim şirket öne çıkar: usulüne uygun bastırılmış pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisnadır (GVK mükerrer m.80). Limited şirket payının satış kazancı ise süre fark etmeksizin vergiye tabidir. Pay senetlerini kuruluşta bastırmak kritik adımdır."}},
+ {"@type":"Question","name":"Şahıs işletmesinden şirkete ne zaman geçmeliyim?","acceptedAnswer":{"@type":"Answer","text":"Üç sinyal: kazanç büyüyüp artan oranlı gelir vergisi dilimleri sabit oranlı kurumlar vergisini aştığında; işletme riski (borç, stok, çalışan) kişisel malvarlığını tehdit eder hâle geldiğinde; büyük müşteri, banka ve ihale kapıları tüzel kişilik istediğinde. Kesişme hesabını mali müşavirinle yap."}}
+]}
+</script>
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
@@ -64,6 +72,55 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
     <p>Asgari sermaye tutarları artırıldı: <b style="color:var(--ink)">limited için 50.000 TL, anonim için 250.000 TL</b> (TTK m.580 / m.332, 7511 sayılı Kanun). Sermayesi bu tutarların altında kalan mevcut şirketlerin <b style="color:var(--ink)">31 Aralık 2026'ya kadar</b> sermayelerini yükseltmesi gerekiyor; yükseltmeyenler infisah etmiş (kendiliğinden sona ermiş) sayılacak. Kaynak: <a href="https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir" target="_blank" rel="noopener">Ticaret Bakanlığı duyurusu</a>. Şirketinin durumunu muhasebecinle bu yıl bitmeden mutlaka konuş.</p>
     <button class="btn" style="margin-top:14px;font-size:14px;padding:11px 18px" onclick="takvimeEkle()">📅 Son tarihi telefon takvimime ekle</button>
     <span id="takvimNot" style="display:block;margin-top:8px;font-size:12px;color:var(--dim)"></span>
+  </div>
+
+  <h2>Hap Bilgiler — en çok sorulanlar</h2>
+  <div id="hap">
+    <details class="kart" style="border-left-color:var(--accent2);cursor:pointer">
+      <summary style="font-weight:700;font-size:15.5px">Limited mi, anonim mi kurmalıyım? 30 saniyede karar</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <div class="satir"><b>Tek başına / küçük başlıyorsan</b><span>LTD (hatta önce şahıs) — düşük sermaye, basit yönetim</span></div>
+        <div class="satir"><b>Yatırım almayı planlıyorsan</b><span>AŞ — pay devri kolay, yatırımcı düzeni hazır</span></div>
+        <div class="satir"><b>Şirketi ileride satmayı düşünüyorsan</b><span>AŞ — aşağıdaki kartı mutlaka oku</span></div>
+        <div class="satir"><b>Ortak sayısı / prestij önemliyse</b><span>AŞ kurumsal algıda önde; kamu ihaleleri ve büyük müşteriler nezdinde de</span></div>
+        <p style="margin:10px 0 0">Pratik özet: Türkiye'de KOBİ'lerin standardı LTD'dir; AŞ'nin gücü <b style="color:var(--ink)">büyüme, satış ve yatırım</b> senaryolarında ortaya çıkar. Sermaye farkı: LTD 50.000 TL, AŞ 250.000 TL. Kararı ciro hedefin ve çıkış planınla birlikte muhasebecinle ver.</p>
+      </div>
+    </details>
+    <details class="kart" style="border-left-color:var(--green);cursor:pointer">
+      <summary style="font-weight:700;font-size:15.5px">Şirketi ileride SATMAYI düşünüyorsan — az bilinen kritik fark 💎</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px"><b style="color:var(--ink)">AŞ'de:</b> pay senedi bastırılır ve gerçek kişi ortak senedi <b style="color:var(--ink)">2 tam yıl</b> elde tuttuktan sonra satarsa, satış kazancı gelir vergisinden <b style="color:var(--green)">istisnadır</b> (GVK mük. m.80/1). Pay devri için noter de gerekmez.</p>
+        <p style="margin:0 0 10px"><b style="color:var(--ink)">LTD'de:</b> pay devri noter onaylı sözleşme + genel kurul onayı + tescil ister ve satış kazancı — kaç yıl elde tutarsan tut — <b style="color:var(--red)">vergiye tabidir</b>.</p>
+        <p style="margin:0">Yani "5 yıl sonra şirketi satarım" hayali olan biri için tür seçimi, satış gününde ciddi vergi farkı yaratabilir. İki incelik: istisna için pay senedinin <b style="color:var(--ink)">usulüne uygun bastırılmış</b> olması ve sürenin belgelenmesi gerekir — kuruluşta ihmal edilirse sonradan yanar. Şartlar değişebilir; satış planı varsa adımı SMMM'nle birlikte at.</p>
+      </div>
+    </details>
+    <details class="kart" style="border-left-color:var(--amber);cursor:pointer">
+      <summary style="font-weight:700;font-size:15.5px">Anonim şirket kurarken nelere dikkat etmeliyim?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <div class="adim"><div class="no">1</div><div><b>Pay senetlerini kuruluşta bastır</b><p>Yukarıdaki satış istisnasının anahtarı — 2 yıllık süre senet bastırıldığında işlemeye başlar. En çok ihmal edilen adım.</p></div></div>
+        <div class="adim"><div class="no">2</div><div><b>¼ blokajı planla</b><p>Nakdî sermayenin en az dörtte biri tescilden önce bankada bloke edilir (TTK m.344) — nakit akışını buna göre kur.</p></div></div>
+        <div class="adim"><div class="no">3</div><div><b>Avukat eşiğini bil</b><p>Sermaye belli eşiği aşarsa sözleşmeli avukat bulundurma zorunluluğu doğar (Av. K. m.35) — <a href="sayfalar/avukat-bulundurma.html">eşiği gör</a>.</p></div></div>
+        <div class="adim"><div class="no">4</div><div><b>Esas sözleşmeyi şablondan ibaret sanma</b><p>Pay devri kısıtları, imtiyazlar, temsil düzeni sonradan değiştirmesi en pahalı maddelerdir — ortaklı kuruluşta özellikle.</p></div></div>
+        <div class="adim"><div class="no">5</div><div><b>Yönetim kurulu sorumluluğunu bil</b><p>Vergi ve SGK borçlarında birincil sorumluluk kanuni temsilcidedir — YK üyeliği unvan değil, risktir.</p></div></div>
+      </div>
+    </details>
+    <details class="kart" style="border-left-color:var(--accent);cursor:pointer">
+      <summary style="font-weight:700;font-size:15.5px">Neden limited şirket kurmalıyım (ya da kurmamalıyım)?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px"><b style="color:var(--green)">Lehine:</b> düşük asgari sermaye (50.000 TL), tek ortakla kurulur, yönetimi basit, muhasebe düzeni oturmuş — Türkiye'de en yaygın tür olmasının sebebi bu denge.</p>
+        <p style="margin:0 0 10px"><b style="color:var(--red)">Aleyhine:</b> ① Vergi ve SGK borçlarında ortaklar payları oranında <b style="color:var(--ink)">şahsen</b> sorumlu tutulabilir (6183 s. K. mük. m.35) — "limited = tam kalkan" değildir. ② Pay devri noterli ve onaylıdır, satış kazancı her durumda vergilidir. ③ Yatırımcı düzenine uygun değildir; büyüyünce çoğu LTD, AŞ'ye dönüşür (tür değiştirme mümkündür ama masraflıdır).</p>
+        <p style="margin:0">Özet: "işlete işlete büyüteceğim" diyorsan LTD doğru başlangıç; "satarım/yatırım alırım" diyorsan baştan AŞ düşün.</p>
+      </div>
+    </details>
+    <details class="kart" style="border-left-color:var(--accent2);cursor:pointer">
+      <summary style="font-weight:700;font-size:15.5px">Şahıs işletmesinden şirkete ne zaman geçmeliyim?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px">Üç sinyal:</p>
+        <div class="adim"><div class="no">1</div><div><b>Vergi yükü</b><p>Şahısta gelir vergisi artan oranlıdır (kazanç büyüdükçe dilim yükselir); şirkette kurumlar vergisi sabit orandır. Belli kazanç seviyesinden sonra şirket avantajlı hâle gelebilir — kesişme noktası her yıl değişir, hesabı muhasebecin yapar.</p></div></div>
+        <div class="adim"><div class="no">2</div><div><b>Risk büyüdü</b><p>Şahısta işletme borcundan tüm kişisel malvarlığınla sorumlusun. Borçlanma, stok, çalışan arttıkça sınırlı sorumluluğa geç.</p></div></div>
+        <div class="adim"><div class="no">3</div><div><b>Kurumsal kapılar</b><p>Büyük müşteriler, bankalar ve ihaleler tüzel kişiliği ciddiye alır; bayilik/distribütörlük sözleşmeleri çoğu zaman şirket ister.</p></div></div>
+      </div>
+    </details>
   </div>
 
   <h2>Kuruluştan sonra seni ne bekliyor?</h2>
