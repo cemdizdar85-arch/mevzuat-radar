@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devlet Destekleri Radarı — KOSGEB destekleri, hangisi sana uygun? | Mevzuat Radarı</title>
-<meta name="description" content="KOSGEB ve devlet destekleri dağınık ve tarihli. İşletme aşamanı seç, sana uygun destek programlarını gör; başvuru dönemi açılınca haber verelim.">
+<title>Devlet Destekleri Radarı — KOSGEB, ihracat destekleri ve Eximbank, hangisi sana uygun? | Mevzuat Radarı</title>
+<meta name="description" content="KOSGEB, Ticaret Bakanlığı ihracat destekleri ve Türk Eximbank kredileri dağınık ve tarihli. İşletme aşamanı seç, sana uygun programları gör; yeni çağrı açılınca haber verelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -40,13 +40,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
   <h1>Devlet Destekleri Radarı</h1>
-  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç, sana uygun <b style="color:var(--ink)">KOSGEB destek programlarını</b> gör; yeni çağrı açıldığında haber verelim.</p>
+  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı ve Türk Eximbank</b> programlarını gör, yeni çağrı açıldığında haber verelim.</p>
 
   <div class="filtre" id="filtre">
     <button class="fbtn on" data-a="hepsi">Tümü</button>
     <button class="fbtn" data-a="kurulus">Yeni kuruyorum</button>
     <button class="fbtn" data-a="buyume">Büyüyorum</button>
     <button class="fbtn" data-a="ihracat">İhracat / yurtdışı</button>
+    <button class="fbtn" data-a="finansman">Finansman / kredi</button>
     <button class="fbtn" data-a="donusum">Dijital / yeşil dönüşüm</button>
     <button class="fbtn" data-a="arge">Ar-Ge / üretim</button>
     <button class="fbtn" data-a="istihdam">İstihdam</button>
@@ -71,29 +72,41 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
     <p style="margin:12px 0 0;font-size:12px;color:var(--dim)">Firmanın tüm yükümlülüklerini de görmek ister misin? <a href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a> · Şirketini yeni mi kuruyorsun? <a href="kurulus.html">Kuruluş Rehberi →</a></p>
   </div>
 
-  <div class="dip">Mevzuat Radarı · Destek Radarı · Program adları ve bağlantılar resmî kaynak: <a href="https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler" target="_blank" rel="noopener">kosgeb.gov.tr/destekler</a> · SMMM Cem Dizdar</div>
+  <div class="dip">Mevzuat Radarı · Destek Radarı · Program adları ve bağlantılar resmî kaynaklar: <a href="https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler" target="_blank" rel="noopener">kosgeb.gov.tr</a> · <a href="https://ticaret.gov.tr/destekler/ihracat-destekleri" target="_blank" rel="noopener">ticaret.gov.tr</a> · <a href="https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz" target="_blank" rel="noopener">eximbank.gov.tr</a> · SMMM Cem Dizdar</div>
 </div>
 
 <script>
 const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 
-// Program adları + resmî KOSGEB detay bağlantıları kosgeb.gov.tr'den bire bir alındı.
-// "amac" = program adından açık, genel amaç (tutar/tarih iddiası YOK).
+// Program adları + resmî bağlantılar kurumların kendi sitelerinden bire bir alındı
+// (kosgeb.gov.tr, ticaret.gov.tr, eximbank.gov.tr). "amac" = genel amaç (tutar/tarih iddiası YOK).
 const PROGRAMLAR = [
-  {ad:"Girişimci Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi", asama:["kurulus"], amac:"İşini yeni kuran girişimciler için kuruluş ve ilk dönem giderlerine yönelik destek programı."},
-  {ad:"Kapasite Geliştirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9200/kapasite-gelistirme-destek-programi", asama:["buyume"], amac:"Mevcut KOBİ'nin üretim, verimlilik ve kurumsal kapasitesini büyütmeye yönelik program."},
-  {ad:"Küresel Rekabetçilik Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9206/kuresel-rekabetcilik-destek-programi", asama:["ihracat","buyume"], amac:"İhracata ve uluslararası pazarlara açılan KOBİ'lerin rekabet gücünü artırmaya yönelik program."},
-  {ad:"KOBİ Dijital Dönüşüm Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9144/kobi-dijital-donusum-destek-programi", asama:["donusum"], amac:"Dijitalleşme, otomasyon ve teknoloji yatırımı yapan KOBİ'ler için dönüşüm programı."},
-  {ad:"Yeşil Sanayi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9022/yesil-sanayi-destek-programi", asama:["donusum"], amac:"Çevre, enerji verimliliği ve yeşil dönüşüm yatırımlarına yönelik program."},
-  {ad:"1507 – TÜBİTAK KOBİ Ar-Ge Başlangıç Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9146/1507-tubitak-kobi-arge-baslangic-destek-programi", asama:["arge"], amac:"İlk kez Ar-Ge projesi yürüten KOBİ'ler için (TÜBİTAK iş birliğiyle) başlangıç desteği."},
-  {ad:"Teknoloji Merkezi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9297/teknoloji-merkezi-destek-programi", asama:["arge","kurulus"], amac:"Teknoloji Merkezleri (TEKMER) bünyesinde teknoloji geliştiren girişimlere yönelik program."},
-  {ad:"Stratejik Ürün Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/6492/stratejik-urun-destek-programi", asama:["arge","donusum"], amac:"İthalatı yüksek, kritik ürünlerin yerli üretimini (yerlileştirme) desteklemeye yönelik program."},
-  {ad:"Sektörel Gelişim Merkezi (SEGEM) Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9327/sektorel-gelisim-merkezi-segem-destek-programi", asama:["buyume"], amac:"Sektörel gelişim merkezleri üzerinden işletmelerin ortak ihtiyaçlarını gidermeye yönelik program."},
-  {ad:"YÖNDE – Yönderlik ve Değerlendirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9165/yonde-yonderlik-ve-degerlendirme-destek-programi", asama:["buyume"], amac:"İşletmelere yönderlik (mentorluk) ve değerlendirme hizmeti sunmaya yönelik program."},
-  {ad:"İstihdamı Koruma Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9224/istihdami-koruma-destek-programi", asama:["istihdam"], amac:"İşletmelerin mevcut istihdamını sürdürmesine yönelik destek programı."}
+  // ---- TİCARET BAKANLIĞI — 5973 sayılı İhracat Destekleri Kararı ----
+  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8)."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Birim, Kira ve Tanıtım Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Yurt dışında ofis/mağaza/depo açan, tanıtım ve danışmanlık harcaması yapan şirketlere yönelik destekler."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Pazara Giriş Belgesi Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Hedef pazarda zorunlu ya da avantaj sağlayan kalite/çevre belgeleri, sertifika ve test/analiz raporu giderlerine destek."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Marka ve TURQUALITY® Destek Programı", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/marka-ve-turquality-destegi", asama:["ihracat","buyume"], amac:"Markalaşma potansiyeli olan Türk markalarının uluslararası pazarlarda konumlandırılmasına yönelik kapsamlı program."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"E-İhracat Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri", asama:["ihracat","donusum"], amac:"Pazaryerlerinde satış yapan ve dijital kanaldan ihracata açılan şirketlere yönelik destekler — özellikle KOBİ'ler hedefte."},
+  // ---- TÜRK EXİMBANK — ihracat finansmanı ----
+  {kurum:"TÜRK EXİMBANK", ad:"Sevk Öncesi İhracat Kredisi", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler/kisa-vadeli-ihracat-kredileri/sevk-oncesi-ihracat-kredisi", asama:["ihracat","finansman"], amac:"İhracat hazırlığındaki üretici/ihracatçının sevkiyat öncesi finansman ihtiyacını uygun maliyetle karşılayan kredi."},
+  {kurum:"TÜRK EXİMBANK", ad:"İhracata Hazırlık ve Reeskont Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler", asama:["ihracat","finansman"], amac:"İhracata hazırlık dönemi finansmanı ve ihracat alacaklarının iskonto edilmesi (sevk sonrası reeskont) dahil kredi programları."},
+  {kurum:"TÜRK EXİMBANK", ad:"İhracat Kredi Sigortası", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz", asama:["ihracat","finansman"], amac:"Yurt dışı alacaklarını ticari ve politik risklere karşı sigortalar — 'mal gönderdim, parasını alamadım' riskinin ilacı."},
+  {kurum:"TÜRK EXİMBANK", ad:"Alıcı Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/alici-kredileri", asama:["ihracat","finansman"], amac:"Türkiye'den mal alacak yabancı alıcıya finansman sağlayarak ihracatçının satışını kolaylaştıran programlar."},
+  // ---- KOSGEB ----
+  {kurum:"KOSGEB", ad:"Girişimci Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi", asama:["kurulus"], amac:"İşini yeni kuran girişimciler için kuruluş ve ilk dönem giderlerine yönelik destek programı."},
+  {kurum:"KOSGEB", ad:"Kapasite Geliştirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9200/kapasite-gelistirme-destek-programi", asama:["buyume"], amac:"Mevcut KOBİ'nin üretim, verimlilik ve kurumsal kapasitesini büyütmeye yönelik program."},
+  {kurum:"KOSGEB", ad:"Küresel Rekabetçilik Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9206/kuresel-rekabetcilik-destek-programi", asama:["ihracat","buyume"], amac:"İhracata ve uluslararası pazarlara açılan KOBİ'lerin rekabet gücünü artırmaya yönelik program."},
+  {kurum:"KOSGEB", ad:"KOBİ Dijital Dönüşüm Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9144/kobi-dijital-donusum-destek-programi", asama:["donusum"], amac:"Dijitalleşme, otomasyon ve teknoloji yatırımı yapan KOBİ'ler için dönüşüm programı."},
+  {kurum:"KOSGEB", ad:"Yeşil Sanayi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9022/yesil-sanayi-destek-programi", asama:["donusum"], amac:"Çevre, enerji verimliliği ve yeşil dönüşüm yatırımlarına yönelik program."},
+  {kurum:"KOSGEB", ad:"1507 – TÜBİTAK KOBİ Ar-Ge Başlangıç Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9146/1507-tubitak-kobi-arge-baslangic-destek-programi", asama:["arge"], amac:"İlk kez Ar-Ge projesi yürüten KOBİ'ler için (TÜBİTAK iş birliğiyle) başlangıç desteği."},
+  {kurum:"KOSGEB", ad:"Teknoloji Merkezi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9297/teknoloji-merkezi-destek-programi", asama:["arge","kurulus"], amac:"Teknoloji Merkezleri (TEKMER) bünyesinde teknoloji geliştiren girişimlere yönelik program."},
+  {kurum:"KOSGEB", ad:"Stratejik Ürün Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/6492/stratejik-urun-destek-programi", asama:["arge","donusum"], amac:"İthalatı yüksek, kritik ürünlerin yerli üretimini (yerlileştirme) desteklemeye yönelik program."},
+  {kurum:"KOSGEB", ad:"Sektörel Gelişim Merkezi (SEGEM) Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9327/sektorel-gelisim-merkezi-segem-destek-programi", asama:["buyume"], amac:"Sektörel gelişim merkezleri üzerinden işletmelerin ortak ihtiyaçlarını gidermeye yönelik program."},
+  {kurum:"KOSGEB", ad:"YÖNDE – Yönderlik ve Değerlendirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9165/yonde-yonderlik-ve-degerlendirme-destek-programi", asama:["buyume"], amac:"İşletmelere yönderlik (mentorluk) ve değerlendirme hizmeti sunmaya yönelik program."},
+  {kurum:"KOSGEB", ad:"İstihdamı Koruma Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9224/istihdami-koruma-destek-programi", asama:["istihdam"], amac:"İşletmelerin mevcut istihdamını sürdürmesine yönelik destek programı."}
 ];
-const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
+const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansman:"FİNANSMAN",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
 
 let SECILI = "hepsi";
 function ciz(){
@@ -102,10 +115,10 @@ function ciz(){
   liste.innerHTML = veri.map(p=>{
     const roz = p.asama.map(a=>`<span class="rozet">${ETIKET[a]||a}</span>`).join('');
     return `<div class="kart">
-      <div class="et">KOSGEB DESTEK PROGRAMI${roz}</div>
+      <div class="et">${p.kurum}${roz}</div>
       <h3>${p.ad}</h3>
       <p>${p.amac}</p>
-      <a class="gore" href="${p.url}" target="_blank" rel="noopener">Koşulları ve güncel çağrıyı KOSGEB'de gör →</a>
+      <a class="gore" href="${p.url}" target="_blank" rel="noopener">Koşulları ve güncel şartları resmî sayfada gör →</a>
     </div>`;
   }).join('') || `<div class="kart"><h3>Bu aşamaya uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
 }
