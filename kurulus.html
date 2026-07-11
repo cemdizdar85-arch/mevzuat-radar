@@ -219,7 +219,7 @@ sahis: {
     ["Yazar kasa / e-belge ihtiyacına göre","Perakende satış varsa ÖKC (yazar kasa POS); faaliyet türüne göre e-SMM, e-arşiv fatura gündeme gelir — muhasebecinle netleştir."],
     ["Esnaf ya da ticaret odası kaydı (duruma göre)","Esnaf muaflığı dışındaysan faaliyetine göre esnaf sicili ya da ticaret odası kaydı gerekebilir."]
   ],
-  notlar: "💡 Gençsen kaçırma: ilk kez mükellefiyet açan 29 yaş altı girişimcilere <b>genç girişimci kazanç istisnası</b> (GVK mükerrer m.20) ve şartları tutarsa <b>Bağ-Kur prim desteği</b> var. Tutar ve şartlar dönemsel değişir — güncelini <a href='https://www.gib.gov.tr' target='_blank' rel='noopener'>GİB</a> ve SGK'dan teyit et, başvuruyu mükellefiyet açılmadan ÖNCE muhasebecinle planla; sonradan istenemez."
+  notlar: "💡 Gençsen kaçırma: ilk kez mükellefiyet açan 29 yaş altı girişimcilere <b>genç girişimci kazanç istisnası</b> sürüyor (GVK mükerrer m.20 — 3 yıl boyunca, tarifenin 2. dilim tutarına kadar kazanç vergisiz; tutar her yıl değişir, güncelini <a href='https://www.gib.gov.tr' target='_blank' rel='noopener'>GİB</a>'den teyit et). ⚠ Dikkat: eskiden verilen <b>1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı</b> (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma. İstisna başvurusunu mükellefiyet açılmadan ÖNCE muhasebecinle planla."
 },
 ltd: {
   ad: "Limited şirket (LTD)",
@@ -337,7 +337,7 @@ function oner(){
   if(CEVAP.risk==='yuksek'){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
   else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
 
-  if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına kazanç istisnası (GVK mük. m.20) + şartlar tutarsa Bağ-Kur prim desteği — bunlar şahıs/ortaklık mükellefiyetinde işler, güncel şartları GİB/SGK\'dan teyit et.'); }
+  if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına 3 yıl kazanç istisnası (GVK mük. m.20) — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. Tutar her yıl değişir, güncelini GİB\'den teyit et. (Not: eski 1 yıllık Bağ-Kur prim desteği 2026 başında kaldırıldı.)'); }
 
   const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
   const kazanan = sira[0], ikinci = sira[1];
