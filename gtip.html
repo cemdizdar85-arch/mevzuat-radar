@@ -55,6 +55,11 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </div>
 
 <script>
+// E-POSTA (index.html ile aynı Web3Forms anahtarı)
+const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
+const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
+let SON_SORGU = "";   // en son sorgulanan kod (takip için)
+
 let VERI = null, RADAR = null, VERGI = null, DAMPING = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
@@ -111,6 +116,7 @@ function sorgula(){
   if(!q){ s.innerHTML='<div class="kart yok"><div class="et">■ BİLGİ</div><h3>Bir GTİP kodu gir.</h3></div>'; return; }
   if(!VERI){ s.innerHTML='<div class="kart"><h3>Veri yükleniyor, bir saniye…</h3></div>'; return; }
 
+  SON_SORGU = q;
   const say2 = q.replace(/\./g,'');
   const dHtml = dampingKart(q);   // damping uyarısı (varsa en üstte)
   const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(say2));
@@ -156,9 +162,44 @@ function sorgula(){
   s.innerHTML = dHtml + html + ctaHtml();
 }
 function ctaHtml(){
-  return `<div class="cta"><h3>Bu tek kod. Ya diğerleri, ya değişiklikler?</h3>
-    <p>Kodlarını kaydet, birine gözetim/damping geldiği gün cebine kart düşsün. Ücretsiz karneyle başla.</p>
-    <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>`;
+  return `<div class="cta" id="takipKutu">
+    <h3>🔔 Bu kodu takibe al</h3>
+    <p>E-postanı bırak; <b style="color:var(--ink)">${SON_SORGU || 'bu kod'}</b> için gözetim, vergi ya da damping değişirse —
+    yeni bir tebliğ çıktığı gün— <b style="color:var(--ink)">sana</b> haber verelim. Ücretsiz, istediğinde çık.</p>
+    <div class="ara" style="margin-bottom:8px">
+      <input id="takipMail" type="email" placeholder="ornek@firma.com" autocomplete="email" style="flex:1;min-width:200px">
+      <button class="btn" onclick="takibeAl()">Takibe al</button>
+    </div>
+    <label style="display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:12px">
+      <input id="takipKvkk" type="checkbox" style="width:auto;margin-top:2px;accent-color:var(--accent)">
+      <span>E-postamın bu kod için bilgilendirme amacıyla işlenmesine izin veriyorum.
+      <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
+    </label>
+    <p id="takipSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
+    <p style="margin:12px 0 0;font-size:12px;color:var(--dim)">Birden çok kodun mu var? <a href="index.html#app">Ücretsiz Yükümlülük Karnesi</a> ile firmanın tüm profilini çıkar.</p>
+  </div>`;
+}
+
+function takibeAl(){
+  const s = document.getElementById('takipSonuc');
+  const goster = (m,ok)=>{ s.style.display='block'; s.textContent=m; s.style.color = ok?'var(--green)':'var(--red)'; };
+  const mail = (document.getElementById('takipMail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
+  if(!document.getElementById('takipKvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
+  const payload = {
+    access_key: EPOSTA_ANAHTAR,
+    subject: 'GTİP takip kaydı — ' + SON_SORGU,
+    from_name: 'Mevzuat Radarı',
+    email: mail,
+    'Takip edilen GTİP': SON_SORGU,
+    'Kayıt kaynağı': 'GTİP Sağlık Kontrolü'
+  };
+  goster('Kaydediliyor…',true);
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{ if(r.ok){ document.getElementById('takipMail').value=''; document.getElementById('takipKvkk').checked=false;
+      goster('✓ Takibe alındı! '+SON_SORGU+' için bir değişiklik olduğunda ilk sana haber vereceğiz.',true); }
+      else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
+    .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
 }
 document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Enter') sorgula(); });
 </script>
