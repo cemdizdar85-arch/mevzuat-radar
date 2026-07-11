@@ -28,6 +28,7 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 .sbtn:hover{color:var(--ink);border-color:var(--accent)}
 .sbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
 .sbtn small{display:block;font-weight:600;font-size:11px;opacity:.75}
+.sbtn.kck{flex:0 1 auto;min-width:0;font-size:13px;padding:9px 14px;font-weight:600}
 .kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:18px 20px;margin-bottom:12px}
 .kart h3{margin:2px 0 10px;font-size:16.5px;letter-spacing:-.3px}
 .satir{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
@@ -56,8 +57,53 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="destekler.html">Destek Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · Şirket Kuruluşu</div>
   <h1>Şirket Kuruluşu Rehberi</h1>
-  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — nereden başlayacağını bilmiyorsun. Türünü seç; farkları, adım adım kuruluş yolunu ve <b style="color:var(--ink)">kuruluştan sonra seni bekleyen yükümlülükleri</b> gör.</p>
+  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — bilmiyorsun. Herkese aynı listeyi sunmayacağız: <b style="color:var(--ink)">5 soruya cevap ver, sana uygun türü gerekçesiyle önerelim</b> — adım adım kuruluş yolu ve seni bekleyen yükümlülüklerle birlikte.</p>
 
+  <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
+    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 5 soruda söyleyelim</h3>
+    <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim — diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
+    <div class="soru" data-k="ortak">
+      <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="tek">Tek başımayım</button>
+        <button class="sbtn kck" data-v="ortakli">Ortağım / ortaklarım var</button>
+      </div>
+    </div>
+    <div class="soru" data-k="satis">
+      <b style="font-size:14px">2. İleride şirketi satmayı ya da yatırımcı almayı düşünüyor musun?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="evet">Evet, planım var</button>
+        <button class="sbtn kck" data-v="belki">Belki, bilmiyorum</button>
+        <button class="sbtn kck" data-v="hayir">Hayır, işleteceğim</button>
+      </div>
+    </div>
+    <div class="soru" data-k="sermaye">
+      <b style="font-size:14px">3. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="dusuk">Asgari düzeyde başlamak istiyorum</button>
+        <button class="sbtn kck" data-v="orta">50.000 TL'yi ayırabilirim</button>
+        <button class="sbtn kck" data-v="yuksek">250.000 TL ve üstünü ayırabilirim</button>
+      </div>
+    </div>
+    <div class="soru" data-k="risk">
+      <b style="font-size:14px">4. İşin doğası: borçlanma, stok, çalışan olacak mı?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="yuksek">Evet — alım satım / üretim / ekip</button>
+        <button class="sbtn kck" data-v="dusuk">Hayır — hizmet / danışmanlık / tek kişilik</button>
+      </div>
+    </div>
+    <div class="soru" data-k="genc">
+      <b style="font-size:14px">5. 29 yaşından küçüksün ve ilk kez vergi mükellefi mi olacaksın?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="evet">Evet, ikisi de doğru</button>
+        <button class="sbtn kck" data-v="hayir">Hayır</button>
+      </div>
+    </div>
+    <button class="btn" onclick="oner()">Bana uygun türü göster</button>
+    <div id="oneri"></div>
+  </div>
+
+  <h2 id="turlerBaslik">Türleri kendin incele</h2>
   <div class="sec" id="sec">
     <button class="sbtn on" data-t="sahis">Şahıs işletmesi<small>en hızlı ve en ucuz başlangıç</small></button>
     <button class="sbtn" data-t="ltd">Limited şirket (LTD)<small>KOBİ'lerin standardı</small></button>
@@ -256,6 +302,96 @@ function takibeAl(){
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
 }
 document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key==='Enter') takibeAl(); });
+
+// ================= TÜR SİHİRBAZI =================
+const CEVAP = {};
+document.getElementById('sihirbaz').addEventListener('click',e=>{
+  const b = e.target.closest('.sbtn.kck'); if(!b) return;
+  const grup = b.closest('.soru');
+  grup.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  CEVAP[grup.dataset.k] = b.dataset.v;
+});
+
+function oner(){
+  const out = document.getElementById('oneri');
+  const gerekli = ['ortak','satis','sermaye','risk','genc'];
+  const eksik = gerekli.filter(k=>!CEVAP[k]);
+  if(eksik.length){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length} soru cevapsız kaldı, hepsini işaretle.</p>`; return; }
+
+  // puanlama
+  let p = {sahis:0, ltd:0, as:0};
+  const neden = {sahis:[], ltd:[], as:[]};
+
+  if(CEVAP.ortak==='tek'){ p.sahis+=2; p.ltd+=1; neden.sahis.push('Tek başınasın — şahıs işletmesi en hızlı ve en az maliyetli kapı.'); }
+  else { p.sahis=-99; p.ltd+=2; p.as+=1; neden.ltd.push('Ortaklı yapı tüzel kişilik ister — şahıs işletmesi bu senaryoda zaten mümkün değil.'); }
+
+  if(CEVAP.satis==='evet'){ p.as+=3; neden.as.push('Satış/yatırım planın var: AŞ\'de pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisna (GVK mük. m.80) ve pay devri notersiz. LTD\'de satış her durumda vergili — bu fark satış gününde ciddi para eder.'); }
+  else if(CEVAP.satis==='belki'){ p.as+=1; neden.as.push('Satış ihtimalin varsa AŞ kapısını açık tutmak mantıklı — sonradan tür değiştirmek mümkün ama masraflı.'); }
+  else { p.ltd+=1; p.sahis+=1; }
+
+  if(CEVAP.sermaye==='yuksek'){ p.as+=1; neden.as.push('250.000 TL asgari sermayeyi ayırabiliyorsun — AŞ\'nin giriş şartı sende hazır.'); }
+  else if(CEVAP.sermaye==='orta'){ p.ltd+=1; p.as-=3; neden.ltd.push('50.000 TL bandındaki sermaye LTD\'nin asgari şartına birebir oturuyor (AŞ için 250.000 TL gerekir).'); }
+  else { p.sahis+=2; p.ltd-=1; p.as-=3; neden.sahis.push('Asgari düzeyde başlamak istiyorsun — şahıs işletmesinde sermaye şartı hiç yok.'); }
+
+  if(CEVAP.risk==='yuksek'){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
+  else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
+
+  if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına kazanç istisnası (GVK mük. m.20) + şartlar tutarsa Bağ-Kur prim desteği — bunlar şahıs/ortaklık mükellefiyetinde işler, güncel şartları GİB/SGK\'dan teyit et.'); }
+
+  const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
+  const kazanan = sira[0], ikinci = sira[1];
+  const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket (LTD)', as:'Anonim şirket (AŞ)'};
+  const OKU = {
+    sahis:'Aşağıdaki hap kartlardan "Şahıstan şirkete ne zaman geçmeliyim?" kartını da oku — büyüme sinyallerini bil.',
+    ltd:'Aşağıdaki hap kartlardan "Neden limited şirket?" ve "Şirketi ileride satmayı düşünüyorsan" kartlarını oku.',
+    as:'Aşağıdaki hap kartlardan "AŞ kurarken 5 dikkat" kartını mutlaka oku — özellikle pay senedi bastırma adımını.'
+  };
+  const gerekce = (neden[kazanan].length ? neden[kazanan] : ['Cevaplarının genel dengesi bu türü işaret ediyor.'])
+    .map(n=>`<div class="adim"><div class="no">✓</div><div><p style="margin:0;color:var(--muted)">${n}</p></div></div>`).join('');
+
+  out.innerHTML = `
+    <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
+      <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
+      <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
+      <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]} — koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
+      ${gerekce}
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">📖 ${OKU[kazanan]}</p>
+      <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Bu bir ön öneridir, kişisel durumuna göre değişebilir — son kararı muhasebecinle ver. İstersen bu sonucu ve kuruluş yol haritanı e-postana gönderelim:</p>
+      <div class="ara" style="margin-top:10px">
+        <input id="oneriMail" type="email" placeholder="ornek@firma.com" autocomplete="email" style="font-size:15px;padding:11px 13px">
+        <button class="btn" style="font-size:14px;padding:11px 18px" onclick="oneriGonder('${kazanan}')">Yol haritamı gönder</button>
+      </div>
+      <p id="oneriSonuc" style="margin:8px 0 0;font-size:13px;font-weight:600;display:none"></p>
+    </div>`;
+  // önerilen türün sekmesini de aç
+  document.querySelectorAll('#sec .sbtn').forEach(x=>{ x.classList.toggle('on', x.dataset.t===kazanan); });
+  SECILI = kazanan; ciz();
+  out.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function oneriGonder(tur){
+  const s = document.getElementById('oneriSonuc');
+  const goster = (m,ok)=>{ s.style.display='block'; s.textContent=m; s.style.color = ok?'var(--green)':'var(--red)'; };
+  const mail = (document.getElementById('oneriMail').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.',false); return; }
+  const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket', as:'Anonim şirket'};
+  const payload = {
+    access_key: EPOSTA_ANAHTAR,
+    subject: 'Kuruluş sihirbazı sonucu — ' + AD[tur],
+    from_name: 'Mevzuat Radarı',
+    email: mail,
+    'Önerilen tür': AD[tur],
+    'Ortaklık': CEVAP.ortak||'', 'Satış/yatırım planı': CEVAP.satis||'',
+    'Sermaye bandı': CEVAP.sermaye||'', 'Risk profili': CEVAP.risk||'', 'Genç girişimci': CEVAP.genc||'',
+    'Kayıt kaynağı': 'Şirket Kuruluşu Sihirbazı'
+  };
+  goster('Gönderiliyor…',true);
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{ if(r.ok){ goster('✓ Alındı! Yol haritan ve önerin en kısa sürede e-postanda.',true); }
+      else goster('Bir sorun oldu, birazdan tekrar dene.',false); })
+    .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
+}
 
 // 31.12.2026 asgari sermaye son tarihini ICS olarak indir — telefon/Outlook/Google takvimine tek dokunus
 function takvimeEkle(){
