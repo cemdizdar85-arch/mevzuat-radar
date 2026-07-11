@@ -62,6 +62,8 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
     <div class="et">■ MEVCUT ŞİRKETİ OLANLARA — SON TARİH 31.12.2026</div>
     <h3>Sermaye artırımı yapmayan şirket, infisah etmiş sayılacak.</h3>
     <p>Asgari sermaye tutarları artırıldı: <b style="color:var(--ink)">limited için 50.000 TL, anonim için 250.000 TL</b> (TTK m.580 / m.332, 7511 sayılı Kanun). Sermayesi bu tutarların altında kalan mevcut şirketlerin <b style="color:var(--ink)">31 Aralık 2026'ya kadar</b> sermayelerini yükseltmesi gerekiyor; yükseltmeyenler infisah etmiş (kendiliğinden sona ermiş) sayılacak. Kaynak: <a href="https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir" target="_blank" rel="noopener">Ticaret Bakanlığı duyurusu</a>. Şirketinin durumunu muhasebecinle bu yıl bitmeden mutlaka konuş.</p>
+    <button class="btn" style="margin-top:14px;font-size:14px;padding:11px 18px" onclick="takvimeEkle()">📅 Son tarihi telefon takvimime ekle</button>
+    <span id="takvimNot" style="display:block;margin-top:8px;font-size:12px;color:var(--dim)"></span>
   </div>
 
   <h2>Kuruluştan sonra seni ne bekliyor?</h2>
@@ -197,6 +199,25 @@ function takibeAl(){
     .catch(()=>goster('Bağlantı sağlanamadı, birazdan tekrar dene.',false));
 }
 document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key==='Enter') takibeAl(); });
+
+// 31.12.2026 asgari sermaye son tarihini ICS olarak indir — telefon/Outlook/Google takvimine tek dokunus
+function takvimeEkle(){
+  const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Mevzuat Radari//Kurulus//TR","BEGIN:VEVENT",
+    "UID:sermaye-uyum-20261231@mevzuat-radar",
+    "DTSTART;VALUE=DATE:20261231",
+    "DTEND;VALUE=DATE:20270101",
+    "SUMMARY:SON GÜN: Asgari sermaye uyumu (LTD 50.000 / AŞ 250.000 TL)",
+    "DESCRIPTION:Sermayesi asgari tutarın altındaki şirketler bugüne kadar artırım yapmazsa infisah etmiş sayılır (TTK m.332/m.580\\, 7511 s. Kanun). Muhasebecinle görüş. Kaynak: Ticaret Bakanlığı — https://icticaret.ticaret.gov.tr",
+    "BEGIN:VALARM","TRIGGER:-P30D","ACTION:DISPLAY","DESCRIPTION:Asgari sermaye uyumuna 30 gün kaldı","END:VALARM",
+    "BEGIN:VALARM","TRIGGER:-P7D","ACTION:DISPLAY","DESCRIPTION:Asgari sermaye uyumuna 7 gün kaldı","END:VALARM",
+    "END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = "asgari-sermaye-son-gun.ics";
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('takvimNot').textContent = "✓ İndirildi — dosyayı açınca takvimine kaydolur (30 ve 7 gün önce hatırlatmalı).";
+}
 </script>
 </body>
 </html>
