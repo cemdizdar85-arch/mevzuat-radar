@@ -141,6 +141,7 @@ function hesapla(){
   }
 }
 </script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
 '@
@@ -345,7 +346,8 @@ $hub = @"
 $hubBody
 <div class="cta"><h2>Tüm yükümlülüklerini tek seferde gör</h2><p>3 dakikada ücretsiz Yükümlülük Karnesi.</p><a class="btn" href="../index.html">Karnemi çıkar →</a></div>
 <div class="dip">Hazırlayan SMMM Cem Dizdar — Mevzuat Radarı. Bilgilendirme amaçlıdır.</div>
-</div></body></html>
+</div><script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
 "@
 [System.IO.File]::WriteAllText((Join-Path $here 'index.html'),$hub,$enc)
 

@@ -134,7 +134,7 @@ if($ilgiliToplam -eq 0){
 [void]$s.AppendLine('<p>Listeye her gün bakmak yerine firmanı tanıt; tabi olduğun yükümlülükleri 3 dakikada gör. Ücretsiz, kayıtsız.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
 [void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Mevzuat Radarı otomatik taraması · Bilgilendirme amaçlıdır.</div>")
-[void]$s.AppendLine('</div></body></html>')
+[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
 
 $kok = Split-Path -Parent $PSScriptRoot   # arac/ klasorunun ustu = repo koku
 $hedef = Join-Path $kok "radar.html"

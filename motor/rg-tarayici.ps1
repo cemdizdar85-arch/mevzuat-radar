@@ -153,7 +153,7 @@ foreach($k in $sonuc.Keys){
 }
 [void]$h.AppendLine("<h2>Kategorisiz kalan ($($digerIlgili.Count)) - goz at</h2>")
 foreach($md in $digerIlgili){ [void]$h.AppendLine("<div class='m gri'><a href='$($md.url)' target='_blank'>$($md.baslik)</a></div>") }
-[void]$h.AppendLine('</div></body></html>')
+[void]$h.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
 $htmlYol = Join-Path $ciktiDir ("rapor-" + $gunKlas + ".html")
 [System.IO.File]::WriteAllText($htmlYol, $h.ToString(), (New-Object System.Text.UTF8Encoding($true)))
 
@@ -194,7 +194,7 @@ foreach($k in $sonuc.Keys){
 [void]$s.AppendLine('<p>Listeye her gün bakmak yerine firmanı tanıt; tabi olduğun yükümlülükleri 3 dakikada gör. Ücretsiz, kayıtsız.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
 [void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Mevzuat Radarı otomatik taraması · Bilgilendirme amaçlıdır.</div>")
-[void]$s.AppendLine('</div></body></html>')
+[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
 $radarYol = Join-Path (Split-Path -Parent $here) "radar.html"
 [System.IO.File]::WriteAllText($radarYol, $s.ToString(), (New-Object System.Text.UTF8Encoding($true)))
 Write-Host ("Site sayfasi uretildi: " + $radarYol) -ForegroundColor Cyan
