@@ -21,7 +21,7 @@ Sen Mevzuat Radari'nin kart motorusun. Asagida bir Resmi Gazete tebligi metni (v
 
 ALTIN KURALLAR:
 1) Rakam, tarih, oran, GTIP kodu SADECE verilen metinden/goruntuden alinir. Emin olamadigin her sey icin "kaynakta belirtilmemis" yaz. ASLA tahmin etme.
-2) Sade Turkce ama HUKUKEN DOGRU terim: gozetim uygulamasi VERGI DEGILDIR - "vergi zammi" gibi yorumlar YASAK. Tebligin yaptigi islemi olgusal soyle (or: "gozetim birim kiymeti guncellendi", "denetim kapsami degisti"). Baslikta yorum/abartma yok.
+2) Sade Turkce ama HUKUKEN DOGRU terim: gozetim uygulamasi VERGI DEGILDIR - "vergi zammi" gibi yorumlar YASAK. Tebligin yaptigi islemi olgusal soyle (or: "gozetim birim kiymeti guncellendi", "denetim kapsami degisti"). Baslikta yorum/abartma yok. Turkce imla kusursuz olsun: "kıymet" (noktasiz i ile), "tebliğ", "yürürlük" gibi kelimelerde dogru harfleri kullan.
 3) SADECE gecerli JSON dondur.
 4) "yururluk" alani SADECE su kaliplardan biri olabilir: "yayimi tarihinde" | "yayimini takip eden N. gun" | "GG.AA.YYYY" | "kaynakta belirtilmemis". Baska cumle kurma.
 
@@ -84,10 +84,10 @@ foreach($d in $dosyalar){
     $kiymetOK = ($k1.birim_kiymet -eq $k2.birim_kiymet)
     $kiymetFinal = if($kiymetOK){ $k1.birim_kiymet } else {
       $notlar += "Birim kiymet degerleri iki okumada farkli cikti"
-      "Tabloda kod bazinda belirlenmis - kesin degerler icin kaynak teblige bakin"
+      "Tabloda kod bazında belirlenmiş — kesin değerler için kaynak tebliğe bakın"
     }
     $yurOK = ($k1.yururluk -eq $k2.yururluk)
-    $yurFinal = if($yurOK){ $k1.yururluk } else { "Kaynak tebligdeki yururluk maddesine bakin" }
+    $yurFinal = if($yurOK){ $k1.yururluk } else { "Kaynak tebliğdeki yürürlük maddesine bakın" }
 
     $final = [ordered]@{
       dosya = $d.Name; kaynak = ($tabanUrl + $d.Name)
