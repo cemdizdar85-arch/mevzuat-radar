@@ -154,7 +154,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Bugün RG''de</div>')
 [void]$s.AppendLine("<h1>Bugün Resmî Gazete'de ne var?</h1>")
 [void]$s.AppendLine("<div class='alt'>$Tarih tarihli sayının radar taraması — $($madde.Count) maddeden <b style='color:var(--ink)'>$ilgiliToplam</b> tanesi işletmeleri ilgilendiriyor.</div>")
-[void]$s.AppendLine('<div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Hangi maddenin SENİ etkilediğini söyleyen kişisel radar (hap kartlar) yakında.</div>')
+[void]$s.AppendLine('<div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Bu maddelerin sade Türkçe özetleri için: <a href="kartlar.html">Günün Hap Kartları →</a></div>')
 foreach($k in $sonuc.Keys){
   $grup = $sonuc[$k]; if(-not $grup.Count){ continue }
   [void]$s.AppendLine("<h2>$k ($($grup.Count))</h2>")
