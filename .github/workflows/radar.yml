@@ -1,0 +1,31 @@
+# Bu dosyanin GitHub'daki yolu SU OLMALI: .github/workflows/radar.yml
+# (Kurulum: GitHub'da Add file -> Create new file -> yol kutusuna
+#  .github/workflows/radar.yml yaz -> bu icerigi yapistir -> Commit)
+name: Gunluk RG Taramasi
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # her gun 05:30 UTC = 08:30 Turkiye saati
+  workflow_dispatch:        # Actions sekmesinden elle de calistirilabilir
+
+permissions:
+  contents: write
+
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: RG taramasini calistir
+        shell: pwsh
+        run: ./arac/rg-tarama.ps1
+
+      - name: Degisiklik varsa yayinla
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add radar.html
+          git diff --cached --quiet || git commit -m "Gunluk RG taramasi ($(date +%d.%m.%Y))"
+          git push
