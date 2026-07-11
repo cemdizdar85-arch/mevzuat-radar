@@ -9,7 +9,8 @@
 #  Not: Bu klasör (motor/) SİTEYE YÜKLENMEZ — iç araçtır.
 # ============================================================================
 param(
-  [string]$Tarih = (Get-Date).ToString("dd.MM.yyyy")
+  [string]$Tarih = (Get-Date).ToString("dd.MM.yyyy"),
+  [switch]$SadeceArsiv   # gecmis tarama: radar.html'e DOKUNMA
 )
 
 $ErrorActionPreference = "Stop"
@@ -130,6 +131,7 @@ $htmlYol = Join-Path $ciktiDir ("rapor-" + $gunKlas + ".html")
 
 # ---- SITEYE KONACAK SAYFA: radar.html (proje kokune yazilir) ----------------
 # Not: Bu otomatik ON TARAMADIR - hap kart degildir; dogrulama iddiasi TASIMAZ.
+if(-not $SadeceArsiv){
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
 [void]$s.AppendLine("<title>Bugün RG'de - $Tarih | Mevzuat Radarı</title>")
@@ -168,6 +170,7 @@ foreach($k in $sonuc.Keys){
 $radarYol = Join-Path (Split-Path -Parent $here) "radar.html"
 [System.IO.File]::WriteAllText($radarYol, $s.ToString(), (New-Object System.Text.UTF8Encoding($true)))
 Write-Host ("Site sayfasi uretildi: " + $radarYol) -ForegroundColor Cyan
+}  # SadeceArsiv sonu
 
 # json (ileride kart uretim hattinin girdisi)
 $jsonYol = Join-Path $ciktiDir ("veri-" + $gunKlas + ".json")
