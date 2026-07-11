@@ -55,18 +55,23 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </div>
 
 <script>
-let VERI = null;
-fetch('veri/gtip-durum.json').then(r=>r.json()).then(j=>VERI=j).catch(()=>VERI={});
+let VERI = null, RADAR = null;
+Promise.all([
+  fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b])=>{ VERI=a; RADAR=b; });
 
-function tl(s){ return s; }
+// "1.000 ABD Doları/Ton" -> sayi (kiyas icin)
+function say(s){ if(!s) return null; const m=(''+s).replace(/\./g,'').match(/\d+/); return m?parseInt(m[0],10):null; }
+
 function sorgula(){
   const s = document.getElementById('sonuc');
   const q = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();
   if(!q){ s.innerHTML='<div class="kart yok"><div class="et">■ BİLGİ</div><h3>Bir GTİP kodu gir.</h3></div>'; return; }
   if(!VERI){ s.innerHTML='<div class="kart"><h3>Veri yükleniyor, bir saniye…</h3></div>'; return; }
 
-  // tam eşleşme ya da önek eşleşmesi
-  const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(q.replace(/\./g,'')));
+  const say2 = q.replace(/\./g,'');
+  const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(say2));
   if(!kodlar.length){
     s.innerHTML = `<div class="kart yok"><div class="et">■ TEMİZ</div>
       <h3>${q} kodunda kayıtlı gözetim bulunamadı.</h3>
@@ -76,12 +81,28 @@ function sorgula(){
   let html = '';
   for(const kod of kodlar.slice(0,25)){
     const kayitlar = VERI[kod];
+    // kıyas: radar hafızasında bu kodun daha yeni değeri var mı?
+    let kiyasHtml = '';
+    const rad = RADAR && RADAR[kod];
+    if(rad && rad.length){
+      const yeni = rad[rad.length-1];
+      const eski = kayitlar[0] && kayitlar[0].deger;
+      const eSay = say(eski), ySay = say(yeni.deger);
+      if(eSay && ySay && eSay!==ySay){
+        const yon = ySay>eSay ? 'arttı' : 'düştü';
+        const yuzde = Math.round(Math.abs(ySay-eSay)/eSay*100);
+        kiyasHtml = `<div class="kiyas">📊 <b>Değişim:</b> birim kıymet <b>${eski}</b> iken <b>${yeni.deger}</b> oldu — %${yuzde} ${yon} (RG ${yeni.tarih}). Gümrük matrahı buna göre değişir.</div>`;
+      } else if(yeni.deger && (!eski || say(eski)!==say(yeni.deger))){
+        kiyasHtml = `<div class="kiyas">📊 <b>Güncel değer (radar):</b> ${yeni.deger} — RG ${yeni.tarih}</div>`;
+      }
+    }
     let satirlar = kayitlar.map(k=>`<div class="satir"><b>Birim kıymet</b><span>${k.deger}</span></div>
       <div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
       <div class="satir"><b>Resmî metin</b><span><a href="${k.kaynak}" target="_blank" rel="noopener">mevzuat.gov.tr →</a></span></div>`).join('');
     html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
-      <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}
-      <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p></div>`;
+      <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${kiyasHtml}
+      <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
+      <div class="satir" style="border:0;margin-top:8px"><b style="color:var(--dim);font-weight:600">Gümrük vergisi / damping oranları</b><span style="color:var(--dim)">yakında eklenecek</span></div></div>`;
   }
   s.innerHTML = html + ctaHtml();
 }
