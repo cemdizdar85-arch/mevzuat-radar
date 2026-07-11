@@ -55,11 +55,28 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </div>
 
 <script>
-let VERI = null, RADAR = null;
+let VERI = null, RADAR = null, VERGI = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b])=>{ VERI=a; RADAR=b; });
+  fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c])=>{ VERI=a; RADAR=b; VERGI=c; });
+
+// vergi kartı üret: [gvMin,gvMax,igvMin,igvMax]
+function vergiKart(kod){
+  if(!VERGI || !VERGI[kod]) return '';
+  const v = VERGI[kod];
+  const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
+  let sat = '';
+  if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
+  if(v[2]!==null && v[2]!==undefined) sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
+  if(!sat) return '';
+  return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ VERGİ ORANLARI (menşe ülkeye göre)</div>
+    ${sat}
+    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">En düşük oran genelde AB/tercihli ülkeler, en yüksek diğer ülkeler (ör. Çin) içindir. Kaynak: İthalat Rejimi Kararı + İGV Kararı (Ticaret Bak., 2026 konsolide). KDV/ÖTV ayrıca hesaplanır.</div>
+  </div>`;
+}
 
 // "1.000 ABD Doları/Ton" -> sayi (kiyas icin)
 function say(s){ if(!s) return null; const m=(''+s).replace(/\./g,'').match(/\d+/); return m?parseInt(m[0],10):null; }
@@ -73,9 +90,16 @@ function sorgula(){
   const say2 = q.replace(/\./g,'');
   const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(say2));
   if(!kodlar.length){
-    s.innerHTML = `<div class="kart yok"><div class="et">■ TEMİZ</div>
-      <h3>${q} kodunda kayıtlı gözetim bulunamadı.</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin:0">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı. Yine de damping/ÜGD gibi başka bir yükümlülük olabilir — tam radar için karneni çıkar.</p></div>` + ctaHtml();
+    // gözetim yok ama vergi olabilir: tam koda ya da önekine bak
+    const vk = VERGI ? Object.keys(VERGI).filter(k=>k===q || k.replace(/\./g,'').startsWith(say2)) : [];
+    let vHtml = '';
+    if(vk.length){
+      const kod = vk.find(k=>k===q) || vk[0];
+      vHtml = vergiKart(kod).replace('margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)','');
+    }
+    s.innerHTML = `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
+      <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${vk.length?' Ama vergi oranları aşağıda:':' Damping/ÜGD gibi başka bir yükümlülük için karneni çıkar.'}</p>${vHtml}</div>` + ctaHtml();
     return;
   }
   let html = '';
@@ -102,7 +126,7 @@ function sorgula(){
     html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
       <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${kiyasHtml}
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
-      <div class="satir" style="border:0;margin-top:8px"><b style="color:var(--dim);font-weight:600">Gümrük vergisi / damping oranları</b><span style="color:var(--dim)">yakında eklenecek</span></div></div>`;
+      ${vergiKart(kod)}</div>`;
   }
   s.innerHTML = html + ctaHtml();
 }
