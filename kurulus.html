@@ -57,10 +57,10 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="destekler.html">Destek Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · Şirket Kuruluşu</div>
   <h1>Şirket Kuruluşu Rehberi</h1>
-  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — bilmiyorsun. Herkese aynı listeyi sunmayacağız: <b style="color:var(--ink)">7 soruya cevap ver, sana uygun türü gerekçesiyle ve vergi kıyasıyla önerelim</b> — adım adım kuruluş yolu ve seni bekleyen yükümlülüklerle birlikte.</p>
+  <p class="lead">Şirket kurmak istiyorsun ama <b style="color:var(--ink)">şahıs mı, limited mi, anonim mi</b> — bilmiyorsun. Herkese aynı listeyi sunmayacağız: <b style="color:var(--ink)">8 soruya cevap ver, sana uygun türü gerekçesiyle ve vergi kıyasıyla önerelim</b> — adım adım kuruluş yolu ve seni bekleyen yükümlülüklerle birlikte.</p>
 
   <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
-    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 7 soruda söyleyelim</h3>
+    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 8 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim — diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
     <div class="soru" data-k="ortak">
       <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
@@ -111,6 +111,13 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
         <button class="sbtn kck" data-v="cek">Her yıl cebime çekeceğim</button>
         <button class="sbtn kck" data-v="birak">Şirkette bırakıp büyüteceğim</button>
         <button class="sbtn kck" data-v="karisik">Karışık / bilmiyorum</button>
+      </div>
+    </div>
+    <div class="soru" data-k="ciro">
+      <b style="font-size:14px">8. İlk yıl SATIŞ (ciro) beklentin hangi tarafta?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="dusuk"><span class="ciroHad">3,5 milyon TL</span>'nin altında</button>
+        <button class="sbtn kck" data-v="yuksek"><span class="ciroHad">3,5 milyon TL</span> ve üzeri</button>
       </div>
     </div>
     <button class="btn" onclick="oner()">Bana uygun türü göster</button>
@@ -324,6 +331,7 @@ let SABIT = null;
 fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{ SABIT=j;
   const ki = document.getElementById('karInput');
   if(ki) ki.placeholder = 'ör. 1.500.000 (TL, ' + j.yil + ' hedefi)';
+  if(j.bilancoHadleri) document.querySelectorAll('.ciroHad').forEach(x=>{ x.textContent = j.bilancoHadleri.satis.toLocaleString('tr-TR') + ' TL'; });
 }).catch(()=>{});
 
 // artan oranlı gelir vergisi (GİB tarifesi, ücret dışı)
@@ -349,7 +357,7 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
 
 function oner(){
   const out = document.getElementById('oneri');
-  const gerekli = ['ortak','satis','sermaye','risk','genc','cek'];
+  const gerekli = ['ortak','satis','sermaye','risk','genc','cek','ciro'];
   const eksik = gerekli.filter(k=>!CEVAP[k]);
   const kar = parseInt((document.getElementById('karInput').value||'').replace(/[^\d]/g,''),10) || 0;
   if(eksik.length || !kar){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length ? eksik.length + ' soru cevapsız' : ''}${eksik.length && !kar ? ' ve ' : ''}${!kar ? 'kâr hedefi boş' : ''}. Hepsini doldur, öneri ona göre şekillenecek.</p>`; return; }
@@ -388,6 +396,14 @@ function oner(){
   if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına 3 yıl kazanç istisnası (GVK mük. m.20) — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. Tutar her yıl değişir, güncelini GİB\'den teyit et. (Not: eski 1 yıllık Bağ-Kur prim desteği 2026 başında kaldırıldı.)'); }
 
   if(CEVAP.cek==='birak'){ p.ltd+=1; p.as+=1; }
+
+  // ciro bilanço haddini aşıyorsa: şahıs KURULABİLİR ama bilanço esasına geçer —
+  // şirketle aynı muhasebe yükü, sıfır sorumluluk koruması (VUK m.177)
+  if(CEVAP.ciro==='yuksek'){
+    p.sahis-=2; p.ltd+=1;
+    const had = SABIT && SABIT.bilancoHadleri ? TLf(SABIT.bilancoHadleri.satis)+' TL' : 'bilanço haddi';
+    neden.ltd.push(`Ciro beklentin bilanço esası haddini aşıyor (VUK m.177 — ${SABIT?SABIT.yil:''} satış haddi ${had}): şahıs kalsan bile birinci sınıf tüccar olarak şirketle aynı defter düzenine geçersin. Aynı muhasebe yükünü sınırlı sorumluluk korumasıyla taşımak daha akıllıca.`);
+  }
 
   // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
   let hesapHtml = '';
@@ -431,8 +447,16 @@ function oner(){
 
   // satış planı var ama öneri AŞ değilse: bedelini açıkça söyle (sessiz çelişki bırakma)
   let uyariHtml = '';
+  if(CEVAP.ciro==='yuksek' && kazanan==='sahis'){
+    uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
+      ⚠ <b style="color:var(--amber)">Ciro uyarısı:</b> beklentin bilanço esası haddini aşıyor (VUK m.177). Şahıs olarak kurabilirsin — yasak yok — ama birinci sınıf tüccar sayılır, <b style="color:var(--ink)">şirketle aynı defter/muhasebe düzenine</b> geçersin ve tüm bunları <b style="color:var(--ink)">sınırsız şahsi sorumlulukla</b> taşırsın. Bu ölçekte LTD'yi ciddi düşün.</div>`;
+  }
+  // sermaye artışı bilgi notu (resmî yeni tutar YOK — sadece farkındalık)
+  if(kazanan!=='sahis'){
+    uyariHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Bilgin olsun: asgari sermaye tutarları 2024'te beş kat artırıldı (LTD 50.000 / AŞ 250.000 TL) ve ileride yeniden artırılması gündeme gelebilir — bugün asgariyle kuranlar yarın artırım zorunluluğuyla karşılaşabilir (mevcut şirketlerin 31.12.2026 uyum yükümlülüğü gibi). Şu an açıklanmış yeni bir tutar yok; gücün yetiyorsa asgarinin üstünde sermayeyle kurmak seni ileriye taşır.</div>`;
+  }
   if(CEVAP.satis==='evet' && kazanan!=='as'){
-    uyariHtml = `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
+    uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
       ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">istisna saati pay senedi bastırılınca sıfırdan başlar</b>. Unutma: AŞ için kuruluşta peşin gereken tutar 250.000 TL değil, ¼'ü = <b style="color:var(--ink)">62.500 TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
   }
 
@@ -474,6 +498,7 @@ function oneriGonder(tur){
     'Sermaye bandı': CEVAP.sermaye||'', 'Risk profili': CEVAP.risk||'', 'Genç girişimci': CEVAP.genc||'',
     'Kâr hedefi (TL)': (document.getElementById('karInput').value||'').replace(/[^\d]/g,''),
     'Kâr politikası': CEVAP.cek||'',
+    'Ciro beklentisi': CEVAP.ciro||'',
     'Kayıt kaynağı': 'Şirket Kuruluşu Sihirbazı'
   };
   goster('Gönderiliyor…',true);
