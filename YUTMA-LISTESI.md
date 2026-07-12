@@ -80,7 +80,12 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **Yöntem (KAPSAM-KONTROL.md):** Hafızaya değil resmî eksiksiz sayım listesine çentik. İthalat ankoru = Ticaret Bak. "Güncel Vergi Kodları" (25.06.2026). Çentikleyince KKDF dışında sistematik eksikler çıktı.
 - **BALIK — IV Sayılı Liste (kör nokta kapandı):** Toplu Konut Fonu'nu kovalarken İthalat Rejimi'nin IV/V/VI/VII listelerini hiç hasat etmediğimiz ortaya çıktı. IV (balıkçılık/su ürünleri) hasat edildi: **569 kod, GV (11 ülke) + EMY/Toplu Konut Fonu (11 ülke)**, deterministik zip/xml (motor/balik-hasat.ps1) → veri/gtip-balik.json. balikKart önek-duyarlı. Sütun-ülke hizası kaynakla doğrulandı (0303.11).
 - **5 vergi notu (birincil, rakam uydurulmadan):** Sübvansiyona Karşı Vergi (3577 s.), TEV (Gümrük K.+DİR), Toplu Konut Fonu (balık EMY + işlenmiş tarım EMV), Tütün Fonu (3291 s. — yaprak tütün 2018'de SIFIRLANDI, güncel rakam uydurulmadı), Damga (488 s. maktu).
-- **Hâlâ açık (KAPSAM-KONTROL'de):** V Sayılı Liste (GV askıya alınmış sanayi, 2.058 kod — GV=0 iyi haber listesi), VI/VII nihai kullanım (niş), Çevre katkı payı (kod 29) kontrol.
+- **Hâlâ açık (KAPSAM-KONTROL'de):** VI/VII nihai kullanım (niş), Çevre katkı payı (kod 29) kontrol.
+
+## ✅ SAVUNMA SANAYİ + V SAYILI LİSTE (12.07.2026, altıncı tur — Cem)
+- **Savunma sanayi (fasıl 93):** KDV istisnası KDVK m.13/f (MSB/Jandarma/Sahil Güv./SSB/MİT/Emniyet'e savunma teslimleri; yüklenici KDV'siz ithal edebilir) + ihracat/ithalat kontrolü (silah/mühimmat + çift kullanımlı ürünler izne tabi: askeri→MSB, nükleer→TAEK, diğer→Ticaret Bak.; Tebliğ İhracat 2003/12, İthalat 2026/12). savunmaKart → gtip.html.
+- **V Sayılı Liste (GV askıya alma):** 606 pozisyon, GV %0 ama ŞARTLI (nihai kullanım/dipnot). motor/askiya-hasat.ps1 → veri/gtip-askiya.json. askiyaKart "askıya alınmış OLABİLİR, şartlı" der (uydurma yok). ÖNEK EŞLEŞME: sorgu kodu askıya önekiyle başlarsa.
+- **🔴 Bulunan eski hata:** vergiKart SON şablonu (VERGI'de olan sanayi kodları yolu) denetim/KKDF/ihracat/balık/savunma/askıya kartlarını İÇERMİYORDU — sadece erken-dönüş yolları içeriyordu. Yani gözetim-derived VERGI verisi olan sanayi kodlarında bu kartlar hiç görünmüyordu. Düzeltildi (tüm yollar artık aynı kart setini render eder).
 
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
