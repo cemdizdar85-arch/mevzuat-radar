@@ -18,6 +18,9 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
+      - name: pdftotext kur (gecikme zammi PDF parse icin)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
       - name: Kaynak nobetcisini calistir
         shell: pwsh
         run: ./arac/kaynak-nobetcisi.ps1

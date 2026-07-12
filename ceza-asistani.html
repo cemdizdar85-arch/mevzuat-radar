@@ -202,7 +202,9 @@ function vergiSonuc(){ ilerle(3);
   ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🏛️ Vergi cezası — önerilen kapı</div>${uyariKacak}<div class="ozet ${ozetT}">${ozet}</div>${kapilar}${hesapKutu}${btnGeri()}`);
 }
 // Gecikme zammı/faizi + pişmanlık zammı: aynı oran (6183 m.51 / VUK m.112,371). GİB resmî tablo.
-const FAIZ_AY=3.7, FAIZ_TARIH='13.11.2025';
+// Oran veri/gecikme-zammi.json'dan gelir — robot GİB PDF'inden OTOMATİK günceller. Fetch başarısızsa fallback.
+let FAIZ_AY=3.7, FAIZ_TARIH='13.11.2025';
+fetch('veri/gecikme-zammi.json').then(r=>r.json()).then(j=>{ if(j&&j.aylik){ FAIZ_AY=+j.aylik; FAIZ_TARIH=j.tarih||FAIZ_TARIH; } }).catch(()=>{});
 function faizKutu(mode){
   const ph = mode==='belge' ? 'Kesilen ceza (TL)' : 'Vergi aslı (TL)';
   const ayIn = mode==='belge' ? '' : `<input class="gir" id="fay" type="number" inputmode="decimal" placeholder="Kaç ay gecikme?" oninput="faizHesap('${mode}')" style="flex:1;min-width:130px">`;

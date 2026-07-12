@@ -129,13 +129,42 @@ if($dampingXlsxUrl){
   try { Remove-Item $tmpD -Recurse -Force -ErrorAction SilentlyContinue } catch {}
 }
 
+# ============ 1c) DETERMINISTIK: GiB gecikme zammi orani PDF -> OTO guncelle (ceza asistani) ============
+#  GiB "Gecikme Zammi Orani" PDF'inden en guncel aylik orani cekip veri/gecikme-zammi.json'u
+#  gunceller (pdftotext + 0-20 dogrulamasi). Degisince OTOMATIK YAZAR + commit + mail (elle bak DEGIL).
+$gecikmeUrl = "https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/yardim-kaynaklar/yararli-bilgiler/gecikme-zammi-orani.pdf"
+$tmpG = Join-Path ([System.IO.Path]::GetTempPath()) ("gecikme_" + [System.IO.Path]::GetRandomFileName())
+New-Item -ItemType Directory -Force $tmpG | Out-Null
+$gpdf = Join-Path $tmpG "gecikme.pdf"
+if(Indir $gecikmeUrl $gpdf){
+  $ghash = Hashle ([System.IO.File]::ReadAllBytes($gpdf))
+  $yeni["GiB Gecikme Zammi"] = $ghash
+  if($onceki.ContainsKey("GiB Gecikme Zammi") -and $onceki["GiB Gecikme Zammi"] -ne $ghash){
+    $is.Add("DEGISTI: Gecikme zammi PDF -> oto guncelle")
+    try {
+      $psExe = if(Get-Command pwsh -ErrorAction SilentlyContinue){ "pwsh" } else { "powershell" }
+      $ghYol = Join-Path $here "..\motor\gecikme-hasat.ps1"
+      & $psExe -NoProfile -ExecutionPolicy Bypass -File $ghYol $gpdf
+      if($LASTEXITCODE -eq 0){
+        $veriDegisti = $true
+        $mailSatir += "OTOMATIK GUNCELLENDI: Gecikme zammi orani degisti, veri/gecikme-zammi.json guncellendi (deterministik). Ceza Asistani otomatik yeni orani kullanir. Commit'lendi."
+        $is.Add("gecikme hasat TAMAM")
+      } else {
+        $mailSatir += "DIKKAT: Gecikme zammi PDF degisti ama otomatik parse edilemedi (exit $LASTEXITCODE) - ELLE bak: $gecikmeUrl -> veri/gecikme-zammi.json"
+        $is.Add("gecikme hasat exit $LASTEXITCODE")
+      }
+    } catch { $mailSatir += "DIKKAT: Gecikme zammi hasat HATA - ELLE bak. $($_.Exception.Message)"; $is.Add("gecikme HATA: $($_.Exception.Message)") }
+  } elseif(-not $onceki.ContainsKey("GiB Gecikme Zammi")){ $is.Add("ILK KAYIT: Gecikme zammi") }
+  else { $is.Add("AYNI: Gecikme zammi") }
+} else { $is.Add("gecikme pdf indirilemedi"); if($onceki.ContainsKey("GiB Gecikme Zammi")){ $yeni["GiB Gecikme Zammi"]=$onceki["GiB Gecikme Zammi"] } }
+try { Remove-Item $tmpG -Recurse -Force -ErrorAction SilentlyContinue } catch {}
+
 # ============ 2) ALERT: nuansli kaynaklar (robot YAZMAZ, sadece haber verir) ============
 $alertKaynaklar = @(
   @{ ad="GİB güncel KDV oranları (PDF)"; url="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/yardim-kaynaklar/yararli-bilgiler/kdv-oranlari.pdf" }
   @{ ad="Ticaret Bak. Güncel Vergi Kodları"; url="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/guncel-vergi-kodlari" }
   @{ ad="İthalat Rejimi değişiklik kararları (2026)"; url="https://ticaret.gov.tr/ithalat/ithalat-mevzuati/ithalat-rejimi-karari-igv-karari-ve-ithalat-tebligleri/1-1-ithalat-rejimi-kararinda-degisiklik-yapilmasina-iliskin-kararlar-2026-yili" }
   @{ ad="GİB ÇVÖA faiz/gayrimaddi hak stopaj oranlari tablosu (hizmet araci)"; url="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/mevzuat/uluslararasi_mevzuat/Cifte_Vergilendirme/Faiz_ve_Gayrimaddi_Hak_Bedelleri_Uzerinden_Kaynak_Devlette_Alinacak_Vergi_Oranlari.pdf" }
-  @{ ad="GİB gecikme zammi/faizi orani (ceza asistani hesabi)"; url="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/yardim-kaynaklar/yararli-bilgiler/gecikme-zammi-orani.pdf" }
 )
 foreach($k in $alertKaynaklar){
   $c = Sayfa $k.url
