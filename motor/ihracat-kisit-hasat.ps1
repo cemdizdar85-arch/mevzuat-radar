@@ -11,8 +11,12 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $sc   = "C:\Users\cemdi\AppData\Local\Temp\claude\C--Users-cemdi-OneDrive-Masa-st--mevzuat-i-i\45bc0a17-a2f9-4845-8233-eb8caab2a9d2\scratchpad"
 
-# ---- KAYDA BAGLI (GTIP kodlu) ----
-$kb = ([System.IO.File]::ReadAllText("$sc\kayda-bagli.txt", [System.Text.Encoding]::UTF8)) -replace '\s+',' '
+# ---- KAYDA BAGLI (GTIP kodlu) - RESMI KAYNAK: mevzuat.gov.tr (9.5.10371.doc) ----
+$kb = ([System.IO.File]::ReadAllText("$sc\kayda-resmi.txt", [System.Text.Encoding]::GetEncoding(1254))) -replace '\s+',' '
+# resmi doc tiposu: "10.0l" / "10.0I" (buğday 10.01) -> duzelt
+$kb = $kb -replace '10\.0[lI]', '10.01'
+# degisiklik/ek tarihcelerini temizle (kod cikarimini sasirtmasin)
+$kb = [regex]::Replace($kb, '\((?:Değişik|Ek|Mülga|Yeniden düzenleme)[^)]*\)', ' ')
 $kbList = $kb.Substring($kb.IndexOf("KAYDA BAĞLI MALLAR LİSTESİ"))
 $kaydaBagli = [ordered]@{}
 $kaydaTanim = @()
