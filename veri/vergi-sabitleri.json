@@ -3,6 +3,14 @@
   "guncelleme": "12.07.2026",
   "gvDilimler": [[190000, 15], [400000, 20], [1000000, 27], [5300000, 35], [null, 40]],
   "kvOran": 25,
+  "kvOranlari": {
+    "genel": 25,
+    "imalatci2026": 24,
+    "imalatci2027": 12.5,
+    "ihracatci": 20,
+    "finans": 30,
+    "not": "Genel KV %25. İMALATÇI (sanayi sicil belgesi + fiilen üretim) münhasıran ÜRETİM kazancında: 2026'da %24 (1 puan indirim, KVK m.32/8), 2027 ve sonrası %12,5 (12,5 puan indirim; 7582 s. Kanun, RG 04.06.2026/33270). İHRACATÇI münhasıran İHRACAT kazancında %20 (5 puan indirim, KVK m.32/7). AL-SAT/ticaret kazancı: indirim YOK, %25. İndirim yalnız ilgili kazanca uygulanır; karışık kazançta al-sat kısmı %25 kalır. Aynı üretim kazancına hem %12,5 hem 5 puan ihracat indirimi birlikte uygulanmaz."
+  },
   "karPayiStopaj": 15,
   "gencIstisnaTutar": 400000,
   "gencIstisnaYilSayisi": 3,
