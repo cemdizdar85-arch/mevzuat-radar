@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yurt Dışı Hizmet Faturası — hangi vergiyi öderim? (2 No.lu KDV, stopaj, KKDF) | Mevzuat Radarı</title>
+<meta name="description" content="Yurt dışından yazılım, danışmanlık, reklam, lisans faturası geldi — 2 No.lu KDV mi, stopaj mı, KKDF mi? Hizmet türünü seç, ne ödeyeceğini ve hangi beyannameyi vereceğini sade Türkçeyle gör.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(25px,4.6vw,34px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
+.lead{color:var(--muted);font-size:15.5px;margin:0 0 24px}.lead b{color:var(--ink);font-weight:600}
+.secet{font-size:12.5px;color:var(--muted);margin:0 0 8px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:8px}
+.tbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13.5px;padding:14px 13px;border-radius:13px;background:#0a0f17;color:var(--muted);border:1px solid var(--line2);transition:.15s;text-align:left;line-height:1.3}
+.tbtn .em{font-size:19px;display:block;margin-bottom:5px}
+.tbtn:hover{color:var(--ink);border-color:var(--accent)}
+.tbtn.on{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.06)),var(--panel);color:var(--ink);border-color:var(--accent)}
+.sonuc{margin-top:20px}
+.baslikK{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
+.altK{font-size:13px;color:var(--muted);margin:0 0 16px}
+.satir{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;background:var(--panel)}
+.satir .sol{flex:1}.satir .ad{font-weight:700;font-size:15px}.satir .not{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+.satir .deg{font-weight:800;font-size:16px;white-space:nowrap;text-align:right}
+.deg.v{color:var(--red)}.deg.y{color:var(--green)}.deg.n{color:var(--amber)}
+.cvoa{margin-top:6px;padding:14px 16px;border:1px dashed var(--accent);border-radius:13px;background:rgba(62,155,255,.06);font-size:13px;color:var(--muted)}
+.cvoa b{color:var(--ink)}
+.beyan{margin-top:14px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17}
+.beyan h4{margin:0 0 7px;font-size:13px;color:var(--accent2);letter-spacing:.4px}
+.beyan div{font-size:13px;color:var(--muted);margin-top:3px}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
+.uyari b{color:var(--amber)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Yurt Dışı Hizmet Faturası</div>
+  <h1>Yurt dışından hizmet faturası geldi — ne öderim?</h1>
+  <p class="lead">Yurt dışındaki bir firmadan <b>yazılım, danışmanlık, reklam, lisans, komisyon</b> faturası aldın. Çoğu muhasebecinin atladığı yer burası: mal değil <b>hizmet</b> ithalinde <b>gümrükte KDV ödenmez</b> — ama sen <b>2 No.lu KDV (sorumlu sıfatıyla)</b> ve çoğu zaman <b>stopaj</b> ödersin. Hizmet türünü seç, ne çıkacağını gör.</p>
+
+  <div class="secet">Nasıl bir hizmet aldın?</div>
+  <div class="grid" id="grid"></div>
+  <div class="sonuc" id="sonuc"></div>
+
+  <div class="uyari"><b>Bilgilendirme amaçlıdır — kesin değil, yön verir.</b> Stopaj oranı <b>ülkeyle Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA)</b> varsa düşer ya da sıfırlanır (mukimlik belgesi şart). Hizmetin tam niteliği (ör. yazılımın "kullanım hakkı" mı "telif devri" mi) sonucu değiştirir. İşlemden önce YMM/mali müşavirine danış.</div>
+  <div class="dip">Mevzuat Radarı · Yurt dışı hizmet vergilendirme rehberi · Kaynak: <b>KDV Kanunu m.9</b> (sorumlu sıfatıyla KDV) · <b>Kurumlar Vergisi Kanunu m.30</b> + <b>2009/14593 sayılı BKK</b> (stopaj oranları, RG 03.02.2009) · <b>476 sayılı CK</b> (internet reklam stopajı) · <b>88/12944 KKDF Kararı</b> · SMMM Cem Dizdar</div>
+</div>
+
+<script>
+const TURLER = [
+  { k:"yazilim", em:"💽", ad:"Yazılım / lisans / gayrimaddi hak",
+    baslik:"Yazılım, lisans, royalti, marka, know-how",
+    alt:"Yurt dışı yazılım kullanım hakkı, lisans bedeli, franchise/royalti, patent, marka, know-how ödemeleri.",
+    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Hizmetin KDV oranında (genelde %20) sorumlu sıfatıyla beyan edip ödersin; aynı ay 1 No.lu KDV'de indirebilirsin (net yük genelde sıfır, ama nakit akışı ve beyan zorunlu)."},
+    stopaj:{d:"var", t:"%20", not:"Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA'lı ülkeyse genelde %10'a iner."},
+    kkdf:{d:"yok", t:"—", not:"KKDF mal ithalinde çıkar; hizmette yoktur."},
+    damga:"Sözleşme imzaladıysan damga vergisi (binde 9,48) doğabilir.",
+    cvoa:"ÇVÖA'lı ülkeyse gayrimaddi hak stopajı genelde <b>%20→%10</b> iner. Karşı firmadan <b>mukimlik belgesi</b> al.",
+    beyan:["2 No.lu KDV Beyannamesi (izleyen ayın 21'i, ödeme 23'ü)","Muhtasar ve Prim Hizmet Beyannamesi — stopaj (izleyen ayın 26'sı)"] },
+
+  { k:"danismanlik", em:"🧠", ad:"Danışmanlık / mühendislik / serbest meslek",
+    baslik:"Danışmanlık, mühendislik, denetim, hukuk, tasarım",
+    alt:"Yurt dışından alınan proje danışmanlığı, mühendislik, denetim, avukatlık, tasarım gibi serbest meslek hizmetleri.",
+    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Hizmetten Türkiye'de faydalanıyorsan sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
+    stopaj:{d:"var", t:"%20", not:"Serbest meslek kazancı — KVK m.30, 2009/14593 BKK. AMA ÇVÖA'lı ülkede iş Türkiye'de işyeri olmadan yapıldıysa çoğu anlaşmada stopaj SIFIR olur."},
+    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
+    damga:"Sözleşme varsa damga vergisi doğabilir.",
+    cvoa:"ÇVÖA burada KRİTİK: firma Türkiye'de işyeri/sabit yer olmadan hizmet verdiyse, çoğu anlaşmada <b>stopaj %0</b>. Şart: <b>mukimlik belgesi</b>. Belge yoksa %20 keser, sonra iade zor.",
+    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — stopaj (varsa)"] },
+
+  { k:"reklam", em:"📣", ad:"Dijital / internet reklamı",
+    baslik:"Google, Meta, TikTok, internet reklamı",
+    alt:"Yurt dışı platformlara (Google Ads, Meta, LinkedIn, TikTok…) ödenen internet reklam bedelleri.",
+    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Reklam hizmetinden Türkiye'de faydalanıyorsun; sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
+    stopaj:{d:"var", t:"%15", not:"İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj (dar mükellefe ödemede). Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı — YMM'ne danış)."},
+    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
+    damga:"Genelde sözleşmesiz; damga çıkmaz.",
+    cvoa:"476 s. CK stopajı uygulamada ÇVÖA'ya bakılmaksızın kesiliyor; itiraz/iade yolu var ama YMM ile değerlendir.",
+    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — %15 reklam stopajı"] },
+
+  { k:"komisyon", em:"🤝", ad:"Komisyon / aracılık / genel ticari hizmet",
+    baslik:"Komisyon, aracılık, genel ticari hizmet",
+    alt:"Yurt dışı acente/aracıya ödenen satış komisyonu, bulma-buluşturma, genel ticari nitelikli hizmetler.",
+    kdv:{d:"kosul", t:"%20 (şartlı)", not:"Hizmetten Türkiye'de faydalanıyorsan 2 No.lu KDV %20. Hizmet tamamen yurt dışında icra edilip orada tüketiliyorsa KDV'nin konusuna girmeyebilir — niteliğe bak."},
+    stopaj:{d:"yok", t:"—", not:"Salt ticari kazanç — KVK m.30'da bent yok, stopaj YOK. (ÇVÖA'da işyeri yoksa zaten Türkiye vergilendirmez.)"},
+    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
+    damga:"Sözleşme varsa damga doğabilir.",
+    cvoa:"Ticari kazançta stopaj zaten yok; ÇVÖA bunu teyit eder (işyeri yoksa vergilendirme yok).",
+    beyan:["2 No.lu KDV Beyannamesi (KDV'ye tabiyse)"] },
+
+  { k:"kira", em:"🏗️", ad:"Ekipman / makine kirası",
+    baslik:"Yurt dışından makine / ekipman kirası",
+    alt:"Yurt dışı firmadan makine, ekipman, kalıp vb. kiralanması (operasyonel veya finansal kiralama).",
+    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
+    stopaj:{d:"var", t:"%20 (fin. kiralama %1)", not:"Gayrimenkul sermaye iradı — KVK m.30, 2009/14593 BKK: finansal kiralama %1, diğer kira %20. ÇVÖA oranı düşürebilir."},
+    kkdf:{d:"kosul", t:"duruma bağlı", not:"Finansal kiralama (leasing) vadeli ödemeyse KKDF gündeme gelebilir — sözleşmeyi/ödemeyi kontrol et."},
+    damga:"Kira sözleşmesi damga vergisine tabidir.",
+    cvoa:"ÇVÖA'lı ülkeyse ekipman kirası stopajı düşebilir; mukimlik belgesi al.",
+    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — kira stopajı"] },
+
+  { k:"faiz", em:"🏦", ad:"Yurt dışı kredi faizi",
+    baslik:"Yurt dışından kredi / faiz ödemesi",
+    alt:"Yurt dışı banka veya firmadan alınan kredinin faiz ödemeleri.",
+    kdv:{d:"kosul", t:"genelde istisna", not:"Yurt dışı BANKA/finans kuruluşundan kredi faizi KDV'den istisnadır. Banka dışı firmadan borç faizi ise 2 No.lu KDV %20 gündeme gelebilir."},
+    stopaj:{d:"var", t:"%0–10", not:"Faiz stopajı kaynağa göre değişir (yurt dışı bankadan genelde %0, diğer borçlarda %10) — KVK m.30, 2009/14593 BKK. ÇVÖA oranı değiştirir."},
+    kkdf:{d:"kosul", t:"%3 olabilir", not:"Yurt dışından kullanılan kredide vadeye göre KKDF (%3) doğabilir — kredi türü/vadesini kontrol et."},
+    damga:"Kredi sözleşmesi damga vergisine tabi olabilir.",
+    cvoa:"Faiz stopajı ÇVÖA'da genelde %10 veya daha düşük; mukimlik belgesi şart.",
+    beyan:["Muhtasar (MPHB) — faiz stopajı","2 No.lu KDV (banka dışı ise)"] }
+];
+
+function rozet(o){ const c = o.d==='var'?'v':(o.d==='yok'?'y':'n'); return '<span class="deg '+c+'">'+o.t+'</span>'; }
+function goster(k){
+  const t = TURLER.find(x=>x.k===k); if(!t) return;
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.toggle('on', b.dataset.k===k));
+  const s = document.getElementById('sonuc');
+  const rows = [
+    {ad:"🧾 KDV — 2 No.lu (sorumlu sıfatıyla)", o:t.kdv},
+    {ad:"✂️ Stopaj (KVK m.30 tevkifatı)", o:t.stopaj},
+    {ad:"💸 KKDF", o:t.kkdf}
+  ].map(r=>`<div class="satir"><div class="sol"><div class="ad">${r.ad}</div><div class="not">${r.o.not}</div></div>${rozet(r.o)}</div>`).join('');
+  s.innerHTML = `
+    <div class="baslikK">${t.baslik}</div>
+    <div class="altK">${t.alt}</div>
+    ${rows}
+    <div class="satir"><div class="sol"><div class="ad">🖋️ Damga vergisi</div><div class="not">${t.damga}</div></div></div>
+    <div class="cvoa">🌍 <b>Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA):</b> ${t.cvoa}</div>
+    <div class="beyan"><h4>HANGİ BEYANNAME?</h4>${t.beyan.map(b=>'<div>• '+b+'</div>').join('')}</div>`;
+  s.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('grid').innerHTML = TURLER.map(t=>
+  `<button class="tbtn" data-k="${t.k}" onclick="goster('${t.k}')"><span class="em">${t.em}</span>${t.ad}</button>`).join('');
+</script>
+</body>
+</html>
