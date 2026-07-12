@@ -134,6 +134,7 @@ $alertKaynaklar = @(
   @{ ad="GİB güncel KDV oranları (PDF)"; url="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/yardim-kaynaklar/yararli-bilgiler/kdv-oranlari.pdf" }
   @{ ad="Ticaret Bak. Güncel Vergi Kodları"; url="https://ticaret.gov.tr/gumruk-islemleri/dijital-gumruk-uygulamalari/edi-xml-referans-mesajlari/guncel-vergi-kodlari" }
   @{ ad="İthalat Rejimi değişiklik kararları (2026)"; url="https://ticaret.gov.tr/ithalat/ithalat-mevzuati/ithalat-rejimi-karari-igv-karari-ve-ithalat-tebligleri/1-1-ithalat-rejimi-kararinda-degisiklik-yapilmasina-iliskin-kararlar-2026-yili" }
+  @{ ad="GİB ÇVÖA faiz/gayrimaddi hak stopaj oranlari tablosu (hizmet araci)"; url="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/mevzuat/uluslararasi_mevzuat/Cifte_Vergilendirme/Faiz_ve_Gayrimaddi_Hak_Bedelleri_Uzerinden_Kaynak_Devlette_Alinacak_Vergi_Oranlari.pdf" }
 )
 foreach($k in $alertKaynaklar){
   $c = Sayfa $k.url
@@ -153,7 +154,7 @@ if($mailSatir.Count -gt 0){
     subject="KAYNAK NOBETCISI ($(Get-Date -Format dd.MM.yyyy)): degisiklik var"
     from_name="Mevzuat Radari Kaynak Nobetcisi"; email="cemdizdar85@hotmail.com"
     "Durum"=($mailSatir -join "`n")
-    "Not"="Deterministik olanlar (Ithalat Rejimi/IGV) OTOMATIK guncellendi ve commit'lendi - sadece kontrol et. 'elle bak' yazanlar nuansli (KDV/OTV) - birincil metni okuyup elle guncelle. Robot asla uydurmaz."
+    "Not"="Deterministik olanlar (Ithalat Rejimi/IGV/Damping) OTOMATIK guncellendi ve commit'lendi - sadece kontrol et. 'elle bak' yazanlar nuansli - birincil metni okuyup elle guncelle: KDV/OTV -> veri/gtip-*.json; CVOA tablosu -> veri/cvoa-oranlar.json (cok-oranli anlasmalarda GENEL orani al, ekipman/film alt-oranlarini not olarak yaz). Robot asla uydurmaz."
   } | ConvertTo-Json
   try { Invoke-RestMethod -Method Post -Uri "https://api.web3forms.com/submit" -Body ([System.Text.Encoding]::UTF8.GetBytes($mail)) -ContentType "application/json" -TimeoutSec 30 | Out-Null; Write-Host "MAIL gonderildi" } catch { Write-Host "MAIL hata: $($_.Exception.Message)" }
 } else { Write-Host "Degisiklik yok - mail yok." }

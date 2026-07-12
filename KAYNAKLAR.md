@@ -33,6 +33,7 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 | Tarife Cetveli / eşya tanımı | **TGTC 2025** (Karar 10781, RG 30.12.2025) | 🟢 GÜNCEL |
 | **Damping / sübvansiyon** | Ticaret Bak. **"Yürürlükteki Önlemler" konsolide Excel — 29.06.2026** (tüm yürürlükteki önlemler tek dosyada) | 🟢 GÜNCEL + **OTOMATİK** (robot izliyor, değişince oto-hasat) |
 | **Gözetim** | RG gözetim tebliğleri — **SÜREKLİ değişen**, konsolide dosya YOK | 🟡 ANLIK GÖRÜNTÜ — robot "gözetim" alert'i verir, elle yenilenir |
+| **ÇVÖA stopaj oranları** (hizmet aracı) | **GİB** "Faiz ve Gayrimaddi Hak Bedelleri Üzerinden Kaynak Devlette Alınacak Vergi Oranları" tablosu (cdn.gib.gov.tr) — 92 ülke, elle okundu; çok-oranlı anlaşmalarda genel oran + alt-oran notu | 🟢 GÜNCEL — robot PDF hash'ini izler, değişince "elle bak" (nüanslı, oto-yazmaz) |
 
 **Sonuç:** Oran/kapsam katmanları (KDV, ÖTV, gümrük vergisi, GEKAP, tarife) EN SON resmî sürümde — 8543 türü bayatlık yok. **Damping artık otomatik** (konsolide Excel bulundu, robota bağlandı). Tek elle-izlenen kalem **gözetim** — konsolide dosyası olmadığı için robot alert verir, elle güncellenir.
 
