@@ -46,6 +46,11 @@ GTİP aracı Türkiye'de eşi olmayan seviyede: menşe ülkeye göre kesin GV+İ
 
 Not (site diline): "otomatik güncellenir" denmez — kaynak metin değiştiğinde biz okuyup elle güncelleriz. ÖTV oranları/tam kod kapsamı için GİB güncel listelerine yönlendirilir.
 
+| ÜGD/TAREKS ithalat denetimi | 2026 ÜGD Tebliğleri (RG 31.12.2025/33124 4.mük.), Ticaret Bak. ÜGDGM resmî liste | 🔴 Per-kod "denetim YOK" garantisi VERİLMEZ (eksik çıkarım ithalatçıyı gümrükte yakar). ~25 tebliğ ürün-grubu düzeyinde rehber (bilgi.html#hap-ithalat-denetimi) + araçta her kodda TAREKS yönlendirmesi | bilgi.html hap kartı + gtip.html denetimKart |
+
+## İŞLEYİŞ NOTU (site dili — Cem, 12.07.2026)
+Sitede "bir şey değişince site anında otomatik günceller" İDDİA EDİLMEZ. Doğru anlatım: bilgiler mevzuata bağlıdır; kaynak metin (KDV kodu, damping, vergi oranı vb.) değiştiğinde BİZ okuyup elle güncelleriz. Robot nöbetçisi değişikliği yakalayıp uyarır, güncellemeyi biz yaparız. "yapay zekâ üretir" gibi ifadeler yerine "ekibimizin çift kontrollü okuma sistemi" dili kullanılır (kartlar.html, kontrol-listesi.html, kart-toplu.ps1 düzeltildi).
+
 ## ✅ YUTMA LİSTESİ TAMAMLANDI (12.07.2026)
 Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel destek/kuruluş modülleri + vergi sabitlerini besleyen kanun/kararlar + tüm GTİP vergi katmanları. Yeni içerik eklendikçe ya da robot nöbetçisi bir tebliğ değişikliği yakaladıkça liste yeniden açılır.
 
