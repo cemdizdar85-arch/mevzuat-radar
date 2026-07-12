@@ -58,7 +58,7 @@ h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-we
   <div id="ekran"></div>
 
   <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir; hukuki görüş değildir.</b> Kesin karar için YMM/mali müşavir veya vergi avukatına danış. Kaçakçılık (sahte belge) şüphesi varsa mutlaka avukatla çalış. Süreler tebliğ tarihinden işler.</div>
-  <div class="dip">Mevzuat Radarı · Ceza yol haritası · Kaynak (mevzuat.gov.tr'den birebir okundu): <b>VUK m.344</b> (vergi ziyaı 1/3 kat) · <b>m.352/353</b> (usulsüzlük / özel usulsüzlük — e-belge dahil) · <b>m.370</b> (izaha davet, ceza %20) · <b>m.371</b> (pişmanlık, ceza sıfır) · <b>m.376</b> (cezada indirim %50; 2024/7524 ile tek oran; usulsüzlük cezalarına da uygulanır) · <b>Ek m.1/7</b> (uzlaşma) · <b>m.379</b> (kanun yolundan vazgeçme) · <b>Gümrük K. m.242</b> (15 gün itiraz), <b>m.244</b> (uzlaşma) · SMMM Cem Dizdar</div>
+  <div class="dip">Mevzuat Radarı · Ceza yol haritası · Kaynak (mevzuat.gov.tr'den birebir okundu): <b>VUK m.344</b> (vergi ziyaı 1/3 kat) · <b>m.352/353</b> (usulsüzlük / özel usulsüzlük — e-belge dahil) · <b>m.370</b> (izaha davet, ceza %20) · <b>m.371</b> (pişmanlık, ceza sıfır) · <b>m.376</b> (cezada indirim %50; 2024/7524 ile tek oran; usulsüzlük cezalarına da uygulanır) · <b>Ek m.1/7</b> (uzlaşma) · <b>m.379</b> (kanun yolundan vazgeçme) · <b>Gümrük K. m.242</b> (15 gün itiraz), <b>m.244</b> (uzlaşma) · <b>5510 s. Kanun m.102</b> (SGK idari para cezası: 15 gün, %25 peşin indirim, idare mahkemesi) · SMMM Cem Dizdar</div>
 </div>
 
 <script>
@@ -78,7 +78,8 @@ function baslat(){ C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; i
       {t:"🧾 Fatura / e-fatura / e-belge kesmedim",s:"Belge düzenlememe-almama, e-arşiv/e-defter/e-fatura eksiği",on:"C.senaryo='belge';belgeSonuc()"},
       {t:"🛃 Gümrük beyanım eksik/yanlış",s:"Kıymet düşük, yanlış GTİP, eksik vergi — ithalat/ihracatta",on:"C.senaryo='gumruk';gumrukSenaryo()"},
       {t:"✉️ İdareden 'İZAHA DAVET' yazısı geldi",s:"'Şu tespit var, izah et' diyen resmî yazı (henüz ceza değil)",on:"C.senaryo='izaha';izahaSonuc()"},
-      {t:"📩 Ceza / vergi ihbarnamesi ELİME GEÇTİ",s:"Tarhiyat yapıldı, ceza kesildi — süre işliyor",on:"C.senaryo='ihbarname';kurumSor()"}
+      {t:"🧑‍💼 SGK idari para cezası geldi",s:"Eksik/geç bildirge (APHB, işe giriş-çıkış), belge — farklı rejim, 15 gün",on:"C.senaryo='sgk';sgkSonuc()"},
+      {t:"📩 Ceza / vergi ihbarnamesi ELİME GEÇTİ",s:"Tarhiyat yapıldı; damga, KDV, gelir/kurumlar dahil her vergi cezası — süre işliyor",on:"C.senaryo='ihbarname';kurumSor()"}
     ]));
 }
 
@@ -125,6 +126,18 @@ function belgeSonuc(){ ilerle(2);
     ${kapi('Dava','30 GÜN',false,'Cezanın maddi şartı oluşmadıysa, tebliğ/tespit usulü hatalıysa ya da mücbir sebep varsa dava ile iptal edilebilir. Dava açarsan m.376 indirimini kaybedersin.')}
     ${kapi('Önleme','',false,'e-fatura/e-arşiv/e-defter zorunluluk eşiklerini takip et — sık ceza sebebi budur. <a href="radar.html">Radar</a> ile eşik değişikliklerini izleyebilirsin.')}
     ${faizKutu('belge')}
+    ${btnGeri()}`);
+}
+
+// ===== SGK İDARİ PARA CEZASI (farklı rejim) =====
+function sgkSonuc(){ ilerle(2);
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🧑‍💼 SGK idari para cezası — vergiden farklı rejim</div>
+    <div class="ozet dikkat"><b>Süreler ve indirim vergiden FARKLI:</b> vergideki 30 gün ve %50 indirim burada YOK. SGK'da <b>15 gün</b> içinde ya <b>peşin öde (%25 indirim)</b> ya da <b>Kuruma itiraz</b> et. Karıştırmak hak kaybettirir.</div>
+    ${kapi('Peşin ödeme — %25 indirim (5510 m.102)','15 GÜN',true,'Kuruma itiraz etmeden/yargıya gitmeden, tebliğden <b>15 gün</b> içinde <b>peşin ödersen cezanın dörtte üçü tahsil edilir</b> (= %25 indirim). Üstelik peşin ödemen <b>yargı yoluna gitme hakkını engellemez</b> (AYM iptali) — hem indirimi al hem gerekirse dava aç. Kabul edip kapatacaksan en hızlısı.',true)}
+    ${kapi('Kuruma itiraz (5510 m.102)','15 GÜN',false,'Cezayı haksız buluyorsan tebliğden <b>15 gün</b> içinde <b>Kuruma itiraz</b> et (İdari Para Cezasına İtiraz Komisyonu). <b>İtiraz, takibi (tahsilatı) durdurur.</b> İtiraz reddedilirse → kararın tebliğinden <b>30 gün</b> içinde yetkili <b>idare mahkemesi</b>. Süreyi kaçırırsan ceza kesinleşir.')}
+    ${kapi('Sık SGK ceza sebepleri','',false,'Aylık Prim ve Hizmet Belgesi (APHB) / muhtasar-prim beyanının geç-eksik verilmesi, işe giriş-çıkış bildirgesinin süresinde verilmemesi, defter-belge ibraz etmeme. Çoğu <b>süresinde/kendiliğinden bildirimle</b> önlenir — takvimi kaçırma.')}
+    ${kapi('Yapılandırma çıkarsa','',false,'SGK borç/ceza yapılandırma (af) kanunları ara ara çıkar; büyük birikmiş borçta beklemek mantıklı olabilir — <a href="radar.html">Radar</a> ile takip et.')}
+    ${faizKutu('sgk')}
     ${btnGeri()}`);
 }
 
@@ -206,8 +219,9 @@ function vergiSonuc(){ ilerle(3);
 let FAIZ_AY=3.7, FAIZ_TARIH='13.11.2025';
 fetch('veri/gecikme-zammi.json').then(r=>r.json()).then(j=>{ if(j&&j.aylik){ FAIZ_AY=+j.aylik; FAIZ_TARIH=j.tarih||FAIZ_TARIH; } }).catch(()=>{});
 function faizKutu(mode){
-  const ph = mode==='belge' ? 'Kesilen ceza (TL)' : 'Vergi aslı (TL)';
-  const ayIn = mode==='belge' ? '' : `<input class="gir" id="fay" type="number" inputmode="decimal" placeholder="Kaç ay gecikme?" oninput="faizHesap('${mode}')" style="flex:1;min-width:130px">`;
+  const cezaMod = (mode==='belge'||mode==='sgk');
+  const ph = cezaMod ? 'Kesilen ceza (TL)' : 'Vergi aslı (TL)';
+  const ayIn = cezaMod ? '' : `<input class="gir" id="fay" type="number" inputmode="decimal" placeholder="Kaç ay gecikme?" oninput="faizHesap('${mode}')" style="flex:1;min-width:130px">`;
   return `<div class="hesap"><h4>🧮 TAHMİNİ ÖDEME — ceza + faiz</h4>
     <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap"><input class="gir" id="fvergi" type="number" inputmode="decimal" placeholder="${ph}" oninput="faizHesap('${mode}')" style="flex:1;min-width:150px">${ayIn}</div>
     <div id="faizOut" style="font-size:12.5px;color:var(--dim)">Rakamı gir; tahmini ceza + faiz çıksın.</div>
@@ -237,6 +251,12 @@ function faizHesap(mode){
       <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(ind)} TL</span></div>
       <div class="satir"><span><b>Ödenecek (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(V-ind)} TL</span></div>
       <div style="font-size:11px;color:var(--dim);margin-top:6px">Özel usulsüzlük maktu ve vergi aslından bağımsız olduğundan gecikme faizi bu senaryoda yürümez.</div>`;
+  } else if(mode==='sgk'){
+    const ind=V*0.25, oden=V*0.75;
+    rows=`<div class="satir"><span>Kesilen idari para cezası</span><span class="v">${f(V)} TL</span></div>
+      <div class="satir"><span>Peşin ödeme indirimi (%25 — 5510 m.102)</span><span class="v" style="color:var(--green)">− ${f(ind)} TL</span></div>
+      <div class="satir"><span><b>15 günde peşin ödersen</b></span><span class="v" style="color:var(--accent2)">${f(oden)} TL</span></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Peşin ödeme yargı yoluna gitme hakkını engellemez (AYM iptali). Ödenmezse borca gecikme zammı (6183) işler.</div>`;
   } else { // m376
     const kat=kc?3:1, cezaTam=V*kat, ceza376=cezaTam*0.5;
     rows=`<div class="satir"><span>Vergi aslı</span><span class="v">${f(V)} TL</span></div>
