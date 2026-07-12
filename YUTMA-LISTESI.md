@@ -20,12 +20,12 @@ Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı ç
 | Elektronik Tebligat Yönetmeliği m.5-6 (resmigazete.gov.tr tam metin) | 12.07 | kep-e-tebligat.html | 🔴 Kapsam ÇOK DAR yazılmıştı: sadece "AŞ/LTD/komandit" deniyordu; gerçek kapsam m.5/1-f "tüm özel hukuk tüzel kişileri" (kollektif şirket, kooperatif, dernek, vakıf dahil) — düzeltildi |
 | TTK m.1524 süre bilgisi (çapraz ikincil kaynak) | 12.07 | ttk-1524-internet-sitesi.html | "Belirli sürede" muğlaklığı — 3 aylık kesin süre eklendi |
 | Transfer fiyatlandırması — genel çerçeve (KVK m.13, katman yapısı) | 12.07 | transfer-fiyatlandirmasi.html | TL/Euro eşikleri hâlâ yazılmadı (tebliğe göre yıllık değişir, rakam disiplini) — üç katmanlı yapı (Yıllık Rapor/Ana Dosya/CbCR) açıklamayla zenginleştirildi. Kesin eşikler için TF Genel Tebliği hâlâ sırada. |
+| 7566 s. Kanun m.23 — Bağ-Kur desteği kaldırılması (TURMOB sirküleri + çoklu kaynak, RG 19.12.2025 referanslı) | 12.07 | vergi-sabitleri.json (gencBagkur) | Site zaten doğruydu — teyit edildi, değişiklik yok |
+| 213 s. VUK m.177-180 (mevzuat.gov.tr konsolide, 205 sayfa) | 12.07 | kurulus.html ciro uyarısı, vergi-sabitleri.json | 🔴 Büyük bulgu: "her türlü ticaret şirketi" (LTD/AŞ) ciro haddi aşılsın aşılmasın OTOMATIK bilanço esasına tabidir (m.177/4-5) — ciro haddi asıl şahıs işletmeleri için anlamlı, sitede bu ayrım yoktu. Ayrıca sınıf değişimi tek yıllık eşik değil, %20 kuralı + süreklilik (m.179-180) ile işliyor — ikisi de eklendi |
+| 9286 s. CB Kararı (resmigazete.gov.tr RG 22.12.2024/32760 tam metin) | 12.07 | vergi-sabitleri.json (karPayiStopaj) | Birebir doğrulandı: GVK m.94/1-6 ve KVK m.15/30, %10→%15. Site zaten doğruydu, kaynak notu RG no/tarihiyle güçlendirildi |
 
 ## 🔴 SIRADA — YÜKSEK RİSK (canlı içeriği besliyor, birincili okunmadı)
 1. **Transfer Fiyatlandırması Genel Tebliği (kesin TL/Euro eşikleri)** — genel çerçeve yutuldu, kesin rakamlar için tebliğ metni gerekiyor.
-2. **7566 s. Kanun m.23 (Bağ-Kur desteği kaldırılması)** — 2 ikincil kaynak uyumlu; RG metninden teyit edilecek.
-3. **VUK 177 hadleri 2026 (VUK Genel Tebliği)** — sirkülerden alındı; tebliğ metni + sınıf değiştirme nüansları (m.179-180) okunacak (sihirbaz ciro kuralını inceltebilir).
-4. **9286 s. CB Kararı (kâr payı stopajı %15)** — çok kaynaklı ama karar metni okunmadı.
 
 ## 🟡 SIRADA — İÇERİK DERİNLEŞTİRME (yanlış riski düşük, "son durak" hedefi için)
 5. **5986 s. E-İhracat Destekleri Kararı + genelgesi** — e-ihracat kartı şu an sığ.

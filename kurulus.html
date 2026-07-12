@@ -381,7 +381,7 @@ function oner(){
   if(CEVAP.ciro==='yuksek'){
     p.sahis-=2; p.ltd+=1;
     const had = SABIT && SABIT.bilancoHadleri ? TLf(SABIT.bilancoHadleri.satis)+' TL' : 'bilanço haddi';
-    neden.ltd.push(`Ciro beklentin bilanço esası haddini aşıyor (VUK m.177 — ${SABIT?SABIT.yil:''} satış haddi ${had}): şahıs kalsan bile birinci sınıf tüccar olarak şirketle aynı defter düzenine geçersin. Aynı muhasebe yükünü sınırlı sorumluluk korumasıyla taşımak daha akıllıca.`);
+    neden.ltd.push(`Ciro beklentin bilanço esası haddini aşıyor (VUK m.177 — ${SABIT?SABIT.yil:''} satış haddi ${had}): şahıs kalsan bile birinci sınıf tüccar olarak şirketle aynı defter düzenine geçersin. Zaten LTD/AŞ gibi ticaret şirketleri bu haddi hiç düşünmez — VUK m.177/4-5 gereği ciroya bakılmaksızın OTOMATIK bilanço esasına tabidir. Aynı muhasebe yükünü sınırlı sorumluluk korumasıyla taşımak daha akıllıca.`);
     // KESİN KURAL: ciro haddi aşılıyor VE kâr (istisna düşüldükten sonra) %35-40
     // dilimlerine giriyorsa şahısta kalmanın rasyonel gerekçesi kalmaz — şahıs elenir.
     if(SABIT){
@@ -438,7 +438,7 @@ function oner(){
   let uyariHtml = '';
   if(CEVAP.ciro==='yuksek' && kazanan==='sahis'){
     uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
-      ⚠ <b style="color:var(--amber)">Ciro uyarısı:</b> beklentin bilanço esası haddini aşıyor (VUK m.177). Şahıs olarak kurabilirsin — yasak yok — ama birinci sınıf tüccar sayılır, <b style="color:var(--ink)">şirketle aynı defter/muhasebe düzenine</b> geçersin ve tüm bunları <b style="color:var(--ink)">sınırsız şahsi sorumlulukla</b> taşırsın. Bu ölçekte LTD'yi ciddi düşün.</div>`;
+      ⚠ <b style="color:var(--amber)">Ciro uyarısı:</b> beklentin bilanço esası haddini aşıyor (VUK m.177). Şahıs olarak kurabilirsin — yasak yok — ama birinci sınıf tüccar sayılır, <b style="color:var(--ink)">şirketle aynı defter/muhasebe düzenine</b> geçersin ve tüm bunları <b style="color:var(--ink)">sınırsız şahsi sorumlulukla</b> taşırsın. Not: had aşımı tek yılda olmuşsa ve sınırın biraz üzerindeyse (VUK m.179 — %20'ye kadar sapma + süreklilik kuralı) sınıf değişimi otomatik gerçekleşmeyebilir; kesin durumunu muhasebecinle netleştir. Bu ölçekte LTD'yi ciddi düşün.</div>`;
   }
   // sermaye artışı bilgi notu (resmî yeni tutar YOK — sadece farkındalık)
   if(kazanan!=='sahis'){
