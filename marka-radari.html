@@ -74,6 +74,13 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 
   <div id="sonuc"></div>
 
+  <div class="kutu" style="border-color:rgba(255,194,75,.3)">
+    <h3>❓ Markan yok ya da emin değil misin?</h3>
+    <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">Firma adın, ürün/hizmet adın veya logon <b>TÜRKPATENT'te tescilli değilse</b>, başkası aynısını tescil ettirip <b>seni kendi markanda durdurabilir</b> — Türkiye'de kural: <b>ilk başvuran hak sahibi</b> (SMK m.6). Emin değilsen sana ait tescilli marka var mı kontrol edelim; korumasızsan tescil için yönlendirelim.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="kmail" type="email" placeholder="ornek@firma.com" style="flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-family:inherit;font-size:14px"><button class="btn k" onclick="koruma()">Kontrol et / koru</button></div>
+    <div id="korumaOut" style="font-size:12.5px;color:var(--muted);margin-top:9px"></div>
+  </div>
+
   <div class="kutu">
     <h3>⚖️ Kanun ne diyor? (SMK 6769)</h3>
     <div class="h"><span class="no">m.23</span><div><b>Koruma süresi başvuru tarihinden 10 yıl</b>, onar yıllık dönemlerle yenilenir. Yenileme talebi bitişten önceki <b>6 ay</b> içinde; kaçarsan bitişten sonra <b>6 ay ek süre + ek ücret</b>.</div></div>
@@ -145,6 +152,17 @@ function hesapla(){
       <div id="takipOut" style="font-size:12.5px;color:var(--muted);margin-top:9px"></div>
     </div>`;
   document.getElementById('sonuc').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function koruma(){
+  const m=document.getElementById('kmail').value.trim();
+  const out=document.getElementById('korumaOut');
+  if(!m){ out.textContent='E-postanı yaz.'; return; }
+  const no=(document.getElementById('no').value||'').trim(), ad=(document.getElementById('ad').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
+  const payload={access_key:AK, subject:'MARKA KORUMA/TESCIL talebi (markasi yok/emin degil)',
+    from_name:'Mevzuat Radari Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
+  fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>{out.innerHTML='✅ Aldık. Sana ait tescilli marka var mı kontrol edip koruma seçeneklerini ileteceğiz.';})
+    .catch(()=>{out.innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>';});
 }
 function takip(){
   const m=document.getElementById('mail').value.trim();
