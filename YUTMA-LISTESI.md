@@ -23,9 +23,10 @@ Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı ç
 | 7566 s. Kanun m.23 — Bağ-Kur desteği kaldırılması (TURMOB sirküleri + çoklu kaynak, RG 19.12.2025 referanslı) | 12.07 | vergi-sabitleri.json (gencBagkur) | Site zaten doğruydu — teyit edildi, değişiklik yok |
 | 213 s. VUK m.177-180 (mevzuat.gov.tr konsolide, 205 sayfa) | 12.07 | kurulus.html ciro uyarısı, vergi-sabitleri.json | 🔴 Büyük bulgu: "her türlü ticaret şirketi" (LTD/AŞ) ciro haddi aşılsın aşılmasın OTOMATIK bilanço esasına tabidir (m.177/4-5) — ciro haddi asıl şahıs işletmeleri için anlamlı, sitede bu ayrım yoktu. Ayrıca sınıf değişimi tek yıllık eşik değil, %20 kuralı + süreklilik (m.179-180) ile işliyor — ikisi de eklendi |
 | 9286 s. CB Kararı (resmigazete.gov.tr RG 22.12.2024/32760 tam metin) | 12.07 | vergi-sabitleri.json (karPayiStopaj) | Birebir doğrulandı: GVK m.94/1-6 ve KVK m.15/30, %10→%15. Site zaten doğruydu, kaynak notu RG no/tarihiyle güçlendirildi |
+| Transfer Fiyatlandırması Genel Tebliği Seri No:1, konsolide (mevzuat.gov.tr, RG 17.10.2024/32695, 177 sf) | 12.07 | transfer-fiyatlandirmasi.html | Kesin eşikler yazıldı: 30.000 TL alt sınır (m.7.5), Yıllık Rapor kapsam farkı Büyük Mükellef/diğer/serbest bölge (m.7.3), Master File 500M TL aktif+satış (m.7.2), CbCR 750M Euro (m.7.4) |
 
-## 🔴 SIRADA — YÜKSEK RİSK (canlı içeriği besliyor, birincili okunmadı)
-1. **Transfer Fiyatlandırması Genel Tebliği (kesin TL/Euro eşikleri)** — genel çerçeve yutuldu, kesin rakamlar için tebliğ metni gerekiyor.
+## ✅ YUTMA LİSTESİ TAMAMLANDI (12.07.2026)
+Bu turda planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel destek/kuruluş modülleri + vergi sabitlerini besleyen kanun/kararlar. Yeni içerik eklendikçe ya da robot nöbetçisi bir tebliğ değişikliği yakaladıkça liste yeniden açılır.
 
 ## 🟡 SIRADA — İÇERİK DERİNLEŞTİRME (yanlış riski düşük, "son durak" hedefi için)
 5. **5986 s. E-İhracat Destekleri Kararı + genelgesi** — e-ihracat kartı şu an sığ.
