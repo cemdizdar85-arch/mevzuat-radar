@@ -1,0 +1,46 @@
+{
+  "kkdf": {
+    "oran": 6,
+    "baslik": "KKDF — Kaynak Kullanımını Destekleme Fonu (ödeme şekline bağlı)",
+    "metin": "Vadeli / mal mukabili / kabul kredili / vadeli akreditifli ithalatta, fatura bedeli üzerinden %6 KKDF ödenir. Peşin, (görüldüğünde ödemeli) akreditifli veya vesaik mukabili ödemede KKDF YOKTUR. Ödeme şekli KKDF'yi belirler — malın kendisi değil.",
+    "muafiyet": "Dahilde İşleme İzin Belgesi (DİİB) ve yatırım teşvik belgesi kapsamı KKDF'den muaftır. Bazı yatırım malları %0'a indirilmiştir (2015/7511 sayılı Karar).",
+    "matrah": "KKDF ödenirse KDV matrahına dahil edilir — yani KDV'yi de artırır.",
+    "dayanak": "88/12944 sayılı KKDF Hakkında Karar m.3/(d)"
+  },
+  "sorumluSifat": {
+    "baslik": "Sorumlu sıfatıyla KDV (2 No.lu KDV) — mala değil, hizmete",
+    "metin": "MAL ithalinde KDV gümrükte ödenir; tevkifat/sorumlu sıfatı YOKTUR. Ancak yurt dışından HİZMET alırsan (yazılım/lisans, royalti, danışmanlık, komisyon, gayrimaddi hak) bu hizmetin KDV'sini 2 No.lu KDV Beyannamesi ile sorumlu sıfatıyla beyan edip ödersin. Bunu ithal malın maliyetiyle karıştırma.",
+    "dayanak": "KDV Kanunu m.9 (vergi sorumlusu)"
+  },
+  "trtBandrol": {
+    "fasil": ["85"],
+    "baslik": "TRT bandrol ücreti (yayın alabilen cihazlar)",
+    "metin": "Radyo-televizyon yayını alabilen cihazlarda (televizyon, radyo, set üstü kutu, bazı cep telefonu/tablet/bilgisayar vb.) ithalat/ilk satış aşamasında TRT bandrol ücreti alınır. Oran cihaz türüne göre değişir — güncel oran/kapsam için TRT'ye/gümrük müşavirine danış. Her 85. fasıl ürünü kapsamda değildir.",
+    "dayanak": "3093 sayılı Kanun"
+  },
+  "ihracatGenel": {
+    "baslik": "İhracatta dikkat — bu koddan mal SATIYORSAN",
+    "maddeler": [
+      "KDV İSTİSNASI: İhracat teslimleri KDV'den istisnadır (KDVK m.11-12). Ürüne yüklediğin KDV'yi iade/mahsup alabilirsin — ihracatçının en büyük nakit avantajı.",
+      "KAYDA BAĞLI İHRACAT: Bazı ürünlerin ihracı, gümrükten önce İhracatçı Birliği'ne kayıt ister (İhracat Yönetmeliği ekli 'Kayda Bağlı İhracat Listesi'). Kaydı atlarsan mal çıkamaz.",
+      "İHRACI YASAK / ÖN İZİNLİ: Bazı ürünlerin ihracı yasak ya da ön izne tabidir (ör. bazı hurda metal, tehlikeli atık, kültür varlığı/antika, bazı tohum/canlı hayvan, bazı savunma/çift kullanımlı ürünler). Kodun listede mi, İhracat Yönetmeliği eklerine bak.",
+      "DİİB: Üretimde ithal girdi kullanıp mamulü ihraç ediyorsan, Dahilde İşleme İzin Belgesi ile girdiyi gümrük vergisi + KDV + KKDF ödemeden ithal edebilirsin (şartlı muafiyet)."
+    ],
+    "dayanak": "İhracat Yönetmeliği; KDV Kanunu m.11-12"
+  },
+  "dfif": {
+    "baslik": "DFİF — Destekleme ve Fiyat İstikrar Fonu (İHRACAT kesintisi)",
+    "aciklama": "Bazı işlenmemiş/düşük katma değerli ürünlerin ihracında, işlenerek ihracı teşvik için ihracatçıdan fon kesilir. İhracat maliyetine eklenir.",
+    "dayanak": "88/13384 sayılı Karar (güncel; mülga maddeler ayıklandı)",
+    "pozisyon": {
+      "0802": "Fındık: her türlü natürel iç fındık 8 Cent/kg; kabuklu fındık 4 Cent/kg karşılığı TL (küçük ambalaj / bazı ülkelere indirim uygulanır — Karara bak).",
+      "1509": "Dökme ve varilli zeytinyağı: 20 Cent/kg karşılığı TL.",
+      "4101": "İşlenmiş deri/kösele DIŞINDA kalan her türlü hayvan derisi ve postu (pikle deri dahil): 50 Cent/kg karşılığı TL.",
+      "4102": "İşlenmiş deri/kösele DIŞINDA kalan her türlü hayvan derisi ve postu: 50 Cent/kg karşılığı TL.",
+      "4103": "İşlenmiş deri/kösele DIŞINDA kalan her türlü hayvan derisi ve postu: 50 Cent/kg karşılığı TL.",
+      "4104": "4104.11 ve 4104.19 kromlu deriler (yarma deriler hariç): 50 Cent/kg karşılığı TL.",
+      "4105": "4105.10 kromlu deriler: FOB ihraç bedelinin %20'si karşılığı TL.",
+      "4106": "4106.21 kromlu deriler: FOB ihraç bedelinin %20'si karşılığı TL."
+    }
+  }
+}

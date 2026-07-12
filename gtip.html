@@ -73,7 +73,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 
   <div id="sonuc"></div>
 
-  <div class="uyari">Kapsam: ithalatta gözetim + menşe ülkeye göre gümrük vergisi ve İGV (sanayi 25-97 + tarım 1-24 fasılları) + işlenmiş tarımda Tarım Payı (EMY) + dampinge karşı önlemler + KDV liste hükümleri + ÖTV kapsam göstergesi + ürün adından kod arama + kıymet kıyası. Tümü Ticaret Bakanlığı / mevzuat.gov.tr / GİB resmî metinlerinden birebir okundu. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danışınız.</div>
+  <div class="uyari">Kapsam — İTHALAT: gözetim + menşe ülkeye göre gümrük vergisi/İGV (sanayi + tarım) + Tarım Payı (EMV) + damping + KDV liste hükümleri + ÖTV kapsamı + KKDF (%6 vadeli) + TRT bandrol + TAREKS denetimi + kıymet kıyası. İHRACAT: KDV istisnası/iadesi, kayda bağlı ihracat, DFİF kesintisi (deri/fındık/zeytinyağı), DİİB. Ürün adından kod arama. Tümü Ticaret Bakanlığı / mevzuat.gov.tr / GİB resmî metinlerinden birebir okundu. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danışınız.</div>
   <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · SMMM Cem Dizdar</div>
 </div>
 
@@ -83,7 +83,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -95,8 +95,47 @@ Promise.all([
   fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-otv.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,i,j,k])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; });
+  fetch('veri/gtip-otv.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-ekvergi.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,i,j,k,l])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; });
+
+// KKDF + sorumlu sıfatı + TRT bandrol: ithalatta unutulan yükler (ödeme şekli/cihaz tipine bağlı)
+function kkdfKart(kod){
+  if(!EKVERGI || !EKVERGI.kkdf) return '';
+  const k = EKVERGI.kkdf, s = EKVERGI.sorumluSifat;
+  const fasil = kod.replace(/\./g,'').slice(0,2);
+  const trt = (EKVERGI.trtBandrol && EKVERGI.trtBandrol.fasil.indexOf(fasil)>=0) ? EKVERGI.trtBandrol : null;
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--amber);border-radius:12px;background:#1a1206">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ KKDF — ÇOĞU İTHALATÇININ ATLADIĞI %6</div>
+    <div style="font-size:12.5px;color:var(--muted)">${k.metin}</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px">🛡 <b style="color:var(--ink)">Muafiyet:</b> ${k.muafiyet}</div>
+    <div style="font-size:12px;color:var(--amber);margin-top:6px">📌 ${k.matrah}</div>
+    <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Dayanak: ${k.dayanak}</div>
+    ${trt ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line2)"><div style="font-size:11px;font-weight:800;color:var(--amber)">📺 ${trt.baslik}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${trt.metin}</div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${trt.dayanak}</div></div>` : ''}
+    ${s ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line2)"><div style="font-size:11px;font-weight:800;color:var(--accent2)">ℹ ${s.baslik}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${s.metin}</div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${s.dayanak}</div></div>` : ''}
+  </div>`;
+}
+
+// İHRACAT modülü: bu koddan mal satan için — genel dikkat + varsa DFİF kesintisi
+function ihracatKart(kod){
+  if(!EKVERGI || !EKVERGI.ihracatGenel) return '';
+  const g = EKVERGI.ihracatGenel;
+  const poz = kod.replace(/\./g,'').slice(0,4);
+  const dfif = (EKVERGI.dfif && EKVERGI.dfif.pozisyon) ? EKVERGI.dfif.pozisyon[poz] : null;
+  const maddeHtml = g.maddeler.map(m=>`<div style="font-size:12.5px;color:var(--muted);margin-top:5px">• ${m}</div>`).join('');
+  const dfifHtml = dfif ? `<div style="margin-top:10px;padding:11px 12px;border:1px solid var(--amber);border-radius:10px;background:#1a1206">
+      <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">💸 ${EKVERGI.dfif.baslik}</div>
+      <div style="font-size:12.5px;color:var(--ink)">${dfif}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">${EKVERGI.dfif.aciklama}</div>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:4px">Dayanak: ${EKVERGI.dfif.dayanak}</div>
+    </div>` : '';
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:4px">📤 İHRACAT — bu koddan mal SATIYORSAN</div>
+    ${maddeHtml}
+    ${dfifHtml}
+    <div style="font-size:10.5px;color:var(--dim);margin-top:8px">Dayanak: ${g.dayanak}. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danış.</div>
+  </div>`;
+}
 
 // ÖTV: kodun pozisyonu bir ÖTV listesinde mi? (rakam disiplini: oran YAZILMAZ, sadece kapsam bayrağı)
 function otvKart(kod){
@@ -308,7 +347,7 @@ function dampingKart(q){
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
-  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
+  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
@@ -339,7 +378,7 @@ function vergiKart(kod){
       ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin Gümrük Vergisi ve İGV oranımız var — yukarıdan menşe ülkeni seç, aralık kesinleşsin.</div>`;
     }
   }
-  if(!sat) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
+  if(!sat) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
   const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
@@ -430,10 +469,10 @@ function sorgula(){
     } else if(tk.length){
       // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu + ÖTV + KDV
       const kod = tk.find(k=>k===q) || tk[0];
-      vHtml = tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);
+      vHtml = tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);
     } else {
       // hiç GV/İGV/tarım verisi yok → yine de ÖTV + KDV göster
-      vHtml = otvKart(q) + denetimKart(q) + kdvKart(q);
+      vHtml = otvKart(q) + denetimKart(q) + kdvKart(q) + kkdfKart(q) + ihracatKart(q);
     }
     s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
