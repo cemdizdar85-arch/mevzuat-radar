@@ -52,7 +52,7 @@ h1{font-size:clamp(21px,4vw,27px);letter-spacing:-.7px;margin:4px 0 6px;font-wei
   </div>
 
   <div class="giris">
-    <b>Nasıl kullanılır:</b> Her maddede "üründe yazan" değeri resmî kaynaktan kontrol et → doğruysa kutuyu işaretle, farklıysa not alanına doğrusunu yaz. İşaretler bu tarayıcıda kayıtlı kalır; yarıda bırakıp devam edebilirsin. Yanlış çıkan olursa Claude'a notunla birlikte söyle — kod tek yerden düzeltilir. ⚠ etiketli maddeler ekstra dikkat ister.
+    <b>Nasıl kullanılır:</b> Her maddede "üründe yazan" değeri resmî kaynaktan kontrol et → doğruysa kutuyu işaretle, farklıysa not alanına doğrusunu yaz. İşaretler bu tarayıcıda kayıtlı kalır; yarıda bırakıp devam edebilirsin. Yanlış çıkan olursa not alanına doğrusunu yaz — geliştirme tarafında tek yerden düzeltilir. ⚠ etiketli maddeler ekstra dikkat ister.
   </div>
 
   <div id="liste"></div>
@@ -183,7 +183,7 @@ function guncelle(){
   const t=MADDELER.length;
   let s=0; for(let i=0;i<t;i++) if(document.getElementById('cb'+i).checked) s++;
   document.getElementById('barIc').style.width=(s/t*100)+'%';
-  document.getElementById('barYazi').textContent=`${s} / ${t} madde kontrol edildi`+(s===t?" — TAMAM! Notlarınla birlikte Claude'a dön.":"");
+  document.getElementById('barYazi').textContent=`${s} / ${t} madde kontrol edildi`+(s===t?" — TAMAM! Notların geliştirme listesine hazır.":"");
 }
 // yükle
 MADDELER.forEach((m,i)=>{

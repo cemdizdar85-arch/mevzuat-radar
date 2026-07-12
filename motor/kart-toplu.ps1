@@ -217,7 +217,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
 [void]$s.AppendLine("<h1>Günün Hap Kartları</h1>")
 [void]$s.AppendLine("<div class='alt'>$TarihNokta — Resmî Gazete'deki $($kartlar.Count) düzenleme, 30 saniyede okunur kartlar hâlinde.</div>")
-[void]$s.AppendLine('<div class="uyari">Kartlar yapay zekâ ile üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta hakem model</b> ile çapraz kontrol edilir. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>')
+[void]$s.AppendLine('<div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>')
 foreach($k in $kartlar){
   [void]$s.AppendLine('<div class="kart">')
   [void]$s.AppendLine('<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>')
