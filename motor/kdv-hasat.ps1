@@ -92,9 +92,23 @@ function Refler([string]$metin){
   $calisma = [regex]::Replace($calisma, '\b\d{4}\.\d{2}\b', ' # ')
   # 3) tarih maskele
   $calisma = [regex]::Replace($calisma, '\b\d{1,2}[./]\d{1,2}[./]\d{2,4}\b', ' # ')
-  # 4) "N no.lu fasil" -> TUM bolum
+  # 4) "N no.lu fasil" -> TUM bolum. AMA "yalnız" (secmeli) VEYA "faslin [kod] POZISYONUNDA"
+  #    (spesifik) ise tum fasil DEGIL — kodlar zaten ayri yakalandi. (F22 icecek/alkol, F12
+  #    yagli tohum, F5/23/25 = cimento vb. tuzagi). Ozellik-tabanli fasillar (F15 yag, F6 cicek)
+  #    "mallar/pozisyon" icermez -> mevcut haliyle tumF kalir, yanlis-negatif olmaz.
   foreach($m in [regex]::Matches($calisma, '(\d{1,2})\s*no\.?\s*lu\s*fas')){
-    $f=[int]$m.Groups[1].Value; if($f -ge 1 -and $f -le 97){ [void]$fasillar.Add($f.ToString("00")); [void]$tumFasillar.Add($f.ToString("00")) }
+    $f=[int]$m.Groups[1].Value
+    if($f -ge 1 -and $f -le 97){
+      [void]$fasillar.Add($f.ToString("00"))
+      $ctx = $calisma.Substring($m.Index, [Math]::Min(70, $calisma.Length - $m.Index))
+      $secmeli = $false
+      if($ctx -match 'yalnız'){ $secmeli = $true }
+      else {
+        $pm = $ctx.IndexOf('mallar'); $pp = $ctx.IndexOf('pozisyon')
+        if($pp -ge 0 -and ($pm -lt 0 -or $pp -lt $pm)){ $secmeli = $true }   # "mallar"dan ONCE "pozisyon" = spesifik
+      }
+      if(-not $secmeli){ [void]$tumFasillar.Add($f.ToString("00")) }
+    }
   }
   # 5) standalone "NN.NN" pozisyon -> TUM 4-hane pozisyon
   foreach($m in [regex]::Matches($calisma, '\b(\d{2})\.(\d{2})\b')){
