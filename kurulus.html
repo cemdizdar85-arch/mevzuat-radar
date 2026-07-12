@@ -421,6 +421,20 @@ function oner(){
         <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
         <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
       </div>`;
+    // İMALATÇI / İHRACATÇI: KV oranı %25 değil — şirketi daha da avantajlı yapar (KVK m.32/7-8)
+    if(SABIT.kvOranlari){
+      const o = SABIT.kvOranlari;
+      const kvImal26 = Math.round(kar*o.imalatci2026/100), kvImal27 = Math.round(kar*o.imalatci2027/100), kvIhr = Math.round(kar*o.ihracatci/100);
+      hesapHtml += `
+      <div style="margin-top:10px;padding:12px;border:1px solid var(--green);border-radius:11px;background:#0a1710">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">🏭 ÜRETİYOR MUSUN / İHRACAT YAPIYOR MUSUN? — KV %25 DEĞİL</div>
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. Ama <b style="color:var(--ink)">sanayi sicil belgeli imalatçı</b> ya da <b style="color:var(--ink)">ihracatçı</b>ysan, o kazançta kurumlar vergisi daha düşük — bu, şirketi şahıstan daha da avantajlı kılar:</div>
+        <div class="satir"><b>İmalatçı — üretim kazancı (2026, %${o.imalatci2026})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal26)} TL</span></div>
+        <div class="satir"><b>İmalatçı — üretim kazancı (2027'den, %${o.imalatci2027})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal27)} TL</span></div>
+        <div class="satir"><b>İhracatçı — ihracat kazancı (%${o.ihracatci})</b><span style="color:var(--green);font-weight:700">~${TLf(kvIhr)} TL</span></div>
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">İndirim yalnız <b>münhasıran üretim/ihracat kazancına</b> uygulanır; al-sat kazancı %${SABIT.kvOran} kalır. İmalatta "sanayi sicil belgesi + fiilen üretim" şarttır. 2027 için %${o.imalatci2027}: 7582 s. Kanun (RG 04.06.2026). Detay: <a href="bilgi.html#hap-kv-indirim">İmalatçı/İhracatçı KV indirimi →</a></div>
+      </div>`;
+    }
   }
 
   const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
