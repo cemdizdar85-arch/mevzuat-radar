@@ -64,6 +64,8 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 
 <script>
 const C = {};
+let CVOA = null;
+fetch('veri/cvoa-oranlar.json').then(r=>r.json()).then(j=>CVOA=j).catch(()=>{});
 const TUR = {
   yazilim:  {ad:"Yazılım / SaaS / program", em:"💽", grup:"__alt", ornek:"Microsoft, Adobe, SaaS aboneliği, hazır lisans, özel yazılım, kaynak kodu."},
   gayrimaddi:{ad:"Patent / marka / franchise / know-how", em:"®️", grup:"royalti", ornek:"Patent, ticari marka, franchise/royalti, know-how, formül, tasarım hakkı."},
@@ -99,7 +101,20 @@ function yazilimAltSor(){ ilerle(1);
       {t:"©️ Çoğaltma / değiştirme / telif hakkı da aldım", s:"Kaynak kodu, çoğaltma-dağıtım-işleme hakkı, markaya gömme — gayrimaddi hak", on:"C.yazilimTur='telif';C.grupOverride='royalti';cvoaSor()"}
     ], "baslat()"));
 }
+function ulkeSecildi(v){ if(!v) return; if(v==='__yok'){ C.cvoa=false; C.ulke=null; sonuc(); return; } C.ulke=v; C.cvoa=true; belgeSor(); }
 function cvoaSor(){ ilerle(2);
+  if(grup()==='royalti' && CVOA && CVOA.ulkeler){
+    const opts = Object.keys(CVOA.ulkeler).sort((a,b)=>a.localeCompare(b,'tr')).map(u=>`<option value="${u}">${u} — royalti %${CVOA.ulkeler[u].r}</option>`).join('');
+    ekran(`<div class="soru">ÜLKE ANLAŞMASI</div><div class="sbaslik">Karşı taraf hangi ülkede?</div>
+      <div class="sac">Gayrimaddi hak (royalti/telif) stopajı, ülkenin Türkiye ile <b>ikili anlaşmasına</b> göre değişir. Ülkeyi seç — o anlaşmanın oranını gösterelim.</div>
+      <select onchange="ulkeSecildi(this.value)" style="width:100%;padding:14px 16px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit;cursor:pointer">
+        <option value="">— ülkeyi seç —</option>
+        <option value="__yok">🚫 Anlaşmasız ülke / bilmiyorum (tam oran %20)</option>
+        ${opts}
+      </select>
+      <button class="geri" onclick="turSec(C.tur)" style="margin-top:12px">← geri</button>`);
+    return;
+  }
   ekran(`<div class="soru">ÜLKE ANLAŞMASI</div><div class="sbaslik">Karşı taraf hangi ülkede? Türkiye ile <u>Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA)</u> var mı?</div>
     <div class="sac">Türkiye ~90 ülkeyle anlaşmalı. Anlaşma varsa stopaj düşebilir/sıfırlanabilir. <a href="https://www.gib.gov.tr/uluslararasi_mevzuat" target="_blank">Ülke listesi →</a></div>`+
     sec([
@@ -135,8 +150,9 @@ function sonuc(){ ilerle(5);
     ozet = (C.tur==='yazilim') ? "📦 Hazır yazılımda <b>stopaj YOK</b> — sadece 2 No.lu KDV. (Sık hata: buna stopaj kesmek!)" : "Bu ödemede <b>stopaj yok</b>, sadece 2 No.lu KDV var."; ozetT="iyi"; }
   else if(g==='reklam'){ stopaj="%15"; sMetin="İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)."; ozet="İnternet reklamında <b>%15 stopaj</b> + 2 No.lu KDV. Bu %15 anlaşmadan bağımsız uygulanıyor."; ozetT="dikkat"; }
   else if(g==='royalti'){
-    if(C.cvoa && C.belge){ stopaj="%10*"; sMetin="Gayrimaddi hak (telif/çoğaltma/patent/marka) — ÇVÖA + mukimlik belgesi var: stopaj genelde %20→%10. *Kesin oran anlaşmaya göre (bazılarında %5).";
-      ozet="Anlaşma + belge sayesinde stopaj <b>%20 yerine ~%10</b>. Kesin oranı anlaşma metninden teyit et."; ozetT="iyi"; }
+    if(C.cvoa && C.belge){ const cr=(C.ulke && CVOA && CVOA.ulkeler[C.ulke])?CVOA.ulkeler[C.ulke].r:10; stopaj="%"+cr+"*";
+      sMetin="Gayrimaddi hak (telif/çoğaltma/patent/marka) — Türkiye–"+(C.ulke||"?")+" anlaşmasında royalti stopajı üst sınırı <b>%"+cr+"</b> (GİB yürürlükteki anlaşmalar tablosu). *Bazı anlaşmalarda kullanım türüne göre daha düşük oran olabilir — kesin oran anlaşma metninde.";
+      ozet="Anlaşma + belge sayesinde stopaj <b>%20 yerine %"+cr+"</b>"+(C.ulke?" ("+C.ulke+")":"")+". *Kullanım türüne göre değişebilir; anlaşmayı teyit et."; ozetT="iyi"; }
     else { stopaj="%20"; sMetin="Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA yok ya da mukimlik belgesi yok → tam %20.";
       ozet=(C.cvoa&&!C.belge)?"Anlaşma var ama <b>mukimlik belgesi yok</b> → indirim uygulanamaz, %20 keser.":"Anlaşmasız ülke → tam <b>%20 stopaj</b>."; ozetT="dikkat"; }
   }
