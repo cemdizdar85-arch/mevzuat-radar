@@ -61,7 +61,7 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
   </div>
 
   <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir.</b> Gümrük kıymeti ve tamamlayıcı beyan konularında gümrük müşavirine, vergi tarafında YMM/mali müşavirine danış. Sonuç, işlemin tam niteliğine ve sözleşmeye göre değişebilir.</div>
-  <div class="dip">Mevzuat Radarı · Yurt dışı fiyat farkı sihirbazı · Kaynak: <b>KDV Kanunu m.35, m.21/c</b> · <b>KDV Genel Uygulama Tebliği</b> (6 Seri No.lu değişiklik, RG 21.05.2016) · <b>Gümrük Yönetmeliği m.45, m.51, m.53, m.56</b> (gümrük kıymeti, tamamlayıcı beyan, royalti) · <b>Gümrük Kanunu m.24</b> · GİB özelgesi <b>İVDB 19.02.2015 · 39044742-KDV.1-293</b> · Gümrükler Genel Müd. <b>02.07.2015/9021634</b> · SMMM Cem Dizdar</div>
+  <div class="dip">Mevzuat Radarı · Yurt dışı fiyat farkı sihirbazı · Kaynak: <b>KDV Kanunu m.35, m.21/c</b> · <b>KDV Genel Uygulama Tebliği</b> (6 Seri No.lu değişiklik, RG 21.05.2016) · <b>Gümrük Kanunu m.24, m.27</b> (gümrük kıymeti, royalti/lisans ilavesi) · <b>Gümrük Yönetmeliği m.45, m.51, m.53, m.56</b> (sonradan düzeltme, kıymete eklenecekler, tamamlayıcı beyan/istisnai kıymet, royalti) · GİB özelgesi <b>İVDB 19.02.2015 · 39044742-KDV.1-293</b> · Gümrükler Genel Müd. <b>02.07.2015/9021634</b> · SMMM Cem Dizdar</div>
 </div>
 
 <script>
@@ -133,7 +133,7 @@ function sonuc(){ ilerle(3);
     ozetT="dikkat";
     ozet = "®️ Sonradan ödenen royalti/lisans/marka bedeli <b>üç vergiyi birden</b> ilgilendirir: gümrük kıymeti + stopaj + 2 No.lu KDV. Çoğu kişi sadece birini görür.";
     rows =
-      satir("🛃 Gümrük kıymeti","Royalti, ithal eşyanın <b>satış koşuluysa</b> ve o eşyayla ilgiliyse gümrük kıymetine <b>dahildir</b> (Gümrük Yön. m.56). Bu durumda <b>tamamlayıcı beyan</b> (m.53) + ek gümrük vergisi + KDV gerekir. Satış koşulu değilse (bağımsız hizmet) gümrüğe girmez.","dahil olabilir","v") +
+      satir("🛃 Gümrük kıymeti","Royalti, ithal eşyanın <b>satış koşuluysa</b> ve o eşyayla ilgiliyse gümrük kıymetine <b>dahildir</b> (Gümrük Kanunu m.27/1-c, Gümrük Yön. m.56). Bu durumda <b>tamamlayıcı beyan</b> (Gümrük Yön. m.53) + ek gümrük vergisi + KDV gerekir. Satış koşulu değilse (bağımsız hizmet) gümrüğe girmez.","dahil olabilir","v") +
       satir("✂️ Stopaj (KVK m.30)","Gayrimaddi hak bedeli → kurumlar vergisi tevkifatı. ÇVÖA + mukimlik belgesi oranı düşürür (genelde %20→%10). Oranı <a href='hizmet.html'>Hizmet Faturası aracından</a> ülkeye göre gör.","%10–20","v") +
       satir("🧾 2 No.lu KDV","Gayrimaddi hak → sorumlu sıfatıyla <b>%20 KDV</b> beyan+öde; aynı ay 1 No.lu'da indir (net yük ~0, beyan zorunlu).","%20","v") +
       satir("⚠️ Çifte vergi dikkati","Aynı royalti hem gümrük kıymetinde hem de KDV'de matrah oluşturabilir; mükerrerlik tartışmalıdır. Gümrük müşaviri + YMM ile birlikte kurgula.","dikkat","n") + tpRow;
@@ -203,7 +203,7 @@ function hesapla(tip){
       satir("Royalti bedeli","","+"+fmt(t),"") +
       satir("🧾 2 No.lu KDV (%20)","Beyan+öde; aynı ay indirilir (net ~0).",fmt(kdv),"n") +
       satir("✂️ Stopaj","Oran ülkeye/ÇVÖA'ya göre; Hizmet Faturası aracından hesapla.","ülkeye göre","v") +
-      `<div style="font-size:12px;color:var(--dim);margin-top:4px">Royalti ithal malın satış koşuluysa ayrıca gümrük kıymetine dahil olup ek gümrük vergisi doğar (Gümrük Yön. m.56).</div>`;
+      `<div style="font-size:12px;color:var(--dim);margin-top:4px">Royalti ithal malın satış koşuluysa ayrıca gümrük kıymetine dahil olup ek gümrük vergisi doğar (Gümrük Kanunu m.27/1-c, Gümrük Yön. m.56).</div>`;
   }
 }
 baslat();
