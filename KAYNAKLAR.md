@@ -21,9 +21,10 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 
 ## OTOMASYON (kaynaktan siteye)
 1. **RG nöbetçisi** (`arac/rg-tarama.ps1`, günlük): Resmî Gazete fihristini tarar; sabit/tebliğ değişikliği yakalarsa Cem'e mail.
-2. **Kaynak nöbetçisi** (`arac/kaynak-nobetcisi.ps1`, haftalık — .github/workflows/kaynak.yml): resmî kaynak dosyalarını (GİB KDV PDF, Ticaret Bak. vergi kodları/İthalat Rejimi duyuru) HASH ile izler; değişince Cem'e mail.
-3. **Deterministik yeniden hasat** (`motor/hepsini-hasat.ps1`): yeni İthalat Rejimi/İGV Excel'i gelince TEK KOMUTLA tüm veri/*.json yeniden üretilir (GV/İGV/tarım/balık/askıya/nihai) — Excel COM gerektirmez, ubuntu CI'da koşar, çıktı %100 deterministik (kaynak değişmezse JSON değişmez). Yapay zekâ ile "okuyup yazma" YOK.
-- İş bölümü: nöbetçiler HABER verir (asla uydurmaz); veri deterministik script'le ya da elle-birincil-okumayla güncellenir.
+2. **Kaynak nöbetçisi** (`arac/kaynak-nobetcisi.ps1`, GÜNLÜK — .github/workflows/kaynak.yml):
+   - **DETERMINISTIK (İthalat Rejimi + İGV Excel):** Ticaret Bak. sayfasından güncel Excel zip linkini bulur, indirir, hash'ini karşılaştırır. Değiştiyse **OTOMATIK** çıkarır + `hepsini-hasat.ps1` çalıştırır + veri/*.json'u yeniden üretir → CI commit'ler → Cem'e "değiştirdim, kontrol et" maili. Yapay zekâ YOK, uydurma imkânsız. **Test edildi: canlı zip indirilip hasat edildi, çıktı yerel veriyle birebir (deterministik).**
+   - **NÜANSLI (GİB KDV PDF, vergi kodları, İthalat Rejimi değişiklik):** hash izler, değişince "elle bak" maili — robot YAZMAZ (KDV hükmü gibi nüanslı veriyi AI'yla yazmak eski hataları geri getirir; bilerek elle bırakıldı).
+- İş bölümü: deterministik veriyi robot GÜNLÜK otomatik değiştirir + Cem kontrol eder; nüanslı veriyi robot haber verir, elle-birincil-okumayla güncellenir. Hata olursa robot alert'e düşer, asla yanlış veri yayınlamaz.
 
 ## KURAL
 - Yeni veri **önce resmî kurumun kendi yayınından** (Resmî Gazete, Ticaret Bakanlığı, GİB, mevzuat.gov.tr) alınır.
