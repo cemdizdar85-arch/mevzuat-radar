@@ -61,8 +61,13 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
         <div class="ipucu">Tescil belgende yazılı <b>başvuru</b> tarihi (koruma buradan başlar — SMK m.23). Bilmiyorsan <a href="https://www.turkpatent.gov.tr/arastirma-yap" target="_blank">TÜRKPATENT'ten sorgula</a>.</div>
       </div>
     </div>
-    <div style="max-width:240px"><label>NICE SINIF(LAR)I <span style="color:var(--dim);font-weight:500;text-transform:none">— opsiyonel</span></label>
-      <input class="gir" id="sinif" placeholder="ör. 12, 35"></div>
+    <div class="satirlar">
+      <div><label>MARKA TESCİL / BAŞVURU NO <span style="color:var(--dim);font-weight:500;text-transform:none">— varsa (en kesin)</span></label>
+        <input class="gir" id="no" placeholder="ör. 2016/12345">
+        <div class="ipucu">Numaran varsa yaz — Faz B'de TÜRKPATENT'ten adı, sınıfı, tarihi <b>otomatik</b> bulup doğrularız.</div></div>
+      <div><label>NICE SINIF(LAR)I <span style="color:var(--dim);font-weight:500;text-transform:none">— opsiyonel</span></label>
+        <input class="gir" id="sinif" placeholder="ör. 12, 35"></div>
+    </div>
     <button class="btn" onclick="hesapla()">📅 Bitiş tarihini hesapla</button>
     <div class="hata" id="hata"></div>
   </div>
@@ -121,7 +126,8 @@ function hesapla(){
     zaman=`<div class="zaman"><i class="r" style="flex:100"></i></div>`;
   }
 
-  SON={ad,bitis:fmt(gercekBitis),acilis:fmt(gercekAcilis),durum};
+  const no=(document.getElementById('no').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
+  SON={ad,no,sinif,basvuru:fmt(basvuru),bitis:fmt(gercekBitis),acilis:fmt(gercekAcilis),durum};
   document.getElementById('sonuc').innerHTML=`
     <div class="ozet ${ozetT}"><span class="buyuk">${durum}${ad?' — '+ad:''}</span>${mesaj}</div>
     <div class="satir"><span class="l">Koruma başlangıcı (başvuru)</span><span class="v">${fmt(basvuru)}</span></div>
@@ -143,8 +149,8 @@ function hesapla(){
 function takip(){
   const m=document.getElementById('mail').value.trim();
   if(!m){ document.getElementById('takipOut').textContent='E-postanı yaz.'; return; }
-  const payload={access_key:AK, subject:'MARKA RADARI takip: '+(SON.ad||'-'),
-    from_name:'Mevzuat Radari Marka', "E-posta":m, "Marka":SON.ad||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
+  const payload={access_key:AK, subject:'MARKA RADARI takip: '+(SON.ad||SON.no||'-'),
+    from_name:'Mevzuat Radari Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
   fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{document.getElementById('takipOut').innerHTML='✅ Takibe alındı. Yenileme yaklaşınca haber vereceğiz.';})
     .catch(()=>{document.getElementById('takipOut').innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>';});
