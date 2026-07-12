@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTİP Sağlık Kontrolü — kodunda gözetim var mı? | Mevzuat Radarı</title>
-<meta name="description" content="GTİP kodunu gir; o kodda ithalatta gözetim uygulaması var mı, birim kıymeti kaç, hangi tebliğe dayanıyor — saniyede gör.">
+<title>GTİP Sağlık Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Mevzuat Radarı</title>
+<meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör — AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -48,10 +48,24 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   </div>
   <div class="ipucu">Tam kod ya da başlangıcını yazabilirsin (ör. 6907 → o grubun tüm kodları).</div>
 
+  <div style="margin-top:12px">
+    <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Menşe ülke — bilirsen kesin oranı gösterelim (bilmiyorsan boş bırak, aralık gösteririz)</label>
+    <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit">
+      <option value="">Bilmiyorum / hepsini göster (aralık)</option>
+      <option value="abSta">AB üyesi / İngiltere / İsrail / G.Kore / Sırbistan / Arnavutluk / Şili / Kuzey Makedonya / Bosna-Hersek / Fas / Tunus / Mısır / EFTA (İzlanda-Norveç-İsviçre-Lihtenştayn) — STA ortağı ülke</option>
+      <option value="katar">Katar</option>
+      <option value="bae">Birleşik Arap Emirlikleri</option>
+      <option value="eagu">En Az Gelişmiş Ülke (EAGÜ listesi)</option>
+      <option value="otdu">Özel Teşvik Düzenlemesi kapsamındaki ülke</option>
+      <option value="gyu">Gelişme Yolundaki Ülke (GTS listesi)</option>
+      <option value="du">Diğer (Çin, ABD, Japonya, Hindistan, Rusya, vb. — çoğu ülke)</option>
+    </select>
+  </div>
+
   <div id="sonuc"></div>
 
   <div class="uyari">Kapsam: yürürlükteki ithalatta gözetim tebliğleri (resmî birleşik metinlerden). Damping, gümrük vergisi ve ÜGD katmanları eklenmektedir. Bilgilendirme amaçlıdır; işlem öncesi kaynak tebliğe bakınız.</div>
-  <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler · SMMM Cem Dizdar</div>
+  <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · SMMM Cem Dizdar</div>
 </div>
 
 <script>
@@ -60,13 +74,17 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, ULKE_GRUP_ETIKET = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([]))
-]).then(([a,b,c,d])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; });
+  fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([])),
+  fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; });
+// GTS/EAGU/OTDU siralamasi: kod dizisinde [abSta,katar,bae,eagu,otdu,gyu,du]
+const ULKE_SIRA = ["abSta","katar","bae","eagu","otdu","gyu","du"];
 
 // damping/anti-damping önlem uyarısı: sorgulanan kod bir önleme dokunuyor mu?
 function dampingKart(q){
@@ -89,13 +107,32 @@ function dampingKart(q){
   return html;
 }
 
-// vergi kartı üret: [gvMin,gvMax,igvMin,igvMax]
+// vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
   if(!VERGI || !VERGI[kod]) return '';
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
+  const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
+  const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
+
   let sat = '';
-  if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
+  let ulkeNotu = '';
+  if(ulkeSatir && seciliGrup){
+    const idx = ULKE_SIRA.indexOf(seciliGrup);
+    const gv = ulkeSatir[idx];
+    if(gv!==null && gv!==undefined){
+      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke grubu)</b><span style="color:var(--green);font-weight:700">%${gv}</span></div>`;
+      ulkeNotu = `<div style="font-size:11.5px;color:var(--green);margin-top:4px">✓ Bu oran, seçtiğin ülke grubu için Ticaret Bakanlığı İthalat Rejimi Kararı II Sayılı Liste'sinden kesin okunmuştur (aralık değil).</div>`;
+    } else {
+      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke grubu)</b><span>Bu kod için bu grupta veri yok — aralığa bak</span></div>`;
+    }
+    if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi (tüm ülkeler aralığı)</b><span>${rng(v[0],v[1])}</span></div>`;
+  } else {
+    if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
+    if(ulkeSatir){
+      ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin oranımız var — yukarıdan menşe ülkeni seç.</div>`;
+    }
+  }
   if(v[2]!==null && v[2]!==undefined) sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
   if(!sat) return '';
   // KDV: GTİP bazlı temiz kaynak yok — standart oran + istisna notu (uydurma değil, dürüst genel)
@@ -104,6 +141,7 @@ function vergiKart(kod){
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
     ${sat}
+    ${ulkeNotu}
     <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV standart %20’dir; temel gıda %1, bazı ürünler %10 indirimli listede olabilir — ürün tanımına göre değişir. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 BKK.</div>
     <div style="margin-top:12px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 CEBİNE ETKİSİ — yıllık ithalat tutarını gir</div>
@@ -128,14 +166,33 @@ function etkiHesapla(kod, sid){
   const v = VERGI && VERGI[kod];
   if(!v){ out.innerHTML = 'Bu kod için oran verisi yok.'; return; }
   const tl = n => n.toLocaleString('tr-TR');
-  const gvMin = v[0]!=null ? tutar*v[0]/100 : null, gvMax = v[0]!=null ? tutar*v[1]/100 : null;
-  const igvMin = v[2]!=null ? tutar*v[2]/100 : null, igvMax = v[2]!=null ? tutar*v[3]/100 : null;
-  let sat = '';
-  if(gvMin!=null) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${gvMin===gvMax ? tl(gvMin)+' TL' : tl(gvMin)+' – '+tl(gvMax)+' TL'}</span></div>`;
-  if(igvMin!=null) sat += `<div class="satir"><b>İGV</b><span>${igvMin===igvMax ? tl(igvMin)+' TL' : tl(igvMin)+' – '+tl(igvMax)+' TL'}</span></div>`;
-  const topMin = (gvMin||0)+(igvMin||0), topMax = (gvMax||0)+(igvMax||0);
-  sat += `<div class="satir"><b>Tahmini yıllık toplam</b><span style="color:var(--amber);font-weight:700">${topMin===topMax ? tl(topMin)+' TL' : tl(topMin)+' – '+tl(topMax)+' TL'}</span></div>`;
-  out.innerHTML = sat + `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">Kaba tahmindir: alt uç tercihli menşe (ör. AB), üst uç diğer ülkeler. KDV ve varsa damping/EMY hariç; gerçek vergi matraha (CIF + yurt dışı giderler) göre hesaplanır. İşlem öncesi gümrük müşavirine danış.</div>`;
+  const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
+  const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;
+  let sat = '', notEk = '';
+
+  if(ulkeSatir && seciliGrup){
+    const idx = ULKE_SIRA.indexOf(seciliGrup);
+    const gv = ulkeSatir[idx];
+    if(gv!==null && gv!==undefined){
+      const gvTutar = tutar*gv/100;
+      const igvMin = v[2]!=null ? tutar*v[2]/100 : null, igvMax = v[2]!=null ? tutar*v[3]/100 : null;
+      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(gvTutar)} TL (kesin, %${gv})</span></div>`;
+      if(igvMin!=null) sat += `<div class="satir"><b>İGV</b><span>${igvMin===igvMax ? tl(igvMin)+' TL' : tl(igvMin)+' – '+tl(igvMax)+' TL'}</span></div>`;
+      const toplam = gvTutar + (igvMin||0);
+      sat += `<div class="satir"><b>Tahmini yıllık toplam</b><span style="color:var(--amber);font-weight:700">~${tl(toplam)} TL</span></div>`;
+      notEk = ' Gümrük Vergisi kesin (seçtiğin ülke grubuna göre);';
+    }
+  }
+  if(!sat){
+    const gvMin = v[0]!=null ? tutar*v[0]/100 : null, gvMax = v[0]!=null ? tutar*v[1]/100 : null;
+    const igvMin = v[2]!=null ? tutar*v[2]/100 : null, igvMax = v[2]!=null ? tutar*v[3]/100 : null;
+    if(gvMin!=null) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${gvMin===gvMax ? tl(gvMin)+' TL' : tl(gvMin)+' – '+tl(gvMax)+' TL'}</span></div>`;
+    if(igvMin!=null) sat += `<div class="satir"><b>İGV</b><span>${igvMin===igvMax ? tl(igvMin)+' TL' : tl(igvMin)+' – '+tl(igvMax)+' TL'}</span></div>`;
+    const topMin = (gvMin||0)+(igvMin||0), topMax = (gvMax||0)+(igvMax||0);
+    sat += `<div class="satir"><b>Tahmini yıllık toplam</b><span style="color:var(--amber);font-weight:700">${topMin===topMax ? tl(topMin)+' TL' : tl(topMin)+' – '+tl(topMax)+' TL'}</span></div>`;
+    if(ulkeSatir) notEk = ' Menşe ülkeni seçersen Gümrük Vergisi kesinleşir;';
+  }
+  out.innerHTML = sat + `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">Kaba tahmindir:${notEk} KDV ve varsa damping/EMY hariç; gerçek vergi matraha (CIF + yurt dışı giderler) göre hesaplanır. İşlem öncesi gümrük müşavirine danış.</div>`;
 }
 
 function sorgula(){
