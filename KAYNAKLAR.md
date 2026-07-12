@@ -31,15 +31,16 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 | Gümrük Vergisi + İGV | **İthalat Rejimi 2026 + İGV 2026** Excel (Ticaret Bak.) — robot GÜNLÜK izliyor | 🟢 GÜNCEL (oto) |
 | GEKAP tutar/kapsam | **RG 28.12.2024** (2025 tutarları) + AEEE Yön. Ek-2/A | 🟢 GÜNCEL |
 | Tarife Cetveli / eşya tanımı | **TGTC 2025** (Karar 10781, RG 30.12.2025) | 🟢 GÜNCEL |
-| **Damping / sübvansiyon** | RG damping tebliğleri — **SÜREKLİ değişen** (birkaç haftada bir yeni tebliğ) | 🟡 ANLIK GÖRÜNTÜ — periyodik yenileme şart |
-| **Gözetim** | RG gözetim tebliğleri — **SÜREKLİ değişen** | 🟡 ANLIK GÖRÜNTÜ — periyodik yenileme şart |
+| **Damping / sübvansiyon** | Ticaret Bak. **"Yürürlükteki Önlemler" konsolide Excel — 29.06.2026** (tüm yürürlükteki önlemler tek dosyada) | 🟢 GÜNCEL + **OTOMATİK** (robot izliyor, değişince oto-hasat) |
+| **Gözetim** | RG gözetim tebliğleri — **SÜREKLİ değişen**, konsolide dosya YOK | 🟡 ANLIK GÖRÜNTÜ — robot "gözetim" alert'i verir, elle yenilenir |
 
-**Sonuç:** Oran/kapsam katmanları (KDV, ÖTV, gümrük vergisi, GEKAP, tarife) EN SON resmî sürümde — 8543 türü bayatlık yok. Tek gerçek güncellik riski **damping ve gözetim** — bunlar RG'de sürekli yeni tebliğle değişir; bizimki bir anlık görüntüdür, robot alert verir ama periyodik elle yenileme gerekir.
+**Sonuç:** Oran/kapsam katmanları (KDV, ÖTV, gümrük vergisi, GEKAP, tarife) EN SON resmî sürümde — 8543 türü bayatlık yok. **Damping artık otomatik** (konsolide Excel bulundu, robota bağlandı). Tek elle-izlenen kalem **gözetim** — konsolide dosyası olmadığı için robot alert verir, elle güncellenir.
 
 ## OTOMASYON (kaynaktan siteye)
 1. **RG nöbetçisi** (`arac/rg-tarama.ps1`, günlük): Resmî Gazete fihristini tarar; sabit/tebliğ değişikliği yakalarsa Cem'e mail.
 2. **Kaynak nöbetçisi** (`arac/kaynak-nobetcisi.ps1`, GÜNLÜK — .github/workflows/kaynak.yml):
    - **DETERMINISTIK (İthalat Rejimi + İGV Excel):** Ticaret Bak. sayfasından güncel Excel zip linkini bulur, indirir, hash'ini karşılaştırır. Değiştiyse **OTOMATIK** çıkarır + `hepsini-hasat.ps1` çalıştırır + veri/*.json'u yeniden üretir → CI commit'ler → Cem'e "değiştirdim, kontrol et" maili. Yapay zekâ YOK, uydurma imkânsız. **Test edildi: canlı zip indirilip hasat edildi, çıktı yerel veriyle birebir (deterministik).**
+   - **DETERMINISTIK (Damping "Yürürlükteki Önlemler" Excel):** Ticaret Bak. Damping ve Sübvansiyon sayfasından güncel "Yürürlükteki Önlemler …xlsx" linkini bulur, indirir, hash'ler. Değiştiyse **OTOMATIK** `motor/damping-hasat.ps1` çalıştırır → `veri/gtip-damping.json` yeniden üretir → CI commit'ler → Cem'e "değiştirdim, kontrol et" maili. (İthalat Rejimi ile aynı desen; nokta-kontrol testi commit öncesi çalışır.)
    - **NÜANSLI (GİB KDV PDF, vergi kodları, İthalat Rejimi değişiklik):** hash izler, değişince "elle bak" maili — robot YAZMAZ (KDV hükmü gibi nüanslı veriyi AI'yla yazmak eski hataları geri getirir; bilerek elle bırakıldı).
 - İş bölümü: deterministik veriyi robot GÜNLÜK otomatik değiştirir + Cem kontrol eder; nüanslı veriyi robot haber verir, elle-birincil-okumayla güncellenir. Hata olursa robot alert'e düşer, asla yanlış veri yayınlamaz.
 
