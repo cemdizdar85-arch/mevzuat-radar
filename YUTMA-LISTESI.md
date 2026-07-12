@@ -87,6 +87,12 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **V Sayılı Liste (GV askıya alma):** 606 pozisyon, GV %0 ama ŞARTLI (nihai kullanım/dipnot). motor/askiya-hasat.ps1 → veri/gtip-askiya.json. askiyaKart "askıya alınmış OLABİLİR, şartlı" der (uydurma yok). ÖNEK EŞLEŞME: sorgu kodu askıya önekiyle başlarsa.
 - **🔴 Bulunan eski hata:** vergiKart SON şablonu (VERGI'de olan sanayi kodları yolu) denetim/KKDF/ihracat/balık/savunma/askıya kartlarını İÇERMİYORDU — sadece erken-dönüş yolları içeriyordu. Yani gözetim-derived VERGI verisi olan sanayi kodlarında bu kartlar hiç görünmüyordu. Düzeltildi (tüm yollar artık aynı kart setini render eder).
 
+## ✅ VERGİ TAKVİMİ + ASGARİ ÜCRET/SGK + KDV TEYİDİ (12.07.2026, yedinci tur — Cem)
+- **KDV teyidi:** genel %20 + indirimli %1/%10 DOĞRU (7346 CK Temmuz 2023; %18→%20, %8→%10). gtip-kdv.json'da %8/%18 yok, v2 denetimi ayakta. (Bir blog "%8" diyordu — yanlış; rakam disiplini kanıtı.)
+- **2026 asgari ücret/SGK** (vergi-sabitleri.json asgariUcret2026 + bilgi.html#hap-asgari-ucret): brüt 33.030 / net 28.075,50 / günlük 1.101; SGK taban 33.030, tavan 297.270 (7,5 kat); işveren maliyeti teşviksiz ~40.874,63 / imalat 5 puan ~39.223,13; asgari ücret desteği 1.270/ay. Kaynak: Asgari Ücret Tespit Komisyonu + SGK, hesap TURMOB.
+- **Vergi takvimi** (bilgi.html#hap-vergi-takvimi): KDV 28'i, MUHSGK 26'sı, damga 26'sı, geçici vergi 3 dönem (17 May/Ağu/Kas — 4. dönem 2022'de kaldırıldı), yıllık GV Mart, KV 30 Nisan. Kaynak: GİB Vergi Takvimi.
+- **ALAN HARİTASI (KAPSAM-KONTROL.md bölüm 0):** "olmayanı görünür kıl" — dış ticaret/şirket-vergi/istihdam/sektörel domainleri + ankor + kapsama. Kırmızı satır = bilinen açık. Kalan kırmızılar: menşe/dolaşım belgeleri, kıdem/ihbar tavanı, sektörel lisanslar, gümrük rejimleri (kısmi).
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
