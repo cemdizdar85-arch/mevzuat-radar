@@ -115,6 +115,15 @@
     { "kod": "8543.20.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 IV — diğer 8543 elektronik ÖTV DIŞI (over-broad idi)" },
     { "kod": "8517.11.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 IV — kordonsuz telli telefon ÖTV %20 (whitelist'e eklendi)" },
     { "kod": "4901.10.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 IV — normal kitap ÖTV DIŞI (yalnız 1117 s. Kanun poşetli muzır yayın). Over-broad idi." },
-    { "kod": "4902.90.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 IV — normal gazete/dergi ÖTV DIŞI (KDV'si %1)" }
+    { "kod": "4902.90.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 IV — normal gazete/dergi ÖTV DIŞI (KDV'si %1)" },
+
+    { "kod": "8528.72.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 (1) liste / GEKAP 2025 — televizyon EEE, GEKAP kapsamında. Önce göstermiyordu." },
+    { "kod": "8418.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — buzdolabı EEE (430 kr/kg)" },
+    { "kod": "8415.10.90.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — klima/iklimlendirme EEE" },
+    { "kod": "8450.11.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — çamaşır makinesi (beyaz eşya) EEE" },
+    { "kod": "8471.30.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — bilgisayar (bilişim) EEE" },
+    { "kod": "8517.62.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — router/ağ cihazı (telekom) EEE (ÖTV'de yok ama GEKAP'ta var)" },
+    { "kod": "8544.42.90.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "kablo bitmiş EEE ürünü değil — GEKAP EEE eşlemesi sızmamalı" },
+    { "kod": "8481.80.00.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "vana EEE değil — GEKAP sızmamalı" }
   ]
 }
