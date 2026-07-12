@@ -25,8 +25,20 @@ Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı ç
 | 9286 s. CB Kararı (resmigazete.gov.tr RG 22.12.2024/32760 tam metin) | 12.07 | vergi-sabitleri.json (karPayiStopaj) | Birebir doğrulandı: GVK m.94/1-6 ve KVK m.15/30, %10→%15. Site zaten doğruydu, kaynak notu RG no/tarihiyle güçlendirildi |
 | Transfer Fiyatlandırması Genel Tebliği Seri No:1, konsolide (mevzuat.gov.tr, RG 17.10.2024/32695, 177 sf) | 12.07 | transfer-fiyatlandirmasi.html | Kesin eşikler yazıldı: 30.000 TL alt sınır (m.7.5), Yıllık Rapor kapsam farkı Büyük Mükellef/diğer/serbest bölge (m.7.3), Master File 500M TL aktif+satış (m.7.2), CbCR 750M Euro (m.7.4) |
 
+## ✅ GTİP VERGİ KATMANLARI — TAMAMLANDI (12.07.2026)
+Ticaret Bakanlığı İthalat Rejimi Kararı Excel'leri LLM'siz, doğrudan hücre okumayla hasat edildi (motor/vergi-hasat-ulke.ps1, igv-hasat-ulke.ps1, tarim-hasat.ps1, emy-hasat.ps1). Tümü ham veriyle birebir doğrulandı:
+| Katman | Kapsam | Dosya |
+|---|---|---|
+| Gümrük Vergisi (sanayi, 7 ülke grubu) | 12.605 kod | gtip-vergi-ulke.json |
+| İGV (sanayi, 7 ülke grubu) | 4.544 kod | gtip-igv-ulke.json |
+| Gümrük Vergisi (tarım, ülke ülke) | 2.712 kod | gtip-vergi-tarim.json |
+| Tarım Payı / EMY (EURO/100kg) | 179 kod | gtip-emy-tarim.json |
+| + gözetim, damping, kıymet kıyası (önceki turlar) | — | — |
+
+GTİP aracı Türkiye'de eşi olmayan seviyede: menşe ülkeye göre kesin GV+İGV, tarımda ülke ülke oran, işlenmiş tarımda Tarım Payı. "Bileşime göre" (T1/T2) ve dipnot değerleri UYDURULMADAN kaynağa yönlendirildi.
+
 ## ✅ YUTMA LİSTESİ TAMAMLANDI (12.07.2026)
-Bu turda planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel destek/kuruluş modülleri + vergi sabitlerini besleyen kanun/kararlar. Yeni içerik eklendikçe ya da robot nöbetçisi bir tebliğ değişikliği yakaladıkça liste yeniden açılır.
+Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel destek/kuruluş modülleri + vergi sabitlerini besleyen kanun/kararlar + tüm GTİP vergi katmanları. Yeni içerik eklendikçe ya da robot nöbetçisi bir tebliğ değişikliği yakaladıkça liste yeniden açılır.
 
 ## 🟡 SIRADA — İÇERİK DERİNLEŞTİRME (yanlış riski düşük, "son durak" hedefi için)
 5. **5986 s. E-İhracat Destekleri Kararı + genelgesi** — e-ihracat kartı şu an sığ.
