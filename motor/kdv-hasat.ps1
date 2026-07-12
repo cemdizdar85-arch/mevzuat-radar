@@ -201,6 +201,22 @@ foreach($tf in $tekstilFasil){
 if(-not $fasil.ContainsKey('96')){ $fasil['96']=@{ o1=@(); o10=@() } }
 $fasil['96'].o10 += @{ m="Fermuar (96.07), düğme/çıtçıt/kopça (96.06): (II) sayılı liste 5. sıra — tekstil aksesuarı %10. (Faslın tamamı değil, yalnız bu pozisyonlar.)"; poz=@('9606','9607'); kod=@(); tumF=$false; kosul=$false; haric=@() }
 
+# === ISIM-BAZLI PHARMA MADDELERI (II) 17,18,20 -> ECZACILIK fasil 30 %10 ===
+#  Madde 18 besri tibbi urunler (ilac), 17 kan/asi/antiserum, 20 veteriner tibbi mustahzar.
+#  Karar'da isimle yazili -> fasil 30 (eczacilik urunleri) tumu %10.
+if(-not $fasil.ContainsKey('30')){ $fasil['30']=@{ o1=@(); o10=@() } }
+$zt=$false; foreach($h in $fasil['30'].o10){ if($h.m -and $h.m.StartsWith('İLAÇ/ECZACILIK')){$zt=$true} }
+if(-not $zt){ $fasil['30'].o10 += @{ m="İLAÇ/ECZACILIK — %10: (II) sayılı liste 17-18-20. sıralar — Sağlık Bakanlığı ruhsatlı beşeri tıbbi ürünler (ilaç), kan/kan ürünleri, aşı, antiserum, immunglobulin ve veteriner tıbbi müstahzarlar (veteriner kozmetikleri hariç). Karar'da ürün adıyla yazılı; fasıl 30 eşlendi."; poz=@('__pharma__'); kod=@('__pharma__'); tumF=$true; kosul=$false; haric=@() } }
+
+# === ISIM-BAZLI (I) LISTE %1 MADDELERI ===
+# Madde 7: dondurulmus hayvan spermasi (0511.10) %1
+if(-not $fasil.ContainsKey('05')){ $fasil['05']=@{ o1=@(); o10=@() } }
+$fasil['05'].o1 += @{ m="Dondurulmuş hayvan (sığır) sperması: (I) sayılı liste 7. sıra — %1. (Suni dölleme için.)"; poz=@(); kod=@('051110'); tumF=$false; kosul=$false; haric=@() }
+# Madde 2: meyan koku/coven/sumak vb. eczacilik-aromatik bitkiler (12.11) + susam/hashas tohumu (1207.40/1207.91) %1.
+#  (Not: kekik, defne, kimyon, anason, rezene gibi baharatlar zaten fasil 9 %1 kapsaminda.)
+if(-not $fasil.ContainsKey('12')){ $fasil['12']=@{ o1=@(); o10=@() } }
+$fasil['12'].o1 += @{ m="Meyan kökü/balı/hülasası, çöven, sumak, defne, ıhlamur, adaçayı, mahlep vb. eczacılık-aromatik bitkiler (12.11); susam ve haşhaş tohumu (1207.40/1207.91): (I) sayılı liste 2. sıra — %1."; poz=@('1211'); kod=@('120740','120791'); tumF=$false; kosul=$false; haric=@() }
+
 $out = [ordered]@{
   guncelleme = "GİB güncel konsolide metin (2007/13033, 9126 s. CK dahil)"
   genelOran = 20
