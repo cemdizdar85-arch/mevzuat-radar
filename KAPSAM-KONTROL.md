@@ -95,7 +95,7 @@ listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama
 **→ İTHALAT ÇENTİĞİ %100: I–VII listeler + tüm vergi/fon kodları kapsandı. GEKAP (Cem'in yakaladığı) eklendi. KDV menşe-farkı netleştirildi (oran değişmez, tutar değişir). Kod kapsamı: 15.717 tarife kodunun tamamı sorgulanabilir, hepsinde GV var.**
 
 ## 2) SIRADAKİ ANKORLAR (aynı yöntem, diğer alanlar)
-- **İhracat:** İhracat Yönetmeliği ekleri (Kayda Bağlı İhracat Listesi, İhracı Yasak/Ön İzinli Mallar Listesi) — tam listeye çentik.
+- ~~**İhracat:** İhracı Kayda Bağlı (2006/7) + Yasak/Ön İzinli (96/31)~~ ✅ EKLENDİ: gtip-ihracat-kisit.json (60 kod + isim bazlı), GTİP aracı + bilgi.html#hap-ihracat-kisit. Robot nöbetçisine değişiklik izleme eklendi.
 - **Şirket yükümlülükleri:** kapsamlı "mükellef yükümlülük takvimi" / eşik envanteri — her eşik sayfası bir satır.
 - **İhracat destekleri:** 5973 + 5986 Karar ekli destek listesi — her destek bir satır.
 
