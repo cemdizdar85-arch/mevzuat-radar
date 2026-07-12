@@ -5,7 +5,7 @@ name: Kaynak Nobetcisi
 
 on:
   schedule:
-    - cron: "0 6 * * 1"    # her Pazartesi 06:00 UTC = 09:00 Turkiye
+    - cron: "0 6 * * *"     # HER GUN 06:00 UTC = 09:00 Turkiye
   workflow_dispatch:        # elle de calistirilabilir
 
 permissions:
