@@ -42,6 +42,46 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <h1>Devlet Destekleri Radarı</h1>
   <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı ve Türk Eximbank</b> programlarını gör, yeni çağrı açıldığında haber verelim.</p>
 
+  <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
+    <h3 style="margin-top:0">🧭 Hangi desteklere uygunsun? 4 soruda söyleyelim</h3>
+    <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla; sana uygun programları <b style="color:var(--ink)">"ne gerekli, nasıl başvurulur"</b> adımlarıyla birlikte listeleyelim — mevzuat metnine boğulmadan.</p>
+    <div class="dsoru" data-k="durum">
+      <b style="font-size:14px">1. İşletmen ne durumda?</b>
+      <div class="filtre" style="margin:8px 0 14px">
+        <button class="fbtn" data-v="kurmadim">Henüz kurmadım</button>
+        <button class="fbtn" data-v="yeni">Yeni kurdum</button>
+        <button class="fbtn" data-v="kurulu">Kurulu, çalışıyor</button>
+      </div>
+    </div>
+    <div class="dsoru" data-k="faaliyet">
+      <b style="font-size:14px">2. Ne iş yapıyorsun / yapacaksın?</b>
+      <div class="filtre" style="margin:8px 0 14px">
+        <button class="fbtn" data-v="imalat">Üretim / imalat</button>
+        <button class="fbtn" data-v="teknoloji">Yazılım / teknoloji</button>
+        <button class="fbtn" data-v="ticaret">Ticaret / hizmet</button>
+      </div>
+    </div>
+    <div class="dsoru" data-k="ihracat">
+      <b style="font-size:14px">3. İhracat?</b>
+      <div class="filtre" style="margin:8px 0 14px">
+        <button class="fbtn" data-v="var">Yapıyorum</button>
+        <button class="fbtn" data-v="hedef">Hedefliyorum</button>
+        <button class="fbtn" data-v="yok">Gündemimde yok</button>
+      </div>
+    </div>
+    <div class="dsoru" data-k="ihtiyac">
+      <b style="font-size:14px">4. Ne arıyorsun?</b>
+      <div class="filtre" style="margin:8px 0 14px">
+        <button class="fbtn" data-v="hibe">Hibe / geri ödemesiz destek</button>
+        <button class="fbtn" data-v="finans">Kredi / finansman / sigorta</button>
+        <button class="fbtn" data-v="hepsi">İkisi de olur</button>
+      </div>
+    </div>
+    <button class="btn" onclick="dOner()">Bana uygun destekleri göster</button>
+    <p id="dsonuc" style="margin:12px 0 0;font-size:13.5px;font-weight:600;display:none"></p>
+  </div>
+
+  <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
   <div class="filtre" id="filtre">
     <button class="fbtn on" data-a="hepsi">Tümü</button>
     <button class="fbtn" data-a="kurulus">Yeni kuruyorum</button>
@@ -81,53 +121,123 @@ const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 
 // Program adları + resmî bağlantılar kurumların kendi sitelerinden bire bir alındı
 // (kosgeb.gov.tr, ticaret.gov.tr, eximbank.gov.tr). "amac" = genel amaç (tutar/tarih iddiası YOK).
+// t = uygunluk etiketi (d:durum f:faaliyet i:ihracat n:ihtiyaç; alan yoksa herkese açık)
+// sart = kimin için / programa özel ön şart (yapısal bilgi — oran/tutar YOK)
+const YOLLAR = {
+  "KOSGEB": [
+    "e-Devlet ile KOSGEB KOBİ Bilgi Sistemi'ne işletmeni kaydet ve KOBİ Beyannamesi'ni onayla. (İşletmen yoksa önce kuruluş — <a href='kurulus.html'>sihirbazımız</a> yol gösterir.)",
+    "Programın başvuru/çağrı döneminin açılmasını bekle — dönemler kısa olur, sayfanın altından takibe al ki kaçırma.",
+    "Çağrı açılınca KOSGEB e-hizmetler üzerinden başvuruyu doldur: faaliyet (NACE) uygunluğu ve proje/ihtiyaç bilgisi istenir.",
+    "Değerlendirme (bazı programlarda kurul) olumlu sonuçlanırsa taahhütname verilir; harcamalar belgelendikçe destek ödenir."
+  ],
+  "TİCARET BAKANLIĞI": [
+    "Şirket ol — bu desteklerin muhatabı şirketlerdir — ve bölgendeki İhracatçı Birliği'ne üye ol.",
+    "Destek Yönetim Sistemi'ne (DYS) firma kaydını yaptır: başvuruların tamamı DYS üzerinden yürür.",
+    "Harcamayı KURALINA göre yap ve belgele (ör. fuar desteğinde Bakanlığın desteklenen fuarlar listesindeki fuara stantlı katılım şart).",
+    "Süresi içinde DYS'den başvur; inceleme sonrası destek ödemesi firma hesabına yapılır."
+  ],
+  "TÜRK EXİMBANK": [
+    "İhracatçı ya da ihracata dönük üretim yapan firma statüsünde ol — yeni başlayanlara da kapı açık, görüşmekten çekinme.",
+    "Türk Eximbank'a doğrudan ya da çalıştığın bankan aracılığıyla başvur; firma limitin tahsis edilir.",
+    "Teminat yapısını kur (banka teminatı, KGF kefaleti gibi seçenekler görüşülür).",
+    "Kredi kullandırılır; sigortada sevkiyat bildirimleriyle poliçe işlemeye başlar."
+  ]
+};
 const PROGRAMLAR = [
   // ---- TİCARET BAKANLIĞI — 5973 sayılı İhracat Destekleri Kararı ----
-  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8)."},
-  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Birim, Kira ve Tanıtım Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Yurt dışında ofis/mağaza/depo açan, tanıtım ve danışmanlık harcaması yapan şirketlere yönelik destekler."},
-  {kurum:"TİCARET BAKANLIĞI", ad:"Pazara Giriş Belgesi Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Hedef pazarda zorunlu ya da avantaj sağlayan kalite/çevre belgeleri, sertifika ve test/analiz raporu giderlerine destek."},
-  {kurum:"TİCARET BAKANLIĞI", ad:"Marka ve TURQUALITY® Destek Programı", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/marka-ve-turquality-destegi", asama:["ihracat","buyume"], amac:"Markalaşma potansiyeli olan Türk markalarının uluslararası pazarlarda konumlandırılmasına yönelik kapsamlı program."},
-  {kurum:"TİCARET BAKANLIĞI", ad:"E-İhracat Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri", asama:["ihracat","donusum"], amac:"Pazaryerlerinde satış yapan ve dijital kanaldan ihracata açılan şirketlere yönelik destekler — özellikle KOBİ'ler hedefte."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8).", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında fuara stantla katılacak şirketler. Dikkat: fuar, Bakanlığın 'desteklenen fuarlar' listesinde olmalı — listede olmayan fuar desteklenmez, gitmeden önce kontrol et."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Birim, Kira ve Tanıtım Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Yurt dışında ofis/mağaza/depo açan, tanıtım ve danışmanlık harcaması yapan şirketlere yönelik destekler.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında birim (ofis/mağaza/depo) açan ya da hedef pazarda tanıtım yapan şirketler; kira ve tanıtım giderleri kapsamda."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Pazara Giriş Belgesi Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Hedef pazarda zorunlu ya da avantaj sağlayan kalite/çevre belgeleri, sertifika ve test/analiz raporu giderlerine destek.", t:{i:["var","hedef"],n:["hibe"]}, sart:"İhraç pazarının istediği belge/sertifika/test raporunu alacak şirketler — belge akredite kuruluştan alınmış olmalı."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"Marka ve TURQUALITY® Destek Programı", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/marka-ve-turquality-destegi", asama:["ihracat","buyume"], amac:"Markalaşma potansiyeli olan Türk markalarının uluslararası pazarlarda konumlandırılmasına yönelik kapsamlı program.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Tescilli markası ve markalaşma stratejisi olan firmalar; programa ön inceleme/denetimle girilir — ciddi hazırlık ister, buna değer."},
+  {kurum:"TİCARET BAKANLIĞI", ad:"E-İhracat Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri", asama:["ihracat","donusum"], amac:"Pazaryerlerinde satış yapan ve dijital kanaldan ihracata açılan şirketlere yönelik destekler — özellikle KOBİ'ler hedefte.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışı pazaryerlerinde (Amazon, Etsy vb.) satan ya da satmaya hazırlanan şirketler; dijital tanıtım ve pazaryeri giderleri kapsamda."},
   // ---- TÜRK EXİMBANK — ihracat finansmanı ----
-  {kurum:"TÜRK EXİMBANK", ad:"Sevk Öncesi İhracat Kredisi", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler/kisa-vadeli-ihracat-kredileri/sevk-oncesi-ihracat-kredisi", asama:["ihracat","finansman"], amac:"İhracat hazırlığındaki üretici/ihracatçının sevkiyat öncesi finansman ihtiyacını uygun maliyetle karşılayan kredi."},
-  {kurum:"TÜRK EXİMBANK", ad:"İhracata Hazırlık ve Reeskont Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler", asama:["ihracat","finansman"], amac:"İhracata hazırlık dönemi finansmanı ve ihracat alacaklarının iskonto edilmesi (sevk sonrası reeskont) dahil kredi programları."},
-  {kurum:"TÜRK EXİMBANK", ad:"İhracat Kredi Sigortası", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz", asama:["ihracat","finansman"], amac:"Yurt dışı alacaklarını ticari ve politik risklere karşı sigortalar — 'mal gönderdim, parasını alamadım' riskinin ilacı."},
-  {kurum:"TÜRK EXİMBANK", ad:"Alıcı Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/alici-kredileri", asama:["ihracat","finansman"], amac:"Türkiye'den mal alacak yabancı alıcıya finansman sağlayarak ihracatçının satışını kolaylaştıran programlar."},
+  {kurum:"TÜRK EXİMBANK", ad:"Sevk Öncesi İhracat Kredisi", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler/kisa-vadeli-ihracat-kredileri/sevk-oncesi-ihracat-kredisi", asama:["ihracat","finansman"], amac:"İhracat hazırlığındaki üretici/ihracatçının sevkiyat öncesi finansman ihtiyacını uygun maliyetle karşılayan kredi.", t:{i:["var","hedef"],n:["finans"]}, sart:"Sevkiyat öncesi nakde ihtiyacı olan ihracatçı/üretici; kredi ihracat taahhüdü karşılığı kullandırılır."},
+  {kurum:"TÜRK EXİMBANK", ad:"İhracata Hazırlık ve Reeskont Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/krediler", asama:["ihracat","finansman"], amac:"İhracata hazırlık dönemi finansmanı ve ihracat alacaklarının iskonto edilmesi (sevk sonrası reeskont) dahil kredi programları.", t:{i:["var","hedef"],n:["finans"]}, sart:"Vadeli satış yapıp parasını beklemek istemeyen ihracatçı: alacağını iskonto ettirip bugünden nakde çevirir."},
+  {kurum:"TÜRK EXİMBANK", ad:"İhracat Kredi Sigortası", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz", asama:["ihracat","finansman"], amac:"Yurt dışı alacaklarını ticari ve politik risklere karşı sigortalar — 'mal gönderdim, parasını alamadım' riskinin ilacı.", t:{i:["var","hedef"],n:["finans"]}, sart:"Vadeli/açık hesap satan her ihracatçı için düşünülmeli; poliçe ayrıca bankalardan finansman bulmayı da kolaylaştırır."},
+  {kurum:"TÜRK EXİMBANK", ad:"Alıcı Kredileri", url:"https://www.eximbank.gov.tr/tr/urun-ve-hizmetlerimiz/alici-kredileri", asama:["ihracat","finansman"], amac:"Türkiye'den mal alacak yabancı alıcıya finansman sağlayarak ihracatçının satışını kolaylaştıran programlar.", t:{i:["var","hedef"],n:["finans"]}, sart:"Büyük/vadeli satışta alıcısına 'finansmanı Türkiye ayarlar' diyebilmek isteyen ihracatçılar — satış kapatma kozu."},
   // ---- KOSGEB ----
-  {kurum:"KOSGEB", ad:"Girişimci Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi", asama:["kurulus"], amac:"İşini yeni kuran girişimciler için kuruluş ve ilk dönem giderlerine yönelik destek programı."},
-  {kurum:"KOSGEB", ad:"Kapasite Geliştirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9200/kapasite-gelistirme-destek-programi", asama:["buyume"], amac:"Mevcut KOBİ'nin üretim, verimlilik ve kurumsal kapasitesini büyütmeye yönelik program."},
-  {kurum:"KOSGEB", ad:"Küresel Rekabetçilik Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9206/kuresel-rekabetcilik-destek-programi", asama:["ihracat","buyume"], amac:"İhracata ve uluslararası pazarlara açılan KOBİ'lerin rekabet gücünü artırmaya yönelik program."},
-  {kurum:"KOSGEB", ad:"KOBİ Dijital Dönüşüm Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9144/kobi-dijital-donusum-destek-programi", asama:["donusum"], amac:"Dijitalleşme, otomasyon ve teknoloji yatırımı yapan KOBİ'ler için dönüşüm programı."},
-  {kurum:"KOSGEB", ad:"Yeşil Sanayi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9022/yesil-sanayi-destek-programi", asama:["donusum"], amac:"Çevre, enerji verimliliği ve yeşil dönüşüm yatırımlarına yönelik program."},
-  {kurum:"KOSGEB", ad:"1507 – TÜBİTAK KOBİ Ar-Ge Başlangıç Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9146/1507-tubitak-kobi-arge-baslangic-destek-programi", asama:["arge"], amac:"İlk kez Ar-Ge projesi yürüten KOBİ'ler için (TÜBİTAK iş birliğiyle) başlangıç desteği."},
-  {kurum:"KOSGEB", ad:"Teknoloji Merkezi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9297/teknoloji-merkezi-destek-programi", asama:["arge","kurulus"], amac:"Teknoloji Merkezleri (TEKMER) bünyesinde teknoloji geliştiren girişimlere yönelik program."},
-  {kurum:"KOSGEB", ad:"Stratejik Ürün Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/6492/stratejik-urun-destek-programi", asama:["arge","donusum"], amac:"İthalatı yüksek, kritik ürünlerin yerli üretimini (yerlileştirme) desteklemeye yönelik program."},
-  {kurum:"KOSGEB", ad:"Sektörel Gelişim Merkezi (SEGEM) Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9327/sektorel-gelisim-merkezi-segem-destek-programi", asama:["buyume"], amac:"Sektörel gelişim merkezleri üzerinden işletmelerin ortak ihtiyaçlarını gidermeye yönelik program."},
-  {kurum:"KOSGEB", ad:"YÖNDE – Yönderlik ve Değerlendirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9165/yonde-yonderlik-ve-degerlendirme-destek-programi", asama:["buyume"], amac:"İşletmelere yönderlik (mentorluk) ve değerlendirme hizmeti sunmaya yönelik program."},
-  {kurum:"KOSGEB", ad:"İstihdamı Koruma Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9224/istihdami-koruma-destek-programi", asama:["istihdam"], amac:"İşletmelerin mevcut istihdamını sürdürmesine yönelik destek programı."}
+  {kurum:"KOSGEB", ad:"Girişimci Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi", asama:["kurulus"], amac:"İşini yeni kuran girişimciler için kuruluş ve ilk dönem giderlerine yönelik destek programı.", t:{d:["kurmadim","yeni"],n:["hibe"]}, sart:"İşini yeni kuran/kuracak girişimciler. ÖN ŞART: KOSGEB e-Akademi'den ücretsiz Girişimcilik Eğitimi sertifikası — mümkünse işletmeyi kurmadan ÖNCE al, sonradan koşturma."},
+  {kurum:"KOSGEB", ad:"Kapasite Geliştirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9200/kapasite-gelistirme-destek-programi", asama:["buyume"], amac:"Mevcut KOBİ'nin üretim, verimlilik ve kurumsal kapasitesini büyütmeye yönelik program.", t:{d:["yeni","kurulu"],n:["hibe"]}, sart:"Ölçek büyütme/verimlilik yatırımı planlayan kurulu KOBİ'ler; dönemsel çağrıyla çalışır — çağrı takibi şart."},
+  {kurum:"KOSGEB", ad:"Küresel Rekabetçilik Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9206/kuresel-rekabetcilik-destek-programi", asama:["ihracat","buyume"], amac:"İhracata ve uluslararası pazarlara açılan KOBİ'lerin rekabet gücünü artırmaya yönelik program.", t:{d:["yeni","kurulu"],i:["var","hedef"],n:["hibe"]}, sart:"Uluslararası pazara açılma hedefi olan KOBİ'ler; proje bazlı değerlendirilir."},
+  {kurum:"KOSGEB", ad:"KOBİ Dijital Dönüşüm Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9144/kobi-dijital-donusum-destek-programi", asama:["donusum"], amac:"Dijitalleşme, otomasyon ve teknoloji yatırımı yapan KOBİ'ler için dönüşüm programı.", t:{d:["yeni","kurulu"],n:["hibe"]}, sart:"Dijitalleşme/otomasyon yatırımı planlayan işletmeler; yazılım-donanım alımına dönük kalemler öne çıkar."},
+  {kurum:"KOSGEB", ad:"Yeşil Sanayi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9022/yesil-sanayi-destek-programi", asama:["donusum"], amac:"Çevre, enerji verimliliği ve yeşil dönüşüm yatırımlarına yönelik program.", t:{d:["yeni","kurulu"],f:["imalat"],n:["hibe"]}, sart:"Enerji verimliliği/yeşil dönüşüm yatırımı yapan sanayi işletmeleri — AB'ye satıyorsan CBAM çağında ekstra önemli."},
+  {kurum:"KOSGEB", ad:"1507 – TÜBİTAK KOBİ Ar-Ge Başlangıç Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9146/1507-tubitak-kobi-arge-baslangic-destek-programi", asama:["arge"], amac:"İlk kez Ar-Ge projesi yürüten KOBİ'ler için (TÜBİTAK iş birliğiyle) başlangıç desteği.", t:{f:["imalat","teknoloji"],n:["hibe"]}, sart:"İlk Ar-Ge projesini yapacak KOBİ'ler; TÜBİTAK proje formatında başvuru gerekir — proje yazımı ciddi iştir, destek al."},
+  {kurum:"KOSGEB", ad:"Teknoloji Merkezi Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9297/teknoloji-merkezi-destek-programi", asama:["arge","kurulus"], amac:"Teknoloji Merkezleri (TEKMER) bünyesinde teknoloji geliştiren girişimlere yönelik program.", t:{d:["kurmadim","yeni"],f:["teknoloji"],n:["hibe"]}, sart:"TEKMER bünyesinde teknoloji geliştiren erken aşama girişimler; TEKMER'e kabul süreci vardır."},
+  {kurum:"KOSGEB", ad:"Stratejik Ürün Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/6492/stratejik-urun-destek-programi", asama:["arge","donusum"], amac:"İthalatı yüksek, kritik ürünlerin yerli üretimini (yerlileştirme) desteklemeye yönelik program.", t:{f:["imalat"],n:["hibe"]}, sart:"İthal edilen kritik bir ürünü yerlileştirecek üreticiler; proje bazlı ve teknik değerlendirmelidir."},
+  {kurum:"KOSGEB", ad:"Sektörel Gelişim Merkezi (SEGEM) Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9327/sektorel-gelisim-merkezi-segem-destek-programi", asama:["buyume"], amac:"Sektörel gelişim merkezleri üzerinden işletmelerin ortak ihtiyaçlarını gidermeye yönelik program.", t:{d:["kurulu"],n:["hibe"]}, sart:"Sektöründe SEGEM kurulmuş bölgelerdeki işletmeler; ortak ihtiyaç projeleriyle çalışır."},
+  {kurum:"KOSGEB", ad:"YÖNDE – Yönderlik ve Değerlendirme Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9165/yonde-yonderlik-ve-degerlendirme-destek-programi", asama:["buyume"], amac:"İşletmelere yönderlik (mentorluk) ve değerlendirme hizmeti sunmaya yönelik program.", t:{d:["yeni","kurulu"],n:["hibe"]}, sart:"Dışarıdan akıl/yol göstericilik isteyen işletmeler; parasal destekten çok hizmet desteğidir."},
+  {kurum:"KOSGEB", ad:"İstihdamı Koruma Destek Programı", url:"https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/9224/istihdami-koruma-destek-programi", asama:["istihdam"], amac:"İşletmelerin mevcut istihdamını sürdürmesine yönelik destek programı.", t:{d:["kurulu"],n:["hibe"]}, sart:"Çalışanı olan ve istihdamını korumak isteyen işletmeler; çağrı dönemine bağlıdır."}
 ];
 const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansman:"FİNANSMAN",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
 
 let SECILI = "hepsi";
+let UYGUNLAR = null;   // sihirbaz sonucu (null = sihirbaz çalışmadı)
+
+function kartHtml(p, acik){
+  const roz = p.asama.map(a=>`<span class="rozet">${ETIKET[a]||a}</span>`).join('');
+  const yol = (YOLLAR[p.kurum]||[]).map((a,i)=>
+    `<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)"><span style="flex-shrink:0;width:22px;height:22px;border-radius:7px;background:rgba(62,155,255,.14);color:var(--accent2);display:grid;place-items:center;font-weight:800;font-size:11px">${i+1}</span><span style="font-size:13px;color:var(--muted)">${a}</span></div>`).join('');
+  return `<div class="kart">
+    <div class="et">${p.kurum}${roz}</div>
+    <h3>${p.ad}</h3>
+    <p>${p.amac}</p>
+    <details ${acik?'open':''} style="margin:0 0 10px">
+      <summary style="font-weight:700;font-size:13px;color:var(--accent2);cursor:pointer">📋 Bu desteği almak için ne gerekli? Adım adım</summary>
+      <div style="margin-top:10px">
+        <p style="margin:0 0 8px;font-size:13.5px;color:var(--muted)"><b style="color:var(--ink)">Kimin için / ön şart:</b> ${p.sart||'—'}</p>
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:10px 0 2px">BAŞVURU YOLU (${p.kurum})</div>
+        ${yol}
+        <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Destek oranı, üst limit ve güncel çağrı dönemi dönemsel değişir — biz uydurmayız: son adımda resmî sayfadan teyit et, başvuru öncesi muhasebecin/danışmanınla konuş.</p>
+      </div>
+    </details>
+    <a class="gore" href="${p.url}" target="_blank" rel="noopener">Resmî sayfa: güncel çağrı ve oranlar →</a>
+  </div>`;
+}
+
 function ciz(){
   const liste = document.getElementById('liste');
-  const veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
-  liste.innerHTML = veri.map(p=>{
-    const roz = p.asama.map(a=>`<span class="rozet">${ETIKET[a]||a}</span>`).join('');
-    return `<div class="kart">
-      <div class="et">${p.kurum}${roz}</div>
-      <h3>${p.ad}</h3>
-      <p>${p.amac}</p>
-      <a class="gore" href="${p.url}" target="_blank" rel="noopener">Koşulları ve güncel şartları resmî sayfada gör →</a>
-    </div>`;
-  }).join('') || `<div class="kart"><h3>Bu aşamaya uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
+  let veri, acik = false;
+  if(UYGUNLAR){ veri = UYGUNLAR; acik = true; }
+  else veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
+  liste.innerHTML = veri.map(p=>kartHtml(p,acik)).join('')
+    || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
 }
 document.getElementById('filtre').addEventListener('click',e=>{
   const b = e.target.closest('.fbtn'); if(!b) return;
-  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+  UYGUNLAR = null; document.getElementById('dsonuc').style.display='none';
+  document.querySelectorAll('#filtre .fbtn').forEach(x=>x.classList.remove('on'));
   b.classList.add('on'); SECILI=b.dataset.a; ciz();
 });
 ciz();
+
+// ---- DESTEK SİHİRBAZI ----
+const DC = {};
+document.getElementById('dsihirbaz').addEventListener('click',e=>{
+  const b = e.target.closest('.fbtn'); if(!b) return;
+  const grup = b.closest('.dsoru');
+  grup.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); DC[grup.dataset.k] = b.dataset.v;
+});
+function dOner(){
+  const s = document.getElementById('dsonuc');
+  const eksik = ['durum','faaliyet','ihracat','ihtiyac'].filter(k=>!DC[k]);
+  if(eksik.length){ s.style.display='block'; s.style.color='var(--red)'; s.textContent = eksik.length + ' soru cevapsız kaldı — hepsini işaretle.'; return; }
+  UYGUNLAR = PROGRAMLAR.filter(p=>{
+    if(!p.t) return true;
+    if(p.t.d && !p.t.d.includes(DC.durum)) return false;
+    if(p.t.f && !p.t.f.includes(DC.faaliyet)) return false;
+    if(p.t.i && !p.t.i.includes(DC.ihracat)) return false;
+    if(DC.ihtiyac!=='hepsi' && p.t.n && !p.t.n.includes(DC.ihtiyac)) return false;
+    return true;
+  });
+  document.querySelectorAll('#filtre .fbtn').forEach(x=>x.classList.remove('on'));
+  s.style.display='block'; s.style.color='var(--green)';
+  s.innerHTML = UYGUNLAR.length
+    ? '✅ Profiline uygun <b>' + UYGUNLAR.length + ' program</b> aşağıda — her birinde "ne gerekli, nasıl başvurulur" adımları açık. 👇'
+    : 'Bu profile birebir oturan program bulamadık — filtrelerden tüm listeye bakabilirsin; profilin değişince (ör. ihracata başlayınca) yeni kapılar açılır.';
+  ciz();
+  document.getElementById('liste').scrollIntoView({behavior:'smooth', block:'start'});
+}
 
 function takibeAl(){
   const s = document.getElementById('takipSonuc');
@@ -142,6 +252,9 @@ function takibeAl(){
     from_name: 'Mevzuat Radarı',
     email: mail,
     'İlgi alanı': ilgi,
+    'Profil - durum': DC.durum||'', 'Profil - faaliyet': DC.faaliyet||'',
+    'Profil - ihracat': DC.ihracat||'', 'Profil - ihtiyaç': DC.ihtiyac||'',
+    'Uygun çıkan program sayısı': UYGUNLAR ? UYGUNLAR.length : '',
     'Kayıt kaynağı': 'Devlet Destekleri Radarı'
   };
   goster('Kaydediliyor…',true);
