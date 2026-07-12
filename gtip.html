@@ -171,6 +171,16 @@ function gekapKart(kod){
   const poz = kod.replace(/\./g,'').slice(0,4);
   const urun = g.pozisyon[poz];
   if(!urun) return '';   // net GEKAP ürünü değil (ambalaj/EEE genel uyarısı KKDF kartında değil, burada sessiz)
+  // Koşullu pozisyon (ör. 2710: yalnız yağlama/madeni yağ GEKAP'a tabi; benzin/motorin DEĞİL).
+  if(typeof urun === 'object' && urun.kosul){
+    const d = kod.replace(/\./g,'');
+    if((urun.haricKod||[]).some(h => d.startsWith(h))) return '';   // net akaryakıt → kart yok
+    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">♻ GEKAP — duruma bağlı olabilir</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5"><b style="color:var(--ink)">${htmlEsc(urun.ad)}</b> ise GEKAP kapsamındadır. ${htmlEsc(urun.not||'')} <b style="color:var(--ink)">Ürününün tam ne olduğunu gümrük müşavirinle teyit et.</b></div>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Dayanak: ${g.dayanak}</div>
+    </div>`;
+  }
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--green);border-radius:12px;background:#0a1710">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:6px">♻ GEKAP — GERİ KAZANIM KATILIM PAYI (çevre payı)</div>
     <div class="satir"><b>Bu ürün (${urun})</b><span style="color:var(--green);font-weight:700">GEKAP kapsamında</span></div>
@@ -302,14 +312,25 @@ function kdvKart(kod){
   const uygular = h => h.tumF===true
     || (h.poz||[]).indexOf(poz) >= 0
     || (h.kod||[]).some(k => digits.startsWith(k) || k.startsWith(digits));
-  const o1u  = f ? (f.o1||[]).filter(uygular)  : [];
-  const o10u = f ? (f.o10||[]).filter(uygular) : [];
+  const o1a  = f ? (f.o1||[]).filter(uygular)  : [];
+  const o10a = f ? (f.o10||[]).filter(uygular) : [];
+  // Koşula bağlı hükümler (ör. "yalnız kullanılmış taşıtlar") pozisyonu topluca indirimli YAPMAZ —
+  // kod bazında değerlendirilir (8703 dersi: yeni binek oto %20; yalnız kullanılmış %1). Ayrı gösterilir.
+  const o1u  = o1a.filter(h => !h.kosul);
+  const o10u = o10a.filter(h => !h.kosul);
+  const kosullu = o1a.concat(o10a).filter(h => h.kosul);
   const kdvMatrahNot = 'KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir — matrah gümrük vergisi + İGV\'yi içerir, onlar ülkeye göre değişir.';
+  const kosulHtml = kosullu.length ? `<div style="margin-top:8px;padding:9px 11px;border:1px dashed var(--amber);border-radius:9px;background:#0a0f17">
+      <div style="font-size:10.5px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ KOŞULA BAĞLI indirimli olabilir</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-bottom:4px">Aşağıdaki hüküm bir <b style="color:var(--ink)">koşula</b> bağlıdır (ör. yalnız <b style="color:var(--ink)">kullanılmış/ikinci el</b>). Ürün sıfır/yeni ise genel oran <b style="color:var(--ink)">%20</b>'dir; koşulu sağlıyorsan indirimli olabilir — gümrük müşavirinle teyit et.</div>
+      ${kosullu.map(h=>`<div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px">${htmlEsc(h.m)}</div>`).join('')}
+    </div>` : '';
   if(o1u.length===0 && o10u.length===0){
     return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — Katma Değer Vergisi</div>
       <div class="satir"><b>Oran</b><span style="color:var(--ink);font-weight:700">%20 (genel oran)</span></div>
       <div style="font-size:11.5px;color:var(--dim);margin-top:7px">Bu <b>kod</b> 2007/13033 sayılı Kararın indirimli %1/%10 listelerinde <b>görünmüyor</b> — genel oran %20 uygulanır. (Aynı faslın bazı BAŞKA ürünleri indirimli olabilir ama bu kod değil.) ${kdvMatrahNot} Kaynak: GİB güncel konsolide metin.</div>
+      ${kosulHtml}
     </div>`;
   }
   const hukumHtml = (arr, oran, renk) => arr.map(h => {
@@ -324,6 +345,7 @@ function kdvKart(kod){
       <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran %20; ama bu kod aşağıdaki indirimli-oran hükmüne giriyor. <b style="color:var(--ink)">Kesin oran ürünün tam tanımına ve "hariç" istisnalarına bağlıdır</b> — hükmü oku, gümrük müşavirinle teyit et:</div>
       ${hukumHtml(o1u,'1','var(--green)')}
       ${hukumHtml(o10u,'10','var(--amber)')}
+      ${kosulHtml}
       <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar (GİB güncel metin). ${kdvMatrahNot}</div>
     </div>`;
 }

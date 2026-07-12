@@ -1,19 +1,46 @@
 {
-  "aciklama": "NOKTA-KONTROL: bilinen kod -> doğru cevap çiftleri. Her veri değişiminde (harvest sonrası) arac/nokta-kontrol.ps1 bunları site verisine karşı sınar. Amaç: 8480/8517 türü ESLESTIRME (4-hane çökertme) hatalarını yakalamak — oran değil, MANTIK regresyonu. Vaka eklerken CEVABI birincil kaynaktan teyit et; yanlış vaka testi zehirler.",
+  "aciklama": "NOKTA-KONTROL: bilinen kod -> doğru cevap çiftleri. Her veri değişiminde (harvest sonrası) arac/nokta-kontrol.ps1 bunları site verisine karşı sınar. Amaç: 8480/8517 türü ESLESTIRME (4-hane çökertme) hatalarını yakalamak — oran değil, MANTIK regresyonu. Vaka eklerken CEVABI birincil kaynaktan teyit et; yanlış vaka testi zehirler. Katmanlar-arası ÇELİŞKİ kodları (ör. benzin: ÖTV var + GEKAP yok) ayrıca değerlidir.",
   "vakalar": [
     { "kod": "8480.90.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — 8480.90 (diğer kalıplar) indirimli listede YOK, genel %20. (Cem'in bildirdiği bug)" },
     { "kod": "8480.71.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — plastik enjeksiyon/basınçlı döküm kalıbı %1" },
     { "kod": "8480.79.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — diğer plastik kalıplar %1" },
     { "kod": "0407.21.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 — yumurta indirimli oranda" },
+
     { "kod": "8517.62.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 (IV) — router/switch/modem ÖTV DIŞI; IV yalnız cep telefonu 8517.13/14" },
     { "kod": "8517.13.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (IV) — akıllı telefon ÖTV kapsamında" },
     { "kod": "8703.23.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (II) — binek otomobil ÖTV kapsamında" },
     { "kod": "8471.30.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — taşınabilir bilgisayar hiçbir ÖTV listesinde yok" },
-    { "kod": "2710.12.45.00.11", "katman": "gekap", "bekle": "yok", "kaynak": "2872 sy. Kanun ekli (1) liste — benzin/akaryakıt GEKAP DIŞI; yalnız madeni/yağlama yağı" },
+    { "kod": "8711.20.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (II) — motosiklet ÖTV kapsamında" },
+    { "kod": "2207.10.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (III) — etil alkol ÖTV kapsamında" },
+    { "kod": "2402.20.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (III) — sigara ÖTV kapsamında" },
+    { "kod": "3303.00.10.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (IV) — parfüm ÖTV kapsamında" },
+    { "kod": "8528.72.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (IV) — televizyon ÖTV kapsamında" },
+    { "kod": "8415.10.90.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (IV) — klima cihazı ÖTV kapsamında" },
+    { "kod": "8544.42.90.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — elektrik kablosu hiçbir ÖTV listesinde yok (fasıl 85 ama ÖTV değil)" },
+    { "kod": "3924.10.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — plastik sofra/mutfak eşyası ÖTV dışı" },
+    { "kod": "7308.30.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — çelik kapı/pencere/konstrüksiyon ÖTV dışı" },
+    { "kod": "6109.10.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — tişört/giyim ÖTV dışı" },
+    { "kod": "2710.12.45.00.11", "katman": "otv", "bekle": "var", "kaynak": "4760 (I) — benzin akaryakıt ÖTV kapsamında (ama GEKAP değil — çelişki kodu)" },
+
+    { "kod": "2710.12.45.00.11", "katman": "gekap", "bekle": "yok", "kaynak": "2872 sy. Kanun ekli (1) liste — benzin/akaryakıt GEKAP DIŞI (ama ÖTV var — çelişki kodu)" },
+    { "kod": "2710.19.81.00.00", "katman": "gekap", "bekle": "kosullu", "kaynak": "2872 sy. Kanun ekli (1) liste — yağlama/madeni yağ GEKAP kapsamında (koşullu kart)" },
     { "kod": "4011.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — dış lastik GEKAP kapsamında" },
     { "kod": "8507.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — akümülatör GEKAP kapsamında" },
+    { "kod": "8506.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — pil GEKAP kapsamında" },
+    { "kod": "3004.90.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — ilaç GEKAP kapsamında" },
+    { "kod": "1511.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — bitkisel (palm) yağ GEKAP kapsamında" },
+    { "kod": "8703.23.00.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "2872 — binek otomobil GEKAP listesinde yok (ama ÖTV var — çelişki kodu)" },
+
     { "kod": "0802.11.00.00.00", "katman": "dfif", "bekle": "yok", "kaynak": "88/13384 DFİF — badem DFİF DIŞI; DFİF yalnız fındık 0802.21/22" },
     { "kod": "0802.22.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — iç fındık 8 Cent/kg" },
-    { "kod": "1509.10.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — zeytinyağı 20 Cent/kg" }
+    { "kod": "0802.21.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — kabuklu fındık 4 Cent/kg" },
+    { "kod": "0802.31.00.00.00", "katman": "dfif", "bekle": "yok", "kaynak": "88/13384 DFİF — ceviz DFİF DIŞI (yalnız fındık)" },
+    { "kod": "1509.10.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — zeytinyağı 20 Cent/kg" },
+    { "kod": "4101.50.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — ham sığır derisi 50 Cent/kg" },
+    { "kod": "1006.30.00.00.00", "katman": "dfif", "bekle": "yok", "kaynak": "88/13384 DFİF — pirinç DFİF listesinde yok" },
+
+    { "kod": "8703.23.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — binek otomobil indirimli listede yok, genel %20" },
+    { "kod": "3304.99.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — kozmetik/güzellik müstahzarı genel %20" },
+    { "kod": "8528.72.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — televizyon genel %20" }
   ]
 }

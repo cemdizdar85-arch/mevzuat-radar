@@ -126,7 +126,15 @@ function Ekle([string]$govde, [string]$oranEtiket){
       foreach($mevcut in $hedefListe){ if($mevcut.m.Substring(0,[Math]::Min(50,$mevcut.m.Length)) -eq $anahtar){ $varMi=$true; break } }
       if($varMi){ continue }
       # tumF: bu hukum, bu FASLI tumuyle mi kapsiyor ("N no.lu fasil")? poz/kod: spesifik eslesme
-      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)) }
+      # kosul: uygulanabilirligi KODDAN anlasilmayan bir sarta bagli mi (or. "yalniz KULLANILMIS
+      #  tasitlar" = gumruk statusu, urun degil). Boyle hukumler pozisyonu topluca indirimli YAPMAZ;
+      #  ayri "kosula bagli" gosterilir (8703 dersi: yeni binek oto %20, yalniz kullanilmis %1).
+      # NOT: kosul yalnizca hukmun KONU CUMLESINDE (bas ~130 karakter) aranir. Uzun bir %1
+      #  makine listesinin (item 17) derinlerinde gecen "kullanilmis" ifadesi tum hukmu kosullu
+      #  yapmasin — yoksa 8480.71 plastik kalip %1 yanlislikla genel olur.
+      $bas = if($mTemiz.Length -gt 130){ $mTemiz.Substring(0,130) } else { $mTemiz }
+      $kosul = [bool]([regex]::IsMatch($bas,'yalnız\s+kullanılmış') -or $bas.Contains('kullanılmış olanlar'))
+      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)); kosul=$kosul }
       if($oranEtiket -eq "1"){ $fasil[$f].o1+=$kayit } else { $fasil[$f].o10+=$kayit }
     }
     $script:sayac++

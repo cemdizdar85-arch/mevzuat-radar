@@ -24,6 +24,7 @@ function Test-Kdv([string]$kod){
   if(-not $rec){ return 'genel' }
   $hukumler = @(); if($rec.o1){ $hukumler += $rec.o1 }; if($rec.o10){ $hukumler += $rec.o10 }
   foreach($h in $hukumler){
+    if($h.kosul -eq $true){ continue }   # kosula bagli hukum (yalniz kullanilmis vb.) tek basina indirimli SAYILMAZ
     if($h.tumF -eq $true){ return 'indirimli' }
     if($h.poz -and (@($h.poz) -contains $poz)){ return 'indirimli' }
     if($h.kod){ foreach($k in $h.kod){ $k = "$k"; if($d.StartsWith($k) -or $k.StartsWith($d)){ return 'indirimli' } } }
@@ -45,10 +46,16 @@ function Test-Otv([string]$kod){
   return 'var'
 }
 
-# --- GEKAP: gekapKart (poz 4h) ---
+# --- GEKAP: gekapKart (poz 4h; koşullu girdi = ör. 2710 yağlama yağı, benzin hariç) ---
 function Test-Gekap([string]$kod){
-  $poz = (D $kod).Substring(0,4)
-  if($EK.gekap.pozisyon.$poz){ return 'var' } else { return 'yok' }
+  $d = D $kod; $poz = $d.Substring(0,4)
+  $u = $EK.gekap.pozisyon.$poz
+  if(-not $u){ return 'yok' }
+  if($u.kosul -eq $true){
+    foreach($h in $u.haricKod){ $h = "$h"; if($d.StartsWith($h)){ return 'yok' } }
+    return 'kosullu'
+  }
+  return 'var'
 }
 
 # --- DFIF: ihracatKart (6-hane alt kod, yoksa 4-hane poz) ---
