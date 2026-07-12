@@ -2,8 +2,9 @@
   "aciklama": "NOKTA-KONTROL: bilinen kod -> doğru cevap çiftleri. Her veri değişiminde (harvest sonrası) arac/nokta-kontrol.ps1 bunları site verisine karşı sınar. Amaç: 8480/8517 türü ESLESTIRME (4-hane çökertme) hatalarını yakalamak — oran değil, MANTIK regresyonu. Vaka eklerken CEVABI birincil kaynaktan teyit et; yanlış vaka testi zehirler. Katmanlar-arası ÇELİŞKİ kodları (ör. benzin: ÖTV var + GEKAP yok) ayrıca değerlidir.",
   "vakalar": [
     { "kod": "8480.90.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — 8480.90 (diğer kalıplar) indirimli listede YOK, genel %20. (Cem'in bildirdiği bug)" },
-    { "kod": "8480.71.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — plastik enjeksiyon/basınçlı döküm kalıbı %1" },
-    { "kod": "8480.79.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — diğer plastik kalıplar %1" },
+    { "kod": "8480.71.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 (I) 17. sıra = FİNANSAL KİRALAMA listesi: %1 yalnızca finansal kiralamaya konu teslimde; normal ithalat/satış GENEL %20 (Cem 13.07.2026 teyidi; GİB: sıra 17 finansal kiralama)" },
+    { "kod": "8480.79.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 (I) 17. sıra = FİNANSAL KİRALAMA listesi: %1 yalnızca finansal kiralamada; normal ithalat/satış GENEL %20 (Cem'in bildirdiği bug, 13.07.2026)" },
+    { "kod": "8477.10.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "Plastik enjeksiyon makinesi (8477) 17. sıra finansal kiralama listesinde; normal alımda GENEL %20 (finansal kiralama regresyon sigortası)" },
     { "kod": "0407.21.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 — yumurta indirimli oranda" },
 
     { "kod": "8517.62.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 (IV) — router/switch/modem ÖTV DIŞI; IV yalnız cep telefonu 8517.13/14" },
@@ -68,7 +69,7 @@
     { "kod": "0805.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 6 — portakal (fasıl 8 meyve) %1" },
     { "kod": "0201.30.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 3 — sığır eti (fasıl 2, '2 no.lu faslında yer alan mallar') %1" },
     { "kod": "0207.14.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 1b — tavuk eti (02.07) %1" },
-    { "kod": "8402.11.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 17 — buhar kazanı (sanayi makine) %1; iç 'hariç' çapraz-atfı dışlamamalı" },
+    { "kod": "8402.11.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 (I) 17. sıra = FİNANSAL KİRALAMA listesi (buhar kazanı dahil): %1 yalnızca finansal kiralamada; normal ithalat/satış GENEL %20 (13.07.2026 zehirli vaka düzeltmesi)" },
     { "kod": "8415.10.90.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — klima madde 17 %1 listesinde yok (tüketici cihazı, ÖTV'li), genel %20" },
     { "kod": "1704.90.30.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 13b — sakız açık kod olarak %1 (13a'daki hariç'i EZER)" },
 

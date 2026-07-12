@@ -169,12 +169,16 @@ function Ekle([string]$govde, [string]$oranEtiket){
       # kosul: uygulanabilirligi KODDAN anlasilmayan bir sarta bagli mi (or. "yalniz KULLANILMIS
       #  tasitlar" = gumruk statusu, urun degil). Boyle hukumler pozisyonu topluca indirimli YAPMAZ;
       #  ayri "kosula bagli" gosterilir (8703 dersi: yeni binek oto %20, yalniz kullanilmis %1).
-      # NOT: kosul yalnizca hukmun KONU CUMLESINDE (bas ~130 karakter) aranir. Uzun bir %1
-      #  makine listesinin (item 17) derinlerinde gecen "kullanilmis" ifadesi tum hukmu kosullu
-      #  yapmasin — yoksa 8480.71 plastik kalip %1 yanlislikla genel olur.
+      # NOT: kosul yalnizca hukmun KONU CUMLESINDE (bas ~130 karakter) aranir.
+      # ITEM 17 (2010/1180 finansal kiralama makine listesi, fasil 84/85...): bu liste %1'i
+      #  YALNIZCA finansal kiralamaya konu teslimde verir; normal ithalat/satista %20. Bu yuzden
+      #  KOSULLU isaretlenir (Cem 13.07.2026 bug: 8480.79 plastik kalip normalde %20, %1 degildir).
+      #  "2010/1180" metnin basinda gectigi icin bas ~130 karakterde yakalanir.
       $bas = if($mTemiz.Length -gt 130){ $mTemiz.Substring(0,130) } else { $mTemiz }
-      $kosul = [bool]([regex]::IsMatch($bas,'yalnız\s+kullanılmış') -or $bas.Contains('kullanılmış olanlar'))
-      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)); kosul=$kosul; haric=$haricKod }
+      $finKira = $bas.Contains('2010/1180')
+      $kosul = [bool]([regex]::IsMatch($bas,'yalnız\s+kullanılmış') -or $bas.Contains('kullanılmış olanlar') -or $finKira)
+      $mFinal = if($finKira){ "FİNANSAL KİRALAMA — bu makine listesinde %1 YALNIZCA finansal kiralamaya konu teslimlerde uygulanır (2007/13033 (I) 17. sıra, 2010/1180 BKK); normal ithalat/satışta %20. " + $goster } else { $goster }
+      $kayit=@{ m=$mFinal; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)); kosul=$kosul; haric=$haricKod }
       if($oranEtiket -eq "1"){ $fasil[$f].o1+=$kayit } else { $fasil[$f].o10+=$kayit }
     }
     $script:sayac++
