@@ -13,8 +13,8 @@ etmeyiz — uzmanın (gümrük müşaviri / SMMM) zaten yaptığı sayımı ANKO
 | İthalat Rejimi listeleri I–VII | Ticaret Bak. Excel seti | ✅ (VI/VII niş açık) |
 | İthalatta denetim (TAREKS/ÜGD) | 2026 ÜGD tebliğleri | ✅ rehber |
 | İhracat (KDV istisna/kayda bağlı/yasak/DFİF/DİİB) | İhracat Yönetmeliği ekleri | ✅ (kayda bağlı/yasak liste robotu açık) |
-| Menşe/dolaşım belgeleri (A.TR, EUR.1, menşe şah.) | Gümrük Yönetmeliği | ❌ dokunulmadı |
-| Gümrük rejimleri (antrepo, geçici ithalat, hariçte işleme) | Gümrük Kanunu | ⚠ kısmi (DİİB/TEV var) |
+| Menşe/dolaşım belgeleri (A.TR, EUR.1, menşe şah.) | Gümrük Yönetmeliği | ✅ bilgi.html#hap-mense-belgeleri + GTİP notu |
+| Gümrük rejimleri (antrepo, geçici ithalat, hariçte işleme) | Gümrük Kanunu | ✅ bilgi.html#hap-gumruk-rejimleri |
 
 ### B. ŞİRKET / VERGİ
 | Alan | Ankor | Durum |
@@ -24,7 +24,7 @@ etmeyiz — uzmanın (gümrük müşaviri / SMMM) zaten yaptığı sayımı ANKO
 | Defter-belge (e-fatura/e-defter/e-irsaliye) | VUK 509 | ✅ |
 | Bağımsız denetim eşiği · Transfer fiyatlandırması | CB Kararı / KVK m.13 | ✅ |
 | Vergi takvimi (hangi beyanname ne zaman) | GİB Vergi Takvimi | ✅ bilgi.html#hap-vergi-takvimi |
-| **Kıdem/ihbar tazminatı tavanı** | İş K. / yıllık tavan | ❌ dokunulmadı |
+| Kıdem/ihbar tazminatı tavanı | İş K. / yıllık tavan | ✅ bilgi.html#hap-kidem-ihbar (2026) |
 
 ### C. İSTİHDAM / SGK
 | Alan | Ankor | Durum |
@@ -37,7 +37,7 @@ etmeyiz — uzmanın (gümrük müşaviri / SMMM) zaten yaptığı sayımı ANKO
 |---|---|---|
 | KVKK/VERBİS · KEP/e-tebligat · TTK 1524 | ilgili kanun | ✅ |
 | Destekler (KOSGEB/Ticaret Bak./Eximbank) | Destek mevzuatı | ✅ Destek Radarı |
-| **Sektörel lisanslar (gıda işletme kaydı, turizm belgesi, sağlık ruhsatı…)** | ilgili bakanlık | ❌ dokunulmadı |
+| Sektörel lisanslar (gıda/turizm/sağlık/çevre…) | ilgili bakanlık | ✅ bilgi.html#hap-sektorel-lisans |
 
 **KURAL:** Bir alanı resmî ankora çentikleyip "tam" demeden, sitede o alanı KAPSIYORMUŞ gibi gösterme.
 ❌ satırlar = bilinen açık; site dilinde asla "her şey burada" denmez. Açıklar sırayla, birer ANKORLA kapanır.
