@@ -19,6 +19,23 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 | vergi-sabitleri: 2026 asgari ücret | **Asgari Ücret Tespit Komisyonu Kararı 2025/1, RG 26.12.2025/33119** | 🟢 BİRİNCİL (teyitli) |
 | vergi-sabitleri: kıdem tavanı | Hazine ve Maliye Bakanlığı memur katsayısı genelgesi (6 aylık) | 🟢 BİRİNCİL |
 
+## GÜNCELLİK DENETİMİ — her katman EN SON hangi resmî tarihte? (12.07.2026 teyidi)
+
+*Cem'in kuralı: "tek kaynak Resmî Gazete / yayımlayan kurumun kendi metni, ve HER ZAMAN en son yayımlanan sürüm." Ayna (TURMOB vb.) asla birincil değil — 8543'te TURMOB bayat çıktı, GİB 24.10.2025 ile düzeltildi.*
+
+| Katman | Dayandığı EN SON resmî sürüm | Durum |
+|---|---|---|
+| KDV (2007/13033) | GİB güncel konsolide, **9126 s. CK — yürürlük 15/11/2024** (GİB'in canlı güncel PDF'i de burada bitiyor; 2025'te KDV oran değişikliği YOK) | 🟢 GÜNCEL |
+| ÖTV (IV) | **GİB resmî 24.10.2025** IV liste (cdn.gib.gov.tr) — kod kod teyitli | 🟢 GÜNCEL |
+| ÖTV (III) | **10799 s. CB Kararı — 31.12.2025** (GİB resmî PDF) | 🟢 GÜNCEL |
+| Gümrük Vergisi + İGV | **İthalat Rejimi 2026 + İGV 2026** Excel (Ticaret Bak.) — robot GÜNLÜK izliyor | 🟢 GÜNCEL (oto) |
+| GEKAP tutar/kapsam | **RG 28.12.2024** (2025 tutarları) + AEEE Yön. Ek-2/A | 🟢 GÜNCEL |
+| Tarife Cetveli / eşya tanımı | **TGTC 2025** (Karar 10781, RG 30.12.2025) | 🟢 GÜNCEL |
+| **Damping / sübvansiyon** | RG damping tebliğleri — **SÜREKLİ değişen** (birkaç haftada bir yeni tebliğ) | 🟡 ANLIK GÖRÜNTÜ — periyodik yenileme şart |
+| **Gözetim** | RG gözetim tebliğleri — **SÜREKLİ değişen** | 🟡 ANLIK GÖRÜNTÜ — periyodik yenileme şart |
+
+**Sonuç:** Oran/kapsam katmanları (KDV, ÖTV, gümrük vergisi, GEKAP, tarife) EN SON resmî sürümde — 8543 türü bayatlık yok. Tek gerçek güncellik riski **damping ve gözetim** — bunlar RG'de sürekli yeni tebliğle değişir; bizimki bir anlık görüntüdür, robot alert verir ama periyodik elle yenileme gerekir.
+
 ## OTOMASYON (kaynaktan siteye)
 1. **RG nöbetçisi** (`arac/rg-tarama.ps1`, günlük): Resmî Gazete fihristini tarar; sabit/tebliğ değişikliği yakalarsa Cem'e mail.
 2. **Kaynak nöbetçisi** (`arac/kaynak-nobetcisi.ps1`, GÜNLÜK — .github/workflows/kaynak.yml):
@@ -27,6 +44,7 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 - İş bölümü: deterministik veriyi robot GÜNLÜK otomatik değiştirir + Cem kontrol eder; nüanslı veriyi robot haber verir, elle-birincil-okumayla güncellenir. Hata olursa robot alert'e düşer, asla yanlış veri yayınlamaz.
 
 ## KURAL
+- **TEK KAYNAK: Resmî Gazete / yayımlayan kurumun kendi metni — ve HER ZAMAN EN SON yayımlanan (tarihli) sürüm.** Bir veriyi güncellemeden önce "bunun en son resmî yayını hangisi?" diye sor; eski sürüme veya aynaya güvenme.
 - Yeni veri **önce resmî kurumun kendi yayınından** (Resmî Gazete, Ticaret Bakanlığı, GİB, mevzuat.gov.tr) alınır.
 - Ayna (gumruk.com.tr vb.) yalnız resmî PDF teknik nedenle açılamazsa geçici kullanılır; içerik **birincil metinle karşılaştırılıp** işaretlenir ve sırası gelince birincilden yeniden alınır.
 - **Tüm satırlar 🟢 — açık (sarı) kalem kalmadı.** DFİF ve kayda bağlı, aynadan birincile taşındı (kayda bağlı yeniden hasat edilince gumruk.com.tr aynasının düzensiz boşlukları yüzünden oluşan parçalı kodlar da temizlendi).
