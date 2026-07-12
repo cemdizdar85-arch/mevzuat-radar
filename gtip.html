@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTİP Sağlık Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Mevzuat Radarı</title>
+<title>GTİP Vergi Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Mevzuat Radarı</title>
 <meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör — AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -38,9 +38,9 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · GTİP Sağlık Kontrolü</div>
-  <h1>GTİP Sağlık Kontrolü</h1>
-  <p class="lead">Kodunu gir; o kodda <b style="color:var(--ink)">ithalatta gözetim uygulaması</b> var mı, birim kıymeti kaç, hangi tebliğe dayanıyor — saniyede gör.</p>
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · GTİP Vergi Kontrolü</div>
+  <h1>GTİP Vergi Kontrolü</h1>
+  <p class="lead">Bir ürünün kodunu gir; o ürünü ithal ederken <b style="color:var(--ink)">ne kadar vergi ödersin</b> (gümrük, KDV, ÖTV, damping…), <b style="color:var(--ink)">hangi ülkeden almak daha avantajlı</b> ve nelere dikkat etmen gerektiğini sade Türkçeyle — saniyede gör. Satıyorsan ihracat tarafını da gösteririz.</p>
 
   <div class="ara">
     <input id="gtip" placeholder="ör. 6910.10.00.00.00" inputmode="numeric" autocomplete="off">
@@ -58,24 +58,28 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   </div>
 
   <div style="margin-top:12px">
-    <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Menşe ülke — bilirsen kesin oranı gösterelim (bilmiyorsan boş bırak, aralık gösteririz)</label>
+    <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Nereden alıyorsun? — <b style="color:var(--ink)">bilmiyorsan boş bırak</b>, sana oran aralığını gösteririz. Ülkeyi seçersen kesin oranı buluruz.</label>
     <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit">
-      <option value="">Bilmiyorum / hepsini göster (aralık)</option>
-      <option value="abSta">AB üyesi / İngiltere / İsrail / G.Kore / Sırbistan / Arnavutluk / Şili / Kuzey Makedonya / Bosna-Hersek / Fas / Tunus / Mısır / EFTA (İzlanda-Norveç-İsviçre-Lihtenştayn) — STA ortağı ülke</option>
+      <option value="">Bilmiyorum — hepsini göster (en kolayı)</option>
+      <option value="abSta">🇪🇺 AB, İngiltere, EFTA + serbest ticaret anlaşmalı ülkeler (İsrail, G.Kore, Sırbistan, Şili, Fas, Tunus, Mısır, Bosna, Arnavutluk, K.Makedonya…) — genelde en düşük vergi</option>
+      <option value="du">🇨🇳 Çin, Japonya, Hindistan, Rusya… (anlaşması olmayan çoğu ülke)</option>
+      <option value="abd">🇺🇸 ABD — çoğu ülkeyle aynı, ama bazı üründe misilleme ek vergisi olabilir</option>
+      <option value="gyu">Gelişmekte olan ülke (GTS) — indirimli</option>
+      <option value="eagu">En az gelişmiş ülke — genelde en düşük</option>
+      <option value="otdu">Özel teşvikli ülke — indirimli</option>
       <option value="katar">Katar</option>
       <option value="bae">Birleşik Arap Emirlikleri</option>
-      <option value="eagu">En Az Gelişmiş Ülke (EAGÜ listesi)</option>
-      <option value="otdu">Özel Teşvik Düzenlemesi kapsamındaki ülke</option>
-      <option value="gyu">Gelişme Yolundaki Ülke (GTS listesi)</option>
-      <option value="du">Diğer (Çin, Japonya, Hindistan, Rusya, vb. — çoğu ülke)</option>
-      <option value="abd">ABD (Amerika Birleşik Devletleri) — baz oran Diğer ile aynı + misilleme ek vergisi olabilir</option>
     </select>
-    <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">💡 AB/STA için gösterilen <b style="color:var(--muted)">indirimli oranı almak için</b> menşe/dolaşım belgesi (A.TR, EUR.1) şarttır — belge yoksa gümrük en yüksek oranı uygular. <a href="bilgi.html#hap-mense-belgeleri" target="_blank">Hangi belge? →</a></div>
+    <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">💡 AB/anlaşmalı ülkelerin düşük vergisini kapmak için <b style="color:var(--muted)">menşe/dolaşım belgesi (A.TR, EUR.1) gerekir</b> — belgen yoksa gümrük en yüksek oranı uygular. <a href="bilgi.html#hap-mense-belgeleri" target="_blank">Hangi belge lazım? →</a></div>
   </div>
 
   <div id="sonuc"></div>
 
-  <div class="uyari">Kapsam — İTHALAT: gözetim + menşe ülkeye göre gümrük vergisi/İGV (sanayi + tarım + balık/su ürünleri) + Tarım Payı/Toplu Konut Fonu (EMV) + damping/sübvansiyona karşı vergi + KDV liste hükümleri + ÖTV kapsamı + KKDF (%6 vadeli) + TRT bandrol + Tütün Fonu + Damga + GEKAP (geri kazanım) + GV askıya alma (V) ve nihai kullanım (VI/VII) + savunma sanayi (KDV istisnası/kontrol) + TAREKS denetimi + menşe belgesi uyarısı + kıymet kıyası. İHRACAT: KDV istisnası/iadesi, kayda bağlı ihracat, DFİF kesintisi (deri/fındık/zeytinyağı), TEV, DİİB. Ürün adından kod arama. Tümü Ticaret Bakanlığı / mevzuat.gov.tr / GİB resmî metinlerinden birebir okundu. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danışınız.</div>
+  <div class="uyari">Bu araç senin yerine o kodda <b style="color:var(--ink)">ithalatta ödeyeceğin bütün vergileri ve dikkat etmen gereken her şeyi</b> tek tek kontrol eder — gümrük vergisi, KDV, ÖTV, damping, gözetim, çevre payı ve daha fazlası. Ürünü satıyorsan <b style="color:var(--ink)">ihracat</b> tarafını da gösterir. Hepsi Ticaret Bakanlığı, GİB ve Resmî Gazete'nin <b style="color:var(--ink)">kendi resmî metinlerinden</b> okundu.
+    <details style="margin-top:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600">Tam olarak neleri kontrol ediyor? ▾</summary>
+      <div style="margin-top:7px;color:var(--dim);line-height:1.6"><b style="color:var(--muted)">İthalatta:</b> gözetim · gümrük vergisi + İGV (ülkeye göre) · Tarım Payı/Toplu Konut Fonu · damping/sübvansiyona karşı vergi · KDV oranı · ÖTV · KKDF (%6 vadeli) · TRT bandrol · Tütün Fonu · Damga · GEKAP (geri kazanım) · gümrük muafiyetleri (askıya alma / nihai kullanım) · savunma sanayi · TAREKS denetimi · menşe belgesi · kıymet kıyası.<br><b style="color:var(--muted)">İhracatta:</b> KDV istisnası/iadesi · kayda bağlı ihracat · DFİF kesintisi · TEV · DİİB.</div>
+    </details>
+    <b style="color:var(--amber)">Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danış.</b></div>
   <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · SMMM Cem Dizdar</div>
 </div>
 
