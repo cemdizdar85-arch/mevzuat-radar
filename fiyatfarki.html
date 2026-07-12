@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Note / Debit Note — yurt dışı fiyat farkı geldi, ne yapmalıyım? (KDV + gümrük kıymeti) | Mevzuat Radarı</title>
+<meta name="description" content="Yurt dışından indirim (credit note), fiyat artışı (debit note), ciro primi ya da sonradan royalti ödemesi geldi. KDV düzeltmesi mi, tamamlayıcı beyan mı, ek gümrük vergisi mi — birincil özelge ve Gümrük Yönetmeliği'ne göre sade Türkçeyle.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
+.lead{color:var(--muted);font-size:15.5px;margin:0 0 22px}.lead b{color:var(--ink);font-weight:600}
+.ilerle{display:flex;gap:6px;margin-bottom:20px}
+.nokta{height:5px;flex:1;border-radius:3px;background:var(--line2);transition:.3s}.nokta.ok{background:var(--grad)}
+.adim{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px}
+.soru{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--accent2);margin-bottom:4px}
+.sbaslik{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
+.sac{font-size:13px;color:var(--muted);margin:0 0 16px}
+.secenek{display:block;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#0a0f17;border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:9px;transition:.15s}
+.secenek:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.10),transparent)}
+.secenek small{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
+.geri{margin-top:6px;background:none;border:0;color:var(--dim);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}.geri:hover{color:var(--ink)}
+.satir{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;background:var(--panel)}
+.satir .sol{flex:1}.satir .ad{font-weight:700;font-size:15px}.satir .not{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+.satir .deg{font-weight:800;font-size:15px;white-space:nowrap;text-align:right}
+.deg.v{color:var(--red)}.deg.y{color:var(--green)}.deg.n{color:var(--amber)}
+.ozet{padding:16px 18px;border-radius:14px;margin-bottom:14px;font-size:15px;line-height:1.5}
+.ozet.iyi{background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3)}
+.ozet.dikkat{background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3)}
+.ozet.tehlike{background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.3)}
+.ozet b{color:var(--ink)}
+.adimlar{margin:6px 0 4px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17}
+.adimlar h4{margin:0 0 9px;font-size:12px;color:var(--accent2);letter-spacing:.4px}
+.adimlar ol{margin:0;padding-left:20px}.adimlar li{font-size:13.5px;color:var(--muted);margin-bottom:6px;line-height:1.5}.adimlar li b{color:var(--ink)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 20px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:14px}
+.kutu{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px 20px;margin-top:16px}
+.kutu h3{margin:0 0 10px;font-size:15px}.kutu .h{display:flex;gap:9px;font-size:13.5px;color:var(--muted);margin-bottom:9px;line-height:1.5}.kutu .h b{color:var(--ink)}
+.kutu .no{color:var(--red);font-weight:800;flex-shrink:0}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="destekler.html">Destek Radarı</a> · Fiyat Farkı / Credit Note</div>
+  <h1>Yurt dışından fiyat farkı geldi — credit note / debit note ne yapmalıyım?</h1>
+  <p class="lead">Sonradan gelen <b>indirim (credit note)</b>, <b>fiyat artışı (debit note)</b>, <b>ciro primi</b> veya <b>royalti</b> — muhasebenin en çok hata yaptığı konu. Çünkü tek bir kağıt aynı anda <b>KDV matrahını</b>, <b>gümrük kıymetini</b> ve <b>kurumlar vergisini</b> etkileyebilir. Ne olduğunu seç; hangi belge, hangi beyanname, hangi vergi — birincil kaynakla göster.</p>
+
+  <div class="ilerle" id="ilerle"></div>
+  <div id="ekran"></div>
+
+  <div class="kutu">
+    <h3>⚠️ Bu konuda en sık yapılan 3 hata</h3>
+    <div class="h"><span class="no">1</span><div><b>Fiyat artışında (debit note) tamamlayıcı beyanı unutmak.</b> Fiyat artışı gümrük kıymetini artırır → <b>tamamlayıcı beyan</b> + ek gümrük vergisi + KDV gerekir. Verilmezse gümrükte <b>ek tahakkuk + ceza</b> çıkar.</div></div>
+    <div class="h"><span class="no">2</span><div><b>İndirimde (credit note) gereksiz KDV düzeltmesi yapmak.</b> Yurt dışı satıcının fiyat indiriminde ithalde ödenen KDV'de <b>düzeltme gerekmez</b> (indirim hakkın tamsa) — sadece yurt dışına KDV'siz fatura kesip geliri yazarsın.</div></div>
+    <div class="h"><span class="no">3</span><div><b>Sonradan ödenen royaltiyi sadece stopajla geçmek.</b> Marka/lisans royaltisi ithal malın satış koşuluysa <b>gümrük kıymetine de dahildir</b> — stopaj + 2 No.lu KDV + gümrük, üçü birden.</div></div>
+  </div>
+
+  <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir.</b> Gümrük kıymeti ve tamamlayıcı beyan konularında gümrük müşavirine, vergi tarafında YMM/mali müşavirine danış. Sonuç, işlemin tam niteliğine ve sözleşmeye göre değişebilir.</div>
+  <div class="dip">Mevzuat Radarı · Yurt dışı fiyat farkı sihirbazı · Kaynak: <b>KDV Kanunu m.35, m.21/c</b> · <b>KDV Genel Uygulama Tebliği</b> (6 Seri No.lu değişiklik, RG 21.05.2016) · <b>Gümrük Yönetmeliği m.45, m.51, m.53, m.56</b> (gümrük kıymeti, tamamlayıcı beyan, royalti) · <b>Gümrük Kanunu m.24</b> · GİB özelgesi <b>İVDB 19.02.2015 · 39044742-KDV.1-293</b> · Gümrükler Genel Müd. <b>02.07.2015/9021634</b> · SMMM Cem Dizdar</div>
+</div>
+
+<script>
+const C = {};
+const SEN = {
+  indirim: {ad:"Yurt dışından İNDİRİM / iade geldi (credit note)", em:"⬇️", ac:"Satıcı sonradan fiyatı düşürdü; alacak/iade notu (credit note, alacak dekontu) gönderdi."},
+  artis:   {ad:"Yurt dışından FİYAT ARTIŞI geldi (debit note)", em:"⬆️", ac:"Satıcı sonradan ek bedel/fiyat farkı istedi; borç notu (debit note) gönderdi."},
+  ciro:    {ad:"Ciro primi / yıl sonu iskontosu", em:"🎯", ac:"Belli ciroyu tutturunca satıcının verdiği prim / yıl sonu iskontosu."},
+  royalti: {ad:"Sonradan royalti / lisans / marka ödemesi", em:"®️", ac:"İthal ettiğin markalı/lisanslı mal için satıcıya ayrıca ödediğin royalti-lisans bedeli."},
+  ihracat: {ad:"Yurt dışı ALICIYA indirim / fiyat farkı kestim", em:"🚢", ac:"Sen ihracatçısın; yurt dışı müşterine sonradan indirim ya da ek fatura düzenledin."}
+};
+
+function ilerle(n){ let h=''; for(let i=0;i<3;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
+function ekran(html){ document.getElementById('ekran').innerHTML = '<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
+function sec(list, back){ return list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('') + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
+
+function baslat(){ C.sen=null;C.iliskili=null; ilerle(0);
+  ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Elindeki belge/işlem hangisi?</div><div class="sac">Yurt dışıyla ilgili sonradan gelen fiyat değişikliğini seç.</div>`+
+    sec(Object.keys(SEN).map(k=>({t:SEN[k].em+' '+SEN[k].ad, s:SEN[k].ac, on:`senSec('${k}')`}))) );
+}
+function senSec(k){ C.sen=k; iliskiSor(); }
+function iliskiSor(){ ilerle(1);
+  ekran(`<div class="soru">İLİŞKİ DURUMU</div><div class="sbaslik">Karşı taraf <u>ilişkili kişi / grup şirketi</u> mi?</div>
+    <div class="sac">Ana şirket, iştirak, aynı grup, ortak veya yönetim ilişkisi varsa "ilişkili"dir. Bu, transfer fiyatlandırması (emsallere uygunluk) boyutunu ekler.</div>`+
+    sec([
+      {t:"🔗 Evet — ilişkili / grup şirketi", s:"Ana firma, iştirak, aynı gruptan; ortak/yönetim bağı var", on:"C.iliskili=true;sonuc()"},
+      {t:"🤝 Hayır — bağımsız satıcı/alıcı", s:"Aramızda ortaklık/grup ilişkisi yok", on:"C.iliskili=false;sonuc()"}
+    ], "baslat()"));
+}
+
+function satir(ad,not,deg,tip){ return `<div class="satir"><div class="sol"><div class="ad">${ad}</div><div class="not">${not}</div></div><span class="deg ${tip||''}">${deg}</span></div>`; }
+
+function sonuc(){ ilerle(3);
+  const s=C.sen; let ozet,ozetT,rows='',adimlar='',calc='';
+  const tpRow = C.iliskili ? satir("🔗 Transfer fiyatlandırması","İlişkili kişi işlemi — indirim/prim/royalti/fiyat farkı <b>emsallere uygun</b> olmalı (KVK m.13). Yıl sonu TP düzeltmelerini belgeyle (TP raporu/yöntem) destekle; aksi halde örtülü kazanç riski.","KVK m.13","n") : "";
+
+  if(s==='indirim' || s==='ciro'){
+    ozetT="iyi";
+    ozet = (s==='ciro')
+      ? "🎯 Yurt dışı satıcıdan gelen ciro primi/iskonto = <b>fiyat indirimi</b> (matrah düzeltmesi). Yurt dışına KDV'siz fatura kes, geliri yaz. İthal KDV'de düzeltme gerekmez."
+      : "⬇️ Yurt dışı indirimi (credit note) = <b>matrah azalışı</b>. Yurt dışına KDV'siz fatura kes, tutarı gelir/maliyet azalışı yaz. <b>İthalde ödenen KDV'de düzeltme GEREKMEZ</b> (indirim hakkın tamsa).";
+    rows =
+      satir("🧾 KDV — belge","Credit note tek başına yetmez: VUK gereği yurt dışı firma adına <b>fatura</b> düzenle. Bu fatura <b>KDV'siz</b> (yurt dışına). <i>(İVDB 19.02.2015 / 39044742-KDV.1-293.)</i>","fatura","n") +
+      satir("🧾 KDV — ithal KDV düzeltmesi","İthalde ödenip indirdiğin KDV'de <b>düzeltme yapmana gerek yok</b> — KDV Genel Uygulama Tebliği (6 Seri No.lu değişiklik, RG 21.05.2016). *İndirim hakkın kısıtlıysa (kısmi istisna) düzeltme gerekebilir.","gerekmez","y") +
+      satir("🛃 Gümrük kıymeti","İndirim ithalat <b>anında</b> biliniyorsa kıymeti düşürür (beyanda dikkate alınır). <b>Sonradan</b> gelen indirimde ithalat anındaki kıymet esastır (Gümrük Yön. m.53/3); fazla ödenen gümrük vergisi ancak garanti/kusur kaynaklıysa ve tescilden itibaren <b>1 yıl</b> içindeyse iade gündeme gelir (m.45/ç). Ticari iskontoda genelde geri alınmaz.","genelde değişmez","n") +
+      satir("💼 Kurumlar vergisi","İndirim/prim tutarı dönem kazancına yansır (maliyet/gider azalışı ya da gelir) → <b>KV matrahını artırır</b>. Tahakkuk ettiği dönemde kayda al.","gelir yazılır","v") + tpRow;
+    adimlar = `<div class="adimlar"><h4>NE YAPMALIYIM?</h4><ol>
+      <li>Yurt dışı firma adına <b>KDV'siz fatura</b> düzenle (credit note'u ek yap).</li>
+      <li>Tutarı muhasebede <b>gelir / maliyet azalışı</b> olarak kaydet (KV matrahına girer).</li>
+      <li>İthal KDV'sinde <b>düzeltme yapma</b> (indirim hakkın tamsa).</li>
+      <li>İlişkili kişiyse indirimin <b>emsale uygunluğunu</b> belgele.</li></ol></div>`;
+  }
+  else if(s==='artis'){
+    ozetT="tehlike";
+    ozet = "⬆️ Fiyat artışı (debit note) ithalatı pahalılaştırır → <b>gümrük kıymeti artar</b>. Tamamlayıcı beyan + ek gümrük vergisi + KDV gerekir. Süresinde yapılmazsa gümrükte <b>ek tahakkuk + ceza</b> — en riskli senaryo.";
+    rows =
+      satir("🛃 Gümrük — tamamlayıcı beyan","Fiyat artışı fiilen ödenen bedele eklenir → gümrük kıymeti yükselir. <b>Tamamlayıcı beyan</b> ver (Gümrük Yön. m.53) + ek gümrük vergisi öde. Süre: ödemenin muhasebeye intikal ettiği ayı izleyen ayın <b>26'sı</b> akşamına kadar (m.53/5-6).","tamamlayıcı beyan","v") +
+      satir("🧾 KDV","Kıymet arttığı için ek <b>ithal KDV</b> de gümrükte tahakkuk eder; aynı dönemde 1 No.lu KDV'de indirilir (indirim hakkın tamsa net yük ~0).","ek KDV","n") +
+      satir("💼 Kurumlar vergisi","Fiyat farkı ithal malın <b>maliyetini artırır</b> (stok/SMM). Dönem sonucuna göre kaydet.","maliyet ↑","n") +
+      satir("⏰ Ceza riski","Süresinde tamamlayıcı beyan verilmez / kıymet eksik beyan edilirse Gümrük Kanunu uyarınca <b>ek tahakkuk + idari para cezası</b> (bazı hallerde vergi farkının katı). Beklemeden beyan et.","yüksek","v") + tpRow;
+    adimlar = `<div class="adimlar"><h4>NE YAPMALIYIM?</h4><ol>
+      <li>Fiyat farkının hangi ithalat beyannamesine ait olduğunu <b>eşleştir</b>.</li>
+      <li>Gümrük müşavirinle <b>tamamlayıcı beyan</b> hazırla; ayın <b>26'sını</b> kaçırma.</li>
+      <li>Ek gümrük vergisi + KDV'yi <b>öde</b>; KDV'yi aynı dönem indir.</li>
+      <li>Maliyeti (stok/SMM) güncelle. İlişkili kişiyse emsale uygunluğu belgele.</li></ol></div>`;
+    calc = hesapKutu('artis');
+  }
+  else if(s==='royalti'){
+    ozetT="dikkat";
+    ozet = "®️ Sonradan ödenen royalti/lisans/marka bedeli <b>üç vergiyi birden</b> ilgilendirir: gümrük kıymeti + stopaj + 2 No.lu KDV. Çoğu kişi sadece birini görür.";
+    rows =
+      satir("🛃 Gümrük kıymeti","Royalti, ithal eşyanın <b>satış koşuluysa</b> ve o eşyayla ilgiliyse gümrük kıymetine <b>dahildir</b> (Gümrük Yön. m.56). Bu durumda <b>tamamlayıcı beyan</b> (m.53) + ek gümrük vergisi + KDV gerekir. Satış koşulu değilse (bağımsız hizmet) gümrüğe girmez.","dahil olabilir","v") +
+      satir("✂️ Stopaj (KVK m.30)","Gayrimaddi hak bedeli → kurumlar vergisi tevkifatı. ÇVÖA + mukimlik belgesi oranı düşürür (genelde %20→%10). Oranı <a href='hizmet.html'>Hizmet Faturası aracından</a> ülkeye göre gör.","%10–20","v") +
+      satir("🧾 2 No.lu KDV","Gayrimaddi hak → sorumlu sıfatıyla <b>%20 KDV</b> beyan+öde; aynı ay 1 No.lu'da indir (net yük ~0, beyan zorunlu).","%20","v") +
+      satir("⚠️ Çifte vergi dikkati","Aynı royalti hem gümrük kıymetinde hem de KDV'de matrah oluşturabilir; mükerrerlik tartışmalıdır. Gümrük müşaviri + YMM ile birlikte kurgula.","dikkat","n") + tpRow;
+    adimlar = `<div class="adimlar"><h4>NE YAPMALIYIM?</h4><ol>
+      <li>Sözleşmeye bak: royalti ithal malın <b>satış/kullanım koşulu</b> mu? → evetse gümrük kıymetine dahil.</li>
+      <li>Dahilse <b>tamamlayıcı beyan</b> ver (gümrük müşaviri).</li>
+      <li>Ödemede <b>stopaj</b> kes (ÇVÖA + mukimlik belgesiyle indir) ve <b>2 No.lu KDV</b> beyan et.</li>
+      <li>İlişkili kişiyse royalti oranının emsale uygunluğunu belgele.</li></ol></div>`;
+    calc = hesapKutu('royalti');
+  }
+  else if(s==='ihracat'){
+    ozetT="dikkat";
+    ozet = "🚢 İhracatçı olarak yurt dışı alıcına sonradan indirim/fiyat farkı → <b>ihracat bedelin ve KDV/iade hesabın</b> etkilenir. Gümrük çıkış beyannamesi ve döviz gelirin de değişir.";
+    rows =
+      satir("🧾 KDV / iade","İhracat istisnalı olduğundan indirim doğrudan KDV doğurmaz; ancak <b>ihracat bedeli/matrahı değişir</b> → KDV iadesi tutarını etkiler. Fiyat artışında ek ihracat faturası düzenlenir.","matrah değişir","n") +
+      satir("🛃 Gümrük","Bedel değişikliği çıkış beyannamesiyle uyumsuzsa <b>beyanname düzeltmesi</b> gerekebilir; ihracat bedeli kabul/döviz getirme yükümlülüğünü de etkiler.","düzeltme olabilir","n") +
+      satir("💼 Kurumlar vergisi","İndirim geliri azaltır, fiyat artışı artırır → dönem kazancına yansır.","kazanç etkisi","n") + tpRow;
+    adimlar = `<div class="adimlar"><h4>NE YAPMALIYIM?</h4><ol>
+      <li>Fiyat değişikliğini <b>fatura/dekontla</b> belgele (indirim → iade faturası, artış → ek fatura).</li>
+      <li>KDV iadesi talebindeysen <b>matrah/iade tutarını</b> güncelle.</li>
+      <li>Döviz getirme ve gümrük beyannamesi tutarlılığını kontrol et.</li>
+      <li>İlişkili alıcıysa emsale uygunluğu belgele.</li></ol></div>`;
+  }
+
+  ekran(`<div class="soru">SONUÇ</div><div class="sbaslik">${SEN[s].em} ${SEN[s].ad}</div>
+    <div class="ozet ${ozetT}">${ozet}</div>
+    ${rows}
+    ${adimlar}
+    ${calc}
+    <button class="btn" onclick="baslat()">↺ Yeni işlem sorgula</button>`);
+}
+
+function hesapKutu(tip){
+  const ekRate = (tip==='artis')
+    ? `<div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">Gümrük vergisi oranını gir (GTİP'ine göre — <a href="gtip.html">GTİP aracından</a> bak): <input id="gv" type="number" inputmode="decimal" placeholder="%" oninput="hesapla('${tip}')" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit">%</div>`
+    : '';
+  const baslik = (tip==='artis') ? "🧮 Fiyat farkını gir — ek vergiyi hesapla" : "🧮 Royalti tutarını gir — vergiyi hesapla";
+  return `<div class="kutu" style="margin-top:14px">
+      <h3>${baslik}</h3>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input id="tutar" type="number" inputmode="decimal" placeholder="${tip==='artis'?'Fiyat farkı tutarı':'Royalti tutarı'}" oninput="hesapla('${tip}')" style="flex:1;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
+        <select id="pb" onchange="hesapla('${tip}')" style="padding:12px 10px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit;cursor:pointer">
+          <option value="USD">USD</option><option value="EUR">EUR</option><option value="TL" selected>TL</option><option value="GBP">GBP</option></select>
+      </div>
+      ${ekRate}
+      <div id="hesapOut" style="font-size:13.5px;color:var(--dim)">Tutarı gir; ek vergiler otomatik çıksın.</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.5">Beyan/ödeme TL üzerinden yapılır (ilgili gün TCMB kuru). Değerler yaklaşıktır; kesin tahakkuk gümrük beyanına göre oluşur.</div>
+    </div>`;
+}
+function hesapla(tip){
+  const ti=document.getElementById('tutar'); if(!ti) return;
+  const t=parseFloat(ti.value)||0; const pb=document.getElementById('pb').value;
+  const out=document.getElementById('hesapOut');
+  const fmt=n=>n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+pb;
+  if(!t){ out.innerHTML='Tutarı gir; ek vergiler otomatik çıksın.'; return; }
+  if(tip==='artis'){
+    const gvi=document.getElementById('gv'); const gvr=gvi?(parseFloat(gvi.value)||0):0;
+    const gv=t*gvr/100; const kdvMatrah=t+gv; const kdv=kdvMatrah*0.20; const toplam=gv+kdv;
+    out.innerHTML=
+      satir("Fiyat farkı (gümrük kıymetine eklenen)","","+"+fmt(t),"") +
+      satir("🛃 Ek gümrük vergisi (%"+gvr+")","Tamamlayıcı beyanla öde.",fmt(gv),"v") +
+      satir("🧾 Ek ithal KDV (%20)","Matrah = fiyat farkı + gümrük vergisi. Aynı dönem indirilir.",fmt(kdv),"n") +
+      satir("Toplam ek nakit (KDV geri gelir)","","≈ "+fmt(toplam),"");
+  } else {
+    const kdv=t*0.20;
+    out.innerHTML=
+      satir("Royalti bedeli","","+"+fmt(t),"") +
+      satir("🧾 2 No.lu KDV (%20)","Beyan+öde; aynı ay indirilir (net ~0).",fmt(kdv),"n") +
+      satir("✂️ Stopaj","Oran ülkeye/ÇVÖA'ya göre; Hizmet Faturası aracından hesapla.","ülkeye göre","v") +
+      `<div style="font-size:12px;color:var(--dim);margin-top:4px">Royalti ithal malın satış koşuluysa ayrıca gümrük kıymetine dahil olup ek gümrük vergisi doğar (Gümrük Yön. m.56).</div>`;
+  }
+}
+baslat();
+</script>
+</body>
+</html>
