@@ -92,6 +92,7 @@ listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama
 | VII | Nihai kullanım tarım ürünleri (indirimli GV) | ✅ nihaiKart |
 
 **→ Çentik yöntemi Toplu Konut Fonu'nu kovalarken 4 eksik liste buldu (IV balık en büyüğü). Kanıt: yöntem çalışıyor.**
+**→ İTHALAT ÇENTİĞİ %100: I–VII listeler + tüm vergi/fon kodları kapsandı. GEKAP (Cem'in yakaladığı) eklendi. KDV menşe-farkı netleştirildi (oran değişmez, tutar değişir). Kod kapsamı: 15.717 tarife kodunun tamamı sorgulanabilir, hepsinde GV var.**
 
 ## 2) SIRADAKİ ANKORLAR (aynı yöntem, diğer alanlar)
 - **İhracat:** İhracat Yönetmeliği ekleri (Kayda Bağlı İhracat Listesi, İhracı Yasak/Ön İzinli Mallar Listesi) — tam listeye çentik.
