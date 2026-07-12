@@ -42,7 +42,7 @@ listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama
 | II | Sanayi ürünleri (GV+İGV) | ✅ gtip-vergi-ulke / igv-ulke |
 | III | İşlenmiş tarım (Tarım Payı/EMV) | ✅ gtip-emy-tarim · ⚠ Toplu Konut Fonu sütunu kontrol |
 | IV | **Balıkçılık ve su ürünleri (GV + EMY/Toplu Konut Fonu)** | ❌→✅ EKLENDİ (2.226 kod, bu turda) — balık kör noktası kapandı |
-| V | **GV askıya alınan sanayi ürünleri (GV=0)** | ❌ EKSİK (2.058 kod) — bu kodlarda GV sıfır, "iyi haber" listesi |
+| V | **GV askıya alınan sanayi ürünleri (GV=0)** | ✅ EKLENDİ (606 pozisyon) — askıyaKart, şartlı %0 notu |
 | VI | Sivil hava taşıtı nihai kullanım (indirimli GV) | ⚠ niş — awareness |
 | VII | Nihai kullanım tarım ürünleri (indirimli GV) | ⚠ niş — awareness |
 
