@@ -7,7 +7,7 @@ param(
   [switch]$Onizle
 )
 $ErrorActionPreference = "Stop"
-Add-Type -AssemblyName System.IO.Compression.FileSystem
+try { Add-Type -AssemblyName System.IO.Compression.FileSystem } catch {}  # ubuntu pwsh: Core'da zaten yuklu
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # xlsx = zip; sharedStrings + sheet1 oku
