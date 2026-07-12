@@ -93,6 +93,13 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **Vergi takvimi** (bilgi.html#hap-vergi-takvimi): KDV 28'i, MUHSGK 26'sı, damga 26'sı, geçici vergi 3 dönem (17 May/Ağu/Kas — 4. dönem 2022'de kaldırıldı), yıllık GV Mart, KV 30 Nisan. Kaynak: GİB Vergi Takvimi.
 - **ALAN HARİTASI (KAPSAM-KONTROL.md bölüm 0):** "olmayanı görünür kıl" — dış ticaret/şirket-vergi/istihdam/sektörel domainleri + ankor + kapsama. Kırmızı satır = bilinen açık. Kalan kırmızılar: menşe/dolaşım belgeleri, kıdem/ihbar tavanı, sektörel lisanslar, gümrük rejimleri (kısmi).
 
+## ✅ ALAN HARİTASI KIRMIZI SATIRLARI KAPATILDI (12.07.2026, sekizinci tur — Cem "hepsini yapalım")
+- **Kıdem/ihbar tazminatı** (vergi-sabitleri.json + bilgi.html#hap-kidem-ihbar): 2026 kıdem tavanı Oca-Haz 64.948,77 / Tem-Ara 73.729,87 TL; ihbar süreleri 2/4/6/8 hafta (İş K. m.17). Kaynak: memur katsayısı + İş K.
+- **Menşe/dolaşım belgeleri** (bilgi.html#hap-mense-belgeleri + GTİP aracı ülke seçici notu): A.TR (AB/Gümrük Birliği serbest dolaşım), EUR.1/EUR-MED (STA tercihli menşe → indirimli tarife), menşe şahadetnamesi (tercihsiz), fatura beyanı. KRİTİK bağ: GTİP'te gösterdiğimiz indirimli oranı ALMAK için doğru belge şart — belgesiz en yüksek oran uygulanır.
+- **Gümrük rejimleri** (bilgi.html#hap-gumruk-rejimleri): 8 rejim; para kurtaranlar antrepo (ertele), DİİB (ihracat girdisi vergisiz), geçici ithalat (süreli vergisiz), hariçte işleme (sadece katma değere vergi). Gümrük K. 4458.
+- **Sektörel lisanslar** (bilgi.html#hap-sektorel-lisans): işyeri açma ruhsatı (belediye), gıda işletme kaydı (Tarım Bak. 5996), turizm belgesi, sağlık ruhsatı, çevre izni, sanayi sicil+kapasite raporu. Farkındalık rehberi.
+- **Alan haritası artık tam yeşil** — kalan niş: İthalat Rejimi VI/VII (nihai kullanım), Çevre katkı payı (kod 29) kontrol, kayda bağlı/yasak ihracat liste robotu.
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
