@@ -236,6 +236,15 @@ function emyDeger(v){
   return ''+v;
 }
 
+// İthalat denetimi (TAREKS) hatırlatması — her kodda görünür, ASLA "denetim yok" demez
+// (ÜGD tebliğleri per-kod eksiksiz yutulmadan yanlış güvence vermek riskli; dürüst yönlendirme)
+function denetimKart(kod){
+  return `<div style="margin-top:12px;padding:12px 13px;border:1px dashed var(--line2);border-radius:11px;background:#0a0f17">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin-bottom:4px">🛃 İTHALAT DENETİMİ (TAREKS) — vergiden ayrı kapı</div>
+    <div style="font-size:12.5px;color:var(--muted)">Bazı ürünler ithalatta güvenlik/standart denetimine tabidir (CE, TSE, tarım, sağlık, telsiz…). Tabiyse belge/başvuru olmadan <b style="color:var(--ink)">mal gümrükten çekilemez</b> — vergiyi ödesen bile. Bu kod denetime tabi mi, hangi tebliğ: <a href="bilgi.html#hap-ithalat-denetimi" target="_blank">2026 denetim rehberi →</a> · kesin kapsam TAREKS/tebliğdedir.</div>
+  </div>`;
+}
+
 // TARIM kodu ise: menşe ülkeye göre kesin gümrük vergisi tablosu (her ülke ayrı sütun)
 function tarimKart(kod){
   if(!TARIM || !TARIM[kod]) return '';
@@ -299,7 +308,7 @@ function dampingKart(q){
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
-  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + otvKart(kod) + kdvKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
+  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
@@ -330,7 +339,7 @@ function vergiKart(kod){
       ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin Gümrük Vergisi ve İGV oranımız var — yukarıdan menşe ülkeni seç, aralık kesinleşsin.</div>`;
     }
   }
-  if(!sat) return tarimKart(kod) + otvKart(kod) + kdvKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
+  if(!sat) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
   const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
@@ -421,10 +430,10 @@ function sorgula(){
     } else if(tk.length){
       // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu + ÖTV + KDV
       const kod = tk.find(k=>k===q) || tk[0];
-      vHtml = tarimKart(kod) + otvKart(kod) + kdvKart(kod);
+      vHtml = tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod);
     } else {
       // hiç GV/İGV/tarım verisi yok → yine de ÖTV + KDV göster
-      vHtml = otvKart(q) + kdvKart(q);
+      vHtml = otvKart(q) + denetimKart(q) + kdvKart(q);
     }
     s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>

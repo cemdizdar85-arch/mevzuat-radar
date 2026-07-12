@@ -37,6 +37,15 @@ Ticaret Bakanlığı İthalat Rejimi Kararı Excel'leri LLM'siz, doğrudan hücr
 
 GTİP aracı Türkiye'de eşi olmayan seviyede: menşe ülkeye göre kesin GV+İGV, tarımda ülke ülke oran, işlenmiş tarımda Tarım Payı. "Bileşime göre" (T1/T2) ve dipnot değerleri UYDURULMADAN kaynağa yönlendirildi.
 
+## ✅ GTİP EK VERGİ + ARAMA KATMANLARI (12.07.2026, ikinci tur)
+| Katman | Kaynak & yöntem | Rakam disiplini notu | Dosya |
+|---|---|---|---|
+| Ürün adından GTİP arama | TGTC Karar 10781 (RG 30.12.2025) 97 fasıl .xls, Excel COM ile birebir | 15.717 kod, uydurma yok | veri/gtip-tanim.json (4.9MB) |
+| KDV liste hükümleri | 2007/13033, GİB güncel konsolide metin — (I)%1 (II)%10 listeler, fasıl/pozisyon parser | 🔴 Kesin oran UYDURULMAZ: liste fasıl/pozisyon/tam-kod + "hariç" karışık; hüküm METNİ gösterilir, kodun pozisyonu vurgulanır. Tarih/kod maskeleme ile yanlış pozisyon eşleşmesi engellendi | veri/gtip-kdv.json (33 fasıl) |
+| ÖTV kapsam bayrağı | 4760 ekli listeler, mevzuat.gov.tr PDF → Claude API belge okuma ×2 bağımsız, union | Oran UYDURULMAZ (I/III maktu 6 ayda değişir, II dilimli, IV oranlı CK ile sık güncel); sadece "kapsamda mı + hangi liste". İki okuma: IV 41/41, II 10/10, I 5/5 aynı; III'te 48.13 union'a eklendi | veri/gtip-otv.json (67 pozisyon) |
+
+Not (site diline): "otomatik güncellenir" denmez — kaynak metin değiştiğinde biz okuyup elle güncelleriz. ÖTV oranları/tam kod kapsamı için GİB güncel listelerine yönlendirilir.
+
 ## ✅ YUTMA LİSTESİ TAMAMLANDI (12.07.2026)
 Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel destek/kuruluş modülleri + vergi sabitlerini besleyen kanun/kararlar + tüm GTİP vergi katmanları. Yeni içerik eklendikçe ya da robot nöbetçisi bir tebliğ değişikliği yakaladıkça liste yeniden açılır.
 
