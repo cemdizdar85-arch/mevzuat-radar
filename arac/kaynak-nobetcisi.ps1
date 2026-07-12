@@ -31,6 +31,15 @@ function XlsxKlasor([string]$kok){  # icinde .xlsx olan klasoru bul
   $d = Get-ChildItem $kok -Recurse -Filter *.xlsx -ErrorAction SilentlyContinue | Select-Object -First 1
   if($d){ return $d.Directory.FullName } else { return $null }
 }
+# sayfadan .xlsx data linkini cikar (tarih degisince url degisir; anahtar ile filtrele)
+function XlsxLink([string]$html,[string]$anahtar){
+  if(-not $html){ return $null }
+  $m = [regex]::Match($html, '(https?://[^"'']*?/data/[^"'']*?' + $anahtar + '[^"'']*?\.xlsx)', 'IgnoreCase')
+  if($m.Success){ return ([System.Net.WebUtility]::HtmlDecode($m.Groups[1].Value)) }
+  $m2 = [regex]::Match($html, '(/data/[^"'']*?' + $anahtar + '[^"'']*?\.xlsx)', 'IgnoreCase')
+  if($m2.Success){ return "https://ticaret.gov.tr" + [System.Net.WebUtility]::HtmlDecode($m2.Groups[1].Value) }
+  return $null
+}
 
 # --- onceki hash'ler ---
 $onceki = @{}
@@ -83,6 +92,41 @@ if($rejimZipUrl -and $igvZipUrl){
     else { $is.Add("AYNI: Ithalat Rejimi/IGV") }
   } else { $is.Add("Excel indirilemedi"); if($onceki.ContainsKey("Ithalat Rejimi + IGV Excel")){ $yeni["Ithalat Rejimi + IGV Excel"]=$onceki["Ithalat Rejimi + IGV Excel"] } }
   try { Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue } catch {}
+}
+
+# ============ 1b) DETERMINISTIK: Damping/subvansiyon "Yururlukteki Onlemler" xlsx -> oto hasat ============
+#  Ticaret Bak. tum yururlukteki damping/subvansiyon onlemlerini TEK konsolide Excel'de yayinlar
+#  (dosya adi tarihli: "Yururlukteki Onlemler <tarih>.xlsx"). Degisince damping-hasat.ps1 ile
+#  gtip-damping.json yeniden uretilir (deterministik, AI YOK).
+$dampingSayfa = "https://www.ticaret.gov.tr/ithalat/ticaret-politikasi-savunma-araclari/damping-ve-subvansiyon"
+$dampingXlsxUrl = XlsxLink (Sayfa $dampingSayfa) "nlemler"
+$is.Add("damping xlsx: $dampingXlsxUrl")
+if($dampingXlsxUrl){
+  $tmpD = Join-Path ([System.IO.Path]::GetTempPath()) ("damping_" + [System.IO.Path]::GetRandomFileName())
+  New-Item -ItemType Directory -Force $tmpD | Out-Null
+  $dxlsx = Join-Path $tmpD "damping.xlsx"
+  if(Indir $dampingXlsxUrl $dxlsx){
+    $dhash = Hashle ([System.IO.File]::ReadAllBytes($dxlsx))
+    $yeni["Damping Yururlukteki Onlemler"] = $dhash
+    if($onceki.ContainsKey("Damping Yururlukteki Onlemler") -and $onceki["Damping Yururlukteki Onlemler"] -ne $dhash){
+      $is.Add("DEGISTI: Damping onlemler xlsx -> yeniden hasat")
+      try {
+        $psExe = if(Get-Command pwsh -ErrorAction SilentlyContinue){ "pwsh" } else { "powershell" }
+        $dhYol = Join-Path $here "..\motor\damping-hasat.ps1"
+        & $psExe -NoProfile -ExecutionPolicy Bypass -File $dhYol -Xlsx $dxlsx
+        if($LASTEXITCODE -eq 0){
+          $veriDegisti = $true
+          $mailSatir += "OTOMATIK GUNCELLENDI: Damping/subvansiyon yururlukteki onlemler degisti, gtip-damping.json yeniden uretildi (deterministik). Commit'lendi - KONTROL ET."
+          $is.Add("damping hasat TAMAM")
+        } else {
+          $mailSatir += "DIKKAT: Damping onlemler degisti, otomatik hasat hata (exit $LASTEXITCODE) - veri commit edilmedi, ELLE bak: $dampingXlsxUrl"
+          $is.Add("damping hasat exit $LASTEXITCODE")
+        }
+      } catch { $mailSatir += "DIKKAT: Damping hasat HATA - ELLE bak. $($_.Exception.Message)"; $is.Add("damping HATA: $($_.Exception.Message)") }
+    } elseif(-not $onceki.ContainsKey("Damping Yururlukteki Onlemler")){ $is.Add("ILK KAYIT: Damping") }
+    else { $is.Add("AYNI: Damping") }
+  } else { $is.Add("damping xlsx indirilemedi"); if($onceki.ContainsKey("Damping Yururlukteki Onlemler")){ $yeni["Damping Yururlukteki Onlemler"]=$onceki["Damping Yururlukteki Onlemler"] } }
+  try { Remove-Item $tmpD -Recurse -Force -ErrorAction SilentlyContinue } catch {}
 }
 
 # ============ 2) ALERT: nuansli kaynaklar (robot YAZMAZ, sadece haber verir) ============
