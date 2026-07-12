@@ -1,14 +1,18 @@
 ﻿# ============================================================================
-#  KDV HASAT - 2007/13033 (I) ve (II) sayili liste -> fasil/pozisyon indeksi
+#  KDV HASAT v2 - 2007/13033 (I)%1 ve (II)%10 -> fasil/pozisyon indeksi
 #  Kaynak: GİB guncel konsolide metin (kdv-oranlari-gib.txt, 9126 s. CK dahil)
-#  ONEMLI (rakam disiplini): KDV listesi 12 haneli koda TEK oran vermez.
-#    Fasil / pozisyon / tam kod + ISTISNA ('haric') karisik yazilmistir.
-#    Bu yuzden "kesin oran" UYDURULMAZ. Her hukmun METNI birebir saklanir,
-#    kodun fasil/pozisyonuna gore ilgili hukumler gosterilir, karar kullaniciya.
-#  Cikti: veri\gtip-kdv.json = {
-#    "fasil": { "01": { "o1":[{"m":metin,"poz":[...]}], "o10":[...] } , ... },
-#    "not": "listede yoksa %20"
-#  }
+#
+#  v1'de yakalanan HATALAR (elle denetim, Cem 12.07.2026) ve DUZELTMELERI:
+#   - Liste II sonu DIPNOT/KORELASYON blogu ("GTİP güncellemesi","korelasyonu",
+#     "TGTC' de") maddelere yapisip sahte pozisyon bagliyordu -> blok KESILIR.
+#   - Mulga/degisiklik metni ("Değişmeden önceki", "N sayılı ... Yürürlük")
+#     -> SILINIR. Bare dipnot no "(NN)" -> silinir.
+#   - "hariç" istisna pozisyonlari kapsamda sanilyordu (8517 tibbi cihazdan
+#     haric ama poz'a giriyordu) -> "( ... hariç)" span'lari SCOPE'tan cikarilir.
+#   - Bosluklu tam kod "8428 90.71 00 00" -> "90.71" pozisyon sanilip fasil 90'a
+#     baglaniyordu -> bosluklu/noktali TAM KODLAR once maskelenir (ilk4=poz).
+#  KURAL: kesin oran UYDURULMAZ; temizlenmis hukum METNI gosterilir.
+#  Cikti: veri\gtip-kdv.json = { fasil:{ "NN":{o1:[{m,poz}],o10:[...]} }, ... }
 # ============================================================================
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -25,95 +29,110 @@ if($iIdx -lt 0 -or $iiIdx -lt 0 -or $dipIdx -lt 0){ throw "Liste sinirlari bulun
 $listeI  = $t.Substring($iIdx, $iiIdx - $iIdx)
 $listeII = $t.Substring($iiIdx, $dipIdx - $iiIdx)
 
-# --- bir hukum metninden fasil/pozisyon/tamkod referanslarini cikar ---
+# --- HUKUM METNINI TEMIZLE ---
+# 1) dipnot/korelasyon blogunu KES (ilk gucu isaretten itibaren at)
+$kesIsaretleri = @(
+  "GTİP güncellemesi", "korelasyonu", "Korelasyonu", "TGTC'",
+  "Değişmeden önceki", "değişmeden önceki", "kaldırılmadan önceki",
+  "sayılı listenin ", "uncu sıradaki", "uncu sırada ", "nci sırada ", "sayılı listenin…"
+)
+function KesBlok([string]$m){
+  $enErken = $m.Length
+  foreach($isaret in $kesIsaretleri){
+    $ix = $m.IndexOf($isaret)
+    if($ix -ge 0 -and $ix -lt $enErken){ $enErken = $ix }
+  }
+  if($enErken -lt $m.Length){ $m = $m.Substring(0, $enErken) }
+  return $m
+}
+# 2) degisiklik atiflari + dipnot no + koseli parantez + tirnak -> sil
+function Temizle([string]$m){
+  $m = KesBlok $m
+  $m = [regex]::Replace($m, '\[[^\]]*\]', ' ')                       # [ ... ] koseli blok
+  $m = [regex]::Replace($m, '\([^()]*\bsayılı\b[^()]*\)', ' ')        # (... sayılı Kararname/BKK/CK ...)
+  $m = [regex]::Replace($m, '\(\s*Yürürlük[^)]*\)', ' ')             # (Yürürlük: ...)
+  $m = [regex]::Replace($m, '\(\s*\d{1,3}\s*\)', ' ')                # bare dipnot no (14)
+  $m = [regex]::Replace($m, '\s*"\s*', ' ')                          # stray tirnak
+  $m = [regex]::Replace($m, '[AB]\)\s*(GIDA MADDELERİ|DİĞER MAL VE HİZMETLER)', ' ')  # bolum basligi sizintisi
+  $m = [regex]::Replace($m, '\s+', ' ').Trim()
+  $m = [regex]::Replace($m, '^\s*[,;]\s*', '')
+  $m = $m.TrimEnd(' ',',',';')
+  return $m
+}
+# scope metni: "( ... hariç)" istisnalarini da CIKAR (kapsam pozisyonu sanilmasin)
+function ScopeMetin([string]$mTemiz){
+  return [regex]::Replace($mTemiz, '\([^()]*hariç[^()]*\)', ' ')
+}
+
+# --- referans cikar (fasil + 4-hane pozisyon) ---
 function Refler([string]$metin){
   $fasillar = New-Object System.Collections.Generic.HashSet[string]
   $pozlar   = New-Object System.Collections.Generic.HashSet[string]
   $calisma = $metin
-
-  # 1) TAM 12 HANELI KOD: NNNN.NN.NN.NN.NN -> fasil(ilk2) + pozisyon(ilk4). Sonra MASKELE
-  #    (icindeki .90.50 gibi ciftler pozisyon sanilmasin)
-  foreach($m in [regex]::Matches($calisma, '\b(\d{2})(\d{2})\.\d{2}\.\d{2}\.\d{2}\.\d{2}\b')){
-    $f = $m.Groups[1].Value
-    if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f + $m.Groups[2].Value) }
+  # 1) TAM KOD (8-12 hane, nokta VEYA bosluk ayracli) -> fasil(ilk2)+poz(ilk4), maskele
+  $kodRx = '\b(\d{2})(\d{2})[\s.]\d{2}[\s.]\d{2}(?:[\s.]\d{2}){0,2}\b'
+  foreach($m in [regex]::Matches($calisma, $kodRx)){
+    $f=$m.Groups[1].Value; if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f+$m.Groups[2].Value) }
   }
-  $calisma = [regex]::Replace($calisma, '\b\d{4}\.\d{2}\.\d{2}\.\d{2}\.\d{2}\b', ' # ')
-
-  # 2) TARIHLERI MASKELE: GG.AA.YYYY / GG/AA/YYYY / AA/YYYY (pozisyon sanilmasin!)
+  $calisma = [regex]::Replace($calisma, $kodRx, ' # ')
+  # 2) tarih maskele
   $calisma = [regex]::Replace($calisma, '\b\d{1,2}[./]\d{1,2}[./]\d{2,4}\b', ' # ')
-  $calisma = [regex]::Replace($calisma, '\b\d{1,2}/\d{4}\b', ' # ')
-
-  # 3) "N no.lu fasil" / "NN no.lu faslinda" -> fasil
+  # 3) "N no.lu fasil"
   foreach($m in [regex]::Matches($calisma, '(\d{1,2})\s*no\.?\s*lu\s*fas')){
-    $f = [int]$m.Groups[1].Value; if($f -ge 1 -and $f -le 97){ [void]$fasillar.Add($f.ToString("00")) }
+    $f=[int]$m.Groups[1].Value; if($f -ge 1 -and $f -le 97){ [void]$fasillar.Add($f.ToString("00")) }
   }
-  # 4) STANDALONE pozisyon "NN.NN" (kod/tarih maskelendi) -> fasil + pozisyon
+  # 4) standalone 4-hane pozisyon "NN.NN"
   foreach($m in [regex]::Matches($calisma, '\b(\d{2})\.(\d{2})\b')){
-    $f = $m.Groups[1].Value
-    if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f + $m.Groups[2].Value) }
+    $f=$m.Groups[1].Value; if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f+$m.Groups[2].Value) }
   }
-  return @{ fasillar = @($fasillar); pozlar = @($pozlar) }
+  return @{ fasillar=@($fasillar); pozlar=@($pozlar) }
 }
 
-# --- liste govdesini HUKUMLERE bol (madde no + '-' ile baslayanlar) ---
-# ornek baslangiclar: "1 - ", "2- ", "13- a) ", "23-"
 function Hukumler([string]$govde){
-  # madde numaralari '<num>- ' seklinde (referans rakamlariyla karismasin diye
-  # ONCESINDE bosluk/virgul/parantez + SONRASINDA '- ' araniyor). Pozisyon 'NN.NN'
-  # nokta icerdigi icin, tam kodlar noktali oldugu icin bunlara takilmaz.
   $parcalar = [regex]::Split($govde, '(?<=[ ,;)])(?=\d{1,3}\s*-\s)')
-  $sonuc = @()
-  foreach($p in $parcalar){
-    $p = $p.Trim()
-    if($p.Length -lt 8){ continue }
-    $sonuc += $p
-  }
-  return $sonuc
+  $sonuc=@(); foreach($p in $parcalar){ $p=$p.Trim(); if($p.Length -ge 8){ $sonuc+=$p } }; return $sonuc
 }
 
-# --- fasil indeksini kur ---
 $fasil = @{}
 function Ekle([string]$govde, [string]$oranEtiket){
-  $script:sayacHukum = 0
-  foreach($h in (Hukumler $govde)){
-    $r = Refler $h
-    if($r.fasillar.Count -eq 0){ continue }   # hicbir fasla baglanamayan genel hukum -> atla (kod sorgusunda gosterilemez)
-    $kisa = $h
-    if($kisa.Length -gt 1400){ $kisa = $kisa.Substring(0,1400) + "… (devamı için resmî listeyi açın)" }
+  $script:sayac=0
+  foreach($ham in (Hukumler $govde)){
+    $mTemiz = Temizle $ham
+    if($mTemiz.Length -lt 10){ continue }
+    $r = Refler (ScopeMetin $mTemiz)     # kapsam: haric cikarilmis metinden
+    if($r.fasillar.Count -eq 0){ continue }   # koda baglanamayan (hizmet vb.) -> atla
+    $goster = $mTemiz
+    if($goster.Length -gt 700){ $goster = $goster.Substring(0,700) + "… (devamı resmî listede)" }
+    $anahtar = ($goster.Substring(0,[Math]::Min(50,$goster.Length)))   # tekrar ayiklama anahtari
     foreach($f in $r.fasillar){
-      if(-not $fasil.ContainsKey($f)){ $fasil[$f] = @{ o1=@(); o10=@() } }
-      $kayit = @{ m = $kisa; poz = $r.pozlar }
-      if($oranEtiket -eq "1"){ $fasil[$f].o1 += $kayit } else { $fasil[$f].o10 += $kayit }
+      if(-not $fasil.ContainsKey($f)){ $fasil[$f]=@{ o1=@(); o10=@() } }
+      $hedefListe = if($oranEtiket -eq "1"){ $fasil[$f].o1 } else { $fasil[$f].o10 }
+      $varMi = $false
+      foreach($mevcut in $hedefListe){ if($mevcut.m.Substring(0,[Math]::Min(50,$mevcut.m.Length)) -eq $anahtar){ $varMi=$true; break } }
+      if($varMi){ continue }
+      $kayit=@{ m=$goster; poz=$r.pozlar }
+      if($oranEtiket -eq "1"){ $fasil[$f].o1+=$kayit } else { $fasil[$f].o10+=$kayit }
     }
-    $script:sayacHukum++
+    $script:sayac++
   }
-  return $script:sayacHukum
+  return $script:sayac
 }
 
 $n1  = Ekle $listeI  "1"
 $n10 = Ekle $listeII "10"
 
-# --- JSON ---
 $out = [ordered]@{
   guncelleme = "GİB güncel konsolide metin (2007/13033, 9126 s. CK dahil)"
   genelOran = 20
-  not = "Listede yer almayan mal ve hizmetlerde genel oran %20'dir. Aşağıdaki hükümler kodun faslına/pozisyonuna değiniyor; kesin oran ürünün tanımına ve 'hariç' istisnalarına bağlıdır — hükmü okuyun."
+  not = "Listede yer almayan mal ve hizmetlerde genel oran %20'dir. Aşağıdaki hükümler kodun faslına/pozisyonuna değiniyor; kesin oran ürünün tanımına ve 'hariç' istisnalarına bağlıdır — hükmü okuyun. Değişiklik/mülga metinler ve dipnotlar ayıklanmıştır; tam metin için GİB'e bakın."
   fasil = [ordered]@{}
 }
 foreach($f in ($fasil.Keys | Sort-Object)){ $out.fasil[$f] = $fasil[$f] }
-
-$veriDir = Join-Path $kok "veri"; New-Item -ItemType Directory -Force $veriDir | Out-Null
+$veriDir = Join-Path $kok "veri"
 $hedef = Join-Path $veriDir "gtip-kdv.json"
 ($out | ConvertTo-Json -Depth 6 -Compress) | Out-File $hedef -Encoding utf8
 
 ""
-"KDV HASAT BITTI."
-"  (I) %1  liste: $n1 hukum"
-"  (II) %10 liste: $n10 hukum"
-"  Fasil sayisi (indekslenen): $($fasil.Count)"
+"KDV HASAT v2 BITTI."
+"  (I)%1: $n1 hukum | (II)%10: $n10 hukum | fasil: $($fasil.Count)"
 "veri\gtip-kdv.json ($([math]::Round((Get-Item $hedef).Length/1KB)) KB)"
-""
-"--- DOGRULAMA fasil 87 (otomobil) %10 hukumleri ---"
-if($fasil.ContainsKey("87")){ foreach($k in $fasil["87"].o10){ "  [poz: $($k.poz -join ',')] " + $k.m.Substring(0,[Math]::Min(160,$k.m.Length)) } }
-"--- fasil 01 (canli hayvan) %1 ---"
-if($fasil.ContainsKey("01")){ foreach($k in $fasil["01"].o1){ "  " + $k.m.Substring(0,[Math]::Min(160,$k.m.Length)) } }
