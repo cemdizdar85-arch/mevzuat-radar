@@ -48,6 +48,15 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   </div>
   <div class="ipucu">Tam kod ya da başlangıcını yazabilirsin (ör. 6907 → o grubun tüm kodları).</div>
 
+  <div style="margin-top:10px">
+    <a href="#" onclick="adAraToggle();return false" style="display:inline-block;font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:700">🔍 Kodunu bilmiyor musun? Ürünün adıyla ara →</a>
+    <div id="adAraKutu" style="display:none;margin-top:10px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+      <input id="adAra" placeholder="ör. yoğurt, mermer blok, seramik lavabo, güneş paneli…" autocomplete="off" oninput="adAraCalis()" style="width:100%;font-size:15px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#06090f;color:var(--ink);font-family:inherit">
+      <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">Resmî Gümrük Tarife Cetveli'nin eşya tanımlarında arar (15.717 kod, Karar 10781 · RG 30.12.2025). İpucu: resmî tanımlar teknik dille yazılır — "buzdolabı" bulamazsan "soğutucu" dene.</div>
+      <div id="adAraSonuc" style="margin-top:8px"></div>
+    </div>
+  </div>
+
   <div style="margin-top:12px">
     <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Menşe ülke — bilirsen kesin oranı gösterelim (bilmiyorsan boş bırak, aralık gösteririz)</label>
     <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit">
@@ -86,6 +95,90 @@ Promise.all([
   fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({}))
 ]).then(([a,b,c,d,e,f,g,h,i])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; });
+
+// ============ ÜRÜN ADINDAN GTİP ARAMA (resmî Tarife Cetveli tanımları) ============
+// veri/gtip-tanim.json (~5MB) SADECE arama açılınca yüklenir — normal sorguyu yavaşlatmaz.
+let TANIM = null, TANIM_IDX = null, TANIM_SOZ = null;
+function trFold(s){ return (''+s).toLocaleLowerCase('tr')
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
+  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a').replace(/û/g,'u'); }
+function tanimYukle(){
+  if(TANIM) return Promise.resolve();
+  if(TANIM_SOZ) return TANIM_SOZ;
+  TANIM_SOZ = fetch('veri/gtip-tanim.json').then(r=>r.json()).then(j=>{
+    TANIM = j;
+    TANIM_IDX = Object.keys(j).map(k => [k, trFold(j[k])]);
+  }).catch(()=>{ TANIM_SOZ = null; });
+  return TANIM_SOZ;
+}
+function adAraToggle(){
+  const k = document.getElementById('adAraKutu');
+  const acik = k.style.display !== 'none';
+  k.style.display = acik ? 'none' : 'block';
+  if(!acik){ tanimYukle(); document.getElementById('adAra').focus(); }
+}
+let ARA_ZAMANLAYICI = null;
+function adAraCalis(){ clearTimeout(ARA_ZAMANLAYICI); ARA_ZAMANLAYICI = setTimeout(adAraYap, 220); }
+function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function adAraYap(){
+  const out = document.getElementById('adAraSonuc');
+  const ham = document.getElementById('adAra').value.trim();
+  const q = trFold(ham);
+  if(q.length < 3){ out.innerHTML = ham ? '<div style="font-size:12.5px;color:var(--dim)">En az 3 harf yaz…</div>' : ''; return; }
+  if(!TANIM_IDX){
+    out.innerHTML = '<div style="font-size:12.5px;color:var(--muted)">⏳ Tarife cetveli yükleniyor (ilk açılışta bir kez)…</div>';
+    tanimYukle().then(adAraYap);
+    return;
+  }
+  const parcalar = q.split(/\s+/).filter(t => t.length >= 2);
+  if(!parcalar.length){ out.innerHTML=''; return; }
+  const bulunan = [];
+  for(const [kod, txt] of TANIM_IDX){
+    let hepsiVar = true;
+    for(const p of parcalar){ if(txt.indexOf(p) < 0){ hepsiVar = false; break; } }
+    if(!hepsiVar) continue;
+    // puan: kelime kodun KENDİ tanımında (son › parçası) geçiyorsa öne al; kısa metin öne al
+    const sonAyrac = txt.lastIndexOf('›');
+    const kendi = sonAyrac >= 0 ? txt.slice(sonAyrac+1) : txt;
+    let puan = 0;
+    for(const p of parcalar){ if(kendi.indexOf(p) >= 0) puan += 10; }
+    puan -= txt.length / 800;
+    bulunan.push([puan, kod]);
+  }
+  if(!bulunan.length){
+    out.innerHTML = '<div style="font-size:13px;color:var(--muted)">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır — eş anlamlı dene (ör. "cep telefonu" → "telefon", "buzdolabı" → "soğutucu", "ayakkabı" → "ayakkabı" ya da malzemesiyle ara).</div>';
+    return;
+  }
+  bulunan.sort((a,b) => b[0]-a[0]);
+  const ust = bulunan.slice(0, 20);
+  out.innerHTML = ust.map(([p, kod]) => {
+    const t = TANIM[kod];
+    const sonAyrac = t.lastIndexOf('›');
+    const zincir = sonAyrac >= 0 ? t.slice(0, sonAyrac).trim() : '';
+    const kendi  = sonAyrac >= 0 ? t.slice(sonAyrac+1).trim() : t;
+    return `<div onclick="adAraSec('${kod}')" style="padding:10px 12px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:#06090f;cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
+      <b style="color:var(--green);font-size:14px">${kod}</b>
+      <div style="font-size:13px;color:var(--ink);margin-top:2px">${htmlEsc(kendi)}</div>
+      ${zincir ? `<div style="font-size:11.5px;color:var(--dim);margin-top:2px">${htmlEsc(zincir)}</div>` : ''}
+    </div>`;
+  }).join('') + (bulunan.length > 20 ? `<div style="font-size:12px;color:var(--dim);margin-top:8px">+${bulunan.length-20} eşleşme daha var — kelime ekleyerek daralt.</div>` : '');
+}
+function adAraSec(kod){
+  document.getElementById('gtip').value = kod;
+  sorgula();
+  document.getElementById('sonuc').scrollIntoView({behavior:'smooth', block:'start'});
+}
+// sonuç kartının üstünde resmî eşya tanımını göster (tam kod sorgulandıysa)
+function tanimBloku(kod){
+  setTimeout(() => { tanimYukle().then(() => {
+    const el = document.getElementById('tanimBlk');
+    if(!el || !TANIM || !TANIM[kod]) return;
+    el.innerHTML = `<div style="margin:0 0 10px;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+      <div style="font-size:10.5px;font-weight:800;letter-spacing:.5px;color:var(--accent);margin-bottom:4px">📖 RESMÎ EŞYA TANIMI — Gümrük Tarife Cetveli</div>
+      <div style="font-size:13px;color:var(--muted)">${htmlEsc(TANIM[kod])}</div></div>`;
+  }); }, 0);
+  return '<div id="tanimBlk"></div>';
+}
 
 // EMY (Tarım Payı) değerini insan diline çevir — T2/dipnot UYDURULMAZ, olduğu gibi açıklanır
 function emyDeger(v){
@@ -284,7 +377,7 @@ function sorgula(){
       vHtml = tarimKart(kod);
     }
     const veriVar = vk.length || tk.length;
-    s.innerHTML = dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
+    s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
       <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${veriVar?' Vergi oranları aşağıda:':''}</p>${vHtml}</div>` + ctaHtml();
     return;
@@ -315,7 +408,7 @@ function sorgula(){
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
   }
-  s.innerHTML = dHtml + html + ctaHtml();
+  s.innerHTML = tanimBloku(q) + dHtml + html + ctaHtml();
 }
 function ctaHtml(){
   return `<div class="cta" id="takipKutu">
