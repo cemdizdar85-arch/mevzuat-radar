@@ -76,6 +76,12 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **KV indirimli oran** (vergi-sabitleri.json kvOranlari + kurulus.html vergi kıyası paneli + bilgi.html#hap-kv-indirim): Genel %25. İmalatçı (sanayi sicil+fiili üretim) münhasıran üretim kazancı 2026 **%24** (1 puan, KVK m.32/8), 2027+ **%12,5** (12,5 puan, 7582 s. Kanun RG 04.06.2026). İhracatçı ihracat kazancı **%20** (5 puan, m.32/7). Al-sat %25. Cem "%12" dedi → aslında 2027 imalatçı oranı %12,5 (kanun çıktı, 2027 kazancına). Şartlar (münhasıran kazanç, sanayi sicil belgesi, kur farkı hariç) dürüstçe yazıldı.
 - **15 eşik sayfası tek tek re-denetlendi** (elle, birincil): avukat 1.250.000 (AŞ 250k×5, canlı teyit + 2026 aylık asgari 45.000 TL TBB eklendi), bağımsız denetim 500M/1mlyr/150, çalışan temsilcisi 2+, e-defter 3 kapı/3M, e-fatura 3M/500K/otel, e-irsaliye 10M/İDİS 1M, emzirme 100/151, engelli 50/%3, İSG kurulu 50+6ay, İSG uzmanı (7538 revize+istisna), KEP m.5/1-f geniş, toplu çıkarma 20+, transfer fiyat 30k/500M/750M€, TTK 1524, VERBİS 100M/mikro istisna. **Hepsi doğru — hata çıkmadı, güncel.**
 
+## ✅ KAÇIRMAYI ÖNLEME + BALIK + EK VERGİLER (12.07.2026, beşinci tur — Cem "ban fikir ver")
+- **Yöntem (KAPSAM-KONTROL.md):** Hafızaya değil resmî eksiksiz sayım listesine çentik. İthalat ankoru = Ticaret Bak. "Güncel Vergi Kodları" (25.06.2026). Çentikleyince KKDF dışında sistematik eksikler çıktı.
+- **BALIK — IV Sayılı Liste (kör nokta kapandı):** Toplu Konut Fonu'nu kovalarken İthalat Rejimi'nin IV/V/VI/VII listelerini hiç hasat etmediğimiz ortaya çıktı. IV (balıkçılık/su ürünleri) hasat edildi: **569 kod, GV (11 ülke) + EMY/Toplu Konut Fonu (11 ülke)**, deterministik zip/xml (motor/balik-hasat.ps1) → veri/gtip-balik.json. balikKart önek-duyarlı. Sütun-ülke hizası kaynakla doğrulandı (0303.11).
+- **5 vergi notu (birincil, rakam uydurulmadan):** Sübvansiyona Karşı Vergi (3577 s.), TEV (Gümrük K.+DİR), Toplu Konut Fonu (balık EMY + işlenmiş tarım EMV), Tütün Fonu (3291 s. — yaprak tütün 2018'de SIFIRLANDI, güncel rakam uydurulmadı), Damga (488 s. maktu).
+- **Hâlâ açık (KAPSAM-KONTROL'de):** V Sayılı Liste (GV askıya alınmış sanayi, 2.058 kod — GV=0 iyi haber listesi), VI/VII nihai kullanım (niş), Çevre katkı payı (kod 29) kontrol.
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
