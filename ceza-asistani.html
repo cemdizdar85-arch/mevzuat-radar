@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ceza Asistanı — ceza geldi, hangi kapı? (uzlaşma / indirim / dava) | Mevzuat Radarı</title>
-<meta name="description" content="Vergi ya da gümrük cezası tebliğ edildi. 30 gün (gümrükte 15 gün) içinde doğru kapıyı seç: pişmanlık, cezada indirim (%50), uzlaşma, dava ya da düzeltme. Yanlış kapı fazla ödetir — birincil kanun maddeleriyle sade Türkçe yol haritası.">
+<title>Ceza Asistanı — beyanname unuttum / yanlış verdim / ceza geldi, ne yapmalıyım? | Mevzuat Radarı</title>
+<meta name="description" content="KDV/muhtasar beyannamesini unuttum, eksik/yanlış verdim, fatura kesmedim, gümrük beyanı eksik ya da ceza tebliğ edildi — ne yapmalıyım? Pişmanlık, izaha davet, cezada indirim, uzlaşma, dava. Birincil kanun maddeleriyle sade yol haritası; yanlış kapı fazla ödetir.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -12,7 +12,7 @@
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
 .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
-h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
+h1{font-size:clamp(23px,4.3vw,31px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
 .lead{color:var(--muted);font-size:15.5px;margin:0 0 14px}.lead b{color:var(--ink)}
 .sayac{display:flex;align-items:center;gap:9px;background:rgba(255,107,94,.09);border:1px solid rgba(255,107,94,.3);border-radius:11px;padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:20px;font-weight:600}.sayac b{color:var(--ink)}
 .ilerle{display:flex;gap:6px;margin-bottom:20px}
@@ -50,136 +50,176 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="hizmet.html">Hizmet Faturası</a> · Ceza Asistanı</div>
-  <h1>Ceza tebliğ edildi — hangi kapıyı seçmeliyim?</h1>
-  <p class="lead">Vergi ya da gümrük cezası geldiğinde önünde <b>birkaç kapı</b> var: pişmanlık, cezada indirim, uzlaşma, dava, düzeltme. Her birinin <b>süresi ve maliyeti farklı</b> — yanlış kapı seni <b>fazla ödetir</b> veya hakkını kaybettirir. Cevapla, sana uygun yolu birincil kanun maddeleriyle göstereyim.</p>
-  <div class="sayac">⏱️ <b>Süre işliyor:</b> vergi cezasında genelde <b>30 gün</b>, gümrük itirazında <b>15 gün</b> — tebliğ tarihinden itibaren. Geciken kapı kapanır.</div>
+  <h1>Ne oldu? — beyanname, belge ya da ceza sorununu çöz</h1>
+  <p class="lead">"KDV beyannamesini unuttum", "eksik/yanlış verdim", "fatura kesmedim", "gümrük beyanım eksik" ya da "ceza tebliğ edildi" — durumunu seç, sana <b>doğru kapıyı</b> (pişmanlık, izaha davet, cezada indirim, uzlaşma, dava) birincil kanun maddeleriyle göstereyim. <b>Anahtar soru şu: seni yakaladılar mı, yoksa kendin mi fark ettin?</b> Cevabı her şeyi değiştirir.</p>
+  <div class="sayac">⏱️ <b>Zamanla yarışıyorsun:</b> kendin bildirirsen (yakalanmadan) ceza çoğu zaman <b>sıfırlanır</b>; ihbarname geldiyse vergide <b>30</b>, gümrükte <b>15</b> günün var.</div>
 
   <div class="ilerle" id="ilerle"></div>
   <div id="ekran"></div>
 
-  <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir; hukuki görüş değildir.</b> Kesin karar için YMM/mali müşavir veya vergi avukatına danış. Kaçakçılık (sahte belge) şüphesi varsa mutlaka avukatla çalış. Süreler tebliğ tarihinden işler; gününü kaçırma.</div>
-  <div class="dip">Mevzuat Radarı · Ceza yol haritası · Kaynak (mevzuat.gov.tr'den birebir): <b>VUK m.344</b> (vergi ziyaı 1/3 kat) · <b>m.371</b> (pişmanlık) · <b>m.376</b> (cezada indirim %50; 2024/7524 ile tek oran) · <b>Ek m.1/7</b> (uzlaşma) · <b>m.379</b> (kanun yolundan vazgeçme) · <b>m.116-126</b> (düzeltme) · <b>Gümrük Kanunu m.242</b> (15 gün itiraz), <b>m.244</b> (uzlaşma) · SMMM Cem Dizdar</div>
+  <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir; hukuki görüş değildir.</b> Kesin karar için YMM/mali müşavir veya vergi avukatına danış. Kaçakçılık (sahte belge) şüphesi varsa mutlaka avukatla çalış. Süreler tebliğ tarihinden işler.</div>
+  <div class="dip">Mevzuat Radarı · Ceza yol haritası · Kaynak (mevzuat.gov.tr'den birebir okundu): <b>VUK m.344</b> (vergi ziyaı 1/3 kat) · <b>m.352/353</b> (usulsüzlük / özel usulsüzlük — e-belge dahil) · <b>m.370</b> (izaha davet, ceza %20) · <b>m.371</b> (pişmanlık, ceza sıfır) · <b>m.376</b> (cezada indirim %50; 2024/7524 ile tek oran; usulsüzlük cezalarına da uygulanır) · <b>Ek m.1/7</b> (uzlaşma) · <b>m.379</b> (kanun yolundan vazgeçme) · <b>Gümrük K. m.242</b> (15 gün itiraz), <b>m.244</b> (uzlaşma) · SMMM Cem Dizdar</div>
 </div>
 
 <script>
 const C={};
-function ilerle(n){ let h=''; for(let i=0;i<4;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
+function ilerle(n){ let h=''; for(let i=0;i<3;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
 function ekran(html){ document.getElementById('ekran').innerHTML='<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
 function sec(list,back){ return list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+(back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
-function kapi(ad,sure,acil,ac,oner){ return `<div class="kapi ${oner?'oner':''}"><div class="b"><div class="ad">${ad}${oner?'<span class="rozet">SANA UYGUN</span>':''}</div><div class="sure ${acil?'acil':''}">${sure}</div></div><div class="ac">${ac}</div></div>`; }
+function kapi(ad,sure,acil,ac,oner){ return `<div class="kapi ${oner?'oner':''}"><div class="b"><div class="ad">${ad}${oner?'<span class="rozet">SANA UYGUN</span>':''}</div>${sure?`<div class="sure ${acil?'acil':''}">${sure}</div>`:''}</div><div class="ac">${ac}</div></div>`; }
+function btnGeri(){ return `<button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`; }
 
-function baslat(){ C.kurum=null;C.durum=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
-  ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Cezayı kim kesti?</div><div class="sac">İhbarnamenin/kararın başlığına bak.</div>`+
+// ===== ADIM 1 — NE OLDU? =====
+function baslat(){ C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
+  ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Durumunu seç.</div><div class="sac">En yakın olanı işaretle; sonraki adımda detaylandırırız.</div>`+
     sec([
-      {t:"🏛️ Vergi dairesi / GİB", s:"Vergi/ceza ihbarnamesi — vergi ziyaı, usulsüzlük, özel usulsüzlük", on:"C.kurum='vergi';vergiDurum()"},
-      {t:"🛃 Gümrük idaresi", s:"İthalat/ihracatta ek tahakkuk + para cezası (Gümrük Kanunu)", on:"C.kurum='gumruk';gumrukSonuc()"}
+      {t:"📄 Beyannameyi hiç vermedim / geç kaldım",s:"KDV, muhtasar, geçici vergi, yıllık beyanname… süresinde verilmedi",on:"C.senaryo='vermedim';asamaSor()"},
+      {t:"✏️ Beyannameyi eksik/yanlış verdim",s:"Matrah/vergi olması gerekenden düşük çıktı, hata yaptım",on:"C.senaryo='yanlis';asamaSor()"},
+      {t:"🧾 Fatura / e-fatura / e-belge kesmedim",s:"Belge düzenlememe-almama, e-arşiv/e-defter/e-fatura eksiği",on:"C.senaryo='belge';belgeSonuc()"},
+      {t:"🛃 Gümrük beyanım eksik/yanlış",s:"Kıymet düşük, yanlış GTİP, eksik vergi — ithalat/ihracatta",on:"C.senaryo='gumruk';gumrukSenaryo()"},
+      {t:"✉️ İdareden 'İZAHA DAVET' yazısı geldi",s:"'Şu tespit var, izah et' diyen resmî yazı (henüz ceza değil)",on:"C.senaryo='izaha';izahaSonuc()"},
+      {t:"📩 Ceza / vergi ihbarnamesi ELİME GEÇTİ",s:"Tarhiyat yapıldı, ceza kesildi — süre işliyor",on:"C.senaryo='ihbarname';kurumSor()"}
     ]));
 }
-function vergiDurum(){ ilerle(1);
-  ekran(`<div class="soru">DURUM</div><div class="sbaslik">Şu an hangi aşamadasın?</div>
-    <div class="sac">Ceza fiilen kesildi mi, yoksa hatayı sen mi fark ettin?</div>`+
+
+// ===== ADIM 2 — SENİ YAKALADILAR MI? =====
+function asamaSor(){ ilerle(1);
+  const ne = C.senaryo==='vermedim' ? 'vermediğini' : 'yanlış verdiğini';
+  ekran(`<div class="soru">EN KRİTİK SORU</div><div class="sbaslik">Bu durumu <u>kim</u> fark etti?</div>
+    <div class="sac">Beyanı ${ne} kendin mi gördün, yoksa idare mi? Bu, cezanın sıfır mı yoksa tam mı olacağını belirler.</div>`+
     sec([
-      {t:"📩 Ceza/vergi ihbarnamesi ELİME GEÇTİ", s:"Tarhiyat yapıldı, ceza kesildi, süre işliyor", on:"C.durum='ihbarname';vergiBakis()"},
-      {t:"🕊️ Henüz ceza yok — hatayı ben fark ettim", s:"Eksik/yanlış beyan; inceleme başlamadı, kimse ihbar etmedi", on:"C.durum='onces';pismanlikSonuc()"}
+      {t:"🙋 Kendim fark ettim — henüz kimse bir şey demedi",s:"İnceleme/takdir başlamadı, ihbar yok, izaha davet gelmedi",on:"C.asama='onces';pismanlikSonuc()"},
+      {t:"✉️ İdareden 'izaha davet' yazısı geldi",s:"'Şu tespit var, açıkla' dendi (henüz ceza kesilmedi)",on:"C.asama='izaha';izahaSonuc()"},
+      {t:"📩 İnceleme başladı / ceza ihbarnamesi geldi",s:"Tarhiyat yapıldı ya da vergi incelemesine alındın",on:"C.asama='sonra';C.kurum='vergi';vergiBakis()"}
     ],"baslat()"));
 }
-function vergiBakis(){ ilerle(2);
-  ekran(`<div class="soru">BAKIŞIN</div><div class="sbaslik">Cezaya nasıl bakıyorsun?</div>
-    <div class="sac">Bu, doğru kapıyı belirler — en kritik seçim.</div>`+
-    sec([
-      {t:"✅ Haklılar / itiraz etmeyeceğim — en az ödeyip kapatayım", s:"Cezayı kabul ediyorsun; hedefin hızlı ve ucuz kapanış", on:"C.bakis='kabul';kacakcilikSor()"},
-      {t:"🤝 Kısmen haksız — pazarlık/indirim isterim", s:"Tartışmalı; komisyonla anlaşmaya açıksın", on:"C.bakis='uzlas';kacakcilikSor()"},
-      {t:"⚖️ Tamamen haksız — hukuki mücadele edeceğim", s:"Cezanın kaldırılmasını istiyorsun", on:"C.bakis='dava';kacakcilikSor()"},
-      {t:"🔢 Ortada açık bir HESAP/VERGİ HATASI var", s:"Mükerrer tarh, yanlış matrah, hesap yanlışı (yorum farkı değil)", on:"C.bakis='duzeltme';kacakcilikSor()"}
-    ],"vergiDurum()"));
+
+// ===== PİŞMANLIK (ceza sıfır) =====
+function pismanlikSonuc(){ ilerle(2);
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🕊️ En değerli kapı sende açık: PİŞMANLIK</div>
+    <div class="ozet iyi">Seni kimse yakalamadan <b>kendin bildirdiğin</b> için, beyana dayalı vergilerde <b>vergi ziyaı cezası HİÇ kesilmez</b> — sadece pişmanlık zammı ödersin. Bugün davranmak, yarın davranmaktan çok daha ucuz.</div>
+    ${kapi('Pişmanlık ve ıslah — VUK m.371','HEMEN',true,'Bağlı olduğun vergi dairesine <b>kendiliğinden dilekçe</b> ("pişmanlık talebi") ver; <b>15 gün</b> içinde eksik/düzeltme beyannameyi verip vergiyi + <b>pişmanlık zammını</b> öde. Sonuç: <b>vergi ziyaı cezası SIFIR.</b> Şart: senden önce ihbar/inceleme/takdire sevk veya izaha davet <b>başlamamış</b> olmalı.',true)}
+    ${kapi('Kalabilecek küçük kalem — usulsüzlük','',false,'Beyannameyi süresinde vermemenin ayrı bir <b>usulsüzlük cezası</b> (VUK m.352, maktu) olabilir; vergi ziyaı cezasının yanında çok küçüktür. Vergi çıkmıyorsa (ziyaı yok) zaten yalnız bu kalır.')}
+    ${kapi('Bir gün bile önemli','',false,'İdare bir "ön tespit" yapar ya da izaha davet yollarsa bu konuda pişmanlık kapanır (m.370). O yüzden fark ettiğin an harekete geç.')}
+    ${btnGeri()}`);
 }
-function kacakcilikSor(){ ilerle(3);
-  ekran(`<div class="soru">SON SORU</div><div class="sbaslik">Cezanın gerekçesinde <u>sahte/muhteviyatı yanıltıcı belge</u> (kaçakçılık) var mı?</div>
-    <div class="sac">Vergi ziyaı cezası normalde verginin 1 katıdır; kaçakçılık (VUK m.359) fiillerinde <b>3 kat</b> uygulanır ve uzlaşma kapalıdır.</div>`+
+
+// ===== İZAHA DAVET (ceza %20) =====
+function izahaSonuc(){ ilerle(2);
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">✉️ İzaha davet geldi — sakin ol, bu bir fırsat</div>
+    <div class="ozet dikkat">İzaha davet <b>henüz ceza değil</b>. İyi haber: uyarsan ceza <b>çok düşük</b> (%20). Kötü haber: bu konuda artık <b>pişmanlıktan yararlanamazsın</b> (m.370). Doğru hamle: 30 günü kaçırmadan izah + ödeme.</div>
+    ${kapi('İzaha davete uy — VUK m.370','30 GÜN',true,'Yazının tebliğinden <b>30 gün</b> içinde <b>izahta bulun</b>. İzahın yeterli görülürse tarhiyat/ceza olmayabilir. Ziyaa uğratılan vergi varsa: vergiyi + <b>vergi ziyaı cezasının yalnızca %20\'sini</b> ödersin (normal 1 kat yerine — büyük indirim) ve beyannameni bu süre içinde verirsin.',true)}
+    ${kapi('Uygun değilse / izah yetmezse','',false,'İzah kabul edilmezse tarhiyat yapılır; o aşamada <b>uzlaşma</b> veya <b>cezada indirim (m.376)</b> veya <b>dava</b> kapıları açılır (aşağıdaki "ihbarname geldi" akışına bak).')}
+    ${kapi('Kaçakçılık istisnası','',false,'Ön tespit <b>sahte belge (m.359)</b> fiiline işaret ediyorsa izaha davet uygulanmaz — doğrudan inceleme + 3 kat ceza gündeme gelir. Avukatla çalış.')}
+    ${btnGeri()}`);
+}
+
+// ===== ÖZEL USULSÜZLÜK (belge) =====
+function belgeSonuc(){ ilerle(2);
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🧾 Belge düzeni eksiği — özel usulsüzlük</div>
+    <div class="ozet dikkat">Fatura / e-fatura / e-arşiv / gider pusulası / serbest meslek makbuzu düzenlememe-almama ya da gerçek tutardan farklı yazma → <b>özel usulsüzlük cezası</b> (VUK m.353). Bu ceza <b>vergi aslından bağımsızdır</b>, her belge için maktu kesilir ve yıllık üst sınırı vardır. e-belge zorunluluğunu kaçırmak da bu kapsamdadır.</div>
+    ${kapi('Cezada indirim — VUK m.376','30 GÜN',true,'İyi haber: m.376 %50 indirimi <b>usulsüzlük ve özel usulsüzlük cezalarına da uygulanır</b> (kanun metninde açıkça yazılı). İhbarnameden <b>30 gün</b> içinde başvurup süresinde ödersen <b>cezanın yarısı</b> siler. Şart: dava açmamak.',true)}
+    ${kapi('Uzlaşma','30 GÜN',false,'Özel usulsüzlükte uzlaşma kapsamı tutara/şarta bağlı olarak sınırlıdır; büyük tutarlarda YMM ile değerlendir.')}
+    ${kapi('Dava','30 GÜN',false,'Cezanın maddi şartı oluşmadıysa, tebliğ/tespit usulü hatalıysa ya da mücbir sebep varsa dava ile iptal edilebilir. Dava açarsan m.376 indirimini kaybedersin.')}
+    ${kapi('Önleme','',false,'e-fatura/e-arşiv/e-defter zorunluluk eşiklerini takip et — sık ceza sebebi budur. <a href="radar.html">Radar</a> ile eşik değişikliklerini izleyebilirsin.')}
+    ${btnGeri()}`);
+}
+
+// ===== GÜMRÜK SENARYO =====
+function gumrukSenaryo(){ ilerle(1);
+  ekran(`<div class="soru">DURUM</div><div class="sbaslik">🛃 Gümrük tarafında hangisi?</div>
+    <div class="sac">Yakalanmadan mı düzelteceksin, yoksa ceza kararı mı geldi?</div>`+
     sec([
-      {t:"❌ Hayır — normal matrah farkı / usul hatası", s:"Sahte belge yok; ceza 1 kat", on:"C.kacakcilik=false;vergiSonuc()"},
-      {t:"⚠️ Evet / emin değilim — sahte belge gündemde", s:"Ceza 3 kat + savcılık riski + uzlaşma yok", on:"C.kacakcilik=true;vergiSonuc()"}
+      {t:"🙋 Henüz yakalanmadım — beyanı düzelteceğim",s:"Eksik kıymet/vergiyi kendim tamamlayacağım",on:"gumrukKendiliginden()"},
+      {t:"📩 Gümrük ceza kararı / ek tahakkuk GELDİ",s:"Ceza tebliğ edildi, süre işliyor",on:"C.kacakcilikSor='g';gumrukKacak()"}
+    ],"baslat()"));
+}
+function gumrukKendiliginden(){ ilerle(2);
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🙋 Yakalanmadan düzelt — en ucuzu</div>
+    <div class="ozet iyi">Eksik/yanlış gümrük beyanını <b>gümrük kontrolünden önce kendiliğinden</b> düzeltip eksik vergiyi ödemek, ceza kararı beklemekten çok daha ucuzdur. Kendiliğinden bildirim cezayı hafifletir/önler.</div>
+    ${kapi('Tamamlayıcı beyan / kendiliğinden bildirim','HIZLI',true,'Gümrük müşavirinle <b>tamamlayıcı beyan</b> verip eksik gümrük vergisi + KDV\'yi öde. Sonradan gelen fiyat farkı/royalti/kıymet düzeltmesi için doğru mekanizma budur (Gümrük Yön. m.53). Yakalanmadan bildirmek, sonradan kesilecek cezaya göre çok avantajlı.',true)}
+    ${kapi('Doğru tutarı teyit et','',false,'Kıymet/GTİP/oran doğru mu: <a href="fiyatfarki.html">Fiyat Farkı aracı</a> (credit/debit note, royalti) ve <a href="gtip.html">GTİP Kontrolü</a> ile hesapla; beyanını bunlarla sağlam yap.')}
+    ${kapi('Kaçakçılık gündemdeyse','',false,'Sahte belge / bilerek eksik beyan (5607 kaçakçılık) varsa durum ağırdır — avukatla çalış, kendiliğinden bildirim yine de lehine olabilir ama hukuki yönlendirme şart.')}
+    ${btnGeri()}`);
+}
+function gumrukKacak(){ ilerle(2);
+  ekran(`<div class="soru">SON SORU</div><div class="sbaslik">Cezada <u>kaçakçılık (5607)</u> ilişkisi var mı?</div>
+    <div class="sac">Kaçakçılıkla ilişkili fiilde uzlaşma kapalıdır (Gümrük K. m.244).</div>`+
+    sec([
+      {t:"❌ Hayır — kıymet/tarife/eksik vergi farkı",s:"Normal ek tahakkuk + idari para cezası",on:"C.kacakcilik=false;gumrukYol()"},
+      {t:"⚠️ Evet / emin değilim",s:"Kaçakçılık gündemde",on:"C.kacakcilik=true;gumrukYol()"}
+    ],"gumrukSenaryo()"));
+}
+
+// ===== IHBARNAME GELDİ — kurum =====
+function kurumSor(){ ilerle(1);
+  ekran(`<div class="soru">KİM KESTİ?</div><div class="sbaslik">Ceza hangi idareden?</div><div class="sac">İhbarnamenin/kararın başlığına bak — süre farklı.</div>`+
+    sec([
+      {t:"🏛️ Vergi dairesi / GİB",s:"Vergi/ceza ihbarnamesi — 30 gün",on:"C.kurum='vergi';vergiBakis()"},
+      {t:"🛃 Gümrük idaresi",s:"Ek tahakkuk + para cezası — 15 gün",on:"C.kurum='gumruk';C.kacakcilikSor='g';gumrukKacak()"}
+    ],"baslat()"));
+}
+
+// ===== VERGİ İHBARNAME — bakış → kapılar =====
+function vergiBakis(){ ilerle(2);
+  ekran(`<div class="soru">BAKIŞIN</div><div class="sbaslik">Kesilen cezaya nasıl bakıyorsun?</div>
+    <div class="sac">Doğru kapıyı bu belirler — en kritik seçim.</div>`+
+    sec([
+      {t:"✅ Haklılar / itiraz etmem — en az ödeyip kapatayım",s:"Cezayı kabul; hedef hızlı-ucuz kapanış",on:"C.bakis='kabul';kacakcilikSor()"},
+      {t:"🤝 Kısmen haksız — pazarlık/indirim isterim",s:"Tartışmalı; komisyonla anlaşmaya açıksın",on:"C.bakis='uzlas';kacakcilikSor()"},
+      {t:"⚖️ Tamamen haksız — hukuki mücadele",s:"Cezanın kaldırılmasını istiyorsun",on:"C.bakis='dava';kacakcilikSor()"},
+      {t:"🔢 Açık HESAP/VERGİ HATASI var",s:"Mükerrer tarh, yanlış matrah/oran, hesap yanlışı",on:"C.bakis='duzeltme';kacakcilikSor()"}
+    ],C.senaryo==='ihbarname'?"kurumSor()":"asamaSor()"));
+}
+function kacakcilikSor(){
+  ekran(`<div class="soru">SON SORU</div><div class="sbaslik">Cezanın gerekçesinde <u>sahte/muhteviyatı yanıltıcı belge</u> (kaçakçılık) var mı?</div>
+    <div class="sac">Vergi ziyaı cezası normalde verginin 1 katı; kaçakçılık (VUK m.359) fiillerinde <b>3 kat</b> ve uzlaşma kapalıdır.</div>`+
+    sec([
+      {t:"❌ Hayır — normal matrah farkı / usul",s:"Sahte belge yok; ceza 1 kat",on:"C.kacakcilik=false;vergiSonuc()"},
+      {t:"⚠️ Evet / emin değilim",s:"Ceza 3 kat + savcılık + uzlaşma yok",on:"C.kacakcilik=true;vergiSonuc()"}
     ],"vergiBakis()"));
 }
-
-function pismanlikSonuc(){ ilerle(4);
-  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🕊️ En değerli kapı sende açık: PİŞMANLIK</div>
-    <div class="ozet iyi">Ceza <b>henüz kesilmediyse</b> ve inceleme/takdir başlamadan, ihbar edilmeden <b>kendin bildirirsen</b> vergi ziyaı cezası <b>hiç kesilmez</b> — sadece pişmanlık zammı ödersin. Kaçırılmayacak fırsat.</div>
-    ${kapi('Pişmanlık ve ıslah (VUK m.371)','HEMEN',true,'Bağlı olduğun vergi dairesine <b>kendiliğinden dilekçe</b> ver; <b>15 gün</b> içinde eksik beyannameyi verip vergiyi + <b>pişmanlık zammını</b> öde. Sonuç: <b>vergi ziyaı cezası SIFIR.</b> Şart: senden önce muhbir ihbar etmemiş, hakkında inceleme/takdire sevk başlamamış olmalı. Bir gün önce davranmak çok kıymetli.',true)}
-    ${kapi('Not — süre geçtiyse','—',false,'Kanuni süreden sonra ama <b>inceleme/ihbardan önce</b> kendiliğinden beyanda, vergi ziyaı cezası indirimli (yarısı) uygulanır (VUK m.344). Yine de pişmanlık en avantajlısıdır.',false)}
-    <button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`);
-}
-
-function vergiSonuc(){ ilerle(4);
-  const kc=C.kacakcilik;
-  let ozet,ozetT,kapilar='';
-  const uyariKacak = kc ? `<div class="ozet tehlike">⚠️ <b>Kaçakçılık şüphesi:</b> ceza verginin <b>3 katı</b> (VUK m.344/359), <b>uzlaşma kapalı</b> ve savcılığa suç duyurusu gündemde. Buradaki kapılar sınırlı işler — <b>mutlaka vergi avukatı + YMM</b> ile çalış. Aşağısı genel bilgidir.</div>` : '';
-
-  if(C.bakis==='kabul'){
-    ozetT='iyi'; ozet="Cezayı kabul edip en ucuz kapatmak istiyorsun → <b>cezada indirim (m.376)</b> senin yolun. Ama <b>sakın dava açma</b>, yoksa indirim yanar.";
-    kapilar =
-      kapi('Cezada indirim — VUK m.376','30 GÜN',true,'İhbarnamenin tebliğinden <b>30 gün</b> içinde vergi dairesine başvur; vergiyi ve <b>cezanın yarısını</b> vadesinde (ya da teminatla 3 ay içinde) ödeyeceğini bildir → <b>kesilen cezanın %50\'si silinir.</b> (2024/7524 ile tek oran; eski "tekerrürde 1/3" kalktı.) <b>Kesin şart: dava açmayacaksın.</b>',!kc)+
-      kapi('Alternatif — Uzlaşma','30 GÜN',false,'Tutar büyükse uzlaşma ile daha da düşürebilirsin; ama uzlaşınca dava hakkın biter. Kabul edip kapatacaksan m.376 daha hızlıdır.',false);
-  } else if(C.bakis==='uzlas'){
-    ozetT='dikkat'; ozet="Tartışmalı ve pazarlığa açıksın → <b>uzlaşma</b> senin yolun. Uzlaşma talebi dava süresini korur; anlaşamazsan dava hakkın sürer.";
-    kapilar =
-      kapi('Uzlaşma (VUK Ek m.1 / m.7)','30 GÜN',true, kc?'Kaçakçılık fiilinde uzlaşma UYGULANMAZ — bu kapı sana kapalı, dava/savunmaya bak.':'İhbarnameden <b>30 gün</b> içinde uzlaşma talep et. Komisyonla <b>vergi ve ceza pazarlıkla düşürülür</b>. <b>Uzlaşırsan artık dava açamaz</b>, şikayet edemezsin (Ek m.7). Uzlaşma <b>sağlanamazsa dava açma hakkın devam eder</b> (süre korunur). İnceleme aşamasındaysan "tarhiyat öncesi uzlaşma" da mümkündür.',!kc)+
-      kapi('Uzlaşma sağlanamazsa','—',false,'Anlaşma çıkmazsa: ya kalan süre içinde <b>dava</b> aç, ya da <b>m.376 indirimden</b> (%50) yararlanıp kapat. İkisinden birini seçersin.',false);
-  } else if(C.bakis==='dava'){
-    ozetT='dikkat'; ozet="Cezayı haksız buluyor, kaldırılmasını istiyorsun → <b>dava</b>. Ama bil ki dava açınca <b>m.376 %50 indirimini kaybedersin</b>; kazanırsan tamamı siler.";
-    kapilar =
-      kapi('Dava — vergi mahkemesi (İYUK)','30 GÜN',true,'İhbarnamenin tebliğinden <b>30 gün</b> içinde vergi mahkemesinde dava aç. Dava sürerken tahsilat için gerekirse <b>yürütmeyi durdurma</b> iste. <b>Kaybedersen</b> vergi + ceza + gecikme faizi tam ödenir; <b>kazanırsan</b> silinir.',!kc)+
-      kapi('Sonraki aşama — Kanun yolundan vazgeçme (m.379)','İSTİNAF/TEMYİZDE',false,'Dava sürerken vazgeçmek istersen: mahkeme kararına göre <b>kaldırılan verginin %60\'ı</b>, <b>tasdik edilen (aleyhine) verginin tamamı + o vergiye ait vergi ziyaı cezasının %75\'i</b> ödenerek uyuşmazlık biter (kalanı silinir, süresinde ödemede ek indirim).',false)+
-      kapi('Önce düşün','—',false,'Küçük/net tutarlarda dava masrafı+riski, m.376\'nın %50 indiriminden pahalı olabilir. Avukatınla "kazanma ihtimali × tutar"ı tart.',false);
-  } else { // duzeltme
-    ozetT='iyi'; ozet="Ortada <b>açık bir hata</b> (hesap/vergilendirme hatası) varsa → <b>düzeltme</b> en pratik ve ucuz yol. Yorum/takdir farkında bu kapı işlemez, oraya uzlaşma/dava lazım.";
-    kapilar =
-      kapi('Düzeltme talebi (VUK m.116–126)','DAVA SÜRESİNİ KORU',false,'Vergi dairesine <b>düzeltme dilekçesi</b> ver: mükerrer tarh, yanlış matrah/oran, hesap hatası gibi <b>açık hatalar</b> düzeltilir. <b>Önemli:</b> düzeltme talebi dava süresini durdurmayabilir — <b>30 günü kaçırma</b>, gerekirse aynı anda dava/uzlaşma yolunu da açık tut. Reddedilirse şikayet (Gelir İdaresi) → yargı.',!kc)+
-      kapi('Hata değil, görüş farkıysa','30 GÜN',false,'Konu "açık hata" değil de değerlendirme/yorum farkıysa düzeltme reddedilir — o zaman <b>uzlaşma</b> veya <b>dava</b> (30 gün) doğru kapıdır.',false);
-  }
-
-  // ortak: vergi ziyaı katı bilgisi + hesap
-  const hesapKutu = (!kc) ? `<div class="hesap"><h4>🧮 KABA HESAP — m.376 (%50 indirim) senaryosu</h4>
-      <div style="display:flex;gap:8px;margin-bottom:6px"><input class="gir" id="cez" type="number" inputmode="decimal" placeholder="Kesilen CEZA tutarı (TL)" oninput="cezHesap()"><input class="gir" id="ver" type="number" inputmode="decimal" placeholder="Vergi aslı (TL)" oninput="cezHesap()"></div>
-      <div id="cezOut" style="font-size:12.5px;color:var(--dim)">Ceza ve vergi aslını gir; m.376 ile ödeyeceğin çıksın.</div>
-      <div style="font-size:11px;color:var(--dim);margin-top:8px">Not: Vergi aslı her hâlde ödenir; indirim yalnız CEZADA. Gecikme faizi/zammı ayrıca işler. Uzlaşma/dava sonucu bundan farklı olabilir.</div></div>` : '';
-
-  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🏛️ Vergi cezası — önerilen kapı</div>
-    ${uyariKacak}
-    <div class="ozet ${ozetT}">${ozet}</div>
-    ${kapilar}
-    ${hesapKutu}
-    <button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`);
+function vergiSonuc(){ ilerle(3);
+  const kc=C.kacakcilik; let ozet,ozetT,kapilar='';
+  const uyariKacak = kc ? `<div class="ozet tehlike">⚠️ <b>Kaçakçılık şüphesi:</b> ceza verginin <b>3 katı</b> (m.344/359), <b>uzlaşma kapalı</b>, savcılığa suç duyurusu gündemde. Kapılar sınırlı işler — <b>mutlaka vergi avukatı + YMM</b>. Aşağısı genel bilgidir.</div>` : '';
+  if(C.bakis==='kabul'){ ozetT='iyi'; ozet="Kabul edip en ucuz kapatmak istiyorsun → <b>cezada indirim (m.376)</b>. Sakın dava açma, yoksa indirim yanar.";
+    kapilar=kapi('Cezada indirim — VUK m.376','30 GÜN',true,'İhbarnameden <b>30 gün</b> içinde başvur; vergiyi ve <b>cezanın yarısını</b> vadesinde (veya teminatla 3 ay) öde → <b>cezanın %50\'si silinir</b> (2024/7524 ile tek oran). <b>Şart: dava açmayacaksın.</b>',!kc)
+      +kapi('Alternatif — Uzlaşma','30 GÜN',false,'Tutar büyükse uzlaşmayla daha da düşebilir; ama uzlaşınca dava hakkın biter. Kapatacaksan m.376 daha hızlıdır.'); }
+  else if(C.bakis==='uzlas'){ ozetT='dikkat'; ozet="Tartışmalı ve pazarlığa açıksın → <b>uzlaşma</b>. Talep dava süresini korur; anlaşamazsan dava hakkın sürer.";
+    kapilar=kapi('Uzlaşma — VUK Ek m.1 / m.7','30 GÜN',true, kc?'Kaçakçılık fiilinde uzlaşma UYGULANMAZ — dava/savunmaya bak.':'İhbarnameden <b>30 gün</b> içinde uzlaşma talep et. Komisyonla <b>vergi ve ceza pazarlıkla düşer</b>. <b>Uzlaşırsan dava açamaz/şikayet edemezsin</b> (Ek m.7). Sağlanamazsa <b>dava hakkın sürer</b>. İnceleme aşamasındaysan "tarhiyat öncesi uzlaşma" mümkündür.',!kc)
+      +kapi('Uzlaşma çıkmazsa','',false,'Kalan sürede ya <b>dava</b> aç ya da <b>m.376 %50 indirimle</b> kapat — birini seç.'); }
+  else if(C.bakis==='dava'){ ozetT='dikkat'; ozet="Haksız buluyorsun → <b>dava</b>. Ama dava açınca <b>m.376 %50 indirimini kaybedersin</b>; kazanırsan tamamı siler.";
+    kapilar=kapi('Dava — vergi mahkemesi (İYUK)','30 GÜN',true,'İhbarnameden <b>30 gün</b> içinde vergi mahkemesinde dava aç. Gerekirse <b>yürütmeyi durdurma</b> iste. Kaybedersen vergi+ceza+gecikme faizi tam; kazanırsan silinir.',!kc)
+      +kapi('Sonraki aşama — Kanun yolundan vazgeçme (m.379)','İSTİNAF/TEMYİZDE',false,'Vazgeçersen: <b>kaldırılan verginin %60\'ı</b>, <b>tasdik edilen verginin tamamı + o vergiye ait vergi ziyaı cezasının %75\'i</b> ödenip biter (kalan silinir, süresinde ödemede ek indirim).')
+      +kapi('Önce tart','',false,'Küçük/net tutarda dava masrafı+riski, m.376\'nın %50\'sinden pahalı olabilir. "Kazanma ihtimali × tutar"ı avukatınla hesapla.'); }
+  else { ozetT='iyi'; ozet="Ortada <b>açık hata</b> (hesap/vergilendirme) varsa → <b>düzeltme</b> en ucuz yol. Yorum/takdir farkında bu kapı işlemez.";
+    kapilar=kapi('Düzeltme talebi — VUK m.116–126','30 GÜNÜ KORU',true,'Vergi dairesine düzeltme dilekçesi ver: <b>mükerrer tarh, yanlış matrah/oran, hesap hatası</b> gibi açık hatalar düzeltilir. Düzeltme dava süresini durdurmayabilir → <b>30 günü kaçırma</b>, gerekirse dava/uzlaşma yolunu da açık tut. Reddedilirse şikayet (GİB) → yargı.',!kc)
+      +kapi('Hata değil, görüş farkıysa','30 GÜN',false,'Açık hata değil de yorum farkıysa düzeltme reddedilir — o zaman <b>uzlaşma</b> veya <b>dava</b> (30 gün).'); }
+  const hesapKutu=(!kc)?`<div class="hesap"><h4>🧮 KABA HESAP — m.376 (%50 indirim) senaryosu</h4>
+    <div style="display:flex;gap:8px;margin-bottom:6px"><input class="gir" id="cez" type="number" inputmode="decimal" placeholder="Kesilen CEZA (TL)" oninput="cezHesap()"><input class="gir" id="ver" type="number" inputmode="decimal" placeholder="Vergi aslı (TL)" oninput="cezHesap()"></div>
+    <div id="cezOut" style="font-size:12.5px;color:var(--dim)">Ceza ve vergi aslını gir; m.376 ile ödeyeceğin çıksın.</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:8px">Vergi aslı her hâlde ödenir; indirim yalnız CEZADA. Gecikme faizi/zammı ayrıca. Uzlaşma/dava sonucu farklı olabilir.</div></div>`:'';
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🏛️ Vergi cezası — önerilen kapı</div>${uyariKacak}<div class="ozet ${ozetT}">${ozet}</div>${kapilar}${hesapKutu}${btnGeri()}`);
 }
 function cezHesap(){ const c=parseFloat((document.getElementById('cez').value||'').replace(',','.'))||0; const v=parseFloat((document.getElementById('ver').value||'').replace(',','.'))||0;
   const out=document.getElementById('cezOut'); if(!c&&!v){ out.innerHTML='Ceza ve vergi aslını gir; m.376 ile ödeyeceğin çıksın.'; return; }
-  const indirim=c*0.5, kalanCeza=c-indirim, toplam=v+kalanCeza;
-  const f=n=>n.toLocaleString('tr-TR',{maximumFractionDigits:2});
+  const ind=c*0.5, kalan=c-ind, top=v+kalan; const f=n=>n.toLocaleString('tr-TR',{maximumFractionDigits:2});
   out.innerHTML=`<div class="satir"><span>Kesilen ceza</span><span class="v">${f(c)} TL</span></div>
-    <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(indirim)} TL</span></div>
-    <div class="satir"><span>Ödenecek ceza</span><span class="v">${f(kalanCeza)} TL</span></div>
+    <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(ind)} TL</span></div>
+    <div class="satir"><span>Ödenecek ceza</span><span class="v">${f(kalan)} TL</span></div>
     <div class="satir"><span>+ Vergi aslı</span><span class="v">${f(v)} TL</span></div>
-    <div class="satir"><span><b>Toplam (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(toplam)} TL</span></div>`;
-}
+    <div class="satir"><span><b>Toplam (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(top)} TL</span></div>`; }
 
-function gumrukSonuc(){ ilerle(2);
-  ekran(`<div class="soru">DURUM</div><div class="sbaslik">🛃 Gümrük cezasında kaçakçılık (5607) ilişkisi var mı?</div>
-    <div class="sac">Süre burada farklı: gümrükte itiraz <b>15 gün</b> (vergideki 30 değil!). Önce bunu netleştirelim.</div>`+
-    sec([
-      {t:"❌ Hayır — kıymet/tarife/eksik vergi farkı",s:"Normal ek tahakkuk + idari para cezası",on:"C.kacakcilik=false;gumrukYol()"},
-      {t:"⚠️ Evet / emin değilim — kaçakçılık gündemde",s:"5607 s. Kanun; uzlaşma kapalı, ceza ağır",on:"C.kacakcilik=true;gumrukYol()"}
-    ],"baslat()"));
-}
-function gumrukYol(){ ilerle(4);
-  const kc=C.kacakcilik;
+// ===== GÜMRÜK CEZA — kapılar =====
+function gumrukYol(){ ilerle(3); const kc=C.kacakcilik;
   ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🛃 Gümrük cezası — önerilen kapı</div>
-    ${kc?`<div class="ozet tehlike">⚠️ <b>Kaçakçılık (5607) ilişkisi:</b> uzlaşma UYGULANMAZ, ceza ağırdır ve adli süreç işler. Mutlaka <b>gümrük + ceza avukatı</b> ile çalış. Aşağısı genel bilgidir.</div>`:''}
-    <div class="ozet dikkat"><b>Süreyi kaçırma:</b> gümrük kararlarına itiraz <b>15 gün</b> içindedir (VUK\'un 30 günü değil). Yanlış hatırlanan en pahalı hata budur.</div>
-    ${kapi('İtiraz — Gümrük Kanunu m.242','15 GÜN',true,'Karara/ceza kararına karşı tebliğden <b>15 gün</b> içinde <b>bir üst makama</b> (yoksa aynı makama) dilekçeyle itiraz et. İdare <b>30 gün</b> içinde karar verir. İtiraz reddedilirse, işlem yerindeki <b>idare/vergi mahkemesinde dava</b> yolu açılır. İtiraz, dava ön şartıdır — atlarsan doğrudan davada usulden sorun çıkar.',!kc)}
-    ${kc?'':kapi('Uzlaşma — Gümrük Kanunu m.244','SÜRESİNDE',false,'Gümrük vergileri ve cezalarında <b>uzlaşma</b> talep edilebilir; komisyonla tutar düşürülebilir. <b>Kaçakçılıkla ilişkili fiilde uygulanmaz.</b> Uzlaşma sağlanamazsa yeniden talep edilemez.',false)}
-    ${kapi('Peşin/erken ödeme indirimi','15 GÜN',false,'Bazı idari para cezalarında, cezaya karşı dava açmadan <b>15 gün içinde ödemede indirim</b> (ör. dörtte bir) uygulanabilir (Gümrük K. m.234 vd. / Kabahatler K. m.17). İtiraz/dava haklarını değerlendirmeden ödeme yapma — birini seçiyorsun.',false)}
-    ${kapi('Kıymet/tarife farkıysa','—',false,'Ceza sonradan gelen kıymet/tarife düzeltmesinden doğuyorsa, esasa da bak: <a href="fiyatfarki.html">Fiyat Farkı aracı</a> (tamamlayıcı beyan) ve <a href="gtip.html">GTİP Kontrolü</a> ile doğru oranı/kıymeti teyit et; itiraz gerekçeni bunlarla güçlendir.',false)}
-    <button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`);
+    ${kc?`<div class="ozet tehlike">⚠️ <b>Kaçakçılık (5607):</b> uzlaşma UYGULANMAZ, ceza ağır, adli süreç işler. Mutlaka <b>gümrük + ceza avukatı</b>. Aşağısı genel bilgidir.</div>`:''}
+    <div class="ozet dikkat"><b>Süreyi kaçırma:</b> gümrük itirazı <b>15 gün</b> (VUK\'un 30\'u değil). En pahalı yanlış hatırlama budur.</div>
+    ${kapi('İtiraz — Gümrük Kanunu m.242','15 GÜN',true,'Karara karşı tebliğden <b>15 gün</b> içinde <b>bir üst makama</b> (yoksa aynı makama) dilekçeyle itiraz et. İdare <b>30 gün</b>de karar verir. Ret → işlem yerindeki <b>idare/vergi mahkemesinde dava</b>. İtiraz, davanın ön şartıdır — atlarsan davada usulden sorun çıkar.',!kc)}
+    ${kc?'':kapi('Uzlaşma — Gümrük Kanunu m.244','SÜRESİNDE',false,'Gümrük vergileri ve cezalarında uzlaşma talep edilebilir; komisyonla düşürülebilir. <b>Kaçakçılıkla ilişkili fiilde uygulanmaz.</b> Sağlanamazsa yeniden talep edilemez.')}
+    ${kapi('Peşin/erken ödeme indirimi','15 GÜN',false,'Bazı idari para cezalarında, dava açmadan <b>15 gün içinde ödemede indirim</b> (ör. dörtte bir) mümkündür (Gümrük K. m.234 vd. / Kabahatler K. m.17). İtiraz/dava haklarını değerlendirmeden ödeme — birini seçiyorsun.')}
+    ${kapi('Esasa da bak','',false,'Ceza sonradan kıymet/tarife düzeltmesindense: <a href="fiyatfarki.html">Fiyat Farkı</a> (tamamlayıcı beyan) ve <a href="gtip.html">GTİP Kontrolü</a> ile doğru oranı teyit et; itiraz gerekçeni güçlendir.')}
+    ${btnGeri()}`);
 }
 baslat();
 </script>
