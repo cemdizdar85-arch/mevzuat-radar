@@ -74,7 +74,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -82,8 +82,30 @@ Promise.all([
   fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([])),
   fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; });
+  fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; });
+
+// TARIM kodu ise: menşe ülkeye göre kesin gümrük vergisi tablosu (her ülke ayrı sütun)
+function tarimKart(kod){
+  if(!TARIM || !TARIM[kod]) return '';
+  const t = TARIM[kod];
+  const ulkeler = Object.keys(t);
+  // en düşük ve en yüksek oranı bul (özet için)
+  const oranlar = ulkeler.map(u=>t[u]);
+  const enDusuk = Math.min(...oranlar), enYuksek = Math.max(...oranlar);
+  let satir = ulkeler.map(u=>{
+    const o = t[u];
+    const renk = o===enDusuk ? 'var(--green)' : (o===enYuksek && enYuksek>enDusuk ? 'var(--amber)' : 'var(--muted)');
+    return `<div class="satir"><b style="font-weight:600">${u}</b><span style="color:${renk};font-weight:700">%${o}</span></div>`;
+  }).join('');
+  const fark = enYuksek>enDusuk ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">💡 Bu tarım ürününde menşe ülkeye göre gümrük vergisi <b style="color:var(--ink)">%${enDusuk} ile %${enYuksek}</b> arasında değişiyor — yeşil en avantajlı menşe, sarı en yüksek. Doğru ülkeden almak ciddi fark yaratır.</p>` : `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Bu kodda tüm menşelerde gümrük vergisi %${enDusuk}.</p>`;
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">🌾 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (tarım — kesin oranlar)</div>
+    ${satir}${fark}
+    <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı (I/II/III Sayılı tarım listeleri) — her menşe için birebir okundu. İGV, KDV ve varsa Tarım Payı (EMY) ayrıca hesaplanır; işlem öncesi gümrük müşavirine danış.</div>
+  </div>`;
+}
 // GTS/EAGU/OTDU siralamasi: kod dizisinde [abSta,katar,bae,eagu,otdu,gyu,du]
 const ULKE_SIRA = ["abSta","katar","bae","eagu","otdu","gyu","du"];
 
@@ -110,7 +132,7 @@ function dampingKart(q){
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
-  if(!VERGI || !VERGI[kod]) return '';
+  if(!VERGI || !VERGI[kod]) return tarimKart(kod);  // sanayi vergisi yoksa da tarım tablosu gösterilsin
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
@@ -158,6 +180,7 @@ function vergiKart(kod){
       </div>
       <div id="${sid}_out" style="margin-top:8px;font-size:13.5px;color:var(--muted)"></div>
     </div>
+    ${tarimKart(kod)}
   </div>`;
 }
 
