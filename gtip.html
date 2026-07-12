@@ -98,11 +98,11 @@ Promise.all([
 ]).then(([a,b,c,d,e,f,g,h,i,j])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; });
 
 // KDV: kodun faslına/pozisyonuna değinen liste hükümleri (rakam disiplini: kesin oran değil, METİN gösterilir)
+// Bağımsız kart — her geçerli kodda görünür (fasıla bağlı; sanayi GV verisi olmasa da çalışır).
 function kdvKart(kod){
   const fasil = kod.replace(/\./g,'').slice(0,2);
   const poz = kod.replace(/\./g,'').slice(0,4);
   const f = (KDV && KDV.fasil) ? KDV.fasil[fasil] : null;
-  // hüküm listesini HTML'e çevir; kodun pozisyonu geçen hükmü vurgula
   const hukumHtml = (arr, oran, renk) => (arr||[]).map(h => {
     const tam = (h.poz||[]).indexOf(poz) >= 0;
     return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${tam?renk:'var(--line2)'};border-radius:9px;background:#06090f">
@@ -110,17 +110,20 @@ function kdvKart(kod){
       <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
   }).join('');
   if(!f || ((!f.o1||!f.o1.length) && (!f.o10||!f.o10.length))){
-    return `<div class="satir"><b>KDV</b><span>%20 (genel oran)<sup style="color:var(--amber)">*</sup></span></div>`;
+    // fasıl indirimli listede hiç geçmiyor → genel oran %20 (dürüst, uydurma yok)
+    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — Katma Değer Vergisi</div>
+      <div class="satir"><b>Oran</b><span style="color:var(--ink);font-weight:700">%20 (genel oran)</span></div>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:7px">Bu ürünün faslı (${fasil}) 2007/13033 sayılı Kararın indirimli %1/%10 listelerinde <b>geçmiyor</b> — genel oran %20 uygulanır. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. Kaynak: GİB güncel konsolide metin.</div>
+    </div>`;
   }
-  const oncelik = (f.o1||[]).concat(f.o10||[]).some(h => (h.poz||[]).indexOf(poz)>=0);
-  return `<div class="satir"><b>KDV</b><span style="color:${oncelik?'var(--amber)':'var(--muted)'}">liste hükmü var — aşağıya bak<sup style="color:var(--amber)">*</sup></span></div>`
-    + `<div id="kdvBlok_${kod.replace(/\./g,'')}" style="margin-top:10px;padding:11px 12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
-        <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin-bottom:4px">🧾 KDV — bu faslı ilgilendiren liste hükümleri</div>
-        <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran <b>%20</b>. Bu ürünün faslı (${fasil}) aşağıdaki indirimli-oran hükümlerinde geçiyor. <b style="color:var(--ink)">Kesin oranı biz söylemeyiz</b> — ürünün tam tanımına ve "hariç" istisnalarına bağlıdır; hükmü oku:</div>
-        ${hukumHtml(f.o1,'1','var(--green)')}
-        ${hukumHtml(f.o10,'10','var(--amber)')}
-        <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar, GİB güncel konsolide metin — (I) %1 ve (II) %10 sayılı listeler. Hüküm senin ürününü kapsıyor mu, "hariç" var mı: gümrük müşavirinle teyit et.</div>
-      </div>`;
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — bu faslı ilgilendiren liste hükümleri</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran <b>%20</b>. Bu ürünün faslı (${fasil}) aşağıdaki indirimli-oran hükümlerinde geçiyor. <b style="color:var(--ink)">Kesin oranı biz söylemeyiz</b> — ürünün tam tanımına ve "hariç" istisnalarına bağlıdır; hükmü oku:</div>
+      ${hukumHtml(f.o1,'1','var(--green)')}
+      ${hukumHtml(f.o10,'10','var(--amber)')}
+      <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar, GİB güncel konsolide metin — (I) %1 ve (II) %10 sayılı listeler. Hüküm senin ürününü kapsıyor mu, "hariç" var mı: gümrük müşavirinle teyit et. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır.</div>
+    </div>`;
 }
 
 // ============ ÜRÜN ADINDAN GTİP ARAMA (resmî Tarife Cetveli tanımları) ============
@@ -279,7 +282,7 @@ function dampingKart(q){
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
-  if(!VERGI || !VERGI[kod]) return tarimKart(kod);  // sanayi vergisi yoksa da tarım tablosu gösterilsin
+  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + kdvKart(kod);  // sanayi GV yoksa da tarım + KDV göster
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
@@ -310,9 +313,7 @@ function vergiKart(kod){
       ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin Gümrük Vergisi ve İGV oranımız var — yukarıdan menşe ülkeni seç, aralık kesinleşsin.</div>`;
     }
   }
-  if(!sat) return '';
-  // KDV: kodun faslına değinen (I)/%1 ve (II)/%10 liste hükümlerini göster (kesin oran uydurulmaz)
-  sat += kdvKart(kod);
+  if(!sat) return tarimKart(kod) + kdvKart(kod);  // GV/İGV çıkmadıysa da KDV görünsün
   const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
@@ -325,6 +326,7 @@ function vergiKart(kod){
       <div id="${sid}_out" style="margin-top:10px;font-size:13.5px;color:var(--muted)"></div>
     </div>
     ${tarimKart(kod)}
+    ${kdvKart(kod)}
   </div>`;
 }
 
@@ -399,14 +401,16 @@ function sorgula(){
       const kod = vk.find(k=>k===q) || vk[0];
       vHtml = vergiKart(kod).replace('margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)','');
     } else if(tk.length){
-      // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu
+      // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu + KDV
       const kod = tk.find(k=>k===q) || tk[0];
-      vHtml = tarimKart(kod);
+      vHtml = tarimKart(kod) + kdvKart(kod);
+    } else {
+      // hiç GV/İGV/tarım verisi yok → yine de KDV (fasıla bağlı) göster
+      vHtml = kdvKart(q);
     }
-    const veriVar = vk.length || tk.length;
     s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${veriVar?' Vergi oranları aşağıda:':''}</p>${vHtml}</div>` + ctaHtml();
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı. Vergiler aşağıda:</p>${vHtml}</div>` + ctaHtml();
     return;
   }
   let html = '';
