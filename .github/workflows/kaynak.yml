@@ -22,6 +22,10 @@ jobs:
         shell: pwsh
         run: ./arac/kaynak-nobetcisi.ps1
 
+      - name: Nokta-kontrol (regresyon testi — patlarsa commit YOK)
+        shell: pwsh
+        run: ./arac/nokta-kontrol.ps1
+
       - name: Degisiklik varsa yayinla
         run: |
           git config user.name "mevzuat-radar-bot"
