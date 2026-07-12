@@ -67,7 +67,8 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
       <option value="eagu">En Az Gelişmiş Ülke (EAGÜ listesi)</option>
       <option value="otdu">Özel Teşvik Düzenlemesi kapsamındaki ülke</option>
       <option value="gyu">Gelişme Yolundaki Ülke (GTS listesi)</option>
-      <option value="du">Diğer (Çin, ABD, Japonya, Hindistan, Rusya, vb. — çoğu ülke)</option>
+      <option value="du">Diğer (Çin, Japonya, Hindistan, Rusya, vb. — çoğu ülke)</option>
+      <option value="abd">ABD (Amerika Birleşik Devletleri) — baz oran Diğer ile aynı + misilleme ek vergisi olabilir</option>
     </select>
     <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">💡 AB/STA için gösterilen <b style="color:var(--muted)">indirimli oranı almak için</b> menşe/dolaşım belgesi (A.TR, EUR.1) şarttır — belge yoksa gümrük en yüksek oranı uygular. <a href="bilgi.html#hap-mense-belgeleri" target="_blank">Hangi belge? →</a></div>
   </div>
@@ -505,6 +506,18 @@ function tarimKart(kod){
 }
 // GTS/EAGU/OTDU siralamasi: kod dizisinde [abSta,katar,bae,eagu,otdu,gyu,du]
 const ULKE_SIRA = ["abSta","katar","bae","eagu","otdu","gyu","du"];
+// ABD baz gümrük vergisi = "Diğer" (DTÖ/MFN) ile aynı; ek misilleme vergisi ayrı notta gösterilir.
+function grupKodu(g){ return g==='abd' ? 'du' : g; }
+// ABD menşe misilleme uyarısı (2018/11973). Oran UYDURULMAZ — kapsam değişken, teyit et denir.
+function abdMisillemeKart(){
+  const g = (document.getElementById('ulkeGrup')||{}).value;
+  if(g!=='abd') return '';
+  return `<div style="margin:10px 0;padding:13px 15px;border:1px solid var(--amber);border-radius:12px;background:#1a1206">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:5px">🇺🇸 ABD MENŞE — MİSİLLEME EK GÜMRÜK VERGİSİ OLABİLİR</div>
+    <div style="font-size:12.5px;color:var(--muted);line-height:1.55">ABD menşeli ithalatta <b style="color:var(--ink)">baz gümrük vergisi Diğer ülkelerle aynıdır (DTÖ/MFN)</b> — yukarıdaki oran budur. ANCAK 2018/11973 sayılı Karar kapsamında bazı ABD menşeli ürünlerde (tarihsel olarak binek otomobil, alkollü içki, tütün, kozmetik, pirinç, kömür, kâğıt vb.) normal vergiye <b style="color:var(--ink)">EK misilleme gümrük vergisi</b> uygulanabilir. Kapsam/oranlar defalarca değişti — bu yüzden koda göre otomatik göstermiyoruz (eski/yanlış oran yazmayız). <b style="color:var(--ink)">ABD menşeli ithalat yapıyorsan yürürlükteki Kararı ve gümrük müşavirini mutlaka teyit et.</b></div>
+    <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Dayanak: 2018/11973 s. Karar (ve sonraki değişiklikleri) — güncel kapsam: Ticaret Bakanlığı Gümrük Vergileri Sorgulama.</div>
+  </div>`;
+}
 
 // damping/anti-damping önlem uyarısı: sorgulanan kod bir önleme dokunuyor mu?
 function dampingKart(q){
@@ -536,7 +549,7 @@ function vergiKart(kod){
   const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
 
   const igvSatir = IGV_ULKE ? IGV_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
-  const idx = seciliGrup ? ULKE_SIRA.indexOf(seciliGrup) : -1;
+  const idx = seciliGrup ? ULKE_SIRA.indexOf(grupKodu(seciliGrup)) : -1;
   let sat = '';
   let ulkeNotu = '';
   if((ulkeSatir || igvSatir) && seciliGrup){
@@ -612,7 +625,7 @@ function etkiHesapla(kod, sid){
 
   const igvSatir = IGV_ULKE ? IGV_ULKE[kod] : null;
   if((ulkeSatir || igvSatir) && seciliGrup){
-    const idx = ULKE_SIRA.indexOf(seciliGrup);
+    const idx = ULKE_SIRA.indexOf(grupKodu(seciliGrup));
     const gv = ulkeSatir ? ulkeSatir[idx] : null;
     const igvU = igvSatir ? igvSatir[idx] : null;
     if((gv!==null && gv!==undefined) || (igvU!==null && igvU!==undefined)){
@@ -664,7 +677,7 @@ function sorgula(){
       // hiç GV/İGV/tarım verisi yok → yine de ÖTV + KDV göster
       vHtml = askiyaKart(q) + nihaiKart(q) + balikKart(q) + gekapKart(q) + savunmaKart(q) + otvKart(q) + denetimKart(q) + kdvKart(q) + kkdfKart(q) + ihracatKart(q);
     }
-    s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
+    s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
       <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı. Vergiler aşağıda:</p>${vHtml}</div>` + ctaHtml();
     return;
@@ -695,7 +708,7 @@ function sorgula(){
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
   }
-  s.innerHTML = tanimBloku(q) + dHtml + html + ctaHtml();
+  s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + html + ctaHtml();
 }
 function ctaHtml(){
   return `<div class="cta" id="takipKutu">
