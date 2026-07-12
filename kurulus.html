@@ -173,6 +173,7 @@ const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 // Yeni tebliğ çıkınca TEK dosya güncellenir; bu sayfadaki bütün cümleler,
 // künyeler, gerekçeler ve uyarılar kendini yeniden yazar. Elle metin avı yok.
 const TLn = n => Math.round(n).toLocaleString('tr-TR');
+let SABIT = null;   // veri/vergi-sabitleri.json — aşağıda fetch ile dolar
 const FB = { yil:'2026', genc:'400.000', ltd:'50.000', as:'250.000', blokaj:'62.500', asKalan:'187.500', as500:'500.000', uyum:'31.12.2026',
   bagkur:'⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma.' };
 function yerlestir(t){
@@ -296,8 +297,7 @@ document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key===
 
 // ================= TÜR SİHİRBAZI =================
 const CEVAP = {};
-// Vergi sabitleri TEK dosyadan gelir (veri/vergi-sabitleri.json) — yeni tebliğ çıkınca yalnız o dosya güncellenir.
-let SABIT = null;
+// Vergi sabitleri TEK dosyadan gelir (veri/vergi-sabitleri.json) — SABIT değişkeni yerleştirme motorunda tanımlı.
 fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{ SABIT=j;
   const ki = document.getElementById('karInput');
   if(ki) ki.placeholder = 'ör. 1.500.000 (TL, ' + j.yil + ' hedefi)';
