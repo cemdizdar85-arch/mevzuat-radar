@@ -185,6 +185,22 @@ function Ekle([string]$govde, [string]$oranEtiket){
 $n1  = Ekle $listeI  "1"
 $n10 = Ekle $listeII "10"
 
+# === ISIM-BAZLI (II) LISTE TEKSTIL/DERI MADDELERI (sira 1,3,4,5,6,7,8,9) ===
+#  Bu maddeler Karar'da URUN ADIYLA yazili (GTIP kodu/fasil YOK) -> Refler baglayamaz, harvest atlar.
+#  Yasal kapsam Section XI tekstil butunu: iplik+her nevi mensucat+giyim+ev tekstili (yataklar haric)
+#  = fasil 50-63; islenmis deri ve deriden mamul = 41; deri esya/canta = 42; ayakkabi = 64; sapka = 65.
+#  Hepsi %10 KDV. Fasil bazinda tumF=10 eslenir (isim-bazli maddelerin kod karsiligi budur).
+$tekstilFasil = @('41','42','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65')
+$tekstilMetin = "TEKSTİL/KONFEKSİYON/DERİ — %10: (II) sayılı liste 1-9. sıralar (iplik, her nevi mensucat, iç/dış giyim eşyası ve ev tekstili [yataklar hariç], işlenmiş deri ve deriden mamul, ayakkabı, çanta, halı, şapka). Karar'da ürün adıyla yazılı; fasıl bazında eşlendi. Kesin kapsam için listeyi/gümrük müşavirini teyit et."
+foreach($tf in $tekstilFasil){
+  if(-not $fasil.ContainsKey($tf)){ $fasil[$tf]=@{ o1=@(); o10=@() } }
+  $zaten=$false; foreach($h in $fasil[$tf].o10){ if($h.m -and $h.m.StartsWith('TEKSTİL/KONFEKSİYON')){ $zaten=$true; break } }
+  if(-not $zaten){ $fasil[$tf].o10 += @{ m=$tekstilMetin; poz=@('__tekstil__'); kod=@('__tekstil__'); tumF=$true; kosul=$false; haric=@() } }
+}
+# Fermuar (96.07) + dugme/citcit/kopca (96.06): (II) 5. sira -> %10 (fasil 96'da SPESIFIK, tum fasil degil)
+if(-not $fasil.ContainsKey('96')){ $fasil['96']=@{ o1=@(); o10=@() } }
+$fasil['96'].o10 += @{ m="Fermuar (96.07), düğme/çıtçıt/kopça (96.06): (II) sayılı liste 5. sıra — tekstil aksesuarı %10. (Faslın tamamı değil, yalnız bu pozisyonlar.)"; poz=@('9606','9607'); kod=@(); tumF=$false; kosul=$false; haric=@() }
+
 $out = [ordered]@{
   guncelleme = "GİB güncel konsolide metin (2007/13033, 9126 s. CK dahil)"
   genelOran = 20
