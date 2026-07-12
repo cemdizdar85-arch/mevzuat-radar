@@ -84,7 +84,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -100,8 +100,9 @@ Promise.all([
   fetch('veri/gtip-ekvergi.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-balik.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-askiya.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-nihai.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; });
+  fetch('veri/gtip-nihai.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-ihracat-kisit.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; ASKIYA=n; NIHAI=o; IHRKISIT=p; });
 
 // VI/VII Sayılı Liste: belirli nihai kullanımda indirimli/sıfır GV — şartlı
 function nihaiKart(kod){
@@ -229,6 +230,19 @@ function ihracatKart(kod){
       <div style="font-size:11px;color:var(--muted);margin-top:4px">${EKVERGI.dfif.aciklama}</div>
       <div style="font-size:10.5px;color:var(--dim);margin-top:4px">Dayanak: ${EKVERGI.dfif.dayanak}</div>
     </div>` : '';
+  // kayda bağlı ihracat kontrolü (kodun pozisyonu/tam kodu listede mi)
+  let kaydaHtml = '';
+  if(IHRKISIT && IHRKISIT.kaydaBagli){
+    const d = kod.replace(/\./g,'');
+    let eslesen = null;
+    for(const p in IHRKISIT.kaydaBagli){ if(d.startsWith(p) || p.startsWith(d)){ eslesen = IHRKISIT.kaydaBagli[p]; break; } }
+    if(eslesen) kaydaHtml = `<div style="margin-top:10px;padding:11px 12px;border:1px solid var(--amber);border-radius:10px;background:#1a1206">
+      <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ İHRACI KAYDA BAĞLI</div>
+      <div style="font-size:12.5px;color:var(--ink)">${eslesen}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px">Bu ürünü ihraç etmeden önce İhracatçı Birliği'ne KAYIT yaptırman gerekir (İhracı Kayda Bağlı Mallara İlişkin Tebliğ 2006/7). Kaydı atlarsan mal gümrükten çıkamaz.</div>
+    </div>`;
+  }
+  const kisitNot = `<div style="margin-top:8px;font-size:11.5px;color:var(--dim)">İhracı YASAK (eski eser, ceviz/ıhlamur tomruğu, doğal çiçek soğanı…) veya ÖN İZİNLİ (harp/mühimmat→MSB, uyuşturucu→Sağlık, tehlikeli atık→Çevre, gübre/tohum→Tarım…) mallardan mısın? Tam liste: <a href="bilgi.html#hap-ihracat-kisit" target="_blank">ihracat kısıt rehberi →</a></div>`;
   const tev = EKVERGI.tev;
   const tevHtml = tev ? `<div style="margin-top:10px;padding:11px 12px;border:1px dashed var(--line2);border-radius:10px;background:#06090f">
       <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ ${tev.baslik}</div>
@@ -238,8 +252,10 @@ function ihracatKart(kod){
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:4px">📤 İHRACAT — bu koddan mal SATIYORSAN</div>
     ${maddeHtml}
+    ${kaydaHtml}
     ${dfifHtml}
     ${tevHtml}
+    ${kisitNot}
     <div style="font-size:10.5px;color:var(--dim);margin-top:8px">Dayanak: ${g.dayanak}. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danış.</div>
   </div>`;
 }
