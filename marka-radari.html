@@ -95,18 +95,19 @@ function hesapla(){
   const basvuru=new Date(t+'T00:00:00');
   if(isNaN(basvuru)){ h.textContent='Geçerli bir tarih gir.'; return; }
   const bugun=new Date(); bugun.setHours(0,0,0,0);
-  const bitis=yil(basvuru,10);            // koruma bitişi
-  const acilis=ay(bitis,-6);              // yenileme penceresi başlangıcı
-  const ekSonu=ay(bitis,6);               // ek ücretli son
-  // hangi 10-yıllık dönemdeyiz? (çok eski markada bir sonraki bitişe kaydır)
-  let bt=new Date(bitis);
-  while(ekSonu<bugun && bt<bugun){ // marka çok eskiyse sonraki dönemi göster
-    bt=yil(bt,10);
-  }
-  const gercekBitis = bt, gercekAcilis=ay(gercekBitis,-6), gercekEk=ay(gercekBitis,6);
+  const ilkBitis=yil(basvuru,10);         // ilk koruma bitişi
+  const gecti = bugun >= ay(ilkBitis,6);  // ilk süre + 6 ay ek de geçti mi?
+  // gösterilecek dönem: ilk dönemdeysek ilk; çok eskiyse (yenilendiği VARSAYIMIYLA) sonraki
+  let gercekBitis=new Date(ilkBitis);
+  if(gecti){ while(ay(gercekBitis,6) < bugun) gercekBitis=yil(gercekBitis,10); }
+  const gercekAcilis=ay(gercekBitis,-6), gercekEk=ay(gercekBitis,6);
 
   let durum,ozetT,mesaj,zaman;
-  if(bugun<gercekAcilis){ ozetT='iyi';
+  if(gecti){ ozetT='dikkat';
+    durum='ℹ️ İlk koruma süresi dolmuş — durum yenilemeye bağlı';
+    mesaj=`İlk 10 yıllık koruma <b>${fmt(ilkBitis)}</b> tarihinde doldu. <b>Yenilediysen:</b> bir sonraki yenileme penceresi <b>${fmt(gercekAcilis)}</b> (bitiş ${fmt(gercekBitis)}) — o tarihte hatırlatırız. <b>Yenilemediysen:</b> marka düşmüş olabilir (m.26); sicili marka vekiliyle teyit et. Araç yenileyip yenilemediğini bilemez.`;
+    zaman=`<div class="zaman"><i class="g" style="flex:70"></i><i class="a" style="flex:20"></i><i class="r" style="flex:10"></i></div>`;
+  } else if(bugun<gercekAcilis){ ozetT='iyi';
     const kalan=gun(gercekAcilis,bugun);
     durum='✅ Güvende'; mesaj=`Markan güvende. Yenileme penceresi <b>${fmt(gercekAcilis)}</b> tarihinde açılır (<b>${kalan} gün</b> sonra). O tarihte hatırlatalım.`;
     zaman=`<div class="zaman"><i class="g" style="flex:75"></i><i class="a" style="flex:15"></i><i class="r" style="flex:10"></i></div>`;
@@ -114,12 +115,9 @@ function hesapla(){
     const kalan=gun(gercekBitis,bugun);
     durum='⚠️ Yenileme penceresi AÇIK'; mesaj=`Şimdi <b>normal ücretle</b> yenilenebilir. Son gün <b>${fmt(gercekBitis)}</b> — sadece <b>${kalan} gün</b> kaldı. Kaçırma!`;
     zaman=`<div class="zaman"><i class="a" style="flex:60"></i><i class="r" style="flex:40"></i></div>`;
-  } else if(bugun<gercekEk){ ozetT='tehlike';
-    const kalan=gun(gercekEk,bugun);
-    durum='🔴 EK SÜREDE (ek ücretli)'; mesaj=`Normal süre doldu. <b>${fmt(gercekEk)}</b> tarihine kadar <b>EK ÜCRETLE</b> hâlâ yenilenebilir — son <b>${kalan} gün</b>. Bugün marka vekiline koş.`;
-    zaman=`<div class="zaman"><i class="r" style="flex:100"></i></div>`;
   } else { ozetT='tehlike';
-    durum='❌ Süre dolmuş görünüyor'; mesaj=`Bu markanın son yenileme tarihi <b>${fmt(gercekEk)}</b> idi. Yenilenmediyse marka <b>düşmüş</b> olabilir — sicili marka vekiliyle acilen kontrol et (m.26).`;
+    const kalan=gun(gercekEk,bugun);
+    durum='🔴 EK SÜREDE (ek ücretli)'; mesaj=`Normal süre doldu. <b>${fmt(gercekEk)}</b> tarihine kadar <b>EK ÜCRETLE</b> hâlâ yenilenebilir — son <b>${kalan} gün</b>. Bugün marka vekiline koş, yoksa marka düşer.`;
     zaman=`<div class="zaman"><i class="r" style="flex:100"></i></div>`;
   }
 
