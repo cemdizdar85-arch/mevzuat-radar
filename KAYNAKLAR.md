@@ -19,6 +19,12 @@ kopyalayan üçüncü site (içerik aynı ama kaynak resmî değil — sırası 
 | vergi-sabitleri: 2026 asgari ücret | **Asgari Ücret Tespit Komisyonu Kararı 2025/1, RG 26.12.2025/33119** | 🟢 BİRİNCİL (teyitli) |
 | vergi-sabitleri: kıdem tavanı | Hazine ve Maliye Bakanlığı memur katsayısı genelgesi (6 aylık) | 🟢 BİRİNCİL |
 
+## OTOMASYON (kaynaktan siteye)
+1. **RG nöbetçisi** (`arac/rg-tarama.ps1`, günlük): Resmî Gazete fihristini tarar; sabit/tebliğ değişikliği yakalarsa Cem'e mail.
+2. **Kaynak nöbetçisi** (`arac/kaynak-nobetcisi.ps1`, haftalık — .github/workflows/kaynak.yml): resmî kaynak dosyalarını (GİB KDV PDF, Ticaret Bak. vergi kodları/İthalat Rejimi duyuru) HASH ile izler; değişince Cem'e mail.
+3. **Deterministik yeniden hasat** (`motor/hepsini-hasat.ps1`): yeni İthalat Rejimi/İGV Excel'i gelince TEK KOMUTLA tüm veri/*.json yeniden üretilir (GV/İGV/tarım/balık/askıya/nihai) — Excel COM gerektirmez, ubuntu CI'da koşar, çıktı %100 deterministik (kaynak değişmezse JSON değişmez). Yapay zekâ ile "okuyup yazma" YOK.
+- İş bölümü: nöbetçiler HABER verir (asla uydurmaz); veri deterministik script'le ya da elle-birincil-okumayla güncellenir.
+
 ## KURAL
 - Yeni veri **önce resmî kurumun kendi yayınından** (Resmî Gazete, Ticaret Bakanlığı, GİB, mevzuat.gov.tr) alınır.
 - Ayna (gumruk.com.tr vb.) yalnız resmî PDF teknik nedenle açılamazsa geçici kullanılır; içerik **birincil metinle karşılaştırılıp** işaretlenir ve sırası gelince birincilden yeniden alınır.
