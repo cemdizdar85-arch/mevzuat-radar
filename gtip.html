@@ -83,7 +83,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -93,8 +93,35 @@ Promise.all([
   fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,i])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; });
+  fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,i,j])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; });
+
+// KDV: kodun faslına/pozisyonuna değinen liste hükümleri (rakam disiplini: kesin oran değil, METİN gösterilir)
+function kdvKart(kod){
+  const fasil = kod.replace(/\./g,'').slice(0,2);
+  const poz = kod.replace(/\./g,'').slice(0,4);
+  const f = (KDV && KDV.fasil) ? KDV.fasil[fasil] : null;
+  // hüküm listesini HTML'e çevir; kodun pozisyonu geçen hükmü vurgula
+  const hukumHtml = (arr, oran, renk) => (arr||[]).map(h => {
+    const tam = (h.poz||[]).indexOf(poz) >= 0;
+    return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${tam?renk:'var(--line2)'};border-radius:9px;background:#06090f">
+      <div style="font-size:10.5px;font-weight:800;color:${renk};margin-bottom:3px">%${oran}${tam?' · bu pozisyona birebir değiniyor':''}</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
+  }).join('');
+  if(!f || ((!f.o1||!f.o1.length) && (!f.o10||!f.o10.length))){
+    return `<div class="satir"><b>KDV</b><span>%20 (genel oran)<sup style="color:var(--amber)">*</sup></span></div>`;
+  }
+  const oncelik = (f.o1||[]).concat(f.o10||[]).some(h => (h.poz||[]).indexOf(poz)>=0);
+  return `<div class="satir"><b>KDV</b><span style="color:${oncelik?'var(--amber)':'var(--muted)'}">liste hükmü var — aşağıya bak<sup style="color:var(--amber)">*</sup></span></div>`
+    + `<div id="kdvBlok_${kod.replace(/\./g,'')}" style="margin-top:10px;padding:11px 12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin-bottom:4px">🧾 KDV — bu faslı ilgilendiren liste hükümleri</div>
+        <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran <b>%20</b>. Bu ürünün faslı (${fasil}) aşağıdaki indirimli-oran hükümlerinde geçiyor. <b style="color:var(--ink)">Kesin oranı biz söylemeyiz</b> — ürünün tam tanımına ve "hariç" istisnalarına bağlıdır; hükmü oku:</div>
+        ${hukumHtml(f.o1,'1','var(--green)')}
+        ${hukumHtml(f.o10,'10','var(--amber)')}
+        <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar, GİB güncel konsolide metin — (I) %1 ve (II) %10 sayılı listeler. Hüküm senin ürününü kapsıyor mu, "hariç" var mı: gümrük müşavirinle teyit et.</div>
+      </div>`;
+}
 
 // ============ ÜRÜN ADINDAN GTİP ARAMA (resmî Tarife Cetveli tanımları) ============
 // veri/gtip-tanim.json (~5MB) SADECE arama açılınca yüklenir — normal sorguyu yavaşlatmaz.
@@ -284,14 +311,14 @@ function vergiKart(kod){
     }
   }
   if(!sat) return '';
-  // KDV: GTİP bazlı temiz kaynak yok — standart oran + istisna notu (uydurma değil, dürüst genel)
-  sat += `<div class="satir"><b>KDV</b><span>%20 standart<sup style="color:var(--amber)">*</sup></span></div>`;
+  // KDV: kodun faslına değinen (I)/%1 ve (II)/%10 liste hükümlerini göster (kesin oran uydurulmaz)
+  sat += kdvKart(kod);
   const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
     ${sat}
     ${ulkeNotu}
-    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV standart %20’dir; temel gıda %1, bazı ürünler %10 indirimli listede olabilir — ürün tanımına göre değişir. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 BKK.</div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Gümrük Vergisi + İGV: en düşük oran genelde AB/tercihli, en yüksek diğer ülkeler (ör. Çin). <sup style="color:var(--amber)">*</sup>KDV genel oran %20’dir; bu kodun faslı indirimli (%1/%10) listede geçiyorsa hüküm yukarıda gösterilir — kesin oran ürün tanımına ve istisnalara bağlıdır. KDV, gümrük vergileri dahil matrah üzerinden hesaplanır. ÖTV yalnızca akaryakıt/araç/alkol/tütün gibi ürünlerde vardır. Kaynak: İthalat Rejimi + İGV Kararı (Ticaret Bak. 2026 konsolide) · KDV: 2007/13033 sayılı Karar (GİB güncel metin).</div>
     <div style="margin-top:12px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 CEBİNE ETKİSİ — yıllık ithalat tutarını yaz, anında hesaplansın</div>
       <input id="${sid}" placeholder="ör. 1.500.000 (TL, gümrük kıymeti)" inputmode="numeric" autocomplete="off" oninput="tutarYazildi('${kod}','${sid}')" style="width:100%;font-size:16px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#06090f;color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums">
