@@ -217,6 +217,20 @@ $fasil['05'].o1 += @{ m="Dondurulmuş hayvan (sığır) sperması: (I) sayılı 
 if(-not $fasil.ContainsKey('12')){ $fasil['12']=@{ o1=@(); o10=@() } }
 $fasil['12'].o1 += @{ m="Meyan kökü/balı/hülasası, çöven, sumak, defne, ıhlamur, adaçayı, mahlep vb. eczacılık-aromatik bitkiler (12.11); susam ve haşhaş tohumu (1207.40/1207.91): (I) sayılı liste 2. sıra — %1."; poz=@('1211'); kod=@('120740','120791'); tumF=$false; kosul=$false; haric=@() }
 
+# === DAHA FAZLA ISIM-BAZLI ORPHAN (tam-sayim taramasi) ===
+# (II) 20b GUBRE (fasil 31 tumu) %10
+if(-not $fasil.ContainsKey('31')){ $fasil['31']=@{ o1=@(); o10=@() } }
+$fasil['31'].o10 += @{ m="GÜBRE — %10: (II) sayılı liste — Tarım Bakanlığı tarafından tescil edilen gübreler ile gübre üreticilerine hammadde teslimi. Karar'da ürün adıyla yazılı; fasıl 31 (gübreler) eşlendi."; poz=@('__gubre__'); kod=@('__gubre__'); tumF=$true; kosul=$false; haric=@() }
+# (II) 19 PESTISIT/BITKI KORUMA (3808) %10
+if(-not $fasil.ContainsKey('38')){ $fasil['38']=@{ o1=@(); o10=@() } }
+$fasil['38'].o10 += @{ m="Bitki koruma ürünleri (zirai mücadele ilacı/pestisit) ve aktif maddeleri (38.08): (II) sayılı liste 19. sıra — %10. (Faslın tamamı değil, 38.08 pozisyonu.)"; poz=@('3808'); kod=@(); tumF=$false; kosul=$false; haric=@() }
+# (II) TIBBI CIHAZ/PROTEZ (90.21: ortopedik cihaz, protez organ, isitme cihazi) %10
+if(-not $fasil.ContainsKey('90')){ $fasil['90']=@{ o1=@(); o10=@() } }
+$fasil['90'].o10 += @{ m="Ortopedik cihazlar, kırıklara mahsus cihazlar, protez organlar, işitme cihazları ve vücut kusurunu gidermeye mahsus cihazlar (90.21): (II) sayılı liste — %10. (Faslın tamamı değil, 90.21 pozisyonu.)"; poz=@('9021'); kod=@(); tumF=$false; kosul=$false; haric=@() }
+# (I) GAZETE ve DERGILER (49.02) %1
+if(-not $fasil.ContainsKey('49')){ $fasil['49']=@{ o1=@(); o10=@() } }
+$fasil['49'].o1 += @{ m="Gazete ve dergiler (49.02): (I) sayılı liste — %1. (Kitap 49.01 bu listede yok; süreli yayın için 49.02.)"; poz=@('4902'); kod=@(); tumF=$false; kosul=$false; haric=@() }
+
 $out = [ordered]@{
   guncelleme = "GİB güncel konsolide metin (2007/13033, 9126 s. CK dahil)"
   genelOran = 20

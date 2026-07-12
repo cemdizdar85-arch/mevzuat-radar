@@ -99,6 +99,13 @@
     { "kod": "3006.60.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (II) 18 — tıbbi müstahzar %10 (fasıl 30)" },
     { "kod": "0511.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 7 — dondurulmuş hayvan sperması %1 (spesifik kod)" },
     { "kod": "1211.90.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 2 — meyan kökü/eczacılık-aromatik bitki %1 (poz 12.11)" },
-    { "kod": "3304.99.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — kozmetik (fasıl 33) ilaç değil, genel %20 (pharma eşlemesi sızmamalı)" }
+    { "kod": "3304.99.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — kozmetik (fasıl 33) ilaç değil, genel %20 (pharma eşlemesi sızmamalı)" },
+
+    { "kod": "3102.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (II) — gübre (fasıl 31) %10. Önce yanlış %20." },
+    { "kod": "3808.92.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (II) 19 — bitki koruma/pestisit (38.08) %10" },
+    { "kod": "9021.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (II) — ortopedik/protez/işitme cihazı (90.21) %10" },
+    { "kod": "4902.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) — gazete ve dergiler (49.02) %1" },
+    { "kod": "9018.90.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — tıbbi alet (90.18, 90.21 değil) genel %20 (protez eşlemesi sızmamalı)" },
+    { "kod": "3824.99.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — kimyasal müstahzar (38.24, pestisit değil) genel %20 (38.08 eşlemesi sızmamalı)" }
   ]
 }
