@@ -39,6 +39,13 @@
     "metin": "Gümrük beyannamesi damga vergisine tabidir — maktu (sabit) bir tutardır ve her yıl yeniden değerlemeyle güncellenir. Küçük bir kalemdir ama her beyannamede çıkar. Güncel maktu tutar için beyanname tarihindeki Damga Vergisi Kanunu (I) sayılı tarifeye bak.",
     "dayanak": "488 sayılı Damga Vergisi Kanunu"
   },
+  "savunmaSanayi": {
+    "fasil": ["93"],
+    "baslik": "Savunma sanayi — KDV istisnası + ihracat/ithalat kontrolü",
+    "kdvIstisna": "Milli Savunma Bakanlığı, Jandarma, Sahil Güvenlik, Savunma Sanayii Başkanlığı (SSB), MİT, Emniyet ve Gümrük Muhafaza'ya; savunma ve iç güvenlik ihtiyacı için yapılan teslimler (uçak, helikopter, gemi, tank, roket, füze, silah, mühimmat, sistem + Ar-Ge, yazılım, üretim) KDV'den istisnadır. Bu kurumlara mal satan YÜKLENİCİ firmalar da (yurtdışı dahil) sözleşmeye dayanarak istisnadan yararlanır; onaylı listedeki malı istisna belgesiyle KDV ÖDEMEDEN ithal edebilir. Alt sınır: ithalde yok, diğer alımlarda 10.000 TL (KDV hariç).",
+    "ihracatKontrol": "Silah/mühimmat (fasıl 93) ve çift kullanımlı/hassas malzeme (sivil+askeri kullanılabilen; birçok fasılda olabilir — makine, elektronik, kimyasal) ihracı İZNE tabidir: askeri malzeme → Milli Savunma Bakanlığı; nükleer/nükleer çift kullanımlı → NDK/TAEK; diğer çift kullanımlı → Ticaret Bakanlığı (İhracat Genel Müdürlüğü). İzinsiz ihraç suçtur.",
+    "dayanak": "KDV Kanunu m.13/f · Çift Kullanımlı ve Hassas Maddelerin İhracatının Kontrolüne İlişkin Tebliğ (İhracat: 2003/12) · İthalat: 2026/12"
+  },
   "ihracatGenel": {
     "baslik": "İhracatta dikkat — bu koddan mal SATIYORSAN",
     "maddeler": [
