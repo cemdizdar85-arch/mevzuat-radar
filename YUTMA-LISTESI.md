@@ -100,6 +100,13 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **Sektörel lisanslar** (bilgi.html#hap-sektorel-lisans): işyeri açma ruhsatı (belediye), gıda işletme kaydı (Tarım Bak. 5996), turizm belgesi, sağlık ruhsatı, çevre izni, sanayi sicil+kapasite raporu. Farkındalık rehberi.
 - **Alan haritası artık tam yeşil** — kalan niş: İthalat Rejimi VI/VII (nihai kullanım), Çevre katkı payı (kod 29) kontrol, kayda bağlı/yasak ihracat liste robotu.
 
+## ✅ GTİP TAM DENETİM + GEKAP + İHRACAT KISIT ROBOTU (12.07.2026, dokuzuncu tur — Cem)
+- **KDV menşe farkı netleştirildi:** oran menşeye göre DEĞİŞMEZ (ürüne bağlı), ama ödeyeceğin KDV TUTARI değişir (matrah GV+İGV içerir). Araca 3 yerde yazıldı.
+- **GEKAP (Cem yakaladı):** lastik/pil/akü/madeni-bitkisel yağ/ilaç pozisyonları + ambalaj/EEE notu (2872 s. Çevre Kanunu). gekapKart.
+- **VI/VII nihai kullanım** (106 kod, şartlı indirimli GV) → nihaiKart. İthalat Rejimi I–VII TAM.
+- **Kod kapsamı:** 15.717 tarife kodunun tamamı sorgulanabilir, hepsinde GV var (sanayi 12.605 + tarım 2.712 + balık 569). "Olmayan kod" yok.
+- **İHRACAT KISIT ROBOTU:** İhracı Kayda Bağlı (2006/7, en son 2025/2) + Yasak/Ön İzinli (96/31) → gtip-ihracat-kisit.json (60 kodlu + 10 yasak + 22 ön izinli isim bazlı). GTİP aracında "İHRACI KAYDA BAĞLI" bayrağı + bilgi.html#hap-ihracat-kisit tam liste. Robot nöbetçisi (arac/rg-tarama.ps1) artık ihracat kısıt + kıdem + GEKAP + İthalat Rejimi + İGV/KDV/ÖTV/KKDF tebliğ değişikliklerinde Cem'e mail atar.
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
