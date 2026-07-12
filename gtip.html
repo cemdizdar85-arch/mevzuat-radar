@@ -241,14 +241,20 @@ function sorgula(){
   if(!kodlar.length){
     // gözetim yok ama vergi olabilir: tam koda ya da önekine bak
     const vk = VERGI ? Object.keys(VERGI).filter(k=>k===q || k.replace(/\./g,'').startsWith(say2)) : [];
+    const tk = TARIM ? Object.keys(TARIM).filter(k=>k===q || k.replace(/\./g,'').startsWith(say2)) : [];
     let vHtml = '';
     if(vk.length){
       const kod = vk.find(k=>k===q) || vk[0];
       vHtml = vergiKart(kod).replace('margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)','');
+    } else if(tk.length){
+      // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu
+      const kod = tk.find(k=>k===q) || tk[0];
+      vHtml = tarimKart(kod);
     }
+    const veriVar = vk.length || tk.length;
     s.innerHTML = dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${vk.length?' Vergi oranları aşağıda:':''}</p>${vHtml}</div>` + ctaHtml();
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı.${veriVar?' Vergi oranları aşağıda:':''}</p>${vHtml}</div>` + ctaHtml();
     return;
   }
   let html = '';
