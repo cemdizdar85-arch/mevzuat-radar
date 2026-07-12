@@ -60,7 +60,7 @@ listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama
 | 10 | Gümrük Vergisi | ✅ GV ülke bazlı |
 | 20 | Dampinge Karşı Vergi | ✅ damping |
 | 21 | **Sübvansiyona Karşı Vergi** (telafi edici/countervailing) | ✅ EKLENDİ — KKDF kartında not (3577 s.) |
-| 29 | **Çevre katkı payı** | ⚠ KONTROL — kapsam netleştir (açık) |
+| 29 | Çevre katkı payı / GEKAP | ✅ EKLENDİ — GEKAP kartı (lastik/pil/akü/yağ/ilaç + ambalaj/EEE notu, 2872 s.) |
 | 34-39 | Ek Mali Yükümlülük (EMY) | ✅ tarım EMV (Tarım Payı) + balık EMY/TKF · ⚠ tarım-dışı EMY kontrol |
 | 40 | KDV | ✅ KDV liste hükümleri |
 | 50/51/52/93 | ÖTV liste II/III/IV/I | ✅ ÖTV kapsam bayrağı |
@@ -88,8 +88,8 @@ listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama
 | III | İşlenmiş tarım (Tarım Payı/EMV) | ✅ gtip-emy-tarim · ⚠ Toplu Konut Fonu sütunu kontrol |
 | IV | **Balıkçılık ve su ürünleri (GV + EMY/Toplu Konut Fonu)** | ❌→✅ EKLENDİ (2.226 kod, bu turda) — balık kör noktası kapandı |
 | V | **GV askıya alınan sanayi ürünleri (GV=0)** | ✅ EKLENDİ (606 pozisyon) — askıyaKart, şartlı %0 notu |
-| VI | Sivil hava taşıtı nihai kullanım (indirimli GV) | ⚠ niş — awareness |
-| VII | Nihai kullanım tarım ürünleri (indirimli GV) | ⚠ niş — awareness |
+| VI | Sivil hava taşıtı nihai kullanım (indirimli GV) | ✅ nihaiKart (VI+VII, 106 kod, şartlı) |
+| VII | Nihai kullanım tarım ürünleri (indirimli GV) | ✅ nihaiKart |
 
 **→ Çentik yöntemi Toplu Konut Fonu'nu kovalarken 4 eksik liste buldu (IV balık en büyüğü). Kanıt: yöntem çalışıyor.**
 
