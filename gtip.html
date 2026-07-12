@@ -281,27 +281,36 @@ function otvKart(kod){
 function kdvKart(kod){
   const fasil = kod.replace(/\./g,'').slice(0,2);
   const poz = kod.replace(/\./g,'').slice(0,4);
+  const digits = kod.replace(/\./g,'');
   const f = (KDV && KDV.fasil) ? KDV.fasil[fasil] : null;
-  const hukumHtml = (arr, oran, renk) => (arr||[]).map(h => {
-    const tam = (h.poz||[]).indexOf(poz) >= 0;
-    return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${tam?renk:'var(--line2)'};border-radius:9px;background:#06090f">
-      <div style="font-size:10.5px;font-weight:800;color:${renk};margin-bottom:3px">%${oran}${tam?' · bu pozisyon hükümde geçiyor — tam alt kodunu hüküm içinde doğrula':''}</div>
-      <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
-  }).join('');
-  if(!f || ((!f.o1||!f.o1.length) && (!f.o10||!f.o10.length))){
-    // fasıl indirimli listede hiç geçmiyor → genel oran %20 (dürüst, uydurma yok)
+  // BU koda GERÇEKTEN uygulanan hüküm mü? tüm-fasıl VEYA pozisyon(4h) VEYA spesifik kod eşleşmesi.
+  // (8480 dersi: 8480.71 %1 listede ama 8480.90 değil — 4-hane çökertme yanlıştı, artık spesifik.)
+  const uygular = h => h.tumF===true
+    || (h.poz||[]).indexOf(poz) >= 0
+    || (h.kod||[]).some(k => digits.startsWith(k) || k.startsWith(digits));
+  const o1u  = f ? (f.o1||[]).filter(uygular)  : [];
+  const o10u = f ? (f.o10||[]).filter(uygular) : [];
+  const kdvMatrahNot = 'KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir — matrah gümrük vergisi + İGV\'yi içerir, onlar ülkeye göre değişir.';
+  if(o1u.length===0 && o10u.length===0){
     return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — Katma Değer Vergisi</div>
       <div class="satir"><b>Oran</b><span style="color:var(--ink);font-weight:700">%20 (genel oran)</span></div>
-      <div style="font-size:11.5px;color:var(--dim);margin-top:7px">Bu ürünün faslı (${fasil}) 2007/13033 sayılı Kararın indirimli %1/%10 listelerinde <b>geçmiyor</b> — genel oran %20 uygulanır. KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir — çünkü KDV matrahı gümrük vergisi + İGV'yi içerir, onlar da ülkeye göre değişir. Yani yüksek gümrük vergili ülkeden alınca KDV de artar. Kaynak: GİB güncel konsolide metin.</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:7px">Bu <b>kod</b> 2007/13033 sayılı Kararın indirimli %1/%10 listelerinde <b>görünmüyor</b> — genel oran %20 uygulanır. (Aynı faslın bazı BAŞKA ürünleri indirimli olabilir ama bu kod değil.) ${kdvMatrahNot} Kaynak: GİB güncel konsolide metin.</div>
     </div>`;
   }
+  const hukumHtml = (arr, oran, renk) => arr.map(h => {
+    const kodEslesme = (h.kod||[]).some(k => digits.startsWith(k) || k.startsWith(digits));
+    const rozet = kodEslesme ? ' · bu kod hükümde AÇIKÇA geçiyor' : (h.tumF ? ' · bu faslın tamamı kapsamda' : ' · bu pozisyon kapsamda');
+    return `<div style="padding:9px 11px;margin-top:6px;border:1px solid ${renk};border-radius:9px;background:#06090f">
+      <div style="font-size:10.5px;font-weight:800;color:${renk};margin-bottom:3px">%${oran}${rozet}</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
+  }).join('');
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
-      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — bu faslı ilgilendiren liste hükümleri</div>
-      <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran <b>%20</b>. Bu ürünün faslı (${fasil}) aşağıdaki indirimli-oran hükümlerinde geçiyor. <b style="color:var(--ink)">Kesin oranı biz söylemeyiz</b> — ürünün tam tanımına ve "hariç" istisnalarına bağlıdır; hükmü oku:</div>
-      ${hukumHtml(f.o1,'1','var(--green)')}
-      ${hukumHtml(f.o10,'10','var(--amber)')}
-      <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar, GİB güncel konsolide metin — (I) %1 ve (II) %10 sayılı listeler. Hüküm senin ürününü kapsıyor mu, "hariç" var mı: gümrük müşavirinle teyit et. KDV oranı menşe ülkeye göre DEĞİŞMEZ (ürüne bağlıdır); ama ödeyeceğin KDV TUTARI değişir — çünkü KDV matrahı gümrük vergisi + İGV'yi içerir, onlar da ülkeye göre değişir. Yani yüksek gümrük vergili ülkeden alınca KDV de artar.</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — bu KODA uygulanan indirimli hüküm</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran %20; ama bu kod aşağıdaki indirimli-oran hükmüne giriyor. <b style="color:var(--ink)">Kesin oran ürünün tam tanımına ve "hariç" istisnalarına bağlıdır</b> — hükmü oku, gümrük müşavirinle teyit et:</div>
+      ${hukumHtml(o1u,'1','var(--green)')}
+      ${hukumHtml(o10u,'10','var(--amber)')}
+      <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar (GİB güncel metin). ${kdvMatrahNot}</div>
     </div>`;
 }
 
