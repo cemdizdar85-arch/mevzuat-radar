@@ -142,34 +142,49 @@ function isyeriSor(){ ilerle(4);
 
 function sonuc(){ ilerle(5);
   const g = grup();
-  let stopaj, sMetin, ozet, ozetT;
+  let stopaj, sMetin, ozet, ozetT, sRate=null;
   const kdvNot = "Hizmetten Türkiye'de faydalanıyorsun → sorumlu sıfatıyla %20 KDV beyan+öde; aynı ay 1 No.lu KDV'de indir (net yük ~0, ama beyan zorunlu).";
 
-  if(g==='ticari'){ stopaj="—";
+  if(g==='ticari'){ stopaj="—"; sRate=0;
     sMetin = (C.tur==='yazilim') ? "Hazır paket yazılımı sadece kullanmak/satmak = TİCARİ KAZANÇ (ÇVÖA m.7). İşyeri yoksa stopaj YOK. (GİB özelgesi.)" : "Salt ticari kazanç: KVK m.30'da bent yok, stopaj YOK. (Anlaşmada işyeri yoksa Türkiye vergilendirmez.)";
     ozet = (C.tur==='yazilim') ? "📦 Hazır yazılımda <b>stopaj YOK</b> — sadece 2 No.lu KDV. (Sık hata: buna stopaj kesmek!)" : "Bu ödemede <b>stopaj yok</b>, sadece 2 No.lu KDV var."; ozetT="iyi"; }
-  else if(g==='reklam'){ stopaj="%15"; sMetin="İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)."; ozet="İnternet reklamında <b>%15 stopaj</b> + 2 No.lu KDV. Bu %15 anlaşmadan bağımsız uygulanıyor."; ozetT="dikkat"; }
+  else if(g==='reklam'){ stopaj="%15"; sRate=15; sMetin="İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)."; ozet="İnternet reklamında <b>%15 stopaj</b> + 2 No.lu KDV. Bu %15 anlaşmadan bağımsız uygulanıyor."; ozetT="dikkat"; }
   else if(g==='royalti'){
-    if(C.cvoa && C.belge){ const cr=(C.ulke && CVOA && CVOA.ulkeler[C.ulke])?CVOA.ulkeler[C.ulke].r:10; stopaj="%"+cr+"*";
-      sMetin="Gayrimaddi hak (telif/çoğaltma/patent/marka) — Türkiye–"+(C.ulke||"?")+" anlaşmasında royalti stopajı üst sınırı <b>%"+cr+"</b> (GİB yürürlükteki anlaşmalar tablosu). *Bazı anlaşmalarda kullanım türüne göre daha düşük oran olabilir — kesin oran anlaşma metninde.";
+    if(C.cvoa && C.belge){ const cd=(C.ulke && CVOA && CVOA.ulkeler[C.ulke])?CVOA.ulkeler[C.ulke]:null; const cr=cd?cd.r:10; sRate=cr; stopaj="%"+cr+"*";
+      const catNot = (cd&&cd.n)?" <b>Bu anlaşmada:</b> "+cd.n+".":"";
+      sMetin="Gayrimaddi hak (telif/çoğaltma/patent/marka) — Türkiye–"+(C.ulke||"?")+" anlaşmasında genel royalti stopajı üst sınırı <b>%"+cr+"</b> (GİB yürürlükteki anlaşmalar tablosu)."+catNot+" *Kullanım türüne göre değişebilir — kesin oran anlaşma metninde.";
       ozet="Anlaşma + belge sayesinde stopaj <b>%20 yerine %"+cr+"</b>"+(C.ulke?" ("+C.ulke+")":"")+". *Kullanım türüne göre değişebilir; anlaşmayı teyit et."; ozetT="iyi"; }
-    else { stopaj="%20"; sMetin="Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA yok ya da mukimlik belgesi yok → tam %20.";
+    else { stopaj="%20"; sRate=20; sMetin="Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA yok ya da mukimlik belgesi yok → tam %20.";
       ozet=(C.cvoa&&!C.belge)?"Anlaşma var ama <b>mukimlik belgesi yok</b> → indirim uygulanamaz, %20 keser.":"Anlaşmasız ülke → tam <b>%20 stopaj</b>."; ozetT="dikkat"; }
   }
   else if(g==='serbest'){
-    if(C.cvoa && C.belge && !C.isyeri){ stopaj="%0"; sMetin="Serbest meslek — ÇVÖA + belge var ve Türkiye'de işyeri yok / 183 günü aşmadı: çoğu anlaşmada Türkiye vergilendiremez → stopaj SIFIR.";
+    if(C.cvoa && C.belge && !C.isyeri){ stopaj="%0"; sRate=0; sMetin="Serbest meslek — ÇVÖA + belge var ve Türkiye'de işyeri yok / 183 günü aşmadı: çoğu anlaşmada Türkiye vergilendiremez → stopaj SIFIR.";
       ozet="🎉 Bu durumda <b>stopaj YOK</b> (sadece 2 No.lu KDV). Şart: mukimlik belgesini dosyada tut."; ozetT="iyi"; }
-    else { stopaj="%20"; let sebep=!C.cvoa?"Anlaşmasız ülke / emin değilsin":(!C.belge?"Mukimlik belgesi yok":"İş Türkiye'de / 183+ gün yapıldı");
+    else { stopaj="%20"; sRate=20; let sebep=!C.cvoa?"Anlaşmasız ülke / emin değilsin":(!C.belge?"Mukimlik belgesi yok":"İş Türkiye'de / 183+ gün yapıldı");
       sMetin="Serbest meslek kazancı — KVK m.30, 2009/14593 BKK: "+sebep+" → %20 stopaj."; ozet="<b>%20 stopaj</b> — sebep: "+sebep+"."; ozetT="dikkat"; }
   }
-  else if(g==='kira'){ if(C.cvoa && C.belge){ stopaj="düşebilir"; sMetin="Ekipman kirası — ÇVÖA + belge varsa stopaj oranı düşebilir (anlaşmaya bak). Anlaşmasız: %20 (finansal kiralama %1)."; ozet="Anlaşma + belge stopajı <b>düşürebilir</b>; kesin oran anlaşmada."; ozetT="iyi"; }
-    else { stopaj="%20*"; sMetin="Kira/GMSİ — 2009/14593 BKK: finansal kiralama %1, diğer kira %20."; ozet="Ekipman kirasında <b>%20 stopaj</b> (finansal kiralama ise %1)."; ozetT="dikkat"; } }
+  else if(g==='kira'){ if(C.cvoa && C.belge){ stopaj="düşebilir"; sRate=null; sMetin="Ekipman kirası — ÇVÖA + belge varsa stopaj oranı düşebilir (anlaşmaya bak). Anlaşmasız: %20 (finansal kiralama %1)."; ozet="Anlaşma + belge stopajı <b>düşürebilir</b>; kesin oran anlaşmada."; ozetT="iyi"; }
+    else { stopaj="%20*"; sRate=20; sMetin="Kira/GMSİ — 2009/14593 BKK: finansal kiralama %1, diğer kira %20."; ozet="Ekipman kirasında <b>%20 stopaj</b> (finansal kiralama ise %1)."; ozetT="dikkat"; } }
   else if(g==='faiz'){ stopaj="%0–10"; sMetin="Faiz — kaynağa göre: yurt dışı bankadan genelde %0, diğer borçlarda %10 (2009/14593 BKK). ÇVÖA+belge oranı değiştirir. Ayrıca yurt dışı kredide KKDF (%3) doğabilir."; ozet="Faizde <b>%0–10 stopaj</b> (banka mı, ÇVÖA mı belirler) + kredi KKDF'si olabilir."; ozetT="dikkat"; }
 
   const kkdf = (g==='faiz')?{d:"kosul",t:"%3 olabilir",not:"Yurt dışı kredide vadeye göre KKDF doğabilir."}:(g==='kira'?{d:"kosul",t:"duruma bağlı",not:"Finansal kiralama vadeliyse KKDF gündeme gelebilir."}:{d:"yok",t:"—",not:"KKDF mal ithalinde çıkar; hizmette yoktur."});
   const rz=o=>{const c=o.d==='var'?'v':(o.d==='yok'?'y':'n');return '<span class="deg '+c+'">'+o.t+'</span>';};
   const stopajRoz=(stopaj==='—'||stopaj==='%0')?'y':(String(stopaj).indexOf('düş')>=0?'n':'v');
   const baslik = (C.tur==='yazilim') ? (C.yazilimTur==='hazir'?"Yazılım — hazır paket (kullanım/satış)":"Yazılım — telif/çoğaltma hakkı") : TUR[C.tur].ad;
+  window.HESAP = {rate:sRate};
+  const rateBilinmez = (sRate===null);
+  const hesapKutu = `<div class="kutu" style="margin-top:14px">
+      <h3>🧮 Tutarı gir — vergiyi TL hesaplayalım</h3>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input id="tutar" type="number" inputmode="decimal" placeholder="Fatura tutarı" oninput="hesapla()" style="flex:1;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
+        <select id="pb" onchange="hesapla()" style="padding:12px 10px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit;cursor:pointer">
+          <option value="USD">USD</option><option value="EUR">EUR</option><option value="TL" selected>TL</option><option value="GBP">GBP</option>
+        </select>
+      </div>
+      ${rateBilinmez?`<div style="font-size:12.5px;color:var(--muted);margin-bottom:10px">Bu türde stopaj oranı değişken. Oranı elle gir: <input id="mrate" type="number" inputmode="decimal" placeholder="%" oninput="hesapla()" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit">%</div>`:''}
+      <div id="hesapOut" style="font-size:13.5px;color:var(--dim)">Tutarı gir; stopaj, yurt dışına net ödeme ve 2 No.lu KDV otomatik çıksın.</div>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.5">Döviz faturada beyan <b>TL üzerinden</b> yapılır (ödeme/tahakkuk günü TCMB döviz alış kuru). Sözleşme "net" ise yabancıya ödenen tutar brüte tamamlanır (gross-up) — o zaman matrah artar.</div>
+    </div>`;
 
   ekran(`<div class="soru">SONUÇ</div><div class="sbaslik">${TUR[C.tur].em} ${baslik}</div>
     <div class="ozet ${ozetT}">${ozet}<br><span style="font-size:12.5px;color:var(--muted)">${kdvNot}</span></div>
@@ -177,7 +192,24 @@ function sonuc(){ ilerle(5);
     <div class="satir"><div class="sol"><div class="ad">✂️ Stopaj (KVK m.30 tevkifatı)</div><div class="not">${sMetin}</div></div><span class="deg ${stopajRoz}">${stopaj}</span></div>
     <div class="satir"><div class="sol"><div class="ad">💸 KKDF</div><div class="not">${kkdf.not}</div></div>${rz(kkdf)}</div>
     <div class="beyan"><h4>HANGİ BEYANNAME?</h4><div>• 2 No.lu KDV Beyannamesi — izleyen ayın 21'i (ödeme 23'ü)</div>${(stopaj!=='—')?"<div>• Muhtasar ve Prim Hizmet Beyannamesi — stopaj (izleyen ayın 26'sı)</div>":""}<div>• Sözleşme varsa: damga vergisi (binde 9,48)</div></div>
+    ${hesapKutu}
     <button class="btn" onclick="baslat()">↺ Yeni fatura sorgula</button>`);
+}
+function hesapla(){
+  const ti=document.getElementById('tutar'); if(!ti) return;
+  const t=parseFloat(ti.value)||0;
+  const pb=document.getElementById('pb').value;
+  let r=window.HESAP?window.HESAP.rate:null;
+  if(r===null){ const m=document.getElementById('mrate'); r=m?(parseFloat(m.value)||0):0; }
+  const out=document.getElementById('hesapOut');
+  if(!t){ out.innerHTML='Tutarı gir; stopaj, yurt dışına net ödeme ve 2 No.lu KDV otomatik çıksın.'; return; }
+  const stopaj=t*r/100, net=t-stopaj, kdv=t*0.20;
+  const fmt=n=>n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+pb;
+  out.innerHTML=`
+    <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">Hizmet bedeli (brüt)</div></div><span class="deg">${fmt(t)}</span></div>
+    <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">✂️ Stopaj (%${r}) — muhtasarla öde</div><div class="not">Ödemeden kesip vergi dairesine yatırırsın.</div></div><span class="deg ${r>0?'v':'y'}">${fmt(stopaj)}</span></div>
+    <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">➡️ Yurt dışına net ödenecek</div></div><span class="deg y">${fmt(net)}</span></div>
+    <div class="satir" style="margin-bottom:0;padding:12px 14px"><div class="sol"><div class="ad">🧾 2 No.lu KDV (%20) — beyan+öde</div><div class="not">Aynı ay 1 No.lu KDV'de indirilir → net maliyet ~0.</div></div><span class="deg n">${fmt(kdv)}</span></div>`;
 }
 baslat();
 </script>
