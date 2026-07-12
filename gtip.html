@@ -466,9 +466,15 @@ function vergiKart(kod){
       <input id="${sid}" placeholder="ör. 1.500.000 (TL, gümrük kıymeti)" inputmode="numeric" autocomplete="off" oninput="tutarYazildi('${kod}','${sid}')" style="width:100%;font-size:16px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#06090f;color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums">
       <div id="${sid}_out" style="margin-top:10px;font-size:13.5px;color:var(--muted)"></div>
     </div>
+    ${askiyaKart(kod)}
+    ${balikKart(kod)}
+    ${savunmaKart(kod)}
     ${tarimKart(kod)}
     ${otvKart(kod)}
+    ${denetimKart(kod)}
     ${kdvKart(kod)}
+    ${kkdfKart(kod)}
+    ${ihracatKart(kod)}
   </div>`;
 }
 
