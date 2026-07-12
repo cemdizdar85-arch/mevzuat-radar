@@ -62,6 +62,18 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 9. **TTK m.332/344/580/585 + 7511 geçici madde** — sermaye/blokaj/24 ay/infisah (duyurudan sağlam ama madde metni arşive girsin).
 10. **Eximbank program uygulama esasları** — 4 kart genel seviyede.
 
+## ✅ UNUTULAN VERGİLER + İHRACAT + ELLE DENETİM (12.07.2026, üçüncü tur — Cem "iğneden ipliğe" talebi)
+| İş | Kaynak & yöntem | Sonuç |
+|---|---|---|
+| KKDF ithalat | 88/12944 sayılı Karar m.3/(d) (birincil) | %6 vadeli/mal mukabili/kabul kredili; peşin/akreditif/vesaik muaf; DİİB+yatırım teşvik muaf; KDV matrahına girer. Her kodda uyarı kartı. |
+| Sorumlu sıfatıyla KDV-2 | KDVK m.9 | Mal ithalinde YOK (gümrükte ödenir); yurtdışı HİZMET alımında var. Dürüst not. |
+| TRT bandrol | 3093 s. Kanun | Fasıl 85 yayın alabilen cihazlar; oran uydurulmadı, TRT'ye yönlendirildi. |
+| İhracat modülü | İhracat Yönetmeliği + KDVK m.11-12 | KDV istisnası/iadesi, kayda bağlı ihracat, yasak/ön izinli, DİİB. |
+| DFİF ihracat kesintisi | 88/13384 sayılı Karar (birincil, mülga maddeler ayıklandı) | Fındık 0802 (8/4 cent/kg), zeytinyağı dökme 1509 (20 cent/kg), ham/kromlu deri 4101-4106 (50 cent/kg veya FOB %20). Pozisyon bazlı. |
+| **Sayısal veri ELLE DENETİM** | Excel COM ile deterministik karşılaştırma (API yutması YOK) | Sanayi GV/İGV (mermer 2515.11) ✓, tarım GV ülke-varyasyonlu (0101.29.10, 12 sütun) ✓, vergi-sabitleri 2026 gelir vergisi dilimleri GİB 332 Tebliğ ✓ — harvest'ler kaynağa BİREBİR sadık. |
+
 ## İŞLEYİŞ
+- Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
+- "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
 - Her oturumda en az 1 metin yutulur; yakalanan yanlış ANINDA canlıda düzeltilir ve bu tabloya işlenir.
 - Robot nöbetçisi değişiklik tebliği yakalarsa ilgili metin listeye "yeniden yut" olarak döner.
