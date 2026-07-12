@@ -64,28 +64,43 @@ function ScopeMetin([string]$mTemiz){
   return [regex]::Replace($mTemiz, '\([^()]*hariç[^()]*\)', ' ')
 }
 
-# --- referans cikar (fasil + 4-hane pozisyon) ---
+# --- referans cikar: fasil(tum bolum) + poz(tum 4-hane) + kod(spesifik) AYRI ---
+#  KRITIK (8480 bulgusu): "84.02" = tum 8402 pozisyonu; "8480.71.00.00.00" = SADECE o kod.
+#  Ikisini karistirmak yanlisa yol acar (8480.71 %1 ama 8480.90 %20). O yuzden ayirt edilir.
 function Refler([string]$metin){
-  $fasillar = New-Object System.Collections.Generic.HashSet[string]
-  $pozlar   = New-Object System.Collections.Generic.HashSet[string]
+  $fasillar    = New-Object System.Collections.Generic.HashSet[string]
+  $tumFasillar = New-Object System.Collections.Generic.HashSet[string]   # "N no.lu fasil" = tum bolum
+  $pozlar      = New-Object System.Collections.Generic.HashSet[string]   # "NN.NN" = tum 4-hane pozisyon
+  $kodlar      = New-Object System.Collections.Generic.HashSet[string]   # spesifik tam kod (6-12 hane)
   $calisma = $metin
-  # 1) TAM KOD (8-12 hane, nokta VEYA bosluk ayracli) -> fasil(ilk2)+poz(ilk4), maskele
-  $kodRx = '\b(\d{2})(\d{2})[\s.]\d{2}[\s.]\d{2}(?:[\s.]\d{2}){0,2}\b'
+  # 1) TAM/ALT KOD (8-12 hane, nokta/bosluk ayracli) -> fasil + SPESIFIK kod (ilk4 poz'a DEGIL). Maskele.
+  $kodRx = '\b(\d{2})(\d{2})([\s.]\d{2}[\s.]\d{2}(?:[\s.]\d{2}){0,2})\b'
   foreach($m in [regex]::Matches($calisma, $kodRx)){
-    $f=$m.Groups[1].Value; if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f+$m.Groups[2].Value) }
+    $f=$m.Groups[1].Value
+    if([int]$f -ge 1 -and [int]$f -le 97){
+      [void]$fasillar.Add($f)
+      $full = ($m.Value -replace '[^\d]','')   # spesifik kodun tam hanesi
+      [void]$kodlar.Add($full)
+    }
   }
   $calisma = [regex]::Replace($calisma, $kodRx, ' # ')
-  # 2) tarih maskele
-  $calisma = [regex]::Replace($calisma, '\b\d{1,2}[./]\d{1,2}[./]\d{2,4}\b', ' # ')
-  # 3) "N no.lu fasil"
-  foreach($m in [regex]::Matches($calisma, '(\d{1,2})\s*no\.?\s*lu\s*fas')){
-    $f=[int]$m.Groups[1].Value; if($f -ge 1 -and $f -le 97){ [void]$fasillar.Add($f.ToString("00")) }
+  # 2) 6-hane alt-baslik "NNNN.NN" ( or 8432.30) -> spesifik kod
+  foreach($m in [regex]::Matches($calisma, '\b(\d{2})(\d{2})\.(\d{2})\b')){
+    $f=$m.Groups[1].Value
+    if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$kodlar.Add($m.Groups[1].Value+$m.Groups[2].Value+$m.Groups[3].Value) }
   }
-  # 4) standalone 4-hane pozisyon "NN.NN"
+  $calisma = [regex]::Replace($calisma, '\b\d{4}\.\d{2}\b', ' # ')
+  # 3) tarih maskele
+  $calisma = [regex]::Replace($calisma, '\b\d{1,2}[./]\d{1,2}[./]\d{2,4}\b', ' # ')
+  # 4) "N no.lu fasil" -> TUM bolum
+  foreach($m in [regex]::Matches($calisma, '(\d{1,2})\s*no\.?\s*lu\s*fas')){
+    $f=[int]$m.Groups[1].Value; if($f -ge 1 -and $f -le 97){ [void]$fasillar.Add($f.ToString("00")); [void]$tumFasillar.Add($f.ToString("00")) }
+  }
+  # 5) standalone "NN.NN" pozisyon -> TUM 4-hane pozisyon
   foreach($m in [regex]::Matches($calisma, '\b(\d{2})\.(\d{2})\b')){
     $f=$m.Groups[1].Value; if([int]$f -ge 1 -and [int]$f -le 97){ [void]$fasillar.Add($f); [void]$pozlar.Add($f+$m.Groups[2].Value) }
   }
-  return @{ fasillar=@($fasillar); pozlar=@($pozlar) }
+  return @{ fasillar=@($fasillar); tumFasillar=@($tumFasillar); pozlar=@($pozlar); kodlar=@($kodlar) }
 }
 
 function Hukumler([string]$govde){
@@ -110,7 +125,8 @@ function Ekle([string]$govde, [string]$oranEtiket){
       $varMi = $false
       foreach($mevcut in $hedefListe){ if($mevcut.m.Substring(0,[Math]::Min(50,$mevcut.m.Length)) -eq $anahtar){ $varMi=$true; break } }
       if($varMi){ continue }
-      $kayit=@{ m=$goster; poz=$r.pozlar }
+      # tumF: bu hukum, bu FASLI tumuyle mi kapsiyor ("N no.lu fasil")? poz/kod: spesifik eslesme
+      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)) }
       if($oranEtiket -eq "1"){ $fasil[$f].o1+=$kayit } else { $fasil[$f].o10+=$kayit }
     }
     $script:sayac++
