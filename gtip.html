@@ -335,14 +335,6 @@ function kdvKart(kod){
       <div style="font-size:11.5px;color:var(--dim);margin-bottom:4px">Aşağıdaki hüküm bir <b style="color:var(--ink)">koşula</b> bağlıdır (ör. yalnız <b style="color:var(--ink)">kullanılmış/ikinci el</b>). Ürün sıfır/yeni ise genel oran <b style="color:var(--ink)">%20</b>'dir; koşulu sağlıyorsan indirimli olabilir — gümrük müşavirinle teyit et.</div>
       ${kosullu.map(h=>`<div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px">${htmlEsc(h.m)}</div>`).join('')}
     </div>` : '';
-  if(o1u.length===0 && o10u.length===0){
-    return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
-      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — Katma Değer Vergisi</div>
-      <div class="satir"><b>Oran</b><span style="color:var(--ink);font-weight:700">%20 (genel oran)</span></div>
-      <div style="font-size:11.5px;color:var(--dim);margin-top:7px">Bu <b>kod</b> 2007/13033 sayılı Kararın indirimli %1/%10 listelerinde <b>görünmüyor</b> — genel oran %20 uygulanır. (Aynı faslın bazı BAŞKA ürünleri indirimli olabilir ama bu kod değil.) ${kdvMatrahNot} Kaynak: GİB güncel konsolide metin.</div>
-      ${kosulHtml}
-    </div>`;
-  }
   const hukumHtml = (arr, oran, renk) => arr.map(h => {
     const kodEslesme = asArr(h.kod).some(k => digits.startsWith(k) || (''+k).startsWith(digits));
     const rozet = kodEslesme ? ' · bu kod hükümde AÇIKÇA geçiyor' : (h.tumF ? ' · bu faslın tamamı kapsamda' : ' · bu pozisyon kapsamda');
@@ -350,13 +342,23 @@ function kdvKart(kod){
       <div style="font-size:10.5px;font-weight:800;color:${renk};margin-bottom:3px">%${oran}${rozet}</div>
       <div style="font-size:12.5px;color:var(--muted);line-height:1.5">${htmlEsc(h.m)}</div></div>`;
   }).join('');
+  // Temiz oran satırı (gümrük vergisi gibi net) — yasal metin "Dayanak" altında açılır.
+  const oranEt = [];
+  if(o1u.length) oranEt.push('%1');
+  if(o10u.length) oranEt.push('%10');
+  const indirimliVar = oranEt.length > 0;
+  const oranMetni = indirimliVar ? oranEt.join(' / ') + ' (indirimli)' : '%20 (genel oran)';
+  const oranRenk = indirimliVar ? 'var(--green)' : 'var(--ink)';
+  const caveat = indirimliVar
+    ? '<b style="color:var(--ink)">Kesin oran</b> ürünün tam tanımına ve "hariç" istisnalarına bağlı — teyit et.'
+    : 'Bu kod 2007/13033 indirimli %1/%10 listelerinde görünmüyor. (Aynı faslın başka ürünleri indirimli olabilir ama bu kod değil.)';
+  const detay = indirimliVar ? `${hukumHtml(o1u,'1','var(--green)')}${hukumHtml(o10u,'10','var(--amber)')}` : '';
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
-      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — bu KODA uygulanan indirimli hüküm</div>
-      <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Genel oran %20; ama bu kod aşağıdaki indirimli-oran hükmüne giriyor. <b style="color:var(--ink)">Kesin oran ürünün tam tanımına ve "hariç" istisnalarına bağlıdır</b> — hükmü oku, gümrük müşavirinle teyit et:</div>
-      ${hukumHtml(o1u,'1','var(--green)')}
-      ${hukumHtml(o10u,'10','var(--amber)')}
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🧾 KDV — Katma Değer Vergisi</div>
+      <div class="satir"><b>Oran</b><span style="color:${oranRenk};font-weight:800">${oranMetni}</span></div>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:7px">${caveat} ${kdvMatrahNot}</div>
       ${kosulHtml}
-      <div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar (GİB güncel metin). ${kdvMatrahNot}</div>
+      ${detay ? `<details style="margin-top:8px"><summary style="cursor:pointer;font-size:11px;font-weight:700;color:var(--accent2)">Dayanak / hüküm metnini göster ▾</summary><div style="margin-top:6px">${detay}<div style="font-size:10.5px;color:var(--dim);margin-top:7px">Kaynak: 2007/13033 sayılı Karar (GİB güncel metin).</div></div></details>` : '<div style="font-size:10.5px;color:var(--dim);margin-top:6px">Kaynak: GİB güncel konsolide metin.</div>'}
     </div>`;
 }
 
