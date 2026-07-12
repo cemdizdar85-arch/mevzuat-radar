@@ -83,7 +83,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -96,8 +96,29 @@ Promise.all([
   fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-otv.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-ekvergi.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h,i,j,k,l])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; });
+  fetch('veri/gtip-ekvergi.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-balik.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,i,j,k,l,m])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; KDV=j; OTV=k; EKVERGI=l; BALIK=m; });
+
+// BALIK/su ürünleri (IV Sayılı Liste): menşe ülkeye göre GV + Ek Mali Yükümlülük (Toplu Konut Fonu)
+function balikKart(kod){
+  if(!BALIK || !BALIK.kodlar || !BALIK.kodlar[kod]) return '';
+  const b = BALIK.kodlar[kod];
+  const tablo = (arr, ulke) => arr.map((o,i)=> (o===null||o===undefined) ? '' :
+    `<div class="satir"><b style="font-weight:600">${ulke[i]}</b><span style="color:${o===0?'var(--green)':'var(--muted)'};font-weight:${o===0?'700':'600'}">%${o}</span></div>`).filter(Boolean).join('');
+  const gvHtml = tablo(b.gv, BALIK.gvUlke);
+  const emyVar = b.emy.some(x=>x!==null && x!==0);
+  const emyHtml = emyVar ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">➕ EK MALİ YÜKÜMLÜLÜK — balıkta Toplu Konut Fonu (CIF üzerinden %)</div>
+      ${tablo(b.emy, BALIK.emyUlke)}
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Su ürünlerinde gümrük vergisine <b>ek olarak</b> bu yükümlülük (Toplu Konut Fonu işlevi) menşe ülkeye göre CIF bedelin %'si olarak alınır.</div>
+    </div>` : '';
+  return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">🐟 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (balıkçılık / su ürünleri)</div>
+    ${gvHtml}${emyHtml}
+    <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı IV Sayılı Liste (balıkçılık ve su ürünleri) — her menşe için birebir okundu. KDV ayrıca; işlem öncesi gümrük müşavirine danış.</div>
+  </div>`;
+}
 
 // KKDF + sorumlu sıfatı + TRT bandrol: ithalatta unutulan yükler (ödeme şekli/cihaz tipine bağlı)
 function kkdfKart(kod){
@@ -105,14 +126,19 @@ function kkdfKart(kod){
   const k = EKVERGI.kkdf, s = EKVERGI.sorumluSifat;
   const fasil = kod.replace(/\./g,'').slice(0,2);
   const trt = (EKVERGI.trtBandrol && EKVERGI.trtBandrol.fasil.indexOf(fasil)>=0) ? EKVERGI.trtBandrol : null;
+  const tutun = (EKVERGI.tutunFonu && EKVERGI.tutunFonu.fasil.indexOf(fasil)>=0) ? EKVERGI.tutunFonu : null;
+  const altNot = (o,renk) => o ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line2)"><div style="font-size:11px;font-weight:800;color:${renk}">${o.baslik}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${o.metin}</div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${o.dayanak}</div></div>` : '';
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--amber);border-radius:12px;background:#1a1206">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ KKDF — ÇOĞU İTHALATÇININ ATLADIĞI %6</div>
     <div style="font-size:12.5px;color:var(--muted)">${k.metin}</div>
     <div style="font-size:12px;color:var(--muted);margin-top:6px">🛡 <b style="color:var(--ink)">Muafiyet:</b> ${k.muafiyet}</div>
     <div style="font-size:12px;color:var(--amber);margin-top:6px">📌 ${k.matrah}</div>
     <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Dayanak: ${k.dayanak}</div>
-    ${trt ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line2)"><div style="font-size:11px;font-weight:800;color:var(--amber)">📺 ${trt.baslik}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${trt.metin}</div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${trt.dayanak}</div></div>` : ''}
-    ${s ? `<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line2)"><div style="font-size:11px;font-weight:800;color:var(--accent2)">ℹ ${s.baslik}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${s.metin}</div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${s.dayanak}</div></div>` : ''}
+    ${tutun ? altNot({...tutun, baslik:'🚬 '+tutun.baslik}, 'var(--amber)') : ''}
+    ${trt ? altNot({...trt, baslik:'📺 '+trt.baslik}, 'var(--amber)') : ''}
+    ${altNot(EKVERGI.subvansiyon ? {...EKVERGI.subvansiyon, baslik:'⚖ '+EKVERGI.subvansiyon.baslik} : null, 'var(--amber)')}
+    ${altNot(EKVERGI.damga ? {...EKVERGI.damga, baslik:'🧾 '+EKVERGI.damga.baslik} : null, 'var(--dim)')}
+    ${altNot(s ? {...s, baslik:'ℹ '+s.baslik} : null, 'var(--accent2)')}
   </div>`;
 }
 
@@ -129,10 +155,17 @@ function ihracatKart(kod){
       <div style="font-size:11px;color:var(--muted);margin-top:4px">${EKVERGI.dfif.aciklama}</div>
       <div style="font-size:10.5px;color:var(--dim);margin-top:4px">Dayanak: ${EKVERGI.dfif.dayanak}</div>
     </div>` : '';
+  const tev = EKVERGI.tev;
+  const tevHtml = tev ? `<div style="margin-top:10px;padding:11px 12px;border:1px dashed var(--line2);border-radius:10px;background:#06090f">
+      <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">⚠ ${tev.baslik}</div>
+      <div style="font-size:12px;color:var(--muted)">${tev.metin}</div>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:3px">Dayanak: ${tev.dayanak}</div>
+    </div>` : '';
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:4px">📤 İHRACAT — bu koddan mal SATIYORSAN</div>
     ${maddeHtml}
     ${dfifHtml}
+    ${tevHtml}
     <div style="font-size:10.5px;color:var(--dim);margin-top:8px">Dayanak: ${g.dayanak}. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danış.</div>
   </div>`;
 }
@@ -347,7 +380,7 @@ function dampingKart(q){
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
 function vergiKart(kod){
-  if(!VERGI || !VERGI[kod]) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
+  if(!VERGI || !VERGI[kod]) return balikKart(kod) + tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
   const v = VERGI[kod];
   const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
@@ -378,7 +411,7 @@ function vergiKart(kod){
       ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin Gümrük Vergisi ve İGV oranımız var — yukarıdan menşe ülkeni seç, aralık kesinleşsin.</div>`;
     }
   }
-  if(!sat) return tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
+  if(!sat) return balikKart(kod) + tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // GV/İGV çıkmadıysa da ÖTV+KDV görünsün
   const sid = 'sim_' + kod.replace(/\./g,'');
   return `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">■ İTHALAT VERGİLERİ (menşe ülkeye göre)</div>
@@ -469,10 +502,10 @@ function sorgula(){
     } else if(tk.length){
       // sanayi vergisi yok ama tarım verisi var → menşe ülke tablosu + ÖTV + KDV
       const kod = tk.find(k=>k===q) || tk[0];
-      vHtml = tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);
+      vHtml = balikKart(kod) + tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);
     } else {
       // hiç GV/İGV/tarım verisi yok → yine de ÖTV + KDV göster
-      vHtml = otvKart(q) + denetimKart(q) + kdvKart(q) + kkdfKart(q) + ihracatKart(q);
+      vHtml = balikKart(q) + otvKart(q) + denetimKart(q) + kdvKart(q) + kkdfKart(q) + ihracatKart(q);
     }
     s.innerHTML = tanimBloku(q) + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
       <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
