@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yurt Dışı Hizmet Faturası — hangi vergiyi öderim? (2 No.lu KDV, stopaj, KKDF) | Mevzuat Radarı</title>
-<meta name="description" content="Yurt dışından yazılım, danışmanlık, reklam, lisans faturası geldi — 2 No.lu KDV mi, stopaj mı, KKDF mi? Hizmet türünü seç, ne ödeyeceğini ve hangi beyannameyi vereceğini sade Türkçeyle gör.">
+<title>Yurt Dışı Hizmet Faturası — hangi vergiyi öderim? (2 No.lu KDV, stopaj, ÇVÖA) | Mevzuat Radarı</title>
+<meta name="description" content="Yurt dışından yazılım, danışmanlık, reklam, lisans faturası geldi. Ülke anlaşması, mukimlik belgesi, işin nerede yapıldığı — 4-5 soruda 2 No.lu KDV mi, stopaj mı, kaç, hangi beyanname; sade Türkçeyle.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -12,28 +12,30 @@
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
 .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
-h1{font-size:clamp(25px,4.6vw,34px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
-.lead{color:var(--muted);font-size:15.5px;margin:0 0 24px}.lead b{color:var(--ink);font-weight:600}
-.secet{font-size:12.5px;color:var(--muted);margin:0 0 8px;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:8px}
-.tbtn{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13.5px;padding:14px 13px;border-radius:13px;background:#0a0f17;color:var(--muted);border:1px solid var(--line2);transition:.15s;text-align:left;line-height:1.3}
-.tbtn .em{font-size:19px;display:block;margin-bottom:5px}
-.tbtn:hover{color:var(--ink);border-color:var(--accent)}
-.tbtn.on{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.06)),var(--panel);color:var(--ink);border-color:var(--accent)}
-.sonuc{margin-top:20px}
-.baslikK{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
-.altK{font-size:13px;color:var(--muted);margin:0 0 16px}
+h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
+.lead{color:var(--muted);font-size:15.5px;margin:0 0 22px}.lead b{color:var(--ink);font-weight:600}
+.ilerle{display:flex;gap:6px;margin-bottom:20px}
+.nokta{height:5px;flex:1;border-radius:3px;background:var(--line2);transition:.3s}.nokta.ok{background:var(--grad)}
+.adim{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px}
+.soru{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--accent2);margin-bottom:4px}
+.sbaslik{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
+.sac{font-size:13px;color:var(--muted);margin:0 0 16px}
+.secenek{display:block;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#0a0f17;border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:9px;transition:.15s}
+.secenek:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.10),transparent)}
+.secenek small{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
+.geri{margin-top:6px;background:none;border:0;color:var(--dim);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}.geri:hover{color:var(--ink)}
 .satir{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;background:var(--panel)}
 .satir .sol{flex:1}.satir .ad{font-weight:700;font-size:15px}.satir .not{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
-.satir .deg{font-weight:800;font-size:16px;white-space:nowrap;text-align:right}
+.satir .deg{font-weight:800;font-size:17px;white-space:nowrap;text-align:right}
 .deg.v{color:var(--red)}.deg.y{color:var(--green)}.deg.n{color:var(--amber)}
-.cvoa{margin-top:6px;padding:14px 16px;border:1px dashed var(--accent);border-radius:13px;background:rgba(62,155,255,.06);font-size:13px;color:var(--muted)}
-.cvoa b{color:var(--ink)}
-.beyan{margin-top:14px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17}
-.beyan h4{margin:0 0 7px;font-size:13px;color:var(--accent2);letter-spacing:.4px}
-.beyan div{font-size:13px;color:var(--muted);margin-top:3px}
-.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
-.uyari b{color:var(--amber)}
+.ozet{padding:16px 18px;border-radius:14px;margin-bottom:14px;font-size:15px;line-height:1.5}
+.ozet.iyi{background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3)}
+.ozet.dikkat{background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3)}
+.ozet b{color:var(--ink)}
+.beyan{margin-top:6px;padding:14px 16px;border:1px solid var(--line2);border-radius:13px;background:#0a0f17}
+.beyan h4{margin:0 0 7px;font-size:12px;color:var(--accent2);letter-spacing:.4px}.beyan div{font-size:13px;color:var(--muted);margin-top:3px}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:12px 20px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:14px}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 </style>
 </head>
@@ -41,100 +43,103 @@ h1{font-size:clamp(25px,4.6vw,34px);letter-spacing:-1px;margin:4px 0 8px;font-we
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Yurt Dışı Hizmet Faturası</div>
   <h1>Yurt dışından hizmet faturası geldi — ne öderim?</h1>
-  <p class="lead">Yurt dışındaki bir firmadan <b>yazılım, danışmanlık, reklam, lisans, komisyon</b> faturası aldın. Çoğu muhasebecinin atladığı yer burası: mal değil <b>hizmet</b> ithalinde <b>gümrükte KDV ödenmez</b> — ama sen <b>2 No.lu KDV (sorumlu sıfatıyla)</b> ve çoğu zaman <b>stopaj</b> ödersin. Hizmet türünü seç, ne çıkacağını gör.</p>
+  <p class="lead">Mal değil <b>hizmet</b> ithalinde gümrükte KDV ödenmez — ama <b>2 No.lu KDV (sorumlu sıfatıyla)</b> ve çoğu zaman <b>stopaj</b> çıkar. Sonuç <b>ülkenin anlaşmasına, mukimlik belgesine ve işin nerede yapıldığına</b> bağlı. 4-5 soru, kesin sonuç.</p>
 
-  <div class="secet">Nasıl bir hizmet aldın?</div>
-  <div class="grid" id="grid"></div>
-  <div class="sonuc" id="sonuc"></div>
+  <div class="ilerle" id="ilerle"></div>
+  <div id="ekran"></div>
 
-  <div class="uyari"><b>Bilgilendirme amaçlıdır — kesin değil, yön verir.</b> Stopaj oranı <b>ülkeyle Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA)</b> varsa düşer ya da sıfırlanır (mukimlik belgesi şart). Hizmetin tam niteliği (ör. yazılımın "kullanım hakkı" mı "telif devri" mi) sonucu değiştirir. İşlemden önce YMM/mali müşavirine danış.</div>
-  <div class="dip">Mevzuat Radarı · Yurt dışı hizmet vergilendirme rehberi · Kaynak: <b>KDV Kanunu m.9</b> (sorumlu sıfatıyla KDV) · <b>Kurumlar Vergisi Kanunu m.30</b> + <b>2009/14593 sayılı BKK</b> (stopaj oranları, RG 03.02.2009) · <b>476 sayılı CK</b> (internet reklam stopajı) · <b>88/12944 KKDF Kararı</b> · SMMM Cem Dizdar</div>
+  <div class="uyari"><b>Bilgilendirme amaçlıdır, yön verir.</b> Kesin oran ülkeyle imzalı ÇVÖA metnine ve hizmetin tam niteliğine göre değişebilir. Beyan öncesi YMM/mali müşavirine danış.</div>
+  <div class="dip">Mevzuat Radarı · Yurt dışı hizmet vergilendirme sihirbazı · Kaynak: <b>KDV Kanunu m.9</b> · <b>KVK m.30 + 2009/14593 BKK</b> (RG 03.02.2009) · <b>476 sayılı CK</b> (internet reklam) · Türkiye'nin <a href="https://www.gib.gov.tr/uluslararasi_mevzuat" target="_blank">Çifte Vergilendirmeyi Önleme Anlaşmaları listesi (GİB)</a> · SMMM Cem Dizdar</div>
 </div>
 
 <script>
-const TURLER = [
-  { k:"yazilim", em:"💽", ad:"Yazılım / lisans / gayrimaddi hak",
-    baslik:"Yazılım, lisans, royalti, marka, know-how",
-    alt:"Yurt dışı yazılım kullanım hakkı, lisans bedeli, franchise/royalti, patent, marka, know-how ödemeleri.",
-    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Hizmetin KDV oranında (genelde %20) sorumlu sıfatıyla beyan edip ödersin; aynı ay 1 No.lu KDV'de indirebilirsin (net yük genelde sıfır, ama nakit akışı ve beyan zorunlu)."},
-    stopaj:{d:"var", t:"%20", not:"Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA'lı ülkeyse genelde %10'a iner."},
-    kkdf:{d:"yok", t:"—", not:"KKDF mal ithalinde çıkar; hizmette yoktur."},
-    damga:"Sözleşme imzaladıysan damga vergisi (binde 9,48) doğabilir.",
-    cvoa:"ÇVÖA'lı ülkeyse gayrimaddi hak stopajı genelde <b>%20→%10</b> iner. Karşı firmadan <b>mukimlik belgesi</b> al.",
-    beyan:["2 No.lu KDV Beyannamesi (izleyen ayın 21'i, ödeme 23'ü)","Muhtasar ve Prim Hizmet Beyannamesi — stopaj (izleyen ayın 26'sı)"] },
+const C = {}; // cevaplar
 
-  { k:"danismanlik", em:"🧠", ad:"Danışmanlık / mühendislik / serbest meslek",
-    baslik:"Danışmanlık, mühendislik, denetim, hukuk, tasarım",
-    alt:"Yurt dışından alınan proje danışmanlığı, mühendislik, denetim, avukatlık, tasarım gibi serbest meslek hizmetleri.",
-    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Hizmetten Türkiye'de faydalanıyorsan sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
-    stopaj:{d:"var", t:"%20", not:"Serbest meslek kazancı — KVK m.30, 2009/14593 BKK. AMA ÇVÖA'lı ülkede iş Türkiye'de işyeri olmadan yapıldıysa çoğu anlaşmada stopaj SIFIR olur."},
-    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
-    damga:"Sözleşme varsa damga vergisi doğabilir.",
-    cvoa:"ÇVÖA burada KRİTİK: firma Türkiye'de işyeri/sabit yer olmadan hizmet verdiyse, çoğu anlaşmada <b>stopaj %0</b>. Şart: <b>mukimlik belgesi</b>. Belge yoksa %20 keser, sonra iade zor.",
-    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — stopaj (varsa)"] },
+const TUR = {
+  yazilim:  {ad:"Yazılım / lisans / royalti", em:"💽", grup:"royalti", ornek:"Yazılım kullanım hakkı, lisans, franchise/royalti, patent, marka, know-how."},
+  danisman: {ad:"Danışmanlık / mühendislik", em:"🧠", grup:"serbest", ornek:"Proje danışmanlığı, mühendislik, denetim, hukuk, tasarım (serbest meslek)."},
+  reklam:   {ad:"Dijital / internet reklamı", em:"📣", grup:"reklam", ornek:"Google Ads, Meta, LinkedIn, TikTok reklam ödemeleri."},
+  komisyon: {ad:"Komisyon / aracılık / ticari", em:"🤝", grup:"ticari", ornek:"Satış komisyonu, aracılık, genel ticari hizmet."},
+  kira:     {ad:"Makine / ekipman kirası", em:"🏗️", grup:"kira", ornek:"Yurt dışından makine, ekipman, kalıp kirası."},
+  faiz:     {ad:"Kredi faizi", em:"🏦", grup:"faiz", ornek:"Yurt dışı kredinin faiz ödemesi."}
+};
 
-  { k:"reklam", em:"📣", ad:"Dijital / internet reklamı",
-    baslik:"Google, Meta, TikTok, internet reklamı",
-    alt:"Yurt dışı platformlara (Google Ads, Meta, LinkedIn, TikTok…) ödenen internet reklam bedelleri.",
-    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Reklam hizmetinden Türkiye'de faydalanıyorsun; sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
-    stopaj:{d:"var", t:"%15", not:"İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj (dar mükellefe ödemede). Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı — YMM'ne danış)."},
-    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
-    damga:"Genelde sözleşmesiz; damga çıkmaz.",
-    cvoa:"476 s. CK stopajı uygulamada ÇVÖA'ya bakılmaksızın kesiliyor; itiraz/iade yolu var ama YMM ile değerlendir.",
-    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — %15 reklam stopajı"] },
+function ilerle(n){ let h=''; for(let i=0;i<5;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
+function ekran(html){ document.getElementById('ekran').innerHTML = '<div class="adim">'+html+'</div>'; }
+function sec(list, back){ return list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('') + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
 
-  { k:"komisyon", em:"🤝", ad:"Komisyon / aracılık / genel ticari hizmet",
-    baslik:"Komisyon, aracılık, genel ticari hizmet",
-    alt:"Yurt dışı acente/aracıya ödenen satış komisyonu, bulma-buluşturma, genel ticari nitelikli hizmetler.",
-    kdv:{d:"kosul", t:"%20 (şartlı)", not:"Hizmetten Türkiye'de faydalanıyorsan 2 No.lu KDV %20. Hizmet tamamen yurt dışında icra edilip orada tüketiliyorsa KDV'nin konusuna girmeyebilir — niteliğe bak."},
-    stopaj:{d:"yok", t:"—", not:"Salt ticari kazanç — KVK m.30'da bent yok, stopaj YOK. (ÇVÖA'da işyeri yoksa zaten Türkiye vergilendirmez.)"},
-    kkdf:{d:"yok", t:"—", not:"Hizmette KKDF yoktur."},
-    damga:"Sözleşme varsa damga doğabilir.",
-    cvoa:"Ticari kazançta stopaj zaten yok; ÇVÖA bunu teyit eder (işyeri yoksa vergilendirme yok).",
-    beyan:["2 No.lu KDV Beyannamesi (KDV'ye tabiyse)"] },
-
-  { k:"kira", em:"🏗️", ad:"Ekipman / makine kirası",
-    baslik:"Yurt dışından makine / ekipman kirası",
-    alt:"Yurt dışı firmadan makine, ekipman, kalıp vb. kiralanması (operasyonel veya finansal kiralama).",
-    kdv:{d:"var", t:"%20 (2 No.lu KDV)", not:"Sorumlu sıfatıyla %20 KDV; aynı ay indirilir."},
-    stopaj:{d:"var", t:"%20 (fin. kiralama %1)", not:"Gayrimenkul sermaye iradı — KVK m.30, 2009/14593 BKK: finansal kiralama %1, diğer kira %20. ÇVÖA oranı düşürebilir."},
-    kkdf:{d:"kosul", t:"duruma bağlı", not:"Finansal kiralama (leasing) vadeli ödemeyse KKDF gündeme gelebilir — sözleşmeyi/ödemeyi kontrol et."},
-    damga:"Kira sözleşmesi damga vergisine tabidir.",
-    cvoa:"ÇVÖA'lı ülkeyse ekipman kirası stopajı düşebilir; mukimlik belgesi al.",
-    beyan:["2 No.lu KDV Beyannamesi","Muhtasar (MPHB) — kira stopajı"] },
-
-  { k:"faiz", em:"🏦", ad:"Yurt dışı kredi faizi",
-    baslik:"Yurt dışından kredi / faiz ödemesi",
-    alt:"Yurt dışı banka veya firmadan alınan kredinin faiz ödemeleri.",
-    kdv:{d:"kosul", t:"genelde istisna", not:"Yurt dışı BANKA/finans kuruluşundan kredi faizi KDV'den istisnadır. Banka dışı firmadan borç faizi ise 2 No.lu KDV %20 gündeme gelebilir."},
-    stopaj:{d:"var", t:"%0–10", not:"Faiz stopajı kaynağa göre değişir (yurt dışı bankadan genelde %0, diğer borçlarda %10) — KVK m.30, 2009/14593 BKK. ÇVÖA oranı değiştirir."},
-    kkdf:{d:"kosul", t:"%3 olabilir", not:"Yurt dışından kullanılan kredide vadeye göre KKDF (%3) doğabilir — kredi türü/vadesini kontrol et."},
-    damga:"Kredi sözleşmesi damga vergisine tabi olabilir.",
-    cvoa:"Faiz stopajı ÇVÖA'da genelde %10 veya daha düşük; mukimlik belgesi şart.",
-    beyan:["Muhtasar (MPHB) — faiz stopajı","2 No.lu KDV (banka dışı ise)"] }
-];
-
-function rozet(o){ const c = o.d==='var'?'v':(o.d==='yok'?'y':'n'); return '<span class="deg '+c+'">'+o.t+'</span>'; }
-function goster(k){
-  const t = TURLER.find(x=>x.k===k); if(!t) return;
-  document.querySelectorAll('.tbtn').forEach(b=>b.classList.toggle('on', b.dataset.k===k));
-  const s = document.getElementById('sonuc');
-  const rows = [
-    {ad:"🧾 KDV — 2 No.lu (sorumlu sıfatıyla)", o:t.kdv},
-    {ad:"✂️ Stopaj (KVK m.30 tevkifatı)", o:t.stopaj},
-    {ad:"💸 KKDF", o:t.kkdf}
-  ].map(r=>`<div class="satir"><div class="sol"><div class="ad">${r.ad}</div><div class="not">${r.o.not}</div></div>${rozet(r.o)}</div>`).join('');
-  s.innerHTML = `
-    <div class="baslikK">${t.baslik}</div>
-    <div class="altK">${t.alt}</div>
-    ${rows}
-    <div class="satir"><div class="sol"><div class="ad">🖋️ Damga vergisi</div><div class="not">${t.damga}</div></div></div>
-    <div class="cvoa">🌍 <b>Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA):</b> ${t.cvoa}</div>
-    <div class="beyan"><h4>HANGİ BEYANNAME?</h4>${t.beyan.map(b=>'<div>• '+b+'</div>').join('')}</div>`;
-  s.scrollIntoView({behavior:'smooth',block:'nearest'});
+function baslat(){ C.tur=null; C.cvoa=null; C.belge=null; C.isyeri=null; ilerle(0);
+  ekran(`<div class="soru">ADIM 1 / 4</div><div class="sbaslik">Nasıl bir hizmet aldın?</div><div class="sac">Faturadaki işin türünü seç.</div>`+
+    sec(Object.keys(TUR).map(k=>({t:TUR[k].em+' '+TUR[k].ad, s:TUR[k].ornek, on:`turSec('${k}')`}))) );
 }
-document.getElementById('grid').innerHTML = TURLER.map(t=>
-  `<button class="tbtn" data-k="${t.k}" onclick="goster('${t.k}')"><span class="em">${t.em}</span>${t.ad}</button>`).join('');
+function turSec(k){ C.tur=k; const g=TUR[k].grup;
+  // ticari/reklam: stopaj ÇVÖA'dan bagimsiz -> direkt sonuc. Digerleri ÇVÖA sorusu.
+  if(g==='ticari' || g==='reklam'){ sonuc(); return; }
+  cvoaSor();
+}
+function cvoaSor(){ ilerle(1);
+  ekran(`<div class="soru">ADIM 2 / 4</div><div class="sbaslik">Karşı taraf hangi ülkede? Türkiye ile <u>Çifte Vergilendirmeyi Önleme Anlaşması (ÇVÖA)</u> var mı?</div>
+    <div class="sac">Türkiye ~90 ülkeyle anlaşmalı. Anlaşma varsa stopaj düşebilir/sıfırlanabilir. <a href="https://www.gib.gov.tr/uluslararasi_mevzuat" target="_blank">Ülke listesi →</a></div>`+
+    sec([
+      {t:"✅ Var — anlaşmalı ülke", s:"AB ülkeleri, İngiltere, ABD, Çin, İsviçre, Rusya… çoğu büyük ticaret ortağı", on:"C.cvoa=true;belgeSor()"},
+      {t:"❌ Yok / anlaşmasız ülke", s:"Vergi cenneti ve bazı ülkelerle anlaşma yoktur", on:"C.cvoa=false;sonuc()"},
+      {t:"🤔 Emin değilim", s:"Listeden kontrol et; emin olana kadar 'yok' gibi davran (en yüksek stopaj)", on:"C.cvoa=false;sonuc()"}
+    ], "baslat()"));
+}
+function belgeSor(){ ilerle(2);
+  ekran(`<div class="soru">ADIM 3 / 4</div><div class="sbaslik">Karşı taraftan <u>MUKİMLİK BELGESİ</u> (o ülkede yerleşik olduğunu gösteren resmî belge) aldın mı?</div>
+    <div class="sac">Anlaşma indirimini/istisnasını uygulayabilmen için bu belge <b>şarttır</b>. Belge yoksa gümrük değil, sen tam stopaj kesersin.</div>`+
+    sec([
+      {t:"✅ Aldım (ya da alacağım)", s:"Ödeme yaptığın yıla ait, apostilli/tercümeli mukimlik belgesi", on:"C.belge=true;"+(TUR[C.tur].grup==='serbest'?'isyeriSor()':'sonuc()')},
+      {t:"❌ Almadım", s:"Belge olmadan anlaşma uygulanmaz → tam stopaj", on:"C.belge=false;sonuc()"}
+    ], "cvoaSor()"));
+}
+function isyeriSor(){ ilerle(3);
+  ekran(`<div class="soru">ADIM 4 / 4</div><div class="sbaslik">Hizmeti veren kişi/firma Türkiye'de <u>işyeri/sabit yeri</u> kurdu mu, ya da işi yapmak için Türkiye'de <u>183 günden fazla</u> kaldı mı?</div>
+    <div class="sac">Serbest meslekte anahtar soru bu: iş fiziken Türkiye'de ve uzun süre yapıldıysa Türkiye vergilendirir; yurt dışından yapıldıysa etmez.</div>`+
+    sec([
+      {t:"❌ Hayır — iş yurt dışından/kısa süreli yapıldı", s:"Türkiye'de işyeri yok ve 183 günü aşmadı (çoğu uzaktan hizmet böyle)", on:"C.isyeri=false;sonuc()"},
+      {t:"✅ Evet — Türkiye'de işyeri var veya 183+ gün kaldı", s:"İş Türkiye'de icra edildi / uzun süreli", on:"C.isyeri=true;sonuc()"}
+    ], "belgeSor()"));
+}
+
+function sonuc(){ ilerle(4);
+  const g = TUR[C.tur].grup;
+  let stopaj, sMetin, ozet, ozetT;
+  const kdv = "%20 (2 No.lu KDV)";
+  const kdvNot = "Hizmetten Türkiye'de faydalanıyorsun → sorumlu sıfatıyla %20 KDV beyan+öde; aynı ay 1 No.lu KDV'de indir (net yük ~0, ama beyan zorunlu).";
+
+  if(g==='ticari'){ stopaj="—"; sMetin="Salt ticari kazanç: KVK m.30'da bent yok, stopaj YOK. (Anlaşmada da işyeri yoksa Türkiye vergilendirmez.)"; ozet="Bu ödemede <b>stopaj yok</b>, sadece 2 No.lu KDV var."; ozetT="iyi"; }
+  else if(g==='reklam'){ stopaj="%15"; sMetin="İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)."; ozet="İnternet reklamında <b>%15 stopaj</b> + 2 No.lu KDV. Bu %15 anlaşmadan bağımsız uygulanıyor."; ozetT="dikkat"; }
+  else if(g==='royalti'){
+    if(C.cvoa && C.belge){ stopaj="%10*"; sMetin="Gayrimaddi hak — ÇVÖA + mukimlik belgesi var: stopaj genelde %20→%10'a iner. *Kesin oran anlaşmaya göre değişir (bazılarında %5).";
+      ozet="Anlaşma + belge sayesinde stopaj <b>%20 yerine ~%10</b>. Kesin oranı anlaşma metninden teyit et."; ozetT="iyi"; }
+    else { stopaj="%20"; sMetin="Gayrimaddi hak bedeli — KVK m.30, 2009/14593 BKK. ÇVÖA yok ya da mukimlik belgesi yok → tam %20."; ozet=(C.cvoa&&!C.belge)?"Anlaşma var ama <b>mukimlik belgesi yok</b> → indirim uygulanamaz, %20 keser.":"Anlaşmasız ülke → tam <b>%20 stopaj</b>."; ozetT="dikkat"; }
+  }
+  else if(g==='serbest'){
+    if(C.cvoa && C.belge && !C.isyeri){ stopaj="%0"; sMetin="Serbest meslek — ÇVÖA + belge var ve Türkiye'de işyeri yok / 183 günü aşmadı: çoğu anlaşmada Türkiye vergilendiremez → stopaj SIFIR.";
+      ozet="🎉 Bu durumda <b>stopaj YOK</b> (sadece 2 No.lu KDV). Şart: mukimlik belgesini dosyada tut."; ozetT="iyi"; }
+    else { stopaj="%20"; let sebep = !C.cvoa?"Anlaşmasız ülke":(!C.belge?"Mukimlik belgesi yok":"İş Türkiye'de/183+ gün yapıldı");
+      sMetin="Serbest meslek kazancı — KVK m.30, 2009/14593 BKK: "+sebep+" → %20 stopaj.";
+      ozet="<b>%20 stopaj</b> — sebep: "+sebep+"."; ozetT="dikkat"; }
+  }
+  else if(g==='kira'){ if(C.cvoa && C.belge){ stopaj="düşebilir"; sMetin="Ekipman kirası — ÇVÖA + belge varsa stopaj oranı düşebilir (anlaşmaya bak). Anlaşmasız: %20 (finansal kiralama %1)."; ozet="Anlaşma + belge stopajı <b>düşürebilir</b>; kesin oran anlaşmada."; ozetT="iyi"; }
+    else { stopaj="%20*"; sMetin="Kira/GMSİ — 2009/14593 BKK: finansal kiralama %1, diğer kira %20. *Anlaşma+belge yoksa tam oran."; ozet="Ekipman kirasında <b>%20 stopaj</b> (finansal kiralama ise %1)."; ozetT="dikkat"; } }
+  else if(g==='faiz'){ stopaj="%0–10"; sMetin="Faiz — kaynağa göre: yurt dışı bankadan genelde %0, diğer borçlarda %10 (2009/14593 BKK). ÇVÖA+belge oranı değiştirir. Ayrıca kredide KKDF (%3) doğabilir."; ozet="Faizde <b>%0–10 stopaj</b> (banka mı, ÇVÖA mı belirler) + kredi KKDF'si olabilir."; ozetT="dikkat"; }
+
+  const kkdf = (g==='faiz')?{d:"kosul",t:"%3 olabilir",not:"Yurt dışı kredide vadeye göre KKDF doğabilir."}:(g==='kira'?{d:"kosul",t:"duruma bağlı",not:"Finansal kiralama vadeliyse KKDF gündeme gelebilir."}:{d:"yok",t:"—",not:"KKDF mal ithalinde çıkar; hizmette yoktur."});
+  const rz=o=>{const c=o.d==='var'?'v':(o.d==='yok'?'y':'n');return '<span class="deg '+c+'">'+o.t+'</span>';};
+  const stopajRoz = (stopaj==='—'||stopaj==='%0')?'y':(String(stopaj).indexOf('düş')>=0?'n':'v');
+
+  ekran(`<div class="soru">SONUÇ</div><div class="sbaslik">${TUR[C.tur].em} ${TUR[C.tur].ad}</div>
+    <div class="ozet ${ozetT}">${ozet}<br><span style="font-size:12.5px;color:var(--muted)">${kdvNot}</span></div>
+    <div class="satir"><div class="sol"><div class="ad">🧾 KDV — 2 No.lu (sorumlu sıfatıyla)</div><div class="not">${kdvNot}</div></div><span class="deg v">${kdv}</span></div>
+    <div class="satir"><div class="sol"><div class="ad">✂️ Stopaj (KVK m.30 tevkifatı)</div><div class="not">${sMetin}</div></div><span class="deg ${stopajRoz}">${stopaj}</span></div>
+    <div class="satir"><div class="sol"><div class="ad">💸 KKDF</div><div class="not">${kkdf.not}</div></div>${rz(kkdf)}</div>
+    <div class="beyan"><h4>HANGİ BEYANNAME?</h4><div>• 2 No.lu KDV Beyannamesi — izleyen ayın 21'i (ödeme 23'ü)</div>${stopaj!=='—'?"<div>• Muhtasar ve Prim Hizmet Beyannamesi — stopaj (izleyen ayın 26'sı)</div>":""}<div>• Sözleşme varsa: damga vergisi</div></div>
+    <button class="btn" onclick="baslat()">↺ Yeni fatura sorgula</button>`);
+}
+baslat();
 </script>
 </body>
 </html>
