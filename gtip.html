@@ -309,9 +309,19 @@ function kdvKart(kod){
   const f = (KDV && KDV.fasil) ? KDV.fasil[fasil] : null;
   // BU koda GERÇEKTEN uygulanan hüküm mü? tüm-fasıl VEYA pozisyon(4h) VEYA spesifik kod eşleşmesi.
   // (8480 dersi: 8480.71 %1 listede ama 8480.90 değil — 4-hane çökertme yanlıştı, artık spesifik.)
-  const uygular = h => h.tumF===true
-    || (h.poz||[]).indexOf(poz) >= 0
-    || (h.kod||[]).some(k => digits.startsWith(k) || k.startsWith(digits));
+  const uygular = h => {
+    // 1) açıkça listelenen kod → kapsamda (hariç'i EZER: ör. sakız 1704.90.30 madde 13b'de %1)
+    if((h.kod||[]).some(k => digits.startsWith(k) || k.startsWith(digits))) return true;
+    // 2) TÜM-FASIL hükmü → "(... hariç)" istisnaları geçerli (ör. fasıl3 süs balığı 0301.10 %20).
+    //    Hariç YALNIZ tüm-fasılda uygulanır; kod-listesi hükümlerinde (ör. item 17 makine) "(X hariç)"
+    //    bir çapraz-atıf açıklamasıdır, o kodu dışlamamalı — yoksa 84.02 buhar kazanı yanlış %20 olur.
+    if(h.tumF===true){
+      if((h.haric||[]).some(k => k && (''+k).length>=4 && digits.startsWith(''+k))) return false;
+      return true;
+    }
+    // 3) pozisyon-listesi hükmü (hariç yok sayılır)
+    return (h.poz||[]).indexOf(poz) >= 0;
+  };
   const o1a  = f ? (f.o1||[]).filter(uygular)  : [];
   const o10a = f ? (f.o10||[]).filter(uygular) : [];
   // Koşula bağlı hükümler (ör. "yalnız kullanılmış taşıtlar") pozisyonu topluca indirimli YAPMAZ —

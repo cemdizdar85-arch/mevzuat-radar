@@ -25,9 +25,19 @@ function Test-Kdv([string]$kod){
   $hukumler = @(); if($rec.o1){ $hukumler += $rec.o1 }; if($rec.o10){ $hukumler += $rec.o10 }
   foreach($h in $hukumler){
     if($h.kosul -eq $true){ continue }   # kosula bagli hukum (yalniz kullanilmis vb.) tek basina indirimli SAYILMAZ
-    if($h.tumF -eq $true){ return 'indirimli' }
+    # 1) acikca listelenen kod -> kapsamda (haric'i ezer)
+    $kodM = $false
+    if($h.kod){ foreach($k in $h.kod){ $k = "$k"; if($d.StartsWith($k) -or $k.StartsWith($d)){ $kodM = $true; break } } }
+    if($kodM){ return 'indirimli' }
+    # 2) TUM-FASIL hukmu -> "(... hariç)" istisnalari gecerli (yalniz tumF'te; kod-listesinde haric = capraz-atif, yok sayilir)
+    if($h.tumF -eq $true){
+      $haricM = $false
+      if($h.haric){ foreach($k in $h.haric){ $k = "$k"; if($k.Length -ge 4 -and $d.StartsWith($k)){ $haricM = $true; break } } }
+      if($haricM){ continue }
+      return 'indirimli'
+    }
+    # 3) pozisyon-listesi hukmu (haric yok sayilir)
     if($h.poz -and (@($h.poz) -contains $poz)){ return 'indirimli' }
-    if($h.kod){ foreach($k in $h.kod){ $k = "$k"; if($d.StartsWith($k) -or $k.StartsWith($d)){ return 'indirimli' } } }
   }
   return 'genel'
 }

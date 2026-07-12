@@ -63,6 +63,25 @@ function Temizle([string]$m){
 function ScopeMetin([string]$mTemiz){
   return [regex]::Replace($mTemiz, '\([^()]*hariç[^()]*\)', ' ')
 }
+# "( ... hariç)" span'larindaki KODLARI cikar -> bu hukumden HARIC tutulacaklar.
+#  (Sus baligi 0301.10, belli yumurta 0408.x tumF=fasil olsa da %1 DEGIL.) Ayni hukumde
+#  ACIKCA listelenen kod (or. sakiz 1704.90.30, madde 13b) haric'i ezer -> eslestirmede kod ONCE bakilir.
+function HaricKodlari([string]$metin){
+  $set = New-Object System.Collections.Generic.HashSet[string]
+  foreach($sp in [regex]::Matches($metin, '\([^()]*hariç[^()]*\)')){
+    $span = $sp.Value
+    # 8-12 hane tam kod -> yakala, sonra DUZ maskele (yoksa "1704.90.30.00.00" -> "9030","0000" copu)
+    foreach($m in [regex]::Matches($span, '\b(\d{2})(\d{2})([\s.]\d{2}[\s.]\d{2}(?:[\s.]\d{2}){0,2})\b')){ [void]$set.Add(($m.Value -replace '[^\d]','')) }
+    $span = [regex]::Replace($span, '\b(\d{2})(\d{2})([\s.]\d{2}[\s.]\d{2}(?:[\s.]\d{2}){0,2})\b', ' # ')
+    # 6-hane NNNN.NN -> yakala, sonra maskele
+    foreach($m in [regex]::Matches($span, '\b(\d{2})(\d{2})\.(\d{2})\b')){ [void]$set.Add($m.Groups[1].Value+$m.Groups[2].Value+$m.Groups[3].Value) }
+    $span = [regex]::Replace($span, '\b(\d{2})(\d{2})\.(\d{2})\b', ' # ')
+    # standalone NN.NN -> tum pozisyon (or. "84.02 hariç")
+    foreach($m in [regex]::Matches($span, '\b(\d{2})\.(\d{2})\b')){ [void]$set.Add($m.Groups[1].Value+$m.Groups[2].Value) }
+  }
+  # GUVENLIK: bos/kisa (<4 hane) kod ELENIR — yoksa StartsWith('') tum fasli yanlislikla dislar.
+  return @($set | Where-Object { $_ -and $_.Length -ge 4 })
+}
 
 # --- referans cikar: fasil(tum bolum) + poz(tum 4-hane) + kod(spesifik) AYRI ---
 #  KRITIK (8480 bulgusu): "84.02" = tum 8402 pozisyonu; "8480.71.00.00.00" = SADECE o kod.
@@ -133,6 +152,7 @@ function Ekle([string]$govde, [string]$oranEtiket){
     $goster = $mTemiz
     if($goster.Length -gt 700){ $goster = $goster.Substring(0,700) + "… (devamı resmî listede)" }
     $anahtar = ($goster.Substring(0,[Math]::Min(50,$goster.Length)))   # tekrar ayiklama anahtari
+    $haricKod = HaricKodlari $mTemiz    # "(... hariç)" kodlari — bu hukumden cikarilir (kod acikca varsa ezilir)
     foreach($f in $r.fasillar){
       if(-not $fasil.ContainsKey($f)){ $fasil[$f]=@{ o1=@(); o10=@() } }
       $hedefListe = if($oranEtiket -eq "1"){ $fasil[$f].o1 } else { $fasil[$f].o10 }
@@ -148,7 +168,7 @@ function Ekle([string]$govde, [string]$oranEtiket){
       #  yapmasin — yoksa 8480.71 plastik kalip %1 yanlislikla genel olur.
       $bas = if($mTemiz.Length -gt 130){ $mTemiz.Substring(0,130) } else { $mTemiz }
       $kosul = [bool]([regex]::IsMatch($bas,'yalnız\s+kullanılmış') -or $bas.Contains('kullanılmış olanlar'))
-      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)); kosul=$kosul }
+      $kayit=@{ m=$goster; poz=$r.pozlar; kod=$r.kodlar; tumF=([bool](@($r.tumFasillar) -contains $f)); kosul=$kosul; haric=$haricKod }
       if($oranEtiket -eq "1"){ $fasil[$f].o1+=$kayit } else { $fasil[$f].o10+=$kayit }
     }
     $script:sayac++
