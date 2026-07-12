@@ -59,22 +59,35 @@
   .hero{position:relative;min-height:96vh;display:flex;align-items:center;
     padding:150px clamp(18px,4vw,42px) 80px;overflow:hidden;
     background:
-      radial-gradient(1300px 680px at 74% -12%, rgba(46,124,255,.20), transparent 58%),
-      radial-gradient(1000px 560px at 6% 116%, rgba(38,208,254,.07), transparent 55%),
+      radial-gradient(1100px 620px at 78% 2%, rgba(64,140,255,.42), rgba(64,140,255,.10) 34%, transparent 60%),
+      radial-gradient(760px 520px at 88% 8%, rgba(38,208,254,.28), transparent 52%),
+      radial-gradient(1200px 700px at 10% 118%, rgba(120,90,255,.16), transparent 55%),
       var(--bg)}
+  /* gezegen ufku: altta parlak yay */
+  .hero-horizon{position:absolute;left:-10%;right:-10%;bottom:-58%;height:90%;pointer-events:none;
+    border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 0%, rgba(64,150,255,.30), transparent 62%);
+    box-shadow:0 -1px 60px 6px rgba(72,160,255,.22)}
   .hero-grid{position:absolute;inset:0;pointer-events:none;
     background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
                      linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
     background-size:64px 64px;
     mask-image:radial-gradient(ellipse 75% 60% at 50% 38%,#000 25%,transparent 72%)}
   /* derin uzay: ince yildiz taneleri */
-  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-    background-image:radial-gradient(1.2px 1.2px at 18% 22%,rgba(255,255,255,.7),transparent),
-      radial-gradient(1px 1px at 62% 14%,rgba(255,255,255,.5),transparent),
-      radial-gradient(1.4px 1.4px at 82% 44%,rgba(190,220,255,.6),transparent),
-      radial-gradient(1px 1px at 40% 68%,rgba(255,255,255,.45),transparent),
-      radial-gradient(1.1px 1.1px at 88% 76%,rgba(255,255,255,.4),transparent);
-    mask-image:radial-gradient(ellipse 90% 80% at 60% 30%,#000,transparent 80%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    animation:twinkle 5.5s ease-in-out infinite;
+    background-image:
+      radial-gradient(1.6px 1.6px at 18% 22%,#fff,transparent),
+      radial-gradient(1.3px 1.3px at 62% 12%,rgba(255,255,255,.85),transparent),
+      radial-gradient(2px 2px at 82% 40%,rgba(190,220,255,.95),transparent),
+      radial-gradient(1.3px 1.3px at 40% 64%,rgba(255,255,255,.7),transparent),
+      radial-gradient(1.5px 1.5px at 90% 72%,rgba(255,255,255,.75),transparent),
+      radial-gradient(1.2px 1.2px at 30% 34%,rgba(255,255,255,.6),transparent),
+      radial-gradient(1.7px 1.7px at 72% 60%,rgba(200,225,255,.8),transparent),
+      radial-gradient(1.1px 1.1px at 52% 82%,rgba(255,255,255,.5),transparent),
+      radial-gradient(1.4px 1.4px at 8% 52%,rgba(255,255,255,.6),transparent);
+    mask-image:radial-gradient(ellipse 95% 85% at 55% 28%,#000,transparent 82%)}
+  @keyframes twinkle{0%,100%{opacity:.85}50%{opacity:.45}}
   .hero-inner{position:relative;max-width:1180px;margin:0 auto;width:100%;
     display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
   @media(max-width:920px){.hero-inner{grid-template-columns:1fr}.hero{min-height:auto;padding-top:104px}}
@@ -275,6 +288,7 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="hero-grid"></div>
+  <div class="hero-horizon"></div>
   <div class="hero-inner">
     <div>
       <span class="eyebrow">Radar aktif · Türkiye mevzuatı</span>
