@@ -74,15 +74,16 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, ULKE_GRUP_ETIKET = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([])),
   fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; });
+  fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; });
 // GTS/EAGU/OTDU siralamasi: kod dizisinde [abSta,katar,bae,eagu,otdu,gyu,du]
 const ULKE_SIRA = ["abSta","katar","bae","eagu","otdu","gyu","du"];
 
@@ -115,25 +116,31 @@ function vergiKart(kod){
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
   const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
 
+  const igvSatir = IGV_ULKE ? IGV_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
+  const idx = seciliGrup ? ULKE_SIRA.indexOf(seciliGrup) : -1;
   let sat = '';
   let ulkeNotu = '';
-  if(ulkeSatir && seciliGrup){
-    const idx = ULKE_SIRA.indexOf(seciliGrup);
-    const gv = ulkeSatir[idx];
-    if(gv!==null && gv!==undefined){
-      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke grubu)</b><span style="color:var(--green);font-weight:700">%${gv}</span></div>`;
-      ulkeNotu = `<div style="font-size:11.5px;color:var(--green);margin-top:4px">✓ Bu oran, seçtiğin ülke grubu için Ticaret Bakanlığı İthalat Rejimi Kararı II Sayılı Liste'sinden kesin okunmuştur (aralık değil).</div>`;
-    } else {
-      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke grubu)</b><span>Bu kod için bu grupta veri yok — aralığa bak</span></div>`;
+  if((ulkeSatir || igvSatir) && seciliGrup){
+    // Gümrük Vergisi — ülkeye özel varsa kesin, yoksa aralık
+    if(ulkeSatir && ulkeSatir[idx]!==null && ulkeSatir[idx]!==undefined){
+      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">%${ulkeSatir[idx]}</span></div>`;
+    } else if(v[0]!==null && v[0]!==undefined){
+      sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
     }
-    if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi (tüm ülkeler aralığı)</b><span>${rng(v[0],v[1])}</span></div>`;
+    // İGV — ülkeye özel varsa kesin, yoksa aralık
+    if(igvSatir && igvSatir[idx]!==null && igvSatir[idx]!==undefined){
+      sat += `<div class="satir"><b>İlave Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">%${igvSatir[idx]}</span></div>`;
+    } else if(v[2]!==null && v[2]!==undefined){
+      sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
+    }
+    ulkeNotu = `<div style="font-size:11.5px;color:var(--green);margin-top:4px">✓ Yeşil oranlar, seçtiğin ülke grubu için Ticaret Bakanlığı İthalat Rejimi + İGV Kararı'ndan <b>kesin</b> okunmuştur (aralık değil).</div>`;
   } else {
     if(v[0]!==null && v[0]!==undefined) sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
-    if(ulkeSatir){
-      ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin oranımız var — yukarıdan menşe ülkeni seç.</div>`;
+    if(v[2]!==null && v[2]!==undefined) sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
+    if(ulkeSatir || igvSatir){
+      ulkeNotu = `<div style="font-size:11.5px;color:var(--amber);margin-top:4px">💡 Bu kod için ülkeye özel kesin Gümrük Vergisi ve İGV oranımız var — yukarıdan menşe ülkeni seç, aralık kesinleşsin.</div>`;
     }
   }
-  if(v[2]!==null && v[2]!==undefined) sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
   if(!sat) return '';
   // KDV: GTİP bazlı temiz kaynak yok — standart oran + istisna notu (uydurma değil, dürüst genel)
   sat += `<div class="satir"><b>KDV</b><span>%20 standart<sup style="color:var(--amber)">*</sup></span></div>`;
@@ -170,17 +177,20 @@ function etkiHesapla(kod, sid){
   const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;
   let sat = '', notEk = '';
 
-  if(ulkeSatir && seciliGrup){
+  const igvSatir = IGV_ULKE ? IGV_ULKE[kod] : null;
+  if((ulkeSatir || igvSatir) && seciliGrup){
     const idx = ULKE_SIRA.indexOf(seciliGrup);
-    const gv = ulkeSatir[idx];
-    if(gv!==null && gv!==undefined){
-      const gvTutar = tutar*gv/100;
-      const igvMin = v[2]!=null ? tutar*v[2]/100 : null, igvMax = v[2]!=null ? tutar*v[3]/100 : null;
-      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(gvTutar)} TL (kesin, %${gv})</span></div>`;
-      if(igvMin!=null) sat += `<div class="satir"><b>İGV</b><span>${igvMin===igvMax ? tl(igvMin)+' TL' : tl(igvMin)+' – '+tl(igvMax)+' TL'}</span></div>`;
-      const toplam = gvTutar + (igvMin||0);
-      sat += `<div class="satir"><b>Tahmini yıllık toplam</b><span style="color:var(--amber);font-weight:700">~${tl(toplam)} TL</span></div>`;
-      notEk = ' Gümrük Vergisi kesin (seçtiğin ülke grubuna göre);';
+    const gv = ulkeSatir ? ulkeSatir[idx] : null;
+    const igvU = igvSatir ? igvSatir[idx] : null;
+    if((gv!==null && gv!==undefined) || (igvU!==null && igvU!==undefined)){
+      let gvTutar = 0, igvTutar = 0;
+      if(gv!==null && gv!==undefined){ gvTutar = tutar*gv/100; sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(gvTutar)} TL (kesin, %${gv})</span></div>`; }
+      else if(v[0]!=null){ const mn=tutar*v[0]/100, mx=tutar*v[1]/100; gvTutar=mn; sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${mn===mx?tl(mn)+' TL':tl(mn)+' – '+tl(mx)+' TL'}</span></div>`; }
+      if(igvU!==null && igvU!==undefined){ igvTutar = tutar*igvU/100; sat += `<div class="satir"><b>İGV (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(igvTutar)} TL (kesin, %${igvU})</span></div>`; }
+      else if(v[2]!=null){ const mn=tutar*v[2]/100, mx=tutar*v[3]/100; igvTutar=mn; sat += `<div class="satir"><b>İGV</b><span>${mn===mx?tl(mn)+' TL':tl(mn)+' – '+tl(mx)+' TL'}</span></div>`; }
+      const toplam = gvTutar + igvTutar;
+      sat += `<div class="satir"><b>Tahmini yıllık toplam (GV+İGV)</b><span style="color:var(--amber);font-weight:700">~${tl(toplam)} TL</span></div>`;
+      notEk = ' Yeşil kalemler seçtiğin ülke grubuna göre kesin;';
     }
   }
   if(!sat){
