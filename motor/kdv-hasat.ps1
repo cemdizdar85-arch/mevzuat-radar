@@ -153,6 +153,12 @@ function Ekle([string]$govde, [string]$oranEtiket){
     if($goster.Length -gt 700){ $goster = $goster.Substring(0,700) + "… (devamı resmî listede)" }
     $anahtar = ($goster.Substring(0,[Math]::Min(50,$goster.Length)))   # tekrar ayiklama anahtari
     $haricKod = HaricKodlari $mTemiz    # "(... hariç)" kodlari — bu hukumden cikarilir (kod acikca varsa ezilir)
+    # YASAL YORUM (madde 11): fasil 15'te %1 YALNIZ "insan gidasi olarak kullanilmaya elverisli"
+    #  yaglar. Sinai yaglar kaynakta kod olarak GECMEZ (1518 tanimen yenmez, 1520 gliserin,
+    #  1521 mum, 1522 yag tortusu/degras) ama tumF=15 onlari da %1 yapardi -> haric ekle -> %20.
+    if($mTemiz -match 'insan gıdası olarak kullanılmaya elverişli' -and $mTemiz -match '15\s*no'){
+      $haricKod = @($haricKod) + @('1518','1520','1521','1522')
+    }
     foreach($f in $r.fasillar){
       if(-not $fasil.ContainsKey($f)){ $fasil[$f]=@{ o1=@(); o10=@() } }
       $hedefListe = if($oranEtiket -eq "1"){ $fasil[$f].o1 } else { $fasil[$f].o10 }

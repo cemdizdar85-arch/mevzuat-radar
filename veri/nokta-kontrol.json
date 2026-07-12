@@ -70,6 +70,16 @@
     { "kod": "0207.14.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 1b — tavuk eti (02.07) %1" },
     { "kod": "8402.11.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 17 — buhar kazanı (sanayi makine) %1; iç 'hariç' çapraz-atfı dışlamamalı" },
     { "kod": "8415.10.90.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — klima madde 17 %1 listesinde yok (tüketici cihazı, ÖTV'li), genel %20" },
-    { "kod": "1704.90.30.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 13b — sakız açık kod olarak %1 (13a'daki hariç'i EZER)" }
+    { "kod": "1704.90.30.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 13b — sakız açık kod olarak %1 (13a'daki hariç'i EZER)" },
+
+    { "kod": "2009.89.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 III — gerçek meyve suyu ÖTV DIŞI (açık istisna). Önce yanlış 'var' gösteriyordu." },
+    { "kod": "2202.10.00.00.13", "katman": "otv", "bekle": "var", "kaynak": "4760 III (10799 CB) — kolalı gazoz %35 ÖTV" },
+    { "kod": "2202.10.00.00.11", "katman": "otv", "bekle": "var", "kaynak": "4760 III — sade gazoz %10 ÖTV" },
+    { "kod": "2202.91.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 III — alkolsüz bira %10 ÖTV" },
+    { "kod": "2202.99.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 III — diğer 2202 (bitkisel içecek vb.) ÖTV kapsamında değil" },
+    { "kod": "2203.00.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 III — malttan bira ÖTV kapsamında" },
+    { "kod": "1518.00.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 madde 11 — sınai (yenmeyen) yağ %20; fasıl 15 tumF'ten hariç" },
+    { "kod": "1520.00.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 madde 11 — gliserin (sınai) %20" },
+    { "kod": "1509.10.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 madde 11 — zeytinyağı (yenilebilir) %1" }
   ]
 }
