@@ -1,5 +1,50 @@
 # KAPSAM KONTROL — "kaçırmayı sistemle önle"
 
+## 0) ALAN HARİTASI — "olmayanı nasıl buluruz"
+*Eksik iki türdür: (1) kapsadığımız alanın içindeki delik → resmî listeye çentik yakalar (bölüm 1+).
+(2) hiç dokunmadığımız KOMPLE alan → tehlikeli olan onu kapsıyormuş gibi göstermek. Bu harita her
+alanı GÖRÜNÜR yapar; kırmızı satır = bilerek kapsamıyoruz (sürpriz değil). Yöntem: listeyi biz icat
+etmeyiz — uzmanın (gümrük müşaviri / SMMM) zaten yaptığı sayımı ANKOR alırız.*
+
+### A. DIŞ TİCARET
+| Alan | Ankor | Durum |
+|---|---|---|
+| İthalat vergi/fonları | Gümrük beyannamesi vergi kodları | ✅ |
+| İthalat Rejimi listeleri I–VII | Ticaret Bak. Excel seti | ✅ (VI/VII niş açık) |
+| İthalatta denetim (TAREKS/ÜGD) | 2026 ÜGD tebliğleri | ✅ rehber |
+| İhracat (KDV istisna/kayda bağlı/yasak/DFİF/DİİB) | İhracat Yönetmeliği ekleri | ✅ (kayda bağlı/yasak liste robotu açık) |
+| Menşe/dolaşım belgeleri (A.TR, EUR.1, menşe şah.) | Gümrük Yönetmeliği | ❌ dokunulmadı |
+| Gümrük rejimleri (antrepo, geçici ithalat, hariçte işleme) | Gümrük Kanunu | ⚠ kısmi (DİİB/TEV var) |
+
+### B. ŞİRKET / VERGİ
+| Alan | Ankor | Durum |
+|---|---|---|
+| Şirket kuruluşu / tür seçimi | TTK + sihirbaz | ✅ |
+| KV/GV oranları + imalatçı/ihracatçı indirimi | KVK m.32 / GİB tarife | ✅ |
+| Defter-belge (e-fatura/e-defter/e-irsaliye) | VUK 509 | ✅ |
+| Bağımsız denetim eşiği · Transfer fiyatlandırması | CB Kararı / KVK m.13 | ✅ |
+| **Vergi takvimi (hangi beyanname ne zaman)** | GİB Vergi Takvimi | ❌ dokunulmadı |
+| **Kıdem/ihbar tazminatı tavanı** | İş K. / yıllık tavan | ❌ dokunulmadı |
+
+### C. İSTİHDAM / SGK
+| Alan | Ankor | Durum |
+|---|---|---|
+| İSG (uzman/kurul/temsilci) · engelli · emzirme · toplu çıkarma | 6331 / 4857 | ✅ eşik sayfaları |
+| **Asgari ücret / SGK prim taban-tavan / teşvikler** | SGK yıllık | ⚠ değinilmedi |
+
+### D. SEKTÖREL / DİĞER
+| Alan | Ankor | Durum |
+|---|---|---|
+| KVKK/VERBİS · KEP/e-tebligat · TTK 1524 | ilgili kanun | ✅ |
+| Destekler (KOSGEB/Ticaret Bak./Eximbank) | Destek mevzuatı | ✅ Destek Radarı |
+| **Sektörel lisanslar (gıda işletme kaydı, turizm belgesi, sağlık ruhsatı…)** | ilgili bakanlık | ❌ dokunulmadı |
+
+**KURAL:** Bir alanı resmî ankora çentikleyip "tam" demeden, sitede o alanı KAPSIYORMUŞ gibi gösterme.
+❌ satırlar = bilinen açık; site dilinde asla "her şey burada" denmez. Açıklar sırayla, birer ANKORLA kapanır.
+
+---
+
+
 *Kural (Cem, 12.07.2026): İkimizin hafızasına güvenmeyiz. Her modülü RESMÎ, EKSİKSİZ bir sayım
 listesine bağlar, tek tek çentikleriz. Eksik = "aklımıza gelmeyen" = patlama riski; bu belge onu
 "listede işaretlenmemiş kalem"e çevirir. Yeni bir vergi/yükümlülük eklenince önce buraya, sonra siteye.*
