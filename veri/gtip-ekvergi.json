@@ -18,6 +18,27 @@
     "metin": "Radyo-televizyon yayını alabilen cihazlarda (televizyon, radyo, set üstü kutu, bazı cep telefonu/tablet/bilgisayar vb.) ithalat/ilk satış aşamasında TRT bandrol ücreti alınır. Oran cihaz türüne göre değişir — güncel oran/kapsam için TRT'ye/gümrük müşavirine danış. Her 85. fasıl ürünü kapsamda değildir.",
     "dayanak": "3093 sayılı Kanun"
   },
+  "subvansiyon": {
+    "baslik": "Sübvansiyona Karşı (Telafi Edici) Vergi",
+    "metin": "Dampingin kardeşidir: bir ülke ürünü devlet sübvansiyonuyla ucuzlatıp Türkiye'ye satıyorsa, o menşe/ürün için normal vergilere EK olarak Sübvansiyona Karşı Vergi konabilir. Dampinge karşı önlemler gibi ürün+menşe bazında tebliğle ilan edilir — kodun bir önleme tabi mi, yürürlükteki tebliğlere bak.",
+    "dayanak": "3577 sayılı İthalatta Haksız Rekabetin Önlenmesi Hakkında Kanun"
+  },
+  "tev": {
+    "baslik": "Telafi Edici Vergi (TEV) — DİİB kullanıyorsan dikkat",
+    "metin": "Dahilde İşleme İzin Belgesi (DİİB) ile girdiyi gümrük vergisi/KDV/KKDF ödemeden ithal edip, ürettiğin malı İHRAÇ etmeyip yurt içine satarsan ya da serbest dolaşıma sokarsan: ithal girdinin ödenmeyen gümrük vergilerini Telafi Edici Vergi olarak (gecikme faiziyle) ödersin. DİİB'in şartlı muafiyeti buradan çıkar — ihraç taahhüdünü tutmazsan vergi geri gelir.",
+    "dayanak": "4458 sayılı Gümrük Kanunu + Dahilde İşleme Rejimi Kararı"
+  },
+  "tutunFonu": {
+    "fasil": ["24"],
+    "baslik": "Tütün Fonu",
+    "metin": "Tütün/tütün mamulü ithalinde tarihsel olarak Tütün Fonu (3 ABD Doları/kg) alınırdı; yaprak tütünde bu fon 2010'dan itibaren kademeli azaltılıp 2018 sonunda SIFIRLANDI. Puro/sigarillo ve bazı mamullerde güncel durum değişebilir; ayrıca şark tipi tütün ve tütün tozu ithali yasaktır (2024 yönetmeliği). Kesin güncel tutar için Karara/gümrük müşavirine bak — biz uydurmayız.",
+    "dayanak": "3291 sayılı Kanun + ilgili CB Kararı"
+  },
+  "damga": {
+    "baslik": "Damga Vergisi (beyanname)",
+    "metin": "Gümrük beyannamesi damga vergisine tabidir — maktu (sabit) bir tutardır ve her yıl yeniden değerlemeyle güncellenir. Küçük bir kalemdir ama her beyannamede çıkar. Güncel maktu tutar için beyanname tarihindeki Damga Vergisi Kanunu (I) sayılı tarifeye bak.",
+    "dayanak": "488 sayılı Damga Vergisi Kanunu"
+  },
   "ihracatGenel": {
     "baslik": "İhracatta dikkat — bu koddan mal SATIYORSAN",
     "maddeler": [
