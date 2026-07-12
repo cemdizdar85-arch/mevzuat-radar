@@ -23,14 +23,14 @@ etmeyiz — uzmanın (gümrük müşaviri / SMMM) zaten yaptığı sayımı ANKO
 | KV/GV oranları + imalatçı/ihracatçı indirimi | KVK m.32 / GİB tarife | ✅ |
 | Defter-belge (e-fatura/e-defter/e-irsaliye) | VUK 509 | ✅ |
 | Bağımsız denetim eşiği · Transfer fiyatlandırması | CB Kararı / KVK m.13 | ✅ |
-| **Vergi takvimi (hangi beyanname ne zaman)** | GİB Vergi Takvimi | ❌ dokunulmadı |
+| Vergi takvimi (hangi beyanname ne zaman) | GİB Vergi Takvimi | ✅ bilgi.html#hap-vergi-takvimi |
 | **Kıdem/ihbar tazminatı tavanı** | İş K. / yıllık tavan | ❌ dokunulmadı |
 
 ### C. İSTİHDAM / SGK
 | Alan | Ankor | Durum |
 |---|---|---|
 | İSG (uzman/kurul/temsilci) · engelli · emzirme · toplu çıkarma | 6331 / 4857 | ✅ eşik sayfaları |
-| **Asgari ücret / SGK prim taban-tavan / teşvikler** | SGK yıllık | ⚠ değinilmedi |
+| Asgari ücret / SGK prim taban-tavan / teşvikler | SGK yıllık | ✅ bilgi.html#hap-asgari-ucret (2026) |
 
 ### D. SEKTÖREL / DİĞER
 | Alan | Ankor | Durum |
