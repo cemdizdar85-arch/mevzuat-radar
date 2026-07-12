@@ -102,8 +102,17 @@ Promise.all([
 
 // BALIK/su ürünleri (IV Sayılı Liste): menşe ülkeye göre GV + Ek Mali Yükümlülük (Toplu Konut Fonu)
 function balikKart(kod){
-  if(!BALIK || !BALIK.kodlar || !BALIK.kodlar[kod]) return '';
-  const b = BALIK.kodlar[kod];
+  if(!BALIK || !BALIK.kodlar) return '';
+  // tam eşleşme yoksa önek eşleşmesi (kullanıcı kısmi kod yazmış olabilir)
+  let anahtar = kod, ekNot = '';
+  if(!BALIK.kodlar[kod]){
+    const say = kod.replace(/\./g,'');
+    const eslesen = Object.keys(BALIK.kodlar).filter(k=>k.replace(/\./g,'').startsWith(say));
+    if(!eslesen.length) return '';
+    anahtar = eslesen[0];
+    if(eslesen.length>1) ekNot = `<div style="font-size:11px;color:var(--amber);margin-bottom:6px">${anahtar} gösteriliyor — bu başlık altında ${eslesen.length} alt kod var, oranlar alt koda göre değişebilir; tam kodu gir.</div>`;
+  }
+  const b = BALIK.kodlar[anahtar];
   const tablo = (arr, ulke) => arr.map((o,i)=> (o===null||o===undefined) ? '' :
     `<div class="satir"><b style="font-weight:600">${ulke[i]}</b><span style="color:${o===0?'var(--green)':'var(--muted)'};font-weight:${o===0?'700':'600'}">%${o}</span></div>`).filter(Boolean).join('');
   const gvHtml = tablo(b.gv, BALIK.gvUlke);
@@ -115,7 +124,7 @@ function balikKart(kod){
     </div>` : '';
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">🐟 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (balıkçılık / su ürünleri)</div>
-    ${gvHtml}${emyHtml}
+    ${ekNot}${gvHtml}${emyHtml}
     <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı IV Sayılı Liste (balıkçılık ve su ürünleri) — her menşe için birebir okundu. KDV ayrıca; işlem öncesi gümrük müşavirine danış.</div>
   </div>`;
 }
