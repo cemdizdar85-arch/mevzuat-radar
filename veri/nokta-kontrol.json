@@ -1,0 +1,19 @@
+{
+  "aciklama": "NOKTA-KONTROL: bilinen kod -> doğru cevap çiftleri. Her veri değişiminde (harvest sonrası) arac/nokta-kontrol.ps1 bunları site verisine karşı sınar. Amaç: 8480/8517 türü ESLESTIRME (4-hane çökertme) hatalarını yakalamak — oran değil, MANTIK regresyonu. Vaka eklerken CEVABI birincil kaynaktan teyit et; yanlış vaka testi zehirler.",
+  "vakalar": [
+    { "kod": "8480.90.00.00.00", "katman": "kdv", "bekle": "genel", "kaynak": "2007/13033 — 8480.90 (diğer kalıplar) indirimli listede YOK, genel %20. (Cem'in bildirdiği bug)" },
+    { "kod": "8480.71.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — plastik enjeksiyon/basınçlı döküm kalıbı %1" },
+    { "kod": "8480.79.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 (I) 17. sıra — diğer plastik kalıplar %1" },
+    { "kod": "0407.21.00.00.00", "katman": "kdv", "bekle": "indirimli", "kaynak": "2007/13033 — yumurta indirimli oranda" },
+    { "kod": "8517.62.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 (IV) — router/switch/modem ÖTV DIŞI; IV yalnız cep telefonu 8517.13/14" },
+    { "kod": "8517.13.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (IV) — akıllı telefon ÖTV kapsamında" },
+    { "kod": "8703.23.00.00.00", "katman": "otv", "bekle": "var", "kaynak": "4760 (II) — binek otomobil ÖTV kapsamında" },
+    { "kod": "8471.30.00.00.00", "katman": "otv", "bekle": "yok", "kaynak": "4760 — taşınabilir bilgisayar hiçbir ÖTV listesinde yok" },
+    { "kod": "2710.12.45.00.11", "katman": "gekap", "bekle": "yok", "kaynak": "2872 sy. Kanun ekli (1) liste — benzin/akaryakıt GEKAP DIŞI; yalnız madeni/yağlama yağı" },
+    { "kod": "4011.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — dış lastik GEKAP kapsamında" },
+    { "kod": "8507.10.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "2872 sy. Kanun ekli (1) liste — akümülatör GEKAP kapsamında" },
+    { "kod": "0802.11.00.00.00", "katman": "dfif", "bekle": "yok", "kaynak": "88/13384 DFİF — badem DFİF DIŞI; DFİF yalnız fındık 0802.21/22" },
+    { "kod": "0802.22.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — iç fındık 8 Cent/kg" },
+    { "kod": "1509.10.00.00.00", "katman": "dfif", "bekle": "var", "kaynak": "88/13384 DFİF — zeytinyağı 20 Cent/kg" }
+  ]
+}

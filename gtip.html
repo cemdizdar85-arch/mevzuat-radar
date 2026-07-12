@@ -222,7 +222,9 @@ function ihracatKart(kod){
   if(!EKVERGI || !EKVERGI.ihracatGenel) return '';
   const g = EKVERGI.ihracatGenel;
   const poz = kod.replace(/\./g,'').slice(0,4);
-  const dfif = (EKVERGI.dfif && EKVERGI.dfif.pozisyon) ? EKVERGI.dfif.pozisyon[poz] : null;
+  // DFİF: önce 6-hane alt kod (ör. fındık 080221 — badem/ceviz DEĞİL), yoksa 4-hane pozisyon.
+  const dfifP = (EKVERGI.dfif && EKVERGI.dfif.pozisyon) ? EKVERGI.dfif.pozisyon : null;
+  const dfif = dfifP ? (dfifP[kod.replace(/\./g,'').slice(0,6)] || dfifP[poz]) : null;
   const maddeHtml = g.maddeler.map(m=>`<div style="font-size:12.5px;color:var(--muted);margin-top:5px">• ${m}</div>`).join('');
   const dfifHtml = dfif ? `<div style="margin-top:10px;padding:11px 12px;border:1px solid var(--amber);border-radius:10px;background:#1a1206">
       <div style="font-size:11px;font-weight:800;color:var(--amber);margin-bottom:3px">💸 ${EKVERGI.dfif.baslik}</div>
@@ -268,10 +270,22 @@ function otvKart(kod){
   const rec = OTV.pozisyon[d.slice(0,4)] || OTV.pozisyon[d.slice(0,2)];
   if(!rec) return '';  // ÖTV kapsamı yok → sessiz (kalabalık yapma; genel not zaten var)
   const acik = (OTV.listeAcik && OTV.listeAcik[rec.liste]) || ('Liste '+rec.liste);
+  // Alt-kod ayrımı (8517 dersi): pozisyon ÖTV listesinde ama SADECE bazı alt kodlar kapsamda.
+  // rec.kod varsa: eşleşmiyorsa YUMUŞAK uyarı (kesin "ÖTV var" DEME — router'ı yanlış işaretleme).
+  if(rec.kod && rec.kod.length){
+    const eslesti = rec.kod.some(k => d.startsWith(k) || k.startsWith(d));
+    if(!eslesti){
+      return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV — bu alt kod büyük olasılıkla DIŞINDA</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">${htmlEsc(rec.kapsamNot||('Bu pozisyonda ÖTV yalnız bazı alt kodları kapsar; bu kod muhtemelen dışında.'))} <b style="color:var(--ink)">Kesin kapsam için GİB ÖTV listesine / gümrük müşavirine teyit et.</b></div>
+      </div>`;
+    }
+  }
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--amber);border-radius:12px;background:#1a1206">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ ÖTV KAPSAMINDA — Özel Tüketim Vergisi var</div>
     <div class="satir"><b>Bu ürün (${rec.ad})</b><span style="color:var(--amber);font-weight:700">ÖTV Listesi ${rec.liste}</span></div>
     <div style="font-size:12px;color:var(--muted);margin-top:6px">Kapsam: <b style="color:var(--ink)">${acik}</b></div>
+    ${rec.kapsamNot ? `<div style="font-size:11px;color:var(--amber);margin-top:6px">${htmlEsc(rec.kapsamNot)}</div>` : ''}
     <div style="font-size:11px;color:var(--dim);margin-top:7px">${OTV.not||''}</div>
   </div>`;
 }
