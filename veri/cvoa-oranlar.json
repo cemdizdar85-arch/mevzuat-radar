@@ -1,14 +1,16 @@
 ﻿{
     "kaynak":  "GİB — Faiz ve Gayrimaddi Hak Bedelleri Üzerinden Kaynak Devlette Alınacak Vergi Oranları (yürürlükteki ÇVÖA\u0027lar)",
-    "not":  "Oranlar gayrimaddi hak (royalti/telif) ve faiz için kaynak devlet (Türkiye) üst sınırıdır. Bazı ülkelerde revize/istisna oranlar vardır — kesin oran için anlaşma metnine bak.",
+    "not":  "Oranlar gayrimaddi hak (royalti/telif) icin kaynak devlette (Türkiye) alinacak stopaj UST SINIRIDIR. Gosterilen deger GENEL/tipik royalti (patent, marka, lisans, yazilim telifi) icindir; ekipman/film gibi ozel kullanimlarda karttaki nota bak. Kesin oran ve istisnalar icin anlasma metni esastir.",
     "ulkeler":  {
                     "A.B.D":  {
-                                  "r":  5,
-                                  "f":  10
+                                  "r":  10,
+                                  "f":  10,
+                                  "n":  "Sınai/ticari/bilimsel ekipman kullanımında %5; patent/marka/telif %10"
                               },
                     "ARJANTİN":  {
-                                     "r":  3,
-                                     "f":  12
+                                     "r":  10,
+                                     "f":  12,
+                                     "n":  "Patent/marka/diğer %10; edebi-sanatsal telif %5; haber ajansı %3"
                                  },
                     "ARNAVUTLUK":  {
                                        "r":  10,
@@ -51,8 +53,9 @@
                                          "f":  10
                                      },
                     "BREZİLYA":  {
-                                     "r":  15,
-                                     "f":  15
+                                     "r":  10,
+                                     "f":  15,
+                                     "n":  "Ticari marka %15; diğer gayrimaddi hak %10"
                                  },
                     "BULGARİSTAN":  {
                                         "r":  10,
@@ -83,8 +86,9 @@
                                       "f":  10
                                   },
                     "ESTONYA":  {
-                                    "r":  5,
-                                    "f":  10
+                                    "r":  10,
+                                    "f":  10,
+                                    "n":  "Sınai/ticari/bilimsel ekipman kullanımında %5; diğer %10"
                                 },
                     "ETİYOPYA":  {
                                      "r":  10,
@@ -95,8 +99,9 @@
                                 "f":  10
                             },
                     "FİLİPİNLER":  {
-                                       "r":  15,
-                                       "f":  10
+                                       "r":  10,
+                                       "f":  10,
+                                       "n":  "Film/radyo-TV bantları %15; edebi-sanatsal telif %10"
                                    },
                     "FİNLANDİYA":  {
                                        "r":  10,
@@ -128,7 +133,8 @@
                                     },
                     "HİNDİSTAN":  {
                                       "r":  15,
-                                      "f":  10
+                                      "f":  10,
+                                      "n":  "Genel %15; finans kurumu faizli borçta bağlı özel durumlar"
                                   },
                     "HOLLANDA":  {
                                      "r":  10,
@@ -143,8 +149,9 @@
                                  "f":  10
                              },
                     "İRLANDA":  {
-                                    "r":  15,
-                                    "f":  10
+                                    "r":  10,
+                                    "f":  10,
+                                    "n":  "Genel gayrimaddi hak %10 (parser faiz oranını karıştırmıştı — düzeltildi)"
                                 },
                     "İSRAİL":  {
                                    "r":  10,
@@ -203,12 +210,14 @@
                                    "f":  10
                                },
                     "LETONYA":  {
-                                    "r":  5,
-                                    "f":  10
+                                    "r":  10,
+                                    "f":  10,
+                                    "n":  "Sınai/ticari/bilimsel ekipman kullanımında %5; diğer %10"
                                 },
                     "LİTVANYA":  {
-                                     "r":  5,
-                                     "f":  10
+                                     "r":  10,
+                                     "f":  10,
+                                     "n":  "Sınai/ticari/bilimsel ekipman kullanımında %5; diğer %10"
                                  },
                     "LÜBNAN":  {
                                    "r":  10,
@@ -308,7 +317,8 @@
                               },
                     "SURİYE":  {
                                    "r":  15,
-                                   "f":  10
+                                   "f":  10,
+                                   "n":  "Patent/marka/desen/formül/sınai-ticari tecrübe %15"
                                },
                     "TACİKİSTAN":  {
                                        "r":  10,
@@ -316,7 +326,8 @@
                                    },
                     "TAYLAND":  {
                                     "r":  15,
-                                    "f":  10
+                                    "f":  10,
+                                    "n":  "Genel %15"
                                 },
                     "TUNUS":  {
                                   "r":  10,
@@ -336,7 +347,8 @@
                               },
                     "ÜRDÜN":  {
                                   "r":  12,
-                                  "f":  10
+                                  "f":  10,
+                                  "n":  "Genel %12"
                               },
                     "VENEZUELA":  {
                                       "r":  10,
@@ -357,6 +369,21 @@
                     "YUNANİSTAN":  {
                                        "r":  10,
                                        "f":  12
-                                   }
+                                   },
+                    "İSPANYA":  {
+                                    "r":  10,
+                                    "f":  10,
+                                    "n":  "Genel gayrimaddi hak %10"
+                                },
+                    "ALMANYA":  {
+                                    "r":  10,
+                                    "f":  10,
+                                    "n":  "Yürürlükteki (yeni) anlaşma: gayrimaddi hak %10"
+                                },
+                    "SİNGAPUR":  {
+                                     "r":  10,
+                                     "f":  10,
+                                     "n":  "Gayrimaddi hak %10; faiz finans kurumunda %7,5"
+                                 }
                 }
 }
