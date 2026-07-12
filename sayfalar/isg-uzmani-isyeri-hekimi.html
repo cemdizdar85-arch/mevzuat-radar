@@ -54,9 +54,9 @@ h1{font-size:clamp(24px,4.5vw,32px);line-height:1.18;margin:6px 0 6px;letter-spa
     <div class="sonuc" id="sonuc"></div>
   </div>
 
-  <div class="govde"><p>6331 sayılı Kanuna göre, <b>çalışan sayısına bakılmaksızın</b> bir kişi dahi SGK'lı çalıştıran her işyeri İSG uzmanı ve işyeri hekimi hizmeti almak zorundadır.</p>
-<p>Hizmet süresi ve uzmanın sınıfı (A/B/C, hekim nitelikleri) işyerinin tehlike sınıfına (az tehlikeli / tehlikeli / çok tehlikeli) göre belirlenir.</p>
-<p>Hizmeti OSGB'den alabilir ya da uygun niteliğe sahip kendi personelini görevlendirebilirsin.</p></div>
+  <div class="govde"><p>6331 sayılı Kanun m.6'ya göre, <b>çalışan sayısına bakılmaksızın</b> bir kişi dahi SGK'lı çalıştıran her işyeri İSG uzmanı ve işyeri hekimi hizmeti almak zorundadır. Bu kural 1 Ocak 2025'ten itibaren tüm işyerleri için tam yürürlükte (7538 sayılı Kanunla revize edilmiştir).</p>
+<p>Hizmet süresi ve uzmanın sınıfı (A/B/C, hekim nitelikleri) işyerinin tehlike sınıfına (az tehlikeli / tehlikeli / çok tehlikeli) göre belirlenir. 10 ve daha fazla çalışanı olan <b>çok tehlikeli</b> sınıf işyerleri ayrıca "diğer sağlık personeli" de görevlendirir.</p>
+<p><b>💡 Küçük işletme kolaylığı:</b> 50'den az çalışanı olan ve <b>az tehlikeli</b> sınıfta yer alan işyerlerinde işveren (ya da vekili), Bakanlıkça belirlenen 2 günlük bir eğitimi tamamlamak şartıyla, işe giriş/periyodik muayeneler hariç bu hizmeti <b>kendisi de yürütebilir</b> — OSGB'ye ödeme yapmadan. Az tehlikeli sınıfta değilsen ya da 50+ çalışanın varsa bu seçenek yok, hizmeti OSGB'den almalısın ya da uygun niteliğe sahip personel görevlendirmelisin.</p></div>
 
   <div class="cta">
     <h2>Bu tek yükümlülük. Peki diğerleri?</h2>
@@ -67,14 +67,14 @@ h1{font-size:clamp(24px,4.5vw,32px);line-height:1.18;margin:6px 0 6px;letter-spa
   <p class="ilgili"><b>İlgili:</b> <a href="isg-kurulu.html">İSG kurulu</a> <a href="calisan-temsilcisi.html">Çalışan temsilcisi</a></p>
 
   <div class="dip">
-    Dayanak: 6331 sayılı İSG Kanunu m.6 · Hazırlayan SMMM Cem Dizdar — Mevzuat Radarı.
+    Dayanak: 6331 sayılı İSG Kanunu m.6 (mevzuat.gov.tr konsolide metni, 7538 s. Kanunla revize) · Hazırlayan SMMM Cem Dizdar — Mevzuat Radarı.
     Bilgilendirme amaçlıdır; kesin sonuç için mevzuat metni ve uzman görüşü esastır.
     Eşik değerleri Temmuz 2026 itibarıyla güncellenmiştir.
   </div>
 </div>
 
 <script>
-const HESAP = {"tip":"bilgi","metin":"\u003cb\u003eBir kişi bile SGK\u0027lı çalıştırıyorsan kapsamdasın.\u003c/b\u003e İSG uzmanı ve işyeri hekimi bulundurma/hizmet alma yükümlülüğü çalışan sayısından bağımsızdır; süre ve nitelik tehlike sınıfına göre değişir."};
+const HESAP = {"tip":"bilgi","metin":"\u003cb\u003eBir kişi bile SGK\u0027lı çalıştırıyorsan kapsamdasın.\u003c/b\u003e İSG uzmanı ve işyeri hekimi bulundurma/hizmet alma yükümlülüğü çalışan sayısından bağımsızdır; süre ve nitelik tehlike sınıfına göre değişir. 50'den az çalışanlı, az tehlikeli sınıftaysan 2 günlük eğitimle bu görevi kendin üstlenebilirsin."};
 const fmt = n => new Intl.NumberFormat('tr-TR').format(n);
 const pnum = id => { const v=(document.getElementById(id).value||'').replace(/[^\d]/g,''); return v===''?null:parseInt(v,10); };
 const lbl = t => `<label>${t}</label>`;

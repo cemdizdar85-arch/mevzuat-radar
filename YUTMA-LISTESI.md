@@ -13,9 +13,12 @@ Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı ç
 | Avukatlık Kanunu m.35/3 (arama+resmî özet teyidi) | 12.07 | sayfalar/avukat-bulundurma.html | Yapı kooperatifi eşiği (100 üye) belirsizdi, netleşti |
 | VUK 509 Genel Tebliği (konsolide, 28 s., mevzuat.gov.tr) | 12.07 | e-fatura/e-defter/e-irsaliye sayfaları | e-Defter'in e-Fatura DIŞINDA 2 ayrı tetikleyicisi (bağımsız denetim, bilanço esası) sitede yoktu — eklendi |
 | KVKK Kurul Kararı 2025/1572 (kvkk.gov.tr resmî duyuru) | 12.07 | sayfalar/verbis-kayit.html | "Özel nitelikli veri işleyen herkes zorunlu" cümlesi ESKİMİŞ — 04.09.2025'te mikro ölçek (çalışan<10, bilanço<10M) istisnaya alındı, düzeltildi |
+| 6331 s. İSG Kanunu m.6, m.20, m.22 (mevzuat.gov.tr konsolide) | 12.07 | isg-uzmani-isyeri-hekimi.html, isg-kurulu.html, calisan-temsilcisi.html | m.6: 7538 s. Kanunla (15.01.2025) revize edilmiş, "50'den az + az tehlikeli → işveren kendisi 2 gün eğitimle yürütebilir" istisnası EKSİKTİ, eklendi. m.20: temsilci sayısı kademe tablosu (101-500→3, 501-1000→4, 1001-2000→5, 2001+→6) eksikti, tamamlandı. m.22: hiç değişmemiş, doğru |
+| 4857 s. İş Kanunu m.30 (mevzuat.gov.tr konsolide) | 12.07 | engelli-calistirma.html | %3 oranı ve yuvarlama kuralı doğru; "aynı il'deki tüm işyerleri toplamı esas alınır" notu eksikti, eklendi |
+| Gebe/Emziren Kadınlar Yönetmeliği m.13 (mevzuat.gov.tr tam metin) | 12.07 | emzirme-odasi-kres.html | 100-150/150+ eşikleri birebir doğru; 250m mesafe kuralı ve "annesi ölmüş/velayeti babada olan erkek çalışan da hesaba dahil" notu eksikti, eklendi |
 
 ## 🔴 SIRADA — YÜKSEK RİSK (canlı içeriği besliyor, birincili okunmadı)
-1. **Kalan eşik SEO sayfaları** — İSG (isg-uzmani-isyeri-hekimi.html, isg-kurulu.html — 6331 s. Kanun), engelli kotası (4857 m.30), TTK 1524 internet sitesi, KEP/e-tebligat, çalışan temsilcisi, emzirme odası/kreş, toplu işten çıkarma, transfer fiyatlandırması. Hiçbiri bugün yutulmadı — sırada.
+1. **TTK 1524 (internet sitesi) ve KEP/e-Tebligat sayfaları** — rakam içermiyorlar (düşük risk) ama madde metni hâlâ okunmadı; toplu işten çıkarma (m.29) ve transfer fiyatlandırması sayfaları da bekliyor.
 2. **7566 s. Kanun m.23 (Bağ-Kur desteği kaldırılması)** — 2 ikincil kaynak uyumlu; RG metninden teyit edilecek.
 3. **VUK 177 hadleri 2026 (VUK Genel Tebliği)** — sirkülerden alındı; tebliğ metni + sınıf değiştirme nüansları (m.179-180) okunacak (sihirbaz ciro kuralını inceltebilir).
 4. **9286 s. CB Kararı (kâr payı stopajı %15)** — çok kaynaklı ama karar metni okunmadı.
