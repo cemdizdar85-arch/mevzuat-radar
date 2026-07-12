@@ -101,6 +101,7 @@ function pismanlikSonuc(){ ilerle(2);
     ${kapi('Pişmanlık ve ıslah — VUK m.371','HEMEN',true,'Bağlı olduğun vergi dairesine <b>kendiliğinden dilekçe</b> ("pişmanlık talebi") ver; <b>15 gün</b> içinde eksik/düzeltme beyannameyi verip vergiyi + <b>pişmanlık zammını</b> öde. Sonuç: <b>vergi ziyaı cezası SIFIR.</b> Şart: senden önce ihbar/inceleme/takdire sevk veya izaha davet <b>başlamamış</b> olmalı.',true)}
     ${kapi('Kalabilecek küçük kalem — usulsüzlük','',false,'Beyannameyi süresinde vermemenin ayrı bir <b>usulsüzlük cezası</b> (VUK m.352, maktu) olabilir; vergi ziyaı cezasının yanında çok küçüktür. Vergi çıkmıyorsa (ziyaı yok) zaten yalnız bu kalır.')}
     ${kapi('Bir gün bile önemli','',false,'İdare bir "ön tespit" yapar ya da izaha davet yollarsa bu konuda pişmanlık kapanır (m.370). O yüzden fark ettiğin an harekete geç.')}
+    ${faizKutu('pismanlik')}
     ${btnGeri()}`);
 }
 
@@ -111,6 +112,7 @@ function izahaSonuc(){ ilerle(2);
     ${kapi('İzaha davete uy — VUK m.370','30 GÜN',true,'Yazının tebliğinden <b>30 gün</b> içinde <b>izahta bulun</b>. İzahın yeterli görülürse tarhiyat/ceza olmayabilir. Ziyaa uğratılan vergi varsa: vergiyi + <b>vergi ziyaı cezasının yalnızca %20\'sini</b> ödersin (normal 1 kat yerine — büyük indirim) ve beyannameni bu süre içinde verirsin.',true)}
     ${kapi('Uygun değilse / izah yetmezse','',false,'İzah kabul edilmezse tarhiyat yapılır; o aşamada <b>uzlaşma</b> veya <b>cezada indirim (m.376)</b> veya <b>dava</b> kapıları açılır (aşağıdaki "ihbarname geldi" akışına bak).')}
     ${kapi('Kaçakçılık istisnası','',false,'Ön tespit <b>sahte belge (m.359)</b> fiiline işaret ediyorsa izaha davet uygulanmaz — doğrudan inceleme + 3 kat ceza gündeme gelir. Avukatla çalış.')}
+    ${faizKutu('izaha')}
     ${btnGeri()}`);
 }
 
@@ -122,6 +124,7 @@ function belgeSonuc(){ ilerle(2);
     ${kapi('Uzlaşma','30 GÜN',false,'Özel usulsüzlükte uzlaşma kapsamı tutara/şarta bağlı olarak sınırlıdır; büyük tutarlarda YMM ile değerlendir.')}
     ${kapi('Dava','30 GÜN',false,'Cezanın maddi şartı oluşmadıysa, tebliğ/tespit usulü hatalıysa ya da mücbir sebep varsa dava ile iptal edilebilir. Dava açarsan m.376 indirimini kaybedersin.')}
     ${kapi('Önleme','',false,'e-fatura/e-arşiv/e-defter zorunluluk eşiklerini takip et — sık ceza sebebi budur. <a href="radar.html">Radar</a> ile eşik değişikliklerini izleyebilirsin.')}
+    ${faizKutu('belge')}
     ${btnGeri()}`);
 }
 
@@ -195,20 +198,54 @@ function vergiSonuc(){ ilerle(3);
   else { ozetT='iyi'; ozet="Ortada <b>açık hata</b> (hesap/vergilendirme) varsa → <b>düzeltme</b> en ucuz yol. Yorum/takdir farkında bu kapı işlemez.";
     kapilar=kapi('Düzeltme talebi — VUK m.116–126','30 GÜNÜ KORU',true,'Vergi dairesine düzeltme dilekçesi ver: <b>mükerrer tarh, yanlış matrah/oran, hesap hatası</b> gibi açık hatalar düzeltilir. Düzeltme dava süresini durdurmayabilir → <b>30 günü kaçırma</b>, gerekirse dava/uzlaşma yolunu da açık tut. Reddedilirse şikayet (GİB) → yargı.',!kc)
       +kapi('Hata değil, görüş farkıysa','30 GÜN',false,'Açık hata değil de yorum farkıysa düzeltme reddedilir — o zaman <b>uzlaşma</b> veya <b>dava</b> (30 gün).'); }
-  const hesapKutu=(!kc)?`<div class="hesap"><h4>🧮 KABA HESAP — m.376 (%50 indirim) senaryosu</h4>
-    <div style="display:flex;gap:8px;margin-bottom:6px"><input class="gir" id="cez" type="number" inputmode="decimal" placeholder="Kesilen CEZA (TL)" oninput="cezHesap()"><input class="gir" id="ver" type="number" inputmode="decimal" placeholder="Vergi aslı (TL)" oninput="cezHesap()"></div>
-    <div id="cezOut" style="font-size:12.5px;color:var(--dim)">Ceza ve vergi aslını gir; m.376 ile ödeyeceğin çıksın.</div>
-    <div style="font-size:11px;color:var(--dim);margin-top:8px">Vergi aslı her hâlde ödenir; indirim yalnız CEZADA. Gecikme faizi/zammı ayrıca. Uzlaşma/dava sonucu farklı olabilir.</div></div>`:'';
+  const hesapKutu = (C.bakis==='kabul') ? faizKutu('m376') : '';
   ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">🏛️ Vergi cezası — önerilen kapı</div>${uyariKacak}<div class="ozet ${ozetT}">${ozet}</div>${kapilar}${hesapKutu}${btnGeri()}`);
 }
-function cezHesap(){ const c=parseFloat((document.getElementById('cez').value||'').replace(',','.'))||0; const v=parseFloat((document.getElementById('ver').value||'').replace(',','.'))||0;
-  const out=document.getElementById('cezOut'); if(!c&&!v){ out.innerHTML='Ceza ve vergi aslını gir; m.376 ile ödeyeceğin çıksın.'; return; }
-  const ind=c*0.5, kalan=c-ind, top=v+kalan; const f=n=>n.toLocaleString('tr-TR',{maximumFractionDigits:2});
-  out.innerHTML=`<div class="satir"><span>Kesilen ceza</span><span class="v">${f(c)} TL</span></div>
-    <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(ind)} TL</span></div>
-    <div class="satir"><span>Ödenecek ceza</span><span class="v">${f(kalan)} TL</span></div>
-    <div class="satir"><span>+ Vergi aslı</span><span class="v">${f(v)} TL</span></div>
-    <div class="satir"><span><b>Toplam (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(top)} TL</span></div>`; }
+// Gecikme zammı/faizi + pişmanlık zammı: aynı oran (6183 m.51 / VUK m.112,371). GİB resmî tablo.
+const FAIZ_AY=3.7, FAIZ_TARIH='13.11.2025';
+function faizKutu(mode){
+  const ph = mode==='belge' ? 'Kesilen ceza (TL)' : 'Vergi aslı (TL)';
+  const ayIn = mode==='belge' ? '' : `<input class="gir" id="fay" type="number" inputmode="decimal" placeholder="Kaç ay gecikme?" oninput="faizHesap('${mode}')" style="flex:1;min-width:130px">`;
+  return `<div class="hesap"><h4>🧮 TAHMİNİ ÖDEME — ceza + faiz</h4>
+    <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap"><input class="gir" id="fvergi" type="number" inputmode="decimal" placeholder="${ph}" oninput="faizHesap('${mode}')" style="flex:1;min-width:150px">${ayIn}</div>
+    <div id="faizOut" style="font-size:12.5px;color:var(--dim)">Rakamı gir; tahmini ceza + faiz çıksın.</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:8px">Gecikme faizi/zammı ve pişmanlık zammı: <b>aylık %${FAIZ_AY}</b> (${FAIZ_TARIH}'ten beri, GİB resmî oran). Kıst ay tam sayılır; kesin tutar GİB hesaplama aracıyla. Tahminidir.</div></div>`;
+}
+function faizHesap(mode){
+  const V=parseFloat((document.getElementById('fvergi').value||'').replace(',','.'))||0;
+  const ayEl=document.getElementById('fay'); const ay=ayEl?(parseFloat((ayEl.value||'').replace(',','.'))||0):0;
+  const out=document.getElementById('faizOut'); const f=n=>n.toLocaleString('tr-TR',{maximumFractionDigits:2});
+  const r=FAIZ_AY/100, kc=C.kacakcilik, faiz=V*r*ay;
+  if(!V){ out.innerHTML='Rakamı gir; tahmini ceza + faiz çıksın.'; return; }
+  let rows='';
+  if(mode==='pismanlik'){
+    rows=`<div class="satir"><span>Vergi aslı</span><span class="v">${f(V)} TL</span></div>
+      <div class="satir"><span>Vergi ziyaı cezası</span><span class="v" style="color:var(--green)">0 TL (pişmanlık)</span></div>
+      <div class="satir"><span>Pişmanlık zammı (%${FAIZ_AY} × ${ay} ay)</span><span class="v">${f(faiz)} TL</span></div>
+      <div class="satir"><span><b>Tahmini toplam</b></span><span class="v" style="color:var(--accent2)">${f(V+faiz)} TL</span></div>`;
+  } else if(mode==='izaha'){
+    const ceza=V*0.20;
+    rows=`<div class="satir"><span>Vergi aslı</span><span class="v">${f(V)} TL</span></div>
+      <div class="satir"><span>Vergi ziyaı cezası (%20 — m.370)</span><span class="v">${f(ceza)} TL</span></div>
+      <div class="satir"><span>Gecikme faizi (%${FAIZ_AY} × ${ay} ay)</span><span class="v">${f(faiz)} TL</span></div>
+      <div class="satir"><span><b>Tahmini toplam</b></span><span class="v" style="color:var(--accent2)">${f(V+ceza+faiz)} TL</span></div>`;
+  } else if(mode==='belge'){
+    const ind=V*0.5;
+    rows=`<div class="satir"><span>Kesilen özel usulsüzlük cezası</span><span class="v">${f(V)} TL</span></div>
+      <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(ind)} TL</span></div>
+      <div class="satir"><span><b>Ödenecek (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(V-ind)} TL</span></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Özel usulsüzlük maktu ve vergi aslından bağımsız olduğundan gecikme faizi bu senaryoda yürümez.</div>`;
+  } else { // m376
+    const kat=kc?3:1, cezaTam=V*kat, ceza376=cezaTam*0.5;
+    rows=`<div class="satir"><span>Vergi aslı</span><span class="v">${f(V)} TL</span></div>
+      <div class="satir"><span>Vergi ziyaı cezası (${kat} kat)</span><span class="v">${f(cezaTam)} TL</span></div>
+      <div class="satir"><span>m.376 indirimi (%50)</span><span class="v" style="color:var(--green)">− ${f(cezaTam-ceza376)} TL</span></div>
+      <div class="satir"><span>Gecikme faizi (%${FAIZ_AY} × ${ay} ay)</span><span class="v">${f(faiz)} TL</span></div>
+      <div class="satir"><span><b>Tahmini toplam (m.376 yolu)</b></span><span class="v" style="color:var(--accent2)">${f(V+ceza376+faiz)} TL</span></div>
+      <div class="satir" style="opacity:.7"><span>Karşılaştırma — indirimsiz (dava kaybı)</span><span class="v">${f(V+cezaTam+faiz)} TL</span></div>`;
+  }
+  out.innerHTML=rows;
+}
 
 // ===== GÜMRÜK CEZA — kapılar =====
 function gumrukYol(){ ilerle(3); const kc=C.kacakcilik;
