@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilgi Havuzu — şirket kuruluşu hap bilgiler | Mevzuat Radarı</title>
+<meta name="description" content="LTD mi AŞ mi, şirketi satarken vergi, AŞ kurarken dikkat edilecekler, şahıstan şirkete geçiş — en çok sorulan sorular, 30 saniyede okunur hap kartlar hâlinde.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Limited mi anonim mi kurmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Tek başına veya küçük başlıyorsan LTD (asgari sermaye 50.000 TL); yatırım almayı ya da şirketi ileride satmayı planlıyorsan AŞ (asgari sermaye 250.000 TL) daha uygundur. AŞ'de pay devri kolaydır ve şartları sağlayan gerçek kişi ortağın pay senedi satışı vergiden istisna olabilir."}},
+ {"@type":"Question","name":"Anonim şirket ile limited şirketin farkı nedir?","acceptedAnswer":{"@type":"Answer","text":"Başlıca farklar: asgari sermaye (LTD 50.000 TL, AŞ 250.000 TL), pay devri (AŞ'de noter gerekmez, LTD'de noter + genel kurul onayı + tescil gerekir), satış kazancı vergisi (AŞ'de pay senedi 2 tam yıl elde tutulursa gerçek kişi ortakta istisna, LTD'de her durumda vergili) ve kamu borcu sorumluluğu düzeni."}},
+ {"@type":"Question","name":"Şirketi ileride satmak istiyorsam hangi türü kurmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Satış planı varsa anonim şirket öne çıkar: usulüne uygun bastırılmış pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisnadır (GVK mükerrer m.80). Limited şirket payının satış kazancı ise süre fark etmeksizin vergiye tabidir. Pay senetlerini kuruluşta bastırmak kritik adımdır."}},
+ {"@type":"Question","name":"Şahıs işletmesinden şirkete ne zaman geçmeliyim?","acceptedAnswer":{"@type":"Answer","text":"Üç sinyal: kazanç büyüyüp artan oranlı gelir vergisi dilimleri sabit oranlı kurumlar vergisini aştığında; işletme riski (borç, stok, çalışan) kişisel malvarlığını tehdit eder hâle geldiğinde; büyük müşteri, banka ve ihale kapıları tüzel kişilik istediğinde. Kesişme hesabını mali müşavirinle yap."}}
+]}
+</script>
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:30px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 22px}
+.kart{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.satir{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.satir:last-child{border:0}.satir b{color:var(--ink);flex-shrink:0}.satir span{color:var(--muted);text-align:right}
+.adim{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.adim:last-child{border:0}
+.adim .no{flex-shrink:0;width:28px;height:28px;border-radius:9px;background:rgba(62,155,255,.14);color:var(--accent2);display:grid;place-items:center;font-weight:800;font-size:13px}
+.adim b{color:var(--ink);display:block;font-size:14.5px}
+.adim p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:22px;margin-top:24px}
+.cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+details.kart{cursor:pointer}
+details.kart summary{font-weight:700;font-size:15.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="kurulus.html">Kuruluş Sihirbazı</a> · <a href="destekler.html">Destek Radarı</a> · Bilgi Havuzu</div>
+  <h1>Bilgi Havuzu</h1>
+  <p class="lead">En çok sorulan sorular, <b style="color:var(--ink)">30 saniyede okunur hap kartlar</b> hâlinde — kaynak maddesiyle, pazarlama süsü olmadan. Kararını vermek istersen <a href="kurulus.html">Kuruluş Sihirbazı</a> soruları sorup sana özel öneri verir.</p>
+
+  <h2>Şirket kuruluşu</h2>
+  <div id="hap">
+    <details class="kart" id="hap-ltd-as" style="border-left-color:var(--accent2)">
+      <summary>Limited mi, anonim mi kurmalıyım? 30 saniyede karar</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <div class="satir"><b>Tek başına / küçük başlıyorsan</b><span>LTD (hatta önce şahıs) — düşük sermaye, basit yönetim</span></div>
+        <div class="satir"><b>Yatırım almayı planlıyorsan</b><span>AŞ — pay devri kolay, yatırımcı düzeni hazır</span></div>
+        <div class="satir"><b>Şirketi ileride satmayı düşünüyorsan</b><span>AŞ — aşağıdaki kartı mutlaka oku</span></div>
+        <div class="satir"><b>Ortak sayısı / prestij önemliyse</b><span>AŞ kurumsal algıda önde; kamu ihaleleri ve büyük müşteriler nezdinde de</span></div>
+        <p style="margin:10px 0 0">Pratik özet: Türkiye'de KOBİ'lerin standardı LTD'dir; AŞ'nin gücü <b style="color:var(--ink)">büyüme, satış ve yatırım</b> senaryolarında ortaya çıkar. Sermaye farkı: LTD 50.000 TL, AŞ 250.000 TL. Kararı ciro hedefin ve çıkış planınla birlikte muhasebecinle ver — ya da <a href="kurulus.html">sihirbaza sor</a>.</p>
+      </div>
+    </details>
+    <details class="kart" id="hap-satis" style="border-left-color:var(--green)">
+      <summary>Şirketi ileride SATMAYI düşünüyorsan — az bilinen kritik fark 💎</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px"><b style="color:var(--ink)">AŞ'de:</b> pay senedi bastırılır ve gerçek kişi ortak senedi <b style="color:var(--ink)">2 tam yıl</b> elde tuttuktan sonra satarsa, satış kazancı gelir vergisinden <b style="color:var(--green)">istisnadır</b> (GVK mük. m.80/1). Pay devri için noter de gerekmez.</p>
+        <p style="margin:0 0 10px"><b style="color:var(--ink)">LTD'de:</b> pay devri noter onaylı sözleşme + genel kurul onayı + tescil ister ve satış kazancı — kaç yıl elde tutarsan tut — <b style="color:var(--red)">vergiye tabidir</b>.</p>
+        <p style="margin:0">Yani "5 yıl sonra şirketi satarım" hayali olan biri için tür seçimi, satış gününde ciddi vergi farkı yaratabilir. İki incelik: istisna için pay senedinin <b style="color:var(--ink)">usulüne uygun bastırılmış</b> olması ve sürenin belgelenmesi gerekir — kuruluşta ihmal edilirse sonradan yanar. Şartlar değişebilir; satış planı varsa adımı SMMM'nle birlikte at.</p>
+      </div>
+    </details>
+    <details class="kart" id="hap-as-dikkat" style="border-left-color:var(--amber)">
+      <summary>Anonim şirket kurarken nelere dikkat etmeliyim?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <div class="adim"><div class="no">1</div><div><b>Pay senetlerini kuruluşta bastır</b><p>Yukarıdaki satış istisnasının anahtarı — 2 yıllık süre senet bastırıldığında işlemeye başlar. En çok ihmal edilen adım.</p></div></div>
+        <div class="adim"><div class="no">2</div><div><b>¼ blokajı planla</b><p>Nakdî sermayenin en az dörtte biri tescilden önce bankada bloke edilir (TTK m.344) — nakit akışını buna göre kur.</p></div></div>
+        <div class="adim"><div class="no">3</div><div><b>Avukat eşiğini bil</b><p>Sermaye belli eşiği aşarsa sözleşmeli avukat bulundurma zorunluluğu doğar (Av. K. m.35) — <a href="sayfalar/avukat-bulundurma.html">eşiği gör</a>.</p></div></div>
+        <div class="adim"><div class="no">4</div><div><b>Esas sözleşmeyi şablondan ibaret sanma</b><p>Pay devri kısıtları, imtiyazlar, temsil düzeni sonradan değiştirmesi en pahalı maddelerdir — ortaklı kuruluşta özellikle.</p></div></div>
+        <div class="adim"><div class="no">5</div><div><b>Yönetim kurulu sorumluluğunu bil</b><p>Vergi ve SGK borçlarında birincil sorumluluk kanuni temsilcidedir — YK üyeliği unvan değil, risktir.</p></div></div>
+      </div>
+    </details>
+    <details class="kart" id="hap-neden-ltd" style="border-left-color:var(--accent)">
+      <summary>Neden limited şirket kurmalıyım (ya da kurmamalıyım)?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px"><b style="color:var(--green)">Lehine:</b> düşük asgari sermaye (50.000 TL), tek ortakla kurulur, yönetimi basit, muhasebe düzeni oturmuş — Türkiye'de en yaygın tür olmasının sebebi bu denge.</p>
+        <p style="margin:0 0 10px"><b style="color:var(--red)">Aleyhine:</b> ① Vergi ve SGK borçlarında ortaklar payları oranında <b style="color:var(--ink)">şahsen</b> sorumlu tutulabilir (6183 s. K. mük. m.35) — "limited = tam kalkan" değildir. ② Pay devri noterli ve onaylıdır, satış kazancı her durumda vergilidir. ③ Yatırımcı düzenine uygun değildir; büyüyünce çoğu LTD, AŞ'ye dönüşür (tür değiştirme mümkündür ama masraflıdır).</p>
+        <p style="margin:0">Özet: "işlete işlete büyüteceğim" diyorsan LTD doğru başlangıç; "satarım/yatırım alırım" diyorsan baştan AŞ düşün.</p>
+      </div>
+    </details>
+    <details class="kart" id="hap-gecis" style="border-left-color:var(--accent2)">
+      <summary>Şahıs işletmesinden şirkete ne zaman geçmeliyim?</summary>
+      <div style="margin-top:12px;font-size:14px;color:var(--muted)">
+        <p style="margin:0 0 10px">Üç sinyal:</p>
+        <div class="adim"><div class="no">1</div><div><b>Vergi yükü</b><p>Şahısta gelir vergisi artan oranlıdır (kazanç büyüdükçe dilim yükselir); şirkette kurumlar vergisi sabit orandır. Belli kazanç seviyesinden sonra şirket avantajlı hâle gelebilir — kesişme noktasını <a href="kurulus.html">sihirbaz</a> senin rakamınla hesaplar, kesinini muhasebecin yapar.</p></div></div>
+        <div class="adim"><div class="no">2</div><div><b>Risk büyüdü</b><p>Şahısta işletme borcundan tüm kişisel malvarlığınla sorumlusun. Borçlanma, stok, çalışan arttıkça sınırlı sorumluluğa geç.</p></div></div>
+        <div class="adim"><div class="no">3</div><div><b>Kurumsal kapılar</b><p>Büyük müşteriler, bankalar ve ihaleler tüzel kişiliği ciddiye alır; bayilik/distribütörlük sözleşmeleri çoğu zaman şirket ister.</p></div></div>
+      </div>
+    </details>
+  </div>
+
+  <div class="cta">
+    <h3>🧭 Okumak yetmez, karar mı lazım?</h3>
+    <p>Kuruluş Sihirbazı 8 soru sorar; sana uygun türü <b style="color:var(--ink)">senin rakamlarınla vergi kıyası yaparak</b>, gerekçesiyle söyler.</p>
+    <a class="btn" href="kurulus.html">Sihirbaza git →</a>
+  </div>
+
+  <div class="dip">Mevzuat Radarı · Bilgi Havuzu · Dayanaklar kart içlerinde · Bilgilendirme amaçlıdır, işlem öncesi muhasebecine danış · SMMM Cem Dizdar</div>
+</div>
+<script>
+// linkle gelinen kart otomatik açılsın
+if(location.hash){ const d=document.querySelector(location.hash); if(d && d.tagName==='DETAILS'){ d.setAttribute('open',''); d.scrollIntoView({block:'center'}); } }
+</script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
