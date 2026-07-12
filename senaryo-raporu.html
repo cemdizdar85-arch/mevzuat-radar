@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menşe Senaryo Raporu — hangi ülkeden alırsam ne kadar vergi öderim? | Mevzuat Radarı</title>
+<meta name="description" content="Ürünün GTİP kodunu, yıllık ithalat tutarını ve aday ülkeleri gir; her menşe için toplam ithalat vergi yükünü (gümrük + İGV + damping + KDV) ve yıllık tasarruf farkını gösteren, yazdırılabilir SMMM raporu.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-weight:820}
+.lead{color:var(--muted);font-size:15.5px;margin:0 0 22px}.lead b{color:var(--ink);font-weight:600}
+.form{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px}
+.form label{display:block;font-size:12.5px;font-weight:700;color:var(--accent2);letter-spacing:.4px;margin:0 0 6px}
+.gir{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit}
+.satirlar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}.satirlar>div{flex:1;min-width:200px}
+.ulkeler{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:6px 0 4px}
+.ulke{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;cursor:pointer;font-size:13.5px;user-select:none}
+.ulke:hover{border-color:var(--accent)}.ulke.on{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.14),transparent)}
+.ulke input{accent-color:var(--accent);pointer-events:none}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;margin-top:16px}
+.btn.ghost{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);font-weight:700;font-size:13.5px;padding:10px 16px}
+#rapor{margin-top:26px}
+.rk{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:24px;margin-bottom:16px}
+.rbaslik{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px}
+.rbaslik h2{margin:0;font-size:21px;letter-spacing:-.4px}.rbaslik .meta{font-size:12.5px;color:var(--muted);text-align:right}
+.kazanc{background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(61,220,151,.03));border:1px solid rgba(61,220,151,.35);border-radius:14px;padding:18px 20px;margin-bottom:18px}
+.kazanc .buyuk{font-size:26px;font-weight:850;color:var(--green);letter-spacing:-.5px}
+.kazanc .alt{font-size:13.5px;color:var(--muted);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}
+th{font-size:11px;letter-spacing:.4px;color:var(--dim);text-transform:uppercase;font-weight:700}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+tr.best td{background:rgba(61,220,151,.07)}tr.worst td{background:rgba(255,107,94,.06)}
+.rozet{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:6px;margin-left:6px}
+.rozet.b{background:rgba(61,220,151,.18);color:var(--green)}.rozet.w{background:rgba(255,107,94,.16);color:var(--red)}
+.rozet.d{background:rgba(255,194,75,.16);color:var(--amber)}
+.notlar{margin-top:16px}.notlar .n{display:flex;gap:9px;font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.5}.notlar .n b{color:var(--ink)}
+.notlar .n .ico{flex-shrink:0}
+.varsayim{font-size:11.5px;color:var(--dim);margin-top:18px;padding-top:14px;border-top:1px solid var(--line);line-height:1.6}
+.imza{display:none}
+.cta{border:1px solid rgba(62,155,255,.35);background:linear-gradient(135deg,rgba(47,123,255,.10),transparent);border-radius:14px;padding:18px 20px;margin-top:16px}
+.cta h3{margin:0 0 6px;font-size:15px}.cta p{margin:0 0 12px;font-size:13px;color:var(--muted)}
+.cta .teklifler{display:flex;gap:8px;flex-wrap:wrap}
+.cta .tk{flex:1;min-width:150px;text-align:left;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}
+.cta .tk:hover{border-color:var(--accent)}.cta .tk small{display:block;color:var(--dim);font-weight:500;font-size:11px;margin-top:2px}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
+.hata{color:var(--red);font-size:14px;margin-top:12px}
+@media print{
+  body{background:#fff;color:#111}
+  .top,.form,.cta,.noprint,nav{display:none!important}
+  .wrap{max-width:100%;padding:0}
+  .rk{border:1px solid #ccc;background:#fff;color:#111;border-radius:0;padding:0 0 10px;margin:0}
+  .rbaslik{border-color:#999}.rbaslik h2,h1{color:#111}.rbaslik .meta{color:#333}
+  .kazanc{background:#f2fbf6;border:1px solid #9dd;color:#111}.kazanc .buyuk{color:#0a7d4d}.kazanc .alt{color:#333}
+  table,th,td{color:#111}th{color:#555}td,th{border-color:#ccc}
+  tr.best td{background:#eafaf1}tr.worst td{background:#fdeeec}
+  .notlar .n,.varsayim,.rozet{color:#333}.notlar .n b{color:#000}
+  .imza{display:block;margin-top:28px;border-top:2px solid #111;padding-top:14px}
+  .imza .satir{display:flex;justify-content:space-between;font-size:12px;color:#222}
+  .imza .kase{margin-top:40px;font-size:12px;color:#222}
+  @page{margin:16mm 14mm}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · Menşe Senaryo Raporu</div>
+  <h1>Menşe Senaryo Raporu — hangi ülkeden alırsam ne kadar öderim?</h1>
+  <p class="lead">Ürünün <b>GTİP kodunu</b>, <b>yıllık ithalat tutarını</b> ve aday <b>menşe ülkeleri</b> gir; her ülke için toplam ithalat vergi yükünü ve <b>yıllık tasarruf farkını</b> hesaplayalım. Çıktıyı <b>yazdır → PDF</b> ile SMMM raporuna çevir. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
+
+  <div class="form noprint">
+    <div class="satirlar">
+      <div>
+        <label>GTİP KODU</label>
+        <input class="gir" id="kod" placeholder="örn. 8516.71.00.00.00" inputmode="decimal">
+        <div style="font-size:11.5px;color:var(--dim);margin-top:5px">Kodu bilmiyorsan <a href="gtip.html" target="_blank">GTİP Kontrolü'nden ürün adıyla bul →</a></div>
+      </div>
+      <div>
+        <label>YILLIK İTHALAT TUTARI (CIF)</label>
+        <div style="display:flex;gap:8px">
+          <input class="gir" id="tutar" placeholder="örn. 10.000.000" inputmode="decimal" style="flex:1">
+          <select class="gir" id="pb" style="width:auto"><option value="TL">TL</option><option value="USD">USD</option><option value="EUR">EUR</option></select>
+        </div>
+      </div>
+    </div>
+    <label>ADAY MENŞE ÜLKELER <span style="color:var(--dim);font-weight:500;text-transform:none">— karşılaştırmak istediklerini seç</span></label>
+    <div class="ulkeler" id="ulkeler"></div>
+    <button class="btn" onclick="olustur()">📊 Raporu oluştur</button>
+    <div class="hata" id="hata"></div>
+  </div>
+
+  <div id="rapor"></div>
+
+  <div class="uyari noprint"><b>Bilgilendirme amaçlıdır.</b> Oranlar yürürlükteki İthalat Rejimi/İGV/damping/KDV verisine dayanır; kesin yük ürünün tam tanımına, menşe belgesine, gözetim kıymetine ve sevkiyat şartlarına göre değişir. Beyan öncesi gümrük müşaviri + YMM teyidi şarttır.</div>
+</div>
+
+<script>
+const EPOSTA_ENDPOINT="https://api.web3forms.com/submit", EPOSTA_ANAHTAR="5b227e56-94fb-4123-a39a-4286f63db14a";
+const ULKE_SIRA=["abSta","katar","bae","eagu","otdu","gyu","du"];
+function grupKodu(g){ return g==='abd'?'du':g; }
+const ULKELER=[
+  {k:'ab', ad:'AB (Almanya, Fransa, İtalya…)', em:'🇪🇺', grup:'abSta', belge:'A.TR (sanayi ürünü) veya EUR.1 (tarım/AKÇT)', sec:true},
+  {k:'gb', ad:'İngiltere', em:'🇬🇧', grup:'abSta', belge:'EUR.1 (Türkiye–İngiltere STA)'},
+  {k:'kr', ad:'Güney Kore', em:'🇰🇷', grup:'abSta', belge:'EUR.1 (Türkiye–Kore STA)'},
+  {k:'rs', ad:'Sırbistan', em:'🇷🇸', grup:'abSta', belge:'EUR.1'},
+  {k:'eg', ad:'Mısır', em:'🇪🇬', grup:'abSta', belge:'EUR.1 (Türkiye–Mısır STA)', damp:'Mısır', sec:true},
+  {k:'ma', ad:'Fas', em:'🇲🇦', grup:'abSta', belge:'EUR.1'},
+  {k:'il', ad:'İsrail', em:'🇮🇱', grup:'abSta', belge:'EUR.1'},
+  {k:'my', ad:'Malezya', em:'🇲🇾', grup:'abSta', belge:'EUR.1', damp:'Malezya'},
+  {k:'cn', ad:'Çin', em:'🇨🇳', grup:'du', belge:'Menşe şahadetnamesi', damp:'Çin', sec:true},
+  {k:'us', ad:'ABD', em:'🇺🇸', grup:'abd', belge:'Menşe şahadetnamesi', damp:'Amerika', misilleme:true},
+  {k:'jp', ad:'Japonya', em:'🇯🇵', grup:'du', belge:'Menşe şahadetnamesi', damp:'Japonya'},
+  {k:'in', ad:'Hindistan', em:'🇮🇳', grup:'du', belge:'Menşe şahadetnamesi', damp:'Hindistan', sec:true},
+  {k:'ru', ad:'Rusya', em:'🇷🇺', grup:'du', belge:'Menşe şahadetnamesi', damp:'Rusya'},
+  {k:'tw', ad:'Tayvan', em:'🇹🇼', grup:'du', belge:'Menşe şahadetnamesi', damp:'Tayvan'},
+  {k:'gyu', ad:'GTS ülkesi (gelişmekte)', em:'🌍', grup:'gyu', belge:'Form A / menşe (GTS kapsamında)'},
+  {k:'eagu', ad:'En az gelişmiş ülke', em:'🌱', grup:'eagu', belge:'Menşe (EAGÜ tercihi)'}
+];
+
+let VERGI={}, VERGI_ULKE={}, IGV_ULKE={}, DAMPING=[], KDV={}, VERI={};
+Promise.all([
+  fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([])),
+  fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f; });
+
+// --- ülke seçim kutuları ---
+const uc=document.getElementById('ulkeler');
+uc.innerHTML=ULKELER.map(u=>`<label class="ulke ${u.sec?'on':''}" onclick="this.classList.toggle('on', this.querySelector('input').checked=!this.querySelector('input').checked)"><input type="checkbox" data-k="${u.k}" ${u.sec?'checked':''}>${u.em} ${u.ad}</label>`).join('');
+
+// --- yardımcılar ---
+function asArr(v){ if(Array.isArray(v))return v; if(v===null||v===undefined||v===''||typeof v==='object')return []; return [v]; }
+function nrm(s){ return String(s).replace(/\./g,'').trim(); }
+function kodCoz(q){ // girilen kodu VERGI_ULKE / VERGI anahtarina coz
+  q=q.trim(); const s=nrm(q);
+  let keys=Object.keys(VERGI_ULKE).filter(k=>k===q||nrm(k).startsWith(s));
+  if(keys.length) return keys.find(k=>k===q)||keys[0];
+  keys=Object.keys(VERGI).filter(k=>k===q||nrm(k).startsWith(s));
+  return keys.length?(keys.find(k=>k===q)||keys[0]):null;
+}
+function kdvOran(nkod){ // menşe-bağımsız KDV oranı (indirimli varsa en düşük)
+  const f=KDV.fasil&&KDV.fasil[nkod.slice(0,2)]; if(!f) return {r:20,t:'%20 (genel)'};
+  const poz=nkod.slice(0,4);
+  const uy=h=>{ const kl=asArr(h.kod); if(kl.some(k=>{const kk=nrm(k);return kk&&(kk.startsWith(nkod)||nkod.startsWith(kk));}))return true;
+    if(h.tumF===true) return !asArr(h.haric).some(x=>{const xx=nrm(x);return xx.length>=4&&nkod.startsWith(xx);});
+    return asArr(h.poz).indexOf(poz)>=0; };
+  const o1=asArr(f.o1).filter(uy).filter(h=>!h.kosul), o10=asArr(f.o10).filter(uy).filter(h=>!h.kosul);
+  if(o1.length&&o10.length) return {r:10,t:'%1 veya %10 (indirimli — ürün tanımına göre)'};
+  if(o1.length) return {r:1,t:'%1 (indirimli)'};
+  if(o10.length) return {r:10,t:'%10 (indirimli)'};
+  return {r:20,t:'%20 (genel)'};
+}
+function dampingBul(nkod, dampAd){ if(!dampAd) return null;
+  const bul=DAMPING.filter(m=>(m.k||'').split(' ').some(k=>k&&(nrm(k).startsWith(nkod)||nkod.startsWith(nrm(k)))) && (m.u||'').indexOf(dampAd)>=0);
+  if(!bul.length) return null;
+  const say=[]; bul.forEach(m=>{ const mm=String(m.t||'').match(/\d+[.,]?\d*/g); if(mm) mm.forEach(x=>say.push(parseFloat(x.replace(',','.')))); });
+  return { lo: say.length?Math.min(...say):0, hi: say.length?Math.max(...say):0, txt: bul.map(m=>m.t).filter(Boolean).join('; '), tur: bul[0].tur };
+}
+function ulkeYuk(dkod, nkod, u){ // dkod=noktalı, nkod=noktasız
+  const idx=ULKE_SIRA.indexOf(grupKodu(u.grup));
+  const uSat=VERGI_ULKE[dkod], iSat=IGV_ULKE[dkod], v=VERGI[dkod]||[null,null,null,null];
+  let gv=null, gvTah=false, igv=null, igvTah=false;
+  if(uSat&&uSat[idx]!==null&&uSat[idx]!==undefined) gv=uSat[idx];
+  else if(v[1]!==null&&v[1]!==undefined){ gv=v[1]; gvTah=true; }
+  if(iSat&&iSat[idx]!==null&&iSat[idx]!==undefined) igv=iSat[idx];
+  else if(v[3]!==null&&v[3]!==undefined){ igv=v[3]; igvTah=true; }
+  const dmp=dampingBul(nkod,u.damp);
+  const gvV=gv||0, igvV=igv||0, dLo=dmp?dmp.lo:0, dHi=dmp?dmp.hi:0;
+  return { u, idx, gv, igv, gvTah, igvTah, dmp, geriLo:gvV+igvV+dLo, geriHi:gvV+igvV+dHi, veriYok:(gv===null&&igv===null) };
+}
+function fmtTL(n){ return n.toLocaleString('tr-TR',{maximumFractionDigits:0}); }
+function fmtP(n){ return (Math.round(n*100)/100).toLocaleString('tr-TR'); }
+
+function olustur(){
+  const h=document.getElementById('hata'); h.textContent='';
+  const kodIn=document.getElementById('kod').value.trim();
+  if(!kodIn){ h.textContent='GTİP kodunu gir.'; return; }
+  const dkod=kodCoz(kodIn);
+  if(!dkod){ h.textContent='Bu kod için vergi verisi bulunamadı — 12 haneli tam kodu dene veya GTİP Kontrolü\'nden doğrula.'; return; }
+  const nkod=nrm(dkod);
+  const secili=[...document.querySelectorAll('#ulkeler input:checked')].map(i=>ULKELER.find(u=>u.k===i.dataset.k));
+  if(secili.length<2){ h.textContent='Karşılaştırma için en az 2 ülke seç.'; return; }
+  const tutar=parseFloat(nrm(document.getElementById('tutar').value).replace(',','.'))||0;
+  const pb=document.getElementById('pb').value;
+  const kdv=kdvOran(nkod);
+  const gozetim=Object.keys(VERI).some(k=>k===dkod||nrm(k).startsWith(nkod)||nkod.startsWith(nrm(k)));
+
+  let sonuc=secili.map(u=>ulkeYuk(dkod,nkod,u)).sort((a,b)=>a.geriLo-b.geriLo);
+  const gecerli=sonuc.filter(s=>!s.veriYok);
+  const best=gecerli.length?gecerli[0]:null, worst=gecerli.length?gecerli[gecerli.length-1]:null;
+  const farkP=(best&&worst)?(worst.geriLo-best.geriLo):0;
+  const tasarruf=tutar*farkP/100;
+
+  const bugun=new Date().toLocaleDateString('tr-TR');
+  let satirlar=sonuc.map(s=>{
+    const cls=s===best?'best':(s===worst&&worst!==best?'worst':'');
+    const gvT=s.gv===null?'—':('%'+fmtP(s.gv)+(s.gvTah?'*':''));
+    const igvT=s.igv===null?'—':('%'+fmtP(s.igv)+(s.igvTah?'*':''));
+    const dT=s.dmp?('+%'+fmtP(s.dmp.lo)+(s.dmp.hi>s.dmp.lo?'–'+fmtP(s.dmp.hi):'')):'—';
+    const geriT=s.veriYok?'—':('%'+fmtP(s.geriLo)+(s.geriHi>s.geriLo?'–'+fmtP(s.geriHi):''));
+    const roz=s===best?'<span class="rozet b">EN AVANTAJLI</span>':(s===worst&&worst!==best?'<span class="rozet w">EN PAHALI</span>':'')+(s.dmp?'<span class="rozet d">DAMPİNG</span>':'');
+    return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td><td class="n">${geriT}</td></tr>`;
+  }).join('');
+
+  let notlar=secili.map(u=>{
+    const s=sonuc.find(x=>x.u.k===u.k);
+    let ek='';
+    if(s.dmp) ek+=` <b style="color:var(--amber)">Damping/sübvansiyon önlemi var (${s.dmp.txt}${s.dmp.tur==='Gecici'?', geçici':''})</b> — normal vergiye ek.`;
+    if(u.misilleme) ek+=' Bazı ürünlerde ABD menşeli mala <b>misilleme ek vergisi</b> uygulanabilir (2018/11973).';
+    if(s.gvTah||s.igvTah) ek+=' <i>(*) Bu kodda ülke-bazlı kesin sütun yok; aralık üst sınırı kullanıldı.</i>';
+    if(s.veriYok) ek+=' <b>Bu kod için vergi verisi bulunamadı.</b>';
+    return `<div class="n"><span class="ico">${u.em}</span><div><b>${u.ad}:</b> Gerekli belge — ${u.belge}.${ek}</div></div>`;
+  }).join('');
+
+  const tpb = pb==='TL'?'TL':pb;
+  document.getElementById('rapor').innerHTML=`
+   <div class="rk">
+    <div class="rbaslik">
+      <div><h2>Menşe Senaryo Raporu</h2><div style="font-size:13px;color:var(--muted);margin-top:3px">GTİP <b style="color:var(--ink)">${dkod}</b> · yıllık ithalat: <b style="color:var(--ink)">${tutar?fmtTL(tutar)+' '+tpb:'—'}</b></div></div>
+      <div class="meta">Tarih: ${bugun}<br>Hazırlayan: <b>SMMM Cem Dizdar</b><br>Mevzuat Radarı</div>
+    </div>
+    ${(best&&worst&&farkP>0)?`<div class="kazanc">
+      <div class="buyuk">${tutar?'≈ '+fmtTL(tasarruf)+' '+tpb+' / yıl tasarruf':'%'+fmtP(farkP)+' puan fark'}</div>
+      <div class="alt"><b>${best.u.ad}</b> (geri gelmeyen yük %${fmtP(best.geriLo)}) ile <b>${worst.u.ad}</b> (%${fmtP(worst.geriLo)}) arasındaki fark${tutar?', '+fmtTL(tutar)+' '+tpb+' yıllık hacimde yukarıdaki tutara denk gelir':''}. Bu fark <b>geri gelmez</b> (KDV değil).</div>
+    </div>`:''}
+    <table>
+      <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th><th class="n">Geri gelmeyen yük</th></tr></thead>
+      <tbody>${satirlar}</tbody>
+    </table>
+    <div class="notlar">
+      <div class="n"><span class="ico">🧾</span><div><b>KDV: ${kdv.t}</b> — menşeden bağımsızdır, her ülkede aynı orandır ve <b>indirilir/iade alınır</b> (gerçek maliyet değil, nakit akışı). Bu yüzden ülke karşılaştırmasında "geri gelmeyen yük" (gümrük vergisi + İGV + damping) esas alınmıştır. KDV matrahı = kıymet + gümrük vergisi + İGV olduğundan yüksek vergili menşede KDV tutarı da yüksektir.</div></div>
+      ${gozetim?`<div class="n"><span class="ico">👁️</span><div><b>Gözetim uyarısı:</b> Bu kodda gözetim var — birim kıymet eşiğin altındaysa gümrük matrahı yükseltilir, gerçek yük tablodakinden yüksek çıkar. Tüm menşeleri etkiler.</div></div>`:''}
+      ${notlar}
+    </div>
+    <div class="varsayim">
+      <b>Varsayımlar ve kapsam:</b> Yük yüzdeleri gümrük kıymeti (CIF) üzerinden hesaplanmıştır. "Geri gelmeyen yük" = gümrük vergisi + İlave Gümrük Vergisi (İGV) + varsa dampinge/sübvansiyona karşı vergi. AB/STA oranlarını kapmak için ilgili <b>menşe/dolaşım belgesi şarttır</b>; belge yoksa gümrük en yüksek (Diğer Ülkeler) oranını uygular. KKDF (vadeli ödemede %6), ÖTV, GEKAP, TRT bandrolü ve gözetim kıymet etkisi bu tabloya dahil değildir; ürününüze göre <a href="gtip.html">GTİP Kontrolü</a>'nden bakınız. Damping oranı aralık ise üretici firmaya göre değişir. Veri kaynağı: yürürlükteki İthalat Rejimi / İGV / damping tebliğleri / GİB KDV. Bu rapor bilgilendirme amaçlıdır; beyan öncesi gümrük müşaviri ve YMM teyidi gerekir.
+    </div>
+    <div class="imza">
+      <div class="satir"><span>Bu rapor müşterinin verdiği ürün/kod bilgisine göre hazırlanmıştır.</span><span>Rapor No: MR-${bugun.replace(/\./g,'')}-${nkod.slice(0,6)}</span></div>
+      <div class="kase">SMMM Cem Dizdar &nbsp;·&nbsp; Kaşe / İmza: ________________________</div>
+    </div>
+   </div>
+   <div class="cta noprint">
+     <h3>💡 Bu ithalatı hayata geçir — tek yerden teklif al</h3>
+     <p>Menşeni seçtin. Şimdi maliyetin diğer kalemlerini de netleştir; anlaşmalı ağımızdan <b>ücretsiz</b> teklif iste (ödeme yok, bilgin paylaşılmaz — sadece talebini iletiriz).</p>
+     <div class="teklifler">
+       <button class="tk" onclick="teklif('Navlun/nakliye',this)">🚢 Navlun teklifi<small>anlaşmalı forwarder</small></button>
+       <button class="tk" onclick="teklif('Yük sigortası',this)">🛡️ Yük sigortası<small>nakliyat sigortası</small></button>
+       <button class="tk" onclick="teklif('İthalat finansmanı/akreditif',this)">🏦 Finansman/akreditif<small>banka/faktoring</small></button>
+       <button class="tk" onclick="teklif('Gümrük müşaviri',this)">📋 Gümrük müşaviri<small>beyan + danışmanlık</small></button>
+     </div>
+     <div id="ctaOut" style="font-size:12.5px;color:var(--muted);margin-top:10px"></div>
+   </div>
+   <div style="margin-top:12px" class="noprint">
+     <button class="btn" onclick="window.print()">🖨️ Yazdır / PDF olarak kaydet</button>
+     <button class="btn ghost" onclick="document.getElementById('rapor').scrollIntoView()">↑ Yukarı</button>
+   </div>`;
+  window.HESAPRAPOR={dkod,tutar,pb,best:best?best.u.ad:'',secili:secili.map(u=>u.ad)};
+  document.getElementById('rapor').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function teklif(tur, btn){
+  const r=window.HESAPRAPOR||{};
+  const eposta=prompt(tur+' için sana dönelim — e-posta veya telefon bırak:');
+  if(!eposta) return;
+  const payload={ access_key:EPOSTA_ANAHTAR, subject:'Senaryo Raporu LEAD: '+tur,
+    from_name:'Mevzuat Radari Rapor', "Talep türü":tur, "İletişim":eposta,
+    "GTİP":r.dkod||'', "Yıllık tutar":(r.tutar?r.tutar+' '+r.pb:''), "Seçilen menşe":r.best||'', "Aday ülkeler":(r.secili||[]).join(', ') };
+  fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>{ document.getElementById('ctaOut').innerHTML='✅ Talebin alındı ('+tur+'). En kısa sürede dönüş yapılacak.'; })
+    .catch(()=>{ document.getElementById('ctaOut').innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>'; });
+}
+</script>
+</body>
+</html>
