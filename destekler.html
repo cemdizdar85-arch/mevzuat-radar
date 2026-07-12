@@ -151,7 +151,7 @@ const ISTER_VARSAYILAN = {
   },
   "TİCARET BAKANLIĞI": {
     kapsam: ["İlgili genelgede sayılan harcama kalemleri — kalem dışı harcama desteklenmez, harcamadan ÖNCE genelgeye bak"],
-    belge: ["Fatura ya da e-fatura/e-arşiv (kalem kalem ayrıştırılmış)", "Banka ödeme belgesi/dekont", "Harcamaya ilişkin sözleşme", "Hepsi DYS'ye yüklenir — başvuru süreleri sınırlıdır"]
+    belge: ["Faturaları yükle — kalem kalem ayrıştırılmış (e-fatura/e-arşiv olur)", "Her faturanın banka dekontunu yükle — elden ödeme kabul edilmez", "Harcamaya ilişkin sözleşmeyi yükle", "Başvuru süreleri sınırlıdır — genelgedeki süreyi kaçırma"]
   },
   "TÜRK EXİMBANK": {
     kapsam: null,
@@ -162,7 +162,8 @@ const PROGRAMLAR = [
   // ---- TİCARET BAKANLIĞI — 5973 sayılı İhracat Destekleri Kararı ----
   {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8).", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında fuara stantla katılacak şirketler. Dikkat: fuar, Bakanlığın 'desteklenen fuarlar' listesinde olmalı — listede olmayan fuar desteklenmez, gitmeden önce kontrol et.", ister:{
     kapsam:["Yer kirası — alan kirası, kayıt ve sigorta bedeli gibi kalemleriyle","Stant giderleri — tasarım, kurulum, raf, ışıklandırma, mobilya","Organizatöre ödenen katılım bedeli"],
-    belge:["Fatura ya da e-fatura/e-arşiv (her kalem ayrı ayrı girilir)","Banka ödeme belgesi / dekont","Fuar katılım sözleşmesi","Hepsi DYS'ye yüklenir"],
+    belge:["Faturaları yükle — her gider kalemi (alan kirası, kayıt bedeli, sigorta...) DYS'de AYRI satır olarak girilir","Her faturanın banka dekontunu yükle — fatura-ödeme eşleşmesi aranır, elden ödeme kabul edilmez","Fuar katılım sözleşmeni yükle","Stant fotoğrafları hazır dursun — yerinde katılımın ispatıdır"],
+    sinir:["Asgari 9 m² stantla katılım şart — daha küçük stant desteklenmez","Fuarın konusu senin faaliyet sektörünle uyumlu olmalı","Aynı fuara en fazla 10 defa destek alınır; bir takvim yılında azami 10 yurt dışı fuar desteklenir","Şirketin kuruluş yaşı şartı aranmaz — yeni kurulmuş şirket de yararlanır (Kaynak: Fuar Desteklerine İlişkin Genelge)"],
     sure:"⏰ KRİTİK SÜRE: ödeme başvurusu fuarın BİTİŞİNDEN itibaren 3 ay içinde DYS'den yapılır — kaçıran, katıldığı hâlde desteği alamaz. (Kaynak: Ticaret Bak. DYS başvuru kılavuzu)",
     oran:["Destek oranı: katılım giderlerinin %50'si; Bakanlığın hedef ülkelerindeki fuarlarda oran artırımlı uygulanır (dayanak: 5973 s. Karar m.7)","Fuar başına ÜST LİMİT her fuar için ayrı ilan edilir — <a href='https://ticaret.gov.tr/ihracat/fuarlar/yillar-bazinda-fuar-destek-ust-limitleri' target='_blank' rel='noopener'>2026 üst limit listesi (resmî)</a>","Fuarın desteklenip desteklenmediğini gitmeden kontrol et: <a href='https://ticaret.gov.tr/ihracat/fuarlar/2025-2026-yillarinda-destek-kapsamina-alinan-yurtdisi-fuarlar' target='_blank' rel='noopener'>2025-2026 desteklenen fuarlar listesi (resmî)</a>"]}},
   {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Birim, Kira ve Tanıtım Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Yurt dışında ofis/mağaza/depo açan, tanıtım ve danışmanlık harcaması yapan şirketlere yönelik destekler.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında birim (ofis/mağaza/depo) açan ya da hedef pazarda tanıtım yapan şirketler; kira ve tanıtım giderleri kapsamda."},
@@ -195,6 +196,11 @@ const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansma
 let SECILI = "hepsi";
 let UYGUNLAR = null;   // sihirbaz sonucu (null = sihirbaz çalışmadı)
 
+const BELGE_BASLIK = {
+  "KOSGEB": "📤 SİSTEME GİRECEKLERİN (KOSGEB e-hizmetler)",
+  "TİCARET BAKANLIĞI": "📤 DYS'YE YÜKLEYECEKLERİN (ödeme başvurusunda)",
+  "TÜRK EXİMBANK": "📤 BANKAYA VERECEKLERİN"
+};
 function isterHtml(p){
   const ist = p.ister || ISTER_VARSAYILAN[p.kurum];
   if(!ist) return '';
@@ -202,7 +208,8 @@ function isterHtml(p){
   let h = '';
   if(ist.kapsam) h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:10px 0 2px">NEYİ KAPSAR</div>${madde(ist.kapsam)}`;
   if(ist.oran)   h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:10px 0 2px">💰 ORAN & LİMİT (resmî kaynaklı)</div>${madde(ist.oran)}`;
-  if(ist.belge)  h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:10px 0 2px">🎒 MASAYA KOYACAKLARIN</div>${madde(ist.belge)}`;
+  if(ist.sinir)  h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:10px 0 2px">⚖ SINIRLAR & ŞARTLAR (resmî kaynaklı)</div>${madde(ist.sinir)}`;
+  if(ist.belge)  h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:10px 0 2px">${BELGE_BASLIK[p.kurum]||'📤 HAZIRLAYACAKLARIN'}</div>${madde(ist.belge)}`;
   if(ist.sure)   h += `<div style="margin-top:8px;padding:9px 12px;border:1px solid rgba(255,107,94,.35);border-left:4px solid var(--red);border-radius:9px;background:rgba(255,107,94,.07);font-size:12.5px;color:var(--muted)">${ist.sure}</div>`;
   return h;
 }
