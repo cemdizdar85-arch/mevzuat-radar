@@ -43,7 +43,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı ve Türk Eximbank</b> programlarını gör, yeni çağrı açıldığında haber verelim.</p>
 
   <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
-    <h3 style="margin-top:0">🧭 Hangi desteklere uygunsun? 4 soruda söyleyelim</h3>
+    <h3 style="margin-top:0">🧭 Hangi destekleri kullanabilirsin? 4 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla; sana uygun programları <b style="color:var(--ink)">"ne gerekli, nasıl başvurulur"</b> adımlarıyla birlikte listeleyelim — mevzuat metnine boğulmadan.</p>
     <div class="dsoru" data-k="durum">
       <b style="font-size:14px">1. İşletmen ne durumda?</b>
@@ -125,15 +125,15 @@ const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 // sart = kimin için / programa özel ön şart (yapısal bilgi — oran/tutar YOK)
 const YOLLAR = {
   "KOSGEB": [
-    "e-Devlet ile KOSGEB KOBİ Bilgi Sistemi'ne işletmeni kaydet ve KOBİ Beyannamesi'ni onayla. (İşletmen yoksa önce kuruluş — <a href='kurulus.html'>sihirbazımız</a> yol gösterir.)",
+    "e-Devlet ile <a href='https://edevlet.kosgeb.gov.tr' target='_blank' rel='noopener'>KOSGEB e-hizmetler</a> üzerinden işletmeni KOBİ Bilgi Sistemi'ne kaydet ve KOBİ Beyannamesi'ni onayla. (İşletmen yoksa önce kuruluş — <a href='kurulus.html'>sihirbazımız</a> yol gösterir.)",
     "Programın başvuru/çağrı döneminin açılmasını bekle — dönemler kısa olur, sayfanın altından takibe al ki kaçırma.",
     "Çağrı açılınca KOSGEB e-hizmetler üzerinden başvuruyu doldur: faaliyet (NACE) uygunluğu ve proje/ihtiyaç bilgisi istenir.",
     "Değerlendirme (bazı programlarda kurul) olumlu sonuçlanırsa taahhütname verilir; harcamalar belgelendikçe destek ödenir."
   ],
   "TİCARET BAKANLIĞI": [
-    "Şirket ol — bu desteklerin muhatabı şirketlerdir — ve bölgendeki İhracatçı Birliği'ne üye ol.",
-    "Destek Yönetim Sistemi'ne (DYS) firma kaydını yaptır: başvuruların tamamı DYS üzerinden yürür.",
-    "Harcamayı KURALINA göre yap ve belgele (ör. fuar desteğinde Bakanlığın desteklenen fuarlar listesindeki fuara stantlı katılım şart).",
+    "Ticaret şirketi ol: LTD, AŞ gibi — 5973'te 'şirket', TTK'daki ticaret şirketleridir; <b>şahıs işletmesi bu desteklerden yararlanamaz</b> (şirketleşmen gerekiyorsa <a href='kurulus.html'>kuruluş sihirbazı</a> yol gösterir). Sonra bölgendeki <a href='https://tim.org.tr' target='_blank' rel='noopener'>İhracatçı Birliği'ne</a> üye ol.",
+    "<a href='https://www.ticaret.gov.tr/destekler/destek-yonetim-sistemi-dys' target='_blank' rel='noopener'>Destek Yönetim Sistemi'ne (DYS)</a> firma tanımlaması yaptır — başvuru birliğin üzerinden yürür, tüm destek başvuruların buradan işler.",
+    "Harcamayı genelgedeki kurala göre yap ve KALEM KALEM belgele (fatura + banka dekontu) — kural dışı ya da belgesiz harcama desteklenmez.",
     "Süresi içinde DYS'den başvur; inceleme sonrası destek ödemesi firma hesabına yapılır."
   ],
   "TÜRK EXİMBANK": [
@@ -163,7 +163,8 @@ const PROGRAMLAR = [
   {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Fuar Katılım Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/yurt-disi-ve-yurt-ici-fuar-destekleri", asama:["ihracat"], amac:"Yurt dışı fuarlara stantlı katılımın ve nitelikli yurt içi fuar katılımlarının desteklenmesi (5973 s. Karar m.7-8).", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında fuara stantla katılacak şirketler. Dikkat: fuar, Bakanlığın 'desteklenen fuarlar' listesinde olmalı — listede olmayan fuar desteklenmez, gitmeden önce kontrol et.", ister:{
     kapsam:["Yer kirası — alan kirası, kayıt ve sigorta bedeli gibi kalemleriyle","Stant giderleri — tasarım, kurulum, raf, ışıklandırma, mobilya","Organizatöre ödenen katılım bedeli"],
     belge:["Fatura ya da e-fatura/e-arşiv (her kalem ayrı ayrı girilir)","Banka ödeme belgesi / dekont","Fuar katılım sözleşmesi","Hepsi DYS'ye yüklenir"],
-    sure:"⏰ KRİTİK SÜRE: ödeme başvurusu fuarın BİTİŞİNDEN itibaren 3 ay içinde DYS'den yapılır — kaçıran, katıldığı hâlde desteği alamaz. (Kaynak: Ticaret Bak. DYS başvuru kılavuzu)"}},
+    sure:"⏰ KRİTİK SÜRE: ödeme başvurusu fuarın BİTİŞİNDEN itibaren 3 ay içinde DYS'den yapılır — kaçıran, katıldığı hâlde desteği alamaz. (Kaynak: Ticaret Bak. DYS başvuru kılavuzu)",
+    oran:["Destek oranı: katılım giderlerinin %50'si; Bakanlığın hedef ülkelerindeki fuarlarda oran artırımlı uygulanır (dayanak: 5973 s. Karar m.7)","Fuar başına ÜST LİMİT her fuar için ayrı ilan edilir — <a href='https://ticaret.gov.tr/ihracat/fuarlar/yillar-bazinda-fuar-destek-ust-limitleri' target='_blank' rel='noopener'>2026 üst limit listesi (resmî)</a>","Fuarın desteklenip desteklenmediğini gitmeden kontrol et: <a href='https://ticaret.gov.tr/ihracat/fuarlar/2025-2026-yillarinda-destek-kapsamina-alinan-yurtdisi-fuarlar' target='_blank' rel='noopener'>2025-2026 desteklenen fuarlar listesi (resmî)</a>"]}},
   {kurum:"TİCARET BAKANLIĞI", ad:"Yurt Dışı Birim, Kira ve Tanıtım Destekleri", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Yurt dışında ofis/mağaza/depo açan, tanıtım ve danışmanlık harcaması yapan şirketlere yönelik destekler.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Yurt dışında birim (ofis/mağaza/depo) açan ya da hedef pazarda tanıtım yapan şirketler; kira ve tanıtım giderleri kapsamda."},
   {kurum:"TİCARET BAKANLIĞI", ad:"Pazara Giriş Belgesi Desteği", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler", asama:["ihracat"], amac:"Hedef pazarda zorunlu ya da avantaj sağlayan kalite/çevre belgeleri, sertifika ve test/analiz raporu giderlerine destek.", t:{i:["var","hedef"],n:["hibe"]}, sart:"İhraç pazarının istediği belge/sertifika/test raporunu alacak şirketler — belge akredite kuruluştan alınmış olmalı."},
   {kurum:"TİCARET BAKANLIĞI", ad:"Marka ve TURQUALITY® Destek Programı", url:"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genelgeler/marka-ve-turquality-destegi", asama:["ihracat","buyume"], amac:"Markalaşma potansiyeli olan Türk markalarının uluslararası pazarlarda konumlandırılmasına yönelik kapsamlı program.", t:{i:["var","hedef"],n:["hibe"]}, sart:"Tescilli markası ve markalaşma stratejisi olan firmalar; programa ön inceleme/denetimle girilir — ciddi hazırlık ister, buna değer."},
@@ -200,6 +201,7 @@ function isterHtml(p){
   const madde = v => v.map(x=>`<div style="display:flex;gap:8px;padding:4px 0;font-size:13px;color:var(--muted)"><span style="color:var(--accent2)">▸</span><span>${x}</span></div>`).join('');
   let h = '';
   if(ist.kapsam) h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:10px 0 2px">NEYİ KAPSAR</div>${madde(ist.kapsam)}`;
+  if(ist.oran)   h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:10px 0 2px">💰 ORAN & LİMİT (resmî kaynaklı)</div>${madde(ist.oran)}`;
   if(ist.belge)  h += `<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:10px 0 2px">🎒 MASAYA KOYACAKLARIN</div>${madde(ist.belge)}`;
   if(ist.sure)   h += `<div style="margin-top:8px;padding:9px 12px;border:1px solid rgba(255,107,94,.35);border-left:4px solid var(--red);border-radius:9px;background:rgba(255,107,94,.07);font-size:12.5px;color:var(--muted)">${ist.sure}</div>`;
   return h;
@@ -220,7 +222,7 @@ function kartHtml(p, acik){
         ${isterHtml(p)}
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:10px 0 2px">BAŞVURU YOLU (${p.kurum})</div>
         ${yol}
-        <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Destek oranı, üst limit ve güncel çağrı dönemi dönemsel değişir — biz uydurmayız: son adımda resmî sayfadan teyit et, başvuru öncesi muhasebecin/danışmanınla konuş.</p>
+        <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Kaynaklı oran ve limitleri kartta gösteriyoruz; çağrı dönemine bağlı değişen kalemler için resmî sayfa son kontrol noktandır. Başvuru dosyanı muhasebecin/danışmanınla birlikte hazırla — reddedilen başvuru, kaçan dönemdir.</p>
       </div>
     </details>
     <a class="gore" href="${p.url}" target="_blank" rel="noopener">Resmî sayfa: güncel çağrı ve oranlar →</a>
@@ -263,10 +265,13 @@ function dOner(){
     if(DC.ihtiyac!=='hepsi' && p.t.n && !p.t.n.includes(DC.ihtiyac)) return false;
     return true;
   });
+  // sıralama: profiline en hedefli oturan (en çok boyutu eşleşen) program en üstte
+  const skor = p => !p.t ? 0 : ['d','f','i','n'].filter(k=>p.t[k]).length;
+  UYGUNLAR.sort((a,b)=>skor(b)-skor(a));
   document.querySelectorAll('#filtre .fbtn').forEach(x=>x.classList.remove('on'));
   s.style.display='block'; s.style.color='var(--green)';
   s.innerHTML = UYGUNLAR.length
-    ? '✅ Profiline uygun <b>' + UYGUNLAR.length + ' program</b> aşağıda — her birinde "ne gerekli, nasıl başvurulur" adımları açık. 👇'
+    ? '✅ <b>Bu destekleri kullanabilirsin</b> (' + UYGUNLAR.length + ' program). Profiline göre önce şuna bak: <b>' + UYGUNLAR[0].ad + '</b> — hepsi aşağıda, "ne gerekli, nasıl başvurulur" adımları açık. 👇'
     : 'Bu profile birebir oturan program bulamadık — filtrelerden tüm listeye bakabilirsin; profilin değişince (ör. ihracata başlayınca) yeni kapılar açılır.';
   ciz();
   document.getElementById('liste').scrollIntoView({behavior:'smooth', block:'start'});
