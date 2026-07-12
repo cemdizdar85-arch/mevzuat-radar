@@ -64,7 +64,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 
   <div id="sonuc"></div>
 
-  <div class="uyari">Kapsam: yürürlükteki ithalatta gözetim tebliğleri (resmî birleşik metinlerden). Damping, gümrük vergisi ve ÜGD katmanları eklenmektedir. Bilgilendirme amaçlıdır; işlem öncesi kaynak tebliğe bakınız.</div>
+  <div class="uyari">Kapsam: ithalatta gözetim + menşe ülkeye göre gümrük vergisi ve İGV (sanayi 25-97 + tarım 1-24 fasılları) + işlenmiş tarımda Tarım Payı (EMY) + dampinge karşı önlemler + kıymet kıyası. Tümü Ticaret Bakanlığı / mevzuat.gov.tr resmî metinlerinden birebir okundu. Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danışınız.</div>
   <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · SMMM Cem Dizdar</div>
 </div>
 
@@ -74,7 +74,7 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null;
+let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null;
 Promise.all([
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
@@ -83,8 +83,18 @@ Promise.all([
   fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-ulke-gruplari.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f,g,h])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; });
+  fetch('veri/gtip-vergi-tarim.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/gtip-emy-tarim.json').then(r=>r.json()).catch(()=>({}))
+]).then(([a,b,c,d,e,f,g,h,i])=>{ VERI=a; RADAR=b; VERGI=c; DAMPING=d; VERGI_ULKE=e; ULKE_GRUP_ETIKET=f; IGV_ULKE=g; TARIM=h; EMY_TARIM=i; });
+
+// EMY (Tarım Payı) değerini insan diline çevir — T2/dipnot UYDURULMAZ, olduğu gibi açıklanır
+function emyDeger(v){
+  if(v===null || v===undefined || v==='0' || v===0) return null;
+  if(/^\d+(\.\d+)?$/.test(''+v)) return `${v} EURO/100 kg`;
+  if(/^T\d/i.test(''+v)) return `bileşime göre (Tarım Payı Tablosu ${v}) — resmî listeden hesaplat`;
+  if(/^\(/.test(''+v)) return `dipnot ${v} — resmî listeye bak`;
+  return ''+v;
+}
 
 // TARIM kodu ise: menşe ülkeye göre kesin gümrük vergisi tablosu (her ülke ayrı sütun)
 function tarimKart(kod){
@@ -100,10 +110,27 @@ function tarimKart(kod){
     return `<div class="satir"><b style="font-weight:600">${u}</b><span style="color:${renk};font-weight:700">%${o}</span></div>`;
   }).join('');
   const fark = enYuksek>enDusuk ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">💡 Bu tarım ürününde menşe ülkeye göre gümrük vergisi <b style="color:var(--ink)">%${enDusuk} ile %${enYuksek}</b> arasında değişiyor — yeşil en avantajlı menşe, sarı en yüksek. Doğru ülkeden almak ciddi fark yaratır.</p>` : `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Bu kodda tüm menşelerde gümrük vergisi %${enDusuk}.</p>`;
+  // TARIM PAYI (EMY) bölümü — varsa
+  let emyHtml = '';
+  const emy = EMY_TARIM ? EMY_TARIM[kod] : null;
+  if(emy){
+    const emySatir = Object.keys(emy).map(u=>{
+      const d = emyDeger(emy[u]);
+      if(!d) return '';
+      return `<div class="satir"><b style="font-weight:600">${u}</b><span style="color:var(--amber);font-weight:600;font-size:13px">${d}</span></div>`;
+    }).filter(Boolean).join('');
+    if(emySatir){
+      emyHtml = `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">➕ TARIM PAYI (Ek Mali Yükümlülük) — gümrük vergisine EK</div>
+        ${emySatir}
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">Bu işlenmiş tarım ürününde gümrük vergisine <b>ek olarak</b> menşe ülkeye göre Tarım Payı (EMY) alınır — birim <b>EURO/100 kg net</b> (yüzde değil). "Bileşime göre" işaretli olanlar süt/şeker/nişasta içeriğine göre resmî Tarım Payı Tablosu'ndan hesaplanır — biz uydurmayız, gümrük müşavirinle netleştir.</div>
+      </div>`;
+    }
+  }
   return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
     <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">🌾 MENŞE ÜLKEYE GÖRE GÜMRÜK VERGİSİ (tarım — kesin oranlar)</div>
-    ${satir}${fark}
-    <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı (I/II/III Sayılı tarım listeleri) — her menşe için birebir okundu. İGV, KDV ve varsa Tarım Payı (EMY) ayrıca hesaplanır; işlem öncesi gümrük müşavirine danış.</div>
+    ${satir}${fark}${emyHtml}
+    <div style="font-size:11px;color:var(--dim);margin-top:8px">Kaynak: Ticaret Bakanlığı İthalat Rejimi Kararı (I/II/III Sayılı tarım listeleri) — her menşe için birebir okundu. İGV, KDV ayrıca hesaplanır; işlem öncesi gümrük müşavirine danış.</div>
   </div>`;
 }
 // GTS/EAGU/OTDU siralamasi: kod dizisinde [abSta,katar,bae,eagu,otdu,gyu,du]
