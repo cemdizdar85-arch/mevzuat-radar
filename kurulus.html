@@ -108,8 +108,8 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
       <b style="font-size:14px">8. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="dusuk">Asgari düzeyde başlamak istiyorum</button>
-        <button class="sbtn kck" data-v="orta">50.000 TL'yi ayırabilirim</button>
-        <button class="sbtn kck" data-v="yuksek">250.000 TL ve üstünü ayırabilirim</button>
+        <button class="sbtn kck" data-v="orta"><span data-sabit="ltd">50.000</span> TL'yi ayırabilirim</button>
+        <button class="sbtn kck" data-v="yuksek"><span data-sabit="as">250.000</span> TL ve üstünü ayırabilirim</button>
       </div>
     </div>
     <button class="btn" onclick="oner()">Bana uygun türü göster</button>
@@ -130,7 +130,7 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
   <div class="uyari-buyuk">
     <div class="et">■ MEVCUT ŞİRKETİ OLANLARA — SON TARİH 31.12.2026</div>
     <h3>Sermaye artırımı yapmayan şirket, infisah etmiş sayılacak.</h3>
-    <p>Asgari sermaye tutarları artırıldı: <b style="color:var(--ink)">limited için 50.000 TL, anonim için 250.000 TL</b> (TTK m.580 / m.332, 7511 sayılı Kanun). Sermayesi bu tutarların altında kalan mevcut şirketlerin <b style="color:var(--ink)">31 Aralık 2026'ya kadar</b> sermayelerini yükseltmesi gerekiyor; yükseltmeyenler infisah etmiş (kendiliğinden sona ermiş) sayılacak. Kaynak: <a href="https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir" target="_blank" rel="noopener">Ticaret Bakanlığı duyurusu</a>. Şirketinin durumunu muhasebecinle bu yıl bitmeden mutlaka konuş.</p>
+    <p>Asgari sermaye tutarları artırıldı: <b style="color:var(--ink)">limited için <span data-sabit="ltd">50.000</span> TL, anonim için <span data-sabit="as">250.000</span> TL</b> (TTK m.580 / m.332, 7511 sayılı Kanun). Sermayesi bu tutarların altında kalan mevcut şirketlerin <b style="color:var(--ink)">31 Aralık 2026'ya kadar</b> sermayelerini yükseltmesi gerekiyor; yükseltmeyenler infisah etmiş (kendiliğinden sona ermiş) sayılacak. Kaynak: <a href="https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir" target="_blank" rel="noopener">Ticaret Bakanlığı duyurusu</a>. Şirketinin durumunu muhasebecinle bu yıl bitmeden mutlaka konuş.</p>
     <button class="btn" style="margin-top:14px;font-size:14px;padding:11px 18px" onclick="takvimeEkle()">📅 Son tarihi telefon takvimime ekle</button>
     <span id="takvimNot" style="display:block;margin-top:8px;font-size:12px;color:var(--dim)"></span>
   </div>
@@ -168,6 +168,30 @@ h2{font-size:19px;letter-spacing:-.4px;margin:34px 0 12px}
 const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 
+// ============ SABİT YERLEŞTİRME MOTORU ============
+// Metinlerdeki {{token}} alanları veri/vergi-sabitleri.json'dan doldurulur.
+// Yeni tebliğ çıkınca TEK dosya güncellenir; bu sayfadaki bütün cümleler,
+// künyeler, gerekçeler ve uyarılar kendini yeniden yazar. Elle metin avı yok.
+const TLn = n => Math.round(n).toLocaleString('tr-TR');
+const FB = { yil:'2026', genc:'400.000', ltd:'50.000', as:'250.000', blokaj:'62.500', asKalan:'187.500', as500:'500.000', uyum:'31.12.2026',
+  bagkur:'⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma.' };
+function yerlestir(t){
+  const S = (typeof SABIT!=='undefined' && SABIT) ? SABIT : null;
+  const blokaj = S ? S.asgariSermaye.as * (S.asBlokajOran||25) / 100 : null;
+  const d = {
+    yil:    S ? S.yil : FB.yil,
+    genc:   S ? TLn(S.gencIstisnaTutar) : FB.genc,
+    ltd:    S ? TLn(S.asgariSermaye.ltd) : FB.ltd,
+    as:     S ? TLn(S.asgariSermaye.as) : FB.as,
+    blokaj: S ? TLn(blokaj) : FB.blokaj,
+    asKalan:S ? TLn(S.asgariSermaye.as - blokaj) : FB.asKalan,
+    as500:  S && S.kayitliSermayeBaslangic ? TLn(S.kayitliSermayeBaslangic) : FB.as500,
+    uyum:   S ? S.sermayeUyumSonTarih : FB.uyum,
+    bagkur: S && S.gencBagkur ? (S.gencBagkur.aktif ? ('Ayrıca şartları tutarsa Bağ-Kur prim desteği var: ' + S.gencBagkur.not) : ('⚠ Dikkat: ' + S.gencBagkur.not + '.')) : FB.bagkur
+  };
+  return t.replace(/\{\{(\w+)\}\}/g, (m,k)=> (k in d) ? d[k] : m);
+}
+
 const TURLER = {
 sahis: {
   ad: "Şahıs işletmesi",
@@ -186,13 +210,13 @@ sahis: {
     ["Yazar kasa / e-belge ihtiyacına göre","Perakende satış varsa ÖKC (yazar kasa POS); faaliyet türüne göre e-SMM, e-arşiv fatura gündeme gelir — muhasebecinle netleştir."],
     ["Esnaf ya da ticaret odası kaydı (duruma göre)","Esnaf muaflığı dışındaysan faaliyetine göre esnaf sicili ya da ticaret odası kaydı gerekebilir."]
   ],
-  notlar: "💡 Gençsen kaçırma: ilk kez mükellefiyet açan 29 yaş altı girişimcilere <b>genç girişimci kazanç istisnası</b> sürüyor (GVK mükerrer m.20 — 3 yıl boyunca, tarifenin 2. dilim tutarına kadar kazanç vergisiz; tutar her yıl değişir, güncelini <a href='https://www.gib.gov.tr' target='_blank' rel='noopener'>GİB</a>'den teyit et). ⚠ Dikkat: eskiden verilen <b>1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı</b> (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma. İstisna başvurusunu mükellefiyet açılmadan ÖNCE muhasebecinle planla."
+  notlar: "💡 Gençsen kaçırma: ilk kez mükellefiyet açan 29 yaş altı girişimcilere <b>genç girişimci kazanç istisnası</b> var (GVK mükerrer m.20): 3 yıl boyunca, {{yil}} yılı için <b>yıllık {{genc}} TL'ye kadar kazanç vergisiz</b> (tutar tarifeyle birlikte her yıl güncellenir — bu sayfa otomatik günceller, yine de işlem öncesi <a href='https://www.gib.gov.tr' target='_blank' rel='noopener'>GİB</a>'den teyit et). {{bagkur}} İstisna başvurusunu mükellefiyet açılmadan ÖNCE muhasebecinle planla."
 },
 ltd: {
   ad: "Limited şirket (LTD)",
   ozet: [
     ["Kuruluş yeri","MERSİS başvurusu + ticaret sicili müdürlüğü tescili"],
-    ["Asgari sermaye","50.000 TL (TTK m.580; 7511 s. Kanun ile 01.01.2024'ten itibaren)"],
+    ["Asgari sermaye","{{ltd}} TL (TTK m.580; 7511 s. Kanun ile 01.01.2024'ten itibaren)"],
     ["Sermaye ödemesi","Kuruluşta peşin ödeme şartı yok; tescili izleyen 24 ay içinde ödenir (TTK m.585)"],
     ["Ortak / yönetim","Tek ortakla kurulabilir; en az bir müdür (ortaklardan biri olabilir)"],
     ["Sorumluluk","Şirket borçlarında ortağın sorumluluğu koyduğu sermayeyle sınırlı — ANCAK vergi ve SGK borçlarında ortaklar payları oranında şahsen sorumlu olabilir (6183 s. Kanun mük. m.35). 'Limited = tam kalkan' sanma."],
@@ -212,7 +236,7 @@ as: {
   ad: "Anonim şirket (AŞ)",
   ozet: [
     ["Kuruluş yeri","MERSİS başvurusu + ticaret sicili müdürlüğü tescili"],
-    ["Asgari sermaye","250.000 TL (TTK m.332; kayıtlı sermaye sisteminde başlangıç 500.000 TL)"],
+    ["Asgari sermaye","{{as}} TL (TTK m.332; kayıtlı sermaye sisteminde başlangıç {{as500}} TL)"],
     ["Sermaye ödemesi","Nakdî payların en az ¼'ü tescilden önce bankada bloke edilir, kalanı 24 ay içinde (TTK m.344)"],
     ["Ortak / yönetim","Tek pay sahibiyle kurulabilir; en az bir kişilik yönetim kurulu"],
     ["Sorumluluk","Pay sahibinin sorumluluğu taahhüt ettiği sermayeyle sınırlı; kamu borçlarında birincil sorumluluk kanuni temsilcilerde (yönetim kurulu)"],
@@ -235,10 +259,10 @@ function ciz(){
   const t = TURLER[SECILI];
   const ozet = t.ozet.map(s=>`<div class="satir"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('');
   const adimlar = t.adimlar.map((a,i)=>`<div class="adim"><div class="no">${i+1}</div><div><b>${a[0]}</b><p>${a[1]}</p></div></div>`).join('');
-  document.getElementById('icerik').innerHTML = `
+  document.getElementById('icerik').innerHTML = yerlestir(`
     <div class="kart"><h3>${t.ad} — künye</h3>${ozet}</div>
     <div class="kart" style="border-left-color:var(--green)"><h3>Adım adım kuruluş yolu</h3>${adimlar}</div>
-    <div class="kart" style="border-left-color:var(--accent2)"><p style="margin:0;font-size:13.5px;color:var(--muted)">${t.notlar}</p></div>`;
+    <div class="kart" style="border-left-color:var(--accent2)"><p style="margin:0;font-size:13.5px;color:var(--muted)">${t.notlar}</p></div>`);
 }
 document.getElementById('sec').addEventListener('click',e=>{
   const b = e.target.closest('.sbtn'); if(!b) return;
@@ -278,6 +302,10 @@ fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{ SABIT=j;
   const ki = document.getElementById('karInput');
   if(ki) ki.placeholder = 'ör. 1.500.000 (TL, ' + j.yil + ' hedefi)';
   if(j.bilancoHadleri) document.querySelectorAll('.ciroHad').forEach(x=>{ x.textContent = j.bilancoHadleri.satis.toLocaleString('tr-TR') + ' TL'; });
+  // sabit dosyası geldi: sayfadaki tüm data-sabit alanlarını ve künyeleri güncel değerlerle yeniden yaz
+  const dm = { ltd: TLn(j.asgariSermaye.ltd), as: TLn(j.asgariSermaye.as), uyum: j.sermayeUyumSonTarih };
+  document.querySelectorAll('[data-sabit]').forEach(x=>{ if(dm[x.dataset.sabit]) x.textContent = dm[x.dataset.sabit]; });
+  ciz();
 }).catch(()=>{});
 
 // artan oranlı gelir vergisi (GİB tarifesi, ücret dışı)
@@ -319,12 +347,12 @@ function oner(){
   else if(CEVAP.satis==='belki'){ p.as+=1; neden.as.push('Satış ihtimalin varsa AŞ kapısını açık tutmak mantıklı — sonradan tür değiştirmek mümkün ama masraflı.'); }
   else { p.ltd+=1; p.sahis+=1; }
 
-  if(CEVAP.sermaye==='yuksek'){ p.as+=1; neden.as.push('250.000 TL asgari sermayeyi ayırabiliyorsun — AŞ\'nin giriş şartı sende hazır.'); }
+  if(CEVAP.sermaye==='yuksek'){ p.as+=1; neden.as.push('{{as}} TL asgari sermayeyi ayırabiliyorsun — AŞ\'nin giriş şartı sende hazır.'); }
   else if(CEVAP.sermaye==='orta'){
     p.ltd+=1;
     // satış planı olana AŞ kapısı kapatılmaz: 250.000 taahhüdün yalnız 1/4'ü (62.500 TL) peşin bloke edilir
     p.as += (CEVAP.satis==='evet') ? -1 : -3;
-    if(CEVAP.satis!=='evet') neden.ltd.push('50.000 TL bandındaki sermaye LTD\'nin asgari şartına birebir oturuyor (AŞ için 250.000 TL gerekir).');
+    if(CEVAP.satis!=='evet') neden.ltd.push('{{ltd}} TL bandındaki sermaye LTD\'nin asgari şartına birebir oturuyor (AŞ için {{as}} TL gerekir).');
   }
   else { p.sahis+=2; p.ltd-=1; p.as += (CEVAP.satis==='evet' ? -1 : -3); neden.sahis.push('Asgari düzeyde başlamak istiyorsun — şahıs işletmesinde sermaye şartı hiç yok.'); }
 
@@ -335,16 +363,16 @@ function oner(){
     p.as+=2;
     if(CEVAP.sermaye==='dusuk'){
       const ortakNot = CEVAP.ortak==='ortakli' ? ' — ortaklarınla bölüştüğünüzde kişi başı yük küçülür' : '';
-      neden.as.push('Bütçen kısıtlı olsa da AŞ\'yi düşün: kuruluş günü gereken nakit 250.000 değil, ¼\'ü = 62.500 TL' + ortakNot + '; kalan 24 ayda ödenir ve bu para masraf değil, kendi şirketinin kasasına koyduğun sermayedir. Bu taahhüdü gerçekten kaldıramayacaksan LTD kur — ama satıştan EN AZ 2 yıl önce AŞ\'ye dönüp pay senedi bastırmayı bugünden planla: dönüşümde istisna süresinin başlangıcı vergi idaresiyle tartışmalıdır, milyonluk satış planı ihtilaflı içtihada emanet edilmez.');
+      neden.as.push('Bütçen kısıtlı olsa da AŞ\'yi düşün: kuruluş günü gereken nakit {{as}} değil, ¼\'ü = {{blokaj}} TL' + ortakNot + '; kalan {{asKalan}} TL 24 ayda ödenir ve bu para masraf değil, kendi şirketinin kasasına koyduğun sermayedir. Bu taahhüdü gerçekten kaldıramayacaksan LTD kur — ama satıştan EN AZ 2 yıl önce AŞ\'ye dönüp pay senedi bastırmayı bugünden planla: dönüşümde istisna süresinin başlangıcı vergi idaresiyle tartışmalıdır, milyonluk satış planı ihtilaflı içtihada emanet edilmez.');
     } else {
-      neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: 250.000 TL taahhüdün kuruluşta yalnız 1/4\'ü (62.500 TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Satış planın için istisna saatini bugünden başlatmak, yarın tür değiştirmekten çok daha ucuz.');
+      neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: {{as}} TL taahhüdün kuruluşta yalnız 1/4\'ü ({{blokaj}} TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Satış planın için istisna saatini bugünden başlatmak, yarın tür değiştirmekten çok daha ucuz.');
     }
   }
 
   if(CEVAP.risk==='yuksek'){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
   else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
 
-  if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var: ilk kez mükellef olan 29 yaş altına 3 yıl kazanç istisnası (GVK mük. m.20) — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. Tutar her yıl değişir, güncelini GİB\'den teyit et. (Not: eski 1 yıllık Bağ-Kur prim desteği 2026 başında kaldırıldı.)'); }
+  if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var (GVK mük. m.20): 3 yıl boyunca, {{yil}} için yıllık {{genc}} TL\'ye kadar kazancın vergisiz — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. {{bagkur}}'); }
 
   if(CEVAP.cek==='birak'){ p.ltd+=1; p.as+=1; }
 
@@ -414,14 +442,14 @@ function oner(){
   }
   // sermaye artışı bilgi notu (resmî yeni tutar YOK — sadece farkındalık)
   if(kazanan!=='sahis'){
-    uyariHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Bilgin olsun: asgari sermaye tutarları 2024'te beş kat artırıldı (LTD 50.000 / AŞ 250.000 TL) ve ileride yeniden artırılması gündeme gelebilir — bugün asgariyle kuranlar yarın artırım zorunluluğuyla karşılaşabilir (mevcut şirketlerin 31.12.2026 uyum yükümlülüğü gibi). Şu an açıklanmış yeni bir tutar yok; gücün yetiyorsa asgarinin üstünde sermayeyle kurmak seni ileriye taşır.</div>`;
+    uyariHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Bilgin olsun: asgari sermaye tutarları 2024'te beş kat artırıldı (LTD {{ltd}} / AŞ {{as}} TL) ve ileride yeniden artırılması gündeme gelebilir — bugün asgariyle kuranlar yarın artırım zorunluluğuyla karşılaşabilir (mevcut şirketlerin {{uyum}} uyum yükümlülüğü gibi). Şu an açıklanmış yeni bir tutar yok; gücün yetiyorsa asgarinin üstünde sermayeyle kurmak seni ileriye taşır.</div>`;
   }
   if(CEVAP.satis==='evet' && kazanan!=='as'){
     uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
-      ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">dönüşümde 2 yıllık istisna süresinin ne zaman başladığı vergi idaresiyle tartışmalıdır</b> (özelgeler ağırlıkla senet bastırma tarihini esas alır) — satış planı ihtilaflı içtihada emanet edilmez. Unutma: AŞ için kuruluşta peşin gereken tutar 250.000 TL değil, ¼'ü = <b style="color:var(--ink)">62.500 TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
+      ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">dönüşümde 2 yıllık istisna süresinin ne zaman başladığı vergi idaresiyle tartışmalıdır</b> (özelgeler ağırlıkla senet bastırma tarihini esas alır) — satış planı ihtilaflı içtihada emanet edilmez. Unutma: AŞ için kuruluşta peşin gereken tutar {{as}} TL değil, ¼'ü = <b style="color:var(--ink)">{{blokaj}} TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
   }
 
-  out.innerHTML = `
+  out.innerHTML = yerlestir(`
     <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
       <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
@@ -437,7 +465,7 @@ function oner(){
         <button class="btn" style="font-size:14px;padding:11px 18px" onclick="oneriGonder('${kazanan}')">Yol haritamı gönder</button>
       </div>
       <p id="oneriSonuc" style="margin:8px 0 0;font-size:13px;font-weight:600;display:none"></p>
-    </div>`;
+    </div>`);
   // türler bölümü ancak öneriyle birlikte görünür; önerilen tür açık gelir
   document.getElementById('turler').style.display='block';
   document.getElementById('turlerBaslik').textContent = '✅ ' + AD[kazanan] + ' — kuruluş yolun ve belgelerin';
