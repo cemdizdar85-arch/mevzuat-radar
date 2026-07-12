@@ -72,6 +72,10 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 | DFİF ihracat kesintisi | 88/13384 sayılı Karar (birincil, mülga maddeler ayıklandı) | Fındık 0802 (8/4 cent/kg), zeytinyağı dökme 1509 (20 cent/kg), ham/kromlu deri 4101-4106 (50 cent/kg veya FOB %20). Pozisyon bazlı. |
 | **Sayısal veri ELLE DENETİM** | Excel COM ile deterministik karşılaştırma (API yutması YOK) | Sanayi GV/İGV (mermer 2515.11) ✓, tarım GV ülke-varyasyonlu (0101.29.10, 12 sütun) ✓, vergi-sabitleri 2026 gelir vergisi dilimleri GİB 332 Tebliğ ✓ — harvest'ler kaynağa BİREBİR sadık. |
 
+## ✅ İMALATÇI/İHRACATÇI KV İNDİRİMİ + EŞİK SAYFA RE-DENETİMİ (12.07.2026, dördüncü tur — Cem)
+- **KV indirimli oran** (vergi-sabitleri.json kvOranlari + kurulus.html vergi kıyası paneli + bilgi.html#hap-kv-indirim): Genel %25. İmalatçı (sanayi sicil+fiili üretim) münhasıran üretim kazancı 2026 **%24** (1 puan, KVK m.32/8), 2027+ **%12,5** (12,5 puan, 7582 s. Kanun RG 04.06.2026). İhracatçı ihracat kazancı **%20** (5 puan, m.32/7). Al-sat %25. Cem "%12" dedi → aslında 2027 imalatçı oranı %12,5 (kanun çıktı, 2027 kazancına). Şartlar (münhasıran kazanç, sanayi sicil belgesi, kur farkı hariç) dürüstçe yazıldı.
+- **15 eşik sayfası tek tek re-denetlendi** (elle, birincil): avukat 1.250.000 (AŞ 250k×5, canlı teyit + 2026 aylık asgari 45.000 TL TBB eklendi), bağımsız denetim 500M/1mlyr/150, çalışan temsilcisi 2+, e-defter 3 kapı/3M, e-fatura 3M/500K/otel, e-irsaliye 10M/İDİS 1M, emzirme 100/151, engelli 50/%3, İSG kurulu 50+6ay, İSG uzmanı (7538 revize+istisna), KEP m.5/1-f geniş, toplu çıkarma 20+, transfer fiyat 30k/500M/750M€, TTK 1524, VERBİS 100M/mikro istisna. **Hepsi doğru — hata çıkmadı, güncel.**
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.
