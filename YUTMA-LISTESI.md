@@ -16,9 +16,13 @@ Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı ç
 | 6331 s. İSG Kanunu m.6, m.20, m.22 (mevzuat.gov.tr konsolide) | 12.07 | isg-uzmani-isyeri-hekimi.html, isg-kurulu.html, calisan-temsilcisi.html | m.6: 7538 s. Kanunla (15.01.2025) revize edilmiş, "50'den az + az tehlikeli → işveren kendisi 2 gün eğitimle yürütebilir" istisnası EKSİKTİ, eklendi. m.20: temsilci sayısı kademe tablosu (101-500→3, 501-1000→4, 1001-2000→5, 2001+→6) eksikti, tamamlandı. m.22: hiç değişmemiş, doğru |
 | 4857 s. İş Kanunu m.30 (mevzuat.gov.tr konsolide) | 12.07 | engelli-calistirma.html | %3 oranı ve yuvarlama kuralı doğru; "aynı il'deki tüm işyerleri toplamı esas alınır" notu eksikti, eklendi |
 | Gebe/Emziren Kadınlar Yönetmeliği m.13 (mevzuat.gov.tr tam metin) | 12.07 | emzirme-odasi-kres.html | 100-150/150+ eşikleri birebir doğru; 250m mesafe kuralı ve "annesi ölmüş/velayeti babada olan erkek çalışan da hesaba dahil" notu eksikti, eklendi |
+| 4857 s. İş Kanunu m.29 (mevzuat.gov.tr konsolide) | 12.07 | toplu-isten-cikarma.html | Kademeli toplu sayılma tablosu (20-100→10, 101-300→%10, 301+→30) HİÇ YOKTU — sayfa "20 eşiği" dışında hesap yapamıyordu, tam tablo eklendi |
+| Elektronik Tebligat Yönetmeliği m.5-6 (resmigazete.gov.tr tam metin) | 12.07 | kep-e-tebligat.html | 🔴 Kapsam ÇOK DAR yazılmıştı: sadece "AŞ/LTD/komandit" deniyordu; gerçek kapsam m.5/1-f "tüm özel hukuk tüzel kişileri" (kollektif şirket, kooperatif, dernek, vakıf dahil) — düzeltildi |
+| TTK m.1524 süre bilgisi (çapraz ikincil kaynak) | 12.07 | ttk-1524-internet-sitesi.html | "Belirli sürede" muğlaklığı — 3 aylık kesin süre eklendi |
+| Transfer fiyatlandırması — genel çerçeve (KVK m.13, katman yapısı) | 12.07 | transfer-fiyatlandirmasi.html | TL/Euro eşikleri hâlâ yazılmadı (tebliğe göre yıllık değişir, rakam disiplini) — üç katmanlı yapı (Yıllık Rapor/Ana Dosya/CbCR) açıklamayla zenginleştirildi. Kesin eşikler için TF Genel Tebliği hâlâ sırada. |
 
 ## 🔴 SIRADA — YÜKSEK RİSK (canlı içeriği besliyor, birincili okunmadı)
-1. **TTK 1524 (internet sitesi) ve KEP/e-Tebligat sayfaları** — rakam içermiyorlar (düşük risk) ama madde metni hâlâ okunmadı; toplu işten çıkarma (m.29) ve transfer fiyatlandırması sayfaları da bekliyor.
+1. **Transfer Fiyatlandırması Genel Tebliği (kesin TL/Euro eşikleri)** — genel çerçeve yutuldu, kesin rakamlar için tebliğ metni gerekiyor.
 2. **7566 s. Kanun m.23 (Bağ-Kur desteği kaldırılması)** — 2 ikincil kaynak uyumlu; RG metninden teyit edilecek.
 3. **VUK 177 hadleri 2026 (VUK Genel Tebliği)** — sirkülerden alındı; tebliğ metni + sınıf değiştirme nüansları (m.179-180) okunacak (sihirbaz ciro kuralını inceltebilir).
 4. **9286 s. CB Kararı (kâr payı stopajı %15)** — çok kaynaklı ama karar metni okunmadı.
