@@ -161,8 +161,13 @@ function kdvOran(nkod){ // menşe-bağımsız KDV oranı (indirimli varsa en dü
 function dampingBul(nkod, dampAd){ if(!dampAd) return null;
   const bul=DAMPING.filter(m=>(m.k||'').split(' ').some(k=>k&&(nrm(k).startsWith(nkod)||nkod.startsWith(nrm(k)))) && (m.u||'').indexOf(dampAd)>=0);
   if(!bul.length) return null;
-  const say=[]; bul.forEach(m=>{ const mm=String(m.t||'').match(/\d+[.,]?\d*/g); if(mm) mm.forEach(x=>say.push(parseFloat(x.replace(',','.')))); });
-  return { lo: say.length?Math.min(...say):0, hi: say.length?Math.max(...say):0, txt: bul.map(m=>m.t).filter(Boolean).join('; '), tur: bul[0].tur };
+  // SADECE yüzde (%X) değerlerini yük toplamına al; spesifik vergi ($/ton, $/kg, $/m2…) yüzde DEĞİLDİR.
+  const yuzde=[]; let spesifik=false;
+  bul.forEach(m=>{ const t=String(m.t||'');
+    const pm=t.match(/%\s*\d+[.,]?\d*/g); if(pm) pm.forEach(x=>yuzde.push(parseFloat(x.replace(/[%\s]/g,'').replace(',','.'))));
+    if(/\$\s*\/\s*(ton|kg|kilo|adet|m2|m3|litre|çift|gram)/i.test(t)) spesifik=true;
+  });
+  return { lo: yuzde.length?Math.min(...yuzde):0, hi: yuzde.length?Math.max(...yuzde):0, spesifik, txt: bul.map(m=>m.t).filter(Boolean).join('; '), tur: bul[0].tur };
 }
 function ulkeYuk(dkod, nkod, u){ // dkod=noktalı, nkod=noktasız
   const idx=ULKE_SIRA.indexOf(grupKodu(u.grup));
@@ -204,7 +209,7 @@ function olustur(){
     const cls=s===best?'best':(s===worst&&worst!==best?'worst':'');
     const gvT=s.gv===null?'—':('%'+fmtP(s.gv)+(s.gvTah?'*':''));
     const igvT=s.igv===null?'—':('%'+fmtP(s.igv)+(s.igvTah?'*':''));
-    const dT=s.dmp?('+%'+fmtP(s.dmp.lo)+(s.dmp.hi>s.dmp.lo?'–'+fmtP(s.dmp.hi):'')):'—';
+    const dT=s.dmp?(((s.dmp.lo>0||s.dmp.hi>0)?('+%'+fmtP(s.dmp.lo)+(s.dmp.hi>s.dmp.lo?'–'+fmtP(s.dmp.hi):'')):'')+(s.dmp.spesifik?(((s.dmp.lo>0||s.dmp.hi>0)?' + ':'')+'spesifik*'):'')||'—'):'—';
     const geriT=s.veriYok?'—':('%'+fmtP(s.geriLo)+(s.geriHi>s.geriLo?'–'+fmtP(s.geriHi):''));
     const roz=s===best?'<span class="rozet b">EN AVANTAJLI</span>':(s===worst&&worst!==best?'<span class="rozet w">EN PAHALI</span>':'')+(s.dmp?'<span class="rozet d">DAMPİNG</span>':'');
     return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td><td class="n">${geriT}</td></tr>`;
@@ -213,7 +218,7 @@ function olustur(){
   let notlar=secili.map(u=>{
     const s=sonuc.find(x=>x.u.k===u.k);
     let ek='';
-    if(s.dmp) ek+=` <b style="color:var(--amber)">Damping/sübvansiyon önlemi var (${s.dmp.txt}${s.dmp.tur==='Gecici'?', geçici':''})</b> — normal vergiye ek.`;
+    if(s.dmp) ek+=` <b style="color:var(--amber)">Damping/sübvansiyon önlemi var (${s.dmp.txt}${s.dmp.tur==='Gecici'?', geçici':''})</b> — normal vergiye ek.${s.dmp.spesifik?' <b>*Spesifik vergi</b> ($/ton, $/kg gibi) yüzde toplamına DAHİL DEĞİL — miktara/tutara göre değişir, gümrük müşavirine hesaplat.':''}`;
     if(u.misilleme) ek+=' Bazı ürünlerde ABD menşeli mala <b>misilleme ek vergisi</b> uygulanabilir (2018/11973).';
     if(s.gvTah||s.igvTah) ek+=' <i>(*) Bu kodda ülke-bazlı kesin sütun yok; aralık üst sınırı kullanıldı.</i>';
     if(s.veriYok) ek+=' <b>Bu kod için vergi verisi bulunamadı.</b>';
