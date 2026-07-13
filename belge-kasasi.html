@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Belge Kasası — tüm belgelerin tek yerde, süresi kaçmasın | Mevzuat Radarı</title>
+<meta name="description" content="DİİB, A.TR, EUR.1, mukimlik, gözetim belgesi, kapasite raporu, marka tescili... İşletmenin tüm belgelerini bir kasada tut; geçerlilik süresini robot takip etsin, dolmadan haber versin.">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:#06090f;position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:460px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.13),transparent 72%);pointer-events:none;z-index:0}
+a{color:var(--accent2)}
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:24px 18px 80px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 8px}.lead b{color:var(--ink)}
+.uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
+.uyari b{color:var(--muted)}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 7px}
+.grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:13px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+select,input{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px;appearance:none}
+input[type=date]{color-scheme:dark}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:12px 24px;border:none;border-radius:12px;cursor:pointer;margin-top:14px;box-shadow:0 6px 24px rgba(46,140,255,.35)}
+.btn:active{transform:translateY(1px)}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:28px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:11px 0;background:var(--panel2);box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.kart.krmz{border-left:5px solid var(--red)}.kart.sari{border-left:5px solid var(--amber)}.kart.yesil{border-left:5px solid var(--green)}.kart.gri{border-left:5px solid var(--dim)}
+.rozet{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.4px;padding:3px 9px;border-radius:20px;text-transform:uppercase;font-family:var(--mono)}
+.r-krmz{background:rgba(255,107,94,.15);color:var(--red)}.r-sari{background:rgba(255,176,32,.15);color:var(--amber)}.r-yesil{background:rgba(61,220,151,.13);color:var(--green)}
+.kart h3{margin:9px 0 4px;font-size:16px;letter-spacing:-.3px}
+.satir{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
+.satir b{color:var(--muted);font-weight:600}.satir span{color:var(--ink);text-align:right;font-weight:600;font-family:var(--mono)}
+.belg{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.55}.belg b{color:var(--ink)}
+.sil{float:right;background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px}
+details{background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:10px 0}
+summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(--accent2)}
+.ref{font-size:13px;color:var(--muted);line-height:1.6;padding-bottom:12px}
+.ref p{margin:7px 0}.ref b{color:var(--ink)}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:24px}
+.cta h3{margin:0 0 6px;font-size:19px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="hatirlatici.html">Süre Hatırlatıcı</a> · <a href="gtip.html">GTİP</a> · <a href="ihale-radari.html">İhale</a> · <b style="color:var(--ink)">Belge Kasası</b></div>
+
+  <h1>Belge Kasası</h1>
+  <p class="lead">DİİB, A.TR, EUR.1, mukimlik, gözetim belgesi, kapasite raporu, marka tescili… <b>Hepsi tek kasada.</b> Geçerlilik tarihini bir kez gir; süresi dolmadan robot sana haber versin. Kaçan belge = duran sevkiyat, biten teşvik, düşen hak.</p>
+
+  <div class="uyari">Geçerlilik tarihini <b>belgenin üstünden</b> sen girersin — biz uydurmayız, takip eder ve uyarırız. Bu demo belgelerini <b>tarayıcında</b> saklar; gerçek kasada (PDF yükle, ekibinle paylaş, otomatik mail/SMS uyarı) belgeler güvenli sunucuda tutulur — abonelikte açılır.</p>
+
+  <div class="kutu">
+    <div class="grid">
+      <div><label for="tur">Belge türü</label><select id="tur"></select></div>
+      <div><label for="no">Belge no <span style="color:var(--dim);font-weight:400">(varsa)</span></label><input type="text" id="no" placeholder="ör. 2026/D1-0123"></div>
+      <div><label for="bitis">Geçerlilik bitiş tarihi</label><input type="date" id="bitis"></div>
+    </div>
+    <div style="margin-top:12px"><label for="not2">Not <span style="color:var(--dim);font-weight:400">(firma, dosya, hatırlatma)</span></label><input type="text" id="not2" placeholder="ör. Ege Gümrük — kırmızı hat"></div>
+    <button class="btn" onclick="ekle()">Kasaya ekle →</button>
+  </div>
+
+  <h2>Belge kasam</h2>
+  <div id="liste"></div>
+
+  <details>
+    <summary>📘 Belge türleri rehberi — bu belge nedir, nasıl yenilenir</summary>
+    <div class="ref" id="rehber"></div>
+  </details>
+
+  <div class="cta">
+    <h3>Belgelerini kafanda tutma</h3>
+    <p>Abonelikte: belgelerini bir kez yükle, robot her birinin süresine 90/30/7 gün kala mailine ve WhatsApp'ına hatırlatsın. DİİB kapaması, marka yenilemesi, gözetim belgesi… biri bile kaçarsa maliyeti yüz binlerce TL.</p>
+    <a class="btn" href="index.html#fiyat" style="text-decoration:none">Radar aboneliğine katıl →</a>
+  </div>
+
+  <div class="dip" id="dip">Kaynaklar: 2006/12 DİR Tebliği (DİİB süre/kapama) · 6769 SMK m.23 (marka 10 yıl) · Gümrük Birliği & tercihli ticaret anlaşmaları (A.TR / EUR.1) · ilgili gözetim tebliğleri — mevzuat.gov.tr. Belgelerin kendi geçerlilik süresi esastır; bu araç bilgilendirme ve hatırlatma amaçlıdır. Mevzuat Radarı — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+</div>
+
+<script>
+const TURLER = [
+  {id:"diib",   ad:"DİİB — Dahilde İşleme İzin Belgesi", nedir:"Üretimde kullanacağın hammaddeyi ithalat vergilerini ödemeden (teminatla) getirmeni sağlar.", yenileme:"Belge süresi sektöre göre azami 12 ay (2006/12 Tebliği m.20); haklı sebeple ek süre alınabilir. Taahhüt kapama başvurusu belge süresi sonundan itibaren 3 ay içinde. Süreyi kaçırırsan vergiler ceza+faizle geri döner."},
+  {id:"atr",    ad:"A.TR Dolaşım Belgesi", nedir:"Türkiye–AB Gümrük Birliği kapsamında sanayi ürünlerinin serbest (gümrüksüz) dolaşımını sağlar.", yenileme:"Her sevkiyat için ayrı düzenlenir; ihracatçı düzenler, gümrük vize eder. Vize sonrası ithalatçı ülkeye ibraz süresine dikkat et."},
+  {id:"eur1",   ad:"EUR.1 / EUR-MED Dolaşım Belgesi", nedir:"Serbest ticaret / tercihli ticaret anlaşmalı ülkelerde malın menşeini ispat eder → indirimli veya sıfır gümrük vergisi.", yenileme:"Genelde düzenlendiği tarihten itibaren belirli süre (çoğu anlaşmada 4 ay) içinde ithalatçı ülke gümrüğüne ibraz edilmeli. Anlaşma metnindeki süreyi teyit et."},
+  {id:"mukimlik",ad:"Mukimlik Belgesi", nedir:"Çifte Vergilendirmeyi Önleme Anlaşması indirimini/istisnasını uygulayabilmek için karşı taraftan alınan resmî belge.", yenileme:"Ödeme yapılan yıla ait olmalı; apostilli + yeminli tercümeli. Belgesiz anlaşma indirimi uygulanamaz (tam stopaj kesilir)."},
+  {id:"gozetim",ad:"Gözetim Belgesi", nedir:"İthalatta gözetim uygulanan üründe, birim kıymetin altındaki beyanlarda Ticaret Bakanlığından alınır.", yenileme:"Belgenin üstünde yazılı geçerlilik süresi esastır. Süre dolmadan sevkiyatı tamamla ya da yeni belge başvurusunu planla (başvuru–sonuç süresini hesaba kat)."},
+  {id:"kapasite",ad:"Kapasite Raporu", nedir:"Sanayi/ticaret odası (TOBB) düzenler; işletmenin üretim kapasitesini gösterir. DİİB, teşvik vb. başvurularda aranır.", yenileme:"Geçerlilik süresi belgede yazılıdır; dolmadan yenile — DİİB/teşvik başvurularını aksatmasın."},
+  {id:"marka",  ad:"Marka Tescil Belgesi", nedir:"Markanın TÜRKPATENT nezdinde tescilli koruması.", yenileme:"Koruma başvuru tarihinden itibaren 10 yıl; her 10 yılda bir yenilenir (SMK 6769 m.23). Sürenin bitiminden önceki 6 ay içinde yenile; ayrıca 6 ay ek süre (ek ücretle). Yenilenmezse marka hükümden düşer."},
+  {id:"tesvik", ad:"Yatırım Teşvik Belgesi", nedir:"Teşvikli yatırımda vergi/gümrük/SGK avantajları sağlar.", yenileme:"Belgenin süresi ve tamamlama vizesi tarihleri belgede yazılıdır; süre bitmeden tamamlama vizesini al, aksi halde teşvikler geri alınabilir."},
+  {id:"urun",   ad:"CE / TSE / Ürün Uygunluk Belgesi", nedir:"Ürünün güvenlik/standart uygunluğunu gösterir (ithalat denetimi, satış için gerekebilir).", yenileme:"Belge/sertifika üzerindeki geçerlilik tarihini takip et; denetim döngüsüne göre yenilenir."},
+  {id:"faaliyet",ad:"Faaliyet Belgesi / İmza Sirküleri", nedir:"İhale, banka, resmî işlemlerde güncel hali istenir.", yenileme:"Genelde güncel/yakın tarihli olması istenir; ihaleye girmeden önce tarihini kontrol et."},
+  {id:"diger",  ad:"Diğer belge", nedir:"Listede olmayan süreli bir belge/sertifika.", yenileme:"Belgenin kendi geçerlilik tarihini gir; robot takip etsin."}
+];
+const LSK='mr_belge_kasasi_v1';
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function bul(id){ return TURLER.find(t=>t.id===id); }
+function kayitlar(){ try{ return JSON.parse(localStorage.getItem(LSK)||'[]'); }catch(e){ return []; } }
+function kaydet(a){ localStorage.setItem(LSK, JSON.stringify(a)); }
+function trT(iso){ const d=new Date(iso+'T00:00:00'); return isNaN(d)?'—':d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function init(){
+  document.getElementById('tur').innerHTML = TURLER.map(t=>`<option value="${t.id}">${esc(t.ad)}</option>`).join('');
+  document.getElementById('rehber').innerHTML = TURLER.filter(t=>t.id!=='diger').map(t=>`<p><b>${esc(t.ad)}:</b> ${esc(t.nedir)} <span style="color:var(--dim)">Yenileme: ${esc(t.yenileme)}</span></p>`).join('');
+  ciz();
+}
+function ekle(){
+  const id=document.getElementById('tur').value;
+  const no=document.getElementById('no').value.trim();
+  const bitis=document.getElementById('bitis').value;
+  const not2=document.getElementById('not2').value.trim();
+  if(!bitis){ alert('Geçerlilik bitiş tarihini gir (belgenin üstünde yazar).'); return; }
+  const a=kayitlar(); a.push({id, no, bitis, not2, k:Date.now()}); kaydet(a); ciz();
+  document.getElementById('no').value=''; document.getElementById('not2').value='';
+}
+function sil(k){ kaydet(kayitlar().filter(x=>x.k!==k)); ciz(); }
+function ciz(){
+  const box=document.getElementById('liste');
+  const a=kayitlar();
+  if(!a.length){ box.innerHTML='<div class="kart gri"><h3>Kasan henüz boş</h3><div class="belg">Yukarıdan ilk belgeni ekle. Örnek: DİİB\'inin geçerlilik bitişi 30.09.2026 ise gir — kalan günü ve renkli uyarıyı gör.</div></div>'; return; }
+  const bugun=new Date(); bugun.setHours(0,0,0,0);
+  const satirlar=a.map(r=>{ const s=bul(r.id)||bul('diger'); const son=new Date(r.bitis+'T00:00:00'); const kalan=Math.ceil((son-bugun)/864e5); return {r,s,kalan}; })
+    .sort((x,y)=>x.kalan-y.kalan);
+  box.innerHTML = satirlar.map(({r,s,kalan})=>{
+    const cls = kalan<0?'krmz':(kalan<=30?'krmz':(kalan<=90?'sari':'yesil'));
+    const roz = kalan<0?['r-krmz','⛔ SÜRESİ GEÇTİ']:(kalan<=30?['r-krmz','🔴 '+kalan+' GÜN']:(kalan<=90?['r-sari','🟠 '+kalan+' gün']:['r-yesil','🟢 '+kalan+' gün']));
+    return `<div class="kart ${cls}">
+      <button class="sil" onclick="sil(${r.k})">✕ kaldır</button>
+      <span class="rozet ${roz[0]}">${roz[1]}</span>
+      <h3>${esc(s.ad)}${r.no?' — '+esc(r.no):''}</h3>
+      <div class="satir"><b>Geçerlilik bitişi</b><span style="color:${kalan<=30?'var(--red)':'var(--ink)'}">${trT(r.bitis)}</span></div>
+      ${r.not2?`<div class="satir"><b>Not</b><span style="font-family:inherit">${esc(r.not2)}</span></div>`:''}
+      <div class="belg"><b>Yenileme:</b> ${esc(s.yenileme)}</div>
+    </div>`;
+  }).join('');
+}
+init();
+</script>
+</body>
+</html>
