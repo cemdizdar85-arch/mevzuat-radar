@@ -169,7 +169,7 @@ $ikincilKaynaklar = @('kpmg','deloitte','pwc','pricewaterhouse','ernst&young','v
 # TURKIYE-I TUZAGI: pwsh/ubuntu invariant culture'da (?i) 'GİB' (U+0130) ile 'gib' ESLESMEZ
 # (PS5.1/Windows'ta eslesir -> yerelde gorunmez, bulutta patlar). Cozum: Turkce-guvenli kucult
 # (İ->i, I->ı) SONRA kucuk-harf ASCII/tr desenle esle -> kulturden BAGIMSIZ.
-function TrKucuk([string]$s){ if($null -eq $s){ return '' }; return (($s -replace 'İ','i' -replace 'I','ı').ToLowerInvariant()) }
+function TrKucuk([string]$s){ if($null -eq $s){ return '' }; return (($s -creplace 'İ','i' -creplace 'I','ı').ToLowerInvariant()) }  # -creplace = HARF-DUYARLI (varsayilan -replace duyarsiz: invariant'ta 'i'->'ı' yapar, tuzak)
 $resmiIsaretLc = 'resm[iî]\s*gazete|\brg\b|say[iı]l[iı]|gib|gov\.tr|\bmadde\b|\bm\.\s*\d|tebli[gğ]|kanun|karar|bkk'
 function ResmiIsaretVar([string]$t){ return ((TrKucuk $t) -match $resmiIsaretLc) }
 Get-ChildItem $veri -Filter *.json | ForEach-Object {
