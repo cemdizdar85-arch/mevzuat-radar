@@ -20,9 +20,12 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .soru{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--accent2);margin-bottom:4px}
 .sbaslik{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px}
 .sac{font-size:13px;color:var(--muted);margin:0 0 16px}
-.secenek{display:block;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#0a0f17;border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:9px;transition:.15s}
-.secenek:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.10),transparent)}
-.secenek small{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
+.secgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+.secenek{display:flex;flex-direction:column;justify-content:center;min-height:74px;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;font-weight:650;color:var(--ink);background:linear-gradient(180deg,#0b1119,#0a0f17);border:1px solid var(--line2);border-radius:14px;padding:15px 16px;margin:0;transition:.16s;position:relative;overflow:hidden}
+.secenek::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);opacity:0;transition:.16s}
+.secenek:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 8px 22px rgba(46,140,255,.13)}
+.secenek:hover::before{opacity:1}
+.secenek small{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:4px;line-height:1.45}
 .geri{margin-top:6px;background:none;border:0;color:var(--dim);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}.geri:hover{color:var(--ink)}
 .satir{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;margin-bottom:10px;background:var(--panel)}
 .satir .sol{flex:1}.satir .ad{font-weight:700;font-size:15px}.satir .not{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
@@ -46,13 +49,13 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="destekler.html">Destek Radarı</a> · Yurt Dışı Hizmet Faturası</div>
   <h1>Yurt dışından hizmet faturası geldi — ne öderim?</h1>
-  <p class="lead">Mal değil <b>hizmet</b> ithalinde gümrükte KDV ödenmez — ama <b>2 No.lu KDV (sorumlu sıfatıyla)</b> ve çoğu zaman <b>stopaj</b> çıkar. Sonuç <b>hizmetin türüne, ülkenin anlaşmasına, mukimlik belgesine ve işin nerede yapıldığına</b> bağlı. Cevapla, kesin sonucu gör.</p>
+  <p class="lead">Yurt dışından gelen yazılım, danışmanlık, lisans veya reklam faturasında gümrük KDV'si çıkmaz; yerine <b>sorumlu sıfatıyla 2 No.lu KDV</b> ve çoğu zaman <b>stopaj</b> gündeme gelir. Keseceğin oran hizmetin niteliğine, karşı ülkeyle imzalı anlaşmaya ve <b>mukimlik belgesine</b> göre değişir. İşini seç, tutarı gir; ödeyeceğin vergiyi kalem kalem çıkaralım.</p>
 
   <div class="ilerle" id="ilerle"></div>
   <div id="ekran"></div>
 
   <div class="kutu">
-    <h3>⚠️ Muhasebenin en sık yaptığı 3 hata</h3>
+    <h3>⚠️ Sahada en çok yapılan 3 hata</h3>
     <div class="h"><span class="no">1</span><div><b>Microsoft/Adobe/SaaS aboneliğinde stopaj kesmek.</b> Hazır paket yazılımı sadece kullanıyorsan bu <b>ticari kazançtır, stopaj YOKTUR</b> — sadece çoğaltma/telif hakkı alırsan gayrimaddi hak olur. (GİB özelgesi)</div></div>
     <div class="h"><span class="no">2</span><div><b>Mukimlik belgesi almadan</b> anlaşma indirimini uygulamak. Belge yoksa tam oran (%20) kesmen gerekir; sonradan iade çok zor.</div></div>
     <div class="h"><span class="no">3</span><div><b>2 No.lu KDV'yi hiç beyan etmemek.</b> Net yük sıfır olsa da beyan zorunlu; verilmezse ceza + gecikme faizi.</div></div>
@@ -81,7 +84,7 @@ function grup(){ return C.grupOverride || TUR[C.tur].grup; }
 
 function ilerle(n){ let h=''; for(let i=0;i<5;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
 function ekran(html){ document.getElementById('ekran').innerHTML = '<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
-function sec(list, back){ return list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('') + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
+function sec(list, back){ return '<div class="secgrid">'+list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+'</div>' + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
 
 function baslat(){ C.tur=null;C.grupOverride=null;C.cvoa=null;C.belge=null;C.isyeri=null;C.yazilimTur=null; ilerle(0);
   ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Nasıl bir hizmet aldın?</div><div class="sac">Faturadaki işin türünü seç.</div>`+
