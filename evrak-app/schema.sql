@@ -107,3 +107,101 @@ create policy fis_read on storage.objects
 
 -- BİTTİ. Not: fiş dosyaları public-okunur (tahmin edilemez rastgele isimle);
 -- MVP için yeterli, ileride imzalı-URL'e sıkılaştırılabilir.
+
+
+-- ============================================================================
+--  MARKA RADARI — izlenen markalar + kullanım delili kasası + uyarı kaydı
+--  Aynı Supabase projesi. Sahip = giriş yapan kullanıcı. Muhasebeci, mükellefi
+--  adına marka izleyebilir (mukellef_id opsiyonel). Delil kasası PRIVATE (hukuki).
+--  Dayanak: SMK 6769 — m.23 (yenileme 10 yıl), m.9/m.26 (kullan-ya-kaybet),
+--  m.19/2 (kullanmama def'i), m.6/m.18 (benzerlik/itiraz 2 ay).
+-- ============================================================================
+
+-- 1) İZLENEN MARKALAR
+create table if not exists public.markalar (
+  id uuid primary key default gen_random_uuid(),
+  sahip uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  mukellef_id uuid references public.mukellefler(id) on delete set null,  -- SMMM mükellefi adına izliyorsa
+  marka_adi text not null,
+  tescil_no text,                        -- ör. 2016/12345 (benzersiz kimlik)
+  siniflar int[] default '{}',           -- Nice sınıfları
+  basvuru_tarihi date,                   -- koruma başlangıcı (+10 yıl = bitiş)
+  marka_tipi text default 'kelime',      -- kelime | logo | karma
+  kullaniliyor boolean default true,     -- m.9 / m.19 için
+  kullanim_baslangic date,
+  taninmis boolean default false,        -- m.6/4-5 geniş koruma
+  iletisim_email text, iletisim_tel text,
+  notlar text,
+  created_at timestamptz default now()
+);
+create index if not exists idx_marka_sahip on public.markalar(sahip);
+create index if not exists idx_marka_basvuru on public.markalar(basvuru_tarihi);
+
+-- 2) KULLANIM DELİLİ KASASI (m.9 "kullan ya da kaybet" — tarihli belgeler)
+create table if not exists public.kullanim_delilleri (
+  id uuid primary key default gen_random_uuid(),
+  marka_id uuid not null references public.markalar(id) on delete cascade,
+  tip text not null default 'fatura',    -- fatura | reklam | ambalaj | katalog | fuar | web | diger
+  aciklama text,
+  dosya_url text,                        -- Storage bucket 'marka-delil' (PRIVATE)
+  belge_tarihi date,                     -- delilin ait olduğu tarih (5 yıl ispatı için kritik)
+  created_at timestamptz default now()
+);
+create index if not exists idx_delil_marka on public.kullanim_delilleri(marka_id);
+
+-- 3) UYARI KAYDI (robot/cron yazar, uygulama gösterir)
+create table if not exists public.marka_uyarilari (
+  id uuid primary key default gen_random_uuid(),
+  marka_id uuid not null references public.markalar(id) on delete cascade,
+  tur text not null,                     -- yenileme | itiraz | kullanim-hatirlatma | iptal-firsati
+  mesaj text not null,
+  son_tarih date,                        -- deadline (yenileme penceresi / itiraz 2 ay)
+  durum text default 'bekliyor',         -- bekliyor | gonderildi | kapandi
+  created_at timestamptz default now()
+);
+create index if not exists idx_uyari_marka on public.marka_uyarilari(marka_id);
+
+-- RLS: her şey sahibine ait
+alter table public.markalar          enable row level security;
+alter table public.kullanim_delilleri enable row level security;
+alter table public.marka_uyarilari    enable row level security;
+
+drop policy if exists m_marka on public.markalar;
+create policy m_marka on public.markalar
+  for all using (sahip = auth.uid()) with check (sahip = auth.uid());
+
+drop policy if exists m_delil on public.kullanim_delilleri;
+create policy m_delil on public.kullanim_delilleri
+  for all using (marka_id in (select id from public.markalar where sahip = auth.uid()))
+  with check (marka_id in (select id from public.markalar where sahip = auth.uid()));
+
+drop policy if exists m_uyari on public.marka_uyarilari;
+create policy m_uyari on public.marka_uyarilari
+  for all using (marka_id in (select id from public.markalar where sahip = auth.uid()))
+  with check (marka_id in (select id from public.markalar where sahip = auth.uid()));
+
+-- 4) DELİL DOSYA DEPOSU — PRIVATE (kullanım delili hassastır, yalnız sahibi erişir)
+insert into storage.buckets (id, name, public) values ('marka-delil','marka-delil', false)
+  on conflict (id) do nothing;
+
+drop policy if exists delil_yaz on storage.objects;
+create policy delil_yaz on storage.objects
+  for insert to authenticated with check (bucket_id = 'marka-delil' and owner = auth.uid());
+drop policy if exists delil_oku on storage.objects;
+create policy delil_oku on storage.objects
+  for select to authenticated using (bucket_id = 'marka-delil' and owner = auth.uid());
+drop policy if exists delil_sil on storage.objects;
+create policy delil_sil on storage.objects
+  for delete to authenticated using (bucket_id = 'marka-delil' and owner = auth.uid());
+
+-- 5) YENİLEME TAKVİMİ görünümü (koruma bitişi + yenileme penceresi hazır gelir)
+--    security_invoker: RLS uygulanır, başkasının markası görünmez.
+create or replace view public.marka_takvim with (security_invoker = true) as
+  select m.*,
+         (m.basvuru_tarihi + interval '10 years')::date               as koruma_bitisi,
+         (m.basvuru_tarihi + interval '10 years' - interval '6 months')::date as yenileme_acilis,
+         (m.basvuru_tarihi + interval '10 years' + interval '6 months')::date as ek_sure_sonu
+  from public.markalar m;
+
+-- BİTTİ (Marka Radarı). Delil bucket'ı PRIVATE (evrak fişinden farklı — hukuki delil).
+-- Robot (cron): markalar tablosunu tarar → yaklaşan yenileme/kullanım/itiraz için marka_uyarilari yazar → mail/SMS.
