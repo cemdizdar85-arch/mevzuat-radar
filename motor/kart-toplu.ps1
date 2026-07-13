@@ -11,9 +11,13 @@ param(
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# pwsh 7 / .NET Core: windows-1254 icin kod sayfasi saglayicisini kaydet (PS5.1'de zaten var)
+try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingProvider]::Instance) } catch {}
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok = Split-Path -Parent $here
-$key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim()
+# Anahtar: CI'da GitHub secret (env), yerelde repo disi dosya
+$key = $env:ANTHROPIC_API_KEY
+if(-not $key){ $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() }
 $arsivTeblig = Join-Path $here ("arsiv\" + $Gun)
 $parcalar = $Gun.Split("-")
 $tabanUrl = "https://www.resmigazete.gov.tr/eskiler/$($parcalar[2])/$($parcalar[1])/"
@@ -32,17 +36,31 @@ if(Test-Path $hafizaYol){
 }
 
 $istemSablon = @"
-Sen Mevzuat Radari'nin kart motorusun. Asagida bir Resmi Gazete tebligi metni (ve varsa tablo goruntuleri) var. Gorevin: ithalatci/ihracatci KOBI patronunun 30 saniyede anlayacagi 'hap bilgi karti' verisi cikarmak.
+Sen, buyuk bir denetim firmasinda 20 yilini doldurmus, kalemi kuvvetli bir vergi ortagisín. Asagida bir Resmi Gazete tebligi metni (ve varsa tablo goruntuleri) var. Gorevin: musterine gonderecegin, 30 saniyede okunan bir 'hap bilgi karti' verisi cikarmak.
 
-ALTIN KURALLAR:
+ALTIN KURALLAR (dogruluk):
 1) Rakam, tarih, oran, GTIP kodu SADECE verilen metinden/goruntuden alinir. Emin olamadigin her sey icin "kaynakta belirtilmemis" yaz. ASLA tahmin etme.
-2) Sade Turkce ama HUKUKEN DOGRU terim: gozetim uygulamasi VERGI DEGILDIR - "vergi zammi" gibi yorumlar YASAK. Tebligin yaptigi islemi olgusal soyle. Baslikta yorum/abartma yok. Turkce imla kusursuz: "kıymet", "tebliğ", "yürürlük" dogru harflerle.
+2) Sade Turkce ama HUKUKEN DOGRU terim: gozetim uygulamasi VERGI DEGILDIR - "vergi zammi" gibi yorumlar YASAK. Tebligin yaptigi islemi olgusal soyle. Baslikta yorum/abartma yok.
 3) SADECE gecerli JSON dondur.
 4) "yururluk" alani SADECE su kaliplardan biri: "yayimi tarihinde" | "yayimini takip eden N. gun" | "GG.AA.YYYY" | "kaynakta belirtilmemis".
 5) "birim_kiymetler" YAPILANDIRILMIS olacak: tabloda degeri NET okudugun her kod icin bir satir. Okuyamadigin kodu LISTEYE KOYMA (guven_notu'na yaz).
+6) "eski_yeni": bu teblig mevcut bir duzenlemeyi DEGISTIRIYORSA ve eski hal metinde/goruntude ACIKCA gorunuyorsa ("...ibaresi ...seklinde degistirilmistir", "yururlukten kaldirilmistir" gibi) her degisen kalem icin bir satir. ESKI DEGERI ASLA UYDURMA - eski hal kaynakta yoksa o satiri HIC KOYMA; "eski":"kaynakta belirtilmemis" yazilmis bir satir KURAL IHLALIDIR. Degisiklik tebligi degilse bos dizi.
+10) JSON string'lerinin ICINDE cift tirnak (") KULLANMA - alinti gerekirse tek tirnak kullan (JSON bozulur).
+7) "degistirilen_teblig": degistirilen ana tebligin no/adi (kaynaktan); yoksa bos string.
+8) "etki": is etkisi YORUMU (tek yorum alani budur, olgu alanlarina yorum sizdirma). "yon" SADECE: "ithalatci aleyhine" | "ithalatci lehine" | "karisik" | "notr" | "belirsiz". Dayanagi olmayan yon verme - emin degilsen "belirsiz". "aciklama": 1-2 cumleyle NEDEN (or: "gozetim kiymeti yukseldi; bu bedelin altindaki beyanlar ek belge/denetim yuku getirir, ithal maliyeti planlamasi guncellenmeli").
+9) "eski_rg": degisiklik tebligiyse, metinde degistirilen ANA tebligin ilk yayimlandigi RG'ye atif vardir ("GG/AA/YYYY tarihli ve NNNNN sayili Resmi Gazete'de yayimlanan..."). O tarihi "GG.AA.YYYY" bicimiyle ver; atif yoksa bos string.
+
+USLUP KURALLARI (buyuk denetim firmalarinin bultenlerinden DAHA IYI yazacaksin; yapay zeka yazdigi ASLA belli olmayacak):
+A) Ton: deneyimli ortagin musterisine yazdigi kisa not. Net, kendinden emin, sicak ama laubali degil. Musteriyle konusur gibi, kursu anlatir gibi degil.
+B) YASAKLI kaliplar (yapay zeka kokusu): "unutmayin", "unutulmamalidir", "onemlidir", "dikkat edilmelidir", "bu baglamda", "soz konusu", "adim atmak", "surec baslatmak", "genel olarak", "ozetle", ust uste ayni yapiyla baslayan cumleler, gereksiz sifat yiginlari, "!" unlem.
+C) Cumleler kisa ve ritmi degisken olsun. Etken cati: "Bakanlik esigi yukseltti", "denetim sikilasti" - "yukseltilmis bulunmaktadir" DEGIL. "-mistir/-mektedir" kuru resmi bitislerinden kacin; "-di/-du/-iyor" dogal bitisleri kullan.
+D) Turkce imla KUSURSUZ: "kıymet", "tebliğ", "yürürlük", "güncellemiştir degil guncelledi". Yazim hatasi tek basina karti coper.
+E) baslik_sade: iyi bir ekonomi muhabirinin atacagi baslik. Olgusal, 8-14 kelime, urun grubunu soyler.
+F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastirin" gibi. Emir kipi dogal: "kontrol edin", "hazirlayin".
+G) kimi_ilgilendirir: sektoru/rolu isimlendir ("seramik ithal eden insaat malzemecileri" gibi), "ilgili firmalar" deme.
 
 JSON semasi:
-{"baslik_sade":"tek cumle, olgusal","ne_oldu":"1-2 cumle","gtip_kodlari":["tum kodlar"],"urun_tanimi":"esya grubu","kimi_ilgilendirir":"kim","ne_yapmali":"somut adim","yururluk":"kalipli","birim_kiymetler":[{"gtip":"kod","deger":"or: 1.000 ABD Dolari/Ton"}],"guven_notu":"emin olamadiklarin"}
+{"baslik_sade":"tek cumle, olgusal","ne_oldu":"1-2 cumle","degistirilen_teblig":"degistirilen ana teblig no/adi veya bos","eski_rg":"GG.AA.YYYY veya bos","eski_yeni":[{"konu":"degisen kalem","eski":"kaynaktan eski hal","yeni":"kaynaktan yeni hal"}],"gtip_kodlari":["tum kodlar"],"urun_tanimi":"esya grubu","kimi_ilgilendirir":"kim","ne_yapmali":"somut adim","yururluk":"kalipli","birim_kiymetler":[{"gtip":"kod","deger":"or: 1.000 ABD Dolari/Ton"}],"etki":{"yon":"kalipli","aciklama":"1-2 cumle yorum"},"guven_notu":"emin olamadiklarin"}
 
 TEBLIG METNI:
 "@
@@ -51,13 +69,70 @@ function ApiCagri([string]$model, [array]$icerik, [int]$maxTok){
   $govde = @{ model = $model; max_tokens = $maxTok; messages = @(@{ role="user"; content=$icerik }) } | ConvertTo-Json -Depth 10
   $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 240
   $c = $r.content[0].text.Trim()
-  $c = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::GetEncoding("ISO-8859-1").GetBytes($c))
+  # SADECE PS 5.1: Invoke-RestMethod UTF-8'i Latin-1 sanar -> geri cevir. pwsh 7 dogru cozer; orada bu donusum metni BOZAR.
+  if($PSVersionTable.PSVersion.Major -le 5){
+    $c = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::GetEncoding("ISO-8859-1").GetBytes($c))
+  }
   return @{ metin = $c; girdi = $r.usage.input_tokens; cikti = $r.usage.output_tokens }
 }
 
 function JsonAyikla([string]$c){
   if($c -match "(?s)\{.*\}"){ return ($Matches[0] | ConvertFrom-Json) }
   throw "JSON bulunamadi"
+}
+
+# ---- ESKI METIN BULUCU: degisiklik tebliginin atif verdigi tarihli RG'den ana tebligi ceker ----
+#  Cem kurali: "elimizde yok" mazeret degil - RG arsivi acik, eski metni sistemden cek, karsilastir.
+#  Onbellek: motor/arsiv-eski/ (her eski teblig bir kez indirilir; CI'da commit'lenir).
+$eskiDir = Join-Path $here "arsiv-eski"
+New-Item -ItemType Directory -Force $eskiDir | Out-Null
+function EskiMetinBul([string]$rgTarih, [string]$tebligNo){
+  # rgTarih: GG.AA.YYYY ; tebligNo: or 2018/5
+  $guvenliAd = ($rgTarih -replace '\.','-') + "_" + ($tebligNo -replace '/','-') + ".htm"
+  $cachYol = Join-Path $eskiDir $guvenliAd
+  $eskiUrl = $null
+  if(-not (Test-Path $cachYol)){
+    try {
+      $fih = (Invoke-WebRequest -Uri ("https://www.resmigazete.gov.tr/" + $rgTarih) -UserAgent "Mozilla/5.0 (MevzuatRadar-KartMotoru)" -TimeoutSec 60 -UseBasicParsing).Content
+    } catch { return $null }
+    $rxE = [regex]'(?is)<a[^>]+href="(?<u>[^"]*eskiler/\d{4}/\d{2}/\d{8}-\d+\.htm)"[^>]*>(?<t>.*?)</a>'
+    foreach($m in $rxE.Matches($fih)){
+      $t = ($m.Groups["t"].Value -replace "<[^>]+>"," " -replace "\s+"," ")
+      # eslesme anahtari: teblig numarasi (or "2018/5") - basliklarda hep gecer
+      if($t -match [regex]::Escape($tebligNo)){
+        $u = $m.Groups["u"].Value
+        if($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+        try {
+          $wcE = New-Object System.Net.WebClient
+          $wcE.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+          [System.IO.File]::WriteAllBytes($cachYol, $wcE.DownloadData($u))
+          $eskiUrl = $u
+        } catch { return $null }
+        break
+      }
+    }
+    if(-not (Test-Path $cachYol)){ return $null }
+  }
+  # metin + gorseller (eski tablolar da goruntude olabilir)
+  $hamE = [System.IO.File]::ReadAllBytes($cachYol)
+  $htmlE = [System.Text.Encoding]::GetEncoding(1254).GetString($hamE)
+  $metinE = ($htmlE -replace "(?is)<script.*?</script>","" -replace "(?is)<style.*?</style>","" -replace "<[^>]+>"," " -replace "&nbsp;"," " -replace "\s+"," ").Trim()
+  $metinE = [System.Net.WebUtility]::HtmlDecode($metinE)
+  if($metinE.Length -gt 9000){ $metinE = $metinE.Substring(0,9000) }
+  $gorsellerE = @()
+  $pE = $rgTarih.Split("."); $tabanE = "https://www.resmigazete.gov.tr/eskiler/$($pE[2])/$($pE[1])/"
+  $imgE = [regex]::Matches($htmlE,'(?i)<img[^>]+src="([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 2
+  foreach($srcE in $imgE){
+    $iu = if($srcE -match "^https?:"){ $srcE } else { $tabanE + ($srcE -replace "^\./","") }
+    try {
+      $wcI = New-Object System.Net.WebClient
+      $wcI.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+      $bi = $wcI.DownloadData($iu)
+      $mi = if($srcE -match "\.png$"){ "image/png" } else { "image/jpeg" }
+      $gorsellerE += @{ type="image"; source=@{ type="base64"; media_type=$mi; data=[Convert]::ToBase64String($bi) } }
+    } catch {}
+  }
+  return @{ metin = $metinE; gorseller = $gorsellerE; url = $eskiUrl }
 }
 
 $dosyalar = Get-ChildItem $arsivTeblig -Filter "*.htm" | Sort-Object Name
@@ -86,10 +161,11 @@ foreach($d in $dosyalar){
     }
     $icerikTam = @() + $gorseller + @(@{ type="text"; text=($istemSablon + $metin) })
 
-    # --- cift gecis ---
-    $g1 = ApiCagri $Model $icerikTam 2800; $topGirdi += $g1.girdi; $topCikti += $g1.cikti
-    $g2 = ApiCagri $Model $icerikTam 2800; $topGirdi += $g2.girdi; $topCikti += $g2.cikti
-    $k1 = JsonAyikla $g1.metin; $k2 = JsonAyikla $g2.metin
+    # --- cift gecis (uzun tablolar icin genis token; JSON bozuksa o gecis 1 kez tekrarlanir) ---
+    $g1 = ApiCagri $Model $icerikTam 6000; $topGirdi += $g1.girdi; $topCikti += $g1.cikti
+    $g2 = ApiCagri $Model $icerikTam 6000; $topGirdi += $g2.girdi; $topCikti += $g2.cikti
+    try { $k1 = JsonAyikla $g1.metin } catch { $g1 = ApiCagri $Model $icerikTam 6000; $topGirdi += $g1.girdi; $topCikti += $g1.cikti; $k1 = JsonAyikla $g1.metin }
+    try { $k2 = JsonAyikla $g2.metin } catch { $g2 = ApiCagri $Model $icerikTam 6000; $topGirdi += $g2.girdi; $topCikti += $g2.cikti; $k2 = JsonAyikla $g2.metin }
 
     $notlar = @()
 
@@ -102,6 +178,61 @@ foreach($d in $dosyalar){
 
     # yururluk (kalipli oldugu icin esitlik saglikli)
     $yurFinal = if((NormD $k1.yururluk) -eq (NormD $k2.yururluk)){ $k1.yururluk } else { "Kaynak tebliğdeki yürürlük maddesine bakın" }
+
+    # etki yonu: iki okuma anlasamiyorsa YORUM yayinlanmaz ("belirsiz") - yorumda tek okumaya guvenilmez
+    $etkiFinal = $null
+    if($k1.etki -and $k1.etki.yon){
+      $y1 = NormD $k1.etki.yon; $y2 = if($k2.etki){ NormD $k2.etki.yon } else { "" }
+      if($y1 -eq $y2 -and $y1 -ne "belirsiz"){ $etkiFinal = @{ yon = $k1.etki.yon; aciklama = $k1.etki.aciklama } }
+      elseif($y1 -ne $y2){ $notlar += "Etki yorumu iki okumada farkli cikti - yayinlanmadi" }
+    }
+
+    # eski->yeni: sadece iki okumanin da ayni KONUYU gordugu satirlar (uydurmaya karsi ikinci kilit)
+    # + script-tarafi filtre: 'eski' bos/"belirtilmemis" olan satir YAYINLANMAZ (model kurali ihlal etse bile)
+    $ey1 = @($k1.eski_yeni) | Where-Object { $_.eski -and (NormD $_.eski) -notmatch "belirtilmemis|belirtilmemiş|yer almiyor" }
+    $ey2 = @($k2.eski_yeni) | Where-Object { $_.eski -and (NormD $_.eski) -notmatch "belirtilmemis|belirtilmemiş|yer almiyor" }
+    $eskiYeniFinal = @()
+    foreach($r in $ey1){
+      if(-not $r.konu){ continue }
+      $es = $ey2 | Where-Object { (NormD $_.konu) -eq (NormD $r.konu) } | Select-Object -First 1
+      if($es -and (NormD $es.yeni) -eq (NormD $r.yeni)){ $eskiYeniFinal += $r }
+    }
+    if($ey1.Count -and -not $eskiYeniFinal.Count){ $notlar += "Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi" }
+
+    # --- ESKI RG METNIYLE GERCEK KARSILASTIRMA (Cem: elimizde yoksa sistemden CEK) ---
+    # Degisiklik tebligi eski hukmu yazmasa bile: atif verdigi tarihli RG'den ana tebligi indir,
+    # eski+yeni metni (ve tablolarin goruntulerini) yan yana ver -> gercek eskiden->simdi.
+    $eskiKarUrl = $null
+    $tebNoM = [regex]::Match("$($k1.degistirilen_teblig)", '\d{4}/\d+')
+    $eskiRg1 = "$($k1.eski_rg)"
+    if($tebNoM.Success -and $eskiRg1 -match '^\d{2}\.\d{2}\.\d{4}$' -and $eskiRg1 -eq "$($k2.eski_rg)"){
+      $eskiVeri = EskiMetinBul $eskiRg1 $tebNoM.Value
+      if($eskiVeri){
+        try {
+          $kIstem = @"
+Ayni tebligin iki hali asagida. ESKI = $eskiRg1 tarihli RG'deki ana teblig. YENI = bugunku degisiklik tebligi. Ilk goruntuler (varsa) ESKI teblige, sonrakiler YENI teblige aittir.
+Gorevin: DEGISEN kalemleri cikarmak. SADECE iki kaynakta da ACIKCA gordugun degerleri yaz; okuyamadigini/emin olamadigini HIC yazma, tahmin YASAK.
+SADECE JSON: {"kalemler":[{"konu":"or GTIP 6907.30 birim kiymeti","eski":"or 1.200 ABD Dolari/Ton","yeni":"or 1.500 ABD Dolari/Ton"}],"etki":{"yon":"ithalatci aleyhine|ithalatci lehine|karisik|notr|belirsiz","aciklama":"1-2 cumle"}}
+
+ESKI METIN:
+$($eskiVeri.metin)
+
+YENI (DEGISIKLIK) METNI:
+$metin
+"@
+          $kIcerik = @() + @($eskiVeri.gorseller) + $gorseller + @(@{ type="text"; text=$kIstem })
+          $gk = ApiCagri $Model $kIcerik 2200; $topGirdi += $gk.girdi; $topCikti += $gk.cikti
+          $kj = JsonAyikla $gk.metin
+          $kal = @($kj.kalemler | Where-Object { $_.konu -and $_.eski -and $_.yeni })
+          if($kal.Count){
+            $eskiYeniFinal = $kal
+            $eskiKarUrl = $eskiRg1
+            $notlar += "Karsilastirma $eskiRg1 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
+            if(-not $etkiFinal -and $kj.etki -and (NormD $kj.etki.yon) -ne "belirsiz"){ $etkiFinal = @{ yon = $kj.etki.yon; aciklama = $kj.etki.aciklama } }
+          }
+        } catch { $notlar += "Eski metinle karsilastirma gecisi basarisiz" }
+      } else { $notlar += "Ana tebligin eski metni RG arsivinde bulunamadi ($eskiRg1)" }
+    }
 
     # --- KOD BAZINDA kiymet karsilastirma ---
     $m1 = @{}; foreach($x in @($k1.birim_kiymetler)){ if($x.gtip){ $m1[$x.gtip] = $x.deger } }
@@ -158,14 +289,36 @@ foreach($d in $dosyalar){
       }
     }
 
+    # --- SONNET CILA: duzyazi alanlarinda imla+uslup parlatma. SAYI KORUMASI: metindeki
+    #     rakam kumesi degisirse cila REDDEDILIR (orijinal kalir) - cila asla veri bozamaz.
+    $duzyazi = [ordered]@{ baslik_sade=$k1.baslik_sade; ne_oldu=$k1.ne_oldu; urun_tanimi=$k1.urun_tanimi; kimi_ilgilendirir=$k1.kimi_ilgilendirir; ne_yapmali=$k1.ne_yapmali }
+    if($etkiFinal){ $duzyazi["etki_aciklama"] = $etkiFinal.aciklama }
+    try {
+      $cIstem = "Asagidaki JSON'daki Turkce metinleri AYNI anlamla parlat: kusursuz imla, dogal-profesyonel uslup (deneyimli vergi ortaginin notu), yapay kaliplar yok. RAKAM/TARIH/GTIP/ORAN ASLA degistirme-ekleme-cikarma. Ayni anahtarlarla SADECE JSON dondur.`n" + (($duzyazi | ConvertTo-Json -Depth 3))
+      $gc = ApiCagri $HakemModel @(@{type="text";text=$cIstem}) 1200
+      $hakemGirdi += $gc.girdi; $hakemCikti += $gc.cikti
+      $cj = JsonAyikla $gc.metin
+      $sayiCek = { param($o) (([regex]::Matches(($o.PSObject.Properties.Value -join " "), '\d[\d\.,/]*').Value | Sort-Object) -join "|") }
+      if((& $sayiCek $duzyazi) -eq (& $sayiCek $cj)){
+        if($cj.baslik_sade){ $k1.baslik_sade=$cj.baslik_sade }; if($cj.ne_oldu){ $k1.ne_oldu=$cj.ne_oldu }
+        if($cj.urun_tanimi){ $k1.urun_tanimi=$cj.urun_tanimi }; if($cj.kimi_ilgilendirir){ $k1.kimi_ilgilendirir=$cj.kimi_ilgilendirir }
+        if($cj.ne_yapmali){ $k1.ne_yapmali=$cj.ne_yapmali }
+        if($etkiFinal -and $cj.etki_aciklama){ $etkiFinal.aciklama = $cj.etki_aciklama }
+      } else { $notlar += "Cila gecisi rakam degistirdi - reddedildi, orijinal metin kullanildi" }
+    } catch { }
+
     $final = [ordered]@{
       dosya = $d.Name; kaynak = ($tabanUrl + $d.Name)
       baslik_sade = $k1.baslik_sade; ne_oldu = $k1.ne_oldu
+      degistirilen_teblig = $k1.degistirilen_teblig
+      eski_yeni = $eskiYeniFinal
+      eski_karsilastirma = $eskiKarUrl
       gtip_kodlari = $gtipFinal; urun_tanimi = $k1.urun_tanimi
       kimi_ilgilendirir = $k1.kimi_ilgilendirir; ne_yapmali = $k1.ne_yapmali
       yururluk = $yurFinal
       kesin_kiymetler = $kesin
       kiyaslar = $kiyaslar
+      etki = $etkiFinal
       guven_notu = (@($k1.guven_notu) + $notlar | Where-Object { $_ }) -join " | "
     }
     $kartlar += $final
@@ -223,6 +376,14 @@ foreach($k in $kartlar){
   [void]$s.AppendLine('<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>')
   [void]$s.AppendLine("<h3>$($k.baslik_sade)</h3>")
   [void]$s.AppendLine("<p><b>Ne oldu:</b> $($k.ne_oldu)</p>")
+  if($k.degistirilen_teblig){ [void]$s.AppendLine("<p><b>Neyi değiştiriyor:</b> $($k.degistirilen_teblig)</p>") }
+  if(@($k.eski_yeni).Count){
+    $eyEtiket = if($k.eski_karsilastirma){ "($($k.eski_karsilastirma) tarihli RG'deki eski metinle karşılaştırıldı)" } else { "(tebliğ metninden, çift okumayla doğrulanmış)" }
+    [void]$s.AppendLine("<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>$eyEtiket</span></p>")
+    foreach($ey in @($k.eski_yeni)){
+      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b></div>")
+    }
+  }
   if($k.urun_tanimi){ [void]$s.AppendLine("<p><b>Ürün:</b> $($k.urun_tanimi)</p>") }
   if(@($k.gtip_kodlari).Count){
     $chips = (@($k.gtip_kodlari) | ForEach-Object { "<span class='gtip'>$_</span>" }) -join ""
@@ -232,10 +393,18 @@ foreach($k in $kartlar){
     [void]$s.AppendLine("<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>")
     foreach($kod in $k.kesin_kiymetler.Keys){ [void]$s.AppendLine("<div class='kiymet'>$kod → <b>$($k.kesin_kiymetler[$kod])</b></div>") }
   }
-  foreach($ky in @($k.kiyaslar)){ [void]$s.AppendLine("<div class='kiyas'>📊 Değişim — $ky</div>") }
+  foreach($ky in @($k.kiyaslar)){ [void]$s.AppendLine("<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — $ky</div>") }
   [void]$s.AppendLine("<p><b>Kimi ilgilendirir:</b> $($k.kimi_ilgilendirir)</p>")
   [void]$s.AppendLine("<p><b>Ne yapmalısın:</b> $($k.ne_yapmali)</p>")
   [void]$s.AppendLine("<p><b>Yürürlük:</b> $($k.yururluk)</p>")
+  if($k.etki){
+    $renk = switch(($k.etki.yon -replace "İ","i").ToLowerInvariant()){
+      "ithalatci aleyhine" { "var(--amber)" }
+      "ithalatci lehine"   { "var(--green)" }
+      default              { "var(--dim)" }
+    }
+    [void]$s.AppendLine("<div style='border:1px solid $renk;border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:$renk'>Ne anlama geliyor (yorum · $($k.etki.yon)):</b> $($k.etki.aciklama)</div>")
+  }
   [void]$s.AppendLine("<div class='meta'><a href='$($k.kaynak)' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>")
   [void]$s.AppendLine('</div>')
 }

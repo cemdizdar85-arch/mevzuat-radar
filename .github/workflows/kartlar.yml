@@ -1,0 +1,52 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/kartlar.yml
+# HAP KART MOTORU: her sabah gunun RG tebliglerini indirir, cift-okuma + hakem
+# sistemiyle hap kartlari uretir, kartlar.html + arsivi yayinlar.
+# GEREKSINIM: repo Settings -> Secrets and variables -> Actions -> ANTHROPIC_API_KEY
+# (secret yoksa is zarifce atlanir, hata vermez).
+name: Hap Kartlar
+
+on:
+  schedule:
+    - cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  kart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Gunun tarihi (TR)
+        id: g
+        run: echo "gun=$(TZ=Europe/Istanbul date +%d-%m-%Y)" >> "$GITHUB_OUTPUT"
+
+      - name: Gunun tebliglerini indir
+        shell: pwsh
+        run: ./motor/rg-indir.ps1 -Gun ${{ steps.g.outputs.gun }}
+
+      - name: Hap kartlari uret (cift okuma + hakem)
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if (-not $env:ANTHROPIC_API_KEY) { Write-Host "ANTHROPIC_API_KEY secret'i yok - kart uretimi atlandi. (Repo Settings -> Secrets -> Actions -> New repository secret)"; exit 0 }
+          $gun = "${{ steps.g.outputs.gun }}"
+          $klasor = "motor/arsiv/$gun"
+          if (-not (Test-Path $klasor) -or -not (Get-ChildItem $klasor -Filter *.htm -ErrorAction SilentlyContinue)) { Write-Host "Bugun isletmeyi ilgilendiren teblig yok - kart uretilmedi."; exit 0 }
+          ./motor/kart-toplu.ps1 -Gun $gun
+
+      - name: Yapisal denetci (kart yayini oncesi guvenlik)
+        shell: pwsh
+        run: ./arac/yapisal-denetci.ps1
+
+      - name: Degisiklik varsa yayinla
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Hap kartlar: $(TZ=Europe/Istanbul date +%d.%m.%Y) gunun kartlari uretildi"
+          git push
