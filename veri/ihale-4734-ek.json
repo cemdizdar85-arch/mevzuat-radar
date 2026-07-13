@@ -45,5 +45,38 @@
   "isOrtakligi": {
     "baslik": "İş ortaklığı / konsorsiyum (m.14)",
     "metin": "Birden fazla istekli, İŞ ORTAKLIĞI (her ortak işin tamamından müştereken sorumlu) veya KONSORSİYUM (her ortak uzmanlık işinden kendi sorumlu) kurarak birlikte teklif verebilir — büyük işlerde yeterliği birleştirmenin yolu."
+  },
+  "damgaVergisi": {
+    "baslik": "Kazanmanın gizli maliyeti — damga vergisi",
+    "ihaleKarari": 0.00569,
+    "ihaleKarariYazi": "İhale kararı: binde 5,69",
+    "sozlesme": 0.00948,
+    "sozlesmeYazi": "Sözleşme: binde 9,48",
+    "metin": "İhaleyi kazanınca İKİ ayrı damga vergisi doğar: ihale kararı üzerinden binde 5,69 + sözleşme bedeli üzerinden binde 9,48. Teklifini verirken bunu maliyetine kat — çoğu kişi unutur.",
+    "kaynak": "488 s. Damga Vergisi Kanunu ekli (1) sayılı tablo; 7491 s. Kanun (RG 28.12.2023) ihale kararı ve ihale sözleşmesini tabloya açıkça ekledi."
+  },
+  "kdvTevkifat": {
+    "baslik": "KDV tevkifatı (kamu idaresine iş yaparsan)",
+    "yapim": "Yapım işleri (KDV dahil bedel ≥ 5.000.000 TL) + birlikte yapılan mühendislik/mimarlık/etüt-proje: (4/10) tevkifat.",
+    "digerHizmet": "Tebliğde özel oran belirlenmeyen diğer hizmetler (5018 sayılı Kanun idarelerine): (5/10) tevkifat.",
+    "metin": "Kamu idaresine yapım/hizmet ifasında, KDV'nin bir kısmını alıcı (idare) sorumlu sıfatıyla keser — senin tahsil edeceğin KDV azalır, nakit akışını etkiler.",
+    "kaynak": "KDV Genel Uygulama Tebliği (GİB, cdn.gib.gov.tr — kısmi tevkifat oranları)"
+  },
+  "surecAkisi": [
+    "1) İlan / davet — EKAP + Kamu İhale Bülteni (süreler m.13).",
+    "2) İhale dokümanını al (m.27): idari şartname, teknik şartname, sözleşme tasarısı. Belirsizlik varsa açıklama iste; idare zeyilname yayınlayabilir (m.29).",
+    "3) Teklifini hazırla (m.30): teklif mektubu + geçici teminat (%3) + yeterlik belgeleri; zarf/e-teklif.",
+    "4) Teklifi ver — son teklif saatine kadar EKAP/elden.",
+    "5) Değerlendirme (m.37-38): yeterlik + aşırı düşük kontrolü.",
+    "6) İhale kararı (m.40): ekonomik açıdan en avantajlı teklif belirlenir → kesinleşen karar bildirilir (m.41).",
+    "7) Sözleşmeye davet (m.42-44): kesin teminat (%6) + damga vergisi + sözleşme imzası. İşe başla."
+  ],
+  "kazanmaKriteri": {
+    "baslik": "Kazanan nasıl seçilir? (m.40)",
+    "metin": "İhale, EKONOMİK AÇIDAN EN AVANTAJLI teklifi verene bırakılır. Bu her zaman EN DÜŞÜK FİYAT demek değildir: idare, fiyatla birlikte FİYAT DIŞI UNSURLAR (kalite, teknik değer, teslim süresi, işletme-bakım maliyeti vb.) belirlemişse, bunların ağırlıklı puanı da hesaba katılır. Şartnamedeki değerlendirme kriterini oku."
+  },
+  "istisnalar": {
+    "baslik": "Bu alım zaten ihaleyle mi? (m.3 istisnaları)",
+    "metin": "Bazı alımlar 4734'ün tam usullerinden istisnadır (m.3): savunma-güvenlik, uluslararası anlaşma kapsamı, bazı kurum kendi mevzuatıyla yaptığı alımlar vb. Ayrıca m.22 doğrudan temin ve parasal limit altı alımlar tam ihale gerektirmez. Yani her kamu alımı büyük ihale süreci değildir."
   }
 }
