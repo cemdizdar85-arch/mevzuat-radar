@@ -96,7 +96,7 @@ Write-Host ("Ilgili: {0}" -f $ilgiliToplam)
 
 # ---- SABIT NOBETCISI: sitedeki vergi/sermaye sabitlerini degistiren teblig ----
 # cikinca Cem'e mail atar (veri/vergi-sabitleri.json elle guncellenir - guven kurali)
-$nobetKaliplar = @("gelir vergisi genel tebli", "kurumlar vergisi genel tebli", "yeniden değerleme oran", "asgari ücret", "harçlar kanunu genel tebli", "vergi usul kanunu genel tebli", "ihracı kayda bağlı", "ihracı yasak", "ön izne bağlı", "kıdem tazminatı", "geri kazanım katılım payı", "ithalat rejimi", "ilave gümrük vergisi", "katma değer vergisi oranlar", "özel tüketim vergisi", "kaynak kullanımını destekleme")
+$nobetKaliplar = @("gelir vergisi genel tebli", "kurumlar vergisi genel tebli", "yeniden değerleme oran", "asgari ücret", "harçlar kanunu genel tebli", "vergi usul kanunu genel tebli", "ihracı kayda bağlı", "ihracı yasak", "ön izne bağlı", "kıdem tazminatı", "geri kazanım katılım payı", "ithalat rejimi", "ilave gümrük vergisi", "katma değer vergisi oranlar", "özel tüketim vergisi", "kaynak kullanımını destekleme", "çifte vergilendirme", "gecikme zammı", "damga vergisi", "sınai mülkiyet")
 $nobetVuran = @()
 foreach($md in $madde){
   $n = Norm $md.baslik
