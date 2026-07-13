@@ -279,6 +279,7 @@ function renderHapIc(){ if(!EK) return; const h=[];
   if(EK.istisnalar) h.push(`<div class="hap"><b class="t">${esc(EK.istisnalar.baslik)}</b>${esc(EK.istisnalar.metin)}</div>`);
   if(EK.isOrtakligi) h.push(`<div class="hap"><b class="t">${esc(EK.isOrtakligi.baslik)}</b>${esc(EK.isOrtakligi.metin)}</div>`);
   if(EK.yasaklama) h.push(`<div class="hap"><b class="t">${esc(EK.yasaklama.baslik)}</b>${esc(EK.yasaklama.metin)}</div>`);
+  if(EK.digerHukumler&&EK.digerHukumler.length){ h.push(`<details class="acc"><summary>Diğer önemli hükümler — madde madde (4734 tam kapsam)</summary><div class="in">${EK.digerHukumler.map(x=>`<div style="padding:7px 0;border-top:1px solid var(--line)"><span class="mad">m.${esc(x.madde)}</span> <b>${esc(x.baslik)}</b><br>${esc(x.metin)}</div>`).join('')}</div></details>`); }
   document.getElementById('hapIc').innerHTML=h.join('');
 }
 function renderKatilimBilgi(){ if(!K.yeterlik) return;

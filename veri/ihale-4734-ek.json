@@ -86,5 +86,21 @@
   "istisnalar": {
     "baslik": "Bu alım zaten ihaleyle mi? (m.3 istisnaları)",
     "metin": "Bazı alımlar 4734'ün tam usullerinden istisnadır (m.3): savunma-güvenlik, uluslararası anlaşma kapsamı, bazı kurum kendi mevzuatıyla yaptığı alımlar vb. Ayrıca m.22 doğrudan temin ve parasal limit altı alımlar tam ihale gerektirmez. Yani her kamu alımı büyük ihale süreci değildir."
-  }
+  },
+  "digerHukumler": [
+    { "madde": "5", "baslik": "Temel ilkeler — senin 'eşit muamele' hakkının dayanağı", "metin": "İdare; saydamlığı, REKABETİ, EŞİT MUAMELEyİ, güvenirliği, gizliliği, kamuoyu denetimini, ihtiyaçların uygun şartlarla ve zamanında karşılanmasını ve kaynakların verimli kullanılmasını sağlamakla yükümlüdür. Bir isteklinin kayrıldığını/eşit muamele görmediğini düşünüyorsan itirazının dayanağı budur." },
+    { "madde": "15", "baslik": "Alt yükleniciler", "metin": "İhale dokümanında izin verilmişse işin bir KISMINI alt yüklenicilere yaptırabilirsin; ancak işin TAMAMI alt yükleniciye verilemez. İdareye karşı sorumluluk asıl yüklenicidedir." },
+    { "madde": "16", "baslik": "İhale saatinden önce iptal", "metin": "İdare gerekli görürse ihale saatinden ÖNCE ihaleyi iptal edebilir. İstekliler bundan dolayı idareden hak/tazminat talep edemez; alınan teminatlar iade edilir." },
+    { "madde": "28", "baslik": "Dokümanı nasıl alırsın", "metin": "İhale dokümanı EKAP'ta bedelsiz görülebilir/indirilebilir (e-imza ile). Teklif verecek olan dokümanı EKAP'tan indirmiş/almış olmalı." },
+    { "madde": "32", "baslik": "Teklifinin geçerlilik süresi", "metin": "Teklifin, dokümanda belirtilen süre boyunca geçerli/bağlayıcı kalır. İdare gerekçeyle uzatma isteyebilir; kabul etmezsen teklifin değerlendirme dışı kalır (geçici teminatın iade edilir)." },
+    { "madde": "36", "baslik": "Teklifler nasıl açılır", "metin": "Teklifler, ihale saatinde ihale komisyonunca (hazır isteklilerin önünde) açılır; ilk oturumda belge/teminat kontrolü yapılır, fiyatlar okunur. Şeffaflık senin lehine." },
+    { "madde": "39", "baslik": "İdare TÜM teklifleri reddedip ihaleyi İPTAL edebilir (kritik)", "metin": "İhale komisyonu kararıyla idare, verilmiş bütün teklifleri reddederek ihaleyi iptal etmekte SERBESTTİR. İptalden dolayı istekli idareye karşı hiçbir hak/tazminat talebinde bulunamaz; teminatlar iade edilir. Yani emek verip teklif verirsin, idare iptal edebilir — teklif maliyetini buna göre düşün." },
+    { "madde": "44", "baslik": "Kazanıp sözleşme imzalamazsan — CEZASI ağır", "metin": "İhale üzerinde kalırsan, süresi içinde KESİN TEMİNATI (%6) verip sözleşmeyi imzalamak ZORUNDASIN. İmzalamazsan: geçici teminatın GELİR KAYDEDİLİR + m.58'e göre ihalelere katılmaktan YASAKLANIRSIN. 'Kazandım ama vazgeçtim' pahalıya patlar." },
+    { "madde": "45", "baslik": "İdare imzalamazsa", "metin": "İdare kendi kusuruyla süresinde sözleşme imzalamazsa, istekli geçici teminatını geri alır ve varsa uğradığı zararı talep edebilir." },
+    { "madde": "59", "baslik": "İsteklilerin ceza sorumluluğu", "metin": "Yasak fiil/davranışta (m.17) bulunanlar veya üzerine ihale yapıldığı halde taahhüdünü yerine getirmeyenler hakkında; yasaklamanın yanı sıra Türk Ceza Kanunu hükümleri + idarenin uğradığı zararın tazmini gündeme gelir. Ağır fiillerde Cumhuriyet savcılığına suç duyurusu." },
+    { "madde": "65", "baslik": "Tebligat EKAP'tan — SÜRE ne zaman başlar", "metin": "Bildirim ve tebligatlar esas olarak EKAP üzerinden elektronik yapılır. EKAP tebligatı, genellikle bildirimin yapıldığı tarihi izleyen 5. günün sonunda tebliğ edilmiş sayılır — şikayet/itiraz sürelerin (10 gün) bu tarihten işlemeye başlar. Süreyi kaçırmamak için EKAP'ı düzenli kontrol et." },
+    { "madde": "Ek 2", "baslik": "Çerçeve anlaşma", "metin": "İdareler, ileride yapacakları benzer/tekrarlayan alımlar için önce isteklilerle ÇERÇEVE ANLAŞMA yapar; sonra ihtiyaç doğdukça münferit sözleşmelerle alım yapar. Sürekli tedarikçi olmak istiyorsan bu listelere girmek önemli." },
+    { "madde": "Ek 3", "baslik": "Dinamik alım sistemi (DPS)", "metin": "Standart, piyasada hazır malların alımında kullanılan, süresince İSTEDİĞİN AN katılabildiğin tamamen elektronik sistem (AB TED tarafında da gördüğümüz DPS'in yurt içi karşılığı)." },
+    { "madde": "Ek 4", "baslik": "Elektronik eksiltme (e-eksiltme)", "metin": "İlk tekliflerden sonra, isteklilerin elektronik ortamda fiyatlarını (veya belirli unsurları) karşılıklı olarak düşürdüğü aşama. Fiyatını buna göre stratejik belirle." }
+  ]
 }
