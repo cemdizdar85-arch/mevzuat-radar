@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Alacak Radarı — müşterin batmadan haber al | Mevzuat Radarı</title>
+<meta name="description" content="Borçlularını gir; biri konkordato/iflas ilan edince İİK süreleriyle uyarı al. Alacağını süresinde kaydet, müzakere hakkını kaybetme.">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#2f7bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:820px;margin:0 auto;padding:24px 18px 80px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 8px}
+.uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
+label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
+textarea{width:100%;min-height:110px;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px;resize:vertical}
+textarea::placeholder{color:var(--dim)}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:13px 26px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:12px}
+.btn:active{transform:translateY(1px)}
+.ipucu{font-size:12px;color:var(--dim);margin-top:9px}
+.kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--panel2)}
+.kart.risk{border-left:4px solid var(--red)}
+.kart.temiz{border-left:4px solid var(--green)}
+.rozet{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+.rozet.risk{background:rgba(255,107,94,.15);color:var(--red)}
+.rozet.temiz{background:rgba(61,220,151,.13);color:var(--green)}
+.kart h3{margin:10px 0 4px;font-size:17px;letter-spacing:-.3px}
+.satir{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
+.satir b{color:var(--muted);font-weight:600}.satir span{color:var(--ink);text-align:right;font-weight:600}
+.sure{background:linear-gradient(135deg,rgba(255,176,32,.14),rgba(255,107,94,.08));border:1px solid rgba(255,176,32,.32);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:13.5px}
+.sure b{color:var(--amber)}
+.belg{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.55}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:26px}
+.cta h3{margin:0 0 6px;font-size:19px;letter-spacing:-.4px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
+.nasil{font-size:13px;color:var(--muted);line-height:1.7}
+.nasil b{color:var(--ink)}
+.adim{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+.no{flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center;margin-top:1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
+
+  <h1>Müşterin batmadan haber al</h1>
+  <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
+
+  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Bu sayfada <b style="color:var(--muted)">örnek (tohum) veri</b> ile çalışır; <b style="color:var(--ink)">canlı günlük tarama + WhatsApp/mail uyarısı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
+
+  <div class="kutu">
+    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz — her satıra bir tane. Firma adıyla da arayabilirsin.</label>
+    <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
+    <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
+    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni gir.</div>
+  </div>
+
+  <div id="sonuc"></div>
+
+  <h2>Nasıl çalışır</h2>
+  <div class="nasil">
+    <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
+    <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir — aynı isimli firma karışıklığı olmaz.</div></div>
+    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti — İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakereye giremezsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
+  </div>
+
+  <div class="cta">
+    <h3>Bir müşterinin batması, alacağının tamamı demek</h3>
+    <p>15 günü kaçıran alacaklı konkordato müzakeresine giremez, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün WhatsApp'ına düşsün.</p>
+    <a class="btn" href="index.html#app" style="text-decoration:none">Alacak Radarına abone ol →</a>
+  </div>
+
+  <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Mevzuat Radarı. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
+</div>
+
+<script>
+let ILAN = null;
+async function veriYukle(){
+  if(ILAN) return ILAN;
+  try{ ILAN = await (await fetch('veri/alacak-ilan.json?cb='+Date.now())).json(); }catch(e){ ILAN = {ilanlar:[]}; }
+  return ILAN;
+}
+function trFold(s){ return (s||'').toLocaleUpperCase('tr-TR').replace(/[İI]/g,'I').replace(/[ĞG]/g,'G').replace(/[ÜU]/g,'U').replace(/[ŞS]/g,'S').replace(/[ÖO]/g,'O').replace(/[ÇC]/g,'C').replace(/\s+/g,' ').trim(); }
+function rakam(s){ return (s||'').replace(/\D/g,''); }
+function tarihEkle(ddmmyyyy, gun){
+  const p = (ddmmyyyy||'').split('.'); if(p.length!==3) return null;
+  const d = new Date(+p[2], +p[1]-1, +p[0]); if(isNaN(d)) return null;
+  d.setDate(d.getDate()+ (gun||0));
+  const iki=n=>String(n).padStart(2,'0');
+  return iki(d.getDate())+'.'+iki(d.getMonth()+1)+'.'+d.getFullYear();
+}
+function turAd(t,d){
+  if(t==='konkordato') return d==='kesin-muhlet'?'Konkordato — kesin mühlet':(d==='gecici-muhlet'?'Konkordato — geçici mühlet':'Konkordato');
+  if(t==='iflas') return 'İflas kararı';
+  if(t==='tasfiye') return 'Tasfiye';
+  return t;
+}
+async function kontrol(){
+  const veri = await veriYukle();
+  const satirlar = document.getElementById('giris').value.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
+  const box = document.getElementById('sonuc');
+  if(!satirlar.length){ box.innerHTML='<div class="uyari">Önce en az bir VKN ya da firma adı gir.</div>'; return; }
+
+  const sorgular = satirlar.map(s=>({ ham:s, vkn:rakam(s), unvan:trFold(s) }));
+  const bulunan = [];
+  for(const il of (veri.ilanlar||[])){
+    for(const b of (il.borclular||[])){
+      const bvkn = rakam(b.vkn), bunvan = trFold(b.unvan);
+      const eslesen = sorgular.find(q =>
+        (q.vkn.length>=7 && bvkn && (bvkn===q.vkn || bvkn.startsWith(q.vkn) || q.vkn.startsWith(bvkn))) ||
+        (q.unvan.length>=4 && bunvan.includes(q.unvan))
+      );
+      if(eslesen){ bulunan.push({il, b, eslesen}); }
+    }
+  }
+  // eşleşmeyen sorguları da göster (temiz)
+  const eslesmisSorgu = new Set(bulunan.map(x=>x.eslesen.ham));
+  let html = '<h2>Tarama sonucu</h2>';
+  if(!bulunan.length){
+    html += '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Bu, örnek (tohum) veriye göredir. Canlı abonelikte robot her gün tüm resmî ilanları tarar ve yeni bir ilan çıktığı an seni uyarır.</div></div>';
+  } else {
+    for(const {il, b, eslesen} of bulunan){
+      const sonGun = tarihEkle(il.yayinTarihi, il.bildirimGun);
+      html += `<div class="kart risk">
+        <span class="rozet risk">⚠ Risk — ${turAd(il.tur,il.durum)}</span>
+        <h3>${b.unvan}</h3>
+        <div class="satir"><b>Eşleşen kaydın</b><span>${eslesen.ham}${b.vkn?' · VKN '+b.vkn:''}</span></div>
+        <div class="satir"><b>Mahkeme / dosya</b><span>${il.mahkeme||'—'} · ${il.dosya||'—'}</span></div>
+        <div class="satir"><b>Yer</b><span>${[il.ilce,il.il].filter(Boolean).join(' / ')||'—'}</span></div>
+        <div class="satir"><b>İlan tarihi</b><span>${il.yayinTarihi||'—'}</span></div>
+        ${il.komiser?`<div class="satir"><b>Komiser</b><span>${il.komiser}</span></div>`:''}
+        <div class="sure">⏳ <b>İİK m.${il.iikMadde||'299'} — alacağını ${il.bildirimGun||15} gün içinde kaydet.</b> ${sonGun?`Bu ilanda son gün: <b>${sonGun}</b>.`:''} Süreyi kaçıran alacaklı konkordato müzakeresine <b>giremez, oy kullanamaz</b> ve alacağı nisaba katılmaz.</div>
+        ${b.ticSicil?'':''}
+        ${il.belgeler?`<div class="belg"><b style="color:var(--ink)">İstenen belgeler:</b> ${il.belgeler}${il.komiserAdres?' — Kayıt adresi: '+il.komiserAdres:''}</div>`:''}
+        ${il.url?`<div class="belg"><a href="${il.url}" target="_blank" rel="noopener">Resmî ilan metni →</a></div>`:''}
+      </div>`;
+    }
+    const temizler = sorgular.filter(q=>!eslesmisSorgu.has(q.ham));
+    if(temizler.length){ html += `<div class="belg" style="margin-top:6px">Diğer ${temizler.length} kayıtta ilan yok (bu örnek veriye göre).</div>`; }
+  }
+  box.innerHTML = html;
+}
+</script>
+</body>
+</html>
