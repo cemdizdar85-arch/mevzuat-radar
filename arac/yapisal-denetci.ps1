@@ -166,7 +166,12 @@ if($DP){
 # Cem kurali: veri HEP birincilden (resmigazete.gov.tr / mevzuat.gov.tr / gib.gov.tr /
 # ticaret.gov.tr / sgk.gov.tr). Ikincil (KPMG, muhasebe siteleri, wiki) teyit icin bile YASAK.
 $ikincilKaynaklar = @('kpmg','deloitte','pwc','pricewaterhouse','ernst&young','verginet','muhasebetr','muhasebenews','bloomberght','ekonomist.com','wikipedia')
-$resmiIsaret = '(?i)(resm[iî]\s*gazete|\bRG\b|say[iı]l[iı]|gib|gov\.tr|\bmadde\b|\bm\.\s*\d|tebli[gğ]|kanun|karar|BKK)'
+# TURKIYE-I TUZAGI: pwsh/ubuntu invariant culture'da (?i) 'GİB' (U+0130) ile 'gib' ESLESMEZ
+# (PS5.1/Windows'ta eslesir -> yerelde gorunmez, bulutta patlar). Cozum: Turkce-guvenli kucult
+# (İ->i, I->ı) SONRA kucuk-harf ASCII/tr desenle esle -> kulturden BAGIMSIZ.
+function TrKucuk([string]$s){ if($null -eq $s){ return '' }; return (($s -replace 'İ','i' -replace 'I','ı').ToLowerInvariant()) }
+$resmiIsaretLc = 'resm[iî]\s*gazete|\brg\b|say[iı]l[iı]|gib|gov\.tr|\bmadde\b|\bm\.\s*\d|tebli[gğ]|kanun|karar|bkk'
+function ResmiIsaretVar([string]$t){ return ((TrKucuk $t) -match $resmiIsaretLc) }
 Get-ChildItem $veri -Filter *.json | ForEach-Object {
   $metin = Get-Content $_.FullName -Raw -Encoding UTF8
   foreach($k in $ikincilKaynaklar){
@@ -174,14 +179,14 @@ Get-ChildItem $veri -Filter *.json | ForEach-Object {
   }
 }
 # Kritik sayisal dosyalar birincil DAMGA tasimali (kaynak/not alaninda resmi isaret)
-if($GZ -and "$($GZ.kaynak)" -notmatch $resmiIsaret){ Hata "gecikme-zammi.json : kaynak alaninda birincil isaret (RG/GIB/sayili/madde) YOK" }
+if($GZ -and -not (ResmiIsaretVar "$($GZ.kaynak)")){ Hata "gecikme-zammi.json : kaynak alaninda birincil isaret (RG/GIB/sayili/madde) YOK" }
 if($VS){
   $vsKaynak = "$($VS.kaynaklar | ConvertTo-Json -Depth 6)" + "$($VS.asgariUcret2026.not)" + "$($VS.kvOranlari.not)"
-  if($vsKaynak -notmatch $resmiIsaret){ Hata "vergi-sabitleri.json : kaynak/not metninde birincil isaret YOK" }
+  if(-not (ResmiIsaretVar $vsKaynak)){ Hata "vergi-sabitleri.json : kaynak/not metninde birincil isaret YOK" }
 }
-if($OTV -and "$($OTV.guncelleme)" -notmatch $resmiIsaret){ Hata "gtip-otv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
-if($KDV -and "$($KDV.guncelleme)" -notmatch $resmiIsaret){ Hata "gtip-kdv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
-if($CV  -and "$($CV.kaynak)"      -notmatch $resmiIsaret){ Hata "cvoa-oranlar.json : kaynak damgasi alaninda birincil isaret YOK" }
+if($OTV -and -not (ResmiIsaretVar "$($OTV.guncelleme)")){ Hata "gtip-otv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
+if($KDV -and -not (ResmiIsaretVar "$($KDV.guncelleme)")){ Hata "gtip-kdv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
+if($CV  -and -not (ResmiIsaretVar "$($CV.kaynak)")){ Hata "cvoa-oranlar.json : kaynak damgasi alaninda birincil isaret YOK" }
 
 # --- 8) KRITIK JS DUZELTME KAYNAK-ISARETCISI (port-test JS'i dogrudan korumaz; bu korur) ---
 # Bu turda duzeltilen JS bug'lari geri alinirsa yakala. Isaretci = duzeltmenin karakteristik kod parcasi.
