@@ -127,6 +127,10 @@
     { "kod": "8471.30.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — bilgisayar (bilişim) EEE" },
     { "kod": "8517.62.00.00.00", "katman": "gekap", "bekle": "var", "kaynak": "GEKAP 2025 — router/ağ cihazı (telekom) EEE (ÖTV'de yok ama GEKAP'ta var)" },
     { "kod": "8544.42.90.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "kablo bitmiş EEE ürünü değil — GEKAP EEE eşlemesi sızmamalı" },
-    { "kod": "8481.80.00.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "vana EEE değil — GEKAP sızmamalı" }
+    { "kod": "8481.80.00.00.00", "katman": "gekap", "bekle": "yok", "kaynak": "vana EEE değil — GEKAP sızmamalı" },
+
+    { "kod": "854143000000", "katman": "damping", "ulke": "Hırvatistan", "bekle": "spesifik", "kaynak": "Ticaret Bak. Yürürlükteki Önlemler — '0-25 $/m2' YALNIZ spesifik vergi; % YOK. 13.07.2026 KRİTİK bug sigortası: $/m2 sahte %25 tasarrufa çevriliyordu, artık spesifik ayrı." },
+    { "kod": "902129000000", "katman": "damping", "ulke": "Kore", "bekle": "karma", "kaynak": "Ticaret Bak. — '%15-%25, 140-320 $/Kg': hem yüzde hem spesifik. Yüzde toplamı YALNIZ %15-25 almalı; 140-320 $/Kg %'ye KARIŞMAMALI." },
+    { "kod": "854190000011", "katman": "damping", "ulke": "Çin", "bekle": "yuzde", "kaynak": "Ticaret Bak. — Fotovoltaik alüminyum çerçeve '%38,26-%45,99': yalnız yüzde, spesifik yok (normal % dampingin bozulmadığı kontrol)." }
   ]
 }
