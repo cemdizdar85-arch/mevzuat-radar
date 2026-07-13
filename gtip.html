@@ -287,8 +287,9 @@ function otvKart(kod){
   const acik = (OTV.listeAcik && OTV.listeAcik[rec.liste]) || ('Liste '+rec.liste);
   // Alt-kod ayrımı (8517 dersi): pozisyon ÖTV listesinde ama SADECE bazı alt kodlar kapsamda.
   // rec.kod varsa: eşleşmiyorsa YUMUŞAK uyarı (kesin "ÖTV var" DEME — router'ı yanlış işaretleme).
-  if(rec.kod && rec.kod.length){
-    const eslesti = rec.kod.some(k => d.startsWith(k) || k.startsWith(d));
+  const otvKodlar = asArr(rec.kod);
+  if(otvKodlar.length){
+    const eslesti = otvKodlar.some(k => d.startsWith(k) || k.startsWith(d));
     if(!eslesti){
       return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV — bu alt kod büyük olasılıkla DIŞINDA</div>
@@ -531,13 +532,13 @@ function dampingKart(q){
   if(!bulunan.length) return '';
   let html = '';
   for(const m of bulunan.slice(0,12)){
-    const oran = m.o ? `<div class="satir"><b>Önlem oranı</b><span>${m.o}</span></div>` : `<div class="satir"><b>Önlem oranı</b><span>kaynağa bakınız</span></div>`;
+    const oranDeg = m.o || m.t; const oran = oranDeg ? `<div class="satir"><b>Önlem oranı</b><span>${oranDeg}</span></div>` : `<div class="satir"><b>Önlem oranı</b><span>kaynağa bakınız</span></div>`;
     html += `<div class="kart" style="border-left-color:var(--amber)">
       <div class="et" style="color:var(--amber)">⚠ DAMPİNGE KARŞI ÖNLEM VAR</div>
       <h3>${m.m||'Bu ürün grubu'}</h3>
       <div class="satir"><b>Menşe ülke</b><span>${m.u}</span></div>
       ${oran}
-      <div class="satir"><b>Önlem türü</b><span>${m.t||'—'}${m.tur==='Gecici'?' (geçici)':''}</span></div>
+      <div class="satir"><b>Önlem türü</b><span>${m.tur||'—'}</span></div>
       <div class="satir"><b>Dayanak tebliğ</b><span>${m.tb||'—'}</span></div>
       <p style="color:var(--muted);font-size:13px;margin:10px 0 0">Anlamı: bu koddan <b>${m.u}</b> menşeli ithalatta, normal gümrük vergisine <b>ek olarak</b> dampinge karşı vergi ödenir. Kaçıran en yüksek oranı yer — mutlaka kontrol et.</p></div>`;
   }
@@ -692,8 +693,9 @@ function sorgula(){
     // kıyas: radar hafızasında bu kodun daha yeni değeri var mı?
     let kiyasHtml = '';
     const rad = RADAR && RADAR[kod];
-    if(rad && rad.length){
-      const yeni = rad[rad.length-1];
+    const radArr = Array.isArray(rad) ? rad : (rad ? [rad] : []);   // veri obje ya da dizi olabilir → normalize
+    if(radArr.length){
+      const yeni = radArr[radArr.length-1];
       const eski = kayitlar[0] && kayitlar[0].deger;
       const eSay = say(eski), ySay = say(yeni.deger);
       if(eSay && ySay && eSay!==ySay){
