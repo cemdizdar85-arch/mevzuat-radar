@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Süre Hatırlatıcısı — tarihi geçirme, cebin yanmasın | Mevzuat Radarı</title>
+<meta name="description" content="DİİB kapama, genel kurul, gözetim belgesi... Belgeni ekle; son günü, kalan günü ve kaçırırsan ne ödeyeceğini gör. Karne 'tabisin' der, hatırlatıcı 'tarihi geldi' der.">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:840px;margin:0 auto;padding:24px 18px 80px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 8px}
+.uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 7px}
+.grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:13px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+select,input{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px;appearance:none}
+input[type=date]{color-scheme:dark}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:12px 24px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:14px}
+.btn:active{transform:translateY(1px)}
+.kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:13px 0;background:var(--panel2)}
+.kart.krmz{border-left:5px solid var(--red)}.kart.sari{border-left:5px solid var(--amber)}.kart.yesil{border-left:5px solid var(--green)}.kart.gri{border-left:5px solid var(--dim)}
+.rozet{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+.r-krmz{background:rgba(255,107,94,.15);color:var(--red)}.r-sari{background:rgba(255,176,32,.15);color:var(--amber)}.r-yesil{background:rgba(61,220,151,.13);color:var(--green)}.r-gri{background:rgba(255,255,255,.07);color:var(--dim)}
+.kart h3{margin:9px 0 4px;font-size:16px;letter-spacing:-.3px}
+.satir{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
+.satir b{color:var(--muted);font-weight:600}.satir span{color:var(--ink);text-align:right;font-weight:600}
+.mue{background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.3);border-radius:10px;padding:9px 12px;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.mue b{color:var(--red)}
+.belg{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.55}.belg b{color:var(--ink)}
+.sil{float:right;background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:28px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:24px}
+.cta h3{margin:0 0 6px;font-size:19px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP</a> · <a href="ihale-radari.html">İhale</a> · <a href="alacak-radari.html">Alacak</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <b style="color:var(--ink)">Hatırlatıcı</b></div>
+
+  <h1>Tarihi geçirme, cebin yanmasın</h1>
+  <p class="lead">Karne <b style="color:var(--ink)">"tabisin"</b> der; hatırlatıcı <b style="color:var(--ink)">"tarihi geldi"</b> der. Belgeni ekle: <b style="color:var(--ink)">son günü, kalan günü ve kaçırırsan ne ödeyeceğini</b> gör. En pahalısı DİİB kapaması — kaçarsa vergiler ceza ve gecikme zammıyla geri döner.</p>
+
+  <div class="uyari">Süre kuralları <b style="color:var(--muted)">birincil mevzuattan</b> okunmuştur (2006/12 DİR Tebliği m.37/38/45 · TTK m.409/617 — kaynaklar kartlarda). Bu sayfa tarayıcında saklar (demo); <b style="color:var(--ink)">otomatik mail/SMS uyarısı abonelikte</b>. Bilgilendirme amaçlıdır; kesin süre için belgenin/tebliğin metni esastır.</div>
+
+  <div class="kutu">
+    <div class="grid">
+      <div><label for="sablon">Ne takip edelim?</label><select id="sablon"></select></div>
+      <div><label for="tarih" id="tarihLbl">Bitiş tarihi</label><input type="date" id="tarih"></div>
+      <div><label for="etiket">Etiket (belge no / firma)</label><input type="text" id="etiket" placeholder="ör. DİİB 2026/D1-0123"></div>
+    </div>
+    <button class="btn" onclick="ekle()">Takibe ekle →</button>
+  </div>
+
+  <h2>Takip listen</h2>
+  <div id="liste"></div>
+
+  <div class="cta">
+    <h3>Bu tarihleri kafanda tutma</h3>
+    <p>Abonelikte: belgelerini bir kez gir, robot son güne 90/30/7 gün kala mailine ve WhatsApp'ına hatırlatma düşürsün. DİİB kapaması gibi yüz binlerce TL'lik süreleri insan hafızasına emanet etme.</p>
+    <a class="btn" href="index.html#app" style="text-decoration:none">Hatırlatıcıya abone ol →</a>
+  </div>
+
+  <div class="dip">Kaynaklar: Dahilde İşleme Rejimi Tebliği (İhracat: 2006/12) m.37, m.38, m.45 (mevzuat.gov.tr konsolide; RG 20.05.2016 ve 14.09.2022 değişiklikleri işlenmiş) · 6102 s. TTK m.409/617 · Mevzuat Radarı. Bilgilendirme amaçlıdır.</div>
+</div>
+
+<script>
+let SB=null;
+const LSK='mr_hatirlatici_v1';
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+async function yukle(){
+  if(SB) return SB;
+  try{ SB = await (await fetch('veri/hatirlatici-sablonlar.json?cb='+Date.now())).json(); }catch(e){ SB={sablonlar:[]}; }
+  const sel=document.getElementById('sablon');
+  sel.innerHTML = SB.sablonlar.map(s=>`<option value="${s.id}">${esc(s.ad)}</option>`).join('');
+  sel.addEventListener('change',()=>{ const s=bul(sel.value); document.getElementById('tarihLbl').textContent = s? s.tarihEtiketi : 'Bitiş tarihi'; });
+  sel.dispatchEvent(new Event('change'));
+  ciz();
+  return SB;
+}
+function bul(id){ return (SB.sablonlar||[]).find(x=>x.id===id); }
+function kayitlar(){ try{ return JSON.parse(localStorage.getItem(LSK)||'[]'); }catch(e){ return []; } }
+function kaydet(a){ localStorage.setItem(LSK, JSON.stringify(a)); }
+function ayEkle(iso, ay){ const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return null; d.setMonth(d.getMonth()+ay); return d; }
+function trT(d){ return d? d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}) : '—'; }
+function ekle(){
+  const id=document.getElementById('sablon').value;
+  const t=document.getElementById('tarih').value;
+  const e=document.getElementById('etiket').value.trim();
+  if(!t){ alert('Bitiş tarihini seç.'); return; }
+  const a=kayitlar(); a.push({id, tarih:t, etiket:e, k:Date.now()}); kaydet(a); ciz();
+  document.getElementById('etiket').value='';
+}
+function sil(k){ kaydet(kayitlar().filter(x=>x.k!==k)); ciz(); }
+function ciz(){
+  const box=document.getElementById('liste');
+  const a=kayitlar();
+  if(!a.length){ box.innerHTML='<div class="kart gri"><h3>Henüz takip yok</h3><div class="belg">Yukarıdan ilk belgeni ekle. Örnek: DİİB\'inin belge süresi 30.09.2026\'da bitiyorsa ekle — kapatma için son gününü ve geri sayımı gör.</div></div>'; return; }
+  const bugun=new Date(); bugun.setHours(0,0,0,0);
+  const satirlar = a.map(r=>{
+    const s=bul(r.id); if(!s) return null;
+    const son = s.kuralAy>0 ? ayEkle(r.tarih, s.kuralAy) : new Date(r.tarih+'T00:00:00');
+    const kalan = Math.ceil((son-bugun)/864e5);
+    return {r, s, son, kalan};
+  }).filter(Boolean).sort((x,y)=>x.kalan-y.kalan);
+  box.innerHTML = satirlar.map(({r,s,son,kalan})=>{
+    const cls = kalan<0?'krmz':(kalan<=30?'krmz':(kalan<=90?'sari':'yesil'));
+    const roz = kalan<0?['r-krmz','⛔ SÜRE GEÇTİ']:(kalan<=30?['r-krmz','🔴 '+kalan+' GÜN KALDI']:(kalan<=90?['r-sari','🟠 '+kalan+' gün kaldı']:['r-yesil','🟢 '+kalan+' gün var']));
+    return `<div class="kart ${cls}">
+      <button class="sil" onclick="sil(${r.k})">✕ kaldır</button>
+      <span class="rozet ${roz[0]}">${roz[1]}</span>
+      <h3>${esc(s.ad)}${r.etiket?' — '+esc(r.etiket):''}</h3>
+      <div class="satir"><b>${esc(s.tarihEtiketi)}</b><span>${trT(new Date(r.tarih+'T00:00:00'))}</span></div>
+      <div class="satir"><b>SON GÜN</b><span style="color:${kalan<=30?'var(--red)':'var(--ink)'}">${trT(son)}</span></div>
+      <div class="satir"><b>Kural</b><span>${esc(s.sonGunAciklama)}</span></div>
+      <div class="belg"><b>Ne yapmalısın:</b> ${esc(s.neYapmali)}</div>
+      <div class="mue"><b>Kaçırırsan:</b> ${esc(s.kacirirsan)}</div>
+      <div class="belg" style="color:var(--dim);font-size:11.5px">Dayanak: ${esc(s.dayanak)}</div>
+    </div>`;
+  }).join('');
+}
+yukle();
+</script>
+</body>
+</html>

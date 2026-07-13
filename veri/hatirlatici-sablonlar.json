@@ -1,0 +1,57 @@
+{
+  "guncelleme": "Hatırlatıcı şablonları — süre kuralları BİRİNCİLDEN okundu (13.07.2026): 2006/12 DİR Tebliği m.37/38/45 (mevzuat.gov.tr konsolide, RG 20.05.2016 + 14.09.2022 değişiklikleri dahil), TTK m.409/617.",
+  "kaynak": "mevzuat.gov.tr",
+  "sablonlar": [
+    {
+      "id": "diib-kapatma",
+      "ad": "DİİB taahhüt kapatma (dahilde işleme izin BELGESİ)",
+      "tarihEtiketi": "Belge süresi bitiş tarihi",
+      "kuralAy": 3,
+      "sonGunAciklama": "Belge süresi sonundan itibaren 3 (üç) ay içinde",
+      "neYapmali": "Ek-3'teki bilgi ve belgelerle, Bakanlıkça belirlenen ilgili BÖLGE MÜDÜRLÜĞÜNE taahhüt kapatma müracaatı yapın.",
+      "kacirirsan": "Müeyyideli resen kapatma: ithalatta alınmayan vergiler İTHAL TARİHİNDEN itibaren 6183'e göre (gecikme zammıyla) tahsil edilir + Gümrük Kanunu m.238 cezası. Yüz binlerce TL'ye ulaşabilir. Müeyyideli kapatmaya tebliğden itibaren 1 ay içinde Bakanlığa itiraz edilebilir.",
+      "dayanak": "2006/12 DİR Tebliği m.37/1-a (RG 20.05.2016 değişik) + m.45 müeyyide"
+    },
+    {
+      "id": "dii-kapatma",
+      "ad": "Dahilde işleme İZNİ kapatma",
+      "tarihEtiketi": "İzin süresi bitiş tarihi",
+      "kuralAy": 3,
+      "sonGunAciklama": "İzin süresi sonundan itibaren 3 (üç) ay içinde",
+      "neYapmali": "Gerekli bilgi ve belgelerle ilgili GÜMRÜK İDARESİNE taahhüt kapatma müracaatı yapın.",
+      "kacirirsan": "Müeyyideli kapatma: alınmayan vergiler gecikme zammıyla geri + Gümrük K. m.238 cezası. İzin müeyyideli kapatmasına Gümrük K. m.242 uyarınca itiraz edilir.",
+      "dayanak": "2006/12 DİR Tebliği m.37/1-b (değişik ibare RG 14.09.2022: 3 ay) + m.45"
+    },
+    {
+      "id": "diib-eksure",
+      "ad": "DİİB ek süre başvurusu",
+      "tarihEtiketi": "Belge süresi bitiş tarihi",
+      "kuralAy": 3,
+      "sonGunAciklama": "Belge süresi sonundan itibaren en geç 3 (üç) ay içinde",
+      "neYapmali": "Ek süre (m.22) için ELEKTRONİK ORTAMDA Bakanlığa başvurun. Haklı sebep halinde azami belge orijinal süresinin yarısı kadar ek süre verilebilir.",
+      "kacirirsan": "Ek süre hakkı düşer; taahhüt gerçekleşmediyse kapatma müeyyideli sonuçlanır (m.45).",
+      "dayanak": "2006/12 DİR Tebliği m.38 (RG 09.10.2013 değişik)"
+    },
+    {
+      "id": "genel-kurul",
+      "ad": "Olağan genel kurul (A.Ş./Ltd)",
+      "tarihEtiketi": "Hesap dönemi bitişi (genelde 31 Aralık)",
+      "kuralAy": 3,
+      "sonGunAciklama": "Hesap dönemi sonundan itibaren 3 (üç) ay içinde (takvim yılında son gün 31 Mart)",
+      "neYapmali": "Olağan genel kurulu toplayın: finansal tabloların görüşülmesi, kâr dağıtımı, organ seçimi. A.Ş.'de gündem/çağrı usulüne dikkat.",
+      "kacirirsan": "Yasal sürede toplanmama; organ eksikliği/fesih riskine kadar giden sorumluluk doğurabilir, kâr dağıtım kararları gecikir.",
+      "dayanak": "TTK m.409 (A.Ş.) / m.617 (Ltd)"
+    },
+    {
+      "id": "gozetim-belgesi",
+      "ad": "Gözetim belgesi geçerlilik takibi",
+      "tarihEtiketi": "Belgedeki geçerlilik bitiş tarihi",
+      "kuralAy": 0,
+      "sonGunAciklama": "Belgede yazılı geçerlilik bitiş tarihi",
+      "neYapmali": "Süresi dolmadan sevkiyatı tamamlayın ya da yeni gözetim belgesi başvurusunu planlayın (başvuru-sonuç süresini hesaba katın).",
+      "kacirirsan": "Süresi geçmiş belgeyle beyan yapılamaz; sevkiyat gümrükte bekler, yeni belge sürecine kadar gecikme maliyeti doğar.",
+      "dayanak": "İlgili gözetim tebliği (belge üzerindeki süre esastır)"
+    }
+  ],
+  "not": "v2 adayları (birincil teyit SONRASI eklenecek — teyitsiz süre yazılmaz): VERBİS güncelleme süresi, YMM tasdik raporu tarihleri, A.TR/EUR.1 sevkiyat bazlı (sonradan ibraz süreleri), bağımsız denetçi seçimi, TTK m.376 testi."
+}
