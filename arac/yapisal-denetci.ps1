@@ -179,6 +179,9 @@ if($VS){
   $vsKaynak = "$($VS.kaynaklar | ConvertTo-Json -Depth 6)" + "$($VS.asgariUcret2026.not)" + "$($VS.kvOranlari.not)"
   if($vsKaynak -notmatch $resmiIsaret){ Hata "vergi-sabitleri.json : kaynak/not metninde birincil isaret YOK" }
 }
+if($OTV -and "$($OTV.guncelleme)" -notmatch $resmiIsaret){ Hata "gtip-otv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
+if($KDV -and "$($KDV.guncelleme)" -notmatch $resmiIsaret){ Hata "gtip-kdv.json : guncelleme (kaynak damgasi) alaninda birincil isaret YOK" }
+if($CV  -and "$($CV.kaynak)"      -notmatch $resmiIsaret){ Hata "cvoa-oranlar.json : kaynak damgasi alaninda birincil isaret YOK" }
 
 # --- 8) KRITIK JS DUZELTME KAYNAK-ISARETCISI (port-test JS'i dogrudan korumaz; bu korur) ---
 # Bu turda duzeltilen JS bug'lari geri alinirsa yakala. Isaretci = duzeltmenin karakteristik kod parcasi.
