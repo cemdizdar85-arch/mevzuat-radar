@@ -66,7 +66,9 @@
     border-radius:16px;padding:9px;box-shadow:0 26px 64px rgba(0,0,0,.6);
     opacity:0;visibility:hidden;transition:opacity .18s,visibility .18s;z-index:70}
   .dropdown::before{content:"";position:absolute;top:-18px;left:0;right:0;height:18px}
-  .navgroup:hover .dropdown,.navgroup:focus-within .dropdown{opacity:1;visibility:visible}
+  .navgroup:hover .dropdown,.navgroup:focus-within .dropdown,.navgroup.open .dropdown{opacity:1;visibility:visible}
+  .navgroup.open .navtrigger .car{transform:rotate(180deg)}
+  .navgroup.open .navtrigger{color:var(--ink)}
   .dropdown a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;transition:background .15s}
   .dropdown a:hover{background:rgba(62,155,255,.12)}
   .dropdown a span{display:block;font-size:11.5px;color:var(--dim);font-weight:400;margin-top:2px;line-height:1.4}
@@ -1005,5 +1007,17 @@ setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
 }), 1200);
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* menü açılır grup: tıkla-aç (masaüstü + dokunmatik, hover'dan bağımsız garanti) */
+document.querySelectorAll('.navtrigger').forEach(function(t){
+  t.addEventListener('click',function(e){
+    e.stopPropagation();
+    var g=t.closest('.navgroup'); var acik=g.classList.contains('open');
+    document.querySelectorAll('.navgroup.open').forEach(function(x){x.classList.remove('open');});
+    if(!acik) g.classList.add('open');
+  });
+});
+document.addEventListener('click',function(){ document.querySelectorAll('.navgroup.open').forEach(function(x){x.classList.remove('open');}); });
+</script>
 </body>
 </html>
