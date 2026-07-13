@@ -1,0 +1,33 @@
+{
+  "guncelleme": "Türk (AB-dışı) firmanın AB kamu ihalelerine (EU TED) katılım rehberi. Kaynak: EUR-Lex (AB mevzuatı), Avrupa Komisyonu, WTO, ABAD içtihadı (13.07.2026 birincilden okundu).",
+  "kaynak": "EUR-Lex / ec.europa.eu / WTO / ABAD",
+  "durustCerceve": "Türk firması AB ihalesine teknik olarak teklif verebilir; ancak Türkiye WTO GPA tarafı olmadığı, AB-Türkiye Gümrük Birliği kamu alımlarını kapsamadığı ve 2024 tarihli ABAD Kolin kararı gereği AB firmalarıyla EŞİT MUAMELE HAKKI bulunmadığı için idare teklifi dışlayabilir veya daha az lehte değerlendirebilir. En güvenli yol: AB'de kurulu ortak/iştirak veya konsorsiyum. HER ihalede önce ilanın 'eligibility/menşe' şartını okuyun; varsayımla hareket etmeyin.",
+  "katilabilirlik": [
+    { "baslik": "WTO GPA (Kamu Alımları Anlaşması)", "durum": "Türkiye SADECE gözlemci — TARAF DEĞİL. GPA'nın verdiği karşılıklı/eşit erişim garantisi Türkiye'yi kapsamaz.", "kaynak": "https://www.wto.org/english/tratop_e/gproc_e/memobs_e.htm" },
+    { "baslik": "AB-Türkiye Gümrük Birliği", "durum": "Kamu alımlarını KAPSAM DIŞI bırakır (1/95 sayılı OKK). Kamu alımına genişletme yıllardır önerilir ama gerçekleşmedi.", "kaynak": "https://trade.ec.europa.eu/access-to-markets/en/content/eu-turkiye-customs-union" },
+    { "baslik": "2014/24/EU Direktifi", "durum": "Anlaşması olmayan üçüncü ülke isteklisi Direktif kapsamında EŞİT MUAMELE talep edemez (recital 17-18).", "kaynak": "https://eur-lex.europa.eu/eli/dir/2014/24/oj/eng" },
+    { "baslik": "Kolin C-652/22 (ABAD, 22.10.2024) — TÜRK firması davası", "durum": "Belirleyici içtihat: AB ile eşit erişim anlaşması olmayan üçüncü ülke (Türkiye) firmasının eşit katılım hakkı YOKTUR; 'en az bu kadar lehte muamele' isteyemez; idare dışlayabilir/düşük puanlayabilir ve firma bunu AB hukukuyla dava edemez. Üçüncü ülke erişimi AB'nin münhasır yetkisindedir.", "kaynak": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A62022CJ0652" },
+    { "baslik": "IPI — Uluslararası Alım Aracı (Tüzük 2022/1031)", "durum": "Komisyon, pazarını AB'ye kapatan üçüncü ülke firmalarına AB ihalelerinde puan cezası veya dışlama uygulayabilir (anlaşmasız = Türkiye gibi ülkelere). Şu ana dek hedefli kullanıldı; hukuki zemin firmayı kırılgan bırakır.", "kaynak": "https://eur-lex.europa.eu/eli/reg/2022/1031/oj/eng" }
+  ],
+  "adimlar": [
+    { "no": 1, "baslik": "İhaleyi bul + eligibility oku", "metin": "TED'de ara (ted.europa.eu). İlan; konu, eşik, süre ve 'eligibility/menşe' kısıtını içerir. Bu kısıt MUTLAKA okunmalı — Türk firması bazı ilanlarda uygun, bazılarında değil." },
+    { "no": 2, "baslik": "Kayıt (iki ayrı dünya)", "metin": "AB KURUMU ihalesi (Komisyon/ajanslar) → EU Login + 9 haneli PIC (Funding & Tenders Portal) + LEAR + Contractor validasyonu. ÜYE DEVLET idaresi ihalesi → PIC yok; TED sadece ilan panosudur, teklif ULUSAL e-tedarik platformundan verilir." },
+    { "no": 3, "baslik": "ESPD — Avrupa Tek İhale Belgesi", "metin": "AB eşiği üstü ihalelerde standart öz-beyan: dışlanma sebebi yok + yeterlik (mali/teknik) karşılanıyor beyanı. Belge aslını YALNIZ kazanan sunar. Ulusal ESPD servisi kullanılır (merkezi Komisyon servisi 2019'da kapandı)." },
+    { "no": 4, "baslik": "e-Certis — belge denkliği", "metin": "Komisyon'un ücretsiz veritabanı; Türk belgesinin (vergi borcu yok / SGK / iflas-konkordato yok / ticaret sicil / sabıka) AB karşılığını eşler. Türkiye ADAY ÜLKE olarak e-Certis kapsamındadır. Not: e-Certis önerisi idare için bağlayıcı değildir." },
+    { "no": 5, "baslik": "Teklifi ver", "metin": "TED'de değil, ilanın yönlendirdiği ULUSAL platformdan (ör. Fransa PLACE/BOAMP, Almanya DTVP, İtalya ANAC/MEPA, Yunanistan Promitheus). O platforma kaydol, ESPD doldur, teklifi elektronik yükle. Dil: ihale idarenin ulusal dilinde; yeminli çeviri gerekir — en somut pratik engel." }
+  ],
+  "strateji": "EN GÜÇLÜ YOL: AB'de kurulu ortakla KONSORSİYUM ya da AB üyesinde kurulu bağlı şirket/iştirak üzerinden teklif. Kısıtlar firmanın MENŞE/KURULUŞ YERİNE bakar; AB'de kurulu yapı Kolin/IPI risklerini büyük ölçüde by-pass eder.",
+  "sureler": "Açık usulde teklif için AB asgari 35 gün (elektronik teklifle 30; ön bilgi ilanı/aciliyette 15 güne kadar). Belli istekliler usulünde katılım talebi 30 + teklif 30 gün. (2014/24/EU)",
+  "teminat": "Geçici teminat (bid bond) + kesin teminat (performance bond) sık istenir; AB'de geçerli banka/kefalet ilişkisi gerekebilir.",
+  "kaynaklar": {
+    "GPA": "https://www.wto.org/english/tratop_e/gproc_e/memobs_e.htm",
+    "GumrukBirligi": "https://trade.ec.europa.eu/access-to-markets/en/content/eu-turkiye-customs-union",
+    "Direktif2014_24": "https://eur-lex.europa.eu/eli/dir/2014/24/oj/eng",
+    "KolinKarari": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A62022CJ0652",
+    "IPI": "https://eur-lex.europa.eu/eli/reg/2022/1031/oj/eng",
+    "ESPD_eCertis": "https://single-market-economy.ec.europa.eu/single-market/public-procurement/digital-procurement/european-single-procurement-document-and-ecertis_en",
+    "eCertisArac": "https://ec.europa.eu/tools/ecertis/",
+    "TED": "https://ted.europa.eu/en/",
+    "FundingTendersPortal": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/how-to-participate/participant-register"
+  }
+}
