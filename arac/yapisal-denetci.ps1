@@ -203,6 +203,17 @@ foreach($kd in $kritikDuzeltmeler){
   }
 }
 
+# --- 9) KAPSAM BUTUNLUGU (Katman 5: her kanun-araci icin madde-kapsam haritasi var mi) ---
+# Cem: 'bu sistemi kalici hale getirelim ki bir sey atlamayalim'. Madde-kapsam haritalari
+# silinir/eksik kalirsa deploy PATLAR. Yeni kanun eklenince listeye eklenir.
+$kapsamDizin = Join-Path $kok "kapsam"
+$kapsamGerekli = @('4734-madde-kapsam.md','vuk-ceza-madde-kapsam.md','iik-konkordato-madde-kapsam.md','smk-marka-madde-kapsam.md','gumruk-4458-madde-kapsam.md','SUREC.md','00-INDEX.md')
+foreach($kf in $kapsamGerekli){
+  $kp = Join-Path $kapsamDizin $kf
+  if(-not (Test-Path $kp)){ Hata "kapsam/$kf : madde-kapsam/surec dosyasi YOK -> Katman 5 butunlugu bozuk" }
+  elseif((Get-Item $kp).Length -lt 200){ Uyari "kapsam/$kf : cok kisa, icerik eksik olabilir" }
+}
+
 # ---------------------------------------------------------------------------
 ""
 if($uyarilar.Count -gt 0){
