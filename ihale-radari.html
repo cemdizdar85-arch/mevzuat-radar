@@ -4,141 +4,183 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>İhale Radarı — yurt dışı ihaleler + katılım rehberi | Mevzuat Radarı</title>
-<meta name="description" content="Sektörünü seç; AB (EU TED) ihalelerinden sana uygun olanları gör. Kim katılabilir kim katılamaz (4734), yurt dışına Türk firması nasıl girer — hepsi.">
+<title>İhale Radarı — yurt içi + yurt dışı ihale, katılım ve avantaj rehberi | Mevzuat Radarı</title>
+<meta name="description" content="Profilini gir; yurt dışı (EU TED) ve yurt içi (4734) ihalelerde kim katılabilir/katılamaz, yerli malı avantajın, teminatın, itiraz yolun — tek ekranda.">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#2f7bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
-.wrap{max-width:840px;margin:0 auto;padding:24px 18px 80px}
+.wrap{max-width:860px;margin:0 auto;padding:24px 18px 80px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
 .top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
 .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
-h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+h1{font-size:clamp(24px,5vw,33px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
 .lead{color:var(--muted);font-size:15px;margin:0 0 8px}
 .uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
-.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
-label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:0 0 8px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-@media(max-width:640px){.grid{grid-template-columns:1fr}}
-select,input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px;appearance:none}
-.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:13px 26px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:16px}
-.btn2{background:var(--panel2);border:1px solid var(--line2);color:var(--ink);box-shadow:none}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 7px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+@media(max-width:640px){.grid,.grid3{grid-template-columns:1fr}}
+select,input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px;appearance:none}
+.chk{display:flex;align-items:center;gap:9px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;padding:11px 13px;font-size:13.5px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--accent2)}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:12px 24px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:14px}
 .btn:active{transform:translateY(1px)}
-.kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--panel2);border-left:4px solid var(--accent2)}
+.tabs{display:flex;gap:8px;margin:22px 0 4px}
+.tabs button{flex:1;background:var(--panel);border:1px solid var(--line2);color:var(--muted);font:inherit;font-size:15px;font-weight:800;padding:13px;border-radius:12px 12px 0 0;cursor:pointer}
+.tabs button.on{background:var(--grad);color:#03101f;border-color:transparent}
+.pane{display:none}.pane.on{display:block}
+.kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:13px 0;background:var(--panel2);border-left:4px solid var(--accent2)}
+.kart.iyi{border-left-color:var(--green)}.kart.dikkat{border-left-color:var(--amber)}.kart.kotu{border-left-color:var(--red)}
 .rozet{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;background:rgba(38,208,254,.13);color:var(--accent2);text-transform:uppercase}
-.kart h3{margin:10px 0 4px;font-size:16px;letter-spacing:-.3px;line-height:1.4}
+.rozet.iyi{background:rgba(61,220,151,.13);color:var(--green)}.rozet.dikkat{background:rgba(255,176,32,.14);color:var(--amber)}
+.kart h3{margin:9px 0 4px;font-size:16px;letter-spacing:-.3px;line-height:1.4}
 .satir{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
 .satir b{color:var(--muted);font-weight:600}.satir span{color:var(--ink);text-align:right;font-weight:600}
 .sure{background:linear-gradient(135deg,rgba(38,208,254,.12),rgba(47,123,255,.06));border:1px solid rgba(38,208,254,.3);border-radius:12px;padding:11px 14px;margin-top:11px;font-size:13.5px}
 .sure b{color:var(--accent2)}
 .elig{background:rgba(255,176,32,.09);border:1px solid rgba(255,176,32,.28);border-radius:10px;padding:9px 12px;margin-top:10px;font-size:12.5px;color:var(--muted)}
 .elig b{color:var(--amber)}
-.belg{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.55}
-h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
-.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:26px}
-.cta h3{margin:0 0 6px;font-size:19px;letter-spacing:-.4px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
-.dip{font-size:11.5px;color:var(--dim);margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
+.belg{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.55}.belg b{color:var(--ink)}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:24px}
+.cta h3{margin:0 0 6px;font-size:19px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
 .soru{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px}
 .soru:first-child{border-top:none}
 .sw{display:inline-flex;gap:6px;flex:0 0 auto}
 .sw button{border:1px solid var(--line2);background:var(--panel2);color:var(--muted);border-radius:8px;padding:5px 13px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
 .sw button.on{background:var(--grad);color:#03101f;border-color:transparent}
-.verdict{border-radius:12px;padding:14px 16px;margin-top:14px;font-size:14px;font-weight:600}
+.verdict{border-radius:12px;padding:14px 16px;margin-top:13px;font-size:14px;font-weight:600}
 .verdict.ok{background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.35);color:var(--green)}
 .verdict.no{background:rgba(255,107,94,.1);border:1px solid rgba(255,107,94,.4);color:var(--red)}
 .acc{border:1px solid var(--line);border-radius:12px;margin:9px 0;overflow:hidden;background:var(--panel)}
 .acc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:14px;list-style:none}
 .acc>summary::-webkit-details-marker{display:none}
-.acc>summary::before{content:"▸ ";color:var(--accent2)}
-.acc[open]>summary::before{content:"▾ "}
-.acc .in{padding:2px 16px 15px;font-size:13px;color:var(--muted);line-height:1.7}
-.acc .in b{color:var(--ink)}
-.tab{display:inline-block;font-size:12px;color:var(--dim);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin:2px 4px 2px 0}
+.acc>summary::before{content:"▸ ";color:var(--accent2)}.acc[open]>summary::before{content:"▾ "}
+.acc .in{padding:2px 16px 15px;font-size:13px;color:var(--muted);line-height:1.7}.acc .in b{color:var(--ink)}
+.tab2{display:inline-block;font-size:12px;color:var(--dim);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin:2px 4px 2px 0}
 .mad{color:var(--accent2);font-weight:700;font-size:11.5px}
+.hap{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:9px 0}
+.hap b.t{color:var(--accent2);font-size:13px;display:block;margin-bottom:4px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="alacak-radari.html">Alacak Radarı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">İhale Radarı</b></div>
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP</a> · <a href="alacak-radari.html">Alacak Radarı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <b style="color:var(--ink)">İhale Radarı</b></div>
 
-  <h1>Yurt dışı ihaleyi ayağına getir</h1>
-  <p class="lead">Sektörünü (veya GTİP'ini) seç; Avrupa'nın kamu ihale bülteninden (<b style="color:var(--ink)">EU TED</b>) sana uygun ihaleleri süzelim. Altında: <b style="color:var(--ink)">kim katılabilir/katılamaz</b> (4734) ve <b style="color:var(--ink)">yurt dışına Türk firması nasıl girer</b>.</p>
+  <h1>İhale Radarı — yurt içi + yurt dışı</h1>
+  <p class="lead">Profilini bir kez gir; hem AB (EU TED) hem Türkiye (4734) tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b> — tek ekranda, başka yere bakmadan.</p>
 
-  <div class="uyari">Kaynak: <b style="color:var(--muted)">EU TED (ted.europa.eu)</b> + <b style="color:var(--muted)">4734 s. Kamu İhale Kanunu (mevzuat.gov.tr)</b> + AB katılım kuralları (EUR-Lex/Komisyon). Eşleştirme <b style="color:var(--muted)">CPV</b> ile. Bu sayfa örnek (tohum) veri ile çalışır; canlı günlük tarama + uyarı abonelikte. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
-
-  <h2>1 · Sana uygun yurt dışı ihaleler</h2>
   <div class="kutu">
-    <div class="grid">
+    <div class="grid3">
       <div><label for="sektor">Sektörün / ürün grubun</label><select id="sektor"></select></div>
-      <div><label for="gtip">GTİP kodun (opsiyonel)</label><input type="text" id="gtip" placeholder="ör. 5208.52 → tekstil" inputmode="numeric"></div>
-      <div><label for="ulke">Ülke tercihi</label><select id="ulke"><option value="hepsi">Hepsi</option></select></div>
+      <div><label for="gtip">GTİP kodun (opsiyonel)</label><input type="text" id="gtip" placeholder="ör. 5208.52" inputmode="numeric"></div>
+      <div><label for="ulke">Ülke tercihi (yurt dışı)</label><select id="ulke"><option value="hepsi">Hepsi</option></select></div>
     </div>
-    <button class="btn" onclick="kontrol()">Bana uygun ihaleleri getir →</button>
+    <div class="grid" style="margin-top:12px">
+      <label class="chk"><input type="checkbox" id="yerli"> Yerli malı belgem var</label>
+      <label class="chk"><input type="checkbox" id="kobi"> KOBİ'yim</label>
+    </div>
   </div>
-  <div id="sonuc"></div>
 
-  <h2>2 · Bu ihaleye katılabilir misin? (Yurt içi · 4734)</h2>
-  <p class="lead" style="font-size:13.5px">Aşağıdaki durumlardan herhangi biri sende varsa kamu ihalesine <b style="color:var(--ink)">giremezsin ya da ihale dışı bırakılırsın</b>. İşaretle, değerlendirelim.</p>
-  <div class="kutu"><div id="sorular"></div>
-    <button class="btn" onclick="katilimDegerlendir()">Katılabilir miyim? →</button>
-    <div id="verdict"></div>
+  <div class="tabs">
+    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi (4734)</button>
+    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı (EU TED)</button>
   </div>
-  <div id="katilimBilgi"></div>
 
-  <h2>3 · Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
-  <div id="yurtdisi"></div>
+  <!-- ============ YURT İÇİ ============ -->
+  <div id="paneIc" class="pane on">
+    <h2>Bu ihaleye katılabilir misin?</h2>
+    <p class="lead" style="font-size:13.5px">Aşağıdakilerden biri sende varsa kamu ihalesine <b style="color:var(--ink)">giremezsin / ihale dışı bırakılırsın</b>. İşaretle.</p>
+    <div class="kutu"><div id="sorular"></div>
+      <button class="btn" onclick="katilimDegerlendir()">Katılabilir miyim? →</button>
+      <div id="verdict"></div>
+    </div>
+
+    <h2>Yerli malı avantajın</h2>
+    <div id="yerliMali"></div>
+
+    <h2>Teminat hesabı</h2>
+    <div class="kutu">
+      <label for="bedel">Teklif edeceğin bedel (TL)</label>
+      <input type="text" id="bedel" placeholder="ör. 5.000.000" inputmode="numeric" oninput="teminatHesap()">
+      <div id="teminatSonuc" class="belg" style="margin-top:10px"></div>
+    </div>
+
+    <h2>Kaybedersen: itiraz yolun</h2>
+    <div id="sikayet"></div>
+
+    <h2>Bilmen gerekenler (hap bilgi)</h2>
+    <div id="hapIc"></div>
+    <div id="katilimBilgi"></div>
+  </div>
+
+  <!-- ============ YURT DIŞI ============ -->
+  <div id="paneDis" class="pane">
+    <h2>Sana uygun AB ihaleleri</h2>
+    <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Bana uygun ihaleleri getir →</button>
+      <div class="belg">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: EU TED (ted.europa.eu).</div>
+    </div>
+    <div id="sonuc"></div>
+    <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
+    <div id="yurtdisi"></div>
+  </div>
 
   <div class="cta">
     <h3>Rakiplerin görmeden sen gör</h3>
-    <p>EU TED devasa ve dağınık; kimse Türk KOBİ'sine "senin sektöründe AB'de ihale açıldı" demiyor. Bırak biz izleyelim; sektörüne ihale düştüğü gün WhatsApp'ına gelsin.</p>
+    <p>Yurt içi ve yurt dışı ihaleler dağınık; kimse sana "senin sektöründe ihale açıldı" demiyor. Bırak biz izleyelim; sektörüne ihale düştüğü gün WhatsApp'ına gelsin.</p>
     <a class="btn" href="index.html#app" style="text-decoration:none">İhale Radarına abone ol →</a>
   </div>
 
-  <div class="dip">Kaynaklar: EU TED (ted.europa.eu) · 4734 s. Kamu İhale Kanunu (mevzuat.gov.tr) · 2014/24/EU, ABAD Kolin C-652/22, IPI 2022/1031 (EUR-Lex) · CPV Reg. 2195/2002 · Mevzuat Radarı. Bilgilendirme amaçlıdır; katılım koşulları/süreler için ilan metnine ve danışmanına başvur.</div>
+  <div class="dip">Kaynaklar: EU TED (ted.europa.eu) · 4734 s. Kamu İhale Kanunu (mevzuat.gov.tr) · KİK eşik değerler Tebliği 2026/1 (RG 22.01.2026) · Yerli Malı Tebliği SGM-2024/10 · 2014/24/EU, ABAD Kolin C-652/22, IPI 2022/1031 (EUR-Lex) · Mevzuat Radarı. Bilgilendirme amaçlıdır; kesin süre/koşullar için ilan metnine ve danışmanına başvur.</div>
 </div>
 
 <script>
-let TED=null,CPV=null,K4734=null,YD=null;
+let TED=null,CPV=null,K=null,YD=null,EK=null;
 const ULKE={SVN:'Slovenya 🇸🇮',FRA:'Fransa 🇫🇷',IRL:'İrlanda 🇮🇪',DNK:'Danimarka 🇩🇰',DEU:'Almanya 🇩🇪',ITA:'İtalya 🇮🇹',ESP:'İspanya 🇪🇸',NLD:'Hollanda 🇳🇱',POL:'Polonya 🇵🇱',ROU:'Romanya 🇷🇴',GRC:'Yunanistan 🇬🇷',BGR:'Bulgaristan 🇧🇬',SWE:'İsveç 🇸🇪',BEL:'Belçika 🇧🇪',AUT:'Avusturya 🇦🇹',PRT:'Portekiz 🇵🇹',CZE:'Çekya 🇨🇿',HUN:'Macaristan 🇭🇺',FIN:'Finlandiya 🇫🇮'};
 function ulkeAd(k){ return ULKE[k]||k; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 const SORULAR=[
-  {q:"Firman iflas / tasfiye / konkordato halinde mi (işleri mahkemece yürütülüyor / askıda mı)?", b:["a","b"], k:"ihaleDisi"},
-  {q:"Kesinleşmiş vergi borcun var mı? (Kurumca belirlenen tutar eşiğinin üzerinde)", b:["d"], k:"ihaleDisi"},
+  {q:"Firman iflas / tasfiye / konkordato halinde mi?", b:["a","b"], k:"ihaleDisi"},
+  {q:"Kesinleşmiş vergi borcun var mı?", b:["d"], k:"ihaleDisi"},
   {q:"Kesinleşmiş SGK prim borcun var mı?", b:["c"], k:"ihaleDisi"},
-  {q:"Kayıtlı olduğun oda seni mesleki faaliyetten men etti mi?", b:["g"], k:"ihaleDisi"},
-  {q:"Son 5 yılda mesleki faaliyetinden dolayı yargı kararıyla hüküm giydin mi?", b:["e"], k:"ihaleDisi"},
-  {q:"Kamu ihalelerinden yasaklı mısın / hileli iflasına karar verildi mi?", b:["a","b"], k:"katilamaz"}
+  {q:"Oda seni mesleki faaliyetten men etti mi?", b:["g"], k:"ihaleDisi"},
+  {q:"Son 5 yılda mesleki faaliyetinden hüküm giydin mi?", b:["e"], k:"ihaleDisi"},
+  {q:"Kamu ihalelerinden yasaklı mısın / hileli iflas?", b:["a","b"], k:"katilamaz"}
 ];
 let cevaplar={};
+function tab(t){
+  document.getElementById('paneIc').classList.toggle('on',t==='ic');
+  document.getElementById('paneDis').classList.toggle('on',t==='dis');
+  document.getElementById('tbIc').classList.toggle('on',t==='ic');
+  document.getElementById('tbDis').classList.toggle('on',t==='dis');
+}
 async function veriYukle(){
-  if(TED&&CPV&&K4734&&YD) return;
+  if(TED) return;
   const g=async f=>{ try{ return await (await fetch('veri/'+f+'?cb='+Date.now())).json(); }catch(e){ return null; } };
   CPV=await g('cpv-eslesme.json')||{sektorler:[]};
   TED=await g('ihale-ted.json')||{ihaleler:[]};
-  K4734=await g('ihale-4734-katilim.json')||{};
+  K=await g('ihale-4734-katilim.json')||{};
   YD=await g('ihale-yurtdisi-rehber.json')||{};
-  // sektör + ülke select
-  document.getElementById('sektor').innerHTML=CPV.sektorler.map((s,i)=>`<option value="${i}">${s.ad}</option>`).join('');
+  EK=await g('ihale-4734-ek.json')||{};
+  document.getElementById('sektor').innerHTML=CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
   const ulkeler=[...new Set((TED.ihaleler||[]).map(i=>i.ulke))].sort();
   document.getElementById('ulke').innerHTML='<option value="hepsi">Hepsi</option>'+ulkeler.map(u=>`<option value="${u}">${ulkeAd(u)}</option>`).join('');
-  renderSorular(); renderKatilimBilgi(); renderYurtdisi();
+  document.getElementById('yerli').addEventListener('change',renderYerliMali);
+  renderSorular(); renderKatilimBilgi(); renderYurtdisi(); renderYerliMali(); renderSikayet(); renderHapIc();
 }
+// ---- yurt dışı ----
 function tarihTR(iso){ const p=(iso||'').split('-'); if(p.length!==3) return iso||'—'; return p[2]+'.'+p[1]+'.'+p[0]; }
-function kalanGun(iso){ const d=new Date(iso); if(isNaN(d)) return null; return Math.ceil((d-new Date())/(864e5)); }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-// GTİP fasıl -> sektör index (gtipYaklasik aralıklarından)
+function kalanGun(iso){ const d=new Date(iso); if(isNaN(d)) return null; return Math.ceil((d-new Date())/864e5); }
 function gtipSektor(gtip){
   const f=parseInt((gtip||'').replace(/\D/g,'').slice(0,2),10); if(isNaN(f)) return -1;
-  for(let i=0;i<CPV.sektorler.length;i++){
-    for(const par of String(CPV.sektorler[i].gtipYaklasik||'').split(',')){
-      const m=par.trim().match(/^(\d+)\s*-\s*(\d+)$/);
-      if(m){ if(f>=+m[1]&&f<=+m[2]) return i; }
-      else if(/^\d+$/.test(par.trim())){ if(f===+par.trim()) return i; }
-    }
-  }
-  return -1;
+  for(let i=0;i<CPV.sektorler.length;i++){ for(const par of String(CPV.sektorler[i].gtipYaklasik||'').split(',')){
+    const m=par.trim().match(/^(\d+)\s*-\s*(\d+)$/);
+    if(m){ if(f>=+m[1]&&f<=+m[2]) return i; } else if(/^\d+$/.test(par.trim())){ if(f===+par.trim()) return i; }
+  }} return -1;
 }
 async function kontrol(){
   await veriYukle();
@@ -150,71 +192,79 @@ async function kontrol(){
   if(!sek){ box.innerHTML='<div class="uyari">Sektör seç ya da GTİP gir.</div>'; return; }
   const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
   let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':ulkeAd(uSec)}</h3>`;
-  if(!bulunan.length){
-    html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Canlı abonelikte robot her gün tüm EU TED bültenini tarar; senin CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düştüğü an uyarır.</div></div>`;
-  } else {
-    for(const i of bulunan){
-      const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
-      html+=`<div class="kart">
-        <span class="rozet">${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span>
-        <h3>${esc(i.baslik)}</h3>
-        <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
-        <div class="satir"><b>İhale usulü</b><span>${esc(i.usul||'—')}</span></div>
-        <div class="satir"><b>İlan no</b><span>${esc(i.no||'—')}</span></div>
-        <div class="sure">📅 <b>Son teklif: ${tarihTR(i.sonTeklif)}</b> ${kgTxt?('· '+kgTxt):''}</div>
-        <div class="elig">⚠ <b>Türk firması katılabilirliği:</b> AB'de eşit muamele garantisi YOK (ABAD Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum. Aşağıda <b>3. bölüm</b>e bak.</div>
-        <div class="belg">İlan metninde: iş kapsamı/miktar, ödeme koşulları, teslim süresi, istenen belgeler ve <b>eligibility (menşe) şartı</b> yer alır — mutlaka oku. ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">İhale metni (TED) →</a>`:''}</div>
-      </div>`;
-    }
-  }
+  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Canlı abonelikte robot her gün tüm EU TED bültenini tarar; CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düştüğü an uyarır.</div></div>`; }
+  else { for(const i of bulunan){ const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
+    html+=`<div class="kart"><span class="rozet">${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
+      <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
+      <div class="satir"><b>İhale usulü</b><span>${esc(i.usul||'—')}</span></div>
+      <div class="satir"><b>İlan no</b><span>${esc(i.no||'—')}</span></div>
+      <div class="sure">📅 <b>Son teklif: ${tarihTR(i.sonTeklif)}</b> ${kgTxt?('· '+kgTxt):''}</div>
+      <div class="elig">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum.</div>
+      <div class="belg">İlan metninde: iş kapsamı/miktar, ödeme, teslim süresi, belgeler ve <b>eligibility (menşe)</b> şartı var — oku. ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">İhale metni (TED) →</a>`:''}</div></div>`;
+  }}
   box.innerHTML=html;
 }
-function renderSorular(){
-  document.getElementById('sorular').innerHTML=SORULAR.map((s,i)=>`
-    <div class="soru"><span>${esc(s.q)}</span>
-      <span class="sw"><button id="e${i}" onclick="cev(${i},1)">Evet</button><button id="h${i}" class="on" onclick="cev(${i},0)">Hayır</button></span>
-    </div>`).join('');
-  SORULAR.forEach((_,i)=>cevaplar[i]=0);
-}
-function cev(i,v){ cevaplar[i]=v;
-  document.getElementById('e'+i).classList.toggle('on',v===1);
-  document.getElementById('h'+i).classList.toggle('on',v===0);
-}
-function bentMetin(kaynak,bent){ const arr=(K4734[kaynak]||[]); const r=arr.find(x=>x.bent===bent); return r?`m.${r.madde} (${bent}) — ${r.kisa}`:bent; }
+// ---- yurt içi self-check ----
+function renderSorular(){ document.getElementById('sorular').innerHTML=SORULAR.map((s,i)=>`<div class="soru"><span>${esc(s.q)}</span><span class="sw"><button id="e${i}" onclick="cev(${i},1)">Evet</button><button id="h${i}" class="on" onclick="cev(${i},0)">Hayır</button></span></div>`).join(''); SORULAR.forEach((_,i)=>cevaplar[i]=0); }
+function cev(i,v){ cevaplar[i]=v; document.getElementById('e'+i).classList.toggle('on',v===1); document.getElementById('h'+i).classList.toggle('on',v===0); }
+function bentMetin(kaynak,bent){ const r=(K[kaynak]||[]).find(x=>x.bent===bent); return r?`m.${r.madde} (${bent}) — ${r.kisa}`:bent; }
 function katilimDegerlendir(){
-  const engeller=[];
-  SORULAR.forEach((s,i)=>{ if(cevaplar[i]===1){ s.b.forEach(b=>engeller.push(bentMetin(s.k,b))); } });
+  const e=[]; SORULAR.forEach((s,i)=>{ if(cevaplar[i]===1) s.b.forEach(b=>e.push(bentMetin(s.k,b))); });
   const v=document.getElementById('verdict');
-  if(engeller.length){
-    v.innerHTML=`<div class="verdict no">⛔ Bu haliyle ihale <b>DIŞI</b> bırakılırsın / katılamazsın. Sebep(ler):<br>${[...new Set(engeller)].map(e=>'• '+esc(e)).join('<br>')}<br><span style="font-weight:400;color:var(--muted);font-size:12.5px">Vergi/SGK borcu için: borç KESİNLEŞMİŞ ve Kurumca belirlenen tutar eşiğinin üzerindeyse ihale dışı bırakılırsın (m.10 c/d).</span></div>`;
+  v.innerHTML = e.length
+    ? `<div class="verdict no">⛔ Bu haliyle ihale <b>DIŞI</b> bırakılırsın / katılamazsın. Sebep(ler):<br>${[...new Set(e)].map(x=>'• '+esc(x)).join('<br>')}<br><span style="font-weight:400;color:var(--muted);font-size:12.5px">Vergi/SGK borcu: borç KESİNLEŞMİŞ ve Kurumca belirlenen tutar eşiğinin üzerindeyse ihale dışısın (m.10 c/d).</span></div>`
+    : `<div class="verdict ok">✅ Bu sayaçlara göre engel yok. Sıradaki adım: <b>yeterlik belgelerini</b> sağla + teklif bedelinin <b>%3'ü geçici teminat</b>. Kesin karar idarenin değerlendirmesine bağlıdır.</div>`;
+}
+// ---- yerli malı ----
+function renderYerliMali(){
+  const y=(EK&&EK.yerliMali)||{}; const has=document.getElementById('yerli')&&document.getElementById('yerli').checked;
+  const box=document.getElementById('yerliMali'); if(!box) return;
+  if(has){
+    box.innerHTML=`<div class="kart iyi"><span class="rozet iyi">✅ Avantajın var</span><h3>Yerli malı belgen sana fiyat avantajı sağlar</h3>
+      <div class="belg">${esc(y.avantaj||'')}<br><br><b>${esc(y.zorunlu||'')}</b><br><br>${esc(y.yapimHizmet||'')}</div>
+      <div class="satir"><b>Dayanak</b><span>4734 m.63</span></div></div>`;
   } else {
-    v.innerHTML=`<div class="verdict ok">✅ Bu sayaçlara göre katılımına engel görünmüyor. Sıradaki adım: <b>yeterlik belgelerini</b> sağla + teklif bedelinin <b>%3'ü geçici teminat</b> (m.33). Kesin karar idarenin değerlendirmesine bağlıdır.</div>`;
+    box.innerHTML=`<div class="kart dikkat"><span class="rozet dikkat">Fırsat</span><h3>Yerli malı belgesi al — %15'e kadar avantaj</h3>
+      <div class="belg">${esc(y.avantaj||'')} <b>${esc(y.zorunlu||'')}</b><br><br><b>Nasıl alınır:</b> ${esc(y.belge||'')}</div></div>`;
   }
 }
-function renderKatilimBilgi(){
-  const K=K4734; if(!K.yeterlik) return;
-  const list=a=>(a||[]).map(x=>`<div class="tab">${esc(x)}</div>`).join('');
-  const bentList=(arr)=>(arr||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)"><span class="mad">m.${x.madde} (${x.bent})</span> ${esc(x.metin)}</div>`).join('');
+// ---- teminat ----
+function fmt(n){ return n.toLocaleString('tr-TR'); }
+function teminatHesap(){
+  const b=parseFloat(document.getElementById('bedel').value.replace(/\./g,'').replace(/[^\d,]/g,'').replace(',','.'))||0;
+  const o=document.getElementById('teminatSonuc');
+  if(!b){ o.innerHTML='Teklif bedelini gir; geçici (%3) ve kesin (%6) teminatı hesaplayalım.'; return; }
+  o.innerHTML=`<b>Geçici teminat (en az %3, m.33):</b> ${fmt(Math.round(b*0.03))} TL<br><b>Kesin teminat (%6, m.43):</b> ${fmt(Math.round(b*0.06))} TL <span style="color:var(--dim)">(kazanırsan, sözleşme öncesi)</span>`;
+}
+// ---- şikayet / hap ----
+function renderSikayet(){ const s=(EK&&EK.sikayet)||{}; const el=document.getElementById('sikayet'); if(!el) return;
+  el.innerHTML=`<div class="kart kotu"><span class="rozet dikkat">Hak düşürücü süre</span><h3>${esc(s.baslik||'İtiraz yolu')}</h3>
+    <div class="belg">${(s.adimlar||[]).map(a=>'• '+esc(a)).join('<br>')}<br><br><b>${esc(s.not||'')}</b><br><a href="ceza-asistani.html">Süre/ceza konusunda Ceza Asistanı →</a></div></div>`;
+}
+function renderHapIc(){ if(!EK) return; const h=[];
+  if(EK.esikDegerler){ const e=EK.esikDegerler; h.push(`<div class="hap"><b class="t">Eşik değerler (${esc(e.donem)}, ${esc(e.teblig)})</b>Mal/hizmet: <b>${esc(e.malHizmetGenelButce)}</b> (genel bütçe) / ${esc(e.malHizmetDiger)} · Yapım: ${esc(e.yapim)} · Doğrudan temin (m.22/d, büyükşehir): <b>${esc(e.dogrudanTeminBuyuksehir)}</b> · ${esc(e.not)}</div>`); }
+  if(EK.dogrudanTemin) h.push(`<div class="hap"><b class="t">${esc(EK.dogrudanTemin.baslik)}</b>${esc(EK.dogrudanTemin.metin)}</div>`);
+  if(EK.sinirDeger) h.push(`<div class="hap"><b class="t">${esc(EK.sinirDeger.baslik)}</b>${esc(EK.sinirDeger.metin)}</div>`);
+  if(EK.isOrtakligi) h.push(`<div class="hap"><b class="t">${esc(EK.isOrtakligi.baslik)}</b>${esc(EK.isOrtakligi.metin)}</div>`);
+  if(EK.yasaklama) h.push(`<div class="hap"><b class="t">${esc(EK.yasaklama.baslik)}</b>${esc(EK.yasaklama.metin)}</div>`);
+  document.getElementById('hapIc').innerHTML=h.join('');
+}
+function renderKatilimBilgi(){ if(!K.yeterlik) return;
+  const list=a=>(a||[]).map(x=>`<div class="tab2">${esc(x)}</div>`).join('');
+  const bl=arr=>(arr||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)"><span class="mad">m.${x.madde} (${x.bent})</span> ${esc(x.metin)}</div>`).join('');
   document.getElementById('katilimBilgi').innerHTML=`
     <details class="acc"><summary>İstenen yeterlik belgeleri (m.10)</summary><div class="in"><b>Ekonomik/malî:</b><br>${list(K.yeterlik.mali)}<br><br><b>Mesleki/teknik:</b><br>${list(K.yeterlik.teknik)}</div></details>
-    <details class="acc"><summary>İhale dışı bırakılma halleri — m.10 (a–j)</summary><div class="in">${bentList(K.ihaleDisi)}</div></details>
-    <details class="acc"><summary>İhaleye katılamayacaklar — m.11 &amp; yasak fiiller — m.17</summary><div class="in"><b>m.11 — Katılamayacaklar:</b>${bentList(K.katilamaz)}<br><b>m.17 — Yasak fiiller:</b>${(K.yasakFiil||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)">(${x.bent}) ${esc(x.metin)}</div>`).join('')}</div></details>
-    <details class="acc"><summary>Teminat · süreler · usuller · EKAP</summary><div class="in">
-      <b>Teminat:</b> geçici ${esc(K.teminat.gecici)} · kesin ${esc(K.teminat.kesin)}<br><br>
-      <b>İlan süreleri (eşik üstü):</b> açık ${esc(K.ilanSure.esikUstu.acik)}, pazarlık ${esc(K.ilanSure.esikUstu.pazarlik)}, belli istekliler ön yeterlik ${esc(K.ilanSure.esikUstu.belliIsteklilerOnYeterlik)}. <b>Eşik altı:</b> ${esc(K.ilanSure.esikAlti.dusuk)} / ${esc(K.ilanSure.esikAlti.orta)} / ${esc(K.ilanSure.esikAlti.ust)}.<br><span style="font-size:12px;color:var(--dim)">${esc(K.ilanSure.kisaltma)}</span><br><br>
-      <b>Usuller:</b> ${(K.usul||[]).map(u=>esc(u.ad)+' (m.'+u.madde+')').join(' · ')}<br><br>
-      <b>Nereden:</b> ${esc(K.ekap)}
-      <br><br><span style="font-size:12px;color:var(--dim)">${(K.notlar||[]).map(esc).join(' · ')}</span>
-    </div></details>`;
+    <details class="acc"><summary>İhale dışı bırakılma — m.10 (a–j)</summary><div class="in">${bl(K.ihaleDisi)}</div></details>
+    <details class="acc"><summary>Katılamayacaklar — m.11 &amp; yasak fiiller — m.17</summary><div class="in"><b>m.11:</b>${bl(K.katilamaz)}<br><b>m.17:</b>${(K.yasakFiil||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)">(${x.bent}) ${esc(x.metin)}</div>`).join('')}</div></details>
+    <details class="acc"><summary>İlan süreleri &amp; usuller &amp; EKAP</summary><div class="in"><b>Eşik üstü:</b> açık ${esc(K.ilanSure.esikUstu.acik)}, pazarlık ${esc(K.ilanSure.esikUstu.pazarlik)}. <b>Eşik altı:</b> ${esc(K.ilanSure.esikAlti.dusuk)} / ${esc(K.ilanSure.esikAlti.orta)} / ${esc(K.ilanSure.esikAlti.ust)}.<br><b>Usuller:</b> ${(K.usul||[]).map(u=>esc(u.ad)+' (m.'+u.madde+')').join(' · ')}<br><b>Nereden:</b> ${esc(K.ekap)}</div></details>`;
 }
-function renderYurtdisi(){
-  const Y=YD; if(!Y.katilabilirlik) return;
-  const tbl=(Y.katilabilirlik||[]).map(x=>`<div style="padding:8px 0;border-top:1px solid var(--line)"><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.durum)}</span></div>`).join('');
-  const adim=(Y.adimlar||[]).map(x=>`<div style="display:flex;gap:11px;margin:9px 0"><span style="flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center">${x.no}</span><div><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.metin)}</span></div></div>`).join('');
+function renderYurtdisi(){ if(!YD.katilabilirlik) return;
+  const tbl=(YD.katilabilirlik||[]).map(x=>`<div style="padding:8px 0;border-top:1px solid var(--line)"><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.durum)}</span></div>`).join('');
+  const adim=(YD.adimlar||[]).map(x=>`<div style="display:flex;gap:11px;margin:9px 0"><span style="flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center">${x.no}</span><div><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.metin)}</span></div></div>`).join('');
   document.getElementById('yurtdisi').innerHTML=`
-    <div class="kart" style="border-left-color:var(--amber)"><span class="rozet" style="background:rgba(255,176,32,.14);color:var(--amber)">Dürüst çerçeve</span><div style="margin-top:8px;font-size:13.5px;color:var(--ink)">${esc(Y.durustCerceve)}</div></div>
+    <div class="kart dikkat"><span class="rozet dikkat">Dürüst çerçeve</span><div style="margin-top:8px;font-size:13.5px;color:var(--ink)">${esc(YD.durustCerceve)}</div></div>
     <details class="acc" open><summary>Katılabilirlik — Türkiye'nin durumu</summary><div class="in">${tbl}</div></details>
-    <details class="acc"><summary>Adım adım: nasıl teklif verilir</summary><div class="in">${adim}<br><b style="color:var(--ink)">En güçlü strateji:</b> ${esc(Y.strateji)}<br><br><b>Süreler:</b> ${esc(Y.sureler)}<br><b>Teminat:</b> ${esc(Y.teminat)}</div></details>`;
+    <details class="acc"><summary>Adım adım: nasıl teklif verilir</summary><div class="in">${adim}<br><b style="color:var(--ink)">En güçlü strateji:</b> ${esc(YD.strateji)}<br><br><b>Süreler:</b> ${esc(YD.sureler)}</div></details>`;
 }
 veriYukle();
 </script>

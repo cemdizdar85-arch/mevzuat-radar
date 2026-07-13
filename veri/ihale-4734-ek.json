@@ -1,0 +1,49 @@
+{
+  "guncelleme": "4734 ek katman — yerli malı avantajı (m.63), eşik değerler/parasal limitler (KİK Tebliğ 2026/1), doğrudan temin (m.22), sınır değer (m.38), şikayet/itirazen şikayet (m.54-57), yasaklama (m.58). Kaynak: mevzuat.gov.tr + kik.gov.tr + Resmî Gazete (birincil, 13.07.2026).",
+  "kaynak": "mevzuat.gov.tr / kik.gov.tr / resmigazete.gov.tr",
+  "yerliMali": {
+    "baslik": "Yerli malı / yerli istekli avantajı (m.63)",
+    "avantaj": "Mal alımı ihalelerinde yerli malı teklif eden istekliler lehine %15'e KADAR fiyat avantajı sağlanabilir.",
+    "zorunlu": "Sanayi ve Teknoloji Bakanlığı'nca belirlenen ORTA-YÜKSEK ve YÜKSEK teknolojili sanayi ürünleri ile yazılım ürünlerinde yerli malı lehine %15 fiyat avantajı ZORUNLUDUR (idare takdir edemez).",
+    "belge": "Yerli Malı Belgesi: TOBB/TESK'e bağlı oda/borsalar düzenler. Şart: sanayi sicil belgesi + yerli katkı oranı ≥ %51 (Yerli Malı Tebliği SGM-2024/10, RG 25.01.2025).",
+    "yapimHizmet": "Yapım ve hizmet ihalelerinde de yalnız yerli istekliler lehine düzenleme yapılabilir (eşik değerin altındaki bazı ihaleler yalnız yerli isteklilere açılabilir).",
+    "kaynak": "4734 m.63; kik.gov.tr orta-yüksek teknoloji listesi; RG 25.01.2025 SGM-2024/10"
+  },
+  "esikDegerler": {
+    "donem": "01.02.2026 – 31.01.2027",
+    "teblig": "Kamu İhale Tebliği No: 2026/1 (RG 22.01.2026)",
+    "malHizmetGenelButce": "18.734.124 TL",
+    "malHizmetDiger": "31.223.628 TL",
+    "yapim": "686.924.429 TL",
+    "dogrudanTeminBuyuksehir": "1.021.827 TL",
+    "dogrudanTeminDiger": "büyükşehir dışı idarelerde daha düşük (tebliğe bak)",
+    "ilanKademe": "2.043.844 TL (m.13 eşik-altı ilan kademesi sınırı)",
+    "ilanBedeli": "KİB tek ilan 7.500 TL + KDV",
+    "not": "Bu tutarlar HER YIL 1 Şubat'ta KİK tebliğiyle güncellenir — koda gömülü değil, tebliğe bağlı (robot yıllık günceller)."
+  },
+  "dogrudanTemin": {
+    "baslik": "Doğrudan temin (m.22)",
+    "metin": "Belirli hallerde ihale usulü uygulanmadan, ilansız, teminatsız doğrudan alım: ihtiyacın tek kaynaktan karşılanması, acil haller, parasal limit altı küçük alımlar (m.22/d) vb. Parasal limit yıllık tebliğe bağlı (2026: büyükşehir içi 1.021.827 TL)."
+  },
+  "sinirDeger": {
+    "baslik": "Aşırı düşük teklif / sınır değer (m.38)",
+    "metin": "İhale komisyonu, teklifleri sınır değere göre değerlendirir. Sınır değerin altındaki tekliflerden yazılı AÇIKLAMA istenir; açıklaması yeterli görülmeyen teklif reddedilir. Amaç: gerçekçi olmayan düşük teklifle işi alıp yapamama riskini önlemek."
+  },
+  "sikayet": {
+    "baslik": "Hakkını ara: şikayet ve itirazen şikayet (m.54-57)",
+    "adimlar": [
+      "1) İDAREYE ŞİKAYET: ihale sürecindeki hukuka aykırı işlem/eylemi öğrendiğin tarihi izleyen 10 GÜN içinde ihaleyi yapan idareye yazılı şikayet. İdare 10 gün içinde karar verir.",
+      "2) KİK'E İTİRAZEN ŞİKAYET: idarenin kararına/cevap vermemesine karşı, kararın bildirimini/süre bitimini izleyen 10 GÜN içinde Kamu İhale Kurumu'na itirazen şikayet + BAŞVURU BEDELİ (yaklaşık maliyete göre kademeli — güncel tutar 2026/1 tebliğinde).",
+      "3) KİK kararına karşı idari yargı (Danıştay/idare mahkemesi)."
+    ],
+    "not": "Süreler HAK DÜŞÜRÜCÜ — 10 günü kaçıran itiraz hakkını kaybeder. (Ceza Asistanı mantığının ihale versiyonu.)"
+  },
+  "yasaklama": {
+    "baslik": "İhalelere katılmaktan yasaklama (m.58)",
+    "metin": "Yasak fiil/davranışta bulunanlar (m.17) veya sözleşme yükümlülüğünü ihlal edenler hakkında, fiilin niteliğine göre 1 YILDAN 2 YILA kadar tüm kamu ihalelerine katılmaktan yasaklama kararı verilir. Yasaklı gerçek/tüzel kişi + sermayesinin çoğunluğuna sahip ortakları da kapsanır. Yasaklılar Resmî Gazete'de yayımlanır."
+  },
+  "isOrtakligi": {
+    "baslik": "İş ortaklığı / konsorsiyum (m.14)",
+    "metin": "Birden fazla istekli, İŞ ORTAKLIĞI (her ortak işin tamamından müştereken sorumlu) veya KONSORSİYUM (her ortak uzmanlık işinden kendi sorumlu) kurarak birlikte teklif verebilir — büyük işlerde yeterliği birleştirmenin yolu."
+  }
+}
