@@ -82,9 +82,14 @@ Kaynak: mevzuat.gov.tr konsolide metin (1.5.4734.pdf), pdftotext ile tam madde l
 | Ek 9-11 | FATİH / DMO / KHK-703 | ➖ | niş/kurumsal |
 | Ek 12 | (7491/2023 yeni düzenleme) | 🔴 | 2023 yeni — içeriği teyit edilmeli |
 
-## ÖZET
+## ÖZET (13.07.2026 güncel)
 - Toplam ~70 madde + 12 ek madde tarandı, **hiçbiri atlanmadı.**
-- ✅ Değindik: ~28 · ➖ Konu değil: ~28 · 🔴 **Değinmedik ama önemli: ~18** (backlog)
-- **En kritik boşluklar (istekliyi doğrudan yakar):** m.39 (ihale iptali), m.44 (kazanıp imzalamama → teminat gelir + yasaklama), m.5 (temel ilkeler/eşit muamele), m.15 (alt yüklenici), m.32 (teklif geçerlilik süresi), m.59 (ceza sorumluluğu), m.65 (tebligat), Ek 2 (çerçeve anlaşma).
+- **BATCH 1:** m.5, m.15, m.16, m.28, m.32, m.36, m.39, m.44, m.45, m.59, m.65, Ek 2, Ek 3, Ek 4 ✅
+- **BATCH 2 (kapanış):** m.12, m.24, m.26, m.35, m.62, Ek 8, Ek 12 ✅ (gerçek içerik PDF'ten okundu — Ek 12=DMO, m.62=ödenek/arsa şartı).
+- **✅ DURUM: 4734 madde-kapsam TAM.** Kalan 🔴 = 0. Her madde ya araçta (✅) ya da mükellef-isteklisini doğrudan ilgilendirmediği için kapsam dışı (➖ — kurumsal/prosedürel: m.6-7-9-47-48/53-60-61-64-66-68/70, Ek 5-7/9-11). ihale-radari.html "Diğer önemli hükümler" bölümünde 21 madde madde madde.
 
-**Sıradaki iş:** 🔴 satırları öncelik sırasıyla araca ekle → her ekledikçe ✅ yap → tablo tamamen ✅/➖ olunca "4734 madde-kapsam TAM" ispatı.
+## YÖNTEM (diğer kanunlara uygulanacak)
+1. mevzuat.gov.tr konsolide PDF → **pdftotext** (FlateDecode açılır) → tam madde + kenar başlığı listesi.
+2. Madde madde durum ata: ✅ değindik / 🔴 değinmedik-önemli / ➖ konu-değil.
+3. 🔴'ları öncelikle araca ekle → ✅ yap. Tablo bitince kapsam TAM (ispatlanır).
+Sıradaki kanunlar: **VUK (Ceza Asistanı) · İİK (Alacak) · SMK (Marka) · KDVK/2007-13033 (GTİP) · Gümrük K. · 4760 ÖTV.**
