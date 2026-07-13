@@ -252,6 +252,22 @@
   .foot-in a:hover{color:var(--ink)}
   .disclaimer{max-width:1180px;margin:14px auto 0;font-size:11px;color:var(--dim);line-height:1.6}
 
+  /* ---------- NEDEN GÜVENİLİR ---------- */
+  .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
+  .gk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:26px 26px;position:relative;overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 24px 50px -30px rgba(0,0,0,.85)}
+  .gk::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
+  .gi{font-size:23px;margin-bottom:13px;filter:saturate(1.1)}
+  .gk h3{margin:0 0 8px;font-size:17px;letter-spacing:-.3px}
+  .gk p{margin:0;font-size:13.5px;color:var(--muted)}
+  .kaynak-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:11px 20px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:13px;color:var(--dim)}
+  .kaynak-bar b{color:var(--muted);font-weight:700;letter-spacing:.2px;
+    padding:6px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--bg2)}
+
   /* reveal on scroll */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
@@ -308,7 +324,7 @@
         <a class="btn ghost" href="gtip.html">GTİP kodunu sorgula</a>
       </div>
       <div class="trust">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> SMMM doğrulamalı</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Çift kontrollü doğruluk</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Kaynak mevzuat linkli</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
       </div>
@@ -323,13 +339,13 @@
           <div class="tag">■ AKSİYON GEREKLİ · SON 12 GÜN</div>
           <h4>Ürün grubunda damping soruşturması açıldı</h4>
           <p>Soru formunu son tarihe kadar vermezsen en yüksek vergi oranı uygulanır.</p>
-          <div class="meta">214 sayfadan süzüldü · Doğrulayan: SMMM C. Dizdar</div>
+          <div class="meta">214 sayfadan süzüldü · Kaynak: Resmî Gazete</div>
         </div>
         <div class="kart green k2">
           <div class="tag">■ FIRSAT</div>
           <h4>Profiline uyan yeni KOSGEB çağrısı yayınlandı</h4>
           <p>Makine-teçhizat kalemi destek kapsamında; başvuru şartlarını karşılıyorsun.</p>
-          <div class="meta">Başvuru açık · Doğrulayan: SMMM C. Dizdar</div>
+          <div class="meta">Başvuru açık · Kaynak: KOSGEB</div>
         </div>
         <div style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px">Temsilî örnek kartlardır</div>
       </div>
@@ -401,6 +417,42 @@
         <h3>Şirket Kuruluşu Rehberi</h3>
         <p>Şahıs mı, limited mi, anonim mi? Türünü seç; farkları, adım adım kuruluş yolunu ve kuruluştan sonra seni bekleyen yükümlülükleri gör.</p>
         <span style="color:var(--accent2);font-size:13px;font-weight:600">Rehbere başla →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEDEN GÜVENİLİR ============ -->
+<section id="guven" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Neden bize güvenebilirsin?</h2>
+      <p>Mevzuatta yanlış bilgi; ödenen fazla vergi, kesilen ceza demektir. Bu yüzden tek kuralımız var: her şey resmî kaynaktan, madde madde.</p>
+    </div>
+    <div class="guven-grid">
+      <div class="gk reveal">
+        <div class="gi">📑</div>
+        <h3>Birincil kaynak — ikincisi yok</h3>
+        <p>Her oran, süre ve tutar doğrudan Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur. Blog, kulaktan dolma, "internette böyle yazıyor" bu sitede yer bulmaz.</p>
+      </div>
+      <div class="gk reveal">
+        <div class="gi">⚖️</div>
+        <h3>Kanunları madde madde okuduk</h3>
+        <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük kanunlarını madde madde taradık; hangi maddeye değindiğimiz kayıt altında. "Bir yeri atladık mı?" sorusu bizde tahmine bırakılmaz.</p>
+      </div>
+      <div class="gk reveal">
+        <div class="gi">🔁</div>
+        <h3>Çift okuma, sonra hakem</h3>
+        <p>Otomatik ürettiğimiz her kart iki bağımsız okumadan geçer; iki okuma anlaşamazsa üçüncü bir kontrol devreye girer. Güvenle doğrulayamadığımız hiçbir rakamı yayınlamayız.</p>
+      </div>
+      <div class="gk reveal">
+        <div class="gi">🤝</div>
+        <h3>Yapamadığımızı da söyleriz</h3>
+        <p>Emin olmadığımız yerde "kaynakta belirtilmemiş" der, seni doğru kapıya yönlendiririz. Abartılı vaat yok; ne biliyorsak onu, olduğu gibi.</p>
+      </div>
+    </div>
+    <div class="kaynak-bar reveal">
+      <span>Beslendiğimiz resmî kaynaklar:</span>
+      <b>Resmî Gazete</b><b>GİB</b><b>Kamu İhale Kurumu</b><b>TÜRKPATENT</b><b>TCMB</b><b>Basın İlan Kurumu</b>
     </div>
   </div>
 </section>
@@ -514,7 +566,7 @@
 
         <div class="note">
           <span>✓</span>
-          <span><b style="color:var(--ink)">Hazırlayan: SMMM Cem Dizdar — Mevzuat Radarı.</b>
+          <span><b style="color:var(--ink)">Mevzuat Radarı — bir Dizdar Denetim yazılımıdır.</b>
           Bu karne yalnızca bilgilendirme amaçlıdır, hukuki/mali mütalaa değildir. Eşik değerleri ve
           yükümlülükler firmanın somut durumuna göre değişebilir; kesin sonuç için mevzuat metni ve
           uzman görüşü esastır. Değerlendirme, girilen bilgilerle sınırlıdır.</span>
@@ -526,7 +578,7 @@
 
 <footer>
   <div class="foot-in">
-    <span>© 2026 Mevzuat Radarı · SMMM Cem Dizdar</span>
+    <span>© 2026 Mevzuat Radarı · bir Dizdar Denetim yazılımı</span>
     <span>
       <a href="gtip.html">GTİP Kontrolü</a>
       <a href="senaryo-raporu.html">Menşe Raporu</a>
