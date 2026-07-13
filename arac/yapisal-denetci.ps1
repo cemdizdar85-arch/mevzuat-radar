@@ -180,6 +180,21 @@ if($VS){
   if($vsKaynak -notmatch $resmiIsaret){ Hata "vergi-sabitleri.json : kaynak/not metninde birincil isaret YOK" }
 }
 
+# --- 8) KRITIK JS DUZELTME KAYNAK-ISARETCISI (port-test JS'i dogrudan korumaz; bu korur) ---
+# Bu turda duzeltilen JS bug'lari geri alinirsa yakala. Isaretci = duzeltmenin karakteristik kod parcasi.
+$kritikDuzeltmeler = @(
+  @{ dosya='senaryo-raporu.html'; isaret=@('spesifik','match(/%'); ac='damping dolar/ton->yuzde bug fix (spesifik ayrimi)' }
+  @{ dosya='gtip.html';           isaret=@('rec.kismi','Array.isArray(rad)'); ac='kurk kismi + radar normalize' }
+)
+foreach($kd in $kritikDuzeltmeler){
+  $yol = Join-Path $kok $kd.dosya
+  if(-not (Test-Path $yol)){ Hata "$($kd.dosya) : DOSYA YOK"; continue }
+  $icerik = Get-Content $yol -Raw -Encoding UTF8
+  foreach($mark in $kd.isaret){
+    if(-not $icerik.Contains($mark)){ Hata "$($kd.dosya) : KRITIK DUZELTME ISARETCISI '$mark' YOK -> $($kd.ac) geri alinmis olabilir (regresyon)" }
+  }
+}
+
 # ---------------------------------------------------------------------------
 ""
 if($uyarilar.Count -gt 0){
