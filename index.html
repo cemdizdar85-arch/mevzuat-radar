@@ -286,6 +286,22 @@
   .kaynak-bar b{color:var(--muted);font-weight:700;letter-spacing:.2px;
     padding:6px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--bg2)}
 
+  /* ---------- KİMLERE (alıcı segmentasyonu) ---------- */
+  .kim-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:920px;margin:0 auto}
+  @media(max-width:720px){.kim-grid{grid-template-columns:1fr}}
+  .kimkart{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);
+    border-radius:20px;padding:30px 28px;transition:transform .25s ease,border-color .25s ease;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+  .kimkart:hover{transform:translateY(-4px);border-color:rgba(62,155,255,.4)}
+  .kimkart.one{background:linear-gradient(180deg,rgba(47,123,255,.06),transparent),var(--panel)}
+  .ki{font-size:30px;margin-bottom:14px}
+  .kimkart h3{margin:0 0 6px;font-size:20px;letter-spacing:-.4px}
+  .kimkart>p{margin:0 0 16px;font-size:14px;color:var(--muted)}
+  .kimkart ul{list-style:none;margin:0 0 18px;padding:0}
+  .kimkart li{position:relative;padding:7px 0 7px 25px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line)}
+  .kimkart li::before{content:"→";position:absolute;left:2px;color:var(--accent2);font-weight:700}
+  .kimcta{font-size:14px;font-weight:700;color:var(--accent2)}
+
   /* ---------- FİYATLANDIRMA ---------- */
   .fiyat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
   @media(max-width:720px){.fiyat-grid{grid-template-columns:1fr}}
@@ -413,6 +429,40 @@
     <div class="stat reveal"><div class="n">Kaynağa</div><div class="t">Bağlı · doğrulanır</div></div>
   </div>
 </div>
+
+<!-- ============ KİMLERE (alıcı segmentasyonu) ============ -->
+<section id="kimlere">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Sen hangisisin?</h2>
+      <p>İki farklı ihtiyaç, iki farklı kullanım. Kendine uyanı seç, sana göre başlayalım.</p>
+    </div>
+    <div class="kim-grid">
+      <a class="kimkart reveal" href="#app">
+        <div class="ki">🏭</div>
+        <h3>İşletme sahibiyim</h3>
+        <p>İthalatçı, ihracatçı, üretici, tüccar… Mevzuat sana zaman ve para kaybettirmesin.</p>
+        <ul>
+          <li>GTİP vergisi, gözetim, ihale, alacak, marka, ceza — hepsi tek yerde</li>
+          <li>Firmanı ilgilendiren Resmî Gazete değişikliği hap kart olarak gelsin</li>
+          <li>DİİB · KDV iadesi · SGK sürelerini kaçırma, cezaya düşme</li>
+        </ul>
+        <span class="kimcta">Yükümlülük Karneni çıkar →</span>
+      </a>
+      <a class="kimkart one reveal" href="#fiyat">
+        <div class="ki">🧮</div>
+        <h3>Mali Müşavirim (SMMM)</h3>
+        <p>Onlarca mükellef, yüzlerce süre, sürekli değişen mevzuat. Hepsini tek panelden yönet.</p>
+        <ul>
+          <li>Tüm mükelleflerini tek hesaptan izle — çoklu-firma paneli</li>
+          <li>Her müşterinin GTİP / marka / ihale / süre uyarısı sana düşsün</li>
+          <li>Müşterine "bak, bunu senin için yakaladık" de — değerini göster</li>
+        </ul>
+        <span class="kimcta">Müşavir erken erişimine katıl →</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ============ NASIL ÇALIŞIR ============ -->
 <section id="nasil">
