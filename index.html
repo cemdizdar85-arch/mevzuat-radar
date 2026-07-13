@@ -64,9 +64,9 @@
   .dropdown{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);min-width:256px;
     background:rgba(9,13,20,.98);backdrop-filter:blur(18px) saturate(1.3);border:1px solid var(--line2);
     border-radius:16px;padding:9px;box-shadow:0 26px 64px rgba(0,0,0,.6);
-    opacity:0;visibility:hidden;transition:opacity .18s,visibility .18s;z-index:70}
+    display:none;z-index:70}
   .dropdown::before{content:"";position:absolute;top:-18px;left:0;right:0;height:18px}
-  .navgroup:hover .dropdown,.navgroup:focus-within .dropdown,.navgroup.open .dropdown{opacity:1;visibility:visible}
+  .navgroup:hover .dropdown,.navgroup:focus-within .dropdown,.navgroup.open .dropdown{display:block}
   .navgroup.open .navtrigger .car{transform:rotate(180deg)}
   .navgroup.open .navtrigger{color:var(--ink)}
   .dropdown a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;transition:background .15s}
