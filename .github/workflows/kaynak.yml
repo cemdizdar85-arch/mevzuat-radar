@@ -25,6 +25,10 @@ jobs:
         shell: pwsh
         run: ./arac/kaynak-nobetcisi.ps1
 
+      - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
+        shell: pwsh
+        run: ./arac/yapisal-denetci.ps1
+
       - name: Nokta-kontrol (regresyon testi — patlarsa commit YOK)
         shell: pwsh
         run: ./arac/nokta-kontrol.ps1
