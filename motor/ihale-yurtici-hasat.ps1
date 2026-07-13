@@ -32,7 +32,7 @@ foreach($a in @($r.result.ads)){
 if(-not $ilanlar.Count){ Write-Host "UYARI: API bos dondu - json GUNCELLENMEDI (eski veri korunur)"; exit 0 }
 
 $cikti = [ordered]@{
-  guncelleme = "Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) açık listeleme API'sinden robotla çekildi: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + ". Kaynak resmî; günlük yenilenir."
+  guncelleme = "Kaynak: Basın İlan Kurumu (195 s. Kanun'la kurulu kamu kurumu) Resmî İlan Portalı — ilan.gov.tr. Son çekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
   kaynak = "ilan.gov.tr"
   ilanlar = $ilanlar
 }
