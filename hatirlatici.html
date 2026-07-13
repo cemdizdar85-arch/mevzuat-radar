@@ -145,7 +145,12 @@ function ciz(){
   const bugun=new Date(); bugun.setHours(0,0,0,0);
   const satirlar = a.map(r=>{
     const s=bul(r.id); if(!s) return null;
-    const son = s.kuralAy>0 ? ayEkle(r.tarih, s.kuralAy) : new Date(r.tarih+'T00:00:00');
+    let son;
+    const t0 = new Date(r.tarih+'T00:00:00');
+    if(s.kuralTip==='yilSonu'){ son = new Date(t0.getFullYear()+ (s.kuralYil||1), 11, 31); }        // izleyen N. takvim yılının 31 Aralık'ı
+    else if(s.kuralGun>0){ son = new Date(t0); son.setDate(son.getDate()+s.kuralGun); }               // gün bazlı (SGK 15 gün)
+    else if(s.kuralAy>0){ son = ayEkle(r.tarih, s.kuralAy); }                                          // ay bazlı (DİİB 3 ay)
+    else { son = t0; }                                                                                 // belgedeki tarih
     const kalan = Math.ceil((son-bugun)/864e5);
     return {r, s, son, kalan};
   }).filter(Boolean).sort((x,y)=>x.kalan-y.kalan);
