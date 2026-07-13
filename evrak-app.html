@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Evrak Radarı — mükellef kovalamayı bırak (canlı) | Mevzuat Radarı</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}.wrap{max-width:780px;margin:0 auto;padding:22px 16px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:16px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:13px}
+h1{font-size:clamp(21px,4vw,28px);letter-spacing:-.7px;margin:2px 0 6px;font-weight:820}
+.lead{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+.kart{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px;margin-bottom:14px}
+.kbas{font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin-bottom:12px}
+label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px}
+.gir,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit;margin-bottom:10px}
+textarea{resize:vertical;min-height:44px}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:750;font-size:14px;padding:11px 18px;border-radius:11px;background:var(--grad);color:#03101f}
+.btn.k{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);font-weight:650}
+.btn.mini{padding:7px 12px;font-size:12.5px}
+.satirEkle{display:flex;gap:8px;margin-bottom:8px}.satirEkle select{width:120px;flex-shrink:0;margin:0}.satirEkle .gir{flex:1;margin:0}
+.sil{background:none;border:0;color:var(--dim);cursor:pointer;font-size:18px}
+.istek{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:10px;background:#0b111a}
+.istek .h{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer}
+.durum{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}.durum.bek{background:rgba(255,194,75,.15);color:var(--amber)}.durum.ok{background:rgba(61,220,151,.16);color:var(--green)}
+.soruSat{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}.soruSat .body{flex:1}.soruSat .cev{color:var(--muted);margin-top:4px}.soruSat .cev b{color:var(--ink)}
+.fis{display:inline-flex;gap:6px;font-size:12px;color:var(--accent2);background:rgba(62,155,255,.1);border:1px solid rgba(62,155,255,.25);border-radius:7px;padding:3px 8px;margin-top:5px;text-decoration:none}
+.stat{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.stat>div{flex:1;min-width:110px;border:1px solid var(--line);border-radius:11px;padding:11px 13px;background:var(--panel)}.stat .n{font-size:20px;font-weight:820}.stat .l{font-size:11px;color:var(--muted)}
+.link{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap}.link input{flex:1;min-width:180px;font-size:12px;padding:8px 10px;border:1px solid var(--line2);border-radius:8px;background:#0a0f17;color:var(--muted)}
+.tel{max-width:360px;margin:0 auto;border:1px solid var(--line2);border-radius:18px;padding:16px;background:#0a0f17}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#0d141e;border:1px solid var(--line2);color:var(--ink);padding:11px 17px;border-radius:11px;font-size:13px;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:9;pointer-events:none}.toast.on{opacity:1}
+.bos{color:var(--dim);font-size:13px;text-align:center;padding:16px}
+.uyari{font-size:12px;color:var(--dim);margin-top:18px;background:rgba(62,155,255,.05);border:1px solid rgba(62,155,255,.18);border-radius:10px;padding:11px 13px}
+.hata{color:var(--red);font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap"><div class="bos">Yükleniyor…</div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
+const SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+const sb = createClient(SB_URL, SB_KEY);
+const $ = s => document.querySelector(s);
+const W = () => $('#wrap');
+const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(window._t); window._t=setTimeout(()=>t.classList.remove('on'),2400); }
+
+const params = new URLSearchParams(location.search);
+const TOKEN = params.get('t');
+
+// ================= YÖNLENDİRME =================
+async function yonlendir(){
+  if(TOKEN){ return mukellefGorunum(TOKEN); }
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session) muhasebeciApp(); else girisEkrani();
+}
+sb.auth.onAuthStateChange((_e, s)=>{ if(!TOKEN){ if(s) muhasebeciApp(); else girisEkrani(); } });
+
+// ================= GİRİŞ =================
+function girisEkrani(){
+  W().innerHTML=`
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Evrak Radarı</div>
+  <h1>Evrak Radarı — muhasebeci girişi</h1>
+  <p class="lead">Mükellef kovalamayı bırak. Soru/belge listesi oluştur → mükellefe link → cevaplar organize ekranına düşer.</p>
+  <div class="kart" style="max-width:420px">
+    <div class="kbas">GİRİŞ / KAYIT</div>
+    <label>E-posta</label><input class="gir" id="email" type="email" placeholder="ornek@firma.com">
+    <label>Şifre</label><input class="gir" id="sifre" type="password" placeholder="en az 6 karakter">
+    <div style="display:flex;gap:8px"><button class="btn" id="girisBtn">Giriş yap</button><button class="btn k" id="kayitBtn">Kayıt ol</button></div>
+    <div class="hata" id="ahata"></div>
+  </div>
+  <div class="uyari">İlk kez mi? "Kayıt ol"a bas. E-posta onayı açıksa gelen linke tıkla, sonra giriş yap. (Test için Supabase → Authentication → Email → "Confirm email" kapatılabilir.)</div>`;
+  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
+  $('#kayitBtn').onclick=async()=>{ const {data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value}); if(error){$('#ahata').textContent=error.message;return;} if(!data.session)$('#ahata').textContent='Kayıt alındı — e-postana gelen onay linkine tıkla, sonra giriş yap.'; };
+}
+
+// ================= MUHASEBECİ =================
+let SEC_MUK=null;
+async function muhasebeciApp(){
+  const { data:{ user } } = await sb.auth.getUser();
+  const { data:mukellefler } = await sb.from('mukellefler').select('*').order('ad');
+  const { data:istekler } = await sb.from('istekler').select('*, sorular(*)').order('created_at',{ascending:false});
+  const bekleyen=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='bek').length,0);
+  const cevapli=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='ok').length,0);
+  let h=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Evrak Radarı · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
+  <h1>👨‍💼 Evrak Radarı</h1>
+  <div class="stat"><div><div class="n">${(istekler||[]).length}</div><div class="l">İstek</div></div><div><div class="n" style="color:var(--green)">${cevapli}</div><div class="l">Cevaplanan</div></div><div><div class="n" style="color:var(--amber)">${bekleyen}</div><div class="l">Bekleyen</div></div></div>`;
+  // yeni istek
+  h+=`<div class="kart"><div class="kbas">＋ YENİ İSTEK</div>
+    <label>Mükellef</label>
+    <div style="display:flex;gap:8px"><select class="gir" id="mukSel" style="flex:1">${(mukellefler||[]).map(m=>`<option value="${m.id}">${esc(m.ad)}</option>`).join('')||'<option value="">— önce mükellef ekle —</option>'}</select><button class="btn k mini" id="mukEkle">+ mükellef</button></div>
+    <label>Başlık</label><input class="gir" id="baslik" placeholder="ör. Nisan ayı eksik belgeler">
+    <label>Sorular / istenen belgeler</label><div id="soruAlan"></div>
+    <button class="btn k mini" id="soruEkle" style="margin-bottom:12px">＋ satır</button><br>
+    <button class="btn" id="gonder">📨 İstek oluştur + link al</button></div>`;
+  // istekler
+  h+=`<div class="kart"><div class="kbas">📋 İSTEKLER</div><div id="istekListe"></div></div>`;
+  W().innerHTML=h;
+  $('#cikis').onclick=(e)=>{e.preventDefault();sb.auth.signOut();};
+  $('#mukEkle').onclick=async()=>{ const ad=prompt('Mükellef adı:'); if(!ad)return; const tel=prompt('Telefon (opsiyonel):')||null; const {error}=await sb.from('mukellefler').insert({ad,telefon:tel}); if(error)toast(error.message); else{toast('Mükellef eklendi');muhasebeciApp();} };
+  window._sorular=[{tip:'soru',metin:''}]; soruAlanCiz();
+  $('#soruEkle').onclick=()=>{window._sorular.push({tip:'soru',metin:''});soruAlanCiz();};
+  $('#gonder').onclick=istekGonder;
+  istekListeCiz(istekler||[], mukellefler||[]);
+}
+function soruAlanCiz(){ const el=$('#soruAlan'); if(!el)return; el.innerHTML=window._sorular.map((s,i)=>`<div class="satirEkle"><select onchange="window._sorular[${i}].tip=this.value"><option value="soru"${s.tip==='soru'?' selected':''}>❓ Soru</option><option value="belge"${s.tip==='belge'?' selected':''}>📎 Belge</option></select><input class="gir" placeholder="${s.tip==='belge'?'ör. Nisan kira kontratı':'ör. 45.000 TL ödeme neydi?'}" value="${esc(s.metin)}" oninput="window._sorular[${i}].metin=this.value">${window._sorular.length>1?`<button class="sil" onclick="window._sorulaSil(${i})">×</button>`:''}</div>`).join(''); }
+window._sorulaSil=(i)=>{window._sorular.splice(i,1);soruAlanCiz();};
+async function istekGonder(){
+  const muk=$('#mukSel').value; if(!muk){toast('Önce mükellef ekle');return;}
+  const baslik=$('#baslik').value.trim()||'Eksik belge/soru';
+  const sorular=window._sorular.filter(s=>s.metin.trim());
+  if(!sorular.length){toast('En az bir soru/belge ekle');return;}
+  const { data:istek, error } = await sb.from('istekler').insert({mukellef_id:muk,baslik,kanal:'link'}).select().single();
+  if(error){toast(error.message);return;}
+  const { error:e2 } = await sb.from('sorular').insert(sorular.map((s,i)=>({istek_id:istek.id,tip:s.tip,metin:s.metin.trim(),sira:i})));
+  if(e2){toast(e2.message);return;}
+  const link=location.origin+location.pathname+'?t='+istek.token;
+  toast('İstek oluşturuldu ✓');
+  navigator.clipboard&&navigator.clipboard.writeText(link).catch(()=>{});
+  muhasebeciApp();
+  setTimeout(()=>{ const w=$('#istekListe'); if(w){ const b=document.createElement('div'); b.className='kart'; b.style.borderColor='rgba(61,220,151,.4)'; b.innerHTML=`<div class="kbas" style="color:var(--green)">✅ LİNK HAZIR — mükellefe gönder</div><div class="link"><input value="${link}" readonly onclick="this.select()"><button class="btn mini" onclick="navigator.clipboard.writeText('${link}');">Kopyala</button><a class="btn k mini" href="https://wa.me/?text=${encodeURIComponent('Merhaba, eksik evraklar için: '+link)}" target="_blank">WhatsApp</a></div>`; w.parentNode.insertBefore(b,w);} },200);
+}
+function istekListeCiz(istekler, mukellefler){
+  const mad=id=>{const m=mukellefler.find(x=>x.id===id);return m?m.ad:'?';};
+  const el=$('#istekListe'); if(!el)return;
+  if(!istekler.length){el.innerHTML='<div class="bos">Henüz istek yok.</div>';return;}
+  el.innerHTML=istekler.map(i=>{ const sr=(i.sorular||[]).sort((a,b)=>a.sira-b.sira); const ok=sr.filter(s=>s.durum==='ok').length, tot=sr.length; const link=location.origin+location.pathname+'?t='+i.token;
+    return `<div class="istek"><div class="h" onclick="window._ac('${i.id}')"><div><div style="font-weight:750">${esc(i.baslik)}</div><div style="font-size:12px;color:var(--dim)">${esc(mad(i.mukellef_id))}</div></div><span class="durum ${ok===tot?'ok':'bek'}">${ok}/${tot}</span></div><div id="d_${i.id}" style="display:none">${sr.map(s=>`<div class="soruSat"><div>${s.tip==='belge'?'📎':'❓'}</div><div class="body"><div>${esc(s.metin)}</div>${s.durum==='ok'?`<div class="cev">↳ ${s.cevap?'<b>'+esc(s.cevap)+'</b>':''}${s.dosya_url?` <a class="fis" href="${s.dosya_url}" target="_blank">📄 belge</a>`:''}</div>`:'<div class="cev" style="color:var(--amber)">⏳ bekliyor</div>'}</div></div>`).join('')}<div class="link"><input value="${link}" readonly onclick="this.select()"><button class="btn mini" onclick="navigator.clipboard.writeText('${link}');window._toast&&window._toast('Kopyalandı')">Linki kopyala</button><a class="btn k mini" href="https://wa.me/?text=${encodeURIComponent('Eksik evraklar: '+link)}" target="_blank">Hatırlat (WhatsApp)</a></div></div></div>`;
+  }).join('');
+}
+window._ac=(id)=>{const d=$('#d_'+id);if(d)d.style.display=d.style.display==='none'?'block':'none';};
+window._toast=toast;
+
+// ================= MÜKELLEF (girişsiz, token) =================
+async function mukellefGorunum(token){
+  const { data, error } = await sb.rpc('istek_getir',{p_token:token});
+  if(error||!data){ W().innerHTML=`<div class="kart"><div class="bos">Bu bağlantı geçersiz ya da süresi dolmuş.</div></div>`; return; }
+  const sorular=data.sorular||[]; const acik=sorular.filter(s=>s.durum==='bek').length;
+  W().innerHTML=`<div class="top"><span class="logo">MR</span> Evrak Radarı</div>
+  <div class="tel"><div style="font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px">📩 Muhasebecinden istek · ${esc(data.mukellef||'')}${acik?` · <b style="color:var(--amber)">${acik} cevap bekliyor</b>`:' · ✅ tamam'}</div>
+    <div style="font-weight:750;margin-bottom:6px">${esc(data.baslik)}</div>
+    <div id="mlist"></div></div>`;
+  const ml=$('#mlist');
+  ml.innerHTML=sorular.map(s=>`<div class="soruSat"><div>${s.tip==='belge'?'📎':'❓'}</div><div class="body"><div>${esc(s.metin)}</div>${s.durum==='ok'?`<div class="cev" style="color:var(--green)">✓ gönderildi</div>`:`${s.tip==='soru'?`<textarea id="c_${s.id}" placeholder="Cevabını yaz..."></textarea>`:`<label class="btn k mini" style="display:inline-block;cursor:pointer">📷 Dosya seç<input type="file" id="f_${s.id}" style="display:none"></label> <span id="fn_${s.id}" style="font-size:12px;color:var(--accent2)"></span>`}<div><button class="btn mini" onclick="window._cevap('${token}','${s.id}','${s.tip}')">Gönder</button></div>`}</div></div>`).join('');
+  sorular.forEach(s=>{ if(s.tip==='belge'&&s.durum==='bek'){ const inp=$('#f_'+s.id); if(inp)inp.onchange=()=>{const fn=$('#fn_'+s.id);if(fn&&inp.files[0])fn.textContent='✓ '+inp.files[0].name;}; } });
+}
+window._cevap=async(token,sid,tip)=>{
+  let cevap=null, dosyaUrl=null;
+  if(tip==='soru'){ cevap=($('#c_'+sid)||{}).value||''; if(!cevap.trim()){toast('Cevabını yaz');return;} }
+  else { const inp=$('#f_'+sid); const f=inp&&inp.files[0]; if(!f){toast('Dosya seç');return;}
+    const yol=token+'/'+sid+'_'+Date.now()+'_'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    const { error:ue } = await sb.storage.from('fisler').upload(yol,f); if(ue){toast('Yükleme hatası: '+ue.message);return;}
+    dosyaUrl=sb.storage.from('fisler').getPublicUrl(yol).data.publicUrl; }
+  const { data, error } = await sb.rpc('cevap_kaydet',{p_token:token,p_soru_id:sid,p_cevap:cevap,p_dosya:dosyaUrl});
+  if(error||!data){toast('Kaydedilemedi');return;}
+  toast('✅ Gönderildi'); mukellefGorunum(token);
+};
+
+yonlendir();
+</script>
+</body>
+</html>
