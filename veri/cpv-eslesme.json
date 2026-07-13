@@ -1,0 +1,16 @@
+{
+  "guncelleme": "CPV (Common Procurement Vocabulary, AB kamu ihale sınıflandırması, 8 hane) ↔ Türk ihracat sektörü köprüsü. Kaynak: EU CPV standardı (Regulation 2195/2002). Eşleştirme CPV ÖN EKİ (division/group) ile yapılır; GTİP fasılları yalnız YAKLAŞIK yönlendirmedir (birebir HS→CPV tablosu değil).",
+  "kaynak": "EU CPV (ted.europa.eu) + Türk ihracat sektörleri",
+  "sektorler": [
+    { "ad": "Tekstil · kumaş · hazır giyim", "cpv": ["18", "19"], "gtipYaklasik": "50-63" },
+    { "ad": "Doğal taş · mermer · agrega", "cpv": ["1421", "1422", "4411", "4491"], "gtipYaklasik": "25, 68" },
+    { "ad": "Gıda · içecek · tarım ürünü", "cpv": ["15", "03"], "gtipYaklasik": "01-24" },
+    { "ad": "Mobilya · ev tekstili · döşeme", "cpv": ["39"], "gtipYaklasik": "94" },
+    { "ad": "Makine · sanayi ekipmanı", "cpv": ["42", "43"], "gtipYaklasik": "84" },
+    { "ad": "İnşaat malzemesi", "cpv": ["44"], "gtipYaklasik": "68-73" },
+    { "ad": "Kimya · plastik · kauçuk", "cpv": ["24"], "gtipYaklasik": "28-40" },
+    { "ad": "Otomotiv · ulaşım araçları · yedek parça", "cpv": ["34"], "gtipYaklasik": "87" },
+    { "ad": "Tıbbi cihaz · sağlık ürünü", "cpv": ["33"], "gtipYaklasik": "30, 90" },
+    { "ad": "Elektrik · elektronik · aydınlatma", "cpv": ["31", "32"], "gtipYaklasik": "85" }
+  ]
+}
