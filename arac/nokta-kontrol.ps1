@@ -14,6 +14,7 @@ $vakalar = (Get-Content (Join-Path $veri "nokta-kontrol.json") -Raw -Encoding UT
 $KDV = Get-Content (Join-Path $veri "gtip-kdv.json")     -Raw -Encoding UTF8 | ConvertFrom-Json
 $OTV = Get-Content (Join-Path $veri "gtip-otv.json")     -Raw -Encoding UTF8 | ConvertFrom-Json
 $EK  = Get-Content (Join-Path $veri "gtip-ekvergi.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+$DMP = Get-Content (Join-Path $veri "gtip-damping.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 
 function D([string]$kod){ return ($kod -replace '[^\d]','') }
 
@@ -75,13 +76,37 @@ function Test-Dfif([string]$kod){
   if($P.$k6 -or $P.$k4){ return 'var' } else { return 'yok' }
 }
 
+# --- DAMPING: senaryo-raporu dampingBul MANTIGI (KRITIK: $/ton spesifik vergi %'ye KARISMAZ) ---
+#  Cikti: 'yok' (eslesme yok) | 'yuzde' (yalniz %) | 'spesifik' (yalniz $/ton,$/kg,$/m2...) |
+#         'karma' (hem % hem spesifik). Bu test 13.07 bug'inin (spesifik->sahte %) donmesini yakalar.
+function Test-Damping([string]$kod,[string]$ulke){
+  $d = D $kod
+  $bul = @($DMP | Where-Object {
+    $es = $false
+    foreach($k in ("$($_.k)" -split '\s+')){ $kk = D $k; if($kk -and ($d.StartsWith($kk) -or $kk.StartsWith($d))){ $es = $true; break } }
+    $es -and (("$($_.u)").IndexOf($ulke) -ge 0)
+  })
+  if($bul.Count -eq 0){ return 'yok' }
+  $yuzdeVar = $false; $spesifik = $false
+  foreach($m in $bul){
+    $t = "$($m.t)"
+    if([regex]::IsMatch($t, '%\s*\d')){ $yuzdeVar = $true }
+    if([regex]::IsMatch($t, '(?i)\$\s*/\s*(ton|kg|kilo|adet|m2|m3|litre|çift|gram)')){ $spesifik = $true }
+  }
+  if($yuzdeVar -and $spesifik){ return 'karma' }
+  if($yuzdeVar){ return 'yuzde' }
+  if($spesifik){ return 'spesifik' }
+  return 'belirsiz'
+}
+
 $gecen = 0; $kalan = @()
 foreach($v in $vakalar){
   $sonuc = switch($v.katman){
-    'kdv'   { Test-Kdv   $v.kod }
-    'otv'   { Test-Otv   $v.kod }
-    'gekap' { Test-Gekap $v.kod }
-    'dfif'  { Test-Dfif  $v.kod }
+    'kdv'     { Test-Kdv     $v.kod }
+    'otv'     { Test-Otv     $v.kod }
+    'gekap'   { Test-Gekap   $v.kod }
+    'dfif'    { Test-Dfif    $v.kod }
+    'damping' { Test-Damping $v.kod $v.ulke }
     default { "BILINMEYEN-KATMAN($($v.katman))" }
   }
   if($sonuc -eq $v.bekle){
