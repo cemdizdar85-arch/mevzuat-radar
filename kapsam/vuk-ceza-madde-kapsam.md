@@ -37,7 +37,8 @@ Kaynak: mevzuat.gov.tr 1.4.213.pdf, pdftotext (13.07.2026). Araç: **ceza-asista
 | Ek 6-9 | Uzlaşma usul/komisyon | ➖/✅ | |
 | Ek 11 | Tarhiyat öncesi uzlaşma | ✅ | anıldı |
 
-## ÖZET
+## ÖZET (13.07.2026 — VUK CEZA KAPSAM TAM)
 - VUK ceza/düzeltme/uzlaşma bölümü **madde madde tarandı, atlanmadı.**
-- 🔴 **Eklenecek önemli savunma hükümleri:** m.333 (temsilci sorumluluğu), m.339 (tekerrür %50/%25), m.352 (genel usulsüzlük), m.369 (yanılma → ceza yok), m.372 (ölüm), m.374 (ceza zamanaşımı 5/2 yıl), m.336 (cezaların birleşmesi). + uzlaşma özel usulsüzlük 5.000 TL eşiği.
-- Sıradaki: bunları ceza-asistani.html'e "Genel savunma hükümleri" bölümü olarak ekle → ✅ yap.
+- **EKLENDİ (✅):** m.333, m.339, m.352, m.369, m.372, m.374 + uzlaşma 5.000 TL eşiği → ceza-asistani.html "VUK savunma hükümleri" statik bölümü (her senaryoda görünür).
+- **Kalan 🔴 (düşük öncelik):** m.332 (küçük/vasi), m.336/337 (cezaların birleşmesi/fiil ayrılığı), m.355 (bilgi vermeme özel usulsüzlük), m.360 (iştirak), m.375 (ceza hatası düzeltme) — ceza-asistani'ye ikinci batch olarak eklenebilir.
+- **Durum: VUK ceza çekirdeği TAM** (kritik savunma hükümleri kapandı); kalan ~5 madde ikincil.
