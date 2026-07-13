@@ -230,7 +230,7 @@ function olustur(){
    <div class="rk">
     <div class="rbaslik">
       <div><h2>Menşe Senaryo Raporu</h2><div style="font-size:13px;color:var(--muted);margin-top:3px">GTİP <b style="color:var(--ink)">${dkod}</b> · yıllık ithalat: <b style="color:var(--ink)">${tutar?fmtTL(tutar)+' '+tpb:'—'}</b></div></div>
-      <div class="meta">Tarih: ${bugun}<br>Hazırlayan: <b>SMMM Cem Dizdar</b><br>Mevzuat Radarı</div>
+      <div class="meta">Tarih: ${bugun}<br>Hazırlayan: <b>Dizdar Denetim A.Ş.</b><br>Mevzuat Radarı</div>
     </div>
     ${(best&&worst&&farkP>0)?`<div class="kazanc">
       <div class="buyuk">${tutar?'≈ '+fmtTL(tasarruf)+' '+tpb+' / yıl tasarruf':'%'+fmtP(farkP)+' puan fark'}</div>
@@ -250,7 +250,7 @@ function olustur(){
     </div>
     <div class="imza">
       <div class="satir"><span>Bu rapor müşterinin verdiği ürün/kod bilgisine göre hazırlanmıştır.</span><span>Rapor No: MR-${bugun.replace(/\./g,'')}-${nkod.slice(0,6)}</span></div>
-      <div class="kase">SMMM Cem Dizdar &nbsp;·&nbsp; Kaşe / İmza: ________________________</div>
+      <div class="kase">Dizdar Denetim A.Ş. &nbsp;·&nbsp; Kaşe / İmza: ________________________</div>
     </div>
    </div>
    <div class="cta noprint">
