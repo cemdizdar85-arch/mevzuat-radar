@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Marka İzleme (canlı) — yenileme + kullanım delili | Mevzuat Radarı</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}.wrap{max-width:800px;margin:0 auto;padding:22px 16px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:16px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:13px}
+h1{font-size:clamp(21px,4vw,28px);letter-spacing:-.7px;margin:2px 0 6px;font-weight:820}
+.lead{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+.kart{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px;margin-bottom:14px}
+.kbas{font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin-bottom:12px}
+label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0 5px}
+.gir,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit;margin-bottom:10px}
+.satirlar{display:flex;gap:10px;flex-wrap:wrap}.satirlar>div{flex:1;min-width:150px}
+.chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);margin-bottom:10px}.chk input{width:auto;margin:0}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:750;font-size:14px;padding:11px 18px;border-radius:11px;background:var(--grad);color:#03101f}
+.btn.k{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);font-weight:650}
+.btn.mini{padding:7px 12px;font-size:12.5px}
+.marka{border:1px solid var(--line);border-radius:12px;padding:15px 16px;margin-bottom:11px;background:#0b111a}
+.marka .h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.marka .ad{font-weight:800;font-size:16px}.marka .alt{font-size:12.5px;color:var(--dim);margin-top:2px}
+.durum{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.durum.iyi{background:rgba(61,220,151,.16);color:var(--green)}.durum.dikkat{background:rgba(255,194,75,.15);color:var(--amber)}.durum.tehlike{background:rgba(255,107,94,.16);color:var(--red)}
+.satir{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13px;margin-top:8px}.satir .l{color:var(--muted)}.satir .v{font-weight:700}
+.uyari{font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.28);border-radius:9px;padding:9px 11px;margin-top:9px;line-height:1.5}
+.delil{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin-top:8px}
+.delil a{color:var(--accent2);text-decoration:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#0d141e;border:1px solid var(--line2);color:var(--ink);padding:11px 17px;border-radius:11px;font-size:13px;box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:9;pointer-events:none}.toast.on{opacity:1}
+.bos{color:var(--dim);font-size:13px;text-align:center;padding:16px}
+.hata{color:var(--red);font-size:13px;margin-top:8px}
+.uy{font-size:12px;color:var(--dim);margin-top:18px;background:rgba(62,155,255,.05);border:1px solid rgba(62,155,255,.18);border-radius:10px;padding:11px 13px}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap"><div class="bos">Yükleniyor…</div></div>
+<div class="toast" id="toast"></div>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+const $=s=>document.querySelector(s); const W=()=>$('#wrap');
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('on'),2400);}
+function fmt(d){ if(!d)return '—'; const x=new Date(d); return ('0'+x.getDate()).slice(-2)+'.'+('0'+(x.getMonth()+1)).slice(-2)+'.'+x.getFullYear(); }
+function durumHesap(bitis){ // marka_takvim'den gelen koruma_bitisi
+  if(!bitis) return {t:'—',c:'',mesaj:'Başvuru tarihi girilmemiş'};
+  const bugun=new Date();bugun.setHours(0,0,0,0);
+  const b=new Date(bitis), acilis=new Date(b);acilis.setMonth(acilis.getMonth()-6); const ek=new Date(b);ek.setMonth(ek.getMonth()+6);
+  const gecti=bugun>=ek;
+  if(gecti) return {t:'ℹ️ Yenilemeye bağlı',c:'dikkat',mesaj:'İlk süre doldu — yenilediysen sonraki dönem, yenilemediysen düşmüş olabilir. Sicili teyit et.'};
+  if(bugun<acilis){ const g=Math.round((acilis-bugun)/86400000); return {t:'✅ Güvende',c:'iyi',mesaj:`Yenileme penceresi ${fmt(acilis)} açılır (${g} gün).`}; }
+  if(bugun<b){ const g=Math.round((b-bugun)/86400000); return {t:'⚠️ Pencere AÇIK',c:'dikkat',mesaj:`Normal ücretle yenilenebilir — son gün ${fmt(b)} (${g} gün). Kaçırma!`}; }
+  const g=Math.round((ek-bugun)/86400000); return {t:'🔴 Ek süre',c:'tehlike',mesaj:`Süre doldu; ${fmt(ek)} tarihine kadar EK ÜCRETLE yenilenebilir (${g} gün).`};
+}
+
+async function yonlendir(){ const {data:{session}}=await sb.auth.getSession(); if(session) markaApp(); else giris(); }
+sb.auth.onAuthStateChange((_e,s)=>{ if(s)markaApp(); else giris(); });
+
+function giris(){
+  W().innerHTML=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Marka İzleme</div>
+  <h1>Marka İzleme — giriş</h1>
+  <p class="lead">Markalarını ekle; yenileme tarihlerini takip edelim, kullanım delillerini sakla. (Evrak Radarı ile aynı hesap.)</p>
+  <div class="kart" style="max-width:420px"><div class="kbas">GİRİŞ / KAYIT</div>
+    <label>E-posta</label><input class="gir" id="email" type="email" placeholder="ornek@firma.com">
+    <label>Şifre</label><input class="gir" id="sifre" type="password">
+    <div style="display:flex;gap:8px"><button class="btn" id="g">Giriş</button><button class="btn k" id="k">Kayıt ol</button></div>
+    <div class="hata" id="e"></div></div>`;
+  $('#g').onclick=async()=>{const{error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value});if(error)$('#e').textContent=error.message;};
+  $('#k').onclick=async()=>{const{data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value});if(error){$('#e').textContent=error.message;return;}if(!data.session)$('#e').textContent='Onay e-postana bak, sonra giriş yap.';};
+}
+
+async function markaApp(){
+  const {data:{user}}=await sb.auth.getUser();
+  const {data:markalar}=await sb.from('marka_takvim').select('*').order('koruma_bitisi');
+  let h=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="evrak-app.html">Evrak</a> · Marka İzleme · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
+  <h1>®️ Marka İzleme</h1>
+  <div class="kart"><div class="kbas">＋ MARKA EKLE</div>
+    <div class="satirlar"><div><label>Marka adı</label><input class="gir" id="ad" placeholder="ör. DIZDAR"></div><div><label>Tescil/başvuru no</label><input class="gir" id="no" placeholder="ör. 2016/12345"></div></div>
+    <div class="satirlar"><div><label>Nice sınıf(lar)ı</label><input class="gir" id="sinif" placeholder="ör. 25, 35"></div><div><label>Başvuru tarihi</label><input class="gir" id="tarih" type="date"></div></div>
+    <div class="chk"><input type="checkbox" id="kul" checked><label style="margin:0">Bu markayı fiilen kullanıyorum (m.9/m.19)</label></div>
+    <div class="chk"><input type="checkbox" id="tan"><label style="margin:0">Tanınmış marka (m.6/5)</label></div>
+    <button class="btn" id="ekle">Marka ekle</button><div class="hata" id="me"></div></div>
+  <div class="kart"><div class="kbas">📋 İZLENEN MARKALAR</div><div id="liste"></div></div>
+  <div class="uy">Kullanım delili dosyaların <b>gizli</b> saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail — kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka vekili yapar.</div>`;
+  W().innerHTML=h;
+  $('#cikis').onclick=e=>{e.preventDefault();sb.auth.signOut();};
+  $('#ekle').onclick=markaEkle;
+  listeCiz(markalar||[]);
+}
+async function markaEkle(){
+  const ad=$('#ad').value.trim(); if(!ad){$('#me').textContent='Marka adı gir';return;}
+  const siniflar=($('#sinif').value.match(/\d+/g)||[]).map(Number);
+  const tarih=$('#tarih').value||null;
+  const {error}=await sb.from('markalar').insert({marka_adi:ad,tescil_no:$('#no').value.trim()||null,siniflar,basvuru_tarihi:tarih,kullaniliyor:$('#kul').checked,taninmis:$('#tan').checked});
+  if(error){$('#me').textContent=error.message;return;}
+  toast('Marka eklendi ✓'); markaApp();
+}
+async function listeCiz(markalar){
+  const el=$('#liste'); if(!el)return;
+  if(!markalar.length){el.innerHTML='<div class="bos">Henüz marka yok — yukarıdan ekle.</div>';return;}
+  // her marka için delil sayısı
+  el.innerHTML=markalar.map(m=>{
+    const d=durumHesap(m.koruma_bitisi);
+    const kullanmamaUyari=(!m.kullaniliyor)?`<div class="uyari">⚠️ <b>Kullan-ya-kaybet (m.9/m.26):</b> "kullanmıyorum" işaretli. 5 yıl kullanılmayan marka <b>iptal ettirilebilir</b> — kullanım delili yükle, koru.</div>`:'';
+    return `<div class="marka">
+      <div class="h"><div><div class="ad">®️ ${esc(m.marka_adi)}</div><div class="alt">${m.tescil_no?esc(m.tescil_no)+' · ':''}${(m.siniflar||[]).length?'Sınıf: '+m.siniflar.join(', '):'sınıf —'}${m.taninmis?' · tanınmış':''}</div></div><span class="durum ${d.c}">${d.t}</span></div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px">${d.mesaj}</div>
+      <div class="satir"><span class="l">Koruma bitişi (+10 yıl)</span><span class="v">${fmt(m.koruma_bitisi)}</span></div>
+      <div class="satir"><span class="l">Yenileme penceresi (son 6 ay)</span><span class="v">${fmt(m.yenileme_acilis)} → ${fmt(m.koruma_bitisi)}</span></div>
+      ${kullanmamaUyari}
+      <div class="delil" id="dl_${m.id}"><span>Kullanım delili:</span> <span id="dc_${m.id}">…</span>
+        <label class="btn k mini" style="cursor:pointer">＋ delil yükle<input type="file" id="df_${m.id}" style="display:none"></label>
+        <select id="dt_${m.id}" style="width:auto;margin:0;padding:6px 8px;font-size:12px"><option value="fatura">fatura</option><option value="reklam">reklam</option><option value="ambalaj">ambalaj</option><option value="katalog">katalog</option><option value="fuar">fuar</option><option value="web">web</option><option value="diger">diğer</option></select>
+        <button class="btn mini" onclick="window._delilYukle('${m.id}')">Yükle</button>
+      </div>
+    </div>`;
+  }).join('');
+  // delilleri getir + say
+  for(const m of markalar){ delilGetir(m.id); }
+}
+async function delilGetir(markaId){
+  const {data}=await sb.from('kullanim_delilleri').select('id,tip,belge_tarihi,dosya_url,created_at').eq('marka_id',markaId).order('created_at',{ascending:false});
+  const el=$('#dc_'+markaId); if(!el)return;
+  if(!data||!data.length){ el.innerHTML='<span style="color:var(--dim)">yok</span>'; return; }
+  el.innerHTML='<b style="color:var(--ink)">'+data.length+' belge</b> · '+data.slice(0,4).map(d=>`<a href="#" onclick="window._delilAc('${d.dosya_url}');return false">${esc(d.tip)}</a>`).join(' ');
+}
+window._delilYukle=async(markaId)=>{
+  const inp=$('#df_'+markaId), tip=$('#dt_'+markaId).value; const f=inp&&inp.files[0];
+  if(!f){toast('Dosya seç');return;}
+  const {data:{user}}=await sb.auth.getUser();
+  const yol=user.id+'/'+markaId+'/'+Date.now()+'_'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+  const {error:ue}=await sb.storage.from('marka-delil').upload(yol,f);
+  if(ue){toast('Yükleme hatası: '+ue.message);return;}
+  const {error}=await sb.from('kullanim_delilleri').insert({marka_id:markaId,tip,dosya_url:yol,belge_tarihi:new Date().toISOString().slice(0,10)});
+  if(error){toast(error.message);return;}
+  toast('✅ Delil yüklendi'); delilGetir(markaId);
+};
+window._delilAc=async(yol)=>{
+  const {data,error}=await sb.storage.from('marka-delil').createSignedUrl(yol,300);
+  if(error){toast('Açılamadı');return;} window.open(data.signedUrl,'_blank');
+};
+yonlendir();
+</script>
+</body>
+</html>
