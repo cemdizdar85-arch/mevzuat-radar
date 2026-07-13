@@ -43,6 +43,38 @@
       "dayanak": "TTK m.409 (A.Ş.) / m.617 (Ltd)"
     },
     {
+      "id": "kdv-iade-tam",
+      "ad": "KDV iadesi talep süresi — tam istisna (ihracat, DİİB tecil-terkin vb.)",
+      "tarihEtiketi": "İade hakkı doğuran işlemin tarihi",
+      "kuralTip": "yilSonu",
+      "kuralYil": 2,
+      "sonGunAciklama": "İşlemin gerçekleştiği dönemi izleyen İKİNCİ takvim yılının sonu (31 Aralık)",
+      "neYapmali": "Bu tarihe kadar iade talep dilekçesini ve iade listelerini (İnternet Vergi Dairesi) verin; YMM raporu/teminat yolunu planlayın. Yıl sonlarını bekletme — iade dosyası hazırlığı ay alır.",
+      "kacirirsan": "İADE HAKKI DÜŞER — süresinde talep edilmeyen KDV artık nakden/mahsuben iade alınamaz. Devreden KDV'de eriyip gidebilir; büyük ihracatçıda milyonlarca TL kayıp demektir.",
+      "dayanak": "KDVK m.32 (7104 s. Kanun, RG 06.04.2018 — 'izleyen ikinci takvim yılının sonuna kadar' şartı)"
+    },
+    {
+      "id": "kdv-iade-indirimli",
+      "ad": "KDV iadesi talep süresi — indirimli oran (%1/%10 teslimler)",
+      "tarihEtiketi": "İndirimli orana tabi işlemin yılı (o yıldan bir tarih)",
+      "kuralTip": "yilSonu",
+      "kuralYil": 1,
+      "sonGunAciklama": "İşlem yılını İZLEYEN yılın sonuna kadar talep",
+      "neYapmali": "Yıllık iade tutarını hesaplatıp izleyen yıl içinde iade talebinizi yapın (mahsuben/nakden).",
+      "kacirirsan": "İzleyen yıl geçince indirimli oran iade hakkı düşer — talep edilemeyen tutar kaybolur.",
+      "dayanak": "KDVK m.29/2 (7104 s. Kanun — izleyen yıl talep şartı)"
+    },
+    {
+      "id": "sgk-ipc",
+      "ad": "SGK idari para cezası — 15 günlük karar penceresi",
+      "tarihEtiketi": "Cezanın TEBLİĞ tarihi",
+      "kuralGun": 15,
+      "sonGunAciklama": "Tebliğ tarihinden itibaren 15 gün",
+      "neYapmali": "15 gün içinde İKİ kapıdan birini seç: ① Peşin öde → cezanın dörtte üçü tahsil edilir (%25 indirim; peşin ödeme yargı yolunu KAPATMAZ) ② Haksız buluyorsan Kuruma (İPC İtiraz Komisyonu) itiraz et → tahsilat durur; ret gelirse 30 gün içinde idare mahkemesi.",
+      "kacirirsan": "15 gün geçince ceza kesinleşir; %25 indirim ve itiraz hakkı kaybolur, takip başlar.",
+      "dayanak": "5510 s. Kanun m.102 (bu oturumda birincilden okundu — Ceza Asistanı'ndaki akışla aynı)"
+    },
+    {
       "id": "gozetim-belgesi",
       "ad": "Gözetim belgesi geçerlilik takibi",
       "tarihEtiketi": "Belgedeki geçerlilik bitiş tarihi",
@@ -53,5 +85,5 @@
       "dayanak": "İlgili gözetim tebliği (belge üzerindeki süre esastır)"
     }
   ],
-  "not": "v2 adayları (birincil teyit SONRASI eklenecek — teyitsiz süre yazılmaz): VERBİS güncelleme süresi, YMM tasdik raporu tarihleri, A.TR/EUR.1 sevkiyat bazlı (sonradan ibraz süreleri), bağımsız denetçi seçimi, TTK m.376 testi."
+  "not": "v2 adayları (birincil teyit SONRASI eklenecek — teyitsiz süre yazılmaz): VERBİS değişiklik bildirimi süresi, YMM tasdik raporu tarihleri, A.TR/EUR.1 sonradan ibraz süreleri, işten ayrılış bildirgesi (10 gün — teyit edilecek), bağımsız denetçi seçimi, TTK m.376 testi."
 }
