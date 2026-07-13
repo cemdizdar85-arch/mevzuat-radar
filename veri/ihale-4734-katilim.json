@@ -1,0 +1,60 @@
+{
+  "guncelleme": "4734 sayılı Kamu İhale Kanunu — mevzuat.gov.tr konsolide metin (BİRİNCİL, 13.07.2026 okundu). Yurt içi kamu ihalesine katılım/katılamama karar aracı.",
+  "kaynak": "mevzuat.gov.tr (1.5.4734)",
+  "ihaleDisi": [
+    { "bent": "a", "madde": "10", "kisa": "İflas / tasfiye / konkordato / işleri mahkemece yürütülen / işlerini askıya alan", "metin": "İflas eden, tasfiye halinde olan, işleri mahkeme tarafından yürütülen, konkordato ilân eden, işlerini askıya alan veya benzer durumda olan." },
+    { "bent": "b", "madde": "10", "kisa": "İflası ilan edilen / zorunlu tasfiye / mahkeme idaresinde", "metin": "İflası ilân edilen, zorunlu tasfiye kararı verilen, alacaklılara karşı borçlarından dolayı mahkeme idaresi altında bulunan veya benzer durumda olan." },
+    { "bent": "c", "madde": "10", "kisa": "Kesinleşmiş SGK prim borcu", "metin": "Türkiye'nin veya kendi ülkesinin mevzuatı uyarınca kesinleşmiş sosyal güvenlik prim borcu olan (tutar/kapsam eşiğini Kurum belirler)." },
+    { "bent": "d", "madde": "10", "kisa": "Kesinleşmiş vergi borcu", "metin": "Türkiye'nin veya kendi ülkesinin mevzuatı uyarınca kesinleşmiş vergi borcu olan (tutar/kapsam eşiğini Kurum belirler)." },
+    { "bent": "e", "madde": "10", "kisa": "Son 5 yılda mesleki faaliyetten hüküm giyme", "metin": "İhale tarihinden önceki beş yıl içinde, mesleki faaliyetlerinden dolayı yargı kararıyla hüküm giyen." },
+    { "bent": "f", "madde": "10", "kisa": "Son 5 yılda idareye karşı iş/meslek ahlakına aykırılık", "metin": "İhale tarihinden önceki beş yıl içinde, ihaleyi yapan idareye yaptığı işler sırasında iş veya meslek ahlakına aykırı faaliyette bulunduğu bu idarece ispat edilen." },
+    { "bent": "g", "madde": "10", "kisa": "Odaca mesleki faaliyetten men", "metin": "İhale tarihi itibariyle, mevzuatı gereği kayıtlı olduğu oda tarafından mesleki faaliyetten men edilmiş olan." },
+    { "bent": "h", "madde": "10", "kisa": "Belge vermeyen / yanıltıcı-sahte belge veren", "metin": "İstenen bilgi ve belgeleri vermeyen veya yanıltıcı bilgi ve/veya sahte belge verdiği tespit edilen." },
+    { "bent": "i", "madde": "10", "kisa": "11. maddeye rağmen katılan", "metin": "11 inci maddeye göre katılamayacağı belirtildiği halde ihaleye katılan." },
+    { "bent": "j", "madde": "10", "kisa": "17. maddedeki yasak fiil/davranış", "metin": "17 nci maddede belirtilen yasak fiil veya davranışlarda bulundukları tespit edilen." }
+  ],
+  "katilamaz": [
+    { "bent": "a", "madde": "11", "kisa": "Kamu ihalelerinden yasaklı (m.58) + terör/örgütlü suç/rüşvet hükümlüsü", "metin": "İdarelerce veya mahkeme kararıyla kamu ihalelerine katılmaktan yasaklanmış olanlar ile 3713 s. Terörle Mücadele Kanunu kapsamı suçlardan, örgütlü suçlardan veya kamu görevlilerine rüşvet suçundan hükümlü bulunanlar." },
+    { "bent": "b", "madde": "11", "kisa": "Hileli iflas ettiğine karar verilenler", "metin": "İlgili mercilerce hileli iflas ettiğine karar verilenler." },
+    { "bent": "c", "madde": "11", "kisa": "İdarenin ihale yetkilisi kişileri/kurulları", "metin": "İhaleyi yapan idarenin ihale yetkilisi kişileri ile bu yetkiye sahip kurullarda görevli kişiler." },
+    { "bent": "d", "madde": "11", "kisa": "İhale işlemlerini hazırlayan/yürüten görevliler", "metin": "İhale konusu işle ilgili her türlü ihale işlemini hazırlamak, yürütmek, sonuçlandırmak ve onaylamakla görevli olanlar." },
+    { "bent": "e", "madde": "11", "kisa": "(c)-(d)'nin eş ve yakın hısımları", "metin": "(c) ve (d)'dekilerin eşleri ve üçüncü dereceye kadar kan, ikinci dereceye kadar kayın hısımları ile evlatlık/evlat edinenleri." },
+    { "bent": "f", "madde": "11", "kisa": "(c)-(d)-(e)'nin ortakları/şirketleri", "metin": "(c),(d),(e)'dekilerin ortakları ile şirketleri (yönetimde olmadıkları/ %10'dan az paylı anonim şirketler hariç)." },
+    { "bent": "kurulus", "madde": "11", "kisa": "İdare bünyesindeki vakıf/dernek/sandık vb. + şirketleri", "metin": "İdare bünyesindeki veya idare ile ilgili kurulmuş vakıf, dernek, birlik, sandık gibi kuruluşlar ile ortak oldukları şirketler o idarenin ihalesine katılamaz." },
+    { "bent": "danismanlik", "madde": "11", "kisa": "İşin danışmanı ↔ yüklenicisi çapraz yasağı", "metin": "İşin danışmanlık hizmetini yapan yükleniciler o işin ihalesine; işin yüklenicileri de o işin danışmanlık ihalesine katılamaz." }
+  ],
+  "yasakFiil": [
+    { "bent": "a", "metin": "Hile, vaat, tehdit, nüfuz kullanma, çıkar sağlama, anlaşma, irtikap, rüşvet ile ihaleye fesat karıştırmak / teşebbüs." },
+    { "bent": "b", "metin": "İsteklileri tereddüde düşürmek, katılımı engellemek, anlaşma teklif etmek/teşvik, rekabeti veya ihale kararını etkileyecek davranış." },
+    { "bent": "c", "metin": "Sahte belge veya sahte teminat düzenlemek/kullanmak / teşebbüs." },
+    { "bent": "d", "metin": "Alternatif teklif halleri dışında, tek istekli tarafından birden fazla teklif vermek (asaleten/vekaleten, doğrudan/dolaylı)." },
+    { "bent": "e", "metin": "11. maddeye göre katılamayacağı halde ihaleye katılmak." }
+  ],
+  "yeterlik": {
+    "mali": ["Bankalardan malî durum belgesi", "Bilanço / eşdeğer belgeler", "İş hacmi (toplam ciro veya iş konusu ciro)"],
+    "teknik": ["İlgili odaya kayıt + teklife yetki belgesi", "İş deneyim belgesi (yapımda son 15 yıl, mal/hizmette son 5 yıl)", "Üretim/imalat kapasitesi, Ar-Ge, kalite belgeleri", "Personel/organizasyon", "Tesis-makine-teçhizat", "Kalite uygunluk sertifikaları (akredite)", "Numune/katalog/fotoğraf (talep halinde)"]
+  },
+  "teminat": {
+    "gecici": "Teklif edilen bedelin en az %3'ü (m.33). Danışmanlıkta zorunlu değil (dokümanda belirtilirse).",
+    "geciciSure": "Geçici teminat mektubu, tekliflerin geçerlilik süresinden en az 30 gün fazla süreli (m.35).",
+    "kesin": "İhale bedelinin %6'sı (m.43). Sınır değer altı teklifte Kurum %6–%15 arası belirleyebilir.",
+    "kabul": "Türk parası, teminat mektubu, DİBS. Teminat mektubu dışındakiler saymanlığa yatırılır (m.34)."
+  },
+  "ilanSure": {
+    "esikUstu": { "acik": "en az 40 gün", "belliIsteklilerOnYeterlik": "en az 14 gün", "pazarlik": "en az 25 gün", "davetMektubu": "en az 40 gün" },
+    "esikAlti": { "dusuk": "en az 7 gün (yerel gazete + internet haber sitesi)", "orta": "en az 14 gün (Bülten + yerel + internet)", "ust": "en az 21 gün (Bülten + yerel + internet)" },
+    "kisaltma": "Elektronik hazırlama/gönderme -7 gün; ilan+doküman EKAP'ta erişime açıksa -5 gün; ön ilanla 40 gün → 24 güne; ULUSLARARASI ilan +12 gün.",
+    "not": "Eşik altı parasal kademe sınırları her yıl KİK tebliğiyle güncellenir (TL tutar sabit değil)."
+  },
+  "usul": [
+    { "ad": "Açık ihale", "madde": "19", "tanim": "Bütün isteklilerin teklif verebildiği usul (asıl usul)." },
+    { "ad": "Belli istekliler arası", "madde": "20", "tanim": "Ön yeterlik sonucu davet edilen isteklilerin teklif verdiği usul (uzmanlık/ileri teknoloji; eşiğin yarısını aşan yapım)." },
+    { "ad": "Pazarlık", "madde": "21", "tanim": "Sınırlı hallerde (teklif çıkmaması, afet/salgın/ivedilik, savunma-güvenlik, Ar-Ge, özgün/karmaşık, parasal limitli alımlar). İlansız halde en az 3 istekli davet." }
+  ],
+  "ekap": "Yaklaşık maliyet/doküman hazırlama, ilan, teklif/başvuru sunma-değerlendirme, sonuçlandırma, sözleşme, tebligat, şikayet/itiraz — kısmen/tamamen EKAP (Elektronik Kamu Alımları Platformu, ekap.kik.gov.tr) üzerinden. Zorunlu e-işlemleri Kurum belirler. Tüm ilanlar EKAP'ta da yayımlanır.",
+  "notlar": [
+    "m.11/(g) bendi Anayasa Mahkemesi'nin 14.11.2019 kararıyla İPTAL edildi — kullanılmaz.",
+    "m.10(c)/(d) borç: 'borç var → katılamaz' değil; KESİNLEŞMİŞ ve Kurumca belirlenen tutar eşiğinin üzerinde borç → ihale dışı.",
+    "Yasağa rağmen katılan istekli ihale dışı bırakılır, geçici teminatı gelir kaydedilir (m.11)."
+  ]
+}
