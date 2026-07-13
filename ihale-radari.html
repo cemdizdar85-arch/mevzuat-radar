@@ -233,8 +233,15 @@ function fmt(n){ return n.toLocaleString('tr-TR'); }
 function teminatHesap(){
   const b=parseFloat(document.getElementById('bedel').value.replace(/\./g,'').replace(/[^\d,]/g,'').replace(',','.'))||0;
   const o=document.getElementById('teminatSonuc');
-  if(!b){ o.innerHTML='Teklif bedelini gir; geçici (%3) ve kesin (%6) teminatı hesaplayalım.'; return; }
-  o.innerHTML=`<b>Geçici teminat (en az %3, m.33):</b> ${fmt(Math.round(b*0.03))} TL<br><b>Kesin teminat (%6, m.43):</b> ${fmt(Math.round(b*0.06))} TL <span style="color:var(--dim)">(kazanırsan, sözleşme öncesi)</span>`;
+  if(!b){ o.innerHTML='Teklif bedelini gir; teminatları ve <b>kazanmanın gizli maliyeti damga vergisini</b> hesaplayalım.'; return; }
+  const dk=(EK&&EK.damgaVergisi&&EK.damgaVergisi.ihaleKarari)||0.00569;
+  const ds=(EK&&EK.damgaVergisi&&EK.damgaVergisi.sozlesme)||0.00948;
+  const damga=Math.round(b*dk)+Math.round(b*ds);
+  o.innerHTML=`<b>Geçici teminat (en az %3, m.33):</b> ${fmt(Math.round(b*0.03))} TL <span style="color:var(--dim)">(teklifle; sonra iade)</span><br>
+    <b>Kesin teminat (%6, m.43):</b> ${fmt(Math.round(b*0.06))} TL <span style="color:var(--dim)">(kazanırsan; iş bitince iade)</span><br>
+    <b style="color:var(--amber)">Damga vergisi — ihale kararı (binde 5,69):</b> ${fmt(Math.round(b*dk))} TL<br>
+    <b style="color:var(--amber)">Damga vergisi — sözleşme (binde 9,48):</b> ${fmt(Math.round(b*ds))} TL<br>
+    <span style="color:var(--amber)">↳ Kazanınca cebinden çıkan GERÇEK maliyet (iade edilmez) ≈ <b>${fmt(damga)} TL</b> damga vergisi. Teklifine kat!</span>`;
 }
 // ---- şikayet / hap ----
 function renderSikayet(){ const s=(EK&&EK.sikayet)||{}; const el=document.getElementById('sikayet'); if(!el) return;
@@ -242,9 +249,13 @@ function renderSikayet(){ const s=(EK&&EK.sikayet)||{}; const el=document.getEle
     <div class="belg">${(s.adimlar||[]).map(a=>'• '+esc(a)).join('<br>')}<br><br><b>${esc(s.not||'')}</b><br><a href="ceza-asistani.html">Süre/ceza konusunda Ceza Asistanı →</a></div></div>`;
 }
 function renderHapIc(){ if(!EK) return; const h=[];
+  if(EK.surecAkisi) h.push(`<div class="hap"><b class="t">İhale süreci — adım adım</b>${(EK.surecAkisi||[]).map(esc).join('<br>')}</div>`);
+  if(EK.kazanmaKriteri) h.push(`<div class="hap"><b class="t">${esc(EK.kazanmaKriteri.baslik)}</b>${esc(EK.kazanmaKriteri.metin)}</div>`);
+  if(EK.kdvTevkifat){ const t=EK.kdvTevkifat; h.push(`<div class="hap"><b class="t">${esc(t.baslik)}</b>${esc(t.metin)}<br>• <b>${esc(t.yapim)}</b><br>• ${esc(t.digerHizmet)}</div>`); }
   if(EK.esikDegerler){ const e=EK.esikDegerler; h.push(`<div class="hap"><b class="t">Eşik değerler (${esc(e.donem)}, ${esc(e.teblig)})</b>Mal/hizmet: <b>${esc(e.malHizmetGenelButce)}</b> (genel bütçe) / ${esc(e.malHizmetDiger)} · Yapım: ${esc(e.yapim)} · Doğrudan temin (m.22/d, büyükşehir): <b>${esc(e.dogrudanTeminBuyuksehir)}</b> · ${esc(e.not)}</div>`); }
   if(EK.dogrudanTemin) h.push(`<div class="hap"><b class="t">${esc(EK.dogrudanTemin.baslik)}</b>${esc(EK.dogrudanTemin.metin)}</div>`);
   if(EK.sinirDeger) h.push(`<div class="hap"><b class="t">${esc(EK.sinirDeger.baslik)}</b>${esc(EK.sinirDeger.metin)}</div>`);
+  if(EK.istisnalar) h.push(`<div class="hap"><b class="t">${esc(EK.istisnalar.baslik)}</b>${esc(EK.istisnalar.metin)}</div>`);
   if(EK.isOrtakligi) h.push(`<div class="hap"><b class="t">${esc(EK.isOrtakligi.baslik)}</b>${esc(EK.isOrtakligi.metin)}</div>`);
   if(EK.yasaklama) h.push(`<div class="hap"><b class="t">${esc(EK.yasaklama.baslik)}</b>${esc(EK.yasaklama.metin)}</div>`);
   document.getElementById('hapIc').innerHTML=h.join('');
