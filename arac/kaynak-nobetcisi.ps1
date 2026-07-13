@@ -13,10 +13,19 @@ $hashDosya = Join-Path $veriDir ".kaynak-hash.json"
 $UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) MevzuatRadar-Nobetci"
 $is = New-Object System.Collections.Generic.List[string]   # islem gunlugu (maile)
 
+# KURAL 1 (Cem): robot YALNIZ resmi/birincil kaynaktan cekebilir. Liste disi URL = reddet.
+# Boylece "ikincil kaynak (KPMG vb.) veriye giremez" kurali FETCH aninda mekanik zorlanir.
+$RESMI_ALANLAR = @('ticaret.gov.tr','gib.gov.tr','resmigazete.gov.tr','mevzuat.gov.tr','sgk.gov.tr','turkpatent.gov.tr','gtb.gov.tr')
+function ResmiKaynakMi([string]$url){
+  try { $h = ([System.Uri]$url).Host.ToLower() } catch { return $false }
+  foreach($d in $RESMI_ALANLAR){ if($h -eq $d -or $h.EndsWith("." + $d)){ return $true } }
+  return $false
+}
+
 function Hashle($bytes){ $sha=[System.Security.Cryptography.SHA256]::Create(); return ([System.BitConverter]::ToString($sha.ComputeHash($bytes)) -replace '-','') }
 function HashMetin([string]$s){ return (Hashle ([System.Text.Encoding]::UTF8.GetBytes($s))) }
-function Sayfa([string]$url){ try { return (Invoke-WebRequest -Uri $url -UserAgent $UA -TimeoutSec 90 -UseBasicParsing).Content } catch { return $null } }
-function Indir([string]$url,[string]$hedef){ try { Invoke-WebRequest -Uri $url -UserAgent $UA -TimeoutSec 300 -UseBasicParsing -OutFile $hedef; return (Test-Path $hedef) } catch { return $false } }
+function Sayfa([string]$url){ if(-not (ResmiKaynakMi $url)){ $script:is.Add("REDDEDILDI (resmi kaynak degil, Kural 1): $url"); return $null }; try { return (Invoke-WebRequest -Uri $url -UserAgent $UA -TimeoutSec 90 -UseBasicParsing).Content } catch { return $null } }
+function Indir([string]$url,[string]$hedef){ if(-not (ResmiKaynakMi $url)){ $script:is.Add("REDDEDILDI (resmi kaynak degil, Kural 1): $url"); return $false }; try { Invoke-WebRequest -Uri $url -UserAgent $UA -TimeoutSec 300 -UseBasicParsing -OutFile $hedef; return (Test-Path $hedef) } catch { return $false } }
 # sayfadan .zip data linkini cikar (yillik degisen hash'li url'yi yakalar)
 function ZipLink([string]$html,[string]$anahtar){
   if(-not $html){ return $null }
@@ -142,12 +151,22 @@ if(Indir $gecikmeUrl $gpdf){
   if($onceki.ContainsKey("GiB Gecikme Zammi") -and $onceki["GiB Gecikme Zammi"] -ne $ghash){
     $is.Add("DEGISTI: Gecikme zammi PDF -> oto guncelle")
     try {
+      $gzDosya = Join-Path $veriDir "gecikme-zammi.json"
+      $eskiGZ = try { [double]((Get-Content $gzDosya -Raw -Encoding UTF8 | ConvertFrom-Json).aylik) } catch { $null }
       $psExe = if(Get-Command pwsh -ErrorAction SilentlyContinue){ "pwsh" } else { "powershell" }
       $ghYol = Join-Path $here "..\motor\gecikme-hasat.ps1"
       & $psExe -NoProfile -ExecutionPolicy Bypass -File $ghYol $gpdf
       if($LASTEXITCODE -eq 0){
         $veriDegisti = $true
-        $mailSatir += "OTOMATIK GUNCELLENDI: Gecikme zammi orani degisti, veri/gecikme-zammi.json guncellendi (deterministik). Ceza Asistani otomatik yeni orani kullanir. Commit'lendi."
+        $yeniGZ = try { [double]((Get-Content $gzDosya -Raw -Encoding UTF8 | ConvertFrom-Json).aylik) } catch { $null }
+        # DEGISIM-BANDI GUARD: aylik gecikme zammi tek seferde 5 puandan fazla siçramaz normalde.
+        # Siçrarsa (ör. 3,7->13,7 rakam-okuma hatasi) yaz ama "TEYIT ET" uyarisi ekle (kontrollü).
+        if($null -ne $eskiGZ -and $null -ne $yeniGZ -and [math]::Abs($yeniGZ - $eskiGZ) -gt 5){
+          $mailSatir += "!!! DIKKAT - BUYUK SICRAMA: Gecikme zammi $eskiGZ -> $yeniGZ (5 puandan fazla). Parse hatasi olabilir - GERCEK PDF'i TEYIT ET: $gecikmeUrl"
+          $is.Add("gecikme BUYUK SICRAMA $eskiGZ -> $yeniGZ - teyit uyarisi")
+        } else {
+          $mailSatir += "OTOMATIK GUNCELLENDI: Gecikme zammi orani $eskiGZ -> $yeniGZ (deterministik). Ceza Asistani otomatik yeni orani kullanir. Commit'lendi."
+        }
         $is.Add("gecikme hasat TAMAM")
       } else {
         $mailSatir += "DIKKAT: Gecikme zammi PDF degisti ama otomatik parse edilemedi (exit $LASTEXITCODE) - ELLE bak: $gecikmeUrl -> veri/gecikme-zammi.json"

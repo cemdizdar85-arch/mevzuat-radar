@@ -162,6 +162,24 @@ if($DP){
   }
 }
 
+# --- 7) BIRINCIL KAYNAK ZORLAMASI (Kural 1: yalniz resmi kaynak; ikincil YASAK) ---
+# Cem kurali: veri HEP birincilden (resmigazete.gov.tr / mevzuat.gov.tr / gib.gov.tr /
+# ticaret.gov.tr / sgk.gov.tr). Ikincil (KPMG, muhasebe siteleri, wiki) teyit icin bile YASAK.
+$ikincilKaynaklar = @('kpmg','deloitte','pwc','pricewaterhouse','ernst&young','verginet','muhasebetr','muhasebenews','bloomberght','ekonomist.com','wikipedia')
+$resmiIsaret = '(?i)(resm[iî]\s*gazete|\bRG\b|say[iı]l[iı]|gib|gov\.tr|\bmadde\b|\bm\.\s*\d|tebli[gğ]|kanun|karar|BKK)'
+Get-ChildItem $veri -Filter *.json | ForEach-Object {
+  $metin = Get-Content $_.FullName -Raw -Encoding UTF8
+  foreach($k in $ikincilKaynaklar){
+    if($metin.ToLower().Contains($k.ToLower())){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
+  }
+}
+# Kritik sayisal dosyalar birincil DAMGA tasimali (kaynak/not alaninda resmi isaret)
+if($GZ -and "$($GZ.kaynak)" -notmatch $resmiIsaret){ Hata "gecikme-zammi.json : kaynak alaninda birincil isaret (RG/GIB/sayili/madde) YOK" }
+if($VS){
+  $vsKaynak = "$($VS.kaynaklar | ConvertTo-Json -Depth 6)" + "$($VS.asgariUcret2026.not)" + "$($VS.kvOranlari.not)"
+  if($vsKaynak -notmatch $resmiIsaret){ Hata "vergi-sabitleri.json : kaynak/not metninde birincil isaret YOK" }
+}
+
 # ---------------------------------------------------------------------------
 ""
 if($uyarilar.Count -gt 0){
