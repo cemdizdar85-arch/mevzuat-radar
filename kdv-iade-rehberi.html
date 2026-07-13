@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>KDV İadesi Yol Haritası — listeyi yükle, alındıyı al, parayı geri al | Mevzuat Radarı</title>
+<meta name="description" content="KDV iadesi adım adım: hangi listeler Excel'de hazırlanır, İnternet Vergi Dairesi'ne nasıl yüklenir, vergi dairesine hangi evrak verilir, YMM/teminat/mahsup yolları.">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:840px;margin:0 auto;padding:24px 18px 80px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,5vw,33px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 8px}
+.uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:28px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.adim{display:flex;gap:13px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin:11px 0}
+.no{flex:0 0 30px;height:30px;border-radius:9px;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;display:grid;place-items:center;margin-top:2px}
+.adim h3{margin:0 0 4px;font-size:15.5px;letter-spacing:-.2px}
+.adim p{margin:4px 0;font-size:13.5px;color:var(--muted)}
+.adim p b{color:var(--ink)}
+.not{background:rgba(38,208,254,.07);border:1px solid rgba(38,208,254,.25);border-radius:9px;padding:8px 11px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.not b{color:var(--accent2)}
+.dikkat{background:rgba(255,176,32,.08);border:1px solid rgba(255,176,32,.3);border-radius:9px;padding:8px 11px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.dikkat b{color:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+th{color:var(--dim);text-align:left;padding:7px 9px;border-bottom:1px solid var(--line2);font-weight:700}
+td{padding:7px 9px;border-bottom:1px solid var(--line);color:var(--muted)}
+td b{color:var(--ink)}
+.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:26px}
+.cta h3{margin:0 0 6px;font-size:19px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP</a> · <a href="hatirlatici.html">Hatırlatıcı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <b style="color:var(--ink)">KDV İadesi</b></div>
+
+  <h1>KDV İadesi Yol Haritası</h1>
+  <p class="lead">"İade hakkım var" demek yetmez — <b style="color:var(--ink)">listeyi doğru hazırlayıp yükleyen, alındıyı alıp evrakı tamamlayan</b> parayı alır. İhracat, DİİB, indirimli oran... hangi işlemden doğarsa doğsun süreç bu 8 adımdır.</p>
+
+  <div class="uyari">Kaynak: <b style="color:var(--muted)">KDV Genel Uygulama Tebliği — IV. KDV İadesinde Ortak Hususlar</b> (GİB resmî dokümanından birebir okundu) + KDVK m.29/32. Parasal sınırlar (YMM'siz/teminatsız nakden iade sınırı vb.) yıl yıl değişir — güncel tutar için Tebliğ esastır, buraya sabit yazmadık. Bilgilendirme amaçlıdır.</div>
+
+  <h2>8 adımda iade</h2>
+
+  <div class="adim"><span class="no">1</span><div>
+    <h3>İade hakkını ve dönemini netleştir</h3>
+    <p>İade hakkı doğuran işlemin (ihracat, ihraç kayıtlı teslim, DİİB, indirimli oran, tevkifat...) <b>hangi dönemde</b> beyan edildiğini belirle. KDV beyannamesinde ilgili iade satırlarını doldurmuş olman gerekir.</p>
+    <div class="dikkat"><b>Süre:</b> Tam istisnada talep, işlemi izleyen <b>2. takvim yılı sonuna</b>; indirimli oranda <b>izleyen yıl sonuna</b> kadar (KDVK m.32 / m.29-2). Kaçıran iade hakkını KAYBEDER — <a href="hatirlatici.html">Hatırlatıcıya ekle</a>.</div>
+  </div></div>
+
+  <div class="adim"><span class="no">2</span><div>
+    <h3>Yöntemi seç: mahsuben mi, nakden mi?</h3>
+    <p><b>Mahsuben</b> (kendi vergi/SGK borcuna sayılması): belgeler tam olunca kural olarak <b>inceleme/teminat/YMM aranmadan</b> yerine getirilir — en hızlı ve dertsiz yol. <b>Nakden</b> (hesaba para): sınırı aşan kısım YMM raporu / teminat / inceleme ister (Adım 7).</p>
+    <div class="not"><b>SGK borcun mu var?</b> KDV iade alacağın <b>SGK prim borçlarına da mahsup edilebilir</b> — SGK'dan borç döküm yazısını alıp mahsup dilekçesine eklersin. Nakit sıkışığında altın yol.</div>
+  </div></div>
+
+  <div class="adim"><span class="no">3</span><div>
+    <h3>Listeleri Excel'de hazırla</h3>
+    <p>İnternet Vergi Dairesi'nin şablon formatına uygun olarak dönem listelerini hazırla:</p>
+    <table>
+      <tr><th>Liste</th><th>Ne var içinde</th></tr>
+      <tr><td><b>İndirilecek KDV Listesi</b></td><td>Dönemin tüm alış belgeleri (tarih, no, satıcı VKN, mal/hizmet, KDV)</td></tr>
+      <tr><td><b>Yüklenilen KDV Listesi</b></td><td>İadeye konu işlem için yüklenilen KDV'nin belge belge dökümü</td></tr>
+      <tr><td><b>Yüklenilen KDV Hesaplama Tablosu</b></td><td>Bünyeye giren KDV'nin hesap mantığı (doğrudan + genel gider + ATİK payı)</td></tr>
+      <tr><td><b>Satış Faturaları Listesi</b></td><td>İade hakkı doğuran satışların dökümü</td></tr>
+      <tr><td><b>GÇB Listesi</b> (ihracatta)</td><td>Gümrük beyannamelerinin dökümü (kapanma tarihli)</td></tr>
+    </table>
+    <div class="dikkat"><b>Uygulama notu:</b> Yüklenilen KDV, iade hakkı doğuran işlemin bünyesine girenle sınırlıdır; genel gider ve ATİK'ten pay verirken dağıtım anahtarını tutarlı kur — kontrol raporunun en çok takıldığı yer burası.</div>
+  </div></div>
+
+  <div class="adim"><span class="no">4</span><div>
+    <h3>Listeleri İnternet Vergi Dairesi'nden yükle</h3>
+    <p>intvrg.gib.gov.tr → KDV İade Talebi Girişi bölümünden listeleri <b>elektronik ortamda gönder</b>. Sistem kabul edince <b>"İnternet Vergi Dairesi Liste Alındısı"</b> oluşur — <b>çıktısını al</b>, dosyana koy. Elektronik gönderilen listeler ayrıca kağıt olarak vergi dairesine verilmez.</p>
+  </div></div>
+
+  <div class="adim"><span class="no">5</span><div>
+    <h3>Standart iade talep dilekçesini ver</h3>
+    <p>İnternet Vergi Dairesi'ndeki <b>standart iade talep dilekçesiyle</b> (iade türüne uygun olanı) talebini oluştur. Talep, <b>dilekçe + aranan belgelerin tamamlandığı tarihte</b> hüküm ifade eder — dilekçesiz "belge yüklemek" talep sayılmaz.</p>
+  </div></div>
+
+  <div class="adim"><span class="no">6</span><div>
+    <h3>Kağıt evrakı vergi dairesine teslim et</h3>
+    <p>Elektronik gönderilenler <b>dışında kalan</b> belgeleri dilekçe ekinde ibraz et:</p>
+    <table>
+      <tr><th>Vergi dairesine (kağıt/onaylı)</th><th>Elektronik (yüklendi, kağıt verilmez)</th></tr>
+      <tr><td>Liste Alındısı dökümü · iade türüne göre onaylı/teyitli belgeler (ör. onaylı antrepo beyannamesi vb.) · SGK mahsupta borç döküm yazısı · teminat verilecekse banka teminat mektubu</td><td>İndirilecek KDV · Yüklenilen KDV · Hesaplama Tablosu · Satış Faturaları · GÇB listeleri</td></tr>
+    </table>
+  </div></div>
+
+  <div class="adim"><span class="no">7</span><div>
+    <h3>Kontrol raporunu bekle, eksikleri kapat</h3>
+    <p>GİB'in sistemi (KDVİRA) listelerini çapraz kontrol eder (alt firmaların beyanı, GÇB eşleşmesi, mükerrer belge...). Vergi dairesinden gelen <b>eksiklik/olumsuzluk yazısına hızlı cevap ver</b> — mahsup taleplerinde olumsuzluk giderilince iade yapılır.</p>
+    <p><b>Nakden ve sınır üstü ise üç yol:</b> ① <b>YMM tasdik raporu</b> (en yaygın) ② <b>%150 banka teminat mektubu</b> — iade hemen, teminat YMM raporu/inceleme sonucuna göre çözülür (süresinde YMM raporu gelmezse incelemeye döner) ③ <b>vergi incelemesi</b> sonucu bekle.</p>
+    <div class="not"><b>Uygulama notu:</b> HİS/İTUS/ATU gibi statüler süreci hızlandırır ve teminat oranını düşürür — hacmin büyükse YMM'nle statü başvurusunu konuş.</div>
+  </div></div>
+
+  <div class="adim"><span class="no">8</span><div>
+    <h3>Sonuçlandır ve dosyala</h3>
+    <p>Mahsup/nakit gerçekleşince tahakkuk fişini, muhasebe kaydını ve tüm dosyayı arşivle. YMM raporu yolundaysa <b>rapor hazırlık verilerini</b> (karşıt inceleme yazışmaları dahil) YMM'ye zamanında ulaştır — rapor gecikirse teminat çözümü de gecikir.</p>
+  </div></div>
+
+  <h2>En sık takılma noktaları</h2>
+  <div class="adim" style="border-left:4px solid var(--amber)"><span class="no" style="background:rgba(255,176,32,.9)">!</span><div>
+    <p>• <b>Süreyi kaçırmak</b> (m.32 — 2. yıl sonu): en pahalı hata, hak tamamen düşer.<br>
+    • <b>Yüklenilen liste ↔ beyanname uyumsuzluğu:</b> iadesi istenen yüklenilen KDV, dönem toplam indirilecek KDV'sini aşamaz.<br>
+    • <b>Alt firma sorunları:</b> tedarikçin beyanname vermemiş/özel esaslardaysa kontrol raporu takılır — büyük alımlarda tedarikçi disiplinini önceden kur.<br>
+    • <b>GÇB kapanmadan talep:</b> ihracat istisnasında beyannamenin kapanmış olması esastır.<br>
+    • <b>Dilekçeyi unutmak:</b> listeler yüklü ama standart dilekçe yoksa talep hüküm ifade etmez.</p>
+  </div></div>
+
+  <div class="cta">
+    <h3>Bu tarihleri kafanda tutma</h3>
+    <p>İade talep sürenin son gününü <a href="hatirlatici.html" style="color:#03101f;background:rgba(255,255,255,.35);padding:1px 7px;border-radius:6px;text-decoration:none;font-weight:800">Hatırlatıcıya</a> ekle; abonelikte son güne 90/30/7 gün kala mailine düşsün.</p>
+    <a class="btn" href="hatirlatici.html">Hatırlatıcıya git →</a>
+  </div>
+
+  <div class="dip">Kaynak: KDV Genel Uygulama Tebliği — IV/A "KDV İadesinde Ortak Hususlar" (GİB, cdn.gib.gov.tr resmî dokümanından birebir okundu: standart iade talep dilekçesi, elektronik listeler, Liste Alındısı, mahsuben/nakden esasları, %150 teminat, YMM çözümü, SGK prim borcuna mahsup) · KDVK m.29/2, m.32 (7104) · "Uygulama notu" işaretli satırlar SMMM pratiğidir. Bilgilendirme amaçlıdır; işlem öncesi güncel Tebliğ ve müşavirin esastır.</div>
+</div>
+</body>
+</html>
