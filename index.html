@@ -286,6 +286,22 @@
   .kaynak-bar b{color:var(--muted);font-weight:700;letter-spacing:.2px;
     padding:6px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--bg2)}
 
+  /* ---------- FİYATLANDIRMA ---------- */
+  .fiyat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+  @media(max-width:720px){.fiyat-grid{grid-template-columns:1fr}}
+  .fkart{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px 28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+  .fkart.one{border-color:rgba(62,155,255,.4);background:linear-gradient(180deg,rgba(47,123,255,.08),transparent),var(--panel)}
+  .fkart .rozet{position:absolute;top:18px;right:20px;font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--accent2);
+    background:rgba(38,208,254,.12);border:1px solid rgba(38,208,254,.3);padding:4px 11px;border-radius:20px}
+  .fkart h3{margin:0 0 4px;font-size:18px;letter-spacing:-.3px}
+  .fkart .fiyat{font-size:30px;font-weight:820;letter-spacing:-1px;margin:6px 0 4px}
+  .fkart .fiyat span{font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0}
+  .fkart ul{list-style:none;margin:16px 0 22px;padding:0}
+  .fkart li{position:relative;padding:7px 0 7px 26px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line)}
+  .fkart li::before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .fkart .btn{width:100%;text-align:center}
+
   /* reveal on scroll */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
@@ -321,6 +337,7 @@
         <a href="fiyatfarki.html">Credit/Debit Note<span>sonradan gelen fiyat farkı</span></a>
         <a href="kdv-iade-rehberi.html">KDV İadesi<span>adım adım iade yol haritası</span></a>
         <a href="hatirlatici.html">Süre Hatırlatıcı<span>DİİB · KDV · SGK tarihleri</span></a>
+        <a href="ceza-asistani.html">Ceza Asistanı<span>ceza geldi, hangi kapı</span></a>
         <a href="kurulus.html">Şirket Kuruluşu<span>şahıs mı, Ltd mi, AŞ mi</span></a>
       </div>
     </div>
@@ -337,8 +354,9 @@
         <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
       </div>
     </div>
-    <a class="nl" href="ceza-asistani.html">Ceza Asistanı</a>
-    <a class="btn" href="#app">Karneni çıkar</a>
+    <a class="nl" href="#fiyat">Fiyatlandırma</a>
+    <a class="btn ghost nl" href="#fiyat" style="margin-right:4px">Üye Ol</a>
+    <a class="btn" href="#app">Ücretsiz Başla</a>
   </div>
 </nav>
 
@@ -451,6 +469,42 @@
         <p>Şahıs mı, limited mi, anonim mi? Türünü seç; farkları, adım adım kuruluş yolunu ve kuruluştan sonra seni bekleyen yükümlülükleri gör.</p>
         <span style="color:var(--accent2);font-size:13px;font-weight:600">Rehbere başla →</span></a>
     </div>
+  </div>
+</section>
+
+<!-- ============ FİYATLANDIRMA ============ -->
+<section id="fiyat">
+  <div class="sec-in">
+    <div class="sec-head reveal">
+      <h2>Basit fiyatlandırma</h2>
+      <p>Araçlar herkese ücretsiz — ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde.</p>
+    </div>
+    <div class="fiyat-grid">
+      <div class="fkart reveal">
+        <h3>Ücretsiz</h3>
+        <div class="fiyat">₺0 <span>/ sonsuza dek</span></div>
+        <ul>
+          <li>Tüm hesaplama araçları (GTİP, KDV, ihale, ceza, marka…)</li>
+          <li>Günün hap kartları + Bugün Resmî Gazete'de</li>
+          <li>Yükümlülük Karnesi + rehberler</li>
+          <li>Kayıt gerekmez, sınırsız</li>
+        </ul>
+        <a class="btn ghost" href="#app">Hemen kullan</a>
+      </div>
+      <div class="fkart one reveal">
+        <span class="rozet">YAKINDA</span>
+        <h3>Radar Aboneliği</h3>
+        <div class="fiyat">Erken erişim <span>fiyat netleşiyor</span></div>
+        <ul>
+          <li>Firma profilini bir kez gir — GTİP, il, markalar, belge tarihleri</li>
+          <li>Sana özel uyarı: ihale · alacak/konkordato · marka · süre · RG değişikliği</li>
+          <li>Mail + WhatsApp/SMS bildirimi</li>
+          <li>SMMM'ler için çoklu-firma paneli</li>
+        </ul>
+        <a class="btn" href="#app">Erken erişim listesine katıl</a>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Fiyat kesinleşince erken erişim listesindekilere ilk biz haber veririz.</p>
   </div>
 </section>
 
