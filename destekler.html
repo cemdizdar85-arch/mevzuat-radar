@@ -34,6 +34,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .btn:hover{transform:translateY(-2px)}
 .uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* ——— premium ortak katman (tüm araçlarda tutarlı) ——— */
+:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+body{position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.12),transparent 72%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+.soru,.deg,.stepno{font-family:var(--mono)}
 </style>
 </head>
 <body>
