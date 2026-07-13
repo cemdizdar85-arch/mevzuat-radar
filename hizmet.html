@@ -43,6 +43,22 @@ h1{font-size:clamp(24px,4.5vw,33px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .kutu .no{color:var(--red);font-weight:800;flex-shrink:0}
 .uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}.uyari b{color:var(--amber)}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* ——— premium-teknolojik geçiş: koyu, ağır, mühendislik hissi ——— */
+:root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+body{background:radial-gradient(120% 60% at 50% -10%,#0a1524 0,#06090f 46%) fixed}
+body::before{content:"";position:fixed;inset:-15% 0 auto 0;height:480px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.13),transparent 72%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+h1{letter-spacing:-1.2px}
+.adim,.kutu{box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 28px 60px -32px rgba(0,0,0,.9)}
+.satir,.beyan{box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.soru{font-family:var(--mono)}
+.deg,.stepno{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.stepno{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:1.5px;flex:0 0 auto;align-self:center;margin-right:8px}
+.stepno b{color:var(--accent2)}
+.nokta{height:4px}
+.secenek{backdrop-filter:blur(3px)}
+.beyan h4{font-family:var(--mono);letter-spacing:1px}
 </style>
 </head>
 <body>
@@ -82,7 +98,7 @@ const TUR = {
 };
 function grup(){ return C.grupOverride || TUR[C.tur].grup; }
 
-function ilerle(n){ let h=''; for(let i=0;i<5;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
+function ilerle(n){ let h=`<span class="stepno"><b>${String(Math.max(n,1)).padStart(2,'0')}</b> / 05</span>`; for(let i=0;i<5;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
 function ekran(html){ document.getElementById('ekran').innerHTML = '<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
 function sec(list, back){ return '<div class="secgrid">'+list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+'</div>' + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
 
