@@ -145,8 +145,8 @@ function ulkeAd(k){ return ULKE[k]||k; }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 const SORULAR=[
   {q:"Firman iflas / tasfiye / konkordato halinde mi?", b:["a","b"], k:"ihaleDisi"},
-  {q:"Kesinleşmiş vergi borcun var mı?", b:["d"], k:"ihaleDisi"},
-  {q:"Kesinleşmiş SGK prim borcun var mı?", b:["c"], k:"ihaleDisi"},
+  {q:"Vadesi geçmiş VERGİ borcun (Türkiye geneli)?", b:["d"], k:"ihaleDisi", tip:"tutar", esik:"vergi"},
+  {q:"Vadesi geçmiş SGK prim borcun?", b:["c"], k:"ihaleDisi", tip:"tutar", esik:"sgk"},
   {q:"Oda seni mesleki faaliyetten men etti mi?", b:["g"], k:"ihaleDisi"},
   {q:"Son 5 yılda mesleki faaliyetinden hüküm giydin mi?", b:["e"], k:"ihaleDisi"},
   {q:"Kamu ihalelerinden yasaklı mısın / hileli iflas?", b:["a","b"], k:"katilamaz"}
@@ -205,15 +205,36 @@ async function kontrol(){
   box.innerHTML=html;
 }
 // ---- yurt içi self-check ----
-function renderSorular(){ document.getElementById('sorular').innerHTML=SORULAR.map((s,i)=>`<div class="soru"><span>${esc(s.q)}</span><span class="sw"><button id="e${i}" onclick="cev(${i},1)">Evet</button><button id="h${i}" class="on" onclick="cev(${i},0)">Hayır</button></span></div>`).join(''); SORULAR.forEach((_,i)=>cevaplar[i]=0); }
+function borcEsik(){ return (EK&&EK.borcEsigi)||{vergi:5000,sgk:5000}; }
+function renderSorular(){
+  const es=borcEsik();
+  document.getElementById('sorular').innerHTML=SORULAR.map((s,i)=>{
+    if(s.tip==='tutar'){ const e=es[s.esik]||5000;
+      return `<div class="soru"><span>${esc(s.q)} <span style="color:var(--dim);font-size:12px">(${fmt(e)} TL üzeri engel)</span></span>
+        <span class="sw"><input type="text" id="t${i}" inputmode="numeric" placeholder="0 TL" oninput="cevT(${i})" style="width:120px;text-align:right"></span></div>`;
+    }
+    return `<div class="soru"><span>${esc(s.q)}</span><span class="sw"><button id="e${i}" onclick="cev(${i},1)">Evet</button><button id="h${i}" class="on" onclick="cev(${i},0)">Hayır</button></span></div>`;
+  }).join('');
+  SORULAR.forEach((_,i)=>cevaplar[i]=0);
+}
 function cev(i,v){ cevaplar[i]=v; document.getElementById('e'+i).classList.toggle('on',v===1); document.getElementById('h'+i).classList.toggle('on',v===0); }
+function cevT(i){ cevaplar[i]=parseFloat(document.getElementById('t'+i).value.replace(/\./g,'').replace(/[^\d,]/g,'').replace(',','.'))||0; }
 function bentMetin(kaynak,bent){ const r=(K[kaynak]||[]).find(x=>x.bent===bent); return r?`m.${r.madde} (${bent}) — ${r.kisa}`:bent; }
 function katilimDegerlendir(){
-  const e=[]; SORULAR.forEach((s,i)=>{ if(cevaplar[i]===1) s.b.forEach(b=>e.push(bentMetin(s.k,b))); });
+  const es=borcEsik(); const e=[]; let borcYakin=false;
+  SORULAR.forEach((s,i)=>{
+    if(s.tip==='tutar'){ const th=es[s.esik]||5000; const val=cevaplar[i]||0;
+      if(val>th) s.b.forEach(b=>e.push(bentMetin(s.k,b)+` — borcun ${fmt(val)} TL, ${fmt(th)} TL eşiğini AŞIYOR`));
+      else if(val>0) borcYakin=true;
+    } else if(cevaplar[i]===1) s.b.forEach(b=>e.push(bentMetin(s.k,b)));
+  });
   const v=document.getElementById('verdict');
-  v.innerHTML = e.length
-    ? `<div class="verdict no">⛔ Bu haliyle ihale <b>DIŞI</b> bırakılırsın / katılamazsın. Sebep(ler):<br>${[...new Set(e)].map(x=>'• '+esc(x)).join('<br>')}<br><span style="font-weight:400;color:var(--muted);font-size:12.5px">Vergi/SGK borcu: borç KESİNLEŞMİŞ ve Kurumca belirlenen tutar eşiğinin üzerindeyse ihale dışısın (m.10 c/d).</span></div>`
-    : `<div class="verdict ok">✅ Bu sayaçlara göre engel yok. Sıradaki adım: <b>yeterlik belgelerini</b> sağla + teklif bedelinin <b>%3'ü geçici teminat</b>. Kesin karar idarenin değerlendirmesine bağlıdır.</div>`;
+  if(e.length){
+    v.innerHTML=`<div class="verdict no">⛔ Bu haliyle ihale <b>DIŞI</b> bırakılırsın / katılamazsın:<br>${[...new Set(e)].map(x=>'• '+esc(x)).join('<br>')}<br><span style="font-weight:400;color:var(--muted);font-size:12.5px">Çözüm: borcu ${fmt(es.vergi)} TL altına indir/yapılandır (yapılandırılıp taksitleri aksatılmayan borç "kesinleşmiş" sayılmaz), sonra teklif ver.</span></div>`;
+  } else {
+    const ek = borcYakin ? ` <span style="font-weight:400;color:var(--muted);font-size:12.5px">(Borcun var ama ${fmt(es.vergi)} TL eşiğinin altında — engel değil, ama ihale tarihine kadar aşmamaya dikkat.)</span>` : '';
+    v.innerHTML=`<div class="verdict ok">✅ Bu sayaçlara göre engel yok.${ek}<br>Sıradaki adım: <b>yeterlik belgelerini</b> sağla + teklif bedelinin <b>%3'ü geçici teminat</b>. Kesin karar idarenin değerlendirmesine bağlıdır.</div>`;
+  }
 }
 // ---- yerli malı ----
 function renderYerliMali(){
