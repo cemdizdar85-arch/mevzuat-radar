@@ -112,7 +112,7 @@ function izahaSonuc(){ ilerle(2);
     <div class="ozet dikkat">İzaha davet <b>henüz ceza değil</b>. İyi haber: uyarsan ceza <b>çok düşük</b> (%20). Kötü haber: bu konuda artık <b>pişmanlıktan yararlanamazsın</b> (m.370). Doğru hamle: 30 günü kaçırmadan izah + ödeme.</div>
     ${kapi('İzaha davete uy — VUK m.370','30 GÜN',true,'Yazının tebliğinden <b>30 gün</b> içinde <b>izahta bulun</b>. İzahın yeterli görülürse tarhiyat/ceza olmayabilir. Ziyaa uğratılan vergi varsa: vergiyi + <b>vergi ziyaı cezasının yalnızca %20\'sini</b> ödersin (normal 1 kat yerine — büyük indirim) ve beyannameni bu süre içinde verirsin.',true)}
     ${kapi('Uygun değilse / izah yetmezse','',false,'İzah kabul edilmezse tarhiyat yapılır; o aşamada <b>uzlaşma</b> veya <b>cezada indirim (m.376)</b> veya <b>dava</b> kapıları açılır (aşağıdaki "ihbarname geldi" akışına bak).')}
-    ${kapi('Kaçakçılık istisnası','',false,'Ön tespit <b>sahte belge (m.359)</b> fiiline işaret ediyorsa izaha davet uygulanmaz — doğrudan inceleme + 3 kat ceza gündeme gelir. Avukatla çalış.')}
+    ${kapi('Sahte belge (SMİYB) — GİZLİ EŞİK, atlama','',false,'Nüans: SMİYB kullanımında belge tutarı bir takvim yılında <b>100.000 TL\'yi VEYA o yılki toplam mal/hizmet alışlarının %5\'ini AŞMIYORSA</b>, ön tespit yapılıp <b>izaha davet YİNE uygulanır</b> — vergiyi + ziyaı cezasının yalnız <b>%20\'sini</b> ödeyip kapatabilirsin (KDV hariç tutar esas). Bu haddi <b>AŞAN</b> sahte belgede izaha davet yok → inceleme + <b>3 kat</b> ceza (m.359). (100.000 TL haddi yıllık güncellenir — GİB izaha davet tebliği; VUK m.370.)')}
     ${faizKutu('izaha')}
     ${btnGeri()}`);
 }
