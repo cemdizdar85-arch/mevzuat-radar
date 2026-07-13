@@ -55,6 +55,22 @@
   .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);box-shadow:none}
   .btn.ghost:hover{border-color:rgba(255,255,255,.3);box-shadow:none}
   @media(max-width:640px){.navlinks a.nl{display:none}}
+  /* açılır grup menü */
+  .navgroup{position:relative;display:flex;align-items:center}
+  .navtrigger{background:none;border:0;color:var(--muted);font-family:inherit;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:0;transition:color .2s}
+  .navgroup:hover .navtrigger,.navgroup:focus-within .navtrigger{color:var(--ink)}
+  .navtrigger .car{font-size:9px;opacity:.65;transition:transform .2s}
+  .navgroup:hover .navtrigger .car,.navgroup:focus-within .navtrigger .car{transform:rotate(180deg)}
+  .dropdown{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);min-width:256px;
+    background:rgba(9,13,20,.98);backdrop-filter:blur(18px) saturate(1.3);border:1px solid var(--line2);
+    border-radius:16px;padding:9px;box-shadow:0 26px 64px rgba(0,0,0,.6);
+    opacity:0;visibility:hidden;transition:opacity .18s,visibility .18s;z-index:70}
+  .dropdown::before{content:"";position:absolute;top:-18px;left:0;right:0;height:18px}
+  .navgroup:hover .dropdown,.navgroup:focus-within .dropdown{opacity:1;visibility:visible}
+  .dropdown a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;transition:background .15s}
+  .dropdown a:hover{background:rgba(62,155,255,.12)}
+  .dropdown a span{display:block;font-size:11.5px;color:var(--dim);font-weight:400;margin-top:2px;line-height:1.4}
+  @media(max-width:640px){.navgroup{display:none}}
 
   /* ---------- HERO ---------- */
   .hero{position:relative;min-height:96vh;display:flex;align-items:center;
@@ -294,17 +310,32 @@
 <nav id="nav">
   <a class="brand" href="#"><span class="mark">MR</span><b>Mevzuat Radarı</b></a>
   <div class="navlinks">
-    <a class="nl" href="gtip.html">GTİP · Kaç Vergi?</a>
-    <a class="nl" href="senaryo-raporu.html">Nereden Alsam?</a>
-    <a class="nl" href="hizmet.html">Yurt Dışı Fatura</a>
-    <a class="nl" href="fiyatfarki.html">Credit/Debit Note</a>
+    <div class="navgroup nl">
+      <button class="navtrigger" type="button">Araçlar <span class="car">▾</span></button>
+      <div class="dropdown">
+        <a href="gtip.html">GTİP · Kaç Vergi?<span>ithalatta hangi vergiler, kaç</span></a>
+        <a href="senaryo-raporu.html">Nereden Alsam?<span>menşe ülke maliyet karşılaştırma</span></a>
+        <a href="hizmet.html">Yurt Dışı Fatura<span>2 No.lu KDV / stopaj hesabı</span></a>
+        <a href="fiyatfarki.html">Credit/Debit Note<span>sonradan gelen fiyat farkı</span></a>
+        <a href="kdv-iade-rehberi.html">KDV İadesi<span>adım adım iade yol haritası</span></a>
+        <a href="hatirlatici.html">Süre Hatırlatıcı<span>DİİB · KDV · SGK tarihleri</span></a>
+        <a href="kurulus.html">Şirket Kuruluşu<span>şahıs mı, Ltd mi, AŞ mi</span></a>
+      </div>
+    </div>
+    <div class="navgroup nl">
+      <button class="navtrigger" type="button">Radarlar <span class="car">▾</span></button>
+      <div class="dropdown">
+        <a href="ihale-radari.html">İhale Radarı<span>yurt içi + AB ihaleleri</span></a>
+        <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
+        <a href="marka-radari.html">Marka Radarı<span>yenileme + benzer başvuru</span></a>
+        <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
+        <a href="evrak-radari.html">Evrak Radarı<span>mükellef evrak takibi</span></a>
+        <a href="destekler.html">Sana Uygun Destek<span>profiline göre KOSGEB</span></a>
+        <a href="radar.html">Bugün RG'de<span>günün mevzuat değişiklikleri</span></a>
+        <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
+      </div>
+    </div>
     <a class="nl" href="ceza-asistani.html">Ceza Asistanı</a>
-    <a class="nl" href="evrak-radari.html">Evrak Radarı</a>
-    <a class="nl" href="marka-radari.html">Marka Radarı</a>
-    <a class="nl" href="marka-itiraz.html">Marka İtiraz</a>
-    <a class="nl" href="destekler.html">Destek Radarı</a>
-    <a class="nl" href="radar.html">Bugün RG'de</a>
-    <a class="nl" href="sayfalar/index.html">Eşik rehberi</a>
     <a class="btn" href="#app">Karneni çıkar</a>
   </div>
 </nav>
