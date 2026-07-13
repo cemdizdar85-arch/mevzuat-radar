@@ -25,6 +25,10 @@ jobs:
         shell: pwsh
         run: ./arac/kaynak-nobetcisi.ps1
 
+      - name: Yurt ici ihale listesi (ilan.gov.tr acik API — gunluk yenile)
+        shell: pwsh
+        run: ./motor/ihale-yurtici-hasat.ps1 -Adet 40
+
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1

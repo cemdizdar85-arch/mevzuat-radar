@@ -15,7 +15,7 @@ $is = New-Object System.Collections.Generic.List[string]   # islem gunlugu (mail
 
 # KURAL 1 (Cem): robot YALNIZ resmi/birincil kaynaktan cekebilir. Liste disi URL = reddet.
 # Boylece "ikincil kaynak (KPMG vb.) veriye giremez" kurali FETCH aninda mekanik zorlanir.
-$RESMI_ALANLAR = @('ticaret.gov.tr','gib.gov.tr','resmigazete.gov.tr','mevzuat.gov.tr','sgk.gov.tr','turkpatent.gov.tr','gtb.gov.tr')
+$RESMI_ALANLAR = @('ticaret.gov.tr','gib.gov.tr','resmigazete.gov.tr','mevzuat.gov.tr','sgk.gov.tr','turkpatent.gov.tr','gtb.gov.tr','ilan.gov.tr')
 function ResmiKaynakMi([string]$url){
   try { $h = ([System.Uri]$url).Host.ToLower() } catch { return $false }
   foreach($d in $RESMI_ALANLAR){ if($h -eq $d -or $h.EndsWith("." + $d)){ return $true } }
