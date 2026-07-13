@@ -1,0 +1,29 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/dogrula.yml
+# DOGRULAMA KAPISI (Katman 1): HER push'ta yapisal denetci + nokta-kontrol kosar.
+# Amac: yanlis/celisik veri ana dala girer girmez KIRMIZI X + Cem'e mail.
+# (Onceden dogrulama yalniz robotun gunluk isinde vardi; elle push'lar denetimsizdi.)
+name: Dogrulama Kapisi
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'veri/**'
+      - 'arac/**'
+      - '.github/workflows/dogrula.yml'
+  workflow_dispatch:
+
+jobs:
+  dogrula:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Yapisal denetci (imkansiz/celisik veri)
+        shell: pwsh
+        run: ./arac/yapisal-denetci.ps1
+
+      - name: Nokta-kontrol (bilinen kod -> dogru cevap regresyonu)
+        shell: pwsh
+        run: ./arac/nokta-kontrol.ps1
