@@ -212,7 +212,7 @@ foreach($d in $dosyalar){
           $kIstem = @"
 Ayni tebligin iki hali asagida. ESKI = $eskiRg1 tarihli RG'deki ana teblig. YENI = bugunku degisiklik tebligi. Ilk goruntuler (varsa) ESKI teblige, sonrakiler YENI teblige aittir.
 Gorevin: DEGISEN kalemleri cikarmak. SADECE iki kaynakta da ACIKCA gordugun degerleri yaz; okuyamadigini/emin olamadigini HIC yazma, tahmin YASAK.
-SADECE JSON: {"kalemler":[{"konu":"or GTIP 6907.30 birim kiymeti","eski":"or 1.200 ABD Dolari/Ton","yeni":"or 1.500 ABD Dolari/Ton"}],"etki":{"yon":"ithalatci aleyhine|ithalatci lehine|karisik|notr|belirsiz","aciklama":"1-2 cumle"}}
+SADECE JSON: {"baslik_sade":"iki metne dayali, yonu DOGRU tek cumle baslik (8-14 kelime)","kalemler":[{"konu":"or GTIP 6907.30 birim kiymeti","eski":"or 1.200 ABD Dolari/Ton","yeni":"or 1.500 ABD Dolari/Ton"}],"ne_oldu":"iki metne dayanarak 1-2 cumleyle NE DEGISTI (yon dahil: siklasti mi gevsedi mi - metinden)","etki":{"yon":"ithalatci aleyhine|ithalatci lehine|karisik|notr|belirsiz","aciklama":"1-2 cumle"}}
 
 ESKI METIN:
 $($eskiVeri.metin)
@@ -227,8 +227,16 @@ $metin
           if($kal.Count){
             $eskiYeniFinal = $kal
             $eskiKarUrl = $eskiRg1
+            # iki metne dayali duzyazi, tek-okuma duzyazisini EZER (yon hatasi kacagi onlenir) - BASLIK DAHIL
+            if($kj.ne_oldu){ $k1.ne_oldu = $kj.ne_oldu }
+            if($kj.baslik_sade){ $k1.baslik_sade = $kj.baslik_sade }
+            if($kj.etki -and (NormD $kj.etki.yon) -ne "belirsiz"){
+              $etkiFinal = @{ yon = $kj.etki.yon; aciklama = $kj.etki.aciklama }
+              # cift-okuma asamasinin 'yorum yayinlanmadi' kalintisini temizle (celiski olmasin)
+              $notlar = @($notlar | Where-Object { $_ -notmatch "Etki yorumu iki okumada" })
+              $notlar += "Yorum, eski-yeni metin karsilastirmasina dayanir"
+            }
             $notlar += "Karsilastirma $eskiRg1 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
-            if(-not $etkiFinal -and $kj.etki -and (NormD $kj.etki.yon) -ne "belirsiz"){ $etkiFinal = @{ yon = $kj.etki.yon; aciklama = $kj.etki.aciklama } }
           }
         } catch { $notlar += "Eski metinle karsilastirma gecisi basarisiz" }
       } else { $notlar += "Ana tebligin eski metni RG arsivinde bulunamadi ($eskiRg1)" }
@@ -298,7 +306,8 @@ $metin
       $gc = ApiCagri $HakemModel @(@{type="text";text=$cIstem}) 1200
       $hakemGirdi += $gc.girdi; $hakemCikti += $gc.cikti
       $cj = JsonAyikla $gc.metin
-      $sayiCek = { param($o) (([regex]::Matches(($o.PSObject.Properties.Value -join " "), '\d[\d\.,/]*').Value | Sort-Object) -join "|") }
+      # SAYI KUMESI: iki taraf da ayni kanonik bicime (JSON) cevrilir - OrderedDictionary/PSObject farki tuzagina dusme
+      $sayiCek = { param($o) (([regex]::Matches(($o | ConvertTo-Json -Depth 3), '\d[\d\.,/]*').Value | Sort-Object) -join "|") }
       if((& $sayiCek $duzyazi) -eq (& $sayiCek $cj)){
         if($cj.baslik_sade){ $k1.baslik_sade=$cj.baslik_sade }; if($cj.ne_oldu){ $k1.ne_oldu=$cj.ne_oldu }
         if($cj.urun_tanimi){ $k1.urun_tanimi=$cj.urun_tanimi }; if($cj.kimi_ilgilendirir){ $k1.kimi_ilgilendirir=$cj.kimi_ilgilendirir }
