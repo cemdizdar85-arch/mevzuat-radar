@@ -106,8 +106,44 @@ function rgEsles(q){
   }).filter(x=>x.s>=2).sort((a,b)=>b.s-a.s).slice(0,2);
 }
 
-function sor(){
+// —— BEYİN (Edge Function): deploy edilince otomatik devreye girer; yoksa yerel motor çalışır ——
+const EDGE='https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/net-cevap';
+async function sor(){
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
+  if(kullanilan()>=LIMIT){
+    $('#cevapAlan').innerHTML=`<div class="paywall"><h3>Ücretsiz ${LIMIT} soru hakkın doldu</h3><p>Sınırsız net cevap + firmana özel radar uyarıları için üye ol. Erken erişim ücretsiz.</p><a class="btn" href="radar-app.html" style="text-decoration:none">Üye ol, devam et →</a></div>`;
+    return;
+  }
+  // 1) beyni dene
+  try{
+    const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
+    $('#cevapAlan').innerHTML='<div class="cevap" style="border-left-color:var(--dim)"><p>Kaynaklar taranıyor…</p></div>';
+    const r=await fetch(EDGE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({soru:q}),signal:ctl.signal});
+    clearTimeout(tm);
+    if(r.ok){
+      const j=await r.json();
+      if(j.kapsamda && j.cevap){
+        localStorage.setItem(LSK, kullanilan()+1); hakYaz();
+        const kay=(j.kaynaklar||[]).map(k=>k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.ad)}</a>`:esc(k.ad)).join(' · ');
+        $('#cevapAlan').innerHTML=`<div class="cevap"><div class="konu">NET CEVAP</div><h3>Cevabın</h3><p>${esc(j.cevap)}</p><div class="kaynak">Kaynak: <b>${kay||'doğrulanmış bilgi tabanı'}</b></div></div>`;
+        return;
+      }
+      if(j.kapsamda===false && !j.hata){ kapsamDisi(q); return; }
+    }
+  }catch(e){ /* beyin kapalı/ulaşılamaz → yerel motor */ }
+  localSor(q);
+}
+function kapsamDisi(q){
+  const rgler=rgEsles(q);
+  if(rgler.length){
+    localStorage.setItem(LSK, kullanilan()+1); hakYaz();
+    $('#cevapAlan').innerHTML=rgler.map(({k},i)=>`<div class="cevap"><div class="konu">${i===0?'GÜNCEL DÜZENLEME':'İLGİLİ DÜZENLEME'}</div><h3>${esc(k.baslik)}</h3><p>${esc(k.ne_oldu||'')}</p><div class="kaynak">Kaynak: <b>Resmî Gazete${RGK&&RGK.gun?' · '+esc(RGK.gun):''}</b>${k.url?` · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ metni →</a>`:''}</div></div>`).join('');
+    return;
+  }
+  $('#cevapAlan').innerHTML=`<div class="cevap yok"><div class="konu">KAPSAMDA DEĞİL</div><h3>Bunu şu an güvenle cevaplayamıyorum</h3><p>Bu soru bilgi tabanımızda henüz yok. <b>Uydurmam.</b> Sorunu kaydettim — kaynağını yükleyip ekleyeceğiz. Bu arada resmî kaynak (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p><div class="kaynak">Talebin bize iletildi — bilgi tabanı her gün büyüyor.</div></div>`;
+  try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
+}
+function localSor(q){
   // paywall: ücretsiz hak bitti mi?
   if(kullanilan()>=LIMIT){
     $('#cevapAlan').innerHTML=`<div class="paywall"><h3>Ücretsiz ${LIMIT} soru hakkın doldu</h3><p>Sınırsız net cevap + firmana özel radar uyarıları için üye ol. Erken erişim ücretsiz.</p><a class="btn" href="radar-app.html" style="text-decoration:none">Üye ol, devam et →</a></div>`;
