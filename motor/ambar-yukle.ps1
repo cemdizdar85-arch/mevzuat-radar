@@ -4,7 +4,7 @@
 #  (FTS) arayip alintiyla cevaplar. Kuratorlu icerik = bayat ozelge riski yok.
 #  Idempotent: kaynak_ad'a gore var olani GUNCELLER, yoksa EKLER.
 #  ENV: SUPABASE_SERVICE_KEY (zorunlu — RLS write yalniz service role).
-#  Secret yoksa zarifce atlar (exit 0). GitHub Actions cron (aylik) + manuel.
+#  Secret yoksa zarifce atlar (exit 0). GitHub Actions cron (GUNLUK) + manuel.
 # ============================================================================
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12

@@ -2,12 +2,13 @@
 # veri/ambar-kaynaklar.json manifestini Supabase 'dokumanlar' tablosuna senkronlar.
 # net-cevap edge fonksiyonu buradan tam-metin (FTS) arayıp alıntıyla cevaplar.
 # GEREKSİNİM (Cem GitHub secret ekleyecek): SUPABASE_SERVICE_KEY (zorunlu).
-# Secret yoksa robot zarifçe atlar. Aylık çalışır + istediğinde elle tetikle.
+# Secret yoksa robot zarifçe atlar. HER GÜN çalışır (idempotent: değişmeyeni
+# atlar, sadece değişeni yazar) + istediğinde elle tetikle.
 name: Bilgi Ambarı Yükleyici
 
 on:
   schedule:
-    - cron: "0 6 1 * *"     # her ayın 1'i 06:00 UTC = 09:00 Türkiye
+    - cron: "30 6 * * *"    # HER GÜN 06:30 UTC = 09:30 Türkiye (RG/kart nöbetiyle aynı gün)
   workflow_dispatch:
 
 jobs:
