@@ -69,7 +69,8 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
 <script>
 const LIMIT=3, LSK='mr_sorucevap_hak';
 const W3='5b227e56-94fb-4123-a39a-4286f63db14a';
-let KB={kayitlar:[]};
+let KB={kayitlar:[]}, RGK=null;
+fetch('veri/kartlar-guncel.json?cb='+Date.now()).then(r=>r.json()).then(j=>RGK=j).catch(()=>{RGK={kartlar:[]};});
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function norm(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\./g,'').replace(/[^\wğüşıöç\s]/gi,' ').replace(/\s+/g,' ').trim(); }
@@ -92,6 +93,18 @@ function ara(q){
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 
+function rgGuncel(q){
+  if(!RGK||!RGK.kartlar||!RGK.kartlar.length) return '';
+  const tok=distinctiveTokens(q); if(!tok.length) return '';
+  const es=(RGK.kartlar||[]).map(k=>{
+    const ht=new Set(norm((k.baslik||'')+' '+(k.ne_oldu||'')).split(' ').filter(x=>x.length>=3));
+    let s=0; tok.forEach(t=>{ if(eslesirSet(ht,t)) s++; });
+    return {k,s};
+  }).filter(x=>x.s>=2).sort((a,b)=>b.s-a.s).slice(0,2);
+  if(!es.length) return '';
+  return es.map(({k})=>`<div class="cevap" style="border-left-color:var(--amber)"><div class="konu" style="color:var(--amber)">📰 GÜNCEL RG DEĞİŞİKLİĞİ${RGK.gun?' · '+esc(RGK.gun):''}</div><h3>${esc(k.baslik)}</h3><p>${esc((k.ne_oldu||'').slice(0,180))}</p><div class="kaynak">Bu konuda YENİ düzenleme var — cevabı okurken bunu da dikkate al. ${k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a>`:''}</div></div>`).join('');
+}
+
 function sor(){
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
   // paywall: ücretsiz hak bitti mi?
@@ -109,10 +122,11 @@ function sor(){
     html+=`</div>`;
     // ikinci ilgili
     if(sonuc[1] && sonuc[1].s>=2) html+=`<div class="cevap" style="border-left-color:var(--dim)"><div class="konu" style="color:var(--dim)">İLGİLİ OLABİLİR</div><h3>${esc(sonuc[1].k.konu)}</h3><p>${esc(sonuc[1].k.cevap)}</p><div class="kaynak">Kaynak: <b>${esc(sonuc[1].k.kaynak)}</b></div></div>`;
+    html+=rgGuncel(q);
     $('#cevapAlan').innerHTML=html;
   } else {
     // kapsamda yok — dürüst + logla
-    $('#cevapAlan').innerHTML=`<div class="cevap yok"><div class="konu">KAPSAMDA DEĞİL</div><h3>Bunu şu an güvenle cevaplayamıyorum</h3><p>Bu soru bilgi tabanımızda henüz yok. <b>Uydurmam.</b> Sorunu kaydettim — kaynağını yükleyip ekleyeceğiz. Bu arada resmî kaynak (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p><div class="kaynak">Talebin bize iletildi — bilgi tabanı her gün büyüyor.</div></div>`;
+    $('#cevapAlan').innerHTML=`<div class="cevap yok"><div class="konu">KAPSAMDA DEĞİL</div><h3>Bunu şu an güvenle cevaplayamıyorum</h3><p>Bu soru bilgi tabanımızda henüz yok. <b>Uydurmam.</b> Sorunu kaydettim — kaynağını yükleyip ekleyeceğiz. Bu arada resmî kaynak (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p><div class="kaynak">Talebin bize iletildi — bilgi tabanı her gün büyüyor.</div></div>`+rgGuncel(q);
     try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
   }
 }
