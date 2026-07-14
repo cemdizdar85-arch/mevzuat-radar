@@ -80,12 +80,14 @@ function ornek(el){ $('#soru').value=el.textContent; sor(); }
 
 const STOP=new Set('vergi var varsa yok kac kaç ne nasil nasıl mi mı mu mü olur olması odeme ödeme sure süre suresi süresi icin için ile bir bu kesilir geldi aldim aldım yapmali yapmalı nedir kadar gibi daha cok çok hangi ise diye ben biz siz benim bizim hakkinda hakkında konusunda konusu'.split(' '));
 function distinctiveTokens(q){ return norm(q).split(' ').filter(t=>t.length>=3 && !STOP.has(t)); }
+function eslesirSet(set,t){ for(const h of set){ if(h===t || (h.length>=4 && t.length>=4 && (h.startsWith(t)||t.startsWith(h)))) return true; } return false; }
 function ara(q){
   const tok=distinctiveTokens(q);
   if(!tok.length) return [];
   return KB.kayitlar.map(k=>{
-    const hayTok=new Set(norm((k.anahtar||'')+' '+(k.konu||'')).split(' ').filter(x=>x.length>=3));
-    let s=0; tok.forEach(t=>{ for(const h of hayTok){ if(h===t || (h.length>=4 && t.length>=4 && (h.startsWith(t)||t.startsWith(h)))){ s++; break; } } });
+    const konuTok=new Set(norm(k.konu||'').split(' ').filter(x=>x.length>=3));
+    const anahTok=new Set(norm(k.anahtar||'').split(' ').filter(x=>x.length>=3));
+    let s=0; tok.forEach(t=>{ if(eslesirSet(konuTok,t)) s+=2; else if(eslesirSet(anahTok,t)) s+=1; });
     return {k,s};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
@@ -99,8 +101,7 @@ function sor(){
   }
   const sonuc=ara(q);
   const en=sonuc[0];
-  const dcount=distinctiveTokens(q).length;
-  if(en && (en.s>=2 || (en.s>=1 && en.s>=dcount))){
+  if(en && en.s>=2){
     const k=en.k;
     localStorage.setItem(LSK, kullanilan()+1); hakYaz();
     let html=`<div class="cevap"><div class="konu">${esc(k.konu)}</div><h3>Net cevap</h3><p>${esc(k.cevap)}</p><div class="kaynak">Kaynak: <b>${esc(k.kaynak)}</b></div>`;
