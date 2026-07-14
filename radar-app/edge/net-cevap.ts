@@ -5,7 +5,7 @@
 //  bu dosyayı yapıştır → Deploy. Sonra Settings→Edge Functions→Secrets:
 //  ANTHROPIC_API_KEY ekle. Function ayarında "Verify JWT" KAPAT.
 // ============================================================================
-const AK = Deno.env.get("ANTHROPIC_API_KEY") ?? "";
+const AK = (Deno.env.get("ANTHROPIC_API_KEY") ?? "").trim();
 const SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co";
 const SB_ANON = Deno.env.get("SB_PUBLISHABLE") ?? ""; // opsiyonel; dokumanlar public-read
 const SITE = "https://cemdizdar85-arch.github.io/mevzuat-radar";
@@ -83,7 +83,7 @@ ${kaynakMetni}`;
     const ai = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "x-api-key": AK, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 700, messages: [{ role: "user", content: istem }] }),
+      body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 700, messages: [{ role: "user", content: istem }] }),
     });
     if (!ai.ok) return json({ kapsamda: false, hata: "ai" }, 200);
     const at = (await ai.json()).content?.[0]?.text ?? "";
