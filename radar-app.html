@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Radar Paneli — Benim Mevzuatım | Mevzuat Radarı</title>
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:#06090f;position:relative;color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.12),transparent 72%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:22px 18px 80px}
+a{color:var(--accent2)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.5vw,32px);letter-spacing:-.8px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 18px}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin:14px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:10px 0 6px}
+input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px;appearance:none}
+textarea{min-height:56px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:12px 24px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);box-shadow:none;font-weight:700}
+.btn.sm{font-size:13px;padding:8px 15px}
+.hata{color:var(--red);font-size:13px;font-weight:600;margin-top:10px;min-height:18px}
+.mini{font-size:12px;color:var(--dim)}
+h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}
+.firmakart{border:1px solid var(--line2);border-radius:14px;padding:15px 17px;margin:10px 0;background:var(--panel2);cursor:pointer;transition:border-color .2s}
+.firmakart:hover,.firmakart.sec{border-color:rgba(62,155,255,.5)}
+.firmakart h3{margin:0 0 3px;font-size:16px}
+.firmakart .ozet{font-size:12.5px;color:var(--muted)}
+.chip{display:inline-block;background:rgba(62,155,255,.12);color:var(--accent2);border-radius:7px;padding:2px 9px;font-size:11.5px;margin:2px 4px 2px 0;font-family:var(--mono)}
+.radar-kart{border:1px solid var(--line);border-left:4px solid var(--dim);border-radius:12px;padding:14px 16px;margin:9px 0;background:var(--panel2)}
+.radar-kart.akt{border-left-color:var(--green)}
+.radar-kart.eslesme{border-left-color:var(--accent2)}
+.radar-kart h4{margin:0 0 4px;font-size:14.5px}
+.radar-kart p{margin:0;font-size:12.5px;color:var(--muted)}
+.durum{font-size:11px;font-weight:800;letter-spacing:.4px;font-family:var(--mono)}
+.d-akt{color:var(--green)}.d-bek{color:var(--dim)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.gizli{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="index.html"><span class="logo">MR</span> Mevzuat Radarı · Panel</a>
+    <span id="ustSag"></span>
+  </div>
+  <div id="ekran"><div class="kutu"><p class="mini">Yükleniyor…</p></div></div>
+  <div class="dip">Radar Paneli · Verilerin Supabase'de, yalnız sana ait (RLS). Uyarılar (ihale · alacak · marka · süre · RG) profiline göre üretilir; robot bildirimleri (mail/SMS) yakında. Mevzuat Radarı — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
+const SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+const sb = createClient(SB_URL, SB_KEY);
+const $=s=>document.querySelector(s);
+const ekran=$('#ekran'), ustSag=$('#ustSag');
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const arr=s=>(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);
+const trUp=s=>(s||'').replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
+let SECILI=null, IHALE=null;
+
+sb.auth.onAuthStateChange((_e,s)=>{ s?app():giris(); });
+(async()=>{ const {data:{session}}=await sb.auth.getSession(); session?app():giris(); })();
+
+function giris(){
+  ustSag.innerHTML='';
+  ekran.innerHTML=`
+    <h1>Radar Paneli</h1>
+    <p class="lead">Firma profilini bir kez gir; ihale, alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
+    <div class="kutu" style="max-width:440px">
+      <label>E-posta</label><input id="email" type="email" placeholder="ornek@firma.com" autocomplete="email">
+      <label>Şifre</label><input id="sifre" type="password" placeholder="••••••••" autocomplete="current-password">
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="btn" id="girisBtn">Giriş yap</button>
+        <button class="btn ghost" id="kayitBtn">Yeni üyelik</button>
+      </div>
+      <div class="hata" id="ahata"></div>
+      <p class="mini" style="margin-top:8px">Erken erişim — ücretsiz. Verilerin yalnız sana ait.</p>
+    </div>`;
+  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
+  $('#kayitBtn').onclick=async()=>{ const {data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value}); if(error){$('#ahata').textContent=error.message;return;} if(!data.session)$('#ahata').textContent='Kayıt alındı — giriş yapabilirsin.'; };
+}
+
+async function app(){
+  const {data:{user}}=await sb.auth.getUser();
+  ustSag.innerHTML=`<span class="mini">${esc(user?.email||'')}</span> · <a href="#" id="cikis">çıkış</a>`;
+  $('#cikis').onclick=e=>{e.preventDefault();sb.auth.signOut();};
+  const {data:firmalar,error}=await sb.from('firmalar').select('*').order('created_at');
+  if(error){ ekran.innerHTML=`<div class="kutu"><p class="hata">Tablo bulunamadı. Supabase'de radar-app/schema.sql'i çalıştır.</p><p class="mini">${esc(error.message)}</p></div>`; return; }
+  if(!SECILI && firmalar.length) SECILI=firmalar[0].id;
+  const sf=firmalar.find(f=>f.id===SECILI);
+  ekran.innerHTML=`
+    <h1>Benim Mevzuatım</h1>
+    <p class="lead">Firmalarını ekle, her birine özel radar çalışsın. Mali müşavirsen tüm mükelleflerini buraya gir.</p>
+    <h2>Firmalarım (${firmalar.length})</h2>
+    <div id="firmaListe">${firmalar.map(f=>`
+      <div class="firmakart ${f.id===SECILI?'sec':''}" data-id="${f.id}">
+        <h3>${esc(f.firma_adi)}</h3>
+        <div class="ozet">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${(f.gtip_kodlari||[]).length} GTİP · ${(f.markalar||[]).length} marka</div>
+      </div>`).join('') || '<p class="mini">Henüz firma yok — aşağıdan ekle.</p>'}
+    </div>
+    <button class="btn ghost sm" id="yeniFirma">+ Firma ekle</button>
+    <div id="formAlan" class="gizli"></div>
+    <div id="pano"></div>`;
+  document.querySelectorAll('.firmakart').forEach(k=>k.onclick=()=>{SECILI=k.dataset.id;app();});
+  $('#yeniFirma').onclick=()=>firmaForm();
+  if(sf) pano(sf);
+}
+
+function firmaForm(){
+  const fa=$('#formAlan'); fa.classList.remove('gizli');
+  fa.innerHTML=`<div class="kutu">
+    <h3 style="margin:0 0 4px;font-size:16px">Firma ekle</h3>
+    <div class="grid2">
+      <div><label>Firma adı *</label><input id="f_ad" placeholder="ör. Ege Seramik Ltd."></div>
+      <div><label>Rol</label><select id="f_rol"><option value="ithalatci">İthalatçı</option><option value="ihracatci">İhracatçı</option><option value="uretici">Üretici</option><option value="tuccar">Tüccar</option><option value="musteri">Müşavir müşterisi</option></select></div>
+      <div><label>İl</label><input id="f_il" placeholder="ör. İzmir"></div>
+      <div><label>Sektör</label><input id="f_sektor" placeholder="ör. seramik, tekstil"></div>
+    </div>
+    <label>GTİP kodların <span class="mini">(virgülle: 6907.21, 8471.30)</span></label><textarea id="f_gtip" placeholder="6907.21.00, 6907.22.00"></textarea>
+    <label>Markaların <span class="mini">(virgülle)</span></label><textarea id="f_marka" placeholder="ABC — 2016/12345"></textarea>
+    <label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı — virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea>
+    <div class="grid2">
+      <div><label>Uyarı kanalı</label><select id="f_kanal"><option value="mail">E-posta</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select></div>
+      <div><label>Telefon <span class="mini">(SMS/WhatsApp için)</span></label><input id="f_tel" placeholder="05xx…"></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px"><button class="btn" id="kaydet">Kaydet</button><button class="btn ghost" id="iptal">Vazgeç</button></div>
+    <div class="hata" id="fhata"></div>
+  </div>`;
+  $('#iptal').onclick=()=>{fa.classList.add('gizli');fa.innerHTML='';};
+  $('#kaydet').onclick=async()=>{
+    const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
+    const {data:{user}}=await sb.auth.getUser();
+    const kayit={ user_id:user.id, firma_adi:ad, rol:$('#f_rol').value, il:$('#f_il').value.trim(), sektor:$('#f_sektor').value.trim(),
+      gtip_kodlari:arr($('#f_gtip').value), markalar:arr($('#f_marka').value), borclu_vkn:arr($('#f_vkn').value),
+      kanal:$('#f_kanal').value, telefon:$('#f_tel').value.trim() };
+    const {data,error}=await sb.from('firmalar').insert(kayit).select().single();
+    if(error){$('#fhata').textContent=error.message;return;}
+    SECILI=data.id; app();
+  };
+}
+
+async function pano(f){
+  const p=$('#pano');
+  const gtipChips=(f.gtip_kodlari||[]).map(g=>`<span class="chip">${esc(g)}</span>`).join('')||'<span class="mini">yok</span>';
+  const markaChips=(f.markalar||[]).map(m=>`<span class="chip" style="font-family:inherit">${esc(m)}</span>`).join('')||'<span class="mini">yok</span>';
+  // canlı ihale eşleşmesi (il'e göre)
+  if(!IHALE){ try{ IHALE=await (await fetch('veri/ihale-yurtici.json?cb='+Date.now())).json(); }catch(e){ IHALE={ilanlar:[]}; } }
+  const ilU=trUp(f.il);
+  const eslesen=(IHALE.ilanlar||[]).filter(x=> ilU && trUp(x.il)===ilU ).slice(0,4);
+  const ihaleHtml = eslesen.length
+    ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
+    : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok — robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
+
+  p.innerHTML=`
+    <h2>${esc(f.firma_adi)} — profil</h2>
+    <div class="kutu">
+      <div class="ozet mini">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${esc(f.sektor||'')}</div>
+      <label style="margin-top:12px">GTİP kodların</label><div>${gtipChips}</div>
+      <label style="margin-top:10px">Markaların</label><div>${markaChips}</div>
+      <label style="margin-top:10px">İzlenen borçlu VKN</label><div>${(f.borclu_vkn||[]).length?f.borclu_vkn.map(v=>`<span class="chip">${esc(v)}</span>`).join(''):'<span class="mini">yok</span>'}</div>
+      <div style="margin-top:14px"><button class="btn ghost sm" id="silFirma">Firmayı sil</button></div>
+    </div>
+
+    <h2>🇹🇷 Sana uygun güncel ihaleler</h2>
+    ${ihaleHtml}
+
+    <h2>İzlenen radarların</h2>
+    <div class="radar-kart ${(f.gtip_kodlari||[]).length?'akt':''}"><span class="durum ${(f.gtip_kodlari||[]).length?'d-akt':'d-bek'}">${(f.gtip_kodlari||[]).length?'● AKTİF':'○ GTİP GİR'}</span><h4>Mevzuat / RG radarı</h4><p>GTİP kodlarına dokunan Resmî Gazete değişikliği çıkınca hap kart + uyarı gelir.</p></div>
+    <div class="radar-kart ${(f.markalar||[]).length?'akt':''}"><span class="durum ${(f.markalar||[]).length?'d-akt':'d-bek'}">${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'}</span><h4>Marka radarı</h4><p>Yenileme 6 ay kala + benzer başvuru çıkınca uyarı.</p></div>
+    <div class="radar-kart ${(f.borclu_vkn||[]).length?'akt':''}"><span class="durum ${(f.borclu_vkn||[]).length?'d-akt':'d-bek'}">${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'}</span><h4>Alacak radarı</h4><p>İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı.</p></div>
+    <div class="radar-kart akt"><span class="durum d-akt">● AKTİF</span><h4>Süre & belge radarı</h4><p>DİİB/KDV/SGK süreleri + belge geçerlilikleri için <a href="belge-kasasi.html">Belge Kasası</a>.</p></div>
+    <p class="mini" style="margin-top:12px">Uyarılar <b>${esc(f.kanal||'mail')}</b> ile gönderilecek. Robot bildirim motoru yakında; şimdilik pano canlı eşleşmeyi gösterir.</p>`;
+  $('#silFirma').onclick=async()=>{ if(!confirm('Bu firmayı silmek istediğine emin misin?'))return; await sb.from('firmalar').delete().eq('id',f.id); SECILI=null; app(); };
+}
+</script>
+</body>
+</html>
