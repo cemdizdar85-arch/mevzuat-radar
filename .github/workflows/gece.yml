@@ -1,0 +1,42 @@
+# .github/workflows/gece.yml — GECE AJANI (soru-cevap derinleştirme)
+# Her gece en zayıf alan için Claude'a doğrulanmış soru-cevap ürettirir,
+# KAPILARDAN geçirir (kaynak + eskiyen-rakam + çapraz-doğrulama + JSON/id),
+# geçenleri veri/onay-bekleyen.json'a yazar (v1 GÜVENLİ: staging).
+# GEREKSİNİM: repo Settings -> Secrets -> Actions -> ANTHROPIC_API_KEY.
+# Kalite kanıtlanınca: repo Variables'a GECE_YAYIN=1 → doğrudan canlıya yazar.
+# Secret yoksa iş zarifçe atlanır.
+name: Gece Ajanı
+
+on:
+  schedule:
+    - cron: "0 1 * * *"     # 01:00 UTC = 04:00 Türkiye (derin gece)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gece:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Gece ajanı üret + kapılar
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GECE_YAYIN: ${{ vars.GECE_YAYIN }}
+        run: ./motor/gece-ajani.ps1
+
+      - name: Değişiklik varsa yayınla
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/onay-bekleyen.json veri/bilgi-tabani.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Değişiklik yok."
+          else
+            git commit -m "Gece ajanı: yeni içerik (kapılardan geçti)"
+            git push
+          fi
