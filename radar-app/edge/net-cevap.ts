@@ -20,6 +20,21 @@ function norm(s: string): string {
 }
 const STOP = new Set("vergi var varsa yok kac kaç ne nasil nasıl mi mı mu mü olur odeme ödeme sure süre suresi icin için ile bir bu kesilir geldi aldim aldım nedir kadar gibi daha cok çok hangi".split(" "));
 
+// Türkçe sondan-eklemeli morfoloji: token ile kaynak-kelime 5+ harf ortak
+// önek paylaşıyorsa eşleşir ('girisini'~'giris', 'bildirmeliyim'~'bildirge').
+function skorla(tok: string[], hay: string): number {
+  const kel = hay.split(" ").filter((w) => w.length >= 3);
+  let s = 0;
+  for (const t of tok) {
+    for (const w of kel) {
+      const n = Math.min(t.length, w.length);
+      const need = n >= 5 ? 5 : n;
+      if (t.slice(0, need) === w.slice(0, need)) { s++; break; }
+    }
+  }
+  return s;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   try {
@@ -36,7 +51,7 @@ Deno.serve(async (req) => {
       const kb = await (await fetch(`${SITE}/veri/bilgi-tabani.json`)).json();
       const skorlu = (kb.kayitlar || []).map((k: any) => {
         const hay = norm((k.anahtar || "") + " " + (k.konu || ""));
-        let s = 0; tok.forEach((t) => { if (hay.includes(t)) s++; });
+        const s = skorla(tok, hay);
         return { k, s };
       }).filter((x: any) => x.s > 0).sort((a: any, b: any) => b.s - a.s).slice(0, 4);
       for (const { k } of skorlu) parcalar.push({ ad: k.kaynak, metin: `${k.konu}: ${k.cevap}`, url: k.arac ? `${SITE}/${k.arac}` : undefined });
@@ -57,7 +72,7 @@ Deno.serve(async (req) => {
       const g = await (await fetch(`${SITE}/veri/kartlar-guncel.json`)).json();
       for (const k of (g.kartlar || [])) {
         const hay = norm((k.baslik || "") + " " + (k.ne_oldu || ""));
-        let s = 0; tok.forEach((t) => { if (hay.includes(t)) s++; });
+        const s = skorla(tok, hay);
         if (s >= 2) parcalar.push({ ad: `Resmî Gazete ${g.gun || ""}`, metin: `${k.baslik}. ${k.ne_oldu}`, url: k.url });
       }
     } catch (_) {}
