@@ -66,7 +66,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 const arr=s=>(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);
 const trUp=s=>(s||'').replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
 let SECILI=null, IHALE=null, KARTLAR=null;
-const gtipNorm=s=>(s||'').replace(/[^\d]/g,'');
+const gtipNorm=s=>String(s==null?'':s).replace(/[^\d]/g,'');
 function gtipEslesir(firmaKod, kartKod){ const a=gtipNorm(firmaKod), b=gtipNorm(kartKod); if(a.length<4||b.length<4) return false; const k=Math.min(a.length,b.length); return a.slice(0,k)===b.slice(0,k); }
 
 sb.auth.onAuthStateChange((_e,s)=>{ s?app():giris(); });
