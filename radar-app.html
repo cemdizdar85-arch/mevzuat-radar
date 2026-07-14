@@ -65,7 +65,9 @@ const ekran=$('#ekran'), ustSag=$('#ustSag');
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const arr=s=>(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);
 const trUp=s=>(s||'').replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
-let SECILI=null, IHALE=null;
+let SECILI=null, IHALE=null, KARTLAR=null;
+const gtipNorm=s=>(s||'').replace(/[^\d]/g,'');
+function gtipEslesir(firmaKod, kartKod){ const a=gtipNorm(firmaKod), b=gtipNorm(kartKod); if(a.length<4||b.length<4) return false; const k=Math.min(a.length,b.length); return a.slice(0,k)===b.slice(0,k); }
 
 sb.auth.onAuthStateChange((_e,s)=>{ s?app():giris(); });
 (async()=>{ const {data:{session}}=await sb.auth.getSession(); session?app():giris(); })();
@@ -160,6 +162,15 @@ async function pano(f){
     ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
     : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok — robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
 
+  // canlı RG kartı ↔ GTİP eşleşmesi
+  if(!KARTLAR){ try{ KARTLAR=await (await fetch('veri/kartlar-guncel.json?cb='+Date.now())).json(); }catch(e){ KARTLAR={kartlar:[]}; } }
+  const fgtip=f.gtip_kodlari||[];
+  const kartEslesen=(KARTLAR.kartlar||[]).filter(k=> fgtip.some(fk=> (k.gtip||[]).some(kk=> gtipEslesir(fk,kk)) )).slice(0,5);
+  const yon=v=>({'ithalatci aleyhine':['var(--red)','⚠ aleyhine'],'ithalatci lehine':['var(--green)','✓ lehine'],'karisik':['var(--amber)','~ karışık']})[(v||'').replace(/İ/g,'i').toLowerCase()]||['var(--dim)',''];
+  const kartHtml = kartEslesen.length
+    ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p></div>`;}).join('')
+    : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok — robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;
+
   p.innerHTML=`
     <h2>${esc(f.firma_adi)} — profil</h2>
     <div class="kutu">
@@ -169,6 +180,9 @@ async function pano(f){
       <label style="margin-top:10px">İzlenen borçlu VKN</label><div>${(f.borclu_vkn||[]).length?f.borclu_vkn.map(v=>`<span class="chip">${esc(v)}</span>`).join(''):'<span class="mini">yok</span>'}</div>
       <div style="margin-top:14px"><button class="btn ghost sm" id="silFirma">Firmayı sil</button></div>
     </div>
+
+    <h2>📋 Bugün seni ilgilendiren mevzuat (RG)</h2>
+    ${kartHtml}
 
     <h2>🇹🇷 Sana uygun güncel ihaleler</h2>
     ${ihaleHtml}
