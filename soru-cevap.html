@@ -32,8 +32,18 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
 .cevap .kaynak{margin-top:12px;font-size:12px;color:var(--dim);font-family:var(--mono);border-top:1px solid var(--line);padding-top:10px}
 .cevap .kaynak b{color:var(--accent2)}
 .cevap .araclink{margin-top:8px;font-size:13px}
+.guven{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.rozet{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.2px;font-family:var(--mono);padding:4px 9px;border-radius:999px;border:1px solid var(--line2)}
+.rozet.dogru{color:var(--green);background:rgba(61,220,151,.09);border-color:rgba(61,220,151,.3)}
+.rozet.tarih{color:var(--accent2);background:rgba(38,208,254,.08);border-color:rgba(38,208,254,.28)}
 .yok{border-left-color:var(--amber)}
 .yok .konu{color:var(--amber)}
+.durust{background:linear-gradient(135deg,rgba(255,176,32,.08),rgba(255,176,32,.02)),var(--panel);border:1px solid rgba(255,176,32,.32);border-left:4px solid var(--amber);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.durust .konu{font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--amber);text-transform:uppercase;font-family:var(--mono)}
+.durust h3{margin:6px 0 8px;font-size:17px;letter-spacing:-.3px}
+.durust p{margin:0 0 8px;font-size:14px;color:var(--ink)}
+.durust .neden{font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px}
+.durust .neden b{color:var(--green)}
 .paywall{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.35);border-radius:16px;padding:24px;text-align:center;margin-top:16px}
 .paywall h3{margin:0 0 6px;font-size:19px}.paywall p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}
 .hak{font-size:12px;color:var(--dim);margin-top:10px;font-family:var(--mono)}
@@ -108,6 +118,20 @@ function rgEsles(q){
 
 // —— BEYİN (Edge Function): deploy edilince otomatik devreye girer; yoksa yerel motor çalışır ——
 const EDGE='https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/net-cevap';
+// —— GÜVEN İMZASI: her cevabın altına kaynak rozeti + güncellik damgası (ChatGPT'de olmayan fark) ——
+function bugunTR(){const d=new Date(),p=n=>String(n).padStart(2,'0');return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();}
+function guvenFooter(kaynakHtml){
+  return `<div class="kaynak">Kaynak: <b>${kaynakHtml||'doğrulanmış bilgi tabanı'}</b></div>`
+    +`<div class="guven"><span class="rozet dogru">✓ Doğrulanmış birincil kaynak</span>`
+    +`<span class="rozet tarih">🕓 Yürürlükteki mevzuata göre · ${bugunTR()}</span></div>`;
+}
+function durustKutu(){
+  return `<div class="durust"><div class="konu">KAPSAMDA DEĞİL</div>`
+    +`<h3>Bunu şu an güvenle cevaplayamıyorum</h3>`
+    +`<p>Bu soru doğrulanmış bilgi tabanımızda henüz yok. <b>Uydurmuyorum</b> — yanlış bir rakam/süre sana ceza olarak döner, o riski almam.</p>`
+    +`<p>Sorunu kaydettim; kaynağını (madde/tebliğ/özelge) yükleyip ekleyeceğiz. Bu arada resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
+    +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor — talebin ona ekleniyor.</div></div>`;
+}
 async function sor(){
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
   if(kullanilan()>=LIMIT){
@@ -125,7 +149,7 @@ async function sor(){
       if(j.kapsamda && j.cevap){
         localStorage.setItem(LSK, kullanilan()+1); hakYaz();
         const kay=(j.kaynaklar||[]).map(k=>k.url?`<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.ad)}</a>`:esc(k.ad)).join(' · ');
-        $('#cevapAlan').innerHTML=`<div class="cevap"><div class="konu">NET CEVAP</div><h3>Cevabın</h3><p>${esc(j.cevap)}</p><div class="kaynak">Kaynak: <b>${kay||'doğrulanmış bilgi tabanı'}</b></div></div>`;
+        $('#cevapAlan').innerHTML=`<div class="cevap"><div class="konu">NET CEVAP</div><h3>Cevabın</h3><p>${esc(j.cevap)}</p>${guvenFooter(kay)}</div>`;
         return;
       }
       if(j.kapsamda===false && !j.hata){ kapsamDisi(q); return; }
@@ -137,10 +161,10 @@ function kapsamDisi(q){
   const rgler=rgEsles(q);
   if(rgler.length){
     localStorage.setItem(LSK, kullanilan()+1); hakYaz();
-    $('#cevapAlan').innerHTML=rgler.map(({k},i)=>`<div class="cevap"><div class="konu">${i===0?'GÜNCEL DÜZENLEME':'İLGİLİ DÜZENLEME'}</div><h3>${esc(k.baslik)}</h3><p>${esc(k.ne_oldu||'')}</p><div class="kaynak">Kaynak: <b>Resmî Gazete${RGK&&RGK.gun?' · '+esc(RGK.gun):''}</b>${k.url?` · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ metni →</a>`:''}</div></div>`).join('');
+    $('#cevapAlan').innerHTML=rgler.map(({k},i)=>`<div class="cevap"><div class="konu">${i===0?'GÜNCEL DÜZENLEME':'İLGİLİ DÜZENLEME'}</div><h3>${esc(k.baslik)}</h3><p>${esc(k.ne_oldu||'')}</p><div class="kaynak">Kaynak: <b>Resmî Gazete${RGK&&RGK.gun?' · '+esc(RGK.gun):''}</b>${k.url?` · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ metni →</a>`:''}</div><div class="guven"><span class="rozet dogru">✓ Resmî Gazete birincil kaynak</span><span class="rozet tarih">🕓 Yürürlükteki mevzuata göre · ${bugunTR()}</span></div></div>`).join('');
     return;
   }
-  $('#cevapAlan').innerHTML=`<div class="cevap yok"><div class="konu">KAPSAMDA DEĞİL</div><h3>Bunu şu an güvenle cevaplayamıyorum</h3><p>Bu soru bilgi tabanımızda henüz yok. <b>Uydurmam.</b> Sorunu kaydettim — kaynağını yükleyip ekleyeceğiz. Bu arada resmî kaynak (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p><div class="kaynak">Talebin bize iletildi — bilgi tabanı her gün büyüyor.</div></div>`;
+  $('#cevapAlan').innerHTML=durustKutu();
   try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
 }
 function localSor(q){
@@ -154,7 +178,7 @@ function localSor(q){
   if(en && en.s>=2){
     const k=en.k;
     localStorage.setItem(LSK, kullanilan()+1); hakYaz();
-    let html=`<div class="cevap"><div class="konu">${esc(k.konu)}</div><h3>Net cevap</h3><p>${esc(k.cevap)}</p><div class="kaynak">Kaynak: <b>${esc(k.kaynak)}</b></div>`;
+    let html=`<div class="cevap"><div class="konu">${esc(k.konu)}</div><h3>Net cevap</h3><p>${esc(k.cevap)}</p>${guvenFooter(esc(k.kaynak))}`;
     if(k.arac) html+=`<div class="araclink"><a href="${esc(k.arac)}">İlgili aracı aç / detaylandır →</a></div>`;
     html+=`</div>`;
     // ikinci ilgili
@@ -165,11 +189,11 @@ function localSor(q){
     const rgler=rgEsles(q);
     if(rgler.length){
       localStorage.setItem(LSK, kullanilan()+1); hakYaz();
-      $('#cevapAlan').innerHTML=rgler.map(({k},i)=>`<div class="cevap"><div class="konu">${i===0?'GÜNCEL DÜZENLEME':'İLGİLİ DÜZENLEME'}</div><h3>${esc(k.baslik)}</h3><p>${esc(k.ne_oldu||'')}</p><div class="kaynak">Kaynak: <b>Resmî Gazete${RGK.gun?' · '+esc(RGK.gun):''}</b>${k.url?` · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ metni →</a>`:''}</div></div>`).join('');
+      $('#cevapAlan').innerHTML=rgler.map(({k},i)=>`<div class="cevap"><div class="konu">${i===0?'GÜNCEL DÜZENLEME':'İLGİLİ DÜZENLEME'}</div><h3>${esc(k.baslik)}</h3><p>${esc(k.ne_oldu||'')}</p><div class="kaynak">Kaynak: <b>Resmî Gazete${RGK.gun?' · '+esc(RGK.gun):''}</b>${k.url?` · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ metni →</a>`:''}</div><div class="guven"><span class="rozet dogru">✓ Resmî Gazete birincil kaynak</span><span class="rozet tarih">🕓 Yürürlükteki mevzuata göre · ${bugunTR()}</span></div></div>`).join('');
       return;
     }
     // kapsamda yok — dürüst + logla
-    $('#cevapAlan').innerHTML=`<div class="cevap yok"><div class="konu">KAPSAMDA DEĞİL</div><h3>Bunu şu an güvenle cevaplayamıyorum</h3><p>Bu soru bilgi tabanımızda henüz yok. <b>Uydurmam.</b> Sorunu kaydettim — kaynağını yükleyip ekleyeceğiz. Bu arada resmî kaynak (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p><div class="kaynak">Talebin bize iletildi — bilgi tabanı her gün büyüyor.</div></div>`;
+    $('#cevapAlan').innerHTML=durustKutu();
     try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3,subject:'CEVAPLANAMAYAN SORU',soru:q,from_name:'Net Cevap - kapsam disi'})}); }catch(e){}
   }
 }
