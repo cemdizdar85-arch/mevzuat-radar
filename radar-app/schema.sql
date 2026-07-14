@@ -31,6 +31,27 @@ create policy "firmalar_delete_own" on public.firmalar for delete using (auth.ui
 
 create index if not exists firmalar_user_idx on public.firmalar(user_id);
 
+-- ============================================================================
+--  BİLGİ AMBARI (Kademe B) — konsolide mevzuat + seçmeli özelge, tam-metin arama.
+--  Omurga: mevzuat.gov.tr konsolide metinleri (devlet güncel tutar, robot tazeler).
+--  Özelge: yalnız seçmeli + tarih damgalı (bayat özelge riskine karşı).
+-- ============================================================================
+create table if not exists public.dokumanlar (
+  id          uuid primary key default gen_random_uuid(),
+  tur         text not null,           -- kanun / teblig / ozelge
+  kaynak_ad   text not null,           -- ör. 'VUK m.371' / 'KDVGUT IV/A' / 'GİB özelge 2024/...'
+  baslik      text,
+  metin       text not null,           -- madde/bölüm metni (parça)
+  kaynak_url  text,
+  belge_tarihi date,                   -- özelgede verildiği tarih (bayatlık uyarısı için)
+  yuklenme    timestamptz default now(),
+  arama       tsvector generated always as (to_tsvector('simple', coalesce(baslik,'') || ' ' || metin)) stored
+);
+create index if not exists dokuman_arama_idx on public.dokumanlar using gin(arama);
+alter table public.dokumanlar enable row level security;
+-- herkes OKUYABİLİR (kamu mevzuatı); yazma yalnız service role (robot)
+create policy "dokuman_public_read" on public.dokumanlar for select using (true);
+
 -- (İLERİDE) uyarı kayıtları — robot cron buraya yazacak, panoda gösterilecek
 create table if not exists public.firma_uyarilari (
   id         uuid primary key default gen_random_uuid(),
