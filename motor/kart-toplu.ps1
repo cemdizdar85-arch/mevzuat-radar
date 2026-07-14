@@ -349,6 +349,14 @@ $gunKartDir = Join-Path $here ("kartlar\" + $Gun)
 New-Item -ItemType Directory -Force $gunKartDir | Out-Null
 $kartlar | ConvertTo-Json -Depth 8 | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
 
+# radar-app panosunun GTIP eslesmesi icin sabit "guncel kartlar" (yalniz GTIP'li kartlar, trim)
+$guncelKartlar = @($kartlar | ForEach-Object {
+  [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon) }
+} | Where-Object { @($_.gtip).Count -gt 0 })
+$guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları (GTİP eşleşmeli) — " + $TarihNokta); kartlar=$guncelKartlar }
+$guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
+[System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
+
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
