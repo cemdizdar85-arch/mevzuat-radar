@@ -1,0 +1,22 @@
+# .github/workflows/ambar.yml  —  Bilgi Ambarı yükleyici (#48)
+# veri/ambar-kaynaklar.json manifestini Supabase 'dokumanlar' tablosuna senkronlar.
+# net-cevap edge fonksiyonu buradan tam-metin (FTS) arayıp alıntıyla cevaplar.
+# GEREKSİNİM (Cem GitHub secret ekleyecek): SUPABASE_SERVICE_KEY (zorunlu).
+# Secret yoksa robot zarifçe atlar. Aylık çalışır + istediğinde elle tetikle.
+name: Bilgi Ambarı Yükleyici
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"     # her ayın 1'i 06:00 UTC = 09:00 Türkiye
+  workflow_dispatch:
+
+jobs:
+  ambar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ambar yukleyici
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/ambar-yukle.ps1
