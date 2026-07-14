@@ -1,0 +1,23 @@
+# .github/workflows/uyari.yml  —  Radar uyarı robotu (#44 push)
+# Her sabah firmaları profiline göre tarar, yeni eşleşmeyi firma_uyarilari'na yazar + mail.
+# GEREKSİNİM (Cem GitHub secret ekleyecek): SUPABASE_SERVICE_KEY (zorunlu),
+# RESEND_KEY + RESEND_FROM (mail için, opsiyonel). Secret yoksa zarifçe atlar.
+name: Radar Uyarı Robotu
+
+on:
+  schedule:
+    - cron: "0 7 * * *"     # 07:00 UTC = 10:00 Türkiye (ihale + kart hasadından sonra)
+  workflow_dispatch:
+
+jobs:
+  uyari:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Uyari robotu
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/uyari-robotu.ps1

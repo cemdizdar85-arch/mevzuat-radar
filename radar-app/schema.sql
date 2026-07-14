@@ -7,6 +7,7 @@
 create table if not exists public.firmalar (
   id            uuid primary key default gen_random_uuid(),
   user_id       uuid not null references auth.users(id) on delete cascade,
+  email         text,            -- uyarı maili için (kayıt anında dolar)
   firma_adi     text not null,
   rol           text,            -- ithalatci / ihracatci / uretici / tuccar / musavir-musterisi
   il            text,

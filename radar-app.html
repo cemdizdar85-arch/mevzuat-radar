@@ -141,7 +141,7 @@ function firmaForm(){
   $('#kaydet').onclick=async()=>{
     const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
     const {data:{user}}=await sb.auth.getUser();
-    const kayit={ user_id:user.id, firma_adi:ad, rol:$('#f_rol').value, il:$('#f_il').value.trim(), sektor:$('#f_sektor').value.trim(),
+    const kayit={ user_id:user.id, email:user.email, firma_adi:ad, rol:$('#f_rol').value, il:$('#f_il').value.trim(), sektor:$('#f_sektor').value.trim(),
       gtip_kodlari:arr($('#f_gtip').value), markalar:arr($('#f_marka').value), borclu_vkn:arr($('#f_vkn').value),
       kanal:$('#f_kanal').value, telefon:$('#f_tel').value.trim() };
     const {data,error}=await sb.from('firmalar').insert(kayit).select().single();
@@ -171,7 +171,14 @@ async function pano(f){
     ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p></div>`;}).join('')
     : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok — robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;
 
+  // robotun yazdığı uyarılar
+  let uyarilar=[]; try{ const {data}=await sb.from('firma_uyarilari').select('*').eq('firma_id',f.id).order('created_at',{ascending:false}).limit(10); uyarilar=data||[]; }catch(e){}
+  const uyariHtml = uyarilar.length
+    ? uyarilar.map(u=>`<div class="radar-kart ${u.onem==='yuksek'?'eslesme':'akt'}"><span class="durum ${u.okundu?'d-bek':'d-akt'}">${u.okundu?'okundu':'● YENİ'} · ${esc(u.tur||'')}</span><h4>${esc(u.baslik)}</h4><p>${esc(u.detay||'')} ${u.url?`· <a href="${esc(u.url)}" target="_blank" rel="noopener">aç →</a>`:''}</p></div>`).join('')
+    : '';
+
   p.innerHTML=`
+    ${uyarilar.length?`<h2>🔔 Radar uyarıların (${uyarilar.length})</h2>${uyariHtml}`:''}
     <h2>${esc(f.firma_adi)} — profil</h2>
     <div class="kutu">
       <div class="ozet mini">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${esc(f.sektor||'')}</div>
