@@ -72,7 +72,7 @@ const W3='5b227e56-94fb-4123-a39a-4286f63db14a';
 let KB={kayitlar:[]};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function norm(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/[^\wğüşıöç\s]/gi,' ').replace(/\s+/g,' ').trim(); }
+function norm(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\./g,'').replace(/[^\wğüşıöç\s]/gi,' ').replace(/\s+/g,' ').trim(); }
 function kullanilan(){ return parseInt(localStorage.getItem(LSK)||'0',10); }
 function hakYaz(){ const k=Math.max(0,LIMIT-kullanilan()); $('#hak').textContent=`Ücretsiz soru hakkın: ${k}/${LIMIT}`; }
 fetch('veri/bilgi-tabani.json?cb='+Date.now()).then(r=>r.json()).then(j=>{KB=j;hakYaz();}).catch(()=>hakYaz());
