@@ -16,8 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Ambar yukleyici
+      - name: Ambar yukleyici (kuratorlu 14 belge)
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/ambar-yukle.ps1
+      - name: Mevzuat yukleyici (kanun madde-belgeleri)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/mevzuat-yukle.ps1
