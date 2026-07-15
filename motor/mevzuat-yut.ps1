@@ -62,6 +62,7 @@ foreach($law in $manifest.kanunlar){
     if($H -and -not $durum.ContainsKey($law.slug) -and (Test-Path $hazirJson)){
       try {
         $hd = (Get-Content $hazirJson -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler
+        foreach($d in @($hd)){ $d.tur = 'kanun-madde' }   # eski JSON'larda 'kanun' kalmis olabilir -> normalize (kopya-sayac dersi)
         if(@($hd).Count -ge 5){
           $adPrefix = "$($law.ad)"; $q = [uri]::EscapeDataString("$adPrefix*")
           try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch {}
@@ -70,6 +71,10 @@ foreach($law in $manifest.kanunlar){
             $bj=($dilim | ConvertTo-Json -Depth 5); if(@($dilim).Count -eq 1){ $bj="[$bj]" }
             Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer="return=minimal" }) -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($bj)) -TimeoutSec 180 | Out-Null
           }
+          # durum izi birak: 'yedek-json' -> her kosuda TEKRAR yuklemez; gercek indirme
+          # basarili oldugu ilk gun hash uyusmaz -> kaynaktan yeniden yutulur (ayna kurali)
+          $durum[$law.slug] = @{ hash='yedek-json'; son_senkron=$bugun; madde=@($hd).Count; ad=$law.ad }
+          $degisen.Add($law.slug) | Out-Null
           Write-Host ("YEDEKTEN YUKLENDI (indirme yok, repo JSON): {0} -> {1} madde" -f $law.ad, @($hd).Count)
         }
       } catch { Write-Host "  yedek yukleme HATA [$($law.slug)]: $_" }
