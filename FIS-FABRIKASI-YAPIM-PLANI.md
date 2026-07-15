@@ -78,14 +78,19 @@ yansıtır ya da içerir; bize kesin gelir.
 ---
 
 ## GELİR MODELİ (3 musluk)
-| Musluk | Kaynak | Model |
+
+**MÜŞTERİ = SADECE MUHASEBE BÜROSU** (Cem'in kararı, 15.07.2026). Mükellef bizim
+müşterimiz değildir; büronun platformdaki kullanıcısıdır (pano linkiyle girer, bize ödeme
+yapmaz). Fatura BÜROYA kesilir, büronun mükellef sayısına göre.
+
+| Musluk | Müşteri | Model |
 |---|---|---|
-| 1. Platform üyeliği | **mükellef başına ~50 TL/ay** (Cem'in kararı, 15.07.2026) | kişi/mükellef bazlı; pilotta az mükellefle başla, sonra çoğalt |
-| 2. Tahsilat komisyonu | her ödemeden | % (ödeme kuruluşu payı düşülür) |
-| 3. Fiş fabrikası | işlem başına | satır/fiş adedi ücreti |
+| 1. Platform üyeliği | muhasebe bürosu | **mükellef başına ~50 TL/ay, büroya faturalanır** (ör. 100 mükellefli büro → 5.000 TL/ay) |
+| 2. Tahsilat komisyonu | muhasebe bürosu | büronun mükelleften tahsilatına aracılık; her ödemeden % (ödeme kuruluşu payı düşülür) |
+| 3. Fiş fabrikası | muhasebe bürosu | işlem başına (ekstre satırı / fiş adedi) ücret |
 
 > Örnek ölçek (aritmetik, taahhüt değil): 1 büro × 100 mükellef × 50 TL = 5.000 TL/ay;
-> 10 büro = 50.000 TL/ay — yalnız 1. musluktan, komisyon ve fiş üretimi hariç.
+> 10 büro = 50.000 TL/ay — yalnız 1. musluktan. Satış görüşmesi tek kapı: büro sahibi SMMM.
 
 ## SIRA (sprintler)
 1. **KAT 2 — Beyanname dağıtım robotu** (en hızlı görünür değer; dosya adı deterministik,
