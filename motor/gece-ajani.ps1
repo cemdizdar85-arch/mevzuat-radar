@@ -14,7 +14,7 @@ try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingPro
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$MODEL = "claude-sonnet-5"          # üretim: en iyi akıl; doğrulama da aynı
+$MODEL = "claude-haiku-4-5-20251001"   # net-cevap'ta kanıtlı; thinking yok, parse temiz (Sonnet thinking bütçe yiyordu)
 $ADET  = 6                          # her gece kaç yeni cevap denesin
 $YAYIN = ($env:GECE_YAYIN -eq "1")  # 1 ise doğrudan bilgi-tabani'na yazar (kalite kanıtlanınca)
 
