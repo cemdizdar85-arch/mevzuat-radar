@@ -54,7 +54,30 @@ $degisen = New-Object System.Collections.Generic.List[string]
 
 foreach($law in $manifest.kanunlar){
   $txt = Join-Path $txtDir "$($law.slug).txt"
-  if(-not (Test-Path $txt)){ Write-Host "ATLA (txt yok): $($law.slug)"; continue }
+  if(-not (Test-Path $txt)){
+    # YEDEK YOL: indirme basarisiz (mevzuat.gov.tr runner'a yavas/kapali olabilir).
+    # Kanun _durum'da hic yoksa (hic yuklenmemis) ama repoda hazir JSON varsa ONDAN yukle.
+    # _durum'a hash YAZILMAZ -> kaynak indirilebildigi ilk gun gercek metinden yeniden yutulur.
+    $hazirJson = Join-Path $mevzuatDir "$($law.slug).json"
+    if($H -and -not $durum.ContainsKey($law.slug) -and (Test-Path $hazirJson)){
+      try {
+        $hd = (Get-Content $hazirJson -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler
+        if(@($hd).Count -ge 5){
+          $adPrefix = "$($law.ad)"; $q = [uri]::EscapeDataString("$adPrefix*")
+          try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch {}
+          for($i=0; $i -lt @($hd).Count; $i += 500){
+            $son=[Math]::Min($i+500,@($hd).Count)-1; $dilim=@($hd)[$i..$son]
+            $bj=($dilim | ConvertTo-Json -Depth 5); if(@($dilim).Count -eq 1){ $bj="[$bj]" }
+            Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer="return=minimal" }) -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($bj)) -TimeoutSec 180 | Out-Null
+          }
+          Write-Host ("YEDEKTEN YUKLENDI (indirme yok, repo JSON): {0} -> {1} madde" -f $law.ad, @($hd).Count)
+        }
+      } catch { Write-Host "  yedek yukleme HATA [$($law.slug)]: $_" }
+    } else {
+      Write-Host "ATLA (txt yok): $($law.slug)"
+    }
+    continue
+  }
   $raw = Get-Content $txt -Raw -Encoding UTF8
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
   $yhash = Sha $flat
@@ -67,7 +90,7 @@ foreach($law in $manifest.kanunlar){
   # dosyaya yaz
   $json = (@{ belgeler=$docs } | ConvertTo-Json -Depth 6)
   [IO.File]::WriteAllBytes((Join-Path $mevzuatDir "$($law.slug).json"), [Text.Encoding]::UTF8.GetBytes($json))
-  $durum[$law.slug] = @{ hash=$h; son_senkron=$bugun; madde=$docs.Count; ad=$law.ad }
+  $durum[$law.slug] = @{ hash=$yhash; son_senkron=$bugun; madde=$docs.Count; ad=$law.ad }  # DIKKAT: $h yazma — PS case-insensitive, $H(headers+anahtar) ile CAKISIR
   $degisen.Add($law.slug) | Out-Null
   Write-Host ("YENIDEN YUTULDU: {0} -> {1} madde (son senkron {2})" -f $law.ad, $docs.Count, $bugun)
 
