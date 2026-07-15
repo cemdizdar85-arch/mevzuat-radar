@@ -99,6 +99,9 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 .pane.on{animation:paneIn .28s ease}
 @keyframes paneIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.bayrak{width:20px;height:14px;object-fit:cover;border-radius:3px;vertical-align:-2px;box-shadow:0 0 0 1px rgba(255,255,255,.18), 0 1px 4px rgba(0,0,0,.4);margin-right:7px}
+.rozet .bayrak{width:17px;height:12px;margin-right:5px;vertical-align:-2px}
+#ulkeBay .bayrak{margin:0 0 0 8px}
 </style>
 </head>
 <body>
@@ -112,7 +115,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     <div class="grid3">
       <div><label for="sektor">Sektörün / ürün grubun</label><select id="sektor"></select></div>
       <div><label for="gtip">GTİP kodun (opsiyonel)</label><input type="text" id="gtip" placeholder="ör. 5208.52" inputmode="numeric"></div>
-      <div><label for="ulke">Ülke tercihi (yurt dışı)</label><select id="ulke"><option value="hepsi">Hepsi</option></select></div>
+      <div><label for="ulke">Ülke tercihi (yurt dışı)<span id="ulkeBay"></span></label><select id="ulke"><option value="hepsi">Hepsi</option></select></div>
     </div>
     <div class="grid" style="margin-top:12px">
       <label class="chk"><input type="checkbox" id="yerli"> Yerli malı belgem var</label>
@@ -185,8 +188,11 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 
 <script>
 let TED=null,CPV=null,K=null,YD=null,EK=null,YI=null;
-const ULKE={SVN:'Slovenya 🇸🇮',FRA:'Fransa 🇫🇷',IRL:'İrlanda 🇮🇪',DNK:'Danimarka 🇩🇰',DEU:'Almanya 🇩🇪',ITA:'İtalya 🇮🇹',ESP:'İspanya 🇪🇸',NLD:'Hollanda 🇳🇱',POL:'Polonya 🇵🇱',ROU:'Romanya 🇷🇴',GRC:'Yunanistan 🇬🇷',BGR:'Bulgaristan 🇧🇬',SWE:'İsveç 🇸🇪',BEL:'Belçika 🇧🇪',AUT:'Avusturya 🇦🇹',PRT:'Portekiz 🇵🇹',CZE:'Çekya 🇨🇿',HUN:'Macaristan 🇭🇺',FIN:'Finlandiya 🇫🇮'};
+// Windows bayrak emojisi gostermez -> gercek bayrak gorseli (flagcdn) kullaniyoruz
+const ULKE={SVN:'Slovenya',FRA:'Fransa',IRL:'İrlanda',DNK:'Danimarka',DEU:'Almanya',ITA:'İtalya',ESP:'İspanya',NLD:'Hollanda',POL:'Polonya',ROU:'Romanya',GRC:'Yunanistan',BGR:'Bulgaristan',SWE:'İsveç',BEL:'Belçika',AUT:'Avusturya',PRT:'Portekiz',CZE:'Çekya',HUN:'Macaristan',FIN:'Finlandiya'};
+const ULKE2={SVN:'si',FRA:'fr',IRL:'ie',DNK:'dk',DEU:'de',ITA:'it',ESP:'es',NLD:'nl',POL:'pl',ROU:'ro',GRC:'gr',BGR:'bg',SWE:'se',BEL:'be',AUT:'at',PRT:'pt',CZE:'cz',HUN:'hu',FIN:'fi'};
 function ulkeAd(k){ return ULKE[k]||k; }
+function bayrak(k){ const c=ULKE2[k]; return c?`<img class="bayrak" src="https://flagcdn.com/w20/${c}.png" srcset="https://flagcdn.com/w40/${c}.png 2x" alt="" loading="lazy">`:''; }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 const SORULAR=[
   {q:"Firman iflas / tasfiye / konkordato halinde mi?", b:["a","b"], k:"ihaleDisi"},
@@ -220,7 +226,11 @@ async function veriYukle(){
   yurtIciCiz();
   document.getElementById('sektor').innerHTML=CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
   const ulkeler=[...new Set((TED.ihaleler||[]).map(i=>i.ulke))].sort();
-  document.getElementById('ulke').innerHTML='<option value="hepsi">Hepsi</option>'+ulkeler.map(u=>`<option value="${u}">${ulkeAd(u)}</option>`).join('');
+  const uSel=document.getElementById('ulke');
+  uSel.innerHTML='<option value="hepsi">Hepsi</option>'+ulkeler.map(u=>`<option value="${u}">${ulkeAd(u)}</option>`).join('');
+  // secilen ulkenin bayragi etiketin yaninda gorunsun (native select icine resim konamaz)
+  const bayGoster=()=>{ const b=document.getElementById('ulkeBay'); if(b) b.innerHTML = uSel.value==='hepsi' ? '' : bayrak(uSel.value); };
+  uSel.addEventListener('change',bayGoster); bayGoster();
   document.getElementById('yerli').addEventListener('change',renderYerliMali);
   renderSorular(); renderKatilimBilgi(); renderYurtdisi(); renderYerliMali(); renderSikayet(); renderHapIc();
 }
@@ -243,10 +253,10 @@ async function kontrol(){
   const sek=CPV.sektorler[si]; const box=document.getElementById('sonuc');
   if(!sek){ box.innerHTML='<div class="uyari">Sektör seç ya da GTİP gir.</div>'; return; }
   const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
-  let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':ulkeAd(uSec)}</h3>`;
+  let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)}</h3>`;
   if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Canlı abonelikte robot her gün tüm EU TED bültenini tarar; CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düştüğü an uyarır.</div></div>`; }
   else { for(const i of bulunan){ const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
-    html+=`<div class="kart"><span class="rozet">${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
+    html+=`<div class="kart"><span class="rozet">${bayrak(i.ulke)}${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
       <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
       <div class="satir"><b>İhale usulü</b><span>${esc(i.usul||'—')}</span></div>
       <div class="satir"><b>İlan no</b><span>${esc(i.no||'—')}</span></div>
