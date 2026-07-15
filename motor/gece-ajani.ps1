@@ -26,7 +26,10 @@ function Claude($istem, $maxtok){
   $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
         -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
         -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 240
-  return "$($r.content[0].text)"
+  $blocks = @($r.content)
+  $txt = ($blocks | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ""
+  if(-not $txt){ $ozet=(($r | ConvertTo-Json -Depth 6 -Compress) -replace '\s+',' '); Write-Host ("HAM API YANIT (ilk 800): " + $ozet.Substring(0,[Math]::Min(800,$ozet.Length))) }
+  return $txt
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Slug($s){ $x=("$s".ToLower() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u'); $x=($x -replace '[^a-z0-9]+','-').Trim('-'); if($x.Length -gt 40){ $x=$x.Substring(0,40).Trim('-') }; return $x }
