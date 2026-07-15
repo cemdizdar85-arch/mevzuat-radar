@@ -63,6 +63,7 @@ SADECE şu formatta JSON dizisi döndür (başka metin yok):
 [{"konu":"...","anahtar":"kök kelimeler boşlukla, çekim değil","cevap":"...","kaynak":"madde/tebliğ"}]
 "@
 $ham = Claude $uretimIstem 3000
+Write-Host ("HAM CEVAP uzunluk={0}; ilk 500: {1}" -f ("$ham").Length, (("$ham" -replace '\s+',' ')).Substring(0,[Math]::Min(500,("$ham" -replace '\s+',' ').Length)))
 $js = JsonBul $ham
 if(-not $js){ Write-Host "Uretim JSON verilemedi, cikiliyor."; exit 0 }
 $uretilen = @()
