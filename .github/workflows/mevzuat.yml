@@ -1,0 +1,47 @@
+# .github/workflows/mevzuat.yml — GÜNLÜK KANUN AYNASI
+# Cem: "günlük tazeleme lazım, RG günlük çıkıyor." Her gün her kanunun
+# mevzuat.gov.tr KONSOLİDE (güncel) metnini çeker, hash'ler; DEĞİŞENİ (kanun
+# güncellendi/madde iptal) yeniden yutup Supabase'e yükler + son_senkron damgası.
+# Değişmeyeni atlar. Böylece EZBER değil, güncel kaynağın günlük aynası.
+name: Günlük Kanun Aynası
+
+on:
+  schedule:
+    - cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mevzuat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: pdftotext kur (poppler-utils)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Kanun PDF indir + metne dok
+        run: |
+          mkdir -p _txt
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+          for row in $(jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json); do
+            slug=$(echo "$row" | jq -r '.slug'); pid=$(echo "$row" | jq -r '.pdfId')
+            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" --max-time 150)
+            if [ "$code" = "200" ]; then pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug"; else echo "INDIRME HATASI $slug ($code) - atlandi"; fi
+          done
+      - name: Yut + hash + yukle (degiseni)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/mevzuat-yut.ps1
+      - name: Degisen madde-belgelerini commit et
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/mevzuat/*.json
+          if git diff --staged --quiet; then
+            echo "Degisiklik yok - commit yok."
+          else
+            git commit -m "Günlük kanun aynası: değişen kanun(lar) yeniden yutuldu $(date -u +%Y-%m-%d)"
+            git push
+          fi
