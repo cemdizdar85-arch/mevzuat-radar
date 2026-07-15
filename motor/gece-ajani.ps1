@@ -14,15 +14,16 @@ try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingPro
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$MODEL = "claude-haiku-4-5-20251001"   # net-cevap'ta kanıtlı; thinking yok, parse temiz (Sonnet thinking bütçe yiyordu)
+$GENMODEL = "claude-sonnet-5"              # ÜRETİM: en iyi akıl (thinking → bol max_tokens ver)
+$DOGMODEL = "claude-haiku-4-5-20251001"    # DOĞRULAMA: hızlı, thinking yok, JSON temiz
 $ADET  = 6                          # her gece kaç yeni cevap denesin
 $YAYIN = ($env:GECE_YAYIN -eq "1")  # 1 ise doğrudan bilgi-tabani'na yazar (kalite kanıtlanınca)
 
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok — gece ajani atlandi. (GitHub Secrets)"; exit 0 }
 
-function Claude($istem, $maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
+function Claude($istem, $maxtok, $model){
+  $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
   $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
         -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
         -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 240
@@ -65,7 +66,7 @@ KURALLAR (ihlal = ret):
 SADECE şu formatta JSON dizisi döndür (başka metin yok):
 [{"konu":"...","anahtar":"kök kelimeler boşlukla, çekim değil","cevap":"...","kaynak":"madde/tebliğ"}]
 "@
-$ham = Claude $uretimIstem 3000
+$ham = Claude $uretimIstem 8000 $GENMODEL
 Write-Host ("HAM CEVAP uzunluk={0}; ilk 500: {1}" -f ("$ham").Length, (("$ham" -replace '\s+',' ')).Substring(0,[Math]::Min(500,("$ham" -replace '\s+',' ').Length)))
 $js = JsonBul $ham
 if(-not $js){ Write-Host "Uretim JSON verilemedi, cikiliyor."; exit 0 }
@@ -94,7 +95,7 @@ CEVAP: $cevap
 KAYNAK: $kaynak
 SADECE JSON: {"gecerli":true/false,"neden":"kısa"}
 "@
-  $dv = Claude $dogIstem 300
+  $dv = Claude $dogIstem 400 $DOGMODEL
   $djson = JsonBul $dv; $ok=$false; $neden=""
   if($djson){ try{ $do=$djson|ConvertFrom-Json; $ok=[bool]$do.gecerli; $neden="$($do.neden)" }catch{} }
   if(-not $ok){ $rapor.Add("RET (capraz-dogrulama): $konu -> $neden"); continue }
