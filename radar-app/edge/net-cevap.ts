@@ -20,18 +20,27 @@ function norm(s: string): string {
 }
 const STOP = new Set("vergi var varsa yok kac kaç ne nasil nasıl mi mı mu mü olur odeme ödeme sure süre suresi icin için ile bir bu kesilir geldi aldim aldım nedir kadar gibi daha cok çok hangi".split(" "));
 
+// Türkçe diakritik katlama: kullanıcı çoğu kez şapkasız yazar (sirket~şirket,
+// bagkur~bağkur, ortagi~ortağı). Eşleştirmede iki tarafı da ASCII'ye indir.
+function fold(s: string): string {
+  return s.replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ö/g, "o").replace(/ç/g, "c");
+}
 // Türkçe sondan-eklemeli morfoloji: token ile kaynak-kelime 5+ harf ortak
 // önek paylaşıyorsa eşleşir ('girisini'~'giris', 'bildirmeliyim'~'bildirge').
+function onekEslesir(t: string, kel: string[]): boolean {
+  const tf = fold(t);
+  for (const w of kel) {
+    const wf = fold(w);
+    const n = Math.min(tf.length, wf.length);
+    const need = n >= 5 ? 5 : n;
+    if (tf.slice(0, need) === wf.slice(0, need)) return true;
+  }
+  return false;
+}
 function skorla(tok: string[], hay: string): number {
   const kel = hay.split(" ").filter((w) => w.length >= 3);
   let s = 0;
-  for (const t of tok) {
-    for (const w of kel) {
-      const n = Math.min(t.length, w.length);
-      const need = n >= 5 ? 5 : n;
-      if (t.slice(0, need) === w.slice(0, need)) { s++; break; }
-    }
-  }
+  for (const t of tok) if (onekEslesir(t, kel)) s++;
   return s;
 }
 
@@ -49,11 +58,16 @@ Deno.serve(async (req) => {
     // a) kürasyonlu bilgi tabanı (site, public)
     try {
       const kb = await (await fetch(`${SITE}/veri/bilgi-tabani.json`)).json();
-      const skorlu = (kb.kayitlar || []).map((k: any) => {
-        const hay = norm((k.anahtar || "") + " " + (k.konu || ""));
-        const s = skorla(tok, hay);
+      const kayitlar = kb.kayitlar || [];
+      // her kaydın kelime listesi (bir kez) + IDF: nadir kelime ağır, genel kelime hafif
+      const korpus: string[][] = kayitlar.map((k: any) => norm((k.anahtar || "") + " " + (k.konu || "")).split(" ").filter((w: string) => w.length >= 3));
+      const N = Math.max(1, korpus.length);
+      const agirlik: Record<string, number> = {};
+      for (const t of tok) { let dfc = 0; for (const kel of korpus) if (onekEslesir(t, kel)) dfc++; agirlik[t] = Math.log((N + 1) / (dfc + 1)) + 0.3; }
+      const skorlu = kayitlar.map((k: any, i: number) => {
+        let s = 0; for (const t of tok) if (onekEslesir(t, korpus[i])) s += agirlik[t];
         return { k, s };
-      }).filter((x: any) => x.s > 0).sort((a: any, b: any) => b.s - a.s).slice(0, 4);
+      }).filter((x: any) => x.s > 0).sort((a: any, b: any) => b.s - a.s).slice(0, 6);
       for (const { k } of skorlu) parcalar.push({ ad: k.kaynak, metin: `${k.konu}: ${k.cevap}`, url: k.arac ? `${SITE}/${k.arac}` : undefined });
     } catch (_) { /* site erisilemezse devam */ }
 
