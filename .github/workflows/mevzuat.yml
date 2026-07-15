@@ -28,7 +28,7 @@ jobs:
           jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json | while read -r row; do
             slug=$(echo "$row" | jq -r '.slug')
             pid=$(echo "$row" | jq -r '.pdfId')
-            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" --max-time 150 || echo "000")
+            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" --max-time 240 || echo "000")
             if [ "$code" = "200" ]; then
               pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug" || echo "PDFTOTEXT FAIL $slug"
             else
