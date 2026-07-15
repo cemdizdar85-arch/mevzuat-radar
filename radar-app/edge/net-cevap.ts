@@ -23,7 +23,7 @@ const STOP = new Set("vergi var varsa yok kac kaç ne nasil nasıl mi mı mu mü
 // Türkçe diakritik katlama: kullanıcı çoğu kez şapkasız yazar (sirket~şirket,
 // bagkur~bağkur, ortagi~ortağı). Eşleştirmede iki tarafı da ASCII'ye indir.
 function fold(s: string): string {
-  return s.replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ö/g, "o").replace(/ç/g, "c");
+  return s.replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ö/g, "o").replace(/ç/g, "c").replace(/â/g, "a").replace(/î/g, "i").replace(/û/g, "u");
 }
 // Türkçe sondan-eklemeli morfoloji: token ile kaynak-kelime 5+ harf ortak
 // önek paylaşıyorsa eşleşir ('girisini'~'giris', 'bildirmeliyim'~'bildirge').
@@ -73,9 +73,10 @@ Deno.serve(async (req) => {
 
     // b) bilgi ambarı (dokumanlar, FTS — public read)
     try {
-      const fts = tok.slice(0, 6).join(" | ");
+      // fold'lu kolon (arama_fold): kullanici sapkasiz yazsa da kanun maddesi bulunur
+      const fts = tok.slice(0, 6).map(fold).join(" | ");
       if (fts) {
-        const r = await fetch(`${SB_URL}/rest/v1/dokumanlar?select=kaynak_ad,baslik,metin,kaynak_url,belge_tarihi&arama=wfts(simple).${encodeURIComponent(fts)}&limit=4`,
+        const r = await fetch(`${SB_URL}/rest/v1/dokumanlar?select=kaynak_ad,baslik,metin,kaynak_url,belge_tarihi&arama_fold=wfts(simple).${encodeURIComponent(fts)}&limit=6`,
           { headers: SB_ANON ? { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` } : {} });
         if (r.ok) for (const d of await r.json()) parcalar.push({ ad: d.kaynak_ad + (d.belge_tarihi ? ` (${d.belge_tarihi})` : ""), metin: (d.baslik ? d.baslik + " — " : "") + String(d.metin).slice(0, 1200), url: d.kaynak_url });
       }
