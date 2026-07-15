@@ -21,8 +21,4 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/ambar-yukle.ps1
-      - name: Mevzuat yukleyici (kanun madde-belgeleri)
-        shell: pwsh
-        env:
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: ./motor/mevzuat-yukle.ps1
+        # NOT: kanun madde-belgeleri artik GUNLUK mevzuat.yml robotunda (hash'li tazeleme).
