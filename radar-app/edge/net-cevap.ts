@@ -73,11 +73,15 @@ Deno.serve(async (req) => {
 
     // b) bilgi ambarı (dokumanlar, FTS — public read)
     try {
-      // fold'lu kolon (arama_fold): kullanici sapkasiz yazsa da kanun maddesi bulunur
-      const fts = tok.slice(0, 6).map(fold).join(" | ");
+      // puanli arama (madde_ara RPC): fold'lu kolon + OR + ts_rank -> en cok
+      // eslesen madde one gelir; kullanici sapkasiz yazsa da kanun maddesi bulunur
+      const fts = tok.slice(0, 8).map(fold).join(" ");
       if (fts) {
-        const r = await fetch(`${SB_URL}/rest/v1/dokumanlar?select=kaynak_ad,baslik,metin,kaynak_url,belge_tarihi&arama_fold=wfts(simple).${encodeURIComponent(fts)}&limit=6`,
-          { headers: SB_ANON ? { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` } : {} });
+        const r = await fetch(`${SB_URL}/rest/v1/rpc/madde_ara`, {
+          method: "POST",
+          headers: { "content-type": "application/json", ...(SB_ANON ? { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` } : {}) },
+          body: JSON.stringify({ sorgu: fts, adet: 6 }),
+        });
         if (r.ok) for (const d of await r.json()) parcalar.push({ ad: d.kaynak_ad + (d.belge_tarihi ? ` (${d.belge_tarihi})` : ""), metin: (d.baslik ? d.baslik + " — " : "") + String(d.metin).slice(0, 1200), url: d.kaynak_url });
       }
     } catch (_) { /* ambar bos olabilir */ }
