@@ -214,6 +214,51 @@ foreach($kf in $kapsamGerekli){
   elseif((Get-Item $kp).Length -lt 200){ Uyari "kapsam/$kf : cok kisa, icerik eksik olabilir" }
 }
 
+# --- 10) BILGI TABANI (soru-cevap beyni yakiti) — YALPALAMA + DURUM-DEGISIKLIGI + YAPI ---
+# DERS (Ba-Bs, 15.07.2026): "buyuk olcude kaldirildi" gibi IKILI OLGUYU yalpalatan ifade,
+# uydurma rakam kadar tehlikeli. Kontrol edilebilir olgu NET yazilir; emin degilsen YAYMA.
+# Bu bolum cevabin DOGRULUGUNU bilmeden YAPIYI dener: yalpalama sozcugu + kaynaksiz durum iddiasi + yapi.
+$BT = Yukle "bilgi-tabani.json"
+if($BT){
+  $kayit = asArr $BT.kayitlar
+  $rootHtml = (Get-ChildItem $kok -Filter *.html | ForEach-Object { $_.Name })
+  $gorulenId = @{}
+  # bilgi-tabani kaynak damgasi: resmi isaret VEYA kanun-kisaltmasi/yonetmelik/protokol/kanun-no
+  $btEkDamga = 'yönetmel|protokol|sözleşme|anlaşma|\bsta\b|gümrük birliği|\bttk\b|\bgvk\b|\bkvk\b|\bvuk\b|\bsmk\b|\biik\b|\bkdv\b|\bötv\b|\bssiy\b|\d{1,4}/\d{2,4}|\b\d{3,4}\b'
+  function BtDamgaVar([string]$t){ return ((ResmiIsaretVar $t) -or ((TrKucuk $t) -match $btEkDamga)) }
+  # ikili olguyu yalpalatan GUCLU ifadeler (bir cevapta yeri yok -> HATA)
+  $gucluYalpa = 'büyük ölçüde|büyük oranda|kısmen kaldır|kısmen zorunlu|az çok|aşağı yukarı'
+  # yumusak yalpalama (insan gozu baksin -> UYARI)
+  $yumusakYalpa = 'genellikle|çoğunlukla|neredeyse|çoğu durumda|çoğu zaman|genel olarak|sanır|galiba|muhtemelen'
+  # durum-DEGISIKLIGI iddiasi (kaldirildi/artik...degil) -> kaynak resmi damga tasimali
+  $durumDeg = 'kaldırıl|kalktı|kalkmış|yürürlükten|artık .{0,20}(değil|yok|verilmez|gerekmez|zorunlu değil)|zorunlu (oldu|hâle geldi|hale geldi)|istisna edild|son veril|geçildi'
+  foreach($k in $kayit){
+    $id = "$($k.id)"
+    # yapi: zorunlu alanlar
+    foreach($alan in @('id','konu','anahtar','cevap','kaynak')){
+      if([string]::IsNullOrWhiteSpace("$($k.$alan)")){ Hata "bilgi-tabani.json [$id] : '$alan' alani BOS/eksik" }
+    }
+    # yapi: tekrar id
+    if($id){ if($gorulenId.ContainsKey($id)){ Hata "bilgi-tabani.json : TEKRAR id '$id'" } else { $gorulenId[$id] = $true } }
+    # yapi: arac gercek dosya mi
+    if(-not [string]::IsNullOrWhiteSpace("$($k.arac)")){
+      $af = ("$($k.arac)" -replace '#.*','')
+      if($af -and ($rootHtml -notcontains $af)){ Hata "bilgi-tabani.json [$id] : arac '$($k.arac)' -> '$af' kok dizinde YOK" }
+    }
+    $cevLc = TrKucuk "$($k.cevap)"
+    $kayLc = TrKucuk "$($k.kaynak)"
+    # 10a: GUCLU yalpalama -> HATA (Ba-Bs'nin dogrudan yakalanmasi)
+    if($cevLc -match $gucluYalpa){ Hata "bilgi-tabani.json [$id] : cevapta IKILI-OLGU YALPALAMASI ('$([regex]::Match($cevLc,$gucluYalpa).Value)') — net + kaynakli yaz, emin degilsen cikar" }
+    # 10b: durum-degisikligi iddiasi ama kaynakta resmi damga YOK -> UYARI
+    if($cevLc -match $durumDeg -and -not (BtDamgaVar "$($k.kaynak)")){ Uyari "bilgi-tabani.json [$id] : DURUM-DEGISIKLIGI iddiasi var ('$([regex]::Match($cevLc,$durumDeg).Value)') ama kaynak '$($k.kaynak)' resmi damga (sayili/madde/teblig/RG) tasimiyor — tarih+teblig no ile teyit et" }
+    # 10c: yumusak yalpalama -> UYARI
+    if($cevLc -match $yumusakYalpa){ Uyari "bilgi-tabani.json [$id] : yumusak yalpalama ('$([regex]::Match($cevLc,$yumusakYalpa).Value)') — ikili olguysa netlestir" }
+    # 10d: her cevap birincil damga tasimali (kaynak alaninda resmi isaret) -> UYARI
+    if(-not (BtDamgaVar "$($k.kaynak)")){ Uyari "bilgi-tabani.json [$id] : kaynak '$($k.kaynak)' birincil isaret tasimiyor (Kural 1)" }
+  }
+  Write-Host ("   bilgi-tabani.json: {0} kayit denetlendi." -f $kayit.Count) -ForegroundColor DarkGray
+}
+
 # ---------------------------------------------------------------------------
 ""
 if($uyarilar.Count -gt 0){
