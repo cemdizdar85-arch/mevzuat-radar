@@ -80,9 +80,12 @@ yansıtır ya da içerir; bize kesin gelir.
 ## GELİR MODELİ (3 musluk)
 | Musluk | Kaynak | Model |
 |---|---|---|
-| 1. Platform aboneliği | büro başına | aylık (mükellef sayısına kademeli) |
+| 1. Platform üyeliği | **mükellef başına ~50 TL/ay** (Cem'in kararı, 15.07.2026) | kişi/mükellef bazlı; pilotta az mükellefle başla, sonra çoğalt |
 | 2. Tahsilat komisyonu | her ödemeden | % (ödeme kuruluşu payı düşülür) |
 | 3. Fiş fabrikası | işlem başına | satır/fiş adedi ücreti |
+
+> Örnek ölçek (aritmetik, taahhüt değil): 1 büro × 100 mükellef × 50 TL = 5.000 TL/ay;
+> 10 büro = 50.000 TL/ay — yalnız 1. musluktan, komisyon ve fiş üretimi hariç.
 
 ## SIRA (sprintler)
 1. **KAT 2 — Beyanname dağıtım robotu** (en hızlı görünür değer; dosya adı deterministik,
