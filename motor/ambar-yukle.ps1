@@ -50,11 +50,13 @@ foreach($b in $belgeler){
     if($mevcut.ContainsKey("$($b.kaynak_ad)")){
       # GUNCELLE (PATCH) — kaynak_ad ile
       $q = [uri]::EscapeDataString("$($b.kaynak_ad)")
-      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
+      $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
+      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 90 | Out-Null
       $guncellenen++
     } else {
       # EKLE (POST)
-      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
+      $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
+      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 90 | Out-Null
       $eklenen++
     }
   } catch {
