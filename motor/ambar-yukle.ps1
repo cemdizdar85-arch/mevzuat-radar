@@ -16,7 +16,7 @@ $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 
 $KEY = $env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok — ambar yukleyici atlandi. (GitHub Settings -> Secrets)"; exit 0 }
-$H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; "Content-Type" = "application/json" }
+$H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }   # Content-Type POST/PATCH'te -ContentType ile verilir (PGRST102 fix)
 
 # --- manifest ---
 $manifestYol = Join-Path $kok "veri\ambar-kaynaklar.json"
@@ -50,11 +50,11 @@ foreach($b in $belgeler){
     if($mevcut.ContainsKey("$($b.kaynak_ad)")){
       # GUNCELLE (PATCH) — kaynak_ad ile
       $q = [uri]::EscapeDataString("$($b.kaynak_ad)")
-      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers ($H + @{ Prefer = "return=minimal" }) -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
+      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
       $guncellenen++
     } else {
       # EKLE (POST)
-      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
+      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body (GonderBytes $json) -TimeoutSec 90 | Out-Null
       $eklenen++
     }
   } catch {
