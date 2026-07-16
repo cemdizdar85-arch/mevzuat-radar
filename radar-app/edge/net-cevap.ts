@@ -126,9 +126,12 @@ ${kaynakMetni}`;
     const out = JSON.parse(m[0]);
     if (!out.kapsamda || !out.cevap) return json({ kapsamda: false });
 
-    const kaynaklar = (out.kaynak_no || []).map((n: number) => parcalar[n - 1]).filter(Boolean)
-      .map((p: any) => ({ ad: p.ad, url: p.url }));
-    return json({ kapsamda: true, cevap: String(out.cevap).slice(0, 1500), kaynaklar });
+    const secilen = (out.kaynak_no || []).map((n: number) => parcalar[n - 1]).filter(Boolean);
+    const kaynaklar = secilen.map((p: any) => ({ ad: p.ad, url: p.url }));
+    // GUVEN KATMANI: ozetin dayandigi HAM kaynak metni de dondur — kullanici asli gorur,
+    // ozetleme hatasi olsa bile kaynak ortada (denetlenebilirlik).
+    const alintilar = secilen.slice(0, 3).map((p: any) => ({ ad: p.ad, metin: String(p.metin).slice(0, 1200), url: p.url }));
+    return json({ kapsamda: true, cevap: String(out.cevap).slice(0, 1500), kaynaklar, alintilar });
   } catch (e) {
     return json({ kapsamda: false, hata: String(e).slice(0, 120) }, 200);
   }
