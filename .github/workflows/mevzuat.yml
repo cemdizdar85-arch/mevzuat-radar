@@ -59,3 +59,17 @@ jobs:
             git pull --rebase origin main || true
             git push || echo "UYARI: push olmadi (uzak dal ilerlemis olabilir) - veri Supabase'de guvende, sonraki kosu telafi eder."
           fi
+      # GUVEN KATMANI C: hasat VE commit sonrasi retrieval sigortasi — altin
+      # setteki her soru icin beklenen kaynak top-6'da bulunmali. Dusen vaka =
+      # kirmizi kosu = GitHub e-postasi. Commit'ten SONRA kosar: kapinin isi
+      # alarm vermek, hasat verisini rehin almak degil.
+      - name: Ambar altin testi (retrieval kapisi)
+        shell: pwsh
+        run: ./motor/ambar-testi.ps1
+      # Gunun 8 vakasi uctan uca (net-cevap + Haiku hakem, 0-10 puan). Anahtar
+      # tanimli degilse script kendini atlar; retrieval kapisi yine de kosuyor.
+      - name: Cevap hakemi (gunluk orneklem)
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/cevap-hakemi.ps1
