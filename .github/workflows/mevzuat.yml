@@ -13,6 +13,12 @@ on:
 permissions:
   contents: write
 
+# ES-ZAMANLI KOSU YASAK (16.07.2026 dersi): iki kosu yaristi, ikisi de yedek
+# yoldan VUK 509'u yukledi -> 364 = 2x182 cift kayit. Kuyruga al, iptal etme.
+concurrency:
+  group: mevzuat-ayna
+  cancel-in-progress: false
+
 jobs:
   mevzuat:
     runs-on: ubuntu-latest
