@@ -28,7 +28,13 @@ jobs:
           jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json | while read -r row; do
             slug=$(echo "$row" | jq -r '.slug')
             pid=$(echo "$row" | jq -r '.pdfId')
-            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" --max-time 240 || echo "000")
+            # G7:/G9: onekleri = yonetmelik/teblig (GeneratePdf ucundan); digerleri kanun (MevzuatMetin)
+            case "$pid" in
+              G7:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G7:}&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" ;;
+              G9:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G9:}&mevzuatTur=Teblig&mevzuatTertip=5" ;;
+              *)    url="https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" ;;
+            esac
+            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 240 || echo "000")
             if [ "$code" = "200" ]; then
               pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug" || echo "PDFTOTEXT FAIL $slug"
             else

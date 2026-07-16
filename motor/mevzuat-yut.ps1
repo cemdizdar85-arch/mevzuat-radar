@@ -62,7 +62,7 @@ foreach($law in $manifest.kanunlar){
     if($H -and -not $durum.ContainsKey($law.slug) -and (Test-Path $hazirJson)){
       try {
         $hd = (Get-Content $hazirJson -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler
-        foreach($d in @($hd)){ $d.tur = 'kanun-madde' }   # eski JSON'larda 'kanun' kalmis olabilir -> normalize (kopya-sayac dersi)
+        foreach($d in @($hd)){ if($d.tur -eq 'kanun' -or -not $d.tur){ $d.tur = 'kanun-madde' } }   # 'kanun'->normalize; 'teblig' KORUNUR
         if(@($hd).Count -ge 5){
           $adPrefix = "$($law.ad)"; $q = [uri]::EscapeDataString("$adPrefix*")
           try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch {}
@@ -83,13 +83,17 @@ foreach($law in $manifest.kanunlar){
     }
     continue
   }
+  # TEBLIG guard: 'G9:' onekli kaynaklar (KDV GUT gibi) bolum-yapilidir; madde-parcalayici
+  # onlari BOZUK parcalar -> gunluk re-yut ATLANIR (fallback tek yol; teblig-parser v2'de).
+  if("$($law.pdfId)" -like 'G9:*'){ Write-Host "TEBLIG (madde yapisi yok) - gunluk re-yut atlandi: $($law.ad)"; continue }
   $raw = Get-Content $txt -Raw -Encoding UTF8
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
   $yhash = Sha $flat
   $eski = if($durum.ContainsKey($law.slug)){ "$($durum[$law.slug].hash)" } else { "" }
   if($yhash -eq $eski){ Write-Host ("DEGISMEDI: {0}" -f $law.ad); continue }
 
-  $url = "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf"
+  $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
+         else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
   $docs = Parcala $flat "$($law.ad)" $url
   if($docs.Count -lt 5){ Write-Host ("UYARI az madde ({0}) -> {1}, atlandi (indirme bozuk olabilir)" -f $docs.Count, $law.ad); continue }
   # dosyaya yaz
