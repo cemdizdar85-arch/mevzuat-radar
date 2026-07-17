@@ -289,7 +289,7 @@ function teklif(tur, btn){
     "GTİP":r.dkod||'', "Yıllık tutar":(r.tutar?r.tutar+' '+r.pb:''), "Seçilen menşe":r.best||'', "Aday ülkeler":(r.secili||[]).join(', ') };
   fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{ document.getElementById('ctaOut').innerHTML='✅ Talebin alındı ('+tur+'). En kısa sürede dönüş yapılacak.'; })
-    .catch(()=>{ document.getElementById('ctaOut').innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>'; });
+    .catch(()=>{ document.getElementById('ctaOut').innerHTML='İletişim: <a href="mailto:info@dizdardenetim.com">info@dizdardenetim.com</a>'; });
 }
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
