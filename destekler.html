@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Devlet Destekleri Radarı — KOSGEB, ihracat destekleri ve Eximbank, hangisi sana uygun? | Mevzuat Radarı</title>
+<title>Destek Radarı — devlet destekleri: KOSGEB, ihracat destekleri ve Eximbank, hangisi sana uygun? | Mevzuat Radarı</title>
 <meta name="description" content="KOSGEB, Ticaret Bakanlığı ihracat destekleri ve Türk Eximbank kredileri dağınık ve tarihli. İşletme aşamanı seç, sana uygun programları gör; yeni çağrı açılınca haber verelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -47,7 +47,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
-  <h1>Devlet Destekleri Radarı</h1>
+  <h1>Destek Radarı</h1>
   <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b> — başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı ve Türk Eximbank</b> programlarını gör, yeni çağrı açıldığında haber verelim.</p>
 
   <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
@@ -310,7 +310,7 @@ function takibeAl(){
     'Profil - durum': DC.durum||'', 'Profil - faaliyet': DC.faaliyet||'',
     'Profil - ihracat': DC.ihracat||'', 'Profil - ihtiyaç': DC.ihtiyac||'',
     'Uygun çıkan program sayısı': UYGUNLAR ? UYGUNLAR.length : '',
-    'Kayıt kaynağı': 'Devlet Destekleri Radarı'
+    'Kayıt kaynağı': 'Destek Radarı'
   };
   goster('Kaydediliyor…',true);
   fetch(EPOSTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
