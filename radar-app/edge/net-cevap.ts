@@ -47,23 +47,26 @@ function skorla(tok: string[], hay: string): number {
 }
 
 // RATE LIMIT (maliyet + kötüye kullanım koruması): her çağrı Claude API'ye para.
-// IP başına 60 saniyede en fazla RL_LIMIT istek. In-memory (best-effort; soğuk
-// başlangıçta sıfırlanır) — sert DDoS değil ama maliyet-patlaması + basit botu keser.
-const RL = new Map<string, number[]>();
-const RL_LIMIT = 12, RL_PENCERE = 60000;
-function rlAsti(ip: string): boolean {
-  const now = Date.now();
-  const arr = (RL.get(ip) || []).filter((t) => now - t < RL_PENCERE);
-  if (arr.length >= RL_LIMIT) { RL.set(ip, arr); return true; }
-  arr.push(now); RL.set(ip, arr);
-  if (RL.size > 5000) { for (const [k, v] of RL) { if (!v.some((t) => now - t < RL_PENCERE)) RL.delete(k); } }
-  return false;
+// Postgres MERKEZİ sayaç (rate_limit_check RPC) — tüm edge isolate'leri aynı
+// sayacı görür (in-memory'nin isolate-dağılımı zaafı yok). IP başına 60 sn'de 12.
+// Fail-open: RPC hata verirse engellemez (kullanıcıyı mağdur etmez).
+async function rlAsti(ip: string): Promise<boolean> {
+  if (!ip || ip === "anon") return false;
+  try {
+    const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, {
+      method: "POST",
+      headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
+      body: JSON.stringify({ p_ip: ip, p_limit: 12, p_pencere_sn: 60 }),
+    });
+    if (!r.ok) return false;
+    return (await r.json()) === false;   // RPC true=izin, false=limit aşıldı → rlAsti true=engelle
+  } catch { return false; }
 }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
-  if (rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
+  if (await rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
     const { soru } = await req.json();
     const q = String(soru || "").slice(0, 400);
