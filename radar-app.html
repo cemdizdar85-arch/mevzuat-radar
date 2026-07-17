@@ -167,7 +167,10 @@ async function pano(f){
   // canlı ihale eşleşmesi (il'e göre)
   if(!IHALE){ try{ IHALE=await (await fetch('veri/ihale-yurtici.json?cb='+Date.now())).json(); }catch(e){ IHALE={ilanlar:[]}; } }
   const ilU=trUp(f.il);
-  const eslesen=(IHALE.ilanlar||[]).filter(x=> ilU && trUp(x.il)===ilU ).slice(0,4);
+  // ilan.gov.tr akışı ihale-DIŞI kayıt (icra/mahkeme satışı, tebligat, çekiliş) içerir — ele
+  const IHALE_DISI=['durusma','duruşma','tebligat','tebliğ','ilanen','mahkeme','icra','cekilis','çekiliş','genel kurul','kayyim','kayyım','iflas','konkordato','veraset'];
+  const ihaleMi=x=>{ const t=(''+(x.baslik||'')+' '+(x.kurum||'')).toLocaleLowerCase('tr-TR'); return !IHALE_DISI.some(k=>t.includes(k)); };
+  const eslesen=(IHALE.ilanlar||[]).filter(x=> ihaleMi(x) && ilU && trUp(x.il)===ilU ).slice(0,4);
   const ihaleHtml = eslesen.length
     ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
     : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok — robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;

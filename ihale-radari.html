@@ -130,7 +130,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 
   <!-- ============ YURT İÇİ ============ -->
   <div id="paneIc" class="pane on">
-    <h2>Güncel yurt içi ihaleler — canlı liste</h2>
+    <h2>Yurt içi ihaleler <span style="font-size:13px;color:var(--dim);font-weight:600">— örnek veri; canlı günlük tarama + abonelik yakında</span></h2>
     <div class="kutu">
       <div class="grid" style="grid-template-columns:1fr 1fr">
         <div><label for="yiIl">İl</label><select id="yiIl"><option value="hepsi">Hepsi</option></select></div>
@@ -266,14 +266,18 @@ async function kontrol(){
   }}
   box.innerHTML=html;
 }
-// ---- yurt içi CANLI liste (ilan.gov.tr) ----
+// ---- yurt içi liste (ilan.gov.tr — örnek veri) ----
 function trFold2(s){ return (s||'').toLocaleLowerCase('tr-TR'); }
+// ilan.gov.tr akışı ihale DIŞI kayıt da içerir (icra/mahkeme satışı, adli tebligat,
+// çekiliş, genel kurul davetleri). Bunları ele — kullanıcı çekilişi ihale sanmasın.
+const IHALE_DISI = ['durusma','duruşma','tebligat','tebliğ','ilanen','mahkeme','icra','ceza','cekilis','çekiliş','genel kurul','kayyim','kayyım','iflas','konkordato','veraset','nufus','nüfus','vasi','gaiplik'];
+function ihaleMi(x){ const t=trFold2((x.baslik||'')+' '+(x.kurum||'')); return !IHALE_DISI.some(k=>t.includes(k)); }
 function yurtIciCiz(){
   const box=document.getElementById('yiListe'); if(!box||!YI) return;
   const il=(document.getElementById('yiIl')||{}).value||'hepsi';
   const kel=trFold2(((document.getElementById('yiKelime')||{}).value||'').trim());
-  let liste=(YI.ilanlar||[]).filter(x=> (il==='hepsi'||x.il===il) && (!kel || trFold2(x.baslik).includes(kel) || trFold2(x.kurum).includes(kel)) );
-  if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; liste robotla her gün yenilenir.</div></div>'; return; }
+  let liste=(YI.ilanlar||[]).filter(x=> ihaleMi(x) && (il==='hepsi'||x.il===il) && (!kel || trFold2(x.baslik).includes(kel) || trFold2(x.kurum).includes(kel)) );
+  if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir. Not: bu bölüm örnek veriyle çalışır; canlı günlük tarama + abonelik yakında.</div></div>'; return; }
   box.innerHTML = liste.slice(0,20).map(x=>`<div class="kart">
     <span class="rozet">🇹🇷 ${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</span>
     <h3>${esc(x.baslik)}</h3>
