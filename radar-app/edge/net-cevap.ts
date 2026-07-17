@@ -46,8 +46,24 @@ function skorla(tok: string[], hay: string): number {
   return s;
 }
 
+// RATE LIMIT (maliyet + kötüye kullanım koruması): her çağrı Claude API'ye para.
+// IP başına 60 saniyede en fazla RL_LIMIT istek. In-memory (best-effort; soğuk
+// başlangıçta sıfırlanır) — sert DDoS değil ama maliyet-patlaması + basit botu keser.
+const RL = new Map<string, number[]>();
+const RL_LIMIT = 12, RL_PENCERE = 60000;
+function rlAsti(ip: string): boolean {
+  const now = Date.now();
+  const arr = (RL.get(ip) || []).filter((t) => now - t < RL_PENCERE);
+  if (arr.length >= RL_LIMIT) { RL.set(ip, arr); return true; }
+  arr.push(now); RL.set(ip, arr);
+  if (RL.size > 5000) { for (const [k, v] of RL) { if (!v.some((t) => now - t < RL_PENCERE)) RL.delete(k); } }
+  return false;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
+  if (rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
     const { soru } = await req.json();
     const q = String(soru || "").slice(0, 400);
