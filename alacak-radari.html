@@ -130,12 +130,36 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 // ÇIKMAZ, hepsi tarayıcıda okunur (KVKK: müşteri listesi ticari sırdır).
 if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// metinden VKN (10 hane) + TCKN (11 hane) ayıkla — tekilleştir
+// TCKN doğrulama (resmî algoritma): 11 hane, ilk hane 0 OLAMAZ, iki kontrol hanesi tutmalı
+function tcknGecerli(s){
+  if(!/^[1-9]\d{10}$/.test(s)) return false;
+  const d = s.split('').map(Number);
+  const t1 = d[0]+d[2]+d[4]+d[6]+d[8], t2 = d[1]+d[3]+d[5]+d[7];
+  if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;
+  if(d.slice(0,10).reduce((a,b)=>a+b,0)%10 !== d[10]) return false;
+  return true;
+}
+// VKN doğrulama (resmî algoritma): 10 hane, son hane kontrol hanesi
+function vknGecerli(s){
+  if(!/^\d{10}$/.test(s)) return false;
+  const v = s.split('').map(Number);
+  let sum = 0;
+  for(let i=0;i<9;i++){
+    const tmp = (v[i] + (9 - i)) % 10;
+    sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;
+  }
+  return v[9] === (10 - (sum % 10)) % 10;
+}
+// metinden VKN/TCKN ayıkla — telefon/geçersiz sayılar kontrol hanesinden ELENİR
 function vknCikar(metin){
-  const bulunan = new Set();
-  const re = /\b(\d{10,11})\b/g; let m;
-  while ((m = re.exec(metin)) !== null){ bulunan.add(m[1]); }
-  return [...bulunan];
+  const ham = new Set(); const re = /\b(\d{10,11})\b/g; let m;
+  while ((m = re.exec(metin)) !== null){ ham.add(m[1]); }
+  const gecerli = [], elenen = [];
+  for(const n of ham){
+    if((n.length===10 && vknGecerli(n)) || (n.length===11 && tcknGecerli(n))) gecerli.push(n);
+    else elenen.push(n);
+  }
+  return { gecerli, elenen };
 }
 function yukleDurum(html, renk){ const el=document.getElementById('yukleDurum'); el.innerHTML=html; el.style.color=renk||'var(--green)'; el.classList.add('gor'); }
 
@@ -150,27 +174,33 @@ async function dosyaSecildi(file){
   if(!file) return;
   const ad = file.name.toLowerCase();
   yukleDurum('📄 <b>'+file.name+'</b> okunuyor…', 'var(--muted)');
-  let vknler = [];
+  let sonuc = { gecerli:[], elenen:[] };
   try {
     if(ad.endsWith('.xlsx')||ad.endsWith('.xls')){
       const buf = await file.arrayBuffer();
       const wb = XLSX.read(buf, {type:'array'});
       let hepsi='';
       wb.SheetNames.forEach(sn=>{ hepsi += XLSX.utils.sheet_to_csv(wb.Sheets[sn]) + '\n'; });
-      vknler = vknCikar(hepsi);
+      sonuc = vknCikar(hepsi);
     } else if(ad.endsWith('.csv')||ad.endsWith('.txt')){
-      vknler = vknCikar(await file.text());
+      sonuc = vknCikar(await file.text());
     } else if(ad.endsWith('.pdf')){
-      vknler = vknCikar(await pdfMetni(file));
+      sonuc = vknCikar(await pdfMetni(file));
     } else {
       yukleDurum('Desteklenmeyen dosya. Excel, CSV ya da PDF yükle.', 'var(--amber)'); return;
     }
   } catch(e){ yukleDurum('Dosya okunamadı. Excel/CSV/PDF olduğundan emin ol ya da elle yaz.', 'var(--amber)'); return; }
 
-  if(!vknler.length){ yukleDurum('Dosyada 10-11 haneli VKN/TCKN bulamadım. Kolon başlığı olmadan da olur; ya da elle yaz.', 'var(--amber)'); return; }
+  if(!sonuc.gecerli.length){
+    const ekNot = sonuc.elenen.length ? ' ('+sonuc.elenen.length+' sayı bulundu ama VKN/TCKN kontrolünden geçmedi — telefon/tutar olabilir)' : '';
+    yukleDurum('Dosyada geçerli VKN/TCKN bulamadım'+ekNot+'. Elle de yazabilirsin.', 'var(--amber)'); return;
+  }
   const mevcut = document.getElementById('giris').value.trim();
-  document.getElementById('giris').value = (mevcut ? mevcut+'\n' : '') + vknler.join('\n');
-  yukleDurum('✓ <b>'+vknler.length+'</b> vergi numarası ayıklandı ve aşağı eklendi. Kontrol edip <b>"Alacaklarımı tara"</b>ya bas.', 'var(--green)');
+  document.getElementById('giris').value = (mevcut ? mevcut+'\n' : '') + sonuc.gecerli.join('\n');
+  let msg = '✓ <b>'+sonuc.gecerli.length+'</b> geçerli VKN/TCKN ayıklandı ve aşağı eklendi.';
+  if(sonuc.elenen.length) msg += ' <span style="color:var(--dim)">'+sonuc.elenen.length+' sayı telefon/geçersiz görünüp elendi.</span>';
+  msg += ' <b>"Alacaklarımı tara"</b>ya bas.';
+  yukleDurum(msg, 'var(--green)');
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
