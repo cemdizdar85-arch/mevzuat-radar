@@ -171,7 +171,7 @@ function istekListeCiz(istekler, mukellefler){
   const el=$('#istekListe'); if(!el)return;
   if(!istekler.length){el.innerHTML='<div class="bos">Henüz istek yok.</div>';return;}
   el.innerHTML=istekler.map(i=>{ const sr=(i.sorular||[]).sort((a,b)=>a.sira-b.sira); const ok=sr.filter(s=>s.durum==='ok').length, tot=sr.length; const link=location.origin+location.pathname+'?t='+i.token;
-    return `<div class="istek"><div class="h" onclick="window._ac('${i.id}')"><div><div style="font-weight:750">${esc(i.baslik)}</div><div style="font-size:12px;color:var(--dim)">${esc(mad(i.mukellef_id))}</div></div><span class="durum ${ok===tot?'ok':'bek'}">${ok}/${tot}</span></div><div id="d_${i.id}" style="display:none">${sr.map(s=>`<div class="soruSat"><div>${s.tip==='belge'?'📎':'❓'}</div><div class="body"><div>${esc(s.metin)}</div>${s.durum==='ok'?`<div class="cev">↳ ${s.cevap?'<b>'+esc(s.cevap)+'</b>':''}${s.dosya_url?` <a class="fis" href="${s.dosya_url}" target="_blank">📄 belge</a>`:''}</div>`:'<div class="cev" style="color:var(--amber)">⏳ bekliyor</div>'}</div></div>`).join('')}<div class="link"><input value="${link}" readonly onclick="this.select()"><button class="btn mini" onclick="navigator.clipboard.writeText('${link}');window._toast&&window._toast('Kopyalandı')">Linki kopyala</button><a class="btn k mini" href="https://wa.me/?text=${encodeURIComponent('Eksik evraklar: '+link)}" target="_blank">Hatırlat (WhatsApp)</a></div></div></div>`;
+    return `<div class="istek"><div class="h" onclick="window._ac('${i.id}')"><div><div style="font-weight:750">${esc(i.baslik)}</div><div style="font-size:12px;color:var(--dim)">${esc(mad(i.mukellef_id))}</div></div><span class="durum ${ok===tot?'ok':'bek'}">${ok}/${tot}</span></div><div id="d_${i.id}" style="display:none">${sr.map(s=>`<div class="soruSat"><div>${s.tip==='belge'?'📎':'❓'}</div><div class="body"><div>${esc(s.metin)}</div>${s.durum==='ok'?`<div class="cev">↳ ${s.cevap?'<b>'+esc(s.cevap)+'</b>':''}${s.dosya_url?` <a class="fis" href="#" onclick="window._belgeAc('${s.dosya_url}');return false">📄 belge</a>`:''}</div>`:'<div class="cev" style="color:var(--amber)">⏳ bekliyor</div>'}</div></div>`).join('')}<div class="link"><input value="${link}" readonly onclick="this.select()"><button class="btn mini" onclick="navigator.clipboard.writeText('${link}');window._toast&&window._toast('Kopyalandı')">Linki kopyala</button><a class="btn k mini" href="https://wa.me/?text=${encodeURIComponent('Eksik evraklar: '+link)}" target="_blank">Hatırlat (WhatsApp)</a></div></div></div>`;
   }).join('');
 }
 window._ac=(id)=>{const d=$('#d_'+id);if(d)d.style.display=d.style.display==='none'?'block':'none';};
@@ -212,8 +212,8 @@ async function beyanDagit(){
       const yol='beyanname/'+r.mid+'/'+Date.now()+'_'+r.ad.replace(/[^a-zA-Z0-9._-]/g,'_');
       const { error:ue } = await sb.storage.from('fisler').upload(yol, r.f);
       if(ue) throw ue;
-      const url = sb.storage.from('fisler').getPublicUrl(yol).data.publicUrl;
-      const { error:ie } = await sb.from('belgeler').insert({ mukellef_id:r.mid, dosya_adi:r.ad, tur:r.tur, donem:r.donem, url });
+      // KVKK: public URL yerine dosya YOLU saklanır; gösterimde imzalı link üretilir
+      const { error:ie } = await sb.from('belgeler').insert({ mukellef_id:r.mid, dosya_adi:r.ad, tur:r.tur, donem:r.donem, url:yol });
       if(ie) throw ie;
       // ÖĞRENME: elle eşleştirildiyse ve VKN çözüldüyse mükellefe kaydet — bir daha sormaz
       if(!r.otomatik && r.vkn){
@@ -227,6 +227,17 @@ async function beyanDagit(){
   window._plan=[]; muhasebeciApp();
 }
 
+// GİZLİLİK (KVKK): 'fisler' bucket PRIVATE. Belgeler DB'de dosya YOLU olarak saklanır;
+// açarken taze imzalı (süreli) link üretilir — public URL yok, link bilen herkes giremez.
+// Eski kayıtlar tam https URL ise geriye uyum için doğrudan açılır.
+window._belgeAc = async (v) => {
+  if(!v){ toast('Belge bulunamadı'); return; }
+  if(/^https?:\/\//.test(v)){ window.open(v,'_blank','noopener'); return; }   // eski public URL
+  const { data, error } = await sb.storage.from('fisler').createSignedUrl(v, 3600);
+  if(error || !data){ toast('Belge açılamadı: '+(error?.message||'')); return; }
+  window.open(data.signedUrl,'_blank','noopener');
+};
+
 // ================= MÜKELLEF PANOSU (girişsiz, kalıcı ?m= linki) =================
 async function mukellefPano(token){
   const { data, error } = await sb.rpc('mukellef_pano',{p_token:token});
@@ -235,7 +246,7 @@ async function mukellefPano(token){
   W().innerHTML=`<div class="top"><span class="logo">MR</span> Evrak Radarı · Belge Panosu</div>
   <div class="tel" style="max-width:460px">
     <div style="font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px">📂 ${esc(data.mukellef||'')} — beyanname &amp; tahakkuk panosu</div>
-    ${bl.length? bl.map(b=>`<div class="soruSat"><div>📄</div><div class="body"><div style="font-weight:650;font-size:13.5px">${esc(b.tur||'Belge')} · ${esc(b.donem||'')}</div><div style="font-size:12px;color:var(--dim)">${esc(b.dosya_adi)} · ${b.ts?new Date(b.ts).toLocaleDateString('tr-TR'):''}</div><a class="fis" href="${b.url}" target="_blank" rel="noopener">📥 indir / görüntüle</a></div></div>`).join('')
+    ${bl.length? bl.map(b=>`<div class="soruSat"><div>📄</div><div class="body"><div style="font-weight:650;font-size:13.5px">${esc(b.tur||'Belge')} · ${esc(b.donem||'')}</div><div style="font-size:12px;color:var(--dim)">${esc(b.dosya_adi)} · ${b.ts?new Date(b.ts).toLocaleDateString('tr-TR'):''}</div><a class="fis" href="#" onclick="window._belgeAc('${b.url}');return false">📥 indir / görüntüle</a></div></div>`).join('')
       : '<div class="bos">Henüz belge yüklenmedi. Muhasebeciniz yükledikçe burada görünecek.</div>'}
     <div style="font-size:11px;color:var(--dim);text-align:center;margin-top:10px">Mevzuat Radarı · Fiş Fabrikası — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
   </div>`;
@@ -260,7 +271,7 @@ window._cevap=async(token,sid,tip)=>{
   else { const inp=$('#f_'+sid); const f=inp&&inp.files[0]; if(!f){toast('Dosya seç');return;}
     const yol=token+'/'+sid+'_'+Date.now()+'_'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
     const { error:ue } = await sb.storage.from('fisler').upload(yol,f); if(ue){toast('Yükleme hatası: '+ue.message);return;}
-    dosyaUrl=sb.storage.from('fisler').getPublicUrl(yol).data.publicUrl; }
+    dosyaUrl=yol; }   // KVKK: dosya yolu saklanır, gösterimde imzalı link
   const { data, error } = await sb.rpc('cevap_kaydet',{p_token:token,p_soru_id:sid,p_cevap:cevap,p_dosya:dosyaUrl});
   if(error||!data){toast('Kaydedilemedi');return;}
   toast('✅ Gönderildi'); mukellefGorunum(token);

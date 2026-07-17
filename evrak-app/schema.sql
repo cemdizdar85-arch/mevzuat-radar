@@ -92,18 +92,23 @@ end; $$;
 grant execute on function public.istek_getir(uuid)              to anon, authenticated;
 grant execute on function public.cevap_kaydet(uuid,uuid,text,text) to anon, authenticated;
 
--- 4) DOSYA DEPOSU (fiş fotoğrafları) ----------------------------------------
+-- 4) DOSYA DEPOSU (mükellef belgeleri) — KVKK: PRIVATE ----------------------
+-- Bucket PRIVATE: public URL yok. Erişim yalnız süreli imzalı link (createSignedUrl)
+-- ile; client belgeyi DB'de dosya YOLU olarak saklar, açarken taze imza üretir.
 insert into storage.buckets (id, name, public)
-  values ('fisler','fisler', true)
-  on conflict (id) do nothing;
+  values ('fisler','fisler', false)
+  on conflict (id) do update set public = false;
 
 drop policy if exists fis_upload on storage.objects;
 create policy fis_upload on storage.objects
   for insert to anon, authenticated with check (bucket_id = 'fisler');
 
+-- Okuma yalnız imzalı link üretimi için (anon mükellef panosu + authenticated
+-- muhasebeci). Public URL kapalı olduğundan erişim, tahmin edilemez dosya yolunu
+-- (uuid/token tabanlı) bilmeyi gerektirir.
 drop policy if exists fis_read on storage.objects;
 create policy fis_read on storage.objects
-  for select using (bucket_id = 'fisler');
+  for select to anon, authenticated using (bucket_id = 'fisler');
 
 -- BİTTİ. Not: fiş dosyaları public-okunur (tahmin edilemez rastgele isimle);
 -- MVP için yeterli, ileride imzalı-URL'e sıkılaştırılabilir.
