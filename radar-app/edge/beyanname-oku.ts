@@ -17,8 +17,21 @@ function json(o: unknown, s = 200) { return new Response(JSON.stringify(o), { st
 // site ULKE_GRUP eşlemesiyle aynı mantık — model ISO/ad döndürür, burada gruba çevrilir
 const ISO_GRUP: Record<string, string> = { CN:"du", JP:"du", IN:"du", RU:"du", TW:"du", ID:"du", VN:"du", TH:"du", DE:"abSta", IT:"abSta", FR:"abSta", ES:"abSta", NL:"abSta", BE:"abSta", PL:"abSta", GB:"abSta", IL:"abSta", KR:"abSta", RS:"abSta", MA:"abSta", EG:"abSta", TN:"abSta", US:"abd" };
 
+// RATE LIMIT: vision çağrısı pahalı — IP başına 60 sn'de en fazla 6 istek.
+const RL = new Map<string, number[]>();
+function rlAsti(ip: string): boolean {
+  const now = Date.now(), P = 60000, L = 6;
+  const arr = (RL.get(ip) || []).filter((t) => now - t < P);
+  if (arr.length >= L) { RL.set(ip, arr); return true; }
+  arr.push(now); RL.set(ip, arr);
+  if (RL.size > 5000) { for (const [k, v] of RL) { if (!v.some((t) => now - t < P)) RL.delete(k); } }
+  return false;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
+  if (rlAsti(ip)) return json({ hata: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
     const { resim, tur } = await req.json();
     if (!resim || typeof resim !== "string") return json({ hata: "resim yok" }, 400);
