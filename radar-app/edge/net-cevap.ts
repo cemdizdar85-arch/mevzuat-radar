@@ -18,7 +18,9 @@ const CORS = {
 function norm(s: string): string {
   return (s || "").toLocaleLowerCase("tr-TR").replace(/\./g, "").replace(/[^\wğüşıöç\s]/gi, " ").replace(/\s+/g, " ").trim();
 }
-const STOP = new Set("vergi var varsa yok kac kaç ne nasil nasıl mi mı mu mü olur odeme ödeme sure süre suresi icin için ile bir bu kesilir geldi aldim aldım nedir kadar gibi daha cok çok hangi".split(" "));
+// NOT (17.07.2026): 'vergi' STOP'tan CIKARILDI — kucuk bilgi tabaninda gurultuydu,
+// 13k maddelik ambarda ayirt edici ('anayasada vergi odevi' m.73'u bulamiyordu).
+const STOP = new Set("var varsa yok kac kaç ne nasil nasıl mi mı mu mü olur odeme ödeme sure süre suresi icin için ile bir bu kesilir geldi aldim aldım nedir kadar gibi daha cok çok hangi".split(" "));
 
 // Türkçe diakritik katlama: kullanıcı çoğu kez şapkasız yazar (sirket~şirket,
 // bagkur~bağkur, ortagi~ortağı). Eşleştirmede iki tarafı da ASCII'ye indir.
@@ -75,7 +77,15 @@ Deno.serve(async (req) => {
     try {
       // puanli arama (madde_ara RPC): fold'lu kolon + OR + ts_rank -> en cok
       // eslesen madde one gelir; kullanici sapkasiz yazsa da kanun maddesi bulunur
-      const fts = tok.slice(0, 8).map(fold).join(" ");
+      // KURUM TAKMA ADI: kullanici 'SGK' der ama 5510/SSIY metni 'Kurum/sigortali/
+      // prim' der ('sgk' kelimesi tam tersine KDV GUT mahsup bolumunde gecer) —
+      // RPC sorgusunda kisaltma, kanunun kendi diline cevrilir. YALNIZ ambar
+      // sorgusu icin: bilgi-tabani anahtarlarinda 'sgk' literal gectiginden
+      // oradaki eslesmeye dokunulmaz.
+      const ALIAS: Record<string, string[]> = { sgk: ["sigortali", "sosyal", "prim"] };
+      const ftsTok: string[] = [];
+      for (const t of tok.slice(0, 8)) { const a = ALIAS[fold(t)]; if (a) ftsTok.push(...a); else ftsTok.push(fold(t)); }
+      const fts = ftsTok.slice(0, 8).join(" ");
       if (fts) {
         const r = await fetch(`${SB_URL}/rest/v1/rpc/madde_ara`, {
           method: "POST",

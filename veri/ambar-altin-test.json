@@ -3,7 +3,7 @@
   "vakalar": [
     { "soru": "kira artisi en fazla ne kadar olabilir tufe", "beklenen": ["tbk (6098"], "not": "TBK m.344 kira artis taavani" },
     { "soru": "mirasi reddetme suresi kac ay", "beklenen": ["tmk (4721"], "not": "TMK m.606 - 3 ay" },
-    { "soru": "isci ihbar onel sureleri", "beklenen": ["is k. (4857"], "not": "Is K. m.17" },
+    { "soru": "isci ihbar onel sureleri", "beklenen": ["is k. (4857", "is k. —"], "not": "Is K. m.17 - madde kaydi VEYA eski toplu kayit (Is K. — Fesih...) ikisi de mesru" },
     { "soru": "vergi mahremiyeti kimleri baglar", "beklenen": ["vuk (213"], "not": "VUK m.5" },
     { "soru": "defter ve belgeleri saklama zorunlulugu", "beklenen": ["vuk (213", "ttk (6102"], "not": "VUK m.253 (5 yil) / TTK m.82 (10 yil)" },
     { "soru": "anonim sirket genel kurul toplanti nisabi", "beklenen": ["ttk (6102"], "not": "TTK m.418" },
@@ -25,7 +25,7 @@
     { "soru": "gumruk beyannamesinde duzeltme yapilabilir mi", "beklenen": ["gumruk yonetmeligi", "gumruk k."], "not": "Gumruk Yon. duzeltme hukumleri" },
     { "soru": "marka tescili yenileme zamani", "beklenen": ["smk (6769"], "not": "SMK m.23 - 10 yil" },
     { "soru": "rekabet ihlaline verilen para cezasi", "beklenen": ["rekabet k. (4054"], "not": "Rekabet K. m.16" },
-    { "soru": "musteri sirri bankacilikta aciklanabilir mi", "beklenen": ["bankacilik k. (5411"], "not": "Bankacilik K. m.73" },
+    { "soru": "musteri sirri bankacilikta aciklanabilir mi", "beklenen": ["bankacilik k. (5411", "tck (5237"], "not": "Bankacilik K. m.73 (sir saklama) / TCK m.239 (banka-musteri sirrini aciklama sucu) - ikisi de mesru" },
     { "soru": "karsiliksiz cek yaptirimi", "beklenen": ["cek k. (5941"], "not": "Cek K. m.5" },
     { "soru": "gelir vergisi tarifesi dilimleri", "beklenen": ["gvk (193"], "not": "GVK m.103" },
     { "soru": "otv hangi mallardan alinir listeler", "beklenen": ["otv k. (4760"], "not": "OTV K. m.1" },
