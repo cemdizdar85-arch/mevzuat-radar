@@ -25,6 +25,16 @@ textarea::placeholder{color:var(--dim)}
 .btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:13px 26px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:12px}
 .btn:active{transform:translateY(1px)}
 .ipucu{font-size:12px;color:var(--dim);margin-top:9px}
+.yukle{border:1.5px dashed rgba(62,155,255,.4);border-radius:13px;padding:16px;text-align:center;background:linear-gradient(135deg,rgba(47,123,255,.06),transparent);cursor:pointer;transition:border-color .15s,background .15s;margin-bottom:12px}
+.yukle:hover,.yukle.suru{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.12),transparent)}
+.yukle .ikon{font-size:22px;margin-bottom:4px}
+.yukle .bas2{font-size:14px;font-weight:700;color:var(--ink)}
+.yukle .alt{font-size:11.5px;color:var(--dim);margin-top:3px}
+.yukle input{display:none}
+.yukle-durum{font-size:12.5px;color:var(--green);margin-top:8px;font-weight:600;display:none}
+.yukle-durum.gor{display:block}
+.ayrac{display:flex;align-items:center;gap:10px;color:var(--dim);font-size:12px;margin:4px 0 12px}
+.ayrac::before,.ayrac::after{content:"";flex:1;height:1px;background:var(--line)}
 .kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--panel2)}
 .kart.risk{border-left:4px solid var(--red)}
 .kart.temiz{border-left:4px solid var(--green)}
@@ -65,10 +75,19 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Bu sayfada <b style="color:var(--muted)">örnek (tohum) veri</b> ile çalışır; <b style="color:var(--ink)">canlı günlük tarama + WhatsApp/mail uyarısı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
 
   <div class="kutu">
-    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz — her satıra bir tane. Firma adıyla da arayabilirsin.</label>
+    <label>Müşteri / borçlu listeni yükle — muhasebe programından tek tuşla Excel al</label>
+    <label class="yukle" id="yukleKutu">
+      <div class="ikon">📄</div>
+      <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
+      <div class="alt">Cari listeni (VKN'li) yükle — <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
+      <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
+    </label>
+    <div class="yukle-durum" id="yukleDurum"></div>
+    <div class="ayrac">ya da elle yaz</div>
+    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) — her satıra bir tane. Firma adıyla da arayabilirsin.</label>
     <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
     <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
-    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni gir.</div>
+    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni yükle ya da yaz.</div>
   </div>
 
   <div id="sonuc"></div>
@@ -103,7 +122,66 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Mevzuat Radarı. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
+// ===================== MÜŞTERİ LİSTESİ YÜKLE (tarayıcı-içi) =====================
+// Excel/CSV/PDF'ten VKN'leri çıkarır, textarea'ya döker — dosya bilgisayardan
+// ÇIKMAZ, hepsi tarayıcıda okunur (KVKK: müşteri listesi ticari sırdır).
+if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// metinden VKN (10 hane) + TCKN (11 hane) ayıkla — tekilleştir
+function vknCikar(metin){
+  const bulunan = new Set();
+  const re = /\b(\d{10,11})\b/g; let m;
+  while ((m = re.exec(metin)) !== null){ bulunan.add(m[1]); }
+  return [...bulunan];
+}
+function yukleDurum(html, renk){ const el=document.getElementById('yukleDurum'); el.innerHTML=html; el.style.color=renk||'var(--green)'; el.classList.add('gor'); }
+
+async function pdfMetni(file){
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  let metin=''; for(let i=1;i<=pdf.numPages;i++){ const s=await pdf.getPage(i); const c=await s.getTextContent(); metin+=c.items.map(x=>x.str).join(' ')+'\n'; }
+  return metin;
+}
+
+async function dosyaSecildi(file){
+  if(!file) return;
+  const ad = file.name.toLowerCase();
+  yukleDurum('📄 <b>'+file.name+'</b> okunuyor…', 'var(--muted)');
+  let vknler = [];
+  try {
+    if(ad.endsWith('.xlsx')||ad.endsWith('.xls')){
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, {type:'array'});
+      let hepsi='';
+      wb.SheetNames.forEach(sn=>{ hepsi += XLSX.utils.sheet_to_csv(wb.Sheets[sn]) + '\n'; });
+      vknler = vknCikar(hepsi);
+    } else if(ad.endsWith('.csv')||ad.endsWith('.txt')){
+      vknler = vknCikar(await file.text());
+    } else if(ad.endsWith('.pdf')){
+      vknler = vknCikar(await pdfMetni(file));
+    } else {
+      yukleDurum('Desteklenmeyen dosya. Excel, CSV ya da PDF yükle.', 'var(--amber)'); return;
+    }
+  } catch(e){ yukleDurum('Dosya okunamadı. Excel/CSV/PDF olduğundan emin ol ya da elle yaz.', 'var(--amber)'); return; }
+
+  if(!vknler.length){ yukleDurum('Dosyada 10-11 haneli VKN/TCKN bulamadım. Kolon başlığı olmadan da olur; ya da elle yaz.', 'var(--amber)'); return; }
+  const mevcut = document.getElementById('giris').value.trim();
+  document.getElementById('giris').value = (mevcut ? mevcut+'\n' : '') + vknler.join('\n');
+  yukleDurum('✓ <b>'+vknler.length+'</b> vergi numarası ayıklandı ve aşağı eklendi. Kontrol edip <b>"Alacaklarımı tara"</b>ya bas.', 'var(--green)');
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const kutu=document.getElementById('yukleKutu'), inp=document.getElementById('dosya');
+  if(!kutu) return;
+  inp.addEventListener('change', e=>{ if(e.target.files[0]) dosyaSecildi(e.target.files[0]); });
+  ['dragover','dragenter'].forEach(ev=>kutu.addEventListener(ev,e=>{e.preventDefault();kutu.classList.add('suru');}));
+  ['dragleave','drop'].forEach(ev=>kutu.addEventListener(ev,e=>{e.preventDefault();kutu.classList.remove('suru');}));
+  kutu.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) dosyaSecildi(f); });
+});
+
 let ILAN = null;
 async function veriYukle(){
   if(ILAN) return ILAN;
