@@ -64,6 +64,12 @@ const $=s=>document.querySelector(s);
 const ekran=$('#ekran'), ustSag=$('#ustSag');
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const arr=s=>(s||'').split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);
+// TELEFON: Türkiye cep hattı 0 ile başlar (05XX XXX XX XX = 11 hane). VKN/TCKN 0 ile
+// başlamaz — bu ayrım karışıklığı önler. telSayi: ham 11 hane; telBicim: input'a
+// otomatik 0 ekle + boşlukla grupla; telGecerli: 05 + 9 hane doğrula.
+const telSayi=s=>{ let d=(s||'').replace(/\D/g,''); if(d.startsWith('90')) d=d.slice(2); if(d.length && d[0]!=='0' && d[0]==='5') d='0'+d; return d.slice(0,11); };
+const telGecerli=s=>/^05\d{9}$/.test(telSayi(s));
+function telBicim(el){ const d=telSayi(el.value); let f=d; if(d.length>4) f=d.slice(0,4)+' '+d.slice(4); if(d.length>7) f=d.slice(0,4)+' '+d.slice(4,7)+' '+d.slice(7); if(d.length>9) f=d.slice(0,4)+' '+d.slice(4,7)+' '+d.slice(7,9)+' '+d.slice(9); el.value=f; }
 const trUp=s=>(s||'').replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
 let SECILI=null, IHALE=null, KARTLAR=null;
 const gtipNorm=s=>String(s==null?'':s).replace(/[^\d]/g,'');
@@ -132,7 +138,7 @@ function firmaForm(){
     <label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı — virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea>
     <div class="grid2">
       <div><label>Uyarı kanalı</label><select id="f_kanal"><option value="mail">E-posta</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select></div>
-      <div><label>Telefon <span class="mini">(SMS/WhatsApp için)</span></label><input id="f_tel" placeholder="05xx…"></div>
+      <div><label>Telefon <span class="mini">(SMS/WhatsApp için — 0 ile başlar)</span></label><input id="f_tel" type="tel" inputmode="numeric" maxlength="14" placeholder="05xx xxx xx xx" oninput="telBicim(this)"></div>
     </div>
     <div style="margin-top:16px;display:flex;gap:10px"><button class="btn" id="kaydet">Kaydet</button><button class="btn ghost" id="iptal">Vazgeç</button></div>
     <div class="hata" id="fhata"></div>
@@ -140,10 +146,14 @@ function firmaForm(){
   $('#iptal').onclick=()=>{fa.classList.add('gizli');fa.innerHTML='';};
   $('#kaydet').onclick=async()=>{
     const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
+    const kanal=$('#f_kanal').value, telHam=$('#f_tel').value.trim();
+    // SMS/WhatsApp kanalı seçiliyse telefon zorunlu ve geçerli cep olmalı (0 ile başlar)
+    if((kanal==='sms'||kanal==='whatsapp') && !telGecerli(telHam)){ $('#fhata').textContent='SMS/WhatsApp için geçerli cep numarası gir (0 ile başlar, 11 hane — ör. 0532 123 45 67).'; return; }
+    if(telHam && !telGecerli(telHam)){ $('#fhata').textContent='Telefon 0 ile başlamalı ve 11 hane olmalı (ör. 0532 123 45 67).'; return; }
     const {data:{user}}=await sb.auth.getUser();
     const kayit={ user_id:user.id, email:user.email, firma_adi:ad, rol:$('#f_rol').value, il:$('#f_il').value.trim(), sektor:$('#f_sektor').value.trim(),
       gtip_kodlari:arr($('#f_gtip').value), markalar:arr($('#f_marka').value), borclu_vkn:arr($('#f_vkn').value),
-      kanal:$('#f_kanal').value, telefon:$('#f_tel').value.trim() };
+      kanal:kanal, telefon:telHam?telSayi(telHam):null };
     const {data,error}=await sb.from('firmalar').insert(kayit).select().single();
     if(error){$('#fhata').textContent=error.message;return;}
     SECILI=data.id; app();

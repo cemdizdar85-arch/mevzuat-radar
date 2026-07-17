@@ -134,7 +134,13 @@ async function muhasebeciApp(){
   }).join('')||'<div class="bos">Henüz mükellef yok.</div>'}</div>`;
   W().innerHTML=h;
   $('#cikis').onclick=(e)=>{e.preventDefault();sb.auth.signOut();};
-  $('#mukEkle').onclick=async()=>{ const ad=prompt('Mükellef adı:'); if(!ad)return; const tel=prompt('Telefon (opsiyonel):')||null; const vkn=(prompt('Vergi/TC No (beyanname dağıtımı için önerilir):')||'').replace(/\D/g,'')||null; const {error}=await sb.from('mukellefler').insert({ad,telefon:tel,vkn}); if(error)toast(error.message); else{toast('Mükellef eklendi');muhasebeciApp();} };
+  $('#mukEkle').onclick=async()=>{ const ad=prompt('Mükellef adı:'); if(!ad)return;
+    // Telefon: 0 ile başlayan cep (05XX); 0'sız/+90 girilse normalize et, geçersizse boş bırak
+    const telNorm=s=>{ let d=(s||'').replace(/\D/g,''); if(d.startsWith('90'))d=d.slice(2); if(d.length&&d[0]!=='0'&&d[0]==='5')d='0'+d; d=d.slice(0,11); return /^05\d{9}$/.test(d)?d:null; };
+    const telGirdi=prompt('Telefon (0 ile başlar, ör. 0532 123 45 67 — opsiyonel):')||'';
+    const tel=telNorm(telGirdi); if(telGirdi.trim() && !tel) toast('Telefon geçersiz görünüyor, boş kaydedildi');
+    const vkn=(prompt('Vergi/TC No (beyanname dağıtımı için önerilir):')||'').replace(/\D/g,'')||null;
+    const {error}=await sb.from('mukellefler').insert({ad,telefon:tel,vkn}); if(error)toast(error.message); else{toast('Mükellef eklendi');muhasebeciApp();} };
   window._vknTanimla=async(mid)=>{ const v=(prompt('VKN / TC No:')||'').replace(/\D/g,''); if(!v)return; const {error}=await sb.from('mukellefler').update({vkn:v}).eq('id',mid); if(error)toast(error.message); else{toast('VKN kaydedildi');muhasebeciApp();} };
   window._MUKS = mukellefler||[];
   const bs=$('#beyanSec'); if(bs) bs.onchange=()=>beyanPlanla(bs.files);
