@@ -47,6 +47,20 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
 .uyari{font-size:12px;color:var(--dim);margin-top:18px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+/* yükle kutusu */
+.yukle{border:1.5px dashed rgba(62,155,255,.4);border-radius:14px;padding:20px;text-align:center;background:linear-gradient(135deg,rgba(47,123,255,.06),transparent);cursor:pointer;transition:border-color .15s,background .15s}
+.yukle:hover,.yukle.suru{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.12),transparent)}
+.yukle .ikon{font-size:26px;margin-bottom:6px}
+.yukle .bas2{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.yukle .alt{font-size:12px;color:var(--dim)}
+.yukle input{display:none}
+.gizli-rozet{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 10px;margin-top:10px}
+.oku-durum{margin-top:12px;font-size:13px;padding:11px 13px;border-radius:11px;background:#0a0f17;border:1px solid var(--line2);color:var(--muted);display:none}
+.oku-durum.gor{display:block}
+.oku-durum b{color:var(--ink)}
+.oku-durum .vurgu{color:var(--green);font-weight:700}
+.oku-buton{appearance:none;border:1px solid var(--accent2);background:rgba(38,208,254,.08);color:var(--accent2);font-family:inherit;font-weight:700;font-size:13px;padding:9px 15px;border-radius:10px;cursor:pointer;margin-top:8px}
+.oku-buton:hover{background:rgba(38,208,254,.16)}
 </style>
 </head>
 <body>
@@ -54,6 +68,18 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Beyanname Risk Taraması</div>
   <h1>Beyanname Risk Taraması</h1>
   <p class="lead">Gümrük beyannameni vermeden <b style="color:var(--ink)">ÖNCE</b> tara. Ticaret Bakanlığı beyanları risk analiziyle ve yapay zekâyla tarıyor; yakalanan farkın cezası <b style="color:var(--red)">farkın 3 katı</b> olabilir (4458 m.234). <b style="color:var(--ink)">Sen de kendi tarafında tara</b> — 6 soruya cevap ver, cezaya açık noktalarını gör.</p>
+
+  <div class="blok">
+    <div class="bas">📄 BEYANNAMENİ YÜKLE — kutuları elle doldurma, biz okuyalım</div>
+    <label class="yukle" id="yukleKutu">
+      <div class="ikon">📄</div>
+      <div class="bas2">Beyanname PDF'ini sürükle ya da seç</div>
+      <div class="alt">Metin PDF'i <b style="color:var(--muted)">tarayıcının içinde</b> okunur — GTİP, menşe ve kıymet otomatik dolar.<br>Fotoğraf/taranmış belge için okuma yapay zekâ onayına tabidir.</div>
+      <input type="file" id="dosya" accept=".pdf,image/*">
+    </label>
+    <div style="text-align:center"><span class="gizli-rozet">🔒 Metin PDF'in bilgisayarından çıkmaz — tarayıcıda okunur</span></div>
+    <div class="oku-durum" id="okuDurum"></div>
+  </div>
 
   <div class="blok">
     <div class="bas">1 · ÜRÜN</div>
@@ -117,7 +143,126 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <div class="dip">Mevzuat Radarı · Beyanname Risk Taraması · Dayanaklar: 4458 s. Gümrük Kanunu m.234 (beyan/muayene farkı cezası) · Gümrük Yönetmeliği m.53 (tamamlayıcı beyan) · İthalat Rejimi Kararı + İGV Kararı (ülke bazlı oranlar) · 2007/13033 (KDV) · 4760 (ÖTV) · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
+// ======================= BEYANNAME OKUYUCU (tarayıcı-içi) =======================
+// Metin PDF'i bilgisayardan ÇIKMADAN okur (pdf.js). Gümrük beyannamesinden
+// GTİP + menşe ülke + kıymet çıkarıp formu doldurur → kullanıcı doğrular → tarar.
+// Fotoğraf/taranmış (metin çıkmayan) belgede: AI onayı istenir (edge, kademeli).
+if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const VISION_EDGE = 'https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/beyanname-oku';
+const SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+
+// menşe ülke adı → grup (yaygın ithalat menşeleri; kesin değilse boş → kullanıcı seçer)
+const ULKE_GRUP = {
+  cin:'du', "çin":'du', china:'du', japonya:'du', japan:'du', hindistan:'du', india:'du', rusya:'du', russia:'du', tayvan:'du', endonezya:'du', vietnam:'du', tayland:'du',
+  almanya:'abSta', germany:'abSta', italya:'abSta', italy:'abSta', fransa:'abSta', france:'abSta', ispanya:'abSta', spain:'abSta', hollanda:'abSta', belcika:'abSta', "belçika":'abSta', polonya:'abSta', avusturya:'abSta', "i̇ngiltere":'abSta', ingiltere:'abSta', "birlesik krallik":'abSta', israil:'abSta', "i̇srail":'abSta', "guney kore":'abSta', "güney kore":'abSta', sirbistan:'abSta', "sırbistan":'abSta', fas:'abSta', misir:'abSta', "mısır":'abSta', tunus:'abSta', "kuzey makedonya":'abSta',
+  abd:'abd', amerika:'abd', usa:'abd', "birlesik devletler":'abd'
+};
+// gümrük beyannamesindeki ISO ülke kodları (kutu 34)
+const ISO_GRUP = { CN:'du', JP:'du', IN:'du', RU:'du', TW:'du', ID:'du', VN:'du', TH:'du', DE:'abSta', IT:'abSta', FR:'abSta', ES:'abSta', NL:'abSta', BE:'abSta', PL:'abSta', GB:'abSta', IL:'abSta', KR:'abSta', RS:'abSta', MA:'abSta', EG:'abSta', TN:'abSta', US:'abd' };
+
+function okuDurum(html, gor){ const el=document.getElementById('okuDurum'); el.innerHTML=html; el.classList.toggle('gor', gor!==false); }
+
+async function pdfMetni(file){
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  let metin = '';
+  for (let i=1; i<=pdf.numPages; i++){
+    const sayfa = await pdf.getPage(i);
+    const icerik = await sayfa.getTextContent();
+    metin += icerik.items.map(x=>x.str).join(' ') + '\n';
+  }
+  return metin;
+}
+
+// beyanname metninden alan çıkar
+function alanlariCoz(metin){
+  const sonuc = { gtip:null, ulkeGrup:null, ulkeAd:null, kiymet:null, cokKalem:false };
+  // GTİP: 12 haneli (nokta/boşluk toleranslı). Beyanname 33. kutu.
+  const gtipRe = /\b(\d{4})[.\s]?(\d{2})[.\s]?(\d{2})[.\s]?(\d{2})[.\s]?(\d{2})\b/g;
+  const kodlar = new Set(); let m;
+  while ((m = gtipRe.exec(metin)) !== null){ kodlar.add(m[1]+'.'+m[2]+'.'+m[3]+'.'+m[4]+'.'+m[5]); }
+  const kodArr = [...kodlar];
+  if (kodArr.length){ sonuc.gtip = kodArr[0]; sonuc.cokKalem = kodArr.length > 1; }
+  // menşe ülke: önce ISO kodu (Menşe/Menşe Ülke etiketinden sonra 2 harf), sonra ülke adı
+  const isoM = metin.match(/men[şs]e[^A-Z]{0,20}\b([A-Z]{2})\b/i);
+  if (isoM && ISO_GRUP[isoM[1].toUpperCase()]){ sonuc.ulkeGrup = ISO_GRUP[isoM[1].toUpperCase()]; sonuc.ulkeAd = isoM[1].toUpperCase(); }
+  if (!sonuc.ulkeGrup){
+    const dlow = metin.toLocaleLowerCase('tr');
+    for (const ad in ULKE_GRUP){ if (dlow.includes(ad)){ sonuc.ulkeGrup = ULKE_GRUP[ad]; sonuc.ulkeAd = ad; break; } }
+  }
+  // kıymet/fatura tutarı: "kıymet" veya "fatura" yakınındaki sayı (best-effort)
+  const kM = metin.match(/(?:k[ıi]ymet|fatura|toplam)[^0-9]{0,25}([\d.]{4,15}[,.]?\d{0,2})/i);
+  if (kM){ const n = kM[1].replace(/\./g,'').replace(',', ''); if (/^\d+$/.test(n)) sonuc.kiymet = parseInt(n,10); }
+  return sonuc;
+}
+
+function formuDoldur(a){
+  let dolan = [];
+  if (a.gtip){ document.getElementById('gtip').value = a.gtip; dolan.push('GTİP <span class="vurgu">'+a.gtip+'</span>'); }
+  if (a.ulkeGrup){ document.getElementById('ulkeGrup').value = a.ulkeGrup; dolan.push('menşe (<span class="vurgu">'+htmlEsc(a.ulkeAd)+'</span>)'); }
+  if (a.kiymet){ document.getElementById('birimKiymet').value = a.kiymet.toLocaleString('tr-TR'); dolan.push('kıymet <span class="vurgu">'+a.kiymet.toLocaleString('tr-TR')+'</span>'); }
+  return dolan;
+}
+
+async function dosyaSecildi(file){
+  if (!file) return;
+  const foto = file.type.startsWith('image/');
+  if (foto){ fotoUyari(file); return; }
+  if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){ okuDurum('Desteklenmeyen dosya. PDF ya da fotoğraf yükle.'); return; }
+  okuDurum('📄 <b>'+htmlEsc(file.name)+'</b> okunuyor…');
+  let metin = '';
+  try { metin = await pdfMetni(file); }
+  catch(e){ okuDurum('PDF açılamadı. Dosya bozuk olabilir; kutuları elle doldurabilirsin.'); return; }
+  const harfSayisi = (metin.match(/[A-Za-zĞÜŞİÖÇğüşıöç]/g)||[]).length;
+  if (harfSayisi < 40){
+    // metin çıkmadı → taranmış/fotoğraf PDF
+    okuDurum('Bu PDF <b>taranmış (resim)</b> görünüyor — içinden yazı çıkmıyor. Otomatik okuma için yapay zekâ onayın gerekir.'
+      +'<div><button class="oku-buton" onclick="visionOnay(window.__sonDosya)">🤖 Yapay zekâ ile okut (onaylıyorum)</button></div>'
+      +'<div style="font-size:11px;color:var(--dim);margin-top:6px">Onaylarsan belge görseli güvenli işlenir ve saklanmaz. İstemezsen kutuları elle doldur.</div>');
+    window.__sonDosya = file; return;
+  }
+  const a = alanlariCoz(metin);
+  const dolan = formuDoldur(a);
+  if (!dolan.length){ okuDurum('PDF okundu ama beyanname alanlarını tanıyamadım. Kutuları elle doldurup tarayabilirsin.'); return; }
+  let msg = '✓ <b>Okundu</b> — '+dolan.join(', ')+' dolduruldu.';
+  if (a.cokKalem) msg += '<br><b style="color:var(--amber)">Not:</b> Belgede birden çok GTİP kalemi var; ilkini aldım — diğer kalemleri ayrı ayrı tarat.';
+  msg += '<div><button class="oku-buton" onclick="tara()">🔍 Şimdi tara</button></div>';
+  okuDurum(msg);
+}
+
+function fotoUyari(file){
+  window.__sonDosya = file;
+  okuDurum('📷 <b>Fotoğraf</b> yükledin. Fotoğraftaki yazıyı okumak için yapay zekâ onayın gerekir (tarayıcı fotoğrafı tek başına okuyamaz).'
+    +'<div><button class="oku-buton" onclick="visionOnay(window.__sonDosya)">🤖 Yapay zekâ ile okut (onaylıyorum)</button></div>'
+    +'<div style="font-size:11px;color:var(--dim);margin-top:6px">Onaylarsan görsel güvenli işlenir ve saklanmaz. İstemezsen aşağıdaki kutuları elle doldur.</div>');
+}
+
+async function visionOnay(file){
+  if (!file) return;
+  okuDurum('🤖 Yapay zekâ belgeyi okuyor…');
+  try {
+    const b64 = await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
+    const r = await fetch(VISION_EDGE, { method:'POST', headers:{'Content-Type':'application/json', apikey:SB_ANON, Authorization:'Bearer '+SB_ANON}, body: JSON.stringify({ resim:b64, tur:file.type }) });
+    if (!r.ok) throw new Error('edge');
+    const a = await r.json();
+    if (!a || (!a.gtip && !a.ulkeGrup && !a.kiymet)){ okuDurum('Yapay zekâ belgeden alan çıkaramadı. Kutuları elle doldur.'); return; }
+    const dolan = formuDoldur(a);
+    okuDurum('✓ <b>Yapay zekâ okudu</b> — '+dolan.join(', ')+' dolduruldu. <b>Mutlaka doğrula.</b><div><button class="oku-buton" onclick="tara()">🔍 Şimdi tara</button></div>');
+  } catch(e){
+    okuDurum('Yapay zekâ okuma şu an hazır değil. Kutuları elle doldurup tarayabilirsin.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const kutu = document.getElementById('yukleKutu'), inp = document.getElementById('dosya');
+  inp.addEventListener('change', e=>{ if(e.target.files[0]) dosyaSecildi(e.target.files[0]); });
+  ['dragover','dragenter'].forEach(ev=>kutu.addEventListener(ev, e=>{ e.preventDefault(); kutu.classList.add('suru'); }));
+  ['dragleave','drop'].forEach(ev=>kutu.addEventListener(ev, e=>{ e.preventDefault(); kutu.classList.remove('suru'); }));
+  kutu.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) dosyaSecildi(f); });
+});
+
 // —— veri katmanı: gtip.html ile AYNI resmî dosyalar (tek kaynak ilkesi) ——
 let VERI=null, VERGI=null, DAMPING=null, VERGI_ULKE=null, IGV_ULKE=null, KDV=null, OTV=null, EKVERGI=null;
 Promise.all([
