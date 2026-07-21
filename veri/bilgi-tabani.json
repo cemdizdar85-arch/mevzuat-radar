@@ -2332,6 +2332,126 @@
                          "anahtar":  "menkul sermaye iradı faiz kar payı repo mevduat beyan stopaj gvk 75 86",
                          "cevap":  "Mevduat faizi, repo geliri, kâr payı, tahvil/bono faizi gibi menkul sermaye iratları elde edilir. Bunların çoğu stopaj yoluyla (banka keser) vergilenir ve stopaja tabi olanların çoğu için yıllık beyan gerekmez; ancak stopaja tabi olmayan veya belli tutarı aşan bazı iratlar beyan edilir (GVK m.75, 85-86). Beyan sınırları her yıl güncellenir — güncel hadler için GİB'e bak.",
                          "kaynak":  "GVK (193 s.K.) m.75"
+                     },
+                     {
+                         "id":  "sgk-isveren-prim",
+                         "konu":  "SGK işveren prim oranı",
+                         "anahtar":  "sgk prim oranı işveren işçi hissesi yüzde kesinti maaş sigorta 5510",
+                         "cevap":  "Bir çalışanın brüt ücreti üzerinden hem işçi hem işveren SGK primi hesaplanır; işveren payı işçi payından yüksektir ve ayrıca işsizlik sigortası primi de eklenir (5510 s.K.). Prim, prime esas kazancın taban (asgari ücret) ile tavan (asgari ücretin 7,5 katı) arasındaki tutar üzerinden alınır. Oranlar ve teşvik indirimleri değişebildiği için güncel oranları SGK/GİB'den teyit et.",
+                         "kaynak":  "5510 s. SGK Kanunu"
+                     },
+                     {
+                         "id":  "sgk-5puan",
+                         "konu":  "SGK 5 puanlık işveren indirimi",
+                         "anahtar":  "sgk 5 puan indirim işveren prim teşvik malullük yaşlılık ölüm 5510 81",
+                         "cevap":  "Şartları sağlayan işverenler, malullük-yaşlılık-ölüm sigortası işveren priminden 5 puanlık indirimden yararlanır (5510 s.K. m.81). Şart: primlerin düzenli ödenmesi, SGK'ya borcun olmaması ve kayıt dışı çalışan bulunmaması. Ayrıca bölgesel/sektörel ilave teşvikler vardır. Güncel oran ve şartlar için SGK'ya bak.",
+                         "kaynak":  "5510 s. SGK Kanunu m.81"
+                     },
+                     {
+                         "id":  "analik-izni",
+                         "konu":  "Doğum (analık) izni süresi",
+                         "anahtar":  "doğum izni analık kadın işçi 16 hafta 8 doğum öncesi sonrası ücretli iş 74",
+                         "cevap":  "Kadın çalışan, doğumdan önce 8 ve doğumdan sonra 8 hafta olmak üzere toplam 16 hafta çalıştırılamaz (çoğul gebelikte öncesine 2 hafta eklenir) (İş K. m.74). Bu süre analık geçici iş göremezlik ödeneğiyle SGK tarafından karşılanır. Sonrasında 6 aya kadar ücretsiz izin ve süt izni hakları vardır.",
+                         "kaynak":  "İş K. (4857 s.K.) m.74"
+                     },
+                     {
+                         "id":  "sut-izni",
+                         "konu":  "Süt izni hakkı",
+                         "anahtar":  "süt izni emzirme 1 yaş çocuk günde 1,5 saat kadın işçi ücretli iş 74",
+                         "cevap":  "Kadın çalışana, bir yaşından küçük çocuğunu emzirmesi için günde toplam 1,5 saat süt izni verilir; bu süre çalışma süresinden sayılır ve ücretlidir (İş K. m.74). İznin kullanım saatlerini ve kaça böleceğini çalışan kendisi belirler.",
+                         "kaynak":  "İş K. (4857 s.K.) m.74"
+                     },
+                     {
+                         "id":  "kismi-sureli",
+                         "konu":  "Kısmi süreli (part-time) çalışma",
+                         "anahtar":  "kısmi süreli part time çalışma haftalık sigorta gün eksik prim iş 13",
+                         "cevap":  "Kısmi süreli iş sözleşmesinde çalışan, tam süreli emsaline göre daha az çalışır ve haklardan (ücret, izin) çalıştığı süreyle orantılı yararlanır (İş K. m.13). SGK primi çalışılan gün kadar bildirilir; kalan günler için eksik gün nedeni belgelenir. Kısmi süreli çalışana tam süreliden farklı işlem yapılamaz (eşit davranma).",
+                         "kaynak":  "İş K. (4857 s.K.) m.13"
+                     },
+                     {
+                         "id":  "issizlik-odenegi",
+                         "konu":  "İşsizlik ödeneği şartları",
+                         "anahtar":  "işsizlik ödeneği maaşı sigorta 600 gün 120 son 3 yıl kendi isteği dışı 4447",
+                         "cevap":  "İşsizlik ödeneği için: iş akdinin çalışanın kendi kusuru/isteği dışında sona ermesi, son 120 gün kesintisiz sigortalı olmak ve son 3 yılda en az 600 gün işsizlik sigortası primi ödenmiş olması gerekir (4447 s.K.). Ödenek süresi prim gün sayısına göre 180-300 gün arası değişir. İŞKUR'a 30 gün içinde başvurulmalıdır.",
+                         "kaynak":  "4447 s. İşsizlik Sigortası Kanunu"
+                     },
+                     {
+                         "id":  "kdv-matrah-dahil",
+                         "konu":  "KDV dahil / hariç matrah",
+                         "anahtar":  "kdv matrah dahil hariç iç yüzde hesaplama fiyat içinden kdvk 20 24",
+                         "cevap":  "KDV matrahı, teslim/hizmet karşılığı alınan bedeldir; vade farkı, faiz, kur farkı gibi unsurlar da matraha dahildir (KDVK m.20, 24). Fiyat 'KDV dahil' verilmişse KDV içeriden hesaplanır (ör. %20 için: dahil tutar ÷ 1,20 = matrah). 'KDV hariç' fiyata oran eklenir. İskonto (fatura üzerinde gösterilen) matrahtan düşülür.",
+                         "kaynak":  "KDVK (3065 s.K.) m.20"
+                     },
+                     {
+                         "id":  "kdv-indirim-iptal",
+                         "konu":  "İndirilemeyen KDV (KKEG KDV)",
+                         "anahtar":  "kdv indirim iptal indirilemeyen binek oto kkeg belgesiz zayi kdvk 30",
+                         "cevap":  "Bazı KDV'ler indirilemez: kanunen kabul edilmeyen giderlere ait KDV, binek otomobil alımındaki KDV (bazı istisnalar dışında), zayi olan malların KDV'si, belgesiz alışların KDV'si (KDVK m.30). İndirilemeyen KDV gider veya maliyet yazılır ya da doğrudan KKEG olur. Sahte belge KDV'si de indirilemez.",
+                         "kaynak":  "KDVK (3065 s.K.) m.30"
+                     },
+                     {
+                         "id":  "kdv-vergiyi-doguran",
+                         "konu":  "KDV'de vergiyi doğuran olay",
+                         "anahtar":  "kdv vergiyi doğuran olay teslim hizmet fatura tarih ne zaman kdvk 10",
+                         "cevap":  "KDV'de vergiyi doğuran olay, kural olarak malın teslimi veya hizmetin yapılmasıyla gerçekleşir; fatura daha önce düzenlenmişse fatura tarihinde doğar (KDVK m.10). Yani KDV'yi doğuran şey ödeme değil, teslim/hizmet ya da erken faturadır. Bu, hangi dönemde beyan edileceğini belirler.",
+                         "kaynak":  "KDVK (3065 s.K.) m.10"
+                     },
+                     {
+                         "id":  "kdv-kismi-istisna",
+                         "konu":  "KDV tam istisna / kısmi istisna farkı",
+                         "anahtar":  "kdv tam istisna kısmi istisna ihracat eğitim sağlık indirim iade fark",
+                         "cevap":  "Tam istisnada (ör. ihracat) işlem KDV'siz yapılır AMA yüklenilen KDV indirilir/iade alınır. Kısmi istisnada (ör. bazı eğitim, sağlık, kültür işlemleri) işlem KDV'siz olur ancak yüklenilen KDV indirilemez, gider/maliyet yazılır (KDVK m.32 ve GUT). Fark kritik: tam istisna iade doğurur, kısmi istisna doğurmaz.",
+                         "kaynak":  "KDVK (3065 s.K.) m.32"
+                     },
+                     {
+                         "id":  "genel-kurul-zaman",
+                         "konu":  "Anonim şirket genel kurul zamanı",
+                         "anahtar":  "genel kurul olağan toplantı mart sonu 3 ay hesap dönemi anonim ttk 409",
+                         "cevap":  "Anonim şirketlerde olağan genel kurul, her faaliyet dönemi sonundan itibaren 3 ay içinde yapılır (TTK m.409). Yani hesap dönemi takvim yılı olan şirkette genel kurulun mart sonuna kadar toplanması gerekir. Genel kurul; finansal tabloları, yönetim kurulunu, kâr dağıtımını ve ibrayı görüşür. Limitedde de benzer şekilde ortaklar kurulu toplanır.",
+                         "kaynak":  "TTK (6102 s.K.) m.409"
+                     },
+                     {
+                         "id":  "kanuni-yedek-akce",
+                         "konu":  "Kanuni yedek akçe ayırma",
+                         "anahtar":  "kanuni yedek akçe genel yüzde 5 20 kar dağıtım sermaye ttk 519",
+                         "cevap":  "Anonim şirket, yıllık kârının %5'ini, ödenmiş sermayenin %20'sine ulaşana kadar genel kanuni yedek akçe olarak ayırmak zorundadır (TTK m.519). Bu sınıra ulaşıldıktan sonra da dağıtılan kâr paylarından belli oranlarda ikinci tertip yedek ayrılır. Yedek akçe ayrılmadan kâr dağıtılamaz.",
+                         "kaynak":  "TTK (6102 s.K.) m.519"
+                     },
+                     {
+                         "id":  "tasfiye-surec",
+                         "konu":  "Şirket tasfiyesi nasıl işler",
+                         "anahtar":  "tasfiye şirket kapatma fesih tasfiye memuru alacaklılara çağrı 1 yıl ttk 536",
+                         "cevap":  "Şirket sona erdiğinde tasfiyeye girer: tasfiye memuru atanır, durum ticaret siciline tescil edilir, alacaklılara üç kez ilanla çağrı yapılır ve alacaklıların başvurusu için beklenir (TTK m.541 vd.). Şirket malları paraya çevrilip borçlar ödenir, kalan ortaklara dağıtılır. Alacaklıları koruma amacıyla dağıtım için bekleme süresi (genelde alacaklı çağrısından itibaren) vardır. Bitince şirket sicilden silinir.",
+                         "kaynak":  "TTK (6102 s.K.) m.536 vd."
+                     },
+                     {
+                         "id":  "sermaye-artirim",
+                         "konu":  "Sermaye artırımı türleri",
+                         "anahtar":  "sermaye artırımı nakdi iç kaynak bedelli bedelsiz genel kurul ttk 456",
+                         "cevap":  "Sermaye artırımı iki temel yolla olur: dış kaynaklardan (ortakların yeni nakit/ayni koyması — bedelli) veya iç kaynaklardan (yedekler, dağıtılmamış kâr, yeniden değerleme fonu sermayeye eklenir — bedelsiz) (TTK m.456 vd.). Artırım genel kurul kararı + esas sözleşme değişikliği + ticaret sicili tescili gerektirir. Önce mevcut sermayenin tamamı ödenmiş olmalıdır.",
+                         "kaynak":  "TTK (6102 s.K.) m.456"
+                     },
+                     {
+                         "id":  "limited-pay-devri",
+                         "konu":  "Limited şirkette pay (hisse) devri",
+                         "anahtar":  "limited pay devri hisse noter ortaklar kurulu onay ticaret sicil ttk 595",
+                         "cevap":  "Limited şirkette pay devri yazılı şekilde yapılır ve imzalar noterce onaylanır; ayrıca kural olarak ortaklar kurulunun onayı gerekir (esas sözleşme aksini öngörmedikçe) (TTK m.595). Devir, ticaret siciline tescil ve pay defterine kayıtla tamamlanır. Anonim şirkette ise nama yazılı hisse devri daha kolaydır, esas sözleşmedeki sınırlamalara tabidir.",
+                         "kaynak":  "TTK (6102 s.K.) m.595"
+                     },
+                     {
+                         "id":  "anonim-limited-fark",
+                         "konu":  "Anonim mi limited mi kurmalı",
+                         "anahtar":  "anonim limited şirket fark avantaj sermaye ortak sayısı yönetim hisse devri vergi",
+                         "cevap":  "Anonim şirkette pay devri daha kolaydır (noter/onay gerekmez, vergi avantajlıdır), halka açılma ve büyük yapı için uygundur, tek ortakla kurulabilir. Limited daha basit ve düşük sermayelidir, küçük-orta işler için pratiktir ama pay devri noter + tescil ister. Kamu borcunda: limitedde ortak payı oranında sorumlu, anonimde kural olarak sadece yönetim kurulu üyesi sorumludur. Detay için Şirket Kuruluşu aracına bak.",
+                         "kaynak":  "TTK (6102 s.K.)",
+                         "arac":  "kurulus.html"
+                     },
+                     {
+                         "id":  "kar-dagitim-karar",
+                         "konu":  "Kâr dağıtım kararı ve zamanlaması",
+                         "anahtar":  "kar dağıtım kararı genel kurul temettü yedek akçe stopaj ne zaman ttk 509",
+                         "cevap":  "Kâr, ancak genel kurul kararıyla dağıtılabilir; önce kanuni yedek akçeler ayrılır, sonra kalan dağıtılabilir kârdan pay dağıtılır (TTK m.509, 519). Gerçek kişi ortaklara dağıtımda gelir vergisi stopajı kesilir. Kâr dağıtılmayıp şirkette bırakılırsa (geçmiş yıl kârı/olağanüstü yedek) o an stopaj doğmaz. Dağıtım kararı olmadan ortağa para çıkması örtülü kazanç riski taşır.",
+                         "kaynak":  "TTK (6102 s.K.) m.509"
                      }
                  ]
 }
