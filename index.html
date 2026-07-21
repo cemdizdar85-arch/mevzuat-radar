@@ -189,6 +189,26 @@
   .step h3{margin:0 0 8px;font-size:17px;letter-spacing:-.3px}
   .step p{margin:0;font-size:13.5px;color:var(--muted)}
 
+  /* ---------- ARAÇ KATALOĞU ---------- */
+  #aracAra{max-width:540px;margin:0 auto 6px;display:block}
+  .kat-grup{margin-top:34px}
+  .kat-grup>h3{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
+    margin:0 0 14px;font-weight:800;display:flex;align-items:center;gap:10px}
+  .kat-grup>h3::after{content:"";flex:1;height:1px;background:var(--line)}
+  .araclar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:900px){.araclar-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.araclar-grid{grid-template-columns:1fr}}
+  .arac{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line);
+    border-radius:14px;background:var(--panel);text-decoration:none;color:inherit;
+    transition:transform .15s,border-color .15s,box-shadow .15s}
+  .arac:hover{transform:translateY(-2px);border-color:rgba(62,155,255,.4);box-shadow:0 8px 26px rgba(0,0,0,.25)}
+  .arac .em{font-size:22px;line-height:1;margin-top:2px}
+  .arac b{display:block;font-size:14.5px;letter-spacing:-.2px}
+  .arac span{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .mobbtn{display:none;appearance:none;border:1px solid var(--line2);background:var(--panel);
+    color:var(--ink);font-size:19px;border-radius:10px;padding:7px 12px;cursor:pointer}
+  @media(max-width:640px){.mobbtn{display:inline-flex}}
+
   /* ---------- APP (KARNE) ---------- */
   #app{background:
     radial-gradient(ellipse 60% 40% at 50% 0%,rgba(46,140,255,.08),transparent 70%),var(--bg)}
@@ -376,6 +396,7 @@
     <a class="nl" href="#fiyat">Fiyatlandırma</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
     <a class="btn" href="#app">Ücretsiz Başla</a>
+    <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
 
@@ -492,38 +513,79 @@
 <section id="araclar" style="padding-top:0">
   <div class="sec-in">
     <div class="sec-head reveal">
-      <h2>Radarın araçları</h2>
-      <p>Hepsi ücretsiz, hepsi patron dilinde, hepsi kaynağa bağlı.</p>
+      <h2>Tüm araçlar — tek bakışta</h2>
+      <p>22 araç, hepsi ücretsiz, hepsi kaynağa bağlı. Aradığını yaz, saniyede bul.</p>
     </div>
-    <div class="steps">
-      <a class="step reveal" href="gtip.html" style="text-decoration:none;color:inherit">
-        <div class="no">🔎</div>
-        <h3>GTİP Sağlık Kontrolü</h3>
-        <p>Kodunu gir; ithalatta gözetim var mı, gümrük vergisi + İGV oranı kaç, birim kıymet ne kadar değişti — 13 binden fazla kod, saniyede.</p>
-        <span style="color:var(--accent2);font-size:13px;font-weight:600">Kodunu kontrol et →</span></a>
-      <a class="step reveal" href="radar.html" style="text-decoration:none;color:inherit">
-        <div class="no">📰</div>
-        <h3>Bugün Resmî Gazete'de</h3>
-        <p>Her sabah otomatik taranır: bugün işletmeleri ilgilendiren gümrük, gözetim, vergi, teşvik düzenlemeleri tek ekranda.</p>
-        <span style="color:var(--accent2);font-size:13px;font-weight:600">Bugünü gör →</span></a>
-      <a class="step reveal" href="kartlar.html" style="text-decoration:none;color:inherit">
-        <div class="no">💊</div>
-        <h3>Günün Hap Kartları</h3>
-        <p>Değişiklikler 30 saniyede okunur kartlar hâlinde: ne oldu, kimi ilgilendirir, ne yapmalı, yürürlük ne zaman.</p>
-        <span style="color:var(--accent2);font-size:13px;font-weight:600">Kartları gör →</span></a>
-      <a class="step reveal" href="destekler.html" style="text-decoration:none;color:inherit">
-        <div class="no">🎯</div>
-        <h3>Destek Radarı</h3>
-        <p>Devletin KOBİ'lere ayırdığı destekler dağınık ve tarihli. İşletmenin aşamasını seç, sana uygun KOSGEB programlarını gör; başvuru dönemi açılınca haber verelim.</p>
-        <span style="color:var(--accent2);font-size:13px;font-weight:600">Destekleri gör →</span></a>
-      <a class="step reveal" href="kurulus.html" style="text-decoration:none;color:inherit">
-        <div class="no">🏢</div>
-        <h3>Şirket Kuruluşu Rehberi</h3>
-        <p>Şahıs mı, limited mi, anonim mi? Türünü seç; farkları, adım adım kuruluş yolunu ve kuruluştan sonra seni bekleyen yükümlülükleri gör.</p>
-        <span style="color:var(--accent2);font-size:13px;font-weight:600">Rehbere başla →</span></a>
+    <input id="aracAra" type="search" placeholder="🔍  Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
+
+    <div class="kat-grup" id="kg1">
+      <h3>🛃 Gümrük &amp; İthalat</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="gtip.html"><span class="em">🔎</span><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
+        <a class="arac" href="risk-taramasi.html"><span class="em">🛃</span><div><b>Beyanname Risk Taraması</b><span>Beyannameyi vermeden önce ceza çıkabilecek noktaları tara.</span></div></a>
+        <a class="arac" href="senaryo-raporu.html"><span class="em">🌍</span><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
+        <a class="arac" href="hizmet.html"><span class="em">🌐</span><div><b>Yurt Dışı Hizmet Faturası</b><span>Google, yazılım, danışmanlık… yurt dışı faturada KDV ve stopajı hesapla.</span></div></a>
+        <a class="arac" href="fiyatfarki.html"><span class="em">💱</span><div><b>Credit / Debit Note</b><span>İthalattan sonra gelen fiyat farkında vergi ne olur, adım adım gör.</span></div></a>
+      </div>
     </div>
+
+    <div class="kat-grup" id="kg2">
+      <h3>🧾 Vergi, Ceza &amp; Rehberler</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="soru-cevap.html"><span class="em">💬</span><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
+        <a class="arac" href="ceza-asistani.html"><span class="em">⚖️</span><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim, uzlaşma, dava — hangi kapı sana uygun, gör.</span></div></a>
+        <a class="arac" href="kdv-iade-rehberi.html"><span class="em">💰</span><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
+        <a class="arac" href="kurulus.html"><span class="em">🏢</span><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
+        <a class="arac" href="sayfalar/index.html"><span class="em">✅</span><div><b>Eşik Rehberi</b><span>Çalışan sayısı ve ciroya göre hangi zorunluluklar başlıyor, listele.</span></div></a>
+        <a class="arac" href="bilgi.html"><span class="em">📚</span><div><b>Bilgi Havuzu</b><span>Merak ettiğin konunun sade Türkçe özeti ve kaynak maddesi.</span></div></a>
+      </div>
+    </div>
+
+    <div class="kat-grup" id="kg3">
+      <h3>📡 Takip Radarları</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="radar.html"><span class="em">📰</span><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
+        <a class="arac" href="kartlar.html"><span class="em">💊</span><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
+        <a class="arac" href="destekler.html"><span class="em">🎯</span><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
+        <a class="arac" href="ihale-radari.html"><span class="em">📣</span><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
+        <a class="arac" href="alacak-radari.html"><span class="em">🚨</span><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilan ederse ilk sen duy; süreyi kaçırma.</span></div></a>
+        <a class="arac" href="marka-radari.html"><span class="em">™️</span><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
+        <a class="arac" href="marka-itiraz.html"><span class="em">🔍</span><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
+      </div>
+    </div>
+
+    <div class="kat-grup" id="kg4">
+      <h3>🧮 Muhasebe Bürosu (SMMM)</h3>
+      <div class="araclar-grid">
+        <a class="arac" href="fis-fabrikasi.html"><span class="em">🏭</span><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
+        <a class="arac" href="evrak-radari.html"><span class="em">📁</span><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
+        <a class="arac" href="belge-kasasi.html"><span class="em">🗄️</span><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
+        <a class="arac" href="hatirlatici.html"><span class="em">⏰</span><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
+      </div>
+    </div>
+
+    <div id="aracYok" style="display:none;text-align:center;color:var(--dim);padding:30px 0;font-size:14px">Aradığın kelimeyle eşleşen araç yok — başka bir kelime dene.</div>
   </div>
 </section>
+<script>
+(function(){
+  const q=document.getElementById('aracAra');
+  const trU=s=>s.replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
+  q.addEventListener('input',()=>{
+    const t=trU(q.value.trim());
+    let toplam=0;
+    document.querySelectorAll('.kat-grup').forEach(g=>{
+      let sayi=0;
+      g.querySelectorAll('.arac').forEach(a=>{
+        const ok=!t||trU(a.textContent).includes(t);
+        a.style.display=ok?'flex':'none'; if(ok)sayi++;
+      });
+      g.style.display=sayi?'block':'none'; toplam+=sayi;
+    });
+    document.getElementById('aracYok').style.display=toplam?'none':'block';
+  });
+})();
+</script>
 
 <!-- ============ FİYATLANDIRMA ============ -->
 <section id="fiyat">
@@ -735,7 +797,7 @@
       <a href="bilgi.html">Bilgi Havuzu</a>
       <a href="radar.html">Bugün RG'de</a>
       <a href="kartlar.html">Günün Kartları</a>
-      <a href="sayfalar/index.html">Eşik rehberi</a>
+      <a href="sayfalar/index.html">Eşik Rehberi</a>
       <a href="kvkk.html">KVKK</a>
     </span>
   </div>
@@ -1127,5 +1189,6 @@ document.querySelectorAll('.navtrigger').forEach(function(t){
 });
 document.addEventListener('click',function(){ document.querySelectorAll('.navgroup.open').forEach(function(x){x.classList.remove('open');}); });
 </script>
+<script src="menu.js" defer></script>
 </body>
 </html>

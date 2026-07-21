@@ -252,5 +252,6 @@ baslat();
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
+<script src="menu.js" defer></script>
 </body>
 </html>
