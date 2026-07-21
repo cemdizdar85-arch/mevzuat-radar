@@ -216,5 +216,6 @@ async function pano(f){
   $('#silFirma').onclick=async()=>{ if(!confirm('Bu firmayı silmek istediğine emin misin?'))return; await sb.from('firmalar').delete().eq('id',f.id); SECILI=null; app(); };
 }
 </script>
+<script src="menu.js" defer></script>
 </body>
 </html>
