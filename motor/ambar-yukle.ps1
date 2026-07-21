@@ -25,12 +25,18 @@ $belgeler = (Get-Content $manifestYol -Raw -Encoding UTF8 | ConvertFrom-Json).be
 if(-not $belgeler){ Write-Host "Manifest bos."; exit 0 }
 Write-Host ("Manifest: {0} belge." -f @($belgeler).Count)
 
-# --- mevcut dokumanlar (kaynak_ad -> id) ---
-$mevcut = @{}
-try {
-  $ex = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=id,kaynak_ad" -Headers $H -TimeoutSec 90
-  foreach($d in @($ex)){ if($d.kaynak_ad){ $mevcut["$($d.kaynak_ad)"] = $d.id } }
-} catch { Write-Host "UYARI: mevcut dokumanlar okunamadi ($_) — tablo var mi? schema.sql calisti mi?" ; }
+# --- IDEMPOTENT: yuklenecek kaynak_ad'lari ONCE sil, sonra hepsini POST et.
+#   ESKI BUG: mevcut-kayit kontrolu "select=id,kaynak_ad" ile tum tabloyu cekmeye
+#   calisiyordu ama Supabase REST varsayilan 1000 satir donuyor; 13k+ satirlik tabloda
+#   bu 14 manifest kaydi ilk 1000'de olmadigindan "yok" sanilip HER GUN yeniden
+#   eklendi (6 gunde 6 kopya -> retrieval'i bozdu). delete-first kesin idempotent:
+#   kaynak_ad ile eslesen TUM kopyalari siler, ardindan tek kopya ekler.
+foreach($b in $belgeler){
+  if(-not $b.kaynak_ad){ continue }
+  $q = [uri]::EscapeDataString("$($b.kaynak_ad)")
+  try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?kaynak_ad=eq.$q" -Headers $H -TimeoutSec 90 | Out-Null } catch {}
+}
+$mevcut = @{}   # hepsi silindi -> asagidaki dongu hep POST yapar
 
 function GonderBytes($json){ return [System.Text.Encoding]::UTF8.GetBytes($json) }
 
