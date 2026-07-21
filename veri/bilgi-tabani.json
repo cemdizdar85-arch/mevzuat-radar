@@ -2240,6 +2240,98 @@
                          "anahtar":  "taşınmaz gayrimenkul iştirak hissesi satış kazanç istisnası kurumlar iki yıl aktif",
                          "cevap":  "Kurumların en az iki tam yıl aktifinde tuttuğu iştirak hisseleri ve (yürürlükteki şartlarla) taşınmaz satışından doğan kazancın bir kısmı kurumlar vergisinden istisna olabilir (KVK m.5). Taşınmaz istisnasının kapsamı 2023 sonrası değişikliklerle daraltılmıştır — hangi kıymet için ne oranda istisna geçerli, güncel KVK m.5 metnine ve GİB'e bak.",
                          "kaynak":  "KVK (5520 s.K.) m.5"
+                     },
+                     {
+                         "id":  "transfer-fiyatlandirma",
+                         "konu":  "Transfer fiyatlandırması / örtülü kazanç",
+                         "anahtar":  "transfer fiyatlandırması örtülü kazanç dağıtımı ilişkili kişi emsal bedel kvk 13",
+                         "cevap":  "İlişkili kişilerle (ortak, grup şirketi, akraba) yapılan mal/hizmet alım-satımında emsallere uygun olmayan fiyat uygulanırsa, aradaki fark örtülü kazanç dağıtımı sayılır ve kurum kazancına eklenir (KVK m.13). Fiyatın emsale uygunluğu belgelenmeli; yıllık transfer fiyatlandırması raporu/formu gerekebilir. Grup içi işlemlerde bu kural kritiktir.",
+                         "kaynak":  "KVK (5520 s.K.) m.13"
+                     },
+                     {
+                         "id":  "istirak-kazanc-istisna",
+                         "konu":  "İştirak kazançları istisnası",
+                         "anahtar":  "iştirak kazancı istisnası kar payı temettü başka kurumdan katılım kvk 5 çifte vergi",
+                         "cevap":  "Tam mükellef bir kurumun, başka bir tam mükellef kurumun sermayesine katılması nedeniyle elde ettiği kâr payları (temettü) kurumlar vergisinden istisnadır (KVK m.5/1-a). Amaç: aynı kazancın hem dağıtan hem alan kurumda iki kez vergilenmesini önlemek. Yurt dışı iştirak kazançları ayrı şartlara tabidir.",
+                         "kaynak":  "KVK (5520 s.K.) m.5"
+                     },
+                     {
+                         "id":  "bagis-yardim-indirim",
+                         "konu":  "Bağış ve yardımların indirimi",
+                         "anahtar":  "bağış yardım indirim kurum kazanç beyanname okul cami dernek vakıf sınır yüzde 5 kvk 10",
+                         "cevap":  "Genel bütçeli idarelere, belediyelere, kamu yararına derneklere yapılan bağışlar beyan edilen kazancın belli bir yüzdesiyle sınırlı olarak indirilebilir; okul, sağlık tesisi, ibadethane gibi bazı bağışlar ise tamamı indirilebilir (KVK m.10, GVK m.89). İndirim ancak kâr varsa uygulanır, zarar oluşturmaz. Makbuz/belge şarttır.",
+                         "kaynak":  "KVK (5520 s.K.) m.10 · GVK (193 s.K.) m.89"
+                     },
+                     {
+                         "id":  "emsal-kira",
+                         "konu":  "Emsal kira bedeli",
+                         "anahtar":  "emsal kira bedeli düşük kira bedelsiz akraba oturma gvk 73 gayrimenkul",
+                         "cevap":  "Bir gayrimenkul bedelsiz veya emsalinden düşük bedelle kiraya verilirse, vergi matrahı olarak emsal kira bedeli esas alınır (GVK m.73). Emsal kira, bina/arazi için genelde emlak vergisi değerinin %5'idir. İstisna: mal sahibinin usul-füru veya kardeşlerinin oturması gibi haller emsal kira uygulamasından hariçtir.",
+                         "kaynak":  "GVK (193 s.K.) m.73"
+                     },
+                     {
+                         "id":  "deger-artis-kazanc",
+                         "konu":  "Gayrimenkul değer artış kazancı (5 yıl)",
+                         "anahtar":  "değer artış kazancı gayrimenkul satış 5 yıl elde tutma istisna gvk mük 80 vergi",
+                         "cevap":  "Bir gayrimenkul, edinildikten sonra 5 yıl içinde satılırsa doğan kazanç değer artış kazancı olarak gelir vergisine tabidir (GVK mük. m.80). 5 yıl geçtikten sonra satışta (miras/bağış hariç edinimlerde) bu kazanç vergilenmez. Kazanç, satış bedeli ile endekslenmiş maliyet arasındaki farktır; yıllık istisna tutarı da düşülür (güncel tutar için GİB'e bak).",
+                         "kaynak":  "GVK (193 s.K.) mük. m.80"
+                     },
+                     {
+                         "id":  "yemek-yardimi-istisna",
+                         "konu":  "Yemek yardımı gelir vergisi istisnası",
+                         "anahtar":  "yemek yardımı istisna ücret işyeri dışında yemek kartı fiş günlük tutar gvk 23",
+                         "cevap":  "İşverence çalışanlara sağlanan yemek yardımı, işyerinde veya müştemilatında yemek verilmesi halinde tamamen istisnadır; dışarıda (yemek kartı/fişi ile) verilmesi halinde günlük belli bir tutara kadar gelir vergisinden istisnadır (GVK m.23). İstisna sınırı her yıl güncellenir — güncel günlük tutar için GİB'e bak; aşan kısım ücret olarak vergilenir.",
+                         "kaynak":  "GVK (193 s.K.) m.23"
+                     },
+                     {
+                         "id":  "engelli-indirim",
+                         "konu":  "Engellilik indirimi",
+                         "anahtar":  "engelli sakatlık indirimi ücret derece vergi matrah gvk 31 rapor",
+                         "cevap":  "Çalışma gücünün belli oranını kaybetmiş engelli ücretliler ve serbest meslek erbabı, engellilik derecesine göre (1., 2., 3. derece) aylık engellilik indiriminden yararlanır; bu tutar gelir vergisi matrahından düşülür (GVK m.31). Yetkili sağlık kurulu raporu şarttır. İndirim tutarları her yıl güncellenir — güncel tutar için GİB'e bak.",
+                         "kaynak":  "GVK (193 s.K.) m.31"
+                     },
+                     {
+                         "id":  "asgari-ucret-istisna",
+                         "konu":  "Asgari ücret gelir vergisi istisnası",
+                         "anahtar":  "asgari ücret gelir vergisi damga vergisi istisna kesilmez tüm ücretler 2022",
+                         "cevap":  "2022'den itibaren tüm çalışanların ücretinin, asgari ücrete isabet eden kısmı gelir vergisinden ve damga vergisinden istisnadır (GVK m.23 ve ilgili değişiklikler). Yani her ücretliden önce asgari ücret kadarlık kısım vergi dışı bırakılır, sadece aşan kısım vergilenir. Bu, eski asgari geçim indiriminin (AGİ) yerini almıştır.",
+                         "kaynak":  "GVK (193 s.K.) m.23 (7349 s.K. değişikliği)"
+                     },
+                     {
+                         "id":  "kdv-iade-yontem",
+                         "konu":  "KDV iadesi nasıl alınır (nakden/mahsuben)",
+                         "anahtar":  "kdv iade nakden mahsuben ymm raporu teminat ihracat istisna indirimli oran",
+                         "cevap":  "İhracat, tam istisna kapsamı işlemler, indirimli orana tabi teslimler ve tevkifat gibi durumlarda yüklenilen KDV iade edilebilir. İade nakden veya vergi/prim borçlarına mahsuben alınır; belli tutarı aşan nakden iadelerde YMM raporu veya teminat gerekebilir (KDV Genel Uygulama Tebliği). İade türü ve sınırları işleme göre değişir — detay için KDV İadesi rehberine bak.",
+                         "kaynak":  "KDV GUT (iade bölümleri)",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "kar-payi-stopaj",
+                         "konu":  "Kâr payı dağıtımında stopaj",
+                         "anahtar":  "kar payı temettü dağıtım stopaj gelir vergisi kesinti ortak gerçek kişi gvk 94",
+                         "cevap":  "Kurumlar vergisi ödenmiş kazancın ortaklara kâr payı olarak dağıtılmasında, gerçek kişi ortaklara ve dar mükelleflere yapılan dağıtımda gelir vergisi stopajı kesilir (GVK m.94/6-b). Tam mükellef kuruma dağıtımda stopaj yoktur (iştirak kazancı istisnası). Stopaj oranı Cumhurbaşkanı kararıyla değişir — güncel oranı GİB'den teyit et.",
+                         "kaynak":  "GVK (193 s.K.) m.94/6-b"
+                     },
+                     {
+                         "id":  "harcirah-istisna",
+                         "konu":  "Harcırah / yolluk istisnası",
+                         "anahtar":  "harcırah yolluk gündelik seyahat görev istisna vergi memur devlet gvk 24",
+                         "cevap":  "Çalışanlara iş seyahati için ödenen harcırah (yol + gündelik), devlet memuruna ödenen gündelik tutarını aşmayan kısmı gelir vergisinden istisnadır (GVK m.24). Belgeli gerçek yol giderleri ayrıca istisnadır. Devlet gündeliğini aşan ödemeler ücret olarak vergilenir. İstisna tutarları her yıl güncellenir — güncel için GİB'e bak.",
+                         "kaynak":  "GVK (193 s.K.) m.24"
+                     },
+                     {
+                         "id":  "arge-indirim",
+                         "konu":  "Ar-Ge indirimi",
+                         "anahtar":  "ar-ge araştırma geliştirme indirim harcama teşvik yüzde 100 tasarım merkezi 5746",
+                         "cevap":  "Ar-Ge ve tasarım merkezlerinde veya kanun kapsamındaki projelerde yapılan Ar-Ge/tasarım harcamalarının tamamı, kurum/gelir kazancından ayrıca indirilebilir (5746 s.K. ve KVK m.10). Yani harcama hem gider yazılır hem de matrahtan bir kez daha düşülür. Ek olarak personel gelir vergisi stopaj teşviki ve SGK işveren payı desteği vardır. Şartlar için ilgili kanuna bak.",
+                         "kaynak":  "5746 s. Ar-Ge Kanunu · KVK (5520 s.K.) m.10"
+                     },
+                     {
+                         "id":  "menkul-sermaye-beyan",
+                         "konu":  "Menkul sermaye iradı beyanı",
+                         "anahtar":  "menkul sermaye iradı faiz kar payı repo mevduat beyan stopaj gvk 75 86",
+                         "cevap":  "Mevduat faizi, repo geliri, kâr payı, tahvil/bono faizi gibi menkul sermaye iratları elde edilir. Bunların çoğu stopaj yoluyla (banka keser) vergilenir ve stopaja tabi olanların çoğu için yıllık beyan gerekmez; ancak stopaja tabi olmayan veya belli tutarı aşan bazı iratlar beyan edilir (GVK m.75, 85-86). Beyan sınırları her yıl güncellenir — güncel hadler için GİB'e bak.",
+                         "kaynak":  "GVK (193 s.K.) m.75"
                      }
                  ]
 }
