@@ -2544,6 +2544,91 @@
                          "anahtar":  "aciz belgesi borçlu mal bulunamadı haciz karşılıksız kesin geçici alacak iik 143",
                          "cevap":  "İcra takibinde borçlunun haczedilecek malı bulunamaz veya satılanlar borcu karşılamazsa alacaklıya aciz belgesi verilir (İİK m.143). Aciz belgesindeki alacak için borçlu yeni mal edinirse yeniden takip yapılabilir; ayrıca bu alacak vergi açısından değersiz alacak sayılıp gider yazılabilir (VUK m.322 ile bağlantılı). Aciz belgesindeki borç zamanaşımına uğramaz.",
                          "kaynak":  "İİK (2004 s.K.) m.143"
+                     },
+                     {
+                         "id":  "verbis-kayit",
+                         "konu":  "VERBİS kaydı zorunlu mu",
+                         "anahtar":  "verbis kvkk veri sorumlusu sicil kayıt zorunlu kişisel veri işleyen 6698",
+                         "cevap":  "Kişisel veri işleyen veri sorumluları, kural olarak veri işlemeye başlamadan önce Veri Sorumluları Sicili'ne (VERBİS) kaydolmak zorundadır (KVKK m.16). Yıllık çalışan sayısı ve mali bilanço gibi ölçütlere göre bazı küçük işletmeler istisna tutulabilir. Kayıt yükümlüsü olup kaydolmayana idari para cezası uygulanır. Güncel istisna eşikleri için KVKK Kurulu kararlarına bak.",
+                         "kaynak":  "KVKK (6698 s.K.) m.16"
+                     },
+                     {
+                         "id":  "e-tebligat",
+                         "konu":  "Elektronik tebligat (e-Tebligat) zorunluluğu",
+                         "anahtar":  "e-tebligat elektronik tebligat vergi dairesi ptt uetseb şirket zorunlu 456",
+                         "cevap":  "Sermaye şirketleri ve belirli mükellefler, vergi dairesi tebligatlarını elektronik ortamda almak üzere e-Tebligat sistemine dâhil olmak zorundadır (VUK 456 Sıra No.lu Genel Tebliğ). e-Tebligat, muhatabın elektronik adresine ulaştığı tarihi izleyen 5. günün sonunda yapılmış sayılır. Kaçırılan tebligat süre kaybı ve ceza doğurabilir — düzenli kontrol şart.",
+                         "kaynak":  "VUK 456 Sıra No.lu Genel Tebliğ"
+                     },
+                     {
+                         "id":  "dernek-iktisadi",
+                         "konu":  "Dernek/vakıf iktisadi işletmesi vergisi",
+                         "anahtar":  "dernek vakıf iktisadi işletme kurumlar vergisi ticari faaliyet gelir kvk 1 2",
+                         "cevap":  "Dernek ve vakıfların kendisi kurumlar vergisi mükellefi değildir; ancak bunlara ait iktisadi işletmeler (sürekli ticari/sınai/zirai faaliyet) kurumlar vergisine tabidir (KVK m.1-2). Yani dernek aidat/bağış toplarsa vergi yok; ama iktisadi işletme kurup mal/hizmet satarsa o işletme vergilenir. Kamuya yararlı dernek/vergi muafiyetli vakıf statüsü ayrı avantajlar sağlar.",
+                         "kaynak":  "KVK (5520 s.K.) m.1-2"
+                     },
+                     {
+                         "id":  "kooperatif-muafiyet",
+                         "konu":  "Kooperatiflerde kurumlar vergisi muafiyeti",
+                         "anahtar":  "kooperatif kurumlar vergisi muafiyet ortak dışı işlem risturn ana sözleşme kvk 4",
+                         "cevap":  "Kooperatifler, ana sözleşmelerinde belirli şartları (sermaye üzerinden kazanç dağıtmama, ortak dışı işlem yapmama, yönetim kurulu üyelerine kazanç payı vermeme vb.) taşıyorsa kurumlar vergisinden muaftır (KVK m.4). Ortak dışı işlem yapılırsa bu işlemler için iktisadi işletme oluşur ve vergilenir. Risturn (ortaklara iade) istisnası ayrıca vardır.",
+                         "kaynak":  "KVK (5520 s.K.) m.4"
+                     },
+                     {
+                         "id":  "kira-gmsi-beyan",
+                         "konu":  "Kira geliri beyanı (GMSİ)",
+                         "anahtar":  "kira geliri beyan gmsi gayrimenkul sermaye iradı konut işyeri götürü gerçek gider gvk 70",
+                         "cevap":  "Gayrimenkulden elde edilen kira geliri gayrimenkul sermaye iradıdır (GVK m.70). Yıllık beyanda giderler iki yöntemle düşülür: gerçek gider (fiili masraflar belgeyle) veya götürü gider (belge aranmadan belli bir yüzde — konutta uygulanır, bir kez seçilince 2 yıl dönülemez). Konut kira gelirinde yıllık bir istisna tutarı vardır; işyeri kirasında stopaj yapılmışsa mahsup edilir. İstisna/oran güncel tutarları için GİB'e bak.",
+                         "kaynak":  "GVK (193 s.K.) m.70"
+                     },
+                     {
+                         "id":  "yillara-sari-insaat",
+                         "konu":  "Yıllara sari (yaygın) inşaat işleri",
+                         "anahtar":  "yıllara sari inşaat taahhüt işi stopaj geçici kesin kabul hakediş vergi gvk 42",
+                         "cevap":  "Birden fazla takvim yılına yayılan inşaat ve onarım işlerinde kazanç, işin bittiği (geçici/kesin kabulün yapıldığı) yılda beyan edilir; ara yıllarda kazanç beyan edilmez (GVK m.42-44). Ancak hakediş ödemelerinden gelir/kurumlar vergisi stopajı kesilir ve işin bittiği yıl mahsup edilir. Tek yılda biten işler bu kapsamda değildir.",
+                         "kaynak":  "GVK (193 s.K.) m.42"
+                     },
+                     {
+                         "id":  "esnaf-muaf",
+                         "konu":  "Esnaf muaflığı (vergiden muaf esnaf)",
+                         "anahtar":  "esnaf muaflığı vergiden muaf küçük seyyar el emeği internet evden üretim gvk 9",
+                         "cevap":  "Belirli küçük ölçekli faaliyetler (ör. seyyar satıcılık, evde el emeğiyle üretip satma, küçük tamir işleri) kanundaki şartlarla gelir vergisinden muaf esnaf sayılır (GVK m.9). Evden internet üzerinden el emeği ürün satanlar için de özel muafiyet şartları vardır. Muafiyetten yararlanan 'esnaf vergi muafiyeti belgesi' alır. Şartlar aşılırsa muafiyet biter, gerçek/basit usule geçilir.",
+                         "kaynak":  "GVK (193 s.K.) m.9"
+                     },
+                     {
+                         "id":  "teknokent-istisna",
+                         "konu":  "Teknokent (teknopark) kazanç istisnası",
+                         "anahtar":  "teknokent teknopark tgb yazılım ar-ge kazanç istisna gelir kurumlar 4691 stopaj",
+                         "cevap":  "Teknoloji Geliştirme Bölgesi'nde (teknokent) faaliyet gösteren firmaların, bölgedeki yazılım ve Ar-Ge/tasarım faaliyetlerinden elde ettiği kazanç, süresi uzatılan tarihe kadar gelir/kurumlar vergisinden istisnadır (4691 s.K.). Ayrıca bölgede çalışan Ar-Ge personelinin ücreti gelir vergisi stopajından istisna, SGK işveren payında destek vardır. Güncel süreler için 4691 s.K.'ya bak.",
+                         "kaynak":  "4691 s. Teknoloji Geliştirme Bölgeleri Kanunu"
+                     },
+                     {
+                         "id":  "mtv-odeme",
+                         "konu":  "Motorlu taşıtlar vergisi (MTV)",
+                         "anahtar":  "mtv motorlu taşıt vergisi araç ocak temmuz iki taksit yaş motor silindir 197",
+                         "cevap":  "Kayıtlı motorlu taşıtlar için sahibinden her yıl MTV alınır; otomobillerde vergi, aracın yaşı ve motor silindir hacmi (ve değeri) esas alınarak belirlenir (197 s.K.). Kural olarak yılda iki taksitte (ocak ve temmuz) ödenir. Ödenmemiş MTV, aracın satış/devir işlemlerini engeller. Tarife tutarları her yıl güncellenir — güncel tutar için GİB'e bak.",
+                         "kaynak":  "MTV K. (197 s.K.)"
+                     },
+                     {
+                         "id":  "damga-kira-sozlesme",
+                         "konu":  "Kira sözleşmesinde damga vergisi",
+                         "anahtar":  "damga vergisi kira sözleşmesi binde yıllık toplam kira işyeri konut kefil 488",
+                         "cevap":  "Kira sözleşmeleri damga vergisine tabidir; vergi, sözleşme süresine göre hesaplanan toplam kira bedeli üzerinden binde oranıyla alınır (488 s.K. ekli 1 sayılı tablo). Sözleşmede kefil varsa kefalet için ayrıca damga vergisi doğar. Konut kira sözleşmelerinde uygulama farklılıkları olabilir. Güncel oran ve azami tutar için Damga Vergisi Kanunu ekli tabloya/GİB'e bak.",
+                         "kaynak":  "Damga V.K. (488 s.K.)"
+                     },
+                     {
+                         "id":  "gekap-beyan",
+                         "konu":  "Geri Kazanım Katılım Payı (GEKAP)",
+                         "anahtar":  "gekap geri kazanım katılım payı plastik poşet ambalaj lastik pil beyan çevre 2872",
+                         "cevap":  "Piyasaya sürülen belirli ürünlerin (plastik poşet, ambalaj, lastik, akümülatör, pil, elektronik eşya, madeni yağ vb.) satışında Geri Kazanım Katılım Payı doğar (Çevre Kanunu 2872 s.K. ek m.11). Plastik poşette satış noktasında adet başına; diğerlerinde piyasaya sürenden kilo/adet başına alınır. GEKAP beyannamesi GİB'e verilir. Tutarlar her yıl güncellenir — güncel için GİB/Çevre Bakanlığı'na bak.",
+                         "kaynak":  "Çevre K. (2872 s.K.) ek m.11",
+                         "arac":  "gtip.html"
+                     },
+                     {
+                         "id":  "bsmv",
+                         "konu":  "Banka ve sigorta muameleleri vergisi (BSMV)",
+                         "anahtar":  "bsmv banka sigorta muamele vergisi kredi faiz komisyon kambiyo kdv istisna 6802",
+                         "cevap":  "Banka ve sigorta şirketlerinin yaptığı işlemler (kredi faizi, komisyon, kambiyo vb.) KDV'den istisnadır ama bunun yerine banka ve sigorta muameleleri vergisine (BSMV) tabidir (6802 s.K.). BSMV'yi banka/sigorta şirketi lehine aldığı para üzerinden hesaplar ve öder. Kambiyo (döviz) satışlarında da BSMV uygulanır; oran işlem türüne göre değişir — güncel oran için GİB'e bak.",
+                         "kaynak":  "Gider Vergileri K. (6802 s.K.)"
                      }
                  ]
 }
