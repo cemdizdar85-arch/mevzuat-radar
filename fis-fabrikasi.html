@@ -54,6 +54,18 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
   <h1>Fiş Fabrikası — banka ekstresi → Luca fişi</h1>
   <p class="lead">Banka ekstresini yükle; her hareketi <b style="color:var(--ink)">çift taraflı muhasebe fişine</b> çevirip Luca aktarım Excel'i üretelim. <b style="color:var(--ink)">Rakamlar ekstreden okunur — uydurulmaz;</b> her fişte borç=alacak dengesi kontrol edilir. <span class="gizli">🔒 Dosya bilgisayarından çıkmaz — tarayıcıda işlenir</span></p>
 
+  <div class="adim" id="a0" style="border-color:rgba(61,220,151,.28)">
+    <span class="no" style="background:linear-gradient(135deg,#3ddc97,#26d0fe)">★</span><h2>Firma / mükellef profili</h2>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her firmanın kendi hesap planı ve kuralları vardır. Profil seç ya da yeni firma ekle — <b style="color:var(--green)">ayarları bir kez kur, kaydet, bir daha uğraşma.</b> Profiller bu tarayıcıda saklanır (veri sunucuya gitmez).</div>
+    <div class="grid" style="margin-top:12px;grid-template-columns:1fr auto auto auto;align-items:end">
+      <div><label class="f">AKTİF FİRMA / MÜKELLEF</label><select id="profilSec"></select></div>
+      <button class="btn k" id="profilYeni">+ Yeni firma</button>
+      <button class="btn k" id="profilKaydet" style="border-color:var(--green);color:var(--green)">💾 Ayarları kaydet</button>
+      <button class="btn k" id="profilSil" style="border-color:rgba(255,107,94,.4);color:var(--red)">Sil</button>
+    </div>
+    <div id="profilDurum" style="font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+
   <div class="adim" id="a1">
     <span class="no">1</span><h2>Banka ekstresini yükle</h2>
     <div class="grid" style="margin-top:12px">
@@ -243,8 +255,78 @@ function indir(rows){
   XLSX.writeFile(wb,"luca-fis-aktarim.xlsx");
 }
 
+// ================= FİRMA/MÜKELLEF PROFİLLERİ (localStorage, kalıcı) =================
+const PK='fisFab_profiller_v1';
+function profilleriOku(){ try{ return JSON.parse(localStorage.getItem(PK))||{}; }catch(e){ return {}; } }
+function profilleriYaz(p){ localStorage.setItem(PK, JSON.stringify(p)); }
+function aktifOku(){ return localStorage.getItem(PK+'_aktif')||''; }
+function aktifYaz(ad){ localStorage.setItem(PK+'_aktif', ad); }
+// mevcut ekrandaki ayarları topla
+function ayarlariTopla(){
+  return {
+    banka: $('#bankaHesap').value.trim(),
+    onek: $('#fisOnek').value.trim(),
+    varsayilan: $('#varsayilanHesap').value.trim(),
+    kurallar: kurallariAl()
+  };
+}
+// ayarları ekrana yükle
+function ayarlariUygula(a){
+  if(!a) return;
+  if(a.banka!=null) $('#bankaHesap').value=a.banka;
+  if(a.onek!=null) $('#fisOnek').value=a.onek;
+  if(a.varsayilan!=null) $('#varsayilanHesap').value=a.varsayilan;
+  if(Array.isArray(a.kurallar) && a.kurallar.length){
+    $('#kurallar').innerHTML='';
+    a.kurallar.forEach(r=>$('#kurallar').appendChild(kuralSatir(r.k, r.h)));
+  }
+}
+function profilSeciciDoldur(){
+  const p=profilleriOku(), aktif=aktifOku(), adlar=Object.keys(p);
+  $('#profilSec').innerHTML = adlar.length
+    ? adlar.map(a=>'<option'+(a===aktif?' selected':'')+'>'+a+'</option>').join('')
+    : '<option value="">— henüz firma yok, "Yeni firma" ile ekle —</option>';
+}
+function profilDurum(msg, renk){ $('#profilDurum').innerHTML='<span style="color:'+(renk||'var(--green)')+'">'+msg+'</span>'; }
+function profilYukle(ad){
+  const p=profilleriOku();
+  if(p[ad]){ ayarlariUygula(p[ad]); aktifYaz(ad); profilDurum('✓ <b>'+ad+'</b> profili yüklendi — bu firmanın hesap planı ve kuralları hazır.'); }
+}
+// olaylar
+function profilSistemiKur(){
+  a3Kur();                 // varsayılan kurallar dursun (yeni firma başlangıcı)
+  profilSeciciDoldur();
+  const aktif=aktifOku();
+  if(aktif && profilleriOku()[aktif]){ ayarlariUygula(profilleriOku()[aktif]); profilDurum('✓ Son kullandığın <b>'+aktif+'</b> profili yüklendi.'); }
+  else profilDurum('Kayıtlı firma yok. Ayarları kurup <b>💾 Ayarları kaydet</b> dersen bu firma kalıcı olur.', 'var(--dim)');
+
+  $('#profilSec').onchange=e=>{ if(e.target.value) profilYukle(e.target.value); };
+  $('#profilYeni').onclick=()=>{
+    const ad=(prompt('Firma / mükellef adı (ör. ABC Ltd. veya bir VKN):')||'').trim();
+    if(!ad) return;
+    const p=profilleriOku();
+    if(!p[ad]) { p[ad]=ayarlariTopla(); profilleriYaz(p); }
+    aktifYaz(ad); profilSeciciDoldur(); $('#profilSec').value=ad;
+    profilDurum('✓ <b>'+ad+'</b> eklendi. Hesap planı/kuralları ayarlayıp <b>💾 kaydet</b>.');
+  };
+  $('#profilKaydet').onclick=()=>{
+    let ad=aktifOku();
+    if(!ad){ ad=(prompt('Bu ayarları hangi firma adına kaydedeyim?')||'').trim(); if(!ad) return; aktifYaz(ad); }
+    const p=profilleriOku(); p[ad]=ayarlariTopla(); profilleriYaz(p);
+    profilSeciciDoldur(); $('#profilSec').value=ad;
+    profilDurum('💾 <b>'+ad+'</b> kaydedildi — kural sayısı: '+p[ad].kurallar.length+'. Bir dahaki gelişte otomatik yüklenir.');
+  };
+  $('#profilSil').onclick=()=>{
+    const ad=aktifOku(); if(!ad){ profilDurum('Silinecek aktif firma yok.','var(--amber)'); return; }
+    if(!confirm('"'+ad+'" profilini silmek istediğine emin misin?')) return;
+    const p=profilleriOku(); delete p[ad]; profilleriYaz(p); aktifYaz('');
+    profilSeciciDoldur(); profilDurum('<b>'+ad+'</b> silindi.','var(--amber)');
+  };
+}
+
 // ---- olaylar ----
 document.addEventListener('DOMContentLoaded',()=>{
+  profilSistemiKur();
   const kutu=$('#yukleKutu'), inp=$('#dosya');
   inp.addEventListener('change',e=>{ if(e.target.files[0]) dosyaSecildi(e.target.files[0]); });
   ['dragover','dragenter'].forEach(ev=>kutu.addEventListener(ev,e=>{e.preventDefault();kutu.classList.add('suru');}));
