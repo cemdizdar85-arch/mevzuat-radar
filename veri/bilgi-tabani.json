@@ -2789,6 +2789,105 @@
                          "anahtar":  "kontrol edilen yabancı kurum cfc yurtdışı iştirak pasif gelir düşük vergi kvk 7",
                          "cevap":  "Türkiye'de tam mükellef gerçek/tüzel kişilerin doğrudan/dolaylı olarak sermaye veya oy hakkının en az %50'sine sahip olduğu yurt dışı iştiraki, belli şartları (pasif karakterli gelir ağırlığı, düşük vergi yükü, belirli hasılat eşiği) taşıyorsa, dağıtılmasa bile kazancı Türkiye'de kurumlar vergisine tabi tutulur (KVK m.7). Amaç: kazancı düşük vergili ülkelerde tutarak vergiyi ertelemeyi önlemek.",
                          "kaynak":  "KVK (5520 s.K.) m.7"
+                     },
+                     {
+                         "id":  "kur-degerleme",
+                         "konu":  "Yabancı para (döviz) dönem sonu değerlemesi",
+                         "anahtar":  "kur değerleme döviz dönem sonu kasa banka alacak borç kur farkı tcmb vuk 280",
+                         "cevap":  "Yabancı para cinsinden kasa, banka, alacak ve borçlar dönem sonunda (ve geçici vergi dönemlerinde) TCMB döviz alış/efektif kuruyla değerlenir; oluşan kur farkı gelir veya gider yazılır (VUK m.280). Yani ödeme/tahsilat olmasa bile döviz varlık ve borçları dönem sonunda güncel kura getirmek zorunludur. Vadeli döviz senetleri ayrıca reeskonta tabi tutulabilir.",
+                         "kaynak":  "VUK (213 s.K.) m.280"
+                     },
+                     {
+                         "id":  "stok-degerleme",
+                         "konu":  "Stok (emtia) değerleme",
+                         "anahtar":  "stok emtia değerleme maliyet bedeli fifo ortalama dönem sonu sayım vuk 274 275",
+                         "cevap":  "Satın alınan veya üretilen emtia, dönem sonunda maliyet bedeliyle değerlenir (VUK m.274). Maliyet; alış bedeli + işletmeye getirme giderlerinden oluşur. Fiili maliyet takip edilemiyorsa ortalama maliyet gibi yöntemler kullanılır (LIFO Türk vergi mevzuatında kabul edilmez). Değeri düşen mallar için, şartları varsa emsal bedelle değerleme yapılabilir. Dönem sonu fiili sayım şarttır.",
+                         "kaynak":  "VUK (213 s.K.) m.274"
+                     },
+                     {
+                         "id":  "kist-amortisman",
+                         "konu":  "Kıst amortisman (binek otoda)",
+                         "anahtar":  "kıst amortisman binek otomobil ay kesri ilk yıl aktife alma ay bazlı vuk 320",
+                         "cevap":  "Kural olarak amortisman yıllık ayrılır; ancak binek otomobillerde ilk yıl, aktife alındığı aydan yıl sonuna kadar olan aylar için kıst (ay bazlı) amortisman ayrılır; ayrılmayan (yılın başından aktife alınana kadarki) kısım son yıl tamamlanır (VUK m.320). Yani yıl ortasında alınan binek otoya tam yıllık değil, kalan ay kadar amortisman yazılır.",
+                         "kaynak":  "VUK (213 s.K.) m.320"
+                     },
+                     {
+                         "id":  "kkeg",
+                         "konu":  "Kanunen kabul edilmeyen gider (KKEG)",
+                         "anahtar":  "kkeg kanunen kabul edilmeyen gider ticari kar mali kar fark matrah ilave beyanname",
+                         "cevap":  "Muhasebede gider yazılan bazı harcamalar vergi kanunlarınca gider kabul edilmez (KKEG): ödenen vergi cezaları ve gecikme zamları, binek oto gider kısıtı, örtülü sermaye/kazanç, kanunen indirilemeyen KDV, bağış-yardım sınırı aşımı, bazı bağış ve temsil giderleri vb. KKEG'ler beyannamede ticari kâra eklenir (matrahı artırır). Yani muhasebe kârı ile vergi matrahı bu kalemlerle farklılaşır.",
+                         "kaynak":  "KVK (5520 s.K.) m.11 · GVK (193 s.K.) m.41"
+                     },
+                     {
+                         "id":  "zirai-kazanc",
+                         "konu":  "Çiftçi / zirai kazanç vergisi",
+                         "anahtar":  "zirai kazanç çiftçi tarım stopaj gerçek usul işletme büyüklüğü ölçü gvk 52 54",
+                         "cevap":  "Zirai faaliyette bulunan çiftçilerin kazancı zirai kazançtır. Çoğu çiftçi, işletme büyüklüğü ölçülerini aşmıyorsa gerçek usulde vergilenmez; ürün satışları sırasında yapılan stopaj nihai vergi olur (GVK m.52-54). Ölçüleri aşan veya biçerdöver/traktör gibi araçları belli sayıyı geçen çiftçiler gerçek usulde (zirai işletme hesabı/bilanço) vergilenir. Ölçüler için GVK ve GİB'e bak.",
+                         "kaynak":  "GVK (193 s.K.) m.54"
+                     },
+                     {
+                         "id":  "sirket-birlesme-vergi",
+                         "konu":  "Şirket birleşme/devir (vergisiz devir)",
+                         "anahtar":  "şirket birleşme devir kurumlar vergisi istisna külli halefiyet zarar mahsup kvk 18 19 20",
+                         "cevap":  "Şirket birleşmeleri kural olarak vergiye tabi 'tasfiye' hükmündedir (KVK m.18); ancak kanundaki şartları taşıyan 'devir' işlemi vergisiz gerçekleşir: devralınan şirketin bilanço değerleriyle aynen devri ve devralanın yükümlülükleri üstlenmesi halinde birleşme kârı vergilenmez (KVK m.19-20). Belli şartlarla devralınan zararlar da mahsup edilebilir. Şartlar sıkıdır — planlamada dikkat.",
+                         "kaynak":  "KVK (5520 s.K.) m.19"
+                     },
+                     {
+                         "id":  "bolunme-vergi",
+                         "konu":  "Şirket bölünmesi (tam/kısmi)",
+                         "anahtar":  "bölünme tam kısmi şirket ayrılma üretim tesisi iştirak vergisiz kvk 19",
+                         "cevap":  "Şirketler tam veya kısmi bölünme yoluyla yeniden yapılanabilir (KVK m.19). Tam bölünmede şirket sona erip malvarlığı iki+ şirkete geçer; kısmi bölünmede üretim/hizmet işletmesi veya iştirak hissesi mevcut/yeni şirkete ayni sermaye olarak devredilir. Kanundaki şartlar sağlanırsa bu işlemler vergisiz yapılır. Amaç: yeniden yapılanmayı vergisel engel olmadan mümkün kılmak.",
+                         "kaynak":  "KVK (5520 s.K.) m.19"
+                     },
+                     {
+                         "id":  "temsil-agirlama",
+                         "konu":  "Temsil ve ağırlama giderleri",
+                         "anahtar":  "temsil ağırlama gider müşteri yemek hediye promosyon indirilebilir belge gvk 40",
+                         "cevap":  "İşle ilgili ve belgeli temsil-ağırlama giderleri (müşteri yemeği, iş görüşmesi vb.) ticari kazançtan indirilebilir (GVK m.40). Ancak giderin işle ilgisi kurulabilmeli ve belgelendirilmelidir; şahsi/lüks harcamalar veya işle ilgisi kanıtlanamayanlar KKEG olur. Promosyon ve numune ürünlerde ise ayrı KDV/gider kuralları vardır.",
+                         "kaynak":  "GVK (193 s.K.) m.40"
+                     },
+                     {
+                         "id":  "bagimsiz-denetim-esik",
+                         "konu":  "Bağımsız denetime tabi olma eşikleri",
+                         "anahtar":  "bağımsız denetim eşik aktif hasılat çalışan sayısı şirket zorunlu ttk 397",
+                         "cevap":  "Şirketler, aktif büyüklüğü, yıllık net satış hasılatı ve çalışan sayısı ölçütlerinden en az ikisini üst üste iki yıl aşarsa bağımsız denetime tabi olur (TTK m.397 ve Cumhurbaşkanı kararıyla belirlenen eşikler). Ayrıca sektörel (bankacılık, sermaye piyasası vb.) zorunluluklar vardır. Eşikler dönem dönem düşürülür — güncel rakamlar için ilgili karara/KGK'ya bak.",
+                         "kaynak":  "TTK (6102 s.K.) m.397"
+                     },
+                     {
+                         "id":  "maliyet-bedeli",
+                         "konu":  "Maliyet bedeli neleri kapsar",
+                         "anahtar":  "maliyet bedeli iktisadi kıymet alış gider nakliye montaj faiz kur farkı vuk 262",
+                         "cevap":  "Bir iktisadi kıymetin maliyet bedeli; satın alma bedeli ile onu işletmeye getirip kullanılır hale getirmek için yapılan giderleri (nakliye, montaj, gümrük, noter vb.) kapsar (VUK m.262). Sabit kıymet alımına ilişkin kredi faizi ve kur farkının, kıymetin aktife girdiği yıla kadar olan kısmı maliyete eklenir; sonraki yıllar ihtiyari olarak maliyet veya gider yazılabilir. Bu, amortisman matrahını belirler.",
+                         "kaynak":  "VUK (213 s.K.) m.262"
+                     },
+                     {
+                         "id":  "e-defter-berat",
+                         "konu":  "e-Defter ve berat yükleme",
+                         "anahtar":  "e-defter berat yükleme süre gib imza aylık üç aylık ferdi vuk 509",
+                         "cevap":  "e-Defter tutan mükellefler, yevmiye ve defter-i kebir kayıtlarını elektronik ortamda oluşturur ve her döneme ait 'berat' dosyasını GİB sistemine yükler (VUK 509 ve e-Defter tebliğleri). Beratlar kanıtlayıcı niteliktedir; yüklenmezse defterler tasdiksiz sayılır ve cezaya yol açar. Berat yükleme süreleri (aylık/üç aylık seçeneği) idari düzenlemeyle belirlenir — güncel takvimi GİB'den teyit et.",
+                         "kaynak":  "VUK 509 Sıra No.lu Genel Tebliğ",
+                         "arac":  "hatirlatici.html"
+                     },
+                     {
+                         "id":  "yatirim-indirimi-gecmis",
+                         "konu":  "Devreden yatırım indirimi",
+                         "anahtar":  "yatırım indirimi devreden endeksleme kazanç mahsup eski gvk geçici 69",
+                         "cevap":  "Geçmişte kazanılmış ancak kullanılamayan (devreden) yatırım indirimi hakları, sonraki yıl kazançlarından mahsup edilebilir ve endekslemeye tabi tutulabilir (GVK geçici m.69). Yeni yatırım indirimi uygulaması kaldırılmış olsa da, eski dönemlerden devreden hakları olan mükellefler bunları kazanç oldukça kullanmaya devam edebilir. Bakiye takibi önemlidir.",
+                         "kaynak":  "GVK (193 s.K.) geç. m.69"
+                     },
+                     {
+                         "id":  "serbest-meslek-defter",
+                         "konu":  "Serbest meslek kazancının tespiti",
+                         "anahtar":  "serbest meslek kazanç tespit tahsil esası defter gider makbuz gvk 65 67 68",
+                         "cevap":  "Serbest meslek kazancı, bir hesap dönemindeki tahsil edilen hasılattan, mesleki giderler düşülerek bulunur; tahsil esası geçerlidir (fatura kesilse de para tahsil edilmemişse gelir doğmaz) (GVK m.65-68). Serbest meslek erbabı serbest meslek kazanç defteri tutar ve serbest meslek makbuzu düzenler. Mesleki giderler (büro kirası, kırtasiye, mesleki yayın vb.) belgeyle indirilir.",
+                         "kaynak":  "GVK (193 s.K.) m.67"
+                     },
+                     {
+                         "id":  "promosyon-numune-kdv",
+                         "konu":  "Promosyon, numune ve eşantiyon KDV",
+                         "anahtar":  "promosyon numune eşantiyon bedelsiz mal kdv indirim reklam gut",
+                         "cevap":  "Firmaların bedelsiz verdiği eşantiyon ve numuneler ile ticari teamüle uygun promosyon ürünleri, belli şartlarla KDV hesaplanmadan verilebilir ve bunlara ait yüklenilen KDV indirilebilir (KDV Genel Uygulama Tebliği). Ancak promosyon ürününün tabi olduğu oran, satılan ana üründen yüksekse aradaki fark için sınırlama olabilir. Bedelsiz teslimin reklam/pazarlama amacı ve teamüle uygunluğu esastır.",
+                         "kaynak":  "KDV GUT (promosyon-numune bölümü)"
                      }
                  ]
 }
