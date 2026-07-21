@@ -2701,6 +2701,94 @@
                          "anahtar":  "ihtiyati haciz tahakkuk amme alacağı teminat kaçış mal kaçırma önlem aatuhk 13",
                          "cevap":  "Amme alacağının tahsilinin tehlikeye girdiği hallerde (borçlunun mal kaçırması, belirsiz adresi, teminat gösterememesi vb.) idare, kesinleşmeyi beklemeden ihtiyati haciz ve ihtiyati tahakkuk uygulayabilir (AATUHK m.13-17). Bu, borçlunun mallarına önceden el konularak alacağın güvence altına alınmasıdır. İhtiyati hacze karşı kısa sürede dava açılabilir.",
                          "kaynak":  "AATUHK (6183 s.K.) m.13"
+                     },
+                     {
+                         "id":  "finansman-gider-kisit",
+                         "konu":  "Finansman gider kısıtlaması",
+                         "anahtar":  "finansman gider kısıtlaması kredi faiz kur farkı yabancı kaynak öz sermaye yüzde 10 kvk 11",
+                         "cevap":  "Yabancı kaynakları (borç) öz kaynaklarını aşan işletmelerde, aşan kısma ait finansman giderlerinin (faiz, kur farkı, komisyon vb.) belli bir oranı gider olarak kabul edilmez (KKEG) (KVK m.11/1-i ve GVK m.41). Kabul edilmeyen oran Cumhurbaşkanı kararıyla belirlenir. Kredi kuruluşları, finansal kiralama gibi bazı sektörler kapsam dışıdır. Güncel oran için GİB'e bak.",
+                         "kaynak":  "KVK (5520 s.K.) m.11"
+                     },
+                     {
+                         "id":  "nakdi-sermaye-faiz",
+                         "konu":  "Nakdi sermaye artışında faiz indirimi",
+                         "anahtar":  "nakdi sermaye artışı faiz indirimi tccmb ticari kredi teşvik kurumlar kvk 10",
+                         "cevap":  "Sermaye şirketleri, nakden (parayla) yaptıkları sermaye artışı tutarı üzerinden, TCMB'nin ilan ettiği ticari kredi faiz oranı dikkate alınarak hesaplanan bir tutarı kurum kazancından indirebilir (KVK m.10/1-ı). Amaç: şirketleri borç yerine öz sermaye ile büyümeye teşvik. İndirim oranı normalde belli bir yüzdedir, bazı hallerde (ör. halka açık, yatırım) artar. İç kaynaktan (yedek) yapılan artış bu indirimden yararlanamaz.",
+                         "kaynak":  "KVK (5520 s.K.) m.10"
+                     },
+                     {
+                         "id":  "cvoa-cifte-vergi",
+                         "konu":  "Çifte vergilendirmeyi önleme anlaşması (ÇVÖA)",
+                         "anahtar":  "çifte vergilendirme önleme anlaşması yurtdışı gelir mahsup istisna mukimlik stopaj",
+                         "cevap":  "Türkiye'nin birçok ülkeyle çifte vergilendirmeyi önleme anlaşması (ÇVÖA) vardır; aynı gelirin iki ülkede birden vergilenmesini önler. Anlaşmaya göre gelir ya bir ülkede istisna tutulur ya da ödenen vergi diğer ülkede mahsup edilir; ayrıca stopaj oranları anlaşmayla düşürülebilir. Yararlanmak için mukimlik belgesi gerekir. İlgili ülkeyle anlaşma olup olmadığını ve oranı Hizmet Faturası aracından/GİB'den kontrol et.",
+                         "kaynak":  "ÇVÖA (ilgili ikili anlaşma)",
+                         "arac":  "hizmet.html"
+                     },
+                     {
+                         "id":  "yeniden-degerleme",
+                         "konu":  "Taşınmaz/sabit kıymet yeniden değerleme",
+                         "anahtar":  "yeniden değerleme sabit kıymet taşınmaz amortisman yi-üfe değer artış fonu vuk mük 298",
+                         "cevap":  "İşletmeler, aktiflerindeki amortismana tabi iktisadi kıymetleri (bazı şartlarla taşınmazları) Yİ-ÜFE oranıyla yeniden değerleyebilir; oluşan değer artışı özel bir fonda (değer artış fonu) izlenir ve yeni değer üzerinden amortisman ayrılır (VUK mük. m.298 ve geçici hükümler). Enflasyon düzeltmesi uygulanan dönemlerde ayrı, uygulanmayan dönemlerde ihtiyari yeniden değerleme farklı işler. Güncel şartlar için GİB'e bak.",
+                         "kaynak":  "VUK (213 s.K.) mük. m.298"
+                     },
+                     {
+                         "id":  "sat-geri-kirala",
+                         "konu":  "Sat-geri kirala (leaseback)",
+                         "anahtar":  "sat geri kirala leaseback finansal kiralama taşınmaz kdv istisna vergi avantaj 6361",
+                         "cevap":  "İşletme, taşınmaz veya iktisadi kıymetini bir finansal kiralama şirketine satıp aynı malı geri kiralayabilir (sat-geri kirala / leaseback) (6361 s.K.). Bu işlemde satış kazancı ve devir işlemleri belli şartlarla vergi (KDV, kurumlar, tapu harcı) istisnalarından yararlanabilir. Amaç: işletmeye nakit sağlarken malı kullanmaya devam etmek. Şartlar için 6361 s.K. ve ilgili tebliğe bak.",
+                         "kaynak":  "Fin. Kiralama-Faktoring K. (6361 s.K.)"
+                     },
+                     {
+                         "id":  "kkm-kur-korumali",
+                         "konu":  "Kur korumalı mevduat (KKM) vergi/muhasebe",
+                         "anahtar":  "kkm kur korumalı mevduat kur farkı istisna kazanç faiz şirket dönem sonu",
+                         "cevap":  "Şirketlerin kur korumalı mevduata (KKM) dönüştürdüğü döviz/TL varlıklardan elde edilen faiz, kâr payı ve kur farkı kazançları, kanunda öngörülen dönemler için kurumlar vergisinden istisna tutulmuştu. Bu istisna dönemseldir ve süresi uzatılıp sona erdirilebilir. Bir dönemde KKM geliriniz varsa istisnanın o dönemde geçerli olup olmadığını GİB tebliğ/duyurularından teyit et.",
+                         "kaynak":  "KVK (5520 s.K.) geçici hükümler"
+                     },
+                     {
+                         "id":  "dahilde-isleme",
+                         "konu":  "Dahilde işleme rejimi (DİR/DİİB)",
+                         "anahtar":  "dahilde işleme rejimi diib ihracat hammadde gümrük kdv vergi teminat ithalat",
+                         "cevap":  "Dahilde işleme rejimi, ihraç edilecek ürünün üretiminde kullanılacak hammadde/ara malın, gümrük vergisi ve KDV ödemeden (teminat/şartlı muafiyet ile) ithal edilmesine izin verir. Dahilde İşleme İzin Belgesi (DİİB) alınır; belgede öngörülen sürede ihracat taahhüdü yerine getirilir. Taahhüt kapatılmazsa alınmayan vergiler cezasıyla istenir. Süre takibi kritik — Hatırlatıcı aracına bak.",
+                         "kaynak":  "İhracat mevzuatı (Dahilde İşleme Kararı)",
+                         "arac":  "hatirlatici.html"
+                     },
+                     {
+                         "id":  "kdv-iade-diib",
+                         "konu":  "İhracatta KDV iadesi (tam istisna)",
+                         "anahtar":  "ihracat kdv iade tam istisna yüklenilen kdv mahsup nakden ihraç kayıtlı kdvk 11 12",
+                         "cevap":  "Mal ve hizmet ihracı KDV'den tam istisnadır; ihracatçı işlemi KDV'siz yapar ama ihraç edilen mal/hizmet için yüklendiği KDV'yi iade alır (KDVK m.11-12). İade nakden veya vergi/prim borçlarına mahsuben istenir; belli tutarı aşan nakit iadelerde YMM raporu/teminat gerekebilir. İhraç kayıtlı teslimlerde imalatçı da tecil-terkin/iade mekanizmasından yararlanır. Detay için KDV İadesi rehberine bak.",
+                         "kaynak":  "KDVK (3065 s.K.) m.11",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "ortulu-kazanc-belge",
+                         "konu":  "Transfer fiyatlandırması belgelendirme",
+                         "anahtar":  "transfer fiyatlandırması belgelendirme rapor form yıllık genel özet ilişkili kişi kvk 13",
+                         "cevap":  "İlişkili kişilerle işlem yapan kurumlar, transfer fiyatlandırması yükümlülüğü kapsamında belgelendirme yapmak zorundadır: kurumlar vergisi beyannamesi ekinde transfer fiyatlandırması formu; büyük mükellefler için ayrıca yıllık/genel rapor ve (şartları taşıyanlar) ülke bazlı raporlama (KVK m.13 ve tebliğ). Belgelendirme eksikse ceza indirimi kaybedilir. Eşikler için ilgili tebliğe bak.",
+                         "kaynak":  "KVK (5520 s.K.) m.13"
+                     },
+                     {
+                         "id":  "gelir-idaresi-ozelge",
+                         "konu":  "Özelge (mukteza) nedir",
+                         "anahtar":  "özelge mukteza görüş gib yazılı talep bağlayıcı mı ceza koruma vuk 413",
+                         "cevap":  "Özelge (mukteza), mükelleflerin vergi durumlarıyla ilgili tereddüt ettikleri konuda GİB'den yazılı görüş talep etmesidir (VUK m.413). Özelge sadece talep eden mükellefe ve o olaya özeldir, herkes için bağlayıcı değildir. Ancak özelgeye uygun işlem yapan mükellefe, sonradan aksi yönde tarhiyat yapılsa bile ceza kesilmez (görüşe güven korunur). Başkasına verilmiş özelgeye dayanmak risklidir — kendi durumun için özelge iste.",
+                         "kaynak":  "VUK (213 s.K.) m.413"
+                     },
+                     {
+                         "id":  "vergi-dava-sure",
+                         "konu":  "Vergi mahkemesinde dava açma süresi",
+                         "anahtar":  "vergi dava açma süre 30 gün mahkeme ihbarname tarhiyat itiraz iyuk 7",
+                         "cevap":  "Vergi/ceza ihbarnamesine veya ödeme emrine karşı vergi mahkemesinde dava, tebliğden itibaren 30 gün içinde açılır (İYUK m.7). Ödeme emrine karşı süre daha kısadır (15 gün — İİK/6183'e göre). Dava süresini kaçırmak hakkı düşürür. Uzlaşma talep edilmişse dava süresi işlemez/durur. Doğru kapıyı (uzlaşma/dava/indirim) seçmek için Ceza Asistanına bak.",
+                         "kaynak":  "İYUK (2577 s.K.) m.7",
+                         "arac":  "ceza-asistani.html"
+                     },
+                     {
+                         "id":  "kontrol-yabanci-kurum",
+                         "konu":  "Kontrol edilen yabancı kurum (CFC)",
+                         "anahtar":  "kontrol edilen yabancı kurum cfc yurtdışı iştirak pasif gelir düşük vergi kvk 7",
+                         "cevap":  "Türkiye'de tam mükellef gerçek/tüzel kişilerin doğrudan/dolaylı olarak sermaye veya oy hakkının en az %50'sine sahip olduğu yurt dışı iştiraki, belli şartları (pasif karakterli gelir ağırlığı, düşük vergi yükü, belirli hasılat eşiği) taşıyorsa, dağıtılmasa bile kazancı Türkiye'de kurumlar vergisine tabi tutulur (KVK m.7). Amaç: kazancı düşük vergili ülkelerde tutarak vergiyi ertelemeyi önlemek.",
+                         "kaynak":  "KVK (5520 s.K.) m.7"
                      }
                  ]
 }
