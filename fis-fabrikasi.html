@@ -99,8 +99,19 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
   </div>
 
   <div class="adim pasif" id="a4">
-    <span class="no">4</span><h2>Fişleri üret ve kontrol et</h2>
-    <button class="btn" id="uret">⚙️ Fişleri üret</button>
+    <span class="no">4</span><h2>Çıktı formatı — hangi muhasebe programı?</h2>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her program kendi aktarım formatını ister. Luca hazır; başka program kullanıyorsan <b style="color:var(--green)">o programdan boş bir aktarım şablonu (Excel) indir, buraya yükle</b> — kolonlarını öğrenip o formatta üretiriz. Öğrendiğimiz format firmanın profiline kaydolur.</div>
+    <div class="grid" style="margin-top:12px;grid-template-columns:1fr auto;align-items:end">
+      <div><label class="f">MUHASEBE PROGRAMI / ÇIKTI FORMATI</label>
+        <select id="formatSec">
+          <option value="luca">Luca (14 kolon aktarım şablonu)</option>
+          <option value="ozel">Kendi şablonum (Excel yükle → öğren)</option>
+        </select></div>
+      <label class="btn k" id="sablonBtn" style="display:none;cursor:pointer;white-space:nowrap">📎 Şablon Excel yükle<input type="file" id="sablonDosya" accept=".xlsx,.xls,.csv" style="display:none"></label>
+    </div>
+    <div id="formatDurum" style="font-size:12px;color:var(--dim);margin-top:8px"></div>
+    <div id="formatEsles"></div>
+    <button class="btn" id="uret" style="margin-top:16px">⚙️ Fişleri üret</button>
     <div id="ozet" style="margin-top:14px"></div>
     <div id="onizleme"></div>
   </div>
@@ -115,6 +126,92 @@ const $=s=>document.querySelector(s);
 let HAM=[], BASLIKLAR=[];
 // Luca 14 kolon (sabit sözleşme)
 const LUCA_KOL=["Fiş No","Fiş Tarihi","Fiş Açıklama","Hesap Kodu","Evrak No","Evrak Tarihi","Detay Açıklama","Borç","Alacak","Miktar","Belge Türü","Para Birimi","Kur","Döviz Tutar"];
+
+// ---- ÇIKTI FORMAT MOTORU ("hap format": her programın aktarım şablonu öğrenilebilir) ----
+// alan kodları: fişteki anlam → şablonun hangi kolonuna yazılacak
+const ALANLAR=[
+  {kod:"fisNo",      ad:"Fiş No"},
+  {kod:"fisTarihi",  ad:"Fiş / işlem tarihi"},
+  {kod:"fisAcik",    ad:"Fiş açıklaması (önek + tarih)"},
+  {kod:"hesap",      ad:"Hesap kodu"},
+  {kod:"evrakTarihi",ad:"Evrak tarihi"},
+  {kod:"detay",      ad:"Detay açıklama (ekstre satırı)"},
+  {kod:"borc",       ad:"Borç tutarı"},
+  {kod:"alacak",     ad:"Alacak tutarı"},
+  {kod:"paraBirimi", ad:"Para birimi (TL)"},
+  {kod:"bos",        ad:"— boş bırak —"}
+];
+// Luca haritası: gerçek şablondan okunmuş, sabit
+const FORMAT_LUCA={ tip:"luca", ad:"Luca", kolonlar:LUCA_KOL, harita:{
+  "Fiş No":"fisNo","Fiş Tarihi":"fisTarihi","Fiş Açıklama":"fisAcik","Hesap Kodu":"hesap",
+  "Evrak No":"bos","Evrak Tarihi":"evrakTarihi","Detay Açıklama":"detay","Borç":"borc",
+  "Alacak":"alacak","Miktar":"bos","Belge Türü":"bos","Para Birimi":"paraBirimi","Kur":"bos","Döviz Tutar":"bos"} };
+let OZEL_FORMAT=null; // şablondan öğrenilen {tip:'ozel', ad, kolonlar, harita}
+function aktifFormat(){ return ($('#formatSec').value==='ozel' && OZEL_FORMAT) ? OZEL_FORMAT : FORMAT_LUCA; }
+// semantik fiş satırı → format kolonu değeri
+function alanDeger(r, alan){
+  switch(alan){
+    case "fisNo": return r.no;
+    case "fisTarihi": case "evrakTarihi": return r.tar;
+    case "fisAcik": return (r.onek+' '+r.tar).trim();
+    case "hesap": return r.hesap;
+    case "detay": return r.detay;
+    case "borc": return r.borc||"";
+    case "alacak": return r.alacak||"";
+    case "paraBirimi": return "TL";
+    default: return "";
+  }
+}
+// şablon başlığından alan tahmini (öğrenme)
+function alanTahmin(baslik){
+  const B=trUp(baslik);
+  if(B.includes('FİŞ NO')||B==='NO'||B.includes('YEVMİYE NO')||B.includes('MADDE NO')) return 'fisNo';
+  if(B.includes('EVRAK TARİH')||B.includes('BELGE TARİH')) return 'evrakTarihi';
+  if(B.includes('TARİH')) return 'fisTarihi';
+  if(B.includes('FİŞ AÇIKLAMA')||B.includes('MADDE AÇIKLAMA')) return 'fisAcik';
+  if(B.includes('DETAY')||B.includes('AÇIKLAMA')||B.includes('SATIR AÇIKLAMA')) return 'detay';
+  if(B.includes('HESAP')||B==='KOD'||B.includes('HES.KOD')) return 'hesap';
+  if(B.includes('BORÇ')) return 'borc';
+  if(B.includes('ALACAK')) return 'alacak';
+  if(B.includes('PARA BİRİMİ')||B.includes('DÖVİZ CİNSİ')||B.includes('DÖVİZ TÜRÜ')) return 'paraBirimi';
+  return 'bos';
+}
+async function sablonSecildi(f){
+  if(!f) return;
+  $('#formatDurum').innerHTML='📄 '+f.name+' okunuyor…';
+  try{
+    const buf=await f.arrayBuffer();
+    const wb=XLSX.read(buf,{type:'array'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const satirlar=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});
+    const bi=satirlar.findIndex(r=>r.some(c=>(''+c).trim()!==''));
+    if(bi<0) throw new Error('boş');
+    const kolonlar=satirlar[bi].map(c=>(''+c).trim()).filter(c=>c);
+    if(kolonlar.length<3) throw new Error('az kolon');
+    const harita={}; kolonlar.forEach(k=>harita[k]=alanTahmin(k));
+    OZEL_FORMAT={tip:'ozel', ad:f.name.replace(/\.(xlsx|xls|csv)$/i,''), kolonlar, harita};
+    $('#formatDurum').innerHTML='<span class="rozet ok">✓ '+kolonlar.length+' kolon öğrenildi</span> <span style="color:var(--dim)">— aşağıda eşleşmeyi kontrol et, sonra 💾 profile kaydet.</span>';
+    formatEslesUI();
+  }catch(e){ $('#formatDurum').innerHTML='<span class="rozet hata">✗ Şablon okunamadı — programından boş aktarım şablonunu Excel olarak indirip yükle</span>'; }
+}
+function formatEslesUI(){
+  if(!OZEL_FORMAT){ $('#formatEsles').innerHTML=''; return; }
+  const sec=(mevcut)=>ALANLAR.map(a=>'<option value="'+a.kod+'"'+(a.kod===mevcut?' selected':'')+'>'+a.ad+'</option>').join('');
+  $('#formatEsles').innerHTML='<div class="grid" style="margin-top:12px">'
+    +OZEL_FORMAT.kolonlar.map((k,i)=>'<div><label class="f">'+k+'</label><select class="fmtAlan" data-k="'+k+'">'+sec(OZEL_FORMAT.harita[k])+'</select></div>').join('')
+    +'</div>';
+  document.querySelectorAll('.fmtAlan').forEach(s=>s.onchange=e=>{ OZEL_FORMAT.harita[e.target.dataset.k]=e.target.value; });
+}
+function formatSistemiKur(){
+  $('#formatSec').onchange=()=>{
+    const ozel=$('#formatSec').value==='ozel';
+    $('#sablonBtn').style.display=ozel?'inline-flex':'none';
+    if(!ozel){ $('#formatDurum').innerHTML=''; $('#formatEsles').innerHTML=''; }
+    else if(OZEL_FORMAT){ $('#formatDurum').innerHTML='<span class="rozet ok">✓ '+OZEL_FORMAT.ad+' ('+OZEL_FORMAT.kolonlar.length+' kolon)</span>'; formatEslesUI(); }
+    else $('#formatDurum').innerHTML='Programından boş bir aktarım şablonu (Excel) indirip yükle — kolonlarını bir kez öğrenelim, hep kullanalım.';
+  };
+  $('#sablonDosya').addEventListener('change',e=>{ if(e.target.files[0]) sablonSecildi(e.target.files[0]); e.target.value=''; });
+}
 // varsayılan kelime→hesap kuralları (Cem zenginleştirir)
 const VARSAYILAN_KURAL=[
  {k:"MAAŞ", h:"335"}, {k:"UCRET", h:"335"}, {k:"PERSONEL", h:"335"},
@@ -218,41 +315,54 @@ $('#uret').onclick=()=>{
     const detay=(kesin?'':'⚠ KONTROL ET — ')+acik;
     // ÇİFT TARAFLI KAYIT
     if(giris>0){ // para girişi: banka BORÇ, karşı hesap ALACAK
-      rows.push(luca(fisNo,tar,onek,banka,detay,giris,0)); toplamB+=giris;
-      rows.push(luca(fisNo,tar,onek,hesap,detay,0,giris,!kesin)); toplamA+=giris;
+      rows.push(sat(fisNo,tar,onek,banka,detay,giris,0)); toplamB+=giris;
+      rows.push(sat(fisNo,tar,onek,hesap,detay,0,giris,!kesin)); toplamA+=giris;
     }
     if(cikis>0){ // para çıkışı: karşı hesap BORÇ, banka ALACAK
-      rows.push(luca(fisNo,tar,onek,hesap,detay,cikis,0,!kesin)); toplamB+=cikis;
-      rows.push(luca(fisNo,tar,onek,banka,detay,0,cikis)); toplamA+=cikis;
+      rows.push(sat(fisNo,tar,onek,hesap,detay,cikis,0,!kesin)); toplamB+=cikis;
+      rows.push(sat(fisNo,tar,onek,banka,detay,0,cikis)); toplamA+=cikis;
     }
     if(!kesin) kontrolSay++;
   }
-  window._LUCA=rows;
+  window._FIS=rows;
+  // format kontrolü: özel formatta hesap + borç + alacak eşlenmiş olmalı
+  const F=aktifFormat();
+  if(F.tip==='ozel'){
+    const kullanilan=Object.values(F.harita);
+    const eksik=['hesap','borc','alacak'].filter(a=>!kullanilan.includes(a));
+    if(eksik.length){ $('#ozet').innerHTML='<span class="rozet hata">✗ Özel formatta şu alanlar hiçbir kolona eşlenmedi: '+eksik.join(', ')+' — Adım 4\'te eşleştir</span>'; $('#onizleme').innerHTML=''; return; }
+  }
   const denk=Math.abs(toplamB-toplamA)<0.01;
   const tl=n=>n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
   $('#ozet').innerHTML=
     '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
     +'<span class="rozet '+(denk?'ok':'hata')+'">'+(denk?'✓ DENGE TAMAM':'✗ DENGE BOZUK')+' · Borç '+tl(toplamB)+' = Alacak '+tl(toplamA)+'</span>'
     +'<span class="rozet '+(kontrolSay?'uyar':'ok')+'">'+fisNo+' fiş'+(kontrolSay?(' · '+kontrolSay+' hareket KONTROL ET'):'')+'</span>'
-    +(denk?'<button class="btn" style="margin:0" id="indir">📥 Luca Excel indir</button>':'')
+    +(denk?'<button class="btn" style="margin:0" id="indir">📥 '+F.ad+' Excel indir</button>':'')
     +'</div>';
   onizle(rows);
   if(denk) $('#indir').onclick=()=>indir(rows);
 };
-function luca(no,tar,onek,hesap,detay,borc,alacak,kontrol){
-  return {"Fiş No":no,"Fiş Tarihi":tar,"Fiş Açıklama":onek+' '+tar,"Hesap Kodu":hesap,"Evrak No":"","Evrak Tarihi":tar,"Detay Açıklama":detay,"Borç":borc||"","Alacak":alacak||"","Miktar":"","Belge Türü":"","Para Birimi":"TL","Kur":"","Döviz Tutar":"","_kontrol":!!kontrol};
+// semantik fiş satırı — format ne olursa olsun aynı çift-taraflı kayıt
+function sat(no,tar,onek,hesap,detay,borc,alacak,kontrol){
+  return {no,tar,onek,hesap,detay,borc:borc||"",alacak:alacak||"",_kontrol:!!kontrol};
 }
 function onizle(rows){
-  const ilk=rows.slice(0,12);
-  $('#onizleme').innerHTML='<div class="tablosar"><table><thead><tr>'+LUCA_KOL.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead><tbody>'
-    +ilk.map(r=>'<tr'+(r._kontrol?' style="background:rgba(255,194,75,.06)"':'')+'>'+LUCA_KOL.map(k=>'<td'+(k==='Hesap Kodu'?' class="kh"':'')+(k==='Detay Açıklama'&&r._kontrol?' class="kontrolet"':'')+'>'+(r[k]===''?'':r[k])+'</td>').join('')+'</tr>').join('')
+  const F=aktifFormat(), ilk=rows.slice(0,12);
+  $('#onizleme').innerHTML='<div class="tablosar"><table><thead><tr>'+F.kolonlar.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead><tbody>'
+    +ilk.map(r=>'<tr'+(r._kontrol?' style="background:rgba(255,194,75,.06)"':'')+'>'+F.kolonlar.map(k=>{
+      const alan=F.harita[k], v=alanDeger(r,alan);
+      return '<td'+(alan==='hesap'?' class="kh"':'')+(alan==='detay'&&r._kontrol?' class="kontrolet"':'')+'>'+(v===''?'':v)+'</td>';
+    }).join('')+'</tr>').join('')
     +'</tbody></table></div>'+(rows.length>12?'<div style="font-size:11.5px;color:var(--dim);margin-top:6px">… ilk 12 satır gösteriliyor, toplam '+rows.length+' satır. Tamamı Excel\'de.</div>':'');
 }
 function indir(rows){
-  const temiz=rows.map(r=>{ const o={}; LUCA_KOL.forEach(k=>o[k]=r[k]); return o; });
-  const ws=XLSX.utils.json_to_sheet(temiz,{header:LUCA_KOL});
+  const F=aktifFormat();
+  const temiz=rows.map(r=>{ const o={}; F.kolonlar.forEach(k=>o[k]=alanDeger(r,F.harita[k])); return o; });
+  const ws=XLSX.utils.json_to_sheet(temiz,{header:F.kolonlar});
   const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Fiş Aktarım Şablon");
-  XLSX.writeFile(wb,"luca-fis-aktarim.xlsx");
+  const dosyaAd=(F.tip==='luca'?'luca':F.ad.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/gi,'-'))+'-fis-aktarim.xlsx';
+  XLSX.writeFile(wb,dosyaAd);
 }
 
 // ================= FİRMA/MÜKELLEF PROFİLLERİ (localStorage, kalıcı) =================
@@ -267,7 +377,9 @@ function ayarlariTopla(){
     banka: $('#bankaHesap').value.trim(),
     onek: $('#fisOnek').value.trim(),
     varsayilan: $('#varsayilanHesap').value.trim(),
-    kurallar: kurallariAl()
+    kurallar: kurallariAl(),
+    formatSecim: $('#formatSec').value,
+    ozelFormat: OZEL_FORMAT   // öğrenilen şablon da firmayla kaydolur
   };
 }
 // ayarları ekrana yükle
@@ -280,6 +392,9 @@ function ayarlariUygula(a){
     $('#kurallar').innerHTML='';
     a.kurallar.forEach(r=>$('#kurallar').appendChild(kuralSatir(r.k, r.h)));
   }
+  // firmanın öğrenilmiş çıktı formatı
+  if(a.ozelFormat && a.ozelFormat.kolonlar) OZEL_FORMAT=a.ozelFormat;
+  if(a.formatSecim){ $('#formatSec').value=a.formatSecim; $('#formatSec').onchange && $('#formatSec').onchange(); }
 }
 function profilSeciciDoldur(){
   const p=profilleriOku(), aktif=aktifOku(), adlar=Object.keys(p);
@@ -326,6 +441,7 @@ function profilSistemiKur(){
 
 // ---- olaylar ----
 document.addEventListener('DOMContentLoaded',()=>{
+  formatSistemiKur();   // önce format motoru (profil, kayıtlı formatı buna uygular)
   profilSistemiKur();
   const kutu=$('#yukleKutu'), inp=$('#dosya');
   inp.addEventListener('change',e=>{ if(e.target.files[0]) dosyaSecildi(e.target.files[0]); });
