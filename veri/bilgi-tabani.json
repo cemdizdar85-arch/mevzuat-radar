@@ -2452,6 +2452,98 @@
                          "anahtar":  "kar dağıtım kararı genel kurul temettü yedek akçe stopaj ne zaman ttk 509",
                          "cevap":  "Kâr, ancak genel kurul kararıyla dağıtılabilir; önce kanuni yedek akçeler ayrılır, sonra kalan dağıtılabilir kârdan pay dağıtılır (TTK m.509, 519). Gerçek kişi ortaklara dağıtımda gelir vergisi stopajı kesilir. Kâr dağıtılmayıp şirkette bırakılırsa (geçmiş yıl kârı/olağanüstü yedek) o an stopaj doğmaz. Dağıtım kararı olmadan ortağa para çıkması örtülü kazanç riski taşır.",
                          "kaynak":  "TTK (6102 s.K.) m.509"
+                     },
+                     {
+                         "id":  "temerrut",
+                         "konu":  "Borçlu temerrüdü (ne zaman temerrüde düşer)",
+                         "anahtar":  "temerrüt borçlu ödemedi ihtar muacceliyet vade gecikme tbk 117",
+                         "cevap":  "Muaccel (vadesi gelmiş) bir borcu borçlu ödemezse alacaklının ihtarıyla temerrüde düşer; borcun vadesi belliyse ihtara gerek kalmadan vade gününde temerrüt oluşur (TBK m.117). Temerrütle birlikte alacaklı gecikme (temerrüt) faizi isteyebilir ve borçlu gecikmeden doğan zararı da karşılar.",
+                         "kaynak":  "TBK (6098 s.K.) m.117"
+                     },
+                     {
+                         "id":  "temerrut-faiz",
+                         "konu":  "Temerrüt (gecikme) faizi oranı",
+                         "anahtar":  "temerrüt faizi gecikme oranı yıllık ticari 3095 avans faiz sözleşme tbk 120",
+                         "cevap":  "Borçlu temerrüde düşünce alacaklı temerrüt faizi isteyebilir. Sözleşmede oran yoksa kanuni faiz uygulanır; ticari işlerde TCMB'nin kısa vadeli avans faizi esas alınır (3095 s.K. ve TBK m.120). Sözleşmeyle daha yüksek faiz kararlaştırılabilir ama aşırı oran hâkim tarafından indirilebilir. Güncel kanuni/ticari faiz oranları için resmî kaynağa bak.",
+                         "kaynak":  "TBK (6098 s.K.) m.120 · 3095 s.K."
+                     },
+                     {
+                         "id":  "ceza-sarti",
+                         "konu":  "Cezai şart (sözleşme cezası)",
+                         "anahtar":  "cezai şart ceza koşulu sözleşme ihlal götürü tazminat fahiş indirim tbk 179 182",
+                         "cevap":  "Sözleşmeye, borç yerine getirilmezse veya eksik/geç yapılırsa ödenecek cezai şart konabilir (TBK m.179). Alacaklı zararını ispat etmeden cezayı isteyebilir. Ancak aşırı (fahiş) cezai şartı hâkim kendiliğinden indirebilir (TBK m.182). Tacirler arasında bu indirim daha sınırlıdır.",
+                         "kaynak":  "TBK (6098 s.K.) m.179"
+                     },
+                     {
+                         "id":  "zamanasimi-10",
+                         "konu":  "Alacaklarda genel zamanaşımı (10 yıl)",
+                         "anahtar":  "zamanaşımı alacak 10 yıl genel süre borç talep hakkı düşme tbk 146",
+                         "cevap":  "Kanunda başka süre öngörülmemişse her alacak 10 yıllık zamanaşımına tabidir (TBK m.146). Zamanaşımı dolan borç ortadan kalkmaz ama borçlu 'zamanaşımı def'i' ileri sürerse alacaklı dava yoluyla tahsil edemez. Dava açma, icra takibi, borçlunun borcu ikrarı gibi işlemler zamanaşımını keser ve yeniden başlatır.",
+                         "kaynak":  "TBK (6098 s.K.) m.146"
+                     },
+                     {
+                         "id":  "zamanasimi-5",
+                         "konu":  "5 yıllık zamanaşımına tabi alacaklar",
+                         "anahtar":  "zamanaşımı 5 yıl kira ücret faiz periyodik serbest meslek fatura tbk 147",
+                         "cevap":  "Bazı alacaklar 10 değil 5 yıllık zamanaşımına tabidir: kira bedelleri, faiz ve diğer dönemsel edimler, ücret alacakları, serbest meslek ödemeleri, ticari satımdan doğan bedeller vb. (TBK m.147). Yani bir kira/fatura alacağı için 10 değil 5 yıl içinde takip başlatmak gerekir.",
+                         "kaynak":  "TBK (6098 s.K.) m.147"
+                     },
+                     {
+                         "id":  "itiraz-iptali",
+                         "konu":  "İtirazın iptali / itirazın kaldırılması",
+                         "anahtar":  "itirazın iptali kaldırılması icra inkar tazminat yüzde 20 mahkeme belge iik 67 68",
+                         "cevap":  "Borçlu ödeme emrine itiraz edince alacaklı iki yoldan gidebilir: elinde imzalı senet/belge varsa icra mahkemesinde 'itirazın kaldırılması' (İİK m.68), yoksa genel mahkemede 'itirazın iptali' davası (İİK m.67). Haksız itiraz eden borçlu aleyhine icra inkâr tazminatı (alacağın %20'sinden az olmamak üzere) hükmedilebilir.",
+                         "kaynak":  "İİK (2004 s.K.) m.67"
+                     },
+                     {
+                         "id":  "cek-karsiliksiz",
+                         "konu":  "Karşılıksız çek yaptırımı",
+                         "anahtar":  "karşılıksız çek ceza banka ibraz süre çek yasağı adli para hapis çek 5",
+                         "cevap":  "Çek, üzerinde yazılı düzenleme tarihinde veya ibraz süresi içinde bankaya ibraz edildiğinde karşılığı yoksa 'karşılıksızdır' işlemi yapılır. Karşılıksız çek düzenleyene, hamilin şikâyeti üzerine adli para cezası verilir ve çek düzenleme/hesap açma yasağı uygulanır (Çek K. m.5). Çek bedelini faiziyle öderse yaptırım düşer.",
+                         "kaynak":  "Çek K. (5941 s.K.) m.5"
+                     },
+                     {
+                         "id":  "kefalet",
+                         "konu":  "Kefalet (kefil olmanın şartları)",
+                         "anahtar":  "kefalet kefil şart yazılı miktar eş rızası müteselsil sorumluluk tbk 581 583",
+                         "cevap":  "Kefalet sözleşmesi yazılı olmak, kefilin sorumlu olacağı azami miktarı ve kefalet tarihini el yazısıyla içermek zorundadır (TBK m.583). Evli kişinin kefaleti için kural olarak eşin yazılı rızası gerekir. Müteselsil kefalette alacaklı, asıl borçluya gitmeden doğrudan kefile başvurabilir. Bu şekil şartları eksikse kefalet geçersizdir.",
+                         "kaynak":  "TBK (6098 s.K.) m.581"
+                     },
+                     {
+                         "id":  "sebepsiz-zenginlesme",
+                         "konu":  "Sebepsiz zenginleşme (haksız ödeme geri alma)",
+                         "anahtar":  "sebepsiz zenginleşme haksız yanlış ödeme iade geri alma fazla tbk 77 82",
+                         "cevap":  "Haklı bir sebep olmadan başkasının malvarlığından zenginleşen, bunu geri vermekle yükümlüdür (TBK m.77). Örneğin yanlışlıkla iki kez ödenen fatura, hataen fazla yatırılan para geri istenebilir. Bu talep, zenginleşmeyi öğrenmeden itibaren 2 yıl ve her hâlde 10 yıllık zamanaşımına tabidir (TBK m.82).",
+                         "kaynak":  "TBK (6098 s.K.) m.77"
+                     },
+                     {
+                         "id":  "haciz-hacizsiz-mal",
+                         "konu":  "Hacizde haczedilemeyen mallar",
+                         "anahtar":  "haciz haczedilemeyen mal maaş dörtte bir ev eşyası emekli aylık iik 82 83",
+                         "cevap":  "Borçlunun bazı malları haczedilemez veya kısmen haczedilir: temel ev eşyaları, mesleğini sürdürmek için gerekli aletler, emekli aylıkları (kural olarak) haczedilemez; maaş ve ücretin ise ancak dörtte biri haczedilebilir (İİK m.82-83). Borçlu muvafakat verirse maaşın daha fazlası da haczedilebilir. Amaç: borçluyu insanca yaşamdan yoksun bırakmamak.",
+                         "kaynak":  "İİK (2004 s.K.) m.82"
+                     },
+                     {
+                         "id":  "sozlesmeden-donme",
+                         "konu":  "Sözleşmeden dönme / fesih",
+                         "anahtar":  "sözleşme dönme fesih ifa etmedi temerrüt ek süre mehil geriye ileriye tbk 125",
+                         "cevap":  "Karşılıklı borç yükleyen sözleşmede borçlu temerrüde düşerse, alacaklı uygun bir ek süre (mehil) verir; süre sonunda hâlâ ifa edilmezse ifadan vazgeçip sözleşmeden dönebilir veya aynen ifa + gecikme tazminatı isteyebilir (TBK m.123-125). Dönme geriye etkilidir (verilenler iade edilir); sürekli sözleşmelerde ise ileriye etkili fesih uygulanır.",
+                         "kaynak":  "TBK (6098 s.K.) m.125"
+                     },
+                     {
+                         "id":  "konkordato-muhlet",
+                         "konu":  "Konkordatoda geçici ve kesin mühlet",
+                         "anahtar":  "konkordato geçici kesin mühlet süre 3 ay 1 yıl komiser alacaklı takip durur iik 287 289",
+                         "cevap":  "Konkordato talebiyle mahkeme önce geçici mühlet verir (3 ay, 2 ay uzayabilir); şartlar uygunsa kesin mühlete geçilir (1 yıl, 6 ay uzayabilir) (İİK m.287, 289). Mühlet süresince borçluya karşı (kural olarak) icra takipleri durur ve yeni takip yapılamaz. Alacaklı bu dönemde alacağını komisyona bildirmeli, müzakere ve oylamayı kaçırmamalıdır.",
+                         "kaynak":  "İİK (2004 s.K.) m.287",
+                         "arac":  "alacak-radari.html"
+                     },
+                     {
+                         "id":  "aciz-belgesi",
+                         "konu":  "Aciz belgesi (borçlunun malı yok)",
+                         "anahtar":  "aciz belgesi borçlu mal bulunamadı haciz karşılıksız kesin geçici alacak iik 143",
+                         "cevap":  "İcra takibinde borçlunun haczedilecek malı bulunamaz veya satılanlar borcu karşılamazsa alacaklıya aciz belgesi verilir (İİK m.143). Aciz belgesindeki alacak için borçlu yeni mal edinirse yeniden takip yapılabilir; ayrıca bu alacak vergi açısından değersiz alacak sayılıp gider yazılabilir (VUK m.322 ile bağlantılı). Aciz belgesindeki borç zamanaşımına uğramaz.",
+                         "kaynak":  "İİK (2004 s.K.) m.143"
                      }
                  ]
 }
