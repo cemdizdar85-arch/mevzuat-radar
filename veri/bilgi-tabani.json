@@ -2629,6 +2629,78 @@
                          "anahtar":  "bsmv banka sigorta muamele vergisi kredi faiz komisyon kambiyo kdv istisna 6802",
                          "cevap":  "Banka ve sigorta şirketlerinin yaptığı işlemler (kredi faizi, komisyon, kambiyo vb.) KDV'den istisnadır ama bunun yerine banka ve sigorta muameleleri vergisine (BSMV) tabidir (6802 s.K.). BSMV'yi banka/sigorta şirketi lehine aldığı para üzerinden hesaplar ve öder. Kambiyo (döviz) satışlarında da BSMV uygulanır; oran işlem türüne göre değişir — güncel oran için GİB'e bak.",
                          "kaynak":  "Gider Vergileri K. (6802 s.K.)"
+                     },
+                     {
+                         "id":  "isci-hakli-fesih",
+                         "konu":  "İşçinin haklı nedenle derhal feshi",
+                         "anahtar":  "işçi haklı fesih derhal ücret ödenmedi sigorta yatmadı mobbing sağlık iş 24",
+                         "cevap":  "İşçi, bazı durumlarda iş sözleşmesini ihbar süresi beklemeden derhal feshedebilir ve kıdem tazminatına hak kazanır: ücretin ödenmemesi, SGK priminin yatırılmaması/eksik yatması, sağlık sebepleri, işverenin ahlak-iyiniyet kurallarına aykırı davranışı (hakaret, tehdit, cinsel taciz vb.) (İş K. m.24). Bu haller varsa 'istifa' değil haklı fesihtir; kıdem ödenir.",
+                         "kaynak":  "İş K. (4857 s.K.) m.24"
+                     },
+                     {
+                         "id":  "isveren-hakli-fesih",
+                         "konu":  "İşverenin haklı nedenle derhal feshi",
+                         "anahtar":  "işveren haklı fesih derhal devamsızlık işi savsama hırsızlık güven tazminatsız iş 25",
+                         "cevap":  "İşveren, işçinin ahlak ve iyiniyete aykırı davranışı, işi savsaması, izinsiz/mazeretsiz devamsızlığı (kanundaki gün sınırlarını aşarsa), güveni kötüye kullanması gibi hallerde sözleşmeyi derhal ve tazminatsız feshedebilir (İş K. m.25). Bu fesih hakkı, olayı öğrenmeden itibaren kısa bir hak düşürücü süreye tabidir. Sebep somut ve belgeli olmalıdır.",
+                         "kaynak":  "İş K. (4857 s.K.) m.25"
+                     },
+                     {
+                         "id":  "ubgt-ucret",
+                         "konu":  "Ulusal bayram ve genel tatil ücreti",
+                         "anahtar":  "ubgt ulusal bayram genel tatil resmi çalışma ücret bir kat fazla iş 44 47",
+                         "cevap":  "İşçi, ulusal bayram ve genel tatil günlerinde (resmî tatiller) çalışmasa da o günün ücretini tam alır; bu günlerde çalışırsa çalıştığı her gün için ayrıca bir günlük ücret daha ödenir (İş K. m.47). Yani resmî tatilde çalışan işçi o gün için toplam iki günlük ücret alır. Tatilde çalıştırma için işçinin onayı gerekebilir.",
+                         "kaynak":  "İş K. (4857 s.K.) m.47"
+                     },
+                     {
+                         "id":  "hafta-tatili",
+                         "konu":  "Hafta tatili ücreti",
+                         "anahtar":  "hafta tatili 7 gün 1 gün 24 saat dinlenme ücretli çalışma iş 46",
+                         "cevap":  "İşçiye, 7 günlük bir zaman diliminde kesintisiz en az 24 saat hafta tatili verilir ve çalışılmadığı halde bu günün ücreti tam ödenir (İş K. m.46). Hafta tatili ücretine hak kazanmak için işçinin o hafta çalışması gereken günlerde çalışmış olması gerekir. Hafta tatilinde çalıştırılırsa ayrıca fazla çalışma/genel tatil hükümleri gündeme gelir.",
+                         "kaynak":  "İş K. (4857 s.K.) m.46"
+                     },
+                     {
+                         "id":  "alt-isveren",
+                         "konu":  "Alt işveren (taşeron) ilişkisi",
+                         "anahtar":  "alt işveren taşeron asıl işveren müteselsil sorumlu muvazaa işçi hakları iş 2",
+                         "cevap":  "Bir işin bir bölümünü alt işverene (taşerona) yaptıran asıl işveren, alt işveren işçilerinin ücret ve haklarından alt işverenle birlikte müteselsilen sorumludur (İş K. m.2). Asıl işin bölünüp muvazaalı (danışıklı) şekilde taşerona verilmesi yasaktır; muvazaa tespit edilirse alt işveren işçileri baştan asıl işverenin işçisi sayılır. Bu, taşeron işçi alacaklarında asıl işverene de başvurulabilmesini sağlar.",
+                         "kaynak":  "İş K. (4857 s.K.) m.2"
+                     },
+                     {
+                         "id":  "uzaktan-calisma",
+                         "konu":  "Uzaktan çalışma (evden çalışma)",
+                         "anahtar":  "uzaktan çalışma evden home office sözleşme yazılı ekipman gider iş 14",
+                         "cevap":  "Uzaktan çalışma, işin işyeri dışında (ör. evde) teknolojik araçlarla yapılmasıdır ve yazılı sözleşmeyle kurulur (İş K. m.14 ve yönetmelik). Sözleşmede işin tanımı, süresi, ücret, ekipman ve giderlerin nasıl karşılanacağı belirtilir. Uzaktan çalışan, emsal işçiye göre farklı işleme tabi tutulamaz; iş sağlığı-güvenliği yükümlülükleri işverende kalır.",
+                         "kaynak":  "İş K. (4857 s.K.) m.14"
+                     },
+                     {
+                         "id":  "ozluk-dosyasi",
+                         "konu":  "İşçi özlük dosyası zorunluluğu",
+                         "anahtar":  "özlük dosyası işçi belge kimlik sözleşme bordro işveren tutmak zorunlu iş 75",
+                         "cevap":  "İşveren, çalıştırdığı her işçi için bir özlük dosyası düzenlemek zorundadır (İş K. m.75). Dosyada işçinin kimlik bilgileri, iş sözleşmesi, ücret bordroları, izin kayıtları ve kanunen tutulması gereken diğer belgeler bulunur. İşveren bu belgeleri istendiğinde yetkililere göstermek zorundadır. Özlük dosyası tutmamak idari para cezası doğurur.",
+                         "kaynak":  "İş K. (4857 s.K.) m.75"
+                     },
+                     {
+                         "id":  "cezada-indirim",
+                         "konu":  "Vergi cezalarında indirim",
+                         "anahtar":  "cezada indirim vergi ziyaı usulsüzlük yarısı dava açmama ödeme vuk 376",
+                         "cevap":  "Kesilen vergi ziyaı, usulsüzlük ve özel usulsüzlük cezaları için, mükellef dava açmadan ve süresinde ödemeyi kabul ederek indirimden yararlanabilir (VUK m.376). İlk kez için ceza belli oranda (genelde yarısı), sonrakiler için daha az oranda indirilir. Uzlaşmadan yararlanılan cezaya ayrıca bu indirim uygulanmaz. Doğru kapıyı seçmek için Ceza Asistanına bak.",
+                         "kaynak":  "VUK (213 s.K.) m.376",
+                         "arac":  "ceza-asistani.html"
+                     },
+                     {
+                         "id":  "gecikme-zammi",
+                         "konu":  "Gecikme zammı (vadesinde ödenmeyen vergi)",
+                         "anahtar":  "gecikme zammı vadesinde ödenmeyen amme alacağı vergi aylık oran tahsil aatuhk 51",
+                         "cevap":  "Vadesinde ödenmeyen vergi ve diğer amme alacaklarına, ödeninceye kadar geçen süre için aylık gecikme zammı uygulanır (AATUHK m.51). Oran Cumhurbaşkanı kararıyla belirlenir ve değişebilir; ay kesirleri günlük hesaplanır. Pişmanlık zammı ve gecikme faizi de aynı orana bağlıdır. Güncel gecikme zammı oranı için GİB'e bak.",
+                         "kaynak":  "AATUHK (6183 s.K.) m.51",
+                         "arac":  "ceza-asistani.html"
+                     },
+                     {
+                         "id":  "ihtiyati-haciz",
+                         "konu":  "İhtiyati haciz / ihtiyati tahakkuk",
+                         "anahtar":  "ihtiyati haciz tahakkuk amme alacağı teminat kaçış mal kaçırma önlem aatuhk 13",
+                         "cevap":  "Amme alacağının tahsilinin tehlikeye girdiği hallerde (borçlunun mal kaçırması, belirsiz adresi, teminat gösterememesi vb.) idare, kesinleşmeyi beklemeden ihtiyati haciz ve ihtiyati tahakkuk uygulayabilir (AATUHK m.13-17). Bu, borçlunun mallarına önceden el konularak alacağın güvence altına alınmasıdır. İhtiyati hacze karşı kısa sürede dava açılabilir.",
+                         "kaynak":  "AATUHK (6183 s.K.) m.13"
                      }
                  ]
 }
