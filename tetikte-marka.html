@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tetikte — marka kimliği taslağı (iç çalışma) | Mevzuat Radarı</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--green:#3ddc97;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--gradT:linear-gradient(135deg,#3ddc97 0%,#26d0fe 100%)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:26px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.logoMR{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 26px}
+.blok{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:18px}
+.blok h2{margin:0 0 4px;font-size:16px;letter-spacing:-.2px}
+.blok .not{font-size:12.5px;color:var(--dim);margin:0 0 20px}
+.sahne{border-radius:13px;padding:38px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:10px}
+.sahne.koyu{background:#080c13;border:1px solid var(--line)}
+.sahne.acik{background:#f4f7fb;border:1px solid #dde5ee}
+.sahne .etiket{font-size:10.5px;letter-spacing:1.4px;font-weight:800;color:var(--dim);text-transform:uppercase;align-self:flex-start;margin-bottom:6px}
+.sahne.acik .etiket{color:#8a97a6}
+
+/* ---- VARYANT A: "radar i" — i'nin noktası nöbet ışığı ---- */
+.wm{font-weight:800;font-size:56px;letter-spacing:-2.5px;line-height:1;display:flex;align-items:baseline}
+.wm .gov{position:relative;display:inline-block}
+.wm .gov .dot{position:absolute;left:50%;transform:translateX(-50%);top:.02em;width:.14em;height:.14em;border-radius:50%;background:var(--green);animation:nabiz 1.6s ease-out infinite}
+.wm .gov .halka{position:absolute;left:50%;transform:translateX(-50%);top:-.05em;width:.28em;height:.28em;border-radius:50%;border:2px solid var(--green);opacity:0;animation:halka 1.6s ease-out infinite}
+.sahne.acik .wm{color:#0b1622}
+@keyframes nabiz{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes halka{0%{transform:translateX(-50%) scale(.4);opacity:.8}80%{transform:translateX(-50%) scale(1.5);opacity:0}100%{opacity:0}}
+
+/* ---- VARYANT B: nöbet ışığı sonda ---- */
+.wm2{font-weight:800;font-size:56px;letter-spacing:-2.5px;line-height:1;display:flex;align-items:center;gap:.22em}
+.wm2 .son{position:relative;width:.24em;height:.24em}
+.wm2 .son i{position:absolute;inset:0;border-radius:50%;background:var(--green);animation:nabiz 1.6s ease-out infinite}
+.wm2 .son b{position:absolute;left:50%;top:50%;width:200%;height:200%;transform:translate(-50%,-50%) scale(.4);border-radius:50%;border:2px solid var(--green);opacity:0;animation:halka 1.6s ease-out infinite}
+.sahne.acik .wm2{color:#0b1622}
+
+/* ---- VARYANT C: uygulama rozeti ---- */
+.rozetler{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap;justify-content:center}
+.appic{border-radius:22%;background:var(--gradT);display:grid;place-items:center;position:relative;color:#03140d;font-weight:800;box-shadow:0 12px 34px rgba(61,220,151,.35)}
+.appic.b96{width:96px;height:96px;font-size:46px}
+.appic.b56{width:56px;height:56px;font-size:27px}
+.appic.b28{width:28px;height:28px;font-size:14px}
+.appic .nd{position:absolute;top:14%;right:14%;width:13%;height:13%;border-radius:50%;background:#06341f;outline:3px solid rgba(255,255,255,.75)}
+.altyazi{font-size:11px;color:var(--dim);text-align:center;margin-top:8px}
+
+/* ---- kilit / lockup ---- */
+.kilit{display:flex;flex-direction:column;align-items:center;gap:4px}
+.kilit .sablon{font-size:15px;letter-spacing:.4px;color:var(--muted);font-weight:600}
+.sahne.acik .kilit .sablon{color:#5c6b7c}
+
+/* ---- kullanım örnekleri ---- */
+.ornekler{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.ornekler{grid-template-columns:1fr}}
+.ok{background:#080c13;border:1px solid var(--line);border-radius:13px;padding:18px}
+.ok .t{font-size:10.5px;letter-spacing:1.3px;font-weight:800;color:var(--dim);text-transform:uppercase;margin-bottom:12px}
+.btnT{display:inline-flex;align-items:center;gap:9px;background:var(--gradT);color:#03140d;font-weight:800;font-size:14.5px;padding:12px 22px;border-radius:12px;text-decoration:none}
+.btnT .d{width:8px;height:8px;border-radius:50%;background:#06341f;animation:nabiz 1.6s infinite}
+.slogan{font-size:19px;font-weight:800;letter-spacing:-.4px;line-height:1.35}
+.slogan em{font-style:normal;color:var(--green)}
+.mailok{font-size:13px;color:var(--muted);border-left:3px solid var(--green);padding-left:12px}
+.karar{background:linear-gradient(135deg,rgba(61,220,151,.10),rgba(38,208,254,.05)),var(--panel);border:1px solid rgba(61,220,151,.3);border-radius:16px;padding:22px 26px}
+.karar h2{margin:0 0 8px;font-size:16px}
+.karar p{margin:0;font-size:13.5px;color:var(--muted)}
+.ic{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:#ffc24b;background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3);border-radius:999px;padding:4px 12px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logoMR">MR</span><a href="index.html">Mevzuat Radarı</a> · Tetikte marka kimliği</div>
+  <span class="ic">İÇ ÇALIŞMA — YAYIN DEĞİL</span>
+  <h1>Tetikte — marka kimliği taslağı</h1>
+  <p class="lead">Üç logo varyantı + şablon kelime kilidi + kullanım örnekleri. Cem seçer, sonra mühürlenir.
+  Renk kararı: Tetikte'nin rengi <b style="color:var(--green)">nöbet yeşili</b> (radar ışığı) — Mevzuat Radarı mavisinden bilinçli ayrışır: mavi = araçlar (bedava), yeşil = nöbet (abonelik).</p>
+
+  <div class="blok">
+    <h2>Varyant A — "Radar i" <span style="color:var(--green);font-size:12px;font-weight:700">★ önerim</span></h2>
+    <p class="not">Kelimedeki i'nin noktası, nabız gibi atan nöbet ışığı. Kimse fark etmeden geçemez; marka hikâyesi tek harfte.</p>
+    <div class="sahne koyu"><span class="etiket">Koyu zemin</span>
+      <div class="kilit">
+        <div class="wm">tet<span class="gov">ı<span class="dot"></span><span class="halka"></span></span>kte</div>
+        <div class="sablon">işinin nöbetçisi</div>
+      </div>
+    </div>
+    <div class="sahne acik"><span class="etiket">Açık zemin</span>
+      <div class="kilit">
+        <div class="wm">tet<span class="gov">ı<span class="dot"></span><span class="halka"></span></span>kte</div>
+        <div class="sablon">işinin nöbetçisi</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <h2>Varyant B — Nöbet ışığı sonda</h2>
+    <p class="not">Kelimeye dokunmadan, sonda yanıp sönen "çevrimiçi" ışığı: nöbet sürüyor mesajı.</p>
+    <div class="sahne koyu"><span class="etiket">Koyu zemin</span>
+      <div class="kilit">
+        <div class="wm2">tetikte<span class="son"><i></i><b></b></span></div>
+        <div class="sablon">işinin nöbetçisi</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <h2>Varyant C — Uygulama rozeti / favicon</h2>
+    <p class="not">Telefon ekranı, sekme ikonu, WhatsApp profil… "T" + sağ üstte nöbet noktası. Yeşil→camgöbeği geçiş Tetikte'ye özel.</p>
+    <div class="sahne koyu" style="padding:34px 20px">
+      <div class="rozetler">
+        <div><div class="appic b96">T<span class="nd"></span></div><div class="altyazi">96px — uygulama</div></div>
+        <div><div class="appic b56">T<span class="nd"></span></div><div class="altyazi">56px — kısayol</div></div>
+        <div><div class="appic b28">T<span class="nd"></span></div><div class="altyazi">28px — sekme</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <h2>Kullanım örnekleri — kelime ailesi iş başında</h2>
+    <p class="not">Şablon kelime her yerde aynı: <b style="color:var(--ink)">işinin nöbetçisi</b>. Slogan ve düğme onu tamamlar.</p>
+    <div class="ornekler">
+      <div class="ok"><div class="t">Reklam sloganı</div>
+        <div class="slogan">Biz <em>tetikteyiz</em>.<br>Sen işine bak.</div></div>
+      <div class="ok"><div class="t">Çağrı düğmesi</div>
+        <a class="btnT" href="#"><span class="d"></span>Nöbeti bize bırak</a></div>
+      <div class="ok"><div class="t">Uyarı maili imzası</div>
+        <div class="mailok">Bu uyarı, nöbetteki robotumuzdan geldi.<br><b style="color:var(--ink)">Tetikte</b> — işinin nöbetçisi</div></div>
+      <div class="ok"><div class="t">Ürün ailesi</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:2">Tetikte <b style="color:var(--ink)">Mevzuat</b> · Tetikte <b style="color:var(--ink)">İhale</b><br>Tetikte <b style="color:var(--ink)">Alacak</b> · Tetikte <b style="color:var(--ink)">Marka</b></div></div>
+    </div>
+  </div>
+
+  <div class="karar">
+    <h2>Karar bekleyenler (Cem)</h2>
+    <p>1) Varyant seçimi (önerim: A — "Radar i"). &nbsp;2) tetikte.com satın alma. &nbsp;3) TÜRKPATENT'te "tetikte" sorgusu → temizse EPATS marka başvurusu (sınıf taslağı bende hazır). Seçim gelince: gerçek SVG logo dosyası + favicon + sitede Tetikte bölümü mühürlenir.</p>
+  </div>
+</div>
+</body>
+</html>
