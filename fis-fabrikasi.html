@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Fiş Fabrikası — banka ekstresini Luca fişine çevir | Mevzuat Radarı</title>
+<meta name="description" content="Banka ekstresini yükle, muhasebe fişlerini Luca aktarım formatında saniyede üret. Rakamlar ekstreden okunur (uydurma yok), borç=alacak dengesi kontrol edilir. Dosya bilgisayarından çıkmaz.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.10),transparent 72%);pointer-events:none;z-index:0}
+a{color:var(--accent2)}.wrap{max-width:960px;margin:0 auto;padding:24px 18px 70px;position:relative;z-index:1}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:820}
+.lead{color:var(--muted);font-size:15px;margin:0 0 20px}
+.adim{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+.adim .no{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:12px;margin-right:8px;font-family:var(--mono)}
+.adim h2{display:inline;font-size:15px;font-weight:800;letter-spacing:.2px}
+.adim.pasif{opacity:.5}
+.yukle{border:1.5px dashed rgba(61,220,151,.4);border-radius:13px;padding:20px;text-align:center;background:linear-gradient(135deg,rgba(61,220,151,.05),transparent);cursor:pointer;transition:.15s;margin-top:12px}
+.yukle:hover,.yukle.suru{border-color:var(--green);background:linear-gradient(135deg,rgba(61,220,151,.11),transparent)}
+.yukle .ikon{font-size:24px;margin-bottom:5px}.yukle .bas2{font-size:14.5px;font-weight:700;color:var(--ink)}.yukle .alt{font-size:12px;color:var(--dim);margin-top:3px}
+.yukle input{display:none}
+.gizli{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 10px;margin-top:10px}
+label.f{display:block;font-size:12px;font-weight:700;color:var(--accent2);letter-spacing:.3px;margin:10px 0 5px}
+select,input.t{width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;padding:13px 24px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(46,140,255,.3);transition:transform .15s;margin-top:14px}
+.btn:hover{transform:translateY(-2px)}.btn.k{background:#0a0f17;color:var(--ink);border:1px solid var(--line2);box-shadow:none;font-size:13px;padding:9px 15px;margin:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
+.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:11px;margin-top:10px}
+.rozet{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;font-family:var(--mono);padding:7px 13px;border-radius:999px;border:1px solid var(--line2)}
+.rozet.ok{color:var(--green);background:rgba(61,220,151,.09);border-color:rgba(61,220,151,.3)}
+.rozet.hata{color:var(--red);background:rgba(255,107,94,.09);border-color:rgba(255,107,94,.35)}
+.rozet.uyar{color:var(--amber);background:rgba(255,194,75,.09);border-color:rgba(255,194,75,.3)}
+.kural{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.kural input{flex:1;padding:8px 10px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-size:13px;font-family:inherit}
+.kural input.hk{max-width:110px;font-family:var(--mono)}
+.kural button{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px}
+.uyari{font-size:12px;color:var(--dim);margin-top:16px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:11px 14px}.uyari b{color:var(--amber)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
+.kontrolet{color:var(--amber);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="evrak-radari.html">Evrak Radarı</a> · Fiş Fabrikası</div>
+  <h1>Fiş Fabrikası — banka ekstresi → Luca fişi</h1>
+  <p class="lead">Banka ekstresini yükle; her hareketi <b style="color:var(--ink)">çift taraflı muhasebe fişine</b> çevirip Luca aktarım Excel'i üretelim. <b style="color:var(--ink)">Rakamlar ekstreden okunur — uydurulmaz;</b> her fişte borç=alacak dengesi kontrol edilir. <span class="gizli">🔒 Dosya bilgisayarından çıkmaz — tarayıcıda işlenir</span></p>
+
+  <div class="adim" id="a1">
+    <span class="no">1</span><h2>Banka ekstresini yükle</h2>
+    <div class="grid" style="margin-top:12px">
+      <div><label class="f">BANKA HESAP KODU (Luca)</label><input class="t" id="bankaHesap" value="102.01.001" placeholder="ör. 102.01.001"></div>
+      <div><label class="f">FİŞ AÇIKLAMASI ÖN EKİ</label><input class="t" id="fisOnek" value="Banka hareketi" placeholder="ör. Banka hareketi"></div>
+    </div>
+    <label class="yukle" id="yukleKutu">
+      <div class="ikon">🏦</div>
+      <div class="bas2">Ekstre dosyasını sürükle / seç (Excel, CSV)</div>
+      <div class="alt">Bankandan indirdiğin hesap hareketleri dökümü. İlk satır başlık olmalı (Tarih, Açıklama, Borç/Alacak veya Tutar).</div>
+      <input type="file" id="dosya" accept=".xlsx,.xls,.csv">
+    </label>
+    <div id="yukleDurum" style="font-size:12.5px;margin-top:8px"></div>
+  </div>
+
+  <div class="adim pasif" id="a2">
+    <span class="no">2</span><h2>Kolonları eşleştir</h2>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki hangi kolon ne? Otomatik tahmin ettim — yanlışsa düzelt.</div>
+    <div class="grid" style="margin-top:10px" id="eslesGrid"></div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:8px">💡 Bankalar borç/alacak için ya <b>iki ayrı kolon</b> (Borç, Alacak) ya <b>tek kolon + işaret</b> (eksi=çıkış) kullanır. İkisini de destekliyoruz.</div>
+  </div>
+
+  <div class="adim pasif" id="a3">
+    <span class="no">3</span><h2>Açıklama → hesap kodu kuralları</h2>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki açıklama şu kelimeyi içeriyorsa, karşı hesap şu olsun. Kural ekle/çıkar — <b>bir kez öğret, hep kullan.</b> Eşleşmeyen hareket "kontrol et" işaretlenir (uydurulmaz).</div>
+    <div id="kurallar" style="margin-top:12px"></div>
+    <button class="btn k" id="kuralEkle">+ Kural ekle</button>
+    <div class="grid" style="margin-top:12px">
+      <div><label class="f">EŞLEŞMEYEN HAREKET İÇİN GEÇİCİ HESAP</label><input class="t" id="varsayilanHesap" value="679.99" placeholder="ör. 679.99 (kontrol et)"></div>
+    </div>
+  </div>
+
+  <div class="adim pasif" id="a4">
+    <span class="no">4</span><h2>Fişleri üret ve kontrol et</h2>
+    <button class="btn" id="uret">⚙️ Fişleri üret</button>
+    <div id="ozet" style="margin-top:14px"></div>
+    <div id="onizleme"></div>
+  </div>
+
+  <div class="uyari"><b>Deterministik üretim:</b> tutarlar ekstreden birebir okunur, yapay zekâ rakam üretmez. Her fişte <b>borç toplamı = alacak toplamı</b> kontrol edilir; eşleşmeyen açıklamalar "kontrol et" olarak işaretlenir. <b style="color:var(--amber)">Üretilen Excel'i Luca'ya aktarmadan önce gözden geçir</b> — bu araç muhasebecinin işini hızlandırır, yerini almaz.</div>
+  <div class="dip">Fiş Fabrikası · Banka ekstresi → Luca 14 kolon aktarım formatı · Tümü tarayıcıda işlenir (veri sunucuya gitmez) · bir Dizdar Denetim A.Ş. yazılımı</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+let HAM=[], BASLIKLAR=[];
+// Luca 14 kolon (sabit sözleşme)
+const LUCA_KOL=["Fiş No","Fiş Tarihi","Fiş Açıklama","Hesap Kodu","Evrak No","Evrak Tarihi","Detay Açıklama","Borç","Alacak","Miktar","Belge Türü","Para Birimi","Kur","Döviz Tutar"];
+// varsayılan kelime→hesap kuralları (Cem zenginleştirir)
+const VARSAYILAN_KURAL=[
+ {k:"MAAŞ", h:"335"}, {k:"UCRET", h:"335"}, {k:"PERSONEL", h:"335"},
+ {k:"KIRA", h:"770"}, {k:"ELEKTRIK", h:"770"}, {k:"SU FATURA", h:"770"}, {k:"DOGALGAZ", h:"770"}, {k:"TELEFON", h:"770"}, {k:"INTERNET", h:"770"},
+ {k:"SGK", h:"361"}, {k:"SSK", h:"361"}, {k:"PRIM", h:"361"},
+ {k:"VERGI", h:"360"}, {k:"KDV", h:"360"}, {k:"MTV", h:"360"}, {k:"STOPAJ", h:"360"}, {k:"MUHTASAR", h:"360"},
+ {k:"POS", h:"600"}, {k:"SANAL POS", h:"600"}, {k:"TAHSILAT", h:"120"},
+ {k:"KOMISYON", h:"653"}, {k:"MASRAF", h:"770"}, {k:"ISLEM UCRETI", h:"653"}, {k:"BSMV", h:"770"}, {k:"HESAP ISLETIM", h:"770"},
+ {k:"FAIZ", h:"642"}, {k:"EFT", h:"120"}, {k:"HAVALE", h:"120"}, {k:"KREDI", h:"300"}
+];
+const trUp=s=>(''+s).replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
+const say=s=>{ if(s==null) return null; let t=(''+s).replace(/[^\d,.\-]/g,'').trim(); if(!t) return null;
+  // Türk formatı: 1.234,56 -> 1234.56 ; ondalık , varsa nokta binlik
+  if(t.indexOf(',')>=0){ t=t.replace(/\./g,'').replace(',','.'); }
+  const n=parseFloat(t); return isNaN(n)?null:n; };
+const tarihFmt=v=>{ if(v==null||v==='') return '';
+  if(v instanceof Date) return String(v.getDate()).padStart(2,'0')+'.'+String(v.getMonth()+1).padStart(2,'0')+'.'+v.getFullYear();
+  if(typeof v==='number'){ const d=XLSX.SSF.parse_date_code(v); if(d) return String(d.d).padStart(2,'0')+'.'+String(d.m).padStart(2,'0')+'.'+d.y; }
+  return (''+v).trim(); };
+
+// ---- 1) DOSYA YÜKLE ----
+async function dosyaSecildi(f){
+  if(!f) return;
+  $('#yukleDurum').innerHTML='<span style="color:var(--muted)">📄 '+f.name+' okunuyor…</span>';
+  try{
+    const buf=await f.arrayBuffer();
+    const wb=XLSX.read(buf,{type:'array',cellDates:true});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const satirlar=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''});
+    // ilk dolu satırı başlık kabul et
+    let bi=satirlar.findIndex(r=>r.some(c=>(''+c).trim()!==''));
+    if(bi<0) throw new Error('boş');
+    BASLIKLAR=satirlar[bi].map((c,i)=>(''+c).trim()||('Sütun '+(i+1)));
+    HAM=satirlar.slice(bi+1).filter(r=>r.some(c=>(''+c).trim()!==''));
+    $('#yukleDurum').innerHTML='<span class="rozet ok">✓ '+HAM.length+' hareket satırı okundu</span>';
+    kolonEsles(); a3Kur(); ['#a2','#a3','#a4'].forEach(x=>$(x).classList.remove('pasif'));
+  }catch(e){ $('#yukleDurum').innerHTML='<span class="rozet hata">✗ Dosya okunamadı — Excel/CSV olduğundan emin ol</span>'; }
+}
+
+// ---- 2) KOLON EŞLEŞTİRME (otomatik tahmin) ----
+function tahmin(anahtarlar){ // başlık adından hangi kolon
+  const norm=BASLIKLAR.map(b=>trUp(b));
+  for(const a of anahtarlar){ const i=norm.findIndex(b=>b.includes(a)); if(i>=0) return i; }
+  return -1;
+}
+function kolonEsles(){
+  const alanlar=[
+    {id:'kTarih', ad:'Tarih', ipuc:['TARİH','İŞLEM TAR','VALÖR']},
+    {id:'kAcik', ad:'Açıklama', ipuc:['AÇIKLAMA','İŞLEM','DETAY']},
+    {id:'kBorc', ad:'Borç / Çıkış (opsiyonel)', ipuc:['BORÇ','ÇIKIŞ','ÖDEME','GİDEN']},
+    {id:'kAlacak', ad:'Alacak / Giriş (opsiyonel)', ipuc:['ALACAK','GİRİŞ','GELEN']},
+    {id:'kTutar', ad:'Tutar (tek kolon +/-, opsiyonel)', ipuc:['TUTAR','İŞLEM TUTAR','MİKTAR']}
+  ];
+  const secenek=(sel)=>'<option value="-1">— seçme —</option>'+BASLIKLAR.map((b,i)=>'<option value="'+i+'"'+(i===sel?' selected':'')+'>'+b+'</option>').join('');
+  $('#eslesGrid').innerHTML=alanlar.map(a=>{
+    const s=tahmin(a.ipuc);
+    return '<div><label class="f">'+a.ad+'</label><select id="'+a.id+'">'+secenek(s)+'</select></div>';
+  }).join('');
+}
+
+// ---- 3) KURAL MOTORU ----
+function kuralSatir(k='',h=''){
+  const d=document.createElement('div'); d.className='kural';
+  d.innerHTML='<input placeholder="açıklama kelimesi (ör. KİRA)" value="'+k+'"><input class="hk" placeholder="hesap kodu" value="'+h+'"><button title="sil">✕</button>';
+  d.querySelector('button').onclick=()=>d.remove();
+  return d;
+}
+function a3Kur(){
+  if($('#kurallar').children.length) return; // bir kez
+  VARSAYILAN_KURAL.forEach(r=>$('#kurallar').appendChild(kuralSatir(r.k,r.h)));
+}
+$('#kuralEkle').onclick=()=>$('#kurallar').appendChild(kuralSatir());
+function kurallariAl(){
+  return [...$('#kurallar').children].map(d=>{
+    const inp=d.querySelectorAll('input');
+    return {k:trUp(inp[0].value.trim()), h:inp[1].value.trim()};
+  }).filter(r=>r.k && r.h);
+}
+
+// ---- 4) FİŞ ÜRET ----
+function hesapBul(acik, kurallar, varsayilan){
+  const A=trUp(acik);
+  for(const r of kurallar){ if(A.includes(r.k)) return {hesap:r.h, kesin:true}; }
+  return {hesap:varsayilan, kesin:false};
+}
+$('#uret').onclick=()=>{
+  const iT=+$('#kTarih').value, iA=+$('#kAcik').value, iB=+$('#kBorc').value, iAl=+$('#kAlacak').value, iTu=+$('#kTutar').value;
+  if(iT<0||iA<0){ $('#ozet').innerHTML='<span class="rozet hata">✗ Tarih ve Açıklama kolonlarını seç</span>'; return; }
+  if(iB<0&&iAl<0&&iTu<0){ $('#ozet').innerHTML='<span class="rozet hata">✗ Borç/Alacak ya da Tutar kolonunu seç</span>'; return; }
+  const banka=$('#bankaHesap').value.trim()||'102', onek=$('#fisOnek').value.trim(), varsay=$('#varsayilanHesap').value.trim()||'679.99';
+  const kurallar=kurallariAl();
+  const rows=[]; let toplamB=0, toplamA=0, kontrolSay=0, fisNo=0;
+  for(const r of HAM){
+    const tar=tarihFmt(r[iT]), acik=(''+r[iA]).trim();
+    let cikis=0, giris=0;
+    if(iTu>=0){ const t=say(r[iTu])||0; if(t<0) cikis=-t; else giris=t; }
+    else { cikis=say(r[iB])||0; giris=say(r[iAl])||0; }
+    if(!cikis && !giris) continue; // boş hareket
+    fisNo++;
+    const {hesap,kesin}=hesapBul(acik, kurallar, varsay);
+    const detay=(kesin?'':'⚠ KONTROL ET — ')+acik;
+    // ÇİFT TARAFLI KAYIT
+    if(giris>0){ // para girişi: banka BORÇ, karşı hesap ALACAK
+      rows.push(luca(fisNo,tar,onek,banka,detay,giris,0)); toplamB+=giris;
+      rows.push(luca(fisNo,tar,onek,hesap,detay,0,giris,!kesin)); toplamA+=giris;
+    }
+    if(cikis>0){ // para çıkışı: karşı hesap BORÇ, banka ALACAK
+      rows.push(luca(fisNo,tar,onek,hesap,detay,cikis,0,!kesin)); toplamB+=cikis;
+      rows.push(luca(fisNo,tar,onek,banka,detay,0,cikis)); toplamA+=cikis;
+    }
+    if(!kesin) kontrolSay++;
+  }
+  window._LUCA=rows;
+  const denk=Math.abs(toplamB-toplamA)<0.01;
+  const tl=n=>n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  $('#ozet').innerHTML=
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+    +'<span class="rozet '+(denk?'ok':'hata')+'">'+(denk?'✓ DENGE TAMAM':'✗ DENGE BOZUK')+' · Borç '+tl(toplamB)+' = Alacak '+tl(toplamA)+'</span>'
+    +'<span class="rozet '+(kontrolSay?'uyar':'ok')+'">'+fisNo+' fiş'+(kontrolSay?(' · '+kontrolSay+' hareket KONTROL ET'):'')+'</span>'
+    +(denk?'<button class="btn" style="margin:0" id="indir">📥 Luca Excel indir</button>':'')
+    +'</div>';
+  onizle(rows);
+  if(denk) $('#indir').onclick=()=>indir(rows);
+};
+function luca(no,tar,onek,hesap,detay,borc,alacak,kontrol){
+  return {"Fiş No":no,"Fiş Tarihi":tar,"Fiş Açıklama":onek+' '+tar,"Hesap Kodu":hesap,"Evrak No":"","Evrak Tarihi":tar,"Detay Açıklama":detay,"Borç":borc||"","Alacak":alacak||"","Miktar":"","Belge Türü":"","Para Birimi":"TL","Kur":"","Döviz Tutar":"","_kontrol":!!kontrol};
+}
+function onizle(rows){
+  const ilk=rows.slice(0,12);
+  $('#onizleme').innerHTML='<div class="tablosar"><table><thead><tr>'+LUCA_KOL.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead><tbody>'
+    +ilk.map(r=>'<tr'+(r._kontrol?' style="background:rgba(255,194,75,.06)"':'')+'>'+LUCA_KOL.map(k=>'<td'+(k==='Hesap Kodu'?' class="kh"':'')+(k==='Detay Açıklama'&&r._kontrol?' class="kontrolet"':'')+'>'+(r[k]===''?'':r[k])+'</td>').join('')+'</tr>').join('')
+    +'</tbody></table></div>'+(rows.length>12?'<div style="font-size:11.5px;color:var(--dim);margin-top:6px">… ilk 12 satır gösteriliyor, toplam '+rows.length+' satır. Tamamı Excel\'de.</div>':'');
+}
+function indir(rows){
+  const temiz=rows.map(r=>{ const o={}; LUCA_KOL.forEach(k=>o[k]=r[k]); return o; });
+  const ws=XLSX.utils.json_to_sheet(temiz,{header:LUCA_KOL});
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Fiş Aktarım Şablon");
+  XLSX.writeFile(wb,"luca-fis-aktarim.xlsx");
+}
+
+// ---- olaylar ----
+document.addEventListener('DOMContentLoaded',()=>{
+  const kutu=$('#yukleKutu'), inp=$('#dosya');
+  inp.addEventListener('change',e=>{ if(e.target.files[0]) dosyaSecildi(e.target.files[0]); });
+  ['dragover','dragenter'].forEach(ev=>kutu.addEventListener(ev,e=>{e.preventDefault();kutu.classList.add('suru');}));
+  ['dragleave','drop'].forEach(ev=>kutu.addEventListener(ev,e=>{e.preventDefault();kutu.classList.remove('suru');}));
+  kutu.addEventListener('drop',e=>{const f=e.dataTransfer.files[0]; if(f) dosyaSecildi(f);});
+});
+</script>
+</body>
+</html>
