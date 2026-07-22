@@ -18,7 +18,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $MODEL_URET = "claude-sonnet-5"
 $MODEL_COZ  = "claude-haiku-4-5-20251001"
-$KONU_LIMIT = 3
+$KONU_LIMIT = 6    # Cem 23.07 "daha fazla soru" — 3'ten 6 konuya cikarildi (kosu basi 30 aday)
 $ADET = 5
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
@@ -78,14 +78,24 @@ if($env:SUPABASE_SERVICE_KEY){
 # MESLEK ODAGI: Yabanci Dil ve Genel Kultur uretim hedefi DEGIL — kozumuz
 # kaynak-maddeli meslek sorulari (Muhasebe/Hukuk/Ekonomi/Maliye/Mat-Ist).
 $HARIC_DERS = @('Yabanci Dil','Genel Kultur-Genel Yetenek')
+# konu anahtari: "SINAV|ders|konu" — SGS + SMMM Yeterlilik AYNI fabrikadan beslenir
 $konular=@{}
 foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Properties){
   $dAd = ($p.Name -split '\|')[0]
   if($HARIC_DERS -contains $dAd){ continue }
-  $konular[$p.Name]=[int]$konular[$p.Name]+[int]$p.Value } }
+  $konular["SGS|"+$p.Name]=[int]$konular["SGS|"+$p.Name]+[int]$p.Value } }
+$analizSYol = Join-Path $kok "veri/smmm-analiz.json"
+if(Test-Path $analizSYol){
+  try {
+    $analizS = Get-Content $analizSYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($dn in @($analizS.donemler)){ foreach($p in $dn.konuSayim.PSObject.Properties){
+      $konular["SMMM|"+$p.Name]=[int]$konular["SMMM|"+$p.Name]+[int]$p.Value } }
+    Write-Host ("Yeterlilik haritasi da hedefte: {0} donem-ders." -f @($analizS.donemler).Count)
+  } catch { Write-Host "smmm-analiz okunamadi - yalniz SGS hedeflenecek." }
+}
 $bankaSay=@{}
 foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
-$hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[$_.Key] -lt 10 } | Select-Object -First $KONU_LIMIT
+$hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt 10 } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum agir konularda 10+ soru var - banka doygun."; exit 0 }
 
 $mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
@@ -94,10 +104,11 @@ if($banka.sorular){ $yeniListe.AddRange(@($banka.sorular)) }
 $rapor = New-Object System.Collections.Generic.List[string]
 
 foreach($h in $hedefler){
-  $parca = $h.Key -split '\|'; $ders=$parca[0]; $konu=$parca[1]
-  Write-Host ("=== {0} / {1} (haritada {2} soru getirmis) icin {3} ozgun soru uretiliyor..." -f $ders,$konu,$h.Value,$ADET)
+  $parca = $h.Key -split '\|'; $sinavAd=$parca[0]; $ders=$parca[1]; $konu=$parca[2]
+  $sinavTanim = if($sinavAd -eq 'SMMM'){ "TURMOB-TESMER SMMM Yeterlilik Sinavi (2026/1'den beri coktan secmeli test)" } else { "TESMER Staja Giris Sinavi (SGS)" }
+  Write-Host ("=== [{0}] {1} / {2} (haritada {3} soru getirmis) icin {4} ozgun soru uretiliyor..." -f $sinavAd,$ders,$konu,$h.Value,$ADET)
   $uIstem = @"
-Sen TESMER Staja Giris Sinavi (SGS) tarzinda OZGUN coktan secmeli soru yazan uzman bir egitimcisin. Ders: $ders · Konu: $konu
+Sen $sinavTanim tarzinda OZGUN coktan secmeli soru yazan uzman bir egitimcisin. Ders: $ders · Konu: $konu
 $ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz. CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular.
 KURALLAR:
 1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
@@ -135,7 +146,7 @@ SADECE su JSON dizisini dondur:
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); break }
     }
     if(-not $ok){ continue }
-    $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav="SGS"; ders=$ders; konu=$konu;
+    $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav=$sinavAd; ders=$ders; konu=$konu;
       soru=$s.soru; siklar=$s.siklar; dogru=$s.dogru; aciklama=$s.aciklama; kaynak=$s.kaynak; hap="$($s.hap)"; ambar=$at;
       uretim=(Get-Date -Format "dd.MM.yyyy"); durum="onay-bekliyor" })
     $mevcutKokler += $kokOzet
