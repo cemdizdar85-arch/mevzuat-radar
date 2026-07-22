@@ -252,6 +252,10 @@ function cevabiGor(){
     h+='<div class="gk'+(d?' dogruG':'')+'"><span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+esc(s.aciklama[harf])+'</span></div>';
   });
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
+  if(s.hap){
+    var yanlisMi=(SECILI!==s.dogru);
+    h+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+(yanlisMi?'📖 <b>Yanlış yaptın — konuyu 60 saniyede oku:</b> ':'📖 <b>Konu özeti:</b> ')+esc(s.hap)+'</div>';
+  }
   g.innerHTML=h; g.classList.remove('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.remove('gizli');
@@ -304,6 +308,7 @@ function karneCiz(){
       y+='<div class="gk"><span class="h" style="color:var(--red)">'+esc(o.c)+' ✗</span><span>Senin cevabın: '+esc(s.siklar[o.c]||'')+' — '+esc((s.aciklama&&s.aciklama[o.c])||'')+'</span></div>';
       y+='<div class="gk dogruG"><span class="h">'+esc(s.dogru)+' ✓</span><span>'+esc(s.siklar[s.dogru]||'')+' — '+esc((s.aciklama&&s.aciklama[s.dogru])||'')+'</span></div>';
       if(s.kaynak) y+='<div class="kaynakKutu">📑 '+esc(s.kaynak)+'</div>';
+      if(s.hap) y+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">📖 <b>Konuyu 60 saniyede oku:</b> '+esc(s.hap)+'</div>';
       y+='</div>';
     });
     document.getElementById('kYanlisKutu').innerHTML=y;
