@@ -104,9 +104,13 @@ SADECE su JSON dizisini dondur:
     $kokOzet = (Fold $s.soru); $kokOzet = $kokOzet.Substring(0,[Math]::Min(60,$kokOzet.Length))
     # KAPI 5: kok tekrari
     if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); continue }
-    # KAPI 4: yil-degisen tutar
-    if($s.soru -match '\d[\d\.\,]*\s*(TL|lira)' -or ($s.siklar.PSObject.Properties.Value -join ' ') -match 'TL'){
-      if($s.soru -notmatch '(?i)(varsayalim|kabul edin|X isletmesi|ornekte)'){ $rapor.Add("RET (TL tutari): $konu"); continue } }
+    # KAPI 4: yil-degisen KANUNI tutar (ornek islem tutarlari SERBEST — muhasebe
+    # hesap sorusu tutarsiz olmaz; yasak olan "asgari ucret/had/istisna kac TL" tipi,
+    # her yil guncellenen mevzuat tutarini ezber soran soru). 22.07 dersi: eski hal
+    # TUM TL'li sorulari kesiyordu -> fabrika 0 uretti.
+    $tumMetin = "$($s.soru) " + (($s.siklar.PSObject.Properties.Value) -join ' ')
+    if($tumMetin -match '(?i)(asgari ucret|asgari ücret|istisna tutar|had{1,2}i|beyan sinir|beyan sınır|tavan tutar|maktu|yeniden degerleme oran|yeniden değerleme oran|fatura duzenleme sinir|fatura düzenleme sınır|defter tutma had)' -and $tumMetin -match '(TL|lira)'){
+      $rapor.Add("RET (yil-degisen kanuni tutar): $konu"); continue }
     # KAPI 3: ambar teyidi
     $at = AmbarTeyit $s.kaynak
     if($at -eq 'yok'){ $rapor.Add("RET (ambar: kaynak yok): $($s.kaynak)"); continue }
@@ -128,6 +132,8 @@ SADECE su JSON dizisini dondur:
 
 $banka.sorular = $yeniListe.ToArray()
 $banka.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
+# son kosu raporu dosyaya da yazilir — log okunamayan ortamda 0-uretim teshisi icin
+$banka | Add-Member -NotePropertyName sonKosuRaporu -NotePropertyValue @($rapor | Select-Object -Last 40) -Force
 [IO.File]::WriteAllText($bankaYol, ($banka | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 Write-Host "--- RAPOR ---"; $rapor | ForEach-Object { Write-Host "  $_" }
 Write-Host ("BANKA: toplam {0} soru (onay bekleyen dahil)." -f @($banka.sorular).Count)
