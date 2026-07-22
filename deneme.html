@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deneme Sınavı — SGS soru kabini: her şıkkın gerekçesi, kaynak maddesi | Tetikte</title>
+<meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu — ezber değil, gerekçe.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.09),transparent 72%);pointer-events:none}
+a{color:var(--accent2)}.wrap{max-width:820px;margin:0 auto;padding:24px 18px 70px;position:relative}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 20px}
+h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
+.panel{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px 22px;margin-top:14px}
+.etiket{font-size:10.5px;font-weight:800;letter-spacing:1.1px;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
+.secgrup{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.sec{background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:9px 15px;cursor:pointer;user-select:none}
+.sec.aktif{background:linear-gradient(135deg,rgba(47,123,255,.18),rgba(38,208,254,.10));border-color:rgba(62,155,255,.55);color:var(--ink)}
+.sec small{font-weight:600;color:var(--dim)}
+.basla{background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:15px;padding:13px 30px;border:none;border-radius:12px;cursor:pointer;margin-top:6px}
+.basla:disabled{opacity:.4;cursor:not-allowed}
+.ilerleme{height:6px;background:#0a0f17;border-radius:99px;overflow:hidden;margin:14px 0 18px}
+.ilerleme div{height:100%;background:var(--grad);border-radius:99px;transition:width .3s}
+.soruUst{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--dim);flex-wrap:wrap}
+.rozet{font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.soruMetin{font-size:16.5px;font-weight:600;margin:14px 0 16px;line-height:1.65}
+.sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#0a0f17;border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
+.sik:hover{border-color:rgba(62,155,255,.5)}
+.sik .harf{font-family:var(--mono);font-weight:800;color:var(--accent2);flex-shrink:0}
+.sik.secili{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.14),rgba(38,208,254,.06))}
+.sik.dogru{border-color:rgba(61,220,151,.65);background:linear-gradient(135deg,rgba(61,220,151,.13),transparent)}
+.sik.yanlis{border-color:rgba(255,107,94,.6);background:linear-gradient(135deg,rgba(255,107,94,.12),transparent)}
+.sik:disabled{cursor:default}
+.gerekce{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.gk{display:flex;gap:10px;font-size:13.5px;margin-bottom:9px;color:var(--muted)}
+.gk .h{font-family:var(--mono);font-weight:800;flex-shrink:0;width:18px}
+.gk.dogruG{color:var(--ink)}.gk.dogruG .h{color:var(--green)}
+.gk .h{color:var(--red)}
+.kaynakKutu{font-size:12.5px;color:var(--green);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:11px;padding:9px 13px;margin-top:10px}
+.altBar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.devam{background:var(--grad);color:#03101f;font-weight:800;font-size:14px;padding:11px 26px;border:none;border-radius:11px;cursor:pointer}
+.ikincil{background:none;border:1px solid var(--line2);color:var(--muted);font:inherit;font-size:13px;font-weight:700;padding:10px 18px;border-radius:11px;cursor:pointer}
+.hataLink{font-size:11.5px;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;padding:0}
+.skorIzgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.skart{background:#0a0f17;border:1px solid var(--line2);border-radius:13px;padding:14px 16px;text-align:center}
+.skart .b{font-size:26px;font-weight:800;letter-spacing:-1px}
+.skart .a{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:#0a0f17}
+.bos{color:var(--muted);font-size:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.25);border-radius:13px;padding:16px 18px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.gizli{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Deneme Sınavı</div>
+  <h1>Deneme Sınavı — soru kabini</h1>
+  <p class="lead">Özgün sorular; her şıkkın <b style="color:var(--ink)">neden doğru / neden yanlış</b> olduğu, altında kaynak kuralı. Ezber değil, gerekçe. Yanlışın nedenini gördüğün soru, sınavda bir daha yanılmadığın sorudur.</p>
+
+  <!-- KURULUM -->
+  <div id="ekranKurulum">
+    <div class="panel">
+      <div class="etiket">1 · Ders seç</div>
+      <div class="secgrup" id="dersSec"></div>
+      <div class="etiket">2 · Soru sayısı</div>
+      <div class="secgrup" id="adetSec"></div>
+      <div class="etiket">3 · Mod</div>
+      <div class="secgrup" id="modSec">
+        <button class="sec aktif" data-mod="calisma">📖 Çalışma <small>— her sorudan sonra gerekçeler</small></button>
+        <button class="sec" data-mod="deneme">⏱ Deneme <small>— karne sonda</small></button>
+      </div>
+      <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
+      <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
+    </div>
+    <div id="gecmisKutu" class="gizli">
+      <h2>📈 Önceki oturumların</h2>
+      <div class="tablosar"><table id="gecmisTablo"><tr><th>Tarih</th><th>Soru</th><th>Doğru</th><th>Başarı</th></tr></table></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">Geçmiş yalnız bu cihazda tutulur (tarayıcı hafızası). Üyelikle cihazlar arası istatistik yolda.</div>
+    </div>
+  </div>
+
+  <!-- SORU -->
+  <div id="ekranSoru" class="gizli">
+    <div class="soruUst">
+      <span id="soruSayac" style="font-weight:800;color:var(--ink)"></span>
+      <span><span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
+    </div>
+    <div class="ilerleme"><div id="ilerlemeBar" style="width:0%"></div></div>
+    <div class="panel">
+      <div class="soruMetin" id="soruMetin"></div>
+      <div id="sikKutu"></div>
+      <div class="gerekce gizli" id="gerekceKutu"></div>
+      <div class="altBar">
+        <button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button>
+        <span>
+          <button class="ikincil" id="birakBtn" onclick="birak()">Bırak</button>
+          <button class="devam gizli" id="gorBtn" onclick="cevabiGor()">Cevabı gör</button>
+          <button class="devam gizli" id="devamBtn" onclick="sonraki()">Sıradaki →</button>
+        </span>
+      </div>
+      <div id="hataKutu" class="gizli" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Ne hatalı görünüyor? Kısaca yaz — aynı gün bakılır, haklıysan düzeltme şeffaf yayınlanır.</div>
+        <textarea id="hataMetin" rows="2" style="width:100%;background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px 12px;resize:vertical"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="ikincil" onclick="hataGonder()" style="border-color:rgba(255,194,75,.4);color:var(--amber)">Bildir</button>
+          <button class="ikincil" onclick="document.getElementById('hataKutu').classList.add('gizli')">Vazgeç</button>
+        </div>
+        <div id="hataTesekkur" class="gizli" style="color:var(--green);font-size:13px;font-weight:700;margin-top:8px">✓ Bildirimin ekibe düştü — teşekkürler.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KARNE -->
+  <div id="ekranKarne" class="gizli">
+    <h2>📋 Karne</h2>
+    <div class="skorIzgara">
+      <div class="skart"><div class="b" style="color:var(--green)" id="kDogru">0</div><div class="a">Doğru</div></div>
+      <div class="skart"><div class="b" style="color:var(--red)" id="kYanlis">0</div><div class="a">Yanlış</div></div>
+      <div class="skart"><div class="b" style="color:var(--dim)" id="kBos">0</div><div class="a">Boş</div></div>
+      <div class="skart"><div class="b" id="kYuzde">%0</div><div class="a">Başarı</div></div>
+    </div>
+    <div id="kDersKutu"></div>
+    <div id="kYanlisKutu"></div>
+    <div class="altBar" style="margin-top:20px">
+      <a href="genc.html" style="font-size:13px">← Sınav Haritası'na dön</a>
+      <button class="devam" onclick="location.reload()">Yeni oturum →</button>
+    </div>
+  </div>
+
+  <div class="dip">Bu sorular <b>Tetikte özgün üretimidir</b> — çıkmış sınav sorusu kopyalanmaz; sorular, resmî kitapçıkların konu haritasına göre sıfırdan yazılır ve çift bağımsız çözücü + kaynak denetiminden geçer. Yine de bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir: aynı gün bakarız, düzeltme <a href="genc.html">şeffaf</a> yayınlanır. · <a href="kvkk.html">KVKK</a></div>
+</div>
+
+<script>
+var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=false;
+var seciliDersler={}, seciliAdet=10;
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+fetch('veri/soru-bankasi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  BANKA=(d.sorular||[]).filter(function(s){return s.durum==='yayin';});
+  kurulumCiz();
+}).catch(function(){ BANKA=[]; kurulumCiz(); });
+
+function kurulumCiz(){
+  var dersler={};
+  BANKA.forEach(function(s){ dersler[s.ders]=(dersler[s.ders]||0)+1; });
+  var dk=document.getElementById('dersSec'), adlar=Object.keys(dersler).sort();
+  if(!BANKA.length){
+    dk.parentNode.innerHTML='<div class="bos"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor — her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>';
+    return;
+  }
+  adlar.forEach(function(a){
+    seciliDersler[a]=true;
+    var b=document.createElement('button');
+    b.className='sec aktif'; b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
+    b.onclick=function(){ seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif'); adetCiz(); };
+    dk.appendChild(b);
+  });
+  document.getElementById('modSec').querySelectorAll('.sec').forEach(function(b){
+    b.onclick=function(){
+      document.getElementById('modSec').querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
+      b.classList.add('aktif'); MOD=b.dataset.mod;
+    };
+  });
+  adetCiz(); gecmisCiz();
+}
+
+function havuz(){ return BANKA.filter(function(s){return seciliDersler[s.ders];}); }
+
+function adetCiz(){
+  var n=havuz().length, ak=document.getElementById('adetSec'); ak.innerHTML='';
+  var secenekler=[5,10,20,40].filter(function(x){return x<n;}); secenekler.push(n);
+  if(seciliAdet>n) seciliAdet=n;
+  if(secenekler.indexOf(seciliAdet)<0) seciliAdet=secenekler[0]||n;
+  secenekler.forEach(function(x){
+    var b=document.createElement('button');
+    b.className='sec'+(x===seciliAdet?' aktif':''); b.textContent=(x===n?'Hepsi ('+n+')':x+' soru');
+    b.onclick=function(){ seciliAdet=x; adetCiz(); };
+    ak.appendChild(b);
+  });
+  document.getElementById('baslaBtn').disabled=(n===0);
+  document.getElementById('bankaNot').textContent='Bankada '+BANKA.length+' onaylı soru var; banka her hafta büyür. Sorular önce görmediklerinden seçilir.';
+}
+
+function basla(){
+  var h=havuz(); if(!h.length) return;
+  var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
+  var yeni=h.filter(function(s){return !gorulen[s.id];}), eski=h.filter(function(s){return gorulen[s.id];});
+  karistir(yeni); karistir(eski);
+  SORULAR=yeni.concat(eski).slice(0,seciliAdet);
+  karistir(SORULAR);
+  IDX=0; CEVAPLAR={};
+  document.getElementById('ekranKurulum').classList.add('gizli');
+  document.getElementById('ekranSoru').classList.remove('gizli');
+  soruCiz();
+}
+
+function karistir(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } }
+
+function soruCiz(){
+  var s=SORULAR[IDX]; SECILI=null; KILIT=false;
+  document.getElementById('soruSayac').textContent='Soru '+(IDX+1)+' / '+SORULAR.length;
+  document.getElementById('soruDers').textContent=s.ders;
+  document.getElementById('soruKonu').textContent=s.konu;
+  document.getElementById('ilerlemeBar').style.width=Math.round(100*IDX/SORULAR.length)+'%';
+  document.getElementById('soruMetin').textContent=s.soru;
+  var sk=document.getElementById('sikKutu'); sk.innerHTML='';
+  ['A','B','C','D','E'].forEach(function(h){
+    if(!(h in s.siklar)) return;
+    var b=document.createElement('button');
+    b.className='sik'; b.dataset.h=h;
+    b.innerHTML='<span class="harf">'+h+'</span><span>'+esc(s.siklar[h])+'</span>';
+    b.onclick=function(){ if(KILIT) return; SECILI=h;
+      sk.querySelectorAll('.sik').forEach(function(x){x.classList.remove('secili');});
+      b.classList.add('secili');
+      if(MOD==='calisma'){ document.getElementById('gorBtn').classList.remove('gizli'); }
+      else { CEVAPLAR[s.id]=h; document.getElementById('devamBtn').classList.remove('gizli'); }
+    };
+    sk.appendChild(b);
+  });
+  document.getElementById('gerekceKutu').classList.add('gizli');
+  document.getElementById('gerekceKutu').innerHTML='';
+  document.getElementById('hataKutu').classList.add('gizli');
+  document.getElementById('gorBtn').classList.add('gizli');
+  document.getElementById('devamBtn').classList.toggle('gizli', MOD==='calisma');
+  if(MOD==='deneme') document.getElementById('devamBtn').classList.remove('gizli');
+  document.getElementById('devamBtn').textContent=(IDX===SORULAR.length-1)?'Karneyi gör →':'Sıradaki →';
+}
+
+function cevabiGor(){
+  if(!SECILI || KILIT) return;
+  var s=SORULAR[IDX]; KILIT=true; CEVAPLAR[s.id]=SECILI;
+  var sk=document.getElementById('sikKutu');
+  sk.querySelectorAll('.sik').forEach(function(b){
+    b.disabled=true;
+    if(b.dataset.h===s.dogru) b.classList.add('dogru');
+    else if(b.dataset.h===SECILI) b.classList.add('yanlis');
+  });
+  var g=document.getElementById('gerekceKutu'), h='';
+  ['A','B','C','D','E'].forEach(function(harf){
+    if(!(s.aciklama&&harf in s.aciklama)) return;
+    var d=(harf===s.dogru);
+    h+='<div class="gk'+(d?' dogruG':'')+'"><span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+esc(s.aciklama[harf])+'</span></div>';
+  });
+  if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
+  g.innerHTML=h; g.classList.remove('gizli');
+  document.getElementById('gorBtn').classList.add('gizli');
+  document.getElementById('devamBtn').classList.remove('gizli');
+}
+
+function sonraki(){
+  var s=SORULAR[IDX];
+  gorulenKaydet(s.id);
+  if(IDX<SORULAR.length-1){ IDX++; soruCiz(); window.scrollTo(0,0); }
+  else karneCiz();
+}
+
+var birakZaman=0;
+function birak(){
+  var b=document.getElementById('birakBtn');
+  if(Date.now()-birakZaman<4000){ karneCiz(); return; }
+  birakZaman=Date.now(); b.textContent='Emin misin? Bırak';
+  setTimeout(function(){ b.textContent='Bırak'; birakZaman=0; },4000);
+}
+
+function gorulenKaydet(id){
+  try{ var g=JSON.parse(localStorage.getItem('mrGorulen')||'[]'); if(g.indexOf(id)<0){ g.push(id); if(g.length>2000) g=g.slice(-2000); localStorage.setItem('mrGorulen',JSON.stringify(g)); } }catch(e){}
+}
+
+function karneCiz(){
+  document.getElementById('ekranSoru').classList.add('gizli');
+  document.getElementById('ekranKarne').classList.remove('gizli');
+  var dogru=0,yanlis=0,bos=0, ders={}, yanlislar=[];
+  SORULAR.forEach(function(s){
+    var c=CEVAPLAR[s.id];
+    ders[s.ders]=ders[s.ders]||{d:0,y:0,b:0};
+    if(!c){ bos++; ders[s.ders].b++; }
+    else if(c===s.dogru){ dogru++; ders[s.ders].d++; }
+    else { yanlis++; ders[s.ders].y++; yanlislar.push({s:s,c:c}); }
+  });
+  var cevapli=dogru+yanlis, yuzde=cevapli?Math.round(100*dogru/cevapli):0;
+  document.getElementById('kDogru').textContent=dogru;
+  document.getElementById('kYanlis').textContent=yanlis;
+  document.getElementById('kBos').textContent=bos;
+  document.getElementById('kYuzde').textContent='%'+yuzde;
+  var h='<h2>Ders kırılımı</h2><div class="tablosar"><table><tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr>';
+  Object.keys(ders).sort().forEach(function(k){ h+='<tr><td><b>'+esc(k)+'</b></td><td>'+ders[k].d+'</td><td>'+ders[k].y+'</td><td>'+ders[k].b+'</td></tr>'; });
+  h+='</table></div>';
+  document.getElementById('kDersKutu').innerHTML=h;
+  if(yanlislar.length){
+    var y='<h2>Yanlışların — gerekçeleriyle</h2>';
+    yanlislar.forEach(function(o){
+      var s=o.s;
+      y+='<div class="panel" style="margin-top:10px"><div class="soruMetin" style="font-size:14.5px;margin-top:0">'+esc(s.soru)+'</div>';
+      y+='<div class="gk"><span class="h" style="color:var(--red)">'+esc(o.c)+' ✗</span><span>Senin cevabın: '+esc(s.siklar[o.c]||'')+' — '+esc((s.aciklama&&s.aciklama[o.c])||'')+'</span></div>';
+      y+='<div class="gk dogruG"><span class="h">'+esc(s.dogru)+' ✓</span><span>'+esc(s.siklar[s.dogru]||'')+' — '+esc((s.aciklama&&s.aciklama[s.dogru])||'')+'</span></div>';
+      if(s.kaynak) y+='<div class="kaynakKutu">📑 '+esc(s.kaynak)+'</div>';
+      y+='</div>';
+    });
+    document.getElementById('kYanlisKutu').innerHTML=y;
+  }
+  try{
+    var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
+    g.push({t:new Date().toISOString().slice(0,10),n:SORULAR.length,d:dogru,y:yanlis});
+    if(g.length>50) g=g.slice(-50);
+    localStorage.setItem('mrDenemeGecmis',JSON.stringify(g));
+  }catch(e){}
+}
+
+function gecmisCiz(){
+  try{
+    var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
+    if(!g.length) return;
+    document.getElementById('gecmisKutu').classList.remove('gizli');
+    var t=document.getElementById('gecmisTablo');
+    g.slice(-8).reverse().forEach(function(o){
+      var cevapli=o.d+o.y, p=cevapli?Math.round(100*o.d/cevapli):0;
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+esc(o.t)+'</td><td>'+o.n+'</td><td>'+o.d+'</td><td><b>%'+p+'</b></td>';
+      t.appendChild(tr);
+    });
+  }catch(e){}
+}
+
+var sonBildirim=0;
+function hataKutuAc(){
+  document.getElementById('hataKutu').classList.remove('gizli');
+  document.getElementById('hataTesekkur').classList.add('gizli');
+  document.getElementById('hataMetin').focus();
+}
+function hataGonder(){
+  var s=SORULAR[IDX]; if(!s) return;
+  var not=(document.getElementById('hataMetin').value||'').trim();
+  if(!not) return;
+  if(Date.now()-sonBildirim>15000){
+    sonBildirim=Date.now();
+    try{
+      fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',subject:'SORU HATA BILDIRIMI ('+s.id+')',from_name:'Tetikte Deneme',message:'Soru id: '+s.id+' · '+s.ders+' / '+s.konu+'\nBildirim: '+not})});
+    }catch(e){}
+  }
+  document.getElementById('hataMetin').value='';
+  document.getElementById('hataTesekkur').classList.remove('gizli');
+  setTimeout(function(){ document.getElementById('hataKutu').classList.add('gizli'); },1800);
+}
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
