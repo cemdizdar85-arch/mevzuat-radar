@@ -307,8 +307,8 @@
     padding:6px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--bg2)}
 
   /* ---------- KİMLERE (alıcı segmentasyonu) ---------- */
-  .kim-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:920px;margin:0 auto}
-  @media(max-width:720px){.kim-grid{grid-template-columns:1fr}}
+  .kim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1180px;margin:0 auto}
+  @media(max-width:1000px){.kim-grid{grid-template-columns:1fr;max-width:560px}}
   .kimkart{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);
     border-radius:20px;padding:30px 28px;transition:transform .25s ease,border-color .25s ease;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
@@ -459,7 +459,7 @@
   <div class="sec-in">
     <div class="sec-head reveal">
       <h2>Sen hangisisin?</h2>
-      <p>İki farklı ihtiyaç, iki farklı kullanım. Kendine uyanı seç, sana göre başlayalım.</p>
+      <p>Tetikte tek iş yapar: <b style="color:var(--ink)">mevzuatı senin yerine izler.</b> Aşağıdaki her araç, aynı nöbetin farklı penceresidir — kendine uyan kapıdan gir, yalnız senin işine yarayanları gör.</p>
     </div>
     <div class="kim-grid">
       <a class="kimkart reveal" href="#app">
@@ -483,6 +483,17 @@
           <li>Müşterine "bak, bunu senin için yakaladık" de — değerini göster</li>
         </ul>
         <span class="kimcta">Müşavir erken erişimine katıl →</span>
+      </a>
+      <a class="kimkart reveal" href="genc.html">
+        <div class="ki">🎓</div>
+        <h3>Sınava hazırlanıyorum</h3>
+        <p>SGS ya da SMMM Yeterlilik yolundasın. Neye, ne kadar çalışacağını sistem söylesin.</p>
+        <ul>
+          <li>Sınav Haritası: hangi konudan kaç soru çıkıyor — 900+ çıkmış soru sayıldı</li>
+          <li>Deneme çöz; yanlışında her şıkkın gerekçesi + konuyu 60 saniyede öğren</li>
+          <li>Dönem Planı geri sayar, Son Gün 5 Saat finali yapar</li>
+        </ul>
+        <span class="kimcta">Sınav hattına gir →</span>
       </a>
     </div>
   </div>
