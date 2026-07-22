@@ -6,10 +6,16 @@
 name: Sinav Analizi
 
 on:
+  schedule:
+    - cron: "30 3 * * *"    # HER GUN 06:30 TR (Cem 23.07: "para gidecekse gitsin, hiz" — kuyruk bosken API maliyeti sifir, script aninda cikar)
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: sinav-analiz
+  cancel-in-progress: false
 
 jobs:
   analiz:
