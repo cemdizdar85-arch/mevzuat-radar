@@ -18,6 +18,8 @@ $izlenen = @(
   @{ yol='veri/bilgi-tabani.json';      say={ param($j) @($j.kayitlar).Count } },
   @{ yol='veri/sgs-analiz.json';        say={ param($j) @($j.donemler).Count } },
   @{ yol='veri/soru-bankasi-onay.json'; say={ param($j) @($j.sorular).Count } },
+  @{ yol='veri/soru-bankasi.json';      say={ param($j) @($j.sorular).Count } },
+  @{ yol='veri/smmm-analiz.json';       say={ param($j) @($j.donemler).Count } },
   @{ yol='veri/mevzuat-kaynaklar.json'; say={ param($j) @($j.kanunlar).Count } },
   @{ yol='veri/sinav-arsiv.json';       say={ param($j) @($j.donemler).Count } },
   @{ yol='veri/gtip-tanim.json';        say={ param($j) @($j.PSObject.Properties).Count } }
