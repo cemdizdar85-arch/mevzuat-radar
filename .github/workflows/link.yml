@@ -1,0 +1,32 @@
+# .github/workflows/link.yml — OLU LINK NOBETCISI (haftalik)
+# Sitedeki tum dis linkleri yoklar; kirik varsa rapor + mail.
+# API maliyeti sifir (saf HTTP), public repo Actions dakikasi ucretsiz.
+name: Olu Link Nobetcisi
+
+on:
+  schedule:
+    - cron: "30 4 * * 1"     # her pazartesi 04:30 UTC = 07:30 TR
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  linkler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dis linkleri yokla
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/link-nobetcisi.ps1
+      - name: Raporu kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/kirik-linkler.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Link nobetcisi: haftalik tarama $(TZ=Europe/Istanbul date +%d.%m.%Y)"
+          git pull --rebase origin main || true
+          git push || true
