@@ -78,6 +78,13 @@ td b{color:var(--ink)}
 
   <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et — bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
 
+  <div id="haritaY" style="display:none">
+    <h2>🗺️ Yeterlilik Haritası — SMMM sınavında nereden soru çıkıyor?</h2>
+    <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">SMMM Yeterlilik <b style="color:var(--ink)">2026/1'den itibaren test yöntemine geçti</b> (TESMER duyurusu). Resmî kitapçıklar ders ders, soru soru etiketleniyor (çift bağımsız okuma + hakem):</p>
+    <div id="haritaYIc"></div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak kitapçıklar: TESMER resmî arşivi. Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynağa bakın.</div>
+  </div>
+
   <div id="harita" style="display:none">
     <h2>🗺️ Sınav Haritası — SGS'de nereden kaç soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">Son dönemlerin resmî kitapçıkları soru soru etiketlendi (çift bağımsız okuma + hakem yöntemi). Aşağıda ders dağılımı ve en çok soru getiren konular:</p>
@@ -120,13 +127,19 @@ td b{color:var(--ink)}
 </div>
 
 <script>
+// ETİKET EŞANLAM SÖZLÜĞÜ — iki okumada farklı adla etiketlenen aynı konular tek satırda toplansın
+function konuEsle(k){
+  const es={'sentence completion':'cumle tamamlama','paragraf tamamlama':'paragraph completion','ceviri':'translation'};
+  const p=k.split('|'); if(p.length<2) return k;
+  const alt=p[1].toLowerCase(); return p[0]+'|'+(es[alt]||p[1]);
+}
 // SINAV HARİTASI — sgs-analiz.json varsa çiz (robot doldurunca kendiliğinden görünür)
 fetch('veri/sgs-analiz.json?'+Date.now()).then(r=>r.json()).then(d=>{
   if(!d.donemler || !d.donemler.length) return;
   const dersler={}, konular={};
   d.donemler.forEach(dn=>{
     Object.entries(dn.dersSayim||{}).forEach(([k,v])=>{ dersler[k]=(dersler[k]||0)+v; });
-    Object.entries(dn.konuSayim||{}).forEach(([k,v])=>{ konular[k]=(konular[k]||0)+v; });
+    Object.entries(dn.konuSayim||{}).forEach(([k,v])=>{ const kk=konuEsle(k); konular[kk]=(konular[kk]||0)+v; });
   });
   const dSir=Object.entries(dersler).sort((a,b)=>b[1]-a[1]);
   const kSir=Object.entries(konular).sort((a,b)=>b[1]-a[1]).slice(0,15);
@@ -141,6 +154,26 @@ fetch('veri/sgs-analiz.json?'+Date.now()).then(r=>r.json()).then(d=>{
   document.getElementById('haritaIc').innerHTML=h;
   document.getElementById('harita').style.display='block';
   document.getElementById('yoldaBaslik').textContent='🚧 Yolda: Günlük Quiz + Son Gün 5 Saat paketi';
+}).catch(()=>{});
+
+// YETERLİLİK HARİTASI — smmm-analiz.json dolunca kendiliğinden görünür (ders kitapçığı bazlı)
+fetch('veri/smmm-analiz.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  if(!d.donemler || !d.donemler.length) return;
+  let h='<div class="tablosar"><table><tr><th>Ders</th><th>Soru</th><th>Dönem</th><th>En çok çıkan konular</th></tr>';
+  const dersGrup={};
+  d.donemler.forEach(dn=>{
+    const g=dersGrup[dn.ders]=dersGrup[dn.ders]||{soru:0,donem:[],konular:{}};
+    g.soru+=dn.toplamSoru; g.donem.push(dn.donem);
+    Object.entries(dn.konuSayim||{}).forEach(([k,v])=>{ const alt=k.split('|')[1]||k; g.konular[alt]=(g.konular[alt]||0)+v; });
+  });
+  Object.entries(dersGrup).sort((a,b)=>b[1].soru-a[1].soru).forEach(([ders,g])=>{
+    const top=Object.entries(g.konular).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([k,v])=>k+' ('+v+')').join(' · ');
+    h+='<tr><td><b>'+ders+'</b></td><td>'+g.soru+'</td><td>'+g.donem.join(', ')+'</td><td style="font-size:12px;color:var(--muted)">'+top+'</td></tr>';
+  });
+  h+='</table></div>';
+  h+='<div style="font-size:12px;color:var(--dim);margin-top:8px">Güncelleme: '+(d.guncelleme||'')+' · Analiz kuyruğu her sabah otomatik işler; kalan kitapçıklar eklendikçe tablo büyür.</div>';
+  document.getElementById('haritaYIc').innerHTML=h;
+  document.getElementById('haritaY').style.display='block';
 }).catch(()=>{});
 
 // geri sayım: yaklaşan ilk 3 olay (bugüne göre) — tarihler yukarıdaki resmî tablodan

@@ -62,6 +62,18 @@ function AmbarTeyit($kaynak){
     if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
 }
 
+# KILITLI HAVUZ: Supabase'e tasinan paket sorulari da kok-tekrar ve doygunluk
+# hesabina girer (yoksa ayni sorular yeniden uretilirdi). Service key yalniz
+# Actions ortaminda vardir; yerelde/anahtarsiz zarifce atlanir.
+$havuzSorular = @()
+if($env:SUPABASE_SERVICE_KEY){
+  try {
+    $hh = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+    $havuzSorular = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=soru,ders,konu&limit=10000" -Headers $hh -TimeoutSec 60)
+    Write-Host ("Kilitli havuzdan {0} soru cekildi (kok/doygunluk)." -f $havuzSorular.Count)
+  } catch { Write-Host "Kilitli havuz cekilemedi (tablo henuz kurulmamis olabilir) - devam." }
+}
+
 # HARITA: en cok soru getiren konular (mevcut bankada az temsil edilenler oncelikli)
 # MESLEK ODAGI: Yabanci Dil ve Genel Kultur uretim hedefi DEGIL — kozumuz
 # kaynak-maddeli meslek sorulari (Muhasebe/Hukuk/Ekonomi/Maliye/Mat-Ist).
@@ -72,11 +84,11 @@ foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Propertie
   if($HARIC_DERS -contains $dAd){ continue }
   $konular[$p.Name]=[int]$konular[$p.Name]+[int]$p.Value } }
 $bankaSay=@{}
-foreach($s in (@($banka.sorular)+$yayinSorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
+foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[$_.Key] -lt 10 } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum agir konularda 10+ soru var - banka doygun."; exit 0 }
 
-$mevcutKokler = @(@($banka.sorular)+$yayinSorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
+$mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
 $yeniListe = New-Object System.Collections.Generic.List[object]
 if($banka.sorular){ $yeniListe.AddRange(@($banka.sorular)) }
 $rapor = New-Object System.Collections.Generic.List[string]

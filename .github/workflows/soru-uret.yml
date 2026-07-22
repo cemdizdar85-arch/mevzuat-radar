@@ -25,6 +25,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # kilitli havuz kok/doygunluk kontrolu
         run: ./motor/soru-uret.ps1
       - name: Staging bankayi kaydet
         run: |
