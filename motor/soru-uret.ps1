@@ -23,12 +23,12 @@ $ADET = 5
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
 
-$analizYol = Join-Path $kok "veri\sgs-analiz.json"
+$analizYol = Join-Path $kok "veri/sgs-analiz.json"
 if(-not (Test-Path $analizYol)){ Write-Host "sgs-analiz.json yok - ONCE Sinav Analizi calistir."; exit 0 }
 $analiz = Get-Content $analizYol -Raw -Encoding UTF8 | ConvertFrom-Json
 if(-not $analiz.donemler -or -not @($analiz.donemler).Count){ Write-Host "Harita bos - once Sinav Analizi."; exit 0 }
 
-$bankaYol = Join-Path $kok "veri\soru-bankasi-onay.json"
+$bankaYol = Join-Path $kok "veri/soru-bankasi-onay.json"
 $banka = if(Test-Path $bankaYol){ Get-Content $bankaYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ guncelleme=""; sorular=@() } }
 
 function Claude($istem,$maxtok,$model){
