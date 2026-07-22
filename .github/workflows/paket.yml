@@ -1,0 +1,36 @@
+# .github/workflows/paket.yml — PAKET HAVUZU TAŞIYICI (elle tetiklenir)
+# Onay dosyasındaki durum='paket-havuzu' soruları Supabase kilitli tabloya
+# (soru_havuzu; yalnız üye okur) taşır ve public depodan siler.
+# ÖN KOŞUL: radar-app/sql/2026-07-23-soru-havuzu.sql bir kez SQL Editor'de
+# çalıştırılmış olmalı. Commit mesajındaki [veri-operasyonu] bileti, diff
+# bekçisinin "kayıt kayboldu" alarmını bilinçli taşımada susturur.
+name: Paket Havuzu Tasiyici
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tasi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Paket sorularini kilitli havuza tasi
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/paket-yukle.ps1
+      - name: Depo temizligini kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/soru-bankasi-onay.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok."
+          else
+            git commit -m "Paket sorulari kilitli havuza tasindi [veri-operasyonu]"
+            git pull --rebase origin main || true
+            git push || true
+          fi
