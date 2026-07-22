@@ -30,6 +30,10 @@ if(-not $analiz.donemler -or -not @($analiz.donemler).Count){ Write-Host "Harita
 
 $bankaYol = Join-Path $kok "veri/soru-bankasi-onay.json"
 $banka = if(Test-Path $bankaYol){ Get-Content $bankaYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ guncelleme=""; sorular=@() } }
+# YAYINLANMIS banka da sayilir: onaydan tasinip yayina giden sorular tekrar
+# uretilmesin, konu doygunlugu yayindakileri de gorsun.
+$yayinYol = Join-Path $kok "veri/soru-bankasi.json"
+$yayinSorular = @(); if(Test-Path $yayinYol){ try { $yayinSorular = @((Get-Content $yayinYol -Raw -Encoding UTF8 | ConvertFrom-Json).sorular) } catch {} }
 
 function Claude($istem,$maxtok,$model){
   $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
@@ -68,11 +72,11 @@ foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Propertie
   if($HARIC_DERS -contains $dAd){ continue }
   $konular[$p.Name]=[int]$konular[$p.Name]+[int]$p.Value } }
 $bankaSay=@{}
-foreach($s in @($banka.sorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
+foreach($s in (@($banka.sorular)+$yayinSorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[$_.Key] -lt 10 } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum agir konularda 10+ soru var - banka doygun."; exit 0 }
 
-$mevcutKokler = @($banka.sorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
+$mevcutKokler = @(@($banka.sorular)+$yayinSorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
 $yeniListe = New-Object System.Collections.Generic.List[object]
 if($banka.sorular){ $yeniListe.AddRange(@($banka.sorular)) }
 $rapor = New-Object System.Collections.Generic.List[string]
