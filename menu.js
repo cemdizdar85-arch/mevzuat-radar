@@ -18,7 +18,8 @@ var GRUPLAR=[
   ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
-  ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"]]},
+  ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
+  ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"]]},
  {ad:"📡 Takip Radarları", araclar:[
   ["radar.html","📰","Bugün Resmî Gazete'de","Günün önemli mevzuat değişiklikleri"],
   ["kartlar.html","💊","Günün Hap Kartları","30 saniyelik özet kartlar"],
