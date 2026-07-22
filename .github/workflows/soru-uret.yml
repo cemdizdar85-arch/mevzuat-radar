@@ -5,10 +5,16 @@
 name: Soru Fabrikasi
 
 on:
+  schedule:
+    - cron: "30 2 * * *"    # HER GUN 05:30 TR (Cem 23.07 hiz talimati) — banka doyunca (konu basi 10) kendiliginden bos gecer
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: soru-uret
+  cancel-in-progress: false
 
 jobs:
   uret:
