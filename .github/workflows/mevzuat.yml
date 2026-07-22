@@ -52,12 +52,14 @@ jobs:
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/mevzuat-yut.ps1
       - name: Degisen madde-belgelerini commit et
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add -A veri/mevzuat/ || true
+          git add -A veri/mevzuat/ veri/yeniden-dogrula.json || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
           else

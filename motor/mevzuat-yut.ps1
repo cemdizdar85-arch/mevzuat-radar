@@ -126,4 +126,50 @@ $dj = ($durum | ConvertTo-Json -Depth 5)
 
 if($degisen.Count -eq 0){ Write-Host "GUNLUK MEVZUAT: hicbir kanun degismemis - is yok." }
 else { Write-Host ("GUNLUK MEVZUAT: {0} kanun yeniden yutuldu -> {1}" -f $degisen.Count, ($degisen -join ', ')) }
+
+# ============================================================================
+# ETKI ZINCIRI (23.07.2026): kanun DEGISTIYSE, o kanuna atif yapan site
+# icerigi (bilgi-tabani kayitlari) "yeniden dogrula" kuyruguna dusurulur ve
+# mail atilir. Icerik otomatik degistirilmez — insan teyidiyle guncellenir.
+# Hata olsa bile hasadi bozmasin diye tamamen try/catch icinde.
+# ============================================================================
+try {
+  if($degisen.Count -gt 0){
+    $kbYol = Join-Path $kok "veri/bilgi-tabani.json"
+    $kb = Get-Content $kbYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    # degisen slug -> kanun adi (manifest'ten); kaynak alaninda ad-parcasi ara
+    $adlar = @{}
+    foreach($l in $manifest.kanunlar){ if($degisen -contains $l.slug){ $adlar[$l.slug]=$l.ad } }
+    $etkilenen = New-Object System.Collections.Generic.List[object]
+    foreach($kayit in $kb.kayitlar){
+      $kk = "$($kayit.kaynak)".ToLowerInvariant()
+      foreach($slug in $adlar.Keys){
+        $ad = $adlar[$slug].ToLowerInvariant()
+        # esleme: kanun numarasi (or. 5520) veya kisaltma parcasi (parantez oncesi ilk kelime)
+        $no = [regex]::Match($ad,'\d{3,4}').Value
+        $kisa = ($ad -split '[\s\(]')[0]
+        if(($no -and $kk -match [regex]::Escape($no)) -or ($kisa.Length -ge 3 -and $kk -match [regex]::Escape($kisa))){
+          $etkilenen.Add([pscustomobject]@{ id=$kayit.id; konu=$kayit.konu; kaynak=$kayit.kaynak; kanun=$adlar[$slug]; tarih=$bugun })
+          break
+        }
+      }
+    }
+    if($etkilenen.Count -gt 0){
+      $kuyrukYol = Join-Path $kok "veri/yeniden-dogrula.json"
+      $mev = if(Test-Path $kuyrukYol){ Get-Content $kuyrukYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ kayitlar=@() } }
+      $lst = New-Object System.Collections.Generic.List[object]
+      if($mev.kayitlar){ $lst.AddRange(@($mev.kayitlar)) }
+      foreach($e in $etkilenen){ if(-not ($lst | Where-Object { $_.id -eq $e.id -and $_.kanun -eq $e.kanun })){ $lst.Add($e) } }
+      $outq = [pscustomobject]@{ guncelleme=$bugun; kayitlar=$lst.ToArray() }
+      [IO.File]::WriteAllText($kuyrukYol, ($outq | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
+      Write-Host ("ETKI ZINCIRI: {0} icerik kaydi degisen kanunlara atif yapiyor -> yeniden-dogrula kuyruguna yazildi." -f $etkilenen.Count)
+      if($env:RESEND_KEY){
+        $sat = ($etkilenen | Select-Object -First 20 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)</li>" }) -join ""
+        $html = "<h3>Etki Zinciri uyarisi</h3><p>Bugun degisen kanun(lar): <b>$($degisen -join ', ')</b>. Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).</p><ul>$sat</ul><p>Tetikte — kanun aynasi</p>"
+        $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE ETKI ZINCIRI: degisen kanun $($etkilenen.Count) icerigi etkiliyor"; html=$html } | ConvertTo-Json -Depth 3
+        try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "etki maili hatasi: $_" }
+      }
+    } else { Write-Host "ETKI ZINCIRI: degisen kanunlara atif yapan icerik yok." }
+  }
+} catch { Write-Host "ETKI ZINCIRI UYARI (hasat etkilenmedi): $_" }
 exit 0
