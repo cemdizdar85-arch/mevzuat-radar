@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dönem Planı — sınava kalan haftaları haritayla doldur | Tetikte</title>
+<meta name="description" content="SGS'ye kalan gün ve haftalar; çıkmış soru haritasının ağırlıklarına göre faz faz çalışma programı ve ders ders 'sırayla çalış' konu listeleri.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(62,155,255,.09),transparent 72%);pointer-events:none}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 20px}
+h2{font-size:17px;font-weight:800;margin:28px 0 10px;letter-spacing:-.3px}
+.sayac{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}
+.skart{background:var(--panel);border:1px solid var(--line2);border-radius:15px;padding:16px 18px;text-align:center}
+.skart .b{font-size:30px;font-weight:800;letter-spacing:-1px}
+.skart .a{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:var(--panel)}
+.faz{border-left:3px solid rgba(62,155,255,.55);background:rgba(62,155,255,.05);border-radius:0 11px 11px 0;padding:12px 16px;margin-top:10px;font-size:13.5px}
+.faz b{color:var(--ink)}
+.faz .fk{font-family:var(--mono);font-size:11px;color:var(--accent2);display:block;margin-bottom:3px;font-weight:700}
+.ritim{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin-top:10px}
+.gun{background:#0a0f17;border:1px solid var(--line2);border-radius:11px;padding:10px 12px;font-size:12px;color:var(--muted);text-align:center}
+.gun b{display:block;color:var(--ink);font-size:12.5px}
+.gun.ozel{border-color:rgba(61,220,151,.45)}
+.uyari{font-size:12.5px;color:var(--dim);margin-top:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:11px 14px}
+.uyari b{color:var(--amber)}
+.paket{background:linear-gradient(135deg,rgba(61,220,151,.10),rgba(38,208,254,.05)),var(--panel);border:1px solid rgba(61,220,151,.3);border-radius:16px;padding:20px 22px;margin-top:26px}
+.paket h2{margin-top:0}
+.cta{display:inline-block;background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:12px 24px;border-radius:11px;text-decoration:none;margin-top:10px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Dönem Planı</div>
+  <h1>🗺️ Dönem Planı — SGS 2026/3</h1>
+  <p class="lead">Sınav dönemi <b style="color:var(--ink)">3 ayda bir</b> gelir; kazananlar son haftaya değil, <b style="color:var(--ink)">döneme</b> çalışır. Bu sayfa kalan haftaları sayar ve her fazı, çıkmış soru haritasının gerçek ağırlıklarıyla doldurur.
+  <span class="damga" id="haritaDamga">📊 Harita yükleniyor…</span></p>
+
+  <div class="sayac">
+    <div class="skart"><div class="b" style="color:var(--amber)" id="kalanGun">–</div><div class="a">Gün kaldı</div></div>
+    <div class="skart"><div class="b" id="kalanHafta">–</div><div class="a">Tam hafta</div></div>
+    <div class="skart"><div class="b" style="font-size:16px;padding-top:7px">21 Kasım 2026</div><div class="a">SGS 3. Dönem</div></div>
+    <div class="skart"><div class="b" style="font-size:16px;padding-top:7px">21 Eyl – 9 Eki</div><div class="a">Başvuru penceresi</div></div>
+  </div>
+  <div class="uyari"><b>Başvuruyu unutma:</b> başvuru penceresi sınavdan haftalar önce KAPANIR (21 Eylül – 9 Ekim 2026, TÜRMOB takvimi). Çalışıp da başvuramamak, her dönem yaşanan en acı hikâyedir — <a href="genc.html">takvim sayfasındaki</a> geri sayımı işaretle.</div>
+
+  <h2>📅 Üç faz — kalan haftalara göre</h2>
+  <div id="fazlar"><div style="color:var(--dim);font-size:13px">Hesaplanıyor…</div></div>
+
+  <h2>🔁 Haftalık ritim (her fazda aynı iskelet)</h2>
+  <div class="ritim">
+    <div class="gun"><b>1-2. gün</b>Ana ders konusu (haritadan sıradaki)</div>
+    <div class="gun"><b>3. gün</b>İkinci ders konusu</div>
+    <div class="gun"><b>4. gün</b>Ana ders devam + kısa tekrar</div>
+    <div class="gun"><b>5. gün</b>Yan ders (Eko/Maliye/Mat)</div>
+    <div class="gun ozel"><b>6. gün</b><a href="deneme.html">Deneme</a> + her yanlışın gerekçesi</div>
+    <div class="gun ozel"><b>7. gün</b>Haftanın yanlışlarını tekrar + dinlen</div>
+  </div>
+
+  <h2>📚 Ders ders "sırayla çalış" listeleri</h2>
+  <p style="font-size:13px;color:var(--muted);margin:0 0 4px">Sıralama, son sınavlarda o konudan çıkan soru sayısına göredir — en çok soru getiren en önde. Yeni dönem analiz edildikçe listeler kendiliğinden güncellenir.</p>
+  <div id="dersListeleri"></div>
+
+  <div class="paket">
+    <h2>🎓 Sınav Paketi ile bu plan yaşayan sisteme döner</h2>
+    <div style="font-size:13.5px;color:var(--muted)">Plan iskeleti herkese açık. Pakette (<b style="color:var(--ink)">249 TL/dönem</b> — sınav gününe kadar her şey dahil): büyüyen <b style="color:var(--ink)">soru bankası</b> her şıkkın gerekçesiyle, konu konu <b style="color:var(--ink)">hap kartlar</b>, yanlışlarından kurulan kişisel tekrar listesi ve <a href="songun.html">Son Gün 5 Saat</a> finali. Açılışta ilk kayıt olanlara Kurucu Üye şartları geçerli.</div>
+    <a class="cta" href="genc.html">Açılınca haber ver →</a>
+  </div>
+
+  <div class="dip">Sınav ve başvuru tarihleri: TÜRMOB 2026 resmî sınav takvimi (robot her gün kaynak PDF değişikliğini yoklar; tarih değişirse elle teyitle güncellenir). Faz ve liste ağırlıkları: <a href="genc.html">Sınav Haritası</a> sayımından. · <a href="kvkk.html">KVKK</a></div>
+</div>
+
+<script>
+// SGS 2026/3: 21 Kasım 2026 (TÜRMOB resmî takvimi — elle teyitli, robot nöbetinde)
+var SINAV = new Date('2026-11-21T00:00:00');
+(function(){
+  var bugun=new Date(); bugun.setHours(0,0,0,0);
+  var gun=Math.round((SINAV-bugun)/86400000);
+  document.getElementById('kalanGun').textContent = gun>0?gun:'geçti';
+  document.getElementById('kalanHafta').textContent = gun>0?Math.floor(gun/7):'–';
+  var hafta=Math.floor(gun/7);
+  fetch('veri/sgs-analiz.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+    if(!d.donemler||!d.donemler.length) return;
+    var ders={}, konular={};
+    d.donemler.forEach(function(dn){
+      Object.entries(dn.dersSayim||{}).forEach(function(e){ ders[e[0]]=(ders[e[0]]||0)+e[1]; });
+      Object.entries(dn.konuSayim||{}).forEach(function(e){ konular[e[0]]=(konular[e[0]]||0)+e[1]; });
+    });
+    var toplam=Object.values(ders).reduce(function(t,x){return t+x;},0);
+    document.getElementById('haritaDamga').textContent='📊 Kaynak: '+d.donemler.length+' dönem / '+toplam+' etiketli soru';
+    // fazlar: kalan haftanin %50 temel, %30 genisleme, %20 sprint (en az 1'er hafta)
+    var h=hafta>0?hafta:1;
+    var f1=Math.max(1,Math.round(h*0.5)), f3=Math.max(1,Math.round(h*0.2)), f2=Math.max(1,h-f1-f3);
+    var pay=function(a){ return Math.round(100*(ders[a]||0)/toplam); };
+    var fz='';
+    fz+='<div class="faz"><span class="fk">FAZ 1 · TEMEL — '+f1+' hafta</span><b>Muhasebe + Hukuk çekirdeği.</b> Haritada iki ders toplam soruların %'+(pay('Muhasebe')+pay('Hukuk'))+"'ini getiriyor — temel bu ikisinin üstüne kurulur. Her hafta ritim iskeletiyle: ana ders Muhasebe, ikinci ders Hukuk, yan ders dönüşümlü.</div>";
+    fz+='<div class="faz"><span class="fk">FAZ 2 · GENİŞLEME — '+f2+' hafta</span><b>Ekonomi, Maliye, Matematik-İstatistik devreye girer;</b> Muhasebe-Hukuk tekrarla sıcak tutulur. Deneme günü artık karma (tüm dersler).</div>';
+    fz+='<div class="faz"><span class="fk">FAZ 3 · SPRİNT — '+f3+' hafta</span><b>Zayıf konu kapatma:</b> deneme karnelerindeki yanlış listen programın kendisi olur. GK-Türkçe ve Yabancı Dil taktiği bu faza girer (ağırlıkları düşük — %13,33 + %6,67). Son 24 saat: <a href="songun.html">Son Gün 5 Saat</a>.</div>';
+    document.getElementById('fazlar').innerHTML=fz;
+    // ders ders siralama listeleri (alan dersleri, agirlik sirali)
+    var alan=['Muhasebe','Hukuk','Ekonomi','Maliye','Matematik-Istatistik'];
+    var out='';
+    alan.forEach(function(a){
+      if(!ders[a]) return;
+      var list=Object.entries(konular).filter(function(e){ return e[0].indexOf(a+'|')===0; })
+        .sort(function(x,y){ return y[1]-x[1]; }).slice(0,10)
+        .map(function(e,i){ return (i+1)+'. '+e[0].split('|')[1]; });
+      out+='<div class="tablosar" style="margin-top:10px"><table><tr><th>'+a+' — '+ders[a]+' soru (%'+pay(a)+')</th></tr><tr><td style="font-size:13px;color:var(--muted)">'+list.join(' &nbsp;·&nbsp; ')+'</td></tr></table></div>';
+    });
+    document.getElementById('dersListeleri').innerHTML=out;
+  }).catch(function(){});
+})();
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
