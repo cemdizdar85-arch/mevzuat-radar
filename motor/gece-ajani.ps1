@@ -167,9 +167,12 @@ CEVAP: $cevap
 KAYNAK: $kaynak
 SADECE JSON: {"gecerli":true/false,"puan":0,"neden":"kısa"}
 "@
+  # GUVEN AYARI (23.07, Cem: Gemini'ye Claude kadar guvenmiyorum):
+  # ureten ile denetleyen AYNI beyin olmasin — hakem-1 Gemini olabilir ama
+  # hakem-2 HER ZAMAN Claude'dur (anahtar varsa). Capraz-tur denetimi.
   $ok=$true; $neden=""
   foreach($tur in 1,2){
-    $dv = Uret $dogIstem 400 $DOGMODEL
+    $dv = if($tur -eq 2 -and $key){ Claude $dogIstem 400 $DOGMODEL } else { Uret $dogIstem 400 $DOGMODEL }
     $djson = JsonBul $dv; $tOk=$false; $tPuan=0
     if($djson){ try{ $do=$djson|ConvertFrom-Json; $tOk=[bool]$do.gecerli; $tPuan=[int]$do.puan; $neden="$($do.neden)" }catch{} }
     if(-not ($tOk -and $tPuan -ge 8)){ $ok=$false; $neden="hakem$tur puan=$tPuan $neden"; break }
