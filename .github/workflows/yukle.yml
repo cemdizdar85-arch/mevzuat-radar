@@ -1,0 +1,28 @@
+# .github/workflows/yukle.yml — MEVZUAT TAM YÜKLEME (elle tetiklenir, felaket kurtarma)
+# veri/mevzuat/*.json'daki TÜM kanun madde-belgelerini Supabase 'dokumanlar'
+# tablosuna baştan yükler (önce tur=kanun-madde siler, sonra toplu ekler).
+# NE ZAMAN: tablo bozulursa / çift kayıt şüphesi / elle eklenen kürasyon
+# dosyası (ör. 1475 kıdem m.14) ambara girecekse. Günlük işi DEĞİL —
+# günlük tazeleme Kanun Aynası'nın işi (mevzuat.yml).
+name: Mevzuat Tam Yukleme
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mevzuat-ayna          # Kanun Aynası ile aynı kuyruk: aynı tabloya yarışmasınlar
+  cancel-in-progress: false
+
+jobs:
+  yukle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tam yükleme (sil + baştan ekle)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/mevzuat-yukle.ps1
