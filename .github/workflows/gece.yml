@@ -9,7 +9,7 @@ name: Gece Ajanı
 
 on:
   schedule:
-    - cron: "0 1 * * 2,5"   # SALI + CUMA 04:00 TR (tasarruf modu 23.07.2026: gunlukten haftada 2'ye — icerik buyumeye devam, API maliyeti ~%70 asagi; para kazaninca gunluge donulur)
+    - cron: "0 1 * * *"     # HER GECE 04:00 TR (Cem 23.07: acilisa kadar bilgi bassin — uretim BEDAVA motora alindi: GEMINI_API_KEY varsa Google'in ucretsiz kotasi, yoksa Claude)
   workflow_dispatch:
 
 permissions:
@@ -26,6 +26,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GECE_YAYIN: ${{ vars.GECE_YAYIN }}
         run: ./motor/gece-ajani.ps1
 

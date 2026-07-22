@@ -28,7 +28,24 @@ $ADET  = 6                          # her gece kaç yeni cevap denesin
 $YAYIN = ($env:GECE_YAYIN -eq "1")  # 1 ise doğrudan bilgi-tabani'na yazar (kalite kanıtlanınca)
 
 $key = $env:ANTHROPIC_API_KEY
-if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok — gece ajani atlandi. (GitHub Secrets)"; exit 0 }
+$gkey = $env:GEMINI_API_KEY          # BEDAVA MOTOR (23.07.2026, Cem: "disarida bedava vardir"):
+$GMODEL = if($env:GEMINI_MODEL){ $env:GEMINI_MODEL } else { "gemini-2.0-flash" }
+if(-not $key -and -not $gkey){ Write-Host "Ne ANTHROPIC ne GEMINI anahtari var — gece ajani atlandi."; exit 0 }
+
+# Gemini (ucretsiz kota) — varsa URETIM ve DOGRULAMA once bundan denenir;
+# hata/kota biterse Claude'a duser (varsa). Kalite sigortasi ayni: kapilar
+# deterministik + cift hasim dogrulayici + haftalik Karsit-Profesor + orneklem.
+function Gemini($istem, $maxtok){
+  $body = @{ contents=@(@{ parts=@(@{ text=$istem }) }); generationConfig=@{ maxOutputTokens=$maxtok } } | ConvertTo-Json -Depth 8 -Compress
+  $u = "https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=$gkey"
+  $r = Invoke-RestMethod -Method Post -Uri $u -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 240
+  return (@($r.candidates[0].content.parts) | ForEach-Object { "$($_.text)" }) -join ""
+}
+function Uret($istem, $maxtok, $claudeModel){
+  if($gkey){ try { $t = Gemini $istem $maxtok; if($t){ return $t } } catch { Write-Host "  gemini uretim hata (claude'a dusuluyor): $($_.Exception.Message)" } }
+  if($key){ return Claude $istem $maxtok $claudeModel }
+  throw "uretim icin motor yok"
+}
 
 function Claude($istem, $maxtok, $model){
   $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
@@ -103,7 +120,7 @@ KURALLAR (ihlal = ret):
 SADECE şu formatta JSON dizisi döndür (başka metin yok):
 [{"konu":"...","anahtar":"kök kelimeler boşlukla, çekim değil","cevap":"...","kaynak":"madde/tebliğ"}]
 "@
-$ham = Claude $uretimIstem 8000 $GENMODEL
+$ham = Uret $uretimIstem 8000 $GENMODEL
 Write-Host ("HAM CEVAP uzunluk={0}; ilk 500: {1}" -f ("$ham").Length, (("$ham" -replace '\s+',' ')).Substring(0,[Math]::Min(500,("$ham" -replace '\s+',' ').Length)))
 $js = JsonBul $ham
 if(-not $js){ Write-Host "Uretim JSON verilemedi, cikiliyor."; exit 0 }
@@ -152,7 +169,7 @@ SADECE JSON: {"gecerli":true/false,"puan":0,"neden":"kısa"}
 "@
   $ok=$true; $neden=""
   foreach($tur in 1,2){
-    $dv = Claude $dogIstem 400 $DOGMODEL
+    $dv = Uret $dogIstem 400 $DOGMODEL
     $djson = JsonBul $dv; $tOk=$false; $tPuan=0
     if($djson){ try{ $do=$djson|ConvertFrom-Json; $tOk=[bool]$do.gecerli; $tPuan=[int]$do.puan; $neden="$($do.neden)" }catch{} }
     if(-not ($tOk -and $tPuan -ge 8)){ $ok=$false; $neden="hakem$tur puan=$tPuan $neden"; break }
