@@ -14,6 +14,7 @@ var GRUPLAR=[
  {ad:"🧾 Vergi, Ceza & Rehberler", araclar:[
   ["soru-cevap.html","💬","Net Cevap","Mevzuat sorunu sor, kaynaklı cevap al"],
   ["ceza-asistani.html","⚖️","Ceza Asistanı","İndirim mi, uzlaşma mı, dava mı?"],
+  ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
   ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
