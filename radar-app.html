@@ -90,11 +90,27 @@ function giris(){
         <button class="btn" id="girisBtn">Giriş yap</button>
         <button class="btn ghost" id="kayitBtn">Yeni üyelik</button>
       </div>
+      <div style="margin-top:14px;font-size:12.5px;color:var(--muted);line-height:1.55">
+        <label style="display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-weight:400">
+          <input type="checkbox" id="kosulOnay" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)">
+          <span><a href="uyelik-sozlesmesi.html" target="_blank">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b style="color:var(--ink)">(üyelik için zorunlu)</b></span>
+        </label>
+        <label style="display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-weight:400;margin-top:8px">
+          <input type="checkbox" id="rizaOnay" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)">
+          <span>Hizmet duyuruları ve mevzuat bilgilendirmeleri için e-posta gönderilmesine <a href="kvkk.html#" target="_blank">açık rıza</a> veriyorum. <span style="color:var(--dim)">(isteğe bağlı — her e-postada çıkış bağlantısı olur)</span></span>
+        </label>
+      </div>
       <div class="hata" id="ahata"></div>
       <p class="mini" style="margin-top:8px">Erken erişim — ücretsiz. Verilerin yalnız sana ait.</p>
     </div>`;
   $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
-  $('#kayitBtn').onclick=async()=>{ const {data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value}); if(error){$('#ahata').textContent=error.message;return;} if(!data.session)$('#ahata').textContent='Kayıt alındı — giriş yapabilirsin.'; };
+  $('#kayitBtn').onclick=async()=>{
+    if(!$('#kosulOnay').checked){ $('#ahata').textContent='Üyelik için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
+    const {data,error}=await sb.auth.signUp({ email:$('#email').value.trim(), password:$('#sifre').value,
+      options:{ data:{ kosul_kabul:new Date().toISOString(), pazarlama_rizasi:$('#rizaOnay').checked, riza_tarihi:($('#rizaOnay').checked?new Date().toISOString():null) } } });
+    if(error){$('#ahata').textContent=error.message;return;}
+    if(!data.session)$('#ahata').textContent='Kayıt alındı — giriş yapabilirsin.';
+  };
 }
 
 async function app(){
