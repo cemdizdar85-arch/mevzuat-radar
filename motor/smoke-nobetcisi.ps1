@@ -37,6 +37,8 @@ $SAYFALAR = [ordered]@{
   "/fis-fabrikasi.html"  = "Fiş Fabrikası"
   "/asgari-kv.html"      = "Asgari Kurumlar"
   "/genc.html"           = "Genç Müşavir"
+  "/deneme.html"         = "Deneme Sınavı"
+  "/veri/soru-bankasi.json" = "sorular"
   "/radar-app.html"      = "Radar Paneli"
   "/kvkk.html"           = "Aydınlatma"
   "/uyelik-sozlesmesi.html" = "Üyelik"
@@ -54,7 +56,8 @@ foreach($yol in $SAYFALAR.Keys){
     $r = Invoke-WebRequest -Uri $u -Headers @{ "User-Agent"=$UA } -TimeoutSec 30 -UseBasicParsing
     if([int]$r.StatusCode -ne 200){ $kirmizi.Add("$yol -> HTTP $($r.StatusCode)"); continue }
     if($r.Content -notmatch [regex]::Escape($imza)){ $kirmizi.Add("$yol -> imza metni YOK ('$imza')"); continue }
-    if($r.Content.Length -lt 500){ $kirmizi.Add("$yol -> supheli kucuk icerik ($($r.Content.Length) bayt)"); continue }
+    # boyut tabani yalniz sayfalara: kucuk ama mesru JSON iskeleleri (ornek: bos soru bankasi) alarm degildir
+    if($yol -notmatch '\.json$' -and $r.Content.Length -lt 500){ $kirmizi.Add("$yol -> supheli kucuk icerik ($($r.Content.Length) bayt)"); continue }
     Write-Host "ok: $yol"
   } catch {
     $kod = if($_.Exception.Response){ [int]$_.Exception.Response.StatusCode.value__ } else { "baglanti-yok" }
