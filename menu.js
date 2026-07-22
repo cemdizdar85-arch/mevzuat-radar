@@ -22,7 +22,8 @@ var GRUPLAR=[
   ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
-  ["songun.html","⏳","Son Gün 5 Saat","Sınav öncesi haritalı tek oturum planı"]]},
+  ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
+  ["songun.html","⏳","Son Gün 5 Saat","Dönem finali + sınav sabahı rehberi"]]},
  {ad:"📡 Takip Radarları", araclar:[
   ["radar.html","📰","Bugün Resmî Gazete'de","Günün önemli mevzuat değişiklikleri"],
   ["kartlar.html","💊","Günün Hap Kartları","30 saniyelik özet kartlar"],

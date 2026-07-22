@@ -39,6 +39,7 @@ $SAYFALAR = [ordered]@{
   "/genc.html"           = "Genç Müşavir"
   "/deneme.html"         = "Deneme Sınavı"
   "/songun.html"         = "Son Gün 5 Saat"
+  "/donem-plani.html"    = "Dönem Planı"
   "/veri/soru-bankasi.json" = "sorular"
   "/radar-app.html"      = "Radar Paneli"
   "/kvkk.html"           = "Aydınlatma"
