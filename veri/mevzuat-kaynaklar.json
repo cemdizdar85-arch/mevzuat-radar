@@ -1,4 +1,4 @@
-{
+﻿{
   "aciklama": "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF'ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.<tertip>.<no> (eski kanun tertip 3-4, yeni 5).",
   "kanunlar": [
     { "slug": "vuk",    "ad": "VUK (213 s.K.)",         "pdfId": "1.4.213"  },
@@ -98,6 +98,12 @@
     { "slug": "bilirkisi", "ad": "Bilirkişilik K. (6754 s.K.)",           "pdfId": "1.5.6754" },
     { "slug": "aym",       "ad": "AYM K./Bireysel Başvuru (6216 s.K.)",   "pdfId": "1.5.6216" },
     { "slug": "mahkemeler","ad": "BİM-İdare-Vergi Mahk. K. (2576 s.K.)",  "pdfId": "1.5.2576" },
-    { "slug": "ailekoruma","ad": "Ailenin Korunması K. (6284 s.K.)",      "pdfId": "1.5.6284" }
+    { "slug": "ailekoruma","ad": "Ailenin Korunması K. (6284 s.K.)",      "pdfId": "1.5.6284" },
+    { "slug": "ifm",       "ad": "İstanbul Finans Merkezi K. (7412 s.K.)","pdfId": "1.5.7412" },
+    { "slug": "turizmpayi","ad": "Turizm Payı K. (7183 s.K.)",            "pdfId": "1.5.7183" },
+    { "slug": "meslekiegitim","ad": "Mesleki Eğitim K. (3308 s.K.)",      "pdfId": "1.5.3308" },
+    { "slug": "lisansdepo","ad": "Tarım Ür. Lisanslı Depoculuk K. (5300 s.K.)","pdfId": "1.5.5300" },
+    { "slug": "yapidenetim","ad": "Yapı Denetimi K. (4708 s.K.)",         "pdfId": "1.5.4708" },
+    { "slug": "ssk506",    "ad": "506 s. SSK (geçici m./EYT)",            "pdfId": "1.5.506" }
   ]
 }
