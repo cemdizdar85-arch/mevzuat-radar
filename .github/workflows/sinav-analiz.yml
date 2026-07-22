@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/sgs-analiz.json veri/sinav-arsiv.json 2>/dev/null || true
+          git add veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Sinav analizi: SGS donem etiketleme ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
           git pull --rebase origin main || true
           git push || true
