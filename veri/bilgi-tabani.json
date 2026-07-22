@@ -2944,6 +2944,62 @@
                          "anahtar":  "zorunlu arabuluculuk dava şartı işçi alacağı işe iade kıdem ihbar süre 7036",
                          "cevap":  "İşçi-işveren arasındaki alacak/tazminat (kıdem, ihbar, fazla mesai, ücret vb.) ve işe iade uyuşmazlıklarında dava açmadan önce ARABULUCUYA başvurmak dava şartıdır (7036 s.K. m.3); iş kazası ve meslek hastalığından doğan tazminat davaları bu zorunluluğun dışındadır. İşe iadede süreler sabittir: fesih bildiriminin tebliğinden itibaren 1 AY içinde arabulucuya başvurulur; anlaşılamazsa son tutanağın düzenlenmesinden itibaren 2 HAFTA içinde dava açılır (İş K. m.20). Süre kaçarsa hak düşer — takvimi işçi de işveren de bilmeli.",
                          "kaynak":  "7036 s.K. m.3 · İş K. (4857 s.K.) m.20"
+                     },
+                     {
+                         "id":  "limited-mudur",
+                         "konu":  "Limited şirkette müdür ve sorumluluğu",
+                         "anahtar":  "limited şirket müdür ortak temsil yetki kanuni temsilci vergi borcu sorumluluk ttk 623",
+                         "cevap":  "Limited şirkette yönetim ve temsil müdürlere aittir ve EN AZ BİR ORTAĞIN şirketi yönetim hakkının ve temsil yetkisinin bulunması zorunludur (TTK m.623); dışarıdan (ortak olmayan) müdür de atanabilir. Kritik nokta sorumluluk: müdür, şirketin KANUNİ TEMSİLCİSİ olduğundan, şirketten tahsil edilemeyen vergi ve SGK borçlarından şahsi malvarlığıyla sorumlu tutulabilir (AATUHK mük. m.35). Yani 'kağıt üstünde müdürlük' kabul etmeden önce bu riski bil.",
+                         "kaynak":  "TTK (6102 s.K.) m.623 · AATUHK (6183 s.K.) mük. m.35"
+                     },
+                     {
+                         "id":  "vergi-mahremiyeti",
+                         "konu":  "Vergi mahremiyeti",
+                         "anahtar":  "vergi mahremiyeti gizlilik mükellef bilgisi ifşa yasak ceza vuk 5",
+                         "cevap":  "Vergi işlemlerinde görev alanlar (memurlar, bilirkişiler, komisyon üyeleri), mükellefin ve mükellefle ilgili kişilerin servet, kazanç ve işlerine ilişkin öğrendikleri sırları AÇIKLAYAMAZ (VUK m.5). İhlalin cezası hapistir (VUK m.362 → TCK m.239'a atıf). Kanunun kendisi bazı istisnalar sayar: vergi levhası asma, kesinleşmiş vergi ve ceza borçlarının idarece ilanı gibi. Yani devlete verdiğin bilgi kural olarak sır; ama kesinleşmiş borç listesi ilan edilebilir.",
+                         "kaynak":  "VUK (213 s.K.) m.5"
+                     },
+                     {
+                         "id":  "cevre-temizlik-vergisi",
+                         "konu":  "Çevre temizlik vergisi (ÇTV)",
+                         "anahtar":  "çevre temizlik vergisi çtv işyeri belediye su faturası tarife 2464",
+                         "cevap":  "Çevre temizlik vergisini belediye sınırları içindeki İŞYERLERİ, belediyeye yıllık tarife üzerinden öder (2464 s. Belediye Gelirleri K. mük. m.44); KONUTLARDA ise vergi su faturasının içinde su tüketimiyle birlikte tahsil edilir — ayrıca ödeme yapılmaz. İşyeri ÇTV'si iki eşit taksitte (emlak vergisi taksit dönemlerinde) ödenir. Tutarlar bina grubuna/dereceye göre tarifelidir ve her yıl değişir — güncel tutarı belediyenden veya tarife cetvelinden öğren.",
+                         "kaynak":  "Belediye Gelirleri K. (2464 s.K.) mük. m.44"
+                     },
+                     {
+                         "id":  "sgk-tesvik-sartlari",
+                         "konu":  "SGK prim teşviklerinden yararlanma şartları",
+                         "anahtar":  "sgk teşvik prim indirimi şart borcu yok bildirge zamanında kayıt dışı e-sgk sorgulama",
+                         "cevap":  "SGK prim teşviklerinin (prim indirimleri, ilave istihdam destekleri vb.) ortak giriş biletleri şunlardır: SGK'ya prim/idari para cezası borcu bulunmamak (veya yapılandırmış olmak), aylık prim ve hizmet belgelerini/muhtasar-prim beyannamesini SÜRESİNDE vermek ve primleri süresinde ödemek, KAYIT DIŞI işçi çalıştırmamak. Hangi teşvik hangi işçin için uygundur — bunu e-SGK'daki teşvik sorgulama ekranı işçi bazında gösterir; teşvik türleri ve oranları dönem dönem değiştiği için güncel listeyi oradan teyit et.",
+                         "kaynak":  "5510 s.K. m.81 vd. · e-SGK teşvik ekranları"
+                     },
+                     {
+                         "id":  "ihracat-bedeli",
+                         "konu":  "İhracat bedelinin yurda getirilmesi",
+                         "anahtar":  "ihracat bedeli yurda getirme 180 gün döviz tcmb bankaya satış ibkb",
+                         "cevap":  "İhracat bedellerinin, fiili ihraç tarihinden itibaren 180 GÜN içinde yurda getirilmesi zorunludur (TCMB İhracat Genelgesi; dayanak 32 sayılı TPKK Kararı). Getirilen bedelin bir bölümünün bankaya/TCMB'ye satışı yönünde dönemsel zorunluluklar uygulanmaktadır — bu oran zaman içinde değiştirildiği için güncel oranı bankandan veya TCMB genelgesinden teyit et. Bedel getirme yükümlülüğü ülke ve tutar bazında istisnalar da içerir; ihracatçıysan genelgenin istisna listesine mutlaka bak.",
+                         "kaynak":  "TCMB İhracat Genelgesi · 32 sayılı TPKK Kararı"
+                     },
+                     {
+                         "id":  "arizi-kazanc",
+                         "konu":  "Arızi (tek seferlik) kazanç",
+                         "anahtar":  "arızi kazanç tek seferlik ticari iş süreklilik istisna beyan gvk 82",
+                         "cevap":  "Süreklilik göstermeyen, tek seferlik faaliyetlerden elde edilen kazançlar 'arızi kazanç'tır (GVK m.82): arada bir yapılan ticari iş, işin bırakılması karşılığı alınan paralar, arızi serbest meslek işleri gibi. Bu kazançların yıllık İSTİSNA tutarı vardır; istisnayı aşan kısım beyan edilir. İstisna tutarı her yıl güncellenir — güncel rakam için GİB'e bak. Faaliyet SÜREKLİLİK kazanırsa (tekrarlanırsa) arızi olmaktan çıkar, mükellefiyet gerekir — sınır tam burasıdır.",
+                         "kaynak":  "GVK (193 s.K.) m.82"
+                     },
+                     {
+                         "id":  "telif-istisnasi",
+                         "konu":  "Telif kazançları istisnası (GVK m.18)",
+                         "anahtar":  "telif istisna yazar çizer besteci yazılımcı program eser stopaj serbest meslek gvk 18",
+                         "cevap":  "Müellif, mütercim, heykeltıraş, ressam, besteci, BİLGİSAYAR PROGRAMCISI gibi kişilerin; şiir, kitap, makale, program, film, beste gibi ESERLERİNİ satmasından/devretmesinden doğan hasılat gelir vergisinden istisnadır (GVK m.18); vergileme yalnız stopajla biter, defter-beyanname gerekmez. İKİ SINIR var: (1) eser niteliği taşımalı (5846 s. FSEK kapsamında), (2) yıllık kazanç, gelir vergisi tarifesinin dördüncü dilimindeki tutarı aşarsa istisna kalkar ve beyanname gerekir — o eşiğin güncel tutarına GİB'den bak.",
+                         "kaynak":  "GVK (193 s.K.) m.18"
+                     },
+                     {
+                         "id":  "vergi-cenneti-stopaj",
+                         "konu":  "Vergi cennetlerine ödemelerde stopaj",
+                         "anahtar":  "vergi cenneti zararlı vergi rekabeti ödeme stopaj yüzde 30 liste cumhurbaşkanı kvk 30",
+                         "cevap":  "Kurumlar Vergisi Kanunu, vergi cenneti sayılan (zararlı vergi rekabeti yürüten) ülkelerdeki firmalara yapılan ödemelerden %30 stopaj kesilmesini öngörür (KVK m.30/7). ANCAK bu hüküm, hangi ülkelerin kapsamda olduğunun Cumhurbaşkanınca İLAN edilmesine bağlıdır ve bugüne kadar böyle bir liste yayımlanmadığı için hüküm fiilen işletilmemektedir. Yine de yurt dışına ödeme planlarken bu maddenin varlığını bil; liste bir gün yayımlanırsa oyun değişir.",
+                         "kaynak":  "KVK (5520 s.K.) m.30/7"
                      }
                  ]
 }
