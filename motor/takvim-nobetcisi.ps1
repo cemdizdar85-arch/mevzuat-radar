@@ -12,13 +12,13 @@ $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$jsonYol = Join-Path $kok "veri\sinav-takvimi.json"
+$jsonYol = Join-Path $kok "veri/sinav-takvimi.json"
 $j = Get-Content $jsonYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $url = $j.kaynakUrl
 $bugun = (Get-Date).ToString("dd.MM.yyyy")
 
 # PDF'i indir
-$tmp = Join-Path $env:TEMP "takvim-yeni.pdf"
+$tmp = Join-Path ([IO.Path]::GetTempPath()) "takvim-yeni.pdf"
 try {
   Invoke-WebRequest -Uri $url -OutFile $tmp -UserAgent "Mozilla/5.0 (MevzuatRadar-TakvimNobetcisi)" -TimeoutSec 120 -UseBasicParsing
 } catch {

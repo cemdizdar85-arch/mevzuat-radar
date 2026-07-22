@@ -18,8 +18,8 @@ $LIMIT = 3
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
 
-$arsivYol = Join-Path $kok "veri\sinav-arsiv.json"
-$analizYol = Join-Path $kok "veri\sgs-analiz.json"
+$arsivYol = Join-Path $kok "veri/sinav-arsiv.json"
+$analizYol = Join-Path $kok "veri/sgs-analiz.json"
 $arsiv = Get-Content $arsivYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $analiz = if(Test-Path $analizYol){ Get-Content $analizYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ guncelleme=""; donemler=@() } }
 
@@ -55,7 +55,7 @@ foreach($d in $arsiv.donemler){
   if($d.durum -ne 'bekliyor'){ continue }
   if($islenen -ge $LIMIT){ break }
   Write-Host ("=== {0} ({1}) isleniyor..." -f $d.donem, $d.tarih)
-  $tmp = Join-Path $env:TEMP "sgs.pdf"
+  $tmp = Join-Path ([IO.Path]::GetTempPath()) "sgs.pdf"
   try { Invoke-WebRequest -Uri $d.url -OutFile $tmp -UserAgent "Mozilla/5.0" -TimeoutSec 180 -UseBasicParsing } catch { Write-Host "  indirilemedi, atlandi"; continue }
   $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($tmp))
   Write-Host ("  pdf {0} KB, okuma 1/2..." -f [math]::Round((Get-Item $tmp).Length/1KB))

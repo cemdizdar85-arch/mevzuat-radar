@@ -73,7 +73,7 @@ function AmbarTeyit($kaynak){
 }
 
 # --- mevcut kapsam ---
-$kbYol = Join-Path $kok "veri\bilgi-tabani.json"
+$kbYol = Join-Path $kok "veri/bilgi-tabani.json"
 $kb = Get-Content $kbYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $mevcutId = @{}; foreach($k in $kb.kayitlar){ $mevcutId["$($k.id)"]=$true }
 $sayim = @{}; foreach($k in $kb.kayitlar){ $a="$($k.arac)"; if($a){ $sayim[$a]=1+($sayim[$a]) } }
@@ -175,7 +175,7 @@ if($YAYIN){
   Write-Host ("YAYIN: {0} kayit bilgi-tabani.json'a eklendi (canli)." -f $gecen.Count)
 } else {
   # v1 GÜVENLİ: onay-bekleyen.json (Cem sabah taşır)
-  $sYol = Join-Path $kok "veri\onay-bekleyen.json"
+  $sYol = Join-Path $kok "veri/onay-bekleyen.json"
   $s = @{ olusma="gece-ajani"; alan=$secili.alan; kayitlar=@() }
   if(Test-Path $sYol){ try{ $s = Get-Content $sYol -Raw -Encoding UTF8 | ConvertFrom-Json }catch{} }
   $sl = New-Object System.Collections.Generic.List[object]; if($s.kayitlar){ $sl.AddRange(@($s.kayitlar)) }; foreach($g in $gecen){ $sl.Add([pscustomobject]$g) }
