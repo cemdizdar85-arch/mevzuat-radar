@@ -1,0 +1,32 @@
+# .github/workflows/takvim.yml — SINAV TAKVIMI NOBETCISI
+# Her gun TURMOB sinav takvimi PDF'inin hash'ini yoklar; degisirse
+# kanit arsivler + json'a not duser + Cem'e mail atar. Tarihleri
+# otomatik DEGISTIRMEZ (elle teyit ilkesi).
+name: Sinav Takvimi Nobetcisi
+
+on:
+  schedule:
+    - cron: "15 6 * * *"     # 06:15 UTC = 09:15 Turkiye
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  takvim:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PDF hash yokla
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/takvim-nobetcisi.ps1
+      - name: Degisiklik varsa kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/sinav-takvimi.json motor/arsiv-takvim/ 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Takvim nobetcisi: TURMOB PDF degisikligi tespit edildi $(TZ=Europe/Istanbul date +%d.%m.%Y)"
+          git push || true
