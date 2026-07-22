@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>tetikte.com kurulum kılavuzu (iç belge) | Mevzuat Radarı</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--green:#3ddc97;--amber:#ffc24b;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.65}
+.wrap{max-width:780px;margin:0 auto;padding:26px 18px 80px}
+h1{font-size:clamp(23px,4.4vw,30px);letter-spacing:-.8px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 24px}
+.ic{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--amber);background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3);border-radius:999px;padding:4px 12px;margin-bottom:14px}
+.adim{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px}
+.adim .no{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:13px;margin-right:9px}
+.adim h2{display:inline;font-size:16.5px;font-weight:800}
+.adim .kim{float:right;font-size:11px;font-weight:800;letter-spacing:.8px;padding:4px 11px;border-radius:999px}
+.kim.sen{color:var(--amber);background:rgba(255,194,75,.08);border:1px solid rgba(255,194,75,.3)}
+.kim.ben{color:var(--green);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3)}
+.adim p{font-size:14px;color:var(--muted);margin:12px 0 0}
+.adim b{color:var(--ink)}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+td code{font-family:var(--mono);font-size:13px;color:var(--accent2)}
+.kop{appearance:none;border:1px solid var(--line2);background:#0a0f17;color:var(--muted);font-size:11.5px;font-weight:700;border-radius:8px;padding:5px 10px;cursor:pointer;margin-left:8px}
+.kop:hover{color:var(--ink);border-color:var(--accent)}
+.kop.ok{color:var(--green);border-color:var(--green)}
+.not{background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.25);border-radius:11px;padding:12px 15px;font-size:13px;color:var(--muted);margin-top:14px}
+.not b{color:var(--amber)}
+.yol{font-family:var(--mono);font-size:12.5px;color:var(--accent2);background:#0a0f17;border:1px solid var(--line);border-radius:8px;padding:3px 9px;display:inline-block;margin:2px 0}
+ul{margin:10px 0 0;padding-left:20px;font-size:14px;color:var(--muted)}
+li{margin-bottom:7px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="ic">İÇ BELGE — KURULUM KILAVUZU</span>
+  <h1>tetikte.com'u siteye bağlama — 4 adım</h1>
+  <p class="lead">🟡 işaretli adımlar senin, 🟢 işaretliler benim. Sen 1 ve 2'yi yap, bana "girdim" yaz — gerisi bende. DNS robotu zaten nöbette: kayıtları girdiğin an haberim olacak.</p>
+
+  <div class="adim">
+    <span class="kim sen">🟡 SEN — 5 DK</span>
+    <span class="no">1</span><h2>tetikte.com DNS kayıtları</h2>
+    <p>Alan adını aldığın firmanın paneline gir → <b>Alan Adlarım</b> → <b>tetikte.com</b> → <b>DNS Yönetimi</b> (bazı panellerde "Yönetilen DNS" / "DNS Kayıtları"). Aşağıdaki <b>5 kaydı tek tek ekle</b>:</p>
+    <table>
+      <tr><th>Tür</th><th>Ad / Host</th><th>Değer (kopyala)</th></tr>
+      <tr><td>A</td><td><code>@</code></td><td><code>185.199.108.153</code><button class="kop" data-k="185.199.108.153">kopyala</button></td></tr>
+      <tr><td>A</td><td><code>@</code></td><td><code>185.199.109.153</code><button class="kop" data-k="185.199.109.153">kopyala</button></td></tr>
+      <tr><td>A</td><td><code>@</code></td><td><code>185.199.110.153</code><button class="kop" data-k="185.199.110.153">kopyala</button></td></tr>
+      <tr><td>A</td><td><code>@</code></td><td><code>185.199.111.153</code><button class="kop" data-k="185.199.111.153">kopyala</button></td></tr>
+      <tr><td>CNAME</td><td><code>www</code></td><td><code>cemdizdar85-arch.github.io</code><button class="kop" data-k="cemdizdar85-arch.github.io">kopyala</button></td></tr>
+    </table>
+    <div class="not"><b>Takılırsan:</b> "Ad/Host" kutusuna <b>@</b> yazılır (bazı paneller boş bırakmanı ister — ikisi de olur; bazıları "tetikte.com" gösterir, o da aynı şey). Panelde hazır bekleyen <b>eski A kaydı veya "park" kaydı varsa SİL</b> — sadece bizimkiler kalsın. TTL sorarsa dokunma, varsayılan kalsın. 4 A kaydının dördü de "@" için — panel "aynı ada ikinci kayıt" diye itiraz etmez, normaldir.</div>
+  </div>
+
+  <div class="adim">
+    <span class="kim sen">🟡 SEN — 2 DK</span>
+    <span class="no">2</span><h2>tetikte.com.tr yönlendirmesi</h2>
+    <p>Aynı panelde <b>tetikte.com.tr</b> → <b>"Yönlendirme"</b> (İngilizce panelde "Forwarding" / "Redirect") özelliğini bul. Hedef adres olarak şunu yaz:</p>
+    <p><code style="font-family:var(--mono);color:var(--accent2)">https://tetikte.com</code><button class="kop" data-k="https://tetikte.com">kopyala</button></p>
+    <div class="not"><b>Yönlendirme seçeneği bulamazsan</b> hiç dert etme, atla — bana "com.tr'de yönlendirme yok" yaz, alternatif yolu ben kurarım. Bu adım acil değil.</div>
+  </div>
+
+  <div class="adim">
+    <span class="kim ben">🟢 BEN — OTOMATİK</span>
+    <span class="no">3</span><h2>Siteyi tetikte.com'a bağlama</h2>
+    <p>Sen 1. adımı bitirdiğin an DNS robotum görecek ve ben:</p>
+    <ul>
+      <li>CNAME dosyasını yayınlayıp GitHub Pages'i <b>tetikte.com</b>'a bağlayacağım,</li>
+      <li>sitemap ve site içi adresleri yeni alan adına çevireceğim,</li>
+      <li>eski <b>cemdizdar85-arch.github.io</b> linkleri otomatik yönlenecek — hiçbir eski link kırılmayacak.</li>
+    </ul>
+  </div>
+
+  <div class="adim">
+    <span class="kim sen">🟡 SEN — 1 TIK (ben söyleyince)</span>
+    <span class="no">4</span><h2>HTTPS kilidi</h2>
+    <p>Ben "hazır" deyince: tarayıcıdan şu adrese gir (GitHub hesabınla girişli olman yeter):</p>
+    <p><span class="yol">github.com/cemdizdar85-arch/mevzuat-radar/settings/pages</span></p>
+    <p>Orada <b>"Enforce HTTPS"</b> kutusunu işaretle. Hepsi bu — kutu ilk saatlerde soluk (tıklanamaz) olabilir; sertifika hazırlanıyor demektir, ben takip edip sana "şimdi" diyeceğim.</p>
+  </div>
+
+  <div class="not" style="margin-top:4px"><b>Ne kadar sürer?</b> DNS kayıtları genelde dakikalar içinde yayılır, bazen birkaç saat sürebilir — normaldir. Site geçiş sırasında da açık kalır; ziyaretçi hiçbir kesinti görmez.</div>
+</div>
+<script>
+document.querySelectorAll('.kop').forEach(b=>b.addEventListener('click',()=>{
+  navigator.clipboard.writeText(b.dataset.k).then(()=>{ b.textContent='✓ kopyalandı'; b.classList.add('ok');
+    setTimeout(()=>{ b.textContent='kopyala'; b.classList.remove('ok'); },1600); });
+}));
+</script>
+</body>
+</html>
