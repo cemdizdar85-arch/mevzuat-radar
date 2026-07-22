@@ -1,0 +1,33 @@
+# .github/workflows/karsit.yml — KARSIT-PROFESOR (haftalik hata avcisi)
+# Canli icerikten rastgele orneklem ceker, curutmeye calisir.
+# Iki bagimsiz kosu da curutursa karantina + mail. Otomatik silme YOK.
+name: Karsit Profesor
+
+on:
+  schedule:
+    - cron: "0 2 * * 0"     # her pazar 02:00 UTC = 05:00 TR
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  avci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Orneklemi curutmeye calis
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/karsit-profesor.ps1
+      - name: Karantina degisti mi kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/karantina.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Karsit-Profesor: supheli kayit karantinasi $(TZ=Europe/Istanbul date +%d.%m.%Y)"
+          git pull --rebase origin main || true
+          git push || true
