@@ -6,11 +6,7 @@ name: Dogrulama Kapisi
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'veri/**'
-      - 'arac/**'
-      - '.github/workflows/dogrula.yml'
+    branches: [ main ]     # SIR BEKCISI her push'ta calissin diye paths filtresi kaldirildi
   workflow_dispatch:
 
 jobs:
@@ -21,6 +17,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2   # diff-bekcisi HEAD~1 ile kiyas yapar
+
+      - name: Sir bekcisi (anahtar sizinti taramasi — depo PUBLIC!)
+        run: |
+          # API anahtari / servis anahtari / uzun JWT desenleri tracked dosyalarda aranir.
+          # sb_publishable_ anahtari kasten HARIC: o publishable'dir, sitede acik durur.
+          desenler='sk-ant-[A-Za-z0-9_-]{20,}|service_role|re_[A-Za-z0-9]{20,}|eyJhbGciOi[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}'
+          bulunan=$(git grep -I -nE "$desenler" -- . ':!*.md' ':!.github/workflows/dogrula.yml' || true)
+          if [ -n "$bulunan" ]; then
+            echo "SIR BEKCISI KIRMIZI — olasi anahtar sizintisi:"
+            echo "$bulunan"
+            exit 1
+          fi
+          echo "Sir bekcisi temiz."
 
       - name: Diff bekcisi (kazayla veri silme freni)
         shell: pwsh

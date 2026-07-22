@@ -1,0 +1,27 @@
+# .github/workflows/nabiz.yml — NABIZ NÖBETÇİSİ (robotların robotu)
+# Her kritik robotun son BAŞARILI koşusunun yaşını ölçer; vardiyasını kaçıran
+# robot = sessizce bayatlayan veri. Kırmızı koşu + Cem'e mail.
+# "Güncellenmeyen veriyi kim fark eder?" sorusunun cevabı budur.
+name: Nabiz Nobetcisi
+
+on:
+  schedule:
+    - cron: "0 6 * * *"     # HER GUN 09:00 TR — sabah robotlari bittikten sonra yoklama
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  nabiz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Robot nabizlarini olc
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/nabiz-nobetcisi.ps1
