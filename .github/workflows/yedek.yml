@@ -1,0 +1,47 @@
+# .github/workflows/yedek.yml — HAFTALIK KASA YEDEGI
+# Supabase'deki kritik tablolari (dokumanlar, firmalar/leads vb.) JSON olarak
+# ceker, ZIP'ler ve GitHub Actions ARTIFACT kasasina koyar (90 gun saklanir,
+# repo PUBLIC oldugu icin kisisel veri repoya YAZILMAZ — artifact ozeldir).
+# API maliyeti sifir. Felaket gunu: son artifact indirilir, geri yuklenir.
+name: Haftalik Yedek
+
+on:
+  schedule:
+    - cron: "0 3 * * 6"      # her cumartesi 06:00 TR
+  workflow_dispatch:
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Supabase tablolarini dok
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $KEY = $env:SUPABASE_SERVICE_KEY
+          if(-not $KEY){ Write-Host "SERVICE KEY yok - yedek atlandi."; exit 0 }
+          $H = @{ apikey=$KEY; Authorization="Bearer $KEY" }
+          $SB = "https://bjrleanjpyujtajmazxn.supabase.co"
+          New-Item -ItemType Directory -Force _yedek | Out-Null
+          foreach($tablo in @('dokumanlar','firmalar','mukellefler','belgeler','leads','rate_log')){
+            try {
+              $tum = New-Object System.Collections.Generic.List[object]
+              $ofset = 0
+              while($true){
+                $r = Invoke-RestMethod -Uri "$SB/rest/v1/${tablo}?select=*&limit=1000&offset=$ofset" -Headers $H -TimeoutSec 120
+                if(-not $r -or @($r).Count -eq 0){ break }
+                $tum.AddRange(@($r)); if(@($r).Count -lt 1000){ break }; $ofset += 1000
+              }
+              $tum.ToArray() | ConvertTo-Json -Depth 8 | Out-File "_yedek/$tablo.json" -Encoding utf8
+              Write-Host ("{0}: {1} satir yedeklendi" -f $tablo, $tum.Count)
+            } catch { Write-Host ("{0}: atlandi ({1})" -f $tablo, $_.Exception.Message) }
+          }
+      - name: Artifact olarak sakla (ozel kasa, 90 gun)
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-yedek-${{ github.run_number }}
+          path: _yedek/
+          retention-days: 90

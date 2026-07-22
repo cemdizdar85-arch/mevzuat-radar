@@ -1,0 +1,21 @@
+# .github/workflows/smoke.yml — SMOKE NOBETCISI (gunluk sayfa sagligi)
+# Her sabah tetikte.com'un tum uc noktalarini yoklar (200 + icerik imzasi).
+# Kirmizi = mail + kirmizi kosu. API maliyeti sifir.
+name: Smoke Nobetcisi
+
+on:
+  schedule:
+    - cron: "45 4 * * *"     # her gun 07:45 TR (link nobetcisinden 15 dk sonra)
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Canli sayfalari yokla
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/smoke-nobetcisi.ps1
