@@ -1,0 +1,31 @@
+# .github/workflows/sinav-analiz.yml — SINAV HARITASI ANALIZ ROBOTU
+# SGS kitapciklarini Claude'a PDF olarak okutur (cift okuma + hakem),
+# soru basina ders/konu etiketi cikarir, sayimlari sgs-analiz.json'a yazar.
+# Kosum basina en fazla 3 donem isler (maliyet/sure kontrolu) — 6 donem
+# icin 2 kez calistir. Manuel tetik (Run workflow) ile kosar.
+name: Sinav Analizi
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  analiz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kitapciklari analiz et (cift okuma + hakem)
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/sinav-analiz.ps1
+      - name: Sonuclari kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/sgs-analiz.json veri/sinav-arsiv.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Sinav analizi: SGS donem etiketleme ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
+          git pull --rebase origin main || true
+          git push || true

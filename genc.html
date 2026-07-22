@@ -78,8 +78,15 @@ td b{color:var(--ink)}
 
   <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et — bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
 
+  <div id="harita" style="display:none">
+    <h2>🗺️ Sınav Haritası — SGS'de nereden kaç soru çıkıyor?</h2>
+    <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">Son dönemlerin resmî kitapçıkları soru soru etiketlendi (çift bağımsız okuma + hakem yöntemi). Aşağıda ders dağılımı ve en çok soru getiren konular:</p>
+    <div id="haritaIc"></div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynaklara bakın. Analiz tarihi ve dönem listesi tabloda.</div>
+  </div>
+
   <div class="yolda">
-    <h2>🚧 Yolda: Sınav Haritası + Günlük Quiz</h2>
+    <h2 id="yoldaBaslik">🚧 Yolda: Sınav Haritası + Günlük Quiz</h2>
     <ul>
       <li><b style="color:var(--ink)">Sınav Haritası:</b> çıkmış soruların yıl yıl / konu konu analizi — "bu konudan son 3 sınavda kaç soru çıktı", hangi hap kartlar konuyu kapatır.</li>
       <li><b style="color:var(--ink)">Günlük 5 Soru:</b> her sorunun altında kanun maddesi + her yanlış şıkkın neden yanlış olduğu. Ezber değil, kaynak.</li>
@@ -97,6 +104,29 @@ td b{color:var(--ink)}
 </div>
 
 <script>
+// SINAV HARİTASI — sgs-analiz.json varsa çiz (robot doldurunca kendiliğinden görünür)
+fetch('veri/sgs-analiz.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  if(!d.donemler || !d.donemler.length) return;
+  const dersler={}, konular={};
+  d.donemler.forEach(dn=>{
+    Object.entries(dn.dersSayim||{}).forEach(([k,v])=>{ dersler[k]=(dersler[k]||0)+v; });
+    Object.entries(dn.konuSayim||{}).forEach(([k,v])=>{ konular[k]=(konular[k]||0)+v; });
+  });
+  const dSir=Object.entries(dersler).sort((a,b)=>b[1]-a[1]);
+  const kSir=Object.entries(konular).sort((a,b)=>b[1]-a[1]).slice(0,15);
+  const toplam=dSir.reduce((t,x)=>t+x[1],0);
+  let h='<div class="tablosar"><table><tr><th>Ders</th><th>Toplam soru ('+d.donemler.length+' dönem)</th><th>Pay</th></tr>';
+  dSir.forEach(([k,v])=>{ h+='<tr><td><b>'+k+'</b></td><td>'+v+'</td><td>%'+Math.round(100*v/toplam)+'</td></tr>'; });
+  h+='</table></div>';
+  h+='<h2 style="font-size:15px;margin-top:18px">🔥 En çok soru getiren 15 konu</h2><div class="tablosar"><table><tr><th>#</th><th>Ders</th><th>Konu</th><th>Soru</th></tr>';
+  kSir.forEach(([k,v],i)=>{ const p=k.split('|'); h+='<tr><td>'+(i+1)+'</td><td>'+p[0]+'</td><td><b>'+p[1]+'</b></td><td>'+v+'</td></tr>'; });
+  h+='</table></div>';
+  h+='<div style="font-size:12px;color:var(--dim);margin-top:8px">Kapsanan dönemler: '+d.donemler.map(x=>x.donem).join(' · ')+' · Güncelleme: '+d.guncelleme+'</div>';
+  document.getElementById('haritaIc').innerHTML=h;
+  document.getElementById('harita').style.display='block';
+  document.getElementById('yoldaBaslik').textContent='🚧 Yolda: Günlük Quiz + Son Gün 5 Saat paketi';
+}).catch(()=>{});
+
 // geri sayım: yaklaşan ilk 3 olay (bugüne göre) — tarihler yukarıdaki resmî tablodan
 (function(){
   const olaylar=[
