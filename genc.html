@@ -45,7 +45,8 @@ td b{color:var(--ink)}
   <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Genç Müşavir</div>
   <h1>Genç Müşavir — sınavının nöbetçisi</h1>
   <p class="lead">Staja Giriş'ten Yeterlilik'e giden yolda tarihleri biz sayalım, sen çalış. Aşağıdaki takvim <b style="color:var(--ink)">TÜRMOB'un resmî 2026 sınav takviminden</b> alınmıştır.
-  <span class="damga">📑 Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF) — 22.07.2026'da okundu</span></p>
+  <span class="damga" id="teyitDamga">📑 Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF) — 22.07.2026'da okundu</span></p>
+  <script>fetch('veri/sinav-takvimi.json?'+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById('teyitDamga');e.innerHTML='📑 Kaynak: '+d.kaynak+' — son teyit: <b>'+d.sonTeyit+'</b> · robot her gün PDF değişikliğini yoklar'+(d.degisiklikTespiti?' · <span style=\'color:var(--amber)\'>⚠ '+d.degisiklikTespiti+' tarihinde kaynak PDF değişti, teyit sürüyor</span>':'');}).catch(()=>{});</script>
 
   <div class="sayac" id="sayac"></div>
 
