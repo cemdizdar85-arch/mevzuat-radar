@@ -9,7 +9,7 @@ name: Gece Ajanı
 
 on:
   schedule:
-    - cron: "0 1 * * *"     # 01:00 UTC = 04:00 Türkiye (derin gece)
+    - cron: "0 1 * * 2,5"   # SALI + CUMA 04:00 TR (tasarruf modu 23.07.2026: gunlukten haftada 2'ye — icerik buyumeye devam, API maliyeti ~%70 asagi; para kazaninca gunluge donulur)
   workflow_dispatch:
 
 permissions:
