@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Son Gün 5 Saat — SGS sınav öncesi tek oturumluk plan | Tetikte</title>
+<meta name="description" content="SGS'den önceki son gün için 5 saatlik çalışma planı: dakikalar çıkmış soru haritasının ağırlıklarına göre dağıtılır; her blokta kaynaklı hap kartlar ve sınavda çıkmış konular.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(255,194,75,.08),transparent 72%);pointer-events:none}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 20px}
+h2{font-size:17px;font-weight:800;margin:28px 0 10px;letter-spacing:-.3px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:var(--panel)}
+.blok{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:18px 20px;margin-top:14px}
+.blok .bas{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.blok .dk{font-family:var(--mono);font-weight:800;font-size:15px;color:var(--amber);white-space:nowrap}
+.blok h3{margin:0;font-size:16px;font-weight:800}
+.cikti{font-size:12px;color:var(--dim);margin:6px 0 0}
+.cikti b{color:var(--muted);font-weight:700}
+.hap{border-left:3px solid rgba(61,220,151,.55);background:rgba(61,220,151,.05);border-radius:0 11px 11px 0;padding:10px 14px;margin-top:10px;font-size:13.5px}
+.hap b{color:var(--ink)}
+.hap .kk{display:block;font-size:11px;font-family:var(--mono);color:var(--green);margin-top:5px}
+.tuzak{border-left-color:rgba(255,107,94,.55);background:rgba(255,107,94,.05)}
+.tuzak .kk{color:var(--red)}
+.uyari{font-size:12.5px;color:var(--dim);margin-top:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:11px 14px}
+.uyari b{color:var(--amber)}
+.cta{display:inline-block;background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:12px 24px;border-radius:11px;text-decoration:none;margin-top:8px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Son Gün 5 Saat</div>
+  <h1>⏳ Son Gün 5 Saat — SGS</h1>
+  <p class="lead">Sınavdan önceki son gün yeni konu ÖĞRENİLMEZ — en çok soru getiren konular <b style="color:var(--ink)">tazelenir</b>. Bu plandaki dakikalar tahmin değil: son sınavların soru soru sayımından (<a href="genc.html">Sınav Haritası</a>) orantıyla hesaplanır.
+  <span class="damga" id="haritaDamga">📊 Plan, çıkmış soru haritasından hesaplanıyor…</span></p>
+
+  <div class="uyari"><b>İki resmî gerçek, iki taktik:</b> (1) Yönergeye göre <b>yanlış cevap doğruyu götürmez</b> — hiçbir soruyu boş bırakma, bilmediğinde de işaretle. (2) Değerlendirme <b>bağıl</b>dır: rakiplerinin ortalamasını geçmen gerekir — herkesın bildiği ağır konuları sen de bilmek zorundasın. Kaynak: TESMER Uygulama Yönergesi (2024) m.6.3, 6.4.</div>
+
+  <h2>🗓 Planın — dakika dakika</h2>
+  <div id="plan"><div style="color:var(--dim);font-size:13px">Harita yükleniyor…</div></div>
+
+  <h2>💊 Blok blok hap kartlar</h2>
+  <p style="font-size:13px;color:var(--muted);margin:0 0 4px">Aşağıdaki kartlar, haritada en sık çıkan konulardan seçildi; her kartın altında dayandığı kural/madde yazar. Yeşil = bil, kırmızı = tuzak.</p>
+
+  <div class="blok">
+    <div class="bas"><h3>📒 Muhasebe bloğu</h3><span class="dk" id="dkMuhasebe"></span></div>
+    <div class="cikti" id="konuMuhasebe"></div>
+    <div class="hap"><b>Dönemsellik kavramı:</b> işletmenin sınırsız kabul edilen ömrü belli dönemlere bölünür; her dönemin faaliyet sonucu <b>diğer dönemlerden bağımsız</b> saptanır. Gelir ve giderler tahsil/ödeme gününe değil, <b>tahakkuk esasına</b> göre ait oldukları döneme yazılır.<span class="kk">Kaynak: 1 Sıra No.lu Muhasebe Sistemi Uygulama Genel Tebliği — muhasebenin temel kavramları</span></div>
+    <div class="hap"><b>Senet iskontosu kaydı:</b> alacak senedi vadesinden önce bankaya iskonto ettirilince senedin <b>nominal tutarı 121'den çıkar</b>; bankanın kestiği faiz + komisyon <b>finansman gideri</b>, kalan net tutar <b>102 Bankalar</b>'a girer.<span class="kk">Kaynak: Tekdüzen Hesap Planı işleyişi (MSUGT)</span></div>
+    <div class="hap"><b>Normal maliyet yöntemi:</b> değişken genel üretim giderlerinin TAMAMI + sabit GÜG'ün yalnız <b>kapasite kullanım oranına düşen kısmı</b> maliyete yüklenir. Boş kapasiteye düşen sabit GÜG maliyete girmez, <b>çalışmayan kısım gideri</b> olur.<span class="kk">Kaynak: maliyet muhasebesi yöntem tanımı · Tekdüzen 680 hesabı</span></div>
+    <div class="hap"><b>Dikey yüzde analizi:</b> her kalem, ait olduğu toplamın yüzdesi olarak yazılır — bilançoda <b>aktif toplamı = 100</b>, gelir tablosunda <b>net satışlar = 100</b> alınır. Tek dönemin iç yapısını gösterir; karşılaştırmalı eğilim için yatay analiz/trend gerekir.<span class="kk">Kaynak: mali tablolar analizi yöntem tanımı</span></div>
+    <div class="hap"><b>TMS 21 geçerli para birimi:</b> işletmenin faaliyet gösterdiği <b>temel ekonomik çevrenin</b> para birimidir; ilk gösterge mal ve hizmet <b>satış fiyatlarını en çok etkileyen</b> para birimi ile bunların maliyetlerini belirleyen para birimidir. Raporlama para biriminden farklı olabilir.<span class="kk">Kaynak: TMS 21 (Kur Değişiminin Etkileri)</span></div>
+    <div class="hap tuzak"><b>Faaliyet kârı tuzağı:</b> Faaliyet kârı = <b>brüt satış kârı − faaliyet giderleri</b> (pazarlama-satış-dağıtım + genel yönetim + Ar-Ge). <b>Finansman giderleri ve olağan dışı gelir/gider faaliyet kârına DAHİL DEĞİLDİR</b> — şıklarda en sık kurulan tuzak budur.<span class="kk">Kaynak: Tekdüzen gelir tablosu düzeni (MSUGT)</span></div>
+  </div>
+
+  <div class="blok">
+    <div class="bas"><h3>⚖️ Hukuk bloğu</h3><span class="dk" id="dkHukuk"></span></div>
+    <div class="cikti" id="konuHukuk"></div>
+    <div class="hap"><b>Sebepsiz zenginleşme:</b> haklı bir sebep olmaksızın başkasının malvarlığından zenginleşen, bunu <b>geri vermekle yükümlüdür</b>. Zamanaşımı: hak sahibinin geri isteme hakkını <b>öğrenmesinden 2 yıl</b>, her hâlde zenginleşmenin gerçekleşmesinden <b>10 yıl</b>.<span class="kk">Kaynak: TBK (6098 s.K.) m.77, m.82</span></div>
+    <div class="hap"><b>Anonim şirkette temsil:</b> temsil yetkisi kural olarak <b>yönetim kuruluna</b> aittir ve aksi öngörülmedikçe <b>çift imza</b> ile kullanılır. Temsile yetkili olanların üçüncü kişilerle işletme konusu DIŞINDA yaptığı işlemler de kural olarak şirketi bağlar — üçüncü kişinin konu dışılığı bildiği/bilebileceği hâller hariç.<span class="kk">Kaynak: TTK (6102 s.K.) m.365, m.370, m.371</span></div>
+    <div class="hap"><b>Ticari defterler:</b> her tacir <b>yevmiye, defteri kebir ve envanter defteri</b> tutar; anonim şirkette ayrıca <b>pay defteri, YK karar defteri ve GK toplantı-müzakere defteri</b> ticari defterdendir. Açılış onayları kuruluşta ve her dönem başında noterce yapılır.<span class="kk">Kaynak: TTK (6102 s.K.) m.64</span></div>
+    <div class="hap"><b>KDV'de vergiyi doğuran olay:</b> kural, <b>malın teslimi veya hizmetin yapılmasıdır — ödeme değil</b>. Teslimden ÖNCE fatura kesilirse, faturada gösterilen tutarla sınırlı olmak üzere vergiyi doğuran olay <b>fatura tarihinde</b> gerçekleşir.<span class="kk">Kaynak: KDVK (3065 s.K.) m.10</span></div>
+    <div class="hap"><b>Kurumlar vergisi mükellefleri:</b> beşli liste — <b>sermaye şirketleri, kooperatifler, iktisadi kamu kuruluşları, dernek/vakıflara ait iktisadi işletmeler, iş ortaklıkları</b> (iş ortaklığında mükellefiyet isteğe bağlıdır). Şahıs şirketleri (kollektif, adi komandit) listede YOKTUR.<span class="kk">Kaynak: KVK (5520 s.K.) m.1-2</span></div>
+  </div>
+
+  <div class="blok">
+    <div class="bas"><h3>📈 Ekonomi + Maliye bloğu</h3><span class="dk" id="dkEkoMaliye"></span></div>
+    <div class="cikti" id="konuEkonomi"></div>
+    <div class="hap"><b>Talep fiyat esnekliği:</b> talep edilen miktardaki % değişimin fiyattaki % değişime oranı. <b>|e| &gt; 1 esnek</b>: fiyat artınca toplam hasılat DÜŞER; <b>|e| &lt; 1 inelastik</b>: fiyat artınca hasılat ARTAR. Şık tuzağı hasılat yönündedir.<span class="kk">Kaynak: mikroekonomi esneklik tanımı</span></div>
+  </div>
+
+  <div class="blok">
+    <div class="bas"><h3>🔢 Matematik-İstatistik bloğu</h3><span class="dk" id="dkMat"></span></div>
+    <div class="cikti" id="konuMat"></div>
+    <div class="hap"><b>Taktik:</b> bu derste soru az, işlem uzundur. Son gün formül tazele (türev-integral kuralları, olasılık, ortalama-varyans) ama sınavda bu bölüme soru başına ortalama süreden fazlasını ayırma — puan ağırlığı Alan Bilgisi içinde diğer sorularla aynıdır.<span class="kk">Dayanak: harita soru sayıları + yönerge ağırlıkları</span></div>
+  </div>
+
+  <div class="blok">
+    <div class="bas"><h3>🧠 Genel Kültür + Yabancı Dil taktiği</h3><span class="dk" id="dkGkyd"></span></div>
+    <div class="cikti" id="konuGkyd"></div>
+    <div class="hap"><b>Ağırlığı unutma:</b> GK-Yetenek toplam puanın %13,33'ü, Yabancı Dil %6,67'sidir; Alan Bilgisi %80'dir. Son gün dil çalışarak sıçrama olmaz — bu iki bölümün taktiği <b>hız ve boş bırakmamaktır</b>. Türkçe sorularında en sık gelenler: sözcükte anlam, noktalama, cümle öğeleri, anlatım bozukluğu.<span class="kk">Kaynak: TESMER Yönergesi (2024) m.6.2 ağırlıkları + harita sayımı</span></div>
+  </div>
+
+  <div class="blok">
+    <div class="bas"><h3>📝 Kapanış: Deneme + yanlış analizi</h3><span class="dk">son 25 dk</span></div>
+    <div style="font-size:13.5px;color:var(--muted);margin-top:8px">Planın son bloğunda <b style="color:var(--ink)">deneme çöz ve her yanlışın gerekçesini oku</b> — yanlışın nedenini gördüğün soru, sınavda bir daha yanılmadığın sorudur. Sonra ekranı kapat, uyu: bağıl sistemde yorgun rakip, iyi rakiptir.</div>
+    <a class="cta" href="deneme.html">Deneme Sınavına geç →</a>
+  </div>
+
+  <div class="dip">Dakika dağılımı, <a href="genc.html">Sınav Haritası</a>'ndaki dönemlerin ders bazlı soru sayımından orantıyla hesaplanır ve haritaya yeni dönem eklendikçe kendiliğinden güncellenir. Hap kartlardaki her bilgi, altında yazan kaynağa dayanır; kartlar sınav kitapçıklarından KOPYALANMAZ — konu seçimi haritadan, anlatım bizimdir. Resmî sınav kuralları: <a href="https://www.tesmer.org.tr/wp-content/uploads/2025/09/TESMER-Staj-ve-Sinavlara-Iliskin-Uygulama-Yonergesi-2024.pdf" target="_blank" rel="noopener">TESMER Uygulama Yönergesi (2024)</a>. · <a href="kvkk.html">KVKK</a></div>
+</div>
+
+<script>
+// PLAN MOTORU — dakikalar sgs-analiz.json'daki gercek soru sayimlarindan hesaplanir.
+// 300 dk = 255 dk ders bloklari (Alan dersleri arasi orantili + GK/YD sabiti) + 20 dk ara + 25 dk deneme.
+fetch('veri/sgs-analiz.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  if(!d.donemler || !d.donemler.length) return;
+  var ders={}, konular={};
+  d.donemler.forEach(function(dn){
+    Object.entries(dn.dersSayim||{}).forEach(function(e){ ders[e[0]]=(ders[e[0]]||0)+e[1]; });
+    Object.entries(dn.konuSayim||{}).forEach(function(e){ konular[e[0]]=(konular[e[0]]||0)+e[1]; });
+  });
+  var alanAd=['Muhasebe','Hukuk','Ekonomi','Maliye','Matematik-Istatistik'];
+  var alanToplam=0; alanAd.forEach(function(a){ alanToplam+=(ders[a]||0); });
+  if(!alanToplam) return;
+  var GKYD=25, DENEME=25, ARA=20, HAVUZ=300-GKYD-DENEME-ARA; // 230 dk alan derslerine
+  var dk={}; alanAd.forEach(function(a){ dk[a]=Math.round(HAVUZ*(ders[a]||0)/alanToplam); });
+  document.getElementById('haritaDamga').textContent='📊 Kaynak: '+d.donemler.length+' dönem / '+Object.values(ders).reduce(function(t,x){return t+x;},0)+' etiketli soru — güncelleme: '+(d.guncelleme||'');
+  // plan tablosu
+  var sira=[['Muhasebe bloğu',dk['Muhasebe']],['Kısa ara + ayakta tekrar',Math.round(ARA/2)],['Hukuk bloğu',dk['Hukuk']],['Ekonomi + Maliye bloğu',dk['Ekonomi']+dk['Maliye']],['Kısa ara',Math.round(ARA/2)],['Matematik-İstatistik bloğu',dk['Matematik-Istatistik']],['GK + Yabancı Dil taktiği',GKYD],['Deneme + yanlış analizi',DENEME]];
+  var t=0, h='<div class="tablosar"><table><tr><th>Sıra</th><th>Blok</th><th>Dakika</th><th>Saat aralığı*</th></tr>';
+  sira.forEach(function(s,i){ var bas=t; t+=s[1]; h+='<tr><td>'+(i+1)+'</td><td><b>'+s[0]+'</b></td><td>'+s[1]+' dk</td><td style="font-family:var(--mono);font-size:12px">'+dkSaat(bas)+' – '+dkSaat(t)+'</td></tr>'; });
+  h+='</table></div><div style="font-size:11.5px;color:var(--dim);margin-top:6px">*Saatler 0’dan başlar — kendi başlangıç saatine ekle. Toplam: '+t+' dakika.</div>';
+  document.getElementById('plan').innerHTML=h;
+  function dkSaat(m){ var s=Math.floor(m/60), k=m%60; return (s<10?'0':'')+s+':'+(k<10?'0':'')+k; }
+  // blok dk rozetleri
+  var roz={dkMuhasebe:dk['Muhasebe']+' dk', dkHukuk:dk['Hukuk']+' dk', dkEkoMaliye:(dk['Ekonomi']+dk['Maliye'])+' dk', dkMat:dk['Matematik-Istatistik']+' dk', dkGkyd:GKYD+' dk'};
+  Object.keys(roz).forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=roz[id]; });
+  // ders basi cikan konular (top 5)
+  function topKonu(dersAd,hedefId){
+    var list=Object.entries(konular).filter(function(e){ return e[0].indexOf(dersAd+'|')===0; })
+      .sort(function(a,b){ return b[1]-a[1]; }).slice(0,5)
+      .map(function(e){ return e[0].split('|')[1]+' ('+e[1]+')'; });
+    var el=document.getElementById(hedefId);
+    if(el && list.length) el.innerHTML='<b>Son sınavlarda buradan çıkanlar:</b> '+list.join(' · ');
+  }
+  topKonu('Muhasebe','konuMuhasebe'); topKonu('Hukuk','konuHukuk'); topKonu('Ekonomi','konuEkonomi');
+  topKonu('Matematik-Istatistik','konuMat'); topKonu('Genel Kultur-Genel Yetenek','konuGkyd');
+}).catch(function(){});
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
