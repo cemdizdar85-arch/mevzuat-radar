@@ -120,8 +120,11 @@ KURALLAR:
 SADECE su JSON dizisini dondur:
 [{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"..."}]
 "@
-  $ham = Claude $uIstem 8000 $MODEL_URET
-  $js = JsonBul $ham; if(-not $js){ $rapor.Add("URETIM HATASI: $konu"); continue }
+  # 23.07 dersi: 8000 token 5 soru + hap anlatimlara DAR geldi, JSON yarida kesildi
+  # (6 konudan 4'u URETIM/JSON hatasiyla dustu). 16000'e cikarildi + API sigortasi.
+  $ham = $null
+  try { $ham = Claude $uIstem 16000 $MODEL_URET } catch { $rapor.Add("API HATASI: $konu ($($_.Exception.Message))"); continue }
+  $js = JsonBul $ham; if(-not $js){ $rapor.Add("URETIM HATASI (JSON bulunamadi/kesik): $konu"); continue }
   $uretilen = @(); try{ $uretilen = $js | ConvertFrom-Json }catch{ $rapor.Add("JSON HATASI: $konu"); continue }
 
   foreach($s in @($uretilen)){
