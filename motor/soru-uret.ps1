@@ -91,10 +91,11 @@ KURALLAR:
 1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
 2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu 1-2 cumleyle yaz (UWorld tarzi mini ders).
 3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
-4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor.
+4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
 5) Sade, kitapcik Turkcesiyle.
+6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
 SADECE su JSON dizisini dondur:
-[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"..."}]
+[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"..."}]
 "@
   $ham = Claude $uIstem 8000 $MODEL_URET
   $js = JsonBul $ham; if(-not $js){ $rapor.Add("URETIM HATASI: $konu"); continue }
@@ -123,7 +124,7 @@ SADECE su JSON dizisini dondur:
     }
     if(-not $ok){ continue }
     $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav="SGS"; ders=$ders; konu=$konu;
-      soru=$s.soru; siklar=$s.siklar; dogru=$s.dogru; aciklama=$s.aciklama; kaynak=$s.kaynak; ambar=$at;
+      soru=$s.soru; siklar=$s.siklar; dogru=$s.dogru; aciklama=$s.aciklama; kaynak=$s.kaynak; hap="$($s.hap)"; ambar=$at;
       uretim=(Get-Date -Format "dd.MM.yyyy"); durum="onay-bekliyor" })
     $mevcutKokler += $kokOzet
     $rapor.Add("GECTI: [$konu] $($s.soru.Substring(0,[Math]::Min(50,$s.soru.Length)))...")
