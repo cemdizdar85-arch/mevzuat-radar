@@ -1,5 +1,41 @@
 {
-  "guncelleme": "22.07.2026 20:44",
+  "guncelleme": "22.07.2026 21:00",
   "not": "Fabrika ciktisi burada bekler (onay-bekliyor); onaylanan ORNEK sorular soru-bankasi.json'a, PAKET sorulari (paket-havuzu) Supabase kurulunca oraya tasinir.",
-  "sorular": []
+  "sorular": [
+    {
+      "id": "2d49265d",
+      "sinav": "SGS",
+      "ders": "Muhasebe",
+      "konu": "toplulastirma riski",
+      "soru": "XYZ A.Ş. bilançosunda 'Diğer Alacaklar' hesabı altında; ortaklardan alacaklar, personelden alacaklar ve şüpheli ticari alacaklardan henüz karşılık ayrılmamış tutarları, ayrı alt kalem açılımı yapmadan tek bir tutar halinde sunmuştur. Bu tutarların her biri finansal tablo kullanıcısının kararını etkileyebilecek büyüklüktedir. Bu uygulama, TMS 1'deki önemlilik ve toplulaştırma ilkesi açısından nasıl değerlendirilir?",
+      "siklar": {
+        "A": "Doğrudur, çünkü tüm kalemler 'alacak' niteliğinde olduğundan tek kalemde gösterilmesi basitlik ilkesine uygundur.",
+        "B": "Yanlıştır, çünkü nitelik ve işlev bakımından farklı olan ve önemli tutardaki kalemler finansal tablolarda ayrı ayrı sunulmalıdır; aksi halde bilgi kullanıcıları yanıltılabilir.",
+        "C": "Doğrudur, çünkü TMS 1 kapsamında sadece bilanço genel toplamının doğru olması yeterlidir, alt kırılım isteğe bağlıdır.",
+        "D": "Yanlıştır, çünkü ortaklardan alacaklar her koşulda netleştirme yasağı kapsamına girer ve bu yüzden ayrı gösterilmelidir.",
+        "E": "Doğrudur, çünkü önemlilik sınırının altında kalan kalemlerin gruplanması TMS 1'de her zaman serbest bırakılmıştır."
+      },
+      "dogru": "B",
+      "aciklama": {
+        "A": "'Basitlik ilkesi' diye bir muhasebe ilkesi yoktur; TMS 1 aynı nitelikte olmayan önemli kalemlerin ayrıştırılmasını ister.",
+        "B": "Doğru. TMS 1, nitelik veya işlev bakımından farklı önemli kalemlerin ayrı sunulmasını, sadece benzer ve önemsiz kalemlerin toplulaştırılabileceğini öngörür.",
+        "C": "Bilanço toplamının doğruluğu yeterli değildir; sunumun kullanıcıya anlamlı bilgi vermesi de aranır, bu toplulaştırma riskinin özüdür.",
+        "D": "Netleştirme (mahsup) yasağı ayrı bir konudur; burada varlık-borç mahsubu değil, aynı grupta farklı nitelikli alacakların gizlenmesi söz konusudur, kavram karıştırılmıştır.",
+        "E": "Senaryoda kalemlerin önemli tutarda olduğu belirtilmiştir; önemlilik varsa gruplama ilkesi ihlal edilmiş olur, 'her küçük kalem serbesttir' genellemesi yanlıştır."
+      },
+      "kaynak": "TMS 1 (Finansal Tabloların Sunuluşu) paragraf 29-30 - Önemlilik ve Toplulaştırma",
+      "hap": "Toplulaştırma ilkesi: Nitelik veya işlev bakımından FARKLI ve ÖNEMLİ olan kalemler ayrı ayrı sunulmalı; sadece benzer nitelikte ve önemsiz kalemler gruplanabilir. Tuzak, 'toplam tutar doğruysa sorun yok' diye düşünmektir; oysa yanlış gruplama tek başına kullanıcıyı yanıltabilir. Farklı nitelikteki bir alacağı, borcu veya gelir kalemini tek satırda eritmek bilgi kaybına (toplulaştırma riskine) yol açar.",
+      "ambar": "atla",
+      "uretim": "22.07.2026",
+      "durum": "onay-bekliyor"
+    }
+  ],
+  "sonKosuRaporu": [
+    "URETIM HATASI: sebepsiz zenginlesme",
+    "JSON HATASI: faaliyet kâri hesaplama",
+    "RET (cozucu1 'A' != 'B'): İşçi A, e-Devlet kapısı üzerinden (X) se",
+    "URETIM HATASI: dikey yuzde analizi",
+    "JSON HATASI: normal maliyet yontemi",
+    "GECTI: [toplulastirma riski] XYZ A.Ş. bilançosunda 'Diğer Alacaklar' hesabı alt..."
+  ]
 }
