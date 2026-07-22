@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Depoyu al
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # diff-bekcisi HEAD~1 ile kiyas yapar
+
+      - name: Diff bekcisi (kazayla veri silme freni)
+        shell: pwsh
+        run: ./arac/diff-bekcisi.ps1
 
       - name: Yapisal denetci (imkansiz/celisik veri)
         shell: pwsh

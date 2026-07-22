@@ -59,8 +59,14 @@ function AmbarTeyit($kaynak){
 }
 
 # HARITA: en cok soru getiren konular (mevcut bankada az temsil edilenler oncelikli)
+# MESLEK ODAGI: Yabanci Dil ve Genel Kultur uretim hedefi DEGIL — kozumuz
+# kaynak-maddeli meslek sorulari (Muhasebe/Hukuk/Ekonomi/Maliye/Mat-Ist).
+$HARIC_DERS = @('Yabanci Dil','Genel Kultur-Genel Yetenek')
 $konular=@{}
-foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Properties){ $konular[$p.Name]=[int]$konular[$p.Name]+[int]$p.Value } }
+foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Properties){
+  $dAd = ($p.Name -split '\|')[0]
+  if($HARIC_DERS -contains $dAd){ continue }
+  $konular[$p.Name]=[int]$konular[$p.Name]+[int]$p.Value } }
 $bankaSay=@{}
 foreach($s in @($banka.sorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[$_.Key] -lt 10 } | Select-Object -First $KONU_LIMIT
