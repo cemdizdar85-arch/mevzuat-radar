@@ -20,8 +20,10 @@ if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
 
 $arsivYol = Join-Path $kok "veri/sinav-arsiv.json"
 $analizYol = Join-Path $kok "veri/sgs-analiz.json"
+$analizSYol = Join-Path $kok "veri/smmm-analiz.json"   # Yeterlilik (2026/1'den beri test formati)
 $arsiv = Get-Content $arsivYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $analiz = if(Test-Path $analizYol){ Get-Content $analizYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ guncelleme=""; donemler=@() } }
+$analizS = if(Test-Path $analizSYol){ Get-Content $analizSYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ guncelleme=""; donemler=@() } }
 
 function ClaudePdf($b64, $istem, $maxtok){
   $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
@@ -54,7 +56,21 @@ $islenen = 0
 foreach($d in $arsiv.donemler){
   if($d.durum -ne 'bekliyor'){ continue }
   if($islenen -ge $LIMIT){ break }
-  Write-Host ("=== {0} ({1}) isleniyor..." -f $d.donem, $d.tarih)
+  # sinav tipi: SGS (varsayilan) veya SMMM (Yeterlilik; ders kitapcigi bazli)
+  $sinavTip = if($d.sinav){ "$($d.sinav)" } else { 'SGS' }
+  $istemAktif = $ISTEM
+  $minSoru = 90
+  if($sinavTip -eq 'SMMM'){
+    $minSoru = 10   # ders kitapcigi boyutu henuz olculmedi; ilk kosu raporlar, sonra sikilastirilir
+    $istemAktif = @"
+Bu bir TURMOB-TESMER SMMM Yeterlilik Sinavi '$($d.ders)' dersi soru kitapcigidir (2026/1'den beri coktan secmeli test). GOREV: kitapciktaki HER COKTAN SECMELI SORUYU tek tek bul ve etiketle.
+Her soru icin: no (kitapciktaki soru numarasi), ders (SABIT: '$($d.ders)'), konu (2-4 kelimelik SPESIFIK etiket, ornek: amortisman ayirma, KDV tevkifat, konsolidasyon, ic kontrol testleri, orneklem secimi).
+KURALLAR: Soru atlamak YASAK. Soru metnini KOPYALAMA - yalniz no/ders/konu. Emin olmadigin konuya en yakin genel etiketi ver.
+SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
+[{"no":1,"ders":"$($d.ders)","konu":"..."}]
+"@
+  }
+  Write-Host ("=== [{0}] {1} {2} ({3}) isleniyor..." -f $sinavTip, $d.donem, $d.ders, $d.tarih)
   $tmp = Join-Path ([IO.Path]::GetTempPath()) "sgs.pdf"
   try { Invoke-WebRequest -Uri $d.url -OutFile $tmp -UserAgent "Mozilla/5.0" -TimeoutSec 180 -UseBasicParsing } catch { Write-Host "  indirilemedi, atlandi"; continue }
   $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($tmp))
@@ -62,15 +78,15 @@ foreach($d in $arsiv.donemler){
 
   # KAPI 1: iki bagimsiz okuma
   $o1 = $null; $o2 = $null
-  try { $o1 = (JsonBul (ClaudePdf $b64 $ISTEM 16000)) | ConvertFrom-Json } catch { Write-Host "  okuma1 hata: $($_.Exception.Message)" }
+  try { $o1 = (JsonBul (ClaudePdf $b64 $istemAktif 16000)) | ConvertFrom-Json } catch { Write-Host "  okuma1 hata: $($_.Exception.Message)" }
   Write-Host "  okuma 2/2..."
-  try { $o2 = (JsonBul (ClaudePdf $b64 $ISTEM 16000)) | ConvertFrom-Json } catch { Write-Host "  okuma2 hata: $($_.Exception.Message)" }
+  try { $o2 = (JsonBul (ClaudePdf $b64 $istemAktif 16000)) | ConvertFrom-Json } catch { Write-Host "  okuma2 hata: $($_.Exception.Message)" }
   if(-not $o1 -or -not $o2){ Write-Host "  RED: okuma basarisiz"; $d.durum='hata'; $islenen++; continue }
 
   # KAPI 4: soru sayisi makul mu
   $n1=@($o1).Count; $n2=@($o2).Count
   Write-Host ("  okuma1={0} soru, okuma2={1} soru" -f $n1,$n2)
-  if($n1 -lt 90 -or $n1 -gt 140 -or $n2 -lt 90 -or $n2 -gt 140 -or [math]::Abs($n1-$n2) -gt 8){
+  if($n1 -lt $minSoru -or $n1 -gt 140 -or $n2 -lt $minSoru -or $n2 -gt 140 -or [math]::Abs($n1-$n2) -gt 8){
     Write-Host "  RED: soru sayisi guvensiz"; $d.durum='inceleme'; $islenen++; continue }
 
   # KAPI 2: ders uyusmasi (no bazinda)
@@ -104,12 +120,14 @@ foreach($d in $arsiv.donemler){
   # sayimlar
   $dersSayim=@{}; $konuSayim=@{}
   foreach($s in $sorular){ $dersSayim[$s.ders]=1+[int]$dersSayim[$s.ders]; $kk="$($s.ders)|$($s.konu)"; $konuSayim[$kk]=1+[int]$konuSayim[$kk] }
-  $yeni = [pscustomobject]@{ donem=$d.donem; tarih=$d.tarih; kaynakUrl=$d.url; toplamSoru=$sorular.Count;
+  $yeni = [pscustomobject]@{ donem=$d.donem; ders=$d.ders; tarih=$d.tarih; kaynakUrl=$d.url; toplamSoru=$sorular.Count;
     dersSayim=$dersSayim; konuSayim=$konuSayim; analizTarihi=(Get-Date -Format "dd.MM.yyyy"); yontem="cift okuma + hakem" }
+  $hedefAnaliz = if($sinavTip -eq 'SMMM'){ $analizS } else { $analiz }
+  $anahtar = "$($d.donem)|$($d.ders)"
   $dl = New-Object System.Collections.Generic.List[object]
-  foreach($x in @($analiz.donemler)){ if($x.donem -ne $d.donem){ $dl.Add($x) } }
-  $dl.Add($yeni); $analiz.donemler = $dl.ToArray()
-  $analiz.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
+  foreach($x in @($hedefAnaliz.donemler)){ if("$($x.donem)|$($x.ders)" -ne $anahtar){ $dl.Add($x) } }
+  $dl.Add($yeni); $hedefAnaliz.donemler = $dl.ToArray()
+  $hedefAnaliz.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
   $d.durum = 'tamam'
   Write-Host ("  TAMAM: {0} soru etiketlendi, {1} ders" -f $sorular.Count, $dersSayim.Keys.Count)
   $islenen++
@@ -117,5 +135,6 @@ foreach($d in $arsiv.donemler){
 
 [IO.File]::WriteAllText($arsivYol, ($arsiv | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
 [IO.File]::WriteAllText($analizYol, ($analiz | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+[IO.File]::WriteAllText($analizSYol, ($analizS | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("BITTI: bu kosuda {0} donem islendi." -f $islenen)
 exit 0
