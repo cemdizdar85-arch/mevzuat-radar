@@ -17,6 +17,7 @@ var GRUPLAR=[
   ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
   ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
+  ["kurulus-evrak.html","🗂️","Kuruluş Evrak Çantası","Hangi belge, kim doldurur, nereye?"],
   ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
   ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"]]},

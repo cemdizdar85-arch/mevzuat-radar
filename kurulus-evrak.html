@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuruluş Evrak Çantası — şirket kurarken hangi belge, kim doldurur? | Mevzuat Radarı</title>
+<meta name="description" content="Şahıs, Limited ve Anonim şirket kuruluşunda adım adım evrak listesi: MERSİS başvurusu, ticaret sicili, vergi dairesi yoklaması, SGK ve oda kayıtları — kim neyi doldurur, nereye verir.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 18px}
+.tur{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.tur button{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;padding:11px 20px;border-radius:11px;border:1px solid var(--line2);background:var(--panel);color:var(--muted);transition:.15s}
+.tur button.aktif{background:var(--grad);color:#03101f;border-color:transparent}
+.adim{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.adim h2{font-size:15px;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.adim .no{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:8px;background:rgba(62,155,255,.14);color:var(--accent);font-weight:800;font-size:13px;font-family:var(--mono)}
+.adim .nerede{font-size:11.5px;font-weight:700;color:var(--green);letter-spacing:.4px;text-transform:uppercase;margin-left:auto}
+.adim ul{margin:10px 0 0;padding-left:20px}
+.adim li{font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.adim li b{color:var(--ink)}
+.adim .not{font-size:12px;color:var(--dim);margin-top:8px}
+.uyari{font-size:12.5px;color:var(--dim);margin-top:16px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:12px 15px}
+.uyari b{color:var(--amber)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="kurulus.html">Şirket Kuruluşu</a> · Evrak Çantası</div>
+  <h1>Kuruluş Evrak Çantası</h1>
+  <p class="lead">Şirket türünü seç; kuruluşun her adımında <b style="color:var(--ink)">hangi belge, kim doldurur, nereye verilir</b> — tek listede. Hangi türü seçeceğinden emin değilsen önce <a href="kurulus.html">8 soruluk kuruluş sihirbazına</a> gir.
+  <span class="damga">📑 Dayanak: TTK, VUK m.153, MERSİS uygulaması — rehber niteliğinde</span></p>
+
+  <div class="tur">
+    <button data-t="sahis" class="aktif">Şahıs işletmesi</button>
+    <button data-t="ltd">Limited (Ltd)</button>
+    <button data-t="as">Anonim (AŞ)</button>
+  </div>
+
+  <div id="liste"></div>
+
+  <div class="uyari"><b>Dürüst not:</b> Evrak listeleri il uygulamalarına ve duruma (yabancı ortak, ayni sermaye, özel izinli faaliyet) göre değişebilir; randevudan önce ilgili <b>ticaret sicili müdürlüğünün</b> güncel listesini ve vergi dairesini telefonla teyit etmek yarım gün kazandırır. Bu sayfa bilgilendirmedir; işlemlerin mali müşavir eşliğinde yürütülmesi esastır.</div>
+
+  <div class="dip">İlgili araçlar: <a href="kurulus.html">Kuruluş Sihirbazı</a> (tür seçimi + vergi kıyası) · <a href="genc.html">Genç Müşavir</a> · Kaynaklar: TTK (6102) kuruluş hükümleri, VUK (213) m.153 işe başlama, MERSİS/ticaret sicili uygulaması.</div>
+</div>
+
+<script>
+const VERI={
+ sahis:[
+  {b:"Hazırlık — işe başlamadan", n:"SEN + MÜŞAVİR", m:[
+    "<b>Kira sözleşmesi</b> veya tapu (işyeri adresi için; home-ofiste kira kontratı/tapu + muvafakat gerekebilir)",
+    "<b>Kimlik</b> ve e-Devlet şifresi",
+    "Mali müşavirle <b>hizmet sözleşmesi</b> + müşavire <b>İnteraktif Vergi Dairesi yetkilendirmesi</b>"],
+   not:"Şahıs işletmesinde ticaret siciline kayıt çoğu esnaf/serbest faaliyette gerekmez; tacir niteliği doğuyorsa sicil + oda kaydı gündeme gelir."},
+  {b:"Vergi dairesi — işe başlama", n:"MÜŞAVİR (İVD)", m:[
+    "<b>İşe başlama bildirimi</b> (VUK m.153) — İnteraktif Vergi Dairesi'nden elektronik verilir",
+    "Kira sözleşmesi ekli yüklenir; iş yeri <b>yoklaması</b> memurca yapılır (adreste tabelanı/faaliyetini görmek isterler)",
+    "Yoklama sonrası <b>vergi levhası</b> İVD'de oluşur (asma zorunluluğu kalktı, saklanır/gösterilir)"],
+   not:"e-SMM/e-Arşiv gibi elektronik belge başvuruları faaliyet türüne göre bu aşamada açılır."},
+  {b:"SGK & Bağ-Kur", n:"MÜŞAVİR", m:[
+    "Vergi kaydıyla <b>4/b (Bağ-Kur) tescili</b> kendiliğinden tetiklenir — prim ödemeye hazır ol",
+    "Yanında işçi çalışacaksa: <b>SGK işyeri tescili</b> + işe giriş bildirgeleri (işçi çalışmaya başlamadan ÖNCE)"]},
+  {b:"Faaliyete özel izinler", n:"BELEDİYE / BAKANLIK", m:[
+    "<b>İşyeri açma ve çalışma ruhsatı</b> (belediye — faaliyet fiilen müşteri kabul eden bir dükkânsa)",
+    "Gıda/sağlık/turizm gibi alanlarda <a href='bilgi.html#hap-sektorel-lisans'>sektörel izinler</a>"]}
+ ],
+ ltd:[
+  {b:"MERSİS başvurusu", n:"MÜŞAVİR (MERSİS)", m:[
+    "<b>Şirket sözleşmesi MERSİS'te hazırlanır</b>: unvan, merkez adres, <b>NACE faaliyet kodu</b>, müdür(ler), ortaklar ve pay oranları, sermaye (asgari tutar için güncel TTK m.580 rakamına bak)",
+    "Ortakların <b>kimlik bilgileri</b> + iletişim; yabancı ortakta pasaport/vergi no",
+    "Sistem <b>talep numarası</b> üretir → sicil randevusu bu numarayla alınır"]},
+  {b:"Ticaret Sicili Müdürlüğü — tescil", n:"SİCİL (randevulu)", m:[
+    "MERSİS onaylı <b>sözleşmenin imzalanması</b>: ortaklar sicil müdürü huzurunda (veya vekâletle) imzalar",
+    "<b>Müdürün görevi kabul beyanı</b> ve imza örneği/imza beyannamesi sicilde düzenlenir",
+    "<b>Sicil harçları + ilan bedeli</b> ödenir; tescille tüzel kişilik doğar, <b>sicil tasdiknamesi</b> alınır",
+    "Kuruluş, Ticaret Sicili Gazetesi'nde ilan edilir; <b>defterler</b> (yevmiye, kebir, envanter, pay defteri, karar defterleri) kuruluşta sicilde tasdik ettirilir"],
+   not:"Ltd'de sermayenin kuruluşta bankaya blokajı zorunlu değildir (nakdi sermaye TTK'daki sürede ödenir); AŞ'den ayrılan pratik farklardan biri."},
+  {b:"Vergi dairesi", n:"MÜŞAVİR + YOKLAMA", m:[
+    "Sicil bildirimiyle <b>vergi kaydı</b> açılır; <b>işe başlama/yoklama</b> adreste yapılır",
+    "<b>Kira sözleşmesi</b> (veya tapu) + müşavir sözleşmesi hazır olsun",
+    "<b>e-Tebligat</b> aktivasyonu + (kapsama göre) <b>e-Fatura/e-Defter</b> başvuruları",
+    "<b>KEP adresi</b>: tüm sermaye şirketleri için elektronik tebligat zorunluluğu kapsamında edinilir"]},
+  {b:"SGK + oda + banka", n:"MÜŞAVİR / SEN", m:[
+    "İşçi varsa <b>SGK işyeri tescili</b>; müdür-ortak için 4/b tescili",
+    "<b>Oda kaydı</b> (ticaret odası) sicille birlikte yürür",
+    "<b>Banka hesabı</b>: sicil tasdiknamesi + vergi levhası + imza yetkilisiyle açılır"]}
+ ],
+ as:[
+  {b:"MERSİS başvurusu", n:"MÜŞAVİR (MERSİS)", m:[
+    "<b>Esas sözleşme MERSİS'te</b>: unvan, merkez, NACE, <b>yönetim kurulu</b>, sermaye ve paylar (asgari sermaye için güncel TTK m.332 rakamına bak)",
+    "Kurucuların kimlik bilgileri; YK üyelerinin görev kabulleri"]},
+  {b:"Banka — sermaye blokajı", n:"BANKA", m:[
+    "AŞ'de nakdi sermayenin kanunda öngörülen kısmı (<b>en az ¼'ü</b>) tescilden ÖNCE bankaya yatırılır ve <b>blokaj mektubu</b> alınır (TTK m.344)",
+    "Blokaj mektubu sicile ibraz edilir; tescil sonrası blokaj çözülür"]},
+  {b:"Ticaret Sicili Müdürlüğü — tescil", n:"SİCİL (randevulu)", m:[
+    "Esas sözleşme imzaları + <b>YK görev kabul ve imza beyanları</b>",
+    "Blokaj mektubu + harç/ilan ödemeleri → <b>tescil + sicil tasdiknamesi</b>",
+    "<b>Defter tasdikleri</b> (pay defteri, YK karar defteri, GK müzakere defteri dahil) kuruluşta yapılır"],
+   not:"Tek pay sahipli AŞ mümkündür; avukat bulundurma yükümü esas sermayesi eşiği aşan AŞ'lerde başlar — <a href='sayfalar/avukat-bulundurma.html'>eşik sayfasına bak</a>."},
+  {b:"Vergi + SGK + KEP", n:"MÜŞAVİR", m:[
+    "Vergi kaydı + adres <b>yoklaması</b> (kira sözleşmesi hazır)",
+    "<b>e-Tebligat + KEP</b>; kapsama göre e-Fatura/e-Defter",
+    "İşçi için SGK işyeri tescili; kurucu YK üyesi ortaklar için 4/b"]}
+ ]
+};
+const $=s=>document.querySelector(s);
+function ciz(t){
+  document.querySelectorAll('.tur button').forEach(b=>b.classList.toggle('aktif',b.dataset.t===t));
+  $('#liste').innerHTML=VERI[t].map((a,i)=>
+    '<div class="adim"><h2><span class="no">'+(i+1)+'</span>'+a.b+'<span class="nerede">'+a.n+'</span></h2><ul>'+
+    a.m.map(x=>'<li>'+x+'</li>').join('')+'</ul>'+(a.not?'<div class="not">💡 '+a.not+'</div>':'')+'</div>').join('');
+}
+document.querySelectorAll('.tur button').forEach(b=>b.onclick=()=>ciz(b.dataset.t));
+ciz('sahis');
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
