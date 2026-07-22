@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asgari Kurumlar Vergisi Simülatörü — %10 tabana takılır mıyım? | Mevzuat Radarı</title>
+<meta name="description" content="Yurt içi asgari kurumlar vergisi (KVK m.32/C) hesabı: ticari kâr + KKEG üzerinden %10 taban, düşülebilen istisnalar, ilk 3 yıl muafiyeti. 7524 ve 7582 sonrası güncel kurallarla, kaynağa bağlı.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(62,155,255,.10),transparent 72%);pointer-events:none}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
+h1{font-size:clamp(23px,4.4vw,31px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 20px}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px 22px;margin-bottom:14px}
+.kutu h2{font-size:15px;font-weight:800;margin:0 0 4px;letter-spacing:.2px}
+.kutu .n{font-size:12.5px;color:var(--dim);margin:0 0 14px}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--accent2);letter-spacing:.3px;margin:12px 0 5px}
+label .h{font-weight:400;color:var(--dim)}
+input.t{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+input.t:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,155,255,.16)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}}
+.sec{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:14px;color:var(--muted)}
+.sec input{width:18px;height:18px;accent-color:var(--accent)}
+details{margin-top:10px;font-size:13px;color:var(--muted)}
+summary{cursor:pointer;color:var(--accent2);font-weight:600;font-size:12.5px}
+details ul{margin:8px 0 0;padding-left:18px}
+details li{margin-bottom:5px}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15.5px;padding:14px 26px;border-radius:13px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(46,140,255,.3);transition:transform .15s;margin-top:16px;width:100%}
+.btn:hover{transform:translateY(-2px)}
+#sonuc{margin-top:18px}
+.skart{border:1px solid var(--line2);border-radius:15px;padding:20px 22px;margin-bottom:12px;background:var(--panel)}
+.skart.vurgu{border-color:rgba(255,194,75,.45);background:linear-gradient(135deg,rgba(255,194,75,.08),transparent),var(--panel)}
+.skart.temiz{border-color:rgba(61,220,151,.45);background:linear-gradient(135deg,rgba(61,220,151,.07),transparent),var(--panel)}
+.skart .et{font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--dim);text-transform:uppercase}
+.skart .buyuk{font-size:26px;font-weight:800;letter-spacing:-.5px;margin:4px 0}
+.satir{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.satir:last-child{border:0}.satir b{color:var(--ink);white-space:nowrap}.satir span{color:var(--muted)}
+.uyari{font-size:12.5px;color:var(--dim);margin-top:16px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:12px 15px}
+.uyari b{color:var(--amber)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Asgari Kurumlar Vergisi</div>
+  <h1>Asgari Kurumlar Vergisi Simülatörü</h1>
+  <p class="lead">2025'ten itibaren kurumlar, indirim ve istisnalar ne olursa olsun <b style="color:var(--ink)">ticari kâr + KKEG toplamının %10'undan az</b> kurumlar vergisi ödeyemiyor (KVK m.32/C — 7524 s.K. ile eklendi). Rakamlarını gir; tabana takılıp takılmadığını gör.
+  <span class="damga">📑 Kaynak: KVK m.32/C konsolide metni (7582/9 dahil) — 22.07.2026 okundu</span></p>
+
+  <div class="kutu">
+    <h2>1 · Kazanç bilgileri</h2>
+    <p class="n">Yıllık kurumlar vergisi beyannamesindeki (veya geçici vergi dönemindeki) tutarlar.</p>
+    <div class="grid2">
+      <div><label>TİCARİ BİLANÇO KÂRI <span class="h">(zarar ise 0 yaz)</span></label><input class="t" id="tbk" inputmode="numeric" placeholder="ör. 10.000.000"></div>
+      <div><label>KKEG TOPLAMI</label><input class="t" id="kkeg" inputmode="numeric" placeholder="ör. 500.000"></div>
+    </div>
+    <div class="grid2">
+      <div><label>BEYANNAMEDE HESAPLANAN KURUMLAR VERGİSİ <span class="h">(normal hesap — matrah × oran)</span></label><input class="t" id="hkv" inputmode="numeric" placeholder="ör. 1.200.000"></div>
+      <div><label>ASGARİDEN DÜŞÜLEBİLEN İSTİSNA/İNDİRİMLER <span class="h">(aşağıdaki listeden toplamı)</span></label><input class="t" id="dusulen" inputmode="numeric" placeholder="ör. 2.000.000 (yoksa 0)"></div>
+    </div>
+    <details>
+      <summary>Hangi istisna/indirimler asgari matrahtan DÜŞÜLÜR? (m.32/C-2 listesi)</summary>
+      <ul>
+        <li>İştirak kazançları istisnası (m.5/1-a) ve emisyon primi (m.5/1-ç)</li>
+        <li>Yatırım fon/ortaklık kazanç istisnası — taşınmaz kazançları HARİÇ (m.5/1-d)</li>
+        <li>Kooperatif risturnları (m.5/1-i), sat-kirala-geri al (m.5/1-j), kira sertifikası (m.5/1-k)</li>
+        <li>Girişim sermayesi fonu (m.10/1-g) ve korumalı işyeri indirimi (m.10/1-h)</li>
+        <li><b>21.5.2026'dan itibaren (7582/9):</b> yurt dışına mal ticareti/aracılık kazancı indirimi (m.10/1-i) ve nitelikli hizmet merkezi indirimi (m.10/1-j) ile 7412 s.K. m.6/1-a İstanbul Finans Merkezi kazanç indirimi</li>
+        <li>Türk Uluslararası Gemi Sicili (4490) ve Serbest Bölge (3218) kazanç istisnaları</li>
+        <li>Teknokent kazanç istisnası (4691) ile Ar-Ge ve tasarım indirimleri</li>
+      </ul>
+      <div style="margin-top:8px;color:var(--amber)">Listede OLMAYANLAR asgari matrahtan düşülmez — <b>geçmiş yıl zararları</b>, <b>nakdi sermaye artışı faiz indirimi (m.10/1-ı)</b>, bağış indirimi ve diğer istisnalar tabana dahil kalır. En sık yanılınan noktalar bunlardır.</div>
+    </details>
+  </div>
+
+  <div class="kutu">
+    <h2>2 · Asgari vergiden mahsuplar <span style="font-weight:400;color:var(--dim);font-size:12px">(m.32/C-3 — varsa)</span></h2>
+    <p class="n">Hesaplanan asgari vergiden şunlar indirilir: m.32/6-7-8 indirimli oran nedeniyle alınmayan vergi (halka arz 2 puan, ihracat 5 puan, üretim 1 puan) + 2.8.2024 ÖNCESİ alınmış teşvik belgelerinin yatırıma katkısı nedeniyle 32/A gereği alınmayan vergi.</p>
+    <label>MAHSUP TOPLAMI <span class="h">(yoksa 0)</span></label><input class="t" id="mahsup" inputmode="numeric" placeholder="ör. 150.000">
+    <div class="sec"><input type="checkbox" id="yeni"><span><b style="color:var(--ink)">İlk 3 hesap dönemindeyiz</b> — kurum yeni kuruldu (m.32/C-5: asgari vergi uygulanmaz; devir/bölünmeyle gelenler hariç, tebliğe bak)</span></div>
+  </div>
+
+  <button class="btn" id="hesapla">Asgari vergiye takılıyor muyum? →</button>
+  <div id="sonuc"></div>
+
+  <div class="uyari"><b>Bilgilendirme:</b> Bu simülatör KVK m.32/C'nin ana kurallarını birebir uygular; ancak özellikli durumlar (indirimli oran kombinasyonları, özel hesap dönemi, tebliğdeki ayrıntılar) sonucu değiştirebilir. %10 oranını Cumhurbaşkanı sıfıra kadar indirmeye veya bir katına çıkarmaya yetkilidir (m.32/C-7). Beyandan önce mali müşavirinle doğrula — bu sayfa hukuki mütalaa değildir.</div>
+  <div class="dip">Kaynak: KVK (5520 s.K.) m.32/C (Ek: 28.7.2024-7524/36; değişik bent: 21.5.2026-7582/9) — mevzuat.gov.tr konsolide metninden 22.07.2026'da okunmuştur. Geçici vergi dönemlerinde de uygulanır (m.32/C-4).</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+function say(v){ v=(''+v).replace(/[^\d]/g,''); return v?parseInt(v,10):0; }
+function tl(n){ return n.toLocaleString('tr-TR')+' TL'; }
+['tbk','kkeg','hkv','dusulen','mahsup'].forEach(id=>{
+  $('#'+id).addEventListener('input',e=>{ const s=say(e.target.value); e.target.value=s?s.toLocaleString('tr-TR'):''; });
+});
+$('#hesapla').addEventListener('click',()=>{
+  const tbk=say($('#tbk').value), kkeg=say($('#kkeg').value), hkv=say($('#hkv').value),
+        dus=say($('#dusulen').value), mah=say($('#mahsup').value);
+  const el=$('#sonuc');
+  if($('#yeni').checked){
+    el.innerHTML='<div class="skart temiz"><div class="et">SONUÇ</div><div class="buyuk" style="color:var(--green)">Asgari vergi uygulanmaz</div><div style="font-size:13.5px;color:var(--muted)">İlk defa faaliyete başlayan kurumlarda, faaliyete başlanan hesap döneminden itibaren ÜÇ hesap dönemi boyunca m.32/C hükümleri uygulanmaz (m.32/C-5). Normal hesaplanan vergin ('+tl(hkv)+') geçerlidir.</div></div>';
+    return;
+  }
+  const taban=tbk+kkeg;                      // m.32/C-6: ticari bilanço kârı + KKEG
+  const matrah=Math.max(0, taban-dus);       // m.32/C-2: sayılan istisna/indirimler düşülür
+  const asgariBrut=Math.round(matrah*0.10);  // m.32/C-1: %10
+  const asgari=Math.max(0, asgariBrut-mah);  // m.32/C-3 mahsupları
+  const takildi = asgari > hkv;
+  const fark = asgari - hkv;
+  let h='<div class="skart"><div class="et">HESAP DÖKÜMÜ</div>'
+    +'<div class="satir"><span>Ticari bilanço kârı + KKEG (asgari taban, m.32/C-6)</span><b>'+tl(taban)+'</b></div>'
+    +'<div class="satir"><span>− Asgariden düşülebilen istisna/indirimler (m.32/C-2)</span><b>'+tl(dus)+'</b></div>'
+    +'<div class="satir"><span>= Asgari vergi matrahı</span><b>'+tl(matrah)+'</b></div>'
+    +'<div class="satir"><span>× %10 (m.32/C-1)</span><b>'+tl(asgariBrut)+'</b></div>'
+    +'<div class="satir"><span>− Mahsuplar (m.32/C-3)</span><b>'+tl(mah)+'</b></div>'
+    +'<div class="satir"><span>= YURT İÇİ ASGARİ KURUMLAR VERGİSİ</span><b>'+tl(asgari)+'</b></div>'
+    +'<div class="satir"><span>Beyannamede hesaplanan (normal) vergi</span><b>'+tl(hkv)+'</b></div></div>';
+  if(takildi){
+    h+='<div class="skart vurgu"><div class="et">SONUÇ — TABANA TAKILDIN</div><div class="buyuk" style="color:var(--amber)">Ödenecek: '+tl(asgari)+'</div>'
+      +'<div style="font-size:13.5px;color:var(--muted)">Hesaplanan vergin asgari tutarın ALTINDA kaldı. Aradaki <b style="color:var(--ink)">'+tl(fark)+'</b> fark kadar ek vergi yükü doğar; indirim ve istisnaların bu kısmı fiilen vergi avantajı sağlamaz. Geçici vergi dönemlerinde de aynı hesap yapılır (m.32/C-4).</div></div>';
+  } else {
+    h+='<div class="skart temiz"><div class="et">SONUÇ — TABANA TAKILMADIN</div><div class="buyuk" style="color:var(--green)">Ödenecek: '+tl(hkv)+'</div>'
+      +'<div style="font-size:13.5px;color:var(--muted)">Normal hesaplanan vergin asgari tutarın üzerinde ('+tl(hkv)+' ≥ '+tl(asgari)+') — m.32/C ek yük getirmiyor.</div></div>';
+  }
+  el.innerHTML=h;
+});
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
