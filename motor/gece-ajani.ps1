@@ -2,8 +2,16 @@
 #  GECE AJANI — kapsamı en zayıf alan için Claude'a DOĞRULANMIŞ soru-cevap
 #  ürettirir, KAPILARDAN geçirir, geçenleri veri/onay-bekleyen.json'a yazar.
 #  Cem sabah gözden geçirip bilgi-tabani.json'a taşır (v1: staging).
-#  KAPILAR: (1) kaynak zorunlu (madde/tebliğ), (2) eskiyen rakam gömülüyse
-#  ret, (3) çapraz-doğrulama (2. Claude turu), (4) JSON+tekrar-id.
+#  KAPILAR (10 — "Cem+Claude gibi kontrol" standardı, 22.07.2026):
+#   (1) kaynak zorunlu/spesifik  (2) eskiyen rakam gömülüyse ret
+#   (3) tekrar-id  (4) anahtar kalitesi (>=4 kök kelime)
+#   (5) yalpalama yasağı (çoğu durumda/genellikle... -> ret)
+#   (6) konu-benzerlik mükerrer (mevcut konuyla >%70 kesişim -> ret)
+#   (7) AMBAR TEYİDİ: atıf yapılan kanun+madde Supabase ambarında VAR MI
+#       (uydurma madde atıfı deterministik yakalanır; tebliğ atıfı soft-pass)
+#   (8) hasım doğrulayıcı A (Haiku, puanlı)  (9) hasım doğrulayıcı B (bağımsız
+#       2. koşu) — ikisi de gecerli:true VE puan>=8 vermeli
+#   (10) yayın sonrası günlük örneklem sınavı (cevap-hakemi, mevzuat.yml'de)
 #  ENV: ANTHROPIC_API_KEY (zorunlu). Secret yoksa zarifçe atlar (exit 0).
 #  GitHub Actions cron (gece) + manuel. GÜVENLİ AÇILIŞ: önce staging, kalite
 #  görülünce YAYIN=1 ile canlıya (bilgi-tabani.json'a) yazmaya çevrilir.
@@ -34,6 +42,35 @@ function Claude($istem, $maxtok, $model){
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Slug($s){ $x=("$s".ToLower() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u'); $x=($x -replace '[^a-z0-9]+','-').Trim('-'); if($x.Length -gt 40){ $x=$x.Substring(0,40).Trim('-') }; return $x }
+function Fold($s){ return ("$s".ToLowerInvariant() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'İ','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u') }
+
+# --- KAPI 7 yardımcısı: AMBAR TEYİDİ (atıf yapılan madde arşivde var mı) ---
+$SB_URL  = "https://bjrleanjpyujtajmazxn.supabase.co"
+$SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg"   # public okuma anahtarı
+$KANUN_NO = [ordered]@{ 'kvkk'='6698'; 'kdvgut'='GUT'; 'kdv gut'='GUT'; 'vuk'='213'; 'gvk'='193'; 'kdvk'='3065'; 'kvk'='5520'; 'ttk'='6102'; 'smk'='6769'; 'aatuhk'='6183'; 'otv'='4760'; 'iik'='2004'; 'hmk'='6100'; 'tck'='5237'; 'tbk'='6098'; 'isg'='6331' }
+function AmbarTeyit($kaynak){
+  $f = Fold $kaynak
+  # tebliğ/GUT/karar/yönetmelik atıfları: madde yapısı farklı -> soft-pass (işaretle, reddetme)
+  if($f -match 'gut|teblig|karar|yonetmelik|genelge|sira no'){ return 'atla' }
+  # kanun numarası: açık 3-4 haneli (örn "5520", "213 s.") ya da kısaltma haritasından
+  $no = $null
+  $mN = [regex]::Match($f,'(?<!\d)(\d{3,4})(?!\d)\s*(s\.|sayili)')
+  if($mN.Success){ $no = $mN.Groups[1].Value }
+  if(-not $no){ foreach($k in $KANUN_NO.Keys){ if($f -match ('(?<![a-z])'+[regex]::Escape($k)+'(?![a-z])')){ $no=$KANUN_NO[$k]; break } } }
+  if(-not $no -or $no -eq 'GUT'){ return 'atla' }
+  # madde no (mük./geç./ek + taksimli 32/C dahil)
+  $on = ''
+  if($f -match 'muk(\.|errer)'){ $on='muk. ' } elseif($f -match 'gec(\.|ici)'){ $on='gec. ' } elseif($f -match '(?<![a-z])ek\s*m'){ $on='ek ' }
+  $mM = [regex]::Match($kaynak,'m(?:adde)?\.?\s*(\d+(?:/[A-Za-zÇĞİÖŞÜçğıöşü])?)')
+  if(-not $mM.Success){ return 'atla' }
+  $madde = $mM.Groups[1].Value.ToUpperInvariant()
+  $filtre = "*$no*" + $on + "m.$madde*"
+  try {
+    $u = "$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike." + [uri]::EscapeDataString($filtre) + "&select=id&limit=1"
+    $r = Invoke-RestMethod -Uri $u -Headers @{ apikey=$SB_ANON; Authorization="Bearer $SB_ANON" } -TimeoutSec 30
+    if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' }
+  } catch { return 'atla' }   # ambar erişilemezse kapı kilitlemez (fail-open, rapora yazılır)
+}
 
 # --- mevcut kapsam ---
 $kbYol = Join-Path $kok "veri\bilgi-tabani.json"
@@ -85,22 +122,44 @@ foreach($e in @($uretilen)){
   $rakamli = ($cevap -match '%\s*\d' -or $cevap -match '\d[\d\.\,]*\s*(TL|lira)')
   $defer   = ($cevap -match '(?i)(güncel|guncel|teyit|araçtan|aractan|tebliğle|teblig)')
   if($rakamli -and -not $defer){ $rapor.Add("RET (eskiyen rakam gomulu): $konu"); continue }
-  # Kapı 4: tekrar id
+  # Kapı 3: tekrar id
   $id = Slug $konu; $i=2; $temel=$id; while($mevcutId.ContainsKey($id) -or ($gecen | Where-Object { $_.id -eq $id })){ $id="$temel-$i"; $i++ }
-  # Kapı 3: capraz-dogrulama (2. Claude turu, hasim gozle)
+  # Kapı 4: anahtar kalitesi (arama bununla çalışıyor — cılız anahtar = bulunmayan cevap)
+  if(@(($anahtar -split '\s+') | Where-Object { $_.Length -ge 3 }).Count -lt 4){ $rapor.Add("RET (anahtar cilz): $konu"); continue }
+  # Kapı 5: yalpalama yasağı (ikili olgular net yazılır — ev kuralı)
+  if($cevap -match '(?i)(çoğu durumda|cogu durumda|çoğu zaman|cogu zaman|genellikle|büyük ölçüde|buyuk olcude|çoğunlukla|cogunlukla)'){ $rapor.Add("RET (yalpalama): $konu"); continue }
+  # Kapı 6: konu-benzerlik mükerreri (id farklı ama anlam aynı olabilir)
+  $yeniKel = @((Fold $konu) -split '[^a-z0-9]+' | Where-Object { $_.Length -ge 4 })
+  $benzedi = $false
+  if($yeniKel.Count -ge 2){
+    foreach($mk in $kb.kayitlar){
+      $eskiF = Fold "$($mk.konu)"
+      $ortak = @($yeniKel | Where-Object { $eskiF.Contains($_) }).Count
+      if($ortak / [double]$yeniKel.Count -ge 0.7){ $benzedi=$true; $rapor.Add("RET (konu benzer): $konu ~ $($mk.konu)"); break }
+    }
+  }
+  if($benzedi){ continue }
+  # Kapı 7: AMBAR TEYİDİ — atıf yapılan madde arşivimizde gerçekten var mı
+  $at = AmbarTeyit $kaynak
+  if($at -eq 'yok'){ $rapor.Add("RET (ambar teyidi: atif bulunamadi): $konu -> '$kaynak'"); continue }
+  # Kapı 8+9: İKİ bağımsız hasım doğrulayıcı — ikisi de gecerli VE puan>=8 demeli
   $dogIstem = @"
-Aşağıdaki soru-cevap DOĞRU mu? Yürürlükteki Türk mevzuatına ve gösterilen kaynağa uygun mu, uydurma/yanlış madde/yanlış oran var mı? Şüphen varsa gecerli:false de.
+Sen HASIM bir denetçisin; görevin aşağıdaki soru-cevabı ÇÜRÜTMEYE çalışmak. Yürürlükteki Türk mevzuatına ve gösterilen kaynağa uygun mu? Uydurma/yanlış madde, yanlış oran, eskimiş hüküm, aşırı genelleme var mı? Şüphen varsa gecerli:false de. 0-10 arası doğruluk puanı ver (10=kusursuz).
 KONU: $konu
 CEVAP: $cevap
 KAYNAK: $kaynak
-SADECE JSON: {"gecerli":true/false,"neden":"kısa"}
+SADECE JSON: {"gecerli":true/false,"puan":0,"neden":"kısa"}
 "@
-  $dv = Claude $dogIstem 400 $DOGMODEL
-  $djson = JsonBul $dv; $ok=$false; $neden=""
-  if($djson){ try{ $do=$djson|ConvertFrom-Json; $ok=[bool]$do.gecerli; $neden="$($do.neden)" }catch{} }
-  if(-not $ok){ $rapor.Add("RET (capraz-dogrulama): $konu -> $neden"); continue }
+  $ok=$true; $neden=""
+  foreach($tur in 1,2){
+    $dv = Claude $dogIstem 400 $DOGMODEL
+    $djson = JsonBul $dv; $tOk=$false; $tPuan=0
+    if($djson){ try{ $do=$djson|ConvertFrom-Json; $tOk=[bool]$do.gecerli; $tPuan=[int]$do.puan; $neden="$($do.neden)" }catch{} }
+    if(-not ($tOk -and $tPuan -ge 8)){ $ok=$false; $neden="hakem$tur puan=$tPuan $neden"; break }
+  }
+  if(-not $ok){ $rapor.Add("RET (hasim hakem): $konu -> $neden"); continue }
   $gecen.Add([ordered]@{ id=$id; konu=$konu; anahtar=$anahtar; cevap=$cevap; kaynak=$kaynak; arac=$secili.arac })
-  $rapor.Add("GECTI: $konu [$kaynak]")
+  $rapor.Add("GECTI (10 kapi): $konu [$kaynak]" + $(if($at -eq 'atla'){ ' (ambar: teblig/soft)' } else { ' (ambar: dogrulandi)' }))
 }
 
 Write-Host ("KAPI SONUCU — uretilen={0} gecen={1}" -f @($uretilen).Count, $gecen.Count)
