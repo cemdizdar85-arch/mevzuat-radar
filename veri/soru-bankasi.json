@@ -1,5 +1,276 @@
 {
-  "guncelleme": "2026-07-22",
-  "not": "Yalnız durum=yayin kayıtlar sitede görünür. Kayıtlar soru-bankasi-onay.json'dan insan onayıyla taşınır — otomatik yayın yok.",
-  "sorular": []
+    "guncelleme":  "2026-07-22",
+    "not":  "Yalnız durum=yayin kayıtlar sitede görünür. Kayıtlar soru-bankasi-onay.json\u0027dan insan onayıyla taşınır — otomatik yayın yok.",
+    "sorular":  [
+                    {
+                        "id":  "4d0d94b3",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "cumle tamamlama",
+                        "soru":  "If she ___ home earlier last night, she wouldn\u0027t be so tired now.",
+                        "siklar":  {
+                                       "A":  "left",
+                                       "B":  "had left",
+                                       "C":  "would leave",
+                                       "D":  "leaves",
+                                       "E":  "has left"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "\u0027left\u0027 basit geçmis zamandir; burada gecmisteki gerçeklesmemis bir kosul anlatildigi için tek basina yetersizdir, past perfect gerekir.",
+                                         "B":  "Dogru cevap: Sonuç cümlesi (\u0027wouldn\u0027t be... now\u0027) simdiki zamana ait oldugu için bu bir \u0027mixed conditional\u0027dir; if-cümlesi gecmisi ifade eden \u0027had + V3\u0027 (past perfect) ile kurulur.",
+                                         "C":  "\u0027would leave\u0027 kosul cümlesinde degil sonuç cümlesinde kullanilir; if-clause içinde \u0027would\u0027 kullanilmaz.",
+                                         "D":  "Genis zaman (\u0027leaves\u0027) gercek/olasi bir kosulu anlatir, burada gecmiste gerceklesmemis bir durum soz konusu oldugu için yanlistir.",
+                                         "E":  "Present perfect (\u0027has left\u0027) zaman uyumu açisindan bu yapiya uymaz; past perfect gereklidir."
+                                     },
+                        "kaynak":  "Mixed Conditionals (Tip 3 kosul cümlesi + Tip 2 sonuç cümlesi) yapi kurali",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "74718075",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "cumle tamamlama",
+                        "soru":  "The report, ___ was submitted yesterday, contains several serious errors.",
+                        "siklar":  {
+                                       "A":  "that",
+                                       "B":  "which",
+                                       "C":  "who",
+                                       "D":  "whom",
+                                       "E":  "what"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "\u0027that\u0027 virgülle ayrilan (non-restrictive) sifat cümleciklerinde kullanilmaz; sadece kisitlayici (restrictive) cümleciklerde tercih edilir.",
+                                         "B":  "Dogru cevap: Virgülle ayrilmis, ek bilgi veren (non-restrictive) sifat cümleciginde nesne \u0027the report\u0027 cansiz oldugu için \u0027which\u0027 kullanilir.",
+                                         "C":  "\u0027who\u0027 yalnizca insanlar için kullanilir; \u0027report\u0027 cansiz bir nesne oldugu için uygun degildir.",
+                                         "D":  "\u0027whom\u0027 da insanlar için kullanilan nesne zamiridir, cansiz varliklarla kullanilmaz.",
+                                         "E":  "\u0027what\u0027 bagimsiz bir sifat cümlecigi baslatir (\u0027the thing that\u0027), ayri bir öncül isim (\u0027the report\u0027) oldugunda kullanilmaz."
+                                     },
+                        "kaynak":  "Non-restrictive Relative Clauses (Virgüllü Sifat Cümlecikleri) - which/that ayrimi kurali",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "34c1f16e",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "cumle tamamlama",
+                        "soru":  "According to the new company policy, all safety procedures ___ before the end of this month.",
+                        "siklar":  {
+                                       "A":  "must implement",
+                                       "B":  "must be implemented",
+                                       "C":  "must implemented",
+                                       "D":  "must be implement",
+                                       "E":  "must have implement"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Ozne (\u0027procedures\u0027) eylemi yapan degil, eyleme maruz kalan taraf oldugu için pasif yapi gerekir; \u0027must implement\u0027 aktif kalip yanlistir.",
+                                         "B":  "Dogru cevap: Modal + pasif yapi \u0027must + be + V3\u0027 formülüne uygundur; ozne eylemden etkilenen taraftir.",
+                                         "C":  "\u0027be\u0027 yardimci fiili eksik oldugu için pasif yapi eksik kurulmustur, gramer açisindan hatalidir.",
+                                         "D":  "V3 (past participle) yerine yalin fiil kullanilmis, \u0027implement\u0027 yerine \u0027implemented\u0027 olmalidir.",
+                                         "E":  "\u0027must have + V3\u0027 gecmiste tamamlanmis bir zorunlulugu ifade eder, burada ise gelecege yönelik bir zorunluluk anlatildigi için uygun degildir."
+                                     },
+                        "kaynak":  "Modal Verbs + Passive Voice yapisi (must + be + past participle) kurali",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "5820322c",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "cumle tamamlama",
+                        "soru":  "During the interview, she said that she ___ the meeting the following day because of a prior commitment.",
+                        "siklar":  {
+                                       "A":  "attends",
+                                       "B":  "will attend",
+                                       "C":  "would attend",
+                                       "D":  "attended",
+                                       "E":  "has attended"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Genis zaman (\u0027attends\u0027) dolayli anlatimda zaman kaydirmasina (backshift) uymaz.",
+                                         "B":  "\u0027will attend\u0027 dogrudan anlatimda kullanilirdi; dolayli anlatimda ana cümle gecmis zaman oldugu için \u0027will\u0027 \u0027would\u0027 olarak kaydirilmalidir.",
+                                         "C":  "Dogru cevap: Reported speech kuralina göre ana fiil (\u0027said\u0027) gecmis zamanda oldugu için \u0027will\u0027 -\u003e \u0027would\u0027 seklinde geriye kaydirilir.",
+                                         "D":  "\u0027attended\u0027 basit gecmis zaman anlam olarak yanlis kaydirmadir; gelecege yönelik bir niyet anlatildigi için \u0027would attend\u0027 gereklidir.",
+                                         "E":  "Present perfect (\u0027has attended\u0027) zaman uyumu açisindan bu baglama uymaz, kaydirma kurallariyla celismektedir."
+                                     },
+                        "kaynak":  "Reported Speech - Zaman Kaydirma (Backshift) kurali (will -\u003e would)",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "f3d4f2d2",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "cumle tamamlama",
+                        "soru":  "___ the heavy traffic and the sudden rain, the delegation arrived at the airport right on schedule.",
+                        "siklar":  {
+                                       "A":  "Although",
+                                       "B":  "Despite",
+                                       "C":  "Because",
+                                       "D":  "So that",
+                                       "E":  "Even"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "\u0027Although\u0027 bir baglaç oldugu için sonrasinda özne+fiil içeren tam bir cümle gelmelidir, isim tamlamasi (\u0027the heavy traffic\u0027) alamaz.",
+                                         "B":  "Dogru cevap: \u0027Despite\u0027 bir edat oldugu için dogrudan isim veya isim tamlamasi alir ve zit anlam iliskisini kurar.",
+                                         "C":  "\u0027Because\u0027 neden-sonuç iliskisi kurar ama burada zit bir durum (beklenmedik sekilde zamaninda varis) anlatildigi için anlamca uygun degildir.",
+                                         "D":  "\u0027So that\u0027 amaç bildiren bir baglaçtir ve sonrasinda ozne+fiil cümlesi gerektirir, isim tamlamasiyla kullanilmaz.",
+                                         "E":  "\u0027Even\u0027 tek basina bir baglaç veya edat degildir; \u0027even though\u0027 seklinde kullanilmasi gerekirdi ve yine tam cümle alirdi."
+                                     },
+                        "kaynak":  "Despite/In spite of + Isim Tamlamasi kullanim kurali (zit anlam edatlari)",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "9d28a858",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "sentence completion",
+                        "soru":  "_______, he wouldn\u0027t be struggling financially today.",
+                        "siklar":  {
+                                       "A":  "If he invested wisely",
+                                       "B":  "If he had invested wisely",
+                                       "C":  "If he has invested wisely",
+                                       "D":  "If he would have invested wisely",
+                                       "E":  "Had he invest wisely"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlis. Simple past (invested) ikinci tip sart cumlesine (hayali simdiki zaman) aittir; burada gecmiste alinmis bir karardan bahsedildigi icin past perfect gerekir.",
+                                         "B":  "Dogru. Bu bir mixed conditional (karisik sart) yapisidir: gecmiste yapilmayan bir eylem (if + past perfect) simdiki zamanda sonuc dogurur (would + base verb). \u0027Sonuc simdi, sart gecmiste\u0027 mantigi tam olarak burada islenir.",
+                                         "C":  "Yanlis. If clause icinde present perfect kullanimi, cumleyi gercek/olasi bir kosul (zero/first conditional benzeri) gibi gostererek anlam butunlugunu bozar; hayali gecmis anlatilmak istenmektedir.",
+                                         "D":  "Yanlis. If clause icinde \u0027would have\u0027 kullanmak yaygin bir yerli konusmaci hatasidir; standart yazili Ingilizcede if clause\u0027da would kullanilmaz.",
+                                         "E":  "Yanlis. Devrik yapida (inversion) if kaldirilinca yardimci fiil basa gelir ve fiil past participle olmalidir: \u0027Had he invested\u0027, \u0027invest\u0027 degil."
+                                     },
+                        "kaynak":  "Mixed Conditionals - Karisik Sart Cumleleri (Tip 3 kosul + Tip 2 sonuc yapisi)",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "788cf1f8",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "sentence completion",
+                        "soru":  "The professor, _______ research has been widely cited, will give a lecture next week.",
+                        "siklar":  {
+                                       "A":  "who",
+                                       "B":  "whom",
+                                       "C":  "whose",
+                                       "D":  "which",
+                                       "E":  "that"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlis. \u0027Who\u0027 ozne gorevi gorur (\u0027who has been cited\u0027 gibi), ancak burada \u0027research\u0027 isminin professora ait oldugu belirtilmelidir; iyelik anlami yoktur.",
+                                         "B":  "Yanlis. \u0027Whom\u0027 nesne goreviyle kullanilir (örn. \u0027the professor whom I met\u0027); burada iyelik iliskisi anlatildigi icin uygun degildir.",
+                                         "C":  "Dogru. \u0027Whose\u0027 iyelik ilgi zamiri olup, \u0027research\u0027 isminin \u0027the professor\u0027a ait oldugunu gosterir. Non-defining relative clause (virgullu, ek bilgi veren) yapida kullanilabilir.",
+                                         "D":  "Yanlis. \u0027Which\u0027 insanlar icin degil, nesneler/kavramlar icin kullanilir; burada ozne bir insandir (professor).",
+                                         "E":  "Yanlis. \u0027That\u0027 hem iyelik anlami tasimaz hem de virgullu (non-defining) ilgi cumlelerinde kullanilmaz."
+                                     },
+                        "kaynak":  "Ilgi Zamirleri (Relative Pronouns) - whose kullanimi, non-defining relative clauses",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "e1bb8cb3",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "sentence completion",
+                        "soru":  "_______ had the manager finished the report than his boss asked for revisions.",
+                        "siklar":  {
+                                       "A":  "No sooner",
+                                       "B":  "Hardly",
+                                       "C":  "Scarcely",
+                                       "D":  "Not only",
+                                       "E":  "Barely"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Dogru. \u0027No sooner...than\u0027 kalibi devrik yapiyla kullanilir ve \u0027bir eylem bitmeden digeri baslar\u0027 anlamini verir. Cumlede \u0027than\u0027 baglaci bulundugu icin dogru esleme budur.",
+                                         "B":  "Yanlis. \u0027Hardly\u0027 devrik yapida kullanilir ama esleyen baglac \u0027when\u0027 olmalidir, \u0027than\u0027 degil; bu tipik bir karistirma hatasidir.",
+                                         "C":  "Yanlis. \u0027Scarcely\u0027 de ayni sekilde \u0027when\u0027 ile eslenir; \u0027than\u0027 ile kullanilmaz.",
+                                         "D":  "Yanlis. \u0027Not only\u0027 devrik yapida kullanilir ama \u0027but also\u0027 ile tamamlanir; cumledeki anlam ve baglac uyusmuyor.",
+                                         "E":  "Yanlis. \u0027Barely\u0027 de \u0027when\u0027 ile kullanilir, \u0027than\u0027 ile degil; ogrenciler bu dort zarfi siklikla birbirine karistirir."
+                                     },
+                        "kaynak":  "Devrik Yapilar (Inversion) - \u0027No sooner...than\u0027 / \u0027Hardly-Scarcely-Barely...when\u0027 kaliplari",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "6a5a4fe0",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "sentence completion",
+                        "soru":  "I remember _______ the door before we left, so it must have been someone else who left it open.",
+                        "siklar":  {
+                                       "A":  "locking",
+                                       "B":  "to lock",
+                                       "C":  "to have locked",
+                                       "D":  "having lock",
+                                       "E":  "lock"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Dogru. \u0027Remember + gerund (V-ing)\u0027 gecmiste yapilmis bir eylemin hatirlanmasini ifade eder; konusan kisi kapiyi kilitledigini hatirlamaktadir, bu yuzden anlam butunlugu saglanir.",
+                                         "B":  "Yanlis. \u0027Remember + to infinitive\u0027 bir gorevi unutmamayi ifade eder (gelecege donuk); burada gecmiste yapilan bir eylemin hatirlanmasi anlatildigi icin uygun degildir.",
+                                         "C":  "Yanlis. \u0027To have locked\u0027 yapisi standart kullanim degildir; remember fiilinden sonra boyle bir kalip dogal Ingilizcede tercih edilmez.",
+                                         "D":  "Yanlis. \u0027Having lock\u0027 gramatik olarak hatalidir; perfect gerund \u0027having locked\u0027 seklinde olmalidir.",
+                                         "E":  "Yanlis. \u0027Remember\u0027 fiilinden sonra cikici (bare) fiil kullanilmaz; ya gerund ya da to-infinitive gelmelidir."
+                                     },
+                        "kaynak":  "Remember/Forget/Stop + gerund-infinitive ayrimi (anlam farki yaratan fiiller)",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    },
+                    {
+                        "id":  "c93c7f8f",
+                        "sinav":  "SGS",
+                        "ders":  "Yabanci Dil",
+                        "konu":  "sentence completion",
+                        "soru":  "The doctor said, \u0027You should rest for a few days.\u0027 In reported speech: The doctor said that I _______ rest for a few days.",
+                        "siklar":  {
+                                       "A":  "must",
+                                       "B":  "would",
+                                       "C":  "should",
+                                       "D":  "had to",
+                                       "E":  "could"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlis. \u0027Must\u0027 guclu bir zorunluluk bildirir; oysa direkt cumlede \u0027should\u0027 tavsiye anlami tasir. Modal degistirmek anlam kaymasina yol acar.",
+                                         "B":  "Yanlis. \u0027Would\u0027 gelecek/hayali anlam tasir; tavsiye bildiren \u0027should\u0027 ile anlamsal olarak uyusmaz.",
+                                         "C":  "Dogru. \u0027Should\u0027, \u0027would\u0027, \u0027could\u0027, \u0027might\u0027, \u0027ought to\u0027 gibi modal fiiller reported speech\u0027te zaman geriye kaymasina (backshift) ugramaz; ayni sekilde kalir.",
+                                         "D":  "Yanlis. Ogrenciler siklikla \u0027should\u0027u \u0027had to\u0027ya cevirme hatasi yapar; ancak bu, tavsiye anlamini zorunluluga donusturerek anlam bozar.",
+                                         "E":  "Yanlis. \u0027Could\u0027 yetenek/imkan bildirir; \u0027should\u0027 ile ayni anlami tasimadigi icin bu cumlede kullanilamaz."
+                                     },
+                        "kaynak":  "Reported Speech - Modal Fiillerin Degismeyen Kaliplari (should, would, could, might, ought to backshift almaz)",
+                        "ambar":  "atla",
+                        "uretim":  "22.07.2026",
+                        "durum":  "yayin",
+                        "onay":  "Cem 22.07.2026 + Claude 10/10 denetim"
+                    }
+                ]
 }
