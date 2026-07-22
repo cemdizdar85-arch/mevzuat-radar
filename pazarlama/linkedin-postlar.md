@@ -1,6 +1,6 @@
 # LinkedIn Açılış Postları — Mevzuat Radarı
 
-Site: https://cemdizdar85-arch.github.io/mevzuat-radar/
+Site: https://tetikte.com/
 Kural: her rakam kaynaklı. Post sonuna link + 3-5 etiket. Kendi sesinizle küçük
 dokunuşlar yapın — bunlar taslak, anayasa değil.
 
@@ -23,7 +23,7 @@ hangilerine yaklaştığını 3 dakikada, renk kodlu bir karne olarak görüyors
 Ücretsiz. Kayıt yok. Verilerin tarayıcından dışarı çıkmıyor.
 
 Firmanın kaç yasal yükümlülüğü var, biliyor musun? 3 dakikada öğren:
-👉 https://cemdizdar85-arch.github.io/mevzuat-radar/
+👉 https://tetikte.com/
 
 #mevzuat #kobi #smmm #vergi #uyum
 
@@ -45,7 +45,7 @@ dokunuyorsa, bunu ne zaman öğreneceksiniz?
 Gümrükte mi, cezayı görünce mi, yoksa bugün mü?
 
 Firmanı 3 dakikada tanı, neye tabi olduğunu gör (ücretsiz):
-👉 https://cemdizdar85-arch.github.io/mevzuat-radar/
+👉 https://tetikte.com/
 
 #gumruk #ithalat #ihracat #resmigazete #mevzuat
 
@@ -71,7 +71,7 @@ gelene kadar bilmiyor.
 da beraberinde getiriyor. Zincirleme yükümlülük.
 
 Şirketin kapsamda mı? 10 saniyede kontrol et:
-👉 https://cemdizdar85-arch.github.io/mevzuat-radar/sayfalar/bagimsiz-denetim-esigi.html
+👉 https://tetikte.com/sayfalar/bagimsiz-denetim-esigi.html
 
 #bagimsizdenetim #ttk #smmm #denetim
 
@@ -90,7 +90,7 @@ TTK 376 sermaye takibi?
 3 dakikada görebilirsiniz: neye tabisiniz, neye yaklaşıyorsunuz.
 
 Ücretsiz, kayıtsız, verileriniz cihazınızda:
-👉 https://cemdizdar85-arch.github.io/mevzuat-radar/
+👉 https://tetikte.com/
 
 #kobi #isveren #mevzuat #yukumluluk
 

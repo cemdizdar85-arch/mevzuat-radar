@@ -8,7 +8,7 @@
 const AK = (Deno.env.get("ANTHROPIC_API_KEY") ?? "").trim();
 const SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co";
 const SB_ANON = Deno.env.get("SB_PUBLISHABLE") ?? "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg"; // dokumanlar public-read; apikey ZORUNLU (yoksa 401)
-const SITE = "https://cemdizdar85-arch.github.io/mevzuat-radar";
+const SITE = "https://tetikte.com";
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
