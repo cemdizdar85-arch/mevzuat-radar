@@ -51,9 +51,16 @@ function AmbarTeyit($kaynak){
       $sm=$stdMatches[$si]
       $bas=$sm.Index; $son=$(if($si+1 -lt $stdMatches.Count){ $stdMatches[$si+1].Index } else { $f.Length })
       $seg=$f.Substring($bas, $son-$bas)
-      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(\d{1,3})')
+      $stdAd=$sm.Groups[1].Value.ToUpperInvariant(); $stdNo=$sm.Groups[2].Value
+      $ekM=[regex]::Match($seg,'(?<![a-z])ek[- ]?(\d)')
+      if($ekM.Success){
+        $ekNo=$ekM.Groups[1].Value
+        $sonucEk = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" Ek-"+$ekNo+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+Ek-?'+$ekNo)
+        if($sonucEk -ne 'ok'){ return $sonucEk }
+        continue
+      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(\d{1,3})')
       if(-not $pS.Success){ return 'yok' }
-      $stdAd=$sm.Groups[1].Value.ToUpperInvariant(); $stdNo=$sm.Groups[2].Value; $par=$pS.Groups[1].Value
+      $par=$pS.Groups[1].Value
       $sonuc = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" p."+$par+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+p\.'+$par+'($|[^0-9])')
       if($sonuc -ne 'ok'){ return $sonuc }
     }
