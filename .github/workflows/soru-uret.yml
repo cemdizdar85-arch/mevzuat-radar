@@ -33,9 +33,17 @@ jobs:
         run: ./motor/soru-uret.ps1
       - name: Staging bankayi kaydet
         run: |
+          # 23.07 dersi (#4 sessiz kaybi): push yarisi kaybederse uretim COPE gidiyordu.
+          # Yeni duzen: 3 deneme + yine olmazsa KIRMIZI kosu (sessiz kayip yasak).
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
           git add veri/soru-bankasi-onay.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "Soru fabrikasi: yeni ozgun sorular (onay bekliyor) $(TZ=Europe/Istanbul date +%d.%m.%Y)"
-          git pull --rebase origin main || true
-          git push || true
+          if git diff --cached --quiet; then echo "Yeni soru yok."; exit 0; fi
+          git commit -m "Soru fabrikasi: yeni ozgun sorular (onay bekliyor) $(TZ=Europe/Istanbul date +%d.%m.%Y)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+            echo "push denemesi $i basarisiz, tekrar..."
+            sleep 5
+          done
+          echo "HATA: 3 denemede pushlanamadi - uretim KAYBOLMASIN diye kosu kirmizi."
+          exit 1
