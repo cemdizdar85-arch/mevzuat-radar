@@ -27,7 +27,9 @@
                         "hap":  "Toplulaştırma ilkesi: Nitelik veya işlev bakımından FARKLI ve ÖNEMLİ olan kalemler ayrı ayrı sunulmalı; sadece benzer nitelikte ve önemsiz kalemler gruplanabilir. Tuzak, \u0027toplam tutar doğruysa sorun yok\u0027 diye düşünmektir; oysa yanlış gruplama tek başına kullanıcıyı yanıltabilir. Farklı nitelikteki bir alacağı, borcu veya gelir kalemini tek satırda eritmek bilgi kaybına (toplulaştırma riskine) yol açar.",
                         "ambar":  "atla",
                         "uretim":  "22.07.2026",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "paket-havuzu",
+                        "erisim":  "paket",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
                     },
                     {
                         "id":  "el-23a001",
@@ -54,7 +56,9 @@
                         "hap":  "Şüpheli alacakta iki şart aranır: alacak ticari kazancın elde edilmesiyle ilgili olmalı (tahakkuk esasında hasılat yazılmış) ve dava/icra safhasında bulunmalı (küçük alacaklarda protesto veya yazıyla birden fazla isteme yeterlidir). TUZAK: teminatlı kısım şüpheli sayılmaz — karşılık yalnız teminattan geri kalan kısma ayrılır.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "paket-havuzu",
+                        "erisim":  "paket",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
                     },
                     {
                         "id":  "el-23a002",
@@ -81,7 +85,7 @@
                         "hap":  "Senet iskontosu = alacak senedini vadeden önce bankaya kırdırmak. Üç ayak: 121 nominal tutarla kapanır, bankanın kestiği faiz+komisyon 780 Finansman Giderleri\u0027ne, kalan net tutar 102 Bankalar\u0027a. TUZAK: senedi net tutarla düşürmek (121\u0027de fark bırakır) veya kesintiyi gelir sanmak.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor",
+                        "durum":  "kaynak-bekliyor",
                         "yevmiye":  [
                                         {
                                             "hesap":  "102 Bankalar",
@@ -125,7 +129,7 @@
                         "hap":  "Dönemsellik: sınırsız ömür dönemlere bölünür; her dönemin geliri-gideri TAHAKKUK esasına göre kendi dönemine yazılır — parayı ne zaman aldığın değil, hizmetin hangi döneme ait olduğu belirleyicidir. Peşin tahsilatlar \u0027gelecek aylara/yıllara ait gelirler\u0027, peşin ödemeler \u0027gelecek aylara/yıllara ait giderler\u0027 hesaplarında bekletilir.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "kaynak-bekliyor"
                     },
                     {
                         "id":  "el-23a004",
@@ -152,7 +156,7 @@
                         "hap":  "Birleşik üretimde ayrım noktasına kadarki ORTAK maliyet, mamullere en yaygın olarak ayrım noktasındaki satış değerleriyle orantılı dağıtılır: mamulün payı = ortak maliyet × (mamulün satış değeri / toplam satış değeri). TUZAK: eşit bölmek ya da miktar oranını değer oranıyla karıştırmak.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "kaynak-bekliyor"
                     },
                     {
                         "id":  "el-23a005",
@@ -179,34 +183,7 @@
                         "hap":  "Dikey analizde baz tabloya göre değişir: bilançoda AKTİF (veya pasif) TOPLAMI = 100, gelir tablosunda NET SATIŞLAR = 100 alınır. TUZAK: iki tablonun bazını karıştırmak ya da brüt satışları baz sanmak. Dikey analiz tek dönemin iç yapısını gösterir; dönemler arası eğilim için yatay/trend analizi gerekir.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
-                    },
-                    {
-                        "id":  "el-23a006",
-                        "sinav":  "SGS",
-                        "ders":  "Hukuk",
-                        "konu":  "sebepsiz zenginlesme",
-                        "soru":  "Sebepsiz zenginleşmeden doğan geri isteme (iade) talebi hangi sürede zamanaşımına uğrar?",
-                        "siklar":  {
-                                       "A":  "Hak sahibinin geri isteme hakkını öğrenmesinden itibaren 2 yıl ve her hâlde zenginleşmenin gerçekleştiği tarihten itibaren 10 yıl",
-                                       "B":  "Her durumda 1 yıl",
-                                       "C":  "Öğrenmeden itibaren 5 yıl, her hâlde 20 yıl",
-                                       "D":  "Zenginleşme tarihinden itibaren yalnızca 2 yıl",
-                                       "E":  "Sebepsiz zenginleşme talepleri zamanaşımına uğramaz"
-                                   },
-                        "dogru":  "A",
-                        "aciklama":  {
-                                         "A":  "Doğru cevap: TBK m.82 ikili süre kurar — hak sahibinin öğrenmesinden itibaren 2 yıl (subjektif) ve her hâlde zenginleşmeden itibaren 10 yıl (objektif tavan).",
-                                         "B":  "1 yıl, başka alanlardaki kısa sürelerden bulaşan bir ezberdir; sebepsiz zenginleşmenin kısa süresi 2 yıldır ve ÖĞRENMEDEN işler.",
-                                         "C":  "5/20 kombinasyonu kanunda yoktur; 5 yıl TBK\u0027nın bazı ALACAK türlerinin (kira, faiz gibi) süresidir — kalıplar karışınca bu tür melez şıklar doğar. m.82\u0027nin çifti: 2 + 10.",
-                                         "D":  "Bunu seçtiysen sürelerin BAŞLANGICINI karıştırdın: 2 yıl öğrenmeden işler, 10 yıl zenginleşmeden. İkili sistemin mantığı şudur: bilmediğin hakkın süresi aleyhine işlemesin (2 yıl öğrenmeyle başlar) ama belirsizlik de sonsuza kalmasın (10 yıl mutlak tavan).",
-                                         "E":  "Zamanaşımsız talep istisnadır (mülkiyete dayalı istihkak gibi); alacak niteliğindeki iade talebi kural olarak zamanaşımına tabidir."
-                                     },
-                        "kaynak":  "TBK (6098 s.K.) m.77, m.82",
-                        "hap":  "Sebepsiz zenginleşme (TBK m.77): haklı bir sebep olmaksızın başkası aleyhine zenginleşen, iadeyle yükümlüdür. Zamanaşımı ikilidir (m.82): öğrenmeden itibaren 2 YIL + her hâlde 10 YIL. TUZAK: 2 yılı zenginleşme tarihinden başlatmak — kısa süre öğrenmeyle işler, 10 yıl mutlak tavandır.",
-                        "ambar":  "el",
-                        "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "kaynak-bekliyor"
                     },
                     {
                         "id":  "el-23a007",
@@ -233,61 +210,9 @@
                         "hap":  "6102 sayılı TTK ultra vires ilkesini kaldırdı: temsilcilerin İŞLETME KONUSU DIŞINDA yaptığı işlemler bile şirketi kural olarak bağlar. Tek çıkış: üçüncü kişinin konu dışılığı bildiğinin/bilebileceğinin İSPATI — ve esas sözleşmenin ilan edilmiş olması tek başına bu ispat sayılmaz. Ayrıca hatırla: temsil kural olarak çift imzayla kullanılır (m.370).",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
-                    },
-                    {
-                        "id":  "el-23a008",
-                        "sinav":  "SGS",
-                        "ders":  "Hukuk",
-                        "konu":  "kdv vergiyi doguran olay",
-                        "soru":  "Bir işletme, müşterisine teslim edeceği mala ilişkin faturayı malın tesliminden ÖNCE düzenlemiştir. KDV bakımından vergiyi doğuran olay ne zaman gerçekleşir?",
-                        "siklar":  {
-                                       "A":  "Her durumda malın teslim edildiği anda",
-                                       "B":  "Fatura bedelinin tahsil edildiği anda",
-                                       "C":  "Faturada gösterilen tutarla sınırlı olmak üzere faturanın düzenlendiği anda",
-                                       "D":  "Sözleşmenin imzalandığı anda",
-                                       "E":  "Malın müşteri tarafından fiilen kullanılmaya başlandığı anda"
-                                   },
-                        "dogru":  "C",
-                        "aciklama":  {
-                                         "A":  "Genel kuralı doğru biliyorsun (teslim); kaçırdığın, erken faturaya özel hüküm: belge kesildiyse vergi BELGEYİ izler (m.10/b). Mantığı: devlet, belgelenmiş hasılatın KDV\u0027sini teslimi beklemeden güvence altına alır.",
-                                         "B":  "Bunu seçtiysen KDV\u0027yi tahsilat mantığıyla (serbest meslekteki gibi) karıştırdın. KDV bir İŞLEM vergisidir: parayı değil teslimi/belgeyi vergiler — bedel hiç tahsil edilmese bile KDV doğar ve beyan edilir.",
-                                         "C":  "Doğru cevap: KDVK m.10/b — teslimden önce fatura kesilmişse, faturada gösterilen tutarla SINIRLI olmak üzere vergiyi doğuran olay fatura tarihinde gerçekleşir.",
-                                         "D":  "Sözleşme yalnız borç doğurur; ortada ne teslim ne belge vardır. KDV soyut taahhüde değil somut işleme bağlanır.",
-                                         "E":  "Fiili kullanım alıcının iç meselesidir ve denetlenemez; kanun vergiyi taraflar arasındaki teslim/belge anına bağlamıştır."
-                                     },
-                        "kaynak":  "KDVK (3065 s.K.) m.10/a-b",
-                        "hap":  "KDV\u0027de vergiyi doğuran olay kural olarak MALIN TESLİMİ / HİZMETİN İFASIDIR — ödeme değil (m.10/a). Özel kural: teslimden ÖNCE fatura kesilirse, faturadaki tutarla sınırlı olarak vergi FATURA TARİHİNDE doğar (m.10/b). TUZAK: \u0027para tahsil edilmediyse KDV doğmaz\u0027 düşüncesi — tahsilatın olayla ilgisi yoktur.",
-                        "ambar":  "el",
-                        "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
-                    },
-                    {
-                        "id":  "el-23a009",
-                        "sinav":  "SGS",
-                        "ders":  "Hukuk",
-                        "konu":  "kurumlar vergisi mukellefleri",
-                        "soru":  "Aşağıdakilerden hangisi Kurumlar Vergisi mükellefi DEĞİLDİR?",
-                        "siklar":  {
-                                       "A":  "Sermaye şirketleri",
-                                       "B":  "Kooperatifler",
-                                       "C":  "İktisadi kamu kuruluşları",
-                                       "D":  "Kollektif şirketler",
-                                       "E":  "Dernek ve vakıflara ait iktisadi işletmeler"
-                                   },
-                        "dogru":  "D",
-                        "aciklama":  {
-                                         "A":  "Sermaye şirketleri (AŞ, limited, sermayesi paylara bölünmüş komandit) listenin ilk sırasıdır — KVK m.2.",
-                                         "B":  "Bunu seçtiysen \u0027kooperatif kâr amacı gütmez, vergisi de olmaz\u0027 sezgisine kapıldın; kanun kooperatifleri İSMEN mükellef sayar (belirli muafiyet şartları ayrı konudur).",
-                                         "C":  "\u0027Devletin kuruluşundan vergi alınmaz\u0027 sezgisi de yanıltır: iktisadi kamu kuruluşları ticari faaliyetleriyle tam mükelleftir — kanun sahibine değil FAALİYETE bakar.",
-                                         "D":  "Doğru cevap: kollektif şirket bir ŞAHIS şirketidir; kazancı şirkette değil ORTAKLARDA, gelir vergisiyle vergilenir. Ana ezber: sermaye şirketi → KV; şahıs şirketi (kollektif, adi komandit) → ortakta GV.",
-                                         "E":  "Bunu seçtiysen \u0027dernek/vakıf zaten vergi dışı\u0027 dedin — incelik şu: dernek/vakfın KENDİSİ mükellef değildir ama ona ait İKTİSADİ İŞLETME (lokal, tesis, satış birimi) tam mükelleftir. Kanun tüzel kişiliği değil ticari faaliyeti vergiler."
-                                     },
-                        "kaynak":  "KVK (5520 s.K.) m.1-2",
-                        "hap":  "KV mükellefleri beşlisi: sermaye şirketleri, kooperatifler, iktisadi kamu kuruluşları, dernek/vakıflara ait iktisadi işletmeler, iş ortaklıkları (bunlarda mükellefiyet isteğe bağlıdır). TUZAK: şahıs şirketleri (kollektif ve adi komandit) listede YOKTUR — onların kazancı ortaklarının gelir vergisi konusudur; bir de \u0027dernek/vakfın kendisi\u0027 ile \u0027iktisadi işletmesi\u0027ni karıştırma.",
-                        "ambar":  "el",
-                        "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "paket-havuzu",
+                        "erisim":  "paket",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
                     },
                     {
                         "id":  "el-23a010",
@@ -314,7 +239,7 @@
                         "hap":  "Esneklik-hasılat kuralı: |e|\u003e1 (esnek) ise fiyat ARTIŞI hasılatı DÜŞÜRÜR, indirim artırır; |e|\u003c1 (inelastik) ise tersi; |e|=1\u0027de hasılat maksimumdadır. TUZAK: şıklarda doğru sonucu yanlış gerekçeyle veren seçenekler — hem yönü hem gerekçeyi kontrol et.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "kaynak-bekliyor"
                     }
                 ],
     "sonKosuRaporu":  [
