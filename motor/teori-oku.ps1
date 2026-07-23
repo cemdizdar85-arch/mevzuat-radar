@@ -80,7 +80,14 @@ $bdsler = @(
   # NOT: TDS/..._KG.pdf kopyalari 1 KB bos yonlendirme cikti - BDSyeni yolu gercek.
   @{ no='320'; ad='Bağımsız Denetimin Planlanması ve Yürütülmesinde Önemlilik'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_320.pdf'; dosya='bds320.json' },
   @{ no='450'; ad='Bağımsız Denetimin Yürütülmesi Sırasında Belirlenen Yanlışlıkların Değerlendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_450.pdf'; dosya='bds450.json' },
-  @{ no='530'; ad='Bağımsız Denetimde Örnekleme'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_530.pdf'; dosya='bds530.json' }
+  @{ no='530'; ad='Bağımsız Denetimde Örnekleme'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_530.pdf'; dosya='bds530.json' },
+  # 23.07 kaynak-tamamlama turu (Cem: "once okumadiklarimizi tamamlayalim"): denetim dersinin bel kemigi 6 standart (hepsi HEAD 200 teyitli)
+  @{ no='200'; ad='Bağımsız Denetçinin Genel Amaçları ve Bağımsız Denetimin BDS''lere Uygun Olarak Yürütülmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_200.pdf'; dosya='bds200.json' },
+  @{ no='240'; ad='Finansal Tabloların Bağımsız Denetiminde Denetçinin Hileye İlişkin Sorumlulukları'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_240.pdf'; dosya='bds240.json' },
+  @{ no='300'; ad='Finansal Tabloların Bağımsız Denetiminin Planlanması'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_300.pdf'; dosya='bds300.json' },
+  @{ no='315'; ad='İşletme ve Çevresini Tanımak Suretiyle Önemli Yanlışlık Risklerinin Belirlenmesi ve Değerlendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_315.pdf'; dosya='bds315.json' },
+  @{ no='500'; ad='Bağımsız Denetim Kanıtları'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_500.pdf'; dosya='bds500.json' },
+  @{ no='570'; ad='İşletmenin Sürekliliği'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_570.pdf'; dosya='bds570.json' }
 )
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
 foreach($b in $bdsler){
