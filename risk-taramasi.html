@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Beyanname Risk Taraması — beyan etmeden önce ceza kapılarını gör | Mevzuat Radarı</title>
+<title>Beyanname Risk Taraması — beyan etmeden önce ceza kapılarını gör | Tetikte</title>
 <meta name="description" content="Gümrük beyannameni vermeden ÖNCE tara: menşe belgesi, damping, gözetim, KKDF, royalti/fiyat farkı, ÖTV-KDV kodu. Devlet beyanları yapay zekâyla tarıyor — sen de kendi tarafında tara.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -65,7 +65,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Beyanname Risk Taraması</div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Beyanname Risk Taraması</div>
   <h1>Beyanname Risk Taraması</h1>
   <p class="lead">Gümrük beyannameni vermeden <b style="color:var(--ink)">ÖNCE</b> tara. Ticaret Bakanlığı beyanları risk analiziyle ve yapay zekâyla tarıyor; yakalanan farkın cezası <b style="color:var(--red)">farkın 3 katı</b> olabilir (4458 m.234). <b style="color:var(--ink)">Sen de kendi tarafında tara</b> — 6 soruya cevap ver, cezaya açık noktalarını gör.</p>
 
@@ -140,7 +140,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <div id="sonuc"></div>
 
   <div class="uyari">Bu tarama <b style="color:var(--ink)">beyanname verilmeden önce</b> cezaya en çok yol açan başlıkları kontrol eder: menşe belgesi–oran uyumu, damping/sübvansiyon önlemi, gözetim eşiği, KKDF, royalti ve sonradan fiyat farkı, ÖTV/KDV kapsamı, TAREKS denetimi. Veriler Ticaret Bakanlığı İthalat Rejimi, GİB ve Resmî Gazete'nin <b style="color:var(--ink)">kendi resmî metinlerinden</b> okundu. <b style="color:var(--amber)">Bilgilendirme amaçlıdır; beyanname gümrük müşavirinle verilir, işlem öncesi ona danış.</b></div>
-  <div class="dip">Mevzuat Radarı · Beyanname Risk Taraması · Dayanaklar: 4458 s. Gümrük Kanunu m.234 (beyan/muayene farkı cezası) · Gümrük Yönetmeliği m.53 (tamamlayıcı beyan) · İthalat Rejimi Kararı + İGV Kararı (ülke bazlı oranlar) · 2007/13033 (KDV) · 4760 (ÖTV) · bir Dizdar Denetim A.Ş. yazılımı</div>
+  <div class="dip">Tetikte · Beyanname Risk Taraması · Dayanaklar: 4458 s. Gümrük Kanunu m.234 (beyan/muayene farkı cezası) · Gümrük Yönetmeliği m.53 (tamamlayıcı beyan) · İthalat Rejimi Kararı + İGV Kararı (ülke bazlı oranlar) · 2007/13033 (KDV) · 4760 (ÖTV) · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -482,7 +482,7 @@ function tara(){
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
+  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
   <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(38,208,254,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
