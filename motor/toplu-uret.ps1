@@ -164,6 +164,7 @@ foreach($s in $tumSorular){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$
 $sabitIstem = @"
 OZGUN coktan secmeli sinav sorusu yazacaksin. KURALLAR:
 1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
+1b) DOGRU CEVABIN YERI: dogru sikki A-E arasinda RASTGELE dagit - her soruda A yapma. (Tasima aninda ayrica karistirilir ama sen de dagit.)
 2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
 3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
 4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari SERBEST.
