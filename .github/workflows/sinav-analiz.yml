@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json 2>/dev/null || true
+          for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json; do git add "$f" 2>/dev/null || true; done
           git diff --cached --quiet || git commit -m "Sinav analizi: SGS donem etiketleme ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
           git pull --rebase origin main || true
           git push || true

@@ -55,6 +55,6 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ veri/kart-durum.json 2>/dev/null || true
+          for f in kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ veri/kart-durum.json; do git add "$f" 2>/dev/null || true; done
           git diff --cached --quiet || git commit -m "Hap kartlar: $(TZ=Europe/Istanbul date +%d.%m.%Y) gunun kartlari uretildi"
           git push
