@@ -95,13 +95,13 @@ function AmbarTeyit($kaynak){
   # TEORI NOTU TEYIDI: resmi metni olmayan ders alanlari (mali analiz, maliyet
   # muhasebesi yontemleri, mikroekonomi) veri/mevzuat/teori-notu.json kurasyonuna
   # baglanir; ambarda karsiligi olmayan teori kaynagi 'yok' doner (SIKI MOD RET).
-  if($f -match 'teori notu|dikey (yuzde|analiz)|yatay analiz|trend analiz|likidite|cari oran|asit.test|nakit orani|birlesik maliyet|ortak maliyet|yan urun|normal maliyet(?! bedel)|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite|esneklik|elastik'){
+  if($f -match 'teori notu|dikey (yuzde|analiz)|yatay analiz|trend analiz|likidite|cari oran|asit.test|nakit orani|birlesik maliyet|ortak maliyet|yan urun|normal maliyet(?! bedel)|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite|esnekli|elasti'){
     $notlar=[ordered]@{
       'dikey (yuzde|analiz)|yatay analiz|trend analiz'='dikey'
       'likidite|cari oran|asit.test|nakit orani'='oran'
       'birlesik maliyet|ortak maliyet|yan urun'='birlesik'
       'normal maliyet|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite'='normal'
-      'esneklik|elastik'='talep'
+      'esnekli|elasti'='talep'
     }
     $hedefNot=$null; foreach($nk in $notlar.Keys){ if($f -match $nk){ $hedefNot=$notlar[$nk]; break } }
     if(-not $hedefNot){ return 'yok' }
