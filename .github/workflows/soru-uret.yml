@@ -8,9 +8,6 @@ on:
   # 23.07 Cem karari: damla fabrika CRON'U KAPALI - ayni isi Batch hatti (toplu-uret)
   # yari fiyata yapiyor. Bu workflow elle tetiklenebilir YEDEK olarak durur (B plani).
   workflow_dispatch:
-  push:
-    paths:
-      - 'motor/soru-uret.ps1'   # 23.07: fabrika duzeltmesi pushlaninca kosu kendiliginden baslar (Cem'in tik atmasi gerekmesin)
 
 permissions:
   contents: write
