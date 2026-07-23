@@ -93,6 +93,12 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <button class="sec aktif" data-mod="calisma">📖 Çalışma <small>— her sorudan sonra gerekçeler</small></button>
         <button class="sec" data-mod="deneme">⏱ Deneme <small>— karne sonda</small></button>
       </div>
+      <div class="etiket">4 · Kaynak <small style="color:var(--dim);font-weight:400">— yanlışın eriyene kadar döngü</small></div>
+      <div class="secgrup" id="kaynakSec">
+        <button class="sec aktif" data-kaynak="tumu">📚 Tüm sorular</button>
+        <button class="sec" data-kaynak="yanlis">🔁 Yanlışlarım <small id="ynSay"></small></button>
+        <button class="sec" data-kaynak="isaret">🔖 İşaretlediklerim <small id="isSay"></small></button>
+      </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
       <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(62,155,255,.07);border:1px solid rgba(62,155,255,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (249 TL/dönem, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
@@ -121,7 +127,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <div id="ekranSoru" class="gizli">
     <div class="soruUst">
       <span id="soruSayac" style="font-weight:800;color:var(--ink)"></span>
-      <span><span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
+      <span><span class="rozet gizli" id="sicilRozet" style="color:var(--amber);border-color:rgba(255,194,75,.45)"></span> <span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
     </div>
     <div class="ilerleme"><div id="ilerlemeBar" style="width:0%"></div></div>
     <div class="panel">
@@ -129,7 +135,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div id="sikKutu"></div>
       <div class="gerekce gizli" id="gerekceKutu"></div>
       <div class="altBar">
-        <button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button>
+        <span><button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button> <button class="hataLink" id="isaretBtn" onclick="isaretle()">🔖 İşaretle</button></span>
         <span>
           <button class="ikincil" id="birakBtn" onclick="birak()">Bırak</button>
           <button class="devam gizli" id="gorBtn" onclick="cevabiGor()">Cevabı gör</button>
@@ -170,7 +176,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 
 <script>
 var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=false;
-var seciliDersler={}, seciliAdet=10;
+var seciliDersler={}, seciliAdet=10, KAYNAK='tumu';
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -211,10 +217,23 @@ function kurulumCiz(){
       b.classList.add('aktif'); MOD=b.dataset.mod;
     };
   });
+  var kk=document.getElementById('kaynakSec');
+  kk.querySelectorAll('.sec').forEach(function(b){
+    b.onclick=function(){
+      kk.querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
+      b.classList.add('aktif'); KAYNAK=b.dataset.kaynak; adetCiz();
+    };
+  });
+  kaynakSayCiz();
   adetCiz(); gecmisCiz();
 }
 
-function havuz(){ return BANKA.filter(function(s){return seciliDersler[s.ders];}); }
+function havuz(){
+  var h=BANKA.filter(function(s){return seciliDersler[s.ders];});
+  if(KAYNAK==='yanlis'){ var x=sicilOku(); h=h.filter(function(s){var k=x[s.id]; return k && k.son==='y';}); }
+  else if(KAYNAK==='isaret'){ var x2=sicilOku(); h=h.filter(function(s){var k=x2[s.id]; return k && k.isaret;}); }
+  return h;
+}
 
 function adetCiz(){
   var n=havuz().length, ak=document.getElementById('adetSec'); ak.innerHTML='';
@@ -253,6 +272,12 @@ function soruCiz(){
   document.getElementById('soruSayac').textContent='Soru '+(IDX+1)+' / '+SORULAR.length;
   document.getElementById('soruDers').textContent=s.ders;
   document.getElementById('soruKonu').textContent=s.konu;
+  var sc=sicilOku()[s.id], rz=document.getElementById('sicilRozet');
+  if(sc && sc.y>0){
+    rz.textContent=(sc.son==='y') ? ('⚠ '+sc.y+' kez yanlış yaptın') : ('↺ önceden '+sc.y+' kez yanlış — son sefer bildin');
+    rz.classList.remove('gizli');
+  } else { rz.classList.add('gizli'); }
+  isaretBtnCiz(sc && sc.isaret ? 1 : 0);
   document.getElementById('ilerlemeBar').style.width=Math.round(100*IDX/SORULAR.length)+'%';
   document.getElementById('soruMetin').textContent=s.soru;
   var sk=document.getElementById('sikKutu'); sk.innerHTML='';
@@ -281,6 +306,7 @@ function soruCiz(){
 function cevabiGor(){
   if(!SECILI || KILIT) return;
   var s=SORULAR[IDX]; KILIT=true; CEVAPLAR[s.id]=SECILI;
+  sicilKaydet(s.id, SECILI===s.dogru);
   var sk=document.getElementById('sikKutu');
   sk.querySelectorAll('.sik').forEach(function(b){
     b.disabled=true;
@@ -377,12 +403,29 @@ function gorulenKaydet(id){
   try{ var g=JSON.parse(localStorage.getItem('mrGorulen')||'[]'); if(g.indexOf(id)<0){ g.push(id); if(g.length>2000) g=g.slice(-2000); localStorage.setItem('mrGorulen',JSON.stringify(g)); } }catch(e){}
 }
 
+// UWORLD DONGUSU (24.07 Cem istegi: "onlarda olup bizde olmayani yap"):
+// her sorunun kisisel sicili cihazda tutulur (kac kez dogru/yanlis, son sonuc, isaret);
+// yanlislar ve isaretliler kurulumda ayri KAYNAK olarak secilip yeniden sinava girer —
+// soru dogru cozulunce "Yanlislarim" havuzundan kendiliginden dusur (UWorld mantigi).
+function sicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruSicil')||'{}'); }catch(e){ return {}; } }
+function sicilYaz(x){ try{ localStorage.setItem('tetikteSoruSicil', JSON.stringify(x)); }catch(e){} }
+function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); }
+function isaretle(){ var s=SORULAR[IDX]; if(!s) return; var x=sicilOku(), k=x[s.id]||{d:0,y:0,isaret:0}; k.isaret=k.isaret?0:1; x[s.id]=k; sicilYaz(x); isaretBtnCiz(k.isaret); }
+function isaretBtnCiz(a){ var b=document.getElementById('isaretBtn'); if(!b) return; b.textContent=a?'🔖 İşaretli ✓':'🔖 İşaretle'; b.style.color=a?'var(--amber)':''; }
+function kaynakSayCiz(){
+  var x=sicilOku(), yn=0, is=0;
+  BANKA.forEach(function(s){ var k=x[s.id]; if(!k) return; if(k.son==='y') yn++; if(k.isaret) is++; });
+  var e1=document.getElementById('ynSay'), e2=document.getElementById('isSay');
+  if(e1) e1.textContent='('+yn+')'; if(e2) e2.textContent='('+is+')';
+}
+
 function karneCiz(){
   document.getElementById('ekranSoru').classList.add('gizli');
   document.getElementById('ekranKarne').classList.remove('gizli');
   var dogru=0,yanlis=0,bos=0, ders={}, yanlislar=[];
   SORULAR.forEach(function(s){
     var c=CEVAPLAR[s.id];
+    if(MOD==='deneme' && c) sicilKaydet(s.id, c===s.dogru);
     ders[s.ders]=ders[s.ders]||{d:0,y:0,b:0};
     if(!c){ bos++; ders[s.ders].b++; }
     else if(c===s.dogru){ dogru++; ders[s.ders].d++; }
