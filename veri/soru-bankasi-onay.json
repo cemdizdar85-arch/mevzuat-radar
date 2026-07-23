@@ -44,11 +44,11 @@
                                    },
                         "dogru":  "B",
                         "aciklama":  {
-                                         "A":  "Alacağın tamamı için karşılık ayrılamaz; teminatlı kısım şüpheli alacak sayılmaz.",
-                                         "B":  "Doğru cevap: VUK m.323 uyarınca teminatlı alacaklarda karşılık, teminattan geri kalan kısımla sınırlıdır: 200.000 − 80.000 = 120.000 TL.",
-                                         "C":  "80.000 TL teminatlı kısımdır; karşılık tam tersine teminatsız kalan kısma ayrılır.",
-                                         "D":  "Alacak dava safhasında olduğundan şüpheli alacak şartı sağlanmıştır; karşılık ayrılabilir.",
-                                         "E":  "100.000 TL\u0027nin hesapsal bir dayanağı yoktur; doğru sınır teminat dışı 120.000 TL\u0027dir."
+                                         "A":  "Bunu seçtiysen \u0027dava açıldıysa alacağın TAMAMI şüphelidir\u0027 dedin. Kaçan nokta teminat: banka teminat mektubuyla güvenceli 80.000 TL\u0027nin tahsili şüpheli DEĞİLDİR; kanun bu yüzden karşılığı \u0027teminattan geri kalan kısımla\u0027 sınırlar.",
+                                         "B":  "Doğru cevap: dava şartı sağlandı, ancak teminatlı 80.000 şüpheli sayılmaz → 200.000 − 80.000 = 120.000 TL.",
+                                         "C":  "Yönü ters bağladın: 80.000 GÜVENCELİ kısımdır. Karşılık riskli (açıkta kalan) kısma ayrılır, güvenceli kısma değil. Sor: hangi parayı kaybetme riskim var? Cevap, karşılığın da adresidir.",
+                                         "D":  "Bunu seçtiysen ya dava şartını yetersiz gördün ya teminatın tamamı kapladığını sandın. Oysa dava safhası şartı sağlanmış, teminat da yalnız 80.000\u0027i örtüyor — açıkta kalan 120.000 için karşılık hakkı doğar.",
+                                         "E":  "100.000 \u0027yuvarlak yarısı\u0027 sezgisinden gelir; kanunda oran yoktur. Matematik tektir: alacak − teminat = ayrılabilecek karşılık."
                                      },
                         "kaynak":  "VUK (213 s.K.) m.323",
                         "hap":  "Şüpheli alacakta iki şart aranır: alacak ticari kazancın elde edilmesiyle ilgili olmalı (tahakkuk esasında hasılat yazılmış) ve dava/icra safhasında bulunmalı (küçük alacaklarda protesto veya yazıyla birden fazla isteme yeterlidir). TUZAK: teminatlı kısım şüpheli sayılmaz — karşılık yalnız teminattan geri kalan kısma ayrılır.",
@@ -115,11 +115,11 @@
                                    },
                         "dogru":  "B",
                         "aciklama":  {
-                                         "A":  "İhtiyatlılık, muhtemel gider ve zararlar için karşılık ayrılmasını düzenler; gelirin döneme dağıtılması bu kavramın konusu değildir.",
-                                         "B":  "Doğru cevap: dönemsellik kavramı, işletme ömrünün dönemlere bölünmesini ve gelir-giderin tahsilata değil TAHAKKUKA göre ait olduğu döneme yazılmasını gerektirir.",
-                                         "C":  "Özün önceliği, işlemin hukuki biçiminden çok ekonomik özünün esas alınmasıdır; burada biçim-öz çatışması yoktur.",
-                                         "D":  "Tam açıklama, tablo kullanıcılarını etkileyebilecek bilgilerin açıklanmasıyla ilgilidir; gelirin dönemlere dağıtımını düzenlemez.",
-                                         "E":  "Tutarlılık, seçilen politikaların dönemler arası değiştirilmeden uygulanmasıdır; olayla doğrudan ilgisi yoktur."
+                                         "A":  "Bunu seçtiysen \u0027geliri hemen yazmamak = temkinli olmak\u0027 diye düşündün. Ama ihtiyatlılık RİSK temkinidir (muhtemel gider ve zararlara karşılık ayırmak); buradaki davranış risk değil ZAMAN eşleştirmesidir — gelir ait olduğu döneme yazılır.",
+                                         "B":  "Doğru cevap: dönemsellik — gelir tahsilata değil TAHAKKUKA göre kaydedilir; 12 aylık kiranın yalnız Aralık payı 2025 geliridir, kalanı gelecek dönemlerindir.",
+                                         "C":  "Özün önceliği \u0027belgede ne yazıyor değil, ekonomik gerçek ne\u0027 sorusudur (finansal kiralamayı satın alma gibi kaydetmek). Burada biçim-öz çatışması yok; mesele yalnız zamanlama.",
+                                         "D":  "Tam açıklama şeffaflık ilkesidir: kullanıcıyı etkileyecek bilgiyi göster. Gelirin HANGİ DÖNEME yazılacağını söylemez — onu dönemsellik söyler.",
+                                         "E":  "Tutarlılık \u0027seçtiğin yöntemi yıldan yıla değiştirme\u0027 der; tek yılın içinde gelirin dağıtımına dair hüküm içermez."
                                      },
                         "kaynak":  "1 Sıra No.lu MSUGT — muhasebenin temel kavramları (dönemsellik)",
                         "hap":  "Dönemsellik: sınırsız ömür dönemlere bölünür; her dönemin geliri-gideri TAHAKKUK esasına göre kendi dönemine yazılır — parayı ne zaman aldığın değil, hizmetin hangi döneme ait olduğu belirleyicidir. Peşin tahsilatlar \u0027gelecek aylara/yıllara ait gelirler\u0027, peşin ödemeler \u0027gelecek aylara/yıllara ait giderler\u0027 hesaplarında bekletilir.",
@@ -142,11 +142,11 @@
                                    },
                         "dogru":  "C",
                         "aciklama":  {
-                                         "A":  "300.000 TL eşit paylaştırma varsayımıdır; satış değeri yöntemi eşit değil, değerle orantılı dağıtır.",
-                                         "B":  "200.000 TL, B mamulünün payıdır (600.000 × 200/600).",
+                                         "A":  "Bunu seçtiysen ortak maliyeti mamullere EŞİT böldün. Satış değeri yöntemi eşitlikçi değildir: hangi mamul toplam değerin ne kadarını yaratıyorsa maliyetin o kadarını taşır (A: 400/600 = üçte iki).",
+                                         "B":  "200.000 doğru yöntemle bulunmuş bir pay — ama B mamulünün payı (600.000 × 200/600). Soru A\u0027yı soruyor; oranı doğru kurup mamul etiketini karıştırmak bu konunun klasik tuzağıdır.",
                                          "C":  "Doğru cevap: A\u0027nın payı = 600.000 × (400.000 / 600.000) = 400.000 TL.",
-                                         "D":  "360.000 TL, %60 gibi hatalı bir orandan gelir; A\u0027nın satış değeri oranı %66,7\u0027dir (400/600).",
-                                         "E":  "240.000 TL, %40 oranına karşılık gelir; bu oran A\u0027nın değil B\u0027ye yakın bir paydır."
+                                         "D":  "360.000, %60 gibi yuvarlak bir varsayımdan gelir. Yüzdeyi tahminden değil kesirden kur: A\u0027nın oranı 400/600 = %66,7.",
+                                         "E":  "240.000 = %40, yani oranları TERS eşlemenin (B\u0027nin oranını A\u0027ya vermenin) sonucu. Önce her mamulün kendi satış değeri oranını yaz, sonra çarp — etiket şaşmaz."
                                      },
                         "kaynak":  "Maliyet muhasebesi — birleşik maliyetlerin satış değeri yöntemiyle dağıtımı",
                         "hap":  "Birleşik üretimde ayrım noktasına kadarki ORTAK maliyet, mamullere en yaygın olarak ayrım noktasındaki satış değerleriyle orantılı dağıtılır: mamulün payı = ortak maliyet × (mamulün satış değeri / toplam satış değeri). TUZAK: eşit bölmek ya da miktar oranını değer oranıyla karıştırmak.",
@@ -169,11 +169,11 @@
                                    },
                         "dogru":  "B",
                         "aciklama":  {
-                                         "A":  "Brüt satışlar, iade ve iskontoları içerdiğinden baz alınmaz; ölçü net satıştır.",
-                                         "B":  "Doğru cevap: gelir tablosunun dikey analizinde her kalem NET SATIŞLARIN yüzdesi olarak ifade edilir.",
-                                         "C":  "Faaliyet kârı bir ara sonuçtur; kendisi de net satışlara oranlanarak yorumlanır.",
-                                         "D":  "Dönem net kârı tablonun sonucudur; baz değil, bazın yüzdesi olarak izlenen kalemdir.",
-                                         "E":  "Aktif toplamı BİLANÇONUN dikey analizinde bazdır; gelir tablosunda kullanılmaz."
+                                         "A":  "Bunu seçtiysen \u0027en büyük satış rakamı baz olur\u0027 dedin. Brüt satışlar iade ve iskonto kirliliği taşır; analiz işletmenin GERÇEK hasılat gücüne oranlamak ister — o da net satıştır.",
+                                         "B":  "Doğru cevap: gelir tablosunun dikey analizinde NET SATIŞLAR = 100 alınır, her kalem ona oranlanır.",
+                                         "C":  "Faaliyet kârı bir ARA sonuçtur ve kendisi de \u0027net satışların yüzde kaçı?\u0027 diye ölçülür. Baz, ölçülen değil ÖLÇÜT olandır.",
+                                         "D":  "Dönem net kârı tablonun en sonucudur; onu baz alırsan bütün kalemler \u0027kârın katı\u0027 gibi görünür, analiz tersine döner. Akışın başındaki büyüklük (net satış) bazdır.",
+                                         "E":  "Bunu seçtiysen iki tablonun bazını karıştırdın: aktif toplamı BİLANÇONUN dikey bazıdır. Ezber kalıbı: bilanço → aktif toplamı, gelir tablosu → net satışlar."
                                      },
                         "kaynak":  "Mali tablolar analizi — dikey yüzde yöntemi",
                         "hap":  "Dikey analizde baz tabloya göre değişir: bilançoda AKTİF (veya pasif) TOPLAMI = 100, gelir tablosunda NET SATIŞLAR = 100 alınır. TUZAK: iki tablonun bazını karıştırmak ya da brüt satışları baz sanmak. Dikey analiz tek dönemin iç yapısını gösterir; dönemler arası eğilim için yatay/trend analizi gerekir.",
@@ -196,11 +196,11 @@
                                    },
                         "dogru":  "A",
                         "aciklama":  {
-                                         "A":  "Doğru cevap: TBK m.82 ikili süre öngörür — öğrenmeden itibaren 2 yıl, her hâlde zenginleşme tarihinden itibaren 10 yıl.",
-                                         "B":  "1 yıllık genel süre yoktur; kısa süre 2 yıldır ve öğrenmeden işler.",
-                                         "C":  "5/20 yıl kombinasyonu kanunda yer almaz.",
-                                         "D":  "2 yıllık süre zenginleşme tarihinden değil, hak sahibinin ÖĞRENMESİNDEN itibaren işler; ayrıca 10 yıllık mutlak tavan vardır.",
-                                         "E":  "Talep zamanaşımına tabidir; süresiz talep hakkı tanınmamıştır."
+                                         "A":  "Doğru cevap: TBK m.82 ikili süre kurar — hak sahibinin öğrenmesinden itibaren 2 yıl (subjektif) ve her hâlde zenginleşmeden itibaren 10 yıl (objektif tavan).",
+                                         "B":  "1 yıl, başka alanlardaki kısa sürelerden bulaşan bir ezberdir; sebepsiz zenginleşmenin kısa süresi 2 yıldır ve ÖĞRENMEDEN işler.",
+                                         "C":  "5/20 kombinasyonu kanunda yoktur; 5 yıl TBK\u0027nın bazı ALACAK türlerinin (kira, faiz gibi) süresidir — kalıplar karışınca bu tür melez şıklar doğar. m.82\u0027nin çifti: 2 + 10.",
+                                         "D":  "Bunu seçtiysen sürelerin BAŞLANGICINI karıştırdın: 2 yıl öğrenmeden işler, 10 yıl zenginleşmeden. İkili sistemin mantığı şudur: bilmediğin hakkın süresi aleyhine işlemesin (2 yıl öğrenmeyle başlar) ama belirsizlik de sonsuza kalmasın (10 yıl mutlak tavan).",
+                                         "E":  "Zamanaşımsız talep istisnadır (mülkiyete dayalı istihkak gibi); alacak niteliğindeki iade talebi kural olarak zamanaşımına tabidir."
                                      },
                         "kaynak":  "TBK (6098 s.K.) m.77, m.82",
                         "hap":  "Sebepsiz zenginleşme (TBK m.77): haklı bir sebep olmaksızın başkası aleyhine zenginleşen, iadeyle yükümlüdür. Zamanaşımı ikilidir (m.82): öğrenmeden itibaren 2 YIL + her hâlde 10 YIL. TUZAK: 2 yılı zenginleşme tarihinden başlatmak — kısa süre öğrenmeyle işler, 10 yıl mutlak tavandır.",
@@ -223,11 +223,11 @@
                                    },
                         "dogru":  "B",
                         "aciklama":  {
-                                         "A":  "Ultra vires kuralı 6102 sayılı TTK ile terk edilmiştir; konu dışı işlem kural olarak GEÇERLİDİR.",
-                                         "B":  "Doğru cevap: TTK m.371/2 uyarınca konu dışı işlemler de şirketi bağlar; şirket ancak üçüncü kişinin konu dışılığı bildiğini veya bilebilecek durumda olduğunu ispatlarsa bağlılıktan kurtulur.",
-                                         "C":  "Genel kurul onayı böyle bir işlemin geçerlilik şartı değildir.",
-                                         "D":  "Askıda hükümsüzlük rejimi burada uygulanmaz; işlem kural olarak baştan bağlayıcıdır.",
-                                         "E":  "Şirkete keyfî tek taraflı dönme hakkı tanınmamıştır."
+                                         "A":  "Bunu seçtiysen ESKİ hukuku hatırlıyorsun: 6762 sayılı eski TTK\u0027da ultra vires kuralı vardı, konu dışı işlem yok hükmündeydi. 6102 bu kuralı BİLEREK kaldırdı — işlem güvenliği ve üçüncü kişiyi koruma için konu dışı işlem de kural olarak şirketi bağlar.",
+                                         "B":  "Doğru cevap: TTK m.371/2 — işlem şirketi bağlar; şirket ancak üçüncü kişinin konu dışılığı BİLDİĞİNİ veya bilebilecek durumda olduğunu ispatlarsa kurtulur (esas sözleşmenin ilanı tek başına bu ispat sayılmaz).",
+                                         "C":  "Genel kurul onayı yapısal kararların (birleşme, sermaye artırımı) aracıdır; günlük temsil işlemlerinin geçerliliği GK\u0027ya bağlanmamıştır.",
+                                         "D":  "Askıda hükümsüzlük YETKİSİZ temsilin kalıbıdır (icazete kadar askı). Buradaki temsilciler yetkili — tartışma yetkinin varlığında değil konunun kapsamında ve kanun bunu geçerlilik sorunu saymamıştır.",
+                                         "E":  "Her zaman tek taraflı dönme hakkı işlem güvenliğini yok ederdi; kanun tek çıkışı karşı tarafın kötüniyetinin ispatına bağlamıştır."
                                      },
                         "kaynak":  "TTK (6102 s.K.) m.371",
                         "hap":  "6102 sayılı TTK ultra vires ilkesini kaldırdı: temsilcilerin İŞLETME KONUSU DIŞINDA yaptığı işlemler bile şirketi kural olarak bağlar. Tek çıkış: üçüncü kişinin konu dışılığı bildiğinin/bilebileceğinin İSPATI — ve esas sözleşmenin ilan edilmiş olması tek başına bu ispat sayılmaz. Ayrıca hatırla: temsil kural olarak çift imzayla kullanılır (m.370).",
@@ -250,11 +250,11 @@
                                    },
                         "dogru":  "C",
                         "aciklama":  {
-                                         "A":  "Kural teslim olmakla birlikte, teslimden önce fatura düzenlenmişse kanun özel hüküm getirmiştir.",
-                                         "B":  "KDV\u0027de vergiyi doğuran olay tahsilata değil teslime/belgeye bağlıdır; ödeme tarihi belirleyici değildir.",
-                                         "C":  "Doğru cevap: KDVK m.10/b uyarınca teslimden önce fatura kesilmişse, faturada gösterilen tutarla SINIRLI olmak üzere vergiyi doğuran olay fatura tarihinde gerçekleşir.",
-                                         "D":  "Sözleşme, vergiyi doğuran olay için yeterli değildir; teslim veya belge düzenleme gerekir.",
-                                         "E":  "Fiili kullanım tarihi kanunda vergiyi doğuran olay olarak düzenlenmemiştir."
+                                         "A":  "Genel kuralı doğru biliyorsun (teslim); kaçırdığın, erken faturaya özel hüküm: belge kesildiyse vergi BELGEYİ izler (m.10/b). Mantığı: devlet, belgelenmiş hasılatın KDV\u0027sini teslimi beklemeden güvence altına alır.",
+                                         "B":  "Bunu seçtiysen KDV\u0027yi tahsilat mantığıyla (serbest meslekteki gibi) karıştırdın. KDV bir İŞLEM vergisidir: parayı değil teslimi/belgeyi vergiler — bedel hiç tahsil edilmese bile KDV doğar ve beyan edilir.",
+                                         "C":  "Doğru cevap: KDVK m.10/b — teslimden önce fatura kesilmişse, faturada gösterilen tutarla SINIRLI olmak üzere vergiyi doğuran olay fatura tarihinde gerçekleşir.",
+                                         "D":  "Sözleşme yalnız borç doğurur; ortada ne teslim ne belge vardır. KDV soyut taahhüde değil somut işleme bağlanır.",
+                                         "E":  "Fiili kullanım alıcının iç meselesidir ve denetlenemez; kanun vergiyi taraflar arasındaki teslim/belge anına bağlamıştır."
                                      },
                         "kaynak":  "KDVK (3065 s.K.) m.10/a-b",
                         "hap":  "KDV\u0027de vergiyi doğuran olay kural olarak MALIN TESLİMİ / HİZMETİN İFASIDIR — ödeme değil (m.10/a). Özel kural: teslimden ÖNCE fatura kesilirse, faturadaki tutarla sınırlı olarak vergi FATURA TARİHİNDE doğar (m.10/b). TUZAK: \u0027para tahsil edilmediyse KDV doğmaz\u0027 düşüncesi — tahsilatın olayla ilgisi yoktur.",
@@ -277,11 +277,11 @@
                                    },
                         "dogru":  "D",
                         "aciklama":  {
-                                         "A":  "Anonim, limited ve sermayesi paylara bölünmüş komandit şirketler KV mükellefidir (KVK m.2).",
-                                         "B":  "Kooperatifler kanunda açıkça sayılan mükellef grubudur.",
-                                         "C":  "İktisadi kamu kuruluşları KV mükellefleri arasındadır.",
-                                         "D":  "Doğru cevap: kollektif şirket bir ŞAHIS şirketidir; kazancı kurumlar vergisine değil, ortakları düzeyinde GELİR vergisine tabidir.",
-                                         "E":  "Dernek ve vakıfların kendileri değil ama bunlara ait İKTİSADİ İŞLETMELER KV mükellefidir."
+                                         "A":  "Sermaye şirketleri (AŞ, limited, sermayesi paylara bölünmüş komandit) listenin ilk sırasıdır — KVK m.2.",
+                                         "B":  "Bunu seçtiysen \u0027kooperatif kâr amacı gütmez, vergisi de olmaz\u0027 sezgisine kapıldın; kanun kooperatifleri İSMEN mükellef sayar (belirli muafiyet şartları ayrı konudur).",
+                                         "C":  "\u0027Devletin kuruluşundan vergi alınmaz\u0027 sezgisi de yanıltır: iktisadi kamu kuruluşları ticari faaliyetleriyle tam mükelleftir — kanun sahibine değil FAALİYETE bakar.",
+                                         "D":  "Doğru cevap: kollektif şirket bir ŞAHIS şirketidir; kazancı şirkette değil ORTAKLARDA, gelir vergisiyle vergilenir. Ana ezber: sermaye şirketi → KV; şahıs şirketi (kollektif, adi komandit) → ortakta GV.",
+                                         "E":  "Bunu seçtiysen \u0027dernek/vakıf zaten vergi dışı\u0027 dedin — incelik şu: dernek/vakfın KENDİSİ mükellef değildir ama ona ait İKTİSADİ İŞLETME (lokal, tesis, satış birimi) tam mükelleftir. Kanun tüzel kişiliği değil ticari faaliyeti vergiler."
                                      },
                         "kaynak":  "KVK (5520 s.K.) m.1-2",
                         "hap":  "KV mükellefleri beşlisi: sermaye şirketleri, kooperatifler, iktisadi kamu kuruluşları, dernek/vakıflara ait iktisadi işletmeler, iş ortaklıkları (bunlarda mükellefiyet isteğe bağlıdır). TUZAK: şahıs şirketleri (kollektif ve adi komandit) listede YOKTUR — onların kazancı ortaklarının gelir vergisi konusudur; bir de \u0027dernek/vakfın kendisi\u0027 ile \u0027iktisadi işletmesi\u0027ni karıştırma.",
