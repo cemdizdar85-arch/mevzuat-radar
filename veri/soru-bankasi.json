@@ -1,5 +1,5 @@
 {
-    "guncelleme":  "2026-07-22",
+    "guncelleme":  "23.07.2026",
     "not":  "HERKESE ACIK ORNEK HAVUZ (5 soru). Tam banka paket uyelerine - paket havuzu Supabase\u0027e tasinacak, depoda tutulmaz. Kayitlar insan onayiyla girer, otomatik yayin yok.",
     "sorular":  [
                     {
@@ -146,6 +146,93 @@
                         "onay":  "Cem 22.07.2026 + Claude 10/10 denetim",
                         "erisim":  "ornek",
                         "hap":  "remember/forget/stop fiilleri iki farklı anlamla iki yapı alır: \u0027remember + -ing\u0027 = GEÇMİŞTE yapılanı hatırlamak; \u0027remember + to\u0027 = yapılması gerekeni unutmamak. Cümlede iş çoktan yapılmışsa -ing gerekir. İpucu: \u0027kilitlediğimi hatırlıyorum\u0027 (geçmiş) ile \u0027kilitlemeyi unutma\u0027 (gelecek) farkı."
+                    },
+                    {
+                        "id":  "el-23a006",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sebepsiz zenginlesme",
+                        "soru":  "Sebepsiz zenginleşmeden doğan geri isteme (iade) talebi hangi sürede zamanaşımına uğrar?",
+                        "siklar":  {
+                                       "A":  "Hak sahibinin geri isteme hakkını öğrenmesinden itibaren 2 yıl ve her hâlde zenginleşmenin gerçekleştiği tarihten itibaren 10 yıl",
+                                       "B":  "Her durumda 1 yıl",
+                                       "C":  "Öğrenmeden itibaren 5 yıl, her hâlde 20 yıl",
+                                       "D":  "Zenginleşme tarihinden itibaren yalnızca 2 yıl",
+                                       "E":  "Sebepsiz zenginleşme talepleri zamanaşımına uğramaz"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğru cevap: TBK m.82 ikili süre kurar — hak sahibinin öğrenmesinden itibaren 2 yıl (subjektif) ve her hâlde zenginleşmeden itibaren 10 yıl (objektif tavan).",
+                                         "B":  "1 yıl, başka alanlardaki kısa sürelerden bulaşan bir ezberdir; sebepsiz zenginleşmenin kısa süresi 2 yıldır ve ÖĞRENMEDEN işler.",
+                                         "C":  "5/20 kombinasyonu kanunda yoktur; 5 yıl TBK\u0027nın bazı ALACAK türlerinin (kira, faiz gibi) süresidir — kalıplar karışınca bu tür melez şıklar doğar. m.82\u0027nin çifti: 2 + 10.",
+                                         "D":  "Bunu seçtiysen sürelerin BAŞLANGICINI karıştırdın: 2 yıl öğrenmeden işler, 10 yıl zenginleşmeden. İkili sistemin mantığı şudur: bilmediğin hakkın süresi aleyhine işlemesin (2 yıl öğrenmeyle başlar) ama belirsizlik de sonsuza kalmasın (10 yıl mutlak tavan).",
+                                         "E":  "Zamanaşımsız talep istisnadır (mülkiyete dayalı istihkak gibi); alacak niteliğindeki iade talebi kural olarak zamanaşımına tabidir."
+                                     },
+                        "kaynak":  "TBK (6098 s.K.) m.77, m.82",
+                        "hap":  "Sebepsiz zenginleşme (TBK m.77): haklı bir sebep olmaksızın başkası aleyhine zenginleşen, iadeyle yükümlüdür. Zamanaşımı ikilidir (m.82): öğrenmeden itibaren 2 YIL + her hâlde 10 YIL. TUZAK: 2 yılı zenginleşme tarihinden başlatmak — kısa süre öğrenmeyle işler, 10 yıl mutlak tavandır.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "yayin",
+                        "erisim":  "ornek",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "el-23a008",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kdv vergiyi doguran olay",
+                        "soru":  "Bir işletme, müşterisine teslim edeceği mala ilişkin faturayı malın tesliminden ÖNCE düzenlemiştir. KDV bakımından vergiyi doğuran olay ne zaman gerçekleşir?",
+                        "siklar":  {
+                                       "A":  "Her durumda malın teslim edildiği anda",
+                                       "B":  "Fatura bedelinin tahsil edildiği anda",
+                                       "C":  "Faturada gösterilen tutarla sınırlı olmak üzere faturanın düzenlendiği anda",
+                                       "D":  "Sözleşmenin imzalandığı anda",
+                                       "E":  "Malın müşteri tarafından fiilen kullanılmaya başlandığı anda"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Genel kuralı doğru biliyorsun (teslim); kaçırdığın, erken faturaya özel hüküm: belge kesildiyse vergi BELGEYİ izler (m.10/b). Mantığı: devlet, belgelenmiş hasılatın KDV\u0027sini teslimi beklemeden güvence altına alır.",
+                                         "B":  "Bunu seçtiysen KDV\u0027yi tahsilat mantığıyla (serbest meslekteki gibi) karıştırdın. KDV bir İŞLEM vergisidir: parayı değil teslimi/belgeyi vergiler — bedel hiç tahsil edilmese bile KDV doğar ve beyan edilir.",
+                                         "C":  "Doğru cevap: KDVK m.10/b — teslimden önce fatura kesilmişse, faturada gösterilen tutarla SINIRLI olmak üzere vergiyi doğuran olay fatura tarihinde gerçekleşir.",
+                                         "D":  "Sözleşme yalnız borç doğurur; ortada ne teslim ne belge vardır. KDV soyut taahhüde değil somut işleme bağlanır.",
+                                         "E":  "Fiili kullanım alıcının iç meselesidir ve denetlenemez; kanun vergiyi taraflar arasındaki teslim/belge anına bağlamıştır."
+                                     },
+                        "kaynak":  "KDVK (3065 s.K.) m.10/a-b",
+                        "hap":  "KDV\u0027de vergiyi doğuran olay kural olarak MALIN TESLİMİ / HİZMETİN İFASIDIR — ödeme değil (m.10/a). Özel kural: teslimden ÖNCE fatura kesilirse, faturadaki tutarla sınırlı olarak vergi FATURA TARİHİNDE doğar (m.10/b). TUZAK: \u0027para tahsil edilmediyse KDV doğmaz\u0027 düşüncesi — tahsilatın olayla ilgisi yoktur.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "yayin",
+                        "erisim":  "ornek",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "el-23a009",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Aşağıdakilerden hangisi Kurumlar Vergisi mükellefi DEĞİLDİR?",
+                        "siklar":  {
+                                       "A":  "Sermaye şirketleri",
+                                       "B":  "Kooperatifler",
+                                       "C":  "İktisadi kamu kuruluşları",
+                                       "D":  "Kollektif şirketler",
+                                       "E":  "Dernek ve vakıflara ait iktisadi işletmeler"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Sermaye şirketleri (AŞ, limited, sermayesi paylara bölünmüş komandit) listenin ilk sırasıdır — KVK m.2.",
+                                         "B":  "Bunu seçtiysen \u0027kooperatif kâr amacı gütmez, vergisi de olmaz\u0027 sezgisine kapıldın; kanun kooperatifleri İSMEN mükellef sayar (belirli muafiyet şartları ayrı konudur).",
+                                         "C":  "\u0027Devletin kuruluşundan vergi alınmaz\u0027 sezgisi de yanıltır: iktisadi kamu kuruluşları ticari faaliyetleriyle tam mükelleftir — kanun sahibine değil FAALİYETE bakar.",
+                                         "D":  "Doğru cevap: kollektif şirket bir ŞAHIS şirketidir; kazancı şirkette değil ORTAKLARDA, gelir vergisiyle vergilenir. Ana ezber: sermaye şirketi → KV; şahıs şirketi (kollektif, adi komandit) → ortakta GV.",
+                                         "E":  "Bunu seçtiysen \u0027dernek/vakıf zaten vergi dışı\u0027 dedin — incelik şu: dernek/vakfın KENDİSİ mükellef değildir ama ona ait İKTİSADİ İŞLETME (lokal, tesis, satış birimi) tam mükelleftir. Kanun tüzel kişiliği değil ticari faaliyeti vergiler."
+                                     },
+                        "kaynak":  "KVK (5520 s.K.) m.1-2",
+                        "hap":  "KV mükellefleri beşlisi: sermaye şirketleri, kooperatifler, iktisadi kamu kuruluşları, dernek/vakıflara ait iktisadi işletmeler, iş ortaklıkları (bunlarda mükellefiyet isteğe bağlıdır). TUZAK: şahıs şirketleri (kollektif ve adi komandit) listede YOKTUR — onların kazancı ortaklarının gelir vergisi konusudur; bir de \u0027dernek/vakfın kendisi\u0027 ile \u0027iktisadi işletmesi\u0027ni karıştırma.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "yayin",
+                        "erisim":  "ornek",
+                        "onay":  "Cem 23.07.2026 + Claude tam denetim + ambar teyitli"
                     }
                 ]
 }
