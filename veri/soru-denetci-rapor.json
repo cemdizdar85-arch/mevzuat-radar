@@ -1,10 +1,27 @@
-{
-  "calisti": "23.07.2026 20:48",
-  "islenen": 0,
-  "kasaya": 0,
-  "karantina": 0,
-  "hata": 0,
-  "kalan_katman1_temiz": 3253,
-  "kota_bitti": true,
-  "karantina_ornekleri": []
-}
+[
+  {
+    "calisti": "23.07.2026 20:48",
+    "islenen": 0,
+    "kasaya": 0,
+    "karantina": 0,
+    "hata": 0,
+    "kalan_katman1_temiz": 3253,
+    "kota_bitti": true,
+    "karantina_ornekleri": []
+  },
+  {
+    "calisti": "23.07.2026 20:51",
+    "islenen": 0,
+    "kasaya": 0,
+    "karantina": 0,
+    "hata": 3,
+    "kalan_katman1_temiz": 3253,
+    "kota_bitti": true,
+    "ham_hata_tanilari": [
+      "Response status code does not indicate success: 429 (Too Many Requests).",
+      "Response status code does not indicate success: 429 (Too Many Requests).",
+      "Response status code does not indicate success: 429 (Too Many Requests)."
+    ],
+    "karantina_ornekleri": []
+  }
+]
