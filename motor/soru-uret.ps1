@@ -54,6 +54,18 @@ function Claude($istem,$maxtok,$model){
         -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
   return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
 }
+# 23.07 MALIYET SIGORTASI: uretim isteminin SABIT kurallar blogu prompt-onbellegine
+# alinir (cache_control) — kosu icinde 15 konu ayni kurallari tasidigi icin tekrarlarin
+# girdi maliyeti ~%90 duser. Degisken kisim (ders/konu/mevcut acilar) ayri blok.
+function ClaudeOnbellekli($sabit,$degisken,$maxtok,$model){
+  $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
+    @{ type="text"; text=$sabit; cache_control=@{ type="ephemeral" } },
+    @{ type="text"; text=$degisken }) }) } | ConvertTo-Json -Depth 8 -Compress
+  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
+        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
+        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
+  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+}
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }
 
@@ -209,6 +221,20 @@ $mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika
 $yeniListe = New-Object System.Collections.Generic.List[object]
 $rapor = New-Object System.Collections.Generic.List[string]
 
+# SABIT kurallar blogu — onbellege girer; kosudaki 15 konu icin BYTE-AYNI kalmali
+$sabitIstem = @"
+OZGUN coktan secmeli sinav sorusu yazacaksin. KURALLAR:
+1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
+2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Ornek: ogrenci 653 yerine 780 sasirdiysa 'yanlistir, 780 olmali' DEME; 653 ile 780 arasindaki KAVRAM FARKINI ogret (biri is yaptirmanin, digeri para bulmanin maliyeti). Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
+3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
+4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
+5) Sade, kitapcik Turkcesiyle.
+6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
+7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
+CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular. SADECE su JSON dizisini dondur:
+[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...]}]
+"@
+
 foreach($h in $hedefler){
   $parca = $h.Key -split '\|'; $sinavAd=$parca[0]; $ders=$parca[1]; $konu=$parca[2]
   $sinavTanim = if($sinavAd -eq 'SMMM'){ "TURMOB-TESMER SMMM Yeterlilik Sinavi (2026/1'den beri coktan secmeli test)" } else { "TESMER Staja Giris Sinavi (SGS)" }
@@ -218,25 +244,15 @@ foreach($h in $hedefler){
   $konuAnahtar = "$ders|$konu"
   $mevcutAcilar = @((@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | Where-Object { "$($_.ders)|$($_.konu)" -eq $konuAnahtar } | ForEach-Object { $sMet = ("$($_.soru)" -replace '\s+',' '); $sMet.Substring(0, [Math]::Min(110, $sMet.Length)) } | Select-Object -First 14)
   $aciBlok = if(@($mevcutAcilar).Count -gt 0){ "BU KONUDA BANKADA ZATEN SU ACILARDAN SORULAR VAR (ilk cumleleri):`n- " + ($mevcutAcilar -join "`n- ") + "`nBunlarin HICBIRIYLE ortusmeyen, FARKLI bir hukum/fikra/islem asamasi/hesap/senaryo acisi isleyen sorular uret; ayni hukmu ayni aciyla tekrar SORMA.`n" } else { "" }
-  $uIstem = @"
-Sen $sinavTanim tarzinda OZGUN coktan secmeli soru yazan uzman bir egitimcisin. Ders: $ders · Konu: $konu
-$ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz. CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular.
+  $degiskenIstem = @"
+GOREV: Sen $sinavTanim tarzinda soru yazan uzman bir egitimcisin. Ders: $ders · Konu: $konu
+$ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz.
 $aciBlok
-KURALLAR:
-1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
-2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Ornek: ogrenci 653 yerine 780 sasirdiysa 'yanlistir, 780 olmali' DEME; 653 ile 780 arasindaki KAVRAM FARKINI ogret (biri is yaptirmanin, digeri para bulmanin maliyeti). Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
-3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
-4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
-5) Sade, kitapcik Turkcesiyle.
-6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
-7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
-SADECE su JSON dizisini dondur:
-[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...]}]
 "@
-  # 23.07 dersi: 8000 token 5 soru + hap anlatimlara DAR geldi, JSON yarida kesildi
-  # (6 konudan 4'u URETIM/JSON hatasiyla dustu). 16000'e cikarildi + API sigortasi.
+  # 23.07 dersi: 8000 token 5 soru + hap anlatimlara DAR geldi, JSON yarida kesildi.
+  # 16000 + API sigortasi. Maliyet: sabit kurallar onbellekli (ClaudeOnbellekli).
   $ham = $null
-  try { $ham = Claude $uIstem 16000 $MODEL_URET } catch { $rapor.Add("API HATASI: $konu ($($_.Exception.Message))"); continue }
+  try { $ham = ClaudeOnbellekli $sabitIstem $degiskenIstem 16000 $MODEL_URET } catch { $rapor.Add("API HATASI: $konu ($($_.Exception.Message))"); continue }
   # 23.07 dersi (#5 kosusu): cikti token sinirinda kesilirse dizi/JSON bozuk kaliyor,
   # tum konu copten gidiyordu. Yeni: once normal ayristir; olmazsa dengeli-parantez
   # deseniyle TAMAMLANMIS soru nesnelerini tek tek kurtar (yarim nesne atilir).
