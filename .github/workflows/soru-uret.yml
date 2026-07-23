@@ -10,7 +10,9 @@ on:
     - cron: "17 6 * * *"    # 09:17 TR   TAMAMI GitHub yogunlugunda atlandi; tam saat baslari kalabalik, :17/:43 tenha)
     - cron: "17 9 * * *"    # 12:17 TR
     - cron: "17 13 * * *"   # 16:17 TR
+    - cron: "17 4 * * *"    # 07:17 TR — 23.07 Cem karari: acilis dolu bankayla; vardiya 5->7
     - cron: "17 16 * * *"   # 19:17 TR — banka doyunca (konu basi 10) kosular kendiliginden bos gecer, maliyet sifirlanir
+    - cron: "17 19 * * *"   # 22:17 TR — 7. vardiya
   workflow_dispatch:
   push:
     paths:

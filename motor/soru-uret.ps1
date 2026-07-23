@@ -200,7 +200,7 @@ foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika)){
 # Yeni duzen: SINAV AGIRLIGIYLA orantili derinlik — cekirdek konu 50'ye kadar,
 # kiyi konu 12. Derinlik = KOPYA degil: uretim istemi, konudaki MEVCUT ACILARI
 # gorur ve bunlardan FARKLI aci uretmeye zorlanir (asagida aciBlok).
-function KonuHedefi($agirlik){ return [Math]::Min(50, [Math]::Max(12, [int][Math]::Round($agirlik * 1.5))) }
+function KonuHedefi($agirlik){ return [Math]::Min(120, [Math]::Max(15, [int][Math]::Round($agirlik * 3))) }   # 23.07 Cem: "50 az, acilisi ertele doldur" — cekirdek 60-120, kiyi 15
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt (KonuHedefi $_.Value) } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum konular agirlikli derinlik hedefine ulasti - banka doygun."; exit 0 }
 
