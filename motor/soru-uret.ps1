@@ -81,16 +81,25 @@ function AmbarTeyit($kaynak){
   # MSUGT / TEKDUZEN TEYIDI: "THP 780" hesap kodu veya "MSUGT ... donemsellik" kavrami
   if($f -match 'msugt|tekduzen|hesap plani|thp'){
     $mH=[regex]::Match($f,'(?<!\d)([1-7]\d{2})(?!\d)')
-    if($mH.Success){ $filtre="*THP "+$mH.Groups[1].Value+"*" }
-    else {
-      $kavramlar=@('donemsellik','ihtiyatlilik','onemlilik','ozun onceligi','tam aciklama','tutarlilik','sosyal sorumluluk','kisilik','isletmenin surekliligi','parayla olculme','maliyet esasi','tarafsizlik')
-      $bulunan=$null; foreach($kv in $kavramlar){ if($f -match [regex]::Escape($kv)){ $bulunan=$kv; break } }
-      if(-not $bulunan){ return 'yok' }
-      $filtre="*MSUGT*"+($bulunan -split ' ')[0]+"*"
+    if($mH.Success){
+      $filtre="*THP "+$mH.Groups[1].Value+"*"
+      try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
+        $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+        if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
     }
-    try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
+    # KAVRAM YOLU — 23.07 dersi: ambar kaynak_ad'i AKSANLI ('Dönemsellik Kavramı'),
+    # ilike 'donemsellik' tutmaz (Postgres'te o != ö). Adaylar cekilir, katlanmis
+    # (aksansiz) karsilastirma YERELDE yapilir.
+    $kavramlar=@('donemsellik','ihtiyatlilik','onemlilik','ozun onceligi','tam aciklama','tutarlilik','sosyal sorumluluk','kisilik','isletmenin surekliligi','parayla olculme','maliyet esasi','tarafsizlik')
+    $bulunan=$null; foreach($kv in $kavramlar){ if($f -match [regex]::Escape($kv)){ $bulunan=$kv; break } }
+    if(-not $bulunan){ return 'yok' }
+    try{
+      $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString('*MSUGT*kavram*')+"&select=kaynak_ad&limit=25"
       $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
-      if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+      $hedefKok=($bulunan -split ' ')[0]
+      foreach($x in @($r)){ if((Fold $x.kaynak_ad) -match [regex]::Escape($hedefKok)){ return 'ok' } }
+      return 'yok'
+    }catch{ return 'atla' }
   }
   # TEORI NOTU TEYIDI: resmi metni olmayan ders alanlari (mali analiz, maliyet
   # muhasebesi yontemleri, mikroekonomi) veri/mevzuat/teori-notu.json kurasyonuna
