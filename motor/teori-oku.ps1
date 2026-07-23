@@ -15,7 +15,7 @@
 #   3) Sessiz kosu YASAK: her kosuda veri/teori-rapor.json yazilir ve commit
 #      edilir — ne oldu, kacar belge cikti, neden yazilmadi hep gorunur.
 #  ENV: ANTHROPIC_API_KEY zorunlu.
-#  23.07: teori-notu genislemesi (5 yeni kurasyon) icin yukleme kosusu — tum okuma hedefleri atlanir.
+#  23.07: teori-notu genislemesi (5 yeni kurasyon) icin yukleme kosusu — tum okuma hedefleri atlanir. (tetik-2: ilk push eventi GitHub tarafinda dusmedi)
 # ============================================================================
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
