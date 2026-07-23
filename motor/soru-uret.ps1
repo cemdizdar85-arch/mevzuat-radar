@@ -127,7 +127,7 @@ function AmbarTeyit($kaynak){
   # TEORI NOTU TEYIDI: resmi metni olmayan ders alanlari (mali analiz, maliyet
   # muhasebesi yontemleri, mikroekonomi) veri/mevzuat/teori-notu.json kurasyonuna
   # baglanir; ambarda karsiligi olmayan teori kaynagi 'yok' doner (SIKI MOD RET).
-  if($f -match 'teori notu|dikey (yuzde|analiz)|yatay analiz|trend analiz|likidite|cari oran|asit.test|nakit orani|birlesik maliyet|ortak maliyet|yan urun|normal maliyet(?! bedel)|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite|esnekli|elasti|piyasa dengesi|tavan fiyat|taban fiyat|arz fazlasi|talep fazlasi|arz.talep|gsyh|milli gelir|gayri safi|enflasyon|deflasyon|stagflasyon|para politika|acik piyasa islem|zorunlu karsilik|reeskont|dolayli vergi|dolaysiz vergi|spesifik vergi|advalorem|artan oranli|verginin yansimasi'){
+  if($f -match 'teori notu|dikey (yuzde|analiz)|yatay analiz|trend analiz|likidite|cari oran|asit.test|nakit orani|birlesik maliyet|ortak maliyet|yan urun|normal maliyet(?! bedel)|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite|esnekli|elasti|piyasa dengesi|tavan fiyat|taban fiyat|arz fazlasi|talep fazlasi|arz.talep|gsyh|milli gelir|gayri safi|enflasyon|deflasyon|stagflasyon|para politika|acik piyasa islem|zorunlu karsilik|reeskont|dolayli vergi|dolaysiz vergi|spesifik vergi|advalorem|artan oranli|verginin yansimasi|yardimci hesap|muavin|kayit detayi|toplulastir'){
     $notlar=[ordered]@{
       'dikey (yuzde|analiz)|yatay analiz|trend analiz'='dikey'
       'likidite|cari oran|asit.test|nakit orani'='oran'
@@ -139,6 +139,7 @@ function AmbarTeyit($kaynak){
       'enflasyon|deflasyon|stagflasyon'='enflasyon'
       'para politika|acik piyasa islem|zorunlu karsilik|reeskont'='para'
       'dolayli vergi|dolaysiz vergi|spesifik vergi|advalorem|artan oranli|verginin yansimasi|vergi teorisi'='vergi teorisi'
+      'yardimci hesap|muavin|kayit detayi|toplulastir'='yardimci'
     }
     $hedefNot=$null; foreach($nk in $notlar.Keys){ if($f -match $nk){ $hedefNot=$notlar[$nk]; break } }
     if(-not $hedefNot){ return 'yok' }
