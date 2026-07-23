@@ -32,3 +32,8 @@ jobs:
             git pull --rebase origin main || true
             git push || true
           fi
+      - name: Ambara yukle (okuma sonrasi otomatik - ek tik gerekmesin)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/mevzuat-yukle.ps1
