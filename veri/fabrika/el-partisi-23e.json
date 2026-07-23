@@ -1,0 +1,287 @@
+{
+    "uretim":  "23.07.2026 el partisi 5 (TMS 2/16 + VUK degerleme + KDV indirim + kavramlar + THP 121)",
+    "sorular":  [
+                    {
+                        "id":  "el-23e001",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "stok olcumu tms2",
+                        "soru":  "İşletmenin dönem sonu stoklarının maliyeti 90.000 TL, net gerçekleşebilir değeri 78.000 TL\u0027dir. TMS 2\u0027ye göre stoklar finansal durum tablosunda kaç TL ile ölçülür?",
+                        "siklar":  {
+                                       "A":  "78.000",
+                                       "B":  "90.000",
+                                       "C":  "84.000",
+                                       "D":  "Net gerçekleşebilir değer yalnızca dipnotta gösterilir; stok 90.000 TL kalır",
+                                       "E":  "İkisinden yüksek olanı: 90.000"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. TMS 2 p.9: \u0027Stoklar, maliyet değeri ile net gerçekleşebilir değerin DÜŞÜK OLANI üzerinden ölçülür.\u0027 78.000 \u003c 90.000 olduğundan stok 78.000 TL\u0027ye indirilir; 12.000 TL değer düşüklüğü gider yazılır.",
+                                         "B":  "Yanılgı dersi: Maliyetle ölçüm ancak NGD ≥ maliyet olduğunda geçerlidir. NGD maliyetin altına düştüyse maliyette ısrar etmek, varlığı geri kazanılamayacak tutarla göstermektir.",
+                                         "C":  "Yanılgı dersi: 84.000, iki değerin ORTALAMASIdır; standart ortalama değil \u0027düşük olan\u0027 kuralını koyar. \u0027Ortada buluşma\u0027 sezgisi muhasebe ölçümünde geçersizdir.",
+                                         "D":  "Yanılgı dersi: NGD dipnot bilgisi değil ÖLÇÜM ölçütüdür; düşükse tablodaki tutarın kendisi iner.",
+                                         "E":  "Yanılgı dersi: \u0027Yüksek olanı\u0027 kuralın tam tersidir; varlıkları şişirmek ihtiyatlılıkla da bağdaşmaz."
+                                     },
+                        "kaynak":  "TMS 2 paragraf 9",
+                        "hap":  "TMS 2\u0027nin tek cümlelik özü: stok = min(maliyet, NGD). NGD = tahmini satış fiyatı − tamamlanma ve satış maliyetleri. Maliyet NGD\u0027nin üstündeyse aradaki fark gider (değer düşüklüğü); NGD sonradan toparlarsa iptal edilebilir. Sınav şıkları hep aynı üç tuzağı döndürür: hep maliyet, ortalama, yüksek olan.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e002",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "stok maliyet unsurlari",
+                        "soru":  "TMS 2\u0027ye göre stokların maliyeti aşağıdaki unsurların hangilerinden oluşur?",
+                        "siklar":  {
+                                       "A":  "Satın alma maliyetleri + dönüştürme maliyetleri + stokların mevcut konumuna ve durumuna getirilmesi için katlanılan diğer maliyetler",
+                                       "B":  "Satın alma maliyetleri + satış ve pazarlama giderleri",
+                                       "C":  "Yalnızca fatura bedeli",
+                                       "D":  "Satın alma maliyetleri + dönüştürme maliyetleri + genel yönetim giderlerinden pay",
+                                       "E":  "Dönem içinde stoklarla ilgili yapılan tüm harcamalar"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. TMS 2 p.10\u0027un üçlüsü birebir: \u0027tüm satın alma maliyetlerini, dönüştürme maliyetlerini ve stokların mevcut konumuna ve durumuna getirilmesi için katlanılan diğer maliyetleri içerir.\u0027",
+                                         "B":  "Yanılgı dersi: Satış ve pazarlama giderleri stoku \u0027mevcut konumuna getirme\u0027 değil ELDEN ÇIKARMA çabasıdır; dönem gideridir, stok maliyetine girmez.",
+                                         "C":  "Yanılgı dersi: Yalnız fatura bedeli, üçlünün ilk kaleminin bile tamamı değildir (satın alma maliyeti; nakliye, ithalat vergileri gibi kalemleri de kapsar).",
+                                         "D":  "Yanılgı dersi: Genel yönetim giderlerinden stoklara pay dağıtılmaz; yönetim fonksiyonu stoku üretim yerine getirmez. \u0027Her gideri stoka gömme\u0027 eğilimi kâr yönetimi kokan bir hatadır.",
+                                         "E":  "Yanılgı dersi: \u0027Stokla ilgili her harcama\u0027 ölçüsüzdür; ölçüt harcamanın stoku MEVCUT KONUM VE DURUMA getirmesidir — depolamada bekletme, satış çabası gibi sonrası giderler dışarıda kalır."
+                                     },
+                        "kaynak":  "TMS 2 paragraf 10",
+                        "hap":  "Stok maliyetinin üç ayağı: SATIN ALMA (fiyat + ithalat vergileri + nakliye) + DÖNÜŞTÜRME (direkt işçilik + GÜG payı) + stoku MEVCUT KONUM/DURUMA getiren diğer maliyetler. Turnusol soru: \u0027Bu harcama malı satılabilir hâle mi getiriyor, yoksa satmaya mı çalışıyor?\u0027 İkincisiyse dönem gideridir.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e003",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "mdv sokum maliyeti",
+                        "soru":  "TMS 16\u0027ya göre aşağıdakilerden hangisi bir maddi duran varlık kaleminin MALİYETİNE dahildir?",
+                        "siklar":  {
+                                       "A":  "Varlığın sökülmesi, taşınması ve yerleştirildiği alanın restorasyonuna ilişkin tahmini maliyet (işletmenin katlandığı yükümlülük)",
+                                       "B":  "Varlık alımı sırasında yararlanılan ve satıcının uyguladığı ticari iskonto",
+                                       "C":  "İade alınabilen katma değer vergisi",
+                                       "D":  "Varlığın gelecekte üreteceği tahmini gelirler",
+                                       "E":  "Varlık kullanılmaya başlandıktan sonraki olağan bakım giderleri"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. TMS 16 p.16(c) birebir sayar: sökme, taşıma ve alan restorasyonuna ilişkin TAHMİNİ maliyet (bu yönde yükümlülük varsa) maliyete dahildir. Henüz gerçekleşmemiş bir tutarın maliyete girmesi sınav için şaşırtıcı ama standardın açık hükmüdür.",
+                                         "B":  "Yanılgı dersi: p.16(a) satın alma fiyatını \u0027indirimler ve ticari iskontolar DÜŞÜLDÜKTEN sonra\u0027 tanımlar; iskonto maliyete eklenmez, maliyeti KÜÇÜLTÜR.",
+                                         "C":  "Yanılgı dersi: p.16(a) yalnız \u0027İADE EDİLMEYEN alış vergilerini\u0027 dahil eder; indirilebilen/iade alınabilen KDV maliyete girmez (indirim mekanizmasında erir).",
+                                         "D":  "Yanılgı dersi: Gelecekteki gelirler maliyet unsuru değildir; maliyet, varlığı EDİNME ve kullanıma HAZIRLAMA fedakârlıklarından oluşur.",
+                                         "E":  "Yanılgı dersi: Kullanım SONRASI olağan bakım-onarım dönem gideridir; maliyete ancak edinme ve kullanıma hazırlama aşamasının harcamaları girer."
+                                     },
+                        "kaynak":  "TMS 16 paragraf 16",
+                        "hap":  "TMS 16 maliyet üçlüsü: (a) satın alma fiyatı (iskonto DÜŞ, iade edilmeyen vergiyi EKLE) + (b) varlığı yerine ve çalışır duruma getirme maliyetleri + (c) sökme/taşıma/restorasyon TAHMİNİ yükümlülüğü. En ters köşe (c)\u0027dir: gelecekteki söküm tahmini bugünden maliyete girer — çünkü yükümlülük bugün doğmuştur.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e004",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Muhasebe",
+                        "konu":  "mdv satin alma fiyati",
+                        "soru":  "TMS 16\u0027ya göre maddi duran varlığın maliyetindeki \u0027satın alma fiyatı\u0027 nasıl belirlenir?",
+                        "siklar":  {
+                                       "A":  "İndirimler ve ticari iskontolar düşüldükten sonra; ithalat vergileri ve iade edilmeyen alış vergileri dahil edilerek",
+                                       "B":  "Katalog (liste) fiyatı üzerinden, iskontolar dikkate alınmadan",
+                                       "C":  "İade edilebilen vergiler dahil, iskontolar düşülerek",
+                                       "D":  "Yalnızca satıcıya ödenen çıplak bedel; hiçbir vergi eklenmez",
+                                       "E":  "Piyasadaki benzer varlıkların ortalama fiyatı esas alınarak"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. p.16(a) formülü iki yönlüdür: iskontoyu DÜŞ (fiyatı küçültür), ithalat vergileri ile İADE EDİLMEYEN alış vergilerini EKLE (fiyatı büyütür).",
+                                         "B":  "Yanılgı dersi: Liste fiyatı gerçek fedakârlık değildir; işletmenin fiilen katlandığı tutar iskonto sonrası bedeldir.",
+                                         "C":  "Yanılgı dersi: İade EDİLEBİLEN vergi (ör. indirilebilir KDV) işletmenin üstünde kalmaz; maliyete eklenirse varlık şişer, vergi de mükerrer izlenir. Dahil olan yalnız iade EDİLMEYENdir.",
+                                         "D":  "Yanılgı dersi: \u0027Hiçbir vergi girmez\u0027 de yanlıştır — ithalat vergileri ve iade edilmeyen vergiler maliyetin parçasıdır; ölçüt verginin işletmede YÜK olarak kalıp kalmadığıdır.",
+                                         "E":  "Yanılgı dersi: Maliyet modeli işletmenin KENDİ işlem bedeline dayanır; piyasa ortalaması ölçüm ölçütü değildir."
+                                     },
+                        "kaynak":  "TMS 16 paragraf 16",
+                        "hap":  "Satın alma fiyatının iki vanası: İSKONTO → düş; İADE EDİLMEYEN VERGİ (ithalat vergisi, indirilemeyen KDV) → ekle. Kilit soru: \u0027Bu vergi işletmenin üstünde yük olarak kalıyor mu?\u0027 Kalıyorsa maliyet, kalmıyorsa (indirilebiliyorsa) maliyet DEĞİL.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e005",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "vuk degerleme tanimi",
+                        "soru":  "Vergi Usul Kanunu m.258\u0027e göre DEĞERLEME nedir?",
+                        "siklar":  {
+                                       "A":  "Vergi matrahlarının hesaplanmasıyla ilgili iktisadi kıymetlerin takdir ve tespitidir",
+                                       "B":  "İşletme varlıklarının piyasa fiyatlarıyla yeniden satış değerinin bulunmasıdır",
+                                       "C":  "Vergi borcunun idarece tarh edilmesidir",
+                                       "D":  "Mali tabloların bağımsız denetimden geçirilmesidir",
+                                       "E":  "Enflasyon düzeltmesi katsayılarının uygulanmasıdır"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. m.258 birebir: \u0027Değerleme, vergi matrahlarının hesaplanmasiyle ilgili iktisadi kıymetlerin takdir ve tesbitidir.\u0027 Amaç unsuru kritiktir: VERGİ MATRAHI için yapılır.",
+                                         "B":  "Yanılgı dersi: VUK değerlemesi piyasa/satış değeri bulma egzersizi değildir; hangi kıymetin hangi ölçüyle (maliyet bedeli, borsa rayici, mukayyet değer...) değerleneceğini kanun söyler.",
+                                         "C":  "Yanılgı dersi: Tarh, hesaplanan matraha ORAN uygulanarak verginin hesaplanması işlemidir; değerleme ondan önceki matrah aşamasına aittir.",
+                                         "D":  "Yanılgı dersi: Bağımsız denetim TTK/KGK dünyasının işidir; VUK değerlemesi vergisel bir ölçme işlemidir, denetim değildir.",
+                                         "E":  "Yanılgı dersi: Enflasyon düzeltmesi, değerlemenin özel bir tekniğidir; tanımın kendisi değildir."
+                                     },
+                        "kaynak":  "VUK m.258",
+                        "hap":  "VUK değerleme tanımının iki anahtarı: (1) amaç = VERGİ MATRAHININ hesaplanması, (2) iş = iktisadi kıymetlerin TAKDİR ve TESPİTİ. Devamındaki maddeler her kıymete ölçüsünü dağıtır (m.262 maliyet bedeli, m.263 borsa rayici, m.265 mukayyet değer...). Tanım sorusunda \u0027piyasa değeri bulma\u0027 diyen şık her zaman tuzaktır.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e006",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "vuk maliyet bedeli",
+                        "soru":  "VUK m.262\u0027ye göre aşağıdaki giderlerden hangisi iktisadi kıymetin MALİYET BEDELİNE dahil edilir?",
+                        "siklar":  {
+                                       "A":  "İktisap ile doğrudan ilgili gümrük vergileri, yükleme, boşaltma, nakliye ve montaj giderleri",
+                                       "B":  "Kıymetin edinilmesinden sonraki dönemlere ait olağan bakım giderleri",
+                                       "C":  "İşletmenin genel reklam ve pazarlama harcamaları",
+                                       "D":  "Kıymetle ilgisi olmayan genel yönetim giderlerinden dağıtılan pay",
+                                       "E":  "Kıymet satıldığında ödenecek tahmini vergiler"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. m.262\u0027ye 7338 sayılı Kanunla eklenen fıkra (a) bendi birebir sayar: \u0027iktisap edilmesi veya değerinin artırılması ile doğrudan ilgili; gümrük vergileri, gümrük komisyonları, yükleme, boşaltma, nakliye ve montaj giderleri\u0027 maliyet bedeline dahildir.",
+                                         "B":  "Yanılgı dersi: Maliyet bedeli, EDİNME ve DEĞER ARTIRMA ile ilgili ödemeleri toplar; edinme sonrası olağan bakım dönem gideridir (aktifleştirilmez).",
+                                         "C":  "Yanılgı dersi: Reklam-pazarlama, kıymetin iktisabıyla \u0027doğrudan ilgili\u0027 değildir; m.262\u0027nin her bendindeki ortak süzgeç bu doğrudan ilgi şartıdır.",
+                                         "D":  "Yanılgı dersi: Genel yönetim payı dağıtmak, maddeyle bağı olmayan bir yükleme yapmaktır; VUK maliyeti işlemle sınırlar.",
+                                         "E":  "Yanılgı dersi: Gelecekteki satış vergileri edinme fedakârlığı değildir; maliyet geçmişe (edinmeye) bakar, satış senaryolarına değil."
+                                     },
+                        "kaynak":  "VUK m.262",
+                        "hap":  "m.262 maliyet bedeli = edinme/değer artırma ödemeleri + bunlara bağlı BİLUMUM giderler. 7338\u0027in netleştirdiği liste: (a) gümrük vergisi-komisyonu, yükleme-boşaltma, nakliye, MONTAJ; (b) resim-harç, noter, tapu, mahkeme, değer tespiti, danışmanlık, komisyon, ilan. Süzgeç hep aynı: \u0027iktisapla DOĞRUDAN ilgili mi?\u0027",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e007",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kdv indirim mekanizmasi",
+                        "soru":  "KDV Kanunu m.29\u0027a göre mükellefler, hesaplanan katma değer vergisinden öncelikle neyi indirebilirler?",
+                        "siklar":  {
+                                       "A":  "Kendilerine yapılan teslim ve hizmetler dolayısıyla düzenlenen fatura ve benzeri belgelerde gösterilen KDV\u0027yi",
+                                       "B":  "Ödedikleri gelir ve kurumlar vergisini",
+                                       "C":  "Personel ücretlerinden kestikleri gelir vergisi stopajını",
+                                       "D":  "Belgesiz alımlarına ait tahmini KDV tutarını",
+                                       "E":  "Sattıkları mallar üzerinden hesapladıkları KDV\u0027yi"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. m.29/1-a birebir: mükellefler, vergiye tabi işlemleri üzerinden hesaplanan KDV\u0027den, \u0027kendilerine yapılan teslim ve hizmetler dolayısıyla hesaplanarak düzenlenen fatura ve benzeri vesikalarda GÖSTERİLEN\u0027 KDV\u0027yi indirir. Sistemin adı budur: hesaplanan − indirilecek = ödenecek.",
+                                         "B":  "Yanılgı dersi: Gelir/kurumlar vergisi apayrı vergilerdir; KDV mekanizmasının içinde mahsup edilmez. Vergi türlerini tek havuz sanmak temel hatadır.",
+                                         "C":  "Yanılgı dersi: Ücret stopajı, işverenin SORUMLU sıfatıyla kesip ödediği gelir vergisidir; KDV indirimiyle ilgisi yoktur.",
+                                         "D":  "Yanılgı dersi: İndirimin can damarı BELGEdir — \u0027fatura ve benzeri vesikalarda gösterilen\u0027 ibaresi belgesiz/tahmini indirimi baştan kapatır.",
+                                         "E":  "Yanılgı dersi: Satışlar üzerinden hesaplanan KDV, indirimin yapılacağı HAVUZUN kendisidir; kendi kendinden indirilmez. Yön karıştırılırsa mekanizma tersine döner."
+                                     },
+                        "kaynak":  "KDV Kanunu m.29/1-a",
+                        "hap":  "KDV\u0027nin çarkı: SATIŞTA hesaplanan KDV − ALIŞTA belgede gösterilen (indirilecek) KDV = ödenecek KDV. İndirimin iki şartı ezberdir: (1) alış, faaliyete ilişkin olacak; (2) KDV fatura ve benzeri belgede GÖSTERİLMİŞ olacak. Belge yoksa indirim yok — tahmin, liste, sözleşme belge yerine geçmez.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e008",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "ihtiyatlilik kavrami",
+                        "soru":  "İşletme, dava aşamasındaki muhtemel bir zarar için karşılık ayırmış; buna karşılık kazanması muhtemel bir davadan beklediği tazminat gelirini kayıtlara almamıştır. Bu uygulama hangi muhasebe temel kavramının gereğidir?",
+                        "siklar":  {
+                                       "A":  "İhtiyatlılık",
+                                       "B":  "Dönemsellik",
+                                       "C":  "Özün önceliği",
+                                       "D":  "Tutarlılık",
+                                       "E":  "Tam açıklama"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. MSUGT ihtiyatlılık tanımı iki yönü de içerir: \u0027işletmeler, muhtemel giderleri ve zararları için karşılık ayırırlar; muhtemel gelir ve kârları için ise gerçekleşme dönemlerine kadar herhangi bir muhasebe işlemi yapmazlar.\u0027 Zarara erken, kâra geç davranmak ihtiyatlılıktır.",
+                                         "B":  "Yanılgı dersi: Dönemsellik gelir-giderin DOĞRU DÖNEME yazılmasıyla ilgilidir; muhtemel kâr-zarar asimetrisini düzenlemez.",
+                                         "C":  "Yanılgı dersi: Özün önceliği biçim-öz çatışmasını çözer; burada biçimsel bir nitelendirme sorunu yok, risk karşısında temkin var.",
+                                         "D":  "Yanılgı dersi: Tutarlılık, seçilen politikaların dönemler arası değişmemesidir; hangi politikanın seçileceğini (karşılık ayır/ayırma) söylemez.",
+                                         "E":  "Yanılgı dersi: Tam açıklama bilginin SUNUMUYLA ilgilidir; karşılık AYIRMA kararının kendisi ölçme-tanıma işlemidir. Ayrıca unutma: ihtiyatlılık gizli yedek ve aşırı karşılığa gerekçe OLAMAZ — temkin ile tabloyu karartma farklıdır."
+                                     },
+                        "kaynak":  "MSUGT temel kavramlar — ihtiyatlılık",
+                        "hap":  "İhtiyatlılığın asimetrisi: muhtemel ZARARA hemen karşılık ayır; muhtemel KÂRI gerçekleşene kadar kaydetme. Sınırı da ezberle: gizli yedek yaratmak ve GEREĞİNDEN FAZLA karşılık ayırmak ihtiyatlılıkla savunulamaz (kavramın kendi metni yasaklar). Şüpheli alacak karşılığı bu kavramın ders kitabı örneğidir.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e009",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "parayla olculme kavrami",
+                        "soru":  "Deneyimli bir yönetim kadrosuna ve güçlü müşteri sadakatine sahip olan işletme, bu \u0027değerlerini\u0027 mali tablolarına yansıtamamaktadır. Bu durumu açıklayan muhasebe temel kavramı hangisidir?",
+                        "siklar":  {
+                                       "A":  "Parayla ölçülme",
+                                       "B":  "Kişilik",
+                                       "C":  "İşletmenin sürekliliği",
+                                       "D":  "Maliyet esası",
+                                       "E":  "Önemlilik"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. MSUGT: \u0027parayla ölçülebilen iktisadi olay ve işlemlerin muhasebeye ortak bir ölçü olarak para birimiyle yansıtılması\u0027 — parayla GÜVENİLİR biçimde ölçülemeyen kadro kalitesi, itibar, sadakat gibi değerler muhasebenin kapsamına giremez.",
+                                         "B":  "Yanılgı dersi: Kişilik, işletmenin sahiplerinden ayrı tutulmasını söyler; ölçülebilirlik sorunu ile ilgisi yoktur.",
+                                         "C":  "Yanılgı dersi: Süreklilik, işletme ömrünün sınırsız varsayılmasıdır; hangi olayların kayda gireceğini belirlemez.",
+                                         "D":  "Yanılgı dersi: Maliyet esası, KAYDA GİREN varlıkların elde etme maliyetiyle izlenmesini söyler; buradaki sorun ise değerin kayda hiç GİREMEMESİDİR — bir önceki aşamanın meselesi.",
+                                         "E":  "Yanılgı dersi: Önemlilik, bilginin kararları etkileme gücüyle ilgilidir; müşteri sadakati \u0027önemsiz\u0027 olduğu için değil, parayla ölçülemediği için tabloda yoktur."
+                                     },
+                        "kaynak":  "MSUGT temel kavramlar — parayla ölçülme",
+                        "hap":  "Muhasebenin giriş kapısında tek turnike vardır: olay PARAYLA ölçülebiliyor mu? Ölçülemiyorsa (yönetim kalitesi, itibar, know-how, müşteri sadakati) ne kadar değerli olursa olsun tabloya giremez; işlemler ULUSAL para birimiyle kaydedilir. Bu kavram, \u0027bilanço neden şirketin gerçek değerini göstermez\u0027 sorusunun da cevabıdır.",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    },
+                    {
+                        "id":  "el-23e010",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "senetli satis kaydi",
+                        "soru":  "İşletme, faaliyet konusu ticari malını 80.000 TL\u0027ye satmış ve bedel karşılığında müşteriden aynı tutarlı bir bono almıştır (KDV ihmal). Hasılat kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "121 Alacak Senetleri 80.000 borç; 600 Yurtiçi Satışlar 80.000 alacak",
+                                       "B":  "120 Alıcılar 80.000 borç; 600 Yurtiçi Satışlar 80.000 alacak",
+                                       "C":  "121 Alacak Senetleri 80.000 borç; 121 Alacak Senetleri 80.000 alacak",
+                                       "D":  "100 Kasa 80.000 borç; 600 Yurtiçi Satışlar 80.000 alacak",
+                                       "E":  "321 Borç Senetleri 80.000 borç; 600 Yurtiçi Satışlar 80.000 alacak"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. Tekdüzen 121: \u0027faaliyet konusunu oluşturan mal ve hizmet satışlarından kaynaklanan SENEDE BAĞLANMIŞ alacaklar... alınan senet tutarları bu hesaba borç\u0027 kaydedilir; hasılat 600\u0027e alacak.",
+                                         "B":  "Yanılgı dersi: 120 SENETSİZ alacakların hesabıdır; bono alındığı an alacak senede bağlanmıştır → 121. Senet varlığı hesabı değiştirir.",
+                                         "C":  "Yanılgı dersi: Aynı hesabı hem borç hem alacak çalıştırmak hiçbir şey kaydetmemektir; kayıt denklikten önce ANLAM ister.",
+                                         "D":  "Yanılgı dersi: Nakit tahsilat yok; bono bir ödeme VAADİdir. Kasaya, para fiilen girdiğinde (senet tahsilinde) dokunulur.",
+                                         "E":  "Yanılgı dersi: 321 bizim VERDİĞİMİZ senetlerin (borcumuzun) hesabıdır; aldığımız senet alacağımızdır → 121. Alacak-borç senedi aynası en klasik tuzaktır."
+                                     },
+                        "kaynak":  "Tekdüzen Hesap Planı (MSUGT) — THP 121 işleyişi",
+                        "hap":  "Senet pusulası: ALDIĞIN senet (müşterinin vaadi) → 121 borç; VERDİĞİN senet (senin vaadin) → 321 alacak. Satış senede bağlandıysa hasılat kaydının borç ayağı 120 değil 121\u0027dir. Senet tahsil edilince 100/102 borç, 121 alacak; iskonto ettirilirse 780 devreye girer (bkz. senet iskontosu).",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "121 Alacak Senetleri",
+                                            "borc":  80000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "600 Yurtiçi Satışlar",
+                                            "borc":  0,
+                                            "alacak":  80000
+                                        }
+                                    ],
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (el partisi 5)",
+                        "uretim":  "23.07.2026"
+                    }
+                ]
+}
