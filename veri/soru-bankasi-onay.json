@@ -1,103 +1,29 @@
 {
-    "guncelleme":  "23.07.2026 06:08",
-    "not":  "Fabrika ciktisi burada bekler (onay-bekliyor); onaylanan ORNEK sorular soru-bankasi.json\u0027a, PAKET sorulari (paket-havuzu) Supabase kurulunca oraya tasinir.",
-    "sorular":  [
-                    {
-                        "id":  "el-23a002",
-                        "sinav":  "SGS",
-                        "ders":  "Muhasebe",
-                        "konu":  "senet iskonto kaydi",
-                        "soru":  "İşletme, nominal değeri 100.000 TL olan alacak senedini vadesinden önce bankaya iskonto ettirmiş; banka 12.000 TL faiz ve komisyon keserek kalan tutarı işletmenin hesabına yatırmıştır. Bu işlemin doğru muhasebe kaydı aşağıdakilerden hangisidir?",
-                        "siklar":  {
-                                       "A":  "102 Bankalar 100.000 borç; 121 Alacak Senetleri 100.000 alacak",
-                                       "B":  "102 Bankalar 88.000 ve 780 Finansman Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
-                                       "C":  "102 Bankalar 88.000 borç; 121 Alacak Senetleri 88.000 alacak",
-                                       "D":  "102 Bankalar 88.000 ve 653 Komisyon Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
-                                       "E":  "100 Kasa 88.000 borç; 121 Alacak Senetleri 88.000 alacak; 642 Faiz Gelirleri 12.000 alacak"
-                                   },
-                        "dogru":  "B",
-                        "aciklama":  {
-                                         "A":  "Bankaya geçen net tutar 88.000 TL\u0027dir; 100.000 yazılırsa kesilen faiz-komisyon kayıt dışı kalır.",
-                                         "B":  "Doğru cevap: senedin nominal tutarı 121\u0027den çıkar, kesilen 12.000 TL iskonto bedeli finansman gideridir (780), net 88.000 TL bankaya girer.",
-                                         "C":  "Senet nominal değeriyle (100.000) kayıtlıdır; 88.000 ile kapatılırsa 121 hesabında 12.000 TL fark açık kalır.",
-                                         "D":  "Buraya kadar her şeyi doğru kurdun; tek fark 653/780 ayrımı. Ayrım \u0027kime ödendi\u0027 değil \u0027NİÇİN ödendi\u0027 sorusudur: 653 Komisyon Giderleri, işletmenin İŞ YAPTIRMAK için aracılara ödediği bedeldir (satış komisyoncusu, emlak aracısı gibi); 780 Finansman Giderleri ise PARA BULMANIN maliyetidir (kredi faizi, kur farkı, senet iskonto bedeli). Senet kırdırmak = vadeden önce parayı finanse etmek; bankanın kestiği faiz+komisyon bu yüzden bütünüyle finansman maliyetidir ve 780\u0027e yazılır.",
-                                         "E":  "İşletme faiz GELİRİ elde etmemiş, faiz YÜKLENMİŞTİR; 642 kullanılamaz, tahsilat da kasaya değil bankaya girmiştir."
-                                     },
-                        "kaynak":  "Tekdüzen Hesap Planı (MSUGT) — 121/780/102 hesap işleyişi",
-                        "hap":  "Senet iskontosu = alacak senedini vadeden önce bankaya kırdırmak. Üç ayak: 121 nominal tutarla kapanır, bankanın kestiği faiz+komisyon 780 Finansman Giderleri\u0027ne, kalan net tutar 102 Bankalar\u0027a. TUZAK: senedi net tutarla düşürmek (121\u0027de fark bırakır) veya kesintiyi gelir sanmak.",
-                        "ambar":  "el",
-                        "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "paket-havuzu",
-                        "yevmiye":  [
-                                        {
-                                            "hesap":  "102 Bankalar",
-                                            "borc":  88000,
-                                            "alacak":  0
-                                        },
-                                        {
-                                            "hesap":  "780 Finansman Giderleri",
-                                            "borc":  12000,
-                                            "alacak":  0
-                                        },
-                                        {
-                                            "hesap":  "121 Alacak Senetleri",
-                                            "borc":  0,
-                                            "alacak":  100000
-                                        }
-                                    ],
-                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (MSUGT)"
-                    },
-                    {
-                        "id":  "el-23a003",
-                        "sinav":  "SGS",
-                        "ders":  "Muhasebe",
-                        "konu":  "donemsellik kavrami",
-                        "soru":  "İşletme, Aralık 2025\u0027te kiracısından 12 aylık kira bedelini peşin tahsil etmiş; 2025 gelir tablosuna bu tutarın yalnızca Aralık ayına düşen kısmını gelir olarak yansıtmış, kalanını bilançoda \u0027Gelecek Aylara/Yıllara Ait Gelirler\u0027 hesaplarında bırakmıştır. Bu uygulama öncelikle hangi muhasebe temel kavramının gereğidir?",
-                        "siklar":  {
-                                       "A":  "İhtiyatlılık",
-                                       "B":  "Dönemsellik",
-                                       "C":  "Özün önceliği",
-                                       "D":  "Tam açıklama",
-                                       "E":  "Tutarlılık"
-                                   },
-                        "dogru":  "B",
-                        "aciklama":  {
-                                         "A":  "Bunu seçtiysen \u0027geliri hemen yazmamak = temkinli olmak\u0027 diye düşündün. Ama ihtiyatlılık RİSK temkinidir (muhtemel gider ve zararlara karşılık ayırmak); buradaki davranış risk değil ZAMAN eşleştirmesidir — gelir ait olduğu döneme yazılır.",
-                                         "B":  "Doğru cevap: dönemsellik — gelir tahsilata değil TAHAKKUKA göre kaydedilir; 12 aylık kiranın yalnız Aralık payı 2025 geliridir, kalanı gelecek dönemlerindir.",
-                                         "C":  "Özün önceliği \u0027belgede ne yazıyor değil, ekonomik gerçek ne\u0027 sorusudur (finansal kiralamayı satın alma gibi kaydetmek). Burada biçim-öz çatışması yok; mesele yalnız zamanlama.",
-                                         "D":  "Tam açıklama şeffaflık ilkesidir: kullanıcıyı etkileyecek bilgiyi göster. Gelirin HANGİ DÖNEME yazılacağını söylemez — onu dönemsellik söyler.",
-                                         "E":  "Tutarlılık \u0027seçtiğin yöntemi yıldan yıla değiştirme\u0027 der; tek yılın içinde gelirin dağıtımına dair hüküm içermez."
-                                     },
-                        "kaynak":  "1 Sıra No.lu MSUGT — muhasebenin temel kavramları (dönemsellik)",
-                        "hap":  "Dönemsellik: sınırsız ömür dönemlere bölünür; her dönemin geliri-gideri TAHAKKUK esasına göre kendi dönemine yazılır — parayı ne zaman aldığın değil, hizmetin hangi döneme ait olduğu belirleyicidir. Peşin tahsilatlar \u0027gelecek aylara/yıllara ait gelirler\u0027, peşin ödemeler \u0027gelecek aylara/yıllara ait giderler\u0027 hesaplarında bekletilir.",
-                        "ambar":  "el",
-                        "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "paket-havuzu",
-                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli (MSUGT)"
-                    }
-                ],
-    "sonKosuRaporu":  [
-                          "RET (cozucu1 \u0027E\u0027 != \u0027B\u0027): Ahmet, 16 yaşında olup bir tekstil fabri",
-                          "GECTI: [sendika uyeligi] İşçi Zeynep, gündüzleri bir metal fabrikasında tam...",
-                          "GECTI: [sendika uyeligi] İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzer...",
-                          "JSON HATASI: dikey yuzde analizi",
-                          "URETIM HATASI (JSON bulunamadi/kesik): faaliyet kâri hesaplama",
-                          "JSON HATASI: sebepsiz zenginlesme",
-                          "JSON HATASI: ortak maliyet dagitimi",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 Denetimde Önemlilik, paragraf A5",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29 ve TMS 24 İlişkili Taraf Açıklamaları",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30, TMS 2 Stoklar",
-                          "GECTI: [toplulastirma riski] Bir işletmenin 30 farklı müşteriden oluşan ve her ...",
-                          "GECTI: [kurumlar vergisi mukellefleri] Bir hukuk bürosu, müşterisine kurulacak ortaklık t...",
-                          "GECTI: [kurumlar vergisi mukellefleri] Kanuni merkezi Bermuda\u0027da kayıtlı olan ABC Ltd., t...",
-                          "GECTI: [kurumlar vergisi mukellefleri] Bir spor derneği, üyelerinden yalnızca üyelik aida...",
-                          "RET (cozucu2 \u0027\u0027 != \u0027C\u0027): A A.Ş. ile B Ltd. Şti., belirli bir kamu",
-                          "GECTI: [kurumlar vergisi mukellefleri] Bir belediyeye ait su işletmesi, kâr amacı gütmeks...",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/a-b",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/c",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/e",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/d",
-                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/g"
-                      ]
+  "guncelleme": "23.07.2026 06:41",
+  "not": "Fabrika ciktisi burada bekler (onay-bekliyor); onaylanan ORNEK sorular soru-bankasi.json'a, PAKET sorulari (paket-havuzu) Supabase kurulunca oraya tasinir.",
+  "sorular": [],
+  "sonKosuRaporu": [
+    "RET (cozucu1 'E' != 'B'): Ahmet, 16 yaşında olup bir tekstil fabri",
+    "GECTI: [sendika uyeligi] İşçi Zeynep, gündüzleri bir metal fabrikasında tam...",
+    "GECTI: [sendika uyeligi] İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzer...",
+    "JSON HATASI: dikey yuzde analizi",
+    "URETIM HATASI (JSON bulunamadi/kesik): faaliyet kâri hesaplama",
+    "JSON HATASI: sebepsiz zenginlesme",
+    "JSON HATASI: ortak maliyet dagitimi",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 Denetimde Önemlilik, paragraf A5",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29 ve TMS 24 İlişkili Taraf Açıklamaları",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30, TMS 2 Stoklar",
+    "GECTI: [toplulastirma riski] Bir işletmenin 30 farklı müşteriden oluşan ve her ...",
+    "GECTI: [kurumlar vergisi mukellefleri] Bir hukuk bürosu, müşterisine kurulacak ortaklık t...",
+    "GECTI: [kurumlar vergisi mukellefleri] Kanuni merkezi Bermuda'da kayıtlı olan ABC Ltd., t...",
+    "GECTI: [kurumlar vergisi mukellefleri] Bir spor derneği, üyelerinden yalnızca üyelik aida...",
+    "RET (cozucu2 '' != 'C'): A A.Ş. ile B Ltd. Şti., belirli bir kamu",
+    "GECTI: [kurumlar vergisi mukellefleri] Bir belediyeye ait su işletmesi, kâr amacı gütmeks...",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/a-b",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/c",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/e",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/d",
+    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/g"
+  ]
 }
