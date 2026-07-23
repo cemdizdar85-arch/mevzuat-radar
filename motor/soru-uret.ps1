@@ -117,8 +117,9 @@ KURALLAR:
 4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
 5) Sade, kitapcik Turkcesiyle.
 6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
+7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
 SADECE su JSON dizisini dondur:
-[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"..."}]
+[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...]}]
 "@
   # 23.07 dersi: 8000 token 5 soru + hap anlatimlara DAR geldi, JSON yarida kesildi
   # (6 konudan 4'u URETIM/JSON hatasiyla dustu). 16000'e cikarildi + API sigortasi.
@@ -150,7 +151,7 @@ SADECE su JSON dizisini dondur:
     }
     if(-not $ok){ continue }
     $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav=$sinavAd; ders=$ders; konu=$konu;
-      soru=$s.soru; siklar=$s.siklar; dogru=$s.dogru; aciklama=$s.aciklama; kaynak=$s.kaynak; hap="$($s.hap)"; ambar=$at;
+      soru=$s.soru; siklar=$s.siklar; dogru=$s.dogru; aciklama=$s.aciklama; kaynak=$s.kaynak; hap="$($s.hap)"; yevmiye=$s.yevmiye; ambar=$at;
       uretim=(Get-Date -Format "dd.MM.yyyy"); durum="onay-bekliyor" })
     $mevcutKokler += $kokOzet
     $rapor.Add("GECTI: [$konu] $($s.soru.Substring(0,[Math]::Min(50,$s.soru.Length)))...")
