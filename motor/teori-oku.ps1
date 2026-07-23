@@ -119,8 +119,20 @@ foreach($b in $bdsler){
 # ---------- 2) MSUGT Sira No:1 (RG 21447, 226 sayfa): qpdf ile parcala ----------
 try {
   $pdf = Join-Path $tmp "msugt1.pdf"
-  $kb = Indir 'https://www.resmigazete.gov.tr/arsiv/21447_1.pdf' $pdf
-  Write-Host ("MSUGT indirildi ({0} KB), parcalaniyor..." -f $kb)
+  # 23.07 #4 dersi: GitHub runner'dan resmigazete.gov.tr zaman asimi verdi (muhtemel
+  # yurt disi IP engeli). Yedek: ayni RG taramasi repoda (kaynak-pdf/) — resmi mevzuat
+  # metni, telif engeli yok. Once canli URL denenir, olmazsa yedek kullanilir.
+  $yedek = Join-Path $kok "kaynak-pdf/msugt1.pdf"
+  try {
+    $kb = Indir 'https://www.resmigazete.gov.tr/arsiv/21447_1.pdf' $pdf
+    Write-Host ("MSUGT indirildi ({0} KB), parcalaniyor..." -f $kb)
+  } catch {
+    if(Test-Path $yedek){
+      Copy-Item $yedek $pdf -Force
+      $kb = [math]::Round((Get-Item $pdf).Length/1KB)
+      Write-Host ("RG'ye erisilemedi ({0}) - repo yedegi kullanildi ({1} KB)" -f $_.Exception.Message, $kb)
+    } else { throw }
+  }
 
   # API PDF siniri 100 sayfa; 226 sayfalik taramayi qpdf ile bindirmeli bol
   # (85-90 arasi bindirme: bolum siniri sayfa ortasina denk gelirse kayip olmasin)
