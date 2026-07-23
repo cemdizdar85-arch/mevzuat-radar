@@ -174,7 +174,7 @@ foreach($h in $hedefListe){
     $aciBlok = if(@($mevcutAcilar).Count -gt 0){ "BU KONUDA BANKADA ZATEN SU ACILARDAN SORULAR VAR (ilk cumleleri):`n- " + ($mevcutAcilar -join "`n- ") + "`nBunlarin HICBIRIYLE ortusmeyen, FARKLI hukum/fikra/islem asamasi/hesap/senaryo acilari isle. Gorev no: $g (ayni konunun diger gorevlerinden de FARKLI acilar sec)." } else { "Gorev no: $g." }
     $degisken = "GOREV: $sinavTanim icin soru yaz. Ders: $ders · Konu: $konu`n$ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz.`n$aciBlok"
     $gorevler.Add([ordered]@{
-      custom_id = "g" + $gorevler.Count.ToString("000") + "|" + $sinavAd
+      custom_id = "g" + $gorevler.Count.ToString("000")   # yalniz [a-zA-Z0-9_-] gecerli; '|' API'den 400 dondurttu (ilk kosu dersi)
       params = [ordered]@{
         model = $MODEL_URET; max_tokens = 16000
         messages = @(@{ role="user"; content=@(
