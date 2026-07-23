@@ -125,6 +125,13 @@
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
   .trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:38px;font-size:13px;color:var(--dim)}
   .trust span{display:flex;align-items:center;gap:7px}
+  /* 24.07 Cem: hero altinda kaydirmasiz "3 kapi" - herkes ilk bakista kendi kapisini gorsun */
+  .kapilar{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .kapi{display:flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid var(--line2);border-radius:12px;background:rgba(255,255,255,.02);font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;transition:border-color .18s,background .18s,transform .18s}
+  .kapi:hover{border-color:var(--accent2);background:rgba(62,155,255,.08);transform:translateY(-2px)}
+  .kapi small{font-weight:500;color:var(--dim);font-size:12px}
+  .kapi .ke{font-size:17px}
+  @media(max-width:560px){ .kapi{flex:1 1 100%} }
   .trust svg{width:15px;height:15px;stroke:var(--green)}
 
   /* radar + kart sahnesi */
@@ -418,6 +425,12 @@
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Çift kontrollü doğruluk</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Kaynak mevzuat linkli</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
+      </div>
+      <div class="kapilar">
+        <span style="font-size:12.5px;color:var(--dim);align-self:center;font-weight:600;letter-spacing:.3px">SEN KİMSİN?</span>
+        <a class="kapi" href="#kimlere"><span class="ke">🏭</span> İşletme sahibiyim</a>
+        <a class="kapi" href="#kimlere"><span class="ke">🧮</span> Mali Müşavirim</a>
+        <a class="kapi" href="genc.html"><span class="ke">🎓</span> Sınava hazırlanıyorum</a>
       </div>
     </div>
 
