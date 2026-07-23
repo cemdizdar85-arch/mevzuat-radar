@@ -8,9 +8,18 @@ name: Paket Havuzu Tasiyici
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'veri/soru-bankasi-onay.json'   # 23.07: GM onay push'unda kendiliginden tasir.
+      # NOT: robot commit'leri GITHUB_TOKEN ile pushlanir ve workflow TETIKLEMEZ;
+      # bu tetik yalniz yerel (GM/Cem) push'larinda calisir - dongu/masraf riski yok.
 
 permissions:
   contents: write
+
+concurrency:
+  group: paket-tasiyici
+  cancel-in-progress: false
 
 jobs:
   tasi:
@@ -31,6 +40,11 @@ jobs:
             echo "Degisiklik yok."
           else
             git commit -m "Paket sorulari kilitli havuza tasindi [veri-operasyonu]"
-            git pull --rebase origin main || true
-            git push || true
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+              echo "push denemesi $i basarisiz, tekrar..."
+              sleep 5
+            done
+            echo "HATA: 3 denemede pushlanamadi - kosu kirmizi (sessiz kayip yasak)."
+            exit 1
           fi

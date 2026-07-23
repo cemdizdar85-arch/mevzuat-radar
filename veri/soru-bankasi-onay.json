@@ -1,399 +1,410 @@
 {
-  "guncelleme": "23.07.2026 05:35",
-  "not": "Fabrika ciktisi burada bekler (onay-bekliyor); onaylanan ORNEK sorular soru-bankasi.json'a, PAKET sorulari (paket-havuzu) Supabase kurulunca oraya tasinir.",
-  "sorular": [
-    {
-      "id": "el-23a002",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "senet iskonto kaydi",
-      "soru": "İşletme, nominal değeri 100.000 TL olan alacak senedini vadesinden önce bankaya iskonto ettirmiş; banka 12.000 TL faiz ve komisyon keserek kalan tutarı işletmenin hesabına yatırmıştır. Bu işlemin doğru muhasebe kaydı aşağıdakilerden hangisidir?",
-      "siklar": {
-        "A": "102 Bankalar 100.000 borç; 121 Alacak Senetleri 100.000 alacak",
-        "B": "102 Bankalar 88.000 ve 780 Finansman Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
-        "C": "102 Bankalar 88.000 borç; 121 Alacak Senetleri 88.000 alacak",
-        "D": "102 Bankalar 88.000 ve 653 Komisyon Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
-        "E": "100 Kasa 88.000 borç; 121 Alacak Senetleri 88.000 alacak; 642 Faiz Gelirleri 12.000 alacak"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Bankaya geçen net tutar 88.000 TL'dir; 100.000 yazılırsa kesilen faiz-komisyon kayıt dışı kalır.",
-        "B": "Doğru cevap: senedin nominal tutarı 121'den çıkar, kesilen 12.000 TL iskonto bedeli finansman gideridir (780), net 88.000 TL bankaya girer.",
-        "C": "Senet nominal değeriyle (100.000) kayıtlıdır; 88.000 ile kapatılırsa 121 hesabında 12.000 TL fark açık kalır.",
-        "D": "Buraya kadar her şeyi doğru kurdun; tek fark 653/780 ayrımı. Ayrım 'kime ödendi' değil 'NİÇİN ödendi' sorusudur: 653 Komisyon Giderleri, işletmenin İŞ YAPTIRMAK için aracılara ödediği bedeldir (satış komisyoncusu, emlak aracısı gibi); 780 Finansman Giderleri ise PARA BULMANIN maliyetidir (kredi faizi, kur farkı, senet iskonto bedeli). Senet kırdırmak = vadeden önce parayı finanse etmek; bankanın kestiği faiz+komisyon bu yüzden bütünüyle finansman maliyetidir ve 780'e yazılır.",
-        "E": "İşletme faiz GELİRİ elde etmemiş, faiz YÜKLENMİŞTİR; 642 kullanılamaz, tahsilat da kasaya değil bankaya girmiştir."
-      },
-      "kaynak": "Tekdüzen Hesap Planı (MSUGT) — 121/780/102 hesap işleyişi",
-      "hap": "Senet iskontosu = alacak senedini vadeden önce bankaya kırdırmak. Üç ayak: 121 nominal tutarla kapanır, bankanın kestiği faiz+komisyon 780 Finansman Giderleri'ne, kalan net tutar 102 Bankalar'a. TUZAK: senedi net tutarla düşürmek (121'de fark bırakır) veya kesintiyi gelir sanmak.",
-      "ambar": "el",
-      "uretim": "23.07.2026 el (Claude tam denetim)",
-      "durum": "kaynak-bekliyor",
-      "yevmiye": [
-        {
-          "hesap": "102 Bankalar",
-          "borc": 88000,
-          "alacak": 0
-        },
-        {
-          "hesap": "780 Finansman Giderleri",
-          "borc": 12000,
-          "alacak": 0
-        },
-        {
-          "hesap": "121 Alacak Senetleri",
-          "borc": 0,
-          "alacak": 100000
-        }
-      ]
-    },
-    {
-      "id": "el-23a003",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "donemsellik kavrami",
-      "soru": "İşletme, Aralık 2025'te kiracısından 12 aylık kira bedelini peşin tahsil etmiş; 2025 gelir tablosuna bu tutarın yalnızca Aralık ayına düşen kısmını gelir olarak yansıtmış, kalanını bilançoda 'Gelecek Aylara/Yıllara Ait Gelirler' hesaplarında bırakmıştır. Bu uygulama öncelikle hangi muhasebe temel kavramının gereğidir?",
-      "siklar": {
-        "A": "İhtiyatlılık",
-        "B": "Dönemsellik",
-        "C": "Özün önceliği",
-        "D": "Tam açıklama",
-        "E": "Tutarlılık"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Bunu seçtiysen 'geliri hemen yazmamak = temkinli olmak' diye düşündün. Ama ihtiyatlılık RİSK temkinidir (muhtemel gider ve zararlara karşılık ayırmak); buradaki davranış risk değil ZAMAN eşleştirmesidir — gelir ait olduğu döneme yazılır.",
-        "B": "Doğru cevap: dönemsellik — gelir tahsilata değil TAHAKKUKA göre kaydedilir; 12 aylık kiranın yalnız Aralık payı 2025 geliridir, kalanı gelecek dönemlerindir.",
-        "C": "Özün önceliği 'belgede ne yazıyor değil, ekonomik gerçek ne' sorusudur (finansal kiralamayı satın alma gibi kaydetmek). Burada biçim-öz çatışması yok; mesele yalnız zamanlama.",
-        "D": "Tam açıklama şeffaflık ilkesidir: kullanıcıyı etkileyecek bilgiyi göster. Gelirin HANGİ DÖNEME yazılacağını söylemez — onu dönemsellik söyler.",
-        "E": "Tutarlılık 'seçtiğin yöntemi yıldan yıla değiştirme' der; tek yılın içinde gelirin dağıtımına dair hüküm içermez."
-      },
-      "kaynak": "1 Sıra No.lu MSUGT — muhasebenin temel kavramları (dönemsellik)",
-      "hap": "Dönemsellik: sınırsız ömür dönemlere bölünür; her dönemin geliri-gideri TAHAKKUK esasına göre kendi dönemine yazılır — parayı ne zaman aldığın değil, hizmetin hangi döneme ait olduğu belirleyicidir. Peşin tahsilatlar 'gelecek aylara/yıllara ait gelirler', peşin ödemeler 'gelecek aylara/yıllara ait giderler' hesaplarında bekletilir.",
-      "ambar": "el",
-      "uretim": "23.07.2026 el (Claude tam denetim)",
-      "durum": "kaynak-bekliyor"
-    },
-    {
-      "id": "el-23a004",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "ortak maliyet dagitimi",
-      "soru": "Birleşik üretim yapan bir işletmede ayrım noktasına kadar oluşan ortak maliyet 600.000 TL'dir. Ayrım noktasındaki satış değerleri; A mamulü için 400.000 TL, B mamulü için 200.000 TL'dir. Satış değeri yöntemine göre A mamulüne düşen ortak maliyet payı kaç TL'dir?",
-      "siklar": {
-        "A": "300.000 TL",
-        "B": "200.000 TL",
-        "C": "400.000 TL",
-        "D": "360.000 TL",
-        "E": "240.000 TL"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Bunu seçtiysen ortak maliyeti mamullere EŞİT böldün. Satış değeri yöntemi eşitlikçi değildir: hangi mamul toplam değerin ne kadarını yaratıyorsa maliyetin o kadarını taşır (A: 400/600 = üçte iki).",
-        "B": "200.000 doğru yöntemle bulunmuş bir pay — ama B mamulünün payı (600.000 × 200/600). Soru A'yı soruyor; oranı doğru kurup mamul etiketini karıştırmak bu konunun klasik tuzağıdır.",
-        "C": "Doğru cevap: A'nın payı = 600.000 × (400.000 / 600.000) = 400.000 TL.",
-        "D": "360.000, %60 gibi yuvarlak bir varsayımdan gelir. Yüzdeyi tahminden değil kesirden kur: A'nın oranı 400/600 = %66,7.",
-        "E": "240.000 = %40, yani oranları TERS eşlemenin (B'nin oranını A'ya vermenin) sonucu. Önce her mamulün kendi satış değeri oranını yaz, sonra çarp — etiket şaşmaz."
-      },
-      "kaynak": "Maliyet muhasebesi — birleşik maliyetlerin satış değeri yöntemiyle dağıtımı",
-      "hap": "Birleşik üretimde ayrım noktasına kadarki ORTAK maliyet, mamullere en yaygın olarak ayrım noktasındaki satış değerleriyle orantılı dağıtılır: mamulün payı = ortak maliyet × (mamulün satış değeri / toplam satış değeri). TUZAK: eşit bölmek ya da miktar oranını değer oranıyla karıştırmak.",
-      "ambar": "el",
-      "uretim": "23.07.2026 el (Claude tam denetim)",
-      "durum": "kaynak-bekliyor"
-    },
-    {
-      "id": "el-23a005",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "dikey yuzde analizi",
-      "soru": "Gelir tablosunun dikey yüzde yöntemiyle analizinde, tablo kalemleri yüzde olarak ifade edilirken baz (100 kabul edilen) büyüklük aşağıdakilerden hangisidir?",
-      "siklar": {
-        "A": "Brüt satışlar",
-        "B": "Net satışlar",
-        "C": "Faaliyet kârı",
-        "D": "Dönem net kârı",
-        "E": "Aktif toplamı"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Bunu seçtiysen 'en büyük satış rakamı baz olur' dedin. Brüt satışlar iade ve iskonto kirliliği taşır; analiz işletmenin GERÇEK hasılat gücüne oranlamak ister — o da net satıştır.",
-        "B": "Doğru cevap: gelir tablosunun dikey analizinde NET SATIŞLAR = 100 alınır, her kalem ona oranlanır.",
-        "C": "Faaliyet kârı bir ARA sonuçtur ve kendisi de 'net satışların yüzde kaçı?' diye ölçülür. Baz, ölçülen değil ÖLÇÜT olandır.",
-        "D": "Dönem net kârı tablonun en sonucudur; onu baz alırsan bütün kalemler 'kârın katı' gibi görünür, analiz tersine döner. Akışın başındaki büyüklük (net satış) bazdır.",
-        "E": "Bunu seçtiysen iki tablonun bazını karıştırdın: aktif toplamı BİLANÇONUN dikey bazıdır. Ezber kalıbı: bilanço → aktif toplamı, gelir tablosu → net satışlar."
-      },
-      "kaynak": "Mali tablolar analizi — dikey yüzde yöntemi",
-      "hap": "Dikey analizde baz tabloya göre değişir: bilançoda AKTİF (veya pasif) TOPLAMI = 100, gelir tablosunda NET SATIŞLAR = 100 alınır. TUZAK: iki tablonun bazını karıştırmak ya da brüt satışları baz sanmak. Dikey analiz tek dönemin iç yapısını gösterir; dönemler arası eğilim için yatay/trend analizi gerekir.",
-      "ambar": "el",
-      "uretim": "23.07.2026 el (Claude tam denetim)",
-      "durum": "kaynak-bekliyor"
-    },
-    {
-      "id": "el-23a010",
-      "sinav": "SGS",
-      "ders": "Ekonomi",
-      "konu": "talep fiyat esnekligi",
-      "soru": "Bir malın talebinin fiyat esnekliği (mutlak değer olarak) 2'dir. Satıcı fiyatı %10 artırırsa, satıcının toplam hasılatı için aşağıdakilerden hangisi söylenebilir?",
-      "siklar": {
-        "A": "Artar; çünkü fiyat artışı her durumda hasılatı artırır",
-        "B": "Azalır; çünkü talep esnek olduğundan miktar, fiyattaki artıştan daha yüksek oranda (%20) düşer",
-        "C": "Değişmez; esneklik hasılatı etkilemez",
-        "D": "Azalır; çünkü talep inelastiktir",
-        "E": "Artar; çünkü talep esnektir"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Fiyat artışının hasılata etkisi esnekliğe bağlıdır; her durumda artırmaz.",
-        "B": "Doğru cevap: |e|=2 > 1 olduğundan talep ESNEKTİR; %10 fiyat artışı miktarı yaklaşık %20 düşürür, hasılat azalır.",
-        "C": "Esneklik tam da fiyat-hasılat ilişkisini belirleyen katsayıdır.",
-        "D": "Sonuç (azalır) doğru olsa da gerekçe yanlıştır: |e|=2 talebin inelastik değil ESNEK olduğunu gösterir.",
-        "E": "Talep esnek olduğunda fiyat ARTIŞI hasılatı artırmaz, azaltır; esnek talepte hasılat fiyat İNDİRİMİYLE artar."
-      },
-      "kaynak": "Mikroekonomi — talep fiyat esnekliği ve toplam hasılat kuralı",
-      "hap": "Esneklik-hasılat kuralı: |e|>1 (esnek) ise fiyat ARTIŞI hasılatı DÜŞÜRÜR, indirim artırır; |e|<1 (inelastik) ise tersi; |e|=1'de hasılat maksimumdadır. TUZAK: şıklarda doğru sonucu yanlış gerekçeyle veren seçenekler — hem yönü hem gerekçeyi kontrol et.",
-      "ambar": "el",
-      "uretim": "23.07.2026 el (Claude tam denetim)",
-      "durum": "kaynak-bekliyor"
-    },
-    {
-      "id": "cae36374",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşçi Zeynep, gündüzleri bir metal fabrikasında tam zamanlı çalışmakta ve metal işkolunda faaliyet gösteren (A) Sendikası'na üyedir. Akşamları ise part-time olarak bir güvenlik şirketinde çalışmakta olup güvenlik işkolunda faaliyet gösteren (B) Sendikası'na da üye olmak istemektedir. Bu durum için hangisi doğrudur?",
-      "siklar": {
-        "A": "Zeynep aynı anda iki farklı sendikaya üye olamaz; ikinci üyelik başvurusu geçersizdir.",
-        "B": "Zeynep, (B) Sendikası'na üye olabilir; kanundaki yasak yalnızca aynı işkolunda birden çok sendikaya üyeliği kapsar, farklı işkollarında üyelik serbesttir.",
-        "C": "Zeynep, önce (A) Sendikası'ndaki üyeliğinden istifa etmeden (B) Sendikası'na üye olamaz; çünkü bir kişi aynı anda yalnızca bir sendikaya üye olabilir.",
-        "D": "Zeynep iki sendikaya birden üye olabilir; ancak bunun için her iki işverenden de yazılı muvafakat alması gerekir.",
-        "E": "Zeynep (B) Sendikası'na üye olabilir; ancak bu üyelik yalnızca (A) Sendikası'ndaki üyeliği askıya alınmak kaydıyla geçerlilik kazanır."
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır. Kanundaki çoklu üyelik yasağı 'kişi bazlı mutlak tek sendika' kuralı değil, 'aynı işkolunda birden fazla üyelik' yasağıdır. Farklı işkollarında ayrı üyelikler bu yasağın kapsamı dışındadır.",
-        "B": "Doğrudur. Yasak, aynı işkolunda birden çok sendikaya üye olmayı engellemeye yöneliktir; işçi farklı işkollarında çalışıyorsa her işkolunda ayrı bir sendikaya üye olabilir.",
-        "C": "Yanlıştır. Bu şık, 'aynı işkolu' sınırlamasını görmezden gelip genel bir 'tek sendika' kuralı varmış gibi genelleme hatası yapar; istifa şartı yalnızca aynı işkoluna girme durumunda gündeme gelir.",
-        "D": "Yanlıştır. Sendika üyeliği işçi ile sendika arasındaki bir işlemdir; işverenin muvafakati hiçbir aşamada aranmaz.",
-        "E": "Yanlıştır. Askıya alma, farklı işkollarındaki bağımsız üyelikler arasında otomatik bir bağ kurmaz; iki üyelik birbirinden bağımsız olarak geçerlidir, biri diğerinin şartına bağlanamaz."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
-      "hap": "Kanun, işçinin AYNI İŞKOLUNDA birden çok sendikaya üye olmasını yasaklar; bu durumda sonraki üyelik geçersiz sayılır. Ancak işçi farklı işkollarında çalışıyorsa, her işkolunda ayrı bir sendikaya üye olabilir - yasak işkolu temellidir, kişi başına mutlak 'tek sendika' kuralı değildir. İşveren onayı hiçbir durumda aranmaz.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "6371ba2c",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzerinden (A) Sendikası'ndan çekilme bildiriminde bulunmuştur. Mehmet, 12 Mart tarihinde aynı işkolunda faaliyet gösteren (B) Sendikası'na üyelik başvurusu yapmış ve başvurusu kabul edilmiştir. Buna göre Mehmet'in (B) Sendikası'ndaki üyeliği hangi tarihte kazanılmış sayılır?",
-      "siklar": {
-        "A": "12 Mart - başvuru tarihi",
-        "B": "5 Mart - çekilme bildirim tarihi",
-        "C": "5 Nisan - çekilme bildirim tarihinden itibaren bir aylık sürenin bittiği tarih",
-        "D": "12 Nisan - yeni üyelik başvurusundan itibaren bir aylık sürenin bittiği tarih",
-        "E": "Mehmet'in (A) Sendikası'ndaki üyeliği devam ettiği sürece (B) Sendikası'na üyeliği hiçbir şekilde kazanılamaz"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır. Bu şık, aynı işkolunda çakışan üyelikleri önlemek için öngörülen bir aylık bekleme süresini gözardı eder; yeni üyelik, başvuru anında değil kanunda belirtilen sürenin bitiminde kazanılır.",
-        "B": "Yanlıştır. Çekilme (istifa), bildirim yapılır yapılmaz değil, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu tarihte henüz eski üyelik sona ermemiştir.",
-        "C": "Doğrudur. Çekilme bildirimi 5 Mart'ta yapılmış, bu tarihten itibaren işleyen bir aylık süre 5 Nisan'da dolmuştur. Bu bir aylık süre dolmadan yeni sendikaya üyelik başvurusu yapıldığından, yeni üyelik ancak eski üyeliğin sona erdiği bu tarihte kazanılmış sayılır.",
-        "D": "Yanlıştır. Bu şık, bir aylık sürenin başlangıç noktasını karıştırır; süre yeni üyelik başvurusundan değil, çekilme bildiriminin yapıldığı tarihten itibaren işlemeye başlar.",
-        "E": "Yanlıştır. Yeni üyelik başvurusu geçersiz sayılmaz, sadece ertelenerek eski üyeliğin sona erdiği tarihte kazanılmış sayılır; bu bir 'imkansızlık' değil bir 'erteleme' düzenlemesidir."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
-      "hap": "Sendikadan çekilme, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu bekleme süresi aynı işkolunda çifte üyeliği önlemek içindir. İşçi bu bir aylık süre dolmadan yeni bir sendikaya üye olursa, yeni üyelik hemen değil, eski üyelikten çekilmenin hüküm ifade ettiği tarihte kazanılmış sayılır. Süre, çekilme bildirim tarihinden başlar; yeni başvuru tarihinden değil.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "b0d2dea8",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "toplulastirma riski",
-      "soru": "Bir işletmenin 30 farklı müşteriden oluşan ve her biri münferiden 3.000-6.000 TL arasında değişen toplam 150.000 TL tutarındaki alacaklarından yalnızca 10 tanesi hakkında (toplam 45.000 TL) dava veya icra takibi başlatılmıştır. Muhasebe departmanı, bu 30 alacağın tamamını 'toplu olarak şüpheli hale geldi' gerekçesiyle tek kalemde değerlendirip 150.000 TL'nin tamamı için şüpheli alacak karşılığı ayırmıştır. Bu işlemdeki hata, toplulaştırma riski açısından nasıl açıklanır?",
-      "siklar": {
-        "A": "VUK m.323 gereği şüpheli alacak şartları (dava/icra takibi, teminatsız olma vb.) HER ALACAK İÇİN AYRI AYRI değerlendirilmelidir; dava/icra şartını taşımayan 20 alacak toplulaştırılarak yanlış biçimde karşılığa dahil edilmiştir, doğrusu yalnızca 45.000 TL için karşılık ayrılmasıdır",
-        "B": "Şüpheli alacak karşılığı toplam tutar üzerinden ayrılabilir çünkü VUK m.323 alacakların toplu değerlendirilmesine izin verir",
-        "C": "Hata karşılık tutarında değil, hesap seçiminde yapılmıştır; 128 yerine 129 hesabı kullanılmalıydı",
-        "D": "İşletme ihtiyatlılık ilkesi gereği tüm alacakları şüpheli kabul ederek doğru davranmıştır, ilke fazla karşılık ayırmayı teşvik eder",
-        "E": "150.000 TL'nin tamamı için karşılık ayrılması doğrudur çünkü aynı müşteri grubundan alacaklar risk açısından birbirine bağımlıdır"
-      },
-      "dogru": "A",
-      "aciklama": {
-        "A": "Doğrudur. VUK m.323 şüpheli alacak şartlarının her alacak için ayrı ayrı (dava/icra takibinin varlığı gibi) sağlanmasını arar; dava/icra süreci olmayan 20 alacağın toplulaştırılması hatadır, karşılık yalnızca şartı taşıyan 45.000 TL için ayrılmalıdır.",
-        "B": "Yanılgı: Madde toplu değerlendirmeye izin vermez; her alacağın kendi hukuki sürecinin (dava/icra takibi açılmış olması) ayrı ayrı kanıtlanması gerekir.",
-        "C": "Yanılgı: Sorun hesap seçimi (128/129 kullanımı) değil, karşılığa TABİ TUTARIN (150.000 TL yerine 45.000 TL olması gerekirken) yanlış belirlenmesidir.",
-        "D": "Yanılgı: İhtiyatlılık ilkesi, kanunda öngörülen KOŞULLARIN sağlanmasını gerektirir; koşulsuz/keyfi olarak fazla karşılık ayırmayı teşvik etmez, bu vergi mevzuatına aykırıdır.",
-        "E": "Yanılgı: Her alacak ayrı bir hukuki ve ticari ilişkiye dayanır; bir müşterinin/grubun bir alacağının şüpheli olması, aynı gruptaki diğer alacakları otomatik olarak şüpheli yapmaz."
-      },
-      "kaynak": "VUK m.323",
-      "hap": "VUK m.323'e göre şüpheli alacak karşılığı, her alacak için AYRI AYRI aranan şartların (dava/icra takibi açılmış olma, teminatsızlık vb.) sağlanmasına bağlıdır. Toplulaştırma riski burada, şartı taşımayan alacakların şartı taşıyanlarla birlikte 'toplu' değerlendirilip gereksiz yere karşılığa dahil edilmesidir. Tuzak: 'aynı müşteri grubu/aynı dönem' gibi yüzeysel benzerlikler hukuki şartların yerini tutmaz.",
-      "yevmiye": [
-        {
-          "hesap": "128 Şüpheli Ticari Alacaklar",
-          "borc": 45000,
-          "alacak": 0
-        },
-        {
-          "hesap": "120 Alıcılar",
-          "borc": 0,
-          "alacak": 45000
-        },
-        {
-          "hesap": "654 Karşılık Giderleri",
-          "borc": 45000,
-          "alacak": 0
-        },
-        {
-          "hesap": "129 Şüpheli Ticari Alacaklar Karşılığı",
-          "borc": 0,
-          "alacak": 45000
-        }
-      ],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "29219cc3",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "Bir hukuk bürosu, müşterisine kurulacak ortaklık türüne göre kurumlar vergisi mükellefiyeti konusunda bilgi veriyor. Aşağıdaki ortaklık türlerinden hangisi, sermaye şirketi sayılarak kurumlar vergisi mükellefidir?",
-      "siklar": {
-        "A": "Sermayesi paylara bölünmüş komandit şirket",
-        "B": "Adi komandit şirket",
-        "C": "Kollektif şirket",
-        "D": "İki gerçek kişinin kurduğu adi ortaklık",
-        "E": "Belirli bir işi yapmak üzere kurulmuş, mükellefiyet tesis ettirmemiş konsorsiyum"
-      },
-      "dogru": "A",
-      "aciklama": {
-        "A": "Doğrudur. KVK m.2/1 sermaye şirketlerini TTK'ya göre kurulan anonim, limited ve sermayesi paylara bölünmüş komandit şirketler olarak sayar; bu tür şirkette ortağın sorumluluğu koyduğu sermaye ile sınırlıdır, bu yüzden sermaye şirketi kabul edilir.",
-        "B": "Yanlıştır. Adi komandit şirkette komandite ortağın sorumluluğu sınırsızdır; şahıs şirketidir. 'Komandit' kelimesi sizi 'sermaye şirketi' zannettirebilir ama ayırıcı unsur payların hisseye bölünmüş olmasıdır, sadece isimdeki benzerlik yeterli değildir.",
-        "C": "Yanlıştır. Kollektif şirket tipik şahıs şirketidir, ortakların sorumluluğu sınırsızdır; kazanç kurum bünyesinde değil ortakların gelir vergisi matrahında vergilendirilir.",
-        "D": "Yanlıştır. Adi ortaklığın tüzel kişiliği yoktur, kurumlar vergisi mükellefi olamaz; kazanç payları ortaklarca kendi vergi türlerine göre (GV/KV) beyan edilir.",
-        "E": "Yanlıştır. İş ortaklığı isteğe bağlı olarak kurumlar vergisi mükellefi olabilir ama bunun şartı vergi dairesine mükellefiyet tesis ettirmektir; bu şart yerine getirilmeden otomatik mükellefiyet doğmaz, adi ortaklık gibi işlem görür."
-      },
-      "kaynak": "KVK m.2/1",
-      "hap": "Kurumlar vergisinde 'sermaye şirketi' sayılmanın anahtarı, ortağın sorumluluğunun sermayesi ile sınırlı olmasıdır. Sermayesi paylara bölünmüş komandit şirket bu yüzden sermaye şirketidir; ama adi komandit ve kollektif şirket şahıs şirketidir, isim benzerliğine kanmayın. Adi ortaklık ve mükellefiyet tesis ettirmemiş iş ortaklığının tüzel kişiliği/kurumlar vergisi mükellefiyeti yoktur, kazanç ortaklar üzerinden vergilenir.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "fb35457f",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "Kanuni merkezi Bermuda'da kayıtlı olan ABC Ltd., tüm yönetim kurulu toplantılarını, muhasebe ve karar alma süreçlerini fiilen İstanbul'daki merkez ofisinden yürütmektedir. Şirketin Türkiye'deki kurumlar vergisi mükellefiyeti hangi esasa göre belirlenir?",
-      "siklar": {
-        "A": "Kanuni merkezi yurt dışında olduğu için dar mükellef sayılır",
-        "B": "İş merkezi Türkiye'de olduğu için tam mükellef sayılır",
-        "C": "Sadece kanuni merkez esas alınır, iş merkezinin yeri sonucu değiştirmez",
-        "D": "Şirketin kayıtlı olduğu ülkenin uyruğuna bakılır",
-        "E": "Ortakların ikametgahının bulunduğu yer esas alınır"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır. Bu cevap sadece kanuni merkezi görüp iş merkezini gözden kaçırır. KVK m.3'te tam mükellefiyet için kanuni merkez VEYA iş merkezinden birinin Türkiye'de olması yeterlidir, ikisinin birlikte olması şart değildir.",
-        "B": "Doğrudur. KVK m.3'e göre iş bakımından işlemlerin fiilen toplandığı ve yönetildiği yer (iş merkezi) Türkiye'de ise, kanuni merkez yurt dışında olsa da şirket tam mükellef sayılır ve tüm dünya kazançları Türkiye'de vergilendirilir.",
-        "C": "Yanlıştır. Kanuni merkez ile iş merkezi birbirinin alternatifidir, biri diğerini geçersiz kılmaz; kanuni merkezi esas alıp iş merkezini önemsiz saymak kanunun aradığı ikili kıstası göz ardı eder.",
-        "D": "Yanlıştır. Kurumlar vergisinde mükellefiyet türü şirketin 'uyruğuna' göre değil, kanuni merkez/iş merkezi kıstasına göre belirlenir; tabiiyet kavramı burada kullanılan bir ölçüt değildir.",
-        "E": "Yanlıştır. Bu, gelir vergisindeki gerçek kişi ikametgahı mantığının kuruma taşınmasıdır; kurumlar vergisinde mükellef şirketin kendisidir, ortakların ikametgahı mükellefiyet türünü belirlemez."
-      },
-      "kaynak": "KVK m.3",
-      "hap": "Tam/dar mükellefiyet ayrımında iki kıstas vardır: kanuni merkez (esas sözleşmedeki merkez) ve iş merkezi (işlemlerin fiilen yönetildiği yer). Bunlardan HERHANGİ BİRİ Türkiye'deyse şirket tam mükelleftir; ikisi de yurt dışındaysa dar mükelleftir. Kağıt üstündeki merkeze bakıp fiili yönetim yerini unutmak klasik hatadır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "5c385b10",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "Bir spor derneği, üyelerinden yalnızca üyelik aidatı toplamakta; ayrıca dernek bünyesinde sürekli olarak halka açık spor malzemesi satışı yapan bir mağaza işletmektedir. Bu durumda kurumlar vergisi mükellefiyeti kime aittir?",
-      "siklar": {
-        "A": "Derneğin tüzel kişiliği bizzat mükelleftir",
-        "B": "Sadece mağazadan oluşan iktisadi işletme mükelleftir, derneğin tüzel kişiliği değil",
-        "C": "Aidat gelirleri de dahil derneğin tüm geliri mükelleftir",
-        "D": "Kâr amacı güdülmediği için hem dernek hem mağaza muaftır",
-        "E": "Üyeler mağaza gelirini şahsen kendi gelir vergisi beyannamelerinde göstermelidir"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır. Dernek ve vakıfların tüzel kişiliği kurumlar vergisi mükellefi değildir; KVK yalnızca bunlara AİT iktisadi işletmeleri mükellef sayar, derneğin kendisini değil.",
-        "B": "Doğrudur. KVK m.2/5 uyarınca dernek ve vakıflara ait iktisadi işletmeler kurumlar vergisi mükellefidir. Devamlılık arz eden ticari/sınai faaliyet (burada sürekli mağaza işletmeciliği) iktisadi işletme oluşturur ve mükellefiyeti doğurur; derneğin asıl tüzel kişiliği bu mükellefiyetin dışında kalır.",
-        "C": "Yanlıştır. Derneğin asli faaliyeti olan aidat toplama, iktisadi işletme sayılmaz; mükellefiyet sadece iktisadi işletmenin (mağazanın) faaliyetinden doğan kazançla sınırlıdır, aidatlar bu kapsama girmez.",
-        "D": "Yanlıştır. İktisadi kamu kuruluşları ve dernek/vakıf iktisadi işletmelerinde mükellefiyeti belirleyen ölçüt kâr amacı gütme değil, faaliyetin DEVAMLILIK arz etmesidir; kâr amacı olmasa da mükellefiyet doğar.",
-        "E": "Yanlıştır. Bu, iktisadi işletmenin ayrı bir kurumlar vergisi mükellefi olduğunu görmezden gelip kazancı gelir vergisi mantığıyla üyelere dağıtan bir karışıklıktır; kazanç üyelere değil, iktisadi işletmenin bünyesinde vergilendirilir."
-      },
-      "kaynak": "KVK m.2/5",
-      "hap": "Dernek ve vakıfların kendisi kurumlar vergisi mükellefi değildir; mükellef olan, onlara ait ve devamlılık arz eden ticari/sınai/zirai faaliyet gösteren İKTİSADİ İŞLETMEdir. Kâr amacı gütmemek mükellefiyeti kaldırmaz, önemli olan faaliyetin sürekli/organize olmasıdır. Aidat gibi asli dernek faaliyetleri bu kapsamın dışındadır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    },
-    {
-      "id": "8addb67c",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "Bir belediyeye ait su işletmesi, kâr amacı gütmeksizin sadece maliyetini karşılamak için halka sürekli su satmaktadır. Bu işletmenin kurumlar vergisi mükellefiyeti bakımından doğru değerlendirme hangisidir?",
-      "siklar": {
-        "A": "Belediyeye ait bir kamu hizmeti olduğu için kurumlar vergisi mükellefi değildir",
-        "B": "Kâr amacı gütmediği için kurumlar vergisi mükellefi değildir",
-        "C": "Devamlılık arz eden bir faaliyet olduğu için iktisadi kamu kuruluşu sayılır ve kurumlar vergisi mükellefidir",
-        "D": "Belediyenin tüzel kişiliği bu işletme dolayısıyla bizzat mükellef olur",
-        "E": "Sermaye şirketi sayılmadığı için hiçbir şekilde kurumlar vergisi kapsamına girmez"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır. Bir işletmenin devlete/belediyeye ait olması onu otomatik olarak vergiden muaf kılmaz; KVK m.1/1-b ve m.2/3 devlet ve belediyelere ait iktisadi kuruluşları da açıkça mükellef sayar.",
-        "B": "Yanlıştır. İktisadi kamu kuruluşu sayılmanın ölçütü kâr amacı gütmek değil, faaliyetin DEVAMLILIK arz etmesidir; maliyetine satış yapılması bile mükellefiyeti ortadan kaldırmaz.",
-        "C": "Doğrudur. KVK m.2/3'e göre devlet, il özel idaresi, belediye ve köylere veya bunların oluşturduğu birliklere ait olup devamlı olarak işletilen iktisadi işletmeler 'iktisadi kamu kuruluşu' sayılır ve kurumlar vergisi mükellefidir; kâr amacı gütmeme bu sonucu değiştirmez.",
-        "D": "Yanlıştır. Mükellef olan belediyenin kendisi değil, ona ait devamlı işletilen iktisadi kamu kuruluşudur; belediye tüzel kişiliği bu vergiden ayrı tutulur, sadece işletme kısmı mükelleftir.",
-        "E": "Yanlıştır. İktisadi kamu kuruluşu, sermaye şirketinden bağımsız, KVK m.1'de ayrıca sayılan kendine özgü bir mükellef türüdür; sermaye şirketi olmaması onu KVK kapsamı dışına çıkarmaz."
-      },
-      "kaynak": "KVK m.1/1-b, m.2/3",
-      "hap": "İktisadi kamu kuruluşunda mükellefiyeti doğuran ölçüt KÂR AMACI değil, faaliyetin DEVAMLILIK arz etmesidir. Devlet/belediye/köye ait olsa ve maliyetine hizmet versede, sürekli işletiliyorsa iktisadi kamu kuruluşu sayılır ve kurumlar vergisi mükellefidir. Mükellef olan kamu tüzel kişiliği değil, ona ait o devamlı işletmenin kendisidir.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "onay-bekliyor"
-    }
-  ],
-  "sonKosuRaporu": [
-    "RET (cozucu1 'E' != 'B'): Ahmet, 16 yaşında olup bir tekstil fabri",
-    "GECTI: [sendika uyeligi] İşçi Zeynep, gündüzleri bir metal fabrikasında tam...",
-    "GECTI: [sendika uyeligi] İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzer...",
-    "JSON HATASI: dikey yuzde analizi",
-    "URETIM HATASI (JSON bulunamadi/kesik): faaliyet kâri hesaplama",
-    "JSON HATASI: sebepsiz zenginlesme",
-    "JSON HATASI: ortak maliyet dagitimi",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 Denetimde Önemlilik, paragraf A5",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29 ve TMS 24 İlişkili Taraf Açıklamaları",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30, TMS 2 Stoklar",
-    "GECTI: [toplulastirma riski] Bir işletmenin 30 farklı müşteriden oluşan ve her ...",
-    "GECTI: [kurumlar vergisi mukellefleri] Bir hukuk bürosu, müşterisine kurulacak ortaklık t...",
-    "GECTI: [kurumlar vergisi mukellefleri] Kanuni merkezi Bermuda'da kayıtlı olan ABC Ltd., t...",
-    "GECTI: [kurumlar vergisi mukellefleri] Bir spor derneği, üyelerinden yalnızca üyelik aida...",
-    "RET (cozucu2 '' != 'C'): A A.Ş. ile B Ltd. Şti., belirli bir kamu",
-    "GECTI: [kurumlar vergisi mukellefleri] Bir belediyeye ait su işletmesi, kâr amacı gütmeks...",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/a-b",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/c",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/e",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/d",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/g"
-  ]
+    "guncelleme":  "23.07.2026 05:35",
+    "not":  "Fabrika ciktisi burada bekler (onay-bekliyor); onaylanan ORNEK sorular soru-bankasi.json\u0027a, PAKET sorulari (paket-havuzu) Supabase kurulunca oraya tasinir.",
+    "sorular":  [
+                    {
+                        "id":  "el-23a002",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "senet iskonto kaydi",
+                        "soru":  "İşletme, nominal değeri 100.000 TL olan alacak senedini vadesinden önce bankaya iskonto ettirmiş; banka 12.000 TL faiz ve komisyon keserek kalan tutarı işletmenin hesabına yatırmıştır. Bu işlemin doğru muhasebe kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "102 Bankalar 100.000 borç; 121 Alacak Senetleri 100.000 alacak",
+                                       "B":  "102 Bankalar 88.000 ve 780 Finansman Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
+                                       "C":  "102 Bankalar 88.000 borç; 121 Alacak Senetleri 88.000 alacak",
+                                       "D":  "102 Bankalar 88.000 ve 653 Komisyon Giderleri 12.000 borç; 121 Alacak Senetleri 100.000 alacak",
+                                       "E":  "100 Kasa 88.000 borç; 121 Alacak Senetleri 88.000 alacak; 642 Faiz Gelirleri 12.000 alacak"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Bankaya geçen net tutar 88.000 TL\u0027dir; 100.000 yazılırsa kesilen faiz-komisyon kayıt dışı kalır.",
+                                         "B":  "Doğru cevap: senedin nominal tutarı 121\u0027den çıkar, kesilen 12.000 TL iskonto bedeli finansman gideridir (780), net 88.000 TL bankaya girer.",
+                                         "C":  "Senet nominal değeriyle (100.000) kayıtlıdır; 88.000 ile kapatılırsa 121 hesabında 12.000 TL fark açık kalır.",
+                                         "D":  "Buraya kadar her şeyi doğru kurdun; tek fark 653/780 ayrımı. Ayrım \u0027kime ödendi\u0027 değil \u0027NİÇİN ödendi\u0027 sorusudur: 653 Komisyon Giderleri, işletmenin İŞ YAPTIRMAK için aracılara ödediği bedeldir (satış komisyoncusu, emlak aracısı gibi); 780 Finansman Giderleri ise PARA BULMANIN maliyetidir (kredi faizi, kur farkı, senet iskonto bedeli). Senet kırdırmak = vadeden önce parayı finanse etmek; bankanın kestiği faiz+komisyon bu yüzden bütünüyle finansman maliyetidir ve 780\u0027e yazılır.",
+                                         "E":  "İşletme faiz GELİRİ elde etmemiş, faiz YÜKLENMİŞTİR; 642 kullanılamaz, tahsilat da kasaya değil bankaya girmiştir."
+                                     },
+                        "kaynak":  "Tekdüzen Hesap Planı (MSUGT) — 121/780/102 hesap işleyişi",
+                        "hap":  "Senet iskontosu = alacak senedini vadeden önce bankaya kırdırmak. Üç ayak: 121 nominal tutarla kapanır, bankanın kestiği faiz+komisyon 780 Finansman Giderleri\u0027ne, kalan net tutar 102 Bankalar\u0027a. TUZAK: senedi net tutarla düşürmek (121\u0027de fark bırakır) veya kesintiyi gelir sanmak.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "kaynak-bekliyor",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  88000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "780 Finansman Giderleri",
+                                            "borc":  12000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "121 Alacak Senetleri",
+                                            "borc":  0,
+                                            "alacak":  100000
+                                        }
+                                    ]
+                    },
+                    {
+                        "id":  "el-23a003",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "donemsellik kavrami",
+                        "soru":  "İşletme, Aralık 2025\u0027te kiracısından 12 aylık kira bedelini peşin tahsil etmiş; 2025 gelir tablosuna bu tutarın yalnızca Aralık ayına düşen kısmını gelir olarak yansıtmış, kalanını bilançoda \u0027Gelecek Aylara/Yıllara Ait Gelirler\u0027 hesaplarında bırakmıştır. Bu uygulama öncelikle hangi muhasebe temel kavramının gereğidir?",
+                        "siklar":  {
+                                       "A":  "İhtiyatlılık",
+                                       "B":  "Dönemsellik",
+                                       "C":  "Özün önceliği",
+                                       "D":  "Tam açıklama",
+                                       "E":  "Tutarlılık"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Bunu seçtiysen \u0027geliri hemen yazmamak = temkinli olmak\u0027 diye düşündün. Ama ihtiyatlılık RİSK temkinidir (muhtemel gider ve zararlara karşılık ayırmak); buradaki davranış risk değil ZAMAN eşleştirmesidir — gelir ait olduğu döneme yazılır.",
+                                         "B":  "Doğru cevap: dönemsellik — gelir tahsilata değil TAHAKKUKA göre kaydedilir; 12 aylık kiranın yalnız Aralık payı 2025 geliridir, kalanı gelecek dönemlerindir.",
+                                         "C":  "Özün önceliği \u0027belgede ne yazıyor değil, ekonomik gerçek ne\u0027 sorusudur (finansal kiralamayı satın alma gibi kaydetmek). Burada biçim-öz çatışması yok; mesele yalnız zamanlama.",
+                                         "D":  "Tam açıklama şeffaflık ilkesidir: kullanıcıyı etkileyecek bilgiyi göster. Gelirin HANGİ DÖNEME yazılacağını söylemez — onu dönemsellik söyler.",
+                                         "E":  "Tutarlılık \u0027seçtiğin yöntemi yıldan yıla değiştirme\u0027 der; tek yılın içinde gelirin dağıtımına dair hüküm içermez."
+                                     },
+                        "kaynak":  "1 Sıra No.lu MSUGT — muhasebenin temel kavramları (dönemsellik)",
+                        "hap":  "Dönemsellik: sınırsız ömür dönemlere bölünür; her dönemin geliri-gideri TAHAKKUK esasına göre kendi dönemine yazılır — parayı ne zaman aldığın değil, hizmetin hangi döneme ait olduğu belirleyicidir. Peşin tahsilatlar \u0027gelecek aylara/yıllara ait gelirler\u0027, peşin ödemeler \u0027gelecek aylara/yıllara ait giderler\u0027 hesaplarında bekletilir.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "kaynak-bekliyor"
+                    },
+                    {
+                        "id":  "el-23a004",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "ortak maliyet dagitimi",
+                        "soru":  "Birleşik üretim yapan bir işletmede ayrım noktasına kadar oluşan ortak maliyet 600.000 TL\u0027dir. Ayrım noktasındaki satış değerleri; A mamulü için 400.000 TL, B mamulü için 200.000 TL\u0027dir. Satış değeri yöntemine göre A mamulüne düşen ortak maliyet payı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "300.000 TL",
+                                       "B":  "200.000 TL",
+                                       "C":  "400.000 TL",
+                                       "D":  "360.000 TL",
+                                       "E":  "240.000 TL"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Bunu seçtiysen ortak maliyeti mamullere EŞİT böldün. Satış değeri yöntemi eşitlikçi değildir: hangi mamul toplam değerin ne kadarını yaratıyorsa maliyetin o kadarını taşır (A: 400/600 = üçte iki).",
+                                         "B":  "200.000 doğru yöntemle bulunmuş bir pay — ama B mamulünün payı (600.000 × 200/600). Soru A\u0027yı soruyor; oranı doğru kurup mamul etiketini karıştırmak bu konunun klasik tuzağıdır.",
+                                         "C":  "Doğru cevap: A\u0027nın payı = 600.000 × (400.000 / 600.000) = 400.000 TL.",
+                                         "D":  "360.000, %60 gibi yuvarlak bir varsayımdan gelir. Yüzdeyi tahminden değil kesirden kur: A\u0027nın oranı 400/600 = %66,7.",
+                                         "E":  "240.000 = %40, yani oranları TERS eşlemenin (B\u0027nin oranını A\u0027ya vermenin) sonucu. Önce her mamulün kendi satış değeri oranını yaz, sonra çarp — etiket şaşmaz."
+                                     },
+                        "kaynak":  "Maliyet muhasebesi — birleşik maliyetlerin satış değeri yöntemiyle dağıtımı",
+                        "hap":  "Birleşik üretimde ayrım noktasına kadarki ORTAK maliyet, mamullere en yaygın olarak ayrım noktasındaki satış değerleriyle orantılı dağıtılır: mamulün payı = ortak maliyet × (mamulün satış değeri / toplam satış değeri). TUZAK: eşit bölmek ya da miktar oranını değer oranıyla karıştırmak.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "kaynak-bekliyor"
+                    },
+                    {
+                        "id":  "el-23a005",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "dikey yuzde analizi",
+                        "soru":  "Gelir tablosunun dikey yüzde yöntemiyle analizinde, tablo kalemleri yüzde olarak ifade edilirken baz (100 kabul edilen) büyüklük aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "Brüt satışlar",
+                                       "B":  "Net satışlar",
+                                       "C":  "Faaliyet kârı",
+                                       "D":  "Dönem net kârı",
+                                       "E":  "Aktif toplamı"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Bunu seçtiysen \u0027en büyük satış rakamı baz olur\u0027 dedin. Brüt satışlar iade ve iskonto kirliliği taşır; analiz işletmenin GERÇEK hasılat gücüne oranlamak ister — o da net satıştır.",
+                                         "B":  "Doğru cevap: gelir tablosunun dikey analizinde NET SATIŞLAR = 100 alınır, her kalem ona oranlanır.",
+                                         "C":  "Faaliyet kârı bir ARA sonuçtur ve kendisi de \u0027net satışların yüzde kaçı?\u0027 diye ölçülür. Baz, ölçülen değil ÖLÇÜT olandır.",
+                                         "D":  "Dönem net kârı tablonun en sonucudur; onu baz alırsan bütün kalemler \u0027kârın katı\u0027 gibi görünür, analiz tersine döner. Akışın başındaki büyüklük (net satış) bazdır.",
+                                         "E":  "Bunu seçtiysen iki tablonun bazını karıştırdın: aktif toplamı BİLANÇONUN dikey bazıdır. Ezber kalıbı: bilanço → aktif toplamı, gelir tablosu → net satışlar."
+                                     },
+                        "kaynak":  "Mali tablolar analizi — dikey yüzde yöntemi",
+                        "hap":  "Dikey analizde baz tabloya göre değişir: bilançoda AKTİF (veya pasif) TOPLAMI = 100, gelir tablosunda NET SATIŞLAR = 100 alınır. TUZAK: iki tablonun bazını karıştırmak ya da brüt satışları baz sanmak. Dikey analiz tek dönemin iç yapısını gösterir; dönemler arası eğilim için yatay/trend analizi gerekir.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "kaynak-bekliyor"
+                    },
+                    {
+                        "id":  "el-23a010",
+                        "sinav":  "SGS",
+                        "ders":  "Ekonomi",
+                        "konu":  "talep fiyat esnekligi",
+                        "soru":  "Bir malın talebinin fiyat esnekliği (mutlak değer olarak) 2\u0027dir. Satıcı fiyatı %10 artırırsa, satıcının toplam hasılatı için aşağıdakilerden hangisi söylenebilir?",
+                        "siklar":  {
+                                       "A":  "Artar; çünkü fiyat artışı her durumda hasılatı artırır",
+                                       "B":  "Azalır; çünkü talep esnek olduğundan miktar, fiyattaki artıştan daha yüksek oranda (%20) düşer",
+                                       "C":  "Değişmez; esneklik hasılatı etkilemez",
+                                       "D":  "Azalır; çünkü talep inelastiktir",
+                                       "E":  "Artar; çünkü talep esnektir"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Fiyat artışının hasılata etkisi esnekliğe bağlıdır; her durumda artırmaz.",
+                                         "B":  "Doğru cevap: |e|=2 \u003e 1 olduğundan talep ESNEKTİR; %10 fiyat artışı miktarı yaklaşık %20 düşürür, hasılat azalır.",
+                                         "C":  "Esneklik tam da fiyat-hasılat ilişkisini belirleyen katsayıdır.",
+                                         "D":  "Sonuç (azalır) doğru olsa da gerekçe yanlıştır: |e|=2 talebin inelastik değil ESNEK olduğunu gösterir.",
+                                         "E":  "Talep esnek olduğunda fiyat ARTIŞI hasılatı artırmaz, azaltır; esnek talepte hasılat fiyat İNDİRİMİYLE artar."
+                                     },
+                        "kaynak":  "Mikroekonomi — talep fiyat esnekliği ve toplam hasılat kuralı",
+                        "hap":  "Esneklik-hasılat kuralı: |e|\u003e1 (esnek) ise fiyat ARTIŞI hasılatı DÜŞÜRÜR, indirim artırır; |e|\u003c1 (inelastik) ise tersi; |e|=1\u0027de hasılat maksimumdadır. TUZAK: şıklarda doğru sonucu yanlış gerekçeyle veren seçenekler — hem yönü hem gerekçeyi kontrol et.",
+                        "ambar":  "el",
+                        "uretim":  "23.07.2026 el (Claude tam denetim)",
+                        "durum":  "kaynak-bekliyor"
+                    },
+                    {
+                        "id":  "cae36374",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşçi Zeynep, gündüzleri bir metal fabrikasında tam zamanlı çalışmakta ve metal işkolunda faaliyet gösteren (A) Sendikası\u0027na üyedir. Akşamları ise part-time olarak bir güvenlik şirketinde çalışmakta olup güvenlik işkolunda faaliyet gösteren (B) Sendikası\u0027na da üye olmak istemektedir. Bu durum için hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Zeynep aynı anda iki farklı sendikaya üye olamaz; ikinci üyelik başvurusu geçersizdir.",
+                                       "B":  "Zeynep, (B) Sendikası\u0027na üye olabilir; kanundaki yasak yalnızca aynı işkolunda birden çok sendikaya üyeliği kapsar, farklı işkollarında üyelik serbesttir.",
+                                       "C":  "Zeynep, önce (A) Sendikası\u0027ndaki üyeliğinden istifa etmeden (B) Sendikası\u0027na üye olamaz; çünkü bir kişi aynı anda yalnızca bir sendikaya üye olabilir.",
+                                       "D":  "Zeynep iki sendikaya birden üye olabilir; ancak bunun için her iki işverenden de yazılı muvafakat alması gerekir.",
+                                       "E":  "Zeynep (B) Sendikası\u0027na üye olabilir; ancak bu üyelik yalnızca (A) Sendikası\u0027ndaki üyeliği askıya alınmak kaydıyla geçerlilik kazanır."
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Kanundaki çoklu üyelik yasağı \u0027kişi bazlı mutlak tek sendika\u0027 kuralı değil, \u0027aynı işkolunda birden fazla üyelik\u0027 yasağıdır. Farklı işkollarında ayrı üyelikler bu yasağın kapsamı dışındadır.",
+                                         "B":  "Doğrudur. Yasak, aynı işkolunda birden çok sendikaya üye olmayı engellemeye yöneliktir; işçi farklı işkollarında çalışıyorsa her işkolunda ayrı bir sendikaya üye olabilir.",
+                                         "C":  "Yanlıştır. Bu şık, \u0027aynı işkolu\u0027 sınırlamasını görmezden gelip genel bir \u0027tek sendika\u0027 kuralı varmış gibi genelleme hatası yapar; istifa şartı yalnızca aynı işkoluna girme durumunda gündeme gelir.",
+                                         "D":  "Yanlıştır. Sendika üyeliği işçi ile sendika arasındaki bir işlemdir; işverenin muvafakati hiçbir aşamada aranmaz.",
+                                         "E":  "Yanlıştır. Askıya alma, farklı işkollarındaki bağımsız üyelikler arasında otomatik bir bağ kurmaz; iki üyelik birbirinden bağımsız olarak geçerlidir, biri diğerinin şartına bağlanamaz."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
+                        "hap":  "Kanun, işçinin AYNI İŞKOLUNDA birden çok sendikaya üye olmasını yasaklar; bu durumda sonraki üyelik geçersiz sayılır. Ancak işçi farklı işkollarında çalışıyorsa, her işkolunda ayrı bir sendikaya üye olabilir - yasak işkolu temellidir, kişi başına mutlak \u0027tek sendika\u0027 kuralı değildir. İşveren onayı hiçbir durumda aranmaz.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "6371ba2c",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzerinden (A) Sendikası\u0027ndan çekilme bildiriminde bulunmuştur. Mehmet, 12 Mart tarihinde aynı işkolunda faaliyet gösteren (B) Sendikası\u0027na üyelik başvurusu yapmış ve başvurusu kabul edilmiştir. Buna göre Mehmet\u0027in (B) Sendikası\u0027ndaki üyeliği hangi tarihte kazanılmış sayılır?",
+                        "siklar":  {
+                                       "A":  "12 Mart - başvuru tarihi",
+                                       "B":  "5 Mart - çekilme bildirim tarihi",
+                                       "C":  "5 Nisan - çekilme bildirim tarihinden itibaren bir aylık sürenin bittiği tarih",
+                                       "D":  "12 Nisan - yeni üyelik başvurusundan itibaren bir aylık sürenin bittiği tarih",
+                                       "E":  "Mehmet\u0027in (A) Sendikası\u0027ndaki üyeliği devam ettiği sürece (B) Sendikası\u0027na üyeliği hiçbir şekilde kazanılamaz"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Bu şık, aynı işkolunda çakışan üyelikleri önlemek için öngörülen bir aylık bekleme süresini gözardı eder; yeni üyelik, başvuru anında değil kanunda belirtilen sürenin bitiminde kazanılır.",
+                                         "B":  "Yanlıştır. Çekilme (istifa), bildirim yapılır yapılmaz değil, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu tarihte henüz eski üyelik sona ermemiştir.",
+                                         "C":  "Doğrudur. Çekilme bildirimi 5 Mart\u0027ta yapılmış, bu tarihten itibaren işleyen bir aylık süre 5 Nisan\u0027da dolmuştur. Bu bir aylık süre dolmadan yeni sendikaya üyelik başvurusu yapıldığından, yeni üyelik ancak eski üyeliğin sona erdiği bu tarihte kazanılmış sayılır.",
+                                         "D":  "Yanlıştır. Bu şık, bir aylık sürenin başlangıç noktasını karıştırır; süre yeni üyelik başvurusundan değil, çekilme bildiriminin yapıldığı tarihten itibaren işlemeye başlar.",
+                                         "E":  "Yanlıştır. Yeni üyelik başvurusu geçersiz sayılmaz, sadece ertelenerek eski üyeliğin sona erdiği tarihte kazanılmış sayılır; bu bir \u0027imkansızlık\u0027 değil bir \u0027erteleme\u0027 düzenlemesidir."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.19",
+                        "hap":  "Sendikadan çekilme, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu bekleme süresi aynı işkolunda çifte üyeliği önlemek içindir. İşçi bu bir aylık süre dolmadan yeni bir sendikaya üye olursa, yeni üyelik hemen değil, eski üyelikten çekilmenin hüküm ifade ettiği tarihte kazanılmış sayılır. Süre, çekilme bildirim tarihinden başlar; yeni başvuru tarihinden değil.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "b0d2dea8",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "toplulastirma riski",
+                        "soru":  "Bir işletmenin 30 farklı müşteriden oluşan ve her biri münferiden 3.000-6.000 TL arasında değişen toplam 150.000 TL tutarındaki alacaklarından yalnızca 10 tanesi hakkında (toplam 45.000 TL) dava veya icra takibi başlatılmıştır. Muhasebe departmanı, bu 30 alacağın tamamını \u0027toplu olarak şüpheli hale geldi\u0027 gerekçesiyle tek kalemde değerlendirip 150.000 TL\u0027nin tamamı için şüpheli alacak karşılığı ayırmıştır. Dava veya icra takibi bulunmayan alacaklar için protesto çekilmemiş, yazı ile de istenmemiştir. Bu işlemdeki hata, toplulaştırma riski açısından nasıl açıklanır?",
+                        "siklar":  {
+                                       "A":  "VUK m.323 gereği şüpheli alacak şartları (dava/icra takibi, teminatsız olma vb.) HER ALACAK İÇİN AYRI AYRI değerlendirilmelidir; dava/icra şartını taşımayan 20 alacak toplulaştırılarak yanlış biçimde karşılığa dahil edilmiştir, doğrusu yalnızca 45.000 TL için karşılık ayrılmasıdır",
+                                       "B":  "Şüpheli alacak karşılığı toplam tutar üzerinden ayrılabilir çünkü VUK m.323 alacakların toplu değerlendirilmesine izin verir",
+                                       "C":  "Hata karşılık tutarında değil, hesap seçiminde yapılmıştır; 128 yerine 129 hesabı kullanılmalıydı",
+                                       "D":  "İşletme ihtiyatlılık ilkesi gereği tüm alacakları şüpheli kabul ederek doğru davranmıştır, ilke fazla karşılık ayırmayı teşvik eder",
+                                       "E":  "150.000 TL\u0027nin tamamı için karşılık ayrılması doğrudur çünkü aynı müşteri grubundan alacaklar risk açısından birbirine bağımlıdır"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. VUK m.323 şüpheli alacak şartlarının her alacak için ayrı ayrı (dava/icra takibinin varlığı gibi) sağlanmasını arar; dava/icra süreci olmayan 20 alacağın toplulaştırılması hatadır, karşılık yalnızca şartı taşıyan 45.000 TL için ayrılmalıdır.",
+                                         "B":  "Yanılgı: Madde toplu değerlendirmeye izin vermez; her alacağın kendi hukuki sürecinin (dava/icra takibi açılmış olması) ayrı ayrı kanıtlanması gerekir.",
+                                         "C":  "Yanılgı: Sorun hesap seçimi (128/129 kullanımı) değil, karşılığa TABİ TUTARIN (150.000 TL yerine 45.000 TL olması gerekirken) yanlış belirlenmesidir.",
+                                         "D":  "Yanılgı: İhtiyatlılık ilkesi, kanunda öngörülen KOŞULLARIN sağlanmasını gerektirir; koşulsuz/keyfi olarak fazla karşılık ayırmayı teşvik etmez, bu vergi mevzuatına aykırıdır.",
+                                         "E":  "Yanılgı: Her alacak ayrı bir hukuki ve ticari ilişkiye dayanır; bir müşterinin/grubun bir alacağının şüpheli olması, aynı gruptaki diğer alacakları otomatik olarak şüpheli yapmaz."
+                                     },
+                        "kaynak":  "VUK m.323",
+                        "hap":  "VUK m.323\u0027e göre şüpheli alacak karşılığı, her alacak için AYRI AYRI aranan şartların (dava/icra takibi açılmış olma, teminatsızlık vb.) sağlanmasına bağlıdır. Toplulaştırma riski burada, şartı taşımayan alacakların şartı taşıyanlarla birlikte \u0027toplu\u0027 değerlendirilip gereksiz yere karşılığa dahil edilmesidir. Tuzak: \u0027aynı müşteri grubu/aynı dönem\u0027 gibi yüzeysel benzerlikler hukuki şartların yerini tutmaz. Ek yol: VUK m.323/2\u0027ye göre, protesto edilmiş veya yazı ile birden fazla istenmiş olup kanunda belirlenen sınırı aşmayan küçük alacaklar, dava/icra şartı aranmadan şüpheli sayılabilir (sınır tutarı her yıl tebliğle güncellenir; bu soruda protesto/yazılı istem bulunmadığından bu yol kapalıdır).",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "128 Şüpheli Ticari Alacaklar",
+                                            "borc":  45000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  0,
+                                            "alacak":  45000
+                                        },
+                                        {
+                                            "hesap":  "654 Karşılık Giderleri",
+                                            "borc":  45000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "129 Şüpheli Ticari Alacaklar Karşılığı",
+                                            "borc":  0,
+                                            "alacak":  45000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "29219cc3",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Bir hukuk bürosu, müşterisine kurulacak ortaklık türüne göre kurumlar vergisi mükellefiyeti konusunda bilgi veriyor. Aşağıdaki ortaklık türlerinden hangisi, sermaye şirketi sayılarak kurumlar vergisi mükellefidir?",
+                        "siklar":  {
+                                       "A":  "Sermayesi paylara bölünmüş komandit şirket",
+                                       "B":  "Adi komandit şirket",
+                                       "C":  "Kollektif şirket",
+                                       "D":  "İki gerçek kişinin kurduğu adi ortaklık",
+                                       "E":  "Belirli bir işi yapmak üzere kurulmuş, mükellefiyet tesis ettirmemiş konsorsiyum"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. KVK m.2/1 sermaye şirketlerini TTK\u0027ya göre kurulan anonim, limited ve sermayesi paylara bölünmüş komandit şirketler olarak sayar; bu tür şirkette ortağın sorumluluğu koyduğu sermaye ile sınırlıdır, bu yüzden sermaye şirketi kabul edilir.",
+                                         "B":  "Yanlıştır. Adi komandit şirkette komandite ortağın sorumluluğu sınırsızdır; şahıs şirketidir. \u0027Komandit\u0027 kelimesi sizi \u0027sermaye şirketi\u0027 zannettirebilir ama ayırıcı unsur payların hisseye bölünmüş olmasıdır, sadece isimdeki benzerlik yeterli değildir.",
+                                         "C":  "Yanlıştır. Kollektif şirket tipik şahıs şirketidir, ortakların sorumluluğu sınırsızdır; kazanç kurum bünyesinde değil ortakların gelir vergisi matrahında vergilendirilir.",
+                                         "D":  "Yanlıştır. Adi ortaklığın tüzel kişiliği yoktur, kurumlar vergisi mükellefi olamaz; kazanç payları ortaklarca kendi vergi türlerine göre (GV/KV) beyan edilir.",
+                                         "E":  "Yanlıştır. İş ortaklığı isteğe bağlı olarak kurumlar vergisi mükellefi olabilir ama bunun şartı vergi dairesine mükellefiyet tesis ettirmektir; bu şart yerine getirilmeden otomatik mükellefiyet doğmaz, adi ortaklık gibi işlem görür."
+                                     },
+                        "kaynak":  "KVK m.2/1",
+                        "hap":  "Kurumlar vergisinde \u0027sermaye şirketi\u0027 sayılmanın anahtarı, ortağın sorumluluğunun sermayesi ile sınırlı olmasıdır. Sermayesi paylara bölünmüş komandit şirket bu yüzden sermaye şirketidir; ama adi komandit ve kollektif şirket şahıs şirketidir, isim benzerliğine kanmayın. Adi ortaklık ve mükellefiyet tesis ettirmemiş iş ortaklığının tüzel kişiliği/kurumlar vergisi mükellefiyeti yoktur, kazanç ortaklar üzerinden vergilenir.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "fb35457f",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Kanuni merkezi Bermuda\u0027da kayıtlı olan ABC Ltd., tüm yönetim kurulu toplantılarını, muhasebe ve karar alma süreçlerini fiilen İstanbul\u0027daki merkez ofisinden yürütmektedir. Şirketin Türkiye\u0027deki kurumlar vergisi mükellefiyeti hangi esasa göre belirlenir?",
+                        "siklar":  {
+                                       "A":  "Kanuni merkezi yurt dışında olduğu için dar mükellef sayılır",
+                                       "B":  "İş merkezi Türkiye\u0027de olduğu için tam mükellef sayılır",
+                                       "C":  "Sadece kanuni merkez esas alınır, iş merkezinin yeri sonucu değiştirmez",
+                                       "D":  "Şirketin kayıtlı olduğu ülkenin uyruğuna bakılır",
+                                       "E":  "Ortakların ikametgahının bulunduğu yer esas alınır"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Bu cevap sadece kanuni merkezi görüp iş merkezini gözden kaçırır. KVK m.3\u0027te tam mükellefiyet için kanuni merkez VEYA iş merkezinden birinin Türkiye\u0027de olması yeterlidir, ikisinin birlikte olması şart değildir.",
+                                         "B":  "Doğrudur. KVK m.3\u0027e göre iş bakımından işlemlerin fiilen toplandığı ve yönetildiği yer (iş merkezi) Türkiye\u0027de ise, kanuni merkez yurt dışında olsa da şirket tam mükellef sayılır ve tüm dünya kazançları Türkiye\u0027de vergilendirilir.",
+                                         "C":  "Yanlıştır. Kanuni merkez ile iş merkezi birbirinin alternatifidir, biri diğerini geçersiz kılmaz; kanuni merkezi esas alıp iş merkezini önemsiz saymak kanunun aradığı ikili kıstası göz ardı eder.",
+                                         "D":  "Yanlıştır. Kurumlar vergisinde mükellefiyet türü şirketin \u0027uyruğuna\u0027 göre değil, kanuni merkez/iş merkezi kıstasına göre belirlenir; tabiiyet kavramı burada kullanılan bir ölçüt değildir.",
+                                         "E":  "Yanlıştır. Bu, gelir vergisindeki gerçek kişi ikametgahı mantığının kuruma taşınmasıdır; kurumlar vergisinde mükellef şirketin kendisidir, ortakların ikametgahı mükellefiyet türünü belirlemez."
+                                     },
+                        "kaynak":  "KVK m.3",
+                        "hap":  "Tam/dar mükellefiyet ayrımında iki kıstas vardır: kanuni merkez (esas sözleşmedeki merkez) ve iş merkezi (işlemlerin fiilen yönetildiği yer). Bunlardan HERHANGİ BİRİ Türkiye\u0027deyse şirket tam mükelleftir; ikisi de yurt dışındaysa dar mükelleftir. Kağıt üstündeki merkeze bakıp fiili yönetim yerini unutmak klasik hatadır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "5c385b10",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Bir spor derneği, üyelerinden yalnızca üyelik aidatı toplamakta; ayrıca dernek bünyesinde sürekli olarak halka açık spor malzemesi satışı yapan bir mağaza işletmektedir. Bu durumda kurumlar vergisi mükellefiyeti kime aittir?",
+                        "siklar":  {
+                                       "A":  "Derneğin tüzel kişiliği bizzat mükelleftir",
+                                       "B":  "Sadece mağazadan oluşan iktisadi işletme mükelleftir, derneğin tüzel kişiliği değil",
+                                       "C":  "Aidat gelirleri de dahil derneğin tüm geliri mükelleftir",
+                                       "D":  "Kâr amacı güdülmediği için hem dernek hem mağaza muaftır",
+                                       "E":  "Üyeler mağaza gelirini şahsen kendi gelir vergisi beyannamelerinde göstermelidir"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Dernek ve vakıfların tüzel kişiliği kurumlar vergisi mükellefi değildir; KVK yalnızca bunlara AİT iktisadi işletmeleri mükellef sayar, derneğin kendisini değil.",
+                                         "B":  "Doğrudur. KVK m.2/5 uyarınca dernek ve vakıflara ait iktisadi işletmeler kurumlar vergisi mükellefidir. Devamlılık arz eden ticari/sınai faaliyet (burada sürekli mağaza işletmeciliği) iktisadi işletme oluşturur ve mükellefiyeti doğurur; derneğin asıl tüzel kişiliği bu mükellefiyetin dışında kalır.",
+                                         "C":  "Yanlıştır. Derneğin asli faaliyeti olan aidat toplama, iktisadi işletme sayılmaz; mükellefiyet sadece iktisadi işletmenin (mağazanın) faaliyetinden doğan kazançla sınırlıdır, aidatlar bu kapsama girmez.",
+                                         "D":  "Yanlıştır. İktisadi kamu kuruluşları ve dernek/vakıf iktisadi işletmelerinde mükellefiyeti belirleyen ölçüt kâr amacı gütme değil, faaliyetin DEVAMLILIK arz etmesidir; kâr amacı olmasa da mükellefiyet doğar.",
+                                         "E":  "Yanlıştır. Bu, iktisadi işletmenin ayrı bir kurumlar vergisi mükellefi olduğunu görmezden gelip kazancı gelir vergisi mantığıyla üyelere dağıtan bir karışıklıktır; kazanç üyelere değil, iktisadi işletmenin bünyesinde vergilendirilir."
+                                     },
+                        "kaynak":  "KVK m.2/5",
+                        "hap":  "Dernek ve vakıfların kendisi kurumlar vergisi mükellefi değildir; mükellef olan, onlara ait ve devamlılık arz eden ticari/sınai/zirai faaliyet gösteren İKTİSADİ İŞLETMEdir. Kâr amacı gütmemek mükellefiyeti kaldırmaz, önemli olan faaliyetin sürekli/organize olmasıdır. Aidat gibi asli dernek faaliyetleri bu kapsamın dışındadır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    },
+                    {
+                        "id":  "8addb67c",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Bir belediyeye ait su işletmesi, kâr amacı gütmeksizin sadece maliyetini karşılamak için halka sürekli su satmaktadır. Bu işletmenin kurumlar vergisi mükellefiyeti bakımından doğru değerlendirme hangisidir?",
+                        "siklar":  {
+                                       "A":  "Belediyeye ait bir kamu hizmeti olduğu için kurumlar vergisi mükellefi değildir",
+                                       "B":  "Kâr amacı gütmediği için kurumlar vergisi mükellefi değildir",
+                                       "C":  "Devamlılık arz eden bir faaliyet olduğu için iktisadi kamu kuruluşu sayılır ve kurumlar vergisi mükellefidir",
+                                       "D":  "Belediyenin tüzel kişiliği bu işletme dolayısıyla bizzat mükellef olur",
+                                       "E":  "Sermaye şirketi sayılmadığı için hiçbir şekilde kurumlar vergisi kapsamına girmez"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Bir işletmenin devlete/belediyeye ait olması onu otomatik olarak vergiden muaf kılmaz; KVK m.1/1-b ve m.2/3 devlet ve belediyelere ait iktisadi kuruluşları da açıkça mükellef sayar.",
+                                         "B":  "Yanlıştır. İktisadi kamu kuruluşu sayılmanın ölçütü kâr amacı gütmek değil, faaliyetin DEVAMLILIK arz etmesidir; maliyetine satış yapılması bile mükellefiyeti ortadan kaldırmaz.",
+                                         "C":  "Doğrudur. KVK m.2/3\u0027e göre devlet, il özel idaresi, belediye ve köylere veya bunların oluşturduğu birliklere ait olup devamlı olarak işletilen iktisadi işletmeler \u0027iktisadi kamu kuruluşu\u0027 sayılır ve kurumlar vergisi mükellefidir; kâr amacı gütmeme bu sonucu değiştirmez.",
+                                         "D":  "Yanlıştır. Mükellef olan belediyenin kendisi değil, ona ait devamlı işletilen iktisadi kamu kuruluşudur; belediye tüzel kişiliği bu vergiden ayrı tutulur, sadece işletme kısmı mükelleftir.",
+                                         "E":  "Yanlıştır. İktisadi kamu kuruluşu, sermaye şirketinden bağımsız, KVK m.1\u0027de ayrıca sayılan kendine özgü bir mükellef türüdür; sermaye şirketi olmaması onu KVK kapsamı dışına çıkarmaz."
+                                     },
+                        "kaynak":  "KVK m.1/1-b, m.2/3",
+                        "hap":  "İktisadi kamu kuruluşunda mükellefiyeti doğuran ölçüt KÂR AMACI değil, faaliyetin DEVAMLILIK arz etmesidir. Devlet/belediye/köye ait olsa ve maliyetine hizmet verse de, sürekli işletiliyorsa iktisadi kamu kuruluşu sayılır ve kurumlar vergisi mükellefidir. Mükellef olan kamu tüzel kişiliği değil, ona ait o devamlı işletmenin kendisidir.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "onay":  "GM onayi (Cem yetki devri 23.07.2026) + Claude tam denetim + ambar teyitli"
+                    }
+                ],
+    "sonKosuRaporu":  [
+                          "RET (cozucu1 \u0027E\u0027 != \u0027B\u0027): Ahmet, 16 yaşında olup bir tekstil fabri",
+                          "GECTI: [sendika uyeligi] İşçi Zeynep, gündüzleri bir metal fabrikasında tam...",
+                          "GECTI: [sendika uyeligi] İşçi Mehmet, 5 Mart tarihinde e-Devlet kapısı üzer...",
+                          "JSON HATASI: dikey yuzde analizi",
+                          "URETIM HATASI (JSON bulunamadi/kesik): faaliyet kâri hesaplama",
+                          "JSON HATASI: sebepsiz zenginlesme",
+                          "JSON HATASI: ortak maliyet dagitimi",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 Denetimde Önemlilik, paragraf A5",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29 ve TMS 24 İlişkili Taraf Açıklamaları",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 29-30, TMS 2 Stoklar",
+                          "GECTI: [toplulastirma riski] Bir işletmenin 30 farklı müşteriden oluşan ve her ...",
+                          "GECTI: [kurumlar vergisi mukellefleri] Bir hukuk bürosu, müşterisine kurulacak ortaklık t...",
+                          "GECTI: [kurumlar vergisi mukellefleri] Kanuni merkezi Bermuda\u0027da kayıtlı olan ABC Ltd., t...",
+                          "GECTI: [kurumlar vergisi mukellefleri] Bir spor derneği, üyelerinden yalnızca üyelik aida...",
+                          "RET (cozucu2 \u0027\u0027 != \u0027C\u0027): A A.Ş. ile B Ltd. Şti., belirli bir kamu",
+                          "GECTI: [kurumlar vergisi mukellefleri] Bir belediyeye ait su işletmesi, kâr amacı gütmeks...",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/a-b",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/c",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/e",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/d",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): KDV Kanunu m.10/g"
+                      ]
 }
