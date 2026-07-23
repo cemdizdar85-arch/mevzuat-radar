@@ -222,6 +222,23 @@ function Claude($istem,$maxtok,$model){
   $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" -Headers $H -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
   return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
 }
+# 23.07 GEMINI CAPRAZ COZUCU (Cem kurulumu): cozucu-2 once Google Gemini'ye sorulur
+# (bedava kota + FARKLI firmanin modeli = capraz dogrulama). Kota biterse/hata olursa
+# aninda Haiku'ya duser - hat ASLA durmaz. Kota bitince gun boyu tekrar denenmez.
+$script:gkey = $env:GEMINI_API_KEY
+$script:geminiSayac = 0
+function GeminiCoz($istem){
+  if(-not $script:gkey){ return $null }
+  try{
+    $b = @{ contents = @(@{ parts = @(@{ text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
+    $r = Invoke-RestMethod -Method Post -Uri ("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + $script:gkey) -Body ([Text.Encoding]::UTF8.GetBytes($b)) -ContentType "application/json" -TimeoutSec 60
+    $script:geminiSayac++
+    return (@($r.candidates[0].content.parts) | ForEach-Object { $_.text }) -join ""
+  }catch{
+    if("$($_.Exception.Message)" -match '429|quota|RESOURCE_EXHAUSTED|Too Many'){ $script:gkey = $null; Write-Host "Gemini kotasi doldu - cozucu-2 Haiku'ya dondu." }
+    return $null
+  }
+}
 
 $mevcutKokler = @($tumSorular | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) })
 $yeniListe = New-Object System.Collections.Generic.List[object]
@@ -257,7 +274,8 @@ foreach($satir in $satirlar){
     $ok=$true
     foreach($t in 1,2){
       $cv=$null; $hamC=$null
-      foreach($den in 1,2){ try{ $hamC = Claude $cIstem 200 $MODEL_COZ; break }catch{ if($den -lt 2){ Start-Sleep -Seconds 5 } } }
+      if($t -eq 2){ $hamC = GeminiCoz $cIstem }   # cozucu-2: once Gemini (capraz model, bedava)
+      if(-not $hamC){ foreach($den in 1,2){ try{ $hamC = Claude $cIstem 200 $MODEL_COZ; break }catch{ if($den -lt 2){ Start-Sleep -Seconds 5 } } } }
       if($hamC){ try{ $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{} }
       if(-not $cv -and $hamC){ $mC=[regex]::Match($hamC.ToUpper(),'(?<![A-Z])([A-E])(?![A-Z])'); if($mC.Success){ $cv=$mC.Groups[1].Value } }
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($meta.konu)"); break }
@@ -275,7 +293,7 @@ if(-not (Test-Path $fabrikaDir)){ New-Item -ItemType Directory -Force $fabrikaDi
 $ciktiYol = Join-Path $fabrikaDir ("toplu-" + (Get-Date -Format 'yyyyMMdd-HHmmss') + ".json")
 $cikti = [ordered]@{
   uretim = (Get-Date -Format "dd.MM.yyyy HH:mm") + " TOPLU GECE URETIMI (batch: " + $batch.id + ")"
-  gorevSayisi = $gorevler.Count; islenenCevap = $islenen
+  gorevSayisi = $gorevler.Count; islenenCevap = $islenen; geminiCozum = $script:geminiSayac
   sonKosuRaporu = @($rapor | Select-Object -Last 120)
   sorular = $yeniListe.ToArray()
 }
