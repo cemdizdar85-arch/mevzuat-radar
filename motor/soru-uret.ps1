@@ -248,8 +248,9 @@ OZGUN coktan secmeli sinav sorusu yazacaksin. KURALLAR:
 5b) DIL VE TON (24.07 Cem kurali): aciklama ve hap alanlarinda robot/ders-kitabi agzi YASAK - okuyan "bunu yapay zeka yazmis" dememeli. Her aciklamanin ILK cumlesi, konuyu hic bilmeyen birinin de ANINDA anlayacagi sadelikte olsun; teknik terim ancak o ilk cumleden sonra gelsin. Senaryolari gunluk hayattan, genclerin tanidigi dunyalardan kur (e-ticaret magazasi, kafe, yazilimci, kurye, oyun sirketi, sosyal medya ajansi vb.). Yer yer ZEKI ve HAFIF bir espri/benzetme serbest ve makbul - ama abartmadan, her soruda degil, dogal dustugu yerde; siyaset/tartismali guncel olay ASLA.
 6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
 7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
+7b) TABLO/ANALIZ sorusuysa (dikey-yatay analiz, oran analizi, gelir tablosu/bilanco kalemi hesabi) hesabi LAFLA degil TABLO USTUNDE goster - "tablo" alaninda mini tabloyu ver: {"baslik":"Gelir Tablosu (dikey %)","kolonlar":["Kalem","Tutar","Dikey %"],"satirlar":[["Brut Satislar","2.500.000",""],["NET SATISLAR","2.000.000","%100 (baz)"],["SMM (-)","1.200.000","%60 ←"]]}. Cevabin ciktigi satirin son hucresine '←' koy (ekran o satiri vurgular). Tablo sorusu degilse tablo alani koyma.
 CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular. SADECE su JSON dizisini dondur:
-[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...]}]
+[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...],"tablo":{...}}]
 "@
 
 foreach($h in $hedefler){
