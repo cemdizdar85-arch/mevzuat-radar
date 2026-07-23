@@ -1,0 +1,339 @@
+{
+    "kanal":  "el-partisi-gm",
+    "uretim":  "24.07.2026",
+    "not":  "GM el partisi: amortisman (VUK m.313-320) muhasebe+vergi sorulari; exam-staple; hesap ve oranlar birincil VUK kurallariyla dogrulandi, yevmiye/tablo gorseli, GM denetimli.",
+    "sorular":  [
+                    {
+                        "id":  "amr250101",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "normal amortisman hesabi",
+                        "soru":  "Bir işletme, 1 Ocak\u0027ta 200.000 TL\u0027ye (KDV hariç) bir makine almıştır. Faydalı ömür 5 yıl, normal (eşit tutarlı) amortisman yöntemi uygulanmaktadır. İlk yıl ayrılacak amortisman tutarı ve kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "20.000 TL; 770 Genel Yönetim Gideri 20.000 borç, 257 Birikmiş Amortismanlar 20.000 alacak",
+                                       "B":  "40.000 TL; 770/730 Amortisman Gideri 40.000 borç, 257 Birikmiş Amortismanlar 40.000 alacak",
+                                       "C":  "50.000 TL; 770 Amortisman Gideri 50.000 borç, 257 Birikmiş Amortismanlar 50.000 alacak",
+                                       "D":  "40.000 TL; 253 Tesis Makine Cihazlar 40.000 borç, 257 Birikmiş Amortismanlar 40.000 alacak",
+                                       "E":  "40.000 TL; 257 Birikmiş Amortismanlar 40.000 borç, 253 Tesis Makine Cihazlar 40.000 alacak"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Oran yanlış (%10 kullanılmış). 5 yıl faydalı ömürde oran 1/5=%20, tutar 40.000\u0027dir.",
+                                         "B":  "DOĞRU: Normal yöntemde yıllık oran 1/5 = %20; 200.000 × %20 = 40.000 TL. Amortisman gider yazılır (fonksiyonuna göre 770/730/631...) borç, birikmiş amortisman 257\u0027ye alacak. Duran varlık maliyeti (253) DEĞİŞMEZ; azalış 257\u0027de biriktirilir.",
+                                         "C":  "Yanılgı dersi: 50.000, %25 (4 yıl) oranına denk gelir; faydalı ömür 5 yıl verilmiş, oran %20.",
+                                         "D":  "Yanılgı dersi: Amortisman varlığı (253) borçlandırmaz; gider hesabı borçlanır, 257 alacaklanır.",
+                                         "E":  "Yanılgı dersi: 257 borçlanmaz (yalnız varlık elden çıkınca kapanırken borçlanır); ayrıca 253 doğrudan azaltılmaz, birikmiş amortisman ayrı düzenleyici hesaptır."
+                                     },
+                        "kaynak":  "VUK m.315 (Normal amortisman); m.313",
+                        "hap":  "Normal amortisman: yıllık oran = 1/faydalı ömür, her yıl EŞİT tutar. Kayıt: amortisman gideri (770/730/631/632 fonksiyona göre) borç / 257 Birikmiş Amortismanlar alacak. Varlığın maliyeti (253/252...) hiç değişmez; net defter değeri = maliyet − 257. Tuzak: 253\u0027ü doğrudan azaltmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "770 Genel Yönetim Giderleri (Amortisman)",
+                                            "borc":  40000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "257 Birikmiş Amortismanlar",
+                                            "borc":  0,
+                                            "alacak":  40000
+                                        }
+                                    ],
+                        "yanlisKayitlar":  {
+                                               "D":  [
+                                                         {
+                                                             "hesap":  "253 Tesis, Makine ve Cihazlar",
+                                                             "borc":  40000,
+                                                             "alacak":  0
+                                                         },
+                                                         {
+                                                             "hesap":  "257 Birikmiş Amortismanlar",
+                                                             "borc":  0,
+                                                             "alacak":  40000
+                                                         }
+                                                     ]
+                                           },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250102",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "azalan bakiyeler amortisman",
+                        "soru":  "Faydalı ömrü 5 yıl olan 100.000 TL\u0027lik bir demirbaş için AZALAN BAKİYELER yöntemi uygulanmaktadır. VUK\u0027a göre bu yöntemde uygulanacak oran ve ilk yıl amortisman tutarı nedir?",
+                        "siklar":  {
+                                       "A":  "Oran %40; ilk yıl 40.000 TL",
+                                       "B":  "Oran %40; ilk yıl 20.000 TL",
+                                       "C":  "Oran %25; ilk yıl 25.000 TL",
+                                       "D":  "Oran %50; ilk yıl 50.000 TL",
+                                       "E":  "Oran %20; ilk yıl 20.000 TL"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Azalan bakiyelerde oran, normal oranın İKİ KATIDIR ama %50\u0027yi geçemez. Normal oran 1/5=%20 → iki katı %40 (\u003c%50, geçerli). İlk yıl: 100.000 × %40 = 40.000 TL. Sonraki yıllar kalan net değere aynı oran uygulanır.",
+                                         "B":  "Yanılgı dersi: Oran %40 doğru ama tutar yanlış hesaplanmış; 100.000 × %40 = 40.000, 20.000 değil.",
+                                         "C":  "Yanılgı dersi: %25 dört yıllık normal orana denk; buradaki ömür 5 yıl, azalan oran %40.",
+                                         "D":  "Yanılgı dersi: %50 tavandır ama oran normal oranın iki katıdır (%40); tavana takılmadıkça %50 kullanılmaz.",
+                                         "E":  "Yanılgı dersi: %20 normal orandır; azalan bakiyelerde bunun iki katı (%40) kullanılır."
+                                     },
+                        "kaynak":  "VUK mükerrer m.315 (Azalan bakiyeler usulüyle amortisman)",
+                        "hap":  "Azalan bakiyeler: oran = normal oranın 2 KATI, ancak %50\u0027yi AŞAMAZ. Her yıl KALAN net değere (maliyet − birikmiş amortisman) uygulanır, ilk yıllarda çok, sonra azalır. Son yıl kalan bakiyenin tamamı gider yazılır. Tuzak: oranı sabit tutar sanmak ya da tavanı (%50) doğrudan oran zannetmek.",
+                        "tablo":  {
+                                      "baslik":  "Azalan bakiyeler — ilk 3 yıl (oran %40)",
+                                      "kolonlar":  [
+                                                       "Yıl",
+                                                       "Net Değer (başı)",
+                                                       "Amortisman"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "1",
+                                                           "100.000",
+                                                           "40.000 ←"
+                                                       ],
+                                                       [
+                                                           "2",
+                                                           "60.000",
+                                                           "24.000"
+                                                       ],
+                                                       [
+                                                           "3",
+                                                           "36.000",
+                                                           "14.400"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250103",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "kist amortisman binek oto",
+                        "soru":  "Bir işletme, 1 Nisan\u0027da işletmede kullanmak üzere bir BİNEK OTOMOBİL satın almıştır. VUK\u0027a göre binek otomobillerde ilk yıl amortismanı nasıl hesaplanır?",
+                        "siklar":  {
+                                       "A":  "İlk yıl amortisman ayrılmaz, ikinci yıldan başlanır",
+                                       "B":  "Binek otomobile hiç amortisman ayrılamaz",
+                                       "C":  "Satın alma bedelinin tamamı ilk yıl doğrudan gider yazılır",
+                                       "D":  "Aktife girdiği ay dahil, yılın kalan ayları için KIST (ay esaslı) amortisman ayrılır; ayrılamayan kısım son yıla eklenir",
+                                       "E":  "İlk yıl tam yıllık amortisman ayrılır, ay hesabı yapılmaz"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: İlk yıl kıst da olsa amortisman ayrılır; başlangıç ertelenmez.",
+                                         "B":  "Yanılgı dersi: Binek otomobile amortisman ayrılır; ayrılmayan gider kısıtı (KKEG) ayrı konudur, amortismanın kendisi ayrılır.",
+                                         "C":  "Yanılgı dersi: Amortismana tabi iktisadi kıymet doğrudan gider yazılamaz; faydalı ömür boyunca itfa edilir.",
+                                         "D":  "DOĞRU: Binek otomobillerde kıst amortisman zorunludur: aktife alındığı ay tam sayılarak yıl sonuna kadarki AY sayısı kadar amortisman ayrılır (1 Nisan → Nisan dahil 9 ay). Ayrılamayan (ilk yıla düşmeyen) kısım, amortisman süresinin SON yılında gider yazılır.",
+                                         "E":  "Yanılgı dersi: Binek otomobil kıst amortismanın istisnasıdır; tam yıl değil ay esaslı hesaplanır."
+                                     },
+                        "kaynak":  "VUK m.320 (Amortisman uygulama süresi - binek otomobillerde kıst amortisman)",
+                        "hap":  "Genel kural: aktife girdiği yıl TAM yıl amortisman. İSTİSNA: binek otomobillerde KIST — aktife alındığı ay dahil kalan ay sayısı kadar. İlk yıl ayrılamayan kısım son yıla eklenir. Ay kesri tam ay sayılır. Tuzak: binek otoya tam yıl uygulamak.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250104",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "amortismana tabi olma siniri",
+                        "soru":  "Aşağıdaki iktisadi kıymetlerden hangisi için VUK\u0027a göre amortisman ayrılması söz konusu DEĞİLDİR?",
+                        "siklar":  {
+                                       "A":  "İşletmede bir yıldan fazla kullanılan ve yıpranmaya tabi olan makine",
+                                       "B":  "İşletmeye ait taşıtlar",
+                                       "C":  "Gayrimaddi haklar (şerefiye, patent vb.)",
+                                       "D":  "Boş arazi ve arsalar (üzerinde yıpranan bir yapı/tesis bulunmayan)",
+                                       "E":  "İşletmede kullanılan demirbaşlar"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Bir yıldan fazla kullanılan, yıpranan makine tam da amortismana tabi kıymettir.",
+                                         "B":  "Yanılgı dersi: Taşıtlar amortismana tabidir; hatta binek otoda kıst usul uygulanır.",
+                                         "C":  "Yanılgı dersi: Gayrimaddi haklar da itfaya (amortismana) tabidir.",
+                                         "D":  "DOĞRU: Boş arazi ve arsalar aşınıp yıpranmadığından kural olarak amortismana tabi DEĞİLDİR. (Üzerinde bina/tesis varsa ya da özel maliyetse istisna farklıdır.)",
+                                         "E":  "Yanılgı dersi: Demirbaşlar amortismana tabi iktisadi kıymettir."
+                                     },
+                        "kaynak":  "VUK m.313 (Amortisman konusu); m.314 (Arazide amortisman)",
+                        "hap":  "Amortismanın şartları: (1) işletmede bir yıldan fazla kullanım, (2) yıpranma-aşınma-kıymetten düşme, (3) değeri belli tutarı aşma. Boş arazi/arsa yıpranmadığı için amortismana tabi değildir (VUK m.314). İstisna: üzerindeki bina, ıslah, tarım tesisleri amortismana tabi olabilir.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250105",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "amortismanli varlik satisi kar",
+                        "soru":  "Maliyeti 150.000 TL, birikmiş amortismanı 90.000 TL olan bir taşıt, KDV hariç 80.000 TL\u0027ye peşin (banka) satılmıştır (KDV ihmal). Bu satıştan doğan kâr/zarar ve doğru hesap nedir?",
+                        "siklar":  {
+                                       "A":  "80.000 TL kâr; 600 Yurtiçi Satışlar hesabına alacak",
+                                       "B":  "10.000 TL kâr; 649 Diğer Olağan Gelir ve Kârlar hesabına alacak",
+                                       "C":  "20.000 TL zarar; 689 Diğer Olağandışı Gider ve Zararlar hesabına borç",
+                                       "D":  "70.000 TL kâr; 679 hesabına alacak",
+                                       "E":  "20.000 TL kâr; 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Duran varlık satışı 600 (esas faaliyet hasılatı) değildir; kâr 679\u0027da, hasılat değil.",
+                                         "B":  "Yanılgı dersi: Kâr 20.000\u0027dir; ayrıca duran varlık satış kârı olağandışıdır (679), olağan (649) değildir.",
+                                         "C":  "Yanılgı dersi: Satış (80.000) net defter değerinden (60.000) yüksek; zarar değil KÂR doğar.",
+                                         "D":  "Yanılgı dersi: Kâr, satış bedeli − NET DEFTER değeri (60.000) üzerinden; birikmiş amortisman düşülmezse (80.000−10.000?) yanlış 70.000 çıkar.",
+                                         "E":  "DOĞRU: Net defter değeri = maliyet − birikmiş amortisman = 150.000 − 90.000 = 60.000. Satış 80.000 \u003e 60.000 → 20.000 KÂR. Duran varlık satış kârı 679 Diğer Olağandışı Gelir ve Kârlar\u0027a alacak yazılır. Kayıtta 253 (150.000) alacak, 257 (90.000) borç kapatılır."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 679 Diğer Olağandışı Gelir ve Kârlar; 257",
+                        "hap":  "Amortismanlı varlık satışı: KÂR/ZARAR = Satış bedeli − NET DEFTER DEĞERİ (maliyet − birikmiş amortisman). Kâr → 679, zarar → 689 (olağandışı). Kayıtta hem 253 (alacak) hem 257 (borç) KAPATILIR. Tuzak: birikmiş amortismanı hesaba katmamak ya da 600/649 kullanmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  80000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "257 Birikmiş Amortismanlar",
+                                            "borc":  90000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "253 Tesis, Makine ve Cihazlar",
+                                            "borc":  0,
+                                            "alacak":  150000
+                                        },
+                                        {
+                                            "hesap":  "679 Diğer Olağandışı Gelir ve Kârlar",
+                                            "borc":  0,
+                                            "alacak":  20000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250106",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Tablolar ve Analizi",
+                        "konu":  "net defter degeri",
+                        "soru":  "Bir duran varlığın maliyeti 500.000 TL, bugüne kadar ayrılan birikmiş amortismanı 300.000 TL\u0027dir. Bu varlığın bilançoda görünen NET DEFTER DEĞERİ kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "800.000 TL",
+                                       "B":  "500.000 TL",
+                                       "C":  "0 TL",
+                                       "D":  "300.000 TL",
+                                       "E":  "200.000 TL"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Maliyet ve amortisman TOPLANMAZ, çıkarılır. Toplama mantık hatasıdır.",
+                                         "B":  "Yanılgı dersi: 500.000 brüt maliyettir; birikmiş amortisman düşülmemiş.",
+                                         "C":  "Yanılgı dersi: Varlık tam amorti olmadıkça (birikmiş = maliyet) net değer sıfır olmaz; burada 200.000 kalıyor.",
+                                         "D":  "Yanılgı dersi: 300.000 birikmiş amortismandır, net değer değil.",
+                                         "E":  "DOĞRU: Net Defter Değeri = Maliyet − Birikmiş Amortisman = 500.000 − 300.000 = 200.000 TL. Bilançoda varlık maliyetiyle (500.000), birikmiş amortisman (257) ise düzenleyici (-) hesap olarak gösterilir; net 200.000 kalır."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - Bilanço ilkeleri (düzenleyici hesaplar); THP 257",
+                        "hap":  "Net Defter Değeri = Maliyet − Birikmiş Amortisman. Bilançoda varlık maliyetle görünür, 257 Birikmiş Amortisman (-) düzenleyici hesap olarak altında düşülür. Varlık tamamen amorti olunca (birikmiş=maliyet) net değer 0 olur ama varlık kayıttan silinmez. Tuzak: toplamak ya da birikmiş amortismanı net değer sanmak.",
+                        "tablo":  {
+                                      "baslik":  "Bilançoda duran varlık gösterimi",
+                                      "kolonlar":  [
+                                                       "Kalem",
+                                                       "Tutar (TL)"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "Tesis, Makine ve Cihazlar (maliyet)",
+                                                           "500.000"
+                                                       ],
+                                                       [
+                                                           "Birikmiş Amortisman (-)",
+                                                           "300.000"
+                                                       ],
+                                                       [
+                                                           "NET DEFTER DEĞERİ",
+                                                           "200.000 ←"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250107",
+                        "sinav":  "SMMM",
+                        "ders":  "Vergi Mevzuatı ve Uygulaması",
+                        "konu":  "amortisman yontem degistirme",
+                        "soru":  "VUK\u0027a göre amortisman yöntemleri arasında geçiş konusunda aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Bir kez seçilen yöntem hiçbir şekilde değiştirilemez",
+                                       "B":  "Azalan bakiyeler yönteminden normal amortisman yöntemine geçilebilir; ancak normalden azalan bakiyelere geçilemez",
+                                       "C":  "Her iki yönde de yıldan yıla serbestçe geçiş yapılabilir",
+                                       "D":  "Normal yöntemden azalan bakiyelere serbestçe geçilebilir",
+                                       "E":  "Yöntem değişikliği yalnızca vergi dairesinin özel izniyle yapılır"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Yöntem değiştirilebilir (azalandan normale); mutlak yasak yoktur.",
+                                         "B":  "DOĞRU: VUK, azalan bakiyeler yönteminden normal amortismana geçişe izin verir (kalan değer kalan süreye bölünerek). Ancak normal yöntemden azalan bakiyelere DÖNÜŞ yapılamaz — tek yönlü geçiş.",
+                                         "C":  "Yanılgı dersi: Geçiş çift yönlü serbest değildir; yalnız azalan→normal yönünde mümkündür.",
+                                         "D":  "Yanılgı dersi: Normalden azalana geçiş serbest değildir; yasak olan yön budur.",
+                                         "E":  "Yanılgı dersi: Azalandan normale geçiş için özel izin şartı yoktur; kanunen mümkündür."
+                                     },
+                        "kaynak":  "VUK mükerrer m.320 (Amortisman usulünü değiştirme)",
+                        "hap":  "Yöntem geçişi TEK YÖNLÜdür: azalan bakiyeler → normal amortisman GEÇİLEBİLİR (kalan net değer, kalan süreye eşit bölünür). Normal → azalan GEÇİLEMEZ. Bir hesap dönemi içinde uygulanan yöntem o dönem için değiştirilmez. Tuzak: \u0027serbestçe her iki yön\u0027 ya da \u0027hiç değişmez\u0027 uçları.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "amr250108",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "amortismanli varlik satisi zarar",
+                        "soru":  "Maliyeti 120.000 TL, birikmiş amortismanı 40.000 TL olan bir demirbaş, KDV hariç 55.000 TL\u0027ye satılmıştır (KDV ihmal). Bu satışın sonucu ve kaydı hangi hesabı içerir?",
+                        "siklar":  {
+                                       "A":  "15.000 TL zarar; 659 Diğer Olağan Gider ve Zararlar hesabına borç",
+                                       "B":  "65.000 TL zarar; 689 hesabına borç",
+                                       "C":  "55.000 TL kâr; 600 Yurtiçi Satışlar hesabına alacak",
+                                       "D":  "25.000 TL zarar; 689 Diğer Olağandışı Gider ve Zararlar hesabına borç",
+                                       "E":  "25.000 TL kâr; 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Tutar (15.000) ve hesap (659 olağan) yanlış; net defter değeriyle fark 25.000, hesap olağandışı 689\u0027dur.",
+                                         "B":  "Yanılgı dersi: Zarar, satış − net defter değeri farkıdır (25.000); birikmiş amortisman ihmal edilirse yanlış 65.000 çıkar.",
+                                         "C":  "Yanılgı dersi: Duran varlık satışı 600 değildir ve burada zarar var, kâr değil.",
+                                         "D":  "DOĞRU: Net defter değeri = 120.000 − 40.000 = 80.000. Satış 55.000 \u003c 80.000 → 25.000 ZARAR. Duran varlık satış zararı 689 Diğer Olağandışı Gider ve Zararlar\u0027a borç yazılır. Kayıtta 256/255 alacak (120.000), 257 borç (40.000), 102 borç (55.000), 689 borç (25.000).",
+                                         "E":  "Yanılgı dersi: Satış (55.000) net defter değerinin (80.000) altında; kâr değil ZARAR doğar."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 689 Diğer Olağandışı Gider ve Zararlar; 257",
+                        "hap":  "Satış \u003c net defter değeri → ZARAR → 689 (borç). Satış \u003e net defter değeri → KÂR → 679 (alacak). Her iki halde varlık maliyeti (25X) alacak, birikmiş amortisman (257) borç kapatılır. Duran varlık satışı OLAĞANDIŞIdır (67X/68X), olağan (64X/65X) veya esas faaliyet (600) değildir.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  55000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "257 Birikmiş Amortismanlar",
+                                            "borc":  40000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "689 Diğer Olağandışı Gider ve Zararlar",
+                                            "borc":  25000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "255 Demirbaşlar",
+                                            "borc":  0,
+                                            "alacak":  120000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    }
+                ]
+}
