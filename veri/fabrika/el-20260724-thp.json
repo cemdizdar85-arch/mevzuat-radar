@@ -1,0 +1,388 @@
+{
+    "kanal":  "el-partisi-gm",
+    "uretim":  "24.07.2026",
+    "not":  "GM el partisi: bu gece yutulan THP tam hesap plani aciklamalarina dayali muhasebe kaydi sorulari; her biri gercek THP metniyle dogrulandi, yevmiye+hayalet gorseli, GM denetimli.",
+    "sorular":  [
+                    {
+                        "id":  "thp250101",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "kdv indirilecek hesaplanan",
+                        "soru":  "Bir ticaret işletmesi, KDV hariç 100.000 TL\u0027lik ticari malı %20 KDV ile veresiye satın almıştır. Tekdüzen Hesap Planına göre bu alış kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "153 Ticari Mallar 100.000 borç, 191 İndirilecek KDV 20.000 borç; 100 Kasa 120.000 alacak",
+                                       "B":  "153 Ticari Mallar 100.000 borç, 191 İndirilecek KDV 20.000 borç; 320 Satıcılar 120.000 alacak",
+                                       "C":  "600 Yurtiçi Satışlar 100.000 alacak, 391 Hesaplanan KDV 20.000 alacak; 120 Alıcılar 120.000 borç",
+                                       "D":  "153 Ticari Mallar 120.000 borç; 320 Satıcılar 120.000 alacak",
+                                       "E":  "153 Ticari Mallar 100.000 borç, 391 Hesaplanan KDV 20.000 borç; 320 Satıcılar 120.000 alacak"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Ödeme veresiye; nakit çıkışı yok. 100 Kasa değil 320 Satıcılar alacaklanır.",
+                                         "B":  "DOĞRU: Alışta yüklenilen KDV 191 İndirilecek KDV\u0027ye BORÇ yazılır (ileride 391\u0027den düşülecek alacaktır). Mal bedeli 153\u0027e borç, veresiye olduğu için borç 320 Satıcılar\u0027a alacak. Borç toplamı 120.000 = alacak 120.000.",
+                                         "C":  "Yanılgı dersi: Bu bir SATIŞ kaydıdır; soru ALIŞ soruyor. Alışta 600 ve 391 çalışmaz.",
+                                         "D":  "Yanılgı dersi: KDV mal maliyetine EKLENMEZ; indirilebilir bir alacaktır, ayrı hesapta (191) izlenir. Malı 120.000\u0027den kaydetmek maliyeti şişirir.",
+                                         "E":  "Yanılgı dersi: Alışta ödenen KDV 391 Hesaplanan değil 191 İndirilecek\u0027tir. 391 yalnız SATIŞTA hesaplanan KDV için, alacak tarafında çalışır."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 191 İndirilecek KDV; 153; 320",
+                        "hap":  "Alışta yüklenilen KDV = 191 İndirilecek KDV (BORÇ). Satışta hesaplanan KDV = 391 Hesaplanan KDV (ALACAK). Ay sonunda 391 \u003e 191 ise fark 360 Ödenecek Vergi; 191 \u003e 391 ise fark 190 Devreden KDV\u0027ye gider. Tuzak: alış KDV\u0027sini mal maliyetine katmak ya da 391\u0027e yazmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "153 Ticari Mallar",
+                                            "borc":  100000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "191 İndirilecek KDV",
+                                            "borc":  20000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "320 Satıcılar",
+                                            "borc":  0,
+                                            "alacak":  120000
+                                        }
+                                    ],
+                        "yanlisKayitlar":  {
+                                               "D":  [
+                                                         {
+                                                             "hesap":  "153 Ticari Mallar",
+                                                             "borc":  120000,
+                                                             "alacak":  0
+                                                         },
+                                                         {
+                                                             "hesap":  "320 Satıcılar",
+                                                             "borc":  0,
+                                                             "alacak":  120000
+                                                         }
+                                                     ]
+                                           },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250102",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "yurtici satis hesaplanan kdv",
+                        "soru":  "Bir işletme, maliyeti 60.000 TL olan ticari malı KDV hariç 90.000 TL\u0027ye %20 KDV ile peşin (banka) satmıştır. Sadece SATIŞ hasılatı kaydı (maliyet kaydı hariç) Tekdüzen Hesap Planına göre nasıl yapılır?",
+                        "siklar":  {
+                                       "A":  "120 Alıcılar 108.000 borç; 600 Yurtiçi Satışlar 90.000 alacak, 391 Hesaplanan KDV 18.000 alacak",
+                                       "B":  "102 Bankalar 108.000 borç; 621 Satılan Ticari Mallar Maliyeti 90.000 alacak, 391 Hesaplanan KDV 18.000 alacak",
+                                       "C":  "102 Bankalar 108.000 borç; 600 Yurtiçi Satışlar 90.000 alacak, 391 Hesaplanan KDV 18.000 alacak",
+                                       "D":  "102 Bankalar 90.000 borç; 600 Yurtiçi Satışlar 90.000 alacak",
+                                       "E":  "102 Bankalar 108.000 borç; 600 Yurtiçi Satışlar 90.000 alacak, 191 İndirilecek KDV 18.000 alacak"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Tahsilat peşin ve banka yoluyla; 120 Alıcılar (veresiye) değil 102 Bankalar borçlanır.",
+                                         "B":  "Yanılgı dersi: 621 maliyet hesabıdır ve bu ayrı bir kayıttır (152/153 alacak, 621 borç). Hasılat kaydında 600 kullanılır, 621 alacak yazılmaz.",
+                                         "C":  "DOĞRU: Satış bedeli 600 Yurtiçi Satışlar\u0027a alacak, üzerinden hesaplanan KDV 391 Hesaplanan KDV\u0027ye alacak; peşin/banka tahsilat 102\u0027ye borç. Borç 108.000 = alacak (90.000 + 18.000).",
+                                         "D":  "Yanılgı dersi: KDV unutulmuş. Tahsil edilen tutar 108.000\u0027dir ve 18.000 KDV mutlaka 391\u0027e alacak yazılır.",
+                                         "E":  "Yanılgı dersi: Satışta hesaplanan KDV 191 değil 391\u0027dir. 191 yalnız ALIŞTA ödenen KDV içindir."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 391 Hesaplanan KDV; 600 Yurtiçi Satışlar",
+                        "hap":  "Satış iki ayrı kayıttır: (1) HASILAT: 102/120 borç, 600 + 391 alacak. (2) MALİYET: 621 borç, 153 alacak. Soru \u0027sadece hasılat\u0027 derse maliyet kaydını karıştırma. Satışın KDV\u0027si daima 391 Hesaplanan (alacak).",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  108000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "600 Yurtiçi Satışlar",
+                                            "borc":  0,
+                                            "alacak":  90000
+                                        },
+                                        {
+                                            "hesap":  "391 Hesaplanan KDV",
+                                            "borc":  0,
+                                            "alacak":  18000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250103",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "satilan ticari mallar maliyeti",
+                        "soru":  "Perakende bir mağaza, kayıtlı maliyeti 45.000 TL olan ticari malları satmıştır. Satılan malın işletmeden ÇIKIŞINA (maliyet aktarımına) ilişkin Tekdüzen Hesap Planı kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "621 Satılan Ticari Mallar Maliyeti 45.000 borç; 153 Ticari Mallar 45.000 alacak",
+                                       "B":  "600 Yurtiçi Satışlar 45.000 borç; 153 Ticari Mallar 45.000 alacak",
+                                       "C":  "620 Satılan Mamuller Maliyeti 45.000 borç; 152 Mamuller 45.000 alacak",
+                                       "D":  "621 Satılan Ticari Mallar Maliyeti 45.000 borç; 391 Hesaplanan KDV 45.000 alacak",
+                                       "E":  "153 Ticari Mallar 45.000 borç; 621 Satılan Ticari Mallar Maliyeti 45.000 alacak"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Satılan TİCARİ mal, stoktan çıkarken maliyet 621 Satılan Ticari Mallar Maliyeti\u0027ne borç, 153 Ticari Mallar\u0027a alacak yazılır. Böylece stok azalır, gider oluşur.",
+                                         "B":  "Yanılgı dersi: 600 hasılat hesabıdır, maliyet aktarımıyla ilgisi yok; maliyet 621\u0027e gider.",
+                                         "C":  "Yanılgı dersi: 620/152 ÜRETİLEN MAMUL içindir. Alınıp satılan ticari malda 621/153 kullanılır. Ticari mal ≠ mamul.",
+                                         "D":  "Yanılgı dersi: Maliyet kaydında KDV yoktur; KDV yalnız hasılat kaydında (391) yer alır.",
+                                         "E":  "Yanılgı dersi: Yön ters. Mal çıkıyor (153 azalır=alacak), gider doğuyor (621 borç). Ters kayıt stoğu artırır."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 621 Satılan Ticari Mallar Maliyeti; 620 (mamul ayrımı)",
+                        "hap":  "Ticari mal satışında maliyet: 621 borç / 153 alacak. Üretim işletmesinde mamul satışında: 620 borç / 152 alacak. Ezber: \u002762X borç, stok (15X) alacak\u0027. Tuzak: ticari mal-mamul karışıklığı (621↔620, 153↔152).",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "621 Satılan Ticari Mallar Maliyeti",
+                                            "borc":  45000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "153 Ticari Mallar",
+                                            "borc":  0,
+                                            "alacak":  45000
+                                        }
+                                    ],
+                        "yanlisKayitlar":  {
+                                               "C":  [
+                                                         {
+                                                             "hesap":  "620 Satılan Mamuller Maliyeti",
+                                                             "borc":  45000,
+                                                             "alacak":  0
+                                                         },
+                                                         {
+                                                             "hesap":  "152 Mamuller",
+                                                             "borc":  0,
+                                                             "alacak":  45000
+                                                         }
+                                                     ]
+                                           },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250104",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "kdv tahakkuku ay sonu",
+                        "soru":  "Bir işletmenin bir ay içinde 191 İndirilecek KDV hesabı 30.000 TL, 391 Hesaplanan KDV hesabı 50.000 TL bakiye vermiştir. Ay sonunda KDV tahakkuk kaydı Tekdüzen Hesap Planına göre nasıl yapılır?",
+                        "siklar":  {
+                                       "A":  "391 Hesaplanan KDV 50.000 borç; 191 İndirilecek KDV 30.000 alacak, 360 Ödenecek Vergi ve Fonlar 20.000 alacak",
+                                       "B":  "191 İndirilecek KDV 50.000 borç; 391 Hesaplanan KDV 30.000 alacak, 190 Devreden KDV 20.000 alacak",
+                                       "C":  "391 Hesaplanan KDV 50.000 borç; 190 Devreden KDV 50.000 alacak",
+                                       "D":  "360 Ödenecek Vergi ve Fonlar 20.000 borç; 391 Hesaplanan KDV 20.000 alacak",
+                                       "E":  "391 Hesaplanan KDV 50.000 borç; 191 İndirilecek KDV 50.000 alacak"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Ay sonunda 391 (50.000) kapatılır: borç yazılır. 191 (30.000) alacakla kapatılır. Hesaplanan \u003e İndirilecek olduğu için aradaki 20.000 ödenecek vergidir → 360 Ödenecek Vergi ve Fonlar alacak.",
+                                         "B":  "Yanılgı dersi: Hesaplar ters yazılmış ve durum yanlış okunmuş. Hesaplanan (50.000) \u003e İndirilecek (30.000) olduğunda 190 Devreden değil 360 Ödenecek doğar.",
+                                         "C":  "Yanılgı dersi: 191\u0027i kapatmadan 391\u0027in tamamını devreden yazmak yanlış; önce 191 mahsup edilir, kalan yön belirlenir.",
+                                         "D":  "Yanılgı dersi: 360 borç değil ALACAK çalışır (henüz ödenmemiş bir borç doğuyor); ayrıca 191 mahsubu eksik.",
+                                         "E":  "Yanılgı dersi: 191 yalnız 30.000 bakiye verirken 50.000 alacaklandırılamaz; olmayan tutar kapatılamaz, fark ihmal edilmiş."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 191, 391, 360 Ödenecek Vergi ve Fonlar",
+                        "hap":  "Ay sonu KDV mahsubu: 391 borç (kapat), 191 alacak (kapat). 391\u003e191 → fark 360 Ödenecek Vergi (alacak). 191\u003e391 → fark 190 Devreden KDV (borç), sonraki aya taşınır. Ezber: \u0027büyük olanı borçla kapat, küçüğü alacakla, farkı yöne göre 360 ya da 190\u0027.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "391 Hesaplanan KDV",
+                                            "borc":  50000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "191 İndirilecek KDV",
+                                            "borc":  0,
+                                            "alacak":  30000
+                                        },
+                                        {
+                                            "hesap":  "360 Ödenecek Vergi ve Fonlar",
+                                            "borc":  0,
+                                            "alacak":  20000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250105",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "satis iskontolari",
+                        "soru":  "Bir toptancı, kredili sattığı mal için düzenlediği faturadan SONRA, alıcının vadesinden önce ödeme yapması nedeniyle 5.000 TL kasa iskontosu uygulamıştır (KDV ihmal). Tekdüzen Hesap Planına göre bu iskonto hangi hesaba nasıl kaydedilir?",
+                        "siklar":  {
+                                       "A":  "600 Yurtiçi Satışlar hesabına 5.000 TL borç (satış doğrudan azaltılır)",
+                                       "B":  "610 Satıştan İadeler hesabına 5.000 TL borç",
+                                       "C":  "611 Satış Iskontoları hesabına 5.000 TL borç",
+                                       "D":  "653 Komisyon Giderleri hesabına 5.000 TL borç",
+                                       "E":  "657 Reeskont Faiz Giderleri hesabına 5.000 TL borç"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Satış gerçekleştikten sonraki iskonto 600\u0027ü doğrudan azaltmaz; ayrı bir düzenleyici hesapta (611) toplanır ki brüt satış görünür kalsın.",
+                                         "B":  "Yanılgı dersi: 610 Satıştan İadeler MAL GERİ DÖNÜŞÜ içindir; burada mal iadesi yok, fiyat/ödeme iskontosu var.",
+                                         "C":  "DOĞRU: Fatura düzenlenip satış gerçekleştikten SONRA yapılan kasa ve miktar iskontoları 611 Satış Iskontoları (-) hesabında izlenir; bu bir satış indirimidir, borç bakiyesi verir.",
+                                         "D":  "Yanılgı dersi: 653 Komisyon Giderleri satış iskontosu değildir; iskonto hasılatın düzeltmesidir, faaliyet gideri değil.",
+                                         "E":  "Yanılgı dersi: 657 reeskont/faiz gideri içindir. Kasa iskontosu erken ödeme indirimi olsa da TDHP bunu 611\u0027de izler, faiz gideri saymaz."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 611 Satış Iskontoları (-)",
+                        "hap":  "Satış sonrası iskontolar (kasa+miktar) = 611 Satış Iskontoları (-), borç. 610 Satıştan İadeler = malın geri dönüşü. 612 Diğer İndirimler ayrı. Üçü de gelir tablosunda brüt satıştan düşülür (net satışa iner). Tuzak: 611 ile 610\u0027u karıştırmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "611 Satış Iskontoları (-)",
+                                            "borc":  5000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  0,
+                                            "alacak":  5000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250106",
+                        "sinav":  "SMMM",
+                        "ders":  "Finansal Tablolar ve Analizi",
+                        "konu":  "brut satis kari net satis",
+                        "soru":  "Bir işletmenin gelir tablosunda Brüt Satışlar 800.000 TL, Satıştan İadeler 50.000 TL, Satış Iskontoları 30.000 TL, Satılan Malın Maliyeti 500.000 TL\u0027dir. Brüt Satış Kârı kaç TL\u0027dir?",
+                        "siklar":  {
+                                       "A":  "170.000 TL",
+                                       "B":  "270.000 TL",
+                                       "C":  "300.000 TL",
+                                       "D":  "250.000 TL",
+                                       "E":  "220.000 TL"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: İndirimler iki kez ya da fazladan düşülmüş (aşırı düşüm). Yalnız iade+iskonto bir kez düşülür.",
+                                         "B":  "Yanılgı dersi: Yalnız bir indirim düşülmüş (ör. 800.000−30.000−500.000). İade VE iskonto birlikte düşülmeli.",
+                                         "C":  "Yanılgı dersi: 800.000 − 500.000 = 300.000; iade ve iskontolar (net satışa inişte) düşülmemiş. Brüt satıştan değil NET satıştan gidilir.",
+                                         "D":  "Yanılgı dersi: 720.000 net doğru bulunmuş olabilir ama SMM yanlış (ör. 470.000) uygulanmış; SMM tam 500.000\u0027dir.",
+                                         "E":  "DOĞRU: Net Satışlar = Brüt Satışlar − İadeler − İskontolar = 800.000 − 50.000 − 30.000 = 720.000. Brüt Satış Kârı = Net Satışlar − SMM = 720.000 − 500.000 = 220.000 TL."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - Gelir Tablosu (Brüt Satışlar, İndirimler, Brüt Satış Kârı)",
+                        "hap":  "Sıra: Brüt Satışlar − (İadeler+İskontolar+Diğer İndirimler) = NET SATIŞLAR. Net Satışlar − SMM = BRÜT SATIŞ KÂRI. Faaliyet giderleri (630/631/632) sonra düşülür = Faaliyet Kârı. Tuzak: brüt satıştan doğrudan SMM düşmek.",
+                        "tablo":  {
+                                      "baslik":  "Gelir Tablosu — Brüt Satış Kârına iniş",
+                                      "kolonlar":  [
+                                                       "Kalem",
+                                                       "Tutar (TL)"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "Brüt Satışlar",
+                                                           "800.000"
+                                                       ],
+                                                       [
+                                                           "Satıştan İadeler (-)",
+                                                           "50.000"
+                                                       ],
+                                                       [
+                                                           "Satış Iskontoları (-)",
+                                                           "30.000"
+                                                       ],
+                                                       [
+                                                           "NET SATIŞLAR",
+                                                           "720.000"
+                                                       ],
+                                                       [
+                                                           "Satılan Malın Maliyeti (-)",
+                                                           "500.000"
+                                                       ],
+                                                       [
+                                                           "BRÜT SATIŞ KÂRI",
+                                                           "220.000 ←"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250107",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "yurtdisi satislar ihracat",
+                        "soru":  "Bir üretici, mallarını yurt dışındaki bir müşteriye ihraç etmiştir. Tekdüzen Hesap Planına göre bu ihracat hasılatı hangi hesaba kaydedilir ve KDV yönünden özelliği nedir?",
+                        "siklar":  {
+                                       "A":  "601 Yurtdışı Satışlar hesabına alacak; ihracat teslimleri KDV\u0027den istisna olduğundan 391 Hesaplanan KDV çalışmaz",
+                                       "B":  "649 Diğer Olağan Gelir ve Kârlar hesabına alacak; ihracat faaliyet dışıdır",
+                                       "C":  "601 Yurtdışı Satışlar hesabına alacak; ayrıca 391 Hesaplanan KDV alacak yazılır",
+                                       "D":  "602 Diğer Gelirler hesabına alacak; KDV istisnası uygulanmaz",
+                                       "E":  "600 Yurtiçi Satışlar hesabına alacak; ihracatta da %20 hesaplanan KDV uygulanır"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Yurt dışına satılan mal/hizmet bedeli 601 Yurtdışı Satışlar\u0027da izlenir. İhracat teslimleri KDV Kanunu\u0027nda istisna olduğundan satış üzerinden hesaplanan KDV (391) doğmaz.",
+                                         "B":  "Yanılgı dersi: İhracat işletmenin esas faaliyetidir; 649 (faaliyet dışı) değil, 601 esas satış hesabına yazılır.",
+                                         "C":  "Yanılgı dersi: İhracat istisnası nedeniyle 391 çalışmaz; yurt dışı satışa hesaplanan KDV eklemek hatadır.",
+                                         "D":  "Yanılgı dersi: İhracat esas faaliyet satışıdır; 602 Diğer Gelirler değil 601 kullanılır.",
+                                         "E":  "Yanılgı dersi: İhracat 600 değil 601\u0027dir; ayrıca ihracat KDV istisnası olduğu için hesaplanan KDV uygulanmaz."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 601 Yurtdışı Satışlar",
+                        "hap":  "İhracat hasılatı = 601 Yurtdışı Satışlar (esas faaliyet). İhracat teslimleri KDV\u0027den istisna → satışta 391 Hesaplanan KDV yok; ancak ihracatçının yüklendiği 191 KDV iade/mahsup konusu olur. Tuzak: 601\u0027i 600 sanmak ya da ihracata hesaplanan KDV eklemek.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  100000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "601 Yurtdışı Satışlar",
+                                            "borc":  0,
+                                            "alacak":  100000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "thp250108",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "satistan iadeler",
+                        "soru":  "Bir işletmeye, daha önce KDV hariç 20.000 TL\u0027ye %20 KDV ile veresiye sattığı malın tamamı ayıplı olduğu için iade edilmiştir. Tekdüzen Hesap Planına göre iade kaydının hasılat tarafı nasıldır?",
+                        "siklar":  {
+                                       "A":  "600 Yurtiçi Satışlar 20.000 borç, 391 Hesaplanan KDV 4.000 borç; 120 Alıcılar 24.000 alacak",
+                                       "B":  "610 Satıştan İadeler 20.000 borç, 391 Hesaplanan KDV 4.000 borç; 120 Alıcılar 24.000 alacak",
+                                       "C":  "120 Alıcılar 24.000 borç; 610 Satıştan İadeler 20.000 alacak, 391 Hesaplanan KDV 4.000 alacak",
+                                       "D":  "611 Satış Iskontoları 20.000 borç; 120 Alıcılar 20.000 alacak",
+                                       "E":  "610 Satıştan İadeler 20.000 borç, 191 İndirilecek KDV 4.000 borç; 120 Alıcılar 24.000 alacak"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: İade doğrudan 600\u0027ü azaltmaz; brüt satış görünür kalsın diye ayrı düzenleyici hesap 610 kullanılır.",
+                                         "B":  "DOĞRU: Mal iadesinde satış geri alınır: 610 Satıştan İadeler\u0027e 20.000 borç (net satışı azaltan düzeltici hesap), satışta hesaplanan KDV de geri çevrilir → 391 Hesaplanan KDV 4.000 borç; alıcının borcu silinir → 120 Alıcılar 24.000 alacak.",
+                                         "C":  "Yanılgı dersi: Yön ters. İadede 610 borçlanır (satış azalır), 120 alacaklanır; bu şık kaydı tersine çevirmiş.",
+                                         "D":  "Yanılgı dersi: İade ≠ iskonto. Mal geri döndü (610); ayrıca KDV düzeltmesi eksik.",
+                                         "E":  "Yanılgı dersi: Bu bir SATIŞ iadesidir; geri çevrilen KDV satışın 391 Hesaplanan KDV\u0027sidir, 191 değil."
+                                     },
+                        "kaynak":  "MSUGT Sıra No:1 - THP 610 Satıştan İadeler (-); 391",
+                        "hap":  "Mal iadesi = 610 Satıştan İadeler (borç) + iadeye düşen 391 Hesaplanan KDV (borç, geri çevrilir) / 120 Alıcılar (alacak). 610=mal geri döner, 611=iskonto, 612=diğer indirim. Üçü de net satışı düşürür. Tuzak: iade KDV\u0027sini 191\u0027e yazmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "610 Satıştan İadeler (-)",
+                                            "borc":  20000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "391 Hesaplanan KDV",
+                                            "borc":  4000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  0,
+                                            "alacak":  24000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    }
+                ]
+}
