@@ -1,4 +1,17 @@
 # MEVZUAT YUTMA LİSTESİ
+
+## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
+*Amaç: soru fabrikasının ve denetimin dayandığı TEORİ metinlerini de birincil kaynaktan ambara almak.
+Kanun ayağı zaten tamam (VUK/TTK/TBK/İİK/KDVK/KVK... 13.373 madde ambarda, günlük aynada). Eksik olan STANDART/teori metinleri:*
+| Sıradaki metin | Kaynak | Besleyeceği alan |
+|---|---|---|
+| TMS 1 Finansal Tabloların Sunuluşu (güncel set) | KGK (kgk.gov.tr) resmî seti | önemlilik, toplulaştırma, netleştirme soruları |
+| TMS 2 Stoklar · TMS 16 Maddi Duran Varlık · TMS 21 Kur Değişimi | KGK resmî seti | Finansal Muhasebe soru/denetimleri |
+| TFRS seti (kalan güncel standartlar, parti parti) | KGK resmî seti | Yeterlilik Finansal Muhasebe/Denetim |
+| BDS 700/705/706 (denetçi görüşleri) | KGK Bağımsız Denetim Standartları | Muhasebe Denetimi soruları |
+| Muhasebe Sistemi Uygulama Genel Tebliği No:1 (temel kavramlar + Tekdüzen açıklamaları, tam metin) | GİB/mevzuat | kavram ve hesap işleyişi sorularının ana dayanağı |
+*Yöntem aynı Kanun Aynası deseni: PDF indir → yut → ambara `standart-madde` türüyle → AmbarTeyit soru kaynaklarını buradan da doğrular.*
+
 *Anayasa kuralı (12.07.2026, Cem): İçerik yayınlanmadan önce ilgili BİRİNCİL metin yutulur.
 İkincil kaynak (sunum/blog/sirküler) yalnız keşif içindir; iddia asla ikincilden yayınlanmaz.
 Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı çıkar) → özet kaynak-ozetleri/ → içerik ondan kurulur.*
