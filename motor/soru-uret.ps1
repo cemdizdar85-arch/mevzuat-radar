@@ -18,8 +18,8 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $MODEL_URET = "claude-sonnet-5"
 $MODEL_COZ  = "claude-haiku-4-5-20251001"
-$KONU_LIMIT = 10   # Cem 23.07: "acilista 500 soru" — kosu basi 50 aday (10 konu x 5), gunde 5 vardiya = 250 aday tavani
-$ADET = 5
+$KONU_LIMIT = 15   # 23.07 Cem "1500 de az": kosu basi 90 aday (15 konu x 6); 12 vardiya = ~1.080 aday/gun
+$ADET = 6
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
 
