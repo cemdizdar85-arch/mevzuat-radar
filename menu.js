@@ -4,6 +4,44 @@
 (function(){
 if(window.MRMenu) return;
 
+/* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
+   Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
+   AÇILIŞ GÜNÜ bu bloğun tamamı silinecek (rebrand gecesi kontrol listesinde). */
+try {
+  var q = new URLSearchParams(location.search);
+  if (q.get('kapi') === 'tetikte2026') { localStorage.setItem('mrOnizleme','1'); }
+  if (localStorage.getItem('mrOnizleme') !== '1') {
+    var perde = function(){
+      if (document.getElementById('mrPerde')) return;
+      var d = document.createElement('div');
+      d.id = 'mrPerde';
+      d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#06090f;color:#eef2f7;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
+      d.innerHTML = '<div style="max-width:460px">'+
+        '<div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#2f7bff,#26d0fe);display:inline-grid;place-items:center;color:#03101f;font-weight:800;font-size:26px;margin-bottom:18px">T</div>'+
+        '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ddc97;animation:mrNbz 1.6s ease-out infinite"></span></h1>'+
+        '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
+        '<p style="color:#93a1b3;font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:#eef2f7">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
+        '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
+        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:#0d141e;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:12px 14px">'+
+        '<button type="submit" style="background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
+        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div>'+
+        '<div style="font-size:11px;color:#5d6b7c;margin-top:16px">Katılınca bilgilendirme e-postası almayı kabul edersin.</div></div>';
+      document.body.appendChild(d);
+      document.documentElement.style.overflow = 'hidden';
+      document.getElementById('mrPerdeForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        var em = this.querySelector('input').value.trim();
+        if(!em) return;
+        try { fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:em,subject:'ACILIS PERDESI erken kayit',from_name:'Tetikte Perde'})}); } catch(err){}
+        this.style.display='none';
+        document.getElementById('mrPerdeOk').style.display='block';
+      });
+    };
+    if (document.body) { perde(); } else { document.addEventListener('DOMContentLoaded', perde); }
+    return; /* perde varken menu de kurulmasin */
+  }
+} catch(e) {}
+
 var GRUPLAR=[
  {ad:"🛃 Gümrük & İthalat", araclar:[
   ["gtip.html","🔎","GTİP · Kaç Vergi Öderim?","İthalatta gümrük vergisi, KDV ve kesintiler"],
