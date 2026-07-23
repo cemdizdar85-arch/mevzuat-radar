@@ -292,11 +292,18 @@ function cevabiGor(){
   // sonra dogru sikkin gerekcesi, sonra kalanlar.
   var sira=['A','B','C','D','E'].filter(function(x){return s.aciklama && (x in s.aciklama);});
   if(SECILI && SECILI!==s.dogru){ sira=[SECILI, s.dogru].concat(sira.filter(function(x){return x!==SECILI && x!==s.dogru;})); }
+  // FERAH EKRAN (Cem onerisi 24.07, UWorld akisi): SECILEN + DOGRU sik acik gelir;
+  // kalan siklarin dersleri katlanir — pedagoji cop olmaz, isteyen acar okur.
+  var digerH='';
   sira.forEach(function(harf){
     var d=(harf===s.dogru), sen=(harf===SECILI && !d);
-    h+='<div class="gk'+(d?' dogruG':'')+'"'+(sen?' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"':'')+'>'+
+    var blok='<div class="gk'+(d?' dogruG':'')+'"'+(sen?' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"':'')+'>'+
        '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+(sen?'<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>':'')+esc(s.aciklama[harf])+'</span></div>';
+    if(d || harf===SECILI) h+=blok; else digerH+=blok;
   });
+  if(digerH){
+    h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
+  }
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
   if(s.hap){
     var yanlisMi=(SECILI!==s.dogru);
