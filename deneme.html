@@ -261,10 +261,14 @@ function cevabiGor(){
     else if(b.dataset.h===SECILI) b.classList.add('yanlis');
   });
   var g=document.getElementById('gerekceKutu'), h='';
-  ['A','B','C','D','E'].forEach(function(harf){
-    if(!(s.aciklama&&harf in s.aciklama)) return;
-    var d=(harf===s.dogru);
-    h+='<div class="gk'+(d?' dogruG':'')+'"><span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+esc(s.aciklama[harf])+'</span></div>';
+  // SIRA PEDAGOJIK (Cem ilkesi): once SENIN sikkinin dersi (yanilgin neydi),
+  // sonra dogru sikkin gerekcesi, sonra kalanlar.
+  var sira=['A','B','C','D','E'].filter(function(x){return s.aciklama && (x in s.aciklama);});
+  if(SECILI && SECILI!==s.dogru){ sira=[SECILI, s.dogru].concat(sira.filter(function(x){return x!==SECILI && x!==s.dogru;})); }
+  sira.forEach(function(harf){
+    var d=(harf===s.dogru), sen=(harf===SECILI && !d);
+    h+='<div class="gk'+(d?' dogruG':'')+'"'+(sen?' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"':'')+'>'+
+       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+(sen?'<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>':'')+esc(s.aciklama[harf])+'</span></div>';
   });
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
   if(s.hap){

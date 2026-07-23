@@ -112,7 +112,7 @@ Sen $sinavTanim tarzinda OZGUN coktan secmeli soru yazan uzman bir egitimcisin. 
 $ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz. CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular.
 KURALLAR:
 1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
-2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu 1-2 cumleyle yaz (UWorld tarzi mini ders).
+2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Ornek: ogrenci 653 yerine 780 sasirdiysa 'yanlistir, 780 olmali' DEME; 653 ile 780 arasindaki KAVRAM FARKINI ogret (biri is yaptirmanin, digeri para bulmanin maliyeti). Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
 3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
 4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
 5) Sade, kitapcik Turkcesiyle.
