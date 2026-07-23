@@ -309,6 +309,7 @@ function cevabiGor(){
     var yanlisMi=(SECILI!==s.dogru);
     h+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+(yanlisMi?'📖 <b>Yanlış yaptın — konuyu 60 saniyede oku:</b> ':'📖 <b>Konu özeti:</b> ')+esc(s.hap)+'</div>';
   }
+  h+=tabloGorsel(s);
   h+=yevmiyeGorsel(s);
   g.innerHTML=h; g.classList.remove('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
@@ -316,6 +317,26 @@ function cevabiGor(){
 }
 
 function tl(n){ return Number(n).toLocaleString('tr-TR'); }
+// EXHIBIT TABLOSU (Cem/UWorld fikri 24.07): analiz-tablo sorularinda mini gelir
+// tablosu/bilanco cizilir — hesap lafla degil TABLONUN USTUNDE gosterilir.
+// Format: {baslik, kolonlar:[...], satirlar:[[hucre,...],...]} — icinde '←' gecen satir vurgulanir.
+function tabloGorsel(s){
+  if(!s.tablo || !s.tablo.satirlar || !s.tablo.satirlar.length) return '';
+  var t=s.tablo;
+  var h='<div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--accent2)">📊 '+esc(t.baslik||'Tablo üzerinde göster')+':</div>';
+  h+='<div class="yevmiye"><table>';
+  if(t.kolonlar && t.kolonlar.length){
+    h+='<tr>'; t.kolonlar.forEach(function(k,i){ h+='<th'+(i>0?' style="text-align:right"':'')+'>'+esc(k)+'</th>'; }); h+='</tr>';
+  }
+  t.satirlar.forEach(function(sat){
+    var vurgu = sat.some(function(c){ return (''+c).indexOf('←')>-1; });
+    h+='<tr'+(vurgu?' style="background:rgba(94,215,255,.10);font-weight:800"':'')+'>';
+    sat.forEach(function(c,i){ h+='<td'+(i>0?' class="t"':'')+'>'+esc(''+c)+'</td>'; });
+    h+='</tr>';
+  });
+  h+='</table></div>';
+  return h;
+}
 // GORSEL COZUM (Cem vizyonu): kayit sorularinda yevmiye maddesi + T-cetvelleri —
 // hangi hesap borclaniyor, hangi tarafa yaziliyor, muhasebe bilmeyen bile GORSUN.
 function yevmiyeGorsel(s){
