@@ -44,6 +44,17 @@ function ClaudePdf($b64, $istem, $maxtok){
         -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 900
   return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
 }
+# 24.07: ayni PDF parcasina pes pese cok soru soruldugunda belge blogu prompt-onbellegine
+# alinir (cache_control) - THP tam yutmasi gibi cok-cagrili islerde girdi maliyeti ~%90 duser.
+function ClaudePdfOnbellekli($b64, $istem, $maxtok){
+  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
+    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 }; cache_control=@{ type="ephemeral" } },
+    @{ type="text"; text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
+  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
+        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
+        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 900
+  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+}
 
 # KESIK-JSON SIGORTASI: once tam diziyi dene; olmazsa (cevap token sinirinda
 # kesildiyse kapanis ']' yoktur) tamamlanmis tekil nesneleri tek tek kurtar.
@@ -203,8 +214,9 @@ foreach($e in $bdsEkleri){
 $msugtVar1 = Test-Path (Join-Path $kok "veri/mevzuat/msugt1.json")          # kavramlar + ilk 20 THP
 $msugtVarI = Test-Path (Join-Path $kok "veri/mevzuat/msugt-ilkeler.json")   # mali tablolar ilkeleri
 $msugtVar2 = Test-Path (Join-Path $kok "veri/mevzuat/msugt-thp2.json")      # ek hesaplar (305/308/63x/66x/7A)
+$msugtVarT = Test-Path (Join-Path $kok "veri/mevzuat/msugt-thp-tam.json")   # 24.07 Cem emri: TUM hesap aciklamalari
 try {
-  if($msugtVar1 -and $msugtVarI -and $msugtVar2){
+  if($msugtVar1 -and $msugtVarI -and $msugtVar2 -and $msugtVarT){
     Write-Host "MSUGT: tum hedefler zaten mevcut - atlandi"
     $rapor += "MSUGT: ATLANDI - tum hedef dosyalar depoda"
     throw [System.Exception]::new("__MSUGT_ATLA__")
@@ -380,6 +392,65 @@ SADECE JSON dizisi: [{"kod":"305","ad":"...","metin":"..."}]
       $rapor += ("MSUGT-thp2: OK - {0} hesap yazildi" -f @($ekBelgeler).Count)
     } else {
       $rapor += ("MSUGT-thp2: YAZILMADI - yalniz {0} hesap cikti (esik 6)" -f @($ekBelgeler).Count)
+    }
+  }
+
+  # 2e: THP TAM YUTMA (24.07 Cem emri "mufredatin kalbi - yut simdi"): tebligdeki
+  # TUM hesap aciklamalari, mevcut 31 kod haric. PDF secili metin katmani bozuk
+  # (Turkce harfler dusuyor - pdftotext/Word denendi), o yuzden gorsel okuma sart.
+  # Maliyet freni: parca basi belge onbellege alinir (ClaudePdfOnbellekli), gruplar
+  # ayni parcaya pes pese sorulur -> girdi bir kez odenir.
+  if($msugtVarT){ $rapor += "MSUGT-thp-tam: ATLANDI - depoda" }
+  else {
+    $mevcutKodlar = @('100','102','120','121','128','153','180','257','305','308','320','380','600','610','621','630','631','632','642','653','659','660','661','680','689','710','720','730','731','770','780')
+    $gruplarT = @(
+      @{ ad='1 DONEN VARLIKLAR (10-19 gruplari, 1xx kodlari)' },
+      @{ ad='2 DURAN VARLIKLAR (22-29 gruplari, 2xx kodlari)' },
+      @{ ad='3 KISA VADELI YABANCI KAYNAKLAR (3xx kodlari)' },
+      @{ ad='4 UZUN VADELI YABANCI KAYNAKLAR (4xx kodlari)' },
+      @{ ad='5 OZKAYNAKLAR (5xx kodlari)' },
+      @{ ad='6 GELIR TABLOSU HESAPLARI (6xx kodlari)' },
+      @{ ad='7 MALIYET HESAPLARI (7xx kodlari, 7/A ve 7/B secenekleri)' }
+    )
+    $tamBelgeler = @(); $gorulenT = @{}
+    foreach($p in $parcalar){
+      $b64T = ParcaB64 $p.dosya
+      foreach($g in $gruplarT){
+        $istemT = @"
+Bu belge 1 Sira No.lu Muhasebe Sistemi Uygulama Genel Tebligi'nin bir parcasidir ($($p.ad)). 'Tekduzen Hesap Plani Aciklamalari' bolumunde $($g.ad) grubu bu parcaya denk geliyorsa, bu gruptaki HESAPLARIN TUMUNUN isleyis aciklamalarini belgede YAZDIGI GIBI cikar (hesabin niteligi + borc/alacak isleyisi).
+SU KODLARI ATLA (zaten arsivde): $($mevcutKodlar -join ', ').
+Aciklamasi olmayan/bos birakilmis kodlari koyma; uydurma. Bu parcada bu grup yoksa bos dizi [] dondur.
+SADECE JSON dizisi: [{"kod":"101","ad":"ALINAN CEKLER","metin":"..."}]
+"@
+        try {
+          $ht = JsonYakala (ClaudePdfOnbellekli $b64T $istemT 30000)
+          $eklenenT = 0
+          foreach($x in @($ht)){
+            if(-not $x.kod -or "$($x.metin)".Length -lt 40){ continue }
+            $kt = "$($x.kod)".Trim()
+            if($kt -notmatch '^[1-7]\d{2}$'){ continue }
+            if($mevcutKodlar -contains $kt){ continue }
+            if($gorulenT[$kt]){ continue }; $gorulenT[$kt] = 1
+            $tamBelgeler += [ordered]@{
+              tur='standart-madde'
+              kaynak_ad = "THP $kt - $($x.ad)"
+              baslik = 'Tekduzen Hesap Plani Aciklamalari'
+              metin = ("MSUGT Sira No:1 Tekduzen Hesap Plani - $kt $($x.ad): " + ("$($x.metin)" -replace '\s+',' ').Trim())
+              kaynak_url = 'https://www.resmigazete.gov.tr/arsiv/21447_1.pdf'
+              belge_tarihi = '26.12.1992'
+            }
+            $eklenenT++
+          }
+          if($eklenenT){ Write-Host ("THP-tam parca {0} grup {1}: {2} hesap" -f $p.ad, $g.ad.Substring(0,1), $eklenenT) }
+        } catch { Write-Host ("THP-tam parca {0} grup {1} HATA: {2}" -f $p.ad, $g.ad.Substring(0,1), $_.Exception.Message) }
+      }
+    }
+    if(@($tamBelgeler).Count -ge 60){
+      KaydetBelgeler $tamBelgeler 'msugt-thp-tam.json'
+      $rapor += ("MSUGT-thp-tam: OK - {0} hesap yazildi (tam yutma)" -f @($tamBelgeler).Count)
+    } else {
+      $rapor += ("MSUGT-thp-tam: YAZILMADI - yalniz {0} hesap cikti (esik 60 - teblig ~150+ hesap icerir)" -f @($tamBelgeler).Count)
+      Write-Host ("MSUGT-thp-tam: yalniz {0} hesap - SUPHELI, yazilmadi" -f @($tamBelgeler).Count)
     }
   }
 } catch {
