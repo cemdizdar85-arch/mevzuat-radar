@@ -1,0 +1,44 @@
+# .github/workflows/soru-denetci-k2.yml — SORU DENETCISI KATMAN-2 (bedava Gemini)
+# Katman-1'i gecen durum='katman1-temiz' sorulari bagimsiz Gemini ile icerik dogrular.
+# Gemini onayi -> paket-havuzu (kasaya hazir); suphe -> karantina (GM okumasina).
+# Gunluk free kotaya kadar isler, kalani ertesi gun. Push ile ilk kosu baslar.
+name: Soru Denetcisi K2
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 1,4 * * *"    # gece 04:17 ve 07:17 TR - iki dalga (kota yenilenmesini kullan)
+  push:
+    paths:
+      - 'motor/soru-denetci-k2.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soru-denetci-k2
+  cancel-in-progress: false
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bagimsiz icerik denetimi (Gemini)
+        shell: pwsh
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: ./motor/soru-denetci-k2.ps1
+      - name: Sonuclari kaydet (3-deneme push)
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A veri/fabrika/ veri/soru-denetci-rapor.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Degisiklik yok."; exit 0; fi
+          git commit -m "Soru Denetcisi K2: bagimsiz icerik dogrulamasi (kasaya/karantina)"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && { echo "push OK ($i)"; exit 0; }
+            echo "push denemesi $i basarisiz, tekrar..."; sleep 15
+          done
+          echo "HATA: 5 denemede pushlanamadi."; exit 1
