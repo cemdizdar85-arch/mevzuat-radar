@@ -7,8 +7,8 @@ name: Toplu Gece Uretimi
 on:
   workflow_dispatch:
   schedule:
-    - cron: "47 21 * * *"   # 00:47 TR (dakika bilerek tenha)
-    - cron: "47 9 * * *"    # 12:47 TR — 23.07 Cem: damla fabrika kapandi, batch gunde 2 kosu
+    - cron: "47 21,23,1,3,5 * * *"   # 23.07 Cem "bugun bitirsin": gece 5 dalga (TR 00:47/02:47/04:47/06:47/08:47)
+    - cron: "47 9 * * *"             # 12:47 TR gunduz dalgasi
   push:
     paths:
       - 'motor/toplu-uret.ps1'

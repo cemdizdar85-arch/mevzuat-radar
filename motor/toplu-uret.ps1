@@ -17,7 +17,7 @@ $kok  = Split-Path -Parent $here
 $MODEL_URET = "claude-sonnet-5"
 $MODEL_COZ  = "claude-haiku-4-5-20251001"
 $ADET = 6
-$MAX_GOREV = 300          # gece basi tavan: 300 gorev x 6 = 1.800 aday
+$MAX_GOREV = 600          # 23.07 Cem "bugun bitirsin": dalga basi 600 gorev x 6 = 3.600 aday; gecede 5 dalga
 $KONU_GECE_TAVANI = 18    # tek konuya gecede en fazla 18 soru (cesitlilik korunur)
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
@@ -138,12 +138,10 @@ if($env:SUPABASE_SERVICE_KEY){
 }
 
 # ---- hedef konular (agirlikli derinlik) ----
-$HARIC_DERS = @('Yabanci Dil','Genel Kultur-Genel Yetenek')
+$DIL_DERSLER = @('Yabanci Dil','Genel Kultur-Genel Yetenek')   # 23.07 Cem: GK+YD ACILDI; mevzuat teyidi yerine dil-icerik kurali
 $konular=@{}
 foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Properties){
-  $dAd = ($p.Name -split '\|')[0]
-  if($HARIC_DERS -contains $dAd){ continue }
-  $konular["SGS|"+$p.Name]=[int]$konular["SGS|"+$p.Name]+[int]$p.Value } }
+  $konular["SGS|"+$p.Name]=[int]$konular["SGS|"+$p.Name]+[int]$p.Value } }   # 23.07: GK+YD dahil (Cem karari)
 $aS = Join-Path $kok "veri/smmm-analiz.json"
 if(Test-Path $aS){ try { $x2 = Get-Content $aS -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($dn in @($x2.donemler)){ foreach($p in $dn.konuSayim.PSObject.Properties){ $konular["SMMM|"+$p.Name]=[int]$konular["SMMM|"+$p.Name]+[int]$p.Value } } } catch {} }
 function KonuHedefi($agirlik){ return [Math]::Min(120, [Math]::Max(15, [int][Math]::Round($agirlik * 3))) }
@@ -179,7 +177,8 @@ foreach($h in $hedefListe){
   $mevcutAcilar = @($tumSorular | Where-Object { "$($_.ders)|$($_.konu)" -eq $konuAnahtar } | ForEach-Object { $sM = ("$($_.soru)" -replace '\s+',' '); $sM.Substring(0, [Math]::Min(110, $sM.Length)) } | Select-Object -First 14)
   for($g=1; $g -le $gorevSayisi -and $gorevler.Count -lt $MAX_GOREV; $g++){
     $aciBlok = if(@($mevcutAcilar).Count -gt 0){ "BU KONUDA BANKADA ZATEN SU ACILARDAN SORULAR VAR (ilk cumleleri):`n- " + ($mevcutAcilar -join "`n- ") + "`nBunlarin HICBIRIYLE ortusmeyen, FARKLI hukum/fikra/islem asamasi/hesap/senaryo acilari isle. Gorev no: $g (ayni konunun diger gorevlerinden de FARKLI acilar sec)." } else { "Gorev no: $g." }
-    $degisken = "GOREV: $sinavTanim icin soru yaz. Ders: $ders · Konu: $konu`n$ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz.`n$aciBlok"
+    $dersYonerge = if($ders -eq 'Yabanci Dil'){ "OZEL: Bu bir YABANCI DIL (Ingilizce) sorusudur - soru koku ve siklar INGILIZCE yazilir (SGS YD tarzi: kelime bilgisi, dil bilgisi, cumle tamamlama, okudugunu anlama); aciklama ve hap alanlari TURKCE ogretir. kaynak alanina dayandigi DIL BILGISI KURALININ adini yaz (or. 'Present Perfect Tense kullanim kurali'). Kanun maddesi ARANMAZ." } elseif($ders -eq 'Genel Kultur-Genel Yetenek'){ "OZEL: Bu bir GENEL KULTUR-GENEL YETENEK sorusudur - Turkce dil bilgisi/anlam/paragraf/anlatim bozuklugu VEYA temel matematik-mantik. kaynak alanina dayandigi KURALIN adini yaz (or. 'TDK buyuk harflerin kullanimi kurali', 'oran-oranti kurali'). Kanun maddesi ARANMAZ. Guncel siyaset/tartismali guncel olay SORMA." } else { "" }
+    $degisken = "GOREV: $sinavTanim icin soru yaz. Ders: $ders · Konu: $konu`n$ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz.`n$dersYonerge`n$aciBlok"
     $gorevler.Add([ordered]@{
       custom_id = "g" + $gorevler.Count.ToString("000")   # yalniz [a-zA-Z0-9_-] gecerli; '|' API'den 400 dondurttu (ilk kosu dersi)
       params = [ordered]@{
@@ -250,8 +249,10 @@ foreach($satir in $satirlar){
     if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar): $($meta.konu)"); continue }
     $tumMetin = "$($s.soru) $(@($s.siklar.PSObject.Properties.Value) -join ' ')"
     if($tumMetin -match '(asgari ücret|asgari ucret|yeniden değerleme oranı|had|istisna tutarı)[^.]{0,40}(kaç TL|kac TL|ne kadar)'){ $rapor.Add("RET (yil-degisen tutar): $($meta.konu)"); continue }
-    $at = AmbarTeyit $s.kaynak
-    if($at -ne 'ok'){ $rapor.Add("RET (teyitsiz kaynak): $($s.kaynak)"); continue }
+    # 23.07: dil dersleri (YD/GK) mevzuat maddesi gostermez - teyit yerine 'dil-icerik'
+    # damgasi; kalite yuku cift cozucu + GM denetiminde. Meslek dersleri SIKI MOD aynen.
+    $at = if($DIL_DERSLER -contains $meta.ders){ 'dil-icerik' } else { AmbarTeyit $s.kaynak }
+    if($at -ne 'ok' -and $at -ne 'dil-icerik'){ $rapor.Add("RET (teyitsiz kaynak): $($s.kaynak)"); continue }
     $cIstem = "Su coktan secmeli soruyu coz. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
     $ok=$true
     foreach($t in 1,2){
