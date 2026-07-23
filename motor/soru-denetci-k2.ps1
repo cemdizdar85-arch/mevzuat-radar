@@ -32,6 +32,7 @@ function GeminiDenetle($istemMetni){
 $dosyalar = Get-ChildItem (Join-Path $kok "veri/fabrika") -Filter *.json
 $islenen=0; $gecti=0; $karantina=0; $hata=0; $kotaBitti=$false
 $rapor = @()
+$tanilar = @()   # ilk hatalarin HAM mesajlari (teshis icin)
 
 foreach($fd in $dosyalar){
   if($kotaBitti){ break }
@@ -75,12 +76,18 @@ SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep"
       Start-Sleep -Milliseconds $BEKLEME_MS
     } catch {
       $mesaj = "$($_.Exception.Message)"
-      if($mesaj -match '429|quota|RESOURCE_EXHAUSTED|Too Many|exhausted'){
+      # HAM mesaji yakala (ilk 5) - kota mi, gecersiz anahtar mi, yanlis model mi ayirt et
+      if($tanilar.Count -lt 5){ $tanilar += $mesaj }
+      # yalniz GERCEK kota isareti + en az 1 basarili istek varsa "kota bitti" say;
+      # ilk istekte gelen 429 muhtemelen anahtar/model sorunudur, kota degil.
+      if($mesaj -match 'RESOURCE_EXHAUSTED|quota|Too Many Requests' -and $islenen -ge 1){
         Write-Host "Gemini gunluk kota doldu - kaldigi yerde durduruldu (ertesi gun devam)."
         $kotaBitti=$true; break
       }
       $hata++
-      Start-Sleep -Milliseconds $BEKLEME_MS
+      # anahtar/model sorunu ilk istekte netlesir - 3 ard arda hatada bosuna dongu kurma
+      if($hata -ge 3 -and $islenen -eq 0){ Write-Host "Ilk isteklerde surekli hata - anahtar/model sorunu, durduruldu."; $kotaBitti=$true; break }
+      Start-Sleep -Milliseconds 2000
     }
   }
   if($degisti){ [IO.File]::WriteAllText($fd.FullName, ($j | ConvertTo-Json -Depth 8), $enc) }
@@ -92,6 +99,7 @@ $ozet = [ordered]@{
   calisti = (Get-Date -Format "dd.MM.yyyy HH:mm")
   islenen = $islenen; kasaya = $gecti; karantina = $karantina; hata = $hata
   kalan_katman1_temiz = $kalan; kota_bitti = $kotaBitti
+  ham_hata_tanilari = @($tanilar)
   karantina_ornekleri = @($rapor | Select-Object -First 40)
 }
 $raporYol = Join-Path $kok "veri/soru-denetci-rapor.json"
