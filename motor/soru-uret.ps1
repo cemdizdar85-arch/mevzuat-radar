@@ -50,6 +50,16 @@ $SB_URL="https://bjrleanjpyujtajmazxn.supabase.co"; $SB_ANON="sb_publishable_kTZ
 $KANUN_NO=[ordered]@{ 'kvkk'='6698'; 'vuk'='213'; 'gvk'='193'; 'kdvk'='3065'; 'kvk'='5520'; 'ttk'='6102'; 'smk'='6769'; 'aatuhk'='6183'; 'otv'='4760'; 'iik'='2004'; 'tbk'='6098'; 'isg'='6331' }
 function AmbarTeyit($kaynak){
   $f=Fold $kaynak
+  # STANDART TEYIDI (TMS/TFRS/BDS): "TMS 1 ... paragraf 29" -> ambardaki "TMS 1 p.29*" belgesi
+  $mS=[regex]::Match($f,'(?<![a-z])(tms|tfrs|bds)\s*(\d{1,3})')
+  if($mS.Success){
+    $pS=[regex]::Match($f,'p(?:aragraf)?\.?\s*(\d{1,3})')
+    if(-not $pS.Success){ return 'yok' }   # paragraf gostermeyen standart atfi kabul edilmez
+    $filtre="*"+$mS.Groups[1].Value.ToUpperInvariant()+" "+$mS.Groups[2].Value+" p."+$pS.Groups[1].Value+"*"
+    try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
+      $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+      if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+  }
   if($f -match 'gut|teblig|karar|yonetmelik|genelge'){ return 'atla' }
   $no=$null; $mN=[regex]::Match($f,'(?<!\d)(\d{3,4})(?!\d)\s*(s\.|sayili)'); if($mN.Success){ $no=$mN.Groups[1].Value }
   if(-not $no){ foreach($k in $KANUN_NO.Keys){ if($f -match ('(?<![a-z])'+[regex]::Escape($k)+'(?![a-z])')){ $no=$KANUN_NO[$k]; break } } }
