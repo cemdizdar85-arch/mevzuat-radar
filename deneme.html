@@ -36,6 +36,10 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .sik.dogru{border-color:rgba(61,220,151,.65);background:linear-gradient(135deg,rgba(61,220,151,.13),transparent)}
 .sik.yanlis{border-color:rgba(255,107,94,.6);background:linear-gradient(135deg,rgba(255,107,94,.12),transparent)}
 .sik:disabled{cursor:default}
+.sik.cizili span:last-child{text-decoration:line-through;opacity:.5}
+.hayalet{opacity:.55;filter:grayscale(.4)}
+.hayalet .yevmiye{border-color:rgba(255,107,94,.5)}
+.hayalet .yevmiye th{background:rgba(255,107,94,.10);color:var(--red)}
 .gerekce{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
 .gk{display:flex;gap:10px;font-size:13.5px;margin-bottom:9px;color:var(--muted)}
 .gk .h{font-family:var(--mono);font-weight:800;flex-shrink:0;width:18px}
@@ -133,6 +137,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     <div class="panel">
       <div class="soruMetin" id="soruMetin"></div>
       <div id="sikKutu"></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">İpucu: elemek istediğin şıkkın üstünü <b>çift tıklayarak</b> çizebilirsin.</div>
       <div class="gerekce gizli" id="gerekceKutu"></div>
       <div class="altBar">
         <span><button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button> <button class="hataLink" id="isaretBtn" onclick="isaretle()">🔖 İşaretle</button></span>
@@ -176,7 +181,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 
 <script>
 var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=false;
-var seciliDersler={}, seciliAdet=10, KAYNAK='tumu';
+var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SORU_T0=0, SURELER={};
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -267,8 +272,10 @@ function basla(){
 
 function karistir(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } }
 
+function sureFmt(ms){ var sn=Math.round(ms/1000), d=Math.floor(sn/60); return d+':'+('0'+(sn%60)).slice(-2); }
+
 function soruCiz(){
-  var s=SORULAR[IDX]; SECILI=null; KILIT=false;
+  var s=SORULAR[IDX]; SECILI=null; KILIT=false; SORU_T0=Date.now();
   document.getElementById('soruSayac').textContent='Soru '+(IDX+1)+' / '+SORULAR.length;
   document.getElementById('soruDers').textContent=s.ders;
   document.getElementById('soruKonu').textContent=s.konu;
@@ -292,6 +299,15 @@ function soruCiz(){
       if(MOD==='calisma'){ document.getElementById('gorBtn').classList.remove('gizli'); }
       else { CEVAPLAR[s.id]=h; document.getElementById('devamBtn').classList.remove('gizli'); }
     };
+    // UWorld usulu celdirici eleme: cift tiklayan sikkin ustunu cizer (KILIT oncesi)
+    b.ondblclick=function(){
+      if(KILIT) return;
+      b.classList.toggle('cizili');
+      if(b.classList.contains('cizili') && SECILI===h){
+        SECILI=null; b.classList.remove('secili');
+        if(MOD==='calisma') document.getElementById('gorBtn').classList.add('gizli');
+      }
+    };
     sk.appendChild(b);
   });
   document.getElementById('gerekceKutu').classList.add('gizli');
@@ -307,6 +323,7 @@ function cevabiGor(){
   if(!SECILI || KILIT) return;
   var s=SORULAR[IDX]; KILIT=true; CEVAPLAR[s.id]=SECILI;
   sicilKaydet(s.id, SECILI===s.dogru);
+  SURELER[s.id]=Date.now()-SORU_T0;
   var sk=document.getElementById('sikKutu');
   sk.querySelectorAll('.sik').forEach(function(b){
     b.disabled=true;
@@ -335,8 +352,10 @@ function cevabiGor(){
     var yanlisMi=(SECILI!==s.dogru);
     h+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+(yanlisMi?'📖 <b>Yanlış yaptın — konuyu 60 saniyede oku:</b> ':'📖 <b>Konu özeti:</b> ')+esc(s.hap)+'</div>';
   }
+  h+=hayaletGorsel(s);
   h+=tabloGorsel(s);
   h+=yevmiyeGorsel(s);
+  h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın. <span style="opacity:.8">(Kullanıcı ortalamaları istatistik hattıyla gelecek.)</span></div>';
   g.innerHTML=h; g.classList.remove('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.remove('gizli');
@@ -363,6 +382,23 @@ function tabloGorsel(s){
   h+='</table></div>';
   return h;
 }
+// HAYALET KAYIT (Cem'in 'hologram' fikri 24.07): yanlis sikki secen, KENDI cevabinin
+// defterdeki halini soluk/kirmizi bir hayalet olarak gorur — yanina dogrusu gelir.
+// Veri: soru.yanlisKayitlar (yerel banka) / yanlis_kayitlar (kasa kolonu) = {"B":[{hesap,borc,alacak}]}
+function hayaletGorsel(s){
+  var yk = s.yanlisKayitlar || s.yanlis_kayitlar;
+  if(!yk || !SECILI || SECILI===s.dogru) return '';
+  var kayit = yk[SECILI];
+  if(!kayit || !kayit.length) return '';
+  var h='<div class="hayalet"><div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--red)">👻 Senin cevabının defterdeki hâli — böyle OLMAZDI:</div>';
+  h+='<div class="yevmiye"><table><tr><th>Hesap</th><th style="text-align:right">Borç</th><th style="text-align:right">Alacak</th></tr>';
+  kayit.forEach(function(k){
+    var alacakli = (!k.borc || k.borc==0);
+    h+='<tr class="'+(alacakli?'alc':'')+'"><td>'+esc(k.hesap)+'</td><td class="t">'+(k.borc?tl(k.borc):'')+'</td><td class="t">'+(k.alacak?tl(k.alacak):'')+'</td></tr>';
+  });
+  h+='</table></div></div>';
+  return h;
+}
 // GORSEL COZUM (Cem vizyonu): kayit sorularinda yevmiye maddesi + T-cetvelleri —
 // hangi hesap borclaniyor, hangi tarafa yaziliyor, muhasebe bilmeyen bile GORSUN.
 function yevmiyeGorsel(s){
@@ -387,6 +423,7 @@ function yevmiyeGorsel(s){
 function sonraki(){
   var s=SORULAR[IDX];
   gorulenKaydet(s.id);
+  if(MOD==='deneme') SURELER[s.id]=Date.now()-SORU_T0;
   if(IDX<SORULAR.length-1){ IDX++; soruCiz(); window.scrollTo(0,0); }
   else karneCiz();
 }
@@ -436,7 +473,10 @@ function karneCiz(){
   document.getElementById('kYanlis').textContent=yanlis;
   document.getElementById('kBos').textContent=bos;
   document.getElementById('kYuzde').textContent='%'+yuzde;
-  var h='<h2>Ders kırılımı</h2><div class="tablosar"><table><tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr>';
+  var topMs=0, sureli=0;
+  SORULAR.forEach(function(s){ if(SURELER[s.id]){ topMs+=SURELER[s.id]; sureli++; } });
+  var h= sureli ? ('<div style="font-size:12.5px;color:var(--muted);margin-bottom:12px">⏱ Toplam süre <b style="color:var(--ink)">'+sureFmt(topMs)+'</b> · soru başına ortalama <b style="color:var(--ink)">'+sureFmt(topMs/sureli)+'</b></div>') : '';
+  h+='<h2>Ders kırılımı</h2><div class="tablosar"><table><tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr>';
   Object.keys(ders).sort().forEach(function(k){ h+='<tr><td><b>'+esc(k)+'</b></td><td>'+ders[k].d+'</td><td>'+ders[k].y+'</td><td>'+ders[k].b+'</td></tr>'; });
   h+='</table></div>';
   document.getElementById('kDersKutu').innerHTML=h;

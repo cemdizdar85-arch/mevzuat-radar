@@ -249,8 +249,9 @@ OZGUN coktan secmeli sinav sorusu yazacaksin. KURALLAR:
 6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
 7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
 7b) TABLO/ANALIZ sorusuysa (dikey-yatay analiz, oran analizi, gelir tablosu/bilanco kalemi hesabi) hesabi LAFLA degil TABLO USTUNDE goster - "tablo" alaninda mini tabloyu ver: {"baslik":"Gelir Tablosu (dikey %)","kolonlar":["Kalem","Tutar","Dikey %"],"satirlar":[["Brut Satislar","2.500.000",""],["NET SATISLAR","2.000.000","%100 (baz)"],["SMM (-)","1.200.000","%60 ←"]]}. Cevabin ciktigi satirin son hucresine '←' koy (ekran o satiri vurgular). Tablo sorusu degilse tablo alani koyma.
+7c) HAYALET KAYIT: muhasebe kaydi sorusunda celdirici siklardan biri ALTERNATIF bir kaydi temsil ediyorsa, o sikkin ima ettigi YANLIS kaydi "yanlisKayitlar" alaninda ver: {"B":[{"hesap":"...","borc":0,"alacak":0}]} - ekran bunu soluk 'hayalet' olarak gosterir (senin cevabin defterde boyle olurdu). Yalniz gercekten kayit ima eden celdiriciler icin; digerlerini koyma.
 CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular. SADECE su JSON dizisini dondur:
-[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...],"tablo":{...}}]
+[{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"kaynak":"...","hap":"...","yevmiye":[...],"tablo":{...},"yanlisKayitlar":{...}}]
 "@
 
 foreach($h in $hedefler){
