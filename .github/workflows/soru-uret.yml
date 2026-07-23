@@ -12,6 +12,9 @@ on:
     - cron: "17 13 * * *"   # 16:17 TR
     - cron: "17 16 * * *"   # 19:17 TR — banka doyunca (konu basi 10) kosular kendiliginden bos gecer, maliyet sifirlanir
   workflow_dispatch:
+  push:
+    paths:
+      - 'motor/soru-uret.ps1'   # 23.07: fabrika duzeltmesi pushlaninca kosu kendiliginden baslar (Cem'in tik atmasi gerekmesin)
 
 permissions:
   contents: write
