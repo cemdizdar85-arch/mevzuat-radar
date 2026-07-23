@@ -59,6 +59,16 @@ if($tabloluVar -and -not $tabloKolonu){
   Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists tablo jsonb;"
   exit 1
 }
+# 24.07 (Cem'in 'hologram' fikri): yanlisKayitlar -> yanlis_kayitlar kolonu — ayni sigorta.
+$hayaletKolonu = $true
+try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yanlis_kayitlar&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
+catch { $hayaletKolonu = $false }
+$hayaletliVar = @($paket | Where-Object { $_.yanlisKayitlar }).Count -gt 0
+if($hayaletliVar -and -not $hayaletKolonu){
+  Write-Host "HATA: sorularda yanlisKayitlar (hayalet kayit) var ama 'yanlis_kayitlar' kolonu yok - tasima DURDU."
+  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists yanlis_kayitlar jsonb;"
+  exit 1
+}
 
 $govde = @($paket | ForEach-Object {
   $satir = [ordered]@{
@@ -68,6 +78,7 @@ $govde = @($paket | ForEach-Object {
   }
   if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
   if($tabloKolonu){ $satir['tablo'] = $_.tablo }
+  if($hayaletKolonu){ $satir['yanlis_kayitlar'] = $_.yanlisKayitlar }
   $satir
 })
 $json = ConvertTo-Json -InputObject $govde -Depth 6
