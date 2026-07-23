@@ -1,349 +1,349 @@
 {
-    "aciklama":  "Çıkmış sınav kitapçığı envanteri. KAYNAK: TESMER resmî arşivi (www2.tesmer.org.tr/files/ortak/soru_cevaplar/...) — 22.07.2026\u0027dan itibaren tüm yeni kayıtlar birincil kaynaktan; ilk 6 SGS kaydı açık kopyadan işlendi (analiz sonuçları geçerli, kaynakUrl\u0027leri tarihî not). sinav-analiz robotu \u0027bekliyor\u0027 olanları işler; SGS sonuçları sgs-analiz.json\u0027a, SMMM (Yeterlilik) sonuçları smmm-analiz.json\u0027a yazılır. Kitapçık İÇERİĞİ siteye kopyalanmaz — yalnız konu/adet analizi yayınlanır. SMMM 2026/1\u0027den itibaren test formatı (TESMER duyurusu).",
-    "donemler":  [
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2026/2",
-                         "tarih":  "18.07.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2026/2/lisans_a_grubu/sgs_2026_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Finansal Muhasebe",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/01/smmm_2026_1_01.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Vergi Mevzuatı ve Uygulaması",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/05/smmm_2026_1_05.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Finansal Tablolar ve Analizi",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/02/smmm_2026_1_02.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Maliyet Muhasebesi",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/03/smmm_2026_1_03.pdf",
-                         "durum":  "bekliyor"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Muhasebe Denetimi",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/04/smmm_2026_1_04.pdf",
-                         "durum":  "bekliyor"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Hukuk",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/06/smmm_2026_1_06.pdf",
-                         "durum":  "bekliyor"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/07/smmm_2026_1_07.pdf",
-                         "durum":  "bekliyor"
-                     },
-                     {
-                         "sinav":  "SMMM",
-                         "donem":  "2026/1",
-                         "ders":  "Sermaye Piyasası Mevzuatı",
-                         "tarih":  "25.04.2026",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/08/smmm_2026_1_08.pdf",
-                         "durum":  "bekliyor"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2026/1",
-                         "tarih":  "18.04.2026",
-                         "url":  "https://aktifonline.net/18_Nisan_2026-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/3",
-                         "tarih":  "22.11.2025",
-                         "url":  "https://aktifonline.net/22_Kasim_2025-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/2",
-                         "tarih":  "26.07.2025",
-                         "url":  "https://aktifonline.net/26_Temmuz_2025-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/1",
-                         "tarih":  "05.04.2025",
-                         "url":  "https://aktifonline.net/05_Nisan_2025-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2024/3",
-                         "tarih":  "26.10.2024",
-                         "url":  "https://aktifonline.net/26%20Ekim%202024-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2024/2",
-                         "tarih":  "13.07.2024",
-                         "url":  "https://aktifonline.net/13%20Temmuz%202024-staja-giris-sinav-sorulari.pdf",
-                         "durum":  "tamam"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2015/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/1/lisans_a_grubu/sgs_2015_1_lisans_a_grubu.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2015/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/2/lisans_a_grubu/sgs_2015_2_lisans_a_grubu.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2015/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/3/lisans_a_grubu/sgs_2015_3_lisans_a_grubu.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2016/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/1/lisans_a_grubu/sgs_2016_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2016/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/2/lisans_a_grubu/sgs_2016_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2016/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/3/lisans_a_grubu/sgs_2016_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2017/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/1/lisans_a_grubu/sgs_2017_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2017/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/2/lisans_a_grubu/sgs_2017_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2017/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/3/lisans_a_grubu/sgs_2017_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2018/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/1/lisans_a_grubu/sgs_2018_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2018/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/2/lisans_a_grubu/sgs_2018_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2018/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/3/lisans_a_grubu/sgs_2018_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2019/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/1/lisans_a_grubu/sgs_2019_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2019/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/2/lisans_a_grubu/sgs_2019_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2019/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/3/lisans_a_grubu/sgs_2019_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2020/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/1/lisans_a_grubu/sgs_2020_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2020/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/2/lisans_a_grubu/sgs_2020_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2020/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/3/lisans_a_grubu/sgs_2020_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2021/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/1/lisans_a_grubu/sgs_2021_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2021/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/2/lisans_a_grubu/sgs_2021_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2021/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/3/lisans_a_grubu/sgs_2021_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2022/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/1/lisans_a_grubu/sgs_2022_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2022/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/2/lisans_a_grubu/sgs_2022_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2022/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/3/lisans_a_grubu/sgs_2022_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2023/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/1/lisans_a_grubu/sgs_2023_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2023/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/2/lisans_a_grubu/sgs_2023_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2023/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/3/lisans_a_grubu/sgs_2023_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2024/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/1/lisans_a_grubu/sgs_2024_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2024/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/2/lisans_a_grubu/sgs_2024_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2024/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/3/lisans_a_grubu/sgs_2024_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/1",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/1/lisans_a_grubu/sgs_2025_1_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/2",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/2/lisans_a_grubu/sgs_2025_2_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     },
-                     {
-                         "sinav":  "SGS",
-                         "donem":  "2025/3",
-                         "tarih":  "",
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/3/lisans_a_grubu/sgs_2025_3_lisans_a_grubu_ingilizce.pdf",
-                         "durum":  "batch-kuyruk"
-                     }
-                 ]
+  "aciklama": "Çıkmış sınav kitapçığı envanteri. KAYNAK: TESMER resmî arşivi (www2.tesmer.org.tr/files/ortak/soru_cevaplar/...) — 22.07.2026'dan itibaren tüm yeni kayıtlar birincil kaynaktan; ilk 6 SGS kaydı açık kopyadan işlendi (analiz sonuçları geçerli, kaynakUrl'leri tarihî not). sinav-analiz robotu 'bekliyor' olanları işler; SGS sonuçları sgs-analiz.json'a, SMMM (Yeterlilik) sonuçları smmm-analiz.json'a yazılır. Kitapçık İÇERİĞİ siteye kopyalanmaz — yalnız konu/adet analizi yayınlanır. SMMM 2026/1'den itibaren test formatı (TESMER duyurusu).",
+  "donemler": [
+    {
+      "sinav": "SGS",
+      "donem": "2026/2",
+      "tarih": "18.07.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2026/2/lisans_a_grubu/sgs_2026_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Finansal Muhasebe",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/01/smmm_2026_1_01.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/05/smmm_2026_1_05.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Finansal Tablolar ve Analizi",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/02/smmm_2026_1_02.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Maliyet Muhasebesi",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/03/smmm_2026_1_03.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Muhasebe Denetimi",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/04/smmm_2026_1_04.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Hukuk",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/06/smmm_2026_1_06.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/07/smmm_2026_1_07.pdf",
+      "durum": "bekliyor"
+    },
+    {
+      "sinav": "SMMM",
+      "donem": "2026/1",
+      "ders": "Sermaye Piyasası Mevzuatı",
+      "tarih": "25.04.2026",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/smmm/2026/1/08/smmm_2026_1_08.pdf",
+      "durum": "bekliyor"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2026/1",
+      "tarih": "18.04.2026",
+      "url": "https://aktifonline.net/18_Nisan_2026-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/3",
+      "tarih": "22.11.2025",
+      "url": "https://aktifonline.net/22_Kasim_2025-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/2",
+      "tarih": "26.07.2025",
+      "url": "https://aktifonline.net/26_Temmuz_2025-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/1",
+      "tarih": "05.04.2025",
+      "url": "https://aktifonline.net/05_Nisan_2025-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2024/3",
+      "tarih": "26.10.2024",
+      "url": "https://aktifonline.net/26%20Ekim%202024-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2024/2",
+      "tarih": "13.07.2024",
+      "url": "https://aktifonline.net/13%20Temmuz%202024-staja-giris-sinav-sorulari.pdf",
+      "durum": "tamam"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2015/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/1/lisans_a_grubu/sgs_2015_1_lisans_a_grubu.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2015/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/2/lisans_a_grubu/sgs_2015_2_lisans_a_grubu.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2015/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2015/3/lisans_a_grubu/sgs_2015_3_lisans_a_grubu.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2016/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/1/lisans_a_grubu/sgs_2016_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2016/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/2/lisans_a_grubu/sgs_2016_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2016/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2016/3/lisans_a_grubu/sgs_2016_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2017/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/1/lisans_a_grubu/sgs_2017_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2017/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/2/lisans_a_grubu/sgs_2017_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2017/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2017/3/lisans_a_grubu/sgs_2017_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2018/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/1/lisans_a_grubu/sgs_2018_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2018/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/2/lisans_a_grubu/sgs_2018_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2018/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2018/3/lisans_a_grubu/sgs_2018_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2019/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/1/lisans_a_grubu/sgs_2019_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2019/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/2/lisans_a_grubu/sgs_2019_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2019/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2019/3/lisans_a_grubu/sgs_2019_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2020/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/1/lisans_a_grubu/sgs_2020_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2020/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/2/lisans_a_grubu/sgs_2020_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2020/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2020/3/lisans_a_grubu/sgs_2020_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2021/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/1/lisans_a_grubu/sgs_2021_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2021/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/2/lisans_a_grubu/sgs_2021_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2021/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2021/3/lisans_a_grubu/sgs_2021_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2022/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/1/lisans_a_grubu/sgs_2022_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2022/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/2/lisans_a_grubu/sgs_2022_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2022/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2022/3/lisans_a_grubu/sgs_2022_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2023/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/1/lisans_a_grubu/sgs_2023_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2023/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/2/lisans_a_grubu/sgs_2023_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2023/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/3/lisans_a_grubu/sgs_2023_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2024/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/1/lisans_a_grubu/sgs_2024_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2024/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/2/lisans_a_grubu/sgs_2024_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2024/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2024/3/lisans_a_grubu/sgs_2024_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/1",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/1/lisans_a_grubu/sgs_2025_1_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/2",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/2/lisans_a_grubu/sgs_2025_2_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    },
+    {
+      "sinav": "SGS",
+      "donem": "2025/3",
+      "tarih": "",
+      "url": "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2025/3/lisans_a_grubu/sgs_2025_3_lisans_a_grubu_ingilizce.pdf",
+      "durum": "batch-kuyruk"
+    }
+  ]
 }
