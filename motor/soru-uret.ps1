@@ -173,7 +173,11 @@ SADECE su JSON dizisini dondur:
     $cIstem = "Su coktan secmeli soruyu coz. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
     $ok=$true
     foreach($t in 1,2){
-      $cv=$null; try{ $cv=((JsonBul (Claude $cIstem 200 $MODEL_COZ)) | ConvertFrom-Json).cevap }catch{}
+      # 23.07 dersi: cozucu bazen JSON yerine duz "B" yaziyor, bos sayilip saglam soru kesiliyordu.
+      # Yeni: once JSON dene, olmazsa ham metinden tek harfli cevabi yakala.
+      $cv=$null; $hamC=$null
+      try{ $hamC = Claude $cIstem 200 $MODEL_COZ; $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{}
+      if(-not $cv -and $hamC){ $mC=[regex]::Match($hamC.ToUpper(),'(?<![A-Z])([A-E])(?![A-Z])'); if($mC.Success){ $cv=$mC.Groups[1].Value } }
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); break }
     }
     if(-not $ok){ continue }
