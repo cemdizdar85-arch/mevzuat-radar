@@ -1,0 +1,34 @@
+# .github/workflows/teori-oku.yml — TEORİ OKUMA ROBOTU (elle tetiklenir)
+# Korumalı/taranmış birincil metinleri (BDS 700, BDS 705, MSUGT Sıra No:1)
+# Claude'un görsel PDF okumasıyla metne döker → veri/mevzuat JSON'ları.
+# Sonrası: "Mevzuat Tam Yukleme" Run ile Supabase ambarına girer.
+name: Teori Okuma
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  oku:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: BDS + MSUGT gorsel okuma
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/teori-oku.ps1
+      - name: Ciktilari kaydet
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/mevzuat/bds700.json veri/mevzuat/bds705.json veri/mevzuat/msugt1.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Yeni teori metni yok."
+          else
+            git commit -m "Teori okuma: BDS/MSUGT birincil metinleri ambara dokuldu"
+            git pull --rebase origin main || true
+            git push || true
+          fi
