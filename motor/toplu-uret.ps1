@@ -58,7 +58,8 @@ function AmbarTeyit($kaynak){
         $sonucEk = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" Ek-"+$ekNo+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+Ek-?'+$ekNo)
         if($sonucEk -ne 'ok'){ return $sonucEk }
         continue
-      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(a?\d{1,3})')
+      }      # 'md.' kisaltmasi da taninir (TMS 2 ambardayken "md. 12" atiflari bosuna yaniyordu)
+      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?|md)\.?\s*(a?\d{1,3})')
       # 24.07 dalga-1 dersi: model "BDS 500.A25" yaziyor (p'siz A-paragrafi) - ambarda
       # "BDS 500 p.A25" olarak VAR ama eski desen yalniz rakam yakaladigi icin RET yaniyordu.
       # Aralikli atifta (A14-A25) tum adaylar denenir; BIRI ambarda varsa atif gecerli.

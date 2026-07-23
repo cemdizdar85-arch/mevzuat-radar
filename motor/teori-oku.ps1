@@ -92,7 +92,7 @@ $bdsler = @(
   # 24.07 Cem onayi: dalga-1'de bu standartlara atifli sorular ambar-yoklugundan yandi (talep kaniti)
   @{ no='501'; ad='Belirli Kalemlere İlişkin Denetim Kanıtları Hakkında Dikkate Alınacak Hususlar'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_501.pdf'; dosya='bds501.json' },
   @{ no='505'; ad='Dış Teyitler'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_505.pdf'; dosya='bds505.json' },
-  @{ no='520'; ad='Analitik Prosedürler'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_520.pdf'; dosya='bds520.json' },
+  @{ no='520'; ad='Analitik Prosedürler'; esik=5; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_520.pdf'; dosya='bds520.json' },   # 24.07: 520 KISA standart (ana metin ~8 paragraf) - genel esik 10 hakli 7 paragrafi curutuyordu
   # TMS de ayni motorla okunur (tip alani); 2024/2025 Mavi Kitap linkleri 1KB bos yonlendirme, 2023 gercek (329KB HEAD teyitli)
   @{ no='2'; tip='TMS'; ad='Stoklar'; url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2023/Mavi_Kitap/TMS/TMS%202.pdf'; dosya='tms2.json' }
 )
@@ -100,7 +100,9 @@ $bdsler = @(
 # kiyaslama noktasi' (3x) ve 'orneklem buyuklugu faktorleri' (2x) sorulari BDS'lerin
 # EK'lerine dayaniyor - ana-metin okumasi ekleri bilerek atliyordu. Ekler ayri hedef:
 $bdsEkleri = @(
-  @{ no='320'; ekAd='Ek-2 (Kıyaslama Noktası Seçimine İlişkin Açıklamalar)'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_320.pdf'; dosya='bds320-ek.json' },
+  # 24.07 duzeltme: BDS 320'de "Ek" bolumu YOK (yerel pdftotext ile teyit edildi) -
+  # kiyaslama noktasi icerigi Uygulama bolumunun A-paragraflarinda; hedef oraya cevrildi.
+  @{ no='320'; tur='aparagraf'; ekAd='Kıyaslama Noktalarının Belirlenmesine İlişkin Açıklamalar'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_320.pdf'; dosya='bds320-ek.json' },
   @{ no='530'; ekAd='Ek-2 ve Ek-3 (Örneklem Büyüklüğünü Etkileyen Faktörler)'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_530.pdf'; dosya='bds530-ek.json' }
 )
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
@@ -139,12 +141,13 @@ foreach($b in $bdsler){
         belge_tarihi = $null
       }
     }
-    if(@($belgeler).Count -ge 10){
+    $esikB = if($b.esik){ [int]$b.esik } else { 10 }
+    if(@($belgeler).Count -ge $esikB){
       KaydetBelgeler $belgeler $b.dosya
-      $rapor += ("BDS {0}: OK - {1} paragraf yazildi" -f $b.no, @($belgeler).Count)
+      $rapor += ("{0} {1}: OK - {2} paragraf yazildi" -f $tip, $b.no, @($belgeler).Count)
     } else {
-      $rapor += ("BDS {0}: YAZILMADI - yalniz {1} paragraf cikti (esik 10)" -f $b.no, @($belgeler).Count)
-      Write-Host ("BDS {0}: yalniz {1} paragraf cikti - SUPHELI, yazilmadi" -f $b.no, @($belgeler).Count)
+      $rapor += ("{0} {1}: YAZILMADI - yalniz {2} paragraf cikti (esik {3})" -f $tip, $b.no, @($belgeler).Count, $esikB)
+      Write-Host ("{0} {1}: yalniz {2} paragraf cikti - SUPHELI, yazilmadi" -f $tip, $b.no, @($belgeler).Count)
     }
   } catch {
     $rapor += ("BDS {0}: HATA - {1}" -f $b.no, $_.Exception.Message)
@@ -161,18 +164,24 @@ foreach($e in $bdsEkleri){
     $pdfE = Join-Path $tmp ("bdsek" + $e.no + ".pdf")
     $kbE = Indir $e.url $pdfE
     Write-Host ("BDS {0} ekleri indirildi ({1} KB), okunuyor..." -f $e.no, $kbE)
-    $istemE = "Bu belge KGK'nin BDS $($e.no) standardidir. GOREV: belgenin SONUNDAKI $($e.ekAd) bolumundeki maddeleri/faktorleri/aciklamalari belgede YAZDIGI GIBI cikar. Ana metin paragraflarini ALMA, yalniz EK bolumunu cikar. Yorum yok.`nSADECE JSON dizisi: [{`"ek`":`"Ek-2`",`"sira`":`"1`",`"baslik`":`"...`",`"metin`":`"...`"}]"
+    $istemE = if($e.tur -eq 'aparagraf'){
+      "Bu belge KGK'nin BDS $($e.no) standardidir. GOREV: 'Uygulama ve Diger Aciklayici Hukumler' bolumunde $($e.ekAd) kapsamindaki A ile numaralanmis paragraflari (A1, A2, A3... hangileri bu konuyla ilgiliyse) belgede YAZDIGI GIBI cikar. Rakamla numarali ana metin paragraflarini ALMA. Yorum yok.`nSADECE JSON dizisi: [{`"ek`":`"A3`",`"sira`":`"`",`"baslik`":`"...`",`"metin`":`"...`"}]"
+    } else {
+      "Bu belge KGK'nin BDS $($e.no) standardidir. GOREV: belgenin SONUNDAKI $($e.ekAd) bolumundeki maddeleri/faktorleri/aciklamalari belgede YAZDIGI GIBI cikar. Ana metin paragraflarini ALMA, yalniz EK bolumunu cikar. Yorum yok.`nSADECE JSON dizisi: [{`"ek`":`"Ek-2`",`"sira`":`"1`",`"baslik`":`"...`",`"metin`":`"...`"}]"
+    }
     $ekPar = JsonYakala (ClaudePdf ([Convert]::ToBase64String([IO.File]::ReadAllBytes($pdfE))) $istemE 16000)
     $ekBelgeler = @(); $gorulenEk = @{}
     foreach($x in @($ekPar)){
       if(-not $x.metin -or "$($x.metin)".Length -lt 40){ continue }
       $ekEtiket = ("$($x.ek)" -replace '\s+',''); if(-not $ekEtiket){ $ekEtiket = 'Ek' }
       $ik = "$ekEtiket|$($x.sira)"; if($gorulenEk[$ik]){ continue }; $gorulenEk[$ik] = 1
+      # A-paragrafi hedefinde kaynak_ad "BDS 320 p.A5" bicimindedir (teyitci bu bicimi arar)
+      $adParca = if($e.tur -eq 'aparagraf'){ "p.$ekEtiket" } else { "$ekEtiket $($x.sira)".Trim() }
       $ekBelgeler += [ordered]@{
         tur='standart-madde'
-        kaynak_ad = "BDS $($e.no) $ekEtiket $($x.sira)" + $(if($x.baslik){" - $($x.baslik)"}else{""})
+        kaynak_ad = "BDS $($e.no) $adParca" + $(if($x.baslik){" - $($x.baslik)"}else{""})
         baslik = "$($x.baslik)"
-        metin = ("BDS $($e.no) $ekEtiket $($x.sira): " + ("$($x.metin)" -replace '\s+',' ').Trim())
+        metin = ("BDS $($e.no) $adParca" + ": " + ("$($x.metin)" -replace '\s+',' ').Trim())
         kaynak_url = $e.url
         belge_tarihi = $null
       }
