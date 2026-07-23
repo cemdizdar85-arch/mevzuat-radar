@@ -47,18 +47,36 @@ function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -rep
 
 # AMBAR TEYIDI (gece-ajani ile ayni desen)
 $SB_URL="https://bjrleanjpyujtajmazxn.supabase.co"; $SB_ANON="sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg"
-$KANUN_NO=[ordered]@{ 'kvkk'='6698'; 'vuk'='213'; 'gvk'='193'; 'kdvk'='3065'; 'kvk'='5520'; 'ttk'='6102'; 'smk'='6769'; 'aatuhk'='6183'; 'otv'='4760'; 'iik'='2004'; 'tbk'='6098'; 'isg'='6331' }
+$KANUN_NO=[ordered]@{ 'kvkk'='6698'; 'vuk'='213'; 'gvk'='193'; 'kdvk'='3065'; 'kdv'='3065'; 'kvk'='5520'; 'ttk'='6102'; 'smk'='6769'; 'aatuhk'='6183'; 'otv'='4760'; 'iik'='2004'; 'tbk'='6098'; 'isg'='6331' }
+# SINIR-DUYARLI AMBAR SORGUSU (23.07 dersi: ilike "*m.1*" m.10-19'u da tutuyordu;
+# adaylar cekilir, kesin desenle dogrulanir - ne haksiz GECTI ne haksiz RET)
+function AmbarSorgu($filtre, $desen){
+  try{
+    $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=kaynak_ad&limit=25"
+    $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+    foreach($x in @($r)){ if("$($x.kaynak_ad)" -match $desen){ return 'ok' } }
+    return 'yok'
+  }catch{ return 'atla' }
+}
 function AmbarTeyit($kaynak){
   $f=Fold $kaynak
   # STANDART TEYIDI (TMS/TFRS/BDS): "TMS 1 ... paragraf 29" -> ambardaki "TMS 1 p.29*" belgesi
-  $mS=[regex]::Match($f,'(?<![a-z])(tms|tfrs|bds)\s*(\d{1,3})')
-  if($mS.Success){
-    $pS=[regex]::Match($f,'p(?:aragraf)?\.?\s*(\d{1,3})')
-    if(-not $pS.Success){ return 'yok' }   # paragraf gostermeyen standart atfi kabul edilmez
-    $filtre="*"+$mS.Groups[1].Value.ToUpperInvariant()+" "+$mS.Groups[2].Value+" p."+$pS.Groups[1].Value+"*"
-    try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
-      $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
-      if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+  # 23.07 dersleri: (a) uretici "madde 29" da yaziyor - "m./madde" isareti de kabul;
+  # (b) "TMS 1 p.29 ve TMS 24" gibi COKLU atifta HER standart ayri teyit edilir,
+  # biri teyitsizse soru gecmez (paragrafsiz/yutulmamis ikinci atif kacak gecmesin).
+  $stdMatches=[regex]::Matches($f,'(?<![a-z])(tms|tfrs|bds)\s*(\d{1,3})')
+  if($stdMatches.Count -ge 1){
+    for($si=0; $si -lt $stdMatches.Count; $si++){
+      $sm=$stdMatches[$si]
+      $bas=$sm.Index; $son=$(if($si+1 -lt $stdMatches.Count){ $stdMatches[$si+1].Index } else { $f.Length })
+      $seg=$f.Substring($bas, $son-$bas)
+      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(\d{1,3})')
+      if(-not $pS.Success){ return 'yok' }   # paragraf gostermeyen standart atfi kabul edilmez
+      $stdAd=$sm.Groups[1].Value.ToUpperInvariant(); $stdNo=$sm.Groups[2].Value; $par=$pS.Groups[1].Value
+      $sonuc = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" p."+$par+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+p\.'+$par+'($|[^0-9])')
+      if($sonuc -ne 'ok'){ return $sonuc }
+    }
+    return 'ok'
   }
   # MSUGT / TEKDUZEN TEYIDI: "THP 780" hesap kodu veya "MSUGT ... donemsellik" kavrami
   if($f -match 'msugt|tekduzen|hesap plani|thp'){
@@ -97,11 +115,13 @@ function AmbarTeyit($kaynak){
   if(-not $no){ foreach($k in $KANUN_NO.Keys){ if($f -match ('(?<![a-z])'+[regex]::Escape($k)+'(?![a-z])')){ $no=$KANUN_NO[$k]; break } } }
   if(-not $no){ return 'atla' }
   $on=''; if($f -match 'muk(\.|errer)'){ $on='muk. ' } elseif($f -match 'gec(\.|ici)'){ $on='gec. ' } elseif($f -match '(?<![a-z])ek\s*m'){ $on='ek ' }
-  $mM=[regex]::Match($kaynak,'m(?:adde)?\.?\s*(\d+(?:/[A-Za-zÇĞİÖŞÜçğıöşü])?)'); if(-not $mM.Success){ return 'atla' }
-  $filtre="*$no*"+$on+"m."+$mM.Groups[1].Value.ToUpperInvariant()+"*"
-  try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
-    $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
-    if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+  # 23.07 dersi: "m.10/a" gibi BENT atfinda ambar kaydi "m.10 - ..." oldugundan
+  # haksiz RET yeniyordu; teyit MADDE duzeyinde yapilir (bent metni maddenin icinde).
+  $mM=[regex]::Match($kaynak,'m(?:adde)?\.?\s*(\d+)'); if(-not $mM.Success){ return 'atla' }
+  $md=$mM.Groups[1].Value
+  # duz madde aranirken "muk./gec./ek" kayitlarina yanlis teyit olmasin
+  $onDesen=$(if($on){ [regex]::Escape($on) } else { '(?<!muk\.\s)(?<!gec\.\s)(?<!ek\s)' })
+  return AmbarSorgu ("*$no*"+$on+"m."+$md+"*") ('(?i)'+$onDesen+'m\.'+$md+'($|[^0-9A-Za-z])')
 }
 
 # KILITLI HAVUZ: Supabase'e tasinan paket sorulari da kok-tekrar ve doygunluk
@@ -167,8 +187,19 @@ SADECE su JSON dizisini dondur:
   # (6 konudan 4'u URETIM/JSON hatasiyla dustu). 16000'e cikarildi + API sigortasi.
   $ham = $null
   try { $ham = Claude $uIstem 16000 $MODEL_URET } catch { $rapor.Add("API HATASI: $konu ($($_.Exception.Message))"); continue }
-  $js = JsonBul $ham; if(-not $js){ $rapor.Add("URETIM HATASI (JSON bulunamadi/kesik): $konu"); continue }
-  $uretilen = @(); try{ $uretilen = $js | ConvertFrom-Json }catch{ $rapor.Add("JSON HATASI: $konu"); continue }
+  # 23.07 dersi (#5 kosusu): cikti token sinirinda kesilirse dizi/JSON bozuk kaliyor,
+  # tum konu copten gidiyordu. Yeni: once normal ayristir; olmazsa dengeli-parantez
+  # deseniyle TAMAMLANMIS soru nesnelerini tek tek kurtar (yarim nesne atilir).
+  $uretilen = @()
+  $js = JsonBul $ham
+  if($js){ try{ $uretilen = @($js | ConvertFrom-Json) }catch{} }
+  if(@($uretilen).Count -eq 0 -and $ham){
+    foreach($mK in [regex]::Matches($ham,'\{(?>[^{}]+|\{(?<d>)|\}(?<-d>))*(?(d)(?!))\}')){
+      try{ $oK = $mK.Value | ConvertFrom-Json; if($oK.soru -and $oK.siklar -and $oK.dogru){ $uretilen += $oK } }catch{}
+    }
+    if(@($uretilen).Count -gt 0){ $rapor.Add("KURTARILDI (kesik ciktidan $(@($uretilen).Count) tam soru): $konu") }
+  }
+  if(@($uretilen).Count -eq 0){ $rapor.Add("URETIM HATASI (JSON kurtarilamadi): $konu"); continue }
 
   foreach($s in @($uretilen)){
     $kokOzet = (Fold $s.soru); $kokOzet = $kokOzet.Substring(0,[Math]::Min(60,$kokOzet.Length))
@@ -194,7 +225,12 @@ SADECE su JSON dizisini dondur:
       # 23.07 dersi: cozucu bazen JSON yerine duz "B" yaziyor, bos sayilip saglam soru kesiliyordu.
       # Yeni: once JSON dene, olmazsa ham metinden tek harfli cevabi yakala.
       $cv=$null; $hamC=$null
-      try{ $hamC = Claude $cIstem 200 $MODEL_COZ; $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{}
+      # 23.07 dersi (#5 kosusu): cozucu API cagrisinin KENDISI patlarsa saglam soru
+      # bos cevapla RET yeniyordu - bir kez yeniden dene, sonra pes et.
+      foreach($den in 1,2){
+        try{ $hamC = Claude $cIstem 200 $MODEL_COZ; break }catch{ if($den -lt 2){ Start-Sleep -Seconds 5 } }
+      }
+      if($hamC){ try{ $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{} }
       if(-not $cv -and $hamC){ $mC=[regex]::Match($hamC.ToUpper(),'(?<![A-Z])([A-E])(?![A-Z])'); if($mC.Success){ $cv=$mC.Groups[1].Value } }
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); break }
     }
