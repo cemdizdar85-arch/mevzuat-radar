@@ -1,0 +1,45 @@
+{
+  "aciklama": "TETİKTE TEORİ NOTLARI — resmî mevzuat/standart metni OLMAYAN ders alanlarının (mali analiz, maliyet muhasebesi yöntemleri, mikroekonomi) yerleşik literatür tanımlarının kürasyonu. Bunlar kanun değildir; ders kitaplarının üzerinde uzlaştığı çekirdek bilgidir. Soru fabrikasının AmbarTeyit kapısı bu notlara bağlanır: nota dayanmayan teori sorusu üretilemez. Onay: GM (Cem yetki devri 23.07.2026) + Claude kürasyonu.",
+  "belgeler": [
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - dikey yuzde analizi",
+      "baslik": "Mali Tablolar Analizi — Dikey Yüzde Yöntemi",
+      "metin": "Tetikte Teori Notu (mali analiz literatürünün yerleşik tanımı): Dikey yüzde yönteminde her tablo kalemi, ait olduğu toplamın yüzdesi olarak ifade edilir. Bilançoda baz AKTİF TOPLAMI (pasif tarafında pasif toplamı) = 100; gelir tablosunda baz NET SATIŞLAR = 100 alınır. Ayrıca kalemin kendi grubu içindeki payı da (grup yüzdesi) hesaplanabilir. Dikey analiz TEK dönemin iç yapısını gösterir; işletmeler arası karşılaştırmaya ve sektör ortalamasıyla kıyasa uygundur. Dönemler arası GELİŞİMİ ölçmek için karşılaştırmalı tablolar (yatay) analizi ve eğilim (trend) yüzdeleri kullanılır: yatay analizde iki dönem arasındaki mutlak ve yüzde değişim; trend analizinde baz yıl 100 kabul edilerek her yılın baz yıla oranı hesaplanır. Yaygın tuzaklar: gelir tablosunda brüt satışları baz almak (doğrusu net satışlar), bilanço ile gelir tablosunun bazlarını karıştırmak, dikey analizle dönemler arası eğilim yorumu yapmak.",
+      "kaynak_url": "",
+      "belge_tarihi": "23.07.2026"
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - oran analizi likidite",
+      "baslik": "Mali Tablolar Analizi — Likidite Oranları",
+      "metin": "Tetikte Teori Notu (mali analiz literatürünün yerleşik tanımı): Likidite oranları işletmenin kısa vadeli borç ödeme gücünü ölçer. CARİ ORAN = Dönen Varlıklar / Kısa Vadeli Yabancı Kaynaklar; genel yorum ölçütü 2 civarıdır (sektöre göre değişir). ASİT-TEST (LİKİDİTE) ORANI = (Dönen Varlıklar − Stoklar) / KVYK; stokların satılamama riskini dışlar, yorum ölçütü 1 civarıdır. NAKİT ORANI = Hazır Değerler + Menkul Kıymetler / KVYK; en ihtiyatlı ölçüdür, ölçütü 0,20 civarıdır. Tuzaklar: oranın 'yüksek olması her zaman iyidir' sanısı (aşırı yüksek cari oran atıl kaynak işaretidir); stok devir hızı düşük işletmede cari oranın yanıltıcılığı (asit-test ile birlikte yorumlanmalı); ölçütlerin mutlak kural değil genel kabul olduğu.",
+      "kaynak_url": "",
+      "belge_tarihi": "23.07.2026"
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - birlesik maliyet dagitimi",
+      "baslik": "Maliyet Muhasebesi — Birleşik (Ortak) Maliyetlerin Dağıtımı",
+      "metin": "Tetikte Teori Notu (maliyet muhasebesi literatürünün yerleşik tanımı): Birleşik üretimde, ayrım (bölünme) noktasına kadar oluşan ortak maliyetin ana mamullere dağıtımında başlıca yöntemler: (1) SATIŞ DEĞERİ YÖNTEMİ — ayrım noktasındaki satış değerleriyle orantılı dağıtım: mamulün payı = ortak maliyet × (mamulün satış değeri / toplam satış değeri); en yaygın yöntemdir çünkü taşıma gücü ilkesine uyar. (2) FİZİKSEL ÖLÇÜ YÖNTEMİ — miktar (kg, lt, adet) esasına göre dağıtım; değer farklarını yok sayması zayıf yönüdür. (3) NET GERÇEKLEŞEBİLİR DEĞER YÖNTEMİ — ayrım sonrası ek işleme maliyeti düşülmüş nihai satış değerine göre dağıtım (ayrım noktasında satış fiyatı yoksa kullanılır). YAN ÜRÜNLER kural olarak ortak maliyetten pay almaz; net gelirleri ana mamul maliyetinden indirilir veya diğer gelir yazılır. Tuzaklar: eşit bölüştürme (yöntem değildir), miktar oranı ile değer oranını karıştırma, yan ürüne ortak maliyet yükleme.",
+      "kaynak_url": "",
+      "belge_tarihi": "23.07.2026"
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - normal maliyet yontemi",
+      "baslik": "Maliyet Muhasebesi — Maliyet Yöntemleri (Tam/Normal/Değişken)",
+      "metin": "Tetikte Teori Notu (maliyet muhasebesi literatürünün yerleşik tanımı): Sabit genel üretim giderlerinin mamul maliyetine yüklenme biçimine göre yöntemler: TAM MALİYET — tüm üretim giderleri (değişken + sabit GÜG'ün tamamı) maliyete yüklenir. NORMAL MALİYET — değişken GÜG'ün tamamı, sabit GÜG'ün ise yalnız KAPASİTE KULLANIM ORANINA düşen kısmı yüklenir; boş (atıl) kapasiteye düşen sabit GÜG maliyete girmez, dönem gideri olur (Tekdüzen'de 680 Çalışmayan Kısım Gider ve Zararları). DEĞİŞKEN (DİREKT) MALİYET — yalnız değişken üretim giderleri yüklenir, sabit GÜG'ün tamamı dönem gideridir. ASAL (DİREKT) MALİYET — yalnız direkt ilk madde + direkt işçilik. Tuzaklar: normal maliyette değişken GÜG'ü de orana tabi tutmak (yalnız SABİT kısım orana tabidir); boş kapasite giderini mamul maliyetine gömmek.",
+      "kaynak_url": "",
+      "belge_tarihi": "23.07.2026"
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - talep fiyat esnekligi",
+      "baslik": "Mikroekonomi — Talep Fiyat Esnekliği ve Toplam Hasılat",
+      "metin": "Tetikte Teori Notu (mikroekonomi literatürünün yerleşik tanımı): Talebin fiyat esnekliği e = talep edilen miktardaki % değişim / fiyattaki % değişim (mutlak değerle yorumlanır). |e| > 1 ESNEK talep: fiyat ARTIŞI toplam hasılatı DÜŞÜRÜR, fiyat indirimi artırır. |e| < 1 İNELASTİK talep: fiyat artışı hasılatı ARTIRIR. |e| = 1 birim esnek: hasılat maksimumdadır ve fiyat değişiminden etkilenmez. Uç durumlar: e = 0 tam inelastik (dikey talep eğrisi), e = ∞ tam esnek (yatay talep eğrisi). Esnekliği belirleyen etkenler: ikame olanağı (ikamesi çok → esnek), zorunlu/lüks ayrımı (zorunlu → inelastik), bütçedeki payı, zaman ufku (uzun dönem → daha esnek). Tuzaklar: doğru sonucu yanlış gerekçeye bağlayan şıklar (ör. 'hasılat düşer çünkü talep inelastiktir'), esnekliği eğim ile karıştırmak (esneklik yüzdesel değişim oranıdır, doğrunun eğimi değildir).",
+      "kaynak_url": "",
+      "belge_tarihi": "23.07.2026"
+    }
+  ]
+}

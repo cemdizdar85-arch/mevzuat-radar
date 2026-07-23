@@ -74,6 +74,24 @@ function AmbarTeyit($kaynak){
       $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
       if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
   }
+  # TEORI NOTU TEYIDI: resmi metni olmayan ders alanlari (mali analiz, maliyet
+  # muhasebesi yontemleri, mikroekonomi) veri/mevzuat/teori-notu.json kurasyonuna
+  # baglanir; ambarda karsiligi olmayan teori kaynagi 'yok' doner (SIKI MOD RET).
+  if($f -match 'teori notu|dikey (yuzde|analiz)|yatay analiz|trend analiz|likidite|cari oran|asit.test|nakit orani|birlesik maliyet|ortak maliyet|yan urun|normal maliyet(?! bedel)|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite|esneklik|elastik'){
+    $notlar=[ordered]@{
+      'dikey (yuzde|analiz)|yatay analiz|trend analiz'='dikey'
+      'likidite|cari oran|asit.test|nakit orani'='oran'
+      'birlesik maliyet|ortak maliyet|yan urun'='birlesik'
+      'normal maliyet|tam maliyet|degisken maliyet|asal maliyet|atil kapasite|bos kapasite'='normal'
+      'esneklik|elastik'='talep'
+    }
+    $hedefNot=$null; foreach($nk in $notlar.Keys){ if($f -match $nk){ $hedefNot=$notlar[$nk]; break } }
+    if(-not $hedefNot){ return 'yok' }
+    $filtre='*Teori Notu*'+$hedefNot+'*'
+    try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
+      $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+      if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+  }
   if($f -match 'gut|teblig|karar|yonetmelik|genelge'){ return 'atla' }
   $no=$null; $mN=[regex]::Match($f,'(?<!\d)(\d{3,4})(?!\d)\s*(s\.|sayili)'); if($mN.Success){ $no=$mN.Groups[1].Value }
   if(-not $no){ foreach($k in $KANUN_NO.Keys){ if($f -match ('(?<![a-z])'+[regex]::Escape($k)+'(?![a-z])')){ $no=$KANUN_NO[$k]; break } } }

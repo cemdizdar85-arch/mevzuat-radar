@@ -1,37 +1,50 @@
-# .github/workflows/teori-oku.yml — TEORİ OKUMA ROBOTU (elle tetiklenir)
+# .github/workflows/teori-oku.yml — TEORİ OKUMA ROBOTU
 # Korumalı/taranmış birincil metinleri (BDS 700, BDS 705, MSUGT Sıra No:1)
 # Claude'un görsel PDF okumasıyla metne döker → veri/mevzuat JSON'ları.
-# Sonrası: "Mevzuat Tam Yukleme" Run ile Supabase ambarına girer.
+# Sonrası: mevzuat-yukle.ps1 otomatik koşar → Supabase ambarı.
+# TETİK: elle (Run) VEYA motor/teori-oku.ps1 düzeltilip pushlanınca otomatik
+# (23.07: ilk iki koşu sessiz boş bitti; düzeltme-koşusu için Cem'in tık atması gerekmesin).
 name: Teori Okuma
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'motor/teori-oku.ps1'
 
 permissions:
   contents: write
+
+concurrency:
+  group: teori-oku
+  cancel-in-progress: false
 
 jobs:
   oku:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: qpdf kur (MSUGT 226 sayfa - API siniri 100, parcalamak sart)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq qpdf
       - name: BDS + MSUGT gorsel okuma
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: ./motor/teori-oku.ps1
-      - name: Ciktilari kaydet
+      - name: Ciktilari kaydet (rapor DAHIL - sessiz kosu yasak)
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/mevzuat/bds700.json veri/mevzuat/bds705.json veri/mevzuat/msugt1.json 2>/dev/null || true
-          if git diff --cached --quiet; then
-            echo "Yeni teori metni yok."
-          else
-            git commit -m "Teori okuma: BDS/MSUGT birincil metinleri ambara dokuldu"
-            git pull --rebase origin main || true
-            git push || true
-          fi
+          git add veri/mevzuat/bds700.json veri/mevzuat/bds705.json veri/mevzuat/msugt1.json veri/teori-rapor.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Degisiklik yok."; exit 0; fi
+          git commit -m "Teori okuma: BDS/MSUGT sonuclari + kosu raporu"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+            echo "push denemesi $i basarisiz, tekrar..."
+            sleep 5
+          done
+          echo "HATA: 3 denemede pushlanamadi - kosu kirmizi (sessiz kayip yasak)."
+          exit 1
       - name: Ambara yukle (okuma sonrasi otomatik - ek tik gerekmesin)
         shell: pwsh
         env:

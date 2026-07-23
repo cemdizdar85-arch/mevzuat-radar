@@ -46,8 +46,8 @@ if($hepsi.Count -eq 0){ exit 0 }
 
 # --- once eski kanun-madde kayitlarini sil (idempotent) ---
 try {
-  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.(kanun-madde,standart-madde)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 120 | Out-Null
-  Write-Host "Eski kanun-madde + standart-madde kayitlari silindi."
+  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.(kanun-madde,standart-madde,teori-notu)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 120 | Out-Null
+  Write-Host "Eski kanun-madde + standart-madde + teori-notu kayitlari silindi."
 } catch { Write-Host "UYARI: silme ($_)" }
 
 # --- toplu ekle (batch=500) ---
