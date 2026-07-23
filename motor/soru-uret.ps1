@@ -139,9 +139,12 @@ SADECE su JSON dizisini dondur:
     $tumMetin = "$($s.soru) " + (($s.siklar.PSObject.Properties.Value) -join ' ')
     if($tumMetin -match '(?i)(asgari ucret|asgari ücret|istisna tutar|had{1,2}i|beyan sinir|beyan sınır|tavan tutar|maktu|yeniden degerleme oran|yeniden değerleme oran|fatura duzenleme sinir|fatura düzenleme sınır|defter tutma had)' -and $tumMetin -match '(TL|lira)'){
       $rapor.Add("RET (yil-degisen kanuni tutar): $konu"); continue }
-    # KAPI 3: ambar teyidi
+    # KAPI 3: ambar teyidi — SIKI MOD (Cem 23.07: "yutmadiysan yazma"):
+    # kaynak ambardan TEYIT EDILEMIYORSA uretim YASAK. 'atla' (tebligat/standart/
+    # teori gibi henuz yutulmamis kaynak) artik gecmez; o dersler ancak ilgili
+    # metin ambara girince (standart-madde) acilir. YUTMA-LISTESI Sinav Teorisi Hatti.
     $at = AmbarTeyit $s.kaynak
-    if($at -eq 'yok'){ $rapor.Add("RET (ambar: kaynak yok): $($s.kaynak)"); continue }
+    if($at -ne 'ok'){ $rapor.Add("RET (kaynak ambardan teyit edilemedi - once YUT): $($s.kaynak)"); continue }
     # KAPI 1+2: iki bagimsiz cozucu (cevapsiz soruyu cozer)
     $cIstem = "Su coktan secmeli soruyu coz. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
     $ok=$true
