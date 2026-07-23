@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "47 21 * * *"   # 00:47 TR (dakika bilerek tenha)
+    - cron: "47 9 * * *"    # 12:47 TR — 23.07 Cem: damla fabrika kapandi, batch gunde 2 kosu
   push:
     paths:
       - 'motor/toplu-uret.ps1'

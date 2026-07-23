@@ -5,11 +5,8 @@
 name: Soru Fabrikasi
 
 on:
-  schedule:
-    - cron: "17 */2 * * *"   # her cift UTC saatte :17 = gunde 12 vardiya (TR 01:17'den 23:17'ye 2 saat arayla).
-                              # 23.07 Cem karari: acilis dolu bankayla, 1500 de az - kapasite katlandi.
-                              # Dakika :17 BILEREK TENHA (tam saat cronlari GitHub yogunlugunda atlaniyor).
-                              # Banka konu-derinlik hedeflerine doyunca kosular kendiliginden bos gecer, maliyet sifirlanir.
+  # 23.07 Cem karari: damla fabrika CRON'U KAPALI - ayni isi Batch hatti (toplu-uret)
+  # yari fiyata yapiyor. Bu workflow elle tetiklenebilir YEDEK olarak durur (B plani).
   workflow_dispatch:
   push:
     paths:
