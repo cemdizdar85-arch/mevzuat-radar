@@ -1,6 +1,7 @@
 ﻿{
   "aciklama": "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF'ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.<tertip>.<no> (eski kanun tertip 3-4, yeni 5).",
   "kanunlar": [
+    { "slug": "kamumali", "ad": "Kamu Malî Yönetimi K. (5018 s.K.)", "pdfId": "1.5.5018" },
     { "slug": "vuk",    "ad": "VUK (213 s.K.)",         "pdfId": "1.4.213"  },
     { "slug": "gvk",    "ad": "GVK (193 s.K.)",         "pdfId": "1.4.193"  },
     { "slug": "kdv",    "ad": "KDVK (3065 s.K.)",       "pdfId": "1.5.3065" },

@@ -6,11 +6,11 @@ name: Soru Fabrikasi
 
 on:
   schedule:
-    - cron: "30 2 * * *"    # 05:30 TR — gunde 5 vardiya (Cem 23.07: "acilista az soru olursa ilerleyemeyiz")
-    - cron: "30 6 * * *"    # 09:30 TR
-    - cron: "30 9 * * *"    # 12:30 TR
-    - cron: "30 13 * * *"   # 16:30 TR
-    - cron: "30 16 * * *"   # 19:30 TR — banka doyunca (konu basi 10) kosular kendiliginden bos gecer, maliyet sifirlanir
+    - cron: "17 2 * * *"    # 05:17 TR — gunde 5 vardiya. DAKIKALAR BILEREK TENHA (23.07 gecesi :00/:30 cronlarinin
+    - cron: "17 6 * * *"    # 09:17 TR   TAMAMI GitHub yogunlugunda atlandi; tam saat baslari kalabalik, :17/:43 tenha)
+    - cron: "17 9 * * *"    # 12:17 TR
+    - cron: "17 13 * * *"   # 16:17 TR
+    - cron: "17 16 * * *"   # 19:17 TR — banka doyunca (konu basi 10) kosular kendiliginden bos gecer, maliyet sifirlanir
   workflow_dispatch:
 
 permissions:

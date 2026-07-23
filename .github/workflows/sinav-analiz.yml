@@ -7,8 +7,8 @@ name: Sinav Analizi
 
 on:
   schedule:
-    - cron: "30 3 * * *"    # 06:30 TR — gunde 2 tur (kuyruk bosken API maliyeti sifir, script aninda cikar)
-    - cron: "30 10 * * *"   # 13:30 TR — kuyruktaki Yeterlilik kitapciklari daha hizli erisin
+    - cron: "43 3 * * *"    # 06:43 TR — gunde 2 tur (tenha dakika: :00/:30 cronlari 23.07 gecesi atlandi)
+    - cron: "43 10 * * *"   # 13:43 TR — kuyruktaki Yeterlilik kitapciklari daha hizli erisin
   workflow_dispatch:
 
 permissions:
