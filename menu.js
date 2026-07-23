@@ -1,4 +1,4 @@
-/* Mevzuat Radarı — ortak araç menüsü.
+/* Tetikte — ortak araç menüsü.
    Her sayfaya <script src="menu.js" defer></script> ile eklenir:
    sağ altta "☰ Araçlar" düğmesi + tam ekran aranabilir katalog paneli. */
 (function(){
@@ -127,7 +127,7 @@ function kur(){
 
   var kap=document.createElement('div'); kap.id='mrxKaplama';
   var h='<div class="mrxIc"><div class="mrxUst">'+
-    '<span class="mrxLogo">MR</span><b>Mevzuat Radarı</b>'+
+    '<span class="mrxLogo">T</span><b>Tetikte</b>'+
     '<a href="index.html">Ana Sayfa</a><a class="mrxUye" href="radar-app.html">Giriş / Üye Ol</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';

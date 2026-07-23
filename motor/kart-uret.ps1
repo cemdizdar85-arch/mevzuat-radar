@@ -40,7 +40,7 @@ foreach($src in $imgSrcler){
 }
 
 $istem = @"
-Sen Mevzuat Radari'nin kart motorusun. Asagida bir Resmi Gazete tebligi metni (ve varsa tablo goruntuleri) var. Gorevin: Turkiye'deki ithalatci/ihracatci KOBI patronunun 30 saniyede anlayacagi bir 'hap bilgi karti' verisi cikarmak.
+Sen Tetikte'nin kart motorusun. Asagida bir Resmi Gazete tebligi metni (ve varsa tablo goruntuleri) var. Gorevin: Turkiye'deki ithalatci/ihracatci KOBI patronunun 30 saniyede anlayacagi bir 'hap bilgi karti' verisi cikarmak.
 
 ALTIN KURALLAR:
 1) Rakam, tarih, oran, GTIP kodu SADECE verilen metinden/goruntuden alinir. Emin olamadigin her sey icin "kaynakta belirtilmemis" yaz. ASLA tahmin etme, ASLA uydurma.

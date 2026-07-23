@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Asgari Kurumlar Vergisi Simülatörü — %10 tabana takılır mıyım? | Mevzuat Radarı</title>
+<title>Asgari Kurumlar Vergisi Simülatörü — %10 tabana takılır mıyım? | Tetikte</title>
 <meta name="description" content="Yurt içi asgari kurumlar vergisi (KVK m.32/C) hesabı: ticari kâr + KKEG üzerinden %10 taban, düşülebilen istisnalar, ilk 3 yıl muafiyeti. 7524 ve 7582 sonrası güncel kurallarla, kaynağa bağlı.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -48,7 +48,7 @@ details li{margin-bottom:5px}
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Asgari Kurumlar Vergisi</div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Asgari Kurumlar Vergisi</div>
   <h1>Asgari Kurumlar Vergisi Simülatörü</h1>
   <p class="lead">2025'ten itibaren kurumlar, indirim ve istisnalar ne olursa olsun <b style="color:var(--ink)">ticari kâr + KKEG toplamının %10'undan az</b> kurumlar vergisi ödeyemiyor (KVK m.32/C — 7524 s.K. ile eklendi). Rakamlarını gir; tabana takılıp takılmadığını gör.
   <span class="damga">📑 Kaynak: KVK m.32/C konsolide metni (7582/9 dahil) — 22.07.2026 okundu</span></p>
@@ -143,7 +143,7 @@ $('#hesapla').addEventListener('click',()=>{
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi (asgari-kv)',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
+  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi (asgari-kv)',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
   <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(38,208,254,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">

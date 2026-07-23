@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Marka Yenileme Radarı — markan ne zaman düşüyor? (10 yıl / SMK m.23) | Mevzuat Radarı</title>
+<title>Marka Yenileme Radarı — markan ne zaman düşüyor? (10 yıl / SMK m.23) | Tetikte</title>
 <meta name="description" content="Tescilli markanın koruma süresi başvuru tarihinden 10 yıl. Yenileme penceresi son 6 ay, kaçarsan 6 ay ek ücretli süre; hiç yenilemezsen marka düşer. Markanın bitiş tarihini ve durumunu gör, takibe al.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -53,7 +53,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Marka Radarı</div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Marka Radarı</div>
   <h1>Marka Yenileme Radarı — markan ne zaman düşüyor?</h1>
   <p class="lead">Tescilli markanın koruması <b>başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b>düşer</b> — ve düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b>son 6 ay</b>; kaçarsan <b>6 ay ek süre (ek ücretle)</b>. Markanın bitiş tarihini ve şu anki durumunu gör; unutmamak için takibe al.</p>
 
@@ -134,7 +134,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
   </details>
 
-  <div class="dip">Mevzuat Radarı · Marka Yenileme Radarı · Kaynak (mevzuat.gov.tr'den birebir): <b>6769 sayılı Sınai Mülkiyet Kanunu m.23</b> (koruma 10 yıl + yenileme), <b>m.26</b> (yenilenmeme → iptal), <b>m.6</b> (benzerlik/itiraz), <b>m.18</b> (yayıma itiraz 2 ay). 556 KHK (mülga 10.01.2017) markaları da SMK'ya tabi yenilenir · bir Dizdar Denetim A.Ş. yazılımı</div>
+  <div class="dip">Tetikte · Marka Yenileme Radarı · Kaynak (mevzuat.gov.tr'den birebir): <b>6769 sayılı Sınai Mülkiyet Kanunu m.23</b> (koruma 10 yıl + yenileme), <b>m.26</b> (yenilenmeme → iptal), <b>m.6</b> (benzerlik/itiraz), <b>m.18</b> (yayıma itiraz 2 ay). 556 KHK (mülga 10.01.2017) markaları da SMK'ya tabi yenilenir · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
 <script>
@@ -204,7 +204,7 @@ function koruma(){
   if(!m){ out.textContent='E-postanı yaz.'; return; }
   const no=(document.getElementById('no').value||'').trim(), ad=(document.getElementById('ad').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
   const payload={access_key:AK, subject:'MARKA KORUMA/TESCIL talebi (markasi yok/emin degil)',
-    from_name:'Mevzuat Radari Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
+    from_name:'Tetikte Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
   fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{out.innerHTML='✅ Aldık. Sana ait tescilli marka var mı kontrol edip koruma seçeneklerini ileteceğiz.';})
     .catch(()=>{out.innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>';});
@@ -213,7 +213,7 @@ function takip(){
   const m=document.getElementById('mail').value.trim();
   if(!m){ document.getElementById('takipOut').textContent='E-postanı yaz.'; return; }
   const payload={access_key:AK, subject:'MARKA RADARI takip: '+(SON.ad||SON.no||'-'),
-    from_name:'Mevzuat Radari Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
+    from_name:'Tetikte Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
   fetch(EP,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{document.getElementById('takipOut').innerHTML='✅ Takibe alındı. Yenileme yaklaşınca haber vereceğiz.';})
     .catch(()=>{document.getElementById('takipOut').innerHTML='İletişim: <a href="mailto:cemdizdar85@hotmail.com">cemdizdar85@hotmail.com</a>';});
@@ -230,7 +230,7 @@ function takip(){
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
+  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <script src="menu.js" defer></script>
 </body>

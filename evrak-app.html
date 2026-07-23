@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Evrak Radarı — mükellef kovalamayı bırak (canlı) | Mevzuat Radarı</title>
+<title>Evrak Radarı — mükellef kovalamayı bırak (canlı) | Tetikte</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -86,7 +86,7 @@ window._coz = belgeAdiCoz; // test için
 // ================= GİRİŞ =================
 function girisEkrani(){
   W().innerHTML=`
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Evrak Radarı</div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Evrak Radarı</div>
   <h1>Evrak Radarı — muhasebeci girişi</h1>
   <p class="lead">Mükellef kovalamayı bırak. Soru/belge listesi oluştur → mükellefe link → cevaplar organize ekranına düşer.</p>
   <div class="kart" style="max-width:420px">
@@ -109,7 +109,7 @@ async function muhasebeciApp(){
   const { data:istekler } = await sb.from('istekler').select('*, sorular(*)').order('created_at',{ascending:false});
   const bekleyen=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='bek').length,0);
   const cevapli=(istekler||[]).reduce((a,i)=>a+(i.sorular||[]).filter(s=>s.durum==='ok').length,0);
-  let h=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Evrak Radarı · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
+  let h=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Evrak Radarı · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
   <h1>👨‍💼 Evrak Radarı</h1>
   <div class="stat"><div><div class="n">${(istekler||[]).length}</div><div class="l">İstek</div></div><div><div class="n" style="color:var(--green)">${cevapli}</div><div class="l">Cevaplanan</div></div><div><div class="n" style="color:var(--amber)">${bekleyen}</div><div class="l">Bekleyen</div></div></div>`;
   // FİŞ FABRİKASI KAT-2: beyanname/tahakkuk dağıtımı
@@ -243,12 +243,12 @@ async function mukellefPano(token){
   const { data, error } = await sb.rpc('mukellef_pano',{p_token:token});
   if(error||!data){ W().innerHTML=`<div class="kart"><div class="bos">Bu pano bağlantısı geçersiz.</div></div>`; return; }
   const bl = data.belgeler||[];
-  W().innerHTML=`<div class="top"><span class="logo">MR</span> Evrak Radarı · Belge Panosu</div>
+  W().innerHTML=`<div class="top"><span class="logo">T</span> Evrak Radarı · Belge Panosu</div>
   <div class="tel" style="max-width:460px">
     <div style="font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px">📂 ${esc(data.mukellef||'')} — beyanname &amp; tahakkuk panosu</div>
     ${bl.length? bl.map(b=>`<div class="soruSat"><div>📄</div><div class="body"><div style="font-weight:650;font-size:13.5px">${esc(b.tur||'Belge')} · ${esc(b.donem||'')}</div><div style="font-size:12px;color:var(--dim)">${esc(b.dosya_adi)} · ${b.ts?new Date(b.ts).toLocaleDateString('tr-TR'):''}</div><a class="fis" href="#" onclick="window._belgeAc('${b.url}');return false">📥 indir / görüntüle</a></div></div>`).join('')
       : '<div class="bos">Henüz belge yüklenmedi. Muhasebeciniz yükledikçe burada görünecek.</div>'}
-    <div style="font-size:11px;color:var(--dim);text-align:center;margin-top:10px">Mevzuat Radarı · Fiş Fabrikası — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+    <div style="font-size:11px;color:var(--dim);text-align:center;margin-top:10px">Tetikte · Fiş Fabrikası — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
   </div>`;
 }
 
@@ -257,7 +257,7 @@ async function mukellefGorunum(token){
   const { data, error } = await sb.rpc('istek_getir',{p_token:token});
   if(error||!data){ W().innerHTML=`<div class="kart"><div class="bos">Bu bağlantı geçersiz ya da süresi dolmuş.</div></div>`; return; }
   const sorular=data.sorular||[]; const acik=sorular.filter(s=>s.durum==='bek').length;
-  W().innerHTML=`<div class="top"><span class="logo">MR</span> Evrak Radarı</div>
+  W().innerHTML=`<div class="top"><span class="logo">T</span> Evrak Radarı</div>
   <div class="tel"><div style="font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px">📩 Muhasebecinden istek · ${esc(data.mukellef||'')}${acik?` · <b style="color:var(--amber)">${acik} cevap bekliyor</b>`:' · ✅ tamam'}</div>
     <div style="font-weight:750;margin-bottom:6px">${esc(data.baslik)}</div>
     <div id="mlist"></div></div>`;

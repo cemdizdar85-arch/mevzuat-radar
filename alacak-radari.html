@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Alacak Radarı — müşterin batmadan haber al | Mevzuat Radarı</title>
+<title>Alacak Radarı — müşterin batmadan haber al | Tetikte</title>
 <meta name="description" content="Borçlularını gir; biri konkordato/iflas ilan edince İİK süreleriyle uyarı al. Alacağını süresinde kaydet, müzakere hakkını kaybetme.">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#2f7bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
@@ -67,7 +67,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
 
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
@@ -119,7 +119,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <a class="btn" href="index.html#app" style="text-decoration:none">Alacak Radarına abone ol →</a>
   </div>
 
-  <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Mevzuat Radarı. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
+  <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Tetikte. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -290,7 +290,7 @@ async function kontrol(){
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
+  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
   <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(38,208,254,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">

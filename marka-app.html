@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Marka İzleme (canlı) — yenileme + kullanım delili | Mevzuat Radarı</title>
+<title>Marka İzleme (canlı) — yenileme + kullanım delili | Tetikte</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -63,7 +63,7 @@ async function yonlendir(){ const {data:{session}}=await sb.auth.getSession(); i
 sb.auth.onAuthStateChange((_e,s)=>{ if(s)markaApp(); else giris(); });
 
 function giris(){
-  W().innerHTML=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Marka İzleme</div>
+  W().innerHTML=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Marka İzleme</div>
   <h1>Marka İzleme — giriş</h1>
   <p class="lead">Markalarını ekle; yenileme tarihlerini takip edelim, kullanım delillerini sakla. (Evrak Radarı ile aynı hesap.)</p>
   <div class="kart" style="max-width:420px"><div class="kbas">GİRİŞ / KAYIT</div>
@@ -78,7 +78,7 @@ function giris(){
 async function markaApp(){
   const {data:{user}}=await sb.auth.getUser();
   const {data:markalar}=await sb.from('marka_takvim').select('*').order('koruma_bitisi');
-  let h=`<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="evrak-app.html">Evrak</a> · Marka İzleme · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
+  let h=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="evrak-app.html">Evrak</a> · Marka İzleme · <span style="color:var(--dim)">${esc(user.email)}</span> · <a href="#" id="cikis">çıkış</a></div>
   <h1>®️ Marka İzleme</h1>
   <div class="kart"><div class="kbas">＋ MARKA EKLE</div>
     <div class="satirlar"><div><label>Marka adı</label><input class="gir" id="ad" placeholder="ör. DIZDAR"></div><div><label>Tescil/başvuru no</label><input class="gir" id="no" placeholder="ör. 2016/12345"></div></div>

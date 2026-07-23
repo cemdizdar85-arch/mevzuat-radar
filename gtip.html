@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTİP Vergi Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Mevzuat Radarı</title>
+<title>GTİP Vergi Kontrolü — hangi ülkeden alırsan kaç vergi ödersin? | Tetikte</title>
 <meta name="description" content="GTİP kodunu ve menşe ülkeni gir; o ülkeden ithalatta ödeyeceğin gümrük vergisini kesin oranla gör — AB, Diğer Ülkeler (Çin/ABD/Japonya) ve ara gruplar arasındaki farkı saniyede öğren.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -46,7 +46,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="destekler.html">Destek Radarı</a> · GTİP Vergi Kontrolü</div>
+  <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="destekler.html">Destek Radarı</a> · GTİP Vergi Kontrolü</div>
   <h1>GTİP Vergi Kontrolü</h1>
   <p class="lead">Bir ürünün kodunu gir; o ürünü ithal ederken <b style="color:var(--ink)">ne kadar vergi ödersin</b> (gümrük, KDV, ÖTV, damping…), <b style="color:var(--ink)">hangi ülkeden almak daha avantajlı</b> ve nelere dikkat etmen gerektiğini sade Türkçeyle — saniyede gör. Satıyorsan ihracat tarafını da gösteririz.</p>
 
@@ -88,7 +88,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <div style="margin-top:7px;color:var(--dim);line-height:1.6"><b style="color:var(--muted)">İthalatta:</b> gözetim · gümrük vergisi + İGV (ülkeye göre) · Tarım Payı/Toplu Konut Fonu · damping/sübvansiyona karşı vergi · KDV oranı · ÖTV · KKDF (%6 vadeli) · TRT bandrol · Tütün Fonu · Damga · GEKAP (geri kazanım) · gümrük muafiyetleri (askıya alma / nihai kullanım) · savunma sanayi · TAREKS denetimi · menşe belgesi · kıymet kıyası.<br><b style="color:var(--muted)">İhracatta:</b> KDV istisnası/iadesi · kayda bağlı ihracat · DFİF kesintisi · TEV · DİİB.</div>
     </details>
     <b style="color:var(--amber)">Bilgilendirme amaçlıdır; işlem öncesi gümrük müşavirine danış.</b></div>
-  <div class="dip">Mevzuat Radarı · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · bir Dizdar Denetim A.Ş. yazılımı</div>
+  <div class="dip">Tetikte · GTİP durum motoru · Veri kaynağı: mevzuat.gov.tr resmî birleşik metinler + Ticaret Bakanlığı İthalat Rejimi Kararı (ülke bazlı oranlar, sanayi ürünleri fasıl 25-97) · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
 <script>
@@ -760,7 +760,7 @@ function takibeAl(){
   const payload = {
     access_key: EPOSTA_ANAHTAR,
     subject: 'GTİP takip kaydı — ' + SON_SORGU,
-    from_name: 'Mevzuat Radarı',
+    from_name: 'Tetikte',
     email: mail,
     'Takip edilen GTİP': SON_SORGU,
     'Kayıt kaynağı': 'GTİP Sağlık Kontrolü'
@@ -786,7 +786,7 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
-  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Mevzuat Radari'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
+  <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
   <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(38,208,254,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">

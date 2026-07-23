@@ -360,7 +360,7 @@ $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
-[void]$s.AppendLine("<title>Günün Hap Kartları - $TarihNokta | Mevzuat Radarı</title>")
+[void]$s.AppendLine("<title>Günün Hap Kartları - $TarihNokta | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">')
 [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
 [void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}')
@@ -384,7 +384,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
 [void]$s.AppendLine('</style></head><body><div class="wrap">')
-[void]$s.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
+[void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
 [void]$s.AppendLine("<h1>Günün Hap Kartları</h1>")
 [void]$s.AppendLine("<div class='alt'>$TarihNokta — Resmî Gazete'deki $($kartlar.Count) düzenleme, 30 saniyede okunur kartlar hâlinde.</div>")
 # nobet damgasi: robot her gun tarar; kart cikmasa da "son tarama" tarihi canli gorunur (veri/kart-durum.json'u kartlar.yml yazar)
@@ -431,7 +431,7 @@ foreach($k in $kartlar){
 [void]$s.AppendLine('<div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>')
 [void]$s.AppendLine('<p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
-[void]$s.AppendLine("<div class='dip'>Mevzuat Radarı hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>")
+[void]$s.AppendLine("<div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>")
 [void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
 $kartlarHtml = Join-Path $kok "kartlar.html"
 [System.IO.File]::WriteAllText($kartlarHtml, $s.ToString(), (New-Object System.Text.UTF8Encoding($false)))
@@ -450,7 +450,7 @@ $gunler = Get-ChildItem $arsivDirSite -Filter "kartlar-*.html" | ForEach-Object 
 } | Sort-Object sirala -Descending
 $a = New-Object System.Text.StringBuilder
 [void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="../">')
-[void]$a.AppendLine('<title>Kart Arşivi | Mevzuat Radarı</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
+[void]$a.AppendLine('<title>Kart Arşivi | Tetikte</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
 [void]$a.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%)}')
 [void]$a.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7}')
 [void]$a.AppendLine('a{color:var(--accent2)}.wrap{max-width:720px;margin:0 auto;padding:24px 18px 70px}')
@@ -460,7 +460,7 @@ $a = New-Object System.Text.StringBuilder
 [void]$a.AppendLine('.g{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;color:var(--ink);text-decoration:none;font-weight:600}.g:hover{border-color:rgba(62,155,255,.4)}')
 [void]$a.AppendLine('.g span{color:var(--dim);font-weight:400;font-size:12.5px}')
 [void]$a.AppendLine('</style></head><body><div class="wrap">')
-[void]$a.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="kartlar.html">Günün Kartları</a> · Arşiv</div>')
+[void]$a.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="kartlar.html">Günün Kartları</a> · Arşiv</div>')
 [void]$a.AppendLine('<h1>Hap Kart Arşivi</h1><p style="color:var(--muted);font-size:14px">Gün gün, Resmî Gazete değişikliklerinin hap kartları.</p>')
 foreach($g in $gunler){ [void]$a.AppendLine("<a class='g' href='arsiv/$($g.dosya)'>$($g.goster) <span>— günün kartları</span></a>") }
 [void]$a.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')

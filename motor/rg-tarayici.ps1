@@ -1,5 +1,5 @@
 ﻿# ============================================================================
-#  RG TARAYICI v0 — Mevzuat Radarı motor dairesi, ilk taş
+#  RG TARAYICI v0 — Tetikte motor dairesi, ilk taş
 #  Ne yapar: verilen tarihin Resmî Gazete fihristini çeker, başlıkları
 #  kategorilere süzer, rapor (md+json) üretir, ilgili tebliğ HTML'lerini
 #  arşivler.
@@ -162,7 +162,7 @@ $htmlYol = Join-Path $ciktiDir ("rapor-" + $gunKlas + ".html")
 if(-not $SadeceArsiv){
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
-[void]$s.AppendLine("<title>Bugün RG'de - $Tarih | Mevzuat Radarı</title>")
+[void]$s.AppendLine("<title>Bugün RG'de - $Tarih | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Resmî Gazete otomatik radar taraması: bugün işletmeleri ilgilendiren gümrük, gözetim, vergi ve teşvik düzenlemeleri.">')
 [void]$s.AppendLine('<style>')
 [void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e}')
@@ -181,7 +181,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
 [void]$s.AppendLine('</style></head><body><div class="wrap">')
-[void]$s.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · Bugün RG''de</div>')
+[void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Bugün RG''de</div>')
 [void]$s.AppendLine("<h1>Bugün Resmî Gazete'de ne var?</h1>")
 [void]$s.AppendLine("<div class='alt'>$Tarih tarihli sayının radar taraması — $($madde.Count) maddeden <b style='color:var(--ink)'>$ilgiliToplam</b> tanesi işletmeleri ilgilendiriyor.</div>")
 [void]$s.AppendLine('<div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Bu maddelerin sade Türkçe özetleri için: <a href="kartlar.html">Günün Hap Kartları →</a></div>')
@@ -193,7 +193,7 @@ foreach($k in $sonuc.Keys){
 [void]$s.AppendLine('<div class="cta"><h3>Bunlardan hangisi SENİ etkiliyor?</h3>')
 [void]$s.AppendLine('<p>Listeye her gün bakmak yerine firmanı tanıt; tabi olduğun yükümlülükleri 3 dakikada gör. Ücretsiz, kayıtsız.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
-[void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Mevzuat Radarı otomatik taraması · Bilgilendirme amaçlıdır.</div>")
+[void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Tetikte otomatik taraması · Bilgilendirme amaçlıdır.</div>")
 [void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
 $radarYol = Join-Path (Split-Path -Parent $here) "radar.html"
 [System.IO.File]::WriteAllText($radarYol, $s.ToString(), (New-Object System.Text.UTF8Encoding($true)))
