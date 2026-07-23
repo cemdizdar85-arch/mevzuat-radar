@@ -29,6 +29,7 @@ jobs:
         shell: pwsh
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: ./motor/soru-denetci-k2.ps1
       - name: Sonuclari kaydet (3-deneme push)
         run: |
