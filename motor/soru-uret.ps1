@@ -101,7 +101,7 @@ function AmbarTeyit($kaynak){
         $sonucEk = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" Ek-"+$ekNo+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+Ek-?'+$ekNo)
         if($sonucEk -ne 'ok'){ return $sonucEk }
         continue
-      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(a?\d{1,3})')
+      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?|md)\.?\s*(a?\d{1,3})')
       # 24.07: "BDS 500.A25" bicimi (p'siz A-paragrafi) da taninir - ambarda p.A25 olarak var
       # Aralikli atifta (A14-A25) tum adaylar denenir; BIRI ambarda varsa atif gecerli.
       $adaylar=@(); if($pS.Success){ $adaylar += $pS.Groups[1].Value }
