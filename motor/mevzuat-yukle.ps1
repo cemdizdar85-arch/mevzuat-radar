@@ -32,7 +32,7 @@ Get-ChildItem $dir -Filter *.json | ForEach-Object {
     if($gorulen.ContainsKey($k)){ continue }
     $gorulen[$k] = $true
     $hepsi.Add([ordered]@{
-      tur          = "kanun-madde"
+      tur          = $(if($b.tur){ "$($b.tur)" } else { "kanun-madde" })   # standart-madde (TMS/BDS) belgeleri kendi turunu tasir
       kaynak_ad    = $k
       baslik       = "$($b.baslik)"
       metin        = "$($b.metin)"
@@ -46,8 +46,8 @@ if($hepsi.Count -eq 0){ exit 0 }
 
 # --- once eski kanun-madde kayitlarini sil (idempotent) ---
 try {
-  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 120 | Out-Null
-  Write-Host "Eski kanun-madde kayitlari silindi."
+  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.(kanun-madde,standart-madde)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 120 | Out-Null
+  Write-Host "Eski kanun-madde + standart-madde kayitlari silindi."
 } catch { Write-Host "UYARI: silme ($_)" }
 
 # --- toplu ekle (batch=500) ---

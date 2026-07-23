@@ -1,0 +1,316 @@
+{
+    "belgeler":  [
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.1 - Amaç",
+                         "baslik":  "Amaç",
+                         "metin":  "TMS 2 (Stoklar) paragraf 1: Bu Standardın amacı, stoklarla ilgili muhasebe uygulamalarını belirlemektir. Stokların muhasebeleştirmesindeki temel konulardan biri, varlık olarak finansal tablolara alınacak ve ilgili hasılat finansal tablolara yansıtılıncaya kadar varlık olarak izlenecek olan maliyet tutarının belirlenmesidir. Bu Standart, stokun net gerçekleşebilir değere indirgenmesi de dâhil olmak üzere, stok maliyetinin belirlenmesi ve sonrasında gider olarak finansal tablolara yansıtılması hakkında rehberlik sağlar. Bu Standart ayrıca maliyetlerin stoklara yüklenmesinde kullanılan maliyet hesaplama yöntemleri hakkında rehberlik sağlar.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.2 - Kapsam",
+                         "baslik":  "Kapsam",
+                         "metin":  "TMS 2 (Stoklar) paragraf 2: Bu Standart aşağıdakiler hariç tüm stoklara uygulanır: (a) [Silinmiştir], (b) Finansal araçlar (bakınız: TMS 32 Finansal Araçlar: Sunum ve TFRS 9 Finansal Araçlar) ve (c) Tarımsal faaliyetlerle ilgili canlı varlıklar ve hasat zamanındaki tarımsal ürünler (bakınız: TMS 41 Tarımsal Faaliyetler).",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.3 - Kapsam",
+                         "baslik":  "Kapsam",
+                         "metin":  "TMS 2 (Stoklar) paragraf 3: Bu Standart, aşağıdakiler tarafından elde tutulan stokların ölçümüne uygulanmaz: (a) İlgili sektördeki yerleşik uygulamalar çerçevesinde net gerçekleşebilir değer üzerinden ölçülmesi halinde; tarım ve orman ürünlerinin, hasat sonrası tarımsal ürünlerin, madenlerin ve madeni ürünlerin üretimini yapanlar. Bu tür stoklar net gerçekleşebilir değer üzerinden ölçüldüğünde, bu değerde meydana gelen değişimler, değişimin gerçekleştiği dönemde kâr veya zarara yansıtılır. (b) Stoklarını, satış maliyetleri düşülmüş gerçeğe uygun değer üzerinden ölçen emtia alım satımına aracılık edenler. Bu tür stoklar, satış maliyetleri düşülmüş gerçeğe uygun değer üzerinden ölçüldüğünde, bu değerde meydana gelen değişimler, değişimin gerçekleştiği dönemde kâr veya zarara yansıtılır. 4 3(a) paragrafında belirtilen stoklar, üretimin belirli aşamalarında net gerçekleşebilir değer üzerinden ölçülür. Bu durum örneğin; tarımsal mahsulün hasat edildiği ya da madenlerin çıkarıldığı ve bunların satışının bir forward sözleşmesi veya devlet garantisiyle güvence altına alındığı durumlarda veya aktif bir piyasanın bulunduğu ve malın satılmama riskinin göz ardı edilebilir olduğu durumlarda ortaya çıkar. Bu stoklara bu Standardın sadece ölçüm hükümleri uygulanmaz.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.5 - Kapsam",
+                         "baslik":  "Kapsam",
+                         "metin":  "TMS 2 (Stoklar) paragraf 5: Alım satıma aracılık edenler, başkaları veya kendi hesabına mal alan ya da satan kişilerdir. 3(b) paragrafında belirtilen stoklar esas olarak, yakın zamanda satılmak ve fiyat dalgalanmalarından veya aracılık kazancından kâr elde etmek amacıyla edinilir. Bu stokların satış maliyetleri düşülmüş gerçeğe uygun değer üzerinden ölçülmesi durumunda, söz konusu stoklara bu Standardın sadece ölçüm hükümleri uygulanmaz.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.6 - Tanımlar",
+                         "baslik":  "Tanımlar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 6: Aşağıdaki terimler bu Standartta, karşılarında belirtilen anlamlarıyla kullanılmıştır: Stoklar: (a) Olağan iş akışı içinde satılmak üzere elde tutulan, (b) Olağan iş akışı içinde satılmak üzere üretilmekte olan veya (c) Üretim sürecinde veya hizmet sunumunda kullanılacak hammadde ve malzeme şeklinde bulunan varlıklardır. Net gerçekleşebilir değer: Olağan iş akışı içinde tahmini satış fiyatından, tahmini tamamlanma maliyetlerinin ve satışı gerçekleştirmek için gerekli olan tahmini maliyetlerin düşülmesiyle elde edilen tutardır. Gerçeğe uygun değer: Piyasa katılımcıları arasında ölçüm tarihinde gerçekleşen olağan bir işlemde, bir varlığın satışından elde edilecek veya bir yükümlülüğün devrinde ödenecek olan tutardır (bakınız: TFRS 13 Gerçeğe Uygun Değer Ölçümü).",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.7 - Tanımlar",
+                         "baslik":  "Tanımlar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 7: Net gerçekleşebilir değer; bir işletmenin, olağan iş akışı içinde stokun satışından elde etmeyi beklediği net tutarı ifade eder. Gerçeğe uygun değer ise; piyasa katılımcıları arasında ölçüm tarihinde stoka ilişkin asıl (veya en avantajlı) piyasada gerçekleşen olağan satış işleminde ortaya çıkan fiyatı yansıtır. Net gerçekleşebilir değer işletmeye özgü bir değerken; gerçeğe uygun değer işletmeye özgü bir değer değildir. Stokların net gerçekleşebilir değeri, satış maliyetleri düşülmüş gerçeğe uygun değere eşit olmayabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.8 - Tanımlar",
+                         "baslik":  "Tanımlar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 8: Satın alınan ve tekrar satılmak üzere elde tutulan mallar (örneğin, perakendeci tarafından satın alınan ve tekrar satılmak üzere elde tutulan ticari mallar, tekrar satılmak üzere elde tutulan arsa ve diğer gayrimenkuller) stok olarak nitelendirilir. Ayrıca, işletme tarafından üretilmiş olan veya üretim sürecinde olan mallar ile üretim sürecinde kullanılmak üzere bekletilen hammadde ve malzemeler de stok niteliğindedir. Müşteriyle yapılan bir sözleşmenin ifa edilmesi için katlanılan ve stok (veya başka bir Standart kapsamında bir varlık) oluşumuna neden olmayan maliyetler, TFRS 15 Müşteri Sözleşmelerinden Hasılat uyarınca muhasebeleştirilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.9 - Stokların ölçümü",
+                         "baslik":  "Stokların ölçümü",
+                         "metin":  "TMS 2 (Stoklar) paragraf 9: Stoklar, maliyet değeri ile net gerçekleşebilir değerin düşük olanı üzerinden ölçülür.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.10 - Stokların maliyeti",
+                         "baslik":  "Stokların maliyeti",
+                         "metin":  "TMS 2 (Stoklar) paragraf 10: Stokların maliyeti; tüm satın alma maliyetlerini, dönüştürme maliyetlerini ve stokların mevcut konumuna ve durumuna getirilmesi için katlanılan diğer maliyetleri içerir. Satın alma maliyetleri",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.11 - Stokların maliyeti",
+                         "baslik":  "Stokların maliyeti",
+                         "metin":  "TMS 2 (Stoklar) paragraf 11: Stokların satın alma maliyetleri; satın alma fiyatı, ithalat vergileri ve diğer vergiler (işletme tarafından daha sonra vergi idaresinden iade alınabilecekler hariç) ile mamul, malzeme ve hizmetlerin edinimiyle doğrudan ilişkilendirilebilen taşıma, yükleme-boşaltma ve diğer maliyetleri içerir. Ticari iskontolar, indirimler ve diğer benzer kalemler satın alma maliyetleri belirlenirken indirim konusu yapılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.12 - Dönüştürme maliyetleri",
+                         "baslik":  "Dönüştürme maliyetleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 12: Stokların dönüştürme maliyetleri, direkt işçilik giderleri gibi, üretim birimleriyle doğrudan ilişkili olan maliyetleri içerir. Bu maliyetler ayrıca hammaddenin mamule dönüştürülmesinde katlanılan sabit ve değişken genel üretim giderlerinden, sistematik bir şekilde dağıtılan tutarları da içerir. Sabit genel üretim giderleri, fabrika binası ve teçhizatının amortismanı ve bakım-onarımı ile fabrikanın yönetim ve idaresiyle ilgili maliyetler gibi, üretim miktarından bağımsız olarak nispeten sabit kalan endirekt üretim maliyetleridir. Değişken genel üretim giderleri ise, endirekt hammadde ve endirekt işçilik giderleri gibi, üretim miktarıyla doğru orantılı veya yaklaşık olarak doğru orantılı bir şekilde değişen endirekt üretim maliyetleridir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.13 - Dönüştürme maliyetleri",
+                         "baslik":  "Dönüştürme maliyetleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 13: Sabit genel üretim giderleri, üretim tesislerinin normal kapasitesi esas alınarak dönüştürme maliyetlerine dağıtılır. Normal kapasite, planlanan bakım-onarım çalışmalarından kaynaklanan kapasite düşüklüğü de dikkate alınarak, normal koşullarda birkaç dönem veya sezonda elde edilmesi beklenen ortalama üretim miktarıdır. Fiili üretim düzeyinin normal kapasiteye yakın olması durumunda, sabit genel üretim giderlerinin dönüştürme maliyetlerine dağıtımında bu üretim düzeyi de kullanılabilir. Her bir üretim birimine dağıtılan sabit genel gider miktarı, düşük üretim düzeyi veya atıl kapasite nedeniyle arttırılmaz. Dağıtılmayan genel giderler, gerçekleştiği dönemde gider olarak finansal tablolara yansıtılır. Anormal bir şekilde yüksek üretimin gerçekleştiği dönemlerde, her bir üretim birimine dağıtılan sabit genel gider miktarı düşer ve böylece stoklar maliyet değerini aşan bir değer üzerinden ölçülmemiş olur. Değişken genel üretim giderleri, üretim tesislerinin gerçek kullanımına bağlı olarak her bir üretim birimine dağıtılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.14 - Dönüştürme maliyetleri",
+                         "baslik":  "Dönüştürme maliyetleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 14: Üretim sürecinde aynı anda birden fazla ürün ortaya çıkabilir. Ortak ürünlerin üretilmesi veya bir ana ürün ile bir yan ürünün bulunması, bu duruma örnek olarak gösterilebilir. Her bir ürünün dönüştürme maliyetlerinin ayrı olarak belirlenemediği durumlarda, bu maliyetler ürünler arasında mantıklı ve tutarlı bir biçimde dağıtılır. Maliyetlerin dağıtımı örneğin; her bir ürünün ayrı olarak belirlenebilir hale geldiği üretim aşamasındaki veya üretimin tamamlandığı andaki nispi satış değerine göre yapılabilir. Yan ürünlerin çoğu, yapıları gereği önemsizdir. Böyle bir durumda, yan ürünler genellikle net gerçekleşebilir değer üzerinden ölçülür ve bu değer ana ürünün maliyetinden düşülür. Bunun sonucu olarak ana ürünün defter değeri, maliyet değerinden önemli ölçüde farklılık göstermez.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.15 - Diğer maliyetler",
+                         "baslik":  "Diğer maliyetler",
+                         "metin":  "TMS 2 (Stoklar) paragraf 15: Diğer maliyetler, sadece stokların mevcut konumuna ve durumuna getirilmesi için katlanıldığı ölçüde stok maliyetine dâhil edilir. Örneğin, üretimle ilgili olmayan genel giderlerin veya özel müşteriler için ürünlerin tasarlanmasına ilişkin maliyetlerin, stokların maliyetine dâhil edilmesi uygun olabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.16 - Diğer maliyetler",
+                         "baslik":  "Diğer maliyetler",
+                         "metin":  "TMS 2 (Stoklar) paragraf 16: Aşağıdakiler, stokların maliyetine dâhil edilmeyen ve gerçekleştikleri dönemde gider olarak finansal tablolara yansıtılan maliyetlere örnek olarak verilebilir: (a) Normalin üstünde gerçekleşen; hammadde fire ve kayıpları, işçilik ve diğer üretim maliyetleri, (b) Üretim sürecinde bir sonraki üretim aşamasından önce gerekli olanlar dışında kalan depolama maliyetleri, (c) Stokların mevcut konumuna ve durumuna getirilmesinde katkısı olmayan genel yönetim giderleri, (d) Satış maliyetleri.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.17 - Diğer maliyetler",
+                         "baslik":  "Diğer maliyetler",
+                         "metin":  "TMS 2 (Stoklar) paragraf 17: TMS 23 Borçlanma Maliyetleri, borçlanma maliyetlerinin stokların maliyetine dâhil edildiği sınırlı koşulları belirler.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.18 - Diğer maliyetler",
+                         "baslik":  "Diğer maliyetler",
+                         "metin":  "TMS 2 (Stoklar) paragraf 18: İşletme stoklarını, vadeli ödeme koşullarıyla satın alabilir. Satın alma anlaşmasının etkin bir şekilde bir finansman bileşeni içermesi durumunda bu bileşen (örneğin, normal kredi koşulları için geçerli olan satın alma fiyatı ile ödenen tutar arasındaki fark), finansman sağlanan dönem boyunca faiz gideri olarak finansal tablolara yansıtılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.20 - Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "baslik":  "Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "metin":  "TMS 2 (Stoklar) paragraf 20: TMS 41 Tarımsal Faaliyetler uyarınca canlı varlıkların hasadından elde edilen tarımsal ürünlerden oluşan stoklar, finansal tablolara ilk kez alınırken hasat anındaki satış maliyetleri düşülmüş gerçeğe uygun değer üzerinden ölçülür. Bu Standardın uygulanması açısından bu değer, stokun hasat anındaki maliyetidir. Maliyet ölçüm teknikleri",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.21 - Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "baslik":  "Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "metin":  "TMS 2 (Stoklar) paragraf 21: Sonuçların maliyete yakın olması durumunda, kolaylık sağlaması amacıyla, standart maliyet yöntemi veya perakende yöntemi gibi, stokların maliyetinin ölçümüne yönelik teknikler kullanılabilir. Standart maliyetler; hammadde ve malzemenin, işçiliğin, etkinliğin ve kapasite kullanımının normal düzeylerini dikkate alır. Standart maliyetler düzenli olarak gözden geçirilir ve gerek görülürse mevcut koşullar dikkate alınarak yeniden belirlenir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.22 - Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "baslik":  "Canlı varlıkların hasadından elde edilen tarımsal ürünlerin maliyeti",
+                         "metin":  "TMS 2 (Stoklar) paragraf 22: Perakende yöntemi sıklıkla perakende sektöründeki işletmeler tarafından, diğer maliyet yöntemlerinin uygulanmasının mümkün olmadığı durumda, benzer kâr marjlarına sahip ve hızlı değişen çok sayıda kalemden oluşan stokların ölçümünde kullanılır. Bu yöntemde stokların maliyeti, stokların satış değerinden, uygun bir brüt kâr marjı yüzdesi çıkarılarak belirlenir. Kullanılacak kâr marjı yüzdesi belirlenirken, gerçek satış fiyatının altında fiyatlandırılmış olan stoklar da göz önünde bulundurulur. Her bir perakende satış bölümü için sıklıkla ortalama bir yüzde kullanılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.23 - Maliyet hesaplama yöntemleri",
+                         "baslik":  "Maliyet hesaplama yöntemleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 23: Normal şartlarda birbiriyle ikame edilemeyen stok kalemleri ile özel projeler için üretilen ya da ayrılan mal veya hizmetlerin maliyeti, her bir varlığın kendi özel maliyeti belirlenerek tespit edilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.24 - Maliyet hesaplama yöntemleri",
+                         "baslik":  "Maliyet hesaplama yöntemleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 24: Her bir kalemin maliyetinin özel olarak belirlenmesi, belirli maliyetlerin belirli stok kalemleriyle ilişkilendirilmesi anlamına gelir. Bu yöntem, satın alınmış veya üretilmiş olmasına bakılmaksızın, belirli bir proje için ayrılmış olan stok kalemleri için uygun yöntemdir. Ancak her bir kalemin maliyetinin özel olarak belirlenmesi, normal şartlarda birbiriyle ikame edilebilen çok sayıda kalemden oluşan stoklar için uygun değildir. Bu gibi durumlarda, kâr veya zarar üzerinde önceden belirlenen bir etki elde etmek amacıyla, stokta kalan kalemlerin seçilmesi yöntemi kullanılabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.25 - Maliyet hesaplama yöntemleri",
+                         "baslik":  "Maliyet hesaplama yöntemleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 25: 23\u0027üncü paragrafta belirtilenler dışında kalan stokların maliyeti, ilk giren ilk çıkar (FIFO) veya ağırlıklı ortalama maliyet yöntemi kullanılarak belirlenir. Benzer niteliklere ve işletme açısından benzer kullanıma sahip bütün stoklar için, aynı maliyet hesaplama yöntemi kullanılır. Niteliği veya kullanımı farklı olan stoklar için, farklı maliyet hesaplama yöntemleri kullanılabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.26 - Maliyet hesaplama yöntemleri",
+                         "baslik":  "Maliyet hesaplama yöntemleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 26: Örneğin, aynı tür stoklar işletmenin farklı faaliyet bölümlerinde işletme açısından farklı kullanıma sahip olabilir. Ancak stokların coğrafi konumlarındaki (veya buna bağlı olarak vergi kurallarındaki) farklılık tek başına, farklı maliyet hesaplama yöntemlerinin kullanımı için yeterli bir gerekçe değildir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.27 - Maliyet hesaplama yöntemleri",
+                         "baslik":  "Maliyet hesaplama yöntemleri",
+                         "metin":  "TMS 2 (Stoklar) paragraf 27: FIFO yöntemi; ilk satın alınan veya üretilen stok kalemlerinin ilk olarak satıldığını ve bunun sonucunda dönem sonunda stokta kalan kalemlerin en son satın alınan veya üretilen kalemler olduğunu varsayar. Ağırlıklı ortalama maliyet yönteminde ise, her bir stok kaleminin maliyeti; dönem başındaki benzer kalemlerin maliyetleri ile dönem içinde satın alınan veya üretilen benzer kalemlerin maliyetlerinin ağırlıklı ortalaması alınarak belirlenir. Ağırlıklı ortalama, işletmenin koşullarına bağlı olarak, dönemsel olarak veya işletmeye stok girişi oldukça hesaplanabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.28 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 28: Stokların maliyeti; stokların zarar görmesi, teknolojik gelişmeler nedeniyle kısmen veya tamamen değerini kaybetmesi ya da satış fiyatının düşmesi durumunda geri kazanılamayabilir. Stokların maliyeti ayrıca, tahmini tamamlanma maliyetlerinin veya satışı gerçekleştirmek için katlanılacak tahmini maliyetlerin artması durumunda da geri kazanılamayabilir. Stokların, maliyet değerinin altındaki net gerçekleşebilir değere indirgenmesi varlıkların, satışından ya da kullanımından elde edilmesi beklenen tutarı aşan bir tutarla finansal tablolarda gösterilmemesi görüşüyle tutarlıdır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.29 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 29: Stokların net gerçekleşebilir değere indirgenmesi genellikle, her bir kalem için ayrı ayrı gerçekleştirilir. Ancak bazı durumlarda, benzer veya ilişkili kalemleri gruplandırmak uygun olabilir. Bu durum, aynı üretim hattında üretilen; benzer amaçlara veya nihai kullanıma sahip stok kalemlerinin aynı coğrafi bölgede üretilmesi ve pazarlanması ve söz konusu üretim hattındaki diğer ürünlerden ayrı olarak değerlenememesi durumunda ortaya çıkabilir. Stokları sınıf bazında (örneğin mamuller veya belirli faaliyet bölümlerindeki tüm stoklar) net gerçekleşebilir değere indirgemek uygun değildir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.30 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 30: Net gerçekleşebilir değerin tahmini, stoklardan elde edilmesi beklenen tutara ilişkin tahmin anında mevcut olan en güvenilir kanıtlara göre yapılır. Raporlama döneminden sonra meydana gelen olayların dönem sonunda mevcut olan koşulları teyit etmesi durumunda, bu tahminler yapılırken söz konusu olaylarla doğrudan ilişkili fiyat ve maliyet dalgalanmaları dikkate alınır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.31 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 31: Net gerçekleşebilir değerin tahmini yapılırken ayrıca, stokların elde tutulma amacı da dikkate alınır. Örneğin, kesin satış veya hizmet sözleşmelerinin ifası için elde tutulan stokların net gerçekleşebilir değeri belirlenirken, sözleşme fiyatı esas alınır. Söz konusu satış sözleşmelerinde belirtilen miktarın elde tutulan stok miktarından daha az olması durumunda, fazla olan kısmın net gerçekleşebilir değeri, genel satış fiyatına göre belirlenir. Elde tutulan stok miktarından daha fazla stok satışının öngörüldüğü kesin satış sözleşmeleri veya kesin satın alma sözleşmeleri nedeniyle karşılıklar ortaya çıkabilir. Bu tür karşılıklar, TMS 37 Karşılıklar, Koşullu Borçlar ve Koşullu Varlıklar uyarınca ele alınır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.32 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 32: Üretiminde kullanılacakları mamullerin, maliyete eşit veya maliyetin üstünde bir fiyattan satılmasının beklenmesi durumunda, mamul üretiminde kullanılmak üzere elde tutulan hammadde ve malzeme, maliyetinin altına indirgenmez. Ancak hammadde fiyatlarındaki bir azalışın, mamullerin maliyetinin, net gerçekleşebilir değerini aşacağına işaret etmesi durumunda, hammadde net gerçekleşebilir değerine indirgenir. Bu tür durumlarda hammaddenin yenileme maliyeti, net gerçekleştirilebilir değerin elde edilebilen en iyi ölçümü olabilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.33 - Net gerçekleşebilir değer",
+                         "baslik":  "Net gerçekleşebilir değer",
+                         "metin":  "TMS 2 (Stoklar) paragraf 33: İzleyen her bir dönemde, net gerçekleşebilir değer yeniden değerlendirilir. Daha önce stokların maliyet değerinin altına indirgenmesine neden olan koşulların artık mevcut olmaması veya değişen ekonomik koşullar nedeniyle net gerçekleşebilir değerde bir artış olduğuna ilişkin açık bir kanıtın bulunması durumunda, indirgenen tutar iptal edilir (diğer bir ifadeyle iptal edilen tutar, daha önce indirgenen tutarla sınırlıdır). Böylece stokun yeni defter değeri, maliyet değeri ile revize edilmiş net gerçekleşebilir değerinden düşük olanı olur. Bu durum örneğin, satış fiyatının düşmesi nedeniyle net gerçekleşebilir değer üzerinden izlenen bir stok kaleminin, izleyen dönemde elde tutulmaya devam edilmesi ve satış fiyatının artması durumunda söz konusu olur.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.34 - Gider olarak finansal tablolara yansıtma",
+                         "baslik":  "Gider olarak finansal tablolara yansıtma",
+                         "metin":  "TMS 2 (Stoklar) paragraf 34: Stoklar satıldığında, bunların defter değeri, ilgili hasılatın finansal tablolara alındığı dönemde gider olarak finansal tablolara yansıtılır. Stokları net gerçekleşebilir değere indirgeyen tutarlar ile stoklarla ilgili tüm kayıplar, indirgemenin veya kayıpların meydana geldiği dönemde gider olarak finansal tablolara yansıtılır. Net gerçekleşebilir değerin artışından dolayı iptal edilen indirgeme tutarı, bu işlemin gerçekleştiği dönemde, gider olarak finansal tablolara yansıtılan stok tutarını azaltacak şekilde finansal tablolara yansıtılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.35 - Gider olarak finansal tablolara yansıtma",
+                         "baslik":  "Gider olarak finansal tablolara yansıtma",
+                         "metin":  "TMS 2 (Stoklar) paragraf 35: İşletmenin inşa ettiği maddi duran varlıkların bir parçası olarak kullanılan stoklar gibi bazı stoklar, diğer varlık hesaplarına yansıtılabilir. Bu şekilde diğer bir varlık hesabına yansıtılan stoklar, ilgili varlığın faydalı ömrü boyunca gider olarak finansal tablolara yansıtılır.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.36 - Açıklamalar",
+                         "baslik":  "Açıklamalar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 36: Finansal tablolarda aşağıdaki açıklamalar yapılır: (a) Kullanılan maliyet hesaplama yöntemleri dâhil, stokların ölçümünde benimsenen muhasebe politikaları, (b) Stokların toplam defter değeri ve işletme için uygun olan stok sınıflarının defter değeri, (c) Satış maliyetleri düşülmüş gerçeğe uygun değer üzerinden izlenen stokların defter değeri, (d) Dönem boyunca gider olarak finansal tablolara yansıtılan stokların tutarı, (e) 34\u0027üncü paragraf uyarınca stoklara ilişkin dönem içinde gider olarak kaydedilen indirgeme tutarı, (f) 34\u0027üncü paragraf uyarınca gider olarak finansal tablolara yansıtılan stok tutarını azaltacak şekilde finansal tablolara alınan iptal edilen indirgeme tutarı, (g) 34\u0027üncü paragraf uyarınca stoklarda yapılan indirgemenin iptal edilmesine neden olan durum veya olaylar, (h) Yükümlülükler için teminat olarak gösterilen stokların defter değeri.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.37 - Açıklamalar",
+                         "baslik":  "Açıklamalar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 37: Farklı stok sınıflarında yer alan stokların defter değeri ile bu varlıklarda gerçekleşen değişimin boyutu hakkındaki bilgiler, finansal tablo kullanıcıları açısından faydalıdır. Stoklara ilişkin yaygın sınıflandırma; ticari mal, üretim malzemeleri, hammadde, yarı mamuller ve mamuller şeklindedir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.38 - Açıklamalar",
+                         "baslik":  "Açıklamalar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 38: Genellikle satışların maliyeti olarak ifade edilen ve dönem içinde gider olarak finansal tablolara yansıtılan stokların tutarı, satılmış olan stokların ölçümüne daha önce dâhil edilmiş maliyetlerden, dağıtılmamış genel üretim giderlerinden ve normalin üstünde gerçekleşen üretim maliyetlerinden oluşur. İşletmeye özgü durumlar; dağıtım maliyetleri gibi diğer tutarların da, dönem içinde gider olarak finansal tablolara yansıtılan stokların tutarına dâhil edilmesini gerektirebilir.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.39 - Açıklamalar",
+                         "baslik":  "Açıklamalar",
+                         "metin":  "TMS 2 (Stoklar) paragraf 39: Bazı işletmeler, kâr veya zarar için dönem içinde gider olarak finansal tablolara yansıtılan stokların maliyeti dışındaki tutarların açıklanmasını sağlayan formatlar kullanabilir. İşletme bu formatta, giderlerine ilişkin analizi, giderlerin çeşitlerine göre sınıflandırarak sunar. Bu durumda işletme, gider olarak finansal tablolara yansıtılan hammadde ve sarf malzeme maliyetlerini, işçilik maliyetlerini ve diğer maliyetleri, dönemde stoklarda meydana gelen net değişim tutarıyla birlikte açıklar.",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.40 - Yürürlük tarihi",
+                         "baslik":  "Yürürlük tarihi",
+                         "metin":  "TMS 2 (Stoklar) paragraf 40: Bu Standart, 1 Ocak 2006 veya sonrasında başlayan yıllık hesap dönemlerinde uygulanır. 40A [Silinmiştir] 40B [Silinmiştir] 40C TFRS 13, 6\u0027ncı paragraftaki gerçeğe uygun değer tanımını ve 7\u0027nci paragrafı değiştirmiştir. TFRS 13 uygulandığında söz konusu değişiklikler de uygulanır. 40D [Silinmiştir]",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     },
+                     {
+                         "tur":  "standart-madde",
+                         "kaynak_ad":  "TMS 2 p.40E - Yürürlük tarihi",
+                         "baslik":  "Yürürlük tarihi",
+                         "metin":  "TMS 2 (Stoklar) paragraf 40E: TFRS 15 Müşteri Sözleşmelerinden Hasılat, 2, 8, 29 ve 37\u0027nci paragrafları değiştirmiş ve 19\u0027uncu paragrafı silmiştir. TFRS 15 uygulandığında söz konusu değişiklikler de uygulanır. 40F TFRS 9 (2017 Sürümü), 2\u0027nci paragrafı değiştirmiş ve 40A, 40B ve 40D paragraflarını silmiştir. TFRS 9 uygulandığında söz konusu değişiklikler de uygulanır. 40G \"-\" 2 2",
+                         "kaynak_url":  "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS/TMS%202%20Stoklar.pdf",
+                         "belge_tarihi":  null
+                     }
+                 ]
+}
