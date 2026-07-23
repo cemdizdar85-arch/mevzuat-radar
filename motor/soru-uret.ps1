@@ -34,6 +34,18 @@ $banka = if(Test-Path $bankaYol){ Get-Content $bankaYol -Raw -Encoding UTF8 | Co
 # uretilmesin, konu doygunlugu yayindakileri de gorsun.
 $yayinYol = Join-Path $kok "veri/soru-bankasi.json"
 $yayinSorular = @(); if(Test-Path $yayinYol){ try { $yayinSorular = @((Get-Content $yayinYol -Raw -Encoding UTF8 | ConvertFrom-Json).sorular) } catch {} }
+# 23.07 #7 dersi (29 dk uretim rebase cakismasinda COPE gitti): fabrika artik ortak
+# onay dosyasina DEGIL, kosu basina essiz dosyaya yazar (veri/fabrika/uretim-*.json)
+# -> ayni dosyaya es zamanli yazma cakismasi imkansiz. GM denetimi bu dosyalari okur,
+# onaylananlari paket-havuzuna tasir, tuketilen dosyayi [veri-operasyonu] ile siler.
+# Bekleyen fabrika dosyalari kok-tekrar/doygunluk hesabina dahil edilir (dupe olmasin).
+$fabrikaDir = Join-Path $kok "veri/fabrika"
+$bekleyenFabrika = @()
+if(Test-Path $fabrikaDir){
+  Get-ChildItem $fabrikaDir -Filter *.json | ForEach-Object {
+    try { $bekleyenFabrika += @((Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json).sorular) } catch {}
+  }
+}
 
 function Claude($istem,$maxtok,$model){
   $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
@@ -169,9 +181,9 @@ foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular)){ $kk="$($s.ders)|
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt 10 } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum agir konularda 10+ soru var - banka doygun."; exit 0 }
 
-$mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
+$mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
+# yeniListe YALNIZ bu kosunun urunlerini tutar (eski banka tasinmaz - kosu dosyasi bagimsiz)
 $yeniListe = New-Object System.Collections.Generic.List[object]
-if($banka.sorular){ $yeniListe.AddRange(@($banka.sorular)) }
 $rapor = New-Object System.Collections.Generic.List[string]
 
 foreach($h in $hedefler){
@@ -252,11 +264,15 @@ SADECE su JSON dizisini dondur:
   }
 }
 
-$banka.sorular = $yeniListe.ToArray()
-$banka.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
-# son kosu raporu dosyaya da yazilir — log okunamayan ortamda 0-uretim teshisi icin
-$banka | Add-Member -NotePropertyName sonKosuRaporu -NotePropertyValue @($rapor | Select-Object -Last 40) -Force
-[IO.File]::WriteAllText($bankaYol, ($banka | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+# Kosu ciktisi ESSIZ dosyaya (cakisma imkansiz); rapor her kosuda yazilir (sessiz kosu yasak)
+if(-not (Test-Path $fabrikaDir)){ New-Item -ItemType Directory -Force $fabrikaDir | Out-Null }
+$ciktiYol = Join-Path $fabrikaDir ("uretim-" + (Get-Date -Format 'yyyyMMdd-HHmmss') + ".json")
+$cikti = [ordered]@{
+  uretim = (Get-Date -Format "dd.MM.yyyy HH:mm")
+  sonKosuRaporu = @($rapor | Select-Object -Last 40)
+  sorular = $yeniListe.ToArray()
+}
+[IO.File]::WriteAllText($ciktiYol, ($cikti | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 Write-Host "--- RAPOR ---"; $rapor | ForEach-Object { Write-Host "  $_" }
-Write-Host ("BANKA: toplam {0} soru (onay bekleyen dahil)." -f @($banka.sorular).Count)
+Write-Host ("KOSU URUNU: {0} yeni soru -> {1}" -f $yeniListe.Count, (Split-Path $ciktiYol -Leaf))
 exit 0

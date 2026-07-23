@@ -40,6 +40,10 @@ jobs:
           # Yeni duzen: 3 deneme + yine olmazsa KIRMIZI kosu (sessiz kayip yasak).
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
+          # 23.07 #7 dersi: ortak dosyada rebase cakismasi 29 dk uretimi yedi.
+          # Fabrika artik kosu basina ESSIZ dosya birakir (veri/fabrika/uretim-*.json)
+          # -> cakisma imkansiz. GM denetimi tuketilen dosyayi [veri-operasyonu] ile siler.
+          git add -A veri/fabrika/ 2>/dev/null || true
           git add veri/soru-bankasi-onay.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "Yeni soru yok."; exit 0; fi
           git commit -m "Soru fabrikasi: yeni ozgun sorular (onay bekliyor) $(TZ=Europe/Istanbul date +%d.%m.%Y)"
