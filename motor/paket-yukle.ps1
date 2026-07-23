@@ -16,10 +16,24 @@ if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - tasiyici atlandi."; exit 0
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; Prefer = "resolution=merge-duplicates,return=minimal" }
 
 $onayYol = Join-Path $kok "veri/soru-bankasi-onay.json"
-if(-not (Test-Path $onayYol)){ Write-Host "onay dosyasi yok."; exit 0 }
-$onay = Get-Content $onayYol -Raw -Encoding UTF8 | ConvertFrom-Json
+$onay = if(Test-Path $onayYol){ Get-Content $onayYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
 
-$paket = @($onay.sorular | Where-Object { $_.durum -eq 'paket-havuzu' })
+# 23.07: fabrika/el-partisi kanali da tuketilir — veri/fabrika/*.json icindeki
+# durum='paket-havuzu' (GM onay damgali) sorular ayni sekilde kasaya tasinir,
+# tuketilen soru dosyadan cikarilir, sorusu kalmayan dosya SILINIR.
+$fabrikaDir = Join-Path $kok "veri/fabrika"
+$fabrikaDosyalari = @(); if(Test-Path $fabrikaDir){ $fabrikaDosyalari = @(Get-ChildItem $fabrikaDir -Filter *.json) }
+
+$paket = @()
+if($onay){ $paket += @($onay.sorular | Where-Object { $_.durum -eq 'paket-havuzu' }) }
+$fabrikaIcerik = @{}
+foreach($fd in $fabrikaDosyalari){
+  try {
+    $ic = Get-Content $fd.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    $fabrikaIcerik[$fd.FullName] = $ic
+    $paket += @($ic.sorular | Where-Object { $_.durum -eq 'paket-havuzu' })
+  } catch { Write-Host ("UYARI: {0} okunamadi, atlandi" -f $fd.Name) }
+}
 if($paket.Count -eq 0){ Write-Host "Tasinacak paket sorusu yok."; exit 0 }
 Write-Host ("Tasinacak: {0} soru" -f $paket.Count)
 
@@ -62,8 +76,22 @@ if(@($kontrol).Count -ne $paket.Count){
 Write-Host ("Dogrulandi: {0}/{1} kayit tabloda." -f @($kontrol).Count, $paket.Count)
 
 # ancak dogrulama sonrasi depodan temizle
-$onay.sorular = @($onay.sorular | Where-Object { $_.durum -ne 'paket-havuzu' })
-$onay.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
-[IO.File]::WriteAllText($onayYol, ($onay | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+if($onay){
+  $onay.sorular = @($onay.sorular | Where-Object { $_.durum -ne 'paket-havuzu' })
+  $onay.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
+  [IO.File]::WriteAllText($onayYol, ($onay | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+}
+foreach($fdYol in $fabrikaIcerik.Keys){
+  $ic = $fabrikaIcerik[$fdYol]
+  $kalan = @($ic.sorular | Where-Object { $_.durum -ne 'paket-havuzu' })
+  if($kalan.Count -eq 0){
+    Remove-Item $fdYol -Force
+    Write-Host ("  {0}: tum sorular tasindi, dosya silindi" -f (Split-Path $fdYol -Leaf))
+  } else {
+    $ic.sorular = $kalan
+    [IO.File]::WriteAllText($fdYol, ($ic | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+    Write-Host ("  {0}: {1} soru kaldi (paket olmayanlar)" -f (Split-Path $fdYol -Leaf), $kalan.Count)
+  }
+}
 Write-Host ("TAMAM: {0} soru kilitli havuza tasindi, depodan cikarildi." -f $paket.Count)
 exit 0
