@@ -99,6 +99,17 @@ function AmbarTeyit($kaynak){
         $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
         if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
     }
+    # ILKE YOLU (23.07): "MSUGT ... bilanco/gelir tablosu ilkeleri" — msugt-ilkeler.json ambarda
+    if($f -match 'ilke'){
+      $hedefIlke = $(if($f -match 'bilanco'){ 'bilanco' } elseif($f -match 'gelir tablosu'){ 'gelir' } else { $null })
+      if(-not $hedefIlke){ return 'yok' }
+      try{
+        $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString('*MSUGT*ilke*')+"&select=kaynak_ad&limit=40"
+        $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+        foreach($x in @($r)){ if((Fold $x.kaynak_ad) -match $hedefIlke){ return 'ok' } }
+        return 'yok'
+      }catch{ return 'atla' }
+    }
     # KAVRAM YOLU — 23.07 dersi: ambar kaynak_ad'i AKSANLI ('Dönemsellik Kavramı'),
     # ilike 'donemsellik' tutmaz (Postgres'te o != ö). Adaylar cekilir, katlanmis
     # (aksansiz) karsilastirma YERELDE yapilir.
