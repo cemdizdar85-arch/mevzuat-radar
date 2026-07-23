@@ -1,0 +1,47 @@
+# .github/workflows/toplu-uret.yml — TOPLU GECE ÜRETİMİ (Batch API, %50 indirimli)
+# Tüm eksik konulara tek seferde üretim görevi basar (300 görev ≈ 1.800 aday/gece).
+# Cron: her gece 00:47 TR — banka derinlik hedeflerine doyunca kendiliğinden boş geçer.
+# Elle de tetiklenebilir (Run). Süre: batch bekleme dahil saatler sürebilir (timeout 360dk).
+name: Toplu Gece Uretimi
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "47 21 * * *"   # 00:47 TR (dakika bilerek tenha)
+  push:
+    paths:
+      - 'motor/toplu-uret.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: toplu-uret
+  cancel-in-progress: false
+
+jobs:
+  uret:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toplu batch uretim + 5 kapi
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/toplu-uret.ps1
+      - name: Urunu kaydet (3-deneme push, sessiz kayip yasak)
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A veri/fabrika/ 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Yeni uretim yok."; exit 0; fi
+          git commit -m "Toplu gece uretimi: yeni ozgun sorular (GM denetimi bekliyor) $(TZ=Europe/Istanbul date +%d.%m.%Y)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+            echo "push denemesi $i basarisiz, tekrar..."
+            sleep 5
+          done
+          echo "HATA: 3 denemede pushlanamadi - kosu kirmizi."
+          exit 1
