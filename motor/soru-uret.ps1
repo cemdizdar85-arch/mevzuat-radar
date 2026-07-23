@@ -101,16 +101,25 @@ function AmbarTeyit($kaynak){
         $sonucEk = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" Ek-"+$ekNo+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+Ek-?'+$ekNo)
         if($sonucEk -ne 'ok'){ return $sonucEk }
         continue
-      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(\d{1,3})')
-      if(-not $pS.Success){ return 'yok' }   # paragraf gostermeyen standart atfi kabul edilmez
-      $par=$pS.Groups[1].Value
-      $sonuc = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" p."+$par+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+p\.'+$par+'($|[^0-9])')
+      }      $pS=[regex]::Match($seg,'(?:p(?:aragraf)?|m(?:adde)?)\.?\s*(a?\d{1,3})')
+      # 24.07: "BDS 500.A25" bicimi (p'siz A-paragrafi) da taninir - ambarda p.A25 olarak var
+      # Aralikli atifta (A14-A25) tum adaylar denenir; BIRI ambarda varsa atif gecerli.
+      $adaylar=@(); if($pS.Success){ $adaylar += $pS.Groups[1].Value }
+      foreach($am in [regex]::Matches($seg,'[\s.,(-](a\d{1,3})')){ $adaylar += $am.Groups[1].Value }
+      $adaylar = @($adaylar | Select-Object -Unique)
+      if(-not $adaylar.Count){ return 'yok' }   # paragraf gostermeyen standart atfi kabul edilmez
+      $sonuc='yok'
+      foreach($par in $adaylar){
+        $sonuc = AmbarSorgu ("*"+$stdAd+" "+$stdNo+" p."+$par+"*") ('(?i)'+$stdAd+'\s*'+$stdNo+'\s+p\.'+$par+'($|[^0-9])')
+        if($sonuc -eq 'ok'){ break }
+      }
       if($sonuc -ne 'ok'){ return $sonuc }
     }
     return 'ok'
   }
   # MSUGT / TEKDUZEN TEYIDI: "THP 780" hesap kodu veya "MSUGT ... donemsellik" kavrami
-  if($f -match 'msugt|tekduzen|hesap plani|thp'){
+  # 24.07: teblig tam adiyla yazilinca da taninir (dalga-1'de 53 RET'in cogu bundandi)
+  if($f -match 'msugt|tekduzen|hesap plani|thp|muhasebe sistemi uygulama'){
     $mH=[regex]::Match($f,'(?<!\d)([1-7]\d{2})(?!\d)')
     if($mH.Success){
       $filtre="*THP "+$mH.Groups[1].Value+"*"
@@ -235,7 +244,8 @@ OZGUN coktan secmeli sinav sorusu yazacaksin. KURALLAR:
 2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Ornek: ogrenci 653 yerine 780 sasirdiysa 'yanlistir, 780 olmali' DEME; 653 ile 780 arasindaki KAVRAM FARKINI ogret (biri is yaptirmanin, digeri para bulmanin maliyeti). Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
 3) kaynak alanina dayandigi SPESIFIK kanun maddesini yaz (or. VUK m.323, TTK m.68). Madde uyduramazsin.
 4) Yila gore degisen TUTAR sorma (asgari ucret kac TL gibi) - oran, sure, ilke, hesap mantigi sor. Ornek islem tutari (10.000 TL'lik mal gibi) SERBEST.
-5) Sade, kitapcik Turkcesiyle.
+5) Soru koku sade, kitapcik Turkcesiyle ve sinav ciddiyetinde.
+5b) DIL VE TON (24.07 Cem kurali): aciklama ve hap alanlarinda robot/ders-kitabi agzi YASAK - okuyan "bunu yapay zeka yazmis" dememeli. Her aciklamanin ILK cumlesi, konuyu hic bilmeyen birinin de ANINDA anlayacagi sadelikte olsun; teknik terim ancak o ilk cumleden sonra gelsin. Senaryolari gunluk hayattan, genclerin tanidigi dunyalardan kur (e-ticaret magazasi, kafe, yazilimci, kurye, oyun sirketi, sosyal medya ajansi vb.). Yer yer ZEKI ve HAFIF bir espri/benzetme serbest ve makbul - ama abartmadan, her soruda degil, dogal dustugu yerde; siyaset/tartismali guncel olay ASLA.
 6) hap alanina konunun 3-4 cumlelik OZ ANLATIMINI yaz: soruyu yanlis yapan kisi bu paragrafi okuyunca konuyu ogrenmis olsun (kural + ipucu/tuzak). Ders kitabi degil, hap: net, ezber degil mantik.
 7) Soru bir MUHASEBE KAYDI/hesap isleyisi soruyorsa, dogru kaydin gorselini "yevmiye" alaninda ver: [{"hesap":"102 Bankalar","borc":88000,"alacak":0},...] — borclananlar once, alacaklananlar sonra. Kayit sorusu degilse yevmiye alanini HIC koyma.
 CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular. SADECE su JSON dizisini dondur:
