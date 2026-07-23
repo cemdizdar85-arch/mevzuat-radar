@@ -27,6 +27,6 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/sinav-takvimi.json motor/arsiv-takvim/ 2>/dev/null || true
+          for f in veri/sinav-takvimi.json motor/arsiv-takvim/; do git add "$f" 2>/dev/null || true; done
           git diff --cached --quiet || git commit -m "Takvim nobetcisi: TURMOB PDF degisikligi tespit edildi $(TZ=Europe/Istanbul date +%d.%m.%Y)"
           git push || true

@@ -59,7 +59,8 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add -A veri/mevzuat/ veri/yeniden-dogrula.json || true
+          git add -A veri/mevzuat/ || true
+          git add veri/yeniden-dogrula.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
           else

@@ -34,7 +34,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/onay-bekleyen.json veri/bilgi-tabani.json 2>/dev/null || true
+          for f in veri/onay-bekleyen.json veri/bilgi-tabani.json; do git add "$f" 2>/dev/null || true; done
           if git diff --cached --quiet; then
             echo "Değişiklik yok."
           else
