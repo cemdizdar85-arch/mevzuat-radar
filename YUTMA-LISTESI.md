@@ -12,6 +12,9 @@ Kanun ayağı zaten tamam (VUK/TTK/TBK/İİK/KDVK/KVK... 13.373 madde ambarda, g
 | Muhasebe Sistemi Uygulama Genel Tebliği No:1 (temel kavramlar + Tekdüzen açıklamaları, tam metin) | GİB/mevzuat | kavram ve hesap işleyişi sorularının ana dayanağı |
 *Yöntem aynı Kanun Aynası deseni: PDF indir → yut → ambara `standart-madde` türüyle → AmbarTeyit soru kaynaklarını buradan da doğrular.*
 
+**Durum 23.07:** 7 TMS (1,2,7,8,16,21,37) İNDİ + metne döküldü ✓. BDS 700/705 korumalı PDF, MSUGT taranmış görüntü → Claude görsel PDF okumasıyla çevrilecek (Actions, küçük API maliyeti — Cem hız onayı kapsamında). Ek sıra: TESMER Staj/Sınav Yönergesi 2024 (indirildi, ambara girecek — Meslek Hukuku soruları), MSUGT Sıra No:2-3, 5018 kanun listesine EKLENDİ (kamumali — yarınki ayna yutar).
+**Dürüst sınır — resmî metni OLMAYAN teori alanları** (maliyet muhasebesi teknikleri, mali analiz yöntemleri, mikroekonomi): buralarda yutulacak kanun/standart yoktur; çözüm = Cem+Claude onaylı KÜRASYON ders notları ambara `teori-notu` türüyle girer (14 ambar belgesi deseni), sorular ona bağlanır — kaynaksız üretim yine YASAK kalır.
+
 *Anayasa kuralı (12.07.2026, Cem): İçerik yayınlanmadan önce ilgili BİRİNCİL metin yutulur.
 İkincil kaynak (sunum/blog/sirküler) yalnız keşif içindir; iddia asla ikincilden yayınlanmaz.
 Yöntem: PDF indir → Claude API belge okuma (güven kuralı: sadece yazanı çıkar) → özet kaynak-ozetleri/ → içerik ondan kurulur.*

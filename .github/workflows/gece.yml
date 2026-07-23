@@ -9,7 +9,7 @@ name: Gece Ajanı
 
 on:
   schedule:
-    - cron: "0 1 * * *"     # HER GECE 04:00 TR (Cem 23.07: acilisa kadar bilgi bassin — uretim BEDAVA motora alindi: GEMINI_API_KEY varsa Google'in ucretsiz kotasi, yoksa Claude)
+    - cron: "23 1 * * *"    # HER GECE 04:23 TR (tenha dakika — 23.07 gecesi tam-saat cronlari atlandi). Uretim BEDAVA motor: GEMINI_API_KEY varsa Gemini, yoksa Claude
   workflow_dispatch:
 
 permissions:
