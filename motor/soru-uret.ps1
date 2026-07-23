@@ -194,9 +194,15 @@ if(Test-Path $analizSYol){
   } catch { Write-Host "smmm-analiz okunamadi - yalniz SGS hedeflenecek." }
 }
 $bankaSay=@{}
-foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
-$hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt 10 } | Select-Object -First $KONU_LIMIT
-if(-not $hedefler){ Write-Host "Tum agir konularda 10+ soru var - banka doygun."; exit 0 }
+foreach($s in (@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika)){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
+# 23.07 Cem karari (pazarlama): konu basi sabit 10 tavan urunu SIGLASTIRIR — uye,
+# tikandigi konuyu acip 20 soruda dibi gorurse "bir gunluk uyelik" hisseder.
+# Yeni duzen: SINAV AGIRLIGIYLA orantili derinlik — cekirdek konu 50'ye kadar,
+# kiyi konu 12. Derinlik = KOPYA degil: uretim istemi, konudaki MEVCUT ACILARI
+# gorur ve bunlardan FARKLI aci uretmeye zorlanir (asagida aciBlok).
+function KonuHedefi($agirlik){ return [Math]::Min(50, [Math]::Max(12, [int][Math]::Round($agirlik * 1.5))) }
+$hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt (KonuHedefi $_.Value) } | Select-Object -First $KONU_LIMIT
+if(-not $hedefler){ Write-Host "Tum konular agirlikli derinlik hedefine ulasti - banka doygun."; exit 0 }
 
 $mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
 # yeniListe YALNIZ bu kosunun urunlerini tutar (eski banka tasinmaz - kosu dosyasi bagimsiz)
@@ -206,10 +212,16 @@ $rapor = New-Object System.Collections.Generic.List[string]
 foreach($h in $hedefler){
   $parca = $h.Key -split '\|'; $sinavAd=$parca[0]; $ders=$parca[1]; $konu=$parca[2]
   $sinavTanim = if($sinavAd -eq 'SMMM'){ "TURMOB-TESMER SMMM Yeterlilik Sinavi (2026/1'den beri coktan secmeli test)" } else { "TESMER Staja Giris Sinavi (SGS)" }
-  Write-Host ("=== [{0}] {1} / {2} (haritada {3} soru getirmis) icin {4} ozgun soru uretiliyor..." -f $sinavAd,$ders,$konu,$h.Value,$ADET)
+  Write-Host ("=== [{0}] {1} / {2} (haritada {3} soru getirmis; hedef derinlik {4}) icin {5} ozgun soru uretiliyor..." -f $sinavAd,$ders,$konu,$h.Value,(KonuHedefi $h.Value),$ADET)
+  # 23.07: derinlik-kopya dengesi — konudaki MEVCUT sorularin ilk cumleleri isteme
+  # verilir; uretici ayni hukmu ayni aciyla TEKRAR soramaz (mukerrer RET israfi biter).
+  $konuAnahtar = "$ders|$konu"
+  $mevcutAcilar = @((@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | Where-Object { "$($_.ders)|$($_.konu)" -eq $konuAnahtar } | ForEach-Object { $sMet = ("$($_.soru)" -replace '\s+',' '); $sMet.Substring(0, [Math]::Min(110, $sMet.Length)) } | Select-Object -First 14)
+  $aciBlok = if(@($mevcutAcilar).Count -gt 0){ "BU KONUDA BANKADA ZATEN SU ACILARDAN SORULAR VAR (ilk cumleleri):`n- " + ($mevcutAcilar -join "`n- ") + "`nBunlarin HICBIRIYLE ortusmeyen, FARKLI bir hukum/fikra/islem asamasi/hesap/senaryo acisi isleyen sorular uret; ayni hukmu ayni aciyla tekrar SORMA.`n" } else { "" }
   $uIstem = @"
 Sen $sinavTanim tarzinda OZGUN coktan secmeli soru yazan uzman bir egitimcisin. Ders: $ders · Konu: $konu
 $ADET adet ORTA-ZOR seviye, birbirinden farkli soru yaz. CIKMIS SORU KOPYALAMA - tamamen ozgun kurgular.
+$aciBlok
 KURALLAR:
 1) 5 sik (A-E), TEK dogru cevap; celdirici siklar tipik ogrenci hatalarindan kurulsun.
 2) aciklama alaninda HER sikkin neden dogru/yanlis oldugunu yaz — ama YARGI degil DERS: her yanlis sik belirli bir YANILGIYI temsil etmeli ve aciklamasi o yanilgiyi COZMELI. Ornek: ogrenci 653 yerine 780 sasirdiysa 'yanlistir, 780 olmali' DEME; 653 ile 780 arasindaki KAVRAM FARKINI ogret (biri is yaptirmanin, digeri para bulmanin maliyeti). Sikki seceni 'neyi bildigi, neyi karistirdigi' uzerinden yakala.
