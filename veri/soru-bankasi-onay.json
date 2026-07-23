@@ -81,7 +81,24 @@
                         "hap":  "Senet iskontosu = alacak senedini vadeden önce bankaya kırdırmak. Üç ayak: 121 nominal tutarla kapanır, bankanın kestiği faiz+komisyon 780 Finansman Giderleri\u0027ne, kalan net tutar 102 Bankalar\u0027a. TUZAK: senedi net tutarla düşürmek (121\u0027de fark bırakır) veya kesintiyi gelir sanmak.",
                         "ambar":  "el",
                         "uretim":  "23.07.2026 el (Claude tam denetim)",
-                        "durum":  "onay-bekliyor"
+                        "durum":  "onay-bekliyor",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  88000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "780 Finansman Giderleri",
+                                            "borc":  12000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "121 Alacak Senetleri",
+                                            "borc":  0,
+                                            "alacak":  100000
+                                        }
+                                    ]
                     },
                     {
                         "id":  "el-23a003",
