@@ -87,7 +87,15 @@ $bdsler = @(
   @{ no='300'; ad='Finansal Tabloların Bağımsız Denetiminin Planlanması'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_300.pdf'; dosya='bds300.json' },
   @{ no='315'; ad='İşletme ve Çevresini Tanımak Suretiyle Önemli Yanlışlık Risklerinin Belirlenmesi ve Değerlendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_315.pdf'; dosya='bds315.json' },
   @{ no='500'; ad='Bağımsız Denetim Kanıtları'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_500.pdf'; dosya='bds500.json' },
-  @{ no='570'; ad='İşletmenin Sürekliliği'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_570.pdf'; dosya='bds570.json' }
+  @{ no='570'; ad='İşletmenin Sürekliliği'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_570.pdf'; dosya='bds570.json' },
+  @{ no='230'; ad='Bağımsız Denetimin Belgelendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_230.pdf'; dosya='bds230.json' }   # 23.07 harita: 2x agirlikli konu blokluydu
+)
+# 23.07 HARITA BULGUSU (Cem: "uretemedigimiz en cok cikanlar olmasin"): 'onemlilik
+# kiyaslama noktasi' (3x) ve 'orneklem buyuklugu faktorleri' (2x) sorulari BDS'lerin
+# EK'lerine dayaniyor - ana-metin okumasi ekleri bilerek atliyordu. Ekler ayri hedef:
+$bdsEkleri = @(
+  @{ no='320'; ekAd='Ek-2 (Kıyaslama Noktası Seçimine İlişkin Açıklamalar)'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_320.pdf'; dosya='bds320-ek.json' },
+  @{ no='530'; ekAd='Ek-2 ve Ek-3 (Örneklem Büyüklüğünü Etkileyen Faktörler)'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_530.pdf'; dosya='bds530-ek.json' }
 )
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
 foreach($b in $bdsler){
@@ -134,6 +142,42 @@ foreach($b in $bdsler){
   } catch {
     $rapor += ("BDS {0}: HATA - {1}" -f $b.no, $_.Exception.Message)
     Write-Host ("BDS {0} HATA: {1}" -f $b.no, $_.Exception.Message)
+  }
+}
+
+# ---------- 1b) BDS EK OKUMALARI (harita-agirlikli ekler) ----------
+foreach($e in $bdsEkleri){
+  try {
+    if(Test-Path (Join-Path $kok ("veri/mevzuat/" + $e.dosya))){
+      $rapor += ("BDS {0} ekleri: ATLANDI - depoda" -f $e.no); continue
+    }
+    $pdfE = Join-Path $tmp ("bdsek" + $e.no + ".pdf")
+    $kbE = Indir $e.url $pdfE
+    Write-Host ("BDS {0} ekleri indirildi ({1} KB), okunuyor..." -f $e.no, $kbE)
+    $istemE = "Bu belge KGK'nin BDS $($e.no) standardidir. GOREV: belgenin SONUNDAKI $($e.ekAd) bolumundeki maddeleri/faktorleri/aciklamalari belgede YAZDIGI GIBI cikar. Ana metin paragraflarini ALMA, yalniz EK bolumunu cikar. Yorum yok.`nSADECE JSON dizisi: [{`"ek`":`"Ek-2`",`"sira`":`"1`",`"baslik`":`"...`",`"metin`":`"...`"}]"
+    $ekPar = JsonYakala (ClaudePdf ([Convert]::ToBase64String([IO.File]::ReadAllBytes($pdfE))) $istemE 16000)
+    $ekBelgeler = @(); $gorulenEk = @{}
+    foreach($x in @($ekPar)){
+      if(-not $x.metin -or "$($x.metin)".Length -lt 40){ continue }
+      $ekEtiket = ("$($x.ek)" -replace '\s+',''); if(-not $ekEtiket){ $ekEtiket = 'Ek' }
+      $ik = "$ekEtiket|$($x.sira)"; if($gorulenEk[$ik]){ continue }; $gorulenEk[$ik] = 1
+      $ekBelgeler += [ordered]@{
+        tur='standart-madde'
+        kaynak_ad = "BDS $($e.no) $ekEtiket $($x.sira)" + $(if($x.baslik){" - $($x.baslik)"}else{""})
+        baslik = "$($x.baslik)"
+        metin = ("BDS $($e.no) $ekEtiket $($x.sira): " + ("$($x.metin)" -replace '\s+',' ').Trim())
+        kaynak_url = $e.url
+        belge_tarihi = $null
+      }
+    }
+    if(@($ekBelgeler).Count -ge 4){
+      KaydetBelgeler $ekBelgeler $e.dosya
+      $rapor += ("BDS {0} ekleri: OK - {1} madde" -f $e.no, @($ekBelgeler).Count)
+    } else {
+      $rapor += ("BDS {0} ekleri: YAZILMADI - yalniz {1} madde (esik 4)" -f $e.no, @($ekBelgeler).Count)
+    }
+  } catch {
+    $rapor += ("BDS {0} ekleri: HATA - {1}" -f $e.no, $_.Exception.Message)
   }
 }
 
