@@ -24,10 +24,38 @@ create table if not exists soru_havuzu (
 
 alter table soru_havuzu enable row level security;
 
--- yalnız giriş yapmış üye okur (ödeme gelince paket kontrolüne daraltılacak)
-drop policy if exists "uye okur" on soru_havuzu;
-create policy "uye okur" on soru_havuzu
-  for select to authenticated using (true);
-
 -- anonim ve authenticated için yazma politikası YOK = yazamazlar.
 -- (service role RLS'ye tabi değildir; robotlar onunla yazar)
+
+-- ============================================================================
+--  EK 23.07 (üye modu): AYNI Supabase projesinde Evrak Radarı kullanıcıları da
+--  "authenticated" — "giriş yapan herkes okur" politikası kasayı onlara da
+--  açardı. Okuma, paket_uyeler tablosunda AKTİF kaydı olan üyeye daraltıldı.
+--  Ayrıca muhasebe kayıt sorularının görsel yevmiye verisi için kolon eklendi.
+--  Paket açma (Cem/GM, ödeme alınınca):
+--    insert into paket_uyeler (user_id, bitis)
+--    values ('<auth.users id>', '2026-11-21');
+-- ============================================================================
+
+alter table soru_havuzu add column if not exists yevmiye jsonb;
+
+create table if not exists paket_uyeler (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  paket   text not null default 'sinav-249',
+  bitis   date not null,               -- paketin son günü (SGS 2026/3: 21.11.2026)
+  eklenme timestamptz default now()
+);
+alter table paket_uyeler enable row level security;
+
+drop policy if exists "kendini gorur" on paket_uyeler;
+create policy "kendini gorur" on paket_uyeler
+  for select to authenticated using (auth.uid() = user_id);
+
+drop policy if exists "uye okur" on soru_havuzu;
+drop policy if exists "paketli uye okur" on soru_havuzu;
+create policy "paketli uye okur" on soru_havuzu
+  for select to authenticated
+  using (exists (
+    select 1 from paket_uyeler p
+    where p.user_id = auth.uid() and p.bitis >= current_date
+  ));

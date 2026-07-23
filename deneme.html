@@ -83,6 +83,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <!-- KURULUM -->
   <div id="ekranKurulum">
     <div class="panel">
+      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor — her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>
       <div class="etiket">1 · Ders seç</div>
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
@@ -94,7 +95,20 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
-      <div style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(62,155,255,.07);border:1px solid rgba(62,155,255,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (249 TL/dönem, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
+      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(62,155,255,.07);border:1px solid rgba(62,155,255,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (249 TL/dönem, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
+      <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:#0a0f17">
+        <div id="uyeKapali">
+          <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır — bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
+          <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap">
+            <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
+            <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
+            <button class="ikincil" id="uyeGirisBtn" style="border-color:rgba(62,155,255,.4);color:var(--accent2)">Giriş</button>
+          </div>
+          <div id="uyeHata" style="color:var(--red);font-size:12px;margin-top:6px"></div>
+        </div>
+        <div id="uyeAcik" class="gizli" style="font-size:13px;color:var(--green);font-weight:700">✓ <span id="uyeAd"></span> — tam banka yüklendi. <a href="#" id="uyeCikis" style="color:var(--dim);font-weight:400">Çıkış</a></div>
+      </div>
     </div>
     <div id="gecmisKutu" class="gizli">
       <h2>📈 Önceki oturumların</h2>
@@ -160,19 +174,30 @@ var seciliDersler={}, seciliAdet=10;
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
+// üye modülü (sayfa sonundaki module script) banka yüklendikten sonra devreye girer
+window.bankaHazir = new Promise(function(res){ window.bankaHazirCoz = res; });
+
 fetch('veri/soru-bankasi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   BANKA=(d.sorular||[]).filter(function(s){return s.durum==='yayin';});
-  kurulumCiz();
-}).catch(function(){ BANKA=[]; kurulumCiz(); });
+  kurulumCiz(); window.bankaHazirCoz();
+}).catch(function(){ BANKA=[]; kurulumCiz(); window.bankaHazirCoz(); });
 
 function kurulumCiz(){
+  // üye girişi sonrası kasa soruları eklenince YENİDEN çizilebilir olmalı:
+  // ders düğmeleri sıfırlanır, boş-banka mesajı ayrı kutuda açılıp kapanır.
+  var dk=document.getElementById('dersSec');
+  dk.innerHTML=''; seciliDersler={};
+  var bosMsg=document.getElementById('bosMesaj');
   var dersler={};
   BANKA.forEach(function(s){ dersler[s.ders]=(dersler[s.ders]||0)+1; });
-  var dk=document.getElementById('dersSec'), adlar=Object.keys(dersler).sort();
+  var adlar=Object.keys(dersler).sort();
   if(!BANKA.length){
-    dk.parentNode.innerHTML='<div class="bos"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor — her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>';
+    bosMsg.classList.remove('gizli');
+    document.getElementById('baslaBtn').disabled=true;
+    gecmisCiz();
     return;
   }
+  bosMsg.classList.add('gizli');
   adlar.forEach(function(a){
     seciliDersler[a]=true;
     var b=document.createElement('button');
@@ -203,7 +228,9 @@ function adetCiz(){
     ak.appendChild(b);
   });
   document.getElementById('baslaBtn').disabled=(n===0);
-  document.getElementById('bankaNot').textContent='Örnek havuzda '+BANKA.length+' onaylı soru var. Sorular önce görmediklerinden seçilir; tam banka pakette her hafta büyür.';
+  document.getElementById('bankaNot').textContent = window.UYE_MODU
+    ? 'Tam bankada '+BANKA.length+' onaylı soru var (üye). Sorular önce görmediklerinden seçilir; banka her hafta büyür.'
+    : 'Örnek havuzda '+BANKA.length+' onaylı soru var. Sorular önce görmediklerinden seçilir; tam banka pakette her hafta büyür.';
 }
 
 function basla(){
@@ -369,6 +396,7 @@ function gecmisCiz(){
     if(!g.length) return;
     document.getElementById('gecmisKutu').classList.remove('gizli');
     var t=document.getElementById('gecmisTablo');
+    while(t.rows.length>1){ t.deleteRow(1); }   // yeniden çizimde satırlar çiftlenmesin
     g.slice(-8).reverse().forEach(function(o){
       var cevapli=o.d+o.y, p=cevapli?Math.round(100*o.d/cevapli):0;
       var tr=document.createElement('tr');
@@ -399,6 +427,47 @@ function hataGonder(){
   document.getElementById('hataTesekkur').classList.remove('gizli');
   setTimeout(function(){ document.getElementById('hataKutu').classList.add('gizli'); },1800);
 }
+</script>
+
+<!-- ÜYE MODU: kilitli kasadan (Supabase soru_havuzu, RLS: yalnız paketli üye) tam banka.
+     Paralı sorular public depoda YOKTUR; giriş yapmadan bu sorgu boş döner. -->
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+function g(id){ return document.getElementById(id); }
+async function kasaYukle(user){
+  var r = await sb.from('soru_havuzu').select('*');
+  if(r.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + r.error.message; return; }
+  var kasa = r.data || [];
+  if(!kasa.length){
+    g('uyeHata').textContent = 'Hesabında aktif paket görünmüyor. Yeni aldıysan birkaç dakika içinde açılır; sorun sürerse iletişim sayfasından yaz — hemen bakarız.';
+    return;
+  }
+  var mevcut = {}; BANKA.forEach(function(s){ mevcut[s.id] = 1; });
+  kasa.forEach(function(s){ if(!mevcut[s.id]) BANKA.push(s); });
+  window.UYE_MODU = true;
+  g('uyeKapali').classList.add('gizli');
+  g('uyeAcik').classList.remove('gizli');
+  g('uyeAd').textContent = (user && user.email) || 'üye';
+  g('ornekNot').classList.add('gizli');
+  kurulumCiz();
+}
+window.bankaHazir.then(async function(){
+  var s = await sb.auth.getSession();
+  if(s.data && s.data.session){ kasaYukle(s.data.session.user); }
+});
+g('uyeGirisBtn').onclick = async function(){
+  g('uyeHata').textContent = '';
+  var eposta = g('uyeEposta').value.trim();
+  if(!eposta || !g('uyeSifre').value){ g('uyeHata').textContent = 'E-posta ve şifreni yaz.'; return; }
+  var r = await sb.auth.signInWithPassword({ email: eposta, password: g('uyeSifre').value });
+  if(r.error){ g('uyeHata').textContent = 'Giriş olmadı: ' + r.error.message; return; }
+  kasaYukle(r.data.user);
+};
+g('uyeCikis').onclick = function(e){
+  e.preventDefault();
+  sb.auth.signOut().then(function(){ location.reload(); });
+};
 </script>
 <script src="menu.js" defer></script>
 </body>

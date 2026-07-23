@@ -23,12 +23,27 @@ $paket = @($onay.sorular | Where-Object { $_.durum -eq 'paket-havuzu' })
 if($paket.Count -eq 0){ Write-Host "Tasinacak paket sorusu yok."; exit 0 }
 Write-Host ("Tasinacak: {0} soru" -f $paket.Count)
 
+# 23.07 sigortasi: yevmiye (gorsel T-cetveli verisi) tabloda kolon ister.
+# Kolon yoksa VE tasinacak sorularda yevmiye varsa TASIMA DURUR (veri kaybi yasak);
+# once radar-app/sql/2026-07-23-soru-havuzu.sql'deki ALTER calistirilmali.
+$yevmiyeKolonu = $true
+try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yevmiye&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
+catch { $yevmiyeKolonu = $false }
+$yevmiyeliVar = @($paket | Where-Object { $_.yevmiye -and @($_.yevmiye).Count -gt 0 }).Count -gt 0
+if($yevmiyeliVar -and -not $yevmiyeKolonu){
+  Write-Host "HATA: sorularda yevmiye verisi var ama tabloda 'yevmiye' kolonu yok - kayip olmasin diye tasima DURDU."
+  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists yevmiye jsonb;"
+  exit 1
+}
+
 $govde = @($paket | ForEach-Object {
-  [ordered]@{
+  $satir = [ordered]@{
     id=$_.id; sinav="$($_.sinav)"; ders="$($_.ders)"; konu="$($_.konu)"; soru="$($_.soru)"
     siklar=$_.siklar; dogru="$($_.dogru)"; aciklama=$_.aciklama
     kaynak="$($_.kaynak)"; hap="$($_.hap)"; onay="$($_.onay)"; uretim="$($_.uretim)"
   }
+  if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
+  $satir
 })
 $json = ConvertTo-Json -InputObject $govde -Depth 6
 $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
