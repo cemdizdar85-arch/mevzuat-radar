@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  TEORI OKUMA ROBOTU — korumali/taranmis birincil metinleri Claude'un GORSEL
 #  PDF okumasiyla metne doker ve ambar JSON'una yazar (standart-madde).
 #  Hedefler: BDS 700, BDS 705 (KGK korumali PDF) + MSUGT Sira No:1 (RG 21447
@@ -78,6 +78,13 @@ $bdsler = @(
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
 foreach($b in $bdsler){
   try {
+    # TASARRUF: cikti zaten depodaysa yeniden okuma (her kosuda BDS'ye para yakiliyordu).
+    # Yeniden okutmak istersen veri/mevzuat/bds7xx.json dosyasini sil, kosu kendini tamamlar.
+    if(Test-Path (Join-Path $kok ("veri/mevzuat/" + $b.dosya))){
+      Write-Host ("BDS {0}: zaten mevcut - atlandi" -f $b.no)
+      $rapor += ("BDS {0}: ATLANDI - cikti zaten depoda" -f $b.no)
+      continue
+    }
     $pdf = Join-Path $tmp ("bds" + $b.no + ".pdf")
     $kb = Indir $b.url $pdf
     Write-Host ("BDS {0} indirildi ({1} KB), parcali okunuyor..." -f $b.no, $kb)
@@ -134,16 +141,23 @@ try {
     } else { throw }
   }
 
-  # API PDF siniri 100 sayfa; 226 sayfalik taramayi qpdf ile bindirmeli bol
-  # (85-90 arasi bindirme: bolum siniri sayfa ortasina denk gelirse kayip olmasin)
+  # API PDF siniri 100 sayfa; taramayi qpdf ile bindirmeli bol (85-90 bindirme:
+  # bolum siniri sayfa ortasina denk gelirse kayip olmasin).
+  # 23.07 #5 dersi: sabit "85-175" araligi patladi - regex'le saydigimiz "226 sayfa"
+  # kabaymis. Parcalar artik GERCEK sayfa sayisindan (qpdf --show-npages) kurulur,
+  # uretilemeyen parca aninda yakalanir.
   $qpdf = Get-Command qpdf -ErrorAction SilentlyContinue
-  if(-not $qpdf){ throw "qpdf bulunamadi - workflow'da 'sudo apt-get install -y qpdf' adimi gerekli (226 sayfa API sinirini asar)" }
-  $parcalar = @(
-    @{ ad='A (s.1-90)';    dosya=(Join-Path $tmp 'msugt_a.pdf'); aralik='1-90' },
-    @{ ad='B (s.85-175)';  dosya=(Join-Path $tmp 'msugt_b.pdf'); aralik='85-175' },
-    @{ ad='C (s.170-son)'; dosya=(Join-Path $tmp 'msugt_c.pdf'); aralik='170-z' }
-  )
-  foreach($p in $parcalar){ & qpdf $pdf --pages . $p.aralik -- $p.dosya }
+  if(-not $qpdf){ throw "qpdf bulunamadi - workflow'da 'sudo apt-get install -y qpdf' adimi gerekli (API siniri 100 sayfa)" }
+  $sayfa = [int]((& qpdf --show-npages $pdf) | Select-Object -First 1)
+  Write-Host ("MSUGT gercek sayfa sayisi: {0}" -f $sayfa)
+  if($sayfa -lt 1){ throw "qpdf sayfa sayamadi - PDF bozuk olabilir" }
+  $parcalar = @(@{ ad="A (s.1-$([Math]::Min(90,$sayfa)))"; dosya=(Join-Path $tmp 'msugt_a.pdf'); aralik=("1-"+[Math]::Min(90,$sayfa)) })
+  if($sayfa -gt 90){  $parcalar += @{ ad="B (s.85-$([Math]::Min(175,$sayfa)))"; dosya=(Join-Path $tmp 'msugt_b.pdf'); aralik=("85-"+[Math]::Min(175,$sayfa)) } }
+  if($sayfa -gt 175){ $parcalar += @{ ad="C (s.170-son)"; dosya=(Join-Path $tmp 'msugt_c.pdf'); aralik='170-z' } }
+  foreach($p in $parcalar){
+    & qpdf $pdf --pages . $p.aralik -- $p.dosya
+    if(-not (Test-Path $p.dosya)){ throw ("qpdf parca uretemedi: " + $p.aralik + " (sayfa=" + $sayfa + ")") }
+  }
   $belgeler = @()
 
   # 2a: Muhasebenin Temel Kavramlari (12 kavram) — Teblig'in basinda, parca A yeter
