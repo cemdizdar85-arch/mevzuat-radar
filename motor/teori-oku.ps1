@@ -73,7 +73,8 @@ $tmp = [IO.Path]::GetTempPath()
 # ---------- 1) BDS 700 + 705: paragraf araliklarina bolunmus okuma ----------
 $bdsler = @(
   @{ no='700'; ad='Finansal Tablolara İlişkin Görüş Oluşturma ve Raporlama'; url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/BDS_700_KG.pdf'; dosya='bds700.json' },
-  @{ no='705'; ad='Bağımsız Denetçi Raporunda Olumlu Görüş Dışında Bir Görüş Verilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_705.pdf'; dosya='bds705.json' }
+  @{ no='705'; ad='Bağımsız Denetçi Raporunda Olumlu Görüş Dışında Bir Görüş Verilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_705.pdf'; dosya='bds705.json' },
+  @{ no='706'; ad='Bağımsız Denetçi Raporunda Yer Alan Dikkat Çekilen Hususlar ve Diğer Hususlar Paragrafları'; url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/BDS_706_KG.pdf'; dosya='bds706.json' }   # 23.07 eklendi (HEAD 200 teyitli)
 )
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
 foreach($b in $bdsler){
@@ -125,6 +126,12 @@ foreach($b in $bdsler){
 
 # ---------- 2) MSUGT Sira No:1 (RG 21447, 226 sayfa): qpdf ile parcala ----------
 try {
+  # TASARRUF: cikti zaten depodaysa yeniden okuma (BDS ile ayni kural).
+  if(Test-Path (Join-Path $kok "veri/mevzuat/msugt1.json")){
+    Write-Host "MSUGT: zaten mevcut - atlandi"
+    $rapor += "MSUGT: ATLANDI - cikti zaten depoda"
+    RaporYaz; Write-Host "TEORI OKUMA BITTI"; $rapor | ForEach-Object { Write-Host (" RAPOR: " + $_) }; exit 0
+  }
   $pdf = Join-Path $tmp "msugt1.pdf"
   # 23.07 #4 dersi: GitHub runner'dan resmigazete.gov.tr zaman asimi verdi (muhtemel
   # yurt disi IP engeli). Yedek: ayni RG taramasi repoda (kaynak-pdf/) — resmi mevzuat
