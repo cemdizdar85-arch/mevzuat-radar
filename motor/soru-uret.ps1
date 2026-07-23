@@ -60,6 +60,20 @@ function AmbarTeyit($kaynak){
       $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
       if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
   }
+  # MSUGT / TEKDUZEN TEYIDI: "THP 780" hesap kodu veya "MSUGT ... donemsellik" kavrami
+  if($f -match 'msugt|tekduzen|hesap plani|thp'){
+    $mH=[regex]::Match($f,'(?<!\d)([1-7]\d{2})(?!\d)')
+    if($mH.Success){ $filtre="*THP "+$mH.Groups[1].Value+"*" }
+    else {
+      $kavramlar=@('donemsellik','ihtiyatlilik','onemlilik','ozun onceligi','tam aciklama','tutarlilik','sosyal sorumluluk','kisilik','isletmenin surekliligi','parayla olculme','maliyet esasi','tarafsizlik')
+      $bulunan=$null; foreach($kv in $kavramlar){ if($f -match [regex]::Escape($kv)){ $bulunan=$kv; break } }
+      if(-not $bulunan){ return 'yok' }
+      $filtre="*MSUGT*"+($bulunan -split ' ')[0]+"*"
+    }
+    try{ $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=id&limit=1"
+      $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
+      if(@($r).Count -ge 1){ return 'ok' } else { return 'yok' } }catch{ return 'atla' }
+  }
   if($f -match 'gut|teblig|karar|yonetmelik|genelge'){ return 'atla' }
   $no=$null; $mN=[regex]::Match($f,'(?<!\d)(\d{3,4})(?!\d)\s*(s\.|sayili)'); if($mN.Success){ $no=$mN.Groups[1].Value }
   if(-not $no){ foreach($k in $KANUN_NO.Keys){ if($f -match ('(?<![a-z])'+[regex]::Escape($k)+'(?![a-z])')){ $no=$KANUN_NO[$k]; break } } }
