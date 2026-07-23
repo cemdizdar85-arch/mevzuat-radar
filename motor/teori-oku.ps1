@@ -88,7 +88,13 @@ $bdsler = @(
   @{ no='315'; ad='İşletme ve Çevresini Tanımak Suretiyle Önemli Yanlışlık Risklerinin Belirlenmesi ve Değerlendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_315.pdf'; dosya='bds315.json' },
   @{ no='500'; ad='Bağımsız Denetim Kanıtları'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_500.pdf'; dosya='bds500.json' },
   @{ no='570'; ad='İşletmenin Sürekliliği'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_570.pdf'; dosya='bds570.json' },
-  @{ no='230'; ad='Bağımsız Denetimin Belgelendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_230.pdf'; dosya='bds230.json' }   # 23.07 harita: 2x agirlikli konu blokluydu
+  @{ no='230'; ad='Bağımsız Denetimin Belgelendirilmesi'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_230.pdf'; dosya='bds230.json' },   # 23.07 harita: 2x agirlikli konu blokluydu
+  # 24.07 Cem onayi: dalga-1'de bu standartlara atifli sorular ambar-yoklugundan yandi (talep kaniti)
+  @{ no='501'; ad='Belirli Kalemlere İlişkin Denetim Kanıtları Hakkında Dikkate Alınacak Hususlar'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_501.pdf'; dosya='bds501.json' },
+  @{ no='505'; ad='Dış Teyitler'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_505.pdf'; dosya='bds505.json' },
+  @{ no='520'; ad='Analitik Prosedürler'; url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BDS/BDSyeni11092019/BDS_520.pdf'; dosya='bds520.json' },
+  # TMS de ayni motorla okunur (tip alani); 2024/2025 Mavi Kitap linkleri 1KB bos yonlendirme, 2023 gercek (329KB HEAD teyitli)
+  @{ no='2'; tip='TMS'; ad='Stoklar'; url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2023/Mavi_Kitap/TMS/TMS%202.pdf'; dosya='tms2.json' }
 )
 # 23.07 HARITA BULGUSU (Cem: "uretemedigimiz en cok cikanlar olmasin"): 'onemlilik
 # kiyaslama noktasi' (3x) ve 'orneklem buyuklugu faktorleri' (2x) sorulari BDS'lerin
@@ -99,24 +105,25 @@ $bdsEkleri = @(
 )
 $araliklar = @('1 ile 20 arasindaki (1 ve 20 dahil)', '21 ile 45 arasindaki (21 ve 45 dahil)', '46 ve sonrasindaki (son numarali ana metin paragrafina kadar; A ile baslayan uygulama paragraflarini ALMA)')
 foreach($b in $bdsler){
+  $tip = if($b.tip){ $b.tip } else { 'BDS' }
   try {
     # TASARRUF: cikti zaten depodaysa yeniden okuma (her kosuda BDS'ye para yakiliyordu).
     # Yeniden okutmak istersen veri/mevzuat/bds7xx.json dosyasini sil, kosu kendini tamamlar.
     if(Test-Path (Join-Path $kok ("veri/mevzuat/" + $b.dosya))){
-      Write-Host ("BDS {0}: zaten mevcut - atlandi" -f $b.no)
-      $rapor += ("BDS {0}: ATLANDI - cikti zaten depoda" -f $b.no)
+      Write-Host ("{0} {1}: zaten mevcut - atlandi" -f $tip, $b.no)
+      $rapor += ("{0} {1}: ATLANDI - cikti zaten depoda" -f $tip, $b.no)
       continue
     }
-    $pdf = Join-Path $tmp ("bds" + $b.no + ".pdf")
+    $pdf = Join-Path $tmp ($tip.ToLower() + $b.no + ".pdf")
     $kb = Indir $b.url $pdf
-    Write-Host ("BDS {0} indirildi ({1} KB), parcali okunuyor..." -f $b.no, $kb)
+    Write-Host ("{0} {1} indirildi ({2} KB), parcali okunuyor..." -f $tip, $b.no, $kb)
     $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($pdf))
     $par = @()
     foreach($ar in $araliklar){
-      $istem = "Bu belge KGK'nin BDS $($b.no) ($($b.ad)) standardidir. GOREV: standardin ana metnindeki YALNIZ $ar numarali paragraflari belgede YAZDIGI GIBI cikar. Yorum ekleme, ozetleme, atlama yapma; uzun paragraflari oldugu gibi ver. Bu aralikta paragraf yoksa bos dizi [] dondur.`nSADECE su JSON dizisini dondur:`n[{`"p`":`"1`",`"bolum`":`"Giris`",`"metin`":`"...`"}]"
+      $istem = "Bu belge KGK'nin $tip $($b.no) ($($b.ad)) standardidir. GOREV: standardin ana metnindeki YALNIZ $ar numarali paragraflari belgede YAZDIGI GIBI cikar. Yorum ekleme, ozetleme, atlama yapma; uzun paragraflari oldugu gibi ver. Bu aralikta paragraf yoksa bos dizi [] dondur.`nSADECE su JSON dizisini dondur:`n[{`"p`":`"1`",`"bolum`":`"Giris`",`"metin`":`"...`"}]"
       try {
         $par += JsonYakala (ClaudePdf $b64 $istem 16000)
-      } catch { Write-Host ("BDS {0} aralik '{1}' HATA: {2}" -f $b.no, $ar, $_.Exception.Message) }
+      } catch { Write-Host ("{0} {1} aralik '{2}' HATA: {3}" -f $tip, $b.no, $ar, $_.Exception.Message) }
     }
     # ayni paragraf iki araliktan gelirse tekille
     $gorulen = @{}; $belgeler = @()
@@ -125,9 +132,9 @@ foreach($b in $bdsler){
       $pk = "$($x.p)".Trim(); if($gorulen[$pk]){ continue }; $gorulen[$pk] = 1
       $belgeler += [ordered]@{
         tur='standart-madde'
-        kaynak_ad = "BDS $($b.no) p.$pk" + $(if($x.bolum){" - $($x.bolum)"}else{""})
+        kaynak_ad = "$tip $($b.no) p.$pk" + $(if($x.bolum){" - $($x.bolum)"}else{""})
         baslik = "$($x.bolum)"
-        metin = ("BDS $($b.no) ($($b.ad)) paragraf ${pk}: " + ("$($x.metin)" -replace '\s+',' ').Trim())
+        metin = ("$tip $($b.no) ($($b.ad)) paragraf ${pk}: " + ("$($x.metin)" -replace '\s+',' ').Trim())
         kaynak_url = $b.url
         belge_tarihi = $null
       }

@@ -49,6 +49,16 @@ if($yevmiyeliVar -and -not $yevmiyeKolonu){
   Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists yevmiye jsonb;"
   exit 1
 }
+# 24.07 (Cem/UWorld exhibit fikri): tablo alani (mini gelir tablosu/bilanco gorseli) — ayni sigorta.
+$tabloKolonu = $true
+try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=tablo&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
+catch { $tabloKolonu = $false }
+$tabloluVar = @($paket | Where-Object { $_.tablo }).Count -gt 0
+if($tabloluVar -and -not $tabloKolonu){
+  Write-Host "HATA: sorularda tablo (gorsel) verisi var ama tabloda 'tablo' kolonu yok - tasima DURDU."
+  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists tablo jsonb;"
+  exit 1
+}
 
 $govde = @($paket | ForEach-Object {
   $satir = [ordered]@{
@@ -57,6 +67,7 @@ $govde = @($paket | ForEach-Object {
     kaynak="$($_.kaynak)"; hap="$($_.hap)"; onay="$($_.onay)"; uretim="$($_.uretim)"
   }
   if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
+  if($tabloKolonu){ $satir['tablo'] = $_.tablo }
   $satir
 })
 $json = ConvertTo-Json -InputObject $govde -Depth 6

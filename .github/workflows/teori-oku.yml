@@ -39,15 +39,17 @@ jobs:
           # 23.07 #3 dersi: tek "git add a b c" komutunda dosyalardan BIRI yoksa git
           # TUMUNU reddediyor, "|| true" hatayi yutuyordu - rapor bile commitlenemedi.
           # Dosyalar TEK TEK eklenir; olmayan sessizce atlanir, olan mutlaka girer.
-          for f in veri/mevzuat/bds700.json veri/mevzuat/bds705.json veri/mevzuat/bds706.json veri/mevzuat/bds320.json veri/mevzuat/bds450.json veri/mevzuat/bds530.json veri/mevzuat/bds200.json veri/mevzuat/bds240.json veri/mevzuat/bds300.json veri/mevzuat/bds315.json veri/mevzuat/bds500.json veri/mevzuat/bds570.json veri/mevzuat/msugt1.json veri/mevzuat/msugt-ilkeler.json veri/mevzuat/msugt-thp2.json veri/teori-rapor.json; do
+          for f in veri/mevzuat/bds700.json veri/mevzuat/bds705.json veri/mevzuat/bds706.json veri/mevzuat/bds320.json veri/mevzuat/bds450.json veri/mevzuat/bds530.json veri/mevzuat/bds200.json veri/mevzuat/bds240.json veri/mevzuat/bds300.json veri/mevzuat/bds315.json veri/mevzuat/bds500.json veri/mevzuat/bds570.json veri/mevzuat/bds230.json veri/mevzuat/bds320-ek.json veri/mevzuat/bds530-ek.json veri/mevzuat/bds501.json veri/mevzuat/bds505.json veri/mevzuat/bds520.json veri/mevzuat/tms2.json veri/mevzuat/msugt1.json veri/mevzuat/msugt-ilkeler.json veri/mevzuat/msugt-thp2.json veri/teori-rapor.json; do
             git add "$f" 2>/dev/null || true
           done
           if git diff --cached --quiet; then echo "Degisiklik yok."; exit 0; fi
-          git commit -m "Teori okuma: BDS/MSUGT sonuclari + kosu raporu"
-          for i in 1 2 3; do
+          git commit -m "Teori okuma: BDS/TMS/MSUGT sonuclari + kosu raporu"
+          # 24.07 dersi: kosu 13'te okuma parasi harcandi, kaydetme 3 denemede pushlanamayip
+          # urun runner'la buhar oldu - deneme 5'e, bekleme 15sn'ye cikarildi (fabrika push'lariyla yaris).
+          for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
             echo "push denemesi $i basarisiz, tekrar..."
-            sleep 5
+            sleep 15
           done
           echo "HATA: 3 denemede pushlanamadi - kosu kirmizi (sessiz kayip yasak)."
           exit 1
