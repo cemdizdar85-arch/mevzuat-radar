@@ -1,0 +1,311 @@
+{
+    "kanal":  "el-partisi-gm",
+    "uretim":  "24.07.2026",
+    "not":  "GM el partisi: supheli/degersiz alacak + karsilik (VUK m.322/323/324, THP 128/129/654/659/644); exam-staple; birincil VUK kurallariyla dogrulandi, yevmiye+hayalet gorseli, GM denetimli.",
+    "sorular":  [
+                    {
+                        "id":  "sup250101",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "supheli alacak ilk siniflama",
+                        "soru":  "Bir işletmenin 40.000 TL\u0027lik senetsiz ticari alacağı vadesinde ödenmemiş, alacak için dava/icra takibi başlatılmıştır. Alacağın şüpheli hale gelmesine ilişkin yapılacak İLK kayıt aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "128 Şüpheli Ticari Alacaklar 40.000 borç; 121 Alacak Senetleri 40.000 alacak",
+                                       "B":  "654 Karşılık Giderleri 40.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 40.000 alacak",
+                                       "C":  "120 Alıcılar 40.000 borç; 128 Şüpheli Ticari Alacaklar 40.000 alacak",
+                                       "D":  "128 Şüpheli Ticari Alacaklar 40.000 borç; 120 Alıcılar 40.000 alacak",
+                                       "E":  "689 Diğer Olağandışı Gider ve Zararlar 40.000 borç; 120 Alıcılar 40.000 alacak"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: 121 Alacak Senetleri senetli alacak hesabıdır. İcra takibi alacağı senetli yapmaz; senetsiz alacak 120\u0027den çıkar.",
+                                         "B":  "Yanılgı dersi: Bu İKİNCİ adımdır (karşılık ayırma). Soru \u0027ilk kayıt\u0027 istiyor; önce 128\u0027e sınıflama, sonra 654/129 karşılık — iki adımı tek sanmak en yaygın hata.",
+                                         "C":  "Yanılgı dersi: Yön ters. Alacak 120\u0027den çıkıp 128\u0027e girer (128 borç, 120 alacak), tersi değil.",
+                                         "D":  "DOĞRU: Şüpheli hale gelen alacak ÖNCE ilgili hesaptan (senetsiz olduğu için 120 Alıcılar) çıkarılıp 128 Şüpheli Ticari Alacaklar\u0027a sınıflandırılır. Bu bir SINIFLAMA kaydıdır; karşılık ayrılması bundan SONRAKİ ayrı bir adımdır.",
+                                         "E":  "Yanılgı dersi: 689\u0027a atmak alacağı \u0027değersiz\u0027 saymaktır. Şüpheli alacak henüz kesin kaybedilmiş değildir; icra sürecindedir, doğrudan zarar yazılmaz."
+                                     },
+                        "kaynak":  "VUK m.323 (Şüpheli alacaklar); MSUGT THP 128/129",
+                        "hap":  "Şüpheli alacakta iki ayrı adım: (1) SINIFLAMA — 128 Şüpheli Ticari Alacaklar borç / 120 (veya 121) alacak. (2) KARŞILIK — 654 Karşılık Giderleri borç / 129 Şüpheli Ticari Alacaklar Karşılığı (-) alacak. Sınav \u0027ilk kayıt\u0027 derse cevap sınıflamadır (128). Şart: dava/icra safhasında olması ya da protesto/yazıyla birden çok istenmiş belirli küçük alacak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "128 Şüpheli Ticari Alacaklar",
+                                            "borc":  40000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  0,
+                                            "alacak":  40000
+                                        }
+                                    ],
+                        "yanlisKayitlar":  {
+                                               "B":  [
+                                                         {
+                                                             "hesap":  "654 Karşılık Giderleri",
+                                                             "borc":  40000,
+                                                             "alacak":  0
+                                                         },
+                                                         {
+                                                             "hesap":  "129 Şüpheli Ticari Alacaklar Karşılığı",
+                                                             "borc":  0,
+                                                             "alacak":  40000
+                                                         }
+                                                     ]
+                                           },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250102",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "supheli alacak karsilik ayirma",
+                        "soru":  "128 Şüpheli Ticari Alacaklar hesabına daha önce 40.000 TL sınıflandırılan alacak için, tahsil şüphesi nedeniyle karşılık ayrılmasına karar verilmiştir. Karşılık ayırma kaydı aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "770 Genel Yönetim Giderleri 40.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 40.000 alacak",
+                                       "B":  "129 Şüpheli Ticari Alacaklar Karşılığı 40.000 borç; 128 Şüpheli Ticari Alacaklar 40.000 alacak",
+                                       "C":  "128 Şüpheli Ticari Alacaklar 40.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 40.000 alacak",
+                                       "D":  "654 Karşılık Giderleri 40.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 40.000 alacak",
+                                       "E":  "654 Karşılık Giderleri 40.000 borç; 128 Şüpheli Ticari Alacaklar 40.000 alacak"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Şüpheli alacak karşılığı 770 genel yönetim gideri değil, 654 Karşılık Giderleri (olağan gider) hesabına yazılır.",
+                                         "B":  "Yanılgı dersi: Bu karşılık İPTAL/çözme kaydının yönüdür (tahsil ya da değersizleşme sonrası). Ayırma anında ters çalışır.",
+                                         "C":  "Yanılgı dersi: Karşılık gideri 654\u0027tür; 128\u0027i tekrar borçlandırmak sınıflamayı ikiye katlar, gider oluşturmaz.",
+                                         "D":  "DOĞRU: Karşılık, dönem gideri olarak 654 Karşılık Giderleri\u0027ne borç, alacağın karşısına düzenleyici (-) hesap 129 Şüpheli Ticari Alacaklar Karşılığı\u0027na alacak yazılır. 128 hesap yerinde durur; net alacak = 128 − 129.",
+                                         "E":  "Yanılgı dersi: 128\u0027i alacaklandırmak alacağı silmek olur; karşılık 128\u0027i silmez, karşısına 129 düzenleyici hesabı koyar."
+                                     },
+                        "kaynak":  "VUK m.323; MSUGT THP 654 Karşılık Giderleri; 129",
+                        "hap":  "Karşılık ayırma: 654 Karşılık Giderleri (borç, dönem gideri) / 129 Şüpheli Ticari Alacaklar Karşılığı (-) (alacak, düzenleyici). 128 hesap silinmez; bilançoda 128 brüt görünür, 129 altında düşülür, net şüpheli alacak kalır. VUK: yalnız teminatsız kısım için karşılık ayrılır.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "654 Karşılık Giderleri",
+                                            "borc":  40000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "129 Şüpheli Ticari Alacaklar Karşılığı",
+                                            "borc":  0,
+                                            "alacak":  40000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250103",
+                        "sinav":  "SMMM",
+                        "ders":  "Vergi Mevzuatı ve Uygulaması",
+                        "konu":  "teminatli alacak karsilik",
+                        "soru":  "Bir işletmenin şüpheli hale gelen 100.000 TL\u0027lik alacağının 60.000 TL\u0027lik kısmı ipotek/teminat altındadır. VUK\u0027a göre bu alacak için en fazla ne kadar şüpheli alacak karşılığı ayrılabilir?",
+                        "siklar":  {
+                                       "A":  "Karşılık ayrılamaz, doğrudan değersiz alacak yazılır",
+                                       "B":  "100.000 TL (alacağın tamamı)",
+                                       "C":  "40.000 TL (yalnız teminatsız kısım)",
+                                       "D":  "60.000 TL (teminatlı kısım)",
+                                       "E":  "50.000 TL (alacağın yarısı)"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Alacak dava/icra safhasında şüphelidir, değersiz değildir; teminatsız kısım için karşılık ayrılır.",
+                                         "B":  "Yanılgı dersi: Teminatlı kısım için karşılık ayrılmaz; teminat zaten tahsil güvencesidir. Tamamına karşılık ayırmak fazla gider yazar.",
+                                         "C":  "DOĞRU: VUK m.323, teminatlı alacaklarda karşılığın yalnız TEMİNATTAN ARTA KALAN (teminatsız) kısım için ayrılabileceğini öngörür. 100.000 − 60.000 teminat = 40.000 TL teminatsız kısım; karşılık en fazla bu tutar için ayrılır.",
+                                         "D":  "Yanılgı dersi: Tam tersi — teminatlı kısma DEĞİL, teminatsız kısma karşılık ayrılır.",
+                                         "E":  "Yanılgı dersi: \u0027%50\u0027 gibi sabit bir oran yoktur; ölçüt teminatsız tutardır (burada 40.000)."
+                                     },
+                        "kaynak":  "VUK m.323 (Şüpheli alacaklarda teminat kuralı)",
+                        "hap":  "Şüpheli alacak karşılığı YALNIZ teminatsız kısım için ayrılır (VUK m.323). Teminatlı tutar tahsil güvencesi sayılır, karşılığa konu olmaz. Formül: Karşılık tabanı = Alacak − Teminat. Ayrıca alacak ticari/zirai kazançla ilgili ve dava/icra safhasında (veya protesto/yazı ile birden çok istenen küçük alacak) olmalı.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250104",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "degersiz alacak kaydi",
+                        "soru":  "Bir işletmenin 25.000 TL\u0027lik alacağı, borçlunun iflası kesinleşerek kazai bir hükümle tahsil imkânı tamamen ortadan kalkmıştır (daha önce karşılık AYRILMAMIŞTIR). VUK\u0027a göre bu değersiz alacağın kaydı nasıl yapılır?",
+                        "siklar":  {
+                                       "A":  "128 Şüpheli Ticari Alacaklar 25.000 borç; 120 Alıcılar 25.000 alacak",
+                                       "B":  "Kayıt yapılmaz; alacak bilançoda bekletilir",
+                                       "C":  "659 Diğer Olağan Gider ve Zararlar (veya 689) 25.000 borç; 120 Alıcılar 25.000 alacak",
+                                       "D":  "654 Karşılık Giderleri 25.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 25.000 alacak",
+                                       "E":  "120 Alıcılar 25.000 borç; 649 Diğer Olağan Gelir ve Kârlar 25.000 alacak"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: 128 şüpheli safhasıdır; burada alacak artık şüpheli değil KESİN değersizdir, doğrudan silinir.",
+                                         "B":  "Yanılgı dersi: Değersizlik kesinleşince alacak silinmelidir; tahsili imkânsız alacağı aktifte tutmak gerçeğe aykırıdır (VUK m.322).",
+                                         "C":  "DOĞRU: Değersiz alacak, kazai hüküm veya kanaat verici belgeyle tahsili imkânsız hale gelen alacaktır; DOĞRUDAN gider/zarar yazılarak kayıtlardan silinir (karşılık beklenmez). Alacak 120\u0027den çıkar, karşılığı gider hesabına (659/689) borç yazılır.",
+                                         "D":  "Yanılgı dersi: Karşılık ayrılmamış; değersiz alacakta karşılık adımı atlanır, doğrudan zarar yazılır.",
+                                         "E":  "Yanılgı dersi: Bu bir tahsil/gelir kaydıdır; değersiz alacakta gelir değil ZARAR doğar."
+                                     },
+                        "kaynak":  "VUK m.322 (Değersiz alacaklar)",
+                        "hap":  "Değersiz alacak = kazai hüküm VEYA kanaat verici belgeyle tahsili imkânsız hale gelen alacak; doğrudan zarar yazılıp silinir (VUK m.322). Şüpheli alacaktan farkı: şüpheli = dava/icra safhası (karşılık ayrılır), değersiz = tahsil imkânı kesin bitmiş (doğrudan gider). Karşılık ayrılmışsa önce 129 çözülür.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "659 Diğer Olağan Gider ve Zararlar",
+                                            "borc":  25000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "120 Alıcılar",
+                                            "borc":  0,
+                                            "alacak":  25000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250105",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "karsilik ayrilmis alacagin tahsili",
+                        "soru":  "Daha önce 128 Şüpheli Ticari Alacaklar\u0027a sınıflanıp 129 hesabında 30.000 TL karşılık ayrılan alacağın tamamı beklenmedik şekilde tahsil edilmiştir (banka). Karşılığın çözülmesine (iptaline) ilişkin kayıt hangi hesabı içerir?",
+                        "siklar":  {
+                                       "A":  "129 Şüpheli Ticari Alacaklar Karşılığı 30.000 borç; 128 Şüpheli Ticari Alacaklar 30.000 alacak",
+                                       "B":  "102 Bankalar 30.000 borç; 644 Konusu Kalmayan Karşılıklar 30.000 alacak",
+                                       "C":  "654 Karşılık Giderleri 30.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 30.000 alacak",
+                                       "D":  "644 Konusu Kalmayan Karşılıklar 30.000 borç; 129 Şüpheli Ticari Alacaklar Karşılığı 30.000 alacak",
+                                       "E":  "129 Şüpheli Ticari Alacaklar Karşılığı 30.000 borç; 644 Konusu Kalmayan Karşılıklar 30.000 alacak"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: 129\u0027u 128\u0027e kapatmak değersizleşme (tahsil edilemeyen) durumudur; burada alacak TAHSİL edildi, karşılık gelire döner (644).",
+                                         "B":  "Yanılgı dersi: Bu tahsilat kaydının bir kısmıdır; karşılık çözme kaydı 129/644\u0027tür. Ayrıca 644\u0027ün karşısı 129 olmalı.",
+                                         "C":  "Yanılgı dersi: Bu karşılık AYIRMA yönüdür; tahsilde karşılık çözülür, tersine döner.",
+                                         "D":  "Yanılgı dersi: Yön ters. 644 gelir hesabı ALACAK çalışır (kâr), borç değil; 129 borçlanarak kapanır.",
+                                         "E":  "DOĞRU: Alacak tahsil edilince ayrılan karşılığın konusu kalmaz. 129 Karşılık hesabı borçlanarak kapatılır, karşılığı GELİR yazan 644 Konusu Kalmayan Karşılıklar\u0027a alacak kaydedilir. (Tahsilat kaydı 102 borç / 128 alacak ayrıca yapılır.)"
+                                     },
+                        "kaynak":  "MSUGT THP 129; 644 Konusu Kalmayan Karşılıklar",
+                        "hap":  "Karşılıklı şüpheli alacak tahsil edilirse: (1) tahsilat 102/100 borç, 128 alacak. (2) karşılık çözme 129 borç / 644 Konusu Kalmayan Karşılıklar (gelir) alacak. Değersizleşirse ise 129 borç / 128 alacak (karşılık zaten gideri karşılamıştı). Tuzak: tahsili 654 ile tersine yazmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "129 Şüpheli Ticari Alacaklar Karşılığı",
+                                            "borc":  30000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "644 Konusu Kalmayan Karşılıklar",
+                                            "borc":  0,
+                                            "alacak":  30000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250106",
+                        "sinav":  "SMMM",
+                        "ders":  "Vergi Mevzuatı ve Uygulaması",
+                        "konu":  "supheli degersiz alacak farki",
+                        "soru":  "VUK açısından \u0027şüpheli alacak\u0027 ile \u0027değersiz alacak\u0027 arasındaki temel fark aşağıdakilerden hangisidir?",
+                        "siklar":  {
+                                       "A":  "Şüpheli alacak yalnız kamu kurumlarından, değersiz alacak yalnız özel sektörden doğar",
+                                       "B":  "Şüpheli alacak dava/icra safhasındadır ve karşılık ayrılır; değersiz alacak tahsil imkânı kesin bittiği için doğrudan gider yazılır",
+                                       "C":  "Şüpheli alacak doğrudan gider yazılır; değersiz alacak için karşılık ayrılır",
+                                       "D":  "İkisi arasında vergisel açıdan hiçbir fark yoktur",
+                                       "E":  "İkisi de yalnızca senetli alacaklar için geçerlidir"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Kamu/özel ayrımı yoktur; ölçüt alacağın hukuki durumudur.",
+                                         "B":  "DOĞRU: Şüpheli alacak (VUK m.323) dava/icra safhasında olan (veya protesto/yazıyla birden çok istenmiş küçük) alacaktır; teminatsız kısmı için KARŞILIK ayrılır. Değersiz alacak (VUK m.322) kazai hüküm/kanaat verici belgeyle tahsili imkânsız hale gelmiştir; DOĞRUDAN gider yazılıp silinir.",
+                                         "C":  "Yanılgı dersi: Tam tersi. Karşılık şüpheli alacakta ayrılır; değersiz alacak doğrudan gider yazılır.",
+                                         "D":  "Yanılgı dersi: Fark büyüktür — biri karşılık (geçici gider), diğeri doğrudan silme; şartları ve zamanlaması farklıdır.",
+                                         "E":  "Yanılgı dersi: İkisi de senetli-senetsiz ayrımı gözetmez; ticari/zirai kazançla ilgili olması yeter."
+                                     },
+                        "kaynak":  "VUK m.322 (Değersiz), m.323 (Şüpheli)",
+                        "hap":  "ŞÜPHELİ (m.323): dava/icra safhası → teminatsız kısma KARŞILIK (654/129), alacak aktifte kalır. DEĞERSİZ (m.322): kazai hüküm/kanaat verici belge, tahsil imkânı kesin bitti → DOĞRUDAN gider, alacak silinir. Vazgeçilen alacak (m.324) ayrı: alacaklıda gelir, borçluda özel fon. Tuzak: karşılık yönünü ters kurmak.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250107",
+                        "sinav":  "SMMM",
+                        "ders":  "Muhasebe",
+                        "konu":  "senetli alacagin supheli hale gelmesi",
+                        "soru":  "Bir işletmenin elindeki 50.000 TL\u0027lik alacak SENEDİ protesto edilmiş ve tahsili şüpheli hale gelmiştir. Şüpheli hale gelme (sınıflama) kaydında hangi hesap alacaklandırılır?",
+                        "siklar":  {
+                                       "A":  "120 Alıcılar",
+                                       "B":  "121 Alacak Senetleri",
+                                       "C":  "101 Alınan Çekler",
+                                       "D":  "129 Şüpheli Ticari Alacaklar Karşılığı",
+                                       "E":  "128 Şüpheli Ticari Alacaklar"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: 120 Alıcılar senetsiz alacaktır; burada alacak SENETLİ, 121\u0027den çıkar.",
+                                         "B":  "DOĞRU: Alacak SENETLİ olduğu için, şüpheli hale gelince senet ilgili hesabından (121 Alacak Senetleri) çıkarılır: 128 Şüpheli Ticari Alacaklar borç / 121 Alacak Senetleri alacak. Senetsiz olsaydı 120 Alıcılar alacaklanırdı.",
+                                         "C":  "Yanılgı dersi: Çek ile senet farklıdır; alacak senedi 121\u0027de izlenir, 101 alınan çeklerdir.",
+                                         "D":  "Yanılgı dersi: 129 karşılık hesabıdır; sınıflama adımında değil, sonraki karşılık adımında (654/129) çalışır.",
+                                         "E":  "Yanılgı dersi: 128 bu kayıtta BORÇLANIR (alacak şüpheliye taşınır), alacaklandırılmaz."
+                                     },
+                        "kaynak":  "VUK m.323; MSUGT THP 121/128",
+                        "hap":  "Sınıflamada karşı hesap alacağın TÜRÜNE göre: senetsiz → 120 Alıcılar, senetli → 121 Alacak Senetleri. Her ikisinde de 128 Şüpheli Ticari Alacaklar borçlanır. Senedin protesto edilmesi, senetli alacağı dava/icra şartına taşıyan tipik olaydır. Tuzak: senetli alacakta 120 kullanmak.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "128 Şüpheli Ticari Alacaklar",
+                                            "borc":  50000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "121 Alacak Senetleri",
+                                            "borc":  0,
+                                            "alacak":  50000
+                                        }
+                                    ],
+                        "yanlisKayitlar":  {
+                                               "A":  [
+                                                         {
+                                                             "hesap":  "128 Şüpheli Ticari Alacaklar",
+                                                             "borc":  50000,
+                                                             "alacak":  0
+                                                         },
+                                                         {
+                                                             "hesap":  "120 Alıcılar",
+                                                             "borc":  0,
+                                                             "alacak":  50000
+                                                         }
+                                                     ]
+                                           },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "sup250108",
+                        "sinav":  "SMMM",
+                        "ders":  "Vergi Mevzuatı ve Uygulaması",
+                        "konu":  "supheli alacak karsilik donem",
+                        "soru":  "VUK\u0027a göre şüpheli alacak karşılığı hangi dönemde ayrılabilir?",
+                        "siklar":  {
+                                       "A":  "İşletmenin dilediği herhangi bir dönemde geriye dönük olarak",
+                                       "B":  "Yalnızca borçlunun iflası kesinleştikten sonra",
+                                       "C":  "Alacağın şüpheli hale geldiği (dava/icra safhasına girdiği) hesap döneminde",
+                                       "D":  "Yalnızca alacağın doğduğu dönemde",
+                                       "E":  "Alacak tahsil edilene kadar her dönem yeniden"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Geriye dönük serbestçe ayırma yoktur; dönemsellik gereği şüphelilik hangi dönemde doğduysa o dönemde ayrılır.",
+                                         "B":  "Yanılgı dersi: İflasın kesinleşmesi DEĞERSİZ alacak halidir (m.322); şüpheli karşılığı için dava/icra safhası yeter.",
+                                         "C":  "DOĞRU: Karşılık, alacağın ŞÜPHELİ HALE GELDİĞİ (dava veya icra safhasına girdiği) hesap döneminde ayrılır. O dönemde ayrılmayan karşılık sonraki yıllarda geriye dönük ayrılamaz (dönemsellik).",
+                                         "D":  "Yanılgı dersi: Alacağın doğduğu dönem değil; şüpheli hale geldiği (dava/icra) dönem esastır.",
+                                         "E":  "Yanılgı dersi: Her dönem yeniden ayrılmaz; bir kez ayrılır, sonra tahsil/değersizleşme durumuna göre çözülür."
+                                     },
+                        "kaynak":  "VUK m.323 (karşılığın ayrılma dönemi); dönemsellik kavramı",
+                        "hap":  "Şüpheli alacak karşılığı, alacağın şüpheli hale geldiği (dava/icra safhasına girdiği) hesap döneminde ayrılır — dönemsellik gereği o dönem kaçırılırsa sonra geriye dönük ayrılamaz. İflasın kesinleşmesi ise değersiz alacaktır (m.322, doğrudan gider). Tuzak: \u0027alacağın doğduğu dönem\u0027 veya \u0027istenen herhangi bir dönem\u0027.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    }
+                ]
+}
