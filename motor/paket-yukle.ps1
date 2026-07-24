@@ -63,32 +63,49 @@ if($backfill.Count){
   Write-Host ("GERI-DOLDURMA: {0} soru gorsel alani eksik tasindi - kolon eklenince backfill (veri/kasa-backfill-bekleyen.json)" -f $backfill.Count)
 }
 
-$govde = @($paket | ForEach-Object {
-  $satir = [ordered]@{
-    id=$_.id; sinav="$($_.sinav)"; ders="$($_.ders)"; konu="$($_.konu)"; soru="$($_.soru)"
-    siklar=$_.siklar; dogru="$($_.dogru)"; aciklama=$_.aciklama
-    kaynak="$($_.kaynak)"; hap="$($_.hap)"; onay="$($_.onay)"; uretim="$($_.uretim)"
+# 24.07 PARTILI TASIMA: 1.199 soru tek POST'ta (2.76MB govde + 11KB dogrulama URL'i)
+# sunucu sinirlarina takiliyordu (#17-#21 kirmizi seri) -> 150'serlik partiler.
+# Her parti ayri yuklenir + ayri dogrulanir; TUM partiler dogrulanmadan depo silinmez.
+$PARTI = 150
+$toplamDogrulanan = 0
+for($i=0; $i -lt $paket.Count; $i += $PARTI){
+  $dilim = @($paket[$i..([Math]::Min($i+$PARTI-1, $paket.Count-1))])
+  $govde = @($dilim | ForEach-Object {
+    $satir = [ordered]@{
+      id=$_.id; sinav="$($_.sinav)"; ders="$($_.ders)"; konu="$($_.konu)"; soru="$($_.soru)"
+      siklar=$_.siklar; dogru="$($_.dogru)"; aciklama=$_.aciklama
+      kaynak="$($_.kaynak)"; hap="$($_.hap)"; onay="$($_.onay)"; uretim="$($_.uretim)"
+    }
+    if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
+    if($tabloKolonu){ $satir['tablo'] = $_.tablo }
+    if($hayaletKolonu){ $satir['yanlis_kayitlar'] = $_.yanlisKayitlar }
+    $satir
+  })
+  $json = ConvertTo-Json -InputObject $govde -Depth 6
+  $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
+  try {
+    Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu" -Headers $H `
+      -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 120 | Out-Null
+  } catch {
+    Write-Host ("HATA parti {0}: POST basarisiz - {1}" -f ([int]($i/$PARTI)+1), $_.Exception.Message)
+    $hataGovde = ""
+    try { $hataGovde = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+    if($hataGovde){ Write-Host ("SUNUCU CEVABI: " + $hataGovde.Substring(0, [Math]::Min(500, $hataGovde.Length))) }
+    Write-Host "Depoya DOKUNULMADI - onceki partiler kasada (upsert, tekrar kosmak guvenli)."
+    exit 1
   }
-  if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
-  if($tabloKolonu){ $satir['tablo'] = $_.tablo }
-  if($hayaletKolonu){ $satir['yanlis_kayitlar'] = $_.yanlisKayitlar }
-  $satir
-})
-$json = ConvertTo-Json -InputObject $govde -Depth 6
-$gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
-Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu" -Headers $H `
-  -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 120 | Out-Null
-Write-Host "Supabase'e yuklendi."
-
-# dogrulama: yuklenen id'ler tabloda gercekten var mi (silmeden ONCE kontrol)
-$idListe = ($paket | ForEach-Object { $_.id }) -join ','
-$kontrol = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?id=in.($idListe)&select=id" `
-  -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 60
-if(@($kontrol).Count -ne $paket.Count){
-  Write-Host ("HATA: dogrulama tutmadi ({0}/{1}) - depo dosyasina DOKUNULMADI." -f @($kontrol).Count, $paket.Count)
-  exit 1
+  # parti dogrulamasi (150 id ~ 1.4KB URL - guvenli)
+  $idListe = ($dilim | ForEach-Object { $_.id }) -join ','
+  $kontrol = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?id=in.($idListe)&select=id" `
+    -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 60
+  if(@($kontrol).Count -ne $dilim.Count){
+    Write-Host ("HATA parti {0}: dogrulama tutmadi ({1}/{2}) - depoya DOKUNULMADI." -f ([int]($i/$PARTI)+1), @($kontrol).Count, $dilim.Count)
+    exit 1
+  }
+  $toplamDogrulanan += $dilim.Count
+  Write-Host ("parti {0}: {1} soru yuklendi+dogrulandi (toplam {2}/{3})" -f ([int]($i/$PARTI)+1), $dilim.Count, $toplamDogrulanan, $paket.Count)
 }
-Write-Host ("Dogrulandi: {0}/{1} kayit tabloda." -f @($kontrol).Count, $paket.Count)
+Write-Host ("Dogrulandi: {0}/{1} kayit tabloda." -f $toplamDogrulanan, $paket.Count)
 
 # ancak dogrulama sonrasi depodan temizle
 if($onay){
