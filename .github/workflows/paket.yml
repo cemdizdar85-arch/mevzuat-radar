@@ -32,7 +32,24 @@ jobs:
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: ./motor/paket-yukle.ps1
+        # 24.07: cikti HER DURUMDA dosyaya - kirmizi kosuda log herkese kapali (admin-only),
+        # tani icin scriptin kendi sesi commit'lenir (asagidaki adim if:always ile kaydeder)
+        run: |
+          $cikti = ./motor/paket-yukle.ps1 2>&1 | Out-String
+          $kod = $LASTEXITCODE
+          Write-Host $cikti
+          "SON KOSU $(Get-Date -Format 'dd.MM.yyyy HH:mm') exit=$kod`n$cikti" | Out-File -FilePath veri/tasiyici-son-log.txt -Encoding utf8
+          exit $kod
+      - name: Tani dosyasini kaydet (kirmizi kosuda da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/tasiyici-son-log.txt 2>/dev/null || true
+          if git diff --cached --quiet; then echo "log degisiklik yok"; else
+            git commit -m "Tasiyici kosu logu (tani)"
+            for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 8; done
+          fi
       - name: Depo temizligini kaydet
         if: always()    # 24.07: hata dosyasi (tasiyici-hata.json) kirmizi kosuda da commit'lensin - kor kalma yasak
         run: |
