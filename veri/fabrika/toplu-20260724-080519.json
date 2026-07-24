@@ -526,9 +526,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=A, sebep=Ters orantı kuralı uygulanırsa: 3 uzman × 12 saat = 4 uzman × X saat → 36 = 4X → X = 9 saat matematiksel olarak doğru görünse de, sorunun mantığı hatalıdır. Soru 'aynı hızda çalışan uzmanlar' için tasarlanmış bir matematik problemidir, muhasebe mevzuatı ile ilgisi yoktur. Ancak matematiksel olarak C şıkkı (9 saat) hesap açısından doğru olsa da, işin karmaşıklığını göz ardı ettiğinden ve pratik iş hayatında doğruluğu tartışmalı olduğundan, bu tür sorular SMMM sınavına uygun değildir. Soru türü ve içeriği mali müşavir sınav standardına uymadığından geçersiz değerlendirilmiştir."
     },
     {
       "id": "31a74363",
@@ -928,9 +929,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=Satılan Ticari Mallar Maliyeti = Dönem başı stoku + (Alışlar - Alış İadeleri - Alış İskontoları) - Dönem sonu stoku = 50.000 + (200.000 - 10.000 - 5.000) - 40.000 = 50.000 + 185.000 - 40.000 = 195.000 TL değil, 275.000 TL'dir. İşlemde hata: 50.000 + 185.000 = 235.000 TL net alış + 50.000 dönem başı = 285.000; 285.000 - 40.000 dönem sonu = 245.000 TL VEYA doğru formül: 50.000 + 200.000 - 10.000 - 5.000 - 40.000 = 195.000... Yeniden kontrol: (50.000 + 235.000) - 40.000 = 245.000 TL. VUK m.274'e göre maliyet bedeli hesabında alış iadeleri ve iskontoları düşülür. Sonuç 275.000 TL olmalıdır. İşaretli E (195.000) mantık hatası içerir - dönem başı stoku iki kez sayıyor gibi görünüyor."
     },
     {
       "id": "e7ac546a",
@@ -1484,9 +1486,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "6551e2b0",
@@ -1949,9 +1952,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "f268a139",
@@ -3159,9 +3163,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "TTK m.56'ya göre odalar haksız rekabet davalarını açabilir. Ancak soruda 'üyelerinin ticari itibarının zarar gördüğünü' ileri sürmesi, bu zararın kişisel/üyeye ait bir zarar olmasını gösterir. Odanın kendisine doğrudan zarar gelmemiştir. TTK m.56 uyarınca oda, esnaf ve sanatkar mesleklerinin ortak çıkarlarını ilgilendiren haksız rekabet davalarını açabilir. Burada doğrudan çıkar zarar varsa E savunulabilir, fakat soru metninde üyelerin zararı vurgulanması, C seçeneğini (üyelerden vekâlet almak) daha uygun hale getirmektedir. E seçeneği kısmen savunulabilir olsa da, sorunun bağlamında tam doğru değildir."
     },
     {
       "id": "4866f556",
@@ -3886,9 +3892,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Matematiksel hesaplama hatası. Toplam alan 1.000 m², Kesim 200 m² olduğundan oran 200/1.000 = %20'dir. 60.000 TL × %20 = 12.000 TL doğru bulunur. Ancak soru metninde '60.000 TL' yazılmışken, seçenekler incelendiğinde B şıkkı (12.000 TL) matematiksel olarak doğru olsa da, eğer asıl kira tutarı 90.000 TL ise Kesim payı 18.000 TL (C şıkkı) olacaktır. Soruda temel veri belirsizliği veya seçeneklerde tutarsızlık bulunması nedeniyle tam güvenle savunulamaz. Mevzuat (VUK m.275) geçerli olup yöntem doğru ancak soru tasarımında muğlaklık vardır."
     },
     {
       "id": "e70a8bf9",
@@ -4051,9 +4059,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=B, sebep=Yatay analiz değişim yüzdesi formülü: [(2023 değeri - 2022 değeri) / 2022 değeri] × 100 = [(500.000 - 400.000) / 400.000] × 100 = (100.000 / 400.000) × 100 = %25 değil, %25 YANLIŞTIR. Doğru hesaplama: 100.000/400.000 = 0,25 = %25 olur. ANCAK soru metni dikkatle okunduğunda işlem yanlış yapılmıştır. Sorunun yapısı incelendiğinde: 500.000/400.000 = 1,25 = %125 (indeks), değişim yüzdesi ise %25'tir. İşaretli D cevabı (%25) matematik olarak doğru olsa da, soru 'değişim yüzdesi' sorduğu halde %20 seçeneği de hata gösterir. Yeniden kontrol: (500-400)/400×100 = 100/400×100 = %25. D cevabı matematiksel olarak DOĞRU ancak formüle dayalı hesaplamada hiç şüphe yok. Mevzuat referansı (TMS 1 md.38) yatay analize ilişkindir ve uygun. Cevap D matematiksel olarak korektir."
     },
     {
       "id": "a7333bf4",
@@ -4401,9 +4410,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "6b7752ab",
@@ -4771,9 +4781,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "İşlem öncesi cari oran: 900.000/500.000 = 1,80. Ticari mal satın alma (peşin 150.000 TL ödeme) dönen varlıkları değiştirmez (nakit azalır, stok artar, net etki sıfır). Kısa vadeli yabancı kaynak değişmez. Sonuç: 1,80 olmalı ve D doğru görünür. ANCAK soru metninde 'depo stoklarını güçlendirmek için satın aldı' ifadesi vardır - bu stokun dönen varlık grubundan zaten stok olması gerekir. Ana sorun: Soruda cari oranın (dönen varlıklar/kısa vadeli yabancı kaynak) tanımının TMS 1 md.66 ile ilişkilendirilmesi YANLIŞ DAYANAK. TMS 1 md.66 dönen varlık sınıflandırması hakkındadır, cari oran hesaplaması hakkında değildir. Cari oran finansal analiz oranı olup, TMS/TFRS standardına dayanan bir oran değildir. Doğru cevap D olsa da, dayanak gösterilen madde hatalı/uygunsuz gösterilmiştir."
     },
     {
       "id": "a9507d9c",
@@ -5797,9 +5809,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=E, sebep=Üretilen mamul maliyeti = Başlangıç yarı mamul + Dönem üretim giderleri - Bitiş yarı mamul = 40.000 + (150.000 + 80.000 + 70.000) - 25.000 = 40.000 + 300.000 - 25.000 = 315.000 değil 285.000 TL olmalıdır. C seçeneği hata içermektedir. Doğru hesap: Dönem üretim maliyeti (300.000) + Başlangıç yarı mamul (40.000) - Bitiş yarı mamul (25.000) = 315.000 TL değil, E şıkkı (285.000) ise başlangıç yarı mamul miktarının hatalı kullanılması sonucudur. İşlemde E seçeneği sistem hatasıdır. Tekrar kontrol: 40.000 + 300.000 - 25.000 = 315.000 TL kesin sonuçtur. C seçeneğinin doğru olması mümkün değildir."
     },
     {
       "id": "4f152c40",
@@ -7617,9 +7630,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "90c26b39",
@@ -8610,9 +8624,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "864764c3",
@@ -8951,9 +8966,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "e4b547ab",
@@ -8981,9 +8997,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "afa36598",
@@ -9897,9 +9914,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=B haiku=A, sebep=BDS 705'e göre malın önemliliği ve pervasızlık derecesi belirleyici faktördür. Buradaki tutar önemli ancak yönetim hatası/ihmal söz konusu olup, mali tabloların tamamı ciddi şekilde etkileniyorsa olumsuz görüş verme eşiğine ulaşmaz. Şartlı görüş yerine KDK (Kilit Denetim Konusu) ile olumlu görüş daha uygun ve BDS 701/705 açısından tutarlıdır. Cevap 'B' (olumsuz görüş) özkaynak etkilemesi tek başına olumsuz görüş için yeterli sebep değildir; muhasebe hatası belirtisi ve düzeltilme ihtimali varsa şartlı/KDK yolu tercih edilir."
     },
     {
       "id": "aa44b0bc",
@@ -9927,9 +9945,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "BDS 705'e göre 'yaygın' (pervasive) etki tanımında tutar/parasal sınırlar (iki katı aşması gibi) kriterler değildir. Yaygınlık; niteliksel (finansal tabloların anlaşılabilirliğini, güvenilirliğini temel olarak zedeleyen) ve niteliksel kapsamla ilgilidir. Seçenek D, belirli tutar sınırlarına dayalı mekanik bir kural sunarak BDS 705'in yaygınlık konseptini yanlış temsil eder. Soruda D işaretlenmişse de, mevzuat tabanında savunulamaz."
     },
     {
       "id": "1becd0d1",
@@ -10297,9 +10317,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "b1edcc16",
@@ -12138,9 +12159,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=A, sebep=4857 m.4/ı'ye göre 3 kişi sınırı tüm haklar için geçerlidir, ancak istisna sadece kıdem tazminatında uygulanır. Cevap C yanlıştır çünkü işçiler İş Kanunu'nun tüm hükümlerine tabidir; C, işyerinin tamamen kapsamı dışında olduğunu söylerek hatalı bir sonuç çıkarmaktadır. A seçeneği kanuni temele tam uyumludur."
     },
     {
       "id": "68b01881",
@@ -13612,9 +13634,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "05a259a1",
@@ -14575,9 +14598,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=A, sebep=Faaliyet kârı = Brüt satış kârı - Pazarlama/satış/dağıtım giderleri - Genel yönetim giderleri = 250.000 - 40.000 - 60.000 = 150.000 TL'dir. Ancak bu rakam faaliyet kârı değildir. Faaliyet kârı tanımı gereği faaliyetlerden elde edilen kârdır. Vadeli mevduat faizi (25.000 TL) diğer faaliyetlerden olağan gelir olup faaliyet kârına DAHİL EDİLMEZ, fakat soru mantığında sorun vardır. Doğru hesaplama: 250.000 - 40.000 - 60.000 = 150.000 TL (faaliyet kârı). İşaretlenen D) 150.000 TL matematiksel olarak doğru olsa da, faiz gelirinin neden hesaplamada yer almadığının açıklanmadığı ve soru kurgusunun belirsiz olması nedeniyle mevzuat uygulaması açısından tartışmalıdır. A) 190.000 TL ise faiz gelirinin de eklenmiş versiyonudur (150.000 + 25.000 + hata). Teknik olarak D doğru ancak soru tasarımı kusurlu."
     },
     {
       "id": "5e11fdc6",
@@ -14915,9 +14939,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "24.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=B, sebep=Dikey analiz (yüzde) yöntemi, gelir tablosunun her kaleminin net satışlara oranıdır. SMM = 2.800.000 / 4.000.000 = %70 değil; %70 brüt satış kârı oranıdır. Satılan malın maliyetinin oranı = 2.800.000 / 4.000.000 = %70'tir. Ancak soru 'SMM'nin dikey analiz oranı' diye sormuştur. Net satışlar 4.000.000 TL olarak verildiğinde, bu formüle göre %70 çıksa da, SMM (Satılan Malın Maliyeti) = 2.800.000 TL'nin net satışlara (4.000.000 TL) oranı gerçekten %70'tir. Fakat işletmenin analiz tabanı brüt satışlar (4.200.000 TL) olabilir: 2.800.000 / 4.200.000 = %66,7 (A). Sorunun muğlaklığı ve E seçeneğinin yanlış formülasyonu nedeniyle E seçeneği savunulamaz."
     },
     {
       "id": "1b59cedb",
