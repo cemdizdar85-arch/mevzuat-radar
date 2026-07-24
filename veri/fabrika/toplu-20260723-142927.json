@@ -2448,10 +2448,10 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "paket-havuzu",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=A, sebep=VUK m.327\u0027ye göre kiralanan taşınmazın tadilat maliyeti, kira sözleşmesinin süresi kadar itfa edilir. Süre belirsizse \u0027bina için geçerli normal amortisman oranı\u0027 (% 2, yani 50 yıl) uygulanır. D şıkkındaki \u00275 yıl sabit\u0027 hükmü mevzuatta yer almamaktadır ve keyfidir. A şıkkı VUK m.327 ile uyumlu ve savunulabilirdir."
+                        "gmOkuma":  "GM okudu 24.07 (VUK 272/327 + IsK birebir): 264+kira suresi itfa, belirsiz=5yil, tahliyede defaten; istifa=kidem yok, m.18 30-isci, m.26 6gun/1yil, m.25/II ciftesiz, m.17 3-kat kotuniyet; Haiku coklu uydurma"
                     },
                     {
                         "id":  "691a8508",
@@ -2479,10 +2479,10 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "paket-havuzu",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=B haiku=A, sebep=VUK m.327/2 gereği, kiralanan mülkün iyileştirilmesine yapılan harcamalar, sözleşme bitiminde geri alınamayan kısım KKEG olur. Seçenek B\u0027nin dayanak gösterilen m.327/2, aslında bu durumu KKEG olarak tanımlar, defaten gider yazılmasını değil. Kalan 40.000 TL, sözleşmenin erken feshedilmesi sebebiyle geri alınamayan özel maliyet olup KKEG kapsamındadır. Seçenek B hatalıdır, doğru cevap A\u0027dır."
+                        "gmOkuma":  "GM okudu 24.07 (VUK 272/327 + IsK birebir): 264+kira suresi itfa, belirsiz=5yil, tahliyede defaten; istifa=kidem yok, m.18 30-isci, m.26 6gun/1yil, m.25/II ciftesiz, m.17 3-kat kotuniyet; Haiku coklu uydurma"
                     },
                     {
                         "id":  "6a7b5fce",
@@ -2510,10 +2510,10 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "paket-havuzu",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=A haiku=D, sebep=VUK m.272\u0027ye göre kiracının yaptığı iyileştirme harcamaları, kiracı tarafından Maddi Duran Varlıklar\u0027da aktifleştirilir. Ancak amortisması bina gibi değil, kira SÜRESİNE göre yapılmalıdır (VUK m.327). Seçenek A\u0027da \u0027eşit yüzdelerle\u0027 ifadesi doğru olsa da, harcamanın \u0027Özel Maliyetler\u0027 hesabında kaydedilmesi yanlıştır. Doğru muhasebe kaydı: Kiracı bunu Binalar (veya Tesisatlar) hesabında aktifleştirip kira süresi kadar itfa eder. Seçenek D ise \u0027bina gibi amortismanı\u0027 söylerek hatalı görünse de, VUK uygulamasında kiracının iyileştirmesi Maddi Duran Varlık olarak Binalar hesabında kaydedilir ve kira süresi kadar (3 yıl) itfa edilir. A seçeneğindeki \u0027Özel Maliyetler\u0027 hesabı kullanımı hatalıdır."
+                        "gmOkuma":  "GM okudu 24.07 (VUK 272/327 + IsK birebir): 264+kira suresi itfa, belirsiz=5yil, tahliyede defaten; istifa=kidem yok, m.18 30-isci, m.26 6gun/1yil, m.25/II ciftesiz, m.17 3-kat kotuniyet; Haiku coklu uydurma"
                     },
                     {
                         "id":  "6338800b",
@@ -3574,10 +3574,11 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "karantina-red",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=VUK m.327\u0027ye göre, kira süresi belirsiz olan gayrimenkullerdeki özel maliyetler (yapılan iyileştirmeler) itfa konusu değil, doğrudan gider yazılır. Kira süresi belli olmadığı için amortisman dönemi belirlenemez. Seçenek E\u0027deki 5 yıl sabit süresi hukuki dayanaktan yoksundur. VUK m.321\u0027de ise kira süresi belli olduğunda, sözleşme süresi kadar itfa yapılır. Belirsiz süre durumunda hemen gider yazılması gerekir."
+                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=VUK m.327\u0027ye göre, kira süresi belirsiz olan gayrimenkullerdeki özel maliyetler (yapılan iyileştirmeler) itfa konusu değil, doğrudan gider yazılır. Kira süresi belli olmadığı için amortisman dönemi belirlenemez. Seçenek E\u0027deki 5 yıl sabit süresi hukuki dayanaktan yoksundur. VUK m.321\u0027de ise kira süresi belli olduğunda, sözleşme süresi kadar itfa yapılır. Belirsiz süre durumunda hemen gider yazılması gerekir.",
+                        "gmOkuma":  "GM red 24.07: ayni hukmun mukerrer kopyasi"
                     },
                     {
                         "id":  "7cc4e0d4",
@@ -3605,10 +3606,11 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "karantina-red",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=VUK m.327\u0027ye göre itfası tamamlanmayan duran varlıkların kalan değeri duran varlık satış zararı (689) olarak muhasebeleştirilir. Seçenek E (tek seferde gider yazılır) teknik olarak aynı sonucu verse de, muhasebe standartlarına göre doğru işlem A seçeneğinin anlatımıdır. VUK m.324-327 çerçevesinde maddi duran varlıkların elden çıkarılması sırasında, itfası tamamlanmayan kalan değer zarara konu edilir. E seçeneği mevzuat bakımından savunulamaz çünkü itfanın devam etmesi söz konusu değil, varlık elden çıkıyor; bu nedenle satış zararı (689) en uygun hesap kodlamasıdır."
+                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=VUK m.327\u0027ye göre itfası tamamlanmayan duran varlıkların kalan değeri duran varlık satış zararı (689) olarak muhasebeleştirilir. Seçenek E (tek seferde gider yazılır) teknik olarak aynı sonucu verse de, muhasebe standartlarına göre doğru işlem A seçeneğinin anlatımıdır. VUK m.324-327 çerçevesinde maddi duran varlıkların elden çıkarılması sırasında, itfası tamamlanmayan kalan değer zarara konu edilir. E seçeneği mevzuat bakımından savunulamaz çünkü itfanın devam etmesi söz konusu değil, varlık elden çıkıyor; bu nedenle satış zararı (689) en uygun hesap kodlamasıdır.",
+                        "gmOkuma":  "GM red 24.07: ayni hukmun mukerrer kopyasi"
                     },
                     {
                         "id":  "36b963a4",
@@ -3636,10 +3638,10 @@
                         "yevmiye":  null,
                         "ambar":  "ok",
                         "uretim":  "23.07.2026",
-                        "durum":  "karantina",
+                        "durum":  "paket-havuzu",
                         "gmDenetim":  "gecti-katman1",
                         "karistirildi":  true,
-                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=C, sebep=Raf sistemi ve zemin güçlendirmesi, kiralanan binaya yapılan kalıcı iyileştirmeler olup, VUK m.272\u0027ye göre 253 Tesis, Makine ve Cihazlar hesabına kapitalize edilmelidir. 264 Özel Maliyetler gider hesabı değil, maliyetlendirme hesabıdır ve devam eden üretim için kullanılır. D seçeneği muhasebe teorisine ve mevzuata aykırıdır."
+                        "gmOkuma":  "GM okudu 24.07 (VUK 272/327 + IsK birebir): 264+kira suresi itfa, belirsiz=5yil, tahliyede defaten; istifa=kidem yok, m.18 30-isci, m.26 6gun/1yil, m.25/II ciftesiz, m.17 3-kat kotuniyet; Haiku coklu uydurma"
                     },
                     {
                         "id":  "0cb91fec",
