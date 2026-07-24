@@ -37,6 +37,18 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .sik.yanlis{border-color:rgba(255,107,94,.6);background:linear-gradient(135deg,rgba(255,107,94,.12),transparent)}
 .sik:disabled{cursor:default}
 .sik.cizili span:last-child{text-decoration:line-through;opacity:.5}
+/* 24.07 Cem "vov" istegi: UWorld sinav-kabugu hissi */
+.sinavbar{position:sticky;top:8px;z-index:50;background:linear-gradient(180deg,#0d1728,#0a111e);border:1px solid var(--line2);border-radius:13px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 8px 22px rgba(0,0,0,.4);margin-bottom:10px}
+.kron{font-family:var(--mono);font-weight:800;color:var(--accent2);font-size:15px;min-width:54px;text-align:right}
+.navray{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 10px}
+.navk{width:31px;height:31px;border-radius:8px;border:1px solid var(--line2);background:#0a0f17;color:var(--muted);font:700 12px/29px var(--mono);text-align:center;cursor:pointer;padding:0;transition:transform .12s}
+.navk:hover{transform:translateY(-2px)}
+.navk.suanki{outline:2px solid var(--accent2)}
+.navk.d{border-color:rgba(61,220,151,.65);color:var(--green)}
+.navk.y{border-color:rgba(255,107,94,.65);color:var(--red)}
+.navk.c{border-color:rgba(62,155,255,.55);color:var(--accent2)}
+.navk.i{box-shadow:inset 0 -3px 0 var(--amber)}
+.hedefKutu{margin-top:12px;border:1px solid rgba(94,215,255,.4);background:rgba(94,215,255,.08);border-radius:11px;padding:11px 14px;font-size:13.5px;color:var(--ink)}
 .hayalet{opacity:.55;filter:grayscale(.4)}
 .hayalet .yevmiye{border-color:rgba(255,107,94,.5)}
 .hayalet .yevmiye th{background:rgba(255,107,94,.10);color:var(--red)}
@@ -129,10 +141,12 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 
   <!-- SORU -->
   <div id="ekranSoru" class="gizli">
-    <div class="soruUst">
+    <div class="sinavbar">
       <span id="soruSayac" style="font-weight:800;color:var(--ink)"></span>
-      <span><span class="rozet gizli" id="sicilRozet" style="color:var(--amber);border-color:rgba(255,194,75,.45)"></span> <span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
+      <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="rozet gizli" id="sicilRozet" style="color:var(--amber);border-color:rgba(255,194,75,.45)"></span> <span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
+      <span class="kron" id="kron">0:00</span>
     </div>
+    <div class="navray" id="navRay"></div>
     <div class="ilerleme"><div id="ilerlemeBar" style="width:0%"></div></div>
     <div class="panel">
       <div class="soruMetin" id="soruMetin"></div>
@@ -181,7 +195,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 
 <script>
 var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=false;
-var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SORU_T0=0, SURELER={};
+var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SORU_T0=0, SURELER={}, RESULTS={}, KRONI=null;
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -264,7 +278,7 @@ function basla(){
   karistir(yeni); karistir(eski);
   SORULAR=yeni.concat(eski).slice(0,seciliAdet);
   karistir(SORULAR);
-  IDX=0; CEVAPLAR={};
+  IDX=0; CEVAPLAR={}; RESULTS={}; SURELER={};
   document.getElementById('ekranKurulum').classList.add('gizli');
   document.getElementById('ekranSoru').classList.remove('gizli');
   soruCiz();
@@ -317,13 +331,48 @@ function soruCiz(){
   document.getElementById('devamBtn').classList.toggle('gizli', MOD==='calisma');
   if(MOD==='deneme') document.getElementById('devamBtn').classList.remove('gizli');
   document.getElementById('devamBtn').textContent=(IDX===SORULAR.length-1)?'Karneyi gör →':'Sıradaki →';
+  // canli kronometre (UWorld kabugu): cevaba kadar isler, cevapla donar
+  if(KRONI) clearInterval(KRONI);
+  var kEl=document.getElementById('kron'); if(kEl){ kEl.textContent='0:00';
+    KRONI=setInterval(function(){ kEl.textContent=sureFmt(Date.now()-SORU_T0); },1000); }
+  navCiz();
+  // GERI DONUS: cevaplanmis soruya navigatorden gelindiyse durumu geri yukle
+  if(MOD==='calisma' && CEVAPLAR[s.id]){ SECILI=CEVAPLAR[s.id]; cevabiGor(true); }
+  else if(MOD==='deneme' && CEVAPLAR[s.id]){
+    SECILI=CEVAPLAR[s.id];
+    sk.querySelectorAll('.sik').forEach(function(b){ if(b.dataset.h===SECILI) b.classList.add('secili'); });
+    document.getElementById('devamBtn').classList.remove('gizli');
+  }
 }
 
-function cevabiGor(){
+// SORU NAVIGATORU (UWorld numara haritasi): yesil=dogru, kirmizi=yanlis,
+// mavi=cevaplandi(deneme), alt-sari=isaretli; tikla -> o soruya git.
+function navCiz(){
+  var k=document.getElementById('navRay'); if(!k || !SORULAR.length) return;
+  k.innerHTML='';
+  var x=sicilOku();
+  SORULAR.forEach(function(s,i){
+    var b=document.createElement('button'); b.className='navk'; b.type='button'; b.textContent=i+1;
+    if(i===IDX) b.classList.add('suanki');
+    if(MOD==='calisma' && RESULTS[s.id]) b.classList.add(RESULTS[s.id]);
+    else if(MOD==='deneme' && CEVAPLAR[s.id]) b.classList.add('c');
+    var sc=x[s.id]; if(sc && sc.isaret) b.classList.add('i');
+    b.onclick=function(){ IDX=i; soruCiz(); window.scrollTo(0,0); };
+    k.appendChild(b);
+  });
+}
+
+function cevabiGor(tekrarMi){
   if(!SECILI || KILIT) return;
-  var s=SORULAR[IDX]; KILIT=true; CEVAPLAR[s.id]=SECILI;
-  sicilKaydet(s.id, SECILI===s.dogru);
-  SURELER[s.id]=Date.now()-SORU_T0;
+  var s=SORULAR[IDX]; KILIT=true;
+  if(!tekrarMi){
+    CEVAPLAR[s.id]=SECILI;
+    sicilKaydet(s.id, SECILI===s.dogru);
+    SURELER[s.id]=Date.now()-SORU_T0;
+  }
+  RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
+  if(KRONI){ clearInterval(KRONI); KRONI=null; }
+  var kEl=document.getElementById('kron'); if(kEl && SURELER[s.id]){ kEl.textContent=sureFmt(SURELER[s.id]); }
   var sk=document.getElementById('sikKutu');
   sk.querySelectorAll('.sik').forEach(function(b){
     b.disabled=true;
@@ -355,10 +404,13 @@ function cevabiGor(){
   h+=hayaletGorsel(s);
   h+=tabloGorsel(s);
   h+=yevmiyeGorsel(s);
+  var hedefCumle=(s.hap||'').split('. ')[0]; if(hedefCumle && hedefCumle.slice(-1) !== '.') hedefCumle += '.';
+  if(hedefCumle && hedefCumle.length > 15){ h+='<div class="hedefKutu">🎯 <b>AKILDA KALSIN:</b> '+esc(hedefCumle)+'</div>'; }
   h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın. <span style="opacity:.8">(Kullanıcı ortalamaları istatistik hattıyla gelecek.)</span></div>';
   g.innerHTML=h; g.classList.remove('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.remove('gizli');
+  navCiz();
 }
 
 function tl(n){ return Number(n).toLocaleString('tr-TR'); }
@@ -447,7 +499,7 @@ function gorulenKaydet(id){
 function sicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruSicil')||'{}'); }catch(e){ return {}; } }
 function sicilYaz(x){ try{ localStorage.setItem('tetikteSoruSicil', JSON.stringify(x)); }catch(e){} }
 function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); }
-function isaretle(){ var s=SORULAR[IDX]; if(!s) return; var x=sicilOku(), k=x[s.id]||{d:0,y:0,isaret:0}; k.isaret=k.isaret?0:1; x[s.id]=k; sicilYaz(x); isaretBtnCiz(k.isaret); }
+function isaretle(){ var s=SORULAR[IDX]; if(!s) return; var x=sicilOku(), k=x[s.id]||{d:0,y:0,isaret:0}; k.isaret=k.isaret?0:1; x[s.id]=k; sicilYaz(x); isaretBtnCiz(k.isaret); navCiz(); }
 function isaretBtnCiz(a){ var b=document.getElementById('isaretBtn'); if(!b) return; b.textContent=a?'🔖 İşaretli ✓':'🔖 İşaretle'; b.style.color=a?'var(--amber)':''; }
 function kaynakSayCiz(){
   var x=sicilOku(), yn=0, is=0;
