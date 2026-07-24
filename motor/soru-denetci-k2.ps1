@@ -15,7 +15,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $enc  = New-Object Text.UTF8Encoding($false)
 $BEKLEME_MS = 4500      # ~13 istek/dk (free tier 15 RPM sinirinin altinda)
-$KOSU_TAVANI = 1400     # gunluk free kota (~1500 RPD) icinde kal; kalani ertesi gun
+$KOSU_TAVANI = 2400     # 24.07: Haiku'nun gunluk kotasi yok - tavan yukseltildi, backlog tek kosuda bitsin (Cem "hizli")
 
 $gkey = $env:GEMINI_API_KEY
 $akey = $env:ANTHROPIC_API_KEY   # Cem 24.07 onayi: Gemini olmazsa %50 Haiku'ya dus (sistem durmasin)
@@ -103,16 +103,22 @@ SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep"
       if(-not $js){ $hata++; continue }
       $d = $js | ConvertFrom-Json
       $onayci = if($script:geminiOlmez -or $haikuMuydu){ 'haiku' } else { 'gemini' }
-      $onay = ($d.gecerli -eq $true) -and ("$($d.benimCevap)".Trim().ToUpper() -eq "$($s.dogru)".Trim().ToUpper())
-      if($onay){
+      # 24.07 GM karari: guvenilir sinyal = BAGIMSIZ COZUCU BIZIM CEVABI BULDU MU.
+      # Haiku'nun ifade-nitpickleri (gecerli=false ama cevap ayni) akisi TIKAMASIN -
+      # cevap uyusuyorsa kasaya, yalniz NOT dusulur (sonra hizli-skim). Yalniz CEVAP
+      # UYUSMAZLIGI (gercek anlasmazlik) GM'e (karantina) gider. Boylece 156 iyi soru kurtulur.
+      $cevapUyar = ("$($d.benimCevap)".Trim().ToUpper() -eq "$($s.dogru)".Trim().ToUpper())
+      if($cevapUyar){
         $s.durum = 'paket-havuzu'
-        $s | Add-Member -NotePropertyName 'katman2' -NotePropertyValue "$onayci-onay" -Force
+        $damga = if($d.gecerli -eq $true){ "$onayci-onay" } else { "$onayci-onay-ifade-notu" }
+        $s | Add-Member -NotePropertyName 'katman2' -NotePropertyValue $damga -Force
+        if($d.gecerli -ne $true){ $s | Add-Member -NotePropertyName 'ifadeNotu' -NotePropertyValue "$($d.sebep)" -Force }
         $gecti++
       } else {
         $s.durum = 'karantina'
-        $s | Add-Member -NotePropertyName 'redSebep' -NotePropertyValue ("katman2-${onaycı}: gecerli=$($d.gecerli), cevap=$($d.benimCevap), sebep=$($d.sebep)") -Force
+        $s | Add-Member -NotePropertyName 'redSebep' -NotePropertyValue ("katman2-${onayci}: cevap-anlasmazligi, dogru=$($s.dogru) ${onayci}=$($d.benimCevap), sebep=$($d.sebep)") -Force
         $karantina++
-        $rapor += "KARANTINA [$($s.ders)/$($s.konu)] dogru=$($s.dogru) $onayci=$($d.benimCevap): $($d.sebep)"
+        $rapor += "KARANTINA [$($s.ders)/$($s.konu)] dogru=$($s.dogru) ${onayci}=$($d.benimCevap): $($d.sebep)"
       }
       $degisti=$true
       if(-not $script:geminiOlmez){ Start-Sleep -Milliseconds $BEKLEME_MS }   # yalniz Gemini icin hiz sinir bekleme
