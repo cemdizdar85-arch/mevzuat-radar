@@ -414,13 +414,12 @@ function cevabiGor(tekrarMi){
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
   if(s.hap){
     var yanlisMi=(SECILI!==s.dogru);
-    h+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+(yanlisMi?'📖 <b>Yanlış yaptın — konuyu 60 saniyede oku:</b> ':'📖 <b>Konu özeti:</b> ')+esc(s.hap)+'</div>';
+    h+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+(yanlisMi?'🎯 <b>Yanlış yaptın — AKILDA KALSIN:</b> ':'🎯 <b>AKILDA KALSIN:</b> ')+esc(s.hap)+'</div>';
   }
   h+=hayaletGorsel(s);
   h+=tabloGorsel(s);
   h+=yevmiyeGorsel(s);
-  var hedefCumle=(s.hap||'').split('. ')[0]; if(hedefCumle && hedefCumle.slice(-1) !== '.') hedefCumle += '.';
-  if(hedefCumle && hedefCumle.length > 15){ h+='<div class="hedefKutu">🎯 <b>AKILDA KALSIN:</b> '+esc(hedefCumle)+'</div>'; }
+  // 24.07 Cem karari: TEK kutu - hap kutusu "AKILDA KALSIN" adiyla tasindi, ayri ozet kutusu kaldirildi (kopya hissi bitti).
   h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın. <span style="opacity:.8">(Kullanıcı ortalamaları istatistik hattıyla gelecek.)</span></div>';
   g.innerHTML=h; g.classList.remove('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
