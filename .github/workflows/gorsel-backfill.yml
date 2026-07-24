@@ -1,0 +1,42 @@
+# .github/workflows/gorsel-backfill.yml — GORSEL BACKFILL (Batch %50)
+# Kasadaki tablosuz analiz sorularina exhibit tablosu uretir (Cem 24.07:
+# "hepsinde olsun"). Push (script degisince) + gunluk gece kosusu.
+name: Gorsel Backfill
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"    # gece 05:17 TR - gunun yeni sorulari da gorsellensin
+  push:
+    paths:
+      - 'motor/gorsel-backfill.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gorsel-backfill
+  cancel-in-progress: false
+
+jobs:
+  gorselle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tablosuz sorulara exhibit uret (Batch %50)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/gorsel-backfill.ps1
+      - name: Raporu kaydet
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/gorsel-backfill-rapor.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "rapor degisiklik yok"; exit 0; fi
+          git commit -m "Gorsel backfill raporu"
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push && exit 0; sleep 12; done
+          echo "rapor pushlanamadi"; exit 1
