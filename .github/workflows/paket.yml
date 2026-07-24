@@ -34,11 +34,14 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/paket-yukle.ps1
       - name: Depo temizligini kaydet
+        if: always()    # 24.07: hata dosyasi (tasiyici-hata.json) kirmizi kosuda da commit'lensin - kor kalma yasak
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
           git add veri/soru-bankasi-onay.json 2>/dev/null || true
           git add -A veri/fabrika/ 2>/dev/null || true
+          git add veri/tasiyici-hata.json 2>/dev/null || true
+          git add veri/kasa-backfill-bekleyen.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Degisiklik yok."
           else
