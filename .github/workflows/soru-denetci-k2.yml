@@ -25,6 +25,10 @@ jobs:
     timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
+      - name: Git kimligi (script ara-kayit commit'leri icin)
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
       - name: Bagimsiz icerik denetimi (Gemini)
         shell: pwsh
         env:
