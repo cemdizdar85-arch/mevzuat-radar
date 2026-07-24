@@ -49,6 +49,14 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .navk.c{border-color:rgba(62,155,255,.55);color:var(--accent2)}
 .navk.i{box-shadow:inset 0 -3px 0 var(--amber)}
 .hedefKutu{margin-top:12px;border:1px solid rgba(94,215,255,.4);background:rgba(94,215,255,.08);border-radius:11px;padding:11px 14px;font-size:13.5px;color:var(--ink)}
+/* A+ yazi boyutu (UWorld arac cubugu klasigi) */
+.yaziBtn{border:1px solid var(--line2);background:#0a0f17;color:var(--muted);border-radius:8px;font:700 12px var(--mono);padding:5px 9px;cursor:pointer}
+.yaziBtn.aktif{color:var(--accent2);border-color:rgba(62,155,255,.5)}
+body.yaziB .soruMetin{font-size:19px}
+body.yaziB .sik{font-size:16.5px}
+body.yaziB .gk{font-size:15.5px}
+body.yaziB .kaynakKutu{font-size:14.5px}
+body.yaziB .hedefKutu{font-size:15px}
 .hayalet{opacity:.55;filter:grayscale(.4)}
 .hayalet .yevmiye{border-color:rgba(255,107,94,.5)}
 .hayalet .yevmiye th{background:rgba(255,107,94,.10);color:var(--red)}
@@ -144,7 +152,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     <div class="sinavbar">
       <span id="soruSayac" style="font-weight:800;color:var(--ink)"></span>
       <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="rozet gizli" id="sicilRozet" style="color:var(--amber);border-color:rgba(255,194,75,.45)"></span> <span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
-      <span class="kron" id="kron">0:00</span>
+      <span style="display:flex;gap:8px;align-items:center"><button type="button" class="yaziBtn" id="yaziBtn" onclick="yaziBoyut()" title="Yazı boyutu">A+</button><span class="kron" id="kron">0:00</span></span>
     </div>
     <div class="navray" id="navRay"></div>
     <div class="ilerleme"><div id="ilerlemeBar" style="width:0%"></div></div>
@@ -287,6 +295,13 @@ function basla(){
 function karistir(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } }
 
 function sureFmt(ms){ var sn=Math.round(ms/1000), d=Math.floor(sn/60); return d+':'+('0'+(sn%60)).slice(-2); }
+
+function yaziBoyut(){
+  var b=document.body.classList.toggle('yaziB');
+  try{ localStorage.setItem('tetikteYazi', b?'B':''); }catch(e){}
+  var el=document.getElementById('yaziBtn'); if(el) el.classList.toggle('aktif', b);
+}
+try{ if(localStorage.getItem('tetikteYazi')==='B'){ document.body.classList.add('yaziB'); var yb=document.getElementById('yaziBtn'); if(yb) yb.classList.add('aktif'); } }catch(e){}
 
 function soruCiz(){
   var s=SORULAR[IDX]; SECILI=null; KILIT=false; SORU_T0=Date.now();
