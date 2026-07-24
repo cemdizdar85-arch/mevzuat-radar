@@ -108,6 +108,12 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <div id="ekranKurulum">
     <div class="panel">
       <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor — her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>
+      <div class="etiket">0 · Sınav</div>
+      <div class="secgrup" id="sinavSec">
+        <button class="sec aktif" data-sinav="hepsi">📚 Hepsi</button>
+        <button class="sec" data-sinav="SGS">🎯 Staja Giriş (SGS)</button>
+        <button class="sec" data-sinav="SMMM">🎓 Yeterlilik (Bitirme)</button>
+      </div>
       <div class="etiket">1 · Ders seç</div>
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
@@ -203,7 +209,9 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 
 <script>
 var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=false;
-var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SORU_T0=0, SURELER={}, RESULTS={}, KRONI=null;
+var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SINAV='hepsi', SORU_T0=0, SURELER={}, RESULTS={}, KRONI=null;
+// 24.07 Cem: "giris mi bitirme mi nasil anlayacagiz" - sinav filtresi (soru.sinav: SGS/SMMM; etiketsiz eskiler her ikisinde gorunur)
+function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -222,7 +230,7 @@ function kurulumCiz(){
   dk.innerHTML=''; seciliDersler={};
   var bosMsg=document.getElementById('bosMesaj');
   var dersler={};
-  BANKA.forEach(function(s){ dersler[s.ders]=(dersler[s.ders]||0)+1; });
+  BANKA.forEach(function(s){ if(!sinavUyar(s)) return; dersler[s.ders]=(dersler[s.ders]||0)+1; });
   var adlar=Object.keys(dersler).sort();
   if(!BANKA.length){
     bosMsg.classList.remove('gizli');
@@ -237,6 +245,13 @@ function kurulumCiz(){
     b.className='sec aktif'; b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
     b.onclick=function(){ seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif'); adetCiz(); };
     dk.appendChild(b);
+  });
+  var ss=document.getElementById('sinavSec');
+  ss.querySelectorAll('.sec').forEach(function(b){
+    b.onclick=function(){
+      ss.querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
+      b.classList.add('aktif'); SINAV=b.dataset.sinav; kurulumCiz();
+    };
   });
   document.getElementById('modSec').querySelectorAll('.sec').forEach(function(b){
     b.onclick=function(){
@@ -256,7 +271,7 @@ function kurulumCiz(){
 }
 
 function havuz(){
-  var h=BANKA.filter(function(s){return seciliDersler[s.ders];});
+  var h=BANKA.filter(function(s){return sinavUyar(s) && seciliDersler[s.ders];});
   if(KAYNAK==='yanlis'){ var x=sicilOku(); h=h.filter(function(s){var k=x[s.id]; return k && k.son==='y';}); }
   else if(KAYNAK==='isaret'){ var x2=sicilOku(); h=h.filter(function(s){var k=x2[s.id]; return k && k.isaret;}); }
   return h;
