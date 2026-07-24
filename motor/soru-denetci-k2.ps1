@@ -133,7 +133,27 @@ SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep"
       Start-Sleep -Milliseconds 1500
     }
   }
-  if($degisti){ [IO.File]::WriteAllText($fd.FullName, ($j | ConvertTo-Json -Depth 8), $enc) }
+  if($degisti){
+    [IO.File]::WriteAllText($fd.FullName, ($j | ConvertTo-Json -Depth 8), $enc)
+    # 24.07 DOSYA-BASI KAYIT (1s43dk emek tek son-committe rebase cakismasina kurban gitti):
+    # her dosya biter bitmez commit+push - cakisma penceresi dakikalara iner; cakisirsa
+    # yalniz BU dosyanin isi feda olur, oncekiler kurtulmus olur. CI=true yalniz runner'da.
+    if($env:GITHUB_ACTIONS -eq 'true'){
+      try {
+        git add -- $fd.FullName 2>$null
+        git commit -m ("K2 ara kayit: " + $fd.Name + " denetlendi") 2>$null | Out-Null
+        $pushOldu = $false
+        foreach($den in 1..4){
+          git pull --rebase origin main 2>$null | Out-Null
+          if($LASTEXITCODE -ne 0){ git rebase --abort 2>$null; git pull --no-rebase -s recursive -X ours origin main 2>$null | Out-Null }
+          git push origin HEAD:main 2>$null | Out-Null
+          if($LASTEXITCODE -eq 0){ $pushOldu = $true; break }
+          Start-Sleep -Seconds 8
+        }
+        if($pushOldu){ Write-Host ("ara kayit push OK: " + $fd.Name) } else { Write-Host ("UYARI: ara kayit pushlanamadi (" + $fd.Name + ") - is son commit'e kalir") }
+      } catch { Write-Host ("ara kayit hatasi (" + $fd.Name + "): " + $_.Exception.Message) }
+    }
+  }
 }
 
 $kalan=0; Get-ChildItem (Join-Path $kok "veri/fabrika") -Filter *.json | ForEach-Object { try{ $kalan += @((Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json).sorular | Where-Object { $_.durum -eq 'katman1-temiz' }).Count }catch{} }
