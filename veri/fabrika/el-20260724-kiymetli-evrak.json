@@ -1,0 +1,313 @@
+{
+    "kanal":  "el-partisi-gm",
+    "uretim":  "24.07.2026",
+    "not":  "GM el partisi: kiymetli evrak (cek-bono-police) - TTK hukumleri bu oturumda karantina okumasi icin birincilden dogrulandi; tablo exhibitli karsilastirmalar, GM denetimli.",
+    "sorular":  [
+                    {
+                        "id":  "ke250101",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "cek ibraz sureleri",
+                        "soru":  "İzmir\u0027de düzenlenen bir çek, yine İzmir\u0027deki muhatap bankaya ibraz edilecektir. TTK\u0027ya göre bu çekin ibraz süresi ne kadardır?",
+                        "siklar":  {
+                                       "A":  "Düzenleme tarihinden itibaren 10 gün",
+                                       "B":  "Düzenleme tarihinden itibaren 3 ay",
+                                       "C":  "Düzenleme tarihinden itibaren 1 yıl",
+                                       "D":  "İbraz süresi yoktur; çek her zaman ibraz edilebilir",
+                                       "E":  "Düzenleme tarihinden itibaren 1 ay"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Çek, düzenlendiği yerde ödenecekse ibraz süresi 10 gündür (TTK m.796/1). İzmir\u0027de düzenlenip İzmir\u0027de ödenecek: 10 gün.",
+                                         "B":  "Yanılgı dersi: 3 ay, ödeneceği ülkeden başka bir ülkede ve farklı KITADA düzenlenen çekler içindir.",
+                                         "C":  "Yanılgı dersi: 1 yıllık ibraz süresi yoktur; süreler 10 gün / 1 ay / 1 ay / 3 ay basamaklarıdır.",
+                                         "D":  "Yanılgı dersi: Çekte ibraz süresi vardır ve kaçırılması hamilin müracaat haklarını etkiler; \u0027her zaman ibraz\u0027 diye bir kural yoktur.",
+                                         "E":  "Yanılgı dersi: 1 ay, düzenlendiği yerden BAŞKA bir yerde (ama aynı ülkede) ödenecek çekler içindir."
+                                     },
+                        "kaynak":  "TTK m.796",
+                        "hap":  "Çekte ibraz basamakları (m.796): aynı yerde ödenecekse 10 GÜN; aynı ülkede başka yerde 1 AY; başka ülkede ama aynı kıtada 1 AY; farklı kıtada 3 AY. Süre düzenleme tarihinden işler. Süre kaçarsa çek geçersiz olmaz ama hamil müracaat haklarını ve bankanın ödeme zorunluluğu korumalarını riske atar.",
+                        "tablo":  {
+                                      "baslik":  "Çekte ibraz süreleri (TTK m.796)",
+                                      "kolonlar":  [
+                                                       "Düzenleme–Ödeme yeri ilişkisi",
+                                                       "Süre"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "Aynı yer",
+                                                           "10 gün ←"
+                                                       ],
+                                                       [
+                                                           "Aynı ülke, farklı yer",
+                                                           "1 ay"
+                                                       ],
+                                                       [
+                                                           "Farklı ülke, aynı kıta",
+                                                           "1 ay"
+                                                       ],
+                                                       [
+                                                           "Farklı kıta",
+                                                           "3 ay"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250102",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "cekte vade yasagi",
+                        "soru":  "Bir e-ticaret tedarikçisi, müşterisinden 30.09.2026 düzenleme tarihli (ileri tarihli) bir çek almıştır. Hamil çeki 24.07.2026\u0027da bankaya ibraz ederse TTK\u0027ya göre kural olarak ne olur?",
+                        "siklar":  {
+                                       "A":  "Banka çeki 30.09.2026\u0027ya kadar bekletmek zorundadır, çünkü vade bağlayıcıdır",
+                                       "B":  "Çek geçersiz sayılır, çünkü ileri tarihli çek düzenlenemez",
+                                       "C":  "Banka çeki iade eder; ibraz ancak düzenleme tarihinden sonra mümkündür ve çek o güne dek askıda kalır",
+                                       "D":  "Çek bir bono hükmünde işlem görür ve vadesinde ödenir",
+                                       "E":  "Çek görüldüğünde ödenir; ibraz gününde ödenmesi gerekir, çünkü çekte vade yoktur"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Çekte vade yoktur; bankanın \u0027tarihi bekleme\u0027 yükümlülüğü kuralda yoktur — tarih beklenen senet bono/poliçedir.",
+                                         "B":  "Yanılgı dersi: İleri tarihli çek geçersiz değildir; sadece vade etkisi doğurmaz.",
+                                         "C":  "Yanılgı dersi: Kural tam tersidir — erken ibraz edilen çek ibraz günü ödenir; askıda kalma yoktur.",
+                                         "D":  "Yanılgı dersi: Çek kendi hükümlerine tabidir; ileri tarih onu bonoya çevirmez.",
+                                         "E":  "DOĞRU: Çek GÖRÜLDÜĞÜNDE ödenir; buna aykırı her kayıt yazılmamış sayılır (TTK m.795/1). Düzenleme günü olarak gösterilen günden önce ibraz edilen çek de ibraz günü ödenir (m.795/2). Yani \u0027ileri tarih\u0027 çeke vade kazandırmaz."
+                                     },
+                        "kaynak":  "TTK m.795",
+                        "hap":  "Çekin kimliği: ÖDEME ARACIDIR, kredi aracı değil — bu yüzden VADE YOKTUR, görüldüğünde ödenir (m.795). İleri tarihli çek geçerlidir ama tarih vade etkisi doğurmaz; erken ibrazda ibraz günü ödenir. (Uygulamadaki geçici yasal istisnalar dönemseldir; kanunun ana kuralı budur.) Tuzak: \u0027vadesinden önce ödenmez\u0027 diyen şıklar.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250103",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "bono zorunlu unsurlar",
+                        "soru":  "TTK\u0027ya göre aşağıdakilerden hangisi bononun (emre yazılı senedin) ZORUNLU şekil unsurlarından biri DEĞİLDİR?",
+                        "siklar":  {
+                                       "A":  "Düzenleyenin imzası",
+                                       "B":  "Senet metninde \u0027bono\u0027 veya \u0027emre yazılı senet\u0027 kelimesinin bulunması",
+                                       "C":  "Vade (ödeme günü) gösterilmesi",
+                                       "D":  "Kime veya kimin emrine ödenecekse onun (lehtarın) adı",
+                                       "E":  "Kayıtsız ve şartsız belirli bir bedeli ödeme vaadi"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Düzenleyenin imzası olmadan senet doğmaz (m.776/1-g).",
+                                         "B":  "Yanılgı dersi: \u0027Bono\u0027 ya da \u0027emre yazılı senet\u0027 ibaresi metinde zorunludur (m.776/1-a); yoksa senet bono vasfını kaybeder.",
+                                         "C":  "DOĞRU (zorunlu olmayan): Vade zorunlu unsur değildir — vadesi gösterilmemiş bono, GÖRÜLDÜĞÜNDE ödenecek bono sayılır (TTK m.777/1). Kanun bu boşluğu kendisi doldurur.",
+                                         "D":  "Yanılgı dersi: Lehtarın adı zorunludur (m.776/1-e); bono hamiline yazılı DÜZENLENEMEZ.",
+                                         "E":  "Yanılgı dersi: Kayıtsız şartsız ödeme VAADİ bononun özüdür (m.776/1-b); şarta bağlanan vaat bonoyu öldürür."
+                                     },
+                        "kaynak":  "TTK m.776; m.777",
+                        "hap":  "Bono zorunlu unsurları (m.776): \u0027bono/emre yazılı senet\u0027 ibaresi + kayıtsız şartsız ödeme VAADİ + lehtar adı + düzenleme tarihi + düzenleyenin imzası. Kanunun DOLDURDUĞU boşluklar (m.777): vade yoksa görüldüğünde; ödeme yeri yoksa düzenleme yeri; düzenleme yeri yoksa düzenleyenin adının yanındaki yer. Tuzak: kanunun doldurduğu unsurları \u0027zorunlu\u0027 sanmak.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250104",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "cek bono police farki",
+                        "soru":  "Çek, bono ve poliçenin hukuki niteliklerine ilişkin aşağıdaki karşılaştırmalardan hangisi DOĞRUDUR?",
+                        "siklar":  {
+                                       "A":  "Çek ve bono ödeme emri, poliçe ödeme vaadi içerir",
+                                       "B":  "Bono bir ödeme VAADİ, çek ve poliçe ise bir ödeme EMRİ içerir; çekte muhatap yalnız banka olabilir",
+                                       "C":  "Poliçede muhatap yalnız banka olabilir; çekte muhatap herkes olabilir",
+                                       "D":  "Üçü de ödeme vaadi içerir; fark yalnız vade sürelerindedir",
+                                       "E":  "Bono ve çekte üçlü ilişki, poliçede ikili ilişki vardır"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Ters kurulmuş — bono vaat, çek/poliçe emirdir.",
+                                         "B":  "DOĞRU: Bono = düzenleyenin KENDİ ödeme vaadi (ben ödeyeceğim — ikili ilişki). Çek ve poliçe = düzenleyenin muhataba verdiği ödeme EMRİ (sen öde — üçlü ilişki). Çekte muhatap yalnız BANKA olabilir (TTK m.782).",
+                                         "C":  "Yanılgı dersi: Banka-muhatap zorunluluğu poliçede değil ÇEKTEdir; poliçede muhatap herhangi bir kişi olabilir.",
+                                         "D":  "Yanılgı dersi: Çek ve poliçe vaat değil EMİR içerir; ayrıca çekte vade hiç yoktur, fark \u0027vade süresi\u0027 değildir.",
+                                         "E":  "Yanılgı dersi: Üçlü ilişki (düzenleyen-muhatap-lehtar) çek ve poliçede; bono ikilidir (düzenleyen-lehtar)."
+                                     },
+                        "kaynak":  "TTK m.776 (bono vaadi); m.782 (çekte muhatap banka); m.671 (poliçe)",
+                        "hap":  "Kısayol: BONO söz verir (\u0027ödeyeceğim\u0027), ÇEK ve POLİÇE emreder (\u0027öde\u0027). Çekte muhatap yalnız banka + vade yok; poliçede muhatap serbest + vade var; bonoda muhatap hiç yok (düzenleyen asıl borçlu). Sınav bu üç kimliği birbirine giydirerek çeldirir.",
+                        "tablo":  {
+                                      "baslik":  "Çek – Bono – Poliçe kimlik kartı",
+                                      "kolonlar":  [
+                                                       "Özellik",
+                                                       "Çek",
+                                                       "Bono",
+                                                       "Poliçe"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "Nitelik",
+                                                           "Ödeme emri",
+                                                           "Ödeme vaadi ←",
+                                                           "Ödeme emri"
+                                                       ],
+                                                       [
+                                                           "İlişki",
+                                                           "Üçlü",
+                                                           "İkili",
+                                                           "Üçlü"
+                                                       ],
+                                                       [
+                                                           "Muhatap",
+                                                           "Yalnız banka",
+                                                           "Yok",
+                                                           "Herkes"
+                                                       ],
+                                                       [
+                                                           "Vade",
+                                                           "Yok",
+                                                           "Var (4 tür)",
+                                                           "Var (4 tür)"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250105",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "ciro turleri",
+                        "soru":  "Bir bononun arkasına \u0027Bedeli tahsil içindir\u0027 yazılarak yapılan ciro ile ciro edilen kişinin hukuki durumu TTK\u0027ya göre nedir?",
+                        "siklar":  {
+                                       "A":  "Rehin cirosudur; senet ciro edilene teminat olarak verilmiş olur",
+                                       "B":  "Beyaz cirodur; ciro edilen senedi dilediğine devredebilir",
+                                       "C":  "Böyle bir kayıt ciroyu geçersiz kılar; kayıtsız şartsız ciro zorunludur",
+                                       "D":  "Temlik cirosudur; senetten doğan tüm haklar ciro edilene geçer",
+                                       "E":  "Tahsil cirosudur; ciro edilen senet bedelini tahsile yetkili VEKİL konumundadır, senedin mülkiyeti geçmez"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Rehin cirosunun kaydı \u0027bedeli teminattır / rehin içindir\u0027dir; buradaki kayıt tahsile işaret eder.",
+                                         "B":  "Yanılgı dersi: Beyaz ciro, lehtar gösterilmeden yalnız imzayla yapılan cirodur; buradaysa açık bir amaç kaydı vardır.",
+                                         "C":  "Yanılgı dersi: CİROnun şarta bağlanması ayrı konudur; tahsil kaydı ciroyu geçersiz kılmaz, türünü belirler.",
+                                         "D":  "Yanılgı dersi: Temlik cirosu kayıtsız yapılan olağan cirodur; \u0027tahsil içindir\u0027 kaydı mülkiyet geçişini engeller.",
+                                         "E":  "DOĞRU: \u0027Bedeli tahsil içindir\u0027, \u0027kabz içindir\u0027, \u0027vekâleten\u0027 gibi kayıtlar TAHSİL cirosudur: ciro edilen, bedeli tahsil etme yetkisi alır ama senedin mülkiyetini almaz — vekil gibidir; ancak yeniden tahsil cirosu yapabilir."
+                                     },
+                        "kaynak":  "TTK m.688 (tahsil cirosu); m.689 (rehin cirosu); m.681 (ciro)",
+                        "hap":  "Üç ciro türü, üç anahtar kelime: (1) TEMLİK = kayıtsız ciro, mülkiyet geçer; (2) TAHSİL = \u0027bedeli tahsil içindir\u0027 → vekâlet, mülkiyet geçmez; (3) REHİN = \u0027bedeli teminattır\u0027 → teminat. Ayrıca biçim olarak TAM ciro (isimli) / BEYAZ ciro (yalnız imza). Tuzak: amaç kaydını biçim türüyle (beyaz/tam) karıştırmak.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250106",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "bono vade turleri",
+                        "soru":  "TTK\u0027ya göre bonoda geçerli olarak kararlaştırılabilecek vade türleri arasında aşağıdakilerden hangisi YER ALMAZ?",
+                        "siklar":  {
+                                       "A":  "Düzenlenme gününden belirli bir süre sonra ödeme",
+                                       "B":  "Görüldükten belirli bir süre sonra ödeme",
+                                       "C":  "Görüldüğünde ödeme",
+                                       "D":  "Belirli bir günde ödeme",
+                                       "E":  "Bedelin üç eşit taksitte, ayrı tarihlerde ödenmesi (taksitli vade)"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Düzenlenmeden belirli süre sonra da geçerlidir (m.703/1-c).",
+                                         "B":  "Yanılgı dersi: Görüldükten belirli süre sonra da geçerlidir (m.703/1-b).",
+                                         "C":  "Yanılgı dersi: Görüldüğünde ödeme geçerli dört türden biridir (m.703/1-a).",
+                                         "D":  "Yanılgı dersi: Belirli gün en yaygın geçerli vadedir (m.703/1-d).",
+                                         "E":  "DOĞRU (geçersiz olan): Vade dört türle sınırlıdır; BİRBİRİNİ İZLEYEN VADELER (taksit) yazılamaz — farklı ya da birbirini izleyen vadeli senet BATILDIR (TTK m.703/2, m.778 atfıyla bonoya uygulanır)."
+                                     },
+                        "kaynak":  "TTK m.703 (m.778 atfıyla bonoya uygulanır)",
+                        "hap":  "Dört geçerli vade (m.703): görüldüğünde / görüldükten X süre sonra / düzenlenmeden X süre sonra / belirli gün. BEŞİNCİSİ YOKTUR: taksitli-kademeli vade senedi GEÇERSİZ kılar (m.703/2). Tuzak: günlük hayatta \u0027taksitli senet\u0027 alışkanlığını kanuna taşımak — piyasada ayrı ayrı bonolar düzenlenir, tek bonoda taksit olmaz.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250107",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "cekte muhatap banka",
+                        "soru":  "İki tacir, aralarındaki alışverişte muhatabı bir faktoring şirketi olan \u0027çek\u0027 düzenlemişlerdir. TTK m.782\u0027ye göre bu senedin hukuki durumu nedir?",
+                        "siklar":  {
+                                       "A":  "Faktoring şirketi finans kuruluşu olduğundan çek geçerlidir",
+                                       "B":  "Çek olarak geçersizdir; ancak şartlarını taşıyorsa havale ya da adi senet hükmünde sonuç doğurabilir",
+                                       "C":  "Geçerli bir çektir; muhatabın kim olduğu önemli değildir",
+                                       "D":  "Çek, bono hükmünde geçerli sayılır ve vadesinde ödenir",
+                                       "E":  "Muhatap 10 gün içinde bankaya dönüşürse çek geçerlilik kazanır"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanılgı dersi: Kanun \u0027finans kuruluşu\u0027 değil BANKA der; faktoring şirketi banka değildir.",
+                                         "B":  "DOĞRU: Çekte muhatap YALNIZ bir banka olabilir (TTK m.782/1); başkası üzerine düzenlenen \u0027çek\u0027 çek olarak GEÇERSİZDİR (m.782/2 — yalnız havale hükmündedir). Kıymetli evrak vasfı düşer, alacak ilişkisi genel hükümlere kayar.",
+                                         "C":  "Yanılgı dersi: Muhatap kimliği çekin varlık şartıdır; \u0027önemsiz\u0027 demek m.782\u0027yi silmek olur.",
+                                         "D":  "Yanılgı dersi: Geçersiz çek kendiliğinden bonoya dönüşmez — bononun kendi zorunlu unsurları (ödeme VAADİ vb.) ayrıdır.",
+                                         "E":  "Yanılgı dersi: \u0027Sonradan bankaya dönüşme\u0027 diye bir geçerlilik mekanizması yoktur; geçerlilik düzenleme anına göre belirlenir."
+                                     },
+                        "kaynak":  "TTK m.782",
+                        "hap":  "Çekin can damarı: muhatap = BANKA (m.782). Banka dışı muhataba yazılan \u0027çek\u0027, çek değildir — havale hükmünde kalır; hamil çek hukukunun silahlarını (ibraz, karşılıksız prosedürü, müracaat) kaybeder. Tuzak: \u0027finans kuruluşu da olur\u0027 genellemesi.",
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    },
+                    {
+                        "id":  "ke250108",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kiymetli evrak zamanasimi karsilastirma",
+                        "soru":  "Kambiyo senetlerinde hamilin ASIL BORÇLUYA karşı sahip olduğu talep haklarının zamanaşımı süreleri TTK\u0027ya göre aşağıdakilerin hangisinde doğru eşleştirilmiştir?",
+                        "siklar":  {
+                                       "A":  "Bono: vadeden itibaren 3 yıl — Çek: ibraz süresinin bitiminden itibaren 3 yıl",
+                                       "B":  "Her ikisinde de genel zamanaşımı süresi olan 10 yıl uygulanır",
+                                       "C":  "Bono: vadeden itibaren 5 yıl — Çek: düzenleme tarihinden itibaren 1 yıl",
+                                       "D":  "Bono: protesto tarihinden itibaren 3 yıl — Çek: ibraz süresinin bitiminden itibaren 10 yıl",
+                                       "E":  "Bono: vadeden itibaren 1 yıl — Çek: ibrazdan itibaren 6 ay"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "DOĞRU: Bonoda asıl borçluya (düzenleyene) karşı talepler VADEDEN itibaren 3 yılda (TTK m.749/1, m.778 atfı); çekte asıl sorumlulara karşı talepler İBRAZ SÜRESİNİN BİTİMİNDEN itibaren 3 yılda (m.814) zamanaşımına uğrar.",
+                                         "B":  "Yanılgı dersi: Kambiyo senetleri kendi kısa sürelerine tabidir; TBK m.146\u0027daki 10 yıl burada uygulanmaz.",
+                                         "C":  "Yanılgı dersi: 5 yıl kambiyo senedi süresi değildir (TBK dönemsel alacak süresiyle karışıyor); çekte başlangıç da düzenleme tarihi değildir.",
+                                         "D":  "Yanılgı dersi: Bonoda asıl borçlu için başlangıç protesto değil VADEdir; çekte 10 yıl diye bir süre yoktur.",
+                                         "E":  "Yanılgı dersi: 1 yıl, poliçe/bono hamilinin CİRANTALARA ve başvuru borçlularına karşı süresidir (m.749/2); 6 aylık çek süresi 2016 öncesi eski kuraldır."
+                                     },
+                        "kaynak":  "TTK m.749; m.814",
+                        "hap":  "Zamanaşımı pusulası: BONO → asıl borçluya vadeden 3 YIL; cirantalara 1 YIL (protestodan); cirantanın cirantaya rücuu 6 AY. ÇEK → ibraz süresi bitiminden 3 YIL (6728 sayılı Kanunla 6 aydan çıkarıldı — eski \u00276 ay\u0027 bilgisi tuzaktır). Kambiyoda genel 10 yıl işlemez.",
+                        "tablo":  {
+                                      "baslik":  "Kambiyo zamanaşımı karşılaştırması",
+                                      "kolonlar":  [
+                                                       "Senet / İlişki",
+                                                       "Süre",
+                                                       "Başlangıç"
+                                                   ],
+                                      "satirlar":  [
+                                                       [
+                                                           "Bono → asıl borçlu",
+                                                           "3 yıl",
+                                                           "Vade ←"
+                                                       ],
+                                                       [
+                                                           "Bono → cirantalar",
+                                                           "1 yıl",
+                                                           "Protesto"
+                                                       ],
+                                                       [
+                                                           "Ciranta → ciranta",
+                                                           "6 ay",
+                                                           "Ödeme/dava"
+                                                       ],
+                                                       [
+                                                           "Çek → sorumlular",
+                                                           "3 yıl",
+                                                           "İbraz süresi sonu ←"
+                                                       ]
+                                                   ]
+                                  },
+                        "ambar":  "ok",
+                        "uretim":  "24.07.2026",
+                        "durum":  "paket-havuzu"
+                    }
+                ]
+}
