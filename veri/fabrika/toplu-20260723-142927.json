@@ -833,9 +833,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=D, sebep=Renklendirici katkı malzeme üretimin SON adımında tek seferde eklendiği için, tamamlanan 6.000 ürüne %100, yarı mamul 1.500 birime %0 oranında eklenir (henüz son adıma gelmemiş). Ağırlıklı ortalama yöntemiyle eşdeğer birim hesabı: 6.000×%100 + 1.500×%0 = 6.000 olmalıdır. Ancak bu malzeme için eşdeğer birim sorulursa ve yarı mamul için başlangıç envanteri varsa durum değişir. Standart problemde: tamamlanan (6.000) + yarı mamul tamamlanma derecesi (1.500×%0) = 6.000 bulunur. Seçenek C (6.000) mantıksal olarak doğru görünse de, soru 'eşdeğer birim' kaç olduğunu sorduğunda ve dönem sonunda yarı mamul varken, bazı kaynaklar bunu 6.750 olarak kabul eder (başlangıç envanteri varsayımı altında). Belirsizlik nedeniyle ve C'nin eksik bilgiye dayandığı için."
     },
     {
       "id": "8dc67445",
@@ -1046,9 +1047,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Seçenek C matematiksel olarak doğru (Birim katkı payı = 100-65 = 35 TL; Katkı payı oranı = 35/100 = %35), ancak A seçeneği de matematiksel açıdan tamamen aynı değerleri içermektedir. A şıkkında 'katkı payı oranı %65' yazılı ise bu hatalıdır, ancak sorunun orijinal metni kontrol edilmediğinde kesinlik sağlanamaz. C seçeneği maliyet-hacim-kar analizi kapsamında teknik olarak doğru olup, sabit giderlerin bilinmesi katkı payı hesaplanması için gerekli değildir (B yanlış). Ancak seçenekler arasında açık bir tutarsızlık veya çift doğru cevap olma ihtimali nedeniyle soru kalitesi şüphelidir."
     },
     {
       "id": "9d81b6a2",
@@ -2677,9 +2680,10 @@
       ],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "5e093b94",
@@ -2768,9 +2772,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "ba313bd5",
@@ -3045,9 +3050,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Dönem sonu yarı mamul hesabı: Üretime başlanan 10.000 m - Tamamlanan 8.500 m - Normal fire 500 m = 1.000 m yarı mamul. ANCAK işletme muhasebesi açısından normal fire maliyeti tamamlanan ürüne yüklenir, fire çıkışı yapılmaz. Ancak bu soru muhasebeleştirme değil, fiziki miktar hesabını soruyor. Cevap A (1.000 m) matematiksel olarak doğru ancak verilen madde dayanak yanlıştır. VUK m.275 fire/zayiatın maliyet işlemini düzenler, fiziki ürün takibi değil. Doğru cevap A olsa da hukuki dayanak eksik/yanıştır. VUK yerine KGK Tekdüzen Mali Muhasebe Sistemi (maliye muhasebesi ve fire muhasebeleştirme) referans verilmeliydi."
     },
     {
       "id": "d8f8bf1a",
@@ -3603,9 +3610,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "ae588201",
@@ -5925,9 +5933,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "BDS 320 A7'de hızlı büyüyen startup'lar için Net Kar/Zarar yerine Toplam Hasılat kıyaslanması önerilir. Ancak soru kontekstinde 2 yıldır zarar eden, nakit akışı kritik olan kurye startup'ında Kasadaki Nakit (A) daha uygun olabilir. D savunulabilir ama A da makuldür - soru kurgusu muğlaktır."
     },
     {
       "id": "78642dba",
@@ -6111,9 +6121,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "VUK m.323'e göre şüpheli alacak karşılığı, teminata bağlanmayan kısmı üzerinden ayrılır. Toplam alacak 150.000 TL, teminatlı kısım 90.000 TL olduğundan teminatsız kısım 60.000 TL'dir. Ancak soru ifadesinde 'en fazla hangi tutar üzerinden' denildiğinde, işletme borçlunun iflas halinde teminatlı kısmın da tahsil edilemeyebileceğini dikkate alarak daha yüksek karşılık ayırabilir. VUK m.323 uyarınca teminatsız kısım (60.000 TL) kesin olarak karşılık konusu iken, teminatlı kısım da riski taşıdığından toplam 150.000 TL üzerinden karşılık ayrılabilme ihtimali hukuki açıdan değerlendirilebilir. Sorunun redaksiyonu belirsizdir; E seçeneği (60.000 TL) minimum karşılık tutarı, ancak 'en fazla' ifadesi nedeniyle B (150.000 TL) de savunulabilir. İşaretli cevap kısmen mantıklı ancak eksik açıklanmıştır."
     },
     {
       "id": "164f2b4d",
@@ -8015,9 +8027,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "9ed07bf5",
@@ -9537,9 +9550,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=E, sebep=ABC Ltd. Şti. gelir vergisi tevkifatı yapan taraf olduğu için vergi sorumlusudur (VUK m.8). Ancak aynı zamanda kira geliri elde eden mükellef (Bay Kemal) adına vergi tevkif eden kişi de kendisi mükellef statüsündedir. Soruda ABC Ltd. Şti.'nin hukuki sıfatı sorulduğu için, hem gelir vergisi muhataplarından gelir elde eden taraf hem de tevkifat yükümlüsü olduğu için 'E' seçeneği (Hem mükellef hem vergi sorumlusu) daha kapsamlı ve doğrudur. Şirket tevkifat yapan sorumlu olmanın yanı sıra, kendi işlemleri üzerinden mükellef de olabilir."
     },
     {
       "id": "1d6719f1",
@@ -9660,9 +9674,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "b5f8cd73",
@@ -9810,9 +9825,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Sorunun mantığı D'yi desteklemektedir ancak ifade eksiktir. TBK m.136'ya göre borç imkânsızlaştığında sona erer. Şirket kusursuz ise (vis maior), sebepsiz zenginleşme hükümlerine tabi olur ve ödemeyi iade etmek zorundadır. Ancak 'kalan tutarı da isteyemez' ibaresi muğlak ve sınav sorusu için net değildir. D cevabı teknik olarak doğru olsa da, soru ifadesinde 'kalan tutarı da isteyemez' ilavesi gereksiz/karışıklaştırıcıdır ve adayları şaşırtabilir. Cevap seçeneği daha net olmalıydı: 'Borç sona erer ve şirket sebepsiz zenginleşme nedeniyle 5.000 TL'yi iade etmek zorundadır' şeklinde. Mevzuat doğru uygulanmış ancak soru formülasyonu eleştirilebilir düzeydedir."
     },
     {
       "id": "c3cf2cd5",
@@ -9840,9 +9857,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "8a3437ce",
@@ -10673,9 +10691,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "TTK m.720/f.3'e göre 'masrafsız' şerhi koyan ciranta protesto giderlerinden muaf tutulur. Hamil protesto çektirtse de bu giderler sadece şerhi koyan cirantaya rücu edilemez. Seçenek A 'bütün cirantalara' diyerek şerhi koyan cirantayı da dahil etmiş, bu hatalıdır. Doğru kural: Şerhi koyan ciranta hariç diğer cirantalar ve keşideci sorumludur. Mevzuat hükmü ile seçenek arasında çelişki vardır."
     },
     {
       "id": "deb76bbf",
@@ -12741,9 +12761,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "45fa1acf",
@@ -16468,9 +16489,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Sorunun matematiksel çözümü: Toplam getiri = (Satış Fiyatı - Alış Fiyatı + Kâr Payı) / Alış Fiyatı = (55 - 50 + 3) / 50 = 8/50 = %16. İşaretli cevap D (%16) matematiksel olarak DOĞRU olmakla birlikte, TTK m.507 dayanak olarak HATALDIR. Madde kâr payı hakkını düzenler ancak getiri oranı hesaplaması ile ilgili DEĞİLDİR. Uygun dayanak KVK maddeleri (Sermaye Kazancı) ve Sermaye Piyasası mevzuatıdır. Doğru cevap matematiksel olarak sağlam ancak YASAL DAYANAĞı yanlıştır."
     },
     {
       "id": "9b13047b",
@@ -16715,9 +16738,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=A, sebep=VUK m.327'ye göre kiralanan taşınmazın tadilat maliyeti, kira sözleşmesinin süresi kadar itfa edilir. Süre belirsizse 'bina için geçerli normal amortisman oranı' (% 2, yani 50 yıl) uygulanır. D şıkkındaki '5 yıl sabit' hükmü mevzuatta yer almamaktadır ve keyfidir. A şıkkı VUK m.327 ile uyumlu ve savunulabilirdir."
     },
     {
       "id": "691a8508",
@@ -17462,9 +17486,11 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Soru 'YANLIŞ büyük harf kullanımı' soruyor. TDK kuralına göre Ramazan Bayramı, Yılbaşı, 23 Nisan, Kurban Bayramı gibi belirli gün/bayram adları büyük harfle yazılmalı. D seçeneğinde 'kurban Bayramı' olarak yazılmış ve 'kurban' küçük harfle başlamış - bu YANLIŞ kullanımdır ve sorunun cevabı olmalıdır. Ancak işaretlenen cevap D olarak verilmiş. Eğer D seçeneğinde hatanın bulunduğu kastedilmişse cevap doğru, ama seçenek metni ve mantığı karışıktır. İmtihan tasarımında belirsizlik vardır."
     },
     {
       "id": "8341fe6f",
@@ -18083,9 +18109,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "3579b809",
@@ -19059,9 +19086,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=Dönem sonu özkaynak = 600.000 + 50.000 + 80.000 - 20.000 = 710.000 TL olarak hesaplanır. İşaretli cevap E (710.000 TL) matematiksel olarak doğrudur. Ancak dayanak gösterilen TTK m.509 'Kâr payının hesaplanması ve dağıtılması' ile bağlantısı zayıftır. Sorunun dayanağı TTK m.507 (Özkaynaklar) veya muhasebe standartlarıdır. Mevzuat referansında hata ve belirsizlik olması nedeniyle."
     },
     {
       "id": "62871d47",
@@ -19089,9 +19117,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=C, sebep=Dönem sonu özkaynağı = Başı (250.000) - Çekiş (40.000) + İlave (15.000) + Kâr (60.000) = 285.000 TL. E şıkkı 285.000'i gösterse de, muhasebe kurallarına göre doğru cevap C) 335.000 TL'dir. İşletme kârı 60.000 TL artırmalı, net hesap: 250.000 - 40.000 + 15.000 + 60.000 = 285.000 TL olup, bu E şıkkıdır. Ancak soru ve şıklar arasında tutarsızlık vardır. VUK m.192 sadece bilanço tanzim şeklini düzenler, bu hesaplamayı doğrulamaz. Verilen cevap E (285.000) matematiksel olarak doğru görünse de, soru tasarımında hata olduğu için güvenilirliği düşüktür."
     },
     {
       "id": "8ab5d9ff",
@@ -19119,9 +19148,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "f23cc043",
@@ -22765,9 +22795,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "a921a791",
@@ -23216,9 +23247,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=A haiku=E, sebep=Soruda 'el' sözcüğünün anlamı incelendiğinde: A, B, C, D seçeneklerinde 'el' sözcüğü mecazi anlamda kullanılmıştır (güven/imza, fırsat yakalaması, çaba, işe başlama). E seçeneğinde ise 'onun da eli var' ifadesi 'onun da katılımı/sorumluluğu var' anlamında kullanılmış, yine mecazi ancak SORUMLULUK ve KATILIM anlamında benzersizdir. Doğru cevap E'dir. İşaretli cevap A'nın dayanak mantığı hatalıdır; A seçeneğindeki 'el' de mecazi kullanımdır, diğerleri gibi. A seçeneğinin diğerlerinden farklı bir anlamı yoktur."
     },
     {
       "id": "03863b2b",
@@ -23431,9 +23463,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "5d696db1",
@@ -25161,9 +25194,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Cari Oran = Dönen Varlıklar / Kısa Vadeli Yabancı Kaynaklar = 480.000 / 240.000 = 2. Matematiksel hesap doğru, cevap C doğrudur. Ancak soru metni tutarsızdır: Bilanço denklemi sağlanmamaktadır (480.000 + 320.000 ≠ 240.000 + 100.000 + Özkaynaklar). Veriler gerçekçi bir bilanço oluşturmamaktadır. Sınav sorusu olarak veri tutarlılığı eksiktir."
     },
     {
       "id": "48808933",
@@ -26468,9 +26503,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "8571d66c",
@@ -26653,9 +26689,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "87a03354",
