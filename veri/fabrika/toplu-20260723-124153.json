@@ -305,9 +305,10 @@
       "yevmiye": [],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "fe11c913",
@@ -2478,9 +2479,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "3554a0e4",
@@ -4512,9 +4514,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Reel GSYH = Nominal GSYH / (GSYH Deflatörü/100) formülü uygulanır. 2.400 / (160/100) = 2.400 / 1,6 = 1.500 milyar TL. Hesaplama doğru ancak GSYH Deflatörü tanımı soruda belirsiz. Eğer deflatör 160 (indeks=160) ise formül doğru çalışır. Fakat TÜİK standartlarında deflatör genellikle ondalık olarak sunulur. Sorunun mantığı ve sonuç matematiksel olarak tutarlı görünse de, mevzuat uygulamasında deflatör ölçüm biriminin açık olmayışı ve temel hesaplamada kesinlik eksikliği nedeniyle sorgulanabilir."
     },
     {
       "id": "11a4b549",
@@ -5153,9 +5157,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "eea5412a",
@@ -6240,9 +6245,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "64acf28f",
@@ -6363,9 +6369,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "eb70b724",
@@ -7109,9 +7116,10 @@
       "yevmiye": [],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "276a7b22",
@@ -7296,9 +7304,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=A haiku=E, sebep=Ünlü düşmesi (hece düşmesi), son hecesi kapalı olan kelimelerde ünlüyle başlayan ek getirildiğinde yaşanır. Kavun (kavunu) - ünlü düşer, Burun (burnu) - ünlü düşer, Ağız (ağzı) - ünlü düşer, Oğul (oğlu) - ünlü düşer. Karın (karnı) - son hece kapalı olmasına rağmen ünlü düşmesi YAŞANMAZ çünkü 'n' ünsüzü korunur ve ses değişimine uğramaz. İşaretli cevap A yanlıştır; kavunu kelimesinde ünlü düşmesi yaşanır."
     },
     {
       "id": "49fb4b85",
@@ -7389,9 +7398,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=D, sebep=Küçük ünlü uyumu kuralına göre: ünlü içeren her hecede aynı düzlük-yuvarlaklık özelliği korunmalıdır. A) Bilgi (i-i uyumlu), B) Kalem (e-e uyumlu), C) Silgi (i-i uyumlu), D) Deniz (e-i UYUMSUZ - düz+düz değil), E) Çamur (a-u uyumlu - yuvarlaklık korumlı). D seçeneği açık ihlaldir. E'nin doğru cevap olması hatalıdır."
     },
     {
       "id": "5f42ec99",
@@ -8228,9 +8238,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "03a37922",
@@ -8411,9 +8422,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=A haiku=B, sebep=TTK m.786'ya göre 'emrine değildir' kaydı hükümsüzdür. Çek kanunen hamiline yazılı bir senettir ve bu niteliği değiştirilemez. Kayıt geçersiz olduğundan çek normal ciro kurallarına tabi kalır. A seçeneği (alacağın temliki) yanlıştır; çek ciro yoluyla devredilir, temlik hükümlerine göre değil. TTK m.781 ve m.786 birlikte değerlendirildiğinde B seçeneği doğrudur."
     },
     {
       "id": "0dc9f6ff",
@@ -11870,9 +11882,11 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Sorun terminolojik: Sevr Antlaşması teknik olarak 'hiçbir zaman yürürlüğe girmedi' değil, 'Türkiye tarafından hiçbir zaman onaylanmadığı için geçerli olmadı'. B seçeneği mekanik olarak doğru nedeni gösterir ancak 'hukuken yürürlüğe girmemesi' ifadesi yanıltıcıdır - antlaşma imzalandı (10 Ağustos 1920), fakat Türk tarafınca asla onaylanmadığı için uluslararası hukuk açısından Türkiye'ye karşı bağlayıcı olmadı. Soru kökünün 'yürürlüğe girmemesi' vurgusu, cevap B'nin 'onaylanmaması' ile tam örtüşmüyor - bu durum tarihsel açıdan yanıltıcıdır."
     },
     {
       "id": "0b9c081a",
@@ -12675,9 +12689,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=A, sebep=6356 sayılı Kanun m.34'e göre toplu iş sözleşmesi yazılı şekilde yapılması gerekir ancak bu yazılılık ŞEKIL şartıdır, GEÇERLİLİK şartı değildir. Sözlü anlaşma da bağlayıcıdır, yazılı hale getirilmesi ispat kolaylığı sağlar. Seçenek E'nin 'geçerlilik şartı' ifadesi hatalıdır. Doğru cevap A'dır."
     },
     {
       "id": "71f8e7ee",
@@ -12943,9 +12958,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "b4598f9b",
@@ -13823,9 +13839,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "10d51ae8",
@@ -14444,9 +14461,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Sorunun çözümü: GÜG dağıtım oranı = 240.000 TL / 12.000 saat = 20 TL/saat. 305 nolu sipariş için yüklenecek GÜG = 450 saat × 20 TL/saat = 9.000 TL. İşaretli cevap E doğru, ancak seçenekler hatalıdır. A şıkkı (20 TL) dağıtım oranını, E şıkkı (9.000 TL) toplam GÜG tutarını göstermektedir. Soru 'yüklenecek GÜG tutarı' diye soruyor ve cevap E (9.000 TL) matematiksel olarak doğru olmakla birlikte, A şıkkı (20 TL) da dağıtım oranı olarak korrekt bir ara sonuçtur. Ancak işaretli E cevabı nihai soruya (toplam tutarı) yanıt verdiği için mantıken savunulabilir. VUK m.275 genel üretim giderleri dağıtımını destekler. Soru seçeneklerinin kurulumu belirsiz olmasına rağmen E cevabı matematiksel olarak doğru ve mevzuata uygun."
     },
     {
       "id": "8724cc0c",
