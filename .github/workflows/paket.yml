@@ -12,6 +12,7 @@ on:
     paths:
       - 'veri/soru-bankasi-onay.json'   # 23.07: GM onay push'unda kendiliginden tasir.
       - 'veri/fabrika/**'               # el partisi / fabrika kanali da ayni kapidan tasinir
+      - 'motor/paket-yukle.ps1'         # 24.07: tasiyici duzeltilince kendiliginden yeniden kossun
       # NOT: robot commit'leri GITHUB_TOKEN ile pushlanir ve workflow TETIKLEMEZ;
       # bu tetik yalniz yerel (GM/Cem) push'larinda calisir - dongu/masraf riski yok.
 

@@ -37,37 +37,30 @@ foreach($fd in $fabrikaDosyalari){
 if($paket.Count -eq 0){ Write-Host "Tasinacak paket sorusu yok."; exit 0 }
 Write-Host ("Tasinacak: {0} soru" -f $paket.Count)
 
-# 23.07 sigortasi: yevmiye (gorsel T-cetveli verisi) tabloda kolon ister.
-# Kolon yoksa VE tasinacak sorularda yevmiye varsa TASIMA DURUR (veri kaybi yasak);
-# once radar-app/sql/2026-07-23-soru-havuzu.sql'deki ALTER calistirilmali.
-$yevmiyeKolonu = $true
-try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yevmiye&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
-catch { $yevmiyeKolonu = $false }
-$yevmiyeliVar = @($paket | Where-Object { $_.yevmiye -and @($_.yevmiye).Count -gt 0 }).Count -gt 0
-if($yevmiyeliVar -and -not $yevmiyeKolonu){
-  Write-Host "HATA: sorularda yevmiye verisi var ama tabloda 'yevmiye' kolonu yok - kayip olmasin diye tasima DURDU."
-  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists yevmiye jsonb;"
-  exit 1
+# 24.07 DAYANIKLILIK (Cem "sistem durmasin, GM sensin"): opsiyonel gorsel kolonlar
+# (yevmiye/tablo/yanlis_kayitlar) yoksa TASIMAYI DURDURMA - o alani atla, soruyu yine tasi,
+# atlananlari GERI-DOLDURMA listesine yaz (kolon eklenince backfill). Cekirdek soru/cevap/aciklama
+# her halukarda gider; gorsel eksigi tum kasayi bosta tutmaktan iyidir. (Eski sert exit 1
+# tek hayalet soru yuzunden 1.191 soruyu kasaya sokamiyordu - bulundu ve kaldirildi.)
+function KolonVar($ad){ try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=$ad&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null; return $true } catch { return $false } }
+$yevmiyeKolonu = KolonVar 'yevmiye'
+$tabloKolonu   = KolonVar 'tablo'
+$hayaletKolonu = KolonVar 'yanlis_kayitlar'
+$backfill = @()
+foreach($s in $paket){
+  $eksik = @()
+  if(($s.yevmiye -and @($s.yevmiye).Count -gt 0) -and -not $yevmiyeKolonu){ $eksik += 'yevmiye' }
+  if($s.tablo -and -not $tabloKolonu){ $eksik += 'tablo' }
+  if($s.yanlisKayitlar -and -not $hayaletKolonu){ $eksik += 'yanlis_kayitlar' }
+  if($eksik.Count){ $backfill += [ordered]@{ id=$s.id; eksik_alanlar=$eksik } }
 }
-# 24.07 (Cem/UWorld exhibit fikri): tablo alani (mini gelir tablosu/bilanco gorseli) — ayni sigorta.
-$tabloKolonu = $true
-try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=tablo&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
-catch { $tabloKolonu = $false }
-$tabloluVar = @($paket | Where-Object { $_.tablo }).Count -gt 0
-if($tabloluVar -and -not $tabloKolonu){
-  Write-Host "HATA: sorularda tablo (gorsel) verisi var ama tabloda 'tablo' kolonu yok - tasima DURDU."
-  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists tablo jsonb;"
-  exit 1
-}
-# 24.07 (Cem'in 'hologram' fikri): yanlisKayitlar -> yanlis_kayitlar kolonu — ayni sigorta.
-$hayaletKolonu = $true
-try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yanlis_kayitlar&limit=1" -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 30 | Out-Null }
-catch { $hayaletKolonu = $false }
-$hayaletliVar = @($paket | Where-Object { $_.yanlisKayitlar }).Count -gt 0
-if($hayaletliVar -and -not $hayaletKolonu){
-  Write-Host "HATA: sorularda yanlisKayitlar (hayalet kayit) var ama 'yanlis_kayitlar' kolonu yok - tasima DURDU."
-  Write-Host "COZUM: SQL Editor'de calistir: alter table soru_havuzu add column if not exists yanlis_kayitlar jsonb;"
-  exit 1
+if(-not $yevmiyeKolonu){ Write-Host "UYARI: 'yevmiye' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
+if(-not $tabloKolonu){ Write-Host "UYARI: 'tablo' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
+if(-not $hayaletKolonu){ Write-Host "UYARI: 'yanlis_kayitlar' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
+if($backfill.Count){
+  $bfYol = Join-Path $kok "veri/kasa-backfill-bekleyen.json"
+  [IO.File]::WriteAllText($bfYol, ($backfill | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("GERI-DOLDURMA: {0} soru gorsel alani eksik tasindi - kolon eklenince backfill (veri/kasa-backfill-bekleyen.json)" -f $backfill.Count)
 }
 
 $govde = @($paket | ForEach-Object {

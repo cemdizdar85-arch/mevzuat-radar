@@ -15,7 +15,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $enc  = New-Object Text.UTF8Encoding($false)
 $BEKLEME_MS = 4500      # ~13 istek/dk (free tier 15 RPM sinirinin altinda)
-$KOSU_TAVANI = 2400     # 24.07: Haiku'nun gunluk kotasi yok - tavan yukseltildi, backlog tek kosuda bitsin (Cem "hizli")
+$KOSU_TAVANI = 99999    # 24.07 Cem "tavan gerek yok, cozebildiginin en yuksegi": pratik sinir yok, workflow timeout (350dk) korur
 
 $gkey = $env:GEMINI_API_KEY
 $akey = $env:ANTHROPIC_API_KEY   # Cem 24.07 onayi: Gemini olmazsa %50 Haiku'ya dus (sistem durmasin)
