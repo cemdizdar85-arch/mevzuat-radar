@@ -91,6 +91,14 @@ for($i=0; $i -lt $paket.Count; $i += $PARTI){
     $hataGovde = ""
     try { $hataGovde = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
     if($hataGovde){ Write-Host ("SUNUCU CEVABI: " + $hataGovde.Substring(0, [Math]::Min(500, $hataGovde.Length))) }
+    # 24.07: loglar admin-kilitli - hata DOSYAYA yazilir, workflow always() ile commit'ler (kor kalma yasak)
+    $hataKaydi = [ordered]@{
+      zaman = (Get-Date -Format "dd.MM.yyyy HH:mm"); parti = ([int]($i/$PARTI)+1)
+      ilk_id = "$($dilim[0].id)"; son_id = "$($dilim[-1].id)"; dilim_adet = $dilim.Count
+      istisna = "$($_.Exception.Message)"; sunucu_cevabi = $hataGovde
+      govde_ilk_600 = $json.Substring(0, [Math]::Min(600, $json.Length))
+    }
+    [IO.File]::WriteAllText((Join-Path $kok "veri/tasiyici-hata.json"), ($hataKaydi | ConvertTo-Json -Depth 4), (New-Object Text.UTF8Encoding($false)))
     Write-Host "Depoya DOKUNULMADI - onceki partiler kasada (upsert, tekrar kosmak guvenli)."
     exit 1
   }
