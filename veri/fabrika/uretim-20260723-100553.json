@@ -1,684 +1,696 @@
 {
-  "uretim": "23.07.2026 10:05",
-  "sonKosuRaporu": [
-    "GECTI: [ticari defter tutma yukumlulugu] Aşağıdakilerden hangisi TTK hükümlerine göre tacir...",
-    "RET (cozucu1 '' != 'A'): Taraflardan biri gerçek kişi tacir, diğe",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği (121 ve 657 hesapların işleyişi)",
-    "KURTARILDI (kesik ciktidan 3 tam soru): kdv vergiyi doguran olay",
-    "GECTI: [kdv vergiyi doguran olay] Bir mobilya üreticisi, ürettiği mobilyaların satış...",
-    "GECTI: [kdv vergiyi doguran olay] Alıcının siparişi üzerine bir toptancı, hazırladığ...",
-    "RET (cozucu1 'A' != 'C'): Bir doğalgaz dağıtım şirketi, abonelerin",
-    "KURTARILDI (kesik ciktidan 4 tam soru): kurumlar vergisi mukellefleri",
-    "GECTI: [kurumlar vergisi mukellefleri] İnşaat işiyle uğraşan (A) A.Ş. ile (B) A.Ş., büyük...",
-    "GECTI: [kurumlar vergisi mukellefleri] (X) Ltd. Şti., yurt dışındaki (Y) ülkesinde kurulm...",
-    "GECTI: [kurumlar vergisi mukellefleri] (Yardım) Vakfı, topladığı bağışlarla barınma yardı...",
-    "GECTI: [kurumlar vergisi mukellefleri] Faaliyetine son vermek isteyen (Z) A.Ş. genel kuru...",
-    "KURTARILDI (kesik ciktidan 2 tam soru): tms 21 gecerli para birimi",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 21.9",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 21.8, TMS 21.38",
-    "KURTARILDI (kesik ciktidan 2 tam soru): ortak maliyet dagitimi",
-    "RET (cozucu1 'A' != 'B'): Bir işletmede tek bir hammaddeden ve tek",
-    "RET (cozucu1 'B' != 'A'): X işletmesi ortak üretim sürecinde P, Q ",
-    "GECTI: [onemlilik kiyaslama noktasi] Muhasebede önemlilik kavramı gereği bir kalemin ma...",
-    "GECTI: [onemlilik kiyaslama noktasi] A İşletmesi'nin toplam aktifi 2.000.000 TL, B İşle...",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 7; BDS 320 Planlamada ve Yürütmede Önemlilik",
-    "GECTI: [onemlilik kiyaslama noktasi] Bir işletmenin toplam aktifleri içinde çok küçük b...",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 450 - Bağımsız Denetim Sırasında Belirlenen Yanlışlıkların Değerlendirilmesi",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 - Planlamada ve Yürütmede Önemlilik",
-    "KURTARILDI (kesik ciktidan 1 tam soru): talep fiyat esnekligi",
-    "GECTI: [talep fiyat esnekligi] Bir malın fiyatı 100 TL'den 200 TL'ye çıktığında, ...",
-    "GECTI: [finansman bonosu ihraci] X A.Ş., nominal değeri 1.000.000 TL olan finansman...",
-    "RET (cozucu1 'D' != 'A'): Y A.Ş.'nin ihraç ettiği nominal değeri 5",
-    "RET (cozucu1 'D' != 'A'): Z A.Ş., 1 Kasım'da nominal değeri 600.00",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): Sermaye Piyasası Kanunu m.31 (Borçlanma Araçları)",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): Sermaye Piyasası Kanunu m.31 ve VII-128.8 sayılı Borçlanma Araçları Tebliği (İskontolu Satış Esası)",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği (Tekdüzen Hesap Planı Genel Açıklaması - Kısa/Uzun Vadeli Yabancı Kaynak Ayrımı)",
-    "KURTARILDI (kesik ciktidan 1 tam soru): anonim sirket temsili",
-    "RET (cozucu1 'D' != 'A'): X A.Ş.'nin esas sözleşmesinde, şirketin ",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): VUK m.174 (Hesap Dönemi) ve 213 sayılı VUK'a dayanılarak yayımlanan 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - Muhasebenin Temel Kavramları, Dönemsellik Kavramı",
-    "RET (cozucu1 'D' != 'A'): İşletme 01.09.20X1 tarihinde fabrika bin",
-    "RET (cozucu1 'D' != 'A'): İşletme, kiraya verdiği bir depo için 01",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): 213 sayılı VUK'a dayanılarak yayımlanan 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - Muhasebenin Temel Kavramları (Tahakkuk Esası ve Dönemsellik Kavramları)",
-    "GECTI: [donemsellik kavrami] İşletme, 1.500.000 TL bedelle satın aldığı ve fayd...",
-    "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 11 İnşaat Sözleşmeleri - Tamamlanma Yüzdesi Yöntemi"
-  ],
-  "sorular": [
-    {
-      "id": "c09ce89f",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sebepsiz zenginlesme",
-      "soru": "Ahmet'in bankası hata sonucu 50.000 TL'yi Zeynep'in hesabına gönderiyor. Zeynep, paranın kendisine ait olmadığını yattığı andan itibaren biliyor; buna rağmen parayı harcıyor. Ahmet dava açtığında Zeynep'in elinde hiçbir zenginleşme kalmamıştır. TBK'ya göre Zeynep'in iade sorumluluğu nasıl belirlenir?",
-      "siklar": {
-        "A": "Zeynep parayı geri ödeyemeyeceğinden iade borcu kendiliğinden sona erer",
-        "B": "Zeynep, para elinde kalmadığı için hiçbir şey iade etmez",
-        "C": "Zeynep iyiniyetli zenginleşen gibi elinde kalan miktarla sınırlı sorumludur",
-        "D": "Zeynep kötüniyetli olduğundan zenginleşmenin tamamını, ayrıca elde ettiği veya etmesi gereken ürün ve faydaları da iade etmekle yükümlüdür",
-        "E": "Zeynep'in sorumluluğu yalnızca haksız fiil hükümlerine göre belirlenir, sebepsiz zenginleşme hükümleri burada uygulanmaz"
-      },
-      "dogru": "D",
-      "aciklama": {
-        "A": "Yanlıştır; edimin ifasının fiilen zorlaşması, borcun hukuken sona ermesi anlamına gelmez. Kötüniyetli zenginleşende bu savunma kabul edilmez, borç aynen devam eder.",
-        "B": "Yanlıştır; 'para elde yok' savunması ancak iyiniyetli zenginleşende işe yarar. Kötüniyetli zenginleşen, parayı harcamış olsa dahi zenginleşmenin tamamından sorumludur.",
-        "C": "Yanlıştır; elinde kalanla sınırlı sorumluluk kuralı sadece iyiniyetli zenginleşene özgüdür. Zeynep baştan beri kötüniyetli olduğu için bu ayrıcalıktan yararlanamaz.",
-        "D": "Doğrudur. TBK m.79 uyarınca kötüniyetli zenginleşen, zenginleşmeyi elden çıkarmış olsa bile bundan kurtulamaz; zenginleşmenin tamamını ve varsa elde ettiği ya da elde etmesi gereken ürün/faydaları iade eder.",
-        "E": "Yanlıştır; olayda haksız fiilin unsurları (kusur, zarar, illiyet) tartışılmamıştır. Burada uygulanacak özel düzenleme sebepsiz zenginleşme hükümleridir, iki kurum farklı şartlara bağlıdır."
-      },
-      "kaynak": "TBK m.79",
-      "hap": "Kötüniyetli zenginleşen, iyiniyetlinin aksine, elindeki zenginleşmeyi kaybetmiş olsa da sorumluluktan kurtulamaz; zenginleşmenin tamamını ve elde ettiği ürün/faydaları iade eder. Kural basit: iyiniyet sorumluluğu sınırlar, kötüniyet sorumluluğu ağırlaştırır. Tuzak: 'para zaten yok' argümanını her olayda geçerli sanmayın, önce kötüniyet var mı diye bakın.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "3a64640c",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşçi A, 6356 sayılı Kanun kapsamında bir işçi sendikasına üye olmak için e-Devlet kapısı üzerinden başvuru yapmış, sendika bu başvuruya süresi içinde herhangi bir cevap vermemiştir. Bu durumda hangisi doğrudur?",
-      "siklar": {
-        "A": "Üyelik ancak noter onaylı bildirimle kazanılır, e-Devlet başvurusu sadece ön bilgi niteliğindedir",
-        "B": "Sendikanın cevap vermemesi başvurunun zımnen reddi anlamına gelir, işçi başka bir sendikaya başvurmalıdır",
-        "C": "Başvurunun yapıldığı tarihten itibaren 30 gün içinde sendika reddetmezse, üyelik başvuru tarihi itibarıyla kazanılmış sayılır",
-        "D": "Sendika cevap vermediği sürece üyelik kazanılmaz, işçinin başvuruyu yenilemesi gerekir",
-        "E": "Üyelik, sendika genel kurulunun onayladığı tarihte kazanılır; kanuni süre geçmesiyle otomatik kazanım söz konusu değildir"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır; bu, 6356 öncesi noter usulüyle karıştırmadır, kanun bu usulü kaldırıp süreci elektronikleştirmiştir.",
-        "B": "Yanlıştır; sessizlik kabul anlamına gelir, ret anlamına gelmez; bu seçenek kuralı ters çevirmiştir.",
-        "C": "Doğrudur. Kanun, sendikanın belirli süre içinde reddetmemesini kabul saymıştır; sessizlik lehe sonuç doğurur.",
-        "D": "Yanlıştır; süreyi 'ret' gibi yorumlayan bu seçenek sessizlik kuralının tam tersini uygular, oysa süre geçince üyelik zaten kazanılmıştır.",
-        "E": "Yanlıştır; sendikanın iç işleyişi (genel kurul kararı) ile kanunun öngördüğü otomatik kazanım kuralı farklı şeylerdir, kanuni süre sendikanın iç kararından bağımsız işler."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
-      "hap": "Sendika üyeliği e-Devlet üzerinden yapılan başvuruyla başlar. Sendika 30 gün içinde reddetmezse üyelik, başvuru tarihi itibarıyla kendiliğinden kazanılmış sayılır. Noter usulü artık yoktur; süre kaçırma 'kabul' demektir, 'ret' değildir.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "74c61fbb",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşçi B, 5 Mart tarihinde sendika üyeliğinden çekilme bildirimini e-Devlet kapısı üzerinden yapmıştır. 6356 sayılı Kanuna göre bu çekilme ne zaman hüküm ifade eder?",
-      "siklar": {
-        "A": "İşverenin bildirimi öğrendiği tarihte",
-        "B": "Sendika genel kurulunun bir sonraki toplantısında karara bağlanmasıyla",
-        "C": "Bildirim tarihinden itibaren bir ay sonra, yani 5 Nisan'da",
-        "D": "Bildirimin yapıldığı anda, 5 Mart'ta hemen",
-        "E": "Noter onayının sendikaya tebliğ edildiği tarihte"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır; işverenin bilgilenmesi çekilmenin hüküm ifade etmesinin şartı değildir, bu ayrı bir bildirim yükümlülüğüdür.",
-        "B": "Yanlıştır; çekilme sendikanın iç kararına bağlı değildir, tek yanlı bildirimle ve kanuni süreyle sonuç doğurur.",
-        "C": "Doğrudur. Kanun çekilmeye bir aylık bekleme süresi tanımıştır; bu süre içinde başka sendikaya üye olunursa yeni üyelik de bu sürenin bitiminde kazanılır.",
-        "D": "Yanlıştır; işten istifa anında sona eren iş ilişkisiyle sendika üyeliğinden çekilmeyi karıştırmaktır, ikisinin sonuç doğurma anı farklıdır.",
-        "E": "Yanlıştır; bu, kaldırılmış eski noter usulüyle karıştırmadır, artık işlem elektronik ortamda yapılır."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.19",
-      "hap": "Sendika üyeliğinden çekilme artık noterle değil e-Devlet üzerinden elektronik bildirimle yapılır. Çekilme, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu süre iş sözleşmesi istifasındaki 'anında sona erme' ile karıştırılmamalıdır.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "8dba2c36",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşçi C, tekstil işkolundaki işyerinde çalışırken bu işkolundaki X sendikasına üye olmuştur. Daha sonra aynı işkolundaki Y sendikasına da üyelik başvurusunda bulunmuştur. 6356 sayılı Kanuna göre bu durumda ne olur?",
-      "siklar": {
-        "A": "İki üyelik de geçersiz sayılır, işçi hiçbir sendikaya üye olamaz",
-        "B": "Y sendikasındaki sonraki üyelik geçersizdir, işçi X sendikasının üyesi olarak kalır",
-        "C": "İşçi farklı işkolundaki bir sendikaya da üye olamayacağı için bu üyelik zaten mümkün değildir",
-        "D": "X sendikasındaki ilk üyelik kendiliğinden sona erer, Y sendikası üyeliği geçerli olur",
-        "E": "İşçi hem X hem Y sendikasına birden üye olabilir, aidatını ikisine de öder"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır; sonuç abartılmıştır, sadece ikinci üyelik geçersiz olur, ilk üyelik etkilenmez.",
-        "B": "Doğrudur. Kısıt sadece aynı işkolunda ikinci üyeliği geçersiz kılar, ilk üyelik geçerliliğini korur.",
-        "C": "Yanlıştır; kısıt yalnızca 'aynı işkolu' için geçerlidir, farklı işkollarında birden fazla sendikaya üyelik mümkündür, bu seçenek kısıtı yanlış genişletmiştir.",
-        "D": "Yanlıştır; hangi üyeliğin geçersiz olduğunu ters çevirmiştir, geçersiz olan sonraki (ikinci) üyeliktir, ilk üyelik değil.",
-        "E": "Yanlıştır; çoklu üyeliği serbest sanma yanılgısıdır, kanun aynı işkolunda tek üyeliğe izin verir."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
-      "hap": "Bir işçi aynı işkolunda yalnızca bir sendikaya üye olabilir; aynı işkolunda ikinci üyelik başvurusu geçersizdir, ilk üyelik geçerliliğini sürdürür. Kısıt sadece 'aynı işkolu' içindir; farklı işkollarında ayrı sendika üyeliği mümkündür.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "d0379c75",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "Sendika üyesi işçi D, askerlik hizmetini yapmak üzere işyerinden ayrılmıştır. 6356 sayılı Kanuna göre bu durumun sendika üyeliğine etkisi nedir?",
-      "siklar": {
-        "A": "Üyelik istifa sayılır çünkü işçi işyerinden fiilen ayrılmıştır",
-        "B": "Üyelik askıya alınır; askerlik süresince aidat ödeme ve genel kurulda oy kullanma gibi haklar durur, ancak üyelik sona ermez",
-        "C": "Üyelik devam eder ve işçi bu süre için doğrudan sendika yönetim kurulu üyeliği kazanır",
-        "D": "Askerlik süresi üyeliği hiç etkilemez, işçi normal üye gibi tüm haklarını kullanmaya devam eder",
-        "E": "Üyelik kendiliğinden sona erer, terhis sonrası yeniden başvuru yapılması gerekir"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır; iş sözleşmesinin askıya alınması ile sendika üyeliğinin sona ermesi (istifa) ayrı kavramlardır, fiilen ayrılma istifa anlamına gelmez.",
-        "B": "Doğrudur. Askıya alma, üyeliği sona erdirmeden bazı hakların kullanımını durduran ara bir hukuki durumdur.",
-        "C": "Yanlıştır; askıya alma, alakasız bir şekilde yönetim kurulu üyeliği kazandırmaz, bu tamamen ilgisiz bir sonuçtur.",
-        "D": "Yanlıştır; askı süresince belirli haklar (aidat, oy vb.) kullanılamaz, 'hiç etkilenmeme' yanlıştır.",
-        "E": "Yanlıştır; askıya alma ile üyeliğin sona ermesi farklı kurumlardır, bu seçenek ikisini birbirine karıştırmıştır."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.18",
-      "hap": "Askerlik hizmeti gibi hallerde sendika üyeliği sona ermez, sadece askıya alınır. Askı süresince üyelik hakları (aidat, oy vb.) kullanılamaz ama üyelik ilişkisi hukuken devam eder; bu durum istifa veya üyeliğin sona ermesiyle karıştırılmamalıdır.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "3a5f949d",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "16 yaşındaki E, bir işyerinde iş sözleşmesiyle çalışmakta ve işçi sendikasına üye olmak istemektedir. 6356 sayılı Kanuna göre bu talep hakkında hangisi doğrudur?",
-      "siklar": {
-        "A": "E, ancak bir yıllık kıdemi tamamladıktan sonra sendikaya üye olabilir",
-        "B": "E, yasal temsilcisinin (velisinin) yazılı iznini almadan sendikaya üye olamaz",
-        "C": "E, 15 yaşını doldurmuş ve işçi sayıldığı için sendikaya üye olabilir; ayrıca reşit olma şartı aranmaz",
-        "D": "E, çırak statüsünde olduğu için sendika üyeliğine hiç ehil değildir",
-        "E": "E, 18 yaşını doldurmadığı için reşit olmadan sendikaya üye olamaz"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır; kanun sendika üyeliği için herhangi bir kıdem şartı öngörmemiştir, bu var olmayan bir koşulu var sayma yanılgısıdır.",
-        "B": "Yanlıştır; kanunda böyle bir veli izni şartı yoktur, işçi sayılan kişi bu hakkı bizzat kullanır.",
-        "C": "Doğrudur. Kanun, işçi sendikasına üyelik için yalnızca 15 yaşını doldurmuş olmayı ve işçi sayılmayı yeterli görmüştür.",
-        "D": "Yanlıştır; iş sözleşmesiyle çalışan ve işçi sayılan herkes kapsam içindedir, çıraklık statüsü kendiliğinden kapsam dışı bırakmaz.",
-        "E": "Yanlıştır; bu, medeni hukuktaki reşitlik yaşı (18) ile sendika üyeliği için özel olarak öngörülen yaş şartını (15) karıştırmaktır."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
-      "hap": "Sendikaya işçi olarak üye olabilmenin şartı, 15 yaşını doldurmuş olmak ve kanuna göre işçi sayılmaktır. Medeni hukuktaki reşitlik yaşı (18) veya kıdem şartı sendika üyeliği için aranmaz; bu ikisini birbirine bağlamak yaygın bir hatadır.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "3a5f3465",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "sendika uyeligi",
-      "soru": "İşveren G, açık pozisyon için başvuran işçilere '(Y) sendikasına üye olursan seni işe alırım' şeklinde bir şart öne sürmüştür. 6356 sayılı Kanun bu duruma nasıl yaklaşır?",
-      "siklar": {
-        "A": "Bu şart geçersizdir; işe alınma belirli bir sendikaya üye olma ya da olmama şartına bağlanamaz",
-        "B": "İşveren, işyerinde iş barışını sağlamak amacıyla bu şartı koyabilir, kanun buna izin verir",
-        "C": "Şart geçerlidir çünkü işçi bunu kendi özgür iradesiyle kabul ederek işe girmiştir",
-        "D": "Bu yasak sadece işçi sendikaları için geçerlidir, işveren sendikaları için geçerli değildir",
-        "E": "Bu şart yalnızca toplu iş sözleşmesi görüşmeleri sırasında geçerlidir, işe alım aşamasında serbesttir"
-      },
-      "dogru": "A",
-      "aciklama": {
-        "A": "Doğrudur. Sendika özgürlüğünün güvencesi kapsamında işe alınma, sendikaya üye olma veya olmama şartına bağlanamaz; bu emredici bir hükümdür.",
-        "B": "Yanlıştır; işverenin yönetim hakkı bu emredici güvencenin önüne geçemez, 'iş barışı' gerekçesi kanuni yasağı ortadan kaldırmaz.",
-        "C": "Yanlıştır; emredici kanun hükümleri tarafların anlaşmasıyla bertaraf edilemez, işçinin 'kabulü' şartı geçerli kılmaz.",
-        "D": "Yanlıştır; güvence karşılıklıdır, hem işçi hem işveren sendikaları yönünden sendika üyeliği şartına bağlama yasaktır.",
-        "E": "Yanlıştır; güvence sadece toplu sözleşme sürecine değil işe alım aşamasına da uygulanır, bu seçenek kapsamı dar yorumlamıştır."
-      },
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.25",
-      "hap": "Sendika özgürlüğünün güvencesi kapsamında işe alınma, işten çıkarılma veya farklı işleme tabi tutulma belirli bir sendikaya üye olma ya da olmama şartına bağlanamaz. Bu emredici kural, işçinin rızası veya işverenin gerekçesiyle bertaraf edilemez ve her iki tarafın sendikalarını da kapsar.",
-      "yevmiye": [],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "10105e5f",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "ticari defter tutma yukumlulugu",
-      "soru": "Aşağıdakilerden hangisi TTK hükümlerine göre tacir sıfatını taşımadığı için ticari defter tutma yükümlülüğü altında değildir?",
-      "siklar": {
-        "A": "Bir komandit şirketin komanditer (sınırlı sorumlu) ortağı",
-        "B": "Donatma iştiraki",
-        "C": "Anonim şirket",
-        "D": "Ekonomik faaliyeti esnaf sınırını aşmayan, sanat ve ticaretle uğraşan kişi (esnaf)",
-        "E": "Esnaf sınırını aşan faaliyet gösteren gerçek kişi tacir"
-      },
-      "dogru": "D",
-      "aciklama": {
-        "A": "Yanlıştır. Bu şık, 'ortak şahsen tacir değilse defter tutmaz' yanılgısına dayanır. Oysa burada muhatap ortak değildir; defter tutma yükümlüsü şirketin kendisidir. Komanditer ortağın kişisel olarak tacir sayılıp sayılmaması, şirketin defter tutma yükümlülüğünü hiç etkilemez, bu soruyla ilgisizdir.",
-        "B": "Yanlıştır. Donatma iştiraki, TTK m.16/2 uyarınca tacir sayılan kuruluşlar arasındadır ve defter tutmakla yükümlüdür; gemi işletmeciliği ile karıştırılıp tacir sayılmadığı düşünülmemelidir.",
-        "C": "Yanlıştır. Anonim şirket, ticaret şirketi olması nedeniyle TTK m.16 uyarınca tüzel kişiliğiyle tacir sayılır ve ticari defter tutmakla yükümlüdür.",
-        "D": "Doğrudur. TTK m.15'e göre ekonomik faaliyeti esnaf sınırını aşmayan kişiler esnaf sayılır, tacir değildir; bu nedenle TTK anlamında ticari defter tutma yükümlülüğü yoktur.",
-        "E": "Yanlıştır. Esnaf sınırını aşan gerçek kişi TTK m.14 anlamında tacirdir ve defter tutmakla yükümlüdür; sınırı aşmak esnaf statüsünden çıkıp tacir olmayı gerektirir."
-      },
-      "kaynak": "TTK m.15, m.16, m.64",
-      "hap": "TTK'da defter tutma yükümlülüğü tacir sıfatına bağlıdır (m.64). Ticaret şirketleri, donatma iştiraki, esnaf sınırını aşan gerçek kişiler ve bazı kamu ticari işletmeleri tacirdir ve defter tutar (m.16). Esnaf sınırını aşmayan kişi esnaftır (m.15), tacir sayılmaz, TTK anlamında defter tutmaz. Ortakların şahsen tacir olup olmaması, tüzel kişi şirketin defter tutma yükümlülüğünü değiştirmez.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true
-    },
-    {
-      "id": "8e660eef",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kdv vergiyi doguran olay",
-      "soru": "Bir mobilya üreticisi, ürettiği mobilyaların satışını yapması amacıyla bir komisyoncuya konsinye olarak göndermiştir. Komisyoncu, malları deposunda bir süre bekletmiş; daha sonra nihai müşteriye satıp teslim etmiştir. Üretici açısından bu işlemde KDV bakımından vergiyi doğuran olay ne zaman meydana gelir?",
-      "siklar": {
-        "A": "Üretici ile komisyoncu arasındaki konsinye sözleşmesinin imzalandığı tarihte",
-        "B": "Komisyoncunun satış bedelini üreticiye ödediği tarihte",
-        "C": "Mobilyaların komisyoncunun deposuna fiilen girdiği tarihte",
-        "D": "Mobilyaların üreticiden komisyoncuya gönderildiği tarihte",
-        "E": "Komisyoncunun mobilyaları nihai müşteriye teslim ettiği tarihte"
-      },
-      "dogru": "E",
-      "aciklama": {
-        "A": "Yanlıştır; sözleşmenin imzalanması hukuki bir anlaşmadır ama KDV'de esas olan fiili teslimdir, tarihler genelde örtüşmez.",
-        "B": "Yanlıştır; bedelin tahsili ödeme/finansman aşamasıdır, vergiyi doğuran olay ise mal üzerindeki tasarruf hakkının devridir, bu ikisi birbirinden bağımsız gerçekleşebilir.",
-        "C": "Yanlıştır; malın fiziken bir yerde bulunması ile üzerindeki tasarruf hakkının nihai alıcıya geçmesi farklı kavramlardır; komisyoncu deposu sadece ara durak niteliğindedir.",
-        "D": "Yanlıştır; konsinye gönderim malın mülkiyetinin devri değil, satış yaptırma amaçlı emanet niteliğindedir. Bu aşamada henüz teslim gerçekleşmiş sayılmaz.",
-        "E": "Doğrudur; kanun komisyoncu/konsinye satışlarında vergiyi doğuran olayı, malın gerçek alıcıya fiilen teslim edildiği an olarak belirlemiştir."
-      },
-      "kaynak": "3065 sayılı KDV Kanunu m.10/d",
-      "hap": "Komisyoncu veya konsinye satışlarda mal, satışı yapmak üzere emanet olarak gönderilir; bu nedenle malın komisyoncuya ulaşması KDV doğurmaz. Vergiyi doğuran olay, malın gerçek/nihai alıcıya fiilen teslim edildiği andır. Tuzak: 'gönderme' ile 'teslim'i karıştırmayın, bunlar ayrı hukuki anlardır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "karantina",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=B, sebep=KDV Kanunu m.10/d konsinye işlemlerinde vergiyi doğuran olay 'satış bedelinin ödenmesi'dir. Nihai müşteriye teslim (E şıkkı) değil, komisyoncunun satış bedelini üreticiye ödediği tarih vergiyi doğuran olaydır. Konsinye satışlarda üretici (mal sahibi) KDV mükellefiyetini kaybetmiştir; komisyoncu ödeme yükümlüsüdür. E şıkkı KDV mükellefi konumundaki komisyoncu açısından doğru olabilir, ancak soru 'üretici açısından' sorduğu için B doğrudur."
-    },
-    {
-      "id": "36f67227",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kdv vergiyi doguran olay",
-      "soru": "Alıcının siparişi üzerine bir toptancı, hazırladığı malları kargo şirketine teslim etmiştir. Mallar 3 gün sonra alıcının deposuna ulaşmıştır. KDV Kanunu'na göre bu satışta vergiyi doğuran olay hangi tarihte gerçekleşmiştir?",
-      "siklar": {
-        "A": "Malın toptancının deposundan çıktığı tarihte",
-        "B": "Malın alıcının deposuna fiilen ulaştığı tarihte",
-        "C": "Alıcının fatura bedelini ödediği tarihte",
-        "D": "Malın kargo şirketine (nakliyeciye) tevdi edildiği tarihte",
-        "E": "Alıcının malı deposuna yerleştirip saydığı tarihte"
-      },
-      "dogru": "D",
-      "aciklama": {
-        "A": "Yanlıştır; depodan çıkış hazırlık aşamasıdır, kanun bunu değil malın nakliyeciye tevdi edilmesi anını esas alır.",
-        "B": "Yanlıştır; bu, günlük hayattaki teslim algısıdır ('malı gördüm, teslim oldu') ama kanun yoldaki süreyi beklemez; mal nakliyeciye verildiğinde KDV zaten doğmuştur.",
-        "C": "Yanlıştır; ödeme tarihi tahsilat anıdır, mal tesliminden bağımsız olarak önce veya sonra gerçekleşebilir, vergiyi doğuran olayla karıştırılmamalıdır.",
-        "D": "Doğrudur; kanun, malın alıcı adına hareket eden nakliyeciye teslim edilmesi anını vergiyi doğuran olay saymıştır; alıcının fiilen malı teslim alması beklenmez.",
-        "E": "Yanlıştır; malın sayılıp yerleştirilmesi lojistik bir işlemdir, tasarruf hakkının devri çok daha önce, nakliyeciye tevdi anında gerçekleşmiştir."
-      },
-      "kaynak": "3065 sayılı KDV Kanunu m.10/e",
-      "hap": "Mal, alıcıya veya onun adına hareket edenlere (nakliyeci, sürücü vb.) gönderiliyorsa, vergiyi doğuran olay malın alıcının eline geçtiği an değil, nakliyeciye tevdi edildiği veya nakliyeye başlandığı andır. Tuzak: 'alıcı görmeden KDV doğar mı' sorusuna kanun EVET der, çünkü tasarruf yetkisi nakliyeciye teslimle devredilmiş sayılır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "bfd246df",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "İnşaat işiyle uğraşan (A) A.Ş. ile (B) A.Ş., büyük bir baraj ihalesini birlikte yürütmek üzere 'iş ortaklığı' kurmuştur. İş bitiminde ortaklık sona erecektir. Bu iş ortaklığının ayrı bir kurumlar vergisi mükellefiyeti tesis ettirip ettiremeyeceği konusunda aşağıdakilerden hangisi doğrudur?",
-      "siklar": {
-        "A": "İş ortaklıkları sermaye şirketi sayıldığından kanun gereği zorunlu olarak ayrı mükellef olur, tercih söz konusu değildir.",
-        "B": "İş ortaklığı, adi ortaklık niteliğinde sayıldığından hiçbir zaman ayrı mükellefiyet tesis ettiremez; kazanç ortaklarca hisseleri oranında doğrudan beyan edilir.",
-        "C": "İş ortaklıkları yalnızca katma değer vergisi mükellefidir; kurumlar vergisi yönünden hiçbir şekilde mükellefiyet tesis ettiremez.",
-        "D": "İş ortaklığının ayrı kurumlar vergisi mükellefi olarak vergilendirilmesi, ortakların bu yönde yapacakları tercihe bağlıdır; talep edilirse ayrı mükellefiyet tesis ettirilir.",
-        "E": "Mükellefiyet, işin süresine göre belirlenir: bir yıldan uzun süren işlerde zorunlu, kısa süren işlerde isteğe bağlıdır."
-      },
-      "dogru": "D",
-      "aciklama": {
-        "A": "Yanlıştır; 'sermaye şirketi sayılır, o yüzden zorunlu mükelleftir' çıkarımı yanlıştır. Kanun, iş ortaklığına mükellefiyeti zorunlu kılmaz, seçimlik bırakır.",
-        "B": "Yanlıştır; bu seçenek iş ortaklığını adi ortaklıkla karıştırır. Adi ortaklıkta gerçekten ayrı mükellefiyet kurulamaz ve kazanç doğrudan ortaklara pay edilir, ama iş ortaklığı kanunda ayrıca sayılmıştır ve seçimlik hakkı vardır.",
-        "C": "Yanlıştır; iş ortaklığının KDV mükellefiyeti ayrı bir konudur, bu onun kurumlar vergisi mükellefi olamayacağı anlamına gelmez, tercihe bağlı olarak KV mükellefi de olabilir.",
-        "D": "Doğrudur. İş ortaklıkları kurumlar vergisi mükellefleri arasında sayılır ama ayrı mükellefiyet tesisi zorunlu değil, ortakların talebine bağlı bir tercih meselesidir.",
-        "E": "Yanlıştır; kanunda süreye bağlı böyle bir ayrım yoktur, bu kriter uydurmadır. Tercih hakkı işin süresinden bağımsızdır."
-      },
-      "kaynak": "KVK m.2/7",
-      "hap": "İş ortaklıkları (adi ortaklıktan farklı olarak) kurumlar vergisi mükellefleri arasında sayılır, fakat bu mükellefiyetin tesisi ortakların TALEBİNE bağlıdır, zorunlu değildir. Adi ortaklıkta ise böyle bir seçimlik hak yoktur, kazanç doğrudan ortaklara pay edilir. Tuzak: 'iş ortaklığı = adi ortaklık' sanmak veya tercihi zorunluluk sanmak.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay-ifade-notu",
-      "ifadeNotu": "KVK m.2/7'ye göre iş ortaklığı, ortakların tercihiyle ayrı kurumlar vergisi mükellefi olabilir (D doğru). Ancak soruda verilen 'büyük baraj ihalesini birlikte yürütmek' ifadesi ve 'işin bitiminde sona erecek' şartı, işin geçici niteliğini vurgular. Uygulamada Maliye bakanlığı/vergi müdürlükleri bu tür geçici iş ortaklıklarında mükellefiyet talebini değerlendirirken işin niteliği, sürdürülme tarzı ve ortakların kayıt durumunu da dikkate alır. D seçeneği kanuni çerçeveyi doğru açıklasa da, pratikte 'talep edilirse' ifadesi yerine KVK m.2/7'de açık olan 'adi ortaklık varsayılanı ancak tercihle sapmak mümkün' kuralı bağlamında, sorunun tam niteliğini karşılamada eksik kalabilir. D seçeneği mevzuat açısından savunulabilir olmakla birlikte, soru hazırlama tekniği açısından çok hassas bir alan olup tercih gücünün sınırlaması hakkında net açıklık ihtiyaç duyar."
-    },
-    {
-      "id": "7c53f2d9",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "(X) Ltd. Şti., yurt dışındaki (Y) ülkesinde kurulmuş ve tescil edilmiştir; ancak şirketin yönetim kurulu toplantıları, üst düzey karar alma süreçleri ve fiilen iş merkezi tamamen Türkiye'de bulunmaktadır. Bu şirketin kurumlar vergisi mükellefiyeti bakımından durumu nedir?",
-      "siklar": {
-        "A": "Şirketin ortaklarının uyruğuna bakılır; ortaklar yabancı ise dar, Türk ise tam mükellef olunur.",
-        "B": "Kanuni merkez ile iş merkezinin aynı ülkede olması şart olduğundan bu şirket ne tam ne dar mükellef sayılır, mükellefiyeti belirsizdir.",
-        "C": "İş merkezi Türkiye'de olduğundan şirket tam mükelleftir; kanuni merkezin yurt dışında olması bunu değiştirmez, tüm dünya kazancı Türkiye'de vergilendirilir.",
-        "D": "Ticaret siciline nerede tescil edildiği tek belirleyici kriterdir, iş merkezinin nerede olduğunun önemi yoktur.",
-        "E": "Kanuni merkezi yurt dışında olduğundan şirket dar mükelleftir, sadece Türkiye kaynaklı kazançları vergilendirilir."
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır; ortakların uyruğu kurumlar vergisi mükellefiyet türünü belirleyen bir kriter değildir, bu şirketler hukukuyla ilgili başka bir konudur.",
-        "B": "Yanlıştır; böyle bir 'ikisi de aynı ülkede olmalı' şartı kanunda yoktur, uydurma bir kuraldır. Kriterlerden biri Türkiye'de olsa yeter.",
-        "C": "Doğrudur. Kanuni merkez veya iş merkezinden en az birinin Türkiye'de olması tam mükellefiyet için yeterlidir; iş merkezi fiilen Türkiye'de olduğundan tam mükelleftir.",
-        "D": "Yanlıştır; yalnızca tescile (kanuni merkeze) bakmak eksik bir değerlendirmedir, iş merkezi kriteri de aynı derecede belirleyicidir.",
-        "E": "Yanlıştır; sadece kanuni (tescilli) merkeze bakıp dar mükellef sanmak yaygın bir hatadır. Kanun 'kanuni merkez VEYA iş merkezi' der, ikisi arasında seçimlik değil alternatif kriterdir."
-      },
-      "kaynak": "KVK m.3",
-      "hap": "Tam mükellefiyet için kanuni merkez VEYA iş merkezinden en az birinin Türkiye'de olması yeterlidir, ikisi birden aranmaz. Kanuni merkez = ana sözleşmede yazılı merkez; iş merkezi = fiili yönetim ve karar organlarının bulunduğu yer. Tuzak: sadece tescilli merkeze bakıp dar mükellef sanmak.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "c5ca56fc",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "(Yardım) Vakfı, topladığı bağışlarla barınma yardımı yapmaktadır. Ayrıca vakıf, sahip olduğu iş hanının katlarını yıllardır düzenli olarak, ayrı yönetici ve personel istihdam ederek ticari amaçla üçüncü kişilere kiraya vermekte ve bu faaliyeti sürekli/organize biçimde yürütmektedir. Bu durumda kurumlar vergisi mükellefiyeti bakımından aşağıdakilerden hangisi doğrudur?",
-      "siklar": {
-        "A": "Vakfa bağlı, bağımsız muhasebesi ve iş yeri niteliği taşıyan bir iktisadi işletme oluşmuştur ve bu işletme kurumlar vergisi mükellefidir.",
-        "B": "Vakıf tüzel kişiliği doğrudan kurumlar vergisi mükellefi hâline gelir, ayrı bir işletme oluşumundan söz edilemez.",
-        "C": "Vakıflar kanunen her koşulda kurumlar vergisinden tamamen muaf tutulduğundan hiçbir şekilde mükellefiyet doğmaz.",
-        "D": "Kiralama faaliyeti arızi (süreksiz) nitelikte kabul edilir, bu nedenle mükellefiyet doğmaz.",
-        "E": "Bu faaliyet bağış gelirlerini artırmaya yönelik olduğundan, elde edilen kira geliri tamamen vergiden istisnadır."
-      },
-      "dogru": "A",
-      "aciklama": {
-        "A": "Doğrudur. Devamlılık, bağımsız organizasyon ve ticari nitelik taşıyan bu faaliyet, vakfa bağlı bir iktisadi işletme meydana getirir ve bu işletme ayrı bir kurumlar vergisi mükellefidir.",
-        "B": "Yanlıştır; vakfın kendisi değil, vakfa bağlı ayrı bir organizasyon olarak faaliyet gösteren iktisadi işletme mükellef olur. Vakıf ile iktisadi işletmesi ayrı değerlendirilir.",
-        "C": "Yanlıştır; vakıfların muafiyeti mutlak değildir, vakfın kendisi değil ama ona bağlı iktisadi işletmeler mükellef olabilir.",
-        "D": "Yanlıştır; yıllardır süren, ayrı personelle yürütülen bir kiralama arızi değil, tam tersine devamlılık gösteren bir faaliyettir; bu yüzden iktisadi işletme oluşur.",
-        "E": "Yanlıştır; kazancın nereye harcandığı (hayır amacı) mükellefiyeti etkilemez. Kriter faaliyetin devamlılık ve organizasyon taşıması olup gelirin kullanım amacı değildir."
-      },
-      "kaynak": "KVK m.2/5",
-      "hap": "Dernek ve vakıfların kendisi kurumlar vergisi mükellefi değildir; ancak bunlara ait, devamlılık arz eden, bağımsız organizasyona sahip ticari/sınai/zirai faaliyetler 'iktisadi işletme' sayılır ve bu işletme ayrı bir kurumlar vergisi mükellefidir. Kriter kazancın nereye harcandığı değil, faaliyetin süreklilik ve organizasyon taşımasıdır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "322eb0c0",
-      "sinav": "SGS",
-      "ders": "Hukuk",
-      "konu": "kurumlar vergisi mukellefleri",
-      "soru": "Faaliyetine son vermek isteyen (Z) A.Ş. genel kurul kararıyla tasfiyeye girmiş, tasfiye süreci 14 ay sürmüştür. Bu süreçte şirketin kurumlar vergisi mükellefiyeti bakımından aşağıdakilerden hangisi doğrudur?",
-      "siklar": {
-        "A": "Tasfiye süresi normal hesap dönemi yerine geçer; tasfiye dönemi ayrı bir vergilendirme dönemi sayılır ve mükellefiyet tasfiyenin sonuçlanmasına kadar devam eder.",
-        "B": "Tasfiyeye giriş kararı ile birlikte tüzel kişilik ve mükellefiyet aynı anda sona erer, bu tarihten sonra beyanname verilmez.",
-        "C": "Tasfiyeye giren kurumlar, tasfiye kâr/zararı ne olursa olsun kurumlar vergisinden tamamen muaf tutulur.",
-        "D": "Tasfiye kararı alındığı andan itibaren şirket dar mükellefiyet statüsüne geçer.",
-        "E": "Tasfiye süresince beyanname verme yükümlülüğü durur, sadece tasfiye bittiğinde tek seferlik toplu beyanname verilir."
-      },
-      "dogru": "A",
-      "aciklama": {
-        "A": "Doğrudur. Tasfiye döneminde normal hesap dönemi yerine 'tasfiye dönemi' esas alınır ve mükellefiyet, tasfiyenin başladığı tarihten sonlandığı tarihe kadar sürer.",
-        "B": "Yanlıştır; tasfiye kararı mükellefiyeti hemen bitirmez. Tüzel kişilik ve mükellefiyet, tasfiyenin sonuçlanıp ticaret sicilinden silinmesine kadar devam eder.",
-        "C": "Yanlıştır; tasfiye hâli bir muafiyet sebebi değildir, tasfiye kârı da normal şekilde vergilendirilir.",
-        "D": "Yanlıştır; tasfiye kararı, şirketin tam/dar mükellefiyet statüsünü değiştiren bir işlem değildir, bu iki kavram birbirinden bağımsızdır.",
-        "E": "Yanlıştır; tasfiye bir yıldan uzun sürerse her takvim yılı ayrı bir tasfiye dönemi sayılır ve dönemsel olarak beyanname verilir, tek seferlik toplu beyan değildir."
-      },
-      "kaynak": "KVK m.17",
-      "hap": "Tasfiyeye giren kurumların vergilendirilmesinde normal hesap dönemi yerine 'tasfiye dönemi' esas alınır; mükellefiyet, tasfiyenin başladığı tarihten sona erdiği (ticaret sicilinden silindiği) tarihe kadar devam eder, bir yıldan uzun sürerse her takvim yılı ayrı tasfiye dönemi sayılır. Tuzak: tasfiye kararının mükellefiyeti hemen bitirdiğini sanmak.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "e656bc44",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "onemlilik kiyaslama noktasi",
-      "soru": "Muhasebede önemlilik kavramı gereği bir kalemin mali tablolarda ayrı gösterilip gösterilmeyeceğine karar verirken, o kalemin tutarı belirli bir 'kıyaslama noktasına' (baz büyüklüğe) oranlanarak değerlendirilir. Aşağıdakilerden hangisi bu değerlendirmenin temel mantığını doğru ifade eder?",
-      "siklar": {
-        "A": "Önemlilik kavramı, bir kalemin tutarının yasal defterlerde yuvarlanıp yuvarlanmayacağını belirler; kıyaslama noktası VUK'ta belirlenen sabit bir rakamdır.",
-        "B": "Kıyaslama noktası yalnızca ihtiyatlılık kavramının uygulanması için kullanılan bir katsayıdır.",
-        "C": "Önemlilik, bir işlemin nakit akışına etkisiyle ölçülür, oransal karşılaştırma gerekmez.",
-        "D": "Kıyaslama noktası sadece denetim raporlarında kullanılır; işletme muhasebesinde önemliliğin tespiti tutarın yüksekliğine bakılmaksızın yapılır.",
-        "E": "Aynı mutlak tutar, işletmenin büyüklüğüne göre seçilen taban büyüklüğe (net satışlar, toplam aktif, özkaynak vb.) oranlandığında farklı önem derecelerine sahip olabilir; bu nedenle önemlilik mutlak değil göreli bir kavramdır."
-      },
-      "dogru": "E",
-      "aciklama": {
-        "A": "Yanlıştır; bu şık önemlilik kavramını VUK'taki yuvarlama/sabit parasal sınır uygulamalarıyla karıştırır. Önemlilik yasal sabit bir tutar değil, göreli bir değerlendirmedir.",
-        "B": "Yanlıştır; ihtiyatlılık, olası zarar ve giderleri erken, kâr ve gelirleri gerçekleştiğinde kaydetmeyi ifade eden ayrı bir kavramdır; önemlilikle karıştırılmamalıdır.",
-        "C": "Yanlıştır; bu şık önemlilik değerlendirmesini nakit esasına indirger, oysa değerlendirme tahakkuk esaslı mali tablo kalemleri üzerinden ve oransal olarak yapılır.",
-        "D": "Yanlıştır; önemlilik kavramı yalnızca bağımsız denetimde değil, işletmenin kendi muhasebe ve raporlama kararlarında da (ayrı gösterim, dipnot açıklaması gibi) kullanılır.",
-        "E": "Doğrudur. Önemlilik göreli bir kavramdır; bir kalemin önemi ancak bir taban büyüklüğe oranlandığında anlamlıdır."
-      },
-      "kaynak": "1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - Temel Kavramlar (Önemlilik Kavramı); TMS 1 madde 7",
-      "hap": "Önemlilik, bir kalemin mali tablo kullanıcılarının ekonomik kararlarını etkileyip etkilemeyeceğine dair göreli bir değerlendirmedir; mutlak tutar tek başına yeterli değildir. Bu nedenle her kalem, işletmenin büyüklüğünü yansıtan bir kıyaslama noktasına (net satışlar, toplam aktif, özkaynak, net kâr gibi) oranlanarak değerlendirilir. Tuzak: önemliliği sabit bir TL tutarı ya da yasal bir sınır sanmak; oysa aynı tutar farklı işletmelerde farklı önem taşır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "291dc010",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "onemlilik kiyaslama noktasi",
-      "soru": "A İşletmesi'nin toplam aktifi 2.000.000 TL, B İşletmesi'nin toplam aktifi 20.000.000 TL'dir. Her iki işletmede de aynı tutarda, 40.000 TL'lik bir demirbaş kaydı unutulmuştur. Önemlilik kavramı çerçevesinde aşağıdaki değerlendirmelerden hangisi doğrudur?",
-      "siklar": {
-        "A": "Büyük işletmede hata daha önemli sayılır çünkü büyük işletmelerin hata payı toleransı düşüktür.",
-        "B": "Önemlilik yalnızca işletmenin kâr tutarına göre belirlenir, toplam aktif büyüklüğü dikkate alınmaz.",
-        "C": "40.000 TL, VUK'ta belirlenen amortismana tabi iktisadi kıymet sınırının altında olduğu için otomatik olarak önemsiz kabul edilir.",
-        "D": "Hata A işletmesi için toplam aktifin %2'sine karşılık gelirken B işletmesi için %0,2'sine karşılık gelir; bu nedenle aynı mutlak tutar A için önemli, B için önemsiz sayılabilir.",
-        "E": "Tutar her iki işletmede de aynı olduğu için önemlilik açısından iki işletme için de aynı sonuca varılır."
-      },
-      "dogru": "D",
-      "aciklama": {
-        "A": "Yanlıştır; bu şık mutlak büyüklük ile göreli önemi ters çevirir - büyük işletmede aynı tutarın oranı genelde daha küçük çıkar, dolayısıyla önem azalır.",
-        "B": "Yanlıştır; kıyaslama noktası kalemin türüne göre net satışlar, toplam aktif, özkaynak gibi farklı tabanlar olabilir; kâr tek seçenek değildir.",
-        "C": "Yanlıştır; bu şık muhasebedeki önemlilik kavramını VUK'un amortismana tabi iktisadi kıymet için belirlediği ayrı ve sabit parasal sınırla karıştırır; ikisi farklı konulardır.",
-        "D": "Doğrudur; önemlilik oransaldır, aynı TL tutarı farklı taban büyüklüklerinde farklı ağırlığa sahiptir.",
-        "E": "Yanlıştır; bu şık mutlak tutar eşitliğini önemlilik eşitliği sanır, oysa oranlama yapılmadan sonuca varılamaz."
-      },
-      "kaynak": "TMS 1, madde 7 (Önemlilik Tanımı)",
-      "hap": "Aynı mutlak tutar, farklı büyüklükteki işletmelerde farklı önem derecesine sahiptir çünkü önemlilik oransaldır. Küçük işletmede taban büyüklüğe oranı yüksek çıkan bir hata önemli sayılırken, büyük işletmede aynı tutarın oranı düşük kalabilir ve önemsiz sayılabilir. Tuzak: 'büyük işletme = büyük önem' mantığıyla ters orantıyı unutmak.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "0656e2df",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "onemlilik kiyaslama noktasi",
-      "soru": "Bir işletmenin toplam aktifleri içinde çok küçük bir paya (%0,1) sahip olan, ancak şirket ortağı ile yapılan bir ilişkili taraf işlemine ait alacak tutarı, denetçi tarafından önemli olarak değerlendirilip dipnotlarda ayrıca açıklanmıştır. Bu durum hangi ilkeyle en iyi açıklanır?",
-      "siklar": {
-        "A": "Bu durum ihtiyatlılık kavramı gereğidir, önemlilikle ilgisi yoktur.",
-        "B": "Önemlilik değerlendirmesi yalnızca niceliksel (tutar/oran) değil, niteliksel unsurları da (işlemin taraflarla ilişkisi, niteliği) kapsar; küçük tutarlı olsa bile niteliği gereği önemli olan kalemler ayrıca açıklanır.",
-        "C": "İlişkili taraf işlemleri her zaman toplam aktifin belirli bir yüzdesini aşarsa açıklanır, aksi halde açıklanmaz.",
-        "D": "Bu açıklama tam açıklama (full disclosure) ilkesinin değil, tutarlılık ilkesinin sonucudur.",
-        "E": "Denetçi hata yapmıştır; tutar önemsiz olduğu için açıklanmamalıydı."
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır; ihtiyatlılık olası zarar/gider tahminlerinin muhafazakâr kaydedilmesiyle ilgilidir, bu senaryodaki açıklama gerekliliğiyle doğrudan ilgili değildir; iki kavram karıştırılmamalıdır.",
-        "B": "Doğrudur; önemlilik hem tutar hem de niteliğe göre değerlendirilir, ilişkili taraf işlemleri gibi kalemler küçük tutarlı olsa bile niteliksel olarak önemli sayılabilir.",
-        "C": "Yanlıştır; bu şık önemliliği yalnızca sabit bir yüzde eşiğine indirger, oysa niteliksel unsurlar da eşik olmadan önemliliği belirleyebilir.",
-        "D": "Yanlıştır; bu şık tam açıklama ilkesi ile tutarlılık ilkesini (aynı yöntemlerin dönemler arası tutarlı uygulanması) birbirine karıştırır.",
-        "E": "Yanlıştır; bu şık niteliksel önemliliği reddederek sadece tutara odaklanır, oysa denetçi doğru davranmıştır."
-      },
-      "kaynak": "TMS 1 madde 7 (Önemliliğin niteliksel ve niceliksel unsurları)",
-      "hap": "Önemlilik yalnızca tutarın büyüklüğüne (niceliksel) değil, işlemin niteliğine (niteliksel) göre de belirlenir. İlişkili taraf işlemleri, yönetici ücretleri gibi kalemler tutar küçük olsa bile kullanıcıların kararını etkileyebileceği için önemli kabul edilip açıklanır. Tuzak: önemliliği sadece yüzde/oran hesabına indirgemek.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "940a7661",
-      "sinav": "SGS",
-      "ders": "Ekonomi",
-      "konu": "talep fiyat esnekligi",
-      "soru": "Bir malın fiyatı 100 TL'den 200 TL'ye çıktığında, talep edilen miktar 500 birimden 400 birime düşmüştür. Basit yüzde değişim yöntemine (eski değerler taban alınarak) göre talep fiyat esnekliği katsayısının mutlak değeri ve talebin niteliği nedir?",
-      "siklar": {
-        "A": "0,2 — talep esnektir",
-        "B": "0,2 — talep esnek değildir (inelastik)",
-        "C": "1 — talep birim esnektir",
-        "D": "0,5 — talep esnek değildir",
-        "E": "5 — talep esnektir"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır. Katsayı (0,2) doğru bulunmuş ama yorum hatalıdır: mutlak değer 1'den KÜÇÜKSE talep esnek DEĞİLDİR, 1'den büyükse esnektir. Öğrenci bu iki durumu ters ezberlemiştir.",
-        "B": "Doğrudur. %ΔQ = -100/500 = -%20, %ΔP = 100/100 = %100. Ed = -20/100 = -0,2. Mutlak değer 1'den küçük olduğu için talep esnek değildir (inelastik).",
-        "C": "Yanlıştır. Bu seçenek mutlak değişim TUTARLARINI (100 birim / 100 TL) doğrudan oranlamanın sonucudur. Esneklik, mutlak tutarların değil, YÜZDESEL değişimlerin oranıdır; tutarları doğrudan bölmek anlamsız bir katsayı üretir.",
-        "D": "Yanlıştır. Bu sonuç yüzde değişimleri hesaplarken YENİ değerleri taban almanın hatasıdır (%ΔP=100/200=%50, %ΔQ=100/400=%25, Ed=-0,5). Basit yüzde yönteminde taban her zaman ESKİ (başlangıç) değer olmalıdır; taban değişince katsayı da değişir.",
-        "E": "Yanlıştır. Bu seçenek formülü ters kurmanın sonucudur: %ΔP/%ΔQ = 100/20 = 5 hesaplanmış. Esneklik formülünde PAYDA fiyat değişimi, PAY miktar değişimi olmalıdır; pay ve payda yer değiştirirse katsayı da yorumu da tersine döner."
-      },
-      "kaynak": "Mikroiktisat - Talep Fiyat Esnekliği Katsayısı Hesaplama Yöntemi",
-      "hap": "Esneklik = %ΔQ / %ΔP formülüyle hesaplanır ve taban olarak DAİMA başlangıç (eski) değer kullanılır. Mutlak değer 1'den küçükse talep esnek değildir, 1'den büyükse esnektir, tam 1 ise birim esnektir. Katsayıyı doğru bulup yorumu ters çevirmek (küçükse esnek demek gibi) sık yapılan bir hatadır; tutarları yüzdeye çevirmeden oranlamak da başka bir tuzaktır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay"
-    },
-    {
-      "id": "8f0e71a7",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "finansman bonosu ihraci",
-      "soru": "X A.Ş., nominal değeri 1.000.000 TL olan finansman bonosunu iskontolu esasla ihraç ederek bankaya 920.000 TL yatırmıştır. İhraç anında yapılması gereken muhasebe kaydı için aşağıdakilerden hangisi doğrudur?",
-      "siklar": {
-        "A": "102 Bankalar 920.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 920.000 Alacak",
-        "B": "102 Bankalar 920.000 Borç, 660 Kısa Vadeli Borçlanma Giderleri 80.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
-        "C": "102 Bankalar 920.000 Borç, 180 Gelecek Aylara Ait Giderler 80.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
-        "D": "102 Bankalar 1.000.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
-        "E": "305 Çıkarılmış Bonolar ve Senetler 920.000 Borç, 102 Bankalar 920.000 Alacak"
-      },
-      "dogru": "C",
-      "aciklama": {
-        "A": "Yanlıştır. Burada işletmenin gerçek borcu (nominal değer) gizlenmiş, sadece eline geçen nakit borç olarak gösterilmiştir. Oysa vade sonunda 920.000 değil 1.000.000 TL ödenecektir; yükümlülük her zaman nominal değer üzerinden izlenir.",
-        "B": "Yanlıştır. Bu seçenek dönemsellik ilkesini ihlal eder: iskonto tutarı ihraç anında tek seferde gider yazılmamalı, 180 hesabında bekletilip vadeye yayılarak gider kaydedilmelidir. 'İş yaptırma maliyeti mi, borçlanma maliyeti mi' ayrımı gibi burada da 'anlık gider mi, döneme yayılan gider mi' ayrımı karıştırılmıştır.",
-        "C": "Doğrudur. İşletmenin yükümlülüğü her zaman nominal değer üzerinden (305 alacak) izlenir; satış anında elde edilen nakit ile nominal değer arasındaki fark (iskonto) henüz gerçekleşmemiş bir gider olduğundan 180 hesabına aktif olarak kaydedilir, vade süresince kısım kısım gider yazılır.",
-        "D": "Yanlıştır. Bankaya yatan tutar 920.000 TL iken burada 1.000.000 TL yatmış gibi kayıt yapılmıştır. İskontolu satışta banka hesabına giren tutar, ihraç bedelidir, nominal değer değildir.",
-        "E": "Yanlıştır. Bu, ihraç kaydı değil vade sonu ödeme kaydının ters çevrilmiş biçimidir; ihraç anında borç (yükümlülük) doğar, bu nedenle 305 hesap alacak tarafında açılmalıdır, borç tarafında değil."
-      },
-      "kaynak": "1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği (Tekdüzen Hesap Planı - 180 ve 305 Hesap Açıklamaları)",
-      "hap": "Finansman bonosu iskontolu satılır: eline geçen para nominal değerden azdır. 305 hesap her zaman ÖDENECEK (nominal) tutarı gösterir, aradaki fark ise henüz gerçekleşmemiş faiz gideri olduğu için 180 hesabına yazılıp zamana yayılarak gider kaydedilir. İhraç anında tüm farkı gider yazmak dönemsellik ilkesine aykırıdır.",
-      "yevmiye": [
-        {
-          "hesap": "102 Bankalar",
-          "borc": 920000,
-          "alacak": 0
-        },
-        {
-          "hesap": "180 Gelecek Aylara Ait Giderler",
-          "borc": 80000,
-          "alacak": 0
-        },
-        {
-          "hesap": "305 Çıkarılmış Bonolar ve Senetler",
-          "borc": 0,
-          "alacak": 1000000
-        }
-      ],
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "karantina",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=B, sebep=Finansman bonosu iskontolu ihraç edildiğinde, iskonto tutarı (80.000 TL) borçlanma gideri olarak kaydedilmelidir. 180 Gelecek Aylara Ait Giderler hesabı ertelenen giderler için kullanılır ve iskonto için uygun değildir. 660 Kısa Vadeli Borçlanma Giderleri veya 661 Uzun Vadeli Borçlanma Giderleri (vadede göre) kullanılmalıdır. Cevap B doğru muhasebe kaydını gösterir: Bono nominal değeri (1.000.000 TL) yükümlülük, nakit giriş (920.000 TL) ve iskonto gideri (80.000 TL) ayrı muhasebeleştirilir."
-    },
-    {
-      "id": "6979628d",
-      "sinav": "SGS",
-      "ders": "Muhasebe",
-      "konu": "donemsellik kavrami",
-      "soru": "İşletme, 1.500.000 TL bedelle satın aldığı ve faydalı ömrü 10 yıl olarak belirlenen bir üretim makinesinin bedelini, 'nakit çıkışı zaten ilk yılda gerçekleşti' gerekçesiyle amortisman ayırmadan kullanıldığı ilk yılda tamamen gider yazmak istemektedir. Bu uygulama hangi temel muhasebe kavramına aykırıdır?",
-      "siklar": {
-        "A": "Tutarlılık kavramı",
-        "B": "Dönemsellik kavramı",
-        "C": "İhtiyatlılık (ihtiyat) kavramı",
-        "D": "Parayla ölçülme kavramı",
-        "E": "Maliyet esası kavramı"
-      },
-      "dogru": "B",
-      "aciklama": {
-        "A": "Yanlıştır; tutarlılık, seçilen amortisman yönteminin dönemler arasında değiştirilmemesini ister. Burada henüz bir yöntem seçimi ve devamında değişiklik söz konusu değildir; sorun yöntemin hiç uygulanmamasıdır.",
-        "B": "Doğrudur. Makine 10 yıl boyunca fayda sağlayacağından, maliyetinin de amortisman yoluyla bu 10 yıla yayılarak ilgili dönemlerin gelirleriyle eşleştirilmesi gerekir. Bedelin tamamını ilk yılda gider yazmak, sonraki yılların kârını olduğundan yüksek, ilk yılın kârını ise olduğundan düşük gösterir; bu doğrudan dönemsellik ihlalidir.",
-        "C": "Yanlıştır; ihtiyatlılık, olası zarar ve giderler için karşılık ayrılmasını, gerçekleşmemiş kârların ise kayda alınmamasını ifade eder. Burada bir karşılık/olasılık durumu değil, kesinleşmiş bir maliyetin dönemlere dağıtılıp dağıtılmayacağı tartışılmaktadır.",
-        "D": "Yanlıştır; parayla ölçülme kavramı, muhasebe kayıtlarının ortak bir para birimiyle ifade edilmesini öngörür. Soruda ölçü birimiyle ilgili bir sorun yoktur, sorun giderin zaman içindeki dağılımıdır.",
-        "E": "Yanlıştır; maliyet esası, varlığın kayıtlara satın alma/üretim maliyetiyle (1.500.000 TL) girmesini ifade eder. Soruda bedelin doğru kaydedilip kaydedilmediği değil, bu bedelin GİDER olarak hangi dönemlere dağıtılacağı tartışılmaktadır."
-      },
-      "kaynak": "VUK m.313 (Amortismana Tabi İktisadi Kıymetler)",
-      "hap": "Amortisman, bir duran varlığın maliyetinin faydalı ömrü boyunca dönemlere sistematik olarak dağıtılmasıdır ve bu, dönemsellik kavramının doğrudan bir uygulamasıdır. Amaç, gideri ödeme/nakit çıkışı zamanına değil, VARLIĞIN FAYDA SAĞLADIĞI dönemlere eşlemektir. Tuzak: 'nakit zaten ilk yılda çıktı' ifadesi doğru gibi görünür ama nakit akışı ile dönemsel gider dağılımı birbirinden farklıdır.",
-      "yevmiye": null,
-      "ambar": "ok",
-      "uretim": "23.07.2026",
-      "durum": "paket-havuzu",
-      "gmDenetim": "gecti-katman1",
-      "karistirildi": true,
-      "katman2": "haiku-onay-ifade-notu",
-      "ifadeNotu": "İşletme 10 yıllık faydalı ömrü olan makineyi ilk yılda tamamen gider yazarak dönemsellik kavramını ihlal etmektedir. Ancak bu durum aynı zamanda maliyet esası kavramına da aykırıdır. VUK m.313 amortismanı zorunlu kılarken, temel ihlal 'nakit çıkışı ilk yılda oldu' gerekçesinin muhasebe kavramlarıyla uyumsuz olmasıdır. Dönemsellik (B) teknik olarak doğru olmakla birlikte, daha temel ihlal maliyet esasıdır (E). Çünkü nakit esasına göre değil, eşleştirme ilkesine göre maliyetin ilişkili dönemlere dağıtılması gerekmektedir. Bu da maliyet esasının özüdür. İşaretli cevap kısmen savunulabilir görünse de (dönemsellik ihlali vardır), daha güçlü ve maliyet muhasebesi açısından asıl ihlal maliyet esasıdır."
-    }
-  ]
+    "uretim":  "23.07.2026 10:05",
+    "sonKosuRaporu":  [
+                          "GECTI: [ticari defter tutma yukumlulugu] Aşağıdakilerden hangisi TTK hükümlerine göre tacir...",
+                          "RET (cozucu1 \u0027\u0027 != \u0027A\u0027): Taraflardan biri gerçek kişi tacir, diğe",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): 1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği (121 ve 657 hesapların işleyişi)",
+                          "KURTARILDI (kesik ciktidan 3 tam soru): kdv vergiyi doguran olay",
+                          "GECTI: [kdv vergiyi doguran olay] Bir mobilya üreticisi, ürettiği mobilyaların satış...",
+                          "GECTI: [kdv vergiyi doguran olay] Alıcının siparişi üzerine bir toptancı, hazırladığ...",
+                          "RET (cozucu1 \u0027A\u0027 != \u0027C\u0027): Bir doğalgaz dağıtım şirketi, abonelerin",
+                          "KURTARILDI (kesik ciktidan 4 tam soru): kurumlar vergisi mukellefleri",
+                          "GECTI: [kurumlar vergisi mukellefleri] İnşaat işiyle uğraşan (A) A.Ş. ile (B) A.Ş., büyük...",
+                          "GECTI: [kurumlar vergisi mukellefleri] (X) Ltd. Şti., yurt dışındaki (Y) ülkesinde kurulm...",
+                          "GECTI: [kurumlar vergisi mukellefleri] (Yardım) Vakfı, topladığı bağışlarla barınma yardı...",
+                          "GECTI: [kurumlar vergisi mukellefleri] Faaliyetine son vermek isteyen (Z) A.Ş. genel kuru...",
+                          "KURTARILDI (kesik ciktidan 2 tam soru): tms 21 gecerli para birimi",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 21.9",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 21.8, TMS 21.38",
+                          "KURTARILDI (kesik ciktidan 2 tam soru): ortak maliyet dagitimi",
+                          "RET (cozucu1 \u0027A\u0027 != \u0027B\u0027): Bir işletmede tek bir hammaddeden ve tek",
+                          "RET (cozucu1 \u0027B\u0027 != \u0027A\u0027): X işletmesi ortak üretim sürecinde P, Q ",
+                          "GECTI: [onemlilik kiyaslama noktasi] Muhasebede önemlilik kavramı gereği bir kalemin ma...",
+                          "GECTI: [onemlilik kiyaslama noktasi] A İşletmesi\u0027nin toplam aktifi 2.000.000 TL, B İşle...",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 1 madde 7; BDS 320 Planlamada ve Yürütmede Önemlilik",
+                          "GECTI: [onemlilik kiyaslama noktasi] Bir işletmenin toplam aktifleri içinde çok küçük b...",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 450 - Bağımsız Denetim Sırasında Belirlenen Yanlışlıkların Değerlendirilmesi",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): BDS 320 - Planlamada ve Yürütmede Önemlilik",
+                          "KURTARILDI (kesik ciktidan 1 tam soru): talep fiyat esnekligi",
+                          "GECTI: [talep fiyat esnekligi] Bir malın fiyatı 100 TL\u0027den 200 TL\u0027ye çıktığında, ...",
+                          "GECTI: [finansman bonosu ihraci] X A.Ş., nominal değeri 1.000.000 TL olan finansman...",
+                          "RET (cozucu1 \u0027D\u0027 != \u0027A\u0027): Y A.Ş.\u0027nin ihraç ettiği nominal değeri 5",
+                          "RET (cozucu1 \u0027D\u0027 != \u0027A\u0027): Z A.Ş., 1 Kasım\u0027da nominal değeri 600.00",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): Sermaye Piyasası Kanunu m.31 (Borçlanma Araçları)",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): Sermaye Piyasası Kanunu m.31 ve VII-128.8 sayılı Borçlanma Araçları Tebliği (İskontolu Satış Esası)",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): 1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği (Tekdüzen Hesap Planı Genel Açıklaması - Kısa/Uzun Vadeli Yabancı Kaynak Ayrımı)",
+                          "KURTARILDI (kesik ciktidan 1 tam soru): anonim sirket temsili",
+                          "RET (cozucu1 \u0027D\u0027 != \u0027A\u0027): X A.Ş.\u0027nin esas sözleşmesinde, şirketin ",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): VUK m.174 (Hesap Dönemi) ve 213 sayılı VUK\u0027a dayanılarak yayımlanan 1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Muhasebenin Temel Kavramları, Dönemsellik Kavramı",
+                          "RET (cozucu1 \u0027D\u0027 != \u0027A\u0027): İşletme 01.09.20X1 tarihinde fabrika bin",
+                          "RET (cozucu1 \u0027D\u0027 != \u0027A\u0027): İşletme, kiraya verdiği bir depo için 01",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): 213 sayılı VUK\u0027a dayanılarak yayımlanan 1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Muhasebenin Temel Kavramları (Tahakkuk Esası ve Dönemsellik Kavramları)",
+                          "GECTI: [donemsellik kavrami] İşletme, 1.500.000 TL bedelle satın aldığı ve fayd...",
+                          "RET (kaynak ambardan teyit edilemedi - once YUT): TMS 11 İnşaat Sözleşmeleri - Tamamlanma Yüzdesi Yöntemi"
+                      ],
+    "sorular":  [
+                    {
+                        "id":  "c09ce89f",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sebepsiz zenginlesme",
+                        "soru":  "Ahmet\u0027in bankası hata sonucu 50.000 TL\u0027yi Zeynep\u0027in hesabına gönderiyor. Zeynep, paranın kendisine ait olmadığını yattığı andan itibaren biliyor; buna rağmen parayı harcıyor. Ahmet dava açtığında Zeynep\u0027in elinde hiçbir zenginleşme kalmamıştır. TBK\u0027ya göre Zeynep\u0027in iade sorumluluğu nasıl belirlenir?",
+                        "siklar":  {
+                                       "A":  "Zeynep parayı geri ödeyemeyeceğinden iade borcu kendiliğinden sona erer",
+                                       "B":  "Zeynep, para elinde kalmadığı için hiçbir şey iade etmez",
+                                       "C":  "Zeynep iyiniyetli zenginleşen gibi elinde kalan miktarla sınırlı sorumludur",
+                                       "D":  "Zeynep kötüniyetli olduğundan zenginleşmenin tamamını, ayrıca elde ettiği veya etmesi gereken ürün ve faydaları da iade etmekle yükümlüdür",
+                                       "E":  "Zeynep\u0027in sorumluluğu yalnızca haksız fiil hükümlerine göre belirlenir, sebepsiz zenginleşme hükümleri burada uygulanmaz"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; edimin ifasının fiilen zorlaşması, borcun hukuken sona ermesi anlamına gelmez. Kötüniyetli zenginleşende bu savunma kabul edilmez, borç aynen devam eder.",
+                                         "B":  "Yanlıştır; \u0027para elde yok\u0027 savunması ancak iyiniyetli zenginleşende işe yarar. Kötüniyetli zenginleşen, parayı harcamış olsa dahi zenginleşmenin tamamından sorumludur.",
+                                         "C":  "Yanlıştır; elinde kalanla sınırlı sorumluluk kuralı sadece iyiniyetli zenginleşene özgüdür. Zeynep baştan beri kötüniyetli olduğu için bu ayrıcalıktan yararlanamaz.",
+                                         "D":  "Doğrudur. TBK m.79 uyarınca kötüniyetli zenginleşen, zenginleşmeyi elden çıkarmış olsa bile bundan kurtulamaz; zenginleşmenin tamamını ve varsa elde ettiği ya da elde etmesi gereken ürün/faydaları iade eder.",
+                                         "E":  "Yanlıştır; olayda haksız fiilin unsurları (kusur, zarar, illiyet) tartışılmamıştır. Burada uygulanacak özel düzenleme sebepsiz zenginleşme hükümleridir, iki kurum farklı şartlara bağlıdır."
+                                     },
+                        "kaynak":  "TBK m.79",
+                        "hap":  "Kötüniyetli zenginleşen, iyiniyetlinin aksine, elindeki zenginleşmeyi kaybetmiş olsa da sorumluluktan kurtulamaz; zenginleşmenin tamamını ve elde ettiği ürün/faydaları iade eder. Kural basit: iyiniyet sorumluluğu sınırlar, kötüniyet sorumluluğu ağırlaştırır. Tuzak: \u0027para zaten yok\u0027 argümanını her olayda geçerli sanmayın, önce kötüniyet var mı diye bakın.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "3a64640c",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşçi A, 6356 sayılı Kanun kapsamında bir işçi sendikasına üye olmak için e-Devlet kapısı üzerinden başvuru yapmış, sendika bu başvuruya süresi içinde herhangi bir cevap vermemiştir. Bu durumda hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Üyelik ancak noter onaylı bildirimle kazanılır, e-Devlet başvurusu sadece ön bilgi niteliğindedir",
+                                       "B":  "Sendikanın cevap vermemesi başvurunun zımnen reddi anlamına gelir, işçi başka bir sendikaya başvurmalıdır",
+                                       "C":  "Başvurunun yapıldığı tarihten itibaren 30 gün içinde sendika reddetmezse, üyelik başvuru tarihi itibarıyla kazanılmış sayılır",
+                                       "D":  "Sendika cevap vermediği sürece üyelik kazanılmaz, işçinin başvuruyu yenilemesi gerekir",
+                                       "E":  "Üyelik, sendika genel kurulunun onayladığı tarihte kazanılır; kanuni süre geçmesiyle otomatik kazanım söz konusu değildir"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; bu, 6356 öncesi noter usulüyle karıştırmadır, kanun bu usulü kaldırıp süreci elektronikleştirmiştir.",
+                                         "B":  "Yanlıştır; sessizlik kabul anlamına gelir, ret anlamına gelmez; bu seçenek kuralı ters çevirmiştir.",
+                                         "C":  "Doğrudur. Kanun, sendikanın belirli süre içinde reddetmemesini kabul saymıştır; sessizlik lehe sonuç doğurur.",
+                                         "D":  "Yanlıştır; süreyi \u0027ret\u0027 gibi yorumlayan bu seçenek sessizlik kuralının tam tersini uygular, oysa süre geçince üyelik zaten kazanılmıştır.",
+                                         "E":  "Yanlıştır; sendikanın iç işleyişi (genel kurul kararı) ile kanunun öngördüğü otomatik kazanım kuralı farklı şeylerdir, kanuni süre sendikanın iç kararından bağımsız işler."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
+                        "hap":  "Sendika üyeliği e-Devlet üzerinden yapılan başvuruyla başlar. Sendika 30 gün içinde reddetmezse üyelik, başvuru tarihi itibarıyla kendiliğinden kazanılmış sayılır. Noter usulü artık yoktur; süre kaçırma \u0027kabul\u0027 demektir, \u0027ret\u0027 değildir.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "74c61fbb",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşçi B, 5 Mart tarihinde sendika üyeliğinden çekilme bildirimini e-Devlet kapısı üzerinden yapmıştır. 6356 sayılı Kanuna göre bu çekilme ne zaman hüküm ifade eder?",
+                        "siklar":  {
+                                       "A":  "İşverenin bildirimi öğrendiği tarihte",
+                                       "B":  "Sendika genel kurulunun bir sonraki toplantısında karara bağlanmasıyla",
+                                       "C":  "Bildirim tarihinden itibaren bir ay sonra, yani 5 Nisan\u0027da",
+                                       "D":  "Bildirimin yapıldığı anda, 5 Mart\u0027ta hemen",
+                                       "E":  "Noter onayının sendikaya tebliğ edildiği tarihte"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; işverenin bilgilenmesi çekilmenin hüküm ifade etmesinin şartı değildir, bu ayrı bir bildirim yükümlülüğüdür.",
+                                         "B":  "Yanlıştır; çekilme sendikanın iç kararına bağlı değildir, tek yanlı bildirimle ve kanuni süreyle sonuç doğurur.",
+                                         "C":  "Doğrudur. Kanun çekilmeye bir aylık bekleme süresi tanımıştır; bu süre içinde başka sendikaya üye olunursa yeni üyelik de bu sürenin bitiminde kazanılır.",
+                                         "D":  "Yanlıştır; işten istifa anında sona eren iş ilişkisiyle sendika üyeliğinden çekilmeyi karıştırmaktır, ikisinin sonuç doğurma anı farklıdır.",
+                                         "E":  "Yanlıştır; bu, kaldırılmış eski noter usulüyle karıştırmadır, artık işlem elektronik ortamda yapılır."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.19",
+                        "hap":  "Sendika üyeliğinden çekilme artık noterle değil e-Devlet üzerinden elektronik bildirimle yapılır. Çekilme, bildirim tarihinden itibaren bir ay sonra hüküm ifade eder; bu süre iş sözleşmesi istifasındaki \u0027anında sona erme\u0027 ile karıştırılmamalıdır.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "8dba2c36",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşçi C, tekstil işkolundaki işyerinde çalışırken bu işkolundaki X sendikasına üye olmuştur. Daha sonra aynı işkolundaki Y sendikasına da üyelik başvurusunda bulunmuştur. 6356 sayılı Kanuna göre bu durumda ne olur?",
+                        "siklar":  {
+                                       "A":  "İki üyelik de geçersiz sayılır, işçi hiçbir sendikaya üye olamaz",
+                                       "B":  "Y sendikasındaki sonraki üyelik geçersizdir, işçi X sendikasının üyesi olarak kalır",
+                                       "C":  "İşçi farklı işkolundaki bir sendikaya da üye olamayacağı için bu üyelik zaten mümkün değildir",
+                                       "D":  "X sendikasındaki ilk üyelik kendiliğinden sona erer, Y sendikası üyeliği geçerli olur",
+                                       "E":  "İşçi hem X hem Y sendikasına birden üye olabilir, aidatını ikisine de öder"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; sonuç abartılmıştır, sadece ikinci üyelik geçersiz olur, ilk üyelik etkilenmez.",
+                                         "B":  "Doğrudur. Kısıt sadece aynı işkolunda ikinci üyeliği geçersiz kılar, ilk üyelik geçerliliğini korur.",
+                                         "C":  "Yanlıştır; kısıt yalnızca \u0027aynı işkolu\u0027 için geçerlidir, farklı işkollarında birden fazla sendikaya üyelik mümkündür, bu seçenek kısıtı yanlış genişletmiştir.",
+                                         "D":  "Yanlıştır; hangi üyeliğin geçersiz olduğunu ters çevirmiştir, geçersiz olan sonraki (ikinci) üyeliktir, ilk üyelik değil.",
+                                         "E":  "Yanlıştır; çoklu üyeliği serbest sanma yanılgısıdır, kanun aynı işkolunda tek üyeliğe izin verir."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
+                        "hap":  "Bir işçi aynı işkolunda yalnızca bir sendikaya üye olabilir; aynı işkolunda ikinci üyelik başvurusu geçersizdir, ilk üyelik geçerliliğini sürdürür. Kısıt sadece \u0027aynı işkolu\u0027 içindir; farklı işkollarında ayrı sendika üyeliği mümkündür.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "d0379c75",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "Sendika üyesi işçi D, askerlik hizmetini yapmak üzere işyerinden ayrılmıştır. 6356 sayılı Kanuna göre bu durumun sendika üyeliğine etkisi nedir?",
+                        "siklar":  {
+                                       "A":  "Üyelik istifa sayılır çünkü işçi işyerinden fiilen ayrılmıştır",
+                                       "B":  "Üyelik askıya alınır; askerlik süresince aidat ödeme ve genel kurulda oy kullanma gibi haklar durur, ancak üyelik sona ermez",
+                                       "C":  "Üyelik devam eder ve işçi bu süre için doğrudan sendika yönetim kurulu üyeliği kazanır",
+                                       "D":  "Askerlik süresi üyeliği hiç etkilemez, işçi normal üye gibi tüm haklarını kullanmaya devam eder",
+                                       "E":  "Üyelik kendiliğinden sona erer, terhis sonrası yeniden başvuru yapılması gerekir"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; iş sözleşmesinin askıya alınması ile sendika üyeliğinin sona ermesi (istifa) ayrı kavramlardır, fiilen ayrılma istifa anlamına gelmez.",
+                                         "B":  "Doğrudur. Askıya alma, üyeliği sona erdirmeden bazı hakların kullanımını durduran ara bir hukuki durumdur.",
+                                         "C":  "Yanlıştır; askıya alma, alakasız bir şekilde yönetim kurulu üyeliği kazandırmaz, bu tamamen ilgisiz bir sonuçtur.",
+                                         "D":  "Yanlıştır; askı süresince belirli haklar (aidat, oy vb.) kullanılamaz, \u0027hiç etkilenmeme\u0027 yanlıştır.",
+                                         "E":  "Yanlıştır; askıya alma ile üyeliğin sona ermesi farklı kurumlardır, bu seçenek ikisini birbirine karıştırmıştır."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.18",
+                        "hap":  "Askerlik hizmeti gibi hallerde sendika üyeliği sona ermez, sadece askıya alınır. Askı süresince üyelik hakları (aidat, oy vb.) kullanılamaz ama üyelik ilişkisi hukuken devam eder; bu durum istifa veya üyeliğin sona ermesiyle karıştırılmamalıdır.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "3a5f949d",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "16 yaşındaki E, bir işyerinde iş sözleşmesiyle çalışmakta ve işçi sendikasına üye olmak istemektedir. 6356 sayılı Kanuna göre bu talep hakkında hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "E, ancak bir yıllık kıdemi tamamladıktan sonra sendikaya üye olabilir",
+                                       "B":  "E, yasal temsilcisinin (velisinin) yazılı iznini almadan sendikaya üye olamaz",
+                                       "C":  "E, 15 yaşını doldurmuş ve işçi sayıldığı için sendikaya üye olabilir; ayrıca reşit olma şartı aranmaz",
+                                       "D":  "E, çırak statüsünde olduğu için sendika üyeliğine hiç ehil değildir",
+                                       "E":  "E, 18 yaşını doldurmadığı için reşit olmadan sendikaya üye olamaz"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; kanun sendika üyeliği için herhangi bir kıdem şartı öngörmemiştir, bu var olmayan bir koşulu var sayma yanılgısıdır.",
+                                         "B":  "Yanlıştır; kanunda böyle bir veli izni şartı yoktur, işçi sayılan kişi bu hakkı bizzat kullanır.",
+                                         "C":  "Doğrudur. Kanun, işçi sendikasına üyelik için yalnızca 15 yaşını doldurmuş olmayı ve işçi sayılmayı yeterli görmüştür.",
+                                         "D":  "Yanlıştır; iş sözleşmesiyle çalışan ve işçi sayılan herkes kapsam içindedir, çıraklık statüsü kendiliğinden kapsam dışı bırakmaz.",
+                                         "E":  "Yanlıştır; bu, medeni hukuktaki reşitlik yaşı (18) ile sendika üyeliği için özel olarak öngörülen yaş şartını (15) karıştırmaktır."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.17",
+                        "hap":  "Sendikaya işçi olarak üye olabilmenin şartı, 15 yaşını doldurmuş olmak ve kanuna göre işçi sayılmaktır. Medeni hukuktaki reşitlik yaşı (18) veya kıdem şartı sendika üyeliği için aranmaz; bu ikisini birbirine bağlamak yaygın bir hatadır.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "3a5f3465",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "sendika uyeligi",
+                        "soru":  "İşveren G, açık pozisyon için başvuran işçilere \u0027(Y) sendikasına üye olursan seni işe alırım\u0027 şeklinde bir şart öne sürmüştür. 6356 sayılı Kanun bu duruma nasıl yaklaşır?",
+                        "siklar":  {
+                                       "A":  "Bu şart geçersizdir; işe alınma belirli bir sendikaya üye olma ya da olmama şartına bağlanamaz",
+                                       "B":  "İşveren, işyerinde iş barışını sağlamak amacıyla bu şartı koyabilir, kanun buna izin verir",
+                                       "C":  "Şart geçerlidir çünkü işçi bunu kendi özgür iradesiyle kabul ederek işe girmiştir",
+                                       "D":  "Bu yasak sadece işçi sendikaları için geçerlidir, işveren sendikaları için geçerli değildir",
+                                       "E":  "Bu şart yalnızca toplu iş sözleşmesi görüşmeleri sırasında geçerlidir, işe alım aşamasında serbesttir"
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. Sendika özgürlüğünün güvencesi kapsamında işe alınma, sendikaya üye olma veya olmama şartına bağlanamaz; bu emredici bir hükümdür.",
+                                         "B":  "Yanlıştır; işverenin yönetim hakkı bu emredici güvencenin önüne geçemez, \u0027iş barışı\u0027 gerekçesi kanuni yasağı ortadan kaldırmaz.",
+                                         "C":  "Yanlıştır; emredici kanun hükümleri tarafların anlaşmasıyla bertaraf edilemez, işçinin \u0027kabulü\u0027 şartı geçerli kılmaz.",
+                                         "D":  "Yanlıştır; güvence karşılıklıdır, hem işçi hem işveren sendikaları yönünden sendika üyeliği şartına bağlama yasaktır.",
+                                         "E":  "Yanlıştır; güvence sadece toplu sözleşme sürecine değil işe alım aşamasına da uygulanır, bu seçenek kapsamı dar yorumlamıştır."
+                                     },
+                        "kaynak":  "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.25",
+                        "hap":  "Sendika özgürlüğünün güvencesi kapsamında işe alınma, işten çıkarılma veya farklı işleme tabi tutulma belirli bir sendikaya üye olma ya da olmama şartına bağlanamaz. Bu emredici kural, işçinin rızası veya işverenin gerekçesiyle bertaraf edilemez ve her iki tarafın sendikalarını da kapsar.",
+                        "yevmiye":  [
+
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "10105e5f",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "ticari defter tutma yukumlulugu",
+                        "soru":  "Aşağıdakilerden hangisi TTK hükümlerine göre tacir sıfatını taşımadığı için ticari defter tutma yükümlülüğü altında değildir?",
+                        "siklar":  {
+                                       "A":  "Bir komandit şirketin komanditer (sınırlı sorumlu) ortağı",
+                                       "B":  "Donatma iştiraki",
+                                       "C":  "Anonim şirket",
+                                       "D":  "Ekonomik faaliyeti esnaf sınırını aşmayan, sanat ve ticaretle uğraşan kişi (esnaf)",
+                                       "E":  "Esnaf sınırını aşan faaliyet gösteren gerçek kişi tacir"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Bu şık, \u0027ortak şahsen tacir değilse defter tutmaz\u0027 yanılgısına dayanır. Oysa burada muhatap ortak değildir; defter tutma yükümlüsü şirketin kendisidir. Komanditer ortağın kişisel olarak tacir sayılıp sayılmaması, şirketin defter tutma yükümlülüğünü hiç etkilemez, bu soruyla ilgisizdir.",
+                                         "B":  "Yanlıştır. Donatma iştiraki, TTK m.16/2 uyarınca tacir sayılan kuruluşlar arasındadır ve defter tutmakla yükümlüdür; gemi işletmeciliği ile karıştırılıp tacir sayılmadığı düşünülmemelidir.",
+                                         "C":  "Yanlıştır. Anonim şirket, ticaret şirketi olması nedeniyle TTK m.16 uyarınca tüzel kişiliğiyle tacir sayılır ve ticari defter tutmakla yükümlüdür.",
+                                         "D":  "Doğrudur. TTK m.15\u0027e göre ekonomik faaliyeti esnaf sınırını aşmayan kişiler esnaf sayılır, tacir değildir; bu nedenle TTK anlamında ticari defter tutma yükümlülüğü yoktur.",
+                                         "E":  "Yanlıştır. Esnaf sınırını aşan gerçek kişi TTK m.14 anlamında tacirdir ve defter tutmakla yükümlüdür; sınırı aşmak esnaf statüsünden çıkıp tacir olmayı gerektirir."
+                                     },
+                        "kaynak":  "TTK m.15, m.16, m.64",
+                        "hap":  "TTK\u0027da defter tutma yükümlülüğü tacir sıfatına bağlıdır (m.64). Ticaret şirketleri, donatma iştiraki, esnaf sınırını aşan gerçek kişiler ve bazı kamu ticari işletmeleri tacirdir ve defter tutar (m.16). Esnaf sınırını aşmayan kişi esnaftır (m.15), tacir sayılmaz, TTK anlamında defter tutmaz. Ortakların şahsen tacir olup olmaması, tüzel kişi şirketin defter tutma yükümlülüğünü değiştirmez.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "katman1-temiz",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true
+                    },
+                    {
+                        "id":  "8e660eef",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kdv vergiyi doguran olay",
+                        "soru":  "Bir mobilya üreticisi, ürettiği mobilyaların satışını yapması amacıyla bir komisyoncuya konsinye olarak göndermiştir. Komisyoncu, malları deposunda bir süre bekletmiş; daha sonra nihai müşteriye satıp teslim etmiştir. Üretici açısından bu işlemde KDV bakımından vergiyi doğuran olay ne zaman meydana gelir?",
+                        "siklar":  {
+                                       "A":  "Üretici ile komisyoncu arasındaki konsinye sözleşmesinin imzalandığı tarihte",
+                                       "B":  "Komisyoncunun satış bedelini üreticiye ödediği tarihte",
+                                       "C":  "Mobilyaların komisyoncunun deposuna fiilen girdiği tarihte",
+                                       "D":  "Mobilyaların üreticiden komisyoncuya gönderildiği tarihte",
+                                       "E":  "Komisyoncunun mobilyaları nihai müşteriye teslim ettiği tarihte"
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; sözleşmenin imzalanması hukuki bir anlaşmadır ama KDV\u0027de esas olan fiili teslimdir, tarihler genelde örtüşmez.",
+                                         "B":  "Yanlıştır; bedelin tahsili ödeme/finansman aşamasıdır, vergiyi doğuran olay ise mal üzerindeki tasarruf hakkının devridir, bu ikisi birbirinden bağımsız gerçekleşebilir.",
+                                         "C":  "Yanlıştır; malın fiziken bir yerde bulunması ile üzerindeki tasarruf hakkının nihai alıcıya geçmesi farklı kavramlardır; komisyoncu deposu sadece ara durak niteliğindedir.",
+                                         "D":  "Yanlıştır; konsinye gönderim malın mülkiyetinin devri değil, satış yaptırma amaçlı emanet niteliğindedir. Bu aşamada henüz teslim gerçekleşmiş sayılmaz.",
+                                         "E":  "Doğrudur; kanun komisyoncu/konsinye satışlarında vergiyi doğuran olayı, malın gerçek alıcıya fiilen teslim edildiği an olarak belirlemiştir."
+                                     },
+                        "kaynak":  "3065 sayılı KDV Kanunu m.10",
+                        "hap":  "Komisyoncu veya konsinye satışlarda mal, satışı yapmak üzere emanet olarak gönderilir; bu nedenle malın komisyoncuya ulaşması KDV doğurmaz. Vergiyi doğuran olay, malın gerçek/nihai alıcıya fiilen teslim edildiği andır. Tuzak: \u0027gönderme\u0027 ile \u0027teslim\u0027i karıştırmayın, bunlar ayrı hukuki anlardır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "gmOkuma":  "GM okudu 24.07: KDVK m.10 birebir - tahakkuk(elektrik)/alıcıya-teslim(konsinye)/mükellefiyet-tescil(ithalat)/teslim-esası dogru; Haiku itirazlari kanuna aykiri"
+                    },
+                    {
+                        "id":  "36f67227",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kdv vergiyi doguran olay",
+                        "soru":  "Alıcının siparişi üzerine bir toptancı, hazırladığı malları kargo şirketine teslim etmiştir. Mallar 3 gün sonra alıcının deposuna ulaşmıştır. KDV Kanunu\u0027na göre bu satışta vergiyi doğuran olay hangi tarihte gerçekleşmiştir?",
+                        "siklar":  {
+                                       "A":  "Malın toptancının deposundan çıktığı tarihte",
+                                       "B":  "Malın alıcının deposuna fiilen ulaştığı tarihte",
+                                       "C":  "Alıcının fatura bedelini ödediği tarihte",
+                                       "D":  "Malın kargo şirketine (nakliyeciye) tevdi edildiği tarihte",
+                                       "E":  "Alıcının malı deposuna yerleştirip saydığı tarihte"
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; depodan çıkış hazırlık aşamasıdır, kanun bunu değil malın nakliyeciye tevdi edilmesi anını esas alır.",
+                                         "B":  "Yanlıştır; bu, günlük hayattaki teslim algısıdır (\u0027malı gördüm, teslim oldu\u0027) ama kanun yoldaki süreyi beklemez; mal nakliyeciye verildiğinde KDV zaten doğmuştur.",
+                                         "C":  "Yanlıştır; ödeme tarihi tahsilat anıdır, mal tesliminden bağımsız olarak önce veya sonra gerçekleşebilir, vergiyi doğuran olayla karıştırılmamalıdır.",
+                                         "D":  "Doğrudur; kanun, malın alıcı adına hareket eden nakliyeciye teslim edilmesi anını vergiyi doğuran olay saymıştır; alıcının fiilen malı teslim alması beklenmez.",
+                                         "E":  "Yanlıştır; malın sayılıp yerleştirilmesi lojistik bir işlemdir, tasarruf hakkının devri çok daha önce, nakliyeciye tevdi anında gerçekleşmiştir."
+                                     },
+                        "kaynak":  "3065 sayılı KDV Kanunu m.10/e",
+                        "hap":  "Mal, alıcıya veya onun adına hareket edenlere (nakliyeci, sürücü vb.) gönderiliyorsa, vergiyi doğuran olay malın alıcının eline geçtiği an değil, nakliyeciye tevdi edildiği veya nakliyeye başlandığı andır. Tuzak: \u0027alıcı görmeden KDV doğar mı\u0027 sorusuna kanun EVET der, çünkü tasarruf yetkisi nakliyeciye teslimle devredilmiş sayılır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "bfd246df",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "İnşaat işiyle uğraşan (A) A.Ş. ile (B) A.Ş., büyük bir baraj ihalesini birlikte yürütmek üzere \u0027iş ortaklığı\u0027 kurmuştur. İş bitiminde ortaklık sona erecektir. Bu iş ortaklığının ayrı bir kurumlar vergisi mükellefiyeti tesis ettirip ettiremeyeceği konusunda aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "İş ortaklıkları sermaye şirketi sayıldığından kanun gereği zorunlu olarak ayrı mükellef olur, tercih söz konusu değildir.",
+                                       "B":  "İş ortaklığı, adi ortaklık niteliğinde sayıldığından hiçbir zaman ayrı mükellefiyet tesis ettiremez; kazanç ortaklarca hisseleri oranında doğrudan beyan edilir.",
+                                       "C":  "İş ortaklıkları yalnızca katma değer vergisi mükellefidir; kurumlar vergisi yönünden hiçbir şekilde mükellefiyet tesis ettiremez.",
+                                       "D":  "İş ortaklığının ayrı kurumlar vergisi mükellefi olarak vergilendirilmesi, ortakların bu yönde yapacakları tercihe bağlıdır; talep edilirse ayrı mükellefiyet tesis ettirilir.",
+                                       "E":  "Mükellefiyet, işin süresine göre belirlenir: bir yıldan uzun süren işlerde zorunlu, kısa süren işlerde isteğe bağlıdır."
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; \u0027sermaye şirketi sayılır, o yüzden zorunlu mükelleftir\u0027 çıkarımı yanlıştır. Kanun, iş ortaklığına mükellefiyeti zorunlu kılmaz, seçimlik bırakır.",
+                                         "B":  "Yanlıştır; bu seçenek iş ortaklığını adi ortaklıkla karıştırır. Adi ortaklıkta gerçekten ayrı mükellefiyet kurulamaz ve kazanç doğrudan ortaklara pay edilir, ama iş ortaklığı kanunda ayrıca sayılmıştır ve seçimlik hakkı vardır.",
+                                         "C":  "Yanlıştır; iş ortaklığının KDV mükellefiyeti ayrı bir konudur, bu onun kurumlar vergisi mükellefi olamayacağı anlamına gelmez, tercihe bağlı olarak KV mükellefi de olabilir.",
+                                         "D":  "Doğrudur. İş ortaklıkları kurumlar vergisi mükellefleri arasında sayılır ama ayrı mükellefiyet tesisi zorunlu değil, ortakların talebine bağlı bir tercih meselesidir.",
+                                         "E":  "Yanlıştır; kanunda süreye bağlı böyle bir ayrım yoktur, bu kriter uydurmadır. Tercih hakkı işin süresinden bağımsızdır."
+                                     },
+                        "kaynak":  "KVK m.2/7",
+                        "hap":  "İş ortaklıkları (adi ortaklıktan farklı olarak) kurumlar vergisi mükellefleri arasında sayılır, fakat bu mükellefiyetin tesisi ortakların TALEBİNE bağlıdır, zorunlu değildir. Adi ortaklıkta ise böyle bir seçimlik hak yoktur, kazanç doğrudan ortaklara pay edilir. Tuzak: \u0027iş ortaklığı = adi ortaklık\u0027 sanmak veya tercihi zorunluluk sanmak.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay-ifade-notu",
+                        "ifadeNotu":  "KVK m.2/7\u0027ye göre iş ortaklığı, ortakların tercihiyle ayrı kurumlar vergisi mükellefi olabilir (D doğru). Ancak soruda verilen \u0027büyük baraj ihalesini birlikte yürütmek\u0027 ifadesi ve \u0027işin bitiminde sona erecek\u0027 şartı, işin geçici niteliğini vurgular. Uygulamada Maliye bakanlığı/vergi müdürlükleri bu tür geçici iş ortaklıklarında mükellefiyet talebini değerlendirirken işin niteliği, sürdürülme tarzı ve ortakların kayıt durumunu da dikkate alır. D seçeneği kanuni çerçeveyi doğru açıklasa da, pratikte \u0027talep edilirse\u0027 ifadesi yerine KVK m.2/7\u0027de açık olan \u0027adi ortaklık varsayılanı ancak tercihle sapmak mümkün\u0027 kuralı bağlamında, sorunun tam niteliğini karşılamada eksik kalabilir. D seçeneği mevzuat açısından savunulabilir olmakla birlikte, soru hazırlama tekniği açısından çok hassas bir alan olup tercih gücünün sınırlaması hakkında net açıklık ihtiyaç duyar."
+                    },
+                    {
+                        "id":  "7c53f2d9",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "(X) Ltd. Şti., yurt dışındaki (Y) ülkesinde kurulmuş ve tescil edilmiştir; ancak şirketin yönetim kurulu toplantıları, üst düzey karar alma süreçleri ve fiilen iş merkezi tamamen Türkiye\u0027de bulunmaktadır. Bu şirketin kurumlar vergisi mükellefiyeti bakımından durumu nedir?",
+                        "siklar":  {
+                                       "A":  "Şirketin ortaklarının uyruğuna bakılır; ortaklar yabancı ise dar, Türk ise tam mükellef olunur.",
+                                       "B":  "Kanuni merkez ile iş merkezinin aynı ülkede olması şart olduğundan bu şirket ne tam ne dar mükellef sayılır, mükellefiyeti belirsizdir.",
+                                       "C":  "İş merkezi Türkiye\u0027de olduğundan şirket tam mükelleftir; kanuni merkezin yurt dışında olması bunu değiştirmez, tüm dünya kazancı Türkiye\u0027de vergilendirilir.",
+                                       "D":  "Ticaret siciline nerede tescil edildiği tek belirleyici kriterdir, iş merkezinin nerede olduğunun önemi yoktur.",
+                                       "E":  "Kanuni merkezi yurt dışında olduğundan şirket dar mükelleftir, sadece Türkiye kaynaklı kazançları vergilendirilir."
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; ortakların uyruğu kurumlar vergisi mükellefiyet türünü belirleyen bir kriter değildir, bu şirketler hukukuyla ilgili başka bir konudur.",
+                                         "B":  "Yanlıştır; böyle bir \u0027ikisi de aynı ülkede olmalı\u0027 şartı kanunda yoktur, uydurma bir kuraldır. Kriterlerden biri Türkiye\u0027de olsa yeter.",
+                                         "C":  "Doğrudur. Kanuni merkez veya iş merkezinden en az birinin Türkiye\u0027de olması tam mükellefiyet için yeterlidir; iş merkezi fiilen Türkiye\u0027de olduğundan tam mükelleftir.",
+                                         "D":  "Yanlıştır; yalnızca tescile (kanuni merkeze) bakmak eksik bir değerlendirmedir, iş merkezi kriteri de aynı derecede belirleyicidir.",
+                                         "E":  "Yanlıştır; sadece kanuni (tescilli) merkeze bakıp dar mükellef sanmak yaygın bir hatadır. Kanun \u0027kanuni merkez VEYA iş merkezi\u0027 der, ikisi arasında seçimlik değil alternatif kriterdir."
+                                     },
+                        "kaynak":  "KVK m.3",
+                        "hap":  "Tam mükellefiyet için kanuni merkez VEYA iş merkezinden en az birinin Türkiye\u0027de olması yeterlidir, ikisi birden aranmaz. Kanuni merkez = ana sözleşmede yazılı merkez; iş merkezi = fiili yönetim ve karar organlarının bulunduğu yer. Tuzak: sadece tescilli merkeze bakıp dar mükellef sanmak.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "c5ca56fc",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "(Yardım) Vakfı, topladığı bağışlarla barınma yardımı yapmaktadır. Ayrıca vakıf, sahip olduğu iş hanının katlarını yıllardır düzenli olarak, ayrı yönetici ve personel istihdam ederek ticari amaçla üçüncü kişilere kiraya vermekte ve bu faaliyeti sürekli/organize biçimde yürütmektedir. Bu durumda kurumlar vergisi mükellefiyeti bakımından aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Vakfa bağlı, bağımsız muhasebesi ve iş yeri niteliği taşıyan bir iktisadi işletme oluşmuştur ve bu işletme kurumlar vergisi mükellefidir.",
+                                       "B":  "Vakıf tüzel kişiliği doğrudan kurumlar vergisi mükellefi hâline gelir, ayrı bir işletme oluşumundan söz edilemez.",
+                                       "C":  "Vakıflar kanunen her koşulda kurumlar vergisinden tamamen muaf tutulduğundan hiçbir şekilde mükellefiyet doğmaz.",
+                                       "D":  "Kiralama faaliyeti arızi (süreksiz) nitelikte kabul edilir, bu nedenle mükellefiyet doğmaz.",
+                                       "E":  "Bu faaliyet bağış gelirlerini artırmaya yönelik olduğundan, elde edilen kira geliri tamamen vergiden istisnadır."
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. Devamlılık, bağımsız organizasyon ve ticari nitelik taşıyan bu faaliyet, vakfa bağlı bir iktisadi işletme meydana getirir ve bu işletme ayrı bir kurumlar vergisi mükellefidir.",
+                                         "B":  "Yanlıştır; vakfın kendisi değil, vakfa bağlı ayrı bir organizasyon olarak faaliyet gösteren iktisadi işletme mükellef olur. Vakıf ile iktisadi işletmesi ayrı değerlendirilir.",
+                                         "C":  "Yanlıştır; vakıfların muafiyeti mutlak değildir, vakfın kendisi değil ama ona bağlı iktisadi işletmeler mükellef olabilir.",
+                                         "D":  "Yanlıştır; yıllardır süren, ayrı personelle yürütülen bir kiralama arızi değil, tam tersine devamlılık gösteren bir faaliyettir; bu yüzden iktisadi işletme oluşur.",
+                                         "E":  "Yanlıştır; kazancın nereye harcandığı (hayır amacı) mükellefiyeti etkilemez. Kriter faaliyetin devamlılık ve organizasyon taşıması olup gelirin kullanım amacı değildir."
+                                     },
+                        "kaynak":  "KVK m.2/5",
+                        "hap":  "Dernek ve vakıfların kendisi kurumlar vergisi mükellefi değildir; ancak bunlara ait, devamlılık arz eden, bağımsız organizasyona sahip ticari/sınai/zirai faaliyetler \u0027iktisadi işletme\u0027 sayılır ve bu işletme ayrı bir kurumlar vergisi mükellefidir. Kriter kazancın nereye harcandığı değil, faaliyetin süreklilik ve organizasyon taşımasıdır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "322eb0c0",
+                        "sinav":  "SGS",
+                        "ders":  "Hukuk",
+                        "konu":  "kurumlar vergisi mukellefleri",
+                        "soru":  "Faaliyetine son vermek isteyen (Z) A.Ş. genel kurul kararıyla tasfiyeye girmiş, tasfiye süreci 14 ay sürmüştür. Bu süreçte şirketin kurumlar vergisi mükellefiyeti bakımından aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Tasfiye süresi normal hesap dönemi yerine geçer; tasfiye dönemi ayrı bir vergilendirme dönemi sayılır ve mükellefiyet tasfiyenin sonuçlanmasına kadar devam eder.",
+                                       "B":  "Tasfiyeye giriş kararı ile birlikte tüzel kişilik ve mükellefiyet aynı anda sona erer, bu tarihten sonra beyanname verilmez.",
+                                       "C":  "Tasfiyeye giren kurumlar, tasfiye kâr/zararı ne olursa olsun kurumlar vergisinden tamamen muaf tutulur.",
+                                       "D":  "Tasfiye kararı alındığı andan itibaren şirket dar mükellefiyet statüsüne geçer.",
+                                       "E":  "Tasfiye süresince beyanname verme yükümlülüğü durur, sadece tasfiye bittiğinde tek seferlik toplu beyanname verilir."
+                                   },
+                        "dogru":  "A",
+                        "aciklama":  {
+                                         "A":  "Doğrudur. Tasfiye döneminde normal hesap dönemi yerine \u0027tasfiye dönemi\u0027 esas alınır ve mükellefiyet, tasfiyenin başladığı tarihten sonlandığı tarihe kadar sürer.",
+                                         "B":  "Yanlıştır; tasfiye kararı mükellefiyeti hemen bitirmez. Tüzel kişilik ve mükellefiyet, tasfiyenin sonuçlanıp ticaret sicilinden silinmesine kadar devam eder.",
+                                         "C":  "Yanlıştır; tasfiye hâli bir muafiyet sebebi değildir, tasfiye kârı da normal şekilde vergilendirilir.",
+                                         "D":  "Yanlıştır; tasfiye kararı, şirketin tam/dar mükellefiyet statüsünü değiştiren bir işlem değildir, bu iki kavram birbirinden bağımsızdır.",
+                                         "E":  "Yanlıştır; tasfiye bir yıldan uzun sürerse her takvim yılı ayrı bir tasfiye dönemi sayılır ve dönemsel olarak beyanname verilir, tek seferlik toplu beyan değildir."
+                                     },
+                        "kaynak":  "KVK m.17",
+                        "hap":  "Tasfiyeye giren kurumların vergilendirilmesinde normal hesap dönemi yerine \u0027tasfiye dönemi\u0027 esas alınır; mükellefiyet, tasfiyenin başladığı tarihten sona erdiği (ticaret sicilinden silindiği) tarihe kadar devam eder, bir yıldan uzun sürerse her takvim yılı ayrı tasfiye dönemi sayılır. Tuzak: tasfiye kararının mükellefiyeti hemen bitirdiğini sanmak.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "e656bc44",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "onemlilik kiyaslama noktasi",
+                        "soru":  "Muhasebede önemlilik kavramı gereği bir kalemin mali tablolarda ayrı gösterilip gösterilmeyeceğine karar verirken, o kalemin tutarı belirli bir \u0027kıyaslama noktasına\u0027 (baz büyüklüğe) oranlanarak değerlendirilir. Aşağıdakilerden hangisi bu değerlendirmenin temel mantığını doğru ifade eder?",
+                        "siklar":  {
+                                       "A":  "Önemlilik kavramı, bir kalemin tutarının yasal defterlerde yuvarlanıp yuvarlanmayacağını belirler; kıyaslama noktası VUK\u0027ta belirlenen sabit bir rakamdır.",
+                                       "B":  "Kıyaslama noktası yalnızca ihtiyatlılık kavramının uygulanması için kullanılan bir katsayıdır.",
+                                       "C":  "Önemlilik, bir işlemin nakit akışına etkisiyle ölçülür, oransal karşılaştırma gerekmez.",
+                                       "D":  "Kıyaslama noktası sadece denetim raporlarında kullanılır; işletme muhasebesinde önemliliğin tespiti tutarın yüksekliğine bakılmaksızın yapılır.",
+                                       "E":  "Aynı mutlak tutar, işletmenin büyüklüğüne göre seçilen taban büyüklüğe (net satışlar, toplam aktif, özkaynak vb.) oranlandığında farklı önem derecelerine sahip olabilir; bu nedenle önemlilik mutlak değil göreli bir kavramdır."
+                                   },
+                        "dogru":  "E",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; bu şık önemlilik kavramını VUK\u0027taki yuvarlama/sabit parasal sınır uygulamalarıyla karıştırır. Önemlilik yasal sabit bir tutar değil, göreli bir değerlendirmedir.",
+                                         "B":  "Yanlıştır; ihtiyatlılık, olası zarar ve giderleri erken, kâr ve gelirleri gerçekleştiğinde kaydetmeyi ifade eden ayrı bir kavramdır; önemlilikle karıştırılmamalıdır.",
+                                         "C":  "Yanlıştır; bu şık önemlilik değerlendirmesini nakit esasına indirger, oysa değerlendirme tahakkuk esaslı mali tablo kalemleri üzerinden ve oransal olarak yapılır.",
+                                         "D":  "Yanlıştır; önemlilik kavramı yalnızca bağımsız denetimde değil, işletmenin kendi muhasebe ve raporlama kararlarında da (ayrı gösterim, dipnot açıklaması gibi) kullanılır.",
+                                         "E":  "Doğrudur. Önemlilik göreli bir kavramdır; bir kalemin önemi ancak bir taban büyüklüğe oranlandığında anlamlıdır."
+                                     },
+                        "kaynak":  "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Temel Kavramlar (Önemlilik Kavramı); TMS 1 madde 7",
+                        "hap":  "Önemlilik, bir kalemin mali tablo kullanıcılarının ekonomik kararlarını etkileyip etkilemeyeceğine dair göreli bir değerlendirmedir; mutlak tutar tek başına yeterli değildir. Bu nedenle her kalem, işletmenin büyüklüğünü yansıtan bir kıyaslama noktasına (net satışlar, toplam aktif, özkaynak, net kâr gibi) oranlanarak değerlendirilir. Tuzak: önemliliği sabit bir TL tutarı ya da yasal bir sınır sanmak; oysa aynı tutar farklı işletmelerde farklı önem taşır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "291dc010",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "onemlilik kiyaslama noktasi",
+                        "soru":  "A İşletmesi\u0027nin toplam aktifi 2.000.000 TL, B İşletmesi\u0027nin toplam aktifi 20.000.000 TL\u0027dir. Her iki işletmede de aynı tutarda, 40.000 TL\u0027lik bir demirbaş kaydı unutulmuştur. Önemlilik kavramı çerçevesinde aşağıdaki değerlendirmelerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "Büyük işletmede hata daha önemli sayılır çünkü büyük işletmelerin hata payı toleransı düşüktür.",
+                                       "B":  "Önemlilik yalnızca işletmenin kâr tutarına göre belirlenir, toplam aktif büyüklüğü dikkate alınmaz.",
+                                       "C":  "40.000 TL, VUK\u0027ta belirlenen amortismana tabi iktisadi kıymet sınırının altında olduğu için otomatik olarak önemsiz kabul edilir.",
+                                       "D":  "Hata A işletmesi için toplam aktifin %2\u0027sine karşılık gelirken B işletmesi için %0,2\u0027sine karşılık gelir; bu nedenle aynı mutlak tutar A için önemli, B için önemsiz sayılabilir.",
+                                       "E":  "Tutar her iki işletmede de aynı olduğu için önemlilik açısından iki işletme için de aynı sonuca varılır."
+                                   },
+                        "dogru":  "D",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; bu şık mutlak büyüklük ile göreli önemi ters çevirir - büyük işletmede aynı tutarın oranı genelde daha küçük çıkar, dolayısıyla önem azalır.",
+                                         "B":  "Yanlıştır; kıyaslama noktası kalemin türüne göre net satışlar, toplam aktif, özkaynak gibi farklı tabanlar olabilir; kâr tek seçenek değildir.",
+                                         "C":  "Yanlıştır; bu şık muhasebedeki önemlilik kavramını VUK\u0027un amortismana tabi iktisadi kıymet için belirlediği ayrı ve sabit parasal sınırla karıştırır; ikisi farklı konulardır.",
+                                         "D":  "Doğrudur; önemlilik oransaldır, aynı TL tutarı farklı taban büyüklüklerinde farklı ağırlığa sahiptir.",
+                                         "E":  "Yanlıştır; bu şık mutlak tutar eşitliğini önemlilik eşitliği sanır, oysa oranlama yapılmadan sonuca varılamaz."
+                                     },
+                        "kaynak":  "TMS 1, madde 7 (Önemlilik Tanımı)",
+                        "hap":  "Aynı mutlak tutar, farklı büyüklükteki işletmelerde farklı önem derecesine sahiptir çünkü önemlilik oransaldır. Küçük işletmede taban büyüklüğe oranı yüksek çıkan bir hata önemli sayılırken, büyük işletmede aynı tutarın oranı düşük kalabilir ve önemsiz sayılabilir. Tuzak: \u0027büyük işletme = büyük önem\u0027 mantığıyla ters orantıyı unutmak.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "0656e2df",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "onemlilik kiyaslama noktasi",
+                        "soru":  "Bir işletmenin toplam aktifleri içinde çok küçük bir paya (%0,1) sahip olan, ancak şirket ortağı ile yapılan bir ilişkili taraf işlemine ait alacak tutarı, denetçi tarafından önemli olarak değerlendirilip dipnotlarda ayrıca açıklanmıştır. Bu durum hangi ilkeyle en iyi açıklanır?",
+                        "siklar":  {
+                                       "A":  "Bu durum ihtiyatlılık kavramı gereğidir, önemlilikle ilgisi yoktur.",
+                                       "B":  "Önemlilik değerlendirmesi yalnızca niceliksel (tutar/oran) değil, niteliksel unsurları da (işlemin taraflarla ilişkisi, niteliği) kapsar; küçük tutarlı olsa bile niteliği gereği önemli olan kalemler ayrıca açıklanır.",
+                                       "C":  "İlişkili taraf işlemleri her zaman toplam aktifin belirli bir yüzdesini aşarsa açıklanır, aksi halde açıklanmaz.",
+                                       "D":  "Bu açıklama tam açıklama (full disclosure) ilkesinin değil, tutarlılık ilkesinin sonucudur.",
+                                       "E":  "Denetçi hata yapmıştır; tutar önemsiz olduğu için açıklanmamalıydı."
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; ihtiyatlılık olası zarar/gider tahminlerinin muhafazakâr kaydedilmesiyle ilgilidir, bu senaryodaki açıklama gerekliliğiyle doğrudan ilgili değildir; iki kavram karıştırılmamalıdır.",
+                                         "B":  "Doğrudur; önemlilik hem tutar hem de niteliğe göre değerlendirilir, ilişkili taraf işlemleri gibi kalemler küçük tutarlı olsa bile niteliksel olarak önemli sayılabilir.",
+                                         "C":  "Yanlıştır; bu şık önemliliği yalnızca sabit bir yüzde eşiğine indirger, oysa niteliksel unsurlar da eşik olmadan önemliliği belirleyebilir.",
+                                         "D":  "Yanlıştır; bu şık tam açıklama ilkesi ile tutarlılık ilkesini (aynı yöntemlerin dönemler arası tutarlı uygulanması) birbirine karıştırır.",
+                                         "E":  "Yanlıştır; bu şık niteliksel önemliliği reddederek sadece tutara odaklanır, oysa denetçi doğru davranmıştır."
+                                     },
+                        "kaynak":  "TMS 1 madde 7 (Önemliliğin niteliksel ve niceliksel unsurları)",
+                        "hap":  "Önemlilik yalnızca tutarın büyüklüğüne (niceliksel) değil, işlemin niteliğine (niteliksel) göre de belirlenir. İlişkili taraf işlemleri, yönetici ücretleri gibi kalemler tutar küçük olsa bile kullanıcıların kararını etkileyebileceği için önemli kabul edilip açıklanır. Tuzak: önemliliği sadece yüzde/oran hesabına indirgemek.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "940a7661",
+                        "sinav":  "SGS",
+                        "ders":  "Ekonomi",
+                        "konu":  "talep fiyat esnekligi",
+                        "soru":  "Bir malın fiyatı 100 TL\u0027den 200 TL\u0027ye çıktığında, talep edilen miktar 500 birimden 400 birime düşmüştür. Basit yüzde değişim yöntemine (eski değerler taban alınarak) göre talep fiyat esnekliği katsayısının mutlak değeri ve talebin niteliği nedir?",
+                        "siklar":  {
+                                       "A":  "0,2 — talep esnektir",
+                                       "B":  "0,2 — talep esnek değildir (inelastik)",
+                                       "C":  "1 — talep birim esnektir",
+                                       "D":  "0,5 — talep esnek değildir",
+                                       "E":  "5 — talep esnektir"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Katsayı (0,2) doğru bulunmuş ama yorum hatalıdır: mutlak değer 1\u0027den KÜÇÜKSE talep esnek DEĞİLDİR, 1\u0027den büyükse esnektir. Öğrenci bu iki durumu ters ezberlemiştir.",
+                                         "B":  "Doğrudur. %ΔQ = -100/500 = -%20, %ΔP = 100/100 = %100. Ed = -20/100 = -0,2. Mutlak değer 1\u0027den küçük olduğu için talep esnek değildir (inelastik).",
+                                         "C":  "Yanlıştır. Bu seçenek mutlak değişim TUTARLARINI (100 birim / 100 TL) doğrudan oranlamanın sonucudur. Esneklik, mutlak tutarların değil, YÜZDESEL değişimlerin oranıdır; tutarları doğrudan bölmek anlamsız bir katsayı üretir.",
+                                         "D":  "Yanlıştır. Bu sonuç yüzde değişimleri hesaplarken YENİ değerleri taban almanın hatasıdır (%ΔP=100/200=%50, %ΔQ=100/400=%25, Ed=-0,5). Basit yüzde yönteminde taban her zaman ESKİ (başlangıç) değer olmalıdır; taban değişince katsayı da değişir.",
+                                         "E":  "Yanlıştır. Bu seçenek formülü ters kurmanın sonucudur: %ΔP/%ΔQ = 100/20 = 5 hesaplanmış. Esneklik formülünde PAYDA fiyat değişimi, PAY miktar değişimi olmalıdır; pay ve payda yer değiştirirse katsayı da yorumu da tersine döner."
+                                     },
+                        "kaynak":  "Mikroiktisat - Talep Fiyat Esnekliği Katsayısı Hesaplama Yöntemi",
+                        "hap":  "Esneklik = %ΔQ / %ΔP formülüyle hesaplanır ve taban olarak DAİMA başlangıç (eski) değer kullanılır. Mutlak değer 1\u0027den küçükse talep esnek değildir, 1\u0027den büyükse esnektir, tam 1 ise birim esnektir. Katsayıyı doğru bulup yorumu ters çevirmek (küçükse esnek demek gibi) sık yapılan bir hatadır; tutarları yüzdeye çevirmeden oranlamak da başka bir tuzaktır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay"
+                    },
+                    {
+                        "id":  "8f0e71a7",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "finansman bonosu ihraci",
+                        "soru":  "X A.Ş., nominal değeri 1.000.000 TL olan finansman bonosunu iskontolu esasla ihraç ederek bankaya 920.000 TL yatırmıştır. İhraç anında yapılması gereken muhasebe kaydı için aşağıdakilerden hangisi doğrudur?",
+                        "siklar":  {
+                                       "A":  "102 Bankalar 920.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 920.000 Alacak",
+                                       "B":  "102 Bankalar 920.000 Borç, 660 Kısa Vadeli Borçlanma Giderleri 80.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
+                                       "C":  "102 Bankalar 920.000 Borç, 180 Gelecek Aylara Ait Giderler 80.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
+                                       "D":  "102 Bankalar 1.000.000 Borç, 305 Çıkarılmış Bonolar ve Senetler 1.000.000 Alacak",
+                                       "E":  "305 Çıkarılmış Bonolar ve Senetler 920.000 Borç, 102 Bankalar 920.000 Alacak"
+                                   },
+                        "dogru":  "C",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır. Burada işletmenin gerçek borcu (nominal değer) gizlenmiş, sadece eline geçen nakit borç olarak gösterilmiştir. Oysa vade sonunda 920.000 değil 1.000.000 TL ödenecektir; yükümlülük her zaman nominal değer üzerinden izlenir.",
+                                         "B":  "Yanlıştır. Bu seçenek dönemsellik ilkesini ihlal eder: iskonto tutarı ihraç anında tek seferde gider yazılmamalı, 180 hesabında bekletilip vadeye yayılarak gider kaydedilmelidir. \u0027İş yaptırma maliyeti mi, borçlanma maliyeti mi\u0027 ayrımı gibi burada da \u0027anlık gider mi, döneme yayılan gider mi\u0027 ayrımı karıştırılmıştır.",
+                                         "C":  "Doğrudur. İşletmenin yükümlülüğü her zaman nominal değer üzerinden (305 alacak) izlenir; satış anında elde edilen nakit ile nominal değer arasındaki fark (iskonto) henüz gerçekleşmemiş bir gider olduğundan 180 hesabına aktif olarak kaydedilir, vade süresince kısım kısım gider yazılır.",
+                                         "D":  "Yanlıştır. Bankaya yatan tutar 920.000 TL iken burada 1.000.000 TL yatmış gibi kayıt yapılmıştır. İskontolu satışta banka hesabına giren tutar, ihraç bedelidir, nominal değer değildir.",
+                                         "E":  "Yanlıştır. Bu, ihraç kaydı değil vade sonu ödeme kaydının ters çevrilmiş biçimidir; ihraç anında borç (yükümlülük) doğar, bu nedenle 305 hesap alacak tarafında açılmalıdır, borç tarafında değil."
+                                     },
+                        "kaynak":  "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği (Tekdüzen Hesap Planı - 180 ve 305 Hesap Açıklamaları)",
+                        "hap":  "Finansman bonosu iskontolu satılır: eline geçen para nominal değerden azdır. 305 hesap her zaman ÖDENECEK (nominal) tutarı gösterir, aradaki fark ise henüz gerçekleşmemiş faiz gideri olduğu için 180 hesabına yazılıp zamana yayılarak gider kaydedilir. İhraç anında tüm farkı gider yazmak dönemsellik ilkesine aykırıdır.",
+                        "yevmiye":  [
+                                        {
+                                            "hesap":  "102 Bankalar",
+                                            "borc":  920000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "180 Gelecek Aylara Ait Giderler",
+                                            "borc":  80000,
+                                            "alacak":  0
+                                        },
+                                        {
+                                            "hesap":  "305 Çıkarılmış Bonolar ve Senetler",
+                                            "borc":  0,
+                                            "alacak":  1000000
+                                        }
+                                    ],
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "karantina",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "redSebep":  "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=B, sebep=Finansman bonosu iskontolu ihraç edildiğinde, iskonto tutarı (80.000 TL) borçlanma gideri olarak kaydedilmelidir. 180 Gelecek Aylara Ait Giderler hesabı ertelenen giderler için kullanılır ve iskonto için uygun değildir. 660 Kısa Vadeli Borçlanma Giderleri veya 661 Uzun Vadeli Borçlanma Giderleri (vadede göre) kullanılmalıdır. Cevap B doğru muhasebe kaydını gösterir: Bono nominal değeri (1.000.000 TL) yükümlülük, nakit giriş (920.000 TL) ve iskonto gideri (80.000 TL) ayrı muhasebeleştirilir."
+                    },
+                    {
+                        "id":  "6979628d",
+                        "sinav":  "SGS",
+                        "ders":  "Muhasebe",
+                        "konu":  "donemsellik kavrami",
+                        "soru":  "İşletme, 1.500.000 TL bedelle satın aldığı ve faydalı ömrü 10 yıl olarak belirlenen bir üretim makinesinin bedelini, \u0027nakit çıkışı zaten ilk yılda gerçekleşti\u0027 gerekçesiyle amortisman ayırmadan kullanıldığı ilk yılda tamamen gider yazmak istemektedir. Bu uygulama hangi temel muhasebe kavramına aykırıdır?",
+                        "siklar":  {
+                                       "A":  "Tutarlılık kavramı",
+                                       "B":  "Dönemsellik kavramı",
+                                       "C":  "İhtiyatlılık (ihtiyat) kavramı",
+                                       "D":  "Parayla ölçülme kavramı",
+                                       "E":  "Maliyet esası kavramı"
+                                   },
+                        "dogru":  "B",
+                        "aciklama":  {
+                                         "A":  "Yanlıştır; tutarlılık, seçilen amortisman yönteminin dönemler arasında değiştirilmemesini ister. Burada henüz bir yöntem seçimi ve devamında değişiklik söz konusu değildir; sorun yöntemin hiç uygulanmamasıdır.",
+                                         "B":  "Doğrudur. Makine 10 yıl boyunca fayda sağlayacağından, maliyetinin de amortisman yoluyla bu 10 yıla yayılarak ilgili dönemlerin gelirleriyle eşleştirilmesi gerekir. Bedelin tamamını ilk yılda gider yazmak, sonraki yılların kârını olduğundan yüksek, ilk yılın kârını ise olduğundan düşük gösterir; bu doğrudan dönemsellik ihlalidir.",
+                                         "C":  "Yanlıştır; ihtiyatlılık, olası zarar ve giderler için karşılık ayrılmasını, gerçekleşmemiş kârların ise kayda alınmamasını ifade eder. Burada bir karşılık/olasılık durumu değil, kesinleşmiş bir maliyetin dönemlere dağıtılıp dağıtılmayacağı tartışılmaktadır.",
+                                         "D":  "Yanlıştır; parayla ölçülme kavramı, muhasebe kayıtlarının ortak bir para birimiyle ifade edilmesini öngörür. Soruda ölçü birimiyle ilgili bir sorun yoktur, sorun giderin zaman içindeki dağılımıdır.",
+                                         "E":  "Yanlıştır; maliyet esası, varlığın kayıtlara satın alma/üretim maliyetiyle (1.500.000 TL) girmesini ifade eder. Soruda bedelin doğru kaydedilip kaydedilmediği değil, bu bedelin GİDER olarak hangi dönemlere dağıtılacağı tartışılmaktadır."
+                                     },
+                        "kaynak":  "VUK m.313 (Amortismana Tabi İktisadi Kıymetler)",
+                        "hap":  "Amortisman, bir duran varlığın maliyetinin faydalı ömrü boyunca dönemlere sistematik olarak dağıtılmasıdır ve bu, dönemsellik kavramının doğrudan bir uygulamasıdır. Amaç, gideri ödeme/nakit çıkışı zamanına değil, VARLIĞIN FAYDA SAĞLADIĞI dönemlere eşlemektir. Tuzak: \u0027nakit zaten ilk yılda çıktı\u0027 ifadesi doğru gibi görünür ama nakit akışı ile dönemsel gider dağılımı birbirinden farklıdır.",
+                        "yevmiye":  null,
+                        "ambar":  "ok",
+                        "uretim":  "23.07.2026",
+                        "durum":  "paket-havuzu",
+                        "gmDenetim":  "gecti-katman1",
+                        "karistirildi":  true,
+                        "katman2":  "haiku-onay-ifade-notu",
+                        "ifadeNotu":  "İşletme 10 yıllık faydalı ömrü olan makineyi ilk yılda tamamen gider yazarak dönemsellik kavramını ihlal etmektedir. Ancak bu durum aynı zamanda maliyet esası kavramına da aykırıdır. VUK m.313 amortismanı zorunlu kılarken, temel ihlal \u0027nakit çıkışı ilk yılda oldu\u0027 gerekçesinin muhasebe kavramlarıyla uyumsuz olmasıdır. Dönemsellik (B) teknik olarak doğru olmakla birlikte, daha temel ihlal maliyet esasıdır (E). Çünkü nakit esasına göre değil, eşleştirme ilkesine göre maliyetin ilişkili dönemlere dağıtılması gerekmektedir. Bu da maliyet esasının özüdür. İşaretli cevap kısmen savunulabilir görünse de (dönemsellik ihlali vardır), daha güçlü ve maliyet muhasebesi açısından asıl ihlal maliyet esasıdır."
+                    }
+                ]
 }
