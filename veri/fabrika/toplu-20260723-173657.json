@@ -493,9 +493,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Soru denetim (cutoff) testi hakkında olup, gelirin doğru dönemde kaydedilmesini sormuştur. VUK m.19'a göre vergiyi doğuran olay satışta 'teslimat' değil 'fatura düzenleme'dir. Ancak TFRS 15 ve muhasebe ilkeleri açısından gelir muhasebeleştirmesi teslimat ile başlar. Kesim testi özellikle gelirin DOĞRU DÖNEMİN SON GÜNLERİNDE kaydedilip edilmediğini kontrol eder. Bu durumda 31 Aralık sevkiyatı - 2 Ocak faturası tipik kesim testinde incelenen durumdur. Vergi açısından VUK m.19 faturaya bağlı olsa da, muhasebe (TFRS) açısından cevap 'A' kısmen doğru görünürse de, denetçi kesim testinde 'teslimat' ve 'fatura' arasındaki farkı değerlendirir. Sorunun çerçevesinde 'A' tekil cevap değildir; kontekst eksiktir. TFRS 15'e göre teslimat yeterli olup fatura gerekli değildir."
     },
     {
       "id": "4e148316",
@@ -1101,9 +1103,10 @@
       ],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=B, sebep=Sayım fazlası (30 parça × 200 TL = 6.000 TL) henüz nedeni araştırılmamış olağandışı bir olaydır. TMS 2/VUK m.186'ya göre sayım fazlaları kaydedilir, ancak nedeni bilinmeyen fazlalar 679 Diğer Olağandışı Gelir ve Kârlar hesabına kaydedilmelidir. 397 hesabı geçici/bekleme hesabı olup, bu şekilde kullanım hatalıdır. Seçenek E'de 397 hesabı muhasebeleştirilmiş sayılmakta, bu da eksik/hatalı muhasebedir."
     },
     {
       "id": "82e5379b",
@@ -3284,9 +3287,10 @@
       ],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "47dfc777",
@@ -4710,9 +4714,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "7eed4319",
@@ -5985,9 +5990,10 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=D, sebep=Başlangıç günü hariç, bitiş günü dahil sayıldığında: Ağustos 27-31 (5 gün) + Eylül 1-9 (9 gün) = 14 gün değil, 15 gündür. İşaretli C cevabı (14 gün) yanlıştır. Doğru cevap D (15 gün)."
     },
     {
       "id": "adf37b09",
@@ -7599,9 +7605,11 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "TMS 21 Md.23(b) sabit kıymetler için işlem tarihindeki kuru belirtir ve bu açıdan işaretli cevap teknik olarak doğrudur. ANCAK soru 'raporlama dönemi sonunda' çevirirken hangi kur kullanılmalı diye sorar. Tarihi maliyet esasında ilk kaydedilen tutar değişmez (işlem tarihi kuru kalır), ancak raporlama dönemi sonunda finansal tablo sunumunda dönem sonu kapanış kuru kullanılarak yeniden ifade edilmesi gerekir. Madde 23(b) kayıt anını, Madde 30 ise sunum anını düzenler. Mevzuatta bu detay netleştirilmediğinden, soru formülasyonu ambigüdür ve işaretli cevap yarım doğru, tam doğru değildir."
     },
     {
       "id": "07e66d43",
@@ -8062,9 +8070,11 @@
       "yevmiye": null,
       "ambar": "dil-icerik",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay-ifade-notu",
+      "ifadeNotu": "Sorunun kendisi matematik problemdir ve Türkiye SMMM/mali müşavirlik sınavı kapsamı dışındadır. Bu bir yaş problemi olup muhasebe, vergi, denetim mevzuatı ile ilgisi yoktur. Soru içeriğinin uygunluğu tartışılmalıdır. Ancak matematiksel çözüm kontrol edilirse: Mehmet=x, Ayşe=x+3; (x+5)+(x+3+5)=49 → 2x+13=49 → x=18 olup seçenek B matematiksel olarak doğrudur. Fakat sınav türü ve konu uyum sorunu nedeniyle gecerli=false."
     },
     {
       "id": "552009b2",
@@ -10713,9 +10723,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "63bbbee1",
@@ -12696,9 +12707,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "f0a954a8",
@@ -12912,9 +12924,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=C haiku=A, sebep=3568 Kanun m.49/f.1 uyarınca mazeretsiz olarak mesleki görevleri ihmal eden SMMM'ye 'geçici olarak mesleki faaliyetten men' cezası uygulanır. Aylarca sürüncemede bırakma ve müşteri şikayeti, basit ihmal değil ağır ihmaldir. Kınama (C) çok hafif bir cezadır ve bu somut olayın ağırlığına uymaz. Doğru cevap A'dır."
     },
     {
       "id": "8d2601f6",
@@ -16145,9 +16158,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=C, sebep=Faaliyet kârı hesaplaması: Net Satışlar (500.000) - Satışların Maliyeti (300.000) - PSDG (40.000) - GYG (30.000) = 130.000 TL. Ancak kur farkı geliri 15.000 TL 'Diğer Faaliyetlerden Olağan Gelir ve Kârlar' kategorisinde olup, faaliyet kârının bileşeni DEĞİLDİR. MSUGT'e göre faaliyet kârı = 130.000 TL olmalıdır. E şıkkının 130.000 göstermesi tesadüfi doğru sayılsa da, mantık hatası vardır: Eğer kur farkı dahil edilirse 130.000 + 15.000 = 145.000 (D şıkkı) olur. Soruda 'faaliyet kârı' tanımı muğlak bırakılmış; standart MSUGT uygulamasında faaliyet kârı = 130.000 TL'dir ve kur farkı dışarıdadır. Sorunun mevzuat uygulanışı hatalıdır."
     },
     {
       "id": "26e430f4",
@@ -16579,9 +16593,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=D haiku=B, sebep=4857 IK m.4/a'ya göre deniz taşıma işleri kapsamı dışındadır. Ancak gemi adamları Deniz İş Kanunu'na tabidir. Seçenek D yanlıştır: tonilato sınırı (80 groston) İK istisnasını değiştirmez. Gemi adamları her durumda DIK kapsamına girer. B seçeneği Türk mevzuatına uygun ve savunulabilir."
     },
     {
       "id": "e8181a69",
@@ -17710,9 +17725,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "karantina",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "redSebep": "katman2-haiku: cevap-anlasmazligi, dogru=E haiku=B, sebep=159 Verilen Sipariş Avansları, sabit kıymet satın alınması öncesinde ödenen avansları izlemek için doğru hesaptır. 259 Verilen Avanslar ise faaliyet giderleri ile ilgili avanslar (malzeme, hizmet vb.) için kullanılır. Makine teslim alındığında 159'dan 253'e transfer edilir. Türk Muhasebe Sistemi'nde sipariş avansı 159'da izlenmesi standarttır."
     },
     {
       "id": "d8aa62ae",
@@ -17761,9 +17777,10 @@
       ],
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "f7e1d4df",
@@ -18952,9 +18969,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "d1c698b1",
@@ -19449,9 +19467,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "a605680d",
@@ -20845,9 +20864,10 @@
       "yevmiye": null,
       "ambar": "ok",
       "uretim": "23.07.2026",
-      "durum": "katman1-temiz",
+      "durum": "paket-havuzu",
       "gmDenetim": "gecti-katman1",
-      "karistirildi": true
+      "karistirildi": true,
+      "katman2": "haiku-onay"
     },
     {
       "id": "ca2ed634",
