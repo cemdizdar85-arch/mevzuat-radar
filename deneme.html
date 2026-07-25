@@ -628,9 +628,18 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 function g(id){ return document.getElementById(id); }
 async function kasaYukle(user){
-  var r = await sb.from('soru_havuzu').select('*');
-  if(r.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + r.error.message; return; }
-  var kasa = r.data || [];
+  // 25.07 KRITIK: PostgREST tek istekte en fazla 1.000 satir verir - kasa binlerceyken
+  // uye yalniz 1.000 soru goruyordu (Cem'in ekranindaki '1008' bu tavandi). SAYFALI cekim:
+  var kasa = [], bas = 0;
+  while(true){
+    var r = await sb.from('soru_havuzu').select('*').range(bas, bas + 999);
+    if(r.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + r.error.message; return; }
+    var dilim = r.data || [];
+    kasa = kasa.concat(dilim);
+    if(dilim.length < 1000){ break; }
+    bas += 1000;
+    if(bas > 30000){ break; }
+  }
   if(!kasa.length){
     g('uyeHata').textContent = 'Hesabında aktif paket görünmüyor. Yeni aldıysan birkaç dakika içinde açılır; sorun sürerse iletişim sayfasından yaz — hemen bakarız.';
     return;

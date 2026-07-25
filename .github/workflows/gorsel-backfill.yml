@@ -29,13 +29,19 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: ./motor/gorsel-backfill.ps1
+        # 25.07: cikti her durumda dosyaya (kirmizi kosu logu admin-only - tani icin sart)
+        run: |
+          $cikti = ./motor/gorsel-backfill.ps1 2>&1 | Out-String
+          $kod = $LASTEXITCODE
+          Write-Host $cikti
+          "SON KOSU $(Get-Date -Format 'dd.MM HH:mm') exit=$kod`n$cikti" | Out-File veri/gorsel-backfill-son-log.txt -Encoding utf8
+          exit $kod
       - name: Raporu kaydet
         if: always()
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add veri/gorsel-backfill-rapor.json 2>/dev/null || true
+          git add veri/gorsel-backfill-rapor.json veri/gorsel-backfill-son-log.txt 2>/dev/null || true
           if git diff --cached --quiet; then echo "rapor degisiklik yok"; exit 0; fi
           git commit -m "Gorsel backfill raporu"
           for i in 1 2 3 4 5; do git pull --rebase origin main && git push && exit 0; sleep 12; done

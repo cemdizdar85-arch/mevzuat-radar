@@ -118,3 +118,5 @@ $g2 += $ozet
 [IO.File]::WriteAllText($rp, ($g2 | ConvertTo-Json -Depth 5), $enc)
 Write-Host ("TAMAM: {0} soruya gorsel tablo islendi." -f $yazilan)
 exit 0
+
+# tani-turu tetigi 25.07
