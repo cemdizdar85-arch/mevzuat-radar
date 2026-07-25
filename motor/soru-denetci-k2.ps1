@@ -126,6 +126,16 @@ SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep"
       $mesaj = "$($_.Exception.Message)"
       if($tanilar.Count -lt 5){ $tanilar += $mesaj }
       if($mesaj -match 'GEMINI_KOTA'){ Write-Host "Gemini kotasi doldu - Haiku yedegine geciliyor."; $script:geminiOlmez=$true; continue }
+      # 25.07 teshisi: Haiku 429 = ANLIK yogunluk (dalga+backfill ayni dakika) - kalici hata DEGIL.
+      # Kademeli bekle ve ayni soruyu yeniden dene; hata sayacina yazma (5-hata freni tetiklenmesin).
+      if($script:geminiOlmez -and $mesaj -match '429|Too Many'){
+        $script:y429 = 1 + [int]$script:y429
+        if($script:y429 -ge 40){ Write-Host "429 40 kez - hat cok dolu, bu kosu birakiyor (sonraki cron devam eder)."; $kotaBitti=$true; break }
+        $bek = [Math]::Min(120, 10 * $script:y429)
+        Write-Host ("Haiku 429 - {0} sn beklenip yeniden denenecek" -f $bek)
+        Start-Sleep -Seconds $bek
+        continue
+      }
       if($mesaj -match 'HAIKU_TAVAN'){ Write-Host "Haiku gece tavani doldu - durduruldu (yarin devam)."; $kotaBitti=$true; break }
       if($mesaj -match 'YEDEK_YOK'){ Write-Host "Gemini yok, ANTHROPIC yedegi de yok - durduruldu."; $kotaBitti=$true; break }
       $hata++
