@@ -1,5 +1,7 @@
 {
-  "guncelleme": "2026-07-21 10:10",
+  "guncelleme": "2026-07-25 09:10",
+  "olusma": "gece-ajani",
+  "alan": "KDV & tevkifat & iade",
   "kayitlar": [
     {
       "id": "devreden-kdv-nedir-iade-alinir-mi",
@@ -8,8 +10,38 @@
       "cevap": "Bir dönemde hesapladığınız KDV, o dönem indirebileceğiniz KDV'den az kalırsa aradaki fark bir sonraki aya 'devreden KDV' (henüz mahsup edilememiş indirim tutarı) olarak taşınır. Bu tutar kural olarak nakden iade edilmez, yalnızca sonraki dönemlerde hesaplanan KDV'den düşülür. İhracat, tevkifat, indirimli oranlı teslim gibi kanunda sayılan istisna işlemlerden kaynaklanan kısım için ise iade istenebilir. Beyannamede devreden KDV ile iadeye konu kısım ayrı satırlarda gösterilir.",
       "kaynak": "3065 KDVK m.29, KDVGUT III",
       "arac": "kdv-iade-rehberi.html"
+    },
+    {
+      "id": "kismi-kdv-tevkifati-hangi-islemlerde-uyg",
+      "konu": "Kısmi KDV tevkifatı hangi işlemlerde uygulanır",
+      "anahtar": "kısmi tevkifat hizmet teslim listesi kapsam",
+      "cevap": "Kısmi tevkifat (KDV'nin bir kısmının alıcı tarafından kesilip vergi dairesine yatırılması), Tebliğ'de tek tek sayılan yapım işleri, temizlik, özel güvenlik, danışmanlık, yemek servisi gibi hizmetlerde ve hurda metal, plastik, kağıt gibi bazı mal teslimlerinde uygulanır. Bu liste sınırlıdır; listede olmayan bir mal veya hizmette tevkifat yapılmaz. Hangi işlemin listede olduğunu ve güncel tevkifat oranını fatura kesmeden önce mutlaka kontrol etmek gerekir. Liste ve oranlar zaman zaman değiştiği için güncel halini ilgili araçtan teyit et.",
+      "kaynak": "KDVGUT IV/C (Kısmi Tevkifat Uygulanacak Hâller ve Oranlar)",
+      "arac": "kdv-iade-rehberi.html"
+    },
+    {
+      "id": "kismi-tevkifatli-islemde-fatura-kdv-si-n",
+      "konu": "Kısmi tevkifatlı işlemde fatura KDV'si nasıl gösterilir",
+      "anahtar": "tevkifatlı fatura kdv gösterimi tutar hesabı",
+      "cevap": "Kısmi tevkifat uygulanan işlemde satıcı, faturaya malın/hizmetin bedelini ve hesaplanan KDV'nin tamamını yazar; ayrıca faturada tevkifat oranı ve tevkif edilecek tutar da gösterilir. Alıcı, KDV'nin tevkifata tabi kısmını satıcıya ödemez, bu kısmı kendisi 2 No'lu KDV Beyannamesi ile doğrudan vergi dairesine öder; kalan (tevkif edilmeyen) KDV kısmı ise satıcıya ödenir. Satıcı, kestiği faturanın tamamı üzerinden 1 No'lu KDV beyannamesinde beyanda bulunur ve tevkif edilen kısmı da bu beyannamede gösterip alıcının ödediği tutarla eşleştirir. Hangi tutarın kime ödeneceği faturada net görünmelidir.",
+      "kaynak": "KDVGUT IV/A-B (Tevkifat Uygulamasında Genel Esaslar ve Beyan)",
+      "arac": "kdv-iade-rehberi.html"
+    },
+    {
+      "id": "tus-ve-h-s-nedir-kdv-iadesini-nasil-hizl",
+      "konu": "İTUS ve HİS nedir, KDV iadesini nasıl hızlandırır",
+      "anahtar": "itus his hızlandırılmış iade indirimli teminat sistemi",
+      "cevap": "İTUS (İndirimli Teminat Uygulama Sistemi) ve HİS (Hızlandırılmış İade Sistemi), belirli ciro, öz sermaye ve vergi ödeme şartlarını sağlayan mükelleflere Tebliğ'de tanınan özel sertifikalardır. Bu sertifikaya sahip mükellefler, KDV iadelerini daha az teminatla (İTUS) veya vergi inceleme raporu beklenmeden çok daha hızlı şekilde (HİS) alabilir. Sertifika almak için başvuru yapılması ve şartların her yıl yeniden kontrol edilmesi gerekir. Şartlardaki rakamsal eşikler (ciro, sermaye vb.) periyodik değiştiği için güncel tutarları ilgili araçtan teyit et.",
+      "kaynak": "KDVGUT V. Kısım (İTUS ve HİS Uygulaması)",
+      "arac": "kdv-iade-rehberi.html"
+    },
+    {
+      "id": "devreden-kdv-ile-iade-edilecek-kdv-arasi",
+      "konu": "Devreden KDV ile iade edilecek KDV arasındaki fark nedir",
+      "anahtar": "devreden kdv iade edilecek kdv fark indirim",
+      "cevap": "Devreden KDV, bir dönemde indirilecek KDV'nin hesaplanan KDV'den fazla olması durumunda ortaya çıkan ve bir sonraki döneme aktarılarak indirim yoluyla giderilmeye çalışılan tutardır; bu tutar normal şartlarda nakit olarak geri alınamaz. İade edilecek KDV ise sadece tam istisna (ihracat gibi), bazı kısmi istisnalar veya tevkifat gibi kanunun özel olarak izin verdiği hallerde doğar ve mükellef bunu nakden ya da mahsuben talep edebilir. Yani her devreden KDV iade edilebilir anlamına gelmez; iade hakkı ancak kanunda sayılan işlemlerden doğar. Hangi işlemin iade hakkı doğurduğunu kontrol etmeden iade talebinde bulunulmamalıdır.",
+      "kaynak": "3065 KDVK m.29; KDVGUT V. Kısım (KDV İadesinde Ortak Hususlar)",
+      "arac": "kdv-iade-rehberi.html"
     }
-  ],
-  "alan": "KDV & tevkifat & iade",
-  "olusma": "gece-ajani"
+  ]
 }
