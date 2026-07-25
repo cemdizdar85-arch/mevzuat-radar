@@ -157,6 +157,15 @@ foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Propertie
 $aS = Join-Path $kok "veri/smmm-analiz.json"
 if(Test-Path $aS){ try { $x2 = Get-Content $aS -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($dn in @($x2.donemler)){ foreach($p in $dn.konuSayim.PSObject.Properties){ $konular["SMMM|"+$p.Name]=[int]$konular["SMMM|"+$p.Name]+[int]$p.Value } } } catch {} }
 function KonuHedefi($agirlik){ return [Math]::Min(120, [Math]::Max(15, [int][Math]::Round($agirlik * 3))) }
+# 25.07 Cem tespiti ("Finansal/Maliyet Muhasebesi cok az"): Yeterlilik haritasi henuz tek
+# donemlik (2026/1; 33 tarihi kitapcik analizi kuyrukta) - agirliklar dusuk kaldigi icin
+# SMMM dersleri cilizdi. Gecici taban: SMMM konularinda hedef en az 45 (analiz genisleyince
+# agirlik dogal olarak devralir, taban etkisiz kalir).
+function KonuHedefiSinavli($sinav, $agirlik){
+  $h = KonuHedefi $agirlik
+  if($sinav -eq 'SMMM'){ return [Math]::Max(45, $h) }
+  return $h
+}
 $tumSorular = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika)
 $bankaSay=@{}
 foreach($s in $tumSorular){ $kk="$($s.ders)|$($s.konu)"; $bankaSay[$kk]=1+[int]$bankaSay[$kk] }
@@ -189,7 +198,7 @@ foreach($h in $hedefListe){
   $parca = $h.Key -split '\|'; $sinavAd=$parca[0]; $ders=$parca[1]; $konu=$parca[2]
   $konuAnahtar = "$ders|$konu"
   $mevcut = [int]$bankaSay[$konuAnahtar]
-  $hedef = KonuHedefi $h.Value
+  $hedef = KonuHedefiSinavli $sinavAd $h.Value
   $eksik = [Math]::Min($KONU_GECE_TAVANI, $hedef - $mevcut)
   if($eksik -le 0){ continue }
   $gorevSayisi = [Math]::Ceiling($eksik / $ADET)
