@@ -120,3 +120,4 @@ Write-Host ("TAMAM: {0} soruya gorsel tablo islendi." -f $yazilan)
 exit 0
 
 # tani-turu tetigi 25.07
+# tani-2 18:24
