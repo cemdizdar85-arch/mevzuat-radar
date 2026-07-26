@@ -148,7 +148,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     </div>
     <div id="gecmisKutu" class="gizli">
       <h2>📈 Önceki oturumların</h2>
-      <div class="tablosar"><table id="gecmisTablo"><tr><th>Tarih</th><th>Soru</th><th>Doğru</th><th>Başarı</th></tr></table></div>
+      <div class="tablosar"><table id="gecmisTablo"><tr><th>Tarih</th><th>Sınav</th><th>Soru</th><th>Doğru</th><th>Başarı</th></tr></table></div>
       <div style="font-size:11px;color:var(--dim);margin-top:6px">Geçmiş yalnız bu cihazda tutulur (tarayıcı hafızası). Üyelikle cihazlar arası istatistik yolda.</div>
     </div>
   </div>
@@ -576,7 +576,7 @@ function karneCiz(){
   }
   try{
     var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
-    g.push({t:new Date().toISOString().slice(0,10),n:SORULAR.length,d:dogru,y:yanlis});
+    g.push({t:new Date().toISOString().slice(0,10),n:SORULAR.length,d:dogru,y:yanlis,s:SINAV});
     if(g.length>50) g=g.slice(-50);
     localStorage.setItem('mrDenemeGecmis',JSON.stringify(g));
   }catch(e){}
@@ -592,7 +592,8 @@ function gecmisCiz(){
     g.slice(-8).reverse().forEach(function(o){
       var cevapli=o.d+o.y, p=cevapli?Math.round(100*o.d/cevapli):0;
       var tr=document.createElement('tr');
-      tr.innerHTML='<td>'+esc(o.t)+'</td><td>'+o.n+'</td><td>'+o.d+'</td><td><b>%'+p+'</b></td>';
+      var se = (o.s==='SGS')?'🎯 SGS':(o.s==='SMMM')?'🎓 Yeterlilik':(o.s==='hepsi')?'📚 Karma':'—';
+      tr.innerHTML='<td>'+esc(o.t)+'</td><td>'+se+'</td><td>'+o.n+'</td><td>'+o.d+'</td><td><b>%'+p+'</b></td>';
       t.appendChild(tr);
     });
   }catch(e){}
