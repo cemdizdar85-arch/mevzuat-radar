@@ -213,6 +213,20 @@ var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SINAV='hepsi', SORU_T0=0, SU
 // 24.07 Cem: "giris mi bitirme mi nasil anlayacagiz" - sinav filtresi (soru.sinav: SGS/SMMM; etiketsiz eskiler her ikisinde gorunur)
 function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
 
+// 27.07 PAKET KILIDI (Cem/UWorld modeli): sgs paketi yalniz SGS sekmesini,
+// yeterlilik paketi yalniz Yeterlilik sekmesini gorur; 'tam' hepsini gorur.
+window.paketKilidiUygula = function(paket){
+  var ss = document.getElementById('sinavSec'); if(!ss) return;
+  var izin = { 'sgs':'SGS', 'yeterlilik':'SMMM' }[paket];
+  if(!izin) return;  // tam / bilinmeyen -> serbest
+  ss.querySelectorAll('.sec').forEach(function(b){
+    if(b.dataset.sinav === izin){ b.classList.add('aktif'); b.style.display=''; }
+    else { b.classList.remove('aktif'); b.style.display='none'; }
+  });
+  SINAV = izin;
+  kurulumCiz();
+};
+
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // üye modülü (sayfa sonundaki module script) banka yüklendikten sonra devreye girer
@@ -629,6 +643,15 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 function g(id){ return document.getElementById(id); }
 async function kasaYukle(user){
+  // 27.07 PAKET AYRIMI (Cem/UWorld modeli): SGS paketi yalniz SGS'yi, Yeterlilik paketi
+  // yalniz Yeterlilik'i gorur; 'tam' (veya eski/etiketsiz kayit) ikisini gorur.
+  // Asil kilit RLS'dedir (DB, paket-disi satiri hic vermez); bu blok UI'yi da hizalar.
+  var paket = 'tam';
+  try {
+    var pr = await sb.from('paket_uyeler').select('paket').eq('user_id', user.id).limit(1);
+    if(pr.data && pr.data.length && pr.data[0].paket){ paket = ('' + pr.data[0].paket).toLowerCase(); }
+  } catch(e) {}
+  window.UYE_PAKET = paket;
   // 25.07 KRITIK: PostgREST tek istekte en fazla 1.000 satir verir - kasa binlerceyken
   // uye yalniz 1.000 soru goruyordu (Cem'in ekranindaki '1008' bu tavandi). SAYFALI cekim:
   var kasa = [], bas = 0;
@@ -648,6 +671,8 @@ async function kasaYukle(user){
   var mevcut = {}; BANKA.forEach(function(s){ mevcut[s.id] = 1; });
   kasa.forEach(function(s){ if(!mevcut[s.id]) BANKA.push(s); });
   window.UYE_MODU = true;
+  // paket kilidi: sinav secici pakete gore daraltilir (tam paket serbest)
+  if(typeof window.paketKilidiUygula === 'function'){ window.paketKilidiUygula(paket); }
   g('uyeKapali').classList.add('gizli');
   g('uyeAcik').classList.remove('gizli');
   g('uyeAd').textContent = (user && user.email) || 'üye';
