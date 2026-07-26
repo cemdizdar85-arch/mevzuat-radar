@@ -150,7 +150,7 @@ if($env:SUPABASE_SERVICE_KEY){
 }
 
 # ---- hedef konular (agirlikli derinlik) ----
-$DIL_DERSLER = @('Yabanci Dil','Genel Kultur-Genel Yetenek')   # 23.07 Cem: GK+YD ACILDI; mevzuat teyidi yerine dil-icerik kurali
+$DIL_DERSLER = @('Yabanci Dil','Genel Kultur-Genel Yetenek','Matematik-Istatistik')   # 23.07 Cem: GK+YD ACILDI; 27.07 GM: Matematik eklendi (mevzuat maddesi olmayan ders - teyit kapisi tum matematik sorularini eliyordu, kasada 0 Matematik cikti); teyit yerine dil-icerik kurali + K1/K2 + GM denetimi
 $konular=@{}
 foreach($dn in $analiz.donemler){ foreach($p in $dn.konuSayim.PSObject.Properties){
   $konular["SGS|"+$p.Name]=[int]$konular["SGS|"+$p.Name]+[int]$p.Value } }   # 23.07: GK+YD dahil (Cem karari)
