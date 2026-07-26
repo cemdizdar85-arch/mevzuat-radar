@@ -1,11 +1,26 @@
-HATA: Invoke-RestMethod: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/ders-remap.ps1:101
-Line |
- 101 |      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu? …
-     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     |  {   "code": "23502",   "details": "Failing row contains (000617ca,
-     | null, Finansal Muhasebe, null, null, null, null, null, null, null, null,
-     | null, 2026-07-26 23:54:22.782061\u002B00, null, null).",   "hint": null,
-     | "message": "null value in column \u0022sinav\u0022 of relation
-     | \u0022soru_havuzu\u0022 violates not-null constraint" }
-
+Kasa: 4290 soru
+Remap edilecek: 2896
+  Turkce: 531
+  Denetim: 477
+  Finansal Muhasebe: 457
+  Is ve Sosyal Guvenlik Hukuku: 274
+  Borclar Hukuku: 248
+  Ticaret Hukuku: 247
+  Vergi Hukuku: 197
+  Meslek Hukuku: 185
+  Maliyet Muhasebesi: 105
+  Ataturk Ilke ve Inkilap Tarihi: 93
+  Mali Tablolar Analizi: 82
+PATCH Ataturk Ilke ve Inkilap Tarihi: 93 soru
+PATCH Borclar Hukuku: 248 soru
+PATCH Denetim: 477 soru
+PATCH Finansal Muhasebe: 457 soru
+PATCH Is ve Sosyal Guvenlik Hukuku: 274 soru
+PATCH Mali Tablolar Analizi: 82 soru
+PATCH Maliyet Muhasebesi: 105 soru
+PATCH Meslek Hukuku: 185 soru
+PATCH Ticaret Hukuku: 247 soru
+PATCH Turkce: 531 soru
+PATCH Vergi Hukuku: 197 soru
+TAMAM: 2896 soru resmi derse tasindi.
 
