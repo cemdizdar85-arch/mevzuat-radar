@@ -91,17 +91,24 @@ foreach($s in $hepsi){
 Write-Host ("Remap edilecek: {0}" -f $updates.Count)
 $sayim.GetEnumerator() | Sort-Object Value -Descending | ForEach-Object { Write-Host ("  {0}: {1}" -f $_.Key, $_.Value) }
 
-# 3) parti parti upsert (yalniz id+ders)
+# 3) ders basina PATCH (gercek UPDATE — kismi kolonlu upsert NOT NULL kolonlara
+#    takilir: ON CONFLICT guncellemeye donmeden once eksik satir INSERT diye
+#    denetlenir, 23502 firlatir. 26.07 kosusu dersi.)
 $y=0
 if($updates.Count -gt 0){
-  $HU = @{ apikey=$KEY; Authorization="Bearer $KEY"; Prefer="resolution=merge-duplicates,return=minimal" }
-  for($i=0; $i -lt $updates.Count; $i += 200){
-    $dilim = @($updates[$i..([Math]::Min($i+199, $updates.Count-1))])
-    $g = ConvertTo-Json -InputObject $dilim -Depth 4
-    Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" -Headers $HU `
-      -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($g)) -TimeoutSec 120 | Out-Null
-    $y += $dilim.Count
-    Write-Host ("upsert: {0}/{1}" -f $y, $updates.Count)
+  $HP = @{ apikey=$KEY; Authorization="Bearer $KEY"; Prefer="return=minimal" }
+  $gruplar = $updates | Group-Object { $_.ders }
+  foreach($gr in $gruplar){
+    $ids = @($gr.Group | ForEach-Object { $_.id })
+    $govde = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @{ ders = $gr.Name } -Compress))
+    for($i=0; $i -lt $ids.Count; $i += 200){
+      $dilim = @($ids[$i..([Math]::Min($i+199, $ids.Count-1))])
+      $filtre = "id=in.(" + (($dilim | ForEach-Object { '"' + $_ + '"' }) -join ',') + ")"
+      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/soru_havuzu?$filtre" -Headers $HP `
+        -ContentType "application/json; charset=utf-8" -Body $govde -TimeoutSec 120 | Out-Null
+      $y += $dilim.Count
+    }
+    Write-Host ("PATCH {0}: {1} soru" -f $gr.Name, $ids.Count)
   }
 }
 

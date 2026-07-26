@@ -102,15 +102,21 @@ foreach($ln in $satirlar){
   } catch { $bozuk++ }
 }
 Write-Host ("Uretilen tablo: {0} | tanim(null): {1} | bozuk: {2}" -f $upsertler.Count, $nullSayisi, $bozuk)
-$HU = @{ apikey=$KEY; Authorization="Bearer $KEY"; Prefer="resolution=merge-duplicates,return=minimal" }
-for($i=0; $i -lt $upsertler.Count; $i += 200){
-  $dilim = @($upsertler[$i..([Math]::Min($i+199, $upsertler.Count-1))])
-  $g = ConvertTo-Json -InputObject $dilim -Depth 8
-  Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" -Headers $HU `
-    -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($g)) -TimeoutSec 120 | Out-Null
-  $yazilan += $dilim.Count
-  Write-Host ("upsert parti: {0}/{1}" -f $yazilan, $upsertler.Count)
+# satir satir PATCH (gercek UPDATE) — kismi kolonlu upsert NOT NULL kolonlara
+# takilir (23502: ON CONFLICT'ten once eksik satir INSERT diye denetlenir; 26.07 dersi)
+$HP = @{ apikey=$KEY; Authorization="Bearer $KEY"; Prefer="return=minimal" }
+foreach($u in $upsertler){
+  $g = ConvertTo-Json -InputObject @{ tablo = $u.tablo } -Depth 8 -Compress
+  try{
+    Invoke-RestMethod -Method Patch -Uri ("$SB_URL/rest/v1/soru_havuzu?id=eq." + $u.id) -Headers $HP `
+      -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($g)) -TimeoutSec 60 | Out-Null
+    $yazilan++
+  } catch {
+    Write-Host ("PATCH hata ({0}): {1}" -f $u.id, $_.Exception.Message)
+  }
+  if($yazilan % 200 -eq 0){ Write-Host ("PATCH: {0}/{1}" -f $yazilan, $upsertler.Count) }
 }
+Write-Host ("PATCH tamam: {0}/{1}" -f $yazilan, $upsertler.Count)
 
 # 6) rapor
 $ozet = [ordered]@{ calisti=(Get-Date -Format "dd.MM.yyyy HH:mm"); taranan=$hepsi.Count; aday=$adaylar.Count; tablo_yazilan=$yazilan; tanim_null=$nullSayisi; bozuk=$bozuk; batch=$b.id }
