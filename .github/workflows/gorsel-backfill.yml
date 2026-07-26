@@ -1,4 +1,4 @@
-# .github/workflows/gorsel-backfill.yml — GORSEL BACKFILL (Batch %50)
+﻿# .github/workflows/gorsel-backfill.yml — GORSEL BACKFILL (Batch %50)
 # Kasadaki tablosuz analiz sorularina exhibit tablosu uretir (Cem 24.07:
 # "hepsinde olsun"). Push (script degisince) + gunluk gece kosusu.
 name: Gorsel Backfill
@@ -31,7 +31,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         # 25.07: cikti her durumda dosyaya (kirmizi kosu logu admin-only - tani icin sart)
         run: |
-          $cikti = ./motor/gorsel-backfill.ps1 2>&1 | Out-String
+          $cikti = ./motor/gorsel-backfill.ps1 *>&1 | Out-String
           $kod = $LASTEXITCODE
           Write-Host $cikti
           "SON KOSU $(Get-Date -Format 'dd.MM HH:mm') exit=$kod`n$cikti" | Out-File veri/gorsel-backfill-son-log.txt -Encoding utf8

@@ -45,26 +45,53 @@ SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep"
 Write-Host ("K2 adayi: {0}" -f $adaylar.Count)
 if($adaylar.Count -eq 0){ Write-Host "Denetlenecek soru yok."; exit 0 }
 
-# 2) tek batch gonder (%50, Haiku)
-$istekler = @($adaylar | ForEach-Object { @{ custom_id=$_.id; params=@{ model=$MODEL; max_tokens=400; messages=@(@{ role='user'; content=$_.istem }) } } })
-$govde = @{ requests = $istekler } | ConvertTo-Json -Depth 8
-$b = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages/batches" `
-      -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } `
-      -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 300
-Write-Host ("Batch gonderildi: {0} ({1} gorev)" -f $b.id, $istekler.Count)
-
-# 3) poll (240 dk tavan)
-$bekleme=0
-while($true){
-  Start-Sleep -Seconds 60
-  $bekleme++
-  $d = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($b.id)" `
-        -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 60
-  if($d.processing_status -eq 'ended'){ break }
-  if($bekleme -ge 240){ Write-Host "Poll tavani - batch surse de kosu birakiyor (sonraki cron yeni batch acar)."; exit 0 }
+# 2) HAZIR BATCH DEVRALMA (26.07 kesfi: onceki kosu batch'i basariyla isletti ama sonuc
+# indirme bayt-dizisi bug'iyla coptu - kararlar Anthropic'te 29 gun hazir duruyor;
+# ayni adaylar icin YENIDEN ODEME YAPMA, once eski batch'i dene):
+$b = $null
+try {
+  $rpEski = Get-Content (Join-Path $kok "veri/soru-denetci-rapor.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+  $sonK = @($rpEski) | Select-Object -Last 1
+  if($sonK.batch -and [int]$sonK.islenen -eq 0){
+    $eb = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($sonK.batch)" `
+          -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 60
+    if($eb.processing_status -eq 'ended'){ $b = $eb; Write-Host ("Hazir batch devralindi: {0}" -f $b.id) }
+  }
+} catch { Write-Host "Eski batch devralinamadi - yenisi acilacak." }
+if(-not $b){
+  $istekler = @($adaylar | ForEach-Object { @{ custom_id=$_.id; params=@{ model=$MODEL; max_tokens=400; messages=@(@{ role='user'; content=$_.istem }) } } })
+  $govde = @{ requests = $istekler } | ConvertTo-Json -Depth 8
+  $b = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages/batches" `
+        -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } `
+        -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 300
+  Write-Host ("Batch gonderildi: {0} ({1} gorev)" -f $b.id, $adaylar.Count)
 }
-$sonuclar = Invoke-WebRequest -Uri $d.results_url -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 600 -UseBasicParsing
-$satirlar = ($sonuclar.Content -split "`n") | Where-Object { $_.Trim() }
+
+# 3) poll (240 dk tavan; devralinan batch zaten ended ise atlanir)
+if($b.processing_status -ne 'ended'){
+  $bekleme=0
+  while($true){
+    Start-Sleep -Seconds 60
+    $bekleme++
+    $b = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($b.id)" `
+          -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 60
+    if($b.processing_status -eq 'ended'){ break }
+    if($bekleme -ge 240){ Write-Host "Poll tavani - sonraki kosu devralir (batch id raporda)."; break }
+  }
+}
+if($b.processing_status -ne 'ended'){
+  # rapora batch id'yi yaz ki sonraki kosu devralabilsin, sonra cik
+  $ozetY = [ordered]@{ calisti=(Get-Date -Format "dd.MM.yyyy HH:mm"); islenen=0; kasaya=0; karantina=0; hata=0; onayci='haiku-batch'; batch=$b.id; kalan_katman1_temiz=$adaylar.Count; not='poll tavani - devral' }
+  $rY = Join-Path $kok "veri/soru-denetci-rapor.json"; $gY=@(); if(Test-Path $rY){ try{ $gY=@(Get-Content $rY -Raw -Encoding UTF8 | ConvertFrom-Json) }catch{} }; $gY += $ozetY
+  [IO.File]::WriteAllText($rY, ($gY | ConvertTo-Json -Depth 6), $enc)
+  exit 0
+}
+# 26.07 BUG TAMIRI: .Content JSONL'de BAYT DIZISI donuyordu, split karakter-karakter
+# patliyordu (hata=2.6M!). Sonuc artik DOSYAYA indirilir, satirlar dosyadan okunur.
+$tmpf = Join-Path ([IO.Path]::GetTempPath()) "k2-results.jsonl"
+Invoke-WebRequest -Uri $b.results_url -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -OutFile $tmpf -TimeoutSec 600 -UseBasicParsing
+$satirlar = Get-Content $tmpf -Encoding UTF8 | Where-Object { $_.Trim() }
+Write-Host ("Sonuc satiri: {0}" -f @($satirlar).Count)
 
 # 4) kararlar haritasi
 $kararlar = @{}

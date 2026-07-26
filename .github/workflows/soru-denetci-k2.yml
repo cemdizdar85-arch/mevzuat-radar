@@ -1,4 +1,4 @@
-# .github/workflows/soru-denetci-k2.yml — SORU DENETCISI KATMAN-2 (bedava Gemini)
+﻿# .github/workflows/soru-denetci-k2.yml — SORU DENETCISI KATMAN-2 (bedava Gemini)
 # Katman-1'i gecen durum='katman1-temiz' sorulari bagimsiz Gemini ile icerik dogrular.
 # Gemini onayi -> paket-havuzu (kasaya hazir); suphe -> karantina (GM okumasina).
 # Gunluk free kotaya kadar isler, kalani ertesi gun. Push ile ilk kosu baslar.
@@ -35,7 +35,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         # 26.07: cikti HER durumda dosyaya (kirmizi kosu logu admin-only; 2dk'lik v2 cokusleri kordu)
         run: |
-          $cikti = ./motor/soru-denetci-k2.ps1 2>&1 | Out-String
+          $cikti = ./motor/soru-denetci-k2.ps1 *>&1 | Out-String
           $kod = $LASTEXITCODE
           Write-Host $cikti
           "SON KOSU $(Get-Date -Format 'dd.MM HH:mm') exit=$kod`n$cikti" | Out-File veri/k2-son-log.txt -Encoding utf8

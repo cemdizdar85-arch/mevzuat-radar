@@ -80,8 +80,10 @@ while($true){
   if($d.processing_status -eq 'ended'){ break }
   if($bekleme -ge 150){ Write-Host "Poll zaman asimi - batch devam ediyor, sonraki kosu alir."; exit 0 }
 }
-$sonuclar = Invoke-WebRequest -Uri $d.results_url -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 300 -UseBasicParsing
-$satirlar = ($sonuclar.Content -split "`n") | Where-Object { $_.Trim() }
+# 26.07 bug tamiri (K2 ile ayni): .Content bayt dizisi donuyordu - dosyaya indirilir
+$tmpf = Join-Path ([IO.Path]::GetTempPath()) "backfill-results.jsonl"
+Invoke-WebRequest -Uri $d.results_url -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -OutFile $tmpf -TimeoutSec 600 -UseBasicParsing
+$satirlar = Get-Content $tmpf -Encoding UTF8 | Where-Object { $_.Trim() }
 
 # 5) dogrula + upsert (yalniz id+tablo; parti parti)
 $yazilan=0; $nullSayisi=0; $bozuk=0
