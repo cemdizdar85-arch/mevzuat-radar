@@ -35,13 +35,19 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          ./motor/ders-remap.ps1 *>&1 | Out-String | Tee-Object -FilePath veri/ders-remap-son-log.txt
+          # tani sigortasi: hata olsa da log dosyasi OLUSUR ve sonraki adim commit'ler
+          try {
+            ./motor/ders-remap.ps1 *>&1 | Out-String | Set-Content -Path veri/ders-remap-son-log.txt
+          } catch {
+            "HATA: $($_ | Out-String)" | Set-Content -Path veri/ders-remap-son-log.txt
+            exit 1
+          }
 
       - name: Rapor ve log commit
         if: always()
         shell: pwsh
         run: |
-          git add veri/ders-remap-rapor.json veri/ders-remap-son-log.txt 2>$null
+          git add -A veri/
           git diff --cached --quiet
           if($LASTEXITCODE -ne 0){
             git commit -m "robot: ders remap raporu"
@@ -51,3 +57,4 @@ jobs:
               git pull --no-rebase -X ours; $n++
             }
           }
+          exit 0

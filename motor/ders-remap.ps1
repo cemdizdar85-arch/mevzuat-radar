@@ -48,11 +48,11 @@ $HUK_ESLEME = @(
 #     (resmi tabloda GK yalniz bu iki dersten olusur, catch-all guvenli).
 $INKILAP_DESEN = 'inkilap|ataturk|kurtulus|antlasma|lozan|sevr|mudanya|tbmm|cumhuriyet|milli mucadele|misak|erzurum|sivas|amasya|sakarya|dumlupinar|saltanat|hilafet|halifelik|tevhid|medeni kanun|harf devrimi|sapka|tekke|cephe'
 
-# 1) kasayi sayfali cek
+# 1) kasayi sayfali cek (limit/offset — Range basligi PS7 HttpClient'ta sorunlu)
 $hepsi = @(); $sayfa = 0
 while($true){
-  $hh = $H.Clone(); $hh['Range'] = "$($sayfa*1000)-$($sayfa*1000+999)"
-  $r = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu&order=id" -Headers $hh -TimeoutSec 60
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu&order=id&limit=1000&offset=$($sayfa*1000)"
+  $r = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 60
   $hepsi += @($r)
   if(@($r).Count -lt 1000){ break }
   $sayfa++; if($sayfa -gt 60){ break }
