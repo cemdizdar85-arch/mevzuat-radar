@@ -141,3 +141,4 @@ $gecmis += $ozet
 Write-Host "==== K2 v2 (BATCH) SONUC ===="
 Write-Host ("Islenen: {0} | Kasaya: {1} | Karantina: {2} | Hata: {3} | Kalan: {4}" -f $kararlar.Count,$gecti,$karantina,$hata,$kalan)
 exit 0
+# tani 08:26

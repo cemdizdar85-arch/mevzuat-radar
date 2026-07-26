@@ -29,12 +29,27 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-      - name: Bagimsiz icerik denetimi (Gemini)
+      - name: Bagimsiz icerik denetimi (batch)
         shell: pwsh
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: ./motor/soru-denetci-k2.ps1
+        # 26.07: cikti HER durumda dosyaya (kirmizi kosu logu admin-only; 2dk'lik v2 cokusleri kordu)
+        run: |
+          $cikti = ./motor/soru-denetci-k2.ps1 2>&1 | Out-String
+          $kod = $LASTEXITCODE
+          Write-Host $cikti
+          "SON KOSU $(Get-Date -Format 'dd.MM HH:mm') exit=$kod`n$cikti" | Out-File veri/k2-son-log.txt -Encoding utf8
+          exit $kod
+      - name: Tani dosyasini kaydet (kirmizida da)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/k2-son-log.txt 2>/dev/null || true
+          if git diff --cached --quiet; then echo "log yok"; else
+            git commit -m "K2 kosu logu (tani)"
+            for i in 1 2 3 4 5; do git pull --rebase origin main && git push && break; sleep 10; done
+          fi
       - name: Sonuclari kaydet (3-deneme push)
         run: |
           git config user.name "mevzuat-radar-bot"
