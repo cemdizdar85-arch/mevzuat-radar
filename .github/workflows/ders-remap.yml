@@ -1,0 +1,53 @@
+name: ders-remap
+# Kasadaki SGS sorularinin ders etiketini resmi TURMOB kirilimina oturtur.
+# Sozluk tabanli, API'siz (ucretsiz). Gunluk kosar ki yeni tasinan sorular da
+# resmi ders adini alsin.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 3 * * *"   # 06:37 TR
+  push:
+    paths:
+      - "motor/ders-remap.ps1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ders-remap
+  cancel-in-progress: false
+
+jobs:
+  remap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Git kimligi
+        run: |
+          git config user.name "tetikte-robot"
+          git config user.email "robot@tetikte.local"
+
+      - name: Ders remap
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/ders-remap.ps1 *>&1 | Out-String | Tee-Object -FilePath veri/ders-remap-son-log.txt
+
+      - name: Rapor ve log commit
+        if: always()
+        shell: pwsh
+        run: |
+          git add veri/ders-remap-rapor.json veri/ders-remap-son-log.txt 2>$null
+          git diff --cached --quiet
+          if($LASTEXITCODE -ne 0){
+            git commit -m "robot: ders remap raporu"
+            $n=0
+            while($n -lt 4){
+              git push; if($LASTEXITCODE -eq 0){ break }
+              git pull --no-rebase -X ours; $n++
+            }
+          }
