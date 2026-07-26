@@ -1,0 +1,11 @@
+HATA: Invoke-RestMethod: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/ders-remap.ps1:101
+Line |
+ 101 |      Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu? …
+     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     |  {   "code": "23502",   "details": "Failing row contains (000617ca,
+     | null, Finansal Muhasebe, null, null, null, null, null, null, null, null,
+     | null, 2026-07-26 23:54:22.782061\u002B00, null, null).",   "hint": null,
+     | "message": "null value in column \u0022sinav\u0022 of relation
+     | \u0022soru_havuzu\u0022 violates not-null constraint" }
+
+
