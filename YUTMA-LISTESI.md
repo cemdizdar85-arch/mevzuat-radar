@@ -1,5 +1,19 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 🔴 SIRADA — EKSİK TMS/TFRS SETİ (27.07.2026 GM tespiti: kitapçıklarda soru çıkıyor, ambarda YOK)
+*2023-2026 SGS kitapçıklarının elle okunmasında (GM) şu standartlardan gerçek soru çıktığı görüldü ama ambarda metinleri yok — GM elle okuyup (API'siz) ambara alacak; kaynak KGK Mavi Kitap:*
+- [ ] TMS 10 Raporlama Döneminden Sonraki Olaylar (2023/1, 2023/3, 2024/1'de soru)
+- [ ] TMS 29 Yüksek Enflasyonlu Ekonomiler (2023/1, 2024/1)
+- [ ] TMS 38 Maddi Olmayan Duran Varlıklar (2023/3, 2024/1)
+- [ ] TFRS 3 İşletme Birleşmeleri (2023/1)
+- [ ] TFRS 9 Finansal Araçlar (2022/3, 2023/2)
+- [ ] TFRS 10 Konsolide Finansal Tablolar (2023/2, 2024/1)
+- [ ] TFRS 13 Gerçeğe Uygun Değer (2022/3)
+- [ ] TFRS 15 Hasılat (2024/1)
+- [ ] TFRS 16 Kiralamalar (2023/3)
+- [ ] TFRS 7 Finansal Araçlar: Açıklamalar (2023/3)
+*Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
+
 ## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
 *Amaç: soru fabrikasının ve denetimin dayandığı TEORİ metinlerini de birincil kaynaktan ambara almak.
 Kanun ayağı zaten tamam (VUK/TTK/TBK/İİK/KDVK/KVK... 13.373 madde ambarda, günlük aynada). Eksik olan STANDART/teori metinleri:*
