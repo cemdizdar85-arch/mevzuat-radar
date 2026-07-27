@@ -10,6 +10,15 @@ on:
   # schedule:
     #- cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
   workflow_dispatch:
+    inputs:
+      hakem:
+        description: "Cevap hakemi kossun mu? (PARALI - Haiku API). Hasat icin GEREKMEZ."
+        type: boolean
+        default: false
+      zorla:
+        description: "Hash'e bakmadan TUM kanunlari yeniden yut (parcalayici degisince gerekir)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -55,6 +64,7 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          ZORLA: ${{ inputs.zorla && '1' || '0' }}   # hash'e bakmadan hepsini yeniden yut
         run: ./motor/mevzuat-yut.ps1
       - name: Degisen madde-belgelerini commit et
         run: |
@@ -78,7 +88,13 @@ jobs:
         run: ./motor/ambar-testi.ps1
       # Gunun 8 vakasi uctan uca (net-cevap + Haiku hakem, 0-10 puan). Anahtar
       # tanimli degilse script kendini atlar; retrieval kapisi yine de kosuyor.
-      - name: Cevap hakemi (gunluk orneklem)
+      # 27.07 PARA MUSLUGU: bu is akisinin tek PARALI adimi budur (Haiku hakem).
+      # Hasat/yut/yukle adimlarinin hepsi bedava. Elle kosturmak istedigimizde
+      # hasadi ucretsiz alabilmek icin hakem VARSAYILAN OLARAK KAPALI; acmak
+      # icin workflow_dispatch'te hakem=true secilir. Cron ile kosarsa (kredi
+      # gelince acilinca) eskisi gibi kosar.
+      - name: Cevap hakemi (gunluk orneklem) — PARALI
+        if: github.event_name != 'workflow_dispatch' || inputs.hakem == true
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

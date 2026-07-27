@@ -39,10 +39,38 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     $no = $m[$i].Groups['no'].Value; $tur = $m[$i].Groups['tur'].Value; $pre = $m[$i].Groups['pre'].Value.Trim()
     if($govde -match '^.{0,70}\(Mülga'){ continue }
     if($govde.Length -lt 60){ continue }
-    $metin = if($govde.Length -gt 1800){ $govde.Substring(0,1800) } else { $govde }
     if($tur -match 'kerrer'){ $md = "muk. m.$no" } elseif($tur -match 'Ek Ge'){ $md = "ek gec. m.$no" } elseif($tur -match 'Ge'){ $md = "gec. m.$no" } elseif($tur -match 'Ek'){ $md = "ek m.$no" } else { $md = "m.$no" }
     $ad = if($pre){ "$kanunAd $md - $pre" } else { "$kanunAd $md" }
-    $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=$ad; baslik=$pre; metin=$metin; kaynak_url=$url; belge_tarihi=$bugun })
+
+    # 27.07.2026 DUZELTME — 1800 KESIGI:
+    # Eski hal: $govde.Substring(0,1800) -> maddenin gerisi SESSIZCE KAYBOLUYORDU.
+    # Olculdu: dosyalardaki 14.961 belgenin 1.730'u (%11,6) tam 1800 karakterde
+    # kesikti. Somut zarar: SMK m.5'in muvafakatname fikrasi (5/3) ambarda YOKTU;
+    # 27.07'de marka basvurusunda eksik bilgiyle konusuldu, RG metnine gidilerek
+    # yakalandi. En cok etkilenen: SGK 5510 (132), Gumruk Yon. (103), SSIY (61),
+    # VUK (59), SPK (58), GVK (57), TTK (53).
+    # Yeni hal: KESMIYOR, PARCALIYOR. Uzun madde ~1800'luk parcalara CUMLE
+    # SINIRINDAN bolunur; her parca ayri kayit olur, adina [1/3] eki gelir.
+    # Tam metin korunur, kayitlar aramaya/retrieval'a uygun boyutta kalir.
+    $PARCA_BOY = 1800
+    $parcalar = New-Object System.Collections.Generic.List[string]
+    if($govde.Length -le $PARCA_BOY){ $parcalar.Add($govde) }
+    else {
+      $kalan = $govde
+      while($kalan.Length -gt $PARCA_BOY){
+        $kes = $kalan.Substring(0, $PARCA_BOY)
+        $kir = $kes.LastIndexOf('. ')                     # once cumle sonu
+        if($kir -lt 900){ $kir = $kes.LastIndexOf(' ') }  # olmazsa son bosluk
+        if($kir -lt 900){ $kir = $PARCA_BOY - 1 }         # o da olmazsa duz kes
+        $parcalar.Add($kalan.Substring(0, $kir+1).Trim())
+        $kalan = $kalan.Substring($kir+1).Trim()
+      }
+      if($kalan.Length -gt 0){ $parcalar.Add($kalan) }
+    }
+    for($p=0; $p -lt $parcalar.Count; $p++){
+      $adTam = if($parcalar.Count -eq 1){ $ad } else { "$ad [$($p+1)/$($parcalar.Count)]" }
+      $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=$adTam; baslik=$pre; metin=$parcalar[$p]; kaynak_url=$url; belge_tarihi=$bugun })
+    }
   }
   $g=@{}; foreach($d in $docs){ $k=$d.kaynak_ad; if($g.ContainsKey($k)){ $g[$k]++; $d.kaynak_ad="$k ($($g[$k]))" } else { $g[$k]=1 } }
   return $docs
@@ -92,7 +120,11 @@ foreach($law in $manifest.kanunlar){
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
   $yhash = Sha $flat
   $eski = if($durum.ContainsKey($law.slug)){ "$($durum[$law.slug].hash)" } else { "" }
-  if($yhash -eq $eski){ Write-Host ("DEGISMEDI: {0}" -f $law.ad); continue }
+  # ZORLA=1: hash ayni olsa bile yeniden yut. Parcalayici degistiginde (or.
+  # 27.07 1800-kesigi duzeltmesi) kanun metni degismedigi icin hash de aynidir
+  # ve hicbir kanun yeniden yutulmaz; bu bayrak o kapiyi acar.
+  if($yhash -eq $eski -and "$($env:ZORLA)" -ne "1" -and "$($env:ZORLA)" -ne "true"){ Write-Host ("DEGISMEDI: {0}" -f $law.ad); continue }
+  if($yhash -eq $eski){ Write-Host ("ZORLA: {0} (hash ayni ama yeniden yutuluyor)" -f $law.ad) }
 
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
