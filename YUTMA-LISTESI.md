@@ -10,7 +10,7 @@
 - [x] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler — YUTULDU 27.07 (p.1-23: kontrol testi / maddi doğrulama tanımları, kontrol testinin 2 zorunlu hâli, ARA DÖNEM + ÖNCEKİ DENETİM kanıtı + "en az her ÜÇ denetimin birinde test" kuralı, ciddi riskte cari dönemde test, sapma bulunursa 3 karar, HER önemli işlem sınıfı için maddi doğrulama ZORUNLU, kapanış işlemleri + önemli yevmiye kayıtlarının incelenmesi, ciddi riskte DETAY TESTİ şartı)
 - [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
 - [x] BDS 550 İlişkili Taraflar — YUTULDU 27.07 (giriş + amaç-tanım p.1-10: ilişkili taraf işlemlerinin risk yaratma sebepleri, HİLE bağlantısı ve BDS 240 ilişkisi, yapısal kısıtlamaların ilişkili taraflarda büyümesi, mesleki şüphecilik, denetçinin 2 amacı, ilişkili taraf tanımı)
-- [ ] BDS 701 Kilit Denetim Konularının Bildirilmesi (2)
+- [x] BDS 701 Kilit Denetim Konularının Bildirilmesi — YUTULDU 27.07 (p.1-15: amaç = raporun iletişim değerini artırmak, 4 "yerine geçmez" hükmü, TÜRKİYE UYGULAMASI 5T = TTK 6102 kapsamındaki TÜM denetime tabi şirketler, belirleme 3 ölçütü, raporda ayrı bölüm + giriş cümlesi, her konuda "neden kilit" + "nasıl ele alındı", bildirilmeme 2 hâli, BDS 705/570 ile etkileşim)
 - [ ] BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim (1) · BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi (1)
 - [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
 
