@@ -3,7 +3,7 @@
 ## 🔴 SIRADA — EKSİK TMS/TFRS SETİ (27.07.2026 GM tespiti: kitapçıklarda soru çıkıyor, ambarda YOK)
 *2023-2026 SGS kitapçıklarının elle okunmasında (GM) şu standartlardan gerçek soru çıktığı görüldü ama ambarda metinleri yok — GM elle okuyup (API'siz) ambara alacak; kaynak KGK Mavi Kitap:*
 - [x] TMS 10 Raporlama Döneminden Sonraki Olaylar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, standardın TAMAMI 23 paragraf; düzeltme gerektiren/gerektirmeyen ayrımı, temettü, süreklilik)
-- [ ] TMS 29 Yüksek Enflasyonlu Ekonomiler (2023/1, 2024/1)
+- [x] TMS 29 Yüksek Enflasyonlu Ekonomilerde Finansal Raporlama — YUTULDU 27.07 (2023/1, 2024/1'de soru; yüksek enflasyon 5 göstergesi + son 3 yıl %100, parasal/parasal olmayan ayrımı, net parasal pozisyon kâr-zararı, özkaynak düzeltmesi, vergi etkisi)
 - [x] TMS 40 Yatırım Amaçlı Gayrimenkuller — YUTULDU 27.07 (2021/2, 2022/1, 2022/2'de soru; sınıflandırma + otel istisnası + GUD/maliyet yöntemi + TRANSFER kuralları)
 - [x] TMS 12 Gelir Vergileri — YUTULDU 27.07 (çekirdek: tanımlar, vergiye esas değer, dönem vergisi, vergiye tabi/indirilebilir geçici farklar, bağlı ortaklık yatırımları, ÖLÇME p.46-51). KALAN: sunum-netleştirme p.71-76 + açıklamalar — sonraki turda
 - [ ] TMS 19 Çalışanlara Sağlanan Faydalar (2022/2) · TMS 23 Borçlanma Maliyetleri (2022/2) · TMS 36 Varlıklarda Değer Düşüklüğü (2022/2)
