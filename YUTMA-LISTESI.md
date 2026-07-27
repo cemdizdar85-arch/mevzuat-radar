@@ -5,14 +5,14 @@
 
 **EKSİK — DENETİM tarafı (resmî sınavda Denetim 16 soru, en yüksek öncelik):**
 - [x] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları — YUTULDU 27.07 (ana hükümler p.1-20: denetimin ön şartları, yönetimin üstleneceği sorumluluklar, KAPSAM SINIRLANDIRMASINDA sözleşme kabul edilmez, yazılı sözleşmenin zorunlu içeriği, müteakip denetimler, sartlarda değişikliğin kabulü, mevzuatın ilave yükümlülükleri)
-- [ ] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Yönetimi (2)
+- [x] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Kontrol — YUTULDU 27.07 (ana hükümler p.1-23: KKS 1 ilişkisi, sorumlu denetçinin liderlik sorumluluğu, etik + BAĞIMSIZLIK, müşteri kabulü, ekibin yetkinliği, yönlendirme-gözetim-gözden geçirme, istişare, DENETİMİN KALİTESİNE YÖNELİK GÖZDEN GEÇİRME, görüş farklılıkları, izleme)
+- [x] KYS 2 kapsamı — BDS 220 p.19-21 ile karşılandı (denetimin kalitesine yönelik gözden geçirme; rapora gözden geçirme bitmeden tarih verilmez)
 - [ ] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler (2)
 - [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
 - [ ] BDS 550 İlişkili Taraflar (2)
 - [ ] BDS 701 Kilit Denetim Konularının Bildirilmesi (2)
 - [ ] BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim (1) · BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi (1)
 - [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
-- [ ] KYS 2 Kalite Yönetim Sistemi 2 — Denetimin Kalite Gözden Geçirmesi (1)
 
 **EKSİK — TMS/TFRS tarafı:**
 - [ ] TFRS 8 Faaliyet Bölümleri (2 soru)
