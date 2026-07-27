@@ -13,6 +13,10 @@ on:
   push:
     paths:
       - 'veri/mevzuat/**'
+      # 27.07: yukleyicinin KENDISI degisince de kossun. Onceden yalniz veri
+      # yolu dinleniyordu; betikte duzeltme yapilinca ambar tazelenmiyordu.
+      - 'motor/mevzuat-yukle.ps1'
+      - '.github/workflows/yukle.yml'
 
 permissions:
   contents: read
