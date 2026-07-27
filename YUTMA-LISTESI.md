@@ -17,7 +17,8 @@
 **EKSİK — TMS/TFRS tarafı:**
 - [x] TFRS 8 Faaliyet Bölümleri — YUTULDU 27.07 (bölüm yöneticisi + matriks yapı, 5 birleştirme kriteri, SAYISAL ALT SINIRLAR = hasılat %10 / kâr-zarar mutlak %10 / varlık %10, YÜZDE 75 KURALI, "diğer tüm bölümler", önceki dönemle tutarlılık, 10 bölüm uygulama sınırı, yönetim yaklaşımıyla ölçme, zorunlu MUTABAKATLAR)
 - [x] TFRS 5 Satış Amaçlı Elde Tutulan Duran Varlıklar ve Durdurulan Faaliyetler — YUTULDU 27.07 (amaç 3 sonuç, ölçüm hükmü uygulanmayan varlıklar, sınıflandırma kriterleri = derhal satılabilir + satış olasılığı yüksek + 1 yıl, yeni edinilende 3 ay, KULLANIMDAN ÇEKİLECEK varlık satış amaçlı SINIFLANDIRILMAZ, ölçüm = defter değeri ile satış maliyeti düşülmüş GUD den DÜŞÜK olanı, iptal tavanı, AMORTİSMAN AYRILMAZ ama borç faizi devam eder)
-- [ ] TMS 24 İlişkili Taraf Açıklamaları (1) · TMS 27 Bireysel Finansal Tablolar (1) · TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar (1) · TMS 41 Tarımsal Faaliyetler (1)
+- [x] TMS 24 İlişkili Taraf Açıklamaları — YUTULDU 27.07 (amaç, grup içi işlemlerin elimine edilmesi, "işlem olmasa bile ilişki etkiler", ilişkili taraf tanımı kişi+işletme, yakın aile üyeleri, kilit yönetici personel, İLİŞKİLİ SAYILMAYANLAR listesi, ana ortaklık-bağlı ortaklık ilişkisi işlem olmasa da açıklanır, kilit yönetici ücreti 5 kategori, işlem açıklamalarının asgari içeriği + 7 kategori)
+- [ ] TMS 27 Bireysel Finansal Tablolar (1) · TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar (1) · TMS 41 Tarımsal Faaliyetler (1)
 
 **KGK URL KALIPLARI (27.07 keşfi — sonraki yutmalar için):** eski set `.../Duyurular/v2/BDS/bdsyeni25.12.2017/BDS XXX-Site.pdf` · 2019 revizyonları `.../Duyurular/v2/BDS/BDSyeni11092019/BDS_XXX.pdf` · TMS-TFRS 2026 `.../Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/{TMS|TFRS}/{TMS|TFRS} NN.pdf` · **EN GÜNCEL denetim seti** `.../Duyurular/v2/TDS/TDS_2025_Seti/BDS NNN_2025.pdf` (BDS 200/315/600 orada teyitli).
 
