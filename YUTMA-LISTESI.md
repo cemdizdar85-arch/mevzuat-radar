@@ -9,7 +9,7 @@
 - [x] KYS 2 kapsamı — BDS 220 p.19-21 ile karşılandı (denetimin kalitesine yönelik gözden geçirme; rapora gözden geçirme bitmeden tarih verilmez)
 - [x] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler — YUTULDU 27.07 (p.1-23: kontrol testi / maddi doğrulama tanımları, kontrol testinin 2 zorunlu hâli, ARA DÖNEM + ÖNCEKİ DENETİM kanıtı + "en az her ÜÇ denetimin birinde test" kuralı, ciddi riskte cari dönemde test, sapma bulunursa 3 karar, HER önemli işlem sınıfı için maddi doğrulama ZORUNLU, kapanış işlemleri + önemli yevmiye kayıtlarının incelenmesi, ciddi riskte DETAY TESTİ şartı)
 - [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
-- [ ] BDS 550 İlişkili Taraflar (2)
+- [x] BDS 550 İlişkili Taraflar — YUTULDU 27.07 (giriş + amaç-tanım p.1-10: ilişkili taraf işlemlerinin risk yaratma sebepleri, HİLE bağlantısı ve BDS 240 ilişkisi, yapısal kısıtlamaların ilişkili taraflarda büyümesi, mesleki şüphecilik, denetçinin 2 amacı, ilişkili taraf tanımı)
 - [ ] BDS 701 Kilit Denetim Konularının Bildirilmesi (2)
 - [ ] BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim (1) · BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi (1)
 - [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
@@ -18,6 +18,8 @@
 - [ ] TFRS 8 Faaliyet Bölümleri (2 soru)
 - [ ] TFRS 5 Satış Amaçlı Elde Tutulan Duran Varlıklar (1)
 - [ ] TMS 24 İlişkili Taraf Açıklamaları (1) · TMS 27 Bireysel Finansal Tablolar (1) · TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar (1) · TMS 41 Tarımsal Faaliyetler (1)
+
+**KGK URL KALIPLARI (27.07 keşfi — sonraki yutmalar için):** eski set `.../Duyurular/v2/BDS/bdsyeni25.12.2017/BDS XXX-Site.pdf` · 2019 revizyonları `.../Duyurular/v2/BDS/BDSyeni11092019/BDS_XXX.pdf` · TMS-TFRS 2026 `.../Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/{TMS|TFRS}/{TMS|TFRS} NN.pdf` · **EN GÜNCEL denetim seti** `.../Duyurular/v2/TDS/TDS_2025_Seti/BDS NNN_2025.pdf` (BDS 200/315/600 orada teyitli).
 
 *Not: Bu liste yalnız konu adında AÇIKÇA standart numarası geçen soruları yakalar; standart adı yazmadan sorulan konular (hesap işleyişi, oran analizi, maliyet yöntemleri) ayrı kanaldan (MSUGT + teori-notu) beslenir.*
 
