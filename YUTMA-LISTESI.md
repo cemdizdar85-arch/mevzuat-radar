@@ -1,5 +1,26 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 🚨 BOŞLUK TARAMASI (27.07.2026, Cem sorusu: "okumadığımız konu var mı? konu yoksa robot soru yazmıyor")
+*Yöntem: 16 SGS + 8 Yeterlilik dönemlik gerçek kitapçık konu haritasındaki TÜM standart atıfları taranıp ambardakiyle karşılaştırıldı (scratchpad/bosluk-tarama.ps1). Sonuç: kitapçıklarda soru çıkan ama ambarda metni OLMAYAN 19 standart bulundu — bunlar yutulmadan robot bu konularda soru üretemez.*
+
+**EKSİK — DENETİM tarafı (resmî sınavda Denetim 16 soru, en yüksek öncelik):**
+- [ ] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları (3 soru)
+- [ ] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Yönetimi (2)
+- [ ] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler (2)
+- [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
+- [ ] BDS 550 İlişkili Taraflar (2)
+- [ ] BDS 701 Kilit Denetim Konularının Bildirilmesi (2)
+- [ ] BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim (1) · BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi (1)
+- [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
+- [ ] KYS 2 Kalite Yönetim Sistemi 2 — Denetimin Kalite Gözden Geçirmesi (1)
+
+**EKSİK — TMS/TFRS tarafı:**
+- [ ] TFRS 8 Faaliyet Bölümleri (2 soru)
+- [ ] TFRS 5 Satış Amaçlı Elde Tutulan Duran Varlıklar (1)
+- [ ] TMS 24 İlişkili Taraf Açıklamaları (1) · TMS 27 Bireysel Finansal Tablolar (1) · TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar (1) · TMS 41 Tarımsal Faaliyetler (1)
+
+*Not: Bu liste yalnız konu adında AÇIKÇA standart numarası geçen soruları yakalar; standart adı yazmadan sorulan konular (hesap işleyişi, oran analizi, maliyet yöntemleri) ayrı kanaldan (MSUGT + teori-notu) beslenir.*
+
 ## 🔴 SIRADA — EKSİK TMS/TFRS SETİ (27.07.2026 GM tespiti: kitapçıklarda soru çıkıyor, ambarda YOK)
 *2023-2026 SGS kitapçıklarının elle okunmasında (GM) şu standartlardan gerçek soru çıktığı görüldü ama ambarda metinleri yok — GM elle okuyup (API'siz) ambara alacak; kaynak KGK Mavi Kitap:*
 - [x] TMS 10 Raporlama Döneminden Sonraki Olaylar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, standardın TAMAMI 23 paragraf; düzeltme gerektiren/gerektirmeyen ayrımı, temettü, süreklilik)
