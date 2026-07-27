@@ -4,7 +4,7 @@
 *2023-2026 SGS kitapçıklarının elle okunmasında (GM) şu standartlardan gerçek soru çıktığı görüldü ama ambarda metinleri yok — GM elle okuyup (API'siz) ambara alacak; kaynak KGK Mavi Kitap:*
 - [ ] TMS 10 Raporlama Döneminden Sonraki Olaylar (2023/1, 2023/3, 2024/1'de soru)
 - [ ] TMS 29 Yüksek Enflasyonlu Ekonomiler (2023/1, 2024/1)
-- [ ] TMS 38 Maddi Olmayan Duran Varlıklar (2023/3, 2024/1)
+- [x] TMS 38 Maddi Olmayan Duran Varlıklar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, 19 paragraf-belgesi: araştırma/geliştirme 6 koşul, sınırsız ömür itfa edilmez, yeniden değerleme)
 - [ ] TFRS 3 İşletme Birleşmeleri (2023/1)
 - [ ] TFRS 9 Finansal Araçlar (2022/3, 2023/2)
 - [ ] TFRS 10 Konsolide Finansal Tablolar (2023/2, 2024/1)
