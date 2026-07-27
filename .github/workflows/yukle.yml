@@ -8,6 +8,11 @@ name: Mevzuat Tam Yukleme
 
 on:
   workflow_dispatch:
+  # 27.07: GM elle yuttugu standart dosyalari (TMS/TFRS/BDS) push'layinca ambar
+  # kendiliginden tazelensin. Bu is API PARASI YEMEZ - yalniz Supabase yazimi.
+  push:
+    paths:
+      - 'veri/mevzuat/**'
 
 permissions:
   contents: read
