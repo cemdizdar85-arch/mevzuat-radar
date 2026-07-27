@@ -15,7 +15,7 @@
 - [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
 
 **EKSİK — TMS/TFRS tarafı:**
-- [ ] TFRS 8 Faaliyet Bölümleri (2 soru)
+- [x] TFRS 8 Faaliyet Bölümleri — YUTULDU 27.07 (bölüm yöneticisi + matriks yapı, 5 birleştirme kriteri, SAYISAL ALT SINIRLAR = hasılat %10 / kâr-zarar mutlak %10 / varlık %10, YÜZDE 75 KURALI, "diğer tüm bölümler", önceki dönemle tutarlılık, 10 bölüm uygulama sınırı, yönetim yaklaşımıyla ölçme, zorunlu MUTABAKATLAR)
 - [ ] TFRS 5 Satış Amaçlı Elde Tutulan Duran Varlıklar (1)
 - [ ] TMS 24 İlişkili Taraf Açıklamaları (1) · TMS 27 Bireysel Finansal Tablolar (1) · TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar (1) · TMS 41 Tarımsal Faaliyetler (1)
 
