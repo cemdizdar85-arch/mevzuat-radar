@@ -36,7 +36,7 @@ SORU: $($s.soru)
 $siklarStr
 Bu soruda dogru cevap olarak "$($s.dogru)" isaretlenmis. Dayanak: $($s.kaynak)
 GOREV: 1) Soruyu kendin coz, dogru buldugun sikki belirt. 2) Isaretli cevap Turkiye mevzuatina gore SAVUNULABILIR mi? 3) Emin degilsen/yanlissa gecerli=false.
-SADECE su JSON'u dondur: {"gecerli": true veya false, "benimCevap": "A", "sebep": "kisa gerekce"}
+SADECE su JSON'u dondur (alan sirasi aynen boyle; sebep EN FAZLA 1 kisa cumle): {"gecerli": true veya false, "benimCevap": "A", "sebep": "tek cumle"}
 "@
       $adaylar += [ordered]@{ id="$($s.id)"; istem=$istem }
     }
@@ -52,7 +52,7 @@ $b = $null
 try {
   $rpEski = Get-Content (Join-Path $kok "veri/soru-denetci-rapor.json") -Raw -Encoding UTF8 | ConvertFrom-Json
   $sonK = @($rpEski) | Select-Object -Last 1
-  if($sonK.batch -and ([int]$sonK.islenen -eq 0 -or [int]$sonK.hata -gt 100)){   # 27.07: kesik-JSON kirimindan kalan kararlari da devral
+  if($sonK.batch -and [int]$sonK.islenen -eq 0){   # 27.07: hata>100 devralmasi TEK SEFERLIKTI (kesik-JSON kurtarmasi yapildi); kalanlar icin YENI batch acilmali
     $eb = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($sonK.batch)" `
           -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 60
     if($eb.processing_status -eq 'ended'){ $b = $eb; Write-Host ("Hazir batch devralindi: {0}" -f $b.id) }
