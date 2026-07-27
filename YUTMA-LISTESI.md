@@ -9,7 +9,7 @@
 - [ ] TMS 19 Çalışanlara Sağlanan Faydalar (2022/2) · TMS 23 Borçlanma Maliyetleri (2022/2) · TMS 36 Varlıklarda Değer Düşüklüğü (2022/2)
 - [x] TMS 38 Maddi Olmayan Duran Varlıklar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, 19 paragraf-belgesi: araştırma/geliştirme 6 koşul, sınırsız ömür itfa edilmez, yeniden değerleme)
 - [ ] TFRS 3 İşletme Birleşmeleri (2023/1)
-- [ ] TFRS 9 Finansal Araçlar (2022/3, 2023/2)
+- [x] TFRS 9 Finansal Araçlar — ÇEKİRDEK YUTULDU 27.07 (sınıflandırma: iş modeli + SPPI testi, üç kategori; yükümlülükler; saklı türevler; yeniden sınıflandırma; ilk-sonraki ölçüm; tablo dışı bırakma risk-getiri testi). KALAN: Bölüm 5.5 beklenen kredi zararı + Bölüm 6 korunma muhasebesi
 - [x] TFRS 10 Konsolide Finansal Tablolar — YUTULDU 27.07 (2021/3, 2023/2, 2024/1'de soru; kontrolün 3 unsuru, güç/getiri/vekil-asıl, konsolidasyon hükümleri, kontrol gücü olmayan paylar, kontrolün kaybı)
 - [x] TFRS 13 Gerçeğe Uygun Değer Ölçümü — YUTULDU 27.07 (2022/3'te soru; tanım/çıkış fiyatı, asıl-en avantajlı piyasa, işlem maliyeti düzeltilmez, en iyi ve en üst seviyede kullanım, 3 değerleme yaklaşımı, HİYERARŞİ Seviye 1-2-3)
 - [x] TFRS 15 Müşteri Sözleşmelerinden Hasılat — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap; BEŞ ADIMLI MODELİN tamamı: sözleşme 5 şart, edim yükümlülüğü/farklı mal kriteri, işlem bedeli + değişken bedel, tek başına satış fiyatıyla dağıtım, kontrol devri 5 gösterge + zamana yayılı 3 şart)
