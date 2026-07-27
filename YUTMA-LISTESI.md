@@ -4,7 +4,7 @@
 *Yöntem: 16 SGS + 8 Yeterlilik dönemlik gerçek kitapçık konu haritasındaki TÜM standart atıfları taranıp ambardakiyle karşılaştırıldı (scratchpad/bosluk-tarama.ps1). Sonuç: kitapçıklarda soru çıkan ama ambarda metni OLMAYAN 19 standart bulundu — bunlar yutulmadan robot bu konularda soru üretemez.*
 
 **EKSİK — DENETİM tarafı (resmî sınavda Denetim 16 soru, en yüksek öncelik):**
-- [ ] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları (3 soru)
+- [x] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları — YUTULDU 27.07 (ana hükümler p.1-20: denetimin ön şartları, yönetimin üstleneceği sorumluluklar, KAPSAM SINIRLANDIRMASINDA sözleşme kabul edilmez, yazılı sözleşmenin zorunlu içeriği, müteakip denetimler, sartlarda değişikliğin kabulü, mevzuatın ilave yükümlülükleri)
 - [ ] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Yönetimi (2)
 - [ ] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler (2)
 - [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
