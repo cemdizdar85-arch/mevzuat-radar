@@ -10,7 +10,7 @@
 - [x] TMS 38 Maddi Olmayan Duran Varlıklar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, 19 paragraf-belgesi: araştırma/geliştirme 6 koşul, sınırsız ömür itfa edilmez, yeniden değerleme)
 - [ ] TFRS 3 İşletme Birleşmeleri (2023/1)
 - [ ] TFRS 9 Finansal Araçlar (2022/3, 2023/2)
-- [ ] TFRS 10 Konsolide Finansal Tablolar (2023/2, 2024/1)
+- [x] TFRS 10 Konsolide Finansal Tablolar — YUTULDU 27.07 (2021/3, 2023/2, 2024/1'de soru; kontrolün 3 unsuru, güç/getiri/vekil-asıl, konsolidasyon hükümleri, kontrol gücü olmayan paylar, kontrolün kaybı)
 - [ ] TFRS 13 Gerçeğe Uygun Değer (2022/3)
 - [x] TFRS 15 Müşteri Sözleşmelerinden Hasılat — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap; BEŞ ADIMLI MODELİN tamamı: sözleşme 5 şart, edim yükümlülüğü/farklı mal kriteri, işlem bedeli + değişken bedel, tek başına satış fiyatıyla dağıtım, kontrol devri 5 gösterge + zamana yayılı 3 şart)
 - [x] TFRS 16 Kiralamalar — YUTULDU 27.07 (2021/3, 2023/3'te soru; iki istisna, kiralama tanımı/süresi, KİRACI: kullanım hakkı varlığı + kira yükümlülüğü ilk-sonraki ölçüm + amortisman süresi kuralı + yeniden değerlendirme + sunum, KİRAYA VEREN: finansal/faaliyet 5 örnek + 3 gösterge + net kiralama yatırımı)
