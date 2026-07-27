@@ -5,7 +5,7 @@
 - [x] TMS 10 Raporlama Döneminden Sonraki Olaylar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, standardın TAMAMI 23 paragraf; düzeltme gerektiren/gerektirmeyen ayrımı, temettü, süreklilik)
 - [ ] TMS 29 Yüksek Enflasyonlu Ekonomiler (2023/1, 2024/1)
 - [x] TMS 40 Yatırım Amaçlı Gayrimenkuller — YUTULDU 27.07 (2021/2, 2022/1, 2022/2'de soru; sınıflandırma + otel istisnası + GUD/maliyet yöntemi + TRANSFER kuralları)
-- [ ] TMS 12 Gelir Vergileri / ertelenmiş vergi (2021/3, 2023/2'de soru)
+- [x] TMS 12 Gelir Vergileri — YUTULDU 27.07 (çekirdek: tanımlar, vergiye esas değer, dönem vergisi, vergiye tabi/indirilebilir geçici farklar, bağlı ortaklık yatırımları, ÖLÇME p.46-51). KALAN: sunum-netleştirme p.71-76 + açıklamalar — sonraki turda
 - [ ] TMS 19 Çalışanlara Sağlanan Faydalar (2022/2) · TMS 23 Borçlanma Maliyetleri (2022/2) · TMS 36 Varlıklarda Değer Düşüklüğü (2022/2)
 - [x] TMS 38 Maddi Olmayan Duran Varlıklar — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap, 19 paragraf-belgesi: araştırma/geliştirme 6 koşul, sınırsız ömür itfa edilmez, yeniden değerleme)
 - [ ] TFRS 3 İşletme Birleşmeleri (2023/1)
