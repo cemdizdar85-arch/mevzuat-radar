@@ -13,7 +13,7 @@
 - [ ] TFRS 10 Konsolide Finansal Tablolar (2023/2, 2024/1)
 - [ ] TFRS 13 Gerçeğe Uygun Değer (2022/3)
 - [x] TFRS 15 Müşteri Sözleşmelerinden Hasılat — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap; BEŞ ADIMLI MODELİN tamamı: sözleşme 5 şart, edim yükümlülüğü/farklı mal kriteri, işlem bedeli + değişken bedel, tek başına satış fiyatıyla dağıtım, kontrol devri 5 gösterge + zamana yayılı 3 şart)
-- [ ] TFRS 16 Kiralamalar (2023/3)
+- [x] TFRS 16 Kiralamalar — YUTULDU 27.07 (2021/3, 2023/3'te soru; iki istisna, kiralama tanımı/süresi, KİRACI: kullanım hakkı varlığı + kira yükümlülüğü ilk-sonraki ölçüm + amortisman süresi kuralı + yeniden değerlendirme + sunum, KİRAYA VEREN: finansal/faaliyet 5 örnek + 3 gösterge + net kiralama yatırımı)
 - [ ] TFRS 7 Finansal Araçlar: Açıklamalar (2023/3)
 *Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
 
