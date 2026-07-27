@@ -49,14 +49,27 @@ if($hepsi.Count -eq 0){ exit 0 }
 # teblig kaydi her kosuda siliNMEden yeniden ekleniyordu; ambarda ayni
 # kaynak_ad'dan 45 KOPYA birikmisti (57.622 satir). Silme listesine eklendi.
 # KURAL: bu betik hangi tur'leri EKLIYORSA, hepsini SILMEK zorunda.
-$SILINECEK = "kanun-madde,standart-madde,teori-notu,teblig"
-try {
-  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.($SILINECEK)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 300 | Out-Null
-  Write-Host "Eski kayitlar silindi (tur: $SILINECEK)."
-} catch {
-  Write-Host "KRITIK: silme basarisiz ($_) - cift kayit riski, kosu durduruluyor."
-  exit 1
+# 27.07 2. tur: tek sorguda silme 57.622 satirda Supabase statement timeout'una
+# takildi (is 15 sn'de kirmizi bitti, ambar hic degismedi). Artik tur tur ve
+# PARCALI siliniyor: id listesi cekilir, id=in.(...) ile silinir, bitene kadar.
+$SILINECEK = @('kanun-madde','standart-madde','teori-notu','teblig')
+foreach($t in $SILINECEK){
+  $tur_silinen = 0
+  while($true){
+    try {
+      $ids = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/dokumanlar?select=id&tur=eq.$t&limit=1000" -Headers $H -TimeoutSec 120
+    } catch { Write-Host ("KRITIK: id cekilemedi ({0}): {1}" -f $t, $_); exit 1 }
+    $liste = @($ids)
+    if($liste.Count -eq 0){ break }
+    $filtre = "id=in.(" + (($liste | ForEach-Object { $_.id }) -join ',') + ")"
+    try {
+      Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?$filtre" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 180 | Out-Null
+      $tur_silinen += $liste.Count
+    } catch { Write-Host ("KRITIK: silme basarisiz ({0}): {1} - cift kayit riski, kosu durduruluyor." -f $t, $_); exit 1 }
+  }
+  Write-Host ("  silindi: {0,-16} {1} satir" -f $t, $tur_silinen)
 }
+Write-Host "Eski kayitlar silindi."
 
 # --- toplu ekle ---
 # 27.07.2026 DUZELTME: eski hal batch=500 idi ve basarisiz partiyi SESSIZCE
