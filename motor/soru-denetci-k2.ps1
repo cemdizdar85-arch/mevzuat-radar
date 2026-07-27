@@ -52,14 +52,15 @@ $b = $null
 try {
   $rpEski = Get-Content (Join-Path $kok "veri/soru-denetci-rapor.json") -Raw -Encoding UTF8 | ConvertFrom-Json
   $sonK = @($rpEski) | Select-Object -Last 1
-  if($sonK.batch -and [int]$sonK.islenen -eq 0){
+  if($sonK.batch -and ([int]$sonK.islenen -eq 0 -or [int]$sonK.hata -gt 100)){   # 27.07: kesik-JSON kirimindan kalan kararlari da devral
     $eb = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($sonK.batch)" `
           -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } -TimeoutSec 60
     if($eb.processing_status -eq 'ended'){ $b = $eb; Write-Host ("Hazir batch devralindi: {0}" -f $b.id) }
   }
 } catch { Write-Host "Eski batch devralinamadi - yenisi acilacak." }
 if(-not $b){
-  $istekler = @($adaylar | ForEach-Object { @{ custom_id=$_.id; params=@{ model=$MODEL; max_tokens=400; messages=@(@{ role='user'; content=$_.istem }) } } })
+  # 27.07: 400 token JSON'u ortasindan kesiyordu (2.079 sonuc "hata" sayildi) -> 700
+  $istekler = @($adaylar | ForEach-Object { @{ custom_id=$_.id; params=@{ model=$MODEL; max_tokens=700; messages=@(@{ role='user'; content=$_.istem }) } } })
   $govde = @{ requests = $istekler } | ConvertTo-Json -Depth 8
   $b = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages/batches" `
         -Headers @{ "x-api-key"=$AKEY; "anthropic-version"="2023-06-01" } `
@@ -93,20 +94,34 @@ Invoke-WebRequest -Uri $b.results_url -Headers @{ "x-api-key"=$AKEY; "anthropic-
 $satirlar = Get-Content $tmpf -Encoding UTF8 | Where-Object { $_.Trim() }
 Write-Host ("Sonuc satiri: {0}" -f @($satirlar).Count)
 
-# 4) kararlar haritasi
+# 4) kararlar haritasi (+ 27.07: kesik-JSON kurtarma ve hata kirilimi)
 $kararlar = @{}
-$hata = 0
+$hata = 0; $tipHata = 0; $jsonYok = 0; $kurtarilan = 0; $ornekler = @()
 foreach($ln in $satirlar){
   try {
     $rj = $ln | ConvertFrom-Json
-    if($rj.result.type -ne 'succeeded'){ $hata++; continue }
+    if($rj.result.type -ne 'succeeded'){ $hata++; $tipHata++; if($ornekler.Count -lt 3){ $ornekler += "tip=$($rj.result.type) id=$($rj.custom_id)" }; continue }
     $metin = (@($rj.result.message.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
     $js = JsonBul $metin
-    if(-not $js){ $hata++; continue }
-    $kararlar[$rj.custom_id] = ($js | ConvertFrom-Json)
+    if($js){
+      $kararlar[$rj.custom_id] = ($js | ConvertFrom-Json)
+    } else {
+      # kesik cevap kurtarma: max_tokens JSON'u kesmisse gecerli+benimCevap coklukla
+      # sebep'ten ONCE geldigi icin metinde saglam durur - regex'le cek
+      $mg = [regex]::Match($metin, '"gecerli"\s*:\s*(true|false)')
+      $mc = [regex]::Match($metin, '"benimCevap"\s*:\s*"([A-E])"')
+      if($mg.Success -and $mc.Success){
+        $kararlar[$rj.custom_id] = [pscustomobject]@{ gecerli = ($mg.Groups[1].Value -eq 'true'); benimCevap = $mc.Groups[1].Value; sebep = '(kesik cevap - alanlar kurtarildi)' }
+        $kurtarilan++
+      } else {
+        $hata++; $jsonYok++
+        if($ornekler.Count -lt 3){ $ornekler += ("json-yok id={0} stop={1} uzunluk={2}" -f $rj.custom_id, $rj.result.message.stop_reason, $metin.Length) }
+      }
+    }
   } catch { $hata++ }
 }
-Write-Host ("Karar geldi: {0} | sonuc-hatasi: {1}" -f $kararlar.Count, $hata)
+Write-Host ("Karar geldi: {0} (kurtarilan: {1}) | sonuc-hatasi: {2} (tip: {3}, json-yok: {4})" -f $kararlar.Count, $kurtarilan, $hata, $tipHata, $jsonYok)
+$ornekler | ForEach-Object { Write-Host ("  ornek: {0}" -f $_) }
 
 # 5) dosya dosya uygula + ara-kayit (rebase cakismasina karsi dosya-basi commit)
 $gecti=0; $karantina=0; $rapor=@()
