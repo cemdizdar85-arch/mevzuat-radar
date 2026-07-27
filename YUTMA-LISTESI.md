@@ -7,7 +7,7 @@
 - [x] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları — YUTULDU 27.07 (ana hükümler p.1-20: denetimin ön şartları, yönetimin üstleneceği sorumluluklar, KAPSAM SINIRLANDIRMASINDA sözleşme kabul edilmez, yazılı sözleşmenin zorunlu içeriği, müteakip denetimler, sartlarda değişikliğin kabulü, mevzuatın ilave yükümlülükleri)
 - [x] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Kontrol — YUTULDU 27.07 (ana hükümler p.1-23: KKS 1 ilişkisi, sorumlu denetçinin liderlik sorumluluğu, etik + BAĞIMSIZLIK, müşteri kabulü, ekibin yetkinliği, yönlendirme-gözetim-gözden geçirme, istişare, DENETİMİN KALİTESİNE YÖNELİK GÖZDEN GEÇİRME, görüş farklılıkları, izleme)
 - [x] KYS 2 kapsamı — BDS 220 p.19-21 ile karşılandı (denetimin kalitesine yönelik gözden geçirme; rapora gözden geçirme bitmeden tarih verilmez)
-- [ ] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler (2)
+- [x] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler — YUTULDU 27.07 (p.1-23: kontrol testi / maddi doğrulama tanımları, kontrol testinin 2 zorunlu hâli, ARA DÖNEM + ÖNCEKİ DENETİM kanıtı + "en az her ÜÇ denetimin birinde test" kuralı, ciddi riskte cari dönemde test, sapma bulunursa 3 karar, HER önemli işlem sınıfı için maddi doğrulama ZORUNLU, kapanış işlemleri + önemli yevmiye kayıtlarının incelenmesi, ciddi riskte DETAY TESTİ şartı)
 - [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
 - [ ] BDS 550 İlişkili Taraflar (2)
 - [ ] BDS 701 Kilit Denetim Konularının Bildirilmesi (2)
