@@ -44,27 +44,68 @@ Get-ChildItem $dir -Filter *.json | ForEach-Object {
 Write-Host ("Yuklenecek: {0} madde-belgesi" -f $hepsi.Count)
 if($hepsi.Count -eq 0){ exit 0 }
 
-# --- once eski kanun-madde kayitlarini sil (idempotent) ---
+# --- once eski kayitlari sil (idempotent) ---
+# 27.07.2026 DUZELTME: silme listesinde 'teblig' YOKTU. Dosyalardaki 1.288
+# teblig kaydi her kosuda siliNMEden yeniden ekleniyordu; ambarda ayni
+# kaynak_ad'dan 45 KOPYA birikmisti (57.622 satir). Silme listesine eklendi.
+# KURAL: bu betik hangi tur'leri EKLIYORSA, hepsini SILMEK zorunda.
+$SILINECEK = "kanun-madde,standart-madde,teori-notu,teblig"
 try {
-  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.(kanun-madde,standart-madde,teori-notu)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 120 | Out-Null
-  Write-Host "Eski kanun-madde + standart-madde + teori-notu kayitlari silindi."
-} catch { Write-Host "UYARI: silme ($_)" }
+  Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=in.($SILINECEK)" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 300 | Out-Null
+  Write-Host "Eski kayitlar silindi (tur: $SILINECEK)."
+} catch {
+  Write-Host "KRITIK: silme basarisiz ($_) - cift kayit riski, kosu durduruluyor."
+  exit 1
+}
 
-# --- toplu ekle (batch=500) ---
-$batch = 500; $eklenen = 0
+# --- toplu ekle ---
+# 27.07.2026 DUZELTME: eski hal batch=500 idi ve basarisiz partiyi SESSIZCE
+# yutup devam ediyordu (sadece Write-Host). Bu yuzden 3.162 kayit (3.088
+# kanun-madde + 74 standart-madde, ic. tum MSUGT ilkeleri ve 44 THP hesabi)
+# ambara hic girmemis, kosu yine de YESIL gorunmustu. Artik: parti kucultuldu,
+# basarisiz parti 3 kez denenir, yine olmazsa TEK TEK yazilir ve sonunda
+# eksik varsa is KIRMIZI biter. Sessiz veri kaybi yok.
+$batch = 200; $eklenen = 0; $basarisiz = New-Object System.Collections.Generic.List[object]
+
+function Gonder($kayitlar){
+  $json = ($kayitlar | ConvertTo-Json -Depth 5)
+  if(@($kayitlar).Count -eq 1){ $json = "[$json]" }   # tek elemanda PS array'i acar
+  $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
+  Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 300 | Out-Null
+}
+
 for($i=0; $i -lt $hepsi.Count; $i += $batch){
   $son = [Math]::Min($i+$batch, $hepsi.Count) - 1
   $dilim = $hepsi[$i..$son]
-  $json = ($dilim | ConvertTo-Json -Depth 5)
-  if($dilim.Count -eq 1){ $json = "[$json]" }   # tek elemanda PS array'i acar
-  $gonder = [System.Text.Encoding]::UTF8.GetBytes($json)
-  try {
-    Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 180 | Out-Null
+  $ok = $false
+  for($deneme=1; $deneme -le 3 -and -not $ok; $deneme++){
+    try { Gonder $dilim; $ok = $true }
+    catch {
+      Write-Host ("  UYARI batch {0}-{1} deneme {2}/3: {3}" -f $i, $son, $deneme, $_)
+      if($deneme -lt 3){ Start-Sleep -Seconds (5 * $deneme) }
+    }
+  }
+  if($ok){
     $eklenen += $dilim.Count
     Write-Host ("  batch {0}-{1} eklendi ({2}/{3})" -f $i, $son, $eklenen, $hepsi.Count)
-  } catch {
-    Write-Host ("HATA batch {0}: {1}" -f $i, $_)
+  } else {
+    # parti 3 kez dustu -> tek tek yaz, boylece yalniz gercekten bozuk kayit duser
+    Write-Host ("  batch {0}-{1} 3 denemede gecmedi -> tek tek yaziliyor" -f $i, $son)
+    foreach($k in $dilim){
+      try { Gonder @($k); $eklenen++ }
+      catch { $basarisiz.Add($k.kaynak_ad); Write-Host ("    DUSEN: {0} | {1}" -f $k.kaynak_ad, $_) }
+    }
   }
 }
-Write-Host ("MEVZUAT YUKLENDI - toplam {0} madde-belgesi (tur=kanun-madde)" -f $eklenen)
+
+Write-Host ("MEVZUAT YUKLENDI - {0}/{1} belge yazildi." -f $eklenen, $hepsi.Count)
+if($basarisiz.Count -gt 0){
+  Write-Host ("KIRMIZI: {0} kayit ambara GIRMEDI. Ilk 20:" -f $basarisiz.Count)
+  $basarisiz | Select-Object -First 20 | ForEach-Object { Write-Host ("   - " + $_) }
+  exit 1
+}
+if($eklenen -ne $hepsi.Count){
+  Write-Host ("KIRMIZI: sayim tutmuyor ({0} != {1})." -f $eklenen, $hepsi.Count)
+  exit 1
+}
 exit 0
