@@ -16,7 +16,7 @@
 - [x] TFRS 13 Gerçeğe Uygun Değer Ölçümü — YUTULDU 27.07 (2022/3'te soru; tanım/çıkış fiyatı, asıl-en avantajlı piyasa, işlem maliyeti düzeltilmez, en iyi ve en üst seviyede kullanım, 3 değerleme yaklaşımı, HİYERARŞİ Seviye 1-2-3)
 - [x] TFRS 15 Müşteri Sözleşmelerinden Hasılat — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap; BEŞ ADIMLI MODELİN tamamı: sözleşme 5 şart, edim yükümlülüğü/farklı mal kriteri, işlem bedeli + değişken bedel, tek başına satış fiyatıyla dağıtım, kontrol devri 5 gösterge + zamana yayılı 3 şart)
 - [x] TFRS 16 Kiralamalar — YUTULDU 27.07 (2021/3, 2023/3'te soru; iki istisna, kiralama tanımı/süresi, KİRACI: kullanım hakkı varlığı + kira yükümlülüğü ilk-sonraki ölçüm + amortisman süresi kuralı + yeniden değerlendirme + sunum, KİRAYA VEREN: finansal/faaliyet 5 örnek + 3 gösterge + net kiralama yatırımı)
-- [ ] TFRS 7 Finansal Araçlar: Açıklamalar (2023/3)
+- [x] TFRS 7 Finansal Araçlar: Açıklamalar — ÇEKİRDEK YUTULDU 27.07 (2023/3'te soru; amaç/kapsam, finansal araç sınıfları, bilanço + gelir tablosu açıklamaları, GUD açıklamaları, RİSKLERİN NİTELİĞİ VE DÜZEYİ girişi: kredi/likidite/piyasa riski + niteliksel-sayısal açıklama çerçevesi). KALAN: risk türlerinin ayrıntılı hükümleri p.36-42 + duyarlılık analizi
 *Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
 
 ## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
