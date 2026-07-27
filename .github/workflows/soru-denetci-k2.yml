@@ -6,8 +6,9 @@ name: Soru Denetcisi K2
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 1,4 * * *"    # gece 04:17 ve 07:17 TR - iki dalga (kota yenilenmesini kullan)
+  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
+  # schedule:
+    #- cron: "17 1,4 * * *"    # gece 04:17 ve 07:17 TR - iki dalga (kota yenilenmesini kullan)
   push:
     paths:
       - 'motor/soru-denetci-k2.ps1'

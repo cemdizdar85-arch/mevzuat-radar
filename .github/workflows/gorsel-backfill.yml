@@ -5,8 +5,9 @@ name: Gorsel Backfill
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 2 * * *"    # gece 05:17 TR - gunun yeni sorulari da gorsellensin
+  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
+  # schedule:
+    #- cron: "17 2 * * *"    # gece 05:17 TR - gunun yeni sorulari da gorsellensin
   push:
     paths:
       - 'motor/gorsel-backfill.ps1'

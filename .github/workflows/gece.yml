@@ -8,8 +8,9 @@
 name: Gece Ajanı
 
 on:
-  schedule:
-    - cron: "23 1 * * *"    # HER GECE 04:23 TR (tenha dakika — 23.07 gecesi tam-saat cronlari atlandi). Uretim BEDAVA motor: GEMINI_API_KEY varsa Gemini, yoksa Claude
+  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
+  # schedule:
+    #- cron: "23 1 * * *"    # HER GECE 04:23 TR (tenha dakika — 23.07 gecesi tam-saat cronlari atlandi). Uretim BEDAVA motor: GEMINI_API_KEY varsa Gemini, yoksa Claude
   workflow_dispatch:
 
 permissions:

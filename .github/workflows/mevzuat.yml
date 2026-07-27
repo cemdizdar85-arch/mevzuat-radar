@@ -6,8 +6,9 @@
 name: Günlük Kanun Aynası
 
 on:
-  schedule:
-    - cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
+  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
+  # schedule:
+    #- cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
   workflow_dispatch:
 
 permissions:

@@ -6,8 +6,9 @@
 name: Hap Kartlar
 
 on:
-  schedule:
-    - cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
+  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
+  # schedule:
+    #- cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
   workflow_dispatch:
 
 permissions:
