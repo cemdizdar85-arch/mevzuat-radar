@@ -61,11 +61,20 @@ foreach($t in $SILINECEK){
     } catch { Write-Host ("KRITIK: id cekilemedi ({0}): {1}" -f $t, $_); exit 1 }
     $liste = @($ids)
     if($liste.Count -eq 0){ break }
-    $filtre = "id=in.(" + (($liste | ForEach-Object { $_.id }) -join ',') + ")"
-    try {
-      Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?$filtre" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 180 | Out-Null
-      $tur_silinen += $liste.Count
-    } catch { Write-Host ("KRITIK: silme basarisiz ({0}): {1} - cift kayit riski, kosu durduruluyor." -f $t, $_); exit 1 }
+    # 27.07 3. tur: id UUID (36 krk). 1000 id'yi tek URL'e koymak 39.007
+    # karakterlik bir filtre ediyor ve sunucu 400 donuyor - OLCULDU:
+    #   100'luk  -> 3.907 krk  -> OK
+    #   1000'luk -> 39.007 krk -> 400 Hatali Istek
+    # Silme 100'luk dilimlere bolundu. UUID'ler tirnaklandi; testte tirnaksiz
+    # da calisti, yani ariza SADECE URL UZUNLUGUYDU - tirnak ek guvence.
+    for($j=0; $j -lt $liste.Count; $j += 100){
+      $alt = @($liste[$j..([Math]::Min($j+99, $liste.Count-1))])
+      $filtre = "id=in.(" + (($alt | ForEach-Object { '"' + $_.id + '"' }) -join ',') + ")"
+      try {
+        Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?$filtre" -Headers ($H + @{ Prefer = "return=minimal" }) -TimeoutSec 180 | Out-Null
+        $tur_silinen += $alt.Count
+      } catch { Write-Host ("KRITIK: silme basarisiz ({0}): {1} - cift kayit riski, kosu durduruluyor." -f $t, $_); exit 1 }
+    }
   }
   Write-Host ("  silindi: {0,-16} {1} satir" -f $t, $tur_silinen)
 }
