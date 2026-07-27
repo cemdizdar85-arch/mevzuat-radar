@@ -52,8 +52,15 @@ if($hepsi.Count -eq 0){ exit 0 }
 # 27.07 2. tur: tek sorguda silme 57.622 satirda Supabase statement timeout'una
 # takildi (is 15 sn'de kirmizi bitti, ambar hic degismedi). Artik tur tur ve
 # PARCALI siliniyor: id listesi cekilir, id=in.(...) ile silinir, bitene kadar.
-$SILINECEK = @('kanun-madde','standart-madde','teori-notu','teblig')
-foreach($t in $SILINECEK){
+# 28.07 4. tur — BOS PENCERE: eski akis "HEPSINI sil, sonra HEPSINI ekle" idi;
+# 14.960 kaydin yazilmasi dakikalar surdugu icin ambar O SURE BOYUNCA TAMAMEN
+# BOS kaliyordu (27.07'de gozle goruldu: kanun-madde 0). Site o anda sorgu
+# yaparsa bos sonuc doner. Artik TUR TUR: bir tur silinir ve HEMEN geri yazilir,
+# sonra digerine gecilir. Boylece ayni anda yalnizca TEK tur bos kalir ve
+# penceresi kendi buyuklugu kadar surer. (Tam sifir pencere icin surum-kolonlu
+# mavi-yesil takas gerekir; o sema degisikligi istiyor, ayri is olarak duruyor.)
+$SILINECEK = @('teori-notu','standart-madde','teblig','kanun-madde')   # kucukten buyuge
+function TurSil($t){
   $tur_silinen = 0
   while($true){
     try {
@@ -78,7 +85,6 @@ foreach($t in $SILINECEK){
   }
   Write-Host ("  silindi: {0,-16} {1} satir" -f $t, $tur_silinen)
 }
-Write-Host "Eski kayitlar silindi."
 
 # --- toplu ekle ---
 # 27.07.2026 DUZELTME: eski hal batch=500 idi ve basarisiz partiyi SESSIZCE
@@ -96,28 +102,41 @@ function Gonder($kayitlar){
   Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar" -Headers ($H + @{ Prefer = "return=minimal" }) -ContentType "application/json; charset=utf-8" -Body $gonder -TimeoutSec 300 | Out-Null
 }
 
-for($i=0; $i -lt $hepsi.Count; $i += $batch){
-  $son = [Math]::Min($i+$batch, $hepsi.Count) - 1
-  $dilim = $hepsi[$i..$son]
-  $ok = $false
-  for($deneme=1; $deneme -le 3 -and -not $ok; $deneme++){
-    try { Gonder $dilim; $ok = $true }
-    catch {
-      Write-Host ("  UYARI batch {0}-{1} deneme {2}/3: {3}" -f $i, $son, $deneme, $_)
-      if($deneme -lt 3){ Start-Sleep -Seconds (5 * $deneme) }
+# TUR TUR: sil -> HEMEN geri yaz. Boylece bos pencere tek turle sinirli kalir.
+foreach($t in $SILINECEK){
+  $turKayit = @($hepsi | Where-Object { "$($_.tur)" -eq $t })
+  Write-Host ("--- {0}: {1} kayit (once siliniyor, hemen ardindan yaziliyor)" -f $t, $turKayit.Count)
+  TurSil $t
+  if($turKayit.Count -eq 0){ Write-Host ("  {0}: dosyalarda kayit yok, yalniz temizlendi." -f $t); continue }
+  for($i=0; $i -lt $turKayit.Count; $i += $batch){
+    $son = [Math]::Min($i+$batch, $turKayit.Count) - 1
+    $dilim = @($turKayit[$i..$son])
+    $ok = $false
+    for($deneme=1; $deneme -le 3 -and -not $ok; $deneme++){
+      try { Gonder $dilim; $ok = $true }
+      catch {
+        Write-Host ("  UYARI [{0}] batch {1}-{2} deneme {3}/3: {4}" -f $t, $i, $son, $deneme, $_)
+        if($deneme -lt 3){ Start-Sleep -Seconds (5 * $deneme) }
+      }
+    }
+    if($ok){ $eklenen += $dilim.Count }
+    else {
+      # parti 3 kez dustu -> tek tek yaz, boylece yalniz gercekten bozuk kayit duser
+      Write-Host ("  [{0}] batch {1}-{2} 3 denemede gecmedi -> tek tek yaziliyor" -f $t, $i, $son)
+      foreach($k in $dilim){
+        try { Gonder @($k); $eklenen++ }
+        catch { $basarisiz.Add($k.kaynak_ad); Write-Host ("    DUSEN: {0} | {1}" -f $k.kaynak_ad, $_) }
+      }
     }
   }
-  if($ok){
-    $eklenen += $dilim.Count
-    Write-Host ("  batch {0}-{1} eklendi ({2}/{3})" -f $i, $son, $eklenen, $hepsi.Count)
-  } else {
-    # parti 3 kez dustu -> tek tek yaz, boylece yalniz gercekten bozuk kayit duser
-    Write-Host ("  batch {0}-{1} 3 denemede gecmedi -> tek tek yaziliyor" -f $i, $son)
-    foreach($k in $dilim){
-      try { Gonder @($k); $eklenen++ }
-      catch { $basarisiz.Add($k.kaynak_ad); Write-Host ("    DUSEN: {0} | {1}" -f $k.kaynak_ad, $_) }
-    }
-  }
+  Write-Host ("  {0}: geri yazildi ({1}/{2} toplam)" -f $t, $eklenen, $hepsi.Count)
+}
+# dosyalarda olup SILINECEK listesinde OLMAYAN bir tur varsa fark edilsin
+$bilinmeyen = @($hepsi | Where-Object { $SILINECEK -notcontains "$($_.tur)" })
+if($bilinmeyen.Count -gt 0){
+  Write-Host ("KIRMIZI: silme listesinde OLMAYAN tur(ler) var -> {0} kayit yazilmadi. Turler: {1}" -f $bilinmeyen.Count, (($bilinmeyen | ForEach-Object { $_.tur } | Sort-Object -Unique) -join ', '))
+  Write-Host "  (Silinmeyen bir turu eklemek 45x cift kayit felaketini tekrarlar - once SILINECEK listesine ekle.)"
+  exit 1
 }
 
 Write-Host ("MEVZUAT YUKLENDI - {0}/{1} belge yazildi." -f $eklenen, $hepsi.Count)
