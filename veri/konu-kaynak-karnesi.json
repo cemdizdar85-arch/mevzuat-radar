@@ -1,10 +1,10 @@
 {
-    "guncelleme":  "2026-07-28 12:15",
+    "guncelleme":  "2026-07-28 12:39",
     "aciklama":  "Konu-Kaynak Karnesi: her cikmis sinav konusu icin ambarda kaynak metin var mi. PARALI PARTI KOSMADAN ONCE BAKILIR; \u0027KAYNAK YOK\u0027 ve \u0027MEVZUAT-DISI\u0027 satirlarina fabrika SOKULMAZ.",
     "ozet":  {
-                 "URET":  1149,
+                 "URET":  1206,
                  "MEVZUAT-DISI":  380,
-                 "KAYNAK YOK":  269
+                 "KAYNAK YOK":  212
              },
     "konular":  [
                     {
@@ -19,9 +19,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "butce dogrusu kaymalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: kaymalari + dogrusu"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -43,17 +43,17 @@
                         "ders":  "Ekonomi",
                         "konu":  "denge geliri-carpan etkisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  5,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: carpan + etkisi"
                     },
                     {
                         "ders":  "Ekonomi",
                         "konu":  "devaluasyon dis ticaret esnekligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: devaluasyon + esnekligi"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -75,7 +75,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "dogal issizlik turleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: issizlik + turleri"
                     },
@@ -171,7 +171,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "gsyih hukumet alimlari kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  161,
+                        "ambarKayit":  167,
                         "karar":  "URET",
                         "not":  "anahtar kelime: alimlari + kapsami"
                     },
@@ -179,9 +179,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "gsyih kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -219,7 +219,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "is-lm para politikasi etkinligi",
                         "cikmisSoru":  4,
-                        "ambarKayit":  2,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: politikasi + etkinligi"
                     },
@@ -227,15 +227,15 @@
                         "ders":  "Ekonomi",
                         "konu":  "is-lm yatirim faiz duyarsizligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: duyarsizligi + yatirim"
                     },
                     {
                         "ders":  "Ekonomi",
                         "konu":  "issizlik turleri hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: issizlik + turleri"
                     },
@@ -259,9 +259,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "klasik iktisat yaklasimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: yaklasimi + iktisat"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -299,7 +299,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "lm egrisi ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + egrisi"
                     },
@@ -339,7 +339,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "monopol piyasa ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + monopol"
                     },
@@ -347,7 +347,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "monopol piyasasi ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  10,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + piyasasi"
                     },
@@ -371,7 +371,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "mundell-fleming sabit kur maliye politikasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: politikasi + mundell"
                     },
@@ -387,15 +387,15 @@
                         "ders":  "Ekonomi",
                         "konu":  "mutlak-karsilastirmali ustunluk",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: karsilastirmali + ustunluk"
                     },
                     {
                         "ders":  "Ekonomi",
                         "konu":  "odemeler dengesi kalemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kalemleri + odemeler"
                     },
@@ -419,7 +419,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "para arzi-acik piyasa islemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  86,
+                        "ambarKayit":  135,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemleri + piyasa"
                     },
@@ -427,7 +427,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "para politikasi makro modeller",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: politikasi + modeller"
                     },
@@ -459,23 +459,23 @@
                         "ders":  "Ekonomi",
                         "konu":  "rasyonel beklentiler hipotezi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
                         "konu":  "rasyonel bekleyisli makro modeller",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
                         "konu":  "reel doviz kuru ve net ihracat",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ihracat + doviz"
                     },
@@ -483,9 +483,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "talep egrisini kaydiran faktorler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: faktorler + kaydiran"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -499,7 +499,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "talep fiyat esnekligi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -523,7 +523,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "tam rekabet denge uretim (srtc)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  22,
                         "karar":  "URET",
                         "not":  "anahtar kelime: rekabet + uretim"
                     },
@@ -531,7 +531,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "tam rekabet denge uretim duzeyi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  22,
                         "karar":  "URET",
                         "not":  "anahtar kelime: rekabet + uretim"
                     },
@@ -539,7 +539,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "tam rekabet kisa donem denge",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: rekabet + denge"
                     },
@@ -571,9 +571,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "tekelci firma fiyat belirleme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: belirleme + tekelci"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -611,7 +611,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "tuketici fazlasi degisimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degisimi + tuketici"
                     },
@@ -627,9 +627,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "ucuncu derece fiyat farklilastirmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: farklilastirmasi + ucuncu"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -643,9 +643,9 @@
                         "ders":  "Ekonomi",
                         "konu":  "uyarlayici bekleyisler modeli",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: bekleyisler + uyarlayici"
                     },
                     {
                         "ders":  "Ekonomi",
@@ -659,7 +659,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "yapisal issizlik nedenleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: nedenleri + issizlik"
                     },
@@ -667,7 +667,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "yeni klasik model",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -675,7 +675,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "yeni klasik model para arzi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: klasik + model"
                     },
@@ -691,7 +691,7 @@
                         "ders":  "Ekonomi",
                         "konu":  "zorunlu karsilik orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  33,
+                        "ambarKayit":  53,
                         "karar":  "URET",
                         "not":  "anahtar kelime: karsilik + zorunlu"
                     },
@@ -1939,7 +1939,7 @@
                         "ders":  "Hukuk",
                         "konu":  "3568 sayili kanun birlik",
                         "cikmisSoru":  1,
-                        "ambarKayit":  375,
+                        "ambarKayit":  943,
                         "karar":  "URET",
                         "not":  "anahtar kelime: birlik + sayili"
                     },
@@ -1947,7 +1947,7 @@
                         "ders":  "Hukuk",
                         "konu":  "3568 sayili kanun-odalar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  63,
+                        "ambarKayit":  143,
                         "karar":  "URET",
                         "not":  "anahtar kelime: odalar + sayili"
                     },
@@ -1955,7 +1955,7 @@
                         "ders":  "Hukuk",
                         "konu":  "4/1-a kapsaminda sayilanlar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  65,
+                        "ambarKayit":  142,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sayilanlar + kapsaminda"
                     },
@@ -1963,7 +1963,7 @@
                         "ders":  "Hukuk",
                         "konu":  "4/1-c yaslilik ayligi prim gunu (9000)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  25,
+                        "ambarKayit":  95,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yaslilik + ayligi"
                     },
@@ -1971,7 +1971,7 @@
                         "ders":  "Hukuk",
                         "konu":  "4857 kapsam disi istisnalar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: istisnalar + kapsam"
                     },
@@ -1979,7 +1979,7 @@
                         "ders":  "Hukuk",
                         "konu":  "4857 kapsami disindaki isler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  82,
+                        "ambarKayit":  176,
                         "karar":  "URET",
                         "not":  "anahtar kelime: disindaki + kapsami"
                     },
@@ -1995,39 +1995,39 @@
                         "ders":  "Hukuk",
                         "konu":  "adam calistiranin sorumlulugu",
                         "cikmisSoru":  2,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: calistiranin + sorumlulugu"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "agir kusur sorumsuzluk anlasmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: sorumsuzluk + anlasmasi"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "akdi temerrut faizi siniri (%100)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: temerrut + siniri"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "alt isverenlik",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "amme alacagi tasarruf iptali",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  24,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tasarruf + alacagi"
                     },
@@ -2035,7 +2035,7 @@
                         "ders":  "Hukuk",
                         "konu":  "amme alacagi tecil",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: alacagi + tecil"
                     },
@@ -2043,7 +2043,7 @@
                         "ders":  "Hukuk",
                         "konu":  "amme alacagi teminat paraya cevirme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: cevirme + teminat"
                     },
@@ -2051,7 +2051,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket ayni sermaye",
                         "cikmisSoru":  1,
-                        "ambarKayit":  42,
+                        "ambarKayit":  144,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sermaye + anonim"
                     },
@@ -2059,7 +2059,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket denetimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetimi + anonim"
                     },
@@ -2067,7 +2067,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket genel kurulu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  176,
+                        "ambarKayit":  699,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurulu + sirket"
                     },
@@ -2075,7 +2075,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket ilkeleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ilkeleri + anonim"
                     },
@@ -2083,7 +2083,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + anonim"
                     },
@@ -2091,15 +2091,15 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket kurallari (tescil-organlar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  11,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: kurallari + organlar"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket pay devri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  19,
+                        "ambarKayit":  226,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sirket + anonim"
                     },
@@ -2107,25 +2107,25 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket sermaye",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: sermaye + anonim"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket sermayesi (kisisel emek yasagi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  10,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: sermayesi + kisisel"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket temsili",
                         "cikmisSoru":  3,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  5,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: temsili + anonim"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2139,7 +2139,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket yonetim kurulu temsil",
                         "cikmisSoru":  1,
-                        "ambarKayit":  27,
+                        "ambarKayit":  1155,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetim + kurulu"
                     },
@@ -2147,7 +2147,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirket yonetim kurulu yetkisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  115,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yetkisi + yonetim"
                     },
@@ -2155,7 +2155,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim sirkete ayni sermaye olabilecekler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: olabilecekler + sermaye"
                     },
@@ -2163,7 +2163,7 @@
                         "ders":  "Hukuk",
                         "konu":  "anonim-limited fark yoktur (ayni sermaye)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  56,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sermaye + limited"
                     },
@@ -2171,7 +2171,7 @@
                         "ders":  "Hukuk",
                         "konu":  "aranacak borc",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  68,
                         "karar":  "URET",
                         "not":  "anahtar kelime: aranacak"
                     },
@@ -2179,9 +2179,9 @@
                         "ders":  "Hukuk",
                         "konu":  "asgari kurumlar vergisi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  49,
+                        "ambarKayit":  16,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: kurumlar + vergisi"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2195,7 +2195,7 @@
                         "ders":  "Hukuk",
                         "konu":  "asiri yararlanma sureleri (1-5 yil)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  9,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yararlanma + sureleri"
                     },
@@ -2203,7 +2203,7 @@
                         "ders":  "Hukuk",
                         "konu":  "asliye ticaret mahkemesi gorevi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  111,
                         "karar":  "URET",
                         "not":  "anahtar kelime: mahkemesi + ticaret"
                     },
@@ -2219,15 +2219,15 @@
                         "ders":  "Hukuk",
                         "konu":  "ayirt etme gucunun gecici kaybi sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: sorumlulugu + gucunun"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "ayni sermaye kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + sermaye"
                     },
@@ -2235,17 +2235,17 @@
                         "ders":  "Hukuk",
                         "konu":  "azinlik haklari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: haklari + azinlik"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "bedelsiz pay sermaye artirimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: artirimi + bedelsiz"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2267,9 +2267,9 @@
                         "ders":  "Hukuk",
                         "konu":  "belirli sureli is sozlesmesi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  11,
+                        "ambarKayit":  2,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: sozlesmesi + belirli"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2277,13 +2277,13 @@
                         "cikmisSoru":  1,
                         "ambarKayit":  7,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: beyaz"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "birlik (turmob) kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  37,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + birlik"
                     },
@@ -2291,7 +2291,7 @@
                         "ders":  "Hukuk",
                         "konu":  "birlik butcesini yapan organ",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  9,
                         "karar":  "URET",
                         "not":  "anahtar kelime: butcesini + birlik"
                     },
@@ -2299,7 +2299,7 @@
                         "ders":  "Hukuk",
                         "konu":  "bono gidersiz kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: gidersiz"
                     },
@@ -2307,7 +2307,7 @@
                         "ders":  "Hukuk",
                         "konu":  "bono imza sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  87,
+                        "ambarKayit":  478,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumlulugu"
                     },
@@ -2315,7 +2315,7 @@
                         "ders":  "Hukuk",
                         "konu":  "bono on yuzunde imza (aval)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  18,
+                        "ambarKayit":  109,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yuzunde"
                     },
@@ -2323,7 +2323,7 @@
                         "ders":  "Hukuk",
                         "konu":  "bono zorunlu unsurlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  29,
                         "karar":  "URET",
                         "not":  "anahtar kelime: unsurlari + zorunlu"
                     },
@@ -2347,7 +2347,7 @@
                         "ders":  "Hukuk",
                         "konu":  "bonoya uygulanmayan police hukumleri (kabul)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: uygulanmayan + hukumleri"
                     },
@@ -2355,7 +2355,7 @@
                         "ders":  "Hukuk",
                         "konu":  "borc iliskisi sona erme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  70,
+                        "ambarKayit":  233,
                         "karar":  "URET",
                         "not":  "anahtar kelime: iliskisi"
                     },
@@ -2363,7 +2363,7 @@
                         "ders":  "Hukuk",
                         "konu":  "borclar kanunu\u0027nda temsil",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: borclar + temsil"
                     },
@@ -2379,7 +2379,7 @@
                         "ders":  "Hukuk",
                         "konu":  "borclarin ifasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2403,7 +2403,7 @@
                         "ders":  "Hukuk",
                         "konu":  "calisma suresinden sayilan haller",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: suresinden + sayilan"
                     },
@@ -2411,15 +2411,15 @@
                         "ders":  "Hukuk",
                         "konu":  "calisma ve dinlenme sureleri",
                         "cikmisSoru":  2,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: sureleri + dinlenme"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "calisma-dinlenme sureleri (tatil calismasi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: calismasi + sureleri"
                     },
@@ -2443,7 +2443,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek ibraz sureleri (10 gun-1 ay)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  49,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sureleri + ibraz"
                     },
@@ -2451,7 +2451,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek ibraz ve duzenleme tarihi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  73,
+                        "ambarKayit":  197,
                         "karar":  "URET",
                         "not":  "anahtar kelime: duzenleme + tarihi"
                     },
@@ -2459,7 +2459,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  62,
+                        "ambarKayit":  221,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari"
                     },
@@ -2467,9 +2467,9 @@
                         "ders":  "Hukuk",
                         "konu":  "cek kurallari (ibraz sureleri)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  9,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: kurallari + sureleri"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2483,7 +2483,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek kurallari (vade kaydi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  63,
+                        "ambarKayit":  221,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari"
                     },
@@ -2491,7 +2491,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek uzerindeki kayitlar",
                         "cikmisSoru":  2,
-                        "ambarKayit":  4,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: uzerindeki + kayitlar"
                     },
@@ -2499,7 +2499,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cek zorunlu unsurlari",
                         "cikmisSoru":  2,
-                        "ambarKayit":  11,
+                        "ambarKayit":  29,
                         "karar":  "URET",
                         "not":  "anahtar kelime: unsurlari + zorunlu"
                     },
@@ -2507,7 +2507,7 @@
                         "ders":  "Hukuk",
                         "konu":  "cekte yasak kayitlar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  9,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kayitlar + cekte"
                     },
@@ -2515,7 +2515,7 @@
                         "ders":  "Hukuk",
                         "konu":  "damga vergisi (1) sayili tablo",
                         "cikmisSoru":  1,
-                        "ambarKayit":  242,
+                        "ambarKayit":  704,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + sayili"
                     },
@@ -2523,7 +2523,7 @@
                         "ders":  "Hukuk",
                         "konu":  "damga vergisi kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + vergisi"
                     },
@@ -2531,7 +2531,7 @@
                         "ders":  "Hukuk",
                         "konu":  "damga vergisi resmi daire tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + tanimi"
                     },
@@ -2539,7 +2539,7 @@
                         "ders":  "Hukuk",
                         "konu":  "defter iade bildirimi saklama suresi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: bildirimi + saklama"
                     },
@@ -2563,7 +2563,7 @@
                         "ders":  "Hukuk",
                         "konu":  "degersiz alacak",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2571,7 +2571,7 @@
                         "ders":  "Hukuk",
                         "konu":  "dijital hizmet vergisi beyani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + dijital"
                     },
@@ -2579,7 +2579,7 @@
                         "ders":  "Hukuk",
                         "konu":  "dijital hizmet vergisi orani (%7,5)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + dijital"
                     },
@@ -2587,7 +2587,7 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezalari",
                         "cikmisSoru":  2,
-                        "ambarKayit":  12,
+                        "ambarKayit":  77,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2595,15 +2595,15 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezalari (ucretten kesme yok)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  5,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: ucretten + cezalari"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezalari halleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  20,
+                        "ambarKayit":  101,
                         "karar":  "URET",
                         "not":  "anahtar kelime: cezalari + disiplin"
                     },
@@ -2611,7 +2611,7 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezalari kinama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  20,
+                        "ambarKayit":  101,
                         "karar":  "URET",
                         "not":  "anahtar kelime: cezalari + disiplin"
                     },
@@ -2619,15 +2619,15 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezalarinin uygulanmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  15,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: uygulanmasi + cezalarinin"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "disiplin cezasi kinama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  29,
                         "karar":  "URET",
                         "not":  "anahtar kelime: disiplin + kinama"
                     },
@@ -2635,7 +2635,7 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin kovusturmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2643,7 +2643,7 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin kurulu itiraz suresi (30 gun)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  47,
                         "karar":  "URET",
                         "not":  "anahtar kelime: disiplin + suresi"
                     },
@@ -2651,7 +2651,7 @@
                         "ders":  "Hukuk",
                         "konu":  "disiplin yonetmeligi itiraz",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetmeligi + disiplin"
                     },
@@ -2659,15 +2659,15 @@
                         "ders":  "Hukuk",
                         "konu":  "elektronik tebligat",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  13,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: elektronik + tebligat"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "emlak vergisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  39,
+                        "ambarKayit":  54,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2675,7 +2675,7 @@
                         "ders":  "Hukuk",
                         "konu":  "emlak vergisi bina orani (binde bir)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  23,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + binde"
                     },
@@ -2683,7 +2683,7 @@
                         "ders":  "Hukuk",
                         "konu":  "emlak vergisi vergi degeri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  62,
+                        "ambarKayit":  105,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + degeri"
                     },
@@ -2691,7 +2691,7 @@
                         "ders":  "Hukuk",
                         "konu":  "emlak vergisi-bina vergisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  634,
+                        "ambarKayit":  1173,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + vergisi"
                     },
@@ -2707,23 +2707,23 @@
                         "ders":  "Hukuk",
                         "konu":  "engelli ve eski hukumlu calistirma",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  3,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "etik (bagimsiz calisan mesleki atamalar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: atamalar + bagimsiz"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "etik gizli bilgi aciklama halleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: aciklama + halleri"
                     },
@@ -2739,7 +2739,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik ilkeler (bagimsiz calisanlar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  44,
                         "karar":  "URET",
                         "not":  "anahtar kelime: calisanlar + bagimsiz"
                     },
@@ -2747,7 +2747,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik ilkeler kisisel cikar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kisisel + ilkeler"
                     },
@@ -2755,7 +2755,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik ilkeler kisisel cikar tehdidi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tehdidi + kisisel"
                     },
@@ -2787,7 +2787,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik kurulu gorev yetkileri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  94,
+                        "ambarKayit":  224,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yetkileri + kurulu"
                     },
@@ -2795,7 +2795,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik kurulu uye sayisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  101,
+                        "ambarKayit":  291,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sayisi + kurulu"
                     },
@@ -2803,7 +2803,7 @@
                         "ders":  "Hukuk",
                         "konu":  "etik kurulunun gorev ve yetkileri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  39,
+                        "ambarKayit":  61,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yetkileri + kurulunun"
                     },
@@ -2819,7 +2819,7 @@
                         "ders":  "Hukuk",
                         "konu":  "faaliyeti durdurulan isletme kazanci (deger artis)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: durdurulan + faaliyeti"
                     },
@@ -2827,7 +2827,7 @@
                         "ders":  "Hukuk",
                         "konu":  "fazla calisma",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  26,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2835,7 +2835,7 @@
                         "ders":  "Hukuk",
                         "konu":  "fazla calisma hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  65,
+                        "ambarKayit":  327,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + calisma"
                     },
@@ -2843,9 +2843,9 @@
                         "ders":  "Hukuk",
                         "konu":  "fiili hizmet suresi zammi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  93,
+                        "ambarKayit":  13,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: suresi + hizmet"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -2859,15 +2859,15 @@
                         "ders":  "Hukuk",
                         "konu":  "gecici is goremezlik odenegi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  39,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "gecici is goremezlik sigorta kollari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  80,
                         "karar":  "URET",
                         "not":  "anahtar kelime: goremezlik + sigorta"
                     },
@@ -2875,7 +2875,7 @@
                         "ders":  "Hukuk",
                         "konu":  "gecikme zammi kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + gecikme"
                     },
@@ -2883,7 +2883,7 @@
                         "ders":  "Hukuk",
                         "konu":  "gelir vergisi ticari kazanc",
                         "cikmisSoru":  1,
-                        "ambarKayit":  65,
+                        "ambarKayit":  89,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisi + ticari"
                     },
@@ -2891,7 +2891,7 @@
                         "ders":  "Hukuk",
                         "konu":  "gelir vergisinde tahsil esasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  17,
+                        "ambarKayit":  29,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergisinde + tahsil"
                     },
@@ -2899,7 +2899,7 @@
                         "ders":  "Hukuk",
                         "konu":  "gelir vergisi-yurt disi kazanc istisnasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  25,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: istisnasi + vergisi"
                     },
@@ -2915,7 +2915,7 @@
                         "ders":  "Hukuk",
                         "konu":  "genel islem kosullari tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kosullari + tanimi"
                     },
@@ -2923,7 +2923,7 @@
                         "ders":  "Hukuk",
                         "konu":  "genel islem sartlari",
                         "cikmisSoru":  2,
-                        "ambarKayit":  2,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2931,7 +2931,7 @@
                         "ders":  "Hukuk",
                         "konu":  "genel kurul iptal davasi suresi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  22,
+                        "ambarKayit":  69,
                         "karar":  "URET",
                         "not":  "anahtar kelime: davasi + suresi"
                     },
@@ -2939,7 +2939,7 @@
                         "ders":  "Hukuk",
                         "konu":  "genel kurul kararlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -2947,15 +2947,15 @@
                         "ders":  "Hukuk",
                         "konu":  "grev lokavt yasagi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: yasagi + lokavt"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "grev tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  97,
+                        "ambarKayit":  172,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tanimi"
                     },
@@ -2979,7 +2979,7 @@
                         "ders":  "Hukuk",
                         "konu":  "hakli nedenle derhal fesih (ahlak ve iyi niyet)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "anahtar kelime: nedenle + derhal"
                     },
@@ -2987,7 +2987,7 @@
                         "ders":  "Hukuk",
                         "konu":  "hakli nedenle derhal fesih halleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  23,
                         "karar":  "URET",
                         "not":  "anahtar kelime: nedenle + halleri"
                     },
@@ -2995,7 +2995,7 @@
                         "ders":  "Hukuk",
                         "konu":  "hakli savunma sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumlulugu + savunma"
                     },
@@ -3003,7 +3003,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil borc iliskileri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: iliskileri + haksiz"
                     },
@@ -3011,15 +3011,15 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil ceza hukuku iliskisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  4,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: iliskisi + haksiz"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil genel hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  47,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + haksiz"
                     },
@@ -3027,7 +3027,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil ispat yuku",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: haksiz + ispat"
                     },
@@ -3035,7 +3035,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil sartlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sartlari + haksiz"
                     },
@@ -3043,7 +3043,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil sorumlulugu",
                         "cikmisSoru":  2,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -3051,7 +3051,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil tazminat indirimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: indirimi + tazminat"
                     },
@@ -3059,15 +3059,15 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil unsurlari",
                         "cikmisSoru":  2,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  4,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: unsurlari + haksiz"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "haksiz fiil zamanasimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: zamanasimi + haksiz"
                     },
@@ -3075,7 +3075,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz rekabet davalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: davalari + rekabet"
                     },
@@ -3083,7 +3083,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz rekabet davalari (oda yetkisi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "anahtar kelime: davalari + yetkisi"
                     },
@@ -3099,7 +3099,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz rekabet reklam yasagi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  7,
+                        "ambarKayit":  23,
                         "karar":  "URET",
                         "not":  "anahtar kelime: rekabet + yasagi"
                     },
@@ -3107,7 +3107,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz rekabet ve reklam yasagi yonetmeligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetmeligi + rekabet"
                     },
@@ -3115,7 +3115,7 @@
                         "ders":  "Hukuk",
                         "konu":  "haksiz rekabet yasagi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  23,
                         "karar":  "URET",
                         "not":  "anahtar kelime: rekabet + yasagi"
                     },
@@ -3123,7 +3123,7 @@
                         "ders":  "Hukuk",
                         "konu":  "hayvan bulunduran sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumlulugu + bulunduran"
                     },
@@ -3131,7 +3131,7 @@
                         "ders":  "Hukuk",
                         "konu":  "hazir olmayanlar arasi sozlesme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: olmayanlar + sozlesme"
                     },
@@ -3139,9 +3139,9 @@
                         "ders":  "Hukuk",
                         "konu":  "hizmet borclanmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  5,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -3155,7 +3155,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ibra islemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  569,
+                        "ambarKayit":  909,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemi"
                     },
@@ -3163,7 +3163,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ihbar/bildirim sekli",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  23,
                         "karar":  "URET",
                         "not":  "anahtar kelime: bildirim + ihbar"
                     },
@@ -3171,7 +3171,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ihtiyati hacze itiraz suresi (15 gun)",
                         "cikmisSoru":  2,
-                        "ambarKayit":  12,
+                        "ambarKayit":  17,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ihtiyati + itiraz"
                     },
@@ -3195,7 +3195,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is guvencesi fesih bildirimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: bildirimi + guvencesi"
                     },
@@ -3203,7 +3203,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kanunu calisma sureleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  63,
+                        "ambarKayit":  141,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sureleri + calisma"
                     },
@@ -3211,7 +3211,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kanunu fesih",
                         "cikmisSoru":  1,
-                        "ambarKayit":  27,
+                        "ambarKayit":  63,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kanunu + fesih"
                     },
@@ -3219,7 +3219,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kanunu kapsami",
                         "cikmisSoru":  2,
-                        "ambarKayit":  898,
+                        "ambarKayit":  1967,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kapsami + kanunu"
                     },
@@ -3227,7 +3227,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi isveren sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumlulugu + isveren"
                     },
@@ -3235,15 +3235,15 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi meslek hastaligi yardimlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: yardimlari + hastaligi"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "is kazasi sayilan haller",
                         "cikmisSoru":  1,
-                        "ambarKayit":  59,
+                        "ambarKayit":  113,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sayilan + haller"
                     },
@@ -3251,7 +3251,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi sayilan haller (sut izni)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  59,
+                        "ambarKayit":  113,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sayilan + haller"
                     },
@@ -3259,7 +3259,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi sayilmayan haller",
                         "cikmisSoru":  3,
-                        "ambarKayit":  2,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sayilmayan + haller"
                     },
@@ -3275,7 +3275,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi surekli is goremezlik",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  45,
                         "karar":  "URET",
                         "not":  "anahtar kelime: goremezlik + surekli"
                     },
@@ -3283,7 +3283,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi yardimlari kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  30,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yardimlari + kapsami"
                     },
@@ -3291,7 +3291,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is kazasi-meslek hastaligi saglanan haklar",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hastaligi + saglanan"
                     },
@@ -3307,7 +3307,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is sozlesmesi turleri",
                         "cikmisSoru":  2,
-                        "ambarKayit":  3,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sozlesmesi + turleri"
                     },
@@ -3315,7 +3315,7 @@
                         "ders":  "Hukuk",
                         "konu":  "is sozlesmesi turleri ve hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  101,
+                        "ambarKayit":  313,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sozlesmesi + hukumleri"
                     },
@@ -3331,9 +3331,9 @@
                         "ders":  "Hukuk",
                         "konu":  "isletme toplu is sozlesmesi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  42,
+                        "ambarKayit":  2,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: sozlesmesi + isletme"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -3347,7 +3347,7 @@
                         "ders":  "Hukuk",
                         "konu":  "istirak hissesi kapsami (kvk)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  26,
+                        "ambarKayit":  40,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kapsami + hissesi"
                     },
@@ -3355,7 +3355,7 @@
                         "ders":  "Hukuk",
                         "konu":  "isyeri devri-is kanunu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  178,
+                        "ambarKayit":  320,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kanunu + isyeri"
                     },
@@ -3387,7 +3387,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kambiyo senedi beyaz ciro",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kambiyo + senedi"
                     },
@@ -3403,7 +3403,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kambiyo senetleri devir kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + senetleri"
                     },
@@ -3411,7 +3411,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kambiyo senetleri devir turu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  9,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: senetleri + kambiyo"
                     },
@@ -3419,7 +3419,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv belgesiz mal",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: belgesiz"
                     },
@@ -3427,7 +3427,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv iade incelemesi suresi (3 ay)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  19,
+                        "ambarKayit":  33,
                         "karar":  "URET",
                         "not":  "anahtar kelime: incelemesi + suresi"
                     },
@@ -3459,7 +3459,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv tevkifati",
                         "cikmisSoru":  1,
-                        "ambarKayit":  38,
+                        "ambarKayit":  43,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -3467,7 +3467,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv tipi (tuketim tipi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  93,
+                        "ambarKayit":  145,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tuketim"
                     },
@@ -3475,7 +3475,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv vergiye tabi islemler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  109,
+                        "ambarKayit":  119,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemler + vergiye"
                     },
@@ -3483,7 +3483,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kdv vergiyi doguran olay",
                         "cikmisSoru":  3,
-                        "ambarKayit":  31,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: doguran + vergiyi"
                     },
@@ -3491,9 +3491,9 @@
                         "ders":  "Hukuk",
                         "konu":  "kesin hukumsuzluk halleri",
                         "cikmisSoru":  2,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -3523,7 +3523,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kinama cezasi gerektiren haller",
                         "cikmisSoru":  1,
-                        "ambarKayit":  37,
+                        "ambarKayit":  63,
                         "karar":  "URET",
                         "not":  "anahtar kelime: gerektiren + haller"
                     },
@@ -3531,7 +3531,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kisa uzun vadeli sigorta kollari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  123,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kollari + sigorta"
                     },
@@ -3539,7 +3539,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kisa-uzun vadeli sigorta kollari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  123,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kollari + sigorta"
                     },
@@ -3563,7 +3563,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kismi sureli is sozlesmesi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -3571,7 +3571,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kiymetli evrak (kambiyo senetleri) devri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  9,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: senetleri + kiymetli"
                     },
@@ -3579,7 +3579,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kiymetli evrak bono",
                         "cikmisSoru":  1,
-                        "ambarKayit":  51,
+                        "ambarKayit":  78,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kiymetli + evrak"
                     },
@@ -3587,7 +3587,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kiymetli evrak bono cirosu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kiymetli + cirosu"
                     },
@@ -3595,7 +3595,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kiymetli evrak cek",
                         "cikmisSoru":  2,
-                        "ambarKayit":  51,
+                        "ambarKayit":  78,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kiymetli + evrak"
                     },
@@ -3603,7 +3603,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kiymetli evrak ciro",
                         "cikmisSoru":  1,
-                        "ambarKayit":  51,
+                        "ambarKayit":  78,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kiymetli + evrak"
                     },
@@ -3619,7 +3619,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kollektif sirket ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + kollektif"
                     },
@@ -3643,7 +3643,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kurumlar vergisi beyan esasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  334,
+                        "ambarKayit":  379,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurumlar + vergisi"
                     },
@@ -3659,15 +3659,15 @@
                         "ders":  "Hukuk",
                         "konu":  "kurumlar vergisi istisnasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  17,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: istisnasi + kurumlar"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "kurumlar vergisi matrahi (safi kurum kazanci)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  104,
+                        "ambarKayit":  117,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurumlar + kazanci"
                     },
@@ -3683,7 +3683,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kurumlar vergisi mukellefleri",
                         "cikmisSoru":  3,
-                        "ambarKayit":  32,
+                        "ambarKayit":  45,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -3691,7 +3691,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kurumlar vergisi zarar mahsubu (5 yil)",
                         "cikmisSoru":  2,
-                        "ambarKayit":  6,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurumlar + mahsubu"
                     },
@@ -3699,7 +3699,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kusursuz sorumluluk",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -3707,7 +3707,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kusursuz sorumluluk halleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumluluk + kusursuz"
                     },
@@ -3715,9 +3715,9 @@
                         "ders":  "Hukuk",
                         "konu":  "kusursuz sorumluluk kurtulus kaniti",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: sorumluluk + kurtulus"
                     },
                     {
                         "ders":  "Hukuk",
@@ -3731,7 +3731,7 @@
                         "ders":  "Hukuk",
                         "konu":  "kvk indirilemeyecek giderler (ortulu kazanc)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: indirilemeyecek + giderler"
                     },
@@ -3747,7 +3747,7 @@
                         "ders":  "Hukuk",
                         "konu":  "limited sirket ortagi kamu borcu sorumlulugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sorumlulugu + limited"
                     },
@@ -3811,15 +3811,15 @@
                         "ders":  "Hukuk",
                         "konu":  "menkul sermaye iradi sayilmayanlar",
                         "cikmisSoru":  2,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "meslek hukuku disiplin cezasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  122,
+                        "ambarKayit":  126,
                         "karar":  "URET",
                         "not":  "anahtar kelime: disiplin + cezasi"
                     },
@@ -3891,7 +3891,7 @@
                         "ders":  "Hukuk",
                         "konu":  "mesleki sirket kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + mesleki"
                     },
@@ -4051,7 +4051,7 @@
                         "ders":  "Hukuk",
                         "konu":  "otv kapsaminda vergi ziyai",
                         "cikmisSoru":  1,
-                        "ambarKayit":  47,
+                        "ambarKayit":  49,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kapsaminda + ziyai"
                     },
@@ -4131,9 +4131,9 @@
                         "ders":  "Hukuk",
                         "konu":  "reklam yasagi yonetmeligi (seminer duyurusu)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: yonetmeligi + duyurusu"
                     },
                     {
                         "ders":  "Hukuk",
@@ -4283,7 +4283,7 @@
                         "ders":  "Hukuk",
                         "konu":  "sendika uyeligi kazanilmasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kazanilmasi + sendika"
                     },
@@ -4331,17 +4331,17 @@
                         "ders":  "Hukuk",
                         "konu":  "sendikal guvenceler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: guvenceler + sendikal"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "sendikal guvenceler (dava 1 ay)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: guvenceler + sendikal"
                     },
                     {
                         "ders":  "Hukuk",
@@ -4371,7 +4371,7 @@
                         "ders":  "Hukuk",
                         "konu":  "serbest meslek kazanci",
                         "cikmisSoru":  2,
-                        "ambarKayit":  10,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -4435,7 +4435,7 @@
                         "ders":  "Hukuk",
                         "konu":  "sozlesme iptal sebepleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  56,
+                        "ambarKayit":  57,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sebepleri + sozlesme"
                     },
@@ -4507,7 +4507,7 @@
                         "ders":  "Hukuk",
                         "konu":  "tabela asilmasi kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + asilmasi"
                     },
@@ -4619,7 +4619,7 @@
                         "ders":  "Hukuk",
                         "konu":  "takas-borclar kanunu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  312,
+                        "ambarKayit":  335,
                         "karar":  "URET",
                         "not":  "anahtar kelime: borclar + kanunu"
                     },
@@ -4627,9 +4627,9 @@
                         "ders":  "Hukuk",
                         "konu":  "tazminattan indirim halleri",
                         "cikmisSoru":  3,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Hukuk",
@@ -4659,7 +4659,7 @@
                         "ders":  "Hukuk",
                         "konu":  "temsil genel hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  220,
+                        "ambarKayit":  222,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + temsil"
                     },
@@ -4667,7 +4667,7 @@
                         "ders":  "Hukuk",
                         "konu":  "temsil hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  220,
+                        "ambarKayit":  222,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + temsil"
                     },
@@ -4691,7 +4691,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ticaret sicili kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + ticaret"
                     },
@@ -4707,7 +4707,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ticaret unvani kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + ticaret"
                     },
@@ -4715,15 +4715,15 @@
                         "ders":  "Hukuk",
                         "konu":  "ticaret unvani ve isletme adi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  277,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: isletme + ticaret"
                     },
                     {
                         "ders":  "Hukuk",
                         "konu":  "ticari defter tutma yukumlulugu",
                         "cikmisSoru":  3,
-                        "ambarKayit":  25,
+                        "ambarKayit":  27,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yukumlulugu + ticari"
                     },
@@ -4747,7 +4747,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ticari isletme hukumleri (ticari yargi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  327,
+                        "ambarKayit":  331,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + isletme"
                     },
@@ -4755,7 +4755,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ticari isletme unsurlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  39,
+                        "ambarKayit":  43,
                         "karar":  "URET",
                         "not":  "anahtar kelime: unsurlari + isletme"
                     },
@@ -4771,7 +4771,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ticari temsilci yetkisi (tasinmaz)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  29,
+                        "ambarKayit":  30,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tasinmaz + temsilci"
                     },
@@ -4851,7 +4851,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ucret geliri unsuru (yonetim kurulu uyeleri)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  424,
+                        "ambarKayit":  427,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetim + uyeleri"
                     },
@@ -4859,7 +4859,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ucret hukumleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  285,
+                        "ambarKayit":  286,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hukumleri + ucret"
                     },
@@ -4875,7 +4875,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ucret kurallari (odeme suresi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  22,
+                        "ambarKayit":  24,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + suresi"
                     },
@@ -4955,7 +4955,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ucret yonetmeligi (ortaklik payi yasagi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetmeligi + ortaklik"
                     },
@@ -4963,7 +4963,7 @@
                         "ders":  "Hukuk",
                         "konu":  "ucret yonetmeligi kurallari",
                         "cikmisSoru":  3,
-                        "ambarKayit":  2,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yonetmeligi + kurallari"
                     },
@@ -5035,7 +5035,7 @@
                         "ders":  "Hukuk",
                         "konu":  "veraset degerleme gunu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  9,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degerleme + veraset"
                     },
@@ -5043,7 +5043,7 @@
                         "ders":  "Hukuk",
                         "konu":  "veraset oz sermaye (ticari sermaye)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1146,
+                        "ambarKayit":  1269,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sermaye + sermaye"
                     },
@@ -5083,7 +5083,7 @@
                         "ders":  "Hukuk",
                         "konu":  "vergi tarhi on islemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  455,
+                        "ambarKayit":  464,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemleri + vergi"
                     },
@@ -5115,7 +5115,7 @@
                         "ders":  "Hukuk",
                         "konu":  "vergiye uyumlu mukellef indirimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  45,
+                        "ambarKayit":  46,
                         "karar":  "URET",
                         "not":  "anahtar kelime: mukellef + indirimi"
                     },
@@ -5139,7 +5139,7 @@
                         "ders":  "Hukuk",
                         "konu":  "vuk karsilik",
                         "cikmisSoru":  1,
-                        "ambarKayit":  642,
+                        "ambarKayit":  643,
                         "karar":  "URET",
                         "not":  "anahtar kelime: karsilik"
                     },
@@ -5147,7 +5147,7 @@
                         "ders":  "Hukuk",
                         "konu":  "vuk sure kurallari (15 gun alt sinir)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  25,
+                        "ambarKayit":  26,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + sinir"
                     },
@@ -5155,7 +5155,7 @@
                         "ders":  "Hukuk",
                         "konu":  "vuk vergi mukellefiyeti",
                         "cikmisSoru":  1,
-                        "ambarKayit":  115,
+                        "ambarKayit":  119,
                         "karar":  "URET",
                         "not":  "anahtar kelime: mukellefiyeti + vergi"
                     },
@@ -5187,7 +5187,7 @@
                         "ders":  "Hukuk",
                         "konu":  "yasak haller ve istisnalari (limited ortaklik)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: istisnalari + ortaklik"
                     },
@@ -5251,7 +5251,7 @@
                         "ders":  "Hukuk",
                         "konu":  "yonetim kurulu yetkileri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  123,
+                        "ambarKayit":  125,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yetkileri + yonetim"
                     },
@@ -5459,9 +5459,9 @@
                         "ders":  "Maliye",
                         "konu":  "durgunlukta borclanma kaynagi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: durgunlukta + borclanma"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Maliye",
@@ -5499,7 +5499,7 @@
                         "ders":  "Maliye",
                         "konu":  "etkin vergi ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + etkin"
                     },
@@ -5539,7 +5539,7 @@
                         "ders":  "Maliye",
                         "konu":  "is-lm acik ekonomi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  502,
+                        "ambarKayit":  512,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ekonomi"
                     },
@@ -5547,7 +5547,7 @@
                         "ders":  "Maliye",
                         "konu":  "istisna ve muafiyet ayrimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  59,
+                        "ambarKayit":  61,
                         "karar":  "URET",
                         "not":  "anahtar kelime: muafiyet + istisna"
                     },
@@ -5571,7 +5571,7 @@
                         "ders":  "Maliye",
                         "konu":  "kamu gelirleri turleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: gelirleri + turleri"
                     },
@@ -5587,7 +5587,7 @@
                         "ders":  "Maliye",
                         "konu":  "kamu harcamalari reel artis",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "anahtar kelime: harcamalari + artis"
                     },
@@ -5691,7 +5691,7 @@
                         "ders":  "Maliye",
                         "konu":  "marjinal-ortalama vergi orani iliskisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: iliskisi + ortalama"
                     },
@@ -5715,7 +5715,7 @@
                         "ders":  "Maliye",
                         "konu":  "mundell-fleming esnek kur genisletici maliye",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: genisletici + mundell"
                     },
@@ -5723,7 +5723,7 @@
                         "ders":  "Maliye",
                         "konu":  "mundell-fleming esnek kur maliye politikasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: politikasi + mundell"
                     },
@@ -5797,13 +5797,13 @@
                         "cikmisSoru":  1,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: resesyon + tanimi"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Maliye",
                         "konu":  "sabit kurda maliye politikasi etkinligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: politikasi + etkinligi"
                     },
@@ -5875,7 +5875,7 @@
                         "ders":  "Maliye",
                         "konu":  "uluslararasi cifte vergilendirme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vergilendirme + uluslararasi"
                     },
@@ -5907,7 +5907,7 @@
                         "ders":  "Maliye",
                         "konu":  "vergi harcamasi hesaplama yontemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yontemleri + hesaplama"
                     },
@@ -5931,7 +5931,7 @@
                         "ders":  "Maliye",
                         "konu":  "vergi ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  26,
+                        "ambarKayit":  27,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + vergi"
                     },
@@ -5971,9 +5971,9 @@
                         "ders":  "Maliye",
                         "konu":  "verginin yansima asamalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: asamalari + verginin"
                     },
                     {
                         "ders":  "Maliye",
@@ -5987,9 +5987,9 @@
                         "ders":  "Maliye",
                         "konu":  "wagner yasasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: yasasi + wagner"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Matematik-Istatistik",
@@ -6883,7 +6883,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "7/a genel uretim gideri kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  86,
+                        "ambarKayit":  87,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kapsami + gideri"
                     },
@@ -7019,7 +7019,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "alfa riski (yanlis ret)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  54,
+                        "ambarKayit":  55,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yanlis + riski"
                     },
@@ -7035,9 +7035,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "alinan siparis avansi mahsubu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: mahsubu + siparis"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -7147,9 +7147,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "aralikli envanter yontemi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: envanter + aralikli"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -7181,7 +7181,7 @@
                         "cikmisSoru":  2,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: maliyeti + ardisik"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -7195,9 +7195,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "asli-duzenleyici hesap ayrimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: duzenleyici + ayrimi"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -7235,7 +7235,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "azalan bakiyeler amortisman yontemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: amortisman + bakiyeler"
                     },
@@ -7763,7 +7763,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "beta riski (yanlis kabul)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  47,
+                        "ambarKayit":  50,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yanlis + kabul"
                     },
@@ -7787,7 +7787,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "bilanco kaldirac orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kaldirac + bilanco"
                     },
@@ -7867,7 +7867,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "blok secim yontemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  465,
+                        "ambarKayit":  470,
                         "karar":  "URET",
                         "not":  "anahtar kelime: secim"
                     },
@@ -7939,7 +7939,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "buyuk defter tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tanimi + defter"
                     },
@@ -8003,7 +8003,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "cari oran analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  50,
+                        "ambarKayit":  53,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi"
                     },
@@ -8011,7 +8011,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "cari oran bilanco analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi + bilanco"
                     },
@@ -8019,7 +8019,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "cari oran hesaplama",
                         "cikmisSoru":  2,
-                        "ambarKayit":  199,
+                        "ambarKayit":  202,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hesaplama"
                     },
@@ -8091,7 +8091,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ciro edilmis bono alinmasi kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  65,
+                        "ambarKayit":  66,
                         "karar":  "URET",
                         "not":  "anahtar kelime: alinmasi + edilmis"
                     },
@@ -8131,15 +8131,15 @@
                         "ders":  "Muhasebe",
                         "konu":  "degisken maliyetleme birim maliyet",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  2,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: maliyetleme + degisken"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "degisken-normal maliyet birim farki",
                         "cikmisSoru":  2,
-                        "ambarKayit":  16,
+                        "ambarKayit":  17,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degisken + maliyet"
                     },
@@ -8163,7 +8163,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetci raporu gorus bolumu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  34,
+                        "ambarKayit":  35,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetci + bolumu"
                     },
@@ -8195,7 +8195,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim gorus turleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: turleri + denetim"
                     },
@@ -8203,7 +8203,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim gorusu beyani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  45,
+                        "ambarKayit":  46,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetim + beyani"
                     },
@@ -8219,7 +8219,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim hedefi (mulkiyet)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  18,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: mulkiyet + denetim"
                     },
@@ -8243,7 +8243,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim kaniti tanimi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  15,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetim + tanimi"
                     },
@@ -8251,7 +8251,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim kaniti yeterliligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  18,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yeterliligi + denetim"
                     },
@@ -8267,7 +8267,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim kurulusu faaliyet izni sartlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  181,
+                        "ambarKayit":  187,
                         "karar":  "URET",
                         "not":  "anahtar kelime: faaliyet + sartlari"
                     },
@@ -8275,7 +8275,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim on sartlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  104,
+                        "ambarKayit":  107,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sartlari + denetim"
                     },
@@ -8283,7 +8283,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim plani icerigi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  27,
+                        "ambarKayit":  28,
                         "karar":  "URET",
                         "not":  "anahtar kelime: icerigi + denetim"
                     },
@@ -8291,7 +8291,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim planlama sureci",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  17,
                         "karar":  "URET",
                         "not":  "anahtar kelime: planlama + denetim"
                     },
@@ -8331,7 +8331,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim sozlesmesi suresi (60 gun)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  82,
+                        "ambarKayit":  85,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sozlesmesi + denetim"
                     },
@@ -8355,7 +8355,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim sureci asamalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: asamalari + denetim"
                     },
@@ -8363,7 +8363,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim sureci kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  18,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kurallari + denetim"
                     },
@@ -8371,9 +8371,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "denetim sureci safhalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: safhalari + denetim"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -8411,9 +8411,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "depozitolu kap kirilmasi kaydi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -8427,7 +8427,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "devir hizi ve kaldiractan oz kaynak",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kaldiractan + kaynak"
                     },
@@ -8435,7 +8435,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "diger faaliyet gider-zarar kalemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  37,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kalemleri + faaliyet"
                     },
@@ -8443,9 +8443,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey analiz kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  3,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: kurallari + analiz"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -8459,7 +8459,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey analiz payda kalemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kalemleri + analiz"
                     },
@@ -8467,7 +8467,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey analizin gelir tablosunda anlami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tablosunda + analizin"
                     },
@@ -8475,17 +8475,17 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzde analiz",
                         "cikmisSoru":  1,
-                        "ambarKayit":  9,
+                        "ambarKayit":  2,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: analiz + dikey"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzde analizi",
                         "cikmisSoru":  4,
-                        "ambarKayit":  6,
+                        "ambarKayit":  2,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: analizi + dikey"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -8515,7 +8515,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzde ve duran varlik oraniyla donen varlik",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: oraniyla + varlik"
                     },
@@ -8523,7 +8523,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzde-aktif analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  6,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi + dikey"
                     },
@@ -8539,7 +8539,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzdelerden borc-varlik orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yuzdelerden + varlik"
                     },
@@ -8563,7 +8563,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dikey yuzdelerden oz kaynak-aktif",
                         "cikmisSoru":  2,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -8643,7 +8643,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dis teyit denetim kaniti",
                         "cikmisSoru":  1,
-                        "ambarKayit":  98,
+                        "ambarKayit":  117,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetim + kaniti"
                     },
@@ -8675,7 +8675,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dogrulama teknigi kanitlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kanitlari + dogrulama"
                     },
@@ -8683,7 +8683,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "dogrusal amortisman deger dusuklugu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  17,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: amortisman + dusuklugu"
                     },
@@ -8731,7 +8731,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "donem kâri zarari hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  67,
+                        "ambarKayit":  70,
                         "karar":  "URET",
                         "not":  "anahtar kelime: zarari + donem"
                     },
@@ -8739,7 +8739,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "donem net kâri hesaplama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  98,
+                        "ambarKayit":  99,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hesaplama + donem"
                     },
@@ -8755,7 +8755,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "donem sonu duzeltme kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  134,
+                        "ambarKayit":  140,
                         "karar":  "URET",
                         "not":  "anahtar kelime: duzeltme + donem"
                     },
@@ -8779,7 +8779,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "donem sonu mamul maliyeti hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  78,
+                        "ambarKayit":  79,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyeti + donem"
                     },
@@ -8795,7 +8795,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "donemler arasi ilk madde alim hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  244,
+                        "ambarKayit":  248,
                         "karar":  "URET",
                         "not":  "anahtar kelime: donemler + madde"
                     },
@@ -8811,9 +8811,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "donen varlik siniflamasi (standartlar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -9003,7 +9003,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "faaliyet marji-brut marj iliskisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  30,
+                        "ambarKayit":  31,
                         "karar":  "URET",
                         "not":  "anahtar kelime: iliskisi + faaliyet"
                     },
@@ -9059,7 +9059,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "fifo satis kari hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1284,
+                        "ambarKayit":  1294,
                         "karar":  "URET",
                         "not":  "anahtar kelime: satis"
                     },
@@ -9067,7 +9067,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "fifo stok degerleme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  278,
+                        "ambarKayit":  281,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degerleme"
                     },
@@ -9083,7 +9083,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "fifo yontemi maliyet",
                         "cikmisSoru":  1,
-                        "ambarKayit":  512,
+                        "ambarKayit":  516,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet"
                     },
@@ -9091,7 +9091,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "finansal durum tablosu kaynaklar bolumu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  76,
+                        "ambarKayit":  81,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kaynaklar + finansal"
                     },
@@ -9139,7 +9139,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "finansman gideri islemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  53,
+                        "ambarKayit":  54,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemleri + finansman"
                     },
@@ -9155,15 +9155,15 @@
                         "ders":  "Muhasebe",
                         "konu":  "fiziki inceleme teknigi asamalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: asamalari + inceleme"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "fiziki stok sayimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -9171,9 +9171,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "fiziki stok sayimi amaclari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: amaclari + fiziki"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -9235,9 +9235,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "gelir tablosu analiz sinirlamalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: sinirlamalari + tablosu"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -9259,7 +9259,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "gelir tablosu hesaplari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -9275,7 +9275,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "gelir tablosu kalem etkilesimi (faaliyet kari)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: etkilesimi + faaliyet"
                     },
@@ -9291,7 +9291,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "gelir tablosu kar kalemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  31,
+                        "ambarKayit":  33,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kalemleri + tablosu"
                     },
@@ -9307,7 +9307,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "gelir tahakkuku kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  7,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tahakkuku + gelir"
                     },
@@ -9363,9 +9363,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "gider donem ayirimi duzeltmesi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -9395,9 +9395,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "gkgd standartlarinin ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: standartlarinin + ozellikleri"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -9443,7 +9443,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "gug birim pay hesabi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  537,
+                        "ambarKayit":  542,
                         "karar":  "URET",
                         "not":  "anahtar kelime: birim"
                     },
@@ -9507,7 +9507,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hasilat kavrami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  225,
+                        "ambarKayit":  226,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hasilat"
                     },
@@ -9539,7 +9539,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hem bilanco hem gelir tablosu hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  31,
+                        "ambarKayit":  33,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tablosu + bilanco"
                     },
@@ -9547,7 +9547,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hesap isleyisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  107,
+                        "ambarKayit":  109,
                         "karar":  "URET",
                         "not":  "anahtar kelime: isleyisi"
                     },
@@ -9579,7 +9579,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hile ucgeni tesvik unsuru",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: unsuru + tesvik"
                     },
@@ -9595,7 +9595,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hisse alim bedeli kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  30,
+                        "ambarKayit":  32,
                         "karar":  "URET",
                         "not":  "anahtar kelime: bedeli + hisse"
                     },
@@ -9611,7 +9611,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "hisse getiri orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  105,
+                        "ambarKayit":  106,
                         "karar":  "URET",
                         "not":  "anahtar kelime: getiri + orani"
                     },
@@ -9699,7 +9699,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "iasb calismalari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  251,
+                        "ambarKayit":  254,
                         "karar":  "URET",
                         "not":  "anahtar kelime: calismalari"
                     },
@@ -9707,7 +9707,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol amaclari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  19,
+                        "ambarKayit":  22,
                         "karar":  "URET",
                         "not":  "anahtar kelime: amaclari + kontrol"
                     },
@@ -9723,7 +9723,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol faaliyetleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  81,
+                        "ambarKayit":  85,
                         "karar":  "URET",
                         "not":  "anahtar kelime: faaliyetleri + kontrol"
                     },
@@ -9731,7 +9731,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol kanit guvenilirligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: guvenilirligi + kontrol"
                     },
@@ -9739,7 +9739,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol ozellikleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  23,
+                        "ambarKayit":  24,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + kontrol"
                     },
@@ -9755,7 +9755,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol sistemi amaclari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  19,
+                        "ambarKayit":  22,
                         "karar":  "URET",
                         "not":  "anahtar kelime: amaclari + kontrol"
                     },
@@ -9763,7 +9763,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol sistemi ozellikleri",
                         "cikmisSoru":  2,
-                        "ambarKayit":  23,
+                        "ambarKayit":  24,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + kontrol"
                     },
@@ -9771,7 +9771,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol sistemi tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  86,
+                        "ambarKayit":  87,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sistemi + kontrol"
                     },
@@ -9795,7 +9795,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ic kontrol-kontrol cevresi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  26,
+                        "ambarKayit":  31,
                         "karar":  "URET",
                         "not":  "anahtar kelime: cevresi + kontrol"
                     },
@@ -9811,7 +9811,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ifac kuruluslari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1174,
+                        "ambarKayit":  1179,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kuruluslari"
                     },
@@ -9835,7 +9835,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ifac yonetim merkezi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  140,
+                        "ambarKayit":  150,
                         "karar":  "URET",
                         "not":  "anahtar kelime: merkezi + yonetim"
                     },
@@ -9883,7 +9883,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "islem etkisi (hisse ihraci borc/varlik)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ihraci + etkisi"
                     },
@@ -9907,7 +9907,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "isletme birlesmesi serefiye",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: birlesmesi + serefiye"
                     },
@@ -9915,7 +9915,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "isletme hakki (haklar hesabi)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  152,
+                        "ambarKayit":  154,
                         "karar":  "URET",
                         "not":  "anahtar kelime: isletme + haklar"
                     },
@@ -9931,7 +9931,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "isletme ici kullanim ticari mal cikisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  127,
+                        "ambarKayit":  131,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kullanim + isletme"
                     },
@@ -9995,9 +9995,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "kademeli dagitim yontemi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  2,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: kademeli + dagitim"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -10019,7 +10019,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kalite kontrol sistemi (kks)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  86,
+                        "ambarKayit":  87,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sistemi + kontrol"
                     },
@@ -10027,7 +10027,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kalite kontrol tamamlama asamasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tamamlama + asamasi"
                     },
@@ -10043,7 +10043,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kanit guvenilirligi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  14,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: guvenilirligi + kanit"
                     },
@@ -10075,7 +10075,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kanit toplama islemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemleri + toplama"
                     },
@@ -10115,7 +10115,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kar dagitimi kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  135,
+                        "ambarKayit":  141,
                         "karar":  "URET",
                         "not":  "anahtar kelime: dagitimi"
                     },
@@ -10123,7 +10123,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kar dagitimi yedek akce",
                         "cikmisSoru":  1,
-                        "ambarKayit":  8,
+                        "ambarKayit":  10,
                         "karar":  "URET",
                         "not":  "anahtar kelime: dagitimi + yedek"
                     },
@@ -10131,7 +10131,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kâr dagitimi yedekler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yedekler + dagitimi"
                     },
@@ -10141,7 +10141,7 @@
                         "cikmisSoru":  1,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: kullanilmayan + dagitiminda"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -10149,13 +10149,13 @@
                         "cikmisSoru":  1,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: dagitiminda + yedekler"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "kâr marji analizi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi + marji"
                     },
@@ -10163,7 +10163,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kar payi odeme kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2144,
+                        "ambarKayit":  2177,
                         "karar":  "URET",
                         "not":  "anahtar kelime: odeme"
                     },
@@ -10179,17 +10179,17 @@
                         "ders":  "Muhasebe",
                         "konu":  "kar yedeklerinden dagitim kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "karlilik orani secimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: karlilik + secimi"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -10291,7 +10291,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kasa sayim farki kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: farki + sayim"
                     },
@@ -10363,7 +10363,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kaza sonrasi tasit cikis kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  2,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sonrasi + cikis"
                     },
@@ -10427,7 +10427,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kira stopaji kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  15,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: stopaji"
                     },
@@ -10467,7 +10467,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kisa vadeli yabanci kaynak dikey yuzde",
                         "cikmisSoru":  1,
-                        "ambarKayit":  87,
+                        "ambarKayit":  91,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yabanci + kaynak"
                     },
@@ -10515,7 +10515,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kollektif sirkette sermaye artirma yollari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  11,
+                        "ambarKayit":  12,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kollektif + sirkette"
                     },
@@ -10555,7 +10555,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kontrol testleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  14,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -10579,7 +10579,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "kredi geri odeme kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  120,
+                        "ambarKayit":  125,
                         "karar":  "URET",
                         "not":  "anahtar kelime: odeme + kredi"
                     },
@@ -10589,7 +10589,7 @@
                         "cikmisSoru":  1,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: kredili + alimi"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -10635,7 +10635,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "likidite oranlari analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: oranlari + likidite"
                     },
@@ -10643,7 +10643,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "maddi denetim tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  15,
+                        "ambarKayit":  18,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetim + tanimi"
                     },
@@ -10667,7 +10667,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "maddi olmayan duran varlik (haklar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  132,
+                        "ambarKayit":  134,
                         "karar":  "URET",
                         "not":  "anahtar kelime: olmayan + varlik"
                     },
@@ -10675,7 +10675,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "maddi olmayan duran varliklar kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  136,
+                        "ambarKayit":  137,
                         "karar":  "URET",
                         "not":  "anahtar kelime: varliklar + kapsami"
                     },
@@ -10731,9 +10731,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "marj oranlarindan satis maliyeti",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -10755,7 +10755,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "mbs ic kullanici gruplari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kullanici + gruplari"
                     },
@@ -10875,7 +10875,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe bilgi sistemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  36,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: muhasebe + sistemi"
                     },
@@ -10883,7 +10883,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe bilgi sistemi (sistem ozellikleri)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  11,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozellikleri + muhasebe"
                     },
@@ -10907,7 +10907,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe bilgi sistemi girdi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  36,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: muhasebe + sistemi"
                     },
@@ -10915,7 +10915,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe bilgi sistemi kapsami",
                         "cikmisSoru":  1,
-                        "ambarKayit":  36,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: muhasebe + sistemi"
                     },
@@ -10931,7 +10931,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe bilgi sistemi sureci",
                         "cikmisSoru":  2,
-                        "ambarKayit":  36,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: muhasebe + sistemi"
                     },
@@ -10939,7 +10939,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe disi envanter islemleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  93,
+                        "ambarKayit":  95,
                         "karar":  "URET",
                         "not":  "anahtar kelime: islemleri + muhasebe"
                     },
@@ -10947,7 +10947,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "muhasebe egitimi standartlari (ifac)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  90,
+                        "ambarKayit":  91,
                         "karar":  "URET",
                         "not":  "anahtar kelime: standartlari + muhasebe"
                     },
@@ -10971,7 +10971,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "musteri kabul sureci",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: musteri + sureci"
                     },
@@ -10987,7 +10987,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "musteri senedi cirosu hesap etkisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  15,
+                        "ambarKayit":  16,
                         "karar":  "URET",
                         "not":  "anahtar kelime: musteri + etkisi"
                     },
@@ -10995,7 +10995,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "nakit akis faaliyet siniflamasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: siniflamasi + faaliyet"
                     },
@@ -11011,7 +11011,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "nakit akis tablosu",
                         "cikmisSoru":  2,
-                        "ambarKayit":  28,
+                        "ambarKayit":  32,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -11019,7 +11019,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "nakit akis tablosu tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: tablosu + tanimi"
                     },
@@ -11043,7 +11043,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "nakit girisi olusturan islemler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  28,
+                        "ambarKayit":  29,
                         "karar":  "URET",
                         "not":  "anahtar kelime: olusturan + islemler"
                     },
@@ -11067,9 +11067,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "nakit orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  34,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: orani + nakit"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -11115,7 +11115,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "normal maliyet birim uretim maliyeti",
                         "cikmisSoru":  1,
-                        "ambarKayit":  222,
+                        "ambarKayit":  225,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyeti + maliyet"
                     },
@@ -11123,7 +11123,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "normal maliyet sabit gug payi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  34,
+                        "ambarKayit":  35,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet + normal"
                     },
@@ -11131,15 +11131,15 @@
                         "ders":  "Muhasebe",
                         "konu":  "normal maliyet yontemi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  34,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: maliyet + normal"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "normal maliyet yontemi gug hesaplama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  20,
+                        "ambarKayit":  24,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hesaplama + maliyet"
                     },
@@ -11155,7 +11155,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "normal-tam maliyet birim farki",
                         "cikmisSoru":  1,
-                        "ambarKayit":  34,
+                        "ambarKayit":  35,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet + normal"
                     },
@@ -11251,7 +11251,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "onemli yanlislik riski",
                         "cikmisSoru":  1,
-                        "ambarKayit":  144,
+                        "ambarKayit":  145,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yanlislik + onemli"
                     },
@@ -11267,7 +11267,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "onemlilik finansal tablo",
                         "cikmisSoru":  1,
-                        "ambarKayit":  23,
+                        "ambarKayit":  27,
                         "karar":  "URET",
                         "not":  "anahtar kelime: onemlilik + finansal"
                     },
@@ -11371,15 +11371,15 @@
                         "ders":  "Muhasebe",
                         "konu":  "ortak maliyet dagitimi",
                         "cikmisSoru":  3,
-                        "ambarKayit":  12,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: dagitimi + maliyet"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "ortak maliyet dagitimi katsayi yontemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: dagitimi + katsayi"
                     },
@@ -11387,15 +11387,15 @@
                         "ders":  "Muhasebe",
                         "konu":  "ortak maliyet-katsayili yontem",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: katsayili + maliyet"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "ortak urun maliyet dagitimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  12,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: dagitimi + maliyet"
                     },
@@ -11435,7 +11435,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "oz kaynaklari artiran islemler",
                         "cikmisSoru":  1,
-                        "ambarKayit":  27,
+                        "ambarKayit":  28,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kaynaklari + islemler"
                     },
@@ -11443,7 +11443,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "oz sermaye carpani-kaldirac iliskisi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  3,
                         "karar":  "URET",
                         "not":  "anahtar kelime: kaldirac + iliskisi"
                     },
@@ -11459,7 +11459,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "oz sermaye negatif kosulu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  4,
                         "karar":  "URET",
                         "not":  "anahtar kelime: negatif + sermaye"
                     },
@@ -11475,7 +11475,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ozel maliyet gideri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  37,
+                        "ambarKayit":  39,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet + gideri"
                     },
@@ -11507,7 +11507,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ozel maliyetler kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  151,
+                        "ambarKayit":  154,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyetler"
                     },
@@ -11539,7 +11539,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ozkaynak negatif analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ozkaynak + analizi"
                     },
@@ -11581,13 +11581,13 @@
                         "cikmisSoru":  2,
                         "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: getirisi + senedi"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
                         "konu":  "performans onemliligi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "tam ifade"
                     },
@@ -11603,7 +11603,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "piyasa degeri/defter degeri orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  127,
+                        "ambarKayit":  128,
                         "karar":  "URET",
                         "not":  "anahtar kelime: defter + degeri"
                     },
@@ -11611,7 +11611,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "piyasa degeri-defter degeri orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  127,
+                        "ambarKayit":  128,
                         "karar":  "URET",
                         "not":  "anahtar kelime: defter + degeri"
                     },
@@ -11667,7 +11667,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "risk degerlendirme asamasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  13,
+                        "ambarKayit":  14,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degerlendirme + asamasi"
                     },
@@ -11699,7 +11699,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "sabit gug hesabi (maliyet yontemleri)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  33,
+                        "ambarKayit":  38,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yontemleri + maliyet"
                     },
@@ -11787,9 +11787,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "satis amacli duran varlik siniflamasi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: siniflamasi + varlik"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -11867,7 +11867,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "sektor oranlari analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  3,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: oranlari + analizi"
                     },
@@ -11979,7 +11979,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "sermaye payi iptal ve satis",
                         "cikmisSoru":  1,
-                        "ambarKayit":  120,
+                        "ambarKayit":  126,
                         "karar":  "URET",
                         "not":  "anahtar kelime: sermaye + satis"
                     },
@@ -12027,7 +12027,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "sinirli guvence denetimi tanimi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  18,
+                        "ambarKayit":  19,
                         "karar":  "URET",
                         "not":  "anahtar kelime: denetimi + guvence"
                     },
@@ -12059,9 +12059,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis avansi mahsubu",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  1,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: mahsubu + siparis"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -12083,7 +12083,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis birim maliyeti (makine saati gug)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyeti + siparis"
                     },
@@ -12139,9 +12139,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis maliyet sistemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  19,
+                        "ambarKayit":  1,
                         "karar":  "URET",
-                        "not":  "anahtar kelime: sistemi + maliyet"
+                        "not":  "tam ifade"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -12163,7 +12163,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis maliyeti hesaplama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hesaplama + maliyeti"
                     },
@@ -12171,7 +12171,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis maliyeti makine saati yukleme",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyeti + yukleme"
                     },
@@ -12179,7 +12179,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis maliyetinde gug yukleme orani",
                         "cikmisSoru":  1,
-                        "ambarKayit":  1,
+                        "ambarKayit":  2,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyetinde + yukleme"
                     },
@@ -12187,7 +12187,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "siparis toplam maliyeti (cift merkez)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  8,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyeti + siparis"
                     },
@@ -12355,7 +12355,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "stok devir hizi hesabi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  396,
+                        "ambarKayit":  398,
                         "karar":  "URET",
                         "not":  "anahtar kelime: devir"
                     },
@@ -12427,7 +12427,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "surekli dosya icerigi",
                         "cikmisSoru":  2,
-                        "ambarKayit":  4,
+                        "ambarKayit":  5,
                         "karar":  "URET",
                         "not":  "anahtar kelime: icerigi + surekli"
                     },
@@ -12499,7 +12499,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "tam maliyet normal maliyet",
                         "cikmisSoru":  1,
-                        "ambarKayit":  512,
+                        "ambarKayit":  516,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet + maliyet"
                     },
@@ -12507,7 +12507,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "tam maliyet yontemi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  512,
+                        "ambarKayit":  516,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet"
                     },
@@ -12531,7 +12531,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "tam-normal maliyet birim farki",
                         "cikmisSoru":  1,
-                        "ambarKayit":  34,
+                        "ambarKayit":  35,
                         "karar":  "URET",
                         "not":  "anahtar kelime: maliyet + normal"
                     },
@@ -12699,7 +12699,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ticari mal satis kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  115,
+                        "ambarKayit":  118,
                         "karar":  "URET",
                         "not":  "anahtar kelime: ticari + satis"
                     },
@@ -12707,7 +12707,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "ticari mallar maliyet unsurlari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  25,
+                        "ambarKayit":  37,
                         "karar":  "URET",
                         "not":  "anahtar kelime: unsurlari + maliyet"
                     },
@@ -13195,7 +13195,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "uluslararasi kuruluslar (ifiar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  170,
+                        "ambarKayit":  178,
                         "karar":  "URET",
                         "not":  "anahtar kelime: uluslararasi + kuruluslar"
                     },
@@ -13203,7 +13203,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "uluslararasi kuruluslar (isar)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  170,
+                        "ambarKayit":  178,
                         "karar":  "URET",
                         "not":  "anahtar kelime: uluslararasi + kuruluslar"
                     },
@@ -13211,7 +13211,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "uluslararasi muhasebe kuruluslari (ifac)",
                         "cikmisSoru":  1,
-                        "ambarKayit":  117,
+                        "ambarKayit":  123,
                         "karar":  "URET",
                         "not":  "anahtar kelime: uluslararasi + kuruluslari"
                     },
@@ -13227,7 +13227,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "uretim satis maliyeti hesaplama",
                         "cikmisSoru":  1,
-                        "ambarKayit":  10,
+                        "ambarKayit":  13,
                         "karar":  "URET",
                         "not":  "anahtar kelime: hesaplama + maliyeti"
                     },
@@ -13243,7 +13243,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "vadeli kredi odeme kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  97,
+                        "ambarKayit":  98,
                         "karar":  "URET",
                         "not":  "anahtar kelime: vadeli + odeme"
                     },
@@ -13275,7 +13275,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "yabanci kaynak orani analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  7,
+                        "ambarKayit":  9,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi + yabanci"
                     },
@@ -13315,7 +13315,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "yatay analiz duran varlik yuzdesi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  5,
+                        "ambarKayit":  6,
                         "karar":  "URET",
                         "not":  "anahtar kelime: yuzdesi + varlik"
                     },
@@ -13323,9 +13323,9 @@
                         "ders":  "Muhasebe",
                         "konu":  "yatay analiz kurallari",
                         "cikmisSoru":  1,
-                        "ambarKayit":  0,
-                        "karar":  "KAYNAK YOK",
-                        "not":  "Ambarda metin bulunamadi - once kaynak yutulmali"
+                        "ambarKayit":  3,
+                        "karar":  "URET",
+                        "not":  "anahtar kelime: kurallari + analiz"
                     },
                     {
                         "ders":  "Muhasebe",
@@ -13387,7 +13387,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "yeniden degerleme kaydi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  143,
+                        "ambarKayit":  144,
                         "karar":  "URET",
                         "not":  "anahtar kelime: degerleme + yeniden"
                     },
@@ -13459,7 +13459,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "yonetim kontrol ihlali hile turleri",
                         "cikmisSoru":  1,
-                        "ambarKayit":  14,
+                        "ambarKayit":  15,
                         "karar":  "URET",
                         "not":  "anahtar kelime: turleri + kontrol"
                     },
@@ -13467,7 +13467,7 @@
                         "ders":  "Muhasebe",
                         "konu":  "yuzde degisim analizi",
                         "cikmisSoru":  1,
-                        "ambarKayit":  9,
+                        "ambarKayit":  10,
                         "karar":  "URET",
                         "not":  "anahtar kelime: analizi + degisim"
                     },
