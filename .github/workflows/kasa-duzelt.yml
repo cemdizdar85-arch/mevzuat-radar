@@ -1,0 +1,38 @@
+# .github/workflows/kasa-duzelt.yml — KASA DUZELTICISI
+# GM kasadaki bir soruda hata bulunca veri/kasa-duzeltme.json'a satir ekler;
+# bu is akisi satirlari uygular, GERI OKUYUP dogrular ve damgalar.
+# UCRETSIZDIR: hicbir API cagrisi yok, yalniz Supabase okuma/yazma.
+name: Kasa Duzelticisi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/kasa-duzeltme.json'   # yeni duzeltme eklenince kendiliginden uygular
+      - 'motor/kasa-duzelt.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kasa-duzelt
+  cancel-in-progress: false
+
+jobs:
+  duzelt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Duzeltmeleri uygula ve dogrula
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kasa-duzelt.ps1
+      - name: Damgalari commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/kasa-duzeltme.json || true
+          git diff --cached --quiet || git commit -m "Kasa duzeltmeleri uygulandi [veri-operasyonu]"
+          git push || true
