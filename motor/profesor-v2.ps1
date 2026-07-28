@@ -1,0 +1,283 @@
+﻿# ============================================================================
+#  PROFESOR v2 — KATMAN 2  (28.07.2026)
+#
+#  NEDEN VAR: K2 denetcisi 107 itirazin 104'unde HAKSIZ cikti (%2,8 isabet).
+#  Sebep tekti: K2'nin istemine maddenin ETIKETI gidiyordu ("VUK m.234"),
+#  METNI degil. Yani K2 dogrulama yapmiyor, kendi hafizasindan cevap veriyordu.
+#  Hafiza yanilir; metin yanilmaz. Profesor v2'nin istemine MADDENIN TAM METNI
+#  gider (motor/madde-coz.ps1 ambardan getirir) ve model "yalniz bu metne
+#  dayan" diye kisitlanir.
+#
+#  UC AYRI SORU sorulur — cunku bir soru uc ayri sekilde bozulabilir:
+#    1) destek    : isaretli cevabi madde DESTEKLIYOR mu?
+#    2) tek_dogru : sıklardan TAM OLARAK BIRI mi dogru? (iki dogru sik hatasi)
+#    3) celiski   : aciklamalardan biri maddeyle CELISIYOR mu?
+#
+#  HAKEMIN HAKEMI: model her hukumde maddeden BIREBIR ALINTI vermek zorunda.
+#  Alinti gercekten madde metninde geciyor mu diye MAKINEYLE bakilir. Gecmiyorsa
+#  hukum COPE ATILIR ve soru GM'ye gider. Boylece profesorun uydurmasi da
+#  yakalanir — Cem'in sarti: "hata olsa bile bizim yakalayacagimiz".
+#
+#  KURAL: metni cozulemeyen soru YARGILANMAZ, 'metin-yok' isaretlenip GM'ye
+#  birakilir. Profesor asla bosluga hukum vermez.
+#
+#  PARA: -olcum modu HICBIR SEY HARCAMAZ, yalniz maliyet tahmini cikarir.
+#  Gercek kosu Batch API ile yapilir (%50 indirim) ve ancak -calistir ile.
+# ============================================================================
+param(
+  [switch]$olcum,        # para harcamaz: kac soru yargilanabilir + maliyet tahmini
+  [switch]$calistir,     # GERCEK KOSU — para harcar
+  [string]$kaynak = 'yerel',   # yerel | kasa
+  [int]$sinir = 0,             # 0 = hepsi
+  [string]$model = 'claude-sonnet-4-5-20250929',
+  [string]$cikti = ''
+)
+$ErrorActionPreference = 'Stop'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$kok  = Split-Path -Parent $here
+
+if(-not $olcum -and -not $calistir){
+  Write-Host "Kullanim:"
+  Write-Host "  profesor-v2.ps1 -olcum                 # PARA HARCAMAZ, maliyet cikarir"
+  Write-Host "  profesor-v2.ps1 -calistir              # gercek kosu (Batch, %50 indirim)"
+  exit 0
+}
+
+# --- madde cozucuyu yukle (fonksiyonlarini kullanacagiz)
+. (Join-Path $here 'madde-coz.ps1') -kutuphane
+
+$MAX_MADDE = 6000   # cok uzun maddeler kirpilir; kirpma ISARETLENIR
+
+# ---------------------------------------------------------------- sorulari topla
+function YerelSorular {
+  $liste = New-Object System.Collections.Generic.List[object]
+  foreach($d in @(Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter *.json -ErrorAction SilentlyContinue | Sort-Object Name)){
+    try { $x = Get-Content $d.FullName -Raw -Encoding UTF8 | ConvertFrom-Json } catch { continue }
+    if(-not $x.sorular){ continue }
+    foreach($s in @($x.sorular)){ if($s){ $liste.Add($s) } }
+  }
+  return $liste
+}
+function KasaSorulari {
+  $KEY = $env:SUPABASE_SERVICE_KEY
+  if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - kasa okunamaz."; exit 1 }
+  $H = @{ apikey=$KEY; Authorization="Bearer $KEY" }
+  $u = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
+  $liste = New-Object System.Collections.Generic.List[object]
+  $bas = 0
+  while($true){
+    $s = Invoke-RestMethod -Uri "$u`?select=id,soru,siklar,dogru,aciklama,kaynak,ders,konu,sinav&order=id&offset=$bas&limit=500" -Headers $H -TimeoutSec 180
+    $d = @($s); if($d.Count -eq 0){ break }
+    foreach($x in $d){ $liste.Add($x) }
+    if($d.Count -lt 500){ break }
+    $bas += 500
+  }
+  return $liste
+}
+
+$sorular = if($kaynak -eq 'kasa'){ KasaSorulari } else { YerelSorular }
+Write-Host ("Soru: {0} ({1})" -f $sorular.Count, $kaynak)
+
+# ---------------------------------------------------------------- istem kurucu
+function IstemKur($s, $maddeMetni, $maddeEtiket){
+  $sik = ""
+  foreach($h in @('A','B','C','D','E')){
+    $v = "$($s.siklar.$h)"
+    if($v.Trim().Length -gt 0){ $sik += "$h) $v`n" }
+  }
+  $ack = ""
+  foreach($h in @('A','B','C','D','E')){
+    $v = "$($s.aciklama.$h)"
+    if($v.Trim().Length -gt 0){ $ack += "$h : $v`n" }
+  }
+  if($ack.Trim().Length -eq 0){ $ack = "(aciklama yok)" }
+
+  return @"
+Sen bir mevzuat denetcisisin. Asagida bir mevzuat huknunun TAM METNI ve bu hukme dayandigi iddia edilen bir sinav sorusu var.
+
+MUTLAK KURAL: YALNIZCA asagidaki METNE dayanarak karar ver. Kendi hafizandan hukum ekleme. Metinde yazmayan bir seyi ne dogru ne yanlis say; metin yetmiyorsa "yetersiz" de. Metin disinda bir kaynaga atif yapma.
+
+=== MEVZUAT METNI ($maddeEtiket) ===
+$maddeMetni
+=== METIN BITTI ===
+
+SORU: $($s.soru)
+SIKLAR:
+$sik
+ISARETLI DOGRU CEVAP: $($s.dogru)
+SIK ACIKLAMALARI:
+$ack
+
+Su uc soruyu AYRI AYRI cevapla:
+1. destek    — Isaretli cevap ($($s.dogru)) yukaridaki metin tarafindan destekleniyor mu? (evet / hayir / yetersiz)
+2. tek_dogru — Siklardan TAM OLARAK BIRI mi dogru? Birden fazla sik dogruysa "hayir". (evet / hayir / yetersiz)
+3. celiski   — Sik aciklamalarindan HERHANGI BIRI metinle celisiyor mu? (evet / hayir)
+
+ALINTI ZORUNLU: "alinti" alanina, hukmune dayanak olan yeri METINDEN BIREBIR kopyala (en fazla 25 kelime). Kendi cumleni yazma, degistirme, ozetleme. Alintin metinde birebir gecmiyorsa hukmun gecersiz sayilacak.
+
+SADECE gecerli JSON dondur, baska hicbir sey yazma:
+{"destek":"evet|hayir|yetersiz","tek_dogru":"evet|hayir|yetersiz","celiski":"evet|hayir","dogru_sik":"A|B|C|D|E|bilinmiyor","gerekce":"<tek cumle>","alinti":"<metinden birebir>"}
+"@
+}
+
+# ---------------------------------------------------------------- hazirlik
+$isler = New-Object System.Collections.Generic.List[object]
+$ist = [ordered]@{ toplam=0; metinYok=0; mevzuatDisi=0; hazir=0 }
+$sayac = 0
+foreach($s in $sorular){
+  $ist.toplam++
+  if($sinir -gt 0 -and $isler.Count -ge $sinir){ break }
+  $k = "$($s.kaynak)"
+  if(MevzuatDisiMi $k){ $ist.mevzuatDisi++; continue }
+  $c = KaynakCoz $k
+  if(-not $c -or "$($c.durum)" -notin @('cozuldu','cozuldu-standart')){ $ist.metinYok++; continue }
+  if(-not $c.metin -or "$($c.metin)".Trim().Length -lt 40){ $ist.metinYok++; continue }
+  $metin = "$($c.metin)"
+  $kirpildi = $false
+  if($metin.Length -gt $MAX_MADDE){ $metin = $metin.Substring(0,$MAX_MADDE); $kirpildi = $true }
+  $isler.Add([pscustomobject]@{
+    id      = "$($s.id)"
+    soru    = $s
+    etiket  = "$($c.ad)"
+    metin   = $metin
+    kirpildi= $kirpildi
+    istem   = (IstemKur $s $metin "$($c.etiket)")
+  })
+  $ist.hazir++
+  $sayac++
+  if($sayac % 100 -eq 0){ Write-Host ("  ...{0}" -f $sayac) }
+}
+
+Write-Host ""
+Write-Host "======== PROFESOR v2 HAZIRLIK ========"
+foreach($k in $ist.Keys){ Write-Host ("  {0,-14} {1}" -f $k, $ist[$k]) }
+
+# ---------------------------------------------------------------- maliyet tahmini
+$girisKr = 0; $cikisTahmin = 260   # JSON cevap ~260 token
+foreach($i in $isler){ $girisKr += $i.istem.Length }
+# Turkce metin icin kaba cevrim: ~3 karakter = 1 token (TAHMIN, olculmus deger degil)
+$girisTok = [math]::Round($girisKr / 3)
+$cikisTok = $isler.Count * $cikisTahmin
+
+# LISTE FIYATI (1M token basina, USD) — Sonnet ailesi
+$FIY_GIRIS = 3.0
+$FIY_CIKIS = 15.0
+$hamUSD   = ($girisTok/1e6*$FIY_GIRIS) + ($cikisTok/1e6*$FIY_CIKIS)
+$batchUSD = $hamUSD / 2      # Batch API %50 indirim
+
+Write-Host ""
+Write-Host "======== MALIYET TAHMINI (TAHMINDIR, olculmus degil) ========"
+Write-Host ("  yargilanacak soru : {0}" -f $isler.Count)
+Write-Host ("  giris  ~{0:N0} token   (kaba cevrim: 3 karakter = 1 token)" -f $girisTok)
+Write-Host ("  cikis  ~{0:N0} token   (soru basina ~{1} token varsayimi)" -f $cikisTok, $cikisTahmin)
+Write-Host ("  model  : {0}" -f $model)
+Write-Host ("  liste fiyati    : ~{0:N2} USD" -f $hamUSD)
+Write-Host ("  BATCH (%50 ind.): ~{0:N2} USD  <-- kullanilacak yol" -f $batchUSD)
+Write-Host ("  soru basina     : ~{0:N4} USD" -f $(if($isler.Count){ $batchUSD/$isler.Count } else { 0 }))
+
+if($olcum){
+  Write-Host ""
+  Write-Host "OLCUM MODU — hicbir istek atilmadi, 0 USD harcandi."
+  $ozet = [ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kaynak=$kaynak; model=$model
+    toplam=$ist.toplam; mevzuat_disi=$ist.mevzuatDisi; metin_yok=$ist.metinYok; yargilanabilir=$isler.Count
+    tahmini_batch_usd=[math]::Round($batchUSD,2)
+  }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/profesor-olcum.json'), ($ozet | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
+  Write-Host "-> veri/profesor-olcum.json"
+  exit 0
+}
+
+# ---------------------------------------------------------------- GERCEK KOSU
+$AK = "$env:ANTHROPIC_API_KEY".Trim()
+if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok - kosu yapilamaz."; exit 1 }
+if($isler.Count -eq 0){ Write-Host "Yargilanacak soru yok."; exit 0 }
+
+$HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
+$BATCH_MAX = 400   # tek partide en fazla
+
+$sonuclar = @{}
+$partiler = [math]::Ceiling($isler.Count / $BATCH_MAX)
+for($p=0; $p -lt $partiler; $p++){
+  $dilim = @($isler[($p*$BATCH_MAX)..([math]::Min(($p+1)*$BATCH_MAX-1, $isler.Count-1))])
+  $req = @()
+  $ix = 0
+  foreach($i in $dilim){
+    $req += @{
+      custom_id = ("s{0}" -f $ix)
+      params = @{
+        model = $model
+        max_tokens = 500
+        messages = @(@{ role='user'; content=$i.istem })
+      }
+    }
+    $ix++
+  }
+  $govde = @{ requests = $req } | ConvertTo-Json -Depth 8
+  Write-Host ("PARTI {0}/{1}: {2} soru gonderiliyor..." -f ($p+1), $partiler, $dilim.Count)
+  $b = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/batches' -Headers $HDR -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
+  $bid = $b.id
+  Write-Host ("  batch id: {0}" -f $bid)
+
+  while($true){
+    Start-Sleep -Seconds 20
+    $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR
+    Write-Host ("  durum: {0}" -f $st.processing_status)
+    if($st.processing_status -eq 'ended'){ break }
+  }
+  $satirlar = (Invoke-WebRequest -UseBasicParsing -Uri "https://api.anthropic.com/v1/messages/batches/$bid/results" -Headers $HDR -TimeoutSec 300).Content -split "`n"
+  foreach($sat in $satirlar){
+    if("$sat".Trim().Length -eq 0){ continue }
+    $r = $sat | ConvertFrom-Json
+    $n = [int]("$($r.custom_id)".Substring(1))
+    $is = $dilim[$n]
+    if("$($r.result.type)" -ne 'succeeded'){ $sonuclar[$is.id] = @{ hata="$($r.result.type)" }; continue }
+    $txt = "$($r.result.message.content[0].text)"
+    $mt = [regex]::Match($txt, '\{[\s\S]*\}')
+    if(-not $mt.Success){ $sonuclar[$is.id] = @{ hata='json-yok' }; continue }
+    try { $j = $mt.Value | ConvertFrom-Json } catch { $sonuclar[$is.id] = @{ hata='json-bozuk' }; continue }
+    $sonuclar[$is.id] = $j
+  }
+}
+
+# ---------------------------------------------------------------- HAKEMIN HAKEMI
+function Sadelestir([string]$t){
+  $x = "$t".ToLowerInvariant()
+  $x = $x -replace '[''‘’"“”]', "'"
+  $x = $x -replace '[^\p{L}\p{Nd}]', ''
+  return $x
+}
+$rapor = New-Object System.Collections.Generic.List[object]
+$sy = [ordered]@{ temiz=0; bayrak=0; alintiUydurma=0; hata=0 }
+foreach($i in $isler){
+  $h = $sonuclar[$i.id]
+  if(-not $h -or $h.hata){ $sy.hata++; continue }
+  $al = Sadelestir "$($h.alinti)"
+  $md = Sadelestir $i.metin
+  $gecerli = ($al.Length -ge 20 -and $md.Contains($al))
+  if(-not $gecerli){ $sy.alintiUydurma++ }
+  $sorunlu = ("$($h.destek)" -ne 'evet') -or ("$($h.tek_dogru)" -ne 'evet') -or ("$($h.celiski)" -eq 'evet')
+  if($sorunlu){ $sy.bayrak++ } else { $sy.temiz++ }
+  $rapor.Add([pscustomobject]@{
+    id=$i.id; etiket=$i.etiket; kirpildi=$i.kirpildi
+    destek="$($h.destek)"; tek_dogru="$($h.tek_dogru)"; celiski="$($h.celiski)"
+    profesor_cevabi="$($h.dogru_sik)"; isaretli="$($i.soru.dogru)"
+    gerekce="$($h.gerekce)"; alinti="$($h.alinti)"
+    alinti_dogrulandi=$gecerli
+    hukum = $(if(-not $gecerli){ 'GECERSIZ-GM-OKUSUN' } elseif($sorunlu){ 'BAYRAK' } else { 'TEMIZ' })
+  })
+}
+
+Write-Host ""
+Write-Host "======== PROFESOR v2 SONUC ========"
+foreach($k in $sy.Keys){ Write-Host ("  {0,-16} {1}" -f $k, $sy[$k]) }
+Write-Host ("  NOT: alinti dogrulanmayan {0} hukum COPE ATILDI, sorular GM'ye gidiyor." -f $sy.alintiUydurma)
+
+$yol = if($cikti){ $cikti } else { Join-Path $kok 'veri/profesor-v2-rapor.json' }
+[IO.File]::WriteAllText($yol, ([ordered]@{
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); model=$model; kaynak=$kaynak
+  ozet=$sy; sonuclar=$rapor
+} | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("-> {0}" -f $yol)
+exit 0
