@@ -313,7 +313,28 @@ function basla(){
   var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
   var yeni=h.filter(function(s){return !gorulen[s.id];}), eski=h.filter(function(s){return gorulen[s.id];});
   karistir(yeni); karistir(eski);
-  SORULAR=yeni.concat(eski).slice(0,seciliAdet);
+  // 29.07 BENZERLIK KAPISI: havuzda 76 grupta 357 soru AYNI KURALI olcuyor
+  // (ornek: 'so that / wake the baby' iki kez, sifat sirasi uc kez, whose bes kez).
+  // Ayni gruptan birden fazla soru ayni oturuma girerse ogrenci ayni seyi tekrar
+  // tekrar cozer; soru sayisi artar ama OGRENDIGI ARTMAZ - sinav basarisi buradan
+  // dusuyordu. Bir oturumda her gruptan EN FAZLA BIR soru.
+  // Grubu olmayan sorular serbest (etiketsiz olan cogunluk).
+  var havuzSirali=yeni.concat(eski), secim=[], grupGoruldu={};
+  for(var gi=0; gi<havuzSirali.length && secim.length<seciliAdet; gi++){
+    var sg=havuzSirali[gi], gk=sg.benzer_grup||sg.benzerGrup||'';
+    if(gk && grupGoruldu[gk]) continue;
+    if(gk) grupGoruldu[gk]=1;
+    secim.push(sg);
+  }
+  // gruplar yuzunden istenen adet dolmadiysa, kalanlardan tamamla - ogrenciye
+  // "20 soru" deyip 14 vermek olmaz; ama once cesitlilik denenmis olur.
+  if(secim.length<seciliAdet){
+    var icinde={}; secim.forEach(function(s){icinde[s.id]=1;});
+    for(var gj=0; gj<havuzSirali.length && secim.length<seciliAdet; gj++){
+      if(!icinde[havuzSirali[gj].id]) secim.push(havuzSirali[gj]);
+    }
+  }
+  SORULAR=secim;
   karistir(SORULAR);
   IDX=0; CEVAPLAR={}; RESULTS={}; SURELER={};
   document.getElementById('ekranKurulum').classList.add('gizli');
