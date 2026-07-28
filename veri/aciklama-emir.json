@@ -1,0 +1,21 @@
+{
+  "_aciklama": "ACIKLAMA YENILEME EMRI. Para harcayan tek kapi. DEGISEN: aciklama + hap. ASLA DEGISMEYEN: soru metni, siklar, dogru cevap, kaynak. Aciklamayi zenginlestirmek icin sorunun kendisine dokunmak yeni soru uretmektir - bu kanaldan gecmez.",
+  "_olcum": "581 soruluk orneklemde olculdu: her sikka ayri aciklama %100 VAR, hap %100 VAR, ortalama cumle 14,1 kelime (sade). EKSIK OLAN DERINLIK: ortalama aciklama 162 KARAKTER, yani iki cumle. O uzunlukta 'bu sik yanlis cunku' denir, konu ogretilmez. Ayrica tablo iceren soru %0, yevmiye iceren %4.",
+  "_sablon": "Dogru sik: 'Ne soruluyor / Kural / Bu olayda / Akilda kalsin' dort parca, 400-700 karakter. Yanlis siklar: tuzagi ADLANDIR - 'X ile Y'yi karistiriyor', 120-250 karakter. Dil: hic muhasebe bilmeyene, cumle <=20 kelime, terim ilk gecince parantezle acikla, etken cati.",
+  "_rakam_kapisi": "Yeni aciklamada gecen HER SAYI kaynak metinde (madde metni + soru + siklar) gecmek ZORUNDA. Gecmiyorsa o sorunun yenilemesi COPE ATILIR ve ESKI aciklama KALIR. 28.07 gecesi bulunan uc gercek hatanin ucu de uydurulmus RAKAM/SUREYDI. Aciklamayi zenginlestirirken ayni hatayi uretmek, hic zenginlestirmemekten kotudur.",
+  "emirler": [
+    {
+      "no": 1,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (150 USD butce)",
+      "emir": "pilot - Finansal Muhasebe 150 soru",
+      "onay": true,
+      "ders": "Finansal Muhasebe",
+      "sinir": 150,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "PILOT. Cem 7.213 sorunun tamaminin aciklamasini yenilemek istiyor - hakli, cunku site yeni acilacak ve ilk izlenim aciklamalardan olusuyor. Ama 7.213'u tek seferde yenilemek, yanlis giderse 7.213 sorunun aciklamasini BOZMAK demektir. Once 150 soru: Finansal Muhasebe secildi cunku (1) sinavin en agir dersi (%20), (2) havuzda en eksik ders (0,58 kat), (3) tablo/yevmiye ihtiyaci en yuksek ders - sablonun zor tarafini burada sinariz. Cikti GM tarafindan ELLE okunacak; sablona ve dile uyuyorsa kalan dersler acilacak. Rakam kapisindan kac sorunun dondugu de burada olculecek - o oran yuksekse istem duzeltilir, para harcanmadan once.",
+      "tahmini_usd": 1.1,
+      "uygulandi": null
+    }
+  ]
+}

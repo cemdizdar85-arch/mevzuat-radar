@@ -1,0 +1,75 @@
+# .github/workflows/aciklama-yenile.yml — ACIKLAMA YENILEME
+#
+# PARA HARCAR. Tek kapisi veri/aciklama-emir.json - betigin kendisi degistiginde
+# KOSMAZ. Emir onayli ve damgasiz ise kosar, bitince damgalanir.
+#
+# NIYE: aciklamalarimizin ortalamasi 162 KARAKTER, yani iki cumle. O uzunlukta
+# "bu sik yanlis cunku..." denir; KONU OGRETILMEZ. Hedef, kitabi ezberlemeden
+# soru cozerek konuyu ogretmek.
+# DEGISEN: yalniz aciklama + hap.  DEGISMEYEN: soru, siklar, dogru cevap.
+name: Aciklama Yenileme
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/aciklama-emir.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aciklama-yenile
+  cancel-in-progress: false
+
+jobs:
+  yenile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - name: Acik emirleri sirayla kos — PARALI
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $yol = 'veri/aciklama-emir.json'
+          $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          if($acik.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - 0 USD."; exit 0 }
+          foreach($x in $acik){
+            Write-Host ""
+            Write-Host ("===== EMIR #{0} ({1}) - tahmini {2} USD" -f $x.no, $x.emir, $x.tahmini_usd)
+            Write-Host ("      {0}" -f $x.gerekce)
+            $ok = $true
+            try {
+              ./motor/aciklama-yenile.ps1 -calistir -ders "$($x.ders)" -sinir ([int]$x.sinir) `
+                 -model "$($x.model)" -cikti "veri/aciklama-rapor-$($x.no).json"
+              if($LASTEXITCODE -ne 0){ $ok = $false }
+            } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
+            if(Test-Path 'veri/aciklama-log.txt'){ Copy-Item 'veri/aciklama-log.txt' "veri/aciklama-log-$($x.no).txt" -Force }
+            if($ok){
+              $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force
+            } else {
+              $d = 0; if($x.PSObject.Properties['deneme']){ $d = [int]$x.deneme }
+              $d++
+              $x | Add-Member -NotePropertyName deneme -NotePropertyValue $d -Force
+              if($d -ge 3){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue "KAPATILDI: 3 denemede kosmadi" -Force }
+              [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+              Write-Host "Bir emir dustu - SONRAKINE GECILMIYOR (ayni kusur onu da dusurur, ust uste para yakar)."
+              exit 1
+            }
+            [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+          }
+      - name: Raporlari commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/aciklama-emir.json veri/aciklama-log.txt veri/aciklama-rapor-*.json veri/aciklama-log-*.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Aciklama yenileme kosusu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
