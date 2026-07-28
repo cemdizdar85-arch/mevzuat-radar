@@ -656,7 +656,12 @@ async function kasaYukle(user){
   // uye yalniz 1.000 soru goruyordu (Cem'in ekranindaki '1008' bu tavandi). SAYFALI cekim:
   var kasa = [], bas = 0;
   while(true){
-    var r = await sb.from('soru_havuzu').select('*').range(bas, bas + 999);
+    // 28.07 YAYIN KAPISI (Katman 4): yayin=false olan soru uyeye SERVIS EDILMEZ.
+    // Bugune kadar kasadaki her soru aninda canliydi; bir hata bulunsa bile
+    // soruyu silmeden durdurmanin yolu yoktu. Artik profesor ya da RG nobeti bir
+    // soruyu bayrakladiginda soru YAYINDAN CEKILIR, silinmez, GM okur ve geri
+    // acar. "Hata olsa bile yayinlanmadan yakalayalim" sarti ancak boyle karsilanir.
+    var r = await sb.from('soru_havuzu').select('*').eq('yayin', true).range(bas, bas + 999);
     if(r.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + r.error.message; return; }
     var dilim = r.data || [];
     kasa = kasa.concat(dilim);

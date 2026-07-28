@@ -18,6 +18,7 @@ on:
   push:
     paths:
       - 'motor/kasa-bag.ps1'
+      - 'veri/kasa-bag-emir.json'
 
 permissions:
   contents: write
@@ -37,10 +38,27 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          # push tetiginde ASLA yazilmaz - yalniz olcum. Yazma bilerek ve
-          # isteyerek, workflow_dispatch + yaz=true ile yapilir.
+          # Yazma ASLA kendiliginden olmaz. Iki yolu var: workflow_dispatch +
+          # yaz=true, ya da veri/kasa-bag-emir.json icinde onayli ve damgasiz
+          # bir emir. Kasa duzeltme ve profesor kanallarindaki duzenin aynisi:
+          # yazili emir, tek kullanim, damga. Damgali emir bir daha kosmaz.
           $yaz = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.yaz }}' -eq 'true'
+          $emirNo = 0
+          $eYol = 'veri/kasa-bag-emir.json'
+          if(-not $yaz -and (Test-Path $eYol)){
+            $e = Get-Content $eYol -Raw -Encoding UTF8 | ConvertFrom-Json
+            $a = @($e.emirler | Where-Object { $_.yaz -eq $true -and -not $_.uygulandi })
+            if($a.Count -gt 0){ $yaz = $true; $emirNo = [int]$a[0].no; Write-Host ("EMIR #{0}: {1}" -f $a[0].no, $a[0].gerekce) }
+          }
           if($yaz){ ./motor/kasa-bag.ps1 -yaz } else { ./motor/kasa-bag.ps1 }
+          $kod = $LASTEXITCODE
+          if($emirNo -gt 0 -and $kod -eq 0){
+            $e = Get-Content $eYol -Raw -Encoding UTF8 | ConvertFrom-Json
+            foreach($x in $e.emirler){ if([int]$x.no -eq $emirNo){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force } }
+            [IO.File]::WriteAllText($eYol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+            Write-Host "Emir #$emirNo damgalandi."
+          }
+          $global:LASTEXITCODE = $kod
           # kolon yoksa 3 doner: kirmizi degil, "henuz kurulamadi" demektir
           if($LASTEXITCODE -eq 3){ Write-Host "Kolonlar bekleniyor - SQL calistirilinca kurulacak."; exit 0 }
           exit $LASTEXITCODE
@@ -49,7 +67,9 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          if [ -f veri/kasa-bag.json ]; then git add veri/kasa-bag.json || true; fi
+          for f in veri/kasa-bag.json veri/kasa-bag-emir.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
           git diff --cached --quiet || git commit -m "Kasa bagi raporu [veri-operasyonu]"
           git pull --rebase || true
           git push || true

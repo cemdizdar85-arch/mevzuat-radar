@@ -1,0 +1,14 @@
+{
+  "_aciklama": "KASA BAGI YAZMA EMRI. Bag kurma kasadaki 7.213 satiri GUNCELLER; bu yuzden push tetiginde asla kendiliginden yazilmaz, yalniz olcum yapilir. Yazma bu dosyayla, yazili ve damgali olarak istenir. Damgali emir bir daha kosmaz.",
+  "emirler": [
+    {
+      "no": 1,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar (SQL onayi kapsaminda)",
+      "yaz": true,
+      "gerekce": "Yayin Kapisi kolonlari kuruldu (yayin, yayin_notu, kanun_no, madde_no, madde_damga, son_kontrol) - dogrulandi. Simdi bag YAZILIYOR: her sorunun dayandigi kanun/madde ve o maddenin O ANDAKI metninin parmak izi kasaya isleniyor. Bu olmadan Katman 3 bir maddenin degistigini gorse bile KIME haber verecegini bilemez. Olcum: 7.213 sorunun 4.100'u baglanabiliyor (mevzuata dayanan 4.269 sorunun %96'si); geri kalan 2.944 soru dil/matematik/Turkce/tarih, yani dayanacak maddesi YOK.",
+      "beklenen_bagli": 4100,
+      "uygulandi": null
+    }
+  ]
+}
