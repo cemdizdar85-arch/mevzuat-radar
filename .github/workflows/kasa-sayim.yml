@@ -33,6 +33,8 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/kasa-sayim.json || true
+          for f in veri/kasa-sayim.json veri/kasa-ornek.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
           git diff --cached --quiet || git commit -m "Kasa sayimi guncellendi [veri-operasyonu]"
           git push || true

@@ -95,6 +95,16 @@ $konu.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 20 
 Write-Host ""
 Write-Host ("  --- tekil konu sayisi: {0}" -f $konu.Count)
 
+# --- ORNEK DOKUMU: GM yerelde ANON anahtarla kasayi OKUYAMIYOR. Aciklamalari
+# yeniledik ama GM ciktinin metnini goremedi - "elle okuyacagim" sozu boslukta
+# kaldi. Rapor rakami verir, METNI vermez. Bu blok birkac sorunun yeni
+# aciklamasini depoya dokuyor ki GM gercekten OKUSUN.
+try {
+  $o = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,yevmiye,tablo&ders=eq.Finansal%20Muhasebe&order=id&limit=4" -Headers $H -TimeoutSec 90)
+  [IO.File]::WriteAllText((Join-Path $kok "veri/kasa-ornek.json"), (@($o) | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("-> veri/kasa-ornek.json  ({0} ornek soru, tam metin)" -f @($o).Count)
+} catch { Write-Host ("ornek dokumu alinamadi: {0}" -f $_.Exception.Message) }
+
 $rapor = [ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm")
   toplam = $toplam
