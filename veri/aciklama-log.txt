@@ -1,0 +1,43 @@
+**********************
+PowerShell transcript start
+Start time: 20260728210920
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8f563070-7b8f-4383-a850-ef61518bef1f.ps1'
+Process ID: 2304
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Soru: 797 (ders: Finansal Muhasebe)
+
+  toplam     151
+  hazir      150
+  metinli    75
+  metinsiz   75
+
+MALIYET TAHMINI (Batch %50): ~0.99 USD   soru basina ~0.0066
+PARTI 1: 150 soru (451 KB)
+PS>TerminatingError(ConvertFrom-Json): "The provided JSON includes a property whose name is an empty string, this is only supported using the -AsHashTable switch."
+
+======== ACIKLAMA YENILEME ========
+  yenilenen      121
+  rakamRed       28
+  bosRed         0
+  cevapsiz       1
+  yazmaHatasi    0
+  GERCEK FATURA : ~1.03 USD  (181,890 giris + 101,310 cikis token)
+  NOT: rakam kapisindan donen 28 sorunun ESKI aciklamasi KALDI - bozulmadi.
+-> veri/aciklama-rapor-1.json
+**********************
+PowerShell transcript end
+End time: 20260728211337
+**********************
