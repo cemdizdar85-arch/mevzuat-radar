@@ -58,6 +58,19 @@ function KolonVar($ad){
 $kolonlar = @('yayin','kanun_no','madde_no','madde_damga','son_kontrol')
 $eksik = @($kolonlar | Where-Object { -not (KolonVar $_) })
 
+# --- YER GERCEGI: kasada SU AN kac sorunun bagi dolu?
+# 28.07 gecesi iki kosunun raporu birbirine karisti (biri 20:33 yazildi=0, digeri
+# 20:55 damgali) ve "yazildi mi yazilmadi mi" tahmin edilemez hale geldi.
+# Rapor dosyasi bir IDDIADIR; kasanin kendisi GERCEKTIR. Her kosu once gercegi
+# olcuyor, sonra is yapiyor.
+function BagliSay(){
+  try {
+    $r = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&kanun_no=not.is.null&limit=1" -Headers ($H + @{Prefer='count=exact'}) -TimeoutSec 90
+    return [int](($r.Headers['Content-Range'] -split '/')[-1])
+  } catch { return -1 }
+}
+$bagliOnce = BagliSay
+Write-Host ("KASADA HALIHAZIRDA BAGLI: {0} soru" -f $bagliOnce)
 Write-Host "KASA BAGI - kasa okunuyor..."
 $kayit = New-Object System.Collections.Generic.List[object]
 $bas = 0
@@ -141,6 +154,7 @@ foreach($s in ($cozOrnek.Keys | Sort-Object { -$cozOrnek[$_].adet })){
 $rap = Join-Path $kok 'veri/kasa-bag.json'
 [IO.File]::WriteAllText($rap, ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); ozet=$ist; eksik_kolon=$eksik; adet=$baglar.Count
+  kasada_bagli_kosu_basinda=$bagliOnce
   baglanamama=$cozOrnek
 } | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 Write-Host "-> veri/kasa-bag.json"
