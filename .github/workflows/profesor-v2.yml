@@ -45,6 +45,7 @@ jobs:
           "kaynak=$($x.kaynak)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           "sinir=$($x.sinir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           "model=$($x.model)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "kurtar=$($x.kurtar)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Profesor v2 — PARALI
         id: kosu
@@ -57,7 +58,8 @@ jobs:
           ./motor/profesor-v2.ps1 -calistir `
             -kaynak "${{ steps.emir.outputs.kaynak }}" `
             -sinir ${{ steps.emir.outputs.sinir }} `
-            -model "${{ steps.emir.outputs.model }}"
+            -model "${{ steps.emir.outputs.model }}" `
+            -kurtar "${{ steps.emir.outputs.kurtar }}"
 
       # 28.07 DUZELTME: ilk kosu dustu ve eski hali emri YINE DE damgaliyordu -
       # yani basarisiz bir kosu emri tuketiyor, tekrar denemek imkansiz hale

@@ -21,7 +21,7 @@
       "tarih": "28.07.2026",
       "veren": "Cem Dizdar (basla emri kapsaminda)",
       "emir": "duman testi",
-      "onay": true,
+      "onay": false,
       "kaynak": "yerel",
       "sinir": 40,
       "model": "claude-sonnet-4-5-20250929",
@@ -30,7 +30,22 @@
       "uygulandi": null,
       "_deneme_2": "28.07 19:07 - ikinci kosu da dustu VE HATA DEFTERI YINE YAZILMADI. Iki ayri kusur bulundu: (1) is akisi dosyalari tek 'git add' komutunda ekliyordu; listedeki bir dosya yoksa git HICBIRINI eklemiyor, '|| true' de bunu susturuyordu - yani defter yazilsa bile commit'lenemezdi. (2) hata, ongordugum try/catch'lerin disinda bir yerdeydi. Uc onlem alindi: her dosya AYRI ekleniyor; betik butun ciktisini veri/profesor-log.txt'ye yaziyor (Actions loglari admin-kilitli, kor kalmak yasak); ve script duzeyinde trap kondu - hata NEREDE olursa olsun defter yazilir. Ayrica parti gonderilmeden once anahtar+model tek satirlik istekle sinaniyor: sebep buysa birkac token'a ogrenilir, 1,5 USD'lik partiyi ceviren bir hatayla degil.",
       "deneme": 1,
-      "son_hata": "28.07.2026 19:14"
+      "son_hata": "28.07.2026 19:14",
+      "onay_kapatildi": "28.07 19:20 - bu emir KAPATILDI cunku partisi ZATEN ISLENDI (msgbatch_015rVhJRWPoam7YBb1AzMx3z). Yeniden kosturmak ayni isi ikinci kez odemek olurdu. Yerine emir #3 (kurtarma) konuldu."
+    },
+    {
+      "no": 3,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar (basla emri kapsaminda)",
+      "emir": "kurtarma",
+      "onay": true,
+      "kaynak": "yerel",
+      "sinir": 40,
+      "model": "claude-sonnet-4-5-20250929",
+      "kurtar": "msgbatch_015rVhJRWPoam7YBb1AzMx3z",
+      "gerekce": "KURTARMA - YENI PARA HARCANMAZ. 3. kosuda duman testi partisi BASARIYLA ISLENDI (log: durum 'ended'), yani ~0,17 USD odendi; ama sonuc okunurken ayristirici patladi ve cikti kayboldu. Hata: custom_id BOS geldi, kod onu Substring(1) ile sira numarasina cevirmeye calisti. Ayni partiyi yeniden gondermek, odenmis bir isi ikinci kez odemektir. Bu emir partiyi GONDERMEZ; ayni batch id ile sonucu geri ceker. Ayristirici uc yoldan esleme yapacak sekilde saglamlastirildi (kimlik / eski sira formati / satir sirasi) ve ham cevabin ilk 300 karakteri artik loga yaziliyor, boylece custom_id'nin neden bos geldigi de gorulecek.",
+      "tahmini_usd": 0.0,
+      "uygulandi": null
     }
   ]
 }

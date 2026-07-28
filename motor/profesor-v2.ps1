@@ -29,6 +29,8 @@ param(
   [switch]$calistir,     # GERCEK KOSU — para harcar
   [string]$kaynak = 'yerel',   # yerel | kasa
   [int]$sinir = 0,             # 0 = hepsi
+  [string]$kurtar = '',        # ISLENMIS bir partinin sonucunu YENIDEN GONDERMEDEN cek
+
   [string]$model = 'claude-sonnet-4-5-20250929',
   [string]$cikti = ''
 )
@@ -267,18 +269,32 @@ $partiler = [math]::Ceiling($isler.Count / $BATCH_MAX)
 for($p=0; $p -lt $partiler; $p++){
   $dilim = @($isler[($p*$BATCH_MAX)..([math]::Min(($p+1)*$BATCH_MAX-1, $isler.Count-1))])
   $req = @()
-  $ix = 0
   foreach($i in $dilim){
+    # 28.07 DUZELTME: custom_id eskiden SIRA NUMARASIYDI ("s0","s1"...) ve sonuc
+    # okunurken Substring(1) ile geri cevriliyordu. custom_id bos gelince o satir
+    # patladi ve ISLENMIS - yani PARASI ODENMIS - bir parti cope gitti.
+    # Artik custom_id SORUNUN KENDI KIMLIGI. Sonuc dogrudan kimlikle eslesir;
+    # sira, kirpma ya da bos alan hicbir seyi bozamaz.
     $req += @{
-      custom_id = ("s{0}" -f $ix)
+      custom_id = "$($i.id)"
       params = @{
         model = $model
         max_tokens = 500
         messages = @(@{ role='user'; content=$i.istem })
       }
     }
-    $ix++
   }
+  # --- KURTARMA: islenmis (parasi odenmis) bir partinin sonucunu YENIDEN
+  # GONDERMEDEN cekmek icin. 3. kosuda 40 soruluk parti islendi ama ayristirici
+  # patlayinca sonuc kayboldu; ayni isi ikinci kez odemek "bosa para harcamak"tir.
+  if($kurtar -and $p -eq 0){
+    Write-Host ("KURTARMA MODU: {0} partisinin sonucu YENIDEN GONDERILMEDEN cekiliyor (0 USD)." -f $kurtar)
+    $bid = $kurtar
+    $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR -TimeoutSec 60
+    Write-Host ("  durum: {0}" -f $st.processing_status)
+    if($st.processing_status -ne 'ended'){ Write-Host "  Parti henuz bitmemis - kurtarma yapilamaz."; try { Stop-Transcript | Out-Null } catch {}; exit 1 }
+  } else {
+
   $govde = @{ requests = $req } | ConvertTo-Json -Depth 8
   Write-Host ("PARTI {0}/{1}: {2} soru gonderiliyor ({3:N0} KB govde)..." -f ($p+1), $partiler, $dilim.Count, ($govde.Length/1024))
   # 28.07: Actions loglari admin-kilitli. Hata ekrana yazilip kaybolursa kor kaliriz;
@@ -304,6 +320,7 @@ for($p=0; $p -lt $partiler; $p++){
     # 90 tur = 30 dakika. Batch normalde dakikalar icinde biter; bu asilma kalkanidir.
     if($tur -ge 90){ Write-Host "  ZAMAN ASIMI: parti 30 dk'da bitmedi, birakiliyor."; break }
   }
+  }  # <- kurtarma degilse blogu biter
   # Sonuc adresini SABIT KODLAMA - durum cevabindaki results_url kullanilir.
   # Sabit adres bir yonlendirmeye takilirsa basliklar tasinmaz ve 403 alinir;
   # o hata da parayi harcadiktan SONRA cikar, en pahali yerde.
@@ -319,11 +336,31 @@ for($p=0; $p -lt $partiler; $p++){
     HataYaz "sonuc-cekme" $_.Exception.Message $cevap @{ batch_id=$bid; adres=$sonucAdres; UYARI="PARTI ISLENDI - PARA HARCANDI. Bu batch id ile sonuc yeniden cekilebilir, tekrar gonderilmemeli." }
     throw
   }
+  # Ham cevabin basi loga yazilir: 3. kosuda custom_id BOS geldi ve ayristirici
+  # patladi; ISLENMIS - yani parasi odenmis - bir parti cope gitti. Ham cevabi
+  # gormeden bu tur bir seyi bir daha tahmin etmeye calismam.
+  $ham = ($satirlar -join "`n")
+  Write-Host ("  ham cevap: {0} satir, {1} karakter. Ilk 300: {2}" -f $satirlar.Count, $ham.Length, $(if($ham.Length -gt 300){$ham.Substring(0,300)}else{$ham}))
+
+  $sirali = 0
   foreach($sat in $satirlar){
     if("$sat".Trim().Length -eq 0){ continue }
-    $r = $sat | ConvertFrom-Json
-    $n = [int]("$($r.custom_id)".Substring(1))
-    $is = $dilim[$n]
+    try { $r = $sat | ConvertFrom-Json } catch { Write-Host ("  ATLANDI: satir JSON degil - {0}" -f $(if($sat.Length -gt 120){$sat.Substring(0,120)}else{$sat})); continue }
+
+    # Kimlikle esleme. Eski partiler sira numarasi ("s0") kullaniyordu; kurtarma
+    # kosusunda onlar da okunabilsin diye o bicim de destekleniyor. Kimlik hic
+    # gelmezse SATIR SIRASINA duselim - sonucu cope atmaktan iyidir, cunku
+    # bu parti ZATEN ODENDI.
+    $cid = "$($r.custom_id)"
+    $is = $null
+    if($cid.Length -gt 0){ $is = @($dilim | Where-Object { "$($_.id)" -eq $cid })[0] }
+    if(-not $is -and $cid -match '^s(\d+)$'){ $ix = [int]$Matches[1]; if($ix -lt $dilim.Count){ $is = $dilim[$ix] } }
+    if(-not $is){
+      if($sirali -lt $dilim.Count){ $is = $dilim[$sirali]; Write-Host ("  UYARI: custom_id bos/taninmadi ('{0}') - satir sirasina gore eslendi: {1}" -f $cid, $is.id) }
+      else { Write-Host "  ATLANDI: eslesecek soru kalmadi"; continue }
+    }
+    $sirali++
+
     if("$($r.result.type)" -ne 'succeeded'){ $sonuclar[$is.id] = @{ hata="$($r.result.type)" }; continue }
     # GERCEK FATURA: tahmin degil, API'nin dondurdugu token sayisi. Rakam disiplini.
     $script:gercekGiris += [int]"$($r.result.message.usage.input_tokens)"
