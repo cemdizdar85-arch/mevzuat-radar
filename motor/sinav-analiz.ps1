@@ -77,8 +77,26 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
 "@
 
 $islenen = 0
+# 29.07: SINAV ve DONEM suzgeci. Kuyrukta SGS kayitlari once geliyor ve SGS
+# kitapciklari 130 SORULUK - olcumde kitapcik basina 0,53 USD cikti. Yeterlilik
+# kitapciklari ise 20 SORULUK, yani cok daha ince. "169 kitapcik 89 USD" tahmini
+# YANLIS TABANA dayaniyordu: SGS fiyatiyla SMMM sayisini carpmisim.
+# Oncelik Yeterlilik: orada konu agirligi verisi HIC YOK. SGS'de zaten resmi
+# ders orani var (TESMER Yonerge m.6.2) ve 6.708 soru var.
+# Ayrica eski donemler beklesin: konu agirligi icin son yillar yeter ve guncel
+# mufredati yansitir; 2021'in agirligi bugunu baglamaz.
+$SINAV_SUZ = "$env:ANALIZ_SINAV"
+$DONEM_MIN = if($env:ANALIZ_DONEM_MIN){ [int]$env:ANALIZ_DONEM_MIN } else { 0 }
+if($SINAV_SUZ -or $DONEM_MIN){ Write-Host ("SUZGEC: sinav='{0}' donem>={1}" -f $SINAV_SUZ, $DONEM_MIN) }
+
 foreach($d in $arsiv.donemler){
   if($d.durum -ne 'bekliyor'){ continue }
+  if($SINAV_SUZ -and "$($d.sinav)" -ne $SINAV_SUZ){ continue }
+  if($DONEM_MIN -gt 0){
+    $yil = 0
+    if("$($d.donem)" -match '^(\d{4})'){ $yil = [int]$Matches[1] }
+    if($yil -gt 0 -and $yil -lt $DONEM_MIN){ continue }
+  }
   if($islenen -ge $LIMIT){ break }
   # sinav tipi: SGS (varsayilan) veya SMMM (Yeterlilik; ders kitapcigi bazli)
   $sinavTip = if($d.sinav){ "$($d.sinav)" } else { 'SGS' }
