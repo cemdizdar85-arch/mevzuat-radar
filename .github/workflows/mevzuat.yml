@@ -76,11 +76,25 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           ZORLA: ${{ inputs.zorla && '1' || '0' }}   # hash'e bakmadan hepsini yeniden yut
         run: ./motor/mevzuat-yut.ps1
+      # KATMAN 3 — RG NOBETI. Damga bugune kadar KANUN bazindaydi: bir kanun
+      # degisince "degisti" diyorduk ama HANGI MADDE degisti bilmiyorduk;
+      # bilmeyince de o maddeye dayanan sorulari ayiramiyorduk. Sonuc: Resmi
+      # Gazete'de bir oran/sure degisiyor, kasadaki soru ESKI HALIYLE yayinda
+      # kaliyor. Sitenin en sinsi hata kaynagi budur - cunku soru yazildigi gun
+      # DOGRUYDU. Artik her (kanun, madde) ciftinin metni ayri parmak izleniyor
+      # ve hasattan hemen sonra karsilastiriliyor.
+      # PARA HARCAMAZ: yalniz ambar okur, hash hesaplar, rapor yazar.
+      - name: Madde damgasi (Katman 3 — RG nobeti)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/madde-damga.ps1
       - name: Degisen madde-belgelerini commit et
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           git add -A veri/mevzuat/ || true
+          if [ -f veri/madde-degisim.json ]; then git add veri/madde-degisim.json || true; fi
           git add veri/yeniden-dogrula.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
