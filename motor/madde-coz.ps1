@@ -144,6 +144,45 @@ function StandartMetni([string]$kaynak){
   return $sonuc
 }
 
+# --- TEKDUZEN HESAP PLANI YOLU (MSUGT Sira No:1)
+# Kasa taramasinda 291 soru "kanun-bulunamadi" ile baglanamadi; hepsi hesap
+# planina dayaniyordu: "MSUGT Tekduzen Hesap Plani - 730 Genel Uretim Giderleri"
+# gibi. Bunlar kanun MADDESI degil, TEBLIG EKI - kanun/madde deseni onlari
+# goremezdi. Oysa ambarda 230 kayit halinde duruyorlar ("THP 730 - Genel Uretim
+# Giderleri", kaynak: Resmi Gazete 21447 sayili nusha) ve icleri dolu.
+# Muhasebe/Maliyet dersleri kasanin buyuk bir bolumu; kapsam disi birakilamaz.
+function HesapPlaniMetni([string]$kaynak){
+  $k = "$kaynak"
+  if($k -notmatch '(?i)MSUGT|tekd[uü]zen|hesap plan|\bTHP\b'){ return $null }
+  # 3 haneli hesap kodlarini topla. "213 sayili VUK" gibi KANUN numaralarini
+  # disla - yoksa kanun atfini hesap kodu sanip yanlis metin getiririz.
+  $kodlar = @()
+  foreach($m in [regex]::Matches($k, '(?<![\d.])([1-7]\d{2})(?![\d])')){
+    $son = $k.Substring($m.Index + $m.Length)
+    if($son -match '^\s*(say[ıi]l[ıi]|s\.\s*K\.|S[ıi]ra)'){ continue }
+    if($kodlar -notcontains $m.Groups[1].Value){ $kodlar += $m.Groups[1].Value }
+  }
+  if($kodlar.Count -eq 0){ return $null }
+  if($kodlar.Count -gt 4){ $kodlar = $kodlar[0..3] }
+  $anahtar = "THP|" + ($kodlar -join ',')
+  if($script:onbellek.ContainsKey($anahtar)){ return $script:onbellek[$anahtar] }
+  $parcalar = @()
+  foreach($kod in $kodlar){
+    try {
+      $r = @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString("^THP\s$kod(?![0-9])") + "&limit=3") -Headers $H -TimeoutSec 60)
+    } catch { continue }
+    # 28.07: burada once $x.PSObject.Properties['metin'] ile "alan var mi" diye
+    # bakiyordum; kayit DOLU geldigi halde False donuyordu ve fonksiyon sessizce
+    # null veriyordu - yani hesap plani yolu hic calismiyordu ama hicbir hata da
+    # vermiyordu. Alanin VARLIGINI degil DEGERINI kontrol etmek hem dogru hem sade.
+    foreach($x in $r){ if("$($x.metin)".Trim().Length -gt 0){ $parcalar += "$($x.kaynak_ad): $($x.metin)" } }
+  }
+  if($parcalar.Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
+  $sonuc = [ordered]@{ hesap=($kodlar -join ','); parca=$parcalar.Count; ad=("THP " + ($kodlar -join '/')); metin=($parcalar -join "`n") }
+  $script:onbellek[$anahtar] = $sonuc
+  return $sonuc
+}
+
 # --- MEVZUAT DISI MI: dil, matematik, teori sorularinin dayanacagi bir MADDE yoktur.
 # Bunlar "cozulemedi" degildir; cozulecek metin YOKTUR. Profesor bunlari madde
 # uzerinden yargilamaz - zaten bugunku olcumde bu tipte SIFIR hata cikti.
@@ -162,6 +201,11 @@ function KaynakCoz([string]$kaynak){
   if(MevzuatDisiMi $kaynak){ return [ordered]@{ durum='mevzuat-disi'; kaynak=$kaynak } }
   $std = StandartMetni $kaynak
   if($std){ return [ordered]@{ durum='cozuldu-standart'; kaynak=$kaynak; standart=$std.standart; parca=$std.parca; ad=$std.ad; metin=$std.metin } }
+  # Hesap plani KANUN yolundan ONCE denenir: "MSUGT 360 hesap aciklamasi;
+  # 213 sayili VUK muhtasar beyan esasi" gibi BILESIK atiflarda asil dayanak
+  # hesap planidir; kanun yolu once calissa 213'e sapar ve yanlis metni getirir.
+  $thp = HesapPlaniMetni $kaynak
+  if($thp){ return [ordered]@{ durum='cozuldu-hesapplani'; kaynak=$kaynak; hesap=$thp.hesap; parca=$thp.parca; ad=$thp.ad; metin=$thp.metin } }
   $kn = KanunNo $kaynak
   $mn = MaddeNo $kaynak
   if(-not $kn){ return [ordered]@{ durum='kanun-bulunamadi'; kaynak=$kaynak } }

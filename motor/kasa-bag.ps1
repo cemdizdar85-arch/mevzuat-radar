@@ -96,6 +96,16 @@ foreach($k in $kayit){
     })
     continue
   }
+  # Tekduzen Hesap Plani (MSUGT Sira No:1) - 291 soru buna dayaniyordu ve
+  # kanun/madde deseni onlari hic goremiyordu. Ambarda 230 THP kaydi var.
+  if("$($c.durum)" -eq 'cozuldu-hesapplani' -and $c.metin){
+    $ist.bagli++
+    $baglar.Add([pscustomobject]@{
+      id="$($k.id)"; kanun_no="THP"; madde_no="$($c.hesap)"
+      madde_damga=(Damga "$($c.metin)"); kaynak=$kay
+    })
+    continue
+  }
   if("$($c.durum)" -ne 'cozuldu' -or -not $c.kanun -or -not $c.madde){
     $ist.cozulemedi++
     # 28.07: ilk olcumde 1.357 soru baglanamadi (%32). Yerelde oran %8'di.
