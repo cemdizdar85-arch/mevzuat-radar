@@ -1,0 +1,79 @@
+**********************
+PowerShell transcript start
+Start time: 20260728193148
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ba681b62-0d58-4988-892f-04697915f810.ps1'
+Process ID: 2238
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+PowerShell surumu: 7.6.3
+Kok: /home/runner/work/mevzuat-radar/mevzuat-radar
+Soru: 581 (yerel)
+  ...100
+  ...200
+  ...300
+
+======== PROFESOR v2 HAZIRLIK ========
+  toplam         581
+  metinYok       29
+  mevzuatDisi    197
+  hazir          355
+
+======== MALIYET TAHMINI (TAHMINDIR, olculmus degil) ========
+  yargilanacak soru : 355
+  giris  ~553,968 token   (kaba cevrim: 3 karakter = 1 token)
+  cikis  ~92,300 token   (soru basina ~260 token varsayimi)
+  model  : claude-sonnet-4-5-20250929
+  liste fiyati    : ~3.05 USD
+  BATCH (%50 ind.): ~1.52 USD  <-- kullanilacak yol
+  soru basina     : ~0.0043 USD
+ON KONTROL: anahtar + model kimligi sinaniyor...
+  ON KONTROL TAMAM - model: claude-sonnet-4-5-20250929
+PARTI 1/1: 355 soru gonderiliyor (1,734 KB govde)...
+  batch id: msgbatch_01XiaQobMnYneLbE7Aq5LSvw
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: ended
+  sonuc adresi: https://api.anthropic.com/v1/messages/batches/msgbatch_01XiaQobMnYneLbE7Aq5LSvw/results
+  ham cevap: 356 satir, 353529 karakter. Ilk 300: {"custom_id":"576ce157","result":{"type":"succeeded","message":{"model":"claude-sonnet-4-5-20250929","id":"msg_011CdV1m3NdsBwhsEEZMf5Gf","type":"message","role":"assistant","content":[{"type":"text","text":"```json\n{\n  \"destek\": \"yetersiz\",\n  \"tek_dogru\": \"yetersiz\",\n  \"celiski\": \"hay
+
+======== PROFESOR v2 SONUC ========
+  temiz            102
+  bayrak           253
+  alintiUydurma    21
+  hata             0
+  NOT: alinti dogrulanmayan 21 hukum COPE ATILDI, sorular GM'ye gidiyor.
+
+======== KALIBRASYON (GM etiketine karsi) ========
+  GM'nin REDDETTIGI  : 23 soru -> profesor 12'ini yakaladi
+  GM'nin ONAYLADIGI  : 6 soru -> profesor 2'ine temiz dedi
+  YANLIS ALARM       : 4 (GM saglam dedi, profesor bayrak kaldirdi)
+  NOT: yanlis alarm zararsizdir - o soru GM'ye geri gelir, yayina gitmez.
+
+======== GERCEK FATURA (API'nin dondurdugu token) ========
+  giris  : 732,312 token   (tahmin 553,968 idi)
+  cikis  : 69,955 token   (tahmin 92,300 idi)
+  TUTAR  : ~1.62 USD  (Batch %50 indirimli, liste fiyati 3/15 USD-M varsayimi)
+-> veri/profesor-rapor-5.json
+**********************
+PowerShell transcript end
+End time: 20260728193601
+**********************
