@@ -15,7 +15,21 @@
       "model": "claude-sonnet-4-5-20250929",
       "gerekce": "PILOT. Cem 7.213 sorunun tamaminin aciklamasini yenilemek istiyor - hakli, cunku site yeni acilacak ve ilk izlenim aciklamalardan olusuyor. Ama 7.213'u tek seferde yenilemek, yanlis giderse 7.213 sorunun aciklamasini BOZMAK demektir. Once 150 soru: Finansal Muhasebe secildi cunku (1) sinavin en agir dersi (%20), (2) havuzda en eksik ders (0,58 kat), (3) tablo/yevmiye ihtiyaci en yuksek ders - sablonun zor tarafini burada sinariz. Cikti GM tarafindan ELLE okunacak; sablona ve dile uyuyorsa kalan dersler acilacak. Rakam kapisindan kac sorunun dondugu de burada olculecek - o oran yuksekse istem duzeltilir, para harcanmadan once.",
       "tahmini_usd": 1.1,
-      "uygulandi": "28.07.2026 21:13"
+      "uygulandi": "28.07.2026 21:13",
+      "_sonuc": "121 yenilendi, 28 rakam kapisindan dondu (%19), 1 cevapsiz. GERCEK FATURA 1,03 USD (tahmin 1,10; sapma %6). PILOTUN OGRETTIGI: red edilen 28 sorunun rakamlari 500/300/80, 3.000x4, 60.000 gibi HESAPLANMIS TUTARLARDI - uydurma degil. Muhasebe aciklamasinda 'Bu olayda' parcasi zaten toplama/carpma yapar; sonuc kaynakta birebir gecmez. Yani kapi, tam da istedigimiz 'rakamli adim adim anlatim'i engelliyordu. Kapinin kendisi kusurluydu, cikti degil."
+    },
+    {
+      "no": 2,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (standart kilitlendi)",
+      "emir": "pilot-2 - tam standart, ayni 150 soru",
+      "onay": true,
+      "ders": "Finansal Muhasebe",
+      "sinir": 150,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "PILOT-1 sablonu sinadi ama TAM STANDARDI tasimiyordu: (a) gorsel/tablo istenmiyordu, (b) dil kapisi olculmuyordu, (c) rakam kapisi hesaplanmis tutarlari da reddediyordu. Ucu de duzeltildi ve standart STANDART-ACIKLAMA.md olarak kilitlendi. Ayni 150 soru yeniden yeniliyor - 'tekrar tekrar yapmayalim' dendigi icin bu SON kalibrasyon; gecerse kalan 7.000 soru ders ders acilir. UC KAPI: (1) RISKLI SAYI (oran/sure/yil/madde no) kaynakta gecmezse RED - 28.07'de bulunan uc gercek hatanin ucu de bu tipti; (2) TUTAR kaynak sayilarindan aritmetikle uretilemiyorsa yazilir ama ISARETLENIR, GM ornekler; (3) DIL: cumle ortalamasi >20 ya da tek cumle >30 kelimeyse RED. GORSEL: muhasebe ailesi derslerde yevmiye ya da tablo isteniyor - site ikisini de ZATEN ciziyor (Cem'in 24.07 exhibit fikri), veri bostu (tablo %0, yevmiye %4).",
+      "tahmini_usd": 1.3,
+      "uygulandi": null
     }
   ]
 }

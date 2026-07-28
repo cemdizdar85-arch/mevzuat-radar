@@ -69,7 +69,30 @@ while($true){
 Write-Host ("Soru: {0}{1}" -f $sorular.Count, $(if($ders){" (ders: $ders)"}else{""}))
 if($sorular.Count -eq 0){ Write-Host "KIRMIZI: soru okunamadi."; try{Stop-Transcript|Out-Null}catch{}; exit 1 }
 
+# Muhasebe ailesi derslerde GORSEL ZORUNLU. Site tabloyu ve yevmiyeyi ZATEN
+# ciziyor (Cem'in 24.07 fikri: exhibit tablosu + yevmiye + 'hayalet kayit') ama
+# veri bostu: 581 soruluk olcumde tablo %0, yevmiye %4. Muhasebede bir kaydi
+# lafla anlatmak, cizmemekle ayni sey degil.
+$GORSELLI_DERS = @('Finansal Muhasebe','Maliyet Muhasebesi','Mali Tablolar Analizi','Finansal Tablolar ve Analizi','Muhasebe Denetimi')
+
 function IstemKur($s, $maddeMetni){
+  $gorsel = ''; $gorselAlan = ''
+  if($GORSELLI_DERS -contains "$($s.ders)"){
+    $gorsel = @"
+
+GORSEL (bu ders icin ZORUNLU, konu elveriyorsa):
+- Soru bir KAYIT sorusuysa "yevmiye" alanini doldur: dogru yevmiye maddesi.
+  Bicim: [{"hesap":"100 KASA","borc":5000,"alacak":0}, {"hesap":"600 YURTICI SATISLAR","borc":0,"alacak":5000}]
+  Borclu hesaplar once, alacakli hesaplar sonra. Tutarlar SAYI olsun, metin degil.
+- Soru bir TABLO/ANALIZ sorusuysa (bilanco, gelir tablosu, nakit akis, oran analizi)
+  "tablo" alanini doldur.
+  Bicim: {"baslik":"Gelir Tablosu (TL)","kolonlar":["Kalem","Tutar"],"satirlar":[["Brut Satislar","100.000"],["Satis Maliyeti (-)","60.000"],["Brut Kar ←","40.000"]]}
+  Ogrencinin gormesi gereken satirin ilk hucresinin sonuna ← koy; site o satiri vurgular.
+- Konu gorsel gerektirmiyorsa iki alani da bos birak. ZORLAMA - uydurma tablo, tablosuzluktan kotudur.
+- Tablodaki ve yevmiyedeki BUTUN TUTARLAR sorudaki verilerden gelmeli ya da onlardan hesaplanmali.
+"@
+    $gorselAlan = ',"yevmiye":[],"tablo":null'
+  }
   $sik = ""; foreach($h in @('A','B','C','D','E')){ $v="$($s.siklar.$h)"; if($v.Trim()){ $sik += "$h) $v`n" } }
   $dayanak = if($maddeMetni){ "=== DAYANAK METIN ($($s.kaynak)) ===`n$maddeMetni`n=== METIN BITTI ===`n" } else { "(Bu soru bir kanun maddesine dayanmiyor - dil/matematik/genel kultur. Dayanak sorunun kendi kurgusudur.)`n" }
   return @"
@@ -99,9 +122,9 @@ YANLIS SIKLARIN her birinde TEK IS var: tuzagi adlandirmak. Kalip:
 120-250 karakter. "Yanlistir" deyip gecme - ogrenci NEYI karistirdigini gormeli.
 
 hap: butun sorunun tek cumlelik ozeti (en fazla 120 karakter).
-
+$gorsel
 SADECE gecerli JSON dondur, baska hicbir sey yazma:
-{"aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"..."}
+{"aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"..."$gorselAlan}
 Sorunun bos olan sikki varsa o harfi de bos string birak.
 "@
 }
@@ -165,11 +188,59 @@ for($p=0; $p -lt [math]::Ceiling($isler.Count/$PARTI); $p++){
 }
 
 # --- RAKAM KAPISI + yazma
-function Sayilar([string]$t){
-  $l=@(); foreach($m in [regex]::Matches("$t", '\d[\d\.,]*')){ $l += ($m.Value.TrimEnd('.',',')) }
+# 29.07 KAPI DUZELTMESI - pilotun ogrettigi.
+# Ilk hali "aciklamadaki her sayi kaynakta gecmeli" diyordu ve 150 sorunun
+# 28'ini reddetti (%19). Reddedilenlere bakinca kapinin kendisinde kusur
+# oldugu goruldu: 500/300/80, 3.000x4, 60.000 gibi sayilar UYDURMA DEGIL,
+# HESAPLANMIS TUTARLARDI. Muhasebe sorusunda "Bu olayda" parcasi zaten toplama
+# cikarma yapar; sonuc kaynakta birebir gecmez. Yani kapi, tam da istedigimiz
+# "rakamli adim adim anlatim"i engelliyordu.
+#
+# YENI AYRIM - riske gore:
+#   RISKLI SAYI  : oran (%), sure (gun/ay/yil/hafta), yil (1900-2099), madde no.
+#                  Bunlar KAYNAKTA GECMEK ZORUNDA. 28.07'de bulunan uc gercek
+#                  hatanin ucu de tam bu tipti (%20-%21, 7-15 gun, 6 ay-1 yil).
+#   TUTAR        : hesaplanabilir. Kaynakta yoksa, kaynak sayilarindan basit
+#                  aritmetikle (toplam/fark/carpim/1-12 kati) uretilebiliyor mu
+#                  diye bakilir. Uretilemiyorsa RAPORA yazilir, GM ornekler.
+function SayiListe([string]$t){
+  $l=@(); foreach($m in [regex]::Matches("$t", '\d[\d\.\,]*')){ $l += ($m.Value.TrimEnd('.',',')) }
   return $l
 }
-$ozet=[ordered]@{ yenilenen=0; rakamRed=0; bosRed=0; cevapsiz=0; yazmaHatasi=0 }
+function SayiDeger([string]$s){
+  # "60.000" -> 60000 ; "0,20" -> 0.20
+  $x = "$s"
+  if($x -match '^\d{1,3}(\.\d{3})+(,\d+)?$'){ $x = $x -replace '\.','' -replace ',','.' }
+  else { $x = $x -replace ',','.' }
+  $d = 0.0
+  if([double]::TryParse($x, [Globalization.NumberStyles]::Any, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
+  return $null
+}
+function RiskliSayilar([string]$t){
+  $l=@()
+  foreach($m in [regex]::Matches("$t", '%\s*(\d[\d\.,]*)')){ $l += $m.Groups[1].Value.TrimEnd('.',',') }
+  foreach($m in [regex]::Matches("$t", '(\d[\d\.,]*)\s*%')){ $l += $m.Groups[1].Value.TrimEnd('.',',') }
+  foreach($m in [regex]::Matches("$t", '(?i)(\d+)\s*(g[üu]n|ay|y[ıi]l|hafta|saat)\b')){ $l += $m.Groups[1].Value }
+  foreach($m in [regex]::Matches("$t", '(?<![\d.,])(19\d{2}|20\d{2})(?![\d.,])')){ $l += $m.Groups[1].Value }
+  foreach($m in [regex]::Matches("$t", '(?i)(?:madde|m\.)\s*(\d{1,4})')){ $l += $m.Groups[1].Value }
+  return $l
+}
+function AritmetikUretilebilir([double]$hedef, $kaynakDegerler){
+  foreach($a in $kaynakDegerler){
+    if([math]::Abs($a - $hedef) -lt 0.005){ return $true }
+    for($k=2; $k -le 12; $k++){ if([math]::Abs($a*$k - $hedef) -lt 0.005){ return $true }; if($a -ne 0 -and [math]::Abs($a/$k - $hedef) -lt 0.005){ return $true } }
+    foreach($b in $kaynakDegerler){
+      if([math]::Abs(($a+$b) - $hedef) -lt 0.005){ return $true }
+      if([math]::Abs(($a-$b) - $hedef) -lt 0.005){ return $true }
+      if([math]::Abs(($a*$b) - $hedef) -lt 0.005){ return $true }
+      if($b -ne 0 -and [math]::Abs(($a/$b) - $hedef) -lt 0.005){ return $true }
+      # yuzde uygulamasi: a'nin b yuzdesi
+      if([math]::Abs(($a*$b/100.0) - $hedef) -lt 0.005){ return $true }
+    }
+  }
+  return $false
+}
+$ozet=[ordered]@{ yenilenen=0; rakamRed=0; dilRed=0; tutarIsaretli=0; tabloEklendi=0; bosRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 foreach($i in $isler){
   $y = $sonuc[$i.id]
@@ -180,23 +251,59 @@ foreach($i in $isler){
   # dogru sikkin aciklamasi bos olamaz
   if("$($y.aciklama.$($i.soru.dogru))".Trim().Length -lt 100){ $ozet.bosRed++; continue }
 
-  # RAKAM KAPISI: yeni aciklamadaki her sayi kaynakta gecmeli
   $kaynakMetin = $i.metin + " " + "$($i.soru.soru)"
   foreach($h in @('A','B','C','D','E')){ $kaynakMetin += " " + "$($i.soru.siklar.$h)" }
-  $kaynakSay = @{}; foreach($n in (Sayilar $kaynakMetin)){ $kaynakSay[$n]=1 }
-  $uydurma = @()
-  foreach($n in (Sayilar $yeniMetin)){
-    if($n.Length -le 1){ continue }              # 1-2 gibi sira sayilari
-    if($kaynakSay.ContainsKey($n)){ continue }
-    $uydurma += $n
+  $kaynakSay = @{}; foreach($n in (SayiListe $kaynakMetin)){ $kaynakSay[$n]=1 }
+  $kaynakDeg = @(); foreach($n in $kaynakSay.Keys){ $d = SayiDeger $n; if($null -ne $d){ $kaynakDeg += $d } }
+
+  # (1) RISKLI SAYI KAPISI - oran / sure / yil / madde no. Bunlar hesaplanamaz,
+  #     ya kaynakta yazar ya uydurmadir. Gecmiyorsa yenileme COPE, eski kalir.
+  $riskliKaynak = @{}; foreach($n in (RiskliSayilar $kaynakMetin)){ $riskliKaynak[$n]=1 }
+  $riskliUydurma = @()
+  foreach($n in (RiskliSayilar $yeniMetin)){
+    if($riskliKaynak.ContainsKey($n)){ continue }
+    if($kaynakSay.ContainsKey($n)){ continue }   # metinde sayi olarak geciyorsa kabul
+    $riskliUydurma += $n
   }
-  if($uydurma.Count -gt 0){
+  if($riskliUydurma.Count -gt 0){
     $ozet.rakamRed++
-    $red.Add([pscustomobject]@{ id=$i.id; sebep='rakam-kaynakta-yok'; rakamlar=($uydurma -join ',') })
+    $red.Add([pscustomobject]@{ id=$i.id; sebep='riskli-sayi-kaynakta-yok'; rakamlar=($riskliUydurma -join ',') })
     continue
   }
 
-  $govde = @{ aciklama=$y.aciklama; hap="$($y.hap)" } | ConvertTo-Json -Depth 5
+  # (2) TUTAR KONTROLU - hesaplanabilir olmali. Reddetmez, ISARETLER: muhasebe
+  #     aciklamasi zaten toplama/carpma yapar, sonuc kaynakta birebir gecmez.
+  #     Ama hicbir aritmetikle uretilemeyen tutar da supheli - GM orneklesin.
+  $izahsiz = @()
+  foreach($n in (SayiListe $yeniMetin)){
+    if($n.Length -le 1){ continue }
+    if($kaynakSay.ContainsKey($n)){ continue }
+    $d = SayiDeger $n; if($null -eq $d){ continue }
+    if(AritmetikUretilebilir $d $kaynakDeg){ continue }
+    $izahsiz += $n
+  }
+  if($izahsiz.Count -gt 0){
+    $ozet.tutarIsaretli++
+    $red.Add([pscustomobject]@{ id=$i.id; sebep='TUTAR-IZAHSIZ (yazildi, GM orneklesin)'; rakamlar=($izahsiz -join ',') })
+  }
+
+  # (3) DIL KAPISI - olculur, temenni degil. Cumle ortalamasi <=20, tek cumle <=30.
+  $cumleler = @(($yeniMetin -split '(?<=[.!?:])\s+') | Where-Object { $_.Trim().Length -gt 3 })
+  $kel = @(); $enUzun = 0
+  foreach($c in $cumleler){ $k = @($c -split '\s+' | Where-Object { $_ }).Count; $kel += $k; if($k -gt $enUzun){ $enUzun = $k } }
+  $ort = if($kel.Count){ ($kel | Measure-Object -Average).Average } else { 0 }
+  if($ort -gt 20 -or $enUzun -gt 30){
+    $ozet.dilRed++
+    $red.Add([pscustomobject]@{ id=$i.id; sebep='dil-kapisi'; rakamlar=("ort {0:N1} kelime, en uzun {1}" -f $ort, $enUzun) })
+    continue
+  }
+
+  $satir = [ordered]@{ aciklama=$y.aciklama; hap="$($y.hap)" }
+  # Gorseller: yalniz DOLU gelenler yazilir. Bos gonderip mevcut gorseli
+  # silmek, iyilestirme adi altinda kayip olur.
+  if($y.PSObject.Properties['yevmiye'] -and @($y.yevmiye).Count -gt 0){ $satir['yevmiye'] = $y.yevmiye; $ozet.tabloEklendi++ }
+  elseif($y.PSObject.Properties['tablo'] -and $y.tablo -and $y.tablo.satirlar -and @($y.tablo.satirlar).Count -gt 0){ $satir['tablo'] = $y.tablo; $ozet.tabloEklendi++ }
+  $govde = $satir | ConvertTo-Json -Depth 6
   try {
     Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/soru_havuzu?id=eq.$($i.id)" -Headers $HW `
       -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 60 | Out-Null
