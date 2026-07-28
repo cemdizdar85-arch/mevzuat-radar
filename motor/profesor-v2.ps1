@@ -30,6 +30,8 @@ param(
   [string]$kaynak = 'yerel',   # yerel | kasa
   [int]$sinir = 0,             # 0 = hepsi
   [string]$kurtar = '',        # ISLENMIS bir partinin sonucunu YENIDEN GONDERMEDEN cek
+  [string]$idler = '',         # yalniz bu kimlikler yargilansin (JSON dizi dosyasi)
+  [string]$odak = 'genel',     # genel | ikili  (ikili = "iki dogru sik var mi" odagi)
 
   [string]$model = 'claude-sonnet-4-5-20250929',
   [string]$cikti = ''
@@ -109,6 +111,19 @@ Write-Host ("PowerShell surumu: {0}" -f $PSVersionTable.PSVersion)
 Write-Host ("Kok: {0}" -f $kok)
 $sorular = if($kaynak -eq 'kasa'){ KasaSorulari } else { YerelSorular }
 Write-Host ("Soru: {0} ({1})" -f $sorular.Count, $kaynak)
+
+# --- HEDEFLI KOSU: yalniz verilen kimlikler. Tam taramayi tekrarlamak yerine
+# belirli bir kusur sinifini yeniden yargilatmak icin. 3.950 soruyu yeniden
+# gondermek 20 USD; 100 soruyu gondermek yarim dolar. Ayni bilgiyi 40 kat ucuza.
+if($idler){
+  if(-not (Test-Path $idler)){ Write-Host "KIRMIZI: kimlik dosyasi yok - $idler"; try { Stop-Transcript | Out-Null } catch {}; exit 1 }
+  $ist = @{}
+  foreach($x in @(Get-Content $idler -Raw -Encoding UTF8 | ConvertFrom-Json)){ $ist["$x"] = 1 }
+  $once = $sorular.Count
+  $sorular = @($sorular | Where-Object { $ist.ContainsKey("$($_.id)") })
+  Write-Host ("HEDEFLI KOSU: {0} kimlik istendi, {1} soru eslesti (havuz {2})" -f $ist.Count, $sorular.Count, $once)
+  if($sorular.Count -eq 0){ Write-Host "KIRMIZI: hicbir kimlik eslesmedi - kosu durduruldu (bos parti gonderilmez)."; try { Stop-Transcript | Out-Null } catch {}; exit 1 }
+}
 if($sorular.Count -eq 0){
   Write-Host "KIRMIZI: hic soru okunamadi. veri/fabrika bos ya da erisilemiyor."
   try { Stop-Transcript | Out-Null } catch {}
@@ -128,6 +143,36 @@ function IstemKur($s, $maddeMetni, $maddeEtiket){
     if($v.Trim().Length -gt 0){ $ack += "$h : $v`n" }
   }
   if($ack.Trim().Length -eq 0){ $ack = "(aciklama yok)" }
+
+  # --- ODAKLI ISTEM: "iki dogru sik" siniflandirmasi icin.
+  # Genel istem uc soruyu birden sorunca model coguna "yetersiz" diyor: maddede
+  # birebir yazmayan her sey "yetersiz" oluyor ve gercek kusur gurultuye gomuluyor.
+  # Tam kasa taramasinda bayraklarin %88'i bu yuzden lafzi yanlis alarmdi.
+  # Iki dogru sik ise METINDEN BAGIMSIZ olarak da denetlenebilir: sikin dogrulugu
+  # tek tek sorulur. Bu yuzden ayri, DAR bir istem kullaniliyor.
+  if($odak -eq 'ikili'){
+    return @"
+Asagida bir mevzuat hukmunun tam metni ve bu hukme dayanan bir coktan secmeli sinav sorusu var.
+
+TEK BIR SEY soruyorum: siklardan KAC TANESI dogru?
+Her sikki AYRI AYRI degerlendir ve "bu sik tek basina dogru bir ifade mi" diye sor.
+Yalnizca yukaridaki metne ve sorunun kendi kurgusuna dayan; hafizandan hukum ekleme.
+
+=== MEVZUAT METNI ($maddeEtiket) ===
+$maddeMetni
+=== METIN BITTI ===
+
+SORU: $($s.soru)
+SIKLAR:
+$sik
+ISARETLI DOGRU CEVAP: $($s.dogru)
+
+ALINTI ZORUNLU: hukmune dayanak olan yeri METINDEN BIREBIR kopyala (en fazla 25 kelime). Alintin metinde birebir gecmiyorsa hukmun gecersiz sayilacak.
+
+SADECE gecerli JSON dondur:
+{"dogru_sik_sayisi":<0-5>,"dogru_siklar":"<orn: A,C>","isaretli_dogru_mu":"evet|hayir|yetersiz","gerekce":"<tek cumle>","alinti":"<metinden birebir>"}
+"@
+  }
 
   return @"
 Sen bir mevzuat denetcisisin. Asagida bir mevzuat huknunun TAM METNI ve bu hukme dayandigi iddia edilen bir sinav sorusu var.
@@ -426,6 +471,22 @@ foreach($i in $isler){
   $md = Sadelestir $i.metin
   $gecerli = ($al.Length -ge 20 -and $md.Contains($al))
   if(-not $gecerli){ $sy.alintiUydurma++ }
+  if($odak -eq 'ikili'){
+    # Odakli kosuda kusur tanimi DAR: tam olarak bir sik dogru olmali ve
+    # isaretli cevap o sik olmali. "Madde birebir yazmiyor" burada bayrak degil.
+    $adet = [int]"$($h.dogru_sik_sayisi)"
+    $sorunlu = ($adet -ne 1) -or ("$($h.isaretli_dogru_mu)" -eq 'hayir')
+    if($sorunlu){ $sy.bayrak++ } else { $sy.temiz++ }
+    $rapor.Add([pscustomobject]@{
+      id=$i.id; etiket=$i.etiket; odak='ikili'
+      dogru_sik_sayisi=$adet; dogru_siklar="$($h.dogru_siklar)"
+      isaretli_dogru_mu="$($h.isaretli_dogru_mu)"; isaretli="$($i.soru.dogru)"
+      gerekce="$($h.gerekce)"; alinti="$($h.alinti)"
+      alinti_dogrulandi=$gecerli
+      hukum = $(if(-not $gecerli){ 'GECERSIZ-GM-OKUSUN' } elseif($sorunlu){ 'BAYRAK' } else { 'TEMIZ' })
+    })
+    continue
+  }
   $sorunlu = ("$($h.destek)" -ne 'evet') -or ("$($h.tek_dogru)" -ne 'evet') -or ("$($h.celiski)" -eq 'evet')
   if($sorunlu){ $sy.bayrak++ } else { $sy.temiz++ }
   $rapor.Add([pscustomobject]@{

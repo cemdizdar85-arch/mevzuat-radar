@@ -50,10 +50,12 @@ jobs:
             Write-Host ("      {0}" -f $x.gerekce)
             $cikti = "veri/profesor-rapor-$($x.no).json"
             $kurtar = if($x.PSObject.Properties['kurtar']){ "$($x.kurtar)" } else { "" }
+            $idler  = if($x.PSObject.Properties['idler']){ "$($x.idler)" } else { "" }
+            $odak   = if($x.PSObject.Properties['odak']){ "$($x.odak)" } else { "genel" }
             $ok = $true
             try {
               ./motor/profesor-v2.ps1 -calistir -kaynak "$($x.kaynak)" -sinir ([int]$x.sinir) `
-                 -model "$($x.model)" -kurtar $kurtar -cikti $cikti
+                 -model "$($x.model)" -kurtar $kurtar -idler $idler -odak $odak -cikti $cikti
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("EMIR #{0} DUSTU: {1}" -f $x.no, $_.Exception.Message) }
 
