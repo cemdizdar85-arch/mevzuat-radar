@@ -43,9 +43,20 @@ $STOP = @('ve','ile','icin','bir','bu','su','o','de','da','ki','mi','mu','ne','n
 #   metin=ilike.*donemsellik*            -> 0   (ASCII)
 #   metin=imatch.d[oo]nemsellik          -> 3   (koprulu)
 #   metin=imatch.kar[ss][ii]l[ii]k       -> 620
-function TurkceRegex([string]$s){
+# 28.07 2. tur — BITISIK/AYRIK YAZIM KOPRUSU: eslesme testinde 24 konudan
+# yalnizca 8'i tutuyordu. Sebep icerik eksikligi DEGIL, yazim farkiydi -
+# sinav konusu "ozsermaye" yazarken ambar metni "oz sermaye" diyor,
+# "gayrisafilik" vs "gayri safilik", "basabas" vs "basa bas". Cozum: kelime
+# ICINDEKI her harf ciftinin arasina OPSIYONEL BOSLUK (\s?) konuldu; harf
+# dizisi bitisik kalmak zorunda ama arada bosluk olabilir. Bu, notlari
+# tarayiciya gore egip bukmek yerine TARAYICIYI duzeltir.
+function TurkceRegex([string]$s, [bool]$bosluklaEsnek = $true){
   $sb = New-Object Text.StringBuilder
+  $oncekiHarfti = $false
   foreach($ch in $s.ToLower().ToCharArray()){
+    $harfMi = ("$ch" -match '[\p{L}\p{Nd}]')
+    # iki harf arasina opsiyonel bosluk koy (bitisik/ayrik yazim koprusu)
+    if($bosluklaEsnek -and $harfMi -and $oncekiHarfti){ [void]$sb.Append('\s?') }
     switch -CaseSensitive ("$ch") {
       'c' { [void]$sb.Append('[c' + [char]0x00E7 + ']') }
       'g' { [void]$sb.Append('[g' + [char]0x011F + ']') }
@@ -54,12 +65,12 @@ function TurkceRegex([string]$s){
       's' { [void]$sb.Append('[s' + [char]0x015F + ']') }
       'u' { [void]$sb.Append('[u' + [char]0x00FC + ']') }
       default {
-        # harf/rakam/bosluk aynen; diger her sey (parantez, tire, tirnak) '.'
-        if("$ch" -match '[\p{L}\p{Nd}]'){ [void]$sb.Append($ch) }
+        if($harfMi){ [void]$sb.Append($ch) }
         elseif("$ch" -eq ' '){ [void]$sb.Append('\s+') }
         else { [void]$sb.Append('.') }
       }
     }
+    $oncekiHarfti = $harfMi
   }
   return $sb.ToString()
 }
