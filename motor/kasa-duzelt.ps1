@@ -37,7 +37,11 @@ $HW = $H + @{ Prefer = "return=minimal" }
 # hic gormez. Bu iki alan SINIFLANDIRMADIR, ICERIK DEGILDIR: degistirilmesi
 # dogru bir ifadeyi yanlis yapamaz, yalniz sorunun hangi rafta durdugunu duzeltir.
 # SORU METNI hala bu kanaldan DEGISTIRILEMEZ - o kural yerinde duruyor.
-$IZINLI = @('kaynak','aciklama','hap','siklar','dogru','benzer_grup','ders','konu')
+# 28.07 ikinci ekleme: 'yayin' ve 'yayin_notu'. Yayin Kapisi kuruldu; artik bir
+# soruyu SILMEDEN yayindan cekebiliyoruz. Bir soruyu durdurmak, icerigini
+# degistirmekten DAHA GUVENLI bir islemdir: geri alinabilir ve ogrenciye yanlis
+# gitmesini derhal keser. Kanalin en dogal isi budur.
+$IZINLI = @('kaynak','aciklama','hap','siklar','dogru','benzer_grup','ders','konu','yayin','yayin_notu')
 
 $yol = Join-Path $kok "veri/kasa-duzeltme.json"
 if(-not (Test-Path $yol)){ Write-Host "kasa-duzeltme.json yok - yapilacak is yok."; exit 0 }
