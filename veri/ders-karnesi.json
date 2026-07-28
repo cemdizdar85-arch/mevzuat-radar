@@ -1,5 +1,5 @@
 {
-    "guncelleme":  "2026-07-28 11:14",
+    "guncelleme":  "2026-07-28 11:31",
     "kaynak":  "konu-kaynak-karnesi.json + sgs-sinav-yapisi.json (TESMER Uygulama Yonergesi 2024, SGS m.6.2)",
     "aciklama":  "Cikmis sinav konularinin RESMI SGS derslerine baglanmis hazirlik karnesi. \u0027hazirlikYuzde\u0027 = kaynagi olan konu / (kaynagi olan + kaynagi olmayan); mevzuat-disi konular paydaya alinmaz cunku fabrika onlara zaten girmez. Parali parti kosmadan ONCE bakilir.",
     "dersler":  [
@@ -7,20 +7,20 @@
                         "ders":  "Finansal Muhasebe",
                         "sinavSoru":  26,
                         "konu":  466,
-                        "uret":  343,
-                        "kaynakYok":  123,
+                        "uret":  360,
+                        "kaynakYok":  106,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  74,
+                        "hazirlikYuzde":  77,
                         "karar":  "ACIK - musluk acilabilir"
                     },
                     {
                         "ders":  "Denetim",
                         "sinavSoru":  16,
                         "konu":  163,
-                        "uret":  136,
-                        "kaynakYok":  27,
+                        "uret":  137,
+                        "kaynakYok":  26,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  83,
+                        "hazirlikYuzde":  84,
                         "karar":  "ACIK - musluk acilabilir"
                     },
                     {
@@ -37,10 +37,10 @@
                         "ders":  "Maliyet Muhasebesi",
                         "sinavSoru":  8,
                         "konu":  127,
-                        "uret":  95,
-                        "kaynakYok":  32,
+                        "uret":  114,
+                        "kaynakYok":  13,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  75,
+                        "hazirlikYuzde":  90,
                         "karar":  "ACIK - musluk acilabilir"
                     },
                     {
@@ -57,10 +57,10 @@
                         "ders":  "Mali Tablolar Analizi",
                         "sinavSoru":  8,
                         "konu":  69,
-                        "uret":  36,
-                        "kaynakYok":  33,
+                        "uret":  46,
+                        "kaynakYok":  23,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  52,
+                        "hazirlikYuzde":  67,
                         "karar":  "SARTLI - once eksik konular tamamlanmali"
                     },
                     {
@@ -87,21 +87,21 @@
                         "ders":  "Maliye",
                         "sinavSoru":  6,
                         "konu":  87,
-                        "uret":  41,
-                        "kaynakYok":  46,
+                        "uret":  69,
+                        "kaynakYok":  18,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  47,
-                        "karar":  "SARTLI - once eksik konular tamamlanmali"
+                        "hazirlikYuzde":  79,
+                        "karar":  "ACIK - musluk acilabilir"
                     },
                     {
                         "ders":  "Ekonomi",
                         "sinavSoru":  6,
                         "konu":  86,
-                        "uret":  30,
-                        "kaynakYok":  56,
+                        "uret":  69,
+                        "kaynakYok":  17,
                         "mevzuatDisi":  0,
-                        "hazirlikYuzde":  35,
-                        "karar":  "KAPALI - kaynak yetersiz"
+                        "hazirlikYuzde":  80,
+                        "karar":  "ACIK - musluk acilabilir"
                     },
                     {
                         "ders":  "Ticaret Hukuku",
