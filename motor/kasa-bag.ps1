@@ -72,6 +72,7 @@ Write-Host ("  soru: {0}" -f $kayit.Count)
 
 $ist = [ordered]@{ toplam=0; bagli=0; mevzuatDisi=0; cozulemedi=0; yazildi=0; yazmaHatasi=0 }
 $baglar = New-Object System.Collections.Generic.List[object]
+$cozOrnek = @{}
 $i = 0
 foreach($k in $kayit){
   $ist.toplam++
@@ -80,7 +81,16 @@ foreach($k in $kayit){
   $kay = "$($k.kaynak)"
   if(MevzuatDisiMi $kay){ $ist.mevzuatDisi++; continue }
   $c = KaynakCoz $kay
-  if("$($c.durum)" -ne 'cozuldu' -or -not $c.kanun -or -not $c.madde){ $ist.cozulemedi++; continue }
+  if("$($c.durum)" -ne 'cozuldu' -or -not $c.kanun -or -not $c.madde){
+    $ist.cozulemedi++
+    # 28.07: ilk olcumde 1.357 soru baglanamadi (%32). Yerelde oran %8'di.
+    # "Baglanamadi" demek yetmez - NEDEN baglanamadigini gormeden duzeltilemez.
+    # Sebep + ornek toplaniyor ki desen mi eksik, ambar mi eksik ayirt edelim.
+    $sb = "$($c.durum)"
+    if($cozOrnek.ContainsKey($sb)){ $cozOrnek[$sb].adet++ ; if($cozOrnek[$sb].ornek.Count -lt 6){ $cozOrnek[$sb].ornek += $kay } }
+    else { $cozOrnek[$sb] = [pscustomobject]@{ adet=1; ornek=@($kay) } }
+    continue
+  }
   $ist.bagli++
   $baglar.Add([pscustomobject]@{
     id="$($k.id)"; kanun_no="$($c.kanun)"; madde_no="$($c.madde)"
@@ -96,9 +106,17 @@ if($ist.toplam -gt 0){
   Write-Host ("  mevzuata dayanan sorularin %{0}'i maddeye BAGLANDI" -f $oran)
 }
 
+Write-Host ""
+Write-Host "--- BAGLANAMAMA SEBEPLERI (desen mi eksik, ambar mi eksik?)"
+foreach($s in ($cozOrnek.Keys | Sort-Object { -$cozOrnek[$_].adet })){
+  Write-Host ("  {0,-20} {1,5}" -f $s, $cozOrnek[$s].adet)
+  foreach($o in $cozOrnek[$s].ornek){ Write-Host ("      {0}" -f $(if($o.Length -gt 90){$o.Substring(0,90)+'...'}else{$o})) }
+}
+
 $rap = Join-Path $kok 'veri/kasa-bag.json'
 [IO.File]::WriteAllText($rap, ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); ozet=$ist; eksik_kolon=$eksik; adet=$baglar.Count
+  baglanamama=$cozOrnek
 } | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 Write-Host "-> veri/kasa-bag.json"
 
