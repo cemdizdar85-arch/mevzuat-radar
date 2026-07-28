@@ -1,0 +1,55 @@
+# .github/workflows/kasa-bag.yml — KASA BAGI (Katman 1 + Katman 5)
+# Kasadaki her soruyu dayandigi kanun maddesine baglar ve o maddenin o andaki
+# metninin parmak izini soruya yazar. Boylece Katman 3 bir maddenin degistigini
+# gordugunde KIME haber verecegini bilir.
+# UCRETSIZDIR: hicbir API cagrisi yok, yalniz Supabase okuma/yazma.
+#
+# Kolonlar yoksa (veri/sql-yayin-kapisi.sql calistirilmadiysa) betik YAZMAZ,
+# yalniz olcum raporu cikarir ve 3 ile doner.
+name: Kasa Bagi
+
+on:
+  workflow_dispatch:
+    inputs:
+      yaz:
+        description: "Kasaya gercekten yazsin mi? (kapali = yalniz olcum)"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - 'motor/kasa-bag.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kasa-bag
+  cancel-in-progress: false
+
+jobs:
+  bagla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bagi kur
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # push tetiginde ASLA yazilmaz - yalniz olcum. Yazma bilerek ve
+          # isteyerek, workflow_dispatch + yaz=true ile yapilir.
+          $yaz = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.yaz }}' -eq 'true'
+          if($yaz){ ./motor/kasa-bag.ps1 -yaz } else { ./motor/kasa-bag.ps1 }
+          # kolon yoksa 3 doner: kirmizi degil, "henuz kurulamadi" demektir
+          if($LASTEXITCODE -eq 3){ Write-Host "Kolonlar bekleniyor - SQL calistirilinca kurulacak."; exit 0 }
+          exit $LASTEXITCODE
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/kasa-bag.json ]; then git add veri/kasa-bag.json || true; fi
+          git diff --cached --quiet || git commit -m "Kasa bagi raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
