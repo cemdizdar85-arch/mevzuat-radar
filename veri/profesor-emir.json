@@ -27,7 +27,8 @@
       "model": "claude-sonnet-4-5-20250929",
       "gerekce": "DUMAN TESTI. Emir #1 gonderim adiminda dustu ve sebebi okunamadi. Once BORU HATTININ CALISTIGI ucuz bicimde kanitlanir: 40 soru, ~0,17 USD. Bu kosu ya calisir - o zaman kalibrasyon guvenle acilir - ya da duser ve bu kez sebebi veri/profesor-hata.json icine YAZILIR (sunucu cevabi dahil). Iki durumda da 1,5 USD riske atilmamis olur.",
       "tahmini_usd": 0.17,
-      "uygulandi": null
+      "uygulandi": null,
+      "_deneme_2": "28.07 19:07 - ikinci kosu da dustu VE HATA DEFTERI YINE YAZILMADI. Iki ayri kusur bulundu: (1) is akisi dosyalari tek 'git add' komutunda ekliyordu; listedeki bir dosya yoksa git HICBIRINI eklemiyor, '|| true' de bunu susturuyordu - yani defter yazilsa bile commit'lenemezdi. (2) hata, ongordugum try/catch'lerin disinda bir yerdeydi. Uc onlem alindi: her dosya AYRI ekleniyor; betik butun ciktisini veri/profesor-log.txt'ye yaziyor (Actions loglari admin-kilitli, kor kalmak yasak); ve script duzeyinde trap kondu - hata NEREDE olursa olsun defter yazilir. Ayrica parti gonderilmeden once anahtar+model tek satirlik istekle sinaniyor: sebep buysa birkac token'a ogrenilir, 1,5 USD'lik partiyi ceviren bir hatayla degil."
     }
   ]
 }

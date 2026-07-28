@@ -37,6 +37,12 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 
+# --- KENDI KAYDINI TUT. Actions loglari admin-kilitli; iki kosu ust uste dustu
+# ve NEDEN dustugunu okuyamadik. Bir kanal, hatasini gosteremiyorsa kurulmus
+# sayilmaz. Artik butun ciktisi dosyaya da yaziliyor ve is akisi commit'liyor.
+$LOG = Join-Path $kok 'veri/profesor-log.txt'
+try { Start-Transcript -Path $LOG -Force | Out-Null } catch { Write-Host "(transcript acilamadi: $($_.Exception.Message))" }
+
 if(-not $olcum -and -not $calistir){
   Write-Host "Kullanim:"
   Write-Host "  profesor-v2.ps1 -olcum                 # PARA HARCAMAZ, maliyet cikarir"
@@ -76,8 +82,15 @@ function KasaSorulari {
   return $liste
 }
 
+Write-Host ("PowerShell surumu: {0}" -f $PSVersionTable.PSVersion)
+Write-Host ("Kok: {0}" -f $kok)
 $sorular = if($kaynak -eq 'kasa'){ KasaSorulari } else { YerelSorular }
 Write-Host ("Soru: {0} ({1})" -f $sorular.Count, $kaynak)
+if($sorular.Count -eq 0){
+  Write-Host "KIRMIZI: hic soru okunamadi. veri/fabrika bos ya da erisilemiyor."
+  try { Stop-Transcript | Out-Null } catch {}
+  exit 1
+}
 
 # ---------------------------------------------------------------- istem kurucu
 function IstemKur($s, $maddeMetni, $maddeEtiket){
@@ -212,6 +225,39 @@ function HataYaz([string]$nerede, [string]$mesaj, [string]$sunucu, $ek){
   [IO.File]::WriteAllText($y, ($k | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
   Write-Host ("HATA [{0}]: {1}" -f $nerede, $mesaj)
   if($sunucu){ Write-Host ("SUNUCU: {0}" -f $sunucu.Substring(0,[Math]::Min(400,$sunucu.Length))) }
+}
+
+# --- SON KALKAN: yukaridaki try/catch'lerin disinda, BEKLENMEYEN bir yerde hata
+# cikarsa da defter yazilsin. Iki kosu ust uste hata defteri BIRAKMADAN dustu;
+# demek ki hata ongordugum yerlerde degildi. Artik nerede olursa olsun yakalanir.
+trap {
+  try {
+    HataYaz "beklenmeyen" "$($_.Exception.Message)" "$($_.ScriptStackTrace)" @{
+      satir = "$($_.InvocationInfo.ScriptLineNumber)"
+      komut = "$($_.InvocationInfo.Line)".Trim()
+      tur   = "$($_.Exception.GetType().FullName)"
+    }
+  } catch {}
+  try { Stop-Transcript | Out-Null } catch {}
+  exit 1
+}
+
+# --- ON KONTROL: 400 soruluk bir parti hazirlayip gondermeden ONCE anahtar ve
+# model kimligi tek satirlik bir istekle sinanir. Maliyeti birkac token'dir.
+# Iki kosu gonderim adiminda dustu; sebep anahtar/model ise bunu 1 saniyede ve
+# neredeyse bedava ogrenmek, 1,5 USD'lik partiyi ceviren bir hatayla ogrenmekten
+# iyidir. Hata mesaji da dogrudan sunucudan gelir - tahmin etmeye gerek kalmaz.
+Write-Host "ON KONTROL: anahtar + model kimligi sinaniyor..."
+try {
+  $dene = @{ model=$model; max_tokens=1; messages=@(@{ role='user'; content='tamam' }) } | ConvertTo-Json -Depth 5
+  $ok = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages' -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($dene)) -TimeoutSec 60
+  Write-Host ("  ON KONTROL TAMAM - model: {0}" -f $ok.model)
+} catch {
+  $cevap = ""
+  try { $cevap = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+  HataYaz "on-kontrol" $_.Exception.Message $cevap @{ model=$model; not="Anahtar ya da model kimligi gecersiz. Parti GONDERILMEDI - para harcanmadi." }
+  try { Stop-Transcript | Out-Null } catch {}
+  exit 1
 }
 
 $sonuclar = @{}
@@ -363,4 +409,5 @@ $yol = if($cikti){ $cikti } else { Join-Path $kok 'veri/profesor-v2-rapor.json' 
   sonuclar=$rapor
 } | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("-> {0}" -f $yol)
+try { Stop-Transcript | Out-Null } catch {}
 exit 0
