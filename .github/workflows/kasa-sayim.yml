@@ -1,0 +1,38 @@
+# .github/workflows/kasa-sayim.yml — KASA SAYIMI
+# GM yerelde ANON anahtarla calisir; soru_havuzu RLS ile kapali oldugu icin
+# kasadaki soru sayisini OLCEMEZ. Bu is akisi SERVICE anahtariyla sayar ve
+# sonucu veri/kasa-sayim.json olarak depoya yazar; GM oradan okur.
+# UCRETSIZDIR: hicbir API cagrisi yok, yalniz Supabase okuma.
+name: Kasa Sayimi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/kasa-sayim.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kasa-sayim
+  cancel-in-progress: false
+
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kasayi say
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kasa-sayim.ps1
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/kasa-sayim.json || true
+          git diff --cached --quiet || git commit -m "Kasa sayimi guncellendi [veri-operasyonu]"
+          git push || true
