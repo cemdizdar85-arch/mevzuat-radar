@@ -8,9 +8,13 @@ on:
   # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
   # schedule:
     #- cron: "17 2 * * *"    # gece 05:17 TR - gunun yeni sorulari da gorsellensin
-  push:
-    paths:
-      - 'motor/gorsel-backfill.ps1'
+  # 28.07 PUSH TETIGI KAPATILDI (Cem: "bosa para harcatma"). Adim PARALIDIR
+  # (Haiku Batch ile exhibit tablosu uretimi). Betigin kendisi degisince kosuyordu;
+  # kod duzeltmesi para harcamamali. Artik yalniz workflow_dispatch.
+  #
+  # push:
+  #   paths:
+  #     - 'motor/gorsel-backfill.ps1'
 
 permissions:
   contents: write

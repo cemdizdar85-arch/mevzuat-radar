@@ -9,6 +9,16 @@ on:
   # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
   # schedule:
     #- cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
+  # 28.07 (Cem: "kanun maddesi yutmam lazim"): manifest veya durum dosyasi degisince
+  # hasat KENDILIGINDEN kossun. Yeni kanun eklemek ya da bir kanunun damgasini silip
+  # yeniden yutturmak icin artik elle tetiklemeye gerek yok. Indirme + pdftotext
+  # ucretsizdir; PARALI olan tek adim (cevap hakemi) zaten 'hakem' girdisine bagli
+  # ve push tetiginde varsayilan olarak KAPALI gelir.
+  push:
+    paths:
+      - 'veri/mevzuat-kaynaklar.json'   # yeni kanun/yonetmelik/teblig eklendi
+      - 'veri/mevzuat/_durum.json'      # damga silindi -> o kanun yeniden yutulsun
+      - 'motor/mevzuat-yut.ps1'         # parcalayici degisti -> yeniden yut
   workflow_dispatch:
     inputs:
       hakem:
@@ -93,8 +103,14 @@ jobs:
       # hasadi ucretsiz alabilmek icin hakem VARSAYILAN OLARAK KAPALI; acmak
       # icin workflow_dispatch'te hakem=true secilir. Cron ile kosarsa (kredi
       # gelince acilinca) eskisi gibi kosar.
+      # 28.07 KRITIK DUZELTME (Cem: "bosa para harcatma"): eski kosul
+      #   github.event_name != 'workflow_dispatch' || inputs.hakem == true
+      # idi. O gun tek tetik cron + elle oldugu icin sorun cikarmiyordu. Bugun PUSH
+      # tetigi eklendi; push'ta event_name='push' oldugundan kosulun ILK yarisi DOGRU
+      # olur ve bu PARALI adim HER PUSH'TA sessizce koserdi. Artik acik ve dar:
+      # yalniz cron ile, ya da elle hakem=true secilirse koser. PUSH ASLA PARA HARCAMAZ.
       - name: Cevap hakemi (gunluk orneklem) — PARALI
-        if: github.event_name != 'workflow_dispatch' || inputs.hakem == true
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.hakem == true)
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

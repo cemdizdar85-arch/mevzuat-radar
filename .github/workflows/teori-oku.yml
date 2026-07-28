@@ -8,10 +8,14 @@ name: Teori Okuma
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'motor/teori-oku.ps1'
-      - '.github/workflows/teori-oku.yml'
+  # 28.07 PUSH TETIGI KAPATILDI (Cem: "bosa para harcatma"). Adim PARALIDIR.
+  # Ustelik is akisi DOSYASININ kendisi de tetikteydi - yani bu yorumu eklemek
+  # bile parali bir kosu baslatirdi. Artik yalniz workflow_dispatch.
+  #
+  # push:
+  #   paths:
+  #     - 'motor/teori-oku.ps1'
+  #     - '.github/workflows/teori-oku.yml'
 
 permissions:
   contents: write
