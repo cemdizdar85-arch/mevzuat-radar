@@ -47,6 +47,7 @@ jobs:
           "model=$($x.model)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Profesor v2 — PARALI
+        id: kosu
         if: steps.emir.outputs.kos == 'evet'
         shell: pwsh
         env:
@@ -58,22 +59,46 @@ jobs:
             -sinir ${{ steps.emir.outputs.sinir }} `
             -model "${{ steps.emir.outputs.model }}"
 
-      - name: Emri damgala (ayni para iki kez harcanmaz)
+      # 28.07 DUZELTME: ilk kosu dustu ve eski hali emri YINE DE damgaliyordu -
+      # yani basarisiz bir kosu emri tuketiyor, tekrar denemek imkansiz hale
+      # geliyordu. Artik: BASARILI kosu 'uygulandi' damgasi alir (ayni para iki
+      # kez harcanmaz); BASARISIZ kosu yalnizca 'deneme' sayacini artirir.
+      # Ucuncu basarisiz denemede emir kendini kapatir - sonsuz dongu ile para
+      # yakilmaz, insan bakar.
+      - name: Emri damgala
         if: always() && steps.emir.outputs.kos == 'evet'
         shell: pwsh
         run: |
           $yol = 'veri/profesor-emir.json'
           $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
           $no = [int]'${{ steps.emir.outputs.no }}'
-          foreach($x in $e.emirler){ if([int]$x.no -eq $no){ $x.uygulandi = (Get-Date -Format 'dd.MM.yyyy HH:mm') } }
+          $ok = '${{ steps.kosu.outcome }}' -eq 'success'
+          foreach($x in $e.emirler){
+            if([int]$x.no -ne $no){ continue }
+            if($ok){
+              $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force
+              Write-Host "Emir #$no BASARIYLA kosuldu, damgalandi."
+            } else {
+              $d = 0; if($x.PSObject.Properties['deneme']){ $d = [int]$x.deneme }
+              $d++
+              $x | Add-Member -NotePropertyName deneme -NotePropertyValue $d -Force
+              $x | Add-Member -NotePropertyName son_hata -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force
+              if($d -ge 3){
+                $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue "KAPATILDI: 3 denemede kosmadi, insan baksin" -Force
+                Write-Host "Emir #$no 3 denemede kosmadi - KAPATILDI."
+              } else {
+                Write-Host "Emir #$no dustu (deneme $d/3) - emir acik kaliyor."
+              }
+            }
+          }
           [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
-          Write-Host "Emir #$no damgalandi."
 
-      - name: Raporu commit'le
+      - name: Raporu ve HATA DEFTERINI commit'le
         if: always() && steps.emir.outputs.kos == 'evet'
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/profesor-v2-rapor.json veri/profesor-emir.json || true
+          git add veri/profesor-v2-rapor.json veri/profesor-emir.json veri/profesor-hata.json || true
           git diff --cached --quiet || git commit -m "Profesor v2 kosusu [veri-operasyonu]"
+          git pull --rebase || true
           git push || true

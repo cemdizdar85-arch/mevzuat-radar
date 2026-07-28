@@ -47,6 +47,11 @@ function KanunNo([string]$kaynak){
   if($m1b.Success){ return $m1b.Groups[1].Value }
   $m2 = [regex]::Match($k, '\((\d{3,4})\s*s\.K\.\)')
   if($m2.Success){ return $m2.Groups[1].Value }
+  # 28.07 DUZELTME: ambardaki bir kayit bicimi "Anayasa (2709) m.10" - numara
+  # parantez icinde, "s.K." YOK. Damga betiginde ayni bosluk 1.436 maddeyi
+  # kapsam disi birakmisti; ayni desen burada da eksikti.
+  $m2b = [regex]::Match($k, '\((\d{3,4})\)')
+  if($m2b.Success){ return $m2b.Groups[1].Value }
   # yoksa kisaltmadan cevir
   $d = $k.ToLowerInvariant() -replace 'ı','i' -replace 'ö','o' -replace 'ü','u' -replace 'ş','s' -replace 'ç','c' -replace 'ğ','g'
   foreach($ks in ($KISALTMA.Keys | Sort-Object { -$_.Length })){

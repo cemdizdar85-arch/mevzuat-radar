@@ -1,5 +1,5 @@
 {
-  "_aciklama": "PROFESOR v2 KOSU EMRI. Bu dosya degismeden profesor KOSMAZ - para harcayan tek kapi burasi. Kasa duzeltme kanalindaki duzenin aynisi: emir yazili, onayli, damgali. Kosu bitince robot 'uygulandi' damgasini basar; damgali emir bir daha kosmaz.",
+  "_aciklama": "PROFESOR v2 KOSU EMRI. Bu dosya degismeden profesor KOSMAZ - para harcayan tek kapi burasi. Kasa duzeltme kanalindaki duzenin aynisi: emir yazili, onayli, damgali. BASARILI kosu 'uygulandi' damgasi alir ve bir daha kosmaz. BASARISIZ kosu yalnizca 'deneme' sayacini artirir; ucuncu basarisiz denemede emir kendini kapatir.",
   "_para": "Her kosunun GERCEK faturasi (API'nin dondurdugu token sayisi uzerinden) veri/profesor-v2-rapor.json icine yazilir. Tahmin degil, olculmus rakam.",
   "emirler": [
     {
@@ -7,12 +7,26 @@
       "tarih": "28.07.2026",
       "veren": "Cem Dizdar",
       "emir": "basla",
-      "onay": true,
+      "onay": false,
       "kaynak": "yerel",
       "sinir": 0,
       "model": "claude-sonnet-4-5-20250929",
-      "gerekce": "KALIBRASYON KOSUSU. Yerel fabrikada GM'nin ELLE OKUYUP ETIKETLEDIGI iki kume var: 34 soru 'karantina-red' (GM bozuk dedi) ve 93 soru 'gm-onay' (GM saglam dedi). Profesor bu iki kumenin uzerinde kosturulup ISABETI olculur: GM'nin reddettiklerinin kacina bayrak kaldiriyor, onayladiklarinin kacina temiz diyor. Ayrica 435 okunmamis karantina sorusu on-elemeden gecer - GM'nin okuma yuku azalir. Isabet olculmeden ~3.800 soruluk tam kasa taramasina para harcanmaz.",
+      "gerekce": "KALIBRASYON KOSUSU (355 soru).",
       "tahmini_usd": 1.52,
+      "uygulandi": "IPTAL 28.07 18:56 - kosu 'Profesor v2 - PARALI' adiminda dustu (run 30389405463). Hata ekrana yazilip kayboldu, Actions loglari admin-kilitli oldugu icin sebep okunamadi. Ayni emri korlemesine tekrar kosturmak 1,5 USD'yi riske atmak olurdu. Yerine once ucuz duman testi (emir #2) konuldu; hata defteri kanali da bu arada acildi (veri/profesor-hata.json).",
+      "_ders": "Para harcayan bir kanal, HATASINI YAZAMIYORSA kurulmus sayilmaz. Ilk kosunun tek kazanimi bu oldu."
+    },
+    {
+      "no": 2,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar (basla emri kapsaminda)",
+      "emir": "duman testi",
+      "onay": true,
+      "kaynak": "yerel",
+      "sinir": 40,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "DUMAN TESTI. Emir #1 gonderim adiminda dustu ve sebebi okunamadi. Once BORU HATTININ CALISTIGI ucuz bicimde kanitlanir: 40 soru, ~0,17 USD. Bu kosu ya calisir - o zaman kalibrasyon guvenle acilir - ya da duser ve bu kez sebebi veri/profesor-hata.json icine YAZILIR (sunucu cevabi dahil). Iki durumda da 1,5 USD riske atilmamis olur.",
+      "tahmini_usd": 0.17,
       "uygulandi": null
     }
   ]

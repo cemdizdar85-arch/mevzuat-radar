@@ -197,6 +197,23 @@ if($isler.Count -eq 0){ Write-Host "Yargilanacak soru yok."; exit 0 }
 $HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
 $BATCH_MAX = 400   # tek partide en fazla
 
+# --- HATA DEFTERI: Actions loglari admin-kilitli oldugu icin hata DOSYAYA yazilir.
+# Is akisi bu dosyayi always() ile commit'ler; boylece kosu neden dustu diye
+# kor kalmayiz. Depoda daha once ayni karar paket-yukle.ps1 icin alinmisti.
+function HataYaz([string]$nerede, [string]$mesaj, [string]$sunucu, $ek){
+  $y = Join-Path $kok 'veri/profesor-hata.json'
+  $k = [ordered]@{
+    zaman = (Get-Date -Format 'dd.MM.yyyy HH:mm')
+    nerede = $nerede
+    mesaj = $mesaj
+    sunucu_cevabi = $(if($sunucu.Length -gt 1500){ $sunucu.Substring(0,1500) } else { $sunucu })
+    ek = $ek
+  }
+  [IO.File]::WriteAllText($y, ($k | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("HATA [{0}]: {1}" -f $nerede, $mesaj)
+  if($sunucu){ Write-Host ("SUNUCU: {0}" -f $sunucu.Substring(0,[Math]::Min(400,$sunucu.Length))) }
+}
+
 $sonuclar = @{}
 $script:gercekGiris = 0
 $script:gercekCikis = 0
@@ -217,8 +234,17 @@ for($p=0; $p -lt $partiler; $p++){
     $ix++
   }
   $govde = @{ requests = $req } | ConvertTo-Json -Depth 8
-  Write-Host ("PARTI {0}/{1}: {2} soru gonderiliyor..." -f ($p+1), $partiler, $dilim.Count)
-  $b = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/batches' -Headers $HDR -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
+  Write-Host ("PARTI {0}/{1}: {2} soru gonderiliyor ({3:N0} KB govde)..." -f ($p+1), $partiler, $dilim.Count, ($govde.Length/1024))
+  # 28.07: Actions loglari admin-kilitli. Hata ekrana yazilip kaybolursa kor kaliriz;
+  # depo kuralı: HATA DOSYAYA YAZILIR, is akisi always() ile commit'ler.
+  try {
+    $b = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/batches' -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
+  } catch {
+    $cevap = ""
+    try { $cevap = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+    HataYaz "batch-gonderim" $_.Exception.Message $cevap @{ parti=($p+1); adet=$dilim.Count; govde_kb=[math]::Round($govde.Length/1024) }
+    throw
+  }
   $bid = $b.id
   Write-Host ("  batch id: {0}" -f $bid)
 
@@ -232,7 +258,21 @@ for($p=0; $p -lt $partiler; $p++){
     # 90 tur = 30 dakika. Batch normalde dakikalar icinde biter; bu asilma kalkanidir.
     if($tur -ge 90){ Write-Host "  ZAMAN ASIMI: parti 30 dk'da bitmedi, birakiliyor."; break }
   }
-  $satirlar = (Invoke-WebRequest -UseBasicParsing -Uri "https://api.anthropic.com/v1/messages/batches/$bid/results" -Headers $HDR -TimeoutSec 300).Content -split "`n"
+  # Sonuc adresini SABIT KODLAMA - durum cevabindaki results_url kullanilir.
+  # Sabit adres bir yonlendirmeye takilirsa basliklar tasinmaz ve 403 alinir;
+  # o hata da parayi harcadiktan SONRA cikar, en pahali yerde.
+  $sonucAdres = if($st.results_url){ "$($st.results_url)" } else { "https://api.anthropic.com/v1/messages/batches/$bid/results" }
+  Write-Host ("  sonuc adresi: {0}" -f $sonucAdres)
+  try {
+    $satirlar = (Invoke-WebRequest -UseBasicParsing -Uri $sonucAdres -Headers $HDR -TimeoutSec 300).Content -split "`n"
+  } catch {
+    $cevap = ""
+    try { $cevap = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+    # BURASI KRITIK: parti islendi, yani PARA HARCANDI. Sonuc alinamazsa batch id
+    # kaydedilir; ayni parayi ikinci kez odemeden sonuc elle cekilebilir.
+    HataYaz "sonuc-cekme" $_.Exception.Message $cevap @{ batch_id=$bid; adres=$sonucAdres; UYARI="PARTI ISLENDI - PARA HARCANDI. Bu batch id ile sonuc yeniden cekilebilir, tekrar gonderilmemeli." }
+    throw
+  }
   foreach($sat in $satirlar){
     if("$sat".Trim().Length -eq 0){ continue }
     $r = $sat | ConvertFrom-Json
