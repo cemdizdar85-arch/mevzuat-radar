@@ -45,7 +45,22 @@
       "kurtar": "msgbatch_015rVhJRWPoam7YBb1AzMx3z",
       "gerekce": "KURTARMA - YENI PARA HARCANMAZ. 3. kosuda duman testi partisi BASARIYLA ISLENDI (log: durum 'ended'), yani ~0,17 USD odendi; ama sonuc okunurken ayristirici patladi ve cikti kayboldu. Hata: custom_id BOS geldi, kod onu Substring(1) ile sira numarasina cevirmeye calisti. Ayni partiyi yeniden gondermek, odenmis bir isi ikinci kez odemektir. Bu emir partiyi GONDERMEZ; ayni batch id ile sonucu geri ceker. Ayristirici uc yoldan esleme yapacak sekilde saglamlastirildi (kimlik / eski sira formati / satir sirasi) ve ham cevabin ilk 300 karakteri artik loga yaziliyor, boylece custom_id'nin neden bos geldigi de gorulecek.",
       "tahmini_usd": 0.0,
-      "uygulandi": "28.07.2026 19:19"
+      "uygulandi": "28.07.2026 19:19 - KOSTU AMA CIKTISI GECERSIZ (asagiya bak). Yeni para harcanmadi.",
+      "_sonuc": "Kosu 'basarili' dondu ama sonuc COPTU: 40 hukmun 40'i da alinti dogrulamasindan kaldi ve token sayaci 0 gosterdi. Loga eklenen ham cevap dokumu sebebi ANINDA gosterdi: cevap 40.638 'satir' ve ilk satir '123'. 123, '{' karakterinin BAYT KODU. Yani PowerShell 7 sonucu metin degil BYTE DIZISI dondurmus; kod onu string sanip satirlara bolunce her bayt ayri satir olmus. Windows'ta (PS 5.1) ayni kod string dondurdugu icin bu yerelde hic gorulmezdi. ASIL KUSUR BUYDU - custom_id'nin bos gelmesi de bunun sonucuydu."
+    },
+    {
+      "no": 4,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar (basla emri kapsaminda)",
+      "emir": "kurtarma-2",
+      "onay": true,
+      "kaynak": "yerel",
+      "sinir": 40,
+      "model": "claude-sonnet-4-5-20250929",
+      "kurtar": "msgbatch_015rVhJRWPoam7YBb1AzMx3z",
+      "gerekce": "KURTARMA (2) - YINE YENI PARA HARCANMAZ. Ayni odenmis parti, duzeltilmis ayristiriciyla okunuyor. Iki duzeltme: (1) cevap byte dizisi gelirse UTF8 ile metne cevriliyor - kok sebep buydu; (2) satir sirasina gore esleme yedek yolu artik dilim boyunu asarsa DURUYOR ve hata yaziyor. Onceki kosu tam da bu yuzden 'basarili' gorunup sessizce cop uretmisti: sessiz cop, acik hatadan daha tehlikelidir.",
+      "tahmini_usd": 0.0,
+      "uygulandi": null
     }
   ]
 }

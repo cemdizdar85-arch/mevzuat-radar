@@ -327,7 +327,16 @@ for($p=0; $p -lt $partiler; $p++){
   $sonucAdres = if($st.results_url){ "$($st.results_url)" } else { "https://api.anthropic.com/v1/messages/batches/$bid/results" }
   Write-Host ("  sonuc adresi: {0}" -f $sonucAdres)
   try {
-    $satirlar = (Invoke-WebRequest -UseBasicParsing -Uri $sonucAdres -Headers $HDR -TimeoutSec 300).Content -split "`n"
+    $cev = Invoke-WebRequest -UseBasicParsing -Uri $sonucAdres -Headers $HDR -TimeoutSec 300
+    # 28.07 ASIL KUSUR BURADAYDI. PowerShell 7, icerik turunu METIN olarak
+    # tanimadigi cevaplarda .Content'i BYTE DIZISI dondurur. Batch sonuclari
+    # JSONL'dir ve tam da bu gruba girer. Kod onu string sanip satirlara
+    # bolunce her BAYT ayri "satir" oldu: 146.618 karakterlik cevap 40.638
+    # "satir" gorundu, ilk satir "123" (yani '{' karakterinin kodu) cikti,
+    # custom_id her yerde bos geldi ve odenmis parti cope gitti.
+    # Windows'ta (PS 5.1) ayni kod string dondurdugu icin yerelde hic gorulmezdi.
+    $govdeMetin = if($cev.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($cev.Content) } else { "$($cev.Content)" }
+    $satirlar = $govdeMetin -split "`r?`n"
   } catch {
     $cevap = ""
     try { $cevap = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
@@ -356,8 +365,15 @@ for($p=0; $p -lt $partiler; $p++){
     if($cid.Length -gt 0){ $is = @($dilim | Where-Object { "$($_.id)" -eq $cid })[0] }
     if(-not $is -and $cid -match '^s(\d+)$'){ $ix = [int]$Matches[1]; if($ix -lt $dilim.Count){ $is = $dilim[$ix] } }
     if(-not $is){
+      # 28.07: bu yedek yol EN FAZLA dilim boyunca calisir. Kurtarma kosusunda
+      # cevap bayt dizisi geldigi icin 40.638 sahte satir olustu ve yedek yol
+      # 40 sorunun hepsine yanlis sonuc yapistirdi - sessiz cop uretti.
+      # Artik yedek yol yalniz makul sayida kullanilir; asilirsa DURULUR.
       if($sirali -lt $dilim.Count){ $is = $dilim[$sirali]; Write-Host ("  UYARI: custom_id bos/taninmadi ('{0}') - satir sirasina gore eslendi: {1}" -f $cid, $is.id) }
-      else { Write-Host "  ATLANDI: eslesecek soru kalmadi"; continue }
+      else {
+        HataYaz "sonuc-ayristirma" "custom_id ile eslesmeyen satir sayisi dilim boyunu asti - cevap bicimi beklenenden farkli." "" @{ batch_id=$bid; dilim=$dilim.Count; satir=$satirlar.Count; ilk300=$(if($ham.Length -gt 300){$ham.Substring(0,300)}else{$ham}) }
+        throw "Sonuc bicimi taninmadi - sessiz cop uretmektense duruluyor."
+      }
     }
     $sirali++
 
