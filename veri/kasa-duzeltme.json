@@ -1,231 +1,250 @@
 {
-    "aciklama":  "KASAYA GIRMIS sorularin duzeltme kuyrugu. GM bir hata bulunca buraya satir ekler; motor/kasa-duzelt.ps1 (SERVICE anahtariyla, Actions\u0027ta) uygular ve HER satiri yazdiktan sonra GERI OKUYUP dogrular. Uygulanan satir \u0027uygulandi\u0027 damgasi alir, dosyada iz olarak kalir - ne yaptigimiz kayitli olsun.",
-    "kural":  "Yalniz kaynak/aciklama/hap/siklar/dogru/benzer_grup/ders/konu/yayin/yayin_notu alanlari duzeltilebilir. Soru metnini degistirmek yeni soru demektir, oradan gecmez.",
-    "duzeltmeler":  [
-                        {
-                            "id":  "f1dcafb2",
-                            "alan":  "kaynak",
-                            "eski":  "KDV Kanunu m.11/1-a ve m.12/2",
-                            "yeni":  "KDVK (3065 s.K.) m.11/1-a — yurt dışındaki müşteriler için yapılan hizmetler istisnası; şartları KDV Genel Uygulama Tebliği\u0027nde düzenlenir",
-                            "gerekce":  "GM 28.07: m.12/2 AMBARDAN okundu ve FASON hizmetin serbest bolgedeki musterilere yapilmis sayilma sartlarini duzenliyor (\u0027a) Fason hizmet serbest bolgelerde faaliyet gosteren musteriler icin yapilmis olmalidir. b) Fason hizmetten serbest bolgelerde faydalanilmalidir.\u0027). Sorunun konusu ise yurt disindaki musteriye verilen normal hizmet ihracidir; bunun sartlari m.12/2\u0027de DEGIL, KDV Genel Uygulama Tebliginde belirlenir. Cevap dogru, atif yanlisti.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 16:11"
-                        },
-                        {
-                            "_grup":  "YAYIN KAPISININ ILK KULLANIMI - 28.07.2026. Profesor v2 tam kasa taramasi (3.950 soru) EN GUCLU sinyalini 7 soruda verdi: madde isaretli cevabi DESTEKLEMIYOR ve profesor BASKA bir sikki gosteriyor. GM bunlarin IKISINI ambardaki kanun metninden ELLE DOGRULADI, ikisi de GERCEK HATA cikti. Kalan besinin de alintisi makineyle dogrulandi. Hepsi once YAYINDAN CEKILIYOR - SILINMIYOR. Yanlis soru yayinda kalmaktansa dogru soru bir gun beklesin: cekmek geri alinabilir, ogrenciye yanlis ogretmek geri alinamaz.",
-                            "id":  "d48aba26",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "GM 28.07 DOGRULADI - GERCEK HATA. Soru MYO prim oranini %20 (isveren hissesi %11) kabul ediyor. Kanunun BUGUNKU konsolide metni (5510 m.81/1-a, mevzuat.gov.tr): \u0027Malulluk, yaslilik ve olum sigortalari prim orani, sigortalinin prime esas kazancinin %21 idir. Bunun %9 u sigortali hissesi, %12 si isveren hissesidir.\u0027 Soru ESKI ORANI ogretiyor. Bu, sitenin en sinsi hata tipi: soru yazildigi gun DOGRUYDU. Tam da Katman 3\u0027un (RG nobeti) var olma sebebi.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "f1619a6e",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "GM 28.07 DOGRULADI - GERCEK HATA. Soru \u0027gecici olarak mesleki faaliyetten alikoyma\u0027 cezasini \u0027bir yildan az, uc yildan fazla olamaz\u0027 diye veriyor. 3568 s.K. m.48/c ambardan okundu: \u0027Gecici olarak mesleki faaliyetten alikoyma; mesleki sifati sakli kalmak sartiyla ALTI AYDAN AZ, BIR YILDAN COK OLMAMAK uzere mesleki faaliyetten alikoymadir.\u0027 Ustelik konu Meslek Hukuku - sinavda dogrudan sorulan ve mesleki kimligimizin merkezinde olan bir alan.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "50cc523c",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "Profesor: 5941 s. Cek K. m.5 metninde \u0027binbesyuz gune kadar ADLI para cezasina hukmolunur\u0027 geciyor; soru \u0027idari para cezasi\u0027 diyor. Alinti makineyle dogrulandi. Adli/idari ayrimi cezanin turunu ve sonuclarini tamamen degistirir. GM okuyana kadar yayin durduruldu.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "71bb58f6",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "Profesor: TTK m.482 metninde \u0027IHTARA GEREK OLMAKSIZIN, temerrut faizi odemekle yukumludur\u0027 yaziyor; soru ihtar zorunlulugu getiriyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "78306b74",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "Profesor: TTK m.64 - izleyen donem acilis onaylari \u0027defterlerin kullanilacagi faaliyet doneminin ilk ayindan ONCEKI AYIN SONUNA kadar\u0027 yaptirilir; soru \u0027Ocak icinde\u0027 diyor. Alinti dogrulandi. Bu bir SURE hatasi, ogrencinin sinavda dogrudan kaybedecegi tip. GM okuyana kadar yayin durduruldu.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "ccc15886",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "Profesor: KVK m.4 - \u0027Kooperatiflerin ortak disi islemleri nedeniyle kooperatif tuzel kisiligine bagli AYRI BIR IKTISADI ISLETME olusmus kabul edilir\u0027; yani muafiyet tumden kaybedilmiyor, ortak disi islem ayri vergilendiriliyor. Soru muafiyetin tamamen kaybedildigini soyluyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "f86d34d9",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "Profesor: TBK m.43 - temsil yetkisi \u0027temsil olunanin veya temsilcinin olumu, gaipligine karar verilmesi, fiil ehliyetini kaybetmesi veya iflas etmesi durumlarinda SONA ERER\u0027; soru bunun tersini soyluyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
-                            "durum":  "uygulandi",
-                            "uygulama_tarihi":  "28.07.2026 20:16"
-                        },
-                        {
-                            "id":  "029b72db",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: E. Profesor gerekcesi: Metinde malullük, yaşlılık ve ölüm sigortaları prim oranı %21 olarak belirtilmiş ve %9\u0027u sigortalı, %12\u0027si işveren hissesi olarak düzenlenmiştir, hiçbir şık bu bilgiyi doğru yansıtmamaktadır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "0adb1be1",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.41 [1/4]. Isaretli: B. Profesor gerekcesi: Madde f bendi \u0027beraat edenlerin\u0027 demiş, Serkan hakkında \u0027kovuşturmaya yer olmadığı kararı\u0027 verilmiş olup bu beraat değildir, dolayısıyla B şıkkı da yanlıştır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "23cd184c",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.31. Isaretli: A. Profesor gerekcesi: Metinde güncelleme katsayısı ile güncelleme yapılacağı belirtilirken, A şıkkında yasal faiz ifadesi kullanılmış ve bu metinde geçmemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "24efb11b",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.17 [1/2]. Isaretli: A. Profesor gerekcesi: Hastalık halinde günlük kazanç, iş göremezliğin başladığı tarihten önceki 12 aydaki (tamamının) prime esas kazançlar toplamının prim gün sayısına bölünmesiyle hesaplanır; A şıkkındaki \u0027son 3 ay\u0027 ifadesi yalnızca iş kazası ve meslek hastalığı için geçerlidir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "28e6fde4",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: AATUHK (6183 s.K.) m.15 - İhtiyati hacze itiraz. Isaretli: E. Profesor gerekcesi: E şıkkı \u0027vergi mahkemesi\u0027 diyor ancak metinde \u0027vergi itiraz komisyonu\u0027 yazıyor, ayrıca süre \u0027haczin tatbikı\u0027 veya \u0027haczin tebliği tarihinden\u0027 itibaren 15 gündür, 7 gün değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "2c25c54b",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.82 [1/2]. Isaretli: C. Profesor gerekcesi: Metinde \u0027otuz gün içinde\u0027 ve \u0027ticari işletmesinin bulunduğu yer yetkili mahkemesine\u0027 yazıyor, soru \u002715 gün\u0027 ve \u0027ticari işletmenin bulunduğu yer yetkili mahkemesine\u0027 diyor; süre ve ifade farklı. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "38f2e616",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - 2 SIK DOGRU (cift cevap): B,E. Kaynak: Sendikalar ve TİS K. (6356 s.K.) m.2 [1/2]. Isaretli: B. Profesor gerekcesi: İşveren vekili \u0027işveren adına işletmenin bütününü yönetenleri\u0027 ifade eder ve kanun gereği \u0027işveren sayılır\u0027, dolayısıyla B ve E şıkları doğrudur. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "59884544",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından. Isaretli: A. Profesor gerekcesi: Metne göre azalan bakiyelerden normal usule geçiş mümkündür, dolayısıyla A şıkkı yanlıştır ve düzeltilmesi gereken bir yanılgı değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "65a43d42",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: A. Profesor gerekcesi: Metinde malullük, yaşlılık ve ölüm sigortaları prim oranı %21 olup %9\u0027u sigortalı, %12\u0027si işveren hissesidir; hiçbir şık bu bilgiyi doğru yansıtmamaktadır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "6a74c36b",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: SMMM K. (3568 s.K.) m.48 [1/2]. Isaretli: A. Profesor gerekcesi: Metinde geçici olarak mesleki faaliyetten alıkoyma cezası için \u0027altı aydan az, bir yıldan çok olmamak\u0027 şartı belirtilmiş olup hiçbir şık bu süreyi doğru ifade etmemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "88764952",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.31. Isaretli: D. Profesor gerekcesi: Metinde \u0027ilgiliye tebliğ tarihini takip eden ayın sonuna kadar\u0027 denirken D şıkkı \u0027üç ay içinde\u0027 diyor, bu farklılık nedeniyle D şıkkı yanlış, diğer şıklar da metinle uyumsuz. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "bc101187",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: AATUHK (6183 s.K.) m.48 - DÖRDÜNCÜ BÖLÜM Tecil, tehir, gecikme zammı Tecil [1/3]. Isaretli: E. Profesor gerekcesi: 500.000 TL\u0027lik borç için metne göre \u0027amme borçlusunun alacaklı tahsil daireleri itibarıyla tecil edilen borçlarının toplamı bir milyon Türk lirasını (bu tutar dahil) aşmadığı takdirde teminat şartı aranılmaz\u0027, dolayısıyla hiçbir kısım için değil, tamamı için teminat aranmaz. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "bf71b19f",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: KDVK (3065 s.K.) m.9 - Vergi sorumlusu [1/2]. Isaretli: A. Profesor gerekcesi: Metinde \u0027müteselsilen sorumluluk\u0027 düzenlemesi yok; alıcıya re\u0027sen tarhiyat yapılır ancak satıcıya vergi inceleme raporuna dayanarak tarhiyat yapılırsa alıcıdan aranmaz, bu müteselsil sorumluluk değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "c613dbad",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.543. Isaretli: B. Profesor gerekcesi: Metinde \u0027üç ay\u0027 süresi belirtilirken işaretli B şıkkı \u0027bir yıl\u0027 diyor, diğer şıklar da metinle uyuşmuyor. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "d1ca8673",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından. Isaretli: C. Profesor gerekcesi: Verilen mevzuat metni amortisman usulü seçimine ilişkin olup, kıst amortisman hesaplamasına dair herhangi bir hüküm içermemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "e1293526",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.474. Isaretli: E. Profesor gerekcesi: Madde 474/2\u0027ye göre zarar nedeniyle sermaye azaltımında alacaklıları çağırmaktan ve ödeme/teminat göstermekten vazgeçilebileceği için E şıkkı yanlıştır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "efac4879",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: ÖTV K. (4760 s.K.) m.8 [1/2]. Isaretli: C. Profesor gerekcesi: Madde 8/1, (I) listesindeki malların (I) listesine DAHIL OLMAYAN malların imalinde kullanılması halini düzenler; soruda her iki mal da (I) listesinde olduğu için tecil-terkin uygulaması yoktur. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "fd085f37",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: E. Profesor gerekcesi: Sorudaki bordro %20 göstermekte ancak metne göre malullük, yaşlılık ve ölüm sigortaları prim oranı %21\u0027dir ve bunun %9\u0027u sigortalı, %12\u0027si işveren hissesidir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        },
-                        {
-                            "id":  "ke250101",
-                            "alan":  "yayin",
-                            "eski":  "True",
-                            "yeni":  false,
-                            "gerekce":  "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.796. Isaretli: A. Profesor gerekcesi: Metne göre süre \u0027düzenlenme tarihinin ertesi günü\u0027 başlar, \u0027düzenleme tarihinden itibaren\u0027 değil; tüm şıklar \u0027düzenleme tarihinden itibaren\u0027 dediği için hiçbiri doğru değil. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18\u0027inin 18\u0027inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
-                            "durum":  "bekliyor"
-                        }
-                    ]
+  "aciklama": "KASAYA GIRMIS sorularin duzeltme kuyrugu. GM bir hata bulunca buraya satir ekler; motor/kasa-duzelt.ps1 (SERVICE anahtariyla, Actions'ta) uygular ve HER satiri yazdiktan sonra GERI OKUYUP dogrular. Uygulanan satir 'uygulandi' damgasi alir, dosyada iz olarak kalir - ne yaptigimiz kayitli olsun.",
+  "kural": "Yalniz kaynak/aciklama/hap/siklar/dogru/benzer_grup/ders/konu/yayin/yayin_notu alanlari duzeltilebilir. Soru metnini degistirmek yeni soru demektir, oradan gecmez.",
+  "duzeltmeler": [
+    {
+      "id": "f1dcafb2",
+      "alan": "kaynak",
+      "eski": "KDV Kanunu m.11/1-a ve m.12/2",
+      "yeni": "KDVK (3065 s.K.) m.11/1-a — yurt dışındaki müşteriler için yapılan hizmetler istisnası; şartları KDV Genel Uygulama Tebliği'nde düzenlenir",
+      "gerekce": "GM 28.07: m.12/2 AMBARDAN okundu ve FASON hizmetin serbest bolgedeki musterilere yapilmis sayilma sartlarini duzenliyor ('a) Fason hizmet serbest bolgelerde faaliyet gosteren musteriler icin yapilmis olmalidir. b) Fason hizmetten serbest bolgelerde faydalanilmalidir.'). Sorunun konusu ise yurt disindaki musteriye verilen normal hizmet ihracidir; bunun sartlari m.12/2'de DEGIL, KDV Genel Uygulama Tebliginde belirlenir. Cevap dogru, atif yanlisti.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 16:11"
+    },
+    {
+      "_grup": "YAYIN KAPISININ ILK KULLANIMI - 28.07.2026. Profesor v2 tam kasa taramasi (3.950 soru) EN GUCLU sinyalini 7 soruda verdi: madde isaretli cevabi DESTEKLEMIYOR ve profesor BASKA bir sikki gosteriyor. GM bunlarin IKISINI ambardaki kanun metninden ELLE DOGRULADI, ikisi de GERCEK HATA cikti. Kalan besinin de alintisi makineyle dogrulandi. Hepsi once YAYINDAN CEKILIYOR - SILINMIYOR. Yanlis soru yayinda kalmaktansa dogru soru bir gun beklesin: cekmek geri alinabilir, ogrenciye yanlis ogretmek geri alinamaz.",
+      "id": "d48aba26",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "GM 28.07 DOGRULADI - GERCEK HATA. Soru MYO prim oranini %20 (isveren hissesi %11) kabul ediyor. Kanunun BUGUNKU konsolide metni (5510 m.81/1-a, mevzuat.gov.tr): 'Malulluk, yaslilik ve olum sigortalari prim orani, sigortalinin prime esas kazancinin %21 idir. Bunun %9 u sigortali hissesi, %12 si isveren hissesidir.' Soru ESKI ORANI ogretiyor. Bu, sitenin en sinsi hata tipi: soru yazildigi gun DOGRUYDU. Tam da Katman 3'un (RG nobeti) var olma sebebi.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "f1619a6e",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "GM 28.07 DOGRULADI - GERCEK HATA. Soru 'gecici olarak mesleki faaliyetten alikoyma' cezasini 'bir yildan az, uc yildan fazla olamaz' diye veriyor. 3568 s.K. m.48/c ambardan okundu: 'Gecici olarak mesleki faaliyetten alikoyma; mesleki sifati sakli kalmak sartiyla ALTI AYDAN AZ, BIR YILDAN COK OLMAMAK uzere mesleki faaliyetten alikoymadir.' Ustelik konu Meslek Hukuku - sinavda dogrudan sorulan ve mesleki kimligimizin merkezinde olan bir alan.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "50cc523c",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "Profesor: 5941 s. Cek K. m.5 metninde 'binbesyuz gune kadar ADLI para cezasina hukmolunur' geciyor; soru 'idari para cezasi' diyor. Alinti makineyle dogrulandi. Adli/idari ayrimi cezanin turunu ve sonuclarini tamamen degistirir. GM okuyana kadar yayin durduruldu.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "71bb58f6",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "Profesor: TTK m.482 metninde 'IHTARA GEREK OLMAKSIZIN, temerrut faizi odemekle yukumludur' yaziyor; soru ihtar zorunlulugu getiriyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "78306b74",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "Profesor: TTK m.64 - izleyen donem acilis onaylari 'defterlerin kullanilacagi faaliyet doneminin ilk ayindan ONCEKI AYIN SONUNA kadar' yaptirilir; soru 'Ocak icinde' diyor. Alinti dogrulandi. Bu bir SURE hatasi, ogrencinin sinavda dogrudan kaybedecegi tip. GM okuyana kadar yayin durduruldu.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "ccc15886",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "Profesor: KVK m.4 - 'Kooperatiflerin ortak disi islemleri nedeniyle kooperatif tuzel kisiligine bagli AYRI BIR IKTISADI ISLETME olusmus kabul edilir'; yani muafiyet tumden kaybedilmiyor, ortak disi islem ayri vergilendiriliyor. Soru muafiyetin tamamen kaybedildigini soyluyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "f86d34d9",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "Profesor: TBK m.43 - temsil yetkisi 'temsil olunanin veya temsilcinin olumu, gaipligine karar verilmesi, fiil ehliyetini kaybetmesi veya iflas etmesi durumlarinda SONA ERER'; soru bunun tersini soyluyor. Alinti dogrulandi. GM okuyana kadar yayin durduruldu.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:16"
+    },
+    {
+      "id": "029b72db",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: E. Profesor gerekcesi: Metinde malullük, yaşlılık ve ölüm sigortaları prim oranı %21 olarak belirtilmiş ve %9'u sigortalı, %12'si işveren hissesi olarak düzenlenmiştir, hiçbir şık bu bilgiyi doğru yansıtmamaktadır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:28"
+    },
+    {
+      "id": "0adb1be1",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.41 [1/4]. Isaretli: B. Profesor gerekcesi: Madde f bendi 'beraat edenlerin' demiş, Serkan hakkında 'kovuşturmaya yer olmadığı kararı' verilmiş olup bu beraat değildir, dolayısıyla B şıkkı da yanlıştır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:28"
+    },
+    {
+      "id": "23cd184c",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.31. Isaretli: A. Profesor gerekcesi: Metinde güncelleme katsayısı ile güncelleme yapılacağı belirtilirken, A şıkkında yasal faiz ifadesi kullanılmış ve bu metinde geçmemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "24efb11b",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.17 [1/2]. Isaretli: A. Profesor gerekcesi: Hastalık halinde günlük kazanç, iş göremezliğin başladığı tarihten önceki 12 aydaki (tamamının) prime esas kazançlar toplamının prim gün sayısına bölünmesiyle hesaplanır; A şıkkındaki 'son 3 ay' ifadesi yalnızca iş kazası ve meslek hastalığı için geçerlidir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "28e6fde4",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: AATUHK (6183 s.K.) m.15 - İhtiyati hacze itiraz. Isaretli: E. Profesor gerekcesi: E şıkkı 'vergi mahkemesi' diyor ancak metinde 'vergi itiraz komisyonu' yazıyor, ayrıca süre 'haczin tatbikı' veya 'haczin tebliği tarihinden' itibaren 15 gündür, 7 gün değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "2c25c54b",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.82 [1/2]. Isaretli: C. Profesor gerekcesi: Metinde 'otuz gün içinde' ve 'ticari işletmesinin bulunduğu yer yetkili mahkemesine' yazıyor, soru '15 gün' ve 'ticari işletmenin bulunduğu yer yetkili mahkemesine' diyor; süre ve ifade farklı. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "38f2e616",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - 2 SIK DOGRU (cift cevap): B,E. Kaynak: Sendikalar ve TİS K. (6356 s.K.) m.2 [1/2]. Isaretli: B. Profesor gerekcesi: İşveren vekili 'işveren adına işletmenin bütününü yönetenleri' ifade eder ve kanun gereği 'işveren sayılır', dolayısıyla B ve E şıkları doğrudur. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "59884544",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından. Isaretli: A. Profesor gerekcesi: Metne göre azalan bakiyelerden normal usule geçiş mümkündür, dolayısıyla A şıkkı yanlıştır ve düzeltilmesi gereken bir yanılgı değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "65a43d42",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: A. Profesor gerekcesi: Metinde malullük, yaşlılık ve ölüm sigortaları prim oranı %21 olup %9'u sigortalı, %12'si işveren hissesidir; hiçbir şık bu bilgiyi doğru yansıtmamaktadır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "6a74c36b",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: SMMM K. (3568 s.K.) m.48 [1/2]. Isaretli: A. Profesor gerekcesi: Metinde geçici olarak mesleki faaliyetten alıkoyma cezası için 'altı aydan az, bir yıldan çok olmamak' şartı belirtilmiş olup hiçbir şık bu süreyi doğru ifade etmemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "88764952",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.31. Isaretli: D. Profesor gerekcesi: Metinde 'ilgiliye tebliğ tarihini takip eden ayın sonuna kadar' denirken D şıkkı 'üç ay içinde' diyor, bu farklılık nedeniyle D şıkkı yanlış, diğer şıklar da metinle uyumsuz. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "bc101187",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: AATUHK (6183 s.K.) m.48 - DÖRDÜNCÜ BÖLÜM Tecil, tehir, gecikme zammı Tecil [1/3]. Isaretli: E. Profesor gerekcesi: 500.000 TL'lik borç için metne göre 'amme borçlusunun alacaklı tahsil daireleri itibarıyla tecil edilen borçlarının toplamı bir milyon Türk lirasını (bu tutar dahil) aşmadığı takdirde teminat şartı aranılmaz', dolayısıyla hiçbir kısım için değil, tamamı için teminat aranmaz. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "bf71b19f",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: KDVK (3065 s.K.) m.9 - Vergi sorumlusu [1/2]. Isaretli: A. Profesor gerekcesi: Metinde 'müteselsilen sorumluluk' düzenlemesi yok; alıcıya re'sen tarhiyat yapılır ancak satıcıya vergi inceleme raporuna dayanarak tarhiyat yapılırsa alıcıdan aranmaz, bu müteselsil sorumluluk değildir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "c613dbad",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.543. Isaretli: B. Profesor gerekcesi: Metinde 'üç ay' süresi belirtilirken işaretli B şıkkı 'bir yıl' diyor, diğer şıklar da metinle uyuşmuyor. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "d1ca8673",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından. Isaretli: C. Profesor gerekcesi: Verilen mevzuat metni amortisman usulü seçimine ilişkin olup, kıst amortisman hesaplamasına dair herhangi bir hüküm içermemektedir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "e1293526",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.474. Isaretli: E. Profesor gerekcesi: Madde 474/2'ye göre zarar nedeniyle sermaye azaltımında alacaklıları çağırmaktan ve ödeme/teminat göstermekten vazgeçilebileceği için E şıkkı yanlıştır. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "efac4879",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: ÖTV K. (4760 s.K.) m.8 [1/2]. Isaretli: C. Profesor gerekcesi: Madde 8/1, (I) listesindeki malların (I) listesine DAHIL OLMAYAN malların imalinde kullanılması halini düzenler; soruda her iki mal da (I) listesinde olduğu için tecil-terkin uygulaması yoktur. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "fd085f37",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: 5510 s. SGK Kanunu m.81 [1/11]. Isaretli: E. Profesor gerekcesi: Sorudaki bordro %20 göstermekte ancak metne göre malullük, yaşlılık ve ölüm sigortaları prim oranı %21'dir ve bunun %9'u sigortalı, %12'si işveren hissesidir. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    },
+    {
+      "id": "ke250101",
+      "alan": "yayin",
+      "eski": "True",
+      "yeni": false,
+      "gerekce": "IKINCI GOZ (28.07, odak=ikili, 0,41 USD) - HICBIR SIK DOGRU DEGIL. Kaynak: TTK (6102 s.K.) m.796. Isaretli: A. Profesor gerekcesi: Metne göre süre 'düzenlenme tarihinin ertesi günü' başlar, 'düzenleme tarihinden itibaren' değil; tüm şıklar 'düzenleme tarihinden itibaren' dediği için hiçbiri doğru değil. [alinti makineyle DOGRULANDI]. Bu kume somut SAYI/SURE uyusmazliklari iceriyor ve 18'inin 18'inde alinti dogrulandi; GM tek tek okuyana kadar yayin durduruldu. Cekmek geri alinabilir, ogrenciye yanlis ogretmek alinamaz.",
+      "durum": "uygulandi",
+      "uygulama_tarihi": "28.07.2026 20:29"
+    }
+  ]
 }
