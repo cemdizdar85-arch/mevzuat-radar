@@ -1,0 +1,55 @@
+**********************
+PowerShell transcript start
+Start time: 20260728191207
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f8c8a23a-b684-4c3a-8d09-ec1c648c6418.ps1'
+Process ID: 2278
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+PowerShell surumu: 7.6.3
+Kok: /home/runner/work/mevzuat-radar/mevzuat-radar
+Soru: 581 (yerel)
+
+======== PROFESOR v2 HAZIRLIK ========
+  toplam         42
+  metinYok       1
+  mevzuatDisi    0
+  hazir          40
+
+======== MALIYET TAHMINI (TAHMINDIR, olculmus degil) ========
+  yargilanacak soru : 40
+  giris  ~59,161 token   (kaba cevrim: 3 karakter = 1 token)
+  cikis  ~10,400 token   (soru basina ~260 token varsayimi)
+  model  : claude-sonnet-4-5-20250929
+  liste fiyati    : ~0.33 USD
+  BATCH (%50 ind.): ~0.17 USD  <-- kullanilacak yol
+  soru basina     : ~0.0042 USD
+ON KONTROL: anahtar + model kimligi sinaniyor...
+  ON KONTROL TAMAM - model: claude-sonnet-4-5-20250929
+PARTI 1/1: 40 soru gonderiliyor (186 KB govde)...
+  batch id: msgbatch_015rVhJRWPoam7YBb1AzMx3z
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: in_progress
+  durum: ended
+  sonuc adresi: https://api.anthropic.com/v1/messages/batches/msgbatch_015rVhJRWPoam7YBb1AzMx3z/results
+HATA [beklenmeyen]: startIndex cannot be larger than length of string. (Parameter 'startIndex')
+SUNUCU: at <ScriptBlock>, /home/runner/work/mevzuat-radar/mevzuat-radar/motor/profesor-v2.ps1: line 325
+at <ScriptBlock>, /home/runner/work/_temp/f8c8a23a-b684-4c3a-8d09-ec1c648c6418.ps1: line 2
+at <ScriptBlock>, <No file>: line 1
+**********************
+PowerShell transcript end
+End time: 20260728191401
+**********************

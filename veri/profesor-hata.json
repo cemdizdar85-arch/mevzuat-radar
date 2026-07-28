@@ -1,0 +1,11 @@
+{
+  "zaman": "28.07.2026 19:14",
+  "nerede": "beklenmeyen",
+  "mesaj": "startIndex cannot be larger than length of string. (Parameter 'startIndex')",
+  "sunucu_cevabi": "at <ScriptBlock>, /home/runner/work/mevzuat-radar/mevzuat-radar/motor/profesor-v2.ps1: line 325\nat <ScriptBlock>, /home/runner/work/_temp/f8c8a23a-b684-4c3a-8d09-ec1c648c6418.ps1: line 2\nat <ScriptBlock>, <No file>: line 1",
+  "ek": {
+    "komut": "$n = [int](\"$($r.custom_id)\".Substring(1))",
+    "satir": "325",
+    "tur": "System.ArgumentOutOfRangeException"
+  }
+}
