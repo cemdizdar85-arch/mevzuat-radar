@@ -190,7 +190,13 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   # hepsini reddeder - iki halde de kapi is gormez. Artik bicime gore.
   # Iki okuma arasindaki fark toleransi da kucuk kitapcikta oransal olmali:
   # 20 soruluk kitapcikta 8 soru fark %40 demektir, gecirilemez.
-  $tolerans = if($maxSoru -le 40){ 2 } else { 8 }
+  # 29.07: tolerans 2'ydi ve YAZILI Finansal Muhasebe kitapciklarinin DOKUZU
+  # birden 'inceleme'ye dustu - en agir ve en onemli dersin verisi bos kaldi.
+  # Sebep: klasik sinavda "1. soru" alti bentli olabiliyor; iki okuyucu birinde
+  # 5 birinde 7 soru sayabiliyor ve bu KUSUR DEGIL, sayim yorumu. Yazilida
+  # tolerans oransal olmali. Testte (siklar sayili) sikilik korunuyor.
+  $tolerans = if($bicim -eq 'yazili'){ [Math]::Max(3, [int]([Math]::Max($n1,$n2) * 0.4)) }
+              elseif($maxSoru -le 40){ 2 } else { 8 }
   if($n1 -lt $minSoru -or $n1 -gt $maxSoru -or $n2 -lt $minSoru -or $n2 -gt $maxSoru -or [math]::Abs($n1-$n2) -gt $tolerans){
     Write-Host ("  RED: soru sayisi guvensiz (sinir {0}-{1}, tolerans {2})" -f $minSoru,$maxSoru,$tolerans); $d.durum='inceleme'; $islenen++; continue }
 
@@ -223,10 +229,19 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   }
 
   # sayimlar
-  $dersSayim=@{}; $konuSayim=@{}
-  foreach($s in $sorular){ $dersSayim[$s.ders]=1+[int]$dersSayim[$s.ders]; $kk="$($s.ders)|$($s.konu)"; $konuSayim[$kk]=1+[int]$konuSayim[$kk] }
+  # 29.07: tip/uzun alanlari isteme eklenmisti ama BURAYA eklenmemisti - model
+  # uretiyor, betik atiyordu. Klasik hata: istemi degistirip toplayiciyi
+  # degistirmemek. Sorunun KURGUSU olmadan uretim kotasi yarim kalir.
+  $dersSayim=@{}; $konuSayim=@{}; $tipSayim=@{}; $uzunSayim=@{}
+  foreach($s in $sorular){
+    $dersSayim[$s.ders]=1+[int]$dersSayim[$s.ders]
+    $kk="$($s.ders)|$($s.konu)"; $konuSayim[$kk]=1+[int]$konuSayim[$kk]
+    if("$($s.tip)".Trim()){  $tipSayim["$($s.tip)"]  = 1+[int]$tipSayim["$($s.tip)"] }
+    if("$($s.uzun)".Trim()){ $uzunSayim["$($s.uzun)"] = 1+[int]$uzunSayim["$($s.uzun)"] }
+  }
   $yeni = [pscustomobject]@{ donem=$d.donem; ders=$d.ders; tarih=$d.tarih; kaynakUrl=$d.url; toplamSoru=$sorular.Count;
-    dersSayim=$dersSayim; konuSayim=$konuSayim; analizTarihi=(Get-Date -Format "dd.MM.yyyy"); yontem="cift okuma + hakem" }
+    dersSayim=$dersSayim; konuSayim=$konuSayim; tipSayim=$tipSayim; uzunSayim=$uzunSayim
+    analizTarihi=(Get-Date -Format "dd.MM.yyyy"); yontem="cift okuma + hakem" }
   $hedefAnaliz = if($sinavTip -eq 'SMMM'){ $analizS } else { $analiz }
   $anahtar = "$($d.donem)|$($d.ders)"
   $dl = New-Object System.Collections.Generic.List[object]
