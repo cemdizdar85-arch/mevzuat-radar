@@ -1,0 +1,62 @@
+**********************
+PowerShell transcript start
+Start time: 20260728211246
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/95a9aeac-6956-4a9e-9905-3b3120ee636a.ps1'
+Process ID: 2772
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+BASLADI  model=claude-sonnet-5  LIMIT=4  anahtar=VAR
+=== [SGS] 2015/1  () isleniyor...
+  pdf 1123 KB -> metin 114,200 karakter, okuma 1/2...
+  okuma 2/2...
+  okuma1=120 soru, okuma2=120 soru
+  ders uyusmayan: 3 (%2) · konu farkli: 53
+  TAMAM: 117 soru etiketlendi, 6 ders
+=== [SGS] 2015/2  () isleniyor...
+  pdf 685 KB -> metin 115,575 karakter, okuma 1/2...
+  okuma 2/2...
+  okuma1=120 soru, okuma2=120 soru
+  ders uyusmayan: 1 (%1) · konu farkli: 49
+  TAMAM: 119 soru etiketlendi, 6 ders
+=== [SGS] 2015/3  () isleniyor...
+  pdf 568 KB -> metin 119,207 karakter, okuma 1/2...
+  okuma 2/2...
+  okuma1=120 soru, okuma2=120 soru
+  ders uyusmayan: 0 (%0) · konu farkli: 50
+  TAMAM: 120 soru etiketlendi, 6 ders
+=== [SGS] 2016/1  () isleniyor...
+  pdf 633 KB -> metin 120,000 karakter (KIRPILDI), okuma 1/2...
+  okuma 2/2...
+  okuma1=130 soru, okuma2=130 soru
+  ders uyusmayan: 0 (%0) · konu farkli: 87
+PS>TerminatingError(ConvertFrom-Json): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Cannot bind argument to parameter 'InputObject' because it is null."
+  TAMAM: 130 soru etiketlendi, 7 ders
+BITTI: bu kosuda 4 donem islendi.
+  model     : claude-sonnet-5  (fiyat varsayimi 3/15 USD-M)
+
+======== GERCEK FATURA ========
+  cagri     : 12  (4 kitapcik x 2 bagimsiz okuma)
+  giris     : 342,630 token
+  cikis     : 71,691 token
+  TUTAR     : ~2.10 USD
+  KITAPCIK BASINA: ~0.526 USD
+  -> kuyruktaki 169 kitapcik icin tahmin: ~89 USD
+-> veri/sinav-analiz-fatura.json
+PS>$global:?
+True
+**********************
+PowerShell transcript end
+End time: 20260728212316
+**********************
