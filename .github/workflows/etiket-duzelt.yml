@@ -1,0 +1,65 @@
+# .github/workflows/etiket-duzelt.yml — DERS ETIKETI DUZELTICISI
+# Ayni dersin iki adla durmasi yuzunden ogrenci havuzun bir kismini goremiyor
+# (SGS'de 'Muhasebe' secen 93 soru goruyor, 'Finansal Muhasebe'deki 656'yi
+# gormuyor). Bu is akisi resmi ders adlarina gore birlestirir.
+# UCRETSIZDIR: API cagrisi yok, yalniz Supabase.
+# Push tetiginde ASLA yazmaz - yalniz olcer. Yazma emir dosyasiyla istenir.
+name: Ders Etiketi Duzeltici
+
+on:
+  workflow_dispatch:
+    inputs:
+      yaz:
+        description: "Kasaya gercekten yazsin mi? (kapali = yalniz olcum)"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - 'motor/etiket-duzelt.ps1'
+      - 'veri/etiket-emir.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: etiket-duzelt
+  cancel-in-progress: false
+
+jobs:
+  duzelt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Duzelt
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $yaz = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.yaz }}' -eq 'true'
+          $emirNo = 0
+          $y = 'veri/etiket-emir.json'
+          if(-not $yaz -and (Test-Path $y)){
+            $e = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+            $a = @($e.emirler | Where-Object { $_.yaz -eq $true -and -not $_.uygulandi })
+            if($a.Count -gt 0){ $yaz = $true; $emirNo = [int]$a[0].no; Write-Host ("EMIR #{0}: {1}" -f $a[0].no, $a[0].gerekce) }
+          }
+          if($yaz){ ./motor/etiket-duzelt.ps1 -yaz } else { ./motor/etiket-duzelt.ps1 }
+          $kod = $LASTEXITCODE
+          if($emirNo -gt 0 -and $kod -eq 0){
+            $e = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+            foreach($x in $e.emirler){ if([int]$x.no -eq $emirNo){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force } }
+            [IO.File]::WriteAllText($y, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+          }
+          exit $kod
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/etiket-duzeltme.json veri/etiket-emir.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Ders etiketi duzeltmesi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
