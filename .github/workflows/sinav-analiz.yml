@@ -11,6 +11,12 @@ on:
     #- cron: "43 3 * * *"    # 06:43 TR — gunde 2 tur (tenha dakika: :00/:30 cronlari 23.07 gecesi atlandi)
     #- cron: "43 10 * * *"   # 13:43 TR — kuyruktaki Yeterlilik kitapciklari daha hizli erisin
   workflow_dispatch:
+  # PARA HARCAYAN IS AKISI. Tek kapisi emir dosyasi - betigin kendisi
+  # degistiginde KOSMAZ. O tuzak bu depoda dort kez yasandi: bir yazim
+  # duzeltmesi parali bir partiyi baslatiyordu.
+  push:
+    paths:
+      - 'veri/sinav-analiz-emir.json'
 
 permissions:
   contents: write
@@ -24,11 +30,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Kitapciklari analiz et (cift okuma + hakem)
+      # 29.07: kitapciklar artik modele PDF olarak GONDERILMIYOR; yerelde
+      # pdftotext ile metne cevrilip metin gonderiliyor. PDF girisi sayfa
+      # basina token yakiyordu ve 169 kitapcik butcenin buyuk kismini tek
+      # adima gomerdi. pdftotext bedava.
+      - name: pdftotext kur (poppler-utils)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Emri oku
+        id: emir
+        shell: pwsh
+        run: |
+          $y = 'veri/sinav-analiz-emir.json'
+          if(-not (Test-Path $y)){ "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append; exit 0 }
+          $e = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          $a = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          if($a.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - 0 USD."; "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append; exit 0 }
+          $x = $a[0]
+          Write-Host ("EMIR #{0}: {1}" -f $x.no, $x.gerekce)
+          "kos=evet"                | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "no=$($x.no)"             | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "limit=$($x.limit)"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "model=$($x.model)"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+      - name: Kitapciklari analiz et (cift okuma + hakem) — PARALI
+        if: steps.emir.outputs.kos == 'evet' || github.event_name == 'workflow_dispatch'
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANALIZ_LIMIT: ${{ steps.emir.outputs.limit }}
+          ANALIZ_MODEL: ${{ steps.emir.outputs.model }}
         run: ./motor/sinav-analiz.ps1
+      - name: Emri damgala
+        if: always() && steps.emir.outputs.kos == 'evet'
+        shell: pwsh
+        run: |
+          $y = 'veri/sinav-analiz-emir.json'
+          $e = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          $no = [int]'${{ steps.emir.outputs.no }}'
+          foreach($x in $e.emirler){ if([int]$x.no -eq $no){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force } }
+          [IO.File]::WriteAllText($y, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
       - name: Sonuclari kaydet
         run: |
           git config user.name "mevzuat-radar-bot"

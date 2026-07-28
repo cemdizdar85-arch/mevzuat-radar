@@ -1,0 +1,18 @@
+{
+  "_aciklama": "SINAV ANALIZI KOSU EMRI. Bu is akisi PARA HARCAR (kitapciklar modele PDF olarak okutulur, sayfa basina token yakar). Betigin kendisi degistiginde KOSMAZ - yalniz bu dosya degisince. Damgali emir bir daha kosmaz.",
+  "_neden": "Havuzumuz sinava benzemiyor. Olculdu: Yabanci Dil sinavin %7,7'si ama havuzun %24'u (3,13 kat fazla); Finansal Muhasebe sinavin %20'si ama havuzun %11,6'si (0,58 kat eksik); Matematik %6,2'ye karsi %1,1 (0,18 kat). Ogrenci vaktinin dortte birini sinavin onda birinden azini olusturan derse veriyor. 5.000 soruyu bu bozuk dagilimi duzeltmeden uretirsek parayi yanlis yere dokeriz. Once GERCEK AGIRLIK olculecek.",
+  "emirler": [
+    {
+      "no": 1,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (150 USD butce, yetki GM'de)",
+      "emir": "olcum kosusu",
+      "onay": true,
+      "limit": 4,
+      "model": "claude-sonnet-5",
+      "gerekce": "BIRIM MALIYET OLCUMU. Kuyrukta 169 kitapcik var (136 SMMM + 33 SGS). GM'nin ilk tahmini 2,5 USD idi ve YANLISTI: betik PDF'i dogrudan modele gonderiyor, PDF girisi sayfa basina token yakar - metin gondermekten kat kat pahali. Tahminle 169 kitapcik acmak, yanlis rakamla butce yakmaktir. Bu kosu 4 kitapcik isler ve API'nin dondurdugu GERCEK token sayisindan birim maliyeti cikarir (veri/sinav-analiz-fatura.json). Rakam gelince tam kuyruk acilir - ya da PDF yerine metin gondermeye gecilir.",
+      "tahmini_usd": "OLCULECEK",
+      "uygulandi": null
+    }
+  ]
+}
