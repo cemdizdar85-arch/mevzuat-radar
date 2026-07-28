@@ -24,17 +24,68 @@ $onay = if(Test-Path $onayYol){ Get-Content $onayYol -Raw -Encoding UTF8 | Conve
 $fabrikaDir = Join-Path $kok "veri/fabrika"
 $fabrikaDosyalari = @(); if(Test-Path $fabrikaDir){ $fabrikaDosyalari = @(Get-ChildItem $fabrikaDir -Filter *.json) }
 
+# 28.07 DUZELTME (Cem onayi): GM okumasi 'gm-onay' damgasi yaziyordu, tasiyici ise
+# yalniz 'paket-havuzu' ariyordu -> GM'nin okuyup onayladigi 528 soru yerelde ASILI
+# KALIYORDU. Iki damga da kasaya gider.
+$TASINABILIR = @('paket-havuzu','gm-onay')
+
 $paket = @()
-if($onay){ $paket += @($onay.sorular | Where-Object { $_.durum -eq 'paket-havuzu' }) }
+if($onay){ $paket += @($onay.sorular | Where-Object { $TASINABILIR -contains "$($_.durum)" }) }
 $fabrikaIcerik = @{}
 foreach($fd in $fabrikaDosyalari){
   try {
     $ic = Get-Content $fd.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     $fabrikaIcerik[$fd.FullName] = $ic
-    $paket += @($ic.sorular | Where-Object { $_.durum -eq 'paket-havuzu' })
+    $paket += @($ic.sorular | Where-Object { $TASINABILIR -contains "$($_.durum)" })
   } catch { Write-Host ("UYARI: {0} okunamadi, atlandi" -f $fd.Name) }
 }
 if($paket.Count -eq 0){ Write-Host "Tasinacak paket sorusu yok."; exit 0 }
+Write-Host ("Aday: {0} soru" -f $paket.Count)
+
+# ---- 28.07 KASA MUKERRER KAPISI (Cem: "ayni soru zaten kasada olabilir") -------
+# GM yerelde okurken kasayi goremiyor (anon anahtar RLS'e takiliyor). Bu betik
+# SERVICE anahtariyla kostugu icin kasayi okuyabilir; mukerrer kontrolu BURADA yapilir.
+# Kural: kok metni (bosluk/noktalama/buyuk-kucuk normalize) kasada zaten varsa ve
+# id FARKLIYSA soru tasinmaz, yerelde 'kasa-mukerrer' damgasiyla birakilir.
+function KokNormal($t){
+  $x = "$t".ToLowerInvariant()
+  $x = $x -replace '[‘’“”]',"'" -replace '\s+',' '
+  $x = $x -replace '[^\p{L}\p{Nd} ]',''
+  return $x.Trim()
+}
+$kasaKok = @{}
+$kasaAdet = 0
+try {
+  $bas = 0
+  while($true){
+    $sayfa = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,soru&order=id&offset=$bas&limit=1000" `
+      -Headers @{ apikey=$KEY; Authorization="Bearer $KEY" } -TimeoutSec 120
+    $dilimK = @($sayfa)
+    if($dilimK.Count -eq 0){ break }
+    foreach($k in $dilimK){ $kasaAdet++; $kk = KokNormal $k.soru; if($kk.Length -ge 25 -and -not $kasaKok.ContainsKey($kk)){ $kasaKok[$kk] = "$($k.id)" } }
+    if($dilimK.Count -lt 1000){ break }
+    $bas += 1000
+  }
+  Write-Host ("KASA SAYIMI: {0} soru okundu, {1} tekil kok" -f $kasaAdet, $kasaKok.Count)
+} catch {
+  Write-Host ("KRITIK: kasa okunamadi - mukerrer kapisi calistirilamaz: {0}" -f $_.Exception.Message)
+  Write-Host "Tasima DURDURULDU (kor tasima yapilmaz)."
+  exit 1
+}
+
+$mukerrer = @()
+$temiz = @()
+foreach($s in $paket){
+  $kk = KokNormal $s.soru
+  if($kk.Length -ge 25 -and $kasaKok.ContainsKey($kk) -and $kasaKok[$kk] -ne "$($s.id)"){
+    $mukerrer += $s
+  } else { $temiz += $s }
+}
+if($mukerrer.Count -gt 0){
+  Write-Host ("KASA MUKERRERI: {0} soru zaten kasada var - tasinmayacak, yerelde 'kasa-mukerrer' damgasiyla kalacak." -f $mukerrer.Count)
+}
+$paket = $temiz
+if($paket.Count -eq 0){ Write-Host "Mukerrer eleme sonrasi tasinacak soru kalmadi."; exit 0 }
 Write-Host ("Tasinacak: {0} soru" -f $paket.Count)
 
 # 24.07 DAYANIKLILIK (Cem "sistem durmasin, GM sensin"): opsiyonel gorsel kolonlar
@@ -46,14 +97,20 @@ function KolonVar($ad){ try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuz
 $yevmiyeKolonu = KolonVar 'yevmiye'
 $tabloKolonu   = KolonVar 'tablo'
 $hayaletKolonu = KolonVar 'yanlis_kayitlar'
+# 28.07: GM okumasinda 76 grupta 357 soru 'benzerGrup' etiketi aldi (ayni kurali olcen
+# sorular). Quiz motorunun bir oturumda gruptan TEK soru servis edebilmesi icin bu etiket
+# kasaya da tasinmali; kolon yoksa soru yine tasinir, etiket backfill listesine yazilir.
+$grupKolonu    = KolonVar 'benzer_grup'
 $backfill = @()
 foreach($s in $paket){
   $eksik = @()
   if(($s.yevmiye -and @($s.yevmiye).Count -gt 0) -and -not $yevmiyeKolonu){ $eksik += 'yevmiye' }
   if($s.tablo -and -not $tabloKolonu){ $eksik += 'tablo' }
   if($s.yanlisKayitlar -and -not $hayaletKolonu){ $eksik += 'yanlis_kayitlar' }
-  if($eksik.Count){ $backfill += [ordered]@{ id=$s.id; eksik_alanlar=$eksik } }
+  if($s.benzerGrup -and -not $grupKolonu){ $eksik += 'benzer_grup' }
+  if($eksik.Count){ $backfill += [ordered]@{ id=$s.id; eksik_alanlar=$eksik; benzer_grup="$($s.benzerGrup)" } }
 }
+if(-not $grupKolonu){ Write-Host "UYARI: 'benzer_grup' kolonu yok - benzerlik etiketi tasinamadi (backfill). Quiz motoru gruptan tek soru servis edemez." }
 if(-not $yevmiyeKolonu){ Write-Host "UYARI: 'yevmiye' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
 if(-not $tabloKolonu){ Write-Host "UYARI: 'tablo' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
 if(-not $hayaletKolonu){ Write-Host "UYARI: 'yanlis_kayitlar' kolonu yok - o alan atlanarak tasiniyor (backfill)" }
@@ -74,11 +131,14 @@ for($i=0; $i -lt $paket.Count; $i += $PARTI){
     $satir = [ordered]@{
       id=$_.id; sinav="$($_.sinav)"; ders="$($_.ders)"; konu="$($_.konu)"; soru="$($_.soru)"
       siklar=$_.siklar; dogru="$($_.dogru)"; aciklama=$_.aciklama
-      kaynak="$($_.kaynak)"; hap="$($_.hap)"; onay="$($_.onay)"; uretim="$($_.uretim)"
+      kaynak="$($_.kaynak)"; hap="$($_.hap)"
+      onay=$(if("$($_.onay)".Trim()){ "$($_.onay)" } elseif("$($_.gmKarar)".Trim()){ "GM $($_.gmTarih): $($_.gmKarar)" } else { "" })
+      uretim="$($_.uretim)"
     }
     if($yevmiyeKolonu){ $satir['yevmiye'] = $_.yevmiye }
     if($tabloKolonu){ $satir['tablo'] = $_.tablo }
     if($hayaletKolonu){ $satir['yanlis_kayitlar'] = $_.yanlisKayitlar }
+    if($grupKolonu){ $satir['benzer_grup'] = "$($_.benzerGrup)" }
     $satir
   })
   $json = ConvertTo-Json -InputObject $govde -Depth 6
@@ -116,14 +176,33 @@ for($i=0; $i -lt $paket.Count; $i += $PARTI){
 Write-Host ("Dogrulandi: {0}/{1} kayit tabloda." -f $toplamDogrulanan, $paket.Count)
 
 # ancak dogrulama sonrasi depodan temizle
+# 28.07: ARTIK DURUMA GORE DEGIL, GERCEKTEN YUKLENEN ID'YE GORE siliniyor. Eskiden
+# 'paket-havuzu' damgali her sey siliniyordu; kasa-mukerrer kapisi eklendigi icin
+# tasinmayan sorularin da silinmesi veri kaybi olurdu.
+$yuklenenId = @{}
+foreach($s in $paket){ $yuklenenId["$($s.id)"] = $true }
+$mukerrerId = @{}
+foreach($s in $mukerrer){ $mukerrerId["$($s.id)"] = $true }
+
+function DamgaGuncelle($liste){
+  foreach($q in @($liste)){
+    if($q -and $mukerrerId.ContainsKey("$($q.id)")){
+      $q.durum = 'kasa-mukerrer'
+      $q | Add-Member -NotePropertyName kasaNot -NotePropertyValue "Aynı kök kasada zaten var; taşınmadı (28.07 mükerrer kapısı)." -Force
+    }
+  }
+}
+
 if($onay){
-  $onay.sorular = @($onay.sorular | Where-Object { $_.durum -ne 'paket-havuzu' })
+  DamgaGuncelle $onay.sorular
+  $onay.sorular = @($onay.sorular | Where-Object { -not $yuklenenId.ContainsKey("$($_.id)") })
   $onay.guncelleme = (Get-Date -Format "dd.MM.yyyy HH:mm")
   [IO.File]::WriteAllText($onayYol, ($onay | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 }
 foreach($fdYol in $fabrikaIcerik.Keys){
   $ic = $fabrikaIcerik[$fdYol]
-  $kalan = @($ic.sorular | Where-Object { $_.durum -ne 'paket-havuzu' })
+  DamgaGuncelle $ic.sorular
+  $kalan = @($ic.sorular | Where-Object { -not $yuklenenId.ContainsKey("$($_.id)") })
   if($kalan.Count -eq 0){
     Remove-Item $fdYol -Force
     Write-Host ("  {0}: tum sorular tasindi, dosya silindi" -f (Split-Path $fdYol -Leaf))
@@ -134,4 +213,25 @@ foreach($fdYol in $fabrikaIcerik.Keys){
   }
 }
 Write-Host ("TAMAM: {0} soru kilitli havuza tasindi, depodan cikarildi." -f $paket.Count)
+
+# ---- 28.07 KOSU SONRASI MUTABAKAT (Cem dersi: "yesil kosu != tam veri") -----------
+$kasaSon = 0
+try {
+  $r = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&limit=1" `
+    -Headers @{ apikey=$KEY; Authorization="Bearer $KEY"; Prefer='count=exact' } -TimeoutSec 60
+  $kasaSon = [int](($r.Headers['Content-Range'] -split '/')[-1])
+} catch { Write-Host "UYARI: kosu sonrasi kasa sayimi alinamadi" }
+Write-Host ""
+Write-Host "======== TASIMA MUTABAKATI ========"
+Write-Host ("  kosu oncesi kasa      : {0}" -f $kasaAdet)
+Write-Host ("  aday (paket+gm-onay)  : {0}" -f ($paket.Count + $mukerrer.Count))
+Write-Host ("  kasa mukerreri (atlandi): {0}" -f $mukerrer.Count)
+Write-Host ("  tasinan + dogrulanan  : {0}" -f $toplamDogrulanan)
+Write-Host ("  kosu sonrasi kasa     : {0}" -f $kasaSon)
+$beklenen = $kasaAdet + $toplamDogrulanan
+if($kasaSon -gt 0 -and $kasaSon -ne $beklenen){
+  Write-Host ("  KIRMIZI: beklenen {0}, gerceklesen {1} (fark {2}) - sebep bulunmadan devam edilmez." -f $beklenen, $kasaSon, ($kasaSon-$beklenen))
+  exit 1
+}
+Write-Host "  MUTABAKAT TUTTU."
 exit 0

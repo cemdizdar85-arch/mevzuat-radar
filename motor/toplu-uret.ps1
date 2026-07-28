@@ -30,6 +30,13 @@ $bekleyenFabrika = @()
 if(Test-Path $fabrikaDir){ Get-ChildItem $fabrikaDir -Filter *.json | ForEach-Object { try { $bekleyenFabrika += @((Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json).sorular) } catch {} } }
 
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }
+# 28.07: mukerrer anahtari TEK YERDE uretilir. Hem mevcut banka taranirken hem yeni soru
+# suzulurken AYNI fonksiyon cagrilir; biri degisip digeri kalirsa mukerrer denetimi sessizce
+# devre disi kalir (iki farkli bicim asla esitlenemez).
+function KokAnahtar($s){
+  $sik = @($s.siklar.PSObject.Properties | Where-Object { $_.Name -match '^[A-E]$' } | ForEach-Object { "$($_.Value)" }) -join ' '
+  return (Fold $s.soru) + '||' + (Fold $sik)
+}
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 
 # ---- AMBAR TEYIDI (soru-uret.ps1 kopyasi - degisirse IKISINI guncelle) ----
@@ -269,7 +276,7 @@ function GeminiCoz($istem){
   }
 }
 
-$mevcutKokler = @($tumSorular | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) })
+$mevcutKokler = @($tumSorular | ForEach-Object { KokAnahtar $_ })
 $yeniListe = New-Object System.Collections.Generic.List[object]
 $rapor = New-Object System.Collections.Generic.List[string]
 $islenen = 0
@@ -291,8 +298,14 @@ foreach($satir in $satirlar){
     if(@($uretilen).Count -gt 0){ $rapor.Add("KURTARILDI ($($meta.konu)): $(@($uretilen).Count)") }
   }
   foreach($s in @($uretilen)){
-    $kokOzet = (Fold $s.soru); $kokOzet = $kokOzet.Substring(0,[Math]::Min(60,$kokOzet.Length))
-    if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar): $($meta.konu)"); continue }
+    # 28.07 DUZELTME (Cem'e bildirildi): eskiden kok'un ILK 60 KARAKTERI karsilastiriliyordu.
+    # "Asagidaki cumlelerin hangisinde bir yazim yanlisi vardir?" (54 karakter) gibi GENEL
+    # kaliplarda farkli sorular ayni prefix'e dusuyor ve parasi odenmis soru "tekrar" diye
+    # atiliyordu. Olculdu: karantinadaki 38 "mukerrer-kok" damgasinin 36'sinin yerelde IKIZI YOK.
+    # Yeni kural: iki soru ancak KOKU DE SIKLARI DA ayniysa mukerrerdir. Sik seti farkliysa
+    # soru farklidir - genel kalip tek basina eleme sebebi degildir.
+    $kokOzet = KokAnahtar $s
+    if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar: kok+siklar ayni): $($meta.konu)"); continue }
     $tumMetin = "$($s.soru) $(@($s.siklar.PSObject.Properties.Value) -join ' ')"
     if($tumMetin -match '(asgari ücret|asgari ucret|yeniden değerleme oranı|had|istisna tutarı)[^.]{0,40}(kaç TL|kac TL|ne kadar)'){ $rapor.Add("RET (yil-degisen tutar): $($meta.konu)"); continue }
     # 23.07: dil dersleri (YD/GK) mevzuat maddesi gostermez - teyit yerine 'dil-icerik'

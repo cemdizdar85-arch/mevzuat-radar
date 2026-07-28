@@ -68,6 +68,14 @@ function ClaudeOnbellekli($sabit,$degisken,$maxtok,$model){
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }
+# 28.07: mukerrer anahtari (toplu-uret.ps1 ile AYNI kural - biri degisirse ikisini guncelle).
+# Eski kural kok'un ilk 60 karakterine bakiyordu; "Asagidaki cumlelerin hangisinde bir yazim
+# yanlisi vardir?" gibi GENEL kaliplarda farkli sorular ayni prefix'e dusup parasi odenmis
+# halde "tekrar" diye ateliyordu. Artik kok DE siklar DA ayni olmadan mukerrer sayilmaz.
+function KokAnahtar($s){
+  $sik = @($s.siklar.PSObject.Properties | Where-Object { $_.Name -match '^[A-E]$' } | ForEach-Object { "$($_.Value)" }) -join ' '
+  return (Fold $s.soru) + '||' + (Fold $sik)
+}
 
 # AMBAR TEYIDI (gece-ajani ile ayni desen)
 $SB_URL="https://bjrleanjpyujtajmazxn.supabase.co"; $SB_ANON="sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg"
@@ -232,7 +240,7 @@ function KonuHedefi($agirlik){ return [Math]::Min(120, [Math]::Max(15, [int][Mat
 $hedefler = $konular.GetEnumerator() | Sort-Object { -($_.Value) } | Where-Object { [int]$bankaSay[($_.Key -split '\|',2)[1]] -lt (KonuHedefi $_.Value) } | Select-Object -First $KONU_LIMIT
 if(-not $hedefler){ Write-Host "Tum konular agirlikli derinlik hedefine ulasti - banka doygun."; exit 0 }
 
-$mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | ForEach-Object { (Fold $_.soru).Substring(0, [Math]::Min(60, (Fold $_.soru).Length)) }
+$mevcutKokler = @(@($banka.sorular)+$yayinSorular+$havuzSorular+$bekleyenFabrika) | ForEach-Object { KokAnahtar $_ }
 # yeniListe YALNIZ bu kosunun urunlerini tutar (eski banka tasinmaz - kosu dosyasi bagimsiz)
 $yeniListe = New-Object System.Collections.Generic.List[object]
 $rapor = New-Object System.Collections.Generic.List[string]
@@ -288,8 +296,8 @@ $aciBlok
   if(@($uretilen).Count -eq 0){ $rapor.Add("URETIM HATASI (JSON kurtarilamadi): $konu"); continue }
 
   foreach($s in @($uretilen)){
-    $kokOzet = (Fold $s.soru); $kokOzet = $kokOzet.Substring(0,[Math]::Min(60,$kokOzet.Length))
-    # KAPI 5: kok tekrari
+    $kokOzet = KokAnahtar $s
+    # KAPI 5: kok tekrari (kok + siklar birlikte)
     if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); continue }
     # KAPI 4: yil-degisen KANUNI tutar (ornek islem tutarlari SERBEST — muhasebe
     # hesap sorusu tutarsiz olmaz; yasak olan "asgari ucret/had/istisna kac TL" tipi,
