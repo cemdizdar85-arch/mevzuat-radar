@@ -116,17 +116,28 @@ foreach($anahtar in ($konular.Keys | Sort-Object)){
     $bulunan = KayitSay ("kaynak_ad=like." + [uri]::EscapeDataString($kod))
     $nasil = "standart atfi: $($std.Groups[1].Value.ToUpper()) $($std.Groups[2].Value)"
   }
-  # 2) tam ifade metinde geciyor mu (Turkce koprulu regex ile)
+  # 28.07 3. tur — BASLIK KOR NOKTASI: tarayici yalnizca 'metin' alanina
+  # bakiyordu. Elle yazilan notlarda konu ifadesi cogu zaman KAYNAK_AD veya
+  # BASLIK alaninda gecip govdede farkli kelimelerle anlatiliyor ("yatay
+  # analiz kurallari" basliktaydi, metinde "YATAY (KARSILASTIRMALI) ANALIZ"
+  # yaziyordu). Bu yuzden yazilmis notlar "kaynak yok" gorunuyordu.
+  # Artik UC ALANDA birden aranir: metin OR kaynak_ad OR baslik.
+  # 2) tam ifade (Turkce + bitisik/ayrik koprulu regex ile), UC ALANDA
   if($bulunan -le 0){
-    $bulunan = KayitSay ("metin=imatch." + [uri]::EscapeDataString((TurkceRegex $konu)))
+    $rx = [uri]::EscapeDataString((TurkceRegex $konu))
+    $bulunan = KayitSay ("or=(metin.imatch.$rx,kaynak_ad.imatch.$rx,baslik.imatch.$rx)")
     if($bulunan -gt 0){ $nasil = "tam ifade" }
   }
-  # 3) en uzun iki anlamli kelime birlikte (yine Turkce koprulu)
+  # 3) en uzun iki anlamli kelime birlikte; her kelime UC ALANDAN BIRINDE
   if($bulunan -le 0){
     $kelimeler = @($konu -split '[^\p{L}\d]+' | Where-Object { $_.Length -ge 5 -and $STOP -notcontains $_.ToLower() } | Sort-Object { -$_.Length } | Select-Object -First 2)
     if($kelimeler.Count -ge 1){
-      $f = ($kelimeler | ForEach-Object { "metin.imatch." + (TurkceRegex $_) }) -join ','
-      $bulunan = KayitSay ("and=(" + [uri]::EscapeDataString($f) + ")")
+      $parcalar = @()
+      foreach($kel in $kelimeler){
+        $r = [uri]::EscapeDataString((TurkceRegex $kel))
+        $parcalar += "or(metin.imatch.$r,kaynak_ad.imatch.$r,baslik.imatch.$r)"
+      }
+      $bulunan = KayitSay ("and=(" + ($parcalar -join ',') + ")")
       if($bulunan -gt 0){ $nasil = "anahtar kelime: " + ($kelimeler -join ' + ') }
     }
   }
