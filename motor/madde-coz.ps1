@@ -88,24 +88,36 @@ function MaddeMetni([string]$kanunNo, [string]$maddeNo, [string]$seri = ''){
   # kaynak_ad kaliplari: "VUK (213 s.K.) m.40", "5510 s. SGK Kanunu m.8 [2/5]",
   # "KDVK (3065 s.K.) m.2 - Teslim". Kanun numarasi + m.NN (sonrasinda baslik/parca olabilir)
   # ONEMLI: "gec. m." ve "ek m." HARIC - onlar ayri seri.
-  $desen = "$kanunNo.*[^a-z]m\.$maddeNo(\s|-|\[|/|$)"
+  # 28.07 IKI DUZELTME:
+  # (1) Eski desen "m.1" ile "m.10" ayrimini SONRAKI KARAKTERE bakarak yapiyordu;
+  #     artik dogrudan "ardindan rakam GELMESIN" deniyor. Postgres ileri-bakisi
+  #     (?![0-9]) destekler, yani eleme VERITABANINDA yapilir.
+  # (2) limit 30'du ve siralama alfabetikti. "Harclar K. (492 s.K.) ek m.1 [1/8]"
+  #     gibi kayitlar alfabetik olarak ONCE geldigi icin ilk 30 kayit tamamen
+  #     'ek m.1*' olabiliyor ve ARANAN "m.1" limite hic girmiyordu; sonra da
+  #     'ambarda-yok' deniyordu. 16 soru tam bu yuzden baglanamamisti - madde
+  #     ambarda VARDI. Limit 200'e cikarildi.
+  $desen = "$kanunNo.*[^a-zA-Z0-9]m\.$maddeNo(?![0-9])"
   try {
-    $r = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&order=kaynak_ad&limit=30") -Headers $H -TimeoutSec 60
+    $r = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&order=kaynak_ad&limit=200") -Headers $H -TimeoutSec 60
   } catch { $script:onbellek[$anahtar] = $null; return $null }
 
   # Seri ayrimi SART: "213 m.5" ile "213 gec. m.5" ve "213 ek m.5" UC AYRI
   # maddedir. Karistirmak, soruya YANLIS METNI dayanak yapmak demektir - ki bu
   # hakemin hatasindan daha kotudur, cunku hakem o metne bakip "destekliyor"
   # der ve hata dogrulanmis gibi gecer.
-  $gecEk = '(?i)gec\.\s*m\.|ge[çc]ici\s*m|ek\s+m\.'
+  # Ambarda UC ayri seri var: "gec. m." (1.927 kayit), "ek m." (459 kayit),
+  # "mük. m." (98 kayit). Bunlar duz maddeden AYRI hukumlerdir.
+  $ozelSeri = '(?i)gec\.\s*m\.|ge[çc]ici\s*m|ek\s+m\.|m[üu]k\.\s*m\.'
   if($seri -eq 'gec'){    $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -match '(?i)gec\.\s*m\.|ge[çc]ici\s*m' } }
   elseif($seri -eq 'ek'){ $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -match '(?i)ek\s+m\.' } }
-  else {                  $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -notmatch $gecEk } }
+  elseif($seri -eq 'muk'){$kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -match '(?i)m[üu]k\.\s*m\.' } }
+  else {                  $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -notmatch $ozelSeri } }
   if(@($kayitlar).Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
 
   # ayni maddenin parcalarini sirala ve birlestir; farkli madde varsa (m.4 ararken m.40
   # gelmesi gibi) ELE: kaynak_ad'da "m.<no>" hemen ardindan rakam GELMEMELI
-  $temiz = @($kayitlar | Where-Object { "$($_.kaynak_ad)" -match ("[^a-z]m\." + $maddeNo + "(?!\d)") })
+  $temiz = @($kayitlar | Where-Object { "$($_.kaynak_ad)" -match ("[^a-zA-Z0-9]m\." + $maddeNo + "(?!\d)") })
   if(@($temiz).Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
 
   $sirali = @($temiz | Sort-Object { $p=[regex]::Match("$($_.kaynak_ad)", '\[(\d+)/\d+\]'); if($p.Success){ [int]$p.Groups[1].Value } else { 0 } })
@@ -158,11 +170,17 @@ function KaynakCoz([string]$kaynak){
   # Onceden 'gecici-ek-madde' deyip vazgeciyorduk; oysa ambarda varlar. Ustelik
   # gecici maddeler en cok DEGISEN maddelerdir (EYT, af, yapilandirma) - yani
   # tam da nobet tutmamiz gereken yerdi.
+  # MUKERRER EN TEHLIKELISI: ambarda 98 'mük. m.' kaydi var ve cozucu bunu
+  # bilmiyordu. "VUK Mük. Madde 279" atfini gorunce DUZ m.279'u getiriyordu -
+  # yani soruya YANLIS MADDENIN METNINI dayanak yapiyordu. Bu, hakemin kendi
+  # hatasindan daha kotudur: hakem o yanlis metne bakip "destekliyor" der ve
+  # hata DOGRULANMIS gibi gecer. Once mukerrer bakilir.
   $seri = ''
-  if("$kaynak" -match '(?i)ge[çc]ici\s*m|gec\.\s*m'){ $seri = 'gec' }
+  if("$kaynak" -match '(?i)m[üu]k(errer)?\.?\s*(m\.|madde)'){ $seri = 'muk' }
+  elseif("$kaynak" -match '(?i)ge[çc]ici\s*m|gec\.\s*m'){ $seri = 'gec' }
   elseif("$kaynak" -match '(?i)ek\s+m\.'){ $seri = 'ek' }
   $m = MaddeMetni $kn $mn $seri
-  if(-not $m){ return [ordered]@{ durum=$(if($seri){'gecici-ek-ambarda-yok'}else{'ambarda-yok'}); kaynak=$kaynak; kanun=$kn; madde="$seri$mn" } }
+  if(-not $m){ return [ordered]@{ durum=$(if($seri){"seri-$seri-ambarda-yok"}else{'ambarda-yok'}); kaynak=$kaynak; kanun=$kn; madde="$seri$mn" } }
   return [ordered]@{ durum='cozuldu'; kaynak=$kaynak; kanun=$kn; madde="$seri$mn"; parca=$m.parca; ad=$m.ad; metin=$m.metin }
 }
 

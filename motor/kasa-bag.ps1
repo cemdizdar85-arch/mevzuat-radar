@@ -81,6 +81,21 @@ foreach($k in $kayit){
   $kay = "$($k.kaynak)"
   if(MevzuatDisiMi $kay){ $ist.mevzuatDisi++; continue }
   $c = KaynakCoz $kay
+  # 28.07 DUZELTME: eski hali yalniz durum='cozuldu' kabul ediyordu. Oysa
+  # TMS/TFRS/BDS standartlari 'cozuldu-standart' donuyor - METNI GELIYOR, sadece
+  # kanun numarasi yok. Bu yuzden 1.042 soru "baglanamadi" diye sayilmisti;
+  # oysa bagliydilar. Kendi raporum beni yaniltmisti: rakami duzeltmeden once
+  # sebebini sormasaydim, olmayan bir bosluğu kapatmaya calisacaktim.
+  # Denetim standartlari SMMM sinavinin en yogun konularindan biri (Denetim
+  # dersi 783 soru) - kapsam disi birakilamaz.
+  if("$($c.durum)" -eq 'cozuldu-standart' -and $c.metin){
+    $ist.bagli++
+    $baglar.Add([pscustomobject]@{
+      id="$($k.id)"; kanun_no="STD"; madde_no="$($c.standart)"
+      madde_damga=(Damga "$($c.metin)"); kaynak=$kay
+    })
+    continue
+  }
   if("$($c.durum)" -ne 'cozuldu' -or -not $c.kanun -or -not $c.madde){
     $ist.cozulemedi++
     # 28.07: ilk olcumde 1.357 soru baglanamadi (%32). Yerelde oran %8'di.
