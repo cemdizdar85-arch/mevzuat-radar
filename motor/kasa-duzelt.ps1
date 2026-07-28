@@ -30,7 +30,14 @@ if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - kasa duzelticisi atlandi."
 $H  = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
 $HW = $H + @{ Prefer = "return=minimal" }
 
-$IZINLI = @('kaynak','aciklama','hap','siklar','dogru','benzer_grup')
+# 28.07: 'ders' ve 'konu' eklendi. Gerekce: kasa sayimi ETIKET KAYMASI gosterdi -
+# ayni sinavin icinde 'Finansal Muhasebe' (656) ile 'Muhasebe' (93) ayri ders
+# gibi duruyor, 'cumle tamamlama' (78) ile 'sentence completion' (73) ayni konu
+# iki isimle. Quiz motoru bunlari ayri sanar ve ogrenci havuzun buyuk kismini
+# hic gormez. Bu iki alan SINIFLANDIRMADIR, ICERIK DEGILDIR: degistirilmesi
+# dogru bir ifadeyi yanlis yapamaz, yalniz sorunun hangi rafta durdugunu duzeltir.
+# SORU METNI hala bu kanaldan DEGISTIRILEMEZ - o kural yerinde duruyor.
+$IZINLI = @('kaynak','aciklama','hap','siklar','dogru','benzer_grup','ders','konu')
 
 $yol = Join-Path $kok "veri/kasa-duzeltme.json"
 if(-not (Test-Path $yol)){ Write-Host "kasa-duzeltme.json yok - yapilacak is yok."; exit 0 }
