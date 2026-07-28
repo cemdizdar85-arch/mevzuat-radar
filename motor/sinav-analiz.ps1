@@ -26,6 +26,11 @@ $LIMIT = if($env:ANALIZ_LIMIT){ [int]$env:ANALIZ_LIMIT } else { 3 }
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
 
+# 29.07: KOSU KENDI KAYDINI TUTAR. Kosu #13 "basarili" dondu ama HICBIR
+# KITAPCIK ISLEMEDI ve sebebi okunamadi - Actions loglari admin-kilitli.
+# Ayni ders profesor hattinda uc kosu kaybettirmisti; burada tekrarlanmayacak.
+try { Start-Transcript -Path (Join-Path $kok "veri/sinav-analiz-log.txt") -Force | Out-Null } catch {}
+Write-Host ("BASLADI  model={0}  LIMIT={1}  anahtar={2}" -f $MODEL, $LIMIT, $(if($key){'VAR'}else{'YOK'}))
 $arsivYol = Join-Path $kok "veri/sinav-arsiv.json"
 $analizYol = Join-Path $kok "veri/sgs-analiz.json"
 $analizSYol = Join-Path $kok "veri/smmm-analiz.json"   # Yeterlilik (2026/1'den beri test formati)

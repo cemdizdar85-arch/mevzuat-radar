@@ -43,6 +43,8 @@ jobs:
           $y = 'veri/sinav-analiz-emir.json'
           if(-not (Test-Path $y)){ "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append; exit 0 }
           $e = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          Write-Host ("Emir dosyasinda {0} kayit var." -f @($e.emirler).Count)
+          foreach($z in $e.emirler){ Write-Host ("   #{0} onay={1} uygulandi={2} limit={3}" -f $z.no, $z.onay, $z.uygulandi, $z.limit) }
           $a = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
           if($a.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - 0 USD."; "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append; exit 0 }
           $x = $a[0]
@@ -72,7 +74,11 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json; do git add "$f" 2>/dev/null || true; done
+          # 29.07: fatura ve LOG da commit'lenir. Kosu #13 "basarili" dondu ama
+          # hicbir kitapcik islemedi; sebebi okunamadi cunku ne log ne fatura
+          # commit'leniyordu. Actions loglari admin-kilitli - kanal kendi
+          # kaydini tutmuyorsa kurulmus sayilmaz.
+          for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json veri/sinav-analiz-fatura.json veri/sinav-analiz-log.txt veri/sinav-analiz-emir.json; do git add "$f" 2>/dev/null || true; done
           git diff --cached --quiet || git commit -m "Sinav analizi: SGS donem etiketleme ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
           git pull --rebase origin main || true
           git push || true

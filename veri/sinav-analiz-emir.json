@@ -12,6 +12,7 @@
       "model": "claude-sonnet-5",
       "gerekce": "BIRIM MALIYET OLCUMU. Kuyrukta 169 kitapcik var (136 SMMM + 33 SGS). GM'nin ilk tahmini 2,5 USD idi ve YANLISTI: betik PDF'i dogrudan modele gonderiyor, PDF girisi sayfa basina token yakar - metin gondermekten kat kat pahali. Tahminle 169 kitapcik acmak, yanlis rakamla butce yakmaktir. Bu kosu 4 kitapcik isler ve API'nin dondurdugu GERCEK token sayisindan birim maliyeti cikarir (veri/sinav-analiz-fatura.json). Rakam gelince tam kuyruk acilir - ya da PDF yerine metin gondermeye gecilir.",
       "tahmini_usd": "OLCULECEK",
+      "_deneme_1": "29.07 - kosu #13 'basarili' dondu ama HICBIR kitapcik islemedi: arsiv durumlari degismedi (169 bekliyor / 24 tamam aynen duruyor), fatura dosyasi olusmadi, emir damgasiz kaldi. Sebep okunamadi cunku ne log ne fatura commit'leniyordu ve Actions loglari admin-kilitli. Ayni ders profesor hattinda uc kosu kaybettirmisti; burada tekrarlanmasina izin verilmiyor. Uc onlem: (1) betik butun ciktisini veri/sinav-analiz-log.txt'ye yaziyor, (2) is akisi log+fatura+emir dosyalarini da commit'liyor, (3) emir okuma adimi dosyadaki HER kaydi ve onay/uygulandi/limit degerlerini ekrana dokuyor - 'emir gorulmedi mi yoksa gorulup atlandi mi' bir daha tartisilmayacak.",
       "uygulandi": null
     }
   ]
