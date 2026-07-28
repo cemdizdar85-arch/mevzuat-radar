@@ -1,0 +1,54 @@
+# .github/workflows/karantina-tasi.yml — KARANTINAYI KASAYA TASI
+#
+# veri/fabrika altindaki karantina sorulari PUBLIC depoda duruyor. Tasiyici
+# yalnizca onaylanmislari tasidigi icin karantinadakiler acikta kaliyordu -
+# parasi odenmis icerik herkese acik. Bugun Yayin Kapisi kuruldugu icin artik
+# kasada DURUP YAYINDA OLMAYAN soru mumkun; tasima ancak bugun anlamli hale geldi.
+#
+# UCRETSIZDIR: API cagrisi yok, yalniz Supabase.
+# Push tetiginde ASLA tasimaz - yalniz olcer. Tasima bilerek ve isteyerek,
+# workflow_dispatch + tasi=true ile yapilir.
+name: Karantinayi Kasaya Tasi
+
+on:
+  workflow_dispatch:
+    inputs:
+      tasi:
+        description: "Gercekten tasisin mi? (kapali = yalniz olcum)"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - 'motor/karantina-tasi.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: karantina-tasi
+  cancel-in-progress: false
+
+jobs:
+  tasi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tasi
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $tasi = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.tasi }}' -eq 'true'
+          if($tasi){ ./motor/karantina-tasi.ps1 -yaz } else { ./motor/karantina-tasi.ps1 }
+          exit $LASTEXITCODE
+      - name: Sonucu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A veri/fabrika/ || true
+          if [ -f veri/karantina-tasima.json ]; then git add veri/karantina-tasima.json || true; fi
+          git diff --cached --quiet || git commit -m "Karantina kasaya tasindi (yayin=false) [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
