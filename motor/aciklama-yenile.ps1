@@ -34,7 +34,8 @@ param(
   [string]$ders = '',        # yalniz bu ders (bos = hepsi)
   [int]$sinir = 0,           # kac soru (0 = hepsi)
   [string]$model = 'claude-sonnet-4-5-20250929',
-  [string]$cikti = ''
+  [string]$cikti = '',
+  [switch]$hapTamir    # PARA HARCAMAZ: bos kalan hap'i aciklamadan turetir
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -68,6 +69,38 @@ while($true){
 }
 Write-Host ("Soru: {0}{1}" -f $sorular.Count, $(if($ders){" (ders: $ders)"}else{""}))
 if($sorular.Count -eq 0){ Write-Host "KIRMIZI: soru okunamadi."; try{Stop-Transcript|Out-Null}catch{}; exit 1 }
+
+# ---------------------------------------------------------------- HAP TAMIRI
+# PARA HARCAMAZ. Yenileme sirasinda model bazen 'hap' alanini bos donduruyor ve
+# eski hap USTUNE BOS YAZILIYORDU (ornek dokumunde 4 sorunun 1'inde yakalandi).
+# Iyilestirme adi altinda veri silmek kabul edilemez. Neyse ki bilgi kaybolmadi:
+# dort parcali aciklamanin son satiri zaten "Akilda kalsin: ..." - hap oradan
+# BIREBIR turetilebilir. Modele tekrar sormaya, yani ayni isi ikinci kez odemeye
+# gerek yok.
+if($hapTamir){
+  $t=[ordered]@{ bakilan=0; bosBulunan=0; onarilan=0; turetilemeyen=0; hata=0 }
+  foreach($s in $sorular){
+    $t.bakilan++
+    if("$($s.hap)".Trim().Length -ge 5){ continue }
+    $t.bosBulunan++
+    $ak = [regex]::Match("$($s.aciklama.$($s.dogru))", '(?is)Ak[ıi]lda\s+kals[ıi]n\s*:\s*(.+?)\s*$')
+    if(-not $ak.Success){ $t.turetilemeyen++; continue }
+    $yeni = $ak.Groups[1].Value.Trim()
+    if($yeni.Length -lt 5 -or $yeni.Length -gt 300){ $t.turetilemeyen++; continue }
+    try {
+      Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/soru_havuzu?id=eq.$($s.id)" -Headers $HW `
+        -ContentType "application/json; charset=utf-8" -Body ([Text.Encoding]::UTF8.GetBytes((@{hap=$yeni}|ConvertTo-Json -Compress))) -TimeoutSec 60 | Out-Null
+      $t.onarilan++
+    } catch { $t.hata++ }
+  }
+  Write-Host ""
+  Write-Host "======== HAP TAMIRI (0 USD) ========"
+  foreach($k in $t.Keys){ Write-Host ("  {0,-16} {1}" -f $k, $t[$k]) }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/hap-tamir.json'), ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); ozet=$t } | ConvertTo-Json -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  Write-Host "-> veri/hap-tamir.json"
+  try{Stop-Transcript|Out-Null}catch{}
+  exit 0
+}
 
 # Muhasebe ailesi derslerde GORSEL ZORUNLU. Site tabloyu ve yevmiyeyi ZATEN
 # ciziyor (Cem'in 24.07 fikri: exhibit tablosu + yevmiye + 'hayalet kayit') ama
@@ -216,8 +249,22 @@ function SayiDeger([string]$s){
   if([double]::TryParse($x, [Globalization.NumberStyles]::Any, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
   return $null
 }
+# 29.07: YAZIYLA SAYI. Ornek dokumunde yakalandi: bir aciklama "uc kez ilan
+# edilir" yazmis ve rakam kapisi gormemis - cunku kapi yalniz RAKAMA bakiyordu.
+# Sure ve adet Turkce'de sik sik yaziyla yazilir; kapinin en buyuk deligi buydu.
+$YAZI_SAYI = [ordered]@{ 'bir'=1;'iki'=2;'uc'=3;'üç'=3;'dort'=4;'dört'=4;'bes'=5;'beş'=5;'alti'=6;'altı'=6;'yedi'=7;'sekiz'=8;'dokuz'=9;'on'=10;'onbes'=15;'onbeş'=15;'yirmi'=20;'otuz'=30;'kirk'=40;'kırk'=40;'elli'=50;'altmis'=60;'altmış'=60;'yetmis'=70;'yetmiş'=70;'seksen'=80;'doksan'=90;'yuz'=100;'yüz'=100 }
+function YaziylaSayilar([string]$t){
+  $l=@()
+  foreach($k in $YAZI_SAYI.Keys){
+    foreach($m in [regex]::Matches("$t", "(?i)\b$k\s+(g[uü]n|ay|y[iı]l|hafta|saat|kez|defa|kat)\b")){
+      $l += "$($YAZI_SAYI[$k])"
+    }
+  }
+  return $l
+}
 function RiskliSayilar([string]$t){
   $l=@()
+  foreach($n in (YaziylaSayilar $t)){ $l += $n }
   foreach($m in [regex]::Matches("$t", '%\s*(\d[\d\.,]*)')){ $l += $m.Groups[1].Value.TrimEnd('.',',') }
   foreach($m in [regex]::Matches("$t", '(\d[\d\.,]*)\s*%')){ $l += $m.Groups[1].Value.TrimEnd('.',',') }
   foreach($m in [regex]::Matches("$t", '(?i)(\d+)\s*(g[üu]n|ay|y[ıi]l|hafta|saat)\b')){ $l += $m.Groups[1].Value }
@@ -248,8 +295,20 @@ foreach($i in $isler){
   $yeniMetin = ""
   foreach($h in @('A','B','C','D','E')){ $yeniMetin += " " + "$($y.aciklama.$h)" }
   $yeniMetin += " " + "$($y.hap)"
-  # dogru sikkin aciklamasi bos olamaz
-  if("$($y.aciklama.$($i.soru.dogru))".Trim().Length -lt 100){ $ozet.bosRed++; continue }
+  # 29.07: alt sinir 100'du - o kadar kisa bir metin dort parcali sablonu
+  # tasiyamaz, yani standardi karsilamadigi halde geciyordu. Hedef 400-700;
+  # 300 altini kabul etmiyoruz.
+  if("$($y.aciklama.$($i.soru.dogru))".Trim().Length -lt 300){ $ozet.bosRed++; continue }
+
+  # 29.07 VERI KAYBI ONLEMI: model bazen 'hap' alanini bos donduruyor ve eski
+  # hap USTUNE BOS YAZILIYORDU. Ornek dokumunde 4 sorunun 1'inde yakalandi.
+  # Iyilestirme adi altinda veri silmek kabul edilemez. Once aciklamanin
+  # icindeki "Akilda kalsin:" satirindan turetilir; o da yoksa hap YAZILMAZ,
+  # eskisi kalir.
+  if("$($y.hap)".Trim().Length -lt 5){
+    $ak = [regex]::Match("$($y.aciklama.$($i.soru.dogru))", '(?is)Ak[ıi]lda\s+kals[ıi]n\s*:\s*(.+?)\s*$')
+    if($ak.Success){ $y.hap = $ak.Groups[1].Value.Trim() }
+  }
 
   $kaynakMetin = $i.metin + " " + "$($i.soru.soru)"
   foreach($h in @('A','B','C','D','E')){ $kaynakMetin += " " + "$($i.soru.siklar.$h)" }
@@ -298,7 +357,9 @@ foreach($i in $isler){
     continue
   }
 
-  $satir = [ordered]@{ aciklama=$y.aciklama; hap="$($y.hap)" }
+  $satir = [ordered]@{ aciklama=$y.aciklama }
+  # hap yalniz DOLU ise yazilir - bos gonderip eskisini silmek veri kaybidir
+  if("$($y.hap)".Trim().Length -ge 5){ $satir['hap'] = "$($y.hap)".Trim() }
   # Gorseller: yalniz DOLU gelenler yazilir. Bos gonderip mevcut gorseli
   # silmek, iyilestirme adi altinda kayip olur.
   if($y.PSObject.Properties['yevmiye'] -and @($y.yevmiye).Count -gt 0){ $satir['yevmiye'] = $y.yevmiye; $ozet.tabloEklendi++ }

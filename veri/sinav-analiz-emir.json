@@ -28,7 +28,22 @@
       "donem_min": 2023,
       "gerekce": "YETERLILIK ONCELIKLI. Konu agirligi verisi Yeterlilikte HIC YOK; SGS'de ise zaten resmi ders orani var (TESMER Yonerge m.6.2) ve 6.708 soru var. Bu yuzden suzgec SMMM'ye alindi ve 2023 oncesi donemler beklemeye birakildi - konu agirligi icin son yillar yeter ve GUNCEL mufredati yansitir; 2021'in agirligi bugunu baglamaz. 40 kitapcik = 5 donem x 8 ders. SGS birim maliyeti 0,53 USD'ydi ama o 130 soruluk kitapcik fiyatiydi; SMMM 20 soruluk, tahmin ~0,13 - yani ~5 USD. Bu kosu hem IS yapiyor hem SMMM birim maliyetini olcuyor; rakam gelince kalan donemler tek hamlede acilir. Cikti: her dersin hangi konudan kac soru sordugu - 5.000 soruluk uretimin kotasi bundan cikacak.",
       "tahmini_usd": 5.0,
-      "uygulandi": "28.07.2026 21:41"
+      "uygulandi": "28.07.2026 21:41",
+      "_sonuc": "40 kitapcik islendi, 1,45 USD, kitapcik basina 0,036 USD - SGS'nin 15'te biri. Tahmin dogruydu: SMMM kitapciklari 20 soruluk, SGS 130 soruluk. Arsivde artik 2023/1-2-3, 2024/1-2 ve 2026/1 var. 5 kitapcik 'inceleme'ye dustu - kalite kapisi tuttu, sessizce yanlis veri girmedi."
+    },
+    {
+      "no": 3,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (devam)",
+      "emir": "Yeterlilik arsivi - kalan donemler + KURGU etiketi",
+      "onay": true,
+      "limit": 60,
+      "model": "claude-sonnet-5",
+      "sinav": "SMMM",
+      "donem_min": 2023,
+      "gerekce": "OLCULEN BIRIM 0,036 USD/kitapcik. Kalan 2023+ Yeterlilik kitapciklari (2024/3, 2025/1-2-3, 2026/2-3) ~48 adet -> ~2 USD. Bu kosu YENI ALANLARI da tasiyacak: her soruya 'tip' (bilgi/vaka/hesap/kayit/karsilastir) ve 'uzun' (kisa/orta/uzun). Cem'in sartinin ikinci yarisi bu: dogru konudan YANLIS KURGUDA soru yazmak cocugu hazirliksiz birakir. TESMER duz bilgi mi soruyor, olay anlatip hukum mu sorduruyor, rakam verip hesap mi yaptiriyor - uretim kotasi bunu BILEREK kurulacak, tahminle degil.",
+      "tahmini_usd": 2.0,
+      "uygulandi": null
     }
   ]
 }
