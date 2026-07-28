@@ -1,0 +1,62 @@
+# .github/workflows/rg-nobeti.yml — KATMAN 3'UN SON HALKASI
+#
+# Uc parca ayri ayri calisiyordu ama ARALARINDA BAG YOKTU:
+#   madde damgasi -> hangi madde degisti biliyor
+#   kasa bagi     -> hangi soru hangi maddeye dayaniyor biliyor (4.101 soru)
+#   yayin kapisi  -> soruyu silmeden durdurabiliyor
+# Bu is akisi zinciri kapatiyor: madde degisti -> bagli sorular yayindan cekilir.
+#
+# UCRETSIZDIR: API cagrisi yok, yalniz Supabase.
+# Hasat is akisinin (mevzuat.yml) ARDINDAN kosar; oradaki madde-damga adimi
+# veri/madde-degisim.json'u ureten adimdir.
+name: RG Nobeti
+
+on:
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "Etkilenen sorulari gercekten yayindan ceksin mi? (kapali = yalniz olcum)"
+        type: boolean
+        default: false
+  # Hasat sonrasi degisim raporu guncellenince nobet kendiliginden kosar.
+  push:
+    paths:
+      - 'veri/madde-degisim.json'
+      - 'motor/rg-nobeti.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rg-nobeti
+  cancel-in-progress: false
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          # Hasat sonrasi otomatik tetikte CEKME YAPILIR - nobetin isi budur.
+          # Elle tetikte varsayilan olcumdur, bilerek acilir.
+          $uygula = ('${{ github.event_name }}' -eq 'push') -or ('${{ inputs.uygula }}' -eq 'true')
+          if($uygula){ ./motor/rg-nobeti.ps1 -uygula } else { ./motor/rg-nobeti.ps1 }
+          $k = $LASTEXITCODE
+          # 2 = esik asildi: kirmizi degil, "insan baksin" demektir. Kosuyu
+          # kirmizi yapmiyoruz ama rapor commit'lenip gorunur oluyor.
+          if($k -eq 2){ Write-Host "ESIK ASILDI - cekme yapilmadi, rapora bak."; exit 0 }
+          exit $k
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/rg-nobeti.json ]; then git add veri/rg-nobeti.json || true; fi
+          git diff --cached --quiet || git commit -m "RG nobeti raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
