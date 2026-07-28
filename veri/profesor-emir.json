@@ -60,7 +60,34 @@
       "kurtar": "msgbatch_015rVhJRWPoam7YBb1AzMx3z",
       "gerekce": "KURTARMA (2) - YINE YENI PARA HARCANMAZ. Ayni odenmis parti, duzeltilmis ayristiriciyla okunuyor. Iki duzeltme: (1) cevap byte dizisi gelirse UTF8 ile metne cevriliyor - kok sebep buydu; (2) satir sirasina gore esleme yedek yolu artik dilim boyunu asarsa DURUYOR ve hata yaziyor. Onceki kosu tam da bu yuzden 'basarili' gorunup sessizce cop uretmisti: sessiz cop, acik hatadan daha tehlikelidir.",
       "tahmini_usd": 0.0,
-      "uygulandi": "28.07.2026 19:23"
+      "uygulandi": "28.07.2026 19:23",
+      "_sonuc": "CALISTI. 40 soru yargilandi: 15 temiz, 25 bayrak, 2 hukum alinti dogrulamasindan kalip cope atildi. KALIBRASYON: GM'nin elle REDDETTIGI 4 sorunun 3'unu profesor de yakaladi. GERCEK FATURA: 0,18 USD (78.765 giris + 7.857 cikis token) = 0,0045 USD/soru; tahmin 0,17 idi, sapma %6. Bayraklarin cogu TEK bir hataya isaret ediyor: SORUNUN KAYNAK ATFI YANLIS. Elle dogrulanan ornek: bir soru 'Ticari defterlerin ispat kuvvetine iliskin TTK m.222' diyor; ambardaki TTK m.222 ise kollektif sirket yonetimini duzenliyor. Ticari defterlerin ispat kuvveti TTK'da degil HMK m.222'de. Soru yanlis kanuna atif yapiyor - ustelik soru METNININ icinde. Bu soru hic okunmamis 435 karantinanin icindeydi."
+    },
+    {
+      "no": 5,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar",
+      "emir": "devam",
+      "onay": true,
+      "kaynak": "yerel",
+      "sinir": 0,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "YEREL TAM TARAMA. Duman testi profesorun calistigini ve GM'nin reddettiklerinin 3/4'unu yakaladigini gosterdi. Simdi yerel fabrikanin TAMAMI yargilanir: 355 soru. Bunun icinde HIC OKUNMAMIS 435 karantinanin yargilanabilir kismi var - profesor on-eleme yapinca GM'nin okuma yuku buyuk olcude kalkar. Ayrica GM'nin elle etiketledigi 34 red + 93 onay kumesi tam olarak burada; isabet daha genis tabanda olculecek.",
+      "tahmini_usd": 1.6,
+      "uygulandi": null
+    },
+    {
+      "no": 6,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar",
+      "emir": "devam",
+      "onay": true,
+      "kaynak": "kasa",
+      "sinir": 0,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "TAM KASA TARAMASI. 7.213 sorunun 4.126'si mevzuata dayaniyor; madde cozucu bunlarin ~%92'sini metne baglayabiliyor, yani ~3.800 soru yargilanabilir. Birim maliyet artik TAHMIN DEGIL: duman testinden olculen 0,0045 USD/soru. Kasa bugune kadar hic denetlenmedi - icinde ne oldugunu ancak bu kosudan sonra bileceğiz. Sonuc raporu veri/profesor-rapor-6.json; hicbir soru bu kosuyla yayindan CEKILMEZ (kasada 'yayin' kolonu henuz yok), rapor GM'ye gelir.",
+      "tahmini_usd": 17.0,
+      "uygulandi": null
     }
   ]
 }

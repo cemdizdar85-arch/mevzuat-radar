@@ -5,6 +5,11 @@
 # duzeltmesi parali bir partiyi baslatmisti). Yalnizca EMIR dosyasi degisince
 # kosar, emirde onay=true ve uygulandi=null ise calisir, bitince damgalanir.
 # Damgali emir bir daha kosmaz - ayni parayi iki kez harcamak imkansiz.
+#
+# 28.07: BUTUN ACIK EMIRLER SIRAYLA kosuluyor. Eski hali yalniz ILK acik emri
+# kosuyordu; ikinci emir hicbir zaman atesnlenmezdi cunku robotun kendi commit'i
+# (GITHUB_TOKEN) yeni bir kosu TETIKLEMEZ. Yani "iki is birak, ikisi de yapilsin"
+# demek mumkun degildi - bunu emir yazarken degil, kosu bitince fark ederdik.
 name: Profesor v2
 
 on:
@@ -23,63 +28,44 @@ concurrency:
 jobs:
   yargila:
     runs-on: ubuntu-latest
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
 
-      - name: Emri oku (onaysiz emir kosmaz)
-        id: emir
-        shell: pwsh
-        run: |
-          $e = Get-Content veri/profesor-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
-          $a = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
-          if($a.Count -eq 0){
-            Write-Host "Bekleyen onayli emir yok - hicbir sey yapilmadi, 0 USD."
-            "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-            exit 0
-          }
-          $x = $a[0]
-          Write-Host ("EMIR #{0} ({1}, {2}): {3}" -f $x.no, $x.veren, $x.tarih, $x.gerekce)
-          Write-Host ("  tahmini maliyet: {0} USD" -f $x.tahmini_usd)
-          "kos=evet"          | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "no=$($x.no)"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "kaynak=$($x.kaynak)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "sinir=$($x.sinir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "model=$($x.model)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "kurtar=$($x.kurtar)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-
-      - name: Profesor v2 — PARALI
-        id: kosu
-        if: steps.emir.outputs.kos == 'evet'
+      - name: Acik emirleri sirayla kos
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          ./motor/profesor-v2.ps1 -calistir `
-            -kaynak "${{ steps.emir.outputs.kaynak }}" `
-            -sinir ${{ steps.emir.outputs.sinir }} `
-            -model "${{ steps.emir.outputs.model }}" `
-            -kurtar "${{ steps.emir.outputs.kurtar }}"
-
-      # 28.07 DUZELTME: ilk kosu dustu ve eski hali emri YINE DE damgaliyordu -
-      # yani basarisiz bir kosu emri tuketiyor, tekrar denemek imkansiz hale
-      # geliyordu. Artik: BASARILI kosu 'uygulandi' damgasi alir (ayni para iki
-      # kez harcanmaz); BASARISIZ kosu yalnizca 'deneme' sayacini artirir.
-      # Ucuncu basarisiz denemede emir kendini kapatir - sonsuz dongu ile para
-      # yakilmaz, insan bakar.
-      - name: Emri damgala
-        if: always() && steps.emir.outputs.kos == 'evet'
-        shell: pwsh
-        run: |
           $yol = 'veri/profesor-emir.json'
           $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
-          $no = [int]'${{ steps.emir.outputs.no }}'
-          $ok = '${{ steps.kosu.outcome }}' -eq 'success'
-          foreach($x in $e.emirler){
-            if([int]$x.no -ne $no){ continue }
+          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          if($acik.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - hicbir sey yapilmadi, 0 USD."; exit 0 }
+          Write-Host ("Acik emir: {0}" -f $acik.Count)
+
+          foreach($x in $acik){
+            Write-Host ""
+            Write-Host ("===== EMIR #{0} ({1}) - tahmini {2} USD" -f $x.no, $x.emir, $x.tahmini_usd)
+            Write-Host ("      {0}" -f $x.gerekce)
+            $cikti = "veri/profesor-rapor-$($x.no).json"
+            $kurtar = if($x.PSObject.Properties['kurtar']){ "$($x.kurtar)" } else { "" }
+            $ok = $true
+            try {
+              ./motor/profesor-v2.ps1 -calistir -kaynak "$($x.kaynak)" -sinir ([int]$x.sinir) `
+                 -model "$($x.model)" -kurtar $kurtar -cikti $cikti
+              if($LASTEXITCODE -ne 0){ $ok = $false }
+            } catch { $ok = $false; Write-Host ("EMIR #{0} DUSTU: {1}" -f $x.no, $_.Exception.Message) }
+
+            # kosunun kendi logunu emir bazinda sakla (ustune yazilmasin)
+            if(Test-Path 'veri/profesor-log.txt'){ Copy-Item 'veri/profesor-log.txt' "veri/profesor-log-$($x.no).txt" -Force }
+
+            # BASARILI kosu damgalanir (ayni para iki kez harcanmaz).
+            # BASARISIZ kosu yalniz 'deneme' sayacini artirir; 3. denemede emir
+            # kendini kapatir - sonsuz dongude para yakilmaz, insan bakar.
             if($ok){
               $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force
-              Write-Host "Emir #$no BASARIYLA kosuldu, damgalandi."
+              Write-Host ("EMIR #{0} BASARILI, damgalandi." -f $x.no)
             } else {
               $d = 0; if($x.PSObject.Properties['deneme']){ $d = [int]$x.deneme }
               $d++
@@ -87,24 +73,28 @@ jobs:
               $x | Add-Member -NotePropertyName son_hata -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force
               if($d -ge 3){
                 $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue "KAPATILDI: 3 denemede kosmadi, insan baksin" -Force
-                Write-Host "Emir #$no 3 denemede kosmadi - KAPATILDI."
+                Write-Host ("EMIR #{0} 3 denemede kosmadi - KAPATILDI." -f $x.no)
               } else {
-                Write-Host "Emir #$no dustu (deneme $d/3) - emir acik kaliyor."
+                Write-Host ("EMIR #{0} dustu (deneme {1}/3) - emir acik kaliyor." -f $x.no, $d)
               }
+              # Bir emir duserse SONRAKINE GECILMEZ: ayni kusur muhtemelen onu da
+              # dusurur ve ust uste para yakar.
+              Write-Host "Sonraki emirlere GECILMIYOR."
+              [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+              exit 1
             }
+            [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
           }
-          [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 
-      - name: Raporu ve HATA DEFTERINI commit'le
-        if: always() && steps.emir.outputs.kos == 'evet'
+      - name: Raporlari ve HATA DEFTERINI commit'le
+        if: always()
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          # 28.07 DUZELTME: eski hali dosyalari TEK KOMUTTA ekliyordu. 'git add a b c'
-          # icinde c YOKSA git HICBIRINI eklemez, sadece hata verir - '|| true' de
-          # bunu susturur. Iki kosu bu yuzden hata defterini commit'lemedi ve neden
-          # dustuklerini okuyamadik. Artik her dosya AYRI eklenir.
-          for f in veri/profesor-v2-rapor.json veri/profesor-emir.json veri/profesor-hata.json veri/profesor-log.txt; do
+          # 28.07: 'git add a b c' icinde c YOKSA git HICBIRINI eklemez, yalniz
+          # hata verir - '|| true' de bunu susturur. Iki kosu bu yuzden hata
+          # defterini commit'lemedi. Her dosya AYRI eklenir.
+          for f in veri/profesor-emir.json veri/profesor-hata.json veri/profesor-log.txt veri/profesor-rapor-*.json veri/profesor-log-*.txt; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Profesor v2 kosusu [veri-operasyonu]"

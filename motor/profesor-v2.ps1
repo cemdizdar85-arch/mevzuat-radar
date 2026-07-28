@@ -80,6 +80,27 @@ function KasaSorulari {
     foreach($x in $d){ $liste.Add($x) }
     if($d.Count -lt 500){ break }
     $bas += 500
+    if($bas % 2000 -eq 0){ Write-Host ("  kasa ...{0}" -f $liste.Count) }
+  }
+  # SIGORTA: kolon jsonb yerine METIN ise siklar/aciklama string gelir ve
+  # $s.siklar.A bos doner. O zaman istem SIKSIZ gider, profesor de dogal olarak
+  # "yetersiz" der - 17 USD'lik bir kosu sessizce cope gider. Bir kez cevirip
+  # gecelim; ceviremezsek KIRMIZI verip duralim.
+  $bozuk = 0
+  foreach($s in $liste){
+    foreach($alan in @('siklar','aciklama')){
+      $v = $s.$alan
+      if($v -is [string] -and "$v".Trim().StartsWith('{')){
+        try { $s.$alan = ($v | ConvertFrom-Json) } catch { $bozuk++ }
+      }
+    }
+  }
+  if($bozuk -gt 0){ Write-Host ("KIRMIZI: {0} kayitta siklar/aciklama cozulemedi." -f $bozuk); exit 1 }
+  # ilk kaydin sikki gercekten okunuyor mu - kor kosuya karsi tek satirlik kanit
+  if($liste.Count -gt 0){
+    $ilk = $liste[0]
+    Write-Host ("  kasa sekil kontrolu: siklar.A = '{0}'" -f "$($ilk.siklar.A)")
+    if("$($ilk.siklar.A)".Trim().Length -eq 0){ Write-Host "KIRMIZI: kasadan gelen siklar okunamiyor - kosu durduruldu (bos istem gonderilmez)."; exit 1 }
   }
   return $liste
 }
