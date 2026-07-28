@@ -121,20 +121,35 @@ foreach($d in $arsiv.donemler){
     $istemAktif = @"
 Bu bir TURMOB-TESMER SMMM Yeterlilik Sinavi '$($d.ders)' dersi KLASIK (yazili) soru kitapcigidir. Coktan secmeli DEGILDIR; sorular acik uclu, problem ya da olay seklindedir ve bazilari a) b) c) gibi ALT SIKLARA bolunmustur.
 GOREV: kitapciktaki HER SORUYU bul ve etiketle. Alt siklari AYRI SORU sayma - ana soru numarasi altinda TEK kayit ver, konu etiketini ana sorunun kapsadigi konuya gore yaz.
-Her soru icin: no (kitapciktaki ana soru numarasi), ders (SABIT: '$($d.ders)'), konu (2-4 kelimelik SPESIFIK etiket, ornek: amortisman ayirma, KDV tevkifat, konsolidasyon, ic kontrol testleri, orneklem secimi).
-KURALLAR: Soru atlamak YASAK. Soru metnini KOPYALAMA - yalniz no/ders/konu. Cevap anahtari sayfalarini soru sayma. Emin olmadigin konuya en yakin genel etiketi ver.
+Her soru icin:
+  no    - kitapciktaki ana soru numarasi
+  ders  - SABIT: '$($d.ders)'
+  konu  - 2-4 kelimelik SPESIFIK etiket (ornek: amortisman ayirma, KDV tevkifat, konsolidasyon)
+  tip   - sorunun KURGUSU: "bilgi" | "vaka" | "hesap" | "kayit" | "karsilastir"
+  uzun  - soru koku uzunlugu: "kisa" | "orta" | "uzun"
+KURALLAR: Soru atlamak YASAK. Soru metnini KOPYALAMA - yalniz bu alanlar. Cevap anahtari sayfalarini soru sayma. Emin olmadigin konuya en yakin genel etiketi ver.
 SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
-[{"no":1,"ders":"$($d.ders)","konu":"..."}]
+[{"no":1,"ders":"$($d.ders)","konu":"...","tip":"...","uzun":"..."}]
 "@
   }
   elseif($sinavTip -eq 'SMMM'){
     $minSoru = 10; $maxSoru = 40
     $istemAktif = @"
 Bu bir TURMOB-TESMER SMMM Yeterlilik Sinavi '$($d.ders)' dersi soru kitapcigidir (2026/1'den beri coktan secmeli test). GOREV: kitapciktaki HER COKTAN SECMELI SORUYU tek tek bul ve etiketle.
-Her soru icin: no (kitapciktaki soru numarasi), ders (SABIT: '$($d.ders)'), konu (2-4 kelimelik SPESIFIK etiket, ornek: amortisman ayirma, KDV tevkifat, konsolidasyon, ic kontrol testleri, orneklem secimi).
-KURALLAR: Soru atlamak YASAK. Soru metnini KOPYALAMA - yalniz no/ders/konu. Emin olmadigin konuya en yakin genel etiketi ver.
+Her soru icin:
+  no    - kitapciktaki soru numarasi
+  ders  - SABIT: '$($d.ders)'
+  konu  - 2-4 kelimelik SPESIFIK etiket (ornek: amortisman ayirma, KDV tevkifat, konsolidasyon, ic kontrol testleri, orneklem secimi)
+  tip   - sorunun KURGUSU, su besinden biri:
+          "bilgi"      = duz bilgi/tanim sorusu, hesap yok
+          "vaka"       = bir olay anlatilip hukum sorulan senaryo sorusu
+          "hesap"      = rakam verilip sonuc istenen hesaplama sorusu
+          "kayit"      = yevmiye kaydi / muhasebelestirme sorusu
+          "karsilastir"= iki kavramin/uygulamanin farkini olcen soru
+  uzun  - soru koku uzunlugu: "kisa" (tek cumle), "orta", "uzun" (paragraf/vaka metni)
+KURALLAR: Soru atlamak YASAK. Soru metnini KOPYALAMA - yalniz bu alanlar. Emin olmadigin konuya en yakin genel etiketi ver.
 SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
-[{"no":1,"ders":"$($d.ders)","konu":"..."}]
+[{"no":1,"ders":"$($d.ders)","konu":"...","tip":"...","uzun":"..."}]
 "@
   }
   Write-Host ("=== [{0}] {1} {2} ({3}) isleniyor..." -f $sinavTip, $d.donem, $d.ders, $d.tarih)
