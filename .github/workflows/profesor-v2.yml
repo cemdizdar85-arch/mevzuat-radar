@@ -1,0 +1,79 @@
+# .github/workflows/profesor-v2.yml — PROFESOR v2 (KATMAN 2)
+#
+# PARA HARCAYAN IS AKISI. Bu yuzden tek bir kapisi var: veri/profesor-emir.json.
+# Betigin kendisi degistiginde KOSMAZ (o hata daha once yasandi: bir yazim
+# duzeltmesi parali bir partiyi baslatmisti). Yalnizca EMIR dosyasi degisince
+# kosar, emirde onay=true ve uygulandi=null ise calisir, bitince damgalanir.
+# Damgali emir bir daha kosmaz - ayni parayi iki kez harcamak imkansiz.
+name: Profesor v2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/profesor-emir.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profesor-v2
+  cancel-in-progress: false
+
+jobs:
+  yargila:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Emri oku (onaysiz emir kosmaz)
+        id: emir
+        shell: pwsh
+        run: |
+          $e = Get-Content veri/profesor-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          $a = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          if($a.Count -eq 0){
+            Write-Host "Bekleyen onayli emir yok - hicbir sey yapilmadi, 0 USD."
+            "kos=hayir" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            exit 0
+          }
+          $x = $a[0]
+          Write-Host ("EMIR #{0} ({1}, {2}): {3}" -f $x.no, $x.veren, $x.tarih, $x.gerekce)
+          Write-Host ("  tahmini maliyet: {0} USD" -f $x.tahmini_usd)
+          "kos=evet"          | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "no=$($x.no)"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "kaynak=$($x.kaynak)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "sinir=$($x.sinir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "model=$($x.model)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Profesor v2 — PARALI
+        if: steps.emir.outputs.kos == 'evet'
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./motor/profesor-v2.ps1 -calistir `
+            -kaynak "${{ steps.emir.outputs.kaynak }}" `
+            -sinir ${{ steps.emir.outputs.sinir }} `
+            -model "${{ steps.emir.outputs.model }}"
+
+      - name: Emri damgala (ayni para iki kez harcanmaz)
+        if: always() && steps.emir.outputs.kos == 'evet'
+        shell: pwsh
+        run: |
+          $yol = 'veri/profesor-emir.json'
+          $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+          $no = [int]'${{ steps.emir.outputs.no }}'
+          foreach($x in $e.emirler){ if([int]$x.no -eq $no){ $x.uygulandi = (Get-Date -Format 'dd.MM.yyyy HH:mm') } }
+          [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+          Write-Host "Emir #$no damgalandi."
+
+      - name: Raporu commit'le
+        if: always() && steps.emir.outputs.kos == 'evet'
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/profesor-v2-rapor.json veri/profesor-emir.json || true
+          git diff --cached --quiet || git commit -m "Profesor v2 kosusu [veri-operasyonu]"
+          git push || true

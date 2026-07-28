@@ -1,0 +1,19 @@
+{
+  "_aciklama": "PROFESOR v2 KOSU EMRI. Bu dosya degismeden profesor KOSMAZ - para harcayan tek kapi burasi. Kasa duzeltme kanalindaki duzenin aynisi: emir yazili, onayli, damgali. Kosu bitince robot 'uygulandi' damgasini basar; damgali emir bir daha kosmaz.",
+  "_para": "Her kosunun GERCEK faturasi (API'nin dondurdugu token sayisi uzerinden) veri/profesor-v2-rapor.json icine yazilir. Tahmin degil, olculmus rakam.",
+  "emirler": [
+    {
+      "no": 1,
+      "tarih": "28.07.2026",
+      "veren": "Cem Dizdar",
+      "emir": "basla",
+      "onay": true,
+      "kaynak": "yerel",
+      "sinir": 0,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "KALIBRASYON KOSUSU. Yerel fabrikada GM'nin ELLE OKUYUP ETIKETLEDIGI iki kume var: 34 soru 'karantina-red' (GM bozuk dedi) ve 93 soru 'gm-onay' (GM saglam dedi). Profesor bu iki kumenin uzerinde kosturulup ISABETI olculur: GM'nin reddettiklerinin kacina bayrak kaldiriyor, onayladiklarinin kacina temiz diyor. Ayrica 435 okunmamis karantina sorusu on-elemeden gecer - GM'nin okuma yuku azalir. Isabet olculmeden ~3.800 soruluk tam kasa taramasina para harcanmaz.",
+      "tahmini_usd": 1.52,
+      "uygulandi": null
+    }
+  ]
+}

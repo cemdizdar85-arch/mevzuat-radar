@@ -198,6 +198,8 @@ $HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
 $BATCH_MAX = 400   # tek partide en fazla
 
 $sonuclar = @{}
+$script:gercekGiris = 0
+$script:gercekCikis = 0
 $partiler = [math]::Ceiling($isler.Count / $BATCH_MAX)
 for($p=0; $p -lt $partiler; $p++){
   $dilim = @($isler[($p*$BATCH_MAX)..([math]::Min(($p+1)*$BATCH_MAX-1, $isler.Count-1))])
@@ -220,11 +222,15 @@ for($p=0; $p -lt $partiler; $p++){
   $bid = $b.id
   Write-Host ("  batch id: {0}" -f $bid)
 
+  $tur = 0
   while($true){
     Start-Sleep -Seconds 20
+    $tur++
     $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR
     Write-Host ("  durum: {0}" -f $st.processing_status)
     if($st.processing_status -eq 'ended'){ break }
+    # 90 tur = 30 dakika. Batch normalde dakikalar icinde biter; bu asilma kalkanidir.
+    if($tur -ge 90){ Write-Host "  ZAMAN ASIMI: parti 30 dk'da bitmedi, birakiliyor."; break }
   }
   $satirlar = (Invoke-WebRequest -UseBasicParsing -Uri "https://api.anthropic.com/v1/messages/batches/$bid/results" -Headers $HDR -TimeoutSec 300).Content -split "`n"
   foreach($sat in $satirlar){
@@ -233,6 +239,9 @@ for($p=0; $p -lt $partiler; $p++){
     $n = [int]("$($r.custom_id)".Substring(1))
     $is = $dilim[$n]
     if("$($r.result.type)" -ne 'succeeded'){ $sonuclar[$is.id] = @{ hata="$($r.result.type)" }; continue }
+    # GERCEK FATURA: tahmin degil, API'nin dondurdugu token sayisi. Rakam disiplini.
+    $script:gercekGiris += [int]"$($r.result.message.usage.input_tokens)"
+    $script:gercekCikis += [int]"$($r.result.message.usage.output_tokens)"
     $txt = "$($r.result.message.content[0].text)"
     $mt = [regex]::Match($txt, '\{[\s\S]*\}')
     if(-not $mt.Success){ $sonuclar[$is.id] = @{ hata='json-yok' }; continue }
@@ -274,10 +283,44 @@ Write-Host "======== PROFESOR v2 SONUC ========"
 foreach($k in $sy.Keys){ Write-Host ("  {0,-16} {1}" -f $k, $sy[$k]) }
 Write-Host ("  NOT: alinti dogrulanmayan {0} hukum COPE ATILDI, sorular GM'ye gidiyor." -f $sy.alintiUydurma)
 
+# ---------------------------------------------------------------- KALIBRASYON
+# Yerel kosuda sorularin bir kismini GM ELLE OKUDU ve etiketledi:
+#   durum='karantina-red' -> GM BOZUK dedi   (profesor de bayrak kaldirmali)
+#   durum='gm-onay'       -> GM SAGLAM dedi  (profesor temiz demeli)
+# Bu iki kume profesorun ISABETINI olcer. Olcmeden tam kasaya para harcanmaz.
+$kal = [ordered]@{ redToplam=0; redYakalanan=0; onayToplam=0; onayTemiz=0 }
+foreach($i in $isler){
+  $d = "$($i.soru.durum)"
+  $r = @($rapor | Where-Object { $_.id -eq $i.id })[0]
+  if(-not $r){ continue }
+  if($d -eq 'karantina-red'){ $kal.redToplam++;  if($r.hukum -eq 'BAYRAK'){ $kal.redYakalanan++ } }
+  if($d -eq 'gm-onay'){       $kal.onayToplam++; if($r.hukum -eq 'TEMIZ'){  $kal.onayTemiz++ } }
+}
+Write-Host ""
+Write-Host "======== KALIBRASYON (GM etiketine karsi) ========"
+Write-Host ("  GM'nin REDDETTIGI  : {0} soru -> profesor {1}'ini yakaladi" -f $kal.redToplam, $kal.redYakalanan)
+Write-Host ("  GM'nin ONAYLADIGI  : {0} soru -> profesor {1}'ine temiz dedi" -f $kal.onayToplam, $kal.onayTemiz)
+if($kal.onayToplam -gt 0){
+  $yanlisAlarm = $kal.onayToplam - $kal.onayTemiz
+  Write-Host ("  YANLIS ALARM       : {0} (GM saglam dedi, profesor bayrak kaldirdi)" -f $yanlisAlarm)
+  Write-Host  "  NOT: yanlis alarm zararsizdir - o soru GM'ye geri gelir, yayina gitmez."
+}
+
+# ---------------------------------------------------------------- GERCEK FATURA
+$gG = $script:gercekGiris; $gC = $script:gercekCikis
+$gercekUSD = (($gG/1e6*$FIY_GIRIS) + ($gC/1e6*$FIY_CIKIS)) / 2   # Batch %50
+Write-Host ""
+Write-Host "======== GERCEK FATURA (API'nin dondurdugu token) ========"
+Write-Host ("  giris  : {0:N0} token   (tahmin {1:N0} idi)" -f $gG, $girisTok)
+Write-Host ("  cikis  : {0:N0} token   (tahmin {1:N0} idi)" -f $gC, $cikisTok)
+Write-Host ("  TUTAR  : ~{0:N2} USD  (Batch %50 indirimli, liste fiyati {1}/{2} USD-M varsayimi)" -f $gercekUSD, $FIY_GIRIS, $FIY_CIKIS)
+
 $yol = if($cikti){ $cikti } else { Join-Path $kok 'veri/profesor-v2-rapor.json' }
 [IO.File]::WriteAllText($yol, ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); model=$model; kaynak=$kaynak
-  ozet=$sy; sonuclar=$rapor
+  ozet=$sy; kalibrasyon=$kal
+  fatura=[ordered]@{ giris_token=$gG; cikis_token=$gC; batch_usd=[math]::Round($gercekUSD,2) }
+  sonuclar=$rapor
 } | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("-> {0}" -f $yol)
 exit 0
