@@ -75,9 +75,14 @@ function GeciciMi([string]$kaynak){
 }
 
 # --- ambardan maddenin TAM metnini getir (parcali ise birlestir)
-function MaddeMetni([string]$kanunNo, [string]$maddeNo){
+# 28.07: $seri eklendi. Onceden 'gec. m.' ve 'ek m.' atiflari HIC cozulmuyordu -
+# 'gecici-ek-madde' deyip birakiyorduk. Oysa o maddeler ambarda VAR; yalniz
+# ayri seri olduklari icin normal aramadan DISLANIYORLARDI. Cozmemek demek,
+# o maddeye dayanan sorunun madde degistiginde sessizce yanlis kalmasi demek.
+# Ozellikle gecici maddeler en cok DEGISEN maddelerdir (EYT, af, yapilandirma).
+function MaddeMetni([string]$kanunNo, [string]$maddeNo, [string]$seri = ''){
   if(-not $kanunNo -or -not $maddeNo){ return $null }
-  $anahtar = "$kanunNo|$maddeNo"
+  $anahtar = "$kanunNo|$seri$maddeNo"
   if($script:onbellek.ContainsKey($anahtar)){ return $script:onbellek[$anahtar] }
 
   # kaynak_ad kaliplari: "VUK (213 s.K.) m.40", "5510 s. SGK Kanunu m.8 [2/5]",
@@ -88,7 +93,14 @@ function MaddeMetni([string]$kanunNo, [string]$maddeNo){
     $r = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&order=kaynak_ad&limit=30") -Headers $H -TimeoutSec 60
   } catch { $script:onbellek[$anahtar] = $null; return $null }
 
-  $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -notmatch '(?i)gec\.\s*m\.|ge[çc]ici\s*m|ek\s+m\.' }
+  # Seri ayrimi SART: "213 m.5" ile "213 gec. m.5" ve "213 ek m.5" UC AYRI
+  # maddedir. Karistirmak, soruya YANLIS METNI dayanak yapmak demektir - ki bu
+  # hakemin hatasindan daha kotudur, cunku hakem o metne bakip "destekliyor"
+  # der ve hata dogrulanmis gibi gecer.
+  $gecEk = '(?i)gec\.\s*m\.|ge[çc]ici\s*m|ek\s+m\.'
+  if($seri -eq 'gec'){    $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -match '(?i)gec\.\s*m\.|ge[çc]ici\s*m' } }
+  elseif($seri -eq 'ek'){ $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -match '(?i)ek\s+m\.' } }
+  else {                  $kayitlar = @($r) | Where-Object { "$($_.kaynak_ad)" -notmatch $gecEk } }
   if(@($kayitlar).Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
 
   # ayni maddenin parcalarini sirala ve birlestir; farkli madde varsa (m.4 ararken m.40
@@ -98,7 +110,7 @@ function MaddeMetni([string]$kanunNo, [string]$maddeNo){
 
   $sirali = @($temiz | Sort-Object { $p=[regex]::Match("$($_.kaynak_ad)", '\[(\d+)/\d+\]'); if($p.Success){ [int]$p.Groups[1].Value } else { 0 } })
   $metin = (@($sirali | ForEach-Object { "$($_.metin)" }) -join " ")
-  $sonuc = [ordered]@{ kanun=$kanunNo; madde=$maddeNo; parca=@($sirali).Count; ad=$sirali[0].kaynak_ad; metin=$metin }
+  $sonuc = [ordered]@{ kanun=$kanunNo; madde="$seri$maddeNo"; parca=@($sirali).Count; ad=$sirali[0].kaynak_ad; metin=$metin }
   $script:onbellek[$anahtar] = $sonuc
   return $sonuc
 }
@@ -142,10 +154,16 @@ function KaynakCoz([string]$kaynak){
   $mn = MaddeNo $kaynak
   if(-not $kn){ return [ordered]@{ durum='kanun-bulunamadi'; kaynak=$kaynak } }
   if(-not $mn){ return [ordered]@{ durum='madde-bulunamadi'; kaynak=$kaynak; kanun=$kn } }
-  if(GeciciMi $kaynak){ return [ordered]@{ durum='gecici-ek-madde'; kaynak=$kaynak; kanun=$kn; madde=$mn } }
-  $m = MaddeMetni $kn $mn
-  if(-not $m){ return [ordered]@{ durum='ambarda-yok'; kaynak=$kaynak; kanun=$kn; madde=$mn } }
-  return [ordered]@{ durum='cozuldu'; kaynak=$kaynak; kanun=$kn; madde=$mn; parca=$m.parca; ad=$m.ad; metin=$m.metin }
+  # 28.07: gec./ek maddeler artik kendi serilerinde ARANIYOR, birakilmiyor.
+  # Onceden 'gecici-ek-madde' deyip vazgeciyorduk; oysa ambarda varlar. Ustelik
+  # gecici maddeler en cok DEGISEN maddelerdir (EYT, af, yapilandirma) - yani
+  # tam da nobet tutmamiz gereken yerdi.
+  $seri = ''
+  if("$kaynak" -match '(?i)ge[çc]ici\s*m|gec\.\s*m'){ $seri = 'gec' }
+  elseif("$kaynak" -match '(?i)ek\s+m\.'){ $seri = 'ek' }
+  $m = MaddeMetni $kn $mn $seri
+  if(-not $m){ return [ordered]@{ durum=$(if($seri){'gecici-ek-ambarda-yok'}else{'ambarda-yok'}); kaynak=$kaynak; kanun=$kn; madde="$seri$mn" } }
+  return [ordered]@{ durum='cozuldu'; kaynak=$kaynak; kanun=$kn; madde="$seri$mn"; parca=$m.parca; ad=$m.ad; metin=$m.metin }
 }
 
 # ============================ OLCUM MODU ====================================
