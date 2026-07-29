@@ -269,7 +269,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -283,6 +283,28 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     $dolu=0; foreach($h in @('A','B','C','D','E')){ if("$($y.siklar.$h)".Trim().Length -gt 2){ $dolu++ } }
     if($dolu -ne 5 -or "$($y.dogru)" -notin @('A','B','C','D','E')){ $ozet.sikRed++; continue }
     if("$($y.aciklama.$($y.dogru))".Trim().Length -lt 300){ $ozet.sikRed++; continue }
+
+    # ---- SABLON KAPISI (29.07, 163 soruluk pilotun GM okumasindan sonra eklendi)
+    # Pilot partide 19 ornegin 19'u TUZAK ADLANDIRMIYORDU ve 3'unde dort parcali
+    # iskelet yoktu. STANDART-ACIKLAMA.md kilitli bir sozlesme: yanlis sik, niye
+    # cazip oldugunu SOYLEYECEK. "Bu yanlistir" demek ogretmez; ogrenci ayni
+    # tuzaga ikinci kez duser. Kapi olmayan standart, standart degil temennidir.
+    $dt = "$($y.aciklama.$($y.dogru))"
+    $eksikParca = @()
+    foreach($par in @('Ne soruluyor','Kural','Bu olayda','Ak[ıi]lda kals[ıi]n')){
+      if($dt -notmatch $par){ $eksikParca += $par }
+    }
+    if($eksikParca.Count){
+      $ozet.sablonRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='sablon'; deger=("eksik parca: " + ($eksikParca -join ', ')) }); continue
+    }
+    $yanlisSik = @('A','B','C','D','E') | Where-Object { $_ -ne "$($y.dogru)" }
+    $adlandiran = 0
+    foreach($h in $yanlisSik){
+      if("$($y.aciklama.$h)" -match '(?i)tuzak|kar[ıi][sş]t[ıi]r|san[ıi]l|zannedil|yan[ıi]lg|atlan|unutul|g[oö]zden ka[cç]'){ $adlandiran++ }
+    }
+    if($adlandiran -lt 3){
+      $ozet.tuzakRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='tuzak-adlandirilmamis'; deger=("4 yanlis siktan {0}'i tuzagi soyluyor" -f $adlandiran) }); continue
+    }
     # rakam kapisi
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }
     $kaynakSay=@{}; foreach($n in (SayiListe $i.metin)){ $kaynakSay[$n]=1 }
