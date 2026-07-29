@@ -130,6 +130,7 @@
     .kapi small{display:block;margin-top:3px}
     .kareler{grid-template-columns:repeat(2,1fr)}
   }
+  .hero-sade .eyebrow{margin-bottom:14px}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
     letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);
     padding:7px 14px;border:1px solid rgba(255,194,75,.25);border-radius:999px;
@@ -521,6 +522,17 @@ function gtipGit(e){
     <p class="sade-alt">Sınav sorusu, gümrük vergisi, ceza süresi, marka yenilemesi —
       <b>işini ne ilgilendiriyorsa onu izliyoruz</b>, kaynağıyla birlikte.</p>
 
+    <!-- 29.07 Cem: "sagda en onemli islerimizi baloncuk olarak gosterelim".
+         Hepsi tiklanir ve calisan bir sayfaya gider - dekor degil kisayol. -->
+    <div class="balonlar" aria-label="Öne çıkan araçlar">
+      <a class="balon b1" href="gtip.html">GTİP · kaç vergi?</a>
+      <a class="balon b2" href="ceza-asistani.html">Ceza geldi — kaç gün?</a>
+      <a class="balon b3" href="alacak-radari.html">Müşterin konkordatoda</a>
+      <a class="balon b4" href="marka-radari.html">Marka yenileme</a>
+      <a class="balon b5" href="deneme.html">Zayıf konu karnesi</a>
+      <a class="balon b6" href="risk-taramasi.html">Beyan öncesi risk</a>
+    </div>
+
     <div class="sade-soru">Sen kimsin? Kendi kapından gir.</div>
 
     <div class="sade-kapilar">
@@ -559,9 +571,9 @@ function gtipGit(e){
 
 <style>
   .hero-sade{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-  .sade-ic{position:relative;max-width:1080px;margin:0 auto;padding:100px 20px 40px;width:100%}
-  .hero-sade h1{margin:0 0 14px}
-  .sade-alt{color:var(--muted);font-size:clamp(15px,1.6vw,17.5px);max-width:620px;margin:0 auto 34px}
+  .sade-ic{position:relative;max-width:1080px;margin:0 auto;padding:74px 20px 26px;width:100%}
+  .hero-sade h1{margin:0 0 10px;font-size:clamp(30px,4.2vw,52px)}
+  .sade-alt{color:var(--muted);font-size:clamp(14.5px,1.5vw,16.5px);max-width:660px;margin:0 auto 22px}
   .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
     font-weight:700;margin-bottom:16px}
   .sade-kapilar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:0 auto}
@@ -575,7 +587,27 @@ function gtipGit(e){
   .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
 
   .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
-  .sade-not{margin-top:22px;font-size:13px;color:var(--muted)}
+  /* BALONCUKLAR: hero'nun sag ve sol bosluguna dagilir; icerigi itmez cunku
+     position:absolute. Dar ekranda gizlenir - orada yer yok, kutulari ezer. */
+  .balonlar{position:absolute;inset:0;pointer-events:none}
+  .balon{position:absolute;pointer-events:auto;white-space:nowrap;text-decoration:none;
+    font-size:12.5px;font-weight:600;color:var(--muted);background:rgba(18,21,28,.82);
+    border:1px solid var(--line2);border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px);
+    transition:color .18s,border-color .18s,transform .18s}
+  .balon:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
+  .balon::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--accent);margin-right:8px;vertical-align:middle;
+    box-shadow:0 0 8px rgba(245,165,36,.6)}
+  .balon.b1{right:1%;top:16%}
+  .balon.b2{right:6%;top:34%}
+  .balon.b3{right:0%;top:52%}
+  .balon.b4{left:1%;top:22%}
+  .balon.b5{left:4%;top:41%}
+  .balon.b6{left:0%;top:59%}
+  @media(max-width:1240px){ .balon.b4,.balon.b5,.balon.b6{display:none} }
+  @media(max-width:1040px){ .balonlar{display:none} }
+
+  .sade-not{margin-top:18px;font-size:13px;color:var(--muted)}
   .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
   @media(max-width:860px){
     .sade-kapilar{grid-template-columns:1fr;max-width:520px}
