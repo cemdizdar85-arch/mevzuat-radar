@@ -495,8 +495,18 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
       yayin=$false
       yayin_notu='YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz.'
     }
-    if($y.yevmiye -and @($y.yevmiye).Count){ $satir['yevmiye']=$y.yevmiye }
-    elseif($y.tablo -and $y.tablo.satirlar -and @($y.tablo.satirlar).Count){ $satir['tablo']=$y.tablo }
+    # 29.07 aksam - PGRST102 "All object keys must match" BURADAN CIKIYOR.
+    # Eski hal: yevmiye VARSA eklenir, yoksa tablo eklenir, ikisi de yoksa
+    # hicbiri eklenmezdi. Sonuc: ayni partideki satirlarin ANAHTAR SETI farkli
+    # oluyordu ve PostgREST butun partiyi reddediyordu. Satir satir kurtarma
+    # devreye girip veriyi kurtardi (kayip 0) ama 150 soru icin 150 ayri HTTP
+    # cagrisi yapildi; 5.332 soruluk kosuda bu 5.332 cagri demek - yavas ve
+    # zaman asimina acik.
+    # Bu gecenin ilk 400'u "aradaki tek bozuk satir" diye tesbit edilmisti;
+    # gercek sebep buymus - bozuk satir yok, ANAHTAR SETI TUTARSIZ.
+    # Cozum: iki alan da HER satirda bulunur, ilgisizse $null gecer.
+    $satir['yevmiye'] = if($y.yevmiye -and @($y.yevmiye).Count){ $y.yevmiye } else { $null }
+    $satir['tablo']   = if($y.tablo -and $y.tablo.satirlar -and @($y.tablo.satirlar).Count){ $y.tablo } else { $null }
     $yeni.Add($satir)
   }
 }
