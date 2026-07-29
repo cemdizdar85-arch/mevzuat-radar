@@ -497,104 +497,94 @@ function gtipGit(e){
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
-<header class="hero">
+<!-- ============ HERO ============================================
+     29.07 SON KARAR (Cem): "3 sik var - sinav, mali musavir, sirket.
+     Giriste bunlar HAP GIBI dursa, tikladiktan sonra ayrintiya girsek."
+     Dogru olan bu ve ben tersini yapmistim: sadelestirecek yerde ust uste
+     yigmisim - slogan, calisan arac, 8 arac karesi, RG kartlari, uyelik
+     kutusu, fiyatlar. Hepsi ayni ekranda bagiriyordu.
+     GIRIS TEK BIR SORU SORAR: sen kimsin? Uc kapi, baska hicbir sey.
+     Ayrinti kapinin ARDINDA. Araclar, kartlar, fiyatlar hepsi asagida
+     ve kendi sayfalarinda duruyor - silinmedi, sirasi degisti.
+============================================================== -->
+<header class="hero hero-sade">
   <div class="hero-grid"></div>
   <div class="hero-horizon"></div>
-  <div class="hero-inner">
-    <!-- 29.07 GIRIS YENIDEN KURULDU. Eski halde ilk ekranda YEDI ayri oge vardi
-         (rozet, uc satirlik baslik, paragraf, iki buton, uc guven rozeti, uc
-         kapi, yuzen kartlar) ve en degerlisi -- "sen kimsin" uc kapisi -- en
-         altta, ekranin disinda kaliyordu.
-         KURAL: ziyaretci KAYDIRMADAN once kendini bulmali. Kaydirma bir
-         bedeldir; insan onu odemeden once "burasi bana gore" demeli.
-         Uc kapi yukari alindi, paragraf tek cumleye indi, ikinci buton ve
-         guven rozetleri asagiya tasindi. -->
-    <div>
-      <span class="eyebrow">Radar aktif · Türkiye mevzuatı</span>
-      <h1>Mevzuata hiç bakma.<br><span class="g">Seni etkileyeni</span> radar bulsun.</h1>
-      <p class="lead">Resmî Gazete'den <b>seni</b> ilgilendireni buluruz: ne oldu, ne yapmalısın, kaç para.</p>
+  <div class="sade-ic">
+    <span class="eyebrow">Radar aktif · Türkiye mevzuatı</span>
+    <h1>Mevzuata hiç bakma.<br><span class="g">Seni etkileyeni</span> radar bulsun.</h1>
+    <p class="sade-alt">Resmî Gazete'den <b>seni</b> ilgilendireni buluruz: ne oldu, ne yapmalısın, kaç para.</p>
 
-      <!-- 29.07 Cem: "bu siteye girdigimde burdan bir sey almam, hap gibi olmali".
-           Hakli. Ilk ekran ANLATIYORDU: slogan, fiyat kutulari, arac isimleri -
-           hicbiri CALISMIYORDU. Ustelik ne ise yaradigimizi gostermeden fiyat
-           istiyorduk; insan "para istiyorlar" deyip kapatir.
-           Simdi ilk ekranda CALISAN ARAC var: kodu yaz, Enter'a bas, cevabi al.
-           Kayit yok, uyelik yok, anlatı yok. Deger once, fiyat sonra. -->
-      <form class="hapkutu" onsubmit="return gtipGit(event)">
-        <label>Ürününün GTİP kodunu yaz — hangi vergiler çıkıyor, hemen gör</label>
-        <div class="hapsatir">
-          <input id="hapGtip" inputmode="numeric" autocomplete="off"
-                 placeholder="ör. 6910.10.00.00.00" aria-label="GTİP kodu">
-          <button class="btn" type="submit">Vergileri gör →</button>
-        </div>
-        <div class="hapalt">Kodu bilmiyor musun? <a href="gtip.html#adAra">Ürün adıyla ara →</a>
-          &nbsp;·&nbsp; Kayıt istemiyoruz.</div>
-      </form>
+    <div class="sade-soru">Sen kimsin? Kendi kapından gir.</div>
 
-      <!-- 29.07 Cem: "uye olacaklarin 3 kutusu ust tarafta olsun" + "site
-           acildiginda odeme de hemen acilacak". Ikisi birlestirildi: uc kapi
-           artik hem KIM OLDUGUNU soruyor hem FIYATI gosteriyor. Ziyaretci tek
-           blokta kendini buluyor, ne odeyecegini goruyor ve giriyor.
-           Ucretsiz katman ustte duruyor: yuksek fiyat + serbest giris birlikte
-           calisir; tek basina yuksek fiyat kapiyi kapatir. -->
-      <!-- FIYAT KUTULARI HERO'DAN CIKTI (29.07). Ne ise yaradigimizi gostermeden
-           para istemek, ziyaretciyi kapida kaybettiriyordu. Once calisan arac,
-           sonra fiyat: paketler artik guven seridinin altinda. -->
-      <div class="hero-cta">
-        <a class="btn" href="#app">Ücretsiz karneni çıkar →</a>
-      </div>
-      <!-- Cem: "uye olacak yer ilk sayfa olmali". Kayit kutusu hero'ya alindi;
-           ziyaretci uye olmak icin sayfayi aramasin. -->
-      <div class="uyekutu">
-        <span>Ücretsiz üye ol — kart bilgisi istemiyoruz</span>
-        <div class="uyesatir">
-          <a class="btn" href="deneme.html" style="padding:10px 18px;font-size:13.5px">Hemen başla</a>
-          <a href="fiyat.html">Fiyatlar →</a>
-        </div>
-      </div>
+    <div class="sade-kapilar">
+      <a class="sk" href="genc.html">
+        <span class="sk-ust">01</span>
+        <b>Sınava hazırlanıyorum</b>
+        <span class="sk-ac">SMMM soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
+        <span class="sk-fi">990 TL <u>/ dönem</u></span>
+        <span class="sk-git">Sınav hattına gir →</span>
+      </a>
+      <a class="sk" href="#kimlere">
+        <span class="sk-ust">02</span>
+        <b>Mali Müşavirim</b>
+        <span class="sk-ac">Tüm mükelleflerin tek panelde; her birinin süresi, cezası, marka takibi</span>
+        <span class="sk-fi">299 TL <u>/ ay</u></span>
+        <span class="sk-git">Müşavir kapısına gir →</span>
+      </a>
+      <a class="sk" href="#kimlere">
+        <span class="sk-ust">03</span>
+        <b>Şirket sahibiyim</b>
+        <span class="sk-ac">GTİP vergileri, ceza kapıları, alacak ve ihale radarı</span>
+        <span class="sk-fi">749 TL <u>/ ay</u></span>
+        <span class="sk-git">Şirket kapısına gir →</span>
+      </a>
     </div>
 
-    <!-- 29.07: TEMSILI KARTLAR KALDIRILDI.
-         Ana sayfada "Temsili ornek kartlardir" yazan uydurma iki kart vardi.
-         Kurumsal bir urun vitrininde kendi ISININ GERCEGINI gosterir.
-         Bizde gerceği zaten var: hap kart motoru Resmi Gazete'yi tarayip
-         veri/kartlar-guncel.json'a yaziyor. Artik o dosya okunuyor.
-         DURUSTLUK KURALI: kartin ustunde verinin KENDI TARIHI yazar - "bugun"
-         demeyiz, dosyada ne yaziyorsa onu yazariz. Dosya okunamazsa uydurma
-         kart GOSTERILMEZ; tek satirlik durum notu cikar. -->
-    <!-- 29.07 Cem: "ilk sayfada ne yaptigimiz gorunsun, kare kare koy".
-         Hakli: 22 aracimiz vardi ve ilk ekranda HICBIRI gorunmuyordu. Slogan
-         vardi, kapi vardi, IS yoktu. Sussuz radar cizimi yerine gercek araclar
-         kondu - her kare tiklanir ve calisan bir sayfaya gider.
-         Alt satirda gunun gercek RG kartlari duruyor: uydurma degil, robotun
-         buldugu. -->
-    <div class="stage">
-      <div class="kareler">
-        <a class="kare" href="gtip.html"><b>GTİP · Kaç Vergi?</b><span>İthalatta hangi vergiler çıkıyor</span></a>
-        <a class="kare" href="ceza-asistani.html"><b>Ceza Asistanı</b><span>Ceza geldi — hangi kapı, kaç gün</span></a>
-        <a class="kare" href="alacak-radari.html"><b>Alacak Radarı</b><span>Müşterin konkordato ilan etti mi</span></a>
-        <a class="kare" href="marka-radari.html"><b>Marka Radarı</b><span>Yenileme ve itiraz süreleri</span></a>
-        <a class="kare" href="risk-taramasi.html"><b>Risk Taraması</b><span>Beyandan önce ceza kapıları</span></a>
-        <a class="kare" href="ihale-radari.html"><b>İhale Radarı</b><span>Sektörüne uyan yurt dışı ihaleler</span></a>
-        <a class="kare" href="hatirlatici.html"><b>Süre Hatırlatıcı</b><span>DİİB · KDV · SGK tarihleri</span></a>
-        <a class="kare" href="deneme.html"><b>Soru Bankası</b><span>SMMM sınavı · zayıf konu karnesi</span></a>
-      </div>
-      <a class="kare-tum" href="#araclar">22 aracın tamamını gör →</a>
-      <div id="rgKartlar" style="margin-top:18px"></div>
-      <div id="rgKaynak" style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px"></div>
-    </div>
+    <div class="sade-not"><b>Günde 20 soru ve tüm araçlar ücretsiz</b> — kayıt da kart bilgisi de istemiyoruz.
+      <a href="fiyat.html">Fiyatlar →</a></div>
   </div>
 </header>
 
-<!-- Guven rozetleri: hero'dan cikarildi (yukseklik), ilk kaydirmada gorunuyor -->
-<div class="trust" style="justify-content:center;margin:0 auto;padding:18px 20px 0;max-width:1180px">
-  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Çift kontrollü doğruluk</span>
-  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Kaynak mevzuat linkli</span>
-  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
-  <a href="gtip.html" style="color:var(--accent);font-weight:700;text-decoration:none">GTİP kodunu sorgula →</a>
-</div>
-
+<style>
+  .hero-sade{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+  .sade-ic{position:relative;max-width:1080px;margin:0 auto;padding:100px 20px 40px;width:100%}
+  .hero-sade h1{margin:0 0 14px}
+  .sade-alt{color:var(--muted);font-size:clamp(15px,1.6vw,17.5px);max-width:620px;margin:0 auto 34px}
+  .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
+    font-weight:700;margin-bottom:16px}
+  .sade-kapilar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:0 auto}
+  .sk{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
+    background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px 20px 18px;
+    transition:border-color .18s,transform .18s,background .18s}
+  .sk:hover{border-color:var(--accent);transform:translateY(-4px);background:var(--panel2)}
+  .sk-ust{font:800 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:1px;margin-bottom:12px}
+  .sk b{font-size:19px;letter-spacing:-.4px;margin-bottom:8px}
+  .sk-ac{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px;flex:1}
+  .sk-fi{font-size:19px;font-weight:800;color:var(--accent);margin-bottom:12px}
+  .sk-fi u{text-decoration:none;font-size:12.5px;font-weight:600;color:var(--dim)}
+  .sk-git{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .sade-not{margin-top:22px;font-size:13px;color:var(--muted)}
+  .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
+  @media(max-width:860px){
+    .sade-kapilar{grid-template-columns:1fr;max-width:520px}
+    .hero-sade{min-height:auto}
+    .sade-ic{padding:90px 18px 34px}
+    .sk{padding:16px}
+  }
+</style>
+<!-- ============ BUGUN RG'DE (gercek kanit) ============================
+     Hero sadelesirken gercek RG kartlari da cikmisti. O kartlar bizim tek
+     GERCEK kanitimiz - uydurma degil, robotun buldugu. Kapilarin hemen
+     altina, kendi bolumune alindi. -->
+<section id="bugun-rg" style="padding:34px 20px 6px;border-top:1px solid var(--line)">
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px">Resmî Gazete nöbeti</div>
+    <div id="rgKartlar" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px"></div>
+    <div id="rgKaynak" style="font-size:11.5px;color:var(--dim);margin-top:10px"></div>
+  </div>
+</section>
+<style>@media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }</style>
 <!-- ============ PAKETLER (deger gosterildikten SONRA) ============ -->
 <section id="paketler" style="padding:34px 20px 8px">
   <div style="max-width:1180px;margin:0 auto">
