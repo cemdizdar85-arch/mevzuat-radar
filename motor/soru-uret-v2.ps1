@@ -158,6 +158,28 @@ YAZILACAK SORU:
   Kurgu  : $kurgu   (bilgi=duz bilgi/tanim · hesap=rakamli hesaplama · vaka=olay anlatilip hukum sorulur · kayit=yevmiye/muhasebelestirme · karsilastir=iki kavramin farki)
   Uzunluk: $uzun    (kisa=tek cumle · orta · uzun=paragraf/vaka metni)
 
+INSAN ELINDEN CIKMIS GORUNECEK - BU BIR USLUP TERCIHI DEGIL, SARTTIR.
+Ogrenci "bunlari yapay zeka yazmis" derse guven biter. Yapay zeka izleri sunlar,
+hicbirini yapma:
+- "ABC Ticaret A.S.", "XYZ A.S.", "X Isletmesi" gibi HARF PLACEHOLDER unvanlar.
+  Gercek unvan yaz: "Ozdemir Tekstil Ltd. Sti.", "Karadeniz Gida A.S.", "Bayrak
+  Ins. San. Tic. A.S." Her soruda FARKLI unvan.
+- Kisi adi gerekiyorsa yaygin Turk adi kullan (Mehmet, Ayse, Hatice, Mustafa,
+  Fatma, Ali) - "Deniz", "Ege", "Alp" gibi moda tarafsiz adlar yigilmasin.
+- HER TUTARIN YUVARLAK olmasi. 100.000 + 8.000 + 3.500 dizisi sahte kokar.
+  Gercek hayatta rakam 47.350 TL, 6.812 TL, 129.470 TLdir. En az bir tutar
+  yuvarlak OLMASIN.
+- Ayni cumle kaliplarinin tekrari. Yanlis sik aciklamalarinda dort kez ayni
+  kalibi kurma; birinde "karistiriyor", digerinde "sanilan sey", digerinde
+  "gozden kacan nokta" gibi FARKLI anlat.
+- Sisirme kliseler: "onem arz etmektedir", "unutulmamalidir ki", "dikkat
+  edilmelidir", "soz konusudur", "bu baglamda", "ilgili mevzuat uyarinca".
+  Sade konus: "Bu durumda vergi dogar." gibi.
+- Her soruyu ayni kalipla baslatma. Kimi soru olayla, kimi dogrudan soruyla,
+  kimi tabloyla baslasin.
+Hedef: TESMER kitapciginda bu sorunun yanina bir gercek cikmis soru konsa,
+hangisinin bizim oldugu ANLASILMASIN.
+
 MUTLAK KURALLAR:
 1. Soru YALNIZCA yukaridaki dayanak metne dayanacak. Metinde YAZMAYAN hicbir rakam, oran, sure ya da esik kullanma - ne soruda ne aciklamada. Emin degilsen sayi verme.
 2. BES sik (A-E), TAM OLARAK BIRI dogru. Digerleri makul ama acikca yanlis olmali - "neredeyse dogru" sik yazma.
@@ -312,7 +334,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; atifRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; atifRed=0; kokuRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -350,6 +372,32 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     }
     # rakam kapisi
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }
+
+    # ---- YAPAY ZEKA KOKUSU KAPISI (29.07, Cem'in hatirlatmasi uzerine)
+    # "Ogrenci bunlari yapay zeka yazmis demesin" sarti bir uslup kaprisi degil:
+    # ogrenci soruyu makine isi sanirsa CEVABA DA GUVENMEZ, urun biter.
+    # Ustelik bu riski BEN buyuttum - tuzak kapisini koyarken "karistiriyor"
+    # kelimesini sart kostum; ayni kalibin binlerce soruda tekrarlanmasi, yapay
+    # zeka kokusunun EN GUCLU kaynagidir. Tekduzelik, hatadan daha ele verir.
+    $koku = @()
+    if($tumMetin -match '(?i)\b(ABC|XYZ|ABCD)\s*(ticaret|gida|tekstil|a\.?s|ltd|isletme|sirket)'){ $koku += 'placeholder-unvan' }
+    if($tumMetin -match '(?i)\b(X|Y|Z)\s+(A\.?S\.?|Isletmesi|Ltd)'){ $koku += 'harf-unvan' }
+    # butun tutarlar yuvarlaksa sahte kokar: gercek hayatta 47.350 TL olur
+    $tutar = @([regex]::Matches("$($y.soru)", '(\d{1,3}(?:\.\d{3})+)\s*(?:TL|lira)') | ForEach-Object { $_.Groups[1].Value })
+    if($tutar.Count -ge 3){
+      $yuvarlak = @($tutar | Where-Object { $_ -match '\.000$' }).Count
+      if($yuvarlak -eq $tutar.Count){ $koku += "hepsi-yuvarlak($($tutar.Count))" }
+    }
+    $klise = @('onem arz et','unutulmamalidir','dikkat edilmelidir','bu baglamda','ilgili mevzuat uyarinca')
+    foreach($kl in $klise){ if($tumMetin -match [regex]::Escape($kl)){ $koku += "klise:$kl" } }
+    # dort yanlis sikta AYNI kalip: tekduzelik
+    $kalip = @(); foreach($h in @('A','B','C','D','E')){ if($h -ne "$($y.dogru)"){ $m2=[regex]::Match("$($y.aciklama.$h)",'(?i)(kar[ıi][sş]t[ıi]r|san[ıi]l|zannedil|yan[ıi]lg|atlan|unutul|g[oö]zden ka[cç])'); if($m2.Success){ $kalip += $m2.Groups[1].Value.ToLowerInvariant() } } }
+    if($kalip.Count -ge 4 -and (@($kalip | Select-Object -Unique).Count -eq 1)){ $koku += 'tekduze-tuzak-kalibi' }
+    if($koku.Count){
+      $ozet.kokuRed++
+      $red.Add([pscustomobject]@{ konu=$i.konu; sebep='yapayzeka-kokusu'; deger=(($koku | Select-Object -Unique) -join ', ') })
+      continue
+    }
 
     # ---- UYDURMA ATIF KAPISI (29.07, pilot-2 okumasindan sonra)
     # Pilot-2'de bir soru dogrusunu dogru yazdi (5510 m.81: %20, isveren %11 /
