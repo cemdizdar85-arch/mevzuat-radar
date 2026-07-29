@@ -105,6 +105,27 @@ try {
   Write-Host ("-> veri/kasa-ornek.json  ({0} ornek soru, tam metin)" -f @($o).Count)
 } catch { Write-Host ("ornek dokumu alinamadi: {0}" -f $_.Exception.Message) }
 
+# --- YENI URETIM DOKUMU: uretilen sorularin HEPSI yayin=false. Bu, GM okumadan
+# ogrenciye gitmesinler diye konmus bir kilit - ama ayni kilit GM'nin de onlari
+# ANON anahtarla gormesini engelliyor. Kilidin, denetimi imkansiz kilmasi olmaz:
+# denetlenemeyen bir parti, denetimden gecmis sayilamaz.
+# Ders BASINA 3 soru dokuluyor: tek dersten 20 ornek, sekiz kapinin yedisini
+# hic gormeden "parti iyi" dedirtir.
+try {
+  $dersler = @('Hukuk','Finansal Muhasebe','Maliyet Muhasebesi','Vergi Mevzuati ve Uygulamasi',
+               'Finansal Tablolar ve Analizi','Muhasebe Denetimi','Meslek Hukuku','Ekonomi')
+  $y = New-Object System.Collections.Generic.List[object]
+  foreach($d in $dersler){
+    $q = [uri]::EscapeDataString($d)
+    try {
+      $b = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&yayin=is.false&ders=eq.$q&order=id.desc&limit=3" -Headers $H -TimeoutSec 90)
+      foreach($s in $b){ $y.Add($s) }
+    } catch { }
+  }
+  [IO.File]::WriteAllText((Join-Path $kok "veri/yeni-uretim-ornek.json"), (@($y) | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("-> veri/yeni-uretim-ornek.json  ({0} yeni soru, GM okumasi icin)" -f @($y).Count)
+} catch { Write-Host ("yeni uretim dokumu alinamadi: {0}" -f $_.Exception.Message) }
+
 $rapor = [ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm")
   toplam = $toplam
