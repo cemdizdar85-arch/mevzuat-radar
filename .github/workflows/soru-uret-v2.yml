@@ -1,0 +1,69 @@
+# .github/workflows/soru-uret-v2.yml — SORU URETICI v2
+# PARA HARCAR. Tek kapisi veri/uretim-emir.json.
+# Uretilen sorularin HEPSI yayin=false ile kasaya duser - profesor denetimi ve
+# GM okumasi olmadan ogrenciye GITMEZ. 800 USD'lik ilk parti denetimsiz yayina
+# girdigi icin bir gece hata topladik; ayni hata tekrarlanmiyor.
+name: Soru Uretici v2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/uretim-emir.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soru-uret-v2
+  cancel-in-progress: false
+
+jobs:
+  uret:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - name: Acik emirleri kos — PARALI
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $yol = 'veri/uretim-emir.json'
+          $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          if($acik.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - 0 USD."; exit 0 }
+          foreach($x in $acik){
+            Write-Host ("===== EMIR #{0} ({1}) - tahmini {2} USD" -f $x.no, $x.emir, $x.tahmini_usd)
+            Write-Host ("      {0}" -f $x.gerekce)
+            $ok = $true
+            try {
+              ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
+                 -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+              if($LASTEXITCODE -ne 0){ $ok = $false }
+            } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
+            if(Test-Path 'veri/uretim-log.txt'){ Copy-Item 'veri/uretim-log.txt' "veri/uretim-log-$($x.no).txt" -Force }
+            if($ok){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force }
+            else {
+              $d = 0; if($x.PSObject.Properties['deneme']){ $d=[int]$x.deneme }
+              $d++
+              $x | Add-Member -NotePropertyName deneme -NotePropertyValue $d -Force
+              if($d -ge 3){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue "KAPATILDI: 3 denemede kosmadi" -Force }
+              [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+              Write-Host "Emir dustu - SONRAKINE GECILMIYOR."
+              exit 1
+            }
+            [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+          }
+      - name: Raporlari commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/uretim-emir.json veri/uretim-log.txt veri/uretim-rapor-*.json veri/uretim-log-*.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Soru uretimi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
