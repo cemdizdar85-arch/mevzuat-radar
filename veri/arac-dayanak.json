@@ -1,0 +1,93 @@
+{
+  "_aciklama": "ARAC VERI DOSYASI -> DAYANDIGI MEVZUAT. Sayfalar kanun MADDESINE yaslanir ve dayanak-nobetci.ps1 onlari izler; arac verisi ise TEBLIG ve CUMHURBASKANI KARARLARINA yaslanir, madde damgasi onlari GORMEZ.",
+  "_neden": "29.07.2026 olcumu: bu dosyalarin HICBIRI otomatik bir kaynaktan beslenmiyor. Hasat betiklerinin basliklari okundu - hepsi Cem'in bir kere indirdigi YEREL Excel/metin dosyalarindan uretilmis (igv2026 klasoru, damping.xlsx, rejim2026 klasoru, kdv-oranlari-gib.txt). Yani Ithalat Rejimi Karari bir Cumhurbaskani Karariyla degistiginde GTIP verimiz SESSIZCE eskiyor ve kimse haberdar olmuyor.",
+  "_yontem": "Hash nobeti kurulamiyor cunku izlenecek sabit bir adres yok. Onun yerine RESMI GAZETE TETIGI: kart robotu her gun RG'yi tariyor ve baslikli kart uretiyor (veri/kartlar-guncel.json). Basliklarda asagidaki anahtarlardan biri gecerse ilgili dosya 'ESKIMIS OLABILIR' diye isaretlenir.",
+  "_durustluk": "BU BIR TRIPWIRE, GARANTI DEGIL. Anahtar kelime eslesmesi yanlis alarm verebilir ve baslik farkli yazilmissa KACIRABILIR. Bugun ise sinyal SIFIR - hicbir uyari yok. Yanlis alarm veren nobetci, hic nobetci olmamasindan iyidir; ama 'kesin yakalar' denmez.",
+  "guncelleme": "29.07.2026",
+  "dosyalar": [
+    {
+      "dosya": "veri/gtip-vergi.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ithalat Rejimi Karari - Gumruk Vergisi listeleri",
+      "hasat": "motor/vergi-hasat.ps1 (yerel rejim2026 klasoru)",
+      "rg_anahtar": ["ithalat rejimi", "gumruk vergisi", "gümrük vergisi", "ithalat rejimi kararinda degisiklik"]
+    },
+    {
+      "dosya": "veri/gtip-vergi-ulke.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ithalat Rejimi Karari II sayili liste (ulke bazli)",
+      "hasat": "motor/vergi-hasat-ulke.ps1 (yerel Excel)",
+      "rg_anahtar": ["ithalat rejimi", "ii sayili liste", "gumruk vergisi orani"]
+    },
+    {
+      "dosya": "veri/gtip-igv-ulke.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ilave Gumruk Vergisi Karari Ek-1 (sanayi)",
+      "hasat": "motor/igv-hasat-ulke.ps1 (yerel igv2026 klasoru)",
+      "rg_anahtar": ["ilave gumruk vergisi", "ilave gümrük vergisi", "igv"]
+    },
+    {
+      "dosya": "veri/gtip-askiya.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ithalat Rejimi V Sayili Liste (askiya alinan sanayi urunleri)",
+      "hasat": "motor/askiya-hasat.ps1 (yerel rejim2026 klasoru)",
+      "rg_anahtar": ["askiya", "askıya", "v sayili liste", "v sayılı liste"]
+    },
+    {
+      "dosya": "veri/gtip-damping.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri",
+      "hasat": "motor/damping-hasat.ps1 (yerel damping.xlsx)",
+      "rg_anahtar": ["damping", "dampinge karsi", "dampinge karşı", "subvansiyon", "sübvansiyon", "telafi edici vergi"]
+    },
+    {
+      "dosya": "veri/gtip-kdv.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "2007/13033 sayili KDV Oranlari Karari (I ve II sayili listeler)",
+      "hasat": "motor/kdv-hasat.ps1 (yerel GIB konsolide metin)",
+      "rg_anahtar": ["katma deger vergisi orani", "katma değer vergisi oranı", "2007/13033", "kdv orani", "kdv oranı"]
+    },
+    {
+      "dosya": "veri/gtip-otv.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "4760 sayili OTV Kanunu ekli listeler (I/II/III/IV)",
+      "hasat": "motor/otv-yut.ps1",
+      "rg_anahtar": ["ozel tuketim vergisi", "özel tüketim vergisi", "4760", "otv orani", "ötv oranı"]
+    },
+    {
+      "dosya": "veri/gtip-durum.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
+      "rg_anahtar": ["gozetim", "gözetim", "korunma onlemi", "korunma önlemi", "kayda bagli", "kayda bağlı"]
+    },
+    {
+      "dosya": "veri/gtip-ihracat-kisit.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ihracat yasak / on izinli / kayda bagli listeleri",
+      "hasat": "motor/ihracat-kisit-hasat.ps1",
+      "rg_anahtar": ["ihraci yasak", "ihracı yasak", "on izne bagli", "ön izne bağlı", "ihracat teblig"]
+    },
+    {
+      "dosya": "veri/gtip-emy-tarim.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Tarim urunleri - Es Deger Munferit Vergi / EMY",
+      "hasat": "motor/emy-hasat.ps1",
+      "rg_anahtar": ["tarim urunleri", "tarım ürünleri", "es deger", "eş değer", "toplu konut fonu"]
+    },
+    {
+      "dosya": "veri/cvoa-oranlar.json",
+      "arac": "hizmet.html",
+      "kaynak_ad": "Cifte Vergilendirmeyi Onleme Anlasmalari (CVOA) stopaj oranlari",
+      "hasat": "elle kurulmus",
+      "rg_anahtar": ["cifte vergilendirme", "çifte vergilendirme", "vergi anlasmasi", "vergi anlaşması"]
+    },
+    {
+      "dosya": "veri/vergi-sabitleri.json",
+      "arac": "coklu (asgari ucret, kidem tavani, SGK esikleri)",
+      "kaynak_ad": "Asgari ucret tespit komisyonu karari + SGK genelgeleri + kidem tavani",
+      "hasat": "elle kurulmus",
+      "rg_anahtar": ["asgari ucret", "asgari ücret", "kidem tazminati tavani", "kıdem tazminatı tavanı", "prime esas kazanc", "prime esas kazanç"]
+    }
+  ]
+}

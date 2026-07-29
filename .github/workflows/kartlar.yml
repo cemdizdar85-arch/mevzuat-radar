@@ -122,6 +122,21 @@ jobs:
           mkdir -p veri
           echo "{\"sonTarama\":\"$(TZ=Europe/Istanbul date +%d.%m.%Y)\"}" > veri/kart-durum.json
 
+      # ARAC NOBETCISI (29.07). Sayfalar kanun MADDESINE yaslanir ve
+      # dayanak-nobetci onlari koruyor. Ama arac VERISI teblig ve
+      # Cumhurbaskani kararlarina yaslaniyor; madde damgasi onlari GORMUYOR.
+      # Daha kotusu: bu dosyalarin hicbiri otomatik beslenmemis - hepsi bir
+      # kere indirilmis yerel Excel'lerden uretilmis. Yani Ithalat Rejimi
+      # Karari degistiginde GTIP verimiz SESSIZCE eskiyordu.
+      # Hash nobeti kurulamiyor (izlenecek sabit adres yok), bu yuzden RG
+      # TETIGI: kart robotu zaten RG'yi tariyor, basliklarda anahtar gecerse
+      # ilgili dosya "eskimis olabilir" diye isaretlenir.
+      # Rapor URETILIR ama burada kirmizi verilmez - once kartlar yayinlansin.
+      - name: Arac nobetcisi (RG'de ilgili yayin var mi)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/arac-nobetci.ps1
+
       - name: Degisiklik varsa yayinla
         run: |
           git config user.name "mevzuat-radar-bot"
@@ -136,7 +151,8 @@ jobs:
           #     zafer ilan ediyordu. Artik mesaj SAYIYOR: kac kart var, kart
           #     dosyasi degisti mi.
           for f in kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ \
-                   veri/kart-durum.json veri/kartlar-guncel.json; do
+                   veri/kart-durum.json veri/kartlar-guncel.json \
+                   veri/arac-uyari.json veri/arac-nobet-log.txt; do
             git add "$f" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
@@ -152,3 +168,26 @@ jobs:
           fi
           git commit -m "$MESAJ"
           git push
+
+      # KIRMIZI KAPI (29.07). Kartlar yayinlandiktan SONRA calisir: vitrin
+      # her halukarda guncellenir, ama eskiyen arac verisi varsa kosu KIRMIZI
+      # biter ve GM gorur. Bu depoda dort katman "kuruldu ama kimse gormedi"
+      # diye bekledi - sessiz rapor okunmuyor.
+      - name: KAPI — eskimis arac verisi var mi
+        if: always()
+        shell: pwsh
+        run: |
+          $y = 'veri/arac-uyari.json'
+          if(-not (Test-Path $y)){ Write-Host "Uyari dosyasi yok (kart uretilmemis olabilir). Gecildi."; exit 0 }
+          $u = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          if([int]$u.etkilenen_dosya -eq 0){ Write-Host "TEMIZ: bugunku RG'de arac verisini ilgilendiren yayin yok."; exit 0 }
+          Write-Host ("KIRMIZI: {0} arac verisi ESKIMIS OLABILIR (RG gunu {1})" -f $u.etkilenen_dosya, $u.rg_gun)
+          foreach($x in $u.uyarilar){
+            Write-Host ("  {0}  <- {1}" -f $x.dosya, $x.kaynak_ad)
+            Write-Host ("      hasat: {0}   eslesen yayin: {1}" -f $x.hasat, $x.eslesme_sayisi)
+          }
+          Write-Host ""
+          Write-Host "Bu dosyalar OTOMATIK BESLENMIYOR - kaynagin guncel hali indirilip"
+          Write-Host "hasat betigi yeniden kosulmali. Ayrinti: veri/arac-uyari.json"
+          Write-Host "NOT: bu bir TRIPWIRE'dir - yanlis alarm verebilir, GM okuyup karar verir."
+          exit 1

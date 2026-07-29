@@ -1,0 +1,49 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260729221840
+Username: GK\cemdi
+RunAs User: GK\cemdi
+Configuration Name: 
+Machine: GK (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
+& (Join-Path $kok "motor\arac-nobetci.ps1")
+"cikis kodu: $LASTEXITCODE"
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-5203' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 33420
+PSVersion: 5.1.26100.8894
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
+BuildVersion: 10.0.26100.8894
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+RG gunu      : 11-07-2026
+Kart sayisi  : 24
+Izlenen dosya: 12
+
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Ithalatta gozetim uygulamasi esik degerleri guncellendi
+      <- İthalat gözetim eşikleri yenilendi; altı ürün grubu için kıymetler güncellendi
+      <- İthalat gözetim eşikleri güncellendi; yeni kıymetler uygulanacak
+      <- İthalatta gözetim uygulaması: boyalı seramik ve asansör parçaları kıymet esikleri güncellendi
+      <- Ithalatta gozetim esikleri guncellendi, 30 gun sonra kuvvet kazanacak
+      ... ve 13 yayin daha (tamami arac-uyari.json'da)
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+**********************
+Windows PowerShell transcript end
+End time: 20260729221841
+**********************
