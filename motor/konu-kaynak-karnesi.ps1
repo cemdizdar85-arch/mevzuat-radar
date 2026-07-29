@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  KONU-KAYNAK KARNESI — PARALI MUSLUGUN ON SARTI
 #  Cem 27.07: "musluk bosa para akitti - matematikte mevzuat yok, soru cikmadi;
 #  yada yanlis cikan soru var. Muslugu acacagiz ama bosa atmayacak."
@@ -22,6 +22,11 @@ $ErrorActionPreference = "Stop"
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
+# KOR KALMA KURALI: Actions loglari GM'ye kapali. Bu betik bugune kadar hic
+# log birakmiyordu - 29.07'de kosup kosmadigi anlasilamadi, yalnizca ciktinin
+# TARIHINE bakilarak "yenilenmemis" denebildi. Bir kanal kendi hatasini
+# yazamiyorsa kurulmus sayilmaz.
+try { Start-Transcript -Path (Join-Path $kok 'veri/karne-log.txt') -Force | Out-Null } catch {}
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 $KEY = if($env:SUPABASE_KEY){ $env:SUPABASE_KEY } else { "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg" }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
