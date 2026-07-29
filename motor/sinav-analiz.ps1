@@ -205,10 +205,35 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   # Sebep: klasik sinavda "1. soru" alti bentli olabiliyor; iki okuyucu birinde
   # 5 birinde 7 soru sayabiliyor ve bu KUSUR DEGIL, sayim yorumu. Yazilida
   # tolerans oransal olmali. Testte (siklar sayili) sikilik korunuyor.
-  $tolerans = if($bicim -eq 'yazili'){ [Math]::Max(3, [int]([Math]::Max($n1,$n2) * 0.4)) }
-              elseif($maxSoru -le 40){ 2 } else { 8 }
-  if($n1 -lt $minSoru -or $n1 -gt $maxSoru -or $n2 -lt $minSoru -or $n2 -gt $maxSoru -or [math]::Abs($n1-$n2) -gt $tolerans){
-    Write-Host ("  RED: soru sayisi guvensiz (sinir {0}-{1}, tolerans {2})" -f $minSoru,$maxSoru,$tolerans); $d.durum='inceleme'; $islenen++; continue }
+  # 29.07 UCUNCU DENEME - ve bu sefer OLCUNUN KENDISI degisiyor.
+  # Monografide okumalar 34 vs 6, 32 vs 29, 34 vs 1 cikti. Sebep kusur degil:
+  # bir isletme vakasini kac alt isteğe boldugun YORUMA ACIK. Sayiyi
+  # karsilastiran kapi bu veri tipine UYMUYOR - ne gevsetmek ne sikmak ise
+  # yarar, cunku yanlis seyi olcuyor.
+  # Dogru olcu KONU KUMESI: iki okuma kac parcaya boldugunde degil, HANGI
+  # KONULARI gordugunde anlasmali. Ortusme yeterliyse iki okumanin BIRLESIMI
+  # alinir - biri otekinin kacirdigi konuyu yakalamis olabilir.
+  if($bicim -eq 'yazili'){
+    $k1=@{}; foreach($s in $o1){ if("$($s.konu)".Trim()){ $k1[(Fold $s.konu)]=1 } }
+    $k2=@{}; foreach($s in $o2){ if("$($s.konu)".Trim()){ $k2[(Fold $s.konu)]=1 } }
+    $kesisim=0; foreach($k in $k1.Keys){ if($k2.ContainsKey($k)){ $kesisim++ } }
+    $kucuk=[Math]::Min($k1.Count,$k2.Count)
+    $ortusme = if($kucuk -gt 0){ $kesisim/[double]$kucuk } else { 0 }
+    Write-Host ("  YAZILI: okuma1 {0} konu, okuma2 {1} konu, ortusme %{2}" -f $k1.Count,$k2.Count,[math]::Round($ortusme*100))
+    if($k1.Count -eq 0 -or $k2.Count -eq 0 -or $ortusme -lt 0.35){
+      Write-Host "  RED: iki okuma ayni konulari gormuyor"; $d.durum='inceleme'; $islenen++; continue }
+    $sorular=New-Object System.Collections.Generic.List[object]
+    $birlesim=@{}; foreach($k in $k1.Keys){ $birlesim[$k]=1 }; foreach($k in $k2.Keys){ $birlesim[$k]=1 }
+    $i2=0; foreach($k in $birlesim.Keys){ $i2++; $sorular.Add(@{ no="y$i2"; ders=$d.ders; konu=$k }) }
+    Write-Host ("  BIRLESIM: {0} konu" -f $sorular.Count)
+    $atla = $true
+  } else {
+    $atla = $false
+    $tolerans = if($maxSoru -le 40){ 2 } else { 8 }
+    if($n1 -lt $minSoru -or $n1 -gt $maxSoru -or $n2 -lt $minSoru -or $n2 -gt $maxSoru -or [math]::Abs($n1-$n2) -gt $tolerans){
+      Write-Host ("  RED: soru sayisi guvensiz (sinir {0}-{1}, tolerans {2})" -f $minSoru,$maxSoru,$tolerans); $d.durum='inceleme'; $islenen++; continue }
+  }
+  if(-not $atla){
 
   # KAPI 2: ders uyusmasi (no bazinda)
   $h2=@{}; foreach($s in $o2){ $h2["$($s.no)"]=$s }
@@ -237,6 +262,7 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
       foreach($c in $konuCift){ $k=$hkMap["$($c.no)"]; if(-not $k){ $k=$c.a }; $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $k) }) }
     } catch { foreach($c in $konuCift){ $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $c.a) }) } }
   }
+  }  # <- 'yazili degilse' blogu burada biter
 
   # sayimlar
   # 29.07: tip/uzun alanlari isteme eklenmisti ama BURAYA eklenmemisti - model
