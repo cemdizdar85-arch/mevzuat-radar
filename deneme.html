@@ -254,8 +254,12 @@ function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
       var ad = (p === 'SGS') ? 'Staja Giriş (SGS)' : 'Yeterlilik (Bitirme)';
       var not = document.createElement('div');
       not.className = 'etiket';
+      // 29.07 — Cem: "değiştir deyince bütün hepsi geliyor". Dogruydu:
+      // baglanti deneme.html'e (filtresiz) gidiyordu ve aday iki sinavin
+      // derslerini bir arada goruyordu. Sinav secimi genc.html'deki IKI KARTTA
+      // yapiliyor; "degistir" oraya donmeli, kilidi kaldiran bir kapiya degil.
       not.innerHTML = 'SINAV · <b style="color:var(--amber)">' + ad + '</b> ' +
-                      '<a href="deneme.html" style="font-weight:400;opacity:.7">(değiştir)</a>';
+                      '<a href="genc.html" style="font-weight:400;opacity:.7">(değiştir)</a>';
       ss.parentNode.insertBefore(not, ss);
     });
   }catch(e){}
