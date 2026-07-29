@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729150422
+Start time: 20260729151214
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a1974251-d801-4d20-b1ec-f8389ad31667.ps1'
-Process ID: 2222
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/907bbd1d-069f-495e-9ebc-b3ae5b361ff4.ps1'
+Process ID: 2266
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -71,11 +71,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       157x  Maliyet Muhasebesi|ortak maliyet dagitimi
       103x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        78x  Yabanci Dil|cumle tamamlama
-       73x  Yabanci Dil|sentence completion
        73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       73x  Yabanci Dil|sentence completion
        72x  Maliyet Muhasebesi|yan urun maliyeti
-       71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        71x  Maliyet Muhasebesi|gug yukleme katsayisi
+       71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        71x  Yabanci Dil|prepositions
        70x  Yabanci Dil|vocabulary
        69x  Maliyet Muhasebesi|satilan mamul maliyeti
@@ -86,7 +86,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        59x  Yabanci Dil|zarf kullanimi
        58x  Yabanci Dil|relative clause
        57x  Finansal Tablolar ve Analizi|cari oran
-       56x  Yabanci Dil|present perfect tense
+       56x  Finansal Muhasebe|supheli alacak karsiligi
 
   --- tekil konu sayisi: 1313
 
@@ -129,11 +129,16 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      tam metin cekilen: 120 (istenen 120)
 -> veri/yeni-uretim-ornek.json  (120 yeni soru, GM okumasi icin)
 -> veri/pilot-ornek.json  (40 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
+   KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
+     standart (STD)    : 87
+     hesap plani (THP) : 37
+     toplam            : 355
+     standart+THP orani: %34.9
 
 -> veri/kasa-sayim.json
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729150459
+End time: 20260729151246
 **********************
