@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729072303
+Start time: 20260729074214
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2f37c522-4780-416c-91a1-5cbabf810b43.ps1'
-Process ID: 2141
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8bf62bc6-d529-4216-a15d-c3a920044f01.ps1'
+Process ID: 2244
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,8 +17,8 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-KASA SAYIMI basliyor...
-  TOPLAM: 7427 soru
+KASA SAYIMI basliyor... (kuyruk yenileme)
+  TOPLAM: 7519 soru
   ...1000
   ...2000
   ...3000
@@ -26,18 +26,18 @@ KASA SAYIMI basliyor...
   ...5000
   ...6000
   ...7000
-  cekilen: 7427
+  cekilen: 7519
 
 ================ KASA SAYIMI ================
-  TOPLAM SORU : 7427
+  TOPLAM SORU : 7519
 
   --- sinav bazinda
      SGS        6708
-     SMMM       719
+     SMMM       811
 
   --- ders bazinda
      Yabanci Dil                        1550
-     Finansal Muhasebe                  1011
+     Finansal Muhasebe                  1103
      Denetim                            783
      Turkce                             720
      Is ve Sosyal Guvenlik Hukuku       383
@@ -52,15 +52,15 @@ KASA SAYIMI basliyor...
      Ataturk Ilke ve Inkilap Tarihi     162
      Mali Tablolar Analizi              137
      Genel Kultur-Genel Yetenek         131
-     Muh. ve Mali Müş. Meslek Hukuku    94
      Vergi Mevzuatı ve Uygulaması       94
+     Muh. ve Mali Müş. Meslek Hukuku    94
      Matematik                          72
      Finansal Tablolar ve Analizi       64
      Muhasebe Denetimi                  61
      Sermaye Piyasası Mevzuatı          28
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 4340
+     mevzuata dayanan (madde bagi kurulabilir) : 4432
      mevzuat disi (dil/matematik/teori)        : 3087
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
@@ -78,23 +78,23 @@ KASA SAYIMI basliyor...
        47x  Turkce|sozcuk turleri
        44x  Ekonomi|talep fiyat esnekligi
        44x  Finansal Muhasebe|nakit akis tablosu
-       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
-       41x  Turkce|sozcukte anlam
        41x  Denetim|bds 230 denetim belgelendirme
        41x  Vergi Hukuku|kurumlar vergisi mukellefleri
+       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
+       41x  Turkce|sozcukte anlam
        41x  Yabanci Dil|correlative conjunction
        40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
 -> veri/kasa-ornek.json  (1 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 240
-     HAM CEVAP: 17538 bayt  Content-Range: System.String[]
+     KASADA yayin=false (denetim bekleyen) : 332
+     HAM CEVAP: 24530 bayt  Content-Range: System.String[]
      ILK 200: [{"id":"efac4879","ders":"Vergi Hukuku"}, 
  {"id":"65a43d42","ders":"Is ve Sosyal Guvenlik Hukuku"}, 
  {"id":"bc101187","ders":"Vergi Hukuku"}, 
  {"id":"f86d34d9","ders":"Borclar Hukuku"}, 
  {"id":"e1
-     cekilen yayin=false kayit: 240
+     cekilen yayin=false kayit: 332
        Borclar Hukuku                     2
        Denetim                            1
        Finansal Muhasebe                  8
@@ -104,7 +104,7 @@ KASA SAYIMI basliyor...
        Ticaret Hukuku                     5
        Vergi Hukuku                       4
        Vergi Mevzuatı ve Uygulaması       1
--> veri/denetim-kuyrugu.json  (240 kimlik, profesor -idler icin)
+-> veri/denetim-kuyrugu.json  (332 kimlik, profesor -idler icin)
      tam metin cekilen: 32 (istenen 32)
 -> veri/yeni-uretim-ornek.json  (32 yeni soru, GM okumasi icin)
 
@@ -113,5 +113,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729072309
+End time: 20260729074222
 **********************
