@@ -421,6 +421,18 @@
     body{background:#fff}
   }
 </style>
+<style>
+  /* SON SOZ - telefon duzeni. Onceki iki denemem kaynakta daha sonra gelen
+     kurallarla ezildi; CSS'te son yazan kazanir, bu blok en sonda duruyor. */
+  @media(max-width:600px){
+    .kapi{display:grid !important;grid-template-columns:1fr auto;gap:1px 10px;align-items:center;padding:11px 13px}
+    .kapi b{grid-column:1;grid-row:1;white-space:normal}
+    .kapi small{grid-column:1;grid-row:2;flex:none}
+    .kapi i{grid-column:2;grid-row:1 / span 2;font-size:16px;text-align:right}
+    h1{line-height:1.14 !important}
+    .kareler{grid-template-columns:repeat(2,1fr) !important}
+  }
+</style>
 </head>
 <body>
 
@@ -490,17 +502,17 @@
       <div class="kapilar">
         <a class="kapi" href="genc.html">
           <b>Sınava hazırlanıyorum</b>
-          <small>SMMM soru bankası · zayıf konu karnesi</small>
+          <small>soru bankası · karne</small>
           <i>990 TL <u>/ dönem</u></i>
         </a>
         <a class="kapi" href="#kimlere">
           <b>Mali Müşavirim</b>
-          <small>Tüm mükelleflerin tek panelde</small>
+          <small>mükellefler tek panelde</small>
           <i>299 TL <u>/ ay</u></i>
         </a>
         <a class="kapi" href="#kimlere">
           <b>İşletme sahibiyim</b>
-          <small>GTİP · ceza · alacak · marka</small>
+          <small>GTİP · ceza · alacak</small>
           <i>749 TL <u>/ ay</u></i>
         </a>
       </div>
