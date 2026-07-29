@@ -84,11 +84,22 @@ jobs:
       # DOGRUYDU. Artik her (kanun, madde) ciftinin metni ayri parmak izleniyor
       # ve hasattan hemen sonra karsilastiriliyor.
       # PARA HARCAMAZ: yalniz ambar okur, hash hesaplar, rapor yazar.
+      #
+      # 29.07 - EMNIYET KEMERI BAGLANDI (-uygula). Betik 28.07'de yazilirken
+      # kasada 'yayin' kolonu YOKTU, bu yuzden sadece RAPOR uretiyordu: "su
+      # madde degisti, ona dayanan sorular yayindan cekilmeli" diyor ama
+      # cekmiyordu. Kolon o gunden beri VAR (butun uretim yayin=false ile
+      # dusuyor) - yani katman aylarca takili ama baglanmamis duracakti.
+      # Betik kolonu KOSU ANINDA kontrol ediyor; yoksa uyarip geciyor, bu
+      # yuzden acmak guvenli.
+      # SIMDI ACMAK ICIN EN IYI AN: madde-degisim.json'da degisen=0
+      # (15.184 madde parmak izlendi, ilk kurulum). Yani bugun hicbir soru
+      # cekilmeyecek - kemer bos yolda baglaniyor, virajda degil.
       - name: Madde damgasi (Katman 3 — RG nobeti)
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: ./motor/madde-damga.ps1
+        run: ./motor/madde-damga.ps1 -uygula
       - name: Degisen madde-belgelerini commit et
         run: |
           git config user.name "mevzuat-radar-bot"
