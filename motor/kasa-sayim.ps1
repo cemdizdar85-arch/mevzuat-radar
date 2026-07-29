@@ -50,6 +50,28 @@ while($true){
 }
 Write-Host ("  cekilen: {0}" -f $kayit.Count)
 
+# --- YAPAY ZEKA KOKUSU TARAMASI (29.07, Cem'in uyarisi: "eski sorularda da
+# yapay zeka yaptigi belli olmasin"). Uyari yerinde: o sorularin ACIKLAMALARINI
+# BIZ yeniledik, yani makine izi varsa BIZIM koydugumuzdur.
+# Once OLCUM: kac soruda gercekten iz var? Tahminle duzeltme turu acmak, bu gece
+# uc kez yanlis ciktigim seyin aynisi olur.
+# NOT: dort parcali iskelet (Ne soruluyor / Kural / Bu olayda / Akilda kalsin)
+# BURADA IZ SAYILMAZ - Amerikan hazirlik sirketleri de ayni tutarli iskeleti
+# kullanir, bu profesyonellik isaretidir. Iz olan sey DILDIR: placeholder unvan,
+# hepsi yuvarlak tutar, sisirme klise, ayni cumlenin tekrari.
+$kokuSay = [ordered]@{ bakilan=0; placeholder=0; hepsiYuvarlak=0; klise=0; tekduzeTuzak=0; toplamIzli=0 }
+$KLISE = @('önem arz et','unutulmamalıdır','dikkat edilmelidir','bu bağlamda','ilgili mevzuat uyarınca','söz konusudur ki')
+function KokuTara($soruMetni, $aciklamaMetni){
+  $iz = @()
+  $hepsi = "$soruMetni $aciklamaMetni"
+  if($soruMetni -match '(?i)\b(ABC|XYZ|ABCD)\s*(ticaret|gıda|tekstil|a\.?ş|ltd|işletme|şirket)' -or
+     $soruMetni -match '(?i)\b(X|Y|Z)\s+(A\.?Ş\.?|İşletmesi|Ltd)'){ $iz += 'placeholder' }
+  $tutar = @([regex]::Matches("$soruMetni", '(\d{1,3}(?:\.\d{3})+)\s*(?:TL|lira)') | ForEach-Object { $_.Groups[1].Value })
+  if($tutar.Count -ge 3 -and (@($tutar | Where-Object { $_ -match '\.000$' }).Count -eq $tutar.Count)){ $iz += 'hepsiYuvarlak' }
+  foreach($kl in $KLISE){ if($hepsi -match [regex]::Escape($kl)){ $iz += 'klise'; break } }
+  return $iz
+}
+
 function Grupla($alanAdi){
   $g = @{}
   foreach($k in $kayit){ $v = "$($k.$alanAdi)"; if($v.Trim().Length -eq 0){ $v = '(bos)' }
@@ -100,6 +122,37 @@ Write-Host "  --- EN YOGUN 20 KONU (kota sisteminin girdisi)"
 $konu.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 20 | ForEach-Object { Write-Host ("     {0,4}x  {1}" -f $_.Value, $_.Key) }
 Write-Host ""
 Write-Host ("  --- tekil konu sayisi: {0}" -f $konu.Count)
+
+# --- YAPAY ZEKA KOKUSU: BUTUN KASAYI TARA (sayfali, soru + dogru sik aciklamasi)
+Write-Host ""
+Write-Host "  --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)"
+$izli = New-Object System.Collections.Generic.List[string]
+$bas2 = 0
+while($true){
+  $u3 = "$SB_URL/rest/v1/soru_havuzu?select=id,soru,dogru,aciklama&order=id&offset=$bas2&limit=500"
+  try { $h3 = Invoke-WebRequest -UseBasicParsing -Uri $u3 -Headers $H -TimeoutSec 180 } catch { break }
+  $g3 = if($h3.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($h3.Content) } else { "$($h3.Content)" }
+  $d3 = @(); foreach($x in (ConvertFrom-Json $g3)){ $d3 += $x }
+  if($d3.Count -eq 0){ break }
+  foreach($q in $d3){
+    $kokuSay.bakilan++
+    $ac = "$($q.aciklama.($q.dogru))"
+    $iz = KokuTara "$($q.soru)" $ac
+    if($iz -contains 'placeholder'){ $kokuSay.placeholder++ }
+    if($iz -contains 'hepsiYuvarlak'){ $kokuSay.hepsiYuvarlak++ }
+    if($iz -contains 'klise'){ $kokuSay.klise++ }
+    if($iz.Count){ $kokuSay.toplamIzli++; $izli.Add("$($q.id)") }
+  }
+  if($d3.Count -lt 500){ break }
+  $bas2 += 500
+}
+foreach($k in $kokuSay.Keys){ Write-Host ("     {0,-16} {1}" -f $k, $kokuSay[$k]) }
+if($kokuSay.bakilan -gt 0){ Write-Host ("     IZLI ORAN      : %{0:N1}" -f (100.0*$kokuSay.toplamIzli/$kokuSay.bakilan)) }
+try {
+  $ij = ConvertTo-Json -InputObject @($izli) -Depth 3; if([string]::IsNullOrWhiteSpace($ij)){ $ij='[]' }
+  [IO.File]::WriteAllText((Join-Path $kok "veri/koku-izli.json"), $ij, (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("-> veri/koku-izli.json  ({0} kimlik, uslup turu icin)" -f $izli.Count)
+} catch { Write-Host ("koku listesi yazilamadi: {0}" -f $_.Exception.Message) }
 
 # --- ORNEK DOKUMU: GM yerelde ANON anahtarla kasayi OKUYAMIYOR. Aciklamalari
 # yeniledik ama GM ciktinin metnini goremedi - "elle okuyacagim" sozu boslukta
