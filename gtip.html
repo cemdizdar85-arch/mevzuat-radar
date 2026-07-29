@@ -104,8 +104,22 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
+// Gözetim verisinin hasat tarihi. veri/gtip-durum.json bu tarihte,
+// tablo-hasat.ps1 ile 43 yürürlükteki gözetim tebliğinin mevzuat.gov.tr
+// konsolide metninden üretildi (git: 2026-07-11).
+// Ekranda gösterilir — kullanıcı verinin ne kadar taze olduğunu BİLMELİ.
+const GOZETIM_HASAT = "11.07.2026";
+
 let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null;
 Promise.all([
+  // 29.07.2026 — GÖZETİM VERİSİNİN HASAT TARİHİ ekranda GÖSTERİLİR.
+  // Sebebi: araç kod bulamayınca eskiden "bu kodda gözetim BULUNMUYOR" diye
+  // düz olumsuz iddiada bulunuyordu. Gözetim tebliğleri çok sık çıkıyor
+  // (tek bir RG gününde 16 tanesi sayıldı); veri eskidiğinde bu cümle
+  // YANLIŞ NEGATİF üretir ve ithalatçı belgesiz beyan eder.
+  // Bu tarih, tablo-hasat.ps1 en son koştuğunda güncellenmelidir.
+  // ⚠ ELLE TUTULAN SABİT — hasat betiği bunu otomatik yazmıyor; yeniden
+  // hasat yapılınca BURASI DA güncellenecek (yoksa tarih yalan söyler).
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/radar-kiymet.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
@@ -722,9 +736,27 @@ function sorgula(){
       // hiç GV/İGV/tarım verisi yok → yine de ÖTV + KDV göster
       vHtml = askiyaKart(q) + nihaiKart(q) + balikKart(q) + gekapKart(q) + savunmaKart(q) + otvKart(q) + denetimKart(q) + kdvKart(q) + kkdfKart(q) + ihracatKart(q);
     }
-    s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + `<div class="kart yok"><div class="et">■ GÖZETİM YOK</div>
-      <h3>${q} kodunda ithalatta gözetim bulunmuyor.</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">İzlediğimiz yürürlükteki gözetim tebliğlerinde bu koda rastlanmadı. Vergiler aşağıda:</p>${vHtml}</div>` + ctaHtml();
+    // ────────────────────────────────────────────────────────────────────
+    // 29.07.2026 — OLUMSUZ İDDİA KAPSAMINA ÇEKİLDİ.
+    // Buradaki eski başlık "bu kodda ithalatta gözetim BULUNMUYOR" diyordu.
+    // Bu düz bir olumsuz iddiaydı ve YANLIŞ NEGATİF üretme riski taşıyordu:
+    // gözetim tebliğleri çok sık çıkıyor (tek bir RG gününde 16 tanesini
+    // saydık). Veri 11.07.2026'da hasat edildi; o tarihten sonra bir tebliğ
+    // bu koda gözetim getirdiyse araç "yok" diyor, ithalatçı belgesiz beyan
+    // ediyor ve gümrükte duruyor. Zarar doğrudan kullanıcıda.
+    // Cem'in kuralı (29.07): "güvenmediğimiz, kontrol etmediğimiz hiçbir şey
+    // sitede olmasın." Doğru çözüm aracı kapatmak değil — bildiğimizi
+    // bildiğimiz kadar söylemek. Artık cümle "izlediğimiz N tebliğde
+    // rastlanmadı" diyor ve hasat tarihini AÇIKÇA gösteriyor.
+    const gozTeblig = new Set(); Object.values(VERI||{}).forEach(a=>(a||[]).forEach(k=>k&&k.teblig&&gozTeblig.add(k.teblig)));
+    const gozNot = `İzlediğimiz <b>${gozTeblig.size||'—'}</b> yürürlükteki gözetim tebliğinde bu koda rastlanmadı
+      <span style="opacity:.75">(veri ${GOZETIM_HASAT} tarihli tebliğ metinlerinden)</span>.
+      Gözetim tebliğleri <b>sık değişir</b>; beyandan önce
+      <a href="https://www.mevzuat.gov.tr/" target="_blank" rel="noopener">mevzuat.gov.tr</a>'den
+      ya da gümrük müşavirinden teyit et.`;
+    s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + `<div class="kart yok"><div class="et">■ İZLEDİĞİMİZ TEBLİĞLERDE GÖZETİM YOK</div>
+      <h3>${q} kodu, izlediğimiz gözetim tebliğlerinde geçmiyor.</h3>
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">${gozNot} Vergiler aşağıda:</p>${vHtml}</div>` + ctaHtml();
     return;
   }
   let html = '';
