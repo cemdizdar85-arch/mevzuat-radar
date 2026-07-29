@@ -113,14 +113,32 @@ foreach($k in $kasa){
 }
 Write-Host ("  konu-kelime indeksi: {0} kelime" -f $kelMadde.Count)
 
+# 29.07 - TAM KOSUNUN BULGUSU. Pilotlarda (50-60 soru) rakam reddi 0-2 iken,
+# 2.400'luk kosuda 556'ya firladi. Sebep sudur: pilotlar kotanin EN GUCLU
+# satirlarini kullaniyordu; olcek buyuyunce konu-madde eslesmesi ZAYIF satirlara
+# inildi. Model, konuyla ortusmeyen bir maddeden soru yazmaya calisiyor, kanunda
+# olmayan sayi beyan ediyor, kapi da hakli olarak reddediyor.
+# KAPI DOGRU CALISIYOR AMA PARA ONCE HARCANIYOR: 786 soru uretildi, ucreti
+# odendi, sonra cope gitti (~6 USD).
+# Cozum: zayif eslesmeyi URETMEDEN once ele. Olcut "toplam puan" degil, KAC AYRI
+# KELIMENIN ayni maddeyi isaret ettigi - tek kelimenin tesadufen tutturmasi
+# eslesme sayilmaz ("defter" kelimesi onlarca maddede gecer).
 function MaddeBul([string]$konu){
-  $sayac=@{}
+  $sayac=@{}; $kelimeSay=@{}
   foreach($w in (Kel $konu)){
     if(-not $kelMadde.ContainsKey($w)){ continue }
-    foreach($p in $kelMadde[$w].GetEnumerator()){ $sayac[$p.Key] = [int]$sayac[$p.Key] + $p.Value }
+    foreach($p in $kelMadde[$w].GetEnumerator()){
+      $sayac[$p.Key] = [int]$sayac[$p.Key] + $p.Value
+      if(-not $kelimeSay.ContainsKey($p.Key)){ $kelimeSay[$p.Key] = @{} }
+      $kelimeSay[$p.Key][$w] = 1
+    }
   }
   if($sayac.Count -eq 0){ return $null }
   $en = ($sayac.GetEnumerator() | Sort-Object {-$_.Value} | Select-Object -First 1)
+  $ayriKelime = $kelimeSay[$en.Key].Count
+  $konuKelime = @(Kel $konu).Count
+  # TEK kelimeye dayanan eslesme, konu birden fazla kelimeden olusuyorsa zayiftir.
+  if($ayriKelime -lt 2 -and $konuKelime -ge 2){ return $null }
   return $en.Key
 }
 
