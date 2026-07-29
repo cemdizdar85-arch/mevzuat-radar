@@ -337,8 +337,24 @@ for($i2=0; $i2 -lt $yeni.Count; $i2 += 150){
     $cev = HataGovde $_
     Write-Host ("YAZMA HATASI: {0}" -f $_.Exception.Message)
     if($cev){ Write-Host ("SUNUCU CEVABI: {0}" -f $cev.Substring(0,[Math]::Min(600,$cev.Length))) }
-    $ornek = ($dl[0] | ConvertTo-Json -Depth 6 -Compress)
-    Write-Host ("GONDERILEN ILK SATIR (ilk 700): {0}" -f $ornek.Substring(0,[Math]::Min(700,$ornek.Length)))
+    # 29.07 ASIL SEBEP: PostgREST toplu yazimda TEK BOZUK SATIR yuzunden
+    # BUTUN PARTIYI reddediyor. 5 satirlik kuru deneme gecti, 147 satirlik
+    # parti gecmedi - sorun sayida degil, aradaki bir satirdaydi. 147 saglam
+    # soru bir tanesi yuzunden cope gitti.
+    # Artik parti dusunce SATIR SATIR yeniden denenir: saglamlar kurtulur,
+    # bozuk olan ISIMLENDIRILIR.
+    Write-Host "  parti dustu -> satir satir yeniden deneniyor..."
+    foreach($tek in $dl){
+      try {
+        Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu" -Headers $HW -ContentType "application/json; charset=utf-8" `
+          -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($tek) -Depth 6))) -TimeoutSec 60 | Out-Null
+        $ozet.uretilen++; $ozet.yazmaHatasi--
+      } catch {
+        $g = HataGovde $_
+        $red.Add([pscustomobject]@{ konu="$($tek.konu)"; sebep='yazilamadi'; deger=$g.Substring(0,[Math]::Min(200,$g.Length)) })
+        Write-Host ("    BOZUK SATIR [{0}]: {1}" -f $tek.konu, $g.Substring(0,[Math]::Min(220,$g.Length)))
+      }
+    }
   }
 }
 
