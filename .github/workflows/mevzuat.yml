@@ -106,6 +106,18 @@ jobs:
         continue-on-error: true
         shell: pwsh
         run: ./motor/dayanak-nobetci.ps1
+      # TEBLIG DAMGASI (29.07). Cem: "bunu zaten biz sistemde yok mu, Resmi
+      # Gazete her gun iniyor, indirebildiklerimizi indirip kontrol
+      # saglayabiliriz." Hakliydi - mekanizma vardi, EKSIK OLAN KAPSAMDI:
+      # bu ayna her gun konsolide PDF indirip hash'liyor ama listesinde
+      # yalniz KANUNLAR vardi. GTIP aracinin kalbi olan 43 gozetim TEBLIGI
+      # hic girmemisti, 11.07'den beri degisip degismedikleri bilinmiyordu.
+      # Tespit (hash) BEDAVA burada; ayristirma (tablo->GTIP/kiymet) API
+      # gerektirir ve yalniz degisiklik varsa kosar.
+      - name: Teblig damgasi (gozetim tebligleri degisti mi)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/teblig-damgasi.ps1
       # ZINCIRIN SON HALKASI (29.07). Madde damgasi degisen maddeye dayanan
       # SORULARI yayindan cekiyor - ama SAYFALAR icin oyle bir bag yoktu.
       # Bedeli goruldu: KVKK sayfasi 11.07'de sablondan yazildi, kanun ambara
@@ -123,6 +135,8 @@ jobs:
           if [ -f veri/madde-degisim.json ]; then git add veri/madde-degisim.json || true; fi
           if [ -f veri/dayanak-uyari.json ]; then git add veri/dayanak-uyari.json || true; fi
           if [ -f veri/dayanak-nobet-log.txt ]; then git add veri/dayanak-nobet-log.txt || true; fi
+          if [ -f veri/teblig-damga.json ]; then git add veri/teblig-damga.json || true; fi
+          if [ -f veri/teblig-damga-log.txt ]; then git add veri/teblig-damga-log.txt || true; fi
           git add veri/yeniden-dogrula.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
@@ -149,6 +163,22 @@ jobs:
           }
           Write-Host ""
           Write-Host "Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz. Ayrinti: veri/dayanak-uyari.json"
+          exit 1
+      - name: KAPI — gozetim tebligi degisti mi
+        if: always()
+        shell: pwsh
+        run: |
+          $y = 'veri/teblig-damga.json'
+          if(-not (Test-Path $y)){ Write-Host "Damga dosyasi yok - gecildi."; exit 0 }
+          $t = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          if($t.ilk_kurulum -eq $true){ Write-Host "Ilk kurulum - karsilastirilacak onceki hal yok."; exit 0 }
+          $d = @($t.degisen)
+          if($d.Count -eq 0){ Write-Host ("TEMIZ: {0} gozetim tebliginin hicbiri degismemis." -f $t.izlenen); exit 0 }
+          Write-Host ("KIRMIZI: {0} gozetim tebligi DEGISTI - veri/gtip-durum.json ESKIDI." -f $d.Count)
+          foreach($x in $d){ Write-Host ("  mevzuatNo {0}  ({1} -> {2} bayt)  {3}" -f $x.mevzuatNo, $x.eski_boyut, $x.yeni_boyut, $x.url) }
+          Write-Host ""
+          Write-Host "YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir)."
+          Write-Host "O kosana kadar GTIP aracindaki gozetim verisi ESKIDIR - arac hasat tarihini ekranda gosteriyor."
           exit 1
       # GUVEN KATMANI C: hasat VE commit sonrasi retrieval sigortasi — altin
       # setteki her soru icin beklenen kaynak top-6'da bulunmali. Dusen vaka =
