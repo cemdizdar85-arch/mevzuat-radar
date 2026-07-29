@@ -1,0 +1,53 @@
+# .github/workflows/karne.yml — KONU-KAYNAK KARNESI
+#
+# NEDEN VAR: karne "parali muslugun on sarti" olarak kuruldu ama IS AKISI YOKTU -
+# elle kosuluyordu. Sonucu 29.07'de gorundu: 15 yeni SGS donemi analiz edildi
+# (donem 20 -> 35, gercek soru 2.557 -> 4.484) ve o donemlerin konulari karnede
+# YOK; karne hala 20 donemlik halini gosteriyor. Kota o karneden kuruldugu icin
+# yeni konular uretime hic girmeyecekti - 8,23 USD odenmis analiz bosa gidecekti.
+#
+# Karnenin kendi kurali: "parali parti kosmadan ONCE bu karneye bakilir;
+# KAYNAK YOK ve MEVZUAT-DISI satirlarina fabrika SOKULMAZ."
+# Kural ancak karne TAZEYSE ise yarar.
+#
+# PARA HARCAMAZ: hicbir API cagrisi yok, yalniz Supabase okuma + yerel dosya.
+name: Konu-Kaynak Karnesi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'veri/sgs-analiz.json'          # yeni donem analiz edildi -> karne eskidi
+      - 'veri/smmm-analiz.json'
+      - 'motor/konu-kaynak-karnesi.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: karne
+  cancel-in-progress: false
+
+jobs:
+  karne:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Karneyi yenile
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/konu-kaynak-karnesi.ps1
+      - name: Karneyi commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # Bu listeye yazilmayan dosya SESSIZCE kaybolur - is akisi yesil biter,
+          # dosya uretilir, hicbir yere gitmez.
+          for f in veri/konu-kaynak-karnesi.json veri/karne-log.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
