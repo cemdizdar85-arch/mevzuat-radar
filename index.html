@@ -452,24 +452,21 @@
       </div>
     </div>
 
-    <div class="stage" aria-hidden="true">
-      <div class="radar"><div class="sweep"></div>
+    <!-- 29.07: TEMSILI KARTLAR KALDIRILDI.
+         Ana sayfada "Temsili ornek kartlardir" yazan uydurma iki kart vardi.
+         Kurumsal bir urun vitrininde kendi ISININ GERCEGINI gosterir.
+         Bizde gerceği zaten var: hap kart motoru Resmi Gazete'yi tarayip
+         veri/kartlar-guncel.json'a yaziyor. Artik o dosya okunuyor.
+         DURUSTLUK KURALI: kartin ustunde verinin KENDI TARIHI yazar - "bugun"
+         demeyiz, dosyada ne yaziyorsa onu yazariz. Dosya okunamazsa uydurma
+         kart GOSTERILMEZ; tek satirlik durum notu cikar. -->
+    <div class="stage">
+      <div class="radar" aria-hidden="true"><div class="sweep"></div>
         <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
       </div>
       <div>
-        <div class="kart red k1">
-          <div class="tag">■ AKSİYON GEREKLİ · SON 12 GÜN</div>
-          <h4>Ürün grubunda damping soruşturması açıldı</h4>
-          <p>Soru formunu son tarihe kadar vermezsen en yüksek vergi oranı uygulanır.</p>
-          <div class="meta">214 sayfadan süzüldü · Kaynak: Resmî Gazete</div>
-        </div>
-        <div class="kart green k2">
-          <div class="tag">■ FIRSAT</div>
-          <h4>Profiline uyan yeni KOSGEB çağrısı yayınlandı</h4>
-          <p>Makine-teçhizat kalemi destek kapsamında; başvuru şartlarını karşılıyorsun.</p>
-          <div class="meta">Başvuru açık · Kaynak: KOSGEB</div>
-        </div>
-        <div style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px">Temsilî örnek kartlardır</div>
+        <div id="rgKartlar"></div>
+        <div id="rgKaynak" style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px"></div>
       </div>
     </div>
   </div>
@@ -492,6 +489,37 @@
     <div class="stat reveal"><div class="n">Kaynağa</div><div class="t">Bağlı · doğrulanır</div></div>
   </div>
 </div>
+
+<script>
+/* GERCEK RG KARTI — vitrinde uydurma is gostermeyiz.
+   veri/kartlar-guncel.json'i hap kart robotu her gun yaziyor.
+   Kural: kartin tarihini BIZ uydurmayiz, dosyada ne yaziyorsa o yazilir.
+   Dosya yoksa/bozuksa temsili kart KONMAZ - durum notu yazilir. */
+(function(){
+  var kutu = document.getElementById('rgKartlar'), knk = document.getElementById('rgKaynak');
+  if(!kutu) return;
+  function kacir(mesaj){ knk.textContent = mesaj; }
+  fetch('veri/kartlar-guncel.json', {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){
+      var k = (d && d.kartlar) ? d.kartlar : [];
+      if(!k.length){ kacir('Bugün seni ilgilendiren bir değişiklik çıkmadı.'); return; }
+      var renk = ['red','green'];
+      kutu.innerHTML = k.slice(0,2).map(function(x,i){
+        var gtip = (x.gtip && x.gtip.length) ? (x.gtip.length + ' GTİP kodunu ilgilendiriyor') : 'Resmî Gazete';
+        return '<div class="kart '+renk[i]+' k'+(i+1)+'">'
+             + '<div class="tag">■ RESMÎ GAZETE</div>'
+             + '<h4>'+ (x.baslik||'') +'</h4>'
+             + '<p>'+ String(x.ne_oldu||'').slice(0,150) +'…</p>'
+             + '<div class="meta">'+ gtip +'</div></div>';
+      }).join('');
+      // Tarih dosyadan gelir. "Bugun" demiyoruz - veri kac gunlukse o yazar.
+      var g = String(d.gun||'').replace(/-/g,'.');
+      knk.innerHTML = 'Gerçek Resmî Gazete taraması · <b style="color:var(--muted)">'+ g +'</b> · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
+    })
+    .catch(function(){ kacir('Kart verisi şu an okunamadı.'); });
+})();
+</script>
 
 <!-- ============ SINAV SERIDI =============================================
      29.07 KARAR: sinav hatti ucuncu kart olmaktan cikip KENDI SERIDINE alindi.
