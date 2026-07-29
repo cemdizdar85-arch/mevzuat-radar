@@ -39,6 +39,13 @@ td b{color:var(--ink)}
 .yolda li{margin-bottom:6px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 </style>
+<style>
+  /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
+  .logo, .mark{width:14px !important;height:14px !important;border-radius:50% !important;
+    background:#f5a524 !important;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);
+    font-size:0 !important;color:transparent !important;display:inline-block !important;
+    place-items:unset !important;flex:none}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -47,6 +54,58 @@ td b{color:var(--ink)}
   <p class="lead">Staja Giriş'ten Yeterlilik'e giden yolda tarihleri biz sayalım, sen çalış. Aşağıdaki takvim <b style="color:var(--ink)">TÜRMOB'un resmî 2026 sınav takviminden</b> alınmıştır.
   <span class="damga" id="teyitDamga">📑 Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF) — 22.07.2026'da okundu</span></p>
   <script>fetch('veri/sinav-takvimi.json?'+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById('teyitDamga');e.innerHTML='📑 Kaynak: '+d.kaynak+' — son teyit: <b>'+d.sonTeyit+'</b> · robot her gün PDF değişikliğini yoklar'+(d.degisiklikTespiti?' · <span style=\'color:var(--amber)\'>⚠ '+d.degisiklikTespiti+' tarihinde kaynak PDF değişti, teyit sürüyor</span>':'');}).catch(()=>{});</script>
+
+  <!-- ================= IKI KAPI (29.07 Cem) ==========================
+       Ana sayfada "Sinava hazirlaniyorum" diyen kisi buraya geliyordu ve
+       dogrudan TAKVIM TABLOSU ile karsilasiyordu. Oysa aday iki ayri
+       dunyadan birine ait: ya Staja Giris'e hazirlaniyor ya Bitirme'ye.
+       Ayni mantik, bir kat asagi: once KIM OLDUGUNU sor, sonra ayrintiyi ver.
+       Iki kart da kendi geri sayimini gosterir - tarih TURMOB'un resmi
+       takviminden, uydurma sayac degil. ================================= -->
+  <div class="ikikapi">
+    <a class="ik" href="deneme.html?sinav=SGS">
+      <span class="ik-ust">01</span>
+      <b>Staja Giriş</b>
+      <span class="ik-alt">SGS — staja başlamak için</span>
+      <span class="ik-gun" id="ikSgs">—</span>
+      <span class="ik-not">21 Kasım 2026</span>
+      <span class="ik-git">Soru çözmeye başla →</span>
+    </a>
+    <a class="ik" href="deneme.html?sinav=Yeterlilik">
+      <span class="ik-ust">02</span>
+      <b>Staj Bitirme</b>
+      <span class="ik-alt">Yeterlilik — ruhsat için</span>
+      <span class="ik-gun" id="ikYet">—</span>
+      <span class="ik-not">12 – 21 Aralık 2026</span>
+      <span class="ik-git">Soru çözmeye başla →</span>
+    </a>
+  </div>
+  <style>
+    .ikikapi{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 30px}
+    .ik{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+      background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px;
+      transition:border-color .18s,transform .18s,background .18s}
+    .ik:hover{border-color:var(--amber);transform:translateY(-3px)}
+    .ik-ust{font:800 12px/1 ui-monospace,Consolas,monospace;color:var(--amber);letter-spacing:1px;margin-bottom:10px}
+    .ik b{font-size:21px;letter-spacing:-.4px;margin-bottom:4px}
+    .ik-alt{font-size:13px;color:var(--muted);margin-bottom:14px}
+    .ik-gun{font:800 34px/1 ui-monospace,Consolas,monospace;color:var(--amber)}
+    .ik-gun::after{content:" gün";font-size:13px;font-weight:600;color:var(--dim);font-family:inherit}
+    .ik-not{font-size:12px;color:var(--dim);margin:4px 0 14px}
+    .ik-git{font-size:13.5px;font-weight:700;color:var(--amber);margin-top:auto}
+    @media(max-width:640px){ .ikikapi{grid-template-columns:1fr} }
+  </style>
+  <script>
+  /* Geri sayim TURMOB'un resmi takviminden; sahte sayac degil. Tarihler
+     robotla degistirilmez, elle teyitle guncellenir. */
+  (function(){
+    function gun(t){ return Math.ceil((new Date(t+'T09:00:00+03:00') - new Date())/86400000); }
+    var a=gun('2026-11-21'), b=gun('2026-12-12');
+    var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet');
+    if(e1) e1.textContent = a>0 ? a : '0';
+    if(e2) e2.textContent = b>0 ? b : '0';
+  })();
+  </script>
 
   <div class="sayac" id="sayac"></div>
 
