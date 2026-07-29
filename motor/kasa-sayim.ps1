@@ -20,6 +20,12 @@ $KEY = $env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - kasa sayimi atlandi."; exit 0 }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
 
+# KOR KALMA KURALI: Actions loglari bana kapali. Bu kosu uc kez YESIL bitti ve
+# uc kez dosya uretmedi; sebebini goremedigim icin uc kez TAHMIN ettim. Bir kanal
+# kendi hatasini yazamiyorsa kurulmus sayilmaz - kosu artik kendi logunu depoya
+# birakiyor.
+try { Start-Transcript -Path (Join-Path $kok 'veri/kasa-log.txt') -Force | Out-Null } catch {}
+
 Write-Host "KASA SAYIMI basliyor..."
 
 # --- 1) toplam (count=exact, tek istek)
@@ -116,15 +122,23 @@ try {
 # YESIL BITTI. Bu yuzden artik once ham cekilir, gruplama PowerShell'de yapilir:
 # kasada ders adi ne yaziyorsa o kullanilir.
 try {
-  $ham = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&yayin=is.false&order=id.desc&limit=400" -Headers $H -TimeoutSec 120)
-  Write-Host ("     yayin=false soru (son 400 icinde): {0}" -f $ham.Count)
-  $say=@{}; $y = New-Object System.Collections.Generic.List[object]
-  foreach($s in $ham){
+  # IKI ADIM: once HAFIF sorgu (yalniz id+ders). Tek hamlede 400 sorunun tam
+  # metnini cekmek, sorgunun kendisi mi yoksa filtre mi bos dondu ayirt
+  # ettirmiyordu - agir sorgu duserse "hic soru yok" gibi gorunuyor.
+  $hafif = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&order=id.desc&limit=400" -Headers $H -TimeoutSec 120)
+  Write-Host ("     yayin=false soru (son 400 icinde): {0}" -f $hafif.Count)
+  $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
+  foreach($s in $hafif){
     $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
     if($say[$d] -ge 3){ continue }
-    $say[$d]++; $y.Add($s)
+    $say[$d]++; $sec.Add("$($s.id)")
   }
   foreach($k in ($say.Keys|Sort-Object)){ Write-Host ("       {0,-34} {1}" -f $k, $say[$k]) }
+  $y = New-Object System.Collections.Generic.List[object]
+  if($sec.Count){
+    $liste = ($sec -join ',')
+    $y = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&id=in.($liste)" -Headers $H -TimeoutSec 120)
+  }
   # ConvertTo-Json'a BORU ile bos dizi vermek $null dondurur, WriteAllText de
   # $null'da patlar - ilk denemeyi sessizce dusuren ikinci kusur buydu.
   $js = ConvertTo-Json -InputObject @($y) -Depth 8
@@ -153,3 +167,5 @@ if($toplam -ne $kayit.Count){
   Write-Host ("UYARI: sayfali cekimde {0} kayit geldi ama toplam {1}. Fark incelenmeli." -f $kayit.Count, $toplam)
 }
 exit 0
+
+try{Stop-Transcript|Out-Null}catch{}
