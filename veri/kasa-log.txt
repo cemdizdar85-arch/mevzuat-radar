@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729071621
+Start time: 20260729072303
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ff6739a4-bb9b-44bc-b83b-1efb0d64fd19.ps1'
-Process ID: 2234
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2f37c522-4780-416c-91a1-5cbabf810b43.ps1'
+Process ID: 2141
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -52,8 +52,8 @@ KASA SAYIMI basliyor...
      Ataturk Ilke ve Inkilap Tarihi     162
      Mali Tablolar Analizi              137
      Genel Kultur-Genel Yetenek         131
-     Vergi Mevzuatı ve Uygulaması       94
      Muh. ve Mali Müş. Meslek Hukuku    94
+     Vergi Mevzuatı ve Uygulaması       94
      Matematik                          72
      Finansal Tablolar ve Analizi       64
      Muhasebe Denetimi                  61
@@ -76,13 +76,13 @@ KASA SAYIMI basliyor...
        56x  Yabanci Dil|present perfect tense
        50x  Turkce|paragraf anlama
        47x  Turkce|sozcuk turleri
-       44x  Finansal Muhasebe|nakit akis tablosu
        44x  Ekonomi|talep fiyat esnekligi
+       44x  Finansal Muhasebe|nakit akis tablosu
        41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
-       41x  Yabanci Dil|correlative conjunction
-       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
        41x  Turkce|sozcukte anlam
        41x  Denetim|bds 230 denetim belgelendirme
+       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
+       41x  Yabanci Dil|correlative conjunction
        40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
@@ -104,6 +104,7 @@ KASA SAYIMI basliyor...
        Ticaret Hukuku                     5
        Vergi Hukuku                       4
        Vergi Mevzuatı ve Uygulaması       1
+-> veri/denetim-kuyrugu.json  (240 kimlik, profesor -idler icin)
      tam metin cekilen: 32 (istenen 32)
 -> veri/yeni-uretim-ornek.json  (32 yeni soru, GM okumasi icin)
 
@@ -112,5 +113,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729071628
+End time: 20260729072309
 **********************
