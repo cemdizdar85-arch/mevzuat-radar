@@ -290,6 +290,28 @@ if($PILOT_SINAV -or $PILOT_DERS){
         return [int](($h.Headers['Content-Range'] -split '/')[-1])
       } catch { return -1 }
     }
+    # --- PILOT KUYRUGU: hakem bu kimliklere hedefli koser (-idler).
+    # Genel denetim kuyrugu 4.400+ kimlik ve buyuk cogunlugu Yeterlilik; oradan
+    # 'sinir' ile ornek cekmek pilot sorularinin hakemden gecip gecmedigini
+    # OLCMEZ. Karar verilecek soru bu iki pilot oldugu icin kuyrugu ayiriyorum.
+    try {
+      $pk = New-Object System.Collections.Generic.List[string]
+      $ofsP = 0
+      while($true){
+        $uk = "$SB_URL/rest/v1/soru_havuzu?select=id&" + ($suz -join '&') + "&order=id&offset=$ofsP&limit=1000"
+        $hk = Invoke-WebRequest -UseBasicParsing -Uri $uk -Headers $H -TimeoutSec 120
+        $gkk = if($hk.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hk.Content) } else { "$($hk.Content)" }
+        $dk = @($gkk | ConvertFrom-Json)
+        foreach($r in $dk){ $pk.Add("$($r.id)") }
+        if($dk.Count -lt 1000){ break }
+        $ofsP += 1000
+      }
+      $pj = ConvertTo-Json -InputObject @($pk) -Depth 3
+      if([string]::IsNullOrWhiteSpace($pj)){ $pj = '[]' }
+      [IO.File]::WriteAllText((Join-Path $kok "veri/pilot-kuyrugu.json"), $pj, (New-Object Text.UTF8Encoding($false)))
+      Write-Host ("-> veri/pilot-kuyrugu.json  ({0} kimlik, hakem -idler icin)" -f $pk.Count)
+    } catch { Write-Host ("pilot kuyrugu yazilamadi: {0}" -f $_.Exception.Message) }
+
     $nStd = TurSay "kanun_no=eq.STD"
     $nThp = TurSay "kanun_no=eq.THP"
     $nTop = TurSay "id=not.is.null"
