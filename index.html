@@ -522,15 +522,22 @@ function gtipGit(e){
     <p class="sade-alt">Sınav sorusu, gümrük vergisi, ceza süresi, marka yenilemesi —
       <b>işini ne ilgilendiriyorsa onu izliyoruz</b>, kaynağıyla birlikte.</p>
 
-    <!-- 29.07 Cem: "sagda en onemli islerimizi baloncuk olarak gosterelim".
-         Hepsi tiklanir ve calisan bir sayfaya gider - dekor degil kisayol. -->
-    <div class="balonlar" aria-label="Öne çıkan araçlar">
-      <a class="balon b1" href="gtip.html">GTİP · kaç vergi?</a>
-      <a class="balon b2" href="ceza-asistani.html">Ceza geldi — kaç gün?</a>
-      <a class="balon b3" href="alacak-radari.html">Müşterin konkordatoda</a>
-      <a class="balon b4" href="marka-radari.html">Marka yenileme</a>
-      <a class="balon b5" href="deneme.html">Zayıf konu karnesi</a>
-      <a class="balon b6" href="risk-taramasi.html">Beyan öncesi risk</a>
+    <!-- 29.07: yuvarlak baloncuklar SOHBET BALONU gibi duruyordu ve dagilimi
+         gelisiguzeldi - ikisi de kurumsal degil. Yerine TELEMETRI SUTUNLARI:
+         monospace rakam + altinda etiket, dikey hizada, ince cizgiyle ayrilmis.
+         Teknoloji sirketi sayilarla konusur, etiketle degil.
+         RAKAM DISIPLINI: "7.000+ yayindaki soru" yaziyoruz cunku kasada 11.064
+         var ama 4.107'si denetimde ve ogrenciye acik degil - buyuk sayiyi
+         yazmak yalan olurdu. -->
+    <div class="telemetri sol">
+      <a class="tel" href="gtip.html"><span class="n">13.400+</span><span class="e">GTİP vergi kaydı</span></a>
+      <a class="tel" href="#araclar"><span class="n">22</span><span class="e">karar aracı</span></a>
+      <a class="tel" href="deneme.html"><span class="n">7.000+</span><span class="e">yayındaki soru</span></a>
+    </div>
+    <div class="telemetri sag">
+      <a class="tel" href="kartlar.html"><span class="n">06:00</span><span class="e">her sabah RG taraması</span></a>
+      <a class="tel" href="#guven"><span class="n">7 kapı</span><span class="e">yayın öncesi denetim</span></a>
+      <a class="tel" href="#guven"><span class="n">madde no</span><span class="e">her cevapta kaynak</span></a>
     </div>
 
     <div class="sade-soru">Sen kimsin? Kendi kapından gir.</div>
@@ -570,8 +577,8 @@ function gtipGit(e){
 </header>
 
 <style>
-  .hero-sade{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-  .sade-ic{position:relative;max-width:1080px;margin:0 auto;padding:74px 20px 26px;width:100%}
+  .hero-sade{min-height:auto;display:block;text-align:center}
+  .sade-ic{position:relative;max-width:1180px;margin:0 auto;padding:112px 20px 30px;width:100%}
   .hero-sade h1{margin:0 0 10px;font-size:clamp(30px,4.2vw,52px)}
   .sade-alt{color:var(--muted);font-size:clamp(14.5px,1.5vw,16.5px);max-width:660px;margin:0 auto 22px}
   .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
@@ -587,26 +594,20 @@ function gtipGit(e){
   .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
 
   .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
-  /* BALONCUKLAR: hero'nun sag ve sol bosluguna dagilir; icerigi itmez cunku
-     position:absolute. Dar ekranda gizlenir - orada yer yok, kutulari ezer. */
-  .balonlar{position:absolute;inset:0;pointer-events:none}
-  .balon{position:absolute;pointer-events:auto;white-space:nowrap;text-decoration:none;
-    font-size:12.5px;font-weight:600;color:var(--muted);background:rgba(18,21,28,.82);
-    border:1px solid var(--line2);border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px);
-    transition:color .18s,border-color .18s,transform .18s}
-  .balon:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
-  .balon::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
-    background:var(--accent);margin-right:8px;vertical-align:middle;
-    box-shadow:0 0 8px rgba(245,165,36,.6)}
-  .balon.b1{right:1%;top:16%}
-  .balon.b2{right:6%;top:34%}
-  .balon.b3{right:0%;top:52%}
-  .balon.b4{left:1%;top:22%}
-  .balon.b5{left:4%;top:41%}
-  .balon.b6{left:0%;top:59%}
-  @media(max-width:1240px){ .balon.b4,.balon.b5,.balon.b6{display:none} }
-  @media(max-width:1040px){ .balonlar{display:none} }
-
+  /* TELEMETRI: dagitilmis balon degil, HIZALI sutun. Rakam monospace, etiket
+     altinda, ince cizgi ile ayrilir. Teknoloji sirketi sayilarla konusur. */
+  .telemetri{position:absolute;top:50%;transform:translateY(-50%);display:grid;gap:26px}
+  .telemetri.sol{left:0}
+  .telemetri.sag{right:0;text-align:right}
+  .tel{display:block;text-decoration:none;padding-left:14px;border-left:2px solid var(--line2);
+    transition:border-color .18s}
+  .telemetri.sag .tel{padding-left:0;padding-right:14px;border-left:0;border-right:2px solid var(--line2)}
+  .tel:hover{border-color:var(--accent)}
+  .tel .n{display:block;font:700 20px/1 ui-monospace,Consolas,monospace;color:var(--accent);
+    letter-spacing:-.5px;margin-bottom:5px}
+  .tel .e{display:block;font-size:11.5px;color:var(--dim);letter-spacing:.2px;line-height:1.35;max-width:150px}
+  .telemetri.sag .tel .e{margin-left:auto}
+  @media(max-width:1280px){ .telemetri{display:none} }
   .sade-not{margin-top:18px;font-size:13px;color:var(--muted)}
   .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
   @media(max-width:860px){
