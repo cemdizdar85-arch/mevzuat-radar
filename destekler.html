@@ -7,7 +7,7 @@
 <meta name="description" content="KOSGEB, Ticaret Bakanlığı ihracat destekleri ve Türk Eximbank kredileri dağınık ve tarihli. İşletme aşamanı seç, sana uygun programları gör; yeni çağrı açılınca haber verelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -24,12 +24,12 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 .kart p{margin:0 0 12px;font-size:14px;color:var(--muted)}
 .kart .gore{display:inline-block;text-decoration:none;font-weight:700;font-size:13px;color:var(--accent2)}
 .kart .gore:hover{color:var(--ink)}
-.rozet{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;background:rgba(62,155,255,.13);color:var(--accent2);margin-left:6px;vertical-align:middle}
-.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:22px;margin-top:24px}
+.rozet{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;background:rgba(245,165,36,.13);color:var(--accent2);margin-left:6px;vertical-align:middle}
+.cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:22px;margin-top:24px}
 .cta h3{margin:0 0 6px;font-size:17px}.cta p{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
 .ara{display:flex;gap:10px;flex-wrap:wrap}
 .ara input{flex:1;min-width:200px;padding:13px 15px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
-.ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,155,255,.18)}
+.ara input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
 .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(46,140,255,.35);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
 .uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
@@ -38,7 +38,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
 /* ——— premium ortak katman (tüm araçlarda tutarlı) ——— */
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
-body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.12),transparent 72%);pointer-events:none;z-index:0}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
@@ -227,7 +227,7 @@ function isterHtml(p){
 function kartHtml(p, acik){
   const roz = p.asama.map(a=>`<span class="rozet">${ETIKET[a]||a}</span>`).join('');
   const yol = (YOLLAR[p.kurum]||[]).map((a,i)=>
-    `<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)"><span style="flex-shrink:0;width:22px;height:22px;border-radius:7px;background:rgba(62,155,255,.14);color:var(--accent2);display:grid;place-items:center;font-weight:800;font-size:11px">${i+1}</span><span style="font-size:13px;color:var(--muted)">${a}</span></div>`).join('');
+    `<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)"><span style="flex-shrink:0;width:22px;height:22px;border-radius:7px;background:rgba(245,165,36,.14);color:var(--accent2);display:grid;place-items:center;font-weight:800;font-size:11px">${i+1}</span><span style="font-size:13px;color:var(--muted)">${a}</span></div>`).join('');
   return `<div class="kart">
     <div class="et">${p.kurum}${roz}</div>
     <h3>${p.ad}</h3>
@@ -323,12 +323,12 @@ document.getElementById('takipMail').addEventListener('keydown',e=>{ if(e.key===
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
-  <div style="background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),#0d141e;border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. E-postanı bırak, Radar açılınca ilk sen haberdar ol.</div>
     <form onsubmit="return mrKatil(this)" style="display:flex;gap:8px;max-width:430px;margin:0 auto;flex-wrap:wrap">
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
-      <button type="submit" style="background:linear-gradient(135deg,#2f7bff,#26d0fe);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
+      <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>

@@ -8,7 +8,7 @@
 <meta name="description" content="Markana benzer bir başvuru mu çıktı? İşaret + fonetik benzerliği ve Nice sınıf çakışmasını ölç, karıştırılma ihtimalini ve itiraz edilebilirliği gör; kullanmama def'i ve 2 aylık itiraz süresi dahil.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
@@ -38,7 +38,7 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:10p
 /* ——— premium ortak katman (tüm araçlarda tutarlı) ——— */
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
-body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.12),transparent 72%);pointer-events:none;z-index:0}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
@@ -147,12 +147,12 @@ function ay(d,n){const x=new Date(d);x.setMonth(x.getMonth()+n);return x;}
 function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
-  <div style="background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),#0d141e;border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. E-postanı bırak, Radar açılınca ilk sen haberdar ol.</div>
     <form onsubmit="return mrKatil(this)" style="display:flex;gap:8px;max-width:430px;margin:0 auto;flex-wrap:wrap">
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
-      <button type="submit" style="background:linear-gradient(135deg,#2f7bff,#26d0fe);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
+      <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
@@ -160,12 +160,12 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
 </div>
 <div style="max-width:760px;margin:0 auto;padding:0 18px 64px" data-mr-teklif>
-  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(38,208,254,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(255,194,75,.05)),#0d141e;border:1px solid rgba(61,220,151,.32);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu isi uzmana birakmak istersen</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Arac sana yolu gosterir; dosyani ustlenmek istersen <b style="color:#eef2f7">Dizdar Denetim A.S.</b> ekibi (SMMM + vergi/gumruk uzmanligi) teklif versin. Yaz, ayni gun donelim.</div>
     <form onsubmit="return mrTeklif(this)" style="display:flex;gap:8px;max-width:520px;margin:0 auto;flex-wrap:wrap">
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
-      <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
+      <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
     <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>

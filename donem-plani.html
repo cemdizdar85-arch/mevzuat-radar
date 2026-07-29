@@ -7,9 +7,9 @@
 <meta name="description" content="SGS'ye kalan gün ve haftalar; çıkmış soru haritasının ağırlıklarına göre faz faz çalışma programı ve ders ders 'sırayla çalış' konu listeleri.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
-body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(62,155,255,.09),transparent 72%);pointer-events:none}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.09),transparent 72%);pointer-events:none}
 a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative}
 .top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:22px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
 .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
@@ -24,7 +24,7 @@ table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
 th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
 .tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:var(--panel)}
-.faz{border-left:3px solid rgba(62,155,255,.55);background:rgba(62,155,255,.05);border-radius:0 11px 11px 0;padding:12px 16px;margin-top:10px;font-size:13.5px}
+.faz{border-left:3px solid rgba(245,165,36,.55);background:rgba(245,165,36,.05);border-radius:0 11px 11px 0;padding:12px 16px;margin-top:10px;font-size:13.5px}
 .faz b{color:var(--ink)}
 .faz .fk{font-family:var(--mono);font-size:11px;color:var(--accent2);display:block;margin-bottom:3px;font-weight:700}
 .ritim{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin-top:10px}
@@ -33,9 +33,9 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 .gun.ozel{border-color:rgba(61,220,151,.45)}
 .uyari{font-size:12.5px;color:var(--dim);margin-top:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:11px;padding:11px 14px}
 .uyari b{color:var(--amber)}
-.paket{background:linear-gradient(135deg,rgba(61,220,151,.10),rgba(38,208,254,.05)),var(--panel);border:1px solid rgba(61,220,151,.3);border-radius:16px;padding:20px 22px;margin-top:26px}
+.paket{background:linear-gradient(135deg,rgba(61,220,151,.10),rgba(255,194,75,.05)),var(--panel);border:1px solid rgba(61,220,151,.3);border-radius:16px;padding:20px 22px;margin-top:26px}
 .paket h2{margin-top:0}
-.cta{display:inline-block;background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:12px 24px;border-radius:11px;text-decoration:none;margin-top:10px}
+.cta{display:inline-block;background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:12px 24px;border-radius:11px;text-decoration:none;margin-top:10px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 .damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
 </style>

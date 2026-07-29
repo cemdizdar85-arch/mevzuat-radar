@@ -7,7 +7,7 @@
 <meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu — ezber değil, gerekçe.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.09),transparent 72%);pointer-events:none}
 a{color:var(--accent2)}.wrap{max-width:820px;margin:0 auto;padding:24px 18px 70px;position:relative}
@@ -20,9 +20,9 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .etiket{font-size:10.5px;font-weight:800;letter-spacing:1.1px;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
 .secgrup{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
 .sec{background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:9px 15px;cursor:pointer;user-select:none}
-.sec.aktif{background:linear-gradient(135deg,rgba(47,123,255,.18),rgba(38,208,254,.10));border-color:rgba(62,155,255,.55);color:var(--ink)}
+.sec.aktif{background:linear-gradient(135deg,rgba(245,165,36,.18),rgba(255,194,75,.10));border-color:rgba(245,165,36,.55);color:var(--ink)}
 .sec small{font-weight:600;color:var(--dim)}
-.basla{background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:15px;padding:13px 30px;border:none;border-radius:12px;cursor:pointer;margin-top:6px}
+.basla{background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:15px;padding:13px 30px;border:none;border-radius:12px;cursor:pointer;margin-top:6px}
 .basla:disabled{opacity:.4;cursor:not-allowed}
 .ilerleme{height:6px;background:#0a0f17;border-radius:99px;overflow:hidden;margin:14px 0 18px}
 .ilerleme div{height:100%;background:var(--grad);border-radius:99px;transition:width .3s}
@@ -30,9 +30,9 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .rozet{font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;color:var(--muted)}
 .soruMetin{font-size:16.5px;font-weight:600;margin:14px 0 16px;line-height:1.65}
 .sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#0a0f17;border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
-.sik:hover{border-color:rgba(62,155,255,.5)}
+.sik:hover{border-color:rgba(245,165,36,.5)}
 .sik .harf{font-family:var(--mono);font-weight:800;color:var(--accent2);flex-shrink:0}
-.sik.secili{border-color:var(--accent);background:linear-gradient(135deg,rgba(47,123,255,.14),rgba(38,208,254,.06))}
+.sik.secili{border-color:var(--accent);background:linear-gradient(135deg,rgba(245,165,36,.14),rgba(255,194,75,.06))}
 .sik.dogru{border-color:rgba(61,220,151,.65);background:linear-gradient(135deg,rgba(61,220,151,.13),transparent)}
 .sik.yanlis{border-color:rgba(255,107,94,.6);background:linear-gradient(135deg,rgba(255,107,94,.12),transparent)}
 .sik:disabled{cursor:default}
@@ -46,12 +46,12 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .navk.suanki{outline:2px solid var(--accent2)}
 .navk.d{border-color:rgba(61,220,151,.65);color:var(--green)}
 .navk.y{border-color:rgba(255,107,94,.65);color:var(--red)}
-.navk.c{border-color:rgba(62,155,255,.55);color:var(--accent2)}
+.navk.c{border-color:rgba(245,165,36,.55);color:var(--accent2)}
 .navk.i{box-shadow:inset 0 -3px 0 var(--amber)}
 .hedefKutu{margin-top:12px;border:1px solid rgba(94,215,255,.4);background:rgba(94,215,255,.08);border-radius:11px;padding:11px 14px;font-size:13.5px;color:var(--ink)}
 /* A+ yazi boyutu (UWorld arac cubugu klasigi) */
 .yaziBtn{border:1px solid var(--line2);background:#0a0f17;color:var(--muted);border-radius:8px;font:700 12px var(--mono);padding:5px 9px;cursor:pointer}
-.yaziBtn.aktif{color:var(--accent2);border-color:rgba(62,155,255,.5)}
+.yaziBtn.aktif{color:var(--accent2);border-color:rgba(245,165,36,.5)}
 body.yaziB .soruMetin{font-size:19px}
 body.yaziB .sik{font-size:16.5px}
 body.yaziB .gk{font-size:15.5px}
@@ -68,7 +68,7 @@ body.yaziB .hedefKutu{font-size:15px}
 .kaynakKutu{font-size:12.5px;color:var(--green);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:11px;padding:9px 13px;margin-top:10px}
 .yevmiye{margin-top:12px;border:1px solid var(--line2);border-radius:11px;overflow:hidden}
 .yevmiye table{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--mono)}
-.yevmiye th{background:rgba(62,155,255,.08);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;padding:7px 10px;text-align:left}
+.yevmiye th{background:rgba(245,165,36,.08);color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;padding:7px 10px;text-align:left}
 .yevmiye td{padding:6px 10px;border-top:1px solid var(--line)}
 .yevmiye td.t{text-align:right;white-space:nowrap}
 .yevmiye .alc td:first-child{padding-left:34px;color:var(--muted)}
@@ -131,7 +131,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
-      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(62,155,255,.07);border:1px solid rgba(62,155,255,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
+      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
       <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:#0a0f17">
         <div id="uyeKapali">
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
@@ -139,7 +139,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
           <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap">
             <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
             <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
-            <button class="ikincil" id="uyeGirisBtn" style="border-color:rgba(62,155,255,.4);color:var(--accent2)">Giriş</button>
+            <button class="ikincil" id="uyeGirisBtn" style="border-color:rgba(245,165,36,.4);color:var(--accent2)">Giriş</button>
           </div>
           <div id="uyeHata" style="color:var(--red);font-size:12px;margin-top:6px"></div>
         </div>

@@ -6,7 +6,7 @@
 <title>Eşik Teyit Kontrol Listesi — Tetikte (iç belge)</title>
 <meta name="robots" content="noindex">
 <style>
-:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#3e9bff;--accent2:#26d0fe;--amber:#ffc24b;--green:#3ddc97;--red:#ff6b5e}
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--amber:#ffc24b;--green:#3ddc97;--red:#ff6b5e}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -15,7 +15,7 @@ h1{font-size:clamp(21px,4vw,27px);letter-spacing:-.7px;margin:4px 0 6px;font-wei
 .sub{color:var(--muted);font-size:13.5px;margin:0 0 6px}
 .ilerleme{position:sticky;top:0;z-index:5;background:rgba(6,9,15,.85);backdrop-filter:blur(12px);padding:10px 0;margin-bottom:8px;border-bottom:1px solid var(--line)}
 .bar{height:8px;background:var(--panel);border:1px solid var(--line);border-radius:99px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2f7bff,#26d0fe);transition:width .3s}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f5a524,#ffc24b);transition:width .3s}
 .bar-t{font-size:12px;color:var(--muted);margin-top:5px}
 .grup{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent2);margin:30px 0 10px}
 .md{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr;gap:13px}
@@ -43,7 +43,7 @@ h1{font-size:clamp(21px,4vw,27px);letter-spacing:-.7px;margin:4px 0 6px;font-wei
 /* ——— premium ortak katman (tüm araçlarda tutarlı) ——— */
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
-body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(47,123,255,.12),transparent 72%);pointer-events:none;z-index:0}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
@@ -206,12 +206,12 @@ guncelle();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
-  <div style="background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),#0d141e;border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;text-align:center">
+  <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
     <div style="font-size:18px;font-weight:800;color:#eef2f7;margin-bottom:6px;letter-spacing:-.3px">Bu aracı beğendin mi? Bırak radar seni takip etsin.</div>
     <div style="font-size:13.5px;color:#93a1b3;margin-bottom:15px;line-height:1.5">Firmanı ilgilendiren her mevzuat değişikliği, süre ve fırsat cebine gelsin. E-postanı bırak, Radar açılınca ilk sen haberdar ol.</div>
     <form onsubmit="return mrKatil(this)" style="display:flex;gap:8px;max-width:430px;margin:0 auto;flex-wrap:wrap">
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
-      <button type="submit" style="background:linear-gradient(135deg,#2f7bff,#26d0fe);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
+      <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
     <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
