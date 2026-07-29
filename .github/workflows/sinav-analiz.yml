@@ -74,10 +74,24 @@ jobs:
           $no = [int]'${{ steps.emir.outputs.no }}'
           foreach($x in $e.emirler){ if([int]$x.no -eq $no){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force } }
           [IO.File]::WriteAllText($y, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+      # 29.07 - KARNE AYNI KOSUDA YENILENIR, TETIGE GUVENILMEZ.
+      # Karne is akisi "veri/sgs-analiz.json degisince kos" diye kurulmustu ama
+      # o dosyayi BU ROBOT yaziyor ve GITHUB_TOKEN ile yapilan robot push'lari
+      # yeni is akisi TETIKLEMEZ. Sonuc: 15 donem analiz edildi (8,23 USD),
+      # karne eskimis kaldi ve yeni konular kotaya hic girmeyecekti.
+      # Zincirin halkasini tetige degil, ayni kosuya bagliyoruz.
+      # PARA HARCAMAZ: karne yalniz ambar okur.
+      - name: Karneyi yenile (yeni konular kotaya girebilsin)
+        if: always() && steps.emir.outputs.kos == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/konu-kaynak-karnesi.ps1
       - name: Sonuclari kaydet
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
+          if [ -f veri/konu-kaynak-karnesi.json ]; then git add veri/konu-kaynak-karnesi.json || true; fi
           # 29.07: fatura ve LOG da commit'lenir. Kosu #13 "basarili" dondu ama
           # hicbir kitapcik islemedi; sebebi okunamadi cunku ne log ne fatura
           # commit'leniyordu. Actions loglari admin-kilitli - kanal kendi
