@@ -121,7 +121,15 @@
   @keyframes twinkle{0%,100%{opacity:.85}50%{opacity:.45}}
   .hero-inner{position:relative;max-width:1180px;margin:0 auto;width:100%;
     display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-  @media(max-width:920px){.hero-inner{grid-template-columns:1fr}.hero{min-height:auto;padding-top:104px}}
+  @media(max-width:920px){
+    .hero-inner{grid-template-columns:1fr}
+    .hero{min-height:auto;padding-top:96px;padding-bottom:34px}
+    h1{line-height:1.14;letter-spacing:-1.2px}
+    /* Kapi altindaki aciklama telefonda yan yana sigmiyordu, alta aliniyor */
+    .kapi{display:block}
+    .kapi small{display:block;margin-top:3px}
+    .kareler{grid-template-columns:repeat(2,1fr)}
+  }
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
     letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);
     padding:7px 14px;border:1px solid rgba(255,194,75,.25);border-radius:999px;
@@ -168,8 +176,8 @@
   .trust svg{width:15px;height:15px;stroke:var(--green)}
 
   /* radar + kart sahnesi */
-  .stage{position:relative;height:480px;display:grid;place-items:center}
-  @media(max-width:920px){.stage{height:420px;margin-top:10px}}
+  .stage{position:relative;display:block;height:auto}
+  @media(max-width:920px){.stage{height:auto;margin-top:20px}}
   .radar{opacity:.30;position:absolute;width:min(460px,88vw);aspect-ratio:1;border-radius:50%;
     border:1px solid rgba(245,165,36,.14);
     background:
