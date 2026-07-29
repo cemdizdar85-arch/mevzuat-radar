@@ -155,6 +155,17 @@ try {
   # Invoke-RestMethod BURADA GUVENILIR DEGIL: 194 kayitlik diziyi tek parca
   # dondurdu, @() da onu 1 eleman saydi. "cekilen: 1" yazdiran buydu - veri
   # eksik degildi, OKUMA bicimi bozuktu. Ham cek, kendin cozumle.
+  # DENETIM KUYRUGU: profesor -idler ile hedefli kosabiliyor. yayin=false olan
+  # her sorunun kimligi buraya yazilir; hakem butun kasayi bastan yargilamak
+  # yerine yalniz denetim bekleyenlere bakar. Ayni isi ikinci kez odememek icin.
+  try {
+    $kuyruk = @($hafif | ForEach-Object { "$($_.id)" })
+    $kj = ConvertTo-Json -InputObject $kuyruk -Depth 3
+    if([string]::IsNullOrWhiteSpace($kj)){ $kj = '[]' }
+    [IO.File]::WriteAllText((Join-Path $kok "veri/denetim-kuyrugu.json"), $kj, (New-Object Text.UTF8Encoding($false)))
+    Write-Host ("-> veri/denetim-kuyrugu.json  ({0} kimlik, profesor -idler icin)" -f $kuyruk.Count)
+  } catch { Write-Host ("kuyruk yazilamadi: {0}" -f $_.Exception.Message) }
+
   $y = @()
   if($sec.Count){
     $liste = (($sec | ForEach-Object { '"' + $_ + '"' }) -join ',')
