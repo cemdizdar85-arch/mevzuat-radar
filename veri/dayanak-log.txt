@@ -1,0 +1,64 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260729220244
+Username: GK\cemdi
+RunAs User: GK\cemdi
+Configuration Name: 
+Machine: GK (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
+$f = Join-Path $kok "motor\dayanak-haritasi.ps1"
+$c = [IO.File]::ReadAllText($f, [Text.Encoding]::UTF8)
+[IO.File]::WriteAllText($f, $c, (New-Object Text.UTF8Encoding($true)))
+$h=$null;$t=$null
+[System.Management.Automation.Language.Parser]::ParseFile($f,[ref]$t,[ref]$h)|Out-Null
+if($h -and $h.Count){ "SOZDIZIMI HATASI:"; $h|ForEach-Object{"  L{0}: {1}" -f $_.Extent.StartLineNumber,$_.Message} } else { "TEMIZ - kosuluyor"; & $f }
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-a305' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 22984
+PSVersion: 5.1.26100.8894
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
+BuildVersion: 10.0.26100.8894
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Taranan sayfa: 40
+  alacak-radari.html         7 dayanak
+  asgari-kv.html             1 dayanak
+  belge-kasasi.html          1 dayanak
+  bilgi.html                 3 dayanak
+  ceza-asistani.html         14 dayanak
+  fiyatfarki.html            2 dayanak
+  gtip.html                  1 dayanak
+  hatirlatici.html           2 dayanak
+  hizmet.html                1 dayanak
+  index.html                 4 dayanak
+  kdv-iade-rehberi.html      3 dayanak
+  kontrol-listesi.html       3 dayanak
+  kurulus.html               10 dayanak
+  kurulus-evrak.html         4 dayanak
+  kvkk.html                  5 dayanak
+  marka-itiraz.html          3 dayanak
+  marka-radari.html          7 dayanak
+  songun.html                5 dayanak
+
+Tekil (kanun, madde) cifti: 61 - ambarda araniyor...
+  ambarda BULUNAN : 59
+  BULUNAMAYAN     : 2
+
+  BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
+     213 m.370   [ambarda-yok]
+     213 m.372   [ambarda-yok]
+
+  NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
+  olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
+  tek tek bakacak. Ama her biri KONTROL EDILMEDEN yayinda kalmaz.
+
+-> veri/dayanak-haritasi.json  (18 sayfa, 61 tekil dayanak)
+**********************
+Windows PowerShell transcript end
+End time: 20260729220300
+**********************
