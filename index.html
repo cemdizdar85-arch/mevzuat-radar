@@ -552,6 +552,35 @@ function gtipGit(e){
         <span class="sk-git">GTİP kodunu sorgula →</span>
       </a>
     </div>
+
+    <!-- ================= NÖBET AKIŞI ==================================
+         Cem'in secimi (A). Uc kapinin altinda tek satir, yavasca kayar.
+         SIRALAMA DIKKAT CEKME GUCUNE GORE - rastgele degil:
+           1 Alacak  : "musterin konkordatoda mi"  -> para KAYBETME korkusu
+           2 Nereden : "hangi ulkeden ucuz"        -> dogrudan para kazanci
+           3 Marka   : "yenileme gecti mi"         -> hak kaybi
+           4 RG kart : "bugun ne cikti"            -> merak + gunluk aliskanlik
+           5 Ihale   : firsat (korkudan zayiftir)
+           6 Kurulus : dar kitle
+         Kural: KAYIP KORKUSU kazanc vaadinden gucludur.
+         Uzerine gelince akis DURUR ki okunabilsin. Liste iki kez yazilir -
+         kesintisiz dongu icin sart. ==================================== -->
+    <div class="akis" aria-label="Nöbet akışı">
+      <div class="akis-sey">
+        <a class="ak" href="alacak-radari.html"><i></i>Müşterin konkordato ilan etti mi?</a>
+        <a class="ak" href="senaryo-raporu.html"><i></i>Aynı ürün hangi ülkeden daha ucuz?</a>
+        <a class="ak" href="marka-radari.html"><i></i>Markanın yenileme tarihi geçti mi?</a>
+        <a class="ak" href="kartlar.html"><i></i>Bugün Resmî Gazete'de ne çıktı?</a>
+        <a class="ak" href="ihale-radari.html"><i></i>Sektörüne uyan yurt dışı ihale var mı?</a>
+        <a class="ak" href="kurulus.html"><i></i>Şahıs mı, Limited mi, Anonim mi?</a>
+        <a class="ak" href="alacak-radari.html" aria-hidden="true"><i></i>Müşterin konkordato ilan etti mi?</a>
+        <a class="ak" href="senaryo-raporu.html" aria-hidden="true"><i></i>Aynı ürün hangi ülkeden daha ucuz?</a>
+        <a class="ak" href="marka-radari.html" aria-hidden="true"><i></i>Markanın yenileme tarihi geçti mi?</a>
+        <a class="ak" href="kartlar.html" aria-hidden="true"><i></i>Bugün Resmî Gazete'de ne çıktı?</a>
+        <a class="ak" href="ihale-radari.html" aria-hidden="true"><i></i>Sektörüne uyan yurt dışı ihale var mı?</a>
+        <a class="ak" href="kurulus.html" aria-hidden="true"><i></i>Şahıs mı, Limited mi, Anonim mi?</a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -573,6 +602,24 @@ function gtipGit(e){
   .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
 
   .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
+
+  /* NOBET AKISI: tek satir, yavas kayar. Kenarlarda yumusak silinme (mask)
+     olmazsa yazi kutuya carpip kesiliyormus gibi durur - o ucuz gorunur. */
+  .akis{margin-top:26px;overflow:hidden;position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .akis-sey{display:flex;gap:10px;width:max-content;animation:akisKay 46s linear infinite}
+  .akis:hover .akis-sey{animation-play-state:paused}
+  .ak{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;text-decoration:none;
+    font-size:13px;color:var(--muted);background:rgba(18,21,28,.7);border:1px solid var(--line);
+    border-radius:10px;padding:9px 15px;transition:color .18s,border-color .18s}
+  .ak:hover{color:var(--ink);border-color:var(--accent)}
+  .ak i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;
+    box-shadow:0 0 8px rgba(245,165,36,.7);animation:akNabiz 2.4s ease-in-out infinite}
+  @keyframes akisKay{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  @keyframes akNabiz{ 0%,100%{opacity:1} 50%{opacity:.35} }
+  /* Hareketi rahatsiz edici bulan kullaniciyi zorlamayiz - tarayici ayarina uyar */
+  @media(prefers-reduced-motion:reduce){ .akis-sey{animation:none} .ak i{animation:none} }
   .sade-not{margin-top:18px;font-size:13px;color:var(--muted)}
   .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
   @media(max-width:860px){
