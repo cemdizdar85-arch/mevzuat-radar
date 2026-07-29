@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729193638
+Start time: 20260729194226
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1ca05674-204a-4df6-ad8f-f1f9c1e89fdc.ps1'
-Process ID: 2243
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/bfa69ea5-90f7-470f-b15c-c2a23dea5176.ps1'
+Process ID: 2244
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -186,18 +186,10 @@ msgbatch_01Va3ZiHD3CDzg3FCmF2o71W ended             600        0 07/23/2026 16:0
 msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:42:19
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
-PS>TerminatingError(): "Argument types do not match"
->> TerminatingError(): "Argument types do not match"
->> TerminatingError(): "Argument types do not match"
-OperationStopped: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/parti-liste.ps1:86
-Line |
-  86 |  $js = ConvertTo-Json -InputObject @($ozet) -Depth 5
-     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | Argument types do not match
 
-PS>$global:?
-False
+-> veri/parti-listesi.json (162 kayit)
+HASADA HAZIR (ended + basarili>0): 162 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260729193639
+End time: 20260729194228
 **********************
