@@ -141,6 +141,23 @@
   /* Uc kapi artik hero'nun ORTASINDA ve tiklanacak kadar buyuk. Alt satirdaki
      kucuk yazi, kisinin "bu benim" demesini hizlandiriyor: basligi okumadan
      once ne bulacagini goruyor. */
+  /* ARAC KARELERI: hero'nun sag sutunu. Susleme degil, calisan sayfalar. */
+  .uyekutu{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+    background:var(--panel);max-width:520px}
+  .uyekutu>span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:9px}
+  .uyesatir{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .uyesatir a:not(.btn){color:var(--accent);font-weight:700;text-decoration:none;font-size:13px}
+
+  .kareler{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+  .kare{display:block;text-decoration:none;padding:12px 13px;border:1px solid var(--line);
+    border-radius:12px;background:var(--panel);transition:border-color .16s,transform .16s,background .16s}
+  .kare:hover{border-color:rgba(245,165,36,.5);transform:translateY(-2px);background:var(--panel2)}
+  .kare b{display:block;font-size:13.5px;color:var(--ink);letter-spacing:-.2px}
+  .kare span{display:block;font-size:11.5px;color:var(--dim);margin-top:3px;line-height:1.4}
+  .kare-tum{display:block;text-align:center;margin-top:11px;font-size:12.5px;font-weight:700;
+    color:var(--accent);text-decoration:none}
+  @media(max-width:520px){ .kareler{grid-template-columns:1fr} }
+
   .kapilar{display:grid;grid-template-columns:1fr;gap:8px;margin:20px 0 20px;max-width:520px}
   .kapi small{display:block;font-weight:500;color:var(--dim);font-size:12px;margin-top:2px}
   .kapi{display:flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid var(--line2);border-radius:12px;background:rgba(255,255,255,.02);font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;transition:border-color .18s,background .18s,transform .18s}
@@ -450,6 +467,15 @@
       <div class="hero-cta">
         <a class="btn" href="#app">Ücretsiz karneni çıkar →</a>
       </div>
+      <!-- Cem: "uye olacak yer ilk sayfa olmali". Kayit kutusu hero'ya alindi;
+           ziyaretci uye olmak icin sayfayi aramasin. -->
+      <div class="uyekutu">
+        <span>Ücretsiz üye ol — kart bilgisi istemiyoruz</span>
+        <div class="uyesatir">
+          <a class="btn" href="deneme.html" style="padding:10px 18px;font-size:13.5px">Hemen başla</a>
+          <a href="fiyat.html">Fiyatlar →</a>
+        </div>
+      </div>
     </div>
 
     <!-- 29.07: TEMSILI KARTLAR KALDIRILDI.
@@ -460,14 +486,26 @@
          DURUSTLUK KURALI: kartin ustunde verinin KENDI TARIHI yazar - "bugun"
          demeyiz, dosyada ne yaziyorsa onu yazariz. Dosya okunamazsa uydurma
          kart GOSTERILMEZ; tek satirlik durum notu cikar. -->
+    <!-- 29.07 Cem: "ilk sayfada ne yaptigimiz gorunsun, kare kare koy".
+         Hakli: 22 aracimiz vardi ve ilk ekranda HICBIRI gorunmuyordu. Slogan
+         vardi, kapi vardi, IS yoktu. Sussuz radar cizimi yerine gercek araclar
+         kondu - her kare tiklanir ve calisan bir sayfaya gider.
+         Alt satirda gunun gercek RG kartlari duruyor: uydurma degil, robotun
+         buldugu. -->
     <div class="stage">
-      <div class="radar" aria-hidden="true"><div class="sweep"></div>
-        <span class="blip b1"></span><span class="blip b2"></span><span class="blip b3"></span>
+      <div class="kareler">
+        <a class="kare" href="gtip.html"><b>GTİP · Kaç Vergi?</b><span>İthalatta hangi vergiler çıkıyor</span></a>
+        <a class="kare" href="ceza-asistani.html"><b>Ceza Asistanı</b><span>Ceza geldi — hangi kapı, kaç gün</span></a>
+        <a class="kare" href="alacak-radari.html"><b>Alacak Radarı</b><span>Müşterin konkordato ilan etti mi</span></a>
+        <a class="kare" href="marka-radari.html"><b>Marka Radarı</b><span>Yenileme ve itiraz süreleri</span></a>
+        <a class="kare" href="risk-taramasi.html"><b>Risk Taraması</b><span>Beyandan önce ceza kapıları</span></a>
+        <a class="kare" href="ihale-radari.html"><b>İhale Radarı</b><span>Sektörüne uyan yurt dışı ihaleler</span></a>
+        <a class="kare" href="hatirlatici.html"><b>Süre Hatırlatıcı</b><span>DİİB · KDV · SGK tarihleri</span></a>
+        <a class="kare" href="deneme.html"><b>Soru Bankası</b><span>SMMM sınavı · zayıf konu karnesi</span></a>
       </div>
-      <div>
-        <div id="rgKartlar"></div>
-        <div id="rgKaynak" style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px"></div>
-      </div>
+      <a class="kare-tum" href="#araclar">22 aracın tamamını gör →</a>
+      <div id="rgKartlar" style="margin-top:18px"></div>
+      <div id="rgKaynak" style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px"></div>
     </div>
   </div>
 </header>
