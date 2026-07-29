@@ -1,0 +1,49 @@
+# .github/workflows/parti-liste.yml — KAYIP PARTI KIMLIKLERINI GERI BUL
+#
+# PARA HARCAMAZ: tek bir GET /v1/messages/batches cagrisi. Hicbir uretim yok,
+# hicbir batch gonderilmez. Bitmis bir partinin SONUCUNU cekmek de ucretsizdir -
+# ucret parti islenirken alinir, o zaten alinmistir.
+#
+# 29.07 emir #14'te on parti gonderildi, islendi ve betik kasaya yazmadan once
+# 429'a (aylik harcama tavani) carpip oldu. Kimlikler loga yazilmadigi icin
+# ~2.000 sorunun karsiligi alinamadi. Bu is akisi kimlikleri API'nin kendi
+# liste ucundan geri buluyor.
+name: Parti Listesi (kayip kimlik kurtarma)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/parti-liste.ps1'
+      - '.github/workflows/parti-liste.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: parti-liste
+  cancel-in-progress: false
+
+jobs:
+  liste:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Partileri listele
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/parti-liste.ps1
+      - name: Sonucu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # KOR KALMA KURALI: log da commit'lenir. Kosu basarisiz olsa bile
+          # SEBEBI gorunmeli - Actions loglari GM'ye kapali.
+          for f in veri/parti-listesi.json veri/parti-liste-log.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Parti listesi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
