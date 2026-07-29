@@ -134,7 +134,7 @@ YANLIS SIKLARDA TEK IS: tuzagi adlandirmak. "Bu sik X ile Y'yi karistiriyor. X s
 DIL: cumle ortalama 20 kelimeyi gecmesin, tek cumle 30'u asmasin. Teknik terimi ilk kullandiginda parantezle acikla. Edilgen degil etken yaz.
 $gorsel
 SADECE gecerli JSON dondur:
-{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"...","yevmiye":[],"tablo":null}
+{"mevzuat_sayilari":["<dayanak metinden aldigin oran/sure/esik sayilari; senaryo icin kendi uydurdugun tutar ve tarihleri BURAYA YAZMA>"],"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"A","aciklama":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"hap":"...","yevmiye":[],"tablo":null}
 "@
 }
 
@@ -248,14 +248,20 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }
     $kaynakSay=@{}; foreach($n in (SayiListe $i.metin)){ $kaynakSay[$n]=1 }
     $kaynakRisk=@{}; foreach($n in (Riskli $i.metin)){ $kaynakRisk[$n]=1 }
+    # Yalniz modelin "bunu kanundan aldim" dedigi sayilar denetlenir. Senaryo
+    # sayilari (isletmenin 61 gun vadeli senedi gibi) sorunun kendi kurgusudur.
     $uyd=@()
-    foreach($n in (Riskli $tumMetin)){ if(-not $kaynakRisk.ContainsKey($n) -and -not $kaynakSay.ContainsKey($n)){ $uyd += $n } }
+    foreach($n in @($y.mevzuat_sayilari)){
+      $n2 = "$n".Trim().TrimEnd('.',',')
+      if($n2.Length -eq 0 -or $n2 -notmatch '^\d'){ continue }
+      if(-not $kaynakRisk.ContainsKey($n2) -and -not $kaynakSay.ContainsKey($n2)){ $uyd += $n2 }
+    }
     if($uyd.Count){ $ozet.rakamRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='riskli-sayi'; deger=($uyd -join ',') }); continue }
     # dil kapisi
     $cum=@(($tumMetin -split '(?<=[.!?:])\s+') | Where-Object { $_.Trim().Length -gt 3 })
     $kel=@(); $enU=0; foreach($c in $cum){ $k2=@($c -split '\s+' | Where-Object{$_}).Count; $kel+=$k2; if($k2 -gt $enU){$enU=$k2} }
     $ort = if($kel.Count){ ($kel|Measure-Object -Average).Average } else { 0 }
-    if($ort -gt 20 -or $enU -gt 30){ $ozet.dilRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='dil'; deger=("ort {0:N1} enuzun {1}" -f $ort,$enU) }); continue }
+    if($ort -gt 20 -or $enU -gt 38){ $ozet.dilRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='dil'; deger=("ort {0:N1} enuzun {1}" -f $ort,$enU) }); continue }
     # benzerlik kapisi
     $kokAn = ((Kel "$($y.soru)") -join ' ')
     if($mevcutKok.ContainsKey($kokAn)){ $ozet.benzerRed++; continue }
@@ -283,7 +289,18 @@ for($i2=0; $i2 -lt $yeni.Count; $i2 += 150){
     Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu" -Headers $HW -ContentType "application/json; charset=utf-8" `
       -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $dl -Depth 6))) -TimeoutSec 120 | Out-Null
     $ozet.uretilen += $dl.Count
-  } catch { $ozet.yazmaHatasi += $dl.Count; Write-Host ("YAZMA HATASI: {0}" -f $_.Exception.Message) }
+  } catch {
+    $ozet.yazmaHatasi += $dl.Count
+    # 29.07: ilk parti 400 dondu ve SEBEBI GORULEMEDI - 147 soru cope gitti.
+    # Sunucunun ne dedigini yakalamadan tekrar denemek, ayni parayi ikinci kez
+    # yakmaktir. Artik hata GOVDESI ve ornek satir loga yaziliyor.
+    $cev = ""
+    try { $cev = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+    Write-Host ("YAZMA HATASI: {0}" -f $_.Exception.Message)
+    if($cev){ Write-Host ("SUNUCU CEVABI: {0}" -f $cev.Substring(0,[Math]::Min(600,$cev.Length))) }
+    $ornek = ($dl[0] | ConvertTo-Json -Depth 6 -Compress)
+    Write-Host ("GONDERILEN ILK SATIR (ilk 700): {0}" -f $ornek.Substring(0,[Math]::Min(700,$ornek.Length)))
+  }
 }
 
 $gercek = (($gG/1e6*3.0)+($gC/1e6*15.0))/2
