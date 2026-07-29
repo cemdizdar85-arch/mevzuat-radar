@@ -20,6 +20,16 @@ on:
       - 'veri/sgs-analiz.json'          # yeni donem analiz edildi -> karne eskidi
       - 'veri/smmm-analiz.json'
       - 'motor/konu-kaynak-karnesi.ps1'
+      - '.github/workflows/karne.yml'   # elle tetikleme yolu (asagidaki nota bak)
+
+# UYARI - BU TETIK TEK BASINA YETMEZ:
+# GITHUB_TOKEN ile yapilan robot push'lari yeni is akisi TETIKLEMEZ. Yani
+# sinav-analiz robotu veri/sgs-analiz.json'i guncelledi diye karne KENDILIGINDEN
+# kosmaz; bu tuzaga 29.07'de dusuldu (analiz bitti, karne eskimis kaldi ve
+# 8,23 USD'lik yeni konular kotaya girmeyecekti).
+# Kalici cozum secenekleri: (a) sinav-analiz.yml'in sonuna karne adimini
+# dogrudan eklemek, (b) PAT ile push. Simdilik bu dosyayi degistirip push
+# etmek elle tetikleme yoludur.
 
 permissions:
   contents: write
