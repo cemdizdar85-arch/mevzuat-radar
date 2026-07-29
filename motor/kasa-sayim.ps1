@@ -26,7 +26,7 @@ $H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
 # birakiyor.
 try { Start-Transcript -Path (Join-Path $kok 'veri/kasa-log.txt') -Force | Out-Null } catch {}
 
-Write-Host "KASA SAYIMI basliyor..."
+Write-Host "KASA SAYIMI basliyor... (kuyruk yenileme)"
 
 # --- 1) toplam (count=exact, tek istek)
 $toplam = -1
