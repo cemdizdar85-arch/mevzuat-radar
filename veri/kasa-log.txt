@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729065542
+Start time: 20260729065742
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5ba43c8f-3762-444f-819a-908fbe35514c.ps1'
-Process ID: 2261
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e38104e2-7a97-4491-9aa5-4af1a485ba02.ps1'
+Process ID: 2247
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -78,18 +78,32 @@ KASA SAYIMI basliyor...
        47x  Turkce|sozcuk turleri
        44x  Finansal Muhasebe|nakit akis tablosu
        44x  Ekonomi|talep fiyat esnekligi
-       41x  Yabanci Dil|correlative conjunction
        41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
+       41x  Yabanci Dil|correlative conjunction
        41x  Vergi Hukuku|kurumlar vergisi mukellefleri
        41x  Denetim|bds 230 denetim belgelendirme
        41x  Turkce|sozcukte anlam
-       40x  Denetim|bds 300 denetim planlamasi
+       40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
 -> veri/kasa-ornek.json  (1 ornek soru, tam metin)
      KASADA yayin=false (denetim bekleyen) : 194
-     cekilen yayin=false kayit: 1
-       Vergi Hukuku Is ve Sosyal Guvenlik Hukuku Vergi Hukuku Borclar Hukuku Ticaret Hukuku Is ve Sosyal Guvenlik Hukuku Vergi Mevzuatı ve Uygulaması Finansal Muhasebe Ticaret Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Denetim Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Hukuk Meslek Hukuku Finansal Muhasebe Vergi Hukuku Is ve Sosyal Guvenlik Hukuku Is ve Sosyal Guvenlik Hukuku Meslek Hukuku Ticaret Hukuku Vergi Hukuku Ticaret Hukuku Is ve Sosyal Guvenlik Hukuku Is ve Sosyal Guvenlik Hukuku Ticaret Hukuku Is ve Sosyal Guvenlik Hukuku Borclar Hukuku 1
+     HAM CEVAP: 14042 bayt  Content-Range: System.String[]
+     ILK 200: [{"id":"efac4879","ders":"Vergi Hukuku"}, 
+ {"id":"65a43d42","ders":"Is ve Sosyal Guvenlik Hukuku"}, 
+ {"id":"bc101187","ders":"Vergi Hukuku"}, 
+ {"id":"f86d34d9","ders":"Borclar Hukuku"}, 
+ {"id":"e1
+     cekilen yayin=false kayit: 194
+       Borclar Hukuku                     2
+       Denetim                            1
+       Finansal Muhasebe                  3
+       Hukuk                              1
+       Is ve Sosyal Guvenlik Hukuku       3
+       Meslek Hukuku                      2
+       Ticaret Hukuku                     3
+       Vergi Hukuku                       3
+       Vergi Mevzuatı ve Uygulaması       1
 -> veri/yeni-uretim-ornek.json  (1 yeni soru, GM okumasi icin)
 
 -> veri/kasa-sayim.json
@@ -97,5 +111,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729065547
+End time: 20260729065747
 **********************
