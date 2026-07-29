@@ -1,0 +1,55 @@
+**********************
+PowerShell transcript start
+Start time: 20260729062004
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8a693423-ebb3-4665-af53-169083187b2a.ps1'
+Process ID: 2039
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Kota satiri: 892
+Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
+  kasa: 7213 soru
+  konu-kelime indeksi: 605 kelime
+
+  planSatir    29
+  maddesiz     0
+  metinsiz     0
+  hazir        200
+MALIYET TAHMINI (Batch %50): ~2.45 USD
+PARTI 1: 200 soru
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 9, position 3."
+PS>TerminatingError(Invoke-RestMethod): "
+{
+  "code": "PGRST102",
+  "details": null,
+  "hint": null,
+  "message": "All object keys must match"
+}"
+YAZMA HATASI: Response status code does not indicate success: 400 (Bad Request).
+
+======== URETIM ========
+  uretilen       0
+  rakamRed       36
+  dilRed         15
+  sikRed         1
+  benzerRed      0
+  cevapsiz       1
+  yazmaHatasi    147
+  GERCEK FATURA: ~2.24 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-1.json
+**********************
+PowerShell transcript end
+End time: 20260729062245
+**********************
