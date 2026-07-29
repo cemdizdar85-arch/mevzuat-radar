@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  PARTI LISTESI — KAYIP PARTILERIN KIMLIGINI API'DEN GERI BUL   (0 USD)
 #
 #  NEDEN VAR: 29.07 emir #14'te on parti gonderildi, islendi, sonuclari
@@ -64,7 +64,13 @@ try {
 Write-Host ""
 Write-Host ("TOPLAM {0} parti bulundu." -f $hepsi.Count)
 Write-Host ""
-Write-Host "{0,-30} {1,-12} {2,8} {3,8} {4}" -f 'KIMLIK','DURUM','BITEN','HATA','OLUSTURULDU'
+# 29.07 - GM HATASI, DUZELTILDI: bu satir parantezsizdi
+#   Write-Host "{0}..." -f 'A','B'
+# PowerShell '-f' operatorunu Write-Host'un PARAMETRESI sanip diziyi
+# ForegroundColor'a baglamaya calisiyor ve betik ORADA oluyor. Ilk kosuda
+# 162 parti BASARIYLA cekildi ama tam bu satirda patladi, dosya yazilamadi
+# ve "para yandi" sanildi. Format operatoru Write-Host icinde HEP parantezle.
+Write-Host ("{0,-30} {1,-12} {2,8} {3,8} {4}" -f 'KIMLIK','DURUM','BITEN','HATA','OLUSTURULDU')
 $ozet = New-Object System.Collections.Generic.List[object]
 foreach($b in $hepsi){
   $sc = $b.request_counts
