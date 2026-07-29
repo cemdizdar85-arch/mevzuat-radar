@@ -247,6 +247,22 @@
                         "gerekce":  "PARA HARCANDI, SONUC ALINAMADI. 4.107 soruluk denetimde 6 parti gonderildi ve ~18 USD odendi; besinci parti 30 dakikada bitmeyince betik onu birakip YINE DE sonucunu cekmeye calisti, 404 aldi ve butun kosu oldu. Tek satir sonuc kaydedilmedi. Partiler Anthropic tarafinda DURUYOR ve -kurtar ile YENIDEN GONDERMEDEN cekilebilir; ek maliyet SIFIR. Yeniden kosmak ayni 18 USDyi ikinci kez yakardi. Betikteki iki kusur da kapatildi: (1) bekleme siniri 30 dakikadan 3 saate cikarildi, (2) zaman asiminda artik sonuc CEKILMIYOR - parti kimligi veri/bekleyen-partiler.json dosyasina yazilip atlaniyor, digerleri islenmeye devam ediyor. Eskiden tek yavas parti butun kosuyu olduruyordu.",
                         "tahmini_usd":  0,
                         "uygulandi":  null
+                    },
+                    {
+                        "no":  17,
+                        "tarih":  "29.07.2026",
+                        "veren":  "Cem Dizdar (\u0027evet acalim\u0027 + \u0027profesor denetlesin birde\u0027)",
+                        "emir":  "SGS pilot denetimi (355 soru) + profesorun kendi sinavi",
+                        "onay":  true,
+                        "kaynak":  "kasa",
+                        "sinir":  0,
+                        "idler":  "veri/pilot-kuyrugu.json",
+                        "odak":  "genel",
+                        "kurtar":  "",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "IKI SGS PILOTUNUN HAKEM DENETIMI - VE AYNI ZAMANDA HAKEMIN KENDI SINAVI. 355 kimlik (SGS / Finansal Muhasebe / yayin=false): Pilot-1 (#11, kaynak eslesmesi BOZUKKEN) + Pilot-2 (#13, onarim sonrasi) + eski denetlenmemisler. GM OKUMASINDA BULUNAN IKI SOMUT HATA - HAKEM BUNLARI YAKALAMALI: (1) Pilot-1: \u0027tms 40 yatirim amacli gayrimenkul\u0027 konulu soru VUK m.275\u0027ten (imal edilen emtia) yazilmis; kaynak konuyla tamamen ilgisiz, yani soru fiilen hafizadan yazilmis. (2) Pilot-2: THP 723 standart iscilik sure sapmasi sorusunda CEVAP ile ACIKLAMA BIRBIRINI CURUTUYOR - isaretli sik D (723 BORC) ama hap \u0027olumlu fark 723 hesabinin ALACAGINA kaydedilir\u0027 diyor. Dogru sik C olmaliydi. Ustelik soru kusurlu: sure farkini hesaplamak icin saat ve saat ucreti gerekir, verilen iki tutarla ancak toplam fark bulunur. BU KOSU BIR KARARI BELIRLIYOR - Cem\u0027in onerisi: kanun degisince makine soruyu duzeltsin, PROFESOR denetlesin, oyle yayina donsun (insan her seferinde okumasin). Onerinin gecerliligi tek sarta bagli: profesor bu iki hatayi kendi basina yakalayabiliyor mu? YAKALARSA: makine+profesor dongusu yeterli guvencedir, otomatik yeniden-yayin acilabilir. KACIRIRSA: profesorun kor noktasi olculmus olur, insan kapisi kalir ve kor nokta icin ayri kapi yazilir. Tahminle karar vermek yerine olcuyoruz. ~1,6 USD (355 x olculen 0,0044).",
+                        "tahmini_usd":  1.6,
+                        "uygulandi":  null
                     }
                 ]
 }
