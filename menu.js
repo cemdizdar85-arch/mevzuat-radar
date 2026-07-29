@@ -17,13 +17,13 @@ try {
       d.id = 'mrPerde';
       d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#06090f;color:#eef2f7;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
       d.innerHTML = '<div style="max-width:460px">'+
-        '<div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#2f7bff,#26d0fe);display:inline-grid;place-items:center;color:#03101f;font-weight:800;font-size:26px;margin-bottom:18px">T</div>'+
+        '<div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#f5a524,#ffc24b);display:inline-grid;place-items:center;color:#03101f;font-weight:800;font-size:26px;margin-bottom:18px">T</div>'+
         '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ddc97;animation:mrNbz 1.6s ease-out infinite"></span></h1>'+
         '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
         '<p style="color:#93a1b3;font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:#eef2f7">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
         '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:#0d141e;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:12px 14px">'+
-        '<button type="submit" style="background:linear-gradient(135deg,#3ddc97,#26d0fe);color:#03140d;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
+        '<button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
         '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div>'+
         '<div style="font-size:11px;color:#5d6b7c;margin-top:16px">Katılınca bilgilendirme e-postası almayı kabul edersin.</div></div>';
       document.body.appendChild(d);
@@ -79,7 +79,7 @@ var GRUPLAR=[
 
 var css=''+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid rgba(255,255,255,.16);'+
- 'background:linear-gradient(135deg,#2f7bff,#26d0fe);color:#03101f;font-weight:800;font-size:14px;'+
+ 'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
  'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
@@ -88,18 +88,18 @@ var css=''+
 '#mrxKaplama.acik{display:block}'+
 '.mrxIc{max-width:1000px;margin:0 auto;padding:26px 18px 60px;color:#eef2f7}'+
 '.mrxUst{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}'+
-'.mrxLogo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2f7bff,#26d0fe);'+
+'.mrxLogo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#f5a524,#ffc24b);'+
  'display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}'+
 '.mrxUst b{font-size:16px}'+
 '.mrxUst a{color:#93a1b3;text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 14px;'+
  'border:1px solid rgba(255,255,255,.14);border-radius:10px}'+
 '.mrxUst a:hover{color:#fff}'+
-'.mrxUst a.mrxUye{background:linear-gradient(135deg,#2f7bff,#26d0fe);color:#03101f;border:0;font-weight:800}'+
+'.mrxUst a.mrxUye{background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;border:0;font-weight:800}'+
 '#mrxKapat{margin-left:auto;appearance:none;border:1px solid rgba(255,255,255,.16);background:transparent;'+
  'color:#eef2f7;font-size:18px;border-radius:10px;padding:6px 13px;cursor:pointer}'+
 '#mrxAra{width:100%;padding:13px 16px;border:1px solid rgba(255,255,255,.16);border-radius:12px;'+
  'background:#0a0f17;color:#eef2f7;font-size:15px;font-family:inherit;margin-bottom:6px}'+
-'#mrxAra:focus{outline:none;border-color:#3e9bff;box-shadow:0 0 0 3px rgba(62,155,255,.18)}'+
+'#mrxAra:focus{outline:none;border-color:#f5a524;box-shadow:0 0 0 3px rgba(245,165,36,.18)}'+
 '.mrxGrup{margin-top:24px}'+
 '.mrxGrup>h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#5d6b7c;margin:0 0 12px;'+
  'font-weight:800;display:flex;align-items:center;gap:10px}'+
@@ -109,7 +109,7 @@ var css=''+
 '@media(max-width:540px){.mrxGrid{grid-template-columns:1fr}}'+
 '.mrxArac{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border:1px solid rgba(255,255,255,.09);'+
  'border-radius:13px;background:#0d141e;text-decoration:none;color:#eef2f7;transition:border-color .15s}'+
-'.mrxArac:hover{border-color:rgba(62,155,255,.45)}'+
+'.mrxArac:hover{border-color:rgba(245,165,36,.45)}'+
 '.mrxArac .em{font-size:20px;line-height:1;margin-top:2px}'+
 '.mrxArac b{display:block;font-size:13.5px;letter-spacing:-.2px}'+
 '.mrxArac span{display:block;font-size:12px;color:#93a1b3;margin-top:2px;line-height:1.4}'+
