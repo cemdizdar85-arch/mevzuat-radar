@@ -148,7 +148,7 @@ try {
   $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
   foreach($s in $hafif){
     $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
-    if($say[$d] -ge 3){ continue }
+    if($say[$d] -ge 8){ continue }
     $say[$d]++; $sec.Add("$($s.id)")
   }
   foreach($k in ($say.Keys|Sort-Object)){ Write-Host ("       {0,-34} {1}" -f $k, $say[$k]) }
