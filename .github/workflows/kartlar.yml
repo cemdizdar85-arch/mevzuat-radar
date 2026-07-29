@@ -6,9 +6,21 @@
 name: Hap Kartlar
 
 on:
-  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
-  # schedule:
-    #- cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
+  # ===================================================================
+  #  BU ZAMANLAYICI KAPATILMAZ.  (Cem, 29.07.2026: "hicbir zaman
+  #  kapanmasin bu")
+  #
+  #  27.07'de tasarruf icin KAPATILMISTI ve sonucu takip edilmedi:
+  #  robot 26.07'den beri kosmadi, vitrinde 11.07 tarihli kart kaldi.
+  #  "Isinin nobetcisi" diyen bir markanin nobeti duraklatilmis olamaz -
+  #  urunun kendisi bu.
+  #
+  #  Butce sikisirsa BASKA kalem kisilir; bu kosu kisilmaz. Gunun RG'sinde
+  #  ilgili teblig yoksa zaten API'ye gitmeden cikiyor (asagidaki kontrol),
+  #  yani sakin gunlerde maliyeti sifirdir.
+  # ===================================================================
+  schedule:
+    - cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
   workflow_dispatch:
 
 permissions:
@@ -25,6 +37,28 @@ jobs:
         id: g
         run: echo "gun=$(TZ=Europe/Istanbul date +%d-%m-%Y)" >> "$GITHUB_OUTPUT"
 
+      # ================= TELAFI (kacirilan gunler) =========================
+      # Cem, 29.07: "eskiden gormedigi gun varsa onu ekleyelim".
+      # Robot 27.07'de kapatildi, 26.07'den beri kosmadi ve o gunler bir daha
+      # hic taranmadi - kapali gecen her gun kalici bir bosluk birakiyordu.
+      # Artik her kosu, GERIYE DONUK 7 GUNE bakip arsivi olmayan gunu de
+      # indiriyor. Robot bir sure durursa, ilk kosuda bosluk kendiliginden
+      # kapanir; kimsenin elle telafi etmesi gerekmez.
+      # En fazla 5 gun telafi edilir - bir aylik bosluk tek kosuda kapanmaya
+      # calisirsa hem uzun surer hem maliyeti one yigar.
+      - name: Telafi - taranmamis gunleri indir
+        shell: pwsh
+        run: |
+          $telafi = 0
+          foreach($i in 1..7){
+            if($telafi -ge 5){ Write-Host "Telafi siniri (5 gun) doldu - kalani yarinki kosu tamamlar."; break }
+            $g = (Get-Date).AddDays(-$i).ToString('dd-MM-yyyy')
+            if(Test-Path "motor/arsiv/$g"){ continue }
+            Write-Host "TELAFI: $g taranmamis, indiriliyor."
+            try { ./motor/rg-indir.ps1 -Gun $g; $telafi++ } catch { Write-Host ("  $g indirilemedi: {0}" -f $_.Exception.Message) }
+          }
+          Write-Host "Telafi edilen gun: $telafi"
+
       - name: Gunun tebliglerini indir
         shell: pwsh
         run: ./motor/rg-indir.ps1 -Gun ${{ steps.g.outputs.gun }}
@@ -37,8 +71,28 @@ jobs:
           if (-not $env:ANTHROPIC_API_KEY) { Write-Host "ANTHROPIC_API_KEY secret'i yok - kart uretimi atlandi. (Repo Settings -> Secrets -> Actions -> New repository secret)"; exit 0 }
           $gun = "${{ steps.g.outputs.gun }}"
           $klasor = "motor/arsiv/$gun"
-          if (-not (Test-Path $klasor) -or -not (Get-ChildItem $klasor -Filter *.htm -ErrorAction SilentlyContinue)) { Write-Host "Bugun isletmeyi ilgilendiren teblig yok - kart uretilmedi."; exit 0 }
-          ./motor/kart-toplu.ps1 -Gun $gun
+          # TELAFI EDILEN GUNLER DE ISLENIR: yalniz bugunu islemek, kapali gecen
+          # gunlerin tebliglerini indirip rafta birakmak olurdu.
+          # ARSIVDE DURUP ISLENMEMIS HER GUN. Son 7 gunle sinirlamak yetmiyordu:
+          # 01, 03 ve 04 Temmuz'un teblIgleri indirilmis ama kart HIC uretilmemis
+          # (13 teblig rafta kalmis). Indirme yapilip urune donusmemis is,
+          # yapilmamis istir. Artik butun arsiv taraniyor.
+          # Kosu basina EN FAZLA 5 gun: birikmis bosluk tek kosuda kapanmaya
+          # calisirsa maliyeti one yigar. Kalani ertesi gun kapanir.
+          $adaylar = @(Get-ChildItem "motor/arsiv" -Directory -ErrorAction SilentlyContinue |
+            Where-Object {
+              (Get-ChildItem $_.FullName -Filter *.htm -ErrorAction SilentlyContinue) -and
+              -not (Test-Path ("motor/kartlar/" + $_.Name))
+            } |
+            Sort-Object { try { [datetime]::ParseExact($_.Name,'dd-MM-yyyy',$null) } catch { [datetime]'1900-01-01' } } -Descending)
+          $islenecek = New-Object System.Collections.Generic.List[string]
+          foreach($a in $adaylar){ if($islenecek.Count -ge 5){ break }; $islenecek.Add($a.Name) }
+          if($adaylar.Count -gt $islenecek.Count){
+            Write-Host ("Bekleyen gun: {0} - bu kosuda {1} tanesi islenecek, kalani yarin." -f $adaylar.Count, $islenecek.Count)
+          }
+          if($islenecek.Count -eq 0){ Write-Host "Islenecek gun yok - ilgilendiren teblig cikmamis. Kart uretilmedi."; exit 0 }
+          Write-Host ("Islenecek gun: " + ($islenecek -join ', '))
+          foreach($g in $islenecek){ ./motor/kart-toplu.ps1 -Gun $g }
 
       - name: Yapisal denetci (kart yayini oncesi guvenlik)
         shell: pwsh
