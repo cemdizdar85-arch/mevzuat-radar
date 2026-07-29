@@ -415,6 +415,39 @@ function basla(){
   SORULAR=secim;
   karistir(SORULAR);
   IDX=0; CEVAPLAR={}; RESULTS={}; SURELER={};
+  // 29.07 IKI ASAMALI YUKLEMENIN IKINCI ASAMASI: kurulumda yalniz hafif
+  // kolonlar cekildi (27 MB -> 0,3 MB). Tam metin ancak SIMDI, yalniz
+  // secilen sorular icin (en fazla 40) alinir. Ucretsiz bankadan gelen
+  // sorularda metin zaten var; onlar icin istek YAPILMAZ.
+  var eksik = SORULAR.filter(function(s){ return !s.soru; });
+  if(eksik.length && window.sb){
+    var btn = document.getElementById('baslaBtn');
+    var eskiYazi = btn ? btn.textContent : '';
+    if(btn){ btn.disabled = true; btn.textContent = 'Sorular hazırlanıyor…'; }
+    window.sb.from('soru_havuzu').select('*').in('id', eksik.map(function(s){return s.id;}))
+      .then(function(r){
+        if(btn){ btn.disabled = false; btn.textContent = eskiYazi; }
+        if(r.error || !r.data){
+          alert('Sorular yüklenemedi: ' + ((r.error && r.error.message) || 'bilinmeyen hata') + '\nTekrar dene.');
+          return;
+        }
+        var tam = {}; r.data.forEach(function(x){ tam[x.id] = x; });
+        // SESSIZ EKSIK YASAK: gelmeyen soru varsa oturuma sokma, kullaniciya soyle.
+        var gelmeyen = SORULAR.filter(function(s){ return !s.soru && !tam[s.id]; }).length;
+        SORULAR = SORULAR.map(function(s){ return tam[s.id] ? tam[s.id] : s; }).filter(function(s){ return !!s.soru; });
+        if(!SORULAR.length){ alert('Soru metinleri alınamadı. Sayfayı yenile.'); return; }
+        if(gelmeyen){ alert(gelmeyen + ' sorunun metni alınamadı, onlar bu oturuma katılmadı.'); }
+        ekranaGec();
+      }, function(e){
+        if(btn){ btn.disabled = false; btn.textContent = eskiYazi; }
+        alert('Sorular yüklenemedi: ' + (e && e.message ? e.message : e));
+      });
+    return;
+  }
+  ekranaGec();
+}
+
+function ekranaGec(){
   document.getElementById('ekranKurulum').classList.add('gizli');
   document.getElementById('ekranSoru').classList.remove('gizli');
   soruCiz();
@@ -888,9 +921,28 @@ async function kasaYukle(user){
     var say = await sb.from('soru_havuzu').select('id', { count: 'exact', head: true }).eq('yayin', true);
     var toplam = say.count || 0;
     if(say.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + say.error.message; return; }
+    // ── 29.07 ASIL YAVASLIK BURADAYDI ────────────────────────────────────
+    // Cem: "hala site acilinca sorular yavas geliyor" - paralel cekim yetmedi
+    // ve yetmemesi normaldi: sorun TUR SAYISI degil VERI BOYUTUydu.
+    // select('*') her sorunun tam metnini, bes sikkini, BES ACIKLAMASINI,
+    // yevmiye/tablo alanlarini cekiyor. Olculdu: ornek dokumde 40 soru
+    // 154 KB, yani soru basina ~3,9 KB. 6.965 soru = ~27 MB.
+    // Kullanici daha hicbir seye tiklamadan 27 MB indiriyordu.
+    // Oysa KURULUM EKRANI yalniz ders adlarini sayar; basla() da yalniz
+    // id/ders/benzer_grup kullanir. Tam metin ancak SORU EKRANINDA gerekir -
+    // ve orada en fazla 40 soru vardir.
+    // Iki asama: burada HAFIF kolonlar (~27 MB -> ~0,3 MB), tam metin
+    // basla() icinde yalniz secilen sorular icin.
+    // benzer_grup kolonu kasada olmayabilir; PostgREST var olmayan kolonda
+    // 400 doner ve sayfa hic acilmaz. Once bir satirla YOKLA, yoksa o kolonu
+    // listeden cikar. (Kolon yoksa benzerlik kapisi zaten calismiyordu -
+    // basla() 'sg.benzer_grup||...||""' diyerek bunu tolere ediyor.)
+    var HAFIF = 'id,sinav,ders,konu,benzer_grup';
+    var yokla = await sb.from('soru_havuzu').select(HAFIF).limit(1);
+    if(yokla.error){ HAFIF = 'id,sinav,ders,konu'; }
     var istekler = [];
     for(var b0 = 0; b0 < toplam; b0 += 1000){
-      istekler.push(sb.from('soru_havuzu').select('*').eq('yayin', true).range(b0, b0 + 999));
+      istekler.push(sb.from('soru_havuzu').select(HAFIF).eq('yayin', true).range(b0, b0 + 999));
     }
     var cevaplar = await Promise.all(istekler);
     for(var ci = 0; ci < cevaplar.length; ci++){
