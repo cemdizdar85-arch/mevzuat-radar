@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260728235053
+Start time: 20260729033118
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8bca60cb-0e9d-44cb-95b8-dc191ee2401a.ps1'
-Process ID: 2711
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7cdd9a0a-e569-48a6-b4f7-a1de4984c457.ps1'
+Process ID: 2786
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,66 +17,76 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-BASLADI  model=claude-sonnet-5  LIMIT=60  anahtar=VAR
+BASLADI  model=claude-sonnet-5  LIMIT=20  anahtar=VAR
 SUZGEC: sinav='SMMM' donem>=2023
 === [SMMM] 2023/1 Finansal Muhasebe () isleniyor...
   pdf 212 KB -> metin 28,886 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  okuma1=34 soru, okuma2=6 soru
+  RED: soru sayisi guvensiz (sinir 1-60, tolerans 14)
 === [SMMM] 2023/2 Finansal Muhasebe () isleniyor...
   pdf 559 KB -> metin 29,311 karakter, okuma 1/2...
   okuma 2/2...
   okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  ders uyusmayan: 0 (%0) · konu farkli: 1
+  TAMAM: 1 soru etiketlendi, 1 ders
 === [SMMM] 2023/3 Finansal Muhasebe () isleniyor...
   pdf 572 KB -> metin 36,733 karakter, okuma 1/2...
   okuma 2/2...
-  RED: okuma basarisiz
+  okuma1=32 soru, okuma2=29 soru
+  ders uyusmayan: 11 (%34) · konu farkli: 14
+  RED: ders uyusmazligi >%10
 === [SMMM] 2024/1 Finansal Muhasebe () isleniyor...
   pdf 698 KB -> metin 30,028 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  okuma1=34 soru, okuma2=1 soru
+  RED: soru sayisi guvensiz (sinir 1-60, tolerans 14)
 === [SMMM] 2024/2 Finansal Muhasebe () isleniyor...
   pdf 542 KB -> metin 33,998 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  okuma1=1 soru, okuma2=34 soru
+  RED: soru sayisi guvensiz (sinir 1-60, tolerans 14)
 === [SMMM] 2024/3 Finansal Muhasebe () isleniyor...
   pdf 617 KB -> metin 34,432 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  okuma1=1 soru, okuma2=36 soru
+  RED: soru sayisi guvensiz (sinir 1-60, tolerans 14)
 === [SMMM] 2025/1 Finansal Muhasebe () isleniyor...
   pdf 530 KB -> metin 30,287 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
+  okuma1=36 soru, okuma2=37 soru
+  ders uyusmayan: 0 (%0) · konu farkli: 29
+  TAMAM: 36 soru etiketlendi, 1 ders
 === [SMMM] 2025/2 Finansal Muhasebe () isleniyor...
   pdf 204 KB -> metin 37,959 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=18 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 7)
+  okuma1=30 soru, okuma2=29 soru
+  ders uyusmayan: 6 (%20) · konu farkli: 20
+  RED: ders uyusmazligi >%10
 === [SMMM] 2025/3 Finansal Muhasebe () isleniyor...
   pdf 528 KB -> metin 30,058 karakter, okuma 1/2...
   okuma 2/2...
-  okuma1=1 soru, okuma2=1 soru
-  RED: soru sayisi guvensiz (sinir 2-40, tolerans 3)
-BITTI: bu kosuda 9 donem islendi.
+  okuma1=27 soru, okuma2=27 soru
+  ders uyusmayan: 0 (%0) · konu farkli: 22
+  TAMAM: 27 soru etiketlendi, 1 ders
+=== [SMMM] 2026/3 Maliyet Muhasebesi () isleniyor...
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+  pdf 0 KB -> metin 30,058 karakter, okuma 1/2...
+  okuma 2/2...
+  RED: okuma basarisiz
+BITTI: bu kosuda 10 donem islendi.
   model     : claude-sonnet-5  (fiyat varsayimi 3/15 USD-M)
 
 ======== GERCEK FATURA ========
-  cagri     : 18  (9 kitapcik x 2 bagimsiz okuma)
-  giris     : 159,398 token
-  cikis     : 19,855 token
-  TUTAR     : ~0.78 USD
-  KITAPCIK BASINA: ~0.086 USD
-  -> kuyruktaki 169 kitapcik icin tahmin: ~15 USD
+  cagri     : 23  (10 kitapcik x 2 bagimsiz okuma)
+  giris     : 182,131 token
+  cikis     : 73,530 token
+  TUTAR     : ~1.65 USD
+  KITAPCIK BASINA: ~0.165 USD
+  -> kuyruktaki 169 kitapcik icin tahmin: ~28 USD
 -> veri/sinav-analiz-fatura.json
 PS>$global:?
 True
-**********************
-PowerShell transcript end
-End time: 20260728235629
-**********************
