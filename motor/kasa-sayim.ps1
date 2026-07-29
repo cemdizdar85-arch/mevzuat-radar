@@ -191,13 +191,29 @@ try {
   # AYNI SUZGEC, IKI FARKLI SONUC: sayim 194 dedi, cekim 1 satir getirdi. Bu
   # ikisinden biri yalan soyluyor ve hangisi oldugunu TAHMIN etmeyecegim - ham
   # cevabin kendisi loga yaziliyor.
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&limit=6000"
-  $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers ($H + @{ Prefer='count=exact' }) -TimeoutSec 120
-  $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
-  Write-Host ("     HAM CEVAP: {0} bayt  Content-Range: {1}" -f $govde.Length, $ham.Headers['Content-Range'])
-  Write-Host ("     ILK 200: {0}" -f $govde.Substring(0,[Math]::Min(200,$govde.Length)))
-  $hafif = @($govde | ConvertFrom-Json)
+  # SUNUCU TARAFI KIRPMA: Supabase istek basina EN FAZLA 1000 satir donuyor.
+  # "limit=6000" yazmak ise yaramadi; sessizce 1000'de kesti. Sayim 4.107 derken
+  # cekim tam 1000 getirdi - TAM YUVARLAK SAYI HEP KIRPMA ISARETIDIR.
+  # O haliyle biraksaydim 3.107 soru kuyruga hic girmeyecek, hakem onlari hic
+  # gormeyecek, ben de "hepsi yargilandi" sanacaktim.
+  $hafif = New-Object System.Collections.Generic.List[object]
+  $ofs = 0
+  while($true){
+    $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&order=id&offset=$ofs&limit=1000"
+    $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $H -TimeoutSec 120
+    $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
+    $dilim = @(); foreach($x in (ConvertFrom-Json $govde)){ $dilim += $x }
+    if($dilim.Count -eq 0){ break }
+    foreach($x in $dilim){ $hafif.Add($x) }
+    Write-Host ("     ...cekilen {0}" -f $hafif.Count)
+    if($dilim.Count -lt 1000){ break }
+    $ofs += 1000
+    if($ofs -gt 20000){ Write-Host "     GUVENLIK DURDURMASI: 20.000 asildi"; break }
+  }
   Write-Host ("     cekilen yayin=false kayit: {0}" -f $hafif.Count)
+  if($ky -gt 0 -and $hafif.Count -lt $ky){
+    Write-Host ("     UYARI: sayim {0} diyor, cekim {1} getirdi - EKSIK." -f $ky, $hafif.Count)
+  }
   $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
   foreach($s in $hafif){
     $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
