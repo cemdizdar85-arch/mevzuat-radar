@@ -125,8 +125,18 @@ try {
   # IKI ADIM: once HAFIF sorgu (yalniz id+ders). Tek hamlede 400 sorunun tam
   # metnini cekmek, sorgunun kendisi mi yoksa filtre mi bos dondu ayirt
   # ettirmiyordu - agir sorgu duserse "hic soru yok" gibi gorunuyor.
-  $hafif = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&order=id.desc&limit=400" -Headers $H -TimeoutSec 120)
-  Write-Host ("     yayin=false soru (son 400 icinde): {0}" -f $hafif.Count)
+  # id alani GUID - SIRALI SAYI DEGIL. "order=id.desc + limit" bu yuzden "en yeni
+  # 400"u degil RASTGELE 400'u getiriyordu ve icinden 1 tane yayin=false cikinca
+  # neredeyse "163 denetlenmemis soru yayinda" alarmi verecektim. Ornekleme,
+  # SAYIM degildir: once count=exact ile GERCEK sayi olculur.
+  $ky = -1
+  try {
+    $rk = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&yayin=is.false&limit=1" -Headers ($H + @{ Prefer='count=exact' }) -TimeoutSec 90
+    $ky = [int](($rk.Headers['Content-Range'] -split '/')[-1])
+  } catch { Write-Host ("     yayin=false sayimi alinamadi: {0}" -f $_.Exception.Message) }
+  Write-Host ("     KASADA yayin=false (denetim bekleyen) : {0}" -f $ky)
+  $hafif = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&limit=1000" -Headers $H -TimeoutSec 120)
+  Write-Host ("     cekilen yayin=false kayit: {0}" -f $hafif.Count)
   $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
   foreach($s in $hafif){
     $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
