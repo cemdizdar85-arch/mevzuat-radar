@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729065742
+Start time: 20260729065932
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e38104e2-7a97-4491-9aa5-4af1a485ba02.ps1'
-Process ID: 2247
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/47f81df5-dd86-4a0c-8b5c-62713b9bd12b.ps1'
+Process ID: 2266
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -78,11 +78,11 @@ KASA SAYIMI basliyor...
        47x  Turkce|sozcuk turleri
        44x  Finansal Muhasebe|nakit akis tablosu
        44x  Ekonomi|talep fiyat esnekligi
-       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
-       41x  Yabanci Dil|correlative conjunction
-       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
-       41x  Denetim|bds 230 denetim belgelendirme
        41x  Turkce|sozcukte anlam
+       41x  Denetim|bds 230 denetim belgelendirme
+       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
+       41x  Yabanci Dil|correlative conjunction
+       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
        40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
@@ -104,12 +104,13 @@ KASA SAYIMI basliyor...
        Ticaret Hukuku                     3
        Vergi Hukuku                       3
        Vergi Mevzuatı ve Uygulaması       1
--> veri/yeni-uretim-ornek.json  (1 yeni soru, GM okumasi icin)
+     tam metin cekilen: 19 (istenen 19)
+-> veri/yeni-uretim-ornek.json  (19 yeni soru, GM okumasi icin)
 
 -> veri/kasa-sayim.json
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729065747
+End time: 20260729065945
 **********************
