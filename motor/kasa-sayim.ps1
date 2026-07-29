@@ -152,10 +152,17 @@ try {
     $say[$d]++; $sec.Add("$($s.id)")
   }
   foreach($k in ($say.Keys|Sort-Object)){ Write-Host ("       {0,-34} {1}" -f $k, $say[$k]) }
-  $y = New-Object System.Collections.Generic.List[object]
+  # Invoke-RestMethod BURADA GUVENILIR DEGIL: 194 kayitlik diziyi tek parca
+  # dondurdu, @() da onu 1 eleman saydi. "cekilen: 1" yazdiran buydu - veri
+  # eksik degildi, OKUMA bicimi bozuktu. Ham cek, kendin cozumle.
+  $y = @()
   if($sec.Count){
-    $liste = ($sec -join ',')
-    $y = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&id=in.($liste)" -Headers $H -TimeoutSec 120)
+    $liste = (($sec | ForEach-Object { '"' + $_ + '"' }) -join ',')
+    $u2 = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&id=in.($liste)"
+    $h2 = Invoke-WebRequest -UseBasicParsing -Uri $u2 -Headers $H -TimeoutSec 120
+    $g2 = if($h2.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($h2.Content) } else { "$($h2.Content)" }
+    $y = @($g2 | ConvertFrom-Json)
+    Write-Host ("     tam metin cekilen: {0} (istenen {1})" -f $y.Count, $sec.Count)
   }
   # ConvertTo-Json'a BORU ile bos dizi vermek $null dondurur, WriteAllText de
   # $null'da patlar - ilk denemeyi sessizce dusuren ikinci kusur buydu.
