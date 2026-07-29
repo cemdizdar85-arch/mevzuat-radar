@@ -1,49 +1,63 @@
 {
-  "_aciklama": "ACIKLAMA YENILEME EMRI. Para harcayan tek kapi. DEGISEN: aciklama + hap. ASLA DEGISMEYEN: soru metni, siklar, dogru cevap, kaynak. Aciklamayi zenginlestirmek icin sorunun kendisine dokunmak yeni soru uretmektir - bu kanaldan gecmez.",
-  "_olcum": "581 soruluk orneklemde olculdu: her sikka ayri aciklama %100 VAR, hap %100 VAR, ortalama cumle 14,1 kelime (sade). EKSIK OLAN DERINLIK: ortalama aciklama 162 KARAKTER, yani iki cumle. O uzunlukta 'bu sik yanlis cunku' denir, konu ogretilmez. Ayrica tablo iceren soru %0, yevmiye iceren %4.",
-  "_sablon": "Dogru sik: 'Ne soruluyor / Kural / Bu olayda / Akilda kalsin' dort parca, 400-700 karakter. Yanlis siklar: tuzagi ADLANDIR - 'X ile Y'yi karistiriyor', 120-250 karakter. Dil: hic muhasebe bilmeyene, cumle <=20 kelime, terim ilk gecince parantezle acikla, etken cati.",
-  "_rakam_kapisi": "Yeni aciklamada gecen HER SAYI kaynak metinde (madde metni + soru + siklar) gecmek ZORUNDA. Gecmiyorsa o sorunun yenilemesi COPE ATILIR ve ESKI aciklama KALIR. 28.07 gecesi bulunan uc gercek hatanin ucu de uydurulmus RAKAM/SUREYDI. Aciklamayi zenginlestirirken ayni hatayi uretmek, hic zenginlestirmemekten kotudur.",
-  "emirler": [
-    {
-      "no": 1,
-      "tarih": "29.07.2026",
-      "veren": "Cem Dizdar (150 USD butce)",
-      "emir": "pilot - Finansal Muhasebe 150 soru",
-      "onay": true,
-      "ders": "Finansal Muhasebe",
-      "sinir": 150,
-      "model": "claude-sonnet-4-5-20250929",
-      "gerekce": "PILOT. Cem 7.213 sorunun tamaminin aciklamasini yenilemek istiyor - hakli, cunku site yeni acilacak ve ilk izlenim aciklamalardan olusuyor. Ama 7.213'u tek seferde yenilemek, yanlis giderse 7.213 sorunun aciklamasini BOZMAK demektir. Once 150 soru: Finansal Muhasebe secildi cunku (1) sinavin en agir dersi (%20), (2) havuzda en eksik ders (0,58 kat), (3) tablo/yevmiye ihtiyaci en yuksek ders - sablonun zor tarafini burada sinariz. Cikti GM tarafindan ELLE okunacak; sablona ve dile uyuyorsa kalan dersler acilacak. Rakam kapisindan kac sorunun dondugu de burada olculecek - o oran yuksekse istem duzeltilir, para harcanmadan once.",
-      "tahmini_usd": 1.1,
-      "uygulandi": "28.07.2026 21:13",
-      "_sonuc": "121 yenilendi, 28 rakam kapisindan dondu (%19), 1 cevapsiz. GERCEK FATURA 1,03 USD (tahmin 1,10; sapma %6). PILOTUN OGRETTIGI: red edilen 28 sorunun rakamlari 500/300/80, 3.000x4, 60.000 gibi HESAPLANMIS TUTARLARDI - uydurma degil. Muhasebe aciklamasinda 'Bu olayda' parcasi zaten toplama/carpma yapar; sonuc kaynakta birebir gecmez. Yani kapi, tam da istedigimiz 'rakamli adim adim anlatim'i engelliyordu. Kapinin kendisi kusurluydu, cikti degil."
-    },
-    {
-      "no": 2,
-      "tarih": "29.07.2026",
-      "veren": "Cem Dizdar (standart kilitlendi)",
-      "emir": "pilot-2 - tam standart, ayni 150 soru",
-      "onay": true,
-      "ders": "Finansal Muhasebe",
-      "sinir": 150,
-      "model": "claude-sonnet-4-5-20250929",
-      "gerekce": "PILOT-1 sablonu sinadi ama TAM STANDARDI tasimiyordu: (a) gorsel/tablo istenmiyordu, (b) dil kapisi olculmuyordu, (c) rakam kapisi hesaplanmis tutarlari da reddediyordu. Ucu de duzeltildi ve standart STANDART-ACIKLAMA.md olarak kilitlendi. Ayni 150 soru yeniden yeniliyor - 'tekrar tekrar yapmayalim' dendigi icin bu SON kalibrasyon; gecerse kalan 7.000 soru ders ders acilir. UC KAPI: (1) RISKLI SAYI (oran/sure/yil/madde no) kaynakta gecmezse RED - 28.07'de bulunan uc gercek hatanin ucu de bu tipti; (2) TUTAR kaynak sayilarindan aritmetikle uretilemiyorsa yazilir ama ISARETLENIR, GM ornekler; (3) DIL: cumle ortalamasi >20 ya da tek cumle >30 kelimeyse RED. GORSEL: muhasebe ailesi derslerde yevmiye ya da tablo isteniyor - site ikisini de ZATEN ciziyor (Cem'in 24.07 exhibit fikri), veri bostu (tablo %0, yevmiye %4).",
-      "tahmini_usd": 1.3,
-      "uygulandi": "28.07.2026 21:23",
-      "_sonuc": "STANDART TUTTU. 133/150 yenilendi. 75 soruya TABLO/YEVMIYE eklendi - tablo %0'dan yariya cikti; Cem'in 24.07'de tasarladigi exhibit nihayet dolu. Uc kapi da fiilen is gordu: riskli sayi 15 (ornek: uydurulmus 1977/1989 yillari, kaynakta olmayan 15 gun), dil kapisi 2 (bir aciklama 47 kelimelik cumle kurmus), tutar isaretli 7. GERCEK FATURA 1,28 USD (tahmin 1,30). BIRIM: 0,0085 USD/soru."
-    },
-    {
-      "no": 3,
-      "tarih": "29.07.2026",
-      "veren": "Cem Dizdar (onay veriyorum)",
-      "emir": "TAM YENILEME - butun kasa",
-      "onay": true,
-      "ders": "",
-      "sinir": 0,
-      "model": "claude-sonnet-4-5-20250929",
-      "gerekce": "PILOT-2 STANDARDI KANITLADI, TAM KASA ACILIYOR. 7.213 sorunun aciklamasi dort parcali sablona gecirilecek, muhasebe ailesi derslerde tablo/yevmiye eklenecek, uc kapidan gecmeyen yenileme COPE ATILIP ESKI ACIKLAMA KALACAK. Olculmus birim 0,0085 USD/soru -> ~62 USD. Finansal Muhasebe'nin 150 sorusu yeniden isleniyor (~1,3 USD fazladan) ama bu ZARAR DEGIL: pilot-2'de uc kapidan donen 17 soru bu kosuda yeniden denenecek. DEGISEN: aciklama, hap, tablo, yevmiye. ASLA DEGISMEYEN: soru metni, siklar, dogru cevap, kaynak - o kural STANDART-ACIKLAMA.md'de kilitli. Kosu uzun surer (19 parti x 400 soru); is akisi zaman asimi 330 dakika.",
-      "tahmini_usd": 62.0,
-      "uygulandi": "28.07.2026 23:12"
-    }
-  ]
+    "_aciklama":  "ACIKLAMA YENILEME EMRI. Para harcayan tek kapi. DEGISEN: aciklama + hap. ASLA DEGISMEYEN: soru metni, siklar, dogru cevap, kaynak. Aciklamayi zenginlestirmek icin sorunun kendisine dokunmak yeni soru uretmektir - bu kanaldan gecmez.",
+    "_olcum":  "581 soruluk orneklemde olculdu: her sikka ayri aciklama %100 VAR, hap %100 VAR, ortalama cumle 14,1 kelime (sade). EKSIK OLAN DERINLIK: ortalama aciklama 162 KARAKTER, yani iki cumle. O uzunlukta \u0027bu sik yanlis cunku\u0027 denir, konu ogretilmez. Ayrica tablo iceren soru %0, yevmiye iceren %4.",
+    "_sablon":  "Dogru sik: \u0027Ne soruluyor / Kural / Bu olayda / Akilda kalsin\u0027 dort parca, 400-700 karakter. Yanlis siklar: tuzagi ADLANDIR - \u0027X ile Y\u0027yi karistiriyor\u0027, 120-250 karakter. Dil: hic muhasebe bilmeyene, cumle \u003c=20 kelime, terim ilk gecince parantezle acikla, etken cati.",
+    "_rakam_kapisi":  "Yeni aciklamada gecen HER SAYI kaynak metinde (madde metni + soru + siklar) gecmek ZORUNDA. Gecmiyorsa o sorunun yenilemesi COPE ATILIR ve ESKI aciklama KALIR. 28.07 gecesi bulunan uc gercek hatanin ucu de uydurulmus RAKAM/SUREYDI. Aciklamayi zenginlestirirken ayni hatayi uretmek, hic zenginlestirmemekten kotudur.",
+    "emirler":  [
+                    {
+                        "no":  1,
+                        "tarih":  "29.07.2026",
+                        "veren":  "Cem Dizdar (150 USD butce)",
+                        "emir":  "pilot - Finansal Muhasebe 150 soru",
+                        "onay":  true,
+                        "ders":  "Finansal Muhasebe",
+                        "sinir":  150,
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "PILOT. Cem 7.213 sorunun tamaminin aciklamasini yenilemek istiyor - hakli, cunku site yeni acilacak ve ilk izlenim aciklamalardan olusuyor. Ama 7.213\u0027u tek seferde yenilemek, yanlis giderse 7.213 sorunun aciklamasini BOZMAK demektir. Once 150 soru: Finansal Muhasebe secildi cunku (1) sinavin en agir dersi (%20), (2) havuzda en eksik ders (0,58 kat), (3) tablo/yevmiye ihtiyaci en yuksek ders - sablonun zor tarafini burada sinariz. Cikti GM tarafindan ELLE okunacak; sablona ve dile uyuyorsa kalan dersler acilacak. Rakam kapisindan kac sorunun dondugu de burada olculecek - o oran yuksekse istem duzeltilir, para harcanmadan once.",
+                        "tahmini_usd":  1.1,
+                        "uygulandi":  "28.07.2026 21:13",
+                        "_sonuc":  "121 yenilendi, 28 rakam kapisindan dondu (%19), 1 cevapsiz. GERCEK FATURA 1,03 USD (tahmin 1,10; sapma %6). PILOTUN OGRETTIGI: red edilen 28 sorunun rakamlari 500/300/80, 3.000x4, 60.000 gibi HESAPLANMIS TUTARLARDI - uydurma degil. Muhasebe aciklamasinda \u0027Bu olayda\u0027 parcasi zaten toplama/carpma yapar; sonuc kaynakta birebir gecmez. Yani kapi, tam da istedigimiz \u0027rakamli adim adim anlatim\u0027i engelliyordu. Kapinin kendisi kusurluydu, cikti degil."
+                    },
+                    {
+                        "no":  2,
+                        "tarih":  "29.07.2026",
+                        "veren":  "Cem Dizdar (standart kilitlendi)",
+                        "emir":  "pilot-2 - tam standart, ayni 150 soru",
+                        "onay":  true,
+                        "ders":  "Finansal Muhasebe",
+                        "sinir":  150,
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "PILOT-1 sablonu sinadi ama TAM STANDARDI tasimiyordu: (a) gorsel/tablo istenmiyordu, (b) dil kapisi olculmuyordu, (c) rakam kapisi hesaplanmis tutarlari da reddediyordu. Ucu de duzeltildi ve standart STANDART-ACIKLAMA.md olarak kilitlendi. Ayni 150 soru yeniden yeniliyor - \u0027tekrar tekrar yapmayalim\u0027 dendigi icin bu SON kalibrasyon; gecerse kalan 7.000 soru ders ders acilir. UC KAPI: (1) RISKLI SAYI (oran/sure/yil/madde no) kaynakta gecmezse RED - 28.07\u0027de bulunan uc gercek hatanin ucu de bu tipti; (2) TUTAR kaynak sayilarindan aritmetikle uretilemiyorsa yazilir ama ISARETLENIR, GM ornekler; (3) DIL: cumle ortalamasi \u003e20 ya da tek cumle \u003e30 kelimeyse RED. GORSEL: muhasebe ailesi derslerde yevmiye ya da tablo isteniyor - site ikisini de ZATEN ciziyor (Cem\u0027in 24.07 exhibit fikri), veri bostu (tablo %0, yevmiye %4).",
+                        "tahmini_usd":  1.3,
+                        "uygulandi":  "28.07.2026 21:23",
+                        "_sonuc":  "STANDART TUTTU. 133/150 yenilendi. 75 soruya TABLO/YEVMIYE eklendi - tablo %0\u0027dan yariya cikti; Cem\u0027in 24.07\u0027de tasarladigi exhibit nihayet dolu. Uc kapi da fiilen is gordu: riskli sayi 15 (ornek: uydurulmus 1977/1989 yillari, kaynakta olmayan 15 gun), dil kapisi 2 (bir aciklama 47 kelimelik cumle kurmus), tutar isaretli 7. GERCEK FATURA 1,28 USD (tahmin 1,30). BIRIM: 0,0085 USD/soru."
+                    },
+                    {
+                        "no":  3,
+                        "tarih":  "29.07.2026",
+                        "veren":  "Cem Dizdar (onay veriyorum)",
+                        "emir":  "TAM YENILEME - butun kasa",
+                        "onay":  true,
+                        "ders":  "",
+                        "sinir":  0,
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "PILOT-2 STANDARDI KANITLADI, TAM KASA ACILIYOR. 7.213 sorunun aciklamasi dort parcali sablona gecirilecek, muhasebe ailesi derslerde tablo/yevmiye eklenecek, uc kapidan gecmeyen yenileme COPE ATILIP ESKI ACIKLAMA KALACAK. Olculmus birim 0,0085 USD/soru -\u003e ~62 USD. Finansal Muhasebe\u0027nin 150 sorusu yeniden isleniyor (~1,3 USD fazladan) ama bu ZARAR DEGIL: pilot-2\u0027de uc kapidan donen 17 soru bu kosuda yeniden denenecek. DEGISEN: aciklama, hap, tablo, yevmiye. ASLA DEGISMEYEN: soru metni, siklar, dogru cevap, kaynak - o kural STANDART-ACIKLAMA.md\u0027de kilitli. Kosu uzun surer (19 parti x 400 soru); is akisi zaman asimi 330 dakika.",
+                        "tahmini_usd":  62.0,
+                        "uygulandi":  "28.07.2026 23:12"
+                    },
+                    {
+                        "no":  4,
+                        "tarih":  "29.07.2026",
+                        "veren":  "GM (parasiz onarim)",
+                        "emir":  "HAP TAMIRI - 0 USD",
+                        "onay":  true,
+                        "mod":  "hapTamir",
+                        "sinir":  8000,
+                        "ders":  "",
+                        "model":  "yok-api-cagrilmaz",
+                        "gerekce":  "TAM YENILEME KOSUSU BAZI SORULARIN hap ALANINI BOSALTTI. Dokumu okudugum 4 ornekten 1inde gorundu: model hap alanini bos dondurmus, betik de eski hapin USTUNE bos yazmis. Iyilestirme adi altinda veri silmek kabul edilemez, ama bilgi kaybolmadi - dort parcali aciklamanin son satiri zaten \"Akilda kalsin: ...\" ve hap oradan BIREBIR turetilebiliyor. Bu yuzden modele tekrar sorup ayni isi ikinci kez odemiyoruz: bu kosu API cagirmaz, 0 USD. Betikteki asil kusur da kapatildi - hap artik yalniz DOLU geldiginde yaziliyor.",
+                        "tahmini_usd":  0,
+                        "uygulandi":  null
+                    }
+                ]
 }

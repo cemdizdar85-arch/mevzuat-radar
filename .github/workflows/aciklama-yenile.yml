@@ -44,8 +44,17 @@ jobs:
             Write-Host ("      {0}" -f $x.gerekce)
             $ok = $true
             try {
+              # 29.07: emirde mod:"hapTamir" varsa PARASIZ onarim kosar. Tam yenileme
+              # kosusu, aciklamayi yenilerken bazi sorularin "hap" alanini BOSALTTI -
+              # 4 ornekten 1'inde goruldu. hapTamir, hap'i aciklamanin icindeki
+              # "Akilda kalsin:" satirindan turetir; API'ye gitmez, 0 USD.
+              if("$($x.mod)" -eq 'hapTamir'){
+                ./motor/aciklama-yenile.ps1 -calistir -hapTamir -ders "$($x.ders)" -sinir ([int]$x.sinir) `
+                   -model "$($x.model)" -cikti "veri/aciklama-rapor-$($x.no).json"
+              } else {
               ./motor/aciklama-yenile.ps1 -calistir -ders "$($x.ders)" -sinir ([int]$x.sinir) `
                  -model "$($x.model)" -cikti "veri/aciklama-rapor-$($x.no).json"
+              }
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
             if(Test-Path 'veri/aciklama-log.txt'){ Copy-Item 'veri/aciklama-log.txt' "veri/aciklama-log-$($x.no).txt" -Force }
