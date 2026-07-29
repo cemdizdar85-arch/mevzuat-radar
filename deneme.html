@@ -146,6 +146,13 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <div id="uyeAcik" class="gizli" style="font-size:13px;color:var(--green);font-weight:700">✓ <span id="uyeAd"></span> — tam banka yüklendi. <a href="#" id="uyeCikis" style="color:var(--dim);font-weight:400">Çıkış</a></div>
       </div>
     </div>
+    <!-- PERFORMANS KARNESI (29.07): "Aday nereye calisacagini bilmiyor; asil
+         satin aldigi sey bu." Soru sayisi degil YON satiyoruz. -->
+    <div id="karneKutu" class="gizli">
+      <h2>🎯 Zayıf konuların</h2>
+      <div class="tablosar" id="karneTablo"></div>
+      <div id="karneNot"></div>
+    </div>
     <div id="gecmisKutu" class="gizli">
       <h2>📈 Önceki oturumların</h2>
       <div class="tablosar"><table id="gecmisTablo"><tr><th>Tarih</th><th>Sınav</th><th>Soru</th><th>Doğru</th><th>Başarı</th></tr></table></div>
@@ -249,7 +256,7 @@ function kurulumCiz(){
   if(!BANKA.length){
     bosMsg.classList.remove('gizli');
     document.getElementById('baslaBtn').disabled=true;
-    gecmisCiz();
+    gecmisCiz(); zayifKonuCiz();
     return;
   }
   bosMsg.classList.add('gizli');
@@ -281,7 +288,7 @@ function kurulumCiz(){
     };
   });
   kaynakSayCiz();
-  adetCiz(); gecmisCiz();
+  adetCiz(); gecmisCiz(); zayifKonuCiz();
 }
 
 function havuz(){
@@ -434,6 +441,8 @@ function cevabiGor(tekrarMi){
     CEVAPLAR[s.id]=SECILI;
     sicilKaydet(s.id, SECILI===s.dogru);
     SURELER[s.id]=Date.now()-SORU_T0;
+    konuSicilKaydet(s.ders, s.konu, SECILI===s.dogru);
+    cevapGonder(s, SECILI===s.dogru, SURELER[s.id]);
   }
   RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
   if(KRONI){ clearInterval(KRONI); KRONI=null; }
@@ -563,6 +572,95 @@ function gorulenKaydet(id){
 function sicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruSicil')||'{}'); }catch(e){ return {}; } }
 function sicilYaz(x){ try{ localStorage.setItem('tetikteSoruSicil', JSON.stringify(x)); }catch(e){} }
 function sicilKaydet(id, dogruMu){ var x=sicilOku(), k=x[id]||{d:0,y:0,isaret:0}; if(dogruMu){k.d++;}else{k.y++;} k.son=dogruMu?'d':'y'; x[id]=k; sicilYaz(x); }
+
+/* ===================== PERFORMANS KARNESI (29.07) =========================
+   Cem: "Aday nereye calisacagini bilmiyor; asil satin aldigi sey bu."
+   Amerikan hazirlik sirketlerinin en guclu tarafi buydu ve bizde hic yoktu.
+
+   KVKK: Kisisel veri gonderilmiyor. Uye ise auth kimligi, degilse tarayicida
+   uretilen RASTGELE bir oturum kodu. Ad, e-posta, IP yok. Ustelik sunucuda
+   okuma politikasi YAZILMADI - yazilan satiri kimse geri okuyamaz; akran
+   ortalamasi yalniz kimliksiz OZET gorunumunden gelir.
+   (Denendi: INSERT 201 doner, ayni anahtarla SELECT bos doner.)
+
+   Kendi yuzdemiz CIHAZDA tutulur - sunucudan kendi gecmisini cekmek icin
+   okuma izni acmak gerekirdi, o da baskasinin gecmisini de acardi.        */
+function oturumKodu(){
+  try{
+    var o = localStorage.getItem('tetikteOturum');
+    if(!o){ o = 'o' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('tetikteOturum', o); }
+    return o;
+  }catch(e){ return 'o-yok'; }
+}
+function konuSicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteKonuSicil')||'{}'); }catch(e){ return {}; } }
+function konuSicilKaydet(ders, konu, dogruMu){
+  if(!konu) return;
+  try{
+    var x=konuSicilOku(), a=(ders||'')+'|'+konu, k=x[a]||{d:0,y:0};
+    if(dogruMu){k.d++;}else{k.y++;}
+    x[a]=k; localStorage.setItem('tetikteKonuSicil', JSON.stringify(x));
+  }catch(e){}
+}
+/* Sunucuya yaz. BASARISIZ OLURSA SESSIZ GECER: istatistik ugruna sinav
+   akisini bozmayiz - ogrenci soru cozerken karne yuzunden takilmamali. */
+function cevapGonder(s, dogruMu, sureMs){
+  try{
+    if(!window.sb || !s) return;
+    var g = { oturum: oturumKodu(), soru_id: String(s.id), ders: s.ders||null,
+              konu: s.konu||null, dogru: !!dogruMu, sure_ms: sureMs||null };
+    if(window.UYE_ID) g.uye = window.UYE_ID;
+    window.sb.from('cevap_kaydi').insert(g).then(function(){}, function(){});
+  }catch(e){}
+}
+/* KARNE: kendi yuzden (cihazdan) + akran ortalamasi (kimliksiz ozet).
+   3 denemenin altindaki konu GOSTERILMEZ - iki soruya bakip "bu konuda
+   %50'sin" demek, rakam vermemekten kotudur.                              */
+async function zayifKonuCiz(){
+  var kutu = document.getElementById('karneKutu'); if(!kutu) return;
+  var x = konuSicilOku(), satir = [];
+  for(var a in x){
+    var k=x[a], t=k.d+k.y; if(t<3) continue;
+    var p=a.split('|');
+    satir.push({ ders:p[0], konu:p[1], toplam:t, benim: Math.round(100*k.d/t) });
+  }
+  if(!satir.length){ kutu.classList.add('gizli'); return; }
+  var ort = {};
+  try{
+    if(window.sb){
+      var r = await window.sb.from('konu_ortalama').select('ders,konu,dogru_oran,cozum');
+      (r.data||[]).forEach(function(o){ ort[(o.ders||'')+'|'+o.konu] = o; });
+    }
+  }catch(e){}
+  satir.forEach(function(s){
+    var o = ort[s.ders+'|'+s.konu];
+    s.akran = o ? o.dogru_oran : null;
+    s.fark  = (s.akran===null) ? null : (s.benim - s.akran);
+  });
+  // En zayif once: akranla arasi en acik olan basa. Akran verisi yoksa kendi
+  // yuzdesine gore siralanir.
+  satir.sort(function(a,b){
+    var fa = (a.fark===null)? (a.benim-60) : a.fark;
+    var fb = (b.fark===null)? (b.benim-60) : b.fark;
+    return fa-fb;
+  });
+  var h = '<table><tr><th>Konu</th><th>Sen</th><th>Adaylar</th><th>Fark</th></tr>';
+  satir.slice(0,8).forEach(function(s){
+    var renk = (s.fark===null) ? 'var(--dim)' : (s.fark<0 ? 'var(--red)' : 'var(--green)');
+    var farkYazi = (s.fark===null) ? '—' : ((s.fark>0?'+':'')+s.fark);
+    h += '<tr><td>'+s.konu+'</td><td>%'+s.benim+'</td><td>'+(s.akran===null?'—':'%'+s.akran)
+       + '</td><td style="color:'+renk+';font-weight:700">'+farkYazi+'</td></tr>';
+  });
+  h += '</table>';
+  var zayif = satir.filter(function(s){ return s.fark!==null && s.fark<0; }).slice(0,3);
+  var not = zayif.length
+    ? '<div style="margin-top:8px;font-size:13px;color:var(--ink)">Buraya çalış: <b>'
+      + zayif.map(function(s){return s.konu;}).join('</b>, <b>') + '</b></div>'
+    : '<div style="margin-top:8px;font-size:13px;color:var(--green)">Zayıf konun görünmüyor — çözmeye devam et, tablo netleşsin.</div>';
+  document.getElementById('karneTablo').innerHTML = h;
+  document.getElementById('karneNot').innerHTML = not
+    + '<div style="font-size:11px;color:var(--dim);margin-top:6px">"Adaylar" sütunu, o konuyu en az 20 kez çözen adayların ortalamasıdır; az veri varsa boş bırakılır. Kimseye ait kişisel bilgi tutulmaz.</div>';
+  kutu.classList.remove('gizli');
+}
 function isaretle(){ var s=SORULAR[IDX]; if(!s) return; var x=sicilOku(), k=x[s.id]||{d:0,y:0,isaret:0}; k.isaret=k.isaret?0:1; x[s.id]=k; sicilYaz(x); isaretBtnCiz(k.isaret); navCiz(); }
 function isaretBtnCiz(a){ var b=document.getElementById('isaretBtn'); if(!b) return; b.textContent=a?'🔖 İşaretli ✓':'🔖 İşaretle'; b.style.color=a?'var(--amber)':''; }
 function kaynakSayCiz(){
@@ -578,7 +676,11 @@ function karneCiz(){
   var dogru=0,yanlis=0,bos=0, ders={}, yanlislar=[];
   SORULAR.forEach(function(s){
     var c=CEVAPLAR[s.id];
-    if(MOD==='deneme' && c) sicilKaydet(s.id, c===s.dogru);
+    if(MOD==='deneme' && c){
+      sicilKaydet(s.id, c===s.dogru);
+      konuSicilKaydet(s.ders, s.konu, c===s.dogru);
+      cevapGonder(s, c===s.dogru, SURELER[s.id]);
+    }
     ders[s.ders]=ders[s.ders]||{d:0,y:0,b:0};
     if(!c){ bos++; ders[s.ders].b++; }
     else if(c===s.dogru){ dogru++; ders[s.ders].d++; }
@@ -662,6 +764,8 @@ function hataGonder(){
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+// Karne kodu modul disinda calisiyor - istemciyi oraya da acmak gerek.
+window.sb = sb;
 function g(id){ return document.getElementById(id); }
 async function kasaYukle(user){
   // 27.07 PAKET AYRIMI (Cem/UWorld modeli): SGS paketi yalniz SGS'yi, Yeterlilik paketi
@@ -669,6 +773,7 @@ async function kasaYukle(user){
   // Asil kilit RLS'dedir (DB, paket-disi satiri hic vermez); bu blok UI'yi da hizalar.
   var paket = 'tam';
   try {
+    window.UYE_ID = user.id;   // karne kaydi uyeye baglansin (cihaz degisince gecmis kaybolmasin)
     var pr = await sb.from('paket_uyeler').select('paket').eq('user_id', user.id).limit(1);
     if(pr.data && pr.data.length && pr.data[0].paket){ paket = ('' + pr.data[0].paket).toLowerCase(); }
   } catch(e) {}
