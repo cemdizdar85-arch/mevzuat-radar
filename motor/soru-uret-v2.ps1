@@ -166,6 +166,12 @@ Bu olayda: <kuralin uygulanisi, adim adim>
 Akilda kalsin: <tek cumle>
 400-700 karakter.
 
+YANLIS SIK ACIKLAMASI DA MEVZUATTIR: orada da dayanak metinde YAZMAYAN kanun
+numarasi, oran veya tarih kullanma. Pilot-2'de bir soru dogrusunu dogru yazdi ama
+yanlis sik aciklamasinda "7566 sayili Kanunla %21'e yukseldi" diye OLMAYAN bir
+duzenleme uydurdu ve kendi dogru cevabini yalanladi. Bir sikkin niye yanlis
+oldugunu anlatirken "su kanun degistirdi" deme; DAYANAK METINDEKI kuralla anlat.
+
 YANLIS SIKLARDA TEK IS: TUZAGI ADLANDIRMAK. Bu bir uslup tercihi degil, MAKINEYLE
 DENETLENEN bir sarttir: dort yanlis siktan en az UCUNUN aciklamasi su kelimelerden
 birini gecirmek ZORUNDA - "tuzak", "karistiriyor", "saniliyor", "zannediliyor",
@@ -287,7 +293,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; atifRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -325,6 +331,28 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     }
     # rakam kapisi
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }
+
+    # ---- UYDURMA ATIF KAPISI (29.07, pilot-2 okumasindan sonra)
+    # Pilot-2'de bir soru dogrusunu dogru yazdi (5510 m.81: %20, isveren %11 /
+    # sigortali %9) ama YANLIS SIK aciklamasinda "7566 sayili Kanunla %21'e
+    # yukseldi, guncel oran %21" dedi. Boyle bir duzenleme dayanak metinde YOK ve
+    # aciklama KENDI DOGRU CEVABINI yalanliyor - ogrenci ayni soruda hem "%20
+    # dogru" hem "%20 eskidi" okuyor.
+    # Rakam kapisi bunu kacirdi cunku yalniz modelin BEYAN ETTIGI sayilara
+    # bakiyordu; model uydurmayi beyan etmez, yanlis sik aciklamasinin icine
+    # gomer. Yanlis siklarin metni denetimsiz kaliyordu - kapinin kor noktasi.
+    $atifRed = @()
+    foreach($m in [regex]::Matches($tumMetin, '(\d{4})\s*say[ıi]l[ıi]')){
+      $kn = $m.Groups[1].Value
+      if($kn -eq "$($i.kanun)"){ continue }
+      if($i.metin -match ([regex]::Escape($kn))){ continue }
+      $atifRed += $kn
+    }
+    if($atifRed.Count){
+      $ozet.atifRed++
+      $red.Add([pscustomobject]@{ konu=$i.konu; sebep='uydurma-atif'; deger=(($atifRed | Select-Object -Unique) -join ', ') })
+      continue
+    }
     $kaynakSay=@{}; foreach($n in (SayiListe $i.metin)){ $kaynakSay[$n]=1 }
     $kaynakRisk=@{}; foreach($n in (Riskli $i.metin)){ $kaynakRisk[$n]=1 }
     # Yalniz modelin "bunu kanundan aldim" dedigi sayilar denetlenir. Senaryo
