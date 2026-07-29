@@ -214,10 +214,20 @@ try {
   if($ky -gt 0 -and $hafif.Count -lt $ky){
     Write-Host ("     UYARI: sayim {0} diyor, cekim {1} getirdi - EKSIK." -f $ky, $hafif.Count)
   }
+  # 29.07 - GM ORNEGI KUCULTULDU: ders basina 8 -> 1, tavan 10 soru.
+  # Cem: "duvar kur kimse goremesin, baska acik varsa o kapansin".
+  # Tarama: bu dokum 120, pilot dokumu 40 soruyu TAM METINLE public depoya
+  # yaziyordu; veri/fabrika ile birlikte 745 parali soru disaridaydi.
+  # Ama dokumu tamamen kapatmak da yanlis olurdu: bu gece iki gercek kusur
+  # (TMS 40 -> VUK m.275 yanlis kaynagi ve THP 723'te cevap-aciklama celiskisi)
+  # ancak SORULAR OKUNARAK bulundu; rapor ikisini de temiz gostermisti.
+  # Denge: kalite denetimi icin ON soru yeter, 120 gerekmez.
+  $ORNEK_TAVAN = 10
   $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
   foreach($s in $hafif){
+    if($sec.Count -ge $ORNEK_TAVAN){ break }
     $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
-    if($say[$d] -ge 8){ continue }
+    if($say[$d] -ge 1){ continue }
     $say[$d]++; $sec.Add("$($s.id)")
   }
   foreach($k in ($say.Keys|Sort-Object)){ Write-Host ("       {0,-34} {1}" -f $k, $say[$k]) }
@@ -266,7 +276,7 @@ if($PILOT_SINAV -or $PILOT_DERS){
     if($PILOT_SINAV){ $suz += "sinav=eq.$([uri]::EscapeDataString($PILOT_SINAV))" }
     if($PILOT_DERS){  $suz += "ders=eq.$([uri]::EscapeDataString($PILOT_DERS))" }
     $up = "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,kanun_no,madde_no,uretim,yevmiye,tablo&" +
-          ($suz -join '&') + "&order=uretim.desc&limit=40"
+          ($suz -join '&') + "&order=uretim.desc&limit=10"   # 29.07: 40 -> 10, bkz. asagidaki not
     $hp = Invoke-WebRequest -UseBasicParsing -Uri $up -Headers $H -TimeoutSec 120
     $gp = if($hp.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hp.Content) } else { "$($hp.Content)" }
     $py = @($gp | ConvertFrom-Json)
