@@ -166,7 +166,25 @@ Bu olayda: <kuralin uygulanisi, adim adim>
 Akilda kalsin: <tek cumle>
 400-700 karakter.
 
-YANLIS SIKLARDA TEK IS: tuzagi adlandirmak. "Bu sik X ile Y'yi karistiriyor. X sudur; Y ise budur." 120-250 karakter.
+YANLIS SIKLARDA TEK IS: TUZAGI ADLANDIRMAK. Bu bir uslup tercihi degil, MAKINEYLE
+DENETLENEN bir sarttir: dort yanlis siktan en az UCUNUN aciklamasi su kelimelerden
+birini gecirmek ZORUNDA - "tuzak", "karistiriyor", "saniliyor", "zannediliyor",
+"yanilgi", "atlaniyor", "unutuluyor", "gozden kaciyor". Gecmiyorsa soru COPE GIDER.
+Kalibi soyle: "TUZAK: <A> ile <B> karistiriliyor. <A> sudur; <B> ise budur. Bu sik
+<B>'yi kullandigi icin yanlis." 120-250 karakter.
+"Bu sik yanlistir cunku dogru cevap X'tir" YASAK - ogretmiyor, tekrarliyor.
+Ilk 163 soruluk partide 19 ornegin 19'u bu sarti tutmadi ve parti reddedildi.
+
+TEK DOGRU CEVAP SARTI: Dayanak metinde bir husus IHTIYARI ise ("...maliyet bedeline
+ithal etmekte veya genel giderlere kaydetmekte mukellefler serbesttir" gibi), o
+hususu ya soruya HIC KOYMA ya da isletmenin hangi secimi yaptigini SORU METNINDE
+acikca yaz. Ilk partide bir soru noter masrafini cevaba katti ama isletmenin bunu
+sectigini soylemedi; iki farkli cevap savunulabilir hale geldi. Sinavda itiraz
+edilen soru tipi budur.
+
+CELISKI YASAGI: "Kural" parcasinda dahildir dedigin bir kalemi "Bu olayda"
+parcasinda haric tutma. Ilk partide bir aciklama sigorta primini once dahil edip
+sonra disladi; ogrenci hangisine inanacagini bilemez.
 
 DIL: cumle ortalama 20 kelimeyi gecmesin, tek cumle 30'u asmasin. Teknik terimi ilk kullandiginda parantezle acikla. Edilgen degil etken yaz.
 $gorsel
