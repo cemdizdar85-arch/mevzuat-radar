@@ -111,18 +111,25 @@ try {
 # denetlenemeyen bir parti, denetimden gecmis sayilamaz.
 # Ders BASINA 3 soru dokuluyor: tek dersten 20 ornek, sekiz kapinin yedisini
 # hic gormeden "parti iyi" dedirtir.
+# Ders adlarini TAHMIN ETMIYORUZ. Ilk deneme sekiz ders adini elle yazmisti;
+# hicbiri tutmadi, sorgular bos dondu, dosya hic yazilmadi ve is akisi YINE
+# YESIL BITTI. Bu yuzden artik once ham cekilir, gruplama PowerShell'de yapilir:
+# kasada ders adi ne yaziyorsa o kullanilir.
 try {
-  $dersler = @('Hukuk','Finansal Muhasebe','Maliyet Muhasebesi','Vergi Mevzuati ve Uygulamasi',
-               'Finansal Tablolar ve Analizi','Muhasebe Denetimi','Meslek Hukuku','Ekonomi')
-  $y = New-Object System.Collections.Generic.List[object]
-  foreach($d in $dersler){
-    $q = [uri]::EscapeDataString($d)
-    try {
-      $b = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&yayin=is.false&ders=eq.$q&order=id.desc&limit=3" -Headers $H -TimeoutSec 90)
-      foreach($s in $b){ $y.Add($s) }
-    } catch { }
+  $ham = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,yevmiye,tablo&yayin=is.false&order=id.desc&limit=400" -Headers $H -TimeoutSec 120)
+  Write-Host ("     yayin=false soru (son 400 icinde): {0}" -f $ham.Count)
+  $say=@{}; $y = New-Object System.Collections.Generic.List[object]
+  foreach($s in $ham){
+    $d = "$($s.ders)"; if(-not $say.ContainsKey($d)){ $say[$d]=0 }
+    if($say[$d] -ge 3){ continue }
+    $say[$d]++; $y.Add($s)
   }
-  [IO.File]::WriteAllText((Join-Path $kok "veri/yeni-uretim-ornek.json"), (@($y) | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+  foreach($k in ($say.Keys|Sort-Object)){ Write-Host ("       {0,-34} {1}" -f $k, $say[$k]) }
+  # ConvertTo-Json'a BORU ile bos dizi vermek $null dondurur, WriteAllText de
+  # $null'da patlar - ilk denemeyi sessizce dusuren ikinci kusur buydu.
+  $js = ConvertTo-Json -InputObject @($y) -Depth 8
+  if([string]::IsNullOrWhiteSpace($js)){ $js = '[]' }
+  [IO.File]::WriteAllText((Join-Path $kok "veri/yeni-uretim-ornek.json"), $js, (New-Object Text.UTF8Encoding($false)))
   Write-Host ("-> veri/yeni-uretim-ornek.json  ({0} yeni soru, GM okumasi icin)" -f @($y).Count)
 } catch { Write-Host ("yeni uretim dokumu alinamadi: {0}" -f $_.Exception.Message) }
 
