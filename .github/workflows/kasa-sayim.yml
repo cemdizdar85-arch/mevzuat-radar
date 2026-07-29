@@ -28,6 +28,11 @@ jobs:
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Yeni bir uretim hattinin ILK partisini hedefli okumak icin. Ders
+          # basina 3 soruluk genel dokum "seviye dogru mu" sorusunu cevaplamaz.
+          # Hat dogrulaninca bu iki satir bosaltilir ya da sonraki hatta cevrilir.
+          PILOT_SINAV: SGS
+          PILOT_DERS: Finansal Muhasebe
         run: ./motor/kasa-sayim.ps1
       - name: Raporu commit'le
         if: always()
@@ -37,7 +42,7 @@ jobs:
           # Bu listeye yazilmayan dosya SESSIZCE kaybolur: is akisi yesil biter,
           # dosya uretilir, hicbir yere gitmez. yeni-uretim-ornek.json bir kosu
           # boyunca tam boyle kayboldu.
-          for f in veri/kasa-sayim.json veri/kasa-ornek.json veri/yeni-uretim-ornek.json veri/kasa-log.txt veri/denetim-kuyrugu.json veri/koku-izli.json; do
+          for f in veri/kasa-sayim.json veri/kasa-ornek.json veri/pilot-ornek.json veri/yeni-uretim-ornek.json veri/kasa-log.txt veri/denetim-kuyrugu.json veri/koku-izli.json; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Kasa sayimi guncellendi [veri-operasyonu]"

@@ -252,6 +252,32 @@ try {
   Write-Host ("-> veri/yeni-uretim-ornek.json  ({0} yeni soru, GM okumasi icin)" -f @($y).Count)
 } catch { Write-Host ("yeni uretim dokumu alinamadi: {0}" -f $_.Exception.Message) }
 
+# --- PILOT OKUMASI: yeni bir hattin ILK partisi hedefli okunur.
+# Ders basina 3 soruluk genel dokum, "SGS pilotu SGS SEVIYESINDE mi yoksa
+# Yeterlilik agirliginda mi" sorusunu cevaplamaz - o soru icin AYNI dersin
+# AYNI kosudan cikan sorulari yan yana gormek gerekir. Suzgec ENV ile verilir,
+# boylece bir sonraki yeni hat (Matematik) icin betik degistirmeye gerek kalmaz.
+# UCRETSIZ: yalniz Supabase okumasi.
+$PILOT_SINAV = "$env:PILOT_SINAV"
+$PILOT_DERS  = "$env:PILOT_DERS"
+if($PILOT_SINAV -or $PILOT_DERS){
+  try {
+    $suz = @("yayin=is.false")
+    if($PILOT_SINAV){ $suz += "sinav=eq.$([uri]::EscapeDataString($PILOT_SINAV))" }
+    if($PILOT_DERS){  $suz += "ders=eq.$([uri]::EscapeDataString($PILOT_DERS))" }
+    $up = "$SB_URL/rest/v1/soru_havuzu?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,kanun_no,madde_no,uretim,yevmiye,tablo&" +
+          ($suz -join '&') + "&order=uretim.desc&limit=40"
+    $hp = Invoke-WebRequest -UseBasicParsing -Uri $up -Headers $H -TimeoutSec 120
+    $gp = if($hp.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hp.Content) } else { "$($hp.Content)" }
+    $py = @($gp | ConvertFrom-Json)
+    $pj = ConvertTo-Json -InputObject @($py) -Depth 8
+    if([string]::IsNullOrWhiteSpace($pj)){ $pj = '[]' }
+    [IO.File]::WriteAllText((Join-Path $kok "veri/pilot-ornek.json"), $pj, (New-Object Text.UTF8Encoding($false)))
+    Write-Host ("-> veri/pilot-ornek.json  ({0} soru; suzgec sinav='{1}' ders='{2}')" -f @($py).Count, $PILOT_SINAV, $PILOT_DERS)
+    if(@($py).Count -eq 0){ Write-Host "   UYARI: suzgec bos dondu - sinav/ders etiketi bekledigin gibi yazilmamis olabilir." }
+  } catch { Write-Host ("pilot dokumu alinamadi: {0}" -f $_.Exception.Message) }
+}
+
 $rapor = [ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm")
   toplam = $toplam
