@@ -300,3 +300,5 @@ if($toplam -ne $kayit.Count){
 exit 0
 
 try{Stop-Transcript|Out-Null}catch{}
+
+# 29.07 aksam: pilot-2 okumasi icin tetik (PILOT_SINAV/PILOT_DERS is akisinda ayarli).
