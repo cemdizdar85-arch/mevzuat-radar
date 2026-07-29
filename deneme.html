@@ -227,6 +227,40 @@ var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SINAV='hepsi', SORU_T0=0, SU
 // 24.07 Cem: "giris mi bitirme mi nasil anlayacagiz" - sinav filtresi (soru.sinav: SGS/SMMM; etiketsiz eskiler her ikisinde gorunur)
 function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
 
+// 29.07 — Cem: "Staja Giriş dedim ama hâlâ Hepsi ve Yeterlilik seçtiriyor,
+// bunlar olmamalı". Haklı: genc.html'deki iki karttan "Staja Giriş"e basıp
+// gelen aday zaten hangi sınava hazırlandığını söylemiştir; ona bir daha
+// sınav sorusu sormak, verdiği kararı yok saymaktır.
+// Adres ?sinav=SGS (veya SMMM) ile gelirse sınav KİLİTLENİR ve seçici gizlenir.
+// Kilit yalnız görünürlüktedir; asıl ayrım soru.sinav alanında ve üye
+// tarafında RLS'dedir.
+(function sinavKilidiAdresten(){
+  try{
+    var p = new URLSearchParams(location.search).get('sinav');
+    if(!p) return;
+    p = p.toUpperCase();
+    // genc.html "?sinav=Yeterlilik" gönderiyordu, kasadaki değer ise 'SMMM'.
+    // Bağlantı düzeltildi ama takma ad burada da karşılanıyor: dışarıdan
+    // paylaşılmış eski bir bağlantı sessizce "hepsi"ne düşmesin.
+    if(p === 'YETERLILIK' || p === 'YETERLİLİK' || p === 'BITIRME'){ p = 'SMMM'; }
+    if(p === 'STAJA' || p === 'STAJAGIRIS'){ p = 'SGS'; }
+    if(p !== 'SGS' && p !== 'SMMM') return;
+    SINAV = p;
+    document.addEventListener('DOMContentLoaded', function(){
+      var ss = document.getElementById('sinavSec'); if(!ss) return;
+      ss.style.display = 'none';
+      var et = ss.previousElementSibling;          // "0 · Sınav" etiketi
+      if(et && et.className === 'etiket'){ et.style.display = 'none'; }
+      var ad = (p === 'SGS') ? 'Staja Giriş (SGS)' : 'Yeterlilik (Bitirme)';
+      var not = document.createElement('div');
+      not.className = 'etiket';
+      not.innerHTML = 'SINAV · <b style="color:var(--amber)">' + ad + '</b> ' +
+                      '<a href="deneme.html" style="font-weight:400;opacity:.7">(değiştir)</a>';
+      ss.parentNode.insertBefore(not, ss);
+    });
+  }catch(e){}
+})();
+
 // 27.07 PAKET KILIDI (Cem/UWorld modeli): sgs paketi yalniz SGS sekmesini,
 // yeterlilik paketi yalniz Yeterlilik sekmesini gorur; 'tam' hepsini gorur.
 window.paketKilidiUygula = function(paket){
@@ -255,6 +289,19 @@ function kurulumCiz(){
   // üye girişi sonrası kasa soruları eklenince YENİDEN çizilebilir olmalı:
   // ders düğmeleri sıfırlanır, boş-banka mesajı ayrı kutuda açılıp kapanır.
   var dk=document.getElementById('dersSec');
+  // ────────────────────────────────────────────────────────────────────
+  // 29.07 — Cem: "dersi seçiyorum, sınava başlat diyorum, farklı dersler
+  // geliyor". Sebebi buydu: bu satır `seciliDersler={}` yapıp aşağıda
+  // HEPSİNİ yeniden açıyordu. Üye kasası arka planda ~7 istekle yüklendiği
+  // için kurulumCiz() kullanıcı seçim yaptıktan SONRA tekrar çağrılıyor ve
+  // seçimi sessizce siliyordu. Kullanıcı "Hukuk" seçmiş sanıyor, sınav
+  // bütün derslerden geliyor.
+  // Artık kullanıcının ELLE yaptığı seçim korunuyor; yalnız ilk çizimde
+  // (henüz dokunulmamışken) hepsi açık başlıyor. Yeni gelen bir ders,
+  // kullanıcı daha önce hiç dokunmadıysa açık, dokunduysa KAPALI gelir —
+  // yoksa yükleme bitince habersiz ders eklenmiş olur.
+  var elleSecildi = window.DERS_ELLE_SECILDI === true;
+  var oncekiSecim = seciliDersler || {};
   dk.innerHTML=''; seciliDersler={};
   var bosMsg=document.getElementById('bosMesaj');
   var dersler={};
@@ -268,18 +315,31 @@ function kurulumCiz(){
   }
   bosMsg.classList.add('gizli');
   adlar.forEach(function(a){
-    seciliDersler[a]=true;
+    var acik = elleSecildi ? (oncekiSecim[a] === true) : true;
+    seciliDersler[a]=acik;
     var b=document.createElement('button');
-    b.className='sec aktif'; b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
-    b.onclick=function(){ seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif'); adetCiz(); };
+    b.className='sec'+(acik?' aktif':''); b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
+    b.onclick=function(){
+      window.DERS_ELLE_SECILDI = true;   // bundan sonra yeniden çizim seçimi EZMEZ
+      seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif'); adetCiz();
+    };
     dk.appendChild(b);
   });
   var ss=document.getElementById('sinavSec');
   ss.querySelectorAll('.sec').forEach(function(b){
+    // 29.07: sınav değişince ders seçimi SIFIRLANIR ve bu doğrudur —
+    // SGS'nin dersleriyle Yeterlilik'inkiler ayrı. Ama sıfırlama yalnız
+    // KULLANICI sınav değiştirdiğinde olmalı; arka plan yüklemesi
+    // tetiklediğinde değil (yukarıdaki DERS_ELLE_SECILDI o yüzden var).
     b.onclick=function(){
       ss.querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
-      b.classList.add('aktif'); SINAV=b.dataset.sinav; kurulumCiz();
+      b.classList.add('aktif'); SINAV=b.dataset.sinav;
+      window.DERS_ELLE_SECILDI = false; seciliDersler = {};
+      kurulumCiz();
     };
+    // aktif işareti SINAV değişkeniyle her çizimde hizalanır; yoksa arka plan
+    // yüklemesi bittiğinde düğme "Hepsi"de kalmış görünüyordu.
+    if(b.dataset.sinav === SINAV){ b.classList.add('aktif'); } else { b.classList.remove('aktif'); }
   });
   document.getElementById('modSec').querySelectorAll('.sec').forEach(function(b){
     b.onclick=function(){
@@ -804,20 +864,46 @@ async function kasaYukle(user){
   window.UYE_PAKET = paket;
   // 25.07 KRITIK: PostgREST tek istekte en fazla 1.000 satir verir - kasa binlerceyken
   // uye yalniz 1.000 soru goruyordu (Cem'in ekranindaki '1008' bu tavandi). SAYFALI cekim:
-  var kasa = [], bas = 0;
-  while(true){
-    // 28.07 YAYIN KAPISI (Katman 4): yayin=false olan soru uyeye SERVIS EDILMEZ.
-    // Bugune kadar kasadaki her soru aninda canliydi; bir hata bulunsa bile
-    // soruyu silmeden durdurmanin yolu yoktu. Artik profesor ya da RG nobeti bir
-    // soruyu bayrakladiginda soru YAYINDAN CEKILIR, silinmez, GM okur ve geri
-    // acar. "Hata olsa bile yayinlanmadan yakalayalim" sarti ancak boyle karsilanir.
-    var r = await sb.from('soru_havuzu').select('*').eq('yayin', true).range(bas, bas + 999);
-    if(r.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + r.error.message; return; }
-    var dilim = r.data || [];
-    kasa = kasa.concat(dilim);
-    if(dilim.length < 1000){ break; }
-    bas += 1000;
-    if(bas > 30000){ break; }
+  // 28.07 YAYIN KAPISI (Katman 4): yayin=false olan soru uyeye SERVIS EDILMEZ.
+  // Bugune kadar kasadaki her soru aninda canliydi; bir hata bulunsa bile
+  // soruyu silmeden durdurmanin yolu yoktu. Artik profesor ya da RG nobeti bir
+  // soruyu bayrakladiginda soru YAYINDAN CEKILIR, silinmez, GM okur ve geri acar.
+  //
+  // 29.07 — Cem: "kasıyor mu, üyeler soru çözmeye başlayınca sıkıntı olacak".
+  // Haklıydı. Eski hal: 1.000'lik dilimler SIRAYLA cekiliyordu - 7.000 soru
+  // yedi ard arda gidis-donus demek; her biri oncekinin bitmesini bekliyor.
+  // Uye sayisi artinca degil, SORU sayisi artinca yavasliyordu: banka buyudukce
+  // acilis suresi dogrusal uzuyor.
+  // Yeni hal: once tek sorguyla SAYIM alinir, sonra butun dilimler AYNI ANDA
+  // istenir. Yedi turlu bekleme, tek turluye iner.
+  // Ayrica ekranda "yukleniyor" yazar - eskiden kullanici once 8 soruluk
+  // ucretsiz bankayi gorup "Hepsi (8)" saniyordu, dogru sayi sonra geliyordu.
+  var kasa = [];
+  try{
+    g('uyeHata').textContent = 'Soru bankan yükleniyor…';
+    var say = await sb.from('soru_havuzu').select('id', { count: 'exact', head: true }).eq('yayin', true);
+    var toplam = say.count || 0;
+    if(say.error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + say.error.message; return; }
+    var istekler = [];
+    for(var b0 = 0; b0 < toplam; b0 += 1000){
+      istekler.push(sb.from('soru_havuzu').select('*').eq('yayin', true).range(b0, b0 + 999));
+    }
+    var cevaplar = await Promise.all(istekler);
+    for(var ci = 0; ci < cevaplar.length; ci++){
+      if(cevaplar[ci].error){ g('uyeHata').textContent = 'Paket doğrulanamadı: ' + cevaplar[ci].error.message; return; }
+      kasa = kasa.concat(cevaplar[ci].data || []);
+    }
+    // SESSIZ EKSIK YASAK: sayim ile cekim tutmuyorsa kullanici bunu BILMELI.
+    // "Yesil kostu ama veri eksik" bu depoda dort kez yasandi.
+    if(toplam > 0 && kasa.length < toplam){
+      g('uyeHata').textContent = 'Uyarı: bankanın ' + kasa.length + '/' + toplam +
+        ' sorusu yüklenebildi. Sayfayı yenile; sürerse bize yaz.';
+    } else {
+      g('uyeHata').textContent = '';
+    }
+  }catch(e){
+    g('uyeHata').textContent = 'Soru bankası yüklenemedi: ' + (e && e.message ? e.message : e);
+    return;
   }
   if(!kasa.length){
     g('uyeHata').textContent = 'Hesabında aktif paket görünmüyor. Yeni aldıysan birkaç dakika içinde açılır; sorun sürerse iletişim sayfasından yaz — hemen bakarız.';
