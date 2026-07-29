@@ -23,7 +23,12 @@ param(
   [int]$sinir = 200,
   [string]$ders = '',
   [string]$model = 'claude-sonnet-4-5-20250929',
-  [string]$cikti = ''
+  [string]$cikti = '',
+  # 29.07 aksam: bu gece uretilen 3.451 sorunun HEPSI Yeterlilik'e gitti cunku
+  # betik tek bir kotayi ve tek bir sinavi taniyordu. SGS (Staja Giris) kasada
+  # 6.708 soruyla duruyor ama uretim hic dokunmamis. Sinav artik parametre.
+  [ValidateSet('SMMM','SGS')]
+  [string]$sinav = 'SMMM'
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -54,7 +59,7 @@ function HataGovde($e){
 function YazmaDenemesi(){
   $dId = [guid]::NewGuid().ToString()
   $dSatir = @([ordered]@{
-    id=$dId; sinav='SMMM'; ders='DENEME'; konu='yazma denemesi'
+    id=$dId; sinav=$script:sinav; ders='DENEME'; konu='yazma denemesi'
     soru='Bu bir yazma yolu denemesidir, hemen silinir.'
     siklar=@{A='a';B='b';C='c';D='d';E='e'}; dogru='A'
     aciklama=@{A='a';B='b';C='c';D='d';E='e'}; hap='deneme'
@@ -77,11 +82,15 @@ function YazmaDenemesi(){
 
 . (Join-Path $here 'madde-coz.ps1') -kutuphane
 
-# --- kota
-$kota = Get-Content (Join-Path $kok "veri/uretim-kotasi.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+# --- kota  (sinava gore AYRI dosya - karistirilirsa yanlis sinava soru uretilir)
+$kotaDosya = if($sinav -eq 'SGS'){ "veri/sgs-uretim-kotasi.json" } else { "veri/uretim-kotasi.json" }
+$kotaYol = Join-Path $kok $kotaDosya
+if(-not (Test-Path $kotaYol)){ Write-Host "Kota dosyasi yok: $kotaDosya"; exit 1 }
+$kota = Get-Content $kotaYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $plan = @($kota.plan)
 if($ders){ $plan = @($plan | Where-Object { "$($_.ders)" -eq $ders }) }
-Write-Host ("Kota satiri: {0}" -f $plan.Count)
+Write-Host ("SINAV: {0}   kota: {1}   plan satiri: {2}" -f $sinav, $kotaDosya, $plan.Count)
+if($plan.Count -eq 0){ Write-Host "Plan bos - uretilecek satir yok, cikiliyor."; exit 1 }
 
 # --- kasadan KONU -> MADDE haritasi (4.101 bagli soru zaten var, bedava kaynak)
 Write-Host "Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)..."
@@ -158,8 +167,26 @@ Soru TABLO/ANALIZ tipindeyse "tablo" alanini doldur
 Gerekmiyorsa bos birak. UYDURMA TABLO, TABLOSUZLUKTAN KOTUDUR.
 "@
   }
-  return @"
+  # Ayni konu iki sinavda AYNI DERINLIKTE sorulmaz: SGS adayi henuz staja
+  # baslamamis bir universite mezunu, Yeterlilik adayi uc yil buro gormus bir
+  # stajyer. Sinav adini degistirip seviyeyi degistirmemek, SGS'ye Yeterlilik
+  # sorusu yazmak olurdu - cocuk hazirliksiz kalir.
+  $sinavBasligi = if($script:sinav -eq 'SGS'){
+@"
+Sen TURMOB-TESMER SMMM STAJA GIRIS (SGS) sinavi icin soru yazan bir editorsun.
+SEVIYE: Aday universite mezunu ama HENUZ STAJA BASLAMAMIS - buro tecrubesi yok.
+130 soruluk, bes secenekli, tek oturumluk sinav. Konunun TEMELINI ve ders
+kitabi duzeyindeki uygulamasini sor; uc yillik meslek pratigi gerektiren
+istisna zincirlerine, nadir ozel hukumlere ve buro tecrubesi olmadan
+bilinemeyecek uygulama detaylarina GIRME.
+"@
+  } else {
+@"
 Sen TURMOB-TESMER SMMM YETERLILIK sinavi icin soru yazan bir editorsun.
+"@
+  }
+  return @"
+$sinavBasligi
 
 === DAYANAK METIN ($maddeAd) ===
 $maddeMetni
@@ -461,7 +488,7 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
 
     $id = [guid]::NewGuid().ToString()
     $satir=[ordered]@{
-      id=$id; sinav='SMMM'; ders=$i.ders; konu=$i.konu
+      id=$id; sinav=$script:sinav; ders=$i.ders; konu=$i.konu
       soru="$($y.soru)"; siklar=$y.siklar; dogru="$($y.dogru)"; aciklama=$y.aciklama
       hap="$($y.hap)"; kaynak=$i.maddeAd; uretim=("kota-v2 " + (Get-Date -Format 'dd.MM.yyyy'))
       kanun_no=$i.kanun; madde_no=$i.madde

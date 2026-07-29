@@ -38,9 +38,14 @@ jobs:
             Write-Host ("===== EMIR #{0} ({1}) - tahmini {2} USD" -f $x.no, $x.emir, $x.tahmini_usd)
             Write-Host ("      {0}" -f $x.gerekce)
             $ok = $true
+            # 29.07 aksam: emirde sinav yoksa SMMM varsayilir - eski emirler
+            # aynen calisir. SGS emri kendi kotasini (sgs-uretim-kotasi.json)
+            # okur ve soruyu sinav='SGS' ile kasaya yazar.
+            $sv = if($x.PSObject.Properties['sinav'] -and $x.sinav){ "$($x.sinav)" } else { 'SMMM' }
+            Write-Host ("      sinav: {0}" -f $sv)
             try {
               ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                 -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+                 -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
             if(Test-Path 'veri/uretim-log.txt'){ Copy-Item 'veri/uretim-log.txt' "veri/uretim-log-$($x.no).txt" -Force }
