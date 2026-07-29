@@ -651,11 +651,28 @@ async function zayifKonuCiz(){
        + '</td><td style="color:'+renk+';font-weight:700">'+farkYazi+'</td></tr>';
   });
   h += '</table>';
-  var zayif = satir.filter(function(s){ return s.fark!==null && s.fark<0; }).slice(0,3);
-  var not = zayif.length
-    ? '<div style="margin-top:8px;font-size:13px;color:var(--ink)">Buraya çalış: <b>'
-      + zayif.map(function(s){return s.konu;}).join('</b>, <b>') + '</b></div>'
-    : '<div style="margin-top:8px;font-size:13px;color:var(--green)">Zayıf konun görünmüyor — çözmeye devam et, tablo netleşsin.</div>';
+  // AKRAN VERISI YOKKEN "zayif konun yok" DEMEK YANLIS OLUR. Ilk denemede
+  // %25'lik konusu olan ogrenciye "zayif konun gorunmuyor" dedik - sebep
+  // ogrencinin iyi olmasi degil, kasada henuz karsilastirilacak veri olmamasiydi.
+  // Uc ayri durum, uc ayri cumle:
+  var akranVar = satir.some(function(s){ return s.fark !== null; });
+  var zayif, not;
+  if(akranVar){
+    zayif = satir.filter(function(s){ return s.fark !== null && s.fark < 0; }).slice(0,3);
+    not = zayif.length
+      ? '<div style="margin-top:8px;font-size:13px;color:var(--ink)">Buraya çalış: <b>'
+        + zayif.map(function(s){return s.konu;}).join('</b>, <b>') + '</b></div>'
+      : '<div style="margin-top:8px;font-size:13px;color:var(--green)">Girdiğin konuların hepsinde aday ortalamasının üstündesin.</div>';
+  } else {
+    // Akran ortalamasi yok: kendi en dusuk konularini goster, ama bunun bir
+    // KARSILASTIRMA olmadigini acikca soyle.
+    zayif = satir.filter(function(s){ return s.benim < 60; }).slice(0,3);
+    not = zayif.length
+      ? '<div style="margin-top:8px;font-size:13px;color:var(--ink)">En düşük olduğun konular: <b>'
+        + zayif.map(function(s){return s.konu;}).join('</b>, <b>')
+        + '</b><div style="font-size:12px;color:var(--dim);margin-top:4px">Aday ortalaması henüz oluşmadı; bu sıralama yalnız kendi sonucuna göre.</div></div>'
+      : '<div style="margin-top:8px;font-size:13px;color:var(--dim)">Aday ortalaması henüz oluşmadı. Karşılaştırma, bir konuyu en az 20 aday çözünce açılır.</div>';
+  }
   document.getElementById('karneTablo').innerHTML = h;
   document.getElementById('karneNot').innerHTML = not
     + '<div style="font-size:11px;color:var(--dim);margin-top:6px">"Adaylar" sütunu, o konuyu en az 20 kez çözen adayların ortalamasıdır; az veri varsa boş bırakılır. Kimseye ait kişisel bilgi tutulmaz.</div>';
