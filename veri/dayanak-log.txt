@@ -1,29 +1,21 @@
-﻿**********************
-Windows PowerShell transcript start
-Start time: 20260729220244
-Username: GK\cemdi
-RunAs User: GK\cemdi
+**********************
+PowerShell transcript start
+Start time: 20260729191201
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
 Configuration Name: 
-Machine: GK (Microsoft Windows NT 10.0.26200.0)
-Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
-$f = Join-Path $kok "motor\dayanak-haritasi.ps1"
-$c = [IO.File]::ReadAllText($f, [Text.Encoding]::UTF8)
-[IO.File]::WriteAllText($f, $c, (New-Object Text.UTF8Encoding($true)))
-$h=$null;$t=$null
-[System.Management.Automation.Language.Parser]::ParseFile($f,[ref]$t,[ref]$h)|Out-Null
-if($h -and $h.Count){ "SOZDIZIMI HATASI:"; $h|ForEach-Object{"  L{0}: {1}" -f $_.Extent.StartLineNumber,$_.Message} } else { "TEMIZ - kosuluyor"; & $f }
-; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
-; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-a305' -Encoding utf8 -NoNewline
-; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
-Process ID: 22984
-PSVersion: 5.1.26100.8894
-PSEdition: Desktop
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
-BuildVersion: 10.0.26100.8894
-CLRVersion: 4.0.30319.42000
-WSManStackVersion: 3.0
-PSRemotingProtocolVersion: 2.3
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/26e93cdc-0bb1-4aec-bbd9-8da078a06e10.ps1'
+Process ID: 2171
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
 **********************
 Taranan sayfa: 40
   alacak-radari.html         7 dayanak
@@ -38,8 +30,8 @@ Taranan sayfa: 40
   index.html                 4 dayanak
   kdv-iade-rehberi.html      3 dayanak
   kontrol-listesi.html       3 dayanak
-  kurulus.html               10 dayanak
   kurulus-evrak.html         4 dayanak
+  kurulus.html               10 dayanak
   kvkk.html                  5 dayanak
   marka-itiraz.html          3 dayanak
   marka-radari.html          7 dayanak
@@ -59,6 +51,6 @@ Tekil (kanun, madde) cifti: 61 - ambarda araniyor...
 
 -> veri/dayanak-haritasi.json  (18 sayfa, 61 tekil dayanak)
 **********************
-Windows PowerShell transcript end
-End time: 20260729220300
+PowerShell transcript end
+End time: 20260729191220
 **********************
