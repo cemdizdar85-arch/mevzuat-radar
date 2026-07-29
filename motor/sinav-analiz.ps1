@@ -243,7 +243,21 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
       Write-Host "  RED: iki okuma ayni konulari gormuyor"; $d.durum='inceleme'; $islenen++; continue }
     $sorular=New-Object System.Collections.Generic.List[object]
     $birlesim=@{}; foreach($k in $k1.Keys){ $birlesim[$k]=1 }; foreach($k in $k2.Keys){ $birlesim[$k]=1 }
-    $i2=0; foreach($k in $birlesim.Keys){ $i2++; $sorular.Add(@{ no="y$i2"; ders=$d.ders; konu=$k }) }
+    # 29.07: bu birlesim SADECE KONUYU tasiyordu, kurguyu (tip/uzun) dusuruyordu.
+    # Istemi degistirdim, toplayiciyi degistirdim, ama BIRLESIM adiminda attim -
+    # ucuncu halkayi unutmak. Artik her konunun ilk gorulen tip/uzun etiketi de
+    # tasiniyor: sinavda "nasil soruldugu" uretim kotasinin yarisi.
+    $tipHar=@{}
+    foreach($s in @($o1)+@($o2)){
+      $kk = Fold $s.konu
+      if($kk -and -not $tipHar.ContainsKey($kk) -and "$($s.tip)".Trim()){ $tipHar[$kk]=@{ tip="$($s.tip)"; uzun="$($s.uzun)" } }
+    }
+    $i2=0
+    foreach($k in $birlesim.Keys){
+      $i2++
+      $ek = $tipHar[$k]
+      $sorular.Add(@{ no="y$i2"; ders=$d.ders; konu=$k; tip=$(if($ek){$ek.tip}else{''}); uzun=$(if($ek){$ek.uzun}else{''}) })
+    }
     Write-Host ("  BIRLESIM: {0} konu" -f $sorular.Count)
     $atla = $true
   } else {
