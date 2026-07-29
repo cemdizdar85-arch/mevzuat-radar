@@ -6,6 +6,11 @@
 name: Kasa Sayimi
 
 on:
+  # 29.07 — CRON EKLENDI (Cem: "atladigim bir sey varsa hepsi otomatik").
+  # Eski tetik yalniz elle/push idi; kasa sayimi gunlerce bayat kalabiliyordu
+  # ve GM eski rakamla plan kuruyordu. PARA HARCAMAZ: yalniz Supabase okuma.
+  schedule:
+    - cron: "30 5 * * *"    # 08:30 TR — gunun taze sayimi
   workflow_dispatch:
   push:
     paths:

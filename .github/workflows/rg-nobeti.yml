@@ -18,7 +18,14 @@ on:
         description: "Etkilenen sorulari gercekten yayindan ceksin mi? (kapali = yalniz olcum)"
         type: boolean
         default: false
-  # Hasat sonrasi degisim raporu guncellenince nobet kendiliginden kosar.
+  # 29.07 — CRON EKLENDI. Eski tetik yalniz push'tu ve madde-degisim.json'u
+  # ROBOT yaziyor; GITHUB_TOKEN ile yapilan robot push'lari yeni is akisi
+  # TETIKLEMEZ. Yani bu nobet fiilen HIC kosmayacakti - karne ayni tuzaktan
+  # hic kosmamisti (29.07'de bulundu). Ayna 07:00/16:00 TR'de kosuyor;
+  # nobet birer saat arkasindan gelir. PARA HARCAMAZ.
+  schedule:
+    - cron: "0 5 * * *"     # 08:00 TR — sabah aynasindan sonra
+    - cron: "0 14 * * *"    # 17:00 TR — ogleden sonraki aynadan sonra
   push:
     paths:
       - 'veri/madde-degisim.json'

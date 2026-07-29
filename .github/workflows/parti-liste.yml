@@ -11,6 +11,15 @@
 name: Parti Listesi (kayip kimlik kurtarma)
 
 on:
+  # 29.07 — Cem: "kayip partilerin sonucu, bunu da otomatik yapalim."
+  # Hakli: bu gece ~2.000 sorunun karsiligi, kimlikleri hicbir yere
+  # yazilmadigi icin alinamadi sanildi. Artik liste HER GUN kendiliginden
+  # cekiliyor; bir kosu ortada olurse bile partilerin kimligi ertesi sabah
+  # depoda olur ve hasat edilebilir.
+  # PARA HARCAMAZ: tek bir GET. Sonuc cekmek de ucretsiz - ucret parti
+  # islenirken alinir.
+  schedule:
+    - cron: "30 4 * * *"    # 07:30 Türkiye — aynadan hemen sonra
   workflow_dispatch:
   push:
     paths:
