@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729065932
+Start time: 20260729071621
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/47f81df5-dd86-4a0c-8b5c-62713b9bd12b.ps1'
-Process ID: 2266
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ff6739a4-bb9b-44bc-b83b-1efb0d64fd19.ps1'
+Process ID: 2234
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -18,7 +18,7 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 KASA SAYIMI basliyor...
-  TOPLAM: 7381 soru
+  TOPLAM: 7427 soru
   ...1000
   ...2000
   ...3000
@@ -26,18 +26,18 @@ KASA SAYIMI basliyor...
   ...5000
   ...6000
   ...7000
-  cekilen: 7381
+  cekilen: 7427
 
 ================ KASA SAYIMI ================
-  TOPLAM SORU : 7381
+  TOPLAM SORU : 7427
 
   --- sinav bazinda
      SGS        6708
-     SMMM       673
+     SMMM       719
 
   --- ders bazinda
      Yabanci Dil                        1550
-     Finansal Muhasebe                  965
+     Finansal Muhasebe                  1011
      Denetim                            783
      Turkce                             720
      Is ve Sosyal Guvenlik Hukuku       383
@@ -52,15 +52,15 @@ KASA SAYIMI basliyor...
      Ataturk Ilke ve Inkilap Tarihi     162
      Mali Tablolar Analizi              137
      Genel Kultur-Genel Yetenek         131
-     Muh. ve Mali Müş. Meslek Hukuku    94
      Vergi Mevzuatı ve Uygulaması       94
+     Muh. ve Mali Müş. Meslek Hukuku    94
      Matematik                          72
      Finansal Tablolar ve Analizi       64
      Muhasebe Denetimi                  61
      Sermaye Piyasası Mevzuatı          28
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 4294
+     mevzuata dayanan (madde bagi kurulabilir) : 4340
      mevzuat disi (dil/matematik/teori)        : 3087
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
@@ -78,39 +78,39 @@ KASA SAYIMI basliyor...
        47x  Turkce|sozcuk turleri
        44x  Finansal Muhasebe|nakit akis tablosu
        44x  Ekonomi|talep fiyat esnekligi
+       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
+       41x  Yabanci Dil|correlative conjunction
+       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
        41x  Turkce|sozcukte anlam
        41x  Denetim|bds 230 denetim belgelendirme
-       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
-       41x  Yabanci Dil|correlative conjunction
-       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
        40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
 -> veri/kasa-ornek.json  (1 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 194
-     HAM CEVAP: 14042 bayt  Content-Range: System.String[]
+     KASADA yayin=false (denetim bekleyen) : 240
+     HAM CEVAP: 17538 bayt  Content-Range: System.String[]
      ILK 200: [{"id":"efac4879","ders":"Vergi Hukuku"}, 
  {"id":"65a43d42","ders":"Is ve Sosyal Guvenlik Hukuku"}, 
  {"id":"bc101187","ders":"Vergi Hukuku"}, 
  {"id":"f86d34d9","ders":"Borclar Hukuku"}, 
  {"id":"e1
-     cekilen yayin=false kayit: 194
+     cekilen yayin=false kayit: 240
        Borclar Hukuku                     2
        Denetim                            1
-       Finansal Muhasebe                  3
+       Finansal Muhasebe                  8
        Hukuk                              1
-       Is ve Sosyal Guvenlik Hukuku       3
+       Is ve Sosyal Guvenlik Hukuku       8
        Meslek Hukuku                      2
-       Ticaret Hukuku                     3
-       Vergi Hukuku                       3
+       Ticaret Hukuku                     5
+       Vergi Hukuku                       4
        Vergi Mevzuatı ve Uygulaması       1
-     tam metin cekilen: 19 (istenen 19)
--> veri/yeni-uretim-ornek.json  (19 yeni soru, GM okumasi icin)
+     tam metin cekilen: 32 (istenen 32)
+-> veri/yeni-uretim-ornek.json  (32 yeni soru, GM okumasi icin)
 
 -> veri/kasa-sayim.json
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729065945
+End time: 20260729071628
 **********************
