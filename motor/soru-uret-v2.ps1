@@ -38,6 +38,43 @@ $AK = "$env:ANTHROPIC_API_KEY".Trim()
 $H  = @{ apikey=$KEY; Authorization="Bearer $KEY" }
 $HW = $H + @{ Prefer="return=minimal" }
 $HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
+
+# 29.07: PowerShell 7'de Invoke-RestMethod hatasinda govde
+# $_.Exception.Response akisinda DEGIL, $_.ErrorDetails.Message icinde durur.
+# Iki kosu ust uste "400 Bad Request" deyip sebebini soylemedi cunku yanlis
+# yerden okuyordum.
+function HataGovde($e){
+  if($e.ErrorDetails -and $e.ErrorDetails.Message){ return "$($e.ErrorDetails.Message)" }
+  try { return (New-Object IO.StreamReader($e.Exception.Response.GetResponseStream())).ReadToEnd() } catch { return "" }
+}
+
+# --- KURU DENEME: yazma yolu SAGLAM MI, soru uretmeden once bak.
+# Iki parti (200 + 30 soru, 2,62 USD) yalnizca "yazma bozuk" oldugunu ogrenmek
+# icin harcandi. Once tek satirlik bir deneme yaz, hatayi gor, sonra uret.
+function YazmaDenemesi(){
+  $dId = [guid]::NewGuid().ToString()
+  $dSatir = @([ordered]@{
+    id=$dId; sinav='SMMM'; ders='DENEME'; konu='yazma denemesi'
+    soru='Bu bir yazma yolu denemesidir, hemen silinir.'
+    siklar=@{A='a';B='b';C='c';D='d';E='e'}; dogru='A'
+    aciklama=@{A='a';B='b';C='c';D='d';E='e'}; hap='deneme'
+    kaynak='deneme'; uretim='kuru-deneme'; kanun_no='213'; madde_no='1'
+    yayin=$false; yayin_notu='kuru deneme'
+  })
+  try {
+    Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu" -Headers $HW -ContentType "application/json; charset=utf-8" `
+      -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $dSatir -Depth 6))) -TimeoutSec 60 | Out-Null
+  } catch {
+    Write-Host "KURU DENEME BASARISIZ - yazma yolu bozuk, SORU URETILMEYECEK."
+    Write-Host ("  hata  : {0}" -f $_.Exception.Message)
+    Write-Host ("  sunucu: {0}" -f (HataGovde $_))
+    return $false
+  }
+  try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/soru_havuzu?id=eq.$dId" -Headers $HW -TimeoutSec 30 | Out-Null } catch {}
+  Write-Host "KURU DENEME TAMAM - yazma yolu saglam."
+  return $true
+}
+
 . (Join-Path $here 'madde-coz.ps1') -kutuphane
 
 # --- kota
@@ -189,6 +226,8 @@ Write-Host ("MALIYET TAHMINI (Batch %50): ~{0:N2} USD" -f $tahmin)
 if(-not $calistir){ Write-Host "OLCUM MODU - 0 USD."; try{Stop-Transcript|Out-Null}catch{}; exit 0 }
 if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok."; exit 1 }
 if($isler.Count -eq 0){ Write-Host "KIRMIZI: uretilecek is yok."; exit 1 }
+# PARA HARCAMADAN ONCE: yazma yolu saglam mi?
+if(-not (YazmaDenemesi)){ try{Stop-Transcript|Out-Null}catch{}; exit 1 }
 
 # --- batch
 $sonuc=@{}; $gG=0; $gC=0
@@ -295,7 +334,7 @@ for($i2=0; $i2 -lt $yeni.Count; $i2 += 150){
     # Sunucunun ne dedigini yakalamadan tekrar denemek, ayni parayi ikinci kez
     # yakmaktir. Artik hata GOVDESI ve ornek satir loga yaziliyor.
     $cev = ""
-    try { $cev = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
+    $cev = HataGovde $_
     Write-Host ("YAZMA HATASI: {0}" -f $_.Exception.Message)
     if($cev){ Write-Host ("SUNUCU CEVABI: {0}" -f $cev.Substring(0,[Math]::Min(600,$cev.Length))) }
     $ornek = ($dl[0] | ConvertTo-Json -Depth 6 -Compress)
