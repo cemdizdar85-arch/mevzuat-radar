@@ -216,7 +216,26 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
   if($bicim -eq 'yazili'){
     $k1=@{}; foreach($s in $o1){ if("$($s.konu)".Trim()){ $k1[(Fold $s.konu)]=1 } }
     $k2=@{}; foreach($s in $o2){ if("$($s.konu)".Trim()){ $k2[(Fold $s.konu)]=1 } }
-    $kesisim=0; foreach($k in $k1.Keys){ if($k2.ContainsKey($k)){ $kesisim++ } }
+    # 29.07: kesisim BIREBIR metin karsilastirmasiyla olculuyordu ve 2024/3
+    # kil payi kacti: iki okuma da 35-36 konu gormus, ortusme %34, esik %35.
+    # Oysa konu etiketi SERBEST METIN - "amortisman ayirma" ile "amortisman
+    # hesaplama" ayni seyi anlatir ama birebir eslesmez. Birebir karsilastirma
+    # burada gercek anlasmazligi degil KELIME SECIMINI olcuyor.
+    # Artik ANLAMLI KELIME ortusmesine bakiliyor: iki etiket 3+ harfli ortak
+    # bir kelime paylasiyorsa ayni konu sayilir.
+    function AnlamliKelimeler([string]$t){
+      $l=@(); foreach($w in ("$t" -split '[^a-z0-9]+')){ if($w.Length -ge 4){ $l += $w } }
+      return $l
+    }
+    $k2kel = @{}
+    foreach($k in $k2.Keys){ foreach($w in (AnlamliKelimeler $k)){ if(-not $k2kel.ContainsKey($w)){ $k2kel[$w]=@() }; $k2kel[$w] += $k } }
+    $kesisim=0
+    foreach($k in $k1.Keys){
+      if($k2.ContainsKey($k)){ $kesisim++; continue }
+      $bulundu=$false
+      foreach($w in (AnlamliKelimeler $k)){ if($k2kel.ContainsKey($w)){ $bulundu=$true; break } }
+      if($bulundu){ $kesisim++ }
+    }
     $kucuk=[Math]::Min($k1.Count,$k2.Count)
     $ortusme = if($kucuk -gt 0){ $kesisim/[double]$kucuk } else { 0 }
     Write-Host ("  YAZILI: okuma1 {0} konu, okuma2 {1} konu, ortusme %{2}" -f $k1.Count,$k2.Count,[math]::Round($ortusme*100))
