@@ -135,7 +135,15 @@ try {
     $ky = [int](($rk.Headers['Content-Range'] -split '/')[-1])
   } catch { Write-Host ("     yayin=false sayimi alinamadi: {0}" -f $_.Exception.Message) }
   Write-Host ("     KASADA yayin=false (denetim bekleyen) : {0}" -f $ky)
-  $hafif = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&limit=1000" -Headers $H -TimeoutSec 120)
+  # AYNI SUZGEC, IKI FARKLI SONUC: sayim 194 dedi, cekim 1 satir getirdi. Bu
+  # ikisinden biri yalan soyluyor ve hangisi oldugunu TAHMIN etmeyecegim - ham
+  # cevabin kendisi loga yaziliyor.
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders&yayin=is.false&limit=1000"
+  $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers ($H + @{ Prefer='count=exact' }) -TimeoutSec 120
+  $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }
+  Write-Host ("     HAM CEVAP: {0} bayt  Content-Range: {1}" -f $govde.Length, $ham.Headers['Content-Range'])
+  Write-Host ("     ILK 200: {0}" -f $govde.Substring(0,[Math]::Min(200,$govde.Length)))
+  $hafif = @($govde | ConvertFrom-Json)
   Write-Host ("     cekilen yayin=false kayit: {0}" -f $hafif.Count)
   $say=@{}; $sec = New-Object System.Collections.Generic.List[string]
   foreach($s in $hafif){
