@@ -275,6 +275,31 @@ if($PILOT_SINAV -or $PILOT_DERS){
     [IO.File]::WriteAllText((Join-Path $kok "veri/pilot-ornek.json"), $pj, (New-Object Text.UTF8Encoding($false)))
     Write-Host ("-> veri/pilot-ornek.json  ({0} soru; suzgec sinav='{1}' ders='{2}')" -f @($py).Count, $PILOT_SINAV, $PILOT_DERS)
     if(@($py).Count -eq 0){ Write-Host "   UYARI: suzgec bos dondu - sinav/ders etiketi bekledigin gibi yazilmamis olabilir." }
+
+    # --- KAYNAK TURU SAYIMI (40'lik ornek DEGIL, TAM SAYIM)
+    # 29.07 dersi: 40 soruluk ornekten "onarim tuttu mu" sonucu cikarmaya
+    # calistim ve cikaramadim - ornek Pilot-1 ile Pilot-2'yi KARISTIRIYORDU
+    # (ikisinin uretim damgasi ayniydi). Orneklem sayim degildir; bu blok
+    # count=exact ile TAM sayar.
+    # Olcunun anlami: Pilot-1 SIFIR standart/hesap-plani uretmisti (40/40 kanun),
+    # eski toplu aktarimda da yok. Yani bu sayilar dogrudan onarimin urunudur.
+    function TurSay([string]$ek){
+      try {
+        $u = "$SB_URL/rest/v1/soru_havuzu?select=id&" + ($suz -join '&') + "&" + $ek + "&limit=1"
+        $h = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers ($H + @{ Prefer='count=exact' }) -TimeoutSec 90
+        return [int](($h.Headers['Content-Range'] -split '/')[-1])
+      } catch { return -1 }
+    }
+    $nStd = TurSay "kanun_no=eq.STD"
+    $nThp = TurSay "kanun_no=eq.THP"
+    $nTop = TurSay "id=not.is.null"
+    Write-Host ("   KAYNAK TURU TAM SAYIM (sinav='{0}' ders='{1}', yayin=false):" -f $PILOT_SINAV, $PILOT_DERS)
+    Write-Host ("     standart (STD)    : {0}" -f $nStd)
+    Write-Host ("     hesap plani (THP) : {0}" -f $nThp)
+    Write-Host ("     toplam            : {0}" -f $nTop)
+    if($nTop -gt 0 -and $nStd -ge 0 -and $nThp -ge 0){
+      Write-Host ("     standart+THP orani: %{0:N1}" -f (100.0*($nStd+$nThp)/$nTop))
+    }
   } catch { Write-Host ("pilot dokumu alinamadi: {0}" -f $_.Exception.Message) }
 }
 
