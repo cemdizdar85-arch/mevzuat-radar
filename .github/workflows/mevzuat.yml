@@ -100,12 +100,29 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/madde-damga.ps1 -uygula
+      # Raporu URETIR ama burada kirmizi vermez - once hasat commit'lensin.
+      # Kirmizi, commit'in ARKASINDAKI kapida verilir.
+      - name: Dayanak nobetcisi (hangi SAYFALAR etkilendi)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/dayanak-nobetci.ps1
+      # ZINCIRIN SON HALKASI (29.07). Madde damgasi degisen maddeye dayanan
+      # SORULARI yayindan cekiyor - ama SAYFALAR icin oyle bir bag yoktu.
+      # Bedeli goruldu: KVKK sayfasi 11.07'de sablondan yazildi, kanun ambara
+      # 27.07'de girdi, m.9'un 2024 degisikligi kimse fark etmeden aylarca
+      # yayinda kaldi. Nobetci artik "su madde degisti -> su sayfalar etkilendi"
+      # diyor. Kosuyu KIRMIZI bitirir: bu depoda dort katman "kuruldu ama
+      # kimse gormedi" diye bekledi, sessiz rapor okunmuyor.
+      # Commit adiminin ONUNDE degil ARKASINDA durur ki kirmizi bitse bile
+      # hasat verisi kaydedilmis olsun.
       - name: Degisen madde-belgelerini commit et
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           git add -A veri/mevzuat/ || true
           if [ -f veri/madde-degisim.json ]; then git add veri/madde-degisim.json || true; fi
+          if [ -f veri/dayanak-uyari.json ]; then git add veri/dayanak-uyari.json || true; fi
+          if [ -f veri/dayanak-nobet-log.txt ]; then git add veri/dayanak-nobet-log.txt || true; fi
           git add veri/yeniden-dogrula.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
@@ -114,6 +131,25 @@ jobs:
             git pull --rebase origin main || true
             git push || echo "UYARI: push olmadi (uzak dal ilerlemis olabilir) - veri Supabase'de guvende, sonraki kosu telafi eder."
           fi
+      # KIRMIZI KAPI. Rapor commit'lendikten SONRA calisir: veri kaydedilmis
+      # olur, ama etkilenen sayfa varsa kosu KIRMIZI biter ve GM gorur.
+      # Sessiz rapor okunmaz - bu depoda dort katman tam bu yuzden aylarca
+      # "kurulmus ama calismiyor" halde bekledi.
+      - name: KAPI — dayanagi degisen sayfa var mi
+        shell: pwsh
+        run: |
+          $y = 'veri/dayanak-uyari.json'
+          if(-not (Test-Path $y)){ Write-Host "Uyari dosyasi yok - nobetci kosmamis ya da atlamis. Gecildi."; exit 0 }
+          $u = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          if([int]$u.etkilenen_sayfa -eq 0){ Write-Host "TEMIZ: dayanagi degisen sayfa yok."; exit 0 }
+          Write-Host ("KIRMIZI: {0} sayfanin dayandigi madde DEGISTI." -f $u.etkilenen_sayfa)
+          foreach($x in $u.uyarilar){
+            Write-Host ("  {0}" -f $x.sayfa)
+            foreach($m in $x.maddeler){ Write-Host ("      <- {0}" -f $m) }
+          }
+          Write-Host ""
+          Write-Host "Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz. Ayrinti: veri/dayanak-uyari.json"
+          exit 1
       # GUVEN KATMANI C: hasat VE commit sonrasi retrieval sigortasi — altin
       # setteki her soru icin beklenen kaynak top-6'da bulunmali. Dusen vaka =
       # kirmizi kosu = GitHub e-postasi. Commit'ten SONRA kosar: kapinin isi

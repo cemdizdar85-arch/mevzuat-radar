@@ -1,0 +1,52 @@
+# .github/workflows/dayanak-harita.yml — DAYANAK HARİTASINI TAZE TUT
+#
+# Harita "hangi sayfa hangi kanun maddesine yaslaniyor" diyor ve nobetci
+# (mevzuat.yml icinde) onu okuyup "su madde degisti -> su sayfalar etkilendi"
+# karsilastirmasini yapiyor. Harita eskirse nobetci YANLIS sayfayi isaret
+# eder ya da etkilenen sayfayi HIC gormez.
+#
+# 29.07 dersi: karne is akisi kuruldu ama tetigi robot push'una takiliydi ve
+# hic kosmadi; kimse fark etmedi cunku ciktinin TARIHINE bakmadan anlasilmiyordu.
+# Bu yuzden burada tetik SAYFA degisikligine bagli - sayfalari INSAN degistirir,
+# robot degil, dolayisiyla tetik calisir.
+#
+# PARA HARCAMAZ: yerel dosya okuma + dokumanlar tablosu (acik).
+name: Dayanak Haritasi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '*.html'
+      - 'motor/dayanak-haritasi.ps1'
+      - '.github/workflows/dayanak-harita.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dayanak-harita
+  cancel-in-progress: false
+
+jobs:
+  harita:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Haritayi yenile
+        shell: pwsh
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/dayanak-haritasi.ps1
+      - name: Haritayi commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # Bu listeye yazilmayan dosya SESSIZCE kaybolur.
+          for f in veri/dayanak-haritasi.json veri/dayanak-log.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Dayanak haritasi guncellendi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
