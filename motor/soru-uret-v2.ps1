@@ -28,7 +28,11 @@ param(
   # betik tek bir kotayi ve tek bir sinavi taniyordu. SGS (Staja Giris) kasada
   # 6.708 soruyla duruyor ama uretim hic dokunmamis. Sinav artik parametre.
   [ValidateSet('SMMM','SGS')]
-  [string]$sinav = 'SMMM'
+  [string]$sinav = 'SMMM',
+  # Uretilen sorunun hangi EMIRDEN (dolayisiyla hangi receteden) ciktigi
+  # kasaya yazilir. Pilot-1 ile Pilot-2 ayni gun kostu ve damgalari ayniydi;
+  # sonucta "onarim tuttu mu" sorusu olculemedi cunku ornekler ayrilamadi.
+  [string]$emirNo = '0'
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -574,7 +578,14 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     $satir=[ordered]@{
       id=$id; sinav=$script:sinav; ders=$i.ders; konu=$i.konu
       soru="$($y.soru)"; siklar=$y.siklar; dogru="$($y.dogru)"; aciklama=$y.aciklama
-      hap="$($y.hap)"; kaynak=$i.maddeAd; uretim=("kota-v2 " + (Get-Date -Format 'dd.MM.yyyy'))
+      # 29.07 aksam: damgaya EMIR NUMARASI eklendi. Pilot-1 ile Pilot-2'nin
+      # damgasi ayniydi ("kota-v2 29.07.2026") ve ikisi de ayni gun kosunca
+      # hangi sorunun hangi kosudan geldigi AYIRT EDILEMEDI - onarimin ise
+      # yarayip yaramadigini olcmek icin ornekleri ayirmam gerekiyordu,
+      # ayiramadim. Odenmis her sorunun hangi recete ile uretildigi kayitli
+      # olmali; yoksa "duzeltme tuttu mu" sorusu bir daha cevaplanamaz.
+      hap="$($y.hap)"; kaynak=$i.maddeAd
+      uretim=("kota-v2 #" + $script:emirNo + " " + $script:sinav + " " + (Get-Date -Format 'dd.MM.yyyy'))
       kanun_no=$i.kanun; madde_no=$i.madde
       yayin=$false
       yayin_notu='YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz.'

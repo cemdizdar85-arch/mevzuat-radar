@@ -55,10 +55,10 @@ jobs:
             try {
               if($olcum){
                 ./motor/soru-uret-v2.ps1 -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                   -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+                   -sinav $sv -emirNo "$($x.no)" -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
               } else {
                 ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                   -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+                   -sinav $sv -emirNo "$($x.no)" -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
               }
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
