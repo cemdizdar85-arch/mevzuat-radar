@@ -672,6 +672,23 @@ function etkiHesapla(kod, sid){
   out.innerHTML = sat + `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">Kaba tahmindir:${notEk} KDV ve varsa damping/EMY hariç; gerçek vergi matraha (CIF + yurt dışı giderler) göre hesaplanır. İşlem öncesi gümrük müşavirine danış.</div>`;
 }
 
+/* 29.07: ana sayfadaki canli kutudan ?kod=... ile gelinir ve SORGU KENDILIGINDEN
+   calisir. Ziyaretcinin ayni kodu iki kez yazmasi, "hap gibi olsun" fikrini
+   bozar. Veri gec yuklenirse bekleyip tekrar dener. */
+(function(){
+  var k = new URLSearchParams(location.search).get('kod');
+  if(!k) return;
+  function dene(n){
+    var i = document.getElementById('gtip');
+    if(!i){ return; }
+    i.value = k;
+    if(typeof VERI !== 'undefined' && VERI){ sorgula(); return; }
+    if(n > 0) setTimeout(function(){ dene(n-1); }, 400);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ dene(25); });
+  else dene(25);
+})();
+
 function sorgula(){
   const s = document.getElementById('sonuc');
   const q = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();

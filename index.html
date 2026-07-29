@@ -166,6 +166,19 @@
     color:var(--accent);text-decoration:none}
   @media(max-width:520px){ .kareler{grid-template-columns:1fr} }
 
+  /* HAP KUTUSU: ilk ekranda CALISAN arac. Slogan degil, is. */
+  .hapkutu{margin:20px 0 14px;max-width:560px;border:1px solid var(--line2);border-radius:14px;
+    padding:14px 15px;background:var(--panel);box-shadow:0 10px 34px rgba(0,0,0,.35)}
+  .hapkutu>label{display:block;font-size:13px;color:var(--muted);margin-bottom:9px;font-weight:600}
+  .hapsatir{display:flex;gap:9px}
+  .hapsatir input{flex:1;min-width:0;font:inherit;font-size:15px;padding:11px 13px;border-radius:11px;
+    border:1px solid var(--line2);background:#06090f;color:var(--ink);font-variant-numeric:tabular-nums}
+  .hapsatir input:focus{outline:none;border-color:var(--accent)}
+  .hapsatir .btn{white-space:nowrap;padding:11px 16px;font-size:14px}
+  .hapalt{font-size:12px;color:var(--dim);margin-top:8px}
+  .hapalt a{color:var(--accent);font-weight:700;text-decoration:none}
+  @media(max-width:560px){ .hapsatir{flex-direction:column} .hapsatir .btn{width:100%} }
+
   .kapilar{display:grid;grid-template-columns:1fr;gap:8px;margin:20px 0 10px;max-width:560px}
   /* Kapi artik hem kimlik hem fiyat tasiyor: sol tarafta kim oldugun, sagda
      ne odeyecegin. Fiyat SAGA yaslanir - goz once ismi, sonra rakami okur. */
@@ -433,6 +446,15 @@
     .kareler{grid-template-columns:repeat(2,1fr) !important}
   }
 </style>
+<script>
+function gtipGit(e){
+  e.preventDefault();
+  var v = (document.getElementById('hapGtip').value||'').replace(/[^\d.]/g,'').trim();
+  if(!v){ document.getElementById('hapGtip').focus(); return false; }
+  location.href = 'gtip.html?kod=' + encodeURIComponent(v);
+  return false;
+}
+</script>
 </head>
 <body>
 
@@ -493,32 +515,32 @@
       <h1>Mevzuata hiç bakma.<br><span class="g">Seni etkileyeni</span> radar bulsun.</h1>
       <p class="lead">Resmî Gazete'den <b>seni</b> ilgilendireni buluruz: ne oldu, ne yapmalısın, kaç para.</p>
 
+      <!-- 29.07 Cem: "bu siteye girdigimde burdan bir sey almam, hap gibi olmali".
+           Hakli. Ilk ekran ANLATIYORDU: slogan, fiyat kutulari, arac isimleri -
+           hicbiri CALISMIYORDU. Ustelik ne ise yaradigimizi gostermeden fiyat
+           istiyorduk; insan "para istiyorlar" deyip kapatir.
+           Simdi ilk ekranda CALISAN ARAC var: kodu yaz, Enter'a bas, cevabi al.
+           Kayit yok, uyelik yok, anlatı yok. Deger once, fiyat sonra. -->
+      <form class="hapkutu" onsubmit="return gtipGit(event)">
+        <label>Ürününün GTİP kodunu yaz — hangi vergiler çıkıyor, hemen gör</label>
+        <div class="hapsatir">
+          <input id="hapGtip" inputmode="numeric" autocomplete="off"
+                 placeholder="ör. 6910.10.00.00.00" aria-label="GTİP kodu">
+          <button class="btn" type="submit">Vergileri gör →</button>
+        </div>
+        <div class="hapalt">Kodu bilmiyor musun? <a href="gtip.html#adAra">Ürün adıyla ara →</a>
+          &nbsp;·&nbsp; Kayıt istemiyoruz.</div>
+      </form>
+
       <!-- 29.07 Cem: "uye olacaklarin 3 kutusu ust tarafta olsun" + "site
            acildiginda odeme de hemen acilacak". Ikisi birlestirildi: uc kapi
            artik hem KIM OLDUGUNU soruyor hem FIYATI gosteriyor. Ziyaretci tek
            blokta kendini buluyor, ne odeyecegini goruyor ve giriyor.
            Ucretsiz katman ustte duruyor: yuksek fiyat + serbest giris birlikte
            calisir; tek basina yuksek fiyat kapiyi kapatir. -->
-      <div class="kapilar">
-        <a class="kapi" href="genc.html">
-          <b>Sınava hazırlanıyorum</b>
-          <small>soru bankası · karne</small>
-          <i>990 TL <u>/ dönem</u></i>
-        </a>
-        <a class="kapi" href="#kimlere">
-          <b>Mali Müşavirim</b>
-          <small>mükellefler tek panelde</small>
-          <i>299 TL <u>/ ay</u></i>
-        </a>
-        <a class="kapi" href="#kimlere">
-          <b>İşletme sahibiyim</b>
-          <small>GTİP · ceza · alacak</small>
-          <i>749 TL <u>/ ay</u></i>
-        </a>
-      </div>
-      <div class="kapinot">Hepsinde <b>günde 20 soru ve tüm araçlar ücretsiz</b> — kart bilgisi istemiyoruz.
-        <a href="fiyat.html">Fiyatların tamamı →</a></div>
-
+      <!-- FIYAT KUTULARI HERO'DAN CIKTI (29.07). Ne ise yaradigimizi gostermeden
+           para istemek, ziyaretciyi kapida kaybettiriyordu. Once calisan arac,
+           sonra fiyat: paketler artik guven seridinin altinda. -->
       <div class="hero-cta">
         <a class="btn" href="#app">Ücretsiz karneni çıkar →</a>
       </div>
@@ -572,6 +594,33 @@
   <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> 30 saniyede okunur</span>
   <a href="gtip.html" style="color:var(--accent);font-weight:700;text-decoration:none">GTİP kodunu sorgula →</a>
 </div>
+
+<!-- ============ PAKETLER (deger gosterildikten SONRA) ============ -->
+<section id="paketler" style="padding:34px 20px 8px">
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px">Sen kimsin?</div>
+    <div class="kapilar" style="max-width:none;display:grid;grid-template-columns:repeat(3,1fr)">
+      <a class="kapi" href="genc.html">
+        <b>Sınava hazırlanıyorum</b>
+        <small>soru bankası · karne</small>
+        <i>990 TL <u>/ dönem</u></i>
+      </a>
+      <a class="kapi" href="#kimlere">
+        <b>Mali Müşavirim</b>
+        <small>mükellefler tek panelde</small>
+        <i>299 TL <u>/ ay</u></i>
+      </a>
+      <a class="kapi" href="#kimlere">
+        <b>İşletme sahibiyim</b>
+        <small>GTİP · ceza · alacak</small>
+        <i>749 TL <u>/ ay</u></i>
+      </a>
+    </div>
+    <div class="kapinot" style="max-width:none;margin-top:12px">Hepsinde <b>günde 20 soru ve tüm araçlar ücretsiz</b> — kart bilgisi istemiyoruz.
+      <a href="fiyat.html">Fiyatların tamamı →</a></div>
+  </div>
+</section>
+<style>@media(max-width:820px){ #paketler .kapilar{grid-template-columns:1fr !important} }</style>
 
 <!-- ============ STAT STRIP ============ -->
 <div class="strip">
