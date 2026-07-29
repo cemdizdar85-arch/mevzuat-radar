@@ -518,26 +518,31 @@ function gtipGit(e){
     <div class="sade-soru">Sen kimsin? Kendi kapından gir.</div>
 
     <div class="sade-kapilar">
+      <!-- 29.07 FIYATLAR KAPILARDAN KALKTI. Kapi "sen kimsin" diye sorar,
+           "ne odeyeceksin" diye degil. Bizi hic tanimayan biri ilk ekranda uc
+           rakam goruyordu - o ekran karsilama degil KASA oluyordu.
+           Kapinin alt satiri artik YAPILACAK IS. Fiyat asagida ve kendi
+           sayfasinda; once is, sonra para. -->
       <a class="sk" href="genc.html">
         <span class="sk-ust">01</span>
         <b>Sınava hazırlanıyorum</b>
-        <span class="sk-ac">SMMM soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
-        <span class="sk-fi">990 TL <u>/ dönem</u></span>
-        <span class="sk-git">Sınav hattına gir →</span>
+        <span class="sk-et">Staja Giriş · Staj Bitirme</span>
+        <span class="sk-ac">Soru bankası, her şıkkın gerekçesi, zayıf konu karnesi</span>
+        <span class="sk-git">Ücretsiz soru çözmeye başla →</span>
       </a>
       <a class="sk" href="#kimlere">
         <span class="sk-ust">02</span>
         <b>Mali Müşavirim</b>
+        <span class="sk-et">Büro · çoklu mükellef</span>
         <span class="sk-ac">Tüm mükelleflerin tek panelde; her birinin süresi, cezası, marka takibi</span>
-        <span class="sk-fi">299 TL <u>/ ay</u></span>
-        <span class="sk-git">Müşavir kapısına gir →</span>
+        <span class="sk-git">Müşavir panelini gör →</span>
       </a>
-      <a class="sk" href="#kimlere">
+      <a class="sk" href="gtip.html">
         <span class="sk-ust">03</span>
         <b>Şirket sahibiyim</b>
+        <span class="sk-et">İthalat · ihracat · üretim</span>
         <span class="sk-ac">GTİP vergileri, ceza kapıları, alacak ve ihale radarı</span>
-        <span class="sk-fi">749 TL <u>/ ay</u></span>
-        <span class="sk-git">Şirket kapısına gir →</span>
+        <span class="sk-git">GTİP kodunu sorgula →</span>
       </a>
     </div>
 
@@ -561,9 +566,9 @@ function gtipGit(e){
   .sk-ust{font:800 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:1px;margin-bottom:12px}
   .sk b{font-size:19px;letter-spacing:-.4px;margin-bottom:8px}
   .sk-ac{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px;flex:1}
-  .sk-fi{font-size:19px;font-weight:800;color:var(--accent);margin-bottom:12px}
-  .sk-fi u{text-decoration:none;font-size:12.5px;font-weight:600;color:var(--dim)}
-  .sk-git{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
+
+  .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
   .sade-not{margin-top:22px;font-size:13px;color:var(--muted)}
   .sade-not a{color:var(--accent);font-weight:700;text-decoration:none;margin-left:6px}
   @media(max-width:860px){
