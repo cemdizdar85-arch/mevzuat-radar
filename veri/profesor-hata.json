@@ -1,11 +1,10 @@
 {
-  "zaman": "29.07.2026 13:14",
-  "nerede": "beklenmeyen",
-  "mesaj": "Response status code does not indicate success: 404 (Not Found).",
-  "sunucu_cevabi": "at <ScriptBlock>, /home/runner/work/mevzuat-radar/mevzuat-radar/motor/profesor-v2.ps1: line 396\nat <ScriptBlock>, /home/runner/work/_temp/b7980d93-8d17-46a9-a752-70e840f3ad09.ps1: line 19\nat <ScriptBlock>, <No file>: line 1",
+  "zaman": "29.07.2026 17:39",
+  "nerede": "on-kontrol",
+  "mesaj": "Response status code does not indicate success: 429 (Too Many Requests).",
+  "sunucu_cevabi": "",
   "ek": {
-    "komut": "$cev = Invoke-WebRequest -UseBasicParsing -Uri $sonucAdres -Headers $HDR -TimeoutSec 300",
-    "tur": "Microsoft.PowerShell.Commands.HttpResponseException",
-    "satir": "396"
+    "not": "Anahtar ya da model kimligi gecersiz. Parti GONDERILMEDI - para harcanmadi.",
+    "model": "claude-sonnet-4-5-20250929"
   }
 }
