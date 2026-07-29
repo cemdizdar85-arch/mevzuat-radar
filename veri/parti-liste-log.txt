@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729184909
+Start time: 20260729193638
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/35fd5ba3-4ddc-4761-a7f0-cd35fa18e54f.ps1'
-Process ID: 2357
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1ca05674-204a-4df6-ad8f-f1f9c1e89fdc.ps1'
+Process ID: 2243
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -23,29 +23,181 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
 
 TOPLAM 162 parti bulundu.
 
-PS>TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
-Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
->> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
-Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
->> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
-Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
->> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
-Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
-Write-Host: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/parti-liste.ps1:67
+KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01AFgf6u4PmS5cpRss6fVWgf ended             183       17 07/29/2026 17:18:31
+msgbatch_01En1Gmg7HNif8Pa6a95bjS1 ended              17        0 07/29/2026 17:17:33
+msgbatch_01SDgXp1DeDrd8F1SNQLd3VU ended             200        0 07/29/2026 17:14:08
+msgbatch_01BS4upHK2kvqaa5A2NWR3uG ended             400        0 07/29/2026 17:11:45
+msgbatch_01P9b3KxijYyARJ3tRKYCU66 ended             199        1 07/29/2026 17:08:25
+msgbatch_01XaeZJTrUgBL6PEBnwewRRo ended             400        0 07/29/2026 17:07:39
+msgbatch_01ApZpQByDqzsm6UHaYZZFg4 ended             400        0 07/29/2026 17:02:47
+msgbatch_01Q6kCc6uPayzEAMhfpBbkTZ ended             200        0 07/29/2026 17:02:41
+msgbatch_01TgkWWeb3XcEoDdqDVxBsRD ended             400        0 07/29/2026 16:58:20
+msgbatch_017UsWcLzQHEG4i5Hqq4Xwc7 ended             200        0 07/29/2026 16:58:18
+msgbatch_011RcuJFZdD7PoRLjyuxyaqf ended             200        0 07/29/2026 16:53:15
+msgbatch_01QUkbBNsaqtcPpHf5qmkoEj ended             400        0 07/29/2026 16:51:12
+msgbatch_019Gw8a7JMpK5V13ABQ6ofTt ended             200        0 07/29/2026 16:42:08
+msgbatch_01FtNP6WjnkDAHDfNsuD7Yaf ended             400        0 07/29/2026 16:41:02
+msgbatch_015kbrnP52ZJkpHRp2squ4kT ended             400        0 07/29/2026 16:37:57
+msgbatch_016drdpLrXKHroUrivipjyAA ended             200        0 07/29/2026 16:37:45
+msgbatch_018Y4qgukihSymCswAtEnNLG ended             200        0 07/29/2026 16:34:43
+msgbatch_01V48a1myPQHShud6GaBb7z2 ended             400        0 07/29/2026 16:34:31
+msgbatch_01AC81FbRJgN2bfVHWj5uWgX ended             400        0 07/29/2026 16:31:04
+msgbatch_019b9tDQ2DYFpxxR6A5wpQPc ended             400        0 07/29/2026 16:27:38
+msgbatch_016cCFR541oTGHjqEtar31Gz ended             400        0 07/29/2026 16:24:32
+msgbatch_01TCLBWq3JQ2ziDa1csEQEtk ended             400        0 07/29/2026 16:21:06
+msgbatch_01PsCcoSb2zqTZbZKzhBZLse ended             400        0 07/29/2026 16:18:00
+msgbatch_01JDShf46W1RZwwv9YSxEZRe ended             400        0 07/29/2026 16:14:55
+msgbatch_01DsfPcgwJXAjBWLy7zFKqJS ended             400        0 07/29/2026 16:11:26
+msgbatch_01LZN1b1QUhDYLE64s6QRreV ended             400        0 07/29/2026 16:08:20
+msgbatch_0199cZwbVxsYYkkhC6Nw56qL ended             400        0 07/29/2026 16:04:54
+msgbatch_014w2ChXYYPJLpRjZkF3nyQB ended             400        0 07/29/2026 16:01:48
+msgbatch_01UDh19PKGGgb4a4V7vVh33U ended             400        0 07/29/2026 15:58:42
+msgbatch_01RTj8T4pT8DnSLeuCqoudAq ended             184        0 07/29/2026 15:41:22
+msgbatch_01TwAPPEGkPSZCeM9nLruKGV ended             400        0 07/29/2026 15:36:55
+msgbatch_01CCqF1h125fN4wv7bat8BoS ended             400        0 07/29/2026 15:34:29
+msgbatch_01948h6SUdMRWJtBWmYoCLAN ended             400        0 07/29/2026 15:32:04
+msgbatch_01KLYkyjYgTq8iALpxozTqpH ended             400        0 07/29/2026 15:28:38
+msgbatch_01KWYsoRYbkAUvD5a4qyyH5D ended             400        0 07/29/2026 15:26:12
+msgbatch_01PnYeyV7RuzAAGSt6j8GWHS ended             400        0 07/29/2026 15:23:06
+msgbatch_01LUnUEQRxGCCCBTgm8R5zSN ended             400        0 07/29/2026 15:20:00
+msgbatch_01CMyg5kuxmp6hwE6KoQ9dm2 ended             400        0 07/29/2026 15:16:35
+msgbatch_018ed5Kd6QdNMkHpoGDforwc ended             400        0 07/29/2026 15:14:09
+msgbatch_01VbA3BHtS7ZqF9hYJZy87RE ended             400        0 07/29/2026 15:10:23
+msgbatch_01JXMELKr76GSaNEE8GHumjq ended             400        0 07/29/2026 15:07:57
+msgbatch_01123L1vTEevfnVuqTgW9v8A ended             400        0 07/29/2026 15:04:31
+msgbatch_01HoxysSEvN4W9VewzSFFq38 ended             400        0 07/29/2026 15:01:04
+msgbatch_01U5W2cMnyiGW7otAvxqw9G1 ended             150        0 07/29/2026 14:58:45
+msgbatch_01MFeYjmbbWBJaUxxN2cHq8i ended             400        0 07/29/2026 14:57:58
+msgbatch_013FjsVXNca3g8UQiNZRZrcA ended             400        0 07/29/2026 14:53:52
+msgbatch_01PMo8PkY1LWLus7gZhuzQbB ended             400        0 07/29/2026 14:50:26
+msgbatch_01W43XvBwAaKjKsRxYF8ikec ended             400        0 07/29/2026 14:47:00
+msgbatch_0146bc1CZs2R5gvzAyBaJALL ended             400        0 07/29/2026 14:42:53
+msgbatch_01G9j4katDHkiKeLsufske6i ended             150        0 07/29/2026 14:38:35
+msgbatch_01FWkgDno7JWezV7xjRFWAcu ended             184        0 07/29/2026 14:25:26
+msgbatch_012TaE7zskzKcwSsbtzPg8bh ended             400        0 07/29/2026 14:22:00
+msgbatch_01GFnnycT8PiqYkXGDiyyW8j ended             400        0 07/29/2026 14:18:34
+msgbatch_013W5JYMx7zGg4rru2LoFqxC ended             400        0 07/29/2026 14:16:09
+msgbatch_011MoHMiaX7qYP9nqmdN28YD ended             400        0 07/29/2026 14:14:03
+msgbatch_01DSYc8wRcuqYcmNnQb8bnq9 ended             400        0 07/29/2026 14:10:57
+msgbatch_01DM2uKGvPdg6Xy1FawjS8Dd ended             400        0 07/29/2026 14:07:52
+msgbatch_01LTK6b2BfaPNMBps3vctRmT ended             400        0 07/29/2026 14:04:26
+msgbatch_01HeK2dZRxjHjbMB68U6oWuk ended             400        0 07/29/2026 14:02:20
+msgbatch_01U47sAprimxKxTMts7jkF7V ended             400        0 07/29/2026 13:58:55
+msgbatch_01TkhxNt8Uo8MP2KaMF7zkHL ended             400        0 07/29/2026 13:55:49
+msgbatch_01KjDZ7f93Zc77pngtTNzH2c ended             400        0 07/29/2026 13:52:43
+msgbatch_01DCkjVmHBp9QdKzobLswST4 ended             400        0 07/29/2026 13:49:18
+msgbatch_014cf69yuHBckM5U8WBrmXA7 ended             400        0 07/29/2026 13:46:52
+msgbatch_012ebbf2wHRdBk3ZhCBTcr6d ended             399        1 07/29/2026 13:44:47
+msgbatch_01DyS8jTromMWnSeTb98NZoF ended             400        0 07/29/2026 13:42:42
+msgbatch_017RJgRXUo59gbvr4NBzHtsY ended             400        0 07/29/2026 13:39:37
+msgbatch_01PRPDJ7DJP6L1rTLU8ENA6x ended             400        0 07/29/2026 13:36:11
+msgbatch_01WPqGiw56wfjkEfUYcizxzD ended             400        0 07/29/2026 13:27:21
+msgbatch_016J6e9qqBYwbEjmj9wSmHXe ended             400        0 07/29/2026 12:44:17
+msgbatch_01URphCqRhtvJ31MdE74Aej5 ended             400        0 07/29/2026 12:29:05
+msgbatch_01UdVNmsAea91ve9i56GucFs ended             400        0 07/29/2026 12:25:39
+msgbatch_01DFpvxsMdUSPfH5mSQkG8MB ended             400        0 07/29/2026 12:22:34
+msgbatch_01FajtFcsBwtRHRnQsmiStKh ended             400        0 07/29/2026 12:20:29
+msgbatch_01AFLaEX5RBrqbu9toC1gB4o ended             400        0 07/29/2026 12:18:04
+msgbatch_01CtqvRJaYHHWxiqUUrrQq9d ended             200        0 07/29/2026 10:29:53
+msgbatch_01RyVrB3sRoD16fEArGcxqGK ended             200        0 07/29/2026 10:26:30
+msgbatch_018hum8Tsfat8VtR6veKA2eb ended             200        0 07/29/2026 10:24:28
+msgbatch_01ALGFbaGiE9nynwggmmijdx ended             200        0 07/29/2026 10:21:06
+msgbatch_019sNrjYqTSPqarR4Sho1Wsw ended             200        0 07/29/2026 09:57:53
+msgbatch_01A1obCLV5SZATNkNPSWbvcM ended             200        0 07/29/2026 09:54:31
+msgbatch_01VobVjFAvwoxHik2suopFTv ended             200        0 07/29/2026 09:51:09
+msgbatch_01St9RitgioQjRTnyaZszfy7 ended             200        0 07/29/2026 09:48:07
+msgbatch_01Rq9VEesWjsmMSmnF1MZCCn ended             200        0 07/29/2026 09:44:44
+msgbatch_014zywq5QjMJnwwj47qziThB ended             200        0 07/29/2026 09:41:21
+msgbatch_01Hog5yhQvHDKWELeaiLb1Hm ended             200        0 07/29/2026 09:38:19
+msgbatch_017ag44Ym1J245hxYV2jh5pS ended             200        0 07/29/2026 09:35:17
+msgbatch_01AW9Qsg1xNkARhGUR1vGFk3 ended             120        0 07/29/2026 08:58:25
+msgbatch_01X3YuY6yYiNG9MiSrxWJXyg ended             200        0 07/29/2026 08:33:23
+msgbatch_01Km9NAviqS5iTq64mSrpWNg ended             200        0 07/29/2026 08:30:13
+msgbatch_01WNSL525YdYE8wfwodJ2jV1 ended             200        0 07/29/2026 08:26:42
+msgbatch_01QNXPM7WEE6Siny2kMDgAWL ended             200        0 07/29/2026 08:23:28
+msgbatch_01LDT2GheDgMgM2HTzNQxZBo ended             200        0 07/29/2026 08:20:17
+msgbatch_017CRmTbxKWJEtiG53ybq1XM ended             200        0 07/29/2026 08:17:25
+msgbatch_01Cjxe5ijm7h1gt3mgE4heqB ended             200        0 07/29/2026 08:14:15
+msgbatch_01KaguXEG6TyMHVVShuwCXxH ended             331        0 07/29/2026 08:13:07
+msgbatch_01PtSAaHz6oYBhPQUaUcCUCn ended             200        0 07/29/2026 08:06:34
+msgbatch_016ZNxNeneVrxLBwKpgWrGg1 ended             200        0 07/29/2026 08:02:18
+msgbatch_012eGN8EAuvpCAHxh1hBuEwS ended             200        0 07/29/2026 07:59:48
+msgbatch_01HSaUohwNw2wJBkK7sMCqC5 ended             200        0 07/29/2026 07:55:58
+msgbatch_01JJmSeYasRYQm2WZtiaFia7 ended             200        0 07/29/2026 07:51:47
+msgbatch_01LMPDpHXXuum4DxqthcTACD ended              92        0 07/29/2026 07:45:05
+msgbatch_014GcPFhKhjUrU7mWUiRmGgH ended              60        0 07/29/2026 07:37:05
+msgbatch_01WUrJ1MUSCa9oaP2cjpLBkA ended             240        0 07/29/2026 07:27:57
+msgbatch_01WJS11Gqzdiw4gCHG8WxGWj ended              40        0 07/29/2026 07:20:13
+msgbatch_01KEpY42NwQsfvCUaJdhTRPJ ended              50        0 07/29/2026 07:12:04
+msgbatch_01DjxePpMnYHM2iAqDGYMFhY ended             200        0 07/29/2026 06:40:52
+msgbatch_01FT8QCFZ1EmKdYvJTM3pUYB ended               5        0 07/29/2026 06:31:44
+msgbatch_01UWqvVgN6fRHXgTLM23TSZt ended              30        0 07/29/2026 06:26:20
+msgbatch_019tE76t1Po35sbgVZ5sqAbb ended             200        0 07/29/2026 06:20:22
+msgbatch_014pSZgTvxoYWvkfbHfV2cPj ended              13        0 07/28/2026 22:48:19
+msgbatch_01YYMCCTjecxXAVNejeigGff ended             400        0 07/28/2026 22:45:17
+msgbatch_019H9jYvowegniWsFpiJzUP2 ended             400        0 07/28/2026 22:41:54
+msgbatch_01T3kv4m2iN28mVFD3fDn1oV ended             400        0 07/28/2026 22:37:31
+msgbatch_01AXpWBs9K9cxjmq2eXjoNm7 ended             400        0 07/28/2026 22:32:48
+msgbatch_01SHFGkMDHjhGVRDekWiU4Rz ended             400        0 07/28/2026 22:29:45
+msgbatch_01YaGpoVKNZfdk9aee4fUXD9 ended             400        0 07/28/2026 22:26:02
+msgbatch_018Em82a1QtRvMNyAKxRD3ie ended             400        0 07/28/2026 22:22:39
+msgbatch_01CTmbEAxxsBMqaQCawJNN3L ended             400        0 07/28/2026 22:20:37
+msgbatch_01QDih4hR4WcsQDyMEZWkWmi ended             400        0 07/28/2026 22:17:15
+msgbatch_01UctTvGeYFtykfV2GGxacn2 ended             400        0 07/28/2026 22:14:12
+msgbatch_017EaUMntXcXswT4tXGPz8Xc ended             400        0 07/28/2026 21:59:23
+msgbatch_01SqcBpbGPtzchVZbv37kGB4 ended             400        0 07/28/2026 21:55:00
+msgbatch_011VqjxSL2W9dyDdxok27csf ended             400        0 07/28/2026 21:50:16
+msgbatch_01TpJQzjoXND2x7UqVuf6iAt ended             400        0 07/28/2026 21:45:32
+msgbatch_01PgkkwHsU55aZcfAuhmp6dx ended             400        0 07/28/2026 21:42:30
+msgbatch_01CFkxY6azy85CZhfpbvEd8T ended             400        0 07/28/2026 21:39:07
+msgbatch_0113GEpmAMUD7jV2ZL5DPGBh ended             400        0 07/28/2026 21:35:44
+msgbatch_01Xh5Zxz9N1HtAdp219cnn8S ended             400        0 07/28/2026 21:32:21
+msgbatch_01GwwrSqjvx3nfDEkws6nQx4 ended             150        0 07/28/2026 21:19:04
+msgbatch_01SBdTxx3hCmk7PfrVKrsqiZ ended             150        0 07/28/2026 21:09:35
+msgbatch_01KdG7f9ba8BZmrcNGdq1KKc ended             101        0 07/28/2026 20:22:29
+msgbatch_01KKNSZ4nMKzxzwV2HaYythC ended             353        0 07/28/2026 20:04:51
+msgbatch_01U5BgyJCz8JTEXFETFNTV6C ended             400        0 07/28/2026 20:02:46
+msgbatch_01FWfgzd2v89yW4yhrLwkQS6 ended             400        0 07/28/2026 19:59:21
+msgbatch_01B1gmHqwqAydmvg5k88fgLh ended             400        0 07/28/2026 19:55:36
+msgbatch_01Sb5srp7h1HcH6VKQHiJjFh ended             400        0 07/28/2026 19:51:50
+msgbatch_013S1uZg4zYVFmSmkxyUpByV ended             400        0 07/28/2026 19:49:46
+msgbatch_01UEHd6SwRzjinTPvyWqChux ended             400        0 07/28/2026 19:47:21
+msgbatch_01NwWd2r7A92LpHRw8PrEoqi ended             400        0 07/28/2026 19:44:57
+msgbatch_018S9abKFoad7k6HswyCyyem ended             400        0 07/28/2026 19:41:51
+msgbatch_01RV6roWp68wZC5E5eBpSR2E ended             400        0 07/28/2026 19:38:25
+msgbatch_01XiaQobMnYneLbE7Aq5LSvw ended             355        0 07/28/2026 19:32:36
+msgbatch_015rVhJRWPoam7YBb1AzMx3z ended              40        0 07/28/2026 19:12:20
+msgbatch_01Cv9GjKySssqji3vJktXUQa ended              40        0 07/28/2026 19:05:26
+msgbatch_016DBtEdmV8Xt97eNhy7qazL ended             355        0 07/28/2026 18:53:15
+msgbatch_01B8LLMJGUGKvHwye2HPhfSx ended            1712        0 07/27/2026 00:33:30
+msgbatch_01KUVPNbTBe79bZt47XWg2hX ended             600        0 07/26/2026 23:59:25
+msgbatch_01M8JXWw5qNCvBW5SVNpxJTo ended            2358        0 07/26/2026 23:26:59
+msgbatch_01VxS1hrakhDvSmygcj4NpSq ended             600        0 07/26/2026 14:47:15
+msgbatch_01XshayjdTCyL3fL6BhrEP4G ended            1871        0 07/26/2026 09:28:37
+msgbatch_011kFq2vFB33gwftgCveFSAz ended             600        0 07/26/2026 07:45:21
+msgbatch_01Q1nLkKa2xA2Di2D7XEeQSb ended             600        0 07/25/2026 14:43:52
+msgbatch_017wvCdNSfgdn6nCoDrfudus ended             600        0 07/25/2026 06:36:09
+msgbatch_01LE8GwbJZzYTKNvwdvSahQ3 ended             600        0 07/24/2026 16:43:20
+msgbatch_019ipu4xrNFSi9AkLdpUmhVg ended             600        0 07/24/2026 15:18:09
+msgbatch_01S2z5cz7q8iXf1xVieCLRLZ ended             600        0 07/24/2026 06:43:37
+msgbatch_01R7ZZUmFCWRjf7au6h1P9ys ended             600        0 07/23/2026 20:44:29
+msgbatch_01Va3ZiHD3CDzg3FCmF2o71W ended             600        0 07/23/2026 16:06:35
+msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:42:19
+msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
+msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
+PS>TerminatingError(): "Argument types do not match"
+>> TerminatingError(): "Argument types do not match"
+>> TerminatingError(): "Argument types do not match"
+OperationStopped: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/parti-liste.ps1:86
 Line |
-  67 |  … 12} {2,8} {3,8} {4}" -f 'KIMLIK','DURUM','BITEN','HATA','OLUSTURULDU'
-     |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | Cannot bind parameter 'ForegroundColor'. Cannot convert value
-     | "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor".
-     | Error: "Unable to match the identifier name
-     | KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify
-     | one of the following enumerator names and try again: Black, DarkBlue,
-     | DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray,
-     | Blue, Green, Cyan, Red, Magenta, Yellow, White"
+  86 |  $js = ConvertTo-Json -InputObject @($ozet) -Depth 5
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Argument types do not match
 
 PS>$global:?
 False
 **********************
 PowerShell transcript end
-End time: 20260729184911
+End time: 20260729193639
 **********************
