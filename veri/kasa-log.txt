@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729144619
+Start time: 20260729150422
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/15f606e4-ed26-45b2-a07c-b5e435eb10b7.ps1'
-Process ID: 2258
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a1974251-d801-4d20-b1ec-f8389ad31667.ps1'
+Process ID: 2222
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -18,7 +18,7 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 KASA SAYIMI basliyor... (kuyruk yenileme)
-  TOPLAM: 11190 soru
+  TOPLAM: 11323 soru
   ...1000
   ...2000
   ...3000
@@ -30,17 +30,17 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
   ...9000
   ...10000
   ...11000
-  cekilen: 11190
+  cekilen: 11323
 
 ================ KASA SAYIMI ================
-  TOPLAM SORU : 11190
+  TOPLAM SORU : 11323
 
   --- sinav bazinda
-     SGS        6834
+     SGS        6967
      SMMM       4356
 
   --- ders bazinda
-     Finansal Muhasebe                  2289
+     Finansal Muhasebe                  2422
      Yabanci Dil                        1550
      Maliyet Muhasebesi                 986
      Turkce                             844
@@ -63,8 +63,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      Matematik                          72
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 8082
-     mevzuat disi (dil/matematik/teori)        : 3108
+     mevzuata dayanan (madde bagi kurulabilir) : 8189
+     mevzuat disi (dil/matematik/teori)        : 3134
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
       464x  Hukuk|is sozlesmesi feshi
@@ -74,9 +74,9 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Yabanci Dil|sentence completion
        73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
        72x  Maliyet Muhasebesi|yan urun maliyeti
-       71x  Yabanci Dil|prepositions
        71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        71x  Maliyet Muhasebesi|gug yukleme katsayisi
+       71x  Yabanci Dil|prepositions
        70x  Yabanci Dil|vocabulary
        69x  Maliyet Muhasebesi|satilan mamul maliyeti
        67x  Yabanci Dil|vocabulary verb choice
@@ -88,10 +88,10 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        57x  Finansal Tablolar ve Analizi|cari oran
        56x  Yabanci Dil|present perfect tense
 
-  --- tekil konu sayisi: 1309
+  --- tekil konu sayisi: 1313
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-     bakilan          11190
+     bakilan          11323
      placeholder      31
      hepsiYuvarlak    230
      klise            7
@@ -100,13 +100,13 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      IZLI ORAN      : %2.3
 -> veri/koku-izli.json  (262 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (1 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 4233
+     KASADA yayin=false (denetim bekleyen) : 4366
      ...cekilen 1000
      ...cekilen 2000
      ...cekilen 3000
      ...cekilen 4000
-     ...cekilen 4233
-     cekilen yayin=false kayit: 4233
+     ...cekilen 4366
+     cekilen yayin=false kayit: 4366
        Borclar Hukuku                     5
        Denetim                            8
        Finansal Muhasebe                  8
@@ -125,7 +125,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        Vergi Hukuku                       7
        Vergi Mevzuatı ve Uygulaması       3
        Yabanci Dil                        4
--> veri/denetim-kuyrugu.json  (4233 kimlik, profesor -idler icin)
+-> veri/denetim-kuyrugu.json  (4366 kimlik, profesor -idler icin)
      tam metin cekilen: 120 (istenen 120)
 -> veri/yeni-uretim-ornek.json  (120 yeni soru, GM okumasi icin)
 -> veri/pilot-ornek.json  (40 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
@@ -135,5 +135,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729144652
+End time: 20260729150459
 **********************
