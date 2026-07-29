@@ -6,9 +6,16 @@
 name: Günlük Kanun Aynası
 
 on:
-  # KREDI-BEKLIYOR 27.07 (kredi yuklenince ac)
-  # schedule:
-    #- cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
+  # 29.07 — ZAMANLAYICI GERI ACILDI.
+  # 27.07'de "KREDI-BEKLIYOR" notuyla kapatilmisti, ama sebep yanlisti:
+  # aynanin kendisi PARA HARCAMIYOR (mevzuat-yut.ps1'de tek bir API cagrisi
+  # yok; indirme + pdftotext). Kapatilma sebebi, paral cevap hakemi adiminin
+  # kosulunun 'schedule'i de icermesiydi - yani ayna acilinca hakem de
+  # aciliyordu. O kosul ayrildi (asagida), hakem artik yalniz elle kosuyor.
+  # Ayna bu sistemin TEMELI: ambarin tazeligi, madde damgasi, dayanak
+  # nobetcisi ve teblig damgasi hepsi gunluk kosuya bagli.
+  schedule:
+    - cron: "0 7 * * *"     # HER GÜN 07:00 UTC = 10:00 Türkiye (RG/konsolide sonrası)
   # 28.07 (Cem: "kanun maddesi yutmam lazim"): manifest veya durum dosyasi degisince
   # hasat KENDILIGINDEN kossun. Yeni kanun eklemek ya da bir kanunun damgasini silip
   # yeniden yutturmak icin artik elle tetiklemeye gerek yok. Indirme + pdftotext
@@ -200,8 +207,15 @@ jobs:
       # tetigi eklendi; push'ta event_name='push' oldugundan kosulun ILK yarisi DOGRU
       # olur ve bu PARALI adim HER PUSH'TA sessizce koserdi. Artik acik ve dar:
       # yalniz cron ile, ya da elle hakem=true secilirse koser. PUSH ASLA PARA HARCAMAZ.
-      - name: Cevap hakemi (gunluk orneklem) — PARALI
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.hakem == true)
+      # 29.07 — ZAMANLAYICIDAN AYRILDI. Eskiden kosul 'schedule' iceriyordu;
+      # yani gunluk aynayi acmak PARALI hakemi de her gun acmak demekti ve bu
+      # yuzden 27.07'de IKISI BIRDEN kapatildi. Oysa aynanin kendisi BEDAVA
+      # (indirme + pdftotext, API yok) ve ambarin tazeligi, madde damgasi,
+      # dayanak nobetcisi, teblig damgasi HEPSI ona bagli. Iki gun boyunca
+      # kanun aynasi hic kosmadi ve bunun sebebi olmayan bir maliyetti.
+      # Artik hakem YALNIZ elle istendiginde kosar; ayna serbest.
+      - name: Cevap hakemi (orneklem) — PARALI, yalniz elle
+        if: github.event_name == 'workflow_dispatch' && inputs.hakem == true
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
