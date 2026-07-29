@@ -437,6 +437,26 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
   $govde=@{requests=$req}|ConvertTo-Json -Depth 8
   Write-Host ("PARTI {0}: {1} soru" -f ($p2+1), $dilim.Count)
   $b = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/batches' -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
+  # ══════════════════════════════════════════════════════════════════════
+  # 29.07 - ODEDIGIN ISIN KIMLIGINI KAYDET. Bu ders bu gece HAKEM hattinda
+  # ~18 USD'ye ogrenildi ve profesor-v2.ps1'e uygulandi - AMA BURAYA
+  # UYGULANMADI. Bedeli ayni gece odendi: emir #14'te on parti gonderildi,
+  # islendi, sonuclari cekildi ve betik kasaya YAZMADAN once aylik harcama
+  # tavanina (429) carpip oldu. Bellekteki sonuclar gitti ve parti
+  # kimlikleri hicbir yere yazilmadigi icin BEDAVA KURTARILAMADI.
+  # ~2.000 sorunun ucreti odenmis, karsiligi alinamamisti.
+  # Kimlik ARTIK gonderilir gonderilmez hem loga hem dosyaya yaziliyor;
+  # dosya her partide GUNCELLENIR ki kosu ortada olurse bile liste kalsin.
+  # ══════════════════════════════════════════════════════════════════════
+  Write-Host ("  parti kimligi: {0}" -f $b.id)
+  try {
+    $bpYol = Join-Path $kok 'veri/bekleyen-partiler.json'
+    $bpListe = @()
+    if(Test-Path $bpYol){ try { $bpListe = @(Get-Content $bpYol -Raw -Encoding UTF8 | ConvertFrom-Json) } catch { $bpListe = @() } }
+    $bpListe += [ordered]@{ id="$($b.id)"; kaynak='soru-uret-v2'; emir=$script:emirNo; sinav=$script:sinav
+                            parti=($p2+1); soru=$dilim.Count; gonderildi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
+    [IO.File]::WriteAllText($bpYol, (ConvertTo-Json -InputObject @($bpListe) -Depth 5), (New-Object Text.UTF8Encoding($false)))
+  } catch { Write-Host ("  UYARI: parti kimligi dosyaya yazilamadi: {0}" -f $_.Exception.Message) }
   $tur=0
   while($true){ Start-Sleep -Seconds 20; $tur++
     $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($b.id)" -Headers $HDR
