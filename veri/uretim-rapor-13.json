@@ -1,0 +1,93 @@
+{
+  "tarih": "29.07.2026 15:02",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 28,
+    "maddesiz": 12,
+    "metinsiz": 0,
+    "hazir": 150,
+    "kaynak_kanun": 6,
+    "kaynak_standart": 7,
+    "kaynak_hesap-plani": 3
+  },
+  "ozet": {
+    "uretilen": 133,
+    "rakamRed": 0,
+    "dilRed": 4,
+    "sikRed": 2,
+    "sablonRed": 1,
+    "tuzakRed": 3,
+    "atifRed": 0,
+    "kokuRed": 4,
+    "benzerRed": 0,
+    "cevapsiz": 3,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 770380,
+    "cikis": 230475,
+    "usd": 2.88
+  },
+  "redler": [
+    {
+      "konu": "kademeli dagitim yontemi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "senet iskonto kaydi",
+      "sebep": "dil",
+      "deger": "ort 11.1 enuzun 41"
+    },
+    {
+      "konu": "tms 21 gecerli para birimi",
+      "sebep": "dil",
+      "deger": "ort 15.4 enuzun 39"
+    },
+    {
+      "konu": "tms 40 yatirim amacli gayrimenkul",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 40 yatirim amacli gayrimenkul",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 39"
+    },
+    {
+      "konu": "tms 12 ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 12 ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "kesin mizan hesap kalani",
+      "sebep": "dil",
+      "deger": "ort 10.5 enuzun 39"
+    },
+    {
+      "konu": "gelir-gider hesaplari isleyisi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "gelir-gider hesaplari isleyisi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tfrs 10 kontrol gucu olmayan paylar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(4)"
+    },
+    {
+      "konu": "tfrs 3 isletme birlesmeleri",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    }
+  ]
+}
