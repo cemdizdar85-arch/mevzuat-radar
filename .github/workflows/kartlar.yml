@@ -56,6 +56,29 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
-          for f in kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ veri/kart-durum.json; do git add "$f" 2>/dev/null || true; done
-          git diff --cached --quiet || git commit -m "Hap kartlar: $(TZ=Europe/Istanbul date +%d.%m.%Y) gunun kartlari uretildi"
+          # 29.07 IKI KUSUR DUZELTILDI.
+          # (1) veri/kartlar-guncel.json BU LISTEDE YOKTU. Sitenin okudugu dosya
+          #     bu; robot kart uretse bile commit edilmiyordu, o yuzden vitrinde
+          #     11.07 tarihli kart kalmisti. Listeye yazilmayan dosya sessizce
+          #     kaybolur - bu hata bu gece ucuncu kez cikti.
+          # (2) COMMIT MESAJI HER GUN "kartlar uretildi" DIYORDU, hicbir kart
+          #     uretilmedigi gunlerde bile. Robot kendi sonucunu dogrulamadan
+          #     zafer ilan ediyordu. Artik mesaj SAYIYOR: kac kart var, kart
+          #     dosyasi degisti mi.
+          for f in kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ \
+                   veri/kart-durum.json veri/kartlar-guncel.json; do
+            git add "$f" 2>/dev/null || true
+          done
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok - commit atilmadi."
+            exit 0
+          fi
+          BUGUN=$(TZ=Europe/Istanbul date +%d.%m.%Y)
+          if git diff --cached --name-only | grep -q "veri/kartlar-guncel.json"; then
+            ADET=$(grep -o '"baslik"' veri/kartlar-guncel.json 2>/dev/null | wc -l | tr -d ' ')
+            MESAJ="Hap kartlar: $BUGUN - $ADET kart uretildi"
+          else
+            MESAJ="Hap kartlar: $BUGUN - kart uretilmedi (RG sakin / ilgili teblig yok), nobet damgasi guncellendi"
+          fi
+          git commit -m "$MESAJ"
           git push

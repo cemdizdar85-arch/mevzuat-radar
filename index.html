@@ -606,9 +606,25 @@
              + '<p>'+ String(x.ne_oldu||'').slice(0,150) +'…</p>'
              + '<div class="meta">'+ gtip +'</div></div>';
       }).join('');
-      // Tarih dosyadan gelir. "Bugun" demiyoruz - veri kac gunlukse o yazar.
+      // 29.07: TARIHI SOYLEMEK YETMIYOR, ESKIYSE ESKI DEMEK LAZIM.
+      // Vitrinde 18 gunluk kart "gercek tarama" diye duruyordu; ziyaretci
+      // tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz.
       var g = String(d.gun||'').replace(/-/g,'.');
-      knk.innerHTML = 'Gerçek Resmî Gazete taraması · <b style="color:var(--muted)">'+ g +'</b> · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
+      var p = String(d.gun||'').split('-');           // GG-AA-YYYY
+      var yas = null;
+      if(p.length === 3){
+        var t = new Date(+p[2], +p[1]-1, +p[0]);
+        yas = Math.floor((new Date() - t) / 86400000);
+      }
+      var etiket = 'Gerçek Resmî Gazete taraması · <b style="color:var(--muted)">'+ g +'</b>';
+      if(yas !== null && yas > 3){
+        etiket += ' <span style="color:var(--amber)">· ' + yas + ' gün önce</span>';
+        kutu.insertAdjacentHTML('afterbegin',
+          '<div style="border:1px solid var(--line2);border-radius:11px;padding:10px 13px;'
+          + 'margin-bottom:10px;font-size:12.5px;color:var(--muted);background:var(--panel)">'
+          + 'Nöbet duraklatıldı — son tarama ' + g + '. Açılışta günlük tarama sürekli çalışacak.</div>');
+      }
+      knk.innerHTML = etiket + ' · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
     })
     .catch(function(){ kacir('Kart verisi şu an okunamadı.'); });
 })();
