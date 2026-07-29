@@ -1,0 +1,80 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260729183223
+Username: GK\cemdi
+RunAs User: GK\cemdi
+Configuration Name: 
+Machine: GK (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
+& (Join-Path $kok "motor\konu-kaynak-karnesi.ps1") 2>&1 | Select-Object -Last 30
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-b90b' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 3492
+PSVersion: 5.1.26100.8894
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
+BuildVersion: 10.0.26100.8894
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Konu sayisi: 3229 (16 donem birlestirilmis)
+  ...100/3229
+  ...500/3229
+  ...600/3229
+  ...700/3229
+  ...800/3229
+  ...900/3229
+  ...1000/3229
+  ...1100/3229
+  ...1200/3229
+  ...1300/3229
+  ...1600/3229
+  ...1700/3229
+  ...1800/3229
+  ...1900/3229
+  ...2000/3229
+  ...2100/3229
+  ...2200/3229
+  ...2300/3229
+  ...2400/3229
+  ...2500/3229
+  ...2600/3229
+  ...2700/3229
+  ...2800/3229
+  ...2900/3229
+  ...3000/3229
+
+=========== KONU-KAYNAK KARNESI ===========
+  URET (kaynak var)        : 2245
+  KAYNAK YOK (once yut)    : 348
+  MEVZUAT-DISI (elle yaz)  : 636
+  -> C:\Users\cemdi\OneDrive\Masaüstü\mevzuat işi\mevzuat-radar\veri\konu-kaynak-karnesi.json
+
+--- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
+    4 soru | Muhasebe                   | depozito iadesi kaydi
+    3 soru | Muhasebe                   | nazim hesaplar
+    3 soru | Muhasebe                   | serefiye hesaplama
+    3 soru | Muhasebe                   | police muhasebelestirme
+    3 soru | Maliye                     | kamu harcamalari artis nedenleri
+    3 soru | Maliye                     | mali anestezi
+    2 soru | Muhasebe                   | safha maliyetleme
+    2 soru | Maliye                     | vergi kapitalizasyonu
+    2 soru | Maliye                     | verginin kapitalizasyonu
+    2 soru | Ekonomi                    | stolper-samuelson teoremi
+    2 soru | Maliye                     | vergilemede etkinlik
+    2 soru | Hukuk                      | limited sirket ozellikleri
+    2 soru | Hukuk                      | limited sirket kurallari
+    2 soru | Muhasebe                   | kredi faiz tahakkuku
+    2 soru | Hukuk                      | meslek mensubu olma engelleri
+    2 soru | Hukuk                      | sebepsiz zenginlesme sartlari
+    2 soru | Hukuk                      | sorumsuzluk anlasmalari
+    2 soru | Muhasebe                   | maddi duran varlik dogruluk testi
+    2 soru | Hukuk                      | etik ilkeler tehditler
+    2 soru | Muhasebe                   | birikmis amortisman denetim proseduru
+**********************
+Windows PowerShell transcript end
+End time: 20260729191612
+**********************
