@@ -20,7 +20,14 @@ on:
   #  yani sakin gunlerde maliyeti sifirdir.
   # ===================================================================
   schedule:
-    - cron: "30 5 * * *"     # 05:30 UTC = 08:30 Turkiye (RG sabaha karsi yayinlanir)
+    # 29.07 Cem: "RG gece yayinlaniyor, 8 gec bence daha erkene alalim".
+    # 03:00 UTC = 06:00 Turkiye. RG gece yarisi civari yayimlandigi icin sabah
+    # altida icerik hazir; musavir masaya oturdugunda kart onunde olur.
+    - cron: "0 3 * * *"      # 06:00 Turkiye - ana nobet
+    # IKINCI NOBET: mukerrer sayilar gun icinde de cikabiliyor. Sabahki kosu
+    # onlari goremez. 12:00 UTC = 15:00 Turkiye'de bir kez daha bakilir.
+    # Maliyeti yok denecek kadar az: o gun yeni teblig yoksa API'ye hic gitmez.
+    - cron: "0 12 * * *"     # 15:00 Turkiye - mukerrer nobeti
   workflow_dispatch:
 
 permissions:
@@ -59,6 +66,10 @@ jobs:
           }
           Write-Host "Telafi edilen gun: $telafi"
 
+      # BUGUN HER KOSUDA YENIDEN INDIRILIR. Arsiv klasoru var diye atlanirsa
+      # ogleden sonra cikan MUKERRER sayilar sonsuza kadar kacar - telafi
+      # dongusu "klasor var" deyip gecer. Bugun icin klasor varligi yeterli
+      # olcut degildir.
       - name: Gunun tebliglerini indir
         shell: pwsh
         run: ./motor/rg-indir.ps1 -Gun ${{ steps.g.outputs.gun }}
@@ -79,10 +90,15 @@ jobs:
           # yapilmamis istir. Artik butun arsiv taraniyor.
           # Kosu basina EN FAZLA 5 gun: birikmis bosluk tek kosuda kapanmaya
           # calisirsa maliyeti one yigar. Kalani ertesi gun kapanir.
+          # MUKERRER TUZAGI: "kart klasoru var" olcutu bugun icin yanlis. Ogleden
+          # sonra yeni teblig cikarsa klasor zaten vardir ve gun bir daha hic
+          # islenmez. Bu yuzden BUGUN her zaman aday; gecmis gunler yalnizca
+          # karti yoksa aday.
+          $bugun = (Get-Date).ToString('dd-MM-yyyy')
           $adaylar = @(Get-ChildItem "motor/arsiv" -Directory -ErrorAction SilentlyContinue |
             Where-Object {
               (Get-ChildItem $_.FullName -Filter *.htm -ErrorAction SilentlyContinue) -and
-              -not (Test-Path ("motor/kartlar/" + $_.Name))
+              ($_.Name -eq $bugun -or -not (Test-Path ("motor/kartlar/" + $_.Name)))
             } |
             Sort-Object { try { [datetime]::ParseExact($_.Name,'dd-MM-yyyy',$null) } catch { [datetime]'1900-01-01' } } -Descending)
           $islenecek = New-Object System.Collections.Generic.List[string]
