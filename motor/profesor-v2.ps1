@@ -404,7 +404,7 @@ for($p=0; $p -lt $partiler; $p++){
         $byol = Join-Path $kok 'veri/bekleyen-partiler.json'
         if(Test-Path $byol){ foreach($x in (ConvertFrom-Json ([IO.File]::ReadAllText($byol)))){ $bek += "$x" } }
         if($bek -notcontains $bid){ $bek += $bid }
-        [IO.File]::WriteAllText($byol, (ConvertTo-Json -InputObject @($bek) -Depth 3), (New-Object Text.UTF8Encoding($false)))
+        [IO.File]::WriteAllText($byol, (ConvertTo-Json -InputObject ([object[]]$bek) -Depth 3), (New-Object Text.UTF8Encoding($false)))
         Write-Host "  -> veri/bekleyen-partiler.json guncellendi"
       } catch { Write-Host ("  bekleyen parti yazilamadi: {0}" -f $_.Exception.Message) }
       $zamanAsimi = $true

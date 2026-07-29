@@ -149,7 +149,7 @@ while($true){
 foreach($k in $kokuSay.Keys){ Write-Host ("     {0,-16} {1}" -f $k, $kokuSay[$k]) }
 if($kokuSay.bakilan -gt 0){ Write-Host ("     IZLI ORAN      : %{0:N1}" -f (100.0*$kokuSay.toplamIzli/$kokuSay.bakilan)) }
 try {
-  $ij = ConvertTo-Json -InputObject @($izli) -Depth 3; if([string]::IsNullOrWhiteSpace($ij)){ $ij='[]' }
+  $ij = ConvertTo-Json -InputObject ([object[]]$izli) -Depth 3; if([string]::IsNullOrWhiteSpace($ij)){ $ij='[]' }
   [IO.File]::WriteAllText((Join-Path $kok "veri/koku-izli.json"), $ij, (New-Object Text.UTF8Encoding($false)))
   Write-Host ("-> veri/koku-izli.json  ({0} kimlik, uslup turu icin)" -f $izli.Count)
 } catch { Write-Host ("koku listesi yazilamadi: {0}" -f $_.Exception.Message) }
@@ -256,7 +256,7 @@ try {
   }
   # ConvertTo-Json'a BORU ile bos dizi vermek $null dondurur, WriteAllText de
   # $null'da patlar - ilk denemeyi sessizce dusuren ikinci kusur buydu.
-  $js = ConvertTo-Json -InputObject @($y) -Depth 8
+  $js = ConvertTo-Json -InputObject ([object[]]$y) -Depth 8
   if([string]::IsNullOrWhiteSpace($js)){ $js = '[]' }
   [IO.File]::WriteAllText((Join-Path $kok "veri/yeni-uretim-ornek.json"), $js, (New-Object Text.UTF8Encoding($false)))
   Write-Host ("-> veri/yeni-uretim-ornek.json  ({0} yeni soru, GM okumasi icin)" -f @($y).Count)
@@ -280,7 +280,7 @@ if($PILOT_SINAV -or $PILOT_DERS){
     $hp = Invoke-WebRequest -UseBasicParsing -Uri $up -Headers $H -TimeoutSec 120
     $gp = if($hp.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hp.Content) } else { "$($hp.Content)" }
     $py = @($gp | ConvertFrom-Json)
-    $pj = ConvertTo-Json -InputObject @($py) -Depth 8
+    $pj = ConvertTo-Json -InputObject ([object[]]$py) -Depth 8
     if([string]::IsNullOrWhiteSpace($pj)){ $pj = '[]' }
     [IO.File]::WriteAllText((Join-Path $kok "veri/pilot-ornek.json"), $pj, (New-Object Text.UTF8Encoding($false)))
     Write-Host ("-> veri/pilot-ornek.json  ({0} soru; suzgec sinav='{1}' ders='{2}')" -f @($py).Count, $PILOT_SINAV, $PILOT_DERS)
@@ -316,7 +316,7 @@ if($PILOT_SINAV -or $PILOT_DERS){
         if($dk.Count -lt 1000){ break }
         $ofsP += 1000
       }
-      $pj = ConvertTo-Json -InputObject @($pk) -Depth 3
+      $pj = ConvertTo-Json -InputObject ([object[]]$pk) -Depth 3
       if([string]::IsNullOrWhiteSpace($pj)){ $pj = '[]' }
       [IO.File]::WriteAllText((Join-Path $kok "veri/pilot-kuyrugu.json"), $pj, (New-Object Text.UTF8Encoding($false)))
       Write-Host ("-> veri/pilot-kuyrugu.json  ({0} kimlik, hakem -idler icin)" -f $pk.Count)

@@ -455,7 +455,7 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     if(Test-Path $bpYol){ try { $bpListe = @(Get-Content $bpYol -Raw -Encoding UTF8 | ConvertFrom-Json) } catch { $bpListe = @() } }
     $bpListe += [ordered]@{ id="$($b.id)"; kaynak='soru-uret-v2'; emir=$script:emirNo; sinav=$script:sinav
                             parti=($p2+1); soru=$dilim.Count; gonderildi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
-    [IO.File]::WriteAllText($bpYol, (ConvertTo-Json -InputObject @($bpListe) -Depth 5), (New-Object Text.UTF8Encoding($false)))
+    [IO.File]::WriteAllText($bpYol, (ConvertTo-Json -InputObject ([object[]]$bpListe) -Depth 5), (New-Object Text.UTF8Encoding($false)))
   } catch { Write-Host ("  UYARI: parti kimligi dosyaya yazilamadi: {0}" -f $_.Exception.Message) }
   $tur=0
   while($true){ Start-Sleep -Seconds 20; $tur++

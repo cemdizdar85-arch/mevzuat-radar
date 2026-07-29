@@ -83,7 +83,7 @@ foreach($b in $hepsi){
     sonuc_suresi="$($b.expires_at)"
   })
 }
-$js = ConvertTo-Json -InputObject @($ozet) -Depth 5
+$js = ConvertTo-Json -InputObject ([object[]]$ozet) -Depth 5
 if([string]::IsNullOrWhiteSpace($js)){ $js = '[]' }
 [IO.File]::WriteAllText((Join-Path $kok 'veri/parti-listesi.json'), $js, (New-Object Text.UTF8Encoding($false)))
 Write-Host ""
