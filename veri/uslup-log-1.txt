@@ -1,0 +1,44 @@
+**********************
+PowerShell transcript start
+Start time: 20260729081302
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/19ae77fb-7dda-4822-8a00-37cc390eafea.ps1'
+Process ID: 2249
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Uslup turu: 331 soru
+  cekilen: 331
+  batch istegi: 331 satir
+  batch: msgbatch_01KaguXEG6TyMHVVShuwCXxH
+  cozulen cevap: 331
+
+======== USLUP TURU ========
+  bakilan        331
+  cevapsiz       0
+  sikRed         12
+  kokuRed        23
+  sablonRed      8
+  yazildi        288
+  yazmaHatasi    0
+--- redler:
+     koku-devam       23
+     sik-eksik        12
+     sablon           6
+     aciklama-kisa    2
+  NOT: degistirilen sorularin HEPSI yayin=false. Hakem yeniden yargilayacak.
+-> veri/uslup-rapor-1.json
+**********************
+PowerShell transcript end
+End time: 20260729081741
+**********************
