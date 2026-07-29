@@ -1,0 +1,100 @@
+**********************
+PowerShell transcript start
+Start time: 20260729065333
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7bbdeb17-57b9-4d4b-b0be-90bd90376322.ps1'
+Process ID: 2166
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+KASA SAYIMI basliyor...
+  TOPLAM: 7381 soru
+  ...1000
+  ...2000
+  ...3000
+  ...4000
+  ...5000
+  ...6000
+  ...7000
+  cekilen: 7381
+
+================ KASA SAYIMI ================
+  TOPLAM SORU : 7381
+
+  --- sinav bazinda
+     SGS        6708
+     SMMM       673
+
+  --- ders bazinda
+     Yabanci Dil                        1550
+     Finansal Muhasebe                  965
+     Denetim                            783
+     Turkce                             720
+     Is ve Sosyal Guvenlik Hukuku       383
+     Ticaret Hukuku                     351
+     Borclar Hukuku                     342
+     Meslek Hukuku                      294
+     Vergi Hukuku                       287
+     Maliye                             286
+     Hukuk                              209
+     Maliyet Muhasebesi                 194
+     Ekonomi                            174
+     Ataturk Ilke ve Inkilap Tarihi     162
+     Mali Tablolar Analizi              137
+     Genel Kultur-Genel Yetenek         131
+     Muh. ve Mali Müş. Meslek Hukuku    94
+     Vergi Mevzuatı ve Uygulaması       94
+     Matematik                          72
+     Finansal Tablolar ve Analizi       64
+     Muhasebe Denetimi                  61
+     Sermaye Piyasası Mevzuatı          28
+
+  --- kaynak tipi (bag kurulabilirlik)
+     mevzuata dayanan (madde bagi kurulabilir) : 4294
+     mevzuat disi (dil/matematik/teori)        : 3087
+
+  --- EN YOGUN 20 KONU (kota sisteminin girdisi)
+       78x  Yabanci Dil|cumle tamamlama
+       73x  Yabanci Dil|sentence completion
+       71x  Yabanci Dil|prepositions
+       70x  Yabanci Dil|vocabulary
+       67x  Yabanci Dil|vocabulary verb choice
+       65x  Yabanci Dil|modal verbs
+       63x  Yabanci Dil|passive voice
+       59x  Yabanci Dil|zarf kullanimi
+       58x  Yabanci Dil|relative clause
+       56x  Yabanci Dil|present perfect tense
+       50x  Turkce|paragraf anlama
+       47x  Turkce|sozcuk turleri
+       44x  Ekonomi|talep fiyat esnekligi
+       44x  Finansal Muhasebe|nakit akis tablosu
+       41x  Vergi Hukuku|kurumlar vergisi mukellefleri
+       41x  Denetim|bds 230 denetim belgelendirme
+       41x  Turkce|sozcukte anlam
+       41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
+       41x  Yabanci Dil|correlative conjunction
+       40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
+
+  --- tekil konu sayisi: 850
+-> veri/kasa-ornek.json  (1 ornek soru, tam metin)
+     yayin=false soru (son 400 icinde): 1
+       Ticaret Hukuku Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Borclar Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Meslek Hukuku Finansal Muhasebe Vergi Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Ticaret Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Vergi Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Ticaret Hukuku Finansal Muhasebe Finansal Muhasebe Vergi Hukuku Finansal Muhasebe Vergi Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Hukuk Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Meslek Hukuku Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Denetim Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Ticaret Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Ticaret Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Vergi Mevzuatı ve Uygulaması Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku Is ve Sosyal Guvenlik Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Borclar Hukuku Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Finansal Muhasebe Is ve Sosyal Guvenlik Hukuku 1
+-> veri/yeni-uretim-ornek.json  (1 yeni soru, GM okumasi icin)
+
+-> veri/kasa-sayim.json
+PS>$global:?
+True
+**********************
+PowerShell transcript end
+End time: 20260729065340
+**********************
