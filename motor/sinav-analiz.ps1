@@ -117,12 +117,22 @@ foreach($d in $arsiv.donemler){
   # Bu yuzden agirlik HAM SORU SAYISIYLA degil, konunun KAC DONEMDE gorundugu
   # ile hesaplanacak - o olcu formattan bagimsizdir.
   if($sinavTip -eq 'SMMM' -and $bicim -eq 'yazili'){
-    $minSoru = 2; $maxSoru = 40
+    # 29.07: alt sinir 2'ydi ve dokuz Finansal Muhasebe kitapcigini birden
+    # reddetti. Loga bakinca goruldu ki KAPI YANILMIS, VERI DOGRUYMUS: iki
+    # bagimsiz okuma da "1 soru" diyordu - cunku klasik FM sinavi TEK BIR
+    # BUYUK MONOGRAFI. Ustelik bunu ben bozmusum: isteme "alt siklari ayri
+    # soru sayma" yazmistim; oysa monografide alt istekler KONULARIN KENDISI.
+    # Istem duzeltildi (her alt istek ayri kayit), alt sinir 1'e cekildi.
+    $minSoru = 1; $maxSoru = 60
     $istemAktif = @"
 Bu bir TURMOB-TESMER SMMM Yeterlilik Sinavi '$($d.ders)' dersi KLASIK (yazili) soru kitapcigidir. Coktan secmeli DEGILDIR; sorular acik uclu, problem ya da olay seklindedir ve bazilari a) b) c) gibi ALT SIKLARA bolunmustur.
-GOREV: kitapciktaki HER SORUYU bul ve etiketle. Alt siklari AYRI SORU sayma - ana soru numarasi altinda TEK kayit ver, konu etiketini ana sorunun kapsadigi konuya gore yaz.
-Her soru icin:
-  no    - kitapciktaki ana soru numarasi
+DIKKAT - BU SINAV COGU ZAMAN TEK BIR BUYUK MONOGRAFIDIR: bir isletmenin donem
+islemleri verilir, altinda a) b) c) ... diye ONLARCA ALT ISTEK bulunur.
+GOREV: HER ALT ISTEGI AYRI KAYIT olarak etiketle. Alt istekler bu sinavda
+sorunun kendisidir; onlari tek kayda toplarsan konu bilgisi kaybolur.
+Ana soru tek satirlik ve alt istegi yoksa onu tek kayit yaz.
+Her kayit icin:
+  no    - "1a", "1b", "2" gibi ana numara + alt harf
   ders  - SABIT: '$($d.ders)'
   konu  - 2-4 kelimelik SPESIFIK etiket (ornek: amortisman ayirma, KDV tevkifat, konsolidasyon)
   tip   - sorunun KURGUSU: "bilgi" | "vaka" | "hesap" | "kayit" | "karsilastir"
