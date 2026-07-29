@@ -1,0 +1,51 @@
+**********************
+PowerShell transcript start
+Start time: 20260729184909
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/35fd5ba3-4ddc-4761-a7f0-cd35fa18e54f.ps1'
+Process ID: 2357
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Parti listesi cekiliyor (GET /v1/messages/batches)...
+  sayfa 1: 100 parti (toplam 100)
+  sayfa 2: 62 parti (toplam 162)
+
+TOPLAM 162 parti bulundu.
+
+PS>TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
+Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
+>> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
+Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
+>> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
+Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
+>> TerminatingError(Write-Host): "Cannot bind parameter 'ForegroundColor'. Cannot convert value "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor". Error: "Unable to match the identifier name KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify one of the following enumerator names and try again:
+Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White""
+Write-Host: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/parti-liste.ps1:67
+Line |
+  67 |  … 12} {2,8} {3,8} {4}" -f 'KIMLIK','DURUM','BITEN','HATA','OLUSTURULDU'
+     |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot bind parameter 'ForegroundColor'. Cannot convert value
+     | "KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU" to type "System.ConsoleColor".
+     | Error: "Unable to match the identifier name
+     | KIMLIK,DURUM,BITEN,HATA,OLUSTURULDU to a valid enumerator name. Specify
+     | one of the following enumerator names and try again: Black, DarkBlue,
+     | DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray,
+     | Blue, Green, Cyan, Red, Magenta, Yellow, White"
+
+PS>$global:?
+False
+**********************
+PowerShell transcript end
+End time: 20260729184911
+**********************
