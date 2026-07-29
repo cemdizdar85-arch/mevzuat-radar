@@ -128,7 +128,7 @@ function MaddeBul([string]$konu){
 $mevcutKok=@{}
 foreach($k in $kasa){ $mevcutKok[((Kel "$($k.soru)") -join ' ')] = 1 }
 
-function IstemKur($ders,$konu,$kurgu,$uzun,$maddeAd,$maddeMetni){
+function IstemKur($ders,$konu,$kurgu,$uzun,$maddeAd,$maddeMetni,$kirpildi=$false){
   $gorsel = ''
   if($ders -in @('Finansal Muhasebe','Maliyet Muhasebesi','Mali Tablolar Analizi','Finansal Tablolar ve Analizi')){
     $gorsel = @"
@@ -146,6 +146,11 @@ Sen TURMOB-TESMER SMMM YETERLILIK sinavi icin soru yazan bir editorsun.
 === DAYANAK METIN ($maddeAd) ===
 $maddeMetni
 === METIN BITTI ===
+$(if($kirpildi){ "UYARI: Bu madde COK UZUN oldugu icin metin KIRPILDI. Yukarida GORDUGUN
+kismin disinda kalan fikralar hakkinda soru YAZMA. Gordugun bir hukmun sonraki
+fikralarda degistirilmis ya da istisna getirilmis olma ihtimali var - emin
+olamadigin bir oran, sure ya da esik icin soru kurma. Kirpilmis metinden yazilan
+soru, kaynakli GORUNUR ama kaynaksizdir; bu en tehlikeli hata turudur." })
 
 YAZILACAK SORU:
   Ders   : $ders
@@ -224,7 +229,21 @@ foreach($p in $plan){
   if($mn -match '^(gec|ek|muk)(\d+)$'){ $seri=$Matches[1]; $mn=$Matches[2] }
   $m = MaddeMetni "$($par[0])" $mn $seri
   if(-not $m -or -not $m.metin){ $ist.metinsiz++; continue }
-  $metin = "$($m.metin)"; if($metin.Length -gt 6000){ $metin = $metin.Substring(0,6000) }
+  # 29.07 - HAKEM RAPORUNUN EN ONEMLI BULGUSU BURADAN CIKTI.
+  # 240 soruluk denetimde: TAM maddeden yazilan sorularin %7'si desteksizken,
+  # PARCALI maddeden yazilanlarin %26'si desteksizdi - 3,5 kat fark.
+  # Sebep parcalanma degil, BU SATIRDI: parcalar birlestiriliyor (madde-coz
+  # zaten birlestiriyor) ama sonra 6.000 karakterde kirpiliyordu. 11 parcali
+  # bir madde birlesince 6.000'i cok asar; model ilk 1-2 parcayi gorur, cevabin
+  # bulundugu fikra kirpilan kisimda kalir. Model de gordugu kadarindan yazar -
+  # ve ortaya "kaynakli gorunen, kaynaksiz soru" cikar. En tehlikeli tur budur:
+  # kaynak alani dolu oldugu icin butun bicim kapilarindan gecer.
+  # 5510 m.81 tam boyle gitti: soru "%20, isveren %11" dedi; maddenin kirpilan
+  # kisminda oran 7566 sayili Kanunla %21'e (isveren %12) cikmisti.
+  $KIRPMA = 24000
+  $metin = "$($m.metin)"
+  $kirpildi = $false
+  if($metin.Length -gt $KIRPMA){ $metin = $metin.Substring(0,$KIRPMA); $kirpildi = $true }
 
   $adet = [Math]::Min([int]$p.adet, $sinir - $isler.Count)
   $kl = $dersKurgu["$($p.ders)"]; if(-not $kl){ $kl=@('bilgi') }
@@ -236,8 +255,8 @@ foreach($p in $plan){
     $isler.Add([pscustomobject]@{
       ders="$($p.ders)"; konu="$($p.konu)"; kurgu=$kurgu; uzun=$uzun
       kanun=$par[0]; madde=$par[1]; maddeAd="$($m.ad)"
-      istem=(IstemKur "$($p.ders)" "$($p.konu)" $kurgu $uzun "$($m.ad)" $metin)
-      metin=$metin
+      istem=(IstemKur "$($p.ders)" "$($p.konu)" $kurgu $uzun "$($m.ad)" $metin $kirpildi)
+      metin=$metin; kirpildi=$kirpildi
     })
     $ist.hazir++
   }
