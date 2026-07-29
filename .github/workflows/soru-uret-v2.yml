@@ -43,9 +43,23 @@ jobs:
             # okur ve soruyu sinav='SGS' ile kasaya yazar.
             $sv = if($x.PSObject.Properties['sinav'] -and $x.sinav){ "$($x.sinav)" } else { 'SMMM' }
             Write-Host ("      sinav: {0}" -f $sv)
+            # 29.07 aksam: OLCUM MODU emirden acilabiliyor. Betikte zaten vardi
+            # (-calistir yoksa 0 USD) ama is akisi her zaman -calistir gonderiyordu,
+            # yani kaynak eslesmesini para harcamadan gorme imkani YOKTU.
+            # SGS pilotu bunun bedelini olcturdu: 40 sorunun tamami alakasiz
+            # maddelere baglanmisti (TMS 40 -> VUK m.275) ve bu ancak 2,31 USD
+            # odendikten SONRA gorundu. Artik once olcum kosar, kaynak dagilimi
+            # okunur, dogruysa parali kosu acilir.
+            $olcum = ($x.PSObject.Properties['olcum'] -and $x.olcum -eq $true)
+            if($olcum){ Write-Host "      OLCUM MODU - 0 USD, soru uretilmeyecek." }
             try {
-              ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                 -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+              if($olcum){
+                ./motor/soru-uret-v2.ps1 -sinir ([int]$x.sinir) -ders "$($x.ders)" `
+                   -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+              } else {
+                ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
+                   -sinav $sv -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+              }
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
             if(Test-Path 'veri/uretim-log.txt'){ Copy-Item 'veri/uretim-log.txt' "veri/uretim-log-$($x.no).txt" -Force }

@@ -113,7 +113,10 @@ function Kel([string]$t){
 $kelMadde=@{}
 foreach($k in $kasa){
   if(-not $k.kanun_no -or -not $k.madde_no){ continue }
-  if("$($k.kanun_no)" -in @('STD','THP')){ continue }
+  # 29.07 aksam: STD ve THP burada DISLANIYORDU. Sonucu SGS pilotunda gorundu -
+  # "TMS 40" hic aday olamadigi icin o konu VUK m.275'e (imal edilen emtia)
+  # baglandi. Artik disarida degiller; KaynakBul zaten once dogrudan standart
+  # ve hesap plani yollarini deniyor, bu harita da onlari aday olarak tutuyor.
   foreach($w in (Kel "$($k.konu)")){
     if(-not $kelMadde.ContainsKey($w)){ $kelMadde[$w]=@{} }
     $anahtar = "$($k.kanun_no)|$($k.madde_no)"
@@ -149,6 +152,88 @@ function MaddeBul([string]$konu){
   # TEK kelimeye dayanan eslesme, konu birden fazla kelimeden olusuyorsa zayiftir.
   if($ayriKelime -lt 2 -and $konuKelime -ge 2){ return $null }
   return $en.Key
+}
+
+# ============================================================================
+#  29.07 AKSAM - SGS PILOTUNUN BULGUSU (asil kusur burasiydi)
+#
+#  40 pilot sorusunun TAMAMI yalnizca BES maddeye atif yapiyordu ve cogu
+#  konuyla ilgisizdi:
+#    "tms 40 yatirim amacli gayrimenkul"   -> VUK m.275 (imal edilen emtia)
+#    "tms 36 deger dusuklugu kapsami"      -> VUK m.275
+#    "satis iskontosu kaydi"               -> TTK m.720 (cek hukumleri)
+#    "kademeli dagitim yontemi"            -> VUK m.275
+#    "finansal raporlama degerlendirmesi"  -> 5018 Kamu Mali Yonetimi K. m.3
+#
+#  SEBEP: konu->kaynak haritasi kasadaki sorularin kanun_no/madde_no
+#  alanlarindan kuruluyor ve yukaridaki dongu STD ile THP'yi ACIKCA disliyordu.
+#  Yani "TMS 40" ya da "THP 611" hicbir zaman ADAY olamiyordu; model de elindeki
+#  en yakin KANUN maddesine tutunuyordu.
+#
+#  BU SADECE "yanlis kaynak yazisi" DEGIL: dayanak metni alakasiz olunca model
+#  soruyu fiilen HAFIZASINDAN yaziyor. Bu gece tesbit edilen en tehlikeli hata
+#  turu tam buydu - soru kaynakli GORUNUR ama kaynaksizdir, bicim kapilarinin
+#  hepsinden gecer. Pilotta okudugum iki sorudan birinde cevap yanlisti.
+#
+#  AMBARDA HEPSI ZATEN VAR: tms40.json, tms36.json, msugt-thp-tam.json
+#  (199 hesap), 30 BDS standardi. madde-coz.ps1 bunlari okuyabiliyor
+#  (StandartMetni / HesapPlaniMetni). Eksik olan tek sey ADAY URETIMIYDI.
+# ============================================================================
+
+# --- THP hesap adi indeksi (bir kez cekilir; 199 kayit, ucuz)
+$thpAd = @{}
+try {
+  $tr = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=imatch." + [uri]::EscapeDataString('^THP\s\d') + "&limit=400") -Headers $H -TimeoutSec 60
+  foreach($t in @($tr)){
+    if("$($t.kaynak_ad)" -match '^THP\s+(\d{2,3})\s*-?\s*(.*)$'){
+      $kod = $Matches[1]; $ad = $Matches[2]
+      foreach($w in (Kel $ad)){
+        if(-not $thpAd.ContainsKey($w)){ $thpAd[$w] = @{} }
+        $thpAd[$w][$kod] = 1 + [int]$thpAd[$w][$kod]
+      }
+    }
+  }
+  Write-Host ("  THP hesap indeksi: {0} kelime, {1} kayit" -f $thpAd.Count, @($tr).Count)
+} catch { Write-Host ("  THP indeksi kurulamadi: {0}" -f $_.Exception.Message) }
+
+# Konuyu SIRAYLA uc kaynak turunde arar; ilk kesin bulunani dondurur.
+# Sira onemli: standart adi konuda ACIKCA yaziyorsa tahmine gerek yok.
+function KaynakBul([string]$konu, [string]$ders){
+  # 1) DOGRUDAN STANDART - konu "tms 40", "tfrs 15", "bds 500" iceriyor
+  if($konu -match '(?i)\b(TMS|TFRS|BDS)\s*(\d{1,3})\b'){
+    $s = StandartMetni ("{0} {1}" -f $Matches[1].ToUpperInvariant(), $Matches[2])
+    if($s -and $s.metin){ return [pscustomobject]@{ kanun='STD'; madde=$s.standart; ad=$s.ad; metin=$s.metin; tur='standart' } }
+  }
+  # 2) TEKDUZEN HESAP PLANI - konu bir hesap adini isaret ediyor mu
+  #    Olcut kanun tarafiyla ayni: TEK kelimenin tutturmasi eslesme sayilmaz
+  #    ("gider" onlarca hesapta gecer).
+  if($thpAd.Count -gt 0){
+    $sk=@{}; $skKel=@{}
+    foreach($w in (Kel $konu)){
+      if(-not $thpAd.ContainsKey($w)){ continue }
+      foreach($p in $thpAd[$w].GetEnumerator()){
+        $sk[$p.Key] = [int]$sk[$p.Key] + $p.Value
+        if(-not $skKel.ContainsKey($p.Key)){ $skKel[$p.Key]=@{} }
+        $skKel[$p.Key][$w] = 1
+      }
+    }
+    if($sk.Count -gt 0){
+      $enh = ($sk.GetEnumerator() | Sort-Object {-$_.Value} | Select-Object -First 1)
+      if($skKel[$enh.Key].Count -ge 2){
+        $h = HesapPlaniMetni ("MSUGT Tekduzen Hesap Plani - {0}" -f $enh.Key)
+        if($h -and $h.metin){ return [pscustomobject]@{ kanun='THP'; madde=$enh.Key; ad=$h.ad; metin=$h.metin; tur='hesap-plani' } }
+      }
+    }
+  }
+  # 3) KANUN MADDESI - eski yol
+  $anahtar = MaddeBul $konu
+  if(-not $anahtar){ return $null }
+  $par = $anahtar -split '\|'
+  $seri=''; $mn="$($par[1])"
+  if($mn -match '^(gec|ek|muk)(\d+)$'){ $seri=$Matches[1]; $mn=$Matches[2] }
+  $m = MaddeMetni "$($par[0])" $mn $seri
+  if(-not $m -or -not $m.metin){ return $null }
+  return [pscustomobject]@{ kanun=$par[0]; madde=$par[1]; ad=$m.ad; metin=$m.metin; tur='kanun' }
 }
 
 # --- mevcut soru metinleri (benzerlik kapisi icin)
@@ -289,13 +374,12 @@ $sayac=@{}
 foreach($p in $plan){
   if($isler.Count -ge $sinir){ break }
   $ist.planSatir++
-  $anahtar = MaddeBul "$($p.konu)"
-  if(-not $anahtar){ $ist.maddesiz++; continue }
-  $par = $anahtar -split '\|'
-  $seri=''; $mn="$($par[1])"
-  if($mn -match '^(gec|ek|muk)(\d+)$'){ $seri=$Matches[1]; $mn=$Matches[2] }
-  $m = MaddeMetni "$($par[0])" $mn $seri
-  if(-not $m -or -not $m.metin){ $ist.metinsiz++; continue }
+  $kay = KaynakBul "$($p.konu)" "$($p.ders)"
+  if(-not $kay){ $ist.maddesiz++; continue }
+  if(-not $kay.metin){ $ist.metinsiz++; continue }
+  $ist["kaynak_$($kay.tur)"] = 1 + [int]$ist["kaynak_$($kay.tur)"]
+  $par = @("$($kay.kanun)", "$($kay.madde)")
+  $m = $kay
   # 29.07 - HAKEM RAPORUNUN EN ONEMLI BULGUSU BURADAN CIKTI.
   # 240 soruluk denetimde: TAM maddeden yazilan sorularin %7'si desteksizken,
   # PARCALI maddeden yazilanlarin %26'si desteksizdi - 3,5 kat fark.
