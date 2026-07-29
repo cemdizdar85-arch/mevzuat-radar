@@ -1,60 +1,60 @@
 {
-    "_aciklama":  "SORU URETIM EMRI. Para harcayan tek kapi. Uretilen sorularin HEPSI yayin=false ile kasaya duser; profesor denetimi ve GM okumasi olmadan ogrenciye GITMEZ.",
-    "_recete":  "Her soru bes girdiyle uretilir: ders (8 kapi, esit kota) -\u003e konu (883 konudan, 12 donemlik siklik agirligiyla) -\u003e kurgu (o dersin GERCEK dagilimi: Hukuk %95 bilgi, Finansal Tablolar %58 hesap, Finansal Muhasebe %40 kayit) -\u003e uzunluk -\u003e KANUN MADDESI METNI (ambardan, istemin icine konur).",
-    "_kaynak":  "veri/uretim-kotasi.json — 12 donem TESMER Yeterlilik kitapcigi (2023/1-2026/3), 883 tekil konu, 480 test sorusundan olculmus kurgu dagilimi.",
-    "_kapilar":  "riskli sayi (oran/sure/yil, yaziyla yazilanlar dahil) · dil (cumle \u003c=20 kelime ort, \u003c=30 tek) · sik (5 sik, tam biri dogru, aciklama \u003e=300 karakter) · benzerlik (kasadaki sorularla ayni kok)",
-    "emirler":  [
-                    {
-                        "no":  1,
-                        "tarih":  "29.07.2026",
-                        "veren":  "Cem Dizdar (onay veriyorum)",
-                        "emir":  "ILK PARTI - 200 soru, GM okuyacak",
-                        "onay":  true,
-                        "sinir":  200,
-                        "ders":  "",
-                        "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "ILK PARTI. Kota tablosu 12 donemlik gercek TESMER verisinden kuruldu ve uretim receetesi tam: ders x konu x kurgu x uzunluk x madde metni. Ama 5.000 soruyu tek hamlede uretmek, receteyi denemeden 40 USD harcamak olur. Once 200 soru: GM okuyacak - kurgu tuttu mu (Hukuk\u0027a kayit sorusu yazilmis mi), aciklama sablona uydu mu, kapilardan kaci dondu. Gecerse kalan 4.800 akar. URETILEN HICBIR SORU YAYINA GIRMEZ: hepsi yayin=false, profesor yargilayacak, GM okuyacak, sonra acilacak. 800 USD\u0027lik ilk parti denetimsiz yayina girdigi icin bir gece hata topladik - ayni hatayi tekrarlamiyoruz.",
-                        "tahmini_usd":  2.0,
-                        "uygulandi":  "29.07.2026 06:22"
-                    },
-                    {
-                        "no":  2,
-                        "tarih":  "29.07.2026",
-                        "veren":  "Cem Dizdar (onay kapsaminda)",
-                        "emir":  "TESHIS PARTISI - 30 soru",
-                        "onay":  true,
-                        "sinir":  30,
-                        "ders":  "",
-                        "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "ILK PARTI 400 DONDU VE 147 SORU COPE GITTI. Kapilar calisti (36 rakam, 15 dil, 1 sik reddedildi) ama gecen 147 sorunun HICBIRI kasaya yazilamadi - Supabase 400 Bad Request verdi ve SEBEBI GORULEMEDI, cunku hata govdesini yakalamiyordum. Butun gece bana tahmin ettiren sey buydu. UC DUZELTME: (1) yazma hatasinda sunucu cevabi ve gonderilen ilk satir loga yaziliyor - 400un sebebi artik gorulecek. (2) DIL KAPISI cok sikiydi: ortalama 13,5 kelimeyken tek cumle 32 diye 15 soru reddedildi; ortalama iyiyse tek uzun cumle soruyu bozmaz, ust sinir 38e cikarildi. (3) RAKAM KAPISI URETIMDE YANLIS SEYI OLCUYORDU: \"61 gun vadeli senet, %18 faiz\" gibi sayilar sorunun KENDI SENARYOSUDUR, uydurma degil - soru yazari senaryoyu kendi kurar. Yalniz MEVZUAT sayisi kaynakta aranmali. Model artik hangi sayilari kanundan aldigini BEYAN ediyor ve kapi yalniz onlari denetliyor. 30 soruluk teshis partisi ~0,35 USD; 400un sebebi gorulunce tam parti acilir.",
-                        "tahmini_usd":  0.35,
-                        "uygulandi":  "29.07.2026 06:29"
-                    },
-                    {
-                        "no":  3,
-                        "tarih":  "29.07.2026",
-                        "veren":  "Cem Dizdar (onay kapsaminda)",
-                        "emir":  "KURU DENEME - 5 soru",
-                        "onay":  true,
-                        "sinir":  5,
-                        "ders":  "",
-                        "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "KAPILAR TEMIZ CIKTI: 30 sorunun 30u gecti, sifir red. Iki kapi duzeltmesi (dil ust siniri 38, rakam kapisi yalniz BEYAN EDILEN mevzuat sayilarini denetliyor) tuttu. AMA YAZMA HALA 400 VERIYOR ve sunucu cevabi yine bos geldi - cunku PowerShell 7de hata govdesi Exception.Response akisinda DEGIL, ErrorDetails.Message icinde duruyor; yanlis yerden okuyordum. Iki duzeltme: (1) govde dogru yerden okunuyor. (2) KURU DENEME: artik soru uretmeden ONCE tek satirlik bir deneme kaydi yazilip siliniyor; yazma yolu bozuksa PARA HARCANMADAN durulup sebep yaziliyor. Iki parti (2,62 USD) yalnizca yazmanin bozuk oldugunu ogrenmek icin harcandi - bir daha olmayacak. Bu emir 5 soruluk; kuru deneme gecerse zaten yazacak, gecmezse ~0,06 USDye sebebi ogrenecegiz.",
-                        "tahmini_usd":  0.07,
-                        "uygulandi":  "29.07.2026 06:33"
-                    },
-                    {
-                        "no":  4,
-                        "tarih":  "29.07.2026",
-                        "veren":  "Cem Dizdar (onay kapsaminda)",
-                        "emir":  "ILK GERCEK PARTI - 200 soru",
-                        "onay":  true,
-                        "sinir":  200,
-                        "ders":  "",
-                        "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "KURU DENEME GECTI VE 5 SORU KASAYA YAZILDI. 400un sebebi de anlasildi: PostgREST toplu yazimda TEK BOZUK SATIR yuzunden BUTUN PARTIYI reddediyor - 5 satir gecti, 147 satir gecmedi; sorun sayida degil aradaki bir satirdaydi ve 147 saglam soru bir tanesi yuzunden cope gitti. Artik parti dusunce SATIR SATIR yeniden deneniyor: saglamlar kurtuluyor, bozuk olan isimlendirilip rapora yaziliyor. Boylece bir daha tek satir yuzunden parti kaybetmeyecegiz. Kapilar zaten temiz cikmisti (30 sorunun 30u gecti). Bu 200 soru GMnin okuyacagi ilk gercek parti; hepsi yayin=false, profesor ve GM onayi olmadan ogrenciye gitmez.",
-                        "tahmini_usd":  2.3,
-                        "uygulandi":  null
-                    }
-                ]
+  "_aciklama": "SORU URETIM EMRI. Para harcayan tek kapi. Uretilen sorularin HEPSI yayin=false ile kasaya duser; profesor denetimi ve GM okumasi olmadan ogrenciye GITMEZ.",
+  "_recete": "Her soru bes girdiyle uretilir: ders (8 kapi, esit kota) -> konu (883 konudan, 12 donemlik siklik agirligiyla) -> kurgu (o dersin GERCEK dagilimi: Hukuk %95 bilgi, Finansal Tablolar %58 hesap, Finansal Muhasebe %40 kayit) -> uzunluk -> KANUN MADDESI METNI (ambardan, istemin icine konur).",
+  "_kaynak": "veri/uretim-kotasi.json — 12 donem TESMER Yeterlilik kitapcigi (2023/1-2026/3), 883 tekil konu, 480 test sorusundan olculmus kurgu dagilimi.",
+  "_kapilar": "riskli sayi (oran/sure/yil, yaziyla yazilanlar dahil) · dil (cumle <=20 kelime ort, <=30 tek) · sik (5 sik, tam biri dogru, aciklama >=300 karakter) · benzerlik (kasadaki sorularla ayni kok)",
+  "emirler": [
+    {
+      "no": 1,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (onay veriyorum)",
+      "emir": "ILK PARTI - 200 soru, GM okuyacak",
+      "onay": true,
+      "sinir": 200,
+      "ders": "",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "ILK PARTI. Kota tablosu 12 donemlik gercek TESMER verisinden kuruldu ve uretim receetesi tam: ders x konu x kurgu x uzunluk x madde metni. Ama 5.000 soruyu tek hamlede uretmek, receteyi denemeden 40 USD harcamak olur. Once 200 soru: GM okuyacak - kurgu tuttu mu (Hukuk'a kayit sorusu yazilmis mi), aciklama sablona uydu mu, kapilardan kaci dondu. Gecerse kalan 4.800 akar. URETILEN HICBIR SORU YAYINA GIRMEZ: hepsi yayin=false, profesor yargilayacak, GM okuyacak, sonra acilacak. 800 USD'lik ilk parti denetimsiz yayina girdigi icin bir gece hata topladik - ayni hatayi tekrarlamiyoruz.",
+      "tahmini_usd": 2.0,
+      "uygulandi": "29.07.2026 06:22"
+    },
+    {
+      "no": 2,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (onay kapsaminda)",
+      "emir": "TESHIS PARTISI - 30 soru",
+      "onay": true,
+      "sinir": 30,
+      "ders": "",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "ILK PARTI 400 DONDU VE 147 SORU COPE GITTI. Kapilar calisti (36 rakam, 15 dil, 1 sik reddedildi) ama gecen 147 sorunun HICBIRI kasaya yazilamadi - Supabase 400 Bad Request verdi ve SEBEBI GORULEMEDI, cunku hata govdesini yakalamiyordum. Butun gece bana tahmin ettiren sey buydu. UC DUZELTME: (1) yazma hatasinda sunucu cevabi ve gonderilen ilk satir loga yaziliyor - 400un sebebi artik gorulecek. (2) DIL KAPISI cok sikiydi: ortalama 13,5 kelimeyken tek cumle 32 diye 15 soru reddedildi; ortalama iyiyse tek uzun cumle soruyu bozmaz, ust sinir 38e cikarildi. (3) RAKAM KAPISI URETIMDE YANLIS SEYI OLCUYORDU: \"61 gun vadeli senet, %18 faiz\" gibi sayilar sorunun KENDI SENARYOSUDUR, uydurma degil - soru yazari senaryoyu kendi kurar. Yalniz MEVZUAT sayisi kaynakta aranmali. Model artik hangi sayilari kanundan aldigini BEYAN ediyor ve kapi yalniz onlari denetliyor. 30 soruluk teshis partisi ~0,35 USD; 400un sebebi gorulunce tam parti acilir.",
+      "tahmini_usd": 0.35,
+      "uygulandi": "29.07.2026 06:29"
+    },
+    {
+      "no": 3,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (onay kapsaminda)",
+      "emir": "KURU DENEME - 5 soru",
+      "onay": true,
+      "sinir": 5,
+      "ders": "",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "KAPILAR TEMIZ CIKTI: 30 sorunun 30u gecti, sifir red. Iki kapi duzeltmesi (dil ust siniri 38, rakam kapisi yalniz BEYAN EDILEN mevzuat sayilarini denetliyor) tuttu. AMA YAZMA HALA 400 VERIYOR ve sunucu cevabi yine bos geldi - cunku PowerShell 7de hata govdesi Exception.Response akisinda DEGIL, ErrorDetails.Message icinde duruyor; yanlis yerden okuyordum. Iki duzeltme: (1) govde dogru yerden okunuyor. (2) KURU DENEME: artik soru uretmeden ONCE tek satirlik bir deneme kaydi yazilip siliniyor; yazma yolu bozuksa PARA HARCANMADAN durulup sebep yaziliyor. Iki parti (2,62 USD) yalnizca yazmanin bozuk oldugunu ogrenmek icin harcandi - bir daha olmayacak. Bu emir 5 soruluk; kuru deneme gecerse zaten yazacak, gecmezse ~0,06 USDye sebebi ogrenecegiz.",
+      "tahmini_usd": 0.07,
+      "uygulandi": "29.07.2026 06:33"
+    },
+    {
+      "no": 4,
+      "tarih": "29.07.2026",
+      "veren": "Cem Dizdar (onay kapsaminda)",
+      "emir": "ILK GERCEK PARTI - 200 soru",
+      "onay": true,
+      "sinir": 200,
+      "ders": "",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "KURU DENEME GECTI VE 5 SORU KASAYA YAZILDI. 400un sebebi de anlasildi: PostgREST toplu yazimda TEK BOZUK SATIR yuzunden BUTUN PARTIYI reddediyor - 5 satir gecti, 147 satir gecmedi; sorun sayida degil aradaki bir satirdaydi ve 147 saglam soru bir tanesi yuzunden cope gitti. Artik parti dusunce SATIR SATIR yeniden deneniyor: saglamlar kurtuluyor, bozuk olan isimlendirilip rapora yaziliyor. Boylece bir daha tek satir yuzunden parti kaybetmeyecegiz. Kapilar zaten temiz cikmisti (30 sorunun 30u gecti). Bu 200 soru GMnin okuyacagi ilk gercek parti; hepsi yayin=false, profesor ve GM onayi olmadan ogrenciye gitmez.",
+      "tahmini_usd": 2.3,
+      "uygulandi": "29.07.2026 06:43"
+    }
+  ]
 }
