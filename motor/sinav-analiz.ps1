@@ -276,9 +276,12 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
     if(-not $e){ $dersUyusmaz++; continue }
     if((Fold $s.ders) -ne (Fold $e.ders)){ $dersUyusmaz++; continue }
     if((Fold $s.konu) -eq (Fold $e.konu)){
-      $sorular.Add(@{ no=$s.no; ders=$s.ders; konu=(Fold $s.konu) })
+      # 29.07: tip/uzun BURADA da dusuyordu. Ayni hatayi dorduncu kez yaptim -
+      # istemi ekle, toplayiciyi ekle, ama LISTEYI KURAN yeri unut. Artik
+      # sorunun kurgusu her uc yolda da tasiniyor.
+      $sorular.Add(@{ no=$s.no; ders=$s.ders; konu=(Fold $s.konu); tip="$($s.tip)"; uzun="$($s.uzun)" })
     } else {
-      $konuCift.Add(@{ no=$s.no; ders=$s.ders; a=$s.konu; b=$e.konu })
+      $konuCift.Add(@{ no=$s.no; ders=$s.ders; a=$s.konu; b=$e.konu; tip="$($s.tip)"; uzun="$($s.uzun)" })
     }
   }
   $oran = $dersUyusmaz / [double]$n1
@@ -292,8 +295,8 @@ SADECE su formatta JSON dizisi dondur, baska hicbir metin yazma:
     try {
       $hk = (JsonBul (ClaudeTxt $hIstem 4000)) | ConvertFrom-Json
       $hkMap=@{}; foreach($x in $hk){ $hkMap["$($x.no)"]="$($x.konu)" }
-      foreach($c in $konuCift){ $k=$hkMap["$($c.no)"]; if(-not $k){ $k=$c.a }; $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $k) }) }
-    } catch { foreach($c in $konuCift){ $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $c.a) }) } }
+      foreach($c in $konuCift){ $k=$hkMap["$($c.no)"]; if(-not $k){ $k=$c.a }; $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $k); tip="$($c.tip)"; uzun="$($c.uzun)" }) }
+    } catch { foreach($c in $konuCift){ $sorular.Add(@{ no=$c.no; ders=$c.ders; konu=(Fold $c.a); tip="$($c.tip)"; uzun="$($c.uzun)" }) } }
   }
   }  # <- 'yazili degilse' blogu burada biter
 
