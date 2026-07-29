@@ -377,15 +377,41 @@ for($p=0; $p -lt $partiler; $p++){
   Write-Host ("  batch id: {0}" -f $bid)
 
   $tur = 0
+  # HER PARTIDE SIFIRLANIR: sifirlanmazsa ilk zaman asimindan sonraki butun
+  # partiler de atlanir ve parasi odenmis is cope gider.
+  $zamanAsimi = $false
   while($true){
     Start-Sleep -Seconds 20
     $tur++
     $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR
     Write-Host ("  durum: {0}" -f $st.processing_status)
     if($st.processing_status -eq 'ended'){ break }
-    # 90 tur = 30 dakika. Batch normalde dakikalar icinde biter; bu asilma kalkanidir.
-    if($tur -ge 90){ Write-Host "  ZAMAN ASIMI: parti 30 dk'da bitmedi, birakiliyor."; break }
+    # 29.07 IKI KUSUR BIRDEN DUZELTILDI.
+    # (1) 30 DAKIKA COK KISAYDI. 4.107 soruluk denetimde besinci parti 30 dk'da
+    #     bitmedi; oysa is sunucuda calismaya DEVAM ediyordu. Sinir 3 saate
+    #     cikarildi - batch API'si zaten 24 saate kadar surebilir.
+    # (2) ZAMAN ASIMINDAN SONRA SONUC CEKMEYE CALISIYORDU. Bitmemis partinin
+    #     sonucu yoktur; 404 doner, betik olur, KOSU DUSER. Ustelik para
+    #     harcanmistir: 4.107 soru icin 6 parti gonderilmis, ~18 USD odenmis
+    #     ve tek satir sonuc alinamamisti.
+    #     Artik zaman asiminda parti kimligi KAYDEDILIR ve o parti ATLANIR;
+    #     sonra "-kurtar <id>" ile bedava hasat edilir.
+    if($tur -ge 540){
+      Write-Host "  ZAMAN ASIMI: parti 3 saatte bitmedi. SONUC CEKILMEYECEK."
+      Write-Host ("  KURTARMA ICIN: -kurtar {0}" -f $bid)
+      try {
+        $bek = @()
+        $byol = Join-Path $kok 'veri/bekleyen-partiler.json'
+        if(Test-Path $byol){ foreach($x in (ConvertFrom-Json ([IO.File]::ReadAllText($byol)))){ $bek += "$x" } }
+        if($bek -notcontains $bid){ $bek += $bid }
+        [IO.File]::WriteAllText($byol, (ConvertTo-Json -InputObject @($bek) -Depth 3), (New-Object Text.UTF8Encoding($false)))
+        Write-Host "  -> veri/bekleyen-partiler.json guncellendi"
+      } catch { Write-Host ("  bekleyen parti yazilamadi: {0}" -f $_.Exception.Message) }
+      $zamanAsimi = $true
+      break
+    }
   }
+  if($zamanAsimi){ continue }   # bu partiyi atla, digerlerine devam et
   }  # <- kurtarma degilse blogu biter
   # Sonuc adresini SABIT KODLAMA - durum cevabindaki results_url kullanilir.
   # Sabit adres bir yonlendirmeye takilirsa basliklar tasinmaz ve 403 alinir;
