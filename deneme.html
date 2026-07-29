@@ -649,11 +649,70 @@ function yevmiyeGorsel(s){
   h+='<div style="font-size:11px;color:var(--dim);margin-top:6px">Okuma kuralı: borçlanan hesaplar maddede üstte ve solda, alacaklanan hesaplar içeriden yazılır; T-cetvelinde sol taraf borç, sağ taraf alacaktır.</div>';
   return h;
 }
+// ══════════════════════════════════════════════════════════════════════════
+//  ÜYELİK DUVARI — 29.07, Cem: "üye olmadan çözdürmeyelim, herkes bir kere
+//  kesinlikle sitemize üye olsun". Sayıyı GM'ye bıraktı; karar BEŞ.
+//
+//  Neden beşinci soruda, birincide değil: bizim farkımız "soru bankamız var"
+//  değil — bunu herkes söylüyor. Farkımız her yanlış şıkkın NEDEN yanlış
+//  olduğu ve altındaki kaynak maddesi. Bunu reklam metniyle anlatamazsın;
+//  adayın görmesi gerekir. Kapıda sorarsan bir VAAT karşılığı e-posta
+//  istemiş olursun; beş açıklama gösterdikten sonra sorarsan GÖRDÜĞÜ ŞEYİN
+//  karşılığında verir.
+//  Neden on değil: on soru çözen ihtiyacını karşılamış hisseder, üye olmak
+//  için sebebi kalmaz. Ücretsiz bankamız zaten sekiz soru.
+//  Neden ücretsiz üyelik, doğrudan para değil: beş soru çözmüş kişi ilgili
+//  ama ikna olmuş değil. Asıl satış, adayı sınava kadar listede tutup
+//  fiyat merdiveni (990 -> 1.290 -> 1.490) işlerken yapılır.
+//
+//  Sayaç CİHAZDA tutulur; temizleyen tekrar beş soru çözebilir. Bu bir
+//  kilit değil, kapıdır — amaç korsanı durdurmak değil, adayı kaydetmek.
+//  Ücretli içeriğin gerçek kilidi Supabase RLS'tedir.
+// ══════════════════════════════════════════════════════════════════════════
+var UCRETSIZ_HAK = 5;
+function cozulenSayisi(){
+  try{ return parseInt(localStorage.getItem('tetikteCozulen')||'0',10)||0; }catch(e){ return 0; }
+}
+function cozulenArtir(){
+  try{ localStorage.setItem('tetikteCozulen', String(cozulenSayisi()+1)); }catch(e){}
+}
+function duvarGoster(){
+  var kalan = document.getElementById('ekranSoru');
+  if(kalan) kalan.classList.add('gizli');
+  var d = document.getElementById('uyeDuvar');
+  if(!d){
+    d = document.createElement('div');
+    d.id = 'uyeDuvar'; d.className = 'panel';
+    d.style.cssText = 'max-width:640px;margin:24px auto;text-align:center';
+    d.innerHTML =
+      '<div style="font-size:34px;line-height:1">🔓</div>' +
+      '<h2 style="margin:10px 0 6px">Beş soruyu çözdün.</h2>' +
+      '<p style="color:var(--dim);line-height:1.7;margin:0 0 14px">' +
+      'Her şıkkın neden yanlış olduğunu ve dayandığı kaynak maddeyi gördün. ' +
+      'Devamı için <b style="color:var(--amber)">ücretsiz üye ol</b> — banka açılır, ' +
+      'yanlışların defterine yazılır, karnende hangi konuda zayıf olduğunu görürsün.</p>' +
+      '<a class="btn" href="#uyeKapali" style="display:inline-block">Ücretsiz üye ol →</a>' +
+      '<div style="font-size:12px;color:var(--dim);margin-top:12px">Zaten üyeysen giriş yap — sayaç sıfırlanır.</div>';
+    document.querySelector('main, body').appendChild(d);
+  }
+  d.classList.remove('gizli');
+  var uk = document.getElementById('uyeKapali');
+  if(uk){ uk.classList.remove('gizli'); uk.scrollIntoView({behavior:'smooth', block:'center'}); }
+}
+function duvaraTakildiMi(){
+  if(window.UYE_MODU) return false;             // üye: duvar yok
+  return cozulenSayisi() >= UCRETSIZ_HAK;
+}
+
 function sonraki(){
   var s=SORULAR[IDX];
   gorulenKaydet(s.id);
   if(MOD==='deneme') SURELER[s.id]=Date.now()-SORU_T0;
-  if(IDX<SORULAR.length-1){ IDX++; soruCiz(); window.scrollTo(0,0); }
+  if(!window.UYE_MODU) cozulenArtir();
+  if(IDX<SORULAR.length-1){
+    if(duvaraTakildiMi()){ duvarGoster(); return; }
+    IDX++; soruCiz(); window.scrollTo(0,0);
+  }
   else karneCiz();
 }
 
