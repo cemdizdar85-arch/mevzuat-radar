@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260729074214
+Start time: 20260729080631
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8bf62bc6-d529-4216-a15d-c3a920044f01.ps1'
-Process ID: 2244
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/302a50df-7476-4dd4-a5fa-d75c61465286.ps1'
+Process ID: 2236
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -78,14 +78,24 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        47x  Turkce|sozcuk turleri
        44x  Ekonomi|talep fiyat esnekligi
        44x  Finansal Muhasebe|nakit akis tablosu
-       41x  Denetim|bds 230 denetim belgelendirme
        41x  Vergi Hukuku|kurumlar vergisi mukellefleri
+       41x  Denetim|bds 230 denetim belgelendirme
+       41x  Yabanci Dil|correlative conjunction
        41x  Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi
        41x  Turkce|sozcukte anlam
-       41x  Yabanci Dil|correlative conjunction
        40x  Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi
 
   --- tekil konu sayisi: 850
+
+  --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
+     bakilan          7519
+     placeholder      79
+     hepsiYuvarlak    251
+     klise            13
+     tekduzeTuzak     0
+     toplamIzli       331
+     IZLI ORAN      : %4.4
+-> veri/koku-izli.json  (331 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (1 ornek soru, tam metin)
      KASADA yayin=false (denetim bekleyen) : 332
      HAM CEVAP: 24530 bayt  Content-Range: System.String[]
@@ -113,5 +123,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260729074222
+End time: 20260729080650
 **********************
