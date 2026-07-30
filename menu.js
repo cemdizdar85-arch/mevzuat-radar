@@ -26,9 +26,13 @@ try {
         '<p style="color:#93a1b3;font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:#eef2f7">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
         '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:#0d141e;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:12px 14px">'+
-        '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
-        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div>'+
-        '<div style="font-size:11px;color:#5d6b7c;margin-top:16px">Katılınca bilgilendirme e-postası almayı kabul edersin.</div></div>';
+        '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
+        /* 30.07: pasif "katilinca kabul edersin" satiri acik riza DEGILDI -
+           karne formundaki gibi zorunlu onay kutusuna cevrildi (KVKK).
+           kvkk.html koku: perde alt sayfalarda da cikar, mutlak yol sart. */
+        '<label style="display:flex;gap:8px;align-items:flex-start;width:100%;justify-content:center;font-size:11.5px;color:#93a1b3;margin-top:10px;text-align:left"><input type="checkbox" required style="margin-top:2px;accent-color:#f5a524;flex:none">'+
+        '<span style="max-width:400px">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="/kvkk.html" target="_blank" style="color:#ffc24b">Aydınlatma metni</a></span></label></form>'+
+        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div></div>';
       document.body.appendChild(d);
       document.documentElement.style.overflow = 'hidden';
       document.getElementById('mrPerdeForm').addEventListener('submit', function(e){
