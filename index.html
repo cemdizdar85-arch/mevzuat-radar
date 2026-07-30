@@ -563,6 +563,30 @@ function gtipGit(e){
       </a>
     </div>
 
+    <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
+         ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
+         deseni: ortalanmış başlık, altında büyük ürün penceresi). Bizimki
+         GERÇEK üründen: deneme.html'in soru kabini + dün kurulan yan panel,
+         ücretsiz bankadaki GERÇEK bir soruyla. Görüntü değil saf CSS -
+         her çözünürlükte net, eskimez, bakım istemez. Tıklayınca ürüne gider. -->
+    <a class="urun-pencere" href="deneme.html" aria-label="Deneme Sınavı ürün önizlemesi">
+      <span class="up-bar"><i></i><i></i><i></i><b>tetikte.com/deneme</b></span>
+      <span class="up-govde">
+        <span class="up-sol">
+          <span class="up-soru">Mobilya üretimi yapan bir işletmenin normal faaliyet döngüsü 16 aydır. Bu döngü içinde satılması beklenen mamul stokları bilançoda nasıl sınıflandırılmalıdır?</span>
+          <span class="up-sik yanlis"><b>A</b> Nakit ve nakit benzeri değerler içinde raporlanmalıdır</span>
+          <span class="up-sik dogru"><b>B</b> Dönen varlık olarak sınıflandırılmalıdır</span>
+          <span class="up-sik"><b>C</b> Duran varlık olarak sınıflandırılmalıdır</span>
+        </span>
+        <span class="up-sag">
+          <span class="up-gk kirmizi"><b>👉 SENİN CEVABIN</b> Stok, nakit benzeri değildir; TMS 7 anlamında ayrı kategorilerdir.</span>
+          <span class="up-gk yesil"><b>✓ DOĞRU — B</b> TMS 1.68: stok, faaliyet döngüsü içinde satılacaksa 12 aydan uzun sürede de dönen varlıktır.</span>
+          <span class="up-kaynak">📑 Kaynak: TMS 1 m.68</span>
+          <span class="up-hap"><b>🎯 AKILDA KALSIN</b> Önce faaliyet döngüsüne bak; "12 ay" yedek ölçüttür. Döngü uzunsa stok yine dönen varlıktır.</span>
+        </span>
+      </span>
+    </a>
+
     <!-- ================= NÖBET AKIŞI ==================================
          Cem'in secimi (A). Uc kapinin altinda tek satir, yavasca kayar.
          SIRALAMA DIKKAT CEKME GUCUNE GORE - rastgele degil:
@@ -612,6 +636,51 @@ function gtipGit(e){
   .sk-et{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.3px;margin-bottom:7px}
 
   .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
+
+  /* URUN PENCERESI: hero'nun altinda buyuk urun goruntusu (Linear deseni).
+     Hafif perspektif egimi premium durur; asagi kaydikca duzlesir gibi
+     algilanir. Tamamen CSS - goruntu dosyasi yok. */
+  .urun-pencere{display:block;max-width:940px;margin:34px auto 0;text-align:left;text-decoration:none;color:inherit;
+    background:rgba(10,15,23,.92);border:1px solid var(--line2);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.03),0 -18px 70px -40px rgba(245,165,36,.35);
+    transform:perspective(1400px) rotateX(3.5deg);transform-origin:top center;
+    transition:transform .35s ease,border-color .25s,box-shadow .35s}
+  .urun-pencere:hover{transform:perspective(1400px) rotateX(0deg);border-color:rgba(245,165,36,.35);
+    box-shadow:0 46px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04),0 -18px 80px -38px rgba(245,165,36,.45)}
+  .up-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .up-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .up-bar i:first-child{background:rgba(255,107,94,.55)}
+  .up-bar i:nth-child(2){background:rgba(255,194,75,.55)}
+  .up-bar i:nth-child(3){background:rgba(61,220,151,.55)}
+  .up-bar b{margin-left:10px;font:600 11.5px/1 ui-monospace,Consolas,monospace;color:var(--dim);
+    background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:7px;padding:5px 12px}
+  .up-govde{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;padding:20px 22px 22px}
+  .up-sol,.up-sag{display:flex;flex-direction:column;gap:9px;min-width:0}
+  .up-soru{font-size:14px;line-height:1.55;color:var(--ink);font-weight:600;letter-spacing:-.1px;margin-bottom:3px}
+  .up-sik{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.45;
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.015)}
+  .up-sik b{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--dim);flex:none}
+  .up-sik.dogru{border-color:rgba(61,220,151,.45);background:rgba(61,220,151,.05)}
+  .up-sik.dogru b{color:var(--green)}
+  .up-sik.yanlis{border-color:rgba(255,107,94,.4);background:rgba(255,107,94,.04)}
+  .up-sik.yanlis b{color:var(--red)}
+  .up-gk{font-size:11.5px;line-height:1.5;color:var(--muted);border-left:3px solid var(--line2);
+    border-radius:0 9px 9px 0;padding:7px 10px 7px 11px;background:rgba(255,255,255,.015)}
+  .up-gk b{display:block;font-size:9.5px;letter-spacing:.8px;margin-bottom:3px}
+  .up-gk.kirmizi{border-left-color:rgba(255,107,94,.55)}.up-gk.kirmizi b{color:var(--red)}
+  .up-gk.yesil{border-left-color:rgba(61,220,151,.55)}.up-gk.yesil b{color:var(--green)}
+  .up-kaynak{font-size:11px;color:var(--green);border:1px solid rgba(61,220,151,.3);background:rgba(61,220,151,.07);
+    border-radius:9px;padding:6px 10px}
+  .up-hap{font-size:11.5px;line-height:1.55;color:var(--ink);border:1px solid rgba(255,194,75,.5);border-radius:12px;
+    padding:10px 12px;background:linear-gradient(155deg,rgba(255,194,75,.15),rgba(245,165,36,.04) 70%);
+    box-shadow:0 10px 26px -18px rgba(245,165,36,.55)}
+  .up-hap b{display:block;font-size:9.5px;letter-spacing:1.2px;color:var(--amber);margin-bottom:3px}
+  @media(max-width:860px){
+    .urun-pencere{transform:none;margin-top:26px}
+    .urun-pencere:hover{transform:none}
+    .up-govde{grid-template-columns:1fr;gap:12px;padding:16px}
+    .up-sol .up-sik:nth-child(4){display:none}
+  }
 
   /* NOBET AKISI: tek satir, yavas kayar. Kenarlarda yumusak silinme (mask)
      olmazsa yazi kutuya carpip kesiliyormus gibi durur - o ucuz gorunur. */
