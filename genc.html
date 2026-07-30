@@ -62,16 +62,20 @@ td b{color:var(--ink)}
        Ayni mantik, bir kat asagi: once KIM OLDUGUNU sor, sonra ayrintiyi ver.
        Iki kart da kendi geri sayimini gosterir - tarih TURMOB'un resmi
        takviminden, uydurma sayac degil. ================================= -->
+  <!-- 30.07 Cem (2. tur): sekme yetmedi - "secmesem de koca dosya altta
+       duruyor; ana sayfadaki gibi olsun, icine girince gelsin." Kartlar artik
+       KAPI: sayfa yalniz kartlarla acilir, tiklayinca o sinavin dosyasi
+       (takvim+harita+kurallar) altta acilir. Deneme linki dosyanin icinde. -->
   <div class="ikikapi">
-    <a class="ik" href="deneme.html?sinav=SGS">
+    <a class="ik" data-s="SGS" href="?sinav=SGS">
       <span class="ik-ust">01</span>
       <b>Staja Giriş</b>
       <span class="ik-alt">SGS — staja başlamak için</span>
       <span class="ik-gun" id="ikSgs">—</span>
       <span class="ik-not">21 Kasım 2026</span>
-      <span class="ik-git">Soru çözmeye başla →</span>
+      <span class="ik-git">Takvim · harita · kurallar →</span>
     </a>
-    <a class="ik" href="deneme.html?sinav=SMMM">
+    <a class="ik" data-s="SMMM" href="?sinav=SMMM">
       <span class="ik-ust">02</span>
       <b>Staj Bitirme</b>
       <span class="ik-alt">Yeterlilik — ruhsat için</span>
@@ -79,11 +83,20 @@ td b{color:var(--ink)}
            Yeterlilik 3. donem 28 KASIM. Ogrenciye 2 hafta fazla gosteriyordu. -->
       <span class="ik-gun" id="ikYet">—</span>
       <span class="ik-not">28 Kasım 2026</span>
-      <span class="ik-git">Soru çözmeye başla →</span>
+      <span class="ik-git">Takvim · harita →</span>
+    </a>
+    <a class="ik" data-s="YMM" href="?sinav=YMM">
+      <span class="ik-ust">03</span>
+      <b>YMM</b>
+      <span class="ik-alt">Yeminli Mali Müşavirlik</span>
+      <span class="ik-gun" id="ikYmm">—</span>
+      <span class="ik-not">19 – 28 Eylül 2026</span>
+      <span class="ik-git">Takvimi aç →</span>
     </a>
   </div>
   <style>
-    .ikikapi{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 30px}
+    .ikikapi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 30px}
+    .ik.aktif{border-color:var(--amber);background:rgba(255,194,75,.07)}
     .ik{display:flex;flex-direction:column;text-decoration:none;color:inherit;
       background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px;
       transition:border-color .18s,transform .18s,background .18s}
@@ -102,36 +115,19 @@ td b{color:var(--ink)}
      robotla degistirilmez, elle teyitle guncellenir. */
   (function(){
     function gun(t){ return Math.ceil((new Date(t+'T09:00:00+03:00') - new Date())/86400000); }
-    var a=gun('2026-11-21'), b=gun('2026-11-28');
-    var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet');
+    var a=gun('2026-11-21'), b=gun('2026-11-28'), c=gun('2026-09-19');
+    var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet'), e3=document.getElementById('ikYmm');
     if(e1) e1.textContent = a>0 ? a : '0';
     if(e2) e2.textContent = b>0 ? b : '0';
+    if(e3) e3.textContent = c>0 ? c : '0';
   })();
   </script>
 
   <div class="sayac" id="sayac"></div>
 
-  <!-- ============ SINAV SEKMELERI (30.07 Cem) ============================
-       Uc takvim + iki harita ALT ALTA yigiliyordu; SGS'ye calisan YMM
-       tablosunun altinda kendi haritasini ariyordu. Deneme kabinindeki
-       sinav secimiyle AYNI sistem: sekme sec, yalniz o sinavin takvimi ve
-       cikan soru haritasi gorunsun. ?sinav= parametresi + localStorage. -->
-  <style>
-    .stgrup{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
-    .stgrup button{appearance:none;cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:700;
-      color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:11px 18px;
-      transition:border-color .15s,color .15s}
-    .stgrup button:hover{color:var(--ink)}
-    .stgrup button.aktif{color:var(--ink);border-color:var(--amber);background:rgba(255,194,75,.08)}
-  </style>
-  <div class="stgrup" id="sinavSekme">
-    <button type="button" data-s="SGS">🎯 Staja Giriş (SGS)</button>
-    <button type="button" data-s="SMMM">🎓 SMMM Yeterlilik</button>
-    <button type="button" data-s="YMM">🏛 YMM</button>
-  </div>
-
   <div class="sgrp sgrp-SGS">
   <h2>Staja Giriş Sınavı (SGS) — 2026</h2>
+  <p style="margin:2px 0 10px"><a href="deneme.html?sinav=SGS" style="color:var(--amber);font-weight:700;text-decoration:none">📝 Bu sınav için soru çözmeye başla →</a></p>
   <div class="tablosar"><table id="t-sgs">
     <tr><th>Dönem</th><th>Sınav tarihi</th><th>Başvuru dönemi</th></tr>
     <tr data-t="2026-04-18"><td>1. Dönem</td><td><b>18 Nisan 2026</b></td><td>2 – 20 Şubat 2026</td></tr>
@@ -143,6 +139,7 @@ td b{color:var(--ink)}
 
   <div class="sgrp sgrp-SMMM">
   <h2>SMMM Yeterlilik Sınavı — 2026</h2>
+  <p style="margin:2px 0 10px"><a href="deneme.html?sinav=SMMM" style="color:var(--amber);font-weight:700;text-decoration:none">📝 Bu sınav için soru çözmeye başla →</a></p>
   <div class="tablosar"><table id="t-smmm">
     <tr><th>Dönem</th><th>Sınav tarihi</th><th>Dosya başvuru</th><th>Tekrar başvuru</th></tr>
     <tr data-t="2026-04-25"><td>1. Dönem</td><td><b>25 Nisan 2026</b></td><td>19 Ocak – 6 Şubat</td><td>30 Ocak – 20 Şubat</td></tr>
@@ -197,28 +194,38 @@ td b{color:var(--ink)}
   </div>
 
   <script>
-  /* Sekme gecisi: yalniz secili sinavin bloklari gorunur. Blok ici
-     display mantiklari (harita yuklenince acilir vb.) etkilenmez -
-     sarmalayici div gizlenir/acilir. */
+  /* KAPI davranisi (30.07 Cem, 2. tur): sayfa VARSAYILAN kapali acilir -
+     yalniz kartlar gorunur, "ana sayfadaki gibi". Karta tiklayinca o sinavin
+     dosyasi (takvim+harita+kurallar) acilir ve oraya kayar. ?sinav= dogrudan
+     acar (deneme kutusundaki link boyle gelir). Blok ici display mantiklari
+     (harita yuklenince acilir vb.) etkilenmez - sarmalayici gizlenir/acilir. */
   (function(){
     var S=['SGS','SMMM','YMM'];
-    function sec(s){
-      if(S.indexOf(s)<0) s='SGS';
+    function sec(s, kaydir){
+      if(S.indexOf(s)<0) s=null;
+      var ilkAcik=null;
       document.querySelectorAll('.sgrp').forEach(function(el){
-        el.style.display = el.classList.contains('sgrp-'+s) ? '' : 'none';
+        var ac = s && el.classList.contains('sgrp-'+s);
+        el.style.display = ac ? '' : 'none';
+        if(ac && !ilkAcik) ilkAcik=el;
       });
-      document.querySelectorAll('#sinavSekme button').forEach(function(b){
-        b.classList.toggle('aktif', b.dataset.s===s);
+      document.querySelectorAll('.ikikapi .ik').forEach(function(k){
+        k.classList.toggle('aktif', !!s && k.dataset.s===s);
       });
-      try{ localStorage.setItem('gencSinav', s); }catch(e){}
+      if(kaydir && ilkAcik){
+        setTimeout(function(){ ilkAcik.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+      }
     }
-    document.querySelectorAll('#sinavSekme button').forEach(function(b){
-      b.addEventListener('click', function(){ sec(b.dataset.s); });
+    document.querySelectorAll('.ikikapi .ik').forEach(function(k){
+      k.addEventListener('click', function(e){
+        e.preventDefault();
+        sec(k.dataset.s, true);
+        try{ history.replaceState(null,'','?sinav='+k.dataset.s); }catch(err){}
+      });
     });
-    var p=null, h=null;
+    var p=null;
     try{ p=new URLSearchParams(location.search).get('sinav'); }catch(e){}
-    try{ h=localStorage.getItem('gencSinav'); }catch(e){}
-    sec(p||h||'SGS');
+    sec(p, !!p);   /* parametre yoksa HEPSI KAPALI - yalniz kapilar */
   })();
   </script>
 
