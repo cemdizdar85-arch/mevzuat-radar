@@ -500,22 +500,6 @@ function gtipGit(e){
       </a>
     </div>
 
-    <!-- ============ KANIT BANDI ==============================================
-         30.07 Cem: "bu rakamlar en sonda mi olmali?" - HAKLI: ABD SaaS deseni
-         kaniti hero'nun hemen altina koyar, ziyaretci kaydirmadan gormeli.
-         Sayfa dibinden buraya tasindi. Sayilar veri/vitrin-sayilar.json'dan
-         CANLI gelir (kasa-sayim robotu yazar); okunamazsa HTML'deki son
-         bilinen gercek kalir - bos/sifir ASLA basilmaz. -->
-    <div class="strip hafif" style="margin-top:18px">
-      <div class="strip-in">
-        <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
-        <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
-        <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
-        <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
-      </div>
-      <div id="vNot" style="text-align:center;font-size:10.5px;color:var(--dim);padding:6px 18px 0">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
-    </div>
-
     <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
          ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
          deseni: ortalanmış başlık, altında büyük ürün penceresi). Bizimki
@@ -681,6 +665,23 @@ function gtipGit(e){
           <span class="mp-git">Sorunu sor →</span>
         </span>
       </a>
+    </div>
+
+    <!-- ============ KANIT BANDI ==============================================
+         30.07 Cem (3. tur): kapilarin altinda ekranin dibine denk gelip
+         "sayfa bitti" gibi durdu, kucultunce de gorunmedi. Cem'in onerisi:
+         Koruyanlar rafinin ALTINA - iki rafin ara toplami gibi, altinda RG
+         nobeti devam ettigi icin final hissi de yok. Belirgin (cizgili) hal
+         geri geldi. Sayilar veri/vitrin-sayilar.json'dan CANLI gelir
+         (kasa-sayim robotu yazar); okunamazsa HTML'deki son gercek kalir. -->
+    <div class="strip" style="margin-top:30px">
+      <div class="strip-in">
+        <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
+        <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
+        <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
+        <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
+      </div>
+      <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
     </div>
 
     <!-- ================= NÖBET AKIŞI ==================================
