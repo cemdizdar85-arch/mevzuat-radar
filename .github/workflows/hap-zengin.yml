@@ -1,0 +1,48 @@
+# .github/workflows/hap-zengin.yml — HAP ZENGINLESTIRME (faz-2, PARALI HAT)
+# Emir kapisi: veri/uretim-emir.json "HAP ZENGINLESTIRME" onay=true olmadan
+# betik 0 USD ile "acik emir yok" der. Push tetigi bu yuzden guvenli - kilit
+# duzeninin duman testi. KURTAR=true ile yeni gonderim olmadan bedava hasat.
+name: Hap Zenginlestirme
+
+on:
+  workflow_dispatch:
+    inputs:
+      kurtar:
+        description: "true = yalniz bekleyen partileri hasat et (yeni gonderim YOK)"
+        required: false
+        default: "false"
+  push:
+    paths:
+      - 'motor/hap-zengin.ps1'
+      - '.github/workflows/hap-zengin.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hap-zengin
+  cancel-in-progress: false
+
+jobs:
+  zengin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Zenginlestir
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          KURTAR: ${{ github.event.inputs.kurtar == 'true' && '1' || '' }}
+        run: ./motor/hap-zengin.ps1
+      - name: Rapor + parti kimliklerini commit'le (kor kalma; odenmis is kaybolmaz)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase || true
+          for f in veri/hap-zengin-rapor.json veri/bekleyen-hap-partileri.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Hap zenginlestirme raporu [veri-operasyonu]"
+          git push || true
