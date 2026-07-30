@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260730120927
+Start time: 20260730172421
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a07adacc-0009-4bbb-b0d0-52dcc8eef4eb.ps1'
-Process ID: 2096
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2c2c38cc-dd92-463d-ac18-8ad51ce2a61c.ps1'
+Process ID: 2035
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -71,14 +71,14 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       464x  Hukuk|is sozlesmesi feshi
       169x  Maliyet Muhasebesi|ortak maliyet dagitimi
       103x  Finansal Tablolar ve Analizi|dikey yuzde analizi
-       78x  Yabanci Dil|cumle tamamlama
        78x  Maliyet Muhasebesi|satilan mamul maliyeti
-       73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       78x  Yabanci Dil|cumle tamamlama
        73x  Yabanci Dil|sentence completion
+       73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
        72x  Maliyet Muhasebesi|yan urun maliyeti
-       71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        71x  Maliyet Muhasebesi|gug yukleme katsayisi
        71x  Yabanci Dil|prepositions
+       71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        70x  Yabanci Dil|vocabulary
        67x  Yabanci Dil|vocabulary verb choice
        65x  Yabanci Dil|modal verbs
@@ -100,7 +100,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      toplamIzli       262
      IZLI ORAN      : %2.0
 -> veri/koku-izli.json  (262 kimlik, uslup turu icin)
--> veri/kasa-ornek.json  (1 ornek soru, tam metin)
+-> veri/kasa-ornek.json  (4 ornek soru, tam metin)
      KASADA yayin=false (denetim bekleyen) : 5912
      ...cekilen 1000
      ...cekilen 2000
@@ -136,5 +136,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260730121007
+End time: 20260730172457
 **********************
