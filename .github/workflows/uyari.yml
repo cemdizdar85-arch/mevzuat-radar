@@ -1,13 +1,27 @@
-# .github/workflows/uyari.yml  —  Radar uyarı robotu (#44 push)
-# Her sabah firmaları profiline göre tarar, yeni eşleşmeyi firma_uyarilari'na yazar + mail.
-# GEREKSİNİM (Cem GitHub secret ekleyecek): SUPABASE_SERVICE_KEY (zorunlu),
-# RESEND_KEY + RESEND_FROM (mail için, opsiyonel). Secret yoksa zarifçe atlar.
+# .github/workflows/uyari.yml  —  Radar uyarı robotu
+# Her sabah firmaları profiline göre tarar, YENİ eşleşmeyi firma_uyarilari'na
+# yazar (panel "🔔 Radar uyarıların" gösterir); RESEND takılıysa mail de atar.
+# ÜCRETSİZ: AI çağrısı yok — Supabase okuma/yazma + depo dosyaları.
+# GEREKSİNİM: SUPABASE_SERVICE_KEY (takılı), RESEND_KEY + RESEND_FROM (opsiyonel).
+# 30.07: push tetiği + özet commit'i eklendi — 23.07'den beri betik depoda
+# olmadığı için cron her sabah boşa düşüyordu ve İZ BIRAKMIYORDU (kör kalma).
 name: Radar Uyarı Robotu
 
 on:
   schedule:
-    - cron: "0 7 * * *"     # 07:00 UTC = 10:00 Türkiye (ihale + kart hasadından sonra)
+    - cron: "0 7 * * *"     # 07:00 UTC = 10:00 TR (ihale + kart hasadından sonra)
   workflow_dispatch:
+  push:
+    paths:
+      - 'motor/uyari-robotu.ps1'
+      - '.github/workflows/uyari.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uyari-robotu
+  cancel-in-progress: false
 
 jobs:
   uyari:
@@ -21,3 +35,12 @@ jobs:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/uyari-robotu.ps1
+      - name: Ozeti commit'le (kor kalma kurali - yalniz SAYILAR, kisisel veri yok)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase || true
+          if [ -f veri/uyari-ozet.json ]; then git add veri/uyari-ozet.json || true; fi
+          git diff --cached --quiet || git commit -m "Uyari robotu ozeti [veri-operasyonu]"
+          git push || true

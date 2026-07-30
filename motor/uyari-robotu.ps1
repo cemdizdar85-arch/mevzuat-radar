@@ -10,21 +10,55 @@ $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
+
+# KOR KALMA KURALI (30.07): kosu iz birakmali - yesil bitip sessiz kalmak yok.
+# veri/uyari-ozet.json YALNIZ SAYI tasir (depo public; e-posta/VKN asla girmez).
+$ozetYol = Join-Path $kok "veri/uyari-ozet.json"
+function OzetYaz($n){ [IO.File]::WriteAllText($ozetYol, (ConvertTo-Json -InputObject $n -Depth 4), (New-Object Text.UTF8Encoding($false))) }
+trap {
+  OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="HATA"
+    hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
+  Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message)
+  exit 1
+}
+
 $KEY = $env:SUPABASE_SERVICE_KEY
-if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok — uyari robotu atlandi. (GitHub Settings -> Secrets)"; exit 0 }
+if(-not $KEY){
+  OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="ATLANDI"; not="SUPABASE_SERVICE_KEY yok" })
+  Write-Host "SUPABASE_SERVICE_KEY yok — uyari robotu atlandi. (GitHub Settings -> Secrets)"; exit 0
+}
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY"; "Content-Type"="application/json" }
 
 function GtipNorm($s){ if($null -eq $s){ return "" }; return ([regex]::Replace("$s",'[^\d]','')) }
 function GtipEslesir($fk,$kk){ $a=GtipNorm $fk; $b=GtipNorm $kk; if($a.Length -lt 4 -or $b.Length -lt 4){ return $false }; $k=[Math]::Min($a.Length,$b.Length); return ($a.Substring(0,$k) -eq $b.Substring(0,$k)) }
-function TrUp($s){ if($null -eq $s){ return "" }; return (("$s" -replace 'i','İ' -replace 'ı','I').ToUpper()) }
+# 30.07 TURKIYE-I TUZAGI DUZELTMESI: -replace buyuk/kucuk DUYARSIZDIR ve
+# invariant kulturde 'i' deseni 'I'yi de yakalar - il eslesmesi bulutta
+# sessizce sapabilirdi. Denetcideki ders (yapisal-denetci TrKucuk) kardes
+# betige uygulandi: -creplace (duyarli) + ToUpperInvariant.
+function TrUp($s){ if($null -eq $s){ return "" }; return (("$s" -creplace 'i','İ' -creplace 'ı','I').ToUpperInvariant()) }
+
+# 30.07: ilan.gov.tr akisi ihale-DISI kayit da tasir (mahkeme/icra/tebligat).
+# Panel bunlari eliyor; robot elemeden "ihale" diye uyari yazamaz - uyeye
+# durusma ilanini ihale diye mail atmak guven oldurur. Panelle AYNI liste.
+$IHALE_DISI = @('durusma','duruşma','tebligat','tebliğ','ilanen','mahkeme','icra','cekilis','çekiliş','genel kurul','kayyim','kayyım','iflas','konkordato','veraset')
+function IhaleMi($x){
+  $t = ("$($x.baslik) $($x.kurum)").ToLowerInvariant()
+  foreach($kelime in $IHALE_DISI){ if($t.Contains($kelime)){ return $false } }
+  return $true
+}
 
 # --- veri kaynaklari ---
 $ihale = @(); try { $ihale = (Get-Content (Join-Path $kok "veri\ihale-yurtici.json") -Raw -Encoding UTF8 | ConvertFrom-Json).ilanlar } catch {}
 $kartlar = @(); try { $kartlar = (Get-Content (Join-Path $kok "veri\kartlar-guncel.json") -Raw -Encoding UTF8 | ConvertFrom-Json).kartlar } catch {}
 
 # --- firmalar (service role RLS'i bypass eder) ---
-$firmalar = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/firmalar?select=*" -Headers $H -TimeoutSec 90
-if(-not $firmalar){ Write-Host "Firma yok."; exit 0 }
+$firmalar = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/firmalar?select=*" -Headers $H -TimeoutSec 90)
+if(-not $firmalar.Count){
+  OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAMAM"; firma=0; yeni_uyari=0
+    not="Henuz firma eklenmemis - panelden '+ Firma ekle' ile baslanir."
+    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count } })
+  Write-Host "Firma yok."; exit 0
+}
 
 # --- mevcut uyarilar (tekrar yazmamak icin anahtar seti) ---
 $mevcut = @{}
@@ -40,7 +74,7 @@ foreach($f in $firmalar){
   $bulunan = @()
   # 1) IHALE (il)
   $ilU = TrUp $f.il
-  if($ilU){ foreach($x in $ihale){ if((TrUp $x.il) -eq $ilU){
+  if($ilU){ foreach($x in $ihale){ if((IhaleMi $x) -and (TrUp $x.il) -eq $ilU){
     $bas = "$($x.baslik)"; $bulunan += @{ tur="ihale"; baslik=$bas; detay=("$($x.kurum) · $($x.il) · $($x.tarih)"); url=$x.url; onem="orta" }
   } } }
   # 2) RG KARTI (GTIP)
@@ -64,7 +98,12 @@ foreach($f in $firmalar){
   }
 }
 
-if($yeni.Count -eq 0){ Write-Host "Yeni uyari yok."; exit 0 }
+if($yeni.Count -eq 0){
+  OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAMAM"; firma=$firmalar.Count; yeni_uyari=0
+    not="Bugun yeni eslesme yok - mukerrer kilidi eskiyi tekrar yazmaz."
+    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count } })
+  Write-Host "Yeni uyari yok."; exit 0
+}
 
 # --- toplu yaz ---
 $body = ($yeni | ConvertTo-Json -Depth 5)
@@ -83,4 +122,12 @@ if($RK -and $RF){
     try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $RK"; "Content-Type"="application/json" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 60 | Out-Null; $sent++ } catch { Write-Host "Mail hata ($($m.email)): $($_.Exception.Message)" }
   }
   Write-Host ("Gonderilen mail: {0}" -f $sent)
-} else { Write-Host "RESEND_KEY/FROM yok — mail atlandi (uyarilar panoda gorunur)." }
+} else { $sent = 0; Write-Host "RESEND_KEY/FROM yok — mail atlandi (uyarilar panoda gorunur)." }
+
+OzetYaz ([ordered]@{
+  tarih = (Get-Date -Format "dd.MM.yyyy HH:mm"); durum = "TAMAM"
+  firma = $firmalar.Count; yeni_uyari = $yeni.Count; mail_gonderilen = $sent
+  mail_notu = if($RK -and $RF){ "RESEND takili" } else { "RESEND anahtari yok - uyarilar panele yazildi, mail atlandi" }
+  veri = [ordered]@{ rg_karti = @($kartlar).Count; ihale_ilani = @($ihale).Count }
+})
+Write-Host ("TAMAM: {0} firma, {1} yeni uyari." -f $firmalar.Count, $yeni.Count)
