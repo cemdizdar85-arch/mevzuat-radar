@@ -47,7 +47,12 @@ jobs:
           # Bu listeye yazilmayan dosya SESSIZCE kaybolur: is akisi yesil biter,
           # dosya uretilir, hicbir yere gitmez. yeni-uretim-ornek.json bir kosu
           # boyunca tam boyle kayboldu.
-          for f in veri/kasa-sayim.json veri/kasa-ornek.json veri/pilot-ornek.json veri/pilot-kuyrugu.json veri/yeni-uretim-ornek.json veri/kasa-log.txt veri/denetim-kuyrugu.json veri/koku-izli.json; do
+          # 30.07 GUVENLIK: pilot-ornek.json + yeni-uretim-ornek.json +
+          # kasa-ornek.json listeden CIKARILDI ve .gitignore'a alindi.
+          # Ucu de kasadan (yayin suzgeci OLMADAN) tam soru metni tasiyordu -
+          # depo PUBLIC. 745-soru dersinin devami: GM okumasi artik yerel
+          # kosuyla yapilir (betik dosyalari hala uretir, yalnizca push edilmez).
+          for f in veri/kasa-sayim.json veri/pilot-kuyrugu.json veri/kasa-log.txt veri/denetim-kuyrugu.json veri/koku-izli.json; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Kasa sayimi guncellendi [veri-operasyonu]"

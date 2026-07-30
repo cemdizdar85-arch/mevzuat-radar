@@ -174,6 +174,10 @@ $resmiIsaretLc = 'resm[iî]\s*gazete|\brg\b|say[iı]l[iı]|gib|gov\.tr|\bmadde\b
 function ResmiIsaretVar([string]$t){ return ((TrKucuk $t) -match $resmiIsaretLc) }
 Get-ChildItem $veri -Filter *.json | ForEach-Object {
   $metin = Get-Content $_.FullName -Raw -Encoding UTF8
+  # BOS DOSYA = SESSIZ VERI KAYBI ISARETI (30.07: 0-bayt pilot-ornek.json
+  # denetciyi null'la cokertti, kapi sabahtan beri kirmiziydi ve KIMSE
+  # GORMEDI). Cokme yerine ACIK hata: bos json ya silinmeli ya doldurulmali.
+  if([string]::IsNullOrWhiteSpace($metin)){ Hata "$($_.Name) : BOS JSON dosyasi - ya sessiz veri kaybi ya unutulmus kalinti. Sil ya da doldur."; return }
   foreach($k in $ikincilKaynaklar){
     if($metin.ToLower().Contains($k.ToLower())){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
   }

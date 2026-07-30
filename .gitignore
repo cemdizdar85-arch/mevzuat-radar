@@ -16,3 +16,11 @@ veri/fabrika/
 
 # 30.07 - YEREL SQL: parali soru icerigi tasiyan SQL dosyalari depoya girmez.
 sql-yerel/
+
+# 30.07 - GM ORNEK DOSYALARI DA KAPANDI (29.07 "10 soru kalabilir" karari
+# GUNCELLENDI): o taviz GM'nin baska okuma kanali olmadigi icin verilmisti.
+# Artik sql-yerel/ yerel okuma kanali var - 10 soruluk sizintiya da gerek yok.
+# Betik dosyalari yerelde uretmeye devam eder, depoya girmezler.
+veri/kasa-ornek.json
+veri/pilot-ornek.json
+veri/yeni-uretim-ornek.json
