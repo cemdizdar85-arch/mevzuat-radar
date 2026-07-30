@@ -492,6 +492,22 @@ function gtipGit(e){
       </a>
     </div>
 
+    <!-- ============ KANIT BANDI ==============================================
+         30.07 Cem: "bu rakamlar en sonda mi olmali?" - HAKLI: ABD SaaS deseni
+         kaniti hero'nun hemen altina koyar, ziyaretci kaydirmadan gormeli.
+         Sayfa dibinden buraya tasindi. Sayilar veri/vitrin-sayilar.json'dan
+         CANLI gelir (kasa-sayim robotu yazar); okunamazsa HTML'deki son
+         bilinen gercek kalir - bos/sifir ASLA basilmaz. -->
+    <div class="strip" style="margin-top:34px">
+      <div class="strip-in">
+        <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
+        <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
+        <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
+        <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
+      </div>
+      <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
+    </div>
+
     <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
          ABD SaaS sayfalarının kalbi "ekran içinde ürün"dür (Linear/Stripe
          deseni: ortalanmış başlık, altında büyük ürün penceresi). Bizimki
@@ -811,21 +827,6 @@ function gtipGit(e){
 .rgk .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
 @media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }
 </style>
-<!-- ============ STAT STRIP ============ -->
-<div class="strip">
-  <div class="strip-in">
-    <!-- 30.07 KANIT BANDI (Cem: "2 numara - sosyal kanit"). Kullanici yorumu
-         henuz yok (site acilmadi) ve UYDURULMAZ; elimizdeki gercek kanit
-         URETIM RAKAMLARI. Sayilar veri/vitrin-sayilar.json'dan CANLI gelir -
-         o dosyayi kasa-sayim robotu her kosuda gunceller (elle rakam yasamaz).
-         HTML'deki degerler yedek: JSON okunamazsa son bilinen gercek kalir. -->
-    <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
-    <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
-    <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
-    <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
-  </div>
-  <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
-</div>
 <script>
 /* VITRIN RG KUTUSU CANLI: gunun ilk kartini kartlar-guncel.json'dan doldur */
 (function(){
@@ -899,14 +900,23 @@ function gtipGit(e){
         var t = new Date(+p[2], +p[1]-1, +p[0]);
         yas = Math.floor((new Date() - t) / 86400000);
       }
-      var etiket = 'Gerçek Resmî Gazete taraması · <b style="color:var(--muted)">'+ g +'</b>';
+      // 30.07: "Son tarama 11.07 - 19 gun once" diye yaziyorduk; o tarih son
+      // KARTIN tarihi, taramanin degil (robot her gun kosuyor, sakin RG gunu
+      // kart cikmaz). Ustteki rozet 30.07 derken burasi 11.07 deyince robot
+      // uyuyor gibi gorunuyordu. Ayrim netlesti: tarama tarihi kart-durum
+      // dosyasindan, kart tarihi ayri etikette.
+      var etiket = 'Son hap kart · <b style="color:var(--muted)">'+ g +'</b>';
       if(yas !== null && yas > 3){
         etiket += ' <span style="color:var(--amber)">· ' + yas + ' gün önce</span>';
-        // 30.07: not, izgara HUCRESINE dusup kartla ayni boya geriliyordu
-        // (dev bos kutu gorunumu). rg-durum sinifi tam satira yayar.
-        kutu.insertAdjacentHTML('afterbegin',
-          '<div class="rg-durum">⏸ Son tarama <b style="color:var(--ink)">' + g + '</b>'
-          + ' — nöbet açılışla birlikte her gün otomatik çalışacak.</div>');
+        fetch('veri/kart-durum.json', {cache:'no-store'})
+          .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+          .then(function(s){
+            var tur = (s && s.sonTarama) ? s.sonTarama : null;
+            kutu.insertAdjacentHTML('afterbegin',
+              '<div class="rg-durum">● Robot her gün tarıyor'
+              + (tur ? ' — son tur <b style="color:var(--ink)">' + tur + '</b>' : '')
+              + '. Son karttan beri seni ilgilendiren yeni değişiklik çıkmadı.</div>');
+          }).catch(function(){});
       }
       knk.innerHTML = etiket + ' · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
     })
