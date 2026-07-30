@@ -122,6 +122,14 @@ var css=''+
 '.mrxArac b{display:block;font-size:13.5px;letter-spacing:-.2px}'+
 '.mrxArac span{display:block;font-size:12px;color:#93a1b3;margin-top:2px;line-height:1.4}'+
 '#mrxYok{display:none;text-align:center;color:#5d6b7c;padding:26px 0;font-size:14px}'+
+/* 30.07 Cem: arac sayfalarinin tepesindeki duz "Tetikte" yazisi logoyu
+   temsil etmiyordu. Ana sayfadaki marka yazisinin aynisi (kucuk harf,
+   noktasiz i + ustunde kehribar lamba noktasi) buradan her sayfaya girer. */
+'.mrxMarka{font-weight:800 !important;font-size:18px !important;letter-spacing:-.6px;'+
+ 'color:#eef2f7 !important;text-decoration:none !important;line-height:1}'+
+'.mrxMarka .mi{position:relative}'+
+'.mrxMarka .mi:after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);'+
+ 'width:5px;height:5px;border-radius:50%;background:#f5a524;box-shadow:0 0 8px rgba(245,165,36,.8)}'+
 '@media print{#mrxFab,#mrxKaplama{display:none!important}}';
 
 function trU(s){return s.replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');}
@@ -172,6 +180,20 @@ function kur(){
   document.getElementById('mrxAra').addEventListener('input',function(e){ suz(e.target.value); });
 
   window.MRMenu={ac:ac,kapat:kapat};
+
+  /* Marka yukseltici: yalniz tepe seritteki (yaninda lamba/logo olan)
+     "Tetikte" linkini logo yazisina cevirir; metin ici linklere dokunmaz. */
+  try {
+    document.querySelectorAll('a').forEach(function(a){
+      if(a.textContent.trim()!=='Tetikte') return;
+      var p=a.previousElementSibling;
+      var tepede=(p&&p.classList&&(p.classList.contains('logo')||p.classList.contains('lamba')))
+        ||(a.parentElement&&a.parentElement.classList&&a.parentElement.classList.contains('top'));
+      if(!tepede) return;
+      a.classList.add('mrxMarka');
+      a.innerHTML='tet<span class="mi">ı</span>kte';
+    });
+  } catch(e) {}
 
   /* ── YASAL FOOTER (30.07 kurumsallik taramasi, bulgu #7) ──────────────
      13 sayfada KVKK/iletisim baglantisi yoktu; menu.js her sayfada yuklu
