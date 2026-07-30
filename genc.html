@@ -67,15 +67,18 @@ td b{color:var(--ink)}
        KAPI: sayfa yalniz kartlarla acilir, tiklayinca o sinavin dosyasi
        (takvim+harita+kurallar) altta acilir. Deneme linki dosyanin icinde. -->
   <div class="ikikapi">
-    <a class="ik" data-s="SGS" href="?sinav=SGS">
+    <!-- 30.07 Cem (4. tur): "01'e tikladigimda HAZIRLADIGIMIZ SORULAR gelecek
+         sadece." Kapi = soru kabini. Takvim/harita kutulari asagida durur,
+         kendi kucuk secicisiyle. -->
+    <a class="ik" href="deneme.html?sinav=SGS">
       <span class="ik-ust">01</span>
       <b>Staja Giriş</b>
       <span class="ik-alt">SGS — staja başlamak için</span>
       <span class="ik-gun" id="ikSgs">—</span>
       <span class="ik-not">21 Kasım 2026</span>
-      <span class="ik-git">Takvim · harita · kurallar →</span>
+      <span class="ik-git">Soru çözmeye başla →</span>
     </a>
-    <a class="ik" data-s="SMMM" href="?sinav=SMMM">
+    <a class="ik" href="deneme.html?sinav=SMMM">
       <span class="ik-ust">02</span>
       <b>Staj Bitirme</b>
       <span class="ik-alt">Yeterlilik — ruhsat için</span>
@@ -83,7 +86,7 @@ td b{color:var(--ink)}
            Yeterlilik 3. donem 28 KASIM. Ogrenciye 2 hafta fazla gosteriyordu. -->
       <span class="ik-gun" id="ikYet">—</span>
       <span class="ik-not">28 Kasım 2026</span>
-      <span class="ik-git">Takvim · harita →</span>
+      <span class="ik-git">Soru çözmeye başla →</span>
     </a>
     <!-- 30.07 Cem: "YMM'yi gormeyelim, suan isimiz yok" - kart kaldirildi.
          Tablosu sayfada gizli duruyor (kart olmadan hic acilmaz) ki takvim
@@ -97,6 +100,11 @@ td b{color:var(--ink)}
        her sgrp bir kart: takvim / cikan sorular / kurallar ayri kutularda. */
     .sgrp{border:1px solid var(--line2);border-radius:16px;padding:18px 20px;margin:14px 0;background:var(--panel)}
     .sgrp>h2:first-child{margin-top:0}
+    .dsec{appearance:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;
+      color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:999px;padding:7px 15px;
+      transition:border-color .15s,color .15s}
+    .dsec:hover{color:var(--ink)}
+    .dsec.aktif{color:var(--ink);border-color:var(--amber);background:rgba(255,194,75,.08)}
     .ik{display:flex;flex-direction:column;text-decoration:none;color:inherit;
       background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px;
       transition:border-color .18s,transform .18s,background .18s}
@@ -123,6 +131,14 @@ td b{color:var(--ink)}
   </script>
 
   <div class="sayac" id="sayac"></div>
+
+  <!-- Kutu dosyalarinin kucuk secicisi: kapilar SORUYA gider (deneme.html),
+       takvim/harita/kurallar kutulari arasinda gecis buradan yapilir. -->
+  <div id="dosyaSec" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:2px 0 12px">
+    <span style="font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:800">Takvim · harita · kurallar:</span>
+    <button type="button" class="dsec" data-s="SGS">Staja Giriş</button>
+    <button type="button" class="dsec" data-s="SMMM">Yeterlilik</button>
+  </div>
 
   <div class="sgrp sgrp-SGS">
   <h2>Staja Giriş Sınavı (SGS) — 2026</h2>
@@ -220,19 +236,15 @@ td b{color:var(--ink)}
         el.style.display = ac ? '' : 'none';
         if(ac && !ilkAcik) ilkAcik=el;
       });
-      document.querySelectorAll('.ikikapi .ik').forEach(function(k){
-        k.classList.toggle('aktif', !!s && k.dataset.s===s);
+      document.querySelectorAll('#dosyaSec .dsec').forEach(function(b){
+        b.classList.toggle('aktif', !!s && b.dataset.s===s);
       });
       if(kaydir && ilkAcik){
         setTimeout(function(){ ilkAcik.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
       }
     }
-    document.querySelectorAll('.ikikapi .ik').forEach(function(k){
-      k.addEventListener('click', function(e){
-        e.preventDefault();
-        sec(k.dataset.s, true);
-        try{ history.replaceState(null,'','?sinav='+k.dataset.s); }catch(err){}
-      });
+    document.querySelectorAll('#dosyaSec .dsec').forEach(function(b){
+      b.addEventListener('click', function(){ sec(b.dataset.s, false); });
     });
     var p=null;
     try{ p=new URLSearchParams(location.search).get('sinav'); }catch(e){}
