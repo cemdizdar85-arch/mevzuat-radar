@@ -668,7 +668,12 @@ function gtipGit(e){
 
 <style>
   .hero-sade{min-height:auto;display:block;text-align:center;padding:0 !important}
-  .sade-ic{position:relative;max-width:1180px;margin:0 auto;padding:96px 20px 26px;width:100%}
+  /* 30.07 Cem sorusu: "ilk ekranda nobetin tamami gorunsun mu?" Karar:
+     GORUNSUN - kasitli goz kirpma (scroll cue). Ilk ekran kendi icinde
+     "bitti" hissi verirse ziyaretci kaydirmiyor. Dikey bosluklar bir tik
+     sikilastirildi ki bolum basligi + kutu tepeleri yaygin ekranlarda
+     ekran altindan gorunsun. */
+  .sade-ic{position:relative;max-width:1180px;margin:0 auto;padding:80px 20px 22px;width:100%}
   .hero-sade h1{margin:0 0 10px;font-size:clamp(30px,4.2vw,52px)}
   .sade-alt{color:var(--muted);font-size:clamp(14.5px,1.5vw,16.5px);max-width:660px;margin:0 auto 22px}
   .sade-soru{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);
@@ -690,7 +695,7 @@ function gtipGit(e){
 
   /* MINI PENCERELER: buyuk pencerenin altinda isin genisligi - 4 kucuk urun.
      Ayni pencere dili (nokta bari), daha kucuk olcek. */
-  .mini-baslik{margin:30px 0 12px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
+  .mini-baslik{margin:22px 0 12px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
     color:var(--dim);font-weight:800}
   .mini-pencereler{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1180px;margin:0 auto}
   /* sinav kutusu "basta" kalir: vurgulu cerceve + hafif kehribar zemin */
