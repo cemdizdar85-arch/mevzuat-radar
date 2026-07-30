@@ -16,14 +16,17 @@ try {
       var d = document.createElement('div');
       d.id = 'mrPerde';
       d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#06090f;color:#eef2f7;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
+      /* 30.07: perde ziyaretcinin gordugu ILK ekran ve eski markayla duruyordu
+         (koseli T kutusu + yesil nokta + yesil buton). Rebrand kurali: nobet
+         lambasi + kehribar; yesil yalniz durum rengidir, marka rengi degil. */
       d.innerHTML = '<div style="max-width:460px">'+
-        '<div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#f5a524,#ffc24b);display:inline-grid;place-items:center;color:#03101f;font-weight:800;font-size:26px;margin-bottom:18px">T</div>'+
-        '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ddc97;animation:mrNbz 1.6s ease-out infinite"></span></h1>'+
+        '<div style="width:18px;height:18px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 7px rgba(245,165,36,.16),0 0 26px rgba(245,165,36,.6);display:inline-block;margin-bottom:20px;animation:mrNbz 2.2s ease-in-out infinite"></div>'+
+        '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte</h1>'+
         '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
         '<p style="color:#93a1b3;font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:#eef2f7">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
         '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:#0d141e;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:12px 14px">'+
-        '<button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
+        '<button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button></form>'+
         '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div>'+
         '<div style="font-size:11px;color:#5d6b7c;margin-top:16px">Katılınca bilgilendirme e-postası almayı kabul edersin.</div></div>';
       document.body.appendChild(d);
