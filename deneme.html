@@ -293,7 +293,7 @@ function takvimCiz(){
   if(!sat.length){ k.style.display='none'; return; }
   var takvimHedef = 'genc.html?sinav=' + (SINAV==='hepsi' ? 'SGS' : SINAV);
   k.innerHTML = sat.join('<br>')
-    + '<br><a href="'+takvimHedef+'" style="color:var(--accent2)">Takvimin tamamı (YMM dahil) →</a>'
+    + '<br><a href="'+takvimHedef+'" style="color:var(--accent2)">Takvimin tamamı →</a>'
     + (TAKVIM.sonTeyit ? ' <span style="color:var(--dim);font-size:11px">· resmî PDF teyidi: '+TAKVIM.sonTeyit+'</span>' : '');
   k.style.display='block';
 }

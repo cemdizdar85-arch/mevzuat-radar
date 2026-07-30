@@ -85,18 +85,18 @@ td b{color:var(--ink)}
       <span class="ik-not">28 Kasım 2026</span>
       <span class="ik-git">Takvim · harita →</span>
     </a>
-    <a class="ik" data-s="YMM" href="?sinav=YMM">
-      <span class="ik-ust">03</span>
-      <b>YMM</b>
-      <span class="ik-alt">Yeminli Mali Müşavirlik</span>
-      <span class="ik-gun" id="ikYmm">—</span>
-      <span class="ik-not">19 – 28 Eylül 2026</span>
-      <span class="ik-git">Takvimi aç →</span>
-    </a>
+    <!-- 30.07 Cem: "YMM'yi gormeyelim, suan isimiz yok" - kart kaldirildi.
+         Tablosu sayfada gizli duruyor (kart olmadan hic acilmaz) ki takvim
+         tutarlilik kapisi (nokta-kontrol, JSON<->data-t) bozulmasin ve
+         ileride tek satirla geri gelsin. -->
   </div>
   <style>
-    .ikikapi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 30px}
+    .ikikapi{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 30px}
     .ik.aktif{border-color:var(--amber);background:rgba(255,194,75,.07)}
+    /* 30.07 Cem: dosya icerigi "EN YAKIN" kutulari gibi KUTUCUK olsun -
+       her sgrp bir kart: takvim / cikan sorular / kurallar ayri kutularda. */
+    .sgrp{border:1px solid var(--line2);border-radius:16px;padding:18px 20px;margin:14px 0;background:var(--panel)}
+    .sgrp>h2:first-child{margin-top:0}
     .ik{display:flex;flex-direction:column;text-decoration:none;color:inherit;
       background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px;
       transition:border-color .18s,transform .18s,background .18s}
@@ -115,11 +115,10 @@ td b{color:var(--ink)}
      robotla degistirilmez, elle teyitle guncellenir. */
   (function(){
     function gun(t){ return Math.ceil((new Date(t+'T09:00:00+03:00') - new Date())/86400000); }
-    var a=gun('2026-11-21'), b=gun('2026-11-28'), c=gun('2026-09-19');
-    var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet'), e3=document.getElementById('ikYmm');
+    var a=gun('2026-11-21'), b=gun('2026-11-28');
+    var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet');
     if(e1) e1.textContent = a>0 ? a : '0';
     if(e2) e2.textContent = b>0 ? b : '0';
-    if(e3) e3.textContent = c>0 ? c : '0';
   })();
   </script>
 
@@ -187,8 +186,10 @@ td b{color:var(--ink)}
     <div id="haritaIc"></div>
     <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynaklara bakın. Analiz tarihi ve dönem listesi tabloda.</div>
   </div>
+  </div>
 
-  <h2>SGS'nin resmî kuralları — yönergeden, madde madde</h2>
+  <div class="sgrp sgrp-SGS">
+  <h2>⚠️ SGS'nin resmî kuralları — yönergeden, madde madde</h2>
   <div class="tablosar"><table>
     <tr><th>Kural</th><th>Resmî hüküm</th></tr>
     <tr><td><b>Soru yapısı</b></td><td><b>130 soru:</b> 100 Alan Bilgisi + 20 Genel Kültür-Yetenek + 10 Yabancı Dil (İng/Alm/Fra seçmeli)</td></tr>
@@ -235,7 +236,9 @@ td b{color:var(--ink)}
     });
     var p=null;
     try{ p=new URLSearchParams(location.search).get('sinav'); }catch(e){}
-    sec(p, !!p);   /* parametre yoksa HEPSI KAPALI - yalniz kapilar */
+    /* 30.07 Cem (3. tur): "ana sayfadan geldim, sinavlar kaybolmus" -
+       bos acilis yaniltti. Varsayilan SGS ACIK; kapiyla degistirilir. */
+    sec(p||'SGS', !!p);
   })();
   </script>
 
