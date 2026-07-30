@@ -282,6 +282,10 @@
     border-radius:14px;background:var(--panel);text-decoration:none;color:inherit;
     transition:transform .15s,border-color .15s,box-shadow .15s}
   .arac:hover{transform:translateY(-2px);border-color:rgba(245,165,36,.4);box-shadow:0 8px 26px rgba(0,0,0,.25)}
+  /* 30.07 Cem: "yukarida verdiklerimizi katalogdan cikartalim" - vitrindeki
+     11 arac varsayilanda GIZLI; arama yazilinca tam katalog geri gelir
+     (arayan "GTIP yok" sanmasin - butunluk aramada korunur). */
+  .arac.vitrinde{display:none}
   .arac .em{font-size:22px;line-height:1;margin-top:2px}
   .arac b{display:block;font-size:14.5px;letter-spacing:-.2px}
   .arac span{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
@@ -1010,17 +1014,17 @@ function gtipGit(e){
 <section id="araclar" style="padding-top:0">
   <div class="sec-in">
     <div class="sec-head reveal">
-      <h2>Tüm araçlar — tek bakışta</h2>
-      <p>25 araç, hepsi ücretsiz, hepsi kaynağa bağlı. Aradığını yaz, saniyede bul.</p>
+      <h2>Araç kataloğu — vitrinde görmediklerin</h2>
+      <p>Yukarıdaki kutularda öne çıkanların dışında kalan araçlar burada. Arama, <b style="color:var(--ink)">25 aracın hepsinde</b> çalışır — yaz, saniyede bul.</p>
     </div>
     <input id="aracAra" type="search" placeholder="🔍  Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
 
     <div class="kat-grup" id="kg1">
       <h3>🛃 Gümrük &amp; İthalat</h3>
       <div class="araclar-grid">
-        <a class="arac" href="gtip.html"><span class="em">🔎</span><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
+        <a class="arac vitrinde" href="gtip.html"><span class="em">🔎</span><div><b>GTİP · Kaç Vergi Öderim?</b><span>İthal ürünün kodunu gir; gümrük vergisi, KDV ve diğer kesintileri saniyede gör.</span></div></a>
         <a class="arac" href="risk-taramasi.html"><span class="em">🛃</span><div><b>Beyanname Risk Taraması</b><span>Beyannameyi vermeden önce ceza çıkabilecek noktaları tara.</span></div></a>
-        <a class="arac" href="senaryo-raporu.html"><span class="em">🌍</span><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
+        <a class="arac vitrinde" href="senaryo-raporu.html"><span class="em">🌍</span><div><b>Nereden Alsam?</b><span>Aynı ürünü farklı ülkelerden almanın toplam vergi yükünü karşılaştır.</span></div></a>
         <a class="arac" href="hizmet.html"><span class="em">🌐</span><div><b>Yurt Dışı Hizmet Faturası</b><span>Google, yazılım, danışmanlık… yurt dışı faturada KDV ve stopajı hesapla.</span></div></a>
         <a class="arac" href="fiyatfarki.html"><span class="em">💱</span><div><b>Credit / Debit Note</b><span>İthalattan sonra gelen fiyat farkında vergi ne olur, adım adım gör.</span></div></a>
       </div>
@@ -1029,15 +1033,15 @@ function gtipGit(e){
     <div class="kat-grup" id="kg2">
       <h3>🧾 Vergi, Ceza &amp; Rehberler</h3>
       <div class="araclar-grid">
-        <a class="arac" href="soru-cevap.html"><span class="em">💬</span><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
+        <a class="arac vitrinde" href="soru-cevap.html"><span class="em">💬</span><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
         <a class="arac" href="ceza-asistani.html"><span class="em">⚖️</span><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim, uzlaşma, dava — hangi kapı sana uygun, gör.</span></div></a>
         <a class="arac" href="asgari-kv.html"><span class="em">🧾</span><div><b>Asgari Kurumlar Vergisi</b><span>%10 tabana takılıyor musun? 2025 sonrası yeni kurala göre hesapla.</span></div></a>
-        <a class="arac" href="kdv-iade-rehberi.html"><span class="em">💰</span><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
-        <a class="arac" href="kurulus.html"><span class="em">🏢</span><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
+        <a class="arac vitrinde" href="kdv-iade-rehberi.html"><span class="em">💰</span><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
+        <a class="arac vitrinde" href="kurulus.html"><span class="em">🏢</span><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
         <a class="arac" href="kurulus-evrak.html"><span class="em">🗂️</span><div><b>Kuruluş Evrak Çantası</b><span>Kuruluşta hangi belge, kim doldurur, nereye verilir — tek liste.</span></div></a>
         <a class="arac" href="sayfalar/index.html"><span class="em">✅</span><div><b>Eşik Rehberi</b><span>Çalışan sayısı ve ciroya göre hangi zorunluluklar başlıyor, listele.</span></div></a>
         <a class="arac" href="bilgi.html"><span class="em">📚</span><div><b>Bilgi Havuzu</b><span>Merak ettiğin konunun sade Türkçe özeti ve kaynak maddesi.</span></div></a>
-        <a class="arac" href="genc.html"><span class="em">🎓</span><div><b>Genç Müşavir</b><span>2026 SGS + Yeterlilik sınav takvimi, geri sayımlı — resmî kaynaktan.</span></div></a>
+        <a class="arac vitrinde" href="genc.html"><span class="em">🎓</span><div><b>Genç Müşavir</b><span>2026 SGS + Yeterlilik sınav takvimi, geri sayımlı — resmî kaynaktan.</span></div></a>
         <a class="arac" href="deneme.html"><span class="em">📝</span><div><b>Deneme Sınavı</b><span>Özgün sorular; her şıkkın gerekçesi + kaynak kuralı. Ezber değil.</span></div></a>
         <a class="arac" href="donem-plani.html"><span class="em">🗺️</span><div><b>Dönem Planı</b><span>Sınava kalan haftaları haritanın ağırlıklarıyla faz faz doldur.</span></div></a>
         <a class="arac" href="songun.html"><span class="em">⏳</span><div><b>Son Gün 5 Saat</b><span>Dönem Planı'nın finali + sınav sabahı rehberi. Dakikalar haritadan.</span></div></a>
@@ -1048,11 +1052,11 @@ function gtipGit(e){
       <h3>📡 Takip Radarları</h3>
       <div class="araclar-grid">
         <a class="arac" href="radar.html"><span class="em">📰</span><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
-        <a class="arac" href="kartlar.html"><span class="em">💊</span><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
-        <a class="arac" href="destekler.html"><span class="em">🎯</span><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
-        <a class="arac" href="ihale-radari.html"><span class="em">📣</span><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
-        <a class="arac" href="alacak-radari.html"><span class="em">🚨</span><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilan ederse ilk sen duy; süreyi kaçırma.</span></div></a>
-        <a class="arac" href="marka-radari.html"><span class="em">™️</span><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
+        <a class="arac vitrinde" href="kartlar.html"><span class="em">💊</span><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
+        <a class="arac vitrinde" href="destekler.html"><span class="em">🎯</span><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
+        <a class="arac vitrinde" href="ihale-radari.html"><span class="em">📣</span><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
+        <a class="arac vitrinde" href="alacak-radari.html"><span class="em">🚨</span><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilan ederse ilk sen duy; süreyi kaçırma.</span></div></a>
+        <a class="arac vitrinde" href="marka-radari.html"><span class="em">™️</span><div><b>Marka Radarı</b><span>Marka yenileme tarihin yaklaşınca ve benzer başvuru çıkınca uyarı.</span></div></a>
         <a class="arac" href="marka-itiraz.html"><span class="em">🔍</span><div><b>Marka İtiraz &amp; Benzerlik</b><span>Yeni başvuru markana benziyor mu? İtiraz süren dolmadan gör.</span></div></a>
       </div>
     </div>
@@ -1080,7 +1084,9 @@ function gtipGit(e){
     document.querySelectorAll('.kat-grup').forEach(g=>{
       let sayi=0;
       g.querySelectorAll('.arac').forEach(a=>{
-        const ok=!t||trU(a.textContent).includes(t);
+        // arama bossa vitrindekiler gizli (yukarida zaten var); arama
+        // yazilinca TAM katalogda esleme yapilir - butunluk bozulmaz.
+        const ok = t ? trU(a.textContent).includes(t) : !a.classList.contains('vitrinde');
         a.style.display=ok?'flex':'none'; if(ok)sayi++;
       });
       g.style.display=sayi?'block':'none'; toplam+=sayi;
