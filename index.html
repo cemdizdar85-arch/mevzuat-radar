@@ -496,7 +496,8 @@ function gtipGit(e){
     </div>
     <a class="nl" href="#fiyat">Fiyatlandırma</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
-    <a class="btn ghost" href="#app">Ücretsiz Başla</a>
+    <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
+    <a class="btn" href="#app">Ücretsiz Başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -649,14 +650,34 @@ function gtipGit(e){
     <div id="rgKaynak" style="font-size:11.5px;color:var(--dim);margin-top:10px"></div>
   </div>
 </section>
-<style>@media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }</style>
+<style>
+/* 30.07 Cem: "alt kisim carpik gorunuyor". Kartlar eski hero sahnesinin
+   .kart k1/k2 stiliyle basiliyordu - o stil DONDURME + kaydirma + yuzme
+   animasyonu ve 340px sabit genislik tasir; izgarada carpik durur. Durum
+   notu da izgara hucresine dusup kart boyu geriliyordu (dev bos kutu).
+   Cozum: bu bolume ait duz, hizali kart stili (rgk) + tam-satir durum
+   cubugu. Dondurme yalniz hero sahnesinde guzeldi, vitrinde degil. */
+#rgKartlar .rg-durum{grid-column:1/-1;display:flex;align-items:center;gap:10px;
+  border:1px solid var(--line2);border-radius:12px;padding:10px 14px;
+  font-size:12.5px;color:var(--muted);background:var(--panel)}
+.rgk{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--dim);
+  border-radius:14px;padding:16px 18px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.rgk:hover{transform:translateY(-2px);border-color:rgba(245,165,36,.35);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.rgk .tag{font-size:10.5px;font-weight:800;letter-spacing:1px}
+.rgk.red{border-left-color:var(--red)}.rgk.red .tag{color:var(--red)}
+.rgk.green{border-left-color:var(--green)}.rgk.green .tag{color:var(--green)}
+.rgk h4{margin:5px 0 4px;font-size:15px;letter-spacing:-.2px}
+.rgk p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.rgk .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
+@media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }
+</style>
 <!-- ============ STAT STRIP ============ -->
 <div class="strip">
   <div class="strip-in">
     <div class="stat reveal"><div class="n">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
+    <div class="stat reveal"><div class="n">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
     <div class="stat reveal"><div class="n">Her sabah</div><div class="t">Otomatik RG taraması</div></div>
-    <div class="stat reveal"><div class="n">Araçlar</div><div class="t">Ücretsiz · kayıtsız</div></div>
-    <div class="stat reveal"><div class="n">Kaynağa</div><div class="t">Bağlı · doğrulanır</div></div>
+    <div class="stat reveal"><div class="n">Her cevapta</div><div class="t">Kaynak maddesi bağlantısı</div></div>
   </div>
 </div>
 
@@ -677,7 +698,7 @@ function gtipGit(e){
       var renk = ['red','green'];
       kutu.innerHTML = k.slice(0,2).map(function(x,i){
         var gtip = (x.gtip && x.gtip.length) ? (x.gtip.length + ' GTİP kodunu ilgilendiriyor') : 'Resmî Gazete';
-        return '<div class="kart '+renk[i]+' k'+(i+1)+'">'
+        return '<div class="rgk '+renk[i]+'">'
              + '<div class="tag">■ RESMÎ GAZETE</div>'
              + '<h4>'+ (x.baslik||'') +'</h4>'
              + '<p>'+ String(x.ne_oldu||'').slice(0,150) +'…</p>'
@@ -696,10 +717,11 @@ function gtipGit(e){
       var etiket = 'Gerçek Resmî Gazete taraması · <b style="color:var(--muted)">'+ g +'</b>';
       if(yas !== null && yas > 3){
         etiket += ' <span style="color:var(--amber)">· ' + yas + ' gün önce</span>';
+        // 30.07: not, izgara HUCRESINE dusup kartla ayni boya geriliyordu
+        // (dev bos kutu gorunumu). rg-durum sinifi tam satira yayar.
         kutu.insertAdjacentHTML('afterbegin',
-          '<div style="border:1px solid var(--line2);border-radius:11px;padding:10px 13px;'
-          + 'margin-bottom:10px;font-size:12.5px;color:var(--muted);background:var(--panel)">'
-          + 'Nöbet duraklatıldı — son tarama ' + g + '. Açılışta günlük tarama sürekli çalışacak.</div>');
+          '<div class="rg-durum">⏸ Son tarama <b style="color:var(--ink)">' + g + '</b>'
+          + ' — nöbet açılışla birlikte her gün otomatik çalışacak.</div>');
       }
       knk.innerHTML = etiket + ' · <a href="kartlar.html" style="color:var(--accent)">tümü →</a>';
     })
