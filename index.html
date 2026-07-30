@@ -252,6 +252,14 @@
   .stat{text-align:center}
   .stat .n{font-size:clamp(24px,2.8vw,34px);font-weight:800;letter-spacing:-1px;color:var(--ink)}
   .stat .t{font-size:12.5px;color:var(--muted);margin-top:2px}
+  /* 30.07 Cem: band buyuk haliyle "sayfa bitti" hissi veriyordu (koca
+     rakamlar + alt-ust cizgi = footer gorunumu; etiketler ekran disina
+     tasiyordu). "hafif" varyant: cizgisiz, kucuk, etiketiyle tek bakista -
+     akisin parcasi, finali degil. */
+  .strip.hafif{border:0;background:transparent}
+  .strip.hafif .strip-in{padding:18px clamp(18px,4vw,42px) 0}
+  .strip.hafif .stat .n{font-size:clamp(17px,1.7vw,22px);letter-spacing:-.5px}
+  .strip.hafif .stat .t{font-size:11px;margin-top:1px}
 
   /* ---------- SECTIONS ---------- */
   section{padding:clamp(60px,9vw,110px) clamp(18px,4vw,42px)}
@@ -498,14 +506,14 @@ function gtipGit(e){
          Sayfa dibinden buraya tasindi. Sayilar veri/vitrin-sayilar.json'dan
          CANLI gelir (kasa-sayim robotu yazar); okunamazsa HTML'deki son
          bilinen gercek kalir - bos/sifir ASLA basilmaz. -->
-    <div class="strip" style="margin-top:34px">
+    <div class="strip hafif" style="margin-top:18px">
       <div class="strip-in">
         <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
         <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
         <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
         <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
       </div>
-      <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
+      <div id="vNot" style="text-align:center;font-size:10.5px;color:var(--dim);padding:6px 18px 0">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
     </div>
 
     <!-- ============ ÜRÜN PENCERESİ (30.07 Cem: "Amerika firması gibi") =====
