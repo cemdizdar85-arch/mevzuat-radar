@@ -1,16 +1,19 @@
-# .github/workflows/nabiz.yml — NABIZ NÖBETÇİSİ (robotların robotu)
-# Her kritik robotun son BAŞARILI koşusunun yaşını ölçer; vardiyasını kaçıran
-# robot = sessizce bayatlayan veri. Kırmızı koşu + Cem'e mail.
-# "Güncellenmeyen veriyi kim fark eder?" sorusunun cevabı budur.
+# .github/workflows/nabiz.yml — NABIZ NÖBETÇİSİ v2 (robotların robotu)
+# Iki katman: (1) her kritik robotun son BASARILI kosusunun yasi,
+# (2) robotlarin yazdigi dosyalardaki tarih damgalarinin tazeligi
+# ("yesil kosu != tam veri" dersi). Kirmizi = exit 1 (GitHub sahibine
+# hata maili) + Resend/web3forms uzerinden alarm maili.
+# Rapor veri/nabiz-raporu.json'a her kosuda yazilir (kor kalma).
 name: Nabiz Nobetcisi
 
 on:
   schedule:
     - cron: "0 6 * * *"     # HER GUN 09:00 TR — sabah robotlari bittikten sonra yoklama
+    - cron: "30 15 * * *"   # 18:30 TR — aksam cekimlerinden (14:00 UTC dalgasi) sonra ikinci yoklama
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 jobs:
@@ -18,10 +21,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Robot nabizlarini olc
+      - name: Robot nabizlarini ve veri damgalarini olc
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/nabiz-nobetcisi.ps1
+      - name: Raporu yayinla (kirmizi olsa da — kor kalma)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/nabiz-raporu.json || true
+          git diff --cached --quiet || git commit -m "Nabiz raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
