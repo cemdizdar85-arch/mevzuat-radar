@@ -1,32 +1,27 @@
-﻿**********************
-Windows PowerShell transcript start
-Start time: 20260729221044
-Username: GK\cemdi
-RunAs User: GK\cemdi
+**********************
+PowerShell transcript start
+Start time: 20260730101934
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
 Configuration Name: 
-Machine: GK (Microsoft Windows NT 10.0.26200.0)
-Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
-& (Join-Path $kok "motor\dayanak-nobetci.ps1") | Out-Null
-$u = ConvertFrom-Json ([IO.File]::ReadAllText((Join-Path $kok "veri\dayanak-uyari.json")))
-"uyari dosyasi temizlendi -> degisen_madde={0}  etkilenen_sayfa={1}" -f $u.degisen_madde, $u.etkilenen_sayfa
-$h=$null;$t=$null
-[System.Management.Automation.Language.Parser]::ParseFile((Join-Path $kok "motor\dayanak-haritasi.ps1"),[ref]$t,[ref]$h)|Out-Null
-"harita betigi sozdizimi: " + $(if($h -and $h.Count){"HATA"}else{"TEMIZ"})
-; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
-; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-1e08' -Encoding utf8 -NoNewline
-; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
-Process ID: 33532
-PSVersion: 5.1.26100.8894
-PSEdition: Desktop
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
-BuildVersion: 10.0.26100.8894
-CLRVersion: 4.0.30319.42000
-WSManStackVersion: 3.0
-PSRemotingProtocolVersion: 2.3
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e1403510-fbe3-40a1-9d79-488b2c782baf.ps1'
+Process ID: 5487
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
 **********************
-Damga ILK KURULUM - karsilastirilacak onceki hal yok. Atlaniyor.
+Degisen madde : 0
+Haritadaki sayfa: 18
+
+TEMIZ: degisen madde yok, etkilenen sayfa yok.
 **********************
-Windows PowerShell transcript end
-End time: 20260729221044
+PowerShell transcript end
+End time: 20260730101934
 **********************

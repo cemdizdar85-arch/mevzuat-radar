@@ -1,44 +1,84 @@
-﻿**********************
-Windows PowerShell transcript start
-Start time: 20260729223001
-Username: GK\cemdi
-RunAs User: GK\cemdi
+**********************
+PowerShell transcript start
+Start time: 20260730101934
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
 Configuration Name: 
-Machine: GK (Microsoft Windows NT 10.0.26200.0)
-Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; $kok = "C:\Users\cemdi\OneDrive\Masa" + [char]0x00FC + "st" + [char]0x00FC + "\mevzuat i" + [char]0x015F + "i\mevzuat-radar"
-$f = Join-Path $kok "motor\teblig-damgasi.ps1"
-$c = [IO.File]::ReadAllText($f, [Text.Encoding]::UTF8)
-[IO.File]::WriteAllText($f, $c, (New-Object Text.UTF8Encoding($true)))
-$h=$null;$t=$null
-[System.Management.Automation.Language.Parser]::ParseFile($f,[ref]$t,[ref]$h)|Out-Null
-if($h -and $h.Count){ "HATA:"; $h|ForEach-Object{"  L{0}: {1}" -f $_.Extent.StartLineNumber,$_.Message}; exit 1 }
-"sozdizimi TEMIZ - 43 teblig indiriliyor..."
-& $f
-"cikis kodu: $LASTEXITCODE"
-; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
-; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-c9dc' -Encoding utf8 -NoNewline
-; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
-Process ID: 42288
-PSVersion: 5.1.26100.8894
-PSEdition: Desktop
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8894
-BuildVersion: 10.0.26100.8894
-CLRVersion: 4.0.30319.42000
-WSManStackVersion: 3.0
-PSRemotingProtocolVersion: 2.3
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/18f80593-26e3-45f5-b2a1-67c35696c495.ps1'
+Process ID: 5507
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 43 mevzuatNo  (43 teblig no)
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...10/43
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...20/43
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...30/43
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...40/43
-  indirilen : 43
-  inemeyen  : 0
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+>> TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+  indirilen : 0
+  inemeyen  : 43
+     24517 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     33766 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     34304 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     34500 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     41286 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     42662 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     44952 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     44953 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
 -> veri/teblig-damga.json
 
-ILK KURULUM: 43 teblig damgalandi. Karsilastirma bir sonraki kosudan itibaren.
+TEMIZ: izlenen tebliglerin hicbiri degismemis - gtip-durum.json guncel.
 **********************
-Windows PowerShell transcript end
-End time: 20260729223125
+PowerShell transcript end
+End time: 20260730110235
 **********************
