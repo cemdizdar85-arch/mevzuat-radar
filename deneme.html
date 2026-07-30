@@ -304,7 +304,19 @@ function kurulumCiz(){
   // (henüz dokunulmamışken) hepsi açık başlıyor. Yeni gelen bir ders,
   // kullanıcı daha önce hiç dokunmadıysa açık, dokunduysa KAPALI gelir —
   // yoksa yükleme bitince habersiz ders eklenmiş olur.
-  var elleSecildi = window.DERS_ELLE_SECILDI === true;
+  // ────────────────────────────────────────────────────────────────────
+  // 30.07 — Cem: "adam tek ders çözmek isterse çözmesi lazım; tüm
+  // derslerden sınav yapacaksa yapması lazım." Eski davranış ikisini de
+  // zorlaştırıyordu: hepsi açık başlıyordu, tek ders için 15 düğmeyi tek
+  // tek kapatmak gerekiyordu. Üstelik dünkü "elle seçimi koru" düzeltmesi
+  // bir yan etki doğurdu: üye kasası yüklenince YENİ gelen dersler kapalı
+  // düşüyor ve ekran "Hepsi (0)" diyebiliyordu.
+  // Yeni model iki niyeti birer tıka indirir:
+  //   [Tüm dersler] düğmesi  -> sınav provası (hepsi açık)
+  //   bir derse tıklamak     -> YALNIZ o ders (tek-ders çalışması)
+  //   seçim modundayken tıklamak -> derse ekle/çıkar (çoklu seçim)
+  //   son ders de kapanırsa  -> kendiliğinden "Tüm dersler"e döner
+  window.DERS_MODU = window.DERS_MODU || 'tum';
   var oncekiSecim = seciliDersler || {};
   dk.innerHTML=''; seciliDersler={};
   var bosMsg=document.getElementById('bosMesaj');
@@ -347,14 +359,43 @@ function kurulumCiz(){
     if(fb!==fa) return fb-fa;
     return a.localeCompare(b,'tr');
   });
+  // [Tüm dersler] — sınav provası tek tık
+  var tumBtn=document.createElement('button');
+  tumBtn.className='sec'+(window.DERS_MODU==='tum'?' aktif':'');
+  tumBtn.innerHTML='📚 <b>Tüm dersler</b> <small>— sınav provası</small>';
+  tumBtn.onclick=function(){
+    window.DERS_MODU='tum';
+    adlar.forEach(function(x){ seciliDersler[x]=true; });
+    dk.querySelectorAll('.sec').forEach(function(x){ x.classList.add('aktif'); });
+    adetCiz();
+  };
+  dk.appendChild(tumBtn);
   adlar.forEach(function(a){
-    var acik = elleSecildi ? (oncekiSecim[a] === true) : true;
+    var acik = (window.DERS_MODU==='tum') ? true : (oncekiSecim[a]===true);
     seciliDersler[a]=acik;
     var b=document.createElement('button');
     b.className='sec'+(acik?' aktif':''); b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
     b.onclick=function(){
-      window.DERS_ELLE_SECILDI = true;   // bundan sonra yeniden çizim seçimi EZMEZ
-      seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif'); adetCiz();
+      if(window.DERS_MODU==='tum'){
+        // "Tüm dersler"deyken derse tıklamak = YALNIZ O DERS (tek-ders çalışması)
+        window.DERS_MODU='secim';
+        Object.keys(seciliDersler).forEach(function(x){ seciliDersler[x]=false; });
+        dk.querySelectorAll('.sec').forEach(function(x){ x.classList.remove('aktif'); });
+        seciliDersler[a]=true; b.classList.add('aktif');
+      } else {
+        // seçim modunda tıklamak = ekle/çıkar (çoklu seçim)
+        seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif');
+        var acikVar=false;
+        for(var k in seciliDersler){ if(seciliDersler[k]){ acikVar=true; break; } }
+        if(!acikVar){
+          // son ders de kapandı: "sıfır dersle sınav" diye bir şey yok,
+          // kendiliğinden Tüm dersler'e dön (eski "Hepsi (0)" tuzağı burasıydı)
+          window.DERS_MODU='tum';
+          adlar.forEach(function(x){ seciliDersler[x]=true; });
+          dk.querySelectorAll('.sec').forEach(function(x){ x.classList.add('aktif'); });
+        }
+      }
+      adetCiz();
     };
     dk.appendChild(b);
   });
@@ -367,7 +408,8 @@ function kurulumCiz(){
     b.onclick=function(){
       ss.querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
       b.classList.add('aktif'); SINAV=b.dataset.sinav;
-      window.DERS_ELLE_SECILDI = false; seciliDersler = {};
+      // sınav değişti: ders listesi bambaşka - "Tüm dersler" moduna dön
+      window.DERS_MODU='tum'; seciliDersler = {};
       kurulumCiz();
     };
     // aktif işareti SINAV değişkeniyle her çizimde hizalanır; yoksa arka plan
