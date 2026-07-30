@@ -587,6 +587,54 @@ function gtipGit(e){
       </span>
     </a>
 
+    <!-- ============ MİNİ PENCERELER (30.07 Cem: "3'e bölünce digerleri bosta
+         kaldi; sinav basta kalsin, sonrasi ufak ufak - RG'yi hap halinde
+         sunmamiz, ucuz mali bulmamiz, GTIP, marka... anlasilmiyor").
+         Buyuk pencere sinavin; altinda 4 kucuk pencere isin genisligini
+         gosterir. Icerik GERCEK: RG karti bugun onarilan karttan, GTIP
+         tanimi bugun RG goruntusunden teyit edilen evye satirindan, marka
+         kurali SMK m.23'ten. Ornek marka "ör." etiketiyle durur. -->
+    <div class="mini-baslik">Sınav sadece bir kapı — nöbetin tamamı:</div>
+    <div class="mini-pencereler">
+      <a class="mp" href="kartlar.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>Resmî Gazete → hap kart</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag" style="color:var(--red)">■ RESMÎ GAZETE · BUGÜNÜN KARTI</span>
+          <span class="mp-b">İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek</span>
+          <span class="mp-m">⚠ ithalatçı aleyhine · 23 GTİP kodunu ilgilendiriyor</span>
+          <span class="mp-git">Robot her sabah RG'yi okur, hap kart yazar →</span>
+        </span>
+      </a>
+      <a class="mp" href="senaryo-raporu.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>Nereden Alsam?</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag" style="color:var(--accent2)">🌍 AYNI ÜRÜN · ÜLKE ÜLKE TOPLAM YÜK</span>
+          <span class="mp-cubuk"><b>🇨🇳 Çin</b><i style="width:88%"></i></span>
+          <span class="mp-cubuk"><b>🇮🇳 Hindistan</b><i style="width:64%"></i></span>
+          <span class="mp-cubuk"><b>🇪🇸 İspanya</b><i style="width:37%;background:var(--green)"></i></span>
+          <span class="mp-git">Ucuz görünen pahalı çıkmasın — karşılaştır →</span>
+        </span>
+      </a>
+      <a class="mp" href="gtip.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>GTİP · Kaç Vergi?</b></span>
+        <span class="mp-ic">
+          <span class="mp-ara">🔍 evye</span>
+          <span class="mp-b" style="font-family:ui-monospace,Consolas,monospace;font-size:13px">7324.10.00.00.00</span>
+          <span class="mp-m">Paslanmaz çelikten evyeler ve lavabolar</span>
+          <span class="mp-git">Ürün adını yaz, kodu ve vergileri gör →</span>
+        </span>
+      </a>
+      <a class="mp" href="marka-radari.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>Marka Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag" style="color:var(--amber)">™ MARKAN (ör. tescil 2016/…)</span>
+          <span class="mp-b">Yenileme penceresi: son 6 ay <span style="color:var(--amber)">⚠</span></span>
+          <span class="mp-m">SMK m.23: tescil 10 yılda bir yenilenir — kaçıran markasını kaybedebilir</span>
+          <span class="mp-git">Markanı radara bağla →</span>
+        </span>
+      </a>
+    </div>
+
     <!-- ================= NÖBET AKIŞI ==================================
          Cem'in secimi (A). Uc kapinin altinda tek satir, yavasca kayar.
          SIRALAMA DIKKAT CEKME GUCUNE GORE - rastgele degil:
@@ -640,7 +688,9 @@ function gtipGit(e){
   /* URUN PENCERESI: hero'nun altinda buyuk urun goruntusu (Linear deseni).
      Hafif perspektif egimi premium durur; asagi kaydikca duzlesir gibi
      algilanir. Tamamen CSS - goruntu dosyasi yok. */
-  .urun-pencere{display:block;max-width:940px;margin:34px auto 0;text-align:left;text-decoration:none;color:inherit;
+  /* 30.07 Cem: "ekrani actigimda tek sayfa deneme gorunmesin" - pencere bir
+     tik kuculdu ki altindaki mini pencereler ilk bakista sezilsin. */
+  .urun-pencere{display:block;max-width:860px;margin:30px auto 0;text-align:left;text-decoration:none;color:inherit;
     background:rgba(10,15,23,.92);border:1px solid var(--line2);border-radius:18px;overflow:hidden;
     box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.03),0 -18px 70px -40px rgba(245,165,36,.35);
     transform:perspective(1400px) rotateX(3.5deg);transform-origin:top center;
@@ -681,6 +731,34 @@ function gtipGit(e){
     .up-govde{grid-template-columns:1fr;gap:12px;padding:16px}
     .up-sol .up-sik:nth-child(4){display:none}
   }
+
+  /* MINI PENCERELER: buyuk pencerenin altinda isin genisligi - 4 kucuk urun.
+     Ayni pencere dili (nokta bari), daha kucuk olcek. */
+  .mini-baslik{margin:30px 0 12px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--dim);font-weight:800}
+  .mini-pencereler{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1180px;margin:0 auto}
+  .mp{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
+    background:rgba(10,15,23,.9);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:transform .18s,border-color .18s,box-shadow .18s}
+  .mp:hover{transform:translateY(-3px);border-color:rgba(245,165,36,.4);box-shadow:0 16px 40px -20px rgba(0,0,0,.8)}
+  .mp-bar{display:flex;align-items:center;gap:5px;padding:8px 11px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .mp-bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1)}
+  .mp-bar i:first-child{background:rgba(255,107,94,.45)}
+  .mp-bar i:nth-child(2){background:rgba(255,194,75,.45)}
+  .mp-bar i:nth-child(3){background:rgba(61,220,151,.45)}
+  .mp-bar b{margin-left:6px;font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.2px}
+  .mp-ic{display:flex;flex-direction:column;gap:7px;padding:12px 13px 13px;flex:1}
+  .mp-tag{font-size:9px;font-weight:800;letter-spacing:.9px}
+  .mp-b{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.1px}
+  .mp-m{font-size:11px;color:var(--muted);line-height:1.45}
+  .mp-git{margin-top:auto;padding-top:8px;font-size:11px;font-weight:700;color:var(--accent)}
+  .mp-ara{font-size:12px;color:var(--ink);border:1px solid var(--line2);border-radius:8px;
+    padding:7px 10px;background:#06090f;font-family:ui-monospace,Consolas,monospace}
+  .mp-cubuk{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+  .mp-cubuk b{flex:none;width:86px;font-weight:600;color:var(--ink);text-align:left}
+  .mp-cubuk i{height:7px;border-radius:4px;background:var(--red);opacity:.75;display:inline-block}
+  @media(max-width:1000px){ .mini-pencereler{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:560px){ .mini-pencereler{grid-template-columns:1fr} .mini-baslik{text-align:center} }
 
   /* NOBET AKISI: tek satir, yavas kayar. Kenarlarda yumusak silinme (mask)
      olmazsa yazi kutuya carpip kesiliyormus gibi durur - o ucuz gorunur. */
