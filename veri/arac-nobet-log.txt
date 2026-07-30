@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260730110152
+Start time: 20260730173016
 Username: runnervm7i58z\runner
 RunAs User: runnervm7i58z\runner
 Configuration Name: 
 Machine: runnervm7i58z (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a46d9d6e-5468-411e-af3a-438fbcae9e4a.ps1'
-Process ID: 2444
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6964b0d0-e2a2-4869-988d-7e824299a823.ps1'
+Process ID: 2414
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -17,11 +17,29 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 25-06-2026
-Kart sayisi  : 0
+RG gunu      : 11-07-2026
+Kart sayisi  : 24
 Izlenen dosya: 12
-Bugun kart yok - sakin RG gunu. Temiz.
+
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- İthalatta gözetim uygulaması eşik değerleri güncellendi
+      <- İthalat gözetim eşikleri yenilendi; altı ürün grubu için kıymetler güncellendi
+      <- İthalat gözetim eşikleri güncellendi; yeni kıymetler uygulanacak
+      <- İthalatta gözetim uygulaması: boyalı seramik ve asansör parçaları kıymet esikleri güncellendi
+      <- İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek
+      ... ve 13 yayin daha (tamami arac-uyari.json'da)
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260730110152
+End time: 20260730173016
 **********************
