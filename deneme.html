@@ -318,6 +318,35 @@ function kurulumCiz(){
     return;
   }
   bosMsg.classList.add('gizli');
+  // ────────────────────────────────────────────────────────────────────
+  // 30.07 — Cem: "dersleri çıkan sorulara göre sıralayalım, başta Atatürk
+  // olmasın". Haklı: alfabetik sıra en az soru çıkan dersi (Atatürk 5)
+  // başa, sınavın en büyük dersini (Finansal Muhasebe 26) ortaya atıyordu.
+  // SGS ağırlıkları TESMER Yönergesi m.6.2'deki SORU ADETLERİ (uydurma
+  // değil): 130 sorunun ders dağılımı. Yeterlilik'te her ders ayrı 100
+  // soruluk oturum — resmî ağırlık farkı YOK; orada sınav yapısındaki
+  // geleneksel sıra kullanılır (ana ders Finansal Muhasebe önde).
+  // Haritada olmayan ders 0 alır ve sona düşer; eşitler alfabetik.
+  var DERS_SIRA = {
+    // SGS — Yönerge m.6.2 soru adetleri
+    'Finansal Muhasebe':26,'Denetim':16,'Yabanci Dil':10,
+    'Matematik':8,'Maliyet Muhasebesi':8,'Mali Tablolar Analizi':8,
+    'Turkce':7,'Ekonomi':6,'Maliye':6,'Meslek Hukuku':6,
+    'Is ve Sosyal Guvenlik Hukuku':6,'Vergi Hukuku':6,'Ticaret Hukuku':6,
+    'Borclar Hukuku':6,'Hukuk':6,'Ataturk Ilke ve Inkilap Tarihi':5,
+    // Yeterlilik — resmî ağırlık eşit (her ders ayrı oturum); geleneksel sıra
+    'Finansal Tablolar ve Analizi':25,'Muhasebe Denetimi':24,
+    'Vergi Mevzuatı ve Uygulaması':23,'Muh. ve Mali Müş. Meslek Hukuku':22,
+    'Sermaye Piyasası Mevzuatı':21
+  };
+  // Yeterlilik görünümünde Finansal Muhasebe/Maliyet en öne çıksın diye
+  // SMMM seçiliyken çakışan derslere yüksek taban verilir.
+  if(SINAV==='SMMM'){ DERS_SIRA['Finansal Muhasebe']=30; DERS_SIRA['Maliyet Muhasebesi']=20; DERS_SIRA['Hukuk']=19; }
+  adlar.sort(function(a,b){
+    var fa=DERS_SIRA[a]||0, fb=DERS_SIRA[b]||0;
+    if(fb!==fa) return fb-fa;
+    return a.localeCompare(b,'tr');
+  });
   adlar.forEach(function(a){
     var acik = elleSecildi ? (oncekiSecim[a] === true) : true;
     seciliDersler[a]=acik;
