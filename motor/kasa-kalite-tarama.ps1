@@ -56,12 +56,14 @@ $yayinKisa = 0; $yayinSablon = 0
 $offset = 0; $sayfa = 1000
 while($true){
   $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin&order=id&limit=$sayfa&offset=$offset"
-  # 30.07 PS TUZAGI: @(Invoke-RestMethod ...) komut cikisini TEK boru nesnesi
-  # olarak sarar - 1000 kayitlik dizi "1 eleman" olur (ilk kosu 12.869 yerine
-  # 1 taradi, curl ayni URL'de 1000 aldi; olculdu). Once degiskene ata, SONRA
-  # @() ile sar - kasa-sayim'in kanitlanmis deseni.
-  $ham = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 120
-  $parti = @($ham)
+  # 30.07 IKI PS TUZAGI UST USTE:
+  # (1) @(Invoke-RestMethod) diziyi tek nesne sarar (ilk kosu 1 "soru" taradi).
+  # (2) IRM, aciklama gibi karisik JSON alanlarinda kendi cozumunde patliyor
+  #     ("String -> IDictionary" hatasi). kasa-sayim'in aciklama ceken dongusu
+  #     bosuna Invoke-WebRequest + ConvertFrom-Json kullanmiyor - ayni desen.
+  $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $H -TimeoutSec 120
+  $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
+  $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
   foreach($s in $parti){
     $hepsi++
