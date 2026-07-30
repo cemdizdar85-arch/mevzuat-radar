@@ -265,6 +265,19 @@
                         "gerekce":  "IKI SGS PILOTUNUN HAKEM DENETIMI - VE AYNI ZAMANDA HAKEMIN KENDI SINAVI. 355 kimlik (SGS / Finansal Muhasebe / yayin=false): Pilot-1 (#11, kaynak eslesmesi BOZUKKEN) + Pilot-2 (#13, onarim sonrasi) + eski denetlenmemisler. GM OKUMASINDA BULUNAN IKI SOMUT HATA - HAKEM BUNLARI YAKALAMALI: (1) Pilot-1: \u0027tms 40 yatirim amacli gayrimenkul\u0027 konulu soru VUK m.275\u0027ten (imal edilen emtia) yazilmis; kaynak konuyla tamamen ilgisiz, yani soru fiilen hafizadan yazilmis. (2) Pilot-2: THP 723 standart iscilik sure sapmasi sorusunda CEVAP ile ACIKLAMA BIRBIRINI CURUTUYOR - isaretli sik D (723 BORC) ama hap \u0027olumlu fark 723 hesabinin ALACAGINA kaydedilir\u0027 diyor. Dogru sik C olmaliydi. Ustelik soru kusurlu: sure farkini hesaplamak icin saat ve saat ucreti gerekir, verilen iki tutarla ancak toplam fark bulunur. BU KOSU BIR KARARI BELIRLIYOR - Cem\u0027in onerisi: kanun degisince makine soruyu duzeltsin, PROFESOR denetlesin, oyle yayina donsun (insan her seferinde okumasin). Onerinin gecerliligi tek sarta bagli: profesor bu iki hatayi kendi basina yakalayabiliyor mu? YAKALARSA: makine+profesor dongusu yeterli guvencedir, otomatik yeniden-yayin acilabilir. KACIRIRSA: profesorun kor noktasi olculmus olur, insan kapisi kalir ve kor nokta icin ayri kapi yazilir. Tahminle karar vermek yerine olcuyoruz. ~1,6 USD (355 x olculen 0,0044).",
                         "tahmini_usd":  1.6,
                         "uygulandi":  "KILIT 29.07 23:5x GM: Basarisiz biten emir damgalanmiyor ve ACIK kaliyordu - her veri/*-emir.json push\u0027unda YENIDEN kosup yeniden para istiyordu. Emir #17\u0027nin 4.366\u0027lik denetimi bugun boyle en az bir kez tam gonderildi (11 parti x 400) ve butcenin son kismini yedi. Sonuclari batch\u0027lerde HAZIR duruyor; para acilinca -kurtar ile BEDAVA hasat edilecek. Bu damga o hasata kadar emri kilitliyor."
+                    },
+                    {
+                        "no":  18,
+                        "tarih":  "30.07.2026",
+                        "veren":  "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
+                        "emir":  "KARANTINA 3. OY - 334 cevap-ihtilafina Sonnet",
+                        "onay":  false,
+                        "kaynak":  "karantina",
+                        "sinir":  334,
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "1 AGUSTOS PLANI. Karantina triyaji (30.07 oncesi): 435 bekleyenin 334'u Haiku cevap-ihtilafi (uretici A dedi, denetci B dedi - hangisi hakli bilinmiyor), ~20'si mekanik (bedava, ayri is), 78'i Genel Kultur (elle havuz). Bu emir 334 ihtilafa Sonnet'i UCUNCU OY olarak kosturur: soru + iki iddia + DAYANAK METNI verilir, madde metniyle yargilar (hakem deseni). 2/3 cogunluk kasaya doner (yayin=false), azinlikta kalan cope. ~1,5 USD. Parasi odenmis 1.078 sorunun en buyuk blogunu geri kazanma yolu budur.",
+                        "tahmini_usd":  1.5,
+                        "uygulandi":  ""
                     }
                 ]
 }

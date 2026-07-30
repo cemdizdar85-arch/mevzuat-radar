@@ -206,6 +206,33 @@
       "gerekce": "KURTARMA - 0 USD. Emir #14'un 9 partisi (u0-u8, 1.782 basarili sonuc, ~35 USD'lik odenmis is) Anthropic'te duruyor; betik kasaya yazamadan 429'a carpmisti. Bu emir YENI BATCH GONDERMEZ - kimlikleri parti sirasiyla verir, sonuclar cekilir (GET ucretsiz), yedi kapidan gecer, yayin=false ile kasaya yazilir. HIZA SIGORTASI: isler listesi ayni kota+kasadan yeniden kurulur; kayarsa rakam kapisi red orani firlar ve %20 esiginde hasat KIRMIZI kesilir, kasaya tek satir yazilmaz. Sinir 2500 ve ders bos - #14 ile BIREBIR ayni kurulum (hiza bunun icin sart).",
       "tahmini_usd": 0,
       "uygulandi": "30.07.2026 05:26"
+    },
+    {
+      "no": 16,
+      "tarih": "30.07.2026",
+      "veren": "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
+      "emir": "SGS TAM URETIM 2. YARI - kalan kota (~3.500 soru)",
+      "onay": false,
+      "sinir": 3500,
+      "ders": "",
+      "sinav": "SGS",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "1 AGUSTOS PLANI. 1. yarinin 9 partisi kurtarma moduyla bedava hasat edildi (1.546 soru kasada, hiza sigortasi rakamRed %3,1 ile YESIL). Hakem hasadi 7.224 yargi verdi, 717 kirmizi yayindan cekildi. Recete #14 ile ayni (yedi kapi + on eleme + 24.000 kirpma + PGRST102 onarimi); ek olarak 30.07'de kapatilan @(Invoke-RestMethod) tuzagi tekrar-onleme havuzunu da onardi - benzerlik elegi artik gercekten 10.000 soruya karsi bakiyor. SINIR kalan kotadan kosu aninda yeniden hesaplanir; 0,0194 USD/soru olcusuyle ~68 USD. URETILEN HICBIR SORU YAYINA GIRMEZ: yayin=false, hakem yargilar, GM okur.",
+      "tahmini_usd": 68,
+      "uygulandi": ""
+    },
+    {
+      "no": 17,
+      "tarih": "30.07.2026",
+      "veren": "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
+      "emir": "HAP ZENGINLESTIRME - 4.640 kisa hap, Haiku partisi",
+      "onay": false,
+      "sinir": 4640,
+      "ders": "",
+      "model": "claude-haiku-4-5-20251001",
+      "gerekce": "1 AGUSTOS PLANI. Kalite taramasi (30.07, 12.869 sorunun tamami) 4.914 kisa hap saydi; 274'u gerekcedeki hazir 'Akılda kalsın' bolumunden MEKANIK ve BEDAVA dolacak (hap-onarim.ps1, ayri dugme). Kalan 4.640 icin Haiku partisi: girdi soru+gerekce, cikti tek hap cumlesi (>=90 karakter, gerekceyle celisemez); kaynak listesi veri/hap-onarim-plan.json id'lerinden. DIKKAT: bu emir mevcut soru-uret hattiyla KOSMAZ - hap-onarim faz-2 betigi gerekir (batch API + yaz-oncesi kuru dogrulama); betik yazilmadan onay acilsa bile is baslamaz, acik hata verir. Tahmin ~4-6 USD (Haiku batch; parti kurulurken net maliyet onceden yazilir).",
+      "tahmini_usd": 5,
+      "uygulandi": ""
     }
   ]
 }
