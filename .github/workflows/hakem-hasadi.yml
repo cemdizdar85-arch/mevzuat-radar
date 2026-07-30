@@ -1,0 +1,44 @@
+# .github/workflows/hakem-hasadi.yml — ODENMIS HAKEM YARGILARINI TOPLA
+#
+# PARA HARCAMAZ: yalniz GET /results cagrilari. Ucret partiler islenirken
+# odendi (4.366 soruluk denetim butceyi boyle bitirdi); sonuclari cekmek
+# ucretsizdir. Hicbir yeni batch gonderilmez, kasaya DOKUNULMAZ.
+name: Hakem Hasadi (odenmis yargilar)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/hakem-hasadi.ps1'
+      - '.github/workflows/hakem-hasadi.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hakem-hasadi
+  cancel-in-progress: false
+
+jobs:
+  hasat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yargilari topla
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/hakem-hasadi.ps1
+      - name: Sonucu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # KOR KALMA KURALI: log da commit'lenir.
+          for f in veri/hakem-hasadi.json veri/hakem-hasadi-log.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Hakem hasadi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
