@@ -50,6 +50,17 @@ function IhaleMi($x){
 # --- veri kaynaklari ---
 $ihale = @(); try { $ihale = (Get-Content (Join-Path $kok "veri\ihale-yurtici.json") -Raw -Encoding UTF8 | ConvertFrom-Json).ilanlar } catch {}
 $kartlar = @(); try { $kartlar = (Get-Content (Join-Path $kok "veri\kartlar-guncel.json") -Raw -Encoding UTF8 | ConvertFrom-Json).kartlar } catch {}
+# 30.07 (#63): yapilandirma/af firsat penceresi - RG tarayicisi yazar
+$firsatlar = @(); try { $firsatlar = @((Get-Content (Join-Path $kok "veri\firsat-guncel.json") -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler) } catch {}
+
+# 30.07 (#64): ayni ilan akisindaki ICRA SATISLARI ihale-disi copten FIRSATA
+# doner - sektorundeki makine/stok/tasinmaz icradan ucuza. Ele listesindeki
+# oteki turler (durusma/tebligat/veraset...) firsat DEGILDIR, girmez.
+function IcraSatisMi($x){
+  $t = ("$($x.baslik) $($x.kurum)").ToLowerInvariant()
+  foreach($k in @('icra','açık artırma','açik artirma','acik artirma')){ if($t.Contains($k)){ return $true } }
+  return $false
+}
 
 # --- firmalar (service role RLS'i bypass eder) ---
 # 30.07 PS TUZAGI: @(IRM ...) diziyi tek nesne sarar (N firma = "1 firma"
@@ -80,6 +91,14 @@ foreach($f in $firmalar){
   if($ilU){ foreach($x in $ihale){ if((IhaleMi $x) -and (TrUp $x.il) -eq $ilU){
     $bas = "$($x.baslik)"; $bulunan += @{ tur="ihale"; baslik=$bas; detay=("$($x.kurum) · $($x.il) · $($x.tarih)"); url=$x.url; onem="orta" }
   } } }
+  # 1b) FIRSAT-ICRA (#64): ildeki icra satislari - ucuza varlik firsati
+  if($ilU){ foreach($x in $ihale){ if((IcraSatisMi $x) -and (TrUp $x.il) -eq $ilU){
+    $bulunan += @{ tur="firsat-icra"; baslik="$($x.baslik)"; detay=("İcradan satış fırsatı: $($x.kurum) · $($x.tarih) — ucuza varlık, ilana bak"); url=$x.url; onem="orta" }
+  } } }
+  # 1c) FIRSAT (#63): yapilandirma/af penceresi - TUM uyelere, profil sarti yok
+  foreach($fm in $firsatlar){
+    $bulunan += @{ tur="firsat"; baslik="$($fm.baslik)"; detay="Yapılandırma/af penceresi açıldı — başvuru süresi kaçırılmamalı, ayrıntı kaynakta."; url=$fm.url; onem="yuksek" }
+  }
   # 2) RG KARTI (GTIP)
   foreach($k in $kartlar){ foreach($fk in @($f.gtip_kodlari)){ $eslesti=$false
     foreach($kk in @($k.gtip)){ if(GtipEslesir $fk $kk){ $eslesti=$true; break } }

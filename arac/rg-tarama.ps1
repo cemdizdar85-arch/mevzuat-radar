@@ -20,6 +20,10 @@ function Norm([string]$s){
 }
 
 $KATEGORILER = [ordered]@{
+  # 30.07 (#63): FIRSAT en basta taranir ki "vergi" gibi genel gruplara
+  # kacmasin. Maddeler veri/firsat-guncel.json'a da yazilir; uyari robotu
+  # tum uyelere duyurur (af/yapilandirma penceresi profil istemez).
+  "Fırsat: Yapılandırma / Af"   = @("yeniden yapıland","yapılandırılması","matrah artırım","vergi aff","prim aff","borç aff","taksitlendir","alacakların yapıland")
   "Gözetim / Damping / Korunma" = @("gözetim","damping","haksız rekabet","korunma önlem","ek mali yükümlülük")
   "Ürün Güvenliği / Denetim"    = @("ürün güvenliği","denetimi tebliğ","standardizasyon","tareks","ce işaret")
   "Gümrük / İthalat-İhracat"    = @("gümrük","ithalat","ihracat","tarife kontenjan","kota","menşe","serbest bölge","dahilde işleme","hariçte işleme")
@@ -94,6 +98,16 @@ foreach($md in $madde){
 }
 Write-Host ("Ilgili: {0}" -f $ilgiliToplam)
 
+# ---- FIRSAT BESLEMESI (#63): yapilandirma/af maddeleri uyari robotuna ------
+$firsatGrup = @($sonuc["Fırsat: Yapılandırma / Af"])
+$firsatYol = Join-Path (Split-Path -Parent $PSScriptRoot) "veri/firsat-guncel.json"
+$fj = [ordered]@{
+  tarih = $Tarih
+  maddeler = @($firsatGrup | ForEach-Object { [ordered]@{ baslik = $_.baslik; url = $_.url } })
+}
+[IO.File]::WriteAllText($firsatYol, (ConvertTo-Json -InputObject $fj -Depth 4), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("-> veri/firsat-guncel.json ({0} firsat maddesi)" -f $firsatGrup.Count)
+
 # ---- SABIT NOBETCISI: sitedeki vergi/sermaye sabitlerini degistiren teblig ----
 # cikinca Cem'e mail atar (veri/vergi-sabitleri.json elle guncellenir - guven kurali)
 $nobetKaliplar = @("gelir vergisi genel tebli", "kurumlar vergisi genel tebli", "yeniden değerleme oran", "asgari ücret", "harçlar kanunu genel tebli", "vergi usul kanunu genel tebli", "ihracı kayda bağlı", "ihracı yasak", "ön izne bağlı", "kıdem tazminatı", "geri kazanım katılım payı", "ithalat rejimi", "ilave gümrük vergisi", "katma değer vergisi oranlar", "özel tüketim vergisi", "kaynak kullanımını destekleme", "çifte vergilendirme", "gecikme zammı", "damga vergisi", "sınai mülkiyet", "prime esas kazanç", "sosyal sigortalar ve genel sağlık", "asgari sermaye", "türk ticaret kanununda değişiklik", "tevkifat oran", "kâr payı", "kar payı dağıt")
@@ -122,29 +136,35 @@ if($nobetVuran.Count -gt 0){
 # --- radar.html uret (repo koku) ---------------------------------------------
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
-[void]$s.AppendLine("<title>Bugün RG'de - $Tarih | Mevzuat Radarı</title>")
+# 30.07 REBRAND KACAGI KAPANDI: bu CI kalibi hala "Mevzuat Radarı" + MAVI
+# yaziyordu - her sabah radar.html'i eski markaya geri boyayacakti. Ayrica
+# "Bugün RG'de - <tarih>" basligi sayfa eskiyince yalan soyluyordu.
+[void]$s.AppendLine("<title>RG Taraması — $Tarih | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Resmî Gazete otomatik radar taraması: bugün işletmeleri ilgilendiren gümrük, gözetim, vergi ve teşvik düzenlemeleri.">')
 [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="favicon.svg">')
 [void]$s.AppendLine('<style>')
-[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e}')
+[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e}')
 [void]$s.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}')
 [void]$s.AppendLine('a{color:var(--accent2)}.wrap{max-width:820px;margin:0 auto;padding:24px 18px 70px}')
 [void]$s.AppendLine('.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}')
-[void]$s.AppendLine('.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}')
+[void]$s.AppendLine('.logo{width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);font-size:0;color:transparent;display:inline-block;flex:none}')
 [void]$s.AppendLine('h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-weight:800}')
 [void]$s.AppendLine('.alt{color:var(--muted);font-size:13.5px;margin-bottom:8px}')
 [void]$s.AppendLine('.uyari{font-size:12px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin:14px 0 24px}')
 [void]$s.AppendLine('h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1.3px;margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:800}')
 [void]$s.AppendLine('.m{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:12px;padding:13px 16px;margin-bottom:9px;font-size:14px}')
 [void]$s.AppendLine('.m a{color:var(--ink);text-decoration:none}.m a:hover{color:var(--accent2)}')
-[void]$s.AppendLine('.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:30px}')
+[void]$s.AppendLine('.cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}')
 [void]$s.AppendLine('.cta h3{margin:0 0 6px;font-size:18px;letter-spacing:-.4px}.cta p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}')
-[void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}')
+[void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
 [void]$s.AppendLine('</style></head><body><div class="wrap">')
-[void]$s.AppendLine('<div class="top"><span class="logo">MR</span><a href="index.html">Mevzuat Radarı</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Bugün RG''de</div>')
+[void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Bugün RG''de</div>')
 [void]$s.AppendLine("<h1>Bugün Resmî Gazete'de ne var?</h1>")
 [void]$s.AppendLine("<div class='alt'>$Tarih tarihli sayının radar taraması — $($madde.Count) maddeden <b style='color:var(--ink)'>$ilgiliToplam</b> tanesi işletmeleri ilgilendiriyor.</div>")
+# tazelik rozeti (#62): robotun son nobeti kart-durum.json'dan canli okunur
+[void]$s.AppendLine('<div id="tazelik" style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin:4px 0 4px"><span style="width:7px;height:7px;border-radius:50%;background:#3ddc97;display:inline-block"></span><span id="tazelikM">Nöbet damgası yükleniyor…</span></div>')
+[void]$s.AppendLine('<script>fetch("veri/kart-durum.json?c="+Date.now()).then(function(r){return r.json()}).then(function(d){var e=document.getElementById("tazelikM");if(d&&d.sonTarama){e.textContent="Robotun son RG nöbeti: "+d.sonTarama;}else{e.textContent="Nöbet damgası okunamadı";}}).catch(function(){document.getElementById("tazelik").style.display="none";});</script>')
 [void]$s.AppendLine('<div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Bu maddelerin sade Türkçe özetleri için: <a href="kartlar.html">Günün Hap Kartları →</a></div>')
 if($ilgiliToplam -eq 0){
   [void]$s.AppendLine('<div class="m" style="border-left-color:#3ddc97"><b>Bugün işletmeleri doğrudan ilgilendiren düzenleme tespit edilmedi.</b> Sakin bir gün — yarın yine buradayız.</div>')
@@ -158,8 +178,8 @@ if($ilgiliToplam -eq 0){
 [void]$s.AppendLine('<div class="cta"><h3>Bunlardan hangisi SENİ etkiliyor?</h3>')
 [void]$s.AppendLine('<p>Listeye her gün bakmak yerine firmanı tanıt; tabi olduğun yükümlülükleri 3 dakikada gör. Ücretsiz, kayıtsız.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
-[void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Mevzuat Radarı otomatik taraması · Bilgilendirme amaçlıdır.</div>")
-[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>')
+[void]$s.AppendLine("<div class='dip'>Kaynak: <a href='$url' target='_blank' rel='noopener'>Resmî Gazete, $Tarih</a> · Tetikte otomatik taraması · Bilgilendirme amaçlıdır.</div>")
+[void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
 
 $kok = Split-Path -Parent $PSScriptRoot   # arac/ klasorunun ustu = repo koku
 $hedef = Join-Path $kok "radar.html"

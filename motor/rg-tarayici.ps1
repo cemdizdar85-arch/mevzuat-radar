@@ -26,6 +26,11 @@ function Norm([string]$s){
 
 # ---- kategori tanımları (plan: tek işleme dokunan 10 alan) -----------------
 $KATEGORILER = [ordered]@{
+  # 30.07 (#63 Yapilandirma/Af Radari - KAZANDIRAN hat): fihristin EN BASINDA
+  # taranir ki "vergi" gibi genel gruplara kacmasin. Bu grubun maddeleri
+  # veri/firsat-guncel.json'a da yazilir; uyari robotu TUM uyelere duyurur
+  # (af penceresi profil istemez, herkesi ilgilendirir).
+  "Fırsat: Yapılandırma / Af"   = @("yeniden yapıland","yapılandırılması","matrah artırım","vergi aff","prim aff","borç aff","taksitlendir","alacakların yapıland")
   "Gözetim / Damping / Korunma" = @("gözetim","damping","haksız rekabet","korunma önlem","ek mali yükümlülük")
   "Ürün Güvenliği / Denetim"    = @("ürün güvenliği","denetimi tebliğ","standardizasyon","tareks","ce işaret")
   "Gümrük / İthalat-İhracat"    = @("gümrük","ithalat","ihracat","tarife kontenjan","kota","menşe","serbest bölge","dahilde işleme","hariçte işleme")
@@ -107,6 +112,19 @@ foreach($md in $madde){
     if($eslesti){ break }
   }
   if(-not $eslesti){ $digerIlgili += $md }
+}
+
+# ---- FIRSAT BESLEMESI (#63): yapilandirma/af maddeleri ayri dosyaya --------
+# Gecmis tarama (SadeceArsiv) guncel beslemeyi EZMEZ.
+if(-not $SadeceArsiv){
+  $firsatGrup = @($sonuc["Fırsat: Yapılandırma / Af"])
+  $firsatYol = Join-Path (Split-Path -Parent $here) "veri/firsat-guncel.json"
+  $fj = [ordered]@{
+    tarih = $Tarih
+    maddeler = @($firsatGrup | ForEach-Object { [ordered]@{ baslik = $_.baslik; url = $_.url } })
+  }
+  [IO.File]::WriteAllText($firsatYol, (ConvertTo-Json -InputObject $fj -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("-> veri/firsat-guncel.json ({0} firsat maddesi)" -f $firsatGrup.Count)
 }
 
 # ---- rapor + arsiv ----------------------------------------------------------
