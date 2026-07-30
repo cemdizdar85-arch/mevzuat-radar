@@ -67,15 +67,17 @@ body.yaziB .hedefKutu{font-size:15px}
 .gk .h{color:var(--red)}
 .kaynakKutu{font-size:12.5px;color:var(--green);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:11px;padding:9px 13px;margin-top:10px}
 /* AKILDA KALSIN karti (30.07 Cem): duz kutu degil, akilda kalan GORSEL bir kart. */
-.hapKart{margin-top:14px;border-radius:15px;padding:15px 17px 16px;position:relative;overflow:hidden;
-  background:linear-gradient(155deg,rgba(255,194,75,.16),rgba(245,165,36,.04) 70%);
-  border:1px solid rgba(255,194,75,.5);
-  box-shadow:0 14px 34px -22px rgba(245,165,36,.55),inset 0 1px 0 rgba(255,255,255,.06)}
-.hapKart::before{content:"";position:absolute;top:-34px;right:-34px;width:120px;height:120px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,194,75,.25),transparent 70%);pointer-events:none}
-.hapKart .hapUst{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:7px}
-.hapKart .hapMetin{font-size:13.5px;line-height:1.66;color:var(--ink)}
-body.yaziB .hapKart .hapMetin{font-size:15px}
+.hapKart{margin-top:16px;border-radius:16px;padding:18px 20px 19px;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,rgba(255,194,75,.18),rgba(245,165,36,.05) 70%);
+  border:1px solid rgba(255,194,75,.55);
+  box-shadow:0 16px 38px -22px rgba(245,165,36,.6),inset 0 1px 0 rgba(255,255,255,.07)}
+.hapKart::before{content:"";position:absolute;top:-34px;right:-34px;width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,194,75,.28),transparent 70%);pointer-events:none}
+.hapKart .hapUst{font-size:11.5px;font-weight:800;letter-spacing:1.5px;color:var(--amber);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+/* 30.07 Cem: "akilda kalsin cok kucuk kalmis" - kartin METNI buyudu (15.5px,
+   govde 13.5'ken). Kisa hap gelse bile kart cilizlesmesin. */
+.hapKart .hapMetin{font-size:15.5px;line-height:1.7;color:var(--ink);font-weight:600;letter-spacing:-.1px}
+body.yaziB .hapKart .hapMetin{font-size:17px}
 /* YAN PANEL (30.07 Cem): "cevap bilgileri asagiya akmasin, yana gelsin."
    Genis ekranda (calisma modu) soru solda sabit durur; gerekce+kaynak+hap karti
    sag sutunda belirir. Cevaptan once sag tarafta "dusunen" bekleme karti var.
@@ -701,6 +703,11 @@ function cevabiGor(tekrarMi){
   g.innerHTML=h; g.classList.remove('gizli');
   g.parentElement.classList.add('cevapli');  // genis ekranda bekleme karti gider, yan panel belirir
   g.scrollTop=0;
+  // TELEFON/DAR EKRAN (30.07 Cem): gerekce altta kaliyor, cevaplayinca goze
+  // gelmiyordu. Panel grid degilse (dikey akis) gerekceye yumusak kaydir.
+  if(!tekrarMi && window.getComputedStyle(g.parentElement).display!=='grid'){
+    setTimeout(function(){ g.scrollIntoView({behavior:'smooth', block:'start'}); }, 120);
+  }
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.remove('gizli');
   navCiz();
