@@ -355,7 +355,15 @@ $guncelKartlar = @($kartlar | ForEach-Object {
 } | Where-Object { @($_.gtip).Count -gt 0 })
 $guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları (GTİP eşleşmeli) — " + $TarihNokta); kartlar=$guncelKartlar }
 $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
-[System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
+# 30.07 SIFIR-KART FRENI: 0 kartlik kosu (sakin RG gunu YA DA API dususu -
+# ikisi ayirt edilemez) mevcut beslemeyi EZMEZ. Bugun 429 altindaki telafi
+# kosusu 24 kartlik panel beslemesini bos kabukla silmisti; panel/uyari
+# eslesmeleri sessizce koreldi. Eski besleme taze kart gelene kadar yasar.
+if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
+  Write-Host "0 GTIP'li kart uretildi - veri/kartlar-guncel.json KORUNDU (onceki besleme ezilmedi)." -ForegroundColor Yellow
+} else {
+  [System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
+}
 
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
@@ -363,7 +371,7 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine("<title>Günün Hap Kartları - $TarihNokta | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">')
 [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
-[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}')
+[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}')
 [void]$s.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}')
 [void]$s.AppendLine('a{color:var(--accent2)}.wrap{max-width:840px;margin:0 auto;padding:24px 18px 70px}')
 [void]$s.AppendLine('.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}')
@@ -375,13 +383,13 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.kart .etiket{font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--red)}')
 [void]$s.AppendLine('.kart h3{margin:6px 0 8px;font-size:16.5px;letter-spacing:-.3px}')
 [void]$s.AppendLine('.kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}')
-[void]$s.AppendLine('.gtip{display:inline-block;background:rgba(62,155,255,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}')
+[void]$s.AppendLine('.gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}')
 [void]$s.AppendLine('.kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}')
 [void]$s.AppendLine('.kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}')
 [void]$s.AppendLine('.meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}')
-[void]$s.AppendLine('.cta{background:linear-gradient(135deg,rgba(47,123,255,.16),rgba(38,208,254,.07)),var(--panel);border:1px solid rgba(62,155,255,.3);border-radius:16px;padding:24px;margin-top:30px}')
+[void]$s.AppendLine('.cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}')
 [void]$s.AppendLine('.cta h3{margin:0 0 6px;font-size:18px}.cta p{margin:0 0 15px;font-size:13.5px;color:var(--muted)}')
-[void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(46,140,255,.35)}')
+[void]$s.AppendLine('.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)}')
 [void]$s.AppendLine('.dip{font-size:11.5px;color:var(--dim);margin-top:28px;padding-top:14px;border-top:1px solid var(--line)}')
 [void]$s.AppendLine('</style></head><body><div class="wrap">')
 [void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
@@ -451,13 +459,13 @@ $gunler = Get-ChildItem $arsivDirSite -Filter "kartlar-*.html" | ForEach-Object 
 $a = New-Object System.Text.StringBuilder
 [void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="../">')
 [void]$a.AppendLine('<title>Kart Arşivi | Tetikte</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
-[void]$a.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#26d0fe;--grad:linear-gradient(135deg,#2f7bff 0%,#26d0fe 100%)}')
+[void]$a.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%)}')
 [void]$a.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7}')
 [void]$a.AppendLine('a{color:var(--accent2)}.wrap{max-width:720px;margin:0 auto;padding:24px 18px 70px}')
 [void]$a.AppendLine('.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}')
 [void]$a.AppendLine('.logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}')
 [void]$a.AppendLine('h1{font-size:26px;letter-spacing:-.8px;font-weight:800}')
-[void]$a.AppendLine('.g{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;color:var(--ink);text-decoration:none;font-weight:600}.g:hover{border-color:rgba(62,155,255,.4)}')
+[void]$a.AppendLine('.g{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;color:var(--ink);text-decoration:none;font-weight:600}.g:hover{border-color:rgba(255,194,75,.4)}')
 [void]$a.AppendLine('.g span{color:var(--dim);font-weight:400;font-size:12.5px}')
 [void]$a.AppendLine('</style></head><body><div class="wrap">')
 [void]$a.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="kartlar.html">Günün Kartları</a> · Arşiv</div>')

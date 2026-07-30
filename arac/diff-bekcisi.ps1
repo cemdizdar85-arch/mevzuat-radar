@@ -22,7 +22,10 @@ $izlenen = @(
   @{ yol='veri/smmm-analiz.json';       say={ param($j) @($j.donemler).Count } },
   @{ yol='veri/mevzuat-kaynaklar.json'; say={ param($j) @($j.kanunlar).Count } },
   @{ yol='veri/sinav-arsiv.json';       say={ param($j) @($j.donemler).Count } },
-  @{ yol='veri/gtip-tanim.json';        say={ param($j) @($j.PSObject.Properties).Count } }
+  @{ yol='veri/gtip-tanim.json';        say={ param($j) @($j.PSObject.Properties).Count } },
+  # 30.07: kart robotu 0-kartlik kosuda 24 kartlik beslemeyi bos kabukla ezdi
+  # ve HICBIR kapi yakalamadi. Robotta fren var artik; bu satir ikinci kemer.
+  @{ yol='veri/kartlar-guncel.json';    say={ param($j) @($j.kartlar).Count } }
 )
 
 $hata = $false
