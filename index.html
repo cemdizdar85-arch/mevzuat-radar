@@ -449,7 +449,17 @@ function gtipGit(e){
   <div class="hero-grid"></div>
   <div class="hero-horizon"></div>
   <div class="sade-ic">
-    <span class="eyebrow">İşinin nöbetçisi · Türkiye mevzuatı</span>
+    <!-- 30.07 Cem: "isinin nobetcisi / Turkiye mevzuati rozetini sevmedim".
+         Slogan zaten her yerde, kategori etiketi ise bos laf. Yerine CANLI
+         nobet damgasi: kart-durum.json'dan son RG turu tarihi dolar
+         ("soze degil tarihe bak"). Okunamazsa sabit metin kalir. -->
+    <span class="eyebrow" id="nbDamga">Nöbette — robot her sabah Resmî Gazete'yi okur</span>
+    <script>
+    fetch('veri/kart-durum.json?'+Date.now()).then(r=>r.json()).then(d=>{
+      if(d && d.sonTarama) document.getElementById('nbDamga').textContent =
+        'Nöbette · son Resmî Gazete turu: ' + d.sonTarama;
+    }).catch(function(){});
+    </script>
     <h1><span class="g">Tetikte</span> olan kaçırmaz.</h1>
     <!-- 29.07: eski alt cumle YALNIZ BIR KAPIYA sesleniyordu ("Resmi
          Gazete'den seni ilgilendireni buluruz"). Sinava hazirlanan ogrenci
