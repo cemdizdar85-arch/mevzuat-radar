@@ -26,6 +26,20 @@ foreach($f in $dosyalar){
 }
 Write-Host ("{0} sayfadan {1} tekil dis link toplandi." -f $dosyalar.Count, $linkler.Count)
 
+# 1b) VERI DOSYALARINDAKI URL'LER (30.07 Cem: "acilmayan yer var mi?").
+# Ilan/kart linkleri html'de degil JSON'da yasar ve nobetcinin KOR NOKTASIYDI -
+# EKAP v2 kirigi da boyle kacti. url alanlari havuza "veri/<dosya>" etiketiyle girer.
+foreach($vf in @(Get-ChildItem (Join-Path $kok "veri") -Filter *.json -ErrorAction SilentlyContinue)){
+  $vt = Get-Content $vf.FullName -Raw -Encoding UTF8
+  foreach($m in [regex]::Matches($vt, '"url"\s*:\s*"(https?://[^"]+)"')){
+    $u = $m.Groups[1].Value
+    if($u -match 'tetikte\.com|cemdizdar85-arch\.github\.io'){ continue }
+    if(-not $linkler.ContainsKey($u)){ $linkler[$u] = New-Object System.Collections.Generic.List[string] }
+    $linkler[$u].Add("veri/" + $vf.Name)
+  }
+}
+Write-Host ("veri dosyalari dahil toplam tekil link: {0}" -f $linkler.Count)
+
 # 2) yokla (nazik: 300ms ara; mevzuat.gov.tr icin Referer sart)
 # 30.07 YANLIS ALARM DUZELTMESI: devlet siteleri (mevzuat/RG/EKAP/GIB...)
 # bulut IP'lerine HTTP cevabi bile vermeden baglantiyi kesiyor - nobetci
