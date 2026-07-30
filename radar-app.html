@@ -88,7 +88,13 @@ const NIYETLER = {
   gtip:    { baslik:'GTİP kodlarını gir — radar onları izlesin', alan:'f_gtip',  ipucu:'Resmî Gazete senin kodlarına dokununca panelde ve uyarıda göreceksin.' },
   alacak:  { baslik:'Borçlu VKN\'lerini gir — ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
   marka:   { baslik:'Markanı gir — yenileme ve benzer başvuru nöbeti başlasın', alan:'f_marka', ipucu:'SMK m.23: tescil 10 yılda bir yenilenir — tarihi radar takip eder.' },
-  musavir: { baslik:'İlk mükellefini ekle — her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' }
+  musavir: { baslik:'İlk mükellefini ekle — her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' },
+  // TAM ABONELIK (30.07 Cem): "sinav harici HER SEYI isteyen olursa tum
+  // bilgileri istememiz lazim." Dogru - ama anket gibi degil: her alanin
+  // HANGI RADARI ACTIGI soylenir; bos birakilan alan = kapali radar,
+  // panel zaten "GTIP GIR / MARKA GIR" rozetleriyle eksigi kovalar.
+  tam: { baslik:'Tam nöbet — firma profilini doldur, her alan bir radarı açar', alan:'f_ad', tam:true,
+    ipucu:'Boş bıraktığın alanın radarı kapalı kalır; panelden sonra da açabilirsin.' }
 };
 let NIYET = (new URLSearchParams(location.search).get('niyet')||'').toLowerCase();
 if(NIYET && NIYETLER[NIYET]){ try{ localStorage.setItem('tetikteNiyet', NIYET); }catch(e){} }
@@ -171,7 +177,13 @@ function firmaForm(){
   const fa=$('#formAlan'); fa.classList.remove('gizli');
   const ny = NIYETLER[NIYET];
   const baslik = ny ? ny.baslik : 'Firma ekle';
-  const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)} <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın — şimdilik yalnız firma adı yeter.</span></div>` : '';
+  // tam abonelikte "hangi alan hangi radari acar" haritasi acikca gosterilir
+  const tamLejant = (ny && ny.tam) ? `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;margin:0 0 12px">
+      ${[['İl','ihale radarı'],['GTİP kodları','Resmî Gazete radarı'],['Markalar','yenileme nöbeti'],['Borçlu VKN','alacak radarı'],['Telefon','SMS/WhatsApp uyarısı']]
+        .map(x=>`<span style="font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:6px 10px"><b style="color:var(--accent2)">${x[0]}</b> → ${x[1]}</span>`).join('')}
+    </div>` : '';
+  const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)}${ny.tam?'':' <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın — şimdilik yalnız firma adı yeter.</span>'}</div>${tamLejant}` : '';
   fa.innerHTML=`<div class="kutu">
     <h3 style="margin:0 0 4px;font-size:16px">${esc(baslik)}</h3>
     ${ipucu}
