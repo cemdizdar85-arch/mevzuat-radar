@@ -1,0 +1,45 @@
+# .github/workflows/hap-onarim.yml — HAP ONARIMI
+# Kisa "AKILDA KALSIN" alanlarini gerekcedeki hazir bolumden mekanik doldurur.
+# UCRETSIZ (AI yok). Push/cron YALNIZ KURU KOSU yapar (sayar, yazmaz);
+# kasaya yazim SADECE elle: Run workflow -> uygula=true.
+name: Hap Onarimi
+
+on:
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "true = kasaya YAZ (bos/false = kuru kosu)"
+        required: false
+        default: "false"
+  push:
+    paths:
+      - 'motor/hap-onarim.ps1'
+      - '.github/workflows/hap-onarim.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hap-onarim
+  cancel-in-progress: false
+
+jobs:
+  onar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Onarim (kuru kosu / uygula)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          UYGULA: ${{ github.event.inputs.uygula == 'true' && '1' || '' }}
+        run: ./motor/hap-onarim.ps1
+      - name: Plani commit'le (kor kalma - yalniz sayilar)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase || true
+          if [ -f veri/hap-onarim-plan.json ]; then git add veri/hap-onarim-plan.json || true; fi
+          git diff --cached --quiet || git commit -m "Hap onarim plani [veri-operasyonu]"
+          git push || true
