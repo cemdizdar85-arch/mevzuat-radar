@@ -125,16 +125,19 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
       <div class="secgrup" id="adetSec"></div>
-      <div class="etiket">3 · Mod</div>
+      <!-- 30.07 Cem: "Çalışma / Deneme ne, amacı ne?" — GM'nin bile sorduğu
+           etiket öğrenciye hiç anlatmaz. Her seçeneğin NE İŞE YARADIĞI artık
+           düğmenin üzerinde yazıyor; ayrı yardım metnine gerek kalmadı. -->
+      <div class="etiket">3 · Çalışma biçimi</div>
       <div class="secgrup" id="modSec">
-        <button class="sec aktif" data-mod="calisma">📖 Çalışma <small>— her sorudan sonra gerekçeler</small></button>
-        <button class="sec" data-mod="deneme">⏱ Deneme <small>— karne sonda</small></button>
+        <button class="sec aktif" data-mod="calisma">📖 <b>Öğrenme</b> <small>— her sorudan sonra doğru cevap + tüm şıkların gerekçesi. Konu çalışırken.</small></button>
+        <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>— cevaplar gizli, karne sonda. Gerçek sınav düzeni.</small></button>
       </div>
-      <div class="etiket">4 · Kaynak <small style="color:var(--dim);font-weight:400">— yanlışın eriyene kadar döngü</small></div>
+      <div class="etiket">4 · Soru havuzu</div>
       <div class="secgrup" id="kaynakSec">
-        <button class="sec aktif" data-kaynak="tumu">📚 Tüm sorular</button>
-        <button class="sec" data-kaynak="yanlis">🔁 Yanlışlarım <small id="ynSay"></small></button>
-        <button class="sec" data-kaynak="isaret">🔖 İşaretlediklerim <small id="isSay"></small></button>
+        <button class="sec aktif" data-kaynak="tumu">📚 Tüm sorular <small>— önce hiç görmediklerin gelir</small></button>
+        <button class="sec" data-kaynak="yanlis">🔁 Yanlışlarım <small id="ynSay"></small> <small>— doğru çözene kadar döner</small></button>
+        <button class="sec" data-kaynak="isaret">🔖 İşaretlediklerim <small id="isSay"></small> <small>— sonra bakarım dediklerin</small></button>
       </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
@@ -447,13 +450,18 @@ function adetCiz(){
   if(secenekler.indexOf(seciliAdet)<0) seciliAdet=secenekler[0]||n;
   secenekler.forEach(function(x){
     var b=document.createElement('button');
-    b.className='sec'+(x===seciliAdet?' aktif':''); b.textContent=(x===n?'Hepsi ('+n+')':x+' soru');
+    // 30.07: binlik ayraç (6484 -> 6.484) — kurumsal sayı biçimi
+    b.className='sec'+(x===seciliAdet?' aktif':''); b.textContent=(x===n?'Tümü ('+n.toLocaleString('tr-TR')+')':x+' soru');
     b.onclick=function(){ seciliAdet=x; adetCiz(); };
     ak.appendChild(b);
   });
   document.getElementById('baslaBtn').disabled=(n===0);
+  // 30.07 Cem'in yakaladığı tutarsızlık: üstte "Hepsi (6484)" altta "6965
+  // soru" — ilki SEÇİLİ SINAV+DERS havuzu, ikincisi tüm banka. İki farklı
+  // sayı iki farklı şeyi sayıyordu ama ekran bunu söylemiyordu. Not artık
+  // SEÇİME uyan sayıyı söylüyor; toplam banka parantezde.
   document.getElementById('bankaNot').textContent = window.UYE_MODU
-    ? 'Tam bankada '+BANKA.length+' onaylı soru var (üye). Sorular önce görmediklerinden seçilir; banka her hafta büyür.'
+    ? 'Seçimine uyan '+n.toLocaleString('tr-TR')+' soru hazır (tüm bankada '+BANKA.length.toLocaleString('tr-TR')+' onaylı soru). Sorular önce görmediklerinden seçilir; banka her hafta büyür.'
     : 'Örnek havuzda '+BANKA.length+' onaylı soru var. Sorular önce görmediklerinden seçilir; tam banka pakette her hafta büyür.';
 }
 
