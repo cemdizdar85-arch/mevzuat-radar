@@ -1,0 +1,43 @@
+# .github/workflows/kirmizi-cek.yml — HAKEM KIRMIZILARINI YAYINDAN INDIR
+#
+# Cem'in kurali: "dogru olmayan veri sistemimizde olmayacak." Hakem hasadi
+# 717 kirmizi yargi buldu; ~224'u YAYINDA gorunuyor. Bu is akisi onlari
+# yayin=false yapar (SILMEZ), gerekce yayin_notu'na yazilir, GM okur.
+# PARA HARCAMAZ: yalniz Supabase PATCH. Idempotent: ikinci kosu 0 etkiler.
+name: Kirmizi Cekme (hakem yargisi)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/kirmizi-cek.ps1'
+      - '.github/workflows/kirmizi-cek.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kirmizi-cek
+  cancel-in-progress: false
+
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kirmizilari yayindan indir
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kirmizi-cek.ps1
+      - name: Sonucu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/kirmizi-cek-sonuc.json veri/kirmizi-cek-log.txt; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Kirmizi cekme [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
