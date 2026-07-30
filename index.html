@@ -743,12 +743,36 @@ function gtipGit(e){
 <!-- ============ STAT STRIP ============ -->
 <div class="strip">
   <div class="strip-in">
-    <div class="stat reveal"><div class="n">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
-    <div class="stat reveal"><div class="n">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
-    <div class="stat reveal"><div class="n">Her sabah</div><div class="t">Otomatik RG taraması</div></div>
-    <div class="stat reveal"><div class="n">Her cevapta</div><div class="t">Kaynak maddesi bağlantısı</div></div>
+    <!-- 30.07 KANIT BANDI (Cem: "2 numara - sosyal kanit"). Kullanici yorumu
+         henuz yok (site acilmadi) ve UYDURULMAZ; elimizdeki gercek kanit
+         URETIM RAKAMLARI. Sayilar veri/vitrin-sayilar.json'dan CANLI gelir -
+         o dosyayi kasa-sayim robotu her kosuda gunceller (elle rakam yasamaz).
+         HTML'deki degerler yedek: JSON okunamazsa son bilinen gercek kalir. -->
+    <div class="stat reveal"><div class="n" id="vSoru">12.869</div><div class="t">Özgün soru yazıldı</div></div>
+    <div class="stat reveal"><div class="n" id="vHakem">7.224</div><div class="t">Bağımsız hakem denetimi</div></div>
+    <div class="stat reveal"><div class="n" id="vGtip">13.400+</div><div class="t">GTİP vergi kaydı</div></div>
+    <div class="stat reveal"><div class="n" id="vArac">25 araç</div><div class="t">Hepsi ücretsiz, kayıtsız</div></div>
   </div>
+  <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
 </div>
+<script>
+/* KANIT BANDI CANLI BESLEME: vitrin-sayilar.json'u kasa-sayim robotu yazar.
+   Okunamazsa HTML'deki son bilinen gercek degerler kalir - bos/sifir ASLA basilmaz. */
+(function(){
+  var f = new Intl.NumberFormat('tr-TR');
+  fetch('veri/vitrin-sayilar.json', {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){
+      if(d.soru_uretilen > 0) document.getElementById('vSoru').textContent = f.format(d.soru_uretilen);
+      if(d.hakem_denetimi > 0) document.getElementById('vHakem').textContent = f.format(d.hakem_denetimi);
+      if(d.gtip_kayit > 0) document.getElementById('vGtip').textContent = f.format(d.gtip_kayit) + '+';
+      if(d.arac > 0) document.getElementById('vArac').textContent = d.arac + ' araç';
+      if(d.tarih) document.getElementById('vNot').textContent =
+        'Sayılar üretim robotundan — her gün otomatik güncellenir. Son sayım: ' + d.tarih;
+    })
+    .catch(function(){});
+})();
+</script>
 
 <script>
 /* GERCEK RG KARTI — vitrinde uydurma is gostermeyiz.

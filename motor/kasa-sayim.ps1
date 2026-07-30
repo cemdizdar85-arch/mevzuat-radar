@@ -351,6 +351,33 @@ $yol = Join-Path $kok "veri/kasa-sayim.json"
 Write-Host ""
 Write-Host "-> veri/kasa-sayim.json"
 
+# --- VITRIN SAYILARI (30.07): ana sayfa kanit bandinin CANLI kaynagi.
+# Kural (Cem, otomatik guncelleme VARSAYILAN): vitrindeki hicbir rakam elle
+# yasamaz. soru_uretilen buradaki sayimdan, hakem_denetimi hakem-hasadi.json
+# karar sayisindan; gtip/arac onceki dosyadan tasinir (onlar ayri hatlarda
+# elle teyitli). Dosya kucuk tutulur - ana sayfa her aciliste ceker.
+try {
+  $vYol = Join-Path $kok "veri/vitrin-sayilar.json"
+  $eski = if(Test-Path $vYol){ Get-Content $vYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
+  $hakemSay = if($eski){ $eski.hakem_denetimi } else { 0 }
+  $hhYol = Join-Path $kok "veri/hakem-hasadi.json"
+  if(Test-Path $hhYol){
+    try { $hh = Get-Content $hhYol -Raw -Encoding UTF8 | ConvertFrom-Json
+          $hSay = [int]$hh.tekil_yargi
+          if($hSay -gt 0){ $hakemSay = $hSay } } catch {}
+  }
+  $vitrin = [ordered]@{
+    _not = "Vitrin kanit bandinin CANLI sayilari. kasa-sayim.ps1 her kosuda gunceller - ELLE DUZENLEME buraya degil, kaynaklara yapilir."
+    tarih = (Get-Date -Format "dd.MM.yyyy")
+    soru_uretilen = $toplam
+    hakem_denetimi = $hakemSay
+    gtip_kayit = if($eski -and $eski.gtip_kayit){ $eski.gtip_kayit } else { 13400 }
+    arac = if($eski -and $eski.arac){ $eski.arac } else { 25 }
+  }
+  [IO.File]::WriteAllText($vYol, ($vitrin | ConvertTo-Json -Depth 3), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("-> veri/vitrin-sayilar.json  (soru {0}, hakem {1})" -f $toplam, $hakemSay)
+} catch { Write-Host ("vitrin sayilari yazilamadi: {0}" -f $_.Exception.Message) }
+
 if($toplam -ne $kayit.Count){
   Write-Host ("UYARI: sayfali cekimde {0} kayit geldi ama toplam {1}. Fark incelenmeli." -f $kayit.Count, $toplam)
 }
