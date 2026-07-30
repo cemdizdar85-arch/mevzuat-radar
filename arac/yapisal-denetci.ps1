@@ -282,7 +282,12 @@ try {
       $metinler = New-Object System.Collections.Generic.List[string]
       foreach($pp in $krt.PSObject.Properties){ if($pp.Value -is [string]){ $metinler.Add("$($pp.Value)") } }
       $tum = ($metinler -join ' ')
-      if($tum.Length -gt 80 -and $tum -notmatch '[ğüşıöçĞÜŞİÖÇ]'){
+      # 30.07 dersi: harf sinifi betige LITERAL yazilinca PS5.1 (ANSI okur)
+      # ile pwsh (UTF-8 okur) FARKLI desen gorur - yerelde yesil, CI'da
+      # kirmizi ciktik ve "24 kart temiz" olcumum yanlisti. Kod noktasiyla
+      # kur: her iki motorda da ayni 12 harf. (ğüşıöç ĞÜŞİÖÇ)
+      $trHarfler = ([char]0x011F,[char]0x00FC,[char]0x015F,[char]0x0131,[char]0x00F6,[char]0x00E7,[char]0x011E,[char]0x00DC,[char]0x015E,[char]0x0130,[char]0x00D6,[char]0x00C7)
+      if($tum.Length -gt 80 -and $tum.IndexOfAny($trHarfler) -lt 0){
         Hata ("KART DIL: kart #$ki ('" + ("$($krt.baslik)".Substring(0,[Math]::Min(50,"$($krt.baslik)".Length))) + "...') ASCII'ye dusmus - Turkce diakritik hic yok. Robot ciktisi yayinlanamaz.")
       }
     }
