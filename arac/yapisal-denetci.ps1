@@ -260,6 +260,31 @@ if($BT){
 }
 
 # ---------------------------------------------------------------------------
+# ── §12 KART DIL KAPISI (30.07, kurumsallik taramasi bulgu #1) ──────────────
+# Vitrin sayfasi kartlar.html'deki robot kartlarinda Turkce karakterler
+# dusuyordu: "yayimini takip eden 30. gun", "ithalatci aleyhine" - sitenin
+# en gorunur kurumsallik kaybi. Kural: bir kartin metin alanlari yeterince
+# uzunsa (>80 karakter) ve TEK BIR Turkce diakritik bile icermiyorsa o kart
+# ASCII'ye dusmus demektir -> IHLAL, deploy durur. Turkcede 80+ karakterlik
+# dogal bir paragrafin diakritiksiz olmasi fiilen imkansizdir; yanlis alarm
+# riski dusuk, kacirma riski sifira yakin.
+try {
+  $kartYol = Join-Path $kok 'veri/kartlar-guncel.json'
+  if(Test-Path $kartYol){
+    $kartV = Get-Content $kartYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $ki = 0
+    foreach($krt in @($kartV.kartlar)){
+      $ki++
+      $metinler = New-Object System.Collections.Generic.List[string]
+      foreach($pp in $krt.PSObject.Properties){ if($pp.Value -is [string]){ $metinler.Add("$($pp.Value)") } }
+      $tum = ($metinler -join ' ')
+      if($tum.Length -gt 80 -and $tum -notmatch '[ğüşıöçĞÜŞİÖÇ]'){
+        Hata ("KART DIL: kart #$ki ('" + ("$($krt.baslik)".Substring(0,[Math]::Min(50,"$($krt.baslik)".Length))) + "...') ASCII'ye dusmus - Turkce diakritik hic yok. Robot ciktisi yayinlanamaz.")
+      }
+    }
+  }
+} catch { $uyarilar.Add("KART DIL kapisi kosamadi: " + $_.Exception.Message) }
+
 ""
 if($uyarilar.Count -gt 0){
   Write-Host "UYARILAR ($($uyarilar.Count)):" -ForegroundColor Yellow

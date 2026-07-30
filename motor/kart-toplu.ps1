@@ -54,9 +54,9 @@ USLUP KURALLARI (buyuk denetim firmalarinin bultenlerinden DAHA IYI yazacaksin; 
 A) Ton: deneyimli ortagin musterisine yazdigi kisa not. Net, kendinden emin, sicak ama laubali degil. Musteriyle konusur gibi, kursu anlatir gibi degil.
 B) YASAKLI kaliplar (yapay zeka kokusu): "unutmayin", "unutulmamalidir", "onemlidir", "dikkat edilmelidir", "bu baglamda", "soz konusu", "adim atmak", "surec baslatmak", "genel olarak", "ozetle", ust uste ayni yapiyla baslayan cumleler, gereksiz sifat yiginlari, "!" unlem.
 C) Cumleler kisa ve ritmi degisken olsun. Etken cati: "Bakanlik esigi yukseltti", "denetim sikilasti" - "yukseltilmis bulunmaktadir" DEGIL. "-mistir/-mektedir" kuru resmi bitislerinden kacin; "-di/-du/-iyor" dogal bitisleri kullan.
-D) Turkce imla KUSURSUZ: "kıymet", "tebliğ", "yürürlük", "güncellemiştir degil guncelledi". Yazim hatasi tek basina karti coper.
+D) Turkce imla KUSURSUZ ve TAM DIAKRITIKLI: ciktinin HER kelimesi Turkce karakterleriyle yazilir (ğ, ü, ş, ı, ö, ç, İ). "gozetim" degil "gözetim", "yururluk" degil "yürürlük", "tebligi" degil "tebliği". BU ISTEM TEKNIK SEBEPLE ASCII YAZILDI - SEN TAKLIT ETME; ASCII'ye dusmus tek kelime bile karti coper. Yarim ceviri kelime YASAK: Ingilizce terimin Turkcesi kullanilir ("clutch/klatch" degil "debriyaj").
 E) baslik_sade: iyi bir ekonomi muhabirinin atacagi baslik. Olgusal, 8-14 kelime, urun grubunu soyler.
-F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastirin" gibi. Emir kipi dogal: "kontrol edin", "hazirlayin".
+F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastir" gibi. Emir kipi SEN kipiyle ve dogal: "kontrol et", "hazirla", "karsilastir". Site standardi SEN kipidir - "kontrol edin/hazirlayin" (siz) YASAK. Garanti dili de YASAK: "kesinlikle", "mutlaka ...ecektir" yerine kaynaga yaslan ("Teblig uyarinca eklenmesi zorunlu").
 G) kimi_ilgilendirir: sektoru/rolu isimlendir ("seramik ithal eden insaat malzemecileri" gibi), "ilgili firmalar" deme.
 
 JSON semasi:
