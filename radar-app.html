@@ -94,7 +94,7 @@ const NIYETLER = {
   // HANGI RADARI ACTIGI soylenir; bos birakilan alan = kapali radar,
   // panel zaten "GTIP GIR / MARKA GIR" rozetleriyle eksigi kovalar.
   tam: { baslik:'Tam nöbet — firma profilini doldur, her alan bir radarı açar', alan:'f_ad', tam:true,
-    ipucu:'Boş bıraktığın alanın radarı kapalı kalır; panelden sonra da açabilirsin.' }
+    ipucu:'Boş bıraktığın alanın radarı kapalı kalır; panelden sonra da açabilirsin. Defter/evrak tarafı (mükelleften evrak toplama + fiş üretimi) ayrı modüldür.' }
 };
 let NIYET = (new URLSearchParams(location.search).get('niyet')||'').toLowerCase();
 if(NIYET && NIYETLER[NIYET]){ try{ localStorage.setItem('tetikteNiyet', NIYET); }catch(e){} }
