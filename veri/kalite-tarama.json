@@ -1,22 +1,6 @@
 {
-  "tarih": "30.07.2026 12:43",
-  "durum": "TAMAM",
-  "taranan": 1,
-  "kisa_hap": {
-    "esik": 90,
-    "adet": 0,
-    "yayinda": 0,
-    "idler": []
-  },
-  "hap_yok": {
-    "adet": 0,
-    "idler": []
-  },
-  "sablon_gerekce": {
-    "adet": 0,
-    "yayinda": 0,
-    "kalip_dagilimi": {},
-    "idler": []
-  },
-  "not": "Onarim partisi 1 Agustos'ta bu id listeleriyle HEDEFLI gider; maliyet tahmini adetten hesaplanir. Soru metni bu dosyada YOKTUR."
+  "tarih": "30.07.2026 12:51",
+  "durum": "HATA",
+  "hata": "Cannot convert the \"Satış iskontosu tahsilat anında 600 Yurtiçi Satışlar ve 391 Hesaplanan KDV hesaplarını borçlandırarak düzeltir; stok hesabı (153) bu işlemde kullanılmaz.\" value of type \"System.String\" to type \"System.Collections.IDictionary\".",
+  "satir": 63
 }
