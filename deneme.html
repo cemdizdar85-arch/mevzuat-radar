@@ -65,6 +65,10 @@ body.yaziB .hedefKutu{font-size:15px}
 .gk .h{font-family:var(--mono);font-weight:800;flex-shrink:0;width:18px}
 .gk.dogruG{color:var(--ink)}.gk.dogruG .h{color:var(--green)}
 .gk .h{color:var(--red)}
+/* sablon-gerekce bloklari: her baslik kendi satirinda, kucuk rozetle */
+.gseg{display:block;margin-top:7px}
+.gseg:first-child{margin-top:0}
+.gseg .gb{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;margin-right:7px;vertical-align:1px}
 .kaynakKutu{font-size:12.5px;color:var(--green);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:11px;padding:9px 13px;margin-top:10px}
 /* AKILDA KALSIN karti (30.07 Cem): duz kutu degil, akilda kalan GORSEL bir kart. */
 .hapKart{margin-top:16px;border-radius:16px;padding:18px 20px 19px;position:relative;overflow:hidden;
@@ -654,6 +658,30 @@ function navCiz(){
   });
 }
 
+// SABLON-GEREKCE BICIMLEYICI (30.07): kalite taramasi kasanin %97'sinde
+// gerekcenin "Ne soruluyor: ... Kural: ... Bu olayda: ... Akılda kalsın: ..."
+// iskeletiyle yazildigini olctu (12.489/12.869 - uretim kalibi). Bu bozuk
+// metin degil GIZLI YAPI: basliklari tanir, tek parca duvar-metni okunur
+// bloklara boler. En az 2 baslik yoksa metne DOKUNMAZ (dogal cumleler,
+// ucretsiz banka vs. oldugu gibi kalir). API maliyeti: sifir.
+var GB_ETIKET = {'ne soruluyor':'NE SORULUYOR','kural':'KURAL','bu olayda':'BU OLAYDA','bu soruda':'BU OLAYDA','akılda kalsın':'AKILDA KALSIN','akilda kalsin':'AKILDA KALSIN'};
+var GB_RENK = {'NE SORULUYOR':'var(--dim)','KURAL':'var(--green)','BU OLAYDA':'var(--muted)','AKILDA KALSIN':'var(--amber)'};
+function gerekceBicimle(t){
+  t = String(t==null?'':t);
+  var re = /(Ne soruluyor|NE SORULUYOR|Kural|KURAL|Bu olayda|BU OLAYDA|Bu soruda|Akılda kalsın|AKILDA KALSIN|Akilda kalsin)\s*:\s*/g;
+  var p = t.split(re);
+  if(p.length < 5) return esc(t);   // 0-1 baslik: dogal metin, dokunma
+  var h = '';
+  if(p[0].trim()) h += '<span class="gseg">'+esc(p[0].trim())+'</span>';
+  for(var i=1; i<p.length; i+=2){
+    var et = GB_ETIKET[p[i].toLocaleLowerCase('tr-TR')] || p[i];
+    var metin = (p[i+1]||'').trim();
+    if(!metin) continue;
+    h += '<span class="gseg"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+esc(metin)+'</span>';
+  }
+  return h || esc(t);
+}
+
 function cevabiGor(tekrarMi){
   if(!SECILI || KILIT) return;
   var s=SORULAR[IDX]; KILIT=true;
@@ -684,7 +712,7 @@ function cevabiGor(tekrarMi){
   sira.forEach(function(harf){
     var d=(harf===s.dogru), sen=(harf===SECILI && !d);
     var blok='<div class="gk'+(d?' dogruG':'')+'"'+(sen?' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"':'')+'>'+
-       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+(sen?'<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>':'')+esc(s.aciklama[harf])+'</span></div>';
+       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+(sen?'<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>':'')+gerekceBicimle(s.aciklama[harf])+'</span></div>';
     if(d || harf===SECILI) h+=blok; else digerH+=blok;
   });
   if(digerH){
