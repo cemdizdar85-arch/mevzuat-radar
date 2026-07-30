@@ -644,9 +644,12 @@ function gtipGit(e){
       <a class="mp" href="kartlar.html">
         <span class="mp-bar"><i></i><i></i><i></i><b>Resmî Gazete → hap kart</b></span>
         <span class="mp-ic">
-          <span class="mp-tag" style="color:var(--red)">■ RESMÎ GAZETE · BUGÜNÜN KARTI</span>
-          <span class="mp-b">İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek</span>
-          <span class="mp-m">⚠ ithalatçı aleyhine · 23 GTİP kodunu ilgilendiriyor</span>
+          <!-- 30.07 soz defteri: "BUGUNUN KARTI" elle gomuluydu - robot yeni
+               kart uretince eskiyecekti. Artik kartlar-guncel.json'dan CANLI
+               dolar; okunamazsa HTML'deki son gercek kart kalir. -->
+          <span class="mp-tag" style="color:var(--red)">■ RESMÎ GAZETE · <span id="vkGun">GÜNÜN KARTI</span></span>
+          <span class="mp-b" id="vkBaslik">İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek</span>
+          <span class="mp-m" id="vkMeta">⚠ ithalatçı aleyhine · 23 GTİP kodunu ilgilendiriyor</span>
           <span class="mp-git">Robot her sabah RG'yi okur, hap kart yazar →</span>
         </span>
       </a>
@@ -851,6 +854,27 @@ function gtipGit(e){
   <div id="vNot" style="text-align:center;font-size:11px;color:var(--dim);padding:0 18px 16px">Sayılar üretim robotundan — her gün otomatik güncellenir.</div>
 </div>
 <script>
+/* VITRIN RG KUTUSU CANLI: gunun ilk kartini kartlar-guncel.json'dan doldur */
+(function(){
+  fetch('veri/kartlar-guncel.json', {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){
+      var k = (d && d.kartlar && d.kartlar.length) ? d.kartlar[0] : null;
+      if(!k) return;
+      var b = document.getElementById('vkBaslik'), m = document.getElementById('vkMeta'), g = document.getElementById('vkGun');
+      if(b) b.textContent = k.baslik || b.textContent;
+      if(m){
+        var p = [];
+        if(k.etki && String(k.etki).toLowerCase().indexOf('aleyh') > -1) p.push('⚠ ' + k.etki);
+        else if(k.etki) p.push(k.etki);
+        if(k.gtip && k.gtip.length) p.push(k.gtip.length + ' GTİP kodunu ilgilendiriyor');
+        if(p.length) m.textContent = p.join(' · ');
+      }
+      if(g && d.gun) g.textContent = 'GÜNÜN KARTI · ' + String(d.gun).replace(/-/g,'.');
+    })
+    .catch(function(){});
+})();
+
 /* KANIT BANDI CANLI BESLEME: vitrin-sayilar.json'u kasa-sayim robotu yazar.
    Okunamazsa HTML'deki son bilinen gercek degerler kalir - bos/sifir ASLA basilmaz. */
 (function(){
