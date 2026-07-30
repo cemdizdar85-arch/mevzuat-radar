@@ -1,5 +1,5 @@
 {
-  "tarih": "30.07.2026 09:35",
+  "tarih": "30.07.2026 10:35",
   "aciklama": "Hangi sayfa hangi kanun maddesine yaslaniyor. Ambar damgasi degisince bu listeden hangi sayfanin etkilendigi bulunur.",
   "sayfa_sayisi": 18,
   "tekil_dayanak": 61,
@@ -203,8 +203,12 @@
     },
     {
       "sayfa": "index.html",
-      "dayanak_sayisi": 5,
+      "dayanak_sayisi": 6,
       "dayanak": [
+        {
+          "kanun_no": "2004",
+          "madde_no": "299"
+        },
         {
           "kanun_no": "5520",
           "madde_no": "13"
