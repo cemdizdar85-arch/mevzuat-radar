@@ -205,7 +205,10 @@ $havuzSorular = @()
 if($env:SUPABASE_SERVICE_KEY){
   try {
     $hh = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
-    $havuzSorular = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=soru,ders,konu&limit=10000" -Headers $hh -TimeoutSec 60)
+    # 30.07 PS TUZAGI: @(IRM ...) diziyi tek nesne sarardi - tekrar-onleme
+    # havuzu korlesirdi. Once ata, sonra sar.
+    $havuzHam = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=soru,ders,konu&limit=10000" -Headers $hh -TimeoutSec 60
+    $havuzSorular = @($havuzHam)
     Write-Host ("Kilitli havuzdan {0} soru cekildi (kok/doygunluk)." -f $havuzSorular.Count)
   } catch { Write-Host "Kilitli havuz cekilemedi (tablo henuz kurulmamis olabilir) - devam." }
 }

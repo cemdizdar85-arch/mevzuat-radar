@@ -57,7 +57,9 @@ foreach($d in $degisen){
   # bu yoldan baglanmamis, dolayisiyla cekilecek soru da yok.
   if($kn -eq 'ad'){ continue }
   $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,yayin&kanun_no=eq." + [uri]::EscapeDataString($kn) + "&madde_no=eq." + [uri]::EscapeDataString($mn)
-  try { $r = @(Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 60) } catch { Write-Host ("  sorgu hatasi {0}: {1}" -f $d.anahtar, $_.Exception.Message); continue }
+  # 30.07 PS TUZAGI: @(IRM) cok satirli cevabi tek nesne sarar - id'ler
+  # birlesik tek "kayit" olurdu. Once ata, sonra sar.
+  try { $rHam = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 60; $r = @($rHam) } catch { Write-Host ("  sorgu hatasi {0}: {1}" -f $d.anahtar, $_.Exception.Message); continue }
   foreach($s in $r){
     if("$($s.yayin)" -eq 'False' -or $s.yayin -eq $false){ continue }   # zaten cekili
     $hedef.Add([pscustomobject]@{ id="$($s.id)"; ders="$($s.ders)"; konu="$($s.konu)"; anahtar="$($d.anahtar)"; ad="$($d.ad)" })
@@ -110,7 +112,8 @@ Write-Host ("CEKILEN: {0}   hata: {1}" -f $cekilen, $hata)
 # --- MUTABAKAT: gercekten cekildi mi
 $kalan = 0
 foreach($t in $hedef){
-  try { $r = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yayin&id=eq.$($t.id)" -Headers $H -TimeoutSec 30)
+  try { $rHam2 = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yayin&id=eq.$($t.id)" -Headers $H -TimeoutSec 30
+    $r = @($rHam2)
     if($r.Count -and ($r[0].yayin -eq $true)){ $kalan++ } } catch {}
 }
 Write-Host ("MUTABAKAT: hala yayinda kalan {0} (0 olmali)" -f $kalan)

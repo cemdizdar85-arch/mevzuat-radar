@@ -56,7 +56,12 @@ $yayinKisa = 0; $yayinSablon = 0
 $offset = 0; $sayfa = 1000
 while($true){
   $u = "$SB_URL/rest/v1/soru_havuzu?select=id,hap,aciklama,yayin&order=id&limit=$sayfa&offset=$offset"
-  $parti = @(Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 120)
+  # 30.07 PS TUZAGI: @(Invoke-RestMethod ...) komut cikisini TEK boru nesnesi
+  # olarak sarar - 1000 kayitlik dizi "1 eleman" olur (ilk kosu 12.869 yerine
+  # 1 taradi, curl ayni URL'de 1000 aldi; olculdu). Once degiskene ata, SONRA
+  # @() ile sar - kasa-sayim'in kanitlanmis deseni.
+  $ham = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 120
+  $parti = @($ham)
   if(-not $parti.Count){ break }
   foreach($s in $parti){
     $hepsi++

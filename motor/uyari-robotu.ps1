@@ -52,7 +52,10 @@ $ihale = @(); try { $ihale = (Get-Content (Join-Path $kok "veri\ihale-yurtici.js
 $kartlar = @(); try { $kartlar = (Get-Content (Join-Path $kok "veri\kartlar-guncel.json") -Raw -Encoding UTF8 | ConvertFrom-Json).kartlar } catch {}
 
 # --- firmalar (service role RLS'i bypass eder) ---
-$firmalar = @(Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/firmalar?select=*" -Headers $H -TimeoutSec 90)
+# 30.07 PS TUZAGI: @(IRM ...) diziyi tek nesne sarar (N firma = "1 firma"
+# gorunur, uyeler karisir). Once ata, sonra sar.
+$firmalarHam = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/firmalar?select=*" -Headers $H -TimeoutSec 90
+$firmalar = @($firmalarHam)
 if(-not $firmalar.Count){
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAMAM"; firma=0; yeni_uyari=0
     not="Henuz firma eklenmemis - panelden '+ Firma ekle' ile baslanir."

@@ -169,7 +169,9 @@ function HesapPlaniMetni([string]$kaynak){
   $parcalar = @()
   foreach($kod in $kodlar){
     try {
-      $r = @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString("^THP\s$kod(?![0-9])") + "&limit=3") -Headers $H -TimeoutSec 60)
+      # 30.07 PS TUZAGI: @(IRM) cok satirli cevabi tek nesne sarar. Once ata, sonra sar.
+      $rHam = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString("^THP\s$kod(?![0-9])") + "&limit=3") -Headers $H -TimeoutSec 60
+      $r = @($rHam)
     } catch { continue }
     # 28.07: burada once $x.PSObject.Properties['metin'] ile "alan var mi" diye
     # bakiyordum; kayit DOLU geldigi halde False donuyordu ve fonksiyon sessizce
