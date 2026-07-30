@@ -164,6 +164,25 @@ function kur(){
   document.getElementById('mrxAra').addEventListener('input',function(e){ suz(e.target.value); });
 
   window.MRMenu={ac:ac,kapat:kapat};
+
+  /* ── YASAL FOOTER (30.07 kurumsallik taramasi, bulgu #7) ──────────────
+     13 sayfada KVKK/iletisim baglantisi yoktu; menu.js her sayfada yuklu
+     oldugundan footer BURADAN enjekte edilir - tek dosya, 13 sayfa duzelir.
+     Sayfanin kendi footer'inda kvkk.html linki zaten varsa EKLENMEZ
+     (iletisim.html gibi tam kunyeli sayfalarda cift footer olmasin). */
+  try {
+    if (!document.querySelector('a[href$="kvkk.html"]')) {
+      var yf = document.createElement('div');
+      yf.style.cssText = 'max-width:980px;margin:34px auto 0;padding:14px 18px 26px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#5d6b7c;font-family:inherit;line-height:1.8';
+      yf.innerHTML = '<a href="kvkk.html" style="color:#93a1b3;text-decoration:none">KVKK Aydınlatma</a> · ' +
+        '<a href="uyelik-sozlesmesi.html" style="color:#93a1b3;text-decoration:none">Üyelik Koşulları</a> · ' +
+        '<a href="mesafeli-satis.html" style="color:#93a1b3;text-decoration:none">Mesafeli Satış</a> · ' +
+        '<a href="teslimat-iade.html" style="color:#93a1b3;text-decoration:none">Teslimat & İade</a> · ' +
+        '<a href="iletisim.html" style="color:#93a1b3;text-decoration:none">İletişim</a>' +
+        '<br>Dizdar Denetim ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com';
+      document.body.appendChild(yf);
+    }
+  } catch (e) {}
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',kur); else kur();
 })();
