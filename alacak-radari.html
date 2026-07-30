@@ -15,13 +15,25 @@ a{color:var(--accent2)}
 .top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
 .logo{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#03101f;font-weight:800;font-size:14px}
 h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+/* 30.07 Cem: vitrindeki kutu uslubu ("dikkat ceken soru + fayda + dayanak +
+   eylem") sitenin ORTAK DILI olsun - sapka + pencere cubugu iceri de girdi. */
+.gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;
+  color:var(--red);border:1px solid rgba(255,107,94,.35);background:rgba(255,107,94,.07);
+  border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
+.pbar{display:flex;align-items:center;gap:6px;margin:-20px -20px 16px;padding:10px 14px;
+  border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:16px 16px 0 0}
+.pbar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.1)}
+.pbar i:nth-child(1){background:rgba(255,107,94,.5)}
+.pbar i:nth-child(2){background:rgba(255,194,75,.5)}
+.pbar i:nth-child(3){background:rgba(61,220,151,.5)}
+.pbar b{margin-left:6px;font-size:11px;color:var(--muted);letter-spacing:.3px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 8px}
 .uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:16px 0}
 .kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
 label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
 textarea{width:100%;min-height:110px;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px;resize:vertical}
 textarea::placeholder{color:var(--dim)}
-.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:13px 26px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(46,140,255,.35);margin-top:12px}
+.btn{display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:15px;padding:13px 26px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(245,165,36,.35);margin-top:12px}
 .btn:active{transform:translateY(1px)}
 .ipucu{font-size:12px;color:var(--dim);margin-top:9px}
 .yukle{border:1.5px dashed rgba(245,165,36,.4);border-radius:13px;padding:16px;text-align:center;background:linear-gradient(135deg,rgba(245,165,36,.06),transparent);cursor:pointer;transition:border-color .15s,background .15s;margin-bottom:12px}
@@ -75,12 +87,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
 
+  <div><span class="gozalici">🚨 Müşterin konkordato ilan etti mi?</span></div>
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
 
   <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Bu sayfada <b style="color:var(--muted)">örnek (tohum) veri</b> ile çalışır; <b style="color:var(--ink)">canlı günlük tarama + WhatsApp/mail uyarısı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
 
   <div class="kutu">
+    <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
     <label>Müşteri / borçlu listeni yükle — muhasebe programından tek tuşla Excel al</label>
     <label class="yukle" id="yukleKutu">
       <div class="ikon">📄</div>
