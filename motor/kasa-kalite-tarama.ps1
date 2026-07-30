@@ -67,9 +67,12 @@ while($true){
   if(-not $parti.Count){ break }
   foreach($s in $parti){
     $hepsi++
-    $h = "$($s.hap)"
-    if($h.Trim().Length -lt 5){ $hapYok.Add("$($s.id)") }
-    elseif($h.Length -lt $KISA_ESIK){ $kisaHap.Add("$($s.id)"); if($s.yayin){ $yayinKisa++ } }
+    # DIKKAT: degisken adi $h OLAMAZ - PowerShell buyuk/kucuk duyarsizdir,
+    # $h = hap metni atamasi baslik sozlugu $H'yi EZIYORDU; ikinci sayfa
+    # istegi "Headers = hap cumlesi" ile baglanip patliyordu (iki kosu).
+    $hapM = "$($s.hap)"
+    if($hapM.Trim().Length -lt 5){ $hapYok.Add("$($s.id)") }
+    elseif($hapM.Length -lt $KISA_ESIK){ $kisaHap.Add("$($s.id)"); if($s.yayin){ $yayinKisa++ } }
     # aciklama JSON nesnesi ({A:...,B:...}) - tum degerleri tek metinde tara
     $acik = ''
     if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $acik += ' ' + "$($p.Value)" } }
