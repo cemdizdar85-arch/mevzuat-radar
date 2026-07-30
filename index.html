@@ -569,33 +569,33 @@ function gtipGit(e){
          GERÇEK üründen: deneme.html'in soru kabini + dün kurulan yan panel,
          ücretsiz bankadaki GERÇEK bir soruyla. Görüntü değil saf CSS -
          her çözünürlükte net, eskimez, bakım istemez. Tıklayınca ürüne gider. -->
-    <a class="urun-pencere" href="deneme.html" aria-label="Deneme Sınavı ürün önizlemesi">
-      <span class="up-bar"><i></i><i></i><i></i><b>tetikte.com/deneme</b></span>
-      <span class="up-govde">
-        <span class="up-sol">
-          <span class="up-soru">Mobilya üretimi yapan bir işletmenin normal faaliyet döngüsü 16 aydır. Bu döngü içinde satılması beklenen mamul stokları bilançoda nasıl sınıflandırılmalıdır?</span>
-          <span class="up-sik yanlis"><b>A</b> Nakit ve nakit benzeri değerler içinde raporlanmalıdır</span>
-          <span class="up-sik dogru"><b>B</b> Dönen varlık olarak sınıflandırılmalıdır</span>
-          <span class="up-sik"><b>C</b> Duran varlık olarak sınıflandırılmalıdır</span>
-        </span>
-        <span class="up-sag">
-          <span class="up-gk kirmizi"><b>👉 SENİN CEVABIN</b> Stok, nakit benzeri değildir; TMS 7 anlamında ayrı kategorilerdir.</span>
-          <span class="up-gk yesil"><b>✓ DOĞRU — B</b> TMS 1.68: stok, faaliyet döngüsü içinde satılacaksa 12 aydan uzun sürede de dönen varlıktır.</span>
-          <span class="up-kaynak">📑 Kaynak: TMS 1 m.68</span>
-          <span class="up-hap"><b>🎯 AKILDA KALSIN</b> Önce faaliyet döngüsüne bak; "12 ay" yedek ölçüttür. Döngü uzunsa stok yine dönen varlıktır.</span>
-        </span>
-      </span>
-    </a>
-
-    <!-- ============ MİNİ PENCERELER (30.07 Cem: "3'e bölünce digerleri bosta
-         kaldi; sinav basta kalsin, sonrasi ufak ufak - RG'yi hap halinde
-         sunmamiz, ucuz mali bulmamiz, GTIP, marka... anlasilmiyor").
-         Buyuk pencere sinavin; altinda 4 kucuk pencere isin genisligini
-         gosterir. Icerik GERCEK: RG karti bugun onarilan karttan, GTIP
-         tanimi bugun RG goruntusunden teyit edilen evye satirindan, marka
-         kurali SMK m.23'ten. Ornek marka "ör." etiketiyle durur. -->
-    <div class="mini-baslik">Sınav sadece bir kapı — nöbetin tamamı:</div>
+    <!-- ============ ÜRÜN KUTULARI (30.07 Cem, 2. tur: "buyuk pencereyi
+         kaldirip hepsini kutu kutu yapsak") - HAKLIYDI: buyuk pencere tek
+         urunu sisiriyor ve ekrani yiyordu. Simdi 6 esit kutu (3x2): sinav
+         VURGULU cerceveyle basta, yaninda RG hap / Nereden Alsam / GTIP /
+         Marka / Alacak. Icerik GERCEK: soru ucretsiz bankadan, RG karti
+         bugun onarilan karttan, evye satiri RG'den teyitli, SMK m.23 ve
+         IIK m.299 birincilden. Ornek marka "ör." etiketli. -->
+    <div class="mini-baslik">Nöbetin tamamı — hepsi gerçek üründen:</div>
     <div class="mini-pencereler">
+      <a class="mp one" href="deneme.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>Deneme Sınavı · soru kabini</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag" style="color:var(--accent2)">📝 HER ŞIKKIN GEREKÇESİ + KAYNAK</span>
+          <span class="mp-b">Faaliyet döngüsü 16 ay — stok dönen mi, duran mı?</span>
+          <span class="mp-m">Cevabın yanında gerekçe ve kaynak maddesi: <b style="color:var(--green)">TMS 1 m.68</b> · yanlışına "akılda kalsın" kartı</span>
+          <span class="mp-git">Ücretsiz soru çözmeye başla →</span>
+        </span>
+      </a>
+      <a class="mp" href="alacak-radari.html">
+        <span class="mp-bar"><i></i><i></i><i></i><b>Alacak Radarı</b></span>
+        <span class="mp-ic">
+          <span class="mp-tag" style="color:var(--red)">🚨 MÜŞTERİN KONKORDATO İLAN ETTİ Mİ?</span>
+          <span class="mp-b">İlanı kaçıran, alacağını riske atar</span>
+          <span class="mp-m">İİK m.299: alacaklılar ilandan itibaren <b style="color:var(--ink)">15 gün</b> içinde alacağını bildirir — radar ilanı gününde haber verir</span>
+          <span class="mp-git">Borçlu VKN'ni izlet →</span>
+        </span>
+      </a>
       <a class="mp" href="kartlar.html">
         <span class="mp-bar"><i></i><i></i><i></i><b>Resmî Gazete → hap kart</b></span>
         <span class="mp-ic">
@@ -685,58 +685,16 @@ function gtipGit(e){
 
   .sk-git{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:4px}
 
-  /* URUN PENCERESI: hero'nun altinda buyuk urun goruntusu (Linear deseni).
-     Hafif perspektif egimi premium durur; asagi kaydikca duzlesir gibi
-     algilanir. Tamamen CSS - goruntu dosyasi yok. */
-  /* 30.07 Cem: "ekrani actigimda tek sayfa deneme gorunmesin" - pencere bir
-     tik kuculdu ki altindaki mini pencereler ilk bakista sezilsin. */
-  .urun-pencere{display:block;max-width:860px;margin:30px auto 0;text-align:left;text-decoration:none;color:inherit;
-    background:rgba(10,15,23,.92);border:1px solid var(--line2);border-radius:18px;overflow:hidden;
-    box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.03),0 -18px 70px -40px rgba(245,165,36,.35);
-    transform:perspective(1400px) rotateX(3.5deg);transform-origin:top center;
-    transition:transform .35s ease,border-color .25s,box-shadow .35s}
-  .urun-pencere:hover{transform:perspective(1400px) rotateX(0deg);border-color:rgba(245,165,36,.35);
-    box-shadow:0 46px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04),0 -18px 80px -38px rgba(245,165,36,.45)}
-  .up-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
-  .up-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
-  .up-bar i:first-child{background:rgba(255,107,94,.55)}
-  .up-bar i:nth-child(2){background:rgba(255,194,75,.55)}
-  .up-bar i:nth-child(3){background:rgba(61,220,151,.55)}
-  .up-bar b{margin-left:10px;font:600 11.5px/1 ui-monospace,Consolas,monospace;color:var(--dim);
-    background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:7px;padding:5px 12px}
-  .up-govde{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;padding:20px 22px 22px}
-  .up-sol,.up-sag{display:flex;flex-direction:column;gap:9px;min-width:0}
-  .up-soru{font-size:14px;line-height:1.55;color:var(--ink);font-weight:600;letter-spacing:-.1px;margin-bottom:3px}
-  .up-sik{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.45;
-    border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.015)}
-  .up-sik b{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--dim);flex:none}
-  .up-sik.dogru{border-color:rgba(61,220,151,.45);background:rgba(61,220,151,.05)}
-  .up-sik.dogru b{color:var(--green)}
-  .up-sik.yanlis{border-color:rgba(255,107,94,.4);background:rgba(255,107,94,.04)}
-  .up-sik.yanlis b{color:var(--red)}
-  .up-gk{font-size:11.5px;line-height:1.5;color:var(--muted);border-left:3px solid var(--line2);
-    border-radius:0 9px 9px 0;padding:7px 10px 7px 11px;background:rgba(255,255,255,.015)}
-  .up-gk b{display:block;font-size:9.5px;letter-spacing:.8px;margin-bottom:3px}
-  .up-gk.kirmizi{border-left-color:rgba(255,107,94,.55)}.up-gk.kirmizi b{color:var(--red)}
-  .up-gk.yesil{border-left-color:rgba(61,220,151,.55)}.up-gk.yesil b{color:var(--green)}
-  .up-kaynak{font-size:11px;color:var(--green);border:1px solid rgba(61,220,151,.3);background:rgba(61,220,151,.07);
-    border-radius:9px;padding:6px 10px}
-  .up-hap{font-size:11.5px;line-height:1.55;color:var(--ink);border:1px solid rgba(255,194,75,.5);border-radius:12px;
-    padding:10px 12px;background:linear-gradient(155deg,rgba(255,194,75,.15),rgba(245,165,36,.04) 70%);
-    box-shadow:0 10px 26px -18px rgba(245,165,36,.55)}
-  .up-hap b{display:block;font-size:9.5px;letter-spacing:1.2px;color:var(--amber);margin-bottom:3px}
-  @media(max-width:860px){
-    .urun-pencere{transform:none;margin-top:26px}
-    .urun-pencere:hover{transform:none}
-    .up-govde{grid-template-columns:1fr;gap:12px;padding:16px}
-    .up-sol .up-sik:nth-child(4){display:none}
-  }
+  /* (30.07 2. tur: buyuk .urun-pencere kaldirildi - Cem "hepsi kutu kutu
+     olsun" dedi; sinav artik .mp.one vurgulu kutusu. Olu CSS temizlendi.) */
 
   /* MINI PENCERELER: buyuk pencerenin altinda isin genisligi - 4 kucuk urun.
      Ayni pencere dili (nokta bari), daha kucuk olcek. */
   .mini-baslik{margin:30px 0 12px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
     color:var(--dim);font-weight:800}
-  .mini-pencereler{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1180px;margin:0 auto}
+  .mini-pencereler{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1180px;margin:0 auto}
+  /* sinav kutusu "basta" kalir: vurgulu cerceve + hafif kehribar zemin */
+  .mp.one{border-color:rgba(245,165,36,.45);background:linear-gradient(180deg,rgba(245,165,36,.07),rgba(10,15,23,.9) 55%)}
   .mp{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;
     background:rgba(10,15,23,.9);border:1px solid var(--line);border-radius:14px;overflow:hidden;
     transition:transform .18s,border-color .18s,box-shadow .18s}
