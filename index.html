@@ -427,7 +427,7 @@ function gtipGit(e){
         <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
       </div>
     </div>
-    <a class="nl" href="#fiyat">Fiyatlandırma</a>
+    <a class="nl" href="#fiyat">Abonelik</a>
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px">Giriş / Üye Ol</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <a class="btn" href="karne.html">Ücretsiz Başla</a>
@@ -1031,14 +1031,18 @@ function gtipGit(e){
 <!-- ============ FİYATLANDIRMA ============ -->
 <section id="fiyat">
   <div class="sec-in">
+    <!-- 30.07 Cem: "fiyatlandirma iyi durmuyor" - hakliydi ama sebep bolum
+         degil, fiyat TAKLIDIYDI: baslik fiyat vaat edip fiyat gostermiyordu
+         (bos 0 TL + fiyat yerine gecen link + YAKINDA). Bolum "ucretsiz vs
+         abonelik" karsilastirmasina cevrildi; fiyatin evi fiyat.html. -->
     <div class="sec-head reveal">
-      <h2>Basit fiyatlandırma</h2>
-      <p>Araçlar herkese ücretsiz — ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde.</p>
+      <h2>Bakış bedava. Nöbet abonelikle.</h2>
+      <p>Araçlara bakmak ücretsiz ve üyeliksiz. Ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde — fiyatlar tek sayfada, KDV dahil ve açık.</p>
     </div>
     <div class="fiyat-grid">
       <div class="fkart reveal">
-        <h3>Ücretsiz</h3>
-        <div class="fiyat">0 TL <span>/ ücretsiz kalır</span></div>
+        <h3>Bakış — herkese açık</h3>
+        <div style="font-size:13px;color:var(--green);font-weight:700;margin:4px 0 8px">0 TL · hep öyle kalır</div>
         <ul>
           <li>Tüm hesaplama araçları (GTİP, KDV, ihale, ceza, marka…)</li>
           <li>Günün hap kartları + Bugün Resmî Gazete'de</li>
@@ -1052,10 +1056,7 @@ function gtipGit(e){
         <h3 style="display:flex;align-items:center;gap:8px">Tetikte<span style="width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block;animation:tetiktNabiz 1.6s ease-out infinite"></span></h3>
         <div style="font-size:12.5px;color:var(--muted);margin:-4px 0 10px;font-weight:600">işinin nöbetçisi · radar aboneliği</div>
         <style>@keyframes tetiktNabiz{0%,100%{opacity:1}50%{opacity:.45}}</style>
-        <div class="fiyat" style="font-size:20px"><a href="fiyat.html" style="color:var(--accent);text-decoration:none">Fiyatları gör →</a></div>
-        <div style="font-size:12px;color:var(--muted);margin:-6px 0 4px">Büro ve şirket paketleri, sınav paketi — hepsi tek sayfada, KDV dahil ve açık.</div>
-        <div style="font-size:12px;color:var(--muted);margin:0 0 10px">🎓 <a href="genc.html" style="color:var(--accent2)">Sınav Paketi</a> (SGS/Yeterlilik adayı): <b style="color:var(--ink)"><a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a></b> — sınav gününe kadar her şey dahil.</div>
-        <div style="font-size:13px;color:var(--ink);margin:2px 0 10px;font-weight:600">Ücretsizde herkes aynı bilgiyi görür. Tetikte'de sistem <span style="color:var(--green)">senin firmanı</span> izler.</div>
+        <div style="font-size:13px;color:var(--ink);margin:6px 0 10px;font-weight:600">Ücretsizde herkes aynı bilgiyi görür. Tetikte'de sistem <span style="color:var(--green)">senin firmanı</span> izler.</div>
         <ul>
           <li>Firma profilini bir kez gir — GTİP, il, markalar, belge tarihleri</li>
           <li>Sana özel uyarı: RG senin kodunu vurunca · markana benzer başvuru · müşterin konkordatoda · süre yaklaşınca</li>
@@ -1064,9 +1065,10 @@ function gtipGit(e){
         </ul>
         <div style="font-size:12.5px;color:var(--amber);background:rgba(255,194,75,.07);border:1px solid rgba(255,194,75,.25);border-radius:10px;padding:9px 12px;margin-bottom:12px">⭐ <b>İlk 100 üye "Kurucu Üye":</b> fiyat ömür boyu yarı, isimleri (isterlerse) sitede. Liste şimdiden açık.</div>
         <a class="btn" href="radar-app.html?niyet=tam">Nöbeti bize bırak — kurucu listesine gir</a>
+        <a class="btn ghost" href="fiyat.html" style="margin-top:10px">Fiyatları ve paketleri gör →</a>
       </div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Fiyat kesinleşince erken erişim listesindekilere ilk biz haber veririz.</p>
+    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Büro, şirket ve sınav paketleri <a href="fiyat.html" style="color:var(--accent2)">fiyat sayfasında</a> — KDV dahil, açık.</p>
   </div>
 </section>
 
