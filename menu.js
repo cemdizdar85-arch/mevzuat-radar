@@ -59,6 +59,7 @@ var GRUPLAR=[
   ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["kurulus-evrak.html","🗂️","Kuruluş Evrak Çantası","Hangi belge, kim doldurur, nereye?"],
+  ["karne.html","📋","Yükümlülük Karnesi","Firmana özel yükümlülük fotoğrafı, PDF'li"],
   ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
   ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"],
