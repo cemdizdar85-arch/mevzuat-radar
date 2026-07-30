@@ -6,6 +6,16 @@
 name: Hap Kartlar
 
 on:
+  # 30.07 — ELLE TETIK YOLU. Bu dosyada push tetigi HIC yoktu; zamanlayici
+  # gelmeyince (yeni eklenen cron'lar ilk gun ateslenmeyebiliyor - GitHub'in
+  # bilinen gecikmesi; bugun 03:00 UTC tetigi gelmedi, kart nobeti 26.07'de
+  # kaldi) robotu ateslemenin HICBIR yolu kalmiyordu. Artik bu dosyaya
+  # dokunan push kosuyu baslatir.
+  # NOT: bugun API tavani dolu (429) - kosu teblig bulursa kirmizi bitebilir;
+  # bu BEKLENEN ve zararsizdir, telafi adimi 1 Agustos'ta acigi kapatir.
+  push:
+    paths:
+      - '.github/workflows/kartlar.yml'
   # ===================================================================
   #  BU ZAMANLAYICI KAPATILMAZ.  (Cem, 29.07.2026: "hicbir zaman
   #  kapanmasin bu")
