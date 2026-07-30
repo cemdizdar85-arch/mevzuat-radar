@@ -27,7 +27,15 @@ foreach($f in $dosyalar){
 Write-Host ("{0} sayfadan {1} tekil dis link toplandi." -f $dosyalar.Count, $linkler.Count)
 
 # 2) yokla (nazik: 300ms ara; mevzuat.gov.tr icin Referer sart)
+# 30.07 YANLIS ALARM DUZELTMESI: devlet siteleri (mevzuat/RG/EKAP/GIB...)
+# bulut IP'lerine HTTP cevabi bile vermeden baglantiyi kesiyor - nobetci
+# bunlari "kirik" sayip her hafta 10 sahte alarm uretiyordu (30.07 taramasi:
+# 10/10'u bu sinifti; ayni linkler Turkiye'den acilyor). Bilinen bot-engelli
+# resmi alanlarda CEVAPSIZ kalma "dogrulanamadi (bot engeli)" sayilir, kirik
+# SAYILMAZ. Ayni alandan gercek HTTP 404 gelirse yine KIRIK yazilir.
+$botEngelli = 'mevzuat\.gov\.tr|resmigazete\.gov\.tr|ekap\.kik\.gov\.tr|gib\.gov\.tr|turkpatent\.gov\.tr|ticaret\.gov\.tr|ilan\.gov\.tr|kik\.gov\.tr'
 $kirik = New-Object System.Collections.Generic.List[object]
+$engelli = New-Object System.Collections.Generic.List[object]
 $i=0
 foreach($u in $linkler.Keys){
   $i++
@@ -45,14 +53,20 @@ foreach($u in $linkler.Keys){
     $kirik.Add([ordered]@{ url=$u; kod=$kod; sayfalar=($linkler[$u] | Select-Object -Unique) -join ", " })
     Write-Host ("  KIRIK ({0}): {1}" -f $kod, $u)
   } elseif($hata){
-    $kirik.Add([ordered]@{ url=$u; kod="baglanti-yok"; sayfalar=($linkler[$u] | Select-Object -Unique) -join ", " })
-    Write-Host ("  ERISILEMEDI: {0}" -f $u)
+    if($u -match $botEngelli){
+      $engelli.Add([ordered]@{ url=$u; kod="bot-engeli"; sayfalar=($linkler[$u] | Select-Object -Unique) -join ", " })
+      Write-Host ("  DOGRULANAMADI (bot engeli, kirik sayilmadi): {0}" -f $u)
+    } else {
+      $kirik.Add([ordered]@{ url=$u; kod="baglanti-yok"; sayfalar=($linkler[$u] | Select-Object -Unique) -join ", " })
+      Write-Host ("  ERISILEMEDI: {0}" -f $u)
+    }
   }
   Start-Sleep -Milliseconds 300
 }
 
 # 3) sonuc
-$out = [pscustomobject]@{ tarama=(Get-Date -Format "dd.MM.yyyy HH:mm"); toplamLink=$linkler.Count; kirikSayisi=$kirik.Count; kirikler=$kirik.ToArray() }
+$out = [pscustomobject]@{ tarama=(Get-Date -Format "dd.MM.yyyy HH:mm"); toplamLink=$linkler.Count; kirikSayisi=$kirik.Count; kirikler=$kirik.ToArray();
+  dogrulanamayanSayisi=$engelli.Count; dogrulanamayanNot="Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac."; dogrulanamayanlar=$engelli.ToArray() }
 [IO.File]::WriteAllText((Join-Path $kok "veri/kirik-linkler.json"), ($out | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 if($kirik.Count -eq 0){ Write-Host "TEMIZ: kirik dis link yok."; exit 0 }
 Write-Host ("{0} KIRIK LINK bulundu." -f $kirik.Count)
