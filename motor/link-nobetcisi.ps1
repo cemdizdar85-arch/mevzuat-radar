@@ -48,11 +48,18 @@ Write-Host ("veri dosyalari dahil toplam tekil link: {0}" -f $linkler.Count)
 # resmi alanlarda CEVAPSIZ kalma "dogrulanamadi (bot engeli)" sayilir, kirik
 # SAYILMAZ. Ayni alandan gercek HTTP 404 gelirse yine KIRIK yazilir.
 $botEngelli = 'mevzuat\.gov\.tr|resmigazete\.gov\.tr|ekap\.kik\.gov\.tr|gib\.gov\.tr|turkpatent\.gov\.tr|ticaret\.gov\.tr|ilan\.gov\.tr|kik\.gov\.tr'
+# BILINEN OLU ARSIV DAMGALARI (30.07): kaynak kurumun kaldirdigi, bizim ise
+# TARIHI IZ olarak sakladigimiz adresler - her hafta alarm URETMEZ. Yeni
+# eklenen her adresin yanina gerekce yazilir.
+$bilinenOlu = @(
+  'https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/1/lisans_a_grubu/sgs_2023_1_lisans_a_grubu_ingilizce.pdf'  # TESMER kaldirdi; kitapcik 27.07'de islendi (sgs-analiz/sinav-arsiv izi)
+)
 $kirik = New-Object System.Collections.Generic.List[object]
 $engelli = New-Object System.Collections.Generic.List[object]
 $i=0
 foreach($u in $linkler.Keys){
   $i++
+  if($bilinenOlu -contains $u){ Write-Host ("  BILINEN OLU (arsiv izi, alarm yok): {0}" -f $u); continue }
   $hdr = @{ "User-Agent"=$UA }
   if($u -match 'mevzuat\.gov\.tr'){ $hdr["Referer"]="https://www.mevzuat.gov.tr/" }
   $kod = $null; $hata = $null
