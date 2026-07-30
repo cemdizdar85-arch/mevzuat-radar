@@ -1,0 +1,75 @@
+**********************
+PowerShell transcript start
+Start time: 20260730053052
+Username: runnervm7i58z\runner
+RunAs User: runnervm7i58z\runner
+Configuration Name: 
+Machine: runnervm7i58z (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/45278028-2206-4120-8c91-b53607fcb46f.ps1'
+Process ID: 2115
+PSVersion: 7.6.4
+PSEdition: Core
+GitCommitId: 7.6.4
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Aday parti (ended+basarili): 162
+  HAKEM msgbatch_01WUrJ1MUSCa9oa  240 yargi  (07/29/2026 07:27:57)
+  HAKEM msgbatch_01LMPDpHXXuum4D  92 yargi  (07/29/2026 07:45:05)
+  HAKEM msgbatch_01AFLaEX5RBrqbu  400 yargi  (07/29/2026 12:18:04)
+  HAKEM msgbatch_01FajtFcsBwtRHR  400 yargi  (07/29/2026 12:20:29)
+  HAKEM msgbatch_01DFpvxsMdUSPfH  400 yargi  (07/29/2026 12:22:34)
+  HAKEM msgbatch_01UdVNmsAea91ve  400 yargi  (07/29/2026 12:25:39)
+  HAKEM msgbatch_01URphCqRhtvJ31  400 yargi  (07/29/2026 12:29:05)
+  HAKEM msgbatch_016J6e9qqBYwbEj  400 yargi  (07/29/2026 12:44:17)
+  HAKEM msgbatch_017RJgRXUo59gbv  400 yargi  (07/29/2026 13:39:37)
+  HAKEM msgbatch_012ebbf2wHRdBk3  399 yargi  (07/29/2026 13:44:47)
+  HAKEM msgbatch_01DCkjVmHBp9QdK  400 yargi  (07/29/2026 13:49:18)
+  HAKEM msgbatch_01HeK2dZRxjHjbM  400 yargi  (07/29/2026 14:02:20)
+  HAKEM msgbatch_01DSYc8wRcuqYcm  400 yargi  (07/29/2026 14:10:57)
+  HAKEM msgbatch_012TaE7zskzKcwS  400 yargi  (07/29/2026 14:22:00)
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ö. Path 'alinti', line 7, position 65."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ö. Path 'alinti', line 7, position 65."
+  HAKEM msgbatch_0146bc1CZs2R5gv  398 yargi  (07/29/2026 14:42:53)
+  HAKEM msgbatch_01PMo8PkY1LWLus  400 yargi  (07/29/2026 14:50:26)
+  HAKEM msgbatch_01MFeYjmbbWBJaU  400 yargi  (07/29/2026 14:57:58)
+  HAKEM msgbatch_01VbA3BHtS7ZqF9  400 yargi  (07/29/2026 15:10:23)
+  HAKEM msgbatch_01CMyg5kuxmp6hw  400 yargi  (07/29/2026 15:16:35)
+  HAKEM msgbatch_01LUnUEQRxGCCCB  400 yargi  (07/29/2026 15:20:00)
+  HAKEM msgbatch_01PnYeyV7RuzAAG  400 yargi  (07/29/2026 15:23:06)
+  HAKEM msgbatch_01KWYsoRYbkAUvD  400 yargi  (07/29/2026 15:26:12)
+  HAKEM msgbatch_01KLYkyjYgTq8iA  400 yargi  (07/29/2026 15:28:38)
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ö. Path 'alinti', line 7, position 65."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ö. Path 'alinti', line 7, position 65."
+  HAKEM msgbatch_01948h6SUdMRWJt  398 yargi  (07/29/2026 15:32:04)
+  HAKEM msgbatch_01RTj8T4pT8DnSL  184 yargi  (07/29/2026 15:41:22)
+  HAKEM msgbatch_0199cZwbVxsYYkk  400 yargi  (07/29/2026 16:04:54)
+  HAKEM msgbatch_01LZN1b1QUhDYLE  400 yargi  (07/29/2026 16:08:20)
+  HAKEM msgbatch_01DsfPcgwJXAjBW  400 yargi  (07/29/2026 16:11:26)
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ö. Path 'alinti', line 7, position 109."
+  HAKEM msgbatch_01JDShf46W1RZww  399 yargi  (07/29/2026 16:14:55)
+  HAKEM msgbatch_01TCLBWq3JQ2ziD  400 yargi  (07/29/2026 16:21:06)
+  HAKEM msgbatch_01V48a1myPQHShu  400 yargi  (07/29/2026 16:34:31)
+  HAKEM msgbatch_015kbrnP52ZJkpH  400 yargi  (07/29/2026 16:37:57)
+  HAKEM msgbatch_01TgkWWeb3XcEoD  400 yargi  (07/29/2026 16:58:20)
+  HAKEM msgbatch_01ApZpQByDqzsm6  400 yargi  (07/29/2026 17:02:47)
+  HAKEM msgbatch_01XaeZJTrUgBL6P  400 yargi  (07/29/2026 17:07:39)
+
+hakem partisi: 35   atlanan (hakem degil): 127   cekilemeyen: 0
+TEKIL YARGI: 7224 soru
+  destek_evet        3837
+  destek_yetersiz    3052
+  destek_hayir       333
+  celiski_evet       656
+  tek_dogru_sorunlu  3757
+  KIRMIZI (destek=hayir veya celiski=evet): 717
+
+-> veri/hakem-hasadi.json  (7224 yargi, 717 kirmizi)
+**********************
+PowerShell transcript end
+End time: 20260730053140
+**********************
