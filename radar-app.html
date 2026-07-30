@@ -79,6 +79,20 @@ const telGecerli=s=>/^05\d{9}$/.test(telSayi(s));
 function telBicim(el){ const d=telSayi(el.value); let f=d; if(d.length>4) f=d.slice(0,4)+' '+d.slice(4); if(d.length>7) f=d.slice(0,4)+' '+d.slice(4,7)+' '+d.slice(7); if(d.length>9) f=d.slice(0,4)+' '+d.slice(4,7)+' '+d.slice(7,9)+' '+d.slice(9); el.value=f; }
 const trUp=s=>(s||'').replace(/i/g,'İ').replace(/ı/g,'I').toLocaleUpperCase('tr-TR');
 let SECILI=null, IHALE=null, KARTLAR=null;
+// KAPIYA GORE UYELIK (30.07 Cem): "adam GTIP icin uye olduysa GTIP'ini
+// alacagiz, baska sey istediyse onu - yoksa kayip sorularimiz olur."
+// Niyet geldigi baglantidan tasinir (?niyet=gtip|alacak|marka|musavir),
+// girip kaybolmasin diye cihazda saklanir; ilk firma formunda TEK odakli
+// soru olarak sorulur. Uyelik aninda ekstra soru YOK (e-posta+sifre yeter).
+const NIYETLER = {
+  gtip:    { baslik:'GTİP kodlarını gir — radar onları izlesin', alan:'f_gtip',  ipucu:'Resmî Gazete senin kodlarına dokununca panelde ve uyarıda göreceksin.' },
+  alacak:  { baslik:'Borçlu VKN\'lerini gir — ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
+  marka:   { baslik:'Markanı gir — yenileme ve benzer başvuru nöbeti başlasın', alan:'f_marka', ipucu:'SMK m.23: tescil 10 yılda bir yenilenir — tarihi radar takip eder.' },
+  musavir: { baslik:'İlk mükellefini ekle — her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' }
+};
+let NIYET = (new URLSearchParams(location.search).get('niyet')||'').toLowerCase();
+if(NIYET && NIYETLER[NIYET]){ try{ localStorage.setItem('tetikteNiyet', NIYET); }catch(e){} }
+else { try{ NIYET = localStorage.getItem('tetikteNiyet')||''; }catch(e){} }
 const gtipNorm=s=>String(s==null?'':s).replace(/[^\d]/g,'');
 function gtipEslesir(firmaKod, kartKod){ const a=gtipNorm(firmaKod), b=gtipNorm(kartKod); if(a.length<4||b.length<4) return false; const k=Math.min(a.length,b.length); return a.slice(0,k)===b.slice(0,k); }
 
@@ -87,9 +101,13 @@ sb.auth.onAuthStateChange((_e,s)=>{ s?app():giris(); });
 
 function giris(){
   ustSag.innerHTML='';
+  const niyetSatiri = (NIYET && NIYETLER[NIYET])
+    ? `<div style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--accent2);border:1px solid rgba(255,194,75,.3);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin-bottom:12px">● ${esc(NIYETLER[NIYET].baslik)} — üyelikten hemen sonra soracağız, başka soru yok.</div>`
+    : '';
   ekran.innerHTML=`
     <h1>Radar Paneli</h1>
     <p class="lead">Firma profilini bir kez gir; ihale, alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
+    ${niyetSatiri}
     <div class="kutu" style="max-width:440px">
       <label>E-posta</label><input id="email" type="email" placeholder="ornek@firma.com" autocomplete="email">
       <label>Şifre</label><input id="sifre" type="password" placeholder="••••••••" autocomplete="current-password">
@@ -143,13 +161,20 @@ async function app(){
     <div id="pano"></div>`;
   document.querySelectorAll('.firmakart').forEach(k=>k.onclick=()=>{SECILI=k.dataset.id;app();});
   $('#yeniFirma').onclick=()=>firmaForm();
+  // KAPIYA GORE UYELIK: panel bosken kullaniciyi bos ekranla karsilamak
+  // yerine ilk soru KENDILIGINDEN acilir - niyetine gore odaklanmis halde.
+  if(!firmalar.length){ firmaForm(); }
   if(sf) pano(sf);
 }
 
 function firmaForm(){
   const fa=$('#formAlan'); fa.classList.remove('gizli');
+  const ny = NIYETLER[NIYET];
+  const baslik = ny ? ny.baslik : 'Firma ekle';
+  const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)} <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın — şimdilik yalnız firma adı yeter.</span></div>` : '';
   fa.innerHTML=`<div class="kutu">
-    <h3 style="margin:0 0 4px;font-size:16px">Firma ekle</h3>
+    <h3 style="margin:0 0 4px;font-size:16px">${esc(baslik)}</h3>
+    ${ipucu}
     <div class="grid2">
       <div><label>Firma adı *</label><input id="f_ad" placeholder="ör. Ege Seramik Ltd."></div>
       <div><label>Rol</label><select id="f_rol"><option value="ithalatci">İthalatçı</option><option value="ihracatci">İhracatçı</option><option value="uretici">Üretici</option><option value="tuccar">Tüccar</option><option value="musteri">Müşavir müşterisi</option></select></div>
@@ -166,6 +191,16 @@ function firmaForm(){
     <div style="margin-top:16px;display:flex;gap:10px"><button class="btn" id="kaydet">Kaydet</button><button class="btn ghost" id="iptal">Vazgeç</button></div>
     <div class="hata" id="fhata"></div>
   </div>`;
+  // niyet alani vurgulanir ve imlec oraya gider - "hangi soruyu soracagiz"
+  // tartismasi bitti: geldigi kapi neyse soru o.
+  if(ny){
+    const alanEl = document.getElementById(ny.alan);
+    if(alanEl){
+      alanEl.style.borderColor='var(--accent)';
+      alanEl.style.boxShadow='0 0 0 3px rgba(245,165,36,.18)';
+      setTimeout(()=>{ alanEl.focus(); alanEl.scrollIntoView({behavior:'smooth',block:'center'}); },150);
+    }
+  }
   $('#iptal').onclick=()=>{fa.classList.add('gizli');fa.innerHTML='';};
   $('#kaydet').onclick=async()=>{
     const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
