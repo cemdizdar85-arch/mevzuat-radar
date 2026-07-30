@@ -29,5 +29,7 @@ jobs:
           git add radar.html
           if [ -f veri/firsat-guncel.json ]; then git add veri/firsat-guncel.json || true; fi
           git diff --cached --quiet || git commit -m "Gunluk RG taramasi ($(date +%d.%m.%Y))"
+          # 30.07: pull--rebase VARDI ama yine dustu - rebase ile push arasindaki
+          # saniyede baska robot push'layinca yaris kaybediliyor. Denemeli dongu.
           git pull --rebase || true
-          git push
+          n=0; until git push; do n=$((n+1)); [ $n -ge 4 ] && exit 1; sleep 5; git pull --rebase || true; done

@@ -75,8 +75,10 @@ td b{color:var(--ink)}
       <span class="ik-ust">02</span>
       <b>Staj Bitirme</b>
       <span class="ik-alt">Yeterlilik — ruhsat için</span>
+      <!-- 30.07 YAKALANDI: geri sayim YMM'nin tarihine (12-21 Aralik) bagliydi;
+           Yeterlilik 3. donem 28 KASIM. Ogrenciye 2 hafta fazla gosteriyordu. -->
       <span class="ik-gun" id="ikYet">—</span>
-      <span class="ik-not">12 – 21 Aralık 2026</span>
+      <span class="ik-not">28 Kasım 2026</span>
       <span class="ik-git">Soru çözmeye başla →</span>
     </a>
   </div>
@@ -100,7 +102,7 @@ td b{color:var(--ink)}
      robotla degistirilmez, elle teyitle guncellenir. */
   (function(){
     function gun(t){ return Math.ceil((new Date(t+'T09:00:00+03:00') - new Date())/86400000); }
-    var a=gun('2026-11-21'), b=gun('2026-12-12');
+    var a=gun('2026-11-21'), b=gun('2026-11-28');
     var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet');
     if(e1) e1.textContent = a>0 ? a : '0';
     if(e2) e2.textContent = b>0 ? b : '0';
@@ -109,6 +111,26 @@ td b{color:var(--ink)}
 
   <div class="sayac" id="sayac"></div>
 
+  <!-- ============ SINAV SEKMELERI (30.07 Cem) ============================
+       Uc takvim + iki harita ALT ALTA yigiliyordu; SGS'ye calisan YMM
+       tablosunun altinda kendi haritasini ariyordu. Deneme kabinindeki
+       sinav secimiyle AYNI sistem: sekme sec, yalniz o sinavin takvimi ve
+       cikan soru haritasi gorunsun. ?sinav= parametresi + localStorage. -->
+  <style>
+    .stgrup{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
+    .stgrup button{appearance:none;cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:700;
+      color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:11px 18px;
+      transition:border-color .15s,color .15s}
+    .stgrup button:hover{color:var(--ink)}
+    .stgrup button.aktif{color:var(--ink);border-color:var(--amber);background:rgba(255,194,75,.08)}
+  </style>
+  <div class="stgrup" id="sinavSekme">
+    <button type="button" data-s="SGS">🎯 Staja Giriş (SGS)</button>
+    <button type="button" data-s="SMMM">🎓 SMMM Yeterlilik</button>
+    <button type="button" data-s="YMM">🏛 YMM</button>
+  </div>
+
+  <div class="sgrp sgrp-SGS">
   <h2>Staja Giriş Sınavı (SGS) — 2026</h2>
   <div class="tablosar"><table id="t-sgs">
     <tr><th>Dönem</th><th>Sınav tarihi</th><th>Başvuru dönemi</th></tr>
@@ -117,7 +139,9 @@ td b{color:var(--ink)}
     <tr data-t="2026-11-21"><td>3. Dönem</td><td><b>21 Kasım 2026</b></td><td>21 Eylül – 9 Ekim 2026</td></tr>
   </table></div>
   <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Başvuru: <a href="http://ssi.tesmer.org.tr" target="_blank" rel="noopener">ssi.tesmer.org.tr</a> — belgeler "Dijital Adım" uygulamasından yüklenir; tekrar girecekler için yalnız başvuru yeterli.</div>
+  </div>
 
+  <div class="sgrp sgrp-SMMM">
   <h2>SMMM Yeterlilik Sınavı — 2026</h2>
   <div class="tablosar"><table id="t-smmm">
     <tr><th>Dönem</th><th>Sınav tarihi</th><th>Dosya başvuru</th><th>Tekrar başvuru</th></tr>
@@ -126,7 +150,9 @@ td b{color:var(--ink)}
     <tr data-t="2026-11-28"><td>3. Dönem</td><td><b>28 Kasım 2026</b></td><td>17 Ağustos – 11 Eylül</td><td>16 – 23 Ekim</td></tr>
   </table></div>
   <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Not: Dosya başvurusu, staj süresi ilgili dönem tarihinde tamamlanmış adaylar içindir (ör. 3. dönem için 11.09.2026 itibarıyla).</div>
+  </div>
 
+  <div class="sgrp sgrp-YMM">
   <h2>YMM Sınavı — 2026</h2>
   <div class="tablosar"><table id="t-ymm">
     <tr><th>Dönem</th><th>Sınav tarihleri</th><th>Dosya başvuru</th><th>Tekrar başvuru</th></tr>
@@ -134,16 +160,20 @@ td b{color:var(--ink)}
     <tr data-t="2026-09-19"><td>2. Dönem</td><td><b>19 – 28 Eylül 2026</b></td><td>1 Haziran – 3 Temmuz</td><td>13 – 31 Temmuz</td></tr>
     <tr data-t="2026-12-12"><td>3. Dönem</td><td><b>12 – 21 Aralık 2026</b></td><td>7 Eylül – 2 Ekim</td><td>16 Kasım – 4 Aralık</td></tr>
   </table></div>
+  </div>
 
   <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et — bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
 
+  <div class="sgrp sgrp-SMMM">
   <div id="haritaY" style="display:none">
     <h2>Yeterlilik Haritası — SMMM sınavında nereden soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">SMMM Yeterlilik <b style="color:var(--ink)">2026/1'den itibaren test yöntemine geçti</b> (TESMER duyurusu). Resmî kitapçıklar ders ders, soru soru etiketleniyor (çift bağımsız okuma + hakem):</p>
     <div id="haritaYIc"></div>
     <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak kitapçıklar: TESMER resmî arşivi. Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynağa bakın.</div>
   </div>
+  </div>
 
+  <div class="sgrp sgrp-SGS">
   <div id="harita" style="display:none">
     <h2>Sınav Haritası — SGS'de nereden kaç soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">Son dönemlerin resmî kitapçıkları soru soru etiketlendi (çift bağımsız okuma + hakem yöntemi). Aşağıda ders dağılımı ve en çok soru getiren konular:</p>
@@ -164,6 +194,33 @@ td b{color:var(--ink)}
     <tr><td><b>Salon kuralları</b></td><td>İlk 15 dk'dan sonra gelen alınmaz; ilk 30 ve son 15 dk çıkış yok; salonu terk eden (tuvalet dahil) geri alınmaz; cep telefonu ve hesap makinesi ile <b>binaya girmek dahi yasak</b>, emanet alınmaz</td></tr>
   </table></div>
   <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2025/09/TESMER-Staj-ve-Sinavlara-Iliskin-Uygulama-Yonergesi-2024.pdf" target="_blank" rel="noopener">TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi (2024)</a> m.6.2, 6.3, 6.4, 6.5 — 22.07.2026'da birebir okundu. Not: Yönergedeki konu-konu soru dağılım tablosu 17.07.2020 kararıyla mülga; konu ağırlıkları için yukarıdaki <b>Sınav Haritası</b>'na bak — çıkmış kitapçıklardan kendi sayımımızdır.</div>
+  </div>
+
+  <script>
+  /* Sekme gecisi: yalniz secili sinavin bloklari gorunur. Blok ici
+     display mantiklari (harita yuklenince acilir vb.) etkilenmez -
+     sarmalayici div gizlenir/acilir. */
+  (function(){
+    var S=['SGS','SMMM','YMM'];
+    function sec(s){
+      if(S.indexOf(s)<0) s='SGS';
+      document.querySelectorAll('.sgrp').forEach(function(el){
+        el.style.display = el.classList.contains('sgrp-'+s) ? '' : 'none';
+      });
+      document.querySelectorAll('#sinavSekme button').forEach(function(b){
+        b.classList.toggle('aktif', b.dataset.s===s);
+      });
+      try{ localStorage.setItem('gencSinav', s); }catch(e){}
+    }
+    document.querySelectorAll('#sinavSekme button').forEach(function(b){
+      b.addEventListener('click', function(){ sec(b.dataset.s); });
+    });
+    var p=null, h=null;
+    try{ p=new URLSearchParams(location.search).get('sinav'); }catch(e){}
+    try{ h=localStorage.getItem('gencSinav'); }catch(e){}
+    sec(p||h||'SGS');
+  })();
+  </script>
 
   <div class="yolda">
     <h2 id="yoldaBaslik">Yolda: Sınav Haritası + Günlük Quiz</h2>
