@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git pull --rebase || true
           if [ -f veri/uyari-ozet.json ]; then git add veri/uyari-ozet.json || true; fi
           git diff --cached --quiet || git commit -m "Uyari robotu ozeti [veri-operasyonu]"
+          git pull --rebase || true
           git push || true

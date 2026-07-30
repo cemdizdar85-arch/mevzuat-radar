@@ -40,5 +40,6 @@ jobs:
             echo "Değişiklik yok."
           else
             git commit -m "Gece ajanı: yeni içerik (kapılardan geçti)"
+            git pull --rebase || true
             git push
           fi

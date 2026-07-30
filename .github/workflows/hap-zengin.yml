@@ -40,9 +40,9 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git pull --rebase || true
           for f in veri/hap-zengin-rapor.json veri/bekleyen-hap-partileri.json; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Hap zenginlestirme raporu [veri-operasyonu]"
+          git pull --rebase || true
           git push || true

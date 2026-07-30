@@ -56,4 +56,5 @@ jobs:
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Kasa sayimi guncellendi [veri-operasyonu]"
+          git pull --rebase || true
           git push || true

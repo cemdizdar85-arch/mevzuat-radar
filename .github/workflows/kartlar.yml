@@ -177,8 +177,8 @@ jobs:
             MESAJ="Hap kartlar: $BUGUN - kart uretilmedi (RG sakin / ilgili teblig yok), nobet damgasi guncellendi"
           fi
           git commit -m "$MESAJ"
+          git pull --rebase || true
           git push
-
       # KIRMIZI KAPI (29.07). Kartlar yayinlandiktan SONRA calisir: vitrin
       # her halukarda guncellenir, ama eskiyen arac verisi varsa kosu KIRMIZI
       # biter ve GM gorur. Bu depoda dort katman "kuruldu ama kimse gormedi"

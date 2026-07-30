@@ -29,4 +29,5 @@ jobs:
           git add radar.html
           if [ -f veri/firsat-guncel.json ]; then git add veri/firsat-guncel.json || true; fi
           git diff --cached --quiet || git commit -m "Gunluk RG taramasi ($(date +%d.%m.%Y))"
+          git pull --rebase || true
           git push
