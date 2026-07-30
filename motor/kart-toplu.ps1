@@ -350,8 +350,16 @@ New-Item -ItemType Directory -Force $gunKartDir | Out-Null
 $kartlar | ConvertTo-Json -Depth 8 | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
 
 # radar-app panosunun GTIP eslesmesi icin sabit "guncel kartlar" (yalniz GTIP'li kartlar, trim)
+# FIRSAT ROZETI (#63, 30.07): yapilandirma/af kaliplari karti FIRSAT yapar -
+# kartlar.html'de kehribar rozet, beslemede firsat alani (panel/vitrin okur).
+$firsatKaliplari = @('yeniden yapıland','yapılandırılması','matrah artırım','vergi aff','prim aff','borç aff','taksitlendir','alacakların yapıland')
+function KartFirsatMi($kk){
+  $m = ("$($kk.baslik_sade) $($kk.ne_oldu)").ToLowerInvariant()
+  foreach($fk in $firsatKaliplari){ if($m.Contains($fk)){ return $true } }
+  return $false
+}
 $guncelKartlar = @($kartlar | ForEach-Object {
-  [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon) }
+  [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon); firsat=(KartFirsatMi $_) }
 } | Where-Object { @($_.gtip).Count -gt 0 })
 $guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları (GTİP eşleşmeli) — " + $TarihNokta); kartlar=$guncelKartlar }
 $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
@@ -401,7 +409,11 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>')
 foreach($k in $kartlar){
   [void]$s.AppendLine('<div class="kart">')
-  [void]$s.AppendLine('<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>')
+  if(KartFirsatMi $k){
+    [void]$s.AppendLine('<div class="etiket" style="color:var(--amber)">★ FIRSAT PENCERESİ — süreyi kaçırma</div>')
+  } else {
+    [void]$s.AppendLine('<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>')
+  }
   [void]$s.AppendLine("<h3>$($k.baslik_sade)</h3>")
   [void]$s.AppendLine("<p><b>Ne oldu:</b> $($k.ne_oldu)</p>")
   if($k.degistirilen_teblig){ [void]$s.AppendLine("<p><b>Neyi değiştiriyor:</b> $($k.degistirilen_teblig)</p>") }
