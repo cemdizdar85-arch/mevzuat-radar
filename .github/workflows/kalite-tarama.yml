@@ -1,0 +1,41 @@
+# .github/workflows/kalite-tarama.yml — KASA KALITE TARAMASI
+# 1 Agustos onarimlarinin kesif robotu: kisa hap + sablon-gerekce sayimi.
+# UCRETSIZ: yalniz Supabase okuma. Cikti: veri/kalite-tarama.json
+# (YALNIZ sayilar + id listesi - soru metni asla).
+name: Kasa Kalite Taramasi
+
+on:
+  schedule:
+    - cron: "45 5 * * 1"   # pazartesi 08:45 TR - haftalik nabiz
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/kasa-kalite-tarama.ps1'
+      - '.github/workflows/kalite-tarama.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kalite-tarama
+  cancel-in-progress: false
+
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kasayi tara
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kasa-kalite-tarama.ps1
+      - name: Sonucu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git pull --rebase || true
+          if [ -f veri/kalite-tarama.json ]; then git add veri/kalite-tarama.json || true; fi
+          git diff --cached --quiet || git commit -m "Kasa kalite taramasi [veri-operasyonu]"
+          git push || true
