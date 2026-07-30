@@ -157,6 +157,11 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <button class="sec" data-sinav="SGS">🎯 Staja Giriş (SGS)</button>
         <button class="sec" data-sinav="SMMM">🎓 Yeterlilik (Bitirme)</button>
       </div>
+      <!-- 30.07 Cem: takvim yalniz genc.html'deydi; ogrenci sinavini secince
+           SIRADAKI sinav tarihi + basvuru penceresi burada da gorunsun.
+           Veri: veri/sinav-takvimi.json (genc.html tablolariyla tutarliligi
+           nokta-kontrol her kosuda denetler). -->
+      <div id="takvimKutu" style="display:none;border:1px solid rgba(255,194,75,.3);background:rgba(255,194,75,.06);border-radius:12px;padding:10px 14px;margin:10px 0 4px;font-size:13px;color:var(--muted);line-height:1.65"></div>
       <div class="etiket">1 · Ders seç</div>
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
@@ -266,6 +271,33 @@ var BANKA=[], SORULAR=[], IDX=0, MOD='calisma', CEVAPLAR={}, SECILI=null, KILIT=
 var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SINAV='hepsi', SORU_T0=0, SURELER={}, RESULTS={}, KRONI=null;
 // 24.07 Cem: "giris mi bitirme mi nasil anlayacagiz" - sinav filtresi (soru.sinav: SGS/SMMM; etiketsiz eskiler her ikisinde gorunur)
 function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
+
+/* ---- SINAV TAKVIMI KUTUSU (secili sinavin siradaki tarihi) ---- */
+var TAKVIM=null;
+function takvimCiz(){
+  var k=document.getElementById('takvimKutu'); if(!k) return;
+  if(!TAKVIM || !TAKVIM.sinavlar){ k.style.display='none'; return; }
+  var bugun=new Date().toISOString().slice(0,10);
+  var anahtarlar = (SINAV==='hepsi') ? ['SGS','SMMM'] : [SINAV];
+  var sat=[];
+  anahtarlar.forEach(function(a){
+    var s=TAKVIM.sinavlar[a]; if(!s) return;
+    var d=null;
+    for(var i=0;i<s.donemler.length;i++){ if(s.donemler[i].tarih>=bugun){ d=s.donemler[i]; break; } }
+    if(!d){ sat.push('<b style="color:var(--ink)">'+s.ad+':</b> 2026 dönemleri tamamlandı — 2027 takvimi resmî PDF yayınlanınca burada.'); return; }
+    var b = d.basvuru
+      ? 'başvuru: <b style="color:var(--ink)">'+d.basvuru+'</b>'
+      : 'dosya başvuru: <b style="color:var(--ink)">'+d.dosyaBasvuru+'</b> · tekrar: <b style="color:var(--ink)">'+d.tekrarBasvuru+'</b>';
+    sat.push('📅 Sıradaki <b style="color:var(--ink)">'+s.ad+'</b> · '+d.donem+'. Dönem: <b style="color:var(--ink)">'+d.tarihYazi+'</b> — '+b);
+  });
+  if(!sat.length){ k.style.display='none'; return; }
+  k.innerHTML = sat.join('<br>')
+    + '<br><a href="genc.html" style="color:var(--accent2)">Takvimin tamamı (YMM dahil) →</a>'
+    + (TAKVIM.sonTeyit ? ' <span style="color:var(--dim);font-size:11px">· resmî PDF teyidi: '+TAKVIM.sonTeyit+'</span>' : '');
+  k.style.display='block';
+}
+fetch('veri/sinav-takvimi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){ TAKVIM=d; takvimCiz(); }).catch(function(){});
+document.getElementById('sinavSec').addEventListener('click',function(){ setTimeout(takvimCiz,0); });
 
 // 29.07 — Cem: "Staja Giriş dedim ama hâlâ Hepsi ve Yeterlilik seçtiriyor,
 // bunlar olmamalı". Haklı: genc.html'deki iki karttan "Staja Giriş"e basıp

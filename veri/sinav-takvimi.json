@@ -3,5 +3,31 @@
   "kaynakUrl": "https://www.tesmer.org.tr/wp-content/uploads/2024/12/TURMOB_2026_sinav_takvimi.pdf",
   "sonTeyit": "22.07.2026",
   "pdfHash": "433fe1fa8cf6048d",
-  "not": "Tarihler genc.html'de; robot (takvim.yml) PDF hash'ini her gün yoklar, değişirse mail atar. Tarihler ELLE teyitle güncellenir — otomatik yazılmaz (yanlış sınav tarihi basma riski sıfır tutulur)."
+  "not": "Robot (takvim.yml) PDF hash'ini her gün yoklar, değişirse mail atar. Tarihler ELLE teyitle güncellenir — otomatik yazılmaz (yanlış sınav tarihi basma riski sıfır tutulur). DİKKAT: tarih değişirse HEM genc.html tabloları HEM buradaki 'sinavlar' birlikte güncellenir; nokta-kontrol iki kaynağın tutarlılığını her koşuda denetler.",
+  "sinavlar": {
+    "SGS": {
+      "ad": "Staja Giriş (SGS)",
+      "donemler": [
+        { "donem": 1, "tarih": "2026-04-18", "tarihYazi": "18 Nisan 2026", "basvuru": "2 – 20 Şubat 2026" },
+        { "donem": 2, "tarih": "2026-07-18", "tarihYazi": "18 Temmuz 2026", "basvuru": "18 Mayıs – 5 Haziran 2026" },
+        { "donem": 3, "tarih": "2026-11-21", "tarihYazi": "21 Kasım 2026", "basvuru": "21 Eylül – 9 Ekim 2026" }
+      ]
+    },
+    "SMMM": {
+      "ad": "SMMM Yeterlilik (Bitirme)",
+      "donemler": [
+        { "donem": 1, "tarih": "2026-04-25", "tarihYazi": "25 Nisan 2026", "dosyaBasvuru": "19 Ocak – 6 Şubat", "tekrarBasvuru": "30 Ocak – 20 Şubat" },
+        { "donem": 2, "tarih": "2026-07-25", "tarihYazi": "25 Temmuz 2026", "dosyaBasvuru": "13 Nisan – 8 Mayıs", "tekrarBasvuru": "12 – 19 Haziran" },
+        { "donem": 3, "tarih": "2026-11-28", "tarihYazi": "28 Kasım 2026", "dosyaBasvuru": "17 Ağustos – 11 Eylül", "tekrarBasvuru": "16 – 23 Ekim" }
+      ]
+    },
+    "YMM": {
+      "ad": "YMM Sınavı",
+      "donemler": [
+        { "donem": 1, "tarih": "2026-05-02", "tarihYazi": "2 – 11 Mayıs 2026", "dosyaBasvuru": "26 Ocak – 27 Şubat", "tekrarBasvuru": "23 Şubat – 13 Mart" },
+        { "donem": 2, "tarih": "2026-09-19", "tarihYazi": "19 – 28 Eylül 2026", "dosyaBasvuru": "1 Haziran – 3 Temmuz", "tekrarBasvuru": "13 – 31 Temmuz" },
+        { "donem": 3, "tarih": "2026-12-12", "tarihYazi": "12 – 21 Aralık 2026", "dosyaBasvuru": "7 Eylül – 2 Ekim", "tekrarBasvuru": "16 Kasım – 4 Aralık" }
+      ]
+    }
+  }
 }

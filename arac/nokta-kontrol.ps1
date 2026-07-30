@@ -127,3 +127,33 @@ if($kalan.Count -gt 0){
   exit 1
 }
 "Tum vakalar temiz."
+
+# ============================================================================
+#  SINAV TAKVIMI TUTARLILIK KAPISI (30.07)
+#  Takvim iki yerde yasar: genc.html tablolari (data-t) + veri/sinav-takvimi
+#  .json 'sinavlar' (deneme.html kutusu buradan okur). Biri guncellenip oteki
+#  unutulursa ogrenciye YANLIS SINAV TARIHI gosterilir - kabul edilemez.
+#  Kural: JSON'daki her 'tarih' genc.html'de data-t olarak AYNEN bulunmali
+#  ve iki kaynaktaki tarih SAYISI esit olmali.
+# ============================================================================
+$takvimYol = Join-Path $veri "sinav-takvimi.json"
+$gencYol   = Join-Path $kok  "genc.html"
+if((Test-Path $takvimYol) -and (Test-Path $gencYol)){
+  $takvim = Get-Content $takvimYol -Raw -Encoding UTF8 | ConvertFrom-Json
+  $genc   = Get-Content $gencYol   -Raw -Encoding UTF8
+  if($takvim.sinavlar){
+    $gencTarih = [regex]::Matches($genc, 'data-t="(\d{4}-\d{2}-\d{2})"') | ForEach-Object { $_.Groups[1].Value }
+    $jsonTarih = @()
+    foreach($p in $takvim.sinavlar.PSObject.Properties){ foreach($d in $p.Value.donemler){ $jsonTarih += "$($d.tarih)" } }
+    $eksik = @($jsonTarih | Where-Object { $gencTarih -notcontains $_ })
+    if($eksik.Count -gt 0){
+      "!!! TAKVIM TUTARSIZ: JSON'daki su tarihler genc.html'de yok: $($eksik -join ', ')"
+      exit 1
+    }
+    if($jsonTarih.Count -ne $gencTarih.Count){
+      "!!! TAKVIM TUTARSIZ: JSON $($jsonTarih.Count) tarih, genc.html $($gencTarih.Count) data-t iceriyor - biri guncellenip oteki unutulmus."
+      exit 1
+    }
+    "TAKVIM TUTARLILIK: $($jsonTarih.Count) tarih iki kaynakta birebir."
+  }
+}
