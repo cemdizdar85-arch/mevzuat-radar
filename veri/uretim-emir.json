@@ -191,6 +191,20 @@
                         "tahmini_usd":  48.5,
                         "deneme":  1,
                         "uygulandi":  "KILIT 29.07 GM: 10 partinin 9\u0027u gonderildi ve sonuclari batch\u0027lerde duruyor (u0-u8, 1.782 basarili). Yeniden kosarsa AYNI SORULARI IKINCI KEZ uretir ve odetir. Kurtarma moduyla bedava hasat edilecek; o zamana kadar kilitli."
+                    },
+                    {
+                        "no":  15,
+                        "tarih":  "29.07.2026",
+                        "veren":  "Cem Dizdar (\u0027kayip partilerin sonucu otomatik\u0027 + \u0027her seyi otomatik ceksin\u0027)",
+                        "emir":  "KURTARMA - emir #14\u0027un 9 partisini hasat et",
+                        "onay":  true,
+                        "sinir":  2500,
+                        "ders":  "",
+                        "sinav":  "SGS",
+                        "kurtarPartiler":  "msgbatch_018Y4qgukihSymCswAtEnNLG,msgbatch_016drdpLrXKHroUrivipjyAA,msgbatch_019Gw8a7JMpK5V13ABQ6ofTt,msgbatch_011RcuJFZdD7PoRLjyuxyaqf,msgbatch_017UsWcLzQHEG4i5Hqq4Xwc7,msgbatch_01Q6kCc6uPayzEAMhfpBbkTZ,msgbatch_01P9b3KxijYyARJ3tRKYCU66,msgbatch_01SDgXp1DeDrd8F1SNQLd3VU,msgbatch_01AFgf6u4PmS5cpRss6fVWgf",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "KURTARMA - 0 USD. Emir #14\u0027un 9 partisi (u0-u8, 1.782 basarili sonuc, ~35 USD\u0027lik odenmis is) Anthropic\u0027te duruyor; betik kasaya yazamadan 429\u0027a carpmisti. Bu emir YENI BATCH GONDERMEZ - kimlikleri parti sirasiyla verir, sonuclar cekilir (GET ucretsiz), yedi kapidan gecer, yayin=false ile kasaya yazilir. HIZA SIGORTASI: isler listesi ayni kota+kasadan yeniden kurulur; kayarsa rakam kapisi red orani firlar ve %20 esiginde hasat KIRMIZI kesilir, kasaya tek satir yazilmaz. Sinir 2500 ve ders bos - #14 ile BIREBIR ayni kurulum (hiza bunun icin sart).",
+                        "tahmini_usd":  0
                     }
                 ]
 }

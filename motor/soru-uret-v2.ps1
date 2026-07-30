@@ -32,7 +32,20 @@ param(
   # Uretilen sorunun hangi EMIRDEN (dolayisiyla hangi receteden) ciktigi
   # kasaya yazilir. Pilot-1 ile Pilot-2 ayni gun kostu ve damgalari ayniydi;
   # sonucta "onarim tuttu mu" sorusu olculemedi cunku ornekler ayrilamadi.
-  [string]$emirNo = '0'
+  [string]$emirNo = '0',
+  # 29.07 KURTARMA MODU: virgullu batch kimligi listesi (parti sirasiyla:
+  # ilk kimlik = u0, ikinci = u1...). Verilirse YENI BATCH GONDERILMEZ -
+  # bu kimliklerin SONUCLARI cekilir (GET ucretsizdir, ucret parti islenirken
+  # odenmistir) ve normal yedi kapidan gecirilip kasaya yazilir.
+  # Neden var: emir #14'te 9 parti (1.782 sonuc, ~35 USD) gonderildi, islendi
+  # ve betik kasaya yazamadan aylik tavana (429) carpti. Sonuclar Anthropic'te
+  # 29 gun duruyor - yeniden uretmek ayni parayi IKINCI kez odemek olurdu.
+  # HIZA RISKI ve SIGORTASI: isler listesi ayni kota+kasa'dan yeniden kurulur;
+  # kurulum kayarsa custom_id -> isler eslesmesi bozulur. Bunu rakam kapisi
+  # yakalar (metin-sayi karsilastirmasi isler[gi].metin'e karsi calisir) -
+  # kurtarmada rakamRed orani %20'yi asarsa hasat KIRMIZI kesilir, kasaya
+  # tek satir yazilmaz.
+  [string]$kurtarPartiler = ''
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -430,7 +443,37 @@ if(-not (YazmaDenemesi)){ try{Stop-Transcript|Out-Null}catch{}; exit 1 }
 # --- batch
 $sonuc=@{}; $gG=0; $gC=0
 $PARTI=200
-for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
+# KURTARMA: yeni gonderim yok; verilen kimliklerin sonuclari cekilir.
+# Kimlik sirasi = parti sirasi (ilk = u0). custom_id'ler zaten u{p}_{ix}
+# damgali oldugu icin $sonuc dogrudan onlarla dolar - gate dongusu ayni.
+if($kurtarPartiler){
+  $kListe = @($kurtarPartiler -split ',' | ForEach-Object { "$_".Trim() } | Where-Object { $_ })
+  Write-Host ("KURTARMA MODU: {0} parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD)." -f $kListe.Count)
+  $ki = 0
+  foreach($kid in $kListe){
+    $ki++
+    Write-Host ("  parti {0}/{1}: {2}" -f $ki, $kListe.Count, $kid)
+    try {
+      $cev = Invoke-WebRequest -UseBasicParsing -Uri "https://api.anthropic.com/v1/messages/batches/$kid/results" -Headers $HDR -TimeoutSec 300
+      $mt2 = if($cev.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($cev.Content) } else { "$($cev.Content)" }
+      $sat0 = 0
+      foreach($sat in ($mt2 -split "`r?`n")){
+        if("$sat".Trim().Length -eq 0){ continue }
+        try { $r = $sat | ConvertFrom-Json } catch { continue }
+        if("$($r.result.type)" -ne 'succeeded'){ continue }
+        $gG += [int]"$($r.result.message.usage.input_tokens)"; $gC += [int]"$($r.result.message.usage.output_tokens)"
+        $jm=[regex]::Match("$($r.result.message.content[0].text)", '\{[\s\S]*\}')
+        if(-not $jm.Success){ continue }
+        try { $sonuc["$($r.custom_id)"] = ($jm.Value | ConvertFrom-Json); $sat0++ } catch {}
+      }
+      Write-Host ("    {0} sonuc alindi" -f $sat0)
+    } catch {
+      Write-Host ("    CEKILEMEDI: {0}" -f $_.Exception.Message)
+    }
+  }
+  Write-Host ("KURTARMA TOPLAM: {0} sonuc" -f $sonuc.Count)
+}
+for($p2=0; (-not $kurtarPartiler) -and $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
   $dilim=@($isler[($p2*$PARTI)..([math]::Min(($p2+1)*$PARTI-1,$isler.Count-1))])
   $req=@(); $ix=0
   foreach($i in $dilim){ $req += @{ custom_id=("u{0}_{1}" -f $p2,$ix); params=@{ model=$model; max_tokens=2500; messages=@(@{role='user';content=$i.istem}) } }; $ix++ }
@@ -626,6 +669,23 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
   }
 }
 
+# KURTARMA HIZA SIGORTASI: isler listesi yeniden kuruldu ve sonuclar eski
+# kosunun custom_id'leriyle eslesti. Kurulum KAYDIYSA (hashtable enumeration
+# farki vb.) sorular yanlis konu/madde metadatasiyla eslesir - bunu rakam
+# kapisi ele verir, cunku modelin beyan ettigi sayilar ARTIK BASKA maddenin
+# metniyle karsilastiriliyor olur ve red orani firlar. Normal kosuda bu oran
+# %7 civari; %20 esigi asilirsa hiza BOZUK demektir ve kasaya TEK SATIR
+# yazilmaz. Yanlis metadata ile yazmak, hic yazmamaktan kotudur.
+if($kurtarPartiler -and $sonuc.Count -gt 0){
+  $rOran = 100.0 * $ozet.rakamRed / [Math]::Max(1, $sonuc.Count)
+  Write-Host ("KURTARMA HIZA KONTROLU: rakamRed {0}/{1} = %{2:N1}  (esik %20)" -f $ozet.rakamRed, $sonuc.Count, $rOran)
+  if($rOran -gt 20){
+    Write-Host "KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir."
+    Write-Host "Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun)."
+    try{Stop-Transcript|Out-Null}catch{}
+    exit 1
+  }
+}
 # --- kasaya yaz (150'lik partiler)
 for($i2=0; $i2 -lt $yeni.Count; $i2 += 150){
   $dl = @($yeni[$i2..([Math]::Min($i2+149,$yeni.Count-1))])
