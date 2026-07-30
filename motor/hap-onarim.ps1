@@ -41,7 +41,10 @@ if([string]::IsNullOrWhiteSpace($KEY)){
 $UYGULA = ("$env:UYGULA" -eq '1')
 $BASLIK = @{ apikey = $KEY; Authorization = "Bearer $KEY" }   # $H KULLANMA: dongudeki $h ile carpisir (30.07 dersi)
 
-$KISA_ESIK = 90; $MIN_CIKARIM = 60
+# 30.07 kuru kosu dersi: MIN 60'ken ornekler 64->66 gibi YAN ADIMLAR icerdi
+# (tamir degil - sonraki taramada yine "kisa"). Cikarim SORUNU COZMELI:
+# en az KISA_ESIK (90) olmali. 60-89 arasi cikanlar Haiku partisine kalir.
+$KISA_ESIK = 90; $MIN_CIKARIM = 90
 # "Akılda kalsın:" sonrasi metin; varsa sonraki sablon basligina kadar.
 $reAk = [regex]'(?:Akılda kalsın|AKILDA KALSIN|Akilda kalsin)\s*:\s*(.+)$'
 $reKes = [regex]'\s*(?:Ne soruluyor|NE SORULUYOR|Kural|KURAL|Bu olayda|BU OLAYDA|Bu soruda)\s*:.*$'
