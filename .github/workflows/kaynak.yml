@@ -36,6 +36,10 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-ted-hasat.ps1
 
+      - name: Iflas/konkordato ilanlari (ilan.gov.tr — alacak radari canli besleme)
+        shell: pwsh
+        run: ./motor/alacak-ilan-hasat.ps1 -Adet 60
+
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1

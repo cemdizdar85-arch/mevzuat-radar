@@ -91,7 +91,31 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
 
-  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Bu sayfada <b style="color:var(--muted)">örnek (tohum) veri</b> ile çalışır; <b style="color:var(--ink)">canlı günlük tarama + WhatsApp/mail uyarısı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
+  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır — <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
+
+  <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
+       birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
+  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">— canlı; robot her gün yeniler</span></h2>
+  <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
+  <div id="aiListe"></div>
+  <script>
+  fetch('veri/alacak-ilan-canli.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+    var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
+    var L=(d.ilanlar||[]);
+    var e=document.getElementById('aiDamga');
+    if(e&&m) e.innerHTML='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · havuzda '+L.length+' ilan';
+    var TUR={konkordato:['KONKORDATO','var(--amber)'],iflas:['İFLAS','var(--red)'],diger:['İLAN','var(--dim)']};
+    function kac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    document.getElementById('aiListe').innerHTML = L.slice(0,10).map(function(x){
+      var t=TUR[x.tur]||TUR.diger;
+      return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
+        '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+
+        ' <span style="font-size:11.5px;color:var(--dim)">'+kac(x.il||'')+' · '+kac(x.tarih||'')+'</span>'+
+        '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+kac(x.baslik)+'</div>'+
+        '<div style="font-size:12px;color:var(--muted);margin-top:3px">'+kac(x.kurum||'')+' · <a href="'+kac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
+    }).join('') + (L.length>10?'<div class="ipucu">İlk 10 gösteriliyor — kendi borçlularına birebir eşleşen uyarı için aşağıdaki aracı dene, aboneliğe geç.</div>':'');
+  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi — birazdan yenile.'; });
+  </script>
 
   <div class="kutu">
     <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
