@@ -398,7 +398,7 @@ function yurtIciCiz(){
     <div class="ust"><span class="sikon">${TUR_IKON[x.tur]||'📄'}</span>${trBayrak}<b>${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">${esc(x.ilanNo||'')}</span></div>
     <div class="gov"><h3>${esc(x.baslik)}</h3>
       <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b><br><span style="color:var(--dim)">Yaklaşık maliyet, son teklif ve belgeler ilan metninde.</span></div></div>
-    <div class="alt"><span class="gunroz ${x.tur==='yapim'?'orta':(x.tur==='hizmet'?'iyi':'belirsiz')}">${TUR_AD[x.tur]||'İhale'}</span><a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan metni →</a></div>
+    <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan metni →</a></div>
   </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="ikart" style="cursor:pointer;height:100%">
     <div class="ust"><span class="sikon">🔒</span>${trBayrak}<b>${esc(x.il||'')}</b><span style="margin-left:auto;font-size:11px;color:var(--accent2);font-weight:800">üyelere açık</span></div>
     <div class="gov"><h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
