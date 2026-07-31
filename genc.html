@@ -100,11 +100,18 @@ td b{color:var(--ink)}
        her sgrp bir kart: takvim / cikan sorular / kurallar ayri kutularda. */
     .sgrp{border:1px solid var(--line2);border-radius:16px;padding:18px 20px;margin:14px 0;background:var(--panel)}
     .sgrp>h2:first-child{margin-top:0}
-    .dsec{appearance:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;
-      color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:999px;padding:7px 15px;
-      transition:border-color .15s,color .15s}
-    .dsec:hover{color:var(--ink)}
-    .dsec.aktif{color:var(--ink);border-color:var(--amber);background:rgba(255,194,75,.08)}
+    .kkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:2px 0 14px}
+    @media(max-width:820px){.kkgrid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.kkgrid{grid-template-columns:1fr}}
+    .kk{appearance:none;cursor:pointer;font-family:inherit;text-align:left;
+      display:flex;flex-direction:column;gap:4px;
+      color:var(--ink);background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:14px 16px;
+      transition:border-color .15s,transform .15s}
+    .kk:hover{border-color:var(--amber);transform:translateY(-2px)}
+    .kk.aktif{border-color:var(--amber);background:rgba(255,194,75,.07)}
+    .kk-ust{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:800}
+    .kk b{font-size:15px;letter-spacing:-.2px}
+    .kk-alt{font-size:12px;color:var(--muted)}
     .ik{display:flex;flex-direction:column;text-decoration:none;color:inherit;
       background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px;
       transition:border-color .18s,transform .18s,background .18s}
@@ -132,15 +139,28 @@ td b{color:var(--ink)}
 
   <div class="sayac" id="sayac"></div>
 
-  <!-- Kutu dosyalarinin kucuk secicisi: kapilar SORUYA gider (deneme.html),
-       takvim/harita/kurallar kutulari arasinda gecis buradan yapilir. -->
-  <div id="dosyaSec" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:2px 0 12px">
-    <span style="font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:800">Takvim · harita · kurallar:</span>
-    <button type="button" class="dsec" data-s="SGS">Staja Giriş</button>
-    <button type="button" class="dsec" data-s="SMMM">Yeterlilik</button>
+  <!-- 30.07 Cem (5. tur): kucuk hap-dugme yerine SAYAC KARELERI gibi kartlar;
+       her kart bir bolum acar (tiklamadan icerik gorunmez). Kapilar SORUYA
+       gider (deneme.html); bilgi bu karelerden acilir. -->
+  <div class="kkgrid" id="dosyaKareler">
+    <button type="button" class="kk" data-hedef="kutu-sgs-takvim">
+      <span class="kk-ust">Staja Giriş</span><b>📅 Sınav tarihleri</b>
+      <span class="kk-alt">3 dönem + başvuru pencereleri</span></button>
+    <button type="button" class="kk" data-hedef="kutu-sgs-harita">
+      <span class="kk-ust">Staja Giriş</span><b>🧭 En çok çıkan konular</b>
+      <span class="kk-alt">resmî kitapçık sayımı, ders ders</span></button>
+    <button type="button" class="kk" data-hedef="kutu-sgs-kural">
+      <span class="kk-ust">Staja Giriş</span><b>⚠️ Resmî kurallar</b>
+      <span class="kk-alt">bağıl sistem · salon kuralları</span></button>
+    <button type="button" class="kk" data-hedef="kutu-smmm-takvim">
+      <span class="kk-ust">Yeterlilik</span><b>📅 Sınav tarihleri</b>
+      <span class="kk-alt">dosya + tekrar başvuru tarihleri</span></button>
+    <button type="button" class="kk" data-hedef="kutu-smmm-harita">
+      <span class="kk-ust">Yeterlilik</span><b>🧭 En çok çıkan konular</b>
+      <span class="kk-alt">2026/1 test dönemi analizi</span></button>
   </div>
 
-  <div class="sgrp sgrp-SGS">
+  <div class="sgrp sgrp-SGS" id="kutu-sgs-takvim">
   <h2>Staja Giriş Sınavı (SGS) — 2026</h2>
   <!-- 30.07 Cem: "kutuya tarihler + en cok cikan sorular + calisilmasi
        gereken konular" - ABD study-planner desenine karsilik dosyanin
@@ -159,7 +179,7 @@ td b{color:var(--ink)}
   <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Başvuru: <a href="http://ssi.tesmer.org.tr" target="_blank" rel="noopener">ssi.tesmer.org.tr</a> — belgeler "Dijital Adım" uygulamasından yüklenir; tekrar girecekler için yalnız başvuru yeterli.</div>
   </div>
 
-  <div class="sgrp sgrp-SMMM">
+  <div class="sgrp sgrp-SMMM" id="kutu-smmm-takvim">
   <h2>SMMM Yeterlilik Sınavı — 2026</h2>
   <p style="margin:2px 0 10px;display:flex;gap:18px;flex-wrap:wrap">
     <a href="deneme.html?sinav=SMMM" style="color:var(--amber);font-weight:700;text-decoration:none">📝 Soru çözmeye başla →</a>
@@ -186,7 +206,7 @@ td b{color:var(--ink)}
 
   <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et — bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
 
-  <div class="sgrp sgrp-SMMM">
+  <div class="sgrp sgrp-SMMM" id="kutu-smmm-harita">
   <div id="haritaY" style="display:none">
     <h2>Yeterlilik Haritası — SMMM sınavında nereden soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">SMMM Yeterlilik <b style="color:var(--ink)">2026/1'den itibaren test yöntemine geçti</b> (TESMER duyurusu). Resmî kitapçıklar ders ders, soru soru etiketleniyor (çift bağımsız okuma + hakem):</p>
@@ -195,7 +215,7 @@ td b{color:var(--ink)}
   </div>
   </div>
 
-  <div class="sgrp sgrp-SGS">
+  <div class="sgrp sgrp-SGS" id="kutu-sgs-harita">
   <div id="harita" style="display:none">
     <h2>Sınav Haritası — SGS'de nereden kaç soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">Son dönemlerin resmî kitapçıkları soru soru etiketlendi (çift bağımsız okuma + hakem yöntemi). Aşağıda ders dağılımı ve en çok soru getiren konular:</p>
@@ -204,7 +224,7 @@ td b{color:var(--ink)}
   </div>
   </div>
 
-  <div class="sgrp sgrp-SGS">
+  <div class="sgrp sgrp-SGS" id="kutu-sgs-kural">
   <h2>⚠️ SGS'nin resmî kuralları — yönergeden, madde madde</h2>
   <div class="tablosar"><table>
     <tr><th>Kural</th><th>Resmî hüküm</th></tr>
@@ -221,36 +241,35 @@ td b{color:var(--ink)}
   </div>
 
   <script>
-  /* KAPI davranisi (30.07 Cem, 2. tur): sayfa VARSAYILAN kapali acilir -
-     yalniz kartlar gorunur, "ana sayfadaki gibi". Karta tiklayinca o sinavin
-     dosyasi (takvim+harita+kurallar) acilir ve oraya kayar. ?sinav= dogrudan
-     acar (deneme kutusundaki link boyle gelir). Blok ici display mantiklari
-     (harita yuklenince acilir vb.) etkilenmez - sarmalayici gizlenir/acilir. */
+  /* KARE davranisi (30.07 Cem, 5. tur): sayac kareleri gibi bes bilgi karti;
+     tiklanan kartin bolumu ACILIR (digerleri kapanir), tekrar tiklanirsa
+     KAPANIR. Varsayilan hepsi kapali - "tiklayinca ciksa". ?sinav=SGS/SMMM
+     eski linkler icin o sinavin TAKVIM kartini acar. Blok ici display
+     mantiklari (harita yuklenince acilir vb.) etkilenmez. */
   (function(){
-    var S=['SGS','SMMM','YMM'];
-    function sec(s, kaydir){
-      if(S.indexOf(s)<0) s=null;
-      var ilkAcik=null;
+    var acikId = null;
+    function ac(hedefId, kaydir){
+      var yeni = (hedefId && hedefId !== acikId) ? hedefId : null;
+      acikId = yeni;
       document.querySelectorAll('.sgrp').forEach(function(el){
-        var ac = s && el.classList.contains('sgrp-'+s);
-        el.style.display = ac ? '' : 'none';
-        if(ac && !ilkAcik) ilkAcik=el;
+        el.style.display = (yeni && el.id === yeni) ? '' : 'none';
       });
-      document.querySelectorAll('#dosyaSec .dsec').forEach(function(b){
-        b.classList.toggle('aktif', !!s && b.dataset.s===s);
+      document.querySelectorAll('#dosyaKareler .kk').forEach(function(k){
+        k.classList.toggle('aktif', !!yeni && k.dataset.hedef === yeni);
       });
-      if(kaydir && ilkAcik){
-        setTimeout(function(){ ilkAcik.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+      if(kaydir && yeni){
+        var el = document.getElementById(yeni);
+        if(el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
       }
     }
-    document.querySelectorAll('#dosyaSec .dsec').forEach(function(b){
-      b.addEventListener('click', function(){ sec(b.dataset.s, false); });
+    document.querySelectorAll('#dosyaKareler .kk').forEach(function(k){
+      k.addEventListener('click', function(){ ac(k.dataset.hedef, true); });
     });
     var p=null;
     try{ p=new URLSearchParams(location.search).get('sinav'); }catch(e){}
-    /* 30.07 Cem (3. tur): "ana sayfadan geldim, sinavlar kaybolmus" -
-       bos acilis yaniltti. Varsayilan SGS ACIK; kapiyla degistirilir. */
-    sec(p||'SGS', !!p);
+    if(p==='SGS') ac('kutu-sgs-takvim', true);
+    else if(p==='SMMM') ac('kutu-smmm-takvim', true);
+    else ac(null, false);
   })();
   </script>
 
