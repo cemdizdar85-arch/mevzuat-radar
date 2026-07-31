@@ -205,6 +205,15 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     <div id="gecmisKutu" class="gizli">
       <h2>Önceki oturumların</h2>
       <div class="tablosar"><table id="gecmisTablo"><tr><th>Tarih</th><th>Sınav</th><th>Soru</th><th>Doğru</th><th>Başarı</th></tr></table></div>
+      <!-- 31.07 Cem: "toptan degil ders ders gorsun; hoca gibi yonlendirelim".
+           Ders karnesi cihazdaki sicilden, koc notu KURALLI uretilir:
+           kisinin OLCULEN yuzdesi x haritadaki GERCEK ders agirligi.
+           Uydurma yorum yok - iki gercegin kesisimi konusur. -->
+      <div id="dersKarneBolum" style="display:none">
+        <h2 style="margin-top:16px">Ders karnen</h2>
+        <div class="tablosar"><table id="dersKarneTablo"><tr><th>Ders</th><th>Çözülen</th><th>Doğru</th><th>Başarı</th></tr></table></div>
+        <div id="kocNotu" style="border:1px solid rgba(255,194,75,.3);background:rgba(255,194,75,.06);border-radius:12px;padding:11px 14px;margin-top:10px;font-size:13.5px;line-height:1.6;color:var(--muted)"></div>
+      </div>
       <div style="font-size:11px;color:var(--dim);margin-top:6px">Geçmiş yalnız bu cihazda tutulur (tarayıcı hafızası). Üyelikle cihazlar arası istatistik yolda.</div>
     </div>
   </div>
@@ -385,21 +394,9 @@ function kurulumCiz(){
   // soruluk oturum — resmî ağırlık farkı YOK; orada sınav yapısındaki
   // geleneksel sıra kullanılır (ana ders Finansal Muhasebe önde).
   // Haritada olmayan ders 0 alır ve sona düşer; eşitler alfabetik.
-  var DERS_SIRA = {
-    // SGS — Yönerge m.6.2 soru adetleri
-    'Finansal Muhasebe':26,'Denetim':16,'Yabanci Dil':10,
-    'Matematik':8,'Maliyet Muhasebesi':8,'Mali Tablolar Analizi':8,
-    'Turkce':7,'Ekonomi':6,'Maliye':6,'Meslek Hukuku':6,
-    'Is ve Sosyal Guvenlik Hukuku':6,'Vergi Hukuku':6,'Ticaret Hukuku':6,
-    'Borclar Hukuku':6,'Hukuk':6,'Ataturk Ilke ve Inkilap Tarihi':5,
-    // Yeterlilik — resmî ağırlık eşit (her ders ayrı oturum); geleneksel sıra
-    'Finansal Tablolar ve Analizi':25,'Muhasebe Denetimi':24,
-    'Vergi Mevzuatı ve Uygulaması':23,'Muh. ve Mali Müş. Meslek Hukuku':22,
-    'Sermaye Piyasası Mevzuatı':21
-  };
-  // Yeterlilik görünümünde Finansal Muhasebe/Maliyet en öne çıksın diye
-  // SMMM seçiliyken çakışan derslere yüksek taban verilir.
-  if(SINAV==='SMMM'){ DERS_SIRA['Finansal Muhasebe']=30; DERS_SIRA['Maliyet Muhasebesi']=20; DERS_SIRA['Hukuk']=19; }
+  // 31.07: agirlik tablosu dersOnem()'e tasindi - ders karnesi + koc notu da
+  // AYNI tabloyu okur (tek kaynak, sapma imkansiz).
+  var DERS_SIRA = dersOnem();
   adlar.sort(function(a,b){
     var fa=DERS_SIRA[a]||0, fb=DERS_SIRA[b]||0;
     if(fb!==fa) return fb-fa;
@@ -913,6 +910,23 @@ function oturumKodu(){
     return o;
   }catch(e){ return 'o-yok'; }
 }
+/* Ders agirliklari — SGS: Yonerge m.6.2 soru adetleri (uydurma degil);
+   Yeterlilik: her ders ayri oturum, resmi agirlik farki yok - geleneksel
+   sira. Hem ders dugme siralamasi hem KOC NOTU ayni tablodan okur. */
+function dersOnem(){
+  var m = {
+    'Finansal Muhasebe':26,'Denetim':16,'Yabanci Dil':10,
+    'Matematik':8,'Maliyet Muhasebesi':8,'Mali Tablolar Analizi':8,
+    'Turkce':7,'Ekonomi':6,'Maliye':6,'Meslek Hukuku':6,
+    'Is ve Sosyal Guvenlik Hukuku':6,'Vergi Hukuku':6,'Ticaret Hukuku':6,
+    'Borclar Hukuku':6,'Hukuk':6,'Ataturk Ilke ve Inkilap Tarihi':5,
+    'Finansal Tablolar ve Analizi':25,'Muhasebe Denetimi':24,
+    'Vergi Mevzuatı ve Uygulaması':23,'Muh. ve Mali Müş. Meslek Hukuku':22,
+    'Sermaye Piyasası Mevzuatı':21
+  };
+  if(SINAV==='SMMM'){ m['Finansal Muhasebe']=30; m['Maliyet Muhasebesi']=20; m['Hukuk']=19; }
+  return m;
+}
 function konuSicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteKonuSicil')||'{}'); }catch(e){ return {}; } }
 function konuSicilKaydet(sinav, ders, konu, dogruMu){
   if(!konu) return;
@@ -1086,6 +1100,69 @@ function gecmisCiz(){
       tr.innerHTML='<td>'+esc(o.t)+'</td><td>'+se+'</td><td>'+o.n+'</td><td>'+o.d+'</td><td><b>%'+p+'</b></td>';
       t.appendChild(tr);
     });
+  }catch(e){}
+  dersKarnesiCiz();
+}
+
+/* ---- DERS KARNESI + KOC NOTU (31.07 Cem: "ders ders gorsun, hoca gibi
+   yonlendirelim"). Iki GERCEGIN kesisimi konusur: kisinin cihazda OLCULEN
+   ders yuzdesi x haritadaki ders agirligi (dersOnem). Uydurma yorum yok. */
+function kocRecete(ders){
+  window.DERS_MODU='secim';
+  Object.keys(seciliDersler).forEach(function(k){ seciliDersler[k]=false; });
+  seciliDersler[ders]=true;
+  seciliAdet=20;
+  kurulumCiz();
+  var p=document.getElementById('dersSec');
+  if(p) p.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function dersKarnesiCiz(){
+  try{
+    var bolum=document.getElementById('dersKarneBolum'); if(!bolum) return;
+    var x=konuSicilOku(), agg={};
+    for(var a in x){
+      var p=a.split('|'); if(p.length<3) continue;           // eski etiketsiz kayit karneye girmez
+      if(SINAV!=='hepsi' && p[0]!==SINAV) continue;
+      var anah=(SINAV==='hepsi'?((p[0]==='SMMM'?'🎓 ':'🎯 ')+p[1]):p[1]);
+      if(!agg[anah]) agg[anah]={d:0,y:0,ham:p[1]};
+      agg[anah].d+=x[a].d; agg[anah].y+=x[a].y;
+    }
+    var onem=dersOnem(), satir=[];
+    for(var ad in agg){
+      var t=agg[ad].d+agg[ad].y; if(t<3) continue;
+      satir.push({ad:ad,ham:agg[ad].ham,t:t,d:agg[ad].d,p:Math.round(100*agg[ad].d/t),o:(onem[agg[ad].ham]||0)});
+    }
+    if(!satir.length){ bolum.style.display='none'; return; }
+    satir.sort(function(a,b){ return b.o-a.o || b.t-a.t; });
+    var tb=document.getElementById('dersKarneTablo');
+    while(tb.rows.length>1){ tb.deleteRow(1); }
+    satir.forEach(function(s){
+      var renk = s.p>=80?'var(--green)':(s.p<60?'var(--red)':'var(--amber)');
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+esc(s.ad)+'</td><td>'+s.t+'</td><td>'+s.d+'</td><td><b style="color:'+renk+'">%'+s.p+'</b></td>';
+      tb.appendChild(tr);
+    });
+    var not=document.getElementById('kocNotu'), html='';
+    var toplamCevap=satir.reduce(function(s,o){return s+o.t;},0);
+    var zayifYuklu=null, guclu=null, enCok=null;
+    satir.forEach(function(s){                               // satir onem sirali
+      if(!zayifYuklu && s.t>=5 && s.p<60) zayifYuklu=s;
+      if(s.t>=5 && s.p>=80 && (!guclu||s.p>guclu.p)) guclu=s;
+      if(!enCok||s.t>enCok.t) enCok=s;
+    });
+    if(toplamCevap<10){
+      html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> Karne için veri birikiyor — birkaç oturum daha çöz, ders ders yönlendirme burada başlayacak.';
+    } else if(zayifYuklu){
+      html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> <b style="color:var(--ink)">'+esc(zayifYuklu.ham)+'</b> bu sınavın en yüklü derslerinden; sendeki başarı <b style="color:var(--red)">%'+zayifYuklu.p+'</b>.';
+      if(guclu && enCok && enCok.ad===guclu.ad && guclu.ham!==zayifYuklu.ham){
+        html+=' En çok soruyu zaten güçlü olduğun '+esc(guclu.ham)+'\'de (%'+guclu.p+') çözüyorsun — puanı '+esc(zayifYuklu.ham)+' getirecek.';
+      }
+      html+=' <button type="button" class="sec" style="margin-top:8px" onclick="kocRecete(\''+zayifYuklu.ham.replace(/'/g,"\\'")+'\')">→ Bu dersten 20 soru çöz</button>';
+    } else {
+      html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> Yüklü derslerde denge iyi görünüyor. Şimdi inceliğe in: yukarıdaki <b style="color:var(--ink)">zayıf konu</b> maddelerinden çöz.';
+    }
+    not.innerHTML=html;
+    bolum.style.display='block';
   }catch(e){}
 }
 
