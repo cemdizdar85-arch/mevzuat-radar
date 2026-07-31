@@ -56,6 +56,37 @@ while($true){
   if($l2.Count -lt 1000){ break }
   $b2 += 1000
 }
+# ---- HAKEM KESISIMI (31.07 Cem: 'bekleyenlerin hakem yargisina bakalim') ----
+$hh = $null
+try { $hh = Get-Content 'veri/hakem-hasadi.json' -Raw -Encoding UTF8 | ConvertFrom-Json } catch {}   # CI cwd = repo koku
+if($hh -and $hh.yargilar){
+  $yarg = @{}
+  foreach($p in $hh.yargilar.PSObject.Properties){ $yarg[$p.Name] = $p.Value }
+  $kes = @{}
+  $b3 = 0
+  while($true){
+    $BSLK3 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
+    $w3 = Invoke-WebRequest -Uri "${U}?select=id,yayin&limit=1000&offset=$b3&order=id" -Headers $BSLK3 -UseBasicParsing -TimeoutSec 120
+    $h3 = if($w3.RawContentStream){ [Text.Encoding]::UTF8.GetString($w3.RawContentStream.ToArray()) } else { $w3.Content }
+    $l3 = @($h3 | ConvertFrom-Json)
+    if($l3.Count -eq 0){ break }
+    foreach($s in $l3){
+      $grp = if($s.yayin -eq $true){"YAYINDA"}else{"BEKLIYOR"}
+      $j = $yarg["$($s.id)"]
+      $kat = if($j){
+        $c = if($j.celiski -eq $true){" +celiski"}else{""}
+        "$grp | yargili destek=$($j.destek)$c"
+      } else { "$grp | YARGISIZ (hakem gormemis)" }
+      if(-not $kes.ContainsKey($kat)){ $kes[$kat]=0 }
+      $kes[$kat]++
+    }
+    if($l3.Count -lt 1000){ break }
+    $b3 += 1000
+  }
+  "===== HAKEM KESISIMI (yayin durumu x hakem yargisi) ====="
+  $kes.GetEnumerator() | Sort-Object Name | ForEach-Object { "{0,-52} {1,6}" -f $_.Key, $_.Value }
+  ""
+}
 "===== YAYIN-DURUM ENVANTERI (kasadaki TUM sorular) ====="
 $yd.GetEnumerator() | Sort-Object Value -Descending | ForEach-Object { "{0,-40} {1,6}" -f $_.Key, $_.Value }
 ""
