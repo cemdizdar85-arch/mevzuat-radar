@@ -40,8 +40,9 @@ $kolon = "yayin,durum"
 $dene = $null
 try { $dene = Invoke-WebRequest -Uri "${U}?select=$kolon&limit=1" -Headers @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" } -UseBasicParsing -TimeoutSec 60 } catch { $kolon = "yayin" }
 while($true){
-  $B2 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
-  $w2 = Invoke-WebRequest -Uri "${U}?select=$kolon&limit=1000&offset=$b2" -Headers $B2 -UseBasicParsing -TimeoutSec 120
+  # DIKKAT: sayac $b2 ile ayni ada dusen $B2 YASAK (PS harf ayirmaz - $h/$H dersi)
+  $BSLK2 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
+  $w2 = Invoke-WebRequest -Uri "${U}?select=$kolon&limit=1000&offset=$b2" -Headers $BSLK2 -UseBasicParsing -TimeoutSec 120
   $h2 = if($w2.RawContentStream){ [Text.Encoding]::UTF8.GetString($w2.RawContentStream.ToArray()) } else { $w2.Content }
   $l2 = @($h2 | ConvertFrom-Json)
   if($l2.Count -eq 0){ break }
