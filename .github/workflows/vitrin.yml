@@ -1,0 +1,26 @@
+# .github/workflows/vitrin.yml — VITRIN SECICI (elle tetik).
+# Kayitsiz ziyaretci tadim bankasini (veri/soru-bankasi.json, tavan 150) kurar.
+# BILINCLI IFSA: secilen sorular halka acik dosyaya yazilir (Cem onayi 31.07).
+name: Vitrin Sec
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  vitrin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vitrini sec
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/vitrin-sec.ps1
+      - name: Yayinla
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/soru-bankasi.json
+          git diff --cached --quiet || git commit -m "Vitrin bankasi guncellendi (tavan 150) [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
