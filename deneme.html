@@ -844,6 +844,23 @@ function duvarGoster(){
   var kalan = document.getElementById('ekranSoru');
   if(kalan) kalan.classList.add('gizli');
   document.body.classList.remove('sinavda');
+  // 31.07 Cem: "soru cozen uye olmam sart desin" - kuru duvar yerine MINI KARNE:
+  // adayin KENDI sonucuyla konusan koc cumlesi ("uye olmam sart" ani burasi).
+  var dogru = 0, toplam = 0, yanlisDers = {};
+  try {
+    SORULAR.forEach(function(s){
+      if(!CEVAPLAR[s.id]) return;
+      toplam++;
+      if(CEVAPLAR[s.id] === s.dogru){ dogru++; }
+      else { var dd = s.ders || s.konu || 'Genel'; yanlisDers[dd] = (yanlisDers[dd]||0)+1; }
+    });
+  } catch(e) {}
+  var zayif = Object.keys(yanlisDers).sort(function(a,b){ return yanlisDers[b]-yanlisDers[a]; })[0] || '';
+  var karneSatir = toplam
+    ? '<div style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin:0 0 14px;font-size:14px"><b style="color:var(--amber)">' +
+      toplam + ' soruda ' + dogru + ' doğru.</b>' +
+      (zayif ? ' En çok <b>' + esc(zayif) + '</b> dersinde zorlandın — koçun tam buradan çalıştırırdı.' : ' Temiz başlangıç — koçun bu temponun üstüne kurardı.') + '</div>'
+    : '';
   var d = document.getElementById('uyeDuvar');
   if(!d){
     d = document.createElement('div');
@@ -852,10 +869,11 @@ function duvarGoster(){
     d.innerHTML =
       '<div style="font-size:34px;line-height:1">🔓</div>' +
       '<h2 style="margin:10px 0 6px">Beş soruyu çözdün.</h2>' +
+      karneSatir +
       '<p style="color:var(--dim);line-height:1.7;margin:0 0 14px">' +
       'Her şıkkın neden yanlış olduğunu ve dayandığı kaynak maddeyi gördün. ' +
-      'Devamı için <b style="color:var(--amber)">ücretsiz üye ol</b> — banka açılır, ' +
-      'yanlışların defterine yazılır, karnende hangi konuda zayıf olduğunu görürsün.</p>' +
+      'Devamı için <b style="color:var(--amber)">ücretsiz üye ol</b> — günde 15 soru açılır, ' +
+      'yanlışların defterine yazılır, karnen zayıf konunu söyler, koçun reçete yazar.</p>' +
       '<a class="btn" href="#uyeKapali" style="display:inline-block">Ücretsiz üye ol →</a>' +
       '<div style="font-size:12px;color:var(--dim);margin-top:12px">Zaten üyeysen giriş yap — sayaç sıfırlanır.</div>';
     document.querySelector('main, body').appendChild(d);
