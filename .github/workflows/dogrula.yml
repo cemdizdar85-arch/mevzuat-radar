@@ -43,6 +43,6 @@ jobs:
         shell: pwsh
         run: ./arac/nokta-kontrol.ps1
 
-      - name: Veri bekcisi (her sayfanin cektigi json: var mi / parse / dolu mu)
+      - name: "Veri bekcisi (her sayfanin cektigi json - var mi / parse / dolu mu)"
         shell: pwsh
         run: ./arac/veri-bekcisi.ps1
