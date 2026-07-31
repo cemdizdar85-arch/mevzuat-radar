@@ -517,6 +517,7 @@ function adetCiz(){
 
 function basla(){
   var h=havuz(); if(!h.length) return;
+  window.INCELEME=false; window.KARNE_KAYDEDILDI=false;   // yeni oturum: inceleme/karne bayraklari sifirlanir
   var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
   var yeni=h.filter(function(s){return !gorulen[s.id];}), eski=h.filter(function(s){return gorulen[s.id];});
   karistir(yeni); karistir(eski);
@@ -959,8 +960,22 @@ function gunlukDuvarGoster(){
   d.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
+// 31.07: karneden yanlis inceleme - soru KABINDE acilir (sahneli panel),
+// Siradaki ile gezilir. Inceleme SAYAC YAKMAZ ve duvara takilmaz (soru zaten cozuldu).
+function yanlisIncele(i){
+  window.INCELEME=true;
+  MOD='calisma';
+  document.getElementById('ekranKarne').classList.add('gizli');
+  document.getElementById('ekranSoru').classList.remove('gizli');
+  IDX=i; soruCiz(); window.scrollTo(0,0);
+}
 function sonraki(){
   var s=SORULAR[IDX];
+  if(window.INCELEME){
+    if(IDX<SORULAR.length-1){ IDX++; soruCiz(); window.scrollTo(0,0); }
+    else { window.INCELEME=false; karneCiz(); }
+    return;
+  }
   gorulenKaydet(s.id);
   if(MOD==='deneme') SURELER[s.id]=Date.now()-SORU_T0;
   if(!window.UYE_MODU) cozulenArtir();
@@ -1162,31 +1177,29 @@ function karneCiz(){
   h+='</table></div>';
   document.getElementById('kDersKutu').innerHTML=h;
   if(yanlislar.length){
-    var y='<h2>Yanlışların — gerekçeleriyle</h2>';
+    // 31.07 Cem onayi: yanlislar DUVAR olarak dizilmiyor - kompakt liste;
+    // tiklayinca soru KABINDE acilir (sahneli panel: senin cevabin + dogrusu +
+    // 1-2-3 + AKILDA KALSIN), "Siradaki" ile sonraki yanlisa gecilir (UWorld review).
+    var y='<h2>Yanlışların</h2><div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">Satıra tıkla — soru kabinde açılır; <b style="color:var(--ink)">Sıradaki</b> ile öbür sorulara geçersin, son sorudan sonra karneye dönersin.</div>';
     yanlislar.forEach(function(o){
-      var s=o.s;
-      y+='<div class="panel" style="margin-top:10px"><div class="soruMetin" style="font-size:14.5px;margin-top:0">'+esc(s.soru)+'</div>';
-      y+='<div class="gk"><span class="h" style="color:var(--red)">'+esc(o.c)+' ✗</span><span>Senin cevabın: '+esc(s.siklar[o.c]||'')+' — '+esc((s.aciklama&&s.aciklama[o.c])||'')+'</span></div>';
-      y+='<div class="gk dogruG"><span class="h">'+esc(s.dogru)+' ✓</span><span>'+esc(s.siklar[s.dogru]||'')+' — '+esc((s.aciklama&&s.aciklama[s.dogru])||'')+'</span></div>';
-      if(s.kaynak) y+='<div class="kaynakKutu">📑 '+esc(s.kaynak)+'</div>';
-      // 31.07 Cem: '60 saniyede oku' tek cumlelik hapta ABARTI kaciyordu
-      // (etiket-icerik uyumsuzlugu). Etiket icerige durust: kisa hap =
-      // 'Akilda kalsin', ancak gercek ozet uzunlugunda '60 saniyede oku'.
-      // Kisa haplarin zenginlesmesi ayri is: 274 bedava onarim + emir #17.
-      if(s.hap){
-        var hapBaslik = (String(s.hap).length >= 220) ? '📖 <b>Konuyu 60 saniyede oku:</b> ' : '🧠 <b>Akılda kalsın:</b> ';
-        y+='<div class="kaynakKutu" style="border-color:rgba(255,194,75,.4);color:var(--ink);background:rgba(255,194,75,.07);font-size:13px;line-height:1.6">'+hapBaslik+esc(s.hap)+'</div>';
-      }
-      y+='</div>';
+      var s=o.s, i=SORULAR.indexOf(s);
+      y+='<div class="panel" style="margin-top:8px;padding:12px 15px;cursor:pointer" onclick="yanlisIncele('+i+')">'+
+         '<span style="font-size:11px;color:var(--dim);font-weight:700;letter-spacing:.4px">'+esc(s.ders||'')+'</span>'+
+         '<div style="font-size:13.5px;color:var(--ink);margin-top:3px;line-height:1.5">'+esc(String(s.soru).slice(0,110))+(String(s.soru).length>110?'…':'')+'</div>'+
+         '<div style="font-size:12px;margin-top:6px"><span style="color:var(--red)">✗ Senin: '+esc(o.c)+'</span> &nbsp;·&nbsp; <span style="color:var(--green)">✓ Doğrusu: '+esc(s.dogru)+'</span> &nbsp;·&nbsp; <span style="color:var(--accent2);font-weight:700">kabinde incele →</span></div></div>';
     });
     document.getElementById('kYanlisKutu').innerHTML=y;
   }
-  try{
-    var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
-    g.push({t:new Date().toISOString().slice(0,10),n:SORULAR.length,d:dogru,y:yanlis,s:SINAV});
-    if(g.length>50) g=g.slice(-50);
-    localStorage.setItem('mrDenemeGecmis',JSON.stringify(g));
-  }catch(e){}
+  // incelemeden donuste karne YENIDEN cizilir - gecmise ikinci kayit dusmesin
+  if(!window.KARNE_KAYDEDILDI){
+    window.KARNE_KAYDEDILDI=true;
+    try{
+      var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
+      g.push({t:new Date().toISOString().slice(0,10),n:SORULAR.length,d:dogru,y:yanlis,s:SINAV});
+      if(g.length>50) g=g.slice(-50);
+      localStorage.setItem('mrDenemeGecmis',JSON.stringify(g));
+    }catch(e){}
+  }
 }
 
 function gecmisCiz(){
