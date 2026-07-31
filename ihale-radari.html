@@ -206,25 +206,34 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     </div>
     <div id="yiListe"></div>
 
-    <h2>Bu ihaleye katılabilir misin?</h2>
-    <p class="lead" style="font-size:13.5px">Aşağıdakilerden biri sende varsa kamu ihalesine <b style="color:var(--ink)">giremezsin / ihale dışı bırakılırsın</b>. İşaretle.</p>
-    <div class="kutu"><div id="sorular"></div>
-      <button class="btn" onclick="katilimDegerlendir()">Katılabilir miyim? →</button>
-      <div id="verdict"></div>
+    <!-- 31.07 Cem: araclar da alt alta uzamasin - 4 arac karesi, tiklayinca acilir -->
+    <h2>Karar araçların</h2>
+    <div class="kgrid">
+      <div class="kkare" id="ak_katilim" onclick="aracAc('katilim')"><span class="ki">✅</span><b>Katılabilir misin?</b></div>
+      <div class="kkare" id="ak_yerli" onclick="aracAc('yerli')"><span class="ki">🇹🇷</span><b>Yerli malı avantajın</b></div>
+      <div class="kkare" id="ak_teminat" onclick="aracAc('teminat')"><span class="ki">💰</span><b>Teminat + damga hesabı</b></div>
+      <div class="kkare" id="ak_itiraz" onclick="aracAc('itiraz')"><span class="ki">⚖️</span><b>Kaybedersen: itiraz yolun</b></div>
     </div>
 
-    <h2>Yerli malı avantajın</h2>
-    <div id="yerliMali"></div>
-
-    <h2>Teminat hesabı</h2>
-    <div class="kutu">
-      <label for="bedel">Teklif edeceğin bedel (TL)</label>
-      <input type="text" id="bedel" placeholder="ör. 5.000.000" inputmode="numeric" oninput="teminatHesap()">
-      <div id="teminatSonuc" class="belg" style="margin-top:10px"></div>
+    <div class="asec" id="as_katilim" style="display:none">
+      <p class="lead" style="font-size:13.5px">Aşağıdakilerden biri sende varsa kamu ihalesine <b style="color:var(--ink)">giremezsin / ihale dışı bırakılırsın</b>. İşaretle.</p>
+      <div class="kutu"><div id="sorular"></div>
+        <button class="btn" onclick="katilimDegerlendir()">Katılabilir miyim? →</button>
+        <div id="verdict"></div>
+      </div>
     </div>
 
-    <h2>Kaybedersen: itiraz yolun</h2>
-    <div id="sikayet"></div>
+    <div class="asec" id="as_yerli" style="display:none"><div id="yerliMali"></div></div>
+
+    <div class="asec" id="as_teminat" style="display:none">
+      <div class="kutu">
+        <label for="bedel">Teklif edeceğin bedel (TL)</label>
+        <input type="text" id="bedel" placeholder="ör. 5.000.000" inputmode="numeric" oninput="teminatHesap()">
+        <div id="teminatSonuc" class="belg" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <div class="asec" id="as_itiraz" style="display:none"><div id="sikayet"></div></div>
 
     <h2>Bilmen gerekenler (hap bilgi)</h2>
     <div id="hapIc"></div>
@@ -498,6 +507,19 @@ function kareKur(hedefId, kareler){
   kok.innerHTML = `<div class="kgrid">` + kareler.map((k,i)=>
     `<div class="kkare" id="kk_${hedefId}_${i}" onclick="kareAc('${hedefId}',${i})"><span class="ki">${k.ikon}</span><b>${esc(k.baslik)}</b></div>`).join('') + `</div>` +
     kareler.map((k,i)=>`<div class="kicerik" id="ki_${hedefId}_${i}">${k.icerik}</div>`).join('');
+}
+// arac kareleri: tiklanan arac acilir, tekrar tiklanan kapanir (tek seferde bir arac)
+function aracAc(ad){
+  const acikti=document.getElementById('as_'+ad).style.display!=='none';
+  ['katilim','yerli','teminat','itiraz'].forEach(a=>{
+    document.getElementById('as_'+a).style.display='none';
+    document.getElementById('ak_'+a).classList.remove('on');
+  });
+  if(!acikti){
+    document.getElementById('as_'+ad).style.display='';
+    document.getElementById('ak_'+ad).classList.add('on');
+    document.getElementById('as_'+ad).scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
 }
 function kareAc(hedefId,no){
   const acik=document.getElementById('ki_'+hedefId+'_'+no).classList.contains('on');
