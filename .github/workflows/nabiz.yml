@@ -14,7 +14,7 @@ on:
 
 permissions:
   contents: write
-  actions: read
+  actions: write   # v3: kacirilan vardiyayi workflow_dispatch ile KENDISI kurtarir
 
 jobs:
   nabiz:
