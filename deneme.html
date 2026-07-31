@@ -419,25 +419,13 @@ function kurulumCiz(){
     var b=document.createElement('button');
     b.className='sec'+(acik?' aktif':''); b.innerHTML=esc(a)+' <small>('+dersler[a]+')</small>';
     b.onclick=function(){
-      if(window.DERS_MODU==='tum'){
-        // "Tüm dersler"deyken derse tıklamak = YALNIZ O DERS (tek-ders çalışması)
-        window.DERS_MODU='secim';
-        Object.keys(seciliDersler).forEach(function(x){ seciliDersler[x]=false; });
-        dk.querySelectorAll('.sec').forEach(function(x){ x.classList.remove('aktif'); });
-        seciliDersler[a]=true; b.classList.add('aktif');
-      } else {
-        // seçim modunda tıklamak = ekle/çıkar (çoklu seçim)
-        seciliDersler[a]=!seciliDersler[a]; b.classList.toggle('aktif');
-        var acikVar=false;
-        for(var k in seciliDersler){ if(seciliDersler[k]){ acikVar=true; break; } }
-        if(!acikVar){
-          // son ders de kapandı: "sıfır dersle sınav" diye bir şey yok,
-          // kendiliğinden Tüm dersler'e dön (eski "Hepsi (0)" tuzağı burasıydı)
-          window.DERS_MODU='tum';
-          adlar.forEach(function(x){ seciliDersler[x]=true; });
-          dk.querySelectorAll('.sec').forEach(function(x){ x.classList.add('aktif'); });
-        }
-      }
+      // 31.07 Cem: COKLU ders secimi KALKTI - aday "uc ders sectim, uc sinava
+      // girerim" saniyordu, oysa tek karma oturuma karisiyordu. Ders = TEK secim;
+      // karma isteyen zaten "Tum dersler - sinav provasi" dugmesini kullanir.
+      window.DERS_MODU='secim';
+      Object.keys(seciliDersler).forEach(function(x){ seciliDersler[x]=false; });
+      dk.querySelectorAll('.sec').forEach(function(x){ x.classList.remove('aktif'); });
+      seciliDersler[a]=true; b.classList.add('aktif');
       adetCiz();
     };
     dk.appendChild(b);
