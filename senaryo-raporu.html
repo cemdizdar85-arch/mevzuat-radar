@@ -86,7 +86,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Menşe Senaryo Raporu</div>
   <h1>Menşe Senaryo Raporu — hangi ülkeden alırsam ne kadar öderim?</h1>
-  <p class="lead">Ürünün <b>GTİP kodunu</b>, <b>yıllık ithalat tutarını</b> ve aday <b>menşe ülkeleri</b> gir; her ülke için toplam ithalat vergi yükünü ve <b>yıllık tasarruf farkını</b> hesaplayalım. Çıktıyı <b>yazdır → PDF</b> ile SMMM raporuna çevir. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
+  <p class="lead">Ürünün <b>GTİP kodunu</b> ve <b>yıllık ithalat tutarını</b> gir — <b>16 menşe seçeneğinin tamamını</b> hesaplayıp en ucuzdan pahalıya sıralayalım; <b>yıllık tasarruf farkın</b> büyük puntoyla önüne gelsin. En avantajlı 3 menşe herkese açık; tam tablo ücretsiz üyelikte, <b>SMMM raporu (PDF)</b> üyelikle. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
 
   <div class="form noprint">
     <div class="satirlar">
@@ -103,7 +103,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         </div>
       </div>
     </div>
-    <label>ADAY MENŞE ÜLKELER <span style="color:var(--dim);font-weight:500;text-transform:none">— karşılaştırmak istediklerini seç</span></label>
+    <!-- 31.07 Cem onayi (a): ulke secimi ZORUNLU degil - biz hepsini hesaplayip siralariz;
+         kutucuklar yalnizca daraltma suzgeci (bos = tum ulkeler) -->
+    <label>MENŞE ÜLKE SÜZGECİ <span style="color:var(--dim);font-weight:500;text-transform:none">— boş bırak, 16 ülkenin hepsini sıralayalım; daraltmak istersen seç</span></label>
     <div class="ulkeler" id="ulkeler"></div>
     <button class="btn" onclick="olustur()">📊 Raporu oluştur</button>
     <div class="hata" id="hata"></div>
@@ -149,7 +151,9 @@ Promise.all([
 
 // --- ülke seçim kutuları ---
 const uc=document.getElementById('ulkeler');
-uc.innerHTML=ULKELER.map(u=>`<label class="ulke ${u.sec?'on':''}" onclick="this.classList.toggle('on', this.querySelector('input').checked=!this.querySelector('input').checked)"><input type="checkbox" data-k="${u.k}" ${u.sec?'checked':''}>${u.em} ${u.ad}</label>`).join('');
+uc.innerHTML=ULKELER.map(u=>`<label class="ulke" onclick="this.classList.toggle('on', this.querySelector('input').checked=!this.querySelector('input').checked)"><input type="checkbox" data-k="${u.k}">${u.em} ${u.ad}</label>`).join('');
+// uyelik: radar-app ayni alan adinda Supabase oturumu localStorage'a yazar - o izden taniriz
+function uyeMi(){ try{ return Object.keys(localStorage).some(k=>k.indexOf('-auth-token')>-1); }catch(e){ return false; } }
 
 // --- yardımcılar ---
 function asArr(v){ if(Array.isArray(v))return v; if(v===null||v===undefined||v===''||typeof v==='object')return []; return [v]; }
@@ -206,8 +210,9 @@ function olustur(){
   const dkod=kodCoz(kodIn);
   if(!dkod){ h.textContent='Bu kod için vergi verisi bulunamadı — 12 haneli tam kodu dene veya GTİP Kontrolü\'nden doğrula.'; return; }
   const nkod=nrm(dkod);
-  const secili=[...document.querySelectorAll('#ulkeler input:checked')].map(i=>ULKELER.find(u=>u.k===i.dataset.k));
-  if(secili.length<2){ h.textContent='Karşılaştırma için en az 2 ülke seç.'; return; }
+  // suzgec bos ya da tek ulke = TUM ulkeler hesaplanir (siralama isi bizim, kullanicinin degil)
+  let secili=[...document.querySelectorAll('#ulkeler input:checked')].map(i=>ULKELER.find(u=>u.k===i.dataset.k));
+  if(secili.length<2) secili=ULKELER.slice();
   const tutar=parseFloat(nrm(document.getElementById('tutar').value).replace(',','.'))||0;
   const pb=document.getElementById('pb').value;
   const kdv=kdvOran(nkod);
@@ -220,17 +225,23 @@ function olustur(){
   const tasarruf=tutar*farkP/100;
 
   const bugun=new Date().toLocaleDateString('tr-TR');
-  let satirlar=sonuc.map(s=>{
+  // 31.07 Cem onayi (a) UC KATLI MERDIVEN: ozet herkese bedava; tam siralama
+  // ucretsiz uyeye (uye degilse ilk 3 satir acik, kalani bugulu); PDF uyelik kapili.
+  const uye=uyeMi();
+  let satirlar=sonuc.map((s,si)=>{
+    const kilitli=(!uye && si>=3);
     const cls=s===best?'best':(s===worst&&worst!==best?'worst':'');
     const gvT=s.gv===null?'—':('%'+fmtP(s.gv)+(s.gvTah?'*':''));
     const igvT=s.igv===null?'—':('%'+fmtP(s.igv)+(s.igvTah?'*':''));
     const dT=s.dmp?(((s.dmp.lo>0||s.dmp.hi>0)?('+%'+fmtP(s.dmp.lo)+(s.dmp.hi>s.dmp.lo?'–'+fmtP(s.dmp.hi):'')):'')+(s.dmp.spesifik?(((s.dmp.lo>0||s.dmp.hi>0)?' + ':'')+'spesifik*'):'')||'—'):'—';
     const geriT=s.veriYok?'—':('%'+fmtP(s.geriLo)+(s.geriHi>s.geriLo?'–'+fmtP(s.geriHi):''));
     const roz=s===best?'<span class="rozet b">EN AVANTAJLI</span>':(s===worst&&worst!==best?'<span class="rozet w">EN PAHALI</span>':'')+(s.dmp?'<span class="rozet d">DAMPİNG</span>':'');
+    if(kilitli) return `<tr style="cursor:pointer" onclick="location.href='radar-app.html?niyet=gtip'"><td>🔒 ${s.u.em} ${s.u.ad}</td><td class="n" style="filter:blur(4px);user-select:none">${gvT}</td><td class="n" style="filter:blur(4px);user-select:none">${igvT}</td><td class="n" style="filter:blur(4px);user-select:none">${dT}</td><td class="n" style="filter:blur(4px);user-select:none">${geriT}</td></tr>`;
     return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td><td class="n">${geriT}</td></tr>`;
   }).join('');
+  const kilitNot=(!uye && sonuc.length>3)?`<div class="notlar noprint" style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin-top:8px"><b style="color:var(--ink)">İlk 3 menşe açık — kalan ${sonuc.length-3} ülkenin kalem kalem yükü ücretsiz üyelikte.</b> <a href="radar-app.html?niyet=gtip" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol, tam tabloyu aç →</a></div>`:'';
 
-  let notlar=secili.map(u=>{
+  let notlar=(uye?sonuc:sonuc.slice(0,3)).map(x=>x.u).map(u=>{
     const s=sonuc.find(x=>x.u.k===u.k);
     let ek='';
     if(s.dmp) ek+=` <b style="color:var(--amber)">Damping/sübvansiyon önlemi var (${s.dmp.txt}${s.dmp.tur==='Gecici'?', geçici':''})</b> — normal vergiye ek.${s.dmp.spesifik?' <b>*Spesifik vergi</b> ($/ton, $/kg gibi) yüzde toplamına DAHİL DEĞİL — miktara/tutara göre değişir, gümrük müşavirine hesaplat.':''}`;
@@ -255,6 +266,7 @@ function olustur(){
       <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th><th class="n">Geri gelmeyen yük</th></tr></thead>
       <tbody>${satirlar}</tbody>
     </table>
+    ${kilitNot}
     <div class="notlar">
       <div class="n"><span class="ico">🧾</span><div><b>KDV: ${kdv.t}</b> — menşeden bağımsızdır, her ülkede aynı orandır ve <b>indirilir/iade alınır</b> (gerçek maliyet değil, nakit akışı). Bu yüzden ülke karşılaştırmasında "geri gelmeyen yük" (gümrük vergisi + İGV + damping) esas alınmıştır. KDV matrahı = kıymet + gümrük vergisi + İGV olduğundan yüksek vergili menşede KDV tutarı da yüksektir.</div></div>
       ${gozetim?`<div class="n"><span class="ico">👁️</span><div><b>Gözetim uyarısı:</b> Bu kodda gözetim var — birim kıymet eşiğin altındaysa gümrük matrahı yükseltilir, gerçek yük tablodakinden yüksek çıkar. Tüm menşeleri etkiler.</div></div>`:''}
@@ -280,7 +292,9 @@ function olustur(){
      <div id="ctaOut" style="font-size:12.5px;color:var(--muted);margin-top:10px"></div>
    </div>
    <div style="margin-top:12px" class="noprint">
-     <button class="btn" onclick="window.print()">🖨️ Yazdır / PDF olarak kaydet</button>
+     ${uye
+       ? `<button class="btn" onclick="window.print()">🖨️ Yazdır / PDF olarak kaydet</button>`
+       : `<button class="btn" onclick="location.href='radar-app.html?niyet=gtip'">🖨️ PDF rapor — üyelikle</button>`}
      <button class="btn ghost" onclick="document.getElementById('rapor').scrollIntoView()">↑ Yukarı</button>
    </div>`;
   window.HESAPRAPOR={dkod,tutar,pb,best:best?best.u.ad:'',secili:secili.map(u=>u.ad)};
