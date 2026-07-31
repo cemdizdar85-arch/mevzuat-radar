@@ -10,6 +10,10 @@ on:
   schedule:
     - cron: "35 21 * * *"   # 00:35 TR
     - cron: "5 23 * * *"    # 02:05 TR — yedek
+    # 31.07 OLCUM: hesapta AYLIK harcama tavani dolu; API erisimi 01.08
+    # 00:00 UTC'de (03:00 TR) acilir. Ilk iki kosu ondan ONCE — bu yuzden
+    # tavan-sonrasi ucuncu kosu sart (emirler idempotent, cift acmaz).
+    - cron: "15 0 * * *"    # 03:15 TR — tavan sifirlandiktan sonra
   workflow_dispatch:
 
 permissions:
