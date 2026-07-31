@@ -1,11 +1,17 @@
 {
-  "tarih": "30.07.2026 22:35",
-  "durum": "ALARM",
-  "kirmizi": 2,
+  "tarih": "31.07.2026 08:38",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 2,
   "izlenen_robot": 15,
   "izlenen_veri": 5,
-  "maddeler": [
-    "KOSU: Gunluk RG Taramasi -> son basarili kosu 31.0 saat once (esik 30s)",
-    "KOSU: Gunluk Kanun Aynasi -> son basarili kosu 296.7 saat once (esik 30s)"
+  "maddeler": [],
+  "kurtarilan": [
+    "Gunluk RG Taramasi -> son basarili kosu 41.1 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 306.8 saat once (esik 30s) -> kurtarma: tetiklendi"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:radar.yml",
+    "KOSU:mevzuat.yml"
   ]
 }
