@@ -324,6 +324,14 @@ hicbirini yapma:
   Sade konus: "Bu durumda vergi dogar." gibi.
 - Her soruyu ayni kalipla baslatma. Kimi soru olayla, kimi dogrudan soruyla,
   kimi tabloyla baslasin.
+- KURU KALIP SENARYO. Vaka/hesap sorularinda olay GERCEK HAYATTAN alinmis gibi
+  hissettirsin - okuyani soruya BAGLASIN: "Kayseri'de mobilyaci Ramazan Usta,
+  oglunun dugunu icin kasadan cektigi 38.500 TL'yi gider yazdi" gibi. Meslegin
+  gunluk halleri (geciken tahsilat, unutulan beyanname, ortak kavgasi, yanlis
+  kesilen fatura, vergi dairesiyle diyalog) dozunda ve yer yer GULUMSETEN bir
+  gerceklikle anlatilabilir - ama sinav ciddiyetini bozma: mizah olaydan gelsin,
+  saka anlatma; her soruya da zorla espri sokma (10 soruda 2-3 yeter, gerisi
+  duz gercekci). Amac: ogrenci "bu adam bunlari yasamis" desin, sikilmasin.
 Hedef: TESMER kitapciginda bu sorunun yanina bir gercek cikmis soru konsa,
 hangisinin bizim oldugu ANLASILMASIN.
 
