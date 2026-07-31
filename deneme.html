@@ -140,6 +140,28 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     font-size:0 !important;color:transparent !important;display:inline-block !important;
     place-items:unset !important;flex:none}
 </style>
+<style>
+/* 31.07 Cem onayi: "hocasiz hoca dersi" paneli - sahne sirasi gorsel hiyerarsiyle.
+   Icerik AYNEN durur (her sikka gore ogretme = motto); degisen yalniz ambalaj. */
+.gAdim{position:relative;padding:7px 0 7px 30px;margin:2px 0}
+.gAdim::before{content:attr(data-no);position:absolute;left:0;top:7px;width:20px;height:20px;border-radius:50%;
+  background:rgba(255,194,75,.14);border:1px solid rgba(255,194,75,.4);color:var(--accent2);
+  font-size:11px;font-weight:800;display:grid;place-items:center}
+.gAdim b.gb{display:block;font-size:10.5px;letter-spacing:.6px;margin-bottom:2px}
+.gAkil{margin:8px 0 2px;padding:9px 12px;border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.06);
+  border-radius:10px}
+.gAkil b.gb{display:block;font-size:10.5px;letter-spacing:.6px;color:var(--amber);margin-bottom:2px}
+.gGiris{padding:4px 0 6px;color:var(--muted)}
+/* bloklar tek anda gelir ama 80ms arayla suzulur - "anlatiliyor" hissi, bekletme yok */
+@keyframes gGel{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.cevapli #gerekceKutu>*{animation:gGel .26s ease both}
+.cevapli #gerekceKutu>*:nth-child(1){animation-delay:.02s}
+.cevapli #gerekceKutu>*:nth-child(2){animation-delay:.1s}
+.cevapli #gerekceKutu>*:nth-child(3){animation-delay:.18s}
+.cevapli #gerekceKutu>*:nth-child(4){animation-delay:.26s}
+.cevapli #gerekceKutu>*:nth-child(n+5){animation-delay:.34s}
+@media(prefers-reduced-motion:reduce){.cevapli #gerekceKutu>*{animation:none}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -662,13 +684,20 @@ function gerekceBicimle(t){
   var re = /(Ne soruluyor|NE SORULUYOR|Kural|KURAL|Bu olayda|BU OLAYDA|Bu soruda|Akılda kalsın|AKILDA KALSIN|Akilda kalsin)\s*:\s*/g;
   var p = t.split(re);
   if(p.length < 5) return esc(t);   // 0-1 baslik: dogal metin, dokunma
+  // 31.07: numarali merdiven (1 Ne soruluyor -> 2 Kural -> 3 Bu olayda) +
+  // AKILDA KALSIN mini kehribar kart - goz sirayi kendiliginden izler.
+  var GB_NO = {'NE SORULUYOR':'1','KURAL':'2','BU OLAYDA':'3'};
   var h = '';
-  if(p[0].trim()) h += '<span class="gseg">'+esc(p[0].trim())+'</span>';
+  if(p[0].trim()) h += '<div class="gGiris">'+esc(p[0].trim())+'</div>';
   for(var i=1; i<p.length; i+=2){
     var et = GB_ETIKET[p[i].toLocaleLowerCase('tr-TR')] || p[i];
     var metin = (p[i+1]||'').trim();
     if(!metin) continue;
-    h += '<span class="gseg"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+esc(metin)+'</span>';
+    if(et === 'AKILDA KALSIN'){
+      h += '<div class="gAkil"><b class="gb">📌 AKILDA KALSIN</b>'+esc(metin)+'</div>';
+    } else {
+      h += '<div class="gAdim" data-no="'+(GB_NO[et]||'·')+'"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+esc(metin)+'</div>';
+    }
   }
   return h || esc(t);
 }
@@ -717,25 +746,34 @@ function cevabiGor(tekrarMi){
   // FERAH EKRAN (Cem onerisi 24.07, UWorld akisi): SECILEN + DOGRU sik acik gelir;
   // kalan siklarin dersleri katlanir — pedagoji cop olmaz, isteyen acar okur.
   var digerH='';
+  // 31.07 Cem onayi - SAHNE SIRASI: (1) kirmizi SENIN CEVABIN karti, (2) yesil
+  // DOGRUSU karti (1-2-3 merdiven icinde), gorseller, (3) kehribar AKILDA KALSIN
+  // finali, (4) diger siklar akordiyon, (5) kaynak. Icerik ayni, ambalaj sahneli.
+  var yanlisYapti=(SECILI!==s.dogru);
   sira.forEach(function(harf){
     var d=(harf===s.dogru), sen=(harf===SECILI && !d);
-    var blok='<div class="gk'+(d?' dogruG':'')+'"'+(sen?' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"':'')+'>'+
-       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+(sen?'<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>':'')+gerekceBicimle(s.aciklama[harf])+'</span></div>';
+    var basl='';
+    if(sen) basl='<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>';
+    else if(d && yanlisYapti) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRUSU — '+harf+' şıkkı: </b>';
+    else if(d) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRU BİLDİN — pekiştir: </b>';
+    var stil='';
+    if(sen) stil=' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
+    else if(d) stil=' style="background:rgba(61,220,151,.05);border-left:3px solid rgba(61,220,151,.45);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
+    var blok='<div class="gk'+(d?' dogruG':'')+'"'+stil+'>'+
+       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+basl+gerekceBicimle(s.aciklama[harf])+'</span></div>';
     if(d || harf===SECILI) h+=blok; else digerH+=blok;
   });
+  h+=hayaletGorsel(s);
+  h+=tabloGorsel(s);
+  h+=yevmiyeGorsel(s);
+  if(s.hap){
+    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN — AKILDA KALSIN':'AKILDA KALSIN')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
+  }
   if(digerH){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
   }
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
-  if(s.hap){
-    var yanlisMi=(SECILI!==s.dogru);
-    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisMi?'YANLIŞ YAPTIN — AKILDA KALSIN':'AKILDA KALSIN')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
-  }
-  h+=hayaletGorsel(s);
-  h+=tabloGorsel(s);
-  h+=yevmiyeGorsel(s);
-  // 24.07 Cem karari: TEK kutu - hap kutusu "AKILDA KALSIN" adiyla tasindi, ayri ozet kutusu kaldirildi (kopya hissi bitti).
-  h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın. <span style="opacity:.8">(Kullanıcı ortalamaları istatistik hattıyla gelecek.)</span></div>';
+  h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın.</div>';
   g.innerHTML=h; g.classList.remove('gizli');
   g.parentElement.classList.add('cevapli');  // genis ekranda bekleme karti gider, yan panel belirir
   g.scrollTop=0;
