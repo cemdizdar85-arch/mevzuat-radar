@@ -13,9 +13,10 @@ $dagilim = @{}
 $dersDagilim = @{}
 $b0 = 0
 while($true){
-  $BASLIK2 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)"; Range = "$b0-$($b0+999)" }
-  # pwsh7 tuzagi: "$U?..." icindeki ? degisken adina yapisir ($U bos cozulur) - ${U} sart
-  $w = Invoke-WebRequest -Uri "${U}?select=sinav,ders&yayin=eq.true" -Headers $BASLIK2 -UseBasicParsing -TimeoutSec 120
+  $BASLIK2 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
+  # pwsh7 tuzagi 1: "$U?..." icindeki ? degisken adina yapisir - ${U} sart.
+  # tuzak 2: .NET, PostgREST'in "0-999" Range basligini reddediyor - limit/offset kullan.
+  $w = Invoke-WebRequest -Uri "${U}?select=sinav,ders&yayin=eq.true&limit=1000&offset=$b0" -Headers $BASLIK2 -UseBasicParsing -TimeoutSec 120
   # kasa-sayim deseni: govdeyi ham byte'tan UTF-8 olarak coz (mojibake yasagi)
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   $liste = @($ham | ConvertFrom-Json)   # assign-then-wrap: @(IRM) tuzagi degil
