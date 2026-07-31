@@ -697,7 +697,24 @@ function cevabiGor(tekrarMi){
   }
   RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
   if(KRONI){ clearInterval(KRONI); KRONI=null; }
-  var kEl=document.getElementById('kron'); if(kEl && SURELER[s.id]){ kEl.textContent=sureFmt(SURELER[s.id]); }
+  // 31.07 (UWorld esligi - Cem onayi): sure KIYASI. Kisinin kendi yuruyen
+  // ortalamasiyla karsilastirir ("hiz antrenmani" - SMMM'de sure yetmez).
+  if(!tekrarMi && SURELER[s.id]){
+    try {
+      var st = JSON.parse(localStorage.getItem('tetikteSureOrt')||'{"t":0,"n":0}');
+      st.t += SURELER[s.id]; st.n += 1;
+      localStorage.setItem('tetikteSureOrt', JSON.stringify(st));
+    } catch(e) {}
+  }
+  var kEl=document.getElementById('kron');
+  if(kEl && SURELER[s.id]){
+    var kiyas = '';
+    try {
+      var so = JSON.parse(localStorage.getItem('tetikteSureOrt')||'{"t":0,"n":0}');
+      if(so.n >= 5){ kiyas = ' · ortalaman ' + sureFmt(so.t/so.n); }
+    } catch(e) {}
+    kEl.textContent = sureFmt(SURELER[s.id]) + kiyas;
+  }
   var sk=document.getElementById('sikKutu');
   sk.querySelectorAll('.sik').forEach(function(b){
     b.disabled=true;
@@ -1373,5 +1390,37 @@ g('uyeCikis').onclick = function(e){
 };
 </script>
 <script src="menu.js" defer></script>
+<!-- 31.07 (UWorld esligi - Cem onayi): yerlesik hesap makinesi. Hesap sorusunda
+     ekrandan ayrilmamak icin; yalnizca dort islem + yuzde, guvenli ayristirici. -->
+<div id="hmAc" onclick="hmToggle()" style="position:fixed;right:16px;bottom:16px;z-index:900;width:46px;height:46px;border-radius:50%;background:#0d141e;border:1px solid rgba(255,194,75,.4);display:grid;place-items:center;font-size:20px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)" title="Hesap makinesi">🧮</div>
+<div id="hmPanel" style="display:none;position:fixed;right:16px;bottom:70px;z-index:901;width:230px;background:#0d141e;border:1px solid rgba(255,194,75,.4);border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6)">
+  <input id="hmGiris" inputmode="decimal" placeholder="ör. 38500*0,18" style="width:100%;box-sizing:border-box;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:9px;color:#eef2f7;font:inherit;font-size:15px;padding:9px 11px;text-align:right" onkeydown="if(event.key==='Enter')hmHesapla()">
+  <div id="hmSonuc" style="text-align:right;font-size:19px;font-weight:800;color:#ffc24b;min-height:26px;margin:7px 2px;font-variant-numeric:tabular-nums"></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+    <button onclick="hmEkle('7')" class="hmb">7</button><button onclick="hmEkle('8')" class="hmb">8</button><button onclick="hmEkle('9')" class="hmb">9</button><button onclick="hmEkle('/')" class="hmb">÷</button>
+    <button onclick="hmEkle('4')" class="hmb">4</button><button onclick="hmEkle('5')" class="hmb">5</button><button onclick="hmEkle('6')" class="hmb">6</button><button onclick="hmEkle('*')" class="hmb">×</button>
+    <button onclick="hmEkle('1')" class="hmb">1</button><button onclick="hmEkle('2')" class="hmb">2</button><button onclick="hmEkle('3')" class="hmb">3</button><button onclick="hmEkle('-')" class="hmb">−</button>
+    <button onclick="hmEkle('0')" class="hmb">0</button><button onclick="hmEkle(',')" class="hmb">,</button><button onclick="hmSil()" class="hmb">C</button><button onclick="hmEkle('+')" class="hmb">+</button>
+    <button onclick="hmEkle('(')" class="hmb">(</button><button onclick="hmEkle(')')" class="hmb">)</button><button onclick="hmEkle('%')" class="hmb">%</button><button onclick="hmHesapla()" class="hmb" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800">=</button>
+  </div>
+</div>
+<style>.hmb{appearance:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:#0a0f17;color:#eef2f7;font:inherit;font-size:14px;padding:8px 0;cursor:pointer}.hmb:hover{border-color:rgba(255,194,75,.5)}</style>
+<script>
+function hmToggle(){ var p=document.getElementById('hmPanel'); p.style.display=(p.style.display==='none')?'block':'none'; if(p.style.display==='block') document.getElementById('hmGiris').focus(); }
+function hmEkle(c){ var g=document.getElementById('hmGiris'); g.value+=c; g.focus(); }
+function hmSil(){ document.getElementById('hmGiris').value=''; document.getElementById('hmSonuc').textContent=''; }
+function hmHesapla(){
+  var g=document.getElementById('hmGiris').value||'';
+  // guvenli ayristirma: yalniz rakam/islec; binlik nokta atilir, virgul ondaliga cevrilir, % -> /100
+  var t=g.replace(/\./g,'').replace(/,/g,'.').replace(/%/g,'/100').replace(/[^0-9+\-*/().]/g,'');
+  var out=document.getElementById('hmSonuc');
+  if(!t){ out.textContent=''; return; }
+  try {
+    var v = Function('"use strict";return('+t+')')();
+    if(typeof v!=='number' || !isFinite(v)){ out.textContent='—'; return; }
+    out.textContent = v.toLocaleString('tr-TR',{maximumFractionDigits:2});
+  } catch(e){ out.textContent='hatalı ifade'; }
+}
+</script>
 </body>
 </html>
