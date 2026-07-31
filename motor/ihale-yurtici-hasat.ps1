@@ -10,18 +10,28 @@ $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 
-# 31.07: API sayfa basina ~20 kayit veriyor - Adet'e ulasana dek sayfalanir
+# 31.07 OLCUM: API'nin attributeId filtresi GUVENILMEZ - akademik/emlak/tebligat da
+# donduruyor. Tek saglam kimlik slugifyTitle'daki resmi kategori yolu:
+# 'ihale-duyurulari-<tur>-...' (mal-alim / hizmet-alim / yapim-ve-insaat).
+# Sayfalanir, YALNIZ ihale-duyurulari alinir, tur cikarilir.
+function SlugTur([string]$slug){
+  if($slug -match 'mal-alim'){ return 'mal' }
+  if($slug -match 'hizmet-alim'){ return 'hizmet' }
+  if($slug -match 'yapim'){ return 'yapim' }
+  return 'diger'
+}
 $hamAds = @()
-$atla = 0
-while($hamAds.Count -lt $Adet){
-  $govde = @{ adFilterAttributes = @(@{ attributeId = 2; attributeValueIds = @(45984) }); maxResultCount = $Adet; skipCount = $atla } | ConvertTo-Json -Depth 5
+$atla = 0; $tur = 0
+while($hamAds.Count -lt $Adet -and $tur -lt 25){
+  $govde = @{ adFilterAttributes = @(@{ attributeId = 2; attributeValueIds = @(45984) }); maxResultCount = 20; skipCount = $atla } | ConvertTo-Json -Depth 5
   $r = Invoke-RestMethod -Method Post -Uri "https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter" `
     -Headers @{ "Accept"="application/json"; "User-Agent"="Mozilla/5.0 (MevzuatRadar-IhaleRobotu)" } `
     -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 90
   $sayfa = @($r.result.ads)
   if(-not $sayfa.Count){ break }
-  $hamAds += $sayfa
+  $hamAds += @($sayfa | Where-Object { "$($_.slugifyTitle)" -match '^ihale-duyurulari' })
   $atla += $sayfa.Count
+  $tur++
   Start-Sleep -Milliseconds 400
 }
 
@@ -36,6 +46,7 @@ foreach($a in $hamAds){
     il     = $a.addressCityName
     ilce   = $a.addressCountyName
     tarih  = $tarih
+    tur    = (SlugTur "$($a.slugifyTitle)")
     url    = "https://www.ilan.gov.tr/ilan/$($a.id)/$($a.slugifyTitle)"
   }
 }
@@ -53,9 +64,11 @@ if(Test-Path $yol){
     $sinirTarih = (Get-Date).AddDays(-14)
     foreach($e in @($mevcut.ilanlar)){
       if($yeniNolar -contains "$($e.ilanNo)"){ continue }
+      $eskiSlug = ("$($e.url)" -split '/')[-1]
+      if($eskiSlug -notmatch '^ihale-duyurulari'){ continue }  # eski cop (emlak/tebligat/personel) havuzdan dusurulur
       $t = $null; try { $t = [datetime]::ParseExact("$($e.tarih)","dd.MM.yyyy",$null) } catch {}
       if($t -and $t -lt $sinirTarih){ continue }
-      $eskiler += [ordered]@{ ilanNo=$e.ilanNo; baslik=$e.baslik; kurum=$e.kurum; il=$e.il; ilce=$e.ilce; tarih=$e.tarih; url=$e.url }
+      $eskiler += [ordered]@{ ilanNo=$e.ilanNo; baslik=$e.baslik; kurum=$e.kurum; il=$e.il; ilce=$e.ilce; tarih=$e.tarih; tur=(SlugTur $eskiSlug); url=$e.url }
     }
   } catch { Write-Host "NOT: eski json okunamadi, sifirdan yazilir" }
 }

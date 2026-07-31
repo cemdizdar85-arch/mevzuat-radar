@@ -321,20 +321,27 @@ function yurtIciCiz(){
   const il=(document.getElementById('yiIl')||{}).value||'hepsi';
   const kel=trFold2(((document.getElementById('yiKelime')||{}).value||'').trim());
   // 31.07 Cem: sektor secilince o da suzer - eslesme yoksa ilan GELMEZ (dogru davranis)
+  // Keskinlik: once ilanin RESMI turu (ilan.gov.tr kategorisi: mal/hizmet/yapim) ile
+  // sektorun turu eslesir, sonra anahtar kelime. Yapim sektorune tur yeter.
   const si=+((document.getElementById('sektor')||{}).value||-1);
-  const anah=((CPV&&CPV.sektorler&&CPV.sektorler[si])||{}).anahtar||[];
+  const sek=(CPV&&CPV.sektorler&&CPV.sektorler[si])||null;
+  const anah=(sek&&sek.anahtar)||[];
   let liste=(YI.ilanlar||[]).filter(x=>{
     if(!ihaleMi(x)) return false;
     if(il!=='hepsi'&&x.il!==il) return false;
     const t=trFold2((x.baslik||'')+' '+(x.kurum||''));
-    if(anah.length && !anah.some(k=>t.includes(trFold2(k)))) return false;
+    if(sek){
+      if(sek.tur && x.tur && x.tur!=='diger' && x.tur!==sek.tur) return false;
+      if(sek.tur!=='yapim' && anah.length && !anah.some(k=>t.includes(trFold2(k)))) return false;
+    }
     return !kel || t.includes(kel);
   });
   if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; robot her sabah-akşam yeni ilanları çeker. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini kaydet, düşünce haber verelim →</a></div></div>'; return; }
   // 31.07 Cem: bedava giren il secince 5 ilan gorur, kalani uyelik kapisinin arkasinda
   const SINIR=5, fazla=liste.length-SINIR;
+  const TUR_AD={mal:'Mal alımı',hizmet:'Hizmet alımı',yapim:'Yapım-inşaat'};
   box.innerHTML = liste.slice(0,SINIR).map(x=>`<div class="kart">
-    <span class="rozet">🇹🇷 ${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</span>
+    <span class="rozet">🇹🇷 ${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''}</span>
     <h3>${esc(x.baslik)}</h3>
     <div class="satir"><b>İdare</b><span>${esc(x.kurum||'—')}</span></div>
     <div class="satir"><b>İlan tarihi / no</b><span>${esc(x.tarih||'—')} · ${esc(x.ilanNo||'')}</span></div>

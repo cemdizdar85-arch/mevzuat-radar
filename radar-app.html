@@ -239,12 +239,13 @@ async function pano(f){
   // canlı ihale eşleşmesi (il'e göre)
   if(!IHALE){ try{ IHALE=await (await fetch('veri/ihale-yurtici.json?cb='+Date.now())).json(); }catch(e){ IHALE={ilanlar:[]}; } }
   const ilU=trUp(f.il);
-  // ilan.gov.tr akışı ihale-DIŞI kayıt (icra/mahkeme satışı, tebligat, çekiliş) içerir — ele
-  const IHALE_DISI=['durusma','duruşma','tebligat','tebliğ','ilanen','mahkeme','icra','cekilis','çekiliş','genel kurul','kayyim','kayyım','iflas','konkordato','veraset'];
-  const ihaleMi=x=>{ const t=(''+(x.baslik||'')+' '+(x.kurum||'')).toLocaleLowerCase('tr-TR'); return !IHALE_DISI.some(k=>t.includes(k)); };
-  const eslesen=(IHALE.ilanlar||[]).filter(x=> ihaleMi(x) && ilU && trUp(x.il)===ilU ).slice(0,4);
+  // 31.07: havuz artik hasat robotunda slug ile temizleniyor (yalniz ihale-duyurulari);
+  // uyelik sozu "panelde HEPSINI gorursun" - 4'luk kirpma kaldirildi (emniyet tavani 40).
+  const ihaleMi=x=>("/"+(x.url||"")).split("/").pop().indexOf('ihale-duyurulari')===0 || !!x.tur;
+  const TUR_AD={mal:'Mal alımı',hizmet:'Hizmet alımı',yapim:'Yapım-inşaat'};
+  const eslesen=(IHALE.ilanlar||[]).filter(x=> ihaleMi(x) && ilU && trUp(x.il)===ilU ).slice(0,40);
   const ihaleHtml = eslesen.length
-    ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
+    ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
     : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok — robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
 
   // canlı RG kartı ↔ GTİP eşleşmesi
@@ -276,7 +277,7 @@ async function pano(f){
     <h2>📋 Bugün seni ilgilendiren mevzuat (RG)</h2>
     ${kartHtml}
 
-    <h2>🇹🇷 Sana uygun güncel ihaleler</h2>
+    <h2>🇹🇷 Sana uygun güncel ihaleler${eslesen.length?` (${eslesen.length})`:''}</h2>
     ${ihaleHtml}
 
     <h2>İzlenen radarların</h2>
