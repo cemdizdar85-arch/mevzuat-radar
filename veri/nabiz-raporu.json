@@ -1,13 +1,27 @@
 {
-  "tarih": "31.07.2026 19:16",
-  "durum": "ALARM",
-  "kirmizi": 1,
-  "kurtarma": 0,
+  "tarih": "31.07.2026 23:49",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 7,
   "izlenen_robot": 15,
   "izlenen_veri": 5,
-  "maddeler": [
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 317.4 saat once (esik 30s)). Actions loguna bak."
+  "maddeler": [],
+  "kurtarilan": [
+    "Hap Kartlar -> son basarili kosu 33.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 322.0 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
+    "Bilgi Ambari Yukleyici -> son basarili kosu 32.6 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Ders Remap -> son basarili kosu 33.4 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Olu Link Nobetcisi -> son basarili kosu 33.3 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 33.3 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Sinav Takvimi Nobetcisi (TESMER PDF) -> son basarili kosu 32.6 saat once (esik 30s) -> kurtarma: tetiklendi"
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan_anahtar": [
+    "KOSU:kartlar.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:ambar.yml",
+    "KOSU:ders-remap.yml",
+    "KOSU:link.yml",
+    "KOSU:smoke.yml",
+    "KOSU:takvim.yml"
+  ]
 }
