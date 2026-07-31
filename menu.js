@@ -225,7 +225,11 @@ function ttSorguHakki(anahtar){
   try {
     var uye = Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token') > -1; });
     if (uye) return true;
-    var ad = 'ttSayac_' + anahtar;
+    // 31.07 Cem onayi: sayac AYLIK sifirlanir (NYT/Similarweb modeli - ayda 5 hak;
+    // donen ziyaretci duvarda kalmasin). Anahtara ay damgasi gomulur.
+    var simdi = new Date();
+    var ay = simdi.getFullYear() + '-' + (simdi.getMonth() + 1);
+    var ad = 'ttSayac_' + anahtar + '_' + ay;
     var n = parseInt(localStorage.getItem(ad) || '0', 10) || 0;
     if (n >= 5) return false;
     localStorage.setItem(ad, String(n + 1));
