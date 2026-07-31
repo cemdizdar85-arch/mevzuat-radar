@@ -101,6 +101,36 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 .bayrak{width:20px;height:14px;object-fit:cover;border-radius:3px;vertical-align:-2px;box-shadow:0 0 0 1px rgba(255,255,255,.18), 0 1px 4px rgba(0,0,0,.4);margin-right:7px}
 .rozet .bayrak{width:17px;height:12px;margin-right:5px;vertical-align:-2px}
 #ulkeBay .bayrak{margin:0 0 0 8px}
+/* 31.07 Cem: "sahibinden gibi sik olsun" - gorsel ihale karti (buyuk bayrak +
+   sektor ikonu + renkli kalan-gun rozeti). Fotograf YOK: ihalenin fotografi olmaz,
+   yabanci platformlar da (TED/Stotles) ikon+bayrak+rozetle cozer. */
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+@media(max-width:640px){.igrid{grid-template-columns:1fr}}
+.ikart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s ease, transform .15s ease}
+.ikart:hover{border-color:rgba(255,194,75,.45);transform:translateY(-2px)}
+.ikart .ust{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#101825;border-bottom:1px solid var(--line)}
+.ikart .ust .bayrak{width:30px;height:21px;margin:0;border-radius:4px}
+.ikart .ust .sikon{font-size:21px;line-height:1}
+.ikart .ust b{font-size:13px;color:var(--ink)}
+.ikart .gov{padding:12px 14px;flex:1}
+.ikart .gov h3{font-size:13.5px;margin:0 0 7px;color:var(--ink);line-height:1.45}
+.ikart .gov .m{font-size:12px;color:var(--muted);line-height:1.6}
+.ikart .alt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+.gunroz{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px}
+.gunroz.iyi{background:rgba(61,220,151,.12);color:#3ddc97}
+.gunroz.orta{background:rgba(255,194,75,.14);color:var(--accent2)}
+.gunroz.acil{background:rgba(255,107,107,.14);color:#ff6b6b}
+.gunroz.belirsiz{background:rgba(255,255,255,.07);color:var(--dim)}
+/* kare + tikla-ac duzeni (genc.html standardi - uzun yazi yigini yerine) */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.kkare{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 13px;text-align:center;cursor:pointer;transition:border-color .15s ease, background .15s ease}
+.kkare:hover{border-color:rgba(255,194,75,.45);background:#101825}
+.kkare.on{border-color:var(--accent2);background:rgba(255,194,75,.07)}
+.kkare .ki{font-size:24px;display:block;margin-bottom:7px}
+.kkare b{font-size:12.5px;color:var(--ink);line-height:1.35;display:block}
+.kicerik{display:none;background:var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:13px;padding:15px 17px;margin:4px 0 12px;font-size:13px;color:var(--muted);line-height:1.7}
+.kicerik.on{display:block;animation:paneIn .25s ease}
+.kicerik b{color:var(--ink)}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -302,15 +332,23 @@ async function kontrol(){
   const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
   let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)}</h3>`;
   if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu çekimde eşleşen aktif ihale yok</h3><div class="belg">Robot AB resmî ihale bültenini (TED) her gün tarar; abonelikte CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
-  else { for(const i of bulunan){ const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
-    html+=`<div class="kart"><span class="rozet">${bayrak(i.ulke)}${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
-      <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
-      <div class="satir"><b>İhale usulü</b><span>${esc(i.usul||'—')}</span></div>
-      <div class="satir"><b>İlan no</b><span>${esc(i.no||'—')}</span></div>
-      <div class="sure">📅 <b>Son teklif: ${tarihTR(i.sonTeklif)}</b> ${kgTxt?('· '+kgTxt):''}</div>
-      <div class="elig">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum.</div>
-      <div class="belg">İlan metninde: iş kapsamı/miktar, ödeme, teslim süresi, belgeler ve <b>katılım/menşe şartı</b> var — oku. ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">İhale metni (TED) →</a>`:''}</div></div>`;
-  }}
+  else {
+    // 31.07 Cem: "sahibinden gibi sik" - gorsel kart izgarasi; Kolin uyarisi kart
+    // basina tekrar etmek yerine listenin ustunde BIR kez.
+    html+=`<div class="elig" style="margin:8px 0 4px">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum. Her ilanda <b>katılım/menşe şartını</b> oku.</div><div class="igrid">`;
+    for(const i of bulunan){
+      const kg=kalanGun(i.sonTeklif);
+      let sinif='belirsiz', metin='tarih ilanda';
+      if(kg!=null){ if(kg<=0){ sinif='acil'; metin='süre geçmiş'; } else if(kg<=14){ sinif='acil'; metin=kg+' gün kaldı'; } else if(kg<=45){ sinif='orta'; metin=kg+' gün kaldı'; } else { sinif='iyi'; metin=kg+' gün kaldı'; } }
+      html+=`<div class="ikart">
+        <div class="ust"><span class="sikon">${sek.ikon||'📦'}</span>${bayrak(i.ulke)}<b>${ulkeAd(i.ulke)}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">CPV ${esc(i.cpv)}</span></div>
+        <div class="gov"><h3>${esc(i.baslik)}</h3>
+          <div class="m"><b style="color:var(--ink)">${esc(i.alici||'—')}</b><br>${esc(i.usul||'—')} · ilan ${esc(i.no||'—')}<br>📅 Son teklif: <b style="color:var(--ink)">${tarihTR(i.sonTeklif)}</b></div></div>
+        <div class="alt"><span class="gunroz ${sinif}">${metin}</span>${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan belgesi →</a>`:''}</div>
+      </div>`;
+    }
+    html+='</div>';
+  }
   box.innerHTML=html;
 }
 // ---- yurt içi liste (ilan.gov.tr — örnek veri) ----
@@ -426,35 +464,56 @@ function renderSikayet(){ const s=(EK&&EK.sikayet)||{}; const el=document.getEle
   el.innerHTML=`<div class="kart kotu"><span class="rozet dikkat">Hak düşürücü süre</span><h3>${esc(s.baslik||'İtiraz yolu')}</h3>
     <div class="belg">${(s.adimlar||[]).map(a=>'• '+esc(a)).join('<br>')}<br><br><b>${esc(s.not||'')}</b><br><a href="ceza-asistani.html">Süre/ceza konusunda Ceza Asistanı →</a></div></div>`;
 }
-function renderHapIc(){ if(!EK) return; const h=[];
-  if(EK.surecAkisi) h.push(`<div class="hap"><b class="t">İhale süreci — adım adım</b>${(EK.surecAkisi||[]).map(esc).join('<br>')}</div>`);
-  if(EK.kazanmaKriteri) h.push(`<div class="hap"><b class="t">${esc(EK.kazanmaKriteri.baslik)}</b>${esc(EK.kazanmaKriteri.metin)}</div>`);
-  if(EK.kdvTevkifat){ const t=EK.kdvTevkifat; h.push(`<div class="hap"><b class="t">${esc(t.baslik)}</b>${esc(t.metin)}<br>• <b>${esc(t.yapim)}</b><br>• ${esc(t.digerHizmet)}</div>`); }
-  if(EK.esikDegerler){ const e=EK.esikDegerler; h.push(`<div class="hap"><b class="t">Eşik değerler (${esc(e.donem)}, ${esc(e.teblig)})</b>Mal/hizmet: <b>${esc(e.malHizmetGenelButce)}</b> (genel bütçe) / ${esc(e.malHizmetDiger)} · Yapım: ${esc(e.yapim)} · Doğrudan temin (m.22/d, büyükşehir): <b>${esc(e.dogrudanTeminBuyuksehir)}</b> · ${esc(e.not)}</div>`); }
-  if(EK.dogrudanTemin) h.push(`<div class="hap"><b class="t">${esc(EK.dogrudanTemin.baslik)}</b>${esc(EK.dogrudanTemin.metin)}</div>`);
-  if(EK.sinirDeger) h.push(`<div class="hap"><b class="t">${esc(EK.sinirDeger.baslik)}</b>${esc(EK.sinirDeger.metin)}</div>`);
-  if(EK.istisnalar) h.push(`<div class="hap"><b class="t">${esc(EK.istisnalar.baslik)}</b>${esc(EK.istisnalar.metin)}</div>`);
-  if(EK.isOrtakligi) h.push(`<div class="hap"><b class="t">${esc(EK.isOrtakligi.baslik)}</b>${esc(EK.isOrtakligi.metin)}</div>`);
-  if(EK.yasaklama) h.push(`<div class="hap"><b class="t">${esc(EK.yasaklama.baslik)}</b>${esc(EK.yasaklama.metin)}</div>`);
-  if(EK.digerHukumler&&EK.digerHukumler.length){ h.push(`<details class="acc"><summary>Diğer önemli hükümler — madde madde (4734 tam kapsam)</summary><div class="in">${EK.digerHukumler.map(x=>`<div style="padding:7px 0;border-top:1px solid var(--line)"><span class="mad">m.${esc(x.madde)}</span> <b>${esc(x.baslik)}</b><br>${esc(x.metin)}</div>`).join('')}</div></details>`); }
-  document.getElementById('hapIc').innerHTML=h.join('');
+function renderHapIc(){ if(!EK) return; const k=[];
+  // 31.07 Cem: hap yigini da kare+tikla-ac duzenine gecti (site standardi)
+  if(EK.surecAkisi) k.push({ikon:'🗺️', baslik:'İhale süreci adım adım', icerik:(EK.surecAkisi||[]).map(esc).join('<br>')});
+  if(EK.kazanmaKriteri) k.push({ikon:'🏆', baslik:'Kim kazanır? (m.40)', icerik:esc(EK.kazanmaKriteri.metin)});
+  if(EK.kdvTevkifat){ const t=EK.kdvTevkifat; k.push({ikon:'🧾', baslik:'KDV tevkifatı', icerik:`${esc(t.metin)}<br>• <b>${esc(t.yapim)}</b><br>• ${esc(t.digerHizmet)}`}); }
+  if(EK.esikDegerler){ const e=EK.esikDegerler; k.push({ikon:'📏', baslik:'Eşik değerler 2026', icerik:`(${esc(e.donem)}, ${esc(e.teblig)})<br>Mal/hizmet: <b>${esc(e.malHizmetGenelButce)}</b> (genel bütçe) / ${esc(e.malHizmetDiger)}<br>Yapım: <b>${esc(e.yapim)}</b><br>Doğrudan temin (m.22/d, büyükşehir): <b>${esc(e.dogrudanTeminBuyuksehir)}</b><br>${esc(e.not)}`}); }
+  if(EK.dogrudanTemin) k.push({ikon:'🛒', baslik:'Doğrudan temin (m.22)', icerik:esc(EK.dogrudanTemin.metin)});
+  if(EK.sinirDeger) k.push({ikon:'📉', baslik:'Sınır değer / aşırı düşük', icerik:esc(EK.sinirDeger.metin)});
+  if(EK.istisnalar) k.push({ikon:'🚪', baslik:'İstisnalar (m.3)', icerik:esc(EK.istisnalar.metin)});
+  if(EK.isOrtakligi) k.push({ikon:'🤝', baslik:'İş ortaklığı / konsorsiyum', icerik:esc(EK.isOrtakligi.metin)});
+  if(EK.yasaklama) k.push({ikon:'⛔', baslik:'Yasaklama (m.58)', icerik:esc(EK.yasaklama.metin)});
+  if(EK.digerHukumler&&EK.digerHukumler.length) k.push({ikon:'📚', baslik:'Diğer hükümler madde madde', icerik:EK.digerHukumler.map(x=>`<div style="padding:7px 0;border-top:1px solid var(--line)"><span class="mad">m.${esc(x.madde)}</span> <b>${esc(x.baslik)}</b><br>${esc(x.metin)}</div>`).join('')});
+  kareKur('hapIc', k);
 }
 function renderKatilimBilgi(){ if(!K.yeterlik) return;
   const list=a=>(a||[]).map(x=>`<div class="tab2">${esc(x)}</div>`).join('');
   const bl=arr=>(arr||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)"><span class="mad">m.${x.madde} (${x.bent})</span> ${esc(x.metin)}</div>`).join('');
-  document.getElementById('katilimBilgi').innerHTML=`
-    <details class="acc"><summary>İstenen yeterlik belgeleri (m.10)</summary><div class="in"><b>Ekonomik/malî:</b><br>${list(K.yeterlik.mali)}<br><br><b>Mesleki/teknik:</b><br>${list(K.yeterlik.teknik)}</div></details>
-    <details class="acc"><summary>İhale dışı bırakılma — m.10 (a–j)</summary><div class="in">${bl(K.ihaleDisi)}</div></details>
-    <details class="acc"><summary>Katılamayacaklar — m.11 &amp; yasak fiiller — m.17</summary><div class="in"><b>m.11:</b>${bl(K.katilamaz)}<br><b>m.17:</b>${(K.yasakFiil||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)">(${x.bent}) ${esc(x.metin)}</div>`).join('')}</div></details>
-    <details class="acc"><summary>İlan süreleri &amp; usuller &amp; EKAP</summary><div class="in"><b>Eşik üstü:</b> açık ${esc(K.ilanSure.esikUstu.acik)}, pazarlık ${esc(K.ilanSure.esikUstu.pazarlik)}. <b>Eşik altı:</b> ${esc(K.ilanSure.esikAlti.dusuk)} / ${esc(K.ilanSure.esikAlti.orta)} / ${esc(K.ilanSure.esikAlti.ust)}.<br><b>Usuller:</b> ${(K.usul||[]).map(u=>esc(u.ad)+' (m.'+u.madde+')').join(' · ')}<br><b>Nereden:</b> ${esc(K.ekap)}</div></details>`;
+  kareKur('katilimBilgi',[
+    {ikon:'📋', baslik:'Yeterlik belgeleri (m.10)', icerik:`<b>Ekonomik/malî:</b><br>${list(K.yeterlik.mali)}<br><br><b>Mesleki/teknik:</b><br>${list(K.yeterlik.teknik)}`},
+    {ikon:'🚫', baslik:'İhale dışı bırakılma (m.10)', icerik:bl(K.ihaleDisi)},
+    {ikon:'⛔', baslik:'Katılamayacaklar + yasak fiiller', icerik:`<b>m.11:</b>${bl(K.katilamaz)}<br><b>m.17:</b>${(K.yasakFiil||[]).map(x=>`<div style="padding:4px 0;border-top:1px solid var(--line)">(${x.bent}) ${esc(x.metin)}</div>`).join('')}`},
+    {ikon:'🗓️', baslik:'İlan süreleri · usuller · EKAP', icerik:`<b>Eşik üstü:</b> açık ${esc(K.ilanSure.esikUstu.acik)}, pazarlık ${esc(K.ilanSure.esikUstu.pazarlik)}. <b>Eşik altı:</b> ${esc(K.ilanSure.esikAlti.dusuk)} / ${esc(K.ilanSure.esikAlti.orta)} / ${esc(K.ilanSure.esikAlti.ust)}.<br><b>Usuller:</b> ${(K.usul||[]).map(u=>esc(u.ad)+' (m.'+u.madde+')').join(' · ')}<br><b>Nereden:</b> ${esc(K.ekap)}`}
+  ]);
+}
+// KARE + TIKLA-AC motoru (genc.html standardi; 31.07 Cem: "alt alta kayan yazi
+// olmasin, kare yapip basinca acilsin - butun site ayni format")
+function kareKur(hedefId, kareler){
+  const kok=document.getElementById(hedefId); if(!kok) return;
+  kok.innerHTML = `<div class="kgrid">` + kareler.map((k,i)=>
+    `<div class="kkare" id="kk_${hedefId}_${i}" onclick="kareAc('${hedefId}',${i})"><span class="ki">${k.ikon}</span><b>${esc(k.baslik)}</b></div>`).join('') + `</div>` +
+    kareler.map((k,i)=>`<div class="kicerik" id="ki_${hedefId}_${i}">${k.icerik}</div>`).join('');
+}
+function kareAc(hedefId,no){
+  const acik=document.getElementById('ki_'+hedefId+'_'+no).classList.contains('on');
+  document.querySelectorAll('[id^="ki_'+hedefId+'_"]').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('[id^="kk_'+hedefId+'_"]').forEach(e=>e.classList.remove('on'));
+  if(!acik){
+    document.getElementById('ki_'+hedefId+'_'+no).classList.add('on');
+    document.getElementById('kk_'+hedefId+'_'+no).classList.add('on');
+  }
 }
 function renderYurtdisi(){ if(!YD.katilabilirlik) return;
   const tbl=(YD.katilabilirlik||[]).map(x=>`<div style="padding:8px 0;border-top:1px solid var(--line)"><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.durum)}</span></div>`).join('');
   const adim=(YD.adimlar||[]).map(x=>`<div style="display:flex;gap:11px;margin:9px 0"><span style="flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center">${x.no}</span><div><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.metin)}</span></div></div>`).join('');
-  document.getElementById('yurtdisi').innerHTML=`
-    <div class="kart dikkat"><span class="rozet dikkat">Dürüst çerçeve</span><div style="margin-top:8px;font-size:13.5px;color:var(--ink)">${esc(YD.durustCerceve)}</div></div>
-    <details class="acc" open><summary>Katılabilirlik — Türkiye'nin durumu</summary><div class="in">${tbl}</div></details>
-    <details class="acc"><summary>Adım adım: nasıl teklif verilir</summary><div class="in">${adim}<br><b style="color:var(--ink)">En güçlü strateji:</b> ${esc(YD.strateji)}<br><br><b>Süreler:</b> ${esc(YD.sureler)}</div></details>`;
+  kareKur('yurtdisi',[
+    {ikon:'⚖️', baslik:'Dürüst çerçeve', icerik:esc(YD.durustCerceve)},
+    {ikon:'🇹🇷', baslik:"Türkiye'nin durumu", icerik:tbl},
+    {ikon:'🧭', baslik:'Adım adım teklif', icerik:adim},
+    {ikon:'🤝', baslik:'En güçlü strateji + süreler', icerik:`<b>En güçlü strateji:</b> ${esc(YD.strateji)}<br><br><b>Süreler:</b> ${esc(YD.sureler)}`}
+  ]);
 }
 veriYukle();
 </script>
