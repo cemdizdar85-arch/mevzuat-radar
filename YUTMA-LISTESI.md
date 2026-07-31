@@ -44,6 +44,15 @@
 - [x] TFRS 7 Finansal Araçlar: Açıklamalar — ÇEKİRDEK YUTULDU 27.07 (2023/3'te soru; amaç/kapsam, finansal araç sınıfları, bilanço + gelir tablosu açıklamaları, GUD açıklamaları, RİSKLERİN NİTELİĞİ VE DÜZEYİ girişi: kredi/likidite/piyasa riski + niteliksel-sayısal açıklama çerçevesi). RİSK TÜRLERİNİN AYRINTILI HÜKÜMLERİ de eklendi (kredi riski + teminatlar + azami kredi riski, likidite riski vade analizi, piyasa riski DUYARLILIK ANALİZİ + riske maruz değer istisnası) — TFRS 7 sınav kapsamı TAM
 *Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
 
+## 🎓 KGK BAĞIMSIZ DENETÇİLİK SINAVI HATTI (31.07.2026, Cem onayı: "daha erken varsa kuralım")
+*Hedef: üretim 4→5 Ağustos gecesi (SGS/Yeterlilik dilimleri bitince); Cem'in kontrol turu 5-6 Ağustos'a yetişir. İyi haber: TMS/TFRS/BDS setinin büyük kısmı 27.07'de zaten yutuldu (üstteki bölümler) — KGK için kalan boşluklar:*
+- [ ] **Kalan BDS'ler:** 260, 265, 510, 540, 580, 620, 720 (üst listede açık) + 320 Önemlilik, 450 Yanlışlıkların Değerlendirilmesi, 530 Örnekleme (fabrika talep sinyali, URL kalıbı belli: TDS_2025_Seti)
+- [ ] **Kalan TMS/TFRS:** TMS 27 Bireysel FT, TMS 41 Tarımsal Faaliyetler, TFRS 9 Bölüm 6 (korunma muhasebesi)
+- [ ] **KGK kurumsal mevzuatı:** 660 s. KHK (KGK kuruluş) + Bağımsız Denetim Yönetmeliği (RG 26.12.2012, konsolide) — denetçilik mesleği/yetkilendirme soruları buradan
+- [ ] **Sermaye piyasası ayağı:** 6362 s. SPKn ilgili bölümler (ambarda var mı teyit edilecek; yoksa yut) + SPK Kurumsal Yönetim Tebliği (II-17.1)
+- [ ] **KGK sınav ders yapısı** resmî kaynaktan çıkarılacak (Bağımsız Denetçilik Sınav Tebliği/KGK duyurusu — ders listesi ezberden YAZILMAZ) → veri/kgk-sinav-yapisi.json
+- [ ] Üretim emri taslağı: ders-ders kota + maliyet tablosu → **Cem onayı → 4-5 Ağustos gecesi parti** (deneme.html'e 3. sınav olarak eklenir; paket mimarisinde 4. paket)
+
 ## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
 *Amaç: soru fabrikasının ve denetimin dayandığı TEORİ metinlerini de birincil kaynaktan ambara almak.
 Kanun ayağı zaten tamam (VUK/TTK/TBK/İİK/KDVK/KVK... 13.373 madde ambarda, günlük aynada). Eksik olan STANDART/teori metinleri:*
