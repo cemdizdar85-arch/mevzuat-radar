@@ -10,7 +10,7 @@ on:
   # Eski tetik yalniz elle/push idi; kasa sayimi gunlerce bayat kalabiliyordu
   # ve GM eski rakamla plan kuruyordu. PARA HARCAMAZ: yalniz Supabase okuma.
   schedule:
-    - cron: "41 5 * * *"    # 08:30 TR — gunun taze sayimi
+    - cron: "41 0 * * *"    # 03:41 TR - gunun taze sayimi
   workflow_dispatch:
   push:
     paths:

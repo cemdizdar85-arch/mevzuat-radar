@@ -5,7 +5,7 @@ name: Olu Link Nobetcisi
 
 on:
   schedule:
-    - cron: "34 4 * * *"     # HER GUN 07:30 TR (Cem 23.07: gunluk koruma; API'siz = bedava)
+    - cron: "34 0 * * *"     # 03:34 TR (gunluk koruma; APIsiz = bedava)
   workflow_dispatch:
 
 permissions:

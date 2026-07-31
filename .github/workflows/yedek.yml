@@ -7,7 +7,7 @@ name: Haftalik Yedek
 
 on:
   schedule:
-    - cron: "19 3 * * 6"      # her cumartesi 06:00 TR
+    - cron: "19 0 * * 6"      # cumartesi 03:19 TR
   workflow_dispatch:
 
 jobs:

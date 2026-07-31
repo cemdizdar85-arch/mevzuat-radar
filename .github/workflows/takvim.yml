@@ -6,7 +6,7 @@ name: Sinav Takvimi Nobetcisi
 
 on:
   schedule:
-    - cron: "15 6 * * *"     # 06:15 UTC = 09:15 Turkiye
+    - cron: "21 0 * * *"     # 03:21 TR
   workflow_dispatch:
 
 permissions:

@@ -6,7 +6,7 @@ name: ders-remap
 on:
   workflow_dispatch:
   schedule:
-    - cron: "37 3 * * *"   # 06:37 TR
+    - cron: "37 23 * * *"   # 02:37 TR
   push:
     paths:
       - "motor/ders-remap.ps1"

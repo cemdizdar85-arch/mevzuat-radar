@@ -5,7 +5,7 @@ name: Gunluk RG Taramasi
 
 on:
   schedule:
-    - cron: "36 5 * * *"   # her gun 05:30 UTC = 08:30 Turkiye saati
+    - cron: "56 0 * * *"   # 03:56 TR
   workflow_dispatch:        # Actions sekmesinden elle de calistirilabilir
 
 permissions:

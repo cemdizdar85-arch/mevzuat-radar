@@ -5,7 +5,7 @@ name: Smoke Nobetcisi
 
 on:
   schedule:
-    - cron: "45 4 * * *"     # her gun 07:45 TR (link nobetcisinden 15 dk sonra)
+    - cron: "47 0 * * *"     # 03:47 TR (link nobetcisinden sonra)
   workflow_dispatch:
 
 jobs:

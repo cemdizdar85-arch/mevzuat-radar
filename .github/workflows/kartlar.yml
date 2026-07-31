@@ -33,7 +33,7 @@ on:
     # 29.07 Cem: "RG gece yayinlaniyor, 8 gec bence daha erkene alalim".
     # 03:00 UTC = 06:00 Turkiye. RG gece yarisi civari yayimlandigi icin sabah
     # altida icerik hazir; musavir masaya oturdugunda kart onunde olur.
-    - cron: "7 3 * * *"      # 06:00 Turkiye - ana nobet
+    - cron: "7 0 * * *"      # 03:07 TR - ana nobet (Cem 31.07: sabah 5te hepsi bitmis olacak)
     # IKINCI NOBET: mukerrer sayilar gun icinde de cikabiliyor. Sabahki kosu
     # onlari goremez. 12:00 UTC = 15:00 Turkiye'de bir kez daha bakilir.
     # Maliyeti yok denecek kadar az: o gun yeni teblig yoksa API'ye hic gitmez.

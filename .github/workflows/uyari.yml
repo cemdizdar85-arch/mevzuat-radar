@@ -9,7 +9,7 @@ name: Radar Uyarı Robotu
 
 on:
   schedule:
-    - cron: "17 7 * * *"     # 07:00 UTC = 10:00 TR (ihale + kart hasadından sonra)
+    - cron: "17 1 * * *"     # 04:17 TR (ihale + kart hasadindan sonra)
   workflow_dispatch:
   push:
     paths:

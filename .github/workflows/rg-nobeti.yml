@@ -24,7 +24,7 @@ on:
   # hic kosmamisti (29.07'de bulundu). Ayna 07:00/16:00 TR'de kosuyor;
   # nobet birer saat arkasindan gelir. PARA HARCAMAZ.
   schedule:
-    - cron: "9 5 * * *"     # 08:00 TR — sabah aynasindan sonra
+    - cron: "39 0 * * *"     # 03:39 TR - sabah aynasindan sonra
     - cron: "9 14 * * *"    # 17:00 TR — ogleden sonraki aynadan sonra
   push:
     paths:
