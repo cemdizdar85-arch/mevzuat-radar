@@ -1,6 +1,6 @@
 {
   "aciklama": "VITRIN BANKASI - kayitsiz ziyaretci tadimi. Kasadan secilmis 150 soru (hakem onayli, senaryolu, hesap dersleri agirlikli). Bilincli olarak halka acik - Cem onayi 31.07.2026. Tavan: 150.",
-  "guncelleme": "31.07.2026 11:13",
+  "guncelleme": "31.07.2026 12:48",
   "sorular": [
     {
       "id": "9aec4abf",
@@ -26,7 +26,10 @@
         "E": "Doğru. GVK m.94/6-b-i'nin parantez içi hükmü, tam mükellef kurumdan tam mükellef kuruma yapılan kâr payı dağıtımını stopaj dışında tutar; çünkü bu kâr payı zaten alıcı kurumun beyannamesinde iştirak kazancı istisnasıyla vergisiz kalacaktır, iki kez kesinti yapılmaz."
       },
       "hap": "Bir kurum başka bir kuruma kâr payı dağıtırsa, GVK m.94/6-b-i'nin parantez içindeki istisnası devreye girer ve hiç stopaj kesilmez - çünkü zaten kâr payını alan kurum bunu kendi kurumlar vergisi beyannamesinde iştirak kazancı istisnasıyla vergisiz tutacak. Stopaj sadece gerçek kişilere, dar mükelleflere ve vergiden muaf kurumlara yapılan dağıtımlarda kesilir. Ortağın kurum mu gerçek kişi mi olduğunu sormadan direkt %10 kesersen tuzağa düşersin.",
-      "kaynak": "193 sayılı GVK m.94/6-b-i"
+      "kaynak": "193 sayılı GVK m.94/6-b-i",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "572ab45f",
@@ -52,7 +55,34 @@
         "E": "Ne soruluyor: Üretimde kullanılan bir makinenin satışından elde edilen nakit hangi faaliyet grubunda gösterilir.\n\nKural: Nakit akış tablosu üç bölüme ayrılır. Yatırım faaliyetleri, maddi ve maddi olmayan duran varlıkların (makine, bina, arazi gibi) alımı ve satımından kaynaklanan nakit hareketlerini içerir.\n\nBu olayda: İşletme üretimde kullandığı makineyi sattı ve 80.000 TL nakit tahsil etti. Makine maddi duran varlıktır. Bu satıştan gelen nakit, yatırım faaliyetleri bölümünde nakit girişi olarak raporlanır.\n\nAkılda kalsın: Duran varlık al-sat işlemleri her zaman yatırım faaliyetidir."
       },
       "hap": "Maddi duran varlık satışından elde edilen nakit, yatırım faaliyetleri bölümünde gösterilir.",
-      "kaynak": "TMS 7 Nakit Akış Tabloları, m.16"
+      "kaynak": "TMS 7 Nakit Akış Tabloları, m.16",
+      "tablo": {
+        "baslik": "Nakit Akış Tablosu (TL)",
+        "kolonlar": [
+          "Faaliyet Grubu",
+          "Nakit Hareketi",
+          "Tutar"
+        ],
+        "satirlar": [
+          [
+            "İşletme Faaliyetleri",
+            "Ticari faaliyetlerden nakit",
+            "-"
+          ],
+          [
+            "Yatırım Faaliyetleri ←",
+            "Makine satışından nakit girişi",
+            "80.000"
+          ],
+          [
+            "Finansman Faaliyetleri",
+            "Finansman kaynaklarından nakit",
+            "-"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6008adec",
@@ -78,7 +108,10 @@
         "E": "Bu tutar %40'lık bir oranla hesaplanmış, yani normal amortisman yerine azalan bakiyeler usulündeki katlı oran karıştırılmış. Soruda işletme normal yöntemi ve %20 oranını kullandığını söylüyor, oran değiştirilmez."
       },
       "hap": "Binek otomobillerde amortisman artık kıst esasına göre hesaplanıyor: kıymetin aktife girdiği ay tam ay sayılır ve yılın kalan ay sayısı üzerinden oranlama yapılır. Diğer çoğu sabit kıymette ise ilk yıl amortismanı tam ayrılabilir - tuzak burada, 'binek oto' kelimesini görünce kıst refleksi devreye girmeli.",
-      "kaynak": "VUK m.320"
+      "kaynak": "VUK m.320",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4fae846c",
@@ -104,7 +137,21 @@
         "E": "Yanlış. 280 hesabı bir yıldan (12 aydan) daha uzun süreli peşin ödemeler için kullanılır. Burada süre tam 12 ay olduğundan 280 değil 180 kullanılmalıdır."
       },
       "hap": "Peşin yapılan ödemelerde süre 12 ay veya daha kısaysa 180, 12 aydan uzunsa 280 hesabı kullanılır. Kayıt anında hesap ters yazılmamalı; kasa/banka alacaklanır, gider hesabı değil aktif hesap borçlanır.",
-      "kaynak": "VUK m.283"
+      "kaynak": "VUK m.283",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 18000,
+          "hesap": "180 Gelecek Aylara Ait Giderler",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "100 Kasa",
+          "alacak": 18000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "9c16bff5",
@@ -130,7 +177,34 @@
         "E": "Tek bir işlemin farklı bölümlere ayrılabileceğini sanıyor. Duran varlık alımı tek bir işlemdir ve sadece yatırım faaliyetlerinde gösterilir. Bölme işlemi yapılmaz."
       },
       "hap": "Maddi olmayan duran varlık alımı yatırım faaliyetlerinden nakit çıkışıdır.",
-      "kaynak": "TMS 7 md. 16 - Yatırım Faaliyetleri"
+      "kaynak": "TMS 7 md. 16 - Yatırım Faaliyetleri",
+      "tablo": {
+        "baslik": "Nakit Akış Tablosu (TL)",
+        "kolonlar": [
+          "Bölüm",
+          "İşlem",
+          "Tutar"
+        ],
+        "satirlar": [
+          [
+            "İşletme Faaliyetleri",
+            "Ticari işlemler",
+            "-"
+          ],
+          [
+            "Yatırım Faaliyetleri",
+            "Maddi olmayan duran varlık alımı ←",
+            "(200.000)"
+          ],
+          [
+            "Finansman Faaliyetleri",
+            "Sermaye/borç işlemleri",
+            "-"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ab1cab06",
@@ -156,7 +230,42 @@
         "E": "Bu şık, 70.000 TL'yi işletme faaliyetlerine, 20.000 TL kârı da finansman faaliyetlerine veriyor. Oysa duran varlık satışı yatırım faaliyetidir; finansman faaliyetleri ise kredi, sermaye gibi kaynak hareketlerini gösterir."
       },
       "hap": "Duran varlık satış kârı net kârdan çıkar, toplam satış tutarı yatırım faaliyetlerinde gösterilir.",
-      "kaynak": "TMS 7 Paragraf 20"
+      "kaynak": "TMS 7 Paragraf 20",
+      "tablo": {
+        "baslik": "Nakit Akış Tablosu - Dolaylı Yöntem (TL)",
+        "kolonlar": [
+          "Kalem",
+          "Tutar"
+        ],
+        "satirlar": [
+          [
+            "Net Kâr",
+            "XXX"
+          ],
+          [
+            "Duran Varlık Satış Kârı (-) ←",
+            "-20.000"
+          ],
+          [
+            "İşletme Faaliyetlerinden Nakit",
+            "..."
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "Duran Varlık Satışından Nakit Girişi ←",
+            "70.000"
+          ],
+          [
+            "Yatırım Faaliyetlerinden Nakit",
+            "..."
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a339ec06",
@@ -182,7 +291,39 @@
         "E": "Nakit akış tablosunun amacı ile doğrulama fonksiyonunu karıştırıyor. Dönem sonu nakit tutarının doğruluğu önemlidir ama yeterli değildir; tablo aynı zamanda nakdin hangi kaynaklardan geldiğini ve nereye gittiğini göstermelidir ki kullanıcılar analiz yapabilsin."
       },
       "hap": "İştirak satışı yatırım faaliyetidir; işletme faaliyeti içinde gösterilmesi gerçek performansı gizler.",
-      "kaynak": "TMS 7 - Nakit Akış Tabloları, madde 10 ve 21"
+      "kaynak": "TMS 7 - Nakit Akış Tabloları, madde 10 ve 21",
+      "tablo": {
+        "baslik": "Nakit Akış Tablosu Özet (TL)",
+        "kolonlar": [
+          "Faaliyet Türü",
+          "Yanlış Sunum",
+          "Doğru Sunum"
+        ],
+        "satirlar": [
+          [
+            "İşletme Faaliyetleri",
+            "300.000",
+            "0"
+          ],
+          [
+            "Yatırım Faaliyetleri ←",
+            "0",
+            "300.000"
+          ],
+          [
+            "Finansman Faaliyetleri",
+            "0",
+            "0"
+          ],
+          [
+            "Dönem Sonu Nakit",
+            "300.000",
+            "300.000"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "1890ad5f",
@@ -208,7 +349,10 @@
         "E": "Bu şık cari yıl revizyonuyla gelecek yıl planlamasını karıştırıyor. Önemlilik cari yılın denetimini etkiler çünkü denetçi şu anki finansal tablolara görüş verecek; bir sonraki yıla ertelemek mevcut denetime zarar verir."
       },
       "hap": "Denetim sırasında ciro önemli ölçüde değişirse önemlilik yeniden hesaplanır ve denetim kapsamı güncellenir.",
-      "kaynak": "BDS 320 Paragraf 12-13"
+      "kaynak": "BDS 320 Paragraf 12-13",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "57378f3f",
@@ -234,7 +378,39 @@
         "E": "Bu şık, teminatlı ve teminatsız alacağı karıştırıyor. Teminatlı alacaklar için karşılık sadece teminatın üzerindeki kısma ayrılır; tam karşılık ayırabilmek için alacağın teminatsız olması gerekir."
       },
       "hap": "İcra safhasındaki teminatsız alacak için şüpheli alacak karşılığı ayrılır.",
-      "kaynak": "VUK m.323"
+      "kaynak": "VUK m.323",
+      "tablo": {
+        "baslik": "Şüpheli Alacak Karşılığı Değerlendirmesi",
+        "kolonlar": [
+          "Kontrol Noktası",
+          "Durum",
+          "Sonuç"
+        ],
+        "satirlar": [
+          [
+            "Alacak tutarı",
+            "80.000 TL",
+            "✓"
+          ],
+          [
+            "İcra/dava safhasında mı?",
+            "Evet (icra takibi var)",
+            "✓"
+          ],
+          [
+            "Teminat var mı?",
+            "Hayır",
+            "✓"
+          ],
+          [
+            "Karşılık ayrılabilir mi? ←",
+            "EVET",
+            "80.000 TL"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "std270112",
@@ -260,7 +436,59 @@
         "E": "Bu şık şerefiyeyi özkaynakla karıştırıyor. TFRS 3'e göre şerefiye varlık olarak bilançoya alınır, özkaynağa alınmaz. Fark her zaman muhasebeleştirilir, göz ardı edilmez."
       },
       "hap": "İşletme birleşmesinde ödenen bedel, net varlıktan fazlaysa fark şerefiye olur.",
-      "kaynak": "TFRS 3 p.10, p.18, p.32, p.34 (KGK 2026 Kırmızı Kitap)"
+      "kaynak": "TFRS 3 p.10, p.18, p.32, p.34 (KGK 2026 Kırmızı Kitap)",
+      "tablo": {
+        "baslik": "Şerefiye hesabı",
+        "kolonlar": [
+          "Kalem",
+          "Tutar (TL)"
+        ],
+        "satirlar": [
+          [
+            "Transfer edilen bedel",
+            "900.000"
+          ],
+          [
+            "Tanımlanabilir varlıklar (GUD)",
+            "1.100.000"
+          ],
+          [
+            "Üstlenilen borçlar (GUD)",
+            "(350.000)"
+          ],
+          [
+            "Net tanımlanabilir varlık",
+            "750.000"
+          ],
+          [
+            "ŞEREFİYE = 900.000 − 750.000",
+            "150.000 ←"
+          ]
+        ]
+      },
+      "yevmiye": [
+        {
+          "borc": 1100000,
+          "hesap": "VARLIKLAR",
+          "alacak": 0
+        },
+        {
+          "borc": 150000,
+          "hesap": "ŞEREFİYE",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "BORÇLAR",
+          "alacak": 350000
+        },
+        {
+          "borc": 0,
+          "hesap": "KASA",
+          "alacak": 900000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "f8b3d3f7",
@@ -286,7 +514,35 @@
         "E": "Bu şık azalan bakiyelerden normal itfaya geçişi bir çözüm olarak sunuyor. Ancak özel maliyet bedelleri için baştan itibaren yalnızca eşit yüzdelerle itfa zorunludur; azalan bakiyeler hiçbir şekilde uygulanamaz."
       },
       "hap": "Özel maliyet bedelleri azalan bakiyelerle değil, sadece kira süresine göre eşit yüzdelerle itfa edilir.",
-      "kaynak": "VUK m.327"
+      "kaynak": "VUK m.327",
+      "tablo": {
+        "baslik": "Özel Maliyet İtfa Karşılaştırması (Örnek: 5 Yıl Kira)",
+        "kolonlar": [
+          "Yöntem",
+          "1. Yıl",
+          "2. Yıl",
+          "3. Yıl",
+          "Açıklama"
+        ],
+        "satirlar": [
+          [
+            "Eşit Yüzdeler (Doğru) ←",
+            "24.000",
+            "24.000",
+            "24.000",
+            "Her yıl eşit tutar"
+          ],
+          [
+            "Azalan Bakiyeler (Yanlış)",
+            "48.000",
+            "28.800",
+            "17.280",
+            "VUK'a aykırı"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e78a3fb2",
@@ -312,7 +568,21 @@
         "E": "Pazarlama giderleri ile alım nakliyesini karıştırıyor. 760 hesabı satış sonrası dağıtım ve pazarlama faaliyetleri içindir; mal satın alınırken yapılan nakliye ise malın maliyetine dahildir."
       },
       "hap": "Satın alınan malın nakliye gideri, malın maliyetine eklenir ve stok hesabına kaydedilir.",
-      "kaynak": "VUK m.262"
+      "kaynak": "VUK m.262",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 2000,
+          "hesap": "153 TİCARİ MALLAR",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "100 KASA",
+          "alacak": 2000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "cbdf0504",
@@ -338,7 +608,44 @@
         "E": "Bu şık, bina amortismanı ile özel maliyet itfasını karıştırıyor. Bina amortismanı, sahibi olunan binanın yıpranma payıdır ve sabit oranlıdır. Özel maliyet itfası ise kiralanan yere yapılan iyileştirmelerin kira süresine göre dağıtımıdır; oran değil süre belirleyicidir."
       },
       "hap": "Kiralanan yere yapılan özel maliyet bedelleri, kira süresine eşit paylarla itfa edilir.",
-      "kaynak": "VUK m.327"
+      "kaynak": "VUK m.327",
+      "tablo": {
+        "baslik": "Özel Maliyet Bedeli İtfa Planı (TL)",
+        "kolonlar": [
+          "Yıl",
+          "Yıllık İtfa Payı",
+          "Kalan İtfa Edilecek"
+        ],
+        "satirlar": [
+          [
+            "1. Yıl ←",
+            "100.000",
+            "300.000"
+          ],
+          [
+            "2. Yıl",
+            "100.000",
+            "200.000"
+          ],
+          [
+            "3. Yıl",
+            "100.000",
+            "100.000"
+          ],
+          [
+            "4. Yıl",
+            "100.000",
+            "0"
+          ],
+          [
+            "Toplam",
+            "400.000",
+            "-"
+          ]
+        ]
+      },
+      "yevmiye": [],
+      "yanlis_kayitlar": null
     },
     {
       "id": "36b963a4",
@@ -364,7 +671,26 @@
         "E": "264 Özel Maliyetler doğru hesap ancak KDV'yi hesaba dahil etmiş. KDV, vergiye tabi işlemlerde indirilecek olduğundan maliyet bedeline eklenmez; ayrı hesapta izlenir ve matrahtan düşülür."
       },
       "hap": "Kiralanan depoda yapılan kalıcı yatırım özel maliyet hesabına aktifleşir, KDV ayrı izlenir.",
-      "kaynak": "VUK m.272"
+      "kaynak": "VUK m.272",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 118000,
+          "hesap": "264 ÖZEL MALİYETLER",
+          "alacak": 0
+        },
+        {
+          "borc": 21240,
+          "hesap": "191 İNDİRİLECEK KDV",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "102 BANKALAR",
+          "alacak": 139240
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "d35f50cd",
@@ -390,7 +716,21 @@
         "E": "Ne soruluyor: Peşin ödenen çok dönemli bir giderin, dönem sonu envanterinde cari döneme isabet eden kısmı için hangi kaydın yapılacağı soruluyor.\n\nKural: VUK 283'e göre, peşin ödenen giderler mukayyet değerleriyle (kayıtlı tutarıyla) aktifleştirilir. Dönem sonunda ise cari döneme ait kısmı gider hesabına alırsınız.\n\nBu olayda: Oyun stüdyosu 6 aylık 90.000 TL'yi aktife kaydetmiş. Her ay 15.000 TL düşer (90.000÷6=15.000). Kasım-Aralık 2 ay, yani 30.000 TL cari döneme ait. Bu 30.000 TL'yi aktiften (180 hesabından alacak) çıkarıp gider hesabına (borç) aktarır.\n\nAkılda kalsın: Aktif geçici hesaplardan gidere geçiş, cari döneme isabet eden tutar kadardır."
       },
       "hap": "Peşin ödenen çok dönemli giderin, dönem sonunda cari aya ait kısmı gider hesabına aktarılır.",
-      "kaynak": "VUK m.283"
+      "kaynak": "VUK m.283",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 30000,
+          "hesap": "770 GENEL YONETIM GIDERLERI",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "180 GELECEK AYLARA AIT GIDERLER",
+          "alacak": 30000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "9d7c8c58",
@@ -416,7 +756,34 @@
         "E": "Bu şık nakit akış tablosu ile dipnot açıklamalarını karıştırıyor. Nakit çıkışı olan her işlem tabloda gösterilir; dipnotlar yalnızca ek açıklama alanıdır, asıl tablo yerine geçmez."
       },
       "hap": "Kalıcı yazılım lisansı alımı yatırım faaliyeti nakit çıkışıdır.",
-      "kaynak": "TMS 7 madde 16"
+      "kaynak": "TMS 7 madde 16",
+      "tablo": {
+        "baslik": "Nakit Akış Tablosu (TL)",
+        "kolonlar": [
+          "Faaliyet Türü",
+          "Nakit Akışı"
+        ],
+        "satirlar": [
+          [
+            "Faaliyet Faaliyetleri",
+            "—"
+          ],
+          [
+            "Yatırım Faaliyetleri",
+            ""
+          ],
+          [
+            "  Yazılım Lisansı Alımı (-) ←",
+            "-80.000"
+          ],
+          [
+            "Finansman Faaliyetleri",
+            "—"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "53ed4529",
@@ -442,7 +809,21 @@
         "E": "Bu şık itfanın kira süresi bitene kadar süreceğini varsayıyor. VUK m.327'de 'boşaltma yılında bir defada gider yazılır' der. İşyeri boşaltıldıktan sonra normal itfa sürdürülemez, çünkü varlık artık kullanılmıyor."
       },
       "hap": "Erken boşaltmada itfa edilmemiş özel maliyet bakiyesi o yıl tek seferde gider yazılır.",
-      "kaynak": "VUK m.327"
+      "kaynak": "VUK m.327",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 10000,
+          "hesap": "770 GENEL YONETIM GIDERLERI",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "264 OZEL MALIYETLER",
+          "alacak": 10000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "472143c2",
@@ -468,7 +849,10 @@
         "E": "Yöntemin amacını vergi avantajıyla karıştırıyor. Normal maliyet yöntemi, dönemler arası maliyet istikrarı sağlamak içindir. Vergi matrahı düşürme aracı değil, maliyet muhasebesi tekniğidir."
       },
       "hap": "Mevsimlik üretim dalgalanmaları birim maliyeti çarpıtır; normal kapasite kullanımı bunu önler.",
-      "kaynak": "TMS 2 Stoklar Standardı, md.13"
+      "kaynak": "TMS 2 Stoklar Standardı, md.13",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "123e3051",
@@ -494,7 +878,10 @@
         "E": "Cam tamiri, yenileme ile basit onarımı karıştırıyor. Kırılan parçanın değiştirilmesi normal bakım kapsamındadır; maliyet bedeline eklenmez, doğrudan tamir gideri yazılır."
       },
       "hap": "Kiracının yaptığı kalıcı iyileştirmeler özel maliyet bedeli olarak aktifleşir.",
-      "kaynak": "VUK m.272"
+      "kaynak": "VUK m.272",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7c1c7dc9",
@@ -520,7 +907,10 @@
         "E": "Genel kurulu bilgilendirme ile mahkemeye bildirim yükümlülüğünü karıştırıyor. Genel kurulu bilgilendirme, sermaye kaybı durumlarında (yarım veya üçte iki oranında kayıp) yapılır; borca batıklıkta ise doğrudan mahkemeye bildirim ve iflas istemi zorunludur."
       },
       "hap": "Borca batıklıkta yönetim kurulu mahkemeye bildirir ve iflas ister.",
-      "kaynak": "TTK m.376/3"
+      "kaynak": "TTK m.376/3",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "9a2245de",
@@ -546,7 +936,10 @@
         "E": "Doğru. Kanun burada net: kira süresi belliyse özel maliyet bedeli o süreye bölünür, yıllık dilim gider olur. 4 yıl varsa her yıl %25 itfa edilir."
       },
       "hap": "Kiracı, mal sahibine kalacak şekilde yaptığı ve söküp götüremediği harcamaya özel maliyet bedeli denir. Kira süresi netse, bu bedel o süreye eşit paylarla bölünüp itfa edilir. Tuzak: süre net olsa da bina amortisman oranıyla veya tek seferde gider yazmaya kalkmak.",
-      "kaynak": "VUK m.327"
+      "kaynak": "VUK m.327",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "b7eba37c",
@@ -572,7 +965,49 @@
         "E": "Bu şık özel maliyet bedelini olağan giderle karıştırıyor. Kira, elektrik gibi normal işletme giderleri yapıldığı yıl tamamen gider yazılır, ancak gayrimenkulün değerini artıran özel maliyet bedelleri kira süresi boyunca dağıtılarak itfa edilir."
       },
       "hap": "Kiralanan gayrimenkuldeki özel maliyet bedeli, kira süresine eşit bölünerek itfa edilir.",
-      "kaynak": "VUK m.327"
+      "kaynak": "VUK m.327",
+      "tablo": {
+        "baslik": "Özel Maliyet Bedeli İtfa Planı (TL)",
+        "kolonlar": [
+          "Yıl",
+          "İtfa Tutarı",
+          "Kalan Değer"
+        ],
+        "satirlar": [
+          [
+            "1. Yıl",
+            "60.000 ←",
+            "240.000"
+          ],
+          [
+            "2. Yıl",
+            "60.000 ←",
+            "180.000"
+          ],
+          [
+            "3. Yıl",
+            "60.000 ←",
+            "120.000"
+          ],
+          [
+            "4. Yıl",
+            "60.000 ←",
+            "60.000"
+          ],
+          [
+            "5. Yıl",
+            "60.000 ←",
+            "0"
+          ],
+          [
+            "Toplam",
+            "300.000",
+            "-"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f2622e56",
@@ -598,7 +1033,21 @@
         "E": "Bu sık, maliyet bedelini oluşturan giderleri tamamen göz ardı ediyor. Gümrük vergisi ve nakliye bedeli malı elde etmek için yapılan ödemelerdir ve satılan malın maliyetinin hesaplanmasında mutlaka dikkate alınır; aksi halde kar yanlış hesaplanır."
       },
       "hap": "İthal maldaki gümrük vergisi ve nakliye bedeli malın maliyet bedelini artırır.",
-      "kaynak": "VUK m.262 (Maliyet bedeli tanımı)"
+      "kaynak": "VUK m.262 (Maliyet bedeli tanımı)",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 100000,
+          "hesap": "153 TİCARİ MALLAR",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "320 SATICILAR",
+          "alacak": 100000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "925829d9",
@@ -624,7 +1073,46 @@
         "E": "Alış iskontoları (indirimler), alışları azaltan bir kalemdir; artıran değil. İlave edilen giderlerle, düşülen iskontoları karıştırıyor. İskonto aldığınızda maliyet düşer."
       },
       "hap": "Alışa ait nakliye ve sigorta giderleri maliyet bedeline dahildir, ilave edilir.",
-      "kaynak": "VUK m.262 (Maliyet bedeli tanımı)"
+      "kaynak": "VUK m.262 (Maliyet bedeli tanımı)",
+      "tablo": {
+        "baslik": "STMM Hesaplama Tablosu",
+        "kolonlar": [
+          "Kalem",
+          "İşlem"
+        ],
+        "satirlar": [
+          [
+            "Dönem Başı Mal Stoku",
+            "+"
+          ],
+          [
+            "Dönem İçi Alışlar",
+            "+"
+          ],
+          [
+            "Nakliye ve Sigorta Giderleri ←",
+            "+ (alışlara eklenir)"
+          ],
+          [
+            "Alış İskontoları",
+            "−"
+          ],
+          [
+            "Alış İadeleri",
+            "−"
+          ],
+          [
+            "Dönem Sonu Mal Stoku",
+            "−"
+          ],
+          [
+            "= Satılan Ticari Malların Maliyeti",
+            ""
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "be7dc0ad",
@@ -650,7 +1138,10 @@
         "E": "Ne soruluyor: Hangi gider özel maliyet bedeli sayılır?\n\nKural: Kiracı veya işletme hakkı sahibi, kiraladığı gayrimenkulün iktisadi kıymetini artırmak ya da genişletmek için harcama yaparsa, bu giderler özel maliyet bedeli olur. Mal sahibine bırakılan tesisat giderleri de aynı şekilde değerlenir.\n\nBu olayda: Kiracı, kiraladığı binada kıymet artırıcı harcama yapıyor. Bu harcamalar kira süresi bitince mal sahibinde kalacak. İşte bu tür giderler özel maliyet bedeli olarak ayrıca değerlenir ve amortisman yoluyla itfa edilir.\n\nAkılda kalsın: Kiracının yaptığı, kıymeti artıran ve mal sahibine kalacak her harcama özel maliyet bedeli sayılır."
       },
       "hap": "Kiracının kiraladığı maldaki kıymet artırıcı giderleri özel maliyet bedeli oluşturur.",
-      "kaynak": "VUK m.272"
+      "kaynak": "VUK m.272",
+      "tablo": null,
+      "yevmiye": [],
+      "yanlis_kayitlar": null
     },
     {
       "id": "9954d4ed",
@@ -676,7 +1167,34 @@
         "E": "Sermaye kaybının yarısı ile borca batıklık ayrı durumlar. Sermaye kaybının yarısında genel kurul toplantısı yeter; borca batıklıkta mahkemeye bildirim ve iflas istemi zorunlu, genel kurul toplantısı yeterli değil."
       },
       "hap": "Borca batıklıkta yönetim kurulu ara bilanço çıkartır, mahkemeye bildirir ve iflas ister.",
-      "kaynak": "TTK m.376/3 (borca batıklık); TTK m.376/1 (sermaye kaybının yarısı - karşılaştırma için)"
+      "kaynak": "TTK m.376/3 (borca batıklık); TTK m.376/1 (sermaye kaybının yarısı - karşılaştırma için)",
+      "tablo": {
+        "baslik": "TTK m.376 Sermaye Kaybı ve Borca Batıklık Eşikleri",
+        "kolonlar": [
+          "Durum",
+          "Öz Kaynak Durumu",
+          "Yönetim Kurulu Görevi"
+        ],
+        "satirlar": [
+          [
+            "Sermaye Kaybı 1/2",
+            "Sermaye + Yasal Yedek'in yarısı karşılıksız",
+            "Genel kurulu çağır, önlem sun"
+          ],
+          [
+            "Sermaye Kaybı 2/3",
+            "Sermaye + Yasal Yedek'in 2/3'ü karşılıksız",
+            "Genel kurul karar vermezse şirket sona erer"
+          ],
+          [
+            "Borca Batıklık ←",
+            "Aktifler < Borçlar (öz kaynak negatif)",
+            "Ara bilanço çıkart, mahkemeye bildir, iflas iste"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6c639af0",
@@ -702,7 +1220,10 @@
         "E": "Doğrudur. Kanun 1/2 eşiğinde genel kurulu toplantıya çağırma ve önlem alma yükümlülüğü getirir; bu, doğrudan borca batıklıkla (negatif özkaynakla) eşdeğer değildir, daha erken bir uyarı aşamasıdır."
       },
       "hap": "TTK m.376 kademeli bir sistem kurar: sermaye kaybı 1/2'ye ulaşınca genel kurul toplanır ve önlem alınır, 2/3'e ulaşınca sermaye azaltımı veya tamamlanması kararı gerekir, borca batıklıkta ise mahkemeye bildirim zorunludur. Tuzak: bu üç aşamayı birbirinin aynısı sanmak.",
-      "kaynak": "TTK m.376/1-2"
+      "kaynak": "TTK m.376/1-2",
+      "tablo": null,
+      "yevmiye": [],
+      "yanlis_kayitlar": null
     },
     {
       "id": "2ab1c1ca",
@@ -728,7 +1249,10 @@
         "E": "Tüm öz kaynak kalemleri ile sermaye+yasal yedekler toplamını karıştırıyor. Geçmiş yıl karları, olağanüstü yedekler gibi diğer öz kaynaklar TTK m.376 hesabına girmez; sadece ödenmiş sermaye ve yasal yedekler esas alınır."
       },
       "hap": "TTK m.376 sermaye kaybında ödenmiş sermaye ve yasal yedekler toplamı esas alınır.",
-      "kaynak": "TTK m.376/1 ve m.376/3"
+      "kaynak": "TTK m.376/1 ve m.376/3",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4a2bc19d",
@@ -754,7 +1278,10 @@
         "E": "Yanlış. Bu seçenek fiil tarihinden itibaren 1 yıl hesaplamıştır; oysa 1 yıllık süre fiilin öğrenilmesinden itibaren işler, fiil tarihinden itibaren değil."
       },
       "hap": "Haksız rekabette dava hakkı, hak sahibinin fiili ÖĞRENDİĞİ tarihten itibaren 1 yıl ve her hâlde fiilin GERÇEKLEŞTİĞİ tarihten itibaren 3 yıl geçmekle zamanaşımına uğrar. İki süreden hangisi önce dolarsa dava hakkı o tarihte sona erer. Tuzak: öğrenme tarihi ile fiil tarihi birbirine karıştırılır.",
-      "kaynak": "TTK m.60"
+      "kaynak": "TTK m.60",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ad2b66a4",
@@ -780,7 +1307,10 @@
         "E": "İç karar ihlali ile temsil yetkisi aşımını karıştırıyor. Yönetim kurulu kararına aykırılık, iyiniyetli üçüncü kişilere karşı sözleşmeyi geçersiz kılmaz; şirket bağlıdır."
       },
       "hap": "Tescil edilmeyen temsil sınırlaması iyiniyetli üçüncü kişiye karşı ileri sürülemez.",
-      "kaynak": "TTK m.371"
+      "kaynak": "TTK m.371",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "dde40d80",
@@ -806,7 +1336,10 @@
         "E": "Bu şık, iç yönerge ile temsil yetkisi sınırlamasını karıştırıyor. İç yönergeler şirket içi düzenlemedir ve üçüncü kişileri bağlamaz; temsil yetkisi sınırlamaları ise zaten kural olarak üçüncü kişiye karşı geçersizdir."
       },
       "hap": "Parasal sınırlamalar tescil edilse de iyiniyetli üçüncü kişiye karşı geçersiz; sadece merkez/şube ve çift imza bağlar.",
-      "kaynak": "TTK m.371/2"
+      "kaynak": "TTK m.371/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4934c895",
@@ -832,7 +1365,10 @@
         "E": "Bu şık, şirket müdürünün sorumluluğunu şirket borçlarıyla karıştırıyor. Müdür sadece görevini kusurlu yapmasından kaynaklanan zararlardan sorumludur; şirketin normal ticari borçlarından değildir."
       },
       "hap": "Limited şirket ortakları, sermaye taahhütlerini ödedikten sonra şirket borçlarından sorumlu değildir.",
-      "kaynak": "TTK m.573"
+      "kaynak": "TTK m.573",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "45022b08",
@@ -858,7 +1394,10 @@
         "E": "Bu sık, tahsil esasını (parayı aldığında kazanç sayma) düşünüyor. İşletme hesabı esasında hasılat, tahsil edildiğinde değil tahakkuk ettiğinde (alacak doğduğunda) elde edilir."
       },
       "hap": "İşletme hesabında satış kazancı, parayı aldığında değil alacak tahakkuk ettiğinde elde edilir.",
-      "kaynak": "GVK m.39"
+      "kaynak": "GVK m.39",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a75670c4",
@@ -884,7 +1423,10 @@
         "E": "Ne soruluyor: Kısım kısım teslimde VDO ne zaman oluşur?\n\nKural: Taraflar kısım kısım teslimde anlaşmışsa, her kısım teslim edildiğinde o kısım için ayrı VDO doğar. Faturanın ne zaman kesileceği bu kuralı değiştirmez.\n\nBu olayda: 1. ay 250 ton verildi → o gün 250 ton için VDO. 2. ay 250 ton → yine o gün VDO. Böylece 4 ayda 4 ayrı VDO oluşur. Sonraki toplu fatura bu gerçeği değiştirmez.\n\nAkılda kalsın: Kısım kısım anlaşma varsa, her teslimde ayrı VDO doğar."
       },
       "hap": "Kısım kısım teslimde her parti teslim edildiğinde o parti için ayrı VDO oluşur.",
-      "kaynak": "KDVK m.10/c"
+      "kaynak": "KDVK m.10/c",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23f008",
@@ -910,7 +1452,10 @@
         "E": "Bu şık, iştirak edenin aldığı bir kat ile sahte belge düzenleyenin üç katını topluyor. Sahte belge düzenleyen mükellefe yalnız üç kat (200.000 x 3 = 600.000) ceza kesilir."
       },
       "hap": "Sahte belge düzenleyen mükellefe ziyaa uğratılan verginin üç katı ceza kesilir.",
-      "kaynak": "VUK m.344"
+      "kaynak": "VUK m.344",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "bd976d85",
@@ -936,7 +1481,10 @@
         "E": "Bu şık zenginleşme tarihinden beş yıl diyor ama böyle bir süre yok. Zenginleşme tarihinden on yıl, öğrenme tarihinden iki yıl işler."
       },
       "hap": "Sebepsiz zenginleşmede öğrenmeden 2 yıl ve zenginleşmeden 10 yıl; hangisi önce dolarsa o geçerli.",
-      "kaynak": "TBK m.82/1"
+      "kaynak": "TBK m.82/1",
+      "tablo": null,
+      "yevmiye": [],
+      "yanlis_kayitlar": null
     },
     {
       "id": "790c554b",
@@ -965,7 +1513,10 @@
         "H": ""
       },
       "hap": "İcradaki teminatlı alacakta karşılık sadece teminat dışı kısma ayrılır.",
-      "kaynak": "VUK m.323"
+      "kaynak": "VUK m.323",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "56ca7a3a",
@@ -991,7 +1542,10 @@
         "E": "Fiziksel gözlem ile sonradan ofis incelemesini karıştırıyor. Sayım anında yerinde bulunmak sürecin güvenilirliğini test eder; sonradan liste incelemek sayımın nasıl yapıldığını doğrulayamaz."
       },
       "hap": "Stok sayımında denetçi süreci gözlemler ve test sayımı yapar; bütün sayımı kendisi yapmaz.",
-      "kaynak": "BDS 501 (Denetim Kanıtları: Belirli Kalemlere İlişkin Özel Hususlar), madde 4"
+      "kaynak": "BDS 501 (Denetim Kanıtları: Belirli Kalemlere İlişkin Özel Hususlar), madde 4",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "b336ce8c",
@@ -1017,7 +1571,10 @@
         "E": "Doğru, çünkü haksız fiilde iki süre birlikte çalışır: zarar ve faili öğrenmeden 2 yıl, fiilin işlendiği tarihten en geç 10 yıl, hangisi önce dolarsa dava hakkı o tarihte kapanır. Burada öğrenme tarihinden 2 yıl (15.06.2023), fiil tarihinden 10 yıl (10.03.2030) olan tarihten daha önce geldiği için geçerli olan odur."
       },
       "hap": "Haksız fiilde iki süre aynı anda işler: zarar görenin zararı ve failini öğrendiği tarihten 2 yıl, olayın gerçekleştiği tarihten en geç 10 yıl. Hangisi önce dolarsa dava hakkı o tarihte biter, yani kısa süre pratik sınırdır. Tuzak: eski kanunda bu süre 1 yıldı, sınavda hâlâ o rakamla çelişki kurulur.",
-      "kaynak": "TBK m.72"
+      "kaynak": "TBK m.72",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "63bbbee1",
@@ -1043,7 +1600,10 @@
         "E": "Bu şık 'eşit değerli takas' ile 'fark ödemeli takas'ı karıştırıyor. Değerler eşit olsa da her iki taraf kendi malının tam değeri üzerinden KDV öder; sadece fark beyan etme diye bir uygulama yoktur."
       },
       "hap": "Trampada iki ayrı teslim vardır; her iki taraf da kendi malı için ayrı ayrı KDV hesaplar.",
-      "kaynak": "KDV Kanunu m.2/5"
+      "kaynak": "KDV Kanunu m.2/5",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a30b9283",
@@ -1069,7 +1629,10 @@
         "E": "Yanlış. Öğrenci burada 10 yıllık bir süre (genel zamanaşımı mantığı) uygulamıştır; AATUHK'ta tahsil zamanaşımı süresi kesin olarak 5 yıldır, 10 yıl bu konuda öngörülen bir süre değildir."
       },
       "hap": "Tahsil zamanaşımı, amme alacağının vadesinin rastladığı takvim yılını TAKİP EDEN takvim yılının başından itibaren 5 yıldır. Tuzak: vade günü değil, vadenin rastladığı yılın bitişini takip eden yılın 1 Ocak'ı başlangıç kabul edilir; bu nedenle vade tarihiyle karıştırılmamalıdır.",
-      "kaynak": "AATUHK m.102"
+      "kaynak": "AATUHK m.102",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ba77880b",
@@ -1095,7 +1658,10 @@
         "E": "Bu şık zenginleşenin sorumluluğu ile üçüncü kişiye devir sonucunu karıştırıyor. Kötüniyetli zenginleşen, zenginleşmeyi üçüncü kişiye devretsе bile sorumluluğundan kurtulamaz; geri verme yükümlülüğü devam eder."
       },
       "hap": "Haksız zenginleşmeyi bilerek harcayan, elinde kalmasa da tamamını ödemekle sorumludur.",
-      "kaynak": "TBK m.79"
+      "kaynak": "TBK m.79",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "9f87907e",
@@ -1121,7 +1687,10 @@
         "E": "Riski paylaşım ilkesini kusursuz imkânsızlıkla karıştırıyor. Kanun veya sözleşme aksini söylemedikçe, kusursuz imkânsızlıkta alınan edimin tamamı iade edilir; paylaşım olmaz."
       },
       "hap": "Kusursuz imkânsızlıkta borç soner, alınan iade edilir, kalan istenemez.",
-      "kaynak": "TBK m.136"
+      "kaynak": "TBK m.136",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "cec4cd2f",
@@ -1147,7 +1716,10 @@
         "E": "Bu şık, boş koltuğun doldurulmamasını öneriyor. TTK'ya göre yönetim kurulu boş koltuğa geçici üye seçmek zorundadır, boş bırakamaz."
       },
       "hap": "Üye istifa edince yönetim kurulu geçici üye seçer, ilk genel kurula onaya sunar.",
-      "kaynak": "TTK m.363"
+      "kaynak": "TTK m.363",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a384aa9e",
@@ -1173,7 +1745,10 @@
         "E": "Personel kararlarını müdür atama yetkisiyle karıştırıyor. Müdürlerin ve aynı işleve sahip kişilerin atanması devredilemez; ancak genel personel işe alım-çıkarma kararları rutin yönetim işlemi olarak devredilebilir."
       },
       "hap": "Yönetim kurulu borca batıklık bildirimini devredemez, bizzat mahkemeye kendisi bildirir.",
-      "kaynak": "TTK m.375"
+      "kaynak": "TTK m.375",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "cbf7e80e",
@@ -1199,7 +1774,10 @@
         "E": "İstatistiksel olmayan örnekleme ile tabakalamayı karıştırıyor. İstatistiksel olmayan örnekleme, denetçinin yargısıyla seçim yapmasıdır; tabakalama ise sistematik olarak popülasyonu gruplara ayırıp her gruptan örneklem almaktır."
       },
       "hap": "Stok listesini büyük ve küçük tutarlı gruplara ayırıp her gruptan ayrı örneklem seçme hangi tekniktir?",
-      "kaynak": "BDS 530 Tanımlar md.5(f) ve Uygulama Rehberi A8"
+      "kaynak": "BDS 530 Tanımlar md.5(f) ve Uygulama Rehberi A8",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "45bc41c9",
@@ -1225,7 +1803,10 @@
         "E": "Bu şık ceza süresinin TÜRMOB Genel Kurulu tarafından belirlendiğini söylüyor. Ceza süreleri doğrudan kanunda yazılıdır; TÜRMOB Genel Kurulu bu süreleri değiştiremez, kanun koyucu belirler."
       },
       "hap": "Geçici mesleki faaliyetten alıkoyma cezası en az altı ay, en fazla bir yıl sürer.",
-      "kaynak": "3568 sayılı Kanun m.48"
+      "kaynak": "3568 sayılı Kanun m.48",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "db6f8556",
@@ -1251,7 +1832,10 @@
         "E": "Kurulun süreyi serbestçe belirleyebildiği fikri yanlış, çünkü kanun bu ceza için üst sınır koymuş. Serbestlik varmış gibi düşünmek, kanundaki açık sınırı gözden kaçırmak olur."
       },
       "hap": "Geçici olarak mesleki faaliyetten men cezasının kanunda çizilmiş sınırı var: en az 6 ay, en çok 1 yıl (12 ay). Bu aralığın dışına çıkan her süre (ister 3 ay ister 18 ay) mevzuata aykırı olur. Sınavda süre rakamı görürsen ilk iş bu iki sınırı kontrol etmek.",
-      "kaynak": "3568 sayılı Kanun m.48"
+      "kaynak": "3568 sayılı Kanun m.48",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6c8de7c5",
@@ -1277,7 +1861,10 @@
         "E": "Bu şık, tevkifat yükümlüsünü sadece kamu kurumlarıyla sınırlıyor. GVK m.94'te açıkça ticaret şirketleri de sayılmıştır; özel sektör şirketleri de tevkifat yapmak zorundadır."
       },
       "hap": "Ticaret şirketleri serbest meslek erbabına ödeme yaparken GVK m.94 gereği tevkifat yapar.",
-      "kaynak": "GVK m.94"
+      "kaynak": "GVK m.94",
+      "tablo": null,
+      "yevmiye": [],
+      "yanlis_kayitlar": null
     },
     {
       "id": "b4598f9b",
@@ -1303,7 +1890,10 @@
         "E": "Bu şık, karşılaştırmalı reklam ile çalışan yönlendirmeyi karıştırıyor. Karşılaştırmalı reklam, kendi ürününü rakibinkiyle kıyaslayarak tanıtmadır; çalışan yönlendirme ise rakibin elemanını sözleşme ihlale teşvik etmedir."
       },
       "hap": "Rakip çalışanı hem sözleşme ihlale hem de iş sırrı vermeye yöneltmek haksız rekabettir.",
-      "kaynak": "TTK m.55/1-b"
+      "kaynak": "TTK m.55/1-b",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "cb071321",
@@ -1329,7 +1919,10 @@
         "E": "Ne soruluyor: 2019 denetim çalışma kağıtlarının 2024'te silinmesi neden kurala aykırıdır?\n\nKural: Denetim çalışma kağıtları (denetim sırasında toplanan kanıt ve belgeler) yasal bir süre boyunca saklanmalıdır. Bu süre dolmadan belgeler silinemez, imha edilemez veya değiştirilemez.\n\nBu olayda: Firma 2019 denetimine ait belgeleri 2024'te siliyor. Eğer yasal saklama süresi henüz dolmadıysa bu işlem kurala aykırıdır.\n\nAkılda kalsın: Çalışma kağıtları yasal süre dolana kadar korunmalıdır."
       },
       "hap": "Denetim çalışma kağıtları yasal saklama süresi dolmadan silinemez.",
-      "kaynak": "BDS 230, paragraf 16 (Denetim belgelerinin saklanması)"
+      "kaynak": "BDS 230, paragraf 16 (Denetim belgelerinin saklanması)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6eebf774",
@@ -1355,7 +1948,10 @@
         "E": "Bu şık komite eksikliği ile bilanço düzenleme kurallarını karıştırıyor. Komite riskleri raporlayan gözetim organıdır; bilanço ilkeleri ise şirketin varlık ve borçlarının mali tablolarda nasıl gösterileceğini düzenler."
       },
       "hap": "Borsada işlem gören şirket risk komitesi kurmak zorundadır (TTK m.378).",
-      "kaynak": "TTK m.378"
+      "kaynak": "TTK m.378",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "std270110",
@@ -1381,7 +1977,10 @@
         "E": "İptal edilen zararın muhasebe kaydını genelleştiriyor. İptal edilen zarar genellikle kâr veya zararda muhasebeleşir; diğer kapsamlı gelire ancak varlık yeniden değerlenmiş modelle ölçülüyorsa gider."
       },
       "hap": "Şerefiyede değer düşüklüğü zararı kesindir, diğer varlıklarda koşullar düzelirse iptal edilebilir.",
-      "kaynak": "TMS 36 p.114, p.116, p.117, p.119, p.124-125 (KGK 2026 Kırmızı Kitap)"
+      "kaynak": "TMS 36 p.114, p.116, p.117, p.119, p.124-125 (KGK 2026 Kırmızı Kitap)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7906dd34",
@@ -1407,7 +2006,10 @@
         "E": "Bağımsız hakkı mirasla geçen hakla karıştırıyor. Ölenin manevi tazminat hakkı mirasa konu olmaz; yakının hakkı kendi acısından kaynaklanır ve mirasla ilgisizdir."
       },
       "hap": "Ölen kişinin yakınları kendi yaşadıkları elem için bağımsız manevi tazminat talep edebilir.",
-      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.56/f.2"
+      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.56/f.2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "eb74bc1f",
@@ -1433,7 +2035,10 @@
         "E": "Dürüstlük kuralına aykırı genel işlem şartları ile iş sırlarının ifşasını karıştırıyor. Genel işlem şartları, sözleşmelerde kullanılan önceden hazırlanmış haksız koşullardır; iş sırlarının ifşası ise gizli ticari bilgilerin yetkisiz açıklanmasıdır."
       },
       "hap": "Çalışanın iş sırlarını rakibe taşıması, sırların hukuka aykırı ifşası sayılır.",
-      "kaynak": "TTK m.55/1-d"
+      "kaynak": "TTK m.55/1-d",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23f009",
@@ -1459,7 +2064,10 @@
         "E": "Yanılgı dersi: Çeyrek kat diye bir oran yoktur; %50'nin yarısı gibi türetilmiş rakamlar uydurmadır."
       },
       "hap": "Geç beyanın iki kapısı ayrı çalışır: m.344/2 = kendiliğinden geç beyan → ziya cezası %50 (yarım kat); m.371 = PİŞMANLIK (haber verme + 15 günde ödeme şartıyla) → ziya cezası HİÇ kesilmez. Zamanlama kilidi ikisinde de aynı: inceleme başlamadan / takdire sevkten önce. Sınav '%50 mi, sıfır mı' ayrımını kurumların adıyla test eder.",
-      "kaynak": "VUK m.344"
+      "kaynak": "VUK m.344",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "58aa49f6",
@@ -1485,7 +2093,10 @@
         "E": "Bu şık kazanılmış hak kavramını yanlış uyguluyor. Teşmil edilen haklar kalıcı değildir; esas sözleşme sona erince teşmilden kaynaklanan haklar da sona erer, kazanılmış hak oluşmaz."
       },
       "hap": "Teşmil edilen toplu iş sözleşmesi sona erince teşmil kararı da kendiliğinden kalkar.",
-      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.40"
+      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.40",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7cfb716e",
@@ -1511,7 +2122,10 @@
         "E": "Belirli süreli sözleşmelerde serbest fesih hakkı ile haklı sebep gerekliliğini karıştırıyor. İşveren belirli sürelide de keyfi fesih yapamaz; haklı sebep yoksa tazminat öder."
       },
       "hap": "Belirli süreli sözleşmede haksız fesih yapan işveren, kalan sürenin ücretini tazminat olarak öder.",
-      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.438"
+      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.438",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "93b66dc1",
@@ -1537,7 +2151,10 @@
         "E": "Cetvellerin alfabetik düzene göre olduğunu varsayıyor. Cetveller idare türlerine göre sistematik bir sınıflandırma içerir: genel bütçe, özel bütçe, düzenleyici kurumlar şeklinde."
       },
       "hap": "5018 sayılı Kanun'daki I, II, III sayılı cetvellerde sırasıyla genel bütçe, özel bütçe ve düzenleyici kurumlar yer alır.",
-      "kaynak": "5018 sayılı Kamu Mali Yönetimi ve Kontrol Kanunu m.12"
+      "kaynak": "5018 sayılı Kamu Mali Yönetimi ve Kontrol Kanunu m.12",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "cdd985b1",
@@ -1563,7 +2180,10 @@
         "E": "Bu şık, işletme gereklerini gerekçe göstererek ayrımı haklı göstermeye çalışıyor. Ancak soruda böyle bir gerekçe yok; tek gerekçe \"belirli süreli olması\" ve bu kanuna göre yeterli değildir."
       },
       "hap": "Belirli süreli işçiye salt bu nedenle farklı muamele yapılamaz; eşit davranma ilkesi geçerlidir.",
-      "kaynak": "4857 sayılı İş Kanunu m.12"
+      "kaynak": "4857 sayılı İş Kanunu m.12",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e5b78365",
@@ -1589,7 +2209,10 @@
         "E": "Ödemenin döviz olarak yapılma zorunluluğu ile TL ile yapılabilme hakkını karıştırıyor. Kanun işverene ödeme günündeki rayice göre Türk parası ile ödeme yapma imkanı tanır; doğrudan döviz ödeme zorunluluğu yoktur."
       },
       "hap": "Ücret döviz olarak belirlenebilir, ödeme günündeki kurdan TL ile ödenebilir.",
-      "kaynak": "4857 sayılı İş Kanunu m.32"
+      "kaynak": "4857 sayılı İş Kanunu m.32",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23d006",
@@ -1615,7 +2238,10 @@
         "E": "Kesin hesap incelemesi, bütçe uygulama sonuçlarının TBMM tarafından denetlenmesidir; iç denetim ise kurum içinde sürekli yapılan, iyileştirme odaklı bir faaliyettir."
       },
       "hap": "İç denetim tanımını sorguluyor: bağımsız, nesnel güvence ve danışmanlık faaliyeti.",
-      "kaynak": "5018 sayılı Kamu Malî Yönetimi ve Kontrol Kanunu m.63"
+      "kaynak": "5018 sayılı Kamu Malî Yönetimi ve Kontrol Kanunu m.63",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "fa97b7e1",
@@ -1641,7 +2267,10 @@
         "E": "Ne soruluyor: Belediyenin yol çalışması sonrası mülk sahiplerinden aldığı bedelin hangi gelir türü olduğu soruluyor.\n\nKural: Belediye yeni yol açarsa, kaldırımsız yola kaldırım yaparsa veya mevcut yolu iyileştirirse o yoldan yararlanan gayrimenkul sahiplerinden meclis kararıyla katılma payı alabilir. Bu bedele yol harcamalarına katılma payı denir.\n\nBu olayda: Belediye sokakta kaldırım yenileme çalışması yapıyor. Bu çalışma sonucu Elif'in kafesi ve diğer mülklerin değeri artıyor. Belediye bu nedenle mülk sahiplerinden katılma payı talep ediyor.\n\nAkılda kalsın: Yol çalışmasından gayrimenkulü değerlenen kişiler bu harcamaya katkı sağlar."
       },
       "hap": "Belediyenin yol çalışması sonrası mülk sahiplerinden aldığı bedel harcamalara katılma payıdır.",
-      "kaynak": "2464 sayılı Belediye Gelirleri Kanunu m.86"
+      "kaynak": "2464 sayılı Belediye Gelirleri Kanunu m.86",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "36b6cbf4",
@@ -1667,7 +2296,10 @@
         "E": "Teklif tarihini vergiyi doğuran olayla karıştırıyor. Teklif sadece iş görüşmesidir; vergiyi doğuran olay ancak mal teslimi, hizmet ifası veya fatura düzenlemesiyle gerçekleşir."
       },
       "hap": "Hizmet ifasında vergiyi doğuran olay, teslim veya fatura tarihinden hangisi erkense o tarihtir.",
-      "kaynak": "KDV Kanunu m.10/a"
+      "kaynak": "KDV Kanunu m.10/a",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "df35f19e",
@@ -1693,7 +2325,10 @@
         "E": "Hakim durumun kötüye kullanılması ile birleşme-devralma işlemini karıştırıyor. m.7 şirketlerin birleşmesi veya birinin diğerini devralması durumlarını düzenler; soruda mevcut pazar payını kötüye kullanan davranış vardır, birleşme yoktur."
       },
       "hap": "Hakim firma tek başına yıkıcı fiyatlama yaparsa m.6 ihlali olur, anlaşma şartı aranmaz.",
-      "kaynak": "4054 sayılı Rekabet Kanunu m.6"
+      "kaynak": "4054 sayılı Rekabet Kanunu m.6",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "33ee487f",
@@ -1719,7 +2354,10 @@
         "E": "Yükseköğretim Kurulu, merkezi yönetim kapsamındaki kamu idarelerindendir. Kanuna ekli cetvellerde yer alır ve merkezi yönetim bütçesi içindedir."
       },
       "hap": "Sosyal güvenlik kurumları merkezi yönetim bütçesi kapsamı dışında ayrı bir gruptur.",
-      "kaynak": "5018 sayılı Kamu Mali Yönetimi ve Kontrol Kanunu m.3"
+      "kaynak": "5018 sayılı Kamu Mali Yönetimi ve Kontrol Kanunu m.3",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4a0003ff",
@@ -1748,7 +2386,10 @@
         "H": ""
       },
       "hap": "Haksız rekabette ref davası piyasadaki taklit ürünlerin imhasını sağlar",
-      "kaynak": "TTK m.56/1-c"
+      "kaynak": "TTK m.56/1-c",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "41a2b12b",
@@ -1774,7 +2415,10 @@
         "E": "Haksız rekabet şartlarını marka hukukuyla karıştırıyor. Haksız rekabet için marka tescili şart değildir; dürüstlük kuralına aykırı davranış yeterlidir. Marka olmasa da koruma vardır."
       },
       "hap": "Rakibi somut dayanaksız kötüleyen reklam haksız rekabet oluşturur, marka tescili veya zarar aranmaz.",
-      "kaynak": "TTK m.55"
+      "kaynak": "TTK m.55",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "2d5f7e06",
@@ -1800,7 +2444,10 @@
         "E": "Bir yıllık süre şartı ile manevi tazminat talebini karıştırıyor. Haksız rekabette manevi tazminat için zararın belli bir süre devam etmesi şartı yoktur; TTK'da böyle bir koşul yer almaz."
       },
       "hap": "Haksız rekabette manevi tazminat için TBK m.58'deki kişilik hakları şartları aranır.",
-      "kaynak": "TTK m.56/1-e"
+      "kaynak": "TTK m.56/1-e",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "80c55f0f",
@@ -1826,7 +2473,10 @@
         "E": "Oligopolistik kartel, az sayıdaki firmanın fiyat ya da miktar konusunda anlaşmasıdır. Soruda tek firma kendi başına karar veriyor, başkalarıyla anlaşma yok."
       },
       "hap": "Hakim durumdaki firma rakipleri yok etmek için maliyetin altında satış yaparsa yıkıcı fiyatlandırma yapar.",
-      "kaynak": "4054 sayılı Rekabetin Korunması Hakkında Kanun m.6"
+      "kaynak": "4054 sayılı Rekabetin Korunması Hakkında Kanun m.6",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4d476e76",
@@ -1852,7 +2502,10 @@
         "E": "Damga Vergisi ile BSMV'yi karıştırıyor. Damga Vergisi kâğıtlar (sözleşme, makbuz gibi belgeler) üzerinden alınır; BSMV ise bankaların aldığı paraların tutarı üzerinden hesaplanır."
       },
       "hap": "Kambiyo işlemlerinden alınan vergi BSMV kapsamındadır, bu Türkiye'nin Tobin vergisi uygulamasıdır.",
-      "kaynak": "6802 sayılı Gider Vergileri Kanunu m.28"
+      "kaynak": "6802 sayılı Gider Vergileri Kanunu m.28",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f1a187d1",
@@ -1878,7 +2531,34 @@
         "E": "Ne soruluyor: Denetim testlerinde kullanılan, genel önemliliğin altında belirlenen eşik tutara ne denir?\n\nKural: Denetçi önce genel önemlilik tutarını belirler. Sonra testlerde kullanmak için bunu bilinçli olarak düşürür. Bu düşürülmüş tutara performans önemliliği denir. Amaç küçük hataların toplanıp büyümesini önlemektir.\n\nBu olayda: Ekip genel önemliliği 100.000 TL belirledi. Test yaparken 70.000 TL eşiğini kullanacak. Bu 70.000 TL performans önemliliğidir. Böylece tek tek küçük hatalar bile yakalanır, toplamda 100.000 TL aşılmaz.\n\nAkılda kalsın: Performans önemliliği her zaman genel önemliliğin altındadır ve güvenlik tamponu sağlar."
       },
       "hap": "Denetim testlerinde kullanılan düşürülmüş eşik performans önemliliğidir",
-      "kaynak": "BDS 320 m.9-11 (Bağımsız Denetimin Planlanması ve Yürütülmesinde Önemlilik)"
+      "kaynak": "BDS 320 m.9-11 (Bağımsız Denetimin Planlanması ve Yürütülmesinde Önemlilik)",
+      "tablo": {
+        "baslik": "Önemlilik Kavramları",
+        "kolonlar": [
+          "Kavram",
+          "Tutar (TL)",
+          "Kullanım Amacı"
+        ],
+        "satirlar": [
+          [
+            "Genel Önemlilik",
+            "100.000",
+            "Finansal tablolar için üst sınır"
+          ],
+          [
+            "Performans Önemliliği ←",
+            "70.000",
+            "Testlerde kullanılan eşik"
+          ],
+          [
+            "Güvenlik Tamponu",
+            "30.000",
+            "Hata birikimini önleme payı"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ce367b19",
@@ -1904,7 +2584,10 @@
         "E": "Bu şık şekil birliği ilkesi ile ibranın şekilsizliğini karıştırıyor. Şekil birliği, değişikliklerin aynı şekilde yapılmasıdır; ibra ise değişiklik değil, borcu sona erdiren ayrı bir sözleşmedir ve şekle bağlı değildir."
       },
       "hap": "Noter huzurundaki borç bile sözlü ibra ile geçerli şekilde sona erer.",
-      "kaynak": "TBK m.132"
+      "kaynak": "TBK m.132",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "5969f671",
@@ -1930,7 +2613,10 @@
         "E": "Bu şık, süreleri ters çeviriyor. Öğrenme tarihinden iki yıl (on yıl değil), zenginleşme tarihinden ise on yıl (iki yıl değil) süre işler."
       },
       "hap": "Sebepsiz zenginleşmede iki zamanaşımı süresi vardır; hangisi önce dolarsa istem hakkı düşer.",
-      "kaynak": "TBK m.82/f.1"
+      "kaynak": "TBK m.82/f.1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "8386b7d1",
@@ -1956,7 +2642,10 @@
         "E": "Takas beyanının şekil şartını zorunlu noter onayı ile karıştırıyor. TBK m.143 takas için noter şartı aramaz; beyanın alacaklıya ulaşması yeterlidir."
       },
       "hap": "Takas beyanı geriye etkir; borçların takas edilebilir hale geldiği andan itibaren sonuç doğurur.",
-      "kaynak": "TBK (6098 s.K.) m.143 (takas beyanı ve geçmişe etkisi) — eski atıf m.134 cari hesapta yenilemeyi düzenler"
+      "kaynak": "TBK (6098 s.K.) m.143 (takas beyanı ve geçmişe etkisi) — eski atıf m.134 cari hesapta yenilemeyi düzenler",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "sup250104",
@@ -1982,7 +2671,21 @@
         "E": "Bu sık gider kaydı ile gelir kaydını karıştırıyor. Tahsil edilemeyen alacak işletme için zarardır, gider olarak kaydedilir; gelir olarak gösterilmesi mümkün değildir."
       },
       "hap": "İflas ile değersiz hale gelen alacak doğrudan gider yazılarak kayıttan düşülür.",
-      "kaynak": "VUK m.322 (Değersiz alacaklar)"
+      "kaynak": "VUK m.322 (Değersiz alacaklar)",
+      "tablo": null,
+      "yevmiye": [
+        {
+          "borc": 25000,
+          "hesap": "659 Diğer Olağan Gider ve Zararlar",
+          "alacak": 0
+        },
+        {
+          "borc": 0,
+          "hesap": "120 Alıcılar",
+          "alacak": 25000
+        }
+      ],
+      "yanlis_kayitlar": null
     },
     {
       "id": "448931a5",
@@ -2008,7 +2711,10 @@
         "E": "Bu şık her iki unsurun da (nominal değer ve ihraç primi) tamamının tescilden önce ödenmesini şart koşuyor. Ancak kanun nominal değer için %25'lik asgari ödeme ile taksitlendirmeye izin verir. İhraç priminde doğru diyor ama nominal değer için zorunluluktan fazlasını isteyerek yanılıyor."
       },
       "hap": "Emisyon primli hisse ihracında nominal değerin %25'i, ihraç priminin tamamı tescilden önce ödenir.",
-      "kaynak": "TTK m.344 (TTK m.585 atfıyla sermaye artırımında uygulanır)"
+      "kaynak": "TTK m.344 (TTK m.585 atfıyla sermaye artırımında uygulanır)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7a86e087",
@@ -2034,7 +2740,10 @@
         "E": "Bu şık, senede bağlanmış olmanın şart olduğunu düşünüyor. Kanun şüpheli alacak tanımında senet şartı koşmaz; önemli olan alacağın ticari faaliyetle ilgili olması ve dava/icra veya yazılı talep kriterlerini sağlamasıdır."
       },
       "hap": "Büyük alacaklar için şüpheli alacak karşılığı ayırabilmek için dava veya icra takibi zorunludur.",
-      "kaynak": "VUK m.323"
+      "kaynak": "VUK m.323",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "amr250102",
@@ -2060,7 +2769,44 @@
         "E": "Bu şık, normal amortisman oranını (%20) azalan bakiyeler yönteminde de aynen kullanıyor. Oysa azalan bakiyelerde normal oranın iki katı, yani %40 uygulanmalıdır."
       },
       "hap": "Azalan bakiyelerde oran normal oranın iki katı ama en fazla %50; ilk yıl bu oranla hesaplanır.",
-      "kaynak": "VUK mükerrer m.315 (Azalan bakiyeler usulüyle amortisman)"
+      "kaynak": "VUK mükerrer m.315 (Azalan bakiyeler usulüyle amortisman)",
+      "tablo": {
+        "baslik": "Azalan Bakiyeler Amortisman Hesabı",
+        "kolonlar": [
+          "Açıklama",
+          "Hesaplama",
+          "Sonuç"
+        ],
+        "satirlar": [
+          [
+            "Faydalı Ömür",
+            "Verilen",
+            "5 yıl"
+          ],
+          [
+            "Normal Oran",
+            "1 / 5",
+            "%20"
+          ],
+          [
+            "Azalan Bakiyeler Oranı",
+            "%20 x 2",
+            "%40 ←"
+          ],
+          [
+            "İlk Yıl Değer",
+            "Verilen",
+            "100.000 TL"
+          ],
+          [
+            "İlk Yıl Amortisman",
+            "100.000 x %40",
+            "40.000 TL ←"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e56ad4e1",
@@ -2086,7 +2832,10 @@
         "E": "Bu şık, emisyon priminin temettü olarak dağıtılabileceğini düşünüyor. Emisyon primi (hisse satış fiyatı ile nominal değer arası fark) dağıtılabilir kâr değildir; TTK gereği genel kanuni yedek akçeye eklenir ve ortaklara temettü olarak ödenemez."
       },
       "hap": "Net emisyon primi genel kanuni yedek akçeye aktarılır, sermayeye eklenmez veya dağıtılmaz.",
-      "kaynak": "TTK m.519/2-c"
+      "kaynak": "TTK m.519/2-c",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e08a8b4a",
@@ -2112,7 +2861,44 @@
         "E": "Fabrika binası üretim yapılan yerdir, yangın sigortası üretim sürecinin güvenliği için yapılır, GÜG'dür. Genel müdürlük binası ise yönetim faaliyetleri için kullanılır."
       },
       "hap": "Genel müdürlük giderleri idari giderdir, üretim gideri değildir.",
-      "kaynak": "213 sayılı VUK m.275"
+      "kaynak": "213 sayılı VUK m.275",
+      "tablo": {
+        "baslik": "Maliyet Unsurlarının Sınıflandırması",
+        "kolonlar": [
+          "Gider Türü",
+          "Sınıf",
+          "VUK 275'e Göre"
+        ],
+        "satirlar": [
+          [
+            "Kalite kontrol personeli",
+            "Genel Üretim Gideri",
+            "Madde 3: İmal giderleri"
+          ],
+          [
+            "Fabrika su-doğalgaz",
+            "Genel Üretim Gideri",
+            "Madde 3: İmal giderleri"
+          ],
+          [
+            "Üretim makinesi amortismanı",
+            "Genel Üretim Gideri",
+            "Madde 3: İmal giderleri"
+          ],
+          [
+            "Genel müdürlük temizlik-güvenlik ←",
+            "Genel İdare Gideri",
+            "Madde 4: İdare giderleri"
+          ],
+          [
+            "Fabrika yangın sigortası",
+            "Genel Üretim Gideri",
+            "Madde 3: İmal giderleri"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23e004",
@@ -2138,7 +2924,10 @@
         "E": "Bu şık, gerçekleşen işlem fiyatını değil piyasa ortalamasını kullanıyor. TMS 16 işletmenin fiilen ödediği tutarı esas alır; başka varlıkların fiyatını değil."
       },
       "hap": "Maddi duran varlık maliyeti: liste fiyatı - iskontolar + iade edilmeyen vergiler.",
-      "kaynak": "TMS 16 paragraf 16"
+      "kaynak": "TMS 16 paragraf 16",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a7628a24",
@@ -2164,7 +2953,10 @@
         "E": "Yan ürünün gerçek üretim giderlerini ayrıştırmak pratikte çok zor ve gereksizdir; TMS 2 bu yüzden fiili maliyet takibi yerine satış değerine dayalı basit bir yöntem (NGD) öngörür."
       },
       "hap": "Yan ürün, ana ürüne göre değeri önemsiz olan üründür ve TMS 2'ye göre net gerçekleşebilir değeriyle (tahmini satış fiyatı - tamamlama/satış giderleri) ölçülür. Bu tutar doğrudan ana ürünün maliyetinden indirilir, ortak maliyetten pay verme veya kâr payı düşme gibi ekstra işlemlere girilmez. Tuzak: öğrenciler bunu ortak ürün paylaştırma yöntemleriyle (fiziksel birim, satış değeri oranı) karıştırır.",
-      "kaynak": "TMS 2 Stoklar Standardı, paragraf 14"
+      "kaynak": "TMS 2 Stoklar Standardı, paragraf 14",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23e002",
@@ -2190,7 +2982,38 @@
         "E": "Bu şık, stok maliyetini tüm harcamalarla karıştırıyor. Dönem giderleri (faiz, satış, yönetim giderleri) stok maliyetine girmez, doğrudan gelir tablosuna yansır."
       },
       "hap": "TMS 2'de stok maliyeti: satın alma + dönüştürme + yerine koyma maliyetleridir.",
-      "kaynak": "TMS 2 paragraf 10"
+      "kaynak": "TMS 2 paragraf 10",
+      "tablo": {
+        "baslik": "Stok Maliyetinin Unsurları",
+        "kolonlar": [
+          "Unsur",
+          "Stoka Girer mi?"
+        ],
+        "satirlar": [
+          [
+            "Satın Alma Maliyetleri ←",
+            "✓ Evet"
+          ],
+          [
+            "Dönüştürme Maliyetleri ←",
+            "✓ Evet"
+          ],
+          [
+            "Yerine Koyma Maliyetleri ←",
+            "✓ Evet"
+          ],
+          [
+            "Satış ve Pazarlama Giderleri",
+            "✗ Hayır"
+          ],
+          [
+            "Genel Yönetim Giderleri",
+            "✗ Hayır"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "el-23e003",
@@ -2216,7 +3039,10 @@
         "E": "İlk edinim maliyeti ile sonraki bakım giderlerini karıştırıyor. Varlık kullanıma başladıktan sonraki olağan bakım ve onarım giderleri maliyete değil, dönem gideri olarak kayıtlanır."
       },
       "hap": "Maddi duran varlık maliyetine gelecekteki restorasyon yükümlülüğü de dahildir.",
-      "kaynak": "TMS 16 paragraf 16"
+      "kaynak": "TMS 16 paragraf 16",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "amr250103",
@@ -2242,7 +3068,10 @@
         "E": "Yanılgı dersi: Binek otomobil kıst amortismanın istisnasıdır; tam yıl değil ay esaslı hesaplanır."
       },
       "hap": "Genel kural: aktife girdiği yıl TAM yıl amortisman. İSTİSNA: binek otomobillerde KIST — aktife alındığı ay dahil kalan ay sayısı kadar. İlk yıl ayrılamayan kısım son yıla eklenir. Ay kesri tam ay sayılır. Tuzak: binek otoya tam yıl uygulamak.",
-      "kaynak": "VUK m.320 (Amortisman uygulama süresi - binek otomobillerde kıst amortisman)"
+      "kaynak": "VUK m.320 (Amortisman uygulama süresi - binek otomobillerde kıst amortisman)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "81ef9e64",
@@ -2268,7 +3097,34 @@
         "E": "Bu şık, temettü dağıtımının yalnızca nakit akışta gösterildiğini sanıyor. Temettü hem nakit akış tablosunda (finansman faaliyetlerinde) hem de özkaynak değişim tablosunda gösterilir."
       },
       "hap": "Temettü dağıtımı özkaynak değişim tablosunda ortaklarla yapılan işlem olarak gösterilir.",
-      "kaynak": "TMS 1 m.106(d)"
+      "kaynak": "TMS 1 m.106(d)",
+      "tablo": {
+        "baslik": "Özkaynak Değişim Tablosu (Özet - TL)",
+        "kolonlar": [
+          "Kalem",
+          "Dağıtılmamış Kârlar"
+        ],
+        "satirlar": [
+          [
+            "Dönem Başı Bakiye",
+            "10.000.000"
+          ],
+          [
+            "Dönem Kârı",
+            "3.000.000"
+          ],
+          [
+            "Temettü Dağıtımı (-) ←",
+            "-2.000.000"
+          ],
+          [
+            "Dönem Sonu Bakiye",
+            "11.000.000"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "bf828f33",
@@ -2294,7 +3150,10 @@
         "E": "Bedel yüksekliğinin istisna nedeni olduğu yanılgısına düşüyor. KDV istisnası malın tutarıyla değil, alıcının faaliyet konusu ve malın kullanım amacıyla ilgilidir; yüksek bedelli mal genel istisna kapsamına girmez."
       },
       "hap": "Deniz taşımacılığı yapan firmaya gemi teslimi KDV'den istisnadır.",
-      "kaynak": "KDV Kanunu m.13/a"
+      "kaynak": "KDV Kanunu m.13/a",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ca4b887c",
@@ -2320,7 +3179,10 @@
         "E": "Sahte belge ile yanıltıcı belgeyi karıştırıyor. Sahte belge için gerçek işlem olmamalıdır; burada ise kahve alımı gerçekten olmuş, sadece tutarı yanlış yazılmıştır."
       },
       "hap": "Gerçek işlem ama şişirilmiş tutarlı fatura yanıltıcı belge midir, sahte belge midir?",
-      "kaynak": "VUK m.359/a-2 (yanıltıcı belge) ve m.359/b (sahte belge tanımı)"
+      "kaynak": "VUK m.359/a-2 (yanıltıcı belge) ve m.359/b (sahte belge tanımı)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "4cf91df0",
@@ -2346,7 +3208,10 @@
         "E": "Bu şık takasın hukuki niteliği ile mahkeme müdahalesi gerekliliğini karıştırıyor. Takas tek taraflı bir hak olup, alacaklı tarafından yapılan irade beyanıyla gerçekleşir; mahkeme kararı gerekmez."
       },
       "hap": "Takas için her iki borcun da muaccel olması gerekir; vadeden feragat sadece borçlu yapabilir.",
-      "kaynak": "TBK m.139-140"
+      "kaynak": "TBK m.139-140",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "2a7a2f07",
@@ -2372,7 +3237,10 @@
         "E": "Farklılık durumunda muafiyet olacağını sanıyor. Tam tersine, kanuni merkez veya iş merkezinden herhangi biri Türkiye'de olduğunda tam mükellefiyet doğar; muafiyet söz konusu değildir."
       },
       "hap": "İş merkezi Türkiye'de olan şirket, kanuni merkezi yurt dışında da olsa tam mükelleftir.",
-      "kaynak": "5520 sayılı Kurumlar Vergisi Kanunu m.3 (Tam ve dar mükellefiyet, kanuni merkez ve iş merkezi tanımları)"
+      "kaynak": "5520 sayılı Kurumlar Vergisi Kanunu m.3 (Tam ve dar mükellefiyet, kanuni merkez ve iş merkezi tanımları)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e56f8fd2",
@@ -2398,7 +3266,10 @@
         "E": "Bu şık, ticari faaliyet serbestisi ile izin şartını karıştırıyor. Ticaret serbestisi genel bir ilkedir; ancak sermaye piyasası faaliyetleri kamu yararı nedeniyle izne tabidir."
       },
       "hap": "İzinsiz kripto varlık aracılığı suçtur, hapis ve adli para cezası gerektirir.",
-      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.109 ve m.35/B"
+      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.109 ve m.35/B",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "349ea201",
@@ -2424,7 +3295,10 @@
         "E": "Bu şık, gönüllü alımı zorunlu yükümlülükle karıştırıyor. Diğer pay sahipleri isterlerse payları alabilir ama bu öncelik mekanizması, ana yükümlülüğün ortaklığa ait olduğu gerçeğini değiştirmez."
       },
       "hap": "Önemli işleme muhalefet eden ortağın paylarını, işlemi yapan ortaklığın kendisi satın alır.",
-      "kaynak": "6362 sayılı SPKn m.24/1"
+      "kaynak": "6362 sayılı SPKn m.24/1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ba240004",
@@ -2450,7 +3324,10 @@
         "E": "Bu şık iç belgelendirme ile düzenleyici kuruma bildirimi karıştırıyor. Çalışma kağıdındaki değişiklikler KGK'ya bildirilmez; denetim dosyasının içinde belgelenir ve orada muhafaza edilir."
       },
       "hap": "Denetim dosyası kapandıktan sonra değişiklik: neden, kim yaptı/gözden geçirdi, ne zaman belgelenir.",
-      "kaynak": "BDS 230 p.16"
+      "kaynak": "BDS 230 p.16",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "dd8b2e60",
@@ -2479,7 +3356,10 @@
         "H": ""
       },
       "hap": "Muhasebe kayıtları tek başına yeterli denetim kanıtı oluşturmaz, kaynak belgelerle desteklenmelidir.",
-      "kaynak": "BDS 500 m.9-10"
+      "kaynak": "BDS 500 m.9-10",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e5a1dcb2",
@@ -2505,7 +3385,10 @@
         "E": "Şartlı görüş ile görüş vermeme arasındaki sınırı karıştırıyor. Diğer hesaplar güvenilir olsa da %70'lik gelir kalemi o kadar büyük ki bütün tabloyu etkiler, yalnızca şartlı görüşle geçiştirilemez."
       },
       "hap": "Gelirin çoğunu oluşturan kalem için kanıt yoksa denetçi görüş bildirmekten kaçınır.",
-      "kaynak": "BDS 705 madde 6-9 (kapsam sınırlaması sonucu şartlı görüş ile görüş bildirmekten kaçınma ayrımı)"
+      "kaynak": "BDS 705 madde 6-9 (kapsam sınırlaması sonucu şartlı görüş ile görüş bildirmekten kaçınma ayrımı)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f110f712",
@@ -2531,7 +3414,10 @@
         "E": "Ne soruluyor: Denetçinin denetlediği şirketten pay satın alması bağımsızlığını zedeler mi?\n\nKural: TTK m.400/1-a'ya göre denetlenecek şirkette pay sahibi olan kişi o şirkette denetçi olamaz. Tutar, oran ya da pay miktarı önemli değildir; en küçük pay bile denetçilik yapılmasına engeldir.\n\nBu olayda: Elif Hanım Mavi Kozmetik A.Ş.'yi denetliyor. Sonra bu şirketten hisse satın alıyor. Hangi tutarda olursa olsun artık bu şirkette denetçi olarak görev yapamaz. Denetim sözleşmesi sona erdirilmelidir.\n\nAkılda kalsın: Denetlenen şirketten tek bir pay bile satın alan denetçi, bağımsızlığını kaybeder ve görevinden ayrılmalıdır."
       },
       "hap": "Denetçi denetlediği şirketten pay satın alırsa, tutar ne olursa olsun denetçi olamaz.",
-      "kaynak": "TTK m.400/1"
+      "kaynak": "TTK m.400/1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "18020520",
@@ -2557,7 +3443,10 @@
         "E": "Bu şık dipnot açıklaması ile yasal yasağın aşılabileceğini sanıyor. Oysa dipnot yalnızca bilgi verir, madde 400'deki denetçi olamama hallerini ortadan kaldırmaz; şeffaflık çıkar çatışmasını çözmez."
       },
       "hap": "Defter tutan ve mali tablo hazırlayan kuruluş, aynı şirketin bağımsız denetimini üstlenemez.",
-      "kaynak": "TTK m.400"
+      "kaynak": "TTK m.400",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f54d2c10",
@@ -2584,7 +3473,10 @@
         "hap": "Usul-füru-kardeşe bedelsiz verilen ilk konut için emsal kira hesaplanmaz."
       },
       "hap": "Usul-füru-kardeşe tahsis edilen ilk konut emsal kira hesabından muaftır; ikincisi için hesaplanır.",
-      "kaynak": "GVK m.73/2"
+      "kaynak": "GVK m.73/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6c5c6b4b",
@@ -2610,7 +3502,10 @@
         "E": "Bu şık 'ortak sayısı sınırı' kavramını uyduruyor. Kanun birden çok meslek mensubunun şirket kurabileceğini söyler, iki ortakla sınırlama getirmez."
       },
       "hap": "Meslek mensupları mesleki faaliyetleri için şirket kurabilir, bu ticari faaliyet sayılmaz.",
-      "kaynak": "3568 sayılı Kanun m.45"
+      "kaynak": "3568 sayılı Kanun m.45",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f690cc60",
@@ -2639,7 +3534,10 @@
         "H": ""
       },
       "hap": "m.9'a göre teminat isteme sebebi varsa, teminat talep edilmeden doğrudan ihtiyati haciz uygulanabilir.",
-      "kaynak": "6183 sayılı AATUHK m.13/1 (m.9 atfı ile)"
+      "kaynak": "6183 sayılı AATUHK m.13/1 (m.9 atfı ile)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "db9432b3",
@@ -2665,7 +3563,10 @@
         "E": "Peşin ödeme şartı ile ertelenmiş tam ödemeyi karıştırıyor. TTK, nakdi sermayenin dörtte birinin tescilden önce ödenmesini zorunlu kılar; bir yıllık süre içinde sıfırdan başlayarak ödeme yapılamaz."
       },
       "hap": "Anonim şirkette nakdi sermayenin dörtte biri tescilden önce, kalanı tescili izleyen yirmi dört ay içinde ödenir.",
-      "kaynak": "TTK m.344"
+      "kaynak": "TTK m.344",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "de6ea9ab",
@@ -2691,7 +3592,10 @@
         "E": "Bu şık deneme süresini ücretsiz staj gibi algılıyor. Deneme süresi işçinin kendini kanıtlama dönemidir ama karşılığında tam ücretini alır, ücretsiz değildir."
       },
       "hap": "Deneme süresinde de işçi çalıştığı günlerin ücretini tam olarak alır, ücretsiz çalışma olmaz.",
-      "kaynak": "4857 sayılı İş Kanunu m.15"
+      "kaynak": "4857 sayılı İş Kanunu m.15",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f9fa7a99",
@@ -2717,7 +3621,10 @@
         "E": "Ne soruluyor: Doğum sonrası işbaşı yapan kadın işçinin emzirme için kullanacağı günlük süt izni süresi ve bu iznin niteliği sorulmaktadır.\n\nKural: Bir yaşından küçük çocuğu olan kadın işçiye günde toplam 1,5 saat süt izni verilir. İşçi bu süreyi hangi saatlerde ve kaça bölerek kullanacağına kendisi karar verir. Bu süre günlük çalışma süresinden sayılır, yani ücret kesintisi yapılmaz.\n\nBu olayda: Elif tam gün çalışan bir işçidir ve bebeğini emzirmektedir. Günde toplam 1,5 saat süt izni hakkı vardır. Bu izni istediği saatlerde kullanabilir ve ücretinden kesinti olmaz.\n\nAkılda kalsın: Süt izni günlük çalışma süresinden sayılır, ücretli bir haktır."
       },
       "hap": "Bir yaşından küçük çocuğu olan kadın işçinin günlük 1,5 saat süt izni hakkı ücretlidir.",
-      "kaynak": "4857 sayılı İş Kanunu m.74"
+      "kaynak": "4857 sayılı İş Kanunu m.74",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7e9fe7a6",
@@ -2743,7 +3650,10 @@
         "E": "Ne soruluyor: Deneme süresinde feshedilen işçinin çalıştığı günlere ait ücret hakkı var mı?\n\nKural: İşveren deneme süresinde tazminat ödemeden feshedebilir. Ancak işçinin çalıştığı günler için ücret ve diğer hakları korunur. Deneme kaydı ücretsiz çalışma anlamına gelmez.\n\nBu olayda: İşçi 12 gün çalıştı. İşveren tazminatsız fesih hakkını kullandı. Ama işçi bu 12 günün tam ücretini almaya hak kazandı. Deneme olması bu hakkı kaldırmaz.\n\nAkılda kalsın: Deneme süresi işverene kolay fesih hakkı verir, ücretsiz çalıştırma hakkı vermez."
       },
       "hap": "Deneme süresinde feshedilen işçi çalıştığı günlerin ücretini alır, deneme kaydı ücretsiz çalışma demek değildir.",
-      "kaynak": "4857 sayılı İş Kanunu m.15/2"
+      "kaynak": "4857 sayılı İş Kanunu m.15/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "fc185c20",
@@ -2769,7 +3679,10 @@
         "E": "Özkaynak değişim tablosunu sadece halka açık şirketlerin sunduğunu düşünüyor. TMS 1 tüm işletmelerin özkaynak kalemlerindeki değişimleri ayrı bir tabloda göstermesini zorunlu tutar; tam setin parçasıdır."
       },
       "hap": "Faaliyet raporu yönetimin belgesidir; TMS 1'in gerektirdiği finansal tablo değildir.",
-      "kaynak": "TMS 1 madde 10"
+      "kaynak": "TMS 1 madde 10",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e4e13681",
@@ -2795,7 +3708,34 @@
         "E": "Bu şık kâr payını bilançoda doğrudan göstermenin yeterli olduğunu sanıyor. Bilançoda özkaynaklarda değişim görülür ama TMS 1 özkaynak değişim tablosunu zorunlu kılar, sadece bilanço yeterli değildir."
       },
       "hap": "Kâr payı dağıtımı özkaynak değişim tablosunda sahiplerle yapılan işlem olarak gösterilir.",
-      "kaynak": "TMS 1 m.106-107"
+      "kaynak": "TMS 1 m.106-107",
+      "tablo": {
+        "baslik": "Özkaynak Değişim Tablosu (Özet)",
+        "kolonlar": [
+          "Kalem",
+          "Tutar"
+        ],
+        "satirlar": [
+          [
+            "Dönem Başı Özkaynaklar",
+            "XXX"
+          ],
+          [
+            "Dönem Kârı",
+            "XXX"
+          ],
+          [
+            "Kâr Payı Dağıtımı (-) ←",
+            "(XXX)"
+          ],
+          [
+            "Dönem Sonu Özkaynaklar",
+            "XXX"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "fcb853e7",
@@ -2821,7 +3761,10 @@
         "E": "Bu şık 'esnaf' ile 'tacir' ayrımına dayanıyor ve ticari faaliyet yasağının sadece büyük işletmeler için geçerli olduğunu ima ediyor. Oysa yasak her ölçekte ticari faaliyeti kapsar, küçük işletme de olsa yasaktır."
       },
       "hap": "SMMM kendi adına ticari işletme açıp tacir sıfatıyla çalışamaz, bu mutlak yasaktır.",
-      "kaynak": "3568 sayılı Kanun m.45"
+      "kaynak": "3568 sayılı Kanun m.45",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7d313be8",
@@ -2847,7 +3790,10 @@
         "E": "Genel şart ile özel şartı karıştırıyor. m.4 genel şartlardır ve herkes için aynı içeriktedir; oysa öğrenim şartı m.5'te düzenlenir ve SMMM için lisans, YMM için ayrıca tecrübe gibi unvana göre farklı unsurlara sahiptir."
       },
       "hap": "Öğrenim şartı m.5'te özel şart olarak düzenlenir, unvana göre içerik değişir.",
-      "kaynak": "3568 sayılı Kanun m.5"
+      "kaynak": "3568 sayılı Kanun m.5",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f3b60d7c",
@@ -2873,7 +3819,10 @@
         "E": "Genel şart ile hukuki ehliyet türünü karıştırıyor. Medeni hakları kullanma ehliyetine sahip olmak Kanun madde 4'te yazılı genel şartlardan biridir; fiil ehliyeti ise kişinin kendi fiilleriyle hak ve borç altına girebilmesidir."
       },
       "hap": "SMMM olabilmenin genel şartları arasında vergi dairesinde çalışma zorunluluğu yoktur.",
-      "kaynak": "3568 sayılı Kanun m.4"
+      "kaynak": "3568 sayılı Kanun m.4",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6aa9efe1",
@@ -2899,7 +3848,34 @@
         "E": "İşlev esasının tanımını tersine anlıyor. İşlev esasında giderler fonksiyonlarına göre ayrılır ve detaylandırılır; tek kalemde toplanmaz, aksine satış, pazarlama, yönetim gibi başlıklara bölünür."
       },
       "hap": "Giderleri satış, pazarlama, yönetim gibi fonksiyonlara ayırma işlev esasıdır.",
-      "kaynak": "TMS 1 madde 99-105"
+      "kaynak": "TMS 1 madde 99-105",
+      "tablo": {
+        "baslik": "Gider Sunumu - İşlev Esası",
+        "kolonlar": [
+          "Gider Kalemi",
+          "Sunum Yöntemi"
+        ],
+        "satirlar": [
+          [
+            "Satışların Maliyeti ←",
+            "İşlev (fonksiyon)"
+          ],
+          [
+            "Pazarlama Giderleri ←",
+            "İşlev (fonksiyon)"
+          ],
+          [
+            "Genel Yönetim Giderleri ←",
+            "İşlev (fonksiyon)"
+          ],
+          [
+            "Ar-Ge Giderleri ←",
+            "İşlev (fonksiyon)"
+          ]
+        ]
+      },
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "144907e2",
@@ -2925,7 +3901,10 @@
         "E": "Bu şık, düzenleyici kurumu yanlış gösteriyor. Kripto varlık hizmet sağlayıcıları için izin veren kurum BDDK değil SPK'dır; 35/B maddesi bu yetkileri açıkça Kurul'a veriyor."
       },
       "hap": "Kripto varlık hizmeti için ticari tescil yetmez, SPK'dan kuruluş ve faaliyet izni de gerekir.",
-      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.35/B"
+      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.35/B",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a8d1f9e7",
@@ -2951,7 +3930,10 @@
         "E": "Bu şık, bilgi paylaşım yetkisini yanlış kurumla sınırlıyor. SPK personeli bilgiyi aracı kurumun yönetim kuruluna değil, finansal istikrardan sorumlu düzenleyici ve denetleyici kurumlara iletir."
       },
       "hap": "SPK personeli sistemik risk bilgisini yetkili düzenleyici kurumlarla paylaşabilir.",
-      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.128"
+      "kaynak": "6362 sayılı Sermaye Piyasası Kanunu m.128",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "36fd8602",
@@ -2977,7 +3959,10 @@
         "E": "Ne soruluyor: Konsolide şirket grubunun özkaynaklar değişim tablosunda toplam kapsamlı geliri (kâr/zarar + diğer kapsamlı gelir toplamı) hangi asgari ayrımla göstermesi gerekir?\n\nKural: TMS 1, özkaynaklar değişim tablosunda toplam kapsamlı geliri mutlaka iki parçaya ayırır: ana ortaklık (grup) payı ve kontrol gücü olmayan paylar (azınlık).\n\nBu olayda: Grup raporlama yaparken tek tutar vermez. Toplam kapsamlı gelirin ne kadarı ana şirkete, ne kadarı azınlığa ait gösterir. Her iki bileşeni (kâr/zarar ve diğer kapsamlı gelir) bu ayrıştırmaya tabi tutar.\n\nAkılda kalsın: Konsolide tabloda toplam kapsamlı gelir daima ana ortaklık ve azınlık paylarına ayrılır."
       },
       "hap": "Konsolide özkaynaklar tablosunda toplam kapsamlı gelir ana ortaklık ve azınlık paylarına ayrılır.",
-      "kaynak": "TMS 1 m.106(a)"
+      "kaynak": "TMS 1 m.106(a)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "555a16bf",
@@ -3003,7 +3988,10 @@
         "E": "Bu şık pay aktarımını disiplin cezalarıyla ilişkilendiriyor. Oysa pay aktarımı tüm üyelerden tahsil edilen gelirleri kapsar; yalnızca cezalı üyelerin aidatlarıyla sınırlı bir düzenleme değildir."
       },
       "hap": "Odaların tahsil ettiği üyelik gelirlerinin bir kısmı, belirlenen oranda Birliğe pay olarak aktarılır.",
-      "kaynak": "3568 sayılı Kanun m.30"
+      "kaynak": "3568 sayılı Kanun m.30",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "sup250103",
@@ -3029,7 +4017,10 @@
         "E": "Yarı oranını rastgele uyguluyor. VUK'ta alacağın yarısı için karşılık ayrılır kuralı yoktur; teminatsız kalan kısım ne ise o kadar karşılık ayrılır."
       },
       "hap": "Teminatlı alacaklarda karşılık sadece teminatsız kalan kısım için ayrılır.",
-      "kaynak": "VUK m.323 (Şüpheli alacaklarda teminat kuralı)"
+      "kaynak": "VUK m.323 (Şüpheli alacaklarda teminat kuralı)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "5d73f7fd",
@@ -3055,7 +4046,10 @@
         "E": "Bu şık davacının tacir olmamasını görev kriteri sayıyor. Oysa mutlak ticari davalarda tarafların tacir olup olmadığına bakılmaz; davanın TTK'dan doğması yeterlidir."
       },
       "hap": "TTK'dan doğan sermaye artırımı uyuşmazlığı, davacı tacir olmasa bile asliye ticaret mahkemesinde görülür.",
-      "kaynak": "TTK m.4/1-a, TTK m.5"
+      "kaynak": "TTK m.4/1-a, TTK m.5",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e9df527f",
@@ -3081,7 +4075,10 @@
         "E": "Doğru. GVK md. 72, tahsil esasının yanında özel bir düzenleme getirmiş: peşin alınan ama sonraki yıllara ait kira, alındığı yılda değil, kendi ait olduğu yılda gelir sayılır. Yani 24 aylık kira, 2023, 2024 ve 2025 yılları arasında paylaştırılarak beyan edilir."
       },
       "hap": "GMSİ'de kural olarak 'ne zaman tahsil ettiysen o yılın geliridir' denir (tahsil esası). Ama kanun kendi kuralına bir istisna koymuş: gelecek yıllara ait olup peşin alınan kira, alındığı yıla değil, ait olduğu yıla yazılır. Yani 2 yıllık kirayı peşin alsan bile, o parayı ikiye bölüp her yılın kendi payını o yılın beyannamesine koyarsın - tek seferde tümünü ilk yıla yazamazsın.",
-      "kaynak": "GVK m. 72/2"
+      "kaynak": "GVK m. 72/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e91c6738",
@@ -3107,7 +4104,10 @@
         "E": "İlanen tebligat ile ihtiyati haczi karıştırıyor. İlanen tebligat, adres bilinmeyenlere yapılan özel tebligat şeklidir; ihtiyati haciz ise alacağı güvenceye alan bir tatbik işlemidir. Dava sonucu beklenmez."
       },
       "hap": "Belli ikametgahı olmayan borçluya doğrudan ihtiyati haciz uygulanır.",
-      "kaynak": "AATUHK m.13/2"
+      "kaynak": "AATUHK m.13/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "e383e1a7",
@@ -3133,7 +4133,10 @@
         "E": "İhracatı KDV'nin konusu dışı görme tuzağı. İhracat KDV'nin konusuna girer ama istisna tutulur; bu yüzden yüklenilen KDV iade edilebilir. Konu dışı olsaydı iade hakkı doğmazdı."
       },
       "hap": "Mal ihracatı da yurt dışı müşteriye yapılan hizmet de KDV'den tam istisnadır; hizmetin Türkiye'de yapılması önemli değil.",
-      "kaynak": "KDV Kanunu m.11/1-a, m.12"
+      "kaynak": "KDV Kanunu m.11/1-a, m.12",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6c46dd7b",
@@ -3159,7 +4162,10 @@
         "E": "Şartlı görüş ile görüş bildirmekten kaçınmayı karıştırıyor. Şartlı görüş, sorun önemli ama sınırlı (yaygın değil) olduğunda verilir; ancak bu bağlı ortaklık büyük ve birçok kalemi etkilediği için yaygın sayılır, şartlı görüş yetersiz kalır."
       },
       "hap": "Önemli ve yaygın etkisi olan varlığa erişemeyen denetçi görüş bildirmekten kaçınır.",
-      "kaynak": "BDS 705 madde 9"
+      "kaynak": "BDS 705 madde 9",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "6f2947df",
@@ -3185,7 +4191,10 @@
         "E": "İhtiyati tahakkuk (m.17) ayrı bir kurum, farklı şartlarla (yurt dışına çıkma, işi terk gibi) uygulanır; mal bildirimine uymama doğrudan ihtiyati hacze konu olur, ihtiyati tahakkukla karıştırılmamalı."
       },
       "hap": "m.13/5, mal bildirimine çağrılıp süresinde hiç bildirimde bulunmayan veya noksan bildirimde bulunan borçluyu doğrudan ihtiyati haciz sebebi olarak sayar. Ayrıca ispat gerekmiyor, borçlunun sessiz kalması yeterli. Tuzak: bunu hapis tazyikiyle veya ihtiyati tahakkukla karıştırmamak gerekiyor, üçü ayrı kurumlar.",
-      "kaynak": "6183 sayılı AATUHK m.13/5"
+      "kaynak": "6183 sayılı AATUHK m.13/5",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "7a79b6a0",
@@ -3211,7 +4220,10 @@
         "E": "E şıkkı %70 kuralını yanlış uyguluyor. Yüzde 70 kuralı binek otomobilin işletmede kullanımına ait giderlerde (yakıt, bakım vb.) geçerlidir; kira bedeli için aylık tutar sınırı vardır."
       },
       "hap": "Kiralanan binek otomobil için kanuni aylık sınıra kadar gider, aşan kısım KKEG'dir.",
-      "kaynak": "GVK m.40/1 (5 nolu bent)"
+      "kaynak": "GVK m.40/1 (5 nolu bent)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "8138ad35",
@@ -3237,7 +4249,10 @@
         "E": "Bu şık iç personel ile bağımsız uzman arasındaki farkı atlıyor. Şirket çalışanının sözlü beyanı ne yeterli ne de tarafsızdır; dış avukattan yazılı teyit şarttır."
       },
       "hap": "Önemli dava riski için en güçlü denetim kanıtı, bağımsız dış hukuk müşavirinden alınan yazılı teyittir.",
-      "kaynak": "BDS 501 - Belirli Kalemlere İlişkin Özel Hususlar, md.9 (Dava ve İhtilaflar)"
+      "kaynak": "BDS 501 - Belirli Kalemlere İlişkin Özel Hususlar, md.9 (Dava ve İhtilaflar)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "dc7e82dc",
@@ -3263,7 +4278,10 @@
         "E": "Ödeme emri tebliği ile ihtiyati haciz uygulamasını karıştırıyor. Mal bildirimine uymamanın yaptırımı sadece tebligat tekrarı değil, doğrudan ihtiyati haciz yetkisi doğmasıdır."
       },
       "hap": "Mal bildirimine uymamak tek başına ihtiyati haciz sebebidir, başka şart aranmaz.",
-      "kaynak": "6183 sayılı AATUHK m.13/4"
+      "kaynak": "6183 sayılı AATUHK m.13/4",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "5867742d",
@@ -3289,7 +4307,10 @@
         "E": "Bu şık kısmi geçersizlikle tam geçersizliği karıştırıyor. Sadece fazla olan kısım geçersiz olur, sözleşmenin tamamı hükümsüz sayılmaz ve işçi deneme süreli başlar."
       },
       "hap": "Toplu iş sözleşmesi yoksa deneme süresi en fazla 2 ay olabilir, fazlası geçersizdir.",
-      "kaynak": "4857 sayılı İş Kanunu m.15/1"
+      "kaynak": "4857 sayılı İş Kanunu m.15/1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "d5d334ab",
@@ -3315,7 +4336,10 @@
         "E": "Uzlaşma ile suç bildirimi ayrı kurumları karıştırıyor. Uzlaşma (mükellefle vergi idaresinin anlaşması) vergi uyuşmazlıklarında olur; suç tespitinde savcılığa bildirim için uzlaşma şartı yoktur."
       },
       "hap": "VUK 359 suçu tespit eden müfettiş, rapor değerlendirme komisyonunun mütalaasıyla birlikte savcılığa bildirir.",
-      "kaynak": "VUK m.367"
+      "kaynak": "VUK m.367",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "d203d4c5",
@@ -3341,7 +4365,10 @@
         "E": "Bu şık ücret hakkını şarta bağlı performans primi ile karıştırıyor. Deneme süresinin başarıyla tamamlanması şartı yoktur; çalışılan her gün için ücret hakkı doğar."
       },
       "hap": "Deneme süresinde işveren fesih yapabilir ama çalışılan günlerin ücretini ödemek zorundadır.",
-      "kaynak": "4857 sayılı İş Kanunu m.15/2"
+      "kaynak": "4857 sayılı İş Kanunu m.15/2",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "96f39693",
@@ -3367,7 +4394,10 @@
         "E": "Bu şık temsil mekanizmasını yanlış anlatıyor. Tüzel kişi adına belirlenen ve tescil edilen sadece bir gerçek kişi katılır; tüzel kişinin kendi yönetim kurulu gibi organları katılamaz."
       },
       "hap": "Tüzel kişi yönetim kurulu üyesi seçilebilir ama tescilli bir gerçek kişi üzerinden temsil edilir.",
-      "kaynak": "TTK m.359"
+      "kaynak": "TTK m.359",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "d032ea67",
@@ -3393,7 +4423,10 @@
         "E": "Bu şık, binek otomobil giderlerinde hiçbir sınırlama olmadığını iddia ediyor. GVK m.68/5 açıkça %70 oranında bir sınırlama getirir; tamamı indirilemez."
       },
       "hap": "Serbest meslek erbabının binek otomobil giderlerinin %70'i indirilir, %30'u KKEG'dir.",
-      "kaynak": "GVK m.68/1 bent 10"
+      "kaynak": "GVK m.68/1 bent 10",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ff9ba3b4",
@@ -3419,7 +4452,10 @@
         "E": "Bu şık tekrar sayısının güvenilirliği matematiksel olarak artırdığını iddia ediyor. Oysa güvenilirlik kaynağın niteliğine bağlıdır; aynı kişiden alınan beyanı onlarca kez tekrarlamak güvenilirliği sıfırdan bir adım öteye taşımaz."
       },
       "hap": "Aynı kaynaktan alınan kanıtı çoğaltmak güvenilirliği artırmaz; kaynak çeşitliliği gerekir.",
-      "kaynak": "BDS 500 m.6, A5"
+      "kaynak": "BDS 500 m.6, A5",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "997b6d0b",
@@ -3445,7 +4481,10 @@
         "E": "Ne soruluyor: Binek otomobilin akaryakıt, bakım-onarım ve sigorta giderlerinden kaynaklanan KKEG tutarı nedir?\n\nKural: İşletmede kayıtlı binek otomobillerin giderlerinin en fazla %70'i gider yazılabilir. Kalan %30'luk kısım hiçbir zaman gider kabul edilmez; buna KKEG (kanunen kabul edilmeyen gider) denir.\n\nBu olayda: Toplam gider 100.000 TL. İşletme bunun %70'ini (70.000 TL) gider yazar. Kalan %30'u (30.000 TL) KKEG olur ve vergi matrahına eklenir.\n\nAkılda kalsın: Binek otomobil giderlerinin %30'u her zaman KKEG'dir."
       },
       "hap": "İşletmedeki binek otomobil giderlerinin %30'u KKEG olur, %70'i indirilir.",
-      "kaynak": "GVK m.40/1 (5 no'lu bent)"
+      "kaynak": "GVK m.40/1 (5 no'lu bent)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a29b10d4",
@@ -3471,7 +4510,10 @@
         "E": "Tek taraflı takas hakkı ile karşı tarafın onay zorunluluğunu karıştırıyor. Takas için karşı tarafın önceden onay vermesi gerekmez; şartlar varsa tek taraflı beyanla takas yapılır."
       },
       "hap": "Karşılıklı borçların takası için her iki borcun da muaccel (vadesi gelmiş) olması gerekir.",
-      "kaynak": "TBK m.139-141"
+      "kaynak": "TBK m.139-141",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "a67e2ae3",
@@ -3497,7 +4539,10 @@
         "E": "Ne soruluyor: Diş hekimi serbest meslek kazancı nedeniyle yıllık beyanname veren Bay (A), 60.000 TL konut kira geliri için mesken istisnası kullanabilir mi?\n\nKural: Kanun, ticari-zirai-mesleki kazancı nedeniyle yıllık beyanname vermek zorunda olanların mesken kira geliri istisnasından yararlanamayacağını söylüyor. Serbest meslek faaliyeti mesleki kazanç türüdür.\n\nBu olayda: Bay (A) diş hekimi olarak mesleki kazanç beyannamesi veriyor. Kira geliri istisna haddinin altında bile olsa bu istisnayı kullanamaz; 60.000 TL'nin tamamını beyannameye dahil eder.\n\nAkılda kalsın: Mesleki kazanç beyannamesi veren kişi, konut kira geliri istisnasını kaybeder."
       },
       "hap": "Mesleki kazanç beyannamesi veren diş hekimi, konut kira geliri istisnasından yararlanamaz.",
-      "kaynak": "GVK m.21"
+      "kaynak": "GVK m.21",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "bf42bc82",
@@ -3523,7 +4568,10 @@
         "E": "Yanıltıcı belge gerçek bir işlemi tutar veya nitelik bakımından yanlış yansıtır. Burada belge sorunu yok, sorun bazı işlemlerin hiç yasal deftere kaydedilmemesi. Belge düzenleme değil kayıt hilesi var."
       },
       "hap": "POS tahsilatının bir kısmını yasal deftere değil Excel'e kaydetmek hesap hilesi suçudur.",
-      "kaynak": "VUK m.359/a-1"
+      "kaynak": "VUK m.359/a-1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ab0b4c5d",
@@ -3549,7 +4597,10 @@
         "E": "Bu şık deneme süresini normal çalışma ile karıştırıyor. Normal dönemde ihbar öneline uymayanlar tazminat öder; deneme süresinde ise her iki taraf da bildirim yapmadan ve tazminatsız feshedebilir."
       },
       "hap": "Deneme süresinde hem işçi hem işveren bildirim vermeden ve tazminatsız feshedebilir.",
-      "kaynak": "4857 sayılı İş Kanunu m.15"
+      "kaynak": "4857 sayılı İş Kanunu m.15",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "8563791b",
@@ -3575,7 +4626,10 @@
         "E": "Bu şık, evlilik durumunun bakmakla yükümlülük statüsünü devam ettirdiğini sanıyor. Ancak kişi kendi adına sigortalı olduğunda, evli olsa bile eşinin bakmakla yükümlüsü statüsü sona erer."
       },
       "hap": "Kişi kendi adına sigortalı olunca eşinin bakmakla yükümlüsü olamaz.",
-      "kaynak": "5510 sayılı Kanun m.3/10, m.60"
+      "kaynak": "5510 sayılı Kanun m.3/10, m.60",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "ea2cb3a3",
@@ -3601,7 +4655,10 @@
         "E": "Bu şık pişmanlıkta ceza indirimi ile tam muafiyet hükümlerini karıştırıyor. Pişmanlıkta ceza tamamen kalkar ama burada zaten emlak vergisi bu haktan yararlanamaz."
       },
       "hap": "Pişmanlık hükümleri emlak vergisinde uygulanmaz, kanun bunu açıkça istisna eder.",
-      "kaynak": "VUK m.371 (son fıkra)"
+      "kaynak": "VUK m.371 (son fıkra)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "67ca16d6",
@@ -3627,7 +4684,10 @@
         "E": "Bu şık denetim kanıtını yalnızca denetçinin bizzat topladığı fiziksel kanıtlarla sınırlıyor. Gözlem ve fiziksel inceleme önemli kanıt yöntemleridir; ancak belgeler, sözleşmeler, beyanlar ve elektronik kayıtlar da denetim kanıtıdır."
       },
       "hap": "Denetim kanıtı hem muhasebe kayıtlarını hem de onları doğrulayan/çürüten tüm diğer bilgileri kapsar.",
-      "kaynak": "BDS 500 md. 4 / A1 - Denetim Kanıtı Kavramı"
+      "kaynak": "BDS 500 md. 4 / A1 - Denetim Kanıtı Kavramı",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "347b369f",
@@ -3653,7 +4713,10 @@
         "E": "Bu şık bildirim zamanlamasıyla ayrımcılığın varlığını karıştırıyor. Gebelik bildirimi yapılmadan önce gerçekleşen fesih otomatik geçersiz olmaz. Feshin gebelik nedeniyle yapıldığını ispat gerekir; bildirim öncesi fesih ayrımcılık olmayabilir."
       },
       "hap": "Deneme süresinde bile gebelik nedeniyle ayrımcı fesih yapılamaz; işçi tazminat talep edebilir.",
-      "kaynak": "4857 sayılı İş Kanunu m.5, m.15"
+      "kaynak": "4857 sayılı İş Kanunu m.5, m.15",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "30ba5781",
@@ -3679,7 +4742,10 @@
         "E": "Zamanaşımı definin ileri sürülme zamanını yanlış belirtiyor. Zamanaşımı savunması ilk derece mahkemesinde yapılmalıdır, istinaf aşamasına bırakılamaz. Taraf, cevap dilekçesinde veya ilk oturumda bu savunmayı yapmalıdır."
       },
       "hap": "Zamanaşımını davalı ileri sürmedikçe hakim resen uygulayamaz, taraf definde bulunmalı.",
-      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.161"
+      "kaynak": "6098 sayılı Türk Borçlar Kanunu m.161",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "3c993748",
@@ -3705,7 +4771,10 @@
         "E": "Ne soruluyor: Mal bildiriminde bulunmayan mükellef hakkında vergi dairesinin hangi işlemi yapabileceği soruluyor.\n\nKural: Vergi dairesi borçluyu mal bildiriminde bulunmaya çağırabilir. Borçlu belirlenen sürede hiç bildirimde bulunmazsa veya noksan bildirimde bulunursa, mahalli en büyük memurun kararıyla ihtiyati haciz (alacak kesinleşmeden uygulanan geçici el koyma) uygulanır.\n\nBu olayda: Mükellef A mal bildirimine çağrılmış ancak süresinde hiçbir mal bildirmemiş. Bu durumda vergi dairesi başka bir işleme gerek kalmadan doğrudan ihtiyati haciz kararı alabilir.\n\nAkılda kalsın: Mal bildirimine çağrılıp da bildirimde bulunmamak tek başına ihtiyati haciz sebebidir."
       },
       "hap": "Mal bildirimine çağrılan borçlu bildirimde bulunmazsa ihtiyati haciz uygulanabilir.",
-      "kaynak": "6183 sayılı AATUHK m.13/5, m.59-60"
+      "kaynak": "6183 sayılı AATUHK m.13/5, m.59-60",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "3cbc3607",
@@ -3731,7 +4800,10 @@
         "E": "Bu şık 'olumlu görüş + dikkat çekme paragrafı' ile 'görüşten çekinme'yi karıştırıyor. Dikkat çekme paragrafı, tablolar doğru ama önemli bir husus varsa kullanılır; kapsam kısıtlamasında ise görüş değişir, paragraf eklemek yetmez."
       },
       "hap": "Bağlı ortaklığa erişim engeli: önemli + yaygın kapsam kısıtlaması → görüşten çekinme",
-      "kaynak": "BDS 705 md 10"
+      "kaynak": "BDS 705 md 10",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "fa7b56a7",
@@ -3758,7 +4830,10 @@
         "F": ""
       },
       "hap": "Şirket tek pay sahipli hâle gelince yönetim kuruluna bildirme ve tescil-ilan yükümlülüğü vardır.",
-      "kaynak": "TTK m.338"
+      "kaynak": "TTK m.338",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "3f1d13da",
@@ -3784,7 +4859,10 @@
         "E": "Bu şık, taraf sıfatıyla ticari dava niteliğini karıştırıyor. TTK m.4 tacir olmayı değil, ticari işletmeyle ilgililik şartını arar; kişisel yazlık davası bu kapsamda değil."
       },
       "hap": "Tacirin kişisel gayrimenkul davası ticari işletmeyle ilgili olmadığından ticari dava sayılmaz.",
-      "kaynak": "TTK m.4/1-c"
+      "kaynak": "TTK m.4/1-c",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "2d2af40e",
@@ -3810,7 +4888,10 @@
         "E": "Bu sık tamamen gider yazılamamayı hiç gider yazılamaz şeklinde abartıyor. Binek otomobil giderlerinin %70'i gider yazılabilir; sadece %30'u KKEG olur, tamamı değil."
       },
       "hap": "Binek otomobil giderlerinin %70'i indirilebilir, %30'u KKEG'dir.",
-      "kaynak": "GVK m.40/1 (5 nolu bent)"
+      "kaynak": "GVK m.40/1 (5 nolu bent)",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "325023d8",
@@ -3836,7 +4917,10 @@
         "E": "Ne soruluyor: Malların kaçırılması ihtimali varken ihtiyati haciz nasıl uygulanır? Kural: İhtiyati haciz (acil durumlarda uygulanan geçici el koyma), mahalli en büyük memurun (vali, kaymakam gibi) kararıyla hemen uygulanır. Alacak henüz dava veya icra safhasında olmasa bile, malların kaçırılması gibi tehlike varsa beklemeden işlem yapılır. Bu olayda: Şirket ortağı malları satarak kaçırmaya çalışıyor. Vergi dairesi durumu tespit edince mahalli en büyük memura başvurur. Karar çıkınca derhal depodaki mallar haciz altına alınır. Akılda kalsın: İhtiyati haciz acil durumlarda idari kararla anında uygulanır, mahkeme veya kesinleşme beklemez."
       },
       "hap": "Malların kaçırılma ihtimalinde ihtiyati haciz idari kararla derhal uygulanır.",
-      "kaynak": "6183 sayılı AATUHK m.13"
+      "kaynak": "6183 sayılı AATUHK m.13",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "41453c10",
@@ -3862,7 +4946,10 @@
         "E": "Bu şık pişmanlık zammının artırılarak cezalandırma olacağını sanıyor. Gerçekte pişmanlık şartları sağlanmazsa zam değil, doğrudan vergi ziyaı cezası kesilir; zamla ilgili ek düzenleme yok."
       },
       "hap": "Pişmanlıkta vergi 15 gün içinde ödenmezse pişmanlık geçersiz olur, vergi ziyaı cezası kesilir.",
-      "kaynak": "VUK (213 s.K.) m.371/4 — haber verilen verginin haber verme tarihinden başlayarak onbeş gün içinde ödenmesi şartı"
+      "kaynak": "VUK (213 s.K.) m.371/4 — haber verilen verginin haber verme tarihinden başlayarak onbeş gün içinde ödenmesi şartı",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "f996c9bf",
@@ -3888,7 +4975,10 @@
         "E": "Bu şık istisnanın şartlarını yanlış okuyor. GVK m.18'de telif haklarını devir ve temlik etmek (satmak) açıkça istisna kapsamında sayılmış; devir istisnayı ortadan kaldırmaz."
       },
       "hap": "Romancının telif kazancı istisna; yayınevinin satış kazancı ticari kazançtır.",
-      "kaynak": "GVK m.18"
+      "kaynak": "GVK m.18",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     },
     {
       "id": "1a0f7f57",
@@ -3914,7 +5004,10 @@
         "E": "TİS yokluğu sadece süreyi 4 aya UZATMA imkanını ortadan kaldırır, deneme süresi kararlaştırmayı yasaklamaz. 2 aya kadar deneme süresi TİS'siz de kararlaştırılabilir, bu yüzden sözleşme deneme süresiz sayılmaz."
       },
       "hap": "Deneme süresi kural olarak en çok 2 ay, taraflar toplu iş sözleşmesiyle bunu 4 aya kadar uzatabilir. Sözleşme belirli süreli de olsa bu tavan aynen geçerlidir, sözleşme süresiyle orantılı bir hesap yapılmaz. Sözleşmede tavanı aşan bir süre yazılsa bile geçerli olan kısım kanuni tavan kadardır, fazlası hükümsüzdür.",
-      "kaynak": "4857 sayılı İş Kanunu m.15/1"
+      "kaynak": "4857 sayılı İş Kanunu m.15/1",
+      "tablo": null,
+      "yevmiye": null,
+      "yanlis_kayitlar": null
     }
   ]
 }
