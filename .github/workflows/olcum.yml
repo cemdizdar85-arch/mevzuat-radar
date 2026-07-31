@@ -1,0 +1,17 @@
+# .github/workflows/olcum.yml — TEK SEFERLIK/ELLE olcum kosulari.
+# Yalniz elle tetiklenir; sayi doker, veri yazmaz, commit yapmaz.
+name: Olcum
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sinav dagilimini olc
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/olc-sinav-dagilim.ps1
