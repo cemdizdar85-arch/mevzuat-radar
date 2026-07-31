@@ -721,7 +721,7 @@ function etkiHesapla(kod, sid){
   else dene(25);
 })();
 
-function sorgula(){
+function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip')) return;
   const s = document.getElementById('sonuc');
   const q = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();
   if(!q){ s.innerHTML='<div class="kart yok"><div class="et">■ BİLGİ</div><h3>Bir GTİP kodu gir.</h3></div>'; return; }

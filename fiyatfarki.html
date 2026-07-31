@@ -96,7 +96,7 @@ function ilerle(n){ let h=''; for(let i=0;i<3;i++) h+=`<div class="nokta ${i<n?'
 function ekran(html){ document.getElementById('ekran').innerHTML = '<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
 function sec(list, back){ return '<div class="secgrid">'+list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+'</div>' + (back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
 
-function baslat(){ C.sen=null;C.iliskili=null; ilerle(0);
+function baslat(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('fiyatfarki')) return; C.sen=null;C.iliskili=null; ilerle(0);
   ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Elindeki belge/işlem hangisi?</div><div class="sac">Yurt dışıyla ilgili sonradan gelen fiyat değişikliğini seç.</div>`+
     sec(Object.keys(SEN).map(k=>({t:SEN[k].em+' '+SEN[k].ad, s:SEN[k].ac, on:`senSec('${k}')`}))) );
 }

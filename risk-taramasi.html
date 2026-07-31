@@ -298,7 +298,7 @@ function kart(seviye, etiket, baslik, govde, yap, dayanak){
     ${dayanak ? `<div class="dayanak">Dayanak: ${dayanak}</div>` : ''}</div>`;
 }
 
-function tara(){
+function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk')) return;
   const s = document.getElementById('sonuc');
   const kod = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();
   if(!kod || kod.replace(/\./g,'').length < 4){ s.innerHTML = kart('gri','■ BİLGİ','En az 4 haneli bir GTİP kodu gir.','<p>Tam kod (11 hane) en isabetli sonucu verir.</p>','',''); return; }

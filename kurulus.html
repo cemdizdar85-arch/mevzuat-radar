@@ -344,7 +344,7 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
   CEVAP[grup.dataset.k] = b.dataset.v;
 });
 
-function oner(){
+function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus')) return;
   const out = document.getElementById('oneri');
   const gerekli = ['ortak','satis','sermaye','risk','genc','cek','ciro'];
   const eksik = gerekli.filter(k=>!CEVAP[k]);

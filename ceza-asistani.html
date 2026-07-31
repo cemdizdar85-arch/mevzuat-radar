@@ -117,7 +117,7 @@ function kapi(ad,sure,acil,ac,oner){ return `<div class="kapi ${oner?'oner':''}"
 function btnGeri(){ return `<button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`; }
 
 // ===== ADIM 1 — NE OLDU? =====
-function baslat(){ C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
+function baslat(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('ceza')) return; C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
   ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Durumunu seç.</div><div class="sac">En yakın olanı işaretle; sonraki adımda detaylandırırız.</div>`+
     sec([
       {t:"📄 Beyannameyi hiç vermedim / geç kaldım",s:"KDV, muhtasar, geçici vergi, yıllık beyanname… süresinde verilmedi",on:"C.senaryo='vermedim';asamaSor()"},

@@ -106,7 +106,7 @@ function benz(a,b){ if(!a||!b)return 0; return Math.round((1-lev(a,b)/Math.max(a
 function sinifSet(s){ return new Set((s||'').split(/[^0-9]+/).filter(Boolean)); }
 function kesisim(a,b){ for(const x of a) if(b.has(x)) return true; return false; }
 
-function degerlendir(){
+function degerlendir(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('markaitiraz')) return;
   const h=document.getElementById('hata'); h.textContent='';
   const sad=document.getElementById('sad').value.trim(), yad=document.getElementById('yad').value.trim();
   if(!sad||!yad){ h.textContent='Her iki marka adını da gir.'; return; }

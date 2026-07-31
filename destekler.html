@@ -277,7 +277,7 @@ document.getElementById('dsihirbaz').addEventListener('click',e=>{
   grup.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
   b.classList.add('on'); DC[grup.dataset.k] = b.dataset.v;
 });
-function dOner(){
+function dOner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('destekler')) return;
   const s = document.getElementById('dsonuc');
   const eksik = ['durum','faaliyet','ihracat','ihtiyac'].filter(k=>!DC[k]);
   if(eksik.length){ s.style.display='block'; s.style.color='var(--red)'; s.textContent = eksik.length + ' soru cevapsız kaldı — hepsini işaretle.'; return; }

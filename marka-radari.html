@@ -157,7 +157,7 @@ function yil(d,n){const x=new Date(d);x.setFullYear(x.getFullYear()+n);return x;
 function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}
 function gun(a,b){return Math.round((a-b)/86400000);}
 let SON={};
-function hesapla(){
+function hesapla(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('marka')) return;
   const h=document.getElementById('hata'); h.textContent='';
   const ad=document.getElementById('ad').value.trim();
   const t=document.getElementById('tarih').value;

@@ -255,7 +255,7 @@ function turAd(t,d){
   if(t==='tasfiye') return 'Tasfiye';
   return t;
 }
-async function kontrol(){
+async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('alacak')) return;
   const veri = await veriYukle();
   const satirlar = document.getElementById('giris').value.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
   const box = document.getElementById('sonuc');

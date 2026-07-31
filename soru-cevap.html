@@ -153,7 +153,7 @@ function durustKutu(){
     +`<p>Sorunu kaydettim; kaynağını (madde/tebliğ/özelge) yükleyip ekleyeceğiz. Bu arada resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
     +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor — talebin ona ekleniyor.</div></div>`;
 }
-async function sor(){
+async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('sorucevap')) return;
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }
   if(kullanilan()>=LIMIT){
     $('#cevapAlan').innerHTML=`<div class="paywall"><h3>Ücretsiz ${LIMIT} soru hakkın doldu</h3><p>Sınırsız net cevap + firmana özel radar uyarıları için üye ol. Erken erişim ücretsiz.</p><a class="btn" href="radar-app.html" style="text-decoration:none">Üye ol, devam et →</a></div>`;

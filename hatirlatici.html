@@ -143,7 +143,7 @@ function kayitlar(){ try{ return JSON.parse(localStorage.getItem(LSK)||'[]'); }c
 function kaydet(a){ localStorage.setItem(LSK, JSON.stringify(a)); }
 function ayEkle(iso, ay){ const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return null; d.setMonth(d.getMonth()+ay); return d; }
 function trT(d){ return d? d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}) : '—'; }
-function ekle(){
+function ekle(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('hatirlatici')) return;
   const id=document.getElementById('sablon').value;
   const t=document.getElementById('tarih').value;
   const e=document.getElementById('etiket').value.trim();
