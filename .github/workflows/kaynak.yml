@@ -32,6 +32,10 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-yurtici-hasat.ps1 -Adet 100
 
+      - name: Yurt disi ihale listesi (AB TED acik API — sektor sektor aktif ihaleler)
+        shell: pwsh
+        run: ./motor/ihale-ted-hasat.ps1
+
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1

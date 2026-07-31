@@ -205,7 +205,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   <div id="paneDis" class="pane">
     <h2>Sana uygun AB ihaleleri</h2>
     <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Bana uygun ihaleleri getir →</button>
-      <div class="belg">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu).</div>
+      <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu) — robot her gün yeniler.</div>
     </div>
     <div id="sonuc"></div>
     <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
@@ -224,8 +224,8 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 <script>
 let TED=null,CPV=null,K=null,YD=null,EK=null,YI=null;
 // Windows bayrak emojisi gostermez -> gercek bayrak gorseli (flagcdn) kullaniyoruz
-const ULKE={SVN:'Slovenya',FRA:'Fransa',IRL:'İrlanda',DNK:'Danimarka',DEU:'Almanya',ITA:'İtalya',ESP:'İspanya',NLD:'Hollanda',POL:'Polonya',ROU:'Romanya',GRC:'Yunanistan',BGR:'Bulgaristan',SWE:'İsveç',BEL:'Belçika',AUT:'Avusturya',PRT:'Portekiz',CZE:'Çekya',HUN:'Macaristan',FIN:'Finlandiya'};
-const ULKE2={SVN:'si',FRA:'fr',IRL:'ie',DNK:'dk',DEU:'de',ITA:'it',ESP:'es',NLD:'nl',POL:'pl',ROU:'ro',GRC:'gr',BGR:'bg',SWE:'se',BEL:'be',AUT:'at',PRT:'pt',CZE:'cz',HUN:'hu',FIN:'fi'};
+const ULKE={SVN:'Slovenya',FRA:'Fransa',IRL:'İrlanda',DNK:'Danimarka',DEU:'Almanya',ITA:'İtalya',ESP:'İspanya',NLD:'Hollanda',POL:'Polonya',ROU:'Romanya',GRC:'Yunanistan',BGR:'Bulgaristan',SWE:'İsveç',BEL:'Belçika',AUT:'Avusturya',PRT:'Portekiz',CZE:'Çekya',HUN:'Macaristan',FIN:'Finlandiya',LTU:'Litvanya',LVA:'Letonya',EST:'Estonya',HRV:'Hırvatistan',SVK:'Slovakya',LUX:'Lüksemburg',MLT:'Malta',CYP:'Güney Kıbrıs',NOR:'Norveç',ISL:'İzlanda',LIE:'Lihtenştayn',CHE:'İsviçre'};
+const ULKE2={SVN:'si',FRA:'fr',IRL:'ie',DNK:'dk',DEU:'de',ITA:'it',ESP:'es',NLD:'nl',POL:'pl',ROU:'ro',GRC:'gr',BGR:'bg',SWE:'se',BEL:'be',AUT:'at',PRT:'pt',CZE:'cz',HUN:'hu',FIN:'fi',LTU:'lt',LVA:'lv',EST:'ee',HRV:'hr',SVK:'sk',LUX:'lu',MLT:'mt',CYP:'cy',NOR:'no',ISL:'is',LIE:'li',CHE:'ch'};
 function ulkeAd(k){ return ULKE[k]||k; }
 function bayrak(k){ const c=ULKE2[k]; return c?`<img class="bayrak" src="https://flagcdn.com/w20/${c}.png" srcset="https://flagcdn.com/w40/${c}.png 2x" alt="" loading="lazy">`:''; }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -261,6 +261,8 @@ async function veriYukle(){
   const yiSel=document.getElementById('yiIl');
   if(yiSel){ yiSel.innerHTML='<option value="hepsi">Hepsi</option>'+yiIller.map(x=>`<option>${esc(x)}</option>`).join(''); yiSel.addEventListener('change',yurtIciCiz); }
   if(YI.guncelleme){ const yk=document.getElementById('yiKaynak'); if(yk) yk.textContent=YI.guncelleme; }
+  // TED tarafina da tarih damgasi (soze degil tarihe bak kurali)
+  if(TED.guncelleme){ const tk=document.getElementById('tedKaynak'); const tm=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(TED.guncelleme); if(tk&&tm) tk.innerHTML='Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB\'nin resmî ihale bülteni TED (ted.europa.eu) · son çekim: <b style="color:var(--ink)">'+tm[1]+'</b>.'; }
   yurtIciCiz();
   // 31.07 Cem: sektor de yurt ici listeyi suzsun - varsayilan 'Hepsi', secilince anahtar kelimeyle eslesir
   document.getElementById('sektor').innerHTML='<option value="-1">Hepsi (tüm sektörler)</option>'+CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
@@ -299,7 +301,7 @@ async function kontrol(){
   if(!sek){ box.innerHTML='<div class="uyari">Sektör seç ya da GTİP gir.</div>'; return; }
   const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
   let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)}</h3>`;
-  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Abonelikte robot AB resmî ihale bültenini (TED) günde iki kez (sabah-akşam) tarar; CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
+  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu çekimde eşleşen aktif ihale yok</h3><div class="belg">Robot AB resmî ihale bültenini (TED) her gün tarar; abonelikte CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
   else { for(const i of bulunan){ const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
     html+=`<div class="kart"><span class="rozet">${bayrak(i.ulke)}${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
       <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
