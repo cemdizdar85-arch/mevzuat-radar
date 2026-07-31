@@ -211,14 +211,14 @@
                         "no":  16,
                         "tarih":  "30.07.2026",
                         "veren":  "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
-                        "emir":  "SGS GECE PARTISI A - Finansal Muhasebe 500 soru (bir derste 1.000+ hedefi)",
+                        "emir":  "SGS BUYUK PARTI - Cem\u0027in ders-ders tablosu (+7.484)",
                         "onay":  false,
-                        "sinir":  500,
-                        "ders":  "Finansal Muhasebe",
+                        "sinir":  7484,
+                        "ders":  "",
                         "sinav":  "SGS",
                         "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "GECE PLANI (Cem 31.07 netlestirme): \u0027en az bir derse 1.000 soru diyecegiz\u0027. O ders sinavin kalbi Finansal Muhasebe (26/130 soru; su an toplam 1.008, yayinda 653). 500 FM sorusuyla banka ~1.500\u0027e cikar; hakem suzgeci sonrasi yayinda 1.000+ saglanir. Recete #14 ile ayni. 500 x 0,0194 = ~9,7 USD. yayin=false -\u003e hakem -\u003e GM.",
-                        "tahmini_usd":  9.7,
+                        "gerekce":  "CEM ONAYI 31.07 (ders ders tablo): FM 1.500; Denetim/Tablolar 1.050; Maliyet 1.040; Ekonomi 1.030; Maliye/Vergi/Meslek/Ticaret/Borclar/Is-SG 1.020. Kota dosyasi (sgs-uretim-kotasi.json) bu hedeflerle guncellendi; betik ders basina acigi (hedef-mevcut) kosu aninda hesaplar. Kismi kalirsa sonraki gece-paket kosusu kaldigi aciktan devam eder - cift uretim yok. 7.484 x 0,0194 = ~145,2 USD; gercek fatura rapora. yayin=false -\u003e hakem -\u003e GM.",
+                        "tahmini_usd":  145.2,
                         "uygulandi":  ""
                     },
                     {
@@ -260,7 +260,7 @@
                         "model":  "claude-sonnet-4-5-20250929",
                         "gerekce":  "GECE PLANI. Parti A Finansal Muhasebe\u0027ye odakli; bu parti kalan 500\u0027u kota ACIGI oranlariyla dagitir (Denetim/Tablolar/Maliyet/Ekonomi oncelikli - en cok cikan derslerin acigi). Recete ayni: yedi kapi, benzerlik elegi, her sikka ayri ders, secilen sikka gore ogretim. 500 x 0,0194 = ~9,7 USD. yayin=false -\u003e hakem -\u003e GM.",
                         "tahmini_usd":  9.7,
-                        "uygulandi":  ""
+                        "uygulandi":  "IPTAL 31.07 10:4x GM - Cem\u0027in ders-ders tablosuyla #16 tek emirde birlesti; cift uretim olmasin diye kapatildi."
                     }
                 ]
 }
