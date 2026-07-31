@@ -29,12 +29,12 @@ foreach($h in $htmller){
   $refler = @([regex]::Matches($icerik, $desen) | ForEach-Object { $_.Value })
   foreach($m in [regex]::Matches($icerik, $desenSerbest)){
     $aday = "veri/$($m.Groups[1].Value)"
-    if(Test-Path (Join-Path $kok ($aday -replace '/','\'))){ $refler += $aday }
+    if(Test-Path (Join-Path $kok $aday)){ $refler += $aday }   # Join-Path / ayracini isletim sistemine gore cozer (CI=Linux!)
   }
   $refler = $refler | Sort-Object -Unique
   foreach($ref in $refler){
     $kullanilan[$ref] = $true
-    $yol = Join-Path $kok ($ref -replace '/', '\')
+    $yol = Join-Path $kok $ref
     if(-not (Test-Path $yol)){
       $kirmizi += "$($h.Name) -> $ref : DOSYA YOK"
       continue
