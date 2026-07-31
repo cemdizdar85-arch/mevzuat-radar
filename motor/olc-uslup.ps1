@@ -37,3 +37,10 @@ function Olc([string]$filtre, [string]$etiket){
 
 Olc "yayin=eq.true" "YAYINDA"
 Olc "yayin=eq.false" "BEKLEYEN"
+
+# cevap logu nabzi (31.07 kuruldu): kac kayit dustu? (yalniz sayi)
+try {
+  $wc = Invoke-WebRequest -Uri "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/cevap_kaydi?select=id&limit=1" `
+    -Headers ($SB + @{ Prefer = "count=exact" }) -Method Head -UseBasicParsing -TimeoutSec 60
+  Write-Host ("CEVAP LOGU: {0} kayit" -f (($wc.Headers['Content-Range'] -split '/')[-1]))
+} catch { Write-Host "CEVAP LOGU: okunamadi ($($_.Exception.Message))" }
