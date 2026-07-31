@@ -695,7 +695,7 @@ function cevabiGor(tekrarMi){
     CEVAPLAR[s.id]=SECILI;
     sicilKaydet(s.id, SECILI===s.dogru);
     SURELER[s.id]=Date.now()-SORU_T0;
-    konuSicilKaydet(s.ders, s.konu, SECILI===s.dogru);
+    konuSicilKaydet(s.sinav, s.ders, s.konu, SECILI===s.dogru);
     cevapGonder(s, SECILI===s.dogru, SURELER[s.id]);
   }
   RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
@@ -914,10 +914,12 @@ function oturumKodu(){
   }catch(e){ return 'o-yok'; }
 }
 function konuSicilOku(){ try{ return JSON.parse(localStorage.getItem('tetikteKonuSicil')||'{}'); }catch(e){ return {}; } }
-function konuSicilKaydet(ders, konu, dogruMu){
+function konuSicilKaydet(sinav, ders, konu, dogruMu){
   if(!konu) return;
   try{
-    var x=konuSicilOku(), a=(ders||'')+'|'+konu, k=x[a]||{d:0,y:0};
+    // 31.07 Cem: SGS ile Yeterlilik ayri calismali - anahtar artik sinavli
+    // (SGS|Finansal Muhasebe|konu). Eski 2-parca kayitlar yalniz 'Hepsi'de.
+    var x=konuSicilOku(), a=(sinav||'')+'|'+(ders||'')+'|'+konu, k=x[a]||{d:0,y:0};
     if(dogruMu){k.d++;}else{k.y++;}
     x[a]=k; localStorage.setItem('tetikteKonuSicil', JSON.stringify(x));
   }catch(e){}
@@ -942,7 +944,14 @@ async function zayifKonuCiz(){
   for(var a in x){
     var k=x[a], t=k.d+k.y; if(t<3) continue;
     var p=a.split('|');
-    satir.push({ ders:p[0], konu:p[1], toplam:t, benim: Math.round(100*k.d/t) });
+    // 3 parca = sinavli yeni anahtar (sinav|ders|konu); 2 parca = eski kayit.
+    // Secili sinav varken yalniz o sinavin sicili; eskiler yalniz 'Hepsi'de.
+    if(SINAV!=='hepsi'){
+      if(p.length<3 || p[0]!==SINAV) continue;
+    }
+    var dersAd = (p.length>=3) ? p[1] : p[0];
+    var konuAd = (p.length>=3) ? p[2] : p[1];
+    satir.push({ ders:dersAd, konu:konuAd, toplam:t, benim: Math.round(100*k.d/t) });
   }
   if(!satir.length){ kutu.classList.add('gizli'); return; }
   var ort = {};
@@ -1017,7 +1026,7 @@ function karneCiz(){
     var c=CEVAPLAR[s.id];
     if(MOD==='deneme' && c){
       sicilKaydet(s.id, c===s.dogru);
-      konuSicilKaydet(s.ders, s.konu, c===s.dogru);
+      konuSicilKaydet(s.sinav, s.ders, s.konu, c===s.dogru);
       cevapGonder(s, c===s.dogru, SURELER[s.id]);
     }
     ders[s.ders]=ders[s.ders]||{d:0,y:0,b:0};
@@ -1061,8 +1070,13 @@ function karneCiz(){
 function gecmisCiz(){
   try{
     var g=JSON.parse(localStorage.getItem('mrDenemeGecmis')||'[]');
-    if(!g.length) return;
-    document.getElementById('gecmisKutu').classList.remove('gizli');
+    // 31.07 Cem: "staja giris ile yeterlilik ayri calismali - ikisi farkli
+    // ders". Gecmis artik SECILI SINAVA gore suzulur; sinav etiketi olmayan
+    // eski kayitlar yalniz 'Hepsi'de gorunur.
+    if(SINAV!=='hepsi'){ g=g.filter(function(o){ return o.s===SINAV; }); }
+    var kutu=document.getElementById('gecmisKutu');
+    if(!g.length){ kutu.classList.add('gizli'); return; }
+    kutu.classList.remove('gizli');
     var t=document.getElementById('gecmisTablo');
     while(t.rows.length>1){ t.deleteRow(1); }   // yeniden çizimde satırlar çiftlenmesin
     g.slice(-8).reverse().forEach(function(o){
