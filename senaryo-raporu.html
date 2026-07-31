@@ -207,6 +207,15 @@ function olustur(){
   const h=document.getElementById('hata'); h.textContent='';
   const kodIn=document.getElementById('kod').value.trim();
   if(!kodIn){ h.textContent='GTİP kodunu gir.'; return; }
+  // 31.07 Cem: site geneli kural - 5 sorgu bedava, sonrasi ucretsiz uyelik (ortak sayac menu.js'te)
+  if(typeof ttSorguHakki==='function' && !ttSorguHakki('senaryo')){
+    document.getElementById('rapor').innerHTML=`<div class="rk" style="border-color:rgba(255,194,75,.4)">
+      <h2 style="margin:0 0 8px">5 bedava sorgunu kullandın</h2>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 14px">Hesap motoru ücretsiz üyelikte sınırsız — üstelik panelde GTİP'lerini kaydet, oran değişince robot sana haber versin.</p>
+      <a class="btn" href="radar-app.html?niyet=gtip" style="text-decoration:none">Ücretsiz üye ol, devam et →</a></div>`;
+    document.getElementById('rapor').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
   const dkod=kodCoz(kodIn);
   if(!dkod){ h.textContent='Bu kod için vergi verisi bulunamadı — 12 haneli tam kodu dene veya GTİP Kontrolü\'nden doğrula.'; return; }
   const nkod=nrm(dkod);

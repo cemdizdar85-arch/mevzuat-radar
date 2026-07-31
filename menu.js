@@ -216,3 +216,19 @@ function kur(){
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',kur); else kur();
 })();
+
+/* 31.07 Cem: "5 sorgu sonrasi uyelik - her yerde AYNI mantik" (deneme'deki
+   5-soru duvarinin arac karsiligi). Ortak sayac: her arac kendi anahtariyla
+   cagirir; uye (ayni alan adinda Supabase oturumu) sinirsiz. Donus: true =
+   devam, false = duvar (cagiran sayfa uyelik kapisini gosterir). */
+function ttSorguHakki(anahtar){
+  try {
+    var uye = Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token') > -1; });
+    if (uye) return true;
+    var ad = 'ttSayac_' + anahtar;
+    var n = parseInt(localStorage.getItem(ad) || '0', 10) || 0;
+    if (n >= 5) return false;
+    localStorage.setItem(ad, String(n + 1));
+    return true;
+  } catch (e) { return true; }
+}
