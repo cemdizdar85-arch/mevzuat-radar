@@ -1,16 +1,184 @@
-{
-  "guncelleme": "CPV (Common Procurement Vocabulary, AB kamu ihale sınıflandırması, 8 hane) ↔ Türk ihracat sektörü köprüsü. Kaynak: EU CPV standardı (Regulation 2195/2002). Eşleştirme CPV ÖN EKİ (division/group) ile yapılır; GTİP fasılları yalnız YAKLAŞIK yönlendirmedir (birebir HS→CPV tablosu değil).",
-  "kaynak": "EU CPV (ted.europa.eu) + Türk ihracat sektörleri",
-  "sektorler": [
-    { "ad": "Tekstil · kumaş · hazır giyim", "cpv": ["18", "19"], "gtipYaklasik": "50-63" },
-    { "ad": "Doğal taş · mermer · agrega", "cpv": ["1421", "1422", "4411", "4491"], "gtipYaklasik": "25, 68" },
-    { "ad": "Gıda · içecek · tarım ürünü", "cpv": ["15", "03"], "gtipYaklasik": "01-24" },
-    { "ad": "Mobilya · ev tekstili · döşeme", "cpv": ["39"], "gtipYaklasik": "94" },
-    { "ad": "Makine · sanayi ekipmanı", "cpv": ["42", "43"], "gtipYaklasik": "84" },
-    { "ad": "İnşaat malzemesi", "cpv": ["44"], "gtipYaklasik": "68-73" },
-    { "ad": "Kimya · plastik · kauçuk", "cpv": ["24"], "gtipYaklasik": "28-40" },
-    { "ad": "Otomotiv · ulaşım araçları · yedek parça", "cpv": ["34"], "gtipYaklasik": "87" },
-    { "ad": "Tıbbi cihaz · sağlık ürünü", "cpv": ["33"], "gtipYaklasik": "30, 90" },
-    { "ad": "Elektrik · elektronik · aydınlatma", "cpv": ["31", "32"], "gtipYaklasik": "85" }
-  ]
+﻿{
+    "guncelleme":  "31.07.2026 - hizmet+yapim sektorleri eklendi (CPV 2008 ana bolumleri); 10 -\u003e 23 sektor",
+    "kaynak":  "EU CPV (ted.europa.eu) + Türk ihracat sektörleri",
+    "sektorler":  [
+                      {
+                          "ad":  "Tekstil · kumaş · hazır giyim",
+                          "cpv":  [
+                                      "18",
+                                      "19"
+                                  ],
+                          "gtipYaklasik":  "50-63"
+                      },
+                      {
+                          "ad":  "Doğal taş · mermer · agrega",
+                          "cpv":  [
+                                      "1421",
+                                      "1422",
+                                      "4411",
+                                      "4491"
+                                  ],
+                          "gtipYaklasik":  "25, 68"
+                      },
+                      {
+                          "ad":  "Gıda · içecek · tarım ürünü",
+                          "cpv":  [
+                                      "15",
+                                      "03"
+                                  ],
+                          "gtipYaklasik":  "01-24"
+                      },
+                      {
+                          "ad":  "Mobilya · ev tekstili · döşeme",
+                          "cpv":  [
+                                      "39"
+                                  ],
+                          "gtipYaklasik":  "94"
+                      },
+                      {
+                          "ad":  "Makine · sanayi ekipmanı",
+                          "cpv":  [
+                                      "42",
+                                      "43"
+                                  ],
+                          "gtipYaklasik":  "84"
+                      },
+                      {
+                          "ad":  "İnşaat malzemesi",
+                          "cpv":  [
+                                      "44"
+                                  ],
+                          "gtipYaklasik":  "68-73"
+                      },
+                      {
+                          "ad":  "Kimya · plastik · kauçuk",
+                          "cpv":  [
+                                      "24"
+                                  ],
+                          "gtipYaklasik":  "28-40"
+                      },
+                      {
+                          "ad":  "Otomotiv · ulaşım araçları · yedek parça",
+                          "cpv":  [
+                                      "34"
+                                  ],
+                          "gtipYaklasik":  "87"
+                      },
+                      {
+                          "ad":  "Tıbbi cihaz · sağlık ürünü",
+                          "cpv":  [
+                                      "33"
+                                  ],
+                          "gtipYaklasik":  "30, 90"
+                      },
+                      {
+                          "ad":  "Elektrik · elektronik · aydınlatma",
+                          "cpv":  [
+                                      "31",
+                                      "32"
+                                  ],
+                          "gtipYaklasik":  "85"
+                      },
+                      {
+                          "ad":  "Yapım · inşaat işleri",
+                          "cpv":  [
+                                      "45"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Bilişim · yazılım · BT hizmetleri",
+                          "cpv":  [
+                                      "48",
+                                      "72"
+                                  ],
+                          "gtipYaklasik":  "84.71,85.23"
+                      },
+                      {
+                          "ad":  "Temizlik · atık · çevre hizmetleri",
+                          "cpv":  [
+                                      "90"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Yemek · hazır yemek · konaklama hizmeti",
+                          "cpv":  [
+                                      "55"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Taşımacılık · lojistik hizmetleri",
+                          "cpv":  [
+                                      "60",
+                                      "63"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Güvenlik · danışmanlık · destek hizmetleri",
+                          "cpv":  [
+                                      "79"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Mühendislik · mimarlık · proje hizmetleri",
+                          "cpv":  [
+                                      "71",
+                                      "73"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Eğitim hizmetleri",
+                          "cpv":  [
+                                      "80"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Sağlık hizmeti alımları",
+                          "cpv":  [
+                                      "85"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Bakım · onarım hizmetleri",
+                          "cpv":  [
+                                      "50"
+                                  ],
+                          "gtipYaklasik":  ""
+                      },
+                      {
+                          "ad":  "Akaryakıt · enerji · yakıt",
+                          "cpv":  [
+                                      "09",
+                                      "65"
+                                  ],
+                          "gtipYaklasik":  "27"
+                      },
+                      {
+                          "ad":  "Kırtasiye · basılı malzeme · büro makineleri",
+                          "cpv":  [
+                                      "22",
+                                      "30"
+                                  ],
+                          "gtipYaklasik":  "48,49,84.43"
+                      },
+                      {
+                          "ad":  "Diğer · listede olmayan sektörler",
+                          "cpv":  [
+                                      "64",
+                                      "66",
+                                      "75",
+                                      "77",
+                                      "92",
+                                      "98"
+                                  ],
+                          "gtipYaklasik":  ""
+                      }
+                  ]
 }
