@@ -15,3 +15,8 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/olc-sinav-dagilim.ps1
+      - name: Uslup olc (baglayici senaryo mu kuru kalip mi - yalniz sayi)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/olc-uslup.ps1
