@@ -339,7 +339,7 @@ async function kontrol(){
     for(const i of bulunan){
       const kg=kalanGun(i.sonTeklif);
       let sinif='belirsiz', metin='tarih ilanda';
-      if(kg!=null){ if(kg<=0){ sinif='acil'; metin='süre geçmiş'; } else if(kg<=14){ sinif='acil'; metin=kg+' gün kaldı'; } else if(kg<=45){ sinif='orta'; metin=kg+' gün kaldı'; } else { sinif='iyi'; metin=kg+' gün kaldı'; } }
+      if(kg!=null){ if(kg<=0){ sinif='acil'; metin='süre geçmiş'; } else if(kg<=14){ sinif='acil'; metin=kg+' gün kaldı'; } else if(kg<=45){ sinif='orta'; metin=kg+' gün kaldı'; } else if(kg<=365){ sinif='iyi'; metin=kg+' gün kaldı'; } else { sinif='iyi'; metin='uzun vadeli sistem (DPS)'; } }
       html+=`<div class="ikart">
         <div class="ust"><span class="sikon">${sek.ikon||'📦'}</span>${bayrak(i.ulke)}<b>${ulkeAd(i.ulke)}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">CPV ${esc(i.cpv)}</span></div>
         <div class="gov"><h3>${esc(i.baslik)}</h3>
