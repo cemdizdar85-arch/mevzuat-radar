@@ -8,8 +8,12 @@ name: Nabiz Nobetcisi
 
 on:
   schedule:
-    - cron: "52 6 * * *"     # HER GUN 09:00 TR — sabah robotlari bittikten sonra yoklama
-    - cron: "52 15 * * *"   # 18:30 TR — aksam cekimlerinden (14:00 UTC dalgasi) sonra ikinci yoklama
+    # 31.07 Cem: "sabah 10 cok gec; sabah 5'te her sey kontrol edilmis ve
+    # duzeltilmis olmali." Dortlu vardiya (TR saati):
+    - cron: "7 1 * * *"     # 04:07 TR — gece kosulari kontrol + KURTARMA
+    - cron: "37 2 * * *"    # 05:37 TR — dogrulama; kurtarma tutmadiysa ESKALASYON maili
+    - cron: "7 9 * * *"     # 12:07 TR — sabah robotlari (06-10 TR) bittikten sonra yoklama
+    - cron: "52 15 * * *"   # 18:52 TR — aksam cekimlerinden sonra yoklama
   workflow_dispatch:
 
 permissions:
