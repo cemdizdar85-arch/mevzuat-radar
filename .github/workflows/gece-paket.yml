@@ -1,0 +1,28 @@
+# .github/workflows/gece-paket.yml — GECE PAKET ACILISI (tek gorevlik kapi)
+# 31.07 Cem: "API bu gece 00'dan sonra acilacak - planlarin icine alalim;
+# Yeterlilik VE Staja Giris planlandigi kadar kossun."
+# 00:35 TR emirleri acar + hatlari tetikler; 02:05 TR yedek (ilk kosu
+# API-kapali dustuyse hatlari yeniden tetikler). IDEMPOTENT: emirler
+# uygulaninca her kosu "0 is" der. Paket bitince bu dosya kaldirilabilir.
+name: Gece Paket Acilisi
+
+on:
+  schedule:
+    - cron: "35 21 * * *"   # 00:35 TR
+    - cron: "5 23 * * *"    # 02:05 TR — yedek
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  ac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Emirleri ac ve hatlari tetikle
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./motor/gece-paket.ps1

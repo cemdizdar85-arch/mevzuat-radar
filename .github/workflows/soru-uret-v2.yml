@@ -32,7 +32,9 @@ jobs:
         run: |
           $yol = 'veri/uretim-emir.json'
           $e = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
-          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          # 31.07: HAP ZENGINLESTIRME emri (#17) AYRI hattin isidir (hap-zengin.ps1,
+          # Haiku); bu dongu onu alirsa yanlis hatta para harcar - haric tutulur.
+          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi -and "$($_.emir)" -notmatch 'HAP ZENGINLESTIRME' })
           if($acik.Count -eq 0){ Write-Host "Bekleyen onayli emir yok - 0 USD."; exit 0 }
           foreach($x in $acik){
             Write-Host ("===== EMIR #{0} ({1}) - tahmini {2} USD" -f $x.no, $x.emir, $x.tahmini_usd)
