@@ -13,6 +13,18 @@
       "gerekce": "CEM SARTI: \"ogrenci bunlari yapay zeka yazmis demesin.\" Kasa tarandi (7.519 soru): 331 soruda makine izi var, oran %4,4 - yani %95,6si zaten temiz. Izlerin dagilimi: butun tutarlar yuvarlak 251, placeholder unvan (ABC Ticaret A.S. gibi) 79, sisirme klise 13, tekduze tuzak kalibi 0. EN ONEMLI KISIT VE NIYE YAYIN=FALSE: 251 sorudaki kusur tutarlarin yuvarlakligi ve tutari degistirmek butun siklari ve hesabi bozar - \"sadece uslup duzeltmesi\" diye bir sey yok, soru yeniden yazilir. Bu yuzden degistirilen her soru yayin=false duser ve hakem YENIDEN yargilar; uslup ugruna dogruluk feda edilmez. Kilitli kuralimiz \"soru/siklar/dogru/kaynak asla degismez\" der; burada bilerek ve GMnin acikca uyardigi bir istisna yapiliyor, karsiliginda soru denetimsiz sayilip bastan yargilaniyor. Istemde dogru cevabin HARFI sabit tutuluyor ve model hesabi once kendisi yapip sonucu o harfe yaziyor; hesap tutmuyorsa tutarlari hic degistirmemesi soyleniyor. Cikista ayni koku kapisi tekrar calisiyor: model izi temizlemediyse yazilmiyor, parayi bosa vermis olmuyoruz. ~4 USD.",
       "tahmini_usd": 4,
       "uygulandi": "29.07.2026 08:17"
+    },
+    {
+      "no": 2,
+      "tarih": "31.07.2026",
+      "veren": "Cem Dizdar (\"listem... izli + kuru-vaka eskiler uslup hattindan gecsin, 3-4 Agustos - onerin bu senin, bunu yapabiliriz\")",
+      "emir": "USLUP TURU 2 - taze tarama (1-4 Agustos yeni uretim DAHIL) + kuru-vaka kapsami",
+      "onay": false,
+      "sinir": 0,
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "3-4 AGUSTOS EDITOR TURU (gorev #67) parcasi. Kapsam: (a) kasa-sayim taze koku taramasi - gecelerde uretilen ~15 bin yeni soru dahil (uretim kapilari zaten uretim aninda suzuyor, bu ikinci emniyet); (b) YENI OLCUT kuru-vaka: rakamli ama unvansiz/isimsiz vaka sorulari (31.07 olcumu: eski yayinda %4, bekleyende %2 - olc-uslup.ps1 vekil gostergeleri) - bunlara gercek unvan/isim dokusu eklenir. Kurallar emir #1 ile ayni: degisen soru yayin=false + hakem yeniden yargilar, dogru cevap harfi sabit, cikis koku kapisi. ACMADAN ONCE taze sayim yapilip gercek adet ve maliyet bu satira yazilacak; tahmin ~8-10 USD (adet buyurse Cem'e sorulur).",
+      "tahmini_usd": 10,
+      "uygulandi": ""
     }
   ]
 }
