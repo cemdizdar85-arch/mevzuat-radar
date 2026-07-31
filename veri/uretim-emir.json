@@ -211,14 +211,14 @@
                         "no":  16,
                         "tarih":  "30.07.2026",
                         "veren":  "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
-                        "emir":  "SGS TAM URETIM 2. YARI - kalan kota (~3.500 soru)",
+                        "emir":  "SGS URETIM GECE PARTISI - 1.000 soru (Cem 31.07: kucultuldu)",
                         "onay":  false,
-                        "sinir":  3500,
+                        "sinir":  1000,
                         "ders":  "",
                         "sinav":  "SGS",
                         "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "1 AGUSTOS PLANI. 1. yarinin 9 partisi kurtarma moduyla bedava hasat edildi (1.546 soru kasada, hiza sigortasi rakamRed %3,1 ile YESIL). Hakem hasadi 7.224 yargi verdi, 717 kirmizi yayindan cekildi. Recete #14 ile ayni (yedi kapi + on eleme + 24.000 kirpma + PGRST102 onarimi); ek olarak 30.07\u0027de kapatilan @(Invoke-RestMethod) tuzagi tekrar-onleme havuzunu da onardi - benzerlik elegi artik gercekten 10.000 soruya karsi bakiyor. SINIR kalan kotadan kosu aninda yeniden hesaplanir; 0,0194 USD/soru olcusuyle ~68 USD. URETILEN HICBIR SORU YAYINA GIRMEZ: yayin=false, hakem yargilar, GM okur.",
-                        "tahmini_usd":  68,
+                        "gerekce":  "GECE PLANI (Cem 31.07 kucultme): \u0027SGS 1.000 soru yapalim; sonra her gun 50-100 eklemeye devam\u0027. Recete #14 ile ayni (yedi kapi + on eleme + benzerlik elegi + kota agirligi: en cok cikan derslere en cok soru - FM/Denetim/Tablolar/Maliyet oncelikli, kota dosyasindaki acik oranlariyla). 1.000 x 0,0194 = ~19,4 USD. Kalite mottosu recetede: gecmis sinav sorusuna benzer ama OZGUN; her sikkin ayri dersi (yanilgi-odakli celdirici); cozenin sectigi sikka gore ogretim. URETILEN HICBIR SORU YAYINA GIRMEZ: yayin=false, hakem, GM.",
+                        "tahmini_usd":  19.4,
                         "uygulandi":  ""
                     },
                     {
@@ -238,14 +238,14 @@
                         "no":  19,
                         "tarih":  "31.07.2026",
                         "veren":  "GM (GECE PLANI - Cem sozlu onayi 31.07: \u0027yeterlilik ve staja giris, planladigimiz kadar\u0027; gece-paket robotu acacak)",
-                        "emir":  "YETERLILIK TAM URETIM - kalan kota (hedef 5.000, kasadaki dusulur)",
+                        "emir":  "YETERLILIK GECE PARTISI - bankayi ~1.010 soruya tamamla",
                         "onay":  false,
-                        "sinir":  5000,
+                        "sinir":  530,
                         "ders":  "",
                         "sinav":  "SMMM",
                         "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "GECE PLANI (00:35). Cem: \u0027sorularin cikarilmasi kossun - Yeterlilik VE Staja Giris, planladigimiz kadar\u0027. Yeterlilik kotasi veri/uretim-kotasi.json (12 donem TESMER kitapcigi, 883 konu, hedef 5.000); SINIR tavandir, kalan kota kosu aninda kasadaki mevcuttan yeniden hesaplanir. Recete #16 ile ayni (yedi kapi + on eleme + benzerlik elegi). 0,0194 USD/soru olcusuyle kalan ~4.500 ise ~87 USD - GERCEK fatura rapora yazilir. URETILEN HICBIR SORU YAYINA GIRMEZ: yayin=false, hakem yargilar, GM okur.",
-                        "tahmini_usd":  87,
+                        "gerekce":  "GECE PLANI (Cem 31.07): \u0027Yeterlilik toplami 1.010 civari olsun - reklamda BIN UZERI SORU deriz; ucrete raziyim. Sonra her gun 50-100 devam.\u0027 Yayinda 481 SMMM var; sinir 530 uretimle banka ~1.010\u0027a tamamlanir (bekleyenler dahil kesin sayi kosu raporunda). Ders dagilimi esit-kota (resmi yapi: her ders ayri oturum), konu secimi 12 donemlik cikmis-soru sikligiyla. 530 x 0,0194 = ~10,3 USD. Kalite mottosu ayni: benzer-ama-ozgun, her sikka ayri ders, secilen sikka gore ogretim. yayin=false -\u003e hakem -\u003e GM.",
+                        "tahmini_usd":  10.3,
                         "uygulandi":  ""
                     }
                 ]
