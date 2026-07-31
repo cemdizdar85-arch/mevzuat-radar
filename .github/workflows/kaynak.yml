@@ -5,10 +5,10 @@ name: Kaynak Nobetcisi
 
 on:
   schedule:
-    - cron: "0 6 * * *"     # HER GUN 06:00 UTC = 09:00 Turkiye (sabah cekimi)
+    - cron: "13 6 * * *"     # HER GUN 06:00 UTC = 09:00 Turkiye (sabah cekimi)
     # 30.07 Cem karari: ihalede gun ici ilan cok, tek sabah cekimi yetmez -
     # aksam cekimi eklendi. Sayfadaki soz de bu: "sabah-aksam otomatik".
-    - cron: "0 14 * * *"    # 14:00 UTC = 17:00 Turkiye (aksam cekimi)
+    - cron: "13 14 * * *"    # 14:00 UTC = 17:00 Turkiye (aksam cekimi)
   workflow_dispatch:        # elle de calistirilabilir
 
 permissions:

@@ -8,8 +8,8 @@ name: Nabiz Nobetcisi
 
 on:
   schedule:
-    - cron: "0 6 * * *"     # HER GUN 09:00 TR — sabah robotlari bittikten sonra yoklama
-    - cron: "30 15 * * *"   # 18:30 TR — aksam cekimlerinden (14:00 UTC dalgasi) sonra ikinci yoklama
+    - cron: "52 6 * * *"     # HER GUN 09:00 TR — sabah robotlari bittikten sonra yoklama
+    - cron: "52 15 * * *"   # 18:30 TR — aksam cekimlerinden (14:00 UTC dalgasi) sonra ikinci yoklama
   workflow_dispatch:
 
 permissions:

@@ -19,7 +19,7 @@ on:
   # PARA HARCAMAZ: tek bir GET. Sonuc cekmek de ucretsiz - ucret parti
   # islenirken alinir.
   schedule:
-    - cron: "30 4 * * *"    # 07:30 Türkiye — aynadan hemen sonra
+    - cron: "26 4 * * *"    # 07:30 Türkiye — aynadan hemen sonra
   workflow_dispatch:
   push:
     paths:

@@ -18,8 +18,8 @@ on:
     # 29.07 — Cem: "Resmî Gazete gece yayımlanıyor, bunu erkene alalım."
     # Kart robotu 06:00'da nöbete kalkıyor; ayna ondan SONRA koşmalı ki
     # o günün RG'sini gören kartlarla aynı günü görsün.
-    - cron: "0 4 * * *"     # 07:00 Türkiye — sabah nöbeti
-    - cron: "0 13 * * *"    # 16:00 Türkiye — ikinci tur (konsolide metin
+    - cron: "11 4 * * *"     # 07:00 Türkiye — sabah nöbeti
+    - cron: "11 13 * * *"    # 16:00 Türkiye — ikinci tur (konsolide metin
                             # mevzuat.gov.tr'ye gün içinde de düşebiliyor;
                             # tek tur kaçırırsa ikincisi telafi eder)
   # 28.07 (Cem: "kanun maddesi yutmam lazim"): manifest veya durum dosyasi degisince
