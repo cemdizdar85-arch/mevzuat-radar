@@ -1,4 +1,4 @@
-{
+﻿{
     "_aciklama":  "PROFESOR v2 KOSU EMRI. Bu dosya degismeden profesor KOSMAZ - para harcayan tek kapi burasi. Kasa duzeltme kanalindaki duzenin aynisi: emir yazili, onayli, damgali. BASARILI kosu \u0027uygulandi\u0027 damgasi alir ve bir daha kosmaz. BASARISIZ kosu yalnizca \u0027deneme\u0027 sayacini artirir; ucuncu basarisiz denemede emir kendini kapatir.",
     "_para":  "Her kosunun GERCEK faturasi (API\u0027nin dondurdugu token sayisi uzerinden) veri/profesor-v2-rapor.json icine yazilir. Tahmin degil, olculmus rakam.",
     "emirler":  [
@@ -275,8 +275,21 @@
                         "kaynak":  "karantina",
                         "sinir":  334,
                         "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "1 AGUSTOS PLANI. Karantina triyaji (30.07 oncesi): 435 bekleyenin 334'u Haiku cevap-ihtilafi (uretici A dedi, denetci B dedi - hangisi hakli bilinmiyor), ~20'si mekanik (bedava, ayri is), 78'i Genel Kultur (elle havuz). Bu emir 334 ihtilafa Sonnet'i UCUNCU OY olarak kosturur: soru + iki iddia + DAYANAK METNI verilir, madde metniyle yargilar (hakem deseni). 2/3 cogunluk kasaya doner (yayin=false), azinlikta kalan cope. ~1,5 USD. Parasi odenmis 1.078 sorunun en buyuk blogunu geri kazanma yolu budur.",
+                        "gerekce":  "1 AGUSTOS PLANI. Karantina triyaji (30.07 oncesi): 435 bekleyenin 334\u0027u Haiku cevap-ihtilafi (uretici A dedi, denetci B dedi - hangisi hakli bilinmiyor), ~20\u0027si mekanik (bedava, ayri is), 78\u0027i Genel Kultur (elle havuz). Bu emir 334 ihtilafa Sonnet\u0027i UCUNCU OY olarak kosturur: soru + iki iddia + DAYANAK METNI verilir, madde metniyle yargilar (hakem deseni). 2/3 cogunluk kasaya doner (yayin=false), azinlikta kalan cope. ~1,5 USD. Parasi odenmis 1.078 sorunun en buyuk blogunu geri kazanma yolu budur.",
                         "tahmini_usd":  1.5,
+                        "uygulandi":  ""
+                    },
+                    {
+                        "no":  19,
+                        "tarih":  "31.07.2026",
+                        "veren":  "GM (Cem ilkesi: \u0027yanlis cevap duymak istemiyorum\u0027 + \u0027bakiye yokken kosma\u0027)",
+                        "emir":  "ORNEKLEM DENETIMI - destek=evet bekleyen 2.682\u0027den ders basina 30 soru",
+                        "onay":  false,
+                        "kaynak":  "ornekleme",
+                        "sinir":  250,
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "GECE PLANI. Hakem destek=evet 2.682 bekleyenin yayina donusu oncesi UCUNCU goz: her dersten ~30 rastgele soru, \u0027bu cevabi curut\u0027 istemiyle bagimsiz okunur. Ders orneklemi temizse (\u003c%3 kusur) o dersin blogu yayina-donus robotuyla acilir; kusurlu ders BLOKLANIR ve GM\u0027e isim isim rapor. ~250 soru x hakem birim maliyeti = ~1,2 USD. NOT: calisan betik desteklemiyorsa acik hata verir, para harcamaz - kor emir kosmaz.",
+                        "tahmini_usd":  1.2,
                         "uygulandi":  ""
                     }
                 ]
