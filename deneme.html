@@ -823,12 +823,22 @@ function yevmiyeGorsel(s){
 //  kilit değil, kapıdır — amaç korsanı durdurmak değil, adayı kaydetmek.
 //  Ücretli içeriğin gerçek kilidi Supabase RLS'tedir.
 // ══════════════════════════════════════════════════════════════════════════
-var UCRETSIZ_HAK = 5;
+var UCRETSIZ_HAK = 5;    // kayitsiz: ayda 5 soru (31.07 Cem - site geneli aylik kuralla ayni)
+var UYE_GUNLUK_HAK = 15; // ucretsiz uye: gunde 15 soru TOPLAM (31.07 Cem: "15 olsun");
+                         // paket_uyeler'de satiri olan Sinav Paketi uyesi SINIRSIZ.
+function aySlug(){ var t=new Date(); return t.getFullYear()+'-'+(t.getMonth()+1); }
+function gunSlug(){ var t=new Date(); return t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate(); }
 function cozulenSayisi(){
-  try{ return parseInt(localStorage.getItem('tetikteCozulen')||'0',10)||0; }catch(e){ return 0; }
+  try{ return parseInt(localStorage.getItem('tetikteCozulen_'+aySlug())||'0',10)||0; }catch(e){ return 0; }
 }
 function cozulenArtir(){
-  try{ localStorage.setItem('tetikteCozulen', String(cozulenSayisi()+1)); }catch(e){}
+  try{ localStorage.setItem('tetikteCozulen_'+aySlug(), String(cozulenSayisi()+1)); }catch(e){}
+}
+function uyeGunluk(){
+  try{ return parseInt(localStorage.getItem('tetikteUyeGunluk_'+gunSlug())||'0',10)||0; }catch(e){ return 0; }
+}
+function uyeGunlukArtir(){
+  try{ localStorage.setItem('tetikteUyeGunluk_'+gunSlug(), String(uyeGunluk()+1)); }catch(e){}
 }
 function duvarGoster(){
   var kalan = document.getElementById('ekranSoru');
@@ -855,8 +865,35 @@ function duvarGoster(){
   if(uk){ uk.classList.remove('gizli'); uk.scrollIntoView({behavior:'smooth', block:'center'}); }
 }
 function duvaraTakildiMi(){
-  if(window.UYE_MODU) return false;             // üye: duvar yok
-  return cozulenSayisi() >= UCRETSIZ_HAK;
+  if(window.UYE_MODU){
+    if(window.PAKETLI) return false;                 // Sinav Paketi: sinirsiz
+    return uyeGunluk() >= UYE_GUNLUK_HAK;            // ucretsiz uye: gunde 15
+  }
+  return cozulenSayisi() >= UCRETSIZ_HAK;            // kayitsiz: ayda 5
+}
+// ucretsiz uyenin gunluk duvari (kayitsiz duvarindan AYRI mesaj)
+function gunlukDuvarGoster(){
+  var kalan = document.getElementById('ekranSoru');
+  if(kalan) kalan.classList.add('gizli');
+  document.body.classList.remove('sinavda');
+  var d = document.getElementById('gunlukDuvar');
+  if(!d){
+    d = document.createElement('div');
+    d.id = 'gunlukDuvar'; d.className = 'panel';
+    d.style.cssText = 'max-width:640px;margin:24px auto;text-align:center';
+    d.innerHTML =
+      '<div style="font-size:34px;line-height:1">🌙</div>' +
+      '<h2 style="margin:10px 0 6px">Bugünün 15 sorusu tamam.</h2>' +
+      '<p style="color:var(--dim);line-height:1.7;margin:0 0 14px">' +
+      'Düzenli 15 soru, sınava kadar ciddi yol aldırır — yarın kaldığın yerden devam. ' +
+      'Sınava yüklenme dönemindeysen <b style="color:var(--amber)">Sınav Paketi</b> ile banka sınırsız açılır, ' +
+      'tam deneme sınavı modu da pakete dahil.</p>' +
+      '<a class="btn" href="fiyat.html" style="display:inline-block">Sınav Paketi\'ne bak →</a>' +
+      '<div style="font-size:12px;color:var(--dim);margin-top:12px">Karnen ve yanlış defterin bugünkü çözümlerinle güncellendi.</div>';
+    document.querySelector('main, body').appendChild(d);
+  }
+  d.classList.remove('gizli');
+  d.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
 function sonraki(){
@@ -864,8 +901,9 @@ function sonraki(){
   gorulenKaydet(s.id);
   if(MOD==='deneme') SURELER[s.id]=Date.now()-SORU_T0;
   if(!window.UYE_MODU) cozulenArtir();
+  else if(!window.PAKETLI) uyeGunlukArtir();
   if(IDX<SORULAR.length-1){
-    if(duvaraTakildiMi()){ duvarGoster(); return; }
+    if(duvaraTakildiMi()){ if(window.UYE_MODU){ gunlukDuvarGoster(); } else { duvarGoster(); } return; }
     IDX++; soruCiz(); window.scrollTo(0,0);
   }
   else karneCiz();
@@ -1217,7 +1255,10 @@ async function kasaYukle(user){
     window.UYE_ID = user.id;   // karne kaydi uyeye baglansin (cihaz degisince gecmis kaybolmasin)
     var pr = await sb.from('paket_uyeler').select('paket').eq('user_id', user.id).limit(1);
     if(pr.data && pr.data.length && pr.data[0].paket){ paket = ('' + pr.data[0].paket).toLowerCase(); }
-  } catch(e) {}
+    // 31.07 Cem kurgusu: paket_uyeler'de SATIRI OLAN = Sinav Paketi (sinirsiz);
+    // satiri olmayan uye = ucretsiz uye (gunde 15 soru).
+    window.PAKETLI = !!(pr.data && pr.data.length);
+  } catch(e) { window.PAKETLI = false; }
   window.UYE_PAKET = paket;
   // 25.07 KRITIK: PostgREST tek istekte en fazla 1.000 satir verir - kasa binlerceyken
   // uye yalniz 1.000 soru goruyordu (Cem'in ekranindaki '1008' bu tavandi). SAYFALI cekim:
