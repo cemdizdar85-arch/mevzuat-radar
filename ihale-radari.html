@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>İhale Radarı — yurt içi + yurt dışı ihale, katılım ve avantaj rehberi | Tetikte</title>
-<meta name="description" content="Profilini gir; yurt dışı (EU TED) ve yurt içi (4734) ihalelerde kim katılabilir/katılamaz, yerli malı avantajın, teminatın, itiraz yolun — tek ekranda.">
+<meta name="description" content="Profilini gir; Türkiye ve Avrupa ihalelerinde kim katılabilir/katılamaz, yerli malı avantajın, teminatın, itiraz yolun — tek ekranda.">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
 *{box-sizing:border-box}
@@ -120,7 +120,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   </style>
   <div><span class="gozalici">📣 Sektörüne uyan ihale var mı?</span></div>
   <h1>İhale Radarı — yurt içi + yurt dışı</h1>
-  <p class="lead">Profilini bir kez gir; hem AB (EU TED) hem Türkiye (4734) tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b> — tek ekranda, başka yere bakmadan.</p>
+  <p class="lead">Profilini bir kez gir; hem Türkiye hem Avrupa tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b> — tek ekranda, başka yere bakmadan.</p>
 
   <!-- 31.07 Cem (kesin karar): "guncel diyecegiz, tekrar konusmayalim" -
        robot gunde 2 cekiyor (03:13+17:13), tarih damgasi iddiayi kanitlar. -->
@@ -154,8 +154,9 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   </div>
 
   <div class="tabs">
-    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi (4734)</button>
-    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı (EU TED)</button>
+    <!-- 31.07 Cem: "4734 yazma nedeni ne?" - kanun no sekmede JARGON, kaldirildi (yeri sayfa ici) -->
+    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi — Türkiye ihaleleri</button>
+    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı — Avrupa ihaleleri</button>
   </div>
 
   <!-- ============ YURT İÇİ ============ -->
@@ -204,7 +205,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   <div id="paneDis" class="pane">
     <h2>Sana uygun AB ihaleleri</h2>
     <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Bana uygun ihaleleri getir →</button>
-      <div class="belg">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: EU TED (ted.europa.eu).</div>
+      <div class="belg">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu).</div>
     </div>
     <div id="sonuc"></div>
     <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
@@ -298,7 +299,7 @@ async function kontrol(){
   if(!sek){ box.innerHTML='<div class="uyari">Sektör seç ya da GTİP gir.</div>'; return; }
   const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
   let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)}</h3>`;
-  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Abonelikte robot EU TED bültenini günde iki kez (sabah-akşam) tarar; CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
+  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu örnek veride eşleşen ihale yok</h3><div class="belg">Abonelikte robot AB resmî ihale bültenini (TED) günde iki kez (sabah-akşam) tarar; CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
   else { for(const i of bulunan){ const kg=kalanGun(i.sonTeklif); const kgTxt=kg==null?'':(kg>0?`<b>${kg} gün</b> kaldı`:'süre geçmiş');
     html+=`<div class="kart"><span class="rozet">${bayrak(i.ulke)}${ulkeAd(i.ulke)} · CPV ${esc(i.cpv)}</span><h3>${esc(i.baslik)}</h3>
       <div class="satir"><b>Alıcı idare</b><span>${esc(i.alici||'—')}</span></div>
@@ -306,7 +307,7 @@ async function kontrol(){
       <div class="satir"><b>İlan no</b><span>${esc(i.no||'—')}</span></div>
       <div class="sure">📅 <b>Son teklif: ${tarihTR(i.sonTeklif)}</b> ${kgTxt?('· '+kgTxt):''}</div>
       <div class="elig">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum.</div>
-      <div class="belg">İlan metninde: iş kapsamı/miktar, ödeme, teslim süresi, belgeler ve <b>eligibility (menşe)</b> şartı var — oku. ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">İhale metni (TED) →</a>`:''}</div></div>`;
+      <div class="belg">İlan metninde: iş kapsamı/miktar, ödeme, teslim süresi, belgeler ve <b>katılım/menşe şartı</b> var — oku. ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">İhale metni (TED) →</a>`:''}</div></div>`;
   }}
   box.innerHTML=html;
 }
