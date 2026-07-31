@@ -211,14 +211,14 @@
                         "no":  16,
                         "tarih":  "30.07.2026",
                         "veren":  "GM (1 AGUSTOS PLANI - Cem onayi bekliyor, onay=false KILITLI)",
-                        "emir":  "SGS URETIM GECE PARTISI - 1.000 soru (Cem 31.07: kucultuldu)",
+                        "emir":  "SGS GECE PARTISI A - Finansal Muhasebe 500 soru (bir derste 1.000+ hedefi)",
                         "onay":  false,
-                        "sinir":  1000,
-                        "ders":  "",
+                        "sinir":  500,
+                        "ders":  "Finansal Muhasebe",
                         "sinav":  "SGS",
                         "model":  "claude-sonnet-4-5-20250929",
-                        "gerekce":  "GECE PLANI (Cem 31.07 kucultme): \u0027SGS 1.000 soru yapalim; sonra her gun 50-100 eklemeye devam\u0027. Recete #14 ile ayni (yedi kapi + on eleme + benzerlik elegi + kota agirligi: en cok cikan derslere en cok soru - FM/Denetim/Tablolar/Maliyet oncelikli, kota dosyasindaki acik oranlariyla). 1.000 x 0,0194 = ~19,4 USD. Kalite mottosu recetede: gecmis sinav sorusuna benzer ama OZGUN; her sikkin ayri dersi (yanilgi-odakli celdirici); cozenin sectigi sikka gore ogretim. URETILEN HICBIR SORU YAYINA GIRMEZ: yayin=false, hakem, GM.",
-                        "tahmini_usd":  19.4,
+                        "gerekce":  "GECE PLANI (Cem 31.07 netlestirme): \u0027en az bir derse 1.000 soru diyecegiz\u0027. O ders sinavin kalbi Finansal Muhasebe (26/130 soru; su an toplam 1.008, yayinda 653). 500 FM sorusuyla banka ~1.500\u0027e cikar; hakem suzgeci sonrasi yayinda 1.000+ saglanir. Recete #14 ile ayni. 500 x 0,0194 = ~9,7 USD. yayin=false -\u003e hakem -\u003e GM.",
+                        "tahmini_usd":  9.7,
                         "uygulandi":  ""
                     },
                     {
@@ -246,6 +246,20 @@
                         "model":  "claude-sonnet-4-5-20250929",
                         "gerekce":  "GECE PLANI (Cem 31.07): \u0027Yeterlilik toplami 1.010 civari olsun - reklamda BIN UZERI SORU deriz; ucrete raziyim. Sonra her gun 50-100 devam.\u0027 Yayinda 481 SMMM var; sinir 530 uretimle banka ~1.010\u0027a tamamlanir (bekleyenler dahil kesin sayi kosu raporunda). Ders dagilimi esit-kota (resmi yapi: her ders ayri oturum), konu secimi 12 donemlik cikmis-soru sikligiyla. 530 x 0,0194 = ~10,3 USD. Kalite mottosu ayni: benzer-ama-ozgun, her sikka ayri ders, secilen sikka gore ogretim. yayin=false -\u003e hakem -\u003e GM.",
                         "tahmini_usd":  10.3,
+                        "uygulandi":  ""
+                    },
+                    {
+                        "no":  20,
+                        "tarih":  "31.07.2026",
+                        "veren":  "GM (GECE PLANI - Cem onayi 31.07; gece-paket robotu acacak)",
+                        "emir":  "SGS GECE PARTISI B - 500 soru, kota acigina gore dagitim",
+                        "onay":  false,
+                        "sinir":  500,
+                        "ders":  "",
+                        "sinav":  "SGS",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "gerekce":  "GECE PLANI. Parti A Finansal Muhasebe\u0027ye odakli; bu parti kalan 500\u0027u kota ACIGI oranlariyla dagitir (Denetim/Tablolar/Maliyet/Ekonomi oncelikli - en cok cikan derslerin acigi). Recete ayni: yedi kapi, benzerlik elegi, her sikka ayri ders, secilen sikka gore ogretim. 500 x 0,0194 = ~9,7 USD. yayin=false -\u003e hakem -\u003e GM.",
+                        "tahmini_usd":  9.7,
                         "uygulandi":  ""
                     }
                 ]

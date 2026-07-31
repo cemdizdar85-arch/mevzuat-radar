@@ -36,7 +36,7 @@ function Ac([string]$yol, [int[]]$nolar){
   return @($degisti, $acikBekleyen)
 }
 
-$u = Ac 'veri/uretim-emir.json'  @(16,17,19)
+$u = Ac 'veri/uretim-emir.json'  @(16,17,19,20)
 $p = Ac 'veri/profesor-emir.json' @(18)
 $degisti      = $u[0] -or $p[0]
 $uretimAcik   = $u[1]
