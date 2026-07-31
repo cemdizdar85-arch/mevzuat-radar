@@ -14,7 +14,8 @@ $dersDagilim = @{}
 $b0 = 0
 while($true){
   $BASLIK2 = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)"; Range = "$b0-$($b0+999)" }
-  $w = Invoke-WebRequest -Uri "$U?select=sinav,ders&yayin=eq.true" -Headers $BASLIK2 -UseBasicParsing -TimeoutSec 120
+  # pwsh7 tuzagi: "$U?..." icindeki ? degisken adina yapisir ($U bos cozulur) - ${U} sart
+  $w = Invoke-WebRequest -Uri "${U}?select=sinav,ders&yayin=eq.true" -Headers $BASLIK2 -UseBasicParsing -TimeoutSec 120
   # kasa-sayim deseni: govdeyi ham byte'tan UTF-8 olarak coz (mojibake yasagi)
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   $liste = @($ham | ConvertFrom-Json)   # assign-then-wrap: @(IRM) tuzagi degil
