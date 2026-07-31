@@ -694,7 +694,9 @@ function gerekceBicimle(t){
     var metin = (p[i+1]||'').trim();
     if(!metin) continue;
     if(et === 'AKILDA KALSIN'){
-      h += '<div class="gAkil"><b class="gb">📌 AKILDA KALSIN</b>'+esc(metin)+'</div>';
+      // 31.07 Cem: cift 'AKILDA KALSIN' olmasin - final hap karti o adi tasir,
+      // sik icindeki kapanis cumlesi 'KISACASI' olur.
+      h += '<div class="gAkil"><b class="gb">📌 KISACASI</b>'+esc(metin)+'</div>';
     } else {
       h += '<div class="gAdim" data-no="'+(GB_NO[et]||'·')+'"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+esc(metin)+'</div>';
     }

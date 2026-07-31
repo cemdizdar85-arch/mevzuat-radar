@@ -42,7 +42,8 @@ function DoluMu($v, [int]$enAz){ return ("$v".Length -ge $enAz) }
 $aday = @()
 $ofs = 0
 while($true){
-  $w = Invoke-WebRequest -Uri "${U}?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak&yayin=eq.true&limit=500&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 120
+  # tablo/yevmiye/yanlis_kayitlar da cekilir - vitrin sorusunun gorseli eksik kalmasin (31.07 Cem yakaladi)
+  $w = Invoke-WebRequest -Uri "${U}?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,tablo,yevmiye,yanlis_kayitlar&yayin=eq.true&limit=500&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
   $liste = @($ham | ConvertFrom-Json)
   if(-not $liste.Count){ break }
@@ -101,6 +102,7 @@ foreach($x in $secim){
     sinav = "$($s.sinav)"; ders = "$($s.ders)"; konu = "$($s.konu)"
     soru = $s.soru; siklar = $s.siklar; dogru = $s.dogru
     aciklama = $s.aciklama; hap = $s.hap; kaynak = $s.kaynak
+    tablo = $s.tablo; yevmiye = $s.yevmiye; yanlis_kayitlar = $s.yanlis_kayitlar
   }
 }
 $cikti = [ordered]@{
