@@ -42,8 +42,10 @@ function DoluMu($v, [int]$enAz){ return ("$v".Length -ge $enAz) }
 $aday = @()
 $ofs = 0
 while($true){
-  # tablo/yevmiye/yanlis_kayitlar da cekilir - vitrin sorusunun gorseli eksik kalmasin (31.07 Cem yakaladi)
-  $w = Invoke-WebRequest -Uri "${U}?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,kaynak,tablo,yevmiye,yanlis_kayitlar&yayin=eq.true&limit=500&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 120
+  # select=* : kolon adi tahmini YOK (tablo/yevmiye gibi alanlarin adi kesin degil;
+  # olmayan kolon adi yazmak 400 dondurup TUM betigi kirar - 31.07 dersi).
+  # Olmayan alan $null gelir, cikti JSON'da bos kalir, kimse kirilmaz.
+  $w = Invoke-WebRequest -Uri "${U}?select=*&yayin=eq.true&limit=500&offset=$ofs&order=id" -Headers $SB -UseBasicParsing -TimeoutSec 180
   $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
   $liste = @($ham | ConvertFrom-Json)
   if(-not $liste.Count){ break }
