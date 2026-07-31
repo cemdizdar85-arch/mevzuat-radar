@@ -1,5 +1,5 @@
 ﻿{
-    "guncelleme":  "31.07.2026 - hizmet+yapim sektorleri eklendi (CPV 2008 ana bolumleri); 10 -\u003e 23 sektor",
+    "guncelleme":  "31.07.2026 - anahtar kelimeler eklendi (yurt ici ilan basligi eslesme); 23 sektor",
     "kaynak":  "EU CPV (ted.europa.eu) + Türk ihracat sektörleri",
     "sektorler":  [
                       {
@@ -8,7 +8,21 @@
                                       "18",
                                       "19"
                                   ],
-                          "gtipYaklasik":  "50-63"
+                          "gtipYaklasik":  "50-63",
+                          "anahtar":  [
+                                          "tekstil",
+                                          "kumaş",
+                                          "giyim",
+                                          "kıyafet",
+                                          "üniforma",
+                                          "çorap",
+                                          "havlu",
+                                          "nevresim",
+                                          "perde",
+                                          "halı",
+                                          "iplik",
+                                          "elbise"
+                                      ]
                       },
                       {
                           "ad":  "Doğal taş · mermer · agrega",
@@ -18,7 +32,17 @@
                                       "4411",
                                       "4491"
                                   ],
-                          "gtipYaklasik":  "25, 68"
+                          "gtipYaklasik":  "25, 68",
+                          "anahtar":  [
+                                          "mermer",
+                                          "granit",
+                                          "agrega",
+                                          "mıcır",
+                                          "kilit",
+                                          "parke taşı",
+                                          "bordür",
+                                          "taş ocağı"
+                                      ]
                       },
                       {
                           "ad":  "Gıda · içecek · tarım ürünü",
@@ -26,14 +50,39 @@
                                       "15",
                                       "03"
                                   ],
-                          "gtipYaklasik":  "01-24"
+                          "gtipYaklasik":  "01-24",
+                          "anahtar":  [
+                                          "gıda",
+                                          "yiyecek",
+                                          "içecek",
+                                          "ekmek",
+                                          "et alımı",
+                                          "süt",
+                                          "sebze",
+                                          "meyve",
+                                          "bakliyat",
+                                          "un ",
+                                          "yağ alımı",
+                                          "şeker",
+                                          "kumanya"
+                                      ]
                       },
                       {
                           "ad":  "Mobilya · ev tekstili · döşeme",
                           "cpv":  [
                                       "39"
                                   ],
-                          "gtipYaklasik":  "94"
+                          "gtipYaklasik":  "94",
+                          "anahtar":  [
+                                          "mobilya",
+                                          "masa",
+                                          "sandalye",
+                                          "dolap",
+                                          "koltuk",
+                                          "sıra alımı",
+                                          "ranza",
+                                          "yatak"
+                                      ]
                       },
                       {
                           "ad":  "Makine · sanayi ekipmanı",
@@ -41,35 +90,93 @@
                                       "42",
                                       "43"
                                   ],
-                          "gtipYaklasik":  "84"
+                          "gtipYaklasik":  "84",
+                          "anahtar":  [
+                                          "makine",
+                                          "makina",
+                                          "ekipman",
+                                          "jeneratör",
+                                          "kompresör",
+                                          "vinç",
+                                          "iş makinesi",
+                                          "traktör",
+                                          "ekskavatör",
+                                          "yükleyici",
+                                          "kepçe",
+                                          "greyder"
+                                      ]
                       },
                       {
                           "ad":  "İnşaat malzemesi",
                           "cpv":  [
                                       "44"
                                   ],
-                          "gtipYaklasik":  "68-73"
+                          "gtipYaklasik":  "68-73",
+                          "anahtar":  [
+                                          "çimento",
+                                          "demir alımı",
+                                          "beton",
+                                          "tuğla",
+                                          "kereste",
+                                          "boya",
+                                          "inşaat malzeme",
+                                          "hazır beton",
+                                          "kum ",
+                                          "çakıl"
+                                      ]
                       },
                       {
                           "ad":  "Kimya · plastik · kauçuk",
                           "cpv":  [
                                       "24"
                                   ],
-                          "gtipYaklasik":  "28-40"
+                          "gtipYaklasik":  "28-40",
+                          "anahtar":  [
+                                          "kimyasal",
+                                          "plastik",
+                                          "kauçuk",
+                                          "klor",
+                                          "tuz alımı",
+                                          "gübre",
+                                          "polietilen"
+                                      ]
                       },
                       {
                           "ad":  "Otomotiv · ulaşım araçları · yedek parça",
                           "cpv":  [
                                       "34"
                                   ],
-                          "gtipYaklasik":  "87"
+                          "gtipYaklasik":  "87",
+                          "anahtar":  [
+                                          "araç",
+                                          "otobüs",
+                                          "minibüs",
+                                          "kamyon",
+                                          "kamyonet",
+                                          "otomobil",
+                                          "lastik",
+                                          "yedek parça",
+                                          "ambulans",
+                                          "traktör"
+                                      ]
                       },
                       {
                           "ad":  "Tıbbi cihaz · sağlık ürünü",
                           "cpv":  [
                                       "33"
                                   ],
-                          "gtipYaklasik":  "30, 90"
+                          "gtipYaklasik":  "30, 90",
+                          "anahtar":  [
+                                          "tıbbi",
+                                          "medikal",
+                                          "cerrahi",
+                                          "ilaç",
+                                          "sarf malzeme",
+                                          "laboratuvar",
+                                          "röntgen",
+                                          "tahlil",
+                                          "kit alımı"
+                                      ]
                       },
                       {
                           "ad":  "Elektrik · elektronik · aydınlatma",
@@ -77,14 +184,47 @@
                                       "31",
                                       "32"
                                   ],
-                          "gtipYaklasik":  "85"
+                          "gtipYaklasik":  "85",
+                          "anahtar":  [
+                                          "elektrik",
+                                          "elektronik",
+                                          "aydınlatma",
+                                          "kablo",
+                                          "trafo",
+                                          "pano",
+                                          "led",
+                                          "kamera",
+                                          "sayaç"
+                                      ]
                       },
                       {
                           "ad":  "Yapım · inşaat işleri",
                           "cpv":  [
                                       "45"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "yapım",
+                                          "inşaat",
+                                          "yapılması",
+                                          "onarım",
+                                          "yol",
+                                          "asfalt",
+                                          "köprü",
+                                          "bina",
+                                          "restorasyon",
+                                          "tadilat",
+                                          "kanalizasyon",
+                                          "içmesuyu",
+                                          "sondaj",
+                                          "üstyapı",
+                                          "altyapı",
+                                          "park",
+                                          "çevre düzenle",
+                                          "yıkım",
+                                          "güçlendirme",
+                                          "ikmal"
+                                      ]
                       },
                       {
                           "ad":  "Bilişim · yazılım · BT hizmetleri",
@@ -92,21 +232,50 @@
                                       "48",
                                       "72"
                                   ],
-                          "gtipYaklasik":  "84.71,85.23"
+                          "gtipYaklasik":  "84.71,85.23",
+                          "anahtar":  [
+                                          "yazılım",
+                                          "bilişim",
+                                          "bilgisayar",
+                                          "donanım",
+                                          "lisans",
+                                          "sunucu",
+                                          "veri merkezi",
+                                          "otomasyon",
+                                          "sistem alımı"
+                                      ]
                       },
                       {
                           "ad":  "Temizlik · atık · çevre hizmetleri",
                           "cpv":  [
                                       "90"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "temizlik",
+                                          "çöp",
+                                          "atık",
+                                          "geri dönüşüm",
+                                          "haşere",
+                                          "ilaçlama",
+                                          "süpürme"
+                                      ]
                       },
                       {
                           "ad":  "Yemek · hazır yemek · konaklama hizmeti",
                           "cpv":  [
                                       "55"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "yemek",
+                                          "catering",
+                                          "tabldot",
+                                          "kahvaltı",
+                                          "konaklama",
+                                          "otel",
+                                          "beslenme"
+                                      ]
                       },
                       {
                           "ad":  "Taşımacılık · lojistik hizmetleri",
@@ -114,14 +283,32 @@
                                       "60",
                                       "63"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "taşıma",
+                                          "nakliye",
+                                          "servis",
+                                          "şoför",
+                                          "kiralama",
+                                          "personel taşı",
+                                          "öğrenci taşı",
+                                          "nakil"
+                                      ]
                       },
                       {
                           "ad":  "Güvenlik · danışmanlık · destek hizmetleri",
                           "cpv":  [
                                       "79"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "güvenlik",
+                                          "koruma",
+                                          "danışmanlık",
+                                          "müşavirlik",
+                                          "destek hizmet",
+                                          "çağrı merkezi"
+                                      ]
                       },
                       {
                           "ad":  "Mühendislik · mimarlık · proje hizmetleri",
@@ -129,28 +316,60 @@
                                       "71",
                                       "73"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "mühendislik",
+                                          "mimarlık",
+                                          "proje",
+                                          "etüt",
+                                          "harita",
+                                          "imar planı",
+                                          "zemin",
+                                          "fizibilite",
+                                          "kontrollük"
+                                      ]
                       },
                       {
                           "ad":  "Eğitim hizmetleri",
                           "cpv":  [
                                       "80"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "eğitim",
+                                          "kurs",
+                                          "seminer",
+                                          "sertifika"
+                                      ]
                       },
                       {
                           "ad":  "Sağlık hizmeti alımları",
                           "cpv":  [
                                       "85"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "sağlık hizmet",
+                                          "hasta",
+                                          "diyaliz",
+                                          "görüntüleme hizmet",
+                                          "hemşire"
+                                      ]
                       },
                       {
                           "ad":  "Bakım · onarım hizmetleri",
                           "cpv":  [
                                       "50"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+                                          "bakım",
+                                          "kalibrasyon",
+                                          "asansör",
+                                          "klima",
+                                          "revizyon",
+                                          "periyodik"
+                                      ]
                       },
                       {
                           "ad":  "Akaryakıt · enerji · yakıt",
@@ -158,7 +377,19 @@
                                       "09",
                                       "65"
                                   ],
-                          "gtipYaklasik":  "27"
+                          "gtipYaklasik":  "27",
+                          "anahtar":  [
+                                          "akaryakıt",
+                                          "yakıt",
+                                          "benzin",
+                                          "motorin",
+                                          "mazot",
+                                          "doğalgaz",
+                                          "lpg",
+                                          "kömür",
+                                          "pelet",
+                                          "enerji"
+                                      ]
                       },
                       {
                           "ad":  "Kırtasiye · basılı malzeme · büro makineleri",
@@ -166,7 +397,17 @@
                                       "22",
                                       "30"
                                   ],
-                          "gtipYaklasik":  "48,49,84.43"
+                          "gtipYaklasik":  "48,49,84.43",
+                          "anahtar":  [
+                                          "kırtasiye",
+                                          "matbaa",
+                                          "baskı",
+                                          "basılı",
+                                          "fotokopi",
+                                          "toner",
+                                          "kağıt",
+                                          "büro"
+                                      ]
                       },
                       {
                           "ad":  "Diğer · listede olmayan sektörler",
@@ -178,7 +419,10 @@
                                       "92",
                                       "98"
                                   ],
-                          "gtipYaklasik":  ""
+                          "gtipYaklasik":  "",
+                          "anahtar":  [
+
+                                      ]
                       }
                   ]
 }

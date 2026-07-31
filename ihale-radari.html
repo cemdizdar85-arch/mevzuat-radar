@@ -261,7 +261,14 @@ async function veriYukle(){
   if(yiSel){ yiSel.innerHTML='<option value="hepsi">Hepsi</option>'+yiIller.map(x=>`<option>${esc(x)}</option>`).join(''); yiSel.addEventListener('change',yurtIciCiz); }
   if(YI.guncelleme){ const yk=document.getElementById('yiKaynak'); if(yk) yk.textContent=YI.guncelleme; }
   yurtIciCiz();
-  document.getElementById('sektor').innerHTML=CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
+  // 31.07 Cem: sektor de yurt ici listeyi suzsun - varsayilan 'Hepsi', secilince anahtar kelimeyle eslesir
+  document.getElementById('sektor').innerHTML='<option value="-1">Hepsi (tüm sektörler)</option>'+CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
+  document.getElementById('sektor').addEventListener('change',yurtIciCiz);
+  // GTIP yazilirsa sektoru otomatik bul (yurt ici liste de ona gore suzulur)
+  document.getElementById('gtip').addEventListener('input',function(){
+    const gi=gtipSektor(this.value.trim());
+    if(gi>=0){ document.getElementById('sektor').value=String(gi); yurtIciCiz(); }
+  });
   const ulkeler=[...new Set((TED.ihaleler||[]).map(i=>i.ulke))].sort();
   const uSel=document.getElementById('ulke');
   uSel.innerHTML='<option value="hepsi">Hepsi</option>'+ulkeler.map(u=>`<option value="${u}">${ulkeAd(u)}</option>`).join('');
@@ -313,7 +320,16 @@ function yurtIciCiz(){
   const box=document.getElementById('yiListe'); if(!box||!YI) return;
   const il=(document.getElementById('yiIl')||{}).value||'hepsi';
   const kel=trFold2(((document.getElementById('yiKelime')||{}).value||'').trim());
-  let liste=(YI.ilanlar||[]).filter(x=> ihaleMi(x) && (il==='hepsi'||x.il===il) && (!kel || trFold2(x.baslik).includes(kel) || trFold2(x.kurum).includes(kel)) );
+  // 31.07 Cem: sektor secilince o da suzer - eslesme yoksa ilan GELMEZ (dogru davranis)
+  const si=+((document.getElementById('sektor')||{}).value||-1);
+  const anah=((CPV&&CPV.sektorler&&CPV.sektorler[si])||{}).anahtar||[];
+  let liste=(YI.ilanlar||[]).filter(x=>{
+    if(!ihaleMi(x)) return false;
+    if(il!=='hepsi'&&x.il!==il) return false;
+    const t=trFold2((x.baslik||'')+' '+(x.kurum||''));
+    if(anah.length && !anah.some(k=>t.includes(trFold2(k)))) return false;
+    return !kel || t.includes(kel);
+  });
   if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; robot her sabah-akşam yeni ilanları çeker. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini kaydet, düşünce haber verelim →</a></div></div>'; return; }
   // 31.07 Cem: bedava giren il secince 5 ilan gorur, kalani uyelik kapisinin arkasinda
   const SINIR=5, fazla=liste.length-SINIR;
