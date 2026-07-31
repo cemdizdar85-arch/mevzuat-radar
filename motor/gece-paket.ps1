@@ -36,10 +36,33 @@ function Ac([string]$yol, [int[]]$nolar){
   return @($degisti, $acikBekleyen)
 }
 
-$u = Ac 'veri/uretim-emir.json'  @(16,17,19,20)
-$p = Ac 'veri/profesor-emir.json' @(18)
-$degisti      = $u[0] -or $p[0]
-$uretimAcik   = $u[1]
+# --- 4-GECE DILIM MANTIGI (31.07 Cem: "riske girme, 4 gune yay; sorular
+#     kaybolmasin"). Her diziden GECEDE EN FAZLA BIR dilim acilir; onceki
+#     dilim hala islenmemisse (acik ama damgasiz) yenisi ACILMAZ, yalniz
+#     hat yeniden tetiklenir. Dilim damgalaninca ertesi kosu sirdakini acar.
+function AcIlk([string]$yol, [int[]]$sira){
+  $tam = Join-Path $kok $yol
+  $j = Get-Content $tam -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach($no in $sira){
+    $e = $j.emirler | Where-Object { [int]$_.no -eq $no } | Select-Object -First 1
+    if(-not $e){ continue }
+    if(-not [string]::IsNullOrWhiteSpace("$($e.uygulandi)")){ continue }   # bitti -> sirdaki
+    if($e.onay -eq $true){ return @($false, $true) }                       # islenmekte: acma, tetikle
+    $e.onay = $true
+    $e | Add-Member -NotePropertyName onay_acan -NotePropertyValue ("gece-paket dilim " + (Get-Date).ToUniversalTime().ToString("dd.MM.yyyy HH:mm") + " UTC") -Force
+    $j | ConvertTo-Json -Depth 6 | Set-Content $tam -Encoding UTF8
+    Write-Host "DILIM ACILDI: $yol emir #$no ($($e.emir))"
+    return @($true, $true)
+  }
+  return @($false, $false)                                                 # dizi tamamlandi
+}
+
+$sgs  = AcIlk 'veri/uretim-emir.json' @(16,21,22,23)
+$smmm = AcIlk 'veri/uretim-emir.json' @(19,24,25,26)
+$hap  = Ac    'veri/uretim-emir.json' @(17)
+$p    = Ac    'veri/profesor-emir.json' @(18)
+$degisti      = $sgs[0] -or $smmm[0] -or $hap[0] -or $p[0]
+$uretimAcik   = $sgs[1] -or $smmm[1] -or $hap[1]
 $profesorAcik = $p[1]
 
 if($degisti){
