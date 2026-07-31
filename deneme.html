@@ -1113,6 +1113,10 @@ function kocRecete(ders){
   seciliDersler[ders]=true;
   seciliAdet=20;
   kurulumCiz();
+  // emniyet: ders su anki bankada yoksa (ornek havuz / paket kilidi) bos
+  // kurulumda birakma - Tum dersler'e don.
+  var secildi=false; for(var k in seciliDersler){ if(seciliDersler[k]){ secildi=true; break; } }
+  if(!secildi){ window.DERS_MODU='tum'; kurulumCiz(); }
   var p=document.getElementById('dersSec');
   if(p) p.scrollIntoView({behavior:'smooth',block:'center'});
 }
