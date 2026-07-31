@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260730172421
+Start time: 20260731052805
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2c2c38cc-dd92-463d-ac18-8ad51ce2a61c.ps1'
-Process ID: 2035
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8615038c-8882-49ba-8fa1-1ebacaed0c07.ps1'
+Process ID: 2014
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -73,11 +73,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       103x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        78x  Maliyet Muhasebesi|satilan mamul maliyeti
        78x  Yabanci Dil|cumle tamamlama
-       73x  Yabanci Dil|sentence completion
        73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       73x  Yabanci Dil|sentence completion
        72x  Maliyet Muhasebesi|yan urun maliyeti
-       71x  Maliyet Muhasebesi|gug yukleme katsayisi
        71x  Yabanci Dil|prepositions
+       71x  Maliyet Muhasebesi|gug yukleme katsayisi
        71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
        70x  Yabanci Dil|vocabulary
        67x  Yabanci Dil|vocabulary verb choice
@@ -136,5 +136,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260730172457
+End time: 20260731052854
 **********************
