@@ -381,18 +381,21 @@ function yurtIciCiz(){
   // 31.07 Cem: bedava giren 5 ilan gorur; kalani BUGULU kilit kart (il+tur okunur,
   // baslik bugulu) - neyi kacirdigini gorsun, uyelige somut neden olsun.
   const SINIR=5, fazla=liste.length-SINIR;
+  // 31.07 Cem: yurt ici de ayni gorsel izgara (tur ikonu + bayrak + il + renkli rozet)
   const TUR_AD={mal:'Mal alımı',hizmet:'Hizmet alımı',yapim:'Yapım-inşaat'};
-  box.innerHTML = liste.slice(0,SINIR).map(x=>`<div class="kart">
-    <span class="rozet">🇹🇷 ${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''}</span>
-    <h3>${esc(x.baslik)}</h3>
-    <div class="satir"><b>İdare</b><span>${esc(x.kurum||'—')}</span></div>
-    <div class="satir"><b>İlan tarihi / no</b><span>${esc(x.tarih||'—')} · ${esc(x.ilanNo||'')}</span></div>
-    <div class="belg">Yaklaşık maliyet, son teklif tarihi ve istenen belgeler ilan metnindedir. <a href="${esc(x.url)}" target="_blank" rel="noopener">İlan metni (ilan.gov.tr) →</a> · Katılım şartların için aşağıdaki <b>self-check</b>'i doldur.</div>
-  </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="kart" style="position:relative;cursor:pointer">
-    <span class="rozet">🔒 ${esc(x.il||'')}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''} · üyelere açık</span>
-    <h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
-    <div class="satir" style="filter:blur(5px);user-select:none"><b>İdare</b><span>${esc(x.kurum||'—')}</span></div>
-  </div></a>`).join('') + `<div class="kart" style="border-left-color:var(--accent2)">
+  const TUR_IKON={mal:'📦',hizmet:'🛎️',yapim:'🏗️',diger:'📄'};
+  const trBayrak='<img class="bayrak" src="https://flagcdn.com/w20/tr.png" srcset="https://flagcdn.com/w40/tr.png 2x" alt="" loading="lazy">';
+  box.innerHTML = '<div class="igrid">' + liste.slice(0,SINIR).map(x=>`<div class="ikart">
+    <div class="ust"><span class="sikon">${TUR_IKON[x.tur]||'📄'}</span>${trBayrak}<b>${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">${esc(x.ilanNo||'')}</span></div>
+    <div class="gov"><h3>${esc(x.baslik)}</h3>
+      <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b><br><span style="color:var(--dim)">Yaklaşık maliyet, son teklif ve belgeler ilan metninde.</span></div></div>
+    <div class="alt"><span class="gunroz ${x.tur==='yapim'?'orta':(x.tur==='hizmet'?'iyi':'belirsiz')}">${TUR_AD[x.tur]||'İhale'}</span><a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan metni →</a></div>
+  </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="ikart" style="cursor:pointer;height:100%">
+    <div class="ust"><span class="sikon">🔒</span>${trBayrak}<b>${esc(x.il||'')}</b><span style="margin-left:auto;font-size:11px;color:var(--accent2);font-weight:800">üyelere açık</span></div>
+    <div class="gov"><h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
+      <div class="m" style="filter:blur(5px);user-select:none"><b>${esc(x.kurum||'—')}</b></div></div>
+    <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><span style="font-size:12.5px;font-weight:700;color:var(--accent2)">Kilidi aç →</span></div>
+  </div></a>`).join(''):'') + '</div>' + (fazla>0?`<div class="kart" style="border-left-color:var(--accent2)">
     <h3>${il==='hepsi'?'Listede':esc(il)+"'de"} <span style="color:var(--accent2)">${fazla} ilan daha</span> var — kilidi ücretsiz üyelik açar</h3>
     <div class="belg">Üstelik yalnız liste değil: her ihale için <b style="color:var(--ink)">katılabilir miyim kontrolü, yerli malı avantajın, teminat hesabın ve kaybedersen itiraz yolun</b> aynı ekranda. İhale sitelerinin verdiği liste; bizim verdiğimiz karar.</div>
     <a class="btn" href="radar-app.html?niyet=ihale" style="text-decoration:none;margin-top:8px">Ücretsiz üye ol, hepsini gör →</a>
