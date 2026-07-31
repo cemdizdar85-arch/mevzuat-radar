@@ -1,0 +1,26 @@
+# .github/workflows/cekme.yml — YAYINDAN CEKME (elle tetik, tek gorev)
+# Hakem destegi olmayan yayindaki sorulari yayin=false yapar (GM dongusune).
+name: Yayindan Cekme
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cek ve dogrula
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayindan-cek.ps1
+      - name: Raporu yayinla (kor kalma)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/yayindan-cekme-raporu.json || true
+          git diff --cached --quiet || git commit -m "Yayindan cekme raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
