@@ -42,3 +42,7 @@ jobs:
       - name: Nokta-kontrol (bilinen kod -> dogru cevap regresyonu)
         shell: pwsh
         run: ./arac/nokta-kontrol.ps1
+
+      - name: Veri bekcisi (her sayfanin cektigi json: var mi / parse / dolu mu)
+        shell: pwsh
+        run: ./arac/veri-bekcisi.ps1
