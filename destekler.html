@@ -42,6 +42,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
+/* 31.07 Cem: katalog kare/tikla-ac duzeni (site standardi) */
+.dkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.dkare{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:13px 14px;cursor:pointer;transition:border-color .15s ease, background .15s ease}
+.dkare:hover{border-color:rgba(255,194,75,.45);background:#101825}
+.dkare.on{border-color:var(--accent2);background:rgba(255,194,75,.07)}
+.dkare b{display:block;font-size:13px;color:var(--ink);line-height:1.4;margin-bottom:5px}
+.dkare span{font-size:10.5px;color:var(--dim);letter-spacing:.3px}
+.dkic{display:none;margin:6px 0 4px}
+.dkic.on{display:block;animation:dGel .25s ease}
+@keyframes dGel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -253,13 +263,37 @@ function kartHtml(p, acik){
   </div>`;
 }
 
+// 31.07 Cem: katalog art arda kart DUVARI olmasin - kurum baslikli KARE izgara,
+// tiklayinca detay acilir (site standardi). Sihirbaz sonuclari (kisiye ozel,
+// az sayida) eskisi gibi ACIK kart kalir - oneri saklanmaz.
 function ciz(){
   const liste = document.getElementById('liste');
-  let veri, acik = false;
-  if(UYGUNLAR){ veri = UYGUNLAR; acik = true; }
-  else veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
-  liste.innerHTML = veri.map(p=>kartHtml(p,acik)).join('')
-    || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
+  if(UYGUNLAR){
+    liste.innerHTML = UYGUNLAR.map(p=>kartHtml(p,true)).join('')
+      || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
+    return;
+  }
+  const veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
+  if(!veri.length){ liste.innerHTML=`<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`; return; }
+  const gruplar=[];
+  veri.forEach(p=>{ let g=gruplar.find(x=>x.k===p.kurum); if(!g){ g={k:p.kurum,list:[]}; gruplar.push(g); } g.list.push(p); });
+  liste.innerHTML = gruplar.map(g=>
+    `<div style="font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin:20px 0 8px">${g.k} <span style="color:var(--dim);font-weight:600">· ${g.list.length} program</span></div>`+
+    `<div class="dkgrid">`+g.list.map(p=>{ const i=PROGRAMLAR.indexOf(p);
+      return `<div class="dkare" id="dk_${i}" onclick="dAc(${i})"><b>${p.ad}</b><span>${p.asama.map(a=>ETIKET[a]||a).join(' · ')}</span></div>`; }).join('')+`</div>`+
+    g.list.map(p=>{ const i=PROGRAMLAR.indexOf(p);
+      return `<div class="dkic" id="di_${i}">${kartHtml(p,true)}</div>`; }).join('')
+  ).join('');
+}
+function dAc(i){
+  const acikti=document.getElementById('di_'+i).classList.contains('on');
+  document.querySelectorAll('.dkic').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.dkare').forEach(e=>e.classList.remove('on'));
+  if(!acikti){
+    document.getElementById('di_'+i).classList.add('on');
+    document.getElementById('dk_'+i).classList.add('on');
+    document.getElementById('di_'+i).scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
 }
 document.getElementById('filtre').addEventListener('click',e=>{
   const b = e.target.closest('.fbtn'); if(!b) return;
