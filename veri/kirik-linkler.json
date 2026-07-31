@@ -1,22 +1,201 @@
 {
-    "tarama":  "30.07.2026 19:49",
-    "toplamLink":  264,
-    "kirikSayisi":  2,
-    "kirikler":  [
-                     {
-                         "url":  "https://ted.europa.eu/en/notice/733836-2023",
-                         "kod":  "baglanti-yok",
-                         "sayfalar":  "veri/ihale-ted.json"
-                     },
-                     {
-                         "url":  "https://www2.tesmer.org.tr/files/ortak/soru_cevaplar/sgs/2023/1/lisans_a_grubu/sgs_2023_1_lisans_a_grubu_ingilizce.pdf",
-                         "kod":  "baglanti-yok",
-                         "sayfalar":  "veri/sinav-arsiv.json"
-                     }
-                 ],
-    "dogrulanamayanSayisi":  0,
-    "dogrulanamayanNot":  "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
-    "dogrulanamayanlar":  [
-
-                          ]
+  "tarama": "31.07.2026 21:21",
+  "toplamLink": 511,
+  "kirikSayisi": 2,
+  "kirikler": [
+    {
+      "url": "https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler",
+      "kod": "baglanti-yok",
+      "sayfalar": "destekler.html"
+    },
+    {
+      "url": "https://ted.europa.eu/en/notice/733836-2023",
+      "kod": 404,
+      "sayfalar": "veri/kirik-linkler.json"
+    }
+  ],
+  "dogrulanamayanSayisi": 36,
+  "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
+  "dogrulanamayanlar": [
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-32.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=4857&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/17.03.2026",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-52.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-41.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-35.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-54.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-49.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-44.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6102&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-47.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6698&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-39.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-31.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://ekapv2.kik.gov.tr",
+      "kod": "bot-engeli",
+      "sayfalar": "ihale-radari.html"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/",
+      "kod": "bot-engeli",
+      "sayfalar": "gtip.html"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=7043&amp;mevzuatTur=KurumVeKurulusYonetmeligi&amp;mevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "genc.html"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=1136&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-42.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-56.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-34.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-57.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-51.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-40.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-58.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-33.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-50.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://ekapv2.kik.gov.tr/",
+      "kod": "bot-engeli",
+      "sayfalar": "ihale-radari.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-36.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-38.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-53.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-37.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6331&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260711-55.htm",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kartlar-guncel.json"
+    }
+  ]
 }
