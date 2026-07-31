@@ -41,7 +41,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .hata{color:var(--red);font-size:14px;margin-top:10px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
-/* ——— premium ortak katman (tüm araçlarda tutarlı) ——— */
+/* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
@@ -115,7 +115,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <p style="margin:8px 0"><b style="color:#eef2f7">4) Rüçhan hakkı (Paris Sözleşmesi):</b> Türkiye'deki başvuru tarihinden itibaren <b>6 ay</b> içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır — bu süreyi kaçırma.</p>
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0">
       <p style="margin:8px 0"><b style="color:#3ddc97">✅ Bizim yapabildiğimiz:</b> Hangi yol sana uygun, şartlar, süreler ve maliyet mantığı — bilgilendirme ve doğru kapıya yönlendirme.</p>
-      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında tek tıkla arat — kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
+      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında arat — kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
       <div style="margin:6px 0 10px">
         <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#0a0f17;color:#eef2f7;font-size:14px;vertical-align:middle">
         <button onclick="var m=(document.getElementById('ydMarka').value||'').trim();if(!m){alert('Önce markanı yaz');return}navigator.clipboard&&navigator.clipboard.writeText(m);window.open('https://branddb.wipo.int/en/similarname','_blank','noopener')" title="Markan panoya kopyalanır; WIPO arama kutusuna yapıştır" style="padding:8px 14px;border:none;border-radius:8px;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">WIPO Global Brand DB ↗</button>

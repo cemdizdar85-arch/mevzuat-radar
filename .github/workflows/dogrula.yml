@@ -46,3 +46,7 @@ jobs:
       - name: "Veri bekcisi (her sayfanin cektigi json - var mi / parse / dolu mu)"
         shell: pwsh
         run: ./arac/veri-bekcisi.ps1
+
+      - name: "Koku olcer (YZ izi - jargon/klise kapisi, emoji/unlem raporu)"
+        shell: pwsh
+        run: ./arac/koku-olcer.ps1
