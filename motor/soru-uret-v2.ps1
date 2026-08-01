@@ -399,11 +399,14 @@ foreach($o in $kota.ozet){
 $isler = New-Object System.Collections.Generic.List[object]
 $ist=[ordered]@{ planSatir=0; maddesiz=0; metinsiz=0; hazir=0 }
 $sayac=@{}
+# 01.08 Cem: "yutmadigimiz konuda soru cikarsa sikinti yasamayalim" - kaynaksiz
+# atlanan konular artik GORUNUR: dokum rapora yazilir, yutma listesi buradan beslenir.
+$maddesizListe = New-Object System.Collections.Generic.List[object]
 foreach($p in $plan){
   if($isler.Count -ge $sinir){ break }
   $ist.planSatir++
   $kay = KaynakBul "$($p.konu)" "$($p.ders)"
-  if(-not $kay){ $ist.maddesiz++; continue }
+  if(-not $kay){ $ist.maddesiz++; if($maddesizListe.Count -lt 120){ $maddesizListe.Add([pscustomobject]@{ ders="$($p.ders)"; konu="$($p.konu)" }) }; continue }
   if(-not $kay.metin){ $ist.metinsiz++; continue }
   $ist["kaynak_$($kay.tur)"] = 1 + [int]$ist["kaynak_$($kay.tur)"]
   $par = @("$($kay.kanun)", "$($kay.madde)")
@@ -745,6 +748,8 @@ $yol = if($cikti){ $cikti } else { Join-Path $kok 'veri/uretim-rapor.json' }
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); model=$model; hazirlik=$ist; ozet=$ozet
   fatura=[ordered]@{ giris=$gG; cikis=$gC; usd=[math]::Round($gercek,2) }
   redler=@($red | Select-Object -First 60)
+  maddesiz_konular=@($maddesizListe)   # 01.08: yutma listesinin besleme kaynagi - hangi konu kaynaksiz kaldi
+
 } | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("-> {0}" -f $yol)
 try{Stop-Transcript|Out-Null}catch{}
