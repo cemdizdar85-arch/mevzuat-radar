@@ -294,6 +294,20 @@
       "gerekce": "GECE PLANI. Hakem destek=evet 2.682 bekleyenin yayina donusu oncesi UCUNCU goz: her dersten ~30 rastgele soru, 'bu cevabi curut' istemiyle bagimsiz okunur. Ders orneklemi temizse (<%3 kusur) o dersin blogu yayina-donus robotuyla acilir; kusurlu ders BLOKLANIR ve GM'e isim isim rapor. ~250 soru x hakem birim maliyeti = ~1,2 USD. NOT: calisan betik desteklemiyorsa acik hata verir, para harcamaz - kor emir kosmaz.",
       "tahmini_usd": 1.2,
       "uygulandi": ""
+    },
+    {
+      "no": 20,
+      "tarih": "02.08.2026",
+      "veren": "GM (Cem onayi 02.08: 'ONAY VERIYORUM' + tavan sarti: 'sen yap, 100 USD cikmasa cebimizden')",
+      "emir": "BUYUK HAKEM TURU - yargilanmamis kasa (1. parti 13.000)",
+      "onay": true,
+      "kaynak": "kasa",
+      "sinir": 13000,
+      "haric": "veri/hakem-yargilanmis-idler.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "01.08'de uretilen 12.981 soru kasada yayin=false bekliyor; yayina cikabilmeleri icin hakem turu sart. OLCUM (02.08 00:58, 0 USD): kasada 25.850 soru, 20.049'u yargilanabilir, tam tarama batch ile 93,44 USD (0,0047 USD/soru). PARA SIGORTASI: daha once yargisi SATIN ALINMIS 3.922 soru 'haric' listesiyle atlaniyor (~18 USD tasarruf) - odenmis is ikinci kez odenmez. Cem'in 100 USD tavani icin bu parti 13.000 ile sinirlandi (~61 USD); ayni gece KGK uretimi (~35 USD) ile toplam ~96 USD. Kalan ~3.100 yargilanmamis soru bir sonraki partide (~15 USD) kosar. yayin durumu DEGISMEZ: hukumler GM'ye gelir, temizler acilir, itirazlilar karantinaya.",
+      "tahmini_usd": 61.0,
+      "uygulandi": ""
     }
   ]
 }

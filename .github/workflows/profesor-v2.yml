@@ -69,10 +69,12 @@ jobs:
             $kurtar = if($x.PSObject.Properties['kurtar']){ "$($x.kurtar)" } else { "" }
             $idler  = if($x.PSObject.Properties['idler']){ "$($x.idler)" } else { "" }
             $odak   = if($x.PSObject.Properties['odak']){ "$($x.odak)" } else { "genel" }
+            # 02.08: emirde haric verilmisse odenmis yargilar atlanir (cift odeme yok)
+            $haric  = if($x.PSObject.Properties['haric']){ "$($x.haric)" } else { "" }
             $ok = $true
             try {
               ./motor/profesor-v2.ps1 -calistir -kaynak "$($x.kaynak)" -sinir ([int]$x.sinir) `
-                 -model "$($x.model)" -kurtar $kurtar -idler $idler -odak $odak -cikti $cikti
+                 -model "$($x.model)" -kurtar $kurtar -idler $idler -haric $haric -odak $odak -cikti $cikti
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("EMIR #{0} DUSTU: {1}" -f $x.no, $_.Exception.Message) }
 

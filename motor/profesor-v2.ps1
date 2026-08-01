@@ -31,6 +31,8 @@ param(
   [int]$sinir = 0,             # 0 = hepsi
   [string]$kurtar = '',        # ISLENMIS bir partinin sonucunu YENIDEN GONDERMEDEN cek
   [string]$idler = '',         # yalniz bu kimlikler yargilansin (JSON dizi dosyasi)
+  [string]$haric = '',         # 02.08: bu dosyadaki kimlikler ATLANIR - odenmis yargi
+                               # ikinci kez satin alinmasin (veri/hakem-hasadi.json)
   [string]$odak = 'genel',     # genel | ikili  (ikili = "iki dogru sik var mi" odagi)
 
   [string]$model = 'claude-sonnet-4-5-20250929',
@@ -115,6 +117,20 @@ Write-Host ("Soru: {0} ({1})" -f $sorular.Count, $kaynak)
 # --- HEDEFLI KOSU: yalniz verilen kimlikler. Tam taramayi tekrarlamak yerine
 # belirli bir kusur sinifini yeniden yargilatmak icin. 3.950 soruyu yeniden
 # gondermek 20 USD; 100 soruyu gondermek yarim dolar. Ayni bilgiyi 40 kat ucuza.
+# 02.08 PARA SIGORTASI (Cem: "100 USD cikmasa cebimizden"): daha once yargilanmis
+# sorular yeniden yargilanmaz. Kasa 25.850 soru; 3.922'sinin yargisi zaten satin
+# alinmis durumda (veri/hakem-hasadi.json). Onlari cikarmak ~18 USD tasarruftur.
+if($haric){
+  if(-not (Test-Path $haric)){ Write-Host "UYARI: haric dosyasi yok - $haric (atlama yapilmadi)" }
+  else {
+    $atla = @{}
+    foreach($x in @(Get-Content $haric -Raw -Encoding UTF8 | ConvertFrom-Json)){ $atla["$x"] = 1 }
+    $once = $sorular.Count
+    $sorular = @($sorular | Where-Object { -not $atla.ContainsKey("$($_.id)") })
+    Write-Host ("HARIC: {0} yargilanmis kimlik atlandi ({1} -> {2})" -f $atla.Count, $once, $sorular.Count)
+  }
+}
+
 if($idler){
   if(-not (Test-Path $idler)){ Write-Host "KIRMIZI: kimlik dosyasi yok - $idler"; try { Stop-Transcript | Out-Null } catch {}; exit 1 }
   $ist = @{}
