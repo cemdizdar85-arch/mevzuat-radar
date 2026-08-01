@@ -1,7 +1,18 @@
 {
-  "tarih": "01.08.2026 06:52",
-  "durum": "HATA",
-  "hata": "Supabase upsert HTTP 400: {\"code\":\"23502\",\"details\":\"Failing row contains (084b851f, null, null, null, null, null, null, null, null, Kısa vadeli sigorta kolları üçtür: iş kazası-meslek hasta..., null, null, 2026-08-01 06:52:49.009972+00, null, null, t, null, null, null, null, null).\",\"hint\":null,\"message\":\"null value in column \\\"sinav\\\" of relation \\\"soru_havuzu\\\" violates not-null constraint\"}",
-  "sunucu": "",
-  "satir": 227
+  "tarih": "01.08.2026 07:10",
+  "durum": "TAMAM",
+  "mod": "KURTARMA",
+  "hedef": 4640,
+  "hasat": 4630,
+  "yazilan": 4227,
+  "red": {
+    "uzunluk": 306,
+    "diakritik": 1,
+    "atif": 0,
+    "ayni": 0
+  },
+  "partiler": [
+    "msgbatch_01RGsd6pyDVB9MpNm1uYSnt8"
+  ],
+  "not": "Yazilan hap'ler yayin durumunu DEGISTIRMEZ. Dusenler bir sonraki kalite taramasinda yeniden sayilir."
 }
