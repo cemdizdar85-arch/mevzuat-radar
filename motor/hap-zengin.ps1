@@ -185,6 +185,21 @@ foreach($sid in $sonuclar.Keys){
 }
 Write-Host ("kapilar: gecen {0} | red uzunluk {1} diakritik {2} atif {3} ayni {4}" -f $gecen.Count, $redK.uzunluk, $redK.diakritik, $redK.atif, $redK.ayni)
 
+# 01.08 dersi: parti kurulduktan sonra kasadan silinen id'ler olabiliyor.
+# Upsert olmayan id'yi YENI satir sanip zorunlu kolonlarda 23502 patlatiyor.
+# Once "hala kasada var mi" suzgeci: yalniz mevcut id'lerin hap'i guncellenir.
+if($gecen.Count){
+  $varIds = New-Object 'System.Collections.Generic.HashSet[string]'
+  for($i=0; $i -lt $gecen.Count; $i+=500){
+    $idListe = ($gecen[$i..([Math]::Min($i+499, $gecen.Count-1))] | ForEach-Object { $_.id }) -join ','
+    $varlik = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&id=in.($idListe)" -Headers $SBH -TimeoutSec 60
+    foreach($v in @($varlik)){ [void]$varIds.Add("$($v.id)") }
+  }
+  $onceki = $gecen.Count
+  $gecen = [System.Collections.Generic.List[object]]@($gecen | Where-Object { $varIds.Contains("$($_.id)") })
+  if($gecen.Count -lt $onceki){ Write-Host ("kasada artik olmayan {0} id atlandi (parti sonrasi silinmis)." -f ($onceki - $gecen.Count)) }
+}
+
 $yazilan = 0
 if($gecen.Count){
   for($i=0; $i -lt $gecen.Count; $i+=500){
