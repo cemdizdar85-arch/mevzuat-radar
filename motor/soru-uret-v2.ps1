@@ -100,7 +100,9 @@ function YazmaDenemesi(){
 . (Join-Path $here 'madde-coz.ps1') -kutuphane
 
 # --- kota  (sinava gore AYRI dosya - karistirilirsa yanlis sinava soru uretilir)
-$kotaDosya = if($sinav -eq 'SGS'){ "veri/sgs-uretim-kotasi.json" } else { "veri/uretim-kotasi.json" }
+$kotaDosya = if($sinav -eq 'SGS'){ "veri/sgs-uretim-kotasi.json" }
+             elseif($sinav -eq 'KGK'){ "veri/kgk-uretim-kotasi.json" }   # 01.08 Cem onayi: KGK temel alan hatti
+             else { "veri/uretim-kotasi.json" }
 $kotaYol = Join-Path $kok $kotaDosya
 if(-not (Test-Path $kotaYol)){ Write-Host "Kota dosyasi yok: $kotaDosya"; exit 1 }
 $kota = Get-Content $kotaYol -Raw -Encoding UTF8 | ConvertFrom-Json
