@@ -1,0 +1,53 @@
+{
+  "aciklama": "TETİKTE TEORİ NOTLARI — KGK temel alan konu (c) Finansal Yönetim ayağı. Finansal yönetimin resmî mevzuat metni yoktur; bu notlar finans literatürünün ders kitaplarında uzlaşılmış çekirdek tanımlarının kürasyonudur. AmbarTeyit kapısı KGK Finansal Yönetim sorularını bu notlara bağlar; nota dayanmayan soru üretilemez. Onay: Cem plan onayı 01.08.2026 ('ONAY VERİYORUM', konu listesi kgk-uretim-plani-taslak.json) + GM yetki devri deseni (23.07) + Claude kürasyonu. Kurumsal Yönetim ayağı bu dosyada DEĞİL — onun kaynağı SPK II-17.1 tebliğidir (spk-kurumsal-yon).",
+  "belgeler": [
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - paranin zaman degeri",
+      "baslik": "Finansal Yönetim — Paranın Zaman Değeri",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Bugünkü bir lira, gelecekteki bir liradan değerlidir; çünkü bugünkü para yatırılarak getiri kazanabilir. Gelecek değer FV = PV × (1+r)^n; bugünkü değer PV = FV / (1+r)^n. r iskonto oranı, n dönem sayısıdır. Bileşik faizde faiz, anapara ile birikmiş faizin toplamı üzerinden işler; basit faizde yalnız anapara üzerinden işler. Dönemsel faiz oranı ile yıllık bileşik eşdeğer oran karıştırılmamalıdır: yılda m kez bileşikleşen nominal oran i için efektif yıllık oran (1+i/m)^m − 1'dir. Anüite, eşit aralıklarla eşit tutarlı ödemeler dizisidir; adi anüitede ödemeler dönem SONUNDA, peşin anüitede dönem BAŞINDA yapılır ve peşin anüitenin değeri adi anüitenin (1+r) katıdır. Devamlı (sonsuz) anüitenin bugünkü değeri ödeme/r'dir. Enflasyon ortamında nominal oran ile reel oran Fisher ilişkisiyle bağlanır: (1+nominal) = (1+reel) × (1+enflasyon)."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - sermaye maliyeti WACC",
+      "baslik": "Finansal Yönetim — Sermaye Maliyeti ve AOSM (WACC)",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): İşletmenin kaynakları borç ve özkaynaktan oluşur; her kaynağın bir maliyeti vardır. Borcun maliyeti faiz oranıdır ve faiz vergi matrahından indirilebildiği için vergi sonrası maliyet kd × (1−t) olur (t: vergi oranı) — buna vergi kalkanı denir. Özkaynak maliyeti, ortakların beklediği getiri oranıdır; CAPM ile ke = risksiz oran + β × (piyasa risk primi) biçiminde ya da temettü büyüme (Gordon) modeliyle ke = D1/P0 + g biçiminde tahmin edilir. Dağıtılmayan kârların da maliyeti vardır (fırsat maliyeti); bedava kaynak değildir. Ağırlıklı ortalama sermaye maliyeti (AOSM/WACC), her kaynağın maliyetinin piyasa değeri ağırlıklarıyla ortalamasıdır: WACC = (E/V)×ke + (D/V)×kd×(1−t). WACC, ortalama riskteki yatırım projelerinin değerlemesinde iskonto oranı olarak kullanılır; projenin riski işletme ortalamasından farklıysa oran ayarlanmalıdır."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - sermaye butcelemesi NPV IRR",
+      "baslik": "Finansal Yönetim — Sermaye Bütçelemesi (NBD, İVO, Geri Ödeme)",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Sermaye bütçelemesi, uzun vadeli yatırım projelerinin değerlendirilmesidir. Net Bugünkü Değer (NBD/NPV) = nakit girişlerinin bugünkü değeri − yatırım tutarı; NBD > 0 ise proje değer yaratır ve kabul edilir. İç Verim Oranı (İVO/IRR), NBD'yi sıfır yapan iskonto oranıdır; İVO > sermaye maliyeti ise proje kabul edilir. Birbirini dışlayan projelerde NBD ile İVO farklı sıralama verebilir (ölçek ve nakit akışı zamanlaması farkı); bu çatışmada NBD esas alınır, çünkü değer yaratımını tutar olarak ölçer. Geri ödeme süresi, yatırımın kaç yılda geri döndüğünü gösterir; basit ve likidite odaklıdır ama paranın zaman değerini ve geri ödeme sonrası nakit akışlarını dikkate almaz (iskontolu geri ödeme ilk kusuru giderir, ikincisini gidermez). Kârlılık endeksi = bugünkü değer / yatırım; 1'in üzeri kabul bölgesidir ve sermaye kısıtı altında sıralamada yararlıdır."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - isletme sermayesi yonetimi",
+      "baslik": "Finansal Yönetim — İşletme (Çalışma) Sermayesi Yönetimi",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Brüt işletme sermayesi dönen varlıkların toplamı; net işletme sermayesi dönen varlıklar − kısa vadeli yabancı kaynaklardır. Negatif net işletme sermayesi, kısa vadeli borçların dönen varlıkları aştığını gösterir. Nakit döngüsü (nakit dönüşüm süresi) = stok tutma süresi + alacak tahsil süresi − borç ödeme süresi; kısalması bağlanan fonu azaltır. Agresif finanslama politikası dalgalanan dönen varlıkların ve sürekli dönen varlıkların bir kısmının kısa vadeli kaynakla finansmanını öngörür (kârlılık yüksek, risk yüksek); ihtiyatlı (muhafazakâr) politika sürekli varlıkları uzun vadeli kaynakla finanse eder (risk düşük, kârlılık düşük); dengeli (eşleştirme) politika varlığın süresi ile kaynağın vadesini eşleştirir. Nakit yönetiminde Baumol modeli nakit ihtiyacını stok modeli mantığıyla optimize eder; alacak yönetiminde kredi standartları, vade ve iskonto politikası tahsilat riski ile satış hacmi arasında denge kurar; stokta ekonomik sipariş miktarı (EOQ) sipariş ve elde bulundurma maliyetleri toplamını enazlar."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - finansal analiz oranlari",
+      "baslik": "Finansal Yönetim — Finansal Analiz Oranları",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Likidite oranları kısa vadeli borç ödeme gücünü ölçer: cari oran = dönen varlıklar / KVYK; asit-test (likidite) oranı = (dönen varlıklar − stoklar) / KVYK; nakit oranı = hazır değerler + menkul kıymetler / KVYK. Finansal yapı (kaldıraç) oranları: kaldıraç oranı = toplam yabancı kaynak / toplam varlık; borç/özkaynak oranı; faiz karşılama oranı = FVÖK / faiz gideri. Faaliyet (verimlilik) oranları: stok devir hızı = satılan malın maliyeti / ortalama stok; alacak devir hızı = kredili satışlar / ortalama ticari alacak; devir süreleri 365/devir hızıdır; aktif devir hızı = net satışlar / toplam varlık. Kârlılık oranları: brüt kâr marjı, faaliyet kâr marjı, net kâr marjı (ilgili kârın net satışlara oranı); özkaynak kârlılığı (ROE) = net kâr / özkaynak; varlık kârlılığı (ROA) = net kâr / toplam varlık. DuPont ayrıştırması ROE'yi üç çarpana böler: net kâr marjı × aktif devir hızı × özkaynak çarpanı (toplam varlık/özkaynak) — kârlılığın kaynağını (marj mı, verim mi, kaldıraç mı) gösterir."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - kaldirac ve basabas",
+      "baslik": "Finansal Yönetim — Başabaş ve Kaldıraç Analizi",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Başabaş noktası, toplam gelirin toplam maliyete eşitlendiği satış düzeyidir: adet olarak sabit maliyet / birim katkı payı (birim fiyat − birim değişken maliyet); tutar olarak sabit maliyet / katkı oranı. Faaliyet kaldıracı, sabit FAALİYET giderlerinden doğar; faaliyet kaldıraç derecesi (FKD) = katkı payı / FVÖK = satışlardaki %1 değişimin FVÖK'te yarattığı % değişim. Finansal kaldıraç, sabit FİNANSMAN giderlerinden (faiz) doğar; finansal kaldıraç derecesi (FinKD) = FVÖK / (FVÖK − faiz) = FVÖK'teki %1 değişimin hisse başına kârda yarattığı % değişim. Birleşik kaldıraç derecesi ikisinin çarpımıdır ve satış değişiminin hisse başına kâra toplam etkisini ölçer. Kaldıraç yükseldikçe beklenen kârlılıkla birlikte risk (kârın oynaklığı) da artar; başabaşa uzaklık güvenlik payıyla ölçülür: (mevcut satış − başabaş satış) / mevcut satış."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - temettu politikasi",
+      "baslik": "Finansal Yönetim — Kâr Payı (Temettü) Politikası",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Temettü politikası, dönem kârının ne kadarının ortaklara dağıtılıp ne kadarının işletmede alıkonulacağı kararıdır. Dağıtım oranı = dağıtılan kâr / net kâr; alıkonan kârlar büyümenin iç kaynağıdır (sürdürülebilir büyüme oranı = ROE × alıkoyma oranı). Başlıca politikalar: sabit tutarlı temettü (istikrar sinyali), sabit dağıtım oranı (kârla dalgalanır), artıklara dayalı (residual) politika — önce pozitif NBD'li yatırımlar finanse edilir, kalan dağıtılır — ve düşük sabit tutar + ek temettü karması. Modigliani-Miller'a göre vergisiz ve işlem maliyetsiz tam piyasada temettü politikası şirket değerini etkilemez; gerçek piyasalarda vergi farkları, işlem maliyetleri, temsil maliyetleri ve sinyal etkisi politikayı önemli kılar. Müşteri (clientele) etkisi: farklı yatırımcı grupları farklı dağıtım politikalarını tercih eder. Pay geri alımı, nakit temettüye alternatif bir dağıtım yoludur. Türk hukukunda dağıtım kararının usulü TTK ve (halka açıklarda) SPKn/SPK düzenlemelerine tabidir; bu notun konusu finansal tercih boyutudur."
+    },
+    {
+      "tur": "teori-notu",
+      "kaynak_ad": "Teori Notu - risk getiri portfoy",
+      "baslik": "Finansal Yönetim — Risk, Getiri ve Portföy Temelleri",
+      "metin": "Tetikte Teori Notu (finans literatürünün yerleşik tanımı): Getiri, yatırımın sağladığı kazancın yatırılan tutara oranıdır; risk, gerçekleşen getirinin beklenenden sapma olasılığıdır ve istatistikte varyans/standart sapma ile ölçülür. Riskin iki bileşeni vardır: sistematik (piyasa) risk — faiz, enflasyon, kur, konjonktür gibi tüm piyasayı etkileyen kaynaklardan doğar ve çeşitlendirmeyle YOK EDİLEMEZ; sistematik olmayan (firmaya özgü) risk — çeşitlendirmeyle azaltılabilir. Portföyün beklenen getirisi bileşen getirilerinin ağırlıklı ortalamasıdır; portföy riski ise korelasyona bağlıdır: korelasyon +1'den küçük oldukça çeşitlendirme riski düşürür, en güçlü etki negatif korelasyonda görülür. Beta (β), bir varlığın piyasa hareketlerine duyarlılığını ölçer: β=1 piyasa kadar, β>1 piyasadan oynak, β<1 piyasadan az oynak. CAPM'e göre beklenen getiri = risksiz oran + β × piyasa risk primi; yatırımcı yalnız çeşitlendirilemeyen (sistematik) risk için prim bekler. Sermaye piyasası doğrusu etkin portföyler için toplam riski, menkul kıymet piyasası doğrusu tüm varlıklar için sistematik riski fiyatlar."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "tarih": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-  "hedef": 1510,
+  "hedef": 1870,
   "kaynak": "veri/kgk-sinav-yapisi.json (KGK 28.06.2025 resmi sinav ilani) - SMMM temel alan (a)+(b)+(c). Konu satirlari ambardaki 58 standart + BDY/660 KHK + II-17.1 uzerine kuruldu. Finansal Yonetim satirlari YOK - kurasyon notlari ambara girince eklenecek (2-3 Agustos), kaynaksiz uretim yasak.",
   "not": "katman A-omurga = standart/mevzuatin cekirdek hukmu. donem alani KGK'da 1 (TESMER donem sayaci degil).",
   "plan": [
@@ -70,6 +70,14 @@
     {"ders":"Kurumsal Yonetim","konu":"kurumsal yonetim yonetim kurulu bagimsiz uye komiteler","katman":"A-omurga","donem":1,"adet":30},
     {"ders":"Kurumsal Yonetim","konu":"kurumsal yonetim kamuyu aydinlatma seffaflik menfaat sahipleri","katman":"A-omurga","donem":1,"adet":20},
     {"ders":"Kurumsal Yonetim","konu":"iliskili taraf islemleri yaygin ve sureklilik arz eden islemler","katman":"A-omurga","donem":1,"adet":20},
-    {"ders":"Kurumsal Yonetim","konu":"yatirimci iliskileri bolumu gorevleri","katman":"A-omurga","donem":1,"adet":15}
+    {"ders":"Kurumsal Yonetim","konu":"yatirimci iliskileri bolumu gorevleri","katman":"A-omurga","donem":1,"adet":15},
+    {"ders":"Finansal Yonetim","konu":"paranin zaman degeri bugunku deger anuite","katman":"A-omurga","donem":1,"adet":45},
+    {"ders":"Finansal Yonetim","konu":"sermaye maliyeti wacc ozkaynak maliyeti","katman":"A-omurga","donem":1,"adet":45},
+    {"ders":"Finansal Yonetim","konu":"sermaye butcelemesi net bugunku deger ic verim orani geri odeme","katman":"A-omurga","donem":1,"adet":50},
+    {"ders":"Finansal Yonetim","konu":"isletme sermayesi yonetimi nakit dongusu","katman":"A-omurga","donem":1,"adet":45},
+    {"ders":"Finansal Yonetim","konu":"finansal analiz oranlari likidite kaldirac karlilik dupont","katman":"A-omurga","donem":1,"adet":50},
+    {"ders":"Finansal Yonetim","konu":"basabas noktasi faaliyet ve finansal kaldirac","katman":"A-omurga","donem":1,"adet":45},
+    {"ders":"Finansal Yonetim","konu":"temettu kar payi politikasi","katman":"A-omurga","donem":1,"adet":35},
+    {"ders":"Finansal Yonetim","konu":"risk getiri portfoy beta capm","katman":"A-omurga","donem":1,"adet":45}
   ]
 }
