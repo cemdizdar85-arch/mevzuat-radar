@@ -185,47 +185,26 @@ foreach($sid in $sonuclar.Keys){
 }
 Write-Host ("kapilar: gecen {0} | red uzunluk {1} diakritik {2} atif {3} ayni {4}" -f $gecen.Count, $redK.uzunluk, $redK.diakritik, $redK.atif, $redK.ayni)
 
-# 01.08 dersi: parti kurulduktan sonra kasadan silinen id'ler olabiliyor.
-# Upsert olmayan id'yi YENI satir sanip zorunlu kolonlarda 23502 patlatiyor.
-# Once "hala kasada var mi" suzgeci: yalniz mevcut id'lerin hap'i guncellenir.
-if($gecen.Count){
-  $varIds = New-Object 'System.Collections.Generic.HashSet[string]'
-  for($i=0; $i -lt $gecen.Count; $i+=500){
-    $idListe = ($gecen[$i..([Math]::Min($i+499, $gecen.Count-1))] | ForEach-Object { $_.id }) -join ','
-    $varlik = Invoke-RestMethod -Method Get -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&id=in.($idListe)" -Headers $SBH -TimeoutSec 60
-    foreach($v in @($varlik)){ [void]$varIds.Add("$($v.id)") }
-  }
-  $onceki = $gecen.Count
-  $gecen = [System.Collections.Generic.List[object]]@($gecen | Where-Object { $varIds.Contains("$($_.id)") })
-  if($gecen.Count -lt $onceki){ Write-Host ("kasada artik olmayan {0} id atlandi (parti sonrasi silinmis)." -f ($onceki - $gecen.Count)) }
-}
-
+# 01.08 KOK NEDEN (uc arizali kosunun dersi): PostgREST KISMI upsert tuzagi.
+# Yalniz {id, hap} gonderilince Postgres, satir VAR OLSA BILE once eksik
+# kolonlari bos birakip ekleme satiri kurar; 'sinav' gibi zorunlu kolonlarda
+# 23502 patlar. Kismi alan yazmak icin dogru alet upsert DEGIL, guncellemedir:
+# PATCH id=eq.X yalniz o kolonu gunceller, olmayan id'de sessizce 0 satir
+# doner (yaris da kendiliginden cozulur).
 $yazilan = 0
 if($gecen.Count){
-  for($i=0; $i -lt $gecen.Count; $i+=500){
-    $grup = [System.Collections.Generic.List[object]]@($gecen[$i..([Math]::Min($i+499, $gecen.Count-1))])
-    # 01.08 kor-kalma dersi: byte[] govdeyle 400 gelince ErrorDetails bos kaliyordu.
-    # SkipHttpErrorCheck ile govde HER KOSULDA okunur.
-    # 01.08 yaris dersi: uretim hatti ayni anda kasayi degistiriyor - "var mi"
-    # kontrolu ile yazma arasinda satir silinebilir (23502). Cozum: hatanin
-    # icindeki id ayiklanir, o kayit dusurulur, kalanla yeniden denenir.
-    $sigorta = 0
-    while($grup.Count){
-      $gb = ConvertTo-Json -InputObject ([object[]]$grup) -Depth 3
-      $yr = Invoke-WebRequest -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" `
-        -Headers ($SBH + @{ 'Content-Type'='application/json'; Prefer='resolution=merge-duplicates,return=minimal' }) `
-        -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 180 -SkipHttpErrorCheck
-      if([int]$yr.StatusCode -lt 300){ $yazilan += $grup.Count; break }
-      $g = "$($yr.Content)"
-      $eslesme = [regex]::Match($g, 'contains \(([0-9a-fA-F-]{6,}?),')
-      if($g.Contains('"code":"23502"') -and $eslesme.Success -and $sigorta -lt 60){
-        $kotu = $eslesme.Groups[1].Value; $sigorta++
-        Write-Host ("yaris: {0} parti sonrasi kasadan silinmis - atlandi, kalan {1} ile yeniden." -f $kotu, ($grup.Count-1))
-        $grup = [System.Collections.Generic.List[object]]@($grup | Where-Object { "$($_.id)" -ne $kotu })
-        continue
-      }
-      throw ("Supabase upsert HTTP {0}: {1}" -f $yr.StatusCode, $g.Substring(0,[Math]::Min(400,$g.Length)))
+  $ct = $SBH + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }
+  $sayac = 0
+  foreach($g in $gecen){
+    $gb = ConvertTo-Json -InputObject @{ hap = $g.hap } -Compress
+    $yr = Invoke-WebRequest -Method Patch -Uri "$SB_URL/rest/v1/soru_havuzu?id=eq.$($g.id)" `
+      -Headers $ct -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 60 -SkipHttpErrorCheck
+    if([int]$yr.StatusCode -ge 300){
+      $govde2 = "$($yr.Content)"
+      throw ("Supabase PATCH HTTP {0} (id {1}): {2}" -f $yr.StatusCode, $g.id, $govde2.Substring(0,[Math]::Min(400,$govde2.Length)))
     }
+    $yazilan++; $sayac++
+    if(($sayac % 500) -eq 0){ Write-Host ("... {0}/{1} hap yazildi" -f $sayac, $gecen.Count) }
   }
 }
 
