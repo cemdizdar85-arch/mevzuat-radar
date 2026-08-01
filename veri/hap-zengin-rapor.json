@@ -1,7 +1,7 @@
 {
-  "tarih": "31.07.2026 21:11",
+  "tarih": "01.08.2026 05:58",
   "durum": "HATA",
   "hata": "Response status code does not indicate success: 400 (Bad Request).",
-  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"You have reached your specified API usage limits. You will regain access on 2026-08-01 at 00:00 UTC.\"\n  },\n  \"request_id\": \"req_011Cdapgmoe8e5jHrc5jrxmy\"\n}",
-  "satir": 125
+  "sunucu": "\n{\n  \"code\": \"23502\",\n  \"details\": \"Failing row contains (04ee2d90, null, null, null, null, null, null, null, null, Yabanc\\u0131 para cinsinden senede ba\\u011Fl\\u0131 bor\\u00E7lar, VUK 280. maddey..., null, null, 2026-08-01 05:58:36.128631\\u002B00, null, null, t, null, null, null, null, null).\",\n  \"hint\": null,\n  \"message\": \"null value in column \\u0022sinav\\u0022 of relation \\u0022soru_havuzu\\u002",
+  "satir": 186
 }
