@@ -1,7 +1,7 @@
 {
-  "tarih": "01.08.2026 05:58",
+  "tarih": "01.08.2026 06:25",
   "durum": "HATA",
-  "hata": "Response status code does not indicate success: 400 (Bad Request).",
-  "sunucu": "\n{\n  \"code\": \"23502\",\n  \"details\": \"Failing row contains (04ee2d90, null, null, null, null, null, null, null, null, Yabanc\\u0131 para cinsinden senede ba\\u011Fl\\u0131 bor\\u00E7lar, VUK 280. maddey..., null, null, 2026-08-01 05:58:36.128631\\u002B00, null, null, t, null, null, null, null, null).\",\n  \"hint\": null,\n  \"message\": \"null value in column \\u0022sinav\\u0022 of relation \\u0022soru_havuzu\\u002",
-  "satir": 186
+  "hata": "Supabase upsert HTTP 400: {\"code\":\"23502\",\"details\":\"Failing row contains (b6d3ffb9, null, null, null, null, null, null, null, null, Kanuni temsilci (müdür) şirket borcunun tamamından kişisel ..., null, null, 2026-08-01 06:25:10.491748+00, null, null, t, null, null, null, null, null).\",\"hint\":null,\"message\":\"null value in column \\\"sinav\\\" of relation \\\"soru_havuzu\\\" violates not-null constraint\"}",
+  "sunucu": "",
+  "satir": 199
 }
