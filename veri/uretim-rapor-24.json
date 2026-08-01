@@ -1,0 +1,333 @@
+{
+  "tarih": "01.08.2026 08:53",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 569,
+    "maddesiz": 80,
+    "metinsiz": 0,
+    "hazir": 1900,
+    "kaynak_hesap-plani": 81,
+    "kaynak_kanun": 406,
+    "kaynak_standart": 2
+  },
+  "ozet": {
+    "uretilen": 1632,
+    "rakamRed": 42,
+    "dilRed": 49,
+    "sikRed": 11,
+    "sablonRed": 11,
+    "tuzakRed": 34,
+    "atifRed": 0,
+    "kokuRed": 43,
+    "benzerRed": 59,
+    "cevapsiz": 19,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 5595928,
+    "cikis": 2602210,
+    "usd": 27.91
+  },
+  "redler": [
+    {
+      "konu": "kâr dagitimi yedekler",
+      "sebep": "dil",
+      "deger": "ort 10.1 enuzun 40"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "129- Şüpheli Ticari Alacaklar Karşılığı"
+    },
+    {
+      "konu": "banka kredisi faiz tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "banka kredisi faiz tahakkuku",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 39"
+    },
+    {
+      "konu": "saticiya mal iadesi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kapanis kaydi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "ticari mal alimi",
+      "sebep": "dil",
+      "deger": "ort 10.7 enuzun 45"
+    },
+    {
+      "konu": "ticari mal alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "satis ve maliyet kaydi",
+      "sebep": "dil",
+      "deger": "ort 8.8 enuzun 40"
+    },
+    {
+      "konu": "satis ve maliyet kaydi",
+      "sebep": "dil",
+      "deger": "ort 11.0 enuzun 60"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan malin maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "bilanco duzenleme",
+      "sebep": "dil",
+      "deger": "ort 11.5 enuzun 42"
+    },
+    {
+      "konu": "pazarlama gideri odeme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "faiz geliri tahakkuku",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "menkul kiymet satisi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "menkul kiymet satisi",
+      "sebep": "dil",
+      "deger": "ort 13.0 enuzun 52"
+    },
+    {
+      "konu": "tasit alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "amortisman ayirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "amortisman ayirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "amortisman ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "320/4"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "dil",
+      "deger": "ort 10.8 enuzun 52"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "banka kredisi kullanimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "gelecek aylara ait gider",
+      "sebep": "dil",
+      "deger": "ort 9.6 enuzun 42"
+    },
+    {
+      "konu": "tazmin talebi zamanasimi",
+      "sebep": "riskli-sayi",
+      "deger": "2 yıl,10 yıl"
+    },
+    {
+      "konu": "banka kredisi kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "borsalar ve piyasa isleticileri",
+      "sebep": "riskli-sayi",
+      "deger": "4054"
+    },
+    {
+      "konu": "gelir tablosu hesaplarinin kapatilmasi",
+      "sebep": "dil",
+      "deger": "ort 11.2 enuzun 45"
+    },
+    {
+      "konu": "istirak kâr payi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 0'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kasa banka mutabakati",
+      "sebep": "dil",
+      "deger": "ort 13.4 enuzun 51"
+    },
+    {
+      "konu": "ortaklardan alacak gecmis yil zarari",
+      "sebep": "riskli-sayi",
+      "deger": "25.000 TL"
+    },
+    {
+      "konu": "gelecek aylara ait gider mahsup",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "ortaklara borc odeme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "yatirimci varliklari teminat",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "senet mahsubu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "kurul denetim yetkisi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "ortaklardan alacak kasa",
+      "sebep": "riskli-sayi",
+      "deger": "25.000 TL"
+    },
+    {
+      "konu": "kambiyo kari tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "supheli alacak karsiligi ve tahsilati",
+      "sebep": "dil",
+      "deger": "ort 11.0 enuzun 39"
+    },
+    {
+      "konu": "faiz gelir tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "vergi karsiligi kapatma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "sermaye artirimi hisse satisi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "ozel maliyet bedeli",
+      "sebep": "dil",
+      "deger": "ort 8.5 enuzun 41"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "iade mal maliyet duzeltme",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "ticari mal satisi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 0'i tuzagi soyluyor"
+    },
+    {
+      "konu": "diger ticari alacak tahsili",
+      "sebep": "dil",
+      "deger": "ort 14.1 enuzun 46"
+    },
+    {
+      "konu": "gelir gider hesaplari kapanisi",
+      "sebep": "dil",
+      "deger": "ort 9.1 enuzun 45"
+    },
+    {
+      "konu": "alacak tahsilat vergi iadesi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "sermaye taahhudu kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "hisse senedi ihrac primi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    }
+  ]
+}
