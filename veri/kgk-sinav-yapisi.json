@@ -1,0 +1,34 @@
+{
+  "aciklama": "KGK Bagimsiz Denetcilik Sinavi RESMI yapisi. Kaynak: KGK sinav ilani (28 Haziran 2025 sinavi, kgk.gov.tr Portalv2Uploads .../Sinav/Haziran2025/Sinav Ilani.pdf) + Bagimsiz Denetim Yonetmeligi m.14/16 (RG 26.12.2012-28509, konsolide). EZBERDEN YAZILMADI - 01.08.2026 gunu ilan PDF'inden cikarildi. Yeni ilan cikinca robot/el ile guncellenir.",
+  "cikarim_tarihi": "01.08.2026",
+  "kaynak_url": "https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/S%C4%B1nav/Haziran2025/S%C4%B1nav%20%C4%B0lan%C4%B1.pdf",
+  "sinav_konulari": [
+    { "kod": "a", "ad": "Türkiye Muhasebe Standartları", "alan": "temel" },
+    { "kod": "b", "ad": "Türkiye Denetim Standartları", "alan": "temel" },
+    { "kod": "c", "ad": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim", "alan": "temel" },
+    { "kod": "ç", "ad": "Sermaye Piyasası Mevzuatı", "alan": "sermaye piyasasi (ek)" },
+    { "kod": "d", "ad": "Bankacılık Mevzuatı", "alan": "bankacilik (ek)" },
+    { "kod": "e", "ad": "Sigortacılık ve Özel Emeklilik Mevzuatı", "alan": "sigortacilik ve ozel emeklilik (ek)" },
+    { "kod": "f", "ad": "Kurumsal Sürdürülebilirlik Raporlaması", "alan": "surdurulebilirlik (ek)" },
+    { "kod": "g", "ad": "Sürdürülebilirlik Denetimi", "alan": "surdurulebilirlik (ek)" }
+  ],
+  "temel_alan_kurali": {
+    "smmm": ["a", "b", "c"],
+    "ymm": ["a", "b"],
+    "not": "Ilan metni: 'Temel alandan yetkilendirilmek isteyen SMMM'ler (a),(b),(c) bentlerinde, YMM'ler ise (a) ve (b) bentlerinde belirtilen konulardan sinava tabi tutulurlar.'"
+  },
+  "basari_sarti": {
+    "konu_baraji": 60,
+    "ortalama_baraji": 70,
+    "tek_alan": "Tek bir alandan yetki talep edilirse o alandan en az 70 puan zorunlu.",
+    "gecerlilik": "Sinav sonuclari ilan tarihini muteakip ucuncu takvim yili sonuna kadar gecerli.",
+    "not_yukseltme": "Her konudan ayri ayri tekrar girilebilir; gecerlilik suresinde en yuksek not esas alinir."
+  },
+  "sinav_bicimi": {
+    "usul": "yazili test",
+    "modul_suresi_dakika": 60,
+    "oturum": "ayni gun sabah + ogleden sonra iki oturum",
+    "ucret_2025": "konu basina 450 TL (2025 ilani; degisebilir)"
+  },
+  "uretim_notu": "Tetikte KGK hatti hedef kitlesi SMMM adaylari -> TEMEL ALAN (a+b+c). Soru uretimi bu uc derse kurulur: (a) TMS/TFRS seti [ambarda], (b) BDS seti + etik/bagimsizlik + BDY [ambarda + khk660/bd-yonetmelik yutuluyor], (c) Kurumsal Yonetim Ilkeleri (SPK II-17.1) + Finansal Yonetim [teori-notu kurasyonu gerekebilir - resmi metni olmayan finansal yonetim teknikleri icin Cem+Claude onayli ders notu deseni]."
+}
