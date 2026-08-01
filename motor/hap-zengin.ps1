@@ -203,17 +203,29 @@ if($gecen.Count){
 $yazilan = 0
 if($gecen.Count){
   for($i=0; $i -lt $gecen.Count; $i+=500){
-    $grup = $gecen[$i..([Math]::Min($i+499, $gecen.Count-1))]
-    $gb = ConvertTo-Json -InputObject ([object[]]$grup) -Depth 3
-    # 01.08 kor-kalma dersi: byte[] govdeyle 400 gelince ErrorDetails bos kaliyordu,
-    # trap "sunucu:" diye bos yaziyordu. SkipHttpErrorCheck ile govde HER KOSULDA okunur.
-    $yr = Invoke-WebRequest -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" `
-      -Headers ($SBH + @{ 'Content-Type'='application/json'; Prefer='resolution=merge-duplicates,return=minimal' }) `
-      -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 180 -SkipHttpErrorCheck
-    if([int]$yr.StatusCode -ge 300){
-      $g = "$($yr.Content)"; throw ("Supabase upsert HTTP {0}: {1}" -f $yr.StatusCode, $g.Substring(0,[Math]::Min(400,$g.Length)))
+    $grup = [System.Collections.Generic.List[object]]@($gecen[$i..([Math]::Min($i+499, $gecen.Count-1))])
+    # 01.08 kor-kalma dersi: byte[] govdeyle 400 gelince ErrorDetails bos kaliyordu.
+    # SkipHttpErrorCheck ile govde HER KOSULDA okunur.
+    # 01.08 yaris dersi: uretim hatti ayni anda kasayi degistiriyor - "var mi"
+    # kontrolu ile yazma arasinda satir silinebilir (23502). Cozum: hatanin
+    # icindeki id ayiklanir, o kayit dusurulur, kalanla yeniden denenir.
+    $sigorta = 0
+    while($grup.Count){
+      $gb = ConvertTo-Json -InputObject ([object[]]$grup) -Depth 3
+      $yr = Invoke-WebRequest -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" `
+        -Headers ($SBH + @{ 'Content-Type'='application/json'; Prefer='resolution=merge-duplicates,return=minimal' }) `
+        -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 180 -SkipHttpErrorCheck
+      if([int]$yr.StatusCode -lt 300){ $yazilan += $grup.Count; break }
+      $g = "$($yr.Content)"
+      $eslesme = [regex]::Match($g, 'contains \(([0-9a-fA-F-]{6,}?),')
+      if($g.Contains('"code":"23502"') -and $eslesme.Success -and $sigorta -lt 60){
+        $kotu = $eslesme.Groups[1].Value; $sigorta++
+        Write-Host ("yaris: {0} parti sonrasi kasadan silinmis - atlandi, kalan {1} ile yeniden." -f $kotu, ($grup.Count-1))
+        $grup = [System.Collections.Generic.List[object]]@($grup | Where-Object { "$($_.id)" -ne $kotu })
+        continue
+      }
+      throw ("Supabase upsert HTTP {0}: {1}" -f $yr.StatusCode, $g.Substring(0,[Math]::Min(400,$g.Length)))
     }
-    $yazilan += @($grup).Count
   }
 }
 
