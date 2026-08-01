@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260801073436
+Start time: 20260801155157
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9c08cf22-9ad1-42aa-ab6d-f2d9ec4c569e.ps1'
-Process ID: 2382
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/773f4b69-9d9e-451a-8b88-6d3e4131208c.ps1'
+Process ID: 2338
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,17 +17,22 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 13-03-2026
-Kart sayisi  : 1
+RG gunu      : 11-07-2026
+Kart sayisi  : 27
 Izlenen dosya: 12
 
 ======================================================================
   RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/gtip-damping.json   (arac: gtip.html)
-      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
-      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
-      <- Malezya kontrplak ithalatında dampinge karşı önlem: Mentakab firması için sıfır tarife
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- İthalatta gözetim uygulaması eşik değerleri güncellendi
+      <- İthalat gözetim eşikleri yenilendi; altı ürün grubu için kıymetler güncellendi
+      <- İthalat gözetim eşikleri güncellendi; yeni kıymetler uygulanacak
+      <- İthalatta gözetim uygulaması: boyalı seramik ve asansör parçaları kıymet esikleri güncellendi
+      <- İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek
+      ... ve 16 yayin daha (tamami arac-uyari.json'da)
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -36,5 +41,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260801073436
+End time: 20260801155157
 **********************
