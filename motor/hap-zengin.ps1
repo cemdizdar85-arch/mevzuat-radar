@@ -58,6 +58,13 @@ $SBH = @{ apikey = $SBKEY; Authorization = "Bearer $SBKEY" }
 $AH  = @{ "x-api-key" = $AKEY; "anthropic-version" = "2023-06-01"; "Content-Type" = "application/json" }
 $MODEL = if("$($emir.model)"){ "$($emir.model)" } else { "claude-haiku-4-5-20251001" }
 $KURTAR = ("$env:KURTAR" -eq '1')
+# 01.08 cift-odeme sigortasi: onceki kosu parti gonderip yazamadan dustuyse
+# (odenmis is bekliyor), normal kosu YENI GONDERIM yapmadan once o partileri
+# bedava hasat eder. Basarili kosu sonunda dosya bosaltilir (asagida).
+if(-not $KURTAR -and (Test-Path $partiYol)){
+  try { $bekleyenP = @((Get-Content $partiYol -Raw -Encoding UTF8 | ConvertFrom-Json).partiler) } catch { $bekleyenP = @() }
+  if($bekleyenP.Count){ $KURTAR = $true; Write-Host ("Bekleyen {0} odenmis parti bulundu - bu kosu YALNIZ HASAT (yeni gonderim/odeme YOK)." -f $bekleyenP.Count) }
+}
 
 # --- yardimcilar ------------------------------------------------------------
 $trHarfler = ([char]0x011F,[char]0x00FC,[char]0x015F,[char]0x0131,[char]0x00F6,[char]0x00E7,[char]0x011E,[char]0x00DC,[char]0x015E,[char]0x0130,[char]0x00D6,[char]0x00C7)
@@ -183,12 +190,21 @@ if($gecen.Count){
   for($i=0; $i -lt $gecen.Count; $i+=500){
     $grup = $gecen[$i..([Math]::Min($i+499, $gecen.Count-1))]
     $gb = ConvertTo-Json -InputObject ([object[]]$grup) -Depth 3
-    Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" `
+    # 01.08 kor-kalma dersi: byte[] govdeyle 400 gelince ErrorDetails bos kaliyordu,
+    # trap "sunucu:" diye bos yaziyordu. SkipHttpErrorCheck ile govde HER KOSULDA okunur.
+    $yr = Invoke-WebRequest -Method Post -Uri "$SB_URL/rest/v1/soru_havuzu?on_conflict=id" `
       -Headers ($SBH + @{ 'Content-Type'='application/json'; Prefer='resolution=merge-duplicates,return=minimal' }) `
-      -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 180 | Out-Null
+      -Body ([Text.Encoding]::UTF8.GetBytes($gb)) -TimeoutSec 180 -SkipHttpErrorCheck
+    if([int]$yr.StatusCode -ge 300){
+      $g = "$($yr.Content)"; throw ("Supabase upsert HTTP {0}: {1}" -f $yr.StatusCode, $g.Substring(0,[Math]::Min(400,$g.Length)))
+    }
     $yazilan += @($grup).Count
   }
 }
+
+# Basari: bekleyen partiler hasat edilip yazildi - dosyayi BOSALT (silme:
+# workflow'un commit adimi yalniz var olan dosyayi stage'ler, silinme yansimaz).
+[IO.File]::WriteAllText($partiYol, (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); partiler=@(); istek=0; not="hasat tamamlandi" }) -Depth 3), (New-Object Text.UTF8Encoding($false)))
 
 Rapor ([ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm"); durum = "TAMAM"
