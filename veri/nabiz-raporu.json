@@ -1,27 +1,19 @@
 {
-  "tarih": "31.07.2026 23:49",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 7,
+  "tarih": "01.08.2026 12:00",
+  "durum": "ALARM",
+  "kirmizi": 3,
+  "kurtarma": 1,
   "izlenen_robot": 15,
   "izlenen_veri": 5,
-  "maddeler": [],
+  "maddeler": [
+    "ESKALASYON: Hap Kartlar -> kurtarma ise yaramadi (son basarili kosu 46.1 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 334.2 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 45.4 saat once (esik 30s)). Actions loguna bak."
+  ],
   "kurtarilan": [
-    "Hap Kartlar -> son basarili kosu 33.9 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Gunluk Kanun Aynasi -> son basarili kosu 322.0 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
-    "Bilgi Ambari Yukleyici -> son basarili kosu 32.6 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Ders Remap -> son basarili kosu 33.4 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Olu Link Nobetcisi -> son basarili kosu 33.3 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Smoke Nobetcisi -> son basarili kosu 33.3 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Sinav Takvimi Nobetcisi (TESMER PDF) -> son basarili kosu 32.6 saat once (esik 30s) -> kurtarma: tetiklendi"
+    "Radar Uyari Robotu -> Uyari robotu ozeti damgasi 31.07.2026 05:28 (31 saat eski; esik 30s) -> kurtarma: tetiklendi"
   ],
   "kurtarilan_anahtar": [
-    "KOSU:kartlar.yml",
-    "KOSU:mevzuat.yml",
-    "KOSU:ambar.yml",
-    "KOSU:ders-remap.yml",
-    "KOSU:link.yml",
-    "KOSU:smoke.yml",
-    "KOSU:takvim.yml"
+    "VERI:uyari-ozet.json"
   ]
 }
