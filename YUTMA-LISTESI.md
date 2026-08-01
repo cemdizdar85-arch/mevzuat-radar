@@ -46,11 +46,11 @@
 
 ## 🎓 KGK BAĞIMSIZ DENETÇİLİK SINAVI HATTI (31.07.2026, Cem onayı: "daha erken varsa kuralım")
 *Hedef: üretim 4→5 Ağustos gecesi (SGS/Yeterlilik dilimleri bitince); Cem'in kontrol turu 5-6 Ağustos'a yetişir. İyi haber: TMS/TFRS/BDS setinin büyük kısmı 27.07'de zaten yutuldu (üstteki bölümler) — KGK için kalan boşluklar:*
-- [ ] **Kalan BDS'ler:** 260, 265, 510, 540, 580, 620, 720 (üst listede açık) + 320 Önemlilik, 450 Yanlışlıkların Değerlendirilmesi, 530 Örnekleme (fabrika talep sinyali, URL kalıbı belli: TDS_2025_Seti)
-- [ ] **Kalan TMS/TFRS:** TMS 27 Bireysel FT, TMS 41 Tarımsal Faaliyetler, TFRS 9 Bölüm 6 (korunma muhasebesi)
-- [ ] **KGK kurumsal mevzuatı:** 660 s. KHK (KGK kuruluş) + Bağımsız Denetim Yönetmeliği (RG 26.12.2012, konsolide) — denetçilik mesleği/yetkilendirme soruları buradan
-- [ ] **Sermaye piyasası ayağı:** 6362 s. SPKn ilgili bölümler (ambarda var mı teyit edilecek; yoksa yut) + SPK Kurumsal Yönetim Tebliği (II-17.1)
-- [ ] **KGK sınav ders yapısı** resmî kaynaktan çıkarılacak (Bağımsız Denetçilik Sınav Tebliği/KGK duyurusu — ders listesi ezberden YAZILMAZ) → veri/kgk-sinav-yapisi.json
+- [x] **Kalan BDS'ler:** ✓ 01.08 tespiti — 260, 265, 320, 450, 510, 530, 540, 580, 620, 720 dahil 30 BDS dosyası veri/mevzuat/'ta ZATEN OKUNMUŞ (27-31.07 koşuları; liste işaretlenmemişti)
+- [x] **Kalan TMS/TFRS:** ✓ aynı tespit — TMS 27, TMS 41, TFRS 9 dahil 28 TMS/TFRS dosyası depoda
+- [x] **KGK kurumsal mevzuatı:** ✓ 01.08 — khk660 (pdfId 4.5.660, HEAD-teyitli) + bd-yonetmelik (G7:16907, içerik teyitli: BDY konsolide, 15.06.2024 değişiklikleri dahil) mevzuat-kaynaklar.json'a eklendi, mevzuat.yml tetiklendi
+- [ ] **Sermaye piyasası ayağı:** 'spk' slug'ı manifestte var (6362 teyidi yapılacak); SPK Kurumsal Yönetim Tebliği (II-17.1) AÇIK — konu (c) Kurumsal Yönetim için gerekli
+- [x] **KGK sınav ders yapısı** ✓ 01.08 — veri/kgk-sinav-yapisi.json yazıldı; KAYNAK: KGK 28.06.2025 sınav ilanı PDF (ezber değil). ÖNEMLİ BULGU: güncel yapı a-g modül; SMMM temel alan = (a) TMS + (b) TDS + (c) Kurumsal Yönetim/Finansal Yönetim — "Genel Hukuk/Muhasebe" ayrı konu DEĞİL artık. Konu (c) için teori-notu kürasyonu gerekecek (finansal yönetim resmî metinsiz alan)
 - [ ] Üretim emri taslağı: ders-ders kota + maliyet tablosu → **Cem onayı → 4-5 Ağustos gecesi parti** (deneme.html'e 3. sınav olarak eklenir; paket mimarisinde 4. paket)
 
 ## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
