@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260801110348
+Start time: 20260801131039
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7e0cafc6-16a5-44af-ad4e-c3d51d579741.ps1'
-Process ID: 2227
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d22a587e-8278-4202-84f7-18ec01da3d9a.ps1'
+Process ID: 2248
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -30,31 +30,66 @@ Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
   kaynak_hesap-plani 79
   kaynak_kanun 404
   kaynak_standart 2
-MALIYET TAHMINI (Batch %50): ~26.29 USD
+MALIYET TAHMINI (Batch %50): ~26.27 USD
 KURU DENEME TAMAM - yazma yolu saglam.
 PARTI 1: 200 soru
-  parti kimligi: msgbatch_01Uog79FceoZswQV65H3z3Lz
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path 'siklar', line 10, position 3."
+  parti kimligi: msgbatch_01VxjEhzuAUuM7jqpWrZGdoZ
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[3]', line 40, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[0]', line 25, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Additional text encountered after finished reading JSON content: `. Path '', line 23, position 0."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.C', line 16, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Additional text encountered after finished reading JSON content: `. Path '', line 23, position 0."
 PARTI 2: 200 soru
-  parti kimligi: msgbatch_01ASXduvpnuKJmhu1EE3ec5x
+  parti kimligi: msgbatch_01U25toDLxVFLiALcwEKfDg5
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
 PARTI 3: 200 soru
-PS>TerminatingError(Invoke-RestMethod): "
-{
-  "type": "error",
-  "error": {
-    "type": "invalid_request_error",
-    "message": "Your credit balance is too low to access the Anthropic API. Please go to Plans \u0026 Billing to upgrade or purchase credits."
-  },
-  "request_id": "req_011CdbvqSbh9GhD4MeZWsFFy"
-}"
->> TerminatingError(Invoke-RestMethod): "
-{
-  "type": "error",
-  "error": {
-    "type": "invalid_request_error",
-    "message": "Your credit balance is too low to access the Anthropic API. Please go to Plans \u0026 Billing to upgrade or purchase credits."
-  },
-  "request_id": "req_011CdbvqSbh9GhD4MeZWsFFy"
-}"
-DUSTU: Response status code does not indicate success: 400 (Bad Request).
+  parti kimligi: msgbatch_015c4Qj2o8eeBBSKVQvYhXw8
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[2]', line 35, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: k. Path 'aciklama.D', line 16, position 372."
+PARTI 4: 200 soru
+  parti kimligi: msgbatch_01SsrCa1HmWrTSBJuuk356DY
+PARTI 5: 200 soru
+  parti kimligi: msgbatch_014MwhsTrgg1xr1z7juqAxsU
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: 1. Path 'aciklama.C', line 15, position 40."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: Ş. Path 'aciklama.C', line 15, position 102."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 6: 200 soru
+  parti kimligi: msgbatch_01TJSvPug7K49m2eFpSiHmUv
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.E', line 17, position 103."
+PARTI 7: 200 soru
+  parti kimligi: msgbatch_013ihrmWoMLwk7xFThSFv5bN
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 21, position 1."
+PARTI 8: 200 soru
+  parti kimligi: msgbatch_014ZJfEKJvT1ThGetMhdDrjr
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 9: 200 soru
+  parti kimligi: msgbatch_01SRahCdioMNdrYgDvvtoo9m
+PARTI 10: 100 soru
+  parti kimligi: msgbatch_01HaYQu2iK8Nde5YhmzmSrVo
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+
+======== URETIM ========
+  uretilen       1597
+  rakamRed       38
+  dilRed         49
+  sikRed         10
+  sablonRed      14
+  tuzakRed       38
+  atifRed        2
+  kokuRed        49
+  benzerRed      82
+  cevapsiz       21
+  yazmaHatasi    0
+  GERCEK FATURA: ~27.99 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-25.json
+**********************
+PowerShell transcript end
+End time: 20260801135401
+**********************

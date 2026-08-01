@@ -1,0 +1,333 @@
+{
+  "tarih": "01.08.2026 13:54",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 567,
+    "maddesiz": 82,
+    "metinsiz": 0,
+    "hazir": 1900,
+    "kaynak_hesap-plani": 79,
+    "kaynak_kanun": 404,
+    "kaynak_standart": 2
+  },
+  "ozet": {
+    "uretilen": 1597,
+    "rakamRed": 38,
+    "dilRed": 49,
+    "sikRed": 10,
+    "sablonRed": 14,
+    "tuzakRed": 38,
+    "atifRed": 2,
+    "kokuRed": 49,
+    "benzerRed": 82,
+    "cevapsiz": 21,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 5598975,
+    "cikis": 2611752,
+    "usd": 27.99
+  },
+  "redler": [
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 44"
+    },
+    {
+      "konu": "donem net kâri hesaplama",
+      "sebep": "dil",
+      "deger": "ort 7.5 enuzun 39"
+    },
+    {
+      "konu": "banka kredisi faiz tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "ticari mal alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "personel gideri tahakkuku",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "dil",
+      "deger": "ort 10.8 enuzun 49"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "gelir tahakkuku",
+      "sebep": "dil",
+      "deger": "ort 10.8 enuzun 43"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 10.5 enuzun 41"
+    },
+    {
+      "konu": "borc senedi odemesi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "satilan malin maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "genel yonetim gideri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "genel yonetim gideri",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "bilanco duzenleme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "bilanco duzenleme",
+      "sebep": "dil",
+      "deger": "ort 12.3 enuzun 39"
+    },
+    {
+      "konu": "bilanco duzenleme",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "dil",
+      "deger": "ort 7.9 enuzun 43"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "kredi faiz tahakkuku",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kredi faiz tahakkuku",
+      "sebep": "dil",
+      "deger": "ort 11.7 enuzun 45"
+    },
+    {
+      "konu": "tasit alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "gelir hesaplari 690 devri",
+      "sebep": "dil",
+      "deger": "ort 12.4 enuzun 52"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "dil",
+      "deger": "ort 11.2 enuzun 39"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "dil",
+      "deger": "ort 11.4 enuzun 47"
+    },
+    {
+      "konu": "mal alimi ve odeme",
+      "sebep": "dil",
+      "deger": "ort 9.9 enuzun 39"
+    },
+    {
+      "konu": "borsalar ve piyasa isleticileri",
+      "sebep": "riskli-sayi",
+      "deger": "4054"
+    },
+    {
+      "konu": "gelir tablosu hesaplarinin kapatilmasi",
+      "sebep": "dil",
+      "deger": "ort 12.1 enuzun 48"
+    },
+    {
+      "konu": "ortaklardan alacak tahsilati",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "yerindelik testi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "reeskont supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "129- Şüpheli Ticari Alacaklar Karşılığı"
+    },
+    {
+      "konu": "sermaye tahsilat ihrac primi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "personel gideri tahakkuk",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "yatirimci varliklari teminat",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "kambiyo kari cek reeskontu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "ortaklardan alacak kasa",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "istirak bagli ortaklik siniflandirma",
+      "sebep": "dil",
+      "deger": "ort 12.9 enuzun 48"
+    },
+    {
+      "konu": "merkezi takas kurulusu",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "istirak sermaye taahhudu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "vergi karsiligi kapatma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "satistan iade avans",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "kdv muhasebelestirme",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "maliyet duzeltmesi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tms 16 yeniden degerleme modeli",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "alacak tahsilat vergi iadesi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "odenmemis sermaye kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "sermaye taahhudu kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "amortisman ve ozel fon",
+      "sebep": "dil",
+      "deger": "ort 11.0 enuzun 41"
+    },
+    {
+      "konu": "ortaklardan alacak devri",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "ortak personel borc odeme",
+      "sebep": "dil",
+      "deger": "ort 9.4 enuzun 58"
+    },
+    {
+      "konu": "menkul kiymet satisi karsilik",
+      "sebep": "dil",
+      "deger": "ort 15.3 enuzun 116"
+    },
+    {
+      "konu": "depozito teminat alinmasi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "duran varlik alimi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "istirak alacak tahsili",
+      "sebep": "riskli-sayi",
+      "deger": "25.000 TL"
+    },
+    {
+      "konu": "cari oran",
+      "sebep": "dil",
+      "deger": "ort 9.8 enuzun 44"
+    }
+  ]
+}
