@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260731065617
+Start time: 20260801085724
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b107f411-0ebb-4226-960f-e3ccbee99978.ps1'
-Process ID: 2363
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f7cb4df4-241a-4de7-8073-d56ff56b7dcd.ps1'
+Process ID: 2224
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -18,7 +18,7 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 KASA SAYIMI basliyor... (kuyruk yenileme)
-  TOPLAM: 12869 soru
+  TOPLAM: 19377 soru
   ...1000
   ...2000
   ...3000
@@ -31,25 +31,32 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
   ...10000
   ...11000
   ...12000
-  cekilen: 12869
+  ...13000
+  ...14000
+  ...15000
+  ...16000
+  ...17000
+  ...18000
+  ...19000
+  cekilen: 19377
 
 ================ KASA SAYIMI ================
-  TOPLAM SORU : 12869
+  TOPLAM SORU : 19377
 
   --- sinav bazinda
-     SGS        8513
-     SMMM       4356
+     SGS        11742
+     SMMM       7635
 
   --- ders bazinda
-     Finansal Muhasebe                  3141
+     Finansal Muhasebe                  5798
+     Maliyet Muhasebesi                 3267
      Yabanci Dil                        1550
-     Maliyet Muhasebesi                 1486
+     Hukuk                              1391
+     Finansal Tablolar ve Analizi       1268
+     Mali Tablolar Analizi              996
      Turkce                             844
      Denetim                            825
-     Hukuk                              737
-     Muh. ve Mali Müş. Meslek Hukuku    657
-     Finansal Tablolar ve Analizi       432
-     Mali Tablolar Analizi              422
+     Muh. ve Mali Müş. Meslek Hukuku    663
      Is ve Sosyal Guvenlik Hukuku       403
      Borclar Hukuku                     373
      Ticaret Hukuku                     361
@@ -64,51 +71,60 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      Matematik                          72
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 9405
-     mevzuat disi (dil/matematik/teori)        : 3464
+     mevzuata dayanan (madde bagi kurulabilir) : 14820
+     mevzuat disi (dil/matematik/teori)        : 4557
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
-      464x  Hukuk|is sozlesmesi feshi
-      169x  Maliyet Muhasebesi|ortak maliyet dagitimi
-      103x  Finansal Tablolar ve Analizi|dikey yuzde analizi
+      953x  Hukuk|is sozlesmesi feshi
+      334x  Maliyet Muhasebesi|ortak maliyet dagitimi
+      296x  Finansal Tablolar ve Analizi|dikey yuzde analizi
+      174x  Finansal Tablolar ve Analizi|finansal oran analizi
+      165x  Maliyet Muhasebesi|satilan mamul maliyeti
+      144x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+      142x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
+      141x  Maliyet Muhasebesi|gug yukleme katsayisi
+      136x  Maliyet Muhasebesi|yan urun maliyeti
+      119x  Maliyet Muhasebesi|gug yukleme orani
+      117x  Finansal Tablolar ve Analizi|cari oran
+      106x  Finansal Tablolar ve Analizi|trend analizi
+       93x  Finansal Muhasebe|supheli alacak karsiligi
        78x  Yabanci Dil|cumle tamamlama
-       78x  Maliyet Muhasebesi|satilan mamul maliyeti
-       73x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       77x  Finansal Muhasebe|gider yansitma kaydi
        73x  Yabanci Dil|sentence completion
-       72x  Maliyet Muhasebesi|yan urun maliyeti
+       72x  Finansal Muhasebe|gelecek aylara ait gider
        71x  Yabanci Dil|prepositions
-       71x  Maliyet Muhasebesi|gug yukleme katsayisi
-       71x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
+       71x  Finansal Muhasebe|amortisman ayirma
        70x  Yabanci Dil|vocabulary
-       67x  Yabanci Dil|vocabulary verb choice
-       65x  Yabanci Dil|modal verbs
-       63x  Yabanci Dil|passive voice
-       61x  Finansal Muhasebe|supheli alacak karsiligi
-       60x  Finansal Muhasebe|gider yansitma kaydi
-       59x  Yabanci Dil|zarf kullanimi
-       58x  Yabanci Dil|relative clause
-       57x  Finansal Tablolar ve Analizi|cari oran
 
-  --- tekil konu sayisi: 1793
+  --- tekil konu sayisi: 1940
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-     bakilan          12869
+     bakilan          19377
      placeholder      31
      hepsiYuvarlak    230
-     klise            7
+     klise            12
      tekduzeTuzak     0
-     toplamIzli       262
-     IZLI ORAN      : %2.0
--> veri/koku-izli.json  (262 kimlik, uslup turu icin)
+     toplamIzli       267
+     IZLI ORAN      : %1.4
+-> veri/koku-izli.json  (267 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (4 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 5912
+     KASADA yayin=false (denetim bekleyen) : 14368
      ...cekilen 1000
      ...cekilen 2000
      ...cekilen 3000
      ...cekilen 4000
      ...cekilen 5000
-     ...cekilen 5912
-     cekilen yayin=false kayit: 5912
+     ...cekilen 6000
+     ...cekilen 7000
+     ...cekilen 8000
+     ...cekilen 9000
+     ...cekilen 10000
+     ...cekilen 11000
+     ...cekilen 12000
+     ...cekilen 13000
+     ...cekilen 14000
+     ...cekilen 14368
+     cekilen yayin=false kayit: 14368
        Denetim                            1
        Finansal Muhasebe                  1
        Finansal Tablolar ve Analizi       1
@@ -119,22 +135,22 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        Muh. ve Mali Müş. Meslek Hukuku    1
        Muhasebe Denetimi                  1
        Sermaye Piyasası Mevzuatı          1
--> veri/denetim-kuyrugu.json  (5912 kimlik, profesor -idler icin)
+-> veri/denetim-kuyrugu.json  (14368 kimlik, profesor -idler icin)
      tam metin cekilen: 10 (istenen 10)
 -> veri/yeni-uretim-ornek.json  (10 yeni soru, GM okumasi icin)
 -> veri/pilot-ornek.json  (10 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
--> veri/pilot-kuyrugu.json  (1074 kimlik, hakem -idler icin)
+-> veri/pilot-kuyrugu.json  (3018 kimlik, hakem -idler icin)
    KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
-     standart (STD)    : 286
-     hesap plani (THP) : 180
-     toplam            : 1074
-     standart+THP orani: %43.4
+     standart (STD)    : 788
+     hesap plani (THP) : 478
+     toplam            : 3018
+     standart+THP orani: %41.9
 
 -> veri/kasa-sayim.json
--> veri/vitrin-sayilar.json  (soru 12869, hakem 7224)
+-> veri/vitrin-sayilar.json  (soru 19377, hakem 7224)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260731065647
+End time: 20260801085819
 **********************
