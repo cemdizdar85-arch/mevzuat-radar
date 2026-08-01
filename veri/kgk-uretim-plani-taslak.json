@@ -1,0 +1,36 @@
+{
+  "durum": "TASLAK - Cem onayi bekliyor. Uretim emri ACILMADI, para harcanmaz.",
+  "hazirlayan": "GM 01.08.2026 (dilim-4 kosarken on-hazirlik)",
+  "dayanak": "veri/kgk-sinav-yapisi.json (KGK 28.06.2025 sinav ilani, resmi) - SMMM temel alan = (a)+(b)+(c)",
+  "hedef_kitle": "SMMM'den bagimsiz denetciligge gecmek isteyenler (temel alan, 3 konu)",
+  "dersler": [
+    {
+      "ders": "TMS - Turkiye Muhasebe Standartlari (konu a)",
+      "kaynak_durumu": "HAZIR - 28 standart ambarda (19 TMS + 9 TFRS), hepsi KGK resmi setinden okundu",
+      "omurga": ["tms1","tms2","tms7","tms8","tms10","tms12","tms16","tms19","tms21","tms23","tms24","tms27","tms28","tms29","tms36","tms37","tms38","tms40","tms41","tfrs3","tfrs5","tfrs7","tfrs8","tfrs9","tfrs10","tfrs13","tfrs15","tfrs16"],
+      "onerilen_kota": 800,
+      "not": "SGS/Yeterlilik kasasindaki TMS sorulari sayilip mukerrer uretim dusulecek (kota elegi zaten yapiyor)"
+    },
+    {
+      "ders": "TDS - Turkiye Denetim Standartlari (konu b)",
+      "kaynak_durumu": "HAZIR - 28 BDS + 2 ek bolumu ambarda; BDY (G7:16907) + 660 KHK (4.5.660) yutma kuyrugunda (01.08)",
+      "omurga": ["bds200","bds210","bds220","bds230","bds240","bds260","bds265","bds300","bds315","bds320","bds330","bds450","bds500","bds501","bds505","bds510","bds520","bds530","bds540","bds550","bds570","bds580","bds620","bds700","bds701","bds705","bds706","bds720","bd-yonetmelik","khk660"],
+      "onerilen_kota": 800,
+      "not": "Etik kurallar + bagimsizlik sorulari BDY m.21-26 ve 660 KHK'dan; sinav ilani 'mesleki etik' konusunu TDS icine sayiyor"
+    },
+    {
+      "ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim (konu c)",
+      "kaynak_durumu": "YARIM - Kurumsal Yonetim: II-17.1 tebligi (G9:19225) yutma kuyrugunda. Finansal Yonetim: RESMI METIN YOK - kurasyon ders notu sart (anayasa: kaynaksiz uretim yasak)",
+      "omurga": ["spk-kurumsal-yon", "teori-notu: finansal yonetim (KURULACAK - Cem+Claude onayli kurasyon)"],
+      "onerilen_kota": 400,
+      "not": "Uretim iki asamali: KY sorulari teblig yutulunca hemen; FY sorulari kurasyon notlari ambara girince. Kurasyon konu listesi onerisi: paranin zaman degeri, sermaye maliyeti/WACC, sermaye butcelemesi (NPV/IRR/geri odeme), isletme sermayesi yonetimi, finansal analiz oranlari, kaldirac, temettu politikasi, risk-getiri/portfoy temelleri"
+    }
+  ],
+  "toplam_onerilen": 2000,
+  "tahmini_maliyet_usd": "~37 (bugunku gerceklesmelerden oranlama: ~1.600 soru = ~28-31 USD, Sonnet)",
+  "takvim_onerisi": {
+    "2-3 Agustos": "FY kurasyon notlari (Cem onayi) + KGK konu plani satirlari (bu taslaktan) + yutmalarin ambar teyidi",
+    "4-5 Agustos gecesi": "uretim partisi (emir onay=true Cem isaretiyle acilir)",
+    "5-6 Agustos": "Cem kontrol turu + deneme.html'e 3. sinav olarak baglama"
+  }
+}
