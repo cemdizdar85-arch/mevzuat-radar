@@ -1,0 +1,333 @@
+{
+  "tarih": "01.08.2026 15:08",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 563,
+    "maddesiz": 78,
+    "metinsiz": 0,
+    "hazir": 1899,
+    "kaynak_hesap-plani": 78,
+    "kaynak_kanun": 405,
+    "kaynak_standart": 2
+  },
+  "ozet": {
+    "uretilen": 1612,
+    "rakamRed": 35,
+    "dilRed": 58,
+    "sikRed": 12,
+    "sablonRed": 7,
+    "tuzakRed": 38,
+    "atifRed": 1,
+    "kokuRed": 29,
+    "benzerRed": 86,
+    "cevapsiz": 21,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 5605475,
+    "cikis": 2625000,
+    "usd": 28.1
+  },
+  "redler": [
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "dil",
+      "deger": "ort 10.6 enuzun 39"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "banka kredisi faiz tahakkuku",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "saticiya mal iadesi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "donem sonu kapanis kaydi",
+      "sebep": "dil",
+      "deger": "ort 9.7 enuzun 42"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "vergi karsiligi ayirma",
+      "sebep": "dil",
+      "deger": "ort 11.9 enuzun 80"
+    },
+    {
+      "konu": "satis ve maliyet kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 10.1 enuzun 57"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 9.9 enuzun 44"
+    },
+    {
+      "konu": "borc senedi reeskontu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "borc senedi reeskontu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "gider hesaplari 690 devri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "genel yonetim gideri",
+      "sebep": "dil",
+      "deger": "ort 9.5 enuzun 49"
+    },
+    {
+      "konu": "bilanco duzenleme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "faiz geliri tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "dil",
+      "deger": "ort 10.8 enuzun 49"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "kredi faiz tahakkuku",
+      "sebep": "dil",
+      "deger": "ort 10.3 enuzun 40"
+    },
+    {
+      "konu": "kredi faiz tahakkuku",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "menkul kiymet satisi",
+      "sebep": "dil",
+      "deger": "ort 12.0 enuzun 39"
+    },
+    {
+      "konu": "gelir hesaplari 690 devri",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "dil",
+      "deger": "ort 15.0 enuzun 45"
+    },
+    {
+      "konu": "gelir tablosu duzenleme",
+      "sebep": "dil",
+      "deger": "ort 11.7 enuzun 55"
+    },
+    {
+      "konu": "finansman gideri tahakkuku",
+      "sebep": "dil",
+      "deger": "ort 10.5 enuzun 40"
+    },
+    {
+      "konu": "tazmin talebi zamanasimi",
+      "sebep": "riskli-sayi",
+      "deger": "2 yıl,10 yıl"
+    },
+    {
+      "konu": "menkul kiymet deger dusuklugu karsiligi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "gelir tablosu hesaplarinin kapatilmasi",
+      "sebep": "dil",
+      "deger": "ort 6.9 enuzun 48"
+    },
+    {
+      "konu": "bina alimi kredi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "reeskont supheli alacak karsiligi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "sermaye taahhudu",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "vergi karsiligi mahsubu",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "menkul kiymet alisi",
+      "sebep": "dil",
+      "deger": "ort 13.4 enuzun 43"
+    },
+    {
+      "konu": "buyuk defter mizan",
+      "sebep": "dil",
+      "deger": "ort 11.1 enuzun 43"
+    },
+    {
+      "konu": "gecmis yil zarari mahsubu",
+      "sebep": "dil",
+      "deger": "ort 11.2 enuzun 45"
+    },
+    {
+      "konu": "demirbas satis zarari",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 51"
+    },
+    {
+      "konu": "banka kredisi kambiyo kari",
+      "sebep": "dil",
+      "deger": "ort 12.4 enuzun 71"
+    },
+    {
+      "konu": "izahname sorumlulugu",
+      "sebep": "dil",
+      "deger": "ort 9.4 enuzun 39"
+    },
+    {
+      "konu": "ortaklardan alacak kasa",
+      "sebep": "riskli-sayi",
+      "deger": "25.000 TL"
+    },
+    {
+      "konu": "buyuk defter mizan duzenleme",
+      "sebep": "dil",
+      "deger": "ort 11.8 enuzun 113"
+    },
+    {
+      "konu": "tasit satisi amortisman",
+      "sebep": "dil",
+      "deger": "ort 10.8 enuzun 40"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000,500.000"
+    },
+    {
+      "konu": "kdv muhasebelestirme",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "ticari mal satisi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "kar dagitimi yedek ayirma",
+      "sebep": "dil",
+      "deger": "ort 11.7 enuzun 40"
+    },
+    {
+      "konu": "alacak tahsilat vergi iadesi",
+      "sebep": "riskli-sayi",
+      "deger": "25.000 TL"
+    },
+    {
+      "konu": "odenmemis sermaye kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "sayim noksani",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "stok sayim noksan fazla",
+      "sebep": "riskli-sayi",
+      "deger": "278/A"
+    },
+    {
+      "konu": "alacak senedi faiz geliri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "kayitli sermaye sistemi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "istirak alacak tahsili",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "trend analizi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "trend analizi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(6)"
+    },
+    {
+      "konu": "karsilastirmali tablolar analizi",
+      "sebep": "dil",
+      "deger": "ort 8.0 enuzun 39"
+    },
+    {
+      "konu": "finansal oran analizi",
+      "sebep": "dil",
+      "deger": "ort 8.6 enuzun 39"
+    },
+    {
+      "konu": "finansal oran analizi",
+      "sebep": "dil",
+      "deger": "ort 8.7 enuzun 39"
+    }
+  ]
+}
