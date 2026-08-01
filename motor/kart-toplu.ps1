@@ -367,8 +367,18 @@ $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
 # ikisi ayirt edilemez) mevcut beslemeyi EZMEZ. Bugun 429 altindaki telafi
 # kosusu 24 kartlik panel beslemesini bos kabukla silmisti; panel/uyari
 # eslesmeleri sessizce koreldi. Eski besleme taze kart gelene kadar yasar.
+# 01.08 ESKI-GUN FRENI: telafi kosusu eski bir gunu islerken (or. Mart)
+# guncel beslemeyi o gune GERILETIYORDU - ana sayfa "gunun karti" Mart'a dondu.
+# Mevcut beslemenin gunu islenen gunden YENIyse dosyaya dokunulmaz.
+$eskiGun = $null
+if(Test-Path $guncelYol){
+  try { $eskiGun = [datetime]::ParseExact((Get-Content $guncelYol -Raw -Encoding UTF8 | ConvertFrom-Json).gun, 'dd-MM-yyyy', $null) } catch { $eskiGun = $null }
+}
+$buGun = $null; try { $buGun = [datetime]::ParseExact($Gun, 'dd-MM-yyyy', $null) } catch {}
 if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
   Write-Host "0 GTIP'li kart uretildi - veri/kartlar-guncel.json KORUNDU (onceki besleme ezilmedi)." -ForegroundColor Yellow
+} elseif($eskiGun -and $buGun -and $buGun -lt $eskiGun){
+  Write-Host ("Telafi eski gun ({0}) isledi - guncel besleme {1} gununde KORUNDU (geriletilmedi)." -f $Gun, $eskiGun.ToString('dd-MM-yyyy')) -ForegroundColor Yellow
 } else {
   [System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
 }
