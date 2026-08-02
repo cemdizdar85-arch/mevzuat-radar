@@ -162,8 +162,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 114 | — | TEMİZ* | TTK 516 kümesi (8.) | 516/2-c tam kalem listesi ✓. |
 | 115 | — | **TEMİZ — birincil teyitli** | VUK 323 kümesi | 47.300+18.650=65.950 ✓; "bir kez istenen sayılmaz" ayrımı güzel işlenmiş. 31/12/2026 senaryosu + 25.000 eşiği = **RG 33124 (5.Mük.) VUK GT 588 ile birebir doğru.** Q46 gibi aklandı. |
 
-**Ara sayaç (115/500):** kesin yanlış **6** · riskli **8** · düzeltilir 37 · temiz 66 (%57).
-**TTK 516 kümesi 8'e, TTK 482 kümesi 5'e çıktı** — mükerrer ayıklamasının iki büyük hedefi.
+| 116 | — | DÜZELTİLİR-dil | VUK 262 kümesi | 108.765 ✓ tutarlı. Açıklama yine "eklenebilir/serbesttir" diyor — dönem sonuna kadarki kısım ZORUNLU; küme onarımında dil düzelir. |
+| 117 | — | DÜZELTİLİR | açıklama kopyası (G2'nin kanıtı) | 381.125 ✓ tutarlı, kur farkı dahil doğru. AMA **A şıkkının (yanlış) açıklaması, D'nin (doğru) açıklamasının birebir kopyası** — adaya A'nın neden yanlış olduğu hiç söylenmiyor. Kopyala-yapıştır kazası. |
+| 118 | — | **ELENİR — YANLIŞ CEVAP #7 (B13)** | m.483 körlüğü, Q41'in kopyası | İşaretli C: "ihtara gerek olmaksızın İŞLEM yapılabilir" ve açıklama "payları satma dahil... ihtarsız" diyor. **m.483: pay satışı/ıskat için İLANLI İHTAR + 1 ay ZORUNLU.** Üstelik E şıkkı doğruyu AÇIKÇA yazıyor: "temerrüt faizi için ihtar gerekmez ANCAK payları satmak için ihtar zorunlu" — **E doğru cevap, C işaretlenmiş.** Hakem kaçırdı çünkü önüne yalnız m.482 kondu. |
+| 119 | — | TEMİZ | — | 141.290/180=784,94 ✓ kuruşlu, tutarlı. |
+| 120 | — | DÜZELTİLİR-hafif | B3 | 14.594 ✓. A ile E'nin açıklamaları kaymış (A=9.075'in izahı yalnız hammaddeyi anlatıyor — o E'nin hesabı). |
+| 121 | — | TEMİZ | B3 hafif (D'de "48.380" uydurma) | 692.570 ✓ tutarlı. |
+
+**Ara sayaç (121/500):** kesin yanlış **7** (12, 15, 38, 41, 42, 88, 118) · riskli **8** · düzeltilir 41 · temiz 68.
+**TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
