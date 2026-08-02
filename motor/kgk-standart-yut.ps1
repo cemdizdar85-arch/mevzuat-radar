@@ -41,11 +41,16 @@ function Parcala([string]$metin, [string]$kisa){
   $rxMadde = [regex]'(?m)^\s*(?<tur>MADDE|Madde|GEÇİCİ MADDE|Geçici MADDE|EK MADDE)\s+(?<no>\d+)\s*[–—-]'
   $m = $rxMadde.Matches($duz)
   if($m.Count -ge 3){
+    # ilk maddeden onceki bas kisim (amac/kapsam basligi, RG kunyesi) da girer
+    if($m[0].Index -gt 0){
+      $on = $duz.Substring(0, $m[0].Index).Trim()
+      if($on.Length -gt 0){ $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} - on bolum" -f $kisa); baslik=("{0} on bolum" -f $kisa); metin=$on }) }
+    }
     for($i=0; $i -lt $m.Count; $i++){
       $bas = $m[$i].Index
       $son = if($i -lt $m.Count-1){ $m[$i+1].Index } else { $duz.Length }
       $govde = $duz.Substring($bas, $son-$bas).Trim()
-      if($govde.Length -lt 60){ continue }
+      if($govde.Length -eq 0){ continue }
       $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} m.{1}" -f $kisa, $m[$i].Groups['no'].Value)
                                 baslik=("{0} madde {1}" -f $kisa, $m[$i].Groups['no'].Value); metin=$govde })
     }
@@ -55,15 +60,37 @@ function Parcala([string]$metin, [string]$kisa){
   $rxPar = [regex]'(?m)^\s*(?<no>(?:R)?\d{1,3}(?:\.\d{1,3}){0,2}\s?A?\d{0,3}|A\d{1,3}|\d{1,3}T)\s+(?=[A-ZÇĞİÖŞÜ(])'
   $p = $rxPar.Matches($duz)
   if($p.Count -ge 10){
+    # 02.08 CEM DENETIMI: ilk surumde "80 karakterden kisayi atla" ve "6.000'den
+    # uzunu KES" vardi. Olcum: KYS 1'in %27,6'si kaybolmus. Metnin tek satiri
+    # bile atilmaz - kisa parca ONCEKINE eklenir, uzun parca DILIMLENIR.
+    # Bastaki basliksiz on-metin (kapak/icindekiler) de artik ambara girer.
+    if($p[0].Index -gt 0){
+      $on = $duz.Substring(0, $p[0].Index).Trim()
+      if($on.Length -gt 0){ $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} - on bolum" -f $kisa); baslik=("{0} on bolum" -f $kisa); metin=$on }) }
+    }
     for($i=0; $i -lt $p.Count; $i++){
       $bas = $p[$i].Index
       $son = if($i -lt $p.Count-1){ $p[$i+1].Index } else { $duz.Length }
       $govde = $duz.Substring($bas, $son-$bas).Trim()
-      if($govde.Length -lt 80){ continue }          # icindekiler satiri / sayfa no
-      if($govde.Length -gt 6000){ $govde = $govde.Substring(0,6000) }
+      if($govde.Length -eq 0){ continue }
       $no = ($p[$i].Groups['no'].Value -replace '\s','')
-      $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1}" -f $kisa, $no)
-                                baslik=("{0} paragraf {1}" -f $kisa, $no); metin=$govde })
+      if($govde.Length -lt 60 -and $parcalar.Count -gt 0){
+        # sayfa numarasi / icindekiler kirintisi: ONCEKI parcaya eklenir, ATILMAZ
+        $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde
+        continue
+      }
+      if($govde.Length -le 6000){
+        $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1}" -f $kisa, $no)
+                                  baslik=("{0} paragraf {1}" -f $kisa, $no); metin=$govde })
+      } else {
+        $d = 0; $k = 1
+        while($d -lt $govde.Length){
+          $boy = [Math]::Min(6000, $govde.Length - $d)
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1} ({2})" -f $kisa, $no, $k)
+                                    baslik=("{0} paragraf {1} - {2}. bolum" -f $kisa, $no, $k); metin=$govde.Substring($d,$boy) })
+          $d += 6000; $k++
+        }
+      }
     }
     return $parcalar
   }
@@ -92,9 +119,16 @@ foreach($h in $hedefler){
     $metin = Get-Content $txt -Raw -Encoding UTF8
     $parcalar = Parcala $metin $h.kisa
     if($parcalar.Count -eq 0){ throw "parcalanamadi" }
+    # KAPSAMA KAPISI (02.08 Cem: "ustunkoru degil, tek tek oku"): kaynaktaki
+    # karakterlerin yuzde kaci ambara girdi? %98'in altinda ise KIRMIZI - metnin
+    # bir kismi kaybolmus demektir, sessizce gecilmez.
+    $hamOlcu = ($metin -replace '\s+',' ').Length
+    $ambarOlcu = ((($parcalar | ForEach-Object { $_.metin }) -join ' ') -replace '\s+',' ').Length
+    $kapsama = if($hamOlcu -gt 0){ [math]::Round(100*$ambarOlcu/$hamOlcu,1) } else { 0 }
     [IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject ([ordered]@{ belgeler = [object[]]$parcalar }) -Depth 5), $enc)
-    Write-Host ("{0}: {1} KB -> {2} parca -> {3}" -f $h.ad, $kb, $parcalar.Count, $cikti)
-    $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; kb=$kb; parca=$parcalar.Count; durum='TAMAM' }
+    $isaret = if($kapsama -ge 98){ 'TAM' } else { 'EKSIK' }
+    Write-Host ("{0}: {1} KB -> {2} parca | kapsama %{3} [{4}]" -f $h.ad, $kb, $parcalar.Count, $kapsama, $isaret)
+    $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; kb=$kb; parca=$parcalar.Count; kapsama_yuzde=$kapsama; durum=$(if($kapsama -ge 98){'TAMAM'}else{'EKSIK KAPSAMA'}) }
   } catch {
     Write-Host ("{0}: DUSTU - {1}" -f $h.ad, $_.Exception.Message)
     $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; durum='DUSTU'; hata="$($_.Exception.Message)" }
