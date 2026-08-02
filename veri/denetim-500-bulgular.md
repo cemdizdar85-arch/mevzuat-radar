@@ -272,7 +272,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 209↔211 | — | TEMİZ* | **mükerrer ÇİFT (aynı soru iki kez)** | Meslekten çıkarma = ruhsat iptali, dönüş yok ✓ — 209 senaryolu, 211 düz tanım; özdeş. Biri kalır. |
 | 210 | — | TEMİZ | — | İş K. 19/1: yazılı + açık-kesin sebep ✓. |
 
-**Ara sayaç (212/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 145 (%68).
+| 213 | — | TEMİZ | — | KDV 10/b: fatura teslimden önce → fatura tarihi ✓ (Q166'nın meşru ters yönü). |
+| 214 | — | TEMİZ — **ironik** | — | GVK mük.123: dilimler her yıl yeniden değerleme oranıyla güncellenir ✓ — **banka, S12'de düştüğü hatanın kuralını burada doğru öğretiyor.** |
+| 215 | — | TEMİZ | — | 5018 m.41 idare faaliyet raporu ✓. |
+| 216 | — | TEMİZ | — | GVK m.123 mahsup tavanı ✓ (mük.123 ile m.123 ayrımı doğru kullanılmış). |
+| 217 | — | TEMİZ | — | GVK m.123 tevsik: konsolosluk tasdiki ✓ (216 ile meşru çift). |
+| 218 | — | TEMİZ | — | 5018 m.13 adem-i tahsis ✓. |
+| 219 | — | TEMİZ | — | 5018 m.13 doğruluk/samimiyet ✓. |
+
+**Ara sayaç (219/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 152 (%69). Maliye dersi 7/7 temiz.
 **8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
