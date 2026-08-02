@@ -333,7 +333,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 270 | — | TEMİZ* | mükerrer (Q242 kopyası) — ihtiyati haciz kümesi 6 üye | ✓ |
 | 271 | — | TEMİZ | — | ÖİV mükellefi işletmeci; yüklenici/mükellef ayrımı güzel ✓. |
 
-**Ara sayaç (271/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 200 (%74). **200. temiz soru.**
+| 272 | — | TEMİZ | — | TTK 55/1-a-5: rakip fiyatını şişirerek karşılaştırma ✓ güzel senaryo. |
+| 273 | — | TEMİZ* | yakın-mükerrer (Q208: takı→kırtasiye) | m.45 ticaret yasağı ✓. |
+| 274 | — | TEMİZ | — | "Bayat sucuk" = a-1 kötüleme ✓ açıkça incitici. |
+| 275 | — | DÜZELTİLİR | 274'ün kopyası + nitelendirme zayıf | "Stoksuz çalışıyor, 45 günde teslim" nötr ticari bilgi olabilir — İDDİA GERÇEKSE a-1 kötüleme tartışılır (a-5 caiz karşılaştırma da savunulur). Senaryoya "gerçeğe aykırı olarak" eklenirse netleşir. |
+| 276 | — | TEMİZ | — | 3568 m.30 Birlik payı ✓. |
+| 277 | — | TEMİZ | 208/273'ün TERS açısı (meşru!) | Meslek şirketi ticari sayılmaz ✓ — yasak/istisna çifti tamamlandı. |
+| 278 | — | TEMİZ | 400 ailesine yeni meşru açı (400/3) | Vergi dışı danışmanlık bağımsızlığı kaldırır ✓. |
+| 279 | — | TEMİZ | — | m.4/b ehliyet: kısıtlı staja bile başlayamaz ✓. |
+
+**Ara sayaç (279/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 207 (%74).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
