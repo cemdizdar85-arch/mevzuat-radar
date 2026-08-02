@@ -156,6 +156,25 @@ açıklamasında olmayan bir kanun uydurup kendi doğru cevabını yalanlamışt
 
 ---
 
+**D8. KAVRAM SORUSUNDA DA GÖRSEL (02.08.2026 — Cem: "üçünü de ekle").**
+D7 tabloyu yalnız hesaplı/kayıtlı soruda zorunlu kılıyordu. Ölçüt yükseltildi:
+**"hangisi doğrudur" tipi kavram sorularında da karşılaştırma tablosu** olacak —
+ayrımı yapılan kavramlar satır satır, sorunun konusu olan satır işaretli.
+
+*Gerekçe (02.08 kıyaslaması):* UWorld saf teori sorusuna bile şema/tablo koyar;
+bizde kavram sorusu düz metin kalıyordu. Metin duvarı öğretmez.
+
+**D9. SIKLIK KÜNYESİ (02.08.2026 — bizim tekelimiz, 0 USD).**
+Her sorunun altında, konusunun **çıkmış sınav kitapçıklarındaki sıklığı** yazar.
+Kaynak: `veri/sgs-analiz.json` (dönem dönem sayılmış konu haritası). Uydurma
+motivasyon cümlesi DEĞİL, **ölçüm**: "bu konu son N dönemin kaç tanesinde çıktı".
+
+*Gerekçe:* Aday "bunlar sınavı gerçekten saymışlar" der. Koç lafının yapamadığını
+rakam yapar. Bu veri zaten bizde ve hiç kullanılmıyordu; API parası yemez.
+
+*Kural:* sayım yoksa künye YAZILMAZ (rakam disiplini). "Sık çıkar" gibi ölçüsüz
+ifade yasak; yalnız sayılmış dönem verisi yazılır.
+
 ## E. YAPAY ZEKÂ KOKUSU — "makine yazmış demesinler"
 
 **E1.** İz **dilde**dir, iskelette değil. Aynı kalıp cümleyle başlayan
