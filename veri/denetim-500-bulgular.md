@@ -196,8 +196,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 144 | — | TEMİZ* | TBK 82 kümesi (4.) + etiket facia | 2021 Mart+2=2023 Mart ✓ tutarlı. Ders "Maliyet Muh." konu "yatırımcı tazmin"?! |
 | 145 | — | TEMİZ | TTK 376 kümesi (5.) | "Sermaye + kanuni yedekler" ✓. |
 
-**Ara sayaç (145/500):** kesin yanlış **8** · riskli **9** · düzeltilir 44 · temiz 89 (%61).
-**12 soru üst üste kesin-yanlışsız** — 12 bandının kuyruk kısmı belirgin şekilde temiz.
+| 146 | — | TEMİZ* | mükerrer (TMS 40: 53≈146) | 865.990 ✓ tutarlı. |
+| 147 | — | TEMİZ | B3 mikro (D şıkkı 26.400≠26.350) | TMS 12 derin hesap: maliyet 250.000 → VED 156.400 → fark 26.350 × %25 = 6.587 ✓ — oran gövdede, zamansız tasarım. Çok iyi soru; D çeldiricisi 50 TL şaşmış. |
+| 148 | — | TEMİZ | — | TMS 1 p.104 fonksiyon yönteminde dipnot zorunluluğu ✓. |
+| 149 | — | **RİSKLİ** + mükerrer | Q84 kopyası (aynı 180.000/360.000!) | SPK ceza tabanı — Q84 ile aynı yıl-bağımlı tutar riski; birlikte teyit edilecek. |
+| 150 | — | TEMİZ | VUK 278 kümesi (4.) | Emsal bedel ✓. |
+| 151 | — | TEMİZ* | TBK 82 kümesi (5.) + biçim | m.82/2 def'i nüansı ✓ hukuken sağlam — ama A şıkkı 60+ kelime, şık uzunlukları dengesiz (C1 tekdüzelik ihlali; uzun şık cevabı ele verir). |
+
+**Ara sayaç (151/500):** kesin yanlış **8** · riskli **10** (+149) · düzeltilir 45 · temiz 93 (%62).
+**18 soru üst üste kesin-yanlışsız.**
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
