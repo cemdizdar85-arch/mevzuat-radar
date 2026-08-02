@@ -606,6 +606,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 479 | — | TEMİZ | — | İş K 11: esaslı neden yok → baştan belirsiz süreli; işveren beyanı ≠ objektif neden ✓ güzel senaryo. |
 
 **Ara sayaç (479/500):** kesin yanlış **10** · riskli **16** · düzeltilir 98 · temiz 360 (%76). (468 ve 471 hükümleri geriye dönük düzeltildi.)
+
+| 480 | — | DÜZELTİLİR | **479 ile mükerrer — senaryo iskeleti bile aynı** (üç altı-aylık sözleşme + depo görevlisi + mevsimsel bahane; yalnız isim değişik: Mehmet→Hasan) | İçerik doğru ✓; 479 kalır, 480 elenir. Parmak izi ölçüsünün bir örneği daha. |
+| 481 | — | TEMİZ | — | TMS 1 m.10: faaliyet raporu tam setin unsuru değil ✓. |
+| 482 | — | DÜZELTİLİR | **485 ile mükerrer** (kâr payı → özkaynak değişim tablosu, aynı öz) | İçerik doğru ✓; 485 kalır (daha eksiksiz), 482 elenir. |
+| 483 | — | TEMİZ — iyi soru | — | TMS 1 m.40A: geriye dönük düzeltmede üç bilanço (31.12.2023 / 31.12.2022 / 01.01.2022) ✓. |
+| 484 | — | DÜZELTİLİR | **464 ile mükerrer** (5018 m.12 üç cetvel, aynı öz) + konu etiketi ilgisiz ("merkezi takas kuruluşu") + senaryo yapay (özel şirket YK'sı bütçe türü karşılaştırıyor) | İçerik doğru ✓; 464 kalır, 484 elenir. |
+| 485 | — | TEMİZ | — | TMS 1 m.107: temettü özkaynak değişim tablosunda, gelir tablosuna girmez ✓. |
+| 486 | — | TEMİZ | senaryo yapay (özel şirkette 5018 tartışması) ama kapsam bilgisi öğretimi meşru | 5018 yalnız kamu idarelerini bağlar ✓. |
+| 487 | — | TEMİZ | — | TMS 1 m.99-105: işlev esası ✓ çeşit/işlev ayrımı net. |
+
+**Ara sayaç (487/500):** kesin yanlış **10** · riskli **16** · düzeltilir 101 · temiz 365 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
