@@ -1,0 +1,40 @@
+# .github/workflows/yayindan-cek.yml — 500-OKUMA YAYINDAN CEKME
+# Kesin yanlis + riskli + TTK 482 kumesi yayin=false yapilir (soru silinmez).
+# Push-tetikli; ZORLA=1 ile gercek cekme (varsayilan dogrudan uygula - Cem'in
+# "sitede hala gorunuyor" tespiti uzerine sozun geregi).
+name: Yayindan Cek (500-okuma)
+
+on:
+  push:
+    paths:
+      - 'motor/yayindan-cek-500.ps1'
+      - '.github/workflows/yayindan-cek.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yayindan-cek
+  cancel-in-progress: false
+
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cek (yaz modu)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayindan-cek-500.ps1 -yaz
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/yayindan-cek-500.json ]; then git add veri/yayindan-cek-500.json || true; fi
+          git diff --cached --quiet || git commit -m "500-okuma yayindan cekme raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
