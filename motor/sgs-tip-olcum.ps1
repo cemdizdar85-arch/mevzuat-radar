@@ -131,7 +131,15 @@ foreach($k in $kayitlar){
   $oran = if($beklenen -gt 0){ [math]::Round(100 * $sorular.Count / $beklenen, 1) } else { 0 }
   if($oran -lt 80){
     $okunamayan++
-    $kitapRapor.Add([ordered]@{ donem=$ad; durum='kapsama dusuk - OLCUME ALINMADI'; ayiklanan=$sorular.Count; beklenen=$beklenen; kapsama_yuzde=$oran })
+    $kayit = [ordered]@{ donem=$ad; durum='kapsama dusuk - OLCUME ALINMADI'; ayiklanan=$sorular.Count; beklenen=$beklenen; kapsama_yuzde=$oran }
+    # 02.08 TESHIS: ayiklayici bu kitapciklarin dizgisini tanimiyor (18/130).
+    # Ilk dusuk-kapsamali kitapciktan metin ornegi rapora - desen kanittan duzelir.
+    if($okunamayan -eq 1){
+      $kayit['metin_ornegi_bas'] = $metin.Substring(0, [Math]::Min(900, $metin.Length))
+      $orta = [Math]::Max(0, [Math]::Min([int]($metin.Length/2), $metin.Length - 900))
+      $kayit['metin_ornegi_orta'] = $metin.Substring($orta, [Math]::Min(900, $metin.Length - $orta))
+    }
+    $kitapRapor.Add($kayit)
     continue
   }
   if(-not $bolumBulundu){ $bolumsuz++ }
