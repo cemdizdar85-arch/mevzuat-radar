@@ -193,13 +193,22 @@ $parcalar = @('ne soruluyor','kural','bu olayda','ak[ıi]lda kals[ıi]n')
 $agirlik = @{ G1=3; G2=3; G3=3; G4=2; G5=1; G6=4; G7=4; G8=2; G9=5 }
 $sonuc = New-Object System.Collections.Generic.List[object]
 $kapiSayim = @{}
+$cozumHata = @{}   # cozum hatalari GORUNUR tutulur (kor kalma kurali)
 foreach($s in $sec){
   $bayrak = New-Object System.Collections.Generic.List[string]
   $harf = "$($s.dogru)".Trim().ToUpperInvariant()
   $yanlisSik = @('A','B','C','D','E') | Where-Object { $_ -ne $harf }
 
-  # G9 + dayanak metni
-  $c = $null; try { $c = KaynakCoz "$($s.kaynak)" "$($s.konu)" } catch {}
+  # G9 + dayanak metni. KOR KALMA KURALI: cozum hatasi SESSIZCE YUTULMAZ -
+  # ilk kosuda catch{} bostu ve 499/500 "cozulemedi" cikti; yerelde ayni 267
+  # kaynak 267/267 cozuluyordu. Hata mesaji gorunmeden teshis imkansizdi.
+  $c = $null
+  try { $c = KaynakCoz "$($s.kaynak)" "$($s.konu)" }
+  catch {
+    $hm = "$($_.Exception.Message)"; if($hm.Length -gt 160){ $hm = $hm.Substring(0,160) }
+    $cozumHata[$hm] = 1 + [int]$cozumHata[$hm]
+  }
+  if($c -and -not $c.metin){ $d9 = "durum=$($c.durum)"; $cozumHata[$d9] = 1 + [int]$cozumHata[$d9] }
   $dayanak = if($c -and $c.metin){ "$($c.metin)" } else { '' }
   if(-not $dayanak){ [void]$bayrak.Add('G9') }
 
@@ -363,6 +372,7 @@ $ozet = [ordered]@{
   madde_tavani = $maddeTavan
   kusursuz = $temiz
   kapi_sayim = ($kapiAd.Keys | ForEach-Object { [ordered]@{ kapi=$_; anlam=$kapiAd[$_]; adet=[int]$kapiSayim[$_] } })
+  cozum_hatalari = ($cozumHata.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 15 | ForEach-Object { [ordered]@{ hata=$_.Key; adet=$_.Value } })
   kayitlar = $kayit.ToArray()
 }
 $j = ConvertTo-Json -InputObject $ozet -Depth 6
@@ -370,6 +380,12 @@ if($j -isnot [string]){ $j = ($j -join [Environment]::NewLine) }
 Set-Content -LiteralPath $jsonYol -Value ([string]$j) -Encoding UTF8 -NoNewline
 
 Write-Host ""
+if($cozumHata.Count -gt 0){
+  Write-Host "COZUM HATALARI (kor kalma kurali - gorunur):"
+  foreach($e in ($cozumHata.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 10)){
+    Write-Host ("  {0,4}x  {1}" -f $e.Value, $e.Key)
+  }
+}
 Write-Host "KAPI SAYIMI:"
 foreach($k in $kapiAd.Keys){ Write-Host ("  {0} {1,-48} {2}" -f $k, $kapiAd[$k], [int]$kapiSayim[$k]) }
 Write-Host ("Kusursuz (0 puan): {0} / {1}" -f $temiz, $sec.Count)
