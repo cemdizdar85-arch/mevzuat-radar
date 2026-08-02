@@ -5,7 +5,12 @@
 name: Kasa Desen Olcumu (0 USD)
 
 on:
-  workflow_dispatch:
+  # GM tetigi: veri/tetik/olcum.txt degisince kendiliginden calisir.
+  # Cem'in Actions sekmesinde dugmeye basmasina gerek kalmasin diye eklendi.
+  push:
+    paths:
+      - 'veri/tetik/olcum.txt'
+  workflow_dispatch::
 
 permissions:
   contents: write
