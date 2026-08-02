@@ -210,7 +210,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 156 | — | DÜZELTİLİR | **ETİKET REZALETİ — KGK sızıntısı** | Etiket: "[KGK / Kurumsal Yönetim] kurumsal yönetim tebliği II-17.1" — soru VUK 275 mobilya maliyeti! İçerik doğru ama **KGK bankasına VUK mükerreri sızmış.** Dün geceki KGK üretimi aynı eşleştiriciyle çalıştıysa KGK bankası da taranmalı — KGK çıktısı bu denetim düzeninden geçmeden yayınlanamaz (H1 zaten kilitli). |
 | 157 | — | TEMİZ* | Q135'in birebir kopyası | Aynı şıklar, aynı cevap — tam mükerrer. |
 
-**Ara sayaç (157/500):** kesin yanlış **8** · riskli **11** (+152) · düzeltilir 47 · temiz 96 (%61).
+| 158 | — | TEMİZ | — | KVK m.3 iş merkezi → tam mükellef ✓. |
+| 159 | — | DÜZELTİLİR-hafif | bent atfı (A3) | 5510: hastalıkta 90 gün şartı ✓ doğru — ama kaynak "m.18/1-a" yazıyor; (a) iş kazasıdır, hastalık **(b)** bendi. Q77'deki bent hatasının kardeşi. |
+| 160 | — | TEMİZ | — | TTK 124 kollektif = şahıs şirketi ✓. |
+| 161 | — | TEMİZ | VUK 227 kümesi (4.) | Kayıt tevsiki zorunlu ✓. |
+| 162 | — | TEMİZ | — | VUK 231/5: 7 gün, teslim günü sayılmaz → 25 Mart ✓; süre hesabı bile doğru anlatılmış. İyi soru. |
+| 163 | — | **RİSKLİ — ölü rejim senaryosu (YENİ ALT-DESEN B17)** | — | VUK 227/2'nin "götürü usul hariç" LAFZI doğru okunmuş AMA **götürü usul 4369 ile 1999'da kaldırıldı** (yerine basit usul). 2024 senaryolu bir işletme "götürü usulde vergilendirilemez" — ölü hükümden güncel senaryo kurulmuş. SMMM gözünde güven zedeler; soru ya tarihî bağlama alınır ya elenir. |
+
+**Ara sayaç (163/500):** kesin yanlış **8** · riskli **12** (+163) · düzeltilir 48 · temiz 100 (%61).
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
@@ -298,6 +305,13 @@ metinleri) açıklamanın içine sızmış. Yapay zekâ kokusunun en ele verici 
 eşleşen soru işaretlenir: `\d+ karakter`, `\d+ kelime`, "token", "işte
 açıklama", "aşağıdaki formatta", "JSON", köşeli parantezli yer tutucular.
 Üretim kapısına da eklenir; [[yapayzeka-kokusu]] ölçümüyle birleşir.
+
+### B17. 🟠 Ölü hüküm / mülga rejim senaryosu (Q163)
+Kanun metninde duran ama fiilen uygulanamaz hükümden (götürü usul — 1999'da
+kaldırıldı) GÜNCEL tarihli senaryo kurulmuş. Lafzen doğru, hukuken gerçekdışı.
+**Düzeltme:** üretim istemine "dayanak hükümdeki kurum/rejim bugün yürürlükte
+değilse güncel senaryo KURMA" kuralı + mülga-kurum listesi (götürü usul, TL'den
+önceki birimler, kalkmış vergiler) makine taramasına eklenir.
 
 ### B12. 🟡 Döküm betiği tablo alanını bozuk basıyor (altyapı)
 denetim-500.ps1 tablo/yevmiye alanını "@{baslik=System.Object[]}" diye basıyor —
