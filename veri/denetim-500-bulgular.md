@@ -101,7 +101,13 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 61 | — | TEMİZ* | TTK 516 kümesi (5.) | Risk bölümü eksik → rapor eksik ✓. |
 | 62 | — | TEMİZ* | TTK 516 kümesi (6.) | 516/2-c ücretler koşulsuz zorunlu ✓ (A şıkkı 2-a şarta bağlı — ayrım doğru işlenmiş). |
 
-**Ara sayaç (62/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 20 · temiz 33.
+| 63 | — | DÜZELTİLİR-hafif | dil kusuru | TBK 82: 2 yıl/10 yıl ✓ B doğru. "Akılda kalsın" cümlesi anlamsız benzetme ("iki saat süreli zamanaşımı saatin çalmasıyla...") — yeniden yazılacak. |
+| 64 | — | TEMİZ | senaryo yapaylığı notu | İş K. 13: takip eden ay başı 1 Aralık ✓. (İlköğretim Kasım'da başlamaz — senaryo yapay ama hesap doğru.) |
+| 65 | — | TEMİZ* | mükerrer (63 ile) | TBK 82 hesap ✓ tutarlı, güzel işlenmiş. |
+| 66 | — | TEMİZ + **YENİ SINIF B15 tetikleyici** | çelişen çift | TTK 367 "hiçbir şart aramaksızın" ✓ kanuna sadık. AMA Q49 aynı kuralda "yazılı talep + belgeleme KOŞULUYLA" demişti — **iki soru aynı kuralda çelişen doğrular işaretliyor.** Aday ikisini de görürse güven biter. Q49 elenir/düzeltilir, Q66 kalır. |
+| 67 | — | TEMİZ | etiket | İş K. 13/5 "eş çalışmıyorsa talep edilemez" ✓ dayanakla birebir. |
+
+**Ara sayaç (67/500):** kesin yanlış **5** · riskli **4** · düzeltilir 22 · temiz 36.
 **Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
 **NOT:** Bu oranlar kasaya GENELLENEMEZ — dosya kusur puanına göre sıralı, en şüpheliler üstte. Genel oran, 8-puan bandı (296 soru) okununca çıkar.
@@ -167,6 +173,14 @@ Gövde cevabı söylüyor ("emsal bedeli ile değerlemeye karar vermiştir"), so
 "hangi yöntem?" diye soruyor. **Düzeltme:** üretim istemine "doğru şıkkın anahtar
 terimi soru gövdesinde GEÇEMEZ" kuralı + makine kapısı (doğru şık metninin
 5+ karakterlik parçası gövdede birebir geçiyorsa işaretle).
+
+### B15. 🔴 Çelişen soru çifti (Q49 ↔ Q66)
+Aynı kuralda iki soru, işaretli doğruları birbiriyle ÇELİŞİYOR (biri "koşulla",
+öteki "hiçbir şart aramaksızın"). Tek tek bakınca ikisi de "geçer", yan yana
+gelince banka kendi kendini yalanlıyor. **Düzeltme:** parmak izi kümeleri
+içinde işaretli doğru şıkların METİNLERİ karşılaştırılır; çelişen çift bulunursa
+ikisi de GM'ye düşer, kanuna sadık olan kalır. Mükerrer ayıklamasıyla aynı
+geçişte, bedava.
 
 ### B12. 🟡 Döküm betiği tablo alanını bozuk basıyor (altyapı)
 denetim-500.ps1 tablo/yevmiye alanını "@{baslik=System.Object[]}" diye basıyor —
