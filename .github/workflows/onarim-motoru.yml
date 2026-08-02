@@ -1,0 +1,63 @@
+# .github/workflows/onarim-motoru.yml
+# VARSAYILAN KURU KOSU = 0 USD. Motor kimin neyi eksik oldugunu sayar ve 10
+# ornek istemi dosyaya yazar; hicbir API cagrisi YAPMAZ.
+# Parali pilot yalniz veri/tetik/onarim-pilot.txt degistiginde ve SINIR ile
+# kosar - kaza ile tam kasa kosmaz (Cem: "bir kez calistirip birakalim").
+name: Onarim Motoru (varsayilan 0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/onarim-motoru.ps1'
+      - '.github/workflows/onarim-motoru.yml'
+      - 'veri/tetik/onarim-pilot.txt'     # PARALI pilot tetigi
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: onarim-motoru
+  cancel-in-progress: false
+
+jobs:
+  kos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tetigi denetle
+        id: kapi
+        run: |
+          if git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -q 'veri/tetik/onarim-pilot.txt'; then
+            echo "pilot=evet" >> $GITHUB_OUTPUT; echo "PARALI PILOT (sinir 200)."
+          else
+            echo "pilot=hayir" >> $GITHUB_OUTPUT; echo "KURU KOSU - 0 USD."
+          fi
+
+      - name: Kuru kosu (0 USD)
+        if: steps.kapi.outputs.pilot != 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/onarim-motoru.ps1
+
+      - name: PILOT 200 soru (PARALI)
+        if: steps.kapi.outputs.pilot == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/onarim-motoru.ps1 -uygula -sinir 200
+
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/onarim-motor-raporu.json ]; then git add veri/onarim-motor-raporu.json || true; fi
+          if [ -f veri/onarim-motor-ornek-istem.txt ]; then git add veri/onarim-motor-ornek-istem.txt || true; fi
+          git diff --cached --quiet || git commit -m "Onarim motoru raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
