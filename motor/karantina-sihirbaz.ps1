@@ -42,10 +42,19 @@ function Dene-Anahtar([string]$aday){
   return $null
 }
 
-# --- 1. yol: Not Defteri dosyasi (veri\fabrika\ANAHTAR.txt - gitignore'da, depoya gidemez) ---
+# --- 0. yol: PANO - anahtari Supabase'te Copy ile kopyalamis olman yeter ---
 $KEY = $null
+try {
+  $pano = Get-Clipboard -ErrorAction Stop
+  if($pano -and ("$pano".Trim() -like 'sb_secret_*' -or "$pano".Trim() -like 'eyJ*')){
+    Write-Host "Panoda anahtar bulundu, deneniyor..."
+    $KEY = Dene-Anahtar "$pano"
+  }
+} catch {}
+
+# --- 1. yol: Not Defteri dosyasi (veri\fabrika\ANAHTAR.txt - gitignore'da, depoya gidemez) ---
 $anahtarDosya = Join-Path (Split-Path $here -Parent) "veri\fabrika\ANAHTAR.txt"
-if(Test-Path $anahtarDosya){
+if(-not $KEY -and (Test-Path $anahtarDosya)){
   Write-Host "ANAHTAR.txt bulundu, oradan okunuyor..."
   $KEY = Dene-Anahtar (Get-Content -Raw $anahtarDosya)
   if(-not $KEY){ Write-Host "Dosyadaki anahtar kabul edilmedi - elle yapistirma yoluna geciliyor."; Write-Host "" }
