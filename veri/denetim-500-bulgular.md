@@ -155,7 +155,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 108 | — | **RİSKLİ** | Q41 ailesi + iki-şık gölgesi + typo | "Temerrüt için ihtar gerekmez" (m.482/1) ✓ doğru. AMA senaryo ISKAT kararı içeriyor ve m.483 ıskat için İLANLI İHTAR şart — B şıkkı ("ihtar sonrası ancak ıskat işlemine geçilebilir") özünde doğruya yakın; m.483'ü bilen aday B'ye kayar. Soru kökü ıskat senaryosundan arındırılmalı ("temerrüt FAİZİ için ihtar gerekir mi" diye netleşmeli). Ayrıca ×3 "olmaksızıaan/olmaksızıan" yazım bozukluğu. |
 | 109 | — | TEMİZ | kurgu zorlama | 3568 m.29 Birlik meslek kuralları ✓; gelir tablosu bağlamı yapay ama cevap doğru. |
 
-**Ara sayaç (109/500):** kesin yanlış **6** · riskli **8** (5, 8, 21, 40, 72, 84, 86, 108) · düzeltilir 36 · temiz 61.
+| 110 | — | TEMİZ | TTK 482 kümesi (5.: 17/41/48/108/110) | Oy askıya alma yetkiler arasında değil ✓. Küme onarımı Q41 ile birlikte. |
+| 111 | — | TEMİZ | — | VUK 227/3 "hiç düzenlenmemiş sayılır" ✓. |
+| 112 | — | DÜZELTİLİR | B3 + etiket faciası | 147.650 ✓ tutarlı. Ama B şıkkının açıklaması "+4.675" diye anlamsız rakam üretiyor (idare gideri eklense +9.825=C olurdu); E'de "+8.975" uydurma. Konu etiketi "sermaye payı iptal ve satış" — maliyet sorusuna! |
+| 113 | — | TEMİZ* | TTK 516 kümesi (7.) | ✓ |
+| 114 | — | TEMİZ* | TTK 516 kümesi (8.) | 516/2-c tam kalem listesi ✓. |
+| 115 | — | **TEMİZ — birincil teyitli** | VUK 323 kümesi | 47.300+18.650=65.950 ✓; "bir kez istenen sayılmaz" ayrımı güzel işlenmiş. 31/12/2026 senaryosu + 25.000 eşiği = **RG 33124 (5.Mük.) VUK GT 588 ile birebir doğru.** Q46 gibi aklandı. |
+
+**Ara sayaç (115/500):** kesin yanlış **6** · riskli **8** · düzeltilir 37 · temiz 66 (%57).
+**TTK 516 kümesi 8'e, TTK 482 kümesi 5'e çıktı** — mükerrer ayıklamasının iki büyük hedefi.
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
