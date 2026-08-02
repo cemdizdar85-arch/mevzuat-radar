@@ -42,14 +42,28 @@ $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 $SB = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
 
 # --- kasayi cek (order SART: order'siz sayfalama satir tekrarlatir/atlatir) ---
+# 02.08 HATA VE DUZELTME: ilk surum "kasa: 1" dondu. Invoke-RestMethod JSON
+# dizisini BOZARAK tek nesne verebiliyor; .Count 1 cikinca dongu "bitti" sanip
+# kiriliyordu. Ayni tuzagi bugun yayindan-cek'te de yasadik ve orada Getir()
+# normalize edicisiyle cozmustuk - buraya koymayi atlamisim. Cozum: ham JSON'u
+# metin olarak al, ConvertFrom-Json ile dizi olarak coz, @() ile sabitle.
+# KOR KALMA: sayfa sayfa ilerleme ekrana yazilir; sifirinci sayfa bos gelirse
+# rapor 'SUPHELI' damgasi alir (yesil kosu = dogru veri DEGILDIR).
 $kasa = New-Object System.Collections.Generic.List[object]
+$sayfa = 0
 for($o = 0; $o -lt 60000; $o += 1000){
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,ders,soru,dogru,aciklama,tablo,yevmiye&order=id&limit=1000&offset=$o" -Headers $SB -TimeoutSec 120 | Where-Object { $null -ne $_ })
+  $ham = Invoke-WebRequest -Uri "$U`?select=id,ders,soru,dogru,aciklama,tablo,yevmiye&order=id&limit=1000&offset=$o" -Headers $SB -UseBasicParsing -TimeoutSec 180
+  $metin = if($ham.RawContentStream){ [Text.Encoding]::UTF8.GetString($ham.RawContentStream.ToArray()) } else { "$($ham.Content)" }
+  $r = @($metin | ConvertFrom-Json)
+  $sayfa++
+  Write-Host ("  sayfa {0} (offset {1}): {2} satir" -f $sayfa, $o, $r.Count)
   if($r.Count -eq 0){ break }
-  foreach($x in $r){ $kasa.Add($x) }
+  foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
   if($r.Count -lt 1000){ break }
 }
 Write-Host ("Kasa: {0} soru" -f $kasa.Count)
+$supheli = ($kasa.Count -lt 1000)
+if($supheli){ Write-Host "!! SUPHELI: kasa 1000'in altinda gorundu - sayfalama yine kirilmis olabilir." }
 
 # --- desenler (Turkce aksan toleransli: gövde ara, ek arama) ---
 $reNe      = [regex]'(?i)ne\s+sorul'
@@ -125,8 +139,9 @@ foreach($s in $kasa){
 # parali motor her soruya BIR KEZ dokunacagi icin asil onemli olan BIRLESIK kume.
 $rapor = [ordered]@{
   tarih   = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  durum   = 'TAMAM'
+  durum   = $(if($supheli){ 'SUPHELI - kasa beklenenden kucuk, sayfalama kirilmis olabilir' } else { 'TAMAM' })
   kasa    = $kasa.Count
+  cekilen_sayfa = $sayfa
   aciklama_alani_bos = $aciklamaYok
   eksik = [ordered]@{
     d1_dort_parca        = $say.dortparca
