@@ -474,6 +474,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 383 | — | TEMİZ | kaynak etiketi p.11-12 ama kural p.16 — hafif kayma | TFRS 8 p.16 "Diğer Tüm Bölümler" + hasılat kaynağı açıklaması ✓. |
 
 **Ara sayaç (383/500):** kesin yanlış **10** · riskli **15** · düzeltilir 72 · temiz 291 (%76). (315 hükmü geriye dönük düzeltildi.)
+
+| 384 | — | TEMİZ | — | VUK 227: üçüncü şahıs muamelesi tevsik / işletme içi fire tespiti hariç ✓. |
+| 385 | — | DÜZELTİLİR | **VUK 323 teminat kuralı ÜÇÜZ oldu (318/349/385)** | İçerik doğru ✓ ama doğru şıkkın özü yine "teminattan kalan miktar". Çeldiricileri iyi (farklı bentler) — onarımda doğru şık başka bent üzerinden yeniden kurgulanabilir (örn. tahsilat→kâr-zarar) ya da elenir. |
+| 386 | — | TEMİZ | 323/325 (dağıtılamayan) ↔ 386 (dağıtılabilen) meşru ters-açı | TMS 36 p.102(a): dağıtılabiliyorsa pay dahil ayrı test ✓. |
+| 387 | — | TEMİZ — aile şampiyonu | **TFRS 3 p.13 ÜÇÜZ (315/381/387)** + YEVMİYE VERİSİ bozuk | 284.600+156.300+97.800=538.700 ✓ p.18 GUD ölçümü dahil — en zengin üye. **Karar güncellendi: 387 kalır, 315 VE 381 elenir** (381 hükmü TEMİZ→DÜZELTİLİR'e çevrildi). |
+| 388 | — | TEMİZ | 327↔388 VUK 283 yakın-aile (kira-zaman / malzeme-miktar — farklı beceri, ikisi kalabilir) | 18.750−4.320=14.430 gider ✓ hesap tutarlı. |
+| 389 | — | TEMİZ | — | 5018 m.3/h: özel sektör prim ödemesi kamu gideri değil ✓. |
+| 390 | — | TEMİZ | 390↔391 çifti (aşağıda) | 4054 m.6: tek başına yıkıcı fiyat = hâkim durum kötüye kullanma; m.4/m.6/m.7 ayrımı öğretici ✓. |
+| 391 | — | DÜZELTİLİR | **390 ile mükerrer** (aynı kural + aynı öz) + konu etiketi kayması ("monopol piyasası özellikleri" ≠ rekabet hukuku) | İçerik doğru ✓; 390 kalır (madde ayrımı zengin), 391 elenir. |
+
+**Ara sayaç (391/500):** kesin yanlış **10** · riskli **15** · düzeltilir 75 · temiz 296 (%76). (381 hükmü geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
