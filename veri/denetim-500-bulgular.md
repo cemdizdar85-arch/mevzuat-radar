@@ -280,7 +280,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 218 | — | TEMİZ | — | 5018 m.13 adem-i tahsis ✓. |
 | 219 | — | TEMİZ | — | 5018 m.13 doğruluk/samimiyet ✓. |
 
-**Ara sayaç (219/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 152 (%69). Maliye dersi 7/7 temiz.
+| 220 | — | TEMİZ | — | 5018 m.13/d gayrisafilik: gelir-gider mahsup edilmez ✓ (218/219/220 üçlüsü farklı ilkeler — meşru). |
+| 221 | — | TEMİZ | — | 4054: eşik üstü birleşmede Kurul izni şart ✓. |
+| 222 | — | TEMİZ | — | 6356 m.39 dayanışma aidatı üyelik doğurmaz ✓. |
+| 223↔225 | — | TEMİZ* | **mükerrer ÇİFT (3. vaka)** | Erken tahliyede kalan özel maliyet → tek seferde gider ✓ — yine senaryolu + düz versiyon çifti. |
+| 224 | — | DÜZELTİLİR-hafif | B3 çapraz kayma | Dönüşüm maliyeti 65.400 ✓. Ama B ve C çeldirici açıklamaları ÇAPRAZ: B'nin rakamı hammadde+GÜG iken açıklaması "hammadde+işçilik" anlatıyor; C'nin rakamı asal maliyetken açıklaması uydurma çıkarma anlatıyor. |
+| 226 | — | TEMİZ | — | GÜG = 486.750-340.980 = 145.770 ✓ tutarlı. |
+
+**Ara sayaç (226/500):** kesin yanlış **9** · riskli **13** · düzeltilir 51 · temiz 158 (%70).
+**Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
 **8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
