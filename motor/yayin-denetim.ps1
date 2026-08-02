@@ -112,7 +112,7 @@ $ozet = [ordered]@{
   yayindaki_toplam = $yayinda.Count
   denetlenen = $sec.Count
   dayanagi_cozulemeyen = $metinsiz
-  kayitlar = @($kayit)
+  kayitlar = $kayit.ToArray()
   not = "veri/yayin-denetim.md dosyasi insan okumasi icindir. Kusurlu bulunan sorunun kimligi motor/yayindan-cek.ps1 ile yayindan cekilir."
 }
 $j = ConvertTo-Json -InputObject $ozet -Depth 5
