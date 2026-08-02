@@ -1,8 +1,14 @@
 # TETİKTE — SINAV SORU VE CEVAP SÖZLEŞMESİ
 
 *Son güncelleme: 02.08.2026 · Cem + GM birlikte çizdi.*
+**DURUM: KİLİTLİ** (Cem 02.08: "1-2-3-4 ekle, kilitle").
 Bu dosya sınav tarafının **tam kuralıdır**. Bir soru buradaki her maddeyi
-sağlamıyorsa yayına giremez. Kural eklemek/çıkarmak Cem'in onayıyla olur.
+sağlamıyorsa yayına giremez. Kural eklemek/çıkarmak Cem'in **açık onayıyla**
+olur; GM kendi kestirmesiyle değiştiremez.
+
+*Kilitlenirken eklenen dört madde:* D7 görsel/tablo şartı · C6 doğru cevabın
+harf dağılımı · H6 mevzuat değişirse otomatik karantina · H7 öğrenci itiraz
+kanalı. *Ölçüme bırakılan:* zorluk dengesi (K1 verisi birikince).
 
 ---
 
@@ -64,6 +70,12 @@ yazılmaz — iki doğru şık üretir.
 **C5.** Rakamlı şıklarda **hepsi yuvarlak sayı olmaz** (10.000 / 20.000 /
 30.000 dizisi yapay zekâ kokusudur; gerçek sınavda böyle olmaz).
 
+**C6. DOĞRU CEVABIN HARF DAĞILIMI DENGELİ OLACAK.** Bir derste doğru cevaplar
+belirli bir harfte yığılırsa (hep C, hep E) öğrenci konuyu değil **kalıbı**
+öğrenir. Ölçülür: her derste A–E paylarının hiçbiri **%30'u aşmayacak**,
+hiçbiri **%12'nin altına düşmeyecek**. Aşan ders bloğu yayına açılmadan
+karıştırılır (şık sırası değiştirilir, doğru cevap harfi kaydırılır).
+
 ---
 
 ## D. AÇIKLAMA — "adam yanlış yaptıysa öğretecek"
@@ -96,6 +108,13 @@ açıklamasında olmayan bir kanun uydurup kendi doğru cevabını yalanlamışt
 
 **D6.** Hesaplı sorularda **çözüm adımları** açıklamada görünür; sonuç
 "öylece" verilmez.
+
+**D7. GÖRSEL/TABLO ŞARTI.** Metin duvarı öğretmez.
+- **Hesaplı** soruda: hesap tablosu (kalem → tutar → toplam) **zorunlu**.
+- **Kayıt** sorusunda: yevmiye fişi (borç/alacak, hesap adı ve kodu) **zorunlu**.
+- **Karşılaştırmalı** konularda (iki yöntem, iki rejim, iki süre): iki sütunlu
+  karşılaştırma tablosu.
+- Bilgi sorusunda görsel şart değildir; ama "Akılda kalsın" kartı her soruda var.
 
 ---
 
@@ -167,6 +186,22 @@ düzeltilir.**
 
 **H5.** Yayına girmiş bir soruda sonradan kusur görülürse **önce yayından
 çekilir**, sonra tartışılır.
+
+**H6. MEVZUAT DEĞİŞİRSE SORU OTOMATİK KARANTİNAYA.** Bir sorunun dayandığı
+madde/paragraf değişir, mülga olur ya da yeniden numaralanırsa o soru
+**kendiliğinden yayından çekilir** ve GM'ye düşer. Dayanak Bağı robotu her
+gün kanun aynasıyla karşılaştırır.
+*Neden:* Sıfır-yanlış sözünü asıl tehdit eden şey bugünkü hata değil,
+**bugün doğru olan sorunun altı ay sonra sessizce yanlışa dönmesidir.**
+Ezber değil ayna: kaynak değişirse ürün de değişir.
+
+**H7. ÖĞRENCİ İTİRAZ KANALI.** Her sorunun altında "Bu cevap yanlış" düğmesi
+olacak. İtiraz bize bildirim olarak düşer; **48 saat içinde bakılır.**
+- İtiraz haklıysa: soru **derhal** yayından çekilir, düzeltilir, itiraz edene
+  bildirilir.
+- Haksızsa: neden haklı olmadığımız **kaynak göstererek** yanıtlanır.
+*Neden:* Sıfır-yanlış iddiasının son savunma hattı budur; hem güven verir hem
+gözümüzden kaçanı bize taşır. İtirazı olmayan sistem, hatasını öğrenemez.
 
 ---
 
