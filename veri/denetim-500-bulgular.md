@@ -325,7 +325,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 261 | — | TEMİZ*-dil | TMS 23 kümesi (6. kopya) + "borcalanma" ×10 yazım bozuk | 186.400-31.520=154.880 ✓. |
 | 262↔263 | — | TEMİZ | **örnek ters-açı çifti (MEŞRU)** | 262: Bakanlık anlaşması VAR → sıfır; 263: anlaşma YOK → emsal bedel. 278/A'nın iki yüzü — mükerrer DEĞİL, ideal çeşitleme (263≈203 hariç). |
 
-**Ara sayaç (263/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 192 (%73).
+| 264 | — | TEMİZ | VUK 275'in YENİ meşru açısı | Kapasite artırıcı harcama = sabit kıymet, maliyet unsuru DEĞİL ✓. |
+| 265 | — | TEMİZ* | mükerrer (Q253 kopyası) + etiket yine "değişken sermayeli yatırım ortaklığı" | ✓ |
+| 266≈267 | — | TEMİZ* | mükerrer (Q185'in 2.-3. kopyası — aynı soru, rakam değişik ×3) | 400K/4=100K ✓ · 300K/5=60K ✓. |
+| 268 | — | TEMİZ* | TMS2-normal kapasite kümesi (5.) | 186.750/2.300=81,20; yüklenen 149.408; gider 37.342 ✓ üç adım da tutarlı. |
+| 269 | — | TEMİZ | 184 ile meşru çift (farklı bent) | TTK 55/1-a-4: iltibas için tescil şart değil ✓. |
+| 270 | — | TEMİZ* | mükerrer (Q242 kopyası) — ihtiyati haciz kümesi 6 üye | ✓ |
+| 271 | — | TEMİZ | — | ÖİV mükellefi işletmeci; yüklenici/mükellef ayrımı güzel ✓. |
+
+**Ara sayaç (271/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 200 (%74). **200. temiz soru.**
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
