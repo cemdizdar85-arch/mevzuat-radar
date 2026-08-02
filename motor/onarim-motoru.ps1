@@ -264,14 +264,92 @@ if(-not $uygula){
   exit 0
 }
 
-# --- UYGULA: bu dal Cem'in acik onayindan ve 10 ornegin gozle kontrolunden
-#     SONRA acilacak. Pilot olcumu yapilmadan tam parti kosulmaz. ---
-Write-Host "UYGULA modu: API cagri katmani pilot onayindan sonra acilacak (sartname adim 4)."
-Write-Host "Once: kuru kosu ornekleri Cem'e gosterilecek -> onay -> -uygula -sinir 200."
+# ============================================================================
+#  UYGULA — PARALI KATMAN (Cem'in 02.08 "pilot calistir 200 soru" onayiyla acildi)
+#
+#  BU KOSU KASAYA YAZMAZ. Sebebi: bu motorun ilk paralı koşusu. Kalitesi
+#  gorulmeden 200 soruya dokunursak, kotu cikan parti kasada temizlenecek is
+#  birakir. Pilot yalnizca (1) gercek faturayi olcer, (2) ciktilari dosyaya
+#  yazar. Kasaya yazma ayri bir anahtarla (-yaz) ve Cem'in ikinci onayiyla olur.
+#
+#  CIKTI veri/fabrika/ ALTINA yazilir - orasi .gitignore'da. Parali soru icerigi
+#  public depoya GIRMEZ (29-30.07 karari).
+# ============================================================================
+if(-not $env:ANTHROPIC_API_KEY){
+  Write-Host "ANTHROPIC_API_KEY yok - parali kosu yapilamaz."
+  Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT - ANAHTAR YOK'; durum='KIRMIZI'
+    not='ANTHROPIC_API_KEY sirri tanimli degil; hicbir cagri yapilmadi, para harcanmadi.' }))
+  exit 1
+}
+$MODEL = 'claude-haiku-4-5-20251001'
+# Fiyat: 1 USD / M giris token, 5 USD / M cikis token (Haiku 4.5 liste fiyati).
+# Token sayilari OLCUMDUR (API'nin usage alani); USD bu iki katsayiyla turetilir.
+$FIY_IN = 1.0 / 1000000.0
+$FIY_OUT = 5.0 / 1000000.0
+
+$fabrika = Join-Path $kok 'veri/fabrika'
+if(-not (Test-Path $fabrika)){ New-Item -ItemType Directory -Path $fabrika -Force | Out-Null }
+$ciktiYol = Join-Path $fabrika 'onarim-pilot-ciktilar.json'
+
+$AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
+$sonuc = New-Object System.Collections.Generic.List[object]
+$tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0
+$parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
+Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
+
+for($n=0; $n -lt $parti.Count; $n++){
+  $i = $parti[$n]
+  $istem = IstemKur $i
+  $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{
+    model=$MODEL; max_tokens=1500
+    messages=@(@{ role='user'; content=$istem })
+  }
+  try {
+    $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH `
+         -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120
+  } catch {
+    $hataliCagri++
+    Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message)
+    continue
+  }
+  $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
+  $metin = ''
+  foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
+  # Model bazen JSON'u ``` icine sarar - soyup dene.
+  $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
+  $obj = $null
+  try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
+  if($null -ne $obj){ $basarili++ }
+  $sonuc.Add([ordered]@{
+    id="$($i.soru.id)"; ders="$($i.soru.ders)"; konu="$($i.soru.konu)"
+    kaynak="$($i.soru.kaynak)"; mevzuatdisi=[bool]$i.mevzuatdisi
+    eksik=@($i.eksik); ham=$temiz; gecerli_json=($null -ne $obj)
+  })
+  if((($n+1) % 25) -eq 0){ Write-Host ("  {0}/{1} | giris {2} cikis {3} token" -f ($n+1), $parti.Count, $tIn, $tOut) }
+}
+
+$maliyet = [Math]::Round(($tIn * $FIY_IN) + ($tOut * $FIY_OUT), 4)
+$birim = if($parti.Count -gt 0){ [Math]::Round($maliyet / $parti.Count, 6) } else { 0 }
+Set-Content -LiteralPath $ciktiYol -Value (ConvertTo-Json -InputObject $sonuc.ToArray() -Depth 6) -Encoding UTF8 -NoNewline
+
+# --- RAPOR: yalniz SAYILAR depoya gider, soru icerigi GITMEZ ---
 $rapor = [ordered]@{
-  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='UYGULA - HENUZ ACIK DEGIL'
-  islenebilir=$hazir.Count; atlanan_dayanaksiz=$atlanan.Count
-  not='API katmani bilerek kapali: para harcayan ve kasaya yazan kod, 10 ornek gozle dogrulanmadan acilmayacak (ONARIM-MOTOR-SARTNAMESI adim 2-3).'
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT (PARALI, kasaya YAZILMADI)'
+  model=$MODEL; istenen=$parti.Count
+  basarili_json=$basarili; bozuk_json=$bozukJson; cagri_hatasi=$hataliCagri
+  giris_token=$tIn; cikis_token=$tOut
+  maliyet_usd=$maliyet; birim_usd_soru=$birim
+  fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
+  tahmin_tam_kasa_usd=[Math]::Round($birim * $kasa.Count, 2)
+  cikti_dosyasi='veri/fabrika/onarim-pilot-ciktilar.json (DEPOYA GIRMEZ)'
+  not='Kasaya HICBIR yazma yapilmadi. Ciktilar gozle kontrol edilecek; onay gelirse ayri -yaz kosusuyla islenir.'
 }
 Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 4) -Encoding UTF8 -NoNewline
+Write-Host "`n=== PILOT BITTI ==="
+Write-Host ("  Soru: {0} | Gecerli JSON: {1} | Bozuk: {2} | Cagri hatasi: {3}" -f $parti.Count, $basarili, $bozukJson, $hataliCagri)
+Write-Host ("  Token: giris {0} / cikis {1}" -f $tIn, $tOut)
+Write-Host ("  MALIYET: {0} USD | soru basina {1} USD" -f $maliyet, $birim)
+Write-Host ("  Tam kasa tahmini ({0} soru): {1} USD" -f $kasa.Count, $rapor.tahmin_tam_kasa_usd)
+Write-Host "  KASAYA YAZILMADI."
 exit 0

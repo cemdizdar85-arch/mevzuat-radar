@@ -56,8 +56,9 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
+          # YALNIZ rapor (sayilar) commit'lenir. Ornek istemler ve pilot ciktilari
+          # PARALI SORU ICERIGI tasir - public depoya girmez (29-30.07 karari).
           if [ -f veri/onarim-motor-raporu.json ]; then git add veri/onarim-motor-raporu.json || true; fi
-          if [ -f veri/onarim-motor-ornek-istem.txt ]; then git add veri/onarim-motor-ornek-istem.txt || true; fi
           git diff --cached --quiet || git commit -m "Onarim motoru raporu [veri-operasyonu]"
           git pull --rebase || true
           git push || true
