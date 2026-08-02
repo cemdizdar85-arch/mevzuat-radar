@@ -419,6 +419,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 **Ara sayaç (343/500):** kesin yanlış **10** · riskli **15** · düzeltilir 63 · temiz 260 (%76).
 **Not:** Bozuk YEVMİYE/TABLO VERİSİ alanı (337, 342; daha önce 313, 318, 341'de "System.Object[]") — üretim şablonundan sızan ham PowerShell nesnesi. Soru metnini bozmuyor (site bu alanı basmıyorsa) ama onarım partisinde tablo/yevmiye alanları yeniden üretilecek; hangi sayfaların bu alanı bastığı ölçülecek.
+
+| 344 | — | DÜZELTİLİR | **341 ile mükerrer** (duran varlık alımı = yatırım çıkışı, aynı öz) | İçerik doğru ✓ ama 341'in motosikletli kopyası; 341 kalır, 344 elenir. |
+| 345 | — | TEMİZ | — | TMS 29 p.24 ilk uygulama özkaynak düzeltmesi ✓ ince ayrıntılar (iptal + GYK türetme) doğru işlenmiş. |
+| 346 | — | TEMİZ | TMS 23 ailesi | p.12 nemalandırma geliri düşülür: 287.500−3.240=284.260 ✓. |
+| 347 | — | DÜZELTİLİR | **TMS 21 ailesi 4. üye** (308/324/335/347) | İçerik doğru (özerk→TL) ama aynı kural artık 4 kez: 308 (özerk→EUR senaryolu) + 324 (uzantı→TL) yeterli; 335 ve 347 elenir. |
+| 348 | — | TEMİZ | 316'nın sağlam ikizi | TMS 10 temettü: karar 12.02 < onay 18.03 — tarih kurgusu TUTARLI (316'daki hatanın düzgün hali). Onarımda bozuk 316 elenip 348 kalabilir. |
+| 349 | — | DÜZELTİLİR | **318 ile mükerrer** (teminatı aşan kısım, aynı öz — yalnız rakam/teminat türü farklı) | İçerik doğru ✓ (150.000); 318 kalır, 349 elenir. Rakamsız parmak izi ölçüsünün ders kitabı örneği. |
+| 350 | — | TEMİZ — iyi soru | — | TMS 7 dolaylı yöntem: kâr net kârdan düşülür + 68.900 yatırım girişi ✓ çift sayım mantığı güzel anlatılmış. |
+| 351 | — | TEMİZ | — | TFRS 10 ana/bağlı ortaklık tanımı ✓; "Mehmet Bey işletme değildir" çeldiricisi öğretici. |
+
+**Ara sayaç (351/500):** kesin yanlış **10** · riskli **15** · düzeltilir 66 · temiz 265 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
