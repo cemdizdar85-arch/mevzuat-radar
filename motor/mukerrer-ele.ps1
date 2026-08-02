@@ -98,7 +98,10 @@ $kalan = New-Object System.Collections.Generic.List[object]
 $elenecek = New-Object System.Collections.Generic.List[object]
 $atlanan = 0
 foreach($g in $gruplar){
-  $idler = @($g.idler); if($idler.Count -eq 0){ $idler = @($g.id) }
+  # T1_gruplar bir NESNE listesi degil, dogrudan id DIZILERI listesidir
+  # (ilk olcumde 852 grubun 852'si atlandi cunku $g.idler diye aramistim).
+  $idler = @($g)
+  if($idler.Count -eq 1 -and $null -ne $g.idler){ $idler = @($g.idler) }
   $uyeler = @()
   foreach($i in $idler){ $k = $kasa["$i"]; if($null -ne $k){ $uyeler += [pscustomobject]@{ id="$i"; puan=(Puan $k); yayin=$k.yayin } } }
   if($uyeler.Count -lt 2){ $atlanan++; continue }
