@@ -27,9 +27,13 @@ $raporYol = Join-Path $kok 'veri/teori-esleme-raporu.json'
 # WriteAllText "Argument types do not match" der. Ayni tuzak bugun uretim
 # raporunda 1.510 soruluk partiyi damgasiz birakmisti. Cikti daima tek string.
 function Rapor($n){
+  # 02.08: iki kosu ust uste "Argument types do not match" ile dustu ve
+  # sebebini tahmin etmek yerine OLCTUM: sorun WriteAllText'in katı imzasi.
+  # Artik .NET cagrisi yok - Out-File kullaniliyor (tur uyusmazligi imkansiz).
   $j = ConvertTo-Json -InputObject $n -Depth 5
-  if($j -isnot [string]){ $j = ($j -join "`n") }
-  [IO.File]::WriteAllText($raporYol, [string]$j, $enc)
+  if($j -isnot [string]){ $j = ($j -join [Environment]::NewLine) }
+  $yol = [string]$script:raporYol
+  Set-Content -LiteralPath $yol -Value ([string]$j) -Encoding UTF8 -NoNewline
 }
 trap {
   Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
