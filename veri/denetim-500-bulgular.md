@@ -65,7 +65,13 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 41 | — | **ELENİR — YANLIŞ CEVAP** | komşu madde körlüğü (YENİ SINIF B13) | Iskat için "YK kararı yeter, başka işlem gerekmez" işaretli. TTK m.483/1 AÇIK: ıskat öncesi gazete+internet sitesi İLANIYLA İHTAR ve 1 AY süre zorunlu (nama yazılıda iadeli taahhütlü mektup). Üreticinin kaynağı yalnız m.482 idi; usul 483'te — maddeyi tek başına görünce "işlem gerekmez" sanmış. |
 | 42 | — | **ELENİR — YANLIŞ RAKAM** | hesap tutarsızlığı | TMS 2: açıklamanın saydığı kalemler 300.115 eder, işaretli şık 300.515 (400 TL toplama hatası). Doğru rakam şıklarda yok. |
 
-**Ara sayaç (42/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 11 · temiz 22.
+| 43 | — | TEMİZ | etiket | TTK 367 pay sahibi/alacaklı ayrımı ✓ — nüanslı, iyi soru. Etiket "Maliyet Muh."?! |
+| 44 | — | DÜZELTİLİR | VUK 262 kümesi (dil) | Rakam ✓ (80.395). Ama açıklamalar yine "serbesttir/istenirse" diyor — kanun bu kısım için ZORUNLU der; A şıkkı açıklaması "istenirse... zorunlu kılar" diye kendi içinde çelişik. Cevap şans eseri doğru çünkü işletme "dahil etmiş". Küme: Q15-Q40-Q44 aynı ezber. |
+| 45 | — | DÜZELTİLİR-hafif | B3 hafif | 51.300/1.200=42,75 ✓. B şıkkının açıklaması C'nin rakamını anlatıyor. |
+| 46 | — | **RİSKLİ — yıl eşiği teyitsiz** | B1 (yıl-bağımlı rakam) | VUK 323 küçük alacak sınırı YILLIK değişir (2024: 14.890 vb.). Soru 2026 senaryosuna "25.000 TL" yazmış — hiçbir yılın resmî eşiğiyle teyit edilmedi. Mantık doğru, rakam doğrulanmadan yayınlanamaz. Yıllık-nöbet kavramlarına "şüpheli alacak sınırı" eklenecek; VUK 323 kümesi (6 soru) taranacak. |
+| 47 | — | TEMİZ | etiket facia | TBK 66 rücu + muhasebe bağlamı ✓ güzel soru. Ders "Maliyet Muh." konu "izahname sorumluluğu" — ikisi de alakasız. NOT: TBK 66'dan 3 soru (18/21/47) ama üçü FARKLI açı soruyor — bu meşru çeşitleme, mükerrer değil; parmak izi ölçütü (kaynak+doğru şık) bunu doğru ayırıyor. |
+
+**Ara sayaç (47/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve/rakam riski **5** (5, 8, 21, 40, 46) · düzeltilir 14 · temiz 23.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
 **NOT:** Bu oranlar kasaya GENELLENEMEZ — dosya kusur puanına göre sıralı, en şüpheliler üstte. Genel oran, 8-puan bandı (296 soru) okununca çıkar.
 
