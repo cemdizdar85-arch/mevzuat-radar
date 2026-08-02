@@ -1,6 +1,29 @@
 # ONARIM FİYAT KARTI — 02.08.2026
 
-> ## 🔴 DÜZELTME (02.08 gece) — TAHMİNİM 3,5 KAT YÜKSEKMİŞ
+> ## 🔴 DÜZELTME 2 (02.08 gece geç) — "ÖNCE ELEME, PARALI İŞ KÜÇÜLÜR" GEREKÇESİ ÇÜRÜDÜ
+>
+> Bu kartın her yerinde şu gerekçe vardı: *"3.821 mükerrer soru elenirse Doğrusu/tablo
+> maliyeti de düşer, o yüzden önce bedava eleme."* **Bu gerekçe geçersiz.**
+>
+> Eleme motoru koşturuldu, uygulamadan önce örnekler gözle okundu: **gerçek birebir
+> mükerrer sayısı 0.** Tarama parmak izini *"kaynak + doğru şıkkın rakamsızlaştırılmış
+> ilk 80 karakteri"* diye kuruyor — yani **soruyu değil cevabı** ölçüyor ve **rakamları
+> siliyor.** Aynı maddeye dayanan, aynı cevabı olan ama bambaşka senaryolu sorular kopya
+> sanılmış. (Kanıt ve örnekler: `MUKERRER-BULGUSU.md`.)
+>
+> | Sanılan | Gerçek |
+> |---|---|
+> | 2.969 soru elenecek, paralı iş küçülecek | **0 soru elendi, paralı iş tam boyunda** |
+> | Kasa 27.478 → ~24.500 | Kasa **27.478** olarak kalıyor |
+>
+> **Bunun fiyata etkisi:** aşağıdaki paketlerin **kapsamı küçülmüyor.** Paket C hâlâ tüm
+> 27.478 soruyu kapsıyor. (Yine de C'nin fiyatı 168 değil ~60-70 USD — o düzeltmenin
+> sebebi ayrı, bir alttaki blokta.)
+>
+> **Gerçek sorun eleme değil KONU YIĞILMASI:** VUK m.275'te 186 soru var. Bu mükerrerlik
+> değil dağılım bozukluğu; ilacı silmek değil **kota**. Ayrı iş olarak defterde.
+
+> ## 🔴 DÜZELTME 1 (02.08 gece) — TAHMİNİM 3,5 KAT YÜKSEKMİŞ
 > Aşağıdaki tabloları yazarken "Doğrusu" kalemini **81 USD** diye tahmin etmiştim (katsayı uydurmuştum).
 > Meğer `motor/dogrusu-ekle.ps1` **bu sabah 07:50'de ölçüm yapmış** ve gerçek birim maliyeti hesaplamış:
 >
@@ -14,7 +37,9 @@
 > | Hesap sorusu olup tablo/yevmiye verisi **olmayan** | **10.350** |
 > | Yevmiye verisi olan / tablo verisi olan | 994 / 2.426 |
 >
-> **Sonuç: Paket C (tam kasa) 168 USD değil, ~60-70 USD bandında.** Aşağıdaki C rakamı yukarı sapmalıdır.
+> **Sonuç: Paket C (tam kasa) 168 USD değil.** ~~~60-70 USD bandında~~ → bu bant da eksikti;
+> yalnız "Doğrusu" kalemini düzeltmiş, tablo ve hakem kalemlerini eski uydurma katsayıda bırakmıştım.
+> **Hepsi ölçülmüş birime çekilmiş hâli: ≈88 USD** — 3. bölümdeki C tablosuna işlendi.
 > **Ders:** kendi katsayımı uydurmuşum; scriptin ölçülmüş birimi varmış. Rakam disiplini burada da geçerli —
 > tahmin yapmadan önce "bunu ölçen bir şey var mı" diye bak.
 
@@ -30,7 +55,7 @@ Kaynak: `veri/onarim-tarama.json` (02.08.2026 12:49, taranan **26.992** soru; ka
 
 | Kod | Sorun | Adet | Nasıl düzelir |
 |---|---|---|---|
-| T1 | Mükerrer soru (852 grup) | **3.821** soru | **BEDAVA** — grup başına en iyisi kalır, kural belli |
+| T1 | ~~Mükerrer soru (852 grup)~~ **YANLIŞ ÖLÇÜM** | ~~3.821~~ → **0** | **İŞ YOK** — ölçüldü, birebir mükerrer çıkmadı; 2.969'u kasada kalıyor (`MUKERRER-BULGUSU.md`) |
 | T2 | Ders/konu etiketi yanlış | **1.414** | **BEDAVA** — sözlük tabanlı remap robotu var |
 | T3 | Konu etiketi ilgisiz | **4.087** | Yarı bedava — kalanı paralı |
 | T5 | ASCII bozuk metin | **165** | **BEDAVA** — deterministik |
@@ -90,20 +115,29 @@ Sadece **yanlış olan** ve **yayına engel** olanlar.
 
 ### 🔴 PAKET C — "Tam kasa"
 
-| Kalem | Adet | Tahmini |
-|---|---|---|
-| Paket A | ~1.400 | 4 USD |
-| "Doğrusu" — tüm kasa | 26.991 | 81 USD |
-| Tablo backfill — tamamı | 8.877 | 44 USD |
-| T3 konu etiketi (kalan) | ~2.000 | 3 USD |
-| Hakem yeniden yargılama — tamamı | 27.478 | 36 USD |
-| **TOPLAM** | **~27.500 soru** | **≈ 168 USD** |
+**Ölçülmüş birime göre yeniden hesaplandı** (eski 168 USD, uydurma katsayıyla yazılmıştı):
+
+| Kalem | Adet | Tutar | Dayanağı |
+|---|---|---|---|
+| Paket A | ~1.400 | 4 USD | tahmin |
+| "Doğrusu" — tüm kasa | 27.478 | **23,4 USD** | **ÖLÇÜLDÜ** — 0,00085 USD/soru (`dogrusu-ekle.ps1`, 02.08 07:50) |
+| Tablo + yevmiye backfill | 8.877 | ~22 USD | tahmin — ölçülen birimin 3 katı (çıktı daha uzun) |
+| T3 konu etiketi (kalan) | ~2.000 | 3 USD | tahmin |
+| Hakem yeniden yargılama | 27.478 | 36 USD | **ÖLÇÜLDÜ** — 0,0013 USD/soru (K2 koşusu, 27.07) |
+| **TOPLAM** | **~27.500 soru** | **≈ 88 USD** | |
+
+> **Düzeltme 1'deki "~60-70 USD" bandı da düşük kalmış.** Orada yalnız "Doğrusu" kalemini
+> düzeltmiş, tablo ve hakem kalemlerini eski uydurma katsayıyla bırakmıştım. Hepsi ölçülmüş
+> birime çekilince gerçek rakam **≈88 USD**. İki kalem hâlâ tahmin — pilot faturası gelince kesinleşir.
 
 ---
 
 ## 4. BENİM ÖNERİM: A → ölç → B
 
-**Neden C değil:** 27.478 sorunun tamamını cilalamak 168 USD ve **bunların çoğu asla öğrenciye gitmeyecek** — mükerrer eleme sonrası kasa zaten küçülecek (852 gruptan 2.969 soru düşecek), üstelik SGS bankası bazı derslerde zaten eksik. Kullanılmayacak soruya para vermeyelim.
+**Neden C değil:** ~~mükerrer eleme sonrası kasa zaten küçülecek~~ — **bu gerekçe çöktü, kasa küçülmüyor** (yukarıdaki Düzeltme 2). Geriye kalan iki gerekçe hâlâ ayakta ve tek başlarına yeterli:
+
+1. **Konu yığılması.** VUK m.275'te 186, TTK 482 kümesinde 448 soru var. Bir maddeye 186 soru cilalamak parayı öğrenciye değil tekrara harcamaktır. Önce kota konsun, sonra kalanı cilalansın.
+2. **Sıra.** A'nın gerçek faturası görülmeden C'nin tahmini rakamına 60-70 USD basmak, ölçmeden harcamaktır — Düzeltme 1'de tam bu yüzden 3,5 kat sapmıştım.
 
 **Neden A ile başla:** 4 dolara bildiğimiz bütün yanlışlar kapanır. Bu, "sıfır yanlış" iddiasının bedeli — ve çok ucuz.
 
@@ -117,9 +151,14 @@ Sadece **yanlış olan** ve **yayına engel** olanlar.
 - [ ] Manifest başındaki 5 kaynak (4 yapılandırma kanunu + Bağımsız Denetim Yönetmeliği) — koşuda
 - [x] Şık dağılımı dengelendi (19.862 soru)
 - [x] Kirli sorular yayından çekildi (466)
-- [ ] **BEDAVA onarımlar önce:** T1 mükerrer eleme + T2 etiket remap + T5 ASCII + T6 + T8 — bunlar paralı koşunun iş yükünü **düşürür** (3.821 mükerrer elenirse Doğrusu/tablo maliyeti de düşer)
+- [x] ~~T1 mükerrer eleme~~ — **ölçüldü, iş çıkmadı** (gerçek mükerrer 0; motor kurulu ve rakam kapısı takılı, ileride gerçek kopya çıkarsa hazır)
+- [x] **Dayanak kapısı düzeltildi** — kuru koşu 8.098 soruyu haksız atlıyordu: Yabancı Dil/Türkçe sorularının mevzuat dayanağı yok, olamaz da. Artık dayanak aranmadan geçiyorlar ama istem "hiçbir kanun/madde/oran atfı yapamazsın" diyor. İkinci kusur: etiketin tamamıyla arama ("TMS 1 … m.38" ambarda birebir yok) → artık etiketten çıkarılan kod aranıyor. **Bu, paralı partinin kapsamını BÜYÜTÜR** — daha az soru dayanaksız diye çöpe gider.
+- [ ] **Kalan bedava onarımlar:** T2 etiket remap (1.414) + T5 ASCII (165) + T6 istem artığı (2) + T8 homoglif (13)
 
-> **Sıra önemli:** önce bedava eleme, sonra paralı yazım. Tersi yapılırsa eleyeceğimiz soruya para vermiş oluruz.
+> **Sıra düzeltildi:** ~~"önce eleme, çünkü eleyeceğimiz soruya para vermeyelim"~~ — elenecek soru yok.
+> Yeni gerekçe: **önce bedava düzeltmeler, çünkü aynı soruyu iki kez satın almayalım.** Etiketi yanlış
+> veya metni bozuk bir soruya paralı açıklama yazdırırsak, etiket sonradan düzelince o parayı
+> ikinci kez ödemek gerekir. Bedava iş 0 USD ve birkaç dakika; bekletmenin bedeli yok.
 
 ---
 
@@ -127,7 +166,7 @@ Sadece **yanlış olan** ve **yayına engel** olanlar.
 
 - [ ] **A** — 4 USD, bildiğimiz yanlışlar kapansın
 - [ ] **B** — 44 USD, satılabilir banka
-- [ ] **C** — 168 USD, tam kasa
+- [ ] **C** — ~~168~~ **≈88 USD**, tam kasa
 - [ ] Önce **pilot**: 200 soruluk gerçek fatura ölçümü (≈0,6 USD), sonra karar
 
 *Rakamlar KDV/kur dalgalanmasına göre değişebilir; tahmin işaretli kalemler pilot sonrası güncellenecek.*

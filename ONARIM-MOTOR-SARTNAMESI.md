@@ -57,8 +57,14 @@ der; motor mevcut metni yeniden yazmaz (hem para hem kalite kaybı olur).
 
 ## 4. SIRA — bu sıra bozulursa para boşa gider
 
-1. **ÖNCE BEDAVA ELEME:** mükerrer (3.821), etiket remap (1.414), ASCII (165),
-   homoglif (13). *Elenecek soruya para verilmez.*
+1. **ÖNCE BEDAVA DÜZELTMELER:** etiket remap (1.414), ASCII (165), homoglif (13),
+   istem artığı (2). *Aynı soru iki kez satın alınmaz: etiketi yanlış bir soruya
+   paralı açıklama yazdırırsak, etiket sonradan düzelince o parayı ikinci kez öderiz.*
+   > ~~mükerrer eleme (3.821)~~ **LİSTEDEN ÇIKTI.** 02.08 gece ölçüldü: gerçek birebir
+   > mükerrer **0**. Tarama parmak izi soruyu değil cevabı ölçüyor ve rakamları siliyor;
+   > aynı maddeye dayanan farklı senaryolar kopya sanılmış. Kanıt: `MUKERRER-BULGUSU.md`.
+   > Eski gerekçe *"elenecek soruya para verilmez"* geçersiz — elenecek soru yok,
+   > paralı iş küçülmedi.
 2. **SONRA 10 SORULUK GÖZLE KONTROL** — çıktı Cem'e gösterilir.
 3. **SONRA 200'LÜK PİLOT** — gerçek fatura ölçülür, tahmin katsayıları düzeltilir.
 4. **SONRA TAM PARTİ** — Cem'in "bas"ıyla.
