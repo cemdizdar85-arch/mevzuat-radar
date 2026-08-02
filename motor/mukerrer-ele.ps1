@@ -169,9 +169,11 @@ if(-not $yaz){
     grup=$gruplar.Count; kasa=$kasa.Count
     kalan_sampiyon=$kalan.Count; elenecek=$elenecek.Count; atlanan_grup=$atlanan
     rakam_kapisi_kurtardi=$rakamFarkiKurtardi
-    kurtarma_ornekleri=@($kurtarmaOrnek)
+    # @(List[object]) PS5.1'de "Argument types do not match" atar (OrderedDictionary
+    # iceren listede). Dogru alet .ToArray() - ayni tuzagi sgs-tip-olcum'de de yemistik.
+    kurtarma_ornekleri=$kurtarmaOrnek.ToArray()
     parali_isten_dusen_soru=$elenecek.Count
-    ornek_kararlar=@($elenecek | Select-Object -First 25)
+    ornek_kararlar=($elenecek.ToArray() | Select-Object -First 25)
     not='Soru SILINMEZ, yalniz yayindan iner. Sampiyon secimi OLCUYLE: sozlesme puani (dort parca, tuzak, Dogrusu, tablo, yevmiye, kaynak, uzunluk). -yaz ile uygulanir.'
   }
   Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 5) -Encoding UTF8 -NoNewline
