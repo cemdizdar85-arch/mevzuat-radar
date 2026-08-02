@@ -82,20 +82,26 @@ jobs:
           #      varsa indirme hic yapilmaz, dosya dogrudan kullanilir
           #      (RG'den elle hazirlanan ekli tebligler: VUK 577 EK listesi,
           #      asgari ucret karari gibi).
+          # 03.08 KOR KALMA: indirme sonuclari artik DEPOYA yazilir
+          # (veri/mevzuat/indirme-raporu.txt) - Actions logu admin-kilitli,
+          # kosu bos donerse simdiye kadar SESSIZ kaliyordu. Rapor dosyasi
+          # commit adimindaki "git add -A veri/mevzuat/" ile her kosuda gelir.
+          RAPOR=veri/mevzuat/indirme-raporu.txt
+          echo "INDIRME RAPORU $(date -u +'%F %T') UTC" > "$RAPOR"
           SEYREK_YENI=0; SEYREK_TAVAN=120
           jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json | while read -r row; do
             slug=$(echo "$row" | jq -r '.slug')
             pid=$(echo "$row" | jq -r '.pdfId')
             seyrek=$(echo "$row" | jq -r '.seyrek // false')
             if [ -f "veri/mevzuat-hazir/$slug.txt" ]; then
-              cp "veri/mevzuat-hazir/$slug.txt" "_txt/$slug.txt"; echo "HAZIR $slug (depodan)"; continue
+              cp "veri/mevzuat-hazir/$slug.txt" "_txt/$slug.txt"; echo "HAZIR $slug (depodan)" | tee -a "$RAPOR"; continue
             fi
             if [ "$seyrek" = "true" ] && [ "${ZORLA:-0}" != "1" ] && [ "$(date -u +%u)" != "7" ]; then
               if jq -e --arg s "$slug" 'has($s)' veri/mevzuat/_durum.json >/dev/null 2>&1; then
                 continue   # seyrek + zaten yutulmus -> bu kosuda indirme yok
               fi
               SEYREK_YENI=$((SEYREK_YENI+1))
-              if [ "$SEYREK_YENI" -gt "$SEYREK_TAVAN" ]; then continue; fi   # kalani sonraki kosuya
+              if [ "$SEYREK_YENI" -gt "$SEYREK_TAVAN" ]; then echo "SIRADA $slug (seyrek tavani)" >> "$RAPOR"; continue; fi
             fi
             # G7:/G9: onekleri = yonetmelik/teblig (GeneratePdf ucundan); digerleri kanun (MevzuatMetin)
             case "$pid" in
@@ -105,11 +111,15 @@ jobs:
             esac
             code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 240 || echo "000")
             if [ "$code" = "200" ]; then
-              pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug" || echo "PDFTOTEXT FAIL $slug"
+              pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug" | tee -a "$RAPOR" || echo "PDFTOTEXT FAIL $slug" | tee -a "$RAPOR"
             else
-              echo "INDIRME HATASI $slug ($code) - atlandi"
+              echo "INDIRME HATASI $slug ($code) - atlandi" | tee -a "$RAPOR"
             fi
           done
+          {
+            echo "---"
+            echo "OZET: metin=$(ls _txt/*.txt 2>/dev/null | wc -l) ok=$(grep -c '^OK ' "$RAPOR" || true) hazir=$(grep -c '^HAZIR ' "$RAPOR" || true) hata=$(grep -c 'INDIRME HATASI' "$RAPOR" || true) sirada=$(grep -c '^SIRADA ' "$RAPOR" || true)"
+          } >> "$RAPOR"
           echo "indirme adimi tamam: $(ls _txt/*.txt 2>/dev/null | wc -l) metin"
       - name: Yut + hash + yukle (degiseni)
         shell: pwsh
