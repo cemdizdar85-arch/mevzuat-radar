@@ -106,25 +106,73 @@ Write-Host ("Eksigi olan soru: {0}" -f $isler.Count)
 
 # --- DAYANAK KAPISI (D4): kaynak metni ambarda yoksa soru ATLANIR ---
 # Uydurma kanun/oran yasak; "Dogrusu" yalniz dayanak metninden turetilir.
+#
+# 02.08 GECE - IKI KUSUR DUZELTILDI (kuru kosu 8.098 soruyu haksiz atlamisti):
+#
+# KUSUR 1 - MEVZUAT DISI DERSLER. Kuru kosunun atlananlari arasinda "Prepositions
+# of Time (in/on/at)", "Unless sart baglaci", "lend-borrow ayrimi", "TDK cumle
+# ogeleri" vardi. Yabanci Dil / Turkce / Matematik sorularinin mevzuat dayanagi
+# YOKTUR - olamaz da. Bunlar artik dayanak aranmadan gecer; istem karsiliginda
+# "bu bir dil/beceri sorusu, HICBIR kanun/madde/oran atfi yapamazsin" der.
+# Boylece uydurma riski kapali kalir ama soru cope gitmez.
+#
+# KUSUR 2 - ETIKETIN TAMAMIYLA ARAMA. "TMS 1 Finansal Tablolarin Sunulusu, m.38
+# (Karsilastirmali Bilgi ilkesi)" etiketi ambarda birebir boyle gecmez, bu yuzden
+# ilike bos donuyordu. Artik once tam etiket, olmazsa etiketten cikarilan
+# STANDART/KANUN KODU ("TMS 1", "BDS 230", "TTK 474", "6362") aranir.
+$reDilDers = [regex]'(?i)yabanc[ıi]\s*dil|ingiliz|t[üu]rk[çc]e|matematik|atat[üu]rk|inkil[âa]p|genel\s*k[üu]lt[üu]r'
+$reKod = [regex]'(?i)\b(TMS|TFRS|BDS|KKS|TSRS|SGDS|VUK|TTK|TBK|GVK|KVK|KDVK|AATUHK|SMK|[İI][İI]K|MSUGT|THP)\s*(GT\s*)?(\d{1,4})?'
+$reSayiliK = [regex]'(?i)\b(\d{4})\s*say[ıi]l[ıi]'
 $atlanan = New-Object System.Collections.Generic.List[object]
 $hazir   = New-Object System.Collections.Generic.List[object]
+$dilSoru = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
+  $ders = "$($i.soru.ders)"
+
+  # --- mevzuat disi ders: dayanak aranmaz, ama kanun atfi da YASAK ---
+  if($reDilDers.IsMatch($ders)){
+    $i | Add-Member -NotePropertyName dayanak -NotePropertyValue '' -Force
+    $i | Add-Member -NotePropertyName mevzuatdisi -NotePropertyValue $true -Force
+    $hazir.Add($i); $dilSoru++
+    if($sinir -gt 0 -and $hazir.Count -ge $sinir){ break }
+    continue
+  }
+
   if($kay.Length -lt 6){ $atlanan.Add([ordered]@{ id="$($i.soru.id)"; sebep='kaynak etiketi yok' }); continue }
   if(-not $dayanakOnbellek.ContainsKey($kay)){
+    $metin = ''
+    # 1) tam etiket
     $arama = [Uri]::EscapeDataString(($kay -replace '\s+',' '))
     try {
-      $bul = CekListe "$DK`?select=kaynak_ad,metin&kaynak_ad=ilike.*$arama*&limit=1"
-      $dayanakOnbellek[$kay] = $(if($bul.Count -gt 0){ "$($bul[0].metin)" } else { '' })
-    } catch { $dayanakOnbellek[$kay] = '' }
+      $bul = CekListe "$DK`?select=metin&kaynak_ad=ilike.*$arama*&limit=1"
+      if($bul.Count -gt 0){ $metin = "$($bul[0].metin)" }
+    } catch {}
+    # 2) olmazsa etiketten cikarilan standart/kanun kodu
+    if($metin.Length -lt 40){
+      $kod = ''
+      $m = $reKod.Match($kay)
+      if($m.Success){ $kod = (($m.Groups[1].Value + ' ' + $m.Groups[3].Value).Trim()) }
+      if($kod -eq ''){ $m2 = $reSayiliK.Match($kay); if($m2.Success){ $kod = $m2.Groups[1].Value } }
+      if($kod -ne ''){
+        $a2 = [Uri]::EscapeDataString($kod)
+        try {
+          $b2 = CekListe "$DK`?select=metin&kaynak_ad=ilike.*$a2*&limit=1"
+          if($b2.Count -gt 0){ $metin = "$($b2[0].metin)" }
+        } catch {}
+      }
+    }
+    $dayanakOnbellek[$kay] = $metin
   }
   $metin = $dayanakOnbellek[$kay]
   if($metin.Length -lt 40){ $atlanan.Add([ordered]@{ id="$($i.soru.id)"; sebep="dayanak ambarda cozulemedi: $kay" }); continue }
   $i | Add-Member -NotePropertyName dayanak -NotePropertyValue $metin -Force
+  $i | Add-Member -NotePropertyName mevzuatdisi -NotePropertyValue $false -Force
   $hazir.Add($i)
   if($sinir -gt 0 -and $hazir.Count -ge $sinir){ break }
 }
+Write-Host ("Mevzuat disi ders (dayanak aranmadan gecen): {0}" -f $dilSoru)
 Write-Host ("Islenebilir: {0} | Atlanan (dayanaksiz): {1}" -f $hazir.Count, $atlanan.Count)
 
 # --- ISTEM KURUCU: yalniz EKSIK olanlari ister ---
@@ -139,21 +187,34 @@ function IstemKur($i){
   if($i.eksik -contains 'D7_tablo'){    $ist += 'tablo: hesap tablosu uret (kolonlar: kalem, tutar; son satir toplam).' }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
   if($i.eksik -contains 'D8_karsilastirma'){ $ist += 'tablo: karsilastirma tablosu uret (ayrimi yapilan kavramlar satir satir; sorunun konusu olan satiri "<-" ile isaretle).' }
+  # --- Mevzuat disi ders (Yabanci Dil / Turkce / Matematik): dayanak metni YOK.
+  #     Uydurma riski dayanak yerine YASAKLA kapatilir: hicbir kanun atfi yapamaz. ---
+  if($i.mevzuatdisi){
+    $kaynakKurali = @"
+- Bu bir DIL/BECERI sorusudur; mevzuat dayanagi yoktur. Bu yuzden hicbir kanun,
+  madde, teblig, oran veya tutar ATFI YAPAMAZSIN. Kurali dilin kendi kuralı olarak
+  yaz (ornek: "Unless = if...not; olumsuz yan cumle kurar"). Emin degilsen bos birak.
+"@
+    $dayanakBlok = "DAYANAK: (yok - dil/beceri sorusu, kanun atfi yasak)"
+  } else {
+    $kaynakKurali = @"
+- Yazdigin her cumle YALNIZCA asagidaki DAYANAK METNINDEN turetilecek. Dayanakta
+  olmayan kanun, madde, oran, tutar veya tarih YAZAMAZSIN. Emin degilsen o alani bos birak.
+"@
+    $dayanakBlok = "DAYANAK METNI:`n" + $i.dayanak.Substring(0, [Math]::Min(2500, $i.dayanak.Length))
+  }
 @"
 Sen bir SMMM sinav sorusu editorusun. ASAGIDAKI SORUYA YALNIZCA ISTENEN ALANLARI uret.
 
 MUTLAK KURALLAR:
-- Yazdigin her cumle YALNIZCA asagidaki DAYANAK METNINDEN turetilecek. Dayanakta
-  olmayan kanun, madde, oran, tutar veya tarih YAZAMAZSIN. Emin degilsen o alani bos birak.
-- "Bu sik yanlis cunku dogru cevap X" gibi cumle YASAK - ogretmez.
+$kaynakKurali- "Bu sik yanlis cunku dogru cevap X" gibi cumle YASAK - ogretmez.
 - Var olan dogru metni degistirme; yalnizca istenen alanlari uret.
 - Ciktiyi SAF JSON ver, baska hicbir sey yazma.
 
 DERS: $($s.ders) | KONU: $($s.konu)
 KAYNAK: $($s.kaynak)
 
-DAYANAK METNI:
-$($i.dayanak.Substring(0, [Math]::Min(2500, $i.dayanak.Length)))
+$dayanakBlok
 
 SORU:
 $($s.soru)
@@ -189,6 +250,7 @@ if(-not $uygula){
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='KURU (0 USD)'
     kasa=$kasa.Count; eksigi_olan=$isler.Count; islenebilir=$hazir.Count
     atlanan_dayanaksiz=$atlanan.Count
+    mevzuat_disi_gecen=$dilSoru
     eksik_dagilimi=[ordered]@{}
     atlanan_ornek=@($atlanan | Select-Object -First 20)
     not='Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur.'
