@@ -20,6 +20,8 @@ on:
   push:
     paths:
       - 'motor/karantina-tasi.ps1'
+      - 'veri/tetik/karantina-tasi.txt'   # 03.08: tetik dosyasi = GERCEK tasima
+                                          # (gh dugmesine erisim yok; homoglif deseni)
 
 permissions:
   contents: write
@@ -39,8 +41,13 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          $tasi = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.tasi }}' -eq 'true'
-          if($tasi){ ./motor/karantina-tasi.ps1 -yaz } else { ./motor/karantina-tasi.ps1 }
+          $dispatchTasi = '${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.tasi }}' -eq 'true'
+          # 03.08: tetik dosyasiyla gelen push da GERCEK tasimadir (Cem karari:
+          # "parali oncesi her sey" - 575 odenmis soru public depoda bekliyordu).
+          # Kasaya yayin=false girer; yayin kapisi (H1 + hakem 3/3 + okundu-onay
+          # + mukerrer filtresi) zaten kapali - ogrenciye SERVIS EDILMEZ.
+          $tetikTasi = Test-Path 'veri/tetik/karantina-tasi.txt'
+          if($dispatchTasi -or $tetikTasi){ ./motor/karantina-tasi.ps1 -yaz } else { ./motor/karantina-tasi.ps1 }
           exit $LASTEXITCODE
       - name: Sonucu commit'le
         if: always()
