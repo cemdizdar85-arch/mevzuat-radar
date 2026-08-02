@@ -358,10 +358,16 @@ function KartFirsatMi($kk){
   foreach($fk in $firsatKaliplari){ if($m.Contains($fk)){ return $true } }
   return $false
 }
-$guncelKartlar = @($kartlar | ForEach-Object {
+# 02.08 DUZELTME (Cem: "son hap kart 11.07 gorunuyor"): besleme YALNIZ GTIP'li
+# kartlari aliyordu. Site artik yalniz gumruk sitesi degil - VUK tebligi, SGK,
+# muhasebe kartlari GTIP tasimaz ve besleme onlari gormuyordu. Sonuc: 22 gundur
+# kart uretildigi halde ana sayfa 11.07'de takili kaldi. Artik TUM kartlar
+# besleniyor; GTIP'liler basa aliniyor (radar-app eslemesi onlari kullanir,
+# gtip alani bos olani kendisi eler).
+$guncelKartlar = @(@($kartlar | ForEach-Object {
   [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon); firsat=(KartFirsatMi $_) }
-} | Where-Object { @($_.gtip).Count -gt 0 })
-$guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları (GTİP eşleşmeli) — " + $TarihNokta); kartlar=$guncelKartlar }
+} | Sort-Object -Property @{ Expression = { @($_.gtip).Count -gt 0 }; Descending = $true }))
+$guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları — " + $TarihNokta); kartlar=$guncelKartlar }
 $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
 # 30.07 SIFIR-KART FRENI: 0 kartlik kosu (sakin RG gunu YA DA API dususu -
 # ikisi ayirt edilemez) mevcut beslemeyi EZMEZ. Bugun 429 altindaki telafi
@@ -376,7 +382,7 @@ if(Test-Path $guncelYol){
 }
 $buGun = $null; try { $buGun = [datetime]::ParseExact($Gun, 'dd-MM-yyyy', $null) } catch {}
 if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
-  Write-Host "0 GTIP'li kart uretildi - veri/kartlar-guncel.json KORUNDU (onceki besleme ezilmedi)." -ForegroundColor Yellow
+  Write-Host "0 kart uretildi - veri/kartlar-guncel.json KORUNDU (onceki besleme ezilmedi)." -ForegroundColor Yellow
 } elseif($eskiGun -and $buGun -and $buGun -lt $eskiGun){
   Write-Host ("Telafi eski gun ({0}) isledi - guncel besleme {1} gununde KORUNDU (geriletilmedi)." -f $Gun, $eskiGun.ToString('dd-MM-yyyy')) -ForegroundColor Yellow
 } else {

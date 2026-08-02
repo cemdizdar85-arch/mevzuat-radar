@@ -38,6 +38,13 @@ on:
     # onlari goremez. 12:00 UTC = 15:00 Turkiye'de bir kez daha bakilir.
     # Maliyeti yok denecek kadar az: o gun yeni teblig yoksa API'ye hic gitmez.
     - cron: "7 12 * * *"     # 15:00 Turkiye - mukerrer nobeti
+    # 02.08 YEDEK NOBETLER (Cem: "bugun 02.08 ama siteye giren 01.08 gorecek").
+    # GitHub'in zamanlayicisi yogun saatlerde kosuyu ATLAYABILIYOR (01.08'de
+    # 03:07 kosusu hic ateslenmedi, ana sayfa gun boyu bir gun geride gorundu).
+    # Ucu de idempotent: o gun kart uretilmisse ikinci kosu API'ye hic gitmez,
+    # yani yedek nobetin maliyeti sifirdir. Kor kalmaktansa bos kosmak yeg.
+    - cron: "20 3 * * *"     # 06:20 TR - 1. yedek
+    - cron: "20 6 * * *"     # 09:20 TR - 2. yedek (musavir masaya oturdugunda kart hazir)
   workflow_dispatch:
 
 permissions:

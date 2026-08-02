@@ -853,7 +853,17 @@ function gtipGit(e){
         if(k.gtip && k.gtip.length) p.push(k.gtip.length + ' GTİP kodunu ilgilendiriyor');
         if(p.length) m.textContent = p.join(' · ');
       }
-      if(g && d.gun) g.textContent = 'GÜNÜN KARTI · ' + String(d.gun).replace(/-/g,'.');
+      /* 02.08: kart tarihi bugunse "BUGÜN", dunse "DÜN" yazilir - ziyaretci
+         ham tarihe bakip "bayat mi?" diye dusunmesin. Daha eskiyse tarih. */
+      if(g && d.gun){
+        var pr = String(d.gun).split('-');
+        var kg = (pr.length === 3) ? new Date(+pr[2], +pr[1]-1, +pr[0]) : null;
+        var bg = new Date(); bg.setHours(0,0,0,0);
+        var fark = kg ? Math.round((bg - kg) / 86400000) : -1;
+        var etiket = (fark === 0) ? 'BUGÜNÜN KARTI' : (fark === 1) ? 'DÜNÜN KARTI'
+                   : 'GÜNÜN KARTI · ' + String(d.gun).replace(/-/g,'.');
+        g.textContent = etiket;
+      }
     })
     .catch(function(){});
 })();

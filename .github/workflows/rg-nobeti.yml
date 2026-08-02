@@ -26,6 +26,10 @@ on:
   schedule:
     - cron: "39 0 * * *"     # 03:39 TR - sabah aynasindan sonra
     - cron: "9 14 * * *"    # 17:00 TR — ogleden sonraki aynadan sonra
+    # 02.08 YEDEK: zamanlayici atlarsa "son tarama" damgasi bir gun geride
+    # kaliyor ve siteye giren bayat tarih goruyor. Bu is PARA HARCAMAZ.
+    - cron: "45 3 * * *"    # 06:45 TR - yedek
+    - cron: "45 6 * * *"    # 09:45 TR - yedek
   push:
     paths:
       - 'veri/madde-degisim.json'
