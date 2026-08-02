@@ -35,7 +35,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 *TEMİZ\* = cevap doğru ama mükerrer kümesinden yalnız biri yayında kalır.*
 
-**Ara sayaç (16/500):** kesin yanlış 2 · iki-şık riski 2 · düzeltilir 2 · temiz 10.
+| 17 | — | TEMİZ | etiket | TTK 482 ihtar gerekmez ✓. Etiket "sermaye piyasası tanımları" isabetsiz. |
+| 18 | — | TEMİZ | — | TBK 66 rücu "bizzat sorumlu olduğu ölçüde" ✓. Soru kökü çerçeveyi "TBK m.66 uyarınca" diye açıkça kurmuş — bu yüzden savunulur (21 ile karşılaştır). |
+| 19 | — | TEMİZ | — | VUK 280: borsa rayici yoksa Bakanlık kuru; 20×34,80=696 ✓. İyi soru. |
+| 20 | — | DÜZELTİLİR | eski format | TTK 344 %25 ✓. Açıklamalar eski "Yanlış./Doğru." kalıbında, 4 parça yok. |
+| 21 | — | **ELENİR/DÜZELTİLİR** | çerçevesiz genel kanun (YENİ SINIF B8) | İzahname senaryosunda TBK 66 kurtuluş kanıtı "doğru" sayılmış ama SerPK m.10 izahname için ÖZEL sorumluluk rejimi kurar (denetim kuruluşu raporundan sorumlu; kurtuluş rejimi farklı). Q18'in aksine soru kökü "TBK'ya göre" dememiş → cevap tartışmaya açık. Kurtarma: köke "TBK genel hükümlerine göre" eklenir. |
+| 22 | — | TEMİZ | eski format | TTK 376: 1/2 eşiği GK çağrısı, borca batıklık değil ✓. |
+| 23 | — | DÜZELTİLİR | homoglif (YENİ SINIF B9) | TTK 375/1-c ✓, şube müdürü istisnası (7511) doğru işlenmiş. Ama "devredilебilir" ×3 — içinde KİRİL harfleri var. |
+| 24 | — | TEMİZ | eski format | GVK 46: şart kaybı → ertesi yıl başı gerçek usul ✓. |
+
+**Ara sayaç (24/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 4 · temiz 15.
 
 ---
 
@@ -74,6 +83,18 @@ her kümeden EN İYİ yazılmış tek soru kalır, gerisi yayın dışı. Madde 
 ### B6. 🟡 "Doğrusu:" eksik (500/500 — bilinen)
 Onarım partisi (dogrusu-ekle -uygula) okuma bittikten sonra, B1-B3 düzeltmeleriyle
 AYNI partide tek ödemeyle.
+
+### B8. 🟠 Özel kanun varken çerçevesiz genel-kanun sorusu (Q21)
+Senaryo özel rejime giriyor (izahname→SerPK m.10) ama soru genel hükümle (TBK 66)
+cevaplatıyor ve çerçeveyi söylemiyor. **Düzeltme:** üretim istemine "senaryon özel
+kanun kapsamına giriyorsa soru kökünde hangi kanuna göre sorduğunu AÇIKÇA yaz"
+kuralı; hakem ölçütüne "özel hüküm cevabı değiştirir mi?" sorusu.
+
+### B9. 🟡 Homoglif/karakter bulaşması (Q23 — makineyle yakalanır, bedava)
+"devredilебilir" ×4, "amortisман" ×1 (Kiril harfleri Türkçe kelime içinde).
+Gözle görülmez, arama/kopyalama bozar, yapay zekâ kokusudur. **Düzeltme:**
+üretim + toplu onarım kapısına homoglif taraması ([Ѐ-ӿ] ve benzeri
+aralıklar) — eşleşen soru otomatik işaretlenir; kasa bir kez topluca taranıp temizlenir.
 
 ### B7. 🟡 Koşucu-yerel çözüm farkı (ölçüm altyapısı)
 Actions koşucusunda dokumanlar imatch sorguları boş dönüyor (ambarda-yok 363,
