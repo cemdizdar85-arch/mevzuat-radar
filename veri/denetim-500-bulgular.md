@@ -134,7 +134,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 90 | — | TEMİZ* | mükerrer (Q80 ile aynı 402/2) | TTK 402 ailesi: 80/85/90 — 80↔90 aynı fıkra. |
 | 91 | — | TEMİZ* | İş K.13 kümesi (5.) + etiket | Bölünebilir menfaat (yemek/yol yarıya) ✓ iyi işlenmiş; etiket yine "bölünme türleri". |
 
-**Ara sayaç (91/500):** kesin yanlış **6** (12, 15, 38, 41, 42, 88) · riskli **7** (5, 8, 21, 40, 72, 84, 86) · düzeltilir 28 · temiz 50.
+| 92 | — | DÜZELTİLİR | B14 hafif + B3 | VUK 275: 422.330÷120 = **3.519,42**, işaretli şık 3.518 (1,42 sapma — şık 3.519 olmalı). Ayrıca D şıkkının açıklaması B'nin rakamını (3.676) anlatıyor. |
+| 93 | — | DÜZELTİLİR/KÜME | Q5 mükerreri + kanun-metni tarifesi | GVK 103 farklılaşma — Q5 ile aynı soru ailesi; yıl vermiyor, kanun metni rakamlarıyla soruyor (Q5'ten daha savunulur ama "kanun metnindeki tarife" ibaresi açık yazılmalı). Etiket "idari yargı başvuru yolları"?! |
+| 94 | — | TEMİZ | — | BDS 520 analitik prosedür: eşik aşımı → sor + belgele ✓. |
+| 95 | — | TEMİZ | — | BDS 501: dış hukuk müşavirinden doğrudan teyit ✓. 94-95 aynı konu etiketi ama farklı standart/soru — meşru çeşitleme. |
+| 96 | — | DÜZELTİLİR | B3 + yanlış tablo başlığı | 123.450÷650=189,92≈190 ✓ C doğru. Ama A şıkkı (158) hiçbir hesapla çıkmıyor (direkt maliyet/650=153,92 — o E'nin rakamı); TABLO başlığı "408 Nolu Sipariş" diyor, soru 512 numaralı — tablo başka sorudan kopyalanmış. |
+| 97 | — | TEMİZ | VUK 275 kümesi | 138.805 ✓ tutarlı; ambalaj + ihtiyari idare gideri doğru işlenmiş. |
+
+**Ara sayaç (97/500):** kesin yanlış **6** · riskli **7** · düzeltilir 32 · temiz 53.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
 **Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
