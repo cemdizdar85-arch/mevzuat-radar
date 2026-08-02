@@ -1,7 +1,5 @@
 {
-  "tarih": "02.08.2026 12:47",
-  "durum": "HATA",
-  "hata": "Cannot find path '/home/runner/work/mevzuat-radar/mevzuat-radar/veri/fabrika' because it does not exist.",
-  "sunucu": "",
-  "satir": 68
+  "tarih": "02.08.2026 12:50",
+  "durum": "ATLANDI",
+  "not": "veri/fabrika bu makinede yok (gitignore - yalniz yerelde). Tasima YERELDEN kosulmali: SUPABASE_SERVICE_KEY ile -yaz."
 }
