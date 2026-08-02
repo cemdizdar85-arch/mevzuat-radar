@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Günün Tuzağı | Tetikte</title>
+<meta name="description" content="Her gün bir SMMM sınav sorusu — iki şık doğru gibi görünür. Cevabı ve dayandığı kanun maddesi açıkça yazılıdır. Ücretsiz, üyelik gerekmez.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<style>
+  :root{ --bg:#0a0c10; --kart:#12151c; --line:#252a35; --line2:#2e3542; --ink:#e8eaed;
+         --muted:#9aa0a6; --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; --red:#ff6b6b; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
+  .s{ max-width:760px; margin:0 auto; padding:30px 18px 80px; }
+  h1{ font-size:clamp(23px,4vw,30px); margin:0 0 4px; letter-spacing:-.5px; }
+  .alt{ color:var(--muted); font-size:14.5px; margin:0 0 22px; }
+
+  /* Kart ekran goruntusu alinabilsin diye kendi basina duran, dengeli bir blok. */
+  .tuzak{ background:linear-gradient(180deg,#141821,#11141b); border:1px solid rgba(245,165,36,.35);
+          border-radius:16px; padding:22px 22px 20px; }
+  .ust{ display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:14px; }
+  .rozet{ background:var(--amber); color:#0a0c10; font-size:11.5px; font-weight:800;
+          letter-spacing:.6px; padding:4px 11px; border-radius:20px; }
+  .etiket{ font-size:11.5px; color:var(--dim); letter-spacing:.4px; }
+  .soru{ font-size:16px; line-height:1.72; color:var(--ink); white-space:pre-wrap; }
+  .siklar{ margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+  .sik{ display:flex; gap:11px; align-items:flex-start; text-align:left; width:100%;
+        background:#0d1016; border:1px solid var(--line2); border-radius:11px;
+        padding:11px 13px; color:#c8ccd2; font:inherit; font-size:14px; cursor:pointer; }
+  .sik:hover{ border-color:rgba(245,165,36,.5); }
+  .sik .h{ font-weight:800; color:var(--amber); min-width:17px; }
+  .sik.dogru{ border-color:var(--green); background:rgba(61,220,151,.07); }
+  .sik.yanlis{ border-color:var(--red); background:rgba(255,107,107,.07); }
+  .sik:disabled{ cursor:default; }
+
+  .cevapKutu{ margin-top:16px; border-top:1px solid var(--line); padding-top:14px; }
+  .neden{ background:#0d1016; border:1px solid var(--line2); border-radius:11px;
+          padding:12px 14px; margin-top:9px; font-size:13.5px; color:#c8ccd2; }
+  .neden b.bas{ color:var(--ink); }
+  .kaynak{ margin-top:13px; font-size:12.5px; color:var(--amber); font-weight:700; }
+  .kaynakAlt{ font-size:11.5px; color:var(--dim); margin-top:3px; }
+
+  .btn{ display:inline-block; margin-top:18px; text-decoration:none; background:var(--amber);
+        color:#0a0c10; font-weight:800; padding:11px 18px; border-radius:10px; font-size:14.5px; }
+  .btn.ikincil{ background:transparent; border:1px solid var(--line2); color:var(--ink); font-weight:600; }
+  .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:12px;
+         padding:15px 18px; margin-top:18px; }
+  .kutu h2{ font-size:15px; margin:0 0 7px; }
+  .kucuk{ font-size:12px; color:var(--dim); }
+  a{ color:#6fb3ff; }
+  .yukleniyor{ color:var(--dim); font-size:14px; padding:30px 0; text-align:center; }
+</style>
+</head>
+<body>
+<div class="s">
+
+<h1>Günün Tuzağı</h1>
+<p class="alt">Her gün bir soru. İki şık doğru gibi görünür — biri tuzaktır.
+Cevabı ve <b style="color:var(--ink)">dayandığı kanun maddesini</b> aşağıda açıkça yazıyoruz.
+Üyelik yok, kart bilgisi yok.</p>
+
+<div id="kap"><div class="yukleniyor">Günün sorusu yükleniyor…</div></div>
+
+<div class="kutu">
+  <h2>Neden bunu ücretsiz yapıyoruz?</h2>
+  <p style="margin:0;font-size:13.5px;color:var(--muted)">Çünkü kalitemizi anlatmanın en dürüst yolu
+  <b style="color:var(--ink)">soruyu göstermek</b>. Bankada 27.000'den fazla soru var ve her birinin altında
+  hangi kanun maddesinden geldiği yazılı. Bir tanesini her gün herkese açıyoruz.</p>
+  <a class="btn ikincil" href="deneme.html">Bugün 15 soru daha çöz →</a>
+</div>
+
+<p class="kucuk" style="margin-top:20px">Soru Tetikte'nin özgün üretimidir; çıkmış sınav sorusu kopyalanmaz.
+Hata gördüğünü düşünüyorsan <a href="iletisim.html">bize yaz</a> — aynı gün kaynağıyla bakarız,
+haklıysan düzeltir ve açıkça duyururuz.</p>
+
+</div>
+
+<script>
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+
+fetch('veri/gunun-tuzagi.json?' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(d){ ciz(d); })
+  .catch(function(){ hata(); });
+
+function hata(){
+  document.getElementById('kap').innerHTML =
+    '<div class="tuzak"><div class="soru">Bugünün sorusu henüz hazırlanmadı. ' +
+    'Robot her sabah 08:25\'te yeni soruyu koyar — biraz sonra tekrar bak. ' +
+    'Bu arada <a href="deneme.html">kabinde çözmeye başlayabilirsin</a>.</div></div>';
+}
+
+function ciz(d){
+  if(!d || d.durum !== 'TAMAM' || !d.soru){ hata(); return; }
+  var harfler = ['A','B','C','D','E'];
+  var h = '<div class="tuzak">';
+  h += '<div class="ust"><span class="rozet">GÜNÜN TUZAĞI</span>'
+     + '<span class="etiket">' + esc(d.tarih || '') + (d.ders ? ' · ' + esc(d.ders) : '') + '</span></div>';
+  h += '<div class="soru">' + esc(d.soru) + '</div>';
+  h += '<div class="siklar" id="siklar">';
+  harfler.forEach(function(x){
+    var m = d.siklar ? d.siklar[x] : null;
+    if(!m) return;
+    h += '<button class="sik" data-h="' + x + '" onclick="sec(\'' + x + '\')">'
+       + '<span class="h">' + x + '</span><span>' + esc(m) + '</span></button>';
+  });
+  h += '</div><div id="cevap"></div></div>';
+  document.getElementById('kap').innerHTML = h;
+  window.TUZAK = d;
+}
+
+function sec(harf){
+  var d = window.TUZAK; if(!d || window.ACILDI) return;
+  window.ACILDI = true;
+  var dogru = String(d.dogru || '').trim().toUpperCase();
+  var btnler = document.querySelectorAll('#siklar .sik');
+  for(var i = 0; i < btnler.length; i++){
+    var b = btnler[i], bh = b.getAttribute('data-h');
+    b.disabled = true;
+    if(bh === dogru) b.classList.add('dogru');
+    else if(bh === harf) b.classList.add('yanlis');
+  }
+  var a = d.aciklama || {};
+  var h = '<div class="cevapKutu">';
+  if(harf === dogru){
+    h += '<div style="font-weight:800;color:var(--green);font-size:15px">✓ Doğru — tuzağa düşmedin.</div>';
+  } else {
+    h += '<div style="font-weight:800;color:var(--red);font-size:15px">✗ Tuzak tam da buydu. Doğrusu ' + esc(dogru) + '.</div>';
+    if(a[harf]) h += '<div class="neden"><b class="bas">Neden ' + esc(harf) + ' değil:</b> ' + esc(a[harf]) + '</div>';
+  }
+  if(a[dogru]) h += '<div class="neden"><b class="bas">Neden ' + esc(dogru) + ':</b> ' + esc(a[dogru]) + '</div>';
+  var kalan = ['A','B','C','D','E'].filter(function(x){ return x !== dogru && x !== harf && a[x]; });
+  if(kalan.length){
+    h += '<details style="margin-top:9px"><summary style="cursor:pointer;font-size:13px;color:var(--muted)">Diğer şıkların gerekçesi</summary>';
+    kalan.forEach(function(x){ h += '<div class="neden"><b class="bas">' + esc(x) + ':</b> ' + esc(a[x]) + '</div>'; });
+    h += '</details>';
+  }
+  if(d.kaynak){
+    h += '<div class="kaynak">📎 Dayanak: ' + esc(d.kaynak) + '</div>'
+       + '<div class="kaynakAlt">Bu soru bu maddenin metniyle doğrulandı — yapay zekâya sorulmadı.</div>';
+  }
+  h += '<a class="btn" href="deneme.html">Bunun gibi 15 soru daha çöz →</a>';
+  h += '</div>';
+  document.getElementById('cevap').innerHTML = h;
+}
+</script>
+<script src="menu.js" defer></script></body>
+</html>

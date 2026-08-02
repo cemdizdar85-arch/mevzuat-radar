@@ -1,0 +1,43 @@
+# .github/workflows/gunun-tuzagi.yml — GUNUN TUZAGI (0 USD)
+# Her sabah kasadan bir soru secip paylasima hazirlar. Yapay zeka YOK,
+# API parasi YOK - soru zaten uretilmis ve dogrulanmis.
+# Cikti: veri/gunun-tuzagi.json (tuzak.html okur) + veri/tuzak-gecmisi.json
+name: Gunun Tuzagi (0 USD)
+
+on:
+  schedule:
+    - cron: '25 5 * * *'      # 08:25 TR — Cem kahvaltida paylasabilsin
+  push:
+    paths:
+      - 'motor/gunun-tuzagi.ps1'
+      - '.github/workflows/gunun-tuzagi.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gunun-tuzagi
+  cancel-in-progress: false
+
+jobs:
+  sec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gunun tuzagini sec
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/gunun-tuzagi.ps1 -yaz
+      - name: Commit (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/gunun-tuzagi.json ]; then git add veri/gunun-tuzagi.json || true; fi
+          if [ -f veri/tuzak-gecmisi.json ]; then git add veri/tuzak-gecmisi.json || true; fi
+          git diff --cached --quiet || git commit -m "Gunun Tuzagi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
