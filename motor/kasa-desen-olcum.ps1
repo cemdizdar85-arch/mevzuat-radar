@@ -89,6 +89,15 @@ function DersAile([string]$d){
   return @()   # bilinmeyen ders: uyusmazlik sayilmaz (haksiz suclama olmasin)
 }
 
+# --- D) SIK DAGILIMI (SINAV-KURALLARI C6: her harf %12-30 arasi olmali).
+#     02.08: sozlesmede kural vardi ama OLCEN KOD YOKTU. Dogrularin cogu tek
+#     harfte toplanirsa aday soruyu okumadan bilir.
+$harfSayim = [ordered]@{ A=0; B=0; C=0; D=0; E=0 }
+foreach($s in $kasa){
+  $h = "$($s.dogru)".Trim().ToUpperInvariant()
+  if($harfSayim.Contains($h)){ $harfSayim[$h] = [int]$harfSayim[$h] + 1 }
+}
+
 # --- A) kaynak yigilmasi + B) kural doygunlugu
 $kaynakSayim = @{}
 $kaynakDogruMetin = @{}      # kaynak -> HashSet(sadelestirilmis dogru sik)
@@ -178,6 +187,14 @@ foreach($u in $ustListe){
 }
 Write-Host ""
 Write-Host ("C) Etiket-kaynak uyumsuzlugu: {0} / {1} olculebilir soru  (%{2})" -f $uyumsuz, $olculebilir, $uyumsuzYuzde)
+$harfYuzde = [ordered]@{}
+$c6Ihlal = New-Object System.Collections.Generic.List[string]
+foreach($h in @('A','B','C','D','E')){
+  $y = if($kasa.Count -gt 0){ [math]::Round(100 * [int]$harfSayim[$h] / $kasa.Count, 1) } else { 0 }
+  $harfYuzde[$h] = $y
+  if($y -lt 12 -or $y -gt 30){ $c6Ihlal.Add("$h=%$y") }
+}
+Write-Host ("D) Dogru sik dagilimi (C6 kurali %12-30): A=%{0} B=%{1} C=%{2} D=%{3} E=%{4}  {5}" -f $harfYuzde.A, $harfYuzde.B, $harfYuzde.C, $harfYuzde.D, $harfYuzde.E, $(if($c6Ihlal.Count){ "IHLAL: " + ($c6Ihlal -join ' ') } else { "UYGUN" }))
 
 $paket = [ordered]@{
   tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
@@ -190,6 +207,8 @@ $paket = [ordered]@{
   etiket_olculebilir = $olculebilir
   etiket_uyumsuz_yuzde = $uyumsuzYuzde
   etiket_uyumsuz_ornek = $uyumsuzOrnek.ToArray()
+  sik_dagilimi_yuzde = $harfYuzde
+  c6_ihlal = $c6Ihlal.ToArray()
   not = "0 USD olcum. 'ayni_kural_kac_kez' = o maddeden yazilan soru / farkli dogru sik sayisi; 1'e yakin iyi, buyudukce ayni kural kilik degistirerek tekrar ediyor demektir."
 }
 $j = ConvertTo-Json -InputObject $paket -Depth 6
