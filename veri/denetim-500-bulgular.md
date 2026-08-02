@@ -127,7 +127,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 84 | — | **RİSKLİ — B1 (yıl-bağımlı ceza)** | doğrulanacak | SPK 6362 m.104: menfaatin iki katı = 360.000 mantığı ✓. AMA "20.000-500.000 TL" kanun metni rakamı; 6362 m.105 idari para cezaları HER YIL yeniden değerlemeyle artar. 2026 güncel alt sınır 360.000'i aşıyorsa asgari ceza 360.000 DEĞİL güncel alt sınır olur → cevap değişebilir. Onarım öncesi SPK güncel tutarı BİRİNCİLDEN teyit edilecek (Q12 deseninin SPK versiyonu). |
 | 85 | — | TEMİZ | — | Denetçi raporu YK'ya ✓ (TTK 402). |
 
-**Ara sayaç (85/500):** kesin yanlış **5** · riskli **6** (5, 8, 21, 40, 72, 84) · düzeltilir 28 · temiz 47.
+| 86 | — | **RİSKLİ — B2** | kural-şıkkı ↔ uygulama-şıkkı çakışması | TFRS 16 amortisman: A (5 yıl) işaretli ama C şıkkı kuralın KENDİSİNİ söylüyor ("ekonomik ömür ile kira süresinden kısa olanı") ve bu olayda kısa olan zaten 5 yıl → **A ile C aynı sonuca çıkıyor.** C'nin açıklaması bile itiraf ediyor: "bu ifade kuralın kendisini tekrar ediyor." Aday C'yi işaretlerse itirazı haklıdır. C şıkkı değiştirilmeli. |
+| 87 | — | TEMİZ | — | TTK 344: nominal %25 + primin TAMAMI tescil öncesi ✓. |
+| 88 | — | **ELENİR — YANLIŞ RAKAM (B1)** | eski yıl limiti 2026'ya yazılmış | GVK 40 binek oto: soru "2026" deyip kira limiti **"5.500 TL/ay"** kullanıyor — bu 2020 CİVARI rakam (2025'te ~26.000+; 2026'da asgari ücret bile bunun kat kat üstü). Amortisman tavanı "1.380.000" de eski yıl şüphesi taşıyor. Limitler değişince 62.000 TL/ay kira kıyası ve cevap KÖKTEN değişir. Q12/Q84 deseninin GVK 40 versiyonu; onarımda 2026 tebliğ rakamlarıyla (birincilden) yeniden kurulacak. |
+| 89 | — | TEMİZ | — | TBK 547-548 taşınmaz için açık yetki ✓. |
+| 90 | — | TEMİZ* | mükerrer (Q80 ile aynı 402/2) | TTK 402 ailesi: 80/85/90 — 80↔90 aynı fıkra. |
+| 91 | — | TEMİZ* | İş K.13 kümesi (5.) + etiket | Bölünebilir menfaat (yemek/yol yarıya) ✓ iyi işlenmiş; etiket yine "bölünme türleri". |
+
+**Ara sayaç (91/500):** kesin yanlış **6** (12, 15, 38, 41, 42, 88) · riskli **7** (5, 8, 21, 40, 72, 84, 86) · düzeltilir 28 · temiz 50.
+**Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
 **Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
 **Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
