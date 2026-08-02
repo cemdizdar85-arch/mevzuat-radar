@@ -1,0 +1,47 @@
+# .github/workflows/kaynak-onarim.yml — KAYNAK ONARIMI (para harcamaz)
+# 02.08 bulgusu: muhasebe-kaydi sorulari VUK maddesine baglanmis; dogru kaynak
+# MSUGT Tekduzen Hesap Plani. Varsayilan KURU KOSU (yalniz olcer). uygula=true
+# ile kasadaki 'kaynak' kolonu duzeltilir. Yayin durumuna DOKUNMAZ.
+name: Kaynak Onarimi
+
+on:
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "true = kasaya YAZ (varsayilan: kuru kosu, yalniz olcum)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kaynak-onarim
+  cancel-in-progress: false
+
+jobs:
+  onar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Onar (kuru kosu)
+        if: ${{ github.event.inputs.uygula != 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kaynak-onarim.ps1
+      - name: Onar (UYGULA - kasaya yazar)
+        if: ${{ github.event.inputs.uygula == 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kaynak-onarim.ps1 -uygula
+      - name: Raporu commit'le (kor kalma)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/kaynak-onarim-raporu.json ]; then git add veri/kaynak-onarim-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Kaynak onarim raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
