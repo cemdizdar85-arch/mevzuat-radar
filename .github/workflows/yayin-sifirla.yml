@@ -1,0 +1,47 @@
+# .github/workflows/yayin-sifirla.yml — YAYIN PERDESINI INDIR (0 USD)
+# Cem 02.08: "1 adet bile yanlis soru ve cevap istemiyorum."
+# Yayindaki tum sorular yayin=false yapilir (SILINMEZ). Yeniden yayin, ancak
+# insan okumasindan gecen partilerle olur.
+name: Yayin Sifirla (perde indir)
+
+on:
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "true = gercekten cek (varsayilan: kuru kosu)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yayin-ac
+  cancel-in-progress: false
+
+jobs:
+  sifirla:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kuru kosu
+        if: ${{ github.event.inputs.uygula != 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayin-sifirla.ps1
+      - name: UYGULA - perdeyi indir
+        if: ${{ github.event.inputs.uygula == 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayin-sifirla.ps1 -uygula
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/yayin-sifirlama-raporu.json ]; then git add veri/yayin-sifirlama-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Yayin sifirlama raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
