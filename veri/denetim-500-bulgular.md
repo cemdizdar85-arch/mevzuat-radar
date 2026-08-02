@@ -182,7 +182,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 132 | — | TEMİZ | — | TMS 23: 183.750-47.320=136.430 ✓; dönem uyumu Q34'ün aksine DOĞRU kurulmuş. |
 | 133 | — | TEMİZ | dil (B açıkl.) | Dönüştürme maliyeti 218.535 ✓; hammadde=satın alma maliyeti ayrımı güzel. |
 
-**Ara sayaç (133/500):** kesin yanlış **8** · riskli **9** (5, 8, 21, 40, 72, 84, 86, 108, 128) · düzeltilir 44 · temiz 77.
+| 134 | — | TEMİZ* | mükerrer (TMS 23: 132≈134, +34) | 68.300-4.780=63.520 ✓ tutarlı — ama 132'nin kopyası. |
+| 135 | — | TEMİZ | etiket facia | TTK 18/3 dört yöntem, adi mektup geçersiz ✓. Etiket "sgk bildirim süreleri"?! |
+| 136 | — | TEMİZ | 482 kümesi (9.) | "GK onayı gerekmez" ✓ — bu soru 483 tuzağına düşmüyor (ihtar şıkkı yok). |
+| 137 | — | TEMİZ | uydurma ders etiketi | GVK 68 kişisel gider indirilemez ✓. "SGS / Meslek Hukuku" yine. |
+| 138 | — | TEMİZ | — | BDS 450 birikimli yanlışlık: 5×6.750=33.750 > 28.400 ✓ güzel soru. |
+| 139 | — | TEMİZ | — | TMS 1: 93.750+18.650=112.400 ✓; çeldiriciler bile tutarlı (E=112.400-45.000) — örnek kalite. |
+
+**Ara sayaç (139/500):** kesin yanlış **8** · riskli **9** · düzeltilir 44 · temiz 83 (%60).
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
