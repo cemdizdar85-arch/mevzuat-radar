@@ -266,7 +266,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 204 | — | TEMİZ | — | 6356 m.34: işletme TİS tek işverene ait işyerleri için; farklı tüzel kişi = ayrı sözleşme ✓. |
 | 205 | — | TEMİZ | etiket ters | 3568 m.12: YMM tasdik kapsamıyla sınırlı müşterek-müteselsil ✓. |
 
-**Ara sayaç (205/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 138 (%67). 8-puan bandı (yalnız iki genel kapı) temiz başladı — 6/6.
+| 206 | — | TEMİZ* | İş K.15 kümesi (176/177/206) | Belirli süreli sözleşmede de deneme olur ✓. |
+| 207↔212 | — | TEMİZ* | **mükerrer ÇİFT (aynı soru iki kez)** | Kurum Sağlık Kurulu ✓ — 207 senaryolu, 212 düz; içerik birebir aynı, şıklar farklı dizilmiş. Biri kalır. |
+| 208 | — | TEMİZ | — | 3568 m.45: kendi nam ve hesabına ticaret yasak, ölçek fark etmez ✓. |
+| 209↔211 | — | TEMİZ* | **mükerrer ÇİFT (aynı soru iki kez)** | Meslekten çıkarma = ruhsat iptali, dönüş yok ✓ — 209 senaryolu, 211 düz tanım; özdeş. Biri kalır. |
+| 210 | — | TEMİZ | — | İş K. 19/1: yazılı + açık-kesin sebep ✓. |
+
+**Ara sayaç (212/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 145 (%68).
+**8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
