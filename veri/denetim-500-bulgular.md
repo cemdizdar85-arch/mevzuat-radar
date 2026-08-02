@@ -342,7 +342,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 278 | — | TEMİZ | 400 ailesine yeni meşru açı (400/3) | Vergi dışı danışmanlık bağımsızlığı kaldırır ✓. |
 | 279 | — | TEMİZ | — | m.4/b ehliyet: kısıtlı staja bile başlayamaz ✓. |
 
-**Ara sayaç (279/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 207 (%74).
+| 280 | — | TEMİZ | — | 3568 m.4 genel şartlar; "5 yıl vergi dairesi" uydurma şık ✓. |
+| 281 | — | TEMİZ — **güncellik kanıtı** | — | SPK m.35/B kripto varlık hizmet sağlayıcısı izni ✓ — 2024'te eklenen madde doğru işlenmiş; ambar güncelliği bir kez daha kanıtlandı (Q13'teki 7511 gibi). |
+| 282 | — | TEMİZ | — | SPK m.24 ayrılma hakkı: ortaklık satın alır ✓. |
+| 283 | — | TEMİZ — derin | — | SPK m.61 VKŞ koruması ✓; D-E ayrımı ince ve doğru (VKŞ'nin KENDİ borçları için bile haczedilemez). |
+| 284 | — | TEMİZ | SPK-104 ailesinin FARKLI açısı (meşru) | İdari yaptırım / sabıka ayrımı ✓ — tutar sorularından (84/149/152/198) bağımsız. |
+| 285 | — | TEMİZ | — | m.109+35/B izinsiz faaliyet cezai ✓. |
+| 286 | — | TEMİZ | — | TTK m.52 unvan: önleme+tazminat birlikte ✓. |
+| 287 | — | TEMİZ | TTK 18/3 kümesine YENİ açı (alternatiflik) | Telgraf hâlâ geçerli, hiyerarşi yok ✓ ("hepsı" typo). |
+
+**Ara sayaç (287/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 215 (%75). Blok 8/8 temiz — Sermaye Piyasası dersi (kripto dahil) güçlü.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
