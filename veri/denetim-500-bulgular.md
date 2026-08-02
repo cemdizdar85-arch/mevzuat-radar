@@ -366,7 +366,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 301 | — | DÜZELTİLİR-hafif | sayı hatası | KEP tek başına yeterli ✓ doğru — ama açıklama iki kez "BEŞ yöntem" diyor; yöntem DÖRT (noter/taahhütlü/telgraf/KEP). |
 | 302 | — | TEMİZ | 375 ailesinin meşru açısı | Üst düzey yönetim devredilemez ✓. |
 
-**Ara sayaç (303/500):** kesin yanlış **10** · riskli **13** · düzeltilir 54 · temiz 230 (%76). 300 eşiği geçildi.
+| 304 | — | DÜZELTİLİR | **çeldirici açıklamasında KAVRAM hatası** | İsteğe bağlı sigorta kapsamı ✓ A doğru. AMA C şıkkının açıklaması "4/b'liler kamu görevlileridir" diyor — YANLIŞ: 4/b bağımsız çalışanlar (eski Bağ-Kur), kamu görevlileri 4/c. Aday yanlış öğrenir; B3'ün kavram versiyonu. |
+| 305 | — | TEMİZ | — | GSS yaş sınırları 18/20/25 ✓. |
+| 306 | — | TEMİZ | İş K.13 ailesinin ikramiye açısı (meşru) | Orantılı ödenir, sıfırlanamaz ✓. |
+| 307 | — | TEMİZ | — | VUK 235 müstahsil makbuzu ✓ güzel anlatım. |
+| 308 | — | TEMİZ — iyi soru | — | TMS 21 geçerli para birimi: Euro ✓; p.9-12 öncelik sıralaması doğru işlenmiş. |
+| 309 | — | TEMİZ | — | TFRS 10 p.22: NCI özkaynakta ayrı satır ✓. |
+| 310 | — | TEMİZ | TMS 12 ailesi (142/147/310 — üç farklı derinlik, meşru) | DD 144.000 / VED 108.000 → 36.000×%25=9.000 borç ✓ tutarlı. |
+| 311 | — | DÜZELTİLİR-hafif | ASCII metin (Türkçe karaktersiz!) | TFRS 5 p.15+25 ✓ doğru — ama sorunun TAMAMI Türkçe karaktersiz yazılmış (farklı üretim kanalı izi); karakter onarımı gerekli. |
+
+**Ara sayaç (311/500):** kesin yanlış **10** · riskli **13** · düzeltilir 57 · temiz 236 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
