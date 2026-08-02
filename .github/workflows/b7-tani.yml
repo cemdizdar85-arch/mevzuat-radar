@@ -1,0 +1,38 @@
+# .github/workflows/b7-tani.yml — B7 TANI (kosucu cozum farki)
+# Kosucuda 363 ambarda-yok / yerelde 267/267 farkinin kanitini toplar.
+# UCRETSIZ: yalniz okuma. Cikti: veri/b7-tani.json
+name: B7 Tani
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/b7-tani.ps1'
+      - '.github/workflows/b7-tani.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b7-tani
+  cancel-in-progress: false
+
+jobs:
+  tani:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Taniyi kostur
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/b7-tani.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/b7-tani.json ]; then git add veri/b7-tani.json || true; fi
+          git diff --cached --quiet || git commit -m "B7 tani raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
