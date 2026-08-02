@@ -117,6 +117,42 @@ foreach($tam in $kasaIdler){
 Write-Host ("Acilacak (kasada bulunan): {0}" -f $hedef.Count)
 if($hedef.Count -eq 0){ Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ESLESME YOK'; hakem_temiz=$acilacak.Count; kasa_bekleyen=$kasaIdler.Count }); exit 1 }
 
+# ============================================================================
+#  MUKERRER FILTRESI (03.08.2026 — A7 kurali, 500-okumasi dersi)
+#  Onarim taramasi ayni kural parmak izini (kaynak + rakamsiz dogru-sik ozu)
+#  tasiyan 852 grup buldu (en kabarigi 186 uyeli — VUK 275 siskinligi).
+#  KAPI KURALI: ayni parmak izi grubundan yayina EN FAZLA BIR soru acilir.
+#  Hangisinin "en iyi yazilmis" oldugunu insan secer (okundu-onay zaten sart);
+#  bu filtre yalniz emniyettir: insan yanlislikla ikisini de onaylasa bile
+#  kapi tekini birakir (deterministik: id sirasina gore ilk).
+# ============================================================================
+$izDosya = 'veri/onarim-tarama.json'
+$mukBekletilen = 0
+if(Test-Path $izDosya){
+  try {
+    $ot = Get-Content $izDosya -Raw -Encoding UTF8 | ConvertFrom-Json
+    $grupNo = @{}   # id -> grup indeksi
+    $gi = 0
+    foreach($g in @($ot.T1_gruplar)){ foreach($gid in @($g)){ $grupNo["$gid"] = $gi }; $gi++ }
+    if($grupNo.Count -gt 0){
+      $gorulenGrup = New-Object 'System.Collections.Generic.HashSet[int]'
+      $suzulmus = New-Object System.Collections.Generic.List[string]
+      foreach($tam in ($hedef | Sort-Object)){
+        if($grupNo.ContainsKey($tam)){
+          $gno = [int]$grupNo[$tam]
+          if($gorulenGrup.Contains($gno)){ $mukBekletilen++; continue }
+          [void]$gorulenGrup.Add($gno)
+        }
+        $suzulmus.Add($tam)
+      }
+      $hedef = $suzulmus
+      Write-Host ("MUKERRER FILTRESI: {0} soru bekletildi (ayni parmak izi grubundan ikinci+), acilacak: {1}" -f $mukBekletilen, $hedef.Count)
+    }
+  } catch { Write-Host ("onarim-tarama.json okunamadi, mukerrer filtresi ATLANDI: {0}" -f $_.Exception.Message) }
+} else {
+  Write-Host "UYARI: veri/onarim-tarama.json yok - mukerrer filtresi calismadi."
+}
+
 $acilan = 0; $hata = 0
 for($i = 0; $i -lt $hedef.Count; $i += 100){
   $parti = $hedef[$i..([math]::Min($i+99, $hedef.Count-1))]
@@ -144,6 +180,7 @@ Rapor ([ordered]@{
   gerekce = "Cem onayi 02.08: hakemden 3/3 gecen (destek=evet + tek_dogru=evet + celiski=hayir + alinti dogrulanmis) sorular yayina acildi."
   hakem_temiz_kimlik = $acilacak.Count
   kasada_bekleyen = $kasaIdler.Count
+  mukerrer_bekletilen = $mukBekletilen
   acilan = $acilan
   hata = $hata
   yayindaki_toplam = $yayindaki
