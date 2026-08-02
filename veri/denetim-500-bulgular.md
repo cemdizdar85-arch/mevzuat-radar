@@ -114,7 +114,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 72 | — | **ELENİR/DÜZELTİLİR** | B8 kümesi (Q21 ile) | Q21'in neredeyse aynısı: izahname senaryosu + TBK 66 kurtuluş kanıtı, SerPK m.10 özel rejimi yok sayılmış, çerçeve belirtilmemiş. Küme: 21+72. |
 | 73 | — | TEMİZ | — | 3568 m.48-49 meslekten çıkarma ✓; ders etiketi de DOĞRU (Meslek Hukuku) — iyi örnek. |
 
-**Ara sayaç (73/500):** kesin yanlış **5** · riskli **5** (5, 8, 21, 40, 72) · düzeltilir 23 · temiz 40.
+| 74-75 | — | TEMİZ* | mükerrer ÇİFT (arka arkaya) | BDS 500 denetim kanıtı tanımı — iki soru aynı tanımı soruyor, ikisi de doğru; biri kalır. |
+| 76 | — | TEMİZ* | mükerrer (Q57 ile) + terim birliği | BDS 705 kaçınma ✓. Q57 "görüşten çekinme", Q76 "görüş bildirmekten kaçınma" — aynı kavrama iki farklı terim; bankada TEK resmi terim kullanılmalı. |
+| 77 | — | DÜZELTİLİR | bent atfı yanlış + mükerrer (Q58) | Self-review ✓ içerik doğru. Ama kaynak alanı "400/1-g" yazıyor, açıklamalar (doğru olarak) "400/1-e" diyor — bent harfi tutarsız (A3 hafif). |
+| 78 | — | DÜZELTİLİR | **B3'ün itiraf örneği** | VUK 275: 1.189,58 ✓ doğru. Ama E şıkkının açıklaması aynen şöyle bitiyor: *"Aslında bu da yanlış hesap ama yakın."* — üretici çeldiricisinin tutmadığını AÇIKLAMANIN İÇİNE yazmış, kapılar geçirmiş. B3 sınıfının en çıplak kanıtı; hesap kapısının gerekliliğini tek cümlede özetliyor. Not: bu dökümde VUK 275 sayacı 819 gösteriyor (56'da 491'di — sayım kesitine göre değişiyor; her durumda DEV küme). |
+| 79 | — | TEMİZ | etiket ters | VUK 279 %51 fon kuralı ✓ güzel nüans sorusu. Etiket "kredili mal satışı"?! |
+
+**Ara sayaç (79/500):** kesin yanlış **5** · riskli **5** · düzeltilir 26 · temiz 43.
+**Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
 **Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
 **Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
