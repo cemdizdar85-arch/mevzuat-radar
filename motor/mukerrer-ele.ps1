@@ -56,7 +56,7 @@ Write-Host ("Mukerrer grup: {0}" -f $gruplar.Count)
 # --- kasa (puanlama icin) ---
 $kasa = @{}
 for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,soru,dogru,aciklama,tablo,yevmiye,kaynak,yayin&order=id&limit=1000&offset=$o"
+  $r = CekListe "$U`?select=id,soru,siklar,dogru,aciklama,tablo,yevmiye,kaynak,yayin&order=id&limit=1000&offset=$o"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa["$($x.id)"] = $x } }
   if($r.Count -lt 1000){ break }
@@ -94,8 +94,38 @@ function Puan($s){
   return [Math]::Round($p,2)
 }
 
+# ============================================================================
+#  RAKAM KAPISI - 02.08 gece, elemeyi uygulamadan ONCE yakalandi.
+#
+#  onarim-tarama.ps1:152 mukerrer parmak izini "kaynak + dogru sikkin ilk 80
+#  karakteri" olarak kuruyor AMA metni once Sade() ile RAKAMSIZLASTIRIYOR.
+#  Sonuc: "Amortisman tutari 20.000 TL" ile "Amortisman tutari 50.000 TL" ayni
+#  parmak izini aliyor. Hesap sorularinin farkli rakamli varyantlari SAHTE
+#  mukerrer olarak grupanmis. Tarama grubuna korlemesine guvenilseydi gercek
+#  sorular yayindan indirilecekti.
+#
+#  Bu yuzden grup uyeligi burada YENIDEN dogrulanir: bir soru ancak
+#  (a) soru kokü ve (b) dogru sik metni sampiyonunkiyle RAKAMLAR DAHIL birebir
+#  ayni ise elenir. Farkli rakam = farkli soru = KALIR.
+# ============================================================================
+function Iskelet([string]$t){
+  if($null -eq $t){ return '' }
+  $x = $t.ToLowerInvariant()
+  $x = $x -replace '\s+',' '
+  $x = $x -replace '[^\p{L}\p{Nd}\.,]',''   # noktalama gurultusu at, RAKAMLAR KALSIN
+  return $x.Trim()
+}
+function Kimlik($s){
+  if($null -eq $s){ return '' }
+  $h = "$($s.dogru)".Trim().ToUpperInvariant()
+  $d = ''
+  try { if($s.siklar -and $s.siklar.PSObject.Properties[$h]){ $d = "$($s.siklar.$h)" } } catch {}
+  return (Iskelet "$($s.soru)") + '||' + (Iskelet $d)
+}
+
 $kalan = New-Object System.Collections.Generic.List[object]
 $elenecek = New-Object System.Collections.Generic.List[object]
+$rakamFarkiKurtardi = 0
 $atlanan = 0
 foreach($g in $gruplar){
   # T1_gruplar bir NESNE listesi degil, dogrudan id DIZILERI listesidir
@@ -107,11 +137,17 @@ foreach($g in $gruplar){
   if($uyeler.Count -lt 2){ $atlanan++; continue }
   $sirali = @($uyeler | Sort-Object -Property @{Expression='puan';Descending=$true}, @{Expression='id';Descending=$false})
   $sampiyon = $sirali[0]
-  $kalan.Add([ordered]@{ id=$sampiyon.id; puan=$sampiyon.puan; grup_boyu=$uyeler.Count })
+  $sampKimlik = Kimlik $kasa[$sampiyon.id]
+  $grupElenen = 0
   for($n=1; $n -lt $sirali.Count; $n++){
+    # RAKAM KAPISI: rakamlar dahil birebir ayni degilse FARKLI sorudur, kalir.
+    if((Kimlik $kasa[$sirali[$n].id]) -ne $sampKimlik){ $rakamFarkiKurtardi++; continue }
     $elenecek.Add([ordered]@{ id=$sirali[$n].id; puan=$sirali[$n].puan; sampiyon=$sampiyon.id; sampiyon_puan=$sampiyon.puan })
+    $grupElenen++
   }
+  if($grupElenen -gt 0){ $kalan.Add([ordered]@{ id=$sampiyon.id; puan=$sampiyon.puan; grup_boyu=$uyeler.Count; elenen=$grupElenen }) }
 }
+Write-Host ("RAKAM KAPISI kurtardi (sahte mukerrer): {0}" -f $rakamFarkiKurtardi)
 Write-Host ("Kalan (sampiyon): {0} | Elenecek: {1} | Atlanan grup: {2}" -f $kalan.Count, $elenecek.Count, $atlanan)
 
 if(-not $yaz){
@@ -119,6 +155,7 @@ if(-not $yaz){
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='OLCUM (0 USD, hicbir sey yazilmadi)'
     grup=$gruplar.Count; kasa=$kasa.Count
     kalan_sampiyon=$kalan.Count; elenecek=$elenecek.Count; atlanan_grup=$atlanan
+    rakam_kapisi_kurtardi=$rakamFarkiKurtardi
     parali_isten_dusen_soru=$elenecek.Count
     ornek_kararlar=@($elenecek | Select-Object -First 25)
     not='Soru SILINMEZ, yalniz yayindan iner. Sampiyon secimi OLCUYLE: sozlesme puani (dort parca, tuzak, Dogrusu, tablo, yevmiye, kaynak, uzunluk). -yaz ile uygulanir.'
