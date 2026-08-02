@@ -407,6 +407,18 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 **Ara sayaç (335/500):** kesin yanlış **10** · riskli **14** · düzeltilir 61 · temiz 255 (%76).
 **Not:** Konu etiketi kayması bu blokta üç kez (330/331 "ifac", 334 "alacaklar kontrol testi") — etiket=içerik doğrulama kapısının kapsamına "konu adı" da alınacak (şimdiye kadar yalnız kaynak ailesi bakılıyordu).
+
+| 336 | — | **RİSKLİ** | **başlangıç kira ödemesi standarda aykırı işlenmiş** | TFRS 16 p.26: yükümlülük = ÖDENMEMİŞ kiraların BD'si; p.24(b): başlangıçta ödenen kira varlığa EKLENİR. Senaryo "aynı tarihte kira ödemesi yapılmış" diyor → doğrusu 98.450+28.600+4.750+2.340−3.200=131.140 olurdu ve bu şıklarda YOK. İşaretli 102.340, ödemeyi "BD'de zaten var" sayıyor — p.26'ya aykırı gerekçe. Düzeltme basit: "aynı tarihte kira ödemesi yapılmış" cümlesi silinirse B kusursuz. |
+| 337 | — | DÜZELTİLİR-hafif | YEVMİYE VERİSİ bozuk ("260002600026000") | VUK 328 yenileme fonu ✓ E doğru (82.120 hesabı tutarlı); "üç yıl" ifadesi 7338 sonrası "satışı izleyen üçüncü takvim yılı sonu" olarak netleştirilmeli. |
+| 338 | — | TEMİZ | senaryoda "İl Özel İdaresi yönetim kurulu" (böyle organ yok — kozmetik) | 5018: bütçe + mali yıl=takvim yılı ✓. |
+| 339 | — | TEMİZ — iyi soru | 329↔339 aynı standart farklı kural (meşru) | TMS 24 p.4: grup içi işlemler konsolidasyonda elimine → konsolide dipnot gerekmez ✓. |
+| 340 | — | TEMİZ | — | VUK 233 ÖKC/perakende satış fişi ✓. |
+| 341 | — | TEMİZ | 322↔341 ters-açı (satış/alım = yatırım) — meşru | TMS 7 duran varlık alımı = yatırım çıkışı ✓. |
+| 342 | — | DÜZELTİLİR-hafif | YEVMİYE VERİSİ bozuk ("2600026000") + VUK 262 ailesi şişkin (328 ile örtüşüyor) | Nakliye+montaj maliyete ✓ içerik doğru. |
+| 343 | — | TEMİZ | — | VUK 280 borsa rayici, 250×28,65=7.162,50 ✓; varsayım soruda açıkça verilmiş, iç tutarlı. |
+
+**Ara sayaç (343/500):** kesin yanlış **10** · riskli **15** · düzeltilir 63 · temiz 260 (%76).
+**Not:** Bozuk YEVMİYE/TABLO VERİSİ alanı (337, 342; daha önce 313, 318, 341'de "System.Object[]") — üretim şablonundan sızan ham PowerShell nesnesi. Soru metnini bozmuyor (site bu alanı basmıyorsa) ama onarım partisinde tablo/yevmiye alanları yeniden üretilecek; hangi sayfaların bu alanı bastığı ölçülecek.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
