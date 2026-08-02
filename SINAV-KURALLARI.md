@@ -30,6 +30,29 @@ farklı metinlerdir; karıştırılamaz.
 
 **A5.** Dayanağı **çözülemeyen** soru yayına giremez. İstisnasız.
 
+**A6. MADDE TAVANI — %2** *(02.08.2026, Cem onayı — KİLİTLİ)*
+Tek bir madde/paragraf, hedef havuzun **%2'sinden fazla** soru yazamaz.
+(SGS 14.603 → madde başına 293 · Yeterlilik 8.080 → 162.)
+
+*Neden:* 40 soruluk insan denetiminde **23 soru yalnızca 4 maddeden** çıkmıştı
+(VUK m.275: 12 · İş K. m.11: 4 · TTK m.720: 4 · TTK m.516: 3). Konu tavanı (12)
+vardı ama madde tavanı yoktu; ayrı görünen üç konu — *"bilanço pasif değişimi",
+"trend analizi", "basit dağıtım yöntemi"* — aynı maddeye bağlanıyor, aynı kural
+şirket adı ve rakam değiştirilerek tekrar ediyordu. Aday 40 farklı soru
+çözdüğünü sanıyor, 10 kural görüyordu.
+
+*Sınır:* Ağırlık **konuda** kalır (çok çıkan konuya çok soru — Cem kararı
+değişmedi). Tavan yalnızca **kaynağa** konur.
+
+*Sessiz atlama yasak:* Tavana takılan plan satırı üretim raporunda
+`tavan_listesi` altında görünür — o konu ya başka bir kaynağa bağlanmalı ya da
+kaynağı henüz yutulmamıştır. Yutma listesinin besleme kaynağıdır.
+
+**A7. MÜKERRER ÖLÇÜSÜ KURALDIR, CÜMLE DEĞİL.** İki soru; şirket adı, tutar ve
+tarih silindiğinde aynı dayanaktan aynı doğru cevabı soruyorsa **mükerrerdir** —
+cümleleri farklı olsa da. (Eski 60-karakter kapısı bunu göremiyordu: cümle başı
+her seferinde değişiyordu.)
+
 ---
 
 ## B. SORU GÖVDESİ
