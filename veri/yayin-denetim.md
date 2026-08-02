@@ -1,6 +1,6 @@
 # YAYIN DENETIMI - insan gozu okumasi
 
-Tarih: 02.08.2026 06:43 | Yayindaki toplam: 9905 | Ornek: 50
+Tarih: 02.08.2026 06:52 | Yayindaki toplam: 9905 | Ornek: 50
 
 Kural (Cem 02.08): **sitede yanlis cevap olmayacak.** Asagidaki her soruda
 cevap, aciklama ve DAYANAK METNI yan yana. Kusur gorulen soru yayindan cekilir.
