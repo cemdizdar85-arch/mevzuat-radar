@@ -44,6 +44,27 @@
 - [x] TFRS 7 Finansal Araçlar: Açıklamalar — ÇEKİRDEK YUTULDU 27.07 (2023/3'te soru; amaç/kapsam, finansal araç sınıfları, bilanço + gelir tablosu açıklamaları, GUD açıklamaları, RİSKLERİN NİTELİĞİ VE DÜZEYİ girişi: kredi/likidite/piyasa riski + niteliksel-sayısal açıklama çerçevesi). RİSK TÜRLERİNİN AYRINTILI HÜKÜMLERİ de eklendi (kredi riski + teminatlar + azami kredi riski, likidite riski vade analizi, piyasa riski DUYARLILIK ANALİZİ + riske maruz değer istisnası) — TFRS 7 sınav kapsamı TAM
 *Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
 
+## 🧾 EKSİK SAYIMI — 02.08.2026 (Cem: "yutmadığımız kanun ve madde var mı? varsa listeye ekle")
+*Yöntem: ambardaki 100+ kanun slug'ı + 58 standart dosyası, SMMM/KGK sınav müfredatı ve araçların ihtiyacıyla tek tek karşılaştırıldı. Kanun tarafı beklediğimden temiz çıktı; boşluk STANDART ve TEBLİĞ tarafında.*
+
+**A. KANUNLAR — eksik yok denecek kadar az.** VUK, GVK, KVK, KDV, ÖTV, TTK, TBK, Medeni, İİK, HMK, CMK, TCK, İYUK, 3568 SMMM, 5510 SGK, 4857 İş, 1475, 6356 Sendikalar, 4458 Gümrük, 6183 AATUHK, 6362 SPK, 5411 Bankacılık, 5684 Sigortacılık, 4632 BES, 6502 Tüketici, 5018 Kamu Malî, 4734/4735/2886 ihale, 6769 SMK, 5326 Kabahatler, 2464, 1319, 197, 488, 492, 6802, 7338, 6698 KVKK, 6331 İSG + yönetmelikler — **hepsi ambarda.** Bulunan tek gerçek boşluk:
+- [ ] **Yapılandırma/af kanunları:** 7440 (2023), 7326 (2021), 7143 (2018), 6736 (2016) — hiçbiri ambarda değil. Yapılandırma/Af Radarı (#63) ve "matrah artırımı" soruları bunlara dayanır; yeni af çıktığında kıyas metni de gerekir.
+
+**B. MUHASEBE/DENETİM STANDARTLARI — asıl boşluk burada.**
+- [ ] **BOBİ FRS** (Büyük ve Orta Boy İşletmeler için Finansal Raporlama Standardı) — Türkiye uygulamasının belkemiği, TFRS uygulamayan denetime tabi şirketlerin tamamı bunu kullanır. **AMBARDA YOK.**
+- [ ] **KÜMİ FRS** (Küçük ve Mikro İşletmeler FRS) — yeni yürürlükte, YOK.
+- [ ] **Eksik TMS'ler:** TMS 20 (devlet teşvikleri), 26 (emeklilik fayda planları), 32 (finansal araçlar-sunum), 33 (hisse başına kazanç), 34 (ara dönem finansal raporlama)
+- [ ] **Eksik TFRS'ler:** TFRS 1 (ilk uygulama), 2 (hisse bazlı ödemeler), 6 (madenler), 11 (müşterek anlaşmalar), 12 (paylara ilişkin açıklamalar), 14, 17 (sigorta sözleşmeleri)
+- [ ] **TSRS 1 / TSRS 2** (Türkiye Sürdürülebilirlik Raporlama Standartları) — KGK sınavının (f) modülünün tek kaynağı, YOK
+- [ ] **SDS 1** (Sürdürülebilirlik Denetimi Standardı) — KGK (g) modülü, YOK
+- [x] **Etik Kurallar + KYS 1 + KYS duyurusu + Sürekli Eğitim Tebliği** ✓ 02.08'de yutuldu (%100 kapsama)
+
+**C. TEBLİĞLER — yapısal kusur bulundu ve düzeltildi.**
+- [x] 02.08: G9 (tebliğ) kaynakları günlük aynada **hiç yutulmuyordu** ("madde yapısı yok" diye atlanıyordu) — KDV GUT, VUK 509, KVK GUT, SPK II-17.1 bu yüzden tebliğ değişse bile eskiyordu. Bölüm parçalayıcısı eklendi, artık yutuluyorlar.
+- [ ] **VUK Genel Tebliğleri (rakam taşıyanlar):** amortisman oran listesi (333 ve ekleri), yeniden değerleme oranı tebliği (yıllık), enflasyon düzeltmesi tebliğleri — kanunda bu rakamlar YOK, tebliğde. Hakem "yetersiz" dediği VUK sorularının bir kısmı buradan.
+- [ ] **MSUGT Sıra No: 2 ve 3** — yalnız No:1 ambarda.
+- [ ] **Bağımsız Denetime Tabi Şirketlerin Belirlenmesine Dair CB Kararı** (11066) — eşik sayfası var ama karar metni ambarda değil.
+
 ## 🎓 KGK BAĞIMSIZ DENETÇİLİK SINAVI HATTI (31.07.2026, Cem onayı: "daha erken varsa kuralım")
 *Hedef: üretim 4→5 Ağustos gecesi (SGS/Yeterlilik dilimleri bitince); Cem'in kontrol turu 5-6 Ağustos'a yetişir. İyi haber: TMS/TFRS/BDS setinin büyük kısmı 27.07'de zaten yutuldu (üstteki bölümler) — KGK için kalan boşluklar:*
 - [x] **Kalan BDS'ler:** ✓ 01.08 tespiti — 260, 265, 320, 450, 510, 530, 540, 580, 620, 720 dahil 30 BDS dosyası veri/mevzuat/'ta ZATEN OKUNMUŞ (27-31.07 koşuları; liste işaretlenmemişti)
