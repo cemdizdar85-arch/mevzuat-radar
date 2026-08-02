@@ -126,6 +126,7 @@ function Kimlik($s){
 $kalan = New-Object System.Collections.Generic.List[object]
 $elenecek = New-Object System.Collections.Generic.List[object]
 $rakamFarkiKurtardi = 0
+$kurtarmaOrnek = New-Object System.Collections.Generic.List[object]
 $atlanan = 0
 foreach($g in $gruplar){
   # T1_gruplar bir NESNE listesi degil, dogrudan id DIZILERI listesidir
@@ -141,7 +142,19 @@ foreach($g in $gruplar){
   $grupElenen = 0
   for($n=1; $n -lt $sirali.Count; $n++){
     # RAKAM KAPISI: rakamlar dahil birebir ayni degilse FARKLI sorudur, kalir.
-    if((Kimlik $kasa[$sirali[$n].id]) -ne $sampKimlik){ $rakamFarkiKurtardi++; continue }
+    if((Kimlik $kasa[$sirali[$n].id]) -ne $sampKimlik){
+      $rakamFarkiKurtardi++
+      # "0 elendi" gibi fazla temiz bir rakama korlemesine guvenilmez: kapinin
+      # dogru mu yoksa bozuk mu oldugunu GOZLE gorebilmek icin ilk 8 ciftin
+      # metinleri rapora yazilir (kor kalma kurali).
+      if($kurtarmaOrnek.Count -lt 8){
+        $kurtarmaOrnek.Add([ordered]@{
+          sampiyon_soru = ("$($kasa[$sampiyon.id].soru)" -replace '\s+',' ')
+          kurtarilan_soru = ("$($kasa[$sirali[$n].id].soru)" -replace '\s+',' ')
+        })
+      }
+      continue
+    }
     $elenecek.Add([ordered]@{ id=$sirali[$n].id; puan=$sirali[$n].puan; sampiyon=$sampiyon.id; sampiyon_puan=$sampiyon.puan })
     $grupElenen++
   }
@@ -156,6 +169,7 @@ if(-not $yaz){
     grup=$gruplar.Count; kasa=$kasa.Count
     kalan_sampiyon=$kalan.Count; elenecek=$elenecek.Count; atlanan_grup=$atlanan
     rakam_kapisi_kurtardi=$rakamFarkiKurtardi
+    kurtarma_ornekleri=@($kurtarmaOrnek)
     parali_isten_dusen_soru=$elenecek.Count
     ornek_kararlar=@($elenecek | Select-Object -First 25)
     not='Soru SILINMEZ, yalniz yayindan iner. Sampiyon secimi OLCUYLE: sozlesme puani (dort parca, tuzak, Dogrusu, tablo, yevmiye, kaynak, uzunluk). -yaz ile uygulanir.'
