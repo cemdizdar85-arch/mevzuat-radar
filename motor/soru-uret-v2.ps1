@@ -144,6 +144,39 @@ foreach($k in $kasa){
 }
 Write-Host ("  konu-kelime indeksi: {0} kelime" -f $kelMadde.Count)
 
+# ============================================================================
+#  MADDE TAVANI — Cem onayi 02.08.2026 (%2)
+#
+#  40 soruluk insan denetiminde cikan bulgu: 40 sorunun 23'u YALNIZ 4 maddeden
+#  yazilmisti (VUK m.275: 12, Is K. m.11: 4, TTK m.720: 4, TTK m.516: 3). Konu
+#  tavani (12) vardi ama MADDE tavani yoktu; ucu ayri gorunen konu ("bilanco
+#  pasif degisimi", "trend analizi", "basit dagitim yontemi") ayni maddeye
+#  baglaniyor ve ayni kural kilik degistirerek tekrar ediyordu.
+#
+#  KURAL: tek madde, hedef havuzun %2'sinden fazlasini yazamaz.
+#  Agirlik KONUDA kalir (Cem karari degismedi) - tavan yalniz kaynaga konur.
+#  Tavana takilan satir SESSIZCE ATILMAZ: rapora dokulur, cunku o konu ya baska
+#  bir maddeye baglanmali ya da o madde artik yeni soru vermemeli.
+# ============================================================================
+$MADDE_TAVAN_YUZDE = 2.0
+$hedefHavuz = 0
+foreach($alan in @('hedef','hedef_havuz','hedef_soru')){
+  if($kota.PSObject.Properties[$alan] -and [int]$kota.$alan -gt 0){ $hedefHavuz = [int]$kota.$alan; break }
+}
+if($hedefHavuz -le 0){ $hedefHavuz = $kasa.Count }
+$maddeTavani = [math]::Max(10, [math]::Ceiling($hedefHavuz * $MADDE_TAVAN_YUZDE / 100))
+$maddeMevcut = @{}
+foreach($k in $kasa){
+  if(-not $k.kanun_no -or -not $k.madde_no){ continue }
+  $a = "$($k.kanun_no)|$($k.madde_no)"
+  $maddeMevcut[$a] = 1 + [int]$maddeMevcut[$a]
+}
+$doluMadde = @($maddeMevcut.GetEnumerator() | Where-Object { [int]$_.Value -ge $maddeTavani })
+Write-Host ("  MADDE TAVANI: hedef havuz {0} x %{1} = {2} soru/madde | tavani dolmus madde: {3}" -f $hedefHavuz, $MADDE_TAVAN_YUZDE, $maddeTavani, $doluMadde.Count)
+foreach($d in ($doluMadde | Sort-Object Value -Descending | Select-Object -First 5)){
+  Write-Host ("    dolu: {0} -> {1} soru" -f $d.Key, $d.Value)
+}
+
 # 29.07 - TAM KOSUNUN BULGUSU. Pilotlarda (50-60 soru) rakam reddi 0-2 iken,
 # 2.400'luk kosuda 556'ya firladi. Sebep sudur: pilotlar kotanin EN GUCLU
 # satirlarini kullaniyordu; olcek buyuyunce konu-madde eslesmesi ZAYIF satirlara
@@ -413,6 +446,9 @@ $sayac=@{}
 # 01.08 Cem: "yutmadigimiz konuda soru cikarsa sikinti yasamayalim" - kaynaksiz
 # atlanan konular artik GORUNUR: dokum rapora yazilir, yutma listesi buradan beslenir.
 $maddesizListe = New-Object System.Collections.Generic.List[object]
+# tavana takilan satirlar GORUNUR olsun (sessiz atlama yasak)
+$tavanListe = New-Object System.Collections.Generic.List[object]
+$ist.tavanDolu = 0
 foreach($p in $plan){
   if($isler.Count -ge $sinir){ break }
   $ist.planSatir++
@@ -439,6 +475,29 @@ foreach($p in $plan){
   if($metin.Length -gt $KIRPMA){ $metin = $metin.Substring(0,$KIRPMA); $kirpildi = $true }
 
   $adet = [Math]::Min([int]$p.adet, $sinir - $isler.Count)
+
+  # --- MADDE TAVANI (Cem onayi %2): bu maddeden kac soru daha yazilabilir?
+  #     Kasadaki mevcut + bu kosuda planlanan birlikte sayilir; yoksa tek kosu
+  #     icinde ayni madde tavani asar. Hic yer yoksa satir ATLANIR ve rapora
+  #     dusulur - o konu ya baska bir kaynaga baglanmali ya da kaynagi yutulmali.
+  $tavanAnahtar = "$($par[0])|$($par[1])"
+  $kullanilan = [int]$maddeMevcut[$tavanAnahtar]
+  $yer = $maddeTavani - $kullanilan
+  if($yer -le 0){
+    $ist.tavanDolu++
+    if($tavanListe.Count -lt 200){
+      $tavanListe.Add([pscustomobject]@{ ders="$($p.ders)"; konu="$($p.konu)"; madde=$tavanAnahtar; mevcut=$kullanilan; tavan=$maddeTavani })
+    }
+    continue
+  }
+  if($adet -gt $yer){
+    if($tavanListe.Count -lt 200){
+      $tavanListe.Add([pscustomobject]@{ ders="$($p.ders)"; konu="$($p.konu)"; madde=$tavanAnahtar; mevcut=$kullanilan; tavan=$maddeTavani; kisildi=($adet - $yer) })
+    }
+    $adet = $yer
+  }
+  $maddeMevcut[$tavanAnahtar] = $kullanilan + $adet
+
   $kl = $dersKurgu["$($p.ders)"]; if(-not $kl){ $kl=@('bilgi') }
   for($i=0; $i -lt $adet; $i++){
     if($isler.Count -ge $sinir){ break }
@@ -776,6 +835,9 @@ $raporJson = ([ordered]@{
   fatura=[ordered]@{ giris=$gG; cikis=$gC; usd=[math]::Round($gercek,2) }
   redler=@($red | Select-Object -First 60)
   maddesiz_konular=$maddesizListe.ToArray()   # 01.08: yutma listesinin besleme kaynagi - hangi konu kaynaksiz kaldi
+  madde_tavani=$maddeTavani                   # 02.08 Cem onayi: hedef havuzun %2'si
+  tavana_takilan=$ist.tavanDolu               # tavan doldugu icin uretilmeyen plan satiri
+  tavan_listesi=$tavanListe.ToArray()         # hangi konu hangi maddede tavana carpti (yeni kaynak yutma sirasi)
 
 } | ConvertTo-Json -Depth 6)
 if($raporJson -isnot [string]){ $raporJson = ($raporJson -join "`n") }

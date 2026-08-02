@@ -1,0 +1,42 @@
+# .github/workflows/sgs-tip-olcum.yml — SGS SORU TIPI OLCUMU (0 USD)
+# Cem onayi 02.08: "once olcelim, sonra kilitleyelim."
+# SGS kitapciklarindaki gercek soru tipi dagilimini (kayit/bilgi/vaka/hesap)
+# acik kuralla sayar. Yapay zeka yok, API cagrisi yok - yalniz indirme+pdftotext.
+name: SGS Soru Tipi Olcumu (0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      sinir:
+        description: "Kac kitapcik olculecek (0 = hepsi)"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sgs-tip-olcum
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: poppler kur (pdftotext)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Olcum
+        shell: pwsh
+        run: |
+          $s = if ("${{ github.event.inputs.sinir }}") { [int]"${{ github.event.inputs.sinir }}" } else { 0 }
+          ./motor/sgs-tip-olcum.ps1 -sinir $s
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/sgs-tip-olcum.json ]; then git add veri/sgs-tip-olcum.json || true; fi
+          git diff --cached --quiet || git commit -m "SGS soru tipi olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
