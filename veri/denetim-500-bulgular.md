@@ -384,7 +384,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 318 | — | TEMİZ | VUK 323 ailesi (tavan notu mevcut) | Teminatı aşan kısım 100.000 ✓ hesap tutarlı. |
 | 319 | — | TEMİZ | — | VUK 221: yeni işe başlayan işe başlamadan önce tasdik ✓. |
 
-**Ara sayaç (319/500):** kesin yanlış **10** · riskli **14** · düzeltilir 57 · temiz 243 (%76).
+| 320 | — | TEMİZ | — | TMS 40 p.12: sahibinin işlettiği otel = TMS 16 ✓. |
+| 321 | — | TEMİZ — örnek soru | VUK 323 ailesi | 31.12.2026 senaryosu + 25.000 TL eşiği (2026, GT 588 RG-teyitli) UYUMLU; hesap 32.400+23.750=56.150 ✓; yevmiye 654/129 ✓. Yıl-eşik uyumunun doğru örneği. |
+| 322 | — | TEMİZ | — | TMS 7: MDV satışı = yatırım faaliyeti ✓ beş işlem beş sınıf, temiz kurgu. |
+| 323 | — | TEMİZ | 323≈325 yakın çift (aşağıda) | TMS 36 p.100-102 şirket varlığı grup testi ✓. |
+| 324 | — | TEMİZ | 308↔324 meşru ters-açı (TMS 21: özerk→EUR / uzantı→TL) | Uzantı göstergeleri doğru işlenmiş ✓. |
+| 325 | — | DÜZELTİLİR | **323 ile yakın-mükerrer** + ASCII metin | Aynı kural (TMS 36 şirket varlığı → birim grubu testi), aynı öz cevap; biri kalmalı — 323 daha zengin (iki NYB + tutarlar), 325 elenir. Ayrıca 325 tümüyle Türkçe karaktersiz. |
+| 326 | — | TEMİZ | VUK 323 ailesi | m.323/son (7338 ek fıkra): işletme hesabında gider kısmına kayıt ✓; ortak alacağı-ticari bağ ayrımı doğru işlenmiş, iyi soru. |
+| 327 | — | TEMİZ | başlık "gider tahakkuku" ≠ konu (peşin gider/VUK 283) — etiket düzeltilir | VUK 283 mukayyet değerle aktifleştirme ✓. |
+
+**Ara sayaç (327/500):** kesin yanlış **10** · riskli **14** · düzeltilir 58 · temiz 250 (%76).
+**Not:** Bu blokta VUK 323 üç kez daha geldi (318 teminat, 321 yevmiye+eşik, 326 işletme hesabı) — açılar farklı/meşru ama aile kabarık; kasada geriye dönük tavan uygulamasının gerekçesi güçleniyor.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
