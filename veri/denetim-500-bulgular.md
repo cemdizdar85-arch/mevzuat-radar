@@ -617,6 +617,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 487 | — | TEMİZ | — | TMS 1 m.99-105: işlev esası ✓ çeşit/işlev ayrımı net. |
 
 **Ara sayaç (487/500):** kesin yanlış **10** · riskli **16** · düzeltilir 101 · temiz 365 (%76).
+
+| 488 | — | TEMİZ | **ders kayması: 6183/4054 soruları "Finansal Tablolar ve Analizi" dersine atanmış** (488/489/491/492 dördü de) | 6183 m.10: gayrimenkul teminat = haciz varakasıyla haczedilme şartı ✓. |
+| 489 | — | TEMİZ | ders kayması (yuk.) + konu etiketi ilgisiz ("borsa piyasa işleticisi") | 4054 m.4(a): ihalede fiyat anlaşması ✓. |
+| 490 | — | TEMİZ | — | TMS 1 m.106(a): toplam kapsamlı gelir ana ortaklık + NCI ayrıştırması ✓. |
+| 491 | — | TEMİZ — iyi soru | 488↔491 aynı madde farklı kural (haciz şartı / teminat türleri) — meşru | 6183 m.10: 6 ay vadeli kefalet senedi kabul edilmez (süresiz+şartsız şart) ✓. |
+| 492 | — | TEMİZ | 489↔492 farklı bent (fiyat / bölüşüm) — meşru | 4054 m.4(b) pazar bölüşümü ✓. |
+| 493 | — | DÜZELTİLİR-hafif | VUK 231/5 ailesi 3. üye (334/475/493) — 493 gün-hesabı becerisi ekliyor, 334'le İKİSİ kalabilir; ama **D açıklamasındaki "uzama hükmü yok" ifadesi eksik** (VUK 18/4: son gün tatile rastlarsa uzar — burada son gün Cuma olduğu için sorun çıkmıyor) | Hesap doğru: 18.04 teslim → süre 19-25.04, 28.04 geç ✓. |
+| 494 | — | TEMİZ — 342'nin yerine kalır | **342 ile birebir aynı senaryo** (tekstil fabrikası/dikim makinesi → tekstil atölyesi/dikiş makinesi!) | 342 zaten düzeltilir sınıfındaydı (bozuk yevmiye); 494 kalır. |
+| 495 | — | TEMİZ — iyi soru | 311↔495 meşru ters-açı (TFRS 5: hangisi düşükse — 311 defter değeri düşük, 495 GUD-maliyet düşük); metin tümüyle ASCII (karakter onarım listesine) | min(284.750; 262.500)=262.500 + amortisman durur ✓ hesap tutarlı. |
+
+**Ara sayaç (495/500):** kesin yanlış **10** · riskli **16** · düzeltilir 102 · temiz 372 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
