@@ -217,7 +217,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 162 | — | TEMİZ | — | VUK 231/5: 7 gün, teslim günü sayılmaz → 25 Mart ✓; süre hesabı bile doğru anlatılmış. İyi soru. |
 | 163 | — | **RİSKLİ — ölü rejim senaryosu (YENİ ALT-DESEN B17)** | — | VUK 227/2'nin "götürü usul hariç" LAFZI doğru okunmuş AMA **götürü usul 4369 ile 1999'da kaldırıldı** (yerine basit usul). 2024 senaryolu bir işletme "götürü usulde vergilendirilemez" — ölü hükümden güncel senaryo kurulmuş. SMMM gözünde güven zedeler; soru ya tarihî bağlama alınır ya elenir. |
 
-**Ara sayaç (163/500):** kesin yanlış **8** · riskli **12** (+163) · düzeltilir 48 · temiz 100 (%61).
+| 164 | — | TEMİZ | — | BDS 500 md.8 yönetim uzmanı değerlendirmesi ✓. |
+| 165 | — | TEMİZ | — | KDV m.35: düzeltme iade döneminde (Nisan) ✓. |
+| 166 | — | TEMİZ | — | KDV 10/a: teslim önce → 15 Mart ✓. |
+| 167 | — | TEMİZ | — | TTK 82: 10 yıl ✓. |
+| 168 | — | TEMİZ* | VUK 275 kümesi | Unsur listesi ✓. |
+| 169 | — | **ELENİR — YANLIŞ KAYIT #9** | dengesiz yevmiye | TMS 23 net tutar (168.900) doğru hesaplanmış AMA işaretli A şıkkının yevmiye kaydı **DENGESİZ**: Borç 258 = 168.900, Alacak 780+642 = 187.200+18.300 = **205.500 ≠ 168.900.** Hiçbir muhasebe düzeninde geçerli olmaz; dengeyi kontrol eden aday A'yı eler. Doğru yapı (642'nin borçlanması) E şıkkında denenmiş ama E'nin rakamları yanlış → **doğru kayıt şıklarda yok.** Ayrıca YEVMIYE VERISI alanı "2600026000" diye bozuk. Cem'in çalışma-kâğıdı (I5) özelliği için de kritik: yevmiye kayıtlı her soruya borç=alacak denge kapısı ŞART (bedava aritmetik). |
+
+**Ara sayaç (169/500):** kesin yanlış **9** (12, 15, 38, 41, 42, 88, 118, 125, 169) · riskli **12** · düzeltilir 48 · temiz 105 (%62).
+**Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
