@@ -287,7 +287,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 224 | — | DÜZELTİLİR-hafif | B3 çapraz kayma | Dönüşüm maliyeti 65.400 ✓. Ama B ve C çeldirici açıklamaları ÇAPRAZ: B'nin rakamı hammadde+GÜG iken açıklaması "hammadde+işçilik" anlatıyor; C'nin rakamı asal maliyetken açıklaması uydurma çıkarma anlatıyor. |
 | 226 | — | TEMİZ | — | GÜG = 486.750-340.980 = 145.770 ✓ tutarlı. |
 
-**Ara sayaç (226/500):** kesin yanlış **9** · riskli **13** · düzeltilir 51 · temiz 158 (%70).
+| 227 | — | TEMİZ | — | 6356 m.63: erteleme sonunda YHK ✓. |
+| 228 | — | TEMİZ | — | 6356 m.36: art etkisi (eski hükümler iş sözleşmesi hükmü olarak sürer) ✓. |
+| 229 | — | TEMİZ* | özel maliyet ailesi (6 üye: 172/185/223/225/229/233) | Tanım ✓ — aile içinde farklı açılar çoğunlukla meşru, 223↔225 hariç. |
+| 230 | — | **ELENİR — YANLIŞ RAKAM #10 (B14)** | işaretli şık hesapla tutmuyor | NGD = 28.600-4.780-1.920 = **21.900** ✓ açıklamada da böyle. Ana ürün = 187.400-21.900 = **165.500.** İşaretli A = **166.500** (1.000 TL sapma) ve doğru rakam ŞIKLARDA YOK. Q38/Q42 ailesi. |
+| 231 | — | TEMİZ | B3 hafif (A açıkl.) | Dönüşüm = 487.650-176.840 = 310.810 ✓ tutarlı, iki yoldan doğrulanıyor. |
+| 232 | — | TEMİZ | — | Genel müdürlük gideri GÜG değil ✓. |
+| 233 | — | TEMİZ | — | Erken tahliye: kalan 35.000 defaten gider ✓ — özel maliyet ailesinin hesaplı, iyi işlenmiş üyesi. |
+
+**Ara sayaç (233/500):** kesin yanlış **10** (12, 15, 38, 41, 42, 88, 118, 125, 169, 230) · riskli **13** · düzeltilir 51 · temiz 163 (%70).
+**Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
 **Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
 **8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
