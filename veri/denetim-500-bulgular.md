@@ -318,7 +318,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 254 | — | TEMİZ | özel maliyet ailesi (7. — yeni meşru açı) | Azalan bakiye YASAK, yalnız eşit yüzde ✓. |
 | 255 | — | TEMİZ — **Q163'ün ikamesi** | — | VUK 227/2: defter tutmayan da tevsike mecbur ✓; götürü istisnası D şıkkında DOĞRU dozda. **Q163 (ölü rejim) elenince yerine bu geçer — küme içi ikame hazır.** |
 
-**Ara sayaç (255/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 184 (%72). Yarıyı geçtik.
+| 256 | — | TEMİZ* | VUK 227 kümesi (7. üye!) | ✓ |
+| 257 | — | TEMİZ* | TMS 19-katkı kümesi (4. kopya) | ✓ |
+| 258≈259 | — | TEMİZ* | **TMS16-çevre kümesi ×6 OLDU** (82/190/249/250/258/259) | İkisi de ✓ — aynı arıtma tesisi altıncı kez. |
+| 260 | — | TEMİZ | ihtiyati haciz kümesi (m.13/3 — yeni açı) | Kaçma/mal kaçırma ihtimali ✓. |
+| 261 | — | TEMİZ*-dil | TMS 23 kümesi (6. kopya) + "borcalanma" ×10 yazım bozuk | 186.400-31.520=154.880 ✓. |
+| 262↔263 | — | TEMİZ | **örnek ters-açı çifti (MEŞRU)** | 262: Bakanlık anlaşması VAR → sıfır; 263: anlaşma YOK → emsal bedel. 278/A'nın iki yüzü — mükerrer DEĞİL, ideal çeşitleme (263≈203 hariç). |
+
+**Ara sayaç (263/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 192 (%73).
+**Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
 **Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
