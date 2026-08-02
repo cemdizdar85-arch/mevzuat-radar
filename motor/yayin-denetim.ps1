@@ -83,6 +83,23 @@ $sb = New-Object Text.StringBuilder
 [void]$sb.AppendLine("Kural (Cem 02.08): **sitede yanlis cevap olmayacak.** Asagidaki her soruda")
 [void]$sb.AppendLine("cevap, aciklama ve DAYANAK METNI yan yana. Kusur gorulen soru yayindan cekilir.")
 [void]$sb.AppendLine("")
+[void]$sb.AppendLine("## OKUMA OLCUTLERI (her soru icin ikisi de saglanmali)")
+[void]$sb.AppendLine("")
+[void]$sb.AppendLine("**A) CEVAP DOGRU MU?**")
+[void]$sb.AppendLine("1. Isaretli sik, dayanak metninin soyledigi seyi mi soyluyor?")
+[void]$sb.AppendLine("2. Baska bir sik da dogru olabilir mi? (iki dogru sik = kusur)")
+[void]$sb.AppendLine("3. Soru govdesi eksik/celiskili veri iceriyor mu?")
+[void]$sb.AppendLine("4. Kaynak atfi DOGRU madde/nota mi? (dogru cevap + yanlis dayanak yine kusurdur)")
+[void]$sb.AppendLine("")
+[void]$sb.AppendLine("**B) ACIKLAMA OGRETIYOR MU?** (Tetikte aciklama standardi)")
+[void]$sb.AppendLine("5. Dort parca var mi: NE SORULUYOR / KURAL / BU OLAYDA / AKILDA KALSIN?")
+[void]$sb.AppendLine("6. YANLIS siklarin NEDEN yanlis oldugu tek tek anlatiliyor mu?")
+[void]$sb.AppendLine("   (Aday konuyu nasil yanlis ogrendiyse tam orada duzeltiyoruz - kural bu.)")
+[void]$sb.AppendLine("7. Tuzagin ADI konmus mu? ('vade farki KDV matrahina dahildir' gibi)")
+[void]$sb.AppendLine("8. Ezber degil, anlatan bir dil mi? Aday bilmiyorsa bu metinden ogrenebilir mi?")
+[void]$sb.AppendLine("")
+[void]$sb.AppendLine("A'da tek kusur = soru ELENIR. B'de kusur = soru yayina girmez, aciklama duzeltilir.")
+[void]$sb.AppendLine("")
 
 $kayit = New-Object System.Collections.Generic.List[object]
 $metinsiz = 0
@@ -108,7 +125,27 @@ foreach($s in $sec){
     [void]$sb.AppendLine("- **$h)** $sik$isaret")
   }
   [void]$sb.AppendLine("")
-  [void]$sb.AppendLine("**ACIKLAMA:** " + (Kirp "$($s.aciklama)" 900))
+  # 02.08 (Cem hatirlatmasi): "her cevaba karsilik adayin konuyu nasil
+  # ogrenemedigini bilip ona gore ogretiyoruz". Yani denetimde iki soru sorulur:
+  #   (1) cevap DOGRU mu?   (2) aciklama OGRETIYOR mu?
+  # Ikincisi ancak HER SIKKIN aciklamasi ayri ayri gorulurse denetlenebilir.
+  # Onceki surumde aciklama tek blok yazdiriliyordu (ustelik nesne oldugu icin
+  # metin yerine tur adi basiliyordu) - ogretme kalitesi olculemezdi.
+  [void]$sb.AppendLine("**ACIKLAMALAR (sik sik - ogretiyor mu?):**")
+  [void]$sb.AppendLine("")
+  $ackVar = $false
+  foreach($h in @('A','B','C','D','E')){
+    $ack = "$($s.aciklama.$h)"
+    if($ack.Trim().Length -eq 0){ continue }
+    $ackVar = $true
+    $im = if("$($s.dogru)" -eq $h){ "DOGRU" } else { "yanlis" }
+    [void]$sb.AppendLine("  - **$h ($im):** " + (Kirp $ack 700))
+  }
+  if(-not $ackVar){
+    $duz = "$($s.aciklama)"
+    if($duz -match '^System\.' -or $duz.Trim().Length -eq 0){ [void]$sb.AppendLine("  - **ACIKLAMA OKUNAMADI / BOS** - INCELE") }
+    else { [void]$sb.AppendLine("  - " + (Kirp $duz 900)) }
+  }
   [void]$sb.AppendLine("")
   [void]$sb.AppendLine("**KAYNAK ALANI:** $($s.kaynak)")
   [void]$sb.AppendLine("")
