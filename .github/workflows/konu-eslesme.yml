@@ -1,0 +1,54 @@
+# .github/workflows/konu-eslesme.yml — 0 USD
+# Siklik kunyesi (D9) once kasanin %10'unda goruluyordu; sebep kasadaki DERS
+# adinin kitapciktakinden farkli yazilmasiydi. Bu is once siklik tablosunu
+# tazeler, sonra kasanin TAMAMI icin esleme sozlugunu uretir.
+# Yerelde vitrin bankasiyla test edildi: kapsama %10 -> %63.
+# API cagrisi YOK, yalniz okuma + yerel hesap.
+name: Konu Etiket Hizalamasi (0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/konu-eslesme.ps1'
+      - 'motor/siklik-kunyesi.ps1'
+      - '.github/workflows/konu-eslesme.yml'
+      - 'veri/sgs-analiz.json'          # yeni kitapcik okundu -> siklik degisti
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: konu-eslesme
+  cancel-in-progress: false
+
+jobs:
+  hizala:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      # Once siklik tablosu tazelenir (kitapcik haritasi degismis olabilir)
+      - name: Siklik kunyesi
+        shell: pwsh
+        run: ./motor/siklik-kunyesi.ps1
+
+      # Sonra KASANIN TAMAMI icin esleme sozlugu (service key varsa kasa,
+      # yoksa vitrin bankasi - script kaynagini kendi secer)
+      - name: Esleme sozlugu
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/konu-eslesme.ps1
+
+      - name: Commit (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/siklik-kunyesi.json ]; then git add veri/siklik-kunyesi.json || true; fi
+          if [ -f veri/konu-eslesme.json ]; then git add veri/konu-eslesme.json || true; fi
+          git diff --cached --quiet || git commit -m "Konu etiket hizalamasi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
