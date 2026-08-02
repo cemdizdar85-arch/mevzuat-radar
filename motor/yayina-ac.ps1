@@ -47,6 +47,53 @@ Write-Host ("Hakem raporlari: {0}" -f ($okunanRapor -join ' | '))
 Write-Host ("3/3 gecen tekil kimlik: {0}" -f $acilacak.Count)
 if($acilacak.Count -eq 0){ Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='IS YOK'; not='3/3 gecen soru bulunamadi' }); exit 0 }
 
+# ============================================================================
+#  INSAN OKUMASI KAPISI — 02.08.2026
+#  SINAV-KURALLARI H1: "Insan okumasindan gecmeyen soru yayina acilamaz.
+#  Robot kapilari on elemedir, YETERLILIK BELGESI DEGILDIR."
+#
+#  Bu betik H1'den ONCE yazilmisti ve yalniz hakem 3/3 oluyordu; yani sozlesme
+#  ile kod uyusmuyordu. Dugmeye basilsa OKUNMAMIS binlerce soru yayina giderdi.
+#  Artik hakem 3/3 GEREK ama YETER degil: kimligin ayrica veri/okundu-onay.json
+#  icinde bulunmasi sart. O dosyaya bir kimlik ancak bir INSAN okuyup onaylayinca
+#  girer. Dosya yoksa ya da bossa yayin ACILMAZ - varsayilan "hayir"dir.
+# ============================================================================
+$onayYol = 'veri/okundu-onay.json'
+$okundu = New-Object 'System.Collections.Generic.HashSet[string]'
+$partiOzet = @()
+if(Test-Path $onayYol){
+  try {
+    $oj = Get-Content $onayYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($p in @($oj.partiler)){
+      $n = 0
+      foreach($id in @($p.idler)){ if("$id".Length -ge 8){ [void]$okundu.Add("$id"); $n++ } }
+      $partiOzet += ("{0} ({1}): {2} soru" -f "$($p.tarih)", "$($p.kaynak)", $n)
+    }
+  } catch { Write-Host ("okundu-onay.json okunamadi: {0}" -f $_.Exception.Message) }
+}
+Write-Host ("INSAN OKUMASI: {0} onayli kimlik | partiler: {1}" -f $okundu.Count, $(if($partiOzet.Count){ $partiOzet -join ' | ' } else { 'YOK' }))
+if($okundu.Count -eq 0){
+  Rapor ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ACILMADI - INSAN OKUMASI YOK'
+    kural='SINAV-KURALLARI H1'; hakem_3_3=$acilacak.Count; okundu_onayli=0
+    not="veri/okundu-onay.json bos ya da yok. Hakem 3/3 gerekli ama yeterli degil; bir insan okuyup onaylamadan soru yayina acilmaz."
+  })
+  Write-Host "YAYIN ACILMADI: insan okumasi onayi yok (H1). 0 soru acildi."
+  exit 0
+}
+# kesisim: hem hakem 3/3 hem insan onayli
+$kesisim = New-Object 'System.Collections.Generic.HashSet[string]'
+foreach($id in $acilacak){
+  $kisa = if("$id".Length -ge 8){ "$id".Substring(0,8) } else { "$id" }
+  if($okundu.Contains("$id") -or $okundu.Contains($kisa)){ [void]$kesisim.Add("$id") }
+}
+Write-Host ("Hakem 3/3 VE insan onayli: {0} soru acilacak (hakemden gecen ama okunmamis: {1})" -f $kesisim.Count, ($acilacak.Count - $kesisim.Count))
+$acilacak = $kesisim
+if($acilacak.Count -eq 0){
+  Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='IS YOK'; not='Insan onayli kimliklerin hicbiri hakem 3/3 listesinde degil' })
+  exit 0
+}
+
 # --- kasadaki kimlikler kisa (8 hane) olabilir; kasadan tam kimlikleri cek ve esle
 $kasaIdler = New-Object System.Collections.Generic.List[string]
 $ofs = 0
