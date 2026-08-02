@@ -32,7 +32,11 @@ $reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
 $kasa = New-Object System.Collections.Generic.List[object]
 $ofs = 0
 while($true){
-  $w = Invoke-WebRequest -Uri "${U}?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak&order=id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
+  # 02.08: olcume TABLO/YEVMIYE de eklendi. Cem karari: calisma kagidi
+  # ("senin kaydin / dogru kayit" karsilastirmasi) eski sorularda da calissin;
+  # bunun icin sorunun DOGRU yevmiye/tablo verisi bulunmali. Ayni onarim
+  # partisinde tamamlanacak - tek gonderim, tek odeme.
+  $w = Invoke-WebRequest -Uri "${U}?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,tablo,yevmiye&order=id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
   foreach($s in $l){ $kasa.Add($s) }
@@ -45,6 +49,19 @@ Write-Host ("Kasa: {0} soru" -f $kasa.Count)
 $tam = 0; $eksik = 0; $okunamaz = 0
 $eksikDers = @{}
 $eksikListe = New-Object System.Collections.Generic.List[object]
+# tablo/yevmiye sayimi (calisma kagidi karsilastirmasi icin gerekli)
+$yevmiyeVar = 0; $tabloVar = 0; $hesapliSoru = 0; $hesapliAmaVerisiz = 0
+$reHesapli = [regex]'(?i)kay[ıi]t|yevmiye|hesab[ıi]na|bor[cç]land|alacakland|tutar|maliyet bedeli|ne kadar|ka[cç] TL'
+foreach($s in $kasa){
+  if("$($s.yevmiye)".Trim().Length -gt 5){ $yevmiyeVar++ }
+  if("$($s.tablo)".Trim().Length -gt 5){ $tabloVar++ }
+  if($reHesapli.IsMatch("$($s.soru)")){
+    $hesapliSoru++
+    if("$($s.yevmiye)".Trim().Length -le 5 -and "$($s.tablo)".Trim().Length -le 5){ $hesapliAmaVerisiz++ }
+  }
+}
+Write-Host ("yevmiye verisi olan: {0} | tablo verisi olan: {1}" -f $yevmiyeVar, $tabloVar)
+Write-Host ("hesapli/kayitli soru: {0} | bunlardan tablo-yevmiye YOK: {1}" -f $hesapliSoru, $hesapliAmaVerisiz)
 foreach($s in $kasa){
   $yanlisSik = @('A','B','C','D','E') | Where-Object { $_ -ne "$($s.dogru)" }
   $var = 0; $dolu = 0
@@ -74,6 +91,10 @@ $ozet = [ordered]@{
   dogrusu_eksik = $eksik
   aciklama_okunamayan = $okunamaz
   eksik_ders_dagilimi = ($eksikDers.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 15 | ForEach-Object { [ordered]@{ ders=$_.Key; adet=$_.Value } })
+  yevmiye_verisi_olan = $yevmiyeVar
+  tablo_verisi_olan = $tabloVar
+  hesapli_soru = $hesapliSoru
+  hesapli_ama_verisiz = $hesapliAmaVerisiz
   tahmini_maliyet_usd = $tahminUSD
   not = "Olcum modu API cagrisi YAPMAZ. -uygula ile eksik olanlara Batch API 'Dogrusu:' cumlesi yazar; cumle yalniz dayanak metne dayanir."
 }

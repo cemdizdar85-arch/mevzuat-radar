@@ -220,6 +220,20 @@ değil yön gösterir.
 **I4.** Yanlışlar listesi ve işaretlenenler tekrar çözülebilir; inceleme modu
 sayaç yakmaz.
 
+**I5. ÇALIŞMA KÂĞIDI (02.08 Cem onayı — açılıştan önce).** Aday gerçek sınavda
+kâğıtla çalışır: T hesabını çizer, fişi yazar, toplar. Ekranda elinde bir şey
+yoksa kafadan yapar ve **hatasının nerede olduğunu göremez.**
+- Kabinde, hesap makinesinin yanında **T hesabı / yevmiye fişi** şablonu açılır.
+- Borç–alacak sütunları, "satır ekle", otomatik toplam. **Puanlanmaz** —
+  düşünme aracıdır.
+- **Asıl değer:** cevap verildiği an **"senin kaydın" ile "doğru kayıt" yan
+  yana** gösterilir. Farkı aday kendi gözüyle görür; biz anlatmayız, o bulur.
+- **Mobil sadeliği şart:** iki sütun + satır ekle. Süslenirse telefonda
+  kullanılmaz hâle gelir.
+- Puanlanan hâli **K3**'tür (açılış sonrası); bu madde onun ücretsiz ön adımı.
+- **Eski sorular da kapsamda:** karşılaştırmanın çalışması için sorunun doğru
+  yevmiye/tablo verisi bulunmalı; eksikse onarım partisinde tamamlanır.
+
 ---
 
 ## K. İSTATİSTİK KATMANI (02.08.2026 — Cem onayı: "bir, iki ve üçü yapalım")
