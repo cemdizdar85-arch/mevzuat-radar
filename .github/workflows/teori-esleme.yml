@@ -1,0 +1,41 @@
+# .github/workflows/teori-esleme.yml — BEDAVA PILOT (Cem 02.08: "para
+# harcamadan pilot calisma ayarla, bosa gidecek 1 sent yok")
+# Teori kapisinin eslestirmesini API'siz olcer: hangi soru hangi teori notuna
+# baglaniyor, dokum halinde cikarir. Hakem (parali) calistirilmadan once
+# eslesmenin dogrulugu bu raporla denetlenir.
+name: Teori Esleme Olcumu (0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      adet:
+        description: "kac soru olculsun (varsayilan 200)"
+        required: false
+        default: "200"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: teori-esleme
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Esleme olcumu (API cagrisi YOK)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/teori-esleme-olcum.ps1 -adet ${{ github.event.inputs.adet || 200 }}
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/teori-esleme-raporu.json ]; then git add veri/teori-esleme-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Teori esleme olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

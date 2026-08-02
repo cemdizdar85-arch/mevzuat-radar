@@ -223,11 +223,36 @@ function TeoriNotuMetni([string]$kaynak, [string]$konu){
   if($script:onbellek.ContainsKey($anahtar)){ return $script:onbellek[$anahtar] }
   $desen = '^Teori Notu.*(' + ($kel -join '|') + ')'
   try {
-    $rHam = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&limit=3") -Headers $H -TimeoutSec 60
+    $rHam = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&limit=8") -Headers $H -TimeoutSec 60
     $r = @($rHam)
   } catch { return $null }
   if($r.Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
-  $sonuc = [ordered]@{ ad = "$($r[0].kaynak_ad)"; parca = $r.Count; metin = (($r | ForEach-Object { $_.metin }) -join "`n") }
+
+  # 02.08 PILOT DERSI (0,31 USD ile ogrenildi, 40 USD kurtarildi):
+  # "herhangi bir kelime tutarsa bagla" cok gevsekti. Pilotta 31 soru teori
+  # notuyla eslesti ama eslesmeler ALAKASIZDI: "pesin odenen vergilerin
+  # muhasebe kaydi" sorusu 'vergi teorisi' notuna, "bagli ortaklik paylarinin
+  # muhasebelestirilmesi" 'paranin zaman degeri' notuna baglanmisti. Tek
+  # tesadufi kelime yetiyordu ve hakem haklı olarak "bu metin bunu soylemiyor"
+  # dedi. YANLIS NOTA BAGLAMAKTANSA KAYNAKSIZ BIRAKMAK YEGDIR.
+  # Artik adaylar PUANLANIR: baslikta gecen anahtar kelime 3 puan, metinde
+  # gecen 1 puan. Esik: en az 2 farkli kelime baslikta VEYA 1 baslik + 3 metin.
+  $enIyi = $null; $enIyiPuan = 0
+  foreach($aday in $r){
+    $bas = ("$($aday.kaynak_ad)").ToLowerInvariant() -replace '[ıİ]','i' -replace '[şŞ]','s' -replace '[ğĞ]','g' -replace '[üÜ]','u' -replace '[öÖ]','o' -replace '[çÇ]','c'
+    $met = ("$($aday.metin)").ToLowerInvariant() -replace '[ıİ]','i' -replace '[şŞ]','s' -replace '[ğĞ]','g' -replace '[üÜ]','u' -replace '[öÖ]','o' -replace '[çÇ]','c'
+    $basHit = 0; $metHit = 0
+    foreach($w in $kel){
+      if($bas.Contains($w)){ $basHit++ }
+      elseif($met.Contains($w)){ $metHit++ }
+    }
+    $puan = ($basHit * 3) + $metHit
+    if($puan -gt $enIyiPuan -and ($basHit -ge 2 -or ($basHit -ge 1 -and $metHit -ge 3))){
+      $enIyiPuan = $puan; $enIyi = $aday
+    }
+  }
+  if(-not $enIyi){ $script:onbellek[$anahtar] = $null; return $null }   # emin degilsen BAGLAMA
+  $sonuc = [ordered]@{ ad = "$($enIyi.kaynak_ad)"; parca = 1; metin = "$($enIyi.metin)"; puan = $enIyiPuan }
   $script:onbellek[$anahtar] = $sonuc
   return $sonuc
 }
