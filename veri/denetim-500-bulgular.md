@@ -59,8 +59,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 36 | — | TEMİZ* | mükerrer (32/33) | ✓ |
 | 37 | — | TEMİZ* | mükerrer (25 ile) | VUK 315 ✓ — Q25'in kopyası; havuzda 6. |
 
-**Ara sayaç (37/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 11 · temiz 21.
-**Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13).
+| 38 | — | **ELENİR — YANLIŞ RAKAM** | hesap tutarsızlığı | TMS 2 normal kapasite. Açıklamadaki formül DOĞRU ama sonucu yanlış: (126.400+87.650+34.280+45.000)÷180 = **1.629,61**, işaretli şık 1.597. Doğru rakam şıklarda YOK. Cem'in onayladığı "hesap tutarlılığı kapısı"nın birebir kanıtı. |
+| 39 | — | TEMİZ | mükerrer (38 ile aynı kural) | 68.400/1.000=68,40 ✓ tutarlı. |
+| 40 | — | **ELENİR** | B1+B2: kural ters + iki şık | VUK 262: kanun "dönem sonuna kadarki faiz maliyete DAHİL EDİLİR" (zorunlu) der; soru "serbesttir" diye anlatıyor. Üstelik "dahil etmeyi seçerse" ifadesiyle 25.090 da savunulur (sonraki kısım ihtiyari eklenebilir). **VUK 262 ailesi havuzda 106 soru — küme taraması ŞART (Q15+Q40 aynı fıkrayı iki kez yanlış anladı).** |
+| 41 | — | **ELENİR — YANLIŞ CEVAP** | komşu madde körlüğü (YENİ SINIF B13) | Iskat için "YK kararı yeter, başka işlem gerekmez" işaretli. TTK m.483/1 AÇIK: ıskat öncesi gazete+internet sitesi İLANIYLA İHTAR ve 1 AY süre zorunlu (nama yazılıda iadeli taahhütlü mektup). Üreticinin kaynağı yalnız m.482 idi; usul 483'te — maddeyi tek başına görünce "işlem gerekmez" sanmış. |
+| 42 | — | **ELENİR — YANLIŞ RAKAM** | hesap tutarsızlığı | TMS 2: açıklamanın saydığı kalemler 300.115 eder, işaretli şık 300.515 (400 TL toplama hatası). Doğru rakam şıklarda yok. |
+
+**Ara sayaç (42/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 11 · temiz 22.
+**Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
+**NOT:** Bu oranlar kasaya GENELLENEMEZ — dosya kusur puanına göre sıralı, en şüpheliler üstte. Genel oran, 8-puan bandı (296 soru) okununca çıkar.
 
 ---
 
@@ -127,6 +134,20 @@ terimi soru gövdesinde GEÇEMEZ" kuralı + makine kapısı (doğru şık metnin
 ### B12. 🟡 Döküm betiği tablo alanını bozuk basıyor (altyapı)
 denetim-500.ps1 tablo/yevmiye alanını "@{baslik=System.Object[]}" diye basıyor —
 soru verisi sağlam, DÖKÜM okunmaz. ConvertTo-Json ile basılacak.
+
+### B13. 🔴 Komşu madde körlüğü (Q41)
+Maddenin verdiği yetkinin USULÜ bitişik maddede (482→483); tek maddeyle yazılan
+soru "başka işlem gerekmez" diye yanlışa düşüyor. **Düzeltme:** madde-coz, madde
+getirirken bitişik maddelerin BAŞLIKLARINI da listeler; başlık "usul/uygulama/şartlar"
+içeriyorsa metni birlikte verir. Üretim istemine: "dayanak maddenin uygulanışı
+başka maddeye atıf yapıyorsa o maddeyi görmeden USUL sorusu yazma."
+
+### B14. 🔴 Hesap tutarsızlığı — işaretli rakam formülle tutmuyor (Q38, Q42)
+Açıklamadaki formül doğru, işaretli şıkkın rakamı yanlış (1.597≠1.629,61;
+300.515≠300.115) ya da doğru rakam şıklarda hiç yok. **Düzeltme (Cem onaylı
+"hesap tutarlılığı kapısı"):** makine, açıklamadaki sayıları çekip dört işlemle
+yeniden hesaplar; işaretli şıkla birebir tutmuyorsa soru OTOMATİK RED. Üretimde
+ve eski kasada toplu çalıştırılır — LLM'siz, bedava.
 
 ### B7. 🟡 Koşucu-yerel çözüm farkı (ölçüm altyapısı)
 Actions koşucusunda dokumanlar imatch sorguları boş dönüyor (ambarda-yok 363,
