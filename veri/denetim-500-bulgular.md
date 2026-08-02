@@ -430,6 +430,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 351 | — | TEMİZ | — | TFRS 10 ana/bağlı ortaklık tanımı ✓; "Mehmet Bey işletme değildir" çeldiricisi öğretici. |
 
 **Ara sayaç (351/500):** kesin yanlış **10** · riskli **15** · düzeltilir 66 · temiz 265 (%76).
+
+| 352 | — | DÜZELTİLİR | **322 ile mükerrer — AYNI beş işlem kalıbı** | Müşteri tahsilatı / tedarikçi / maaş / makine satışı / kredi anapara — 322'nin birebir iskeleti, yalnız şirket ve rakamlar değişik. 322 kalır (paragraf atıflı), 352 elenir. |
+| 353 | — | TEMİZ | — | VUK 320/2 binek oto kıst: Eylül dahil 4 ay ✓. |
+| 354 | — | TEMİZ — 346 ile çift | **346↔354 yakın çift** (TMS 23 p.12 netleştirme, aynı öz) | 354 kalır (p.13 inşaat-öncesi nemalandırma nüansı ekli), **346'nın hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). Hesap 18.300−8.750=9.550 ✓. |
+| 355 | — | DÜZELTİLİR-hafif | **ders VE konu etiketi yanlış**: "Finansal Muhasebe / gelir tablosu hesaplari" ama içerik 3568 m.29 (Meslek Hukuku) | İçerik doğru ✓ (m.29'da ceza yetkisi yok). 330/331 de aynı desendi — 3568 soruları yanlış derse atanmış; onarımda Meslek Hukuku'na taşınacak. |
+| 356 | — | TEMİZ | — | BDS 501: gözlem + test sayımı + kesim bilgisi ✓. |
+| 357 | — | TEMİZ | — | BDS 300: kaynakların niteliği/zamanlaması/kapsamı ✓. |
+| 358 | — | TEMİZ | — | BDS 500: kanıt tutarsızlığında ek prosedür ✓. |
+| 359 | — | TEMİZ | — | BDS 530 Ek 3: büyük kütlede ana kütle etkisi ihmal edilebilir ✓. |
+
+**Ara sayaç (359/500):** kesin yanlış **10** · riskli **15** · düzeltilir 69 · temiz 270 (%76). (346 hükmü geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
