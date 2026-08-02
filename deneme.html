@@ -713,7 +713,7 @@ function cevabiGor(tekrarMi){
     sicilKaydet(s.id, SECILI===s.dogru);
     SURELER[s.id]=Date.now()-SORU_T0;
     konuSicilKaydet(s.sinav, s.ders, s.konu, SECILI===s.dogru);
-    cevapGonder(s, SECILI===s.dogru, SURELER[s.id]);
+    cevapGonder(s, SECILI===s.dogru, SURELER[s.id], SECILI);
   }
   RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
   if(KRONI){ clearInterval(KRONI); KRONI=null; }
@@ -1056,11 +1056,15 @@ function konuSicilKaydet(sinav, ders, konu, dogruMu){
 }
 /* Sunucuya yaz. BASARISIZ OLURSA SESSIZ GECER: istatistik ugruna sinav
    akisini bozmayiz - ogrenci soru cozerken karne yuzunden takilmamali. */
-function cevapGonder(s, dogruMu, sureMs){
+function cevapGonder(s, dogruMu, sureMs, secilenSik){
   try{
     if(!window.sb || !s) return;
+    /* 02.08 (SINAV-KURALLARI K2): hangi sikkin isaretlendigi de kaydedilir.
+       Boylece "adaylarin %41'i B'yi secti - en sik dusulen tuzak bu" diyebiliriz;
+       yazdigimiz tuzak cumlesini GERCEK VERI dogrular. Kolon 02.08'de acildi. */
     var g = { oturum: oturumKodu(), soru_id: String(s.id), ders: s.ders||null,
-              konu: s.konu||null, dogru: !!dogruMu, sure_ms: sureMs||null };
+              konu: s.konu||null, dogru: !!dogruMu, sure_ms: sureMs||null,
+              secilen: secilenSik ? String(secilenSik) : null };
     if(window.UYE_ID) g.uye = window.UYE_ID;
     window.sb.from('cevap_kaydi').insert(g).then(function(){}, function(){});
   }catch(e){}
@@ -1157,7 +1161,7 @@ function karneCiz(){
     if(MOD==='deneme' && c){
       sicilKaydet(s.id, c===s.dogru);
       konuSicilKaydet(s.sinav, s.ders, s.konu, c===s.dogru);
-      cevapGonder(s, c===s.dogru, SURELER[s.id]);
+      cevapGonder(s, c===s.dogru, SURELER[s.id], c);
     }
     ders[s.ders]=ders[s.ders]||{d:0,y:0,b:0};
     if(!c){ bos++; ders[s.ders].b++; }

@@ -26,7 +26,7 @@ $ciktiYol = Join-Path $kok 'veri/soru-istatistik.json'
 $kayit = New-Object System.Collections.Generic.List[object]
 $ofs = 0
 while($true){
-  $w = Invoke-WebRequest -Uri "${U}?select=soru_id,dogru,sure_ms&order=soru_id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
+  $w = Invoke-WebRequest -Uri "${U}?select=soru_id,dogru,sure_ms,secilen&order=soru_id&limit=1000&offset=$ofs" -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
   foreach($x in $l){ $kayit.Add($x) }
@@ -40,10 +40,16 @@ $top = @{}
 foreach($k in $kayit){
   $sid = "$($k.soru_id)"
   if([string]::IsNullOrWhiteSpace($sid)){ continue }
-  if(-not $top.ContainsKey($sid)){ $top[$sid] = [ordered]@{ n=0; d=0; sureTop=0; sureN=0 } }
+  if(-not $top.ContainsKey($sid)){ $top[$sid] = [ordered]@{ n=0; d=0; sureTop=0; sureN=0; sik=@{} } }
   $top[$sid].n++
   if($k.dogru -eq $true){ $top[$sid].d++ }
   if($k.sure_ms -and [int]$k.sure_ms -gt 0){ $top[$sid].sureTop += [int]$k.sure_ms; $top[$sid].sureN++ }
+  # K2: yanlis yapanlarin hangi sikta toplandigi. 'secilen' kolonu 02.08'de
+  # acildi; eski kayitlarda bos - o zaman bu soru icin tuzak uyarisi cikmaz.
+  if($k.dogru -ne $true -and "$($k.secilen)".Trim().Length -gt 0){
+    $h = "$($k.secilen)".Trim().ToUpperInvariant()
+    $top[$sid].sik[$h] = 1 + [int]$top[$sid].sik[$h]
+  }
 }
 
 # --- esigi gecenler
@@ -53,10 +59,24 @@ foreach($sid in $top.Keys){
   $t = $top[$sid]
   if($t.n -lt $esik){ $esikAlti++; continue }
   $gecen++
+  # K2 TUZAK UYARISI: yanlis yapanlarin en cok toplandigi sik. Yalniz anlamli
+  # bir yigilma varsa yazilir - yanlislarin en az %35'i tek sikta toplanmali
+  # ve o sikki en az 5 kisi secmis olmali. Yoksa "en sik dusulen tuzak" demek
+  # gurultuye anlam yuklemek olur (rakam disiplini).
+  $tuzak = $null
+  $yanlisTop = 0; foreach($v in $t.sik.Values){ $yanlisTop += [int]$v }
+  if($yanlisTop -ge 5){
+    $enCok = $null; $enCokN = 0
+    foreach($h in $t.sik.Keys){ if([int]$t.sik[$h] -gt $enCokN){ $enCokN = [int]$t.sik[$h]; $enCok = $h } }
+    if($enCok -and (100 * $enCokN / $yanlisTop) -ge 35){
+      $tuzak = [ordered]@{ sik = $enCok; yuzde = [math]::Round(100 * $enCokN / $t.n) }
+    }
+  }
   $cikti[$sid] = [ordered]@{
     n = $t.n
     dogruYuzde = [math]::Round(100 * $t.d / $t.n)
     ortSaniye  = $(if($t.sureN){ [math]::Round(($t.sureTop / $t.sureN) / 1000) } else { $null })
+    tuzak = $tuzak
   }
 }
 Write-Host ("Esigi ({0} cevap) gecen soru: {1} | esik alti: {2}" -f $esik, $gecen, $esikAlti)
