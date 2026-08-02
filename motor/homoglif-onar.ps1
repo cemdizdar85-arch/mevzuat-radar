@@ -127,15 +127,22 @@ foreach($s in $vurgun){
   if($null -ne $s.hap){ $govde['hap'] = $yeniHap }
   if($yeniSik){ $govde['siklar'] = $yeniSik }
   if($yeniAck){ $govde['aciklama'] = $yeniAck }
+  # 03.08 v3: yillik-rakam-nobeti'nin KANITLANMIS PATCH deseni birebir
+  # (duz birlestirme + Invoke-WebRequest). v2'de ayni istek "UPDATE requires
+  # a WHERE clause" (21000) dondu - yani filtre sunucuya ULASMIYORDU; suphe
+  # "$U`?..." interpolasyonundaki backtick'in pwsh/linux'ta yutulmasi.
+  # Hata olursa artik ISTEK ADRESI de rapora yazilir (kor kalma).
+  $patchUri = "${U}?id=eq." + [uri]::EscapeDataString($id)
   try {
-    Invoke-RestMethod -Method Patch -Uri "$U`?id=eq.$id" `
-      -Headers ($BASLIK + @{ Prefer = "return=minimal" }) -ContentType "application/json" `
-      -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $govde -Depth 6))) -TimeoutSec 60 | Out-Null
+    Invoke-WebRequest -Uri $patchUri -Method Patch `
+      -Headers ($BASLIK + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) `
+      -Body ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $govde -Depth 6))) `
+      -UseBasicParsing -TimeoutSec 60 | Out-Null
     $duzelen++
   } catch {
     $hataYaz++
     $g = ""; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g = $_.ErrorDetails.Message }
-    if(-not $ilkHata){ $ilkHata = ("{0} | sunucu: {1} | id: {2}" -f $_.Exception.Message, $g, $id) }
+    if(-not $ilkHata){ $ilkHata = ("{0} | sunucu: {1} | id: {2} | uri: {3}" -f $_.Exception.Message, $g, $id, $patchUri) }
     Write-Host ("YAZMA HATASI {0}: {1} | {2}" -f $id, $_.Exception.Message, $g)
   }
 }
