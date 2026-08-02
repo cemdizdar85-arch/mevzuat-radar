@@ -35,6 +35,17 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $arsivYol = Join-Path $kok 'veri/sinav-arsiv.json'
 $ciktiYol = Join-Path $kok 'veri/sgs-tip-olcum.json'
+
+# KOR KALMA SIGORTASI (02.08): 13:00 kosusu FAILURE dondu ve iz birakmadi.
+# Artik her olumcul hata rapora yazilir - "Raporu commit'le" adimi always kosar.
+trap {
+  [IO.File]::WriteAllText($ciktiYol, (ConvertTo-Json -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'
+    hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber
+  }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message)
+  exit 1
+}
 if(-not (Test-Path $arsivYol)){ Write-Host "sinav-arsiv.json yok - cikildi."; exit 1 }
 $pdftotext = (Get-Command pdftotext -ErrorAction SilentlyContinue)
 if(-not $pdftotext){ Write-Host "pdftotext yok (poppler-utils kurulmali) - cikildi."; exit 1 }
