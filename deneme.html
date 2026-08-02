@@ -1311,6 +1311,18 @@ function hataGonder(){
       fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
         body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',subject:'SORU HATA BILDIRIMI ('+s.id+')',from_name:'Tetikte Deneme',message:'Soru id: '+s.id+' · '+s.ders+' / '+s.konu+'\nBildirim: '+not})});
     }catch(e){}
+    // 02.08 (SINAV-KURALLARI H7): bildirim artik KAYDA da gecer. E-posta tek
+    // basina yetmiyordu - sayilamiyor, 48 saat takibi olculemiyor ve en onemlisi
+    // bildirilen soru yayinda kalmaya devam ediyordu. bildirim-nobeti robotu bu
+    // tabloya bakip ayni soruya 2 ayri bildirim gelince soruyu yayindan ceker.
+    try{
+      if(window.sb){
+        var op=localStorage.getItem('tetikteOturum');
+        if(!op){ op=Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem('tetikteOturum',op); }
+        window.sb.from('soru_bildirim').insert({soru_id:String(s.id),ders:s.ders||null,konu:s.konu||null,not_metni:not,oturum:op,
+          uye:(window.AKTIF_UYE&&window.AKTIF_UYE.email)?window.AKTIF_UYE.email:null});
+      }
+    }catch(e){}
   }
   document.getElementById('hataMetin').value='';
   document.getElementById('hataTesekkur').classList.remove('gizli');

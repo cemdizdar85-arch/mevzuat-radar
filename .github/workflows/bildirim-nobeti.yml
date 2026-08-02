@@ -1,0 +1,45 @@
+# .github/workflows/bildirim-nobeti.yml — OGRENCI BILDIRIMI NOBETI (0 USD)
+# SINAV-KURALLARI H5+H7: ayni soruya 2 FARKLI adaydan hata bildirimi gelirse
+# soru kendiliginden yayindan cekilir; GM okuyup hakli/haksiz karari verir.
+# Gunde 3 kosu (site acikken adaylar aksam calisir) + elle tetik.
+name: Bildirim Nobeti (0 USD)
+
+on:
+  schedule:
+    - cron: '30 5 * * *'    # 08:30 TR
+    - cron: '30 11 * * *'   # 14:30 TR
+    - cron: '30 18 * * *'   # 21:30 TR
+  workflow_dispatch:
+    inputs:
+      kuru:
+        description: "true = kuru kosu (cekmez, yalniz raporlar)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bildirim-nobeti
+  cancel-in-progress: false
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if ("${{ github.event.inputs.kuru }}" -eq "true") { ./motor/bildirim-nobeti.ps1 -kuru } else { ./motor/bildirim-nobeti.ps1 }
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/bildirim-nobeti-raporu.json ]; then git add veri/bildirim-nobeti-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Bildirim nobeti [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
