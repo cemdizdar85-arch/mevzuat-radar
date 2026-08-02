@@ -204,14 +204,27 @@ sayıldı, Resmî Gazete'ye inildi. Ambar taranınca görüldü: **yıllık hadl
 tebliğlerinin HİÇBİRİ yutulmamış** (yalnız kanun metinleri var). Oysa yıl-eşikli
 her soru (şüpheli alacak sınırı, fatura haddi, demirbaş sınırı, GV tarifesi,
 usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN almak zorunda.
-- [ ] **VUK GT Sıra No 588** (RG 31.12.2025, 33124 5.Mük.) — 2026 hadleri.
-      PDF depoda: veri/kaynak-vuk-gt-588-rg-20251231.pdf (m.323: 25.000 ·
-      m.232: 12.000 · m.313: 12.000). AMBARA yutulacak.
-- [ ] **VUK GT Sıra No 587** (RG 24.12.2025) — 2025 yeniden değerleme oranı %25,49.
-- [ ] **VUK GT Sıra No 577** (RG Aralık 2024) — 2025 hadleri (Q52 onarımı için şart).
-- [ ] **GVK m.103 2026 tarifesi** (GV Genel Tebliği, RG Aralık 2025) — Q5/Q12 onarımı için şart.
-- [ ] Asgari ücret 2026 tebliği + SGK taban/tavan genelgesi — yıllık-rakam nöbetinin referansı.
+*03.08 keşif düzeltmeleri (PDF'ler gözle okundu, mevzuatNo'lar teyitli):*
+- [~] **VUK GT 588** (G9:42892, teyitli) — 2026 hadleri, LİSTE PDF İÇİNDE ✓.
+      Manifestte; 03.08 günlük sınıfa alındı, koşu bekleniyor.
+- [~] **VUK GT 587** (G9:42802, teyitli) — İÇERİK DÜZELTMESİ: bu tebliğ oran değil,
+      **2025 4. geçici vergi dönemi enflasyon düzeltmesi** tebliği. Yine değerli, yutulacak.
+- [~] **VUK GT 585** (G9:42717) — **2025 yeniden değerleme oranı %25,49 BU tebliğde**
+      (GVK GT 332 m.3 metninden teyit: RG 27.11.2025, 33090). Günlük sınıfa alındı.
+- [~] **VUK GT 577** (G9:41168, teyitli) — 2025 hadleri; ⚠ **LİSTE EKTE, GeneratePdf
+      çıktısında YOK** ("Ekleri için tıklayınız"). Ana metin yutulacak; EK LİSTE
+      RG 30.12.2024 tam metninden `veri/mevzuat-hazir/vukgt577ek.txt` olarak gelecek
+      (Q52'nin 2025 m.323 = 20.000 eşiği ekte).
+- [~] **GVK GT 332** (G9:42890, GÖZLE TEYİTLİ) — 2026 GVK hadleri + **m.103 tarifesi**
+      + binek oto hadleri (46.000 kira / 1.200.000-1.380.000-2.600.000). Q5/Q12/Q15
+      onarımlarının dayanağı. Günlük sınıfa alındı. (gvkgt334 tarife DEĞİL — nitelikli
+      hizmet merkezi istisnası; etiket düzeltildi.)
+- [ ] Asgari ücret 2026 kararı — mevzuat.gov.tr tebliğ fihristinde YOK (ölçüldü);
+      RG'den `veri/mevzuat-hazir/asgariucret2026.txt` olarak gelecek.
 Kural: yıl-eşikli soru üretiminde dayanak = ilgili yılın tebliği (A1'e ek).
+Altyapı 03.08: koşucu 528'lik seri yağmurda boğuluyordu (02.08 10:07 koşusu ambara
+tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 sn bekleme
++ depodan hazır-metin istisnası eklendi; 528'lik birikim 4-5 koşuda dolacak.
 
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.

@@ -32,6 +32,8 @@ on:
       - 'veri/mevzuat-kaynaklar.json'   # yeni kanun/yonetmelik/teblig eklendi
       - 'veri/mevzuat/_durum.json'      # damga silindi -> o kanun yeniden yutulsun
       - 'motor/mevzuat-yut.ps1'         # parcalayici degisti -> yeniden yut
+      - 'veri/mevzuat-hazir/**'         # RG'den elle hazirlanan ekli metin eklendi
+      - '.github/workflows/mevzuat.yml' # indirme adimi degisti
   workflow_dispatch:
     inputs:
       hakem:
@@ -60,17 +62,45 @@ jobs:
       - name: pdftotext kur (poppler-utils)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: Kanun PDF indir + metne dok
+        env:
+          ZORLA: ${{ inputs.zorla && '1' || '0' }}
         run: |
           mkdir -p _txt
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
           # while read: JSON string degerlerindeki bosluklardan word-split olmaz (jq satir-satir)
+          # 03.08 KOK SEBEP DUZELTMESI: 02.08'de manifeste 528 seyrek teblig
+          # eklendi; bu adim HEPSINI arka arkaya indirmeye kalkti ve 10:07
+          # kosusu ambara TEK teblig yazamadi (mevzuat.gov.tr seri yagmuru
+          # kesiyor). Uc duzeltme:
+          #  (1) SEYREK filtresi artik BASH'te de var: seyrek=true olup daha
+          #      once yutulmus (_durum'da olan) kaynak pazar/ZORLA disinda
+          #      INDIRILMEZ (mevzuat-yut zaten atliyordu; indirme yuku kalkti).
+          #  (2) Ilk kez inecek seyrek kaynak sayisi kosu basina 120 ile
+          #      sinirli + her GeneratePdf arasinda 2 sn bekleme - 528'lik
+          #      birikim 4-5 kosuda sakin sakin dolar, yagmur kesilmez.
+          #  (3) HAZIR METIN istisnasi: veri/mevzuat-hazir/<slug>.txt depoda
+          #      varsa indirme hic yapilmaz, dosya dogrudan kullanilir
+          #      (RG'den elle hazirlanan ekli tebligler: VUK 577 EK listesi,
+          #      asgari ucret karari gibi).
+          SEYREK_YENI=0; SEYREK_TAVAN=120
           jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json | while read -r row; do
             slug=$(echo "$row" | jq -r '.slug')
             pid=$(echo "$row" | jq -r '.pdfId')
+            seyrek=$(echo "$row" | jq -r '.seyrek // false')
+            if [ -f "veri/mevzuat-hazir/$slug.txt" ]; then
+              cp "veri/mevzuat-hazir/$slug.txt" "_txt/$slug.txt"; echo "HAZIR $slug (depodan)"; continue
+            fi
+            if [ "$seyrek" = "true" ] && [ "${ZORLA:-0}" != "1" ] && [ "$(date -u +%u)" != "7" ]; then
+              if jq -e --arg s "$slug" 'has($s)' veri/mevzuat/_durum.json >/dev/null 2>&1; then
+                continue   # seyrek + zaten yutulmus -> bu kosuda indirme yok
+              fi
+              SEYREK_YENI=$((SEYREK_YENI+1))
+              if [ "$SEYREK_YENI" -gt "$SEYREK_TAVAN" ]; then continue; fi   # kalani sonraki kosuya
+            fi
             # G7:/G9: onekleri = yonetmelik/teblig (GeneratePdf ucundan); digerleri kanun (MevzuatMetin)
             case "$pid" in
-              G7:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G7:}&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" ;;
-              G9:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G9:}&mevzuatTur=Teblig&mevzuatTertip=5" ;;
+              G7:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G7:}&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5"; sleep 2 ;;
+              G9:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G9:}&mevzuatTur=Teblig&mevzuatTertip=5"; sleep 2 ;;
               *)    url="https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" ;;
             esac
             code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 240 || echo "000")
