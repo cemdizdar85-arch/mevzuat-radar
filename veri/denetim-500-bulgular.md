@@ -595,6 +595,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 471 | — | TEMİZ | konu etiketi kayması ("kesin mizan bakiye" ≠ VUK 175) | Muhasebe usulü serbestliği ✓. |
 
 **Ara sayaç (471/500):** kesin yanlış **10** · riskli **16** · düzeltilir 95 · temiz 355 (%76). (348 hükmü geriye dönük düzeltildi.)
+
+| 472 | — | TEMİZ | kasadaki TMS16-çevre ×6 ailesinin üyesi — kasa tarafında tavan gerekli | TMS 16 p.11: güvenlik/çevre varlığı aktifleştirilir ✓. |
+| 473 | — | TEMİZ — 468'in yerine kalır | **468 ile mükerrer** (TMS 29 p.3, aynı öz) | 473 göstergeleri toplu işleyip sonuca bağlıyor (daha zengin) — **468 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 474 | — | TEMİZ — 471'in yerine kalır | **471 ile mükerrer** (VUK 175, aynı öz) | 474 serbestliğin İKİ yüzünü birden işliyor (serbestlik + Bakanlık sınırı, Ayşe/Mehmet diyaloğu) — **471 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 475 | — | DÜZELTİLİR | **334 ile mükerrer** (VUK 231/5 yedi gün, aynı öz) | İçerik doğru ✓; 334 kalır (gecikme sonucu + ceza da işleniyor), 475 elenir. |
+| 476 | — | TEMİZ — iyi soru | — | TFRS 15 p.35(a)+39: eşzamanlı tüketim → zamana yayılı hasılat ✓. |
+| 477 | — | TEMİZ — iyi soru | — | TMS 41 hasat sınırı: ağaç TMS16 / zeytin TMS41 / yağ TMS2 üçlü ayrımı ✓. |
+| 478 | — | TEMİZ | 478↔479 kural-seti / uygulama çifti — ikisi kalabilir | İş K 11: esaslı nedenli zincirleme belirli kalır ✓. |
+| 479 | — | TEMİZ | — | İş K 11: esaslı neden yok → baştan belirsiz süreli; işveren beyanı ≠ objektif neden ✓ güzel senaryo. |
+
+**Ara sayaç (479/500):** kesin yanlış **10** · riskli **16** · düzeltilir 98 · temiz 360 (%76). (468 ve 471 hükümleri geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
