@@ -573,6 +573,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 455 | — | TEMİZ — iyi soru | — | TMS 27 p.12: maliyet yönteminde temettü, hak doğduğunda K/Z'ye ✓; özkaynak yöntemi ayrımı (A çeldirici) doğru işlenmiş. |
 
 **Ara sayaç (455/500):** kesin yanlış **10** · riskli **16** · düzeltilir 90 · temiz 344 (%76). (432 ve 333 hükümleri geriye dönük düzeltildi.)
+
+| 456 | — | TEMİZ | 383↔456 aynı standart farklı kural (p.16 / p.12) — meşru | TFRS 8 p.12: beş kriterin HER BİRİ şartı ✓ "en az üç" çeldirisi öğretici. |
+| 457 | — | TEMİZ | — | Özkaynak 847.500−447.500=400.000 ✓ hesap tutarlı. |
+| 458 | — | DÜZELTİLİR | **322 ailesinin 3. kopyası** (makine satışı=yatırım; 352 zaten elenmişti) | İçerik doğru ✓; en basit versiyon, elenir. |
+| 459 | — | DÜZELTİLİR | **340 ile mükerrer** (VUK 233 perakende satış fişi, aynı öz) | İçerik doğru ✓; 340 kalır (senaryolu), 459 elenir. |
+| 460 | — | TEMİZ | 312↔460 aynı madde farklı kural (tanım / tahmin istisnası) — meşru | VUK 186: mutat olmayan sayım → tahminen tespit ✓. |
+| 461 | — | TEMİZ | — | VUK 281 reeskont: senede bağlı + vadesi gelmemiş ✓ dört çeldirici dört farklı ayrım, iyi. |
+| 462 | — | TEMİZ | **VUK 323 ailesi 6. üye** — ama farklı kural (safha yeterli, sonuçlanma beklenmez; değersiz/şüpheli ayrımı) — kalabilir | ✓. |
+| 463 | — | DÜZELTİLİR-hafif | **E çeldiricisi formülle üretilememiş** (açıklamadaki "127.300−6.180−2.340+340" uydurma köprü — B14'ün çeldirici versiyonu) | İşaretli cevap doğru ✓ (p.20-b: 127.300); yalnız E şıkkının tutarı hiçbir tutarlı hesaba oturmuyor, açıklama da bunu itiraf eder gibi. Çeldirici yeniden üretilecek. |
+
+**Ara sayaç (463/500):** kesin yanlış **10** · riskli **16** · düzeltilir 93 · temiz 349 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
