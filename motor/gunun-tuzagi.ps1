@@ -73,6 +73,20 @@ for($ofs = 0; $ofs -lt 4000; $ofs += 1000){
 }
 Write-Host ("Yayindaki soru (taranan): {0}" -f $adaylar.Count)
 
+# 02.08 GERCEK: kasada su an YAYINDA soru YOK - 466'si bugun onarim icin cekildi,
+# gerisini hakem kapisi tutuyor. Vitrin bankasi (veri/soru-bankasi.json) ise ZATEN
+# herkese acik ve onayli. Kasa bosken oradan secmek hem dogru hem guvenli:
+# zaten yayinda olan bir soruyu paylasmis oluruz, yeni sizinti yaratmayiz.
+if($adaylar.Count -eq 0){
+  $vitrinYol = Join-Path $kok 'veri/soru-bankasi.json'
+  if(Test-Path $vitrinYol){
+    $vb = Get-Content $vitrinYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $adaylar = @($vb.sorular | Where-Object { "$($_.durum)" -eq 'yayin' -or -not $_.durum })
+    Write-Host ("Kasada yayinda soru yok -> VITRIN BANKASINA dusuldu: {0} soru" -f $adaylar.Count)
+    $kaynakEtiket = 'vitrin-bankasi'
+  }
+} else { $kaynakEtiket = 'kasa' }
+
 $uygun = @($adaylar | Where-Object {
   $s = $_
   $s.soru -and $s.dogru -and $s.kaynak -and $s.siklar -and $s.aciklama -and
@@ -120,7 +134,7 @@ $rapor = [ordered]@{
   aciklama    = $secim.aciklama
   kaynak      = "$($secim.kaynak)"
   paylasim    = [ordered]@{ baslik=$paylasimBaslik; alt=$paylasimAlt; kapanis=$paylasimKapanis }
-  havuz       = [ordered]@{ uygun_aday=$uygun.Count; yayindaki=$adaylar.Count; gecmiste=$gecmisKume.Count }
+  havuz       = [ordered]@{ kaynak=$kaynakEtiket; uygun_aday=$uygun.Count; yayindaki=$adaylar.Count; gecmiste=$gecmisKume.Count }
 }
 [IO.File]::WriteAllText($ciktiYol, (ConvertTo-Json -InputObject $rapor -Depth 6), (New-Object Text.UTF8Encoding($false)))
 
