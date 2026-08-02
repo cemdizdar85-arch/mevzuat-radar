@@ -351,7 +351,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 286 | — | TEMİZ | — | TTK m.52 unvan: önleme+tazminat birlikte ✓. |
 | 287 | — | TEMİZ | TTK 18/3 kümesine YENİ açı (alternatiflik) | Telgraf hâlâ geçerli, hiyerarşi yok ✓ ("hepsı" typo). |
 
-**Ara sayaç (287/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 215 (%75). Blok 8/8 temiz — Sermaye Piyasası dersi (kripto dahil) güçlü.
+| 288 | — | TEMİZ | 376 ailesinin farklı açısı (meşru) | Borca batıklık bildirimi devredilemez; CEO'ya devir sorumluluktan kurtarmaz ✓. |
+| 289 | — | TEMİZ-kabul | atıf genişletilebilir | Üçüncü şahıs teminatında haciz varakası ✓ (uygulama Tahsilat GT Seri A-1 ile uyumlu; kaynak atfı tebliğle zenginleşmeli). |
+| 290 | — | TEMİZ | KDV-10 kümesinin 3. meşru açısı | Avans vergiyi doğurmaz ✓. |
+| 291 | — | TEMİZ | — | VUK 142: arama için sulh yargıcı kararı ✓. |
+| 292≈294 | — | TEMİZ* | **KVK-3 kümesi ×4 oldu** (158/235/292/294 — Hollanda senaryosu dört kez!) | ✓ |
+| 293 | — | TEMİZ | — | m.48: tecil TALEBİ takibi durdurmaz ✓; E açıklaması mahcuz-mal-teminata-sayılır nüansını da veriyor — iyi soru. |
+| 295 | — | TEMİZ* | ihtiyati haciz kümesi (7. üye — yetkili merci alt-sorusu) | ✓ |
+
+**Ara sayaç (295/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 223 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
