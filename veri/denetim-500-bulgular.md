@@ -148,7 +148,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 102 | — | TEMİZ | — | TTK 474-475 alacaklı çağrısı + 2 ay ✓. |
 | 103 | — | DÜZELTİLİR | B3 | 174.510/120=1.454,25 ✓ B doğru. Ama A şıkkı (1.331) ve E şıkkı (1.699) hiçbir hesapla üretilemiyor (A 1.314, E 1.577 olmalıydı — E zaten C ile çakışırdı). Çeldirici üretimi yine özensiz. |
 
-**Ara sayaç (103/500):** kesin yanlış **6** · riskli **7** · düzeltilir 34 · temiz 57.
+| 104 | — | DÜZELTİLİR-hafif | B3 (E çeldiricisi) | 71.550 ✓ tutarlı. E şıkkının (69.880) açıklaması "43.780 - 1.670 = ... gibi bir hesap" diye zorlama gerekçe uyduruyor — rakam üretilemiyor. |
+| 105 | — | TEMİZ* | mükerrer (TTK 720: 105+107 + 40'lıkta 2) | Noter suret saklar ✓. |
+| 106 | — | TEMİZ | TTK 367 kümesi (4.) | İç yönergesiz devir olmaz + bilgi talebi karşılanır ✓. |
+| 107 | — | TEMİZ* | mükerrer (105 ile) | ✓ — bono/poliçe kıyası açıklamada doğru kurulmuş. |
+| 108 | — | **RİSKLİ** | Q41 ailesi + iki-şık gölgesi + typo | "Temerrüt için ihtar gerekmez" (m.482/1) ✓ doğru. AMA senaryo ISKAT kararı içeriyor ve m.483 ıskat için İLANLI İHTAR şart — B şıkkı ("ihtar sonrası ancak ıskat işlemine geçilebilir") özünde doğruya yakın; m.483'ü bilen aday B'ye kayar. Soru kökü ıskat senaryosundan arındırılmalı ("temerrüt FAİZİ için ihtar gerekir mi" diye netleşmeli). Ayrıca ×3 "olmaksızıaan/olmaksızıan" yazım bozukluğu. |
+| 109 | — | TEMİZ | kurgu zorlama | 3568 m.29 Birlik meslek kuralları ✓; gelir tablosu bağlamı yapay ama cevap doğru. |
+
+**Ara sayaç (109/500):** kesin yanlış **6** · riskli **8** (5, 8, 21, 40, 72, 84, 86, 108) · düzeltilir 36 · temiz 61.
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
