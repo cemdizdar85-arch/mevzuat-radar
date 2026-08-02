@@ -1,0 +1,35 @@
+# .github/workflows/kasa-desen-olcum.yml — KASA DESEN OLCUMU (0 USD)
+# 02.08: 40 aday sorunun elle okunmasinda cikan uc kusuru (kaynak yigilmasi,
+# kilik degistirmis mukerrer, etiket-kaynak uyumsuzlugu) kasanin TAMAMINDA
+# sayar. Hicbir API cagrisi yok; yalniz Supabase okumasi.
+name: Kasa Desen Olcumu (0 USD)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kasa-desen-olcum
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olcum
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/kasa-desen-olcum.ps1
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/kasa-desen-olcum.json ]; then git add veri/kasa-desen-olcum.json || true; fi
+          git diff --cached --quiet || git commit -m "Kasa desen olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
