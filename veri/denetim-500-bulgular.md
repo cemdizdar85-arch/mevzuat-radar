@@ -395,6 +395,18 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 **Ara sayaç (327/500):** kesin yanlış **10** · riskli **14** · düzeltilir 58 · temiz 250 (%76).
 **Not:** Bu blokta VUK 323 üç kez daha geldi (318 teminat, 321 yevmiye+eşik, 326 işletme hesabı) — açılar farklı/meşru ama aile kabarık; kasada geriye dönük tavan uygulamasının gerekçesi güçleniyor.
+
+| 328 | — | TEMİZ | VUK 262 ailesi | 7338 sonrası m.262 listesi doğru işlenmiş: faiz dönem sonuna kadar, depolama envantere almaya kadar ✓. |
+| 329 | — | TEMİZ | — | TMS 24 p.13: kontrol ilişkisi işlemsiz de açıklanır ✓. |
+| 330 | — | DÜZELTİLİR | **331 ile yakın çift** + etiket ilgisiz ("ifac uyesi turk kuruluslari") | 3568 m.50: Birlik hazırlar + Bakanlık uygun görüşü — 331 ile aynı öz kural. 330 elenir, 331 kalır (bent karşılaştırması daha öğretici). |
+| 331 | — | DÜZELTİLİR-hafif | etiket ilgisiz ("ifac kuruluslari") | İçerik doğru ✓ (a+j bentleri Birlik, Bakanlık görüşü); yalnız konu etiketi düzeltilecek. |
+| 332 | — | TEMİZ | — | Tutarlılık/karşılaştırılabilirlik ihlali ✓. |
+| 333 | — | TEMİZ — iyi soru | — | TMS 19 p.23: prim = gider, kâr dağıtımı değil ✓; zımni kabul işlenmiş. |
+| 334 | — | TEMİZ | etiket ilgisiz ("alacaklar kontrol testi" ≠ fatura süresi) — düzeltilecek | VUK 231/5: 7 gün, aşılırsa hiç düzenlenmemiş sayılır ✓; 5035 ile 10→7 tarihçesi doğru. |
+| 335 | — | DÜZELTİLİR | **308 ile yakın-mükerrer (parmak izi: aynı kural + aynı yön + AYNI %82 rakamı!)** | TMS 21 özerk→Euro; içerik doğru ama 308'in kopya kurgusu. 308 kalır (GmbH senaryosu daha zengin), 335 elenir. 324 (uzantı→TL) meşru ters-açı olarak kalır. |
+
+**Ara sayaç (335/500):** kesin yanlış **10** · riskli **14** · düzeltilir 61 · temiz 255 (%76).
+**Not:** Konu etiketi kayması bu blokta üç kez (330/331 "ifac", 334 "alacaklar kontrol testi") — etiket=içerik doğrulama kapısının kapsamına "konu adı" da alınacak (şimdiye kadar yalnız kaynak ailesi bakılıyordu).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
