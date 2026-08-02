@@ -187,6 +187,35 @@ sayaç yakmaz.
 
 ---
 
+## K. İSTATİSTİK KATMANI (02.08.2026 — Cem onayı: "bir, iki ve üçü yapalım")
+
+*Kaynağı: ABD/İngiltere sınav hazırlık ürünlerinin (UWorld, Becker tarzı)
+bizde olmayan üç özelliği. Üçünün de verisi bizde zaten var; soruya
+dokunmazlar, ekranda gösterilen ek bilgidir.*
+
+**K1. Zorluk istatistiği.** Her sorunun altında: *"Bu soruyu çözenlerin
+%38'i doğru bildi."* Aday hatasını bağlama oturtur: zor soruyu kaçırınca
+yıkılmaz, kolay soruyu kaçırınca ciddiye alır. Kaynak: `cevap_kaydi` tablosu.
+
+**K2. Veriye dayalı tuzak uyarısı.** Yanlış yapanların hangi şıkta toplandığı
+ölçülür ve açıklamada gösterilir: *"Adayların %41'i B'yi işaretledi — en sık
+düşülen tuzak bu."* Bizim yazdığımız tuzak cümlesini **gerçek veri** doğrular.
+
+**K3. Uygulamalı görev sorusu.** Şık işaretlemek yerine adayın **yevmiye
+kaydını kendisi yapması / tabloyu doldurması**. SMMM sınavının ruhu budur;
+çoktan seçmeli tek başına ölçmez. Altyapı hazır: `tablo` ve `yevmiye`
+alanları kasada mevcut.
+
+**K4. EŞİK KURALI (zorunlu).** K1 ve K2, bir soruda **en az 20 cevap**
+birikmeden **gösterilmez**. Yoksa "3 kişiden 1'i bildi" gibi anlamsız bir
+rakam çıkar ve güveni artıracakken azaltır. Eşik altında alan boş kalır —
+uydurma sayı basılmaz (Rakam Disiplini).
+
+**Sıra:** K1 ve K2 açılıştan önce (bugünkü altyapıyla, 0 USD).
+K3 yeni soru tipi olduğu için açılıştan sonraki ilk sprint.
+
+---
+
 ## J. DEĞİŞMEZ İLKE
 
 > **Sitede yanlış cevap olmayacak. Yanlışı öğrenciden önce biz göreceğiz.
