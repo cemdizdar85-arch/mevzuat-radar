@@ -628,6 +628,21 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 495 | — | TEMİZ — iyi soru | 311↔495 meşru ters-açı (TFRS 5: hangisi düşükse — 311 defter değeri düşük, 495 GUD-maliyet düşük); metin tümüyle ASCII (karakter onarım listesine) | min(284.750; 262.500)=262.500 + amortisman durur ✓ hesap tutarlı. |
 
 **Ara sayaç (495/500):** kesin yanlış **10** · riskli **16** · düzeltilir 102 · temiz 372 (%76).
+
+| 496 | — | DÜZELTİLİR | **E çeldirici açıklamasında İÇERİK HATASI**: "taşıma irsaliyesi diye belge yok" — YANLIŞ, VUK 240 taşıma irsaliyesini düzenler (nakliyecinin belgesi) | Cevap doğru ✓ (satıcı kendi taşıyor → sevk irsaliyesi, VUK 230/5); ama E açıklaması aday'a yanlış öğretiyor. Doğrusu: "taşıma irsaliyesi ücret karşılığı eşya taşıyan nakliyecinin belgesidir; burada satıcı kendisi taşıdığından sevk irsaliyesi gerekir." Q304/403/430 sınıfı: açıklama içerik hatası. |
+| 497 | — | TEMİZ | 314↔497 aynı standart farklı kural (geçiş / yıllık test) — meşru | TMS 38: sınırsız ömür → itfa yok + yıllık zorunlu test ✓. |
+| 498 | — | **KESİN YANLIŞ** | **amortisman yöntemi değişikliği = TAHMİN değişikliğidir, POLİTİKA değil** | İşaretli C şıkkı (doğrusal→azalan bakiyeler = politika değişikliği) TMS 16 p.61 ve TMS 8'e AYKIRI: amortisman yöntemi değişikliği muhasebe TAHMİNİNDEKİ değişiklik olarak muhasebeleştirilir. Tam da sınavların tuzak yaptığı ayrım — soru tuzağın yanlış tarafını doğru işaretlemiş. Üstelik şıklarda gerçek politika değişikliği örneği (örn. stok maliyetleme yöntemi FIFO→AOM) hiç yok; C o örnekle değiştirilirse soru kurtulur. 11. kesin yanlış. |
+| 499 | — | DÜZELTİLİR | **TTK 682 üçüncü tekrar** (411/417/499) — 499, 411'in birebir özü | İçerik doğru ✓; 417 (kombinasyon) + 411 yeterli, 499 elenir. |
+| 500 | — | TEMİZ — güzel kapanış | tek dayanağı çözülen soru (kusur 3) | TBK 71: önlem alınsa bile zarar doğurma elverişliliği ölçütü ✓ madde metniyle birebir. |
+
+---
+
+## OKUMA TAMAMLANDI — NİHAİ SAYAÇ (500/500)
+
+**Kesin yanlış 11 · Riskli 16 · Düzeltilir 104 · Temiz 374 (%75)**
+
+Kesin yanlışlar: 12, 15, 38, 41, 42, 88, 118, 125, 169, 230, **498**.
+Son yakalanan: Q498 — amortisman yöntemi değişikliğini "politika değişikliği" olarak işaretliyor; TMS 16 p.61/TMS 8 uyarınca TAHMİN değişikliğidir. 497 soruda sırıtmayan bu hata 498'de çıktı: **okumayı 500'e kadar sürdürmenin gerekçesi kendini son blokta kanıtladı.**
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
