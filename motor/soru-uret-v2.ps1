@@ -744,13 +744,20 @@ foreach($k in $ozet.Keys){ Write-Host ("  {0,-14} {1}" -f $k, $ozet[$k]) }
 Write-Host ("  GERCEK FATURA: ~{0:N2} USD" -f $gercek)
 Write-Host "  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez."
 $yol = if($cikti){ $cikti } else { Join-Path $kok 'veri/uretim-rapor.json' }
-[IO.File]::WriteAllText($yol, ([ordered]@{
+# 02.08 KAYIP TUZAGI: ConvertTo-Json bazen TEK string yerine string DIZISI
+# dondurur; WriteAllText o zaman "Argument types do not match" der ve kosu
+# EN SONDA duser. KGK partisinde tam bu oldu: 1.510 soru uretilip kasaya
+# yazildi (para harcandi), rapor yazilamadi ve emir DAMGALANMADI - bir sonraki
+# kosu ayni parayi ikinci kez harcayacakti. Cikti tek string'e zorlanir.
+$raporJson = ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); model=$model; hazirlik=$ist; ozet=$ozet
   fatura=[ordered]@{ giris=$gG; cikis=$gC; usd=[math]::Round($gercek,2) }
   redler=@($red | Select-Object -First 60)
   maddesiz_konular=@($maddesizListe)   # 01.08: yutma listesinin besleme kaynagi - hangi konu kaynaksiz kaldi
 
-} | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+} | ConvertTo-Json -Depth 6)
+if($raporJson -isnot [string]){ $raporJson = ($raporJson -join "`n") }
+[IO.File]::WriteAllText($yol, [string]$raporJson, (New-Object Text.UTF8Encoding($false)))
 Write-Host ("-> {0}" -f $yol)
 try{Stop-Transcript|Out-Null}catch{}
 exit 0
