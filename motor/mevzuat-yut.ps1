@@ -126,6 +126,15 @@ foreach($law in $manifest.kanunlar){
   # kaliyordu ve soru-cevap araci bayat metinle cevap veriyordu. Artik madde
   # deseni tutmazsa BOLUM parcalayicisi devreye girer (asagida), metin ambara
   # tam girer. Kural: "okumadigimiz metin kalmayacak".
+  # SEYREK KAYNAK (02.08): teblig arsivi (yuzlerce VUK GT) her gun indirilmez -
+  # bir kez yutulur, sonra HAFTADA BIR (pazar) tazelenir. ZORLA hepsini acar.
+  # Amac: kanunlarin gunluk tazeligi 185 tebligin indirme yuku yuzunden gecikmesin.
+  if($law.PSObject.Properties['seyrek'] -and $law.seyrek -eq $true){
+    $ilkKez = -not $durum.ContainsKey($law.slug)
+    $pazar  = ((Get-Date).DayOfWeek -eq 'Sunday')
+    $zorla  = ("$($env:ZORLA)" -eq "1" -or "$($env:ZORLA)" -eq "true")
+    if(-not ($ilkKez -or $pazar -or $zorla)){ continue }
+  }
   $raw = Get-Content $txt -Raw -Encoding UTF8
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
   $yhash = Sha $flat
