@@ -77,8 +77,18 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 51 | — | TEMİZ* | mükerrer (TTK 516 4. tekrar) | "Finansal tablolara göre" ✓. Örneklemde TTK 516: Q6/11/31/51. |
 | 52 | — | DÜZELTİLİR | yıl eşiği yanlış, sonuç doğru | VUK 323 hesabı iç tutarlı (68.200+18.750+12.300=99.250 ✓). Senaryo 31/12/2025 ama eşik "25.000" yazılmış — **2025 resmî eşiği 20.000 TL** (teyit: yıllık VUK tebliğ sirküleri). 18.750 < 20.000 olduğundan SONUÇ DEĞİŞMİYOR; açıklamadaki eşik 20.000 yapılacak ya da senaryo 2026'ya çekilecek. |
 
-**TEYİT (02.08, web):** VUK 323 küçük alacak sınırı **2025: 20.000 TL · 2026: 25.000 TL**.
-→ Q46 (2026 senaryosu + 25.000) **AKLANDI — TEMİZ**. Q52 sonuç doğru, eşik metni düzeltilecek.
+**TEYİT — BİRİNCİL KAYNAK (Cem uyarısı üzerine, 02.08):** İlk teyit ikincil kaynaktandı
+(müşavirlik sirküleri) — kural gereği GEÇERSİZ sayıldı, Resmî Gazete'ye inildi.
+**RG 31.12.2025, Sayı 33124 (5. Mükerrer), VUK Genel Tebliği Sıra No: 588,** ekli liste:
+- **m.323 şüpheli alacak tutarı 2026: 25.000 TL** (PDF'ten birebir okundu)
+- Yeniden değerleme oranı 2025: %25,49 (VUK GT 587, RG 24.12.2025)
+- Yan kazanımlar: m.232 fatura haddi 2026: 12.000 TL · m.313 demirbaş sınırı 2026: 12.000 TL
+→ Q46 (2026 + 25.000) **BİRİNCİL KAYNAKLA AKLANDI — TEMİZ**.
+→ Q52 (2025 senaryosu): 2025 eşiği onarımdan önce 2025 tebliğinden (Sıra No 577) aynı yöntemle teyit edilecek; sonuç (99.250) her durumda değişmiyor.
+→ **YUTMA AÇIĞI:** Ambar'da yıllık HADLER TEBLİĞLERİ yok (yalnız kanun metni var).
+  VUK GT 588 + 587 + geçmiş yıl hadler tebliğleri yutma listesine eklenecek;
+  yıllık-rakam nöbeti eşikleri bu tebliğlerden okuyacak. Soru üretimi yıl-eşiği
+  kullanacaksa dayanak KANUN DEĞİL O YILIN TEBLİĞİ olacak (A1 kuralına ek).
 
 **Ara sayaç (52/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 17 · temiz 26.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.

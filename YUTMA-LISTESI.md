@@ -197,6 +197,22 @@ Planlanan tüm yüksek riskli kaynaklar yutuldu: 15 eşik sayfası + Excel deste
 - **Kod kapsamı:** 15.717 tarife kodunun tamamı sorgulanabilir, hepsinde GV var (sanayi 12.605 + tarım 2.712 + balık 569). "Olmayan kod" yok.
 - **İHRACAT KISIT ROBOTU:** İhracı Kayda Bağlı (2006/7, en son 2025/2) + Yasak/Ön İzinli (96/31) → gtip-ihracat-kisit.json (60 kodlu + 10 yasak + 22 ön izinli isim bazlı). GTİP aracında "İHRACI KAYDA BAĞLI" bayrağı + bilgi.html#hap-ihracat-kisit tam liste. Robot nöbetçisi (arac/rg-tarama.ps1) artık ihracat kısıt + kıdem + GEKAP + İthalat Rejimi + İGV/KDV/ÖTV/KKDF tebliğ değişikliklerinde Cem'e mail atar.
 
+## 🔴 YILLIK HADLER TEBLİĞLERİ — AMBARDA YOK (02.08.2026, denetim-500 bulgusu)
+Cem uyarısı: "dışardan veri değil, birinci kaynaktan okuyacaktık." VUK 323 eşiği
+denetimde önce ikincil kaynaktan (müşavirlik sirküleri) teyit edilmişti — geçersiz
+sayıldı, Resmî Gazete'ye inildi. Ambar taranınca görüldü: **yıllık hadler
+tebliğlerinin HİÇBİRİ yutulmamış** (yalnız kanun metinleri var). Oysa yıl-eşikli
+her soru (şüpheli alacak sınırı, fatura haddi, demirbaş sınırı, GV tarifesi,
+usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN almak zorunda.
+- [ ] **VUK GT Sıra No 588** (RG 31.12.2025, 33124 5.Mük.) — 2026 hadleri.
+      PDF depoda: veri/kaynak-vuk-gt-588-rg-20251231.pdf (m.323: 25.000 ·
+      m.232: 12.000 · m.313: 12.000). AMBARA yutulacak.
+- [ ] **VUK GT Sıra No 587** (RG 24.12.2025) — 2025 yeniden değerleme oranı %25,49.
+- [ ] **VUK GT Sıra No 577** (RG Aralık 2024) — 2025 hadleri (Q52 onarımı için şart).
+- [ ] **GVK m.103 2026 tarifesi** (GV Genel Tebliği, RG Aralık 2025) — Q5/Q12 onarımı için şart.
+- [ ] Asgari ücret 2026 tebliği + SGK taban/tavan genelgesi — yıllık-rakam nöbetinin referansı.
+Kural: yıl-eşikli soru üretiminde dayanak = ilgili yılın tebliği (A1'e ek).
+
 ## İŞLEYİŞ
 - Yeni içerik: önce birincil metin (RG/Karar/tebliğ) yutulur/okunur, SONRA siteye eklenir. Sayısal veri deterministik (Excel/regex) hasat edilir, elle kaynakla doğrulanır.
 - "Otomatik güncellenir" İDDİA EDİLMEZ — kaynak değişince robot nöbetçisi uyarır, güncellemeyi biz elle yaparız.

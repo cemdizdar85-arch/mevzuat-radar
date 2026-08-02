@@ -90,6 +90,17 @@ kesiğinde kaybolmuştu (27.07, marka başvurusunda eksik bilgi). KYS 1'in
 - Hiçbir sayı uydurulmaz. Kaynağı yoksa yazılmaz; teyitsiz iddia yumuşatılır.
 - Site rakamları robotun ölçtüğü dosyadan gelir; boş/sıfır asla basılmaz.
 
+**6a. BİRİNCİL KAYNAK KİLİDİ** *(02.08.2026 — Cem: "1. kaynak dışı okuma YOK";
+VUK 323 vakası: eşik önce müşavirlik sirkülerinden 'teyit' edilip deftere yazıldı — İHLAL):*
+- Mevzuat rakamı/olgusu doğrulaması **yalnız birincilden**: Resmî Gazete,
+  mevzuat.gov.tr, GİB, KGK, kurumun kendi sitesi. Web araması bu alanlara
+  **kilitli** yapılır (allowed_domains); serbest arama yalnız "hangi tebliğ,
+  hangi RG sayısı" işaretini bulmak içindir ve tek başına hiçbir karar üretmez.
+- Bulgu defterine / rapora / kasaya bir rakam, ancak birincil METİN gözle
+  okunduktan **sonra** girer. "Şimdilik yazayım, sonra birincile bakarım" yasak.
+- Okunan birincil belge depoya kaydedilir (`veri/kaynak-*.pdf`) — kanıt iz bırakır.
+- Sirküler/özet/blog/yapay zekâ özeti = İŞARET'tir, TEYİT değildir. İstisnasız.
+
 ---
 
 ## 7. KARAR SIRASI
