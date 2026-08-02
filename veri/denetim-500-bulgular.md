@@ -238,7 +238,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 180 | — | TEMİZ | — | TMS 1: SMM özkaynak tablosunda yer almaz ✓. |
 | 181 | — | TEMİZ | — | TMS 1 md.10 tam set ✓. |
 
-**Ara sayaç (181/500):** kesin yanlış **9** · riskli **12** · düzeltilir 49 · temiz 116 (%64).
+| 182 | — | TEMİZ | — | TBK 72: 2 yıl öğrenmeden / 10 yıl fiilden ✓. |
+| 183 | — | TEMİZ | TBK 82 (7. — meşru varyant) | 12 yıl geçmiş → 10 yıllık tavan dolmuş ✓; 175'in ters senaryosu. |
+| 184 | — | DÜZELTİLİR-hafif | lafız kayması | TTK 55/1-a-6 mantığı ✓ ama kanun "TEDARİK fiyatının altında" der; soru/şık "piyasa değerinin/maliyetinin altında" diyor — terim düzeltilecek. |
+| 185 | — | TEMİZ | — | VUK 327: kira süresi belliyse süreye göre itfa (4 yıl → %25) ✓. |
+| 186 | — | TEMİZ | terim notu | TTK 60: 1 yıl + herhalde 3 yıl ✓; şıktaki "hak düşer" ifadesi teknikte "zamanaşımı" olmalı (açıklama doğru yazmış). |
+| 187 | — | TEMİZ | — | TMS 2 p.14: yan ürün NGD ile ölçülür, ana üründen indirilir ✓ — teori konusu standarda doğru bağlanmış. |
+
+**Ara sayaç (187/500):** kesin yanlış **9** · riskli **12** · düzeltilir 50 · temiz 121 (%65).
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
