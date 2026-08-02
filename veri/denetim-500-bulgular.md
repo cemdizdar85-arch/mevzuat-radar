@@ -496,6 +496,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 399 | — | TEMİZ | — | BDS 240 p.15: ekip beyin fırtınası ✓. |
 
 **Ara sayaç (399/500):** kesin yanlış **10** · riskli **15** · düzeltilir 77 · temiz 302 (%76). (362 hükmü geriye dönük düzeltildi.)
+
+| 400 | — | TEMİZ | "önemliliik" yazım hatası ×3 — kozmetik | BDS 320 p.12-13: yeni bilgi/koşul değişiminde revizyon ✓. |
+| 401 | — | DÜZELTİLİR | **309 ile mükerrer** (TFRS 10 p.22 NCI, aynı öz) | İçerik doğru ✓; 309 kalır (130.000 hesaplı), 401 elenir. |
+| 402 | — | TEMİZ | A çeldirici açıklaması not: 6356'da "federasyon" kurumu yok (eski 2821 kavramı) — açıklama bunu söylese daha iyi | m.2/1-g: değişik işkollarında en az beş sendika ✓. |
+| 403 | — | DÜZELTİLİR-hafif | **açıklamada terim kayması: "maliyet bedeli" ≠ "alış bedeli"** | Şık metni doğru ("alış bedeliyle") ✓ ve KKEG vurgusu güzel; ama açıklama iki kez "maliyet bedeli prensibi" diyor — VUK 279 alış bedeli der, maliyet bedeli VUK 262'nin ölçüsü. Tam da sınavın tuzak yaptığı ayrım; açıklama düzeltilecek. |
+| 404 | — | TEMİZ | — | TMS 7 m.35: vergi varsayılan işletme faaliyeti + özdeşleştirme istisnası ✓. |
+| 405 | — | TEMİZ | — | İş K 74: günde 1,5 saat, 1 yaş, çalışma süresinden sayılır ✓. |
+| 406 | — | TEMİZ | — | İş K 15: deneme süresinde iki taraf da bildirimsiz-tazminatsız fesih ✓. |
+| 407 | — | TEMİZ | — | TTK 4: işletme bağı yoksa ticari dava değil → asliye hukuk ✓. |
+
+**Ara sayaç (407/500):** kesin yanlış **10** · riskli **15** · düzeltilir 79 · temiz 308 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
