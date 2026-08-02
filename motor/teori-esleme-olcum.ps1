@@ -23,10 +23,25 @@ $kok  = Split-Path -Parent $here
 $enc  = New-Object Text.UTF8Encoding($false)
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - cikildi."; exit 0 }
 $raporYol = Join-Path $kok 'veri/teori-esleme-raporu.json'
-function Rapor($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), $enc) }
+# 02.08: ConvertTo-Json bazen TEK string yerine string DIZISI dondurur ve
+# WriteAllText "Argument types do not match" der. Ayni tuzak bugun uretim
+# raporunda 1.510 soruluk partiyi damgasiz birakmisti. Cikti daima tek string.
+function Rapor($n){
+  $j = ConvertTo-Json -InputObject $n -Depth 5
+  if($j -isnot [string]){ $j = ($j -join "`n") }
+  [IO.File]::WriteAllText($raporYol, [string]$j, $enc)
+}
 trap {
   Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
+}
+
+# Guvenli kirpma: Substring + Math::Min bilesimi bos/null metinde ve tur
+# uyusmazliginda "Argument types do not match" veriyordu (02.08 kosusu satir 82).
+function Kirp([string]$m, [int]$n){
+  if([string]::IsNullOrEmpty($m)){ return "" }
+  if($m.Length -le $n){ return $m }
+  return $m.Substring(0, $n)
 }
 
 . (Join-Path $here 'madde-coz.ps1') -kutuphane
@@ -72,7 +87,7 @@ foreach($s in $hedef){
         ders = "$($s.ders)"; konu = "$($s.konu)"
         eski_kaynak = "$($s.kaynak)"
         eslesen_not = "$($tn.ad)"; puan = $tn.puan
-        soru = ("$($s.soru)").Substring(0, [Math]::Min(120, "$($s.soru)".Length))
+        soru = Kirp "$($s.soru)" 120
       })
     }
   } else { $eslesmeyen++ }
