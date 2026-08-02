@@ -252,7 +252,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 192 | — | TEMİZ | — | TMS 19 zimni yükümlülük: 2.480.000×%3=74.400 ✓ paragraf atıfları zengin — iyi soru. |
 | 193 | — | TEMİZ* | VUK 275 (ters açı — meşru) | "Dahil ETMEK de doğru" varyantı ✓. |
 
-**Ara sayaç (193/500):** kesin yanlış **9** · riskli **12** · düzeltilir 50 · temiz 127 (%66). Blok 6/6 cevap-doğru.
+| 194 | — | TEMİZ | — | 3568 m.29/d odalar arası anlaşmazlık ✓; E açıklaması aynı-bent nüansını dürüstçe not ediyor. |
+| 195 | — | TEMİZ | — | TMS 19 katkı/fayda ayrımı (risk kimde?) ✓ iyi soru. |
+| 196 | — | TEMİZ | — | VUK 280 ana kural: borsa rayici ✓ (Q19 ile meşru çift). |
+| 197 | — | TEMİZ | etiket ters | TTK 16: ticaret şirketi = tacir ✓; etiket "5510 sigortalı sayılma"?! |
+| 198 | — | RİSKLİ + mükerrer | SPK kümesi 4. kopya (84/149/152/198) | 87.600×2=175.200 mantık ✓; küme teyidi bekliyor. |
+| 199 | — | TEMİZ | — | VUK 279 ters açı: %48 < %51 → borsa rayici ✓ — Q79/140'ın meşru karşıtı. |
+
+**Ara sayaç (199/500):** kesin yanlış **9** · riskli **13** (+198) · düzeltilir 50 · temiz 132 (%66).
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
