@@ -359,7 +359,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 293 | — | TEMİZ | — | m.48: tecil TALEBİ takibi durdurmaz ✓; E açıklaması mahcuz-mal-teminata-sayılır nüansını da veriyor — iyi soru. |
 | 295 | — | TEMİZ* | ihtiyati haciz kümesi (7. üye — yetkili merci alt-sorusu) | ✓ |
 
-**Ara sayaç (295/500):** kesin yanlış **10** · riskli **13** · düzeltilir 53 · temiz 223 (%76).
+| 296≈303 | — | TEMİZ* | yakın-çift (ithalatçı/imalatçı açıları) | ÖTV mükellefi ✓ ikisi de; 303'te "mükellefiydir" ×4 typo. |
+| 297 | — | TEMİZ | — | KVK 4/1-k: ortak dışı işlem → ayrı iktisadi işletme, muafiyet kısmen sürer ✓ güncel rejim doğru. |
+| 298≈299 | — | TEMİZ | meşru ters-açı çifti (TTK 603) | 298 "sözleşmeyle öngörülebilir" / 299 "öngörülmemişse istenemez" ✓ — kuralın iki yüzü. |
+| 300 | — | TEMİZ | — | TTK 541: bilinene mektup, bilinmeyene üç ilan ✓. |
+| 301 | — | DÜZELTİLİR-hafif | sayı hatası | KEP tek başına yeterli ✓ doğru — ama açıklama iki kez "BEŞ yöntem" diyor; yöntem DÖRT (noter/taahhütlü/telgraf/KEP). |
+| 302 | — | TEMİZ | 375 ailesinin meşru açısı | Üst düzey yönetim devredilemez ✓. |
+
+**Ara sayaç (303/500):** kesin yanlış **10** · riskli **13** · düzeltilir 54 · temiz 230 (%76). 300 eşiği geçildi.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
