@@ -10,6 +10,7 @@ on:
   push:
     paths:
       - 'veri/tetik/olcum.txt'
+      - 'motor/sgs-tip-olcum.ps1'        # script duzeltmesi = yeniden kos
   workflow_dispatch:
     inputs:
       sinir:

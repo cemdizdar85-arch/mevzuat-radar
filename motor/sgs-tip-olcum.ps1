@@ -139,7 +139,17 @@ foreach($k in $kayitlar){
 }
 Remove-Item $gecici -Recurse -Force -ErrorAction SilentlyContinue
 
-if($toplamSoru -eq 0){ Write-Host "Hicbir kitapcik olculemedi - cikildi."; exit 1 }
+if($toplamSoru -eq 0){
+  # 03.08 KOR KALMA: eskiden burada json YAZILMADAN cikiliyordu - kosucu
+  # FAILURE veriyor ama hangi kitapcigin neden dustugu gorulemiyordu.
+  # Artik kitapcik-bazli dokum her kosulda dosyaya yazilir.
+  $rapor = [ordered]@{
+    tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm'); durum = 'HATA - hicbir kitapcik olculemedi'
+    kitapcik_dokumu = @($kitapRapor)
+  }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/sgs-tip-olcum.json'), (ConvertTo-Json -InputObject $rapor -Depth 5), (New-Object Text.UTF8Encoding($false)))
+  Write-Host "Hicbir kitapcik olculemedi - dokum veri/sgs-tip-olcum.json'a yazildi."; exit 1
+}
 function Yuzde($n){ return [math]::Round(100 * $n / $toplamSoru, 1) }
 $dersListe = New-Object System.Collections.Generic.List[object]
 foreach($d in ($dersTip.Keys | Sort-Object)){
