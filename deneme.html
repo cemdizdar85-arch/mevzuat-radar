@@ -269,7 +269,10 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         </span>
       </div>
       <div id="hataKutu" class="gizli" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Ne hatalı görünüyor? Kısaca yaz — aynı gün bakılır, haklıysan düzeltme şeffaf yayınlanır.</div>
+        <!-- 02.08 Cem onayi (oneri 3): itiraz VITRINI - taahhut acikca yazilir.
+             Arkasi gercek: soru_bildirim tablosu + gunde 3 kez kosan nobetci;
+             ayni soruya 2 ayri oturumdan bildirim = otomatik yayindan cekme. -->
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px"><b style="color:var(--ink)">Sözümüz söz:</b> her sorumuz birincil kaynağa (kanun/tebliğ/standart maddesine) dayanır. Ne hatalı görünüyor? Kısaca yaz — <b style="color:var(--ink)">aynı gün</b> kaynağıyla bakılır; haklıysan soru düzeltilir ya da yayından iner, düzeltme şeffaf yayınlanır. Yanılan biz olursak bunu saklamayız.</div>
         <textarea id="hataMetin" rows="2" style="width:100%;background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px 12px;resize:vertical"></textarea>
         <div style="margin-top:8px;display:flex;gap:8px">
           <button class="ikincil" onclick="hataGonder()" style="border-color:rgba(255,194,75,.4);color:var(--amber)">Bildir</button>
