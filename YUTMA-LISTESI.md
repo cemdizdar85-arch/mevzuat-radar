@@ -5,11 +5,13 @@
 
 **GERÇEKTE YUTULMUŞ (liste yanlış diyordu) — 23 kalem:** TSRS 1 ✓ · TSRS 2 ✓ · TMS 20/26/27/32/33/34/41 ✓ · TFRS 1/2/6/11/12/14/17/18 ✓ · BDS 260/265/510/540/580/620/720 ✓ — hepsinin dosyası `veri/mevzuat/` içinde, metinleri paragraf paragraf sağlam (TSRS 1 tek başına 115 belge).
 
-**GERÇEKTEN EKSİK — yalnızca 4 başlık kaldı:**
-- [ ] **SDS 1** Sürdürülebilirlik Denetimi Standardı — KGK sınavı (g) modülünün TEK kaynağı, o modülde hâlâ tek soru üretilemiyor. **EN ÖNCELİKLİ.**
-- [ ] **BOBİ FRS** — TFRS uygulamayan denetime tabi şirketlerin tamamının kullandığı set; Türkiye uygulamasının belkemiği.
-- [ ] **KÜMİ FRS** — küçük ve mikro işletmeler.
+**GERÇEKTEN EKSİK — ikinci ölçümden sonra yalnızca 2 kaldı** *(ilk yazdığımda BOBİ/KÜMİ'yi de eksik sanmıştım — dosya adını yanlış aramışım: `bobi.json` değil `bobi-frs.json`. Ders: slug'ı script'ten oku, tahmin etme.)*
+- [x] **BOBİ FRS** — YUTULMUŞ (bobi-frs.json, 686 KB; ambarda **349 belge**, 02.08 gece teyitli).
+- [ ] **KÜMİ FRS** — YARIM: yalnız Kurum **duyuru metni** yutulmuş (kumi-frs.json 3 KB, ambarda **1 belge**). Standardın KENDİ metni yok; doğru PDF bulunup hedef listesine eklenmeli.
 - [ ] **Yapılandırma/af kanunları:** 7440 · 7326 · 7143 · 6736 (matrah artırımı soruları ve Af Radarı #63 bunlara dayanır).
+- ⚠️ **"SDS 1" DİYE BİR STANDART YOK.** Listede öyle yazıyordu; KGK'nın gerçek metni **SGDS 5000 Sürdürülebilirlik Güvence Denetimlerine İlişkin Genel Hükümler** ve hâlâ **TASLAK** (kamuoyu görüşünde, kgk.gov.tr duyuru 5112). Taslak bağlayıcı değildir — yutulursa "yürürlükteki kural" sanılır. KGK sınavının (g) modülü için taslak ayrı bir `tur` etiketiyle (taslak-madde) yutulabilir ama SORU DAYANAĞI YAPILAMAZ; yürürlüğe girince gerçek metin yutulur.
+
+**AMBAR SAYIMI (02.08 gece, yükleyici geçtikten sonra):** toplam **21.860 belge** (öncesi 19.497, +2.363). TSRS 1 → 105 · TSRS 2 → 64 · TFRS 18 → 23 · TMS 33 → 90 · TFRS 17 → 211 · BOBİ FRS → 349.
 
 **🔴 ASIL DARBOĞAZ — DOSYA DEPODA AMA AMBARDA DEĞİL:** Ölçüm (02.08 gece): TSRS 1 → ambarda **0** belge, TSRS 2 → **0**, TMS 33 → **0**, TFRS 17 → **0**, TFRS 18 → **0**. Yani sabah yutulan ~25 standart **soru fabrikasının göremediği yerde duruyor** — "yuttum" demek yetmiyor, ambara inmesi şart ([[yutma-kapsama-kapisi]] kuralı). Sebep: `yukle.yml` (Mevzuat Tam Yükleme) 17:25'ten beri **pending**; `mevzuat.yml` ile aynı `mevzuat-ayna` concurrency grubunu paylaşıyor ve 12:16'da başlayan bir koşu kilidi tutuyor. O koşu **HAYALET**: GitHub API'sinde `jobs: 0` — içinde çalışan tek iş yok, sadece kuyruğu bloke ediyor.
 
