@@ -233,6 +233,12 @@ Sen bir mevzuat denetcisisin. Asagida bir mevzuat huknunun TAM METNI ve bu hukme
 
 MUTLAK KURAL: YALNIZCA asagidaki METNE dayanarak karar ver. Kendi hafizandan hukum ekleme. Metinde yazmayan bir seyi ne dogru ne yanlis say; metin yetmiyorsa "yetersiz" de. Metin disinda bir kaynaga atif yapma.
 
+KOMSU MADDE KURALI: Metnin altinda "KOMSU MADDELER" blogu olabilir. O blok
+karar dayanagi DEGILDIR; tek isi sudur: isaretli cevabin asil dayanagi ANA
+METINDE degil de komsu maddede duruyorsa destek=hayir de ve gerekceye
+"kaynak kaymasi: m.<numara>" yaz. (Ornek vaka: soru TTK 482 etiketli ama
+sorulan hukum m.483'te - boyle soru yanlis etiketlidir, onaylanamaz.)
+
 === MEVZUAT METNI ($maddeEtiket) ===
 $maddeMetni
 === METIN BITTI ===
@@ -248,6 +254,11 @@ Su uc soruyu AYRI AYRI cevapla:
 1. destek    — Isaretli cevap ($($s.dogru)) yukaridaki metin tarafindan destekleniyor mu? (evet / hayir / yetersiz)
 2. tek_dogru — Siklardan TAM OLARAK BIRI mi dogru? Birden fazla sik dogruysa "hayir". (evet / hayir / yetersiz)
 3. celiski   — Sik aciklamalarindan HERHANGI BIRI metinle celisiyor mu? (evet / hayir)
+   Buna TANIM/KAVRAM hatalari da dahildir: aciklama, metindeki bir kavrami
+   yanlis tanimliyorsa (ornek vakalar: 4/b'liyi "kamu gorevlisi" diye tanitmak;
+   "alis bedeli"ne "maliyet bedeli" demek; vakif istisnasini dernege uygulamak;
+   metnin duzenledigi bir belgeye "boyle belge yok" demek) celiski=evet.
+   YANLIS sik aciklamalari da bu denetime dahildir - aday onlari da okur.
 
 ALINTI ZORUNLU: "alinti" alanina, hukmune dayanak olan yeri METINDEN BIREBIR kopyala (en fazla 25 kelime). Kendi cumleni yazma, degistirme, ozetleme. Alintin metinde birebir gecmiyorsa hukmun gecersiz sayilacak.
 
@@ -278,6 +289,18 @@ foreach($s in $sorular){
   $metin = "$($c.metin)"
   $kirpildi = $false
   if($metin.Length -gt $MAX_MADDE){ $metin = $metin.Substring(0,$MAX_MADDE); $kirpildi = $true }
+  # B13: duz kanun maddesinde komsu maddeleri de ekle (kaynak kaymasi avi).
+  # Yalniz 'cozuldu' (kanun) durumunda ve duz seride; standart/teori/hesap
+  # plani metinlerinde komsu kavrami yok.
+  if("$($c.durum)" -eq 'cozuldu' -and "$($c.madde)" -match '^\d+$'){
+    $komsular = KomsuMetinleri "$($c.kanun)" "$($c.madde)"
+    if(@($komsular).Count -gt 0){
+      $kb = "`n=== KOMSU MADDELER (karar dayanagi DEGIL - yalniz kaynak kaymasi kontrolu) ==="
+      foreach($km in $komsular){ $kb += "`n[m.$($km.madde) | $($km.ad)]`n$($km.metin)`n" }
+      $kb += "=== KOMSU BITTI ==="
+      $metin += $kb
+    }
+  }
   $isler.Add([pscustomobject]@{
     id      = "$($s.id)"
     soru    = $s

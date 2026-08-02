@@ -1,0 +1,41 @@
+# .github/workflows/onarim-tarama.yml — ONARIM TARAMASI
+# 500'luk el okumasinin makinelesen dersleri: mukerrer parmak izi, etiket/ders
+# kaymasi, konu-kaynak ilgisizligi, ASCII metin, istem artigi, mulga rejim,
+# homoglif. UCRETSIZ: yalniz Supabase okuma. Cikti: veri/onarim-tarama.json
+# (YALNIZ sayilar + id listesi - soru metni asla).
+name: Onarim Taramasi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/onarim-tarama.ps1'
+      - '.github/workflows/onarim-tarama.yml'
+      - 'veri/tetik/olcum.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: onarim-tarama
+  cancel-in-progress: false
+
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kasayi tara
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/onarim-tarama.ps1
+      - name: Sonucu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/onarim-tarama.json ]; then git add veri/onarim-tarama.json || true; fi
+          git diff --cached --quiet || git commit -m "Onarim taramasi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

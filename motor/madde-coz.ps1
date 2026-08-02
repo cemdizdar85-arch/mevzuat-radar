@@ -257,6 +257,27 @@ function TeoriNotuMetni([string]$kaynak, [string]$konu){
   return $sonuc
 }
 
+# --- B13 KOMSU MADDE (03.08.2026, 500-okumasi dersi): TTK 482 etiketli uc soru
+#     aslinda m.483'un hukmunu soruyordu; hakem yalniz 482'yi gorunce ya
+#     "yetersiz" dedi ya da yanlisi onayladi. Cozum: duz sayili maddelerde
+#     n-1 ve n+1 metinleri de getirilir; hakem "destek komsudaysa kaynak
+#     kaymasi var" diye HUKUM verebilir. Yalniz duz seri (muk/gec/ek haric).
+function KomsuMetinleri([string]$kanunNo, [string]$maddeNo){
+  $liste = @()
+  $n = 0
+  if(-not [int]::TryParse("$maddeNo", [ref]$n)){ return $liste }
+  foreach($km in @(($n-1), ($n+1))){
+    if($km -lt 1){ continue }
+    $m = MaddeMetni $kanunNo "$km" ''
+    if($m -and "$($m.metin)".Trim().Length -ge 40){
+      $mt = "$($m.metin)"
+      if($mt.Length -gt 1200){ $mt = $mt.Substring(0,1200) }
+      $liste += ,([ordered]@{ madde = "$km"; ad = "$($m.ad)"; metin = $mt })
+    }
+  }
+  return $liste
+}
+
 function KaynakCoz([string]$kaynak, [string]$konu = ''){
   if(MevzuatDisiMi $kaynak){
     # mevzuat disi = teori alani. Once ambardaki teori notuna bakilir; varsa

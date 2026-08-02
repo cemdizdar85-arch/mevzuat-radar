@@ -344,8 +344,13 @@ foreach($r in $sirali){
   }
   if(-not $ackVar){ [void]$sb.AppendLine("  - **ACIKLAMA OKUNAMADI / BOS** - INCELE") }
   [void]$sb.AppendLine("")
-  if("$($s.yevmiye)".Trim().Length -gt 5){ [void]$sb.AppendLine("**YEVMIYE VERISI:** " + (Kirp "$($s.yevmiye)" 400)); [void]$sb.AppendLine("") }
-  if("$($s.tablo)".Trim().Length -gt 5){ [void]$sb.AppendLine("**TABLO VERISI:** " + (Kirp "$($s.tablo)" 400)); [void]$sb.AppendLine("") }
+  # 03.08 BASKI DUZELTMESI: "$($s.yevmiye)" PS stringlestirmesi diziyi
+  # "260002600026000", nesneyi "@{...System.Object[]}" diye basiyordu; 500
+  # okumasinda "bozuk alan" sanilan sey RAPORUN kendi hatasiydi. JSON bas.
+  if($s.yevmiye){ $yj = $(try { ConvertTo-Json $s.yevmiye -Depth 6 -Compress } catch { "$($s.yevmiye)" })
+    if("$yj".Trim().Length -gt 5){ [void]$sb.AppendLine("**YEVMIYE VERISI:** " + (Kirp "$yj" 600)); [void]$sb.AppendLine("") } }
+  if($s.tablo){ $tj = $(try { ConvertTo-Json $s.tablo -Depth 6 -Compress } catch { "$($s.tablo)" })
+    if("$tj".Trim().Length -gt 5){ [void]$sb.AppendLine("**TABLO VERISI:** " + (Kirp "$tj" 600)); [void]$sb.AppendLine("") } }
   [void]$sb.AppendLine("**KAYNAK ALANI:** $($s.kaynak)" + $(if($r.izN -ge 2){ "  _(bu kural havuzda $($r.izN) soruda)_" } else { "" }))
   [void]$sb.AppendLine("")
   if($r.dayanak){

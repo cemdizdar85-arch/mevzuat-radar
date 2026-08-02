@@ -22,6 +22,10 @@
 #     asgari ucret · SGK taban/tavan/prim · kidem tazminati tavani ·
 #     yeniden degerleme · amortisman siniri/haddi · fatura duzenleme haddi ·
 #     defter tutma haddi · beyanname siniri · istisna tutari · gecikme zammi orani
+#   03.08 GENISLETME (500-okumasi dersleri - Q12 GV tarifesi 2019, Q15 binek
+#   oto 2020, Q84/149/152 SPK cezasi 2012, Q52 supheli alacak esigi):
+#     gelir vergisi tarifesi/dilimi · idari para cezasi · supheli alacak esigi ·
+#     binek otomobil kisiti · damga vergisi tutari · MTV
 #
 #  PARA HARCAMAZ. ENV: SUPABASE_SERVICE_KEY
 #  Cikti: veri/yillik-rakam-nobeti.json
@@ -37,7 +41,7 @@ $SB = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPA
 $raporYol = Join-Path $kok 'veri/yillik-rakam-nobeti.json'
 $buYil = [int](Get-Date -Format 'yyyy')
 
-$reKavram = [regex]'(?i)asgari\s+[üu]cret|sgk\s+(taban|tavan|prim)|prime\s+esas\s+kazan[çc]|k[ıi]dem\s+tazminat[ıi]\s+tavan|yeniden\s+de[ğg]erleme|amortisman\s+(s[ıi]n[ıi]r|hadd)|fatura\s+(d[üu]zenleme\s+)?(s[ıi]n[ıi]r|hadd)|defter\s+tutma\s+hadd|beyanname\s+verme\s+s[ıi]n[ıi]r|istisna\s+tutar|gecikme\s+zamm[ıi]\s+oran'
+$reKavram = [regex]'(?i)asgari\s+[üu]cret|sgk\s+(taban|tavan|prim)|prime\s+esas\s+kazan[çc]|k[ıi]dem\s+tazminat[ıi]\s+tavan|yeniden\s+de[ğg]erleme|amortisman\s+(s[ıi]n[ıi]r|hadd)|fatura\s+(d[üu]zenleme\s+)?(s[ıi]n[ıi]r|hadd)|defter\s+tutma\s+hadd|beyanname\s+verme\s+s[ıi]n[ıi]r|istisna\s+tutar|gecikme\s+zamm[ıi]\s+oran|gelir\s+vergisi\s+tarif|vergi\s+dilim|idari\s+para\s+cezas|[şs][üu]pheli\s+alacak|binek\s+oto|damga\s+vergisi|motorlu\s+ta[şs][ıi]tlar\s+vergisi'
 $reYil    = [regex]'\b(20[2-3][0-9])\b'
 $reTutar  = [regex]'\d{1,3}(?:\.\d{3})+(?:,\d+)?\s*TL'
 

@@ -376,6 +376,24 @@ MUTLAK KURALLAR:
 2. BES sik (A-E), TAM OLARAK BIRI dogru. Digerleri makul ama acikca yanlis olmali - "neredeyse dogru" sik yazma.
 3. Cikmis sinav sorusu KOPYALAMA. Ozgun yaz.
 4. Istenen KURGUYA sadik kal. "bilgi" istendiyse hesap sorusu yazma.
+5. HESAP/KAYIT DENGESI (500-okumasi dersi: 1.597 vs 1.629,61 vakasi): hesap
+   sorusunda dogru sikkin rakami, dogru sik aciklamasindaki formulden ADIM ADIM
+   birebir cikacak - once formulu yaz, sonra sikka o sonucu koy. Yevmiye
+   yazarsan BORC TOPLAMI = ALACAK TOPLAMI olacak; dengesiz yevmiye COPTUR.
+   Her YANLIS sikkin rakami da TANIMLI TEK BIR hatadan uretilecek (orn.
+   "tesvik dusulmemis", "KDV matraha katilmis", "kist ay atlanmis") ve o hata
+   sikkin aciklamasinda adlandirilacak. Hicbir formule oturmayan "rastgele"
+   rakamli celdirici YASAK.
+6. ZAMANSIZ TASARIM (yil-esik vakalari: 2019 tarifesiyle 2024 sorusu):
+   yila bagli oran/esik/tarife kullanacaksan degeri SORU GOVDESINDE acikca ver
+   ("ilgili yil icin esik 25.000 TL'dir" gibi) YA DA senaryo yilini dayanak
+   metnindeki degerin yiliyla ayni yap. Mevzuat guncellenince eskiyecek soru
+   kurma.
+7. KAYNAK ETIKETI ASIL PARAGRAF OLACAK (Q498 dersi): sorunun dayandigi kaynagi
+   yazarken "p.1 - Amac" gibi GENEL bir etiket KULLANMA; kuralin gectigi ASIL
+   madde/paragraf numarasini yaz (orn. "TMS 8 p.32-38" ya da "TMS 16 p.61").
+   Genel etiket, hakemin yanlis metne bakmasina ve hatanin ONAYLANMASINA yol
+   acti - bu yuzden genel etiketli soru supheli sayilir.
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>

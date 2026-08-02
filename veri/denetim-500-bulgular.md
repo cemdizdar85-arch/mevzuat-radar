@@ -643,6 +643,22 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 Kesin yanlışlar: 12, 15, 38, 41, 42, 88, 118, 125, 169, 230, **498**.
 Son yakalanan: Q498 — amortisman yöntemi değişikliğini "politika değişikliği" olarak işaretliyor; TMS 16 p.61/TMS 8 uyarınca TAHMİN değişikliğidir. 497 soruda sırıtmayan bu hata 498'de çıktı: **okumayı 500'e kadar sürdürmenin gerekçesi kendini son blokta kanıtladı.**
+
+---
+
+## ADIM 1 — BEDAVA MAKİNE/KURAL DÜZELTMELERİ UYGULANDI (03.08.2026)
+
+| # | Ders (okumadan) | Düzeltme | Nerede |
+|---|---|---|---|
+| 1 | B13 komşu madde körlüğü (TTK 482→483, 3 kesin yanlış) | Çözücüye `KomsuMetinleri` eklendi (n−1, n+1); hakem istemine "kaynak kayması" hükmü öğretildi. Yerel test: TTK 482 → m.481+m.483 geliyor ✓ | madde-coz.ps1 + profesor-v2.ps1 |
+| 2 | B14 hesap tutarsızlığı (1.597≠1.629,61; dengesiz yevmiye) | MUTLAK KURAL 5: doğru şık formülden adım adım; yevmiye borç=alacak; her çeldirici TANIMLI hatadan üretilir (Q463 formülsüz çeldirici dersi dahil) | soru-uret-v2.ps1 |
+| 3 | Yıl-bağımlı rakam (2019 tarifesi, 2020 oto, 2012 SPK) | MUTLAK KURAL 6: zamansız tasarım (değer gövdede YA DA yıl=dayanak yılı). Nöbetçi kavram listesi genişletildi: GV tarifesi/dilim, idari para cezası, şüpheli alacak, binek oto, damga vergisi, MTV | soru-uret-v2.ps1 + yillik-rakam-nobeti.ps1 |
+| 4 | Q498 kök sebebi (dayanak "p.1 Amaç" → hakem asıl kuralı görmedi) | MUTLAK KURAL 7: genel kaynak etiketi yasak; asıl paragraf yazılır | soru-uret-v2.ps1 |
+| 5 | Açıklama içerik hatası (4/b, alış/maliyet, dernek/vakıf, taşıma irsaliyesi — 5 vaka) | Hakemin "çelişki" tanımına TANIM/KAVRAM hataları dahil edildi; yanlış şık açıklamaları da denetimde | profesor-v2.ps1 |
+| 6 | Mükerrer aile şişkinliği (~35 çift/üçüz; süt izni ×6) | **onarim-tarama.ps1**: kasa çapında A7 parmak izi + etiket/ders + konu-ilgisizlik + ASCII + istem artığı + mülga rejim + homoglif (7 kontrol, 0 USD) — Actions'ta koşuyor | motor + workflow yeni |
+| 7 | "Bozuk yevmiye/tablo alanı" vakaları | **DÜZELTME: kasa verisi değil, denetim RAPORUNUN baskı hatasıymış** ("$()" diziyi "260002600026000" basıyordu). Rapor yazıcısı JSON basacak şekilde onarıldı; 337/342/387 vb. notlar bu yönüyle düşürüldü | denetim-500.ps1 |
+
+Adım 1 kapsamı dışında bilinçli bırakılanlar (paralı/onarım partisine ait): soru metni düzeltmeleri (kesin yanlış + riskli + düzeltilir), mükerrer ELEME kararlarının kasaya işlenmesi, ders/etiket remap uygulaması, Q49↔66 çelişki çifti, ASCII karakter onarımı.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
