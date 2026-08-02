@@ -441,6 +441,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 359 | — | TEMİZ | — | BDS 530 Ek 3: büyük kütlede ana kütle etkisi ihmal edilebilir ✓. |
 
 **Ara sayaç (359/500):** kesin yanlış **10** · riskli **15** · düzeltilir 69 · temiz 270 (%76). (346 hükmü geriye dönük düzeltildi.)
+
+| 360 | — | TEMİZ | — | BDS 300 strateji (üst çerçeve) / plan (ayrıntı) ✓. |
+| 361 | — | TEMİZ | 361↔364 çifti (aşağıda) | BDS 520 p.7: sor → doğrula → ek prosedür ✓. |
+| 362 | — | TEMİZ | BDS 530 ailesi (359 ile farklı faktör — meşru) | Düşük risk → büyük örneklem ✓. |
+| 363 | — | TEMİZ | — | BDS 520 6(b): genel gözden geçirme = bütünsel uyum sonucu ✓. |
+| 364 | — | DÜZELTİLİR | **361 ile mükerrer** (BDS 520 p.7, aynı öz cevap; yalnız sektör/oran değişik) | İçerik doğru ✓; 361 kalır, 364 elenir. |
+| 365 | — | TEMİZ | — | Analitik prosedür teknik tanıma ✓; beş teknik beş çeldirici, düzgün. |
+| 366 | — | TEMİZ | — | TBK m.52 birlikte kusur → hâkim indirimi ✓. |
+| 367 | — | TEMİZ | — | TBK m.78/2: zamanaşımına uğramış borcun ifası geri istenemez ✓ madde atfı birebir doğru. |
+
+**Ara sayaç (367/500):** kesin yanlış **10** · riskli **15** · düzeltilir 70 · temiz 277 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
