@@ -141,7 +141,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 96 | — | DÜZELTİLİR | B3 + yanlış tablo başlığı | 123.450÷650=189,92≈190 ✓ C doğru. Ama A şıkkı (158) hiçbir hesapla çıkmıyor (direkt maliyet/650=153,92 — o E'nin rakamı); TABLO başlığı "408 Nolu Sipariş" diyor, soru 512 numaralı — tablo başka sorudan kopyalanmış. |
 | 97 | — | TEMİZ | VUK 275 kümesi | 138.805 ✓ tutarlı; ambalaj + ihtiyari idare gideri doğru işlenmiş. |
 
-**Ara sayaç (97/500):** kesin yanlış **6** · riskli **7** · düzeltilir 32 · temiz 53.
+| 98 | — | TEMİZ* | mükerrer (VUK 315 ×3: 25/37/98) | Üçüncü kopya. |
+| 99 | — | DÜZELTİLİR | B14 hafif + İş K.13 kümesi (6.) | 28.740×23/45 = **14.689,33**, şıkta 14.688 (1,33 sapma). Kural ✓; E açıklamasının ilk cümlesi ters kurulmuş. |
+| 100 | — | TEMİZ | — | VUK 262: 369.690 ✓; eğitim/kira doğru dışlanmış, çeldiriciler tutarlı. |
+| 101 | — | TEMİZ | — | VUK 359 gizleme: hem vergi ziyaı hem hapis ✓ iyi soru. |
+| 102 | — | TEMİZ | — | TTK 474-475 alacaklı çağrısı + 2 ay ✓. |
+| 103 | — | DÜZELTİLİR | B3 | 174.510/120=1.454,25 ✓ B doğru. Ama A şıkkı (1.331) ve E şıkkı (1.699) hiçbir hesapla üretilemiyor (A 1.314, E 1.577 olmalıydı — E zaten C ile çakışırdı). Çeldirici üretimi yine özensiz. |
+
+**Ara sayaç (103/500):** kesin yanlış **6** · riskli **7** · düzeltilir 34 · temiz 57.
+**Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
 **Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
