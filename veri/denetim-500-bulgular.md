@@ -452,6 +452,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 367 | — | TEMİZ | — | TBK m.78/2: zamanaşımına uğramış borcun ifası geri istenemez ✓ madde atfı birebir doğru. |
 
 **Ara sayaç (367/500):** kesin yanlış **10** · riskli **15** · düzeltilir 70 · temiz 277 (%76).
+
+| 368 | — | TEMİZ | — | TBK 82: öğrenmeden 2 yıl / her hâlde 10 yıl → 01.01.2020 ✓. |
+| 369 | — | TEMİZ | — | TBK 28 gabin: 1 yıl öğrenme / 5 yıl mutlak ✓. |
+| 370 | — | DÜZELTİLİR | **366 ile mükerrer** (TBK 52 müterafik kusur, aynı öz) | İçerik doğru ✓; 366 kalır (uyarı levhası nüansı daha öğretici), 370 elenir. |
+| 371 | — | TEMİZ | — | TBK 66: iş dışı özel hayat → adam çalıştıran sorumlu değil ✓. |
+| 372 | — | TEMİZ | — | TBK 508 hesap verme + aldıklarını teslim ✓. |
+| 373 | — | TEMİZ | — | TBK 40 doğrudan temsilde açıklık ilkesi ✓. |
+| 374 | — | TEMİZ | — | TBK 21 yazılmamış sayılma ✓; punto/bildirim ayrımı (B çeldiricisi) iyi işlenmiş. |
+| 375 | — | TEMİZ — iyi soru | — | TBK 132: ibra şekle bağlı değil ✓; "serbest çalışan" seçimi bilinçli (TBK 420 işçi ibrası kapsamına girmiyor — eser ilişkisi). |
+
+**Ara sayaç (375/500):** kesin yanlış **10** · riskli **15** · düzeltilir 71 · temiz 284 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
