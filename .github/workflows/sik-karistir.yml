@@ -1,0 +1,41 @@
+# .github/workflows/sik-karistir.yml — SIK KARISTIRICI
+# Dogru cevap %44,4 A'da yigilmis (kasa-desen 12:48). Deterministik dengeleme.
+# Push (script) = OLCUM. veri/tetik/sik-karistir-uygula.txt = GERCEK yazma.
+name: Sik Karistirici
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/sik-karistir.ps1'
+      - '.github/workflows/sik-karistir.yml'
+      - 'veri/tetik/sik-karistir-uygula.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sik-karistir
+  cancel-in-progress: false
+
+jobs:
+  karistir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if(Test-Path 'veri/tetik/sik-karistir-uygula.txt'){ ./motor/sik-karistir.ps1 -uygula } else { ./motor/sik-karistir.ps1 }
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/sik-karistir.json ]; then git add veri/sik-karistir.json || true; fi
+          git diff --cached --quiet || git commit -m "Sik karistirici [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
