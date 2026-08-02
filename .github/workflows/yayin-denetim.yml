@@ -1,0 +1,46 @@
+# .github/workflows/yayin-denetim.yml — INSAN GOZU DENETIMI (0 USD)
+# Cem 02.08: "kalite odun yok, sitede yanlis cevap olmayacak; yanlis cevabi ILK
+# BIZ gorecegiz." Bu is akisi yayindaki sorulari dayanak metniyle yan yana
+# dokup okunabilir bir rapor uretir (veri/yayin-denetim.md). API cagrisi YOK.
+name: Yayin Denetimi (insan gozu, 0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      adet:
+        description: "kac soru denetlensin (varsayilan 50)"
+        required: false
+        default: "50"
+      ders:
+        description: "yalniz bu ders (bos = hepsi)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yayin-denetim
+  cancel-in-progress: false
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetim raporu uret (API cagrisi YOK)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayin-denetim.ps1 -adet ${{ github.event.inputs.adet || 50 }} -ders "${{ github.event.inputs.ders }}"
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/yayin-denetim.json veri/yayin-denetim.md; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet || git commit -m "Yayin denetimi raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

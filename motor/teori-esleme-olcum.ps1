@@ -106,7 +106,11 @@ Rapor ([ordered]@{
   eslesen = $eslesen
   eslesmeyen = $eslesmeyen
   eslesme_orani_yuzde = $oran
-  ornekler = @($ornekler)
+  # 02.08 KOK NEDEN (yerelde birebir uretildi): [ordered]@{ x = @($list) }
+  # kalibi PowerShell 5.1'de "Argument types do not match" atar. .ToArray()
+  # sart. Bu tek satir bugun uc kosuyu dusurdu ve KGK partisinin emrini
+  # damgasiz birakip 30 dolari riske atti.
+  ornekler = $ornekler.ToArray()
   not = "Bu rapor eslesmenin DOGRULUGUNU insan gozuyle denetlemek icindir: her ornekte 'konu' ile 'eslesen_not' birbirine ait mi diye bakilir. Alakasiz eslesme varsa puan esigi yukseltilir - PARA HARCANMADAN."
 })
 Write-Host ("ESLESEN: {0} | ESLESMEYEN: {1} | oran %{2}" -f $eslesen, $eslesmeyen, $oran)

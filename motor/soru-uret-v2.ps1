@@ -753,7 +753,7 @@ $raporJson = ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); model=$model; hazirlik=$ist; ozet=$ozet
   fatura=[ordered]@{ giris=$gG; cikis=$gC; usd=[math]::Round($gercek,2) }
   redler=@($red | Select-Object -First 60)
-  maddesiz_konular=@($maddesizListe)   # 01.08: yutma listesinin besleme kaynagi - hangi konu kaynaksiz kaldi
+  maddesiz_konular=$maddesizListe.ToArray()   # 01.08: yutma listesinin besleme kaynagi - hangi konu kaynaksiz kaldi
 
 } | ConvertTo-Json -Depth 6)
 if($raporJson -isnot [string]){ $raporJson = ($raporJson -join "`n") }
