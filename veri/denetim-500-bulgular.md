@@ -562,6 +562,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 447 | — | TEMİZ | — | TTK 574: limited 50 ortak tavanı; aşmak için tür değişikliği ✓ A çeldirici (kendiliğinden dönüşüm) iyi. |
 
 **Ara sayaç (447/500):** kesin yanlış **10** · riskli **16** · düzeltilir 87 · temiz 339 (%76).
+
+| 448 | — | TEMİZ — aile şampiyonu | **3568 m.50 ÜÇÜZ (330/331/448)** + konu etiketi ilgisiz ("sigortasız çalıştırma cezası") | Bent haritası en zengin üye (a-m Birlik / n Bakanlık / k disiplin). **Karar güncellendi: 448 kalır, 330 VE 331 elenir.** |
+| 449 | — | TEMİZ — 432'nin yerine kalır | **432 ile mükerrer** (takas muacceliyet) | 449 feragat nüansını da işliyor (vadeden yalnız borçlusu feragat eder) — **432 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 450 | — | DÜZELTİLİR | **süt izni 6. ÜYE** — 405+413 karışım kopyası | İçerik doğru ✓; elenir. İş K 74 süt izni tek başına 500'lük örneklemde 6 soru: 405/413/427 kalır, 433/443/450 elenir. |
+| 451 | — | TEMİZ — 333'ün yerine kalır | **333 ile mükerrer** (TMS 19 p.23 prim=gider, aynı öz) | 451 zımni-kabul kanıt ölçütü (p.22) + iskonto çeldirilisi (p.50) ile daha derin — **333 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 452 | — | TEMİZ | — | TTK 623/1: en az bir ortak müdür şart ✓. |
+| 453 | — | TEMİZ | 420↔453 farklı beceri (sıfat kazanımı / kazanım TARİHİ + ilan-tescil alternatifliği) — ikisi kalabilir | TTK 12/2: gazete ilanı tek başına yeterli → Mart ✓. |
+| 454 | — | TEMİZ | konu etiketi kayması ("alacaklar kontrol testleri") | VUK 322 değersiz alacak: aciz vesikası → doğrudan zarar ✓; 322↔323 ayrımı (E çeldirici) öğretici. |
+| 455 | — | TEMİZ — iyi soru | — | TMS 27 p.12: maliyet yönteminde temettü, hak doğduğunda K/Z'ye ✓; özkaynak yöntemi ayrımı (A çeldirici) doğru işlenmiş. |
+
+**Ara sayaç (455/500):** kesin yanlış **10** · riskli **16** · düzeltilir 90 · temiz 344 (%76). (432 ve 333 hükümleri geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
