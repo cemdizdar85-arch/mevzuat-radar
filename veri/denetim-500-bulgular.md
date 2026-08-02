@@ -259,7 +259,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 198 | — | RİSKLİ + mükerrer | SPK kümesi 4. kopya (84/149/152/198) | 87.600×2=175.200 mantık ✓; küme teyidi bekliyor. |
 | 199 | — | TEMİZ | — | VUK 279 ters açı: %48 < %51 → borsa rayici ✓ — Q79/140'ın meşru karşıtı. |
 
-**Ara sayaç (199/500):** kesin yanlış **9** · riskli **13** (+198) · düzeltilir 50 · temiz 132 (%66).
+| 200 | — | TEMİZ | — | TMS 16 p.12-13: yenileme aktife, yağlama gidere ✓. |
+| 201 | — | TEMİZ | etiket ters | İş K. m.4: orman 50-altı kapsam dışı AMA park-bahçe sayıdan bağımsız kapsamda ✓ — nüanslı iyi soru. |
+| 202 | — | TEMİZ | — | TMS 24 p.13: işlem olmasa da ana ortaklık + nihai kontrol sahibi açıklanır ✓. |
+| 203 | — | TEMİZ | — | VUK 278/278-A: başvuru yoksa sıfır değil emsal bedel ✓ (54 ile meşru varyant). |
+| 204 | — | TEMİZ | — | 6356 m.34: işletme TİS tek işverene ait işyerleri için; farklı tüzel kişi = ayrı sözleşme ✓. |
+| 205 | — | TEMİZ | etiket ters | 3568 m.12: YMM tasdik kapsamıyla sınırlı müşterek-müteselsil ✓. |
+
+**Ara sayaç (205/500):** kesin yanlış **9** · riskli **13** · düzeltilir 50 · temiz 138 (%67). 8-puan bandı (yalnız iki genel kapı) temiz başladı — 6/6.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
