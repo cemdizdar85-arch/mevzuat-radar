@@ -1,0 +1,98 @@
+{
+  "tarih": "02.08.2026 12:19",
+  "durum": "TAMAM",
+  "ortam": {
+    "ps_surum": "7.6.3",
+    "ps_edition": "Core",
+    "isletim": "Unix",
+    "actions": "true",
+    "servis_key": true
+  },
+  "baslik_kaniti": {
+    "tip": "Hashtable",
+    "anahtar_sayisi": 2,
+    "apikey_var": true
+  },
+  "ham_sorgu": {
+    "uri": "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=imatch.%5EVUK.%2Am%5C.323&limit=5",
+    "http": 200,
+    "kayit": 2,
+    "ilk": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]"
+  },
+  "vaka_sayisi": 12,
+  "cozulen": 12,
+  "sonuclar": [
+    {
+      "kaynak": "5510 sayılı Kanun m.50",
+      "durum": "cozuldu",
+      "metin_kr": 804,
+      "ad": "5510 s. SGK Kanunu m.50"
+    },
+    {
+      "kaynak": "4857 sayılı İş Kanunu m.13",
+      "durum": "cozuldu",
+      "metin_kr": 2275,
+      "ad": "İş K. (4857 s.K.) m.13 [1/2]"
+    },
+    {
+      "kaynak": "VUK m.235",
+      "durum": "cozuldu",
+      "metin_kr": 1198,
+      "ad": "VUK (213 s.K.) m.235 - Hazine ve Maliye Bakanlığı yetkilidir. Müstahsil makbuzu"
+    },
+    {
+      "kaynak": "TMS 21 p.1 - Amaç",
+      "durum": "cozuldu-standart",
+      "metin_kr": 16714,
+      "ad": "TMS 21 p.1 - Amaç"
+    },
+    {
+      "kaynak": "TFRS 10 p.1-3 - Amac",
+      "durum": "cozuldu-standart",
+      "metin_kr": 9946,
+      "ad": "TFRS 10 p.1-3 - Amac"
+    },
+    {
+      "kaynak": "TBK m.52",
+      "durum": "cozuldu",
+      "metin_kr": 430,
+      "ad": "TBK (6098 s.K.) m.52"
+    },
+    {
+      "kaynak": "SMMM K. (3568 s.K.) m.50 [1/2]",
+      "durum": "cozuldu",
+      "metin_kr": 2139,
+      "ad": "SMMM K. (3568 s.K.) m.50 [1/2]"
+    },
+    {
+      "kaynak": "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+      "durum": "cozuldu",
+      "metin_kr": 3807,
+      "ad": "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]"
+    },
+    {
+      "kaynak": "6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu m.2/1-g",
+      "durum": "cozuldu",
+      "metin_kr": 2463,
+      "ad": "Sendikalar ve TİS K. (6356 s.K.) m.2 [1/2]"
+    },
+    {
+      "kaynak": "BDS 501 madde 4",
+      "durum": "cozuldu-standart",
+      "metin_kr": 7760,
+      "ad": "BDS 501 p.1 - Giriş - Kapsam"
+    },
+    {
+      "kaynak": "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]",
+      "durum": "cozuldu",
+      "metin_kr": 2069,
+      "ad": "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]"
+    },
+    {
+      "kaynak": "4054 sayılı Rekabet Kanunu m.6",
+      "durum": "cozuldu",
+      "metin_kr": 1341,
+      "ad": "Rekabet K. (4054 s.K.) m.6"
+    }
+  ]
+}
