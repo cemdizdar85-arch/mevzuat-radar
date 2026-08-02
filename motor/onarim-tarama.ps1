@@ -82,9 +82,11 @@ function DersAile([string]$d){
   # 1. tur ince ayari (03.08): TICARET muhasebe/mali-tablo derslerinde MESRUDUR
   # (TTK ticari defter, sirket, birlesme hukumleri mufredatta) - ilk kosuda
   # 2.251 yanlis alarm vermisti. MESLEK (3568) ise gercek kaymadir, kalir.
+  # 2. tur ince ayari: 'denetim' kontrolu MUHASEBEDEN ONCE gelmeli - "Muhasebe
+  # Denetimi" dersi 'muhasebe' desenine takilip BDS sorularini kayma sayiyordu.
+  if($t -match 'denetim')                               { return @('DENETIM','STANDART') }
   if($t -match 'maliyet|finansal muhasebe|genel muhasebe|muhasebe'){ return @('VERGI','STANDART','KAMU','TICARET') }
   if($t -match 'mali tablo|finansal tablo|analiz')      { return @('STANDART','VERGI','KAMU','TICARET') }
-  if($t -match 'denetim')                               { return @('DENETIM','STANDART') }
   if($t -match 'ticaret hukuku|sirketler')              { return @('TICARET','SERMAYE') }
   if($t -match 'borclar')                               { return @('BORCLAR','TICARET') }
   if($t -match 'is ve sosyal|sosyal g')                 { return @('IS') }
