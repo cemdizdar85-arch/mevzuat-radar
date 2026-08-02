@@ -375,7 +375,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 310 | — | TEMİZ | TMS 12 ailesi (142/147/310 — üç farklı derinlik, meşru) | DD 144.000 / VED 108.000 → 36.000×%25=9.000 borç ✓ tutarlı. |
 | 311 | — | DÜZELTİLİR-hafif | ASCII metin (Türkçe karaktersiz!) | TFRS 5 p.15+25 ✓ doğru — ama sorunun TAMAMI Türkçe karaktersiz yazılmış (farklı üretim kanalı izi); karakter onarımı gerekli. |
 
-**Ara sayaç (311/500):** kesin yanlış **10** · riskli **13** · düzeltilir 57 · temiz 236 (%76).
+| 312 | — | TEMİZ | — | VUK 186 envanter tanımı ✓. |
+| 313 | — | TEMİZ | — | VUK 219: genel 10 gün / muhasebe fişi 45 gün ✓ (m.219-a+b ile uyumlu). |
+| 314 | — | TEMİZ | dayanak etiketi genel ("p.1 Amaç") | TMS 38: sınırlı→sınırsız geçiş = tahmin değişikliği, itfa durur ✓. |
+| 315 | — | TEMİZ | — | TFRS 3 p.13: edinilenin giderlediği marka/patent/müşteri ilişkisi edinen tarafından varlık yazılır ✓. |
+| 316 | — | **RİSKLİ** | **tarih kurgusu bozuk** | İlke doğru (temettü = yükümlülük değil, dipnot). AMA senaryoda karar 25.02, tablolar 15.02'de ONAYLANIP YAYIMLANMIŞ — karar onay tarihinden SONRA, yani TMS 10 penceresinin dışında; yayımlanmış tablonun dipnotuna giremez. Düzeltme: karar tarihini onaydan öncesine çek (örn. 5.02). |
+| 317 | — | TEMİZ | "kavrımı" yazım hatası | 5018 m.3 tanımlar ✓ beş şık beş ayrı bent, iyi kurgu. |
+| 318 | — | TEMİZ | VUK 323 ailesi (tavan notu mevcut) | Teminatı aşan kısım 100.000 ✓ hesap tutarlı. |
+| 319 | — | TEMİZ | — | VUK 221: yeni işe başlayan işe başlamadan önce tasdik ✓. |
+
+**Ara sayaç (319/500):** kesin yanlış **10** · riskli **14** · düzeltilir 57 · temiz 243 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
