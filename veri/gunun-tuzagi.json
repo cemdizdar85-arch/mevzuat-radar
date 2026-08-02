@@ -1,7 +1,37 @@
 {
-  "tarih": "02.08.2026 18:28",
-  "durum": "ADAY YOK",
-  "not": "Yayinda, alanlari tam ve daha once paylasilmamis soru bulunamadi.",
-  "taranan": 0,
-  "gecmis": 0
+  "tarih": "02.08.2026",
+  "gun": "2026-08-02",
+  "durum": "TAMAM",
+  "id": "dc7e82dc",
+  "sinav": "SMMM",
+  "ders": "Vergi Mevzuatı ve Uygulaması",
+  "konu": "ihtiyati haciz halleri",
+  "soru": "Bir kurye firmasının sahibi Mehmet Bey'e, vergi dairesince yapılan tebligatla mal bildiriminde bulunması istenmiş, kendisi kanuni süre içinde herhangi bir bildirimde bulunmamıştır. Vergi dairesi bu durumda hangi işlemi yapabilir?",
+  "siklar": {
+    "A": "Önce mahkemeden borçlunun kaçma ihtimali bulunduğuna dair karar alınması şarttır",
+    "B": "Mal bildirimi vermemenin tek sonucu hapis cezasıdır, haciz uygulanamaz",
+    "C": "Alacak henüz tahakkuk etmediğinden ihtiyati tahakkuk yoluna gidilmesi gerekir",
+    "D": "Mal bildirimine süresinde uyulmaması tek başına ihtiyati haciz sebebi olduğundan ihtiyati haciz kararı alınabilir",
+    "E": "Sadece ödeme emri tekrar tebliğ edilir, başka bir işlem yapılamaz"
+  },
+  "dogru": "D",
+  "aciklama": {
+    "A": "Mahkeme kararı gerekliliği ile ihtiyati haciz yetkisini karıştırıyor. İhtiyati haciz, amme idaresinin mahalli en büyük memurunun kararıyla derhal uygulanır; mahkeme kararı aranmaz.",
+    "B": "Hapis cezası ile ihtiyati haciz müesseselerini karıştırıyor. Mal bildirimine uymamak, hapis cezası sebebi değil, doğrudan ihtiyati haciz uygulanmasını sağlayan bir durumdur.",
+    "C": "İhtiyati tahakkuk ile ihtiyati haciz kavramlarını karıştırıyor. İhtiyati tahakkuk vergi henüz kesinleşmeden verginin belirlenmesidir; ihtiyati haciz ise tahakkuk etmiş alacağın güvence altına alınmasıdır.",
+    "D": "Ne soruluyor: Mal bildirimine uymamanın sonucu nedir?\n\nKural: Borçlu kendisinden istenen mal bildirimini süresinde vermezse veya eksik bildirimde bulunursa, ihtiyati haciz derhal uygulanır. Bu durumda mahalli en büyük memur haciz kararı verebilir.\n\nBu olayda: Mehmet Bey'e mal bildirimi tebliğ edilmiş ancak süresinde bildirimde bulunmamış. Bu tek başına ihtiyati haciz sebebidir. Vergi dairesi yetkili amirden haciz kararı alıp malları haczedebilir.\n\nAkılda kalsın: Mal bildirimine uymamak, tek başına ihtiyati haciz için yeterli sebeptir.",
+    "E": "Ödeme emri tebliği ile ihtiyati haciz uygulamasını karıştırıyor. Mal bildirimine uymamanın yaptırımı sadece tebligat tekrarı değil, doğrudan ihtiyati haciz yetkisi doğmasıdır."
+  },
+  "kaynak": "6183 sayılı AATUHK m.13/4",
+  "paylasim": {
+    "baslik": "Günün Tuzağı",
+    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
+    "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
+  },
+  "havuz": {
+    "kaynak": "vitrin-bankasi",
+    "uygun_aday": 150,
+    "yayindaki": 150,
+    "gecmiste": 0
+  }
 }
