@@ -156,7 +156,9 @@ if($toplamSoru -eq 0){
   # Artik kitapcik-bazli dokum her kosulda dosyaya yazilir.
   $rapor = [ordered]@{
     tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm'); durum = 'HATA - hicbir kitapcik olculemedi'
-    kitapcik_dokumu = @($kitapRapor)
+    # 02.08 dersi: @($liste) burada "Argument types do not match" firlatiyor
+    # (List[object] icinde OrderedDictionary); .ToArray() sorunsuz.
+    kitapcik_dokumu = $kitapRapor.ToArray()
   }
   [IO.File]::WriteAllText((Join-Path $kok 'veri/sgs-tip-olcum.json'), (ConvertTo-Json -InputObject $rapor -Depth 5), (New-Object Text.UTF8Encoding($false)))
   Write-Host "Hicbir kitapcik olculemedi - dokum veri/sgs-tip-olcum.json'a yazildi."; exit 1
