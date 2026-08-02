@@ -49,6 +49,18 @@ try { Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=yayin&limit=1" 
 catch { Write-Host "KIRMIZI: 'yayin' kolonu yok. Tasima YAPILMAZ - soru kasaya girer girmez canli olurdu."; exit 1 }
 
 $fabrikaDir = Join-Path $kok "veri\fabrika"
+# 03.08 GERCEK: veri/fabrika .gitignore'DA (sizma korumasi - dogru karar).
+# Yani bu klasor YALNIZ CEM'IN MAKINESINDE var; Actions kosucusunda YOKTUR
+# ve tasima orada CALISAMAZ (12:47 kosusunun hatasi buydu). Kosucuda nazikce
+# atlanir; gercek tasima YERELDE kosulur:
+#   $env:SUPABASE_SERVICE_KEY = '<anahtar>' ; .\motor\karantina-tasi.ps1 -yaz
+if(-not (Test-Path $fabrikaDir)){
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/karantina-tasima.json'), (ConvertTo-Json -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='ATLANDI'
+    not='veri/fabrika bu makinede yok (gitignore - yalniz yerelde). Tasima YERELDEN kosulmali: SUPABASE_SERVICE_KEY ile -yaz.'
+  }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  Write-Host 'ATLANDI: veri/fabrika yok (yalniz yerel). Tasima yerelden kosulmali.'; exit 0
+}
 $TASINACAK = @('karantina','karantina-red','kasa-mukerrer','katman1-temiz')
 
 # --- kasada zaten olan kimlikler (ayni soru iki kez girmesin)
