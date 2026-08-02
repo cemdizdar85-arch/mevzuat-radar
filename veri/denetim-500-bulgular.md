@@ -529,6 +529,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 423 | — | TEMİZ | 415↔423 aynı madde farklı kural (meşru) | TTK 56: tespit/men kusursuz, tazminat kusurlu ✓. |
 
 **Ara sayaç (423/500):** kesin yanlış **10** · riskli **15** · düzeltilir 81 · temiz 322 (%76).
+
+| 424 | — | TEMİZ | 305↔424 aynı madde farklı kural (yaş sınırları / malul istisnası) — meşru | 5510 m.3/10: malul çocukta yaş aranmaz ✓. |
+| 425 | — | DÜZELTİLİR-hafif | konu etiketi ilgisiz ("5510 ücret tanımı" ≠ 3568 m.46) + ders kayması (3568 → Meslek Hukuku olmalı) | İçerik doğru ✓ (Bakanlık değiştirerek tasdik edebilir). |
+| 426 | — | TEMİZ | — | TBK 77: mükerrer ödeme = sebepsiz zenginleşme ✓. |
+| 427 | — | TEMİZ | süt izni ailesi 3. üye (405/413/427 — üç farklı kural parçası, meşru ama aile kabarık) | İş K 74+41: süt izni fazla çalışma değil ✓. |
+| 428 | — | TEMİZ | TTK 56 ailesi (415/423/428 — üç farklı bent, meşru) | m.56/1-c ref davası + imha ✓ dava türleri ayrımı öğretici. |
+| 429 | — | TEMİZ | — | 6356 m.39: dayanışma aidatı ≤ üyelik aidatı ✓. |
+| 430 | — | **RİSKLİ** | **dernek/vakıf istisnası karıştırılmış** | Sonuç doğru (dernek tacir sayılır ✓) AMA gerekçe hukuken bozuk: TTK 16/2'de "gelirinin yarısından fazlasını kamu görevine harcama" ölçütü VAKIFLAR içindir; dernekler için istisna "kamu yararına çalışan dernek" statüsüdür. A/E çeldiricileri ve B açıklaması %50 ölçütünü derneğe uygulayarak yanlış hukuk öğretiyor. Soru yeniden kurgulanmalı (vakıf senaryosu ya da doğru istisna gerekçesi). |
+| 431 | — | TEMİZ — iyi soru | — | İş K 4: 50'den az (50 dahil) tarım istisnası; 63 işçi → kapsamda, ofis zaten kapsamda ✓. |
+
+**Ara sayaç (431/500):** kesin yanlış **10** · riskli **16** · düzeltilir 82 · temiz 328 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
