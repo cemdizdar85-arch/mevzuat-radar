@@ -20,33 +20,54 @@ Write-Host "  https://supabase.com/dashboard/project/bjrleanjpyujtajmazxn/settin
 Write-Host "Oradaki 'Secret keys' bolumunden sb_secret_ ile baslayan anahtari KOPYALA."
 Write-Host ""
 
-# --- anahtari al ve dogrula (3 deneme) ---
-$KEY = $null
-for($deneme = 1; $deneme -le 3; $deneme++){
-  $girilen = Read-Host "Anahtari buraya YAPISTIR (sag tik = yapistir) ve Enter'a bas"
-  $girilen = "$girilen".Trim().Trim('"').Trim("'")
-  if(-not $girilen){ Write-Host "Bos girdin, tekrar dene."; continue }
-  # Yeni tip sb_secret anahtarlar 'Bearer' basligini SEVMEZ - yalniz apikey gonderilir.
-  # Eski tip (eyJ ile baslayan JWT) icin Bearer da eklenir.
-  $H = @{ apikey = $girilen }
-  if($girilen -like 'eyJ*'){ $H.Authorization = "Bearer $girilen" }
+# --- anahtar deneme fonksiyonu: kabulse anahtari, degilse $null dondurur ---
+function Dene-Anahtar([string]$aday){
+  $aday = "$aday".Trim().Trim('"').Trim("'")
+  if(-not $aday -or $aday -like '*BURAYA*'){ return $null }
+  $maske = if($aday.Length -gt 12){ $aday.Substring(0,12) + "..." } else { $aday }
+  Write-Host ("Deneniyor: {0} (uzunluk {1})" -f $maske, $aday.Length)
+  # sb_secret icin yalniz apikey; eski JWT (eyJ...) icin Bearer da eklenir
+  $H = @{ apikey = $aday }
+  if($aday -like 'eyJ*'){ $H.Authorization = "Bearer $aday" }
   try {
     $test = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&limit=1" -Headers $H -TimeoutSec 30
-    if(@($test).Count -ge 1){ $KEY = $girilen; break }
-    Write-Host "Bu anahtar kasayi GOREMIYOR - buyuk ihtimalle 'anon/publishable' kopyaladin."
-    Write-Host "Gizli olani lazim: sb_secret_ ile baslayan (Reveal -> Copy). Tekrar dene."
+    if(@($test).Count -ge 1){ return $aday }
+    Write-Host "Bu anahtar kasayi GOREMIYOR - herkese-acik (publishable) anahtar olabilir. sb_secret_ olan lazim."
   } catch {
-    $kod = ""
-    if($_.Exception.Response -and $_.Exception.Response.StatusCode){ $kod = " (HTTP $([int]$_.Exception.Response.StatusCode))" }
-    Write-Host "Anahtar kabul edilmedi$kod. Eksik/yanlis kopyalanmis olabilir, tekrar dene."
+    $kod = ""; $govde = ""
+    if($_.Exception.Response -and $_.Exception.Response.StatusCode){ $kod = " HTTP $([int]$_.Exception.Response.StatusCode)" }
+    if($_.ErrorDetails -and $_.ErrorDetails.Message){ $govde = " | sunucu: $($_.ErrorDetails.Message)" }
+    Write-Host "Anahtar kabul edilmedi.$kod$govde"
+  }
+  return $null
+}
+
+# --- 1. yol: Not Defteri dosyasi (veri\fabrika\ANAHTAR.txt - gitignore'da, depoya gidemez) ---
+$KEY = $null
+$anahtarDosya = Join-Path (Split-Path $here -Parent) "veri\fabrika\ANAHTAR.txt"
+if(Test-Path $anahtarDosya){
+  Write-Host "ANAHTAR.txt bulundu, oradan okunuyor..."
+  $KEY = Dene-Anahtar (Get-Content -Raw $anahtarDosya)
+  if(-not $KEY){ Write-Host "Dosyadaki anahtar kabul edilmedi - elle yapistirma yoluna geciliyor."; Write-Host "" }
+}
+
+# --- 2. yol: elle yapistirma (3 deneme) ---
+if(-not $KEY){
+  for($deneme = 1; $deneme -le 3; $deneme++){
+    $girilen = Read-Host "Anahtari buraya YAPISTIR (sag tik = yapistir) ve Enter'a bas"
+    $KEY = Dene-Anahtar $girilen
+    if($KEY){ break }
   }
 }
 if(-not $KEY){
   Write-Host ""
-  Write-Host "3 denemede olmadi. Pencereyi kapat, anahtari yeniden kopyalayip .bat dosyasina tekrar cift tikla."
+  Write-Host "Olmadi. Yukaridaki 'Anahtar kabul edilmedi' satirini oldugu gibi GM'ye (sohbete) YAZ - kod ve"
+  Write-Host "sunucu mesajiyla kesin teshis konulacak. (Ekran goruntusu ATMA - anahtar gorunuyor olabilir.)"
   Read-Host "Kapatmak icin Enter"
   exit 1
 }
+# anahtar kabul edildi - diskte iz birakma
+if(Test-Path $anahtarDosya){ Remove-Item $anahtarDosya -Force }
 Write-Host "Anahtar dogrulandi (kasa gorunuyor)."
 $env:SUPABASE_SERVICE_KEY = $KEY
 
