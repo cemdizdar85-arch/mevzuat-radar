@@ -1,0 +1,48 @@
+# .github/workflows/dogrusu-ekle.yml — ESKI SORULARA "Dogrusu:" (once OLCUM)
+# Cem 02.08: "bunu da her soruya, eski sorulara ekleyelim."
+# Varsayilan OLCUM modu 0 USD: kac soruda eksik, hangi derslerde, ne kadara
+# mal olur. Uygulama ancak olcum Cem'e sunulduktan sonra acilir.
+name: Dogrusu Ekle (once olcum, 0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "true = gercekten yaz (varsayilan: yalniz olcum)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dogrusu-ekle
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olcum (0 USD)
+        if: ${{ github.event.inputs.uygula != 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/dogrusu-ekle.ps1
+      - name: UYGULA
+        if: ${{ github.event.inputs.uygula == 'true' }}
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/dogrusu-ekle.ps1 -uygula
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/dogrusu-ekle-raporu.json ]; then git add veri/dogrusu-ekle-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Dogrusu ekleme olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
