@@ -584,6 +584,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 463 | — | DÜZELTİLİR-hafif | **E çeldiricisi formülle üretilememiş** (açıklamadaki "127.300−6.180−2.340+340" uydurma köprü — B14'ün çeldirici versiyonu) | İşaretli cevap doğru ✓ (p.20-b: 127.300); yalnız E şıkkının tutarı hiçbir tutarlı hesaba oturmuyor, açıklama da bunu itiraf eder gibi. Çeldirici yeniden üretilecek. |
 
 **Ara sayaç (463/500):** kesin yanlış **10** · riskli **16** · düzeltilir 93 · temiz 349 (%76).
+
+| 464 | — | TEMİZ | konu etiketi ilgisiz ("ifac yonetim merkezi" — "ifac" sızıntısı 3. kez) | 5018 m.12: merkezî yönetim = genel + özel + düzenleyici-denetleyici ✓. |
+| 465 | — | TEMİZ | konu etiketi ilgisiz ("borsalar ve piyasa işleticileri") + ders kayması (rekabet hukuku → Finansal Muhasebe'de) | 4054 m.4: fiyat paralelliği = uyumlu eylem karinesi + ispatla kurtulma ✓ güzel soru. |
+| 466 | — | TEMİZ — TMS 10 temettü üçüzünün şampiyonu | **316/348/466 ÜÇÜZ** | Kronolojisi en temiz üye (karar 28.01, onay 15.02 — olağanüstü GK ile sorunsuz). **466 kalır; bozuk-tarihli 316 ve tuhaf-sıralı 348 elenir** (348 hükmü TEMİZ→DÜZELTİLİR'e çevrildi). |
+| 467 | — | DÜZELTİLİR | **404 ile mükerrer** (TMS 7 m.35 vergi, aynı öz) + "faaliyet faaliyetleri" dil bozukluğu ×4 | İçerik doğru ✓; 404 kalır, 467 elenir. |
+| 468 | — | TEMİZ | 345↔468 aynı standart farklı kural (p.24 / p.3) — meşru | TMS 29 p.3: kesin oran yok, %100 gösterge, takdir meselesi ✓. |
+| 469 | — | TEMİZ — iyi soru | — | TMS 8 p.16: önem arz etmemiş işleme yeni politika ≠ politika değişikliği ✓. |
+| 470 | — | TEMİZ | — | VUK 314: boş arsa amortismana tabi değil ✓. |
+| 471 | — | TEMİZ | konu etiketi kayması ("kesin mizan bakiye" ≠ VUK 175) | Muhasebe usulü serbestliği ✓. |
+
+**Ara sayaç (471/500):** kesin yanlış **10** · riskli **16** · düzeltilir 95 · temiz 355 (%76). (348 hükmü geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
