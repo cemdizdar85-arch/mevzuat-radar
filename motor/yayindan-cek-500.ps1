@@ -103,8 +103,11 @@ for($b = 0; $b -lt $idler.Count; $b += 50){
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$(if($kalan.Count -eq 0){'TAMAM'}else{'KIRMIZI'})
   hedef_toplam=$idler.Count; islenen=$cekilen; oncesinde_yayinda=$yayinda.Count
   geri_okuma_hala_yayinda=$kalan.Count
+  oncesinde_yayinda_idler=@($yayinda | ForEach-Object { [ordered]@{ id="$($_.id)"; sebep=$hedef["$($_.id)"] } })
+  hala_yayinda_idler=@($kalan | ForEach-Object { [ordered]@{ id="$($_.id)"; sebep=$hedef["$($_.id)"] } })
+  kume482_idler=@($kume482 | ForEach-Object { "$($_.id)" })
   kesin=$KESIN.Count; riskli_acik_hukum=$RISKLI.Count; ttk482=$kume482.Count
   eksik_riskli_notu='Defter sayaci riskli 16, acik hukumlu satir 12 - kalan 4 ikinci geciste.'
-}) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+}) -Depth 5), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("CEKME BITTI: islenen {0}, geri-okumada hala yayinda {1} (0 olmali)" -f $cekilen, $kalan.Count)
 if($kalan.Count -gt 0){ exit 1 }
