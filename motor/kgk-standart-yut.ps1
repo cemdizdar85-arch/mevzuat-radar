@@ -29,11 +29,44 @@ $hedefler = @(
   @{ slug='kys-duyuru'; ad='Kalite Yonetim Standartlari Duyurusu (KYS 1-2, BDS 220 revize)'; kisa='KYS Duyuru';
      url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/KKS/--KAL%C4%B0TE%20Y%C3%96NET%C4%B0M%20STANDARTLARI--%20.pdf' },
   @{ slug='surekli-egitim-tebligi'; ad='Bagimsiz Denetciler Icin Surekli Egitim Tebligi'; kisa='Surekli Egitim Tebligi';
-     url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Mevzuat/S%C3%BCrekli%20E%C4%9Fitim%20Tebli%C4%9Fi/S%C3%BCrekliEgitimTebligi.pdf' }
+     url='https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Mevzuat/S%C3%BCrekli%20E%C4%9Fitim%20Tebli%C4%9Fi/S%C3%BCrekliEgitimTebligi.pdf' },
+  # ---- 02.08 EKSIK SAYIMI (Cem: "basla hepsini yut") --------------------------
+  # BOBI FRS: TFRS uygulamayan, denetime tabi sirketlerin TAMAMI bunu kullanir -
+  # Turkiye uygulamasinin belkemigi ve ambarda hic yoktu.
+  @{ slug='bobi-frs'; ad='BOBI FRS (Buyuk ve Orta Boy Isletmeler Icin FRS, 2021 surumu)'; kisa='BOBI FRS';
+     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BOB%C4%B0_FRS/EK%202.pdf' },
+  @{ slug='kumi-frs'; ad='KUMI FRS (Kucuk ve Mikro Isletmeler Icin FRS) - Kurum duyuru metni'; kisa='KUMI FRS';
+     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/KUMI/KUMI_FRS_Kurum_Sitesi_Duyuru_Metni.pdf' }
 )
+
+# Eksik TMS/TFRS standartlari (2023 Mavi Kitap seti - HEAD ile teyit edildi).
+foreach($n in @(20,26,32,33,34)){
+  $hedefler += @{ slug=("tms$n"); ad=("TMS $n"); kisa=("TMS $n");
+    url=("https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2023/Mavi_Kitap/TMS/TMS%20$n.pdf") }
+}
+foreach($n in @(1,2,6,11,12,14,17)){
+  $hedefler += @{ slug=("tfrs$n"); ad=("TFRS $n"); kisa=("TFRS $n");
+    url=("https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2023/Mavi_Kitap/TFRS/TFRS%20$n.pdf") }
+}
 
 # Parcalama: once MADDE deseni (teblig/yonetmelik), yoksa PARAGRAF deseni
 # (R110.1 / 110.1 A1 / A25 / 25T), o da yoksa sabit boy dilim.
+# Uzun metni CUMLE SINIRINDAN dilimler - kesmez, kaybetmez.
+function Dilimle([string]$govde, [int]$boy){
+  $liste = New-Object System.Collections.Generic.List[string]
+  $kalan = $govde
+  while($kalan.Length -gt $boy){
+    $kes = $kalan.Substring(0, $boy)
+    $kir = $kes.LastIndexOf('. ')
+    if($kir -lt [int]($boy/2)){ $kir = $kes.LastIndexOf(' ') }
+    if($kir -lt [int]($boy/2)){ $kir = $boy - 1 }
+    $liste.Add($kalan.Substring(0, $kir+1).Trim())
+    $kalan = $kalan.Substring($kir+1).Trim()
+  }
+  if($kalan.Length -gt 0){ $liste.Add($kalan) }
+  return $liste
+}
+
 function Parcala([string]$metin, [string]$kisa){
   $duz = ($metin -replace "`r", "") -replace "[ \t]+", " "
   $parcalar = New-Object System.Collections.Generic.List[object]
@@ -51,8 +84,21 @@ function Parcala([string]$metin, [string]$kisa){
       $son = if($i -lt $m.Count-1){ $m[$i+1].Index } else { $duz.Length }
       $govde = $duz.Substring($bas, $son-$bas).Trim()
       if($govde.Length -eq 0){ continue }
-      $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} m.{1}" -f $kisa, $m[$i].Groups['no'].Value)
-                                baslik=("{0} madde {1}" -f $kisa, $m[$i].Groups['no'].Value); metin=$govde })
+      $no = $m[$i].Groups['no'].Value
+      # 02.08: madde yolunda BOY SINIRI YOKTU - BOBI FRS 526 bin karakteri 9
+      # devasa parcaya sigdirdi. Kapsama %100 gorunuyordu ama boyle bir parca
+      # aramada/retrieval'da ise yaramaz (soru-cevap koca blok dondurur).
+      # Kesmiyoruz, DILIMLIYORUZ: 1.800 karakter, cumle sinirindan.
+      if($govde.Length -le 1800){
+        $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} m.{1}" -f $kisa, $no)
+                                  baslik=("{0} madde {1}" -f $kisa, $no); metin=$govde })
+      } else {
+        $dilimler = Dilimle $govde 1800
+        for($d=0; $d -lt $dilimler.Count; $d++){
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} m.{1} [{2}/{3}]" -f $kisa, $no, ($d+1), $dilimler.Count)
+                                    baslik=("{0} madde {1}" -f $kisa, $no); metin=$dilimler[$d] })
+        }
+      }
     }
     return $parcalar
   }
@@ -79,16 +125,14 @@ function Parcala([string]$metin, [string]$kisa){
         $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde
         continue
       }
-      if($govde.Length -le 6000){
+      if($govde.Length -le 2500){
         $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1}" -f $kisa, $no)
                                   baslik=("{0} paragraf {1}" -f $kisa, $no); metin=$govde })
       } else {
-        $d = 0; $k = 1
-        while($d -lt $govde.Length){
-          $boy = [Math]::Min(6000, $govde.Length - $d)
-          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1} ({2})" -f $kisa, $no, $k)
-                                    baslik=("{0} paragraf {1} - {2}. bolum" -f $kisa, $no, $k); metin=$govde.Substring($d,$boy) })
-          $d += 6000; $k++
+        $dilimler = Dilimle $govde 2500
+        for($d=0; $d -lt $dilimler.Count; $d++){
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} p.{1} [{2}/{3}]" -f $kisa, $no, ($d+1), $dilimler.Count)
+                                    baslik=("{0} paragraf {1}" -f $kisa, $no); metin=$dilimler[$d] })
         }
       }
     }
@@ -126,9 +170,13 @@ foreach($h in $hedefler){
     $ambarOlcu = ((($parcalar | ForEach-Object { $_.metin }) -join ' ') -replace '\s+',' ').Length
     $kapsama = if($hamOlcu -gt 0){ [math]::Round(100*$ambarOlcu/$hamOlcu,1) } else { 0 }
     [IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject ([ordered]@{ belgeler = [object[]]$parcalar }) -Depth 5), $enc)
-    $isaret = if($kapsama -ge 98){ 'TAM' } else { 'EKSIK' }
-    Write-Host ("{0}: {1} KB -> {2} parca | kapsama %{3} [{4}]" -f $h.ad, $kb, $parcalar.Count, $kapsama, $isaret)
-    $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; kb=$kb; parca=$parcalar.Count; kapsama_yuzde=$kapsama; durum=$(if($kapsama -ge 98){'TAMAM'}else{'EKSIK KAPSAMA'}) }
+    # 02.08 IKINCI KAPI: kapsama %100 olsa bile parca DEVASA ise retrieval'da
+    # ise yaramaz (BOBI FRS 526 bin karakteri 9 parcaya sigdirmisti). Ortalama
+    # parca 4.000 karakteri asarsa KIRMIZI.
+    $ortBoy = if($parcalar.Count){ [math]::Round($ambarOlcu/$parcalar.Count) } else { 0 }
+    $isaret = if($kapsama -ge 98 -and $ortBoy -le 4000){ 'TAM' } elseif($kapsama -lt 98){ 'EKSIK METIN' } else { 'PARCA COK BUYUK' }
+    Write-Host ("{0}: {1} KB -> {2} parca | kapsama %{3} | ort parca {4} kr [{5}]" -f $h.ad, $kb, $parcalar.Count, $kapsama, $ortBoy, $isaret)
+    $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; kb=$kb; parca=$parcalar.Count; kapsama_yuzde=$kapsama; ortalama_parca=$ortBoy; durum=$isaret }
   } catch {
     Write-Host ("{0}: DUSTU - {1}" -f $h.ad, $_.Exception.Message)
     $rapor += [ordered]@{ slug=$h.slug; ad=$h.ad; durum='DUSTU'; hata="$($_.Exception.Message)" }
