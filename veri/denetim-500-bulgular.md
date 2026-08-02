@@ -49,7 +49,18 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 27 | — | DÜZELTİLİR | alakasız veri yığını (YENİ SINIF B10) | TTK 64/3 ✓. Gövde 87.450 TL mal alışı+senet+sigorta yığıyor, soru defter onayı — verinin cevapla İLGİSİ YOK. Aday hesaba başlar, zaman kaybeder. Gövde budanır. |
 | 28 | — | DÜZELTİLİR | mükerrer + zayıf açıklama | TTK 64/3 — Q3 ve Q27 ile AYNI kural (küme: 3 soru). D açıklaması "öngörülmüş olabilir" diye belirsizlik uyduruyor. |
 
-**Ara sayaç (28/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 8 · temiz 17.
+| 29 | — | TEMİZ | etiket hafif | BDS 240 mesleki şüphecilik ✓. |
+| 30 | — | DÜZELTİLİR | çeldirici-rakam uyuşmazlığı (B3 ağır) | TMS 2 hesap ✓ (315.940). Ama DÖRT yanlış şıkkın rakamı kendi açıklamasıyla tutmuyor: B açıkl. "yangın çıkarılmamış" der (324.090 etmeli) ama şık 289.000; C 1.000 TL, D 850 TL sapıyor. Çeldiriciler rastgele üretilmiş, açıklamalar gerekçe uydurmuş. |
+| 31 | — | TEMİZ | mükerrer (TTK 516 ailesi) | ✓ |
+| 32 | — | TEMİZ* | mükerrer ÜÇLÜSÜ | TTK 376/3 ✓. 33 ve 36 ile aynı soru (aynı konu etiketi bile). Üçünden biri kalır. Ayrıca dökümde TABLO VERISI "@{baslik=...}" diye bozuk basılıyor — benim döküm betiğimin kusuru, soru verisi değil; betik düzeltilecek. |
+| 33 | — | TEMİZ* | mükerrer (32/36) | ✓ 847.300-963.150 = -115.850 doğru işlenmiş. |
+| 34 | — | DÜZELTİLİR | standart nüansı (B2'ye yakın) | TMS 23: 38.250-4.750=33.500 sorunun kastıyla ✓. Ama aktifleştirme BAŞLANGICI (p.17: harcama+faiz+faaliyet üçü birlikte → 1 Şubat) ihmal edilmiş; katı okumada Ocak faizi aktifleşmez. Kurtarma: köke "inşaata hazırlık faaliyetleri 1 Ocak'ta başlamıştır" eklenir. TMS 23 kümesi havuzda 13 soru — hepsi bu nüans için taranmalı. |
+| 35 | — | DÜZELTİLİR | cevap sızıntısı (YENİ SINIF B11) + etiket | VUK 278 emsal bedel ✓. Ama gövde "emsal bedeli ile değerlemeye karar vermiştir" deyip cevabı SÖYLÜYOR, sonra soruyor. Konu etiketi "fifo stok değerleme" — ters. |
+| 36 | — | TEMİZ* | mükerrer (32/33) | ✓ |
+| 37 | — | TEMİZ* | mükerrer (25 ile) | VUK 315 ✓ — Q25'in kopyası; havuzda 6. |
+
+**Ara sayaç (37/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 11 · temiz 21.
+**Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13).
 
 ---
 
@@ -106,6 +117,16 @@ Gövde tutar/senet/sigorta yığıyor, soru bambaşka şey soruyor; veri cevaba 
 etmiyor. **Düzeltme:** üretim istemine "gövdeye yazdığın HER rakam ya cevapta ya
 bir çeldiricide kullanılmalı; kullanılmayan veri yasak" kuralı + makine kapısı
 (gövdedeki tutarların hiçbiri şık/açıklamada geçmiyorsa işaretle — G8'in tersi).
+
+### B11. 🟡 Cevap sızıntısı (Q35)
+Gövde cevabı söylüyor ("emsal bedeli ile değerlemeye karar vermiştir"), sonra
+"hangi yöntem?" diye soruyor. **Düzeltme:** üretim istemine "doğru şıkkın anahtar
+terimi soru gövdesinde GEÇEMEZ" kuralı + makine kapısı (doğru şık metninin
+5+ karakterlik parçası gövdede birebir geçiyorsa işaretle).
+
+### B12. 🟡 Döküm betiği tablo alanını bozuk basıyor (altyapı)
+denetim-500.ps1 tablo/yevmiye alanını "@{baslik=System.Object[]}" diye basıyor —
+soru verisi sağlam, DÖKÜM okunmaz. ConvertTo-Json ile basılacak.
 
 ### B7. 🟡 Koşucu-yerel çözüm farkı (ölçüm altyapısı)
 Actions koşucusunda dokumanlar imatch sorguları boş dönüyor (ambarda-yok 363,
