@@ -19,6 +19,11 @@
 #                            talimati kalintisi (B16)
 #   T7 mulga_rejim         : olu rejim anahtar kelimeleri (goturu usul...) (B17)
 #   T8 homoglif            : Kiril/Yunan karakter sizintisi (B9; "amortisман")
+#   T9 tablo_bos           : tablo VE yevmiye alani bos sorular + bunlarin
+#                            kacinin hesap-desenli oldugu (gorsel-backfill'in
+#                            fiyat tabani; Cem: "adamlar tablo cizecekti").
+#                            NOT yerelden olculemez - soru_havuzu RLS geregi
+#                            anon anahtara kapali (03.08 olcumu: 0 satir).
 #
 #  Cikti: veri/onarim-tarama.json — SAYILAR + soru ID'leri (UUID) + T1 için
 #  id gruplari. Soru METNI ASLA yazilmaz (depo public; parali icerik sizmaz).
@@ -107,16 +112,18 @@ $T5liste  = New-Object System.Collections.Generic.List[string]
 $T6liste  = New-Object System.Collections.Generic.List[string]
 $T7liste  = New-Object System.Collections.Generic.List[string]
 $T8liste  = New-Object System.Collections.Generic.List[string]
+$T9bos = 0; $T9hesapli = 0; $T9hesapIdler = New-Object System.Collections.Generic.List[string]
 $T2dagilim = @{}  # "ders -> aile" kac kez
 
 $reIstem   = [regex]'(?i)\d+\s*karakter\s*(\.|olacak|ile sinirli)|sadece\s+json|json\s+dondur|gecerli\s+json'
 $reHomog   = [regex]'[Ѐ-ӿͰ-Ͽ]'
 $reTurkce  = [regex]'[çğıöşüÇĞİÖŞÜ]'
 $reMulga   = [regex]'(?i)g[oö]t[uü]r[uü]\s+usul'
+$reHesapT9 = [regex]'(?i)ka[çc]\s+TL|ne\s+kadar|tutar[ıi]\s+ka[çc]|hesaplay|hesaplan|yevmiye\s+kayd|\d{1,3}(\.\d{3})+(,\d+)?\s*TL'
 
 $offset = 0; $sayfa = 1000
 while($true){
-  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,hap&order=id&limit=$sayfa&offset=$offset"
+  $u = "$SB_URL/rest/v1/soru_havuzu?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,hap,tablo,yevmiye&order=id&limit=$sayfa&offset=$offset"
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $BASLIK -TimeoutSec 180
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
@@ -177,6 +184,15 @@ while($true){
 
     # T8 homoglif
     if($reHomog.IsMatch($tum)){ $T8liste.Add($id) }
+
+    # T9 tablo/yevmiye bos + hesap-desenli aday
+    $tabloBos = $true
+    if($s.PSObject.Properties['tablo']   -and $null -ne $s.tablo){   $tabloBos = $false }
+    if($s.PSObject.Properties['yevmiye'] -and $null -ne $s.yevmiye){ $tabloBos = $false }
+    if($tabloBos){
+      $T9bos++
+      if($reHesapT9.IsMatch($soruM)){ $T9hesapli++; $T9hesapIdler.Add($id) }
+    }
   }
   if($parti.Count -lt $sayfa){ break }
   $offset += $sayfa
@@ -206,6 +222,8 @@ $sonuc = [ordered]@{
     T6_istem_artigi   = $T6liste.Count
     T7_mulga_rejim    = $T7liste.Count
     T8_homoglif       = $T8liste.Count
+    T9_tablo_bos      = $T9bos
+    T9_hesap_desenli  = $T9hesapli
   }
   T2_dagilim = $T2dagilim
   T1_gruplar = $mukGrup
@@ -215,6 +233,7 @@ $sonuc = [ordered]@{
   T6_idler   = $T6liste
   T7_idler   = $T7liste
   T8_idler   = $T8liste
+  T9_hesap_idler = $T9hesapIdler
 }
 Yaz $sonuc
 Write-Host ""
