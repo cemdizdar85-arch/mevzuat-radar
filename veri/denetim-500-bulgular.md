@@ -245,7 +245,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 186 | — | TEMİZ | terim notu | TTK 60: 1 yıl + herhalde 3 yıl ✓; şıktaki "hak düşer" ifadesi teknikte "zamanaşımı" olmalı (açıklama doğru yazmış). |
 | 187 | — | TEMİZ | — | TMS 2 p.14: yan ürün NGD ile ölçülür, ana üründen indirilir ✓ — teori konusu standarda doğru bağlanmış. |
 
-**Ara sayaç (187/500):** kesin yanlış **9** · riskli **12** · düzeltilir 50 · temiz 121 (%65).
+| 188 | — | TEMİZ | — | 3568 m.46: Oda→TÜRMOB→Bakanlık tasdiki→RG ✓. |
+| 189 | — | TEMİZ | — | TMS 7: MDV alımı = yatırım faaliyeti ✓. |
+| 190 | — | TEMİZ* | mükerrer (Q82 kopyası) | Çevre tesisi aktifleştirme — aynı senaryo farklı rakam. |
+| 191 | — | TEMİZ | — | VUK 231/5: süre aşımı → hiç düzenlenmemiş ✓ (Q162 ile meşru çift: biri süre hesabı, biri sonucu). |
+| 192 | — | TEMİZ | — | TMS 19 zimni yükümlülük: 2.480.000×%3=74.400 ✓ paragraf atıfları zengin — iyi soru. |
+| 193 | — | TEMİZ* | VUK 275 (ters açı — meşru) | "Dahil ETMEK de doğru" varyantı ✓. |
+
+**Ara sayaç (193/500):** kesin yanlış **9** · riskli **12** · düzeltilir 50 · temiz 127 (%66). Blok 6/6 cevap-doğru.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
