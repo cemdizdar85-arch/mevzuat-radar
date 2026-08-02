@@ -54,6 +54,27 @@ foreach($n in @(1,2,6,11,12,14,17)){
   $hedefler += @{ slug=("tfrs$n"); ad=("TFRS $n"); kisa=("TFRS $n");
     url=("https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2023/Mavi_Kitap/TFRS/TFRS%20$n.pdf") }
 }
+# 02.08 ikinci tur (Cem: "yutamadigimiz ne varsa devam, atlamayalim"):
+# eksik kalan BDS'ler + guvence/sinirli denetim standartlari. Hepsi TDS 2025
+# setinden, adresler HEAD ile tek tek teyit edildi.
+foreach($n in @(250,402,560,600,610,710,800,805,810)){
+  $hedefler += @{ slug=("bds$n"); ad=("BDS $n"); kisa=("BDS $n");
+    url=("https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS%20${n}_2025.pdf") }
+}
+$hedefler += @{ slug='bds220'; ad='BDS 220 (Revize) - Finansal Tablolarin Denetiminde Kalite Yonetimi'; kisa='BDS 220';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BDS%20220_2025.pdf' }
+$hedefler += @{ slug='kys2'; ad='KYS 2 - Denetimin Kalitesinin Gozden Gecirilmesi'; kisa='KYS 2';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/KYS%202_2025.pdf' }
+$hedefler += @{ slug='gds3000'; ad='GDS 3000 - Tarihi Finansal Bilgilerin Bagimsiz Denetimi veya Sinirli Bagimsiz Denetimi Disindaki Guvence Denetimleri'; kisa='GDS 3000';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS%203000_2025__.pdf' }
+$hedefler += @{ slug='gds3400'; ad='GDS 3400 - Ileriye Yonelik Finansal Bilgilerin Incelenmesi'; kisa='GDS 3400';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS%203400_2025.pdf' }
+$hedefler += @{ slug='gds3402'; ad='GDS 3402 - Hizmet Kurulusundaki Kontrollere Iliskin Guvence Raporlari'; kisa='GDS 3402';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS%203402_2025.pdf' }
+$hedefler += @{ slug='sbds2400'; ad='SBDS 2400 - Tarihi Finansal Tablolarin Sinirli Bagimsiz Denetimi'; kisa='SBDS 2400';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/SBDS%202400_2025.pdf' }
+$hedefler += @{ slug='sbds2410'; ad='SBDS 2410 - Ara Donem Finansal Bilgilerin Sinirli Bagimsiz Denetimi'; kisa='SBDS 2410';
+  url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/SBDS%202410_2025.pdf' }
 
 # Parcalama: once MADDE deseni (teblig/yonetmelik), yoksa PARAGRAF deseni
 # (R110.1 / 110.1 A1 / A25 / 25T), o da yoksa sabit boy dilim.
@@ -66,8 +87,11 @@ function Dilimle([string]$govde, [int]$boy){
     $kir = $kes.LastIndexOf('. ')
     if($kir -lt [int]($boy/2)){ $kir = $kes.LastIndexOf(' ') }
     if($kir -lt [int]($boy/2)){ $kir = $boy - 1 }
-    $liste.Add($kalan.Substring(0, $kir+1).Trim())
-    $kalan = $kalan.Substring($kir+1).Trim()
+    # 02.08: Trim() KULLANILMAZ. Her dilim sinirinda birkac karakter kirpmak
+    # tek basina zararsiz gorunur ama 30 dilimde birikip kapsamayi %92'ye
+    # dusurur (TFRS 6 olcumu: 999 karakter). Metin oldugu gibi tasinir.
+    $liste.Add($kalan.Substring(0, $kir+1))
+    $kalan = $kalan.Substring($kir+1)
   }
   if($kalan.Length -gt 0){ $liste.Add($kalan) }
   return $liste
@@ -83,7 +107,17 @@ function Parcala([string]$metin, [string]$kisa){
     # ilk maddeden onceki bas kisim (amac/kapsam basligi, RG kunyesi) da girer
     if($m[0].Index -gt 0){
       $on = $duz.Substring(0, $m[0].Index).Trim()
-      if($on.Length -gt 0){ $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} - on bolum" -f $kisa); baslik=("{0} on bolum" -f $kisa); metin=$on }) }
+      # 02.08 (ikinci yakalama): on bolum de DILIMLENIR. SBDS 2400'de basliksiz
+      # on kisim 152 bin karakterdi ve tek parca halinde ambara giriyordu -
+      # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
+      # yakaladi; kural her yerde ayni: kesme yok, dilimle.
+      if($on.Length -gt 0){
+        $onDilim = Dilimle $on 2000
+        for($z=0; $z -lt $onDilim.Count; $z++){
+          $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })
+        }
+      }
     }
     for($i=0; $i -lt $m.Count; $i++){
       $bas = $m[$i].Index
@@ -118,7 +152,17 @@ function Parcala([string]$metin, [string]$kisa){
     # Bastaki basliksiz on-metin (kapak/icindekiler) de artik ambara girer.
     if($p[0].Index -gt 0){
       $on = $duz.Substring(0, $p[0].Index).Trim()
-      if($on.Length -gt 0){ $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=("{0} - on bolum" -f $kisa); baslik=("{0} on bolum" -f $kisa); metin=$on }) }
+      # 02.08 (ikinci yakalama): on bolum de DILIMLENIR. SBDS 2400'de basliksiz
+      # on kisim 152 bin karakterdi ve tek parca halinde ambara giriyordu -
+      # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
+      # yakaladi; kural her yerde ayni: kesme yok, dilimle.
+      if($on.Length -gt 0){
+        $onDilim = Dilimle $on 2000
+        for($z=0; $z -lt $onDilim.Count; $z++){
+          $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })
+        }
+      }
     }
     for($i=0; $i -lt $p.Count; $i++){
       $bas = $p[$i].Index
