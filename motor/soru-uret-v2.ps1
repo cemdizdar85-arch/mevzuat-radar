@@ -366,6 +366,17 @@ Kalibi soyle: "TUZAK: <A> ile <B> karistiriliyor. <A> sudur; <B> ise budur. Bu s
 "Bu sik yanlistir cunku dogru cevap X'tir" YASAK - ogretmiyor, tekrarliyor.
 Ilk 163 soruluk partide 19 ornegin 19'u bu sarti tutmadi ve parti reddedildi.
 
+DOGRUSU CUMLESI - ZORUNLU (02.08.2026, Cem karari: "yanlis siklara da 'dogrusu
+budur' ekle"): Her YANLIS sik aciklamasi, tuzagi adlandirdiktan sonra
+"Dogrusu: ..." ile BITECEK. Bu cumle, o sikki isaretleyen adaya DOGRU KURALI
+tek cumlede verir - cunku ogretilmesi gereken asil kisi yanlis yapandir.
+Kalibi: "TUZAK: ... Dogrusu: <dayanak metne dayali tek cumle>."
+Ornek: "TUZAK: alacakli cagrisi sirketin kar-zarar durumuna baglaniyor.
+Dogrusu: cagri genel kuraldir; yalnizca zarari kapatmak icin yapilan
+azaltimda cagridan vazgecilebilir."
+"Dogrusu:" cumlesi de YALNIZCA dayanak metne dayanacak; metinde olmayan
+rakam/oran/sure verilmeyecek. Toplam 150-320 karakter.
+
 TEK DOGRU CEVAP SARTI: Dayanak metinde bir husus IHTIYARI ise ("...maliyet bedeline
 ithal etmekte veya genel giderlere kaydetmekte mukellefler serbesttir" gibi), o
 hususu ya soruya HIC KOYMA ya da isletmenin hangi secimi yaptigini SORU METNINDE
@@ -544,7 +555,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; atifRed=0; kokuRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; dogrusuRed=0; atifRed=0; kokuRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -579,6 +590,17 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     }
     if($adlandiran -lt 3){
       $ozet.tuzakRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='tuzak-adlandirilmamis'; deger=("4 yanlis siktan {0}'i tuzagi soyluyor" -f $adlandiran) }); continue
+    }
+    # ---- DOGRUSU KAPISI (02.08, Cem karari: "yanlis siklara da 'dogrusu budur' ekle")
+    # Ogretilmesi gereken asil kisi YANLIS YAPANDIR. Tuzagi adlandirmak yetmez;
+    # o sikki isaretleyen aday DOGRU KURALI da ayni ekranda gormeli. Kapi
+    # olmayan standart temennidir - bu yuzden makineyle denetleniyor.
+    $dogrusuOlan = 0
+    foreach($h in $yanlisSik){
+      if("$($y.aciklama.$h)" -match '(?i)do[ğg]rusu\s*:'){ $dogrusuOlan++ }
+    }
+    if($dogrusuOlan -lt 3){
+      $ozet.dogrusuRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='dogrusu-cumlesi-yok'; deger=("4 yanlis siktan {0}'inde 'Dogrusu:' var" -f $dogrusuOlan) }); continue
     }
     # rakam kapisi
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }
