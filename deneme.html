@@ -872,6 +872,9 @@ function cevabiGor(tekrarMi){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
   }
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
+  // SIKLIK KUNYESI (SINAV-KURALLARI D9, 02.08) — 35 donemlik cikmis kitapcik
+  // sayimindan. Uydurma motivasyon DEGIL olcum; sayim yoksa kunye GOSTERILMEZ.
+  h += siklikKunyesi(s);
   h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">⏱ Bu soruda '+sureFmt(SURELER[s.id]||0)+' kaldın.</div>';
   g.innerHTML=h; g.classList.remove('gizli');
   g.parentElement.classList.add('cevapli');  // genis ekranda bekleme karti gider, yan panel belirir
@@ -1343,6 +1346,42 @@ function kocRecete(ders){
   var p=document.getElementById('dersSec');
   if(p) p.scrollIntoView({behavior:'smooth',block:'center'});
 }
+// ============ SIKLIK KUNYESI (D9, 02.08) ============
+// Kaynak: veri/siklik-kunyesi.json — 35 donemlik cikmis SGS kitapciginin konu
+// sayimi (motor/siklik-kunyesi.ps1 uretir, 0 USD). Rakip hicbir site bunu
+// yayinlamiyor; bizim tek gercek tekelimiz.
+// D9 FRENI: konu sayimda BULUNAMAZSA kunye HIC GOSTERILMEZ. "Sik cikar" gibi
+// olcusuz ifade yasak - yalniz sayilmis donem verisi yazilir.
+var SIKLIK = null;
+fetch('veri/siklik-kunyesi.json?' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if(d && d.konular){ SIKLIK = d; } })
+  .catch(function(){ /* kunye yoksa sessizce gosterilmez */ });
+
+// PowerShell tarafindaki Norm() ile BIREBIR ayni olmali, yoksa anahtar tutmaz.
+function knorm(t){
+  var s = String(t == null ? '' : t).toLowerCase();
+  s = s.replace(/[çÇ]/g,'c').replace(/[ğĞ]/g,'g').replace(/[ıİi̇]/g,'i')
+       .replace(/[öÖ]/g,'o').replace(/[şŞ]/g,'s').replace(/[üÜ]/g,'u');
+  s = s.replace(/[^a-z0-9| ]/g,' ').replace(/\s+/g,' ');
+  return s.trim();
+}
+
+function siklikKunyesi(s){
+  if(!SIKLIK || !s || !s.ders || !s.konu) return '';
+  var k = SIKLIK.konular[knorm(s.ders + '|' + s.konu)];
+  if(!k || !k.d) return '';                      // sayim yok -> kunye yok (D9)
+  var top = SIKLIK.donem_sayisi || 0;
+  if(!top) return '';
+  var vurgu = (k.d >= Math.max(3, Math.round(top * 0.15)));   // duzenli cikan konu
+  return '<div style="font-size:12px;color:' + (vurgu ? 'var(--accent2)' : 'var(--dim)') +
+    ';background:rgba(245,165,36,.06);border:1px solid rgba(245,165,36,.22);border-radius:11px;padding:8px 13px;margin-top:8px">' +
+    '📊 Bu konu son <b>' + top + '</b> dönemin <b>' + k.d + '</b> tanesinde çıktı' +
+    (k.s > k.d ? ' — toplam <b>' + k.s + '</b> soru' : '') + '.' +
+    '<span style="color:var(--dim)"> Çıkmış kitapçıkların sayımı.</span></div>';
+}
+// ============ /SIKLIK KUNYESI ============
+
 // ============ SINAV RONTGENI (02.08) ============
 // Kisinin OLCULEN ders basarisini, sinavin RESMI soru dagilimina yansitir.
 // Uydurma yok: yalniz iki gercek carpilir — senin yuzden x o dersin soru sayisi.
