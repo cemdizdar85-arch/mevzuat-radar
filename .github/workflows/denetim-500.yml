@@ -1,0 +1,47 @@
+# .github/workflows/denetim-500.yml — BUYUK DENETIM (500 soru, 0 USD)
+# Cem 02.08: "bu 40 soru yetmez, bir 500 soru cozelim... kontrolsuz yapmak yok."
+# Dengeli ornek (ders agirligi + madde tavani) + 9 ucretsiz makine kapisi.
+# Hicbir API cagrisi yok; yalniz Supabase okumasi ve yerel ambar.
+name: Buyuk Denetim - 500 soru (0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      adet:
+        description: "Kac soru okunacak (varsayilan 500)"
+        required: false
+        default: "500"
+      maddeTavan:
+        description: "Ayni maddeden en fazla kac soru (varsayilan 3)"
+        required: false
+        default: "3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: denetim-500
+  cancel-in-progress: false
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetim dokumu
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $adet = if ("${{ github.event.inputs.adet }}") { [int]"${{ github.event.inputs.adet }}" } else { 500 }
+          $tav  = if ("${{ github.event.inputs.maddeTavan }}") { [int]"${{ github.event.inputs.maddeTavan }}" } else { 3 }
+          ./motor/denetim-500.ps1 -adet $adet -maddeTavan $tav
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for f in veri/denetim-500.md veri/denetim-500.json; do if [ -f "$f" ]; then git add "$f" || true; fi; done
+          git diff --cached --quiet || git commit -m "Buyuk denetim: 500 soru dengeli ornek + makine kapilari [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
