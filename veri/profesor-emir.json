@@ -307,7 +307,22 @@
       "model": "claude-sonnet-4-5-20250929",
       "gerekce": "01.08'de uretilen 12.981 soru kasada yayin=false bekliyor; yayina cikabilmeleri icin hakem turu sart. OLCUM (02.08 00:58, 0 USD): kasada 25.850 soru, 20.049'u yargilanabilir, tam tarama batch ile 93,44 USD (0,0047 USD/soru). PARA SIGORTASI: daha once yargisi SATIN ALINMIS 3.922 soru 'haric' listesiyle atlaniyor (~18 USD tasarruf) - odenmis is ikinci kez odenmez. Cem'in 100 USD tavani icin bu parti 13.000 ile sinirlandi (~61 USD); ayni gece KGK uretimi (~35 USD) ile toplam ~96 USD. Kalan ~3.100 yargilanmamis soru bir sonraki partide (~15 USD) kosar. yayin durumu DEGISMEZ: hukumler GM'ye gelir, temizler acilir, itirazlilar karantinaya.",
       "tahmini_usd": 61.0,
-      "uygulandi": "02.08.2026 00:09"
+      "uygulandi": "02.08.2026 00:09",
+      "_gercek_fatura_usd": 66.38
+    },
+    {
+      "no": 21,
+      "tarih": "02.08.2026",
+      "veren": "GM (Cem 02.08 sabah: 'sunu kostursak, bossa ve bitse neyi bekliyoruz')",
+      "emir": "HAKEM 2. PARTI - kalan yargilanmamislar + gecersiz hukumler",
+      "onay": true,
+      "kaynak": "kasa",
+      "sinir": 0,
+      "haric": "veri/hakem-yargilanmis-idler.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "gerekce": "1. partide 12.996 hukum alindi; 630'unda hakemin alintisi dogrulanamadi (hukum GECERSIZ sayildi) ve ~3.100 soru partiye hic girmedi. Haric listesi guncellendi: 16.288 kimlik (3.922 eski + 12.366 gecerli yeni hukum) atlanacak; yani YALNIZ yargilanmamis/gecersiz kalanlar kosar (~3.700 soru, ~18 USD). -haric artik 8-hane onek eslemesi de yapiyor (hakem raporlari kisa kimlik tutuyor) - bu duzeltme olmasa 12 bin soru ikinci kez odenirdi. Kaynak onarimi (MSUGT/THP) bu partiden BAGIMSIZ; onarim bitince ayri parti kosar. yayin durumu degismez.",
+      "tahmini_usd": 18.0,
+      "uygulandi": ""
     }
   ]
 }

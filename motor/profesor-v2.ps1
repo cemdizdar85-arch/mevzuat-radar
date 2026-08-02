@@ -125,8 +125,14 @@ if($haric){
   else {
     $atla = @{}
     foreach($x in @(Get-Content $haric -Raw -Encoding UTF8 | ConvertFrom-Json)){ $atla["$x"] = 1 }
+    # 02.08: hakem raporlarindaki kimlikler KISA (8 hane) tutuluyor; kasadaki
+    # kimlik tam UUID. Onek eslemesi olmazsa yargilanmis sorular yeniden
+    # yargilanir ve para iki kez oder.
     $once = $sorular.Count
-    $sorular = @($sorular | Where-Object { -not $atla.ContainsKey("$($_.id)") })
+    $sorular = @($sorular | Where-Object {
+      $tam = "$($_.id)"
+      -not ($atla.ContainsKey($tam) -or ($tam.Length -ge 8 -and $atla.ContainsKey($tam.Substring(0,8))))
+    })
     Write-Host ("HARIC: {0} yargilanmis kimlik atlandi ({1} -> {2})" -f $atla.Count, $once, $sorular.Count)
   }
 }
