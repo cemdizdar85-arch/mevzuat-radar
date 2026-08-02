@@ -1,5 +1,21 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 02.08.2026 GECE — LİSTE GERÇEKLE KARŞILAŞTIRILDI (bu bölüm en günceli; aşağıdaki eski bölümler tarihsel kayıt)
+*Sebep: "TSRS 1 eksik" diye yutmaya başladım, meğer sabah 09:04'te robot yutmuş — boşuna emek. Bunun bir daha olmaması için listedeki 27 "eksik" kalemin hepsi tek tek `veri/mevzuat/` ve ambarla karşılaştırıldı.*
+
+**GERÇEKTE YUTULMUŞ (liste yanlış diyordu) — 23 kalem:** TSRS 1 ✓ · TSRS 2 ✓ · TMS 20/26/27/32/33/34/41 ✓ · TFRS 1/2/6/11/12/14/17/18 ✓ · BDS 260/265/510/540/580/620/720 ✓ — hepsinin dosyası `veri/mevzuat/` içinde, metinleri paragraf paragraf sağlam (TSRS 1 tek başına 115 belge).
+
+**GERÇEKTEN EKSİK — yalnızca 4 başlık kaldı:**
+- [ ] **SDS 1** Sürdürülebilirlik Denetimi Standardı — KGK sınavı (g) modülünün TEK kaynağı, o modülde hâlâ tek soru üretilemiyor. **EN ÖNCELİKLİ.**
+- [ ] **BOBİ FRS** — TFRS uygulamayan denetime tabi şirketlerin tamamının kullandığı set; Türkiye uygulamasının belkemiği.
+- [ ] **KÜMİ FRS** — küçük ve mikro işletmeler.
+- [ ] **Yapılandırma/af kanunları:** 7440 · 7326 · 7143 · 6736 (matrah artırımı soruları ve Af Radarı #63 bunlara dayanır).
+
+**🔴 ASIL DARBOĞAZ — DOSYA DEPODA AMA AMBARDA DEĞİL:** Ölçüm (02.08 gece): TSRS 1 → ambarda **0** belge, TSRS 2 → **0**, TMS 33 → **0**, TFRS 17 → **0**, TFRS 18 → **0**. Yani sabah yutulan ~25 standart **soru fabrikasının göremediği yerde duruyor** — "yuttum" demek yetmiyor, ambara inmesi şart ([[yutma-kapsama-kapisi]] kuralı). Sebep: `yukle.yml` (Mevzuat Tam Yükleme) 17:25'ten beri **pending**; `mevzuat.yml` ile aynı `mevzuat-ayna` concurrency grubunu paylaşıyor ve 12:16'da başlayan bir koşu kilidi tutuyor. O koşu **HAYALET**: GitHub API'sinde `jobs: 0` — içinde çalışan tek iş yok, sadece kuyruğu bloke ediyor.
+
+**ÇÖZÜM:** Hayalet koşu iptal edilince yükleyici sıradan geçer ve ~25 standart ambara iner. Kendiliğinden de çözülür (6 saat tavanı ~18:16 UTC'de koşuyu düşürür), ama elle iptal daha hızlı: Actions → "Günlük Kanun Aynası" → 12:16'da başlayan koşu → Cancel.
+
+
 ## 🚨 BOŞLUK TARAMASI (27.07.2026, Cem sorusu: "okumadığımız konu var mı? konu yoksa robot soru yazmıyor")
 *Yöntem: 16 SGS + 8 Yeterlilik dönemlik gerçek kitapçık konu haritasındaki TÜM standart atıfları taranıp ambardakiyle karşılaştırıldı (scratchpad/bosluk-tarama.ps1). Sonuç: kitapçıklarda soru çıkan ama ambarda metni OLMAYAN 19 standart bulundu — bunlar yutulmadan robot bu konularda soru üretemez.*
 
