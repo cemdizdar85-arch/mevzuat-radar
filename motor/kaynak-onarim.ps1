@@ -63,20 +63,25 @@ $reKanunNo = [regex]'(?i)(say[ıi]l[ıi]|s\.\s*K\.|S[ıi]ra\s*No)'
 
 $onarilacak = New-Object System.Collections.Generic.List[object]
 $kapsamDisi = 0
+# 02.08: ilk kuru kosuda 7.472 yetersizin yalnizca 394'u onarilabilir cikti.
+# "Neden kapsam disi?" sorusunun cevabi olculmeden kural genisletilemez -
+# tahminle kaynak degistirmek yanlis atif uretir. Dokum tutuluyor.
+$disiSebep = @{}; $disiDers = @{}
 foreach($s in $kasa){
   $tam = "$($s.id)"; $kisa = if($tam.Length -ge 8){ $tam.Substring(0,8) } else { $tam }
   if(-not ($yetersiz.Contains($tam) -or $yetersiz.Contains($kisa))){ continue }
   $mevcut = "$($s.kaynak)"
-  if($mevcut -match '(?i)MSUGT|tekd[uü]zen|hesap plan|\bTHP\b'){ $kapsamDisi++; continue }  # zaten dogru
+  $ders = "$($s.ders)"
+  if($mevcut -match '(?i)MSUGT|tekd[uü]zen|hesap plan|\bTHP\b'){ $kapsamDisi++; $disiSebep['kaynagi zaten THP']++; $disiDers[$ders]++; continue }
   $govde = "$($s.soru) $($s.konu)"
-  if(-not $reKayit.IsMatch($govde)){ $kapsamDisi++; continue }                              # kayit sorusu degil
+  if(-not $reKayit.IsMatch($govde)){ $kapsamDisi++; $disiSebep['muhasebe kaydi dili yok']++; $disiDers[$ders]++; continue }
   $kodlar = @()
   foreach($m in $reKod.Matches($govde)){
     $son = $govde.Substring($m.Index + $m.Length)
     if($reKanunNo.IsMatch($son.Substring(0,[Math]::Min(12,$son.Length)))){ continue }        # "213 sayili" gibi kanun no
     if($kodlar -notcontains $m.Groups[1].Value){ $kodlar += $m.Groups[1].Value }
   }
-  if($kodlar.Count -eq 0){ $kapsamDisi++; continue }                                        # hesap kodu yoksa dokunma
+  if($kodlar.Count -eq 0){ $kapsamDisi++; $disiSebep['hesap kodu bulunamadi']++; $disiDers[$ders]++; continue }
   if($kodlar.Count -gt 4){ $kodlar = $kodlar[0..3] }
   $onarilacak.Add([pscustomobject]@{
     id = $tam; ders = "$($s.ders)"; konu = "$($s.konu)"
@@ -107,6 +112,8 @@ Rapor ([ordered]@{
   kapsam_disi = $kapsamDisi
   yazilan = $yazilan
   hata = $hata
+  kapsam_disi_sebep = $disiSebep
+  kapsam_disi_ders = ($disiDers.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 15 | ForEach-Object { [ordered]@{ ders=$_.Key; adet=$_.Value } })
   ornekler = @($onarilacak | Select-Object -First 25)
   not = "Yalniz 'kaynak' kolonu degistirildi; soru/sik/aciklama/yayin durumuna DOKUNULMADI. Onarilanlar bir sonraki hakem turunda DOGRU metinle (THP) yargilanacak."
 })
