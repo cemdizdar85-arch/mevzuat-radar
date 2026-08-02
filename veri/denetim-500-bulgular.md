@@ -120,7 +120,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 78 | — | DÜZELTİLİR | **B3'ün itiraf örneği** | VUK 275: 1.189,58 ✓ doğru. Ama E şıkkının açıklaması aynen şöyle bitiyor: *"Aslında bu da yanlış hesap ama yakın."* — üretici çeldiricisinin tutmadığını AÇIKLAMANIN İÇİNE yazmış, kapılar geçirmiş. B3 sınıfının en çıplak kanıtı; hesap kapısının gerekliliğini tek cümlede özetliyor. Not: bu dökümde VUK 275 sayacı 819 gösteriyor (56'da 491'di — sayım kesitine göre değişiyor; her durumda DEV küme). |
 | 79 | — | TEMİZ | etiket ters | VUK 279 %51 fon kuralı ✓ güzel nüans sorusu. Etiket "kredili mal satışı"?! |
 
-**Ara sayaç (79/500):** kesin yanlış **5** · riskli **5** · düzeltilir 26 · temiz 43.
+| 80 | — | TEMİZ | — | TTK 402/2 ayrı rapor ✓. |
+| 81 | — | TEMİZ | atıf hassasiyeti | TFRS 8 %75 kuralı ✓ hesap doğru (%70<%75). Kaynak alanı "p.11-12" yazıyor, kural p.15'te — atıf düzeltilir. |
+| 82 | — | TEMİZ | — | TMS 16 p.11 çevre tesisi aktifleştirme ✓. |
+| 83 | — | DÜZELTİLİR | B3 (şık-açıklama kayması) | 29.000 ✓ doğru. Ama C şıkkının (24.000=DIMM+işçilik) açıklaması E'nin mantığını (işçilik+GÜG=11.000) anlatıyor; A'nın 18.270 rakamı açıklamasıyla örtüşmüyor. |
+| 84 | — | **RİSKLİ — B1 (yıl-bağımlı ceza)** | doğrulanacak | SPK 6362 m.104: menfaatin iki katı = 360.000 mantığı ✓. AMA "20.000-500.000 TL" kanun metni rakamı; 6362 m.105 idari para cezaları HER YIL yeniden değerlemeyle artar. 2026 güncel alt sınır 360.000'i aşıyorsa asgari ceza 360.000 DEĞİL güncel alt sınır olur → cevap değişebilir. Onarım öncesi SPK güncel tutarı BİRİNCİLDEN teyit edilecek (Q12 deseninin SPK versiyonu). |
+| 85 | — | TEMİZ | — | Denetçi raporu YK'ya ✓ (TTK 402). |
+
+**Ara sayaç (85/500):** kesin yanlış **5** · riskli **6** (5, 8, 21, 40, 72, 84) · düzeltilir 28 · temiz 47.
 **Mükerrer çiftler bu blokta:** 74↔75 · 57↔76 · 58↔77 — denetim dersinde yoğun tekrar.
 **Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
 **Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
