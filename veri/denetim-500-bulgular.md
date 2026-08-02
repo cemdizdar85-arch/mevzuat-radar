@@ -44,7 +44,12 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 23 | — | DÜZELTİLİR | homoglif (YENİ SINIF B9) | TTK 375/1-c ✓, şube müdürü istisnası (7511) doğru işlenmiş. Ama "devredilебilir" ×3 — içinde KİRİL harfleri var. |
 | 24 | — | TEMİZ | eski format | GVK 46: şart kaybı → ertesi yıl başı gerçek usul ✓. |
 
-**Ara sayaç (24/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 4 · temiz 15.
+| 25 | — | TEMİZ | mükerrer adayı | VUK 315 Bakanlık oranları ✓. Bu madde havuzda 6 soruda — küme incelenecek. |
+| 26 | — | DÜZELTİLİR-hafif | kaynak hassasiyeti + ASCII | TMS 1 gider çeşidi ✓. Kaynak alanı "TMS 1 p.1" yazıyor, kural p.102'den — atıf paragrafı düzeltilmeli. "bu sik yanlistir" ASCII bozuk. |
+| 27 | — | DÜZELTİLİR | alakasız veri yığını (YENİ SINIF B10) | TTK 64/3 ✓. Gövde 87.450 TL mal alışı+senet+sigorta yığıyor, soru defter onayı — verinin cevapla İLGİSİ YOK. Aday hesaba başlar, zaman kaybeder. Gövde budanır. |
+| 28 | — | DÜZELTİLİR | mükerrer + zayıf açıklama | TTK 64/3 — Q3 ve Q27 ile AYNI kural (küme: 3 soru). D açıklaması "öngörülmüş olabilir" diye belirsizlik uyduruyor. |
+
+**Ara sayaç (28/500):** kesin yanlış 2 · iki-şık/çerçeve riski 3 · düzeltilir 8 · temiz 17.
 
 ---
 
@@ -95,6 +100,12 @@ kuralı; hakem ölçütüne "özel hüküm cevabı değiştirir mi?" sorusu.
 Gözle görülmez, arama/kopyalama bozar, yapay zekâ kokusudur. **Düzeltme:**
 üretim + toplu onarım kapısına homoglif taraması ([Ѐ-ӿ] ve benzeri
 aralıklar) — eşleşen soru otomatik işaretlenir; kasa bir kez topluca taranıp temizlenir.
+
+### B10. 🟡 Alakasız veri yığını (Q27)
+Gövde tutar/senet/sigorta yığıyor, soru bambaşka şey soruyor; veri cevaba hizmet
+etmiyor. **Düzeltme:** üretim istemine "gövdeye yazdığın HER rakam ya cevapta ya
+bir çeldiricide kullanılmalı; kullanılmayan veri yasak" kuralı + makine kapısı
+(gövdedeki tutarların hiçbiri şık/açıklamada geçmiyorsa işaretle — G8'in tersi).
 
 ### B7. 🟡 Koşucu-yerel çözüm farkı (ölçüm altyapısı)
 Actions koşucusunda dokumanlar imatch sorguları boş dönüyor (ambarda-yok 363,
