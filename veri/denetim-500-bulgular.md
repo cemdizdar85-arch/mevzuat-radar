@@ -485,6 +485,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 391 | — | DÜZELTİLİR | **390 ile mükerrer** (aynı kural + aynı öz) + konu etiketi kayması ("monopol piyasası özellikleri" ≠ rekabet hukuku) | İçerik doğru ✓; 390 kalır (madde ayrımı zengin), 391 elenir. |
 
 **Ara sayaç (391/500):** kesin yanlış **10** · riskli **15** · düzeltilir 75 · temiz 296 (%76). (381 hükmü geriye dönük düzeltildi.)
+
+| 392 | — | TEMİZ | — | GSYH deflatörü 4M/3,2M×100=125 ✓. |
+| 393 | — | TEMİZ | KGK-etiketli, içerik BDS 450 p.14 — ders uyumlu ✓ | Yazılı beyan (yönetim + üst yönetimden sorumlular) ✓. |
+| 394 | — | TEMİZ | — | BDS 220 p.13: derhal denetim şirketine bildir ✓. |
+| 395 | — | TEMİZ | — | BDS 500 m.8: yönetim uzmanı üçlüsü (yetkinlik-anlama-uygunluk) ✓. |
+| 396 | — | DÜZELTİLİR | **356 ile mükerrer** (BDS 501 sayım görevi, aynı öz) | İçerik doğru ✓; 356 kalır (kesim bilgisi unsuru da var — m.4 tam), 396 elenir. |
+| 397 | — | TEMİZ — 362'nin yerine kalır | **362 ile mükerrer** (örnekleme riski ↓ → örneklem ↑, aynı öz) | %10→%5 somut senaryo daha zengin; 397 kalır, **362 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 398 | — | TEMİZ — iyi soru | — | Kanıt miktar≠kalite; riskli kalemde bağımsız kaynak şartı ✓ güzel işlenmiş. |
+| 399 | — | TEMİZ | — | BDS 240 p.15: ekip beyin fırtınası ✓. |
+
+**Ara sayaç (399/500):** kesin yanlış **10** · riskli **15** · düzeltilir 77 · temiz 302 (%76). (362 hükmü geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
