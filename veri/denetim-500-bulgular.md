@@ -224,7 +224,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 168 | — | TEMİZ* | VUK 275 kümesi | Unsur listesi ✓. |
 | 169 | — | **ELENİR — YANLIŞ KAYIT #9** | dengesiz yevmiye | TMS 23 net tutar (168.900) doğru hesaplanmış AMA işaretli A şıkkının yevmiye kaydı **DENGESİZ**: Borç 258 = 168.900, Alacak 780+642 = 187.200+18.300 = **205.500 ≠ 168.900.** Hiçbir muhasebe düzeninde geçerli olmaz; dengeyi kontrol eden aday A'yı eler. Doğru yapı (642'nin borçlanması) E şıkkında denenmiş ama E'nin rakamları yanlış → **doğru kayıt şıklarda yok.** Ayrıca YEVMIYE VERISI alanı "2600026000" diye bozuk. Cem'in çalışma-kâğıdı (I5) özelliği için de kritik: yevmiye kayıtlı her soruya borç=alacak denge kapısı ŞART (bedava aritmetik). |
 
-**Ara sayaç (169/500):** kesin yanlış **9** (12, 15, 38, 41, 42, 88, 118, 125, 169) · riskli **12** · düzeltilir 48 · temiz 105 (%62).
+| 170 | — | TEMİZ | — | TFRS 16 p.32: mülkiyet devri → 25 yıl ✓ (Q86'nın ters senaryosu, doğru işlenmiş). |
+| 171 | — | TEMİZ | — | 5510 kısa vadeli kollar: analık ✓. |
+| 172 | — | TEMİZ | — | VUK 272 özel maliyet / gider ayrımı ✓. |
+| 173 | — | TEMİZ | — | TMS 38 p.107/100/108 üç önerme ✓ güzel format. |
+| 174 | — | TEMİZ | — | KVK 32/C: büyük olan ödenir (120.000) ✓; rakamlar gövdede — zamansız. |
+| 175 | — | TEMİZ | TBK 82 (6. — meşru varyant) | Hiç öğrenilmemiş → 10 yıl objektif → 05.06.2020 ✓; küme içinde FARKLI açı, mükerrer değil. |
+
+**Ara sayaç (175/500):** kesin yanlış **9** · riskli **12** · düzeltilir 48 · temiz 111 (%63). Blok 6/6 temiz.
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
