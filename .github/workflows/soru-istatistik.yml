@@ -1,0 +1,41 @@
+# .github/workflows/soru-istatistik.yml — K1 ZORLUK YUZDESI (0 USD)
+# SINAV-KURALLARI K bolumu. cevap_kaydi'ndan soru bazinda "yuzde kaci dogru
+# bildi" hesaplanir; 20 cevaptan az olan soru dosyaya YAZILMAZ (K4 esik kurali).
+name: Soru Istatistigi (K1, 0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      esik:
+        description: "kac cevaptan sonra gosterilsin (varsayilan 20)"
+        required: false
+        default: "20"
+  schedule:
+    - cron: "20 2 * * *"    # 05:20 TR - gunluk tazeleme (para harcamaz)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soru-istatistik
+  cancel-in-progress: false
+
+jobs:
+  hesapla:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Istatistigi hesapla
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/soru-istatistik.ps1 -esik ${{ github.event.inputs.esik || 20 }}
+      - name: Commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/soru-istatistik.json ]; then git add veri/soru-istatistik.json || true; fi
+          git diff --cached --quiet || git commit -m "Soru istatistigi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
