@@ -199,8 +199,47 @@ function MevzuatDisiMi([string]$kaynak){
   return $true    # teori notu, dil kurali, matematik formulu, tarih bilgisi...
 }
 
-function KaynakCoz([string]$kaynak){
-  if(MevzuatDisiMi $kaynak){ return [ordered]@{ durum='mevzuat-disi'; kaynak=$kaynak } }
+# ---------------------------------------------------------------------------
+# TEORI KAPISI (02.08.2026 — Cem: "teori kapisini kur")
+# OLCUM: hakemin "destek=yetersiz" dedigi 8.577 sorunun 7.377'si MUHASEBE
+# KAVRAM sorusu (dikey analiz, katki payi, birlesik maliyet...). Bunlarin dogru
+# dayanagi ne kanun maddesi ne hesap plani - TEORI NOTU. Notlar ambara sonradan
+# girdigi icin uretici o soruları bulabildigi en yakin kanuna baglamis; hakem de
+# hakli olarak "bu metin bunu soylemiyor" demis.
+# Bu kapi, konu/kaynak metnindeki anahtar kelimelerle ambardaki 'Teori Notu -'
+# kayitlarini arar. Bulursa DOGRU metni dondurur. Uydurma yok: yalniz ambarda
+# GERCEKTEN duran nota baglar, bulamazsa dokunmaz.
+function TeoriNotuMetni([string]$kaynak, [string]$konu){
+  $havuz = ("$konu " + "$kaynak").ToLowerInvariant()
+  if($havuz.Trim().Length -lt 4){ return $null }
+  # 4+ harfli anlamli kelimeler (TR harfleri sadelestirilir - ambar aramasi imatch)
+  $kel = @()
+  foreach($w in (($havuz -replace '[ıİ]','i' -replace '[şŞ]','s' -replace '[ğĞ]','g' -replace '[üÜ]','u' -replace '[öÖ]','o' -replace '[çÇ]','c') -split '[^a-z0-9]+')){
+    if($w.Length -ge 5 -and $kel -notcontains $w){ $kel += $w }
+  }
+  if($kel.Count -eq 0){ return $null }
+  if($kel.Count -gt 6){ $kel = $kel[0..5] }
+  $anahtar = "TEORI|" + ($kel -join ',')
+  if($script:onbellek.ContainsKey($anahtar)){ return $script:onbellek[$anahtar] }
+  $desen = '^Teori Notu.*(' + ($kel -join '|') + ')'
+  try {
+    $rHam = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&limit=3") -Headers $H -TimeoutSec 60
+    $r = @($rHam)
+  } catch { return $null }
+  if($r.Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
+  $sonuc = [ordered]@{ ad = "$($r[0].kaynak_ad)"; parca = $r.Count; metin = (($r | ForEach-Object { $_.metin }) -join "`n") }
+  $script:onbellek[$anahtar] = $sonuc
+  return $sonuc
+}
+
+function KaynakCoz([string]$kaynak, [string]$konu = ''){
+  if(MevzuatDisiMi $kaynak){
+    # mevzuat disi = teori alani. Once ambardaki teori notuna bakilir; varsa
+    # soru ARTIK KAYNAKSIZ DEGILDIR ve hakem dogru metinle yargilar.
+    $tn = TeoriNotuMetni $kaynak $konu
+    if($tn){ return [ordered]@{ durum='cozuldu-teori'; kaynak=$kaynak; ad=$tn.ad; parca=$tn.parca; metin=$tn.metin } }
+    return [ordered]@{ durum='mevzuat-disi'; kaynak=$kaynak }
+  }
   $std = StandartMetni $kaynak
   if($std){ return [ordered]@{ durum='cozuldu-standart'; kaynak=$kaynak; standart=$std.standart; parca=$std.parca; ad=$std.ad; metin=$std.metin } }
   # Hesap plani KANUN yolundan ONCE denenir: "MSUGT 360 hesap aciklamasi;
@@ -226,7 +265,13 @@ function KaynakCoz([string]$kaynak){
   elseif("$kaynak" -match '(?i)ge[çc]ici\s*m|gec\.\s*m'){ $seri = 'gec' }
   elseif("$kaynak" -match '(?i)ek\s+m\.'){ $seri = 'ek' }
   $m = MaddeMetni $kn $mn $seri
-  if(-not $m){ return [ordered]@{ durum=$(if($seri){"seri-$seri-ambarda-yok"}else{'ambarda-yok'}); kaynak=$kaynak; kanun=$kn; madde="$seri$mn" } }
+  if(-not $m){
+    # 02.08: madde ambarda yoksa son care olarak teori notuna bakilir - soru
+    # kavram sorusu olabilir ve uretici onu yanlislikla bir kanuna baglamistir.
+    $tn2 = TeoriNotuMetni $kaynak $konu
+    if($tn2){ return [ordered]@{ durum='cozuldu-teori'; kaynak=$kaynak; ad=$tn2.ad; parca=$tn2.parca; metin=$tn2.metin } }
+    return [ordered]@{ durum=$(if($seri){"seri-$seri-ambarda-yok"}else{'ambarda-yok'}); kaynak=$kaynak; kanun=$kn; madde="$seri$mn" }
+  }
   return [ordered]@{ durum='cozuldu'; kaynak=$kaynak; kanun=$kn; madde="$seri$mn"; parca=$m.parca; ad=$m.ad; metin=$m.metin }
 }
 

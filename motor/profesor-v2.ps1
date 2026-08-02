@@ -196,6 +196,38 @@ SADECE gecerli JSON dondur:
 "@
   }
 
+  # 02.08 TEORI KAPISI: dayanak bir TEORI NOTU ise "mevzuat hukmu" demek yanlis
+  # olur - model lafzi hukum ararken kavram tanimini "yetersiz" sayar. Etiket
+  # 'Teori Notu' ile basliyorsa istem DILI degisir, kural ayni kalir: yalniz
+  # verilen metne dayan.
+  $teoriMi = ("$maddeEtiket" -match '(?i)^teori notu')
+  if($teoriMi){
+    return @"
+Sen bir muhasebe/finans ders denetcisisin. Asagida bir DERS BILGISI NOTUNUN tam metni ve bu bilgiye dayandigi iddia edilen bir sinav sorusu var.
+
+MUTLAK KURAL: YALNIZCA asagidaki NOTA dayanarak karar ver. Kendi hafizandan bilgi ekleme. Notta yazmayan bir seyi ne dogru ne yanlis say; not yetmiyorsa "yetersiz" de.
+
+=== DERS NOTU ($maddeEtiket) ===
+$maddeMetni
+=== METIN BITTI ===
+
+SORU: $($s.soru)
+SIKLAR:
+$sik
+ISARETLI DOGRU CEVAP: $($s.dogru)
+SIK ACIKLAMALARI:
+$ack
+
+Su uc soruyu AYRI AYRI cevapla:
+1) destek: Isaretli dogru cevabi bu NOT destekliyor mu? (evet/hayir/yetersiz)
+2) tek_dogru: Siklardan TAM OLARAK BIRI mi dogru? (evet/hayir/yetersiz)
+3) celiski: Sik aciklamalarindan biri NOTLA celisiyor mu? (evet/hayir)
+
+Her hukum icin NOTTAN BIREBIR ALINTI ver (alinti alani). Alinti veremiyorsan "yetersiz" de.
+YALNIZ JSON dondur: {"destek":"...","alinti":"...","tek_dogru":"...","celiski":"...","gerekce":"..."}
+"@
+  }
+
   return @"
 Sen bir mevzuat denetcisisin. Asagida bir mevzuat huknunun TAM METNI ve bu hukme dayandigi iddia edilen bir sinav sorusu var.
 
@@ -232,9 +264,16 @@ foreach($s in $sorular){
   $ist.toplam++
   if($sinir -gt 0 -and $isler.Count -ge $sinir){ break }
   $k = "$($s.kaynak)"
-  if(MevzuatDisiMi $k){ $ist.mevzuatDisi++; continue }
-  $c = KaynakCoz $k
-  if(-not $c -or "$($c.durum)" -notin @('cozuldu','cozuldu-standart')){ $ist.metinYok++; continue }
+  # 02.08 TEORI KAPISI: "mevzuat disi" saydigimiz sorular ASLINDA kaynaksiz
+  # degil - ambardaki teori notlarina dayaniyorlar. Once cozucuye sorulur;
+  # teori notu bulunursa soru YARGILANIR (dogru metinle). Bulunmazsa eskisi
+  # gibi mevzuat-disi sayilip atlanir. Konu bilgisi de gonderilir: kaynak
+  # alani yanlis kanuna isaret etse bile konu dogru notu bulmaya yeter.
+  $c = KaynakCoz $k "$($s.konu)"
+  if(-not $c -or "$($c.durum)" -notin @('cozuldu','cozuldu-standart','cozuldu-teori','cozuldu-hesapplani')){
+    if(MevzuatDisiMi $k){ $ist.mevzuatDisi++ } else { $ist.metinYok++ }
+    continue
+  }
   if(-not $c.metin -or "$($c.metin)".Trim().Length -lt 40){ $ist.metinYok++; continue }
   $metin = "$($c.metin)"
   $kirpildi = $false
