@@ -92,7 +92,7 @@ $hepsi = 0
 $vurgun = New-Object System.Collections.Generic.List[object]
 $offset = 0; $sayfa = 1000
 while($true){
-  $istekUri = "$TABAN?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
+  $istekUri = "${TABAN}?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
   $hw = Invoke-WebRequest -UseBasicParsing -Uri $istekUri -Headers $BASLIK -TimeoutSec 180
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
@@ -158,7 +158,7 @@ if($uygula){
   $kalan = 0
   $offset = 0
   while($true){
-    $istekUri = "$TABAN?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
+    $istekUri = "${TABAN}?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
     $hw = Invoke-WebRequest -UseBasicParsing -Uri $istekUri -Headers $BASLIK -TimeoutSec 180
     $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
     $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
