@@ -641,6 +641,8 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 
 **Kesin yanlış 11 · Riskli 16 · Düzeltilir 104 · Temiz 374 (%75)**
 
+> **Sayaç düzeltmesi (02.08 ikinci geçiş):** Defterde açık hükümlü RİSKLİ satır **12**'dir (Q46, 84, 86, 108, 128, 149, 152, 163, 198, 316, 336, 430). Sayaçtaki "16", okuma sırasındaki sayaç kayması — RİSKLİ'ye çevrilen ek satır aranmış, bulunamamıştır (tüm çevrilmeler TEMİZ→DÜZELTİLİR yönünde). Yayından çekme bu 12 + kesin 11 üzerinden yapıldı; riskli sınıfı paralı onarım ve okuma turunda zaten yeniden ele alınacak.
+
 Kesin yanlışlar: 12, 15, 38, 41, 42, 88, 118, 125, 169, 230, **498**.
 Son yakalanan: Q498 — amortisman yöntemi değişikliğini "politika değişikliği" olarak işaretliyor; TMS 16 p.61/TMS 8 uyarınca TAHMİN değişikliğidir. 497 soruda sırıtmayan bu hata 498'de çıktı: **okumayı 500'e kadar sürdürmenin gerekçesi kendini son blokta kanıtladı.**
 
