@@ -175,7 +175,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 126 | — | TEMİZ* | TTK 720 kümesi (3.) + B10 | Noter saklar ✓; temettü kararıyla protesto zorla bağlanmış absürt kurgu — gövde budanır. |
 | 127 | — | TEMİZ | TTK 367 kümesi (8.!) | İç yönerge içeriği; katılım usulü esas sözleşme konusu ✓ iyi ayrım. |
 
-**Ara sayaç (127/500):** kesin yanlış **8** (12, 15, 38, 41, 42, 88, 118, 125) · riskli **8** · düzeltilir 42 · temiz 73.
+| 128 | — | **RİSKLİ** | 482 kümesi (8. üye) | "482 uyarınca yer almaz → ihtar/ek süre" D işaretli — soru kendini "m.482 uyarınca" çerçevesiyle kurtarıyor AMA açıklama "kanun ihtar kuralını burada uygulamaz" diye GENELLİYOR; aday "ıskatta ihtar yok" ezberler, m.483'ü kaçırır. Çerçeve netleştirilecek + açıklamaya 483 şerhi. |
+| 129 | — | TEMİZ | — | 900.000/15.000=60 ✓; dağıtılmayan 180.000'in dönem gideri olduğu da açıklanmış — örnek soru. |
+| 130 | — | TEMİZ | — | TTK 378 riskin erken teşhisi ✓. |
+| 131 | — | DÜZELTİLİR-ACİL | **İSTEM ARTIĞI (YENİ SINIF B16)** + mükerrer (Q111) | Cevap ✓ ama dört yanlış şık açıklamasının SONUNDA "175 karakter." "201 karakter." "189 karakter." "212 karakter." yazıyor — üreticinin karakter sayacı çıktıya sızmış. Yapay zekâ kokusunun en çıplak hali; aday görürse güven biter. Örneklemde yalnız bu soruda; KASA ÇAPINDA taranacak (bedava grep: "karakter.", "kelime", "token" vb. artık kalıpları). |
+| 132 | — | TEMİZ | — | TMS 23: 183.750-47.320=136.430 ✓; dönem uyumu Q34'ün aksine DOĞRU kurulmuş. |
+| 133 | — | TEMİZ | dil (B açıkl.) | Dönüştürme maliyeti 218.535 ✓; hammadde=satın alma maliyeti ayrımı güzel. |
+
+**Ara sayaç (133/500):** kesin yanlış **8** · riskli **9** (5, 8, 21, 40, 72, 84, 86, 108, 128) · düzeltilir 44 · temiz 77.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
@@ -255,6 +262,14 @@ gelince banka kendi kendini yalanlıyor. **Düzeltme:** parmak izi kümeleri
 içinde işaretli doğru şıkların METİNLERİ karşılaştırılır; çelişen çift bulunursa
 ikisi de GM'ye düşer, kanuna sadık olan kalır. Mükerrer ayıklamasıyla aynı
 geçişte, bedava.
+
+### B16. 🔴 İstem artığı / prompt kalıntısı (Q131)
+Üreticiye verilen biçim talimatının artıkları ("175 karakter." gibi sayaç
+metinleri) açıklamanın içine sızmış. Yapay zekâ kokusunun en ele verici türü.
+**Düzeltme:** bedava makine taraması — kasa çapında şu kalıplar aranır ve
+eşleşen soru işaretlenir: `\d+ karakter`, `\d+ kelime`, "token", "işte
+açıklama", "aşağıdaki formatta", "JSON", köşeli parantezli yer tutucular.
+Üretim kapısına da eklenir; [[yapayzeka-kokusu]] ölçümüyle birleşir.
 
 ### B12. 🟡 Döküm betiği tablo alanını bozuk basıyor (altyapı)
 denetim-500.ps1 tablo/yevmiye alanını "@{baslik=System.Object[]}" diye basıyor —
