@@ -169,7 +169,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 120 | — | DÜZELTİLİR-hafif | B3 | 14.594 ✓. A ile E'nin açıklamaları kaymış (A=9.075'in izahı yalnız hammaddeyi anlatıyor — o E'nin hesabı). |
 | 121 | — | TEMİZ | B3 hafif (D'de "48.380" uydurma) | 692.570 ✓ tutarlı. |
 
-**Ara sayaç (121/500):** kesin yanlış **7** (12, 15, 38, 41, 42, 88, 118) · riskli **8** · düzeltilir 41 · temiz 68.
+| 122 | — | TEMİZ* | İş K.13 kümesi (7.) | Eş gizleme senaryosu, şart ayrımı ✓. |
+| 123-124 | — | TEMİZ* | mükerrer ÇİFT + etiket gövdeye sızmış | İkisi de aynı kural (esas sözleşme hükmü → iç yönerge → devir) ✓ doğru ama birbirinin kopyası. Dikkat: ders etiketi "Maliyet Muhasebesi" olduğu için senaryoya zorla "maliyet muhasebesi müdürü Ayşe Hanım'a sorulmuştur" cümlesi eklenmiş — **etiket hatası artık gövdeyi bile büküyor.** |
+| 125 | — | **ELENİR — YANLIŞ CEVAP #8 (B13)** | 482-ıskat körlüğü ÜÇÜNCÜ vaka | Soru AÇIKÇA ıskat usulünü soruyor; işaretli A "hiçbir işlem gerekmez, doğrudan ıskat edilebilir" — **m.483: ilanlı ihtar + 1 ay ŞART.** Üstelik senaryo ıskat kararını GENEL KURULA aldırtmış (yetki YK'nındır) — gövde de bozuk. Q41 ve Q118'in üçüncü kopyası. |
+| 126 | — | TEMİZ* | TTK 720 kümesi (3.) + B10 | Noter saklar ✓; temettü kararıyla protesto zorla bağlanmış absürt kurgu — gövde budanır. |
+| 127 | — | TEMİZ | TTK 367 kümesi (8.!) | İç yönerge içeriği; katılım usulü esas sözleşme konusu ✓ iyi ayrım. |
+
+**Ara sayaç (127/500):** kesin yanlış **8** (12, 15, 38, 41, 42, 88, 118, 125) · riskli **8** · düzeltilir 42 · temiz 73.
+**🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
 **Desen kesinleşti:** 6 kesin yanlışın 3'ü + 2 riskli = YIL-BAĞIMLI RAKAM (GVK tarife, VUK 262 değişikliği, GVK 40 limitleri, SPK cezası). Onarım önceliği: hadler/limit tebliğleri ambara, sonra bu küme topluca yeniden kurulur.
