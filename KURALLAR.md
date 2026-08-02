@@ -6,6 +6,21 @@ geçersiz kılmaz. Yeni kural ancak Cem'in açık onayıyla eklenir.
 
 ---
 
+## 0. SIFIR YANLIŞ KURALI (02.08.2026 — Cem: "1 adet bile yanlış soru ve cevap istemiyorum; ne gerekirse yap")
+
+**Sitede yanlış cevap olmayacak. Yanlışı öğrenciden önce BİZ göreceğiz.**
+
+- Bir soru, **insan okumasından geçmeden** yayına açılamaz. Robot kapıları
+  (üretim elekleri + hakem 3/3 + alıntı doğrulaması) *ön eleme*dir, yeterlilik
+  belgesi değildir.
+- **Neden:** ölçüldü — hakem 12.996 hükmün 630'unda (%5) kendi alıntısını
+  uydurdu; teori eşleştirmesi örneklemde %40 yanlış nota bağladı. Bu tabloda
+  "hepsi doğru" demek yalan olur.
+- **02.08'de uygulandı:** yayındaki 9.905 sorunun tamamı yayından çekildi
+  (silinmedi, `yayin=false`). Yayın artık **okunan partilerle** açılır.
+- **Dayanağı ambardan çözülemeyen soru yayına giremez** — istisnasız.
+- Şüphe varsa soru **bekler**. Az ve doğru, çok ve şüpheliye yeğdir.
+
 ## 1. YUTMA KURALI (02.08.2026 — Cem: "üstünkörü değil, en küçük maddesine kadar")
 
 **Bir metin yutulurken tek satırı bile atlanmaz.**
