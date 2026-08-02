@@ -36,7 +36,13 @@ $hedefler = @(
   @{ slug='bobi-frs'; ad='BOBI FRS (Buyuk ve Orta Boy Isletmeler Icin FRS, 2021 surumu)'; kisa='BOBI FRS';
      url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BOB%C4%B0_FRS/EK%202.pdf' },
   @{ slug='kumi-frs'; ad='KUMI FRS (Kucuk ve Mikro Isletmeler Icin FRS) - Kurum duyuru metni'; kisa='KUMI FRS';
-     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/KUMI/KUMI_FRS_Kurum_Sitesi_Duyuru_Metni.pdf' }
+     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/KUMI/KUMI_FRS_Kurum_Sitesi_Duyuru_Metni.pdf' },
+  # TSRS: KGK sinavinin (f) Kurumsal Surdurulebilirlik Raporlamasi modulunun
+  # tek kaynagi. URL'ler KGK'nin kendi duyuru PDF'inden alindi (HEAD teyitli).
+  @{ slug='tsrs1'; ad='TSRS 1 - Surdurulebilirlikle Ilgili Finansal Bilgilerin Aciklanmasi'; kisa='TSRS 1';
+     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%201.pdf' },
+  @{ slug='tsrs2'; ad='TSRS 2 - Iklimle Ilgili Aciklamalar'; kisa='TSRS 2';
+     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%202.pdf' }
 )
 
 # Eksik TMS/TFRS standartlari (2023 Mavi Kitap seti - HEAD ile teyit edildi).
