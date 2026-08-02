@@ -463,6 +463,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 375 | — | TEMİZ — iyi soru | — | TBK 132: ibra şekle bağlı değil ✓; "serbest çalışan" seçimi bilinçli (TBK 420 işçi ibrası kapsamına girmiyor — eser ilişkisi). |
 
 **Ara sayaç (375/500):** kesin yanlış **10** · riskli **15** · düzeltilir 71 · temiz 284 (%76).
+
+| 376 | — | TEMİZ | — | TBK 20/4: "müzakere edildi" kaydı tek başına yetmez ✓. |
+| 377 | — | TEMİZ | — | BDS 700: düzeltilen hata → olumlu görüş ✓. |
+| 378 | — | TEMİZ | — | BDS 705: yaygın kapsam sınırı → görüş bildirmekten kaçınma ✓. |
+| 379 | — | TEMİZ | — | BDS 700: ücret ödemesi görüş ön şartı değil ✓. |
+| 380 | — | TEMİZ | VUK 262 ailesi (bu örneklemde 3.: 328/342/380) | 15.000+1.200+800=17.000, yevmiye dengeli ✓. |
+| 381 | — | TEMİZ — 315'in yerine kalır | **315 ile mükerrer — AYNI çeldirici seti** (önceki uygulama / yasal tescil / aktifleştirme şartı / şerefiye) | TFRS 3 p.13 ✓; 381'in doğru şıkkı GUD ölçümünü de içerdiğinden 381 kalır, **315 hükmü TEMİZ→DÜZELTİLİR'e çevrildi** (elenir). |
+| 382 | — | TEMİZ | kaynak başlığı artığı ("m.35 - Bakanlığınca tespit olunur...") — kozmetik | KDVK 35: fiilen giriş + defter + beyanname ✓. |
+| 383 | — | TEMİZ | kaynak etiketi p.11-12 ama kural p.16 — hafif kayma | TFRS 8 p.16 "Diğer Tüm Bölümler" + hasılat kaynağı açıklaması ✓. |
+
+**Ara sayaç (383/500):** kesin yanlış **10** · riskli **15** · düzeltilir 72 · temiz 291 (%76). (315 hükmü geriye dönük düzeltildi.)
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
