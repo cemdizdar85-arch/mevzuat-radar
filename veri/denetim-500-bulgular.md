@@ -295,7 +295,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 232 | — | TEMİZ | — | Genel müdürlük gideri GÜG değil ✓. |
 | 233 | — | TEMİZ | — | Erken tahliye: kalan 35.000 defaten gider ✓ — özel maliyet ailesinin hesaplı, iyi işlenmiş üyesi. |
 
-**Ara sayaç (233/500):** kesin yanlış **10** (12, 15, 38, 41, 42, 88, 118, 125, 169, 230) · riskli **13** · düzeltilir 51 · temiz 163 (%70).
+| 234 | — | TEMİZ | — | Normal maliyet: sabit GÜG normal kapasiteyle, mevsimsel çarpılma önlenir ✓. |
+| 235 | — | TEMİZ* | mükerrer (Q158 kopyası) | KVK m.3 iş merkezi → tam mükellef ✓ (Hollanda→Estonya, aynı soru). |
+| 236 | — | TEMİZ | — | 3568 m.4/d: zimmet süresiz engel, 1 yıl kuralı işlemez ✓ iyi soru. |
+| 237↔240 | — | TEMİZ* | **senaryolu+düz çift (4. vaka)** | İhtiyati haciz: mahalli en büyük memur kararıyla, mahkemesiz, derhal ✓ — 237 düz, 240 senaryolu. (241 de aynı konu başlıklı — küme büyüyebilir.) |
+| 238 | — | TEMİZ | — | 6356 m.62: şebeke suyu tesisinde grev yasak ✓. |
+| 239 | — | TEMİZ | — | GVK 40/5: %70 gider / %30 KKEG ✓ — oran kanuni sabit, yıl-bağımsız; Q88'in aksine bu 40. madde sorusu güvenli tasarım. |
+
+**Ara sayaç (240/500):** kesin yanlış **10** · riskli **13** · düzeltilir 51 · temiz 170 (%71).
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
 **Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
 **8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
