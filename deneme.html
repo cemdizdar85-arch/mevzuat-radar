@@ -224,6 +224,14 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     </div>
     <!-- PERFORMANS KARNESI (29.07): "Aday nereye calisacagini bilmiyor; asil
          satin aldigi sey bu." Soru sayisi degil YON satiyoruz. -->
+    <!-- SINAV RONTGENI (02.08, Cem onayi "1'den basla"): kisinin OLCULEN ders
+         basarisi, sinavin RESMI soru dagilimina yansitilir. Iki gercegin
+         kesisimi: senin yuzden x o dersin sinavdaki soru sayisi. En kiymetli
+         cikti "hic olculmeyen soru sayisi" - aday nereye kor oldugunu gorur. -->
+    <div id="rontgenKutu" class="gizli" style="border:1px solid rgba(245,165,36,.35);background:rgba(245,165,36,.05);border-radius:13px;padding:14px 16px;margin-bottom:14px">
+      <h2 style="margin:0 0 4px">🔬 Sınav Röntgeni</h2>
+      <div id="rontgenIcerik"></div>
+    </div>
     <div id="karneKutu" class="gizli">
       <h2>Zayıf konuların</h2>
       <div class="tablosar" id="karneTablo"></div>
@@ -1316,6 +1324,7 @@ function gecmisCiz(){
     });
   }catch(e){}
   dersKarnesiCiz();
+  sinavRontgeni();
 }
 
 /* ---- DERS KARNESI + KOC NOTU (31.07 Cem: "ders ders gorsun, hoca gibi
@@ -1334,6 +1343,90 @@ function kocRecete(ders){
   var p=document.getElementById('dersSec');
   if(p) p.scrollIntoView({behavior:'smooth',block:'center'});
 }
+// ============ SINAV RONTGENI (02.08) ============
+// Kisinin OLCULEN ders basarisini, sinavin RESMI soru dagilimina yansitir.
+// Uydurma yok: yalniz iki gercek carpilir — senin yuzden x o dersin soru sayisi.
+// En kiymetli cikti OLCULMEYEN soru sayisidir: aday nereye kor oldugunu gorur.
+// v1 yalniz SGS (resmi 130-soru dagilimi PROVA_SGS'te); Yeterlilik ders bazli
+// 100'luk sistem oldugu icin ayri tasarim ister — sonraki tur.
+function sinavRontgeni(){
+  try{
+    var kutu=document.getElementById('rontgenKutu'), ic=document.getElementById('rontgenIcerik');
+    if(!kutu||!ic) return;
+    if(SINAV==='SMMM'){ kutu.classList.add('gizli'); return; }
+
+    var x=konuSicilOku(), agg={}, toplamCozulen=0;
+    for(var a in x){
+      var p=a.split('|'); if(p.length<3) continue;
+      if(p[0]==='SMMM') continue;                       // yalniz SGS sicili
+      var anah=dnorm(p[1]);
+      if(!agg[anah]) agg[anah]={d:0,y:0,ad:p[1]};
+      agg[anah].d+=x[a].d; agg[anah].y+=x[a].y;
+      toplamCozulen+=x[a].d+x[a].y;
+    }
+
+    var ESIK=20;
+    if(toplamCozulen<ESIK){
+      ic.innerHTML='<div style="font-size:13.5px;color:var(--muted);line-height:1.65">Röntgen için <b style="color:var(--ink)">'
+        +(ESIK-toplamCozulen)+' soru</b> daha çözmen yeterli. Sonra sana şunu göstereceğiz: '
+        +'<b style="color:var(--ink)">sınavdaki 130 sorunun kaçını şu an doğru yapardın</b> ve hangi dersleri hiç ölçmedin.</div>';
+      kutu.classList.remove('gizli'); return;
+    }
+
+    var satir=[], olculenSoru=0, olculmeyenSoru=0, tahminiDogru=0, korDersler=[];
+    PROVA_SGS.forEach(function(pd){
+      var g=agg[dnorm(pd.ders)], t=g?(g.d+g.y):0;
+      if(t>=3){
+        var oran=g.d/t, td=Math.round(oran*pd.n);
+        olculenSoru+=pd.n; tahminiDogru+=td;
+        satir.push({ders:pd.ders,n:pd.n,t:t,yuzde:Math.round(100*oran),td:td,kayip:pd.n-td,ince:(t<8)});
+      } else { olculmeyenSoru+=pd.n; korDersler.push({ders:pd.ders,n:pd.n}); }
+    });
+
+    var h='<div style="font-size:13.5px;color:var(--muted);margin-bottom:10px">Çözdüğün <b style="color:var(--ink)">'
+      +toplamCozulen.toLocaleString('tr-TR')+' soru</b> sınavın resmî ders dağılımına yansıtıldı.</div>';
+
+    h+='<div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px">'
+      +'<div style="flex:1;min-width:150px;background:rgba(0,0,0,.25);border-radius:11px;padding:11px 13px">'
+      +'<div style="font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--dim)">Tahmini doğru</div>'
+      +'<div style="font:800 27px/1.15 ui-monospace,Consolas,monospace;color:var(--accent2)">'+tahminiDogru+' <span style="font-size:14px;color:var(--dim)">/ '+olculenSoru+'</span></div>'
+      +'<div style="font-size:11.5px;color:var(--dim)">ölçülen derslerden</div></div>'
+      +'<div style="flex:1;min-width:150px;background:rgba(0,0,0,.25);border-radius:11px;padding:11px 13px">'
+      +'<div style="font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--dim)">Hiç ölçülmedi</div>'
+      +'<div style="font:800 27px/1.15 ui-monospace,Consolas,monospace;color:'+(olculmeyenSoru>0?'var(--red)':'var(--green)')+'">'+olculmeyenSoru+' <span style="font-size:14px;color:var(--dim)">soru</span></div>'
+      +'<div style="font-size:11.5px;color:var(--dim)">sınavda çıkacak, sende veri yok</div></div></div>';
+
+    // En cok puan kaybettiren ucu: kayip = o dersin soru sayisi - tahmini dogru
+    var kayipli=satir.slice().sort(function(a,b){ return b.kayip-a.kayip; }).filter(function(s){ return s.kayip>0; }).slice(0,3);
+    if(kayipli.length){
+      h+='<div style="font-size:12.5px;font-weight:700;color:var(--ink);margin:2px 0 6px">En çok puan kaybettiğin dersler</div>'
+        +'<div class="tablosar"><table style="width:100%"><tr><th>Ders</th><th>Sınavda</th><th>Başarın</th><th>Kayıp</th></tr>';
+      kayipli.forEach(function(s){
+        h+='<tr><td>'+esc(s.ders)+(s.ince?' <span style="color:var(--dim);font-size:11px">(az veri)</span>':'')
+          +'</td><td>'+s.n+' soru</td><td><b style="color:'+(s.yuzde<60?'var(--red)':(s.yuzde>=80?'var(--green)':'var(--amber)'))+'">%'+s.yuzde+'</b></td>'
+          +'<td><b style="color:var(--red)">−'+s.kayip+'</b></td></tr>';
+      });
+      h+='</table></div>';
+      h+='<button type="button" class="sec" style="margin-top:9px" onclick="kocRecete(\''+String(kayipli[0].ders).replace(/'/g,"\\'")+'\')">→ '+esc(kayipli[0].ders)+' dersinden 20 soru çöz</button>';
+    }
+
+    if(korDersler.length){
+      h+='<div style="font-size:12.5px;color:var(--muted);margin-top:11px;line-height:1.6"><b style="color:var(--red)">Kör noktan:</b> '
+        +korDersler.map(function(k){ return esc(k.ders)+' ('+k.n+')'; }).join(' · ')
+        +' — bu derslerden hiç soru çözmedin, sınavda toplam <b style="color:var(--ink)">'+olculmeyenSoru+' soru</b> geliyor.</div>';
+    }
+
+    h+='<div style="font-size:11.5px;color:var(--dim);margin-top:11px;line-height:1.6">'
+      +'Bu bir tahmindir, garanti değildir: kendi çözdüğün sorulardaki başarın, sınavın resmî ders dağılımıyla çarpılır '
+      +'(kaynak: TESMER Uygulama Yönergesi m.6.2). Staja Giriş <b>bağıl</b> değerlendirilir — doğru sayısı tek başına geçme eşiğini vermez. '
+      +'Az veri olan dersler işaretli; o dersten çözdükçe tahmin keskinleşir.</div>';
+
+    ic.innerHTML=h;
+    kutu.classList.remove('gizli');
+  }catch(e){ /* rontgen karneyi asla dusurmez */ }
+}
+// ============ /SINAV RONTGENI ============
+
 function dersKarnesiCiz(){
   try{
     var bolum=document.getElementById('dersKarneBolum'); if(!bolum) return;
