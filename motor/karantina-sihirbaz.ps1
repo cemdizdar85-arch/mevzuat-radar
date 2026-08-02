@@ -16,8 +16,8 @@ Write-Host "  575 odenmis soru kasaya tasinacak (yayin kapali)"
 Write-Host "=============================================="
 Write-Host ""
 Write-Host "Anahtar su sayfada: (Ctrl ile tiklanabilir ya da tarayiciya yapistir)"
-Write-Host "  https://supabase.com/dashboard/project/bjrleanjpyujtajmazxn/settings/api"
-Write-Host "Oradaki 'service_role' (secret) anahtarini KOPYALA."
+Write-Host "  https://supabase.com/dashboard/project/bjrleanjpyujtajmazxn/settings/api-keys"
+Write-Host "Oradaki 'Secret keys' bolumunden sb_secret_ ile baslayan anahtari KOPYALA."
 Write-Host ""
 
 # --- anahtari al ve dogrula (3 deneme) ---
@@ -26,14 +26,19 @@ for($deneme = 1; $deneme -le 3; $deneme++){
   $girilen = Read-Host "Anahtari buraya YAPISTIR (sag tik = yapistir) ve Enter'a bas"
   $girilen = "$girilen".Trim().Trim('"').Trim("'")
   if(-not $girilen){ Write-Host "Bos girdin, tekrar dene."; continue }
-  $H = @{ apikey = $girilen; Authorization = "Bearer $girilen" }
+  # Yeni tip sb_secret anahtarlar 'Bearer' basligini SEVMEZ - yalniz apikey gonderilir.
+  # Eski tip (eyJ ile baslayan JWT) icin Bearer da eklenir.
+  $H = @{ apikey = $girilen }
+  if($girilen -like 'eyJ*'){ $H.Authorization = "Bearer $girilen" }
   try {
     $test = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&limit=1" -Headers $H -TimeoutSec 30
     if(@($test).Count -ge 1){ $KEY = $girilen; break }
     Write-Host "Bu anahtar kasayi GOREMIYOR - buyuk ihtimalle 'anon/publishable' kopyaladin."
-    Write-Host "Gizli olani lazim: 'service_role' yazan satir (Reveal -> Copy). Tekrar dene."
+    Write-Host "Gizli olani lazim: sb_secret_ ile baslayan (Reveal -> Copy). Tekrar dene."
   } catch {
-    Write-Host "Anahtar kabul edilmedi (sunucu reddetti). Eksik/yanlis kopyalanmis olabilir, tekrar dene."
+    $kod = ""
+    if($_.Exception.Response -and $_.Exception.Response.StatusCode){ $kod = " (HTTP $([int]$_.Exception.Response.StatusCode))" }
+    Write-Host "Anahtar kabul edilmedi$kod. Eksik/yanlis kopyalanmis olabilir, tekrar dene."
   }
 }
 if(-not $KEY){

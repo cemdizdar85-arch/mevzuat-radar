@@ -41,7 +41,10 @@ trap {
 
 $KEY = $env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - atlandi."; exit 0 }
-$H  = @{ apikey=$KEY; Authorization="Bearer $KEY" }
+# Yeni tip sb_secret anahtarlar 'Bearer' basligiyla reddedilebiliyor - yalniz apikey.
+# Eski tip JWT (eyJ...) icin Bearer da gerekli.
+$H  = @{ apikey=$KEY }
+if($KEY -like 'eyJ*'){ $H.Authorization = "Bearer $KEY" }
 $HW = $H + @{ Prefer="return=minimal" }
 
 # yayin kolonu olmadan bu is YAPILAMAZ - yoksa soru kasaya girer girmez canli olur
