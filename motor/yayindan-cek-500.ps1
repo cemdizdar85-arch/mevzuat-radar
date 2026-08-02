@@ -40,6 +40,14 @@ if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - atlandi."; exit 0 }
 $H = @{ apikey = $KEY }
 if($KEY -like 'eyJ*'){ $H.Authorization = "Bearer $KEY" }
 
+# NORMALIZE EDICI (02.08 dersi): IRM bos [] icin $null dondurebilir (@($null).Count=1
+# sahte alarmi) ve @(IRM) dizi-icinde-dizi yaratir (koca liste tek eleman sanilir).
+# Boru hattindan gecirip null'lari atmak ikisini de cozer.
+function Getir([string]$uri){
+  $r = Invoke-RestMethod -Uri $uri -Headers $H -TimeoutSec 60
+  return @($r | Where-Object { $null -ne $_ })
+}
+
 # --- 500-okuma defterinden sira -> kasa id haritasi ---
 $defter = Get-Content (Join-Path $kok 'veri/denetim-500.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $KESIN  = @(12,15,38,41,42,88,118,125,169,230,498)
@@ -52,8 +60,9 @@ foreach($k in $defter.kayitlar){
 Write-Host ("Defterden cozulen kimlik: {0} (kesin {1} + riskli {2} beklenir)" -f $hedef.Count, $KESIN.Count, $RISKLI.Count)
 
 # --- TTK 482/iskat kumesi: kasa capinda (500 orneklemi disindakiler dahil) ---
-$k482 = @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,kaynak&kaynak=ilike.*482*&limit=500" -Headers $H -TimeoutSec 60)
-$kume482 = @($k482 | Where-Object { "$($_.kaynak)" -match '(TTK|6102)' -and "$($_.kaynak)" -match '\b482\b' })
+$k482 = Getir "$SB_URL/rest/v1/soru_havuzu?select=id,kaynak&kaynak=ilike.*482*&limit=1000"
+Write-Host ("kaynakta '482' gecen toplam: {0}" -f $k482.Count)
+$kume482 = @($k482 | Where-Object { "$($_.kaynak)" -match '(TTK|6102)' -and "$($_.kaynak)" -match '(m\.?\s*482|\b482\b)' })
 foreach($s in $kume482){ if(-not $hedef.ContainsKey("$($s.id)")){ $hedef["$($s.id)"] = "ttk482-kumesi" } }
 Write-Host ("TTK 482 kumesi (kasa capinda): {0} soru" -f $kume482.Count)
 
@@ -63,7 +72,7 @@ $yayinda = @()
 for($b = 0; $b -lt $idler.Count; $b += 50){
   $parca = $idler[$b..([Math]::Min($b+49, $idler.Count-1))]
   $liste = ($parca | ForEach-Object { '"' + $_ + '"' }) -join ','
-  $yayinda += @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&yayin=eq.true&id=in.($liste)" -Headers $H -TimeoutSec 60)
+  $yayinda += Getir "$SB_URL/rest/v1/soru_havuzu?select=id&yayin=eq.true&id=in.($liste)"
 }
 Write-Host ("Hedef {0} sorudan su an YAYINDA: {1}" -f $idler.Count, $yayinda.Count)
 
@@ -96,7 +105,7 @@ $kalan = @()
 for($b = 0; $b -lt $idler.Count; $b += 50){
   $parca = $idler[$b..([Math]::Min($b+49, $idler.Count-1))]
   $liste = ($parca | ForEach-Object { '"' + $_ + '"' }) -join ','
-  $kalan += @(Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&yayin=eq.true&id=in.($liste)" -Headers $H -TimeoutSec 60)
+  $kalan += Getir "$SB_URL/rest/v1/soru_havuzu?select=id&yayin=eq.true&id=in.($liste)"
 }
 
 [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject ([ordered]@{
