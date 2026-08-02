@@ -27,7 +27,7 @@ param(
   # 29.07 aksam: bu gece uretilen 3.451 sorunun HEPSI Yeterlilik'e gitti cunku
   # betik tek bir kotayi ve tek bir sinavi taniyordu. SGS (Staja Giris) kasada
   # 6.708 soruyla duruyor ama uretim hic dokunmamis. Sinav artik parametre.
-  [ValidateSet('SMMM','SGS')]
+  [ValidateSet('SMMM','SGS','KGK')]   # 02.08: KGK hatti eklendi (kota dosyasi vardi, kapi kapaliydi)
   [string]$sinav = 'SMMM',
   # Uretilen sorunun hangi EMIRDEN (dolayisiyla hangi receteden) ciktigi
   # kasaya yazilir. Pilot-1 ile Pilot-2 ayni gun kostu ve damgalari ayniydi;
