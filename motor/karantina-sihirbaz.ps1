@@ -6,6 +6,10 @@
 # ============================================================================
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# Supabase, sb_secret anahtari "tarayicidan geliyor" sanirsa reddediyor (PS5.1'in
+# User-Agent'i Mozilla iceriyor). Robot kimligiyle tanitiyoruz:
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 
