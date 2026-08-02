@@ -193,6 +193,11 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="secgrup" id="modSec">
         <button class="sec aktif" data-mod="calisma">📖 <b>Öğrenme</b> <small>— her sorudan sonra doğru cevap + tüm şıkların gerekçesi. Konu çalışırken.</small></button>
         <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>— cevaplar gizli, karne sonda. Gerçek sınav düzeni.</small></button>
+        <!-- 02.08 Cem onayi ("once 1'den baslayarak hepsini yapalim"): BIREBIR PROVA.
+             SGS'de ders/adet secimine BAKILMAZ - 130 soru resmi dagilimla kurulur
+             (kaynak: veri/sgs-sinav-yapisi.json <- TESMER Uygulama Yonergesi 2024 m.6.2).
+             Yeterlilik'te secilen ders 100 uzerinden puanlanir, ders baraji 50. -->
+        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>— Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te seçtiğin ders 100 üzerinden, baraj 50. Gerçek sınavın kendisi.</small></button>
       </div>
       <div class="etiket">4 · Soru havuzu</div>
       <div class="secgrup" id="kaynakSec">
@@ -516,6 +521,10 @@ function adetCiz(){
 }
 
 function basla(){
+  // 02.08 BIREBIR PROVA: SGS'de (ve sinav kilidi yokken) resmi bilesim kurulur,
+  // ders/adet secimine bakilmaz. Yeterlilik'te normal akis + 100'luk karne yorumu.
+  if(MOD==='prova' && SINAV!=='SMMM'){ provaBasla(); return; }
+  window.PROVA_MODU=(MOD==='prova'); window.PROVA_EKSIK=[];
   var h=havuz(); if(!h.length) return;
   window.INCELEME=false; window.KARNE_KAYDEDILDI=false;   // yeni oturum: inceleme/karne bayraklari sifirlanir
   var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
@@ -542,8 +551,15 @@ function basla(){
       if(!icinde[havuzSirali[gj].id]) secim.push(havuzSirali[gj]);
     }
   }
+  oturumYukle(secim, true);
+}
+
+// 02.08: basla()'nin oturum-kurma kuyrugu ayri fonksiyona alindi - Birebir
+// Prova da ayni iki-asamali metin yuklemesini kullansin diye (kod tekrari yok).
+function oturumYukle(secim, karistirMi){
+  window.INCELEME=false; window.KARNE_KAYDEDILDI=false;
   SORULAR=secim;
-  karistir(SORULAR);
+  if(karistirMi) karistir(SORULAR);
   IDX=0; CEVAPLAR={}; RESULTS={}; SURELER={};
   // 29.07 IKI ASAMALI YUKLEMENIN IKINCI ASAMASI: kurulumda yalniz hafif
   // kolonlar cekildi (27 MB -> 0,3 MB). Tam metin ancak SIMDI, yalniz
@@ -576,6 +592,75 @@ function basla(){
   }
   ekranaGec();
 }
+
+// ============ BIREBIR PROVA (02.08, Cem onayi) ============
+// SGS resmi bilesimi - kaynak: veri/sgs-sinav-yapisi.json
+// (TESMER Staj ve Sinavlara Iliskin Uygulama Yonergesi 2024 m.6.2,
+//  17.07.2020 tarih 22 sayili TURMOB YKK tablosu). Toplam 130 soru.
+var PROVA_SGS=[
+  {ders:'Türkçe',n:7},{ders:'Matematik',n:8},{ders:'Atatürk İlkeleri ve İnkılap Tarihi',n:5},
+  {ders:'Yabancı Dil',n:10},
+  {ders:'Finansal Muhasebe',n:26},{ders:'Maliyet Muhasebesi',n:8},{ders:'Mali Tablolar Analizi',n:8},
+  {ders:'Denetim',n:16},{ders:'Ekonomi',n:6},{ders:'Maliye',n:6},{ders:'Meslek Hukuku',n:6},
+  {ders:'İş ve Sosyal Güvenlik Hukuku',n:6},{ders:'Vergi Hukuku',n:6},{ders:'Ticaret Hukuku',n:6},
+  {ders:'Borçlar Hukuku',n:6}
+];
+// Turkce karakter farklarina dayanikli ders-adi esleme (İ/i, ş/s, kasa-veri farklari)
+function dnorm(t){ return String(t||'').toLocaleLowerCase('tr').replace(/[ç]/g,'c').replace(/[ğ]/g,'g').replace(/[ıi̇i]/g,'i').replace(/[ö]/g,'o').replace(/[ş]/g,'s').replace(/[ü]/g,'u').replace(/\s+/g,' ').trim(); }
+
+function provaBasla(){
+  window.PROVA_MODU=true; window.PROVA_EKSIK=[];
+  var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
+  var secim=[];
+  PROVA_SGS.forEach(function(p){
+    var pd=dnorm(p.ders);
+    var h=BANKA.filter(function(s){ return sinavUyar(s) && dnorm(s.ders)===pd; });
+    var yeni=h.filter(function(s){return !gorulen[s.id];}), eski=h.filter(function(s){return gorulen[s.id];});
+    karistir(yeni); karistir(eski);
+    // benzerlik kapisi ders icinde de gecerli: ayni kurali olcen iki soru ayni provaya girmez
+    var sirali=yeni.concat(eski), al=[], grup={};
+    for(var i=0;i<sirali.length && al.length<p.n;i++){
+      var s=sirali[i], gk=s.benzer_grup||s.benzerGrup||'';
+      if(gk && grup[gk]) continue; if(gk) grup[gk]=1; al.push(s);
+    }
+    if(al.length<p.n){
+      var ic={}; al.forEach(function(x){ic[x.id]=1;});
+      for(var j=0;j<sirali.length && al.length<p.n;j++){ if(!ic[sirali[j].id]) al.push(sirali[j]); }
+    }
+    if(al.length<p.n) window.PROVA_EKSIK.push({ders:p.ders, istenen:p.n, bulunan:al.length});
+    karistir(al);
+    al.forEach(function(x){secim.push(x);});   // bolum sirasi korunur (gercek sinav akisi)
+  });
+  if(!secim.length){ alert('Prova için havuzda soru bulunamadı.'); return; }
+  oturumYukle(secim, false);   // ders bloklari yerinde kalir, blok ici karisik
+}
+
+function provaPaneli(dogru,yanlis,bos,yuzde){
+  var toplam=dogru+yanlis+bos;
+  // Gercek sinav mantigi: bos soru puan getirmez - ham yuzde TOPLAM uzerinden.
+  // (Karnenin ustundeki %, cevaplananlar uzerindendir; ikisi farkli seyi olcer.)
+  yuzde = toplam ? Math.round(100*dogru/toplam) : 0;
+  var h='<div class="panel" style="margin-bottom:14px;padding:14px 16px">';
+  if(SINAV==='SMMM'){
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova — Yeterlilik</div>'
+     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu oturum 100 üzerinden <b style="color:var(--ink)">'+yuzde+'</b> puana denk geldi — ders barajı 50: '
+     +(yuzde>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
+     +'. Gerçek kural: her ders ≥50 <b>ve</b> tüm derslerin ortalaması ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil <span style="color:var(--dim)">(TESMER Uygulama Yönergesi)</span>.</div>';
+  } else {
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova — Staja Giriş bileşimi</div>'
+     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir — diğer adaylara göre yerin belirler.</div>';
+  }
+  var ek=window.PROVA_EKSIK||[];
+  if(ek.length){
+    h+='<div style="font-size:12px;color:var(--accent2);margin-top:8px">⚠ Dürüst not: havuz şu derslerde resmî adedi henüz karşılayamadı — '
+      +ek.map(function(e){return esc(e.ders)+' '+e.bulunan+'/'+e.istenen;}).join(' · ')
+      +'. Banka büyüdükçe prova tam bileşime oturur.</div>';
+  }
+  if(!window.UYE_MODU) h+='<div style="font-size:12px;color:var(--dim);margin-top:8px">Örnek havuzla prova sınırlıdır; tam bileşim Sınav Paketi\'ndedir.</div>';
+  h+='</div>';
+  return h;
+}
+// ============ /BIREBIR PROVA ============
 
 function ekranaGec(){
   document.getElementById('ekranKurulum').classList.add('gizli');
@@ -639,7 +724,7 @@ function soruCiz(){
   document.getElementById('hataKutu').classList.add('gizli');
   document.getElementById('gorBtn').classList.add('gizli');
   document.getElementById('devamBtn').classList.toggle('gizli', MOD==='calisma');
-  if(MOD==='deneme') document.getElementById('devamBtn').classList.remove('gizli');
+  if(MOD!=='calisma') document.getElementById('devamBtn').classList.remove('gizli');
   document.getElementById('devamBtn').textContent=(IDX===SORULAR.length-1)?'Karneyi gör →':'Sıradaki →';
   // canli kronometre (UWorld kabugu): cevaba kadar isler, cevapla donar
   if(KRONI) clearInterval(KRONI);
@@ -648,7 +733,7 @@ function soruCiz(){
   navCiz();
   // GERI DONUS: cevaplanmis soruya navigatorden gelindiyse durumu geri yukle
   if(MOD==='calisma' && CEVAPLAR[s.id]){ SECILI=CEVAPLAR[s.id]; cevabiGor(true); }
-  else if(MOD==='deneme' && CEVAPLAR[s.id]){
+  else if(MOD!=='calisma' && CEVAPLAR[s.id]){
     SECILI=CEVAPLAR[s.id];
     sk.querySelectorAll('.sik').forEach(function(b){ if(b.dataset.h===SECILI) b.classList.add('secili'); });
     document.getElementById('devamBtn').classList.remove('gizli');
@@ -665,7 +750,7 @@ function navCiz(){
     var b=document.createElement('button'); b.className='navk'; b.type='button'; b.textContent=i+1;
     if(i===IDX) b.classList.add('suanki');
     if(MOD==='calisma' && RESULTS[s.id]) b.classList.add(RESULTS[s.id]);
-    else if(MOD==='deneme' && CEVAPLAR[s.id]) b.classList.add('c');
+    else if(MOD!=='calisma' && CEVAPLAR[s.id]) b.classList.add('c');
     var sc=x[s.id]; if(sc && sc.isaret) b.classList.add('i');
     b.onclick=function(){ IDX=i; soruCiz(); window.scrollTo(0,0); };
     k.appendChild(b);
@@ -977,7 +1062,7 @@ function sonraki(){
     return;
   }
   gorulenKaydet(s.id);
-  if(MOD==='deneme') SURELER[s.id]=Date.now()-SORU_T0;
+  if(MOD!=='calisma') SURELER[s.id]=Date.now()-SORU_T0;
   if(!window.UYE_MODU) cozulenArtir();
   else if(!window.PAKETLI) uyeGunlukArtir();
   if(IDX<SORULAR.length-1){
@@ -1158,7 +1243,7 @@ function karneCiz(){
   var dogru=0,yanlis=0,bos=0, ders={}, yanlislar=[];
   SORULAR.forEach(function(s){
     var c=CEVAPLAR[s.id];
-    if(MOD==='deneme' && c){
+    if(MOD!=='calisma' && c){
       sicilKaydet(s.id, c===s.dogru);
       konuSicilKaydet(s.sinav, s.ders, s.konu, c===s.dogru);
       cevapGonder(s, c===s.dogru, SURELER[s.id], c);
@@ -1176,6 +1261,7 @@ function karneCiz(){
   var topMs=0, sureli=0;
   SORULAR.forEach(function(s){ if(SURELER[s.id]){ topMs+=SURELER[s.id]; sureli++; } });
   var h= sureli ? ('<div style="font-size:12.5px;color:var(--muted);margin-bottom:12px">⏱ Toplam süre <b style="color:var(--ink)">'+sureFmt(topMs)+'</b> · soru başına ortalama <b style="color:var(--ink)">'+sureFmt(topMs/sureli)+'</b></div>') : '';
+  if(MOD==='prova') h = provaPaneli(dogru,yanlis,bos,yuzde) + h;
   h+='<h2>Ders kırılımı</h2><div class="tablosar"><table><tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr>';
   Object.keys(ders).sort().forEach(function(k){ h+='<tr><td><b>'+esc(k)+'</b></td><td>'+ders[k].d+'</td><td>'+ders[k].y+'</td><td>'+ders[k].b+'</td></tr>'; });
   h+='</table></div>';
