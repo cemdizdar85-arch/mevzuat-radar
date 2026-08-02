@@ -231,7 +231,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 174 | — | TEMİZ | — | KVK 32/C: büyük olan ödenir (120.000) ✓; rakamlar gövdede — zamansız. |
 | 175 | — | TEMİZ | TBK 82 (6. — meşru varyant) | Hiç öğrenilmemiş → 10 yıl objektif → 05.06.2020 ✓; küme içinde FARKLI açı, mükerrer değil. |
 
-**Ara sayaç (175/500):** kesin yanlış **9** · riskli **12** · düzeltilir 48 · temiz 111 (%63). Blok 6/6 temiz.
+| 176 | — | TEMİZ | — | İş K. 15/1: TİS yoksa tavan 2 ay, 75. gün aşmış ✓. |
+| 177 | — | TEMİZ | — | İş K. 15/2: çalışılan günlerin ücreti saklı ✓. |
+| 178 | — | DÜZELTİLİR | A↔E şık çakışması (B2-vari) | KDV 35: mal fiilen girmemiş → düzeltme yok ✓ A. AMA E şıkkı ("kayıtlarda gösterilmediği için düzeltilmez") AYNI SONUCU söylüyor; E'nin açıklaması bile "yarı doğru" diye itiraf ediyor. E yeniden yazılmalı — aday E'yi işaretlerse itirazı kısmen haklı. |
+| 179 | — | TEMİZ | — | VUK 320/2 kıst: 60.000×3/12=15.000 ✓; çeldiriciler de tutarlı (2 ay/4 ay/katlı oran). İyi soru. |
+| 180 | — | TEMİZ | — | TMS 1: SMM özkaynak tablosunda yer almaz ✓. |
+| 181 | — | TEMİZ | — | TMS 1 md.10 tam set ✓. |
+
+**Ara sayaç (181/500):** kesin yanlış **9** · riskli **12** · düzeltilir 49 · temiz 116 (%64).
 **Yeni kapı zorunluluğu (Q169):** yevmiye içeren her soruda BORÇ toplamı = ALACAK toplamı makine kontrolü — B14'ün yevmiye versiyonu.
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
