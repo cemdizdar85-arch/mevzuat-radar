@@ -38,7 +38,14 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     $govde = $flatMetin.Substring($start, $end-$start).Trim()
     $no = $m[$i].Groups['no'].Value; $tur = $m[$i].Groups['tur'].Value; $pre = $m[$i].Groups['pre'].Value.Trim()
     if($govde -match '^.{0,70}\(Mülga'){ continue }
-    if($govde.Length -lt 60){ continue }
+    # 02.08 CEM KURALI ("ustunkoru degil, en kucuk maddesine kadar"): 60
+    # karakterden kisa madde ATILIYORDU. Kisa madde de maddedir (yururluk,
+    # yurutme, tanim fikralari) ve soru-cevap araci onlari da arar. Artik
+    # atilmaz - onceki maddeye eklenir, yani metin kaybi sifir.
+    if($govde.Length -lt 60){
+      if($docs.Count -gt 0){ $docs[$docs.Count-1].metin = "$($docs[$docs.Count-1].metin) $govde" }
+      continue
+    }
     if($tur -match 'kerrer'){ $md = "muk. m.$no" } elseif($tur -match 'Ek Ge'){ $md = "ek gec. m.$no" } elseif($tur -match 'Ge'){ $md = "gec. m.$no" } elseif($tur -match 'Ek'){ $md = "ek m.$no" } else { $md = "m.$no" }
     $ad = if($pre){ "$kanunAd $md - $pre" } else { "$kanunAd $md" }
 
@@ -113,9 +120,12 @@ foreach($law in $manifest.kanunlar){
     }
     continue
   }
-  # TEBLIG guard: 'G9:' onekli kaynaklar (KDV GUT gibi) bolum-yapilidir; madde-parcalayici
-  # onlari BOZUK parcalar -> gunluk re-yut ATLANIR (fallback tek yol; teblig-parser v2'de).
-  if("$($law.pdfId)" -like 'G9:*'){ Write-Host "TEBLIG (madde yapisi yok) - gunluk re-yut atlandi: $($law.ad)"; continue }
+  # 02.08 CEM KURALI: TEBLIGLER ARTIK ATLANMIYOR. Eski hal: 'G9:' onekli
+  # kaynaklar (KDV GUT, VUK 509, KVK GUT, SPK II-17.1) madde yapili olmadigi
+  # icin gunluk aynada HIC yutulmuyordu - yani teblig degisse bile ambar eski
+  # kaliyordu ve soru-cevap araci bayat metinle cevap veriyordu. Artik madde
+  # deseni tutmazsa BOLUM parcalayicisi devreye girer (asagida), metin ambara
+  # tam girer. Kural: "okumadigimiz metin kalmayacak".
   $raw = Get-Content $txt -Raw -Encoding UTF8
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
   $yhash = Sha $flat
@@ -129,7 +139,32 @@ foreach($law in $manifest.kanunlar){
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
   $docs = Parcala $flat "$($law.ad)" $url
-  if($docs.Count -lt 5){ Write-Host ("UYARI az madde ({0}) -> {1}, atlandi (indirme bozuk olabilir)" -f $docs.Count, $law.ad); continue }
+  # 02.08 CEM KURALI: madde deseni tutmayan metin (teblig/bolum yapili) ARTIK
+  # ATLANMIYOR - bolum bolum yutuluyor. Eski hal "az madde -> atlandi" diyip
+  # metni ambarin disinda birakiyordu. Indirme gercekten bozuksa metin cok
+  # kisadir; o durumda (<4.000 karakter) atlama korunur.
+  if($docs.Count -lt 5){
+    if($flat.Length -lt 4000){ Write-Host ("UYARI cok kisa metin ({0} kr) -> {1}, atlandi (indirme bozuk)" -f $flat.Length, $law.ad); continue }
+    Write-Host ("MADDE DESENI TUTMADI ({0} parca) -> {1}: BOLUM parcalayicisi devrede" -f $docs.Count, $law.ad)
+    $docs = New-Object System.Collections.Generic.List[object]
+    $BOY = 1800; $d = 0; $n = 1
+    while($d -lt $flat.Length){
+      $boy = [Math]::Min($BOY, $flat.Length - $d)
+      $kes = $flat.Substring($d, $boy)
+      if($d + $boy -lt $flat.Length){
+        $kir = $kes.LastIndexOf('. ')
+        if($kir -lt 900){ $kir = $kes.LastIndexOf(' ') }
+        if($kir -ge 900){ $kes = $kes.Substring(0, $kir+1); $boy = $kir+1 }
+      }
+      $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=("$($law.ad) bolum $n"); baslik=""; metin=$kes.Trim(); kaynak_url=$url; belge_tarihi=$bugun })
+      $d += $boy; $n++
+    }
+  }
+  # KAPSAMA KAPISI (02.08): kaynak metnin yuzde kaci ambara girdi? %98 alti KIRMIZI.
+  $ambarKr = ((($docs | ForEach-Object { $_.metin }) -join ' ') -replace '\s+',' ').Length
+  $kapsama = if($flat.Length -gt 0){ [math]::Round(100*$ambarKr/$flat.Length,1) } else { 0 }
+  if($kapsama -lt 98){ Write-Host ("  KAPSAMA UYARISI: {0} -> %{1} (mulga maddeler dusuldugunde normal olabilir)" -f $law.ad, $kapsama) }
+  else { Write-Host ("  kapsama %{0}" -f $kapsama) }
   # dosyaya yaz
   $json = (@{ belgeler=$docs } | ConvertTo-Json -Depth 6)
   [IO.File]::WriteAllBytes((Join-Path $mevzuatDir "$($law.slug).json"), [Text.Encoding]::UTF8.GetBytes($json))
