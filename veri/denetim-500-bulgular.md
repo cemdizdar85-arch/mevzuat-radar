@@ -310,7 +310,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 246 | — | TEMİZ* | mükerrer (TMS 23: 132≈134≈246) | 103.600-87.300=16.300 ✓ tutarlı. |
 | 247 | — | TEMİZ | 195 ile yakın ama meşru | Tanımlanmış fayda sınıflaması ✓ — formül+aktüeryal varsayım ipuçları iyi işlenmiş. |
 
-**Ara sayaç (247/500):** kesin yanlış **10** · riskli **13** · düzeltilir 51 · temiz 177 (%72).
+| 248 | — | DÜZELTİLİR-hafif | B10 + etiket | 5018 III cetvel ✓ ama gövde rakamları cevapla ilgisiz (açıklama bile "rakam değil kuruluş biçimi belirler" diye itiraf ediyor); etiket "merkezi takas kuruluşu"?! |
+| 249≈250 | — | TEMİZ* | **TMS16-çevre kümesi ×4 oldu** (82/190/249/250) | İkisi de ✓ — aynı arıtma tesisi senaryosunun 3. ve 4. kopyası. |
+| 251 | — | TEMİZ* | TMS 19 yakın-mükerrer (195/247/251) | Katkı planında risk çalışanda ✓; E şıkkında "aktuvarya" yazım bozuk. |
+| 252 | — | TEMİZ | 248 ile meşru çift; etiket yine yanlış | Merkezî yönetim = I+II+III ✓. |
+| 253 | — | TEMİZ | **etiket faciası** | 5018 genel yönetim ✓ — etiket "değişken sermayeli yatırım ortaklığı"?! (SPK konusu 5018 sorusuna). |
+| 254 | — | TEMİZ | özel maliyet ailesi (7. — yeni meşru açı) | Azalan bakiye YASAK, yalnız eşit yüzde ✓. |
+| 255 | — | TEMİZ — **Q163'ün ikamesi** | — | VUK 227/2: defter tutmayan da tevsike mecbur ✓; götürü istisnası D şıkkında DOĞRU dozda. **Q163 (ölü rejim) elenince yerine bu geçer — küme içi ikame hazır.** |
+
+**Ara sayaç (255/500):** kesin yanlış **10** · riskli **13** · düzeltilir 52 · temiz 184 (%72). Yarıyı geçtik.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
 **Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
