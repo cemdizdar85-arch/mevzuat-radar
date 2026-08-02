@@ -79,8 +79,11 @@ function DersAile([string]$d){
   $t = Fold $d
   if($t -match 'meslek')                                { return @('MESLEK') }
   if($t -match 'vergi')                                 { return @('VERGI','TAKIP') }
-  if($t -match 'maliyet|finansal muhasebe|genel muhasebe|muhasebe'){ return @('VERGI','STANDART','KAMU') }
-  if($t -match 'mali tablo|finansal tablo|analiz')      { return @('STANDART','VERGI','KAMU') }
+  # 1. tur ince ayari (03.08): TICARET muhasebe/mali-tablo derslerinde MESRUDUR
+  # (TTK ticari defter, sirket, birlesme hukumleri mufredatta) - ilk kosuda
+  # 2.251 yanlis alarm vermisti. MESLEK (3568) ise gercek kaymadir, kalir.
+  if($t -match 'maliyet|finansal muhasebe|genel muhasebe|muhasebe'){ return @('VERGI','STANDART','KAMU','TICARET') }
+  if($t -match 'mali tablo|finansal tablo|analiz')      { return @('STANDART','VERGI','KAMU','TICARET') }
   if($t -match 'denetim')                               { return @('DENETIM','STANDART') }
   if($t -match 'ticaret hukuku|sirketler')              { return @('TICARET','SERMAYE') }
   if($t -match 'borclar')                               { return @('BORCLAR','TICARET') }
@@ -150,10 +153,12 @@ while($true){
       }
     }
 
-    # T3 konu-kaynak ilgisizligi
+    # T3 konu-kaynak ilgisizligi. 1. tur ince ayari (03.08): hedef metne
+    # ACIKLAMALAR da katildi - konu kelimesi cogu zaman gerekcede gecer;
+    # yalniz soru metnine bakmak 7.389 supheli uretmisti (asiri gurultu).
     $konuKel = @((Sade "$($s.konu)") -split ' ' | Where-Object { $_.Length -ge 5 -and $DUR -notcontains $_ })
     if($konuKel.Count -ge 2){
-      $hedef = Sade ($soruM + ' ' + $kaynakM)
+      $hedef = Sade ($tum + ' ' + $kaynakM)
       $vurdu = $false
       foreach($w in $konuKel){ if($hedef.Contains($w)){ $vurdu = $true; break } }
       if(-not $vurdu){ $T3liste.Add($id) }
