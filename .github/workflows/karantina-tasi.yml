@@ -18,10 +18,13 @@ on:
         type: boolean
         default: false
   push:
+    # 03.08: tetik dosyasi = GERCEK tasima (gh dugmesine erisim yok; homoglif
+    # deseni). NOT: yorumun ikinci satiri liste hizasini bozmustu - YAML
+    # gecersiz oldu ve tasima HIC BASLAMADI (kor kalma dersi: workflow'u
+    # bozan yorum bile sessiz olur).
     paths:
       - 'motor/karantina-tasi.ps1'
-      - 'veri/tetik/karantina-tasi.txt'   # 03.08: tetik dosyasi = GERCEK tasima
-                                          # (gh dugmesine erisim yok; homoglif deseni)
+      - 'veri/tetik/karantina-tasi.txt'
 
 permissions:
   contents: write

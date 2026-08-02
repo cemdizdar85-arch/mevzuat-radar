@@ -27,6 +27,18 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 
+# 03.08 KOR KALMA: 12:28 kosusu FAILURE dondu ve iz birakmadi (Actions logu
+# kilitli). Artik her olumcul hata veri/karantina-tasima.json'a yazilir.
+trap {
+  $g = ""; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g = $_.ErrorDetails.Message }
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/karantina-tasima.json'), (ConvertTo-Json -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'
+    hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber
+  }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("HATA (satir {0}): {1} | sunucu: {2}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message, $g)
+  exit 1
+}
+
 $KEY = $env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - atlandi."; exit 0 }
 $H  = @{ apikey=$KEY; Authorization="Bearer $KEY" }

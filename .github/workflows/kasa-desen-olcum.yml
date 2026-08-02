@@ -10,7 +10,7 @@ on:
   push:
     paths:
       - 'veri/tetik/olcum.txt'
-  workflow_dispatch::
+  workflow_dispatch:
 
 permissions:
   contents: write
