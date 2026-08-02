@@ -1,6 +1,6 @@
 # BUYUK DENETIM - 500 SORU
 
-Tarih: 02.08.2026 08:41 | Aday havuzu: 6148 | Okunacak ornek: 500
+Tarih: 02.08.2026 08:49 | Aday havuzu: 6148 | Okunacak ornek: 500
 Farkli madde: 267 | Madde tavani: 3 | Kusursuz (0 puan): 0
 
 ## NASIL OKUNUR
