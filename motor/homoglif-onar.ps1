@@ -105,7 +105,7 @@ while($true){
 Write-Host ("Taranan: {0} | homoglifli: {1}" -f $hepsi, $vurgun.Count)
 
 $duzelen = 0; $elle = New-Object System.Collections.Generic.List[string]; $yunanli = New-Object System.Collections.Generic.List[string]
-$hataYaz = 0
+$hataYaz = 0; $ilkHata = ''   # kor kalma: ilk sunucu hatasi RAPORA yazilir (Actions logu kilitli)
 foreach($s in $vurgun){
   $id = "$($s.id)"
   $yeniSoru = Onar "$($s.soru)"
@@ -135,6 +135,7 @@ foreach($s in $vurgun){
   } catch {
     $hataYaz++
     $g = ""; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g = $_.ErrorDetails.Message }
+    if(-not $ilkHata){ $ilkHata = ("{0} | sunucu: {1} | id: {2}" -f $_.Exception.Message, $g, $id) }
     Write-Host ("YAZMA HATASI {0}: {1} | {2}" -f $id, $_.Exception.Message, $g)
   }
 }
@@ -169,6 +170,7 @@ Yaz ([ordered]@{
   homoglifli = $vurgun.Count
   duzelen = $duzelen
   yazma_hatasi = $hataYaz
+  ilk_hata = $ilkHata
   elle_kalan = @($elle)
   yunan_raporu = @($yunanli)
   geri_okuma_kiril_kalan = $kalan
