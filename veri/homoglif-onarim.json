@@ -1,28 +1,7 @@
 {
-  "tarih": "02.08.2026 12:00",
-  "durum": "KISMI",
-  "mod": "uygula",
-  "taranan": 26992,
-  "homoglifli": 99,
-  "duzelen": 0,
-  "yazma_hatasi": 98,
-  "ilk_hata": "Response status code does not indicate success: 400 (Bad Request). | sunucu: \n{\n  \"code\": \"21000\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"UPDATE requires a WHERE clause\"\n} | id: 0023bc76-8009-4dd5-b73a-a26199e690cf | uri: https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=0?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=1000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=2000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=3000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=4000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=5000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=6000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=7000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=8000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=9000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=10000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=11000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=12000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=13000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=14000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=15000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=16000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=17000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=18000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=19000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=20000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=21000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=22000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=23000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=24000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=25000?select=id,soru,siklar,aciklama,hap&order=id&limit=1000&offset=26000?id=eq.0023bc76-8009-4dd5-b73a-a26199e690cf",
-  "elle_kalan": [
-    "d024ddc9"
-  ],
-  "yunan_raporu": [
-    "2af70478-b92d-4c80-95d8-bbcb1658a9fd",
-    "7f4a5a2b",
-    "817eb2d3",
-    "8e3c30f6",
-    "940a7661",
-    "95353185-58d1-4085-ba6d-a4e74cecd057",
-    "a6a5bcbe-151c-4ce8-9a05-6a26463c911a",
-    "bb684985-75b2-49f5-8e53-b08d0dfd73c3",
-    "c2de2fde-b4b1-43f4-85d8-21387a48d625",
-    "ca5f453d-b278-4736-8482-d8f52e2fe818",
-    "d44e94e7-1505-47cf-b307-4d7b7b63489e",
-    "e1787196-9afc-43fc-b413-67409616f0e7"
-  ],
-  "geri_okuma_kiril_kalan": 88
+  "tarih": "02.08.2026 12:02",
+  "durum": "HATA",
+  "hata": "Invalid URI: The hostname could not be parsed.",
+  "sunucu": "",
+  "satir": 96
 }
