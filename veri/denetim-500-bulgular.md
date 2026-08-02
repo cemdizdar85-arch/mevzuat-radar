@@ -107,7 +107,15 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 66 | — | TEMİZ + **YENİ SINIF B15 tetikleyici** | çelişen çift | TTK 367 "hiçbir şart aramaksızın" ✓ kanuna sadık. AMA Q49 aynı kuralda "yazılı talep + belgeleme KOŞULUYLA" demişti — **iki soru aynı kuralda çelişen doğrular işaretliyor.** Aday ikisini de görürse güven biter. Q49 elenir/düzeltilir, Q66 kalır. |
 | 67 | — | TEMİZ | etiket | İş K. 13/5 "eş çalışmıyorsa talep edilemez" ✓ dayanakla birebir. |
 
-**Ara sayaç (67/500):** kesin yanlış **5** · riskli **4** · düzeltilir 22 · temiz 36.
+| 68 | — | TEMİZ | — | 6183 m.10: faiz-dahil DİBS'te anapara satış değeri (315.000) ✓. |
+| 69 | — | TEMİZ | uydurma ders etiketi | GVK 67 tahsil esası: avans 2023 kazancı ✓. Etiket "SGS / Meslek Hukuku" — SGS'de böyle ders YOK (etiket sınıfının yeni türü: ders adı uydurma). |
+| 70 | — | TEMİZ* | mükerrer (TBK 82 ×3: 63/65/70) | Dava hakkı var ✓; işaretli şık eksik gerekçeli ama yanlış değil. |
+| 71 | — | TEMİZ (nüans notu) | D4 hafif | GVK 18+94 telif istisna+tevkifat ✓. Onarımda açıklamaya 7194 şerhi eklenmeli: kazanç 103/4. dilimi aşarsa istisna düşer, beyan gerekir. |
+| 72 | — | **ELENİR/DÜZELTİLİR** | B8 kümesi (Q21 ile) | Q21'in neredeyse aynısı: izahname senaryosu + TBK 66 kurtuluş kanıtı, SerPK m.10 özel rejimi yok sayılmış, çerçeve belirtilmemiş. Küme: 21+72. |
+| 73 | — | TEMİZ | — | 3568 m.48-49 meslekten çıkarma ✓; ders etiketi de DOĞRU (Meslek Hukuku) — iyi örnek. |
+
+**Ara sayaç (73/500):** kesin yanlış **5** · riskli **5** (5, 8, 21, 40, 72) · düzeltilir 23 · temiz 40.
+**Küme güncel:** TBK 82 ×3 · TBK 66-izahname ×2 (B8) · TTK 367 ×3 (biri çelişen çift) · TTK 516 ×6 · İş K.13 ×4.
 **Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
 **NOT:** Bu oranlar kasaya GENELLENEMEZ — dosya kusur puanına göre sıralı, en şüpheliler üstte. Genel oran, 8-puan bandı (296 soru) okununca çıkar.
