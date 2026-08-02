@@ -1,0 +1,95 @@
+**********************
+PowerShell transcript start
+Start time: 20260801143723
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5f160dca-8f9c-4ccc-8b2b-7c7c75b9c6c4.ps1'
+Process ID: 2233
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
+Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
+  kasa: 24238 soru
+  konu-kelime indeksi: 1179 kelime
+  THP hesap indeksi: 233 kelime, 230 kayit
+
+  planSatir    563
+  maddesiz     78
+  metinsiz     0
+  hazir        1899
+  kaynak_hesap-plani 78
+  kaynak_kanun 405
+  kaynak_standart 2
+MALIYET TAHMINI (Batch %50): ~26.27 USD
+KURU DENEME TAMAM - yazma yolu saglam.
+PARTI 1: 200 soru
+  parti kimligi: msgbatch_01YPH2EhjjfUugC7BwotWfut
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 256."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 2: 200 soru
+  parti kimligi: msgbatch_01KJxNwFJycjJjGp2EqNZQep
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'siklar.A', line 6, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: k. Path 'soru', line 3, position 356."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: G. Path 'soru', line 3, position 371."
+PARTI 3: 200 soru
+  parti kimligi: msgbatch_013pXZS69Q1MH3WNfcuVkyPB
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[3]', line 40, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PARTI 4: 200 soru
+  parti kimligi: msgbatch_01TZ2giPMqhppsK8GMqv3JAE
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 5: 200 soru
+  parti kimligi: msgbatch_01Jc5LNiw4BtsFkbginwNMDU
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: i. Path 'aciklama.C', line 15, position 146."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 6: 200 soru
+  parti kimligi: msgbatch_014n4cYY8NyJitamov5FXFYt
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: S. Path 'soru', line 3, position 233."
+PARTI 7: 200 soru
+  parti kimligi: msgbatch_01LAwHQc7Ygh6xvwY2uAar3b
+PARTI 8: 200 soru
+  parti kimligi: msgbatch_01Qc3QyjEzAxUnNPvGac4nKe
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 12, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: t. Path 'aciklama.A', line 13, position 650."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Additional text encountered after finished reading JSON content: `. Path '', line 23, position 0."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Additional text encountered after finished reading JSON content: `. Path '', line 23, position 0."
+PARTI 9: 200 soru
+  parti kimligi: msgbatch_017XQMBvGfer5pUcxazXkPD8
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PARTI 10: 99 soru
+  parti kimligi: msgbatch_01E6mkMM8iP5Hxd6eNAEZE5A
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unterminated string. Expected delimiter: ". Path 'aciklama.B', line 14, position 2551."
+
+======== URETIM ========
+  uretilen       1612
+  rakamRed       35
+  dilRed         58
+  sikRed         12
+  sablonRed      7
+  tuzakRed       38
+  atifRed        1
+  kokuRed        29
+  benzerRed      86
+  cevapsiz       21
+  yazmaHatasi    0
+  GERCEK FATURA: ~28.10 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-26.json
+**********************
+PowerShell transcript end
+End time: 20260801150857
+**********************
