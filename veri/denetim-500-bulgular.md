@@ -507,6 +507,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 407 | — | TEMİZ | — | TTK 4: işletme bağı yoksa ticari dava değil → asliye hukuk ✓. |
 
 **Ara sayaç (407/500):** kesin yanlış **10** · riskli **15** · düzeltilir 79 · temiz 308 (%76).
+
+| 408 | — | TEMİZ | konu etiketi ilgisiz ("sgk bildirim sureleri" ≠ TTK 18 ihtar) — düzeltilecek | TTK 18/3: dört yöntem doğru sayılmış ✓ (Q301'deki "beş yöntem" hatasının temiz hali — onarımda 301'e şablon olur). |
+| 409 | — | TEMİZ | 371↔409 meşru ayrım (iş dışı zarar / kurtuluş kanıtı — farklı fıkra) | TBK 66: seçim-eğitim-gözetim özeni ispatı ✓. |
+| 410 | — | TEMİZ | konu etiketi ilgisiz ("toplu işçi çıkarma" ≠ TİS düzeyi) — düzeltilecek | 6356 m.34: aynı işkolunda çok işyeri → yalnız işletme TİS ✓. |
+| 411 | — | TEMİZ | etiket kayması hafif ("elektronik imza" yok soruda) | TTK 682: şartlı ciro → şart yazılmamış sayılır ✓; kısmi ciro/batıl ayrımı (C çeldirici) öğretici. |
+| 412 | — | TEMİZ — iyi soru | — | İş K 5+15: deneme süresi ayrımcılık serbestisi vermez; 4 aya kadar ücret tutarı tazminat ✓. |
+| 413 | — | TEMİZ | 405↔413 aynı madde farklı kural parçası (genel şartlar / saat belirleme yetkisi) — ikisi kalabilir | İş K 74: saatleri işçi belirler ✓. |
+| 414 | — | TEMİZ | — | TTK 55/a-1 kötüleme ✓. |
+| 415 | — | TEMİZ | 414↔415 aynı konu farklı madde (55/56) — meşru | TTK 56/1-e → TBK 58 kişilik hakları şartı ✓. |
+
+**Ara sayaç (415/500):** kesin yanlış **10** · riskli **15** · düzeltilir 79 · temiz 316 (%76). Hukuk hattı 8/8 temiz.
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
