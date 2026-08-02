@@ -1352,11 +1352,20 @@ function kocRecete(ders){
 // yayinlamiyor; bizim tek gercek tekelimiz.
 // D9 FRENI: konu sayimda BULUNAMAZSA kunye HIC GOSTERILMEZ. "Sik cikar" gibi
 // olcusuz ifade yasak - yalniz sayilmis donem verisi yazilir.
-var SIKLIK = null;
+var SIKLIK = null, KONU_ESLESME = null;
 fetch('veri/siklik-kunyesi.json?' + Date.now())
   .then(function(r){ return r.json(); })
   .then(function(d){ if(d && d.konular){ SIKLIK = d; } })
   .catch(function(){ /* kunye yoksa sessizce gosterilmez */ });
+
+// ETIKET HIZALAMASI (02.08): kunye ilk surumde 10 sorudan 1'inde goruluyordu.
+// Sebep kasadaki DERS adinin kitapciktakinden farkli olmasiydi ("Borclar
+// Hukuku" vs "Hukuk"); konu adlari zaten birebir tutuyordu. Sozluk kasadaki
+// etiketi kitapciktakine baglar - kasa etiketleri DEGISTIRILMEDI.
+fetch('veri/konu-eslesme.json?' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if(d && d.sozluk){ KONU_ESLESME = d.sozluk; } })
+  .catch(function(){ /* sozluk yoksa yalniz birebir esleme calisir */ });
 
 // PowerShell tarafindaki Norm() ile BIREBIR ayni olmali, yoksa anahtar tutmaz.
 function knorm(t){
@@ -1369,7 +1378,11 @@ function knorm(t){
 
 function siklikKunyesi(s){
   if(!SIKLIK || !s || !s.ders || !s.konu) return '';
-  var k = SIKLIK.konular[knorm(s.ders + '|' + s.konu)];
+  var anah = knorm(s.ders + '|' + s.konu);
+  var k = SIKLIK.konular[anah];
+  if(!k && KONU_ESLESME && KONU_ESLESME[anah]){   // birebir tutmadi -> sozluk
+    k = SIKLIK.konular[KONU_ESLESME[anah].hedef];
+  }
   if(!k || !k.d) return '';                      // sayim yok -> kunye yok (D9)
   var top = SIKLIK.donem_sayisi || 0;
   if(!top) return '';

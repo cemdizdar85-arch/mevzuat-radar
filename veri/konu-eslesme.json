@@ -1,0 +1,421 @@
+﻿{
+    "tarih":  "02.08.2026 22:54",
+    "kaynak":  "vitrin-bankasi (yerel test)",
+    "kasa_etiketi":  92,
+    "kitapcik_konusu":  3214,
+    "birebir_tutan":  10,
+    "sozlukle_eslesen":  51,
+    "eslesmeyen":  31,
+    "esik":  0.55,
+    "not":  "Yanlis kunye, kunye yoklugundan KOTUDUR (D9). Esik 0.55 altindakiler REDDEDILIR ve o soruda kunye gosterilmez. Kasa etiketleri DEGISTIRILMEDI - bu yalniz bir arama sozlugudur, geri alinabilir.",
+    "sozluk":  {
+                   "borclar hukuku|borc iliskisi sona erme":  {
+                                                                  "hedef":  "hukuk|borc iliskisi sona erme",
+                                                                  "puan":  1,
+                                                                  "kasa":  "Borclar Hukuku|borc iliskisi sona erme",
+                                                                  "kitapcik":  "Hukuk|borc iliskisi sona erme",
+                                                                  "d":  1,
+                                                                  "s":  1
+                                                              },
+                   "borclar hukuku|ibra islemi":  {
+                                                      "hedef":  "hukuk|ibra islemi",
+                                                      "puan":  1,
+                                                      "kasa":  "Borclar Hukuku|ibra islemi",
+                                                      "kitapcik":  "Hukuk|ibra islemi",
+                                                      "d":  1,
+                                                      "s":  1
+                                                  },
+                   "borclar hukuku|sebepsiz zenginlesme":  {
+                                                               "hedef":  "hukuk|sebepsiz zenginlesme",
+                                                               "puan":  1,
+                                                               "kasa":  "Borclar Hukuku|sebepsiz zenginlesme",
+                                                               "kitapcik":  "Hukuk|sebepsiz zenginlesme",
+                                                               "d":  9,
+                                                               "s":  9
+                                                           },
+                   "borclar hukuku|sebepsiz zenginlesme zamanasimi":  {
+                                                                          "hedef":  "hukuk|sebepsiz zenginlesme zamanasimi",
+                                                                          "puan":  1,
+                                                                          "kasa":  "Borclar Hukuku|sebepsiz zenginlesme zamanasimi",
+                                                                          "kitapcik":  "Hukuk|sebepsiz zenginlesme zamanasimi",
+                                                                          "d":  2,
+                                                                          "s":  2
+                                                                      },
+                   "borclar hukuku|zamanasimi suresi":  {
+                                                            "hedef":  "hukuk|zamanasimi suresi",
+                                                            "puan":  1,
+                                                            "kasa":  "Borclar Hukuku|zamanasimi suresi",
+                                                            "kitapcik":  "Hukuk|zamanasimi suresi",
+                                                            "d":  4,
+                                                            "s":  4
+                                                        },
+                   "denetim|bds 530 orneklem yontemi":  {
+                                                            "hedef":  "muhasebe|bds 530 orneklem yontemi",
+                                                            "puan":  1,
+                                                            "kasa":  "Denetim|bds 530 orneklem yontemi",
+                                                            "kitapcik":  "Muhasebe|bds 530 orneklem yontemi",
+                                                            "d":  1,
+                                                            "s":  1
+                                                        },
+                   "denetim|denetim calisma kagitlari":  {
+                                                             "hedef":  "muhasebe|denetim calisma kagitlari",
+                                                             "puan":  1,
+                                                             "kasa":  "Denetim|denetim calisma kagitlari",
+                                                             "kitapcik":  "Muhasebe|denetim calisma kagitlari",
+                                                             "d":  5,
+                                                             "s":  5
+                                                         },
+                   "denetim|denetim kanit toplama prosedurleri":  {
+                                                                      "hedef":  "muhasebe|denetim kanit toplama prosedurleri",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Denetim|denetim kanit toplama prosedurleri",
+                                                                      "kitapcik":  "Muhasebe|denetim kanit toplama prosedurleri",
+                                                                      "d":  2,
+                                                                      "s":  2
+                                                                  },
+                   "denetim|ic kontrol kontrol cevresi":  {
+                                                              "hedef":  "muhasebe|ic kontrol kontrol cevresi",
+                                                              "puan":  1,
+                                                              "kasa":  "Denetim|ic kontrol-kontrol cevresi",
+                                                              "kitapcik":  "Muhasebe|ic kontrol-kontrol cevresi",
+                                                              "d":  1,
+                                                              "s":  1
+                                                          },
+                   "finansal muhasebe|azalan bakiyeler amortisman":  {
+                                                                         "hedef":  "muhasebe|azalan bakiyeler amortisman",
+                                                                         "puan":  1,
+                                                                         "kasa":  "Finansal Muhasebe|azalan bakiyeler amortisman",
+                                                                         "kitapcik":  "Muhasebe|azalan bakiyeler amortisman",
+                                                                         "d":  3,
+                                                                         "s":  3
+                                                                     },
+                   "finansal muhasebe|duran varlik hesaplama":  {
+                                                                    "hedef":  "muhasebe|duran varlik hesaplama",
+                                                                    "puan":  1,
+                                                                    "kasa":  "Finansal Muhasebe|duran varlik hesaplama",
+                                                                    "kitapcik":  "Muhasebe|duran varlik hesaplama",
+                                                                    "d":  1,
+                                                                    "s":  1
+                                                                },
+                   "finansal muhasebe|finansal raporlama degerlendirmesi":  {
+                                                                                "hedef":  "muhasebe|finansal raporlama degerlendirmesi",
+                                                                                "puan":  1,
+                                                                                "kasa":  "Finansal Muhasebe|finansal raporlama degerlendirmesi",
+                                                                                "kitapcik":  "Muhasebe|finansal raporlama degerlendirmesi",
+                                                                                "d":  2,
+                                                                                "s":  2
+                                                                            },
+                   "finansal muhasebe|gelecek aylara ait gider":  {
+                                                                      "hedef":  "muhasebe|gelecek aylara ait gider",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Finansal Muhasebe|gelecek aylara ait gider",
+                                                                      "kitapcik":  "Muhasebe|gelecek aylara ait gider",
+                                                                      "d":  2,
+                                                                      "s":  2
+                                                                  },
+                   "finansal muhasebe|gelecek aylara ait giderler":  {
+                                                                         "hedef":  "muhasebe|gelecek aylara ait giderler",
+                                                                         "puan":  1,
+                                                                         "kasa":  "Finansal Muhasebe|gelecek aylara ait giderler",
+                                                                         "kitapcik":  "Muhasebe|gelecek aylara ait giderler",
+                                                                         "d":  5,
+                                                                         "s":  5
+                                                                     },
+                   "finansal muhasebe|kar payi vergi kesintisi":  {
+                                                                      "hedef":  "muhasebe|kar payi vergi kesintisi",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Finansal Muhasebe|kar payi vergi kesintisi",
+                                                                      "kitapcik":  "Muhasebe|kar payi vergi kesintisi",
+                                                                      "d":  1,
+                                                                      "s":  1
+                                                                  },
+                   "finansal muhasebe|nakit akis tablosu":  {
+                                                                "hedef":  "muhasebe|nakit akis tablosu",
+                                                                "puan":  1,
+                                                                "kasa":  "Finansal Muhasebe|nakit akis tablosu",
+                                                                "kitapcik":  "Muhasebe|nakit akis tablosu",
+                                                                "d":  8,
+                                                                "s":  9
+                                                            },
+                   "finansal muhasebe|onemlilik kavrami denetim":  {
+                                                                       "hedef":  "muhasebe|onemlilik kavrami denetim",
+                                                                       "puan":  1,
+                                                                       "kasa":  "Finansal Muhasebe|onemlilik kavrami denetim",
+                                                                       "kitapcik":  "Muhasebe|onemlilik kavrami denetim",
+                                                                       "d":  3,
+                                                                       "s":  3
+                                                                   },
+                   "finansal muhasebe|satis dongusu maddi dogruluk testi":  {
+                                                                                "hedef":  "muhasebe|satis dongusu maddi dogruluk testi",
+                                                                                "puan":  1,
+                                                                                "kasa":  "Finansal Muhasebe|satis dongusu maddi dogruluk testi",
+                                                                                "kitapcik":  "Muhasebe|satis dongusu maddi dogruluk testi",
+                                                                                "d":  1,
+                                                                                "s":  1
+                                                                            },
+                   "finansal muhasebe|sermaye artirimi hisse ihrac primi":  {
+                                                                                "hedef":  "muhasebe|sermaye artirimi ihrac primi",
+                                                                                "puan":  0.8,
+                                                                                "kasa":  "Finansal Muhasebe|sermaye artirimi hisse ihrac primi",
+                                                                                "kitapcik":  "Muhasebe|sermaye artirimi ihrac primi",
+                                                                                "d":  3,
+                                                                                "s":  3
+                                                                            },
+                   "finansal muhasebe|supheli alacak karsiligi ve tahsil edilememesi":  {
+                                                                                            "hedef":  "muhasebe|supheli alacak karsiligi",
+                                                                                            "puan":  0.6,
+                                                                                            "kasa":  "Finansal Muhasebe|supheli alacak karsiligi ve tahsil edilememesi",
+                                                                                            "kitapcik":  "Muhasebe|supheli alacak karsiligi",
+                                                                                            "d":  4,
+                                                                                            "s":  4
+                                                                                        },
+                   "finansal muhasebe|tms 7 nakit akis tablosu":  {
+                                                                      "hedef":  "muhasebe|tms 7 nakit akis tablosu",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Finansal Muhasebe|tms 7 nakit akis tablosu",
+                                                                      "kitapcik":  "Muhasebe|tms 7 nakit akis tablosu",
+                                                                      "d":  4,
+                                                                      "s":  4
+                                                                  },
+                   "finansal muhasebe|toplulastirma riski":  {
+                                                                 "hedef":  "muhasebe|toplulastirma riski",
+                                                                 "puan":  1,
+                                                                 "kasa":  "Finansal Muhasebe|toplulastirma riski",
+                                                                 "kitapcik":  "Muhasebe|toplulastirma riski",
+                                                                 "d":  3,
+                                                                 "s":  3
+                                                             },
+                   "finansal tablolar ve analizi|tms 1 finansal tablolar seti":  {
+                                                                                     "hedef":  "muhasebe|finansal tablolar seti",
+                                                                                     "puan":  0.75,
+                                                                                     "kasa":  "Finansal Tablolar ve Analizi|tms 1 finansal tablolar seti",
+                                                                                     "kitapcik":  "Muhasebe|finansal tablolar seti",
+                                                                                     "d":  1,
+                                                                                     "s":  1
+                                                                                 },
+                   "is ve sosyal guvenlik hukuku|belirli sureli is sozlesmesi":  {
+                                                                                     "hedef":  "hukuk|belirli sureli is sozlesmesi",
+                                                                                     "puan":  1,
+                                                                                     "kasa":  "Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi",
+                                                                                     "kitapcik":  "Hukuk|belirli sureli is sozlesmesi",
+                                                                                     "d":  3,
+                                                                                     "s":  3
+                                                                                 },
+                   "is ve sosyal guvenlik hukuku|is kazasi isveren sorumlulugu":  {
+                                                                                      "hedef":  "hukuk|is kazasi isveren sorumlulugu",
+                                                                                      "puan":  1,
+                                                                                      "kasa":  "Is ve Sosyal Guvenlik Hukuku|is kazasi isveren sorumlulugu",
+                                                                                      "kitapcik":  "Hukuk|is kazasi isveren sorumlulugu",
+                                                                                      "d":  1,
+                                                                                      "s":  1
+                                                                                  },
+                   "is ve sosyal guvenlik hukuku|tesmil karari":  {
+                                                                      "hedef":  "hukuk|tesmil karari",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Is ve Sosyal Guvenlik Hukuku|tesmil karari",
+                                                                      "kitapcik":  "Hukuk|tesmil karari",
+                                                                      "d":  1,
+                                                                      "s":  1
+                                                                  },
+                   "is ve sosyal guvenlik hukuku|ucret hukumleri":  {
+                                                                        "hedef":  "hukuk|ucret esaslari",
+                                                                        "puan":  1,
+                                                                        "kasa":  "Is ve Sosyal Guvenlik Hukuku|ucret hukumleri",
+                                                                        "kitapcik":  "Hukuk|ucret esaslari",
+                                                                        "d":  1,
+                                                                        "s":  1
+                                                                    },
+                   "mali tablolar analizi|ozkaynak negatif analizi":  {
+                                                                          "hedef":  "muhasebe|ozkaynak negatif analizi",
+                                                                          "puan":  1,
+                                                                          "kasa":  "Mali Tablolar Analizi|ozkaynak negatif analizi",
+                                                                          "kitapcik":  "Muhasebe|ozkaynak negatif analizi",
+                                                                          "d":  1,
+                                                                          "s":  1
+                                                                      },
+                   "maliyet muhasebesi|genel uretim giderleri kapsami":  {
+                                                                             "hedef":  "muhasebe|7 a genel uretim gideri kapsami",
+                                                                             "puan":  0.6,
+                                                                             "kasa":  "Maliyet Muhasebesi|genel uretim giderleri kapsami",
+                                                                             "kitapcik":  "Muhasebe|7/a genel uretim gideri kapsami",
+                                                                             "d":  1,
+                                                                             "s":  1
+                                                                         },
+                   "maliyet muhasebesi|normal maliyet yontemi":  {
+                                                                     "hedef":  "muhasebe|normal maliyet yontemi",
+                                                                     "puan":  1,
+                                                                     "kasa":  "Maliyet Muhasebesi|normal maliyet yontemi",
+                                                                     "kitapcik":  "Muhasebe|normal maliyet yontemi",
+                                                                     "d":  7,
+                                                                     "s":  7
+                                                                 },
+                   "maliyet muhasebesi|ozel maliyet gideri":  {
+                                                                  "hedef":  "muhasebe|ozel maliyet gideri",
+                                                                  "puan":  1,
+                                                                  "kasa":  "Maliyet Muhasebesi|ozel maliyet gideri",
+                                                                  "kitapcik":  "Muhasebe|ozel maliyet gideri",
+                                                                  "d":  1,
+                                                                  "s":  1
+                                                              },
+                   "maliyet muhasebesi|ozel maliyet itfasi":  {
+                                                                  "hedef":  "muhasebe|ozel maliyet itfasi",
+                                                                  "puan":  1,
+                                                                  "kasa":  "Maliyet Muhasebesi|ozel maliyet itfasi",
+                                                                  "kitapcik":  "Muhasebe|ozel maliyet itfasi",
+                                                                  "d":  1,
+                                                                  "s":  1
+                                                              },
+                   "maliyet muhasebesi|satilan ticari mallar maliyeti":  {
+                                                                             "hedef":  "muhasebe|satilan ticari mallar maliyeti",
+                                                                             "puan":  1,
+                                                                             "kasa":  "Maliyet Muhasebesi|satilan ticari mallar maliyeti",
+                                                                             "kitapcik":  "Muhasebe|satilan ticari mallar maliyeti",
+                                                                             "d":  2,
+                                                                             "s":  2
+                                                                         },
+                   "meslek hukuku|haksiz rekabet reklam yasagi":  {
+                                                                      "hedef":  "hukuk|haksiz rekabet reklam yasagi",
+                                                                      "puan":  1,
+                                                                      "kasa":  "Meslek Hukuku|haksiz rekabet reklam yasagi",
+                                                                      "kitapcik":  "Hukuk|haksiz rekabet reklam yasagi",
+                                                                      "d":  8,
+                                                                      "s":  8
+                                                                  },
+                   "meslek hukuku|meslek hukuku disiplin cezasi":  {
+                                                                       "hedef":  "hukuk|meslek hukuku disiplin cezasi",
+                                                                       "puan":  1,
+                                                                       "kasa":  "Meslek Hukuku|meslek hukuku disiplin cezasi",
+                                                                       "kitapcik":  "Hukuk|meslek hukuku disiplin cezasi",
+                                                                       "d":  1,
+                                                                       "s":  1
+                                                                   },
+                   "meslek hukuku|ruhsat iptali meslek hukuku":  {
+                                                                     "hedef":  "hukuk|ruhsat iptali meslek hukuku",
+                                                                     "puan":  1,
+                                                                     "kasa":  "Meslek Hukuku|ruhsat iptali-meslek hukuku",
+                                                                     "kitapcik":  "Hukuk|ruhsat iptali-meslek hukuku",
+                                                                     "d":  1,
+                                                                     "s":  1
+                                                                 },
+                   "meslek hukuku|serbest meslek kazanci":  {
+                                                                "hedef":  "hukuk|serbest meslek kazanci",
+                                                                "puan":  1,
+                                                                "kasa":  "Meslek Hukuku|serbest meslek kazanci",
+                                                                "kitapcik":  "Hukuk|serbest meslek kazanci",
+                                                                "d":  4,
+                                                                "s":  4
+                                                            },
+                   "muh ve mali mus meslek hukuku|meslek mensubu olma genel sartlari":  {
+                                                                                            "hedef":  "hukuk|meslek mensubu genel sartlari",
+                                                                                            "puan":  0.8,
+                                                                                            "kasa":  "Muh. ve Mali Müş. Meslek Hukuku|meslek mensubu olma genel sartlari",
+                                                                                            "kitapcik":  "Hukuk|meslek mensubu genel sartlari",
+                                                                                            "d":  1,
+                                                                                            "s":  1
+                                                                                        },
+                   "muh ve mali mus meslek hukuku|ticari faaliyet yasagi":  {
+                                                                                "hedef":  "hukuk|ticari faaliyet yasagi",
+                                                                                "puan":  1,
+                                                                                "kasa":  "Muh. ve Mali Müş. Meslek Hukuku|ticari faaliyet yasagi",
+                                                                                "kitapcik":  "Hukuk|ticari faaliyet yasagi",
+                                                                                "d":  2,
+                                                                                "s":  2
+                                                                            },
+                   "muhasebe denetimi|denetim kaniti tanimi":  {
+                                                                   "hedef":  "muhasebe|denetim kaniti tanimi",
+                                                                   "puan":  1,
+                                                                   "kasa":  "Muhasebe Denetimi|denetim kaniti tanimi",
+                                                                   "kitapcik":  "Muhasebe|denetim kaniti tanimi",
+                                                                   "d":  2,
+                                                                   "s":  2
+                                                               },
+                   "muhasebe denetimi|denetim kaniti yeterliligi":  {
+                                                                        "hedef":  "muhasebe|denetim kaniti yeterliligi",
+                                                                        "puan":  1,
+                                                                        "kasa":  "Muhasebe Denetimi|denetim kaniti yeterliligi",
+                                                                        "kitapcik":  "Muhasebe|denetim kaniti yeterliligi",
+                                                                        "d":  9,
+                                                                        "s":  11
+                                                                    },
+                   "ticaret hukuku|anonim sirket temsili":  {
+                                                                "hedef":  "hukuk|anonim sirket temsili",
+                                                                "puan":  1,
+                                                                "kasa":  "Ticaret Hukuku|anonim sirket temsili",
+                                                                "kitapcik":  "Hukuk|anonim sirket temsili",
+                                                                "d":  3,
+                                                                "s":  3
+                                                            },
+                   "ticaret hukuku|anonim sirket yonetim kurulu yetkisi":  {
+                                                                               "hedef":  "hukuk|anonim sirket yonetim kurulu yetkisi",
+                                                                               "puan":  1,
+                                                                               "kasa":  "Ticaret Hukuku|anonim sirket yonetim kurulu yetkisi",
+                                                                               "kitapcik":  "Hukuk|anonim sirket yonetim kurulu yetkisi",
+                                                                               "d":  2,
+                                                                               "s":  2
+                                                                           },
+                   "ticaret hukuku|limited sirket ozellikleri":  {
+                                                                     "hedef":  "hukuk|limited sirket ozellikleri",
+                                                                     "puan":  1,
+                                                                     "kasa":  "Ticaret Hukuku|limited sirket ozellikleri",
+                                                                     "kitapcik":  "Hukuk|limited sirket ozellikleri",
+                                                                     "d":  2,
+                                                                     "s":  2
+                                                                 },
+                   "vergi hukuku|gelir vergisi ticari kazanc":  {
+                                                                    "hedef":  "hukuk|gelir vergisi ticari kazanc",
+                                                                    "puan":  1,
+                                                                    "kasa":  "Vergi Hukuku|gelir vergisi ticari kazanc",
+                                                                    "kitapcik":  "Hukuk|gelir vergisi ticari kazanc",
+                                                                    "d":  1,
+                                                                    "s":  1
+                                                                },
+                   "vergi hukuku|kdv vergiye tabi islemler":  {
+                                                                  "hedef":  "hukuk|kdv vergiye tabi islemler",
+                                                                  "puan":  1,
+                                                                  "kasa":  "Vergi Hukuku|kdv vergiye tabi islemler",
+                                                                  "kitapcik":  "Hukuk|kdv vergiye tabi islemler",
+                                                                  "d":  1,
+                                                                  "s":  1
+                                                              },
+                   "vergi hukuku|kdv vergiyi doguran olay":  {
+                                                                 "hedef":  "hukuk|kdv vergiyi doguran olay",
+                                                                 "puan":  1,
+                                                                 "kasa":  "Vergi Hukuku|kdv vergiyi doguran olay",
+                                                                 "kitapcik":  "Hukuk|kdv vergiyi doguran olay",
+                                                                 "d":  5,
+                                                                 "s":  5
+                                                             },
+                   "vergi hukuku|vergi ziyai cezasi katlari":  {
+                                                                   "hedef":  "hukuk|vergi ziyai cezasi orani 50",
+                                                                   "puan":  0.6,
+                                                                   "kasa":  "Vergi Hukuku|vergi ziyai cezasi katlari",
+                                                                   "kitapcik":  "Hukuk|vergi ziyai cezasi orani (%50)",
+                                                                   "d":  1,
+                                                                   "s":  1
+                                                               },
+                   "vergi hukuku|vuk karsilik":  {
+                                                     "hedef":  "hukuk|vuk karsilik",
+                                                     "puan":  1,
+                                                     "kasa":  "Vergi Hukuku|vuk karsilik",
+                                                     "kitapcik":  "Hukuk|vuk karsilik",
+                                                     "d":  1,
+                                                     "s":  1
+                                                 },
+                   "vergi mevzuati ve uygulamasi|kdv istisnalari":  {
+                                                                        "hedef":  "hukuk|kdv istisnalari",
+                                                                        "puan":  1,
+                                                                        "kasa":  "Vergi Mevzuatı ve Uygulaması|kdv istisnalari",
+                                                                        "kitapcik":  "Hukuk|kdv istisnalari",
+                                                                        "d":  2,
+                                                                        "s":  2
+                                                                    },
+                   "vergi mevzuati ve uygulamasi|kurumlar vergisi mukellefiyeti":  {
+                                                                                       "hedef":  "hukuk|kurumlar vergisi",
+                                                                                       "puan":  0.667,
+                                                                                       "kasa":  "Vergi Mevzuatı ve Uygulaması|kurumlar vergisi mukellefiyeti",
+                                                                                       "kitapcik":  "Hukuk|kurumlar vergisi",
+                                                                                       "d":  1,
+                                                                                       "s":  1
+                                                                                   }
+               }
+}
