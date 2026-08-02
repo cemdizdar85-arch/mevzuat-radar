@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Tetikte sınav paketleri: kuruluş fiyatı, sınav gününe kadar erişim, günde 15 soru ücretsiz. Fiyatlar KDV dahil, açıkça yazılıdır.">
+<meta name="description" content="Staja Başlama ve Yeterlilik sınavı için soru bankası. Sınava tekrar girmenin bedeli 1.635 TL; Tetikte 1.790 TL. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <style>
   :root{ --bg:#0a0c10; --kart:#12151c; --line:#252a35; --ink:#e8eaed; --muted:#9aa0a6;
@@ -15,6 +15,13 @@
   .s{ max-width:1060px; margin:0 auto; padding:30px 18px 80px; }
   h1{ font-size:clamp(24px,4vw,32px); margin:0 0 6px; letter-spacing:-.5px; }
   .alt{ color:var(--muted); font-size:15px; margin:0 0 4px; }
+
+  /* --- ACILIS VURUSU: rakam kaynakli, abartisiz --- */
+  .vurus{ background:linear-gradient(180deg,rgba(245,165,36,.10),rgba(245,165,36,.03));
+          border:1px solid rgba(245,165,36,.32); border-radius:14px; padding:18px 20px; margin:20px 0 6px; }
+  .vurus .buyuk{ font:800 clamp(19px,3.2vw,25px)/1.3 "Segoe UI",system-ui,sans-serif; letter-spacing:-.4px; }
+  .vurus .buyuk b{ color:var(--amber); }
+  .vurus p{ margin:8px 0 0; font-size:14px; color:#c8ccd2; }
 
   /* --- CANLI DONEM TAKVIMI: sahte geri sayim degil, GERCEK sinav takvimi --- */
   .takvim{ display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 8px; }
@@ -34,9 +41,11 @@
           font-size:11px; font-weight:800; letter-spacing:.6px; padding:4px 10px; border-radius:20px; }
   .p h3{ margin:0 0 2px; font-size:17px; }
   .p .kim{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
-  .tutar{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
-  .tutar small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
-  .taksit{ color:var(--amber); font-size:14px; font-weight:700; margin-top:5px; }
+  /* Gunluk maliyet ANA rakam, toplam altinda kucuk: karar veren sayi budur. */
+  .gunluk{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
+  .gunluk small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
+  .tutar{ font-size:14.5px; font-weight:700; color:#c8ccd2; margin-top:6px; }
+  .taksit{ color:var(--amber); font-size:13.5px; font-weight:700; margin-top:3px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:2px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
   .p li{ padding:5px 0 5px 21px; position:relative; color:#c8ccd2; }
@@ -49,11 +58,14 @@
   .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:12px; padding:16px 19px; margin:16px 0; }
   .kutu h2{ font-size:16px; margin:0 0 8px; }
   .kutu b.a{ color:var(--amber); }
+  .kutu.vurgu{ border-color:rgba(245,165,36,.4); }
   table{ border-collapse:collapse; width:100%; font-size:13.5px; margin-top:8px; }
   th,td{ text-align:left; padding:8px 10px; border-bottom:1px solid #1e222b; }
   th{ color:var(--muted); font-size:11.5px; text-transform:uppercase; letter-spacing:.6px; }
+  td.sag,th.sag{ text-align:right; font-variant-numeric:tabular-nums; }
   .simdi{ color:var(--amber); font-weight:700; }
   .kucuk{ font-size:12px; color:var(--dim); }
+  .tabsar{ overflow-x:auto; }
   a{ color:#6fb3ff; }
 </style>
 </head>
@@ -62,6 +74,14 @@
 
 <h1>Fiyatlar</h1>
 <p class="alt">Hepsi KDV dahil. Gizli ücret yok, teklif formu yok — ne ödeyeceğini burada görüyorsun.</p>
+
+<!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
+     fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge. -->
+<div class="vurus">
+  <div class="buyuk">Sınava bir kez daha girmenin bedeli <b>1.635 TL</b>.<br>Biz <b>1.790 TL</b> istiyoruz — bir daha girmeyesin diye.</div>
+  <p>Staja Giriş Sınavı başvuru bedeli 2026'da 1.635 TL. Kalırsan bu parayı yeniden ödersin, üstüne dört ay kaybedersin.
+  Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (02.08.2026'da okundu).</p>
+</div>
 
 <!-- Sahte aciliyet YOK: asagidaki sayilar TURMOB'un resmi takviminden hesaplaniyor. -->
 <div class="takvim" id="takvim"></div>
@@ -73,7 +93,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <div class="p">
     <h3>Ücretsiz</h3>
     <div class="kim">Önce gör, sonra karar ver</div>
-    <div class="tutar">0 <small>TL</small></div>
+    <div class="gunluk">0 <small>TL</small></div>
+    <div class="tutar">Süresiz</div>
     <div class="kdv">Kart bilgisi istemiyoruz</div>
     <ul>
       <li>Günde 15 soru</li>
@@ -81,55 +102,133 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Kaynak madde numarası</li>
       <li class="yok">Zayıf konu karnesi</li>
       <li class="yok">Sınırsız soru</li>
+      <li class="yok">Birebir prova</li>
     </ul>
     <a class="btn ikincil" href="deneme.html">Hemen çözmeye başla</a>
   </div>
 
   <div class="p one">
     <span class="rozet">EN ÇOK SEÇİLEN</span>
-    <h3>Yeterlilik</h3>
-    <div class="kim">Sınav gününe kadar erişim</div>
-    <div class="tutar" id="fyYeterlilik">990 <small>TL</small></div>
-    <div class="taksit" id="tkYeterlilik">3 taksitle aylık 330 TL</div>
-    <div class="kdv">KDV dahil · <span id="kdYeterlilik">kuruluş fiyatı</span></div>
+    <h3>Staja Başlama</h3>
+    <div class="kim">Sınav gününe kadar sınırsız</div>
+    <div class="gunluk" id="gnSgs">— <small>TL / gün</small></div>
+    <div class="tutar" id="fySgs">1.790 TL</div>
+    <div class="taksit" id="tkSgs">3 taksitle aylık 597 TL</div>
+    <div class="kdv">KDV dahil · <span id="kdSgs">kuruluş fiyatı</span></div>
     <ul>
-      <li>Sınırsız soru — 7.000'den fazla</li>
+      <li>Sınırsız soru — bankanın tamamı</li>
+      <li><b>Birebir Prova</b> — 130 soru, resmî ders dağılımı</li>
       <li>Dört parçalı açıklama, tuzak anlatımı</li>
-      <li><b>Zayıf konu karnesi</b> + aday ortalaması</li>
+      <li><b>Zayıf konu karnesi</b> + koç notu</li>
       <li>Yanlışlarım havuzu, işaretleme</li>
       <li><b>Son 15 Gün dahil</b></li>
-      <li>Geçemezsen bir dönem daha açık</li>
+      <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <a class="btn" href="#kayit">Kuruluş fiyatından yerini al</a>
   </div>
 
   <div class="p">
-    <h3>Staja Başlama</h3>
-    <div class="kim">Sınav gününe kadar erişim</div>
-    <div class="tutar" id="fySgs">590 <small>TL</small></div>
-    <div class="taksit" id="tkSgs">3 taksitle aylık 197 TL</div>
-    <div class="kdv">KDV dahil · <span id="kdSgs">kuruluş fiyatı</span></div>
+    <h3>Yeterlilik</h3>
+    <div class="kim">Sınav gününe kadar sınırsız</div>
+    <div class="gunluk" id="gnYeterlilik">— <small>TL / gün</small></div>
+    <div class="tutar" id="fyYeterlilik">2.790 TL</div>
+    <div class="taksit" id="tkYeterlilik">3 taksitle aylık 930 TL</div>
+    <div class="kdv">KDV dahil · <span id="kdYeterlilik">kuruluş fiyatı</span></div>
     <ul>
-      <li>Sınırsız soru</li>
+      <li>Sınırsız soru — sekiz dersin tamamı</li>
+      <li><b>Ders bazlı prova</b> — 100 üzerinden, baraj 50</li>
       <li>Dört parçalı açıklama, tuzak anlatımı</li>
-      <li><b>Zayıf konu karnesi</b> + aday ortalaması</li>
+      <li><b>Zayıf konu karnesi</b> + koç notu</li>
       <li>Yanlışlarım havuzu, işaretleme</li>
       <li><b>Son 15 Gün dahil</b></li>
-      <li>Geçemezsen bir dönem daha açık</li>
+      <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <a class="btn ikincil" href="#kayit">Kuruluş fiyatından yerini al</a>
   </div>
 
 </div>
 
+<!-- SURE MERDIVENI (uzun secenek): manseti yukseltmeden ortalama tahsilati yukseltir. -->
+<div class="kutu">
+  <h2>İki sınav dönemi birden</h2>
+  <p style="margin:0;font-size:14px">Bir dönemde bitirmeyi düşünmüyorsan, 12 aylık erişim daha ucuza gelir:
+  <b class="a">Staja Başlama 2.790 TL</b> · <b class="a">Yeterlilik 3.990 TL</b> — iki sınav dönemini kapsar,
+  arada banka büyümeye devam eder.</p>
+</div>
+
+<!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
+<div class="kutu vurgu">
+  <h2>Bu mesleğin resmî bedeli — daha tek kitap almadan</h2>
+  <div class="tabsar"><table>
+    <tr><th>TESMER 2026 resmî ücreti</th><th class="sag">Tutar</th></tr>
+    <tr><td>Staj dosya ve başvuru bedeli</td><td class="sag">10.500 TL</td></tr>
+    <tr><td><b>Staja Giriş Sınavı başvuru bedeli</b></td><td class="sag"><b class="a">1.635 TL</b></td></tr>
+    <tr><td>Stajyer zorunlu eğitim (3 yıl)</td><td class="sag">7.890 TL</td></tr>
+    <tr><td>Stajyer kimlik kartı</td><td class="sag">1.540 TL</td></tr>
+    <tr><td><b>SMMM Yeterlilik ilk başvuru (8 ders)</b></td><td class="sag"><b class="a">10.080 TL</b></td></tr>
+    <tr><td>Yeterlilik — kaldığın her ders için</td><td class="sag">1.260 TL</td></tr>
+    <tr><td><b>Toplam (yalnızca resmî ücretler)</b></td><td class="sag"><b>31.645 TL</b></td></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Yılı Sınav ve Eğitim Ücretleri</a>, 02.08.2026'da okundu.
+  Bu tabloyu satış için değil, <b>kararını rakamla verebilesin</b> diye koyduk. Tetikte'nin payı bu tablonun yüzde beşi kadar.</p>
+</div>
+
 <div class="kutu">
   <h2>Fiyat merdiveni — erken gelen az öder</h2>
-  <p class="kucuk" style="margin:0">Kayıtlar kapanmaz. Ama sınav yaklaştıkça fiyat yükselir; bugünkü basamak işaretli.</p>
-  <table id="merdiven">
-    <tr><th>Ne zaman girersen</th><th>Yeterlilik</th><th>Staja Başlama</th></tr>
-  </table>
+  <p class="kucuk" style="margin:0">Kayıtlar kapanmaz. Ama sınav yaklaştıkça fiyat yükselir; bugünkü basamak işaretli.
+  Üstü çizili sahte fiyat, "son 3 saat" sayacı ya da indirim kampanyası yapmıyoruz — tek indirimimiz erken gelmek.</p>
+  <div class="tabsar"><table id="merdiven">
+    <tr><th>Ne zaman girersen</th><th>Staja Başlama</th><th>Yeterlilik</th></tr>
+  </table></div>
   <p class="kucuk" style="margin-top:10px"><b>Kuruluş fiyatına giren bir yıl boyunca o fiyatta kalır.</b>
   Bu bir indirim değil — ilk dönem gelenin ödülü.</p>
+</div>
+
+<!-- KATEGORI AYRIMI: eski "piyasadan yirmi kat ucuzuz" cumlesi KALDIRILDI (02.08).
+     "Ucuz" demek kendi kalitemizi inkar etmekti; artik ayri kategori oldugumuzu soyluyoruz. -->
+<div class="kutu">
+  <h2>Biz kurs değiliz — kursun yapmadığını yapıyoruz</h2>
+  <p style="margin:0;font-size:14px">Piyasadaki hazırlık kursları <b>8.800 – 16.800 TL</b> bandında
+  (02.08.2026'da dört kurumun kendi sitesinden okundu) ve iyi iş yapıyorlar: konuyu anlatıyorlar.
+  Ama sınav, konuyu <b>bilmekle</b> değil, soruyu <b>çözmekle</b> kazanılıyor.</p>
+  <p style="margin:10px 0 0;font-size:14px">Kursa gidiyorsan Tetikte antrenman salonun olur.
+  Kursa gitmiyorsan zaten tek ihtiyacın bu. <b class="a">208 saat ders dinleyecek vaktin yoksa,
+  soruyu çözerek öğrenirsin</b> — her sorunun altında hangi kanun maddesinden geldiği yazıyor.</p>
+</div>
+
+<div class="kutu">
+  <h2>Bir sorunun kaç para ettiğini merak edersen</h2>
+  <div class="tabsar"><table>
+    <tr><th>İçindekiler</th><th class="sag">Tek başına</th></tr>
+    <tr><td>Soru bankası — her sorunun kanun maddesiyle</td><td class="sag">1.490 TL</td></tr>
+    <tr><td>Birebir Prova motoru (resmî ders dağılımı)</td><td class="sag">690 TL</td></tr>
+    <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
+    <tr><td>Zayıf konu karnesi + koç notu</td><td class="sag">490 TL</td></tr>
+    <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
+    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">1.790 TL</b></td></tr>
+  </table></div>
+  <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz — uydurma bir "değer" değil,
+  aşağıda fiyatı yazan gerçek ürün.</p>
+</div>
+
+<div class="kutu vurgu">
+  <h2>Riski biz alıyoruz</h2>
+  <p style="margin:0;font-size:14px"><b class="a">7 gün koşulsuz iade.</b> Sebep sormuyoruz, form doldurtmuyoruz.
+  Beğenmezsen yazarsın, paranı iade ederiz.</p>
+  <p style="margin:8px 0 0;font-size:14px"><b>Sınav ertelenirse süren uzar.</b> TESMER tarihi değiştirirse
+  erişimin yeni sınav gününe kadar kendiliğinden uzatılır — ek ücret istemeyiz.</p>
+  <p class="kucuk" style="margin:10px 0 0">"Geçemezsen bedava" gibi bir söz vermiyoruz. Adayların
+  büyük çoğunluğu bu sınavlarda kalıyor; böyle bir söz dürüst bir garanti değil, gizli bir indirim olurdu.
+  Biz sözümüzü tutabileceğimiz yerde veriyoruz.</p>
+</div>
+
+<div class="kutu">
+  <h2>Çalışma Arkadaşım — indirim değil, süre</h2>
+  <p style="margin:0;font-size:14px">Her üyeye <b>3 davet kodu</b> veriyoruz. Davet ettiğin arkadaşın üye olursa
+  <b class="a">ikinize de +1 ay</b> erişim eklenir. Kimse fiyattan kırmıyor; ikiniz de daha uzun çalışıyorsunuz.</p>
+  <p class="kucuk" style="margin:8px 0 0">Bu sınavda en çok kaybettiren şey yalnız çalışmak ve yarıda bırakmak.
+  İkili çalışanların ortak prova tablosu olur — kimin nerede olduğunu ikiniz de görürsünüz.
+  Üç arkadaş getirene Yeterlilik paketine geçişte yarı fiyat.</p>
 </div>
 
 <div class="kutu">
@@ -142,20 +241,14 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 </div>
 
 <div class="kutu">
-  <h2>Neden bu fiyat</h2>
-  <p style="margin:0;font-size:14px">Piyasada SMMM Yeterlilik hazırlığının tüm dersler paketi
-  <b>23.000 TL</b> seviyesinde (191 saat video, Aktif Online Akademi, 29.07.2026'da sitesinden okundu).
-  Biz ders anlatmıyoruz — <b class="a">soru çözdürüp konuyu öğretiyoruz</b>, ve bunu o fiyatın
-  yirmide birine yapıyoruz.</p>
-</div>
-
-<div class="kutu">
   <h2>Kalite iddiamızın karşılığı</h2>
   <p style="margin:0;font-size:14px">"Kaliteli soru bankası" demek kolay. Bizde her sorunun bir kanun
   maddesine dayanması <b>şart</b>, ve bunu makine denetliyor: kaynak, rakam, dil, şablon, tuzak,
-  uydurma atıf ve üslup kapıları.</p>
-  <p style="margin:8px 0 0;font-size:14px">Son denetim turunda <b class="a">117 soru geçemedi ve yayınlanmadı.</b>
+  uydurma atıf ve üslup kapıları. Açıklamalarımız yapay zekâya sorulmuyor — <b class="a">kanun metninden doğrulanıyor</b>.</p>
+  <p style="margin:8px 0 0;font-size:14px">Sadece son turda <b class="a">466 soruyu kendi elimizle yayından çektik.</b>
   Hata yapmadığımızı iddia etmiyoruz; iddiamız şu: <b>öğrenciye gitmeden yakalıyoruz.</b></p>
+  <p class="kucuk" style="margin:10px 0 0">Yine de bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir:
+  aynı gün kaynağıyla bakarız, haklıysan soru düzeltilir ya da yayından iner — düzeltmeyi açıkça duyururuz.</p>
 </div>
 
 <div class="kutu" id="kayit">
@@ -168,7 +261,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 </div>
 
 <p class="kucuk">Fiyatlar Türk Lirası ve KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
-deneme ve açıklama sunar.</p>
+deneme ve açıklama sunar — ders anlatımı, canlı yayın veya sertifika içermez.
+Satıcı bilgileri ödeme açılışında bu sayfada yayımlanır.</p>
 
 </div>
 
@@ -180,9 +274,13 @@ var SINAVLAR = [
   { ad:'Staja Başlama',  tarih:'2026-11-21', yazi:'21 Kasım 2026',        anahtar:'sgs' },
   { ad:'Yeterlilik',     tarih:'2026-12-12', yazi:'12 – 21 Aralık 2026',  anahtar:'yeterlilik' }
 ];
+/* 02.08.2026 FIYAT KARARI — olculmus dayanaklarla (bkz. sayfadaki tablolar):
+   SGS sinav ucreti 1.635 · Yeterlilik sinav ucreti 10.080 (TESMER 2026 tarifesi)
+   kurs bandi 8.800-16.800 · sadece-video soru cozum paketi 3.250 · soru bankasi kitabi ~1.140.
+   Onceki 249 ve 590/990 rakamlari OLCUMSUZDU; bu ilk olculu fiyat. */
 var FIYAT = {
-  yeterlilik: { erken:990, orta:1290, son:1490 },
-  sgs:        { erken:590, orta:790,  son:990  }
+  sgs:        { erken:1790, orta:2190, son:2490 },
+  yeterlilik: { erken:2790, orta:3190, son:3490 }
 };
 function gunFarki(t){
   var s = new Date(t + 'T09:00:00+03:00');
@@ -201,25 +299,37 @@ SINAVLAR.forEach(function(s){
 tk.innerHTML = h;
 
 // Fiyati TAKVIMDEN hesapla: sayfada yazan rakam ile odenecek rakam hep ayni olsun.
-['yeterlilik','sgs'].forEach(function(k){
+// ANA RAKAM GUNLUK maliyet — karar veren sayi bu; toplam hemen altinda durur.
+['sgs','yeterlilik'].forEach(function(k){
   var s = SINAVLAR.filter(function(x){ return x.anahtar === k; })[0];
   var g = gunFarki(s.tarih), b = basamak(g), f = FIYAT[k][b];
   var id = k === 'sgs' ? 'Sgs' : 'Yeterlilik';
-  document.getElementById('fy' + id).innerHTML = tl(f) + ' <small>TL</small>';
+  // Sinav gecmisse ya da cok yakinsa gunluk rakam anlamsizlasir - o zaman gizlenir.
+  var gun = document.getElementById('gn' + id);
+  if(g >= 7){
+    gun.innerHTML = tl(Math.round(f / g)) + ' <small>TL / gün</small>';
+  } else {
+    gun.innerHTML = tl(f) + ' <small>TL</small>';
+  }
+  document.getElementById('fy' + id).textContent = tl(f) + ' TL' + (g >= 7 ? ' — sınav gününe kadar' : '');
   document.getElementById('tk' + id).textContent = '3 taksitle aylık ' + tl(Math.round(f / 3)) + ' TL';
   document.getElementById('kd' + id).textContent = (b === 'erken') ? 'kuruluş fiyatı'
       : (b === 'orta' ? 'sınava 90 günden az kaldı' : 'son 30 gün fiyatı');
 });
 
-// Merdiven tablosu: bugun hangi basamaktaysak O SATIR isaretli.
+// Deger yigini kutusundaki paket fiyati da SGS'nin guncel basamagini gostersin.
+var gS = gunFarki(SINAVLAR[0].tarih);
+document.getElementById('yiginFiyat').textContent = tl(FIYAT.sgs[basamak(gS)]) + ' TL';
+
+// Merdiven tablosu: bugun hangi basamaktaysak O SATIR isaretli (SGS takvimine gore).
 var m = document.getElementById('merdiven');
-var gY = gunFarki(SINAVLAR[1].tarih), bY = basamak(gY);
+var bS = basamak(gS);
 [['Sınava 90+ gün','erken'],['90 – 30 gün','orta'],['Son 30 gün','son']].forEach(function(r){
   var tr = document.createElement('tr');
-  var simdi = (r[1] === bY);
+  var simdi = (r[1] === bS);
   tr.innerHTML = '<td>' + r[0] + (simdi ? ' <span class="simdi">← şu an</span>' : '') + '</td>'
-    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.yeterlilik[r[1]]) + ' TL</td>'
-    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.sgs[r[1]]) + ' TL</td>';
+    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.sgs[r[1]]) + ' TL</td>'
+    + '<td' + (simdi ? ' class="simdi"' : '') + '>' + tl(FIYAT.yeterlilik[r[1]]) + ' TL</td>';
   m.appendChild(tr);
 });
 </script>
