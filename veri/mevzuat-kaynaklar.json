@@ -2,6 +2,30 @@
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
                      {
+                         "ad":  "7440 s.K. (2023 Yapilandirma-Matrah Artirimi)",
+                         "pdfId":  "1.5.7440",
+                         "slug":  "yapilandirma7440",
+                         "not":  "Matrah artirimi sorulari ve Af Radari (#63) bunun metnine dayanir. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (damga yok, dosya yok) - gunluk listede 127 kaynak, kosu tavani 120, sira hic gelmemis. Listenin BASINA alindi."
+                     },
+                     {
+                         "ad":  "7326 s.K. (2021 Yapilandirma)",
+                         "pdfId":  "1.5.7326",
+                         "slug":  "yapilandirma7326",
+                         "not":  "Matrah artirimi sorulari ve Af Radari (#63) bunun metnine dayanir. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (damga yok, dosya yok) - gunluk listede 127 kaynak, kosu tavani 120, sira hic gelmemis. Listenin BASINA alindi."
+                     },
+                     {
+                         "ad":  "7143 s.K. (2018 Yapilandirma)",
+                         "pdfId":  "1.5.7143",
+                         "slug":  "yapilandirma7143",
+                         "not":  "Matrah artirimi sorulari ve Af Radari (#63) bunun metnine dayanir. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (damga yok, dosya yok) - gunluk listede 127 kaynak, kosu tavani 120, sira hic gelmemis. Listenin BASINA alindi."
+                     },
+                     {
+                         "ad":  "6736 s.K. (2016 Yapilandirma)",
+                         "pdfId":  "1.5.6736",
+                         "slug":  "yapilandirma6736",
+                         "not":  "Matrah artirimi sorulari ve Af Radari (#63) bunun metnine dayanir. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (damga yok, dosya yok) - gunluk listede 127 kaynak, kosu tavani 120, sira hic gelmemis. Listenin BASINA alindi."
+                     },
+                     {
                          "slug":  "kamumali",
                          "ad":  "Kamu Malî Yönetimi K. (5018 s.K.)",
                          "pdfId":  "1.5.5018"
@@ -575,26 +599,6 @@
                          "slug":  "spk-kurumsal-yon",
                          "ad":  "Kurumsal Yonetim Tebligi (II-17.1)",
                          "pdfId":  "G9:19225"
-                     },
-                     {
-                         "ad":  "7440 s.K. (2023 Yapilandirma-Matrah Artirimi)",
-                         "pdfId":  "1.5.7440",
-                         "slug":  "yapilandirma7440"
-                     },
-                     {
-                         "ad":  "7326 s.K. (2021 Yapilandirma)",
-                         "pdfId":  "1.5.7326",
-                         "slug":  "yapilandirma7326"
-                     },
-                     {
-                         "ad":  "7143 s.K. (2018 Yapilandirma)",
-                         "pdfId":  "1.5.7143",
-                         "slug":  "yapilandirma7143"
-                     },
-                     {
-                         "ad":  "6736 s.K. (2016 Yapilandirma)",
-                         "pdfId":  "1.5.6736",
-                         "slug":  "yapilandirma6736"
                      },
                      {
                          "slug":  "vuk389gt",
