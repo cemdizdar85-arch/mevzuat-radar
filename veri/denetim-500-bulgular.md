@@ -518,6 +518,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 415 | — | TEMİZ | 414↔415 aynı konu farklı madde (55/56) — meşru | TTK 56/1-e → TBK 58 kişilik hakları şartı ✓. |
 
 **Ara sayaç (415/500):** kesin yanlış **10** · riskli **15** · düzeltilir 79 · temiz 316 (%76). Hukuk hattı 8/8 temiz.
+
+| 416 | — | TEMİZ | — | TBK 133: yenileme açık irade ister; vade/faiz değişikliği yetmez, teminatlar sürer ✓. |
+| 417 | — | TEMİZ | 411↔417: temel/kombinasyon (417 üç fıkrayı birden test ediyor) — ikisi kalabilir | TTK 682: şart yazılmamış / kısmi batıl / hamiline=beyaz ciro ✓ üç yaptırım ayrımı örnek nitelikte. |
+| 418 | — | DÜZELTİLİR | **420 ile mükerrer** (TTK 12/2, aynı öz) | İçerik doğru ✓; 420 kalır (senaryolu + vazgeçme nüansı), 418 elenir. |
+| 419 | — | DÜZELTİLİR | **410 ile mükerrer** (6356 m.34, aynı öz) + konu etiketi ilgisiz | İçerik doğru ✓; 410 kalır (senaryolu), 419 elenir. |
+| 420 | — | TEMİZ | — | TTK 12/2: tescil+ilan → fiilen açmasa da tacir; vazgeçme sıfatı kendiliğinden sonlandırmaz ✓. |
+| 421 | — | TEMİZ — iyi soru | deneme ailesi (406/412/421/422) dört üye AMA dört FARKLI kural — meşru dörtlü | 5510 m.8: deneme süresi sigorta bildirimini ertelemez ✓. |
+| 422 | — | TEMİZ | — | İş K 15/1: bireysel 2 ay / TİS'le 4 ay; aşan kısım hükümsüz ✓. |
+| 423 | — | TEMİZ | 415↔423 aynı madde farklı kural (meşru) | TTK 56: tespit/men kusursuz, tazminat kusurlu ✓. |
+
+**Ara sayaç (423/500):** kesin yanlış **10** · riskli **15** · düzeltilir 81 · temiz 322 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
