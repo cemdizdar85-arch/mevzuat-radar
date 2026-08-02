@@ -1,0 +1,51 @@
+# .github/workflows/yillik-rakam-nobeti.yml — YILLIK RAKAM NOBETI (A8 kurali)
+# 03.08 Cem tespiti: "yillik degisen rakamlarda nobet yok" — script vardi,
+# WORKFLOW HIC YOKTU (kor kalma: yazamayan kanal kurulmamis sayilir).
+# Haftalik olcum + Ocak basinda -uygula (yeni yila eski rakam tasinmasin).
+# Cikti: veri/yillik-rakam-nobeti.json (her kosuda commit).
+name: Yillik Rakam Nobeti
+
+on:
+  schedule:
+    - cron: "25 5 * * 1"    # pazartesi 08:25 TR — haftalik olcum
+    - cron: "40 3 2 1 *"    # 2 Ocak 06:40 TR — yilbasi uygulamasi
+  workflow_dispatch:
+    inputs:
+      uygula:
+        description: "Eski yilli YAYINDAKI sorulari karantinaya ceksin mi?"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - 'motor/yillik-rakam-nobeti.ps1'
+      - '.github/workflows/yillik-rakam-nobeti.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yillik-rakam-nobeti
+  cancel-in-progress: false
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobeti kostur
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ocak = ('${{ github.event.schedule }}' -eq '40 3 2 1 *')
+          $istek = ('${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.uygula }}' -eq 'true')
+          if($ocak -or $istek){ ./motor/yillik-rakam-nobeti.ps1 -uygula } else { ./motor/yillik-rakam-nobeti.ps1 }
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/yillik-rakam-nobeti.json ]; then git add veri/yillik-rakam-nobeti.json || true; fi
+          git diff --cached --quiet || git commit -m "Yillik rakam nobeti [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

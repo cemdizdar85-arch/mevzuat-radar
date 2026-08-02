@@ -1,0 +1,39 @@
+# .github/workflows/dayanak-kapsam.yml — DAYANAK KAPSAM OLCUMU
+# Kasa capinda "kaynak cozuluyor mu" orani ("40'ta 39" bulgusunun fotografi).
+# UCRETSIZ: yalniz okuma. Cikti: veri/dayanak-kapsam.json
+name: Dayanak Kapsami
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/dayanak-kapsam.ps1'
+      - '.github/workflows/dayanak-kapsam.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dayanak-kapsam
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olc
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/dayanak-kapsam.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/dayanak-kapsam.json ]; then git add veri/dayanak-kapsam.json || true; fi
+          git diff --cached --quiet || git commit -m "Dayanak kapsam olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

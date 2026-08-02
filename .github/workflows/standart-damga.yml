@@ -1,0 +1,40 @@
+# .github/workflows/standart-damga.yml — STANDART HASH NOBETI (Gorev #60)
+# TMS/TFRS/BDS ambar kayitlarinin hash'ini izler; degisince kirmizi.
+name: Standart Damgasi
+
+on:
+  schedule:
+    - cron: "35 5 * * 1"   # pazartesi 08:35 TR — haftalik
+  workflow_dispatch:
+  push:
+    paths:
+      - 'motor/standart-damga.ps1'
+      - '.github/workflows/standart-damga.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: standart-damga
+  cancel-in-progress: false
+
+jobs:
+  damga:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Damgala
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/standart-damga.ps1
+      - name: Damga + raporu commit'le (kor kalma)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/standart-damga.json ]; then git add veri/standart-damga.json || true; fi
+          if [ -f veri/standart-damga-rapor.json ]; then git add veri/standart-damga-rapor.json || true; fi
+          git diff --cached --quiet || git commit -m "Standart damgasi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

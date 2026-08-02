@@ -113,6 +113,8 @@ $T6liste  = New-Object System.Collections.Generic.List[string]
 $T7liste  = New-Object System.Collections.Generic.List[string]
 $T8liste  = New-Object System.Collections.Generic.List[string]
 $T9bos = 0; $T9hesapli = 0; $T9hesapIdler = New-Object System.Collections.Generic.List[string]
+$T10liste = New-Object System.Collections.Generic.List[string]
+$T11liste = New-Object System.Collections.Generic.List[string]; $T11eksikAcik = 0
 $T2dagilim = @{}  # "ders -> aile" kac kez
 
 $reIstem   = [regex]'(?i)\d+\s*karakter\s*(\.|olacak|ile sinirli)|sadece\s+json|json\s+dondur|gecerli\s+json'
@@ -120,6 +122,10 @@ $reHomog   = [regex]'[Ѐ-ӿͰ-Ͽ]'
 $reTurkce  = [regex]'[çğıöşüÇĞİÖŞÜ]'
 $reMulga   = [regex]'(?i)g[oö]t[uü]r[uü]\s+usul'
 $reHesapT9 = [regex]'(?i)ka[çc]\s+TL|ne\s+kadar|tutar[ıi]\s+ka[çc]|hesaplay|hesaplan|yevmiye\s+kayd|\d{1,3}(\.\d{3})+(,\d+)?\s*TL'
+# T10 yasakli kalip + kucumseyen/ezberci dil (G5; Cem 03.08: "hala kullaniliyor")
+$reYasakli = [regex]'(?i)bu\s+[sş][ıi]k\s+yanl[ıi][sş]t[ıi]r\s+[çc][üu]nk[üu]|ezberley|ezberlemek|ezberle\b|basit[çc]e\s+s[oö]ylemek|kolayca\s+anla[sş]|[çc]ok\s+basit|apa[çc][ıi]k|herkes\s+bilir'
+# T11 "Dogrusu:" eksigi (G1): yanlis sik aciklamalarinin KACINDA Dogrusu yok
+$reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
 
 $offset = 0; $sayfa = 1000
 while($true){
@@ -193,6 +199,19 @@ while($true){
       $T9bos++
       if($reHesapT9.IsMatch($soruM)){ $T9hesapli++; $T9hesapIdler.Add($id) }
     }
+
+    # T10 yasakli kalip / kucumseyen dil (tum metinde)
+    if($reYasakli.IsMatch($tum)){ $T10liste.Add($id) }
+
+    # T11 "Dogrusu:" eksigi - yalniz YANLIS sik aciklamalarinda aranir
+    if($s.aciklama -and $harf.Length -eq 1){
+      $eksik = 0
+      foreach($p in $s.aciklama.PSObject.Properties){
+        if($p.Name -eq $harf){ continue }                    # dogru sik muaf
+        if(-not $reDogrusu.IsMatch("$($p.Value)")){ $eksik++ }
+      }
+      if($eksik -gt 0){ $T11liste.Add($id); $T11eksikAcik += $eksik }
+    }
   }
   if($parti.Count -lt $sayfa){ break }
   $offset += $sayfa
@@ -224,6 +243,9 @@ $sonuc = [ordered]@{
     T8_homoglif       = $T8liste.Count
     T9_tablo_bos      = $T9bos
     T9_hesap_desenli  = $T9hesapli
+    T10_yasakli_dil   = $T10liste.Count
+    T11_dogrusu_eksik_soru = $T11liste.Count
+    T11_dogrusu_eksik_aciklama = $T11eksikAcik
   }
   T2_dagilim = $T2dagilim
   T1_gruplar = $mukGrup
@@ -234,6 +256,8 @@ $sonuc = [ordered]@{
   T7_idler   = $T7liste
   T8_idler   = $T8liste
   T9_hesap_idler = $T9hesapIdler
+  T10_idler  = $T10liste
+  T11_idler  = $T11liste
 }
 Yaz $sonuc
 Write-Host ""

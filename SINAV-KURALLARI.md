@@ -53,6 +53,21 @@ tarih silindiğinde aynı dayanaktan aynı doğru cevabı soruyorsa **mükerrerd
 cümleleri farklı olsa da. (Eski 60-karakter kapısı bunu göremiyordu: cümle başı
 her seferinde değişiyordu.)
 
+**A8. YILLIK RAKAM TUZAĞI** *(03.08.2026, Cem: "yeni kural gerekiyor" — KİLİTLİ)*
+Yıla bağlı her değer (tarife dilimi, had, eşik, ceza tutarı, asgari ücret,
+SGK taban/tavan, yeniden değerleme) **eskiyen değerdir**; kanun maddesi bile
+eskir (SGK tavanı 7,5→9 kat vakası). Bu yüzden:
+1. Yıl-eşikli sorunun **dayanağı kanun maddesi değil, O YILIN TEBLİĞİ/KARARIDIR**
+   (VUK GT 577→2025, 588→2026, GVK GT 332→2026, Asgari Ücret Kararı 2025/1...).
+2. Soru **zamansız tasarlanır**: değer soru gövdesinde açıkça verilir
+   ("ilgili yıl için eşik 25.000 TL'dir") **ya da** senaryo yılı dayanaktaki
+   değerin yılına eşitlenir. İkisi de yoksa soru ÜRETİLMEZ.
+3. **Yıllık rakam nöbetçisi** (motor/yillik-rakam-nobeti.ps1) kasada yıl+kavram
+   taraması yapar; eski yıla ait rakam taşıyan yayındaki soruyu karantinaya
+   çeker. Nöbetçi çalışmıyorsa bu kural **kurulmamış sayılır** (kör kalma).
+4. Ölçüldü (500-okuma): kesin yanlışların en büyük tek nedeni buydu
+   (2019 tarifesi, 2020 oto kısıtı, 2012 SPK cezası, 2024→2025 eşik).
+
 ---
 
 ## B. SORU GÖVDESİ
