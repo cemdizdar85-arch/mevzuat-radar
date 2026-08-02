@@ -19,7 +19,12 @@ $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$U = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
+# 03.08 KOK SEBEP: PowerShell degiskenleri BUYUK/kucuk harf AYIRMAZ - eski
+# halde tarama dongusu "$u = ...$U..." atamasiyla TABAN ADRESIN KENDISINI her
+# sayfada sisiriyordu (hata raporundaki 27 parcali adres). PATCH filtresi bu
+# yuzden kayboldu. Taban artik benzersiz adla: $TABAN. (kalite-tarama '$h'
+# dersinin aynisi - degisken adi tuzagi ikinci kez kayda gecti.)
+$TABAN = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 $cikti = Join-Path $kok "veri/homoglif-onarim.json"
 
 function Yaz($n){ [IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject $n -Depth 6), (New-Object Text.UTF8Encoding($false))) }
@@ -87,8 +92,8 @@ $hepsi = 0
 $vurgun = New-Object System.Collections.Generic.List[object]
 $offset = 0; $sayfa = 1000
 while($true){
-  $u = "$U`?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
-  $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $BASLIK -TimeoutSec 180
+  $istekUri = "$TABAN?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
+  $hw = Invoke-WebRequest -UseBasicParsing -Uri $istekUri -Headers $BASLIK -TimeoutSec 180
   $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
   $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
   if(-not $parti.Count){ break }
@@ -132,7 +137,7 @@ foreach($s in $vurgun){
   # a WHERE clause" (21000) dondu - yani filtre sunucuya ULASMIYORDU; suphe
   # "$U`?..." interpolasyonundaki backtick'in pwsh/linux'ta yutulmasi.
   # Hata olursa artik ISTEK ADRESI de rapora yazilir (kor kalma).
-  $patchUri = "${U}?id=eq." + [uri]::EscapeDataString($id)
+  $patchUri = "${TABAN}?id=eq." + [uri]::EscapeDataString($id)
   try {
     Invoke-WebRequest -Uri $patchUri -Method Patch `
       -Headers ($BASLIK + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) `
@@ -153,8 +158,8 @@ if($uygula){
   $kalan = 0
   $offset = 0
   while($true){
-    $u = "$U`?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
-    $hw = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $BASLIK -TimeoutSec 180
+    $istekUri = "$TABAN?select=id,soru,siklar,aciklama,hap&order=id&limit=$sayfa&offset=$offset"
+    $hw = Invoke-WebRequest -UseBasicParsing -Uri $istekUri -Headers $BASLIK -TimeoutSec 180
     $gv = if($hw.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($hw.Content) } else { "$($hw.Content)" }
     $parti = @(); foreach($x in (ConvertFrom-Json $gv)){ $parti += $x }
     if(-not $parti.Count){ break }
