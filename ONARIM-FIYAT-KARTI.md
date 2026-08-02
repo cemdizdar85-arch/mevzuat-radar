@@ -1,5 +1,24 @@
 # ONARIM FİYAT KARTI — 02.08.2026
 
+> ## 🔴 DÜZELTME (02.08 gece) — TAHMİNİM 3,5 KAT YÜKSEKMİŞ
+> Aşağıdaki tabloları yazarken "Doğrusu" kalemini **81 USD** diye tahmin etmiştim (katsayı uydurmuştum).
+> Meğer `motor/dogrusu-ekle.ps1` **bu sabah 07:50'de ölçüm yapmış** ve gerçek birim maliyeti hesaplamış:
+>
+> | Ölçülen | Değer |
+> |---|---|
+> | Kasa | 26.992 soru |
+> | "Doğrusu:" cümlesi **olan** | **0** — hiçbirinde yok |
+> | Eksik | 26.991 |
+> | **TÜM KASAYA "Doğrusu" eklemenin maliyeti** | **22,94 USD** *(ölçülmüş birim: ~3.000 giriş + ~250 çıkış token/soru, Haiku batch fiyatı)* |
+> | Hesap sorusu | 11.984 |
+> | Hesap sorusu olup tablo/yevmiye verisi **olmayan** | **10.350** |
+> | Yevmiye verisi olan / tablo verisi olan | 994 / 2.426 |
+>
+> **Sonuç: Paket C (tam kasa) 168 USD değil, ~60-70 USD bandında.** Aşağıdaki C rakamı yukarı sapmalıdır.
+> **Ders:** kendi katsayımı uydurmuşum; scriptin ölçülmüş birimi varmış. Rakam disiplini burada da geçerli —
+> tahmin yapmadan önce "bunu ölçen bir şey var mı" diye bak.
+
+
 **Cem'in kuralı:** "Paralı işlemi bir kez çalıştırıp bırakalım." · "Paralıdan önce tüm yutma."
 **Bu kart ne için:** Tek paralı koşuya girmeden önce **ne kadar iş var, ne kadar tutar** — rakamla.
 
