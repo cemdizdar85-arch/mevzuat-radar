@@ -34,8 +34,23 @@ function Kirp([string]$m, [int]$n){
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 $SB = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
 
-# yayindaki sorular (yalniz gerekli kolonlar)
-$sorgu = "${U}?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,sinav&yayin=eq.true&order=id&limit=1000"
+# 02.08 (perde indikten sonra): artik yayinda soru YOK. Okunacak kume
+# "YAYINA ADAY"lar: hakemden 3/3 gecmis ve alintisi dogrulanmis sorular.
+# Insan okumasi bunlarin uzerinde yapilir; temiz cikan parti yayina acilir.
+$aday = New-Object 'System.Collections.Generic.HashSet[string]'
+foreach($f in (Get-ChildItem (Join-Path $kok 'veri') -Filter 'profesor-rapor-*.json' -ErrorAction SilentlyContinue)){
+  try { $r = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json } catch { continue }
+  foreach($x in @($r.sonuclar)){
+    if("$($x.destek)" -ne 'evet'){ continue }
+    if("$($x.tek_dogru)" -ne 'evet'){ continue }
+    if("$($x.celiski)" -ne 'hayir'){ continue }
+    if($x.PSObject.Properties['alinti_dogrulandi'] -and $x.alinti_dogrulandi -ne $true){ continue }
+    [void]$aday.Add("$($x.id)")
+  }
+}
+Write-Host ("Hakemden 3/3 gecen aday: {0}" -f $aday.Count)
+
+$sorgu = "${U}?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,sinav,yayin&order=id&limit=1000"
 if($ders){ $sorgu += "&ders=eq." + [uri]::EscapeDataString($ders) }
 $yayinda = New-Object System.Collections.Generic.List[object]
 $ofs = 0
@@ -43,12 +58,15 @@ while($true){
   $w = Invoke-WebRequest -Uri ($sorgu + "&offset=$ofs") -Headers $SB -UseBasicParsing -TimeoutSec 120
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   $l = @($ham | ConvertFrom-Json); if($l.Count -eq 0){ break }
-  foreach($s in $l){ $yayinda.Add($s) }
+  foreach($s in $l){
+    $tam = "$($s.id)"; $kisa = if($tam.Length -ge 8){ $tam.Substring(0,8) } else { $tam }
+    if($aday.Contains($tam) -or $aday.Contains($kisa)){ $yayinda.Add($s) }
+  }
   if($l.Count -lt 1000){ break }
   $ofs += 1000
 }
-Write-Host ("Yayinda: {0} soru" -f $yayinda.Count)
-if($yayinda.Count -eq 0){ Write-Host "Yayinda soru yok."; exit 0 }
+Write-Host ("Okunacak aday havuzu: {0} soru" -f $yayinda.Count)
+if($yayinda.Count -eq 0){ Write-Host "Aday soru yok."; exit 0 }
 
 # TEMSILI ORNEK: bastan degil, esit araliklarla secilir (tek ders/tek parti
 # yiginlarina takilmamak icin). Boylece ornek butun kasayi temsil eder.
@@ -60,7 +78,7 @@ Write-Host ("Denetlenecek ornek: {0} (her {1} soruda bir)" -f $sec.Count, $arali
 $sb = New-Object Text.StringBuilder
 [void]$sb.AppendLine("# YAYIN DENETIMI - insan gozu okumasi")
 [void]$sb.AppendLine("")
-[void]$sb.AppendLine("Tarih: " + (Get-Date -Format 'dd.MM.yyyy HH:mm') + " | Yayindaki toplam: " + $yayinda.Count + " | Ornek: " + $sec.Count)
+[void]$sb.AppendLine("Tarih: " + (Get-Date -Format 'dd.MM.yyyy HH:mm') + " | Aday havuzu: " + $yayinda.Count + " | Ornek: " + $sec.Count)
 [void]$sb.AppendLine("")
 [void]$sb.AppendLine("Kural (Cem 02.08): **sitede yanlis cevap olmayacak.** Asagidaki her soruda")
 [void]$sb.AppendLine("cevap, aciklama ve DAYANAK METNI yan yana. Kusur gorulen soru yayindan cekilir.")
@@ -109,7 +127,7 @@ Set-Content -LiteralPath $mdYol -Value $sb.ToString() -Encoding UTF8
 $ozet = [ordered]@{
   tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
   maliyet = "0 USD - API cagrisi yok"
-  yayindaki_toplam = $yayinda.Count
+  aday_havuzu = $yayinda.Count
   denetlenen = $sec.Count
   dayanagi_cozulemeyen = $metinsiz
   kayitlar = $kayit.ToArray()
