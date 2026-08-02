@@ -192,7 +192,11 @@ function MevzuatDisiMi([string]$kaynak){
   $k = "$kaynak"
   if($k.Trim().Length -eq 0){ return $true }
   if($k -match '(?i)\b(TMS|TFRS|BDS)\s*\d'){ return $false }
-  if($k -match '(?i)tebli|MSUGT|tekd[uü]zen|hesap plan'){ return $false }
+  # 03.08 DAYANAK-KAPSAM DERSI: duz "THP 621" atfi bu listede YOKTU -> binlerce
+  # hesap-plani sorusu 'mevzuat-disi'ne dusuyor, HesapPlaniMetni yoluna HIC
+  # gelmiyordu (kayitlar ambardaydi!). Cozulmeyen-en-sik-40 listesinin tamami
+  # THP koduydu. \bTHP\b eklendi.
+  if($k -match '(?i)tebli|MSUGT|tekd[uü]zen|hesap plan|\bTHP\b'){ return $false }
   if($k -match '(?i)y[oö]netmelik'){ return $false }
   if($k -match '(?i)\d{3,4}\s*say[ıi]l[ıi]|\(\d{3,4}\s*s\.K\.\)'){ return $false }
   if($k -match '(?i)\b(VUK|TTK|TBK|GVK|KDVK|KDV Kanunu|KVK|AATUHK|[İI]YUK|TCK|CMK|SMK|[İI][İI]K|[ÖO]TV|Anayasa)\b'){ return $false }

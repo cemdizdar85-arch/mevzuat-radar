@@ -8,6 +8,7 @@ on:
   push:
     paths:
       - 'motor/dayanak-kapsam.ps1'
+      - 'motor/madde-coz.ps1'            # cozucu degisince oran YENIDEN olculur
       - '.github/workflows/dayanak-kapsam.yml'
 
 permissions:
