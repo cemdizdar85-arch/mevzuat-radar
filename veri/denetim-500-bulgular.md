@@ -203,8 +203,14 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 150 | — | TEMİZ | VUK 278 kümesi (4.) | Emsal bedel ✓. |
 | 151 | — | TEMİZ* | TBK 82 kümesi (5.) + biçim | m.82/2 def'i nüansı ✓ hukuken sağlam — ama A şıkkı 60+ kelime, şık uzunlukları dengesiz (C1 tekdüzelik ihlali; uzun şık cevabı ele verir). |
 
-**Ara sayaç (151/500):** kesin yanlış **8** · riskli **10** (+149) · düzeltilir 45 · temiz 93 (%62).
-**18 soru üst üste kesin-yanlışsız.**
+| 152 | — | RİSKLİ + mükerrer | SPK kümesi (84/149/152) | Aynı kural üçüncü kez (87.500→175.000); yıl-tutar teyidi kümede. |
+| 153 | — | DÜZELTİLİR | **B14** | 540.650÷480 = **1.126,35**, işaretli şık 1.127,60 (1,25 sapma — kuruşlu yazılmış ama yanlış kuruş!). B çeldiricisi de kendi açıklamasıyla tutmuyor (1.172,56 yazıp şıkka 1.173,85 koymuş). |
+| 154 | — | TEMİZ* | TBK 66 kümesi (5.) | İş kazası senaryosu — TBK'nın doğal alanı, çerçeve sorunu yok ✓. |
+| 155 | — | TEMİZ* | TTK 18/3 kümesi + etiket | ✓; etiket "İş ve SGK Hukuku" — "ihbar" kelimesi yanıltmış. |
+| 156 | — | DÜZELTİLİR | **ETİKET REZALETİ — KGK sızıntısı** | Etiket: "[KGK / Kurumsal Yönetim] kurumsal yönetim tebliği II-17.1" — soru VUK 275 mobilya maliyeti! İçerik doğru ama **KGK bankasına VUK mükerreri sızmış.** Dün geceki KGK üretimi aynı eşleştiriciyle çalıştıysa KGK bankası da taranmalı — KGK çıktısı bu denetim düzeninden geçmeden yayınlanamaz (H1 zaten kilitli). |
+| 157 | — | TEMİZ* | Q135'in birebir kopyası | Aynı şıklar, aynı cevap — tam mükerrer. |
+
+**Ara sayaç (157/500):** kesin yanlış **8** · riskli **11** (+152) · düzeltilir 47 · temiz 96 (%61).
 **🔴 TTK 482 KÜMESİ SİSTEMATİK ARIZA KESİNLEŞTİ:** 7 üyeden 3 kesin yanlış (41, 118, 125) + 1 riskli (108) — üretici m.482 gördüğü HER ıskat sorusunda "ihtar gerekmez" yazmış; hakem 482-yalnız dayanakla hepsini onaylamış. Kasadaki tüm 482/ıskat soruları yayın dışı kalacak, m.482+483 birlikte verilerek yeniden üretilecek.
 **TTK 482 KÜMESİ ALARM:** 6 üyeden 2 kesin yanlış (41, 118) + 1 riskli (108) — hepsi AYNI kör nokta (m.483 ihtar usulü). **Kasadaki TÜM 482 soruları m.483 metniyle birlikte yeniden yargılanacak; B13 düzeltmesi (bitişik madde) artık zorunlu, tercih değil.**
 **Kapı tasarımına ek (Q103 dersi):** hesap kapısı yalnız işaretli şıkkı değil, ÇELDİRİCİLERİ de doğrulamalı — her yanlış şık ya formülle üretilebilir olmalı ya açıklaması rakamsız olmalı.
