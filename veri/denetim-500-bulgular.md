@@ -540,6 +540,17 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 431 | — | TEMİZ — iyi soru | — | İş K 4: 50'den az (50 dahil) tarım istisnası; 63 işçi → kapsamda, ofis zaten kapsamda ✓. |
 
 **Ara sayaç (431/500):** kesin yanlış **10** · riskli **16** · düzeltilir 82 · temiz 328 (%76).
+
+| 432 | — | TEMİZ | — | TBK 139: takasta muacceliyet şartı ✓ kanun metniyle uyumlu. |
+| 433 | — | DÜZELTİLİR | **405 ile mükerrer** (süt izni 1,5 saat + 1 yaş — 405'in doğru şıkkının alt kümesi) | İçerik doğru ✓; 405 kalır, 433 elenir. Süt izni ailesi 4 üyeye çıkmıştı; 405/413/427 kalır (farklı kurallar), 433 fazlalık. |
+| 434 | — | TEMİZ | — | TTK 359/2: tüzel kişi YK üyesi + tescilli gerçek kişi temsilci ✓. |
+| 435 | — | DÜZELTİLİR | **428 ile mükerrer** (TTK 56/1-c ref + toplatma/imha, aynı öz) | İçerik doğru ✓; 428 kalır, 435 elenir. |
+| 436 | — | DÜZELTİLİR | **421 ile mükerrer** (deneme süresinde ilk gün SGK bildirimi, aynı öz) | İçerik doğru ✓; 421 kalır, 436 elenir. |
+| 437 | — | TEMİZ | 5510 m.3/10 ailesi — farklı kural parçası (kendi sigortalılığı statüyü bitirir) — meşru | ✓. |
+| 438 | — | TEMİZ | deneme ailesi — ücret hakkı odağı (406'dan farklı) | İş K 15/2: çalışılan günün ücreti ödenir ✓. |
+| 439 | — | TEMİZ | 406↔439 ters-açı (işçi feshi / işveren feshi) — kıdem/kötüniyet çeldiricileri farklı öğretim, ikisi kalabilir | İş K 15/2 ✓. **Deneme süresi ailesi 7 üyeye ulaştı** (406/412/421/422/436/438/439) — 436 elendi, kalan 6'sı farklı kural; yine de üretimde bu konuya tavan konmalı. |
+
+**Ara sayaç (439/500):** kesin yanlış **10** · riskli **16** · düzeltilir 85 · temiz 333 (%76).
 **Dev kümeler güncel:** TMS16-çevre ×6 · TMS23-nema ×6 · VUK227 ×7 · TMS19-katkı ×4 · ihtiyati haciz ×5. Ayıklama sonrası 8-bandın kabaca üçte biri düşecek gibi görünüyor — ama kalan her soru gerçekten farklı olacak.
 **Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
