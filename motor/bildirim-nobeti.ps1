@@ -40,8 +40,22 @@ function Getir($yol){
 try {
   $bildirimler = Getir "soru_bildirim?select=id,soru_id,not_metni,oturum,uye,durum,karantina&durum=eq.yeni&order=id&limit=2000"
 } catch {
-  Write-Host ("Bildirim tablosu okunamadi: {0}" -f $_.Exception.Message)
-  Write-Host "veri/sql-soru-bildirim.sql Supabase'de calistirilmis mi?"
+  # 02.08 KOR KALMA: bu dal rapor YAZMADAN exit 1 yapiyordu; Actions logu kilitli
+  # oldugu icin nobetcinin NEDEN dustugu gorulemiyordu (bugun 1 kirmizi kosu tam
+  # da boyle iz birakmadan gecti). Artik her dusus dosyaya yazilir.
+  $g = ""; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g = $_.ErrorDetails.Message }
+  $kod = ""; if($_.Exception.Response -and $_.Exception.Response.StatusCode){ $kod = [int]$_.Exception.Response.StatusCode }
+  $hataRapor = [ordered]@{
+    tarih  = (Get-Date -Format 'dd.MM.yyyy HH:mm')
+    durum  = 'HATA - bildirim tablosu okunamadi'
+    http   = "$kod"
+    hata   = "$($_.Exception.Message)"
+    sunucu = $g
+    olasi_sebep = 'Tablo henuz yok (veri/sql-soru-bildirim.sql calistirilmamis), kolon adi degismis ya da service key yetkisiz.'
+  }
+  Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $hataRapor -Depth 4) -Encoding UTF8 -NoNewline
+  Write-Host ("Bildirim tablosu okunamadi (HTTP {0}): {1} | {2}" -f $kod, $_.Exception.Message, $g)
+  Write-Host "-> $raporYol"
   exit 1
 }
 Write-Host ("Bakilmamis bildirim: {0}" -f $bildirimler.Count)
