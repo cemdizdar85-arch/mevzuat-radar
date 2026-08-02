@@ -1,0 +1,41 @@
+# .github/workflows/aciklama-sozlesme-olcum.yml — 0 USD
+# Cem 02.08: "sorulara/cevaplara ekleyecegimiz baska sey var miydi? tekrar
+# tekrar yapmayalim diye soruyorum." Bu olcum, parali motor kurulmadan ONCE
+# SINAV-KURALLARI'ndaki alti sozlesme maddesinin kac soruda eksik oldugunu
+# sayar. API cagrisi YOK, yalniz okuma.
+name: Aciklama Sozlesmesi Olcumu (0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/aciklama-sozlesme-olcum.ps1'
+      - '.github/workflows/aciklama-sozlesme-olcum.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aciklama-sozlesme
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olc
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/aciklama-sozlesme-olcum.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/aciklama-sozlesme-olcum.json ]; then git add veri/aciklama-sozlesme-olcum.json || true; fi
+          git diff --cached --quiet || git commit -m "Aciklama sozlesmesi olcumu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
