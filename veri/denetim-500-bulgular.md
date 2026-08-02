@@ -302,7 +302,16 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
 | 238 | — | TEMİZ | — | 6356 m.62: şebeke suyu tesisinde grev yasak ✓. |
 | 239 | — | TEMİZ | — | GVK 40/5: %70 gider / %30 KKEG ✓ — oran kanuni sabit, yıl-bağımsız; Q88'in aksine bu 40. madde sorusu güvenli tasarım. |
 
-**Ara sayaç (240/500):** kesin yanlış **10** · riskli **13** · düzeltilir 51 · temiz 170 (%71).
+| 241 | — | TEMİZ | ihtiyati haciz kümesi | m.13 sebep-değildir (tecil+teminat) ✓ — 241/242 meşru farklı açılar. |
+| 242 | — | TEMİZ | küme | m.13/5 bildirimde bulunmama ✓. |
+| 243 | — | TEMİZ* | mükerrer (Q150 ile — ikisi de yangın senaryosu) | Emsal bedel ✓; VUK 278 kümesi 5 üyeye çıktı. |
+| 244 | — | TEMİZ* | mükerrer (111↔131↔244 üçüz) | VUK 227 hiç düzenlenmemiş ✓. |
+| 245 | — | TEMİZ* | **senaryolu+düz çift (5. vaka: 194↔245)** | 3568 m.29 kesin çözüm ✓. |
+| 246 | — | TEMİZ* | mükerrer (TMS 23: 132≈134≈246) | 103.600-87.300=16.300 ✓ tutarlı. |
+| 247 | — | TEMİZ | 195 ile yakın ama meşru | Tanımlanmış fayda sınıflaması ✓ — formül+aktüeryal varsayım ipuçları iyi işlenmiş. |
+
+**Ara sayaç (247/500):** kesin yanlış **10** · riskli **13** · düzeltilir 51 · temiz 177 (%72).
+**Cevap hatası sıfır ama mükerrer zirvede:** 150↔243 · 194↔245 · 132≈134≈246 · 111↔131↔244. 8-bandın raf değeri yüksek, çeşitliliği düşük — ayıklama sonrası net soru sayısı bu bantta belirgin düşecek.
 **Q230 dersi:** 8-bandda bile hesap kapısı şart — "yalnız iki genel alarm çalıyor" diye hesaplı soru denetimsiz bırakılamaz; kapı bandın tamamına uygulanacak.
 **Senaryolu+düz mükerrer çifti deseni üçüncü kez** (207↔212, 209↔211, 223↔225) — üretim iki ayrı kurgu tipini aynı plan satırına yazmış; parmak izi ayıklaması hepsini yakalar.
 **8-bandın karakteri netleşiyor:** cevaplar doğru ama Meslek Hukuku / İş-SGK derslerinde AYNI SORUNUN senaryolu ve düz versiyonları çift çift duruyor — mükerrer ayıklaması bu bantta en çok işi yapacak.
