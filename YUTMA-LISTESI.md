@@ -61,8 +61,8 @@
 
 **C. TEBLİĞLER — yapısal kusur bulundu ve düzeltildi.**
 - [x] 02.08: G9 (tebliğ) kaynakları günlük aynada **hiç yutulmuyordu** ("madde yapısı yok" diye atlanıyordu) — KDV GUT, VUK 509, KVK GUT, SPK II-17.1 bu yüzden tebliğ değişse bile eskiyordu. Bölüm parçalayıcısı eklendi, artık yutuluyorlar.
-- [ ] **VUK Genel Tebliğleri (rakam taşıyanlar):** amortisman oran listesi (333 ve ekleri), yeniden değerleme oranı tebliği (yıllık), enflasyon düzeltmesi tebliğleri — kanunda bu rakamlar YOK, tebliğde. Hakem "yetersiz" dediği VUK sorularının bir kısmı buradan.
-- [ ] **MSUGT Sıra No: 2 ve 3** — yalnız No:1 ambarda.
+- [~] **VUK Genel Tebliğleri (rakam taşıyanlar):** 02.08 — VUK GT 389 (amortisman faydalı ömür listeleri; mevzuatNo 12689, içerik teyitli) manifeste eklendi. **KALAN:** 333 ve ekleri, yeniden değerleme oranı tebliği (yıllık), enflasyon düzeltmesi tebliğleri. NOT: mevzuat.gov.tr'de her tebliğin ayrı MevzuatNo'su var ve numaradan tebliğ sırasına giden bir dizin yok — tek tek denemek yerine **tebliğ hasat robotu** yazılacak (MevzuatTur=9 fihristini tarayıp başlığı "VERGİ USUL KANUNU GENEL TEBLİĞİ" olanları toplar). Bu iş bedava ama yarım saatlik bir robot; bugün kurulamadıysa yarına kalır.
+- [ ] **MSUGT Sıra No: 2 ve 3** — yalnız No:1 ambarda. RG arşiv PDF'leri indirilebiliyor ama hangi sayının hangi tebliğ olduğu teyit edilmeden yutulmayacak (rakam disiplini: doğrulanmamış belge ambara girmez).
 - [ ] **Bağımsız Denetime Tabi Şirketlerin Belirlenmesine Dair CB Kararı** (11066) — eşik sayfası var ama karar metni ambarda değil.
 
 ## 🎓 KGK BAĞIMSIZ DENETÇİLİK SINAVI HATTI (31.07.2026, Cem onayı: "daha erken varsa kuralım")
