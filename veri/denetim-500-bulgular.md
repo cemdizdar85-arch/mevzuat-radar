@@ -90,7 +90,19 @@ Karar dili: **ELENİR** = soru kasadan yayın dışı kalır (yanlış/riskli ce
   yıllık-rakam nöbeti eşikleri bu tebliğlerden okuyacak. Soru üretimi yıl-eşiği
   kullanacaksa dayanak KANUN DEĞİL O YILIN TEBLİĞİ olacak (A1 kuralına ek).
 
-**Ara sayaç (52/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 17 · temiz 26.
+| 53 | — | TEMİZ | — | TMS 40: 2.935.800 ✓ tutarlı; zarar/israf hariç doğru işlenmiş. |
+| 54 | — | DÜZELTİLİR-hafif | B10 + karışık şık tipi | VUK 278/A emsal bedel ✓. Gövdedeki SMM (284.360) cevapla ilgisiz; A/B/C rakam D/E kavram şıkkı — tip karışık. |
+| 55 | — | TEMİZ | etiket facia | VUK 175 serbestlik ✓. Etiket "Hukuk / sözleşmenin kesin hükümsüzlüğü"?! |
+| 56 | — | DÜZELTİLİR | B3 + dev küme | VUK 275: 622.170 ✓ doğru. Ama A şıkkı 535.340 ≠ hesap 535.190 (150 sapma); D'nin açıklaması yanlış çeldirici mantığı anlatıyor. **VUK 275 kümesi havuzda 491 soru — kasanın ~%8'i tek maddeden!** Madde tavanı (293) kasaya geriye dönük uygulanacak. |
+| 57 | — | TEMİZ | — | BDS 705 görüşten çekinme ✓ iyi soru. |
+| 58 | — | TEMİZ | G6 iyileştirme notu | TTK 400/1-e ✓. Ders "Muhasebe Denetimi" DOĞRU etiket — G6 yanlış alarm verdi çünkü TTK=TICARET sayılıyor; **TTK 397-406 aralığı DENETIM ailesine de sayılmalı** (kapı ayarı). |
+| 59 | — | TEMİZ* | mükerrer-senaryo (60 ile) | TTK 400/1 kardeş-CFO ✓. |
+| 60 | — | TEMİZ* | mükerrer-senaryo (59 ile) | Aynı senaryo etik açıdan ✓ doğru; ama 59 ile aynı olay — ikisinden biri yayında kalır. |
+| 61 | — | TEMİZ* | TTK 516 kümesi (5.) | Risk bölümü eksik → rapor eksik ✓. |
+| 62 | — | TEMİZ* | TTK 516 kümesi (6.) | 516/2-c ücretler koşulsuz zorunlu ✓ (A şıkkı 2-a şarta bağlı — ayrım doğru işlenmiş). |
+
+**Ara sayaç (62/500):** kesin yanlış **5** (12, 15, 38, 41, 42) · iki-şık/çerçeve riski **4** (5, 8, 21, 40) · düzeltilir 20 · temiz 33.
+**Büyüyen kümeler:** TTK 516 ×6 · VUK 275 havuzda **491** · TMS 2 havuzda 25+6 · TMS 40 havuzda 19 · TMS 23 havuzda 13 · VUK 262 havuzda 106+27.
 **Mükerrer kümeleri (örneklemde):** TTK 376/3 ×3 · VUK 315 ×2 (havuzda 6) · TTK 64/3 ×3 · TTK m.88 ×3 · TTK 516 ×3+ · TMS 2 (havuzda 25!) · TMS 23 (havuzda 13) · **VUK 262 (havuzda 106!!)**.
 **NOT:** Bu oranlar kasaya GENELLENEMEZ — dosya kusur puanına göre sıralı, en şüpheliler üstte. Genel oran, 8-puan bandı (296 soru) okununca çıkar.
 
