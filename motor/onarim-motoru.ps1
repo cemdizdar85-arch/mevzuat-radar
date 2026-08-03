@@ -201,6 +201,42 @@ foreach($i in $isler){
 Write-Host ("Mevzuat disi ders (dayanak aranmadan gecen): {0}" -f $dilSoru)
 Write-Host ("Islenebilir: {0} | Atlanan (dayanaksiz): {1}" -f $hazir.Count, $atlanan.Count)
 
+# ============================================================================
+#  DAYANAK DILIMI — 03.08, Cem "aciklama az olmus" deyince bulundu.
+#
+#  ESKI HALI: $dayanak.Substring(0,2500) — belgenin ILK 2500 karakteri.
+#  "Is K. (4857 s.K.) m.11" dendiginde ambardaki belge BUTUN Is Kanunu'dur;
+#  ilk 2500 karakter amac/kapsam maddeleridir. Yani modele m.11 HIC GITMEDI,
+#  model kendi bildiginden yazdi. Aciklamalarin cilizligi buradan geliyordu.
+#
+#  YENI HALI: etiketteki madde numarasi metinde ARANIR ve o maddenin ETRAFINDAN
+#  pencere alinir. Pencere genis (5000) cunku KOMSU MADDELER de lazim: ogrenciye
+#  "bu kavram aslinda nerede dogru" diyebilmek icin yan maddeyi gormesi gerekir
+#  (TTK 482->483 dersi, B13 komsu madde).
+# ============================================================================
+$reMadde = [regex]'(?i)\b(?:m|md|madde|par|p)\.?\s*(\d{1,3})'
+function DayanakDilim([string]$metin, [string]$kaynak){
+  if($metin.Length -le 5000){ return @{ metin=$metin; bulundu=$true } }
+  $mm = $reMadde.Match($kaynak)
+  if($mm.Success){
+    $no = $mm.Groups[1].Value
+    # "MADDE 11", "Madde 11-", "MADDE 11 –" gibi bicimleri ara
+    $ara = [regex]::new('(?im)^\s*madde\s*' + [regex]::Escape($no) + '\s*[-–—:\.\s]')
+    $bul = $ara.Match($metin)
+    if(-not $bul.Success){
+      $ara2 = [regex]::new('(?i)madde\s*' + [regex]::Escape($no) + '\s*[-–—:]')
+      $bul = $ara2.Match($metin)
+    }
+    if($bul.Success){
+      $bas = [Math]::Max(0, $bul.Index - 300)
+      $uz  = [Math]::Min(5000, $metin.Length - $bas)
+      return @{ metin=$metin.Substring($bas, $uz); bulundu=$true }
+    }
+  }
+  # madde bulunamadi: bastan al ama ISARETLE - model uydurmasin diye bilmeli
+  return @{ metin=$metin.Substring(0, [Math]::Min(5000, $metin.Length)); bulundu=$false }
+}
+
 # --- ISTEM KURUCU: yalniz EKSIK olanlari ister ---
 function IstemKur($i){
   $s = $i.soru
@@ -215,20 +251,31 @@ function IstemKur($i){
   # baska yolu. Ogrenciye A'nin NESI yanlis onu soylemiyor. Istem simdi her sikkin
   # KENDI IDDIASIYLA yuzlesmeyi zorunlu kiliyor ve ayni cumleyi yasakliyor.
   if($i.eksik -contains 'D2_dogrusu'){  $ist += @'
-dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme cumlesi. Kurallar:
-  (a) O SIKKIN KENDI IDDIASINI ele al. Once iddianin nereden geldigini soyle
-      (hangi baska kuralla karistiriliyor), sonra o iddianin DOGRUSUNU yaz.
-  (b) DOGRU CEVABI TEKRAR ETMEK YASAK. "Dogrusu: <sorunun genel kurali>" yazma -
-      bu "bu sik yanlis cunku dogru cevap X" demenin gizli halidir, ogretmez.
-  (c) IKI SIKKA AYNI CUMLEYI YAZAMAZSIN. Her cumle o sikka OZEL olacak; birini
-      digerine kopyalarsan is yanlistir.
-  (d) Cumlenin basina "Dogrusu:" YAZMA - yalniz cumleyi ver, oneki sistem koyar.
+dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC PARCALI olacak:
+  (1) NEYLE KARISTIRILIYOR — sikkin iddiasi hangi baska kuraldan geliyor, adini koy.
+  (2) O KURAL ASLINDA NEDIR — kisaca ANLAT: o kavram nerede, hangi halde gecerlidir.
+      Bu parca ZORUNLU. Ogrenci "bu yanlismis" bilgisiyle kalmamali, karistirdigi
+      kavrami DOGRU yerinde ogrenmeli. Yalnizca DAYANAK METNINDE gordugun kadarini
+      yaz; dayanakta yoksa "bu sorunun konusu disindadir" deyip gec, UYDURMA.
+  (3) BURADA NEDEN GECERSIZ — o kural bu sorunun sordugu seye neden cevap degil.
+
+  YASAKLAR:
+  - DOGRU CEVABI TEKRAR ETMEK YASAK. "Dogrusu: <sorunun genel kurali>" yazma; bu
+    "bu sik yanlis cunku dogru cevap X" demenin gizli halidir, ogretmez.
+  - IKI SIKKA AYNI CUMLEYI YAZAMAZSIN. Her metin o sikka OZEL olacak.
+  - Basina "Dogrusu:" YAZMA - yalniz metni ver, oneki sistem koyar.
+
   ORNEK (soru: zincirleme is sozlesmesinin sarti nedir, dogru cevap "esasli neden"):
-    A sikki "yazili onay" diyorsa -> "Yazili sekil sarti ile karistiriliyor; yazili
-      sekil sozlesmenin kurulusuna iliskindir, zincirlemenin sarti degildir."
-    C sikki "bes yil" diyorsa -> "Bes yillik ust sinir baska bir kuralin suresidir;
-      kanun zincirleme icin sure degil esasli neden arar."
-  Gorulduğu gibi iki cumle birbirinden FARKLI ve her biri kendi sikkini hedefliyor.
+    ZAYIF (boyle YAZMA): "Yazili sekil sartiyla karistiriliyor; yazili sekil
+      sozlesmenin kurulusuna iliskindir, zincirlemenin sarti degildir."
+      -> Ogrenci yazili seklin NE oldugunu ogrenmedi. Eksik.
+    IYI (boyle YAZ): "Yazili sekil sartiyla karistiriliyor. Yazili sekil, belirli
+      sureli is sozlesmesinin KURULUSUNA iliskin bir sarttir ve dayanakta belirtilen
+      hallerde aranir - sozlesmenin ispati ve iceriginin belirlenmesi icindir.
+      Zincirleme yapilip yapilamayacagi ise ayri bir sorudur; oradaki olcut sekil
+      degil, sozlesmenin yenilenmesini hakli kilan sebeptir."
+      -> Ogrenci hem yanlisi hem yazili seklin gercek yerini ogrendi.
+  Iki sik icin yazdigin metinler birbirinden FARKLI olacak.
 '@ }
   if($i.eksik -contains 'D7_tablo'){    $ist += 'tablo: hesap tablosu uret (kolonlar: kalem, tutar; son satir toplam).' }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
@@ -247,7 +294,10 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme cumlesi. Kurallar:
 - Yazdigin her cumle YALNIZCA asagidaki DAYANAK METNINDEN turetilecek. Dayanakta
   olmayan kanun, madde, oran, tutar veya tarih YAZAMAZSIN. Emin degilsen o alani bos birak.
 "@
-    $dayanakBlok = "DAYANAK METNI:`n" + $i.dayanak.Substring(0, [Math]::Min(2500, $i.dayanak.Length))
+    $dil = DayanakDilim $i.dayanak "$($s.kaynak)"
+    if(-not $dil.bulundu){ $script:maddeBulunamadi++ }
+    $uyari = if($dil.bulundu){ '' } else { "(DIKKAT: etiketteki madde metinde bulunamadi - asagisi belgenin BASI. Aradigin maddeyi goremiyorsan o alani BOS BIRAK, uydurma.)`n" }
+    $dayanakBlok = "DAYANAK METNI:`n" + $uyari + $dil.metin
   }
 @"
 Sen bir SMMM sinav sorusu editorusun. ASAGIDAKI SORUYA YALNIZCA ISTENEN ALANLARI uret.
@@ -416,6 +466,7 @@ try {
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
+$dayanakDisiSoru=0; $dayanakDisiIddia=0; $maddeBulunamadi=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
 Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 
@@ -466,6 +517,41 @@ for($n=0; $n -lt $parti.Count; $n++){
     }
   }
   if($tekrarVar){ $tekrarKusurlu++ }
+
+  # ========================================================================
+  #  DAYANAK DISI IDDIA KAPISI — 03.08, Cem: "kendi bildigini yazmayi
+  #  engellesek mi?"
+  #
+  #  Modele "yazma" demek DILEKTIR; olcmek KURALDIR. Uretilen metindeki
+  #  DOGRULANABILIR iddialar (madde no, kanun no, yuzde, tutar) dayanak
+  #  metninde ARANIR. Dayanakta gecmiyorsa model onu kendi bildiginden
+  #  yazmistir - sayilir ve raporda gorunur.
+  #
+  #  Dil/beceri sorularinda dayanak YOKTUR; oradaki HER kanun atfi ihlaldir
+  #  (istem zaten "hicbir kanun atfi yapamazsin" diyor).
+  # ========================================================================
+  if($null -ne $obj){
+    $uretilen = ''
+    foreach($alan in 'dort_parca','tuzak','dogrusu'){
+      try {
+        if(-not $obj.PSObject.Properties[$alan]){ continue }
+        $v = $obj.$alan
+        if($v -is [string]){ $uretilen += ' ' + $v; continue }
+        foreach($h in 'A','B','C','D','E'){ if($v.PSObject.Properties[$h]){ $uretilen += ' ' + "$($v.$h)" } }
+      } catch {}
+    }
+    $dayanakMetni = "$($i.dayanak)"
+    $disi = 0
+    foreach($re in @('(?i)%\s*\d+(?:[.,]\d+)?', '(?i)\b\d{1,3}(?:\.\d{3})+\s*(?:TL|lira)', '(?i)\b\d{4}\s*say[ıi]l[ıi]', '(?i)\bm(?:adde)?\.?\s*\d{1,3}\b')){
+      foreach($mm in [regex]::Matches($uretilen, $re)){
+        $iz = ($mm.Value -replace '[^\p{Nd}]','')     # yalniz rakamlari kiyasla
+        if($iz.Length -eq 0){ continue }
+        if($i.mevzuatdisi){ $disi++; continue }        # dil sorusunda her atif ihlal
+        if(($dayanakMetni -replace '[^\p{Nd}]','') -notlike "*$iz*"){ $disi++ }
+      }
+    }
+    if($disi -gt 0){ $dayanakDisiSoru++; $dayanakDisiIddia += $disi }
+  }
   $sonuc.Add([ordered]@{
     soru_id="$($i.soru.id)"; parti=$etiketAdi; model=$MODEL
     ders="$($i.soru.ders)"; konu="$($i.soru.konu)"; kaynak="$($i.soru.kaynak)"
@@ -511,7 +597,10 @@ $rapor = [ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT (PARALI, kasaya YAZILMADI)'
   model=$MODEL; istenen=$parti.Count
   basarili_json=$basarili; bozuk_json=$bozukJson; cagri_hatasi=$hataliCagri
-  tekrar_kusurlu=$tekrarKusurlu   # ayni cumleyi birden fazla sikka yazan soru sayisi
+  tekrar_kusurlu=$tekrarKusurlu           # ayni cumleyi birden fazla sikka yazan soru
+  dayanak_disi_soru=$dayanakDisiSoru      # dayanakta OLMAYAN sayi/madde/oran yazan soru
+  dayanak_disi_iddia=$dayanakDisiIddia    # toplam kac tane oyle iddia var
+  madde_bulunamadi=$maddeBulunamadi       # etiketteki madde belge metninde bulunamadi
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
