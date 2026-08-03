@@ -991,9 +991,23 @@ function tabloGorsel(s){
   if(t.kolonlar && t.kolonlar.length){
     h+='<tr>'; t.kolonlar.forEach(function(k,i){ h+='<th'+(i>0?' style="text-align:right"':'')+'>'+esc(k)+'</th>'; }); h+='</tr>';
   }
-  t.satirlar.forEach(function(sat){
+  /* 03.08 CEM: "buyukler tablosunu nasil yapiyor?" — yapimiz dogruydu (adim
+     adim, sonucla biten) ama iki bicim kusuru vardi:
+     (1) CEVAP SATIRI ayirt edilmiyordu; alti satirdan biri gibi duruyordu.
+         UWorld/Becker'da sonuc satiri koyu ve golgelidir, goz oraya gider.
+         Bizim D7 kuralimiz zaten "son satir toplam/sonuc" diyor - o yuzden
+         SON SATIR sonuc kabul edilip vurgulanir.
+     (2) Rakamlar sola yasliydi; profesyonel tabloda saga yaslanir ki
+         basamaklar alt alta hizalansin (487.300 ile 1.650.000 karsilastirilsin).
+         Bu zaten class="t" ile yapiliyordu, sonuc satirinda da korunuyor.     */
+  var sonIdx = t.satirlar.length - 1;
+  t.satirlar.forEach(function(sat,ri){
     var vurgu = sat.some(function(c){ return (''+c).indexOf('←')>-1; });
-    h+='<tr'+(vurgu?' style="background:rgba(94,215,255,.10);font-weight:800"':'')+'>';
+    var sonuc = (ri===sonIdx && t.satirlar.length>1);
+    var stil = '';
+    if(vurgu) stil=' style="background:rgba(94,215,255,.10);font-weight:800"';
+    else if(sonuc) stil=' style="background:rgba(61,220,151,.10);font-weight:900;border-top:2px solid rgba(61,220,151,.5)"';
+    h+='<tr'+stil+'>';
     sat.forEach(function(c,i){ h+='<td'+(i>0?' class="t"':'')+'>'+esc(''+c)+'</td>'; });
     h+='</tr>';
   });

@@ -445,7 +445,16 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC SEYI ANLATACAK:
       -> Ogrenci hem yanlisi hem yazili seklin gercek yerini ogrendi.
   Iki sik icin yazdigin metinler birbirinden FARKLI olacak.
 '@ }
-  if($i.eksik -contains 'D7_tablo'){    $ist += 'tablo: hesap tablosu uret (kolonlar: kalem, tutar; son satir toplam).' }
+  if($i.eksik -contains 'D7_tablo'){    $ist += @'
+tablo: hesap tablosu uret. Kolonlar: kalem + deger. SON SATIR SONUCTUR (sorunun
+  cevabi); ekranda o satir vurgulanacak, ona gore yaz.
+  BIRIM BASLIGI DIKKAT (03.08, Cem'in bulgusu): kolon basligina "Tutar (TL)"
+  yazip icine ORAN koyma. Bir tabloda hem TL hem oran/kat/adet varsa baslik
+  yalnizca "Deger" olur ve birim SATIRIN kendisinde belirtilir
+  ("Aktif Devir Hizi (kat)", "Ortalama Aktif (TL)"). Yanlis birim basligi
+  dikkatli adayi takar. Butun satirlar ayni birimdeyse baslik "Tutar (TL)" olabilir.
+  Adimlar gorunsun: verilen degerler -> ara islem -> sonuc.
+'@ }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
   if($i.eksik -contains 'D8_karsilastirma'){ $ist += 'tablo: karsilastirma tablosu uret (ayrimi yapilan kavramlar satir satir; sorunun konusu olan satiri "<-" ile isaretle).' }
   # --- Mevzuat disi ders (Yabanci Dil / Turkce / Matematik): dayanak metni YOK.

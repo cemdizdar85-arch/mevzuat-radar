@@ -116,6 +116,8 @@ h4{margin:18px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.5px
 .yeni.bos{background:#fdecea;border-left-color:#c62828;color:#8b2c22}
 table.veri{border-collapse:collapse;margin:8px 0;font-size:14px;width:100%}
 table.veri th,table.veri td{border:1px solid #ddd6c8;padding:6px 9px;text-align:left}
+table.veri td+td,table.veri th+th{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.veri tr:last-child{background:#eaf5ee;font-weight:800;border-top:2px solid #2e7d32}
 table.veri th{background:#f2ede3}
 table.veri caption{text-align:left;font-weight:600;padding:4px 0;font-size:14px}
 .hap{background:#fdf6e3;border-left:3px solid #e0a24a;padding:10px 14px;border-radius:6px;font-size:15px;font-weight:600;color:#5a4a2a}
