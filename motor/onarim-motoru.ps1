@@ -245,6 +245,8 @@ $formulEksikYenilenen = 0
 $hesapKoduYanlis = 0
 $hesapKoduDuzeltilen = 0
 $hesapKoduSupheli = 0
+$hesapKoduGecersizUretim = 0                                        # uretilen kod 3-hane/THP degil - unwrap bug'i sinifi
+$script:hesapKoduOrnek = New-Object System.Collections.Generic.List[object]  # rapora ornek (yalniz THP kod-ad, soru metni YOK)
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -985,8 +987,28 @@ for($n=0; $n -lt $parti.Count; $n++){
         # sarip diziligi garanti eder.
         $aday = @(ResmiKodBul $a)
         if($aday.Count -eq 1){
+          $yeniKod = "$($aday[0])"
+          # ==================================================================
+          #  KENDI CIKTISINI DENETLE (03.08 gece, unwrap bug'inin dersi)
+          #
+          #  Unwrap bug'i "159" yerine "1" uretiyordu ve HICBIR KAPI bunu
+          #  yakalamadi - sayac "1 duzeltme yapildi" diyordu, icerik copdu.
+          #  Sayac ARTIK YETMEZ: uretilen kod GERCEKTEN 3 haneli ve THP'de
+          #  var mi diye burada denetlenir. Degilse duzeltme YAPILMAZ ve
+          #  ayrica sayilir - bir dahaki sefere sessizce gecemez.
+          # ==================================================================
+          if($yeniKod -notmatch '^[1-8]\d{2}$' -or -not $script:THP_AD.ContainsKey($yeniKod)){
+            $script:hesapKoduGecersizUretim++
+            return $m.Value
+          }
           $script:hesapKoduDuzeltilen++
-          return ($aday[0] + ' ' + $script:THP_AD[$aday[0]])
+          # Rapora ORNEK: yalniz THP kod-ad cifti (herkese acik veri), soru
+          # metni DEGIL - boylece "ilk on ornegi gozle oku" kurali sayaca
+          # degil ICERIGE uygulanabilir. En fazla 10 tane, rapor kucuk kalsin.
+          if($script:hesapKoduOrnek.Count -lt 10){
+            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $a"; duzeltilen="$yeniKod $($script:THP_AD[$yeniKod])" })
+          }
+          return ($yeniKod + ' ' + $script:THP_AD[$yeniKod])
         }
         $script:hesapKoduSupheli++
         return $m.Value
@@ -1239,6 +1261,11 @@ $rapor = [ordered]@{
   hesap_kodu_yanlis=$hesapKoduYanlis          # kod ile ad THP de eslesmiyor (181 vakasi)
   hesap_kodu_duzeltilen=$hesapKoduDuzeltilen  # motor kendisi duzeltti (ad tek hesapla eslesti)
   hesap_kodu_supheli=$hesapKoduSupheli        # belirsiz - DOKUNULMADI, gozle bakilacak
+  hesap_kodu_gecersiz_uretim=$hesapKoduGecersizUretim  # uretilen kod 3-hane/THP degildi - REDDEDILDI (unwrap bug sinifi)
+  # Ornekler: yalniz THP kod-ad cifti (herkese acik), SORU METNI DEGIL.
+  # Sebep: sayac "1 duzeltme yapildi" derken icerik cop olabiliyordu (03.08
+  # unwrap bug'i). "Ilk on ornegi gozle oku" kurali artik ICERIGE uygulanabilir.
+  hesap_kodu_ornek=$script:hesapKoduOrnek.ToArray()
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
