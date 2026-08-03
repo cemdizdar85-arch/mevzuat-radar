@@ -1,8 +1,24 @@
 BAS
 
-PILOT 200 - hesap kodu otomatik duzeltme icin tr-TR kultur hatasi duzeltmesinden
-sonraki DOGRULAMA kosusu. Onceki pilot (0308-1550) hesap_kodu_duzeltilen=0
-vermisti; kok sebep bulundu (ToUpperInvariant + tr-TR -replace kultur hatasi,
-bkz DEVIR-NOTU.md) ve motor/onarim-motoru.ps1 icinde duzeltildi, 10 ornekle
-yerelde dogrulandi. Bu kosu duzeltmenin gercek veride tuttugunu olcer.
+PILOT 200 - UCUNCU dogrulama kosusu (unwrap bug'i duzeltildikten sonra).
+
+Onceki IKI pilot da gecersizdi:
+  - 0308-1550: tr-TR kultur hatasi (ToUpperInvariant + kulture duyarli -replace)
+    -> hesap_kodu_duzeltilen=0
+  - 0308-1650: kultur hatasi duzeldi AMA ResmiKodBul unwrap bug'i vardi
+    (tek elemanli dizi skaler string'e cevriliyor, $aday[0] stringin ILK
+    KARAKTERINI veriyordu: "159" -> "1") -> duzeltilen=1 ve o tek duzeltme
+    COP VERIYDI.
+
+Ikisi de duzeltildi (@() ile cagri noktasinda sarma). Bu kosu asil soruyu
+olcer: hesap kodu otomatik duzeltmesi GERCEK veride calisiyor mu, ve
+uretilen kodlar gecerli 3-haneli THP kodu mu?
+
+Ayrica bu kosuda ILK KEZ etkili olacaklar:
+  - THP listesi 230 -> 269 hesap (230/231/232 kaymasi duzeltildi + 39 eksik
+    kod resmi PDF'ten eklendi)
+  - D7_tablo istemi: hesap hareketi tablolari Hesap|Borc|Alacak uc sutun
+  - D13-ek yontem-adi listesi genisletildi (kaldirac, cari/likidite orani,
+    degisim orani, stok-alacak devir vb.)
+
 Cikti yalniz taslaga gider, kasaya YAZILMAZ.
