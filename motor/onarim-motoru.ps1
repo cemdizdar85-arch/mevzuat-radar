@@ -288,9 +288,16 @@ $MODEL = 'claude-haiku-4-5-20251001'
 $FIY_IN = 1.0 / 1000000.0
 $FIY_OUT = 5.0 / 1000000.0
 
-$fabrika = Join-Path $kok 'veri/fabrika'
-if(-not (Test-Path $fabrika)){ New-Item -ItemType Directory -Path $fabrika -Force | Out-Null }
-$ciktiYol = Join-Path $fabrika 'onarim-pilot-ciktilar.json'
+# --- CIKTI NEREYE GIDIYOR ---
+# 03.08 dersi: ilk pilotta ciktilar veri/fabrika altina yazildi. Orasi .gitignore'da
+# (dogru), ama kosucu makine gecici - dosya commit edilmeyince MAKINEYLE BIRLIKTE
+# SILINDI. 0,78 USD odendi, maliyet olculdu, 200 cikti kayboldu.
+# Artik ciktilar SUPABASE'e (soru_onarim_taslak) yazilir: ozel, kalici, gozle
+# okunabilir. Depoya ve artifact'a HICBIR icerik gitmez.
+$TASLAK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_onarim_taslak"
+$PARTI  = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
+$SBH = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"
+          'Content-Type'='application/json'; Prefer='return=minimal,resolution=merge-duplicates' }
 
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
@@ -322,16 +329,44 @@ for($n=0; $n -lt $parti.Count; $n++){
   try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
   if($null -ne $obj){ $basarili++ }
   $sonuc.Add([ordered]@{
-    id="$($i.soru.id)"; ders="$($i.soru.ders)"; konu="$($i.soru.konu)"
-    kaynak="$($i.soru.kaynak)"; mevzuatdisi=[bool]$i.mevzuatdisi
-    eksik=@($i.eksik); ham=$temiz; gecerli_json=($null -ne $obj)
+    soru_id="$($i.soru.id)"; parti=$PARTI; model=$MODEL
+    ders="$($i.soru.ders)"; konu="$($i.soru.konu)"; kaynak="$($i.soru.kaynak)"
+    mevzuatdisi=[bool]$i.mevzuatdisi; eksik=@($i.eksik)
+    cikti=$(if($null -ne $obj){ $obj } else { @{ ham=$temiz } })
+    gecerli_json=($null -ne $obj)
+    giris_token=[int]$c.usage.input_tokens; cikis_token=[int]$c.usage.output_tokens
   })
   if((($n+1) % 25) -eq 0){ Write-Host ("  {0}/{1} | giris {2} cikis {3} token" -f ($n+1), $parti.Count, $tIn, $tOut) }
 }
 
 $maliyet = [Math]::Round(($tIn * $FIY_IN) + ($tOut * $FIY_OUT), 4)
 $birim = if($parti.Count -gt 0){ [Math]::Round($maliyet / $parti.Count, 6) } else { 0 }
-Set-Content -LiteralPath $ciktiYol -Value (ConvertTo-Json -InputObject $sonuc.ToArray() -Depth 6) -Encoding UTF8 -NoNewline
+
+# --- TASLAGA YAZ (50'lik partiler) + GERI OKU ---
+# Yazdiktan sonra SAYMAK sart: "yesil kosu = tam veri" degil (yukleyici dersi).
+$yazilan = 0; $yazmaHatasi = ''
+$hepsi = $sonuc.ToArray()
+for($b=0; $b -lt $hepsi.Count; $b+=50){
+  $dilim = $hepsi[$b..([Math]::Min($b+49, $hepsi.Count-1))]
+  $govde2 = ConvertTo-Json -Depth 8 -InputObject $dilim
+  if($dilim.Count -eq 1){ $govde2 = "[$govde2]" }   # PS tek elemanli diziyi nesneye cevirir
+  try {
+    Invoke-RestMethod -Uri $TASLAK -Method Post -Headers $SBH -Body ([Text.Encoding]::UTF8.GetBytes($govde2)) -TimeoutSec 120 | Out-Null
+    $yazilan += $dilim.Count
+  } catch {
+    $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+    $yazmaHatasi = "$($_.Exception.Message) | $g"
+    Write-Host ("  TASLAGA YAZMA HATASI: {0}" -f $yazmaHatasi)
+    break
+  }
+}
+$geriOkuma = -1
+try {
+  $ho = Invoke-WebRequest -Uri "$TASLAK`?select=id&parti=eq.$PARTI&limit=1000" -Headers @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" } -UseBasicParsing -TimeoutSec 90
+  $mo = if($ho.RawContentStream){ [Text.Encoding]::UTF8.GetString($ho.RawContentStream.ToArray()) } else { "$($ho.Content)" }
+  $geriOkuma = @($mo | ConvertFrom-Json | Where-Object { $null -ne $_ }).Count
+} catch { $geriOkuma = -1 }
+Write-Host ("  Taslaga yazilan: {0} | GERI OKUMA: {1}" -f $yazilan, $geriOkuma)
 
 # --- RAPOR: yalniz SAYILAR depoya gider, soru icerigi GITMEZ ---
 $rapor = [ordered]@{
@@ -342,8 +377,12 @@ $rapor = [ordered]@{
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
   tahmin_tam_kasa_usd=[Math]::Round($birim * $kasa.Count, 2)
-  cikti_dosyasi='veri/fabrika/onarim-pilot-ciktilar.json (DEPOYA GIRMEZ)'
-  not='Kasaya HICBIR yazma yapilmadi. Ciktilar gozle kontrol edilecek; onay gelirse ayri -yaz kosusuyla islenir.'
+  parti=$PARTI
+  taslaga_yazilan=$yazilan
+  geri_okuma=$geriOkuma
+  taslak_durum=$(if($geriOkuma -eq $parti.Count){'TAMAM'}elseif($geriOkuma -lt 0){'OKUNAMADI'}else{'KIRMIZI - eksik yazildi'})
+  yazma_hatasi=$yazmaHatasi
+  not='Ciktilar soru_onarim_taslak tablosunda (ozel). KASAYA YAZILMADI - taslak kasa degildir, site degismedi.'
 }
 Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 4) -Encoding UTF8 -NoNewline
 Write-Host "`n=== PILOT BITTI ==="
@@ -351,5 +390,8 @@ Write-Host ("  Soru: {0} | Gecerli JSON: {1} | Bozuk: {2} | Cagri hatasi: {3}" -
 Write-Host ("  Token: giris {0} / cikis {1}" -f $tIn, $tOut)
 Write-Host ("  MALIYET: {0} USD | soru basina {1} USD" -f $maliyet, $birim)
 Write-Host ("  Tam kasa tahmini ({0} soru): {1} USD" -f $kasa.Count, $rapor.tahmin_tam_kasa_usd)
-Write-Host "  KASAYA YAZILMADI."
+Write-Host ("  Taslak partisi: {0} | yazilan {1} | geri okuma {2} | {3}" -f $PARTI, $yazilan, $geriOkuma, $rapor.taslak_durum)
+Write-Host "  KASAYA YAZILMADI - taslak kasa degildir, site degismedi."
+# Taslaga yazamadiysak parayi harcayip ciktiyi yine kaybetmisiz demektir: KIRMIZI.
+if($geriOkuma -ne $parti.Count){ Write-Host "!! TASLAK EKSIK - kor kalma riski, rapora bak."; exit 1 }
 exit 0
