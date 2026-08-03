@@ -1,0 +1,45 @@
+# .github/workflows/taslak-goster.yml — 0 USD, yeni AI cagrisi YOK
+# Kovadaki pilot JSON'unu kasadaki soruyla birlestirip OKUNUR HTML uretir.
+# Ham JSON gozle okunmuyordu ve ciktida sorunun kendisi yoktu; bu ikisini kapatir.
+name: Taslak Gosterici (0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/taslak-goster.ps1'
+      - '.github/workflows/taslak-goster.yml'
+  workflow_dispatch:
+    inputs:
+      dosya:
+        description: 'Kovadaki pilot dosyasi (bos birakilirsa en yenisi)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: taslak-goster
+  cancel-in-progress: false
+
+jobs:
+  goster:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Uret
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/taslak-goster.ps1 -dosya "${{ github.event.inputs.dosya }}"
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # YALNIZ rapor (sayilar). Soru icerigi tasiyan hicbir dosya commit'lenmez.
+          if [ -f veri/taslak-goster-raporu.json ]; then git add veri/taslak-goster-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Taslak gosterici raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
