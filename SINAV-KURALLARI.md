@@ -524,3 +524,20 @@ takılır. **Asıl kusur eskilik değil, tarih ile rakamın tutmaması.**
 
 *Kapsam:* bu kural **üreticiye** aittir (yeni soru yazımı). Onarım motoru soru kökünü
 değiştirmez; mevcut kasadaki tarih-rakam uyumsuzlukları **hakem son okumasının** işidir.
+
+**D23. KARDEŞ KAYNAK — KONUNUN DİĞER AYAKLARI DA DAYANAĞA GİRER (03.08.2026 — Cem'in bulgusu)**
+Bir konu tek maddede bitmez. Dayanak tek maddeye kilitliyken açıklama kuralın
+**yarısını** anlatır; öğrenci sınırı göremez.
+
+*Vaka:* defter onayı sorusunun dayanağı TTK m.64/3 (açılış–kapanış onayı). **Ara
+tasdik / yenileme** hükmü ise VUK m.222'de: *"Defterlerini ertesi yılda da kullanmak
+isteyenler Ocak ayı… içinde tasdiki yeniletmeye mecburdurlar."* Motor o maddeyi hiç
+görmediği için yazamıyordu — ve D4 gereği yazmamalıydı da. **Kusur bilgide değil kapsamdaydı.**
+
+*Kural:* tanımlı konu kümelerinde kardeş maddeler de dayanağa eklenir. Kurulu kümeler:
+defter tasdiki (VUK 220-222 + TTK 64) · amortisman (VUK 313/315/320) · şüpheli-değersiz
+alacak (VUK 322-324) · maliyet bedeli–değerleme (VUK 262/270/275) · belge düzeni
+(VUK 229/231/232). Liste **küçük ve elle** tutulur; her satır gerçek bir sınav kümesidir.
+
+*Sınır:* kardeş metin de **ambardan okunur**, uydurulmaz. İstem "yine yalnız burada
+yazanı yaz" der. *Ölçümü:* `kardes_kaynak_eklenen`.

@@ -170,10 +170,56 @@ $ADSOZLUK = @(
   @{ desen='(?i)sosyal\s*sigortalar|5510';                           ara='5510' }
   @{ desen='(?i)[İIi][şs]\s*Kanunu|4857';                            ara='4857' }
 )
+# ============================================================================
+#  KARDES KAYNAK — 03.08, Cem: "ara tasdik var miydi? boyle ayrintiya kadar
+#  verirsek buyuklugumuz ortaya cikar."
+#
+#  ACIK SUYDU: dayanak TEK MADDEYE kilitliydi. Defter tasdiki sorusunun kaynagi
+#  TTK m.64/3 (acilis-kapanis onayi); ama ARA TASDIK/YENILEME hukmu VUK m.222'de
+#  ("Defterlerini ertesi yilda da kullanmak isteyenler Ocak ayi... icinde
+#  tasdiki yeniletmeye mecburdurlar"). Motor o maddeyi HIC gormedigi icin
+#  yazamiyordu - D4 geregi de yazmamaliydi. Yani kusur bilgide degil KAPSAMDA.
+#
+#  COZUM: konu kumeleri icin KARDES MADDELER de dayanaga eklenir. Boylece
+#  D15 (sinir ciz) gercekten calisir: ogrenci acilis + kapanis + yenileme
+#  uclusunu bir arada gorur. Uydurma yok - hepsi ambardan okunur.
+#
+#  Liste KUCUK ve ELLE tutulur; her satir gercek bir sinav kumesidir.
+# ============================================================================
+$KARDES = @(
+  @{ desen='(?i)defter\s*tasdik|yevmiye\s*defter|defteri\s*kebir|a[çc][ıi]l[ıi][şs]\s*onay|kapan[ıi][şs]\s*onay|ticari\s*defter'
+     ekler=@(@{kod='VUK';madde='220'},@{kod='VUK';madde='221'},@{kod='VUK';madde='222'},@{kod='TTK';madde='64'}) }
+  @{ desen='(?i)amortisman'
+     ekler=@(@{kod='VUK';madde='313'},@{kod='VUK';madde='315'},@{kod='VUK';madde='320'}) }
+  @{ desen='(?i)[şs][üu]pheli\s*alacak|de[ğg]ersiz\s*alacak'
+     ekler=@(@{kod='VUK';madde='322'},@{kod='VUK';madde='323'},@{kod='VUK';madde='324'}) }
+  @{ desen='(?i)maliyet\s*bedeli|de[ğg]erleme'
+     ekler=@(@{kod='VUK';madde='262'},@{kod='VUK';madde='270'},@{kod='VUK';madde='275'}) }
+  @{ desen='(?i)fatura|sevk\s*irsaliye|belge\s*d[üu]zen'
+     ekler=@(@{kod='VUK';madde='229'},@{kod='VUK';madde='231'},@{kod='VUK';madde='232'}) }
+)
+$kardesOnbellek = @{}
+function KardesMetin([string]$kod, [string]$madde){
+  $anah = "$kod|$madde"
+  if($kardesOnbellek.ContainsKey($anah)){ return $kardesOnbellek[$anah] }
+  $sonuc = ''
+  try {
+    $a = [Uri]::EscapeDataString($kod)
+    $b = CekListe "$DK`?select=metin&kaynak_ad=ilike.*$a*&limit=1"
+    if($b.Count -gt 0){
+      $d = DayanakDilim "$($b[0].metin)" "m.$madde"
+      if($d.bulundu){ $sonuc = $d.metin.Substring(0, [Math]::Min(1200, $d.metin.Length)) }
+    }
+  } catch {}
+  $kardesOnbellek[$anah] = $sonuc
+  return $sonuc
+}
+
 $atlanan = New-Object System.Collections.Generic.List[object]
 $hazir   = New-Object System.Collections.Generic.List[object]
 $dilSoru = 0
 $tahdidiYenilenen = 0
+$kardesEklenen = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -475,6 +521,22 @@ tablo: hesap tablosu uret. Kolonlar: kalem + deger. SON SATIR SONUCTUR (sorunun
     if(-not $dil.bulundu){ $script:maddeBulunamadi++ }
     $uyari = if($dil.bulundu){ '' } else { "(DIKKAT: etiketteki madde metinde bulunamadi - asagisi belgenin BASI. Aradigin maddeyi goremiyorsan o alani BOS BIRAK, uydurma.)`n" }
     $dayanakBlok = "DAYANAK METNI:`n" + $uyari + $dil.metin
+    # KARDES MADDELER: konu kumesine giriyorsa yan hukumler de eklenir, boylece
+    # "sinir cizme" (D15) gercekten yapilabilir. Hepsi ambardan okunur.
+    $kardesMetin = ''
+    $ara = "$($s.kaynak) $($s.konu) $($s.soru)"
+    foreach($kg in $KARDES){
+      if($ara -notmatch $kg.desen){ continue }
+      foreach($ek in $kg.ekler){
+        $mt = KardesMetin $ek.kod $ek.madde
+        if($mt.Length -gt 60){ $kardesMetin += "`n--- $($ek.kod) m.$($ek.madde) ---`n$mt`n" }
+      }
+      break
+    }
+    if($kardesMetin -ne ''){
+      $dayanakBlok += "`n`nBAGLANTILI MADDELER (ayni konunun diger ayaklari - sinir cizerken bunlari da kullan; yine YALNIZ burada YAZANI yaz):" + $kardesMetin
+      $script:kardesEklenen++
+    }
   }
 @"
 Sen bir SMMM sinav sorusu editorusun. ASAGIDAKI SORUYA YALNIZCA ISTENEN ALANLARI uret.
@@ -533,6 +595,7 @@ if(-not $uygula){
     atlanan_dayanaksiz=$atlanan.Count
     mevzuat_disi_gecen=$dilSoru
     tahdidi_liste_yenilenen=$tahdidiYenilenen   # D11 istisnasi: sinir eksik oldugu icin Kural yeniden yazilacak
+    kardes_kaynak_eklenen=$kardesEklenen        # yan hukumler de dayanaga eklendi (ara tasdik gibi)
     eksik_dagilimi=[ordered]@{}
     atlanan_ornek=@($atlanan | Select-Object -First 20)
     not='Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur.'
