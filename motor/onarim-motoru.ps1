@@ -294,30 +294,55 @@ $FIY_OUT = 5.0 / 1000000.0
 # SILINDI. 0,78 USD odendi, maliyet olculdu, 200 cikti kayboldu.
 # Artik ciktilar SUPABASE'e (soru_onarim_taslak) yazilir: ozel, kalici, gozle
 # okunabilir. Depoya ve artifact'a HICBIR icerik gitmez.
-$TASLAK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_onarim_taslak"
-$PARTI  = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
-$SBH = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"
-          'Content-Type'='application/json'; Prefer='return=minimal,resolution=merge-duplicates' }
+$PARTI = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
 
-# --- UCUS ONCESI KONTROL: taslak tablosu VAR MI? ---
-# Tablo yoksa 200 cagri yapilir, para gider, ciktilar yine kaybolur (03.08'de
-# tam bu oldu). Bu yuzden TEK KURUS harcanmadan once tablo yoklanir.
-try {
-  $yok = Invoke-WebRequest -Uri "$TASLAK`?select=id&limit=1" -Headers @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" } -UseBasicParsing -TimeoutSec 60
-  Write-Host ("Ucus oncesi: taslak tablosu VAR (HTTP {0})." -f $yok.StatusCode)
-} catch {
-  $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
-  Write-Host "!! TASLAK TABLOSU YOK - pilot BASLATILMADI, para harcanmadi."
-  Write-Host ("   Sunucu: {0}" -f $g)
-  Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
-    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT BASLATILMADI'; durum='BEKLIYOR'
-    maliyet_usd=0
-    sebep='soru_onarim_taslak tablosu bulunamadi'
-    sunucu=$g
-    yapilacak='Supabase paneli -> SQL Editor -> sql/soru-onarim-taslak.sql yapistir -> RUN. Sonra tetigi tekrar at.'
-    not='Hicbir API cagrisi yapilmadi. Ciktinin kaybolacagi bir kosuya para verilmez.' }))
-  exit 0
+# ============================================================================
+#  UCUS ONCESI: TASLAK DEPOSU HAZIR MI?  (Cem'e is cikarmayan yol)
+#
+#  Tablo yaratmak DDL ister; DDL'i yalnizca Cem panelden calistirabilir.
+#  Ama ayni ihtiyaci Supabase STORAGE karsiliyor ve kova yaratmak SERVIS
+#  ANAHTARIYLA yapilabilir - yani robot kendi kuruyor, Cem'in eli degmiyor.
+#
+#  KOVA OZEL OLACAK. 17.07 denetiminde "fisler" kovasi public bulunmustu;
+#  ayni hata burada tekrarlanmaz: public=false ile yaratilir VE yaratildiktan
+#  sonra geri okunup public olmadigi DOGRULANIR. Ozel degilse pilot BASLAMAZ.
+# ============================================================================
+$KOVA = 'onarim-taslak'
+$STOR = "https://bjrleanjpyujtajmazxn.supabase.co/storage/v1"
+$SK   = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+function KovaDurum {
+  try {
+    $h = Invoke-WebRequest -Uri "$STOR/bucket/$KOVA" -Headers $SK -UseBasicParsing -TimeoutSec 60
+    $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
+    return ($m | ConvertFrom-Json)
+  } catch { return $null }
 }
+$kv = KovaDurum
+if($null -eq $kv){
+  Write-Host "Taslak kovasi yok - OZEL olarak yaratiliyor..."
+  $kgovde = ConvertTo-Json -Compress -InputObject @{ id=$KOVA; name=$KOVA; public=$false }
+  try {
+    Invoke-RestMethod -Uri "$STOR/bucket" -Method Post -Headers ($SK + @{ 'Content-Type'='application/json' }) -Body ([Text.Encoding]::UTF8.GetBytes($kgovde)) -TimeoutSec 60 | Out-Null
+  } catch {
+    $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+    Write-Host "!! KOVA YARATILAMADI - pilot BASLATILMADI, para harcanmadi."
+    Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+      tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT BASLATILMADI'; durum='KIRMIZI'; maliyet_usd=0
+      sebep='taslak kovasi yaratilamadi'; sunucu=$g
+      not='Hicbir API cagrisi yapilmadi. Ciktinin kaybolacagi kosuya para verilmez.' }))
+    exit 1
+  }
+  $kv = KovaDurum
+}
+if($null -eq $kv -or $kv.public -eq $true){
+  Write-Host "!! KOVA OZEL DEGIL (veya okunamadi) - pilot BASLATILMADI, para harcanmadi."
+  Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT BASLATILMADI'; durum='KIRMIZI'; maliyet_usd=0
+    sebep='taslak kovasi PUBLIC gorundu - parali icerik acik yere yazilamaz (17.07 fisler-bucket dersi)'
+    not='Hicbir API cagrisi yapilmadi.' }))
+  exit 1
+}
+Write-Host ("Ucus oncesi: taslak kovasi hazir ve OZEL (public={0})." -f $kv.public)
 
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
@@ -362,31 +387,31 @@ for($n=0; $n -lt $parti.Count; $n++){
 $maliyet = [Math]::Round(($tIn * $FIY_IN) + ($tOut * $FIY_OUT), 4)
 $birim = if($parti.Count -gt 0){ [Math]::Round($maliyet / $parti.Count, 6) } else { 0 }
 
-# --- TASLAGA YAZ (50'lik partiler) + GERI OKU ---
-# Yazdiktan sonra SAYMAK sart: "yesil kosu = tam veri" degil (yukleyici dersi).
-$yazilan = 0; $yazmaHatasi = ''
+# --- TASLAK KOVASINA YAZ + GERI OKU ---
+# Yazdiktan sonra GERI OKUYUP SAYMAK sart: "yesil kosu = tam veri" degil
+# (yukleyici 3.162 kaydi sessizce kaybetmisti). Geri okunan sayi istenene esit
+# degilse kosu KIRMIZI biter - cunku para harcanip cikti yine kaybolmus olur.
 $hepsi = $sonuc.ToArray()
-for($b=0; $b -lt $hepsi.Count; $b+=50){
-  $dilim = $hepsi[$b..([Math]::Min($b+49, $hepsi.Count-1))]
-  $govde2 = ConvertTo-Json -Depth 8 -InputObject $dilim
-  if($dilim.Count -eq 1){ $govde2 = "[$govde2]" }   # PS tek elemanli diziyi nesneye cevirir
-  try {
-    Invoke-RestMethod -Uri $TASLAK -Method Post -Headers $SBH -Body ([Text.Encoding]::UTF8.GetBytes($govde2)) -TimeoutSec 120 | Out-Null
-    $yazilan += $dilim.Count
-  } catch {
-    $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
-    $yazmaHatasi = "$($_.Exception.Message) | $g"
-    Write-Host ("  TASLAGA YAZMA HATASI: {0}" -f $yazmaHatasi)
-    break
-  }
+$dosyaAd = "$PARTI.json"
+$govde2 = ConvertTo-Json -Depth 8 -InputObject $hepsi
+$yazilan = 0; $yazmaHatasi = ''
+try {
+  Invoke-RestMethod -Uri "$STOR/object/$KOVA/$dosyaAd" -Method Post `
+    -Headers ($SK + @{ 'Content-Type'='application/json'; 'x-upsert'='true' }) `
+    -Body ([Text.Encoding]::UTF8.GetBytes($govde2)) -TimeoutSec 180 | Out-Null
+  $yazilan = $hepsi.Count
+} catch {
+  $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+  $yazmaHatasi = "$($_.Exception.Message) | $g"
+  Write-Host ("  KOVAYA YAZMA HATASI: {0}" -f $yazmaHatasi)
 }
 $geriOkuma = -1
 try {
-  $ho = Invoke-WebRequest -Uri "$TASLAK`?select=id&parti=eq.$PARTI&limit=1000" -Headers @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" } -UseBasicParsing -TimeoutSec 90
+  $ho = Invoke-WebRequest -Uri "$STOR/object/$KOVA/$dosyaAd" -Headers $SK -UseBasicParsing -TimeoutSec 180
   $mo = if($ho.RawContentStream){ [Text.Encoding]::UTF8.GetString($ho.RawContentStream.ToArray()) } else { "$($ho.Content)" }
   $geriOkuma = @($mo | ConvertFrom-Json | Where-Object { $null -ne $_ }).Count
 } catch { $geriOkuma = -1 }
-Write-Host ("  Taslaga yazilan: {0} | GERI OKUMA: {1}" -f $yazilan, $geriOkuma)
+Write-Host ("  Kovaya yazilan: {0} | GERI OKUMA: {1} satir" -f $yazilan, $geriOkuma)
 
 # --- RAPOR: yalniz SAYILAR depoya gider, soru icerigi GITMEZ ---
 $rapor = [ordered]@{
@@ -400,6 +425,7 @@ $rapor = [ordered]@{
   parti=$PARTI
   taslaga_yazilan=$yazilan
   geri_okuma=$geriOkuma
+  taslak_yeri="Supabase Storage / kova '$KOVA' (OZEL) / dosya $PARTI.json"
   taslak_durum=$(if($geriOkuma -eq $parti.Count){'TAMAM'}elseif($geriOkuma -lt 0){'OKUNAMADI'}else{'KIRMIZI - eksik yazildi'})
   yazma_hatasi=$yazmaHatasi
   not='Ciktilar soru_onarim_taslak tablosunda (ozel). KASAYA YAZILMADI - taslak kasa degildir, site degismedi.'
