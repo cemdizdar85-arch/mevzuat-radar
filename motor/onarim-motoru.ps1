@@ -958,7 +958,12 @@ for($n=0; $n -lt $parti.Count; $n++){
         foreach($h in 'A','B','C','D','E'){ if($v.PSObject.Properties[$h]){ $uretilen += ' ' + "$($v.$h)" } }
       } catch {}
     }
-    $dayanakMetni = "$($i.dayanak)"
+    # 03.08 - KENDI KAPIM SAHTE ALARM URETIYORDU (601 iddia).
+    # D16 ile hesap kodlari artik THP LISTESINDEN geliyor - bu DOGRU davranis.
+    # Ama kapi onlari yalniz DAYANAK METNINDE ariyordu; bulamayinca "uydurma"
+    # sayiyordu. Yani modeli dogru yaptigi is icin sucluyordum.
+    # Cozum: dogrulama havuzuna THP listesi de girer.
+    $dayanakMetni = "$($i.dayanak)" + " " + $script:THP_LISTE
     $disi = 0
     # HESAP KODU DESENI (03.08, Cem): "253 Personel Avanslari" gibi UC HANELI kod +
     # buyuk harfle baslayan hesap adi. Eski kapi yalniz "m.275" tipi atiflari
