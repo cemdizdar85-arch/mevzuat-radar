@@ -129,6 +129,25 @@ Cem "Hesap | Borç | Alacak üç sütun olsun, Kalem kısa olsun" dedi; **istem 
 dedi → ölçtük: **kasadaki 2.426 tablodan 0'ı eski formatta** (İşaret sütunlu hiç yok; 17'si
 zaten Borç/Alacak, 2.409'u oran/hesaplama tablosu). **Geriye dönük iş yok.**
 
+## ✅ KASAYA İLK GERÇEK YAZMA YAPILDI (03.08 20:30) — 105 soru
+Cem onayı ("342 bas") ile **yüksek güven sınıfı** hesap kodu düzeltmeleri kasaya uygulandı.
+| Yazılan soru | 105 | Değiştirilen alan | 344 |
+|---|---|---|---|
+| Yazma hatası | 0 | **Geri okuma doğrulanan** | **105/105** |
+| Yayındakine dokunuldu | 0 | Yedek | `yedek-sik-kod-0803-2030.json` (344 kayıt) |
+
+**Geri alma:** özel kovadaki yedek dosyasındaki `eski_metin` değerleri geri yazılır.
+**Uygulanmayan 313 öneri** duruyor (`veri/sik-hesap-kodu-onerisi.json`): çift tek alanda
+geçiyor, yön belirsiz — Cem gözle örnek okumadan uygulanmayacak.
+
+## GECE BULUNAN ÜÇÜNCÜ TÜRKÇE-İ TUZAĞI: hashtable anahtarı
+PowerShell hashtable anahtar karşılaştırması **kültüre bağlı** büyük/küçük harf
+duyarsızlığı kullanır: tr-TR'de `"TİCARİ" = "Ticari"`, invariant'ta **ayrı anahtar**.
+Aynı betik aynı veriyle **yerelde 342, CI'da 335** sayıyordu — makineye göre değişen
+sınıflandırma. Anahtar artık karakter-karakter açık eşlemeyle normalleştiriliyor
+(`AnahtarSade`), her makinede aynı: 346. **Bu gece aynı tuzağın üç biçimi de kapatıldı:**
+(1) `ToUpperInvariant` · (2) `-replace`/`-match` · (3) hashtable anahtarı.
+
 ## UNWRAP DÜZELTMESİ DOĞRULANDI — 0 USD (4. pilot GEREKMEDİ)
 Öneri robotu (`sik-hesap-kodu-oneri.ps1`) düzeltilmiş kodla **gerçek kasada** yeniden koştu.
 İlk 10 örnek gözle okundu, **10'u da doğru** — kodlar artık geçerli 3 haneli THP kodu:

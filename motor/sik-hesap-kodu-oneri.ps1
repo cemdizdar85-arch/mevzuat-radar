@@ -25,6 +25,12 @@
 #  CIKTI: veri/sik-hesap-kodu-onerisi.json (tam liste) ·
 #  veri/sik-hesap-kodu-onerisi-raporu.json (sayilar + ilk 10 ornek)
 #  ENV: SUPABASE_SERVICE_KEY
+#
+#  03.08.2026 20:30 - YUKSEK GUVEN SINIFI KASAYA UYGULANDI (Cem onayi):
+#  105 soru / 344 alan yazildi, 105/105 geri okuma dogrulandi, yedek
+#  ozel kovada yedek-sik-kod-0803-2030.json. Bu kosu BAGIMSIZ DOGRULAMADIR:
+#  duzeltmeler gercekten oturduysa oneri sayisi 659'dan ~313'e dusmeli
+#  (kalan = yon belirsiz olan tek-alanli cift sinifi, uygulanmadi).
 # ============================================================================
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
