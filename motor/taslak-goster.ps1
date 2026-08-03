@@ -65,7 +65,7 @@ $asil = @{}
 for($b=0; $b -lt $idler.Count; $b+=50){
   $dilim = $idler[$b..([Math]::Min($b+49, $idler.Count-1))]
   $liste = ($dilim | ForEach-Object { '"' + $_ + '"' }) -join ','
-  $sat = @((Metin "$U`?select=id,ders,konu,kaynak,soru,siklar,dogru,aciklama,tablo,yevmiye&id=in.($liste)" $SK) | ConvertFrom-Json)
+  $sat = @((Metin "$U`?select=id,ders,konu,kaynak,soru,siklar,dogru,aciklama,tablo,yevmiye,hap&id=in.($liste)" $SK) | ConvertFrom-Json)
   foreach($s in $sat){ if($null -ne $s){ $asil["$($s.id)"] = $s } }
 }
 Write-Host ("Kasadan eslesen: {0}" -f $asil.Count)
@@ -118,6 +118,7 @@ table.veri{border-collapse:collapse;margin:8px 0;font-size:14px;width:100%}
 table.veri th,table.veri td{border:1px solid #ddd6c8;padding:6px 9px;text-align:left}
 table.veri th{background:#f2ede3}
 table.veri caption{text-align:left;font-weight:600;padding:4px 0;font-size:14px}
+.hap{background:#fdf6e3;border-left:3px solid #e0a24a;padding:10px 14px;border-radius:6px;font-size:15px;font-weight:600;color:#5a4a2a}
 .rozet{display:inline-block;background:#e8e2d5;border-radius:20px;padding:2px 10px;font-size:12px;margin-right:5px}
 .dil{background:#f3e5f5;color:#6a1b9a}
 </style></head><body>
@@ -153,6 +154,13 @@ foreach($t in $taslak){
     }
     $em=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $em="$($s.aciklama.$dh)" } } catch {}
     [void]$sb.Append('<h4>Eski aciklama (dogru sik)</h4><div class="eski">' + (K $em) + '</div>')
+    # 03.08 - Cem "akilda kalsin yok" dedi: SITEDE VARDI, bu okuyucuda YOKTU.
+    # Kasadaki 'hap' alani sinav ekraninda kehribar kart olarak cikiyor; burada
+    # hic cekilmiyordu. Cem 200 soruyu kartin bir parcasini GORMEDEN
+    # degerlendiriyordu - denetim eksik kalirdi.
+    if("$($s.hap)".Trim().Length -gt 3){
+      [void]$sb.Append('<h4>Akilda kalsin (sinav ekraninda kehribar kart)</h4><div class="hap">' + (K "$($s.hap)") + '</div>')
+    }
   } else {
     [void]$sb.Append('<div class="eski">Sorunun asli kasada bulunamadi (id ' + (K "$($t.soru_id)") + ')</div>')
   }
