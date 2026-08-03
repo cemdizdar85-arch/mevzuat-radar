@@ -1,19 +1,18 @@
 {
-  "tarih": "03.08.2026 20:14",
-  "mod": "KURU (0 USD, KASAYA YAZILMADI)",
+  "tarih": "03.08.2026 20:30",
+  "durum": "TAMAM",
+  "mod": "UYGULANDI (KASAYA YAZILDI)",
   "tier": "yuksek",
-  "oneri_dosyasi": 659,
-  "secilen": 335,
-  "hazirlanan_degisiklik": 334,
-  "etkilenen_soru": 101,
+  "yedek_dosyasi": "yedek-sik-kod-0803-2030.json",
+  "yedek_kayit": 344,
+  "yedek_bayt": 101882,
+  "hazirlanan_degisiklik": 344,
+  "etkilenen_soru": 105,
+  "yazilan_soru": 105,
+  "yazma_hatasi": 0,
+  "geri_okuma_dogrulanan": 105,
+  "geri_okuma_dogrulanmayan": 0,
   "yayinda_atlanan": 0,
   "bulunamayan": 0,
-  "atlanan_ornek": [
-    {
-      "soru_id": "7af8cff6-3739-4107-b03b-55b953ff2e2a",
-      "alan": "aciklama.D",
-      "sebep": "eski metin bulunamadi (zaten duzeltilmis olabilir)"
-    }
-  ],
-  "not": "Bu bir PROVA. Gercek yazma icin -uygula gerekir (workflow tetiginde BAS sarti)."
+  "not": "Geri alma: ozel kovadaki yedek-sik-kod-0803-2030.json dosyasindaki eski_metin degerleri geri yazilir."
 }
