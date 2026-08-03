@@ -52,7 +52,7 @@ jobs:
           # yolunda" yanilsamasi olusmaz; yayin oncesi bakilacak tek yer burasi.
           KARAR=$(grep -o '"karar": *"[^"]*"' veri/yayin-kapisi.json | head -1 | sed 's/.*"karar": *"//;s/"//')
           echo "KARAR: $KARAR"
-          if [ "$KARAR" != "GECER" ]; then
+          if [ "$KARAR" != "GECER" ] && [ "${KARAR#YAYIN YOK}" = "$KARAR" ]; then
             echo "::error::Yayin kapisi DURDU - yayindaki sorularda ihlal var. veri/yayin-kapisi.json'a bak."
             exit 1
           fi

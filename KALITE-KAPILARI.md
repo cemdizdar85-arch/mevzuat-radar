@@ -86,3 +86,33 @@ Cem: *"sana çok güvenmiştim, az kontrol ediyordum yaptıklarını, öyle değ
 Doğru tepki bana daha az güvenmek değil, **iddiayı sayısız kabul etmemek.**
 Bundan sonra "yapıldı" cümlesinin yanında bir rakam yoksa o iş yapılmamıştır —
 bunu senin hatırlatman değil, kapının kendisi söyleyecek.
+
+---
+
+## 7. İLK GERÇEK ENVANTER (03.08.2026 · kasa 27.478)
+
+Cem'in *"bunun diğerlerine yapalım"* itirazı bir kusuru daha ortaya çıkardı: kapı
+yalnız **yayındaki** soruları tarıyordu ve yayında **0 soru** vardı — yani on kapının
+onu da **hiçbir şey ölçmüyordu.** Kapıyı kurup "ölçülüyor" demek, ölçtüğünü
+doğrulamadan, boş güvendi. Düzeltildi; tüm kasa tarandı:
+
+| Kusur | Kaç soruda | Nereden çıktı |
+|---|---|---|
+| "Doğrusu:" cümlesi yok | **27.457** | zaten bilinen ana onarım kalemi |
+| **Eski terim** (genel imal gideri…) | **3.884** | **Cem'in tek soruda gördüğü** |
+| Hesap kodu yanlış | **738** | Cem'in 253/181 bulguları |
+| Sınır sorusu ama liste eksik | **703** | Cem'in TTK m.516 bulgusu |
+| Kanun kopyası dili | 233 | |
+| Yapay zekâ kalıpları | 135 | |
+| Muğlak ifade | 43 | Cem'in "belirli şartlarda" bulgusu |
+| Eskimiş kurum adı (İMKB) | 8 | Cem'in kart okuması |
+| Aynı cümle iki şıkta | 6 | |
+| "Çünkü doğru cevap X" | 0 | |
+
+**Bunun anlamı:** Cem'in tek soruda gördüğü her kusur, kasada yüzlerce–binlerce
+soruda duruyordu. Tek tek yamalamak yerine sınıfı ölçmek, 17.000 soruyu insan gözüyle
+taramaktan kurtardı.
+
+**İkinci düzeltme:** kapı yayında soru yokken **"GEÇER"** yazıyordu — 27.461 kırmızı
+soru dururken yeşil yazı yanıltıcıydı. Artık **"YAYIN YOK — ölçülecek soru bulunamadı"**
+diyor. *Boş bir kapıdan geçmek, geçmek değildir.*

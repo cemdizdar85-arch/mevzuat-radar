@@ -231,7 +231,11 @@ foreach($s in $kasa){
 $toplamHepsi = 0; foreach($v in $K.Values){ $toplamHepsi += $v }
 $toplamYayin = 0; foreach($v in $KY.Values){ $toplamYayin += $v }
 # KARAR yayindakilere bakar (ogrenciye giden odur); ENVANTER tum kasayi kapsar.
-$karar = if($toplamYayin -eq 0){ 'GECER' } else { 'DURDU' }
+# 03.08 - AMA "GECER" YAZISI YANILTICIYDI: yayinda 0 soru varken kapi yesil
+# yaziyordu, oysa kasada 27.461 kirmizi soru duruyordu. Bos bir kapidan gecmek
+# gecmek degildir. Yayinda soru yoksa karar artik "YAYIN YOK" - yesil degil.
+$karar = if($yayindaSayi -eq 0){ 'YAYIN YOK - olculecek soru bulunamadi' }
+         elseif($toplamYayin -eq 0){ 'GECER' } else { 'DURDU' }
 $rapor = [ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
   karar=$karar
