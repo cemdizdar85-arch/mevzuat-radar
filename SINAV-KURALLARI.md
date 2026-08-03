@@ -584,3 +584,20 @@ ayağıdır:** aday bankayı eskimiş görür.
 Sanayi ve Ticaret Bakanlığı → Sanayi ve Teknoloji Bakanlığı · Bayındırlık ve İskân
 Bakanlığı → Çevre, Şehircilik ve İklim Değişikliği Bakanlığı · DPT → SBB.
 *Ölçümü:* yayın kapısı **K9**.
+
+**D13-ek/2. FORMÜL KURALI DÖRT PARÇAYA BAĞIMLI OLAMAZ (03.08 — Cem'in bulgusu)**
+D13-ek *"yöntem adı geçiyorsa tanımı + formülü yaz"* diyordu, ama bu talimat **dört
+parça isteminin içine gömülüydü.** Dört parçası zaten tam olan sorularda (D11 gereği
+dokunulmayanlar) kural **hiç çalışmıyordu.**
+
+*Vaka:* "dikey yüzde analizi" sorusunda formül hiçbir yerde yok — çünkü o soruda dört
+parça istenmemişti. Kural vardı, devreye giremiyordu.
+
+*Kural:* soru bir **yöntem adı** taşıyor (dikey/yatay yüzde, devir hızı, oran analizi,
+değişken/tam maliyetleme, kıst amortisman, reeskont, eşdeğer ürün, trend analizi) **ve**
+mevcut Kural parçasında **formül izi yoksa** → dört parça yenilenir.
+*Ölçümü:* `formul_eksik_yenilenen`. Test: 4 gerçek vaka, 4/4 doğru sınıflandı
+(devir hızı sorusu formülü zaten içerdiği için **dokunulmuyor**).
+
+*Genel ders:* bir kural başka bir kuralın içine gömülürse, o kural **ancak dıştaki
+tetiklenirse** çalışır. Kuralların tetikleyicisi bağımsız olmalı.

@@ -241,6 +241,7 @@ $hazir   = New-Object System.Collections.Generic.List[object]
 $dilSoru = 0
 $tahdidiYenilenen = 0
 $kardesEklenen = 0
+$formulEksikYenilenen = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -289,6 +290,27 @@ foreach($i in $isler){
   if($metin.Length -lt 40){ $atlanan.Add([ordered]@{ id="$($i.soru.id)"; sebep="dayanak ambarda cozulemedi: $kay" }); continue }
   $i | Add-Member -NotePropertyName dayanak -NotePropertyValue $metin -Force
   $i | Add-Member -NotePropertyName mevzuatdisi -NotePropertyValue $false -Force
+
+  # ---- D11'E IKINCI DAR ISTISNA: YONTEM VAR AMA FORMUL YOK ----
+  # 03.08, Cem: "dikey analiz soruluyor, formulu goremedim - boyle karar almistik."
+  # Hakli ve kusur KURGUMDA: D13-ek (yontem adi gecerse tanimi + formulu yaz)
+  # kurali DORT PARCA isteminin ICINE gomuluydu. Bu soruda dort parca
+  # ISTENMEMISTI (eskisi tam), dolayisiyla formul kurali hic calismadi.
+  # Kural vardi ama yalnizca dort parca yeniden yazilirken devreye giriyordu.
+  # Cozum: yontem adi gecen VE mevcut Kural'da formul BULUNMAYAN soruda dort
+  # parca yenilenir. Tahdidi liste istisnasinin ayni mantigi.
+  if($i.eksik -notcontains 'D1_dort_parca'){
+    $reYontem = [regex]'(?i)dikey\s*y[üu]zde|yatay\s*y[üu]zde|y[üu]zde\s*analiz|dikey\s*analiz|yatay\s*analiz|devir\s*h[ıi]z|oran\s*analiz|rasyo|maliyetleme\s*y[öo]ntem|de[ğg]i[şs]ken\s*maliyet|tam\s*maliyet|k[ıi]st\s*amortisman|reeskont|e[şs]de[ğg]er\s*[üu]r[üu]n|trend\s*analiz'
+    $dhy = "$($i.soru.dogru)".Trim().ToUpper()
+    $mevcutY = ''
+    try { if($i.soru.aciklama -and $i.soru.aciklama.PSObject.Properties[$dhy]){ $mevcutY = "$($i.soru.aciklama.$dhy)" } } catch {}
+    # Formul izi: "X = Y" ya da bolme/carpma isareti tasiyan bir ifade
+    $formulVar = [regex]::IsMatch($mevcutY, '(?i)[A-Za-zÇĞİÖŞÜçğıöşü\)]\s*[=÷]\s*|[A-Za-zÇĞİÖŞÜçğıöşü]\s*/\s*[A-Za-zÇĞİÖŞÜçğıöşü]')
+    if($reYontem.IsMatch("$($i.soru.soru) $($i.soru.konu)") -and -not $formulVar){
+      $i.eksik = @($i.eksik) + 'D1_dort_parca'
+      $script:formulEksikYenilenen++
+    }
+  }
 
   # ---- D11'E DAR ISTISNA (03.08, Cem'in Is K. m.4 bulgusu) ----
   # D11 "dolu ve iyi olana dokunma" der. Ama biçimsel olarak TAM olan bir Kural
@@ -636,6 +658,7 @@ if(-not $uygula){
     mevzuat_disi_gecen=$dilSoru
     tahdidi_liste_yenilenen=$tahdidiYenilenen   # D11 istisnasi: sinir eksik oldugu icin Kural yeniden yazilacak
     kardes_kaynak_eklenen=$kardesEklenen        # yan hukumler de dayanaga eklendi (ara tasdik gibi)
+    formul_eksik_yenilenen=$formulEksikYenilenen # yontem adi var ama Kural da formul yoktu
     eksik_dagilimi=[ordered]@{}
     atlanan_ornek=@($atlanan | Select-Object -First 20)
     not='Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur.'
