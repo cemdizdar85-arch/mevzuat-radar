@@ -382,3 +382,20 @@ formülü varsa **yazılır** — öğrenci yöntemi de öğrensin.
 *Rakam disiplini burada da geçerli:* iddia edilen işlem gerçekten o rakamı vermeli.
 Önce hesapla; tutmuyorsa **uydurma**, "bu rakam doğru bir yöntemle elde edilemez,
 çeldiricidir" de ve geç. (Bu sorunun E şıkkı — 1.104,58 — hiçbir işlemle çıkmıyor.)
+
+**D14. HESAP KODU DAYANAKSIZ YAZILAMAZ (03.08.2026 — Cem'in bulgusu)**
+Tekdüzen Hesap Planı kodu (100, 196, 253…) ancak **dayanak metninde görülüyorsa**
+yazılır. Görülmüyorsa hesap adı yazılır, kod yazılmaz.
+
+*Gerekçe:* Pilotta 198 hesabı sorusunda dört şıkkın dördünde de kod yanlıştı —
+personel avansı için **253** (oysa 253 = Tesis, Makine ve Cihazlar; doğrusu **196**),
+sipariş avansı için **122** (doğrusu **159**), kira teminatı için **127** (doğrusu
+**126**), teslim alınmamış demirbaş peşinatı için **122** (doğrusu **259**).
+Kök sebep: soru etiketi *"1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği -
+Tekdüzen Hesap Planı"* diyordu; motor yalnız **MSUGT/THP kısaltmalarını** tanıyordu,
+açık Türkçe adı tanımıyordu. Hesap planı ambarda **vardı** (`msugt-thp-tam.json`) ama
+eşleşmedi; model kodları kendi hafızasından yazdı.
+
+*İki katman:* (1) ad sözlüğü — açık Türkçe adlar kısaltmaya çevrilir; (2) hesap kodu
+kapısı — üç haneli kod + hesap adı deseni dayanakta aranır, yoksa `dayanak_disi_iddia`
+sayılır. Eskiden kapı yalnız "m.275" tipi atıfları arıyor, çıplak kodu görmüyordu.

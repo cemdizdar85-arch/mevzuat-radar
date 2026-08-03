@@ -149,6 +149,27 @@ Write-Host ("Eksigi olan soru: {0}" -f $isler.Count)
 $reDilDers = [regex]'(?i)yabanc[ıi]\s*dil|ingiliz|t[üu]rk[çc]e|matematik|atat[üu]rk|inkil[âa]p|genel\s*k[üu]lt[üu]r'
 $reKod = [regex]'(?i)\b(TMS|TFRS|BDS|KKS|TSRS|SGDS|VUK|TTK|TBK|GVK|KVK|KDVK|AATUHK|SMK|[İI][İI]K|MSUGT|THP)\s*(GT\s*)?(\d{1,4})?'
 $reSayiliK = [regex]'(?i)\b(\d{4})\s*say[ıi]l[ıi]'
+
+# 03.08 - CEM'IN HESAP KODU BULGUSU. Soru etiketi "1 Sira No'lu Muhasebe Sistemi
+# Uygulama Genel Tebligi - Tekduzen Hesap Plani" diyordu; arama kodu yalniz MSUGT
+# ve THP KISALTMALARINI taniyordu, ACIK TURKCE ADINI tanimiyordu. Sonuc: ya hic
+# eslesmedi ya da yanlis MSUGT belgesi (ilkeler metni) geldi - icinde hesap listesi
+# olmayan bir metin. Model de 253/122/127 gibi hesap kodlarini KENDI HAFIZASINDAN
+# yazdi (253 = Tesis Makine Cihazlar; personel avansi 196'dir).
+# Cozum: acik adlari kisaltmaya cevir ve HESAP PLANI etiketinde TAM listeyi ara.
+$ADSOZLUK = @(
+  @{ desen='(?i)tekd[üu]zen\s*hesap\s*plan|hesap\s*plan[ıi]';        ara='thp-tam' }
+  @{ desen='(?i)muhasebe\s*sistemi\s*uygulama\s*genel\s*tebli';      ara='msugt' }
+  @{ desen='(?i)vergi\s*usul\s*kanunu';                              ara='vuk' }
+  @{ desen='(?i)t[üu]rk\s*ticaret\s*kanunu';                         ara='ttk' }
+  @{ desen='(?i)t[üu]rk\s*bor[çc]lar\s*kanunu';                      ara='tbk' }
+  @{ desen='(?i)gelir\s*vergisi\s*kanunu';                           ara='gvk' }
+  @{ desen='(?i)kurumlar\s*vergisi\s*kanunu';                        ara='kvk' }
+  @{ desen='(?i)katma\s*de[ğg]er\s*vergisi';                         ara='kdv' }
+  @{ desen='(?i)[İIi]cra\s*ve\s*[İIi]flas\s*Kanunu';                 ara='iik' }
+  @{ desen='(?i)sosyal\s*sigortalar|5510';                           ara='5510' }
+  @{ desen='(?i)[İIi][şs]\s*Kanunu|4857';                            ara='4857' }
+)
 $atlanan = New-Object System.Collections.Generic.List[object]
 $hazir   = New-Object System.Collections.Generic.List[object]
 $dilSoru = 0
@@ -178,8 +199,13 @@ foreach($i in $isler){
     # 2) olmazsa etiketten cikarilan standart/kanun kodu
     if($metin.Length -lt 40){
       $kod = ''
-      $m = $reKod.Match($kay)
-      if($m.Success){ $kod = (($m.Groups[1].Value + ' ' + $m.Groups[3].Value).Trim()) }
+      # 1) ACIK TURKCE AD -> kisaltma (Cem'in hesap kodu bulgusu, 03.08)
+      foreach($a in $ADSOZLUK){ if($kay -match $a.desen){ $kod = $a.ara; break } }
+      # 2) etiketin icindeki kisaltma/standart kodu
+      if($kod -eq ''){
+        $m = $reKod.Match($kay)
+        if($m.Success){ $kod = (($m.Groups[1].Value + ' ' + $m.Groups[3].Value).Trim()) }
+      }
       if($kod -eq ''){ $m2 = $reSayiliK.Match($kay); if($m2.Success){ $kod = $m2.Groups[1].Value } }
       if($kod -ne ''){
         $a2 = [Uri]::EscapeDataString($kod)
@@ -620,7 +646,11 @@ for($n=0; $n -lt $parti.Count; $n++){
     }
     $dayanakMetni = "$($i.dayanak)"
     $disi = 0
-    foreach($re in @('(?i)%\s*\d+(?:[.,]\d+)?', '(?i)\b\d{1,3}(?:\.\d{3})+\s*(?:TL|lira)', '(?i)\b\d{4}\s*say[ıi]l[ıi]', '(?i)\bm(?:adde)?\.?\s*\d{1,3}\b')){
+    # HESAP KODU DESENI (03.08, Cem): "253 Personel Avanslari" gibi UC HANELI kod +
+    # buyuk harfle baslayan hesap adi. Eski kapi yalniz "m.275" tipi atiflari
+    # ariyordu, ciplak hesap kodunu TANIMIYORDU - model 253/122/127'yi uydurdu ve
+    # kapi sustu. (253 Tesis Makine Cihazlar'dir; personel avansi 196'dir.)
+    foreach($re in @('(?i)%\s*\d+(?:[.,]\d+)?', '(?i)\b\d{1,3}(?:\.\d{3})+\s*(?:TL|lira)', '(?i)\b\d{4}\s*say[ıi]l[ıi]', '(?i)\bm(?:adde)?\.?\s*\d{1,3}\b', '\b[1-8]\d{2}\s+[A-ZÇĞİÖŞÜ]')){
       foreach($mm in [regex]::Matches($uretilen, $re)){
         $iz = ($mm.Value -replace '[^\p{Nd}]','')     # yalniz rakamlari kiyasla
         if($iz.Length -eq 0){ continue }
