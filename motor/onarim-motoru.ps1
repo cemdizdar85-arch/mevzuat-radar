@@ -243,6 +243,8 @@ $tahdidiYenilenen = 0
 $kardesEklenen = 0
 $formulEksikYenilenen = 0
 $hesapKoduYanlis = 0
+$hesapKoduDuzeltilen = 0
+$hesapKoduSupheli = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -893,6 +895,72 @@ for($n=0; $n -lt $parti.Count; $n++){
   }
   $istenmeyenAlan += $atilanAlan
 
+  # ========================================================================
+  #  HESAP KODU OTOMATIK DUZELTME (03.08, Cem onayi)
+  #
+  #  OLCUM SUNU GOSTERDI: model 230 kodluk TAM listeyi elinde tutarken bile
+  #  59 kez yanlis eslestirme yapti. Yani LISTE VERMEK YETMIYOR - modele
+  #  guvenmek yerine cikti DUZELTILIR. Deterministik, bedava, kesin.
+  #
+  #  MANTIK - ve siniri:
+  #   * Yazilan AD, resmi listede TEK BIR hesapla eslesiyorsa: KOD o hesabin
+  #     kodu yapilir ve ad resmi yazimina cevrilir.
+  #     "253 Personel Avanslari" -> "196 PERSONEL AVANSLARI"  (ad tek eslesiyor)
+  #   * Ad HICBIRIYLE ya da BIRDEN FAZLASIYLA eslesiyorsa DOKUNULMAZ, yalniz
+  #     supheli sayilir. Belirsizken duzeltmek, yanlisi baska yanlisla
+  #     degistirmektir - bugun tam bunu yapmamak icin ugrastik.
+  # ========================================================================
+  if($null -ne $obj -and $script:THP_AD.Count -gt 50){
+    function ResmiKodBul([string]$adMetni){
+      $bulunan = @()
+      foreach($kk in $script:THP_AD.Keys){
+        $a = @(($adMetni.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $b = @(($script:THP_AD[$kk].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        if($a.Count -eq 0 -or $b.Count -eq 0){ continue }
+        # TAM eslesme ariyoruz: yazilan adin TUM anlamli kelimeleri resmi adda olmali
+        $hepsiVar = $true
+        foreach($x in $a){
+          $var = $false
+          foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ $var = $true; break } }
+          if(-not $var){ $hepsiVar = $false; break }
+        }
+        if($hepsiVar){ $bulunan += $kk }
+      }
+      return $bulunan
+    }
+    $reCift = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+    function KoduDuzelt([string]$metin){
+      if($metin -eq ''){ return $metin }
+      return $reCift.Replace($metin, {
+        param($m)
+        $k = $m.Groups[1].Value; $a = $m.Groups[2].Value.Trim()
+        if($a.Length -lt 4){ return $m.Value }
+        if(-not $script:THP_AD.ContainsKey($k)){ return $m.Value }
+        # Zaten dogruysa dokunma
+        $x = @(($a.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $y = @(($script:THP_AD[$k].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        foreach($p in $x){ foreach($q in $y){ if($p.StartsWith($q) -or $q.StartsWith($p)){ return $m.Value } } }
+        $aday = ResmiKodBul $a
+        if($aday.Count -eq 1){
+          $script:hesapKoduDuzeltilen++
+          return ($aday[0] + ' ' + $script:THP_AD[$aday[0]])
+        }
+        $script:hesapKoduSupheli++
+        return $m.Value
+      })
+    }
+    foreach($alan in 'dort_parca','tuzak','dogrusu'){
+      try {
+        if(-not $obj.PSObject.Properties[$alan]){ continue }
+        $v = $obj.$alan
+        if($v -is [string]){ $obj.$alan = KoduDuzelt $v; continue }
+        foreach($h in 'A','B','C','D','E'){
+          if($v.PSObject.Properties[$h]){ $v.$h = KoduDuzelt "$($v.$h)" }
+        }
+      } catch {}
+    }
+  }
+
   # --- TEKRAR KAPISI (03.08, Cem'in bulgusu) ---
   # Istem "her sikka ayri cumle" diyor ama SOYLEMEK olcmek degildir. Model dort
   # yanlis sikka ayni cumleyi yazarsa bu kapida yakalanir ve soru KUSURLU sayilir.
@@ -1125,7 +1193,9 @@ $rapor = [ordered]@{
   yapayzeka_kokusu=$yzKokusu              # doldurma kaliplari
   tekduze_kusurlu=$tekduzeKusurlu         # siklar ayni kalipla aciliyor (makine izi)
   muglak_ifade=$muglakIfade               # "belirli sartlarda" deyip sartlari saymayan
-  hesap_kodu_yanlis=$hesapKoduYanlis      # kod ile ad THP de eslesmiyor (181 vakasi)
+  hesap_kodu_yanlis=$hesapKoduYanlis          # kod ile ad THP de eslesmiyor (181 vakasi)
+  hesap_kodu_duzeltilen=$hesapKoduDuzeltilen  # motor kendisi duzeltti (ad tek hesapla eslesti)
+  hesap_kodu_supheli=$hesapKoduSupheli        # belirsiz - DOKUNULMADI, gozle bakilacak
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'

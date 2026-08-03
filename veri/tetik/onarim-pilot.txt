@@ -1,7 +1,5 @@
 BAS
 
-PILOT 200 - 03.08 aksam, TAM DUZELTMELERLE:
-- THP listesi 230 hesap (tum msugt dosyalari birlestirildi; 100 KASA, 600, 730 dahil)
-- Hesap kodu-ad eslesmesi uretim aninda denetleniyor
-- D10-D26 kurallari + kardes kaynak + formul bagimsiz tetik
-Kasaya YAZILMAZ.
+PILOT 200 - hesap kodu OTOMATIK DUZELTME ilk kez acik.
+Ad tek hesapla eslesiyorsa kod duzeltilir; belirsizse DOKUNULMAZ.
+Cikti yalniz taslaga gider, kasaya YAZILMAZ.
