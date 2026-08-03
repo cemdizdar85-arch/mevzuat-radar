@@ -601,3 +601,23 @@ mevcut Kural parçasında **formül izi yoksa** → dört parça yenilenir.
 
 *Genel ders:* bir kural başka bir kuralın içine gömülürse, o kural **ancak dıştaki
 tetiklenirse** çalışır. Kuralların tetikleyicisi bağımsız olmalı.
+
+**D16-ek. KAYNAK YANLIŞ KOŞULA BAĞLANAMAZ (03.08 — Cem'in 181 bulgusu)**
+THP listesini isteme **yalnız tablo/yevmiye istendiğinde** ekliyordum. Oysa hesap kodu
+**"Doğrusu" metninde de** geçiyor. O soruda sadece Doğrusu istenmişti → liste hiç
+gitmedi → model yine hafızadan yazdı: *"181 Diğer Dönen Varlıklar"* **(181 = GELİR
+TAHAKKUKLARI; personel avansı 196)**.
+
+*Kural:* muhasebe bağlamı varsa (ders/konu/soru metninde muhasebe · hesap · yevmiye ·
+defter · kayıt · bilanço · gelir tablosu · maliyet · stok · amortisman · avans ·
+karşılık · reeskont) THP listesi **her zaman** isteme girer.
+
+**D14-ek. KOD-AD EŞLEŞMESİ ÜRETİM ANINDA DENETLENİR**
+Dayanak-dışı kapısı kodun **varlığına** bakıyordu: 181 THP'de var, geçti. Sorun kodun
+varlığı değil **kod ile adın eşleşmesi.** Motor artık kendi çıktısını THP'nin resmî
+kod→ad listesine karşı denetler — yayın kapısı K4'ün üretim anındaki hâli.
+*Ölçümü:* `hesap_kodu_yanlis`. Test: 5 gerçek vaka, 5/5 doğru
+(181/Diğer Dönen ve 253/Personel yakalandı; 654/Karşılıklar Gideri ek farkıyla geçti).
+
+*Üçüncü kez aynı ders:* **kaynağı ya da kuralı yanlış koşula bağlamak** — formül
+kuralı dört parçaya, THP listesi tablo/yevmiyeye bağlıydı. Tetikleyici bağımsız olmalı.

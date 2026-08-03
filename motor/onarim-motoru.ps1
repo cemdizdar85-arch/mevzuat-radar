@@ -242,6 +242,7 @@ $dilSoru = 0
 $tahdidiYenilenen = 0
 $kardesEklenen = 0
 $formulEksikYenilenen = 0
+$hesapKoduYanlis = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -397,6 +398,7 @@ function DayanakDilim([string]$metin, [string]$kaynak){
 # --- THP LISTESI: yevmiye/tablo istenen soruda resmi kod->ad listesi isteme
 #     eklenir. 03.08 dersi (Cem'in 253 bulgusu): kanun metninde hesap kodu
 #     YOKTUR; listeyi vermezsen model hafizadan yazar. ---
+$script:THP_AD = @{}   # kod -> resmi ad (Cem'in 181 bulgusu icin esleme denetimi)
 $script:THP_LISTE = ''
 $thpYol2 = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
 if(Test-Path $thpYol2){
@@ -405,7 +407,10 @@ if(Test-Path $thpYol2){
     $c2 = New-Object System.Collections.Generic.List[string]
     foreach($b in @($thpVeri2.belgeler)){
       $m2t = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-      if($m2t.Success){ $c2.Add(($m2t.Groups[1].Value + ' ' + $m2t.Groups[2].Value.Trim())) }
+      if($m2t.Success){
+        $c2.Add(($m2t.Groups[1].Value + ' ' + $m2t.Groups[2].Value.Trim()))
+        $script:THP_AD[$m2t.Groups[1].Value] = $m2t.Groups[2].Value.Trim()
+      }
     }
     if($c2.Count -ge 50){ $script:THP_LISTE = ($c2 | Sort-Object) -join "`n" }
   } catch {}
@@ -612,7 +617,16 @@ DERS: $($s.ders) | KONU: $($s.konu)
 KAYNAK: $($s.kaynak)
 
 $dayanakBlok
-$(if($script:THP_LISTE -ne '' -and (($i.eksik -contains 'D7_yevmiye') -or ($i.eksik -contains 'D7_tablo'))){ @"
+$(if($script:THP_LISTE -ne '' -and (
+     ($i.eksik -contains 'D7_yevmiye') -or ($i.eksik -contains 'D7_tablo') -or
+     # 03.08 - CEM'IN 181 BULGUSU: listeyi YALNIZ tablo/yevmiye istendiginde
+     # ekliyordum. Oysa hesap kodu "Dogrusu" metninde de geciyor. O soruda
+     # yalniz Dogrusu istenmisti -> liste HIC gitmedi -> model yine hafizadan
+     # yazdi ve "181 Diger Donen Varliklar" dedi (181 = GELIR TAHAKKUKLARI;
+     # personel avansi 196). Formul vakasinin ayni hatasi: KAYNAGI YANLIS
+     # KOSULA BAGLAMISIM. Artik muhasebe baglami varsa liste HER ZAMAN gider.
+     ("$($s.ders) $($s.konu) $($s.soru)" -match '(?i)muhasebe|hesap|yevmiye|defter|kay[ıi]t|bilan[çc]o|gelir tablo|maliyet|stok|amortisman|avans|kar[şs][ıi]l[ıi]k|reeskont')
+   )){ @"
 
 === TEKDUZEN HESAP PLANI (resmi kod listesi) ===
 $($script:THP_LISTE)
@@ -1001,6 +1015,29 @@ for($n=0; $n -lt $parti.Count; $n++){
       }
     }
     if($disi -gt 0){ $dayanakDisiSoru++; $dayanakDisiIddia += $disi }
+
+    # ====================================================================
+    #  HESAP KODU-AD ESLESME KAPISI (03.08, Cem'in 181 bulgusu)
+    #
+    #  Dayanak-disi kapisi kodun VARLIGINA bakiyordu: 181 THP'de var, gecti.
+    #  Ama sorun kodun varligi degil, KOD ILE ADIN ESLESMESI: "181 Diger Donen
+    #  Varliklar" yazilmis; 181 GELIR TAHAKKUKLARI'dir. Yani yanlis esleme
+    #  butun kapilardan geciyordu. Artik motor kendi ciktisini THP'nin resmi
+    #  kod->ad listesine karsi denetler - yayin kapisi K4'un uretim anindaki hali.
+    # ====================================================================
+    if($script:THP_AD.Count -gt 50){
+      foreach($mm in [regex]::Matches($uretilen, '(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})')){
+        $kod = $mm.Groups[1].Value; $ad = $mm.Groups[2].Value.Trim()
+        if($ad.Length -lt 4){ continue }
+        if(-not $script:THP_AD.ContainsKey($kod)){ continue }
+        $a = @(($ad.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $b = @(($script:THP_AD[$kod].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        if($a.Count -eq 0 -or $b.Count -eq 0){ continue }
+        $tutar = $false
+        foreach($x in $a){ foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ $tutar = $true } } }
+        if(-not $tutar){ $script:hesapKoduYanlis++ }
+      }
+    }
   }
   $sonuc.Add([ordered]@{
     soru_id="$($i.soru.id)"; parti=$etiketAdi; model=$MODEL
@@ -1060,6 +1097,7 @@ $rapor = [ordered]@{
   yapayzeka_kokusu=$yzKokusu              # doldurma kaliplari
   tekduze_kusurlu=$tekduzeKusurlu         # siklar ayni kalipla aciliyor (makine izi)
   muglak_ifade=$muglakIfade               # "belirli sartlarda" deyip sartlari saymayan
+  hesap_kodu_yanlis=$hesapKoduYanlis      # kod ile ad THP de eslesmiyor (181 vakasi)
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
