@@ -1,11 +1,11 @@
 {
-  "tarih": "03.08.2026 19:47",
+  "tarih": "03.08.2026 20:45",
   "durum": "TAMAM",
   "kasa": 27478,
   "taranan_alan": 302333,
-  "toplam_uymuyor_cift": 7867,
-  "deterministik_oneri": 659,
-  "supheli_dokunulmayan": 7208,
+  "toplam_uymuyor_cift": 7521,
+  "deterministik_oneri": 314,
+  "supheli_dokunulmayan": 7207,
   "ilk_10_ornek": [
     {
       "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
@@ -16,83 +16,6 @@
       "yazili_ad": "Verilen Sipariş Avansları",
       "onerilen_kod": "159",
       "onerilen_ad": "VERİLEN SİPARİŞ AVANSLARI",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "00cd183a-7b54-4c1b-a97f-5f083fe09679",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.B",
-      "yayinda": false,
-      "yazili_kod": "260",
-      "yazili_ad": "HAZIRLIK GİDERLERİ",
-      "onerilen_kod": "272",
-      "onerilen_ad": "HAZIRLIK VE GELİŞTİRME GİDERLERİ",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "00cd183a-7b54-4c1b-a97f-5f083fe09679",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.C",
-      "yayinda": false,
-      "yazili_kod": "260",
-      "yazili_ad": "HAZIRLIK GİDERLERİ",
-      "onerilen_kod": "272",
-      "onerilen_ad": "HAZIRLIK VE GELİŞTİRME GİDERLERİ",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "0121951a-38de-4eb5-8efb-44da03b0061c",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.A",
-      "yayinda": false,
-      "yazili_kod": "254",
-      "yazili_ad": "MAKİNE TESİS CIHAZLAR",
-      "onerilen_kod": "253",
-      "onerilen_ad": "TESİS, MAKİNE VE CİHAZLAR",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "0121951a-38de-4eb5-8efb-44da03b0061c",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.B",
-      "yayinda": false,
-      "yazili_kod": "254",
-      "yazili_ad": "MAKİNE TESİS CIHAZLAR",
-      "onerilen_kod": "253",
-      "onerilen_ad": "TESİS, MAKİNE VE CİHAZLAR",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "0121951a-38de-4eb5-8efb-44da03b0061c",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.C",
-      "yayinda": false,
-      "yazili_kod": "254",
-      "yazili_ad": "MAKİNE TESİS CIHAZLAR",
-      "onerilen_kod": "253",
-      "onerilen_ad": "TESİS, MAKİNE VE CİHAZLAR",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "0121951a-38de-4eb5-8efb-44da03b0061c",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.D",
-      "yayinda": false,
-      "yazili_kod": "254",
-      "yazili_ad": "MAKİNE TESİS CIHAZLAR",
-      "onerilen_kod": "253",
-      "onerilen_ad": "TESİS, MAKİNE VE CİHAZLAR",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "0121951a-38de-4eb5-8efb-44da03b0061c",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.E",
-      "yayinda": false,
-      "yazili_kod": "254",
-      "yazili_ad": "MAKİNE TESİS CIHAZLAR",
-      "onerilen_kod": "253",
-      "onerilen_ad": "TESİS, MAKİNE VE CİHAZLAR",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
@@ -115,6 +38,83 @@
       "yazili_ad": "Kasa",
       "onerilen_kod": "100",
       "onerilen_ad": "Kasa",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "035d9108-f416-48db-9109-4e34b43bd2e3",
+      "ders": "Finansal Muhasebe",
+      "alan": "aciklama.A",
+      "yayinda": false,
+      "yazili_kod": "159",
+      "yazili_ad": "Diğer Ticari Alacaklar",
+      "onerilen_kod": "127",
+      "onerilen_ad": "DİĞER TİCARİ ALACAKLAR",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "03c462c4-4c2b-4a6d-95c3-943e085295c9",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "aciklama.A",
+      "yayinda": false,
+      "yazili_kod": "710",
+      "yazili_ad": "maliyet hesaplarına",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "05ec99ef-1e1f-4462-9dac-abda4ad88825",
+      "ders": "Finansal Muhasebe",
+      "alan": "siklar.C",
+      "yayinda": false,
+      "yazili_kod": "181",
+      "yazili_ad": "GELECEK AYLARA AİT GİDERLER HS.",
+      "onerilen_kod": "180",
+      "onerilen_ad": "Gelecek Aylara Ait Giderler",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "05ec99ef-1e1f-4462-9dac-abda4ad88825",
+      "ders": "Finansal Muhasebe",
+      "alan": "aciklama.C",
+      "yayinda": false,
+      "yazili_kod": "181",
+      "yazili_ad": "Gelecek Aylara Ait Giderler",
+      "onerilen_kod": "180",
+      "onerilen_ad": "Gelecek Aylara Ait Giderler",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "07418ded",
+      "ders": "Finansal Muhasebe",
+      "alan": "siklar.E",
+      "yayinda": false,
+      "yazili_kod": "523",
+      "yazili_ad": "Hisse Senedi İptal Karları",
+      "onerilen_kod": "521",
+      "onerilen_ad": "HİSSE SENEDİ İPTAL KARLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "07518966-c5b8-4eb9-86f7-b2e7fb72ed0b",
+      "ders": "Finansal Muhasebe",
+      "alan": "siklar.C",
+      "yayinda": false,
+      "yazili_kod": "181",
+      "yazili_ad": "GELECEK AYLARA AİT GİDERLER",
+      "onerilen_kod": "180",
+      "onerilen_ad": "Gelecek Aylara Ait Giderler",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "076e4db1-288d-4cb0-8ace-2cab8835cc26",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.C",
+      "yayinda": false,
+      "yazili_kod": "153",
+      "yazili_ad": "YARI MAMULLER",
+      "onerilen_kod": "151",
+      "onerilen_ad": "YARI MAMULLER-ÜRETİM",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     }
   ],
