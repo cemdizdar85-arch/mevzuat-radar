@@ -1,15 +1,15 @@
 {
-  "tarih": "03.08.2026 14:21",
+  "tarih": "03.08.2026 14:35",
   "karar": "YAYIN YOK - olculecek soru bulunamadi",
   "kasa_toplam": 27478,
   "yayinda_soru": 0,
-  "kirmizi_soru_tum_kasa": 27462,
+  "kirmizi_soru_tum_kasa": 27463,
   "kirmizi_soru_yayinda": 0,
   "kapilar_tum_kasa": {
     "K1_d3": 0,
     "K2_kanun_kopyasi": 233,
     "K3_yz_kokusu": 135,
-    "K4_hesap_kodu": 5224,
+    "K4_hesap_kodu": 8735,
     "K5_dogrusu_yok": 27457,
     "K6_ayni_cumle": 6,
     "K7_muglak_ifade": 43,
@@ -29,7 +29,7 @@
     "K9_eskimis_kurum": 0,
     "K10_eski_terim": 0
   },
-  "toplam_ihlal_tum_kasa": 37693,
+  "toplam_ihlal_tum_kasa": 41204,
   "toplam_ihlal_yayinda": 0,
   "ornekler": [
     {
@@ -66,6 +66,20 @@
       "ders": "Finansal Muhasebe",
       "yayinda": false,
       "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "770 yazilan 'alacaklandırılır.\n\nAkılda kalsın' resmi 'Genel Yönetim Giderleri'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "180 yazilan 'erteleme hesabı' resmi 'Gelecek Aylara Ait Giderler'"
     },
     {
       "kapi": "K5_dogrusu_yok",
@@ -136,6 +150,13 @@
       "ders": "Finansal Muhasebe",
       "yayinda": false,
       "detay": "198 yazilan 'kullanılmaz. TUZAK' resmi 'DİĞER ÇEŞİTLİ DÖNEN VARLIKLAR'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "257 yazilan 'Verilen Sipariş Avansları' resmi 'Birikmiş Amortismanlar (-)'"
     },
     {
       "kapi": "K5_dogrusu_yok",
@@ -236,6 +257,20 @@
       "detay": "yanlis sik 4, Dogrusu 0"
     },
     {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "100 yazilan 'kabul edilerek trend' resmi 'Kasa'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "100 yazilan 'formülüyle hesaplanır' resmi 'Kasa'"
+    },
+    {
       "kapi": "K5_dogrusu_yok",
       "soru_id": "003c5ba2",
       "ders": "Yabanci Dil",
@@ -274,41 +309,6 @@
       "kapi": "K5_dogrusu_yok",
       "soru_id": "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
       "ders": "Maliyet Muhasebesi",
-      "yayinda": false,
-      "detay": "yanlis sik 4, Dogrusu 0"
-    },
-    {
-      "kapi": "K5_dogrusu_yok",
-      "soru_id": "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-      "ders": "Finansal Muhasebe",
-      "yayinda": false,
-      "detay": "yanlis sik 4, Dogrusu 0"
-    },
-    {
-      "kapi": "K5_dogrusu_yok",
-      "soru_id": "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-      "ders": "Hukuk",
-      "yayinda": false,
-      "detay": "yanlis sik 4, Dogrusu 0"
-    },
-    {
-      "kapi": "K10_eski_terim",
-      "soru_id": "0049835b-a9a7-4293-8e61-28a33cd9389f",
-      "ders": "Finansal Muhasebe",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
-    },
-    {
-      "kapi": "K5_dogrusu_yok",
-      "soru_id": "0049835b-a9a7-4293-8e61-28a33cd9389f",
-      "ders": "Finansal Muhasebe",
-      "yayinda": false,
-      "detay": "yanlis sik 4, Dogrusu 0"
-    },
-    {
-      "kapi": "K5_dogrusu_yok",
-      "soru_id": "004c2ce7",
-      "ders": "Sermaye Piyasası Mevzuatı",
       "yayinda": false,
       "detay": "yanlis sik 4, Dogrusu 0"
     }
