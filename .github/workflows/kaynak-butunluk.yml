@@ -1,0 +1,42 @@
+# Kaynak butunluk denetimi — 0 USD. Cem'in "eksik okudugumuz baska sey var mi,
+# korkum yakalayamadigim hata" sorusunun kalici cevabi. Her push'ta kosar:
+# parcali kaynagin tek parcasini okuyan kod varsa is KIRMIZI biter.
+name: Kaynak Butunluk (0 USD)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '10 4 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: kaynak-butunluk
+  cancel-in-progress: false
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetle
+        id: kos
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/kaynak-butunluk.ps1
+      - name: Raporu commit'le
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/kaynak-butunluk.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/kaynak-butunluk.json
+          git diff --cached --quiet || git commit -m "Kaynak butunluk raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 7; done
+      - name: Karari uygula
+        if: always()
+        run: |
+          D=$(grep -o '"durum": *"[^"]*"' veri/kaynak-butunluk.json | head -1 | sed 's/.*"durum": *"//;s/"//')
+          echo "DURUM: $D"
+          if [ "$D" != "TEMIZ" ]; then echo "::error::Eksik okuma riski - veri/kaynak-butunluk.json"; exit 1; fi

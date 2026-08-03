@@ -73,14 +73,18 @@ $TOHUM = [ordered]@{
 
 # --- MODERN SOZLUK: THP resmi hesap adlari (guncel muhasebe dili) ---
 $modern = @{}
-$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(Test-Path $thpYol){
-  $thp = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
-  foreach($b in @($thp.belgeler)){
-    foreach($w in (("$($b.kaynak_ad)" + ' ' + "$($b.baslik)").ToLowerInvariant() -split '[^a-zçğıöşü]+')){
-      if($w.Length -ge 4){ $modern[$w] = 1 }
+# 03.08 - TUM msugt dosyalari: modern sozluk eksikse "guncel degil" diye
+# masum terimler suclanir. 730 GENEL URETIM GIDERLERI ikinci dosyadaydi -
+# yani "uretim" kelimesi modern sozlukte YOKTU ve eski terim sanilabilirdi.
+foreach($tf in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
+  try {
+    $thp = Get-Content $tf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($b in @($thp.belgeler)){
+      foreach($w in (("$($b.kaynak_ad)" + ' ' + "$($b.baslik)").ToLowerInvariant() -split '[^a-zçğıöşü]+')){
+        if($w.Length -ge 4){ $modern[$w] = 1 }
+      }
     }
-  }
+  } catch {}
 }
 Write-Host ("Modern sozluk (THP): {0} kelime" -f $modern.Count)
 

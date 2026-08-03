@@ -56,17 +56,26 @@ function CekListe([string]$uri){
 }
 
 # --- THP listesi (H4 icin hakemin elinde olacak) ---
+# 03.08 - TUM msugt dosyalari (kaynak-butunluk robotu bu dosyayi yakaladi):
+# msugt-thp-tam.json tek basina 199 hesap; 100 KASA, 102 BANKALAR, 600, 730
+# msugt-thp2.json'da. Hakem eksik listeyle yargilarsa dogru kodu yanlis sanar.
 $THP = ''
-$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(Test-Path $thpYol){
-  $tv = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
-  $c = New-Object System.Collections.Generic.List[string]
-  foreach($b in @($tv.belgeler)){
-    $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-    if($m.Success){ $c.Add(($m.Groups[1].Value + ' ' + $m.Groups[2].Value.Trim())) }
-  }
-  if($c.Count -ge 50){ $THP = ($c | Sort-Object) -join "`n" }
+$gorulen = @{}
+$c = New-Object System.Collections.Generic.List[string]
+foreach($tf in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
+  try {
+    $tv = Get-Content $tf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($b in @($tv.belgeler)){
+      $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+      if($m.Success -and -not $gorulen.ContainsKey($m.Groups[1].Value)){
+        $gorulen[$m.Groups[1].Value] = 1
+        $c.Add(($m.Groups[1].Value + ' ' + $m.Groups[2].Value.Trim()))
+      }
+    }
+  } catch {}
 }
+if($c.Count -ge 50){ $THP = ($c | Sort-Object) -join "`n" }
+Write-Host ("Hakem THP listesi: {0} hesap" -f $c.Count)
 
 # --- kasa ---
 $kasa = New-Object System.Collections.Generic.List[object]

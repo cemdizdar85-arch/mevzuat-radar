@@ -65,19 +65,26 @@ $kok  = Split-Path -Parent $here
 #  istemin icinde ve kural ona baglanabiliyor.
 # ============================================================================
 $script:THP_LISTE = ''
-$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(Test-Path $thpYol){
+# 03.08 - TUM msugt dosyalari. Tek dosya (msugt-thp-tam) 199 hesap tasiyor ve
+# 100 KASA / 102 BANKALAR / 600 YURTICI SATISLAR / 730 GENEL URETIM GIDERLERI
+# ICERMIYOR. Uretici EKSIK liste ile calisirsa, kullanmasi gereken kod listede
+# olmadigi icin model yine hafizadan yazar - onlemek istedigimiz seyin ta kendisi.
+$gorulenKod = @{}
+$ciftler = New-Object System.Collections.Generic.List[string]
+foreach($tf in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
   try {
-    $thpVeri = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
-    $ciftler = New-Object System.Collections.Generic.List[string]
+    $thpVeri = Get-Content $tf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($b in @($thpVeri.belgeler)){
       $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-      if($m.Success){ $ciftler.Add(($m.Groups[1].Value + ' ' + $m.Groups[2].Value.Trim())) }
+      if($m.Success -and -not $gorulenKod.ContainsKey($m.Groups[1].Value)){
+        $gorulenKod[$m.Groups[1].Value] = 1
+        $ciftler.Add(($m.Groups[1].Value + ' ' + $m.Groups[2].Value.Trim()))
+      }
     }
-    if($ciftler.Count -ge 50){ $script:THP_LISTE = ($ciftler | Sort-Object) -join "`n" }
-    Write-Host ("THP listesi: {0} hesap kodu isteme eklenecek." -f $ciftler.Count)
-  } catch { Write-Host "THP listesi okunamadi - istemlere eklenmeyecek: $($_.Exception.Message)" }
-} else { Write-Host "THP dosyasi yok - hesap kodu kurali istemlere eklenemeyecek." }
+  } catch { Write-Host ("THP dosyasi okunamadi: {0}" -f $tf.Name) }
+}
+if($ciftler.Count -ge 50){ $script:THP_LISTE = ($ciftler | Sort-Object) -join "`n" }
+Write-Host ("THP listesi: {0} hesap kodu isteme eklenecek (tum msugt dosyalari)." -f $ciftler.Count)
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 try { Start-Transcript -Path (Join-Path $kok 'veri/uretim-log.txt') -Force | Out-Null } catch {}
 
