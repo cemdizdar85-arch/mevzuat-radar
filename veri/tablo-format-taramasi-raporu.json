@@ -1,8 +1,14 @@
 {
-  "tarih": "03.08.2026 18:12",
-  "durum": "HATA",
-  "hata": "Argument types do not match",
-  "sunucu": "",
-  "satir": 116,
-  "hat_metni": "Set-Content -LiteralPath $ciktiYol -Value (ConvertTo-Json -Depth 6 -InputObject ([ordered]@{"
+  "tarih": "03.08.2026 18:22",
+  "durum": "TAMAM",
+  "tablosu_olan_soru": 2426,
+  "eski_format_isaretli": 0,
+  "bunun_deterministik_donusturulebilir": 0,
+  "bunun_gozle_bakilmasi_gereken": 0,
+  "zaten_yeni_format_borc_alacak": 17,
+  "diger_tablo_turu_oran_vb": 2409,
+  "atlanan_hatali_satir": 0,
+  "hata_ornek": [],
+  "ilk_10_ornek": [],
+  "not": "Kasaya HICBIR SEY YAZILMADI - bu yalniz olcum. Tam liste veri/tablo-format-taramasi.json icinde."
 }
