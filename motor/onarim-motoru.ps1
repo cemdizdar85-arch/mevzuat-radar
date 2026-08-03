@@ -370,6 +370,29 @@ if($null -eq $kv -or $kv.public -eq $true){
 }
 Write-Host ("Ucus oncesi: taslak kovasi hazir ve OZEL (public={0})." -f $kv.public)
 
+# --- DENEME YAZMASI: kovaya gercekten yazabiliyor muyuz? ---
+# 03.08 dersi: iki kosuda da 200 cagri YAPILDI, para gitti, sonra yazma bozuk
+# cikti ve ciktilar kayboldu. Artik yazma yetenegi TEK KURUS harcanmadan
+# denenir. Deneme dosyasi yazilip geri okunamiyorsa pilot BASLAMAZ.
+try {
+  $dGovde = ConvertTo-Json -Compress -InputObject @{ deneme=$true; etiket=$etiketAdi }
+  Invoke-RestMethod -Uri "$STOR/object/$KOVA/_deneme.json" -Method Post `
+    -Headers ($SK + @{ 'Content-Type'='application/json'; 'x-upsert'='true' }) `
+    -Body ([Text.Encoding]::UTF8.GetBytes($dGovde)) -TimeoutSec 60 | Out-Null
+  $dh = Invoke-WebRequest -Uri "$STOR/object/$KOVA/_deneme.json" -Headers $SK -UseBasicParsing -TimeoutSec 60
+  $dm = if($dh.RawContentStream){ [Text.Encoding]::UTF8.GetString($dh.RawContentStream.ToArray()) } else { "$($dh.Content)" }
+  if(($dm | ConvertFrom-Json).etiket -ne $etiketAdi){ throw "geri okunan icerik yazilanla ayni degil" }
+  Write-Host "Ucus oncesi: kovaya yazma DENENDI ve dogrulandi."
+} catch {
+  $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+  Write-Host "!! KOVAYA YAZILAMIYOR - pilot BASLATILMADI, para harcanmadi."
+  RaporYaz ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT BASLATILMADI'; durum='KIRMIZI'; maliyet_usd=0
+    sebep='taslak kovasina deneme yazmasi basarisiz'; hata="$($_.Exception.Message)"; sunucu=$g
+    not='Hicbir API cagrisi yapilmadi. Ciktinin kaybolacagi kosuya para verilmez (03.08 dersi: iki kez oldu).' })
+  exit 1
+}
+
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0
