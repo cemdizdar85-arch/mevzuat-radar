@@ -26,14 +26,26 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # tetik kapisi HEAD~1 karsilastirmasi yapiyor; sig checkout ile HEAD~1 YOKTUR
 
       - name: Tetigi denetle
         id: kapi
         run: |
-          if git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -q 'veri/tetik/onarim-pilot.txt'; then
+          # KOR KALMA: eskiden "2>/dev/null" hatayi yutuyordu. Sig checkout'ta
+          # HEAD~1 YOKTUR, komut duserdi ve kapi sessizce "pilot yok" derdi -
+          # tetik dosyasi push'lanmis olsa bile. Artik ne gordugunu YAZIYOR.
+          if ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+            echo "!! HEAD~1 YOK (sig checkout) - tetik okunamadi, KURU kosuluyor."
+            echo "pilot=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          echo "--- bu push'ta degisen dosyalar ---"
+          git diff --name-only HEAD~1 HEAD
+          echo "-----------------------------------"
+          if git diff --name-only HEAD~1 HEAD | grep -q 'veri/tetik/onarim-pilot.txt'; then
             echo "pilot=evet" >> $GITHUB_OUTPUT; echo "PARALI PILOT (sinir 200)."
           else
-            echo "pilot=hayir" >> $GITHUB_OUTPUT; echo "KURU KOSU - 0 USD."
+            echo "pilot=hayir" >> $GITHUB_OUTPUT; echo "KURU KOSU - 0 USD (tetik dosyasi bu push'ta degismemis)."
           fi
 
       - name: Kuru kosu (0 USD)

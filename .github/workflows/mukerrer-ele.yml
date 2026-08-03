@@ -25,6 +25,8 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # tetik kapisi HEAD~1 karsilastirmasi yapiyor; sig checkout ile HEAD~1 YOKTUR
       - name: Tetigi denetle
         id: kapi
         run: |
