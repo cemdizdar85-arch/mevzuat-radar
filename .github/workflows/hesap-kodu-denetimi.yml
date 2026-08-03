@@ -1,0 +1,41 @@
+# .github/workflows/hesap-kodu-denetimi.yml — 0 USD, API cagrisi YOK
+# Kasadaki TUM hesap kodu iddialarini Tekduzen Hesap Plani'na karsi denetler.
+# Cem'in "gormedigim yerlerde neler var?" sorusunun ilk cevabi.
+name: Hesap Kodu Denetimi (0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/hesap-kodu-denetimi.ps1'
+      - '.github/workflows/hesap-kodu-denetimi.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 1'   # her pazartesi 03:17 UTC - sessizce nobet tutar
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hesap-kodu-denetimi
+  cancel-in-progress: false
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetle
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/hesap-kodu-denetimi.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/hesap-kodu-denetimi.json ]; then git add veri/hesap-kodu-denetimi.json || true; fi
+          git diff --cached --quiet || git commit -m "Hesap kodu denetimi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

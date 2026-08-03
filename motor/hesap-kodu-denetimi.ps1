@@ -1,0 +1,156 @@
+# ============================================================================
+#  HESAP KODU DENETIMI (03.08.2026) — 0 USD, API YOK
+#
+#  NEDEN: Cem pilot taslaginda dort yanlis hesap kodu yakaladi — personel avansi
+#  icin 253 (oysa 253 = TESIS, MAKINE VE CIHAZLAR; dogrusu 196), siparis avansi
+#  icin 122 (dogrusu 159), kira teminati icin 127 (dogrusu 126), teslim alinmamis
+#  demirbas pesinati icin 122 (dogrusu 259). Dordu de modelin kendi hafizasindan.
+#
+#  CEM'IN SORUSU: "gormedigim yerlerde neler var?" — HAKLI SORU. O yanlislar
+#  TASLAKTA idi, kasaya yazilmadi. Ama kasadaki 27.478 soru da benzer bir uretimle
+#  yazildi. Ayni hata orada da var mi? Bilmiyoruz. BILMEMEK KABUL EDILEMEZ.
+#
+#  BU SCRIPT: Tekduzen Hesap Plani'ni (veri/mevzuat/msugt-thp-tam.json) resmi
+#  kod->ad listesi olarak okur, kasadaki HER sorunun metninde ve aciklamalarinda
+#  gecen "NNN HesapAdi" iddialarini bulur ve resmi adla KARSILASTIRIR.
+#
+#  UC SONUC:
+#    UYUYOR      : kod ve ad resmi listeyle ortusuyor
+#    UYMUYOR     : kod var ama BASKA hesabin adi yazilmis  <-- Cem'in yakaladigi hata
+#    KOD_YOK     : boyle bir hesap kodu THP'de yok
+#
+#  Rapor SAYI tasir; ornekler soru ID + kod + iddia + resmi ad seklinde, soru
+#  METNI YAZILMAZ (public depo, 03.08 sizinti dersi).
+#
+#  ENV: SUPABASE_SERVICE_KEY · Cikti: veri/hesap-kodu-denetimi.json
+# ============================================================================
+$ErrorActionPreference = 'Stop'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$kok  = Split-Path -Parent $here
+$raporYol = Join-Path $kok 'veri/hesap-kodu-denetimi.json'
+
+function RaporYaz($n){
+  $j = ConvertTo-Json -InputObject $n -Depth 5
+  if($j.Length -gt 60000){ $j = ConvertTo-Json -Depth 2 -InputObject @{ durum='KIRMIZI - rapor sismis'; boyut=$j.Length } }
+  Set-Content -LiteralPath $raporYol -Value $j -Encoding UTF8 -NoNewline
+}
+trap {
+  $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'
+    hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber })
+  Write-Host ("HATA (satir {0}): {1} | {2}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message, $g); exit 1
+}
+if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - cikildi."; exit 0 }
+$U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
+$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+function CekListe([string]$uri){
+  $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
+  $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
+  return @($m | ConvertFrom-Json)
+}
+
+# --- RESMI KOD -> AD LISTESI (Tekduzen Hesap Plani) ---
+$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
+if(-not (Test-Path $thpYol)){ Write-Host "THP dosyasi yok."; RaporYaz @{ durum='KIRMIZI'; sebep='msugt-thp-tam.json bulunamadi' }; exit 1 }
+$thp = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
+$RESMI = @{}
+foreach($b in @($thp.belgeler)){
+  # kaynak_ad ornegi: "THP 101 - ALINAN ÇEKLER"
+  $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+  if($m.Success){ $RESMI[$m.Groups[1].Value] = $m.Groups[2].Value.Trim() }
+}
+Write-Host ("Resmi hesap kodu: {0}" -f $RESMI.Count)
+if($RESMI.Count -lt 50){ Write-Host "!! SUPHELI: cok az hesap kodu okundu, ayristirma kirik olabilir."; }
+
+# --- kasa ---
+$kasa = New-Object System.Collections.Generic.List[object]
+for($o=0; $o -lt 60000; $o+=1000){
+  $r = CekListe "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,yayin&order=id&limit=1000&offset=$o"
+  if($r.Count -eq 0){ break }
+  foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
+  if($r.Count -lt 1000){ break }
+}
+Write-Host ("Kasa: {0} soru" -f $kasa.Count)
+if($kasa.Count -lt 1000){ Write-Host "!! SUPHELI: kasa kucuk gorundu - sayfalama kirik olabilir." }
+
+# Turkce duyarsiz sadelestirme (imatch tuzagi: ASCII<->Turkce)
+function Sade([string]$t){
+  if($null -eq $t){ return '' }
+  $x = $t.ToUpperInvariant()
+  $x = $x -replace 'İ','I' -replace 'I','I' -replace 'Ş','S' -replace 'Ğ','G'
+  $x = $x -replace 'Ü','U' -replace 'Ö','O' -replace 'Ç','C'
+  $x = $x -replace '[^A-Z0-9 ]',' '
+  return ($x -replace '\s+',' ').Trim()
+}
+# Ad benzerligi: 4+ harflik ORTAK kelime varsa "uyuyor" say. Boylece
+# "196 PERSONEL AVANSLARI" ile resmi "PERSONEL AVANSLARI" tutar; ama
+# "253 Personel Avanslari" resmi "TESIS MAKINE VE CIHAZLAR" ile TUTMAZ.
+function AdUyuyorMu([string]$iddia, [string]$resmi){
+  $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 4 })
+  $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 4 })
+  if($a.Count -eq 0 -or $b.Count -eq 0){ return $true }   # karar veremiyorsak SUCLAMA
+  foreach($k in $a){ if($b -contains $k){ return $true } }
+  return $false
+}
+
+$reKod = [regex]'\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+$uyuyor=0; $uymuyor=0; $kodYok=0
+$soruUymuyor = @{}; $soruKodYok = @{}
+$ornek = New-Object System.Collections.Generic.List[object]
+$kodSayaci = @{}
+
+foreach($s in $kasa){
+  $tum = "$($s.soru)"
+  if($s.siklar){ foreach($p in $s.siklar.PSObject.Properties){ $tum += ' ' + "$($p.Value)" } }
+  if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $tum += ' ' + "$($p.Value)" } }
+  foreach($mm in $reKod.Matches($tum)){
+    $kod = $mm.Groups[1].Value
+    $ad  = $mm.Groups[2].Value.Trim()
+    if($ad.Length -lt 4){ continue }
+    if(-not $RESMI.ContainsKey($kod)){
+      $kodYok++; $soruKodYok["$($s.id)"] = 1
+      continue
+    }
+    if(AdUyuyorMu $ad $RESMI[$kod]){ $uyuyor++ }
+    else {
+      $uymuyor++; $soruUymuyor["$($s.id)"] = 1
+      $anah = "$kod|$(Sade $ad)"
+      $kodSayaci[$anah] = 1 + $kodSayaci[$anah]
+      if($ornek.Count -lt 40){
+        $ornek.Add([ordered]@{ soru_id="$($s.id)"; ders="$($s.ders)"; kod=$kod
+                               yazilan_ad=$ad; resmi_ad=$RESMI[$kod]; yayinda=$s.yayin })
+      }
+    }
+  }
+}
+
+# En sik tekrarlanan yanlis eslesmeler (once bunlari duzeltmek en cok soruyu kurtarir)
+$sikYanlis = New-Object System.Collections.Generic.List[object]
+foreach($k in ($kodSayaci.Keys | Sort-Object { -$kodSayaci[$_] } | Select-Object -First 20)){
+  $par = $k -split '\|'
+  $sikYanlis.Add([ordered]@{ kod=$par[0]; yazilan_ad=$par[1]; resmi_ad=$RESMI[$par[0]]; adet=$kodSayaci[$k] })
+}
+
+$rapor = [ordered]@{
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='DENETIM (0 USD, hicbir sey degistirilmedi)'
+  kasa=$kasa.Count; resmi_hesap_kodu=$RESMI.Count
+  iddia_uyuyor=$uyuyor
+  iddia_uymuyor=$uymuyor
+  iddia_kod_yok=$kodYok
+  soru_uymuyor=$soruUymuyor.Count
+  soru_kod_yok=$soruKodYok.Count
+  yanlis_orani_yuzde=$(if(($uyuyor+$uymuyor) -gt 0){ [Math]::Round(100.0*$uymuyor/($uyuyor+$uymuyor),2) } else { 0 })
+  en_sik_yanlis=$sikYanlis.ToArray()
+  ornekler=$ornek.ToArray()
+  not='Yalniz OLCUM. Kasada hicbir sey degistirilmedi. Ad benzerliginde karar verilemeyen durumlar UYUYOR sayilir (suphede suclamiyoruz), yani gercek yanlis sayisi bundan AZ DEGILDIR.'
+}
+RaporYaz $rapor
+Write-Host "`n=== HESAP KODU DENETIMI ==="
+Write-Host ("  Resmi kod listesi : {0}" -f $RESMI.Count)
+Write-Host ("  Iddia UYUYOR      : {0}" -f $uyuyor)
+Write-Host ("  Iddia UYMUYOR     : {0}  <-- YANLIS" -f $uymuyor)
+Write-Host ("  THP'de kod YOK    : {0}" -f $kodYok)
+Write-Host ("  Etkilenen soru    : {0} (uymayan) + {1} (kod yok)" -f $soruUymuyor.Count, $soruKodYok.Count)
+Write-Host ("  Yanlis orani      : %{0}" -f $rapor.yanlis_orani_yuzde)
