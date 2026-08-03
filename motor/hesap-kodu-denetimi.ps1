@@ -95,8 +95,23 @@ function AdUyuyorMu([string]$iddia, [string]$resmi){
   return $false
 }
 
-$reKod = [regex]'\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
-$uyuyor=0; $uymuyor=0; $kodYok=0
+# ============================================================================
+#  BIRIM TUZAGI — ilk olcumde (03.08 07:49) yakalandi, rakam SAHTEYDI.
+#
+#  Ilk desen "750 TL borc" ifadesindeki 750'yi HESAP KODU, "TL"yi de HESAP ADI
+#  sandi. Sonuc: "kod 750 yazilan ad 'TL BORC' resmi ad 'ARASTIRMA VE GELISTIRME
+#  GIDERLERI' - 212 kez" gibi 18.072 sahte yanlis ve %49'luk uydurma bir oran.
+#  Ayni sekilde "480 adet" -> "boyle kod yok" sayildi.
+#
+#  Rakama degil ORNEGE bakmak yakaladi. Kural: yeni bir olcum kurulunca once
+#  ilk on ornegi gozle oku; oran akla yatkin gorunse bile.
+#
+#  Iki filtre: (1) sayidan sonraki kelime BIRIM ise atla, (2) sayinin onunde
+#  nokta/virgul/rakam varsa (1.750 gibi) bu bir tutardir, atla.
+# ============================================================================
+$BIRIM = @('TL','LIRA','LİRA','USD','EUR','ADET','GUN','GÜN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','KURUŞ','TANE','KISI','KİŞİ','TAKSIT','TAKSİT')
+$reKod = [regex]'(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+$uyuyor=0; $uymuyor=0; $kodYok=0; $birimAtlanan=0
 $soruUymuyor = @{}; $soruKodYok = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
 $kodSayaci = @{}
@@ -109,6 +124,9 @@ foreach($s in $kasa){
     $kod = $mm.Groups[1].Value
     $ad  = $mm.Groups[2].Value.Trim()
     if($ad.Length -lt 4){ continue }
+    # BIRIM TUZAGI: "750 TL borc" hesap kodu degil TUTARDIR - atla
+    $ilkKelime = (Sade $ad) -split ' ' | Select-Object -First 1
+    if($BIRIM -contains $ilkKelime){ $birimAtlanan++; continue }
     if(-not $RESMI.ContainsKey($kod)){
       $kodYok++; $soruKodYok["$($s.id)"] = 1
       continue
@@ -139,6 +157,7 @@ $rapor = [ordered]@{
   iddia_uyuyor=$uyuyor
   iddia_uymuyor=$uymuyor
   iddia_kod_yok=$kodYok
+  birim_atlanan=$birimAtlanan   # "750 TL" gibi tutar sanilan, elenen eslesmeler
   soru_uymuyor=$soruUymuyor.Count
   soru_kod_yok=$soruKodYok.Count
   yanlis_orani_yuzde=$(if(($uyuyor+$uymuyor) -gt 0){ [Math]::Round(100.0*$uymuyor/($uyuyor+$uymuyor),2) } else { 0 })
