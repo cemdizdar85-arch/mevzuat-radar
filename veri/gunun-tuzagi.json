@@ -1,28 +1,28 @@
 {
-  "tarih": "02.08.2026",
-  "gun": "2026-08-02",
+  "tarih": "03.08.2026",
+  "gun": "2026-08-03",
   "durum": "TAMAM",
-  "id": "dc7e82dc",
+  "id": "6f2947df",
   "sinav": "SMMM",
   "ders": "Vergi Mevzuatı ve Uygulaması",
   "konu": "ihtiyati haciz halleri",
-  "soru": "Bir kurye firmasının sahibi Mehmet Bey'e, vergi dairesince yapılan tebligatla mal bildiriminde bulunması istenmiş, kendisi kanuni süre içinde herhangi bir bildirimde bulunmamıştır. Vergi dairesi bu durumda hangi işlemi yapabilir?",
+  "soru": "Kahve zinciri işleten Mert Bey, vergi dairesince mal bildirimine çağrılmış, kendisine tanınan süre içinde herhangi bir bildirimde bulunmamıştır. Bu durumda vergi dairesinin izleyebileceği yol hakkında hangisi doğrudur?",
   "siklar": {
-    "A": "Önce mahkemeden borçlunun kaçma ihtimali bulunduğuna dair karar alınması şarttır",
-    "B": "Mal bildirimi vermemenin tek sonucu hapis cezasıdır, haciz uygulanamaz",
-    "C": "Alacak henüz tahakkuk etmediğinden ihtiyati tahakkuk yoluna gidilmesi gerekir",
-    "D": "Mal bildirimine süresinde uyulmaması tek başına ihtiyati haciz sebebi olduğundan ihtiyati haciz kararı alınabilir",
-    "E": "Sadece ödeme emri tekrar tebliğ edilir, başka bir işlem yapılamaz"
+    "A": "Öncelikle kesin haciz uygulanmalı, ihtiyati haciz ancak kesin haciz başarısız olursa gündeme gelir.",
+    "B": "İhtiyati haciz sadece noksan bildirimde bulunulması halinde uygulanır; hiç bildirimde bulunmama bu bendi kapsamaz.",
+    "C": "Mal bildirimine çağrıldığı halde süresinde bildirimde bulunmayan borçlu hakkında m.13/5 uyarınca doğrudan ihtiyati haciz uygulanabilir.",
+    "D": "Mal bildiriminde bulunmama yalnızca hapis tazyiki sonucu doğurur, ihtiyati haciz için ayrı bir sebep sayılmaz.",
+    "E": "Mal bildirimine çağrılan borçlu hakkında bu aşamada sadece ihtiyati tahakkuk yoluna gidilebilir, ihtiyati haciz uygulanamaz."
   },
-  "dogru": "D",
+  "dogru": "C",
   "aciklama": {
-    "A": "Mahkeme kararı gerekliliği ile ihtiyati haciz yetkisini karıştırıyor. İhtiyati haciz, amme idaresinin mahalli en büyük memurunun kararıyla derhal uygulanır; mahkeme kararı aranmaz.",
-    "B": "Hapis cezası ile ihtiyati haciz müesseselerini karıştırıyor. Mal bildirimine uymamak, hapis cezası sebebi değil, doğrudan ihtiyati haciz uygulanmasını sağlayan bir durumdur.",
-    "C": "İhtiyati tahakkuk ile ihtiyati haciz kavramlarını karıştırıyor. İhtiyati tahakkuk vergi henüz kesinleşmeden verginin belirlenmesidir; ihtiyati haciz ise tahakkuk etmiş alacağın güvence altına alınmasıdır.",
-    "D": "Ne soruluyor: Mal bildirimine uymamanın sonucu nedir?\n\nKural: Borçlu kendisinden istenen mal bildirimini süresinde vermezse veya eksik bildirimde bulunursa, ihtiyati haciz derhal uygulanır. Bu durumda mahalli en büyük memur haciz kararı verebilir.\n\nBu olayda: Mehmet Bey'e mal bildirimi tebliğ edilmiş ancak süresinde bildirimde bulunmamış. Bu tek başına ihtiyati haciz sebebidir. Vergi dairesi yetkili amirden haciz kararı alıp malları haczedebilir.\n\nAkılda kalsın: Mal bildirimine uymamak, tek başına ihtiyati haciz için yeterli sebeptir.",
-    "E": "Ödeme emri tebliği ile ihtiyati haciz uygulamasını karıştırıyor. Mal bildirimine uymamanın yaptırımı sadece tebligat tekrarı değil, doğrudan ihtiyati haciz yetkisi doğmasıdır."
+    "A": "İhtiyati haciz ile kesin haciz arasında böyle bir 'önce-sonra' sıralaması yok; ihtiyati haciz zaten kesin haczin öncesinde, tedbir amaçlı uygulanan bir işlemdir.",
+    "B": "Kanun metni hem 'bildirimde bulunmama' hem 'noksan bildirimde bulunma' hallerini birlikte sayıyor; sadece noksan bildirimle sınırlamak metni eksik okumaktan kaynaklanan bir hata.",
+    "C": "Doğru. Kanun mal bildirimine çağrılıp süresinde bildirimde bulunmamayı, tehlike hali gibi ayrıca ispat gerektirmeyen, kendiliğinden yeterli bir ihtiyati haciz sebebi olarak saymıştır.",
+    "D": "Mal bildirimi vermemenin hapis tazyiki sonucu doğurması ayrı bir mesele; bu aynı zamanda kanunda sayılan bağımsız bir ihtiyati haciz sebebidir de. İkisi birbirini engellemiyor, aynı anda var olabiliyor.",
+    "E": "İhtiyati tahakkuk (m.17) ayrı bir kurum, farklı şartlarla (yurt dışına çıkma, işi terk gibi) uygulanır; mal bildirimine uymama doğrudan ihtiyati hacze konu olur, ihtiyati tahakkukla karıştırılmamalı."
   },
-  "kaynak": "6183 sayılı AATUHK m.13/4",
+  "kaynak": "6183 sayılı AATUHK m.13/5",
   "paylasim": {
     "baslik": "Günün Tuzağı",
     "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
@@ -30,8 +30,8 @@
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 150,
+    "uygun_aday": 149,
     "yayindaki": 150,
-    "gecmiste": 0
+    "gecmiste": 1
   }
 }
