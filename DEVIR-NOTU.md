@@ -1,52 +1,69 @@
-# DEVİR NOTU — 03.08.2026 · yeni sohbet buradan devam etsin
+# DEVİR NOTU — 03.08.2026 akşamı · yeni sohbet buradan devam etsin
 
 ## Durum tek cümle
-Onarım motoru hazır ve 17 kuralla donatıldı; **paralı tam parti Cem'in "bas"ını bekliyor.**
-Kasaya hiçbir şey yazılmadı, site kapalı, bugüne kadar harcanan ~3 USD (4 pilot).
+Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddesi + 7 robot**
+kuruldu; paralı tam parti hâlâ **Cem'in "bas"ını bekliyor.** Kasaya hiçbir şey yazılmadı,
+site kapalı, bugün harcanan ~8 USD (pilot koşuları).
 
 ## Cem'in okuduğu dosya
-Supabase Storage → özel kova `onarim-taslak` → **`pilot-0308-0833.html`** (200 soru).
-Okuma sürüyor; bulduğu kusurların numarasını verecek.
+Supabase Storage → özel kova `onarim-taslak` → en yeni `pilot-0308-*.html`
+(⋯ → Get URL). Yanındaki `.json` ham dosyadır, okunmaz.
 
-## Cem'in bugün bulduğu ve KURALA GİRENLER (hepsi ölçülüyor)
-- **D10** her yanlış şıkka ayrı düzeltme (aynı cümle yasak)
-- **D11** iyi olanı bozma — istenmeyen alan atılır
-- **D12** anne testi + kanun kopyası/yapay zekâ kalıbı yasağı
-- **D13** hesaplı soruda yanlış rakamı tersine çöz
-- **D14** hesap kodu dayanakta yoksa yazılamaz
-- **D15** "Kural" parçası sınırı çizer (neler girer/girmez/ihtiyari)
-- **D16** üretilen alanın birincil kaynağı istemde olacak → THP listesi istemlere eklendi
-- **D17** tekdüzelik yasağı — şıklar aynı kalıpla açılamaz *(en son eklendi)*
+## BUGÜN CEM'İN BULDUĞU VE KURALA GİREN 17 KUSUR
+D10 her şıkka ayrı düzeltme · D11 iyi olanı bozma · D12 anne testi + YZ kokusu yasağı ·
+D13 rakamı tersine çöz · **D13-ek** yöntem tanımı + formül · **D13-ek/2** formül kuralı
+dört parçadan bağımsız tetiklenir · D14 hesap kodu dayanaksız yazılamaz · **D14-ek**
+kod-ad eşleşmesi üretim anında denetlenir · D15 kuralın sınırını çiz · D16 üretilen
+alanın kaynağı istemde · **D16-ek** kaynak yanlış koşula bağlanamaz · D17 tekdüzelik
+yasağı · D18 tahdidi liste tam (olumlu sorular dahil) · D19 terimi açıkla ·
+D20 "Akılda kalsın" Kural ile çelişemez · D21 çıktı kesilirse tekrar iste ·
+D22 senaryo tarihi yakın ama rakamla tutarlı · D23 kardeş kaynak · D24 muğlak ifade
+yasak · D25 eskimiş kurum adı yasak · D26 güncel terim önde, kanun lafzı parantezde
 
-## Ölçülmüş hata envanteri (kasa 27.478)
-| Ne | Kaç |
+## HER BULGU ÜÇ YERE GİDER (Cem'in kuralı)
+**1. İstem** (yeni yazımlar) · **2. Kapı** (mevcut 27.478) · **3. Hakem** (anlam işi).
+Biri eksikse iş yarım kalmıştır.
+
+## ÖLÇÜLMÜŞ ENVANTER (kasa 27.478)
+| Kusur | Kaç soruda |
 |---|---|
-| Hesap kodu kod-ad uyuşmuyor | **865 soru** |
-| THP'de olmayan kod | 3.771 soru *(ayrı ölçülecek, bir kısmı meşru 7/A-7/B olabilir)* |
-| "Doğrusu" eksik | 26.505 |
-| Dört parça eksik | 1.248 |
-| Dayanak çözülemeyen | 973 |
+| "Doğrusu:" yok | 27.457 |
+| Eski terim (genel imal gideri…) | 3.884 |
+| Hesap kodu kod-ad uyuşmuyor | ~3.075 |
+| Sınır sorusu ama liste eksik | 703 |
+| Kanun kopyası dili | 233 |
+| Yapay zekâ kalıpları | 135 |
+| Muğlak ifade | 43 |
+| Eskimiş kurum adı | 8 |
 | Yayında olan soru | **0** — hiçbir hata öğrenciye açık değil |
 
-## Kurulu kontroller
-- `motor/yayin-kapisi.ps1` + yml — yayındaki soruda 6 kapı, DURDU ise iş kırmızı, günlük nöbet
-- `motor/hesap-kodu-denetimi.ps1` + yml — THP'ye karşı denetim, haftalık nöbet
-- `motor/onarim-motoru.ps1` — 9 sayaç; tetik dosyasında **`BAS`** yoksa para harcamaz
-- `motor/taslak-goster.ps1` — taslak JSON + kasa → okunur HTML (0 USD)
-- Belgeler: `KALITE-KAPILARI.md` (dürüst kapı envanteri) · `MUKERRER-BULGUSU.md` · `ONARIM-FIYAT-KARTI.md`
+## KURULU ROBOTLAR (hepsi 0 USD)
+- `yayin-kapisi.ps1` — 10 kapı, **tüm kasa** taranır, karar yayındakine bakar; günlük
+- `hesap-kodu-denetimi.ps1` — THP'ye karşı kod-ad denetimi; haftalık
+- `kaynak-butunluk.ps1` — **parçalı kaynağın tek parçasını okuyan kod var mı**; her push
+- `terim-taramasi.ps1` — eski dil adaylarını tek listede çıkarır; haftalık
+- `kardes-kaynak-cikar.ps1` — konu kümelerini kasadan ölçerek çıkarır; haftalık
+- `sik-istatistigi.ps1` — "adayların %38'i C'yi seçti"; günlük
+- `taslak-goster.ps1` — taslak JSON + kasa → okunur HTML
+- `hakem-son-okuma.ps1` — 8 anlam kusuru (PARALI, tetikte `BAS` şart)
 
-## SIRADAKİ İŞLER (yeni sohbette buradan başla)
-1. Cem'in `0833` okumasından çıkan kusurları isteme işle
-2. **Hakem son okuması** — istemine ekle: *"soru kökünde işlem yönü çelişkisi
-   (ödeme/tahsil, borç/alacak, alış/satış) → KUSURLU"* (Cem'in Denizli Mermer bulgusu)
-3. 865 yanlış kodlu soruyu Cem'e göster → onayıyla yayından çek
-4. `kod_yok` 3.771'i ayrı ölç (meşru mu uydurma mı)
-5. Sonra **TEK PARTİ TEK FATURA** (~115-150 USD, Cem'in "bas"ı şart)
+## SIRADAKİ İŞLER
+1. Son pilotun `hesap_kodu_duzeltilen` / `hesap_kodu_supheli` sayaçlarına bak
+2. Otomatik kod düzeltmesi taslakta çalıştıysa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
+3. Cem'in okumasından çıkan yeni kusurları işle
+4. Hakem son okuması — kuru koşuyla maliyet ölç, sonra Cem onayıyla
+5. Sonra **TEK PARTİ TEK FATURA** (~330 USD ölçüldü; ucuzlatma yolu: THP listesini
+   yalnız hesap kodu gereken sorulara koymak — ölçülmedi)
 
-## TASARRUF KURALI (03.08 — Cem 2 saatte 225 USD yaktı)
-Maliyet pilot koşularından değil, **sohbetin uzamasından** geliyor: her mesajda tüm
-geçmiş yeniden faturalanıyor. Bu yüzden:
-- Sohbet uzayınca **yeni sohbet aç**, bu notla devam et
-- Rutin iş (kod, ölçüm, denetim) **Sonnet**; Opus yalnız zor kararda
-- **Yoklama döngüsü kurma** — "bitti mi" diye bekleme, Cem dönünce tek komutla bak
-- Cevaplar kısa; tablo ve açıklama şişirme
+## BUGÜNÜN EN PAHALI DERSİ
+Sekiz kez rakam verdim, sekizinde de örneklere bakınca **sahte alarm** çıktı:
+TL birimi · "hesabına" · "paragraf" · Türkçe ekler · eksik THP listesi · yanlış dosya
+gruplama · yayında 0 soru · dayanakta olmayan THP kodları.
+**Kural: yeni bir ölçüm kurulunca önce ilk on örneği gözle oku; oran akla yatkın görünse bile.**
+Ve: **"kaynak eksik" demeden önce kaynağın tamamını okuduğunu doğrula.**
+
+## TASARRUF KURALI (Cem 2 saatte 225 USD yaktı)
+Maliyet pilot koşularından değil **sohbetin uzamasından** gelir: her mesajda tüm geçmiş
+yeniden faturalanır. Bu yüzden: sohbet uzayınca **yeni sohbet aç** ve bu notla devam et ·
+rutin iş **Sonnet**, Opus yalnız zor kararda · **yoklama döngüsü kurma** ·
+cevaplar kısa, tablo şişirme yok.
