@@ -451,6 +451,40 @@ foreach($tf in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -Error
 if($c2.Count -ge 50){ $script:THP_LISTE = ($c2 | Sort-Object) -join "`n" }
 Write-Host ("THP listesi: {0} hesap (tum msugt dosyalari birlestirildi)" -f $script:THP_AD.Count)
 
+# ============================================================================
+#  THP LISTESI KIME GIDER — 03.08 gece OLCUMUYLE GENISLETILDI
+#
+#  Olcum (veri/thp-liste-maliyet-raporu.json): simdiki genis desen 19.094
+#  soruya listeyi gonderiyor (48,19 USD). Daraltma senaryolari 21-25 USD
+#  kazandiriyordu AMA 9.087 soruyu listesiz birakiyordu -> yanlis hesap kodu
+#  riski. 21 USD icin bunu goze almak KOTU TAKAS: bir tek yanlis kod ogrenciye
+#  yanlis ogretir.
+#
+#  Ayni olcum GERCEK BIR DELIK buldu: 842 soru simdiki desene UYMUYOR ama
+#  metninde GERCEK hesap kodu VAR - yani liste gitmiyor, model hafizadan
+#  yaziyor. Cem'in yakaladigi 181 vakasinin ta kendisi, hala acikti.
+#
+#  KARAR: daraltma YOK, tam tersi GENISLETME (+2,12 USD, ~842 soru kurtulur).
+#  Kosula "metinde gercek hesap kodu izi var mi" eklendi ve artik SORU+SIKLAR+
+#  ACIKLAMA taranir (eskiden yalniz ders+konu+soru bakiliyordu - delik oradaydi).
+#
+#  KULTUR NOTU: [regex]::IsMatch(..., CultureInvariant) kullanilir. PowerShell
+#  -match operatoru kultur duyarlidir ve tr-TR'de 'I' harfi [A-Z] araligina
+#  GIRMEZ - bu gece ayni tuzaga uc kez dustuk, dorduncusu olmasin.
+# ============================================================================
+#  BIRIM TUZAGI (bu gecenin en sik sahte alarmi): "750 TL", "480 adet" hesap
+#  kodu DEGIL tutardir. Sayidan sonraki kelime birim ya da "numarali/hesap"
+#  gibi bir baglayici ise eslesme SAYILMAZ.
+$script:RE_KOD_IZI = New-Object System.Text.RegularExpressions.Regex(
+  '(?<![\d.,])\b[1-8]\d{2}(?!\d)\s*[-–—]?\s*(?!(?:TL|USD|EUR|LIRA|L[İI]RA|adet|kalem|tane|ki[şs]i|g[üu]n|ay\b|y[ıi]l|saat|kg|ton|puan|kuru[şs]|taksit|numaral|no\.?lu|say[ıi]l|hesab|hesap|kodlu|nolu))[A-Za-zÇĞİÖŞÜçğıöşü]|[A-Za-zÇĞİÖŞÜçğıöşü]\s*\(\s*[1-8]\d{2}\s*\)',
+  ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant -bor [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))
+function HesapKoduIziVar($s){
+  $t = "$($s.soru)"
+  try { if($s.siklar){   foreach($p in $s.siklar.PSObject.Properties){   $t += ' ' + "$($p.Value)" } } } catch {}
+  try { if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $t += ' ' + "$($p.Value)" } } } catch {}
+  return $script:RE_KOD_IZI.IsMatch($t)
+}
+
 # --- ISTEM KURUCU: yalniz EKSIK olanlari ister ---
 function IstemKur($i){
   $s = $i.soru
@@ -684,7 +718,11 @@ $(if($script:THP_LISTE -ne '' -and (
      # yazdi ve "181 Diger Donen Varliklar" dedi (181 = GELIR TAHAKKUKLARI;
      # personel avansi 196). Formul vakasinin ayni hatasi: KAYNAGI YANLIS
      # KOSULA BAGLAMISIM. Artik muhasebe baglami varsa liste HER ZAMAN gider.
-     ("$($s.ders) $($s.konu) $($s.soru)" -match '(?i)muhasebe|hesap|yevmiye|defter|kay[ıi]t|bilan[çc]o|gelir tablo|maliyet|stok|amortisman|avans|kar[şs][ıi]l[ıi]k|reeskont')
+     ("$($s.ders) $($s.konu) $($s.soru)" -match '(?i)muhasebe|hesap|yevmiye|defter|kay[ıi]t|bilan[çc]o|gelir tablo|maliyet|stok|amortisman|avans|kar[şs][ıi]l[ıi]k|reeskont') -or
+     # 03.08 GENISLETME (olcum: 842 soru bu delikten dusuyordu): yukaridaki
+     # desen ders+konu+soru'ya bakar; hesap kodu SIKTA ya da ACIKLAMADA da
+     # olabilir. Metinde gercek kod izi varsa liste MUTLAKA gider.
+     (HesapKoduIziVar $s)
    )){ @"
 
 === TEKDUZEN HESAP PLANI (resmi kod listesi) ===

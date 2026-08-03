@@ -79,7 +79,12 @@ Write-Host ("Kasa: {0} soru" -f $kasa.Count)
 # Motorun SIMDIKI genis deseni (onarim-motoru.ps1 ile birebir ayni)
 $reGenis = [regex]'(?i)muhasebe|hesap|yevmiye|defter|kay[ıi]t|bilan[çc]o|gelir tablo|maliyet|stok|amortisman|avans|kar[şs][ıi]l[ıi]k|reeskont'
 # Metinde GERCEK hesap kodu izi: "NNN Ad" ya da "Ad (NNN)"
-$reKod   = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*[A-Za-zÇĞİÖŞÜçğıöşü]|[A-Za-zÇĞİÖŞÜçğıöşü]\s*\(\s*[1-8]\d{2}\s*\)'
+# 04.08 DUZELTME: ilk olcumde BIRIM TUZAGI vardi - "750 TL", "480 adet" kod
+# saniliyordu ve 842 rakamini sisiriyordu. Birim/baglayici kelimeler elendi
+# (motor'daki RE_KOD_IZI ile birebir ayni desen).
+$reKod = New-Object System.Text.RegularExpressions.Regex(
+  '(?<![\d.,])\b[1-8]\d{2}(?!\d)\s*[-–—]?\s*(?!(?:TL|USD|EUR|LIRA|L[İI]RA|adet|kalem|tane|ki[şs]i|g[üu]n|ay\b|y[ıi]l|saat|kg|ton|puan|kuru[şs]|taksit|numaral|no\.?lu|say[ıi]l|hesab|hesap|kodlu|nolu))[A-Za-zÇĞİÖŞÜçğıöşü]|[A-Za-zÇĞİÖŞÜçğıöşü]\s*\(\s*[1-8]\d{2}\s*\)',
+  ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant -bor [System.Text.RegularExpressions.RegexOptions]::IgnoreCase))
 # Acik muhasebe fiili (kod yazilmasi beklenir)
 $reFiil  = [regex]'(?i)yevmiye|bor[çc]land[ıi]r|alacakland[ıi]r|kaydeder|muhasebele[şs]tir|hesab[ıi]na (bor[çc]|alacak)|defter-i kebir|mizan'
 
