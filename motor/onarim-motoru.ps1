@@ -299,6 +299,26 @@ $PARTI  = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
 $SBH = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"
           'Content-Type'='application/json'; Prefer='return=minimal,resolution=merge-duplicates' }
 
+# --- UCUS ONCESI KONTROL: taslak tablosu VAR MI? ---
+# Tablo yoksa 200 cagri yapilir, para gider, ciktilar yine kaybolur (03.08'de
+# tam bu oldu). Bu yuzden TEK KURUS harcanmadan once tablo yoklanir.
+try {
+  $yok = Invoke-WebRequest -Uri "$TASLAK`?select=id&limit=1" -Headers @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" } -UseBasicParsing -TimeoutSec 60
+  Write-Host ("Ucus oncesi: taslak tablosu VAR (HTTP {0})." -f $yok.StatusCode)
+} catch {
+  $g=''; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $g=$_.ErrorDetails.Message }
+  Write-Host "!! TASLAK TABLOSU YOK - pilot BASLATILMADI, para harcanmadi."
+  Write-Host ("   Sunucu: {0}" -f $g)
+  Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT BASLATILMADI'; durum='BEKLIYOR'
+    maliyet_usd=0
+    sebep='soru_onarim_taslak tablosu bulunamadi'
+    sunucu=$g
+    yapilacak='Supabase paneli -> SQL Editor -> sql/soru-onarim-taslak.sql yapistir -> RUN. Sonra tetigi tekrar at.'
+    not='Hicbir API cagrisi yapilmadi. Ciktinin kaybolacagi bir kosuya para verilmez.' }))
+  exit 0
+}
+
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0
