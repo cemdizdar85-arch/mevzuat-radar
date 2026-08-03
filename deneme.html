@@ -849,6 +849,14 @@ function cevabiGor(tekrarMi){
   // DOGRUSU karti (1-2-3 merdiven icinde), gorseller, (3) kehribar AKILDA KALSIN
   // finali, (4) diger siklar akordiyon, (5) kaynak. Icerik ayni, ambalaj sahneli.
   var yanlisYapti=(SECILI!==s.dogru);
+  // 03.08 CEM + UWORLD DUZENI: EXHIBIT ONCE, METIN SONRA.
+  // Onceki halde tablo/yevmiye aciklamalarin ALTINDAYDI; ogrenci "247.080
+  // nereden cikti" diye asagi yukari geziyordu. UWorld/Becker/Kaplan duzeni
+  // tam tersi: hesap gorseli aciklama blogunun BASINDA durur, once RAKAMIN
+  // NASIL CIKTIGI gorulur, sonra NEDEN oyle oldugu okunur.
+  // (Cem: "goruntu ve kolaylik sinava giren icin cok onemli, hic yormamali.")
+  h+=tabloGorsel(s);
+  h+=yevmiyeGorsel(s);
   sira.forEach(function(harf){
     var d=(harf===s.dogru), sen=(harf===SECILI && !d);
     var basl='';
@@ -862,9 +870,7 @@ function cevabiGor(tekrarMi){
        '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+basl+gerekceBicimle(s.aciklama[harf])+'</span></div>';
     if(d || harf===SECILI) h+=blok; else digerH+=blok;
   });
-  h+=hayaletGorsel(s);
-  h+=tabloGorsel(s);
-  h+=yevmiyeGorsel(s);
+  h+=hayaletGorsel(s);   // tablo/yevmiye YUKARI TASINDI (bkz. UWorld duzeni notu)
   if(s.hap){
     h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN — AKILDA KALSIN':'AKILDA KALSIN')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
   }
