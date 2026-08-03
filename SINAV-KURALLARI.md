@@ -423,3 +423,18 @@ Model yalnız listeden yazar; listede görmediği kodu yazamaz, yalnız hesap ad
 
 *Genel ilke:* bir alan üretiliyorsa o alanın birincil kaynağı istemin İÇİNDE olmalı.
 Kaynağı verilmeyen alan, yasak konulsa bile hafızadan yazılır.
+
+**D17. TEKDÜZELİK YASAĞI — ŞABLONLA AÇMA (03.08.2026 — Cem'in bulgusu)**
+Bir sorunun yanlış şık açıklamaları **aynı kalıpla açılamaz.** Pilotta dördü de
+*"X ile karıştırılıyor"* diye başladı — üst üste aynı açılış makine izidir; insan
+editör böyle yazmaz. Kök sebep istemdi: *"(1) neyle karıştırılıyor"* maddesi
+şablon sanıldı.
+
+*Kural:* aynı soruda her şık **farklı** açılacak — doğrudan konuya girme ·
+"sanılan-oysa" · soru-cevap · tuzağı adıyla koyma · öğrenci sesi. Tek bir şablon
+fiil (karıştırılıyor, sanılıyor, zannediliyor, akla geliyor) bir soruda **en fazla
+iki kez** geçebilir.
+
+*Ölçümü:* `tekduze_kusurlu` — şıkların ilk üç kelimesi tekrarlanıyorsa veya bir
+şablon fiil 3+ kez geçiyorsa soru kusurlu. Test: Cem'in gördüğü üç kutu → True,
+istenen hâli → False. [[yapayzeka-kokusu]]: iz dilde, iskelette değil.

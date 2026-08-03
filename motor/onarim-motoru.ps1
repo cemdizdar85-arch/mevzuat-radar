@@ -322,8 +322,20 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   # baska yolu. Ogrenciye A'nin NESI yanlis onu soylemiyor. Istem simdi her sikkin
   # KENDI IDDIASIYLA yuzlesmeyi zorunlu kiliyor ve ayni cumleyi yasakliyor.
   if($i.eksik -contains 'D2_dogrusu'){  $ist += @'
-dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC PARCALI olacak:
-  (1) NEYLE KARISTIRILIYOR — sikkin iddiasi hangi baska kuraldan geliyor, adini koy.
+dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC SEYI ANLATACAK:
+  (1) YANILGININ KAYNAGI — sikkin iddiasi hangi baska kuraldan geliyor.
+
+  !! CUMLE KALIBINI HER SIKTA DEGISTIR (03.08, Cem'in bulgusu) !!
+  Ilk pilotta dort sik da "X ile karistiriliyor" diye basladi. Ust uste ayni
+  acilis = MAKINE IZI; insan editor boyle yazmaz. Bir soruda ayni acilisi EN
+  FAZLA BIR KEZ kullan. Digerlerinde bunlardan farkli farkli sec:
+    - dogrudan konuya gir : "SPK'nin yetkisi ayrintiya iliskindir; temel kaynak..."
+    - sanilan-oysa        : "Burada Maliye'nin plani akla geliyor, oysa..."
+    - soru-cevap          : "Peki neden SPK degil? Cunku 88. madde..."
+    - tuzagi adiyla koy   : "Klasik yetki karmasi: yayimlayan kurum ile..."
+    - ogrenci sesiyle     : "Cogu aday burada uluslararasi metni isaretler;..."
+  Ayni soruda dort acilisin dordu de FARKLI olacak. Ayrica "karistiriliyor"
+  kelimesini bir soruda en fazla BIR kez kullanabilirsin.
   (2) O KURAL ASLINDA NEDIR — kisaca ANLAT: o kavram nerede, hangi halde gecerlidir.
       Bu parca ZORUNLU. Ogrenci "bu yanlismis" bilgisiyle kalmamali, karistirdigi
       kavrami DOGRU yerinde ogrenmeli. Yalnizca DAYANAK METNINDE gordugun kadarini
@@ -562,7 +574,7 @@ $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; '
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
 $dayanakDisiSoru=0; $dayanakDisiIddia=0; $maddeBulunamadi=0
-$istenmeyenAlan=0; $dortParcaEksik=0; $kanunKopyasi=0; $yzKokusu=0
+$istenmeyenAlan=0; $dortParcaEksik=0; $kanunKopyasi=0; $yzKokusu=0; $tekduzeKusurlu=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
 Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 
@@ -644,6 +656,47 @@ for($n=0; $n -lt $parti.Count; $n++){
     }
   }
   if($tekrarVar){ $tekrarKusurlu++ }
+
+  # ========================================================================
+  #  TEKDUZELIK KAPISI — 03.08, Cem: "hep karistiriliyor diyor, yapay zeka
+  #  yaptigi anlasilmamali."
+  #
+  #  Tekrar kapisi AYNI CUMLEYI yakaliyordu; bu ondan farkli ve daha sinsi:
+  #  cumleler FARKLI ama hepsi ayni kalipla ACILIYOR ("X ile karistiriliyor",
+  #  "Y ile karistiriliyor"...). Ust uste ayni acilis makine izidir - defterde
+  #  yazili: iz DILDE, iskelette degil; tekduzelik hatadan cok ele verir.
+  #  Kok sebep bendim: isteme "(1) neyle karistiriliyor" yazmisim, model bunu
+  #  sablon sandi. Istem duzeltildi; burada da OLCULUYOR.
+  #
+  #  Iki olcu: (a) ilk uc kelime ayni mi, (b) "karistiriliyor" kac kez geciyor.
+  # ========================================================================
+  if($null -ne $obj){
+    $acilislar = @(); $karistirSayisi = 0; $sablonFiil = @{}
+    foreach($alan in 'dogrusu','tuzak'){
+      $v = $null; try { if($obj.PSObject.Properties[$alan]){ $v = $obj.$alan } } catch {}
+      if($null -eq $v){ continue }
+      foreach($h in 'A','B','C','D','E'){
+        $m = ''; try { if($v.PSObject.Properties[$h]){ $m = "$($v.$h)" } } catch {}
+        if($m.Trim().Length -lt 15){ continue }
+        $kelimeler = @(($m.ToLowerInvariant() -replace '[^\p{L}\s]','') -split '\s+' | Where-Object { $_ })
+        if($kelimeler.Count -ge 3){ $acilislar += ($kelimeler[0..2] -join ' ') }
+        # Tek bir kelimeye degil, SABLON FIILLERININ HEPSINE bak: hangisi olursa
+        # olsun ayni fiil ust uste kullanilirsa tekduzedir.
+        foreach($f in 'kar[ıi][şs]t[ıi]r','san[ıi]l','zannedil','akla gel'){
+          if([regex]::IsMatch($m, "(?i)$f")){ $sablonFiil[$f] = 1 + $sablonFiil[$f] }
+        }
+        $karistirSayisi += ([regex]::Matches($m, '(?i)kar[ıi][şs]t[ıi]r')).Count
+      }
+    }
+    $tekduzeMi = $false
+    if($acilislar.Count -ge 3){
+      $benzersiz = @($acilislar | Select-Object -Unique).Count
+      if($benzersiz -lt [Math]::Ceiling($acilislar.Count / 2.0)){ $tekduzeMi = $true }
+    }
+    if($karistirSayisi -ge 3){ $tekduzeMi = $true }
+    foreach($f in $sablonFiil.Keys){ if($sablonFiil[$f] -ge 3){ $tekduzeMi = $true } }
+    if($tekduzeMi){ $tekduzeKusurlu++ }
+  }
 
   # --- DORT PARCA + DIL KAPISI (03.08, Cem: "annem bile anlasin") ---
   # Istemde "dort baslik zorunlu" demek yetmez; model tek paragraf hukuk metni
@@ -750,6 +803,7 @@ $rapor = [ordered]@{
   dort_parca_eksik=$dortParcaEksik        # dort baslik istendi ama gelmedi
   kanun_kopyasi=$kanunKopyasi             # "bilumum/muteferri" gibi kanun dili
   yapayzeka_kokusu=$yzKokusu              # doldurma kaliplari
+  tekduze_kusurlu=$tekduzeKusurlu         # siklar ayni kalipla aciliyor (makine izi)
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
