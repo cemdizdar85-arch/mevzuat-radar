@@ -236,7 +236,16 @@ foreach($i in $isler){
   if($i.eksik -notcontains 'D1_dort_parca'){
     $bentSayisi = ([regex]::Matches($metin, '(?m)^\s*[a-ıi]\)\s')).Count
     if($bentSayisi -lt 3){ $bentSayisi = ([regex]::Matches($metin, '\s[a-ıi]\)\s')).Count }
-    if($bentSayisi -ge 4){
+    # 03.08 - KENDI TETIGIMI SIKILASTIRDIM. Once yalniz "dayanakta 4+ bent var mi"
+    # diye bakiyordum; bu VEKIL bir olcu, gercek sart degil. Duzenli yazilmis her
+    # madde bentlidir - o zaman iyi bir aciklamayi bosuna yeniden yazdiririz, yani
+    # D11'in onlemek icin var oldugu zarari ben acmis olurum.
+    # GERCEK SART SORUNUN KENDISINDE: soru bir KAPSAM/SINIR sorusu mu?
+    # {0,30} dardi, "hangisi ... degildir" kalibini kaciriyordu (arada 30+ karakter
+    # var). Kendi testim yakaladi; {0,80}'e acildi.
+    $reSinirSorusu = [regex]'(?i)hangisi(nde)?\s+.{0,80}(uygulanmaz|kapsam\s*d[ıi][şs][ıi]|say[ıi]lmaz|girmez|de[ğg]ildir|dahil\s+de[ğg]il)|istisna|kapsam[ıi]\s+d[ıi][şs][ıi]nda'
+    $sinirSorusuMu = $reSinirSorusu.IsMatch("$($i.soru.soru)")
+    if($bentSayisi -ge 4 -and $sinirSorusuMu){
       $dhx = "$($i.soru.dogru)".Trim().ToUpper()
       $mevcut = ''
       try { if($i.soru.aciklama -and $i.soru.aciklama.PSObject.Properties[$dhx]){ $mevcut = "$($i.soru.aciklama.$dhx)" } } catch {}

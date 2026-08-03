@@ -461,3 +461,9 @@ kalmıştı — C'yi işaretleyen aday hiç görmüyordu.
 *Kural:* dayanakta 4+ bent (a) b) c)…) varsa **ve** mevcut Kural bunları yansıtmıyorsa
 dört parça yeniden yazılır. Diğer sorulara dokunulmaz — istisna **dar**.
 *Ölçümü:* `tahdidi_liste_yenilenen`. Test: m.4 metni → yenilenecek · düz madde → dokunulmaz.
+
+*Tetik sıkılaştırıldı (03.08, kendi denetimim):* önce yalnız "dayanakta 4+ bent var mı"
+diye bakıyordum — bu **vekil ölçü**, gerçek şart değil; düzenli yazılmış her madde
+bentlidir ve iyi bir açıklamayı boşuna yeniden yazdırırdık (D11'in önlemek için var
+olduğu zarar). Gerçek şart **sorunun kendisinde**: sınır sorusu mu?
+İki şart birlikte aranıyor. Test: 7 gerçek soru kökü, 7/7 doğru sınıflandı.
