@@ -186,7 +186,7 @@ $ADSOZLUK = @(
 #
 #  Liste KUCUK ve ELLE tutulur; her satir gercek bir sinav kumesidir.
 # ============================================================================
-$KARDES = @(
+$script:KARDES = @(
   @{ desen='(?i)defter\s*tasdik|yevmiye\s*defter|defteri\s*kebir|a[çc][ıi]l[ıi][şs]\s*onay|kapan[ıi][şs]\s*onay|ticari\s*defter'
      ekler=@(@{kod='VUK';madde='220'},@{kod='VUK';madde='221'},@{kod='VUK';madde='222'},@{kod='TTK';madde='64'}) }
   @{ desen='(?i)amortisman'
@@ -198,6 +198,27 @@ $KARDES = @(
   @{ desen='(?i)fatura|sevk\s*irsaliye|belge\s*d[üu]zen'
      ekler=@(@{kod='VUK';madde='229'},@{kod='VUK';madde='231'},@{kod='VUK';madde='232'}) }
 )
+# 03.08 - CEM: "bugun dun bulduklarimiza 'onu yapacaksin' deme."
+# Elle yazdigim 5 kume artik TEK basina degil: kardes-kaynak-cikar.ps1 kasadaki
+# konu dagilimindan kumeleri OLCUMLE cikariyor. Dosya varsa o da yuklenir ve
+# elle listeye eklenir; yoksa elle liste tek basina calisir (geriye donuk uyum).
+$kkYol = Join-Path $kok 'veri/kardes-kaynak.json'
+if(Test-Path $kkYol){
+  try {
+    $kkVeri = Get-Content $kkYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $eklenen = 0
+    foreach($km in @($kkVeri.kumeler)){
+      $ad = "$($km.konu)".Trim(); if($ad.Length -lt 3){ continue }
+      $ekList = @()
+      foreach($m in @($km.maddeler)){ $ekList += @{ kod="$($m.kod)"; madde="$($m.madde)" } }
+      if($ekList.Count -lt 2){ continue }
+      $script:KARDES += @{ desen = '(?i)' + [regex]::Escape($ad); ekler = $ekList }
+      $eklenen++
+    }
+    Write-Host ("Kardes kume (olcumle cikan): {0} eklendi" -f $eklenen)
+  } catch { Write-Host "kardes-kaynak.json okunamadi, elle liste kullanilacak." }
+} else { Write-Host "kardes-kaynak.json yok - elle liste kullanilacak." }
+
 $kardesOnbellek = @{}
 function KardesMetin([string]$kod, [string]$madde){
   $anah = "$kod|$madde"
