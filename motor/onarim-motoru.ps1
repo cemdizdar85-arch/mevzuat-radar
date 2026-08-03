@@ -643,6 +643,8 @@ try {
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
+$tekrarDenenen=0; $kesilen=0
+$islenmeyen = New-Object System.Collections.Generic.List[object]
 $dayanakDisiSoru=0; $dayanakDisiIddia=0; $maddeBulunamadi=0
 $istenmeyenAlan=0; $dortParcaEksik=0; $kanunKopyasi=0; $yzKokusu=0; $tekduzeKusurlu=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
@@ -651,26 +653,49 @@ Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 for($n=0; $n -lt $parti.Count; $n++){
   $i = $parti[$n]
   $istem = IstemKur $i
-  $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{
-    model=$MODEL; max_tokens=1500
-    messages=@(@{ role='user'; content=$istem })
+  # ========================================================================
+  #  KESILME VE TEKRAR DENEME — 03.08, Cem "Model gecerli JSON uretemedi"
+  #  kartini gordu.
+  #
+  #  Kok sebep bendim: max_tokens=1500 idi. Dort parca + dort tuzak + dort
+  #  "Dogrusu" + tablo yazilinca cikti sinira dayaniyor ve JSON ORTASINDA
+  #  KESILIYOR. Model hata yapmiyor, ben yerini dar birakmisim.
+  #  (Teshis: stop_reason='max_tokens' ise kesilmedir, model kusuru degil.)
+  #
+  #  Ayrica o soru SESSIZCE kayboluyordu. Artik: bir kez daha denenir; yine
+  #  olmazsa ID'si rapora yazilir - "islenmedi" bilinerek kalir.
+  # ========================================================================
+  $obj = $null; $temiz = ''; $kesildi = $false
+  for($deneme = 1; $deneme -le 2; $deneme++){
+    $tavan = if($deneme -eq 1){ 4000 } else { 6000 }
+    $istemBu = if($deneme -eq 1){ $istem } else {
+      $istem + "`n`nUYARI: onceki cevabin GECERLI JSON DEGILDI (buyuk ihtimalle uzunlugundan kesildi). Ayni icerigi DAHA KISA yaz ve MUTLAKA kapali, gecerli tek bir JSON nesnesi dondur. Baska hicbir sey yazma."
+    }
+    $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{
+      model=$MODEL; max_tokens=$tavan
+      messages=@(@{ role='user'; content=$istemBu })
+    }
+    try {
+      $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH `
+           -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 180
+    } catch {
+      if($deneme -eq 2){ $hataliCagri++; Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message) }
+      continue
+    }
+    $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
+    if("$($c.stop_reason)" -eq 'max_tokens'){ $kesildi = $true }
+    $metin = ''
+    foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
+    $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
+    try { $obj = $temiz | ConvertFrom-Json } catch { $obj = $null }
+    if($null -ne $obj){ break }
+    if($deneme -eq 1){ $tekrarDenenen++; Write-Host ("  [{0}] JSON bozuk (kesildi={1}) - tekrar deneniyor" -f ($n+1), $kesildi) }
   }
-  try {
-    $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH `
-         -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120
-  } catch {
-    $hataliCagri++
-    Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message)
-    continue
-  }
-  $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
-  $metin = ''
-  foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
-  # Model bazen JSON'u ``` icine sarar - soyup dene.
-  $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
-  $obj = $null
-  try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
-  if($null -ne $obj){ $basarili++ }
+  if($null -eq $obj){
+    $bozukJson++
+    $islenmeyen.Add([ordered]@{ id="$($i.soru.id)"; sebep=$(if($kesildi){'cikti kesildi (max_tokens)'}else{'gecerli JSON uretilemedi'}) })
+  } else { $basarili++ }
+  if($kesildi){ $kesilen++ }
 
   # ========================================================================
   #  ISTENMEYENI AT — 03.08, Cem'in ikinci bulgusu.
@@ -865,6 +890,9 @@ $rapor = [ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT (PARALI, kasaya YAZILMADI)'
   model=$MODEL; istenen=$parti.Count
   basarili_json=$basarili; bozuk_json=$bozukJson; cagri_hatasi=$hataliCagri
+  tekrar_denenen=$tekrarDenenen          # ilk denemede JSON bozuktu, yeniden istendi
+  cikti_kesilen=$kesilen                 # max_tokens sinirina dayandi
+  islenmeyen=$islenmeyen.ToArray()       # iki denemede de olmayanlar - SESSIZ KAYIP YOK
   tekrar_kusurlu=$tekrarKusurlu           # ayni cumleyi birden fazla sikka yazan soru
   dayanak_disi_soru=$dayanakDisiSoru      # dayanakta OLMAYAN sayi/madde/oran yazan soru
   dayanak_disi_iddia=$dayanakDisiIddia    # toplam kac tane oyle iddia var

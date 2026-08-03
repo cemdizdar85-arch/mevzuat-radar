@@ -497,3 +497,14 @@ yöntemi bir cümleyle tanımlar, sonra **formülü ayrı satırda** verir; form
 kalan unsur açıkça belirtilir *("sabit genel üretim gideri bu formüle girmez")*.
 *Sınır:* yöntemin tanımı muhasebe tekniğidir, yazılabilir; **oran/tutar/eşik** yine
 yalnız dayanaktan alınır (D4 bozulmaz).
+
+**D21. SESSİZ KAYIP YOK — KESİLEN ÇIKTI TEKRAR İSTENİR (03.08.2026 — Cem'in bulgusu)**
+"Model geçerli JSON üretemedi" kartının kök sebebi modelin hatası değil, **çıktı
+sınırıydı**: `max_tokens=1500` iken dört parça + dört tuzak + dört "Doğrusu" + tablo
+sınıra dayanıp JSON ortasında kesiliyordu.
+
+*Üç düzeltme:* (1) tavan 4.000'e çıkarıldı, tekrar denemede 6.000; (2) JSON bozuksa
+**bir kez daha** istenir — "daha kısa yaz, kapalı JSON döndür"; (3) iki denemede de
+olmazsa sorunun **ID'si rapora yazılır** (`islenmeyen`), sessizce kaybolmaz.
+*Teşhis notu:* `stop_reason = max_tokens` ise kesilmedir, model kusuru değil —
+rapordaki `cikti_kesilen` sayacı bunu ayırır.
