@@ -5,6 +5,26 @@ Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddes
 kuruldu; paralı tam parti hâlâ **Cem'in "bas"ını bekliyor.** Kasaya hiçbir şey yazılmadı,
 site kapalı, bugün harcanan ~10,4 USD (üç pilot koşusu; 4.'sü gereksiz çıkıp iptal edildi).
 
+## 🛑 TAM PARTİ BASILMADAN ÖNCE: DOĞRULAMA PİLOTU ŞART (04.08 gece)
+Cem tam partiyi tetiklemek istedi, **itiraz ettim, Cem "yok o işe şimdi girme" dedi —
+hiçbir paralı iş tetiklenmedi.** Sebep kayda geçsin:
+
+**Son pilottan (1946, 03.08 20:32) SONRA motora üç değişiklik push edildi ve HİÇBİRİ
+GERÇEK KOŞUDA ÇALIŞMADI** (sözdizimi temiz ama çalışma zamanı kanıtlanmadı):
+1. THP listesi koşulu genişletildi + yeni `HesapKoduIziVar` fonksiyonu
+2. Motorun kendi çıktısını denetlemesi (`hesap_kodu_gecersiz_uretim`) + `hesap_kodu_ornek`
+3. D13-ek genişletilmiş yöntem regex'i (kaldıraç, cari oran, değişim oranı…)
+
+**Kural: tam parti (~367 USD) hiç çalışmamış kodla basılmaz.** Önce 200'lük doğrulama
+pilotu (~2,7 USD = tam partinin %0,7'si). O pilot `hesap_kodu_ornek` alanını İLK KEZ
+doldurur — bütün gece eksik olan **içerik doğrulaması** ancak orada yapılabilir.
+*Gerekçe: bu gece sayaca güvenip içeriğe bakmadığımız her seferinde yanıldık — unwrap
+bug'ı (sayaç "1 düzeltme" dedi, içerik çöptü), şişik 842 rakamı, üç ayrı kültür hatası.*
+
+**Ayrıca workflow'da tam parti yolu KASTEN YOK** (yalnız `-uygula -sinir 200` var).
+Tam parti için `.github/workflows/onarim-motoru.yml` bilerek değiştirilmeli — kaza ile
+basılamaz. Bu koruma KALDIRILMASIN.
+
 ## ⚠ TAM PARTİDE MUTLAKA OLACAK İKİ İŞ (Cem'in kararı — ATLAMA)
 Bu ikisi ayrı parti olarak koşulmayacak, **tam partinin içinde** gelecek. Tam parti
 tetiklenmeden önce bu satırlar okunacak:
