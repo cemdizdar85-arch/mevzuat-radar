@@ -200,3 +200,5 @@ Write-Host ("  Iddia UYMUYOR     : {0}  <-- YANLIS" -f $uymuyor)
 Write-Host ("  THP'de kod YOK    : {0}" -f $kodYok)
 Write-Host ("  Etkilenen soru    : {0} (uymayan) + {1} (kod yok)" -f $soruUymuyor.Count, $soruKodYok.Count)
 Write-Host ("  Yanlis orani      : %{0}" -f $rapor.yanlis_orani_yuzde)
+
+# yeniden-kosum 03.08 08:2x - ilk temiz olcum push yarisini kaybetti
