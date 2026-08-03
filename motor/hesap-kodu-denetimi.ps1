@@ -137,7 +137,15 @@ function AdUyuyorMu([string]$iddia, [string]$resmi){
 #  nokta/virgul/rakam varsa (1.750 gibi) bu bir tutardir, atla.
 # ============================================================================
 $BIRIM = @('TL','LIRA','LİRA','USD','EUR','ADET','GUN','GÜN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','KURUŞ','TANE','KISI','KİŞİ','TAKSIT','TAKSİT')
-$reKod = [regex]'(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+# 03.08 - CEM: "253/181 sadece bu degil, hesap planina gore kontrol et."
+# Denetim ZATEN 199 resmi hesabin tamamina bakiyor (tek tek koda degil). Ama
+# DESEN dar oldugu icin bazi yazim bicimlerini hic gormuyordu; yani 738 rakami
+# EKSIK. Olculen kacirmalar: "196 personel avanslari" (kucuk harf),
+# "181 - GELIR TAHAKKUKLARI" (tire), "Personel Avanslari (196)" (ad once).
+# "620 numarali hesap" gibi ADSIZ kullanim BILEREK disarida - orada
+# dogrulanacak bir kod-ad eslesmesi yok.
+$reKod  = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+$reKod2 = [regex]'([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)'
 $uyuyor=0; $uymuyor=0; $kodYok=0; $birimAtlanan=0
 $soruUymuyor = @{}; $soruKodYok = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
@@ -147,9 +155,13 @@ foreach($s in $kasa){
   $tum = "$($s.soru)"
   if($s.siklar){ foreach($p in $s.siklar.PSObject.Properties){ $tum += ' ' + "$($p.Value)" } }
   if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $tum += ' ' + "$($p.Value)" } }
-  foreach($mm in $reKod.Matches($tum)){
-    $kod = $mm.Groups[1].Value
-    $ad  = $mm.Groups[2].Value.Trim()
+  # Iki bicim birlikte: "NNN Ad" ve "Ad (NNN)"
+  $ciftler = New-Object System.Collections.Generic.List[object]
+  foreach($mm in $reKod.Matches($tum)){  $ciftler.Add(@{ kod=$mm.Groups[1].Value; ad=$mm.Groups[2].Value.Trim() }) }
+  foreach($mm in $reKod2.Matches($tum)){ $ciftler.Add(@{ kod=$mm.Groups[2].Value; ad=$mm.Groups[1].Value.Trim() }) }
+  foreach($cf in $ciftler){
+    $kod = $cf.kod
+    $ad  = $cf.ad
     if($ad.Length -lt 4){ continue }
     # BIRIM TUZAGI: "750 TL borc" hesap kodu degil TUTARDIR - atla
     $ilkKelime = (Sade $ad) -split ' ' | Select-Object -First 1

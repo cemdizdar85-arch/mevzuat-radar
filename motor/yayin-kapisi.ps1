@@ -127,7 +127,11 @@ $reKanun = [regex]'(?i)bil[üu]mum|m[üu]teferri|m[üu]nasebetiyle|i[şs]bu\b|me
 $reYZ    = [regex]'(?i)[öo]nemli bir husus|dikkat edilmesi gereken nokta|sonu[çc] olarak|[öo]zetle\s*,|bu ba[ğg]lamda|unutulmamal[ıi]d[ıi]r'
 $reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
 $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','TANE','KISI','TAKSIT')
-$reHesap = [regex]'(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+# 03.08 - Cem: "hesap planina gore kontrol et." Kontrol zaten 199 hesabin
+# tamamina bakiyordu; eksik olan DESENDI. Kucuk harfli ad, tireli yazim ve
+# "Ad (NNN)" bicimi goruluyordu. Adsiz "620 numarali hesap" disarida.
+$reHesap  = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+$reHesap2 = [regex]'([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)'
 # Onek eslesmesi (03.08): Turkce ekler yuzunden birebir kelime esitligi sahte
 # alarm uretiyordu ("KARSILIKLAR"~"KARSILIK", "HES"~"HESAPLANAN"). Biri digerinin
 # oneki ise (>=3 harf) ayni kok sayilir; "GELIR"/"GELECEK" yine ayrilir.
@@ -218,8 +222,11 @@ foreach($s in $kasa){
   if($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
 
   $tum = "$($s.soru) $tumAciklama"
-  foreach($mm in $reHesap.Matches($tum)){
-    $kod = $mm.Groups[1].Value; $ad = $mm.Groups[2].Value.Trim()
+  $ciftler = New-Object System.Collections.Generic.List[object]
+  foreach($mm in $reHesap.Matches($tum)){  $ciftler.Add(@{ kod=$mm.Groups[1].Value; ad=$mm.Groups[2].Value.Trim() }) }
+  foreach($mm in $reHesap2.Matches($tum)){ $ciftler.Add(@{ kod=$mm.Groups[2].Value; ad=$mm.Groups[1].Value.Trim() }) }
+  foreach($cf in $ciftler){
+    $kod = $cf.kod; $ad = $cf.ad
     if($ad.Length -lt 4){ continue }
     $ilk = (Sade $ad) -split ' ' | Select-Object -First 1
     if($BIRIM -contains $ilk){ continue }

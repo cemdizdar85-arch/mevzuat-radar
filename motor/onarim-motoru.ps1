@@ -1038,8 +1038,18 @@ for($n=0; $n -lt $parti.Count; $n++){
     #  kod->ad listesine karsi denetler - yayin kapisi K4'un uretim anindaki hali.
     # ====================================================================
     if($script:THP_AD.Count -gt 50){
-      foreach($mm in [regex]::Matches($uretilen, '(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})')){
-        $kod = $mm.Groups[1].Value; $ad = $mm.Groups[2].Value.Trim()
+      # 03.08 - genis desen (Cem: "hesap planina gore kontrol et"): kucuk harfli
+      # ad, tireli yazim ve "Ad (NNN)" bicimi de goruluyor; adsiz "620 numarali
+      # hesap" disarida - orada dogrulanacak eslesme yok.
+      $ciftlerU = New-Object System.Collections.Generic.List[object]
+      foreach($mm in [regex]::Matches($uretilen, '(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})')){
+        $ciftlerU.Add(@{ kod=$mm.Groups[1].Value; ad=$mm.Groups[2].Value.Trim() })
+      }
+      foreach($mm in [regex]::Matches($uretilen, '([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)')){
+        $ciftlerU.Add(@{ kod=$mm.Groups[2].Value; ad=$mm.Groups[1].Value.Trim() })
+      }
+      foreach($cf in $ciftlerU){
+        $kod = $cf.kod; $ad = $cf.ad
         if($ad.Length -lt 4){ continue }
         if(-not $script:THP_AD.ContainsKey($kod)){ continue }
         $a = @(($ad.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
