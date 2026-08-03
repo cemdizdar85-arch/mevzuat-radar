@@ -112,11 +112,18 @@ $reYZ    = [regex]'(?i)[öo]nemli bir husus|dikkat edilmesi gereken nokta|sonu[�
 $reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
 $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','TANE','KISI','TAKSIT')
 $reHesap = [regex]'(?<![\d.,])\b([1-8]\d{2})\s+([A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+# Onek eslesmesi (03.08): Turkce ekler yuzunden birebir kelime esitligi sahte
+# alarm uretiyordu ("KARSILIKLAR"~"KARSILIK", "HES"~"HESAPLANAN"). Biri digerinin
+# oneki ise (>=3 harf) ayni kok sayilir; "GELIR"/"GELECEK" yine ayrilir.
 function AdUyuyorMu([string]$iddia, [string]$resmi){
-  $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 4 })
-  $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 4 })
+  $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 3 })
+  $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 3 })
   if($a.Count -eq 0 -or $b.Count -eq 0){ return $true }
-  foreach($k in $a){ if($b -contains $k){ return $true } }
+  foreach($k in $a){
+    foreach($r in $b){
+      if($k.StartsWith($r) -or $r.StartsWith($k)){ return $true }
+    }
+  }
   return $false
 }
 

@@ -103,11 +103,22 @@ function Sade([string]$t){
 # Ad benzerligi: 4+ harflik ORTAK kelime varsa "uyuyor" say. Boylece
 # "196 PERSONEL AVANSLARI" ile resmi "PERSONEL AVANSLARI" tutar; ama
 # "253 Personel Avanslari" resmi "TESIS MAKINE VE CIHAZLAR" ile TUTMAZ.
+# 03.08 UCUNCU SAHTE ALARM DALGASI: birebir kelime esitligi Turkce EKLERI
+# tanimiyordu. "KARSILIKLAR GIDERI" ile resmi "KARSILIK GIDERLERI" ayni hesap
+# oldugu halde UYMUYOR sayildi; "HES KDVS" kisaltmasi da "HESAPLANAN KDV" ile
+# tutmadi. 1.009'luk rakamin icinde bu tur masum sorular vardi - toplu yayindan
+# cekseydik DOGRU sorulari da cekecektik. Yeni kural: iki kelimeden biri
+# digerinin ONEKI ise (en az 3 harf) ayni kok sayilir. "KARSILIK"~"KARSILIKLAR",
+# "GIDER"~"GIDERLERI", "HES"~"HESAPLANAN" tutar; "GELIR" ile "GELECEK" TUTMAZ.
 function AdUyuyorMu([string]$iddia, [string]$resmi){
-  $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 4 })
-  $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 4 })
+  $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 3 })
+  $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 3 })
   if($a.Count -eq 0 -or $b.Count -eq 0){ return $true }   # karar veremiyorsak SUCLAMA
-  foreach($k in $a){ if($b -contains $k){ return $true } }
+  foreach($k in $a){
+    foreach($r in $b){
+      if($k.StartsWith($r) -or $r.StartsWith($k)){ return $true }
+    }
+  }
   return $false
 }
 
