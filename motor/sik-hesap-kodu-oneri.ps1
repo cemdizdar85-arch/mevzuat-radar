@@ -158,7 +158,11 @@ foreach($s in $kasa){
       if(-not $adIddiaMi){ continue }                  # hesap adi iddiasi degil (D24/beyaz liste mantigi)
       if(AdUyuyorMu $ad $RESMI[$kod]){ continue }       # zaten dogru
       $uymuyorSayisi++
-      $aday = ResmiKodBul $ad
+      # 03.08 gece dersi: ResmiKodBul TEK eslesme donunce PowerShell donusu
+      # skaler string'e "unwrap" ediyor - $aday[0] o zaman dizinin ilk
+      # elemanini degil, STRING'IN ILK KARAKTERINI veriyordu ("159" -> "1").
+      # @() ile CAGRI NOKTASINDA sarmak diziligi garanti eder.
+      $aday = @(ResmiKodBul $ad)
       if($aday.Count -eq 1){
         $oneriler.Add([ordered]@{
           soru_id="$($s.id)"; ders="$($s.ders)"; alan=$al.ad; yayinda=[bool]$s.yayin

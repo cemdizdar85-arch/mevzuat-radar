@@ -306,7 +306,7 @@ foreach($i in $isler){
     # 03.08 gece - Cem: "degisim orani" sorusunda formul yoktu ama bu kalip
     # listede hic yoktu, D13-ek hic tetiklenmedi. Karsilastirmali/yatay analiz
     # ailesinin butun yaygin adlarini ekledim.
-    $reYontem = [regex]'(?i)dikey\s*y[üu]zde|yatay\s*y[üu]zde|y[üu]zde\s*analiz|dikey\s*analiz|yatay\s*analiz|devir\s*h[ıi]z|oran\s*analiz|rasyo|maliyetleme\s*y[öo]ntem|de[ğg]i[şs]ken\s*maliyet|tam\s*maliyet|k[ıi]st\s*amortisman|reeskont|e[şs]de[ğg]er\s*[üu]r[üu]n|trend\s*analiz|de[ğg]i[şs]im\s*oran|art[ıi][şs]\s*oran|azal[ıi][şs]\s*oran|b[üu]y[üu]me\s*oran|kar[şs][ıi]la[şs]t[ıi]rmal[ıi]\s*(tablo|analiz)'
+    $reYontem = [regex]'(?i)dikey\s*y[üu]zde|yatay\s*y[üu]zde|y[üu]zde\s*analiz|dikey\s*analiz|yatay\s*analiz|devir\s*h[ıi]z|oran\s*analiz|rasyo|maliyetleme\s*y[öo]ntem|de[ğg]i[şs]ken\s*maliyet|tam\s*maliyet|k[ıi]st\s*amortisman|reeskont|e[şs]de[ğg]er\s*[üu]r[üu]n|trend\s*analiz|de[ğg]i[şs]im\s*oran|art[ıi][şs]\s*oran|azal[ıi][şs]\s*oran|b[üu]y[üu]me\s*oran|kar[şs][ıi]la[şs]t[ıi]rmal[ıi]\s*(tablo|analiz)|kald[ıi]ra[çc]|cari\s*oran|likidite\s*oran|asit\s*test|kar[şs][ıi]l[ıi]k\s*oran|k[aâ]rl[ıi]l[ıi]k\s*oran|stok\s*devir|alacak\s*devir|bor[çc]\s*oran|[öo]z\s*kaynak\s*oran'
     $dhy = "$($i.soru.dogru)".Trim().ToUpper()
     $mevcutY = ''
     try { if($i.soru.aciklama -and $i.soru.aciklama.PSObject.Properties[$dhy]){ $mevcutY = "$($i.soru.aciklama.$dhy)" } } catch {}
@@ -977,7 +977,13 @@ for($n=0; $n -lt $parti.Count; $n++){
         $x = AnlamliKelimeler $a
         $y = AnlamliKelimeler $script:THP_AD[$k]
         foreach($p in $x){ foreach($q in $y){ if($p.StartsWith($q) -or $q.StartsWith($p)){ return $m.Value } } }
-        $aday = ResmiKodBul $a
+        # 03.08 gece dersi: ResmiKodBul TEK eslesme donunce PowerShell donusu
+        # skaler string'e "unwrap" ediyordu - $aday[0] o zaman dizinin ilk
+        # elemanini degil, STRING'IN ILK KARAKTERINI veriyordu ("159" -> "1").
+        # Bu YUZDEN hesap_kodu_duzeltilen hep ~0 cikiyordu VE tek cikan "1"
+        # duzeltme de cop veriydi ("1 " yazilmis olmali). @() cagri noktasinda
+        # sarip diziligi garanti eder.
+        $aday = @(ResmiKodBul $a)
         if($aday.Count -eq 1){
           $script:hesapKoduDuzeltilen++
           return ($aday[0] + ' ' + $script:THP_AD[$aday[0]])

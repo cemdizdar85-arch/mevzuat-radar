@@ -294,6 +294,58 @@ try {
   }
 } catch { $uyarilar.Add("KART DIL kapisi kosamadi: " + $_.Exception.Message) }
 
+# ---------------------------------------------------------------------------
+# ── §13 THP KOD-AD KAYMASI KAPISI (03.08 gece, Cem'in bulgusu) ──────────────
+# "230/231/232 kaymis, baska yerde de olabilir - nasil ogreneceğiz?" sorusuna
+# cevap: bir seferlik elle karsilastirma KALICI GUVENCE degildir. Bu kapi
+# veri/mevzuat/msugt*.json'daki URETIM THP listesini, ismmmo.org.tr'nin resmi
+# Tekduzen Hesap Plani PDF'inden 03.08 gecesi cikarilan veri/mevzuat/
+# thp-resmi-dogrulama.json referansina karsi HER PUSH'TA otomatik karsilastirir.
+# Kelime-alt-kume karsilastirmasi (AdUyuyorMu) kullanilir - "(-)" gibi kucuk
+# yazim farklari sahte alarm uretmesin, ama 230=Ortaklardan/231=Istiraklerden
+# gibi TAMAMEN FARKLI icerik yakalansin.
+try {
+  $refYol = Join-Path $veri 'mevzuat/thp-resmi-dogrulama.json'
+  if(Test-Path $refYol){
+    $ref = Get-Content $refYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $HARF13 = @{ [char]0x0130='I';[char]0x0131='I';[char]'i'='I';[char]'I'='I'; [char]0x015E='S';[char]0x015F='S'; [char]0x011E='G';[char]0x011F='G'; [char]0x00DC='U';[char]0x00FC='U'; [char]0x00D6='O';[char]0x00F6='O'; [char]0x00C7='C';[char]0x00E7='C' }
+    function Sade13([string]$t){
+      if($null -eq $t){ return '' }
+      $sb = New-Object Text.StringBuilder
+      foreach($c in $t.ToCharArray()){
+        if($HARF13.ContainsKey($c)){ [void]$sb.Append($HARF13[$c]); continue }
+        $u = [char]::ToUpperInvariant($c)
+        if(($u -ge 'A' -and $u -le 'Z') -or ($u -ge '0' -and $u -le '9')){ [void]$sb.Append($u) } else { [void]$sb.Append(' ') }
+      }
+      return (($sb.ToString()) -replace '\s+',' ').Trim()
+    }
+    function AdUyuyorMu13([string]$x1, [string]$x2){
+      $a = @((Sade13 $x1) -split ' ' | Where-Object { $_.Length -ge 3 })
+      $b = @((Sade13 $x2) -split ' ' | Where-Object { $_.Length -ge 3 })
+      if($a.Count -eq 0 -or $b.Count -eq 0){ return $true }
+      foreach($k in $a){ foreach($r in $b){ if($k.StartsWith($r) -or $r.StartsWith($k)){ return $true } } }
+      return $false
+    }
+    $URETIM = @{}
+    foreach($f13 in (Get-ChildItem (Join-Path $veri 'mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
+      $j13 = Get-Content $f13.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+      foreach($b13 in @($j13.belgeler)){
+        $m13 = [regex]::Match("$($b13.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+        if($m13.Success -and -not $URETIM.ContainsKey($m13.Groups[1].Value)){ $URETIM[$m13.Groups[1].Value] = $m13.Groups[2].Value.Trim() }
+      }
+    }
+    $kaymaBulundu = 0
+    foreach($kod13 in $ref.kodlar.PSObject.Properties.Name){
+      if(-not $URETIM.ContainsKey($kod13)){ continue }  # eksik kod = kapsam boslugu, ayri konu; bu kapi yalniz KAYMAYI/CELISKIYI yakalar
+      if(-not (AdUyuyorMu13 $URETIM[$kod13] $ref.kodlar.$kod13)){
+        Hata "THP KOD-AD KAYMASI: kod $kod13 - uretimde '$($URETIM[$kod13])' yazili, resmi planda '$($ref.kodlar.$kod13)' olmali (thp-resmi-dogrulama.json)."
+        $kaymaBulundu++
+      }
+    }
+    Write-Host ("   THP kod-ad dogrulama: {0} kod karsilastirildi, {1} kayma." -f $ref.kodlar.PSObject.Properties.Name.Count, $kaymaBulundu) -ForegroundColor DarkGray
+  }
+} catch { $uyarilar.Add("THP KOD-AD KAYMASI kapisi kosamadi: " + $_.Exception.Message) }
+
 ""
 if($uyarilar.Count -gt 0){
   Write-Host "UYARILAR ($($uyarilar.Count)):" -ForegroundColor Yellow
