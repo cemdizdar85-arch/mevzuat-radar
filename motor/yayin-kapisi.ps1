@@ -10,13 +10,16 @@
 #  KAPSAM: yalniz YAYINDA olan sorular (yayin=true). Yayindan cekilmis soru
 #  onarim kuyrugundadir, onu suclamak anlamsiz. Yayindakinde SIFIR TOLERANS.
 #
-#  ALTI KAPI:
+#  DOKUZ KAPI (03.08 aksami Cem in bulgulariyla 6 dan 9 a cikti):
 #    K1 D3  - "bu sik yanlis cunku dogru cevap X" (ogretmeyen aciklama)
 #    K2 D12 - kanun kopyasi dili (bilumum, muteferri, munasebetiyle...)
 #    K3 D12 - yapay zeka doldurma kaliplari
 #    K4 D14 - hesap kodu THP'nin resmi adiyla uyusmuyor
 #    K5 D2  - yanlis siklarda "Dogrusu:" hic yok
 #    K6 D10 - ayni cumle birden fazla sikka yazilmis
+#    K7 D24 - "belirli sartlarda" deyip sartlari saymayan muglak ifade
+#    K8 D18 - sinir sorusu ama listenin kalani sayilmamis (TTK m.516 vakasi)
+#    K9     - eskimis kurum adi (IMKB -> Borsa Istanbul, 2013)
 #
 #  KARAR: hepsi 0 ise GECER, degilse DURDU. Karar dosyaya yazilir; yayin
 #  akisindaki her adim once bu dosyaya bakar.
@@ -131,7 +134,20 @@ function AdUyuyorMu([string]$iddia, [string]$resmi){
 # Hakli - "muglak ifade" kuralini yalniz isteme koymustum; mevcut kasada kac
 # tane var bilmiyorduk. Artik yayindaki her soruda da olculuyor.
 $reMuglak = [regex]'(?i)belirli\s+[şs]artlar|baz[ıi]\s+hallerde|kanunda\s+[öo]ng[öo]r[üu]len\s+durum|gerekli\s+ko[şs]ullar\s+sa[ğg]lan|mevzuatta\s+belirtilen\s+[öo]l[çc][üu]'
-$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0 }
+# K8 (03.08, Cem: "bunu daha once bulmustuk, digerlerini de duzeltiyoruz deme").
+# D18 (tahdidi liste tam yazilir) yine YALNIZ ISTEMDE kalmisti; kasadaki mevcut
+# sorularda olculmuyordu. Kaba ama isleyen olcu: soru bir SINIR sorusuysa
+# (olumlu ya da olumsuz) aciklamada en az iki SAYIM ogesi bulunmali - yoksa
+# ogrenci listenin kalanini goremiyor demektir. (TTK m.516 vakasi: uc bent var,
+# aciklama yalniz birini anlatiyordu.)
+$reSinirSoru = [regex]'(?i)hangisi(nde)?\s+.{0,80}(uygulanmaz|kapsam\s*d[ıi][şs][ıi]|say[ıi]lmaz|girmez|de[ğg]ildir|dahil\s+de[ğg]il)|hangi(si)?\s+.{0,80}(zorunlu|mutlaka|yer\s+alma|dahildir|say[ıi]l[ıi]r|gerekir|aran[ıi]r)|istisna|kapsam[ıi]\s+d[ıi][şs][ıi]nda'
+# K9 (03.08, Cem'in okudugu kartta gorunen): ESKIMIS KURUM ADLARI.
+# Kehribar kartta "IMKB sirketlerinde" yaziyordu; IMKB 2013'te BORSA ISTANBUL
+# oldu. 2026 adayina 13 yillik eski isim vermek, Cem'in tarih itirazinin
+# KURUM ayagidir: banka eskimis gorunur. Mulga adlar burada sayilir.
+$reEskiKurum = [regex]'(?i)\b[İI]MKB\b|[İI]stanbul\s+Menkul\s+K[ıi]ymetler\s+Borsas|Sanayi\s+ve\s+Ticaret\s+Bakanl|G[üu]mr[üu]k\s+M[üu]ste[şs]arl|Bay[ıi]nd[ıi]rl[ıi]k\s+ve\s+[İI]sk[âa]n\s+Bakanl|Devlet\s+Planlama\s+Te[şs]kilat'
+$reSayimOge  = [regex]'(?i)(^|\s)[a-ıi]\)\s|(^|\s)\d\s*[\)\.]\s|;\s|·|•|\bbirincisi\b|\bikincisi\b|\bucuncusu\b|\b[üu][çc][üu]nc[üu]s[üu]\b'
+$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0; K8_liste_eksik=0; K9_eskimis_kurum=0 }
 $kirmiziId = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
 function Isaretle($kapi, $s, $detay){
@@ -163,6 +179,14 @@ foreach($s in $kasa){
   if($reKanun.IsMatch($tumAciklama)){ Isaretle 'K2_kanun_kopyasi' $s 'kanun kopyasi dili' }
   if($reYZ.IsMatch($tumAciklama)){ Isaretle 'K3_yz_kokusu' $s 'yapay zeka doldurma kalibi' }
   if($reMuglak.IsMatch($tumAciklama)){ Isaretle 'K7_muglak_ifade' $s 'bilgi vaat edip vermeyen kalip ("belirli sartlarda" deyip sartlari saymamis)' }
+  if($reEskiKurum.IsMatch($tumAciklama)){ Isaretle 'K9_eskimis_kurum' $s 'eskimis kurum adi (IMKB -> Borsa Istanbul gibi)' }
+  # K8: sinir sorusu ama aciklamada listenin kalani yok
+  if($reSinirSoru.IsMatch("$($s.soru)")){
+    $dm2=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $dm2="$($s.aciklama.$dh)" } } catch {}
+    if(($reSayimOge.Matches($dm2)).Count -lt 2){
+      Isaretle 'K8_liste_eksik' $s 'sinir sorusu ama Kural parcasinda listenin kalani sayilmamis (D18)'
+    }
+  }
   if($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
 
   $tum = "$($s.soru) $tumAciklama"

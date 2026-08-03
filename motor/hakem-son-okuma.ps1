@@ -106,7 +106,12 @@ H5 HESAP TUTMUYOR: dogru sikkin rakami, aciklamada anlatilan islemden ADIM
    ADIM cikmiyor mu? Once sen hesapla, sonra karsilastir.
 H6 DAYANAKTA OLMAYAN IDDIA: aciklamada gecen oran/tutar/madde numarasi
    asagidaki dayanak metninde YOK mu? Dayanak verilmemisse bu kusuru ARAMA.
-H7 MUGLAK IFADE: "belirli sartlarda", "bazi hallerde", "kanunda ongorulen
+H8 TAHDIDI LISTE EKSIK: soru bir SINIR sorusuysa ("hangisi uygulanmaz",
+   "hangi bilgi mutlaka yer almalidir") dayanaktaki listenin TAMAMI aciklamada
+   sayilmis mi? Yalniz sorulan bendi anlatip otekileri atlamissa isaretle.
+   (Ornek kusur: TTK m.516/2 UC bent sayar - sonraki olaylar, Ar-Ge,
+   yoneticilere odenen mali menfaatler - aciklama yalniz ucuncusunu anlatmis.)
+: "belirli sartlarda", "bazi hallerde", "kanunda ongorulen
    durumlarda" gibi bilgi VAAT EDIP VERMEYEN kalip var mi? Sartlar sayilmamissa
    isaretle. Bu, hic yazmamaktan kotudur: ogrenci bir sey ogrendigini sanir,
    sinavda sart sorulunca bilemez.

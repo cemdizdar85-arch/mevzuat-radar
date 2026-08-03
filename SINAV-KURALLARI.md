@@ -574,3 +574,13 @@ Bir kusur bulunduğunda **üçü birden** yapılmazsa iş yarım kalır:
 *Neden yazıldı:* D24 önce yalnız isteme konmuştu — yani yeni yazılanlar korunuyor,
 **kasadaki mevcut sorular hiç ölçülmüyordu.** Cem yakaladı. Bu tablo o hatanın
 tekrarlanmaması için duruyor.
+
+**D25. ESKİMİŞ KURUM ADI YASAK (03.08.2026 — Cem'in okuduğu kartta çıktı)**
+Kurum adları güncel olacak. Kartta *"İMKB şirketlerinde"* yazıyordu; **İMKB 2013'te
+Borsa İstanbul oldu** — 13 yıllık eski isim. Bu, D22'nin (senaryo tarihi) **kurum
+ayağıdır:** aday bankayı eskimiş görür.
+
+*Mülga adlar:* İMKB → Borsa İstanbul · Gümrük Müsteşarlığı → Ticaret Bakanlığı ·
+Sanayi ve Ticaret Bakanlığı → Sanayi ve Teknoloji Bakanlığı · Bayındırlık ve İskân
+Bakanlığı → Çevre, Şehircilik ve İklim Değişikliği Bakanlığı · DPT → SBB.
+*Ölçümü:* yayın kapısı **K9**.
