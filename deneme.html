@@ -45,6 +45,11 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .notKutu textarea{width:100%;background:transparent;border:0;color:var(--ink);font:inherit;font-size:13.5px;resize:vertical;min-height:44px;outline:none}
 .notKutu .ust{font-size:10.5px;font-weight:700;letter-spacing:.4px;color:var(--muted);margin-bottom:4px;display:flex;justify-content:space-between}
 /* Sik istatistigi: "adaylarin %38'i C'yi secti" */
+/* Hesap satiri: cumlenin icinde eriyen islemi AYRI SATIRA cikarir (Cem 03.08) */
+.hesapSatir{display:block;margin:9px 0;padding:9px 14px;background:rgba(255,194,75,.09);
+  border-left:3px solid var(--amber);border-radius:0 9px 9px 0;font-variant-numeric:tabular-nums;
+  font-weight:800;font-size:15.5px;letter-spacing:.3px;color:var(--ink);white-space:nowrap;overflow-x:auto}
+body.yaziB .hesapSatir{font-size:17px}
 .sikIst{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:.2px}
 .sikIst.cok{color:var(--amber)}
 .sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#0a0f17;border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
@@ -833,16 +838,36 @@ function navCiz(){
 // ucretsiz banka vs. oldugu gibi kalir). API maliyeti: sifir.
 var GB_ETIKET = {'ne soruluyor':'NE SORULUYOR','kural':'KURAL','bu olayda':'BU OLAYDA','bu soruda':'BU OLAYDA','akılda kalsın':'AKILDA KALSIN','akilda kalsin':'AKILDA KALSIN'};
 var GB_RENK = {'NE SORULUYOR':'var(--dim)','KURAL':'var(--green)','BU OLAYDA':'var(--muted)','AKILDA KALSIN':'var(--amber)'};
+/* ===== HESAP VURGUSU (03.08, Cem: "formul yazi icinde atlanabiliyor") =====
+   Aciklamada "1.650.000 / 550.050 = 3,00" gibi bir hesap cumlenin icinde
+   eriyordu; goz uzerinden kayiyordu. UWorld/Becker formulu AYRI ve GORUNUR
+   yazar. Burada metni bozmadan, yalniz hesap parcasini ayri satirda one
+   cikariyoruz - 27.478 sorunun HEPSINE etki eder, yeniden uretim gerekmez.
+   Yeni yazilanlarda formul zaten ayri satirda gelecek (SINAV-KURALLARI D13-ek). */
+function hesabiVurgula(esclenmisMetin){
+  // Kalip: <sol taraf> = <sonuc> ; solda en az bir islem isareti (/ x + - ÷ ×)
+  // Sadece rakam-agirlikli parcalar secilir; duz cumledeki "=" bozulmasin diye
+  // solda RAKAM sarti aranir.
+  // Ilk desenim iki gercek kalibi kaciriyordu: parantezle baslayan
+  // "(487.300 + 612.800) / 2 = 550.050" ve arasinda KELIME gecen
+  // "Ham madde 68.328 + Iscilik 14.205 + ... = 91.651". Duzeltildi:
+  // ": ; =" gormeden ilerler, en az bir islem isareti arar, "= sayi" ile biter.
+  // 8 gercek cumleyle olculdu: 4 hesap vurgulandi, 4 duz cumleye dokunulmadi.
+  var re = /([\(\d][^:;=]{0,90}?[+\-\/×x÷\*][^:;=]{0,90}?=\s*\d[\d\.,]*)/g;
+  return esclenmisMetin.replace(re, function(m){
+    return '<span class="hesapSatir">'+m.trim()+'</span>';
+  });
+}
 function gerekceBicimle(t){
   t = String(t==null?'':t);
   var re = /(Ne soruluyor|NE SORULUYOR|Kural|KURAL|Bu olayda|BU OLAYDA|Bu soruda|Akılda kalsın|AKILDA KALSIN|Akilda kalsin)\s*:\s*/g;
   var p = t.split(re);
-  if(p.length < 5) return esc(t);   // 0-1 baslik: dogal metin, dokunma
+  if(p.length < 5) return hesabiVurgula(esc(t));   // 0-1 baslik: dogal metin, dokunma
   // 31.07: numarali merdiven (1 Ne soruluyor -> 2 Kural -> 3 Bu olayda) +
   // AKILDA KALSIN mini kehribar kart - goz sirayi kendiliginden izler.
   var GB_NO = {'NE SORULUYOR':'1','KURAL':'2','BU OLAYDA':'3'};
   var h = '';
-  if(p[0].trim()) h += '<div class="gGiris">'+esc(p[0].trim())+'</div>';
+  if(p[0].trim()) h += '<div class="gGiris">'+hesabiVurgula(esc(p[0].trim()))+'</div>';
   for(var i=1; i<p.length; i+=2){
     var et = GB_ETIKET[p[i].toLocaleLowerCase('tr-TR')] || p[i];
     var metin = (p[i+1]||'').trim();
@@ -850,12 +875,12 @@ function gerekceBicimle(t){
     if(et === 'AKILDA KALSIN'){
       // 31.07 Cem: cift 'AKILDA KALSIN' olmasin - final hap karti o adi tasir,
       // sik icindeki kapanis cumlesi 'KISACASI' olur.
-      h += '<div class="gAkil"><b class="gb">📌 KISACASI</b>'+esc(metin)+'</div>';
+      h += '<div class="gAkil"><b class="gb">📌 KISACASI</b>'+hesabiVurgula(esc(metin))+'</div>';
     } else {
-      h += '<div class="gAdim" data-no="'+(GB_NO[et]||'·')+'"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+esc(metin)+'</div>';
+      h += '<div class="gAdim" data-no="'+(GB_NO[et]||'·')+'"><b class="gb" style="color:'+(GB_RENK[et]||'var(--dim)')+'">'+et+'</b>'+hesabiVurgula(esc(metin))+'</div>';
     }
   }
-  return h || esc(t);
+  return h || hesabiVurgula(esc(t));
 }
 
 function cevabiGor(tekrarMi){
