@@ -8,6 +8,7 @@ on:
     paths:
       - 'motor/taslak-goster.ps1'
       - '.github/workflows/taslak-goster.yml'
+      - 'veri/tetik/taslak-goster.txt'   # pilot bitince robot bunu yazar, HTML kendiliginden uretilir
   workflow_dispatch:
     inputs:
       dosya:
