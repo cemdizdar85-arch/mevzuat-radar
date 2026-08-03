@@ -29,6 +29,24 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .soruUst{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--dim);flex-wrap:wrap}
 .rozet{font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;color:var(--muted)}
 .soruMetin{font-size:16.5px;font-weight:600;margin:14px 0 16px;line-height:1.65}
+/* 03.08 CEM + UWORLD: aciklama okunurken SORU KOKU EKRANDA KALIR.
+   Once aciklama uzayinca soru yukari kaciyordu; ogrenci "neydi bu soru" diye
+   yukari kaydirip geri iniyordu. Her soruda iki kez goz gezdirme = 130 soruluk
+   denemede ciddi yorgunluk. UWorld'de kok sabittir. (Cem: "soru cozeni hic
+   yormayacak bir sistem olmali.") Sinirli yukseklik: uzun senaryolarda ekrani
+   kaplamasin diye kendi icinde kayar. */
+.soruMetin.sabit{position:sticky;top:0;z-index:6;background:var(--panel);
+  max-height:34vh;overflow:auto;margin:0 -4px 14px;padding:12px 4px 10px;
+  border-bottom:1px solid var(--line);box-shadow:0 10px 14px -12px rgba(0,0,0,.85)}
+.soruMetin.sabit::after{content:"soru sabitlendi";position:sticky;bottom:0;display:block;
+  text-align:right;font-size:9.5px;font-weight:600;color:var(--dim);letter-spacing:.3px}
+/* Kendi notum (UWorld/Becker'da var: ogrenci kendi cumlesiyle yazinca kaliyor) */
+.notKutu{margin-top:10px;border:1px dashed var(--line);border-radius:11px;padding:9px 11px;background:rgba(255,255,255,.02)}
+.notKutu textarea{width:100%;background:transparent;border:0;color:var(--ink);font:inherit;font-size:13.5px;resize:vertical;min-height:44px;outline:none}
+.notKutu .ust{font-size:10.5px;font-weight:700;letter-spacing:.4px;color:var(--muted);margin-bottom:4px;display:flex;justify-content:space-between}
+/* Sik istatistigi: "adaylarin %38'i C'yi secti" */
+.sikIst{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:.2px}
+.sikIst.cok{color:var(--amber)}
 .sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#0a0f17;border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
 .sik:hover{border-color:rgba(245,165,36,.5)}
 .sik .harf{font-family:var(--mono);font-weight:800;color:var(--accent2);flex-shrink:0}
@@ -693,8 +711,47 @@ function yaziBoyut(){
 }
 try{ if(localStorage.getItem('tetikteYazi')==='B'){ document.body.classList.add('yaziB'); var yb=document.getElementById('yaziBtn'); if(yb) yb.classList.add('aktif'); } }catch(e){}
 
+/* ===== 03.08 UWORLD PAKETI (Cem onayi) — uc madde, hepsi 0 USD =====
+   1) Soru koku aciklama okunurken sabit kalir  -> sabitle()/sabitCoz()
+   2) Sik istatistigi "adaylarin %38'i C'yi secti" -> SIK_IST (robot uretir)
+   3) Kendi notum: ogrenci kendi cumlesini yazar, kalir -> notKutusu()
+   Veri kaynagi: cevap_kaydi tablosu ZATEN seciken sikki kaydediyordu (02.08);
+   eksik olan gosterimdi. Robot gunluk toplayip veri/sik-istatistigi.json yazar,
+   burada okunur. Kimlik yok, yalniz sayim.                                  */
+var SIK_IST=null;
+fetch('veri/sik-istatistigi.json?v='+Date.now()).then(function(r){return r.ok?r.json():null;})
+  .then(function(j){ SIK_IST=j; }).catch(function(){});
+
+function sabitle(){ var e=document.getElementById('soruMetin'); if(e) e.classList.add('sabit'); }
+function sabitCoz(){ var e=document.getElementById('soruMetin'); if(e) e.classList.remove('sabit'); }
+
+/* Bir sikki kac aday secmis? Yeterli veri yoksa HIC gosterme - 3 kisilik
+   ornekten "%33" demek, rakam vermemekten kotudur (rakam disiplini). */
+function sikYuzdesi(soruId, harf){
+  if(!SIK_IST || !SIK_IST.sorular) return '';
+  var k=SIK_IST.sorular[String(soruId)]; if(!k || !k.toplam || k.toplam<20) return '';
+  var n=k[harf]||0, p=Math.round(100*n/k.toplam); if(p<5) return '';
+  return '<span class="sikIst'+(p>=25?' cok':'')+'">adayların %'+p+"'i bunu seçti</span>";
+}
+
+/* Kendi notum — once cihazda tutulur; uyelik gelince hesaba tasinacak. */
+function notOku(id){ try{ return JSON.parse(localStorage.getItem('tetikte_notlar')||'{}')[id]||''; }catch(e){ return ''; } }
+function notYaz(id, m){
+  try{ var x=JSON.parse(localStorage.getItem('tetikte_notlar')||'{}');
+       if(m && m.trim()) x[id]=m.trim(); else delete x[id];
+       localStorage.setItem('tetikte_notlar', JSON.stringify(x)); }catch(e){}
+}
+function notKutusu(s){
+  var mevcut=notOku(s.id);
+  return '<div class="notKutu"><div class="ust"><span>✎ KENDİ NOTUM</span>'+
+    '<span style="font-weight:500;color:var(--dim)">bu cihazda saklanır</span></div>'+
+    '<textarea id="notAlan" placeholder="Bu soruda neyi kaçırdım? Kendi cümlenle yaz — bir dahaki karşılaşmada burada olacak." '+
+    'oninput="notYaz(\''+String(s.id).replace(/'/g,"")+'\', this.value)">'+esc(mevcut)+'</textarea></div>';
+}
+
 function soruCiz(){
   var s=SORULAR[IDX]; SECILI=null; KILIT=false; SORU_T0=Date.now();
+  sabitCoz();
   document.getElementById('soruSayac').textContent='Soru '+(IDX+1)+' / '+SORULAR.length;
   document.getElementById('soruDers').textContent=s.ders;
   document.getElementById('soruKonu').textContent=s.konu;
@@ -803,7 +860,7 @@ function gerekceBicimle(t){
 
 function cevabiGor(tekrarMi){
   if(!SECILI || KILIT) return;
-  var s=SORULAR[IDX]; KILIT=true;
+  var s=SORULAR[IDX]; KILIT=true; sabitle();   // 03.08: aciklama okunurken soru koku ekranda kalir
   if(!tekrarMi){
     CEVAPLAR[s.id]=SECILI;
     sicilKaydet(s.id, SECILI===s.dogru);
@@ -867,7 +924,8 @@ function cevabiGor(tekrarMi){
     if(sen) stil=' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
     else if(d) stil=' style="background:rgba(61,220,151,.05);border-left:3px solid rgba(61,220,151,.45);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
     var blok='<div class="gk'+(d?' dogruG':'')+'"'+stil+'>'+
-       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+basl+gerekceBicimle(s.aciklama[harf])+'</span></div>';
+       '<span class="h">'+harf+(d?' ✓':' ✗')+'</span><span>'+basl+gerekceBicimle(s.aciklama[harf])+
+       sikYuzdesi(s.id, harf)+'</span></div>';
     if(d || harf===SECILI) h+=blok; else digerH+=blok;
   });
   h+=hayaletGorsel(s);   // tablo/yevmiye YUKARI TASINDI (bkz. UWorld duzeni notu)
@@ -878,6 +936,7 @@ function cevabiGor(tekrarMi){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
   }
   if(s.kaynak) h+='<div class="kaynakKutu">📑 Kaynak: '+esc(s.kaynak)+'</div>';
+  h+=notKutusu(s);   // 03.08: kendi notum (UWorld/Becker'da var)
   // SIKLIK KUNYESI (SINAV-KURALLARI D9, 02.08) — 35 donemlik cikmis kitapcik
   // sayimindan. Uydurma motivasyon DEGIL olcum; sayim yoksa kunye GOSTERILMEZ.
   h += siklikKunyesi(s);

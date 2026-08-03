@@ -1,0 +1,35 @@
+# Sik istatistigi — 0 USD. cevap_kaydi'ni gunluk toplayip veri/sik-istatistigi.json yazar.
+# "Adaylarin %38'i C'yi secti" satirinin kaynagi budur. Kimlik yazilmaz, yalniz sayim.
+name: Sik Istatistigi (0 USD)
+on:
+  push:
+    paths: ['motor/sik-istatistigi.ps1', '.github/workflows/sik-istatistigi.yml']
+  workflow_dispatch:
+  schedule:
+    - cron: '25 3 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: sik-istatistigi
+  cancel-in-progress: false
+jobs:
+  topla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/sik-istatistigi.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/sik-istatistigi-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/sik-istatistigi.json veri/sik-istatistigi-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Sik istatistigi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
