@@ -303,7 +303,10 @@ foreach($i in $isler){
   # Cozum: yontem adi gecen VE mevcut Kural'da formul BULUNMAYAN soruda dort
   # parca yenilenir. Tahdidi liste istisnasinin ayni mantigi.
   if($i.eksik -notcontains 'D1_dort_parca'){
-    $reYontem = [regex]'(?i)dikey\s*y[üu]zde|yatay\s*y[üu]zde|y[üu]zde\s*analiz|dikey\s*analiz|yatay\s*analiz|devir\s*h[ıi]z|oran\s*analiz|rasyo|maliyetleme\s*y[öo]ntem|de[ğg]i[şs]ken\s*maliyet|tam\s*maliyet|k[ıi]st\s*amortisman|reeskont|e[şs]de[ğg]er\s*[üu]r[üu]n|trend\s*analiz'
+    # 03.08 gece - Cem: "degisim orani" sorusunda formul yoktu ama bu kalip
+    # listede hic yoktu, D13-ek hic tetiklenmedi. Karsilastirmali/yatay analiz
+    # ailesinin butun yaygin adlarini ekledim.
+    $reYontem = [regex]'(?i)dikey\s*y[üu]zde|yatay\s*y[üu]zde|y[üu]zde\s*analiz|dikey\s*analiz|yatay\s*analiz|devir\s*h[ıi]z|oran\s*analiz|rasyo|maliyetleme\s*y[öo]ntem|de[ğg]i[şs]ken\s*maliyet|tam\s*maliyet|k[ıi]st\s*amortisman|reeskont|e[şs]de[ğg]er\s*[üu]r[üu]n|trend\s*analiz|de[ğg]i[şs]im\s*oran|art[ıi][şs]\s*oran|azal[ıi][şs]\s*oran|b[üu]y[üu]me\s*oran|kar[şs][ıi]la[şs]t[ıi]rmal[ıi]\s*(tablo|analiz)'
     $dhy = "$($i.soru.dogru)".Trim().ToUpper()
     $mevcutY = ''
     try { if($i.soru.aciklama -and $i.soru.aciklama.PSObject.Properties[$dhy]){ $mevcutY = "$($i.soru.aciklama.$dhy)" } } catch {}

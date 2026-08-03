@@ -306,25 +306,25 @@
     },
     {
       "tur": "standart-madde",
-      "kaynak_ad": "THP 230 - ORTAKLARDAN ALACAKLAR",
+      "kaynak_ad": "THP 231 - ORTAKLARDAN ALACAKLAR",
       "baslik": "Tekduzen Hesap Plani Aciklamalari",
-      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 230 ORTAKLARDAN ALACAKLAR: İşletmenin esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzer nedenlerle ortaya çıkan) ortaklardan alacaklı bulunduğu tutarların izlendiği hesaptır. (İşleyişi dönen varlıklar içerisinde yer alan ilgili alacak hesabında olduğu gibidir.)",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 231 ORTAKLARDAN ALACAKLAR: İşletmenin esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzeri nedenlerle ortaya çıkan) ortaklardan (ferdi işletmelerde işletme sahibinden) alacaklı bulunduğu tutarların izlendiği hesaptır. (03.08 duzeltme: kaynak veride bu kod 230 olarak kayitliydi, resmi tebligde 231'dir - grup basligi 23. ile karistirilmis.)",
       "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
       "belge_tarihi": "26.12.1992"
     },
     {
       "tur": "standart-madde",
-      "kaynak_ad": "THP 231 - İŞTİRAKLERDEN ALACAKLAR",
+      "kaynak_ad": "THP 232 - İŞTİRAKLERDEN ALACAKLAR",
       "baslik": "Tekduzen Hesap Plani Aciklamalari",
-      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 231 İŞTİRAKLERDEN ALACAKLAR: İşletmenin, esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzer nedenlerle ortaya çıkan) iştiraklerinden olan alacaklarını içerir. (İşleyişi dönen varlıklar içerisinde yer alan ilgili alacak hesabında olduğu gibidir.)",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 232 İŞTİRAKLERDEN ALACAKLAR: İşletmenin, esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzer nedenlerle ortaya çıkan) iştiraklerinden olan alacaklarını içerir. (03.08 duzeltme: kaynak veride bu kod 231 olarak kayitliydi, resmi tebligde 232'dir.)",
       "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
       "belge_tarihi": "26.12.1992"
     },
     {
       "tur": "standart-madde",
-      "kaynak_ad": "THP 232 - BAĞLI ORTAKLIKLARDAN ALACAKLAR",
+      "kaynak_ad": "THP 233 - BAĞLI ORTAKLIKLARDAN ALACAKLAR",
       "baslik": "Tekduzen Hesap Plani Aciklamalari",
-      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 232 BAĞLI ORTAKLIKLARDAN ALACAKLAR: İşletmenin, esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzer nedenlerle ortaya çıkan) bağlı ortaklıklarından olan alacaklarını kapsar. (İşleyişi dönen varlıklar içerisinde yer alan ilgili alacak hesabında olduğu gibidir.)",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 233 BAĞLI ORTAKLIKLARDAN ALACAKLAR: İşletmenin, esas faaliyet konusu dışındaki işlemleri dolayısı ile (ödünç verme ve benzer nedenlerle ortaya çıkan) bağlı ortaklıklarından olan alacaklarını kapsar. (03.08 duzeltme: kaynak veride bu kod 232 olarak kayitliydi, resmi tebligde 233'tur.)",
       "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
       "belge_tarihi": "26.12.1992"
     },
@@ -1589,6 +1589,318 @@
       "kaynak_ad": "THP 782 - FİNANSMAN GİDERLERİ FARK HESABI",
       "baslik": "Tekduzen Hesap Plani Aciklamalari",
       "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 782 FİNANSMAN GİDERLERİ FARK HESABI: Finansman Giderlerinin fiili tutarları ile önceden saptanmış tutarları arasındaki olumlu ya da olumsuz farkların izlendiği hesaptır. Olumsuz farklar hesabın borcuna olumlu farklar ise alacağına kaydedilir. Dönem sonunda bu hesap \"66- Finansman Giderleri\" grubunun ilgili hesabına aktarılarak kapatılır.",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 124 - KAZANILMAMIŞ FİNANSAL KİRALAMA FAİZ GELİRLERİ (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 124 KAZANILMAMIŞ FİNANSAL KİRALAMA FAİZ GELİRLERİ (-): Finansal kiralamanın yapıldığı tarihte kiralama işlemlerinden doğan alacaklar ile kira ödemelerinin bugünkü değeri arasındaki farkı gösteren henüz kazanılmamış finansal kiralama faiz gelirlerinin izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 127 - DİĞER TİCARİ ALACAKLAR",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 127 DİĞER TİCARİ ALACAKLAR: İşletmenin ticari faaliyetleri sonucu ortaya çıkan ve yukarıdaki hesapların kapsamına girmeyen tahsili gecikmiş alacaklar (henüz şüpheli alacak niteliği kazanmayanlar) ve diğer çeşitli senetsiz ticari alacakların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 190 - DEVREDEN KATMA DEĞER VERGİSİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 190 DEVREDEN KATMA DEĞER VERGİSİ: Bir dönemde indirilemeyen ve izleyen dönemlere devreden katma değer vergisinin kaydedildiği ve izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 195 - İŞ AVANSLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 195 İŞ AVANSLARI: İşletme adına mal ve hizmet satın alacak, işletme adına bir kısım gider ve ödemeleri yapacak personel ve personel dışındaki kişilere verilen iş avanslarının izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 224 - KAZANILMAMIŞ FİNANSAL KİRALAMA FAİZ GELİRLERİ (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 224 KAZANILMAMIŞ FİNANSAL KİRALAMA FAİZ GELİRLERİ (-): Finansal kiralamanın yapıldığı tarihte kiralama işlemlerinden doğan alacaklar ile kira ödemelerinin bugünkü değeri arasındaki farkı gösteren henüz kazanılmamış finansal kiralama faiz gelirlerinin izlendiği hesaptır (duran varlıklar grubunda, vadesi bir yıldan uzun kısım). (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 268 - BİRİKMİŞ AMORTİSMANLAR (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 268 BİRİKMİŞ AMORTİSMANLAR (-): Maddi olmayan duran varlık bedellerinin, kullanılabilecekleri süre içerisinde yokedilebilmesini sağlamak amacıyla kullanılan hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 295 - PEŞİN ÖDENEN VERGİLER VE FONLAR",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 295 PEŞİN ÖDENEN VERGİLER VE FONLAR: İzleyen yıldan sonraki yıllarda indirim konusu yapılabilecek olan peşin ödenen vergi ve fonların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 300 - BANKA KREDİLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 300 BANKA KREDİLERİ (kısa vadeli yabancı kaynaklar): Banka ve diğer finans kuruluşlarından sağlanan kısa vadeli kredilere ilişkin tutarları içeren hesap kalemidir. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 301 - FİNANSAL KİRALAMA İŞLEMLERİNDEN BORÇLAR",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 301 FİNANSAL KİRALAMA İŞLEMLERİNDEN BORÇLAR (kısa vadeli): Kiracıların finansal kiralama yapanlara olan ve vadesi 1 yılı geçmeyen borçlarının izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 302 - ERTELENMİŞ FİNANSAL KİRALAMA BORÇLANMA MALİYETLERİ (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 302 ERTELENMİŞ FİNANSAL KİRALAMA BORÇLANMA MALİYETLERİ (-) (kısa vadeli): Finansal kiralamanın yapıldığı tarihte kiralama işlemlerinden doğan borçlar ile kiralanan varlığa ilişkin kira ödemelerinin bugünkü değeri arasındaki farkı gösteren henüz ödenmemiş finansal kiralama borçlanma maliyetlerinin izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 340 - ALINAN SİPARİŞ AVANSLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 340 ALINAN SİPARİŞ AVANSLARI: İşletmenin satış sözleşmesine dayanarak mal ve hizmet teslim etmeden önce tahsil ettiği tutarların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 350 - YILLARA YAYGIN İNŞAAT VE ONARIM HAKEDİŞ BEDELLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 350 YILLARA YAYGIN İNŞAAT VE ONARIM HAKEDİŞ BEDELLERİ (350-358 aralığı): İşletmenin üstlendiği yıllara yaygın inşaat ve onarım işlerinden, tamamladığı kısımlar için düzenlenen hakediş bedellerinin izlendiği hesaplardır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 358 - YILLARA YAYGIN İNŞAAT ENFLASYON DÜZELTME HESABI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 358 YILLARA YAYGIN İNŞAAT ENFLASYON DÜZELTME HESABI: 697- Yıllara Yaygın İnşaat Enflasyon Düzeltme Hesabı'nın alacak kalanının aktarılarak proje bazında açılacak tali hesaplar düzeyinde izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 393 - MERKEZ VE ŞUBELER CARİ HESABI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 393 MERKEZ VE ŞUBELER CARİ HESABI: Merkezin şubelerle, şubelerin diğer şubelerle veya merkezle olan borç ve alacak ilişkilerinin izlendiği borçlu ve alacaklı olarak çalışan hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 397 - SAYIM VE TESELLÜM FAZLALARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 397 SAYIM VE TESELLÜM FAZLALARI: Sayımlar sonunda tespit edilen kasa, stok ve maddi duran varlıklar fazlalarıyla, üniteler arası yollamada ortaya çıkan fazlaların geçici olarak kayıt edileceği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 401 - FİNANSAL KİRALAMA İŞLEMLERİNDEN BORÇLAR",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 401 FİNANSAL KİRALAMA İŞLEMLERİNDEN BORÇLAR (uzun vadeli): Kiracıların finansal kiralama yapanlara olan ve vadesi 1 yılı aşan borçlarının izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 402 - ERTELENMİŞ FİNANSAL KİRALAMA BORÇLANMA MALİYETLERİ (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 402 ERTELENMİŞ FİNANSAL KİRALAMA BORÇLANMA MALİYETLERİ (-) (uzun vadeli): Finansal kiralamanın yapıldığı tarihte kiralama işlemlerinden doğan ve vadesi bir yılı aşan borçlar ile kiralanan varlığa ilişkin kira ödemelerinin bugünkü değeri arasındaki farkı gösteren henüz ödenmemiş finansal kiralama borçlanma maliyetlerinin izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 502 - SERMAYE DÜZELTMESİ OLUMLU FARKLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 502 SERMAYE DÜZELTMESİ OLUMLU FARKLARI: Ödenmiş sermaye tutarının düzeltilmesi sonucu ortaya çıkan olumlu farkların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 503 - SERMAYE DÜZELTMESİ OLUMSUZ FARKLARI (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 503 SERMAYE DÜZELTMESİ OLUMSUZ FARKLARI (-): Ödenmiş sermaye tutarının düzeltilmesi sonucu ortaya çıkan olumsuz farkların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 645 - MENKUL KIYMET SATIŞ KARLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 645 MENKUL KIYMET SATIŞ KARLARI: Menkul kıymetler satıldığında, satış değeri ile maliyet değeri arasındaki olumlu farkın izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 646 - KAMBİYO KÂRLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 646 KAMBİYO KÂRLARI: Kambiyo işlemlerinden doğan kârların izlendiği hesaptır. İhracatla ilgili dönem içinde ortaya çıkan kur farkları bu hesaba değil 601- Yurt Dışı Satışlar hesabına aktarılır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 647 - REESKONT FAİZ GELİRLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 647 REESKONT FAİZ GELİRLERİ: İşletmenin senetli borçlarının dönem sonu itibariyle yapılan reeskont işlem faiz geliri ile alacak senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz gelirlerinin izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 648 - ENFLASYON DÜZELTMESİ KÂRLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 648 ENFLASYON DÜZELTMESİ KÂRLARI: Mali tabloların enflasyon düzeltmesinden ortaya çıkan net olumlu farkların 698- Enflasyon Düzeltme Hesabından ve yıllara yaygın inşaat işinde 358- Yıllara Yaygın İnşaat Enflasyon Düzeltme Hesabından aktarılarak izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 655 - MENKUL KIYMET SATIŞ ZARARLARI (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 655 MENKUL KIYMET SATIŞ ZARARLARI (-): Menkul kıymetler satıldığında, satış değeri ile maliyet değeri arasındaki olumsuz farkın izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 656 - KAMBİYO ZARARLARI (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 656 KAMBİYO ZARARLARI (-): Kambiyo işlemlerinden doğan zararların izlendiği hesaptır. Borçlanma ile ilgili kur farkları bu hesaba alınmaz, finansman gideri olarak muhasebeleştirilir. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 657 - REESKONT FAİZ GİDERLERİ (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 657 REESKONT FAİZ GİDERLERİ (-): İşletmenin senetli alacaklarının dönem sonu itibariyle yapılan reeskont faiz giderleri ile borç senetleri reeskontunun, izleyen dönem başında iptalinden ortaya çıkan faiz giderlerinin izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 658 - ENFLASYON DÜZELTMESİ ZARARLARI (-)",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 658 ENFLASYON DÜZELTMESİ ZARARLARI (-): Mali tabloların enflasyon düzeltmesinden ortaya çıkan net olumsuz farkların 698- Enflasyon Düzeltme Hesabından ve yıllara yaygın inşaat işinde 178- Yıllara Yaygın İnşaat Enflasyon Düzeltme Hesabından aktarılarak izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 697 - YILLARA YAYGIN İNŞAAT ENFLASYON DÜZELTME",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 697 YILLARA YAYGIN İNŞAAT ENFLASYON DÜZELTME: Yıllara yaygın inşaat ve onarım işlerine ait maliyet ve hakedişlere ilişkin enflasyon düzeltmeleri sonucu oluşan farkların izlendiği hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 698 - ENFLASYON DÜZELTME HESABI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 698 ENFLASYON DÜZELTME HESABI: Parasal olmayan kıymetlerin düzeltilmesi sonucu oluşan farkların izlendiği hesaptır. Hesap alacak ya da borç kalanı vermesi durumuna göre 648- Enflasyon Düzeltmesi Kârları veya 658- Enflasyon Düzeltmesi Zararları hesabına devredilerek kapatılır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 790 - İLK MADDE VE MALZEME GİDERLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 790 İLK MADDE VE MALZEME GİDERLERİ (7/B seçeneği gider çeşitleri): Mal ve hizmetlerin üretilmesinde tüketilen her türlü direkt ilkmadde ve malzeme, endirekt malzeme ve üretimle ilgili dışarıya yaptırılan işleri kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 791 - İŞÇİ ÜCRET VE GİDERLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 791 İŞÇİ ÜCRET VE GİDERLERİ (7/B seçeneği gider çeşitleri): İşletme faaliyetlerini yürütmek, üretim ve hizmetleri gerçekleştirmek amacıyla çalıştırılan işçiler için tahakkuk ettirilen ücret ve giderleri kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 792 - MEMUR ÜCRET VE GİDERLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 792 MEMUR ÜCRET VE GİDERLERİ (7/B seçeneği gider çeşitleri): İşletme faaliyetlerini yürütmek, üretim ve hizmetleri gerçekleştirmek amacıyla çalıştırılan aylıklı yönetici, memur, büro personeli vb. için tahakkuk ettirilen tutarları kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 793 - DIŞARIDAN SAĞLANAN FAYDA VE HİZMETLER",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 793 DIŞARIDAN SAĞLANAN FAYDA VE HİZMETLER (7/B seçeneği gider çeşitleri): İşletme faaliyetlerini yürütmek, üretim, pazarlama ve diğer hizmetleri gerçekleştirmek amacıyla dışarıdan sağlanan fayda ve hizmetler (elektrik, su, gaz, bakım ve onarım, haberleşme, nakliye vb.) için yapılan giderleri kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 794 - ÇEŞİTLİ GİDERLER",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 794 ÇEŞİTLİ GİDERLER (7/B seçeneği gider çeşitleri): Sigorta giderleri, kira giderleri, yolluk giderleri, dava-icra ve noter giderleri, iştirak payı ve aidat giderleri gibi diğer giderleri kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 795 - VERGİ, RESİM VE HARÇLAR",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 795 VERGİ, RESİM VE HARÇLAR (7/B seçeneği gider çeşitleri): Mevzuat gereğince tahakkuk ettirilen gider niteliğindeki vergi, resim ve harçları kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 796 - AMORTİSMANLAR VE TÜKENME PAYLARI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 796 AMORTİSMANLAR VE TÜKENME PAYLARI (7/B seçeneği gider çeşitleri): Maddi ve maddi olmayan duran varlıklar ile özel tükenmeye tabi varlıklar için ayrılan amortisman gideri ile tükenme paylarını kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 797 - FİNANSMAN GİDERLERİ",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 797 FİNANSMAN GİDERLERİ (7/B seçeneği gider çeşitleri): İşletmenin gerek yatırım gerekse işletme sermayesi ihtiyacını karşılamak üzere yaptığı kısa veya uzun vadeli borçlanmaların faiz, komisyon ve kur farklarını kapsar. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 798 - GİDER ÇEŞİTLERİ YANSITMA HESABI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 798 GİDER ÇEŞİTLERİ YANSITMA HESABI (7/B seçeneği): Ticaret işletmelerinde dönem boyunca gider çeşitleri hesabının borcuna kaydedilen tutarların, dönem sonlarında fonksiyonlarına dönüştürülerek sonuç hesapları arasında yer alan 630, 631, 632 hesapları ile 66- Finansman Giderleri grubu ilgili hesabının borcuna, bu hesabın alacağına yazılmasıyla kullanılan hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
+      "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
+      "belge_tarihi": "26.12.1992"
+    },
+    {
+      "tur": "standart-madde",
+      "kaynak_ad": "THP 799 - ÜRETİM MALİYETİ HESABI",
+      "baslik": "Tekduzen Hesap Plani Aciklamalari",
+      "metin": "MSUGT Sira No:1 Tekduzen Hesap Plani - 799 ÜRETİM MALİYETİ HESABI (7/B seçeneği): Üretim ve hizmet işletmelerinde, maliyet çıkarma dönemlerinde gider çeşitleri hesaplarının fonksiyonlarına ve gider yerlerine göre gruplanan toplam tutarlarının 798- Gider Çeşitleri Yansıtma Hesabı karşılığında bu hesaba borç kaydedildiği, dönem sonlarında üretim işletmelerinde 151- Yarı Mamüller Üretim ve 152- Mamuller hesaplarına, hizmet işletmelerinde ise 622- Satılan Hizmet Maliyeti Hesabına devredilerek kapatıldığı hesaptır. (03.08 eklendi - PDF karsilastirmasi ile bulunan eksik kod.)",
       "kaynak_url": "https://www.resmigazete.gov.tr/arsiv/21447_1.pdf",
       "belge_tarihi": "26.12.1992"
     }

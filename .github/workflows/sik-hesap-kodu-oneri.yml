@@ -1,0 +1,35 @@
+# Sik hesap kodu onerisi — 0 USD, kasaya yazmaz. Cem'in #194 bulgusunun cevabi:
+# siklardaki hesap kodu hatalarini oneri listesi olarak cikarir (D14-ek ile
+# ayni guvenli mantik - tek eslesme varsa oner, belirsizse dokunma).
+name: Sik Hesap Kodu Onerisi (0 USD)
+on:
+  push:
+    paths: ['motor/sik-hesap-kodu-oneri.ps1', '.github/workflows/sik-hesap-kodu-oneri.yml', 'veri/mevzuat/msugt*.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sik-hesap-kodu-oneri
+  cancel-in-progress: false
+jobs:
+  oner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/sik-hesap-kodu-oneri.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/sik-hesap-kodu-onerisi-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/sik-hesap-kodu-onerisi.json 2>/dev/null || true
+          git add veri/sik-hesap-kodu-onerisi-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Sik hesap kodu onerisi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
