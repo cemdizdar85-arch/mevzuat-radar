@@ -71,14 +71,21 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: ./motor/onarim-motoru.ps1 -uygula -sinir 200
 
-      - name: Raporu commit'le (kor kalma kurali)
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
         if: always()
         run: |
+          # 03.08: pilot kostu, PARA HARCANDI, rapor push yarisini kaybetti ve
+          # "|| true" bunu SUSTURDU - fatura rakamlarini kaybettik. Bir daha olmaz:
+          # rapor yoksa veya push 3 denemede tutmazsa adim KIRMIZI biter.
+          set -e
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          # YALNIZ rapor (sayilar) commit'lenir. Ornek istemler ve pilot ciktilari
-          # PARALI SORU ICERIGI tasir - public depoya girmez (29-30.07 karari).
-          if [ -f veri/onarim-motor-raporu.json ]; then git add veri/onarim-motor-raporu.json || true; fi
+          # YALNIZ rapor (sayilar) commit'lenir; soru icerigi depoya girmez.
+          if [ ! -f veri/onarim-motor-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/onarim-motor-raporu.json
           git diff --cached --quiet || git commit -m "Onarim motoru raporu [veri-operasyonu]"
-          git pull --rebase || true
-          git push || true
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            echo "push denemesi $i tutmadi"; sleep 7
+          done
+          echo "!! PUSH TUTMADI - PARALI kosunun raporu depoya yazilamadi."; exit 1
