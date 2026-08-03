@@ -508,3 +508,19 @@ sınıra dayanıp JSON ortasında kesiliyordu.
 olmazsa sorunun **ID'si rapora yazılır** (`islenmeyen`), sessizce kaybolmaz.
 *Teşhis notu:* `stop_reason = max_tokens` ise kesilmedir, model kusuru değil —
 rapordaki `cikti_kesilen` sayacı bunu ayırır.
+
+**D22. SENARYO TARİHİ YAKIN — AMA RAKAMLA TUTARLI (03.08.2026 — Cem'in bulgusu)**
+Senaryo tarihi **içinde bulunulan yıl veya bir önceki yıl** olacak; gelecek tarih asla.
+Gerekçe: 2026'da sınava girecek aday 2024 tarihli senaryoyu "eski banka" olarak okur.
+
+**Ama tarihi yenilemek tek başına tehlikeli.** Senaryoda kur, had, asgari ücret, tarife
+gibi **yıla bağlı** bir değer geçiyorsa o değer senaryo yılıyla uyumlu olmalı. Uyumlu
+değer bilinmiyorsa iki yol: (a) değeri soru gövdesinde **"verilmiş veri"** olarak sun,
+(b) yıla bağlı değer gerektirmeyen senaryo yaz. **Uydurma değer yazılmaz** (D4).
+
+*Vaka:* "18 Aralık 2024" tarihli senaryoda kur **28,70 TL/EUR** verilmişti — o tarihe
+ait görünmüyor. Soru çözülebilir çünkü kur veri olarak sunulmuş, ama dikkatli aday
+takılır. **Asıl kusur eskilik değil, tarih ile rakamın tutmaması.**
+
+*Kapsam:* bu kural **üreticiye** aittir (yeni soru yazımı). Onarım motoru soru kökünü
+değiştirmez; mevcut kasadaki tarih-rakam uyumsuzlukları **hakem son okumasının** işidir.

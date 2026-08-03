@@ -427,6 +427,16 @@ MUTLAK KURALLAR:
    ("ilgili yil icin esik 25.000 TL'dir" gibi) YA DA senaryo yilini dayanak
    metnindeki degerin yiliyla ayni yap. Mevzuat guncellenince eskiyecek soru
    kurma.
+   SENARYO YILI YAKIN OLACAK (03.08, Cem: "eski yil sanki sorular eskiden
+   kalmis hissi veriyor"): senaryo tarihi ICINDE BULUNULAN YIL ya da BIR ONCEKI
+   YIL olsun; gelecek tarih ASLA. Ama tarihi yenilemek TEK BASINA yetmez -
+   TARIH ILE RAKAM BIRBIRINI TUTACAK. Senaryoda kur, had, asgari ucret, tarife
+   gibi yila bagli bir deger geciyorsa o deger senaryo yiliyla uyumlu olmali.
+   Uyumlu bir deger bilmiyorsan IKI SECENEK var: (a) degeri soru govdesinde
+   "verilmis veri" olarak sun ve senaryoyu ona gore kur, (b) yila bagli deger
+   gerektirmeyen bir senaryo yaz. UYDURMA DEGER YAZMA.
+   (Vaka: "18 Aralik 2024" tarihli senaryoda kur 28,70 TL/EUR verilmisti - o
+   tarihe ait gorunmuyor; dikkatli aday takilir.)
 7. KAYNAK ETIKETI ASIL PARAGRAF OLACAK (Q498 dersi): sorunun dayandigi kaynagi
    yazarken "p.1 - Amac" gibi GENEL bir etiket KULLANMA; kuralin gectigi ASIL
    madde/paragraf numarasini yaz (orn. "TMS 8 p.32-38" ya da "TMS 16 p.61").
