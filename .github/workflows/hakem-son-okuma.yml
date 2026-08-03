@@ -1,0 +1,66 @@
+# Hakem Son Okuma — varsayilan KURU (0 USD).
+# Parali kosu YALNIZ veri/tetik/hakem-son-okuma.txt icinde "BAS" gecerse.
+# Regexin goremedigi ANLAM kusurlarini kasadaki MEVCUT sorularda arar.
+name: Hakem Son Okuma (varsayilan 0 USD)
+
+on:
+  push:
+    paths:
+      - 'motor/hakem-son-okuma.ps1'
+      - '.github/workflows/hakem-son-okuma.yml'
+      - 'veri/tetik/hakem-son-okuma.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+concurrency:
+  group: hakem-son-okuma
+  cancel-in-progress: false
+
+jobs:
+  hakem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Tetigi denetle
+        id: kapi
+        run: |
+          if ! git rev-parse HEAD~1 >/dev/null 2>&1; then echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0; fi
+          if ! git diff --name-only HEAD~1 HEAD | grep -q 'veri/tetik/hakem-son-okuma.txt'; then
+            echo "bas=hayir" >> $GITHUB_OUTPUT; echo "KURU - tetik degismemis."; exit 0
+          fi
+          if grep -qE '(^|[^A-Za-z])BAS([^A-Za-z]|$)' veri/tetik/hakem-son-okuma.txt; then
+            echo "bas=evet" >> $GITHUB_OUTPUT; echo "PARALI HAKEM."
+          else
+            echo "bas=hayir" >> $GITHUB_OUTPUT; echo "KURU - dosyada BAS izni yok."
+          fi
+      - name: Kuru (0 USD - maliyet tahmini)
+        if: steps.kapi.outputs.bas != 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/hakem-son-okuma.ps1
+      - name: PARALI hakem
+        if: steps.kapi.outputs.bas == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./motor/hakem-son-okuma.ps1 -uygula
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/hakem-son-okuma-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/hakem-son-okuma-raporu.json
+          git diff --cached --quiet || git commit -m "Hakem son okuma raporu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            echo "push denemesi $i tutmadi"; sleep 7
+          done
+          echo "!! PUSH TUTMADI"; exit 1
