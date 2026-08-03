@@ -1,13 +1,46 @@
 [
   {
-    "id": "msgbatch_0181TbcW1LVLee2JMS2DTGwE",
+    "id": "msgbatch_01PiKAPwRmE6bSFXtVgi55gj",
     "durum": "in_progress",
     "basarili": 0,
     "hatali": 0,
     "iptal": 0,
-    "olusturuldu": "08/02/2026 08:59:27",
+    "olusturuldu": "08/03/2026 12:43:52",
     "bitti": "",
     "sonuc_adresi": "",
+    "sonuc_suresi": "08/04/2026 12:43:52"
+  },
+  {
+    "id": "msgbatch_01QNSPYwFdfHnD39zst1txrG",
+    "durum": "ended",
+    "basarili": 19,
+    "hatali": 0,
+    "iptal": 0,
+    "olusturuldu": "08/03/2026 12:01:07",
+    "bitti": "08/03/2026 12:03:55",
+    "sonuc_adresi": "https://api.anthropic.com/v1/messages/batches/msgbatch_01QNSPYwFdfHnD39zst1txrG/results",
+    "sonuc_suresi": "08/04/2026 12:01:07"
+  },
+  {
+    "id": "msgbatch_01DvQu63E7cV74coVRTRNanY",
+    "durum": "ended",
+    "basarili": 23,
+    "hatali": 0,
+    "iptal": 0,
+    "olusturuldu": "08/03/2026 10:55:55",
+    "bitti": "08/03/2026 10:58:39",
+    "sonuc_adresi": "https://api.anthropic.com/v1/messages/batches/msgbatch_01DvQu63E7cV74coVRTRNanY/results",
+    "sonuc_suresi": "08/04/2026 10:55:55"
+  },
+  {
+    "id": "msgbatch_0181TbcW1LVLee2JMS2DTGwE",
+    "durum": "ended",
+    "basarili": 29,
+    "hatali": 0,
+    "iptal": 0,
+    "olusturuldu": "08/02/2026 08:59:27",
+    "bitti": "08/02/2026 09:05:14",
+    "sonuc_adresi": "https://api.anthropic.com/v1/messages/batches/msgbatch_0181TbcW1LVLee2JMS2DTGwE/results",
     "sonuc_suresi": "08/03/2026 08:59:27"
   },
   {

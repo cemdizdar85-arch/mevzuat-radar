@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260802090151
+Start time: 20260803124352
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/baa356e1-2d3e-4387-8f23-77bdc4092f97.ps1'
-Process ID: 2248
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a397cecc-0a87-48ac-9a79-2a3ff1386b64.ps1'
+Process ID: 2020
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -21,12 +21,15 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 4 parti (toplam 304)
+  sayfa 4: 7 parti (toplam 307)
 
-TOPLAM 304 parti bulundu.
+TOPLAM 307 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
-msgbatch_0181TbcW1LVLee2JMS2DTGwE in_progress         0        0 08/02/2026 08:59:27
+msgbatch_01PiKAPwRmE6bSFXtVgi55gj in_progress         0        0 08/03/2026 12:43:52
+msgbatch_01QNSPYwFdfHnD39zst1txrG ended              19        0 08/03/2026 12:01:07
+msgbatch_01DvQu63E7cV74coVRTRNanY ended              23        0 08/03/2026 10:55:55
+msgbatch_0181TbcW1LVLee2JMS2DTGwE ended              29        0 08/02/2026 08:59:27
 msgbatch_01DAbyLKyeRHyrH7vs93hhjK ended              52        0 08/02/2026 07:44:43
 msgbatch_019aPxs7CtWf3q96pARpdi3W ended             273        0 08/02/2026 07:26:07
 msgbatch_01KMBWPRDonXDK1PjBjoEELB ended              60        0 08/02/2026 06:20:21
@@ -331,9 +334,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (304 kayit)
-HASADA HAZIR (ended + basarili>0): 303 parti,  sonuc
+-> veri/parti-listesi.json (307 kayit)
+HASADA HAZIR (ended + basarili>0): 306 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260802090152
+End time: 20260803124353
 **********************
