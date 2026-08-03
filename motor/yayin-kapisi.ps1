@@ -127,7 +127,11 @@ function AdUyuyorMu([string]$iddia, [string]$resmi){
   return $false
 }
 
-$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0 }
+# K7 (03.08, Cem): "bulduklarimizi tek ornege degil CALISMANIN TUMUNE yay."
+# Hakli - "muglak ifade" kuralini yalniz isteme koymustum; mevcut kasada kac
+# tane var bilmiyorduk. Artik yayindaki her soruda da olculuyor.
+$reMuglak = [regex]'(?i)belirli\s+[şs]artlar|baz[ıi]\s+hallerde|kanunda\s+[öo]ng[öo]r[üu]len\s+durum|gerekli\s+ko[şs]ullar\s+sa[ğg]lan|mevzuatta\s+belirtilen\s+[öo]l[çc][üu]'
+$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0 }
 $kirmiziId = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
 function Isaretle($kapi, $s, $detay){
@@ -158,6 +162,7 @@ foreach($s in $kasa){
   if($reD3.IsMatch($tumAciklama) -or $reD3b.IsMatch($tumAciklama)){ Isaretle 'K1_d3' $s 'ogretmeyen kalip: "yanlis cunku dogru cevap X"' }
   if($reKanun.IsMatch($tumAciklama)){ Isaretle 'K2_kanun_kopyasi' $s 'kanun kopyasi dili' }
   if($reYZ.IsMatch($tumAciklama)){ Isaretle 'K3_yz_kokusu' $s 'yapay zeka doldurma kalibi' }
+  if($reMuglak.IsMatch($tumAciklama)){ Isaretle 'K7_muglak_ifade' $s 'bilgi vaat edip vermeyen kalip ("belirli sartlarda" deyip sartlari saymamis)' }
   if($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
 
   $tum = "$($s.soru) $tumAciklama"

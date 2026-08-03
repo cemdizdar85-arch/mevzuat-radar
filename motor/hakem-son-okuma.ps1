@@ -106,6 +106,10 @@ H5 HESAP TUTMUYOR: dogru sikkin rakami, aciklamada anlatilan islemden ADIM
    ADIM cikmiyor mu? Once sen hesapla, sonra karsilastir.
 H6 DAYANAKTA OLMAYAN IDDIA: aciklamada gecen oran/tutar/madde numarasi
    asagidaki dayanak metninde YOK mu? Dayanak verilmemisse bu kusuru ARAMA.
+H7 MUGLAK IFADE: "belirli sartlarda", "bazi hallerde", "kanunda ongorulen
+   durumlarda" gibi bilgi VAAT EDIP VERMEYEN kalip var mi? Sartlar sayilmamissa
+   isaretle. Bu, hic yazmamaktan kotudur: ogrenci bir sey ogrendigini sanir,
+   sinavda sart sorulunca bilemez.
 $thpBlok
 DERS: $($s.ders) | KONU: $($s.konu) | KAYNAK: $($s.kaynak)
 

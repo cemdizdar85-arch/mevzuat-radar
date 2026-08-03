@@ -541,3 +541,30 @@ alacak (VUK 322-324) · maliyet bedeli–değerleme (VUK 262/270/275) · belge d
 
 *Sınır:* kardeş metin de **ambardan okunur**, uydurulmaz. İstem "yine yalnız burada
 yazanı yaz" der. *Ölçümü:* `kardes_kaynak_eklenen`.
+
+**D24. MUĞLAK İFADE YASAK — ŞARTLARI SAY (03.08.2026 — Cem'in bulgusu)**
+*"Belirli şartlarda"*, *"bazı hallerde"*, *"kanunda öngörülen durumlarda"*,
+*"gerekli koşullar sağlandığında"* — bunlar bilgi **vaat edip vermez.** Hiç
+yazmamaktan kötüdür: öğrenci bir şey öğrendiğini sanır, sınavda şart sorulunca bilemez.
+
+*Kural:* bu kalıplardan birini yazacaksan **şartları say.** Dayanakta varsa kısaca
+madde madde yaz; dayanakta yoksa kalıbı **hiç kullanma**, yalnız dayanakta yazanı söyle.
+*Örnek:* ~~"şüpheli alacak belirli şartlarda ayrılır"~~ → *"dört şart aranır: dava veya
+icra safhasında olması; ya da protesto edilmiş yahut yazıyla bir defadan fazla istenmiş
+küçük alacak olması; teminatsız olması; ticari kazancın elde edilmesiyle ilgili olması."*
+
+---
+
+## HER BULGU ÜÇ YERE GİDER (03.08 — Cem: "tek örneğe değil çalışmanın tümüne yay")
+
+Bir kusur bulunduğunda **üçü birden** yapılmazsa iş yarım kalır:
+
+| Nereye | Neyi korur | Örnek |
+|---|---|---|
+| **1. İstem** | bundan sonra yazılacaklar | D24 muğlak ifade yasağı |
+| **2. Kapı** | kasadaki mevcut 27.478 soru | yayın kapısı K7 sayacı |
+| **3. Hakem** | anlam işi olanlar (regex göremez) | hakem H7 |
+
+*Neden yazıldı:* D24 önce yalnız isteme konmuştu — yani yeni yazılanlar korunuyor,
+**kasadaki mevcut sorular hiç ölçülmüyordu.** Cem yakaladı. Bu tablo o hatanın
+tekrarlanmaması için duruyor.

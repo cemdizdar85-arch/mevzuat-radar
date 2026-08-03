@@ -457,6 +457,18 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC SEYI ANLATACAK:
       yaz; dayanakta yoksa "bu sorunun konusu disindadir" deyip gec, UYDURMA.
   (3) BURADA NEDEN GECERSIZ — o kural bu sorunun sordugu seye neden cevap degil.
 
+  MUGLAK IFADE YASAK (03.08, Cem'in bulgusu): "belirli sartlarda", "bazi
+  hallerde", "kanunda ongorulen durumlarda", "gerekli kosullar saglandiginda",
+  "mevzuatta belirtilen olculerde" gibi kaliplar bilgi VAAT EDIP VERMEZ - hic
+  yazmamaktan kotudur, cunku ogrenci bir sey ogrendigini sanir.
+  KURAL: bu kaliplardan birini yazacaksan SARTLARI SAY. Dayanakta varsa kisaca
+  madde madde yaz; dayanakta yoksa kalibi HIC KULLANMA, yalnizca dayanakta
+  YAZANI soyle.
+  ORNEK: "supheli alacak belirli sartlarda ayrilir" YERINE -> "supheli alacak
+  icin dort sart aranir: dava veya icra safhasinda olmasi; ya da protesto
+  edilmis yahut yaziyla bir defadan fazla istenmis kucuk alacak olmasi;
+  teminatsiz olmasi; ticari kazancin elde edilmesiyle ilgili olmasi."
+
   YASAKLAR:
   - DOGRU CEVABI TEKRAR ETMEK YASAK. "Dogrusu: <sorunun genel kurali>" yazma; bu
     "bu sik yanlis cunku dogru cevap X" demenin gizli halidir, ogretmez.
@@ -719,6 +731,7 @@ $tekrarDenenen=0; $kesilen=0
 $islenmeyen = New-Object System.Collections.Generic.List[object]
 $dayanakDisiSoru=0; $dayanakDisiIddia=0; $maddeBulunamadi=0
 $istenmeyenAlan=0; $dortParcaEksik=0; $kanunKopyasi=0; $yzKokusu=0; $tekduzeKusurlu=0
+$muglakIfade=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
 Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 
@@ -863,6 +876,22 @@ for($n=0; $n -lt $parti.Count; $n++){
     if($karistirSayisi -ge 3){ $tekduzeMi = $true }
     foreach($f in $sablonFiil.Keys){ if($sablonFiil[$f] -ge 3){ $tekduzeMi = $true } }
     if($tekduzeMi){ $tekduzeKusurlu++ }
+
+    # MUGLAK IFADE KAPISI (03.08, Cem: "belirli sartlarda deyip gecmis").
+    # Bilgi vaat edip vermeyen kaliplar. Istem bunlari yasakliyor; burada
+    # OLCULUYOR - soylemek olcmek degildir.
+    $tumUretilen = ''
+    foreach($alan in 'dort_parca','tuzak','dogrusu'){
+      try {
+        if(-not $obj.PSObject.Properties[$alan]){ continue }
+        $vv = $obj.$alan
+        if($vv -is [string]){ $tumUretilen += ' ' + $vv; continue }
+        foreach($h in 'A','B','C','D','E'){ if($vv.PSObject.Properties[$h]){ $tumUretilen += ' ' + "$($vv.$h)" } }
+      } catch {}
+    }
+    if([regex]::IsMatch($tumUretilen, '(?i)belirli\s+[şs]artlar|baz[ıi]\s+hallerde|kanunda\s+[öo]ng[öo]r[üu]len\s+durum|gerekli\s+ko[şs]ullar\s+sa[ğg]lan|mevzuatta\s+belirtilen\s+[öo]l[çc][üu]')){
+      $muglakIfade++
+    }
   }
 
   # --- DORT PARCA + DIL KAPISI (03.08, Cem: "annem bile anlasin") ---
@@ -974,6 +1003,7 @@ $rapor = [ordered]@{
   kanun_kopyasi=$kanunKopyasi             # "bilumum/muteferri" gibi kanun dili
   yapayzeka_kokusu=$yzKokusu              # doldurma kaliplari
   tekduze_kusurlu=$tekduzeKusurlu         # siklar ayni kalipla aciliyor (makine izi)
+  muglak_ifade=$muglakIfade               # "belirli sartlarda" deyip sartlari saymayan
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
