@@ -1,100 +1,17 @@
 {
-  "tarih": "02.08.2026 21:27",
-  "mod": "KURU (0 USD)",
-  "kasa": 27478,
-  "eksigi_olan": 27478,
-  "islenebilir": 26853,
-  "atlanan_dayanaksiz": 625,
-  "mevzuat_disi_gecen": 2734,
-  "eksik_dagilimi": {
-    "D1_dort_parca": 1231,
-    "D2_dogrusu": 26853,
-    "D2_tuzak": 5162,
-    "D7_tablo": 8219,
-    "D7_yevmiye": 4450,
-    "D8_karsilastirma": 4544
-  },
-  "atlanan_ornek": [
-    {
-      "id": "008c8e81",
-      "sebep": "dayanak ambarda cozulemedi: 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - Tekdüzen Hesap Planı, 730-733 Genel Üretim Giderleri Hesap Grubu Açıklamaları"
-    },
-    {
-      "id": "010234c0",
-      "sebep": "dayanak ambarda cozulemedi: TCMB Enflasyon Raporu - İkinci Tur Etkiler Bölümü"
-    },
-    {
-      "id": "01bc97ce",
-      "sebep": "dayanak ambarda cozulemedi: Milli Gelir Muhasebesi - Nominal/Reel GSYH ve GSYH Deflatörü Formülü"
-    },
-    {
-      "id": "01ee51e1",
-      "sebep": "dayanak ambarda cozulemedi: TCMB Enflasyon Raporu - Döviz Kuru Geçişkenliği Değerlendirmesi"
-    },
-    {
-      "id": "02014db4",
-      "sebep": "dayanak ambarda cozulemedi: J-Eğrisi Modeli (Esneklikler Yaklaşımı, Ödemeler Bilançosu Teorisi)"
-    },
-    {
-      "id": "0210870b",
-      "sebep": "dayanak ambarda cozulemedi: 4857 s. İş K. m.4/1-f (çıraklar) ve 6331 s. İSG K. m.2 — 4857 m.4/1-f'teki 'iş sağlığı ve güvenliği hükümleri saklı kalmak üzere' ibaresi 6331 s.K. m.37 ile 2012'de metinden çıkarılmıştır; çırakların İSG kapsamında olması artık 6331'e dayanır"
-    },
-    {
-      "id": "0219ff35",
-      "sebep": "dayanak ambarda cozulemedi: Genel İktisat Teorisi - Enflasyon Türleri (TESMER SGS Ekonomi Müfredatı)"
-    },
-    {
-      "id": "02433da6",
-      "sebep": "dayanak ambarda cozulemedi: Muhasebe Sistemi Uygulama Genel Tebliği Sıra No:1 - Tekdüzen Hesap Planı, 500 Sermaye Hesabı işleyişi"
-    },
-    {
-      "id": "026a5899",
-      "sebep": "dayanak ambarda cozulemedi: Mali Tablolar Analizi - Yatay Analiz Yönteminde Sıfır Baz Değer Sınırlaması"
-    },
-    {
-      "id": "02b677d8",
-      "sebep": "dayanak ambarda cozulemedi: Mikroekonomi Teorisi - Esneklik, Marjinal Hasilat ve Toplam Hasilat Iliskisi"
-    },
-    {
-      "id": "035db5bb",
-      "sebep": "dayanak ambarda cozulemedi: İktisat Teorisi - Tam İnelastik Talep (Ep=0)"
-    },
-    {
-      "id": "0388ea0e",
-      "sebep": "dayanak ambarda cozulemedi: Mikroekonomi Teorisi - Talep Fiyat Esnekliğinin Belirleyicileri (İkame Mal Sayısı)"
-    },
-    {
-      "id": "039381cd",
-      "sebep": "dayanak ambarda cozulemedi: Muhasebe Sistemi Uygulama Genel Tebliği (Sıra No:1) - 730 Genel Üretim Giderleri Hesabı, endirekt malzeme tanımı"
-    },
-    {
-      "id": "040b153b",
-      "sebep": "dayanak ambarda cozulemedi: Finansal Tablolar Analizi - Dikey Yüzde Analizinin Sınırlılıkları"
-    },
-    {
-      "id": "047b1c05",
-      "sebep": "dayanak ambarda cozulemedi: 5018 s. Kanun m.49 (muhasebe sistemi) ve m.50 (kayıt zamanı — tahakkuk esası)"
-    },
-    {
-      "id": "063983be",
-      "sebep": "dayanak ambarda cozulemedi: J Eğrisi Teorisi - Ödemeler Dengesi Esneklik Yaklaşımı (Uluslararası İktisat)"
-    },
-    {
-      "id": "06bf263f",
-      "sebep": "dayanak ambarda cozulemedi: 3568 s. SMMM K. m.43 (sır saklama) — eski atıf m.34 Birlik Genel Kurulunun toplanmasını düzenler, konuyla ilgisi yoktur"
-    },
-    {
-      "id": "06d6e00f",
-      "sebep": "dayanak ambarda cozulemedi: ÖTV Kanunu m.5/1"
-    },
-    {
-      "id": "06e2d7dd",
-      "sebep": "dayanak ambarda cozulemedi: 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - 620 Satılan Mamuller Maliyeti hesabı ve Satışların Maliyeti Tablosu"
-    },
-    {
-      "id": "077b272e",
-      "sebep": "dayanak ambarda cozulemedi: KDV Kanunu m.3/a, m.27"
-    }
-  ],
-  "not": "Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur."
+  "tarih": "03.08.2026 05:49",
+  "mod": "PILOT (PARALI, kasaya YAZILMADI)",
+  "model": "claude-haiku-4-5-20251001",
+  "istenen": 200,
+  "basarili_json": 200,
+  "bozuk_json": 0,
+  "cagri_hatasi": 0,
+  "giris_token": 217008,
+  "cikis_token": 111636,
+  "maliyet_usd": 0.7752,
+  "birim_usd_soru": 0.003876,
+  "fiyat_katsayisi": "1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)",
+  "tahmin_tam_kasa_usd": 106.5,
+  "cikti_dosyasi": "veri/fabrika/onarim-pilot-ciktilar.json (DEPOYA GIRMEZ)",
+  "not": "Kasaya HICBIR yazma yapilmadi. Ciktilar gozle kontrol edilecek; onay gelirse ayri -yaz kosusuyla islenir."
 }
