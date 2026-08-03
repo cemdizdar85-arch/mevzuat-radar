@@ -1,0 +1,72 @@
+# Sik hesap kodu UYGULAYICI — KASAYA YAZAR.
+# Varsayilan KURU (prova, 0 yazma). Gercek yazma yalnizca tetik dosyasinda
+# BAS varsa - onarim-motoru.yml ile ayni kapi mantigi (icerik degil ACIK IZIN).
+name: Sik Hesap Kodu Uygula (kasaya yazar)
+on:
+  push:
+    paths:
+      - 'veri/tetik/sik-kod-uygula.txt'
+      - 'motor/sik-hesap-kodu-uygula.ps1'
+      - '.github/workflows/sik-hesap-kodu-uygula.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sik-hesap-kodu-uygula
+  cancel-in-progress: false
+jobs:
+  uygula:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Tetigi denetle
+        id: kapi
+        run: |
+          if ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+            echo "!! HEAD~1 YOK - KURU kosuluyor."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if [ ! -f veri/tetik/sik-kod-uygula.txt ]; then
+            echo "Tetik dosyasi yok - KURU."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if ! git diff --name-only HEAD~1 HEAD | grep -q 'veri/tetik/sik-kod-uygula.txt'; then
+            echo "KURU KOSU - tetik dosyasi degismemis."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if grep -qE '(^|[^A-Za-z])BAS([^A-Za-z]|$)' veri/tetik/sik-kod-uygula.txt; then
+            TIER=$(grep -oE 'TIER=(yuksek|hepsi)' veri/tetik/sik-kod-uygula.txt | head -1 | cut -d= -f2)
+            if [ -z "$TIER" ]; then TIER=yuksek; fi
+            echo "GERCEK YAZMA - tier=$TIER"
+            echo "bas=evet" >> $GITHUB_OUTPUT
+            echo "tier=$TIER" >> $GITHUB_OUTPUT
+          else
+            echo "KURU KOSU - dosyada BAS izni yok."; echo "bas=hayir" >> $GITHUB_OUTPUT
+          fi
+
+      - name: KURU prova (kasaya yazmaz)
+        if: steps.kapi.outputs.bas != 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/sik-hesap-kodu-uygula.ps1
+
+      - name: UYGULA (KASAYA YAZAR)
+        if: steps.kapi.outputs.bas == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/sik-hesap-kodu-uygula.ps1 -uygula -tier "${{ steps.kapi.outputs.tier }}"
+
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/sik-hesap-kodu-uygulama-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/sik-hesap-kodu-uygulama-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Sik hesap kodu uygulama raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
