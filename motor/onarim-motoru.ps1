@@ -607,7 +607,10 @@ for($n=0; $n -lt $parti.Count; $n++){
         $m = ''; try { if($v.PSObject.Properties[$h]){ $m = "$($v.$h)" } } catch {}
         if($m.Trim().Length -lt 5){ continue }
         # model onegi yazdiysa kirp (cift "Dogrusu: Dogrusu:" olmasin)
-        $m = ($m -replace '(?i)^\s*(dogrusu|do[ğg]rusu|tuzak)\s*:\s*','').Trim()
+        # 03.08 kendi testim yakaladi: model "Dogrusu: Dogrusu: ..." yazinca tek
+        # temizlik yetmiyordu, biri kaliyor ve ekran bir tane daha ekleyince yine
+        # cift oluyordu. (…)+ ile TEKRARLARIN HEPSI kirpilir.
+        $m = ($m -replace '(?i)^\s*((dogrusu|do[ğg]rusu|tuzak)\s*:\s*)+','').Trim()
         try { $v.$h = $m } catch {}
         $anahtar = ($m.ToLowerInvariant() -replace '[^\p{L}\p{Nd}]','')
         if($gorulen.ContainsKey($anahtar)){ $tekrarVar = $true }
