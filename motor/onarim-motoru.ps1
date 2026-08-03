@@ -400,21 +400,27 @@ function DayanakDilim([string]$metin, [string]$kaynak){
 #     YOKTUR; listeyi vermezsen model hafizadan yazar. ---
 $script:THP_AD = @{}   # kod -> resmi ad (Cem'in 181 bulgusu icin esleme denetimi)
 $script:THP_LISTE = ''
-$thpYol2 = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(Test-Path $thpYol2){
+# 03.08 - TEK DOSYA DEGIL HEPSI (Cem: "hesap planini tam yut"):
+# msugt-thp-tam.json 199 hesap tasiyor ama 100 KASA, 102 BANKALAR, 120 ALICILAR,
+# 600 YURTICI SATISLAR, 730 GENEL URETIM GIDERLERI ICERMIYOR - onlar msugt-thp2
+# ve digerlerinde. Yani modele EKSIK liste veriyordum; kullanmasi gereken kod
+# listede olmayinca yine hafizadan yazmasi kaciniLmazdi.
+# Birlesince 230 hesap ve temel hesaplarin hepsi var.
+$c2 = New-Object System.Collections.Generic.List[string]
+foreach($tf in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
   try {
-    $thpVeri2 = Get-Content $thpYol2 -Raw -Encoding UTF8 | ConvertFrom-Json
-    $c2 = New-Object System.Collections.Generic.List[string]
+    $thpVeri2 = Get-Content $tf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($b in @($thpVeri2.belgeler)){
       $m2t = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-      if($m2t.Success){
+      if($m2t.Success -and -not $script:THP_AD.ContainsKey($m2t.Groups[1].Value)){
         $c2.Add(($m2t.Groups[1].Value + ' ' + $m2t.Groups[2].Value.Trim()))
         $script:THP_AD[$m2t.Groups[1].Value] = $m2t.Groups[2].Value.Trim()
       }
     }
-    if($c2.Count -ge 50){ $script:THP_LISTE = ($c2 | Sort-Object) -join "`n" }
   } catch {}
 }
+if($c2.Count -ge 50){ $script:THP_LISTE = ($c2 | Sort-Object) -join "`n" }
+Write-Host ("THP listesi: {0} hesap (tum msugt dosyalari birlestirildi)" -f $script:THP_AD.Count)
 
 # --- ISTEM KURUCU: yalniz EKSIK olanlari ister ---
 function IstemKur($i){

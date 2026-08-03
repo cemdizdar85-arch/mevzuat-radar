@@ -52,17 +52,44 @@ function CekListe([string]$uri){
 }
 
 # --- RESMI KOD -> AD LISTESI (Tekduzen Hesap Plani) ---
-$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(-not (Test-Path $thpYol)){ Write-Host "THP dosyasi yok."; RaporYaz @{ durum='KIRMIZI'; sebep='msugt-thp-tam.json bulunamadi' }; exit 1 }
-$thp = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
+# ============================================================================
+#  03.08 - "HESAP PLANI EKSIK" SANDIM, MESELE OKUMAYDI (Cem: "tam yut")
+#
+#  Denetim YALNIZ msugt-thp-tam.json okuyordu: 199 hesap, ve icinde 100 KASA,
+#  102 BANKALAR, 120 ALICILAR, 600 YURTICI SATISLAR, 730 GENEL URETIM GIDERLERI
+#  YOKTU. "Referans verimiz eksik" diye rapor ettim. YANLIS TESHIS.
+#  Butun msugt*.json dosyalari birlesince 230 hesap ve o 19 temel hesabin 19'u
+#  da VAR. Yani veri ambarda duruyordu; ben tek dosya okuyup eksik saniyordum.
+#
+#  Ders: "kaynak eksik" demeden once KAYNAGIN TAMAMINI okudugunu dogrula.
+#  Bugun ucuncu kez ayni bicim: dar okuma -> yanlis sayi -> yanlis teshis.
+# ============================================================================
 $RESMI = @{}
-foreach($b in @($thp.belgeler)){
-  # kaynak_ad ornegi: "THP 101 - ALINAN ÇEKLER"
-  $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-  if($m.Success){ $RESMI[$m.Groups[1].Value] = $m.Groups[2].Value.Trim() }
+$thpDizin = Join-Path $kok 'veri/mevzuat'
+$okunanDosya = 0
+foreach($f in (Get-ChildItem (Join-Path $thpDizin 'msugt*.json') -ErrorAction SilentlyContinue)){
+  try {
+    $j = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($b in @($j.belgeler)){
+      # kaynak_ad ornegi: "THP 101 - ALINAN ÇEKLER"
+      $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+      if($m.Success -and -not $RESMI.ContainsKey($m.Groups[1].Value)){
+        $RESMI[$m.Groups[1].Value] = $m.Groups[2].Value.Trim()
+      }
+    }
+    $okunanDosya++
+  } catch { Write-Host ("THP dosyasi okunamadi: {0}" -f $f.Name) }
 }
-Write-Host ("Resmi hesap kodu: {0}" -f $RESMI.Count)
-if($RESMI.Count -lt 50){ Write-Host "!! SUPHELI: cok az hesap kodu okundu, ayristirma kirik olabilir."; }
+Write-Host ("Resmi hesap kodu: {0} ({1} dosyadan birlestirildi)" -f $RESMI.Count, $okunanDosya)
+if($RESMI.Count -lt 200){
+  # Temel hesaplar yoksa denetim guvenilir degildir - sessizce devam etme.
+  $eksikTemel = @('100','102','120','153','600','730') | Where-Object { -not $RESMI.ContainsKey($_) }
+  if($eksikTemel.Count -gt 0){
+    Write-Host ("!! KIRMIZI: temel hesaplar eksik: {0}" -f ($eksikTemel -join ', '))
+    RaporYaz @{ durum='KIRMIZI'; sebep='THP referansi eksik'; okunan_kod=$RESMI.Count; eksik_temel=$eksikTemel }
+    exit 1
+  }
+}
 
 # --- kasa ---
 $kasa = New-Object System.Collections.Generic.List[object]
@@ -146,7 +173,7 @@ $BIRIM = @('TL','LIRA','LİRA','USD','EUR','ADET','GUN','GÜN','AY','YIL','SAAT'
 # dogrulanacak bir kod-ad eslesmesi yok.
 $reKod  = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
 $reKod2 = [regex]'([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)'
-$uyuyor=0; $uymuyor=0; $kodYok=0; $birimAtlanan=0
+$uyuyor=0; $uymuyor=0; $kodYok=0; $birimAtlanan=0; $adDisiAtlanan=0
 $soruUymuyor = @{}; $soruKodYok = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
 $kodSayaci = @{}
@@ -170,6 +197,25 @@ foreach($s in $kasa){
       $kodYok++; $soruKodYok["$($s.id)"] = 1
       continue
     }
+    # ====================================================================
+    #  BEYAZ LISTE (03.08 - ucuncu sahte alarm dalgasi)
+    #
+    #  Kelime avi calismadi: once "TL" (birim), sonra "hesabina" (hesap
+    #  kelimesi), simdi "PARAGRAF" - metinde "...230 paragrafinda..." gecince
+    #  paragraf kelimesini HESAP ADI sandim. Ilk yedi ornek 291 sahte alarm.
+    #  Kara liste tutmak bitmez; her yeni kelime yeni yama demek.
+    #
+    #  DOGRU MANTIK TERSI: bir ifade ancak THP'DEKI HERHANGI BIR RESMI ADA
+    #  benziyorsa "hesap adi iddiasi"dir. Hicbirine benzemiyorsa o zaten hesap
+    #  adi degildir - suclanmaz, SESSIZCE ATLANIR.
+    #  Boylece "yanlis" sayisi yalniz GERCEK kod-ad esleme hatalarini gosterir:
+    #  ad bir hesap adi, ama YANLIS kodun adi (181/Diger Donen Varliklar gibi).
+    # ====================================================================
+    $adIddiaMi = $false
+    foreach($resmiAd in $RESMI.Values){
+      if(AdUyuyorMu $ad $resmiAd){ $adIddiaMi = $true; break }
+    }
+    if(-not $adIddiaMi){ $adDisiAtlanan++; continue }
     if(AdUyuyorMu $ad $RESMI[$kod]){ $uyuyor++ }
     else {
       $uymuyor++; $soruUymuyor["$($s.id)"] = 1
@@ -196,7 +242,8 @@ $rapor = [ordered]@{
   iddia_uyuyor=$uyuyor
   iddia_uymuyor=$uymuyor
   iddia_kod_yok=$kodYok
-  birim_atlanan=$birimAtlanan   # "750 TL" gibi tutar sanilan, elenen eslesmeler
+  birim_atlanan=$birimAtlanan     # "750 TL" gibi tutar sanilan, elenen eslesmeler
+  ad_disi_atlanan=$adDisiAtlanan  # THP adlarinin hicbirine benzemeyen ("paragraf") - hesap adi iddiasi degil
   soru_uymuyor=$soruUymuyor.Count
   soru_kod_yok=$soruKodYok.Count
   yanlis_orani_yuzde=$(if(($uyuyor+$uymuyor) -gt 0){ [Math]::Round(100.0*$uymuyor/($uyuyor+$uymuyor),2) } else { 0 })

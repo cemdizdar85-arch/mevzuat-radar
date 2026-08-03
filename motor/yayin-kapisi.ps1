@@ -81,16 +81,20 @@ function Sade([string]$t){
 }
 
 # --- THP resmi kod->ad ---
+# 03.08 - TEK DOSYA DEGIL HEPSI: msugt-thp-tam.json 199 hesap tasiyor ve
+# 100 KASA / 102 BANKALAR / 600 YURTICI SATISLAR / 730 GENEL URETIM GIDERLERI
+# ICERMIYOR. Butun msugt*.json birlesince 230 hesap ve hepsi var.
 $RESMI = @{}
-$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
-if(Test-Path $thpYol){
-  $thp = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
-  foreach($b in @($thp.belgeler)){
-    $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
-    if($m.Success){ $RESMI[$m.Groups[1].Value] = $m.Groups[2].Value.Trim() }
-  }
+foreach($f in (Get-ChildItem (Join-Path $kok 'veri/mevzuat/msugt*.json') -ErrorAction SilentlyContinue)){
+  try {
+    $thp = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($b in @($thp.belgeler)){
+      $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+      if($m.Success -and -not $RESMI.ContainsKey($m.Groups[1].Value)){ $RESMI[$m.Groups[1].Value] = $m.Groups[2].Value.Trim() }
+    }
+  } catch {}
 }
-if($RESMI.Count -lt 50){
+if($RESMI.Count -lt 200){
   RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); karar='DURDU'
     sebep="THP resmi listesi okunamadi (okunan: $($RESMI.Count)) - hesap kodu kapisi calisamaz" })
   Write-Host "DURDU: THP listesi okunamadi."; exit 1
