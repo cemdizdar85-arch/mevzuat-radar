@@ -30,12 +30,25 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/hesap-kodu-denetimi.ps1
-      - name: Raporu commit'le (kor kalma kurali)
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
         if: always()
         run: |
+          # 03.08 dersi: eski hali her adimi "|| true" ile susturuyordu. Kosu
+          # YESIL bitti, rapor hic gelmedi, kimse duymadi. Cem'in sordugu
+          # "gormedigim hatayi nasil engellerim" sorusunun ta kendisi.
+          # Artik: rapor yoksa VEYA push tutmazsa adim KIRMIZI biter.
+          set -e
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          if [ -f veri/hesap-kodu-denetimi.json ]; then git add veri/hesap-kodu-denetimi.json || true; fi
+          if [ ! -f veri/hesap-kodu-denetimi.json ]; then
+            echo "!! RAPOR URETILMEDI - script sessizce cikmis olabilir."; exit 1
+          fi
+          git add veri/hesap-kodu-denetimi.json
           git diff --cached --quiet || git commit -m "Hesap kodu denetimi [veri-operasyonu]"
-          git pull --rebase || true
-          git push || true
+          # push yarisi kaybedilirse 3 kez dene, yine olmazsa KIRMIZI
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            echo "push denemesi $i tutmadi, tekrar..."
+            sleep 5
+          done
+          echo "!! PUSH TUTMADI - rapor depoya yazilamadi."; exit 1
