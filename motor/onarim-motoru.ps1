@@ -347,6 +347,21 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
     "Akilda kalsin:" -> sinavda ise yarayacak TEK cumlelik pusula.
   400-700 karakter. Olcut sudur: MUHASEBE HIC BILMEYEN biri okuyunca anlamali.
 
+  TERIMI ACIKLA (03.08, Cem: "annem bile anlasin o anlamda diyorum"):
+  Bir teknik terim ILK GECTIGI yerde kisa bir parantezle gunluk dile cevrilir.
+  Ornek: "genel idare gideri (muhasebecinin maasi, ofis kirasi, yonetim
+  giderleri gibi uretim atolyesiyle dogrudan ilgisi olmayan giderler)".
+  Ornek: "reeskont (vadeli alacagin bugunku degerine indirgenmesi)".
+  Terimi aciklamadan kullanmak, aciklamayi yalnizca BILENE yazmak demektir -
+  oysa aciklamayi BILMEYEN okuyor. Terim zaten sorunun icinde tanimlanmissa
+  tekrar etme; parantez KISA olacak, cumleyi bogmayacak.
+
+  "AKILDA KALSIN" KURAL ILE CELISEMEZ: Kural "ihtiyaridir" diyorsa Akilda
+  kalsin "girer" diye baslayamaz. (Pilotta tam bu oldu: Kural "katilmasi
+  ihtiyaridir" derken Akilda kalsin "maliyet bedeline girer ama..." dedi -
+  ogrenciyi ters yone ceker.) Dogrusu: "katmak zorunlu degil, isletmenin
+  tercihi". Iki parca ayni yone bakacak.
+
   YASAK KELIMELER (kanun kopyasi kokuyor, kullanma): "bilumum", "muteferri",
   "munasebetiyle", "isbu", "mezkur", "ifade eder", "tanzim", "mutazammin",
   "sair", "taht-i", "keyfiyet". Bunlarin yerine gunluk karsiligini yaz.

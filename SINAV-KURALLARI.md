@@ -467,3 +467,21 @@ diye bakıyordum — bu **vekil ölçü**, gerçek şart değil; düzenli yazıl
 bentlidir ve iyi bir açıklamayı boşuna yeniden yazdırırdık (D11'in önlemek için var
 olduğu zarar). Gerçek şart **sorunun kendisinde**: sınır sorusu mu?
 İki şart birlikte aranıyor. Test: 7 gerçek soru kökü, 7/7 doğru sınıflandı.
+
+**D19. TERİMİ AÇIKLA — ANNE TESTİNİN İKİNCİ AYAĞI (03.08.2026 — Cem'in bulgusu)**
+D12 cümle yapısını sadeleştiriyordu; bu onun eksik ayağı: **terimin kendisi.**
+Teknik terim **ilk geçtiği yerde** kısa bir parantezle günlük dile çevrilir.
+
+*Vaka:* "genel idare gideri" bir açıklamada dört kez geçti, bir kez bile ne olduğu
+söylenmedi. Doğrusu: *"genel idare gideri (muhasebecinin maaşı, ofis kirası, yönetim
+giderleri gibi üretim atölyesiyle doğrudan ilgisi olmayan giderler)"*.
+
+*Gerekçe:* terimi açıklamadan kullanmak, açıklamayı **bilene** yazmaktır — oysa
+açıklamayı **bilmeyen** okur. Parantez kısa olacak, cümleyi boğmayacak; terim soruda
+zaten tanımlıysa tekrarlanmayacak.
+
+**D20. "AKILDA KALSIN" KURAL İLE ÇELİŞEMEZ**
+Aynı açıklamanın iki parçası ters yöne bakamaz. *Vaka:* Kural *"genel idare
+giderlerinin maliyete katılması **ihtiyaridir**"* derken Akılda kalsın *"maliyet
+bedeline **girer** ama işletme dilerse…"* diye başladı. Öğrenci son cümleyi ezberler;
+yanlış yöne çeker. Doğrusu: *"katmak zorunlu değil, işletmenin tercihi."*
