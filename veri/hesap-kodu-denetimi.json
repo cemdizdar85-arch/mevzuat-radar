@@ -1,15 +1,15 @@
 {
-  "tarih": "03.08.2026 07:52",
+  "tarih": "03.08.2026 07:56",
   "mod": "DENETIM (0 USD, hicbir sey degistirilmedi)",
   "kasa": 27478,
   "resmi_hesap_kodu": 199,
-  "iddia_uyuyor": 17935,
-  "iddia_uymuyor": 3035,
+  "iddia_uyuyor": 18169,
+  "iddia_uymuyor": 2801,
   "iddia_kod_yok": 23730,
   "birim_atlanan": 1529,
-  "soru_uymuyor": 1116,
+  "soru_uymuyor": 1009,
   "soru_kod_yok": 3771,
-  "yanlis_orani_yuzde": 14.47,
+  "yanlis_orani_yuzde": 13.36,
   "en_sik_yanlis": [
     {
       "kod": "260",
@@ -18,34 +18,16 @@
       "adet": 15
     },
     {
-      "kod": "254",
-      "yazilan_ad": "TAS TLAR",
-      "resmi_ad": "TAŞITLAR",
-      "adet": 15
-    },
-    {
-      "kod": "181",
-      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER",
-      "resmi_ad": "GELİR TAHAKKUKLARI",
-      "adet": 12
-    },
-    {
       "kod": "151",
       "yazilan_ad": "ILK MADDE VE MALZEME HS",
       "resmi_ad": "YARI MAMULLER-ÜRETİM",
       "adet": 12
     },
     {
-      "kod": "601",
-      "yazilan_ad": "YURTD S SAT SLAR",
-      "resmi_ad": "YURTDIŞI SATIŞLAR",
+      "kod": "181",
+      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER",
+      "resmi_ad": "GELİR TAHAKKUKLARI",
       "adet": 12
-    },
-    {
-      "kod": "241",
-      "yazilan_ad": "BAGL ORTAKL KLAR SERMAYE PAYLAR HESAB",
-      "resmi_ad": "BAĞLI MENKUL KIYMETLER DEĞER DÜŞÜKLÜĞÜ KARŞILIĞI (-)",
-      "adet": 11
     },
     {
       "kod": "540",
@@ -55,8 +37,14 @@
     },
     {
       "kod": "381",
-      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER HESAB NA",
+      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER HESABINA",
       "resmi_ad": "GİDER TAHAKKUKLARI",
+      "adet": 11
+    },
+    {
+      "kod": "654",
+      "yazilan_ad": "KARSILIKLAR GIDERI",
+      "resmi_ad": "KARŞILIK GİDERLERİ (-)",
       "adet": 11
     },
     {
@@ -66,22 +54,22 @@
       "adet": 10
     },
     {
-      "kod": "649",
-      "yazilan_ad": "REESKONT FAIZ GELIRLERI HESAB",
-      "resmi_ad": "FAALİYETLE İLGİLİ DİĞER OLAĞAN GELİR VE KARLAR",
-      "adet": 10
-    },
-    {
       "kod": "391",
       "yazilan_ad": "HES KDVS",
       "resmi_ad": "HESAPLANAN KDV",
       "adet": 10
     },
     {
-      "kod": "549",
-      "yazilan_ad": "ODENMEMIS SERMAYE",
-      "resmi_ad": "ÖZEL FONLAR",
-      "adet": 9
+      "kod": "181",
+      "yazilan_ad": "GELECEK YILLARA AIT GIDERLER",
+      "resmi_ad": "GELİR TAHAKKUKLARI",
+      "adet": 10
+    },
+    {
+      "kod": "649",
+      "yazilan_ad": "REESKONT FAIZ GELIRLERI HESABI",
+      "resmi_ad": "FAALİYETLE İLGİLİ DİĞER OLAĞAN GELİR VE KARLAR",
+      "adet": 10
     },
     {
       "kod": "254",
@@ -90,33 +78,27 @@
       "adet": 9
     },
     {
-      "kod": "611",
-      "yazilan_ad": "SAT S ISKONTOLAR",
-      "resmi_ad": "SATIŞ ISKONTOLARI (-)",
+      "kod": "549",
+      "yazilan_ad": "ODENMEMIS SERMAYE",
+      "resmi_ad": "ÖZEL FONLAR",
       "adet": 9
-    },
-    {
-      "kod": "654",
-      "yazilan_ad": "KARSILIKLAR GIDERI",
-      "resmi_ad": "KARŞILIK GİDERLERİ (-)",
-      "adet": 9
-    },
-    {
-      "kod": "181",
-      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER HESAB NA",
-      "resmi_ad": "GELİR TAHAKKUKLARI",
-      "adet": 8
-    },
-    {
-      "kod": "500",
-      "yazilan_ad": "ORTAKLARDAN ALACAKLAR HS",
-      "resmi_ad": "SERMAYE",
-      "adet": 8
     },
     {
       "kod": "540",
       "yazilan_ad": "HISSE SENEDI IHRAC PRIMLERI HS",
       "resmi_ad": "YASAL YEDEKLER",
+      "adet": 8
+    },
+    {
+      "kod": "181",
+      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER HESABINA",
+      "resmi_ad": "GELİR TAHAKKUKLARI",
+      "adet": 8
+    },
+    {
+      "kod": "760",
+      "yazilan_ad": "KAMBIYO ZARARLARI",
+      "resmi_ad": "PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ",
       "adet": 8
     },
     {
@@ -126,9 +108,27 @@
       "adet": 8
     },
     {
-      "kod": "602",
-      "yazilan_ad": "HIZMET GELIRLERI HS",
-      "resmi_ad": "DİĞER GELİRLER",
+      "kod": "500",
+      "yazilan_ad": "ORTAKLARDAN ALACAKLAR HS",
+      "resmi_ad": "SERMAYE",
+      "adet": 8
+    },
+    {
+      "kod": "253",
+      "yazilan_ad": "TASITLAR",
+      "resmi_ad": "TESİS, MAKİNE VE CİHAZLAR",
+      "adet": 8
+    },
+    {
+      "kod": "181",
+      "yazilan_ad": "GELECEK AYLARA AIT GIDERLER HESABI",
+      "resmi_ad": "GELİR TAHAKKUKLARI",
+      "adet": 7
+    },
+    {
+      "kod": "258",
+      "yazilan_ad": "GERI ALINMIS PAYLAR HS VE",
+      "resmi_ad": "YAPILMAKTA OLAN YATIRIMLAR",
       "adet": 7
     }
   ],
@@ -398,14 +398,6 @@
       "yayinda": false
     },
     {
-      "soru_id": "0338f30a",
-      "ders": "Finansal Muhasebe",
-      "kod": "679",
-      "yazilan_ad": "Olağandışı Gelirler",
-      "resmi_ad": "DİĞER OLAĞANDIŞI GELİR VE KARLAR",
-      "yayinda": false
-    },
-    {
       "soru_id": "035d9108-f416-48db-9109-4e34b43bd2e3",
       "ders": "Finansal Muhasebe",
       "kod": "159",
@@ -446,11 +438,19 @@
       "yayinda": false
     },
     {
-      "soru_id": "03b79c19-908e-4f4d-bb5e-45f9e513456e",
+      "soru_id": "040ad082-3f72-4599-aeb3-45c64b68a5e6",
       "ders": "Finansal Muhasebe",
-      "kod": "570",
-      "yazilan_ad": "Geçen Yıllar Zararları TUZAK",
-      "resmi_ad": "GEÇMİŞ YILLAR KARLARI",
+      "kod": "540",
+      "yazilan_ad": "Sermaye Yedekleri Hesabı",
+      "resmi_ad": "YASAL YEDEKLER",
+      "yayinda": false
+    },
+    {
+      "soru_id": "040ad082-3f72-4599-aeb3-45c64b68a5e6",
+      "ders": "Finansal Muhasebe",
+      "kod": "256",
+      "yazilan_ad": "Satın Alınan Paylar Hesabı",
+      "resmi_ad": "DİĞER MADDİ DURAN VARLIKLAR",
       "yayinda": false
     }
   ],
