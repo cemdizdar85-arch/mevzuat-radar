@@ -1,19 +1,19 @@
 {
-  "tarih": "02.08.2026 23:15",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 3,
+  "tarih": "03.08.2026 15:45",
+  "durum": "ALARM",
+  "kirmizi": 3,
+  "kurtarma": 1,
   "izlenen_robot": 15,
   "izlenen_veri": 5,
-  "maddeler": [],
+  "maddeler": [
+    "ESKALASYON: Hap Kartlar -> kurtarma ise yaramadi (son basarili kosu 97.9 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 385.9 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 97.2 saat once (esik 30s)). Actions loguna bak."
+  ],
   "kurtarilan": [
-    "Hap Kartlar -> son basarili kosu 81.4 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Gunluk Kanun Aynasi -> son basarili kosu 369.4 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
-    "Smoke Nobetcisi -> son basarili kosu 80.7 saat once (esik 30s) -> kurtarma: tetiklendi"
+    "Radar Uyari Robotu -> Uyari robotu ozeti damgasi 02.08.2026 09:25 (30 saat eski; esik 30s) -> kurtarma: tetiklendi"
   ],
   "kurtarilan_anahtar": [
-    "KOSU:kartlar.yml",
-    "KOSU:mevzuat.yml",
-    "KOSU:smoke.yml"
+    "VERI:uyari-ozet.json"
   ]
 }
