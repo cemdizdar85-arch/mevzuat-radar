@@ -1,23 +1,100 @@
 {
-  "tarih": "03.08.2026 07:44",
-  "mod": "PILOT (PARALI, kasaya YAZILMADI)",
-  "model": "claude-haiku-4-5-20251001",
-  "istenen": 200,
-  "basarili_json": 200,
-  "bozuk_json": 0,
-  "cagri_hatasi": 0,
-  "tekrar_kusurlu": 0,
-  "giris_token": 300490,
-  "cikis_token": 107861,
-  "maliyet_usd": 0.8398,
-  "birim_usd_soru": 0.004199,
-  "fiyat_katsayisi": "1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)",
-  "tahmin_tam_kasa_usd": 115.38,
-  "parti": "pilot-0308-0723",
-  "taslaga_yazilan": 200,
-  "geri_okuma": 200,
-  "taslak_yeri": "Supabase Storage / kova 'onarim-taslak' (OZEL) / dosya pilot-0308-0723.json",
-  "taslak_durum": "TAMAM",
-  "yazma_hatasi": "",
-  "not": "Ciktilar soru_onarim_taslak tablosunda (ozel). KASAYA YAZILMADI - taslak kasa degildir, site degismedi."
+  "tarih": "03.08.2026 08:31",
+  "mod": "KURU (0 USD)",
+  "kasa": 27478,
+  "eksigi_olan": 27478,
+  "islenebilir": 26505,
+  "atlanan_dayanaksiz": 973,
+  "mevzuat_disi_gecen": 2734,
+  "eksik_dagilimi": {
+    "D1_dort_parca": 1248,
+    "D2_dogrusu": 26505,
+    "D2_tuzak": 5164,
+    "D7_tablo": 8065,
+    "D7_yevmiye": 4171,
+    "D8_karsilastirma": 4420
+  },
+  "atlanan_ornek": [
+    {
+      "id": "008c8e81",
+      "sebep": "dayanak ambarda cozulemedi: 1 Sıra No'lu Muhasebe Sistemi Uygulama Genel Tebliği - Tekdüzen Hesap Planı, 730-733 Genel Üretim Giderleri Hesap Grubu Açıklamaları"
+    },
+    {
+      "id": "009e1f74-e54f-4aa7-9ec0-8460087a19b6",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 500, 102"
+    },
+    {
+      "id": "010234c0",
+      "sebep": "dayanak ambarda cozulemedi: TCMB Enflasyon Raporu - İkinci Tur Etkiler Bölümü"
+    },
+    {
+      "id": "0121951a-38de-4eb5-8efb-44da03b0061c",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 284, 147, 165"
+    },
+    {
+      "id": "01ba3094-8634-4fc7-be7c-4131b87926db",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 284, 590"
+    },
+    {
+      "id": "01bc97ce",
+      "sebep": "dayanak ambarda cozulemedi: Milli Gelir Muhasebesi - Nominal/Reel GSYH ve GSYH Deflatörü Formülü"
+    },
+    {
+      "id": "01ee51e1",
+      "sebep": "dayanak ambarda cozulemedi: TCMB Enflasyon Raporu - Döviz Kuru Geçişkenliği Değerlendirmesi"
+    },
+    {
+      "id": "02014db4",
+      "sebep": "dayanak ambarda cozulemedi: J-Eğrisi Modeli (Esneklikler Yaklaşımı, Ödemeler Bilançosu Teorisi)"
+    },
+    {
+      "id": "0219ff35",
+      "sebep": "dayanak ambarda cozulemedi: Genel İktisat Teorisi - Enflasyon Türleri (TESMER SGS Ekonomi Müfredatı)"
+    },
+    {
+      "id": "02433da6",
+      "sebep": "dayanak ambarda cozulemedi: Muhasebe Sistemi Uygulama Genel Tebliği Sıra No:1 - Tekdüzen Hesap Planı, 500 Sermaye Hesabı işleyişi"
+    },
+    {
+      "id": "026a5899",
+      "sebep": "dayanak ambarda cozulemedi: Mali Tablolar Analizi - Yatay Analiz Yönteminde Sıfır Baz Değer Sınırlaması"
+    },
+    {
+      "id": "02b677d8",
+      "sebep": "dayanak ambarda cozulemedi: Mikroekonomi Teorisi - Esneklik, Marjinal Hasilat ve Toplam Hasilat Iliskisi"
+    },
+    {
+      "id": "0338f30a",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekdüzen Hesap Planı, 67 Olağandışı Gelir ve Kârlar Grubu - 671 Önceki Dönem Gelir ve Kârları hesabı açıklaması"
+    },
+    {
+      "id": "035db5bb",
+      "sebep": "dayanak ambarda cozulemedi: İktisat Teorisi - Tam İnelastik Talep (Ep=0)"
+    },
+    {
+      "id": "0388ea0e",
+      "sebep": "dayanak ambarda cozulemedi: Mikroekonomi Teorisi - Talep Fiyat Esnekliğinin Belirleyicileri (İkame Mal Sayısı)"
+    },
+    {
+      "id": "040b153b",
+      "sebep": "dayanak ambarda cozulemedi: Finansal Tablolar Analizi - Dikey Yüzde Analizinin Sınırlılıkları"
+    },
+    {
+      "id": "047b1c05",
+      "sebep": "dayanak ambarda cozulemedi: 5018 s. Kanun m.49 (muhasebe sistemi) ve m.50 (kayıt zamanı — tahakkuk esası)"
+    },
+    {
+      "id": "0491bd8e-e74d-4750-ae1b-0709b9785b9f",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 770"
+    },
+    {
+      "id": "04d9b373-c744-4355-878d-198a637d867b",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 487"
+    },
+    {
+      "id": "0608f59b-7833-41b3-891d-59d3838089eb",
+      "sebep": "dayanak ambarda cozulemedi: MSUGT Tekduzen Hesap Plani - 654, 770, 128, 690"
+    }
+  ],
+  "not": "Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur."
 }
