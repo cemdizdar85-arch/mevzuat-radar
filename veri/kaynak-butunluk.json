@@ -1,0 +1,51 @@
+{
+  "tarih": "03.08.2026 14:49",
+  "durum": "TEMIZ",
+  "parcali_belge_grubu": 2104,
+  "parcasi_eksik_belge": 0,
+  "eksik_parcalar": [],
+  "yontem": "Parcali kaynaklar tespit edilir; sonra kodda TEK dosyaya cakili referanslar aranir. Cakili referans + parcali kaynak = EKSIK OKUMA RISKI.",
+  "parcali_kaynak_sayisi": 2,
+  "yuksek_riskli_okuyucu": 0,
+  "yuksek_riskli": [],
+  "tum_riskli": [],
+  "parcali_kaynaklar": [
+    {
+      "kaynak": "bds320",
+      "dosya_sayisi": 2,
+      "toplam_belge": 21,
+      "toplam_bayt": 20721,
+      "dosyalar": [
+        {
+          "dosya": "bds320-ek.json",
+          "belge": 7,
+          "bayt": 7318
+        },
+        {
+          "dosya": "bds320.json",
+          "belge": 14,
+          "bayt": 13403
+        }
+      ]
+    },
+    {
+      "kaynak": "bds530",
+      "dosya_sayisi": 2,
+      "toplam_belge": 27,
+      "toplam_bayt": 23884,
+      "dosyalar": [
+        {
+          "dosya": "bds530-ek.json",
+          "belge": 12,
+          "bayt": 10818
+        },
+        {
+          "dosya": "bds530.json",
+          "belge": 15,
+          "bayt": 13066
+        }
+      ]
+    }
+  ],
+  "vaka": "03.08: msugt-thp-tam.json tek basina okunuyordu (199 hesap); msugt-thp2.json okunmuyordu. 100 KASA, 102 BANKALAR, 600 YURTICI SATISLAR, 730 GENEL URETIM GIDERLERI kayipti. Birlesince 230 hesap."
+}
