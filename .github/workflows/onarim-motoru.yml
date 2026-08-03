@@ -8,9 +8,12 @@ name: Onarim Motoru (varsayilan 0 USD)
 on:
   push:
     paths:
-      - 'motor/onarim-motoru.ps1'
-      - '.github/workflows/onarim-motoru.yml'
-      - 'veri/tetik/onarim-pilot.txt'     # PARALI pilot tetigi
+      # 03.08: motor/yml push'lari ARTIK TETIKLEMIYOR. Sebep: her kod duzeltmesi
+      # ~25 dakikalik bir KURU kosu baslatiyordu; Cem'in asil partisi onun
+      # arkasinda kuyrukta bekliyor ve ona "cancel'a bas" dedirtiyorduk (uc kez
+      # oldu). Kuru olcum gerektiginde workflow_dispatch ile elle kosulur.
+      # Tetik dosyasi tek kapi: icinde BAS varsa parali, yoksa kuru.
+      - 'veri/tetik/onarim-pilot.txt'
   workflow_dispatch:
 
 permissions:
