@@ -67,16 +67,45 @@ if(-not (Test-Path $oneriYol)){ Write-Host "Oneri dosyasi yok - once sik-hesap-k
 $oneriler = @((Get-Content $oneriYol -Raw -Encoding UTF8 | ConvertFrom-Json).oneriler)
 Write-Host ("Oneri dosyasinda: {0} satir" -f $oneriler.Count)
 
+# ============================================================================
+#  ANAHTAR NORMALLESTIRME — 03.08 gece, UCUNCU Turkce-I tuzagi
+#
+#  PowerShell hashtable anahtar karsilastirmasi buyuk/kucuk harf duyarsizdir
+#  AMA bu duyarsizlik KULTURE BAGLIDIR. tr-TR makinede "TICARI" ile "Ticari"
+#  AYNI anahtar; CI'da (invariant) AYRI anahtar. Sonuc: ayni betik ayni veriyle
+#  yerelde 342, CI'da 335 "yuksek guven" sayiyordu - makineye gore degisen
+#  siniflandirma kabul edilemez.
+#  Cozum: anahtar, karakter-karakter ACIK esleme ile normallestirilir (regex
+#  ve kultur yok). Bu gece ayni tuzagin ucuncu bicimi: (1) ToUpperInvariant,
+#  (2) -replace/-match, (3) hashtable anahtari.
+# ============================================================================
+$HARF = @{
+  [char]0x0130='I'; [char]0x0131='I'; [char]'i'='I'; [char]'I'='I'
+  [char]0x015E='S'; [char]0x015F='S'; [char]0x011E='G'; [char]0x011F='G'
+  [char]0x00DC='U'; [char]0x00FC='U'; [char]0x00D6='O'; [char]0x00F6='O'
+  [char]0x00C7='C'; [char]0x00E7='C'
+}
+function AnahtarSade([string]$t){
+  if($null -eq $t){ return '' }
+  $sb = New-Object Text.StringBuilder
+  foreach($c in $t.ToCharArray()){
+    if($HARF.ContainsKey($c)){ [void]$sb.Append($HARF[$c]); continue }
+    $u = [char]::ToUpperInvariant($c)
+    if(($u -ge 'A' -and $u -le 'Z') -or ($u -ge '0' -and $u -le '9')){ [void]$sb.Append($u) } else { [void]$sb.Append(' ') }
+  }
+  return (($sb.ToString()) -replace '\s+',' ').Trim()
+}
+
 # --- GUVEN SINIFI: ayni soruda ayni (kod,ad) cifti kac alanda geciyor ---
 $tekrar = @{}
 foreach($o in $oneriler){
-  $an = "$($o.soru_id)|$($o.yazili_kod)|$($o.yazili_ad)"
+  $an = "$($o.soru_id)|$($o.yazili_kod)|$(AnahtarSade $o.yazili_ad)"
   if(-not $tekrar.ContainsKey($an)){ $tekrar[$an] = 0 }
   $tekrar[$an]++
 }
 $secilen = New-Object System.Collections.Generic.List[object]
 foreach($o in $oneriler){
-  $an = "$($o.soru_id)|$($o.yazili_kod)|$($o.yazili_ad)"
+  $an = "$($o.soru_id)|$($o.yazili_kod)|$(AnahtarSade $o.yazili_ad)"
   $yuksekMi = ($tekrar[$an] -ge 2)
   if($tier -eq 'yuksek' -and -not $yuksekMi){ continue }
   $secilen.Add($o)
