@@ -1,81 +1,58 @@
 {
-  "tarih": "03.08.2026 14:21",
+  "tarih": "03.08.2026 14:41",
   "mod": "DENETIM (0 USD, hicbir sey degistirilmedi)",
   "kasa": 27478,
-  "resmi_hesap_kodu": 199,
-  "iddia_uyuyor": 21006,
-  "iddia_uymuyor": 7020,
-  "iddia_kod_yok": 31214,
+  "resmi_hesap_kodu": 230,
+  "iddia_uyuyor": 42911,
+  "iddia_uymuyor": 7069,
+  "iddia_kod_yok": 4979,
   "birim_atlanan": 2450,
-  "soru_uymuyor": 2904,
-  "soru_kod_yok": 6159,
-  "yanlis_orani_yuzde": 25.05,
+  "ad_disi_atlanan": 4281,
+  "soru_uymuyor": 3075,
+  "soru_kod_yok": 2302,
+  "yanlis_orani_yuzde": 14.14,
   "en_sik_yanlis": [
     {
-      "kod": "230",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "ORTAKLARDAN ALACAKLAR",
-      "adet": 51
+      "kod": "121",
+      "yazilan_ad": "ALICILAR HS",
+      "resmi_ad": "Alacak Senetleri",
+      "adet": 26
     },
     {
-      "kod": "620",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "SATILAN MAMULLER MALİYETİ (-)",
-      "adet": 48
-    },
-    {
-      "kod": "260",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "HAKLAR",
-      "adet": 48
-    },
-    {
-      "kod": "701",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "MALİYET MUHASEBESİ YANSITMA HESABI",
-      "adet": 47
-    },
-    {
-      "kod": "700",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "MALİYET MUHASEBESİ BAĞLANTI HESABI",
-      "adet": 35
-    },
-    {
-      "kod": "580",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "GEÇMİŞ YILLAR ZARARLARI",
-      "adet": 33
-    },
-    {
-      "kod": "240",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "BAĞLI MENKUL KIYMETLER",
-      "adet": 29
-    },
-    {
-      "kod": "220",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "ALICILAR",
-      "adet": 22
-    },
-    {
-      "kod": "540",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "YASAL YEDEKLER",
-      "adet": 20
-    },
-    {
-      "kod": "501",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "ÖDENMEMİŞ SERMAYE (-)",
-      "adet": 20
-    },
-    {
-      "kod": "520",
-      "yazilan_ad": "PARAGRAF",
-      "resmi_ad": "HİSSE SENEDİ İHRAÇ PRİMLERİ",
+      "kod": "153",
+      "yazilan_ad": "YARI MAMULLER",
+      "resmi_ad": "Ticari Mallar",
       "adet": 19
+    },
+    {
+      "kod": "320",
+      "yazilan_ad": "ALICILAR",
+      "resmi_ad": "Satıcılar",
+      "adet": 18
+    },
+    {
+      "kod": "121",
+      "yazilan_ad": "ALINAN CEKLER",
+      "resmi_ad": "Alacak Senetleri",
+      "adet": 17
+    },
+    {
+      "kod": "621",
+      "yazilan_ad": "BORC",
+      "resmi_ad": "Satılan Ticari Mallar Maliyeti (-)",
+      "adet": 17
+    },
+    {
+      "kod": "153",
+      "yazilan_ad": "ALACAK",
+      "resmi_ad": "Ticari Mallar",
+      "adet": 17
+    },
+    {
+      "kod": "120",
+      "yazilan_ad": "ORTAKLARDAN ALACAKLAR HS",
+      "resmi_ad": "Alıcılar",
+      "adet": 17
     },
     {
       "kod": "540",
@@ -96,22 +73,16 @@
       "adet": 15
     },
     {
+      "kod": "121",
+      "yazilan_ad": "ALICILAR HESABI",
+      "resmi_ad": "Alacak Senetleri",
+      "adet": 15
+    },
+    {
       "kod": "654",
       "yazilan_ad": "BORC",
       "resmi_ad": "KARŞILIK GİDERLERİ (-)",
       "adet": 14
-    },
-    {
-      "kod": "240",
-      "yazilan_ad": "BIRIM",
-      "resmi_ad": "BAĞLI MENKUL KIYMETLER",
-      "adet": 13
-    },
-    {
-      "kod": "151",
-      "yazilan_ad": "ILK MADDE VE MALZEME HS",
-      "resmi_ad": "YARI MAMULLER-ÜRETİM",
-      "adet": 12
     },
     {
       "kod": "181",
@@ -120,19 +91,73 @@
       "adet": 12
     },
     {
-      "kod": "740",
-      "yazilan_ad": "DEGIL",
-      "resmi_ad": "HİZMET ÜRETİM MALİYETİ",
+      "kod": "151",
+      "yazilan_ad": "ILK MADDE VE MALZEME HS",
+      "resmi_ad": "YARI MAMULLER-ÜRETİM",
       "adet": 12
     },
     {
+      "kod": "549",
+      "yazilan_ad": "DIGER OLAGAN GELIR VE KARLAR",
+      "resmi_ad": "ÖZEL FONLAR",
+      "adet": 11
+    },
+    {
+      "kod": "181",
+      "yazilan_ad": "GELECEK YILLARA AIT GIDERLER",
+      "resmi_ad": "GELİR TAHAKKUKLARI",
+      "adet": 11
+    },
+    {
+      "kod": "253",
+      "yazilan_ad": "TASITLAR HESABINA",
+      "resmi_ad": "TESİS, MAKİNE VE CİHAZLAR",
+      "adet": 10
+    },
+    {
       "kod": "741",
-      "yazilan_ad": "ILE KAPATILIR",
+      "yazilan_ad": "VEYA",
       "resmi_ad": "HİZMET ÜRETİM MALİYETİ YANSITMA HESABI",
-      "adet": 12
+      "adet": 10
+    },
+    {
+      "kod": "120",
+      "yazilan_ad": "ALACAK SENETLERI HS",
+      "resmi_ad": "Alıcılar",
+      "adet": 10
+    },
+    {
+      "kod": "760",
+      "yazilan_ad": "KAMBIYO ZARARLARI",
+      "resmi_ad": "PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ",
+      "adet": 9
     }
   ],
   "ornekler": [
+    {
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "kod": "770",
+      "yazilan_ad": "alacaklandırılır.\n\nAkılda kalsın",
+      "resmi_ad": "Genel Yönetim Giderleri",
+      "yayinda": false
+    },
+    {
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "kod": "180",
+      "yazilan_ad": "erteleme hesabı",
+      "resmi_ad": "Gelecek Aylara Ait Giderler",
+      "yayinda": false
+    },
+    {
+      "soru_id": "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+      "ders": "Maliyet Muhasebesi",
+      "kod": "621",
+      "yazilan_ad": "STOK GİDERİ hesabına borç kaydı",
+      "resmi_ad": "Satılan Ticari Mallar Maliyeti (-)",
+      "yayinda": false
+    },
     {
       "soru_id": "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
       "ders": "Maliyet Muhasebesi",
@@ -144,17 +169,9 @@
     {
       "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
       "ders": "Finansal Muhasebe",
-      "kod": "198",
-      "yazilan_ad": "kullanılmaz. TUZAK",
-      "resmi_ad": "DİĞER ÇEŞİTLİ DÖNEN VARLIKLAR",
-      "yayinda": false
-    },
-    {
-      "soru_id": "0036b78e-1127-4b05-b620-efdf1eb1f075",
-      "ders": "Finansal Muhasebe",
-      "kod": "370",
-      "yazilan_ad": "değil",
-      "resmi_ad": "DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI",
+      "kod": "257",
+      "yazilan_ad": "Verilen Sipariş Avansları",
+      "resmi_ad": "Birikmiş Amortismanlar (-)",
       "yayinda": false
     },
     {
@@ -166,11 +183,11 @@
       "yayinda": false
     },
     {
-      "soru_id": "0057b5c3",
-      "ders": "Denetim",
-      "kod": "230",
-      "yazilan_ad": "standardına uygun değil.\n\nAkılda kalsın",
-      "resmi_ad": "ORTAKLARDAN ALACAKLAR",
+      "soru_id": "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+      "ders": "Finansal Muhasebe",
+      "kod": "320",
+      "yazilan_ad": "ALICILAR",
+      "resmi_ad": "Satıcılar",
       "yayinda": false
     },
     {
@@ -232,6 +249,14 @@
     {
       "soru_id": "009e1f74-e54f-4aa7-9ec0-8460087a19b6",
       "ders": "Finansal Muhasebe",
+      "kod": "102",
+      "yazilan_ad": "kur üzerinden ihraç etmiştir. İhraç",
+      "resmi_ad": "Bankalar",
+      "yayinda": false
+    },
+    {
+      "soru_id": "009e1f74-e54f-4aa7-9ec0-8460087a19b6",
+      "ders": "Finansal Muhasebe",
       "kod": "400",
       "yazilan_ad": "BONO BORÇLARI hesabının alacağına",
       "resmi_ad": "BANKA KREDİLERİ",
@@ -278,6 +303,14 @@
       "yayinda": false
     },
     {
+      "soru_id": "00b13d1b",
+      "ders": "Denetim",
+      "kod": "100",
+      "yazilan_ad": "oranında bir kalemde tamamen amortismana",
+      "resmi_ad": "Kasa",
+      "yayinda": false
+    },
+    {
       "soru_id": "00bbf341",
       "ders": "Denetim",
       "kod": "520",
@@ -310,22 +343,6 @@
       "yayinda": false
     },
     {
-      "soru_id": "00fcac91-33cc-4473-904a-b961985e29eb",
-      "ders": "Denetim Standartlari",
-      "kod": "700",
-      "yazilan_ad": "paragrafa",
-      "resmi_ad": "MALİYET MUHASEBESİ BAĞLANTI HESABI",
-      "yayinda": false
-    },
-    {
-      "soru_id": "00fcac91-33cc-4473-904a-b961985e29eb",
-      "ders": "Denetim Standartlari",
-      "kod": "700",
-      "yazilan_ad": "paragraf",
-      "resmi_ad": "MALİYET MUHASEBESİ BAĞLANTI HESABI",
-      "yayinda": false
-    },
-    {
       "soru_id": "0112c569",
       "ders": "Maliyet Muhasebesi",
       "kod": "400",
@@ -336,9 +353,9 @@
     {
       "soru_id": "0112c569",
       "ders": "Maliyet Muhasebesi",
-      "kod": "400",
-      "yazilan_ad": "saatmiş gibi hesaplanmış. Oysa B",
-      "resmi_ad": "BANKA KREDİLERİ",
+      "kod": "600",
+      "yazilan_ad": "saatin üçte biri kadar süre",
+      "resmi_ad": "Yurtiçi Satışlar",
       "yayinda": false
     },
     {
@@ -390,27 +407,19 @@
       "yayinda": false
     },
     {
-      "soru_id": "0146171a-f1c3-43c6-b10e-45a5e8d2b82d",
-      "ders": "Maliyet Muhasebesi",
-      "kod": "480",
-      "yazilan_ad": "birim üretilmiştir",
-      "resmi_ad": "GELECEK YILLARA AİT GELİRLER",
+      "soru_id": "017aa380-ba8f-4015-84b3-2e9bcf386334",
+      "ders": "Mali Tablolar Analizi",
+      "kod": "100",
+      "yazilan_ad": "ile carpmayi atlayarak yalnizca fark",
+      "resmi_ad": "Kasa",
       "yayinda": false
     },
     {
-      "soru_id": "0159c91e-b5fa-44f0-93a7-fd9be1c8bf54",
-      "ders": "Maliyet Muhasebesi",
-      "kod": "240",
-      "yazilan_ad": "ile flanş sayısı",
-      "resmi_ad": "BAĞLI MENKUL KIYMETLER",
-      "yayinda": false
-    },
-    {
-      "soru_id": "0159c91e-b5fa-44f0-93a7-fd9be1c8bf54",
-      "ders": "Maliyet Muhasebesi",
-      "kod": "240",
-      "yazilan_ad": "bu tutar tekrar flanş adedine",
-      "resmi_ad": "BAĞLI MENKUL KIYMETLER",
+      "soru_id": "017aa380-ba8f-4015-84b3-2e9bcf386334",
+      "ders": "Mali Tablolar Analizi",
+      "kod": "100",
+      "yazilan_ad": "ile carpilmasi yanilgisi var.",
+      "resmi_ad": "Kasa",
       "yayinda": false
     },
     {
@@ -438,19 +447,11 @@
       "yayinda": false
     },
     {
-      "soru_id": "01b24948-0184-4907-8878-29362d02530f",
-      "ders": "Denetim Standartlari",
-      "kod": "220",
-      "yazilan_ad": "uyarınca Mehmet Bey",
-      "resmi_ad": "ALICILAR",
-      "yayinda": false
-    },
-    {
-      "soru_id": "01b24948-0184-4907-8878-29362d02530f",
-      "ders": "Denetim Standartlari",
-      "kod": "220",
-      "yazilan_ad": "paragraf",
-      "resmi_ad": "ALICILAR",
+      "soru_id": "01bc97ce",
+      "ders": "Ekonomi",
+      "kod": "100",
+      "yazilan_ad": "değeri sadece baz yılda geçerlidir",
+      "resmi_ad": "Kasa",
       "yayinda": false
     }
   ],
