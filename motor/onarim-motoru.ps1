@@ -609,6 +609,18 @@ tablo: hesap tablosu uret. Kolonlar: kalem + deger. SON SATIR SONUCTUR (sorunun
   ("Aktif Devir Hizi (kat)", "Ortalama Aktif (TL)"). Yanlis birim basligi
   dikkatli adayi takar. Butun satirlar ayni birimdeyse baslik "Tutar (TL)" olabilir.
   Adimlar gorunsun: verilen degerler -> ara islem -> sonuc.
+  HESAP HAREKETI TABLOSU KURALI (03.08 gece, Cem: "muhasebe kaydi gibi gorunsun,
+  gencler daha iyi anlar"): tablo bir hesabin (kapanis, T-hesap, "... Hesabi
+  Islemleri" gibi) BORC/ALACAK hareketlerini gosteriyorsa TEK "Tutar + Isaret"
+  sutunu KULLANMA. Bunun yerine GERCEK MUHASEBE KAYDI gibi UC kolon yaz:
+  "Hesap" | "Borc" | "Alacak". Kalem adini KISA tut - kod + kisa hesap adi yeter
+  ("600 Yurtici Satislar"), aciklama cumlesi ekleme. Tutar hangi tarafa aitse
+  O kolona yazilir, diger kolon "-" ile doldurulur (bos birakma).
+  ORNEK SATIRLAR: ["600 Yurtici Satislar","-","487.300"],
+  ["621 Satilan Ticari Mallar Maliyeti","316.850","-"]. Son satir yine SONUC
+  (hesabin bakiyesi/kapanis tutari). Bu kural yalniz borc/alacak tasiyan
+  hesap tablolarina uygulanir - saf oran/hesaplama tablosunda (Aktif Devir
+  Hizi gibi) eski "kalem + deger" bicimi kalir, orada Borc/Alacak yoktur.
 '@ }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
   if($i.eksik -contains 'D8_karsilastirma'){ $ist += 'tablo: karsilastirma tablosu uret (ayrimi yapilan kavramlar satir satir; sorunun konusu olan satiri "<-" ile isaretle).' }

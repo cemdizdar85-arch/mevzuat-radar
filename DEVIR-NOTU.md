@@ -69,6 +69,19 @@ Biri eksikse iş yarım kalmıştır.
 - `taslak-goster.ps1` — taslak JSON + kasa → okunur HTML
 - `hakem-son-okuma.ps1` — 8 anlam kusuru (PARALI, tetikte `BAS` şart)
 
+## TABLO FORMATI: HESAP HAREKETİ BORÇ/ALACAK OLARAK AYRILSIN
+Cem pilotta (1650) "690 Dönem Karı..." gibi tabloları gördü: tek "Tutar (TL) +
+İşaret (Alacak+/Borç-)" sütunu yerine gerçek muhasebe kaydı gibi **Hesap | Borç
+| Alacak** üç sütun istedi, Kalem adı da kısa olsun. **İSTEM düzeltildi**
+([onarim-motoru.ps1:603-621](motor/onarim-motoru.ps1:603)) — ama bu yalnız
+BUNDAN SONRAKİ üretimlere yansır. Cem: "27 bin sorumuz var, onlarda da
+değiştireceğiz" — yani KASADAKİ eski format tablolar da hedefte. İlk adım
+**ölçmek**: `motor/tablo-format-tarama.ps1` kuruldu (0 USD, kasaya yazmaz,
+yalnız sayar + "İşaret" sütunundaki değerler saf Alacak(+)/Borç(-) kalıbındaysa
+**deterministik (AI'siz, 0 USD) dönüştürülebilir** mi diye işaretler). Sonucu
+`veri/tablo-format-taramasi-raporu.json`'da — bir sonraki iş: o rapora bak,
+ilk 10 örneği gözle oku (Cem'in kuralı), sonra dönüştürme scripti yazılır.
+
 ## SIRADAKİ İŞLER
 1. ~~Son pilotun `hesap_kodu_duzeltilen` / `hesap_kodu_supheli` sayaçlarına bak~~ TAMAM —
    0/57/61 çıktı, kültür hatası bulundu ve düzeltildi (yukarıya bak). İkinci pilotun
