@@ -96,15 +96,28 @@ if($RESMI.Count -lt 50){
   Write-Host "DURDU: THP listesi okunamadi."; exit 1
 }
 
-# --- YAYINDA olan sorular ---
+# ============================================================================
+#  03.08 - CEM: "bunun digerlerine yapalim, sadece bu degil."
+#
+#  BU ITIRAZ COK BUYUK BIR KUSUR ORTAYA CIKARDI: kapi yalniz YAYINDA olan
+#  sorulari tariyordu (yayin=eq.true). Yayinda SIFIR soru var. Yani on kapinin
+#  ONU DA HICBIR SEY OLCMUYORDU - 27.478 sorunun hepsi denetim disindaydi.
+#  Kapilari kurup "olculuyor" demek, olctuklerini dogrulamadan, bos guvendi.
+#
+#  ARTIK TUM KASA taranir. Karar (GECER/DURDU) yine YAYINDAKILERE bakar -
+#  cunku ogrenciye giden odur - ama SAYIM tum kasayi kapsar. Boylece Cem
+#  27.478 soruya degil TEK RAPORA bakar; hangi kusur kac soruda, gorur.
+# ============================================================================
 $kasa = New-Object System.Collections.Generic.List[object]
 for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak&yayin=eq.true&order=id&limit=1000&offset=$o"
+  $r = CekListe "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,yayin&order=id&limit=1000&offset=$o"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
   if($r.Count -lt 1000){ break }
 }
-Write-Host ("Yayinda olan soru: {0}" -f $kasa.Count)
+$yayindaSayi = @($kasa | Where-Object { $_.yayin -eq $true }).Count
+Write-Host ("Kasa: {0} soru (yayinda: {1})" -f $kasa.Count, $yayindaSayi)
+if($kasa.Count -lt 1000){ Write-Host "!! SUPHELI: kasa kucuk gorundu." }
 
 # --- desenler ---
 # K1 (D3): "X yanlis CUNKU dogru cevap Y" kalibi - ogretmez, sadece isaret eder
@@ -157,11 +170,18 @@ $reSayimOge  = [regex]'(?i)(^|\s)[a-ıi]\)\s|(^|\s)\d\s*[\)\.]\s|;\s|·|•|\bbi
 $K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0; K8_liste_eksik=0; K9_eskimis_kurum=0; K10_eski_terim=0 }
 $kirmiziId = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
+# Iki ayri sayac: TUM KASA (envanter) ve YAYINDAKI (karar). Karar yayindakine
+# bakar cunku ogrenciye giden odur; envanter tum kasayi kapsar cunku Cem'in
+# gormesi gereken resim odur.
+$KY = [ordered]@{}   # yalniz yayinda olanlar
+foreach($kk in $K.Keys){ $KY[$kk] = 0 }
+$kirmiziYayin = @{}
 function Isaretle($kapi, $s, $detay){
   $script:K[$kapi]++
   $script:kirmiziId["$($s.id)"] = 1
-  if($script:ornek.Count -lt 30){
-    $script:ornek.Add([ordered]@{ kapi=$kapi; soru_id="$($s.id)"; ders="$($s.ders)"; detay=$detay })
+  if($s.yayin -eq $true){ $script:KY[$kapi]++; $script:kirmiziYayin["$($s.id)"] = 1 }
+  if($script:ornek.Count -lt 40){
+    $script:ornek.Add([ordered]@{ kapi=$kapi; soru_id="$($s.id)"; ders="$($s.ders)"; yayinda=$s.yayin; detay=$detay })
   }
 }
 
@@ -208,21 +228,29 @@ foreach($s in $kasa){
   }
 }
 
-$toplam = 0; foreach($v in $K.Values){ $toplam += $v }
-$karar = if($toplam -eq 0){ 'GECER' } else { 'DURDU' }
+$toplamHepsi = 0; foreach($v in $K.Values){ $toplamHepsi += $v }
+$toplamYayin = 0; foreach($v in $KY.Values){ $toplamYayin += $v }
+# KARAR yayindakilere bakar (ogrenciye giden odur); ENVANTER tum kasayi kapsar.
+$karar = if($toplamYayin -eq 0){ 'GECER' } else { 'DURDU' }
 $rapor = [ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
   karar=$karar
-  yayinda_soru=$kasa.Count
-  kirmizi_soru=$kirmiziId.Count
-  kapilar=$K
-  toplam_ihlal=$toplam
+  kasa_toplam=$kasa.Count
+  yayinda_soru=$yayindaSayi
+  kirmizi_soru_tum_kasa=$kirmiziId.Count
+  kirmizi_soru_yayinda=$kirmiziYayin.Count
+  kapilar_tum_kasa=$K
+  kapilar_yayinda=$KY
+  toplam_ihlal_tum_kasa=$toplamHepsi
+  toplam_ihlal_yayinda=$toplamYayin
   ornekler=$ornek.ToArray()
-  kural='Yayindaki soruda SIFIR TOLERANS. Kapi cokerse de GECER demez - olculemeyen sey guvenli sayilmaz.'
+  kural='KARAR yayindaki sorulara bakar (ogrenciye giden odur). ENVANTER tum kasayi kapsar - Cem 27.478 soruya degil bu rapora bakar.'
   not='Bu kapi kasaya DOKUNMAZ, yalniz olcer. Kirmizi sorulari yayindan indirmek ayri ve Cem onayli bir adimdir.'
 }
 RaporYaz $rapor
 Write-Host "`n=== YAYIN KAPISI: $karar ==="
-foreach($k in $K.Keys){ Write-Host ("  {0,-20} {1}" -f $k, $K[$k]) }
-Write-Host ("  Kirmizi soru: {0} / {1}" -f $kirmiziId.Count, $kasa.Count)
+Write-Host ("  {0,-22} {1,8}   {2,8}" -f 'KAPI', 'TUM KASA', 'YAYINDA')
+foreach($k in $K.Keys){ Write-Host ("  {0,-22} {1,8}   {2,8}" -f $k, $K[$k], $KY[$k]) }
+Write-Host ("  {0,-22} {1,8}   {2,8}" -f 'KIRMIZI SORU', $kirmiziId.Count, $kirmiziYayin.Count)
+Write-Host ("  Kasa {0} soru, yayinda {1}" -f $kasa.Count, $yayindaSayi)
 if($karar -eq 'DURDU'){ exit 1 }
