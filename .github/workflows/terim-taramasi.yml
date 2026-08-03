@@ -29,7 +29,8 @@ jobs:
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           if [ ! -f veri/terim-taramasi-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
-          git add veri/terim-adaylari.json veri/terim-taramasi-raporu.json 2>/dev/null || true
+          git add veri/terim-adaylari.json 2>/dev/null || true
+          git add veri/terim-taramasi-raporu.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Terim adaylari [veri-operasyonu]"
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1

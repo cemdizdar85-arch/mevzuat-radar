@@ -28,6 +28,8 @@ jobs:
             echo "tarih: $(date -u +%FT%TZ)"
             echo "--- ls veri/tablo* ---"
             ls -la veri/tablo* 2>&1
+            echo "--- raporu.json icerik ---"
+            cat veri/tablo-format-taramasi-raporu.json 2>&1
             echo "--- git status ---"
             git status --short
           } > veri/_tablo-tarama-teshis.txt 2>&1 || true
@@ -45,7 +47,11 @@ jobs:
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           if [ ! -f veri/tablo-format-taramasi-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
-          git add veri/tablo-format-taramasi.json veri/tablo-format-taramasi-raporu.json 2>/dev/null || true
+          # AYRI AYRI eklenir: git add "A B" ikisi de yoksa TUMUYLE basarisiz olur
+          # (git add tum pathspec'leri once dogrular) - "|| true" bu hatayi yutup
+          # commit'i SESSIZCE atlatiyordu (03.08 gece dersi).
+          git add veri/tablo-format-taramasi.json 2>/dev/null || true
+          git add veri/tablo-format-taramasi-raporu.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Tablo format taramasi [veri-operasyonu]"
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1
