@@ -310,7 +310,14 @@ foreach($i in $isler){
     # GERCEK SART SORUNUN KENDISINDE: soru bir KAPSAM/SINIR sorusu mu?
     # {0,30} dardi, "hangisi ... degildir" kalibini kaciriyordu (arada 30+ karakter
     # var). Kendi testim yakaladi; {0,80}'e acildi.
-    $reSinirSorusu = [regex]'(?i)hangisi(nde)?\s+.{0,80}(uygulanmaz|kapsam\s*d[ıi][şs][ıi]|say[ıi]lmaz|girmez|de[ğg]ildir|dahil\s+de[ğg]il)|istisna|kapsam[ıi]\s+d[ıi][şs][ıi]nda'
+    # 03.08 IKINCI GENISLETME (Cem'in TTK m.516 bulgusu): desen yalniz OLUMSUZ
+    # sinir sorularini taniyordu ("hangisi uygulanmaz/degildir"). Oysa TAHDIDI
+    # LISTE olumlu de sorulur: "hangi bilgi faaliyet raporunda MUTLAKA yer
+    # almalidir?" - TTK m.516/2 uc bent sayar (sonraki olaylar, Ar-Ge,
+    # yoneticilere odenen mali menfaatler); aciklama yalniz ucuncusunu
+    # anlatiyordu. Olumlu kaliplar da eklendi.
+    # Yanlis pozitif riski yok: tetik AYRICA dayanakta 4+ bent sarti ariyor.
+    $reSinirSorusu = [regex]'(?i)hangisi(nde)?\s+.{0,80}(uygulanmaz|kapsam\s*d[ıi][şs][ıi]|say[ıi]lmaz|girmez|de[ğg]ildir|dahil\s+de[ğg]il)|hangi(si)?\s+.{0,80}(zorunlu|mutlaka|yer\s+alma|dahildir|say[ıi]l[ıi]r|gerekir|aran[ıi]r)|istisna|kapsam[ıi]\s+d[ıi][şs][ıi]nda|zorunlu\s+olarak\s+yer'
     $sinirSorusuMu = $reSinirSorusu.IsMatch("$($i.soru.soru)")
     if($bentSayisi -ge 4 -and $sinirSorusuMu){
       $dhx = "$($i.soru.dogru)".Trim().ToUpper()

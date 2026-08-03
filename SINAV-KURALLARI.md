@@ -458,6 +458,12 @@ kalanını görmez, **sınırı öğrenmez.**
 taşıma, ev hizmetleri, çıraklar, sporcular hiç geçmiyordu. O bilgi sadece A şıkkında
 kalmıştı — C'yi işaretleyen aday hiç görmüyordu.
 
+*Olumlu sinir sorulari da kapsamda (03.08, Cem TTK m.516):* tetik once yalniz olumsuz
+kaliplari taniyordu ("hangisi uygulanmaz/degildir"). Oysa tahdidi liste OLUMLU da sorulur:
+*"hangi bilgi faaliyet raporunda mutlaka yer almalidir?"* — TTK m.516/2 uc bent sayar
+(sonraki olaylar - Ar-Ge - yoneticilere odenen mali menfaatler); aciklama yalniz ucuncusunu
+anlatiyordu. Olumlu kaliplar eklendi, 7/7 test.
+
 *Kural:* dayanakta 4+ bent (a) b) c)…) varsa **ve** mevcut Kural bunları yansıtmıyorsa
 dört parça yeniden yazılır. Diğer sorulara dokunulmaz — istisna **dar**.
 *Ölçümü:* `tahdidi_liste_yenilenen`. Test: m.4 metni → yenilenecek · düz madde → dokunulmaz.
