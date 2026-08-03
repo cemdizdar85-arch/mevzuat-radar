@@ -263,6 +263,23 @@ function DayanakDilim([string]$metin, [string]$kaynak){
   return @{ metin=$metin.Substring(0, [Math]::Min(5000, $metin.Length)); bulundu=$false }
 }
 
+# --- THP LISTESI: yevmiye/tablo istenen soruda resmi kod->ad listesi isteme
+#     eklenir. 03.08 dersi (Cem'in 253 bulgusu): kanun metninde hesap kodu
+#     YOKTUR; listeyi vermezsen model hafizadan yazar. ---
+$script:THP_LISTE = ''
+$thpYol2 = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
+if(Test-Path $thpYol2){
+  try {
+    $thpVeri2 = Get-Content $thpYol2 -Raw -Encoding UTF8 | ConvertFrom-Json
+    $c2 = New-Object System.Collections.Generic.List[string]
+    foreach($b in @($thpVeri2.belgeler)){
+      $m2t = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+      if($m2t.Success){ $c2.Add(($m2t.Groups[1].Value + ' ' + $m2t.Groups[2].Value.Trim())) }
+    }
+    if($c2.Count -ge 50){ $script:THP_LISTE = ($c2 | Sort-Object) -join "`n" }
+  } catch {}
+}
+
 # --- ISTEM KURUCU: yalniz EKSIK olanlari ister ---
 function IstemKur($i){
   $s = $i.soru
@@ -381,6 +398,14 @@ DERS: $($s.ders) | KONU: $($s.konu)
 KAYNAK: $($s.kaynak)
 
 $dayanakBlok
+$(if($script:THP_LISTE -ne '' -and (($i.eksik -contains 'D7_yevmiye') -or ($i.eksik -contains 'D7_tablo'))){ @"
+
+=== TEKDUZEN HESAP PLANI (resmi kod listesi) ===
+$($script:THP_LISTE)
+=== HESAP PLANI BITTI ===
+HESAP KODU KURALI: kod yazacaksan YALNIZCA bu listeden; kod-ad eslesmesi listeyle
+birebir ayni olacak. Listede gormedigin kodu YAZMA - yalniz hesap adini yaz.
+"@ })
 
 SORU:
 $($s.soru)

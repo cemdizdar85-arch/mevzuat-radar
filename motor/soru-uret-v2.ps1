@@ -51,6 +51,33 @@ $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
+
+# ============================================================================
+#  THP LISTESI — 03.08, Cem'in "253 personel avansi" bulgusunun kok ilaci.
+#
+#  Uretici dayanak olarak KANUN maddesini veriyordu; kanun metninde hesap kodu
+#  YOKTUR. Yevmiye istenince model kodu tek bulabildigi yerden yazdi: kendi
+#  hafizasi. "Metinde olmayan rakami yazma" kurali, metinde HIC olmayan bir
+#  boyutu koruyamadi. Olcum: kasada 1.009 soruda kod-ad uyusmazligi.
+#
+#  Cozum: resmi kod->ad listesi HER isteme dayanagin yanina eklenir (kisa:
+#  ~199 satir "kod AD" cifti, ~6 KB). Artik hesap kodunun da birincil kaynagi
+#  istemin icinde ve kural ona baglanabiliyor.
+# ============================================================================
+$script:THP_LISTE = ''
+$thpYol = Join-Path $kok 'veri/mevzuat/msugt-thp-tam.json'
+if(Test-Path $thpYol){
+  try {
+    $thpVeri = Get-Content $thpYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $ciftler = New-Object System.Collections.Generic.List[string]
+    foreach($b in @($thpVeri.belgeler)){
+      $m = [regex]::Match("$($b.kaynak_ad)", '(?i)THP\s*(\d{3})\s*[-–—]\s*(.+)$')
+      if($m.Success){ $ciftler.Add(($m.Groups[1].Value + ' ' + $m.Groups[2].Value.Trim())) }
+    }
+    if($ciftler.Count -ge 50){ $script:THP_LISTE = ($ciftler | Sort-Object) -join "`n" }
+    Write-Host ("THP listesi: {0} hesap kodu isteme eklenecek." -f $ciftler.Count)
+  } catch { Write-Host "THP listesi okunamadi - istemlere eklenmeyecek: $($_.Exception.Message)" }
+} else { Write-Host "THP dosyasi yok - hesap kodu kurali istemlere eklenemeyecek." }
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 try { Start-Transcript -Path (Join-Path $kok 'veri/uretim-log.txt') -Force | Out-Null } catch {}
 
@@ -328,6 +355,17 @@ $sinavBasligi
 === DAYANAK METIN ($maddeAd) ===
 $maddeMetni
 === METIN BITTI ===
+$(if($script:THP_LISTE -ne ''){ @"
+
+=== TEKDUZEN HESAP PLANI (resmi kod listesi) ===
+$($script:THP_LISTE)
+=== HESAP PLANI BITTI ===
+HESAP KODU KURALI (03.08 - Cem'in 253 bulgusu): yevmiye, hesap adi veya hesap
+kodu yazacaksan YALNIZCA yukaridaki resmi listeden yaz. Listede olmayan kod
+KULLANMA. Kod ile adin eslesmesi listeyle birebir ayni olacak - "253 Personel
+Avanslari" gibi bir eslesme yazmak (253 listede TESIS, MAKINE VE CIHAZLAR'dir)
+soruyu COPE atar. Emin degilsen kodu yazma, yalniz hesap adini yaz.
+"@ })
 $(if($kirpildi){ "UYARI: Bu madde COK UZUN oldugu icin metin KIRPILDI. Yukarida GORDUGUN
 kismin disinda kalan fikralar hakkinda soru YAZMA. Gordugun bir hukmun sonraki
 fikralarda degistirilmis ya da istisna getirilmis olma ihtimali var - emin

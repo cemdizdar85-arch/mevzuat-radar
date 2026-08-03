@@ -411,3 +411,15 @@ katılabilir ya da doğrudan gider yazılabilir — **işletmenin tercihi**.
 
 *Sınır:* yalnız **dayanak metninde görülen** kalemler sayılır. Liste uydurmak yasak;
 görülmeyen kalem yazılmaz (D4 ile aynı disiplin).
+
+**D16. HESAP KODUNUN BİRİNCİL KAYNAĞI İSTEMDE OLACAK (03.08.2026)**
+"Metinde olmayan rakamı yazma" kuralı, metinde **hiç olmayan** bir boyutu koruyamaz.
+Kanun maddesinde hesap kodu yoktur; yevmiye istenince model kodu tek bulabildiği
+yerden yazar — kendi hafızasından. Ölçüm: kasada **1.009 soruda** kod-ad uyuşmazlığı.
+
+*Kural:* yevmiye/tablo/hesap kodu üretilecek her istemde **THP resmî kod→ad listesi**
+dayanağın yanına eklenir (üreticide her isteme, onarımda D7 istenen sorulara).
+Model yalnız listeden yazar; listede görmediği kodu yazamaz, yalnız hesap adı yazar.
+
+*Genel ilke:* bir alan üretiliyorsa o alanın birincil kaynağı istemin İÇİNDE olmalı.
+Kaynağı verilmeyen alan, yasak konulsa bile hafızadan yazılır.
