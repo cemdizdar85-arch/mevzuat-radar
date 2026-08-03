@@ -1,15 +1,19 @@
 {
-  "tarih": "03.08.2026 20:17",
-  "durum": "ALARM",
-  "kirmizi": 3,
-  "kurtarma": 0,
+  "tarih": "03.08.2026 23:41",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 3,
   "izlenen_robot": 15,
   "izlenen_veri": 5,
-  "maddeler": [
-    "ESKALASYON: Hap Kartlar -> kurtarma ise yaramadi (son basarili kosu 102.4 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 390.5 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 101.7 saat once (esik 30s)). Actions loguna bak."
+  "maddeler": [],
+  "kurtarilan": [
+    "Hap Kartlar -> son basarili kosu 105.8 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 393.8 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
+    "Smoke Nobetcisi -> son basarili kosu 105.1 saat once (esik 30s) -> kurtarma: tetiklendi"
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan_anahtar": [
+    "KOSU:kartlar.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml"
+  ]
 }
