@@ -117,7 +117,11 @@ Set-Content -LiteralPath $ciktiYol -Value (ConvertTo-Json -Depth 6 -InputObject 
   guncelleme=(Get-Date -Format 'dd.MM.yyyy HH:mm')
   aciklama='Isaret sutunu tasiyan (eski format) sorularin TAM listesi. deterministik_donusturulebilir=true ise Isaret sutunundaki her deger Alacak(+)/Borc(-) kalibinda - AI CAGRISI OLMADAN, 0 USD, kod ile Hesap|Borc|Alacak formatina cevrilebilir. false ise gozle bakilmali.'
   isaret_deger_dagilimi=$isaretDegeri
-  sorular=@($eski)
+  # 03.08 gece dersi: @(List[object]) bu ortamda "Argument types do not match"
+  # ile CATLIYOR (native diziyi @() ile sarmak sorun degil, ama .NET generic
+  # List'i dogrudan @() ile sarmak bu PowerShell surumunde patliyor). .ToArray()
+  # HER ZAMAN guvenli - terim-taramasi.ps1'deki kanitlanmis desenle ayni.
+  sorular=$eski.ToArray()
 })) -Encoding UTF8 -NoNewline
 
 Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 4 -InputObject ([ordered]@{
@@ -129,7 +133,7 @@ Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-J
   zaten_yeni_format_borc_alacak=$temiz
   diger_tablo_turu_oran_vb=$diger
   atlanan_hatali_satir=$satirHatasi.Count
-  hata_ornek=@($satirHatasi)
+  hata_ornek=$satirHatasi.ToArray()
   ilk_10_ornek=@($eski | Select-Object -First 10)
   not='Kasaya HICBIR SEY YAZILMADI - bu yalniz olcum. Tam liste veri/tablo-format-taramasi.json icinde.'
 }))
