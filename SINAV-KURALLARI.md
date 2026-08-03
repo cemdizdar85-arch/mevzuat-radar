@@ -365,3 +365,20 @@ nokta" · "sonuç olarak" · "özetle" · "bu bağlamda" · "unutulmamalıdır k
 
 *Ölçümü:* rapordaki `dort_parca_eksik` · `kanun_kopyasi` · `yapayzeka_kokusu` ·
 `istenmeyen_alan` sayaçları. İz dildedir, iskelette değil — [[yapayzeka-kokusu]].
+
+**D13. HESAPLI SORUDA ŞIKKI TERSİNE ÇÖZ (03.08.2026 — Cem'in talimatı)**
+Şıklarda rakam varsa her yanlış rakam **bir hatadan doğar.** Açıklama o hatayı
+tersine çözer ve gösterir: *"Bu rakama şöyle ulaşılır: <işlem>. Hata: <ne yanlış
+yapılmış>. Bir daha düşmemek için: <tek cümlelik pusula>."*
+Ayrıca soruda bir kavram geçiyorsa (dikey yüzde analizi gibi) o kavram **açıklanır**,
+formülü varsa **yazılır** — öğrenci yöntemi de öğrensin.
+
+*Örnek (doğru 1.189,58 = 570.800 ÷ 480):*
+- B) 1.275,42 → 1.189,58 + (41.200÷480 = 85,83). Hata: işletmenin maliyete **dahil
+  etmemeyi seçtiği** genel idare payı da katılmış.
+- D) 724,63 → 347.820 ÷ 480. Hata: yalnız ham madde alınmış; işçilik ve genel imal
+  giderleri unutulmuş.
+
+*Rakam disiplini burada da geçerli:* iddia edilen işlem gerçekten o rakamı vermeli.
+Önce hesapla; tutmuyorsa **uydurma**, "bu rakam doğru bir yöntemle elde edilemez,
+çeldiricidir" de ve geç. (Bu sorunun E şıkkı — 1.104,58 — hiçbir işlemle çıkmıyor.)

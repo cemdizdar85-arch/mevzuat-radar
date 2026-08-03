@@ -284,6 +284,22 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC PARCALI olacak:
   - IKI SIKKA AYNI CUMLEYI YAZAMAZSIN. Her metin o sikka OZEL olacak.
   - Basina "Dogrusu:" YAZMA - yalniz metni ver, oneki sistem koyar.
 
+  HESAPLI SORULARDA (siklarda rakam varsa) BUNU YAP - Cem'in 03.08 talimati:
+    Her yanlis rakam BIR HATADAN dogar. O hatayi TERSINE COZ ve goster:
+      "Bu rakama soyle ulasilir: <islem>. Hata: <ne yanlis yapilmis>.
+       Bir daha dusmemek icin: <tek cumlelik pusula>."
+    ORNEK (dogru 1.189,58 = 570.800 / 480 adet):
+      B) 1.275,42 -> "1.189,58 + (41.200 / 480 = 85,83) = 1.275,42. Hata: genel
+         idare giderinden mamule dusen pay da maliyete katilmis. Oysa metinde
+         isletme bu payi maliyete DAHIL ETMEMEYI secmis. Bir daha dusmemek icin:
+         once 'isletme neyi tercih etmis' diye bak, sonra topla."
+      D) 724,63 -> "347.820 / 480 = 724,63. Hata: yalniz ham madde alinmis;
+         iscilik ve genel imal giderleri unutulmus. Bir daha dusmemek icin:
+         imal edilen malda maliyet UC ayaklidir, birini birakma."
+    RAKAM DISIPLINI: iddia ettigin islem GERCEKTEN o rakami vermeli. Once hesapla,
+    tutmuyorsa UYDURMA - "bu rakam dogru bir yontemle elde edilemez, celdiricidir"
+    de ve gec. Tutmayan islem yazmak, hic yazmamaktan kotudur.
+
   ORNEK (soru: zincirleme is sozlesmesinin sarti nedir, dogru cevap "esasli neden"):
     ZAYIF (boyle YAZMA): "Yazili sekil sartiyla karistiriliyor; yazili sekil
       sozlesmenin kurulusuna iliskindir, zincirlemenin sarti degildir."
