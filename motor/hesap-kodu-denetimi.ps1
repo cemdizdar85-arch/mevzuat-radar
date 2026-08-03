@@ -76,13 +76,29 @@ Write-Host ("Kasa: {0} soru" -f $kasa.Count)
 if($kasa.Count -lt 1000){ Write-Host "!! SUPHELI: kasa kucuk gorundu - sayfalama kirik olabilir." }
 
 # Turkce duyarsiz sadelestirme (imatch tuzagi: ASCII<->Turkce)
+# 03.08 - IKINCI SAHTE ALARM. Ilk hali "-replace 'İ','I'" kullaniyordu; PowerShell
+# -replace REGEX'tir ve dosya kodlamasina gore Turkce harfler beklenmedik davranir.
+# Sonuc: "TAŞITLAR" -> "TAS TLAR" olup resmi "TAŞITLAR" ile UYMUYOR sayildi
+# (601 YURTDIŞI SATIŞLAR da ayni sekilde). Yani sahte yanlislar uretiliyordu.
+# Cozum: regex yok, KARAKTER KARAKTER acik esleme. Ne yaptigini gizlemeyen kod.
+$HARF = @{
+  [char]0x0130='I'; [char]0x0131='I'; [char]'i'='I'; [char]'I'='I'   # İ ı i I
+  [char]0x015E='S'; [char]0x015F='S'                                  # Ş ş
+  [char]0x011E='G'; [char]0x011F='G'                                  # Ğ ğ
+  [char]0x00DC='U'; [char]0x00FC='U'                                  # Ü ü
+  [char]0x00D6='O'; [char]0x00F6='O'                                  # Ö ö
+  [char]0x00C7='C'; [char]0x00E7='C'                                  # Ç ç
+}
 function Sade([string]$t){
   if($null -eq $t){ return '' }
-  $x = $t.ToUpperInvariant()
-  $x = $x -replace 'İ','I' -replace 'I','I' -replace 'Ş','S' -replace 'Ğ','G'
-  $x = $x -replace 'Ü','U' -replace 'Ö','O' -replace 'Ç','C'
-  $x = $x -replace '[^A-Z0-9 ]',' '
-  return ($x -replace '\s+',' ').Trim()
+  $sb = New-Object Text.StringBuilder
+  foreach($c in $t.ToCharArray()){
+    if($HARF.ContainsKey($c)){ [void]$sb.Append($HARF[$c]); continue }
+    $u = [char]::ToUpperInvariant($c)
+    if(($u -ge 'A' -and $u -le 'Z') -or ($u -ge '0' -and $u -le '9')){ [void]$sb.Append($u) }
+    else { [void]$sb.Append(' ') }
+  }
+  return (($sb.ToString()) -replace '\s+',' ').Trim()
 }
 # Ad benzerligi: 4+ harflik ORTAK kelime varsa "uyuyor" say. Boylece
 # "196 PERSONEL AVANSLARI" ile resmi "PERSONEL AVANSLARI" tutar; ama

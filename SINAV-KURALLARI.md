@@ -399,3 +399,15 @@ eşleşmedi; model kodları kendi hafızasından yazdı.
 *İki katman:* (1) ad sözlüğü — açık Türkçe adlar kısaltmaya çevrilir; (2) hesap kodu
 kapısı — üç haneli kod + hesap adı deseni dayanakta aranır, yoksa `dayanak_disi_iddia`
 sayılır. Eskiden kapı yalnız "m.275" tipi atıfları arıyor, çıplak kodu görmüyordu.
+
+**D15. "KURAL" PARÇASI SINIRI ÇİZER (03.08.2026 — Cem'in talimatı)**
+Kural anlatılırken yalnız bu olay değil, **kuralın sınırı** verilir: neler girer,
+neler girmez, neler işletmenin tercihindedir. Öğrenci aynı kuralı başka bir kalemle
+sorulduğunda da bilmeli.
+
+*Örnek (maliyet bedeli):* montaj ve nakliye **girer** · envantere alındıktan sonraki
+sigorta **girmez** · gayrimenkulde noter, tapu harcı, emlak alım vergisi maliyete
+katılabilir ya da doğrudan gider yazılabilir — **işletmenin tercihi**.
+
+*Sınır:* yalnız **dayanak metninde görülen** kalemler sayılır. Liste uydurmak yasak;
+görülmeyen kalem yazılmaz (D4 ile aynı disiplin).

@@ -275,6 +275,15 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
     "Ne soruluyor:"  -> sorunun ne sordugunu tek cumleyle sadelestir.
     "Kural:"         -> kurali GUNLUK DILLE anlat. Kanun cumlesini KOPYALAMA,
                         cevir. Gerekiyorsa madde numarasini sonda parantezde ver.
+                        SINIRI DA CIZ (Cem'in 03.08 talimati): dayanakta goruyorsan
+                        kisaca say -> NELER GIRER, NELER GIRMEZ, NELER IHTIYARIDIR.
+                        Ornek (maliyet bedeli): "Montaj ve nakliye girer; envantere
+                        alindiktan SONRAKI sigorta girmez; gayrimenkullerde noter,
+                        tapu harci ve emlak alim vergisini maliyete katmak ya da
+                        dogrudan gider yazmak ISLETMENIN TERCIHIDIR."
+                        Ogrenci yalniz bu olayi degil KURALIN SINIRINI ogrenmeli;
+                        sinav ayni kurali baska bir kalemle sorar. Dayanakta
+                        gormedigin kalemi SAYMA - liste uydurmak yasak.
     "Bu olayda:"     -> SORUDAKI KENDI RAKAMLARINI kullanarak adim adim goster
                         (ornek: "Ham madde 68.328 + Iscilik 14.205 + GUG 9.118 =
                         91.651 TL"). Rakam yoksa olayi somut anlat.
