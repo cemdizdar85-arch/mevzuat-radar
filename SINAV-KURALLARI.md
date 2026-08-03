@@ -448,3 +448,16 @@ olmayanı** sorar; öğrenci sınırı görmeden ayırt edemez.
 A şıkkında kalmıştı; C'yi işaretleyen öğrenci hiç görmüyordu. Şıklarda
 **tekrarlanmaz** (şişme yapar, D17 ihlali olur). Görselleşmesi gerekiyorsa D8
 karşılaştırma tablosu kullanılır: kapsamda / kapsam dışı.
+
+**D18-ek. D11'E DAR İSTİSNA — SINIR EKSİKSE KURAL YENİLENİR**
+D11 "dolu ve iyi olana dokunma" der. Ama biçimsel olarak tam bir "Kural" parçası,
+dayanak **tahdidi liste** ise yine de eksiktir: öğrenci doğru cevabı okur, listenin
+kalanını görmez, **sınırı öğrenmez.**
+
+*Vaka (İş K. m.4):* eski Kural yalnız *"tarım/orman 50'den az"* diyordu; deniz-hava
+taşıma, ev hizmetleri, çıraklar, sporcular hiç geçmiyordu. O bilgi sadece A şıkkında
+kalmıştı — C'yi işaretleyen aday hiç görmüyordu.
+
+*Kural:* dayanakta 4+ bent (a) b) c)…) varsa **ve** mevcut Kural bunları yansıtmıyorsa
+dört parça yeniden yazılır. Diğer sorulara dokunulmaz — istisna **dar**.
+*Ölçümü:* `tahdidi_liste_yenilenen`. Test: m.4 metni → yenilenecek · düz madde → dokunulmaz.

@@ -173,6 +173,7 @@ $ADSOZLUK = @(
 $atlanan = New-Object System.Collections.Generic.List[object]
 $hazir   = New-Object System.Collections.Generic.List[object]
 $dilSoru = 0
+$tahdidiYenilenen = 0
 $dayanakOnbellek = @{}
 foreach($i in $isler){
   $kay = "$($i.soru.kaynak)".Trim()
@@ -221,6 +222,31 @@ foreach($i in $isler){
   if($metin.Length -lt 40){ $atlanan.Add([ordered]@{ id="$($i.soru.id)"; sebep="dayanak ambarda cozulemedi: $kay" }); continue }
   $i | Add-Member -NotePropertyName dayanak -NotePropertyValue $metin -Force
   $i | Add-Member -NotePropertyName mevzuatdisi -NotePropertyValue $false -Force
+
+  # ---- D11'E DAR ISTISNA (03.08, Cem'in Is K. m.4 bulgusu) ----
+  # D11 "dolu ve iyi olana dokunma" der. Ama biçimsel olarak TAM olan bir Kural
+  # parcasi, dayanak TAHDIDI LISTE ise (kanun "yalnizca sunlar" diyorsa) yine de
+  # EKSIK olabilir: ogrenci dogru cevabi okuyor ama listenin kalanini gormuyor,
+  # yani SINIRI ogrenmiyor. Is K. m.4 vakasi: eski Kural yalniz "tarim/orman
+  # 50'den az" diyordu; deniz-hava tasima, ev hizmetleri, ciraklar, sporcular
+  # hic gecmiyordu. O bilgi yalniz A sikkinda kalmisti - C'yi isaretleyen hic
+  # gormuyordu.
+  # Bu yuzden: dayanak tahdidi liste VE mevcut Kural o bentleri yansitmiyorsa
+  # dort parca YENIDEN yazilir. Diger sorulara dokunulmaz - istisna DAR.
+  if($i.eksik -notcontains 'D1_dort_parca'){
+    $bentSayisi = ([regex]::Matches($metin, '(?m)^\s*[a-ıi]\)\s')).Count
+    if($bentSayisi -lt 3){ $bentSayisi = ([regex]::Matches($metin, '\s[a-ıi]\)\s')).Count }
+    if($bentSayisi -ge 4){
+      $dhx = "$($i.soru.dogru)".Trim().ToUpper()
+      $mevcut = ''
+      try { if($i.soru.aciklama -and $i.soru.aciklama.PSObject.Properties[$dhx]){ $mevcut = "$($i.soru.aciklama.$dhx)" } } catch {}
+      $mevcutBent = ([regex]::Matches($mevcut, '\s[a-ıi]\)\s')).Count
+      if($mevcutBent -lt 3){
+        $i.eksik = @($i.eksik) + 'D1_dort_parca'
+        $script:tahdidiYenilenen++
+      }
+    }
+  }
   $hazir.Add($i)
   if($sinir -gt 0 -and $hazir.Count -ge $sinir){ break }
 }
@@ -459,6 +485,7 @@ if(-not $uygula){
     kasa=$kasa.Count; eksigi_olan=$isler.Count; islenebilir=$hazir.Count
     atlanan_dayanaksiz=$atlanan.Count
     mevzuat_disi_gecen=$dilSoru
+    tahdidi_liste_yenilenen=$tahdidiYenilenen   # D11 istisnasi: sinir eksik oldugu icin Kural yeniden yazilacak
     eksik_dagilimi=[ordered]@{}
     atlanan_ornek=@($atlanan | Select-Object -First 20)
     not='Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur.'
