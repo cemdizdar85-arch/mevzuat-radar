@@ -1042,7 +1042,7 @@ for($n=0; $n -lt $parti.Count; $n++){
       # ad, tireli yazim ve "Ad (NNN)" bicimi de goruluyor; adsiz "620 numarali
       # hesap" disarida - orada dogrulanacak eslesme yok.
       $ciftlerU = New-Object System.Collections.Generic.List[object]
-      foreach($mm in [regex]::Matches($uretilen, '(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})')){
+      foreach($mm in [regex]::Matches($uretilen, '(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})')){
         $ciftlerU.Add(@{ kod=$mm.Groups[1].Value; ad=$mm.Groups[2].Value.Trim() })
       }
       foreach($mm in [regex]::Matches($uretilen, '([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)')){

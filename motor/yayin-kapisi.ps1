@@ -130,7 +130,7 @@ $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2
 # 03.08 - Cem: "hesap planina gore kontrol et." Kontrol zaten 199 hesabin
 # tamamina bakiyordu; eksik olan DESENDI. Kucuk harfli ad, tireli yazim ve
 # "Ad (NNN)" bicimi goruluyordu. Adsiz "620 numarali hesap" disarida.
-$reHesap  = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+$reHesap  = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
 $reHesap2 = [regex]'([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})\s*\(\s*([1-8]\d{2})\s*\)'
 # Onek eslesmesi (03.08): Turkce ekler yuzunden birebir kelime esitligi sahte
 # alarm uretiyordu ("KARSILIKLAR"~"KARSILIK", "HES"~"HESAPLANAN"). Biri digerinin

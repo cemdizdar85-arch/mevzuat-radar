@@ -168,6 +168,13 @@ foreach($t in $taslak){
   }
 
   $c = $t.cikti
+  # 03.08 - CEM: "tablolar hala asagida gorunuyor, ABD/Ingiltere duzenini
+  # yapmistin." HAKLI: o duzeni SITEDE (deneme.html) uyguladim, BU OKUYUCUDA
+  # uygulamadim. Ucuncu kez ayni ayrim: site ile denetim ekranini karistirdim.
+  # UWorld/Becker duzeni: hesap gorseli aciklama blogunun BASINDA durur - once
+  # rakamin nasil ciktigi gorulur, sonra neden oyle oldugu okunur.
+  if($c.tablo){   [void]$sb.Append('<h4>YENI - tablo</h4>' + (TabloHtml $c.tablo)) }
+  if($c.yevmiye){ [void]$sb.Append('<h4>YENI - yevmiye</h4>' + (YevmiyeHtml $c.yevmiye)) }
   if($c.dort_parca){ [void]$sb.Append('<h4>YENI - dort parca</h4><div class="yeni">' + (K "$($c.dort_parca)") + '</div>') }
   foreach($h in 'A','B','C','D','E'){
     $tz=''; $dg=''
@@ -179,8 +186,6 @@ foreach($t in $taslak){
     if($dg -ne ''){ [void]$sb.Append("`n<b>Dogrusu:</b> " + (K $dg)) }
     [void]$sb.Append('</div>')
   }
-  if($c.tablo){   [void]$sb.Append('<h4>YENI - tablo</h4>' + (TabloHtml $c.tablo)) }
-  if($c.yevmiye){ [void]$sb.Append('<h4>YENI - yevmiye</h4>' + (YevmiyeHtml $c.yevmiye)) }
   if(-not $t.gecerli_json){ [void]$sb.Append('<h4>YENI</h4><div class="yeni bos">Model gecerli JSON uretemedi - bu soru islenmedi.</div>') }
   [void]$sb.Append('</div></div>')
 }
