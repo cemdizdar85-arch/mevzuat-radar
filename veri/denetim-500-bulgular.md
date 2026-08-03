@@ -789,3 +789,12 @@ KÖK SEBEP BULUNMADAN yeni hakem partisi AÇILMAZ.
 ---
 
 *Defter okuma ilerledikçe güncellenir. Son güncelleme: 02.08.2026, 16/500.*
+
+## Pilot-0833 okuması — Cem bulguları (03.08.2026)
+
+- **SORU KÖKÜ ÇELİŞKİSİ (yeni hata sınıfı):** "Denizli Mermer" kira sorusu — firma
+  kirayı PEŞİN ÖDEMİŞ ama kök "aynı gün 291.600 TL tahsil edilmiştir kaydıyla" diyor.
+  Ödeme tahsil olmaz; çıkış TEDİYE'dir. Rakamlar tutuyor (3×12×8.100=291.600),
+  kusur yalnız kökteki yön ifadesinde. **Ders: biçim kapıları kökteki ANLAM
+  çelişkisini göremez — hakem son okuması istemine "işlem yönü çelişkisi
+  (ödeme/tahsil, borç/alacak, alış/satış) → KUSURLU" maddesi eklenecek.**
