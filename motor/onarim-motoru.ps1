@@ -243,7 +243,26 @@ function IstemKur($i){
   $sik = ""
   foreach($h in 'A','B','C','D','E'){ if($s.siklar.PSObject.Properties[$h]){ $sik += "$h) $($s.siklar.$h)`n" } }
   $ist = @()
-  if($i.eksik -contains 'D1_dort_parca'){ $ist += 'dort_parca: dogru sikkin aciklamasini SU DORT BASLIKLA yeniden yaz: "Ne soruluyor:", "Kural:", "Bu olayda:", "Akilda kalsin:". 400-700 karakter, gunluk dil, hic muhasebe bilmeyene anlatir gibi.' }
+  if($i.eksik -contains 'D1_dort_parca'){ $ist += @'
+dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
+  bu adlarla yazilacak (baslik atlanirsa is REDDEDILIR):
+    "Ne soruluyor:"  -> sorunun ne sordugunu tek cumleyle sadelestir.
+    "Kural:"         -> kurali GUNLUK DILLE anlat. Kanun cumlesini KOPYALAMA,
+                        cevir. Gerekiyorsa madde numarasini sonda parantezde ver.
+    "Bu olayda:"     -> SORUDAKI KENDI RAKAMLARINI kullanarak adim adim goster
+                        (ornek: "Ham madde 68.328 + Iscilik 14.205 + GUG 9.118 =
+                        91.651 TL"). Rakam yoksa olayi somut anlat.
+    "Akilda kalsin:" -> sinavda ise yarayacak TEK cumlelik pusula.
+  400-700 karakter. Olcut sudur: MUHASEBE HIC BILMEYEN biri okuyunca anlamali.
+
+  YASAK KELIMELER (kanun kopyasi kokuyor, kullanma): "bilumum", "muteferri",
+  "munasebetiyle", "isbu", "mezkur", "ifade eder", "tanzim", "mutazammin",
+  "sair", "taht-i", "keyfiyet". Bunlarin yerine gunluk karsiligini yaz.
+
+  YAPAY ZEKA KOKUSU YASAK: "onemli bir husustur", "dikkat edilmesi gereken
+  nokta", "sonuc olarak", "ozetle", "bu baglamda", "unutulmamalidir ki" gibi
+  doldurma kaliplari kullanma. Dogrudan konuyu anlat, giris-gelisme-sonuc kurma.
+'@ }
   if($i.eksik -contains 'D2_tuzak'){    $ist += 'tuzak: her YANLIS sik icin tuzagin ADINI koy — "<A> ile <B> karistiriliyor. <A> sudur; <B> ise budur." Her sik icin FARKLI tuzak; ayni cumle iki sikka yazilamaz. Basina "TUZAK:" yazma, oneki sistem koyar.' }
   # 03.08 - CEM YAKALADI: ilk pilotta dort yanlis sikka da AYNI cumle yazilmisti
   # ("Belirli sureli is sozlesmesi esasli neden olmadikca zincirleme yapilamaz").
@@ -467,6 +486,7 @@ $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; '
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
 $dayanakDisiSoru=0; $dayanakDisiIddia=0; $maddeBulunamadi=0
+$istenmeyenAlan=0; $dortParcaEksik=0; $kanunKopyasi=0; $yzKokusu=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
 Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 
@@ -494,6 +514,34 @@ for($n=0; $n -lt $parti.Count; $n++){
   try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
   if($null -ne $obj){ $basarili++ }
 
+  # ========================================================================
+  #  ISTENMEYENI AT — 03.08, Cem'in ikinci bulgusu.
+  #
+  #  Cem iyi yazilmis bir aciklamanin yanina modelin yazdigi TEK PARAGRAFLIK
+  #  hukuk metnini gordu ve "eski cevap daha iyi" dedi. Haklyidi. Sebep: o
+  #  soruda dort_parca ISTENMEMISTI (eski metinde zaten vardi, dedektor de
+  #  dogru buluyor) - model kendiliginden yazdi.
+  #
+  #  Parali kosuda bu FELAKET olurdu: iyi yazilmis aciklamalar istenmeden
+  #  yenisiyle ezilirdi. Artik istenmeyen her alan CIKARILIR. Motor yalniz
+  #  BOS OLANI doldurur, dolu olana dokunmaz.
+  # ========================================================================
+  $atilanAlan = 0
+  if($null -ne $obj){
+    $izin = @{}
+    if($i.eksik -contains 'D1_dort_parca'){ $izin['dort_parca'] = 1 }
+    if($i.eksik -contains 'D2_tuzak'){      $izin['tuzak'] = 1 }
+    if($i.eksik -contains 'D2_dogrusu'){    $izin['dogrusu'] = 1 }
+    if(($i.eksik -contains 'D7_tablo') -or ($i.eksik -contains 'D8_karsilastirma')){ $izin['tablo'] = 1 }
+    if($i.eksik -contains 'D7_yevmiye'){    $izin['yevmiye'] = 1 }
+    foreach($p in @($obj.PSObject.Properties.Name)){
+      if(-not $izin.ContainsKey($p)){
+        try { $obj.PSObject.Properties.Remove($p); $atilanAlan++ } catch {}
+      }
+    }
+  }
+  $istenmeyenAlan += $atilanAlan
+
   # --- TEKRAR KAPISI (03.08, Cem'in bulgusu) ---
   # Istem "her sikka ayri cumle" diyor ama SOYLEMEK olcmek degildir. Model dort
   # yanlis sikka ayni cumleyi yazarsa bu kapida yakalanir ve soru KUSURLU sayilir.
@@ -517,6 +565,20 @@ for($n=0; $n -lt $parti.Count; $n++){
     }
   }
   if($tekrarVar){ $tekrarKusurlu++ }
+
+  # --- DORT PARCA + DIL KAPISI (03.08, Cem: "annem bile anlasin") ---
+  # Istemde "dort baslik zorunlu" demek yetmez; model tek paragraf hukuk metni
+  # yazdi. Burada OLCULUR: dort baslik da yoksa kusurlu. Ayrica kanun kopyasi
+  # ve yapay zeka doldurma kaliplari sayilir (yapayzeka-kokusu: iz DILDEDIR).
+  if($null -ne $obj -and ($i.eksik -contains 'D1_dort_parca')){
+    $dp = ''; try { if($obj.PSObject.Properties['dort_parca']){ $dp = "$($obj.dort_parca)" } } catch {}
+    $c4 = 0
+    if($reNe.IsMatch($dp)){$c4++}; if($reKural.IsMatch($dp)){$c4++}
+    if($reOlay.IsMatch($dp)){$c4++}; if($reAkil.IsMatch($dp)){$c4++}
+    if($c4 -lt 4){ $dortParcaEksik++ }
+    if([regex]::IsMatch($dp, '(?i)bil[üu]mum|m[üu]teferri|m[üu]nasebetiyle|i[şs]bu|mezk[üu]r|tanzim|mutazammin|keyfiyet')){ $kanunKopyasi++ }
+    if([regex]::IsMatch($dp, '(?i)[öo]nemli bir husus|dikkat edilmesi gereken|sonu[çc] olarak|[öo]zetle,|bu ba[ğg]lamda|unutulmamal[ıi]d[ıi]r')){ $yzKokusu++ }
+  }
 
   # ========================================================================
   #  DAYANAK DISI IDDIA KAPISI — 03.08, Cem: "kendi bildigini yazmayi
@@ -601,6 +663,10 @@ $rapor = [ordered]@{
   dayanak_disi_soru=$dayanakDisiSoru      # dayanakta OLMAYAN sayi/madde/oran yazan soru
   dayanak_disi_iddia=$dayanakDisiIddia    # toplam kac tane oyle iddia var
   madde_bulunamadi=$maddeBulunamadi       # etiketteki madde belge metninde bulunamadi
+  istenmeyen_alan=$istenmeyenAlan         # model istenmeden yazip ATILAN alan sayisi
+  dort_parca_eksik=$dortParcaEksik        # dort baslik istendi ama gelmedi
+  kanun_kopyasi=$kanunKopyasi             # "bilumum/muteferri" gibi kanun dili
+  yapayzeka_kokusu=$yzKokusu              # doldurma kaliplari
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'

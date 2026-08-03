@@ -342,3 +342,26 @@ süresidir; kanun zincirleme için süre değil esaslı neden arar."
 
 *Ölçümü:* onarim-motoru.ps1 tekrar kapısı — aynı cümle iki şıkta görülürse soru
 `tekrar_kusurlu` sayılır ve raporda görünür. Söylemek ölçmek değildir.
+
+**D11. İYİ OLANI BOZMA — İSTENMEYENİ YAZMA (03.08.2026 — Cem'in bulgusu)**
+Motor yalnız **boş olanı** doldurur. Dolu ve kurallara uygun bir açıklama varsa
+ona dokunulmaz; model istenmeden bir alan üretirse o alan **atılır**.
+
+*Gerekçe:* Pilotta dört parçası zaten tam olan bir soruya model kendiliğinden tek
+paragraflık hukuk metni yazdı — *"iktisadi kıymetin iktisap edilmesi münasebetiyle
+yapılan ödemelerle bunlara müteferri bilümum giderlerin toplamını ifade eder"*.
+Eski açıklamada dört başlık, günlük dil ve sorunun kendi rakamları vardı
+(*68.328 + 14.205 + 9.118 = 91.651 TL*); yenisinde hiçbiri yoktu. Cem: **"eski cevap
+daha iyi."** Uygulansaydı iyi yazılmış binlerce açıklamayı ezerdik.
+
+**D12. ANNE TESTİ + YAPAY ZEKÂ KOKUSU YASAĞI**
+Ölçüt: *muhasebe hiç bilmeyen biri okuyunca anlamalı.* Kanun cümlesi kopyalanmaz,
+**çevrilir**. "Bu olayda" parçası sorunun **kendi rakamlarını** kullanır.
+
+*Yasak — kanun kopyası:* bilümum · müteferri · münasebetiyle · işbu · mezkûr ·
+tanzim · mutazammın · keyfiyet
+*Yasak — yapay zekâ doldurması:* "önemli bir husustur" · "dikkat edilmesi gereken
+nokta" · "sonuç olarak" · "özetle" · "bu bağlamda" · "unutulmamalıdır ki"
+
+*Ölçümü:* rapordaki `dort_parca_eksik` · `kanun_kopyasi` · `yapayzeka_kokusu` ·
+`istenmeyen_alan` sayaçları. İz dildedir, iskelette değil — [[yapayzeka-kokusu]].
