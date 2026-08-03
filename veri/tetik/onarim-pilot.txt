@@ -1,24 +1,34 @@
 BAS
 
-PILOT 200 - UCUNCU dogrulama kosusu (unwrap bug'i duzeltildikten sonra).
+PILOT 200 - DORDUNCU kosu: TAM PARTI ONCESI SIGORTA (~2,7 USD).
+Cem: "2,7 USD sigorta buna girelim kontrol edelim yarin sonra partiye basariz."
 
-Onceki IKI pilot da gecersizdi:
-  - 0308-1550: tr-TR kultur hatasi (ToUpperInvariant + kulture duyarli -replace)
-    -> hesap_kodu_duzeltilen=0
-  - 0308-1650: kultur hatasi duzeldi AMA ResmiKodBul unwrap bug'i vardi
-    (tek elemanli dizi skaler string'e cevriliyor, $aday[0] stringin ILK
-    KARAKTERINI veriyordu: "159" -> "1") -> duzeltilen=1 ve o tek duzeltme
-    COP VERIYDI.
+AMAC: son pilottan (1946) SONRA motora giren UC DEGISIKLIK hic gercek kosuda
+calismadi. Tam parti (~367 USD) hic calismamis kodla basilamaz. Bu kosu o uc
+degisikligi gercek veride sinar:
 
-Ikisi de duzeltildi (@() ile cagri noktasinda sarma). Bu kosu asil soruyu
-olcer: hesap kodu otomatik duzeltmesi GERCEK veride calisiyor mu, ve
-uretilen kodlar gecerli 3-haneli THP kodu mu?
+  1. THP LISTESI KOSULU GENISLETILDI + yeni HesapKoduIziVar fonksiyonu.
+     Artik SORU+SIKLAR+ACIKLAMA taranir (eskiden yalniz ders+konu+soru).
+     Olcum: bu delikten sorular dusuyordu - liste gitmiyor, model hafizadan
+     kod yaziyordu (Cem'in 181 vakasi). Beklenti: dayanak_disi ve
+     hesap_kodu_yanlis DUSMELI, giris_token bir miktar ARTMALI.
 
-Ayrica bu kosuda ILK KEZ etkili olacaklar:
-  - THP listesi 230 -> 269 hesap (230/231/232 kaymasi duzeltildi + 39 eksik
-    kod resmi PDF'ten eklendi)
-  - D7_tablo istemi: hesap hareketi tablolari Hesap|Borc|Alacak uc sutun
-  - D13-ek yontem-adi listesi genisletildi (kaldirac, cari/likidite orani,
-    degisim orani, stok-alacak devir vb.)
+  2. MOTOR KENDI CIKTISINI DENETLIYOR: uretilen kod gercekten 3-haneli ve
+     THP'de var mi? Degilse duzeltme YAPILMAZ, hesap_kodu_gecersiz_uretim
+     sayacina yazilir. Beklenti: bu sayac 0 olmali (unwrap bug'i duzeldi).
+
+  3. RAPORA ORNEK: hesap_kodu_ornek alani ILK KEZ dolar - en fazla 10 adet
+     "yazilan -> duzeltilen" THP kod-ad cifti (soru metni DEGIL, sizinti yok).
+     BU GECENIN EN ONEMLI EKSIGI BUYDU: sayac "1 duzeltme yapildi" derken
+     icerik cop olabiliyordu ve goremiyorduk. Artik gozle okunacak.
+
+  4. D13-ek genisletilmis yontem regex'i (kaldirac, cari/likidite orani,
+     degisim orani, stok-alacak devir...) ilk kez etkili olacak.
+
+KONTROL LISTESI (rapor gelince):
+  - hesap_kodu_gecersiz_uretim = 0 mi?
+  - hesap_kodu_ornek icindeki 10 cift GOZLE dogru mu?
+  - hesap_kodu_yanlis 46'dan dustu mu?
+  - tahmin_tam_kasa_usd ne oldu (367'den kaydi mi)?
 
 Cikti yalniz taslaga gider, kasaya YAZILMAZ.
