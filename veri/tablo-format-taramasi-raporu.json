@@ -1,0 +1,8 @@
+{
+  "tarih": "03.08.2026 18:12",
+  "durum": "HATA",
+  "hata": "Argument types do not match",
+  "sunucu": "",
+  "satir": 116,
+  "hat_metni": "Set-Content -LiteralPath $ciktiYol -Value (ConvertTo-Json -Depth 6 -InputObject ([ordered]@{"
+}
