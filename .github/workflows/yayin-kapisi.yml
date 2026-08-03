@@ -1,0 +1,58 @@
+# .github/workflows/yayin-kapisi.yml — 0 USD
+# YAYINDAKI sorularda alti kaliteyi olcer ve GECER/DURDU karari verir.
+# Kirmizi ise ADIM KIRMIZI BITER - "yesil kosu" yanilsamasi olmasin diye.
+# Her push'ta ve her gun kosar; yayin oncesi bakilacak tek dosya budur.
+name: Yayin Kapisi (0 USD)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '5 4 * * *'   # her gun 04:05 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yayin-kapisi
+  cancel-in-progress: false
+
+jobs:
+  kapi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kapiyi kos
+        id: kos
+        continue-on-error: true    # rapor commit'lenebilsin diye; karar asagida
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yayin-kapisi.ps1
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/yayin-kapisi.json ]; then echo "!! KARAR DOSYASI YOK"; exit 1; fi
+          git add veri/yayin-kapisi.json
+          git diff --cached --quiet || git commit -m "Yayin kapisi karari [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase && git push && break
+            echo "push denemesi $i tutmadi"; sleep 5
+            if [ $i -eq 3 ]; then echo "!! PUSH TUTMADI"; exit 1; fi
+          done
+      - name: Karari uygula
+        if: always()
+        run: |
+          # Kapi DURDU dediyse is KIRMIZI biter. Boylece "yesil kosu = her sey
+          # yolunda" yanilsamasi olusmaz; yayin oncesi bakilacak tek yer burasi.
+          KARAR=$(grep -o '"karar": *"[^"]*"' veri/yayin-kapisi.json | head -1 | sed 's/.*"karar": *"//;s/"//')
+          echo "KARAR: $KARAR"
+          if [ "$KARAR" != "GECER" ]; then
+            echo "::error::Yayin kapisi DURDU - yayindaki sorularda ihlal var. veri/yayin-kapisi.json'a bak."
+            exit 1
+          fi
