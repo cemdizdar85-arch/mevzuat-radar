@@ -347,6 +347,20 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
     "Akilda kalsin:" -> sinavda ise yarayacak TEK cumlelik pusula.
   400-700 karakter. Olcut sudur: MUHASEBE HIC BILMEYEN biri okuyunca anlamali.
 
+  YONTEM ADI GECIYORSA ONU ANLAT + FORMULU YAZ (03.08, Cem'in talimati):
+  Soru bir YONTEM/TEKNIK adi tasiyorsa (degisken maliyetleme, tam maliyetleme,
+  dikey yuzde analizi, kist amortisman, reeskont, esdeger urun...) Kural parcasi
+  once o yontemin NE OLDUGUNU bir cumleyle soyler, sonra FORMULU ayri satirda
+  verir. Ornek:
+    "Degisken maliyetleme: mamulun sirtina yalniz uretim arttikca artan giderler
+     yuklenir; uretim olsa da olmasa da degismeyen sabit giderler donem gideri
+     sayilir.
+     Birim maliyet = (direkt hammadde + direkt iscilik + DEGISKEN genel uretim
+     gideri) / uretim adedi   -- sabit genel uretim gideri BU FORMULE GIRMEZ."
+  Ogrenci yontemi bilmeden rakami dogru bulsa bile bir sonraki soruda kaybeder.
+  Formulu dayanakta gormesen de yontemin TANIMI mevzuat degil muhasebe teknigidir
+  ve yazilabilir; ancak ORAN/TUTAR/ESIK yine yalniz dayanaktan alinir.
+
   TERIMI ACIKLA (03.08, Cem: "annem bile anlasin o anlamda diyorum"):
   Bir teknik terim ILK GECTIGI yerde kisa bir parantezle gunluk dile cevrilir.
   Ornek: "genel idare gideri (muhasebecinin maasi, ofis kirasi, yonetim

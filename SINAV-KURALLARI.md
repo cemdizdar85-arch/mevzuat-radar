@@ -485,3 +485,15 @@ Aynı açıklamanın iki parçası ters yöne bakamaz. *Vaka:* Kural *"genel ida
 giderlerinin maliyete katılması **ihtiyaridir**"* derken Akılda kalsın *"maliyet
 bedeline **girer** ama işletme dilerse…"* diye başladı. Öğrenci son cümleyi ezberler;
 yanlış yöne çeker. Doğrusu: *"katmak zorunlu değil, işletmenin tercihi."*
+
+**D13-ek. YÖNTEM ADI GEÇİYORSA TANIMI + FORMÜLÜ KURAL PARÇASINDA (03.08)**
+D13 bunu söylüyordu ama **isteme geçirilmemişti** — pilotta "değişken maliyetleme"
+sorusunda yöntemin ne olduğu hiç anlatılmadı, formül verilmedi; sadece rakamlar
+toplandı. Öğrenci bu soruyu bilse de bir sonrakini kaybeder.
+
+*Kural:* soru bir yöntem/teknik adı taşıyorsa (değişken maliyetleme, tam maliyetleme,
+dikey yüzde analizi, kıst amortisman, reeskont, eşdeğer ürün…) Kural parçası önce
+yöntemi bir cümleyle tanımlar, sonra **formülü ayrı satırda** verir; formülün dışında
+kalan unsur açıkça belirtilir *("sabit genel üretim gideri bu formüle girmez")*.
+*Sınır:* yöntemin tanımı muhasebe tekniğidir, yazılabilir; **oran/tutar/eşik** yine
+yalnız dayanaktan alınır (D4 bozulmaz).
