@@ -438,3 +438,13 @@ iki kez** geçebilir.
 *Ölçümü:* `tekduze_kusurlu` — şıkların ilk üç kelimesi tekrarlanıyorsa veya bir
 şablon fiil 3+ kez geçiyorsa soru kusurlu. Test: Cem'in gördüğü üç kutu → True,
 istenen hâli → False. [[yapayzeka-kokusu]]: iz dilde, iskelette değil.
+
+**D18. TAHDİDİ LİSTE TAM YAZILIR — AMA BİR KEZ (03.08.2026 — Cem'in bulgusu)**
+Kanun *"yalnızca şunlar"* diyorsa (İş K. m.4 istisnaları a-ı gibi) listenin **tamamı**
+yazılır ve sorunun olayı hangi bende düştüğü işaretlenir. Sebep: sınav hep **listede
+olmayanı** sorar; öğrenci sınırı görmeden ayırt edemez.
+
+*Yeri:* ana açıklamanın **"Kural"** parçası — orayı herkes okur. Pilotta liste yalnız
+A şıkkında kalmıştı; C'yi işaretleyen öğrenci hiç görmüyordu. Şıklarda
+**tekrarlanmaz** (şişme yapar, D17 ihlali olur). Görselleşmesi gerekiyorsa D8
+karşılaştırma tablosu kullanılır: kapsamda / kapsam dışı.

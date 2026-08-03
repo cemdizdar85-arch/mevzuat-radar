@@ -298,6 +298,11 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
                         alindiktan SONRAKI sigorta girmez; gayrimenkullerde noter,
                         tapu harci ve emlak alim vergisini maliyete katmak ya da
                         dogrudan gider yazmak ISLETMENIN TERCIHIDIR."
+                        TAHDIDI LISTE ISE (kanun "yalnizca sunlar" diyorsa) LISTENIN
+                        TAMAMINI yaz ve sorunun olayi hangi bende dustugunu isaretle.
+                        Ornek: Is K. m.4 istisnalari a-i bentleri - hepsini say, cunku
+                        sinav hep LISTEDE OLMAYANI sorar. Liste ana aciklamada bir kez
+                        durur; siklarda TEKRARLANMAZ (sisme yapar).
                         Ogrenci yalniz bu olayi degil KURALIN SINIRINI ogrenmeli;
                         sinav ayni kurali baska bir kalemle sorar. Dayanakta
                         gormedigin kalemi SAYMA - liste uydurmak yasak.
