@@ -3,7 +3,7 @@
 ## Durum tek cümle
 Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddesi + 10 robot**
 kuruldu; paralı tam parti hâlâ **Cem'in "bas"ını bekliyor.** Kasaya hiçbir şey yazılmadı,
-site kapalı, bugün harcanan ~10,4 USD (üç pilot koşusu).
+site kapalı, bugün harcanan ~10,4 USD (üç pilot koşusu; 4.'sü gereksiz çıkıp iptal edildi).
 
 ## ⚠ TAM PARTİDE MUTLAKA OLACAK İKİ İŞ (Cem'in kararı — ATLAMA)
 Bu ikisi ayrı parti olarak koşulmayacak, **tam partinin içinde** gelecek. Tam parti
@@ -129,13 +129,26 @@ Cem "Hesap | Borç | Alacak üç sütun olsun, Kalem kısa olsun" dedi; **istem 
 dedi → ölçtük: **kasadaki 2.426 tablodan 0'ı eski formatta** (İşaret sütunlu hiç yok; 17'si
 zaten Borç/Alacak, 2.409'u oran/hesaplama tablosu). **Geriye dönük iş yok.**
 
+## UNWRAP DÜZELTMESİ DOĞRULANDI — 0 USD (4. pilot GEREKMEDİ)
+Öneri robotu (`sik-hesap-kodu-oneri.ps1`) düzeltilmiş kodla **gerçek kasada** yeniden koştu.
+İlk 10 örnek gözle okundu, **10'u da doğru** — kodlar artık geçerli 3 haneli THP kodu:
+`257 Verilen Sipariş Avansları→159` · `260 Hazırlık Giderleri→272` · `254 Makine Tesis
+Cihazlar→253` · `380 yarı mamul→151` · `103 Kasa→100`. "1"/"2" çöpü gitti.
+Sayılar: **659 deterministik öneri**, 7.208 şüpheli (dokunulmadı).
+**Cem'in kararı: 4. doğrulama pilotu koşulmadı, o ~2,4 USD tam partiye saklandı.**
+
+⚠ **AMA ÖNERİLERİN YÖNÜ TEYİT EDİLMEDİ:** araç "ad doğru, kod yanlış" varsayar. Tersi de
+olabilir (soru gerçekten 380 hesabından bahsedip yanlışlıkla "yarı mamul" demiş olabilir).
+Yönü doğrulamak SORU METNİNİ görmeyi gerektirir → **Cem onayı olmadan uygulanmayacak.**
+
 ## SIRADAKİ İŞLER
 1. ~~Pilot sayaçlarına bak~~ TAMAM — iki bug bulundu (kültür + unwrap), ikisi de düzeltildi.
-2. **Üçüncü pilot koş** — unwrap düzeltmesinden sonra `hesap_kodu_duzeltilen` gerçekten
-   çalışıyor mu? Önceki iki pilot bu bug yüzünden geçersizdi. (~2,4 USD)
-3. Düzeltme çalışırsa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
-4. `veri/sik-hesap-kodu-onerisi.json` — şıklardaki hesap kodu önerileri (659 deterministik
-   öneri vardı ama **unwrap bug'lı koşudan**, yeniden koşulmalı). İlk 10'u gözle oku.
+2. ~~Unwrap düzeltmesini doğrula~~ TAMAM — 0 USD'ye doğrulandı (yukarı bak), 4. pilot iptal.
+3. **3. pilotun raporu geldiğinde sayaçlara bak** (koşu 03.08 ~20:0x'te tetiklendi, ~2,4 USD).
+   Not: o koşu, sonradan eklenen `hesap_kodu_ornek` / `hesap_kodu_gecersiz_uretim`
+   alanlarını İÇERMEZ — sadece sayaç verir. İçerik doğrulaması zaten (2)'de yapıldı.
+4. `veri/sik-hesap-kodu-onerisi.json` — 659 öneri hazır; **Cem yönlerini onaylarsa**
+   kasaya uygulanabilir (0 USD, AI yok).
 5. Hakem son okuması — kuru koşuyla maliyet ölç, sonra Cem onayıyla
 6. Sonra **TEK PARTİ TEK FATURA** (~325 USD ölçüldü) — **yukarıdaki ⚠ bölümü oku, formül
    işi (1.616 soru) bu partinin içinde gelecek.**
