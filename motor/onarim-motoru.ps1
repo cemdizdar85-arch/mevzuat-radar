@@ -49,6 +49,32 @@ $DK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar"
 $SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
 
 # Ham JSON ile cek: IRM diziyi bozup tek nesne verebiliyor (bu gece 2 kez yandik)
+# ============================================================================
+#  RAPOR SIZINTI SIGORTASI — 03.08 sabahi kondu, sebebi acikca sudur:
+#
+#  $etiketAdi'nin eski adi $PARTI idi; 200 soruluk dizinin adi da $parti.
+#  PowerShell degisken adlarinda BUYUK/KUCUK HARF AYIRMAZ - ikisi ayni degisken
+#  cikti, dizi adin uzerine yazdi ve raporun "parti" alanina 200 PARALI SORUNUN
+#  TAM METNI dokuldu. Rapor public depoya commit edilir; sizinti oradan gitti.
+#
+#  Ad cakismasi duzeltildi ama bu YETMEZ: baska bir yanlisla ayni sey tekrar
+#  olabilir. Bu yuzden rapor artik TEK KAPIDAN yazilir ve o kapi olcer:
+#  rapor 20 KB'i asiyorsa icinde olmamasi gereken bir sey vardir - icerik
+#  yazilmaz, yerine KIRMIZI uyari yazilir. Kucuk ve sayisal kalmak zorunda.
+# ============================================================================
+function RaporYaz($nesne){
+  $j = ConvertTo-Json -InputObject $nesne -Depth 6
+  if($j.Length -gt 20480){
+    Write-Host ("!! RAPOR SISMIS ({0} bayt) - icerik sizmis olabilir, YAZILMADI." -f $j.Length)
+    $j = ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+      tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='KIRMIZI - RAPOR SISMIS'
+      boyut_bayt=$j.Length
+      sebep='Rapor 20 KB siniri asti. Raporda yalniz SAYI olur; bu buyukluk soru metni sizdigi anlamina gelir.'
+      yapilacak='Rapor uretimindeki alan adlarini denetle (PS degisken adlari buyuk/kucuk harf ayirmaz).' })
+  }
+  Set-Content -LiteralPath $raporYol -Value $j -Encoding UTF8 -NoNewline
+}
+
 function CekListe([string]$uri){
   $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
   $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
@@ -256,7 +282,7 @@ if(-not $uygula){
     not='Hicbir API cagrisi YAPILMADI. veri/onarim-motor-ornek-istem.txt icindeki 10 ornek GOZLE okunacak; Cem onaylayinca -uygula -sinir 200 ile pilot kosulur.'
   }
   foreach($k in ($dagilim.Keys | Sort-Object)){ $rapor.eksik_dagilimi[$k] = $dagilim[$k] }
-  Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 5) -Encoding UTF8 -NoNewline
+  RaporYaz $rapor
   Write-Host "`n=== KURU KOSU ==="
   foreach($k in ($dagilim.Keys | Sort-Object)){ Write-Host ("  {0,-20} {1}" -f $k, $dagilim[$k]) }
   Write-Host ("`n-> {0}`n-> {1}" -f $raporYol, $ornekYol)
@@ -294,7 +320,7 @@ $FIY_OUT = 5.0 / 1000000.0
 # SILINDI. 0,78 USD odendi, maliyet olculdu, 200 cikti kayboldu.
 # Artik ciktilar SUPABASE'e (soru_onarim_taslak) yazilir: ozel, kalici, gozle
 # okunabilir. Depoya ve artifact'a HICBIR icerik gitmez.
-$PARTI = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
+$etiketAdi = "pilot-$(Get-Date -Format 'ddMM-HHmm')"
 
 # ============================================================================
 #  UCUS ONCESI: TASLAK DEPOSU HAZIR MI?  (Cem'e is cikarmayan yol)
@@ -374,7 +400,7 @@ for($n=0; $n -lt $parti.Count; $n++){
   try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
   if($null -ne $obj){ $basarili++ }
   $sonuc.Add([ordered]@{
-    soru_id="$($i.soru.id)"; parti=$PARTI; model=$MODEL
+    soru_id="$($i.soru.id)"; parti=$etiketAdi; model=$MODEL
     ders="$($i.soru.ders)"; konu="$($i.soru.konu)"; kaynak="$($i.soru.kaynak)"
     mevzuatdisi=[bool]$i.mevzuatdisi; eksik=@($i.eksik)
     cikti=$(if($null -ne $obj){ $obj } else { @{ ham=$temiz } })
@@ -392,7 +418,7 @@ $birim = if($parti.Count -gt 0){ [Math]::Round($maliyet / $parti.Count, 6) } els
 # (yukleyici 3.162 kaydi sessizce kaybetmisti). Geri okunan sayi istenene esit
 # degilse kosu KIRMIZI biter - cunku para harcanip cikti yine kaybolmus olur.
 $hepsi = $sonuc.ToArray()
-$dosyaAd = "$PARTI.json"
+$dosyaAd = "$etiketAdi.json"
 $govde2 = ConvertTo-Json -Depth 8 -InputObject $hepsi
 $yazilan = 0; $yazmaHatasi = ''
 try {
@@ -422,21 +448,21 @@ $rapor = [ordered]@{
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
   tahmin_tam_kasa_usd=[Math]::Round($birim * $kasa.Count, 2)
-  parti=$PARTI
+  parti=$etiketAdi
   taslaga_yazilan=$yazilan
   geri_okuma=$geriOkuma
-  taslak_yeri="Supabase Storage / kova '$KOVA' (OZEL) / dosya $PARTI.json"
+  taslak_yeri="Supabase Storage / kova '$KOVA' (OZEL) / dosya $etiketAdi.json"
   taslak_durum=$(if($geriOkuma -eq $parti.Count){'TAMAM'}elseif($geriOkuma -lt 0){'OKUNAMADI'}else{'KIRMIZI - eksik yazildi'})
   yazma_hatasi=$yazmaHatasi
   not='Ciktilar soru_onarim_taslak tablosunda (ozel). KASAYA YAZILMADI - taslak kasa degildir, site degismedi.'
 }
-Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $rapor -Depth 4) -Encoding UTF8 -NoNewline
+RaporYaz $rapor
 Write-Host "`n=== PILOT BITTI ==="
 Write-Host ("  Soru: {0} | Gecerli JSON: {1} | Bozuk: {2} | Cagri hatasi: {3}" -f $parti.Count, $basarili, $bozukJson, $hataliCagri)
 Write-Host ("  Token: giris {0} / cikis {1}" -f $tIn, $tOut)
 Write-Host ("  MALIYET: {0} USD | soru basina {1} USD" -f $maliyet, $birim)
 Write-Host ("  Tam kasa tahmini ({0} soru): {1} USD" -f $kasa.Count, $rapor.tahmin_tam_kasa_usd)
-Write-Host ("  Taslak partisi: {0} | yazilan {1} | geri okuma {2} | {3}" -f $PARTI, $yazilan, $geriOkuma, $rapor.taslak_durum)
+Write-Host ("  Taslak partisi: {0} | yazilan {1} | geri okuma {2} | {3}" -f $etiketAdi, $yazilan, $geriOkuma, $rapor.taslak_durum)
 Write-Host "  KASAYA YAZILMADI - taslak kasa degildir, site degismedi."
 # Taslaga yazamadiysak parayi harcayip ciktiyi yine kaybetmisiz demektir: KIRMIZI.
 if($geriOkuma -ne $parti.Count){ Write-Host "!! TASLAK EKSIK - kor kalma riski, rapora bak."; exit 1 }
