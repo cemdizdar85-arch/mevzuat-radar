@@ -326,3 +326,19 @@ K3 yeni soru tipi olduğu için açılıştan sonraki ilk sprint.
 
 > **Sitede yanlış cevap olmayacak. Yanlışı öğrenciden önce biz göreceğiz.
 > Şüphe varsa soru bekler. Az ve doğru, çok ve şüpheliye yeğdir.**
+
+**D10. HER YANLIŞ ŞIKKA AYRI DÜZELTME (03.08.2026 — Cem'in pilot bulgusu)**
+Yanlış şık açıklamaları birbirinin kopyası olamaz. Her şıkkın **kendi iddiası** ele
+alınır: iddia hangi başka kuralla karıştırılıyor, ve o iddianın doğrusu nedir.
+
+*Gerekçe:* İlk pilotta dört yanlış şıkka da aynı cümle yazıldı — sorunun genel kuralı
+tekrar edildi. Bu D3'ün kılık değiştirmiş hâlidir: "bu şık yanlış çünkü doğru cevap D"
+demenin gizli yolu. Öğrenciye A'nın **nesi** yanlış onu söylemiyor.
+
+*Yanlış:* A, B, C, E → "Belirli süreli iş sözleşmesi esaslı neden olmadıkça zincirleme yapılamaz."
+*Doğru:* A → "Yazılı şekil şartıyla karıştırılıyor; yazılı şekil sözleşmenin kuruluşuna
+ilişkindir, zincirlemenin şartı değildir." · C → "Beş yıllık üst sınır başka bir kuralın
+süresidir; kanun zincirleme için süre değil esaslı neden arar."
+
+*Ölçümü:* onarim-motoru.ps1 tekrar kapısı — aynı cümle iki şıkta görülürse soru
+`tekrar_kusurlu` sayılır ve raporda görünür. Söylemek ölçmek değildir.

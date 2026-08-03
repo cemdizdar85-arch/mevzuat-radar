@@ -208,8 +208,28 @@ function IstemKur($i){
   foreach($h in 'A','B','C','D','E'){ if($s.siklar.PSObject.Properties[$h]){ $sik += "$h) $($s.siklar.$h)`n" } }
   $ist = @()
   if($i.eksik -contains 'D1_dort_parca'){ $ist += 'dort_parca: dogru sikkin aciklamasini SU DORT BASLIKLA yeniden yaz: "Ne soruluyor:", "Kural:", "Bu olayda:", "Akilda kalsin:". 400-700 karakter, gunluk dil, hic muhasebe bilmeyene anlatir gibi.' }
-  if($i.eksik -contains 'D2_tuzak'){    $ist += 'tuzak: her YANLIS sik icin tuzagin ADINI koy — "TUZAK: <A> ile <B> karistiriliyor. <A> sudur; <B> ise budur."' }
-  if($i.eksik -contains 'D2_dogrusu'){  $ist += 'dogrusu: her YANLIS sik aciklamasini "Dogrusu: <dayanaga dayali TEK cumle>" ile bitir.' }
+  if($i.eksik -contains 'D2_tuzak'){    $ist += 'tuzak: her YANLIS sik icin tuzagin ADINI koy — "<A> ile <B> karistiriliyor. <A> sudur; <B> ise budur." Her sik icin FARKLI tuzak; ayni cumle iki sikka yazilamaz. Basina "TUZAK:" yazma, oneki sistem koyar.' }
+  # 03.08 - CEM YAKALADI: ilk pilotta dort yanlis sikka da AYNI cumle yazilmisti
+  # ("Belirli sureli is sozlesmesi esasli neden olmadikca zincirleme yapilamaz").
+  # Bu, D3'un kilik degistirmis hali: "bu sik yanlis cunku dogru cevap D" demenin
+  # baska yolu. Ogrenciye A'nin NESI yanlis onu soylemiyor. Istem simdi her sikkin
+  # KENDI IDDIASIYLA yuzlesmeyi zorunlu kiliyor ve ayni cumleyi yasakliyor.
+  if($i.eksik -contains 'D2_dogrusu'){  $ist += @'
+dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme cumlesi. Kurallar:
+  (a) O SIKKIN KENDI IDDIASINI ele al. Once iddianin nereden geldigini soyle
+      (hangi baska kuralla karistiriliyor), sonra o iddianin DOGRUSUNU yaz.
+  (b) DOGRU CEVABI TEKRAR ETMEK YASAK. "Dogrusu: <sorunun genel kurali>" yazma -
+      bu "bu sik yanlis cunku dogru cevap X" demenin gizli halidir, ogretmez.
+  (c) IKI SIKKA AYNI CUMLEYI YAZAMAZSIN. Her cumle o sikka OZEL olacak; birini
+      digerine kopyalarsan is yanlistir.
+  (d) Cumlenin basina "Dogrusu:" YAZMA - yalniz cumleyi ver, oneki sistem koyar.
+  ORNEK (soru: zincirleme is sozlesmesinin sarti nedir, dogru cevap "esasli neden"):
+    A sikki "yazili onay" diyorsa -> "Yazili sekil sarti ile karistiriliyor; yazili
+      sekil sozlesmenin kurulusuna iliskindir, zincirlemenin sarti degildir."
+    C sikki "bes yil" diyorsa -> "Bes yillik ust sinir baska bir kuralin suresidir;
+      kanun zincirleme icin sure degil esasli neden arar."
+  Gorulduğu gibi iki cumle birbirinden FARKLI ve her biri kendi sikkini hedefliyor.
+'@ }
   if($i.eksik -contains 'D7_tablo'){    $ist += 'tablo: hesap tablosu uret (kolonlar: kalem, tutar; son satir toplam).' }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
   if($i.eksik -contains 'D8_karsilastirma'){ $ist += 'tablo: karsilastirma tablosu uret (ayrimi yapilan kavramlar satir satir; sorunun konusu olan satiri "<-" ile isaretle).' }
@@ -395,7 +415,7 @@ try {
 
 $AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $sonuc = New-Object System.Collections.Generic.List[object]
-$tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0
+$tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
 $parti = @($hazir | Select-Object -First $(if($sinir -gt 0){$sinir}else{$hazir.Count}))
 Write-Host ("PILOT basliyor: {0} soru | model {1}" -f $parti.Count, $MODEL)
 
@@ -422,6 +442,30 @@ for($n=0; $n -lt $parti.Count; $n++){
   $obj = $null
   try { $obj = $temiz | ConvertFrom-Json } catch { $bozukJson++ }
   if($null -ne $obj){ $basarili++ }
+
+  # --- TEKRAR KAPISI (03.08, Cem'in bulgusu) ---
+  # Istem "her sikka ayri cumle" diyor ama SOYLEMEK olcmek degildir. Model dort
+  # yanlis sikka ayni cumleyi yazarsa bu kapida yakalanir ve soru KUSURLU sayilir.
+  # Onek de burada temizlenir: model "Dogrusu:" yazip sistem de eklerse cift olur.
+  $tekrarVar = $false
+  if($null -ne $obj){
+    foreach($alan in 'dogrusu','tuzak'){
+      $v = $null; try { if($obj.PSObject.Properties[$alan]){ $v = $obj.$alan } } catch {}
+      if($null -eq $v){ continue }
+      $gorulen = @{}
+      foreach($h in 'A','B','C','D','E'){
+        $m = ''; try { if($v.PSObject.Properties[$h]){ $m = "$($v.$h)" } } catch {}
+        if($m.Trim().Length -lt 5){ continue }
+        # model onegi yazdiysa kirp (cift "Dogrusu: Dogrusu:" olmasin)
+        $m = ($m -replace '(?i)^\s*(dogrusu|do[ğg]rusu|tuzak)\s*:\s*','').Trim()
+        try { $v.$h = $m } catch {}
+        $anahtar = ($m.ToLowerInvariant() -replace '[^\p{L}\p{Nd}]','')
+        if($gorulen.ContainsKey($anahtar)){ $tekrarVar = $true }
+        $gorulen[$anahtar] = 1
+      }
+    }
+  }
+  if($tekrarVar){ $tekrarKusurlu++ }
   $sonuc.Add([ordered]@{
     soru_id="$($i.soru.id)"; parti=$etiketAdi; model=$MODEL
     ders="$($i.soru.ders)"; konu="$($i.soru.konu)"; kaynak="$($i.soru.kaynak)"
@@ -467,6 +511,7 @@ $rapor = [ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT (PARALI, kasaya YAZILMADI)'
   model=$MODEL; istenen=$parti.Count
   basarili_json=$basarili; bozuk_json=$bozukJson; cagri_hatasi=$hataliCagri
+  tekrar_kusurlu=$tekrarKusurlu   # ayni cumleyi birden fazla sikka yazan soru sayisi
   giris_token=$tIn; cikis_token=$tOut
   maliyet_usd=$maliyet; birim_usd_soru=$birim
   fiyat_katsayisi='1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)'
