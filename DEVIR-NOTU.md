@@ -1,9 +1,32 @@
 # DEVİR NOTU — 03.08.2026 gece · yeni sohbet buradan devam etsin
 
 ## Durum tek cümle
-Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddesi + 7 robot**
+Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddesi + 10 robot**
 kuruldu; paralı tam parti hâlâ **Cem'in "bas"ını bekliyor.** Kasaya hiçbir şey yazılmadı,
-site kapalı, bugün harcanan ~8 USD (pilot koşuları) + ikinci pilot GitHub'da kuyrukta.
+site kapalı, bugün harcanan ~10,4 USD (üç pilot koşusu).
+
+## ⚠ TAM PARTİDE MUTLAKA OLACAK İKİ İŞ (Cem'in kararı — ATLAMA)
+Bu ikisi ayrı parti olarak koşulmayacak, **tam partinin içinde** gelecek. Tam parti
+tetiklenmeden önce bu satırlar okunacak:
+
+**1. FORMÜL (1.616 soru) — Cem: "tam partiye bekleyecek."**
+Cem "Aktif Devir Hızı ve Öz Kaynak Kaldıracı" sorusunda Kural'da genel/sembolik formül
+olmadığını gösterdi ("Bu olayda"daki sayısal işlem tek başına öğretmiyor; öğrenci
+`Aktif Devir Hızı = Net Satışlar / Toplam Aktifler`i görmezse sonraki soruyu kaybeder).
+Kök sebep: D13-ek'in yöntem-adı regex'inde **"kaldıraç" yoktu**, kural hiç tetiklenmiyordu.
+Listeye eklendi: kaldıraç · cari/likidite/asit test/karşılık/kârlılık oranı · stok-alacak
+devir · borç oranı · öz kaynak oranı · değişim/artış/azalış/büyüme oranı · karşılaştırmalı
+tablo. **Ölçüm (0 USD) yapıldı:** 27.478 sorunun 3.511'inde yöntem adı geçiyor, **1.616'sında
+Kural'da formül izi yok**. %96'sı dört muhasebe dersinde (Fin. Tablolar ve Analizi 733 ·
+Mali Tablolar Analizi 402 · Finansal Muhasebe 274 · Maliyet Muhasebesi 138); kalan 69 soru
+Hukuk/Türkçe/Ekonomi gibi derslerde ve **muhtemelen sahte alarm** (Vergi Hukuku'nda
+"reeskont" formülsüz geçebilir) — partiye sokmadan gözle ayıkla.
+Ayrı koşsaydı ~19 USD ölçülmüştü; tam parti bu sorulara zaten dokunacağı için **ikinci kez
+para ödememek adına** tam partiye bırakıldı. Liste: `veri/formul-eksik-taramasi.json`.
+
+**2. TABLO FORMATI (Hesap | Borç | Alacak).**
+İstem düzeltildi; kasada eski format tablo **0 çıktı** (2.426 tablodan hiçbiri "İşaret"
+sütunlu değil) — yani geriye dönük iş YOK, yalnız yeni üretimler bu formatta gelecek.
 
 ## GECE BULUNAN KÜLTÜR HATASI (hesap kodu otomatik düzeltme neden 0 çıktı)
 `pilot-0308-1550` sonucu: `hesap_kodu_duzeltilen=0`, `supheli=57`, `yanlis=61` — otomatik
@@ -23,9 +46,22 @@ Verilen Depozito ve Teminatlar — DOĞRU kod-ad iken eski kodla "yanlış" işa
 fonksiyonu — `ToUpper(tr-TR kültürü)` + `[regex]::Replace(..., CultureInvariant)`. 3 kullanım
 noktasına (KoduDuzelt, ResmiKodBul, K4 kapısı) bağlandı. Gerçek `msugt*.json` verisiyle 10
 örnekte yerel test: eski kod 8 yanıltıcı-doğru + 2 yanlış-alarm veriyordu, yeni kod **10/10
-doğru**. Kasaya/Supabase'e dokunulmadı, 0 USD. Bu commit'le birlikte ikinci bir 200'lük
-PILOT (`onarim-pilot.txt` → BAS) GitHub Actions'a tetiklendi — düzeltmenin gerçek veride de
-tuttuğunu doğrulamak için. Sonucu (yeni `hesap_kodu_duzeltilen/supheli/yanlis`) kontrol et.
+doğru**. Kasaya/Supabase'e dokunulmadı, 0 USD.
+
+**AMA İKİNCİ PİLOT (1650) YİNE 0 GİBİ ÇIKTI: `duzeltilen=1, supheli=59, yanlis=63`.**
+Sebebi ikinci ve daha sinsi bir bug'dı — aşağıda.
+
+## GECE BULUNAN İKİNCİ BUG: `ResmiKodBul` unwrap (ÇÖP VERİ ÜRETİYORDU)
+Kendi yeni aracımın **ilk 10 örneğini gözle okurken** yakalandı (Cem'in kuralı çalıştı):
+öneriler `kod 1`, `kod 2` diyordu. Sebep: PowerShell bir fonksiyon **tek elemanlı dizi**
+döndürünce onu skaler string'e "unwrap" eder; `$aday[0]` o zaman dizinin ilk elemanını
+değil **string'in ilk karakterini** verir (`"159"` → `"1"`).
+
+Bu yüzden `hesap_kodu_duzeltilen` hep ~0 çıkıyordu **VE** 1650 pilotunda çıkan o tek
+"düzeltme" **çöp veriydi** (`"1 "` yazılmış olmalı). Paralı tam partide kasaya çöp
+yazacaktı. Düzeltme: çağrı noktasında `@()` ile sarmak — hem yeni araçta hem de
+**asıl kaynakta** ([onarim-motoru.ps1 D14-ek, satır ~980](motor/onarim-motoru.ps1:980)).
+**Ders: `$x = Fonksiyon` yerine `$x = @(Fonksiyon)` — dizi bekleyen her yerde.**
 
 ## Cem'in okuduğu dosya
 Supabase Storage → özel kova `onarim-taslak` → en yeni `pilot-0308-*.html`
@@ -68,29 +104,41 @@ Biri eksikse iş yarım kalmıştır.
 - `sik-istatistigi.ps1` — "adayların %38'i C'yi seçti"; günlük
 - `taslak-goster.ps1` — taslak JSON + kasa → okunur HTML
 - `hakem-son-okuma.ps1` — 8 anlam kusuru (PARALI, tetikte `BAS` şart)
+- `tablo-format-tarama.ps1` — eski format tablo sayar (03.08: 0 çıktı, iş yok)
+- `sik-hesap-kodu-oneri.ps1` — ŞIKLARDAKİ hesap kodu hataları için öneri listesi
+- `formul-eksik-tarama.ps1` — yöntem adı var ama formül yok (03.08: 1.616 soru)
 
-## TABLO FORMATI: HESAP HAREKETİ BORÇ/ALACAK OLARAK AYRILSIN
-Cem pilotta (1650) "690 Dönem Karı..." gibi tabloları gördü: tek "Tutar (TL) +
-İşaret (Alacak+/Borç-)" sütunu yerine gerçek muhasebe kaydı gibi **Hesap | Borç
-| Alacak** üç sütun istedi, Kalem adı da kısa olsun. **İSTEM düzeltildi**
-([onarim-motoru.ps1:603-621](motor/onarim-motoru.ps1:603)) — ama bu yalnız
-BUNDAN SONRAKİ üretimlere yansır. Cem: "27 bin sorumuz var, onlarda da
-değiştireceğiz" — yani KASADAKİ eski format tablolar da hedefte. İlk adım
-**ölçmek**: `motor/tablo-format-tarama.ps1` kuruldu (0 USD, kasaya yazmaz,
-yalnız sayar + "İşaret" sütunundaki değerler saf Alacak(+)/Borç(-) kalıbındaysa
-**deterministik (AI'siz, 0 USD) dönüştürülebilir** mi diye işaretler). Sonucu
-`veri/tablo-format-taramasi-raporu.json`'da — bir sonraki iş: o rapora bak,
-ilk 10 örneği gözle oku (Cem'in kuralı), sonra dönüştürme scripti yazılır.
+## THP HESAP PLANI: KAYMA BULUNDU + KALICI KAPI KURULDU
+Cem #194'te "500 ORTAKLARDAN ALACAKLAR" gördü (500 = SERMAYE) ve **resmi hesap planını
+kaynak göstererek** karşılaştırma istedi: ismmmo.org.tr Tekdüzen Hesap Planı PDF'i.
+**Gerçek hata çıktı:** bizim veride **230/231/232 kodları kaymıştı** (biz 230=Ortaklardan
+Alacaklar diyorduk, resmi planda **231**'dir) — grup başlığı "23." kodla karıştırılmış.
+Düzeltildi + PDF'te olup bizde olmayan **39 kod eklendi** (124,127,190,195,224,268,295,
+300-302,340,350,358,393,397,401-402,502-503,645-648,655-658,697-698,790-799).
+
+**Cem'in sorusu: "başka yerde kayma varsa nasıl öğreneceğiz?"** — haklıydı, bir seferlik
+elle karşılaştırma güvence değil. **KALICI KAPI:** PDF'ten çıkarılan 267 kodluk liste
+`veri/mevzuat/thp-resmi-dogrulama.json` olarak repoda; `arac/yapisal-denetci.ps1`'e **§13
+kapısı** eklendi — **her push'ta** üretim THP listesi bu referansa karşı denetlenir, kayma
+varsa CI KIRMIZI, deploy durur. Yerelde koşuldu: **267 kod, 0 kayma, exit 0.**
+(Bu dosya AI istemine GİTMEZ — yalnız denetim referansı.)
+
+## TABLO FORMATI: İŞ YOK ÇIKTI (ölçüldü)
+Cem "Hesap | Borç | Alacak üç sütun olsun, Kalem kısa olsun" dedi; **istem düzeltildi**
+([onarim-motoru.ps1:603-621](motor/onarim-motoru.ps1:603)). "27 bin soruda da değiştirelim"
+dedi → ölçtük: **kasadaki 2.426 tablodan 0'ı eski formatta** (İşaret sütunlu hiç yok; 17'si
+zaten Borç/Alacak, 2.409'u oran/hesaplama tablosu). **Geriye dönük iş yok.**
 
 ## SIRADAKİ İŞLER
-1. ~~Son pilotun `hesap_kodu_duzeltilen` / `hesap_kodu_supheli` sayaçlarına bak~~ TAMAM —
-   0/57/61 çıktı, kültür hatası bulundu ve düzeltildi (yukarıya bak). İkinci pilotun
-   sonucunu kontrol et.
-2. İkinci pilot düzeltmeyi doğrularsa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
-3. Cem'in okumasından çıkan yeni kusurları işle
-4. Hakem son okuması — kuru koşuyla maliyet ölç, sonra Cem onayıyla
-5. Sonra **TEK PARTİ TEK FATURA** (~330 USD ölçüldü; ucuzlatma yolu: THP listesini
-   yalnız hesap kodu gereken sorulara koymak — ölçülmedi)
+1. ~~Pilot sayaçlarına bak~~ TAMAM — iki bug bulundu (kültür + unwrap), ikisi de düzeltildi.
+2. **Üçüncü pilot koş** — unwrap düzeltmesinden sonra `hesap_kodu_duzeltilen` gerçekten
+   çalışıyor mu? Önceki iki pilot bu bug yüzünden geçersizdi. (~2,4 USD)
+3. Düzeltme çalışırsa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
+4. `veri/sik-hesap-kodu-onerisi.json` — şıklardaki hesap kodu önerileri (659 deterministik
+   öneri vardı ama **unwrap bug'lı koşudan**, yeniden koşulmalı). İlk 10'u gözle oku.
+5. Hakem son okuması — kuru koşuyla maliyet ölç, sonra Cem onayıyla
+6. Sonra **TEK PARTİ TEK FATURA** (~325 USD ölçüldü) — **yukarıdaki ⚠ bölümü oku, formül
+   işi (1.616 soru) bu partinin içinde gelecek.**
 
 ## BUGÜNÜN EN PAHALI DERSİ
 Sekiz kez rakam verdim, sekizinde de örneklere bakınca **sahte alarm** çıktı:
@@ -98,6 +146,22 @@ TL birimi · "hesabına" · "paragraf" · Türkçe ekler · eksik THP listesi ·
 gruplama · yayında 0 soru · dayanakta olmayan THP kodları.
 **Kural: yeni bir ölçüm kurulunca önce ilk on örneği gözle oku; oran akla yatkın görünse bile.**
 Ve: **"kaynak eksik" demeden önce kaynağın tamamını okuduğunu doğrula.**
+
+**03.08 gecesi bu kural İKİ kez daha kazandırdı:** (1) unwrap bug'ı yalnız ilk 10 öneriyi
+gözle okurken görüldü — rapor "659 deterministik öneri" diyordu, kulağa makul geliyordu,
+ama içerik çöptü. (2) Cem'in resmi PDF'i verip "karşılaştır" demesi gerçek bir kod kayması
+buldu — benim "veri tamam" varsayımım yanlıştı.
+
+## GECE ÖĞRENİLEN PowerShell TUZAKLARI (hepsi gerçek hata olarak yaşandı)
+1. **`@(List[object])` çöker** — `.NET` generic List'i `@()` ile sarmak bu ortamda
+   "Argument types do not match" fırlatır. Doğrusu: `.ToArray()`.
+2. **`$x = Fonksiyon` tek elemanı unwrap eder** — dizi bekleniyorsa `$x = @(Fonksiyon)`.
+3. **`-replace`/`-match` kültüre duyarlı** — tr-TR'de `'I' -match '[A-Z]'` **False**.
+   Doğrusu: `[regex]::Replace(..., CultureInvariant)` + `ToUpper(tr-TR)`.
+4. **`git add A B` — biri yoksa İKİSİ DE eklenmez** (git önce tüm pathspec'leri doğrular);
+   `|| true` bunu yutup adımı yeşil gösterir, commit sessizce olmaz. Doğrusu: ayrı satırlar.
+   Aynı hata 4 robotta daha bulunup düzeltildi (terim-taramasi, kardes-kaynak,
+   sik-istatistigi, kaynak).
 
 ## TASARRUF KURALI (Cem 2 saatte 225 USD yaktı)
 Maliyet pilot koşularından değil **sohbetin uzamasından** gelir: her mesajda tüm geçmiş
