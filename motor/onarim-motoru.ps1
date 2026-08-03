@@ -402,6 +402,28 @@ function DayanakDilim([string]$metin, [string]$kaynak){
 #     YOKTUR; listeyi vermezsen model hafizadan yazar. ---
 $script:THP_AD = @{}   # kod -> resmi ad (Cem'in 181 bulgusu icin esleme denetimi)
 $script:THP_LISTE = ''
+# ============================================================================
+#  TURKCE BUYUK HARF TUZAGI (03.08 gece, Cem'in "hicbiri eslesmiyor" bulgusu)
+#
+#  Iki KATMANLI kultur hatasi: (1) .ToUpperInvariant() Turkce 'i' harfini
+#  buyutmuyor bile (invariant kulturde eslesigi yok, kucuk kaliyor). (2) bu
+#  sunucunun sistem kulturu tr-TR; PowerShell'in -replace/-match operatoru
+#  kultur duyarli calisiyor ve tr-TR altinda DUZ BUYUK 'I' harfi bile [A-Z]
+#  araligina GIRMIYOR ('I' -match '[A-Z]' => False). Sonuc: 'i' ya da 'i'
+#  gecen HER kelime (yani neredeyse her Turkce hesap adi) harf temizleme
+#  satirinda parcalaniyor - "Genel Uretim Giderleri" -> GENEL|URET|DERLER
+#  oluyor, ÜRETIM kelimesi tumden kayboluyor. Bu yuzden 0 duzeltme cikti.
+#
+#  DUZELTME: Turkce kulturune gore buyut + CultureInvariant regex kullan
+#  (regex araligi kultur collation'undan etkilenmesin).
+# ============================================================================
+$script:TR_KULTUR = [Globalization.CultureInfo]::GetCultureInfo('tr-TR')
+$script:REGEX_KI  = [System.Text.RegularExpressions.RegexOptions]::CultureInvariant
+function AnlamliKelimeler([string]$metin){
+  $u = $metin.ToUpper($script:TR_KULTUR)
+  $temiz = [regex]::Replace($u, '[^A-ZÇĞİÖŞÜ ]', ' ', $script:REGEX_KI)
+  return @($temiz -split '\s+' | Where-Object { $_.Length -ge 4 })
+}
 # 03.08 - TEK DOSYA DEGIL HEPSI (Cem: "hesap planini tam yut"):
 # msugt-thp-tam.json 199 hesap tasiyor ama 100 KASA, 102 BANKALAR, 120 ALICILAR,
 # 600 YURTICI SATISLAR, 730 GENEL URETIM GIDERLERI ICERMIYOR - onlar msugt-thp2
@@ -914,8 +936,8 @@ for($n=0; $n -lt $parti.Count; $n++){
     function ResmiKodBul([string]$adMetni){
       $bulunan = @()
       foreach($kk in $script:THP_AD.Keys){
-        $a = @(($adMetni.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
-        $b = @(($script:THP_AD[$kk].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $a = AnlamliKelimeler $adMetni
+        $b = AnlamliKelimeler $script:THP_AD[$kk]
         if($a.Count -eq 0 -or $b.Count -eq 0){ continue }
         # TAM eslesme ariyoruz: yazilan adin TUM anlamli kelimeleri resmi adda olmali
         $hepsiVar = $true
@@ -937,8 +959,8 @@ for($n=0; $n -lt $parti.Count; $n++){
         if($a.Length -lt 4){ return $m.Value }
         if(-not $script:THP_AD.ContainsKey($k)){ return $m.Value }
         # Zaten dogruysa dokunma
-        $x = @(($a.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
-        $y = @(($script:THP_AD[$k].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $x = AnlamliKelimeler $a
+        $y = AnlamliKelimeler $script:THP_AD[$k]
         foreach($p in $x){ foreach($q in $y){ if($p.StartsWith($q) -or $q.StartsWith($p)){ return $m.Value } } }
         $aday = ResmiKodBul $a
         if($aday.Count -eq 1){
@@ -1126,8 +1148,8 @@ for($n=0; $n -lt $parti.Count; $n++){
         $kod = $cf.kod; $ad = $cf.ad
         if($ad.Length -lt 4){ continue }
         if(-not $script:THP_AD.ContainsKey($kod)){ continue }
-        $a = @(($ad.ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
-        $b = @(($script:THP_AD[$kod].ToUpperInvariant() -replace '[^A-ZÇĞİÖŞÜ ]',' ') -split '\s+' | Where-Object { $_.Length -ge 4 })
+        $a = AnlamliKelimeler $ad
+        $b = AnlamliKelimeler $script:THP_AD[$kod]
         if($a.Count -eq 0 -or $b.Count -eq 0){ continue }
         $tutar = $false
         foreach($x in $a){ foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ $tutar = $true } } }

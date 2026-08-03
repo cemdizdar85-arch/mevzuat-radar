@@ -1,5 +1,8 @@
 BAS
 
-PILOT 200 - hesap kodu OTOMATIK DUZELTME ilk kez acik.
-Ad tek hesapla eslesiyorsa kod duzeltilir; belirsizse DOKUNULMAZ.
+PILOT 200 - hesap kodu otomatik duzeltme icin tr-TR kultur hatasi duzeltmesinden
+sonraki DOGRULAMA kosusu. Onceki pilot (0308-1550) hesap_kodu_duzeltilen=0
+vermisti; kok sebep bulundu (ToUpperInvariant + tr-TR -replace kultur hatasi,
+bkz DEVIR-NOTU.md) ve motor/onarim-motoru.ps1 icinde duzeltildi, 10 ornekle
+yerelde dogrulandi. Bu kosu duzeltmenin gercek veride tuttugunu olcer.
 Cikti yalniz taslaga gider, kasaya YAZILMAZ.

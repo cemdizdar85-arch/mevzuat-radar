@@ -1,9 +1,31 @@
-# DEVİR NOTU — 03.08.2026 akşamı · yeni sohbet buradan devam etsin
+# DEVİR NOTU — 03.08.2026 gece · yeni sohbet buradan devam etsin
 
 ## Durum tek cümle
 Onarım motoru **26 kuralla** donatıldı, **10 yayın kapısı + 8 hakem maddesi + 7 robot**
 kuruldu; paralı tam parti hâlâ **Cem'in "bas"ını bekliyor.** Kasaya hiçbir şey yazılmadı,
-site kapalı, bugün harcanan ~8 USD (pilot koşuları).
+site kapalı, bugün harcanan ~8 USD (pilot koşuları) + ikinci pilot GitHub'da kuyrukta.
+
+## GECE BULUNAN KÜLTÜR HATASI (hesap kodu otomatik düzeltme neden 0 çıktı)
+`pilot-0308-1550` sonucu: `hesap_kodu_duzeltilen=0`, `supheli=57`, `yanlis=61` — otomatik
+düzeltme HİÇ çalışmamıştı. Sebep tek harf değil, İKİ KATMANLI kültür hatası:
+1. `.ToUpperInvariant()` Türkçe **'ı'yı hiç büyütmüyor** (invariant kültürde eşleşiği yok).
+2. Sunucunun sistem kültürü **tr-TR**; PowerShell'in `-replace`/`-match` operatörü kültüre
+   duyarlı — **düz büyük 'I' bile `[A-Z]` aralığına girmiyor** (`'I' -match '[A-Z]'` → `False`).
+
+Sonuç: `i`/`ı` geçen HER kelime (yani neredeyse her Türkçe hesap adı) harf temizleme
+satırında parçalanıyordu ("Genel Üretim Giderleri" → `GENEL|URET|DERLER`, ÜRETİM kelimesi
+kayboluyordu). Bu hem `hesap_kodu_duzeltilen`i hep 0'da tutuyordu (parçalanmış kelime
+kırıntıları THP'de ya 0 ya da onlarca hesapla eşleşiyor, asla net "1 eşleşme" çıkmıyordu)
+hem de `hesap_kodu_yanlis`ı **şişiriyordu** (10 örnekten 2'si — İştiraklerden Alacaklar,
+Verilen Depozito ve Teminatlar — DOĞRU kod-ad iken eski kodla "yanlış" işaretleniyordu).
+
+**DÜZELTİLDİ** ([onarim-motoru.ps1:403-427](motor/onarim-motoru.ps1)): ortak `AnlamliKelimeler`
+fonksiyonu — `ToUpper(tr-TR kültürü)` + `[regex]::Replace(..., CultureInvariant)`. 3 kullanım
+noktasına (KoduDuzelt, ResmiKodBul, K4 kapısı) bağlandı. Gerçek `msugt*.json` verisiyle 10
+örnekte yerel test: eski kod 8 yanıltıcı-doğru + 2 yanlış-alarm veriyordu, yeni kod **10/10
+doğru**. Kasaya/Supabase'e dokunulmadı, 0 USD. Bu commit'le birlikte ikinci bir 200'lük
+PILOT (`onarim-pilot.txt` → BAS) GitHub Actions'a tetiklendi — düzeltmenin gerçek veride de
+tuttuğunu doğrulamak için. Sonucu (yeni `hesap_kodu_duzeltilen/supheli/yanlis`) kontrol et.
 
 ## Cem'in okuduğu dosya
 Supabase Storage → özel kova `onarim-taslak` → en yeni `pilot-0308-*.html`
@@ -48,8 +70,10 @@ Biri eksikse iş yarım kalmıştır.
 - `hakem-son-okuma.ps1` — 8 anlam kusuru (PARALI, tetikte `BAS` şart)
 
 ## SIRADAKİ İŞLER
-1. Son pilotun `hesap_kodu_duzeltilen` / `hesap_kodu_supheli` sayaçlarına bak
-2. Otomatik kod düzeltmesi taslakta çalıştıysa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
+1. ~~Son pilotun `hesap_kodu_duzeltilen` / `hesap_kodu_supheli` sayaçlarına bak~~ TAMAM —
+   0/57/61 çıktı, kültür hatası bulundu ve düzeltildi (yukarıya bak). İkinci pilotun
+   sonucunu kontrol et.
+2. İkinci pilot düzeltmeyi doğrularsa **kasadaki ~3.075 soruya** uygula (0 USD, Cem "bas" der)
 3. Cem'in okumasından çıkan yeni kusurları işle
 4. Hakem son okuması — kuru koşuyla maliyet ölç, sonra Cem onayıyla
 5. Sonra **TEK PARTİ TEK FATURA** (~330 USD ölçüldü; ucuzlatma yolu: THP listesini
