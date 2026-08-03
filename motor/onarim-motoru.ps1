@@ -462,6 +462,18 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   Formulu dayanakta gormesen de yontemin TANIMI mevzuat degil muhasebe teknigidir
   ve yazilabilir; ancak ORAN/TUTAR/ESIK yine yalniz dayanaktan alinir.
 
+  GUNCEL TERIM ONDE, KANUN DILI PARANTEZDE (03.08, Cem: "sinava gireceklere
+  eski Turkce ogretmeyelim"):
+  Kanunun metni eski terim kullaniyorsa ama bugunku Tekduzen Hesap Plani /
+  sinav dili baska terim kullaniyorsa, ONCE GUNCEL TERIMI yaz, kanunun
+  lafzini BIR KEZ parantezde ver. Tersi YASAK.
+    "genel uretim giderleri (VUK m.275'te 'genel imal giderleri' denir)"  DOGRU
+    "genel imal giderleri"  TEK BASINA YAZILMAZ - aday sinavda bu terimi gormez.
+  Ayni sekilde: "satin alma" (mubayaa), "gider" (masraf), "stok/emtia" ikisi de
+  gecerlidir - zorlama cevrim yapma. Kod adi verirken THP'nin RESMI ADINI kullan
+  (730 GENEL URETIM GIDERLERI).
+  Emin degilsen kanun lafzini birak; UYDURMA es anlamli terim yazma.
+
   TERIMI ACIKLA (03.08, Cem: "annem bile anlasin o anlamda diyorum"):
   Bir teknik terim ILK GECTIGI yerde kisa bir parantezle gunluk dile cevrilir.
   Ornek: "genel idare gideri (muhasebecinin maasi, ofis kirasi, yonetim

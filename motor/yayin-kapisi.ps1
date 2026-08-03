@@ -146,8 +146,15 @@ $reSinirSoru = [regex]'(?i)hangisi(nde)?\s+.{0,80}(uygulanmaz|kapsam\s*d[ıi][ş
 # oldu. 2026 adayina 13 yillik eski isim vermek, Cem'in tarih itirazinin
 # KURUM ayagidir: banka eskimis gorunur. Mulga adlar burada sayilir.
 $reEskiKurum = [regex]'(?i)\b[İI]MKB\b|[İI]stanbul\s+Menkul\s+K[ıi]ymetler\s+Borsas|Sanayi\s+ve\s+Ticaret\s+Bakanl|G[üu]mr[üu]k\s+M[üu]ste[şs]arl|Bay[ıi]nd[ıi]rl[ıi]k\s+ve\s+[İI]sk[âa]n\s+Bakanl|Devlet\s+Planlama\s+Te[şs]kilat'
+# K10 (03.08, Cem: "sinava gireceklere eski Turkce ogretmeyelim"): kanunun eski
+# lafzi guncel karsiligi ANILMADAN kullanilmis mi? VUK m.275 "genel imal
+# giderleri" der; THP'de hesap adi "730 GENEL URETIM GIDERLERI" ve sinav bu
+# terimi sorar. Ikisi birlikte gecerse sorun yok - yalniz eskisi gecerse aday
+# sinavda terimi tanimaz.
+$reEskiTerim = [regex]'(?i)genel\s+imal\s+gider|mubayaa|muhammen\s+bedel'
+$reYeniTerim = [regex]'(?i)genel\s+[üu]retim\s+gider|sat[ıi]n\s+alma|tahmini\s+bedel'
 $reSayimOge  = [regex]'(?i)(^|\s)[a-ıi]\)\s|(^|\s)\d\s*[\)\.]\s|;\s|·|•|\bbirincisi\b|\bikincisi\b|\bucuncusu\b|\b[üu][çc][üu]nc[üu]s[üu]\b'
-$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0; K8_liste_eksik=0; K9_eskimis_kurum=0 }
+$K = [ordered]@{ K1_d3=0; K2_kanun_kopyasi=0; K3_yz_kokusu=0; K4_hesap_kodu=0; K5_dogrusu_yok=0; K6_ayni_cumle=0; K7_muglak_ifade=0; K8_liste_eksik=0; K9_eskimis_kurum=0; K10_eski_terim=0 }
 $kirmiziId = @{}
 $ornek = New-Object System.Collections.Generic.List[object]
 function Isaretle($kapi, $s, $detay){
@@ -180,6 +187,7 @@ foreach($s in $kasa){
   if($reYZ.IsMatch($tumAciklama)){ Isaretle 'K3_yz_kokusu' $s 'yapay zeka doldurma kalibi' }
   if($reMuglak.IsMatch($tumAciklama)){ Isaretle 'K7_muglak_ifade' $s 'bilgi vaat edip vermeyen kalip ("belirli sartlarda" deyip sartlari saymamis)' }
   if($reEskiKurum.IsMatch($tumAciklama)){ Isaretle 'K9_eskimis_kurum' $s 'eskimis kurum adi (IMKB -> Borsa Istanbul gibi)' }
+  if($reEskiTerim.IsMatch($tumAciklama) -and -not $reYeniTerim.IsMatch($tumAciklama)){ Isaretle 'K10_eski_terim' $s 'kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)' }
   # K8: sinir sorusu ama aciklamada listenin kalani yok
   if($reSinirSoru.IsMatch("$($s.soru)")){
     $dm2=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $dm2="$($s.aciklama.$dh)" } } catch {}

@@ -621,3 +621,18 @@ kod→ad listesine karşı denetler — yayın kapısı K4'ün üretim anındaki
 
 *Üçüncü kez aynı ders:* **kaynağı ya da kuralı yanlış koşula bağlamak** — formül
 kuralı dört parçaya, THP listesi tablo/yevmiyeye bağlıydı. Tetikleyici bağımsız olmalı.
+
+**D26. GÜNCEL TERİM ÖNDE, KANUN LAFZI PARANTEZDE (03.08 — Cem'in bulgusu)**
+*"Sınava gireceklere eski Türkçe öğretmeyelim."* VUK m.275 *"genel imal giderleri"*
+der; Tekdüzen Hesap Planı'nda hesap adı **730 GENEL ÜRETİM GİDERLERİ** ve sınav bu
+terimi sorar. Aday sınavda "genel üretim gideri" görecek — biz ona yalnız kanunun
+lafzını öğretirsek terimi tanımaz.
+
+*Kural:* **önce güncel terim**, kanunun lafzı **bir kez parantezde**.
+✅ *"genel üretim giderleri (VUK m.275'te 'genel imal giderleri' denir)"*
+❌ *"genel imal giderleri"* — tek başına yazılmaz.
+
+*Sınır:* zorlama çevrim yok. "stok/emtia", "tediye/tahsil" gibi ikisi de geçerli olan
+terimlere dokunulmaz; uydurma eş anlamlı yazılmaz. Emin değilse kanun lafzı bırakılır.
+*Ölçümü:* yayın kapısı **K10** — eski lafız güncel karşılığı **anılmadan** kullanılmışsa
+işaretlenir. Test: 4 vaka, 4/4 doğru (parantezli kullanım temiz geçiyor).
