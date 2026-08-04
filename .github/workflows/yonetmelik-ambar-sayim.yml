@@ -1,0 +1,40 @@
+# Yonetmelik ambar sayimi — 0 USD. Yutma-kapsama kurali: "yuttum" demek
+# yetmez, soru fabrikasinin okudugu AMBAR sayilir. 05.08'de yutulan 6 SMMM
+# yonetmeligi icin depo->ambar mutabakati. KIRMIZI varsa uretime gecilmez.
+#
+# Tetik: _durum.json degisince (yutma bitti demektir) + yukle.ps1 sonrasi
+# el ile de kosturulabilir (workflow_dispatch).
+name: Yonetmelik Ambar Sayimi (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/mevzuat/_durum.json'
+      - 'motor/yonetmelik-ambar-sayim.ps1'
+      - '.github/workflows/yonetmelik-ambar-sayim.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: yonetmelik-ambar-sayim
+  cancel-in-progress: false
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        continue-on-error: true    # KIRMIZI cikissa da rapor commit'lensin
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yonetmelik-ambar-sayim.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/yonetmelik-ambar-sayim.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/yonetmelik-ambar-sayim.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Yonetmelik ambar sayimi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
