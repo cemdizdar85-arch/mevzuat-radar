@@ -1,5 +1,27 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 🔴 05.08.2026 — 6 SMMM YÖNETMELİĞİ MANİFESTTE VARDI, HİÇ YUTULMAMIŞTI (en güncel bölüm)
+*Sebep: iki-sınav konu ölçümü SMMM tarafında 12 boş omurga konu buldu ("disiplin
+cezaları", "uygulamalı mesleki eğitim"...). Kaynak kontrolünde çıktı: manifest'te
+kayıtlı 6 yönetmeliğin HİÇBİRİNİN dosyası yok — 02.08 dersinin aynısı
+("manifestte olmak yutulmuş olmak değildir"; koşu tavanı sıra getirmemiş).*
+
+- [ ] **Bağımsız Denetim Yönetmeliği** (bd-yonetmelik, G7:16907) — "uygulamalı mesleki eğitim" ve denetçilik konularının kaynağı
+- [ ] **SMMM ve YMM K. Disiplin Yönetmeliği** (smmm-disiplin-yon, G7:7033) — "disiplin cezaları" (hedef 28) + "disiplin kurulu itiraz süresi" (6/28)
+- [ ] **YMM ve SMMM Sınav Yönetmeliği** (smmm-sinav-yon, G7:7043)
+- [ ] **SMMM Staj Yönetmeliği** (smmm-staj-yon, G7:7025)
+- [ ] **SMMM ve YMM Çalışma Usul ve Esasları Yön.** (smmm-calisma-yon, G7:4650)
+- [ ] **SMMM Odaları Yönetmeliği** (smmm-odalar-yon, G7:4649)
+
+**Yapılan:** 05.08 — altısı manifestin BAŞINA alındı (02.08 yapılandırma kanunları
+emsali), push mevzuat.yml'yi tetikledi. **Kontrol şartı:** dosya depoya inince
+yetmez — ambar sayımı yapılacak (yutma-kapsama kuralı). Sonuç buraya işlenecek.
+
+**Not (aynı ölçümün diğer bulgusu):** 12 boş konunun kaynaklarının ÇOĞU zaten
+ambardaydı (gvk/kdv/kvk/spk/bds200-315-320/etik/borclar ✓). Asıl sebep: 31.07'de
+hazırlanan 8.080'lik kota üretim partisinin hiç koşulmamış olması. Yutma bitince
+sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet ölçümü).
+
 ## ✅ 02.08.2026 GECE — LİSTE GERÇEKLE KARŞILAŞTIRILDI (bu bölüm en günceli; aşağıdaki eski bölümler tarihsel kayıt)
 *Sebep: "TSRS 1 eksik" diye yutmaya başladım, meğer sabah 09:04'te robot yutmuş — boşuna emek. Bunun bir daha olmaması için listedeki 27 "eksik" kalemin hepsi tek tek `veri/mevzuat/` ve ambarla karşılaştırıldı.*
 

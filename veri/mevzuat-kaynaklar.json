@@ -1,6 +1,37 @@
-{
+﻿{
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
+                     {
+                         "slug":  "bd-yonetmelik",
+                         "ad":  "Bagimsiz Denetim Yonetmeligi",
+                         "pdfId":  "G7:16907",
+                         "not":  "Bagimsiz denetciligin kurulus metni: kimin denetci olabilecegi, sinav, yetkilendirme, denetim kurulusu sartlari. KGK sinavinin dogrudan konusu. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (dosya yok, ambarda 0 belge) - gunluk listede sira gelmemis. Cem talimatiyla listenin basina alindi."
+                     },
+                     {
+                         "slug":  "smmm-odalar-yon",
+                         "ad":  "SMMM Odalari Yonetmeligi",
+                         "pdfId":  "G7:4649"
+                     },
+                     {
+                         "slug":  "smmm-disiplin-yon",
+                         "ad":  "SMMM ve YMM K. Disiplin Yonetmeligi",
+                         "pdfId":  "G7:7033"
+                     },
+                     {
+                         "slug":  "smmm-calisma-yon",
+                         "ad":  "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik",
+                         "pdfId":  "G7:4650"
+                     },
+                     {
+                         "slug":  "smmm-sinav-yon",
+                         "ad":  "YMM ve SMMM Sinav Yonetmeligi",
+                         "pdfId":  "G7:7043"
+                     },
+                     {
+                         "slug":  "smmm-staj-yon",
+                         "ad":  "SMMM Staj Yonetmeligi",
+                         "pdfId":  "G7:7025"
+                     },
                      {
                          "ad":  "7440 s.K. (2023 Yapilandirma-Matrah Artirimi)",
                          "pdfId":  "1.5.7440",
@@ -24,12 +55,6 @@
                          "pdfId":  "1.5.6736",
                          "slug":  "yapilandirma6736",
                          "not":  "Matrah artirimi sorulari ve Af Radari (#63) bunun metnine dayanir. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (damga yok, dosya yok) - gunluk listede 127 kaynak, kosu tavani 120, sira hic gelmemis. Listenin BASINA alindi."
-                     },
-                     {
-                         "slug":  "bd-yonetmelik",
-                         "ad":  "Bagimsiz Denetim Yonetmeligi",
-                         "pdfId":  "G7:16907",
-                         "not":  "Bagimsiz denetciligin kurulus metni: kimin denetci olabilecegi, sinav, yetkilendirme, denetim kurulusu sartlari. KGK sinavinin dogrudan konusu. 02.08 olcumu: manifestte vardi ama HIC yutulmamisti (dosya yok, ambarda 0 belge) - gunluk listede sira gelmemis. Cem talimatiyla listenin basina alindi."
                      },
                      {
                          "slug":  "kamumali",
@@ -557,21 +582,6 @@
                          "pdfId":  "1.5.506"
                      },
                      {
-                         "slug":  "smmm-odalar-yon",
-                         "ad":  "SMMM Odalari Yonetmeligi",
-                         "pdfId":  "G7:4649"
-                     },
-                     {
-                         "slug":  "smmm-disiplin-yon",
-                         "ad":  "SMMM ve YMM K. Disiplin Yonetmeligi",
-                         "pdfId":  "G7:7033"
-                     },
-                     {
-                         "slug":  "smmm-calisma-yon",
-                         "ad":  "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik",
-                         "pdfId":  "G7:4650"
-                     },
-                     {
                          "slug":  "iskanunu1475",
                          "ad":  "1475 s. Is K. (kidem tazminati m.14)",
                          "pdfId":  "1.5.1475"
@@ -580,16 +590,6 @@
                          "slug":  "tcmb1211",
                          "ad":  "TCMB K. (1211 s.K.)",
                          "pdfId":  "1.5.1211"
-                     },
-                     {
-                         "slug":  "smmm-sinav-yon",
-                         "ad":  "YMM ve SMMM Sinav Yonetmeligi",
-                         "pdfId":  "G7:7043"
-                     },
-                     {
-                         "slug":  "smmm-staj-yon",
-                         "ad":  "SMMM Staj Yonetmeligi",
-                         "pdfId":  "G7:7025"
                      },
                      {
                          "slug":  "khk660",
