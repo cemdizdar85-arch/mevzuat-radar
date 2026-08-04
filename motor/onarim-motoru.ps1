@@ -1011,17 +1011,48 @@ for($n=0; $n -lt $parti.Count; $n++){
     # kadar zarari yoktu cunku belirsiz kalinca DOKUNULMUYORDU; ama artik
     # belirsiz kod SILINIYOR - o yuzden "750 TL" -> "TL" olurdu. Once tuzak
     # kapatildi, sonra silme eklendi.
-    $reCift = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!(?:TL|USD|EUR|LIRA|L[İI]RA|adet|kalem|tane|ki[şs]i|g[üu]n|ay\b|y[ıi]l|saat|kg|ton|puan|kuru[şs]|taksit|numaral|no\.?lu|say[ıi]l|hesab|hesap|kodlu|nolu)\b)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+    # ========================================================================
+    #  04.08 REGRESYON VE DUZELTMESI — "690 Hesabinda" VAKASI
+    #
+    #  Birim tuzagini kapatirken desenin sonuna \b ekledim. Bu, ONEK olarak
+    #  calismasi gereken baglayicilari BOZDU: "hesab" + \b, "Hesabinda"
+    #  icinde eslesmiyor (b'den sonra harf var, sinir yok) -> eleme calismadi
+    #  -> "Hesabinda" hesap ADI sanildi -> 690/691/692/151 gibi DOGRU kodlar
+    #  SILINDI. Pilot 0408-0835'te 27 dogru kod boyle silindi ve sayac
+    #  "yanlis 63->27 dustu" diye YANLIS BIR IYILESME gosterdi.
+    #
+    #  Ders: \b'yi topluca eklemek serbest degil. Baglayici kelimeler
+    #  (hesab/hesap/numaral/sayil...) ONEK olarak elenir - Turkce ekler
+    #  yuzunden ("hesabinda", "numarali", "sayili") sinir aranmaz.
+    #  Yalniz "ay" gibi KISA ve baska kelimelerin basi olabilecekler \b ister
+    #  (yoksa "ayrica", "ayni" da elenirdi).
+    # ========================================================================
+    $reCift = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!(?:numaral|no\.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu|TL|USD|EUR|LIRA|L[İI]RA|ki[şs]i|g[üu]n|y[ıi]l|saat|kg|ton|puan|kuru[şs]|taksit)|(?:ay|adet)\b)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
     # Yazilan ad HERHANGI bir resmi hesap adina benziyor mu? (hesap-kodu-denetimi
     # ile ayni "beyaz liste" mantigi: benzemiyorsa o zaten hesap adi degildir,
     # dokunulmaz - "paragraf"/"veya" gibi kelimelerin kodu silinmesin.)
+    # 04.08 IKINCI SAVUNMA KATMANI ("690 Hesabinda" dersi): TEK kelimelik ve
+    # genel bir ifade ASLA hesap adi sayilmaz. Eski hali tek kelimeyle bile
+    # "true" donuyordu - "HESABINDA", THP'deki "...YANSITMA HESABI" adinin
+    # "HESABI" kelimesine onek uydugu icin hesap adi sanildi ve DOGRU kod
+    # silindi. Artik EN AZ IKI anlamli kelimenin ayni resmi adda eslesmesi
+    # gerekir; boylece "Hesabinda", "tutarinin", "kaydedilir" gibi tasiyici
+    # kelimeler tek basina silme tetikleyemez.
+    $script:TASIYICI = @('HESAB','HESAP','TUTAR','KAYIT','KAYDED','ALACAG','BORCU','BORCA','ISLEM','DONEM','TOPLAM','BAKIYE')
     function HesapAdiIddiasiMi([string]$ad){
-      $a = AnlamliKelimeler $ad
+      $a = @(AnlamliKelimeler $ad)
       if($a.Count -eq 0){ return $false }
+      # Tasiyici (genel muhasebe dili) kelimeleri sayimdan dusur
+      $ozgun = @($a | Where-Object { $w = $_; -not ($script:TASIYICI | Where-Object { $w.StartsWith($_) }) })
+      if($ozgun.Count -lt 2){ return $false }
       foreach($kk in $script:THP_AD.Keys){
-        $b = AnlamliKelimeler $script:THP_AD[$kk]
+        $b = @(AnlamliKelimeler $script:THP_AD[$kk])
         if($b.Count -eq 0){ continue }
-        foreach($x in $a){ foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ return $true } } }
+        $eslesen = 0
+        foreach($x in $ozgun){
+          foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ $eslesen++; break } }
+        }
+        if($eslesen -ge 2){ return $true }   # en az IKI ozgun kelime ayni hesapta
       }
       return $false
     }
