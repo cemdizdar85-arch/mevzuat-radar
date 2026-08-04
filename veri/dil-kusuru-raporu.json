@@ -1,0 +1,240 @@
+{
+  "tarih": "04.08.2026 19:27",
+  "durum": "TAMAM",
+  "mod": "OLCUM (0 USD, yazma yok)",
+  "kasa": 27478,
+  "kehribar_karti_olan": 27475,
+  "bir_uydurma_terim": [
+    {
+      "terim": "cok donemli gider",
+      "soru": 11,
+      "dogrusu": "birden fazla dönemi ilgilendiren / peşin ödenen",
+      "ornek_id": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "484d010f-79bd-4be9-8cd3-45ab7e4a9850",
+        "9a634110-7e18-4b55-b2cf-41f83c496c6e",
+        "bbc60470-1cd7-4379-b58d-6e43332e03c5",
+        "c6f1fb77-f832-4c1b-acc0-dd9e045ef771"
+      ]
+    },
+    {
+      "terim": "cok yilli gider",
+      "soru": 2,
+      "dogrusu": "gelecek yıllara ait giderler",
+      "ornek_id": [
+        "28122876",
+        "6e4b9b4e-1038-4eb5-a245-c3279df8f01d"
+      ]
+    },
+    {
+      "terim": "donemsel gider",
+      "soru": 12,
+      "dogrusu": "döneme ait gider",
+      "ornek_id": [
+        "36c81ae2-9844-47d4-bb29-2fe150cd2023",
+        "60cb75b3-7a84-4363-be47-caf13ccaf1b4",
+        "6ac6870a-b007-4f8e-a947-1428b2e79164",
+        "843782a8",
+        "9b7b00bf-1ffa-49f5-90a2-ee4d093699a2"
+      ]
+    },
+    {
+      "terim": "coklu donem",
+      "soru": 1,
+      "dogrusu": "birden fazla dönem",
+      "ornek_id": [
+        "5a7f9e97-0336-4368-9372-0ab14b75c0d5"
+      ]
+    },
+    {
+      "terim": "gider yazimi (tek kelime)",
+      "soru": 2,
+      "dogrusu": "gider kaydı",
+      "ornek_id": [
+        "3b96dc62-9a8b-4843-befb-332622613c15",
+        "7184cd50-a937-492e-9320-78cc60f9106e"
+      ]
+    }
+  ],
+  "iki_eski_terim": [
+    {
+      "terim": "genel imal gideri",
+      "toplam_soru": 4328,
+      "KEHRIBAR_KARTTA": 2975,
+      "dogrusu": "genel üretim giderleri (THP 730)"
+    },
+    {
+      "terim": "imal edilen emtia",
+      "toplam_soru": 2990,
+      "KEHRIBAR_KARTTA": 722,
+      "dogrusu": "üretilen mamul"
+    },
+    {
+      "terim": "isbu",
+      "toplam_soru": 5,
+      "KEHRIBAR_KARTTA": 0,
+      "dogrusu": "bu"
+    }
+  ],
+  "uc_senaryo_isimleri": {
+    "farkli_kisi_adi": 88,
+    "toplam_kisi_gecis": 5901.0,
+    "farkli_sirket_adi": 973,
+    "toplam_sirket_gecis": 15068.0,
+    "en_sik_kisi": [
+      {
+        "ad": "Mehmet",
+        "soru": 2061,
+        "yuzde": 7.5
+      },
+      {
+        "ad": "Fatma",
+        "soru": 886,
+        "yuzde": 3.22
+      },
+      {
+        "ad": "Hatice",
+        "soru": 798,
+        "yuzde": 2.9
+      },
+      {
+        "ad": "Ayşe",
+        "soru": 574,
+        "yuzde": 2.09
+      },
+      {
+        "ad": "Ahmet",
+        "soru": 430,
+        "yuzde": 1.56
+      },
+      {
+        "ad": "Zeynep",
+        "soru": 198,
+        "yuzde": 0.72
+      },
+      {
+        "ad": "Mustafa",
+        "soru": 192,
+        "yuzde": 0.7
+      },
+      {
+        "ad": "Kemal",
+        "soru": 128,
+        "yuzde": 0.47
+      },
+      {
+        "ad": "Hüseyin",
+        "soru": 89,
+        "yuzde": 0.32
+      },
+      {
+        "ad": "Hasan",
+        "soru": 76,
+        "yuzde": 0.28
+      },
+      {
+        "ad": "Elif",
+        "soru": 75,
+        "yuzde": 0.27
+      },
+      {
+        "ad": "Hakan",
+        "soru": 74,
+        "yuzde": 0.27
+      },
+      {
+        "ad": "Ali",
+        "soru": 40,
+        "yuzde": 0.15
+      },
+      {
+        "ad": "Selma",
+        "soru": 37,
+        "yuzde": 0.13
+      },
+      {
+        "ad": "Selim",
+        "soru": 20,
+        "yuzde": 0.07
+      }
+    ],
+    "en_sik_sirket": [
+      {
+        "ad": "Yıldırım",
+        "soru": 2195,
+        "yuzde": 7.99
+      },
+      {
+        "ad": "Yılmaz",
+        "soru": 1027,
+        "yuzde": 3.74
+      },
+      {
+        "ad": "Yıldız",
+        "soru": 827,
+        "yuzde": 3.01
+      },
+      {
+        "ad": "Karadeniz",
+        "soru": 760,
+        "yuzde": 2.77
+      },
+      {
+        "ad": "Bir",
+        "soru": 584,
+        "yuzde": 2.13
+      },
+      {
+        "ad": "Demir",
+        "soru": 497,
+        "yuzde": 1.81
+      },
+      {
+        "ad": "Demirhan",
+        "soru": 470,
+        "yuzde": 1.71
+      },
+      {
+        "ad": "Selçuklu",
+        "soru": 430,
+        "yuzde": 1.56
+      },
+      {
+        "ad": "Demirbaş",
+        "soru": 353,
+        "yuzde": 1.28
+      },
+      {
+        "ad": "Türk",
+        "soru": 344,
+        "yuzde": 1.25
+      },
+      {
+        "ad": "Çelik",
+        "soru": 337,
+        "yuzde": 1.23
+      },
+      {
+        "ad": "Demirtaş",
+        "soru": 283,
+        "yuzde": 1.03
+      },
+      {
+        "ad": "Döküm",
+        "soru": 232,
+        "yuzde": 0.84
+      },
+      {
+        "ad": "Selçuk",
+        "soru": 215,
+        "yuzde": 0.78
+      },
+      {
+        "ad": "Çınar",
+        "soru": 211,
+        "yuzde": 0.77
+      }
+    ]
+  },
+  "not": "Yalniz OLCUM - kasaya dokunulmadi. \"KEHRIBAR_KARTTA\" sutunu onemlidir: eski terim her yerde kotudur ama ogrencinin EZBERLEYECEGI kartta olmasi en kotusudur."
+}
