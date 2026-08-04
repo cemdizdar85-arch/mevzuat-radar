@@ -1,0 +1,39 @@
+# Taslak denetimi — 0 USD, API yok, yazma yok.
+# Cem: "sadece bu soru degil de digerlerini kontrol et." Tek ornekten karar
+# verilmez; bu is partinin TAMAMINI tarar ve tamlik oranlarini olcer.
+name: Taslak Denetimi (0 USD)
+on:
+  push:
+    paths: ['motor/taslak-denetim.ps1', '.github/workflows/taslak-denetim.yml']
+  workflow_dispatch:
+    inputs:
+      dosya:
+        description: 'Kovadaki pilot dosyasi (bos = en yenisi)'
+        required: false
+        default: ''
+permissions:
+  contents: write
+concurrency:
+  group: taslak-denetim
+  cancel-in-progress: false
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/taslak-denetim.ps1 -dosya "${{ github.event.inputs.dosya }}"
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/taslak-denetim-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/taslak-denetim-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Taslak denetim raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
