@@ -65,7 +65,7 @@ $asil = @{}
 for($b=0; $b -lt $idler.Count; $b+=50){
   $dilim = $idler[$b..([Math]::Min($b+49, $idler.Count-1))]
   $liste = ($dilim | ForEach-Object { '"' + $_ + '"' }) -join ','
-  $sat = @((Metin "$U`?select=id,ders,konu,kaynak,soru,siklar,dogru,aciklama,tablo,yevmiye,hap&id=in.($liste)" $SK) | ConvertFrom-Json)
+  $sat = @((Metin "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,dogru,aciklama,tablo,yevmiye,hap&id=in.($liste)" $SK) | ConvertFrom-Json)
   foreach($s in $sat){ if($null -ne $s){ $asil["$($s.id)"] = $s } }
 }
 Write-Host ("Kasadan eslesen: {0}" -f $asil.Count)
@@ -140,6 +140,17 @@ foreach($t in $taslak){
   $kay  = if($s){ "$($s.kaynak)" } else { "$($t.kaynak)" }
   $dh = if($s){ "$($s.dogru)".Trim().ToUpper() } else { '' }
   [void]$sb.Append('<div class="kart"><div class="ust"><span class="no">#' + $n + '</span>')
+  # 05.08 - Cem: "bu benim kontrol ettigim sinava giris deme, sen bana bitirme
+  # ile ilgili ornek soru vermedin." HAKLI: okuyucu SINAV alanini hic
+  # basmiyordu; Cem hangi sorunun hangi sinava ait oldugunu goremiyordu.
+  # Artik her kartin basinda renkli sinav rozeti var:
+  # SMMM (bitirme/yeterlilik) = yesil, SGS (staja giris) = mavi.
+  $sinavAd = if($s){ "$($s.sinav)" } else { '' }
+  if($sinavAd -ne ''){
+    $rozetRenk = if($sinavAd -eq 'SMMM'){ 'background:#e6f4ea;color:#1b5e20;border:1px solid #a5d6a7' } else { 'background:#e3f0fb;color:#0d47a1;border:1px solid #90caf9' }
+    $sinavEtiket = if($sinavAd -eq 'SMMM'){ 'SMMM YETERLILIK (bitirme)' } elseif($sinavAd -eq 'SGS'){ 'SGS (staja giris)' } else { $sinavAd }
+    [void]$sb.Append('<span class="rozet" style="' + $rozetRenk + ';font-weight:700">' + (K $sinavEtiket) + '</span>')
+  }
   [void]$sb.Append('<span>' + (K $ders) + ' &rsaquo; ' + (K $konu) + '</span>')
   [void]$sb.Append('<span>Kaynak: ' + (K $kay) + '</span>')
   if($t.mevzuatdisi){ [void]$sb.Append('<span class="rozet dil">dil/beceri - kanun atfi yasak</span>') }

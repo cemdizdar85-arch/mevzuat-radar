@@ -1,0 +1,35 @@
+# Iki sinav ayri ayri konu karsilastirmasi — 0 USD, API yok, yazma yok.
+# Cem: "konulara ayri ayri sinavda cikan sorulara bak, fazla/eksik bul -
+# ayri ayri iki sinavi da." SMMM kendi planiyla (uretim-kotasi), SGS kendi
+# planiyla (sgs-uretim-kotasi) karsilastirilir; sinavlar KARISTIRILMAZ.
+name: Iki Sinav Konu Karsilastirma (0 USD)
+on:
+  push:
+    paths: ['motor/iki-sinav-konu-karsilastirma.ps1', '.github/workflows/iki-sinav-konu.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: iki-sinav-konu
+  cancel-in-progress: false
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/iki-sinav-konu-karsilastirma.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/iki-sinav-konu-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/iki-sinav-konu-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Iki sinav konu raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
