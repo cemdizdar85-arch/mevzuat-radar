@@ -508,6 +508,15 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
     "Ne soruluyor:"  -> sorunun ne sordugunu tek cumleyle sadelestir.
     "Kural:"         -> kurali GUNLUK DILLE anlat. Kanun cumlesini KOPYALAMA,
                         cevir. Gerekiyorsa madde numarasini sonda parantezde ver.
+                        !! ILKENIN ADINI SOYLE (04.08, Cem'in bulgusu) !!
+                        Bir kural bir ILKEDEN doguyorsa o ilkenin ADI yazilacak:
+                        donemsellik, ihtiyatlilik, maliyet bedeli, tam aciklama,
+                        ozun onceligi, tutarlilik, isletmenin surekliligi...
+                        Cem'in yakaladigi vaka: "pesin odenen kirada yalniz cari
+                        aya dusen kisim gider yazilir" DENMIS ama NEDEN yazilmamis.
+                        Dogrusu: "...DONEMSELLIK ILKESI geregi yalnizca cari aya
+                        dusen kisim gider yazilir; kalani 180'de bekler."
+                        Ogrenci mekanigi degil GEREKCEYI ogrenirse transfer eder.
                         SINIRI DA CIZ (Cem'in 03.08 talimati): dayanakta goruyorsan
                         kisaca say -> NELER GIRER, NELER GIRMEZ, NELER IHTIYARIDIR.
                         Ornek (maliyet bedeli): "Montaj ve nakliye girer; envantere
@@ -572,6 +581,25 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   YASAK KELIMELER (kanun kopyasi kokuyor, kullanma): "bilumum", "muteferri",
   "munasebetiyle", "isbu", "mezkur", "ifade eder", "tanzim", "mutazammin",
   "sair", "taht-i", "keyfiyet". Bunlarin yerine gunluk karsiligini yaz.
+
+  !! TERIM UYDURMA (04.08, Cem'in bulgusu) !!
+  Kendi kisaltmani icat etme; YERLESIK terimi kullan. Cem "cok donemli
+  giderler" ifadesini "cok ONEMLI" diye okudu - bir SMMM yanlis okuyorsa
+  aday kesin yanlis okur. YASAK -> DOGRUSU:
+    "cok donemli gider"      -> "birden fazla donemi ilgilendiren gider"
+                                 (ya da dogrudan "pesin odenen gider")
+    "cok yilli gider"        -> "gelecek yillara ait giderler"
+    "donemsel gider"         -> "doneme ait gider"
+    "coklu donem"            -> "birden fazla donem"
+    "giderlestirme islemi"   -> "gider kaydi"
+  KURAL: bir kavrami iki kelimeye sikistirmak yerine MEVZUATTAKI ya da
+  ders kitabindaki adiyla yaz. Uzun ama dogru, kisa ama uydurmaya yegdir.
+
+  ESKI TERIM (04.08 olcumu: 4.328 soruda var, 2.975'i kehribar kartta):
+    "genel imal gideri/giderleri" -> "genel uretim giderleri (THP 730)"
+  ISTISNA: kanunun KENDI lafzi tirnak icinde aktariliyorsa degistirme
+  (ornek: VUK m.275 "imal edilen emtia" der - o kanun metnidir, korunur;
+  D26: guncel terim onde, kanun lafzi parantezde).
 
   YAPAY ZEKA KOKUSU YASAK: "onemli bir husustur", "dikkat edilmesi gereken
   nokta", "sonuc olarak", "ozetle", "bu baglamda", "unutulmamalidir ki" gibi

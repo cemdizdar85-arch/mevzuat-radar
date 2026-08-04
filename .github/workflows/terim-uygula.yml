@@ -1,0 +1,64 @@
+# Terim uygulayici — KASAYA YAZAR. AI yok, 0 USD.
+# Varsayilan KURU prova. Gercek yazma yalnizca veri/tetik/terim-uygula.txt
+# icinde BAS varsa (onarim-motoru ile ayni kapi mantigi).
+name: Terim Uygula (kasaya yazar)
+on:
+  push:
+    paths:
+      - 'veri/tetik/terim-uygula.txt'
+      - 'motor/terim-uygula.ps1'
+      - '.github/workflows/terim-uygula.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: terim-uygula
+  cancel-in-progress: false
+jobs:
+  uygula:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Tetigi denetle
+        id: kapi
+        run: |
+          if ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+            echo "HEAD~1 yok - KURU."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if [ ! -f veri/tetik/terim-uygula.txt ]; then
+            echo "Tetik dosyasi yok - KURU."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if ! git diff --name-only HEAD~1 HEAD | grep -q 'veri/tetik/terim-uygula.txt'; then
+            echo "KURU - tetik degismemis."; echo "bas=hayir" >> $GITHUB_OUTPUT; exit 0
+          fi
+          if grep -qE '(^|[^A-Za-z])BAS([^A-Za-z]|$)' veri/tetik/terim-uygula.txt; then
+            echo "GERCEK YAZMA"; echo "bas=evet" >> $GITHUB_OUTPUT
+          else
+            echo "KURU - dosyada BAS izni yok."; echo "bas=hayir" >> $GITHUB_OUTPUT
+          fi
+      - name: KURU prova (kasaya yazmaz)
+        if: steps.kapi.outputs.bas != 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/terim-uygula.ps1
+      - name: UYGULA (KASAYA YAZAR)
+        if: steps.kapi.outputs.bas == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/terim-uygula.ps1 -uygula
+      - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/terim-uygulama-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/terim-uygulama-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Terim uygulama raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1

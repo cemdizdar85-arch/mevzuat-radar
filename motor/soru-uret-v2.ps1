@@ -444,6 +444,19 @@ MUTLAK KURALLAR:
    gerektirmeyen bir senaryo yaz. UYDURMA DEGER YAZMA.
    (Vaka: "18 Aralik 2024" tarihli senaryoda kur 28,70 TL/EUR verilmisti - o
    tarihe ait gorunmuyor; dikkatli aday takilir.)
+6b. SENARYO ADLARI TEKRARLAMAYACAK (04.08 olcumu, Cem'in bulgusu).
+   OLCUM: kasada 88 farkli kisi adi var AMA "Mehmet" 2.061 soruda (%7,5);
+   973 farkli sirket adi var AMA "Yildirim" 2.195 soruda (%8). Yani her 12
+   sorudan birinde "Yildirim" geciyor - 50 soruluk deneme cozen aday onu
+   DORT KEZ gorur. Bu, hatadan cok ele veren MAKINE IZIDIR.
+   KURAL: asagidaki adlari KULLANMA (asiri kullanilmis):
+     Kisi   : Mehmet, Fatma, Hatice, Ayse, Ahmet
+     Sirket : Yildirim, Yilmaz, Yildiz, Karadeniz, Demir, Demirhan
+   Bunlarin yerine Turkiye'de yaygin AMA bu listede olmayan adlardan sec ve
+   HER SORUDA FARKLI bir ad kullan. Sirket unvanini da cesitlendir: sektor
+   (Mermer, Ambalaj, Lojistik, Seracilik...), sehir (Denizli, Corum, Manisa...)
+   ve tur (Ltd. Sti., A.S., Koll. Sti.) birlesimlerini degistir.
+   "ABC/XYZ Ticaret" gibi PLACEHOLDER unvan zaten yasak (yapisal kapi tutuyor).
 7. KAYNAK ETIKETI ASIL PARAGRAF OLACAK (Q498 dersi): sorunun dayandigi kaynagi
    yazarken "p.1 - Amac" gibi GENEL bir etiket KULLANMA; kuralin gectigi ASIL
    madde/paragraf numarasini yaz (orn. "TMS 8 p.32-38" ya da "TMS 16 p.61").
