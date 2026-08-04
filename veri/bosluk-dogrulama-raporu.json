@@ -1,6 +1,222 @@
 {
-  "tarih": "04.08.2026 20:53",
-  "durum": "HATA",
-  "hata": "Method invocation failed because [System.Collections.Specialized.OrderedDictionary] does not contain a method named 'ToArray'.",
-  "sunucu": ""
+  "tarih": "04.08.2026 20:56",
+  "durum": "TAMAM",
+  "mod": "DOGRULAMA (0 USD, yazma yok)",
+  "kasa": 27478,
+  "incelenen_plan_konusu": 20,
+  "GERCEKTEN_BOS": 10,
+  "BASKA_AD_ALTINDA_VAR": 10,
+  "olcut": "Yalniz hedefi 10 ve ustu olan plan konulari incelendi. Eslesme: plan konusunun 4+ harfli TUM kelimeleri kasadaki konu metninde geciyorsa sayilir.",
+  "satirlar": [
+    {
+      "plan_ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "gelir vergisi matrahi hesaplama",
+      "katman": "A-omurga",
+      "hedef": 78,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "gelir vergisi beyani",
+      "katman": "A-omurga",
+      "hedef": 78,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Muhasebe Denetimi",
+      "konu": "mesleki muhakeme",
+      "katman": "A-omurga",
+      "hedef": 62,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Muhasebe Denetimi",
+      "konu": "denetim kistasi",
+      "katman": "A-omurga",
+      "hedef": 62,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Muhasebe Denetimi",
+      "konu": "onemlilik kavrami",
+      "katman": "A-omurga",
+      "hedef": 62,
+      "kasada_derse_bakmadan": 38,
+      "bulundugu_dersler": [
+        "Denetim (34)",
+        "Finansal Muhasebe (4)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Muhasebe Denetimi",
+      "konu": "uygulamali mesleki egitim",
+      "katman": "A-omurga",
+      "hedef": 62,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "finansman gider kisitlamasi",
+      "katman": "A-omurga",
+      "hedef": 52,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "ihrac kaydiyla teslim tecil terkin",
+      "katman": "A-omurga",
+      "hedef": 52,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "disiplin cezalari",
+      "katman": "A-omurga",
+      "hedef": 28,
+      "kasada_derse_bakmadan": 57,
+      "bulundugu_dersler": [
+        "Meslek Hukuku (57)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "idari para cezasi",
+      "katman": "A-omurga",
+      "hedef": 27,
+      "kasada_derse_bakmadan": 5,
+      "bulundugu_dersler": [
+        "Hukuk (5)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "kripto varlik zimmet sucu",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 6,
+      "bulundugu_dersler": [
+        "Finansal Tablolar ve Analizi (5)",
+        "Finansal Muhasebe (1)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "icsel bilgi aciklama erteleme",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 5,
+      "bulundugu_dersler": [
+        "Muh. ve Mali Müş. Meslek Hukuku (4)",
+        "Muhasebe Denetimi (1)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "tazmin talebi zamanasimi",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 27,
+      "bulundugu_dersler": [
+        "Finansal Tablolar ve Analizi (15)",
+        "Maliyet Muhasebesi (5)",
+        "Hukuk (4)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "kurul tedbir yetkileri",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 18,
+      "bulundugu_dersler": [
+        "Finansal Tablolar ve Analizi (18)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "halka acik ortaklik borsa basvurusu",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "halka arz satis yontemleri",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 49,
+      "bulundugu_dersler": [
+        "Finansal Tablolar ve Analizi (18)",
+        "Hukuk (11)",
+        "Maliyet Muhasebesi (10)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "spk temel kavramlar",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 10,
+      "bulundugu_dersler": [
+        "Maliyet Muhasebesi (10)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "kitle fonlamasi",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "genel kurul cagrisi",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 0,
+      "bulundugu_dersler": [],
+      "KARAR": "GERCEKTEN BOS"
+    },
+    {
+      "plan_ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "kayitli sermaye sistemi",
+      "katman": "A-omurga",
+      "hedef": 18,
+      "kasada_derse_bakmadan": 30,
+      "bulundugu_dersler": [
+        "Finansal Tablolar ve Analizi (13)",
+        "Hukuk (11)",
+        "Finansal Muhasebe (3)"
+      ],
+      "KARAR": "BASKA DERS/AD ALTINDA VAR"
+    }
+  ],
+  "not": "Bu betik konu-dagilim-olcum.ps1 in \"280 konu hic yok\" bulgusunu DOGRULAR. O olcum ders+konu anahtariyla esleme yapiyordu; ders adlari tutmuyorsa soru VARKEN yok gorunur."
 }
