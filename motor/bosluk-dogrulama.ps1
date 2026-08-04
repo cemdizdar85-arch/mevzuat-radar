@@ -114,7 +114,14 @@ RaporYaz ([ordered]@{
   GERCEKTEN_BOS=$gercektenBos
   BASKA_AD_ALTINDA_VAR=$baskaAdAltinda
   olcut='Yalniz hedefi 10 ve ustu olan plan konulari incelendi. Eslesme: plan konusunun 4+ harfli TUM kelimeleri kasadaki konu metninde geciyorsa sayilir.'
-  satirlar=$sonucS.ToArray()
+  # 04.08 BUG: burada $sonucS.ToArray() vardi ve is HATA ile bitti.
+  # $sonucS zaten Object[] (@(...) ile olusturuldu); dizilerde ToArray() YOKTUR,
+  # PowerShell da uye numaralandirmasiyla onu HER ELEMANA uygulamaya calisti ->
+  # "[OrderedDictionary] does not contain a method named 'ToArray'".
+  # Bu gecenin ucuncu koleksiyon-tipi tuzagi (once @(List) cokmesi, sonra
+  # tek elemanli dizinin skalere unwrap olmasi). Kural: ToArray() YALNIZ
+  # List[T] uzerinde; @() ile uretilen sey zaten dizidir, dogrudan yazilir.
+  satirlar=$sonucS
   not='Bu betik konu-dagilim-olcum.ps1 in "280 konu hic yok" bulgusunu DOGRULAR. O olcum ders+konu anahtariyla esleme yapiyordu; ders adlari tutmuyorsa soru VARKEN yok gorunur.'
 })
 Write-Host "`n=== BOSLUK DOGRULAMA ==="
