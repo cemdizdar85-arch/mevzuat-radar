@@ -1,0 +1,35 @@
+# Bosluk dogrulama — 0 USD, API yok, yazma yok.
+# konu-dagilim-olcum.ps1 "280 konu hic yok" dedi; bu is o bulguyu DOGRULAR.
+# O olcum ders+konu anahtariyla esliyordu - ders adlari tutmuyorsa soru
+# VARKEN yok gorunur. Bu betik DERSE BAKMADAN konu adiyla arar.
+name: Bosluk Dogrulama (0 USD)
+on:
+  push:
+    paths: ['motor/bosluk-dogrulama.ps1', '.github/workflows/bosluk-dogrulama.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: bosluk-dogrulama
+  cancel-in-progress: false
+jobs:
+  dogrula:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/bosluk-dogrulama.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/bosluk-dogrulama-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/bosluk-dogrulama-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Bosluk dogrulama raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
