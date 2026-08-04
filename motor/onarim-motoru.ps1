@@ -126,7 +126,15 @@ foreach($s in $kasa){
   if($reKayit.IsMatch($gv)   -and -not (Dolu $s.yevmiye)){ $eksik += 'D7_yevmiye' }
   if($reKarsi.IsMatch($gv) -and -not $reHesapli.IsMatch($gv) -and -not (Dolu $s.tablo)){ $eksik += 'D8_karsilastirma' }
   if($eksik.Count -eq 0){ continue }
-  $isler.Add([pscustomobject]@{ soru=$s; eksik=$eksik })
+  # 04.08 - EKSIK HARF KAPISI icin: bu sorunun YANLIS sik harfleri (dogru sik
+  # haric, bos olmayanlar). Hem isteme yazilir hem uretilen cikti buna karsi
+  # denetlenir. (Cem'in "sadece 2 adet geldi" bulgusu.)
+  $dgH = "$($s.dogru)".Trim().ToUpper()
+  $yh = @()
+  foreach($h in 'A','B','C','D','E'){
+    if($s.siklar -and $s.siklar.PSObject.Properties[$h] -and "$($s.siklar.$h)".Trim() -ne '' -and $h -ne $dgH){ $yh += $h }
+  }
+  $isler.Add([pscustomobject]@{ soru=$s; eksik=$eksik; yanlisHarfler=$yh })
 }
 Write-Host ("Eksigi olan soru: {0}" -f $isler.Count)
 
@@ -247,6 +255,8 @@ $hesapKoduDuzeltilen = 0
 $hesapKoduSupheli = 0
 $hesapKoduGecersizUretim = 0                                        # uretilen kod 3-hane/THP degil - unwrap bug'i sinifi
 $hesapKoduSilmeAdayi = 0                                            # 04.08: SILME KAPATILDI - yalniz aday sayilir, metne dokunulmaz
+$script:eksikHarfTekrar = 0                                         # dogrusu/tuzak harfi eksikti, yeniden istendi
+$script:eksikHarfKalan  = 0                                         # uc denemede de tamamlanmadi - SESSIZ KAYIP YOK
 $script:hesapKoduOrnek = New-Object System.Collections.Generic.List[object]  # rapora ornek (yalniz THP kod-ad, soru metni YOK)
 $dayanakOnbellek = @{}
 foreach($i in $isler){
@@ -567,7 +577,22 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   nokta", "sonuc olarak", "ozetle", "bu baglamda", "unutulmamalidir ki" gibi
   doldurma kaliplari kullanma. Dogrudan konuyu anlat, giris-gelisme-sonuc kurma.
 '@ }
-  if($i.eksik -contains 'D2_tuzak'){    $ist += 'tuzak: her YANLIS sik icin tuzagin ADINI koy — "<A> ile <B> karistiriliyor. <A> sudur; <B> ise budur." Her sik icin FARKLI tuzak; ayni cumle iki sikka yazilamaz. Basina "TUZAK:" yazma, oneki sistem koyar.' }
+  # ========================================================================
+  #  04.08 - HARFLERI ACIKCA SAY (Cem: "burada sadece 2 adet yanlis cevap
+  #  geldi"). Bes sikli soruda dogru cevap D iken A/B/C/E'nin DORDUNE de
+  #  "Dogrusu" gerekirken yalniz A ve B gelmisti.
+  #  Kok sebep: istem "HER YANLIS SIK ICIN" diyordu ama HANGI harfler
+  #  oldugunu SOYLEMIYORDU; model kac tane yazacagini kendi seciyordu.
+  #  Artik harfler tek tek sayiliyor ve adedi yaziliyor. (Denetimi de
+  #  asagida yeni kapi yapar - kural + kapi birlikte.)
+  # ========================================================================
+  $dogruH = "$($s.dogru)".Trim().ToUpper()
+  $yanlisHarfler = @()
+  foreach($h in 'A','B','C','D','E'){
+    if($s.siklar -and $s.siklar.PSObject.Properties[$h] -and "$($s.siklar.$h)".Trim() -ne '' -and $h -ne $dogruH){ $yanlisHarfler += $h }
+  }
+  $harfListesi = ($yanlisHarfler -join ', ')
+  if($i.eksik -contains 'D2_tuzak'){    $ist += 'tuzak: her YANLIS sik icin tuzagin ADINI koy — "<A> ile <B> karistiriliyor. <A> sudur; <B> ise budur." Her sik icin FARKLI tuzak; ayni cumle iki sikka yazilamaz. Basina "TUZAK:" yazma, oneki sistem koyar.' + "`n  ZORUNLU: tuzak nesnesinde SU $($yanlisHarfler.Count) HARFIN HEPSI bulunacak: $harfListesi. Eksik harf birakma." }
   # 03.08 - CEM YAKALADI: ilk pilotta dort yanlis sikka da AYNI cumle yazilmisti
   # ("Belirli sureli is sozlesmesi esasli neden olmadikca zincirleme yapilamaz").
   # Bu, D3'un kilik degistirmis hali: "bu sik yanlis cunku dogru cevap D" demenin
@@ -611,6 +636,8 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC SEYI ANLATACAK:
     "bu sik yanlis cunku dogru cevap X" demenin gizli halidir, ogretmez.
   - IKI SIKKA AYNI CUMLEYI YAZAMAZSIN. Her metin o sikka OZEL olacak.
   - Basina "Dogrusu:" YAZMA - yalniz metni ver, oneki sistem koyar.
+  - EKSIK HARF BIRAKMAK YASAK. Asagida sayilan harflerin HEPSI icin metin
+    yazacaksin; birini atlamak isi REDDETTIRIR.
 
   HESAPLI SORULARDA (siklarda rakam varsa) BUNU YAP - Cem'in 03.08 talimati:
     Her yanlis rakam BIR HATADAN dogar. O hatayi TERSINE COZ ve goster:
@@ -639,7 +666,10 @@ dogrusu: HER YANLIS SIK ICIN AYRI bir duzeltme. UC SEYI ANLATACAK:
       degil, sozlesmenin yenilenmesini hakli kilan sebeptir."
       -> Ogrenci hem yanlisi hem yazili seklin gercek yerini ogrendi.
   Iki sik icin yazdigin metinler birbirinden FARKLI olacak.
-'@ }
+'@
+    # 04.08 - harfleri ACIKCA say (Cem'in "sadece 2 adet geldi" bulgusu)
+    $ist += "  ZORUNLU HARF LISTESI: dogrusu nesnesinde SU $($yanlisHarfler.Count) HARFIN HEPSI bulunacak -> $harfListesi`n  (Dogru sik $dogruH'dir, ona Dogrusu YAZILMAZ. Yukaridaki harflerden biri bile eksikse cevap REDDEDILIR.)"
+  }
   if($i.eksik -contains 'D7_tablo'){    $ist += @'
 tablo: hesap tablosu uret. Kolonlar: kalem + deger. SON SATIR SONUCTUR (sorunun
   cevabi); ekranda o satir vurgulanacak, ona gore yaz.
@@ -957,7 +987,43 @@ for($n=0; $n -lt $parti.Count; $n++){
     foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
     $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
     try { $obj = $temiz | ConvertFrom-Json } catch { $obj = $null }
-    if($null -ne $obj){ break }
+
+    # ======================================================================
+    #  EKSIK HARF KAPISI (04.08, Cem: "burada sadece 2 adet yanlis cevap
+    #  geldi") — bes sikli soruda dogru cevap D iken A/B/C/E'nin dordune de
+    #  Dogrusu gerekirken yalniz A ve B gelmisti.
+    #
+    #  KUSUR: JSON GECERLIYDI, o yuzden hicbir sey yakalamadi - kod "basarili"
+    #  sayip devam etti. Bu gecenin tekrarlayan deseni: KURAL ISTEMDE VAR AMA
+    #  KAPI YOK. Artik uretilen dogrusu/tuzak nesnesinde beklenen harflerin
+    #  hepsi var mi diye BAKILIR; eksikse ayni cagri dongusunde EKSIK HARFLER
+    #  ADIYLA ISTENIR. Uc denemede de tamamlanmazsa eksik oldugu RAPORLANIR
+    #  (sessiz kayip yok).
+    # ======================================================================
+    $eksikHarf = @()
+    if($null -ne $obj){
+      foreach($alanAdi in @('dogrusu','tuzak')){
+        if(-not ($i.eksik -contains "D2_$alanAdi")){ continue }
+        $v = $null; try { if($obj.PSObject.Properties[$alanAdi]){ $v = $obj.$alanAdi } } catch {}
+        foreach($h in $i.yanlisHarfler){
+          $m2 = ''
+          try { if($null -ne $v -and $v.PSObject.Properties[$h]){ $m2 = "$($v.$h)" } } catch {}
+          if($m2.Trim().Length -lt 15){ $eksikHarf += "$alanAdi.$h" }
+        }
+      }
+    }
+    if($null -ne $obj -and $eksikHarf.Count -eq 0){ break }
+    if($null -ne $obj -and $eksikHarf.Count -gt 0 -and $deneme -lt 3){
+      $script:eksikHarfTekrar++
+      Write-Host ("  [{0}] EKSIK HARF ({1}) - {2}. deneme" -f ($n+1), ($eksikHarf -join ','), ($deneme+1))
+      $istem = $istem + "`n`nUYARI: onceki cevabinda SU ALANLAR EKSIK ya da cok kisaydi: " + ($eksikHarf -join ', ') + ". Bu kez HEPSINI eksiksiz doldur; her biri en az bir tam cumle olsun."
+      $obj = $null
+      continue
+    }
+    if($null -ne $obj -and $eksikHarf.Count -gt 0){
+      $script:eksikHarfKalan++   # uc denemede de tamamlanmadi - RAPORLANIR
+      break
+    }
     if($deneme -lt 3){ $tekrarDenenen++; Write-Host ("  [{0}] JSON bozuk (kesildi={1}) - {2}. deneme" -f ($n+1), $kesildi, ($deneme+1)) }
   }
   if($null -eq $obj){
@@ -1435,6 +1501,8 @@ $rapor = [ordered]@{
   model=$MODEL; istenen=$parti.Count
   basarili_json=$basarili; bozuk_json=$bozukJson; cagri_hatasi=$hataliCagri
   tekrar_denenen=$tekrarDenenen          # ilk denemede JSON bozuktu, yeniden istendi
+  eksik_harf_tekrar=$script:eksikHarfTekrar  # dogrusu/tuzak harfi eksikti -> yeniden istendi (04.08 kapisi)
+  eksik_harf_kalan=$script:eksikHarfKalan    # uc denemede de tamamlanmadi - KALAN EKSIK (sessiz kayip yok)
   cikti_kesilen=$kesilen                 # max_tokens sinirina dayandi
   islenmeyen=$islenmeyen.ToArray()       # iki denemede de olmayanlar - SESSIZ KAYIP YOK
   tekrar_kusurlu=$tekrarKusurlu           # ayni cumleyi birden fazla sikka yazan soru
