@@ -155,13 +155,30 @@ foreach($t in $taslak){
       [void]$sb.Append('<div class="' + $sinif + '"><b>' + $h + ')</b> ' + (K $m) + '</div>')
     }
     $em=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $em="$($s.aciklama.$dh)" } } catch {}
-    [void]$sb.Append('<h4>Eski aciklama (dogru sik)</h4><div class="eski">' + (K $em) + '</div>')
+    # ======================================================================
+    #  04.08 - OKUYUCU ARTIK SITEYLE AYNI GOSTERIYOR (Cem: "eski aciklamanin
+    #  icinde akilda kalsin var, altinda akilda kalsin var")
+    #
+    #  Sahte tekrardi: SITEDE (deneme.html) aciklama icindeki "Akilda kalsin"
+    #  zaten "KISACASI" olarak cizilir, "AKILDA KALSIN" adini yalniz kehribar
+    #  kart tasir - 31.07'de Cem soylemis, sitede duzeltilmisti. AMA BU
+    #  OKUYUCU ham metni oldugu gibi basiyordu, o yuzden iki kez "Akilda
+    #  kalsin" gorunuyordu. Ogrenci bunu HIC gormuyor; kusur denetim
+    #  ekranindaydi.
+    #
+    #  DORDUNCU KEZ AYNI DERS: siteye uyguladigim duzeni bu okuyucuya
+    #  uygulamayi unutuyorum. (Onceki uc: tablo duzeni, hap kartinin hic
+    #  cekilmemesi, kehribar kart adi.) Kural: SITEDE bir gosterim karari
+    #  alindiginda taslak-goster.ps1 AYNI TURDA guncellenir.
+    # ======================================================================
+    $emGoster = [regex]::Replace($em, '(?i)ak[ıi]lda\s+kals[ıi]n\s*:', 'Kisacasi:')
+    [void]$sb.Append('<h4>Eski aciklama (dogru sik)</h4><div class="eski">' + (K $emGoster) + '</div>')
     # 03.08 - Cem "akilda kalsin yok" dedi: SITEDE VARDI, bu okuyucuda YOKTU.
     # Kasadaki 'hap' alani sinav ekraninda kehribar kart olarak cikiyor; burada
     # hic cekilmiyordu. Cem 200 soruyu kartin bir parcasini GORMEDEN
     # degerlendiriyordu - denetim eksik kalirdi.
     if("$($s.hap)".Trim().Length -gt 3){
-      [void]$sb.Append('<h4>Akilda kalsin (sinav ekraninda kehribar kart)</h4><div class="hap">' + (K "$($s.hap)") + '</div>')
+      [void]$sb.Append('<h4>Konunun ozeti (sinav ekraninda kehribar kart)</h4><div class="hap">' + (K "$($s.hap)") + '</div>')
     }
   } else {
     [void]$sb.Append('<div class="eski">Sorunun asli kasada bulunamadi (id ' + (K "$($t.soru_id)") + ')</div>')

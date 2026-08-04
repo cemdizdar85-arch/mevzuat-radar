@@ -289,7 +289,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="soruMetin" id="soruMetin"></div>
       <div id="sikKutu"></div>
       <div style="font-size:11px;color:var(--dim);margin-top:6px">İpucu: elemek istediğin şıkkın üstünü <b>çift tıklayarak</b> çizebilirsin.</div>
-      <div id="gerekceYer"><span class="dus">🧠</span><span><b style="color:var(--muted)">Cevabını ver</b> — gerekçeler, kaynak ve<br>AKILDA KALSIN kartı burada belirecek.</span></div>
+      <div id="gerekceYer"><span class="dus">🧠</span><span><b style="color:var(--muted)">Cevabını ver</b> — gerekçeler, kaynak ve<br>KONUNUN ÖZETİ kartı burada belirecek.</span></div>
       <div class="gerekce gizli" id="gerekceKutu"></div>
       <div class="altBar">
         <span><button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button> <button class="hataLink" id="isaretBtn" onclick="isaretle()">🔖 İşaretle</button></span>
@@ -955,7 +955,12 @@ function cevabiGor(tekrarMi){
   });
   h+=hayaletGorsel(s);   // tablo/yevmiye YUKARI TASINDI (bkz. UWorld duzeni notu)
   if(s.hap){
-    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN — AKILDA KALSIN':'AKILDA KALSIN')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
+    // 04.08 Cem: kehribar kartin adi "KONUNUN OZETI" oldu. Gerekce: aciklama
+    // icindeki kapanis (KISACASI) O SORUYA ozel dersi verir; kehribar kart ise
+    // KONUNUN TAMAMINI ozetler (ihtar, faiz, iptal, ilan, tazminat gibi).
+    // Ikisi de "Akilda kalsin" adini tasiyinca ogrenci ayni seyin tekrari
+    // saniyordu - ad artik islevi soyluyor.
+    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN — KONUNUN ÖZETİ':'KONUNUN ÖZETİ')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
   }
   if(digerH){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
