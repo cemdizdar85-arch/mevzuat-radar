@@ -1000,8 +1000,22 @@ for($n=0; $n -lt $parti.Count; $n++){
     #  ADIYLA ISTENIR. Uc denemede de tamamlanmazsa eksik oldugu RAPORLANIR
     #  (sessiz kayip yok).
     # ======================================================================
+    # ======================================================================
+    #  D27 — ISTENEN ALAN GELMEDIYSE IS BITMEMISTIR (04.08, Cem: "sen kural
+    #  koy hepsine, bundan bir daha cikmasin")
+    #
+    #  Taslak denetimi (200 soru) tek ornegin istisna OLMADIGINI gosterdi:
+    #    Dogrusu : 199 istendi, 70 SORUDA EKSIK (204 harf) - tamlik %64,8
+    #    Tablo   : 97 istendi, 69 geldi
+    #    Yevmiye : 27 istendi, 13 geldi
+    #    Tuzak   : 40 istendi, 40 geldi (%100)
+    #  Yani kapi yalniz dogrusu/tuzak'a konsaydi tablo ve yevmiye acikta
+    #  kalirdi. ARTIK KAPI ISTENEN HER ALANI DENETLER - biri eksikse cevap
+    #  kabul edilmez, EKSIGIN ADI SOYLENEREK yeniden istenir.
+    # ======================================================================
     $eksikHarf = @()
     if($null -ne $obj){
+      # 1) dogrusu / tuzak: yanlis siklarin HEPSI dolu olmali
       foreach($alanAdi in @('dogrusu','tuzak')){
         if(-not ($i.eksik -contains "D2_$alanAdi")){ continue }
         $v = $null; try { if($obj.PSObject.Properties[$alanAdi]){ $v = $obj.$alanAdi } } catch {}
@@ -1011,12 +1025,40 @@ for($n=0; $n -lt $parti.Count; $n++){
           if($m2.Trim().Length -lt 15){ $eksikHarf += "$alanAdi.$h" }
         }
       }
+      # 2) dort_parca: gelmeli VE dort baslik tam olmali (motorun tespit
+      #    asamasinda kullandigi AYNI desenler - o desenler gercek veride
+      #    calistigi kanitli: 200 sorunun 176'sinda dort parcayi dogru buldu)
+      if($i.eksik -contains 'D1_dort_parca'){
+        $d4 = ''; try { if($obj.PSObject.Properties['dort_parca']){ $d4 = "$($obj.dort_parca)" } } catch {}
+        if($d4.Trim().Length -lt 30){ $eksikHarf += 'dort_parca' }
+        else {
+          if(-not $reNe.IsMatch($d4)){    $eksikHarf += 'dort_parca:"Ne soruluyor:" basligi' }
+          if(-not $reKural.IsMatch($d4)){ $eksikHarf += 'dort_parca:"Kural:" basligi' }
+          if(-not $reOlay.IsMatch($d4)){  $eksikHarf += 'dort_parca:"Bu olayda:" basligi' }
+          if(-not $reAkil.IsMatch($d4)){  $eksikHarf += 'dort_parca:"Akilda kalsin:" basligi' }
+        }
+      }
+      # 3) tablo: istenmisse satirli gelmeli
+      #    NOT: 3. denemede tablo/yevmiye BILEREK istenmiyor (kapsam kucultme,
+      #    kesilmeye karsi). Istemedigimiz seyi eksik saymak kendi kendimizle
+      #    celismek olurdu - o yuzden yalniz 1-2. denemede denetlenir.
+      if($deneme -lt 3 -and (($i.eksik -contains 'D7_tablo') -or ($i.eksik -contains 'D8_karsilastirma'))){
+        $tOk = $false
+        try { if($obj.PSObject.Properties['tablo'] -and $null -ne $obj.tablo -and @($obj.tablo.satirlar).Count -gt 0){ $tOk = $true } } catch {}
+        if(-not $tOk){ $eksikHarf += 'tablo' }
+      }
+      # 4) yevmiye: istenmisse satirli gelmeli (3. denemede istenmiyor - yukari bak)
+      if($deneme -lt 3 -and ($i.eksik -contains 'D7_yevmiye')){
+        $yOk = $false
+        try { if($obj.PSObject.Properties['yevmiye'] -and @($obj.yevmiye).Count -gt 0){ $yOk = $true } } catch {}
+        if(-not $yOk){ $eksikHarf += 'yevmiye' }
+      }
     }
     if($null -ne $obj -and $eksikHarf.Count -eq 0){ break }
     if($null -ne $obj -and $eksikHarf.Count -gt 0 -and $deneme -lt 3){
       $script:eksikHarfTekrar++
-      Write-Host ("  [{0}] EKSIK HARF ({1}) - {2}. deneme" -f ($n+1), ($eksikHarf -join ','), ($deneme+1))
-      $istem = $istem + "`n`nUYARI: onceki cevabinda SU ALANLAR EKSIK ya da cok kisaydi: " + ($eksikHarf -join ', ') + ". Bu kez HEPSINI eksiksiz doldur; her biri en az bir tam cumle olsun."
+      Write-Host ("  [{0}] EKSIK ALAN ({1}) - {2}. deneme" -f ($n+1), ($eksikHarf -join ','), ($deneme+1))
+      $istem = $istem + "`n`nUYARI: onceki cevabinda SU ALANLAR EKSIK ya da cok kisaydi: " + ($eksikHarf -join ', ') + ".`nBu kez HEPSINI eksiksiz doldur. Her metin en az bir tam cumle olsun. Dort parca istendiyse DORT BASLIK da birebir bu adlarla bulunsun: 'Ne soruluyor:', 'Kural:', 'Bu olayda:', 'Akilda kalsin:'."
       $obj = $null
       continue
     }
