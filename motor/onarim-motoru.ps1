@@ -246,6 +246,7 @@ $hesapKoduYanlis = 0
 $hesapKoduDuzeltilen = 0
 $hesapKoduSupheli = 0
 $hesapKoduGecersizUretim = 0                                        # uretilen kod 3-hane/THP degil - unwrap bug'i sinifi
+$hesapKoduSilinen = 0                                               # belirsiz kod SILINDI, ad birakildi (04.08 karari)
 $script:hesapKoduOrnek = New-Object System.Collections.Generic.List[object]  # rapora ornek (yalniz THP kod-ad, soru metni YOK)
 $dayanakOnbellek = @{}
 foreach($i in $isler){
@@ -1005,7 +1006,25 @@ for($n=0; $n -lt $parti.Count; $n++){
       }
       return $bulunan
     }
-    $reCift = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!numaral|no.?lu|say[ıi]l|adet|kalem|tane|hesab|hesap|kodlu|nolu)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+    # 04.08 - BIRIM TUZAGI BURAYA DA KONDU. Eski desen "750 TL"yi hesap kodu
+    # sayiyordu (750 THP'de var: ARASTIRMA VE GELISTIRME GIDERLERI). Bugune
+    # kadar zarari yoktu cunku belirsiz kalinca DOKUNULMUYORDU; ama artik
+    # belirsiz kod SILINIYOR - o yuzden "750 TL" -> "TL" olurdu. Once tuzak
+    # kapatildi, sonra silme eklendi.
+    $reCift = [regex]'(?<![\d.,])\b([1-8]\d{2})(?!\d)\s*[-–—]?\s*(?!(?:TL|USD|EUR|LIRA|L[İI]RA|adet|kalem|tane|ki[şs]i|g[üu]n|ay\b|y[ıi]l|saat|kg|ton|puan|kuru[şs]|taksit|numaral|no\.?lu|say[ıi]l|hesab|hesap|kodlu|nolu)\b)([A-Za-zÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü\.]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü\.]+){0,4})'
+    # Yazilan ad HERHANGI bir resmi hesap adina benziyor mu? (hesap-kodu-denetimi
+    # ile ayni "beyaz liste" mantigi: benzemiyorsa o zaten hesap adi degildir,
+    # dokunulmaz - "paragraf"/"veya" gibi kelimelerin kodu silinmesin.)
+    function HesapAdiIddiasiMi([string]$ad){
+      $a = AnlamliKelimeler $ad
+      if($a.Count -eq 0){ return $false }
+      foreach($kk in $script:THP_AD.Keys){
+        $b = AnlamliKelimeler $script:THP_AD[$kk]
+        if($b.Count -eq 0){ continue }
+        foreach($x in $a){ foreach($y in $b){ if($x.StartsWith($y) -or $y.StartsWith($x)){ return $true } } }
+      }
+      return $false
+    }
     function KoduDuzelt([string]$metin){
       if($metin -eq ''){ return $metin }
       return $reCift.Replace($metin, {
@@ -1023,7 +1042,30 @@ for($n=0; $n -lt $parti.Count; $n++){
         # Bu YUZDEN hesap_kodu_duzeltilen hep ~0 cikiyordu VE tek cikan "1"
         # duzeltme de cop veriydi ("1 " yazilmis olmali). @() cagri noktasinda
         # sarip diziligi garanti eder.
-        $aday = @(ResmiKodBul $a)
+        # ==================================================================
+        #  ACGOZLU YAKALAMA DUZELTMESI (04.08) — D14-ek'in NEDEN HEP 0
+        #  VERDIGININ KOK SEBEBI
+        #
+        #  $reCift hesap adini BES KELIMEYE KADAR yakaliyor:
+        #    "253 Personel Avanslari hesabina borc kaydedilir"
+        #  -> ad = "Personel Avanslari hesabina borc kaydedilir"
+        #  ResmiKodBul bu bes kelimenin HEPSININ resmi adda gecmesini
+        #  istedigi icin HICBIR ZAMAN eslesme bulamiyordu. Dort pilotta
+        #  duzeltilen 0/1/2/0 cikmasinin sebebi buydu - motor bozuk degildi,
+        #  aday adi cop kelimelerle uzuyordu.
+        #
+        #  Cozum: UZUNDAN KISAYA prefix dene. Ilk anlamli n kelimeyle TEK
+        #  eslesme bulunursa o kullanilir. Iki kelimenin altina INILMEZ -
+        #  tek kelime ("Personel") onlarca hesaba uyar, tahmin olur.
+        # ==================================================================
+        $kelimeler = @($a -split '\s+' | Where-Object { $_ -ne '' })
+        $aday = @()
+        $eslesenAd = $a
+        for($n = [Math]::Min(5, $kelimeler.Count); $n -ge 2; $n--){
+          $parcaAd = ($kelimeler[0..($n-1)] -join ' ')
+          $bul = @(ResmiKodBul $parcaAd)
+          if($bul.Count -eq 1){ $aday = $bul; $eslesenAd = $parcaAd; break }
+        }
         if($aday.Count -eq 1){
           $yeniKod = "$($aday[0])"
           # ==================================================================
@@ -1040,13 +1082,47 @@ for($n=0; $n -lt $parti.Count; $n++){
             return $m.Value
           }
           $script:hesapKoduDuzeltilen++
+          # CUMLENIN DEVAMI KORUNUR: eslesme yalniz ADIN ilk n kelimesiyle
+          # kuruldu; geri kalan ("hesabina borc kaydedilir") aynen birakilir.
+          # Yoksa duzeltme cumleyi kirpardi - bu, duzeltmeden BETER olurdu.
+          $kalan = ''
+          if($kelimeler.Count -gt ($eslesenAd -split '\s+').Count){
+            $kalan = ' ' + (($kelimeler[(($eslesenAd -split '\s+').Count)..($kelimeler.Count-1)]) -join ' ')
+          }
           # Rapora ORNEK: yalniz THP kod-ad cifti (herkese acik veri), soru
           # metni DEGIL - boylece "ilk on ornegi gozle oku" kurali sayaca
           # degil ICERIGE uygulanabilir. En fazla 10 tane, rapor kucuk kalsin.
           if($script:hesapKoduOrnek.Count -lt 10){
-            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $a"; duzeltilen="$yeniKod $($script:THP_AD[$yeniKod])" })
+            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $eslesenAd"; duzeltilen="$yeniKod $($script:THP_AD[$yeniKod])" })
           }
-          return ($yeniKod + ' ' + $script:THP_AD[$yeniKod])
+          return ($yeniKod + ' ' + $script:THP_AD[$yeniKod] + $kalan)
+        }
+        # ==================================================================
+        #  BELIRSIZ KOD SILINIR (04.08, Cem: "bunu duzeltelim o zaman")
+        #
+        #  Dort pilotun dersi: otomatik DUZELTME neredeyse hic tetiklenmiyor
+        #  (0/1/2/0) cunku yazilan ad cogu zaman TEK bir hesaba karsilik
+        #  gelmiyor ("Ortaklardan Alacaklar" hem 131 hem 231). Eski davranis
+        #  belirsizken YANLIS KODU OLDUGU GIBI BIRAKMAKTI - hesap_kodu_yanlis
+        #  63'e ciktigi halde hicbiri onarilmiyordu.
+        #
+        #  Dogru cozum "daha cok tahmin" degil: KODU SIL, ADI BIRAK.
+        #  "181 Diger Donen Varliklar" -> "Diger Donen Varliklar"
+        #  Cunku: (a) yanlis kod ogrenciye YANLIS OGRETIR, ad tek basina
+        #  dogrudur; (b) istem zaten "Listede gormedigin kodu YAZMA - yalniz
+        #  hesap adini yaz" diyor, bu onun deterministik uygulamasidir;
+        #  (c) tahmin yok, uydurma yok - bilgi kaybi minimum.
+        #
+        #  SINIR: yalnizca ad GERCEKTEN bir hesap adina benziyorsa silinir.
+        #  Benzemiyorsa ("620 paragrafinda", "400 veya") dokunulmaz - bu
+        #  gece sekiz kez yandigimiz sahte alarm sinifi.
+        # ==================================================================
+        if(HesapAdiIddiasiMi $a){
+          $script:hesapKoduSilinen++
+          if($script:hesapKoduOrnek.Count -lt 10){
+            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $a"; duzeltilen="(kod silindi) $a" })
+          }
+          return $a
         }
         $script:hesapKoduSupheli++
         return $m.Value
@@ -1300,6 +1376,7 @@ $rapor = [ordered]@{
   hesap_kodu_duzeltilen=$hesapKoduDuzeltilen  # motor kendisi duzeltti (ad tek hesapla eslesti)
   hesap_kodu_supheli=$hesapKoduSupheli        # belirsiz - DOKUNULMADI, gozle bakilacak
   hesap_kodu_gecersiz_uretim=$hesapKoduGecersizUretim  # uretilen kod 3-hane/THP degildi - REDDEDILDI (unwrap bug sinifi)
+  hesap_kodu_silinen=$hesapKoduSilinen        # belirsiz kod SILINDI, ad birakildi - yanlis kod ogrenciye gitmez
   # Ornekler: yalniz THP kod-ad cifti (herkese acik), SORU METNI DEGIL.
   # Sebep: sayac "1 duzeltme yapildi" derken icerik cop olabiliyordu (03.08
   # unwrap bug'i). "Ilk on ornegi gozle oku" kurali artik ICERIGE uygulanabilir.
