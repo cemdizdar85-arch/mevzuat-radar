@@ -1,37 +1,34 @@
 BAS
 
-PILOT 200 - BESINCI kosu (~2,7 USD). Cem: "hesap kodu ornek bunu yapalim,
-ben en son haline bakayim, hesap kodu yanlis dustu mu buna da bakalim,
-bugun aksam en son haline butun gece bakayim."
+PILOT 200 - ALTINCI kosu (~2,7 USD). Cem: "B - 6. pilot kostur, hesap kodlari
+da duzeltilmis temiz bir taslakla butun gece bak."
 
-BU KOSU ILK KEZ SU DUZELTMELERLE CALISIR:
+BU KOSU "690 Hesabinda" REGRESYONU DUZELTILDIKTEN SONRAKI ILK KOSU.
 
-  1. ACGOZLU YAKALAMA KOK SEBEBI DUZELTILDI. Onceki dort pilotta
-     hesap_kodu_duzeltilen 0/1/2/0 cikiyordu cunku regex hesap adini BES
-     KELIMEYE KADAR yakaliyordu ("253 Personel Avanslari hesabina borc
-     kaydedilir" -> ad = tum bes kelime) ve ResmiKodBul hepsinin resmi adda
-     gecmesini istedigi icin asla eslesme bulamiyordu. Artik uzundan kisaya
-     prefix deniyor (5..2 kelime). Cumlenin devami da korunuyor.
-     BEKLENTI: hesap_kodu_duzeltilen ARTIK ANLAMLI BIR SAYI OLMALI.
+ONCEKI KOSUDA (0408-0835) NE OLDU:
+  hesap_kodu_ornek 10 ornegin 10'unun da YANLIS oldugunu gosterdi -
+  690/691/692/151/380 gibi DOGRU kodlar silinmisti. Sayac "yanlis 63->27
+  dustu" diye SAHTE IYILESME veriyordu; dusus dogru kodlarin silinmesinden
+  geliyordu. Kok sebep: birim tuzagi kapatilirken desene toplu \b eklenmesi
+  "hesab" onek elemesini bozmustu ("Hesabinda" hesap ADI sanildi).
 
-  2. BELIRSIZ KOD ARTIK SILINIYOR. Ad tek bir hesaba karsilik gelmiyorsa
-     ("Ortaklardan Alacaklar" hem 131 hem 231) kod SILINIR, ad kalir.
-     Yanlis kod ogrenciye yanlis ogretir; ad tek basina dogrudur.
-     BEKLENTI: yeni sayac hesap_kodu_silinen > 0, ve hesap_kodu_yanlis
-     onceki 63'ten CIDDI SEKILDE DUSMELI.
+DUZELTME (iki katman, gercek THP verisiyle test edildi, regresyon 0):
+  1. Baglayicilar (hesab/hesap/numaral/sayil/kodlu/nolu) yeniden ONEK olarak
+     eleniyor - Turkce ekler yuzunden sinir aranmaz.
+  2. HesapAdiIddiasiMi sertlestirildi: tasiyici kelimeler (HESAB, TUTAR,
+     KAYDED, DONEM...) sayimdan dusuluyor, EN AZ IKI ozgun kelimenin ayni
+     resmi adda eslesmesi sart. Tek genel kelime silme tetikleyemez.
 
-  3. hesap_kodu_ornek alani ILK KEZ DOLACAK - en fazla 10 adet
-     "yazilan -> duzeltilen" cifti (soru metni DEGIL, sizinti yok).
-     BU GECENIN EN BUYUK EKSIGI BUYDU: sayaca guvenip icerige bakamiyorduk.
+BEKLENTI (rapor gelince kontrol edilecek):
+  - hesap_kodu_ornek: artik GERCEK hatalar gorunmeli
+    ("253 Personel Avanslari" -> "196 PERSONEL AVANSLARI" gibi),
+    "690 Hesabinda" tarzi SAHTE silme OLMAMALI
+  - hesap_kodu_silinen: 27'den ciddi sekilde DUSMELI (o 27'nin cogu sahteydi)
+  - hesap_kodu_duzeltilen: artik SIFIRDAN BUYUK olmali (acgozlu yakalama
+     kok sebebi de bu turda duzeltilmisti)
+  - hesap_kodu_yanlis: gercek deger gorunecek (onceki 27 sahte dusustu)
+  - hesap_kodu_gecersiz_uretim: 0 kalmali
 
-  4. Birim tuzagi kapatildi ("750 TL", "480 adet" artik kod sayilmaz).
-
-CEM'IN KONTROL LISTESI (rapor gelince):
-  - hesap_kodu_ornek icindeki 10 cift GOZLE dogru mu?
-  - hesap_kodu_yanlis 63'ten dustu mu?
-  - hesap_kodu_silinen kac?
-  - hesap_kodu_gecersiz_uretim hala 0 mi?
-  - tahmin_tam_kasa_usd ne oldu?
-
-Kosu bitince taslak HTML uretilecek - Cem butun gece onun uzerinden bakacak.
+Kosu bitince taslak HTML uretilecek - Cem butun gece bunun uzerinden bakacak.
+BU TASLAKTA HEM ACIKLAMA KALITESINE HEM HESAP KODLARINA bakilabilir.
 Cikti yalniz taslaga gider, kasaya YAZILMAZ.
