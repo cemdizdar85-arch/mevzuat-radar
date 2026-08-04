@@ -913,11 +913,32 @@ for($n=0; $n -lt $parti.Count; $n++){
   #  Ayrica o soru SESSIZCE kayboluyordu. Artik: bir kez daha denenir; yine
   #  olmazsa ID'si rapora yazilir - "islenmedi" bilinerek kalir.
   # ========================================================================
+  # ========================================================================
+  #  04.08 - UCUNCU DENEME EKLENDI (Cem: "yine boyle hata almaya devam
+  #  ediyoruz" - taslakta "Model gecerli JSON uretemedi" karti gordu)
+  #
+  #  Iki kusur vardi:
+  #   1) IKINCI DENEME CELISKILIYDI: tavani 6000'e cikariyor AMA ayni anda
+  #      "daha kisa yaz" diyordu. Icerik gercekten uzunsa bu ikisi kavga eder;
+  #      model kisaltmaya calisirken yine kesiliyordu.
+  #   2) UCUNCU SANS YOKTU: iki denemede olmazsa soru islenmeden kaliyordu.
+  #      200'de 1 (%0,5) -> tam kasada ~137 soru demek.
+  #
+  #  YENI DUZEN:
+  #   1. deneme: 4000, normal istem
+  #   2. deneme: 8000, "KISALTMA - sadece kapali JSON dondur" (celiski yok,
+  #      yer aciyoruz, kisaltma istemiyoruz)
+  #   3. deneme: 8000, KAPSAM KUCULTULUR - hacimli tablo/yevmiye ISTENMEZ.
+  #      Gerekce: eksik aciklama, hic aciklamadan iyidir. Tablo bir sonraki
+  #      kosuda tamamlanabilir; sorunun tamamen islenmemesi ise kayiptir.
+  # ========================================================================
   $obj = $null; $temiz = ''; $kesildi = $false
-  for($deneme = 1; $deneme -le 2; $deneme++){
-    $tavan = if($deneme -eq 1){ 4000 } else { 6000 }
-    $istemBu = if($deneme -eq 1){ $istem } else {
-      $istem + "`n`nUYARI: onceki cevabin GECERLI JSON DEGILDI (buyuk ihtimalle uzunlugundan kesildi). Ayni icerigi DAHA KISA yaz ve MUTLAKA kapali, gecerli tek bir JSON nesnesi dondur. Baska hicbir sey yazma."
+  for($deneme = 1; $deneme -le 3; $deneme++){
+    $tavan = if($deneme -eq 1){ 4000 } else { 8000 }
+    $istemBu = switch($deneme){
+      1 { $istem }
+      2 { $istem + "`n`nUYARI: onceki cevabin GECERLI JSON DEGILDI - buyuk ihtimalle uzunlugundan kesildi. Bu kez YER ACILDI; icerigi kisaltmana gerek yok, YALNIZ kapali ve gecerli TEK bir JSON nesnesi dondur. JSON disinda hicbir sey yazma." }
+      3 { ($istem -replace '(?m)^- tablo:.*$','' -replace '(?m)^- yevmiye:.*$','') + "`n`nUYARI: iki kez gecerli JSON alinamadi. Bu kez TABLO VE YEVMIYE URETME - yalniz metin alanlarini (dort_parca/tuzak/dogrusu) yaz. Kisa tut ve MUTLAKA kapali, gecerli tek bir JSON nesnesi dondur." }
     }
     $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{
       model=$MODEL; max_tokens=$tavan
@@ -927,7 +948,7 @@ for($n=0; $n -lt $parti.Count; $n++){
       $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH `
            -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 180
     } catch {
-      if($deneme -eq 2){ $hataliCagri++; Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message) }
+      if($deneme -eq 3){ $hataliCagri++; Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message) }
       continue
     }
     $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
@@ -937,7 +958,7 @@ for($n=0; $n -lt $parti.Count; $n++){
     $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
     try { $obj = $temiz | ConvertFrom-Json } catch { $obj = $null }
     if($null -ne $obj){ break }
-    if($deneme -eq 1){ $tekrarDenenen++; Write-Host ("  [{0}] JSON bozuk (kesildi={1}) - tekrar deneniyor" -f ($n+1), $kesildi) }
+    if($deneme -lt 3){ $tekrarDenenen++; Write-Host ("  [{0}] JSON bozuk (kesildi={1}) - {2}. deneme" -f ($n+1), $kesildi, ($deneme+1)) }
   }
   if($null -eq $obj){
     $bozukJson++
