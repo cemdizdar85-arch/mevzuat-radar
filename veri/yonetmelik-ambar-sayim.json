@@ -1,7 +1,69 @@
 {
-  "tarih": "04.08.2026 21:44",
-  "durum": "HATA",
-  "hata": "Argument types do not match",
-  "sunucu": "",
-  "satir": 98
+  "tarih": "04.08.2026 21:54",
+  "durum": "KIRMIZI",
+  "mod": "AMBAR SAYIMI (0 USD, yazma yok)",
+  "kirmizi_sayisi": 6,
+  "yonetmelikler": [
+    {
+      "slug": "bd-yonetmelik",
+      "ad": "Bagimsiz Denetim Yonetmeligi",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    },
+    {
+      "slug": "smmm-disiplin-yon",
+      "ad": "SMMM ve YMM K. Disiplin Yonetmeligi",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    },
+    {
+      "slug": "smmm-sinav-yon",
+      "ad": "YMM ve SMMM Sinav Yonetmeligi",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    },
+    {
+      "slug": "smmm-staj-yon",
+      "ad": "SMMM Staj Yonetmeligi",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    },
+    {
+      "slug": "smmm-calisma-yon",
+      "ad": "SMMM ve YMM Calisma Usul ve Esaslari",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    },
+    {
+      "slug": "smmm-odalar-yon",
+      "ad": "SMMM Odalari Yonetmeligi",
+      "depo_belge": 0,
+      "depo_karakter": 0,
+      "ambar_belge": 0,
+      "ambar_karakter_ilk1000": 0,
+      "kapsama_yuzde": 0,
+      "KARAR": "KIRMIZI - DEPODA YOK (yutma bitmemis?)"
+    }
+  ],
+  "not": "Yutma-kapsama kurali: dosya depoda olsa bile soru fabrikasi AMBARI okur. KIRMIZI satir varsa uretime GECILMEZ. ambar_karakter ilk 1000 kayitla sinirlidir - buyuk dosyada oran dusuk gorunebilir, belge sayisina da bakilir."
 }
