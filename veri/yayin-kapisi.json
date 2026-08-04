@@ -1,9 +1,9 @@
 {
-  "tarih": "04.08.2026 19:48",
+  "tarih": "04.08.2026 20:26",
   "karar": "YAYIN YOK - olculecek soru bulunamadi",
   "kasa_toplam": 27478,
   "yayinda_soru": 0,
-  "kirmizi_soru_tum_kasa": 27464,
+  "kirmizi_soru_tum_kasa": 27460,
   "kirmizi_soru_yayinda": 0,
   "kapilar_tum_kasa": {
     "K1_d3": 0,
@@ -15,7 +15,7 @@
     "K7_muglak_ifade": 43,
     "K8_liste_eksik": 703,
     "K9_eskimis_kurum": 8,
-    "K10_eski_terim": 3884
+    "K10_eski_terim": 0
   },
   "kapilar_yayinda": {
     "K1_d3": 0,
@@ -29,7 +29,7 @@
     "K9_eskimis_kurum": 0,
     "K10_eski_terim": 0
   },
-  "toplam_ihlal_tum_kasa": 41570,
+  "toplam_ihlal_tum_kasa": 37686,
   "toplam_ihlal_yayinda": 0,
   "ornekler": [
     {
@@ -117,13 +117,6 @@
       "detay": "yanlis sik 4, Dogrusu 0"
     },
     {
-      "kapi": "K10_eski_terim",
-      "soru_id": "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-      "ders": "Finansal Tablolar ve Analizi",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
-    },
-    {
       "kapi": "K5_dogrusu_yok",
       "soru_id": "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
       "ders": "Finansal Tablolar ve Analizi",
@@ -166,13 +159,6 @@
       "detay": "yanlis sik 4, Dogrusu 0"
     },
     {
-      "kapi": "K10_eski_terim",
-      "soru_id": "00262b15-727a-4fcf-8835-80a3fdeed378",
-      "ders": "Kurumsal Yonetim",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
-    },
-    {
       "kapi": "K5_dogrusu_yok",
       "soru_id": "00262b15-727a-4fcf-8835-80a3fdeed378",
       "ders": "Kurumsal Yonetim",
@@ -185,13 +171,6 @@
       "ders": "Muhasebe Standartlari",
       "yayinda": false,
       "detay": "yanlis sik 4, Dogrusu 0"
-    },
-    {
-      "kapi": "K10_eski_terim",
-      "soru_id": "002797e4-e3f1-43ec-b624-079749e8d9c4",
-      "ders": "Finansal Muhasebe",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
     },
     {
       "kapi": "K5_dogrusu_yok",
@@ -285,13 +264,6 @@
       "detay": "yanlis sik 4, Dogrusu 0"
     },
     {
-      "kapi": "K10_eski_terim",
-      "soru_id": "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-      "ders": "Maliyet Muhasebesi",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
-    },
-    {
       "kapi": "K5_dogrusu_yok",
       "soru_id": "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
       "ders": "Maliyet Muhasebesi",
@@ -299,16 +271,44 @@
       "detay": "yanlis sik 4, Dogrusu 0"
     },
     {
-      "kapi": "K10_eski_terim",
-      "soru_id": "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-      "ders": "Finansal Tablolar ve Analizi",
-      "yayinda": false,
-      "detay": "kanun lafzi guncel karsiligi anilmadan kullanilmis (genel imal gideri -> genel uretim gideri)"
-    },
-    {
       "kapi": "K5_dogrusu_yok",
       "soru_id": "0041044e-b8c2-4087-a038-d4e6e4a732f3",
       "ders": "Finansal Tablolar ve Analizi",
+      "yayinda": false,
+      "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+      "ders": "Maliyet Muhasebesi",
+      "yayinda": false,
+      "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+      "ders": "Hukuk",
+      "yayinda": false,
+      "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0049835b-a9a7-4293-8e61-28a33cd9389f",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, Dogrusu 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "004c2ce7",
+      "ders": "Sermaye Piyasası Mevzuatı",
       "yayinda": false,
       "detay": "yanlis sik 4, Dogrusu 0"
     }
