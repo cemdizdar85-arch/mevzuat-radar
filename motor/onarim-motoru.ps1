@@ -246,7 +246,7 @@ $hesapKoduYanlis = 0
 $hesapKoduDuzeltilen = 0
 $hesapKoduSupheli = 0
 $hesapKoduGecersizUretim = 0                                        # uretilen kod 3-hane/THP degil - unwrap bug'i sinifi
-$hesapKoduSilinen = 0                                               # belirsiz kod SILINDI, ad birakildi (04.08 karari)
+$hesapKoduSilmeAdayi = 0                                            # 04.08: SILME KAPATILDI - yalniz aday sayilir, metne dokunulmaz
 $script:hesapKoduOrnek = New-Object System.Collections.Generic.List[object]  # rapora ornek (yalniz THP kod-ad, soru metni YOK)
 $dayanakOnbellek = @{}
 foreach($i in $isler){
@@ -1148,12 +1148,35 @@ for($n=0; $n -lt $parti.Count; $n++){
         #  Benzemiyorsa ("620 paragrafinda", "400 veya") dokunulmaz - bu
         #  gece sekiz kez yandigimiz sahte alarm sinifi.
         # ==================================================================
+        # ==================================================================
+        #  SILME KAPATILDI (04.08, Cem'in karari: "kapat")
+        #
+        #  Silme fikri dogruydu (yanlis kod ogrenciye yanlis ogretir) ama
+        #  UYGULAMASI tutmadi: prose icinde "kod + hesap adi" cifti ile
+        #  "kod + cumlenin devami" ayrimi regex ile guvenilir yapilamiyor.
+        #  BU GECE UC YANLIS-POZITIF SINIFI YASANDI:
+        #    1) birim tuzagi   : "750 TL" kod sanildi
+        #    2) \b regresyonu  : "690 Hesabinda" -> 27 DOGRU kod silindi
+        #    3) baglac tuzagi  : "102 ise bu varliklarin deger dusuklugu"
+        #  Her duzeltme yenisini dogurdu. Ayrica ALTI pilottur
+        #  hesap_kodu_duzeltilen = 0: ozellik fayda uretmiyor, risk uretiyor.
+        #
+        #  OGRENCIYI ZATEN IKI KATMAN KORUYOR:
+        #   - yayin-kapisi.ps1 K4: kod-ad uyusmayan soru YAYINA CIKAMAZ
+        #   - sik-hesap-kodu-uygula.ps1: kasadaki gercek temizlik (105 soru,
+        #     105/105 geri okuma dogrulandi, yedekli ve geri alinabilir)
+        #
+        #  Sayaclar ve ornekler KALIYOR (olcum degerli, kor kalmayalim) ama
+        #  METNE DOKUNULMUYOR. Yeniden acmak icin: asagidaki $SILME_ACIK'i
+        #  $true yap - ama once yanlis-pozitif sinifini coz, yoksa dorduncusu
+        #  gelir.
+        # ==================================================================
         if(HesapAdiIddiasiMi $a){
-          $script:hesapKoduSilinen++
+          $script:hesapKoduSilmeAdayi++
           if($script:hesapKoduOrnek.Count -lt 10){
-            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $a"; duzeltilen="(kod silindi) $a" })
+            $script:hesapKoduOrnek.Add([ordered]@{ yazilan="$k $a"; oneri="(silme ADAYI - uygulanmadi)"; })
           }
-          return $a
+          return $m.Value          # <-- METNE DOKUNULMUYOR
         }
         $script:hesapKoduSupheli++
         return $m.Value
@@ -1407,7 +1430,7 @@ $rapor = [ordered]@{
   hesap_kodu_duzeltilen=$hesapKoduDuzeltilen  # motor kendisi duzeltti (ad tek hesapla eslesti)
   hesap_kodu_supheli=$hesapKoduSupheli        # belirsiz - DOKUNULMADI, gozle bakilacak
   hesap_kodu_gecersiz_uretim=$hesapKoduGecersizUretim  # uretilen kod 3-hane/THP degildi - REDDEDILDI (unwrap bug sinifi)
-  hesap_kodu_silinen=$hesapKoduSilinen        # belirsiz kod SILINDI, ad birakildi - yanlis kod ogrenciye gitmez
+  hesap_kodu_silme_adayi=$hesapKoduSilmeAdayi # 04.08 SILME KAPALI: yalniz OLCUM, metne dokunulmadi (uc yanlis-pozitif sinifi yasandi)
   # Ornekler: yalniz THP kod-ad cifti (herkese acik), SORU METNI DEGIL.
   # Sebep: sayac "1 duzeltme yapildi" derken icerik cop olabiliyordu (03.08
   # unwrap bug'i). "Ilk on ornegi gozle oku" kurali artik ICERIGE uygulanabilir.
