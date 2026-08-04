@@ -1,0 +1,47 @@
+{
+  "tarih": "04.08.2026 20:25",
+  "durum": "TAMAM",
+  "mod": "OLCUM (0 USD, yazma yok)",
+  "kasa": 27478,
+  "aciklamasi_olmayan": 0,
+  "simdiki_kapsamda_islenen": 27478,
+  "dort_parca_EKSIK": 1319,
+  "dort_parca_TAM_su_an_dokunulmuyor": 26159,
+  "kehribar_karti_olan": 27475,
+  "kehribar_karti_olmayan": 3,
+  "varsayimlar": {
+    "kaynak": "pilot-0408-1437 (200 soru) OLCULEN degerleri",
+    "giris_token_soru": 7910.0,
+    "cikis_token_soru": 1153.0,
+    "ek_cikis_hap": 63.0,
+    "ek_cikis_dort_parca": 486.0,
+    "fiyat": "1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste)"
+  },
+  "senaryolar": [
+    {
+      "ad": "A - SIMDIKI kapsam",
+      "soru": 27478,
+      "usd": 375.76,
+      "kapsam": "Dogrusu/tuzak/tablo/yevmiye + eksik dort parca. hap URETILMEZ."
+    },
+    {
+      "ad": "B - A + kehribar kart",
+      "soru": 27478,
+      "usd": 384.42,
+      "kapsam": "Ayni sorular + her birine puf noktali hap. Cem in \"puf noktasi\" istegi buraya girer."
+    },
+    {
+      "ad": "C - B + dort parca HERKESE",
+      "soru": 27478,
+      "usd": 447.99,
+      "kapsam": "Ustune, dort parcasi TAM olan sorularda da yeniden yazilir -> \"ilkenin adini soyle\" kurali tum kasaya ulasir."
+    },
+    {
+      "ad": "D - C + hic islenmeyenler",
+      "soru": 27478,
+      "usd": 447.99,
+      "kapsam": "Kapsam TUM kasa. Su an hicbir eksigi olmayan sorular da elden gecer."
+    }
+  ],
+  "not": "Yalniz OLCUM. Rakamlar uydurma degil: giris/cikis token degerleri pilot-0408-1437 in olculen toplamlarindan soru basina bolunerek alindi. Ek alan tahminleri karakter/3,5 ile hesaplandi ve varsayimlar bolumunde aciktir."
+}
