@@ -98,7 +98,11 @@ RaporYaz ([ordered]@{
   durum=$(if($kirmizi -eq 0){'TAMAM'}else{'KIRMIZI'})
   mod='AMBAR SAYIMI (0 USD, yazma yok)'
   kirmizi_sayisi=$kirmizi
-  yonetmelikler=@($satirlar)
+  # 05.08 UTANC NOTU: burada @($satirlar) yaziyordu ve is "Argument types do
+  # not match" ile coktu - DUN GECE KENDIM BELGELEDIGIM tuzak (List[object]
+  # @() ile sarilmaz, .ToArray() kullanilir). Kendi yazdigim kurala kendim
+  # dusmusum. Ders: bu desen artik yapisal-denetci'ye kural olarak eklenmeli.
+  yonetmelikler=$satirlar.ToArray()
   not='Yutma-kapsama kurali: dosya depoda olsa bile soru fabrikasi AMBARI okur. KIRMIZI satir varsa uretime GECILMEZ. ambar_karakter ilk 1000 kayitla sinirlidir - buyuk dosyada oran dusuk gorunebilir, belge sayisina da bakilir.'
 })
 Write-Host "`n=== YONETMELIK AMBAR SAYIMI ==="
