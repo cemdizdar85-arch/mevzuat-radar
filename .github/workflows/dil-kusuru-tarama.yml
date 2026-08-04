@@ -1,0 +1,35 @@
+# Dil kusuru taramasi — 0 USD, API yok, yazma yok.
+# Cem'in taslakta yakaladigi uc dil kusurunu TEK kosuda olcer:
+# uydurma sikistirilmis terim ("cok donemli"), eski terim (ozellikle kehribar
+# kartta), tekrarlayan senaryo isimleri.
+name: Dil Kusuru Taramasi (0 USD)
+on:
+  push:
+    paths: ['motor/dil-kusuru-tarama.ps1', '.github/workflows/dil-kusuru-tarama.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: dil-kusuru-tarama
+  cancel-in-progress: false
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/dil-kusuru-tarama.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/dil-kusuru-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/dil-kusuru-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Dil kusuru taramasi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
