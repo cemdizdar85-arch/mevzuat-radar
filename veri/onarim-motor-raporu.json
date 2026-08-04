@@ -1,39 +1,81 @@
 {
-  "tarih": "03.08.2026 22:18",
+  "tarih": "04.08.2026 09:19",
   "mod": "PILOT (PARALI, kasaya YAZILMADI)",
   "model": "claude-haiku-4-5-20251001",
   "istenen": 200,
   "basarili_json": 200,
   "bozuk_json": 0,
   "cagri_hatasi": 0,
-  "tekrar_denenen": 3,
+  "tekrar_denenen": 1,
   "cikti_kesilen": 1,
   "islenmeyen": [],
-  "tekrar_kusurlu": 1,
-  "dayanak_disi_soru": 61,
-  "dayanak_disi_iddia": 334,
+  "tekrar_kusurlu": 0,
+  "dayanak_disi_soru": 55,
+  "dayanak_disi_iddia": 374,
   "madde_bulunamadi": 0,
   "istenmeyen_alan": 189,
   "dort_parca_eksik": 24,
   "kanun_kopyasi": 0,
   "yapayzeka_kokusu": 0,
-  "tekduze_kusurlu": 11,
+  "tekduze_kusurlu": 8,
   "muglak_ifade": 0,
-  "hesap_kodu_yanlis": 63,
+  "hesap_kodu_yanlis": 27,
   "hesap_kodu_duzeltilen": 0,
-  "hesap_kodu_supheli": 61,
+  "hesap_kodu_supheli": 22,
   "hesap_kodu_gecersiz_uretim": 0,
-  "hesap_kodu_ornek": [],
-  "giris_token": 1546610,
-  "cikis_token": 236561,
-  "maliyet_usd": 2.7294,
-  "birim_usd_soru": 0.013647,
+  "hesap_kodu_silinen": 27,
+  "hesap_kodu_ornek": [
+    {
+      "yazilan": "151 hesabında maliyete yansıtılır ve bu",
+      "duzeltilen": "(kod silindi) hesabında maliyete yansıtılır ve bu"
+    },
+    {
+      "yazilan": "690 Hesabında",
+      "duzeltilen": "(kod silindi) Hesabında"
+    },
+    {
+      "yazilan": "691 Hesabında",
+      "duzeltilen": "(kod silindi) Hesabında"
+    },
+    {
+      "yazilan": "692 Hesabı alacağına kaydedilir. Dayanak metne",
+      "duzeltilen": "(kod silindi) Hesabı alacağına kaydedilir. Dayanak metne"
+    },
+    {
+      "yazilan": "691 Hesabının tutarının tamamına tekabül etmektedir.",
+      "duzeltilen": "(kod silindi) Hesabının tutarının tamamına tekabül etmektedir."
+    },
+    {
+      "yazilan": "690 Hesabı tanımında",
+      "duzeltilen": "(kod silindi) Hesabı tanımında"
+    },
+    {
+      "yazilan": "690 Hesabında kalan",
+      "duzeltilen": "(kod silindi) Hesabında kalan"
+    },
+    {
+      "yazilan": "692 Hesabı",
+      "duzeltilen": "(kod silindi) Hesabı"
+    },
+    {
+      "yazilan": "691 Hesabındaki",
+      "duzeltilen": "(kod silindi) Hesabındaki"
+    },
+    {
+      "yazilan": "380 hesabında kalır. Sıradaki",
+      "duzeltilen": "(kod silindi) hesabında kalır. Sıradaki"
+    }
+  ],
+  "giris_token": 1581599,
+  "cikis_token": 226837,
+  "maliyet_usd": 2.7158,
+  "birim_usd_soru": 0.013579,
   "fiyat_katsayisi": "1 USD/M giris + 5 USD/M cikis (Haiku 4.5 liste fiyati)",
-  "tahmin_tam_kasa_usd": 374.99,
-  "parti": "pilot-0308-2133",
+  "tahmin_tam_kasa_usd": 373.12,
+  "parti": "pilot-0408-0835",
   "taslaga_yazilan": 200,
   "geri_okuma": 200,
-  "taslak_yeri": "Supabase Storage / kova 'onarim-taslak' (OZEL) / dosya pilot-0308-2133.json",
+  "taslak_yeri": "Supabase Storage / kova 'onarim-taslak' (OZEL) / dosya pilot-0408-0835.json",
   "taslak_durum": "TAMAM",
   "yazma_hatasi": "",
   "not": "Ciktilar soru_onarim_taslak tablosunda (ozel). KASAYA YAZILMADI - taslak kasa degildir, site degismedi."
