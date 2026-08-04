@@ -1,0 +1,204 @@
+{
+  "tarih": "04.08.2026 17:36",
+  "durum": "TAMAM",
+  "mod": "DENETIM (0 USD, yazma yok)",
+  "taslak_dosyasi": "pilot-0408-1437.json",
+  "taslak_satiri": 200,
+  "kasadan_eslesen": 200,
+  "gecersiz_json": 1,
+  "dogrusu_istenen": 199,
+  "dogrusu_TAM": 129,
+  "dogrusu_EKSIK_soru": 70,
+  "dogrusu_eksik_harf_toplam": 204,
+  "dogrusu_tamlik_yuzde": 64.8,
+  "tuzak_istenen": 40,
+  "tuzak_TAM": 40,
+  "tuzak_EKSIK_soru": 0,
+  "tuzak_eksik_harf_toplam": 0,
+  "tuzak_tamlik_yuzde": 100.0,
+  "dort_parca_istenen": 24,
+  "dort_parca_gelen": 24,
+  "dort_parca_baslik_eksik": 24,
+  "tablo_istenen": 97,
+  "tablo_gelen": 69,
+  "yevmiye_istenen": 27,
+  "yevmiye_gelen": 13,
+  "ornekler": [
+    {
+      "soru_id": "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "00125bab-e376-4908-be3e-eeb86d0ef901",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "ABDE"
+    },
+    {
+      "soru_id": "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+      "alan": "dogrusu",
+      "dogru_sik": "B",
+      "beklenen": "ACDE",
+      "eksik": "ACDE"
+    },
+    {
+      "soru_id": "001df7f2",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+      "alan": "dogrusu",
+      "dogru_sik": "A",
+      "beklenen": "BCDE",
+      "eksik": "BCDE"
+    },
+    {
+      "soru_id": "00262b15-727a-4fcf-8835-80a3fdeed378",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "ABDE"
+    },
+    {
+      "soru_id": "002797e4-e3f1-43ec-b624-079749e8d9c4",
+      "alan": "dogrusu",
+      "dogru_sik": "E",
+      "beklenen": "ABCD",
+      "eksik": "CD"
+    },
+    {
+      "soru_id": "00308718-bc37-422f-859d-127bfaf94f9c",
+      "alan": "dogrusu",
+      "dogru_sik": "A",
+      "beklenen": "BCDE",
+      "eksik": "BCDE"
+    },
+    {
+      "soru_id": "0036b78e-1127-4b05-b620-efdf1eb1f075",
+      "alan": "dogrusu",
+      "dogru_sik": "E",
+      "beklenen": "ABCD",
+      "eksik": "CD"
+    },
+    {
+      "soru_id": "0037bcbf-fdda-4566-b428-441432b9af2b",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "ABCE"
+    },
+    {
+      "soru_id": "0038f1e9",
+      "alan": "dogrusu",
+      "dogru_sik": "E",
+      "beklenen": "ABCD",
+      "eksik": "CD"
+    },
+    {
+      "soru_id": "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "0049835b-a9a7-4293-8e61-28a33cd9389f",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "ABCE"
+    },
+    {
+      "soru_id": "004c2ce7",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "ABDE"
+    },
+    {
+      "soru_id": "00645bf8",
+      "alan": "dogrusu",
+      "dogru_sik": "A",
+      "beklenen": "BCDE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+      "alan": "dogrusu",
+      "dogru_sik": "E",
+      "beklenen": "ABCD",
+      "eksik": "CD"
+    },
+    {
+      "soru_id": "006c96af-9a2a-479a-8a3f-b65623ee57b6",
+      "alan": "dogrusu",
+      "dogru_sik": "E",
+      "beklenen": "ABCD",
+      "eksik": "CD"
+    },
+    {
+      "soru_id": "00716ff4-7804-4c0e-bb7c-f868b0528545",
+      "alan": "dogrusu",
+      "dogru_sik": "B",
+      "beklenen": "ACDE",
+      "eksik": "CDE"
+    },
+    {
+      "soru_id": "00748317-98fe-4dac-b4de-daeaae2457de",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "CE"
+    },
+    {
+      "soru_id": "00841973-4d3f-4edd-9960-8db5e4018963",
+      "alan": "dogrusu",
+      "dogru_sik": "B",
+      "beklenen": "ACDE",
+      "eksik": "E"
+    },
+    {
+      "soru_id": "0087391f-6266-456f-8094-802b6c5274d9",
+      "alan": "dogrusu",
+      "dogru_sik": "C",
+      "beklenen": "ABDE",
+      "eksik": "DE"
+    },
+    {
+      "soru_id": "008e2f18-2014-45ff-98af-7a45955bc0c0",
+      "alan": "dogrusu",
+      "dogru_sik": "D",
+      "beklenen": "ABCE",
+      "eksik": "ABCE"
+    },
+    {
+      "soru_id": "0093d822-3d32-42a9-a7ca-80bf8ac80546",
+      "alan": "dogrusu",
+      "dogru_sik": "A",
+      "beklenen": "BCDE",
+      "eksik": "BCD"
+    },
+    {
+      "soru_id": "00a02f26-17f0-4cb7-b5ad-a8de2b557591",
+      "alan": "dogrusu",
+      "dogru_sik": "B",
+      "beklenen": "ACDE",
+      "eksik": "CDE"
+    }
+  ],
+  "not": "Yalniz OLCUM - taslaga ve kasaya dokunulmadi. Rapor SAYI ve HARF tasir, soru metni TASIMAZ. \"eksik\" sutunu: o alanda metni olmayan (ya da 15 karakterden kisa) yanlis sik harfleri."
+}
