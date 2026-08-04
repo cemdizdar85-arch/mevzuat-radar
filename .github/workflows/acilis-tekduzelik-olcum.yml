@@ -1,0 +1,35 @@
+# Acilis tekduzelik olcumu — 0 USD, API yok, yazma yok.
+# Cem: "aciklamalar hem ilk basa 'ne soruluyor' yaziyor, bu yapay zeka derler mi?"
+# Baslik sabit olmasi sorun degil; olculen sey basligin ALTINDAKI cumlenin
+# acilis kalibinin tekrar orani.
+name: Acilis Tekduzelik Olcumu (0 USD)
+on:
+  push:
+    paths: ['motor/acilis-tekduzelik-olcum.ps1', '.github/workflows/acilis-tekduzelik-olcum.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: acilis-tekduzelik-olcum
+  cancel-in-progress: false
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/acilis-tekduzelik-olcum.ps1
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/acilis-tekduzelik-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/acilis-tekduzelik-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Acilis tekduzelik olcumu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
