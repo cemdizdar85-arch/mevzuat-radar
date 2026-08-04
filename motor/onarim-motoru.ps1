@@ -125,6 +125,20 @@ foreach($s in $kasa){
   if($reHesapli.IsMatch($gv) -and -not (Dolu $s.tablo)){ $eksik += 'D7_tablo' }
   if($reKayit.IsMatch($gv)   -and -not (Dolu $s.yevmiye)){ $eksik += 'D7_yevmiye' }
   if($reKarsi.IsMatch($gv) -and -not $reHesapli.IsMatch($gv) -and -not (Dolu $s.tablo)){ $eksik += 'D8_karsilastirma' }
+  # ==========================================================================
+  #  D9 - KEHRIBAR KART (hap) ARTIK MOTORUN KAPSAMINDA (04.08, Cem'in karari)
+  #
+  #  Cem: "bunu sadece bu soruya degil tum sorulara uygulayalim" (puf noktasi
+  #  kurali) + "kehribar karti ekle". Motor bugune kadar 'hap' alanini HIC
+  #  uretmiyordu; yani puf noktasi kurali isteme yazilsa bile mevcut kartlara
+  #  ULASAMIYORDU - bu, kapsam boslugunun ta kendisiydi.
+  #
+  #  SIMDILIK DAR: yalnizca kart YOK ya da cok kisaysa uretilir (acik kusur).
+  #  Dolu ve makul kartlara D11 geregi dokunulmuyor. Cem "mevcut kartlara da
+  #  puf noktasi girsin" derse burasi genisletilir - o zaman maliyet artar,
+  #  once olculur.
+  # ==========================================================================
+  if("$($s.hap)".Trim().Length -lt 15){ $eksik += 'D9_hap' }
   if($eksik.Count -eq 0){ continue }
   # 04.08 - EKSIK HARF KAPISI icin: bu sorunun YANLIS sik harfleri (dogru sik
   # haric, bos olmayanlar). Hem isteme yazilir hem uretilen cikti buna karsi
@@ -722,6 +736,33 @@ tablo: hesap tablosu uret. Kolonlar: kalem + deger. SON SATIR SONUCTUR (sorunun
 '@ }
   if($i.eksik -contains 'D7_yevmiye'){  $ist += 'yevmiye: yevmiye fisi uret (her satir: hesap adi VE KODU, borc, alacak; borc toplami = alacak toplami).' }
   if($i.eksik -contains 'D8_karsilastirma'){ $ist += 'tablo: karsilastirma tablosu uret (ayrimi yapilan kavramlar satir satir; sorunun konusu olan satiri "<-" ile isaretle).' }
+  if($i.eksik -contains 'D9_hap'){ $ist += @'
+hap: KEHRIBAR KART. Sinav ekraninda cevaptan sonra beliren, adayin EZBERLEYECEGI
+  kart. Aciklamanin kapanisindan (Kisacasi) FARKLI olacak: kapanis O SORUYA
+  ozeldir, kart KONUNUN TAMAMINI ozetler.
+  UZUNLUK: 1-3 cumle. Kisa, net, ezberlenebilir.
+
+  !! PUF NOKTASI ZORUNLU (04.08, Cem'in talimati) !!
+  Kart yalniz kavrami TEKRAR ETMEZ; adayin sinavda SANIYEDE uygulayacagi
+  TANIMA IPUCUNU verir. Soruyu ele veren MEKANIK isaret varsa onu yaz:
+  cumle yapisi, edat, ek, anahtar kelime, hesap yonu.
+    ZAYIF (boyle YAZMA): "Sahip kim, akisa bak."
+    IYI  (boyle YAZ)   : "'___ me your notes' -> fiilden hemen sonra dolayli
+       nesne (me) varsa LEND. BORROW dolayli nesne almaz; o kalip 'Could I
+       borrow your notes?' olurdu. Yani: nesne varsa LEND, yoksa BORROW."
+    IYI  (muhasebe)    : "Pesin odendi + gelecek doneme ait -> 180/280.
+       Tahakkuk etti + henuz tahsil yok -> 181/281. Once 'odendi mi tahakkuk
+       mu' diye sor, sonra vadesine bak."
+    IYI  (hukuk)       : "'...den itibaren' sureyi OLAY GUNUNDEN baslatir;
+       '...i takip eden' bir sonraki gun/ay/yildan baslatir. Edat sureyi
+       belirler."
+
+  SINIR (uydurma taktik YASAK): ipucu GERCEK bir dilbilgisi/mevzuat/muhasebe
+  kuralina dayanacak. "Sikta 'her zaman' geciyorsa yanlistir", "en uzun sik
+  dogrudur" gibi SINAV OYUNU yazma - bazen tutar, tuttugunda yanlis sey
+  ogretir. Ipucunu dogrulayamiyorsan kavrami duz ve dogru anlat, uydurma.
+  D20: kart, Kural parcasiyla CELISEMEZ.
+'@ }
   # --- Mevzuat disi ders (Yabanci Dil / Turkce / Matematik): dayanak metni YOK.
   #     Uydurma riski dayanak yerine YASAKLA kapatilir: hicbir kanun atfi yapamaz. ---
   if($i.mevzuatdisi){
@@ -802,7 +843,7 @@ URETILECEK ALANLAR:
 $([string]::Join("`n", ($ist | ForEach-Object { "- $_" })))
 
 CIKTI BICIMI (yalniz istenen anahtarlari doldur):
-{"dort_parca":"...","tuzak":{"A":"...","B":"..."},"dogrusu":{"A":"...","B":"..."},"tablo":{"baslik":"...","kolonlar":["..."],"satirlar":[["..."]]},"yevmiye":[{"hesap":"100 KASA","borc":0,"alacak":0}]}
+{"dort_parca":"...","tuzak":{"A":"...","B":"..."},"dogrusu":{"A":"...","B":"..."},"tablo":{"baslik":"...","kolonlar":["..."],"satirlar":[["..."]]},"yevmiye":[{"hesap":"100 KASA","borc":0,"alacak":0}],"hap":"..."}
 "@
 }
 
@@ -1075,6 +1116,12 @@ for($n=0; $n -lt $parti.Count; $n++){
         try { if($obj.PSObject.Properties['tablo'] -and $null -ne $obj.tablo -and @($obj.tablo.satirlar).Count -gt 0){ $tOk = $true } } catch {}
         if(-not $tOk){ $eksikHarf += 'tablo' }
       }
+      # 3b) hap (kehribar kart): istenmisse gelmeli ve ezberlenebilir uzunlukta
+      #     olmali. Tek kelimelik/bos kart ise gelmemis sayilir.
+      if($i.eksik -contains 'D9_hap'){
+        $hh = ''; try { if($obj.PSObject.Properties['hap']){ $hh = "$($obj.hap)" } } catch {}
+        if($hh.Trim().Length -lt 25){ $eksikHarf += 'hap' }
+      }
       # 4) yevmiye: istenmisse satirli gelmeli (3. denemede istenmiyor - yukari bak)
       if($deneme -lt 3 -and ($i.eksik -contains 'D7_yevmiye')){
         $yOk = $false
@@ -1122,6 +1169,7 @@ for($n=0; $n -lt $parti.Count; $n++){
     if($i.eksik -contains 'D2_dogrusu'){    $izin['dogrusu'] = 1 }
     if(($i.eksik -contains 'D7_tablo') -or ($i.eksik -contains 'D8_karsilastirma')){ $izin['tablo'] = 1 }
     if($i.eksik -contains 'D7_yevmiye'){    $izin['yevmiye'] = 1 }
+    if($i.eksik -contains 'D9_hap'){        $izin['hap'] = 1 }   # 04.08: kehribar kart kapsama girdi
     foreach($p in @($obj.PSObject.Properties.Name)){
       if(-not $izin.ContainsKey($p)){
         try { $obj.PSObject.Properties.Remove($p); $atilanAlan++ } catch {}

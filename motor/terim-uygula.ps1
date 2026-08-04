@@ -163,10 +163,40 @@ foreach($s in $kasa){
 Write-Host ("Degisecek soru: {0}  (alan: soru={1} siklar={2} aciklama={3} hap={4})" -f $yazilacak.Count, $alanSayaci.soru, $alanSayaci.siklar, $alanSayaci.aciklama, $alanSayaci.hap)
 
 if(-not $uygula){
+  # ==========================================================================
+  #  TESHIS (04.08): ilk gercek kosuda 4.334 sorunun 4.333'u temizlendi ama
+  #  BIRINDE "genel imal" kaldi ve geri okuma kapisi bunu yakaladi (rapor
+  #  KIRMIZI bitti - dogru davranis). Hangi soru ve NEDEN oldugunu tahminle
+  #  gecmemek icin: donusumden SONRA hala eslesen kayitlarin ID'si ve ham
+  #  gecen parcasi raporlanir. Boylece desenin gormedigi bicim (tire, satir
+  #  sonu, farkli bosluk, "imalat" gibi) gozle gorunur.
+  # ==========================================================================
+  $reKalan = New-Object System.Text.RegularExpressions.Regex(
+    'genel[\s\-–—]*[iıİI][mM][aA][lL]',
+    ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+  $kalanlar = New-Object System.Collections.Generic.List[object]
+  foreach($s in $kasa){
+    $t = (Donustur "$($s.soru)") + ' ' + (Donustur "$($s.hap)")
+    foreach($kokAd in @('siklar','aciklama')){
+      $nesne = $null; try { $nesne = $s.$kokAd } catch {}
+      if($null -eq $nesne){ continue }
+      foreach($h in 'A','B','C','D','E'){
+        if($nesne.PSObject.Properties[$h]){ $t += ' ' + (Donustur "$($nesne.$h)") }
+      }
+    }
+    $m = $reKalan.Match($t)
+    if($m.Success -and $kalanlar.Count -lt 10){
+      $bas = [Math]::Max(0, $m.Index - 40)
+      $uz  = [Math]::Min(100, $t.Length - $bas)
+      $kalanlar.Add([ordered]@{ soru_id="$($s.id)"; gecen="$($m.Value)"; baglam=$t.Substring($bas,$uz) })
+    }
+  }
   RaporYaz ([ordered]@{
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='KURU (0 USD, KASAYA YAZILMADI)'
     kasa=$kasa.Count; degisecek_soru=$yazilacak.Count; degisecek_alan=$degisenAlan
     alan_dagilimi=$alanSayaci; yayinda_atlanan=$yayindaAtlanan
+    TESHIS_donusumden_sonra_kalan=$kalanlar.Count
+    TESHIS_ornekler=$kalanlar.ToArray()
     kural='genel imal -> genel uretim (yalniz orta kelime; ekler ve buyuk/kucuk harf korunur)'
     dokunulmayan='VUK m.275 "imal edilen emtia" - kanun lafzi, D26 geregi korunur'
     not='Bu bir PROVA. Gercek yazma icin -uygula gerekir (tetikte BAS sarti).'

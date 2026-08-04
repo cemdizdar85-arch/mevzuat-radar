@@ -190,6 +190,10 @@ foreach($t in $taslak){
   # uygulamadim. Ucuncu kez ayni ayrim: site ile denetim ekranini karistirdim.
   # UWorld/Becker duzeni: hesap gorseli aciklama blogunun BASINDA durur - once
   # rakamin nasil ciktigi gorulur, sonra neden oyle oldugu okunur.
+  # 04.08 - YENI kehribar kart da gosterilir. Motor artik 'hap' uretiyor
+  # (D9); okuyucuda gostermezsem Cem uretilen karti GORMEDEN degerlendirir -
+  # bu gece dort kez dustugum tuzak (site ile denetim ekranini ayirmak).
+  if($c.hap){ [void]$sb.Append('<h4>YENI - konunun ozeti (kehribar kart)</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
   if($c.tablo){   [void]$sb.Append('<h4>YENI - tablo</h4>' + (TabloHtml $c.tablo)) }
   if($c.yevmiye){ [void]$sb.Append('<h4>YENI - yevmiye</h4>' + (YevmiyeHtml $c.yevmiye)) }
   if($c.dort_parca){ [void]$sb.Append('<h4>YENI - dort parca</h4><div class="yeni">' + (K "$($c.dort_parca)") + '</div>') }
