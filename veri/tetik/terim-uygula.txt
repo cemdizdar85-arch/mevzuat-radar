@@ -1,0 +1,22 @@
+BAS
+
+Cem'in onayi (04.08.2026): "genel imal" -> "genel uretim" kasaya uygulanacak.
+
+KURU PROVA SONUCU (04.08 19:42) - beklenen degisiklik:
+  degisecek soru : 4.334
+  degisecek alan : 10.697
+    aciklama     : 10.249
+    KEHRIBAR KART:  3.004   <- ogrencinin EZBERLEYECEGI yer, isin asil getirisi
+    soru metni   :  2.376
+    siklar       :  1.826
+  yayinda atlanan:      0   <- ogrenciye acik hicbir soruya dokunulmuyor
+
+KURAL: yalniz "genel imal" kalibindaki ORTA KELIME degisir; Turkce ekler ve
+buyuk/kucuk harf bicimi korunur (8 vakayla test edildi).
+
+DOKUNULMAYAN: VUK m.275 "imal edilen emtia" - kanunun KENDI lafzi (D26).
+Ilk olcumde yanlislikla eski terim saymistim, listeden cikarildi.
+
+SIGORTALAR: (1) yedek ozel kovaya yazilir ve geri okunur - tutmazsa yazma HIC
+baslamaz, (2) yalnizca yayin=false, (3) yazma sonrasi geri okunup "genel imal"
+gercekten kalmadi mi dogrulanir; kalan varsa is KIRMIZI biter.
