@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805131415
+Start time: 20260805140126
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1b856da2-a14d-4f89-9150-c026ebdcf385.ps1'
-Process ID: 2167
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fe323dcd-2895-4c4f-91b6-664ed3f2ce31.ps1'
+Process ID: 2370
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -27,28 +27,66 @@ Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
     dolu: 4857|11 -> 1442 soru
     dolu: 5018|3 -> 1088 soru
     dolu: 213|262 -> 727 soru
-  THP hesap indeksi: 266 kelime, 269 kayit
+PS>TerminatingError(Invoke-RestMethod): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  THP indeksi kurulamadi: Response status code does not indicate success: 500 (Internal Server Error).
 KONU FILTRESI: 32 konu
+PS>TerminatingError(Invoke-RestMethod): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
 
   planSatir    73
-  maddesiz     29
+  maddesiz     36
   metinsiz     0
-  hazir        244
+  hazir        214
   tavanDolu    5
-  kaynak_kanun 44
-MALIYET TAHMINI (Batch %50): ~4.98 USD
+  kaynak_kanun 37
+MALIYET TAHMINI (Batch %50): ~4.39 USD
 KURU DENEME TAMAM - yazma yolu saglam.
-KURTARMA MODU: 1 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
-  parti 1/1: msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr
+PARTI 1: 200 soru
+  parti kimligi: msgbatch_01Uezut65KfwFrbSaovc1g3Z
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path 'siklar', line 14, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 16, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.B', line 15, position 5."
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: Z. Path 'soru', line 3, position 555."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-    197 sonuc alindi
-KURTARMA TOPLAM: 197 sonuc
-KURTARMA HIZA KONTROLU: rakamRed 90/197 = %45.7  (esik %20)
-KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir.
-Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun).
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.A', line 15, position 642."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 398."
+PARTI 2: 14 soru
+  parti kimligi: msgbatch_01HzQmueVueRv1CynMf49dAo
+  ZAMAN ASIMI
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "type": "error",
+  "error": {
+    "type": "not_found_error",
+    "message": "Message Batch msgbatch_01HzQmueVueRv1CynMf49dAo has no available results."
+  },
+  "request_id": "req_011Cdjn2FHqckdEqcYvckSr2"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "type": "error",
+  "error": {
+    "type": "not_found_error",
+    "message": "Message Batch msgbatch_01HzQmueVueRv1CynMf49dAo has no available results."
+  },
+  "request_id": "req_011Cdjn2FHqckdEqcYvckSr2"
+}"
+DUSTU: Response status code does not indicate success: 404 (Not Found).
+Emir dustu - SONRAKINE GECILMIYOR.
+PS>$global:?
+False
 **********************
 PowerShell transcript end
-End time: 20260805131453
+End time: 20260805144151
 **********************
