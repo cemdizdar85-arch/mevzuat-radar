@@ -71,7 +71,18 @@ jobs:
                    -sinav $sv -emirNo "$($x.no)" -kurtarPartiler $kp -model "$($x.model)" -konular $kn -cikti "veri/uretim-rapor-$($x.no).json"
               }
               if($LASTEXITCODE -ne 0){ $ok = $false }
-            } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }
+            } catch {
+              $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message)
+              # 05.08 KOR KALMA: dususte istisna satiri + transkriptin hata
+              # izleri depoya yazilir (soru icerigi DEGIL, yalniz hata satirlari).
+              $h = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); emir=$x.no
+                               hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber }
+              Set-Content -LiteralPath "veri/uretim-hata-$($x.no).json" -Encoding UTF8 -NoNewline -Value (ConvertTo-Json $h -Depth 3)
+              if(Test-Path veri/uretim-log.txt){
+                $iz = Select-String -Path veri/uretim-log.txt -Pattern 'HATA|DUSTU|hatasi|KIRMIZI|TerminatingError' | Select-Object -Last 20 | ForEach-Object { $_.Line }
+                Add-Content -LiteralPath "veri/uretim-hata-$($x.no).json" -Encoding UTF8 -Value ("`n--- transkript hata izleri ---`n" + ($iz -join "`n"))
+              }
+            }
             if(Test-Path 'veri/uretim-log.txt'){ Copy-Item 'veri/uretim-log.txt' "veri/uretim-log-$($x.no).txt" -Force }
             if($ok){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force }
             else {
@@ -90,7 +101,7 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in veri/uretim-emir.json veri/uretim-log.txt veri/uretim-rapor-*.json veri/uretim-log-*.txt; do
+          for f in veri/uretim-emir.json veri/uretim-log.txt veri/uretim-rapor-*.json veri/uretim-log-*.txt veri/uretim-hata-*.json; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Soru uretimi [veri-operasyonu]"

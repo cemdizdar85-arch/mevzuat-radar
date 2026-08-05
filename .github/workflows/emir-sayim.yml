@@ -1,0 +1,45 @@
+# EMIR SAYIMI — 0 USD. Kasada belirli emir damgali kac soru var?
+# Yeniden gonderim oncesi/sonrasi mukerrer kontrolu (45x cift kayit dersi).
+name: Emir Sayimi (0 USD)
+on:
+  push:
+    paths: ['.github/workflows/emir-sayim.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: emir-sayim
+  cancel-in-progress: false
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $U = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
+          $H = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; Prefer='count=exact' }
+          function Say([string]$desen){
+            $u2 = "$U`?select=id&uretim=like.$([uri]::EscapeDataString($desen))&limit=1"
+            try { $r = Invoke-WebRequest -Uri $u2 -Headers $H -UseBasicParsing -TimeoutSec 60
+                  return [int](($r.Headers['Content-Range'] -split '/')[-1]) } catch { return -1 }
+          }
+          $s28 = Say 'kota-v2 #28*'
+          $s29 = Say 'kota-v2 #29*'
+          Set-Content -LiteralPath veri/emir-sayim.json -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
+            tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
+            emir_28_kasada=$s28; emir_29_kasada=$s29
+            not='uretim damgasina gore sayim. -1 = sorgu hatasi.' }))
+          Write-Host "emir28=$s28 emir29=$s29"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/emir-sayim.json
+          git diff --cached --quiet || git commit -m "Emir sayimi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
