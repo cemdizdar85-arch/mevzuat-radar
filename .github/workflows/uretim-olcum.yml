@@ -45,6 +45,11 @@ jobs:
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           if [ ! -f veri/uretim-olcum-smmm.json ] && [ ! -f veri/uretim-olcum-sgs.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          # 05.08 KOK SEBEP: soru-uret-v2 Start-Transcript ile veri/uretim-log.txt
+          # yaziyor (izlenen dosya). Agac kirli kalinca git pull --rebase
+          # "unstaged changes" diye reddediyor ve 3 deneme de dusuyordu - iki
+          # kosu ust uste ayni yerde. Transkript curufu commit'lenmez, ATILIR.
+          git checkout -- veri/uretim-log.txt 2>/dev/null || true
           git add veri/uretim-olcum-smmm.json 2>/dev/null || true
           git add veri/uretim-olcum-sgs.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Uretim maliyet olcumu [veri-operasyonu]"
