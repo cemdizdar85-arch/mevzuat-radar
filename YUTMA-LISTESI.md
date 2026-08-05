@@ -101,7 +101,8 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 *Yöntem: ambardaki 100+ kanun slug'ı + 58 standart dosyası, SMMM/KGK sınav müfredatı ve araçların ihtiyacıyla tek tek karşılaştırıldı. Kanun tarafı beklediğimden temiz çıktı; boşluk STANDART ve TEBLİĞ tarafında.*
 
 **A. KANUNLAR — eksik yok denecek kadar az.** VUK, GVK, KVK, KDV, ÖTV, TTK, TBK, Medeni, İİK, HMK, CMK, TCK, İYUK, 3568 SMMM, 5510 SGK, 4857 İş, 1475, 6356 Sendikalar, 4458 Gümrük, 6183 AATUHK, 6362 SPK, 5411 Bankacılık, 5684 Sigortacılık, 4632 BES, 6502 Tüketici, 5018 Kamu Malî, 4734/4735/2886 ihale, 6769 SMK, 5326 Kabahatler, 2464, 1319, 197, 488, 492, 6802, 7338, 6698 KVKK, 6331 İSG + yönetmelikler — **hepsi ambarda.** Bulunan tek gerçek boşluk:
-- [ ] **Yapılandırma/af kanunları:** 7440 (2023), 7326 (2021), 7143 (2018), 6736 (2016) — hiçbiri ambarda değil. Yapılandırma/Af Radarı (#63) ve "matrah artırımı" soruları bunlara dayanır; yeni af çıktığında kıyas metni de gerekir.
+- [x] **Yapılandırma/af kanunları:** 7440, 7326, 7143, 6736 — ✓ manifestte `yapilandirma7440/7326/7143/6736` slug'larıyla ZATEN vardı (bu satır bayattı); 05.08 gece yerel indirici dördünü de indirdi (TR-IP 200 teyitli). *(Ders tekrar: listeye değil depoya/manifeste bak — 05.08'de bu satıra güvenilip `af74xx` mükerrer slug'ları eklendi, aynı gece söküldü.)*
+- [x] **BD eşik kararları (05.08 eklendi):** CB Kararı 6434 (asıl, 20.5.6434 metin çıkıyor) + CB Kararı 11066 değişikliği (RG 17.03.2026-33199; mevzuat.gov.tr PDF'i TARANMIŞ olduğundan görüntüden birebir HAZIR metin yazıldı). Yeni eşikler 1.1.2026+: aktif 500M / satış 1 milyar / 150 çalışan. DİKKAT: 6434'ün "konsolide" PDF'i 11066'yı henüz içermiyordu.
 
 **B. MUHASEBE/DENETİM STANDARTLARI — asıl boşluk burada.**
 - [x] **BOBİ FRS** ✓ 02.08 yutuldu (bobi-frs.json 686 KB, ambarda 349 belge) — *bu bölüm 05.08'e kadar "YOK" diyordu; dosyalar tire'siz slug'la (tms20.json) dururken liste tire'li arandığı için bayat kalmış. Ders: listeyi değil depoyu say.*
@@ -109,7 +110,7 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [x] **TMS 20, 26, 32, 33, 34** ✓ depoda (tms20/26/32/33/34.json; ambar sayımı 02.08: TMS 33 → 90 belge)
 - [x] **TFRS 1, 2, 6, 11, 12, 14, 17, 18** ✓ depoda (tfrs*.json; ambar: TFRS 17 → 211, TFRS 18 → 23)
 - [x] **TSRS 1 / TSRS 2** ✓ depoda (tsrs1/tsrs2.json; ambar: 105 + 64 belge) — KGK (f) modülü kaynağı TAMAM
-- [ ] **SDS 1** (Sürdürülebilirlik Denetimi Standardı) — KGK (g) modülü, **B bölümünün kalan TEK gerçek eksiği**
+- [x] ~~SDS 1~~ **DÜZELTME (05.08 gece): "SDS 1" diye standart YOK.** KGK (g) modülünün gerçek dayanağı **GDS 3000** (✓ ambardaydı) + **GDS 3410 Sera Gazı** (✓ 05.08 KGK TDS-2025 PDF'inden HAZIR metin, RG 16.01.2023-32075 1.Mük). SGDS 5000 (ISSA 5000) henüz TASLAK — RG'de yayımlanınca yutulacak, o zaman GDS 3410'un yerini alacak. BONUS BULGU: KGK'nın 4 dönem GERÇEK sürdürülebilirlik denetçiliği sınav kitapçığı yayında (25 Oca / 5 Nis / 28 Haz / 22 Kas 2025, ContentAssignmentDetail 5081/5089/5101/5116) — kitapçık okuma hattına aday.
 - [x] **Etik Kurallar + KYS 1 + KYS duyurusu + Sürekli Eğitim Tebliği** ✓ 02.08'de yutuldu (%100 kapsama)
 
 **C. TEBLİĞLER — yapısal kusur bulundu ve düzeltildi.**
