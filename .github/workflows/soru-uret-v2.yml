@@ -75,13 +75,17 @@ jobs:
               $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message)
               # 05.08 KOR KALMA: dususte istisna satiri + transkriptin hata
               # izleri depoya yazilir (soru icerigi DEGIL, yalniz hata satirlari).
-              $h = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); emir=$x.no
-                               hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber }
-              Set-Content -LiteralPath "veri/uretim-hata-$($x.no).json" -Encoding UTF8 -NoNewline -Value (ConvertTo-Json $h -Depth 3)
+              # izler JSON'un ICINE gomulur - dosyaya ciplak metin eklenirse
+              # gecersiz JSON olur ve yapisal denetci her push'u kirmizi yakar
+              # (05.08'de yasandi: hata-28.json tum kapiyi 3 saat kilitledi).
+              $iz = @()
               if(Test-Path veri/uretim-log.txt){
-                $iz = Select-String -Path veri/uretim-log.txt -Pattern 'HATA|DUSTU|hatasi|KIRMIZI|TerminatingError' | Select-Object -Last 20 | ForEach-Object { $_.Line }
-                Add-Content -LiteralPath "veri/uretim-hata-$($x.no).json" -Encoding UTF8 -Value ("`n--- transkript hata izleri ---`n" + ($iz -join "`n"))
+                $iz = @(Select-String -Path veri/uretim-log.txt -Pattern 'HATA|DUSTU|hatasi|KIRMIZI|TerminatingError' | Select-Object -Last 20 | ForEach-Object { "$($_.Line)".Trim() })
               }
+              $h = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); emir=$x.no
+                               hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber
+                               transkript_izleri=$iz }
+              Set-Content -LiteralPath "veri/uretim-hata-$($x.no).json" -Encoding UTF8 -NoNewline -Value (ConvertTo-Json $h -Depth 3)
             }
             if(Test-Path 'veri/uretim-log.txt'){ Copy-Item 'veri/uretim-log.txt' "veri/uretim-log-$($x.no).txt" -Force }
             if($ok){ $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue (Get-Date -Format 'dd.MM.yyyy HH:mm') -Force }

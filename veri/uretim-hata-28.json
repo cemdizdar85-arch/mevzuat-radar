@@ -1,19 +1,21 @@
 {
-  "tarih": "05.08.2026 14:41",
-  "emir": 28,
-  "hata": "Response status code does not indicate success: 404 (Not Found).",
-  "satir": 722
+    "tarih":  "05.08.2026 14:41",
+    "emir":  28,
+    "hata":  "Response status code does not indicate success: 404 (Not Found).",
+    "satir":  722,
+    "not":  "14:01 kosusunun olumu (sertlestirme oncesi kod). Ciplak transkript ekleri JSONu bozmustu; 05.08 aksami gecerli JSONa cevrildi.",
+    "transkript_izleri":  [
+                              "PS\u003eTerminatingError(Invoke-RestMethod): \"",
+                              "PS\u003eTerminatingError(Invoke-RestMethod): \"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path \u0027siklar\u0027, line 14, position 3.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: Unexpected end when deserializing object. Path \u0027siklar\u0027, line 16, position 3.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: Invalid JavaScript property identifier character: \". Path \u0027aciklama.B\u0027, line 15, position 5.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: Unexpected end when deserializing object. Path \u0027siklar\u0027, line 10, position 3.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path \u0027aciklama.A\u0027, line 15, position 642.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: Unexpected end when deserializing object. Path \u0027siklar\u0027, line 10, position 3.\"",
+                              "PS\u003eTerminatingError(ConvertFrom-Json): \"Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path \u0027soru\u0027, line 3, position 398.\"",
+                              "PS\u003eTerminatingError(Invoke-WebRequest): \"",
+                              "\u003e\u003e TerminatingError(Invoke-WebRequest): \"",
+                              "DUSTU: Response status code does not indicate success: 404 (Not Found)."
+                          ]
 }
---- transkript hata izleri ---
-PS>TerminatingError(Invoke-RestMethod): "
-PS>TerminatingError(Invoke-RestMethod): "
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path 'siklar', line 14, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 16, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.B', line 15, position 5."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.A', line 15, position 642."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 398."
-PS>TerminatingError(Invoke-WebRequest): "
->> TerminatingError(Invoke-WebRequest): "
-DUSTU: Response status code does not indicate success: 404 (Not Found).
