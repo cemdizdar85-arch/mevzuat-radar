@@ -9,6 +9,11 @@ on:
   push:
     paths: ['.github/workflows/batch-listele.yml']
   workflow_dispatch:
+  # 05.08 GECICI: emir #28'in 200'luk partisi Anthropic'te isleniyor; bitisini
+  # gormek icin yarim saatte bir tazelenir. Parti kurtarilinca bu cron SILINIR
+  # (kalici yoklama dongusu tasarruf kuralina aykiri).
+  schedule:
+    - cron: '*/30 * * * *'
 permissions:
   contents: write
 concurrency:
