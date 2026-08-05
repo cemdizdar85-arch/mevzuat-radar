@@ -1,0 +1,66 @@
+**********************
+PowerShell transcript start
+Start time: 20260805184844
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d9855e0a-fbf3-4088-b1d9-5df6153895f5.ps1'
+Process ID: 2174
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
+Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
+  kasa: 27531 soru
+  konu-kelime indeksi: 1255 kelime
+  MADDE TAVANI: hedef havuz 8080 x %2 = 162 soru/madde | tavani dolmus madde: 19
+    dolu: 213|275 -> 5299 soru
+    dolu: 6102|720 -> 2030 soru
+    dolu: 4857|11 -> 1442 soru
+    dolu: 5018|3 -> 1088 soru
+    dolu: 213|262 -> 727 soru
+  THP hesap indeksi: 266 kelime, 269 kayit
+KONU FILTRESI: 25 konu
+
+  planSatir    59
+  maddesiz     29
+  metinsiz     0
+  hazir        200
+  tavanDolu    5
+  kaynak_kanun 30
+MALIYET TAHMINI (Batch %50): ~4.10 USD
+KURU DENEME TAMAM - yazma yolu saglam.
+PARTI 1: 200 soru
+  parti kimligi: msgbatch_01FdaZe4sqRF1Nrye3STR7cq
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 16, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 13, position 3."
+
+======== URETIM ========
+  uretilen       53
+  rakamRed       120
+  dilRed         3
+  sikRed         2
+  sablonRed      11
+  tuzakRed       8
+  dogrusuRed     0
+  atifRed        0
+  kokuRed        0
+  benzerRed      0
+  cevapsiz       3
+  yazmaHatasi    0
+  GERCEK FATURA: ~5.44 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-30.json
+**********************
+PowerShell transcript end
+End time: 20260805185924
+**********************
