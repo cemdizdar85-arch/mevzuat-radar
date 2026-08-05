@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805150331
+Start time: 20260805151500
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/4ab57580-0222-497c-ab63-b178d7a4da57.ps1'
-Process ID: 2221
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c1cb730d-7d61-4db6-8d8e-cb5efb36e207.ps1'
+Process ID: 2272
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -19,7 +19,7 @@ WSManStackVersion: 3.0
 **********************
 SINAV: SGS   kota: veri/sgs-uretim-kotasi.json   plan satiri: 2133
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
-  kasa: 27478 soru
+  kasa: 27484 soru
   konu-kelime indeksi: 1255 kelime
   MADDE TAVANI: hedef havuz 14603 x %2 = 293 soru/madde | tavani dolmus madde: 10
     dolu: 213|275 -> 5299 soru
@@ -41,25 +41,26 @@ KONU FILTRESI: 23 konu
 MALIYET TAHMINI (Batch %50): ~0.51 USD
 KURU DENEME TAMAM - yazma yolu saglam.
 PARTI 1: 24 soru
-  parti kimligi: msgbatch_01LN2NsSM2Rx9dKKMzQhcTzD
+  parti kimligi: msgbatch_017y9DXifXaRQnoauvmSiP4S
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 22, position 3."
 
 ======== URETIM ========
-  uretilen       6
-  rakamRed       15
-  dilRed         1
-  sikRed         2
+  uretilen       11
+  rakamRed       11
+  dilRed         0
+  sikRed         1
   sablonRed      0
   tuzakRed       0
   dogrusuRed     0
   atifRed        0
   kokuRed        0
   benzerRed      0
-  cevapsiz       0
+  cevapsiz       1
   yazmaHatasi    0
-  GERCEK FATURA: ~0.68 USD
+  GERCEK FATURA: ~0.67 USD
   NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
 -> veri/uretim-rapor-29.json
 **********************
 PowerShell transcript end
-End time: 20260805150825
+End time: 20260805151835
 **********************

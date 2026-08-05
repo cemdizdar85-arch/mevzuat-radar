@@ -1,5 +1,5 @@
 {
-  "tarih": "05.08.2026 15:08",
+  "tarih": "05.08.2026 15:18",
   "model": "claude-sonnet-4-5-20250929",
   "hazirlik": {
     "planSatir": 24,
@@ -12,23 +12,23 @@
     "kaynak_standart": 1
   },
   "ozet": {
-    "uretilen": 6,
-    "rakamRed": 15,
-    "dilRed": 1,
-    "sikRed": 2,
+    "uretilen": 11,
+    "rakamRed": 11,
+    "dilRed": 0,
+    "sikRed": 1,
     "sablonRed": 0,
     "tuzakRed": 0,
     "dogrusuRed": 0,
     "atifRed": 0,
     "kokuRed": 0,
     "benzerRed": 0,
-    "cevapsiz": 0,
+    "cevapsiz": 1,
     "yazmaHatasi": 0
   },
   "fatura": {
-    "giris": 268948,
-    "cikis": 36735,
-    "usd": 0.68
+    "giris": 268968,
+    "cikis": 36115,
+    "usd": 0.67
   },
   "redler": [
     {
@@ -37,29 +37,9 @@
       "deger": "5"
     },
     {
-      "konu": "ozel maliyetler",
-      "sebep": "riskli-sayi",
-      "deger": "5"
-    },
-    {
       "konu": "ozel maliyetler kaydi",
       "sebep": "riskli-sayi",
       "deger": "5"
-    },
-    {
-      "konu": "ozel maliyetler kaydi",
-      "sebep": "riskli-sayi",
-      "deger": "5 yıl"
-    },
-    {
-      "konu": "bds 701 kilit denetim konulari",
-      "sebep": "riskli-sayi",
-      "deger": "6102 sayılı Türk Ticaret Kanunu,01/01/2017,01/01/2018"
-    },
-    {
-      "konu": "bds 701 kilit denetim konulari",
-      "sebep": "dil",
-      "deger": "ort 13.7 enuzun 47"
     },
     {
       "konu": "bds 701 kilit denetim konulari",
@@ -69,47 +49,42 @@
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun m.45"
+      "deger": "3568 sayılı Kanun madde 45"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun m.45/f.2,3. dereceye kadar (bu derece dahil) kan ve sıhri hısım"
+      "deger": "3568 sayılı Kanun m.45/2,3. dereceye kadar (bu derece dahil) kan ve sıhri hısım"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun m.45"
+      "deger": "3568 s.K. m.45/2,3. dereceye kadar (bu derece dahil) kan ve sıhri hısım"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 s.K. m.45/1,3568 s.K. m.45/2,3568 s.K. m.45/3,3568 s.K. m.45/son"
+      "deger": "3568 s.K. m.45/2,2. derece,3. derece"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun"
+      "deger": "3568 sayılı Kanun m.45,2. madde (yazılı işler),3. dereceye kadar (bu derece dahil) kan ve sıhri hısım"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun m.45"
+      "deger": "3568"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 s.K. m.45/1 - yeminli mali müşavirler eş, usul ve füruundan biri ve 3. dereceye kadar (bu derece dahil) kan ve sıhri hısımlarının veya bunların ortak oldukları firmaların işlerine bakamazlar,3568 s.K. m.45/1 - yeminli mali müşavirler yukarıda sayılan yakınlıktaki akrabaları olan serbest muhasebeci mali müşavirlerin baktığı işleri tasdik edemezler"
+      "deger": "3568 sayılı Kanun m.45/2 (3. derece dahil kan ve sıhri hısım yasağı)"
     },
     {
       "konu": "meslek etik ilkeleri",
       "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun"
-    },
-    {
-      "konu": "meslek etik ilkeleri",
-      "sebep": "riskli-sayi",
-      "deger": "3568 sayılı Kanun m.45/f.2,3. dereceye kadar (bu derece dahil) kan ve sıhri hısım"
+      "deger": "3568 sayılı Kanun m.45/1: Meslek mensupları gerçek ve tüzel kişilere tabi ve onların işyerlerine bağlı olarak hizmet akdi ile çalışamazlar,3568 sayılı Kanun m.45/1: Ticari faaliyette bulunamazlar,3568 sayılı Kanun m.45/1: Meslekle ve meslek onuru ile bağdaşmayan işlerle uğraşamazlar,3568 sayılı Kanun m.45/2: YMM eşi, usul ve füruundan biri ve 3. dereceye kadar kan ve sıhri hısımlarının veya bunların ortak oldukları firmaların işlerine bakamaz,3568 sayılı Kanun m.45/2: YMM, 3. dereceye kadar akrabası olan SMMM'lerin baktığı işleri tasdik edemez,3568 sayılı Kanun m.45/3: Bilirkişilik ve tasfiye memurluğu meslekle bağdaşmayan iş sayılmaz,3568 sayılı Kanun m.45/4: Birden çok meslek mensubu ortaklık bürosu veya şirket şeklinde birleşebilir,3568 sayılı Kanun m.45/4: Şirket şeklinde çalışılması halinde cezai sorumluluk işi yapan meslek mensubuna aittir,3568 sayılı Kanun m.45/5: Meslek mensupları iş elde etmek için reklam sayılabilecek faaliyetlerde bulunamazlar,3568 sayılı Kanun m.45/5: Ruhsatname ile belirlenen mesleki unvan dışında başka sıfat kullanamazlar"
     }
   ],
   "maddesiz_konular": [
