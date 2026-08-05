@@ -316,7 +316,29 @@ function KaynakBul([string]$konu, [string]$ders){
       }
     }
   }
-  # 3) KANUN MADDESI - eski yol
+  # 3) BELGE YOLU (05.08 gece): yonetmelik/teblig/KHK gibi maddeli-ama-kanun-
+  # numarasiz kaynaklar. Emir #27 bu konulari 'maddesiz' diye atlamisti; oysa
+  # kaynak 01.08'den beri ambardaydi (BDY, 660 KHK, II-17.1). Konu kelimeleriyle
+  # en alakali maddeler secilir - butun belge isteme sigmaz.
+  $BELGE_YOLLARI = @(
+    @{ desen='bagimsiz denetim yonetmeli';                                        on='Bagimsiz Denetim Yonetmeligi'; kanun='BDY' },
+    @{ desen='660\s*khk|kamu gozetimi|kamu g[oö]zetimi';                          on='KGK Kurulus KHK';              kanun='660KHK' },
+    @{ desen='kurumsal y[oö]netim|yat[iı]r[iı]mc[iı] ili[sş]kileri|ili[sş]kili taraf'; on='Kurumsal Yonetim Tebligi'; kanun='II-17.1' }
+  )
+  foreach($by in $BELGE_YOLLARI){
+    if($konu -notmatch "(?i)$($by.desen)"){ continue }
+    $rb = $null
+    try { $rb = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString('^'+$by.on) + "&order=kaynak_ad&limit=300") -Headers $H -TimeoutSec 90 } catch { $rb = $null }
+    if(-not $rb -or @($rb).Count -eq 0){ continue }
+    $kel = @((Kel $konu) | Where-Object { $_.Length -ge 5 })
+    $puanli = foreach($d in $rb){ $pp=0; foreach($w in $kel){ if("$($d.metin)" -match [regex]::Escape($w)){ $pp++ } }; [pscustomobject]@{ d=$d; p=$pp } }
+    $sec = @($puanli | Sort-Object { -$_.p } | Select-Object -First 12 | Where-Object { $_.p -gt 0 } | ForEach-Object { $_.d })
+    if($sec.Count -eq 0){ $sec = @($rb | Select-Object -First 8) }
+    $btn = (@($sec | ForEach-Object { "$($_.kaynak_ad): $($_.metin)" }) -join "`n")
+    if($btn.Length -gt 24000){ $btn = $btn.Substring(0, 24000) }
+    return [pscustomobject]@{ kanun=$by.kanun; madde="$($sec[0].kaynak_ad)"; ad="$($sec[0].kaynak_ad)"; metin=$btn; tur='belge' }
+  }
+  # 4) KANUN MADDESI - eski yol
   $anahtar = MaddeBul $konu
   if(-not $anahtar){ return $null }
   $par = $anahtar -split '\|'
