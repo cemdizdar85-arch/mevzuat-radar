@@ -33,3 +33,5 @@ jobs:
           git diff --cached --quiet || git commit -m "Iki sinav konu raporu [veri-operasyonu]"
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1
+
+# durtme: 05.08 gece - #28in 36 sorusu yazildiktan SONRA taze olcum
