@@ -89,6 +89,18 @@ jobs:
           RAPOR=veri/mevzuat/indirme-raporu.txt
           echo "INDIRME RAPORU $(date -u +'%F %T') UTC" > "$RAPOR"
           SEYREK_YENI=0; SEYREK_TAVAN=120
+          # 05.08 DEVRE KESICI - OLUM SARMALI KIRILDI. Teshis: mevzuat.gov.tr
+          # GitHub runner IP'lerini ENGELLIYOR (runner'dan 6/6 basarisiz, ayni
+          # URL'ler TR-IP'den 6/6 HTTP 200). Her indirme 240 sn timeout'a
+          # takilinca kosu 6 saat tavaninda oluyordu; _durum hic commit'lenmedigi
+          # icin sonraki kosu her seyi bastan deniyordu (5 kosu ust uste iptal,
+          # 03.08'den beri ambara tek kaynak inmedi). Iki onlem:
+          #  (1) max-time 240 -> 30 sn (engelli istek zaten gelmiyor, bekleme)
+          #  (2) UST USTE 5 indirme basarisizsa kalan indirmeler ATLANIR - site
+          #      bizi engelliyor demektir; eldeki HAZIR metinlerle devam edilir.
+          # Indirme yuku artik motor/yerel-indirici.ps1'de (Cem makinesi, TR IP):
+          # o, taze metinleri veri/mevzuat-hazir/'a push'lar; ayna once oradan okur.
+          ARDISIK_HATA=0; DEVRE_KESIK=0
           jq -c '.kanunlar[]' veri/mevzuat-kaynaklar.json | while read -r row; do
             slug=$(echo "$row" | jq -r '.slug')
             pid=$(echo "$row" | jq -r '.pdfId')
@@ -109,11 +121,18 @@ jobs:
               G9:*) url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${pid#G9:}&mevzuatTur=Teblig&mevzuatTertip=5"; sleep 2 ;;
               *)    url="https://www.mevzuat.gov.tr/MevzuatMetin/$pid.pdf" ;;
             esac
-            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 240 || echo "000")
+            if [ "$DEVRE_KESIK" = "1" ]; then echo "DEVRE KESIK $slug (indirme denenmedi)" >> "$RAPOR"; continue; fi
+            code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 30 || echo "000")
             if [ "$code" = "200" ]; then
+              ARDISIK_HATA=0
               pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt" && echo "OK $slug" | tee -a "$RAPOR" || echo "PDFTOTEXT FAIL $slug" | tee -a "$RAPOR"
             else
-              echo "INDIRME HATASI $slug ($code) - atlandi" | tee -a "$RAPOR"
+              ARDISIK_HATA=$((ARDISIK_HATA+1))
+              echo "INDIRME HATASI $slug ($code) - atlandi [ardisik $ARDISIK_HATA]" | tee -a "$RAPOR"
+              if [ "$ARDISIK_HATA" -ge 5 ]; then
+                DEVRE_KESIK=1
+                echo "!! DEVRE KESICI: 5 ardisik indirme hatasi - site engelliyor, kalan indirmeler atlaniyor. HAZIR metinlerle devam." | tee -a "$RAPOR"
+              fi
             fi
           done
           {
