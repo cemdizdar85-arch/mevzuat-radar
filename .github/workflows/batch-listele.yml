@@ -1,4 +1,4 @@
-# BATCH LISTELE — 0 USD (GET istekleri ucretsiz; YENI GONDERIM YAPMAZ).
+﻿# BATCH LISTELE — 0 USD (GET istekleri ucretsiz; YENI GONDERIM YAPMAZ).
 # 05.08: emir #28/#29 kosusu 31 dakika calisip dustu, rapor yok. Emir #14
 # dersi: parti gonderilmis ama kasaya yazilamamis olabilir - o durumda
 # yeniden uretim AYNI PARAYI IKINCI KEZ odemek olur; dogrusu kurtarPartiler
@@ -9,11 +9,6 @@ on:
   push:
     paths: ['.github/workflows/batch-listele.yml']
   workflow_dispatch:
-  # 05.08 GECICI: emir #28'in 200'luk partisi Anthropic'te isleniyor; bitisini
-  # gormek icin yarim saatte bir tazelenir. Parti kurtarilinca bu cron SILINIR
-  # (kalici yoklama dongusu tasarruf kuralina aykiri).
-  schedule:
-    - cron: '*/30 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -54,5 +49,3 @@ jobs:
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1
 
-# tazeleme durtmesi 05.08 12:30 UTC (github cron gec taniyor)
-# durtme 13:10Z
