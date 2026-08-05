@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Türkiye Geneli Canlı Deneme | Tetikte</title>
+<meta name="description" content="Aynı gün, aynı saatte, herkese aynı sorular. Türkiye geneli canlı deneme: gerçek yüzdelik sıralamanı gör. SGS ve SMMM Yeterlilik.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<style>
+  :root{ --bg:#0a0c10; --kart:#12151c; --line:#252a35; --line2:#2e3542; --ink:#e8eaed;
+         --muted:#9aa0a6; --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; --red:#ff6b6b; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
+  .s{ max-width:760px; margin:0 auto; padding:30px 18px 80px; }
+  h1{ font-size:clamp(23px,4vw,30px); margin:0 0 4px; letter-spacing:-.5px; }
+  .alt{ color:var(--muted); font-size:14.5px; margin:0 0 22px; }
+  .kart{ background:linear-gradient(180deg,#141821,#11141b); border:1px solid rgba(245,165,36,.35);
+         border-radius:16px; padding:22px; margin-bottom:16px; }
+  .rozet{ display:inline-block; background:var(--amber); color:#0a0c10; font-size:11.5px; font-weight:800;
+          letter-spacing:.6px; padding:4px 11px; border-radius:20px; margin-bottom:10px; }
+  h2{ font-size:17px; margin:0 0 8px; }
+  p{ margin:8px 0; font-size:14.5px; color:#c8ccd2; }
+  .buyukTarih{ font-size:clamp(20px,4vw,26px); font-weight:800; color:var(--amber); margin:6px 0; }
+  .madde{ display:flex; gap:10px; margin:9px 0; font-size:14px; color:#c8ccd2; }
+  .madde .n{ color:var(--amber); font-weight:800; min-width:20px; }
+  form{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  input[type=email]{ flex:1; min-width:220px; background:#0d1016; border:1px solid var(--line2);
+         border-radius:10px; padding:11px 13px; color:var(--ink); font:inherit; font-size:14px; }
+  button{ background:var(--amber); color:#0a0c10; border:0; font-weight:800; padding:11px 18px;
+          border-radius:10px; font-size:14.5px; cursor:pointer; font-family:inherit; }
+  #kayitOk{ display:none; color:var(--green); font-weight:700; font-size:14px; margin-top:10px; }
+  .kucuk{ font-size:12px; color:var(--dim); margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="s">
+  <span class="rozet">TÜRKİYE GENELİ · CANLI</span>
+  <h1>Canlı Deneme: herkes aynı anda, aynı sorularla.</h1>
+  <p class="alt">Gerçek sınavın tek gerçek provası, gerçek rakiplerle olandır.</p>
+
+  <div class="kart">
+    <h2 id="tarihBaslik">📅 Tarih</h2>
+    <div class="buyukTarih" id="tarihMetin">Açılışta duyurulacak</div>
+    <p id="tarihAlt">Tarih netleşince buraya geri sayım gelir; listeye yazılanlara ayrıca haber verilir.</p>
+  </div>
+
+  <div class="kart">
+    <h2>Nasıl işler?</h2>
+    <div class="madde"><span class="n">1</span><span>İlan edilen gün ve saatte site üzerinden oturum açılır — <b>herkese aynı soru seti</b>, aynı süre.</span></div>
+    <div class="madde"><span class="n">2</span><span>Süre bitince cevap anahtarı ve her sorunun <b>kaynak maddesiyle</b> açıklaması açılır.</span></div>
+    <div class="madde"><span class="n">3</span><span>Sonuçlar toplanır; <b>Türkiye geneli yüzdelik sıralaman</b> açıklanır — "80 aldım" değil, "katılanların %12'sinin önündeyim" dersin. Sınavın bağıl değerlendirmesinin tek gerçekçi karşılığı budur.</span></div>
+    <div class="madde"><span class="n">4</span><span>SGS ve Yeterlilik için ayrı oturumlar yapılır.</span></div>
+  </div>
+
+  <div class="kart">
+    <h2>🔔 Listeye yazıl</h2>
+    <p>Tarih açıklandığında ve oturum açıldığında e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
+    <form id="kayitForm">
+      <input type="email" id="kayitEposta" placeholder="e-posta adresin" required>
+      <button type="submit">Haber ver</button>
+    </form>
+    <div id="kayitOk">✓ Kaydın alındı — tarih netleşince ilk sen duyacaksın.</div>
+    <p class="kucuk">Katılım ücretsizdir. Soru çözümü ve açıklamaların tamamı için üyelik gerekir; canlı oturumun kendisi herkese açıktır.</p>
+  </div>
+</div>
+<script>
+fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  if(!d) return;
+  if(d.durum === 'kayit' && d.tarih){
+    document.getElementById('tarihMetin').textContent = d.tarih + (d.saat ? ' · ' + d.saat : '');
+    var hedef = new Date(d.tarih.split('.').reverse().join('-') + 'T' + (d.saat || '10:00') + ':00');
+    var tik = function(){
+      var ms = hedef - new Date();
+      if(ms <= 0){ document.getElementById('tarihAlt').textContent = 'Oturum saati geldi!'; return; }
+      var g = Math.floor(ms/86400000), s = Math.floor(ms%86400000/3600000), dk = Math.floor(ms%3600000/60000);
+      document.getElementById('tarihAlt').textContent = 'Kalan: ' + g + ' gün ' + s + ' saat ' + dk + ' dakika';
+      setTimeout(tik, 30000);
+    };
+    tik();
+  }
+  if(d.durum === 'bitti'){
+    document.getElementById('tarihMetin').textContent = 'Bu dönemin oturumu tamamlandı';
+    document.getElementById('tarihAlt').textContent = 'Sonuçlar ve yüzdelikler katılımcılara iletildi. Yeni dönem için listede kal.';
+  }
+}).catch(function(){});
+document.getElementById('kayitForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var em = document.getElementById('kayitEposta').value.trim();
+  if(!em) return;
+  try {
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:em,subject:'CANLI DENEME kayit',from_name:'Tetikte Canli Deneme'})});
+  } catch(err){}
+  this.style.display = 'none';
+  document.getElementById('kayitOk').style.display = 'block';
+});
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>

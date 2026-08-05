@@ -74,6 +74,7 @@ var GRUPLAR=[
   ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
+  ["canli-deneme.html","📡","Canlı Deneme","Türkiye geneli, aynı anda; gerçek yüzdelik sıralaman"],
   ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"],
   ["karsilastirma.html","⚖️","Hangisi sana lazım?","Kurs, kitap, ücretsiz banka ve biz — dürüst tablo"],
   ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
