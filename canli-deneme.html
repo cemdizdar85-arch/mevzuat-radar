@@ -40,9 +40,10 @@
   <p class="alt">Gerçek sınavın tek gerçek provası, gerçek rakiplerle olandır.</p>
 
   <div class="kart">
-    <h2 id="tarihBaslik">📅 Tarih</h2>
-    <div class="buyukTarih" id="tarihMetin">Açılışta duyurulacak</div>
-    <p id="tarihAlt">Tarih netleşince buraya geri sayım gelir; listeye yazılanlara ayrıca haber verilir.</p>
+    <h2 id="tarihBaslik">📅 Sıradaki oturum</h2>
+    <div class="buyukTarih" id="tarihMetin">Yükleniyor…</div>
+    <p id="tarihAlt"></p>
+    <div id="takvim"></div>
   </div>
 
   <div class="kart">
@@ -50,7 +51,7 @@
     <div class="madde"><span class="n">1</span><span>İlan edilen gün ve saatte site üzerinden oturum açılır — <b>herkese aynı soru seti</b>, aynı süre.</span></div>
     <div class="madde"><span class="n">2</span><span>Süre bitince cevap anahtarı ve her sorunun <b>kaynak maddesiyle</b> açıklaması açılır.</span></div>
     <div class="madde"><span class="n">3</span><span>Sonuçlar toplanır; <b>Türkiye geneli yüzdelik sıralaman</b> açıklanır — "80 aldım" değil, "katılanların %12'sinin önündeyim" dersin. Sınavın bağıl değerlendirmesinin tek gerçekçi karşılığı budur.</span></div>
-    <div class="madde"><span class="n">4</span><span>SGS ve Yeterlilik için ayrı oturumlar yapılır.</span></div>
+    <div class="madde"><span class="n">4</span><span>Seri <b>dönüşümlüdür</b>: bir hafta Staja Giriş (sınavı 21.11.2026), ertesi hafta Yeterlilik (sınavı 28.11.2026). Herkes kendi sınavının oturumuna girer; ikisine hazırlanan ikisine de girebilir.</span></div>
   </div>
 
   <div class="kart">
@@ -66,23 +67,33 @@
 </div>
 <script>
 fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
-  if(!d) return;
-  if(d.durum === 'kayit' && d.tarih){
-    document.getElementById('tarihMetin').textContent = d.tarih + (d.saat ? ' · ' + d.saat : '');
-    var hedef = new Date(d.tarih.split('.').reverse().join('-') + 'T' + (d.saat || '10:00') + ':00');
-    var tik = function(){
-      var ms = hedef - new Date();
-      if(ms <= 0){ document.getElementById('tarihAlt').textContent = 'Oturum saati geldi!'; return; }
-      var g = Math.floor(ms/86400000), s = Math.floor(ms%86400000/3600000), dk = Math.floor(ms%3600000/60000);
-      document.getElementById('tarihAlt').textContent = 'Kalan: ' + g + ' gün ' + s + ' saat ' + dk + ' dakika';
-      setTimeout(tik, 30000);
-    };
-    tik();
+  if(!d || !d.oturumlar) return;
+  var simdi = new Date();
+  var zamani = function(o){ return new Date(o.tarih.split('.').reverse().join('-') + 'T' + (o.saat || '10:00') + ':00'); };
+  var gelecek = d.oturumlar.filter(function(o){ return zamani(o) > simdi; });
+  var tk = document.getElementById('takvim');
+  d.oturumlar.forEach(function(o){
+    var gecti = zamani(o) <= simdi;
+    var sat = document.createElement('div');
+    sat.style.cssText = 'display:flex;gap:10px;font-size:13.5px;margin:6px 0;color:' + (gecti ? 'var(--dim)' : '#c8ccd2');
+    sat.innerHTML = '<span style="min-width:88px;font-weight:700;color:' + (gecti ? 'var(--dim)' : 'var(--amber)') + '">' + o.tarih + '</span><span><b>' + (o.sinav || '') + '</b> · ' + o.ad + (gecti ? ' · tamamlandı' : ' · ' + o.saat) + '</span>';
+    tk.appendChild(sat);
+  });
+  if(!gelecek.length){
+    document.getElementById('tarihMetin').textContent = 'Bu serinin oturumları tamamlandı';
+    document.getElementById('tarihAlt').textContent = 'Yeni seri için listede kal.';
+    return;
   }
-  if(d.durum === 'bitti'){
-    document.getElementById('tarihMetin').textContent = 'Bu dönemin oturumu tamamlandı';
-    document.getElementById('tarihAlt').textContent = 'Sonuçlar ve yüzdelikler katılımcılara iletildi. Yeni dönem için listede kal.';
-  }
+  var o = gelecek[0], hedef = zamani(o);
+  document.getElementById('tarihMetin').textContent = (o.sinav ? o.sinav + ' ' : '') + o.ad + ' — ' + o.tarih + ' Pazar ' + o.saat;
+  var tik = function(){
+    var ms = hedef - new Date();
+    if(ms <= 0){ document.getElementById('tarihAlt').textContent = 'Oturum saati geldi!'; return; }
+    var g = Math.floor(ms/86400000), s = Math.floor(ms%86400000/3600000), dk = Math.floor(ms%3600000/60000);
+    document.getElementById('tarihAlt').textContent = 'Kalan: ' + g + ' gün ' + s + ' saat ' + dk + ' dakika';
+    setTimeout(tik, 30000);
+  };
+  tik();
 }).catch(function(){});
 document.getElementById('kayitForm').addEventListener('submit', function(e){
   e.preventDefault();
