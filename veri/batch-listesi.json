@@ -1,7 +1,33 @@
 {
-  "tarih": "05.08.2026 13:14",
+  "tarih": "05.08.2026 14:45",
   "adet": 12,
   "partiler": [
+    {
+      "id": "msgbatch_01HzQmueVueRv1CynMf49dAo",
+      "durum": "in_progress",
+      "olusturma": "2026-08-05T14:11:32.685102+00:00",
+      "bitis": null,
+      "istek": {
+        "islenen": 14,
+        "basarili": 0,
+        "hatali": 0,
+        "iptal": 0,
+        "suresi_dolan": 0
+      }
+    },
+    {
+      "id": "msgbatch_01Uezut65KfwFrbSaovc1g3Z",
+      "durum": "ended",
+      "olusturma": "2026-08-05T14:02:24.700943+00:00",
+      "bitis": "2026-08-05T14:11:20.982486+00:00",
+      "istek": {
+        "islenen": 0,
+        "basarili": 200,
+        "hatali": 0,
+        "iptal": 0,
+        "suresi_dolan": 0
+      }
+    },
     {
       "id": "msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr",
       "durum": "ended",
@@ -127,32 +153,6 @@
       "istek": {
         "islenen": 0,
         "basarili": 29,
-        "hatali": 0,
-        "iptal": 0,
-        "suresi_dolan": 0
-      }
-    },
-    {
-      "id": "msgbatch_01DAbyLKyeRHyrH7vs93hhjK",
-      "durum": "ended",
-      "olusturma": "2026-08-02T07:44:43.947934+00:00",
-      "bitis": "2026-08-02T07:47:37.799962+00:00",
-      "istek": {
-        "islenen": 0,
-        "basarili": 52,
-        "hatali": 0,
-        "iptal": 0,
-        "suresi_dolan": 0
-      }
-    },
-    {
-      "id": "msgbatch_019aPxs7CtWf3q96pARpdi3W",
-      "durum": "ended",
-      "olusturma": "2026-08-02T07:26:07.914526+00:00",
-      "bitis": "2026-08-02T07:41:59.121714+00:00",
-      "istek": {
-        "islenen": 0,
-        "basarili": 273,
         "hatali": 0,
         "iptal": 0,
         "suresi_dolan": 0
