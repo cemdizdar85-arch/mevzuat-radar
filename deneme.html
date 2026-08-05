@@ -201,6 +201,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <button class="sec aktif" data-sinav="hepsi">📚 Hepsi</button>
         <button class="sec" data-sinav="SGS">🎯 Staja Giriş (SGS)</button>
         <button class="sec" data-sinav="SMMM">🎓 Yeterlilik (Bitirme)</button>
+        <button class="sec" data-sinav="KGK" id="kgkSecBtn">🏛️ Bağımsız Denetçi (KGK)</button>
       </div>
       <!-- 30.07 Cem (aksam): buradaki takvim kutusu KALDIRILDI - takvim ve
            cikan konular artik genc.html'deki bilgi karelerinde; kabin yalniz
@@ -360,14 +361,15 @@ function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
     // paylaşılmış eski bir bağlantı sessizce "hepsi"ne düşmesin.
     if(p === 'YETERLILIK' || p === 'YETERLİLİK' || p === 'BITIRME'){ p = 'SMMM'; }
     if(p === 'STAJA' || p === 'STAJAGIRIS'){ p = 'SGS'; }
-    if(p !== 'SGS' && p !== 'SMMM') return;
+    if(p === 'DENETCI' || p === 'DENETÇİ' || p === 'BAGIMSIZDENETCI'){ p = 'KGK'; }
+    if(p !== 'SGS' && p !== 'SMMM' && p !== 'KGK') return;
     SINAV = p;
     document.addEventListener('DOMContentLoaded', function(){
       var ss = document.getElementById('sinavSec'); if(!ss) return;
       ss.style.display = 'none';
       var et = ss.previousElementSibling;          // "0 · Sınav" etiketi
       if(et && et.className === 'etiket'){ et.style.display = 'none'; }
-      var ad = (p === 'SGS') ? 'Staja Giriş (SGS)' : 'Yeterlilik (Bitirme)';
+      var ad = (p === 'SGS') ? 'Staja Giriş (SGS)' : (p === 'KGK' ? 'Bağımsız Denetçi (KGK)' : 'Yeterlilik (Bitirme)');
       var not = document.createElement('div');
       not.className = 'etiket';
       // 29.07 — Cem: "değiştir deyince bütün hepsi geliyor". Dogruydu:
@@ -385,7 +387,7 @@ function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
 // yeterlilik paketi yalniz Yeterlilik sekmesini gorur; 'tam' hepsini gorur.
 window.paketKilidiUygula = function(paket){
   var ss = document.getElementById('sinavSec'); if(!ss) return;
-  var izin = { 'sgs':'SGS', 'yeterlilik':'SMMM' }[paket];
+  var izin = { 'sgs':'SGS', 'yeterlilik':'SMMM', 'kgk':'KGK' }[paket];
   if(!izin) return;  // tam / bilinmeyen -> serbest
   ss.querySelectorAll('.sec').forEach(function(b){
     if(b.dataset.sinav === izin){ b.classList.add('aktif'); b.style.display=''; }
@@ -508,6 +510,12 @@ function kurulumCiz(){
     // yüklemesi bittiğinde düğme "Hepsi"de kalmış görünüyordu.
     if(b.dataset.sinav === SINAV){ b.classList.add('aktif'); } else { b.classList.remove('aktif'); }
   });
+  // KGK düğmesi: bankada yayımlanmış KGK sorusu yoksa gizli kalır — boş sınav
+  // göstermeyiz. Sorular hakem+GM'den geçip yayina alininca kendiliğinden açılır.
+  (function(){
+    var kb = document.getElementById('kgkSecBtn');
+    if(kb){ kb.style.display = BANKA.some(function(s){ return s.sinav === 'KGK'; }) ? '' : 'none'; }
+  })();
   document.getElementById('modSec').querySelectorAll('.sec').forEach(function(b){
     b.onclick=function(){
       document.getElementById('modSec').querySelectorAll('.sec').forEach(function(x){x.classList.remove('aktif');});
