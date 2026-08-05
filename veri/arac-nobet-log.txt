@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805123502
+Start time: 20260805171633
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8574a24f-6de2-443e-8ae8-cb880484857b.ps1'
-Process ID: 2591
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/43eb4250-9370-4169-a795-0fb6b717c3e0.ps1'
+Process ID: 2331
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,29 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 11-07-2026
-Kart sayisi  : 27
+RG gunu      : 01-08-2026
+Kart sayisi  : 1
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-durum.json   (arac: gtip.html)
-      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
-      hasat  : motor/tablo-hasat.ps1
-      <- İthalatta gözetim uygulaması eşik değerleri güncellendi
-      <- İthalat gözetim eşikleri yenilendi; altı ürün grubu için kıymetler güncellendi
-      <- İthalat gözetim eşikleri güncellendi; yeni kıymetler uygulanacak
-      <- İthalatta gözetim uygulaması: boyalı seramik ve asansör parçaları kıymet esikleri güncellendi
-      <- İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek
-      ... ve 16 yayin daha (tamami arac-uyari.json'da)
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20260805123502
+End time: 20260805171633
 **********************
