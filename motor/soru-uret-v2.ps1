@@ -316,6 +316,18 @@ function KaynakBul([string]$konu, [string]$ders){
       }
     }
   }
+  # 3a) TEORI NOTU YOLU (05.08 gece 2. tur): Finansal Yonetim'in resmi mevzuat
+  # metni yok; kaynagi 01.08'de yazilip ambara giren 'Teori Notu - ...'
+  # belgeleridir (WACC, NPV/IRR, DuPont, CAPM, kaldirac...). Onarim hatti bu
+  # yolu (TeoriNotuMetni, madde-coz.ps1) zaten kullaniyordu - URETICI
+  # KULLANMIYORDU; emir #27 ve #32 FY'yi bu yuzden 'maddesiz' diye atladi.
+  # TeoriNotuMetni gevsemez: baslik-puanli eslesme, emin degilse null (02.08
+  # pilot dersi). Yalniz FY dersinde denenir ki baska derslerin kanun/standart
+  # yollari teori notuna sapmasin.
+  if($ders -match '(?i)finansal y[oö]netim'){
+    $tn = TeoriNotuMetni '' $konu
+    if($tn -and $tn.metin){ return [pscustomobject]@{ kanun='TEORI'; madde="$($tn.ad)"; ad="$($tn.ad)"; metin="$($tn.metin)"; tur='teori' } }
+  }
   # 3) BELGE YOLU (05.08 gece): yonetmelik/teblig/KHK gibi maddeli-ama-kanun-
   # numarasiz kaynaklar. Emir #27 bu konulari 'maddesiz' diye atlamisti; oysa
   # kaynak 01.08'den beri ambardaydi (BDY, 660 KHK, II-17.1). Konu kelimeleriyle
