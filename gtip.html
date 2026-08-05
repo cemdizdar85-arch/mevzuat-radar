@@ -78,30 +78,30 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <a href="#" onclick="adAraToggle();return false" style="display:inline-block;font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:700">🔍 Kodunu bilmiyor musun? Ürünün adıyla ara →</a>
     <div id="adAraKutu" style="display:none;margin-top:10px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
       <input id="adAra" placeholder="ör. yoğurt, mermer blok, seramik lavabo, güneş paneli…" autocomplete="off" oninput="adAraCalis()" style="width:100%;font-size:15px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#06090f;color:var(--ink);font-family:inherit">
-      <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">Resmî Gümrük Tarife Cetveli'nin eşya tanımlarında arar (15.717 kod, Karar 10781 · RG 30.12.2025). İpucu: resmî tanımlar teknik dille yazılır — "buzdolabı" bulamazsan "soğutucu" dene.</div>
+      <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">Resmî Gümrük Tarife Cetveli'nin eşya tanımlarında arar (15.717 kod, Karar 10781 · RG 30.12.2025). İpucu: resmî tanımlar teknik dille yazılır; "buzdolabı" bulamazsan "soğutucu" dene.</div>
       <div id="adAraSonuc" style="margin-top:8px"></div>
     </div>
   </div>
 
   <div style="margin-top:12px">
-    <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Nereden alıyorsun? — <b style="color:var(--ink)">bilmiyorsan boş bırak</b>, sana oran aralığını gösteririz. Ülkeyi seçersen kesin oranı buluruz.</label>
+    <label style="display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px">📍 Nereden alıyorsun? <b style="color:var(--ink)">Bilmiyorsan boş bırak</b>, sana oran aralığını gösteririz. Ülkeyi seçersen kesin oranı buluruz.</label>
     <select id="ulkeGrup" onchange="sorgula()" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17;color:var(--ink);font-size:14.5px;font-family:inherit">
-      <option value="">Bilmiyorum — hepsini göster (en kolayı)</option>
-      <option value="abSta">🇪🇺 AB, İngiltere, EFTA + serbest ticaret anlaşmalı ülkeler (İsrail, G.Kore, Sırbistan, Şili, Fas, Tunus, Mısır, Bosna, Arnavutluk, K.Makedonya…) — genelde en düşük vergi</option>
+      <option value="">Bilmiyorum, hepsini göster (en kolayı)</option>
+      <option value="abSta">🇪🇺 AB, İngiltere, EFTA + serbest ticaret anlaşmalı ülkeler (İsrail, G.Kore, Sırbistan, Şili, Fas, Tunus, Mısır, Bosna, Arnavutluk, K.Makedonya…), genelde en düşük vergi</option>
       <option value="du">🇨🇳 Çin, Japonya, Hindistan, Rusya… (anlaşması olmayan çoğu ülke)</option>
-      <option value="abd">🇺🇸 ABD — çoğu ülkeyle aynı, ama bazı üründe misilleme ek vergisi olabilir</option>
-      <option value="gyu">Gelişmekte olan ülke (GTS) — indirimli</option>
-      <option value="eagu">En az gelişmiş ülke — genelde en düşük</option>
-      <option value="otdu">Özel teşvikli ülke — indirimli</option>
+      <option value="abd">🇺🇸 ABD: çoğu ülkeyle aynı, ama bazı üründe misilleme ek vergisi olabilir</option>
+      <option value="gyu">Gelişmekte olan ülke (GTS), indirimli</option>
+      <option value="eagu">En az gelişmiş ülke (genelde en düşük)</option>
+      <option value="otdu">Özel teşvikli ülke (indirimli)</option>
       <option value="katar">Katar</option>
       <option value="bae">Birleşik Arap Emirlikleri</option>
     </select>
-    <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">💡 AB/anlaşmalı ülkelerin düşük vergisini kapmak için <b style="color:var(--muted)">menşe/dolaşım belgesi (A.TR, EUR.1) gerekir</b> — belgen yoksa gümrük en yüksek oranı uygular. <a href="bilgi.html#hap-mense-belgeleri" target="_blank">Hangi belge lazım? →</a></div>
+    <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">💡 AB/anlaşmalı ülkelerin düşük vergisini kapmak için <b style="color:var(--muted)">menşe/dolaşım belgesi (A.TR, EUR.1) gerekir</b>; belgen yoksa gümrük en yüksek oranı uygular. <a href="bilgi.html#hap-mense-belgeleri" target="_blank">Hangi belge lazım? →</a></div>
   </div>
 
   <div id="sonuc"></div>
 
-  <div class="uyari">Bu araç senin yerine o kodda <b style="color:var(--ink)">ithalatta ödeyeceğin bütün vergileri ve dikkat etmen gereken her şeyi</b> tek tek kontrol eder — gümrük vergisi, KDV, ÖTV, damping, gözetim, çevre payı ve daha fazlası. Ürünü satıyorsan <b style="color:var(--ink)">ihracat</b> tarafını da gösterir. Hepsi Ticaret Bakanlığı, GİB ve Resmî Gazete'nin <b style="color:var(--ink)">kendi resmî metinlerinden</b> okundu.
+  <div class="uyari">Bu araç senin yerine o kodda <b style="color:var(--ink)">ithalatta ödeyeceğin bütün vergileri ve dikkat etmen gereken her şeyi</b> tek tek kontrol eder: gümrük vergisi, KDV, ÖTV, damping, gözetim, çevre payı ve daha fazlası. Ürünü satıyorsan <b style="color:var(--ink)">ihracat</b> tarafını da gösterir. Hepsi Ticaret Bakanlığı, GİB ve Resmî Gazete'nin <b style="color:var(--ink)">kendi resmî metinlerinden</b> okundu.
     <details style="margin-top:8px"><summary style="cursor:pointer;color:var(--accent);font-weight:600">Tam olarak neleri kontrol ediyor? ▾</summary>
       <div style="margin-top:7px;color:var(--dim);line-height:1.6"><b style="color:var(--muted)">İthalatta:</b> gözetim · gümrük vergisi + İGV (ülkeye göre) · Tarım Payı/Toplu Konut Fonu · damping/sübvansiyona karşı vergi · KDV oranı · ÖTV · KKDF (%6 vadeli) · TRT bandrol · Tütün Fonu · Damga · GEKAP (geri kazanım) · gümrük muafiyetleri (askıya alma / nihai kullanım) · savunma sanayi · TAREKS denetimi · menşe belgesi · kıymet kıyası.<br><b style="color:var(--muted)">İhracatta:</b> KDV istisnası/iadesi · kayda bağlı ihracat · DFİF kesintisi · TEV · DİİB.</div>
     </details>
@@ -850,7 +850,7 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
@@ -863,7 +863,7 @@ document.getElementById('gtip').addEventListener('keydown',e=>{ if(e.key==='Ente
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
-    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
+    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi. Ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANISMANLIK TALEBI ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>

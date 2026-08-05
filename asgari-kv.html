@@ -57,8 +57,8 @@ details li{margin-bottom:5px}
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Asgari Kurumlar Vergisi</div>
   <h1>Asgari Kurumlar Vergisi Simülatörü</h1>
-  <p class="lead">2025'ten itibaren kurumlar, indirim ve istisnalar ne olursa olsun <b style="color:var(--ink)">ticari kâr + KKEG toplamının %10'undan az</b> kurumlar vergisi ödeyemiyor (KVK m.32/C — 7524 s.K. ile eklendi). Rakamlarını gir; tabana takılıp takılmadığını gör.
-  <span class="damga">📑 Kaynak: KVK m.32/C konsolide metni (7582/9 dahil) — 22.07.2026 okundu</span></p>
+  <p class="lead">2025'ten itibaren kurumlar, indirim ve istisnalar ne olursa olsun <b style="color:var(--ink)">ticari kâr + KKEG toplamının %10'undan az</b> kurumlar vergisi ödeyemiyor (KVK m.32/C, 7524 s.K. ile eklendi). Rakamlarını gir; tabana takılıp takılmadığını gör.
+  <span class="damga">📑 Kaynak: KVK m.32/C konsolide metni (7582/9 dahil) · 22.07.2026 okundu</span></p>
 
   <div class="kutu">
     <h2>1 · Kazanç bilgileri</h2>
@@ -68,36 +68,36 @@ details li{margin-bottom:5px}
       <div><label>KKEG TOPLAMI</label><input class="t" id="kkeg" inputmode="numeric" placeholder="ör. 500.000"></div>
     </div>
     <div class="grid2">
-      <div><label>BEYANNAMEDE HESAPLANAN KURUMLAR VERGİSİ <span class="h">(normal hesap — matrah × oran)</span></label><input class="t" id="hkv" inputmode="numeric" placeholder="ör. 1.200.000"></div>
+      <div><label>BEYANNAMEDE HESAPLANAN KURUMLAR VERGİSİ <span class="h">(normal hesap: matrah × oran)</span></label><input class="t" id="hkv" inputmode="numeric" placeholder="ör. 1.200.000"></div>
       <div><label>ASGARİDEN DÜŞÜLEBİLEN İSTİSNA/İNDİRİMLER <span class="h">(aşağıdaki listeden toplamı)</span></label><input class="t" id="dusulen" inputmode="numeric" placeholder="ör. 2.000.000 (yoksa 0)"></div>
     </div>
     <details>
       <summary>Hangi istisna/indirimler asgari matrahtan DÜŞÜLÜR? (m.32/C-2 listesi)</summary>
       <ul>
         <li>İştirak kazançları istisnası (m.5/1-a) ve emisyon primi (m.5/1-ç)</li>
-        <li>Yatırım fon/ortaklık kazanç istisnası — taşınmaz kazançları HARİÇ (m.5/1-d)</li>
+        <li>Yatırım fon/ortaklık kazanç istisnası, taşınmaz kazançları HARİÇ (m.5/1-d)</li>
         <li>Kooperatif risturnları (m.5/1-i), sat-kirala-geri al (m.5/1-j), kira sertifikası (m.5/1-k)</li>
         <li>Girişim sermayesi fonu (m.10/1-g) ve korumalı işyeri indirimi (m.10/1-h)</li>
         <li><b>21.5.2026'dan itibaren (7582/9):</b> yurt dışına mal ticareti/aracılık kazancı indirimi (m.10/1-i) ve nitelikli hizmet merkezi indirimi (m.10/1-j) ile 7412 s.K. m.6/1-a İstanbul Finans Merkezi kazanç indirimi</li>
         <li>Türk Uluslararası Gemi Sicili (4490) ve Serbest Bölge (3218) kazanç istisnaları</li>
         <li>Teknokent kazanç istisnası (4691) ile Ar-Ge ve tasarım indirimleri</li>
       </ul>
-      <div style="margin-top:8px;color:var(--amber)">Listede OLMAYANLAR asgari matrahtan düşülmez — <b>geçmiş yıl zararları</b>, <b>nakdi sermaye artışı faiz indirimi (m.10/1-ı)</b>, bağış indirimi ve diğer istisnalar tabana dahil kalır. En sık yanılınan noktalar bunlardır.</div>
+      <div style="margin-top:8px;color:var(--amber)">Listede OLMAYANLAR asgari matrahtan düşülmez: <b>geçmiş yıl zararları</b>, <b>nakdi sermaye artışı faiz indirimi (m.10/1-ı)</b>, bağış indirimi ve diğer istisnalar tabana dahil kalır. En sık yanılınan noktalar bunlardır.</div>
     </details>
   </div>
 
   <div class="kutu">
-    <h2>2 · Asgari vergiden mahsuplar <span style="font-weight:400;color:var(--dim);font-size:12px">(m.32/C-3 — varsa)</span></h2>
+    <h2>2 · Asgari vergiden mahsuplar <span style="font-weight:400;color:var(--dim);font-size:12px">(m.32/C-3, varsa)</span></h2>
     <p class="n">Hesaplanan asgari vergiden şunlar indirilir: m.32/6-7-8 indirimli oran nedeniyle alınmayan vergi (halka arz 2 puan, ihracat 5 puan, üretim 1 puan) + 2.8.2024 ÖNCESİ alınmış teşvik belgelerinin yatırıma katkısı nedeniyle 32/A gereği alınmayan vergi.</p>
     <label>MAHSUP TOPLAMI <span class="h">(yoksa 0)</span></label><input class="t" id="mahsup" inputmode="numeric" placeholder="ör. 150.000">
-    <div class="sec"><input type="checkbox" id="yeni"><span><b style="color:var(--ink)">İlk 3 hesap dönemindeyiz</b> — kurum yeni kuruldu (m.32/C-5: asgari vergi uygulanmaz; devir/bölünmeyle gelenler hariç, tebliğe bak)</span></div>
+    <div class="sec"><input type="checkbox" id="yeni"><span><b style="color:var(--ink)">İlk 3 hesap dönemindeyiz</b>: kurum yeni kuruldu (m.32/C-5: asgari vergi uygulanmaz; devir/bölünmeyle gelenler hariç, tebliğe bak)</span></div>
   </div>
 
   <button class="btn" id="hesapla">Asgari vergiye takılıyor muyum? →</button>
   <div id="sonuc"></div>
 
   <div class="uyari"><b>Bilgilendirme:</b> Bu simülatör KVK m.32/C'nin ana kurallarını birebir uygular; ancak özellikli durumlar (indirimli oran kombinasyonları, özel hesap dönemi, tebliğdeki ayrıntılar) sonucu değiştirebilir. %10 oranını Cumhurbaşkanı sıfıra kadar indirmeye veya bir katına çıkarmaya yetkilidir (m.32/C-7). Beyandan önce mali müşavirinle doğrula — bu sayfa hukuki mütalaa değildir.</div>
-  <div class="dip">Kaynak: KVK (5520 s.K.) m.32/C (Ek: 28.7.2024-7524/36; değişik bent: 21.5.2026-7582/9) — mevzuat.gov.tr konsolide metninden 22.07.2026'da okunmuştur. Geçici vergi dönemlerinde de uygulanır (m.32/C-4).</div>
+  <div class="dip">Kaynak: KVK (5520 s.K.) m.32/C (Ek: 28.7.2024-7524/36; değişik bent: 21.5.2026-7582/9); mevzuat.gov.tr konsolide metninden 22.07.2026'da okunmuştur. Geçici vergi dönemlerinde de uygulanır (m.32/C-4).</div>
 </div>
 
 <script>
@@ -147,7 +147,7 @@ $('#hesapla').addEventListener('click',()=>{
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi (asgari-kv)',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
@@ -160,7 +160,7 @@ $('#hesapla').addEventListener('click',()=>{
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
-    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
+    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi. Ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANISMANLIK TALEBI ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>

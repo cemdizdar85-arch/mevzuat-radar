@@ -61,7 +61,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Marka Radarı</div>
   <h1>Marka Yenileme Radarı — markan ne zaman düşüyor?</h1>
-  <p class="lead">Tescilli markanın koruması <b>başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b>düşer</b> — ve düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b>son 6 ay</b>; kaçarsan <b>6 ay ek süre (ek ücretle)</b>. Markanın bitiş tarihini ve şu anki durumunu gör; unutmamak için takibe al.</p>
+  <p class="lead">Tescilli markanın koruması <b>başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b>düşer</b>; düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b>son 6 ay</b>; kaçarsan <b>6 ay ek süre (ek ücretle)</b>. Markanın bitiş tarihini ve şu anki durumunu gör; unutmamak için takibe al.</p>
 
   <div class="form">
     <div class="satirlar">
@@ -72,14 +72,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <div>
         <label>BAŞVURU TARİHİ</label>
         <input class="gir" id="tarih" type="date">
-        <div class="ipucu">Tescil belgende yazılı <b>başvuru</b> tarihi (koruma buradan başlar — SMK m.23). Bilmiyorsan <a href="https://www.turkpatent.gov.tr/arastirma-yap" target="_blank">TÜRKPATENT'ten sorgula</a>.</div>
+        <div class="ipucu">Tescil belgende yazılı <b>başvuru</b> tarihi (koruma buradan başlar, SMK m.23). Bilmiyorsan <a href="https://www.turkpatent.gov.tr/arastirma-yap" target="_blank">TÜRKPATENT'ten sorgula</a>.</div>
       </div>
     </div>
     <div class="satirlar">
-      <div><label>MARKA TESCİL / BAŞVURU NO <span style="color:var(--dim);font-weight:500;text-transform:none">— varsa (en kesin)</span></label>
+      <div><label>MARKA TESCİL / BAŞVURU NO <span style="color:var(--dim);font-weight:500;text-transform:none">varsa (en kesin)</span></label>
         <input class="gir" id="no" placeholder="ör. 2016/12345">
-        <div class="ipucu">Numaran varsa yaz — Faz B'de TÜRKPATENT'ten adı, sınıfı, tarihi <b>otomatik</b> bulup doğrularız.</div></div>
-      <div><label>NICE SINIF(LAR)I <span style="color:var(--dim);font-weight:500;text-transform:none">— opsiyonel</span></label>
+        <div class="ipucu">Numaran varsa yaz: Faz B'de TÜRKPATENT'ten adı, sınıfı, tarihi <b>otomatik</b> bulup doğrularız.</div></div>
+      <div><label>NICE SINIF(LAR)I <span style="color:var(--dim);font-weight:500;text-transform:none">opsiyonel</span></label>
         <input class="gir" id="sinif" placeholder="ör. 12, 35"></div>
     </div>
     <button class="btn" onclick="hesapla()">📅 Bitiş tarihini hesapla</button>
@@ -90,7 +90,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div class="kutu" style="border-color:rgba(255,194,75,.3)">
     <h3>❓ Markan yok ya da emin değil misin?</h3>
-    <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">Firma adın, ürün/hizmet adın veya logon <b>TÜRKPATENT'te tescilli değilse</b>, başkası aynısını tescil ettirip <b>seni kendi markanda durdurabilir</b> — Türkiye'de kural: <b>ilk başvuran hak sahibi</b> (SMK m.6). Emin değilsen sana ait tescilli marka var mı kontrol edelim; korumasızsan tescil için yönlendirelim.</div>
+    <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:11px">Firma adın, ürün/hizmet adın veya logon <b>TÜRKPATENT'te tescilli değilse</b>, başkası aynısını tescil ettirip <b>seni kendi markanda durdurabilir</b>. Türkiye'de kural: <b>ilk başvuran hak sahibi</b> (SMK m.6). Emin değilsen sana ait tescilli marka var mı kontrol edelim; korumasızsan tescil için yönlendirelim.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="kmail" type="email" placeholder="ornek@firma.com" style="flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-family:inherit;font-size:14px"><button class="btn k" onclick="koruma()">Kontrol et / koru</button></div>
     <div id="korumaOut" style="font-size:12.5px;color:var(--muted);margin-top:9px"></div>
   </div>
@@ -98,31 +98,31 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="kutu">
     <h3>⚖️ Kanun ne diyor? (SMK 6769)</h3>
     <div class="h"><span class="no">m.23</span><div><b>Koruma süresi başvuru tarihinden 10 yıl</b>, onar yıllık dönemlerle yenilenir. Yenileme talebi bitişten önceki <b>6 ay</b> içinde; kaçarsan bitişten sonra <b>6 ay ek süre + ek ücret</b>.</div></div>
-    <div class="h"><span class="no">m.26</span><div>Süre dolar ve yenilenmezse marka <b>iptal/hükümsüz</b> olur — sicilden düşer.</div></div>
+    <div class="h"><span class="no">m.26</span><div>Süre dolar ve yenilenmezse marka <b>iptal/hükümsüz</b> olur, sicilden düşer.</div></div>
     <div class="h"><span class="no">m.6/8</span><div>Marka düştükten sonra <b>2 yıl</b> içinde başkası benzerini tescil ettirmek isteyebilir; yenilememek hak kaybıdır.</div></div>
   </div>
 
   <div class="uyari"><b>Bilgilendirme amaçlıdır.</b> Kesin tarih ve ücretler için <b>marka vekili</b> veya TÜRKPATENT sicil kaydı esastır. Bu araç başvuru tarihi + 10 yıl üzerinden tahmini gösterir; kısmi yenileme, ortak marka gibi özel haller değişebilir.</div>
   <div style="background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.32);border-radius:12px;padding:13px 15px;margin:16px 0;font-size:13px;color:#93a1b3;line-height:1.6">
-    <b style="color:#ffc24b">⚠️ Önce şunu bil — ÜLKESELLİK İLKESİ:</b> Türkiye'de tescilli markan <b style="color:#eef2f7">YALNIZCA Türkiye'de</b> korunur. Başka ülkede korunması için o ülkede ayrıca tescil gerekir. "TÜRKPATENT'e tescilledim, tüm dünyada korunuyorum" doğru değildir.
+    <b style="color:#ffc24b">⚠️ Önce şunu bil (ÜLKESELLİK İLKESİ):</b> Türkiye'de tescilli markan <b style="color:#eef2f7">YALNIZCA Türkiye'de</b> korunur. Başka ülkede korunması için o ülkede ayrıca tescil gerekir. "TÜRKPATENT'e tescilledim, tüm dünyada korunuyorum" doğru değildir.
   </div>
   <details style="background:#0d141e;border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
-    <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🌍 Markanı yurt dışında nasıl korursun — yollar + BİZİM ROLÜMÜZ (net)</summary>
+    <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">🌍 Markanı yurt dışında nasıl korursun: yollar + BİZİM ROLÜMÜZ (net)</summary>
     <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
       <p style="margin:8px 0"><b style="color:#eef2f7">1) Madrid Protokolü (en pratik):</b> Türkiye 1/1/1999'dan beri taraf. TÜRKPATENT aracılığıyla <b>tek başvuruyla</b> Madrid'e taraf ~130 ülkede tescil ettirebilirsin. ŞART: önce Türkiye'de (menşe ofis) tescilli ya da başvurusu yapılmış "esas marka"n olmalı. Koruma 10 yıl, yenilenebilir. Başvuru: TÜRKPATENT Madrid E-filing / MM2 formu.</p>
       <p style="margin:8px 0"><b style="color:#eef2f7">2) AB markası (EUIPO):</b> Tek tescille 27 AB üyesi ülkenin tamamında koruma. AB pazarı hedefinse en verimli yol.</p>
       <p style="margin:8px 0"><b style="color:#eef2f7">3) Ulusal tescil:</b> Madrid'e taraf olmayan ya da tek ülke hedeflediğin durumda, doğrudan o ülkenin marka ofisine (genelde yerel vekille) başvuru.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">4) Rüçhan hakkı (Paris Sözleşmesi):</b> Türkiye'deki başvuru tarihinden itibaren <b>6 ay</b> içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır — bu süreyi kaçırma.</p>
+      <p style="margin:8px 0"><b style="color:#eef2f7">4) Rüçhan hakkı (Paris Sözleşmesi):</b> Türkiye'deki başvuru tarihinden itibaren <b>6 ay</b> içinde yurt dışına başvurursan, Türkiye'deki başvuru tarihin esas alınır. Bu süreyi kaçırma.</p>
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0">
-      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Bizim yapabildiğimiz:</b> Hangi yol sana uygun, şartlar, süreler ve maliyet mantığı — bilgilendirme ve doğru kapıya yönlendirme.</p>
-      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında arat — kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
+      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Bizim yapabildiğimiz:</b> Hangi yol sana uygun, şartlar, süreler ve maliyet mantığı: bilgilendirme ve doğru kapıya yönlendirme.</p>
+      <p style="margin:8px 0"><b style="color:#3ddc97">✅ Yurt dışı marka ARAMA (şimdi, ücretsiz):</b> Markanı resmî uluslararası veritabanlarında arat; kim benzerini tescil etmiş, hangi ülkede kayıtlı, gör:</p>
       <div style="margin:6px 0 10px">
         <input type="text" id="ydMarka" placeholder="Markanı yaz (ör. NIVEA)" style="width:190px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#0a0f17;color:#eef2f7;font-size:14px;vertical-align:middle">
         <button onclick="var m=(document.getElementById('ydMarka').value||'').trim();if(!m){alert('Önce markanı yaz');return}navigator.clipboard&&navigator.clipboard.writeText(m);window.open('https://branddb.wipo.int/en/similarname','_blank','noopener')" title="Markan panoya kopyalanır; WIPO arama kutusuna yapıştır" style="padding:8px 14px;border:none;border-radius:8px;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">WIPO Global Brand DB ↗</button>
         <button onclick="var m=encodeURIComponent((document.getElementById('ydMarka').value||'').trim());if(!m){alert('Önce markanı yaz');return}window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m,'_blank','noopener')" style="padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:#0a0f17;color:#eef2f7;font-weight:700;font-size:13px;cursor:pointer;vertical-align:middle">EUIPO TMview ↗</button>
       </div>
-      <p style="margin:8px 0"><b style="color:#ffc24b">⚠️ Yurt dışı OTOMATİK TAKİP — henüz YOK (dürüst):</b> "Her gün tarayıp benzer başvuru/yenileme uyarısı gönderme" için WIPO/EUIPO'nun <b>resmî açık-veri API kaydı</b> ya da ücretli veri servisi gerekir. Bu veritabanları manuel aramaya açık ama sağlam otomasyon için resmî erişim şart — <b>belgesiz kaynağı scraping'le "otomatik takip" diye satmayız.</b> Sistemimizde şu an <b>otomatik takip yalnızca yurt içidir (TÜRKPATENT).</b> Talep gelirse EUIPO açık-veri erişimiyle gerçek yurt dışı takibini kurarız.</p>
-      <p style="margin:8px 0"><b style="color:#ff6b5e">❌ Bizim YAPAMADIĞIMIZ:</b> Tescil başvurusunu senin adına biz yapamayız — marka vekili / hukuki temsil değiliz. Başvuru için TÜRKPATENT Madrid E-filing'i kullan ya da bir marka vekiliyle çalış.</p>
+      <p style="margin:8px 0"><b style="color:#ffc24b">⚠️ Yurt dışı OTOMATİK TAKİP henüz YOK (dürüst):</b> "Her gün tarayıp benzer başvuru/yenileme uyarısı gönderme" için WIPO/EUIPO'nun <b>resmî açık-veri API kaydı</b> ya da ücretli veri servisi gerekir. Bu veritabanları manuel aramaya açık ama sağlam otomasyon için resmî erişim şart. <b>Belgesiz kaynağı scraping'le "otomatik takip" diye satmayız.</b> Sistemimizde şu an <b>otomatik takip yalnızca yurt içidir (TÜRKPATENT).</b> Talep gelirse EUIPO açık-veri erişimiyle gerçek yurt dışı takibini kurarız.</p>
+      <p style="margin:8px 0"><b style="color:#ff6b5e">❌ Bizim YAPAMADIĞIMIZ:</b> Tescil başvurusunu senin adına biz yapamayız, çünkü marka vekili / hukuki temsil değiliz. Başvuru için TÜRKPATENT Madrid E-filing'i kullan ya da bir marka vekiliyle çalış.</p>
       <p style="color:#5d6b7c;font-size:11.5px;margin-top:10px">Kaynak: TÜRKPATENT (Madrid Protokolü, taraf 01.01.1999; ~130 ülke) · WIPO Madrid System / Global Brand Database · EUIPO / TMview. Kesin işlem için marka vekiline danış.</p>
     </div>
   </details>
@@ -130,13 +130,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <details style="background:#0d141e;border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:0 15px;margin:16px 0">
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:#ffc24b">⚖️ Markan taklit edilirse / hükümsüzlük / kendi markan reddedilirse (SMK madde madde)</summary>
     <div style="font-size:13px;color:#93a1b3;line-height:1.65;padding-bottom:14px">
-      <p style="margin:8px 0"><b style="color:#ff6b5e">m.30 — Taklit CEZASI:</b> Markanı iktibas/iltibas (aynısını ya da ayırt edilemeyecek benzerini) kullanıp mal üreten/satan/ithal-ihraç eden kişi <b>1 yıldan 3 yıla kadar HAPİS + 20.000 güne kadar adli para</b> cezasıyla cezalandırılır. <b>ŞART: markanın Türkiye'de TESCİLLİ olması</b> (m.30/5) — tescilsiz markada bu ceza yok. Suç şikâyete bağlıdır.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.29 — Tecavüz sayılan fiiller:</b> İzinsiz kullanım (m.7), ayırt edilemeyecek benzerini kullanarak taklit, taklit ürünü satma/dağıtma/ithal/ihraç/ticari amaçla bulundurma, lisans haklarını izinsiz genişletme.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.149-159 — Hukuk davası:</b> Ceza dışında; tecavüzün <b>tespiti, durdurulması (men), önlenmesi</b> + <b>maddi-manevi + itibar tazminatı</b> + taklit ürünlere el konulması istenebilir.</p>
-      <p style="margin:8px 0"><b style="color:#ffc24b">m.25 — Hükümsüzlük + 5 yıl SESSİZ KALMA:</b> Başkasının markası seninkine benziyorsa mahkemeden hükümsüzlüğünü isteyebilirsin; AMA sonraki tarihli markanın kullanıldığını bildiğin/bilmen gerektiği hâlde <b>5 yıl ses çıkarmazsan hükümsüzlük hakkını kaybedersin</b> (sessiz kalma). Erken hareket et.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.5 — Mutlak ret (kendi markan):</b> Markan ayırt edici değilse, malı/hizmeti doğrudan tanımlıyorsa (ör. "ekmek" için EKMEK), herkesçe kullanılan bir işaretse ya da kötü niyetliyse TÜRKPATENT <b>resen reddeder</b>. Başvurudan önce kontrol et.</p>
-      <p style="margin:8px 0"><b style="color:#eef2f7">m.20 — Karara itiraz (YİDK):</b> TÜRKPATENT'in ret/kabul kararına, tebliğden itibaren <b>2 ay</b> içinde Yeniden İnceleme ve Değerlendirme Kurulu'na (YİDK) itiraz edebilirsin.</p>
-      <p style="color:#5d6b7c;font-size:11.5px;margin-top:10px">Kaynak: 6769 SMK — m.5/20/25/29/30 + m.149-159; birincil metinden okundu. Kesin işlem için marka vekili/avukatına danış.</p>
+      <p style="margin:8px 0"><b style="color:#ff6b5e">m.30 · Taklit CEZASI:</b> Markanı iktibas/iltibas (aynısını ya da ayırt edilemeyecek benzerini) kullanıp mal üreten/satan/ithal-ihraç eden kişi <b>1 yıldan 3 yıla kadar HAPİS + 20.000 güne kadar adli para</b> cezasıyla cezalandırılır. <b>ŞART: markanın Türkiye'de TESCİLLİ olması</b> (m.30/5); tescilsiz markada bu ceza yok. Suç şikâyete bağlıdır.</p>
+      <p style="margin:8px 0"><b style="color:#eef2f7">m.29 · Tecavüz sayılan fiiller:</b> İzinsiz kullanım (m.7), ayırt edilemeyecek benzerini kullanarak taklit, taklit ürünü satma/dağıtma/ithal/ihraç/ticari amaçla bulundurma, lisans haklarını izinsiz genişletme.</p>
+      <p style="margin:8px 0"><b style="color:#eef2f7">m.149-159 · Hukuk davası:</b> Ceza dışında; tecavüzün <b>tespiti, durdurulması (men), önlenmesi</b> + <b>maddi-manevi + itibar tazminatı</b> + taklit ürünlere el konulması istenebilir.</p>
+      <p style="margin:8px 0"><b style="color:#ffc24b">m.25 · Hükümsüzlük + 5 yıl SESSİZ KALMA:</b> Başkasının markası seninkine benziyorsa mahkemeden hükümsüzlüğünü isteyebilirsin; AMA sonraki tarihli markanın kullanıldığını bildiğin/bilmen gerektiği hâlde <b>5 yıl ses çıkarmazsan hükümsüzlük hakkını kaybedersin</b> (sessiz kalma). Erken hareket et.</p>
+      <p style="margin:8px 0"><b style="color:#eef2f7">m.5 · Mutlak ret (kendi markan):</b> Markan ayırt edici değilse, malı/hizmeti doğrudan tanımlıyorsa (ör. "ekmek" için EKMEK), herkesçe kullanılan bir işaretse ya da kötü niyetliyse TÜRKPATENT <b>resen reddeder</b>. Başvurudan önce kontrol et.</p>
+      <p style="margin:8px 0"><b style="color:#eef2f7">m.20 · Karara itiraz (YİDK):</b> TÜRKPATENT'in ret/kabul kararına, tebliğden itibaren <b>2 ay</b> içinde Yeniden İnceleme ve Değerlendirme Kurulu'na (YİDK) itiraz edebilirsin.</p>
+      <p style="color:#5d6b7c;font-size:11.5px;margin-top:10px">Kaynak: 6769 SMK m.5/20/25/29/30 + m.149-159; birincil metinden okundu. Kesin işlem için marka vekili/avukatına danış.</p>
     </div>
   </details>
 
@@ -174,8 +174,8 @@ function hesapla(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('mark
 
   let durum,ozetT,mesaj,zaman;
   if(gecti){ ozetT='dikkat';
-    durum='ℹ️ İlk koruma süresi dolmuş — durum yenilemeye bağlı';
-    mesaj=`İlk 10 yıllık koruma <b>${fmt(ilkBitis)}</b> tarihinde doldu. <b>Yenilediysen:</b> bir sonraki yenileme penceresi <b>${fmt(gercekAcilis)}</b> (bitiş ${fmt(gercekBitis)}) — o tarihte hatırlatırız. <b>Yenilemediysen:</b> marka düşmüş olabilir (m.26); sicili marka vekiliyle teyit et. Araç yenileyip yenilemediğini bilemez.`;
+    durum='ℹ️ İlk koruma süresi dolmuş; durum yenilemeye bağlı';
+    mesaj=`İlk 10 yıllık koruma <b>${fmt(ilkBitis)}</b> tarihinde doldu. <b>Yenilediysen:</b> bir sonraki yenileme penceresi <b>${fmt(gercekAcilis)}</b> (bitiş ${fmt(gercekBitis)}), o tarihte hatırlatırız. <b>Yenilemediysen:</b> marka düşmüş olabilir (m.26); sicili marka vekiliyle teyit et. Araç yenileyip yenilemediğini bilemez.`;
     zaman=`<div class="zaman"><i class="g" style="flex:70"></i><i class="a" style="flex:20"></i><i class="r" style="flex:10"></i></div>`;
   } else if(bugun<gercekAcilis){ ozetT='iyi';
     const kalan=gun(gercekAcilis,bugun);
@@ -183,11 +183,11 @@ function hesapla(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('mark
     zaman=`<div class="zaman"><i class="g" style="flex:75"></i><i class="a" style="flex:15"></i><i class="r" style="flex:10"></i></div>`;
   } else if(bugun<gercekBitis){ ozetT='dikkat';
     const kalan=gun(gercekBitis,bugun);
-    durum='⚠️ Yenileme penceresi AÇIK'; mesaj=`Şimdi <b>normal ücretle</b> yenilenebilir. Son gün <b>${fmt(gercekBitis)}</b> — sadece <b>${kalan} gün</b> kaldı. Kaçırma!`;
+    durum='⚠️ Yenileme penceresi AÇIK'; mesaj=`Şimdi <b>normal ücretle</b> yenilenebilir. Son gün <b>${fmt(gercekBitis)}</b>, sadece <b>${kalan} gün</b> kaldı. Kaçırma!`;
     zaman=`<div class="zaman"><i class="a" style="flex:60"></i><i class="r" style="flex:40"></i></div>`;
   } else { ozetT='tehlike';
     const kalan=gun(gercekEk,bugun);
-    durum='🔴 EK SÜREDE (ek ücretli)'; mesaj=`Normal süre doldu. <b>${fmt(gercekEk)}</b> tarihine kadar <b>EK ÜCRETLE</b> hâlâ yenilenebilir — son <b>${kalan} gün</b>. Bugün marka vekiline koş, yoksa marka düşer.`;
+    durum='🔴 EK SÜREDE (ek ücretli)'; mesaj=`Normal süre doldu. <b>${fmt(gercekEk)}</b> tarihine kadar <b>EK ÜCRETLE</b> hâlâ yenilenebilir; son <b>${kalan} gün</b>. Bugün marka vekiline koş, yoksa marka düşer.`;
     zaman=`<div class="zaman"><i class="r" style="flex:100"></i></div>`;
   }
 
@@ -240,7 +240,7 @@ function takip(){
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>

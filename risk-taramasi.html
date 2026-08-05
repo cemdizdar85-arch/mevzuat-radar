@@ -77,14 +77,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <p class="lead">Gümrük beyannameni vermeden <b style="color:var(--ink)">ÖNCE</b> tara. Ticaret Bakanlığı beyanları risk analiziyle ve yapay zekâyla tarıyor; yakalanan farkın cezası <b style="color:var(--red)">farkın 3 katı</b> olabilir (4458 m.234). <b style="color:var(--ink)">Sen de kendi tarafında tara</b> — 6 soruya cevap ver, cezaya açık noktalarını gör.</p>
 
   <div class="blok">
-    <div class="bas">📄 BEYANNAMENİ YÜKLE — kutuları elle doldurma, biz okuyalım</div>
+    <div class="bas">📄 BEYANNAMENİ YÜKLE: kutuları elle doldurma, biz okuyalım</div>
     <label class="yukle" id="yukleKutu">
       <div class="ikon">📄</div>
       <div class="bas2">Beyanname PDF'ini sürükle ya da seç</div>
-      <div class="alt">Metin PDF'i <b style="color:var(--muted)">tarayıcının içinde</b> okunur — GTİP, menşe ve kıymet otomatik dolar.<br>Fotoğraf/taranmış belge için okuma yapay zekâ onayına tabidir.</div>
+      <div class="alt">Metin PDF'i <b style="color:var(--muted)">tarayıcının içinde</b> okunur; GTİP, menşe ve kıymet otomatik dolar.<br>Fotoğraf/taranmış belge için okuma yapay zekâ onayına tabidir.</div>
       <input type="file" id="dosya" accept=".pdf,image/*">
     </label>
-    <div style="text-align:center"><span class="gizli-rozet">🔒 Metin PDF'in bilgisayarından çıkmaz — tarayıcıda okunur</span></div>
+    <div style="text-align:center"><span class="gizli-rozet">🔒 Metin PDF'in bilgisayarından çıkmaz, tarayıcıda okunur</span></div>
     <div class="oku-durum" id="okuDurum"></div>
   </div>
 
@@ -112,8 +112,8 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <div class="blok">
     <div class="bas">3 · MENŞE / DOLAŞIM BELGEN</div>
     <div class="sec">
-      <label><input type="radio" name="belge" value="atr"><span><b>A.TR dolaşım belgem var</b> — AB'den serbest dolaşımdaki eşya</span></label>
-      <label><input type="radio" name="belge" value="eur1"><span><b>EUR.1 / EUR-MED / menşe beyanı var</b> — STA ülkesi menşe ispatı</span></label>
+      <label><input type="radio" name="belge" value="atr"><span><b>A.TR dolaşım belgem var</b>: AB'den serbest dolaşımdaki eşya</span></label>
+      <label><input type="radio" name="belge" value="eur1"><span><b>EUR.1 / EUR-MED / menşe beyanı var</b>: STA ülkesi menşe ispatı</span></label>
       <label><input type="radio" name="belge" value="yok" checked><span><b>Belgem yok ya da emin değilim</b></span></label>
     </div>
   </div>
@@ -121,23 +121,23 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-w
   <div class="blok">
     <div class="bas">4 · ÖDEME ŞEKLİ</div>
     <div class="sec">
-      <label><input type="radio" name="odeme" value="pesin" checked><span><b>Peşin / akreditif</b> — mal gelmeden ya da gelirken bedel transfer ediliyor</span></label>
-      <label><input type="radio" name="odeme" value="vadeli"><span><b>Vadeli</b> — mal mukabili / kabul kredili (bedel malın gelişinden sonra ödenecek)</span></label>
+      <label><input type="radio" name="odeme" value="pesin" checked><span><b>Peşin / akreditif</b> (mal gelmeden ya da gelirken bedel transfer ediliyor)</span></label>
+      <label><input type="radio" name="odeme" value="vadeli"><span><b>Vadeli</b>, yani mal mukabili / kabul kredili (bedel malın gelişinden sonra ödenecek)</span></label>
     </div>
   </div>
 
   <div class="blok">
-    <div class="bas">5 · KIYMET UNSURLARI — işaretle (birden çok olabilir)</div>
+    <div class="bas">5 · KIYMET UNSURLARI: işaretle (birden çok olabilir)</div>
     <div class="sec">
-      <label><input type="checkbox" id="k_royalti"><span><b>Royalti / lisans ödemesi var</b> — bu mal için markaya/lisansöre ayrıca ödeme yapıyorum</span></label>
-      <label><input type="checkbox" id="k_farki"><span><b>Sonradan fiyat farkı gelebilir</b> — debit note, yıl sonu fiyat ayarlaması, transfer fiyatı düzeltmesi</span></label>
-      <label><input type="checkbox" id="k_navlun"><span><b>Navlun/sigortanın matraha girdiğinden emin değilim</b> — FOB aldım, taşıma ayrı faturada</span></label>
-      <label><input type="checkbox" id="k_iliskili"><span><b>İlişkili şirketten alıyorum</b> — satıcıyla ortaklık/grup bağı var</span></label>
+      <label><input type="checkbox" id="k_royalti"><span><b>Royalti / lisans ödemesi var</b>: bu mal için markaya/lisansöre ayrıca ödeme yapıyorum</span></label>
+      <label><input type="checkbox" id="k_farki"><span><b>Sonradan fiyat farkı gelebilir</b>: debit note, yıl sonu fiyat ayarlaması, transfer fiyatı düzeltmesi</span></label>
+      <label><input type="checkbox" id="k_navlun"><span><b>Navlun/sigortanın matraha girdiğinden emin değilim</b> (FOB aldım, taşıma ayrı faturada)</span></label>
+      <label><input type="checkbox" id="k_iliskili"><span><b>İlişkili şirketten alıyorum</b> (satıcıyla ortaklık/grup bağı var)</span></label>
     </div>
   </div>
 
   <div class="blok">
-    <div class="bas">6 · BİRİM KIYMET (isteğe bağlı — gözetim kıyası için)</div>
+    <div class="bas">6 · BİRİM KIYMET (isteğe bağlı, gözetim kıyası için)</div>
     <input type="text" id="birimKiymet" placeholder="ör. 550 (birim fiyatın — USD, gözetim eşiğinin birimiyle aynı olsun)" inputmode="numeric" autocomplete="off">
     <div style="margin-top:7px;font-size:11.5px;color:var(--dim)">Bu kodda gözetim eşiği varsa, senin birim fiyatınla kıyaslarız. Boş bırakırsan sadece eşiği gösteririz.</div>
   </div>
@@ -486,7 +486,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk'))
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
@@ -499,7 +499,7 @@ function tara(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('risk'))
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
-    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
+    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi. Ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANISMANLIK TALEBI ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>

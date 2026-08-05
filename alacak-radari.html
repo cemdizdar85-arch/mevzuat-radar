@@ -91,11 +91,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
 
-  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b> — mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır — <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
+  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b>, yani mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır; <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
 
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
-  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">— canlı; robot her gün yeniler</span></h2>
+  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı; robot her gün yeniler</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
   <div id="aiListe"></div>
   <script>
@@ -119,16 +119,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div class="kutu">
     <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
-    <label>Müşteri / borçlu listeni yükle — muhasebe programından tek tuşla Excel al</label>
+    <label>Müşteri / borçlu listeni yükle (muhasebe programından tek tuşla Excel al)</label>
     <label class="yukle" id="yukleKutu">
       <div class="ikon">📄</div>
       <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
-      <div class="alt">Cari listeni (VKN'li) yükle — <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
+      <div class="alt">Cari listeni (VKN'li) yükle; <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
       <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
     </label>
     <div class="yukle-durum" id="yukleDurum"></div>
     <div class="ayrac">ya da elle yaz</div>
-    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) — her satıra bir tane. Firma adıyla da arayabilirsin.</label>
+    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz, her satıra bir tane. Firma adıyla da arayabilirsin.</label>
     <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
     <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
     <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni yükle ya da yaz.</div>
@@ -139,21 +139,21 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h2>Nasıl çalışır</h2>
   <div class="nasil">
     <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
-    <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir — aynı isimli firma karışıklığı olmaz.</div></div>
+    <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir. Aynı isimli firma karışıklığı olmaz.</div></div>
     <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti — İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakereye giremezsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
   </div>
 
   <h2>Alacaklı olarak İİK'da hakların ve sürelerin</h2>
   <details style="background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:10px 0" open>
-    <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:var(--accent2)">⚖️ Müşterin konkordato/iflas ilan etti — madde madde ne yapabilirsin</summary>
+    <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:var(--accent2)">⚖️ Müşterin konkordato/iflas ilan etti: madde madde ne yapabilirsin</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
-      <p style="margin:8px 0"><b style="color:var(--ink)">m.299 — 15 gün:</b> İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Kaçırırsan müzakereye giremez, oy kullanamazsın.</p>
-      <p style="margin:8px 0"><b style="color:var(--ink)">m.294 — Mühlette takip DURUR:</b> Kesin mühlet içinde borçluya karşı (amme/6183 dahil) takip yapamazsın, başlamış takipler durur, ihtiyati haciz uygulanmaz, rehinsiz alacağa faiz işlemez. İYİ HABER: bu sürede zamanaşımı ve hak düşürücü süreler de İŞLEMEZ — alacağın erimez. (İşçi vb. imtiyazlı alacaklar haciz yapabilir.)</p>
-      <p style="margin:8px 0"><b style="color:var(--green)">m.303 — KEFİLE gidebilirsin (en değerlisi):</b> Konkordatoya KARŞI çıkan alacaklı, borçtan birlikte sorumlu olanlara (kefil, müteselsil borçlu, ciranta) karşı TÜM haklarını korur. Yani borçlu konkordatoyla borcunu indirse bile, kefil/ortak borçludan alacağının tamamını isteyebilirsin. Tahsil için asıl yolun bu olabilir.</p>
-      <p style="margin:8px 0"><b style="color:var(--ink)">m.302 — Oyunu kullan:</b> Konkordato projesi; kaydedilmiş alacaklıların YARISI + alacakların YARISI, VEYA alacaklıların DÖRTTE BİRİ + alacakların ÜÇTE İKİSİ çoğunlukla kabul edilir. Projeden etkilenen alacaklı olarak toplantıda oy ver — nisabı sen belirlersin.</p>
-      <p style="margin:8px 0"><b style="color:var(--ink)">m.305-306 — Tasdik bağlar:</b> Mahkeme konkordatoyu tasdik ederse proje (vade/indirim) İTİRAZ ETMEYEN dahil tüm alacaklıları bağlar. O yüzden m.299 kaydı + m.302 oyu önemli.</p>
-      <p style="margin:8px 0"><b style="color:var(--amber)">m.308 — Çökerse iflas:</b> Konkordato tasdik edilmez ya da feshedilirse borçlunun iflasına karar verilir → alacağını İFLAS MASASINA kaydettir (iflasın ilanı m.219). Borçlu tasdikli konkordatoya uymazsa m.308/e ile feshini isteyebilirsin.</p>
-      <p style="color:var(--dim);font-size:11.5px;margin-top:10px">Kaynak: 2004 s. İİK — m.294/299/302/303/305/306/308 (28/2/2018-7101 ile güncel); birincil metinden okundu. Kesin işlem için avukatına danış.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.299 · 15 gün:</b> İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Kaçırırsan müzakereye giremez, oy kullanamazsın.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.294 · Mühlette takip DURUR:</b> Kesin mühlet içinde borçluya karşı (amme/6183 dahil) takip yapamazsın, başlamış takipler durur, ihtiyati haciz uygulanmaz, rehinsiz alacağa faiz işlemez. İYİ HABER: bu sürede zamanaşımı ve hak düşürücü süreler de İŞLEMEZ, alacağın erimez. (İşçi vb. imtiyazlı alacaklar haciz yapabilir.)</p>
+      <p style="margin:8px 0"><b style="color:var(--green)">m.303 · KEFİLE gidebilirsin (en değerlisi):</b> Konkordatoya KARŞI çıkan alacaklı, borçtan birlikte sorumlu olanlara (kefil, müteselsil borçlu, ciranta) karşı TÜM haklarını korur. Yani borçlu konkordatoyla borcunu indirse bile, kefil/ortak borçludan alacağının tamamını isteyebilirsin. Tahsil için asıl yolun bu olabilir.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.302 · Oyunu kullan:</b> Konkordato projesi; kaydedilmiş alacaklıların YARISI + alacakların YARISI, VEYA alacaklıların DÖRTTE BİRİ + alacakların ÜÇTE İKİSİ çoğunlukla kabul edilir. Projeden etkilenen alacaklı olarak toplantıda oy ver; nisabı sen belirlersin.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.305-306 · Tasdik bağlar:</b> Mahkeme konkordatoyu tasdik ederse proje (vade/indirim) İTİRAZ ETMEYEN dahil tüm alacaklıları bağlar. O yüzden m.299 kaydı + m.302 oyu önemli.</p>
+      <p style="margin:8px 0"><b style="color:var(--amber)">m.308 · Çökerse iflas:</b> Konkordato tasdik edilmez ya da feshedilirse borçlunun iflasına karar verilir → alacağını İFLAS MASASINA kaydettir (iflasın ilanı m.219). Borçlu tasdikli konkordatoya uymazsa m.308/e ile feshini isteyebilirsin.</p>
+      <p style="color:var(--dim);font-size:11.5px;margin-top:10px">Kaynak: 2004 s. İİK m.294/299/302/303/305/306/308 (28/2/2018-7101 ile güncel); birincil metinden okundu. Kesin işlem için avukatına danış.</p>
     </div>
   </details>
 
@@ -333,7 +333,7 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>
@@ -346,7 +346,7 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
-    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
+    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi. Ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANISMANLIK TALEBI ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>

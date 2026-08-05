@@ -155,10 +155,10 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   <!-- 31.07 Cem (kesin karar): "guncel diyecegiz, tekrar konusmayalim" -
        robot gunde 2 cekiyor (03:13+17:13), tarih damgasi iddiayi kanitlar. -->
   <div style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.08);border-radius:14px;padding:13px 16px;margin:4px 0 14px;font-size:13.5px;line-height:1.65">
-    <b style="color:var(--ink)">Güncel ihale ilanları</b> — robot her gün yeniler, <span id="ihUstDamga">tarih damgası listede</span>.
+    <b style="color:var(--ink)">Güncel ihale ilanları</b>: robot her gün yeniler, <span id="ihUstDamga">tarih damgası listede</span>.
     <b style="color:var(--ink)">Seni ilgilendiren ihaleleri</b> (ilin + sektörün süzülmüş) görmek için
     <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:800">ücretsiz üye ol →</a><br>
-    <span style="color:var(--muted);font-size:12.5px">Panelde görmek ücretsiz üyeliğe açık; günlük tek özet mail/SMS ücretli aboneliğin parçası. Tüm ilanların eksiksiz resmî yeri <a href="https://ekapv2.kik.gov.tr" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'tır — Tetikte katalog değil, süzgeç + bildirimdir.</span>
+    <span style="color:var(--muted);font-size:12.5px">Panelde görmek ücretsiz üyeliğe açık; günlük tek özet mail/SMS ücretli aboneliğin parçası. Tüm ilanların eksiksiz resmî yeri <a href="https://ekapv2.kik.gov.tr" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'tır; Tetikte katalog değil, süzgeç + bildirimdir.</span>
   </div>
   <script>
   fetch('veri/ihale-yurtici.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
@@ -185,8 +185,8 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 
   <div class="tabs">
     <!-- 31.07 Cem: "4734 yazma nedeni ne?" - kanun no sekmede JARGON, kaldirildi (yeri sayfa ici) -->
-    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi — Türkiye ihaleleri</button>
-    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı — Avrupa ihaleleri</button>
+    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi · Türkiye ihaleleri</button>
+    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı · Avrupa ihaleleri</button>
   </div>
 
   <!-- ============ YURT İÇİ ============ -->
@@ -195,14 +195,14 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
          KONUM: tum ilanlarin eksiksiz yeri zaten EKAP - biz katalog degil
          SUZGEC + BILDIRIM satiyoruz. Bakis bedava (ornek kesit + filtre),
          nobet paralı (iline/sektorune suzulmus TAM akis + gunluk ozet mail). -->
-    <h2>Yurt içi ihaleler <span style="font-size:13px;color:var(--dim);font-weight:600">— güncel; robot her gün yeniler</span></h2>
-    <div class="belg" style="margin:2px 0 12px"><b style="color:var(--ink)">Bu liste her gün sabah-akşam otomatik yenilenir</b> — tazelik damgasını (Son çekim) üstte görürsün. Tüm ilanların eksiksiz yeri EKAP'tır; Tetikte'nin işi katalog değil <b style="color:var(--ink)">süzgeç + bildirim</b>: iline ve sektörüne uyan ilanlar <b style="color:var(--ink)">abonelere günlük tek özet mail</b> olarak gider (her ilana ayrı mail atıp boğmayız; mail-SMS bildirimi ücretli aboneliğin parçasıdır, panelde görmek ücretsiz üyeye açıktır). <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
+    <h2>Yurt içi ihaleler <span style="font-size:13px;color:var(--dim);font-weight:600">· güncel; robot her gün yeniler</span></h2>
+    <div class="belg" style="margin:2px 0 12px"><b style="color:var(--ink)">Bu liste her gün sabah-akşam otomatik yenilenir</b>; tazelik damgasını (Son çekim) üstte görürsün. Tüm ilanların eksiksiz yeri EKAP'tır; Tetikte'nin işi katalog değil <b style="color:var(--ink)">süzgeç + bildirim</b>: iline ve sektörüne uyan ilanlar <b style="color:var(--ink)">abonelere günlük tek özet mail</b> olarak gider (her ilana ayrı mail atıp boğmayız; mail-SMS bildirimi ücretli aboneliğin parçasıdır, panelde görmek ücretsiz üyeye açıktır). <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
     <div class="kutu">
       <div class="grid">
         <div><label for="yiKelime">Anahtar kelime (iş konusu)</label><input type="text" id="yiKelime" placeholder="ör. yapım, araç, yemek, temizlik" oninput="yurtIciCiz()"></div>
       </div>
       <div class="belg" id="yiKaynak">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr).</div>
-      <div class="belg" style="color:var(--amber)">⚠ Bu liste özet/yönlendirmedir — kamu ihale ilanlarının <b>asıl ve eksiksiz</b> yayın yeri <a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener">EKAP'tır (Kamu İhale Kurumu) ↗</a>. Yaklaşık maliyet, son teklif tarihi ve şartname EKAP/ilan metnindedir; teklif vermeden önce oradan teyit et.</div>
+      <div class="belg" style="color:var(--amber)">⚠ Bu liste özet/yönlendirmedir; kamu ihale ilanlarının <b>asıl ve eksiksiz</b> yayın yeri <a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener">EKAP'tır (Kamu İhale Kurumu) ↗</a>. Yaklaşık maliyet, son teklif tarihi ve şartname EKAP/ilan metnindedir; teklif vermeden önce oradan teyit et.</div>
     </div>
     <div id="yiListe"></div>
 
@@ -244,7 +244,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   <div id="paneDis" class="pane">
     <h2>Sana uygun AB ihaleleri</h2>
     <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Bana uygun ihaleleri getir →</button>
-      <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu) — robot her gün yeniler.</div>
+      <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu), robot her gün yeniler.</div>
     </div>
     <div id="sonuc"></div>
     <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
@@ -550,7 +550,7 @@ veriYukle();
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:200px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Radara katıl &rarr;</button>
     </form>
-    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı — Radar açılınca ilk sen haber alacaksın.</div>
+    <div class="mr-cta-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Kaydın alındı. Radar açılınca ilk sen haber alacaksın.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Katılınca bilgilendirme e-postası almayı kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydınlatma</a></div>
   </div>
   <script>function mrKatil(f){var e=(f.email.value||'').trim();if(!e)return false;var hp=f.querySelector('input[name=_hp]');if(hp&&hp.value){return false;}var lt=+(localStorage.getItem('mrLead')||0);if(Date.now()-lt<8000){f.style.display='none';var o2=f.parentNode.querySelector('.mr-cta-ok');if(o2)o2.style.display='block';return false;}localStorage.setItem('mrLead',Date.now());try{fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'5b227e56-94fb-4123-a39a-4286f63db14a',email:e,subject:'Radar erken erisim kaydi',from_name:'Tetikte'})});}catch(err){}f.style.display='none';var ok=f.parentNode.querySelector('.mr-cta-ok');if(ok)ok.style.display='block';return false;}</script>

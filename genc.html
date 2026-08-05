@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Genç Müşavir — 2026 SMMM sınav takvimi, geri sayım ve hazırlık | Tetikte</title>
-<meta name="description" content="2026 Staja Giriş (SGS) ve SMMM Yeterlilik sınav tarihleri — TÜRMOB resmî takviminden, geri sayımlı. Başvuru dönemleri, çıkan soru haritası ve yönetmelikten resmî kurallar.">
+<title>Genç Müşavir | 2026 SMMM sınav takvimi, geri sayım ve hazırlık | Tetikte</title>
+<meta name="description" content="2026 Staja Giriş (SGS) ve SMMM Yeterlilik sınav tarihleri: TÜRMOB resmî takviminden, geri sayımlı. Başvuru dönemleri, çıkan soru haritası ve yönetmelikten resmî kurallar.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
@@ -48,8 +48,8 @@ td b{color:var(--ink)}
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Genç Müşavir</div>
   <h1>Genç Müşavir — sınavının nöbetçisi</h1>
   <p class="lead">Staja Giriş'ten Yeterlilik'e giden yolda tarihleri biz sayalım, sen çalış. Aşağıdaki takvim <b style="color:var(--ink)">TÜRMOB'un resmî 2026 sınav takviminden</b> alınmıştır.
-  <span class="damga" id="teyitDamga">📑 Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF) — 22.07.2026'da okundu</span></p>
-  <script>fetch('veri/sinav-takvimi.json?'+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById('teyitDamga');e.innerHTML='📑 Kaynak: '+d.kaynak+' — son teyit: <b>'+d.sonTeyit+'</b> · robot her gün PDF değişikliğini yoklar'+(d.degisiklikTespiti?' · <span style=\'color:var(--amber)\'>⚠ '+d.degisiklikTespiti+' tarihinde kaynak PDF değişti, teyit sürüyor</span>':'');}).catch(()=>{});</script>
+  <span class="damga" id="teyitDamga">📑 Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF), 22.07.2026'da okundu</span></p>
+  <script>fetch('veri/sinav-takvimi.json?'+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById('teyitDamga');e.innerHTML='📑 Kaynak: '+d.kaynak+' · son teyit: <b>'+d.sonTeyit+'</b> · robot her gün PDF değişikliğini yoklar'+(d.degisiklikTespiti?' · <span style=\'color:var(--amber)\'>⚠ '+d.degisiklikTespiti+' tarihinde kaynak PDF değişti, teyit sürüyor</span>':'');}).catch(()=>{});</script>
 
   <!-- ================= IKI KAPI (29.07 Cem) ==========================
        Ana sayfada "Sinava hazirlaniyorum" diyen kisi buraya geliyordu ve
@@ -69,7 +69,7 @@ td b{color:var(--ink)}
     <a class="ik" href="deneme.html?sinav=SGS">
       <span class="ik-ust">01</span>
       <b>Staja Giriş</b>
-      <span class="ik-alt">SGS — staja başlamak için</span>
+      <span class="ik-alt">SGS · staja başlamak için</span>
       <span class="ik-gun" id="ikSgs">—</span>
       <span class="ik-not">21 Kasım 2026</span>
       <span class="ik-git">Soru çözmeye başla →</span>
@@ -77,7 +77,7 @@ td b{color:var(--ink)}
     <a class="ik" href="deneme.html?sinav=SMMM">
       <span class="ik-ust">02</span>
       <b>Staj Bitirme</b>
-      <span class="ik-alt">Yeterlilik — ruhsat için</span>
+      <span class="ik-alt">Yeterlilik · ruhsat için</span>
       <!-- 30.07 YAKALANDI: geri sayim YMM'nin tarihine (12-21 Aralik) bagliydi;
            Yeterlilik 3. donem 28 KASIM. Ogrenciye 2 hafta fazla gosteriyordu. -->
       <span class="ik-gun" id="ikYet">—</span>
@@ -160,7 +160,7 @@ td b{color:var(--ink)}
   </div>
 
   <div class="sgrp sgrp-SGS" id="kutu-sgs-takvim">
-  <h2>Staja Giriş Sınavı (SGS) — 2026</h2>
+  <h2>Staja Giriş Sınavı (SGS) 2026</h2>
   <!-- 30.07 Cem: "kutuya tarihler + en cok cikan sorular + calisilmasi
        gereken konular" - ABD study-planner desenine karsilik dosyanin
        tepesinde uc is: soru coz / plan kur / son gun rehberi. -->
@@ -175,11 +175,11 @@ td b{color:var(--ink)}
     <tr data-t="2026-07-18"><td>2. Dönem</td><td><b>18 Temmuz 2026</b></td><td>18 Mayıs – 5 Haziran 2026</td></tr>
     <tr data-t="2026-11-21"><td>3. Dönem</td><td><b>21 Kasım 2026</b></td><td>21 Eylül – 9 Ekim 2026</td></tr>
   </table></div>
-  <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Başvuru: <a href="http://ssi.tesmer.org.tr" target="_blank" rel="noopener">ssi.tesmer.org.tr</a> — belgeler "Dijital Adım" uygulamasından yüklenir; tekrar girecekler için yalnız başvuru yeterli.</div>
+  <div style="font-size:12.5px;color:var(--muted);margin-top:8px">Başvuru: <a href="http://ssi.tesmer.org.tr" target="_blank" rel="noopener">ssi.tesmer.org.tr</a>. Belgeler "Dijital Adım" uygulamasından yüklenir; tekrar girecekler için yalnız başvuru yeterli.</div>
   </div>
 
   <div class="sgrp sgrp-SMMM" id="kutu-smmm-takvim">
-  <h2>SMMM Yeterlilik Sınavı — 2026</h2>
+  <h2>SMMM Yeterlilik Sınavı 2026</h2>
   <p style="margin:2px 0 10px;display:flex;gap:18px;flex-wrap:wrap">
     <a href="deneme.html?sinav=SMMM" style="color:var(--amber);font-weight:700;text-decoration:none">📝 Soru çözmeye başla →</a>
     <a href="donem-plani.html" style="color:var(--amber);font-weight:700;text-decoration:none">🗺️ Çalışma planını kur →</a>
@@ -194,7 +194,7 @@ td b{color:var(--ink)}
   </div>
 
   <div class="sgrp sgrp-YMM">
-  <h2>YMM Sınavı — 2026</h2>
+  <h2>YMM Sınavı 2026</h2>
   <div class="tablosar"><table id="t-ymm">
     <tr><th>Dönem</th><th>Sınav tarihleri</th><th>Dosya başvuru</th><th>Tekrar başvuru</th></tr>
     <tr data-t="2026-05-02"><td>1. Dönem</td><td><b>2 – 11 Mayıs 2026</b></td><td>26 Ocak – 27 Şubat</td><td>23 Şubat – 13 Mart</td></tr>
@@ -203,11 +203,11 @@ td b{color:var(--ink)}
   </table></div>
   </div>
 
-  <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et — bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
+  <div class="uyari"><b>Tarih teyidi:</b> TÜRMOB, takvimi güncel gelişmelere göre yenileyebileceğini duyurmuştur. Başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'deki güncel duyuruyu mutlaka kontrol et; bu sayfadaki tarihler resmî PDF'in 22.07.2026 tarihli halidir.</div>
 
   <div class="sgrp sgrp-SMMM" id="kutu-smmm-harita">
   <div id="haritaY" style="display:none">
-    <h2>Yeterlilik Haritası — SMMM sınavında nereden soru çıkıyor?</h2>
+    <h2>Yeterlilik Haritası: SMMM sınavında nereden soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">SMMM Yeterlilik <b style="color:var(--ink)">2026/1'den itibaren test yöntemine geçti</b> (TESMER duyurusu). Resmî kitapçıklar ders ders, soru soru etiketleniyor (çift bağımsız okuma + hakem):</p>
     <div id="haritaYIc"></div>
     <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak kitapçıklar: TESMER resmî arşivi. Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynağa bakın.</div>
@@ -219,7 +219,7 @@ td b{color:var(--ink)}
        hakki suresi RG-24/2/2025-32823 degisikligiyle 2 YILA indi - eski
        "3 yil" bilgisi artik yanlis, cogu site hala eskisini yaziyor. -->
   <div class="sgrp sgrp-SMMM" id="kutu-smmm-kural">
-  <h2>⚠️ Yeterlilik'in resmî kuralları — yönetmelikten, madde madde</h2>
+  <h2>⚠️ Yeterlilik'in resmî kuralları: yönetmelikten, madde madde</h2>
   <div class="tablosar"><table>
     <tr><th>Kural</th><th>Resmî hüküm</th></tr>
     <tr><td><b>Geçme barajı</b></td><td>Her konudan 100 üzerinden <b>en az 50</b>; tüm konuların not ortalaması <b>en az 60</b> (m.16/b)</td></tr>
@@ -227,16 +227,16 @@ td b{color:var(--ink)}
     <tr><td><b>Sınava kabul</b></td><td>Stajı tamamlamış olmak + tezkiye notu 100 üzerinden <b>en az 80</b> (m.9, değişik 24.02.2025)</td></tr>
     <tr><td><b>Dersler</b></td><td><b>8 konu:</b> Finansal Muhasebe · Finansal Tablolar ve Analizi · Maliyet Muhasebesi · Muhasebe Denetimi · Vergi Mevzuatı · Hukuk (Ticaret/Borçlar/İş/SSK-Bağ-Kur/İdari Yargılama) · Meslek Hukuku · Sermaye Piyasası Mevzuatı (m.14/b)</td></tr>
     <tr><td><b>İlk sınav kuralı</b></td><td>İlk sınavda <b>tüm konulardan</b> başvurmak zorunlu; sonraki sınavlara istediğin (kalan) konulardan girersin (m.11)</td></tr>
-    <tr><td><b>Sınav hakkı</b></td><td>İlk sınav tarihinden itibaren <b>2 yıl</b> içinde, yılda 3 kez açılan sınavlar; <b>süre hiçbir nedenle uzatılmaz</b>. Hakkını bitiren <b>6 ay</b> sınavlara alınmaz; sonra dilersen <b>tüm konuları kapsamak üzere yeniden</b> başlarsın (m.21, değişik 24.02.2025 — eski "3 yıl" bilgisi artık geçersiz)</td></tr>
-    <tr><td><b>Yöntem</b></td><td>Klasik, test ya da ikisi birlikte — Birlik Yönetim Kurulu belirler (m.5/c, değişik 24.02.2025); <b>2026/1'den itibaren test</b> (TESMER duyurusu)</td></tr>
+    <tr><td><b>Sınav hakkı</b></td><td>İlk sınav tarihinden itibaren <b>2 yıl</b> içinde, yılda 3 kez açılan sınavlar; <b>süre hiçbir nedenle uzatılmaz</b>. Hakkını bitiren <b>6 ay</b> sınavlara alınmaz; sonra dilersen <b>tüm konuları kapsamak üzere yeniden</b> başlarsın (m.21, değişik 24.02.2025; eski "3 yıl" bilgisi artık geçersiz)</td></tr>
+    <tr><td><b>Yöntem</b></td><td>Klasik, test ya da ikisi birlikte, Birlik Yönetim Kurulu belirler (m.5/c, değişik 24.02.2025); <b>2026/1'den itibaren test</b> (TESMER duyurusu)</td></tr>
     <tr><td><b>Sonuç ve itiraz</b></td><td>Sonuçlar sınav bitiminden itibaren 2 ay içinde internette ilan edilir (m.17); itiraz <b>7 gün içinde</b> elektronik ortamda Birliğe, en geç 30 günde karara bağlanır (m.20, değişik 24.02.2025)</td></tr>
   </table></div>
-  <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak: <a href="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=7043&amp;mevzuatTur=KurumVeKurulusYonetmeligi&amp;mevzuatTertip=5" target="_blank" rel="noopener">Yeminli Mali Müşavirlik ve Serbest Muhasebeci Mali Müşavirlik Sınav Yönetmeliği</a> (mevzuat.gov.tr konsolide metni; RG-19.08.2014-29093 ve RG-24.02.2025-32823 değişiklikleri işlenmiş) m.5, 9, 11, 14, 16, 17, 20, 21 — 31.07.2026'da birebir okundu.</div>
+  <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak: <a href="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=7043&amp;mevzuatTur=KurumVeKurulusYonetmeligi&amp;mevzuatTertip=5" target="_blank" rel="noopener">Yeminli Mali Müşavirlik ve Serbest Muhasebeci Mali Müşavirlik Sınav Yönetmeliği</a> (mevzuat.gov.tr konsolide metni; RG-19.08.2014-29093 ve RG-24.02.2025-32823 değişiklikleri işlenmiş) m.5, 9, 11, 14, 16, 17, 20, 21; 31.07.2026'da birebir okundu.</div>
   </div>
 
   <div class="sgrp sgrp-SGS" id="kutu-sgs-harita">
   <div id="harita" style="display:none">
-    <h2>Sınav Haritası — SGS'de nereden kaç soru çıkıyor?</h2>
+    <h2>Sınav Haritası: SGS'de nereden kaç soru çıkıyor?</h2>
     <p style="font-size:13.5px;color:var(--muted);margin:0 0 6px">Son dönemlerin resmî kitapçıkları soru soru etiketlendi (çift bağımsız okuma + hakem yöntemi). Aşağıda ders dağılımı ve en çok soru getiren konular:</p>
     <div id="haritaIc"></div>
     <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Sayımlar bizim analizimizdir; kitapçıkların tamamı için resmî kaynaklara bakın. Analiz tarihi ve dönem listesi tabloda.</div>
@@ -244,19 +244,19 @@ td b{color:var(--ink)}
   </div>
 
   <div class="sgrp sgrp-SGS" id="kutu-sgs-kural">
-  <h2>⚠️ SGS'nin resmî kuralları — yönergeden, madde madde</h2>
+  <h2>⚠️ SGS'nin resmî kuralları: yönergeden, madde madde</h2>
   <div class="tablosar"><table>
     <tr><th>Kural</th><th>Resmî hüküm</th></tr>
     <tr><td><b>Soru yapısı</b></td><td><b>130 soru:</b> 100 Alan Bilgisi + 20 Genel Kültür-Yetenek + 10 Yabancı Dil (İng/Alm/Fra seçmeli)</td></tr>
     <tr><td><b>Ağırlıklar</b></td><td>Alan Bilgisi <b>%80</b> · Genel Kültür %13,33 · Yabancı Dil %6,67</td></tr>
-    <tr><td><b>Şık ve ceza</b></td><td>5 seçenekli test; <b>yanlış cevap doğruyu götürmez</b> — boş bırakma, mutlaka işaretle</td></tr>
+    <tr><td><b>Şık ve ceza</b></td><td>5 seçenekli test; <b>yanlış cevap doğruyu götürmez</b>: boş bırakma, mutlaka işaretle</td></tr>
     <tr><td><b>Değerlendirme</b></td><td><b>Bağıl sistem:</b> her ana başlıkta ortalama 50, standart sapma 10 olacak şekilde normalize edilir; <b>60 ve üzeri</b> puan alan staja kabul edilir</td></tr>
     <tr><td><b>Kaç doğru yeter?</b></td><td>Sabit bir sayı YOK — yönergenin kendi ifadesiyle: geçmişte soruların <b>%55'ini</b> doğru yapanın geçtiği sınav da oldu, <b>%63'ünü</b> doğru yapanın kaldığı sınav da. Rakip ne kadar iyiyse çıta o kadar yüksek</td></tr>
     <tr><td><b>Sınav hakkı</b></td><td>İlk girişte başarısız olursan sonuç ilanından itibaren <b>3 yıl içinde 9 sınav hakkı</b> daha (toplam 10); süresi geçerse yeniden dosya açtırılabilir</td></tr>
     <tr><td><b>Kazandıktan sonra</b></td><td>Sonucun açıklandığı tarihten sonraki staj döneminden itibaren <b>3 yıl içinde staja başlamayan</b>ın sınavı geçersiz sayılır</td></tr>
     <tr><td><b>Salon kuralları</b></td><td>İlk 15 dk'dan sonra gelen alınmaz; ilk 30 ve son 15 dk çıkış yok; salonu terk eden (tuvalet dahil) geri alınmaz; cep telefonu ve hesap makinesi ile <b>binaya girmek dahi yasak</b>, emanet alınmaz</td></tr>
   </table></div>
-  <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2025/09/TESMER-Staj-ve-Sinavlara-Iliskin-Uygulama-Yonergesi-2024.pdf" target="_blank" rel="noopener">TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi (2024)</a> m.6.2, 6.3, 6.4, 6.5 — 22.07.2026'da birebir okundu. Not: Yönergedeki konu-konu soru dağılım tablosu 17.07.2020 kararıyla mülga; konu ağırlıkları için yukarıdaki <b>Sınav Haritası</b>'na bak — çıkmış kitapçıklardan kendi sayımımızdır.</div>
+  <div style="font-size:11.5px;color:var(--dim);margin-top:8px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2025/09/TESMER-Staj-ve-Sinavlara-Iliskin-Uygulama-Yonergesi-2024.pdf" target="_blank" rel="noopener">TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi (2024)</a> m.6.2, 6.3, 6.4, 6.5; 22.07.2026'da birebir okundu. Not: Yönergedeki konu-konu soru dağılım tablosu 17.07.2020 kararıyla mülga; konu ağırlıkları için yukarıdaki <b>Sınav Haritası</b>'na bak (çıkmış kitapçıklardan kendi sayımımızdır).</div>
   </div>
 
   <script>

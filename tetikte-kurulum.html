@@ -39,10 +39,10 @@ li{margin-bottom:7px}
 <div class="wrap">
   <span class="ic">İÇ BELGE — KURULUM KILAVUZU</span>
   <h1>tetikte.com'u siteye bağlama — 4 adım</h1>
-  <p class="lead">🟡 işaretli adımlar senin, 🟢 işaretliler benim. Sen 1 ve 2'yi yap, bana "girdim" yaz — gerisi bende. DNS robotu zaten nöbette: kayıtları girdiğin an haberim olacak.</p>
+  <p class="lead">🟡 işaretli adımlar senin, 🟢 işaretliler benim. Sen 1 ve 2'yi yap, bana "girdim" yaz, gerisi bende. DNS robotu zaten nöbette: kayıtları girdiğin an haberim olacak.</p>
 
   <div class="adim">
-    <span class="kim sen">🟡 SEN — 5 DK</span>
+    <span class="kim sen">🟡 SEN · 5 DK</span>
     <span class="no">1</span><h2>tetikte.com DNS kayıtları</h2>
     <p>Alan adını aldığın firmanın paneline gir → <b>Alan Adlarım</b> → <b>tetikte.com</b> → <b>DNS Yönetimi</b> (bazı panellerde "Yönetilen DNS" / "DNS Kayıtları"). Aşağıdaki <b>5 kaydı tek tek ekle</b>:</p>
     <table>
@@ -53,37 +53,37 @@ li{margin-bottom:7px}
       <tr><td>A</td><td><code>@</code></td><td><code>185.199.111.153</code><button class="kop" data-k="185.199.111.153">kopyala</button></td></tr>
       <tr><td>CNAME</td><td><code>www</code></td><td><code>cemdizdar85-arch.github.io</code><button class="kop" data-k="cemdizdar85-arch.github.io">kopyala</button></td></tr>
     </table>
-    <div class="not"><b>Takılırsan:</b> "Ad/Host" kutusuna <b>@</b> yazılır (bazı paneller boş bırakmanı ister — ikisi de olur; bazıları "tetikte.com" gösterir, o da aynı şey). Panelde hazır bekleyen <b>eski A kaydı veya "park" kaydı varsa SİL</b> — sadece bizimkiler kalsın. TTL sorarsa dokunma, varsayılan kalsın. 4 A kaydının dördü de "@" için — panel "aynı ada ikinci kayıt" diye itiraz etmez, normaldir.</div>
+    <div class="not"><b>Takılırsan:</b> "Ad/Host" kutusuna <b>@</b> yazılır (bazı paneller boş bırakmanı ister, ikisi de olur; bazıları "tetikte.com" gösterir, o da aynı şey). Panelde hazır bekleyen <b>eski A kaydı veya "park" kaydı varsa SİL</b>; sadece bizimkiler kalsın. TTL sorarsa dokunma, varsayılan kalsın. 4 A kaydının dördü de "@" için; panel "aynı ada ikinci kayıt" diye itiraz etmez, normaldir.</div>
   </div>
 
   <div class="adim">
-    <span class="kim sen">🟡 SEN — 2 DK</span>
+    <span class="kim sen">🟡 SEN · 2 DK</span>
     <span class="no">2</span><h2>tetikte.com.tr yönlendirmesi</h2>
     <p>Aynı panelde <b>tetikte.com.tr</b> → <b>"Yönlendirme"</b> (İngilizce panelde "Forwarding" / "Redirect") özelliğini bul. Hedef adres olarak şunu yaz:</p>
     <p><code style="font-family:var(--mono);color:var(--accent2)">https://tetikte.com</code><button class="kop" data-k="https://tetikte.com">kopyala</button></p>
-    <div class="not"><b>Yönlendirme seçeneği bulamazsan</b> hiç dert etme, atla — bana "com.tr'de yönlendirme yok" yaz, alternatif yolu ben kurarım. Bu adım acil değil.</div>
+    <div class="not"><b>Yönlendirme seçeneği bulamazsan</b> hiç dert etme, atla. Bana "com.tr'de yönlendirme yok" yaz, alternatif yolu ben kurarım. Bu adım acil değil.</div>
   </div>
 
   <div class="adim">
-    <span class="kim ben">🟢 BEN — OTOMATİK</span>
+    <span class="kim ben">🟢 BEN · OTOMATİK</span>
     <span class="no">3</span><h2>Siteyi tetikte.com'a bağlama</h2>
     <p>Sen 1. adımı bitirdiğin an DNS robotum görecek ve ben:</p>
     <ul>
       <li>CNAME dosyasını yayınlayıp GitHub Pages'i <b>tetikte.com</b>'a bağlayacağım,</li>
       <li>sitemap ve site içi adresleri yeni alan adına çevireceğim,</li>
-      <li>eski <b>cemdizdar85-arch.github.io</b> linkleri otomatik yönlenecek — hiçbir eski link kırılmayacak.</li>
+      <li>eski <b>cemdizdar85-arch.github.io</b> linkleri otomatik yönlenecek; hiçbir eski link kırılmayacak.</li>
     </ul>
   </div>
 
   <div class="adim">
-    <span class="kim sen">🟡 SEN — 1 TIK (ben söyleyince)</span>
+    <span class="kim sen">🟡 SEN · 1 TIK (ben söyleyince)</span>
     <span class="no">4</span><h2>HTTPS kilidi</h2>
     <p>Ben "hazır" deyince: tarayıcıdan şu adrese gir (GitHub hesabınla girişli olman yeter):</p>
     <p><span class="yol">github.com/cemdizdar85-arch/mevzuat-radar/settings/pages</span></p>
-    <p>Orada <b>"Enforce HTTPS"</b> kutusunu işaretle. Hepsi bu — kutu ilk saatlerde soluk (tıklanamaz) olabilir; sertifika hazırlanıyor demektir, ben takip edip sana "şimdi" diyeceğim.</p>
+    <p>Orada <b>"Enforce HTTPS"</b> kutusunu işaretle. Hepsi bu. Kutu ilk saatlerde soluk (tıklanamaz) olabilir; sertifika hazırlanıyor demektir, ben takip edip sana "şimdi" diyeceğim.</p>
   </div>
 
-  <div class="not" style="margin-top:4px"><b>Ne kadar sürer?</b> DNS kayıtları genelde dakikalar içinde yayılır, bazen birkaç saat sürebilir — normaldir. Site geçiş sırasında da açık kalır; ziyaretçi hiçbir kesinti görmez.</div>
+  <div class="not" style="margin-top:4px"><b>Ne kadar sürer?</b> DNS kayıtları genelde dakikalar içinde yayılır, bazen birkaç saat sürebilir, normaldir. Site geçiş sırasında da açık kalır; ziyaretçi hiçbir kesinti görmez.</div>
 </div>
 <script>
 document.querySelectorAll('.kop').forEach(b=>b.addEventListener('click',()=>{

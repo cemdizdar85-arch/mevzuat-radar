@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deneme Sınavı — SGS soru kabini: her şıkkın gerekçesi, kaynak maddesi | Tetikte</title>
-<meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu — ezber değil, gerekçe.">
+<title>Deneme Sınavı | SGS soru kabini: her şıkkın gerekçesi, kaynak maddesi | Tetikte</title>
+<meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu; ezber değil, gerekçe.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
@@ -195,7 +195,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <!-- KURULUM -->
   <div id="ekranKurulum">
     <div class="panel">
-      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor — her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>
+      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor; her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>
       <div class="etiket">0 · Sınav</div>
       <div class="secgrup" id="sinavSec">
         <button class="sec aktif" data-sinav="hepsi">📚 Hepsi</button>
@@ -214,27 +214,27 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
            düğmenin üzerinde yazıyor; ayrı yardım metnine gerek kalmadı. -->
       <div class="etiket">3 · Çalışma biçimi</div>
       <div class="secgrup" id="modSec">
-        <button class="sec aktif" data-mod="calisma">📖 <b>Öğrenme</b> <small>— her sorudan sonra doğru cevap + tüm şıkların gerekçesi. Konu çalışırken.</small></button>
-        <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>— cevaplar gizli, karne sonda. Gerçek sınav düzeni.</small></button>
+        <button class="sec aktif" data-mod="calisma">📖 <b>Öğrenme</b> <small>· her sorudan sonra doğru cevap + tüm şıkların gerekçesi. Konu çalışırken.</small></button>
+        <button class="sec" data-mod="deneme">⏱ <b>Sınav provası</b> <small>· cevaplar gizli, karne sonda. Gerçek sınav düzeni.</small></button>
         <!-- 02.08 Cem onayi ("once 1'den baslayarak hepsini yapalim"): BIREBIR PROVA.
              SGS'de ders/adet secimine BAKILMAZ - 130 soru resmi dagilimla kurulur
              (kaynak: veri/sgs-sinav-yapisi.json <- TESMER Uygulama Yonergesi 2024 m.6.2).
              Yeterlilik'te secilen ders 100 uzerinden puanlanir, ders baraji 50. -->
-        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>— Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te seçtiğin ders 100 üzerinden, baraj 50. Gerçek sınavın kendisi.</small></button>
+        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>· Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te seçtiğin ders 100 üzerinden, baraj 50. Gerçek sınavın kendisi.</small></button>
       </div>
       <div class="etiket">4 · Soru havuzu</div>
       <div class="secgrup" id="kaynakSec">
-        <button class="sec aktif" data-kaynak="tumu">📚 Tüm sorular <small>— önce hiç görmediklerin gelir</small></button>
-        <button class="sec" data-kaynak="yanlis">🔁 Yanlışlarım <small id="ynSay"></small> <small>— doğru çözene kadar döner</small></button>
-        <button class="sec" data-kaynak="isaret">🔖 İşaretlediklerim <small id="isSay"></small> <small>— sonra bakarım dediklerin</small></button>
+        <button class="sec aktif" data-kaynak="tumu">📚 Tüm sorular <small>· önce hiç görmediklerin gelir</small></button>
+        <button class="sec" data-kaynak="yanlis">🔁 Yanlışlarım <small id="ynSay"></small> <small>· doğru çözene kadar döner</small></button>
+        <button class="sec" data-kaynak="isaret">🔖 İşaretlediklerim <small id="isSay"></small> <small>· sonra bakarım dediklerin</small></button>
       </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
-      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b> — kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
+      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b>: kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
       <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:#0a0f17">
         <div id="uyeKapali">
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır — bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır, bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
           <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap">
             <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
             <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:#070b12;border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
@@ -242,7 +242,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
           </div>
           <div id="uyeHata" style="color:var(--red);font-size:12px;margin-top:6px"></div>
         </div>
-        <div id="uyeAcik" class="gizli" style="font-size:13px;color:var(--green);font-weight:700">✓ <span id="uyeAd"></span> — tam banka yüklendi. <a href="#" id="uyeCikis" style="color:var(--dim);font-weight:400">Çıkış</a></div>
+        <div id="uyeAcik" class="gizli" style="font-size:13px;color:var(--green);font-weight:700">✓ <span id="uyeAd"></span> · tam banka yüklendi. <a href="#" id="uyeCikis" style="color:var(--dim);font-weight:400">Çıkış</a></div>
       </div>
     </div>
     <!-- PERFORMANS KARNESI (29.07): "Aday nereye calisacagini bilmiyor; asil
@@ -289,7 +289,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="soruMetin" id="soruMetin"></div>
       <div id="sikKutu"></div>
       <div style="font-size:11px;color:var(--dim);margin-top:6px">İpucu: elemek istediğin şıkkın üstünü <b>çift tıklayarak</b> çizebilirsin.</div>
-      <div id="gerekceYer"><span class="dus">🧠</span><span><b style="color:var(--muted)">Cevabını ver</b> — gerekçeler, kaynak ve<br>KONUNUN ÖZETİ kartı burada belirecek.</span></div>
+      <div id="gerekceYer"><span class="dus">🧠</span><span><b style="color:var(--muted)">Cevabını ver</b>; gerekçeler, kaynak ve<br>KONUNUN ÖZETİ kartı burada belirecek.</span></div>
       <div class="gerekce gizli" id="gerekceKutu"></div>
       <div class="altBar">
         <span><button class="hataLink" onclick="hataKutuAc()" id="hataBtn">⚑ Bu soruda hata bildir</button> <button class="hataLink" id="isaretBtn" onclick="isaretle()">🔖 İşaretle</button></span>
@@ -309,7 +309,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
           <button class="ikincil" onclick="hataGonder()" style="border-color:rgba(255,194,75,.4);color:var(--amber)">Bildir</button>
           <button class="ikincil" onclick="document.getElementById('hataKutu').classList.add('gizli')">Vazgeç</button>
         </div>
-        <div id="hataTesekkur" class="gizli" style="color:var(--green);font-size:13px;font-weight:700;margin-top:8px">✓ Bildirimin ekibe düştü — teşekkürler.</div>
+        <div id="hataTesekkur" class="gizli" style="color:var(--green);font-size:13px;font-weight:700;margin-top:8px">✓ Bildirimin ekibe düştü, teşekkürler.</div>
       </div>
     </div>
   </div>
@@ -466,7 +466,7 @@ function kurulumCiz(){
   // [Tüm dersler] — sınav provası tek tık
   var tumBtn=document.createElement('button');
   tumBtn.className='sec'+(window.DERS_MODU==='tum'?' aktif':'');
-  tumBtn.innerHTML='📚 <b>Tüm dersler</b> <small>— sınav provası</small>';
+  tumBtn.innerHTML='📚 <b>Tüm dersler</b> <small>· sınav provası</small>';
   tumBtn.onclick=function(){
     window.DERS_MODU='tum';
     adlar.forEach(function(x){ seciliDersler[x]=true; });
@@ -676,17 +676,17 @@ function provaPaneli(dogru,yanlis,bos,yuzde){
   yuzde = toplam ? Math.round(100*dogru/toplam) : 0;
   var h='<div class="panel" style="margin-bottom:14px;padding:14px 16px">';
   if(SINAV==='SMMM'){
-    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova — Yeterlilik</div>'
-     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu oturum 100 üzerinden <b style="color:var(--ink)">'+yuzde+'</b> puana denk geldi — ders barajı 50: '
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Yeterlilik</div>'
+     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu oturum 100 üzerinden <b style="color:var(--ink)">'+yuzde+'</b> puana denk geldi; ders barajı 50: '
      +(yuzde>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
      +'. Gerçek kural: her ders ≥50 <b>ve</b> tüm derslerin ortalaması ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil <span style="color:var(--dim)">(TESMER Uygulama Yönergesi)</span>.</div>';
   } else {
-    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova — Staja Giriş bileşimi</div>'
-     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir — diğer adaylara göre yerin belirler.</div>';
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Staja Giriş bileşimi</div>'
+     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir; diğer adaylara göre yerin belirler.</div>';
   }
   var ek=window.PROVA_EKSIK||[];
   if(ek.length){
-    h+='<div style="font-size:12px;color:var(--accent2);margin-top:8px">⚠ Dürüst not: havuz şu derslerde resmî adedi henüz karşılayamadı — '
+    h+='<div style="font-size:12px;color:var(--accent2);margin-top:8px">⚠ Dürüst not: havuz şu derslerde resmî adedi henüz karşılayamadı: '
       +ek.map(function(e){return esc(e.ders)+' '+e.bulunan+'/'+e.istenen;}).join(' · ')
       +'. Banka büyüdükçe prova tam bileşime oturur.</div>';
   }
@@ -750,7 +750,7 @@ function notKutusu(s){
   var mevcut=notOku(s.id);
   return '<div class="notKutu"><div class="ust"><span>✎ KENDİ NOTUM</span>'+
     '<span style="font-weight:500;color:var(--dim)">bu cihazda saklanır</span></div>'+
-    '<textarea id="notAlan" placeholder="Bu soruda neyi kaçırdım? Kendi cümlenle yaz — bir dahaki karşılaşmada burada olacak." '+
+    '<textarea id="notAlan" placeholder="Bu soruda neyi kaçırdım? Kendi cümlenle yaz; bir dahaki karşılaşmada burada olacak." '+
     'oninput="notYaz(\''+String(s.id).replace(/'/g,"")+'\', this.value)">'+esc(mevcut)+'</textarea></div>';
 }
 
@@ -762,7 +762,7 @@ function soruCiz(){
   document.getElementById('soruKonu').textContent=s.konu;
   var sc=sicilOku()[s.id], rz=document.getElementById('sicilRozet');
   if(sc && sc.y>0){
-    rz.textContent=(sc.son==='y') ? ('⚠ '+sc.y+' kez yanlış yaptın') : ('↺ önceden '+sc.y+' kez yanlış — son sefer bildin');
+    rz.textContent=(sc.son==='y') ? ('⚠ '+sc.y+' kez yanlış yaptın') : ('↺ önceden '+sc.y+' kez yanlış, son sefer bildin');
     rz.classList.remove('gizli');
   } else { rz.classList.add('gizli'); }
   isaretBtnCiz(sc && sc.isaret ? 1 : 0);
@@ -942,9 +942,9 @@ function cevabiGor(tekrarMi){
   sira.forEach(function(harf){
     var d=(harf===s.dogru), sen=(harf===SECILI && !d);
     var basl='';
-    if(sen) basl='<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN — yanılgıyı burada çöz: </b>';
-    else if(d && yanlisYapti) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRUSU — '+harf+' şıkkı: </b>';
-    else if(d) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRU BİLDİN — pekiştir: </b>';
+    if(sen) basl='<b style="color:var(--red);font-size:11px;letter-spacing:.5px">👉 SENİN CEVABIN · yanılgıyı burada çöz: </b>';
+    else if(d && yanlisYapti) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRUSU, '+harf+' şıkkı: </b>';
+    else if(d) basl='<b style="color:var(--green);font-size:11px;letter-spacing:.5px">✓ DOĞRU BİLDİN, pekiştir: </b>';
     var stil='';
     if(sen) stil=' style="background:rgba(255,107,94,.07);border-left:3px solid rgba(255,107,94,.5);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
     else if(d) stil=' style="background:rgba(61,220,151,.05);border-left:3px solid rgba(61,220,151,.45);border-radius:0 9px 9px 0;padding:8px 10px 8px 12px"';
@@ -960,7 +960,7 @@ function cevabiGor(tekrarMi){
     // KONUNUN TAMAMINI ozetler (ihtar, faiz, iptal, ilan, tazminat gibi).
     // Ikisi de "Akilda kalsin" adini tasiyinca ogrenci ayni seyin tekrari
     // saniyordu - ad artik islevi soyluyor.
-    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN — KONUNUN ÖZETİ':'KONUNUN ÖZETİ')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
+    h+='<div class="hapKart"><div class="hapUst">🎯 '+(yanlisYapti?'YANLIŞ YAPTIN · KONUNUN ÖZETİ':'KONUNUN ÖZETİ')+'</div><div class="hapMetin">'+esc(s.hap)+'</div></div>';
   }
   if(digerH){
     h+='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);padding:6px 0;user-select:none">▸ Diğer şıkların dersleri (neden yanlışlar?)</summary>'+digerH+'</details>';
@@ -1027,7 +1027,7 @@ function hayaletGorsel(s){
   if(!yk || !SECILI || SECILI===s.dogru) return '';
   var kayit = yk[SECILI];
   if(!kayit || !kayit.length) return '';
-  var h='<div class="hayalet"><div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--red)">👻 Senin cevabının defterdeki hâli — böyle OLMAZDI:</div>';
+  var h='<div class="hayalet"><div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--red)">👻 Senin cevabının defterdeki hâli; böyle OLMAZDI:</div>';
   h+='<div class="yevmiye"><table><tr><th>Hesap</th><th style="text-align:right">Borç</th><th style="text-align:right">Alacak</th></tr>';
   kayit.forEach(function(k){
     var alacakli = (!k.borc || k.borc==0);
@@ -1040,7 +1040,7 @@ function hayaletGorsel(s){
 // hangi hesap borclaniyor, hangi tarafa yaziliyor, muhasebe bilmeyen bile GORSUN.
 function yevmiyeGorsel(s){
   if(!s.yevmiye || !s.yevmiye.length) return '';
-  var h='<div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--accent2)">📒 Doğru kaydın görseli — defterde böyle görünür:</div>';
+  var h='<div style="margin-top:12px;font-size:12.5px;font-weight:800;color:var(--accent2)">📒 Doğru kaydın görseli, defterde böyle görünür:</div>';
   h+='<div class="yevmiye"><table><tr><th>Hesap</th><th style="text-align:right">Borç</th><th style="text-align:right">Alacak</th></tr>';
   s.yevmiye.forEach(function(k){
     var alacakli = (!k.borc || k.borc==0);
@@ -1113,7 +1113,7 @@ function duvarGoster(){
   var karneSatir = toplam
     ? '<div style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin:0 0 14px;font-size:14px"><b style="color:var(--amber)">' +
       toplam + ' soruda ' + dogru + ' doğru.</b>' +
-      (zayif ? ' En çok <b>' + esc(zayif) + '</b> dersinde zorlandın — koçun tam buradan çalıştırırdı.' : ' Temiz başlangıç — koçun bu temponun üstüne kurardı.') + '</div>'
+      (zayif ? ' En çok <b>' + esc(zayif) + '</b> dersinde zorlandın; koçun tam buradan çalıştırırdı.' : ' Temiz başlangıç, koçun bu temponun üstüne kurardı.') + '</div>'
     : '';
   var d = document.getElementById('uyeDuvar');
   if(!d){
@@ -1126,10 +1126,10 @@ function duvarGoster(){
       karneSatir +
       '<p style="color:var(--dim);line-height:1.7;margin:0 0 14px">' +
       'Her şıkkın neden yanlış olduğunu ve dayandığı kaynak maddeyi gördün. ' +
-      'Devamı için <b style="color:var(--amber)">ücretsiz üye ol</b> — günde 15 soru açılır, ' +
+      'Devamı için <b style="color:var(--amber)">ücretsiz üye ol</b>: günde 15 soru açılır, ' +
       'yanlışların defterine yazılır, karnen zayıf konunu söyler, koçun reçete yazar.</p>' +
       '<a class="btn" href="#uyeKapali" style="display:inline-block">Ücretsiz üye ol →</a>' +
-      '<div style="font-size:12px;color:var(--dim);margin-top:12px">Zaten üyeysen giriş yap — sayaç sıfırlanır.</div>';
+      '<div style="font-size:12px;color:var(--dim);margin-top:12px">Zaten üyeysen giriş yap, sayaç sıfırlanır.</div>';
     document.querySelector('main, body').appendChild(d);
   }
   d.classList.remove('gizli');
@@ -1157,7 +1157,7 @@ function gunlukDuvarGoster(){
       '<div style="font-size:34px;line-height:1">🌙</div>' +
       '<h2 style="margin:10px 0 6px">Bugünün 15 sorusu tamam.</h2>' +
       '<p style="color:var(--dim);line-height:1.7;margin:0 0 14px">' +
-      'Düzenli 15 soru, sınava kadar ciddi yol aldırır — yarın kaldığın yerden devam. ' +
+      'Düzenli 15 soru, sınava kadar ciddi yol aldırır; yarın kaldığın yerden devam. ' +
       'Sınava yüklenme dönemindeysen <b style="color:var(--amber)">Sınav Paketi</b> ile banka sınırsız açılır, ' +
       'tam deneme sınavı modu da pakete dahil.</p>' +
       '<a class="btn" href="fiyat.html" style="display:inline-block">Sınav Paketi\'ne bak →</a>' +
@@ -1393,7 +1393,7 @@ function karneCiz(){
     // 31.07 Cem onayi: yanlislar DUVAR olarak dizilmiyor - kompakt liste;
     // tiklayinca soru KABINDE acilir (sahneli panel: senin cevabin + dogrusu +
     // 1-2-3 + AKILDA KALSIN), "Siradaki" ile sonraki yanlisa gecilir (UWorld review).
-    var y='<h2>Yanlışların</h2><div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">Satıra tıkla — soru kabinde açılır; <b style="color:var(--ink)">Sıradaki</b> ile öbür sorulara geçersin, son sorudan sonra karneye dönersin.</div>';
+    var y='<h2>Yanlışların</h2><div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">Satıra tıkla, soru kabinde açılır; <b style="color:var(--ink)">Sıradaki</b> ile öbür sorulara geçersin, son sorudan sonra karneye dönersin.</div>';
     yanlislar.forEach(function(o){
       var s=o.s, i=SORULAR.indexOf(s);
       y+='<div class="panel" style="margin-top:8px;padding:12px 15px;cursor:pointer" onclick="yanlisIncele('+i+')">'+
@@ -1499,7 +1499,7 @@ function siklikKunyesi(s){
   return '<div style="font-size:12px;color:' + (vurgu ? 'var(--accent2)' : 'var(--dim)') +
     ';background:rgba(245,165,36,.06);border:1px solid rgba(245,165,36,.22);border-radius:11px;padding:8px 13px;margin-top:8px">' +
     '📊 Bu konu son <b>' + top + '</b> dönemin <b>' + k.d + '</b> tanesinde çıktı' +
-    (k.s > k.d ? ' — toplam <b>' + k.s + '</b> soru' : '') + '.' +
+    (k.s > k.d ? ' (toplam <b>' + k.s + '</b> soru)' : '') + '.' +
     '<span style="color:var(--dim)"> Çıkmış kitapçıkların sayımı.</span></div>';
 }
 // ============ /SIKLIK KUNYESI ============
@@ -1574,12 +1574,12 @@ function sinavRontgeni(){
     if(korDersler.length){
       h+='<div style="font-size:12.5px;color:var(--muted);margin-top:11px;line-height:1.6"><b style="color:var(--red)">Kör noktan:</b> '
         +korDersler.map(function(k){ return esc(k.ders)+' ('+k.n+')'; }).join(' · ')
-        +' — bu derslerden hiç soru çözmedin, sınavda toplam <b style="color:var(--ink)">'+olculmeyenSoru+' soru</b> geliyor.</div>';
+        +'. Bu derslerden hiç soru çözmedin; sınavda toplam <b style="color:var(--ink)">'+olculmeyenSoru+' soru</b> geliyor.</div>';
     }
 
     h+='<div style="font-size:11.5px;color:var(--dim);margin-top:11px;line-height:1.6">'
       +'Bu bir tahmindir, garanti değildir: kendi çözdüğün sorulardaki başarın, sınavın resmî ders dağılımıyla çarpılır '
-      +'(kaynak: TESMER Uygulama Yönergesi m.6.2). Staja Giriş <b>bağıl</b> değerlendirilir — doğru sayısı tek başına geçme eşiğini vermez. '
+      +'(kaynak: TESMER Uygulama Yönergesi m.6.2). Staja Giriş <b>bağıl</b> değerlendirilir; doğru sayısı tek başına geçme eşiğini vermez. '
       +'Az veri olan dersler işaretli; o dersten çözdükçe tahmin keskinleşir.</div>';
 
     ic.innerHTML=h;
@@ -1623,11 +1623,11 @@ function dersKarnesiCiz(){
       if(!enCok||s.t>enCok.t) enCok=s;
     });
     if(toplamCevap<10){
-      html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> Karne için veri birikiyor — birkaç oturum daha çöz, ders ders yönlendirme burada başlayacak.';
+      html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> Karne için veri birikiyor; birkaç oturum daha çöz, ders ders yönlendirme burada başlayacak.';
     } else if(zayifYuklu){
       html='🧑‍🏫 <b style="color:var(--ink)">Koç notu:</b> <b style="color:var(--ink)">'+esc(zayifYuklu.ham)+'</b> bu sınavın en yüklü derslerinden; sendeki başarı <b style="color:var(--red)">%'+zayifYuklu.p+'</b>.';
       if(guclu && enCok && enCok.ad===guclu.ad && guclu.ham!==zayifYuklu.ham){
-        html+=' En çok soruyu zaten güçlü olduğun '+esc(guclu.ham)+'\'de (%'+guclu.p+') çözüyorsun — puanı '+esc(zayifYuklu.ham)+' getirecek.';
+        html+=' En çok soruyu zaten güçlü olduğun '+esc(guclu.ham)+'\'de (%'+guclu.p+') çözüyorsun; oysa puanı '+esc(zayifYuklu.ham)+' getirecek.';
       }
       html+=' <button type="button" class="sec" style="margin-top:8px" onclick="kocRecete(\''+zayifYuklu.ham.replace(/'/g,"\\'")+'\')">→ Bu dersten 20 soru çöz</button>';
     } else {
@@ -1758,7 +1758,7 @@ async function kasaYukle(user){
     return;
   }
   if(!kasa.length){
-    g('uyeHata').textContent = 'Hesabında aktif paket görünmüyor. Yeni aldıysan birkaç dakika içinde açılır; sorun sürerse iletişim sayfasından yaz — hemen bakarız.';
+    g('uyeHata').textContent = 'Hesabında aktif paket görünmüyor. Yeni aldıysan birkaç dakika içinde açılır; sorun sürerse iletişim sayfasından yaz, hemen bakarız.';
     return;
   }
   var mevcut = {}; BANKA.forEach(function(s){ mevcut[s.id] = 1; });
