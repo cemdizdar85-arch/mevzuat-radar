@@ -246,6 +246,17 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <div id="uyeAcik" class="gizli" style="font-size:13px;color:var(--green);font-weight:700">✓ <span id="uyeAd"></span> · tam banka yüklendi. <a href="#" id="uyeCikis" style="color:var(--dim);font-weight:400">Çıkış</a></div>
       </div>
     </div>
+    <!-- KONU TÜYOLARI (05.08, Cem isteği: "konularla ilgili tüyolar vardır, onları versek").
+         Üyeye özel: seçili sınav+ders için bankadaki soruların hap/püf noktaları
+         KONU başlıklarına damıtılır. Veri istendiğinde çekilir (ilk yükü şişirmez);
+         kaynak zaten RLS arkasındaki kasa olduğundan yeni sızıntı yüzeyi yok. -->
+    <div id="tuyoKutu" class="gizli" style="margin:10px 0 0">
+      <button class="sec" id="tuyoBtn" type="button">🔑 Konu tüyoları <small>(üyeye özel)</small></button>
+      <div id="tuyoPanel" class="gizli" style="margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px;max-height:420px;overflow:auto;font-size:13.5px">
+        <div id="tuyoDurum" style="color:var(--dim)">Ders seç, o dersin konu tüyoları burada listelenir.</div>
+        <div id="tuyoIcerik"></div>
+      </div>
+    </div>
     <!-- PERFORMANS KARNESI (29.07): "Aday nereye calisacagini bilmiyor; asil
          satin aldigi sey bu." Soru sayisi degil YON satiyoruz. -->
     <!-- SINAV RONTGENI (02.08, Cem onayi "1'den basla"): kisinin OLCULEN ders
@@ -1778,8 +1789,71 @@ async function kasaYukle(user){
   g('uyeAcik').classList.remove('gizli');
   g('uyeAd').textContent = (user && user.email) || 'üye';
   g('ornekNot').classList.add('gizli');
+  g('tuyoKutu').classList.remove('gizli');
   kurulumCiz();
 }
+
+// ---- KONU TÜYOLARI (üyeye özel; 05.08 Cem isteği) ----
+var tuyoOnbellek = {};
+function tuyoNorm(t){ return String(t||'').toLocaleLowerCase('tr').replace(/[^a-zçğıöşü0-9 ]/g,' ').replace(/\s+/g,' ').trim(); }
+async function tuyolariGetir(sinav, ders){
+  var anahtar = sinav + '|' + ders;
+  if(tuyoOnbellek[anahtar]) return tuyoOnbellek[anahtar];
+  var q = sb.from('soru_havuzu').select('konu,hap').eq('yayin', true).eq('ders', ders).neq('hap','').limit(3000);
+  if(sinav && sinav !== 'hepsi') q = q.eq('sinav', sinav);
+  var r = await q;
+  var harita = {};
+  (r.data || []).forEach(function(x){
+    var hap = String(x.hap||'').trim();
+    if(hap.length < 20) return;
+    var k = String(x.konu||'(genel)');
+    if(!harita[k]) harita[k] = { gorulen:{}, liste:[] };
+    var n = tuyoNorm(hap).slice(0, 80);
+    if(harita[k].gorulen[n]) return;
+    harita[k].gorulen[n] = 1;
+    harita[k].liste.push(hap);
+  });
+  Object.keys(harita).forEach(function(k){
+    // konu başına en fazla 3 tüyo: orta uzunluktakiler (ezberlenebilir) önde
+    harita[k] = harita[k].liste.sort(function(a,b){
+      var pa = Math.abs(120 - a.length), pb = Math.abs(120 - b.length);
+      return pa - pb;
+    }).slice(0, 3);
+  });
+  tuyoOnbellek[anahtar] = harita;
+  return harita;
+}
+async function tuyoPaneliDoldur(){
+  var sinav = window.SINAV || 'hepsi';
+  var ders = null;
+  try { Object.keys(window.seciliDersler||{}).forEach(function(d){ if(window.seciliDersler[d]) ders = d; }); } catch(e){}
+  var durum = g('tuyoDurum'), icerik = g('tuyoIcerik');
+  icerik.innerHTML = '';
+  if(!ders || window.DERS_MODU === 'tum'){
+    durum.textContent = 'Önce yukarıdan TEK ders seç; o dersin konu tüyoları burada listelenir.';
+    return;
+  }
+  durum.textContent = 'Tüyolar derleniyor…';
+  try {
+    var h = await tuyolariGetir(sinav, ders);
+    var konular = Object.keys(h).filter(function(k){ return h[k].length; }).sort();
+    if(!konular.length){ durum.textContent = 'Bu derste henüz tüyo damıtılacak yayımlı soru yok.'; return; }
+    durum.textContent = ders + ' · ' + konular.length + ' konu';
+    konular.forEach(function(k){
+      var b = document.createElement('div'); b.style.margin = '10px 0 0';
+      var bas = document.createElement('div'); bas.style.cssText = 'font-weight:700;color:var(--ink)'; bas.textContent = '🔑 ' + k; b.appendChild(bas);
+      h[k].forEach(function(t){
+        var p = document.createElement('div'); p.style.cssText = 'margin:4px 0 0 18px;color:var(--dim)'; p.textContent = '• ' + t; b.appendChild(p);
+      });
+      icerik.appendChild(b);
+    });
+  } catch(e){ durum.textContent = 'Tüyolar yüklenemedi: ' + (e && e.message || e); }
+}
+g('tuyoBtn').onclick = function(){
+  var p = g('tuyoPanel');
+  p.classList.toggle('gizli');
+  if(!p.classList.contains('gizli')) tuyoPaneliDoldur();
+};
 window.bankaHazir.then(async function(){
   var s = await sb.auth.getSession();
   if(s.data && s.data.session){ kasaYukle(s.data.session.user); }
