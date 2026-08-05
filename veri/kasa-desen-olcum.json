@@ -1,9 +1,9 @@
 {
-  "tarih": "02.08.2026 12:48",
-  "kasa": 26992,
+  "tarih": "05.08.2026 19:17",
+  "kasa": 27584,
   "kaynaksiz_soru": 0,
-  "farkli_kaynak": 4654,
-  "ilk10_madde_yuzde": 45.7,
+  "farkli_kaynak": 4838,
+  "ilk10_madde_yuzde": 44.7,
   "en_cok_yazilan": [
     {
       "kaynak": "VUK (213 s.K.) m.275",
@@ -57,7 +57,7 @@
     {
       "kaynak": "VUK (213 s.K.) m.283",
       "soru": 446,
-      "farkli_dogru_sik": 334,
+      "farkli_dogru_sik": 335,
       "ayni_kural_kac_kez": 1.3,
       "ornek_etiket": "Finansal Muhasebe / kredi faiz reeskontu"
     },
@@ -97,18 +97,18 @@
       "ornek_etiket": "Finansal Tablolar ve Analizi / alacak tahsilat suresi hedefi"
     },
     {
+      "kaynak": "SMMM K. (3568 s.K.) m.45 [1/2]",
+      "soru": 211,
+      "farkli_dogru_sik": 208,
+      "ayni_kural_kac_kez": 1.0,
+      "ornek_etiket": "Muh. ve Mali Müş. Meslek Hukuku / etik ilkelere tehditler"
+    },
+    {
       "kaynak": "VUK (213 s.K.) m.278",
       "soru": 207,
       "farkli_dogru_sik": 95,
       "ayni_kural_kac_kez": 2.2,
       "ornek_etiket": "Maliyet Muhasebesi / stok degerleme yontemleri"
-    },
-    {
-      "kaynak": "SMMM K. (3568 s.K.) m.45 [1/2]",
-      "soru": 207,
-      "farkli_dogru_sik": 204,
-      "ayni_kural_kac_kez": 1.0,
-      "ornek_etiket": "Muh. ve Mali Müş. Meslek Hukuku / etik ilkelere tehditler"
     },
     {
       "kaynak": "VUK (213 s.K.) m.227",
@@ -181,8 +181,8 @@
       "ornek_etiket": "Finansal Muhasebe / tms 37 karsilik-kosullu borc"
     }
   ],
-  "etiket_uyumsuz": 3545,
-  "etiket_olculebilir": 17697,
+  "etiket_uyumsuz": 3605,
+  "etiket_olculebilir": 18020,
   "etiket_uyumsuz_yuzde": 20.0,
   "etiket_uyumsuz_ornek": [
     {
@@ -296,27 +296,23 @@
       "soru_bas": "Denizli merkezli Akkaya İnşaat A.Ş.'de yönetim kurulu üyeleri arasında yönetim yetkisinin dağılımı konusunda görüş ayrıl"
     },
     {
-      "id": "00e26682-87d9-48e9-aee8-e09b056a52de",
-      "sinav": "SMMM",
-      "ders": "Finansal Muhasebe",
-      "konu": "bono ihraci kaydi",
-      "kaynak": "TTK (6102 s.K.) m.720",
-      "beklenen": "VERGI|STANDART",
+      "id": "00cbfb3d",
+      "sinav": "SGS",
+      "ders": "Denetim",
+      "konu": "genel kabul gormus denetim standartlari",
+      "kaynak": "TTK m.400 (Denetçinin nitelikleri ve mesleki özen)",
+      "beklenen": "DENETIM|STANDART",
       "gercek": "TICARET",
-      "soru_bas": "Kocaeli'de faaliyet gösteren Yılmaz Otomotiv A.Ş., tedarikçisi Bursa Döküm San. Tic. Ltd. Şti.'ye 87.340 TL tutarında dü"
+      "soru_bas": "Denetçi, sınırlı zaman ve kaynaklarla çalışırken şüpheci bir yaklaşım sergileyip elde ettiği bulguları sorgulayarak değe"
     }
   ],
   "sik_dagilimi_yuzde": {
-    "A": 44.4,
-    "B": 22.7,
-    "C": 16.0,
-    "D": 9.8,
-    "E": 7.0
+    "A": 21.3,
+    "B": 20.2,
+    "C": 19.7,
+    "D": 19.4,
+    "E": 19.4
   },
-  "c6_ihlal": [
-    "A=%44.4",
-    "D=%9.8",
-    "E=%7"
-  ],
+  "c6_ihlal": [],
   "not": "0 USD olcum. 'ayni_kural_kac_kez' = o maddeden yazilan soru / farkli dogru sik sayisi; 1'e yakin iyi, buyudukce ayni kural kilik degistirerek tekrar ediyor demektir."
 }
