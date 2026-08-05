@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805140126
+Start time: 20260805165633
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fe323dcd-2895-4c4f-91b6-664ed3f2ce31.ps1'
-Process ID: 2370
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ea6a11c2-b1c3-4f31-b549-b5b21f67e1e1.ps1'
+Process ID: 2248
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -19,7 +19,7 @@ WSManStackVersion: 3.0
 **********************
 SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
-  kasa: 27478 soru
+  kasa: 27495 soru
   konu-kelime indeksi: 1255 kelime
   MADDE TAVANI: hedef havuz 8080 x %2 = 162 soru/madde | tavani dolmus madde: 19
     dolu: 213|275 -> 5299 soru
@@ -27,33 +27,19 @@ Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
     dolu: 4857|11 -> 1442 soru
     dolu: 5018|3 -> 1088 soru
     dolu: 213|262 -> 727 soru
-PS>TerminatingError(Invoke-RestMethod): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-  THP indeksi kurulamadi: Response status code does not indicate success: 500 (Internal Server Error).
+  THP hesap indeksi: 266 kelime, 269 kayit
 KONU FILTRESI: 32 konu
-PS>TerminatingError(Invoke-RestMethod): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
 
   planSatir    73
-  maddesiz     36
+  maddesiz     29
   metinsiz     0
-  hazir        214
+  hazir        244
   tavanDolu    5
-  kaynak_kanun 37
-MALIYET TAHMINI (Batch %50): ~4.39 USD
+  kaynak_kanun 44
+MALIYET TAHMINI (Batch %50): ~4.98 USD
 KURU DENEME TAMAM - yazma yolu saglam.
-PARTI 1: 200 soru
-  parti kimligi: msgbatch_01Uezut65KfwFrbSaovc1g3Z
+KURTARMA MODU: 2 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
+  parti 1/2: msgbatch_01Uezut65KfwFrbSaovc1g3Z
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path 'siklar', line 14, position 3."
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 16, position 3."
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.B', line 15, position 5."
@@ -61,25 +47,14 @@ PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: 
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.A', line 15, position 642."
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
 PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 398."
-PARTI 2: 14 soru
-  parti kimligi: msgbatch_01HzQmueVueRv1CynMf49dAo
-  ZAMAN ASIMI
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "type": "error",
-  "error": {
-    "type": "not_found_error",
-    "message": "Message Batch msgbatch_01HzQmueVueRv1CynMf49dAo has no available results."
-  },
-  "request_id": "req_011Cdjn2FHqckdEqcYvckSr2"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "type": "error",
-  "error": {
-    "type": "not_found_error",
-    "message": "Message Batch msgbatch_01HzQmueVueRv1CynMf49dAo has no available results."
-  },
-  "request_id": "req_011Cdjn2FHqckdEqcYvckSr2"
-}"
-DUSTU: Response status code does not indicate success: 404 (Not Found).
+    193 sonuc alindi
+  parti 2/2: msgbatch_01HzQmueVueRv1CynMf49dAo
+    14 sonuc alindi
+KURTARMA TOPLAM: 207 sonuc
+KURTARMA HIZA KONTROLU: rakamRed 111/207 = %53.6  (esik %20)
+KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir.
+Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun).
+**********************
+PowerShell transcript end
+End time: 20260805165707
+**********************

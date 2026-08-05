@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805151500
+Start time: 20260805165633
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c1cb730d-7d61-4db6-8d8e-cb5efb36e207.ps1'
-Process ID: 2272
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ea6a11c2-b1c3-4f31-b549-b5b21f67e1e1.ps1'
+Process ID: 2248
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,50 +17,44 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-SINAV: SGS   kota: veri/sgs-uretim-kotasi.json   plan satiri: 2133
+SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
-  kasa: 27484 soru
+  kasa: 27495 soru
   konu-kelime indeksi: 1255 kelime
-  MADDE TAVANI: hedef havuz 14603 x %2 = 293 soru/madde | tavani dolmus madde: 10
+  MADDE TAVANI: hedef havuz 8080 x %2 = 162 soru/madde | tavani dolmus madde: 19
     dolu: 213|275 -> 5299 soru
     dolu: 6102|720 -> 2030 soru
     dolu: 4857|11 -> 1442 soru
     dolu: 5018|3 -> 1088 soru
     dolu: 213|262 -> 727 soru
   THP hesap indeksi: 266 kelime, 269 kayit
-KONU FILTRESI: 23 konu
+KONU FILTRESI: 32 konu
 
-  planSatir    24
-  maddesiz     14
+  planSatir    73
+  maddesiz     29
   metinsiz     0
-  hazir        24
+  hazir        244
   tavanDolu    5
-  kaynak_kanun 6
-  kaynak_hesap-plani 3
-  kaynak_standart 1
-MALIYET TAHMINI (Batch %50): ~0.51 USD
+  kaynak_kanun 44
+MALIYET TAHMINI (Batch %50): ~4.98 USD
 KURU DENEME TAMAM - yazma yolu saglam.
-PARTI 1: 24 soru
-  parti kimligi: msgbatch_017y9DXifXaRQnoauvmSiP4S
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 22, position 3."
-
-======== URETIM ========
-  uretilen       11
-  rakamRed       11
-  dilRed         0
-  sikRed         1
-  sablonRed      0
-  tuzakRed       0
-  dogrusuRed     0
-  atifRed        0
-  kokuRed        0
-  benzerRed      0
-  cevapsiz       1
-  yazmaHatasi    0
-  GERCEK FATURA: ~0.67 USD
-  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
--> veri/uretim-rapor-29.json
+KURTARMA MODU: 2 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
+  parti 1/2: msgbatch_01Uezut65KfwFrbSaovc1g3Z
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: JsonToken EndArray is not valid for closing JsonType Object. Path 'siklar', line 14, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 16, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.B', line 15, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.A', line 15, position 642."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 398."
+    193 sonuc alindi
+  parti 2/2: msgbatch_01HzQmueVueRv1CynMf49dAo
+    14 sonuc alindi
+KURTARMA TOPLAM: 207 sonuc
+KURTARMA HIZA KONTROLU: rakamRed 111/207 = %53.6  (esik %20)
+KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir.
+Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun).
 **********************
 PowerShell transcript end
-End time: 20260805151835
+End time: 20260805165707
 **********************
