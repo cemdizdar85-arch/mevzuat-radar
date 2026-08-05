@@ -1,0 +1,50 @@
+# BATCH LISTELE — 0 USD (GET istekleri ucretsiz; YENI GONDERIM YAPMAZ).
+# 05.08: emir #28/#29 kosusu 31 dakika calisip dustu, rapor yok. Emir #14
+# dersi: parti gonderilmis ama kasaya yazilamamis olabilir - o durumda
+# yeniden uretim AYNI PARAYI IKINCI KEZ odemek olur; dogrusu kurtarPartiler
+# ile sonuclari cekmektir. Bu is son partilerin KIMLIK + DURUM + SAYILARINI
+# repoya yazar (soru icerigi YAZILMAZ - public depo).
+name: Batch Listele (0 USD)
+on:
+  push:
+    paths: ['.github/workflows/batch-listele.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: batch-listele
+  cancel-in-progress: false
+jobs:
+  listele:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          $H = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01' }
+          $r = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages/batches?limit=12' -Headers $H -TimeoutSec 60
+          $liste = New-Object System.Collections.Generic.List[object]
+          foreach($b in @($r.data)){
+            $liste.Add([ordered]@{
+              id=$b.id; durum=$b.processing_status
+              olusturma=$b.created_at; bitis=$b.ended_at
+              istek=[ordered]@{ islenen=$b.request_counts.processing; basarili=$b.request_counts.succeeded
+                                hatali=$b.request_counts.errored; iptal=$b.request_counts.canceled; suresi_dolan=$b.request_counts.expired }
+            })
+          }
+          Set-Content -LiteralPath 'veri/batch-listesi.json' -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 5 -InputObject ([ordered]@{
+            tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); adet=$liste.Count; partiler=$liste.ToArray()
+            not='Yalniz metaveri - soru icerigi yok. GET ucretsiz, yeni gonderim yapilmadi.' }))
+          Write-Host "yazildi: veri/batch-listesi.json ($($liste.Count) parti)"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/batch-listesi.json
+          git diff --cached --quiet || git commit -m "Batch listesi [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
