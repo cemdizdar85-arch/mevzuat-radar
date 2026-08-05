@@ -713,13 +713,48 @@ for($p2=0; (-not $kurtarPartiler) -and $p2 -lt [math]::Ceiling($isler.Count/$PAR
                             parti=($p2+1); soru=$dilim.Count; gonderildi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
     [IO.File]::WriteAllText($bpYol, (ConvertTo-Json -InputObject ([object[]]$bpListe) -Depth 5), (New-Object Text.UTF8Encoding($false)))
   } catch { Write-Host ("  UYARI: parti kimligi dosyaya yazilamadi: {0}" -f $_.Exception.Message) }
-  $tur=0
-  while($true){ Start-Sleep -Seconds 20; $tur++
-    $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($b.id)" -Headers $HDR
-    if($st.processing_status -eq 'ended'){ break }
-    if($tur -ge 90){ Write-Host "  ZAMAN ASIMI"; break } }
+  # ==========================================================================
+  #  05.08 - BEKLEME DONGUSU SAGLAMLASTIRILDI (gunun iki olumu buradaydi)
+  #
+  #  Eski hal iki yerden kirilgandi ve IKI kosuyu de ayni sekilde oldurdu:
+  #   1) Tavan 90 tur x 20 sn = 30 DK idi; Anthropic kuyrugu bugun 3 SAAT
+  #      surdu. Sure dolunca "ZAMAN ASIMI" deyip yine de sonuc cekmeye
+  #      gidiyordu - parti bitmedigi icin 404 yiyip korumasiz satirda
+  #      OLUYORDU (10:15 kosusu 31. dakikada, 14:01 kosusu parti-1'in
+  #      30. dakikasinda boyle oldu; kanit veri/uretim-hata-28.json).
+  #   2) Poll'da try/catch yoktu - tek gecici ag hatasi tum kosuyu deviriyordu
+  #      (parti kimligi dosyasi runner'da kayboldugu icin kurtarma da koru
+  #      koruna kaliyordu).
+  #  Yeni hal: tavan 540 tur (3 saat) - ustune poll hatalari tolere edilir
+  #  (ardisik 15 hataya kadar) - zaman asiminda OLMEK YOK: parti 'bekliyor'
+  #  sayilir, sonuc cekilmez, kimlik bekleyen-partiler.json'da zaten kayitli,
+  #  sonraki emir kurtarPartiler ile 0 USD toplar.
+  # ==========================================================================
+  $tur=0; $pollHata=0; $bitti=$false
+  while($true){
+    Start-Sleep -Seconds 20; $tur++
+    try {
+      $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$($b.id)" -Headers $HDR -TimeoutSec 60
+      $pollHata = 0
+      if($st.processing_status -eq 'ended'){ $bitti=$true; break }
+    } catch {
+      $pollHata++
+      Write-Host ("  poll hatasi {0}/15: {1}" -f $pollHata, $_.Exception.Message)
+      if($pollHata -ge 15){ Write-Host "  POLL VAZGECTI (ardisik 15 hata)"; break }
+    }
+    if($tur -ge 540){ Write-Host "  ZAMAN ASIMI (3 saat) - parti BEKLEMEDE birakildi, kimlik bekleyen-partiler.json'da; kurtarPartiler ile toplanir."; break }
+  }
+  if(-not $bitti){
+    Write-Host ("  parti {0} bitmedi - sonuc CEKILMIYOR, kosu devam ediyor." -f $b.id)
+    continue
+  }
   $adres = if($st.results_url){ "$($st.results_url)" } else { "https://api.anthropic.com/v1/messages/batches/$($b.id)/results" }
-  $cev = Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $HDR -TimeoutSec 300
+  $cev = $null
+  foreach($dnm in 1..3){
+    try { $cev = Invoke-WebRequest -UseBasicParsing -Uri $adres -Headers $HDR -TimeoutSec 300; break }
+    catch { Write-Host ("  sonuc cekme denemesi {0}/3: {1}" -f $dnm, $_.Exception.Message); Start-Sleep -Seconds 20 }
+  }
+  if($null -eq $cev){ Write-Host "  SONUC CEKILEMEDI - parti kimligi kayitli, kurtarilir. Devam."; continue }
   $mt2 = if($cev.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($cev.Content) } else { "$($cev.Content)" }
   foreach($sat in ($mt2 -split "`r?`n")){
     if("$sat".Trim().Length -eq 0){ continue }

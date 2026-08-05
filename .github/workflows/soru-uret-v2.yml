@@ -101,7 +101,7 @@ jobs:
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in veri/uretim-emir.json veri/uretim-log.txt veri/uretim-rapor-*.json veri/uretim-log-*.txt veri/uretim-hata-*.json; do
+          for f in veri/uretim-emir.json veri/uretim-log.txt veri/uretim-rapor-*.json veri/uretim-log-*.txt veri/uretim-hata-*.json veri/bekleyen-partiler.json; do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Soru uretimi [veri-operasyonu]"
