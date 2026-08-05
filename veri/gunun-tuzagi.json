@@ -1,37 +1,37 @@
 {
-  "tarih": "04.08.2026",
-  "gun": "2026-08-04",
+  "tarih": "05.08.2026",
+  "gun": "2026-08-05",
   "durum": "TAMAM",
-  "id": "96f39693",
+  "id": "3cbc3607",
   "sinav": "SMMM",
-  "ders": "Hukuk",
-  "konu": "sermaye sirketi turleri",
-  "soru": "Bir holding şirketi, %40 ortağı olduğu ABC Enerji A.Ş.'nin yönetim kuruluna kendisi (tüzel kişi olarak) seçilmek istemektedir. TTK'ya göre bu mümkün müdür?",
+  "ders": "Muhasebe Denetimi",
+  "konu": "denetim sozlesmesi kabulu ve kapsam sinirlamasi",
+  "soru": "LevelUp Games A.Ş.'nin İrlanda'daki bağlı ortaklığı, konsolide bilançonun yaklaşık %40'ını oluşturuyor. Ana ortaklık yönetimi, denetçinin bu bağlı ortaklığın kayıtlarına ve yönetimiyle görüşmesine erişimini reddediyor. Elde edilemeyen kanıtın olası etkisi hem önemli hem de finansal tablolara yaygın (pervasive) olarak değerlendiriliyor. Denetçinin vereceği görüş türü ne olmalıdır?",
   "siklar": {
-    "A": "Evet, tüzel kişi de yönetim kurulu üyesi seçilebilir; ancak tüzel kişi adına bu görevi yürütecek bir gerçek kişi tescil ve ilan edilir.",
-    "B": "Evet, tüzel kişi yönetim kurulu üyesi olabilir ama bu durumda oy hakkını kaybeder, sadece danışma niteliğinde katılım sağlar.",
-    "C": "Hayır, yönetim kurulu üyesi olabilmek için mutlaka gerçek kişi olmak, hatta pay sahibi olmak şarttır.",
-    "D": "Hayır, tüzel kişiler ancak denetim kurulunda temsil edilebilir, yönetim kurulunda görev alamaz.",
-    "E": "Evet, tüzel kişi yönetim kurulu üyesi seçilebilir ve toplantılara bizzat tüzel kişinin kendi yetkili organı (örneğin kendi yönetim kurulu) katılır."
+    "A": "Denetçi başka hiçbir seçeneği olmadığından denetim sözleşmesinden kendiliğinden çekilmek zorundadır.",
+    "B": "Şartlı görüş verilir çünkü etki belirli, sınırlı bir bilanço kalemiyle ilişkilidir.",
+    "C": "Kısıtlama giderilene kadar rapor tarihi ileri bir tarihe ötelenir, bu süre zarfında görüş verilmez.",
+    "D": "Denetçi görüşten çekinir, çünkü olası etki hem önemli hem de yaygındır.",
+    "E": "Olumlu görüş verilir, ancak rapora dikkat çekilecek husus paragrafı eklenir."
   },
-  "dogru": "A",
+  "dogru": "D",
   "aciklama": {
-    "A": "Ne soruluyor: Tüzel kişinin (holding gibi şirketlerin) yönetim kuruluna üye seçilip seçilemeyeceği soruluyor.\n\nKural: TTK m.359/2'ye göre tüzel kişi yönetim kurulu üyesi seçilebilir. Ancak tüzel kişi adına sadece bir gerçek kişi belirlenir, bu kişi tescil ve ilan edilir. Toplantılara katılıp oy kullanan da bu tescilli gerçek kişidir.\n\nBu olayda: Holding şirketi ABC Enerji A.Ş.'nin yönetim kuruluna üye seçilebilir. Holding, kendi adına görev yapacak bir gerçek kişi belirler ve bu kişi tescil edilir.\n\nAkılda kalsın: Tüzel kişi yönetim kuruluna girebilir ama mutlaka bir gerçek kişi üzerinden temsil edilir.",
-    "B": "Bu şık temsil yetkisi ile oy hakkını karıştırıyor. Tüzel kişi adına belirlenen gerçek kişi toplantılara katılır ve oy kullanır; danışma niteliğinde sınırlı bir katılım söz konusu değildir.",
-    "C": "Bu şık eski anlayış ile yeni düzenlemeyi karıştırıyor. TTK m.359/2 açıkça tüzel kişinin yönetim kurulu üyesi seçilebileceğini düzenler; pay sahipliği şartı da aranmaz.",
-    "D": "Bu şık yönetim kurulu ile denetim kurulunu karıştırıyor. Tüzel kişiler hem yönetim kuruluna hem denetim kuruluna seçilebilir; yönetim kurulunda görev almalarının önünde yasal engel yoktur.",
-    "E": "Bu şık temsil mekanizmasını yanlış anlatıyor. Tüzel kişi adına belirlenen ve tescil edilen sadece bir gerçek kişi katılır; tüzel kişinin kendi yönetim kurulu gibi organları katılamaz."
+    "A": "Bu şık denetim sözleşmesinden çekilmeyi zorunlu görüyor; oysa denetçi önce görüşten çekinerek rapor verebilir. Çekilme son çare olup, otomatik değildir; görüşten çekinme ise kapsam kısıtlamasında standart çözümdür.",
+    "B": "Bu şık 'şartlı görüş' ile 'görüşten çekinme'yi karıştırıyor. Şartlı görüş, etki önemli ama sınırlı olduğunda verilir; görüşten çekinme ise etki hem önemli hem de yaygın (pervasive) olduğunda verilir.",
+    "C": "Bu şık rapor tarihini ertelemeyi çözüm sanıyor; oysa kapsam kısıtlaması yönetime bağlıysa süre uzatmak sorunu çözmez. Yönetim erişim vermiyorsa denetçi elindeki kanıtla görüşten çekinerek rapor verir, beklemez.",
+    "D": "Ne soruluyor: Denetçi, bağlı ortaklık hakkında kanıt edinemediğinde hangi görüşü verir?\n\nKural: Denetçi yeterli kanıt edinemezse (kapsam kısıtlaması) ve etki hem önemli hem de yaygınsa görüşten çekinir. Yaygın, tablonun birçok kalemini etkilemesi demektir.\n\nBu olayda: İrlanda'daki bağlı ortaklık konsolide bilançonun %40'ını oluşturuyor. Yönetim denetçiye erişim vermiyor. Etki hem önemli hem de yaygın. Denetçi görüşten çekinerek rapor verir.\n\nAkılda kalsın: Kapsam kısıtlaması + önemli + yaygın = görüşten çekinme.",
+    "E": "Bu şık 'olumlu görüş + dikkat çekme paragrafı' ile 'görüşten çekinme'yi karıştırıyor. Dikkat çekme paragrafı, tablolar doğru ama önemli bir husus varsa kullanılır; kapsam kısıtlamasında ise görüş değişir, paragraf eklemek yetmez."
   },
-  "kaynak": "TTK m.359",
+  "kaynak": "BDS 705 md 10",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Hukuk — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Muhasebe Denetimi — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 148,
+    "uygun_aday": 147,
     "yayindaki": 150,
-    "gecmiste": 2
+    "gecmiste": 3
   }
 }
