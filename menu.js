@@ -4,9 +4,10 @@
 (function(){
 if(window.MRMenu) return;
 
+/* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
 /* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
    Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
-   AÇILIŞ GÜNÜ bu bloğun tamamı silinecek (rebrand gecesi kontrol listesinde). */
+   AÇILIŞ GÜNÜ: motor/gong.ps1 bu bloğu işaretlerden tanıyıp siler. */
 try {
   var q = new URLSearchParams(location.search);
   if (q.get('kapi') === 'tetikte2026') { localStorage.setItem('mrOnizleme','1'); }
@@ -52,6 +53,7 @@ try {
     return; /* perde varken menu de kurulmasin */
   }
 } catch(e) {}
+/* ==== PERDE-SONU (gong.ps1 isaretli blogu buraya kadar siler) ==== */
 
 var GRUPLAR=[
  {ad:"🛃 Gümrük & İthalat", araclar:[
