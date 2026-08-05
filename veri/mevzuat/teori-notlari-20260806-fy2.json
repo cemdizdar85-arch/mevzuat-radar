@@ -1,0 +1,41 @@
+{
+  "_aciklama": "Finansal Yonetim teori notlari - 2. seri (06.08.2026 gece, Cem onayi: '1 ve 3 yapabiliriz'). Ilk serinin (20260801-fy) kapsamadigi cekirdek konular. Evrensel finans teorisi; formuller ders kitabi standardi. Kota satirlari KGK cikmis-soru siklik sayimindan SONRA acilacak - siklik gormedigimiz konuya uretim koşmaz.",
+  "belgeler": [
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - tahvil degerleme",
+      "baslik": "",
+      "metin": "Tahvilin degeri, gelecekte saglayacagi nakit akislarinin (donemsel kupon odemeleri + vade sonundaki nominal deger) bugunku degerlerinin toplamidir. Fiyat = Σ Kupon/(1+r)^t + Nominal/(1+r)^n. Buradaki r, piyasanin o tahvilden istedigi getiri oranidir (vadeye kadar verim, YTM). Fiyat ile piyasa faizi TERS yonlu calisir: faiz yukselirse tahvilin fiyati duser, faiz duserse fiyat yukselir. Kupon orani piyasa faizine esitse tahvil basabas (nominal degerden), kupon orani piyasa faizinin altindaysa iskontolu (nominalin altinda), ustundeyse primli (nominalin ustunde) islem gorur. Vade uzadikca fiyatin faiz degisimine duyarliligi artar; bu duyarliligin olcusu durasyondur. Sifir kuponlu tahvilde ara odeme yoktur; deger yalnizca nominal degerin iskonto edilmesiyle bulunur: Fiyat = Nominal/(1+r)^n. Tipik tuzak: kupon ORANI ile vadeye kadar VERIMI karistirmak - kupon sozlesmeyle sabittir, verim piyasa fiyatina gore degisir."
+    },
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - hisse senedi degerleme temettu modeli",
+      "baslik": "",
+      "metin": "Hisse senedinin icsel degeri, beklenen temettulerinin bugunku degeridir. Sabit buyume (Gordon) modeli: P0 = D1 / (k - g). Burada D1 bir yil sonra beklenen temettu (D1 = D0 x (1+g)), k ozsermaye maliyeti (yatirimcinin istedigi getiri), g temettulerin sabit buyume oranidir. Modelin calismasi icin k > g olmalidir; g, k'ye yaklastikca deger sonsuza gider ve model anlamini yitirir. Temettu dagitmayan ya da duzensiz buyuyen sirketlerde cok asamali modeller veya carpan yontemleri kullanilir. Fiyat/Kazanc (F/K) orani = hisse fiyati / hisse basina kar; benzer sirketlerin F/K ortalamasi ile sirketin karini carparak yaklasik deger bulunur. Buyume orani icin ic kaynak formulu: g = alikoyma orani x ozsermaye karliligi (b x ROE). Tipik tuzaklar: D0 ile D1'i karistirmak (formul GELECEK yilin temettusunu ister) ve g'nin temettu degil KAR buyumesi sanilmasi."
+    },
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - finansman kaynaklari ve sermaye yapisi",
+      "baslik": "",
+      "metin": "Isletmeler kisa vadeli finansmani ticari kredi (satici kredisi), banka kredileri, finansman bonosu ve faktoring ile; uzun vadeli finansmani tahvil ihraci, hisse senedi ihraci, uzun vadeli banka kredisi, finansal kiralama (leasing) ve otofinansman (dagitilmayan karlar) ile saglar. Ticari kredinin gorunmez bir maliyeti vardir: erken odeme iskontosundan vazgecmenin yillik maliyeti cogu zaman banka faizinin ustundedir. Borcla finansmanin iki yuzu: faiz gideri vergi matrahindan dusuldugu icin borcun vergi kalkani avantaji vardir ve borc maliyeti ozsermayeden ucuzdur; ama borc arttikca finansal risk, iflas olasiligi ve dolayisiyla hem borcun hem ozsermayenin istedigi getiri yukselir. Optimal sermaye yapisi, agirlikli ortalama sermaye maliyetini (WACC) en dusuk yapan borc/ozsermaye bilesimdir. Modigliani-Miller'in vergisiz dunyasinda sermaye yapisi firma degerini etkilemez; vergili dunyada borcun vergi kalkani deger katar. Tipik tuzak: 'borc her zaman degeri artirir' - iflas ve temsil maliyetleri siniri cizer."
+    },
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - turev urunler forward futures opsiyon swap",
+      "baslik": "",
+      "metin": "Turev urunler, degeri baska bir varliga (doviz, faiz, hisse, emtia) bagli sozlesmelerdir; temel kullanim amaci riskten korunmadir (hedging). FORWARD: iki taraf arasinda, gelecekte belirli tarihte belirli fiyattan alim-satimi BAGLAYICI kilan tezgahustu sozlesme; standart degildir, karsi taraf riski tasir. FUTURES: forward'in borsada islem goren halidir - standart tutar ve vadeler, takas kurumu guvencesi, baslangic teminati ve gunluk fiyat esitlemesi (marking to market). OPSIYON: alicisina HAK verir, YUKUMLULUK yuklemez; bu hak icin prim odenir. Alim opsiyonu (call) belirli fiyattan ALMA hakki, satim opsiyonu (put) SATMA hakki verir. Opsiyon alicisinin riski odedigi primle sinirlidir; yazicisinin (saticisinin) riski genis olabilir. SWAP: iki tarafin odeme akislarini degistirmesidir - faiz swabinda sabit faiz ile degisken faiz, doviz swabinda farkli para birimlerindeki anapara ve faizler takas edilir. Tipik tuzak: forward/futures YUKUMLULUK dogurur, opsiyon yalnizca HAK dogurur - ikisini karistiran sik yanlistir."
+    },
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - doviz kuru riski yonetimi",
+      "baslik": "",
+      "metin": "Doviz kuru riski uc bicimde ortaya cikar. ISLEM riski: dovizle yapilmis ve odemesi gelecekte olan alacak-borclarin, kur degisince TL karsiliginin degismesidir. CEVIRI (muhasebe) riski: yurt disi istirakin finansal tablolarinin ana paranin para birimine cevrilmesinde ortaya cikan farklardir; nakit cikisi yaratmaz. EKONOMIK risk: kur duzeyindeki kalici degisimin isletmenin rekabet gucunu ve gelecekteki nakit akislarini etkilemesidir. Korunma araclari: forward sozlesmeyle kur bugunden sabitlenir; futures ile ayni is borsada standart sozlesmeyle yapilir; doviz opsiyonu prim karsiliginda kotu senaryodan korurken iyi senaryonun kapisini acik birakir; doviz swabi ile farkli para birimlerindeki yukumlulukler degistirilir. Sozlesmesiz (dogal) korunma da mumkundur: doviz geliri olan isletmenin ayni dovizden borclanmasi, alacak ve borclarin vade-tutar eslestirilmesi, gelir-gider para birimlerinin uyumlastirilmasi. Tipik tuzak: ceviri riskini islem riskiyle karistirmak - ceviri riski kagit ustundedir, islem riski nakit etkiler."
+    },
+    {
+      "tur": "kanun-madde",
+      "kaynak_ad": "Teori Notu - finansal planlama proforma ve ek fon ihtiyaci",
+      "baslik": "",
+      "metin": "Finansal planlamanin temel araci proforma (tahmini) finansal tablolardir. Satis yuzdesi yonteminde, satislarla birlikte degisen bilanco kalemleri (nakit, alacaklar, stoklar, satislara bagli borclar) satislarin yuzdesi olarak sabit alinir ve hedef satis duzeyine gore olceklenir; duran varliklar kapasite doluysa onlar da buyur. EK FON IHTIYACI (dis kaynak geregi): planlanan varlik artisi ile kendiliginden olusan kaynaklarin farki kadar disaridan fon gerekir. Formul: EFI = (Varliklar/Satislar) x ΔSatis - (Kendiliginden Borclar/Satislar) x ΔSatis - (net kar marji x yeni satislar x alikoyma orani). Son terim dagitilmayan karla ic finansmani gosterir; temettu dagitim orani buyudukce alikoyma azalir, dis fon ihtiyaci artar. Nakit butcesi ise kisa vadeli plandir: donem donem nakit girisleri ve cikislari karsilastirilir, acik veren donem icin kredi limiti onceden ayarlanir. Tipik tuzak: banka kredilerini 'kendiliginden kaynak' saymak - kendiliginden kaynak yalniz satisla birlikte kendiliginden buyuyen ticari borc ve tahakkuklardir."
+    }
+  ]
+}
