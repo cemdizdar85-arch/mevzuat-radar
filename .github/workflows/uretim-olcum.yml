@@ -1,0 +1,52 @@
+# Uretim maliyet olcumu — 0 USD, API CAGRISI YOK (soru-uret-v2 olcum modu).
+# Cem: "bos+eksik konulara uretim - once kuru kosu maliyet olcumu."
+# Konu listesi elle yazilmaz: iki-sinav-konu-raporu.json'dan (GERCEKTEN_BOS +
+# EKSIK) jq ile cekilir - olcum her zaman guncel bosluk listesiyle kosar.
+name: Uretim Maliyet Olcumu (0 USD)
+on:
+  push:
+    paths: ['.github/workflows/uretim-olcum.yml', 'veri/tetik/uretim-olcum.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: uretim-olcum
+  cancel-in-progress: false
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: SMMM olcumu (bos+eksik konular)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $r = Get-Content veri/iki-sinav-konu-raporu.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          $konular = @($r.SMMM_bitirme.GERCEKTEN_BOS | ForEach-Object { $_.konu }) + @($r.SMMM_bitirme.EKSIK | ForEach-Object { $_.konu })
+          Write-Host ("SMMM bos+eksik konu: {0}" -f $konular.Count)
+          ./motor/soru-uret-v2.ps1 -sinav SMMM -sinir 2000 -konular ($konular -join ',')
+          Move-Item veri/uretim-olcum-raporu.json veri/uretim-olcum-smmm.json -Force
+      - name: SGS olcumu (bos+eksik konular)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $r = Get-Content veri/iki-sinav-konu-raporu.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          $konular = @($r.SGS_staja_giris.GERCEKTEN_BOS | ForEach-Object { $_.konu }) + @($r.SGS_staja_giris.EKSIK | ForEach-Object { $_.konu })
+          Write-Host ("SGS bos+eksik konu: {0}" -f $konular.Count)
+          ./motor/soru-uret-v2.ps1 -sinav SGS -sinir 2000 -konular ($konular -join ',')
+          Move-Item veri/uretim-olcum-raporu.json veri/uretim-olcum-sgs.json -Force
+      - name: Commit (SESSIZ BASARISIZLIK YASAK)
+        if: always()
+        run: |
+          set -e
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/uretim-olcum-smmm.json ] && [ ! -f veri/uretim-olcum-sgs.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          git add veri/uretim-olcum-smmm.json 2>/dev/null || true
+          git add veri/uretim-olcum-sgs.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Uretim maliyet olcumu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1

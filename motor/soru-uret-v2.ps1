@@ -33,6 +33,11 @@ param(
   # kasaya yazilir. Pilot-1 ile Pilot-2 ayni gun kostu ve damgalari ayniydi;
   # sonucta "onarim tuttu mu" sorusu olculemedi cunku ornekler ayrilamadi.
   [string]$emirNo = '0',
+  # 05.08 (Cem: "bos+eksik konulara uretim"): virgullu KONU listesi verilirse
+  # plan yalniz o konulara filtrelenir; bos ise davranis eskisiyle BIREBIR ayni.
+  # Karsilastirma Turkce-bagimsiz sadelestirmeyle yapilir (bu haftanin bes
+  # I/i tuzagi dersinden sonra kulturlu karsilastirma YASAK).
+  [string]$konular = '',
   # 29.07 KURTARMA MODU: virgullu batch kimligi listesi (parti sirasiyla:
   # ilk kimlik = u0, ikinci = u1...). Verilirse YENI BATCH GONDERILMEZ -
   # bu kimliklerin SONUCLARI cekilir (GET ucretsizdir, ucret parti islenirken
@@ -535,8 +540,29 @@ $maddesizListe = New-Object System.Collections.Generic.List[object]
 # tavana takilan satirlar GORUNUR olsun (sessiz atlama yasak)
 $tavanListe = New-Object System.Collections.Generic.List[object]
 $ist.tavanDolu = 0
+# --- 05.08 KONU FILTRESI (Turkce-bagimsiz anahtar; bkz. param aciklamasi) ---
+$HARF_KF = @{ [char]0x0130='I';[char]0x0131='I';[char]'i'='I';[char]'I'='I'; [char]0x015E='S';[char]0x015F='S'
+              [char]0x011E='G';[char]0x011F='G'; [char]0x00DC='U';[char]0x00FC='U'; [char]0x00D6='O';[char]0x00F6='O'
+              [char]0x00C7='C';[char]0x00E7='C' }
+function KonuAnahtar([string]$t){
+  if($null -eq $t){ return '' }
+  $sb = New-Object Text.StringBuilder
+  foreach($c in $t.ToCharArray()){
+    if($HARF_KF.ContainsKey($c)){ [void]$sb.Append($HARF_KF[$c]); continue }
+    $u = [char]::ToUpperInvariant($c)
+    if(($u -ge 'A' -and $u -le 'Z') -or ($u -ge '0' -and $u -le '9')){ [void]$sb.Append($u) } else { [void]$sb.Append(' ') }
+  }
+  return (($sb.ToString()) -replace '\s+',' ').Trim()
+}
+$konuFiltre = @{}
+if("$konular".Trim() -ne ''){
+  foreach($k in ("$konular" -split ',')){ $kk = KonuAnahtar $k; if($kk -ne ''){ $konuFiltre[$kk] = 1 } }
+  Write-Host ("KONU FILTRESI: {0} konu" -f $konuFiltre.Count)
+}
+
 foreach($p in $plan){
   if($isler.Count -ge $sinir){ break }
+  if($konuFiltre.Count -gt 0 -and -not $konuFiltre.ContainsKey((KonuAnahtar "$($p.konu)"))){ continue }
   $ist.planSatir++
   $kay = KaynakBul "$($p.konu)" "$($p.ders)"
   if(-not $kay){ $ist.maddesiz++; if($maddesizListe.Count -lt 120){ $maddesizListe.Add([pscustomobject]@{ ders="$($p.ders)"; konu="$($p.konu)" }) }; continue }
@@ -604,7 +630,24 @@ foreach($k in $ist.Keys){ Write-Host ("  {0,-12} {1}" -f $k, $ist[$k]) }
 $gk=0; foreach($i in $isler){ $gk += $i.istem.Length }
 $tahmin = ((([math]::Round($gk/3))/1e6*3.0) + (($isler.Count*1400)/1e6*15.0))/2
 Write-Host ("MALIYET TAHMINI (Batch %50): ~{0:N2} USD" -f $tahmin)
-if(-not $calistir){ Write-Host "OLCUM MODU - 0 USD."; try{Stop-Transcript|Out-Null}catch{}; exit 0 }
+if(-not $calistir){
+  # 05.08: olcum yalniz ekrana basiliyordu; Actions logu kilitli oldugu icin
+  # rapor dosyasina da yazilir (kor kalma). Ders dagilimi da eklenir.
+  $dersDag = @{}
+  foreach($i in $isler){ if(-not $dersDag.ContainsKey($i.ders)){ $dersDag[$i.ders]=0 }; $dersDag[$i.ders]++ }
+  $dagListe = New-Object System.Collections.Generic.List[object]
+  foreach($d in ($dersDag.Keys | Sort-Object)){ $dagListe.Add([ordered]@{ ders=$d; soru=$dersDag[$d] }) }
+  Set-Content -LiteralPath (Join-Path $kok 'veri/uretim-olcum-raporu.json') -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 5 -InputObject ([ordered]@{
+    tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='OLCUM (0 USD)'; sinav=$sinav; model=$model
+    konu_filtresi=$konuFiltre.Count; hazirlanan_is=$isler.Count
+    istem_karakter_toplam=$gk
+    maliyet_tahmini_usd=[Math]::Round($tahmin,2)
+    fiyat_notu='Sonnet 4.5 Batch %50: giris 3 USD/M (karakter/3 token), cikis 15 USD/M (soru basi ~1400 token varsayimi)'
+    ders_dagilimi=$dagListe.ToArray()
+    kaynaksiz_atlanan=$ist.maddesiz
+    tavan_dolu=$ist.tavanDolu
+  }))
+  Write-Host "OLCUM MODU - 0 USD. Rapor: veri/uretim-olcum-raporu.json"; try{Stop-Transcript|Out-Null}catch{}; exit 0 }
 if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok."; exit 1 }
 if($isler.Count -eq 0){ Write-Host "KIRMIZI: uretilecek is yok."; exit 1 }
 # PARA HARCAMADAN ONCE: yazma yolu saglam mi?
