@@ -90,6 +90,23 @@ $H = if($KEY){ @{ apikey=$KEY; Authorization="Bearer $KEY" } } else { $null }
 $degisen = New-Object System.Collections.Generic.List[string]
 
 foreach($law in $manifest.kanunlar){
+  # ==========================================================================
+  #  SADECE filtresi (05.08 - kurtarma hatti icin)
+  #
+  #  NEDEN: son 5 gunluk-ayna kosusunun BESI de iptal (03.08 12:42'den beri).
+  #  Olum sarmali: kosu 6 saatlik GitHub tavaninda oluyor -> _durum.json hic
+  #  commit'lenmiyor -> sonraki kosu her seyi "ilk kez" sanip 650 kaynagi
+  #  bastan indiriyor -> yine tavana takiliyor. Sonuc: 2 gundur ambara TEK
+  #  kaynak inmedi; 6 SMMM yonetmeligi de bu batakta bekliyordu.
+  #
+  #  SADECE="slug1,slug2" verilirse yalniz o kaynaklar islenir - kucuk
+  #  kurtarma kosulari tam turun kaderine bagli olmaz. Bos/verilmemisse
+  #  davranis eskisiyle BIREBIR ayni (tam tur).
+  # ==========================================================================
+  if("$($env:SADECE)".Trim() -ne ''){
+    $sadeceListe = @("$($env:SADECE)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })
+    if($sadeceListe -notcontains "$($law.slug)"){ continue }
+  }
   $txt = Join-Path $txtDir "$($law.slug).txt"
   if(-not (Test-Path $txt)){
     # YEDEK YOL: indirme basarisiz (mevzuat.gov.tr runner'a yavas/kapali olabilir).
