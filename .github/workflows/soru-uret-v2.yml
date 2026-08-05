@@ -58,13 +58,17 @@ jobs:
             # o kimliklerin sonuclari cekilir (0 USD) ve kapilardan gecip kasaya yazilir.
             $kp = if($x.PSObject.Properties['kurtarPartiler'] -and $x.kurtarPartiler){ "$($x.kurtarPartiler)" } else { '' }
             if($kp){ Write-Host ("      KURTARMA MODU - {0} parti, 0 USD." -f (@($kp -split ',').Count)) }
+            # 05.08: emirde 'konular' alani varsa plan o konulara filtrelenir
+            # (bosluk doldurma emirleri icin; bos ise davranis eskisiyle ayni).
+            $kn = if($x.PSObject.Properties['konular'] -and $x.konular){ "$($x.konular)" } else { '' }
+            if($kn){ Write-Host ("      konu filtresi: {0} konu" -f (@($kn -split ',').Count)) }
             try {
               if($olcum){
                 ./motor/soru-uret-v2.ps1 -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                   -sinav $sv -emirNo "$($x.no)" -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+                   -sinav $sv -emirNo "$($x.no)" -model "$($x.model)" -konular $kn -cikti "veri/uretim-rapor-$($x.no).json"
               } else {
                 ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
-                   -sinav $sv -emirNo "$($x.no)" -kurtarPartiler $kp -model "$($x.model)" -cikti "veri/uretim-rapor-$($x.no).json"
+                   -sinav $sv -emirNo "$($x.no)" -kurtarPartiler $kp -model "$($x.model)" -konular $kn -cikti "veri/uretim-rapor-$($x.no).json"
               }
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch { $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message) }

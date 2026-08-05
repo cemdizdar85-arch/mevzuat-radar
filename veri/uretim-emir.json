@@ -1,4 +1,4 @@
-{
+﻿{
     "_aciklama":  "SORU URETIM EMRI. Para harcayan tek kapi. Uretilen sorularin HEPSI yayin=false ile kasaya duser; profesor denetimi ve GM okumasi olmadan ogrenciye GITMEZ.",
     "_recete":  "Her soru bes girdiyle uretilir: ders (8 kapi, esit kota) -\u003e konu (883 konudan, 12 donemlik siklik agirligiyla) -\u003e kurgu (o dersin GERCEK dagilimi: Hukuk %95 bilgi, Finansal Tablolar %58 hesap, Finansal Muhasebe %40 kayit) -\u003e uzunluk -\u003e KANUN MADDESI METNI (ambardan, istemin icine konur).",
     "_kaynak":  "veri/uretim-kotasi.json — 12 donem TESMER Yeterlilik kitapcigi (2023/1-2026/3), 883 tekil konu, 480 test sorusundan olculmus kurgu dagilimi.",
@@ -373,6 +373,40 @@
                         "deneme":  2,
                         "uygulandi":  "02.08.2026 08:57 (ELLE DAMGALANDI - GM)",
                         "_not":  "Kosu 1.510 soruyu URETTI ve kasaya YAZDI (yazmaHatasi 0), ama en sonda rapor yazimi \u0027Argument types do not match\u0027 ile dustu ve emir damgalanmadi. Damgalanmayan emir bir sonraki push\u0027ta YENIDEN kosar = ayni para ikinci kez harcanirdi. Elle damgalandi; kok neden (ConvertTo-Json\u0027un string dizisi dondurmesi) ayni commit\u0027te duzeltildi."
+                    },
+                    {
+                        "no":  28,
+                        "tarih":  "05.08.2026",
+                        "veren":  "Cem (\"adim 1 yap\")",
+                        "emir":  "BOSLUK DOLDURMA - SMMM bos+eksik 32 konu (olcum: 244 soru)",
+                        "onay":  true,
+                        "sinir":  300,
+                        "ders":  "",
+                        "sinav":  "SMMM",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "konular":  "gelir vergisi matrahi hesaplama,gelir vergisi beyani,onemlilik kavrami,denetim kistasi,uygulamali mesleki egitim,mesleki muhakeme,ihrac kaydiyla teslim tecil terkin,finansman gider kisitlamasi,disiplin cezalari,kitle fonlamasi,halka acik ortaklik borsa basvurusu,genel kurul cagrisi,denetci bagimsizligi,pismanlik ve islah,disiplin kurulu itiraz suresi,izahname sorumlulugu,piyasa bozucu eylem,kismi bolunme turleri,idari para cezasi uygulamasi,meslek kutugunden silinme,odalarin gelirleri,yatirimci varliklari teminat,icsel bilgi aciklama ertelemesi,turmob gelirleri,kurul tedbirleri,kayitli sermaye tavani,tazmin talebi zamanasimi,sgk ise giris bildirgesi,meslek onuruyla bagdasmayan haller,birlik yonetim kurulu uye sayisi,uyarma cezasi,vergi dava acma suresi",
+                        "gerekce":  "Iki-sinav olcumu: sinavin en cok sordugu konularda kasa bos (gelir vergisi beyan/matrah, onemlilik, mesleki muhakeme, tecil-terkin...). Kaynaklar 05.08 sabahi tamamlandi (6 yonetmelik dahil). Olcum 05.08: 244 is, 4,98 USD.",
+                        "tahmini_usd":  4.98,
+                        "onay_acan":  "olcum raporu veri/uretim-olcum-smmm.json",
+                        "deneme":  false,
+                        "uygulandi":  false
+                    },
+                    {
+                        "no":  29,
+                        "tarih":  "05.08.2026",
+                        "veren":  "Cem (\"adim 1 yap\")",
+                        "emir":  "BOSLUK DOLDURMA - SGS bos+eksik 23 konu (olcum: 24 soru)",
+                        "onay":  true,
+                        "sinir":  50,
+                        "ders":  "",
+                        "sinav":  "SGS",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "konular":  "meslek etik ilkeleri,denetim riski,genel islem kosullari,asit-test orani,talep esnekligi,net calisma sermayesi,kollektif sirket kar dagitimi,surekli sermaye orani dikey yuzdelerle,zorunlu karsilik orani,yatay analiz duran varlik yuzdesi,net isletme sermayesi analizi,rasyonel beklentiler hipotezi,bds 701 kilit denetim konulari,menkul kiymet denetimi,gelir tablosu analizi,islem etkisi cari oran (1\u0027in altinda),donem ayirici hesaplar,isletme birlesmesi serefiye,para arzi-acik piyasa islemleri,uluslararasi muhasebe kuruluslari,ozel maliyetler,ozel maliyetler kaydi,yedek akce ayirma",
+                        "gerekce":  "SGS bosluklari kucuk ama omurga: meslek etik ilkeleri, denetim riski, genel islem kosullari. Olcum 05.08: 24 is, 0,51 USD.",
+                        "tahmini_usd":  0.51,
+                        "onay_acan":  "olcum raporu veri/uretim-olcum-sgs.json",
+                        "deneme":  false,
+                        "uygulandi":  false
                     }
                 ]
 }
