@@ -62,6 +62,9 @@ function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitCo
 $indirilen=0; $degisen=0; $ayni=0; $hata=0; $seyrekYeni=0; $atlanan=0
 foreach($law in $manifest.kanunlar){
   $slug = "$($law.slug)"
+  # HAZIR = metin depoda elle duruyor (taranmis PDF/mevzuat.gov.tr disi kaynak);
+  # indirilecek PDF yok. 05.08: bdkarar11066 bu yuzden "May not be a PDF" yedi.
+  if("$($law.pdfId)" -eq 'HAZIR'){ $atlanan++; continue }
   $seyrek = $false; try { $seyrek = ($law.PSObject.Properties['seyrek'] -and $law.seyrek -eq $true) } catch {}
   if($seyrek){
     if($durum.ContainsKey($slug) -and (Get-Date).DayOfWeek -ne 'Sunday'){ $atlanan++; continue }  # yutulmus seyrek: yalniz pazar tazelenir
