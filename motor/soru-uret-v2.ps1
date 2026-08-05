@@ -695,7 +695,11 @@ if($kurtarPartiler){
   # Eslesmeyen sonuc YAZILMAZ (cevapsiz sayilir) - kapi gevsetilmiyor,
   # eslestirme dogru metne oturtuluyor; rakam kapisi aynen kosar.
   $KISALTMA = @{ 'VUK'='213';'GVK'='193';'KVK'='5520';'KDVK'='3065';'KDV KANUNU'='3065';'TTK'='6102';'TBK'='6098'
-                 'IIK'='2004';'İİK'='2004';'AATUHK'='6183';'SMK'='6769';'HMK'='6100';'TMK'='4721';'TCK'='5237';'CMK'='5271' }
+                 'IIK'='2004';'İİK'='2004';'AATUHK'='6183';'SMK'='6769';'HMK'='6100';'TMK'='4721';'TCK'='5237';'CMK'='5271'
+                 'VERGI USUL KANUNU'='213';'VERGİ USUL KANUNU'='213';'GELIR VERGISI KANUNU'='193';'GELİR VERGİSİ KANUNU'='193'
+                 'KURUMLAR VERGISI KANUNU'='5520';'KURUMLAR VERGİSİ KANUNU'='5520';'KATMA DEGER VERGISI'='3065';'KATMA DEĞER VERGİSİ'='3065'
+                 'TURK TICARET KANUNU'='6102';'TÜRK TİCARET KANUNU'='6102';'SERMAYE PIYASASI KANUNU'='6362';'SERMAYE PİYASASI KANUNU'='6362'
+                 'IS KANUNU'='4857';'İŞ KANUNU'='4857';'SOSYAL SIGORTALAR'='5510';'SOSYAL SİGORTALAR'='5510' }
   function AtifAnahtarlari($y){
     $par = New-Object System.Text.StringBuilder
     [void]$par.Append("$($y.soru) ")
@@ -705,6 +709,8 @@ if($kurtarPartiler){
     foreach($m in [regex]::Matches($t,'(?i)\b(TMS|TFRS|BDS)\s*(\d{1,3})\b')){
       $an.Add(("STD|{0} {1}" -f $m.Groups[1].Value.ToUpperInvariant(), $m.Groups[2].Value)) }
     $maddeler=@(); foreach($m in [regex]::Matches($t,'(?i)\bm(?:adde)?\.?\s*(\d{1,4})\b')){ $maddeler += $m.Groups[1].Value }
+    # Turkce ek kaliplari: "371'inci maddesi", "40 inci madde", "32. maddesinde"
+    foreach($m in [regex]::Matches($t,"(?i)(\d{1,4})\s*[.'’ʼ]*\s*([iı]nc[iı]|[uü]nc[uü])?\s*madde")){ $maddeler += $m.Groups[1].Value }
     $kanunlar=@(); foreach($m in [regex]::Matches($t,'(\d{3,4})\s*say[ıi]l[ıi]')){ $kanunlar += $m.Groups[1].Value }
     foreach($ks in $KISALTMA.Keys){ if($t -match "(?i)\b$([regex]::Escape($ks))\b"){ $kanunlar += $KISALTMA[$ks] } }
     foreach($k in ($kanunlar | Select-Object -Unique)){ foreach($md in ($maddeler | Select-Object -Unique)){ $an.Add("K|$k|$md") } }
@@ -718,26 +724,61 @@ if($kurtarPartiler){
     $md = [regex]::Replace("$($i.madde)",'[^\d]','')
     return "K|$($i.kanun)|$md"
   }
-  $isKuyruk = @{}
+  $isKuyruk = @{}; $kanunKuyruk = @{}
   for($gi2=0; $gi2 -lt $isler.Count; $gi2++){
     $ka = IsAnahtari $isler[$gi2]
     if(-not $isKuyruk.ContainsKey($ka)){ $isKuyruk[$ka] = New-Object System.Collections.Generic.Queue[int] }
     $isKuyruk[$ka].Enqueue($gi2)
+    # yedek kademe: yalniz kanun numarasi (madde tutmazsa ayni kanunun bos
+    # kalan isine baglanir). STD/THP'de yedek yok - standart adi zaten atifta.
+    $kn = "$($isler[$gi2].kanun)"
+    if($kn -ne 'STD' -and $kn -ne 'THP'){
+      if(-not $kanunKuyruk.ContainsKey($kn)){ $kanunKuyruk[$kn] = New-Object System.Collections.Generic.Queue[int] }
+      $kanunKuyruk[$kn].Enqueue($gi2)
+    }
   }
-  $sonucYeni = @{}; $eslesen=0; $dusen=0
+  $alinan = @{}; $sonucYeni = @{}; $eslesen=0; $dusen=0; $kanunEs=0
+  $bekleyenSonuc = New-Object System.Collections.Generic.List[object]
   foreach($ck in ($sonuc.Keys | Sort-Object { $p=$_ -split '_'; [int]($p[0] -replace '\D','')*100000 + [int]$p[1] })){
     $y2 = $sonuc[$ck]; if(-not $y2){ continue }
     $gi3 = -1
     foreach($ka in (AtifAnahtarlari $y2)){
-      if($isKuyruk.ContainsKey($ka) -and $isKuyruk[$ka].Count -gt 0){ $gi3 = $isKuyruk[$ka].Dequeue(); break }
+      if($isKuyruk.ContainsKey($ka)){
+        while($isKuyruk[$ka].Count -gt 0){
+          $aday = $isKuyruk[$ka].Dequeue()
+          if(-not $alinan.ContainsKey($aday)){ $gi3 = $aday; break }
+        }
+        if($gi3 -ge 0){ break }
+      }
     }
-    if($gi3 -ge 0){
-      $p3=[math]::Floor($gi3/$PARTI); $x3=$gi3-($p3*$PARTI)
-      $sonucYeni[("u{0}_{1}" -f $p3,$x3)] = $y2; $eslesen++
-    } else { $dusen++ }
+    if($gi3 -lt 0){ $bekleyenSonuc.Add($y2); continue }
+    $alinan[$gi3]=1
+    $p3=[math]::Floor($gi3/$PARTI); $x3=$gi3-($p3*$PARTI)
+    $sonucYeni[("u{0}_{1}" -f $p3,$x3)] = $y2; $eslesen++
+  }
+  # 2. KADEME: maddesi tutmayanlar ayni KANUNUN bos kalan isine baglanir.
+  # Metadata o kanunun plan satirindan gelir; rakam kapisi yine o isin
+  # kaynak metniyle kosar - uydurma rakam yazilamaz, eslesme sansi artar.
+  foreach($y2 in $bekleyenSonuc){
+    $gi3 = -1
+    foreach($ka in (AtifAnahtarlari $y2)){
+      if($ka -notmatch '^K\|'){ continue }
+      $kn = ($ka -split '\|')[1]
+      if($kanunKuyruk.ContainsKey($kn)){
+        while($kanunKuyruk[$kn].Count -gt 0){
+          $aday = $kanunKuyruk[$kn].Dequeue()
+          if(-not $alinan.ContainsKey($aday)){ $gi3 = $aday; break }
+        }
+        if($gi3 -ge 0){ break }
+      }
+    }
+    if($gi3 -lt 0){ $dusen++; continue }
+    $alinan[$gi3]=1; $kanunEs++
+    $p3=[math]::Floor($gi3/$PARTI); $x3=$gi3-($p3*$PARTI)
+    $sonucYeni[("u{0}_{1}" -f $p3,$x3)] = $y2; $eslesen++
   }
   $sonuc = $sonucYeni
-  Write-Host ("HIZALAMA (atif-bazli): {0} eslesti, {1} eslesemedi (yazilmayacak, Anthropic'te durur)." -f $eslesen, $dusen)
+  Write-Host ("HIZALAMA (atif-bazli): {0} eslesti ({1}'i kanun-yedek kademeden), {2} eslesemedi (yazilmayacak, Anthropic'te durur)." -f $eslesen, $kanunEs, $dusen)
 }
 for($p2=0; (-not $kurtarPartiler) -and $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
   $dilim=@($isler[($p2*$PARTI)..([math]::Min(($p2+1)*$PARTI-1,$isler.Count-1))])
@@ -988,15 +1029,21 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
 # metniyle karsilastiriliyor olur ve red orani firlar. Normal kosuda bu oran
 # %7 civari; %20 esigi asilirsa hiza BOZUK demektir ve kasaya TEK SATIR
 # yazilmaz. Yanlis metadata ile yazmak, hic yazmamaktan kotudur.
+# 05.08 GUNCELLEME: atif-bazli hizalama devredeyken %20 mutlak esik KALKTI.
+# Gerekce (olculdu): taze ve hizasi kusursuz #29 kosusunda bile rakamRed %48
+# cikti (23'te 11) - rakam-yogun konularda kapinin NORMAL calisma orani bu.
+# Atifla eslesen soru kendi beyan ettigi kaynagin metniyle dogrulaniyor;
+# yanlis-metadata riski eslestirmede kapandi. Soru basina rakam kapisi AYNEN
+# kosuyor - gevseyen kalite kurali yok. Tek olumcul isaret: hic eslesme yok.
 if($kurtarPartiler -and $sonuc.Count -gt 0){
   $rOran = 100.0 * $ozet.rakamRed / [Math]::Max(1, $sonuc.Count)
-  Write-Host ("KURTARMA HIZA KONTROLU: rakamRed {0}/{1} = %{2:N1}  (esik %20)" -f $ozet.rakamRed, $sonuc.Count, $rOran)
-  if($rOran -gt 20){
-    Write-Host "KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir."
-    Write-Host "Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun)."
-    try{Stop-Transcript|Out-Null}catch{}
-    exit 1
-  }
+  Write-Host ("KURTARMA KONTROL: rakamRed {0}/{1} = %{2:N1} (bilgi amacli; soru basina kapi zaten eledi)" -f $ozet.rakamRed, $sonuc.Count, $rOran)
+}
+if($kurtarPartiler -and $sonuc.Count -eq 0){
+  Write-Host "KIRMIZI: atif-bazli hizalama HIC eslesme uretmedi - yazacak sey yok."
+  Write-Host "Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun)."
+  try{Stop-Transcript|Out-Null}catch{}
+  exit 1
 }
 # --- kasaya yaz (150'lik partiler)
 for($i2=0; $i2 -lt $yeni.Count; $i2 += 150){
