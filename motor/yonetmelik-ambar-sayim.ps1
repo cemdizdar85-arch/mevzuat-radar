@@ -108,3 +108,6 @@ RaporYaz ([ordered]@{
 Write-Host "`n=== YONETMELIK AMBAR SAYIMI ==="
 foreach($s in $satirlar){ Write-Host ("  {0,-18} depo={1,4}  ambar={2,4}  %{3,-6} {4}" -f $s.slug, $s.depo_belge, $s.ambar_belge, $s.kapsama_yuzde, $s.KARAR) }
 if($kirmizi -gt 0){ exit 1 }
+
+# 05.08 tetik notu: bot commitleri workflow tetiklemez (GITHUB_TOKEN kurali) -
+# kurtarma bitince sayim kendiliginden kosmadi, bu push ile kosturuluyor.
