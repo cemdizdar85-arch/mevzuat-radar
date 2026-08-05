@@ -6,16 +6,29 @@ cezaları", "uygulamalı mesleki eğitim"...). Kaynak kontrolünde çıktı: man
 kayıtlı 6 yönetmeliğin HİÇBİRİNİN dosyası yok — 02.08 dersinin aynısı
 ("manifestte olmak yutulmuş olmak değildir"; koşu tavanı sıra getirmemiş).*
 
-- [ ] **Bağımsız Denetim Yönetmeliği** (bd-yonetmelik, G7:16907) — "uygulamalı mesleki eğitim" ve denetçilik konularının kaynağı
-- [ ] **SMMM ve YMM K. Disiplin Yönetmeliği** (smmm-disiplin-yon, G7:7033) — "disiplin cezaları" (hedef 28) + "disiplin kurulu itiraz süresi" (6/28)
-- [ ] **YMM ve SMMM Sınav Yönetmeliği** (smmm-sinav-yon, G7:7043)
-- [ ] **SMMM Staj Yönetmeliği** (smmm-staj-yon, G7:7025)
-- [ ] **SMMM ve YMM Çalışma Usul ve Esasları Yön.** (smmm-calisma-yon, G7:4650)
-- [ ] **SMMM Odaları Yönetmeliği** (smmm-odalar-yon, G7:4649)
+- [x] **Bağımsız Denetim Yönetmeliği** — YUTULDU 05.08, ambar sayımı ✅ **81/81 belge, %100**
+- [x] **SMMM ve YMM K. Disiplin Yönetmeliği** — YUTULDU 05.08, ✅ **45/45, %100** (itiraz süreleri m.21/28 metinde teyitli)
+- [x] **YMM ve SMMM Sınav Yönetmeliği** — YUTULDU 05.08, ✅ 27/27, %100
+- [x] **SMMM Staj Yönetmeliği** — YUTULDU 05.08, ✅ 37/37, %100
+- [x] **SMMM ve YMM Çalışma Usul ve Esasları Yön.** — YUTULDU 05.08, ✅ 77/77, %100
+- [x] **SMMM Odaları Yönetmeliği** — YUTULDU 05.08, ✅ 48/48, %100
 
-**Yapılan:** 05.08 — altısı manifestin BAŞINA alındı (02.08 yapılandırma kanunları
-emsali), push mevzuat.yml'yi tetikledi. **Kontrol şartı:** dosya depoya inince
-yetmez — ambar sayımı yapılacak (yutma-kapsama kuralı). Sonuç buraya işlenecek.
+**NASIL YUTULDU (05.08 sabahı — üç engel aşıldı, ders niteliğinde):**
+1. Manifest başına alma yetmedi: **günlük ayna ÖLÜM SARMALINDA** — son 5 koşunun
+   beşi 6 saat tavanında iptal (03.08 12:42'den beri ambara TEK kaynak inmedi).
+2. Bağımsız kurtarma hattı (yonetmelik-kurtar.yml + mevzuat-yut'a SADECE filtresi)
+   kuruldu; İLK KOŞUDA 6/6 İNDİRME BAŞARISIZ → **mevzuat.gov.tr GitHub runner
+   IP'lerini ENGELLİYOR** (aynanın sarmalının kök nedeni de bu).
+3. PDF'ler Cem'in makinesinden (TR IP) indirildi — 6/6 anında 200 → pdftotext →
+   `veri/mevzuat-hazir/` kaçış kapısı → kurtarma 2. denemede tamam. Sayım
+   tetiklenmedi çünkü **bot commit'leri workflow tetiklemez** (GITHUB_TOKEN
+   kuralı) — elle dürtüldü, 6/6 YEŞİL.
+
+**🔴 YARINA MİRAS — AYNA SARMALI AYRI İŞ:** mevzuat.gov.tr GitHub'ı engellediği
+sürece günlük ayna hiç tamamlanamaz; robotların mevzuat tazeliği 03.08'den beri
+duruyor. Kalıcı çözüm adayları: indirmeyi TR-IP'li bir kanaldan beslemek (Cem'in
+makinesinde zamanlanmış görev → mevzuat-hazir'a itmek) ya da parti-parti indirme
++ ara commit. Karar Cem'in.
 
 **Not (aynı ölçümün diğer bulgusu):** 12 boş konunun kaynaklarının ÇOĞU zaten
 ambardaydı (gvk/kdv/kvk/spk/bds200-315-320/etik/borclar ✓). Asıl sebep: 31.07'de
