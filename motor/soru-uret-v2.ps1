@@ -685,6 +685,59 @@ if($kurtarPartiler){
     }
   }
   Write-Host ("KURTARMA TOPLAM: {0} sonuc" -f $sonuc.Count)
+
+  # ── ICERIK-BAZLI YENIDEN HIZALAMA (05.08 aksami) ──────────────────────────
+  # Sira-bazli hiza OLU: isler listesi her koste ambardan yeniden kurulur ve
+  # ambar gun icinde degisir (05.08'de rakamRed %53,6'ya firladi - kapi dogru
+  # durdu, para Anthropic'te bekledi). Cozum: sonucun KENDI atif ettigi
+  # kaynakla eslestir. Soru zaten kaynagini soyluyor (kaynak kurali istemde
+  # zorunlu); ayni maddeye birden fazla is varsa gelis sirasi korunur.
+  # Eslesmeyen sonuc YAZILMAZ (cevapsiz sayilir) - kapi gevsetilmiyor,
+  # eslestirme dogru metne oturtuluyor; rakam kapisi aynen kosar.
+  $KISALTMA = @{ 'VUK'='213';'GVK'='193';'KVK'='5520';'KDVK'='3065';'KDV KANUNU'='3065';'TTK'='6102';'TBK'='6098'
+                 'IIK'='2004';'İİK'='2004';'AATUHK'='6183';'SMK'='6769';'HMK'='6100';'TMK'='4721';'TCK'='5237';'CMK'='5271' }
+  function AtifAnahtarlari($y){
+    $par = New-Object System.Text.StringBuilder
+    [void]$par.Append("$($y.soru) ")
+    foreach($h in @('A','B','C','D','E')){ [void]$par.Append("$($y.aciklama.$h) ") }
+    $t = $par.ToString()
+    $an = New-Object System.Collections.Generic.List[string]
+    foreach($m in [regex]::Matches($t,'(?i)\b(TMS|TFRS|BDS)\s*(\d{1,3})\b')){
+      $an.Add(("STD|{0} {1}" -f $m.Groups[1].Value.ToUpperInvariant(), $m.Groups[2].Value)) }
+    $maddeler=@(); foreach($m in [regex]::Matches($t,'(?i)\bm(?:adde)?\.?\s*(\d{1,4})\b')){ $maddeler += $m.Groups[1].Value }
+    $kanunlar=@(); foreach($m in [regex]::Matches($t,'(\d{3,4})\s*say[ıi]l[ıi]')){ $kanunlar += $m.Groups[1].Value }
+    foreach($ks in $KISALTMA.Keys){ if($t -match "(?i)\b$([regex]::Escape($ks))\b"){ $kanunlar += $KISALTMA[$ks] } }
+    foreach($k in ($kanunlar | Select-Object -Unique)){ foreach($md in ($maddeler | Select-Object -Unique)){ $an.Add("K|$k|$md") } }
+    foreach($m in [regex]::Matches($t,'(?<![\d.,])([1-7]\d{2})(?![\d.,])(?!\s*say[ıi]l[ıi])\s*(?:no.?lu\s+|numaral[ıi]\s+)?(?:[A-ZÇĞİÖŞÜ][^\s]*\s+){0,4}[Hh]esa[bp]')){
+      $an.Add("THP|$($m.Groups[1].Value)") }
+    return $an
+  }
+  function IsAnahtari($i){
+    if("$($i.kanun)" -eq 'STD'){ return "STD|$($i.madde)" }
+    if("$($i.kanun)" -eq 'THP'){ return "THP|$($i.madde)" }
+    $md = [regex]::Replace("$($i.madde)",'[^\d]','')
+    return "K|$($i.kanun)|$md"
+  }
+  $isKuyruk = @{}
+  for($gi2=0; $gi2 -lt $isler.Count; $gi2++){
+    $ka = IsAnahtari $isler[$gi2]
+    if(-not $isKuyruk.ContainsKey($ka)){ $isKuyruk[$ka] = New-Object System.Collections.Generic.Queue[int] }
+    $isKuyruk[$ka].Enqueue($gi2)
+  }
+  $sonucYeni = @{}; $eslesen=0; $dusen=0
+  foreach($ck in ($sonuc.Keys | Sort-Object { $p=$_ -split '_'; [int]($p[0] -replace '\D','')*100000 + [int]$p[1] })){
+    $y2 = $sonuc[$ck]; if(-not $y2){ continue }
+    $gi3 = -1
+    foreach($ka in (AtifAnahtarlari $y2)){
+      if($isKuyruk.ContainsKey($ka) -and $isKuyruk[$ka].Count -gt 0){ $gi3 = $isKuyruk[$ka].Dequeue(); break }
+    }
+    if($gi3 -ge 0){
+      $p3=[math]::Floor($gi3/$PARTI); $x3=$gi3-($p3*$PARTI)
+      $sonucYeni[("u{0}_{1}" -f $p3,$x3)] = $y2; $eslesen++
+    } else { $dusen++ }
+  }
+  $sonuc = $sonucYeni
+  Write-Host ("HIZALAMA (atif-bazli): {0} eslesti, {1} eslesemedi (yazilmayacak, Anthropic'te durur)." -f $eslesen, $dusen)
 }
 for($p2=0; (-not $kurtarPartiler) -and $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
   $dilim=@($isler[($p2*$PARTI)..([math]::Min(($p2+1)*$PARTI-1,$isler.Count-1))])
