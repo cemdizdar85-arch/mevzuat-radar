@@ -104,12 +104,12 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [ ] **Yapılandırma/af kanunları:** 7440 (2023), 7326 (2021), 7143 (2018), 6736 (2016) — hiçbiri ambarda değil. Yapılandırma/Af Radarı (#63) ve "matrah artırımı" soruları bunlara dayanır; yeni af çıktığında kıyas metni de gerekir.
 
 **B. MUHASEBE/DENETİM STANDARTLARI — asıl boşluk burada.**
-- [ ] **BOBİ FRS** (Büyük ve Orta Boy İşletmeler için Finansal Raporlama Standardı) — Türkiye uygulamasının belkemiği, TFRS uygulamayan denetime tabi şirketlerin tamamı bunu kullanır. **AMBARDA YOK.**
-- [ ] **KÜMİ FRS** (Küçük ve Mikro İşletmeler FRS) — yeni yürürlükte, YOK.
-- [ ] **Eksik TMS'ler:** TMS 20 (devlet teşvikleri), 26 (emeklilik fayda planları), 32 (finansal araçlar-sunum), 33 (hisse başına kazanç), 34 (ara dönem finansal raporlama)
-- [ ] **Eksik TFRS'ler:** TFRS 1 (ilk uygulama), 2 (hisse bazlı ödemeler), 6 (madenler), 11 (müşterek anlaşmalar), 12 (paylara ilişkin açıklamalar), 14, 17 (sigorta sözleşmeleri)
-- [ ] **TSRS 1 / TSRS 2** (Türkiye Sürdürülebilirlik Raporlama Standartları) — KGK sınavının (f) modülünün tek kaynağı, YOK
-- [ ] **SDS 1** (Sürdürülebilirlik Denetimi Standardı) — KGK (g) modülü, YOK
+- [x] **BOBİ FRS** ✓ 02.08 yutuldu (bobi-frs.json 686 KB, ambarda 349 belge) — *bu bölüm 05.08'e kadar "YOK" diyordu; dosyalar tire'siz slug'la (tms20.json) dururken liste tire'li arandığı için bayat kalmış. Ders: listeyi değil depoyu say.*
+- ⏸️ **KÜMİ FRS** — Cem kararı 02.08: BEKLESİN (yalnız duyuru metni ambarda, 1 belge); ayrıntı yukarıda satır 45.
+- [x] **TMS 20, 26, 32, 33, 34** ✓ depoda (tms20/26/32/33/34.json; ambar sayımı 02.08: TMS 33 → 90 belge)
+- [x] **TFRS 1, 2, 6, 11, 12, 14, 17, 18** ✓ depoda (tfrs*.json; ambar: TFRS 17 → 211, TFRS 18 → 23)
+- [x] **TSRS 1 / TSRS 2** ✓ depoda (tsrs1/tsrs2.json; ambar: 105 + 64 belge) — KGK (f) modülü kaynağı TAMAM
+- [ ] **SDS 1** (Sürdürülebilirlik Denetimi Standardı) — KGK (g) modülü, **B bölümünün kalan TEK gerçek eksiği**
 - [x] **Etik Kurallar + KYS 1 + KYS duyurusu + Sürekli Eğitim Tebliği** ✓ 02.08'de yutuldu (%100 kapsama)
 
 **C. TEBLİĞLER — yapısal kusur bulundu ve düzeltildi.**
@@ -125,7 +125,7 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [x] **KGK kurumsal mevzuatı:** ✓ 01.08 — khk660 (pdfId 4.5.660, HEAD-teyitli) + bd-yonetmelik (G7:16907, içerik teyitli: BDY konsolide, 15.06.2024 değişiklikleri dahil) mevzuat-kaynaklar.json'a eklendi, mevzuat.yml tetiklendi
 - [ ] **Sermaye piyasası ayağı:** 'spk' slug'ı manifestte var (6362 teyidi yapılacak); SPK Kurumsal Yönetim Tebliği (II-17.1) AÇIK — konu (c) Kurumsal Yönetim için gerekli
 - [x] **KGK sınav ders yapısı** ✓ 01.08 — veri/kgk-sinav-yapisi.json yazıldı; KAYNAK: KGK 28.06.2025 sınav ilanı PDF (ezber değil). ÖNEMLİ BULGU: güncel yapı a-g modül; SMMM temel alan = (a) TMS + (b) TDS + (c) Kurumsal Yönetim/Finansal Yönetim — "Genel Hukuk/Muhasebe" ayrı konu DEĞİL artık. Konu (c) için teori-notu kürasyonu gerekecek (finansal yönetim resmî metinsiz alan)
-- [ ] Üretim emri taslağı: ders-ders kota + maliyet tablosu → **Cem onayı → 4-5 Ağustos gecesi parti** (deneme.html'e 3. sınav olarak eklenir; paket mimarisinde 4. paket)
+- [x] Üretim emri ✓ BASILDI — emir #27 (KGK TEMEL ALAN) 02.08 uygulandı, **1.870 soru kasada**; kalan iş = Finansal Yönetim teori kürasyonu sonrası ek satırlar + deneme.html'e 3. sınav bağlanması
 
 ## 🎓 SINAV TEORİSİ YUTMA HATTI (23.07.2026, Cem: "bütün terimleri yut ki ilerleyelim")
 *Amaç: soru fabrikasının ve denetimin dayandığı TEORİ metinlerini de birincil kaynaktan ambara almak.
