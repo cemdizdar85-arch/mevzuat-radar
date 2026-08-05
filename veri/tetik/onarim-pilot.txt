@@ -1,34 +1,3 @@
 BAS
 
-PILOT 200 - ALTINCI kosu (~2,7 USD). Cem: "B - 6. pilot kostur, hesap kodlari
-da duzeltilmis temiz bir taslakla butun gece bak."
-
-BU KOSU "690 Hesabinda" REGRESYONU DUZELTILDIKTEN SONRAKI ILK KOSU.
-
-ONCEKI KOSUDA (0408-0835) NE OLDU:
-  hesap_kodu_ornek 10 ornegin 10'unun da YANLIS oldugunu gosterdi -
-  690/691/692/151/380 gibi DOGRU kodlar silinmisti. Sayac "yanlis 63->27
-  dustu" diye SAHTE IYILESME veriyordu; dusus dogru kodlarin silinmesinden
-  geliyordu. Kok sebep: birim tuzagi kapatilirken desene toplu \b eklenmesi
-  "hesab" onek elemesini bozmustu ("Hesabinda" hesap ADI sanildi).
-
-DUZELTME (iki katman, gercek THP verisiyle test edildi, regresyon 0):
-  1. Baglayicilar (hesab/hesap/numaral/sayil/kodlu/nolu) yeniden ONEK olarak
-     eleniyor - Turkce ekler yuzunden sinir aranmaz.
-  2. HesapAdiIddiasiMi sertlestirildi: tasiyici kelimeler (HESAB, TUTAR,
-     KAYDED, DONEM...) sayimdan dusuluyor, EN AZ IKI ozgun kelimenin ayni
-     resmi adda eslesmesi sart. Tek genel kelime silme tetikleyemez.
-
-BEKLENTI (rapor gelince kontrol edilecek):
-  - hesap_kodu_ornek: artik GERCEK hatalar gorunmeli
-    ("253 Personel Avanslari" -> "196 PERSONEL AVANSLARI" gibi),
-    "690 Hesabinda" tarzi SAHTE silme OLMAMALI
-  - hesap_kodu_silinen: 27'den ciddi sekilde DUSMELI (o 27'nin cogu sahteydi)
-  - hesap_kodu_duzeltilen: artik SIFIRDAN BUYUK olmali (acgozlu yakalama
-     kok sebebi de bu turda duzeltilmisti)
-  - hesap_kodu_yanlis: gercek deger gorunecek (onceki 27 sahte dusustu)
-  - hesap_kodu_gecersiz_uretim: 0 kalmali
-
-Kosu bitince taslak HTML uretilecek - Cem butun gece bunun uzerinden bakacak.
-BU TASLAKTA HEM ACIKLAMA KALITESINE HEM HESAP KODLARINA bakilabilir.
-Cikti yalniz taslaga gider, kasaya YAZILMAZ.
+PILOT 200 - YEDINCI kosu (~2,7 USD, Cem 05.08: "2,7 USD sigorta buna girelim kontrol edelim yarin sonra partiye basariz" + 05.08 gece: "bugun ne gerekirse yapalim"). Tam parti oncesi dogrulama pilotu: bugunku 27-kural motoruyla taze taslak.
