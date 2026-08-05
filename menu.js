@@ -10,7 +10,11 @@ if(window.MRMenu) return;
 try {
   var q = new URLSearchParams(location.search);
   if (q.get('kapi') === 'tetikte2026') { localStorage.setItem('mrOnizleme','1'); }
-  if (localStorage.getItem('mrOnizleme') !== '1') {
+  /* 05.08: yasal sayfalar perdeden MUAF — odeme kurulusu (iyzico/PayTR) incelemesi
+     mesafeli satis/iade/iletisim/KVKK metinlerini gormek zorunda; bu sayfalarin
+     kanunen de acik olmasi gerekir. Urun icerigi tasimadiklari icin sizinti yok. */
+  var yasalMuaf = /(?:^|\/)(mesafeli-satis|teslimat-iade|iletisim|kvkk)\.html$/.test(location.pathname);
+  if (localStorage.getItem('mrOnizleme') !== '1' && !yasalMuaf) {
     var perde = function(){
       if (document.getElementById('mrPerde')) return;
       var d = document.createElement('div');
