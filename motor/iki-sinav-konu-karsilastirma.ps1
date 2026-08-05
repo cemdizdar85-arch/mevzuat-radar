@@ -140,6 +140,9 @@ function SinavAnaliz([string]$sinavAd, [string]$planYolu){
 
 $smmm = SinavAnaliz 'SMMM' 'veri/uretim-kotasi.json'
 $sgs  = SinavAnaliz 'SGS'  'veri/sgs-uretim-kotasi.json'
+# 05.08 Cem: "her konuda soru urettik mi?" - KGK da ayni olcumden gecer.
+# Plani: veri/kgk-uretim-kotasi.json (67 satir/1.870; emir #27 02.08'de basildi).
+$kgk  = SinavAnaliz 'KGK'  'veri/kgk-uretim-kotasi.json'
 
 RaporYaz ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'; mod='OLCUM (0 USD, yazma yok)'
@@ -147,9 +150,12 @@ RaporYaz ([ordered]@{
   olcut='Her sinav KENDI planiyla karsilastirildi. ASIRI >=2 kat, EKSIK <0,8. BOS yalniz hedef>=10 konularda ve kelime aramasiyla dogrulanarak (ad uyusmazligi sahte bosluk uretmesin).'
   SMMM_bitirme=$smmm
   SGS_staja_giris=$sgs
+  KGK_bagimsiz_denetci=$kgk
   not='Cem: "konulara ayri ayri sinavda cikan sorulara bak, fazla/eksik bul - ayri ayri iki sinavi da." SMMM hedefi 12 donem Yeterlilik kitapcigi; SGS hedefi TESMER Uygulama Yonergesi m.6.2 agirliklari.'
 })
 Write-Host "`n=== SMMM (bitirme) ==="
 Write-Host ("  kasada {0} soru | ASIRI {1} | EKSIK {2} | UYUMLU {3} | GERCEKTEN BOS {4} (hedef toplami {5})" -f $smmm.kasada_soru,$smmm.ASIRI_konu_sayisi,$smmm.EKSIK_konu_sayisi,$smmm.UYUMLU_konu_sayisi,$smmm.GERCEKTEN_BOS_konu_sayisi,$smmm.GERCEKTEN_BOS_hedef_toplami)
 Write-Host "=== SGS (staja giris) ==="
 Write-Host ("  kasada {0} soru | ASIRI {1} | EKSIK {2} | UYUMLU {3} | GERCEKTEN BOS {4} (hedef toplami {5})" -f $sgs.kasada_soru,$sgs.ASIRI_konu_sayisi,$sgs.EKSIK_konu_sayisi,$sgs.UYUMLU_konu_sayisi,$sgs.GERCEKTEN_BOS_konu_sayisi,$sgs.GERCEKTEN_BOS_hedef_toplami)
+Write-Host "=== KGK (bagimsiz denetci) ==="
+Write-Host ("  kasada {0} soru | ASIRI {1} | EKSIK {2} | UYUMLU {3} | GERCEKTEN BOS {4} (hedef toplami {5})" -f $kgk.kasada_soru,$kgk.ASIRI_konu_sayisi,$kgk.EKSIK_konu_sayisi,$kgk.UYUMLU_konu_sayisi,$kgk.GERCEKTEN_BOS_konu_sayisi,$kgk.GERCEKTEN_BOS_hedef_toplami)
