@@ -30,15 +30,23 @@ jobs:
       - uses: actions/checkout@v4
       - name: pdftotext kur
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
-      - name: 6 yonetmeligi indir + metne dok
+      - name: 6 yonetmeligi hazirla (once HAZIR metin, yoksa indir)
         run: |
           set -e
           mkdir -p _txt
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
           ok=0
-          # slug:mevzuatNo ciftleri (manifest ile ayni G7 kaynaklari)
+          # 05.08 DERS: ilk kosuda 6/6 indirme BASARISIZ oldu - mevzuat.gov.tr
+          # GitHub runner IP'lerini engelliyor (gunluk aynanin 2 gunluk olum
+          # sarmalinin kok nedeni de bu). PDF'ler Cem'in makinesinden (TR IP)
+          # indirilip veri/mevzuat-hazir/'a kondu. Once oradan alinir;
+          # dosya yoksa indirme yine denenir (ilerisi icin).
           for cift in "bd-yonetmelik:16907" "smmm-disiplin-yon:7033" "smmm-sinav-yon:7043" "smmm-staj-yon:7025" "smmm-calisma-yon:4650" "smmm-odalar-yon:4649"; do
             slug="${cift%%:*}"; no="${cift##*:}"
+            if [ -s "veri/mevzuat-hazir/$slug.txt" ]; then
+              cp "veri/mevzuat-hazir/$slug.txt" "_txt/$slug.txt"
+              echo "HAZIR $slug ($(wc -c < _txt/$slug.txt) bayt, depodan)"; ok=$((ok+1)); continue
+            fi
             url="https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=${no}&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5"
             code=$(curl -s -L -o "_txt/$slug.pdf" -w "%{http_code}" -H "User-Agent: $UA" -H "Referer: https://www.mevzuat.gov.tr/" "$url" --max-time 240 || echo "000")
             if [ "$code" = "200" ] && pdftotext -enc UTF-8 "_txt/$slug.pdf" "_txt/$slug.txt"; then
@@ -48,9 +56,8 @@ jobs:
             fi
             sleep 2
           done
-          echo "indirilen: $ok/6"
-          # SESSIZ BASARISIZLIK YASAK: hicbiri inmediyse is KIRMIZI biter,
-          # "yesil kosu ama bos ambar" olmaz.
+          echo "hazirlanan: $ok/6"
+          # SESSIZ BASARISIZLIK YASAK: hicbiri yoksa is KIRMIZI biter.
           [ "$ok" -ge 1 ] || exit 1
       - name: Yut + ambara yukle (SADECE 6 slug)
         shell: pwsh
