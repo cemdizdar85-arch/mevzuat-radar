@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805101515
+Start time: 20260805131415
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/f98f92a2-7b10-4838-9ff4-0b3a8cf77d6e.ps1'
-Process ID: 2247
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1b856da2-a14d-4f89-9150-c026ebdcf385.ps1'
+Process ID: 2167
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -38,25 +38,17 @@ KONU FILTRESI: 32 konu
   kaynak_kanun 44
 MALIYET TAHMINI (Batch %50): ~4.98 USD
 KURU DENEME TAMAM - yazma yolu saglam.
-PARTI 1: 200 soru
-  parti kimligi: msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr
-  ZAMAN ASIMI
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "type": "error",
-  "error": {
-    "type": "not_found_error",
-    "message": "Message Batch msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr has no available results."
-  },
-  "request_id": "req_011CdjU4P3NhYcxMe1agBkbV"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "type": "error",
-  "error": {
-    "type": "not_found_error",
-    "message": "Message Batch msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr has no available results."
-  },
-  "request_id": "req_011CdjU4P3NhYcxMe1agBkbV"
-}"
-DUSTU: Response status code does not indicate success: 404 (Not Found).
+KURTARMA MODU: 1 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
+  parti 1/1: msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: Z. Path 'soru', line 3, position 555."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
+    197 sonuc alindi
+KURTARMA TOPLAM: 197 sonuc
+KURTARMA HIZA KONTROLU: rakamRed 90/197 = %45.7  (esik %20)
+KIRMIZI: hiza bozuk gorunuyor - isler listesi eski kosuyla ayni kurulmamis olabilir.
+Kasaya HICBIR SEY yazilmadi. Sonuclar Anthropic'te durmaya devam ediyor (29 gun).
+**********************
+PowerShell transcript end
+End time: 20260805131453
+**********************
