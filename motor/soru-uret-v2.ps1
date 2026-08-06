@@ -531,6 +531,13 @@ MUTLAK KURALLAR:
    "mukayyet deger (defterde kayitli tutar)" yaz (VUK m.265 lafzi); TMS/TFRS
    sorusunda "defter degeri" yaz (standart terimi; gercek kitapciklarda 304 kez).
    Capraz kullanma - VUK sorusunda "defter degeri", TMS sorusunda "mukayyet" YANLIS ogretir.
+13. "hap" ALANI = KONUNUN OZETI KARTI (06.08, Cem onayi): konunun akilda
+   kalacak ozu + mumkunse bir PUF NOKTASI (iki kavrami ayirt ettiren gercek
+   kural). MUGLAK FIIL YASAK: her cumle net fiille biter (gider yazilir,
+   aktiflestirilir, mahsup edilir). Turnusol: karti okuyan aday deftere hangi
+   kaydi yapacagini bilmeli. KOTU: "doneme yayginlastirilir". IYI: "donemi
+   geldiginde gider yazilir". Sinav-oyunu taktigi yazma ("en uzun sik dogrudur"
+   gibi) - ipucu gercek kurala dayanacak.
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>

@@ -804,6 +804,14 @@ hap: KEHRIBAR KART. Sinav ekraninda cevaptan sonra beliren, adayin EZBERLEYECEGI
   dogrudur" gibi SINAV OYUNU yazma - bazen tutar, tuttugunda yanlis sey
   ogretir. Ipucunu dogrulayamiyorsan kavrami duz ve dogru anlat, uydurma.
   D20: kart, Kural parcasiyla CELISEMEZ.
+
+  D33 - MUGLAK FIIL YASAK (06.08, Cem #103: "doneme yayginlastirilir ne
+  demek?"): kartin her cumlesi NET muhasebe/hukuk fiiliyle biter: gider
+  yazilir, aktiflestirilir, mahsup edilir, karsilik ayrilir, iade edilir,
+  beyan edilir. Turnusol: bu cumleyi okuyan aday DEFTERE HANGI KAYDI YAPAR
+  soralim - cevabi yoksa cumle muglaktir, yeniden yazilir.
+  KOTU: "ilgili olduklari doneme yayginlastirilir"
+  IYI : "donemi geldiginde gider yazilir"
 '@ }
   # --- Mevzuat disi ders (Yabanci Dil / Turkce / Matematik): dayanak metni YOK.
   #     Uydurma riski dayanak yerine YASAKLA kapatilir: hicbir kanun atfi yapamaz. ---
