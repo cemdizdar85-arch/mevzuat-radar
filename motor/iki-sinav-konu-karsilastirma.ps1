@@ -127,7 +127,19 @@ function SinavAnaliz([string]$sinavAd, [string]$planYolu){
   $dersPlan = @{}; foreach($p in $plan){ $d = Sade "$($p.ders)"; if(-not $dersPlan.ContainsKey($d)){ $dersPlan[$d] = [ordered]@{ ders="$($p.ders)"; hedef=0; kasada=0 } }; $dersPlan[$d].hedef += [int]$p.adet }
   foreach($s in $kasa){ if("$($s.sinav)" -ne $sinavAd){ continue }; $d = Sade "$($s.ders)"; if($dersPlan.ContainsKey($d)){ $dersPlan[$d].kasada++ } }
   $dersDurum = @($dersPlan.Values | Sort-Object { $_.kasada })
+  # 06.08 Cem: "YD bin kusur soru vardi" - PLANDA OLMAYAN derslerin kasa sayimi
+  # (YD/GK/Matematik gibi kotasiz dersler DERS_DURUMU'na girmiyordu, kordu).
+  $planDisi = @{}
+  foreach($s in $kasa){
+    if("$($s.sinav)" -ne $sinavAd){ continue }
+    $d = Sade "$($s.ders)"
+    if($dersPlan.ContainsKey($d)){ continue }
+    $ad2 = "$($s.ders)"
+    if(-not $planDisi.ContainsKey($ad2)){ $planDisi[$ad2] = 0 }
+    $planDisi[$ad2]++
+  }
   return [ordered]@{
+    PLAN_DISI_DERSLER=$planDisi
     sinav=$sinavAd; plan=$planYolu
     DERS_DURUMU=$dersDurum
     EKSIK_DERSLER=@($dersDurum | Where-Object { $_.kasada -eq 0 } | ForEach-Object { $_.ders })
