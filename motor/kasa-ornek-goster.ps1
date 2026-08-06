@@ -133,11 +133,19 @@ foreach($sid in $idler){
   }
   if($c.tablo){ [void]$sb.Append('<h4>TABLO</h4>' + (TabloHtml $c.tablo)) }
   if($c.yevmiye){ [void]$sb.Append('<h4>YEVMIYE</h4>' + (YevmiyeHtml $c.yevmiye)) }
-  if($c.hap){ [void]$sb.Append('<h4>KEHRIBAR KART</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
+  # 06.08 Cem: (1) "KEHRIBAR KART" ic jargondur, ogrenci yuzunde adi KONUNUN
+  # OZETI'dir (04.08 karari, deneme.html ile ayni); (2) once KONU ogretilir -
+  # dogru sikkin dort-parca aciklamasi EN USTTE, tuzaklar ondan sonra gelir
+  # (sitedeki 1-2-3 merdivenin aynisi; A-E duz sirasi konuyu gomuyordu).
+  if($c.hap){ [void]$sb.Append('<h4>KONUNUN OZETI</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
+  $dh = "$($c.dogru)"
+  $acD = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$dh]){ $acD = "$($c.aciklama.$dh)" } } catch {}
+  if($acD -ne ''){ [void]$sb.Append('<h4>KONU ANLATIMI - DOGRU CEVAP (' + $dh + ')</h4><div class="acik">' + (K $acD) + '</div>') }
   foreach($h in 'A','B','C','D','E'){
+    if($h -eq $dh){ continue }
     $ac = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$h]){ $ac = "$($c.aciklama.$h)" } } catch {}
     if($ac -eq ''){ continue }
-    [void]$sb.Append('<h4>ACIKLAMA ' + $h + $(if("$($c.dogru)" -eq $h){' (DOGRU)'}else{''}) + '</h4><div class="acik">' + (K $ac) + '</div>')
+    [void]$sb.Append('<h4>SIK ' + $h + ' - NEDEN YANLIS</h4><div class="acik">' + (K $ac) + '</div>')
   }
   if($c.kaynak){ [void]$sb.Append('<h4>KAYNAK</h4><div class="acik">' + (K "$($c.kaynak)") + '</div>') }
   [void]$sb.Append('</div></div>')
