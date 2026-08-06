@@ -53,7 +53,8 @@ foreach($k in $liste){ $imzaHarita[$k.sinav + '|' + $k.imza] = $k }
 foreach($sinav in $hedefSinavlar){
   $bas = 0
   while($true){
-    $r = @(Invoke-RestMethod -Uri "$U`?select=id,soru,yayin,yayin_notu&sinav=eq.$sinav&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180)
+    # PS5.1/7 farki sigortasi (bkz aritmetik-kapisi): boru diziyi her surumde acar
+    $r = @(Invoke-RestMethod -Uri "$U`?select=id,soru,yayin,yayin_notu&sinav=eq.$sinav&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ })
     if($r.Count -eq 0){ break }
     foreach($s in $r){
       if($null -eq $s){ continue }

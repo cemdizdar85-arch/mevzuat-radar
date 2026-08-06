@@ -110,7 +110,9 @@ $kalipli  = New-Object System.Collections.Generic.List[object]
 $dengesiz = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,hap,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300)
+  # PS5.1/7 farki: 5.1'de IRM buyuk diziyi TEK nesne olarak dondurur - boru
+  # her iki surumde de tek tek acar (06.08 yerel kosu dersi, "taranan: 1" vakasi)
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,hap,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($s in $r){
     if($null -eq $s){ continue }

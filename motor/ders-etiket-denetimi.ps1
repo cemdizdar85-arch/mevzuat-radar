@@ -60,7 +60,8 @@ $taranan=0
 $bulgular = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,aciklama,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300)
+  # PS5.1/7 farki sigortasi (bkz aritmetik-kapisi): boru diziyi her surumde acar
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,aciklama,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($s in $r){
     if($null -eq $s){ continue }
