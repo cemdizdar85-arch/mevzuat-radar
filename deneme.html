@@ -352,6 +352,42 @@ var seciliDersler={}, seciliAdet=10, KAYNAK='tumu', SINAV='hepsi', SORU_T0=0, SU
 // 24.07 Cem: "giris mi bitirme mi nasil anlayacagiz" - sinav filtresi (soru.sinav: SGS/SMMM; etiketsiz eskiler her ikisinde gorunur)
 function sinavUyar(s){ return SINAV==='hepsi' || !s.sinav || s.sinav===SINAV; }
 
+// ==== ISINMA MERDIVENI + ZORLUK ROZETI (06.08, Cem onayi - #8 paketi) ====
+// Zorluk deterministik skorla: tablo/yevmiye varligi, rakam yogunlugu,
+// hesap kalibi, metin boyu. 1=Isinma 2=Orta 3=Sinav seviyesi.
+// Acilis sonrasi sik-istatistigi verisi (adaylarin gercek dogru orani)
+// bu tahmini skorun yerini alacak - kendi kendini kalibre eder.
+function zorluk(s){
+  if(s.__z) return s.__z;
+  var p=0, metin=(s.soru||'')+' '+JSON.stringify(s.siklar||{});
+  if(s.tablo) p+=2;
+  if(s.yevmiye && s.yevmiye.length) p+=2;
+  var rak=(metin.match(/\d[\d.,]{2,}/g)||[]).length;
+  if(rak>=6) p+=2; else if(rak>=2) p+=1;
+  if(/kaçtır|kaçtir|hesapla|tutarı ne|tutari ne|oranı kaç|kaç TL/i.test(s.soru||'')) p+=1;
+  if((s.soru||'').length>420) p+=1;
+  s.__z = (p>=4) ? 3 : (p>=2 ? 2 : 1);
+  return s.__z;
+}
+function zorlukRozet(z){ return z===1 ? '🌱 Isınma' : (z===2 ? '🔨 Orta' : '🎯 Sınav seviyesi'); }
+// Calisma modunda oturum kolaydan zora dizilir (seviye icinde karisik kalir).
+// Deneme/prova moduna DOKUNULMAZ - gercek sinav karisiktir.
+function merdivenUygula(aktif){
+  window.ISINMA_SON = 0;
+  if(!aktif || MOD!=='calisma' || window.PROVA_MODU) return;
+  SORULAR.forEach(function(s,i){ s.__ix=i; });
+  SORULAR.sort(function(a,b){ return (zorluk(a)-zorluk(b)) || (a.__ix-b.__ix); });
+  // Ilk kez girilen tek-ders oturumunda ilk 5 soru "isinma" seridiyle gelir.
+  try {
+    var tekDers = null;
+    if(window.DERS_MODU==='secim'){ Object.keys(window.seciliDersler||{}).forEach(function(d){ if(window.seciliDersler[d]) tekDers=d; }); }
+    if(tekDers){
+      var an = 'mrIsindi_' + SINAV + '|' + tekDers;
+      if(!localStorage.getItem(an)){ localStorage.setItem(an,'1'); window.ISINMA_SON = Math.min(5, SORULAR.length); }
+    }
+  } catch(e){}
+}
+
 /* 30.07 aksam: takvim kutusu + motoru kaldirildi - takvim genc.html'deki
    bilgi karelerinde yasar; kabin yalniz soru cozer. */
 
@@ -636,6 +672,7 @@ function oturumYukle(secim, karistirMi){
         SORULAR = SORULAR.map(function(s){ return tam[s.id] ? tam[s.id] : s; }).filter(function(s){ return !!s.soru; });
         if(!SORULAR.length){ alert('Soru metinleri alınamadı. Sayfayı yenile.'); return; }
         if(gelmeyen){ alert(gelmeyen + ' sorunun metni alınamadı, onlar bu oturuma katılmadı.'); }
+        merdivenUygula(karistirMi);
         ekranaGec();
       }, function(e){
         if(btn){ btn.disabled = false; btn.textContent = eskiYazi; }
@@ -643,6 +680,7 @@ function oturumYukle(secim, karistirMi){
       });
     return;
   }
+  merdivenUygula(karistirMi);
   ekranaGec();
 }
 
@@ -779,6 +817,24 @@ function soruCiz(){
   document.getElementById('soruSayac').textContent='Soru '+(IDX+1)+' / '+SORULAR.length;
   document.getElementById('soruDers').textContent=s.ders;
   document.getElementById('soruKonu').textContent=s.konu;
+  // Zorluk rozeti (#8): aday zoru bilerek gogusler, surpriz tokat yemez.
+  var zrEl=document.getElementById('zorlukRozet');
+  if(!zrEl){
+    zrEl=document.createElement('span'); zrEl.id='zorlukRozet';
+    zrEl.style.cssText='font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--amber);margin-left:10px;white-space:nowrap';
+    document.getElementById('soruKonu').insertAdjacentElement('afterend', zrEl);
+  }
+  zrEl.textContent = zorlukRozet(zorluk(s));
+  // Isinma seridi + yumusama koc satiri
+  var isEl=document.getElementById('isinmaSerit');
+  if(!isEl){
+    isEl=document.createElement('div'); isEl.id='isinmaSerit';
+    isEl.style.cssText='display:none;background:rgba(61,220,151,.08);border-left:3px solid var(--green);border-radius:8px;padding:8px 12px;margin:0 0 10px;font-size:12.5px;color:var(--muted)';
+    document.getElementById('soruMetin').insertAdjacentElement('beforebegin', isEl);
+  }
+  if(window.YUMUSAMA_MSG){ isEl.textContent=window.YUMUSAMA_MSG; isEl.style.display='block'; window.YUMUSAMA_MSG=''; }
+  else if(MOD==='calisma' && window.ISINMA_SON && IDX < window.ISINMA_SON){ isEl.textContent='🌱 Isınıyorsun — bu derse yeni başlıyorsan tam yerindesin; sorular birazdan seviye atlayacak.'; isEl.style.display='block'; }
+  else { isEl.style.display='none'; }
   var sc=sicilOku()[s.id], rz=document.getElementById('sicilRozet');
   if(sc && sc.y>0){
     rz.textContent=(sc.son==='y') ? ('⚠ '+sc.y+' kez yanlış yaptın') : ('↺ önceden '+sc.y+' kez yanlış, son sefer bildin');
@@ -913,6 +969,19 @@ function cevabiGor(tekrarMi){
     cevapGonder(s, SECILI===s.dogru, SURELER[s.id], SECILI);
   }
   RESULTS[s.id]=(SECILI===s.dogru)?'d':'y';
+  // Yanlista yumusama (#8): calisma modunda ust uste 2 yanlis -> kalan kuyruk
+  // kolaydan zora yeniden dizilir; dil ceza degil kocluk.
+  if(!tekrarMi && MOD==='calisma' && !window.PROVA_MODU){
+    if(SECILI!==s.dogru){ window.YSTREAK=(window.YSTREAK||0)+1; } else { window.YSTREAK=0; }
+    if(window.YSTREAK>=2 && IDX < SORULAR.length-2){
+      var kalan=SORULAR.slice(IDX+1);
+      kalan.forEach(function(x,i){ x.__ix=i; });
+      kalan.sort(function(a,b){ return (zorluk(a)-zorluk(b)) || (a.__ix-b.__ix); });
+      SORULAR=SORULAR.slice(0,IDX+1).concat(kalan);
+      window.YUMUSAMA_MSG='🧱 Temeli sağlamlaştırıp dönüyoruz — birkaç sağlam adım, sonra yeniden yukarı.';
+      window.YSTREAK=0;
+    }
+  }
   if(KRONI){ clearInterval(KRONI); KRONI=null; }
   // 31.07 (UWorld esligi - Cem onayi): sure KIYASI. Kisinin kendi yuruyen
   // ortalamasiyla karsilastirir ("hiz antrenmani" - SMMM'de sure yetmez).
