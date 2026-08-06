@@ -1,12 +1,12 @@
-﻿{
-    "guncelleme":  "Soru-Cevap bilgi tabanı — her cevap DOĞRULANMIŞ birincil kaynaktan (kanun/tebliğ/özelge). Uydurma yok; kapsamda olmayan soruya 'kapsamda değil' denir. Genişletilecek (özelge yüklemeleriyle).",
+{
+    "guncelleme":  "Soru-Cevap bilgi tabanı — her cevap DOĞRULANMIŞ birincil kaynaktan (kanun/tebliğ/özelge). Uydurma yok; kapsamda olmayan soruya \u0027kapsamda değil\u0027 denir. Genişletilecek (özelge yüklemeleriyle).",
     "kaynak":  "mevzuat.gov.tr / GİB / KİK / TÜRKPATENT — birincil",
     "kayitlar":  [
                      {
                          "id":  "kdv-oran",
                          "konu":  "KDV genel oranı",
                          "anahtar":  "kdv oran kaç yüzde genel oranı katma değer",
-                         "cevap":  "Türkiye'de genel KDV oranı %20'dir (indirimli oranlar %1 ve %10). Ürün/hizmete göre değişir; GTİP koduna özel oranı GTİP aracından kontrol et.",
+                         "cevap":  "Türkiye\u0027de genel KDV oranı %20\u0027dir (indirimli oranlar %1 ve %10). Ürün/hizmete göre değişir; GTİP koduna özel oranı GTİP aracından kontrol et.",
                          "kaynak":  "2007/13033 BKK (KDV oranları)",
                          "arac":  "gtip.html"
                      },
@@ -22,7 +22,7 @@
                          "id":  "hizmet-danisman",
                          "konu":  "Yurt dışı danışmanlık/serbest meslek stopajı",
                          "anahtar":  "yurt dışı danışmanlık mühendislik serbest meslek stopaj mukimlik çvöa",
-                         "cevap":  "ÇVÖA'lı ülke + mukimlik belgesi var ve hizmet veren Türkiye'de işyeri kurmamış/183 günü aşmamışsa çoğu anlaşmada stopaj SIFIR olur. Aksi halde %20 (KVK m.30). Mukimlik belgesi şarttır.",
+                         "cevap":  "ÇVÖA\u0027lı ülke + mukimlik belgesi var ve hizmet veren Türkiye\u0027de işyeri kurmamış/183 günü aşmamışsa çoğu anlaşmada stopaj SIFIR olur. Aksi halde %20 (KVK m.30). Mukimlik belgesi şarttır.",
                          "kaynak":  "KVK m.30 + 2009/14593 BKK + ÇVÖA",
                          "arac":  "hizmet.html"
                      },
@@ -30,7 +30,7 @@
                          "id":  "hizmet-reklam",
                          "konu":  "İnternet/dijital reklam stopajı (Google, Meta)",
                          "anahtar":  "google ads meta reklam internet dijital reklam stopaj kaç",
-                         "cevap":  "İnternet reklam hizmeti ödemelerinde 476 sayılı CK ile %15 stopaj uygulanır (uygulamada ÇVÖA'dan bağımsız kesiliyor) + 2 No.lu KDV.",
+                         "cevap":  "İnternet reklam hizmeti ödemelerinde 476 sayılı CK ile %15 stopaj uygulanır (uygulamada ÇVÖA\u0027dan bağımsız kesiliyor) + 2 No.lu KDV.",
                          "kaynak":  "476 sayılı Cumhurbaşkanı Kararı",
                          "arac":  "hizmet.html"
                      },
@@ -44,7 +44,7 @@
                      },
                      {
                          "id":  "diib-avantaj",
-                         "konu":  "DİİB'in avantajı",
+                         "konu":  "DİİB\u0027in avantajı",
                          "anahtar":  "diib avantaj neden almalı gözetim damping teminat vergi",
                          "cevap":  "DİİB ile üretimde kullanacağın hammaddeyi vergiler teminata bağlanarak (ödemeden) ithal edersin; ihracat taahhüdü gerçekleşince teminat iade edilir. Ayrıca ticaret politikası önlemleri (gözetim/damping) UYGULANMAZ — işletme malzemesi hariç (m.5/2).",
                          "kaynak":  "2006/12 DİR Tebliği m.5-6",
@@ -62,7 +62,7 @@
                          "id":  "kdv-iade-nasil",
                          "konu":  "KDV iadesi nasıl alınır",
                          "anahtar":  "kdv iade nasıl alınır liste dilekçe ymm teminat belge",
-                         "cevap":  "Adım adım: listeleri (indirilecek/yüklenilen KDV, hesaplama tablosu, satış faturaları, GÇB) hazırla → İnternet Vergi Dairesi'nden yükle, Liste Alındısı al → standart iade talep dilekçesi ver → kağıt evrakı ibraz et → kontrol raporu (KDVİRA) → nakden ve sınır üstüyse YMM raporu / %150 teminat / inceleme.",
+                         "cevap":  "Adım adım: listeleri (indirilecek/yüklenilen KDV, hesaplama tablosu, satış faturaları, GÇB) hazırla → İnternet Vergi Dairesi\u0027nden yükle, Liste Alındısı al → standart iade talep dilekçesi ver → kağıt evrakı ibraz et → kontrol raporu (KDVİRA) → nakden ve sınır üstüyse YMM raporu / %150 teminat / inceleme.",
                          "kaynak":  "KDV Genel Uygulama Tebliği IV/A (İadede Ortak Hususlar)",
                          "arac":  "kdv-iade-rehberi.html"
                      },
@@ -78,7 +78,7 @@
                          "id":  "marka-taklit",
                          "konu":  "Marka taklidi / tecavüz cezası",
                          "anahtar":  "marka taklit tecavüz ceza hapis birisi markamı kullanıyor",
-                         "cevap":  "Markayı iktibas/iltibas suretiyle taklit edip mal üreten/satan/ithal eden kişi 1 yıldan 3 yıla kadar hapis + adli para cezasıyla cezalandırılır. ŞART: markanın Türkiye'de tescilli olması. Ayrıca hukuk davasıyla men + tazminat istenebilir.",
+                         "cevap":  "Markayı iktibas/iltibas suretiyle taklit edip mal üreten/satan/ithal eden kişi 1 yıldan 3 yıla kadar hapis + adli para cezasıyla cezalandırılır. ŞART: markanın Türkiye\u0027de tescilli olması. Ayrıca hukuk davasıyla men + tazminat istenebilir.",
                          "kaynak":  "SMK 6769 m.29-30, m.149-159",
                          "arac":  "marka-radari.html"
                      },
@@ -126,7 +126,7 @@
                          "id":  "gumruk-fark-ceza",
                          "konu":  "Gümrükte beyan farkı cezası",
                          "anahtar":  "gümrük beyan fark ceza kıymet gtip muayene ek tahakkuk",
-                         "cevap":  "Beyan ile muayene/kontrol sonucu arasında GTİP/kıymet/ölçü aykırılığı çıkar ve vergi farkı %5'i aşarsa, vergi farkından ayrı olarak bu farkın 3 KATI para cezası alınır.",
+                         "cevap":  "Beyan ile muayene/kontrol sonucu arasında GTİP/kıymet/ölçü aykırılığı çıkar ve vergi farkı %5\u0027i aşarsa, vergi farkından ayrı olarak bu farkın 3 KATI para cezası alınır.",
                          "kaynak":  "4458 Gümrük Kanunu m.234",
                          "arac":  "ceza-asistani.html"
                      },
@@ -134,7 +134,7 @@
                          "id":  "efatura-esik",
                          "konu":  "e-Fatura zorunluluğu eşiği",
                          "anahtar":  "e-fatura zorunlu ciro eşik kaç geçiş e-arşiv e-defter",
-                         "cevap":  "e-Fatura genel ciro eşiği 3.000.000 TL'dir (bazı sektörlerde daha düşük). Kapsama girince e-Arşiv ve e-Defter de zorunlu olur. Karneni çıkararak firmanın durumunu gör.",
+                         "cevap":  "e-Fatura genel ciro eşiği 3.000.000 TL\u0027dir (bazı sektörlerde daha düşük). Kapsama girince e-Arşiv ve e-Defter de zorunlu olur. Karneni çıkararak firmanın durumunu gör.",
                          "kaynak":  "VUK 509 Sıra No.lu Genel Tebliğ",
                          "arac":  "index.html#app"
                      },
@@ -150,7 +150,7 @@
                          "id":  "verbis",
                          "konu":  "VERBİS kayıt zorunluluğu",
                          "anahtar":  "verbis kvkk kayıt zorunlu çalışan bilanço veri sorumlusu",
-                         "cevap":  "Yıllık çalışan sayısı 50'den çok VEYA yıllık bilanço toplamı 100 milyon TL'den çok olan veri sorumluları VERBİS'e kayıt olmak zorundadır. Altındaysan bile özel nitelikli veri işliyorsan kapsama girebilirsin.",
+                         "cevap":  "Yıllık çalışan sayısı 50\u0027den çok VEYA yıllık bilanço toplamı 100 milyon TL\u0027den çok olan veri sorumluları VERBİS\u0027e kayıt olmak zorundadır. Altındaysan bile özel nitelikli veri işliyorsan kapsama girebilirsin.",
                          "kaynak":  "6698 KVKK + Kurul kararları",
                          "arac":  "index.html#app"
                      },
@@ -158,7 +158,7 @@
                          "id":  "ihale-borc",
                          "konu":  "Vergi borcum varsa ihaleye girebilir miyim",
                          "anahtar":  "ihale vergi borcu sgk borcu eşik girer mi kesinleşmiş",
-                         "cevap":  "Kesinleşmiş vergi borcu 5.000 TL'yi, kesinleşmiş SGK prim borcu 5.000 TL'yi aşarsa ihale dışı bırakılırsın. Altındaki tutarlar engel değildir.",
+                         "cevap":  "Kesinleşmiş vergi borcu 5.000 TL\u0027yi, kesinleşmiş SGK prim borcu 5.000 TL\u0027yi aşarsa ihale dışı bırakılırsın. Altındaki tutarlar engel değildir.",
                          "kaynak":  "4734 + KİK Genel Tebliği (borç eşiği)",
                          "arac":  "ihale-radari.html"
                      },
@@ -166,7 +166,7 @@
                          "id":  "yerli-mali",
                          "konu":  "Yerli malı belgesi ihalede ne kazandırır",
                          "anahtar":  "yerli malı belgesi ihale avantaj fiyat indirim",
-                         "cevap":  "Yerli malı teklif edene, yabancı teklife karşı %15'e kadar fiyat avantajı sağlanabilir (idare şartnamede belirler). Orta-yüksek teknoloji sanayi ürünlerinde bu avantaj zorunlu uygulanır.",
+                         "cevap":  "Yerli malı teklif edene, yabancı teklife karşı %15\u0027e kadar fiyat avantajı sağlanabilir (idare şartnamede belirler). Orta-yüksek teknoloji sanayi ürünlerinde bu avantaj zorunlu uygulanır.",
                          "kaynak":  "4734 m.63",
                          "arac":  "ihale-radari.html"
                      },
@@ -206,7 +206,7 @@
                          "id":  "kkdf",
                          "konu":  "KKDF (Kaynak Kullanımını Destekleme Fonu) ne zaman çıkar",
                          "anahtar":  "kkdf vadeli ithalat peşin fon oran çıkar mı",
-                         "cevap":  "Vadeli (mal bedeli peşin ödenmeyen) ithalatta %6 KKDF doğar; peşin ödemede KKDF yoktur. Ödeme şeklini planlaman KKDF'yi belirler.",
+                         "cevap":  "Vadeli (mal bedeli peşin ödenmeyen) ithalatta %6 KKDF doğar; peşin ödemede KKDF yoktur. Ödeme şeklini planlaman KKDF\u0027yi belirler.",
                          "kaynak":  "88/12944 sayılı Karar",
                          "arac":  "gtip.html"
                      },
@@ -231,7 +231,7 @@
                          "konu":  "EUR.1 belgesi ne işe yarar",
                          "anahtar":  "eur.1 eur1 dolaşım tercihli menşe sta indirimli gümrük",
                          "cevap":  "EUR.1, serbest ticaret / tercihli ticaret anlaşmalı ülkelerde malın menşeini ispatlar → indirimli veya sıfır gümrük vergisi sağlar. Genelde düzenlenmesinden itibaren 4 ay içinde ibraz edilir.",
-                         "kaynak":  "Türkiye'nin STA'ları / tercihli ticaret anlaşmaları",
+                         "kaynak":  "Türkiye\u0027nin STA\u0027ları / tercihli ticaret anlaşmaları",
                          "arac":  "belge-kasasi.html"
                      },
                      {
@@ -246,7 +246,7 @@
                          "id":  "gecici-ithalat",
                          "konu":  "Geçici ithalat rejimi nedir",
                          "anahtar":  "geçici ithalat fuar tamir kısmi muafiyet geri gönderme",
-                         "cevap":  "Geçici ithalat, eşyayı belirli bir süre için (fuar, tamir, kullanım) tam veya kısmî muafiyetle getirip sonra geri göndermeni sağlar. Kısmî muafiyette her ay verginin %3'ü alınır.",
+                         "cevap":  "Geçici ithalat, eşyayı belirli bir süre için (fuar, tamir, kullanım) tam veya kısmî muafiyetle getirip sonra geri göndermeni sağlar. Kısmî muafiyette her ay verginin %3\u0027ü alınır.",
                          "kaynak":  "4458 Gümrük Kanunu (geçici ithalat rejimi)",
                          "arac":  "gtip.html"
                      },
@@ -262,7 +262,7 @@
                          "id":  "ihracat-kisit",
                          "konu":  "İhracatta yasak / izinli / kayda bağlı ürünler",
                          "anahtar":  "ihracat yasak izin kayda bağlı ürün ihraç edebilir miyim",
-                         "cevap":  "Bazı ürünlerin ihracı yasaktır, bazıları ön izne, bazıları kayda bağlıdır (İhracat Yönetmeliği ekleri). Ürününün GTİP'ini gir; ihracatta kısıt var mı GTİP aracından kontrol et.",
+                         "cevap":  "Bazı ürünlerin ihracı yasaktır, bazıları ön izne, bazıları kayda bağlıdır (İhracat Yönetmeliği ekleri). Ürününün GTİP\u0027ini gir; ihracatta kısıt var mı GTİP aracından kontrol et.",
                          "kaynak":  "İhracat Yönetmeliği ekli listeler",
                          "arac":  "gtip.html"
                      },
@@ -270,7 +270,7 @@
                          "id":  "tev",
                          "konu":  "Telafi Edici Vergi (TEV) nedir",
                          "anahtar":  "telafi edici vergi tev diib üçüncü ülke ab ihracat",
-                         "cevap":  "TEV, Dahilde İşleme'de üçüncü ülke menşeli girdi kullanıp AB'ye veya STA ülkesine ihracat yaparken ödenen vergidir (tercihli menşe kuralı gereği). DİİB'li ihracatta bunu hesaba kat.",
+                         "cevap":  "TEV, Dahilde İşleme\u0027de üçüncü ülke menşeli girdi kullanıp AB\u0027ye veya STA ülkesine ihracat yaparken ödenen vergidir (tercihli menşe kuralı gereği). DİİB\u0027li ihracatta bunu hesaba kat.",
                          "kaynak":  "Dahilde İşleme Rejimi Kararı (2005/8391) + tercihli menşe kuralları",
                          "arac":  "hatirlatici.html"
                      },
@@ -278,7 +278,7 @@
                          "id":  "ihracat-kdv",
                          "konu":  "İhracatta KDV var mı",
                          "anahtar":  "ihracat kdv istisna iade sıfır oran mal",
-                         "cevap":  "Mal ihracatı KDV'den istisnadır (tam istisna) — ihraç faturasında KDV hesaplamazsın, ama malı üretirken/alırken yüklendiğin KDV'yi iade alabilirsin.",
+                         "cevap":  "Mal ihracatı KDV\u0027den istisnadır (tam istisna) — ihraç faturasında KDV hesaplamazsın, ama malı üretirken/alırken yüklendiğin KDV\u0027yi iade alabilirsin.",
                          "kaynak":  "KDVK m.11 + m.32",
                          "arac":  "kdv-iade-rehberi.html"
                      },
@@ -286,7 +286,7 @@
                          "id":  "kdv2",
                          "konu":  "2 No.lu KDV (sorumlu sıfatıyla) nedir",
                          "anahtar":  "2 no.lu kdv sorumlu sıfatı yurt dışı hizmet beyan indir",
-                         "cevap":  "Yurt dışından alınan hizmette KDV'yi, hizmeti alan (sen) sorumlu sıfatıyla 2 No.lu KDV beyannamesiyle beyan edip ödersin; aynı ay 1 No.lu KDV'de indirirsin → net yük ~0 ama beyan zorunludur (verilmezse ceza).",
+                         "cevap":  "Yurt dışından alınan hizmette KDV\u0027yi, hizmeti alan (sen) sorumlu sıfatıyla 2 No.lu KDV beyannamesiyle beyan edip ödersin; aynı ay 1 No.lu KDV\u0027de indirirsin → net yük ~0 ama beyan zorunludur (verilmezse ceza).",
                          "kaynak":  "KDVK m.9",
                          "arac":  "hizmet.html"
                      },
@@ -294,7 +294,7 @@
                          "id":  "kdv-tevkifat",
                          "konu":  "KDV tevkifatı nedir",
                          "anahtar":  "kdv tevkifat kısmi alıcı keser sorumlu oran",
-                         "cevap":  "Belirli işlemlerde (yapım işi, danışmanlık, temizlik, işgücü vb.) alıcı, hesaplanan KDV'nin bir kısmını (ör. 2/10, 4/10) keserek doğrudan vergi dairesine öder; satıcı kalanını tahsil eder.",
+                         "cevap":  "Belirli işlemlerde (yapım işi, danışmanlık, temizlik, işgücü vb.) alıcı, hesaplanan KDV\u0027nin bir kısmını (ör. 2/10, 4/10) keserek doğrudan vergi dairesine öder; satıcı kalanını tahsil eder.",
                          "kaynak":  "KDV Genel Uygulama Tebliği (kısmi tevkifat)",
                          "arac":  "kdv-iade-rehberi.html"
                      },
@@ -302,7 +302,7 @@
                          "id":  "ihrac-kayitli",
                          "konu":  "İhraç kayıtlı teslim nedir",
                          "anahtar":  "ihraç kayıtlı teslim imalatçı kdv tahsil etmez tecil terkin",
-                         "cevap":  "İmalatçı, ihracatçıya yapacağı teslimde KDV'yi tahsil etmez (tecil edilir); ihracat gerçekleşince bu KDV terkin edilir. İmalatçı yüklendiği KDV'yi iade alabilir.",
+                         "cevap":  "İmalatçı, ihracatçıya yapacağı teslimde KDV\u0027yi tahsil etmez (tecil edilir); ihracat gerçekleşince bu KDV terkin edilir. İmalatçı yüklendiği KDV\u0027yi iade alabilir.",
                          "kaynak":  "KDVK m.11/1-c",
                          "arac":  "kdv-iade-rehberi.html"
                      },
@@ -310,7 +310,7 @@
                          "id":  "marka-itiraz",
                          "konu":  "Marka başvurusuna itiraz süresi",
                          "anahtar":  "marka itiraz yayın süre 2 ay benzer başvuru",
-                         "cevap":  "Bir marka başvurusu Bültende yayımlandıktan sonra, yayım tarihinden itibaren 2 ay içinde ilgililer TÜRKPATENT'e itiraz edebilir. Seninkine benzer başvuruyu bu sürede yakalamak kritik.",
+                         "cevap":  "Bir marka başvurusu Bültende yayımlandıktan sonra, yayım tarihinden itibaren 2 ay içinde ilgililer TÜRKPATENT\u0027e itiraz edebilir. Seninkine benzer başvuruyu bu sürede yakalamak kritik.",
                          "kaynak":  "SMK 6769 m.18",
                          "arac":  "marka-itiraz.html"
                      },
@@ -318,7 +318,7 @@
                          "id":  "marka-kullanmama",
                          "konu":  "Markayı kullanmazsam ne olur (iptal)",
                          "anahtar":  "marka kullanmama iptal 5 yıl kullan ya da kaybet",
-                         "cevap":  "Tescilli marka, tescil tarihinden itibaren 5 yıl içinde ciddi biçimde kullanılmazsa (veya kullanıma 5 yıl ara verilirse) iptal edilebilir. 'Kullan ya da kaybet' kuralı.",
+                         "cevap":  "Tescilli marka, tescil tarihinden itibaren 5 yıl içinde ciddi biçimde kullanılmazsa (veya kullanıma 5 yıl ara verilirse) iptal edilebilir. \u0027Kullan ya da kaybet\u0027 kuralı.",
                          "kaynak":  "SMK 6769 m.9 / m.26",
                          "arac":  "marka-radari.html"
                      },
@@ -334,7 +334,7 @@
                          "id":  "marka-mutlak",
                          "konu":  "Markam neden reddedildi (mutlak ret)",
                          "anahtar":  "marka ret mutlak ayırt edici tanımlayıcı türkpatent red",
-                         "cevap":  "Marka ayırt edici değilse, malı/hizmeti doğrudan tanımlıyorsa (ör. 'ekmek' için EKMEK), herkesçe kullanılan bir işaretse veya kötü niyetliyse TÜRKPATENT resen reddeder. Başvurudan önce kontrol et.",
+                         "cevap":  "Marka ayırt edici değilse, malı/hizmeti doğrudan tanımlıyorsa (ör. \u0027ekmek\u0027 için EKMEK), herkesçe kullanılan bir işaretse veya kötü niyetliyse TÜRKPATENT resen reddeder. Başvurudan önce kontrol et.",
                          "kaynak":  "SMK 6769 m.5",
                          "arac":  "marka-radari.html"
                      },
@@ -342,7 +342,7 @@
                          "id":  "marka-yurtdisi",
                          "konu":  "Markamı yurt dışında nasıl korurum",
                          "anahtar":  "marka yurt dışı koruma madrid ab euipo ülkesellik",
-                         "cevap":  "Türkiye tescili yalnız Türkiye'de korur (ülkesellik). Yurt dışı için: Madrid Protokolü (TÜRKPATENT üzerinden tek başvuruyla ~130 ülke; şart: önce TR'de tescil), AB markası (EUIPO, 27 ülke) veya ulusal tescil. Paris rüçhanı 6 ay.",
+                         "cevap":  "Türkiye tescili yalnız Türkiye\u0027de korur (ülkesellik). Yurt dışı için: Madrid Protokolü (TÜRKPATENT üzerinden tek başvuruyla ~130 ülke; şart: önce TR\u0027de tescil), AB markası (EUIPO, 27 ülke) veya ulusal tescil. Paris rüçhanı 6 ay.",
                          "kaynak":  "Madrid Protokolü / EUIPO / SMK",
                          "arac":  "marka-radari.html"
                      },
@@ -358,7 +358,7 @@
                          "id":  "uzlasma",
                          "konu":  "Vergi/ceza uzlaşması nedir",
                          "anahtar":  "uzlaşma vergi ceza indirim anlaşma özel usulsüzlük",
-                         "cevap":  "Uzlaşma ile vergi ve ceza tutarında idareyle anlaşarak indirim sağlanabilir. Vergi ziyaı cezaları ile 5.000 TL'yi aşan usulsüzlük/özel usulsüzlük cezaları uzlaşmaya girer. Uzlaşırsan dava açamazsın.",
+                         "cevap":  "Uzlaşma ile vergi ve ceza tutarında idareyle anlaşarak indirim sağlanabilir. Vergi ziyaı cezaları ile 5.000 TL\u0027yi aşan usulsüzlük/özel usulsüzlük cezaları uzlaşmaya girer. Uzlaşırsan dava açamazsın.",
                          "kaynak":  "VUK Ek m.1 vd.",
                          "arac":  "ceza-asistani.html"
                      },
@@ -382,7 +382,7 @@
                          "id":  "ihale-teminat",
                          "konu":  "İhalede geçici teminat ne kadar",
                          "anahtar":  "ihale geçici teminat oran yüzde 3 teklif",
-                         "cevap":  "Geçici teminat, teklif edilen bedelin %3'ünden az olmamak üzere istekli tarafından belirlenir (üst sınır idarece konabilir). Kesin teminat ise sözleşme bedelinin %6'sıdır.",
+                         "cevap":  "Geçici teminat, teklif edilen bedelin %3\u0027ünden az olmamak üzere istekli tarafından belirlenir (üst sınır idarece konabilir). Kesin teminat ise sözleşme bedelinin %6\u0027sıdır.",
                          "kaynak":  "4734 sayılı Kamu İhale Kanunu",
                          "arac":  "ihale-radari.html"
                      },
@@ -390,7 +390,7 @@
                          "id":  "itirazen-sikayet",
                          "konu":  "İhale kararına nasıl itiraz ederim",
                          "anahtar":  "ihale itiraz şikayet itirazen kik süre karar",
-                         "cevap":  "Önce idareye şikayet başvurusu yaparsın; idarenin kararına veya süresinde cevap vermemesine karşı Kamu İhale Kurumu'na (KİK) itirazen şikayet başvurusu yaparsın. Sürelere dikkat — kaçırırsan hak düşer.",
+                         "cevap":  "Önce idareye şikayet başvurusu yaparsın; idarenin kararına veya süresinde cevap vermemesine karşı Kamu İhale Kurumu\u0027na (KİK) itirazen şikayet başvurusu yaparsın. Sürelere dikkat — kaçırırsan hak düşer.",
                          "kaynak":  "4734 sayılı Kanun (şikayet/itirazen şikayet)",
                          "arac":  "ihale-radari.html"
                      },
@@ -406,7 +406,7 @@
                          "id":  "kira-stopaj",
                          "konu":  "Yurt dışından makine kirası stopajı",
                          "anahtar":  "makine ekipman kira stopaj finansal kiralama yurt dışı",
-                         "cevap":  "Yurt dışından ekipman kirasında stopaj genelde %20'dir; finansal kiralamada %1. ÇVÖA + mukimlik belgesi oranı düşürebilir. Ayrıca 2 No.lu KDV çıkar.",
+                         "cevap":  "Yurt dışından ekipman kirasında stopaj genelde %20\u0027dir; finansal kiralamada %1. ÇVÖA + mukimlik belgesi oranı düşürebilir. Ayrıca 2 No.lu KDV çıkar.",
                          "kaynak":  "2009/14593 BKK",
                          "arac":  "hizmet.html"
                      },
@@ -423,14 +423,14 @@
                          "konu":  "ÇVÖA (çifte vergilendirme anlaşması) nedir",
                          "anahtar":  "çvöa çifte vergilendirme anlaşma mukimlik stopaj indirim",
                          "cevap":  "ÇVÖA, aynı gelirin iki ülkede vergilenmesini önler; Türkiye ~90 ülkeyle anlaşmalı. Anlaşma stopajı düşürebilir/sıfırlayabilir AMA karşı taraftan MUKİMLİK BELGESİ almak şarttır — belgesiz indirim uygulanmaz.",
-                         "kaynak":  "Türkiye'nin ÇVÖA'ları (GİB listesi)",
+                         "kaynak":  "Türkiye\u0027nin ÇVÖA\u0027ları (GİB listesi)",
                          "arac":  "hizmet.html"
                      },
                      {
                          "id":  "credit-note",
                          "konu":  "Yurt dışından credit note (indirim) geldi",
                          "anahtar":  "credit note indirim iade notu kdv düzeltme yurt dışı",
-                         "cevap":  "Yurt dışı satıcının sonradan fiyat indiriminde (credit note), ithalde ödediğin KDV'de düzeltme genelde gerekmez (indirim hakkın tamsa); yurt dışına KDV'siz fatura kesip geliri kaydedersin.",
+                         "cevap":  "Yurt dışı satıcının sonradan fiyat indiriminde (credit note), ithalde ödediğin KDV\u0027de düzeltme genelde gerekmez (indirim hakkın tamsa); yurt dışına KDV\u0027siz fatura kesip geliri kaydedersin.",
                          "kaynak":  "KDV + gümrük kıymeti mevzuatı / GİB",
                          "arac":  "fiyatfarki.html"
                      },
@@ -454,7 +454,7 @@
                          "id":  "isg-uzman",
                          "konu":  "İş güvenliği uzmanı/işyeri hekimi zorunlu mu",
                          "anahtar":  "isg uzmanı işyeri hekimi zorunlu kaç çalışan osgb",
-                         "cevap":  "Bir kişi bile SGK'lı çalıştıran her işyeri, tehlike sınıfına göre İSG uzmanı ve işyeri hekimi hizmeti almak zorundadır (OSGB'den alınabilir).",
+                         "cevap":  "Bir kişi bile SGK\u0027lı çalıştıran her işyeri, tehlike sınıfına göre İSG uzmanı ve işyeri hekimi hizmeti almak zorundadır (OSGB\u0027den alınabilir).",
                          "kaynak":  "6331 sayılı İSG Kanunu m.6",
                          "arac":  "index.html#app"
                      },
@@ -462,7 +462,7 @@
                          "id":  "engelli-kota",
                          "konu":  "Engelli çalıştırma zorunluluğu",
                          "anahtar":  "engelli kota çalıştırma yüzde 3 50 çalışan işkur ceza",
-                         "cevap":  "50 ve üzeri işçi çalıştıran özel sektör işyeri, işçi sayısının %3'ü kadar engelli çalıştırmak zorundadır. Açık kontenjanı doldurmazsan her ay idari para cezası işler.",
+                         "cevap":  "50 ve üzeri işçi çalıştıran özel sektör işyeri, işçi sayısının %3\u0027ü kadar engelli çalıştırmak zorundadır. Açık kontenjanı doldurmazsan her ay idari para cezası işler.",
                          "kaynak":  "4857 sayılı İş Kanunu m.30",
                          "arac":  "index.html#app"
                      },
@@ -558,7 +558,7 @@
                          "id":  "marka-yidk",
                          "konu":  "TÜRKPATENT kararına itiraz (YİDK)",
                          "anahtar":  "yidk karara itiraz türkpatent ret süre 2 ay",
-                         "cevap":  "TÜRKPATENT'in kararına (ör. başvurunun reddi), kararın tebliğinden itibaren 2 ay içinde Yeniden İnceleme ve Değerlendirme Kurulu'na (YİDK) itiraz edebilirsin.",
+                         "cevap":  "TÜRKPATENT\u0027in kararına (ör. başvurunun reddi), kararın tebliğinden itibaren 2 ay içinde Yeniden İnceleme ve Değerlendirme Kurulu\u0027na (YİDK) itiraz edebilirsin.",
                          "kaynak":  "SMK 6769 m.20",
                          "arac":  "marka-radari.html"
                      },
@@ -566,7 +566,7 @@
                          "id":  "sgk-tavan",
                          "konu":  "SGK prim tavanı ne kadar",
                          "anahtar":  "sgk tavan prime esas kazanç üst sınır kaç katı",
-                         "cevap":  "Prime esas kazanç üst sınırı (tavan), asgari ücretin 9 KATIDIR (2026'dan itibaren; önceden 7,5 kattı). Güncel tutar için Karne/eşik sayfasına bak.",
+                         "cevap":  "Prime esas kazanç üst sınırı (tavan), asgari ücretin 9 KATIDIR (2026\u0027dan itibaren; önceden 7,5 kattı). Güncel tutar için Karne/eşik sayfasına bak.",
                          "kaynak":  "5510 m.82 (7566 s. Kanun ile değişik)",
                          "arac":  "index.html#app"
                      },
@@ -580,9 +580,9 @@
                      },
                      {
                          "id":  "grossup",
-                         "konu":  "Sözleşme 'net' ise stopajı kim öder (brütleştirme)",
+                         "konu":  "Sözleşme \u0027net\u0027 ise stopajı kim öder (brütleştirme)",
                          "anahtar":  "net sözleşme brütleştirme gross up stopaj matrah",
-                         "cevap":  "Sözleşme 'net' tutar üzerinden yapıldıysa, yabancıya ödenen tutar brüte tamamlanır (gross-up) ve stopaj bu brüt üzerinden hesaplanır — yani vergi yükü fiilen sana döner, matrah da büyür.",
+                         "cevap":  "Sözleşme \u0027net\u0027 tutar üzerinden yapıldıysa, yabancıya ödenen tutar brüte tamamlanır (gross-up) ve stopaj bu brüt üzerinden hesaplanır — yani vergi yükü fiilen sana döner, matrah da büyür.",
                          "kaynak":  "Stopaj uygulaması (KVK m.30)",
                          "arac":  "hizmet.html"
                      },
@@ -606,7 +606,7 @@
                          "id":  "kdv2-nedir",
                          "konu":  "2 No.lu KDV beyannamesi nedir",
                          "anahtar":  "2 no nolu numaralı kdv beyannamesi nedir sorumlu sıfatıyla tevkifat kim verir",
-                         "cevap":  "2 No.lu KDV Beyannamesi, KDV'yi satıcının değil ALICININ 'sorumlu sıfatıyla' beyan edip ödediği beyannamedir. İki halde çıkar: (1) yurt dışından hizmet/gayrimaddi hak alımı (satıcı Türkiye'de mükellef değil), (2) yurt içi kısmi tevkifat kapsamındaki işlemler. Beyan edilen bu KDV, şartları varsa 1 No.lu beyannamede indirilir.",
+                         "cevap":  "2 No.lu KDV Beyannamesi, KDV\u0027yi satıcının değil ALICININ \u0027sorumlu sıfatıyla\u0027 beyan edip ödediği beyannamedir. İki halde çıkar: (1) yurt dışından hizmet/gayrimaddi hak alımı (satıcı Türkiye\u0027de mükellef değil), (2) yurt içi kısmi tevkifat kapsamındaki işlemler. Beyan edilen bu KDV, şartları varsa 1 No.lu beyannamede indirilir.",
                          "kaynak":  "KDVK m.9 + KDV Genel Uygulama Tebliği II/C",
                          "arac":  "hizmet.html"
                      },
@@ -614,7 +614,7 @@
                          "id":  "kdv-kismi-tevkifat",
                          "konu":  "KDV tevkifatı (kısmi tevkifat) nedir",
                          "anahtar":  "kdv tevkifat kısmi tevkifatı hangi işlemler alıcı sorumlu yüzde beyan",
-                         "cevap":  "Belirli hizmet ve teslimlerde (ör. temizlik, işgücü, yapım işleri, bazı metal/hurda teslimleri) KDV'nin tebliğle belirlenen kısmını SATICI değil ALICI keser ve 2 No.lu beyanname ile öder. Amaç KDV'nin kayıt dışına çıkmasını önlemek. Kapsam ve oranlar KDV Genel Uygulama Tebliği'ndedir.",
+                         "cevap":  "Belirli hizmet ve teslimlerde (ör. temizlik, işgücü, yapım işleri, bazı metal/hurda teslimleri) KDV\u0027nin tebliğle belirlenen kısmını SATICI değil ALICI keser ve 2 No.lu beyanname ile öder. Amaç KDV\u0027nin kayıt dışına çıkmasını önlemek. Kapsam ve oranlar KDV Genel Uygulama Tebliği\u0027ndedir.",
                          "kaynak":  "KDVK m.9 + KDVGUT II/C",
                          "arac":  "hizmet.html"
                      },
@@ -638,7 +638,7 @@
                          "id":  "degersiz-alacak",
                          "konu":  "Değersiz alacak nedir, ne zaman gider yazılır",
                          "anahtar":  "değersiz alacak tahsil imkansız gider yazma kanaat verici vesika mahkeme",
-                         "cevap":  "Kazai bir hükme (mahkeme kararı) veya kanaat verici bir vesikaya göre tahsiline artık imkân kalmayan alacak 'değersiz alacak'tır ve değersiz hale geldiği yıl doğrudan gider yazılır. Sadece 'ödemiyor' demek yetmez; belge şart.",
+                         "cevap":  "Kazai bir hükme (mahkeme kararı) veya kanaat verici bir vesikaya göre tahsiline artık imkân kalmayan alacak \u0027değersiz alacak\u0027tır ve değersiz hale geldiği yıl doğrudan gider yazılır. Sadece \u0027ödemiyor\u0027 demek yetmez; belge şart.",
                          "kaynak":  "VUK m.322",
                          "arac":  "alacak-radari.html"
                      },
@@ -646,7 +646,7 @@
                          "id":  "amortisman",
                          "konu":  "Amortisman nedir, neye ayrılır",
                          "anahtar":  "amortisman nedir demirbaş makine bir yıldan fazla faydalı ömür oran gider",
-                         "cevap":  "İşletmede bir yıldan fazla kullanılan ve yıpranmaya/aşınmaya tabi iktisadi kıymetlerin (makine, demirbaş, taşıt, bina) bedeli, faydalı ömrüne yayılarak amortisman yoluyla gider yazılır. Faydalı ömür ve oranlar GİB'in yayımladığı listeye göredir. Bedeli düşük olanlar (yıllık haddi aşmayan) doğrudan gider yazılabilir.",
+                         "cevap":  "İşletmede bir yıldan fazla kullanılan ve yıpranmaya/aşınmaya tabi iktisadi kıymetlerin (makine, demirbaş, taşıt, bina) bedeli, faydalı ömrüne yayılarak amortisman yoluyla gider yazılır. Faydalı ömür ve oranlar GİB\u0027in yayımladığı listeye göredir. Bedeli düşük olanlar (yıllık haddi aşmayan) doğrudan gider yazılabilir.",
                          "kaynak":  "VUK m.313-315, m.320",
                          "arac":  "ceza-asistani.html"
                      },
@@ -654,7 +654,7 @@
                          "id":  "binek-oto-gider",
                          "konu":  "Binek otomobil gider kısıtı",
                          "anahtar":  "binek otomobil araç gider kısıt amortisman kira yüzde 70 kkeg 7194",
-                         "cevap":  "Binek otomobillerde: giderlerin (yakıt/bakım vb.) %70'i indirilebilir; aylık kira, ÖTV+KDV'nin gider yazılabilen kısmı ve amortismana esas bedelin üst sınırı her yıl tebliğle belirlenen tutarlarla sınırlıdır. Aşan kısım kanunen kabul edilmeyen giderdir (KKEG). Güncel tutarları vergi takvimi/eşik sayfasından teyit et.",
+                         "cevap":  "Binek otomobillerde: giderlerin (yakıt/bakım vb.) %70\u0027i indirilebilir; aylık kira, ÖTV+KDV\u0027nin gider yazılabilen kısmı ve amortismana esas bedelin üst sınırı her yıl tebliğle belirlenen tutarlarla sınırlıdır. Aşan kısım kanunen kabul edilmeyen giderdir (KKEG). Güncel tutarları vergi takvimi/eşik sayfasından teyit et.",
                          "kaynak":  "GVK m.40 (7194 s. Kanun)",
                          "arac":  "index.html#app"
                      },
@@ -686,7 +686,7 @@
                          "id":  "efatura-zorunluluk",
                          "konu":  "e-Fatura / e-Arşiv zorunluluğu kime gelir",
                          "anahtar":  "e-fatura e-arşiv zorunlu ciro hasılat eşik geçiş kimler sınır",
-                         "cevap":  "e-Fatura ve e-Arşiv Fatura'ya geçiş, brüt satış hasılatı tebliğle belirlenen eşiği aşan mükellefler ile belirli sektörler (ihracatçı, aracı hizmet sağlayıcı, akaryakıt vb.) için ZORUNLUDUR. Eşik tutarı zaman içinde düşürülüyor; güncel eşiği GİB tebliğinden teyit et. Zorunlu olmasan da isteğe bağlı geçebilirsin.",
+                         "cevap":  "e-Fatura ve e-Arşiv Fatura\u0027ya geçiş, brüt satış hasılatı tebliğle belirlenen eşiği aşan mükellefler ile belirli sektörler (ihracatçı, aracı hizmet sağlayıcı, akaryakıt vb.) için ZORUNLUDUR. Eşik tutarı zaman içinde düşürülüyor; güncel eşiği GİB tebliğinden teyit et. Zorunlu olmasan da isteğe bağlı geçebilirsin.",
                          "kaynak":  "509 sıra No.lu VUK Genel Tebliği",
                          "arac":  "ceza-asistani.html"
                      },
@@ -710,7 +710,7 @@
                          "id":  "gecici-ithalat-rejim",
                          "konu":  "Geçici ithalat rejimi (tam/kısmi muafiyet)",
                          "anahtar":  "geçici ithalat rejimi tam kısmi muafiyet fuar makine yeniden ihraç kira",
-                         "cevap":  "Bir eşyayı yeniden ihraç etmek şartıyla, kullanıp geri göndermek üzere geçici ithal edebilirsin (fuar eşyası, test makinesi, kiralık ekipman). Belirli hallerde TAM muafiyet (hiç vergi yok), diğer hallerde KISMİ muafiyet (her ay için verginin %3'ü) uygulanır. Süre sonunda yeniden ihraç veya rejim değişikliği şart.",
+                         "cevap":  "Bir eşyayı yeniden ihraç etmek şartıyla, kullanıp geri göndermek üzere geçici ithal edebilirsin (fuar eşyası, test makinesi, kiralık ekipman). Belirli hallerde TAM muafiyet (hiç vergi yok), diğer hallerde KISMİ muafiyet (her ay için verginin %3\u0027ü) uygulanır. Süre sonunda yeniden ihraç veya rejim değişikliği şart.",
                          "kaynak":  "4458 Gümrük Kanunu m.128-134",
                          "arac":  "gtip.html"
                      },
@@ -718,7 +718,7 @@
                          "id":  "otv-nedir",
                          "konu":  "ÖTV nedir, hangi ürünlerde var",
                          "anahtar":  "özel tüketim vergisi ötv nedir hangi ürünler liste akaryakıt taşıt alkol tütün lüks",
-                         "cevap":  "Özel Tüketim Vergisi (ÖTV), yalnızca 4760 sayılı Kanuna ekli 4 listedeki mallardan bir kez alınır: (I) petrol/akaryakıt ürünleri, (II) motorlu taşıtlar, (III) alkollü içki/tütün/kolalı gazoz, (IV) dayanıklı tüketim ve lüks ürünler. Ürünün ÖTV'ye tabi olup olmadığını GTİP kodundan kontrol et.",
+                         "cevap":  "Özel Tüketim Vergisi (ÖTV), yalnızca 4760 sayılı Kanuna ekli 4 listedeki mallardan bir kez alınır: (I) petrol/akaryakıt ürünleri, (II) motorlu taşıtlar, (III) alkollü içki/tütün/kolalı gazoz, (IV) dayanıklı tüketim ve lüks ürünler. Ürünün ÖTV\u0027ye tabi olup olmadığını GTİP kodundan kontrol et.",
                          "kaynak":  "4760 sayılı ÖTV Kanunu",
                          "arac":  "gtip.html"
                      },
@@ -734,7 +734,7 @@
                          "id":  "mensе-sahadetname-fark",
                          "konu":  "Menşe şahadetnamesi ile dolaşım belgesi farkı",
                          "anahtar":  "menşe şahadetnamesi dolaşım belgesi a.tr eur.1 fark hangisi ne işe yarar",
-                         "cevap":  "Dolaşım belgesi (A.TR) eşyanın gümrük birliği kapsamında SERBEST DOLAŞIMDA olduğunu gösterir ve AB'de gümrük vergisi avantajı sağlar; menşe (EUR.1/EUR-MED) eşyanın hangi ülke MENŞELİ olduğunu ispatlayıp tercihli tarife sağlar. Menşe şahadetnamesi ise menşei belgeleyen genel belgedir (tercih sağlamayabilir). Hangisinin gerektiği hedef ülke/anlaşmaya bağlıdır.",
+                         "cevap":  "Dolaşım belgesi (A.TR) eşyanın gümrük birliği kapsamında SERBEST DOLAŞIMDA olduğunu gösterir ve AB\u0027de gümrük vergisi avantajı sağlar; menşe (EUR.1/EUR-MED) eşyanın hangi ülke MENŞELİ olduğunu ispatlayıp tercihli tarife sağlar. Menşe şahadetnamesi ise menşei belgeleyen genel belgedir (tercih sağlamayabilir). Hangisinin gerektiği hedef ülke/anlaşmaya bağlıdır.",
                          "kaynak":  "Gümrük Yönetmeliği + Menşe/Dolaşım mevzuatı",
                          "arac":  "belge-kasasi.html"
                      },
@@ -742,7 +742,7 @@
                          "id":  "sgk-ise-giris",
                          "konu":  "İşe giriş bildirimi ne zaman verilir",
                          "anahtar":  "sgk işe giriş bildirge sigortalı işe başlamadan önce süre ceza",
-                         "cevap":  "Sigortalı işe girişi, çalışmaya BAŞLAMADAN ÖNCE (en geç işe başladığı gün) e-Bildirge ile SGK'ya bildirilir. Süresinde bildirilmezse hem idari para cezası kesilir hem de teşviklerden yararlanma hakkı kaybedilebilir. (İnşaat, balıkçılık, tarım işleri ve ilk defa tescilde bazı özel süreler vardır.)",
+                         "cevap":  "Sigortalı işe girişi, çalışmaya BAŞLAMADAN ÖNCE (en geç işe başladığı gün) e-Bildirge ile SGK\u0027ya bildirilir. Süresinde bildirilmezse hem idari para cezası kesilir hem de teşviklerden yararlanma hakkı kaybedilebilir. (İnşaat, balıkçılık, tarım işleri ve ilk defa tescilde bazı özel süreler vardır.)",
                          "kaynak":  "5510 sayılı Kanun m.8",
                          "arac":  "index.html#app"
                      },
@@ -750,7 +750,7 @@
                          "id":  "sgk-isten-cikis",
                          "konu":  "İşten çıkış bildirimi süresi",
                          "anahtar":  "sgk işten çıkış ayrılış bildirim 10 gün süre işten ayrılma",
-                         "cevap":  "Sigortalının işten ayrılışı (işten çıkış bildirgesi), sigortalılığın sona erdiği tarihi izleyen 10 gün içinde SGK'ya bildirilir. Ayrıca ayrılış nedeni (çıkış kodu) doğru seçilmelidir; yanlış kod işsizlik ödeneği ve kıdem/ihbar açısından sorun yaratır.",
+                         "cevap":  "Sigortalının işten ayrılışı (işten çıkış bildirgesi), sigortalılığın sona erdiği tarihi izleyen 10 gün içinde SGK\u0027ya bildirilir. Ayrıca ayrılış nedeni (çıkış kodu) doğru seçilmelidir; yanlış kod işsizlik ödeneği ve kıdem/ihbar açısından sorun yaratır.",
                          "kaynak":  "5510 sayılı Kanun m.9 + SSİY",
                          "arac":  "index.html#app"
                      },
@@ -758,7 +758,7 @@
                          "id":  "sgk-prim-beyan",
                          "konu":  "Prim beyanı ve ödeme süresi (MUHSGK)",
                          "anahtar":  "sgk prim muhtasar prim hizmet beyannamesi muhsgk ne zaman verilir ödenir 26 ayın sonu",
-                         "cevap":  "Çalıştırılan sigortalıların ücret, prim ve kesintileri Muhtasar ve Prim Hizmet Beyannamesi (MUHSGK) ile takip eden ayın 26'sına kadar verilir; tahakkuk eden SGK primleri en geç takip eden ayın sonuna kadar ödenir. Geç ödemede gecikme cezası ve zammı işler.",
+                         "cevap":  "Çalıştırılan sigortalıların ücret, prim ve kesintileri Muhtasar ve Prim Hizmet Beyannamesi (MUHSGK) ile takip eden ayın 26\u0027sına kadar verilir; tahakkuk eden SGK primleri en geç takip eden ayın sonuna kadar ödenir. Geç ödemede gecikme cezası ve zammı işler.",
                          "kaynak":  "5510 sayılı Kanun m.86-88",
                          "arac":  "hatirlatici.html"
                      },
@@ -766,7 +766,7 @@
                          "id":  "sgk-eksik-gun",
                          "konu":  "Eksik gün bildirimi",
                          "anahtar":  "sgk eksik gün 30 günden az çalışma part time yarı zamanlı belge neden kod",
-                         "cevap":  "Ay içinde 30 günden az çalışan veya eksik prim ödenen sigortalılar için 'eksik gün nedeni' bildirilir (istirahat, ücretsiz izin, kısmi süreli çalışma vb.). Belirli işveren büyüklüklerinde belge ibrazı; aksi halde eksik günler SGK'ca resen tamamlattırılabilir.",
+                         "cevap":  "Ay içinde 30 günden az çalışan veya eksik prim ödenen sigortalılar için \u0027eksik gün nedeni\u0027 bildirilir (istirahat, ücretsiz izin, kısmi süreli çalışma vb.). Belirli işveren büyüklüklerinde belge ibrazı; aksi halde eksik günler SGK\u0027ca resen tamamlattırılabilir.",
                          "kaynak":  "SSİY (Sosyal Sigorta İşlemleri Yönetmeliği)",
                          "arac":  "index.html#app"
                      },
@@ -782,7 +782,7 @@
                          "id":  "agi-kalkti",
                          "konu":  "AGİ kalktı mı — asgari ücret vergi istisnası",
                          "anahtar":  "agi asgari geçim indirimi kalktı mı bordro asgari ücret gelir vergisi damga istisna",
-                         "cevap":  "Asgari Geçim İndirimi (AGİ) 2022'de KALDIRILDI. Yerine, ücretin asgari ücrete isabet eden kısmı gelir vergisinden ve damga vergisinden İSTİSNA edildi. Sonuç: asgari ücretli fiilen bu vergileri ödemez; asgari ücretin üstü kısım vergilenir. Bordroda bu istisna her ay uygulanır.",
+                         "cevap":  "Asgari Geçim İndirimi (AGİ) 2022\u0027de KALDIRILDI. Yerine, ücretin asgari ücrete isabet eden kısmı gelir vergisinden ve damga vergisinden İSTİSNA edildi. Sonuç: asgari ücretli fiilen bu vergileri ödemez; asgari ücretin üstü kısım vergilenir. Bordroda bu istisna her ay uygulanır.",
                          "kaynak":  "GVK m.23/18 ve m.32 (7349 s. Kanun)",
                          "arac":  "index.html#app"
                      },
@@ -822,7 +822,7 @@
                          "id":  "mukimlik-belge",
                          "konu":  "Mukimlik belgesi neden ve nasıl gerekir",
                          "anahtar":  "mukimlik belgesi yerleşiklik çvöa indirim yabancı stopaj sıfır tercüme apostil",
-                         "cevap":  "Çifte vergilendirmeyi önleme anlaşmasının (ÇVÖA) indirimli/sıfır stopaj hükmünden yararlanmak için, hizmeti veren yabancının mukim olduğu ülkeden aldığı 'mukimlik (yerleşiklik) belgesi' ile noter onaylı Türkçe tercümesini vergi dairesine sunman gerekir. Belge yoksa ÇVÖA uygulanmaz, iç mevzuat oranı kesilir.",
+                         "cevap":  "Çifte vergilendirmeyi önleme anlaşmasının (ÇVÖA) indirimli/sıfır stopaj hükmünden yararlanmak için, hizmeti veren yabancının mukim olduğu ülkeden aldığı \u0027mukimlik (yerleşiklik) belgesi\u0027 ile noter onaylı Türkçe tercümesini vergi dairesine sunman gerekir. Belge yoksa ÇVÖA uygulanmaz, iç mevzuat oranı kesilir.",
                          "kaynak":  "ÇVÖA + GİB uygulaması",
                          "arac":  "hizmet.html"
                      },
@@ -854,7 +854,7 @@
                          "id":  "edefter-berat",
                          "konu":  "e-Defter ve berat yükleme",
                          "anahtar":  "e-defter berat yevmiye kebir gib yükleme onay süre elektronik defter",
-                         "cevap":  "e-Defter tutan mükellefler yevmiye ve büyük defter kayıtlarını elektronik oluşturur; bu defterlerin değişmezliğini kanıtlayan 'berat' dosyalarını GİB'e yükleyip onaylatır. Beratların yüklenme süresi tebliğle belirlenir (aylık ya da geçici vergi dönemleri esasına göre). Süre kaçırmak özel usulsüzlük doğurur.",
+                         "cevap":  "e-Defter tutan mükellefler yevmiye ve büyük defter kayıtlarını elektronik oluşturur; bu defterlerin değişmezliğini kanıtlayan \u0027berat\u0027 dosyalarını GİB\u0027e yükleyip onaylatır. Beratların yüklenme süresi tebliğle belirlenir (aylık ya da geçici vergi dönemleri esasına göre). Süre kaçırmak özel usulsüzlük doğurur.",
                          "kaynak":  "1 sıra No.lu e-Defter Genel Tebliği",
                          "arac":  "hatirlatici.html"
                      },
@@ -894,7 +894,7 @@
                          "id":  "kdv-indirilemez",
                          "konu":  "İndirilemeyecek KDV hangileri",
                          "anahtar":  "indirilemeyecek kdv binek oto zayi mal kkeg gider yazılamayan m.30 indirim",
-                         "cevap":  "Şu KDV'ler indirilemez: zayi olan malların KDV'si, işletmeden çekilen kıymetlerin KDV'si, gelir/kurumlar vergisi açısından gider yazılamayan (KKEG) harcamaların KDV'si ve kural olarak binek otomobil alışının KDV'si (istisnalar hariç). İndirilemeyen KDV maliyet veya gider olarak dikkate alınır.",
+                         "cevap":  "Şu KDV\u0027ler indirilemez: zayi olan malların KDV\u0027si, işletmeden çekilen kıymetlerin KDV\u0027si, gelir/kurumlar vergisi açısından gider yazılamayan (KKEG) harcamaların KDV\u0027si ve kural olarak binek otomobil alışının KDV\u0027si (istisnalar hariç). İndirilemeyen KDV maliyet veya gider olarak dikkate alınır.",
                          "kaynak":  "KDVK m.30",
                          "arac":  "gtip.html"
                      },
@@ -910,15 +910,15 @@
                          "id":  "kdv-tam-kismi-istisna",
                          "konu":  "Tam istisna ile kısmi istisna farkı",
                          "anahtar":  "tam istisna kısmi istisna kdv fark iade yüklenilen indirim m.17 m.32",
-                         "cevap":  "Tam istisnada (ihracat, ihraç kayıtlı teslim vb.) işlem KDV'siz yapılır AMA o işleme ilişkin yüklenilen KDV indirilir/iade edilir. Kısmi istisnada (KDVK m.17'deki bazı işlemler) işlem yine KDV'siz ama yüklenilen KDV İNDİRİLEMEZ, gider/maliyet yazılır — iade yoktur. Ayrım iade hakkını belirler.",
+                         "cevap":  "Tam istisnada (ihracat, ihraç kayıtlı teslim vb.) işlem KDV\u0027siz yapılır AMA o işleme ilişkin yüklenilen KDV indirilir/iade edilir. Kısmi istisnada (KDVK m.17\u0027deki bazı işlemler) işlem yine KDV\u0027siz ama yüklenilen KDV İNDİRİLEMEZ, gider/maliyet yazılır — iade yoktur. Ayrım iade hakkını belirler.",
                          "kaynak":  "KDVK m.32 (tam) vs m.17/m.30 (kısmi)",
                          "arac":  "kdv-iade-rehberi.html"
                      },
                      {
                          "id":  "tevkifat-iade",
-                         "konu":  "Tevkif edilen KDV'nin iadesi",
+                         "konu":  "Tevkif edilen KDV\u0027nin iadesi",
                          "anahtar":  "kdv tevkifat iade satıcı tevkif edilen 2 nolu mahsup nakit kısmi tevkifat",
-                         "cevap":  "Kısmi tevkifata tabi bir işlemde alıcı, KDV'nin bir kısmını keserek 2 No.lu beyanname ile öder; satıcı ise tevkif edilen bu KDV'nin iadesini talep edebilir. İade genelde mahsuben (belge ile) alınır; nakden iadede tebliğdeki eşik/rapor şartları aranır.",
+                         "cevap":  "Kısmi tevkifata tabi bir işlemde alıcı, KDV\u0027nin bir kısmını keserek 2 No.lu beyanname ile öder; satıcı ise tevkif edilen bu KDV\u0027nin iadesini talep edebilir. İade genelde mahsuben (belge ile) alınır; nakden iadede tebliğdeki eşik/rapor şartları aranır.",
                          "kaynak":  "KDV Genel Uygulama Tebliği II/C",
                          "arac":  "hizmet.html"
                      },
@@ -942,7 +942,7 @@
                          "id":  "ltd-sermaye-ortak",
                          "konu":  "Limited şirket sermayesi ve ortak sayısı",
                          "anahtar":  "limited şirket asgari sermaye ortak sayısı kaç kişi tek kişi 50",
-                         "cevap":  "Limited şirket en az 1, en fazla 50 ortakla kurulur; tek ortaklı da olabilir. Esas sermaye kanuni asgari tutarın altında olamaz (güncel tutarı teyit et) ve paylar sermayeye oranla belirlenir. Ortak sayısı 50'yi aşarsa üç ay içinde anonim şirkete dönüşülmeli veya ortak sayısı azaltılmalıdır.",
+                         "cevap":  "Limited şirket en az 1, en fazla 50 ortakla kurulur; tek ortaklı da olabilir. Esas sermaye kanuni asgari tutarın altında olamaz (güncel tutarı teyit et) ve paylar sermayeye oranla belirlenir. Ortak sayısı 50\u0027yi aşarsa üç ay içinde anonim şirkete dönüşülmeli veya ortak sayısı azaltılmalıdır.",
                          "kaynak":  "6102 TTK m.573-574",
                          "arac":  "kurulus.html"
                      },
@@ -950,7 +950,7 @@
                          "id":  "hisse-devri",
                          "konu":  "Şirkette hisse/pay devri nasıl olur",
                          "anahtar":  "hisse pay devri anonim limited satış noter genel kurul tescil ortak",
-                         "cevap":  "Limited şirkette esas sermaye payının devri yazılı ve imzaları noter onaylı sözleşmeyle yapılır, genel kurul onayı ve ticaret siciline tescil gerekir. Anonim şirkette nama yazılı paylar ciro + devir; hamiline yazılı paylar zilyetliğin (fiili teslim) geçirilmesiyle devredilir ve hamiline devir Merkezi Kayıt Kuruluşu'na bildirilir. Vergisel sonuçlarına (değer artış kazancı) ayrıca dikkat.",
+                         "cevap":  "Limited şirkette esas sermaye payının devri yazılı ve imzaları noter onaylı sözleşmeyle yapılır, genel kurul onayı ve ticaret siciline tescil gerekir. Anonim şirkette nama yazılı paylar ciro + devir; hamiline yazılı paylar zilyetliğin (fiili teslim) geçirilmesiyle devredilir ve hamiline devir Merkezi Kayıt Kuruluşu\u0027na bildirilir. Vergisel sonuçlarına (değer artış kazancı) ayrıca dikkat.",
                          "kaynak":  "6102 TTK m.490, m.595",
                          "arac":  "kurulus.html"
                      },
@@ -966,7 +966,7 @@
                          "id":  "sirket-tasfiye",
                          "konu":  "Şirket nasıl kapatılır (tasfiye)",
                          "anahtar":  "şirket kapatma tasfiye süreç memur alacaklı çağrı 1 yıl fesih kapanış",
-                         "cevap":  "Şirket, genel kurul kararıyla sona erdirilip tasfiyeye girer. Tasfiye memuru atanır, 'tasfiye halinde' ibaresi kullanılır, alacaklılar ilanla çağrılır ve varlıklar paraya çevrilip borçlar ödenir. Alacaklıları koruma amacıyla kanunda öngörülen bekleme süresi geçmeden kalan varlık ortaklara dağıtılamaz; süreç sonunda şirket ticaret sicilinden silinir. Vergi/SGK kapanış işlemleri de tamamlanmalıdır.",
+                         "cevap":  "Şirket, genel kurul kararıyla sona erdirilip tasfiyeye girer. Tasfiye memuru atanır, \u0027tasfiye halinde\u0027 ibaresi kullanılır, alacaklılar ilanla çağrılır ve varlıklar paraya çevrilip borçlar ödenir. Alacaklıları koruma amacıyla kanunda öngörülen bekleme süresi geçmeden kalan varlık ortaklara dağıtılamaz; süreç sonunda şirket ticaret sicilinden silinir. Vergi/SGK kapanış işlemleri de tamamlanmalıdır.",
                          "kaynak":  "6102 TTK m.536-543",
                          "arac":  "kurulus.html"
                      },
@@ -982,7 +982,7 @@
                          "id":  "temsilci-amme-borcu",
                          "konu":  "Şirketin vergi/SGK borcundan yönetici sorumlu mu",
                          "anahtar":  "kanuni temsilci müdür yönetim kurulu amme borcu vergi sgk sorumluluk 6183 ortak",
-                         "cevap":  "Şirketin ödenmeyen vergi ve SGK gibi kamu borçlarından, kanuni temsilciler (Ltd müdürü, AŞ yönetim kurulu) şahsi malvarlıklarıyla sorumlu tutulabilir. Ayrıca limited şirket ortağı, ödenmeyen kamu borcundan sermaye payı oranında sorumludur. Yani 'şirket borcu beni bağlamaz' her zaman doğru değildir; temsilci/ortak takibe uğrayabilir.",
+                         "cevap":  "Şirketin ödenmeyen vergi ve SGK gibi kamu borçlarından, kanuni temsilciler (Ltd müdürü, AŞ yönetim kurulu) şahsi malvarlıklarıyla sorumlu tutulabilir. Ayrıca limited şirket ortağı, ödenmeyen kamu borcundan sermaye payı oranında sorumludur. Yani \u0027şirket borcu beni bağlamaz\u0027 her zaman doğru değildir; temsilci/ortak takibe uğrayabilir.",
                          "kaynak":  "6183 s. Kanun m.35 ve mükerrer m.35",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1046,7 +1046,7 @@
                          "id":  "marka-nasil-tescil",
                          "konu":  "Marka nasıl tescil edilir (süreç)",
                          "anahtar":  "marka tescil nasıl başvuru süreç türkpatent yayın itiraz belge aşama",
-                         "cevap":  "Marka tescili şöyle işler: TÜRKPATENT'e başvuru → şekli inceleme ve mutlak ret nedenleri yönünden inceleme → uygunsa Resmî Marka Bülteni'nde yayın → 2 ay itiraz süresi → itiraz yoksa/aşılırsa tescil ve belge. Başvurudan önce benzerlik araştırması yapmak, itiraz ve ret riskini azaltır.",
+                         "cevap":  "Marka tescili şöyle işler: TÜRKPATENT\u0027e başvuru → şekli inceleme ve mutlak ret nedenleri yönünden inceleme → uygunsa Resmî Marka Bülteni\u0027nde yayın → 2 ay itiraz süresi → itiraz yoksa/aşılırsa tescil ve belge. Başvurudan önce benzerlik araştırması yapmak, itiraz ve ret riskini azaltır.",
                          "kaynak":  "6769 SMK m.11-22",
                          "arac":  "marka-radari.html"
                      },
@@ -1110,7 +1110,7 @@
                          "id":  "is-kazasi-bildirim",
                          "konu":  "İş kazası ne zaman bildirilir",
                          "anahtar":  "iş kazası bildirim süre 3 gün sgk işveren kaza tutanak ceza",
-                         "cevap":  "İş kazası, kazadan sonraki 3 iş günü içinde işveren tarafından SGK'ya bildirilir (e-Bildirge/SGK sistemi). Süresinde bildirilmezse idari para cezası kesilir ve bildirimden önce yapılan tedavi masrafları işverene rücu edilebilir. Ayrıca kolluğa (polis/jandarma) da derhal haber verilmelidir.",
+                         "cevap":  "İş kazası, kazadan sonraki 3 iş günü içinde işveren tarafından SGK\u0027ya bildirilir (e-Bildirge/SGK sistemi). Süresinde bildirilmezse idari para cezası kesilir ve bildirimden önce yapılan tedavi masrafları işverene rücu edilebilir. Ayrıca kolluğa (polis/jandarma) da derhal haber verilmelidir.",
                          "kaynak":  "5510 sayılı Kanun m.13",
                          "arac":  "index.html#app"
                      },
@@ -1118,7 +1118,7 @@
                          "id":  "rapor-parasi",
                          "konu":  "Raporlu günlerde ücret / rapor parası",
                          "anahtar":  "rapor parası geçici iş göremezlik ödenek istirahat hastalık ilk 2 gün sgk ödeme",
-                         "cevap":  "İstirahatli (raporlu) sigortalıya, çalışamadığı günler için SGK 'geçici iş göremezlik ödeneği' (rapor parası) öder. Hastalık halinde ödenek istirahatin 3. gününden itibaren başlar (ilk 2 gün ödenmez); iş kazası ve analıkta ilk günden ödenir. İşveren, sözleşme/uygulamaya göre ilk günleri tamamlayabilir.",
+                         "cevap":  "İstirahatli (raporlu) sigortalıya, çalışamadığı günler için SGK \u0027geçici iş göremezlik ödeneği\u0027 (rapor parası) öder. Hastalık halinde ödenek istirahatin 3. gününden itibaren başlar (ilk 2 gün ödenmez); iş kazası ve analıkta ilk günden ödenir. İşveren, sözleşme/uygulamaya göre ilk günleri tamamlayabilir.",
                          "kaynak":  "5510 sayılı Kanun m.18",
                          "arac":  "index.html#app"
                      },
@@ -1134,7 +1134,7 @@
                          "id":  "kdv-orani-urun",
                          "konu":  "Bir ürünün KDV oranı nasıl bulunur",
                          "anahtar":  "kdv oranı hangi ürün yüzde 1 10 20 gıda liste bulma tespit",
-                         "cevap":  "KDV oranı ürün/hizmete göre %1, %10 veya %20'dir; hangi oranın uygulanacağı Bakanlar Kurulu/Cumhurbaşkanı kararına ekli listelerde sayılan mal ve hizmetlere göre belirlenir (ör. birçok temel gıda düşük oranlı, çoğu ürün genel oran). Belirli bir ürünün güncel oranını GTİP kodundan kontrol et.",
+                         "cevap":  "KDV oranı ürün/hizmete göre %1, %10 veya %20\u0027dir; hangi oranın uygulanacağı Bakanlar Kurulu/Cumhurbaşkanı kararına ekli listelerde sayılan mal ve hizmetlere göre belirlenir (ör. birçok temel gıda düşük oranlı, çoğu ürün genel oran). Belirli bir ürünün güncel oranını GTİP kodundan kontrol et.",
                          "kaynak":  "2007/13033 sayılı Karar (KDV oranları)",
                          "arac":  "gtip.html"
                      },
@@ -1158,7 +1158,7 @@
                          "id":  "vuk-359-kacakcilik",
                          "konu":  "Sahte fatura / kaçakçılık suçu (VUK 359)",
                          "anahtar":  "sahte fatura naylon belge kaçakçılık vuk 359 hapis muhteviyatı yanıltıcı adli suç",
-                         "cevap":  "Sahte belge (gerçek bir işleme dayanmayan fatura, 'naylon fatura') veya muhteviyatı itibarıyla yanıltıcı belge düzenlemek/kullanmak, defterleri yok etmek/gizlemek gibi fiiller VUK'ta KAÇAKÇILIK suçudur ve hapis cezası gerektirir (adli yargı). Vergi ziyaı cezası da 3 kat uygulanır. Bu, idari cezanın ötesinde ceza davası demektir — çok ciddidir.",
+                         "cevap":  "Sahte belge (gerçek bir işleme dayanmayan fatura, \u0027naylon fatura\u0027) veya muhteviyatı itibarıyla yanıltıcı belge düzenlemek/kullanmak, defterleri yok etmek/gizlemek gibi fiiller VUK\u0027ta KAÇAKÇILIK suçudur ve hapis cezası gerektirir (adli yargı). Vergi ziyaı cezası da 3 kat uygulanır. Bu, idari cezanın ötesinde ceza davası demektir — çok ciddidir.",
                          "kaynak":  "213 VUK m.359",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1198,7 +1198,7 @@
                          "id":  "hizmet-ihraci-kdv",
                          "konu":  "Yurt dışına yazılım/hizmet satışında KDV",
                          "anahtar":  "hizmet ihracı yurt dışı yazılım uygulama danışmanlık kdv istisna iade şart faydalanma",
-                         "cevap":  "Yurt dışındaki müşteriye verilen ve yurt dışında faydalanılan hizmetler (yazılım, danışmanlık, tasarım vb.) KDV'den istisnadır (hizmet ihracı). İstisnanın şartı: müşterinin yurt dışında olması ve hizmetten yurt dışında yararlanılması; bedelin döviz olarak Türkiye'ye getirilmesi de aranır. Yüklenilen KDV iade alınabilir.",
+                         "cevap":  "Yurt dışındaki müşteriye verilen ve yurt dışında faydalanılan hizmetler (yazılım, danışmanlık, tasarım vb.) KDV\u0027den istisnadır (hizmet ihracı). İstisnanın şartı: müşterinin yurt dışında olması ve hizmetten yurt dışında yararlanılması; bedelin döviz olarak Türkiye\u0027ye getirilmesi de aranır. Yüklenilen KDV iade alınabilir.",
                          "kaynak":  "3065 KDVK m.11-12 + KDVGUT II/A",
                          "arac":  "hizmet.html"
                      },
@@ -1206,7 +1206,7 @@
                          "id":  "veraset-intikal",
                          "konu":  "Miras / bağıştan veraset ve intikal vergisi",
                          "anahtar":  "veraset intikal vergisi miras bağış hibe beyan süre istisna 4 ay tapu",
-                         "cevap":  "Miras (veraset) veya karşılıksız (bağış/hibe) yoluyla mal edinen kişi, veraset ve intikal vergisi öder; her yıl güncellenen bir istisna tutarının altındaki intikaller vergiden müstesnadır. Beyanname, ölüm Türkiye'de gerçekleşip mükellef de Türkiye'deyse 4 ay içinde verilir (bağışta 1 ay). Vergi taksitlerle ödenebilir; tapu devri için ilişik kesme aranır.",
+                         "cevap":  "Miras (veraset) veya karşılıksız (bağış/hibe) yoluyla mal edinen kişi, veraset ve intikal vergisi öder; her yıl güncellenen bir istisna tutarının altındaki intikaller vergiden müstesnadır. Beyanname, ölüm Türkiye\u0027de gerçekleşip mükellef de Türkiye\u0027deyse 4 ay içinde verilir (bağışta 1 ay). Vergi taksitlerle ödenebilir; tapu devri için ilişik kesme aranır.",
                          "kaynak":  "7338 sayılı Veraset ve İntikal Vergisi Kanunu",
                          "arac":  "index.html#app"
                      },
@@ -1262,7 +1262,7 @@
                          "id":  "issizlik-maasi",
                          "konu":  "İşsizlik maaşı şartları",
                          "anahtar":  "işsizlik ödeneği maaşı şart 600 gün 120 kesintisiz işkur başvuru 30 gün fesih prim süre",
-                         "cevap":  "İşsizlik ödeneği; iş sözleşmesi kendi isteği veya kusuru dışında sona eren, fesihten önceki son 120 gün kesintisiz çalışıp son üç yılda en az 600 gün işsizlik sigortası primi ödemiş sigortalıya verilir (4447). Prim gün sayısına göre 180, 240 veya 300 gün ödenir. Fesihten sonraki 30 gün içinde İŞKUR'a başvurmak gerekir. Ödenek tutarını güncel İŞKUR verisinden teyit et.",
+                         "cevap":  "İşsizlik ödeneği; iş sözleşmesi kendi isteği veya kusuru dışında sona eren, fesihten önceki son 120 gün kesintisiz çalışıp son üç yılda en az 600 gün işsizlik sigortası primi ödemiş sigortalıya verilir (4447). Prim gün sayısına göre 180, 240 veya 300 gün ödenir. Fesihten sonraki 30 gün içinde İŞKUR\u0027a başvurmak gerekir. Ödenek tutarını güncel İŞKUR verisinden teyit et.",
                          "kaynak":  "4447 sayılı İşsizlik Sigortası Kanunu m.50-51",
                          "arac":  "hizmet.html"
                      },
@@ -1302,7 +1302,7 @@
                          "id":  "emeklilik-sart",
                          "konu":  "Emeklilik şartları nelerdir (yaş, prim, EYT)",
                          "anahtar":  "emeklilik yaşlılık aylığı şart yaş prim gün sigortalılık süre eyt 1999 giriş tarihi 5510 hesap",
-                         "cevap":  "Yaşlılık (emeklilik) aylığı üç şartın birlikte sağlanmasına bağlıdır: belirli bir yaş, yeterli prim ödeme gün sayısı ve sigortalılık süresi. Bu şartlar sigortaya ilk giriş tarihine göre değişir; 8 Eylül 1999 öncesi sigortalılarda yaş şartının aranmaması (EYT) gibi geçiş kuralları vardır. Kendi durumun için SGK'dan hizmet dökümü alıp tescil tarihinle net hesap yaptır.",
+                         "cevap":  "Yaşlılık (emeklilik) aylığı üç şartın birlikte sağlanmasına bağlıdır: belirli bir yaş, yeterli prim ödeme gün sayısı ve sigortalılık süresi. Bu şartlar sigortaya ilk giriş tarihine göre değişir; 8 Eylül 1999 öncesi sigortalılarda yaş şartının aranmaması (EYT) gibi geçiş kuralları vardır. Kendi durumun için SGK\u0027dan hizmet dökümü alıp tescil tarihinle net hesap yaptır.",
                          "kaynak":  "5510 sayılı Kanun m.28 ve geçici maddeler",
                          "arac":  "hizmet.html"
                      },
@@ -1374,7 +1374,7 @@
                          "id":  "dijital-hizmet-vergisi",
                          "konu":  "Dijital hizmet vergisi nedir",
                          "anahtar":  "dijital hizmet vergisi dhv online reklam içerik aracılık platform hasılat eşik yüzde 7,5 7194",
-                         "cevap":  "Dijital Hizmet Vergisi; dijital ortamda verilen reklam hizmetleri, içerik satışı (ses, görüntü, oyun vb.) ve kullanıcılar arası etkileşim sağlayan aracılık hizmetlerinin hasılatı üzerinden alınır. Oranı yüzde 7,5'tir ve yalnızca belirli hasılat eşiklerini aşan sağlayıcılar mükelleftir. Eşikleri ve kapsamı güncel mevzuattan teyit et.",
+                         "cevap":  "Dijital Hizmet Vergisi; dijital ortamda verilen reklam hizmetleri, içerik satışı (ses, görüntü, oyun vb.) ve kullanıcılar arası etkileşim sağlayan aracılık hizmetlerinin hasılatı üzerinden alınır. Oranı yüzde 7,5\u0027tir ve yalnızca belirli hasılat eşiklerini aşan sağlayıcılar mükelleftir. Eşikleri ve kapsamı güncel mevzuattan teyit et.",
                          "kaynak":  "7194 sayılı Kanun (Dijital Hizmet Vergisi)",
                          "arac":  "index.html#app"
                      },
@@ -1382,7 +1382,7 @@
                          "id":  "turizm-payi",
                          "konu":  "Turizm payı kimlerden alınır",
                          "anahtar":  "turizm payı konaklama yeme içme tesis ciro net satış hasılat binde tga 7183",
-                         "cevap":  "Turizm payı; belgeli konaklama tesisleri, bakanlıktan belgeli yeme-içme ve eğlence tesisleri, deniz turizmi ve seyahat acentaları gibi işletmelerin net satış hasılatı üzerinden alınır ve TGA'ya (Türkiye Turizm Ajansı) aktarılır. Oran işletme türüne göre binde bazında değişir. Güncel oranları mevzuattan teyit et.",
+                         "cevap":  "Turizm payı; belgeli konaklama tesisleri, bakanlıktan belgeli yeme-içme ve eğlence tesisleri, deniz turizmi ve seyahat acentaları gibi işletmelerin net satış hasılatı üzerinden alınır ve TGA\u0027ya (Türkiye Turizm Ajansı) aktarılır. Oran işletme türüne göre binde bazında değişir. Güncel oranları mevzuattan teyit et.",
                          "kaynak":  "7183 sayılı Türkiye Turizm Tanıtım ve Geliştirme Ajansı Kanunu",
                          "arac":  "index.html#app"
                      },
@@ -1398,7 +1398,7 @@
                          "id":  "defter-tasdik",
                          "konu":  "Ticari defterler ne zaman tasdik edilir",
                          "anahtar":  "defter tasdik açılış kapanış onay noter yevmiye envanter e-defter berat vuk ttk 220",
-                         "cevap":  "Tutulması zorunlu defterler kullanılmadan önce notere tasdik ettirilir (açılış tasdiki); süregelen defterlerde ise izleyen dönem başında ara tasdik yapılır (VUK m.220-221). Yevmiye defterinin kapanış onayı da gerekir. E-defter tutanlarda kağıt tasdik yerine aylık e-defter beratı GİB'e yüklenir.",
+                         "cevap":  "Tutulması zorunlu defterler kullanılmadan önce notere tasdik ettirilir (açılış tasdiki); süregelen defterlerde ise izleyen dönem başında ara tasdik yapılır (VUK m.220-221). Yevmiye defterinin kapanış onayı da gerekir. E-defter tutanlarda kağıt tasdik yerine aylık e-defter beratı GİB\u0027e yüklenir.",
                          "kaynak":  "213 sayılı VUK m.220-221; 6102 sayılı TTK m.64",
                          "arac":  "hizmet.html"
                      },
@@ -1454,7 +1454,7 @@
                          "id":  "ihracat-nasil",
                          "konu":  "İlk kez ihracat nasıl yapılır",
                          "anahtar":  "ihracat nasıl yapılır adım ilk kez başla ihracatçı birlik gtip gümrük beyanname kdv istisna ürün gönder",
-                         "cevap":  "İhracata başlamak için genelde ilgili İhracatçı Birliğine üyelik ve gümrük sistemine erişim (dolaylı temsilde gümrük müşaviri) gerekir. Ürünün GTİP'i belirlenir, ihracatta kısıt/izin var mı kontrol edilir, satış sözleşmesi ve fatura düzenlenip gümrük beyannamesi ile mal çıkışı yapılır. İhracat teslimleri KDV'den istisnadır (yüklenilen KDV iade alınabilir). Ürününün ihracat kısıtlarını GTİP aracından kontrol et.",
+                         "cevap":  "İhracata başlamak için genelde ilgili İhracatçı Birliğine üyelik ve gümrük sistemine erişim (dolaylı temsilde gümrük müşaviri) gerekir. Ürünün GTİP\u0027i belirlenir, ihracatta kısıt/izin var mı kontrol edilir, satış sözleşmesi ve fatura düzenlenip gümrük beyannamesi ile mal çıkışı yapılır. İhracat teslimleri KDV\u0027den istisnadır (yüklenilen KDV iade alınabilir). Ürününün ihracat kısıtlarını GTİP aracından kontrol et.",
                          "kaynak":  "İhracat Rejimi Kararı; 4458 sayılı Gümrük Kanunu; 3065 sayılı KDV Kanunu m.11-12",
                          "arac":  "gtip.html"
                      },
@@ -1470,7 +1470,7 @@
                          "id":  "edefter-zorunluluk",
                          "konu":  "Kimler e-defter tutmak zorunda",
                          "anahtar":  "e-defter zorunlu geçiş ciro eşik e-fatura kapsam yevmiye kebir berat gib vuk 509",
-                         "cevap":  "E-Fatura kullanmak zorunda olanlar ile belirli ciro eşiğini aşan mükellefler e-Defter (yevmiye ve büyük defter) tutmak zorundadır; kapsam GİB tebliğleriyle her yıl genişleyebilir. E-defter tutanlar kağıt tasdik yerine aylık berat dosyalarını GİB'e yükler. Zorunlu olmayanlar isteğe bağlı geçebilir. Güncel ciro eşiğini GİB tebliğinden teyit et.",
+                         "cevap":  "E-Fatura kullanmak zorunda olanlar ile belirli ciro eşiğini aşan mükellefler e-Defter (yevmiye ve büyük defter) tutmak zorundadır; kapsam GİB tebliğleriyle her yıl genişleyebilir. E-defter tutanlar kağıt tasdik yerine aylık berat dosyalarını GİB\u0027e yükler. Zorunlu olmayanlar isteğe bağlı geçebilir. Güncel ciro eşiğini GİB tebliğinden teyit et.",
                          "kaynak":  "213 sayılı VUK (509 Sıra No.lu Genel Tebliğ)",
                          "arac":  "hizmet.html"
                      },
@@ -1478,7 +1478,7 @@
                          "id":  "ba-bs-kaldirildi",
                          "konu":  "Ba-Bs formu vermek zorunlu mu",
                          "anahtar":  "ba bs formu bildirim mal hizmet alım satım kaldırıldı verilmeyecek kalktı zorunlu e-belge vuk 565",
-                         "cevap":  "Form Ba ve Form Bs bildirimi tamamen kaldırılmıştır. Eylül 2024 dönemi ve sonrası için hiçbir mükellef artık Ba-Bs bildirimi vermez (565 Sıra No.lu VUK Genel Tebliği, Resmî Gazete 25 Eylül 2024). Alım-satım verileri e-Fatura ve e-Arşiv üzerinden zaten GİB'de görüldüğünden ayrı forma gerek kalmamıştır. Yalnızca Eylül 2024 öncesi dönemlere ait düzeltmelerde eski uygulama geçerlidir.",
+                         "cevap":  "Form Ba ve Form Bs bildirimi tamamen kaldırılmıştır. Eylül 2024 dönemi ve sonrası için hiçbir mükellef artık Ba-Bs bildirimi vermez (565 Sıra No.lu VUK Genel Tebliği, Resmî Gazete 25 Eylül 2024). Alım-satım verileri e-Fatura ve e-Arşiv üzerinden zaten GİB\u0027de görüldüğünden ayrı forma gerek kalmamıştır. Yalnızca Eylül 2024 öncesi dönemlere ait düzeltmelerde eski uygulama geçerlidir.",
                          "kaynak":  "213 sayılı VUK 565 Sıra No.lu Genel Tebliğ (RG 25.09.2024, S.32673)",
                          "arac":  "hizmet.html"
                      },
@@ -1510,7 +1510,7 @@
                          "id":  "karsiliksiz-cek",
                          "konu":  "Karşılıksız çekte ne yapılır",
                          "anahtar":  "karşılıksız çek banka karşılık yok hamil şikayet adli para cezası çek yasağı 5941",
-                         "cevap":  "Çekin karşılığı bankada yoksa hamil, bankaya 'karşılıksızdır' işlemi yaptırır. Bunun üzerine çek düzenleyen hakkında şikâyetle adli para cezasına ve çek düzenleme/hesap açma yasağına hükmedilebilir (5941 sayılı Çek Kanunu). Ceza, karşılıksız kalan tutara bağlıdır; borç ödenirse yasak kaldırılabilir. Güncel tutar/ceza ölçütlerini mevzuattan teyit et.",
+                         "cevap":  "Çekin karşılığı bankada yoksa hamil, bankaya \u0027karşılıksızdır\u0027 işlemi yaptırır. Bunun üzerine çek düzenleyen hakkında şikâyetle adli para cezasına ve çek düzenleme/hesap açma yasağına hükmedilebilir (5941 sayılı Çek Kanunu). Ceza, karşılıksız kalan tutara bağlıdır; borç ödenirse yasak kaldırılabilir. Güncel tutar/ceza ölçütlerini mevzuattan teyit et.",
                          "kaynak":  "5941 sayılı Çek Kanunu m.5",
                          "arac":  "alacak-radari.html"
                      },
@@ -1534,7 +1534,7 @@
                          "id":  "gecikme-zammi-faizi-fark",
                          "konu":  "Gecikme zammı ile gecikme faizi farkı nedir",
                          "anahtar":  "gecikme zammı faizi fark vade ödenmeyen tarhiyat ikmalen resen vuk 112 6183 51",
-                         "cevap":  "İkisi farklıdır. Gecikme ZAMMI, vadesinde ödenmeyen kamu borcuna, vade tarihinden ödeme gününe kadar işler (6183 s.K. m.51). Gecikme FAİZİ ise sonradan yapılan tarhiyatlarda (ikmalen/re'sen), verginin normal vade tarihi ile tarhiyatın tahakkuku arasındaki döneme uygulanır (VUK m.112). Aylık oran aynı belirlenir ama uygulandıkları olay ve dönem ayrıdır. Güncel oranı teyit et.",
+                         "cevap":  "İkisi farklıdır. Gecikme ZAMMI, vadesinde ödenmeyen kamu borcuna, vade tarihinden ödeme gününe kadar işler (6183 s.K. m.51). Gecikme FAİZİ ise sonradan yapılan tarhiyatlarda (ikmalen/re\u0027sen), verginin normal vade tarihi ile tarhiyatın tahakkuku arasındaki döneme uygulanır (VUK m.112). Aylık oran aynı belirlenir ama uygulandıkları olay ve dönem ayrıdır. Güncel oranı teyit et.",
                          "kaynak":  "6183 sayılı AATUHK m.51; 213 sayılı VUK m.112",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1550,7 +1550,7 @@
                          "id":  "ozelge-mukteza",
                          "konu":  "Özelge (mukteza) nedir, nasıl alınır",
                          "anahtar":  "özelge mukteza gib yazılı görüş sor emin değilim ceza kesilmez bağlar vuk 413",
-                         "cevap":  "Vergisel durumunun nasıl uygulanacağından emin değilsen GİB'den yazılı görüş (özelge/mukteza) isteyebilirsin (VUK m.413). Verilen özelgeye uygun işlem yaparsan, sonradan aksi yönde tarhiyat yapılsa bile ceza kesilmez ve gecikme faizi hesaplanmaz. Özelge yalnız onu alan mükellefi ve o somut olayı bağlar; başkasının özelgesi seni bağlamaz.",
+                         "cevap":  "Vergisel durumunun nasıl uygulanacağından emin değilsen GİB\u0027den yazılı görüş (özelge/mukteza) isteyebilirsin (VUK m.413). Verilen özelgeye uygun işlem yaparsan, sonradan aksi yönde tarhiyat yapılsa bile ceza kesilmez ve gecikme faizi hesaplanmaz. Özelge yalnız onu alan mükellefi ve o somut olayı bağlar; başkasının özelgesi seni bağlamaz.",
                          "kaynak":  "213 sayılı VUK m.413; m.369",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1582,7 +1582,7 @@
                          "id":  "kvkk-aydinlatma",
                          "konu":  "KVKK aydınlatma ve açık rıza ne zaman gerekir",
                          "anahtar":  "kvkk kişisel veri aydınlatma açık rıza verbis ilgili kişi amaç işleme 6698 10 5",
-                         "cevap":  "Kişisel veri (ad, TC, telefon, e-posta gibi) işleyen her işletme, ilgili kişiyi verinin hangi amaçla ve nasıl işlendiği konusunda aydınlatmak zorundadır (6698 s.K. m.10). Özel nitelikli veri veya belirli işlemler için ilgili kişinin açık RIZASI gerekir (m.5). Belirli büyüklükteki veri sorumluları ayrıca VERBİS'e kayıt olur. Şart ve istisnaları güncel KVKK mevzuatından teyit et.",
+                         "cevap":  "Kişisel veri (ad, TC, telefon, e-posta gibi) işleyen her işletme, ilgili kişiyi verinin hangi amaçla ve nasıl işlendiği konusunda aydınlatmak zorundadır (6698 s.K. m.10). Özel nitelikli veri veya belirli işlemler için ilgili kişinin açık RIZASI gerekir (m.5). Belirli büyüklükteki veri sorumluları ayrıca VERBİS\u0027e kayıt olur. Şart ve istisnaları güncel KVKK mevzuatından teyit et.",
                          "kaynak":  "6698 sayılı Kişisel Verilerin Korunması Kanunu m.5, m.10",
                          "arac":  "kvkk.html"
                      },
@@ -1590,7 +1590,7 @@
                          "id":  "e-irsaliye",
                          "konu":  "e-İrsaliye kimler için zorunlu",
                          "anahtar":  "e-irsaliye sevk irsaliyesi elektronik zorunlu e-fatura kapsam ciro sektör gib vuk 509",
-                         "cevap":  "e-İrsaliye, malın sevkinde düzenlenen sevk irsaliyesinin elektronik hâlidir. e-Fatura kapsamında olup belirli ciro/sektör şartlarını taşıyan mükellefler için zorunludur; kapsam GİB tebliğleriyle genişler (VUK 509 Sıra No.lu Genel Tebliğ). Zorunlu olmayanlar isteğe bağlı geçebilir. Güncel zorunluluk şartlarını GİB'den teyit et.",
+                         "cevap":  "e-İrsaliye, malın sevkinde düzenlenen sevk irsaliyesinin elektronik hâlidir. e-Fatura kapsamında olup belirli ciro/sektör şartlarını taşıyan mükellefler için zorunludur; kapsam GİB tebliğleriyle genişler (VUK 509 Sıra No.lu Genel Tebliğ). Zorunlu olmayanlar isteğe bağlı geçebilir. Güncel zorunluluk şartlarını GİB\u0027den teyit et.",
                          "kaynak":  "213 sayılı VUK (509 Sıra No.lu Genel Tebliğ)",
                          "arac":  "hizmet.html"
                      },
@@ -1638,7 +1638,7 @@
                          "id":  "yasal-yedek-akce",
                          "konu":  "Kâr dağıtmadan önce yedek akçe ayrılır mı",
                          "anahtar":  "yasal kanuni yedek akçe kâr dağıtım yüzde 5 ödenmiş sermaye yüzde 20 ikinci tertip ttk 519",
-                         "cevap":  "Anonim ve limited şirketler, kâr dağıtmadan önce kanuni yedek akçe ayırmak zorundadır (TTK m.519). Genel kanuni yedek akçe yıllık kârın yüzde 5'i oranında ayrılır ve ödenmiş sermayenin yüzde 20'sine ulaşınca bu zorunluluk durur. Kâr dağıtımında ayrıca ikinci tertip yedek de ayrılır. Yedek ayrılmadan ortaklara kâr dağıtılamaz.",
+                         "cevap":  "Anonim ve limited şirketler, kâr dağıtmadan önce kanuni yedek akçe ayırmak zorundadır (TTK m.519). Genel kanuni yedek akçe yıllık kârın yüzde 5\u0027i oranında ayrılır ve ödenmiş sermayenin yüzde 20\u0027sine ulaşınca bu zorunluluk durur. Kâr dağıtımında ayrıca ikinci tertip yedek de ayrılır. Yedek ayrılmadan ortaklara kâr dağıtılamaz.",
                          "kaynak":  "6102 sayılı TTK m.519",
                          "arac":  "kurulus.html"
                      },
@@ -1670,7 +1670,7 @@
                          "id":  "sgdp",
                          "konu":  "Emekli olup çalışırsam prim öder miyim (SGDP)",
                          "anahtar":  "emekli çalışma sosyal güvenlik destek primi sgdp aylık kesilmez 4a 4b hak kazandırmaz 5510 30",
-                         "cevap":  "Emekli aylığı alan biri yeniden çalışır veya iş yeri işletirse, aylığı kesilmeden çalışmak için sosyal güvenlik destek primi (SGDP) öder. Bu prim tam sigortalılıktan farklıdır; kişiye yeni uzun vadeli (emeklilik) hak kazandırmaz, iş kazası-meslek hastalığı ve kısa vadeli kapsam sağlar. Oran ve uygulama çalışma türüne (4/a, 4/b) göre değişir; güncel oranı SGK'dan teyit et.",
+                         "cevap":  "Emekli aylığı alan biri yeniden çalışır veya iş yeri işletirse, aylığı kesilmeden çalışmak için sosyal güvenlik destek primi (SGDP) öder. Bu prim tam sigortalılıktan farklıdır; kişiye yeni uzun vadeli (emeklilik) hak kazandırmaz, iş kazası-meslek hastalığı ve kısa vadeli kapsam sağlar. Oran ve uygulama çalışma türüne (4/a, 4/b) göre değişir; güncel oranı SGK\u0027dan teyit et.",
                          "kaynak":  "5510 sayılı Kanun m.30 ve geçici m.14",
                          "arac":  "hizmet.html"
                      },
@@ -1702,7 +1702,7 @@
                          "id":  "beyanname-vermeme-ceza",
                          "konu":  "Beyannameyi vermezsem/geç verirsem ne olur",
                          "anahtar":  "beyanname vermeme geç usulsüzlük ceza resen tarh vergi ziyaı gecikme faizi pişmanlık vuk 352 30",
-                         "cevap":  "Beyannameyi süresinde vermezsen usulsüzlük cezası kesilir; ayrıca idare vergiyi re'sen tarh edebilir ve ödenmeyen vergi için vergi ziyaı cezası ile gecikme faizi doğar (VUK). Süre geçmeden pişmanlıkla ya da geç de olsa kendiliğinden verirsen ceza hafifler. Hiç vermemek, geç vermekten daha ağır sonuç doğurur. Doğru kapıyı Ceza Asistanından bak.",
+                         "cevap":  "Beyannameyi süresinde vermezsen usulsüzlük cezası kesilir; ayrıca idare vergiyi re\u0027sen tarh edebilir ve ödenmeyen vergi için vergi ziyaı cezası ile gecikme faizi doğar (VUK). Süre geçmeden pişmanlıkla ya da geç de olsa kendiliğinden verirsen ceza hafifler. Hiç vermemek, geç vermekten daha ağır sonuç doğurur. Doğru kapıyı Ceza Asistanından bak.",
                          "kaynak":  "213 sayılı VUK m.352, m.30, m.341-344",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1742,7 +1742,7 @@
                          "id":  "kisa-calisma",
                          "konu":  "Kısa çalışma ödeneği nedir",
                          "anahtar":  "kısa çalışma ödeneği kriz zorlayıcı sebep işkur çalışma süresi azalma durma başvuru işçi 4447 ek 2",
-                         "cevap":  "Genel ekonomik, sektörel veya bölgesel kriz ile zorlayıcı sebeplerle iş yerinde çalışma süresi önemli ölçüde azaltılır veya faaliyet durursa, işçilere İŞKUR tarafından kısa çalışma ödeneği verilebilir (4447 ek m.2). İşveren İŞKUR'a başvurur, uygunluk tespiti yapılır; ödenek işçinin son prime esas kazancına göre ve sınırlı süreyle ödenir. Bu dönemde işçinin genel sağlık sigortası devam eder.",
+                         "cevap":  "Genel ekonomik, sektörel veya bölgesel kriz ile zorlayıcı sebeplerle iş yerinde çalışma süresi önemli ölçüde azaltılır veya faaliyet durursa, işçilere İŞKUR tarafından kısa çalışma ödeneği verilebilir (4447 ek m.2). İşveren İŞKUR\u0027a başvurur, uygunluk tespiti yapılır; ödenek işçinin son prime esas kazancına göre ve sınırlı süreyle ödenir. Bu dönemde işçinin genel sağlık sigortası devam eder.",
                          "kaynak":  "4447 sayılı İşsizlik Sigortası Kanunu ek m.2",
                          "arac":  "hizmet.html"
                      },
@@ -1758,7 +1758,7 @@
                          "id":  "gumruk-kiymet",
                          "konu":  "İthalatta gümrük kıymeti nasıl belirlenir",
                          "anahtar":  "gümrük kıymeti ithalat vergi matrah satış bedeli navlun sigorta altı yöntem düşük gösterme ceza 24",
-                         "cevap":  "İthalatta vergiler eşyanın gümrük kıymeti üzerinden hesaplanır. Asıl yöntem satış bedeli yöntemidir: fiilen ödenen veya ödenecek fiyata, Türkiye'ye kadar navlun, sigorta ve belirli giderler eklenir (Gümrük K. m.24). Satış bedeli belirlenemezse kanundaki sıralı altı yöntem uygulanır. Kıymeti düşük göstermek cezalı tarhiyata yol açar.",
+                         "cevap":  "İthalatta vergiler eşyanın gümrük kıymeti üzerinden hesaplanır. Asıl yöntem satış bedeli yöntemidir: fiilen ödenen veya ödenecek fiyata, Türkiye\u0027ye kadar navlun, sigorta ve belirli giderler eklenir (Gümrük K. m.24). Satış bedeli belirlenemezse kanundaki sıralı altı yöntem uygulanır. Kıymeti düşük göstermek cezalı tarhiyata yol açar.",
                          "kaynak":  "4458 sayılı Gümrük Kanunu m.23-31",
                          "arac":  "gtip.html"
                      },
@@ -1870,7 +1870,7 @@
                          "id":  "emekli-maas-haciz",
                          "konu":  "Emekli maaşı haczedilir mi",
                          "anahtar":  "emekli maaş aylık haciz haczedilemez borç icra kesinti nafaka sgk gelir ödenek 5510 93",
-                         "cevap":  "SGK'dan bağlanan gelir, aylık ve ödenekler (emekli maaşı dahil) kural olarak HACZEDİLEMEZ; tek istisna nafaka borcudur (5510 m.93). Diğer borçlar için emekli maaşına ancak emeklinin kendi AÇIK MUVAFAKATİ (haciz sırasında veya sonrasında verilen rızası) ile haciz konabilir. Bankadaki maaş hesabına gelen haksız haciz için icra dairesine itiraz edilebilir.",
+                         "cevap":  "SGK\u0027dan bağlanan gelir, aylık ve ödenekler (emekli maaşı dahil) kural olarak HACZEDİLEMEZ; tek istisna nafaka borcudur (5510 m.93). Diğer borçlar için emekli maaşına ancak emeklinin kendi AÇIK MUVAFAKATİ (haciz sırasında veya sonrasında verilen rızası) ile haciz konabilir. Bankadaki maaş hesabına gelen haksız haciz için icra dairesine itiraz edilebilir.",
                          "kaynak":  "5510 sayılı Kanun m.93",
                          "arac":  "alacak-radari.html"
                      },
@@ -1878,7 +1878,7 @@
                          "id":  "mense-neden-onemli",
                          "konu":  "Aynı ürün farklı ülkeden alınınca vergi değişir mi",
                          "anahtar":  "menşe neden önemli ülke gümrük vergisi değişir ilave anti damping tercihli aynı ürün farklı ithalat",
-                         "cevap":  "Aynı ürünü farklı ülkeden ithal etmek ödeyeceğin vergiyi değiştirebilir. Çünkü gümrük vergisi oranı menşe (malın üretildiği) ülkeye göre değişir: AB veya serbest ticaret anlaşması olan ülkelerden tercihli (düşük/sıfır) oran; bazı ülkelere ilave gümrük vergisi veya anti-damping uygulanabilir. Bu yüzden alım kararında ürünün GTİP'i kadar menşe ülkesi de önemlidir. Ülke bazında toplam yükü Senaryo Raporundan karşılaştır.",
+                         "cevap":  "Aynı ürünü farklı ülkeden ithal etmek ödeyeceğin vergiyi değiştirebilir. Çünkü gümrük vergisi oranı menşe (malın üretildiği) ülkeye göre değişir: AB veya serbest ticaret anlaşması olan ülkelerden tercihli (düşük/sıfır) oran; bazı ülkelere ilave gümrük vergisi veya anti-damping uygulanabilir. Bu yüzden alım kararında ürünün GTİP\u0027i kadar menşe ülkesi de önemlidir. Ülke bazında toplam yükü Senaryo Raporundan karşılaştır.",
                          "kaynak":  "İthalat Rejimi Kararı; menşe kuralları",
                          "arac":  "senaryo-raporu.html"
                      },
@@ -1886,15 +1886,15 @@
                          "id":  "sta-avantaji",
                          "konu":  "Serbest ticaret anlaşması (STA) ithalatta ne sağlar",
                          "anahtar":  "sta serbest ticaret anlaşması gümrük birliği tercihli menşe indirimli sıfır vergi eur1 belge avantaj",
-                         "cevap":  "Türkiye'nin serbest ticaret anlaşması (STA) veya Gümrük Birliği bulunan ülkelerden yapılan ithalatta, ürün o ülke menşeli sayılırsa gümrük vergisi indirimli veya sıfır uygulanır. Bu avantajdan yararlanmak için menşei ispatlayan belge (EUR.1, EUR-MED veya menşe beyanı) gerekir. Belge yoksa normal (MFN) oran uygulanır. Hangi ülkeye hangi belgenin gerektiğini kontrol et.",
-                         "kaynak":  "Türkiye'nin STA'ları; tercihli menşe kuralları",
+                         "cevap":  "Türkiye\u0027nin serbest ticaret anlaşması (STA) veya Gümrük Birliği bulunan ülkelerden yapılan ithalatta, ürün o ülke menşeli sayılırsa gümrük vergisi indirimli veya sıfır uygulanır. Bu avantajdan yararlanmak için menşei ispatlayan belge (EUR.1, EUR-MED veya menşe beyanı) gerekir. Belge yoksa normal (MFN) oran uygulanır. Hangi ülkeye hangi belgenin gerektiğini kontrol et.",
+                         "kaynak":  "Türkiye\u0027nin STA\u0027ları; tercihli menşe kuralları",
                          "arac":  "gtip.html"
                      },
                      {
                          "id":  "marka-basvuru-sure",
                          "konu":  "Marka tescili ne kadar sürer, aşamaları neler",
                          "anahtar":  "marka tescil süre aşama başvuru türkpatent şekli inceleme mutlak ret bülten yayın itiraz 2 ay smk",
-                         "cevap":  "Marka tescili aşamalı ilerler: TÜRKPATENT'e başvuru yapılır, şekli inceleme ve mutlak ret incelemesinden geçer, uygunsa Resmî Marka Bülteninde yayımlanır. Yayın sonrası 2 aylık itiraz süresi vardır; itiraz gelmez ve eksik yoksa marka tescil edilir. İtirazsız bir başvuru genelde birkaç ay içinde sonuçlanır; itiraz süreci uzatır. Süreci takip etmek gerekir.",
+                         "cevap":  "Marka tescili aşamalı ilerler: TÜRKPATENT\u0027e başvuru yapılır, şekli inceleme ve mutlak ret incelemesinden geçer, uygunsa Resmî Marka Bülteninde yayımlanır. Yayın sonrası 2 aylık itiraz süresi vardır; itiraz gelmez ve eksik yoksa marka tescil edilir. İtirazsız bir başvuru genelde birkaç ay içinde sonuçlanır; itiraz süreci uzatır. Süreci takip etmek gerekir.",
                          "kaynak":  "6769 sayılı Sınai Mülkiyet Kanunu",
                          "arac":  "marka-radari.html"
                      },
@@ -1934,7 +1934,7 @@
                          "id":  "usulsuzluk-ceza",
                          "konu":  "Usulsüzlük cezası nedir (özel usulsüzlükten farkı)",
                          "anahtar":  "usulsüzlük ceza şekil usul maktu derece beyanname defter düzeni özel usulsüzlük fark fatura vuk 351 353",
-                         "cevap":  "Usulsüzlük, vergi kanunlarının şekle ve usule ilişkin kurallarına uyulmamasıdır (beyanname/bildirim şekline aykırılık, defter düzeni gibi) ve derecesine ve mükellef türüne göre maktu (sabit tutarlı) ceza kesilir (VUK m.351-352). Belge düzenine ilişkin ağır ihlaller (fatura vermemek gibi) ise özel usulsüzlük cezasıyla ayrıca cezalandırılır (m.353). Güncel ceza tutarlarını GİB'den teyit et.",
+                         "cevap":  "Usulsüzlük, vergi kanunlarının şekle ve usule ilişkin kurallarına uyulmamasıdır (beyanname/bildirim şekline aykırılık, defter düzeni gibi) ve derecesine ve mükellef türüne göre maktu (sabit tutarlı) ceza kesilir (VUK m.351-352). Belge düzenine ilişkin ağır ihlaller (fatura vermemek gibi) ise özel usulsüzlük cezasıyla ayrıca cezalandırılır (m.353). Güncel ceza tutarlarını GİB\u0027den teyit et.",
                          "kaynak":  "213 sayılı VUK m.351-353",
                          "arac":  "ceza-asistani.html"
                      },
@@ -1958,7 +1958,7 @@
                          "id":  "kira-artis-siniri",
                          "konu":  "Kira artışı en fazla ne kadar olabilir",
                          "anahtar":  "kira artış zam sınır tüfe oniki aylık ortalama yüzde tavan yenileme konut işyeri tbk 344",
-                         "cevap":  "Konut ve çatılı iş yeri kiralarında yenilenen dönemin kira artışı, bir önceki kira yılındaki TÜFE'nin (tüketici fiyat endeksi) on iki aylık ortalamalara göre değişim oranını GEÇEMEZ (TBK m.344). Sözleşmede daha yüksek oran yazsa bile bu tavan geçerlidir. Beş yıldan uzun süren veya beş yıldan sonra yenilenen kiralarda taraflar anlaşamazsa kira bedelini hâkim, emsal ve hakkaniyete göre belirler.",
+                         "cevap":  "Konut ve çatılı iş yeri kiralarında yenilenen dönemin kira artışı, bir önceki kira yılındaki TÜFE\u0027nin (tüketici fiyat endeksi) on iki aylık ortalamalara göre değişim oranını GEÇEMEZ (TBK m.344). Sözleşmede daha yüksek oran yazsa bile bu tavan geçerlidir. Beş yıldan uzun süren veya beş yıldan sonra yenilenen kiralarda taraflar anlaşamazsa kira bedelini hâkim, emsal ve hakkaniyete göre belirler.",
                          "kaynak":  "6098 sayılı TBK m.344",
                          "arac":  "hizmet.html"
                      },
@@ -2014,7 +2014,7 @@
                          "id":  "borc-zamanasimi",
                          "konu":  "Alacak/borç kaç yılda zamanaşımına uğrar",
                          "anahtar":  "zamanaşımı alacak borç kaç yıl on beş genel kira ücret vekalet fatura cari hesap tbk 146 147",
-                         "cevap":  "Genel kural: kanunda aksi yoksa her alacak ON yıllık zamanaşımına tabidir (TBK m.146). Şu alacaklar ise BEŞ yılda zamanaşımına uğrar (m.147): kira bedelleri, faiz ve ücret gibi dönemsel edimler; konaklama/yeme-içme bedelleri; küçük perakende satış alacakları; ortaklık ilişkisinden doğan alacaklar; vekâlet, komisyon, acentelik alacakları; eser sözleşmesi alacakları (yüklenicinin ağır kusuru hariç). Zamanaşımı borcu ortadan kaldırmaz; borçluya def'i (itiraz) hakkı verir.",
+                         "cevap":  "Genel kural: kanunda aksi yoksa her alacak ON yıllık zamanaşımına tabidir (TBK m.146). Şu alacaklar ise BEŞ yılda zamanaşımına uğrar (m.147): kira bedelleri, faiz ve ücret gibi dönemsel edimler; konaklama/yeme-içme bedelleri; küçük perakende satış alacakları; ortaklık ilişkisinden doğan alacaklar; vekâlet, komisyon, acentelik alacakları; eser sözleşmesi alacakları (yüklenicinin ağır kusuru hariç). Zamanaşımı borcu ortadan kaldırmaz; borçluya def\u0027i (itiraz) hakkı verir.",
                          "kaynak":  "6098 sayılı TBK m.146-147",
                          "arac":  "alacak-radari.html"
                      },
@@ -2030,7 +2030,7 @@
                          "id":  "ileri-tarihli-cek",
                          "konu":  "İleri tarihli çek vadesinden önce bankaya götürülebilir mi",
                          "anahtar":  "ileri tarihli çek vadeli erken ibraz geçersiz düzenleme tarihi önce 2028 çek kanunu",
-                         "cevap":  "Hayır — 31/12/2028 tarihine kadar, üzerinde yazılı düzenleme tarihinden ÖNCE çekin bankaya ibrazı GEÇERSİZDİR (5941 sayılı Çek Kanunu geçici m.3/5). Yani ileri tarihli (vadeli) çek, yazılı tarihten önce tahsil edilemez ve karşılıksız işlemi yapılamaz. Bu tarihten sonrası için TTK'nın genel kuralı (görüldüğünde ödenir) devreye girer; güncel durumu o zaman teyit et.",
+                         "cevap":  "Hayır — 31/12/2028 tarihine kadar, üzerinde yazılı düzenleme tarihinden ÖNCE çekin bankaya ibrazı GEÇERSİZDİR (5941 sayılı Çek Kanunu geçici m.3/5). Yani ileri tarihli (vadeli) çek, yazılı tarihten önce tahsil edilemez ve karşılıksız işlemi yapılamaz. Bu tarihten sonrası için TTK\u0027nın genel kuralı (görüldüğünde ödenir) devreye girer; güncel durumu o zaman teyit et.",
                          "kaynak":  "5941 sayılı Çek Kanunu geçici m.3/5",
                          "arac":  "alacak-radari.html"
                      },
@@ -2052,7 +2052,7 @@
                      },
                      {
                          "id":  "engelli-otv",
-                         "konu":  "Engelliler ÖTV'siz araç alabilir mi",
+                         "konu":  "Engelliler ÖTV\u0027siz araç alabilir mi",
                          "anahtar":  "engelli ötv istisna araç malul yüzde 90 özel tertibat on yılda bir ilk iktisap 4760 7",
                          "cevap":  "Evet. Engellilik oranı %90 ve üzeri olan malûl ve engelliler ile engelliliği aracı özel tertibatla kullanmayı gerektirenler, şartları sağlayan aracın İLK İKTİSABINDA (sıfır alımında) ÖTV istisnasından yararlanır (4760 s.K. m.7). Bu hak ON YILDA BİR defaya mahsus kullanılır. Araç değer sınırı ve kapsam şartları güncel tutarlarla değişir — alım öncesi güncel sınırı teyit et.",
                          "kaynak":  "4760 sayılı ÖTV Kanunu m.7",
@@ -2125,14 +2125,14 @@
                          "id":  "binek-oto-kisit",
                          "konu":  "Binek otomobil gider kısıtı",
                          "anahtar":  "binek otomobil araç gider kısıtı kka amortisman kira ötv kdv indirilemeyen",
-                         "cevap":  "Binek otomobillerde giderlerin bir kısmı kanunen kabul edilmeyen gider sayılır (GVK m.40). Kiralamada aylık kiranın, alımda ÖTV+KDV'nin ve amortismanın gider/amortisman yazılabilecek kısmı üst sınıra tabidir; ayrıca akaryakıt-bakım gibi giderlerin belli bir yüzdesi kabul edilmez. Bu üst sınır tutarları HER YIL yeniden belirlenir — yürürlükteki tutarlar için GİB'e bak.",
+                         "cevap":  "Binek otomobillerde giderlerin bir kısmı kanunen kabul edilmeyen gider sayılır (GVK m.40). Kiralamada aylık kiranın, alımda ÖTV+KDV\u0027nin ve amortismanın gider/amortisman yazılabilecek kısmı üst sınıra tabidir; ayrıca akaryakıt-bakım gibi giderlerin belli bir yüzdesi kabul edilmez. Bu üst sınır tutarları HER YIL yeniden belirlenir — yürürlükteki tutarlar için GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.40"
                      },
                      {
                          "id":  "kira-stopaji",
                          "konu":  "İşyeri kira stopajı oranı",
                          "anahtar":  "kira stopaj kesinti işyeri kiralama gvk 94 gelir vergisi kesinti oranı",
-                         "cevap":  "İşyeri kiralarında, kirayı ödeyen (gerçek/tüzel kişi) brüt kira üzerinden gelir vergisi stopajı keser ve muhtasar beyanla öder (GVK m.94). Konut kirasında stopaj yoktur. Stopaj oranı Cumhurbaşkanı kararıyla değişebildiği için yürürlükteki oranı GİB'den teyit et.",
+                         "cevap":  "İşyeri kiralarında, kirayı ödeyen (gerçek/tüzel kişi) brüt kira üzerinden gelir vergisi stopajı keser ve muhtasar beyanla öder (GVK m.94). Konut kirasında stopaj yoktur. Stopaj oranı Cumhurbaşkanı kararıyla değişebildiği için yürürlükteki oranı GİB\u0027den teyit et.",
                          "kaynak":  "GVK (193 s.K.) m.94"
                      },
                      {
@@ -2146,7 +2146,7 @@
                          "id":  "amortisman-esas",
                          "konu":  "Amortisman nasıl hesaplanır",
                          "anahtar":  "amortisman demirbaş sabit kıymet oran faydalı ömür azalan normal yöntem",
-                         "cevap":  "İşletmede bir yıldan fazla kullanılan ve değeri belli tutarın üzerindeki iktisadi kıymetler doğrudan gider yazılmaz; faydalı ömrüne göre amortismanla itfa edilir (VUK m.313-320). Oran ve süreler Maliye'nin yayımladığı amortisman listesindedir. Değeri düşük sınır altındaki aletler doğrudan gider yazılabilir — bu sınır her yıl güncellenir, güncel tutar için GİB'e bak.",
+                         "cevap":  "İşletmede bir yıldan fazla kullanılan ve değeri belli tutarın üzerindeki iktisadi kıymetler doğrudan gider yazılmaz; faydalı ömrüne göre amortismanla itfa edilir (VUK m.313-320). Oran ve süreler Maliye\u0027nin yayımladığı amortisman listesindedir. Değeri düşük sınır altındaki aletler doğrudan gider yazılabilir — bu sınır her yıl güncellenir, güncel tutar için GİB\u0027e bak.",
                          "kaynak":  "VUK (213 s.K.) m.313-320"
                      },
                      {
@@ -2174,7 +2174,7 @@
                          "id":  "fazla-mesai-zam",
                          "konu":  "Fazla mesai ücreti",
                          "anahtar":  "fazla mesai çalışma haftalık 45 saat zamlı ücret yüzde 50 fazla sürelerle",
-                         "cevap":  "Haftalık normal çalışma süresi 45 saattir. 45 saati aşan çalışma fazla mesaidir ve her saati normal saat ücretinin %50 fazlasıyla ödenir (İş K. m.41). Haftalık 45 saatin altında çalışılan işlerde 45 saate kadar olan fazla çalışma 'fazla sürelerle çalışma'dır, %25 zamlı ödenir. Fazla mesai yılda 270 saati aşamaz.",
+                         "cevap":  "Haftalık normal çalışma süresi 45 saattir. 45 saati aşan çalışma fazla mesaidir ve her saati normal saat ücretinin %50 fazlasıyla ödenir (İş K. m.41). Haftalık 45 saatin altında çalışılan işlerde 45 saate kadar olan fazla çalışma \u0027fazla sürelerle çalışma\u0027dır, %25 zamlı ödenir. Fazla mesai yılda 270 saati aşamaz.",
                          "kaynak":  "İş K. (4857 s.K.) m.41"
                      },
                      {
@@ -2189,7 +2189,7 @@
                          "id":  "serbest-meslek-stopaj",
                          "konu":  "Serbest meslek ödemesinde stopaj",
                          "anahtar":  "serbest meslek makbuz stopaj kesinti avukat mali müşavir doktor gvk 94",
-                         "cevap":  "Serbest meslek erbabına (avukat, mali müşavir, doktor, mühendis vb.) yapılan ödemelerde, ödemeyi yapan gerçek/tüzel kişi gelir vergisi stopajı keser ve muhtasar beyanla bildirir (GVK m.94). Serbest meslek makbuzunda hem KDV hem stopaj gösterilir. Yürürlükteki stopaj oranını GİB'den teyit et.",
+                         "cevap":  "Serbest meslek erbabına (avukat, mali müşavir, doktor, mühendis vb.) yapılan ödemelerde, ödemeyi yapan gerçek/tüzel kişi gelir vergisi stopajı keser ve muhtasar beyanla bildirir (GVK m.94). Serbest meslek makbuzunda hem KDV hem stopaj gösterilir. Yürürlükteki stopaj oranını GİB\u0027den teyit et.",
                          "kaynak":  "GVK (193 s.K.) m.94"
                      },
                      {
@@ -2203,12 +2203,12 @@
                          "id":  "ise-giris-bildirge",
                          "konu":  "İşe giriş bildirgesi ne zaman verilir",
                          "anahtar":  "sigortalı işe giriş bildirgesi sgk ne zaman 1 gün önce çalışmaya başlamadan",
-                         "cevap":  "Sigortalı işe giriş bildirgesi, çalışan işe başlamadan ÖNCE (en geç bir gün önce) SGK'ya verilir (5510 s.K. m.8). Geç bildirim idari para cezası doğurur. İnşaat, balıkçılık, tarım gibi bazı istisnai işlerde en geç işe başlatıldığı gün verilebilir.",
+                         "cevap":  "Sigortalı işe giriş bildirgesi, çalışan işe başlamadan ÖNCE (en geç bir gün önce) SGK\u0027ya verilir (5510 s.K. m.8). Geç bildirim idari para cezası doğurur. İnşaat, balıkçılık, tarım gibi bazı istisnai işlerde en geç işe başlatıldığı gün verilebilir.",
                          "kaynak":  "5510 s. SGK Kanunu m.8"
                      },
                      {
                          "id":  "e-fatura-gecis",
-                         "konu":  "e-Fatura'ya kimler geçmek zorunda",
+                         "konu":  "e-Fatura\u0027ya kimler geçmek zorunda",
                          "anahtar":  "e-fatura zorunluluk ciro hadleri geçiş kimler mecburi brüt satış hasılatı",
                          "cevap":  "Belirli brüt satış hasılatı hadlerini aşan mükellefler e-Fatura ve e-Arşiv Fatura uygulamasına geçmek zorundadır; ayrıca sektörel zorunluluklar (ihracat, aracı hizmet sağlayıcı, akaryakıt vb.) vardır (VUK 509 sıra no.lu Genel Tebliğ). Ciro hadleri zaman zaman düşürülür — güncel had için VUK 509 GT ve GİB duyurularına bak.",
                          "kaynak":  "VUK 509 Sıra No.lu Genel Tebliğ"
@@ -2217,7 +2217,7 @@
                          "id":  "yillik-gv-beyan",
                          "konu":  "Ücret geliri için yıllık beyanname",
                          "anahtar":  "yıllık gelir vergisi beyan ücret tek işveren birden fazla kira menkul beyan sınırı",
-                         "cevap":  "Tek işverenden alınan ve stopaja tabi ücret belirli tutarı aşarsa yıllık beyan gerekir; birden fazla işverenden ücret, kira geliri, menkul sermaye iradı gibi gelirlerde de beyan sınırları vardır (GVK m.85-86). Bu sınır tutarları her yıl güncellenir — güncel hadler için GİB'e bak. Sınırın altındaysa beyan gerekmez.",
+                         "cevap":  "Tek işverenden alınan ve stopaja tabi ücret belirli tutarı aşarsa yıllık beyan gerekir; birden fazla işverenden ücret, kira geliri, menkul sermaye iradı gibi gelirlerde de beyan sınırları vardır (GVK m.85-86). Bu sınır tutarları her yıl güncellenir — güncel hadler için GİB\u0027e bak. Sınırın altındaysa beyan gerekmez.",
                          "kaynak":  "GVK (193 s.K.) m.85-86"
                      },
                      {
@@ -2238,7 +2238,7 @@
                          "id":  "tasinmaz-satis-istisna",
                          "konu":  "Taşınmaz satış kazancı istisnası (kurumlar)",
                          "anahtar":  "taşınmaz gayrimenkul iştirak hissesi satış kazanç istisnası kurumlar iki yıl aktif",
-                         "cevap":  "Kurumların en az iki tam yıl aktifinde tuttuğu iştirak hisseleri ve (yürürlükteki şartlarla) taşınmaz satışından doğan kazancın bir kısmı kurumlar vergisinden istisna olabilir (KVK m.5). Taşınmaz istisnasının kapsamı 2023 sonrası değişikliklerle daraltılmıştır — hangi kıymet için ne oranda istisna geçerli, güncel KVK m.5 metnine ve GİB'e bak.",
+                         "cevap":  "Kurumların en az iki tam yıl aktifinde tuttuğu iştirak hisseleri ve (yürürlükteki şartlarla) taşınmaz satışından doğan kazancın bir kısmı kurumlar vergisinden istisna olabilir (KVK m.5). Taşınmaz istisnasının kapsamı 2023 sonrası değişikliklerle daraltılmıştır — hangi kıymet için ne oranda istisna geçerli, güncel KVK m.5 metnine ve GİB\u0027e bak.",
                          "kaynak":  "KVK (5520 s.K.) m.5"
                      },
                      {
@@ -2266,35 +2266,35 @@
                          "id":  "emsal-kira",
                          "konu":  "Emsal kira bedeli",
                          "anahtar":  "emsal kira bedeli düşük kira bedelsiz akraba oturma gvk 73 gayrimenkul",
-                         "cevap":  "Bir gayrimenkul bedelsiz veya emsalinden düşük bedelle kiraya verilirse, vergi matrahı olarak emsal kira bedeli esas alınır (GVK m.73). Emsal kira, bina/arazi için genelde emlak vergisi değerinin %5'idir. İstisna: mal sahibinin usul-füru veya kardeşlerinin oturması gibi haller emsal kira uygulamasından hariçtir.",
+                         "cevap":  "Bir gayrimenkul bedelsiz veya emsalinden düşük bedelle kiraya verilirse, vergi matrahı olarak emsal kira bedeli esas alınır (GVK m.73). Emsal kira, bina/arazi için genelde emlak vergisi değerinin %5\u0027idir. İstisna: mal sahibinin usul-füru veya kardeşlerinin oturması gibi haller emsal kira uygulamasından hariçtir.",
                          "kaynak":  "GVK (193 s.K.) m.73"
                      },
                      {
                          "id":  "deger-artis-kazanc",
                          "konu":  "Gayrimenkul değer artış kazancı (5 yıl)",
                          "anahtar":  "değer artış kazancı gayrimenkul satış 5 yıl elde tutma istisna gvk mük 80 vergi",
-                         "cevap":  "Bir gayrimenkul, edinildikten sonra 5 yıl içinde satılırsa doğan kazanç değer artış kazancı olarak gelir vergisine tabidir (GVK mük. m.80). 5 yıl geçtikten sonra satışta (miras/bağış hariç edinimlerde) bu kazanç vergilenmez. Kazanç, satış bedeli ile endekslenmiş maliyet arasındaki farktır; yıllık istisna tutarı da düşülür (güncel tutar için GİB'e bak).",
+                         "cevap":  "Bir gayrimenkul, edinildikten sonra 5 yıl içinde satılırsa doğan kazanç değer artış kazancı olarak gelir vergisine tabidir (GVK mük. m.80). 5 yıl geçtikten sonra satışta (miras/bağış hariç edinimlerde) bu kazanç vergilenmez. Kazanç, satış bedeli ile endekslenmiş maliyet arasındaki farktır; yıllık istisna tutarı da düşülür (güncel tutar için GİB\u0027e bak).",
                          "kaynak":  "GVK (193 s.K.) mük. m.80"
                      },
                      {
                          "id":  "yemek-yardimi-istisna",
                          "konu":  "Yemek yardımı gelir vergisi istisnası",
                          "anahtar":  "yemek yardımı istisna ücret işyeri dışında yemek kartı fiş günlük tutar gvk 23",
-                         "cevap":  "İşverence çalışanlara sağlanan yemek yardımı, işyerinde veya müştemilatında yemek verilmesi halinde tamamen istisnadır; dışarıda (yemek kartı/fişi ile) verilmesi halinde günlük belli bir tutara kadar gelir vergisinden istisnadır (GVK m.23). İstisna sınırı her yıl güncellenir — güncel günlük tutar için GİB'e bak; aşan kısım ücret olarak vergilenir.",
+                         "cevap":  "İşverence çalışanlara sağlanan yemek yardımı, işyerinde veya müştemilatında yemek verilmesi halinde tamamen istisnadır; dışarıda (yemek kartı/fişi ile) verilmesi halinde günlük belli bir tutara kadar gelir vergisinden istisnadır (GVK m.23). İstisna sınırı her yıl güncellenir — güncel günlük tutar için GİB\u0027e bak; aşan kısım ücret olarak vergilenir.",
                          "kaynak":  "GVK (193 s.K.) m.23"
                      },
                      {
                          "id":  "engelli-indirim",
                          "konu":  "Engellilik indirimi",
                          "anahtar":  "engelli sakatlık indirimi ücret derece vergi matrah gvk 31 rapor",
-                         "cevap":  "Çalışma gücünün belli oranını kaybetmiş engelli ücretliler ve serbest meslek erbabı, engellilik derecesine göre (1., 2., 3. derece) aylık engellilik indiriminden yararlanır; bu tutar gelir vergisi matrahından düşülür (GVK m.31). Yetkili sağlık kurulu raporu şarttır. İndirim tutarları her yıl güncellenir — güncel tutar için GİB'e bak.",
+                         "cevap":  "Çalışma gücünün belli oranını kaybetmiş engelli ücretliler ve serbest meslek erbabı, engellilik derecesine göre (1., 2., 3. derece) aylık engellilik indiriminden yararlanır; bu tutar gelir vergisi matrahından düşülür (GVK m.31). Yetkili sağlık kurulu raporu şarttır. İndirim tutarları her yıl güncellenir — güncel tutar için GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.31"
                      },
                      {
                          "id":  "asgari-ucret-istisna",
                          "konu":  "Asgari ücret gelir vergisi istisnası",
                          "anahtar":  "asgari ücret gelir vergisi damga vergisi istisna kesilmez tüm ücretler 2022",
-                         "cevap":  "2022'den itibaren tüm çalışanların ücretinin, asgari ücrete isabet eden kısmı gelir vergisinden ve damga vergisinden istisnadır (GVK m.23 ve ilgili değişiklikler). Yani her ücretliden önce asgari ücret kadarlık kısım vergi dışı bırakılır, sadece aşan kısım vergilenir. Bu, eski asgari geçim indiriminin (AGİ) yerini almıştır.",
+                         "cevap":  "2022\u0027den itibaren tüm çalışanların ücretinin, asgari ücrete isabet eden kısmı gelir vergisinden ve damga vergisinden istisnadır (GVK m.23 ve ilgili değişiklikler). Yani her ücretliden önce asgari ücret kadarlık kısım vergi dışı bırakılır, sadece aşan kısım vergilenir. Bu, eski asgari geçim indiriminin (AGİ) yerini almıştır.",
                          "kaynak":  "GVK (193 s.K.) m.23 (7349 s.K. değişikliği)"
                      },
                      {
@@ -2309,14 +2309,14 @@
                          "id":  "kar-payi-stopaj",
                          "konu":  "Kâr payı dağıtımında stopaj",
                          "anahtar":  "kar payı temettü dağıtım stopaj gelir vergisi kesinti ortak gerçek kişi gvk 94",
-                         "cevap":  "Kurumlar vergisi ödenmiş kazancın ortaklara kâr payı olarak dağıtılmasında, gerçek kişi ortaklara ve dar mükelleflere yapılan dağıtımda gelir vergisi stopajı kesilir (GVK m.94/6-b). Tam mükellef kuruma dağıtımda stopaj yoktur (iştirak kazancı istisnası). Stopaj oranı Cumhurbaşkanı kararıyla değişir — güncel oranı GİB'den teyit et.",
+                         "cevap":  "Kurumlar vergisi ödenmiş kazancın ortaklara kâr payı olarak dağıtılmasında, gerçek kişi ortaklara ve dar mükelleflere yapılan dağıtımda gelir vergisi stopajı kesilir (GVK m.94/6-b). Tam mükellef kuruma dağıtımda stopaj yoktur (iştirak kazancı istisnası). Stopaj oranı Cumhurbaşkanı kararıyla değişir — güncel oranı GİB\u0027den teyit et.",
                          "kaynak":  "GVK (193 s.K.) m.94/6-b"
                      },
                      {
                          "id":  "harcirah-istisna",
                          "konu":  "Harcırah / yolluk istisnası",
                          "anahtar":  "harcırah yolluk gündelik seyahat görev istisna vergi memur devlet gvk 24",
-                         "cevap":  "Çalışanlara iş seyahati için ödenen harcırah (yol + gündelik), devlet memuruna ödenen gündelik tutarını aşmayan kısmı gelir vergisinden istisnadır (GVK m.24). Belgeli gerçek yol giderleri ayrıca istisnadır. Devlet gündeliğini aşan ödemeler ücret olarak vergilenir. İstisna tutarları her yıl güncellenir — güncel için GİB'e bak.",
+                         "cevap":  "Çalışanlara iş seyahati için ödenen harcırah (yol + gündelik), devlet memuruna ödenen gündelik tutarını aşmayan kısmı gelir vergisinden istisnadır (GVK m.24). Belgeli gerçek yol giderleri ayrıca istisnadır. Devlet gündeliğini aşan ödemeler ücret olarak vergilenir. İstisna tutarları her yıl güncellenir — güncel için GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.24"
                      },
                      {
@@ -2330,21 +2330,21 @@
                          "id":  "menkul-sermaye-beyan",
                          "konu":  "Menkul sermaye iradı beyanı",
                          "anahtar":  "menkul sermaye iradı faiz kar payı repo mevduat beyan stopaj gvk 75 86",
-                         "cevap":  "Mevduat faizi, repo geliri, kâr payı, tahvil/bono faizi gibi menkul sermaye iratları elde edilir. Bunların çoğu stopaj yoluyla (banka keser) vergilenir ve stopaja tabi olanların çoğu için yıllık beyan gerekmez; ancak stopaja tabi olmayan veya belli tutarı aşan bazı iratlar beyan edilir (GVK m.75, 85-86). Beyan sınırları her yıl güncellenir — güncel hadler için GİB'e bak.",
+                         "cevap":  "Mevduat faizi, repo geliri, kâr payı, tahvil/bono faizi gibi menkul sermaye iratları elde edilir. Bunların çoğu stopaj yoluyla (banka keser) vergilenir ve stopaja tabi olanların çoğu için yıllık beyan gerekmez; ancak stopaja tabi olmayan veya belli tutarı aşan bazı iratlar beyan edilir (GVK m.75, 85-86). Beyan sınırları her yıl güncellenir — güncel hadler için GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.75"
                      },
                      {
                          "id":  "sgk-isveren-prim",
                          "konu":  "SGK işveren prim oranı",
                          "anahtar":  "sgk prim oranı işveren işçi hissesi yüzde kesinti maaş sigorta 5510",
-                         "cevap":  "Bir çalışanın brüt ücreti üzerinden hem işçi hem işveren SGK primi hesaplanır; işveren payı işçi payından yüksektir ve ayrıca işsizlik sigortası primi de eklenir (5510 s.K.). Prim, prime esas kazancın taban (asgari ücret) ile tavan (asgari ücretin 7,5 katı) arasındaki tutar üzerinden alınır. Oranlar ve teşvik indirimleri değişebildiği için güncel oranları SGK/GİB'den teyit et.",
+                         "cevap":  "Bir çalışanın brüt ücreti üzerinden hem işçi hem işveren SGK primi hesaplanır; işveren payı işçi payından yüksektir ve ayrıca işsizlik sigortası primi de eklenir (5510 s.K.). Prim, prime esas kazancın taban (asgari ücret) ile tavan (asgari ücretin 7,5 katı) arasındaki tutar üzerinden alınır. Oranlar ve teşvik indirimleri değişebildiği için güncel oranları SGK/GİB\u0027den teyit et.",
                          "kaynak":  "5510 s. SGK Kanunu"
                      },
                      {
                          "id":  "sgk-5puan",
                          "konu":  "SGK 5 puanlık işveren indirimi",
                          "anahtar":  "sgk 5 puan indirim işveren prim teşvik malullük yaşlılık ölüm 5510 81",
-                         "cevap":  "Şartları sağlayan işverenler, malullük-yaşlılık-ölüm sigortası işveren priminden 5 puanlık indirimden yararlanır (5510 s.K. m.81). Şart: primlerin düzenli ödenmesi, SGK'ya borcun olmaması ve kayıt dışı çalışan bulunmaması. Ayrıca bölgesel/sektörel ilave teşvikler vardır. Güncel oran ve şartlar için SGK'ya bak.",
+                         "cevap":  "Şartları sağlayan işverenler, malullük-yaşlılık-ölüm sigortası işveren priminden 5 puanlık indirimden yararlanır (5510 s.K. m.81). Şart: primlerin düzenli ödenmesi, SGK\u0027ya borcun olmaması ve kayıt dışı çalışan bulunmaması. Ayrıca bölgesel/sektörel ilave teşvikler vardır. Güncel oran ve şartlar için SGK\u0027ya bak.",
                          "kaynak":  "5510 s. SGK Kanunu m.81"
                      },
                      {
@@ -2372,35 +2372,35 @@
                          "id":  "issizlik-odenegi",
                          "konu":  "İşsizlik ödeneği şartları",
                          "anahtar":  "işsizlik ödeneği maaşı sigorta 600 gün 120 son 3 yıl kendi isteği dışı 4447",
-                         "cevap":  "İşsizlik ödeneği için: iş akdinin çalışanın kendi kusuru/isteği dışında sona ermesi, son 120 gün kesintisiz sigortalı olmak ve son 3 yılda en az 600 gün işsizlik sigortası primi ödenmiş olması gerekir (4447 s.K.). Ödenek süresi prim gün sayısına göre 180-300 gün arası değişir. İŞKUR'a 30 gün içinde başvurulmalıdır.",
+                         "cevap":  "İşsizlik ödeneği için: iş akdinin çalışanın kendi kusuru/isteği dışında sona ermesi, son 120 gün kesintisiz sigortalı olmak ve son 3 yılda en az 600 gün işsizlik sigortası primi ödenmiş olması gerekir (4447 s.K.). Ödenek süresi prim gün sayısına göre 180-300 gün arası değişir. İŞKUR\u0027a 30 gün içinde başvurulmalıdır.",
                          "kaynak":  "4447 s. İşsizlik Sigortası Kanunu"
                      },
                      {
                          "id":  "kdv-matrah-dahil",
                          "konu":  "KDV dahil / hariç matrah",
                          "anahtar":  "kdv matrah dahil hariç iç yüzde hesaplama fiyat içinden kdvk 20 24",
-                         "cevap":  "KDV matrahı, teslim/hizmet karşılığı alınan bedeldir; vade farkı, faiz, kur farkı gibi unsurlar da matraha dahildir (KDVK m.20, 24). Fiyat 'KDV dahil' verilmişse KDV içeriden hesaplanır (ör. %20 için: dahil tutar ÷ 1,20 = matrah). 'KDV hariç' fiyata oran eklenir. İskonto (fatura üzerinde gösterilen) matrahtan düşülür.",
+                         "cevap":  "KDV matrahı, teslim/hizmet karşılığı alınan bedeldir; vade farkı, faiz, kur farkı gibi unsurlar da matraha dahildir (KDVK m.20, 24). Fiyat \u0027KDV dahil\u0027 verilmişse KDV içeriden hesaplanır (ör. %20 için: dahil tutar ÷ 1,20 = matrah). \u0027KDV hariç\u0027 fiyata oran eklenir. İskonto (fatura üzerinde gösterilen) matrahtan düşülür.",
                          "kaynak":  "KDVK (3065 s.K.) m.20"
                      },
                      {
                          "id":  "kdv-indirim-iptal",
                          "konu":  "İndirilemeyen KDV (KKEG KDV)",
                          "anahtar":  "kdv indirim iptal indirilemeyen binek oto kkeg belgesiz zayi kdvk 30",
-                         "cevap":  "Bazı KDV'ler indirilemez: kanunen kabul edilmeyen giderlere ait KDV, binek otomobil alımındaki KDV (bazı istisnalar dışında), zayi olan malların KDV'si, belgesiz alışların KDV'si (KDVK m.30). İndirilemeyen KDV gider veya maliyet yazılır ya da doğrudan KKEG olur. Sahte belge KDV'si de indirilemez.",
+                         "cevap":  "Bazı KDV\u0027ler indirilemez: kanunen kabul edilmeyen giderlere ait KDV, binek otomobil alımındaki KDV (bazı istisnalar dışında), zayi olan malların KDV\u0027si, belgesiz alışların KDV\u0027si (KDVK m.30). İndirilemeyen KDV gider veya maliyet yazılır ya da doğrudan KKEG olur. Sahte belge KDV\u0027si de indirilemez.",
                          "kaynak":  "KDVK (3065 s.K.) m.30"
                      },
                      {
                          "id":  "kdv-vergiyi-doguran",
-                         "konu":  "KDV'de vergiyi doğuran olay",
+                         "konu":  "KDV\u0027de vergiyi doğuran olay",
                          "anahtar":  "kdv vergiyi doğuran olay teslim hizmet fatura tarih ne zaman kdvk 10",
-                         "cevap":  "KDV'de vergiyi doğuran olay, kural olarak malın teslimi veya hizmetin yapılmasıyla gerçekleşir; fatura daha önce düzenlenmişse fatura tarihinde doğar (KDVK m.10). Yani KDV'yi doğuran şey ödeme değil, teslim/hizmet ya da erken faturadır. Bu, hangi dönemde beyan edileceğini belirler.",
+                         "cevap":  "KDV\u0027de vergiyi doğuran olay, kural olarak malın teslimi veya hizmetin yapılmasıyla gerçekleşir; fatura daha önce düzenlenmişse fatura tarihinde doğar (KDVK m.10). Yani KDV\u0027yi doğuran şey ödeme değil, teslim/hizmet ya da erken faturadır. Bu, hangi dönemde beyan edileceğini belirler.",
                          "kaynak":  "KDVK (3065 s.K.) m.10"
                      },
                      {
                          "id":  "kdv-kismi-istisna",
                          "konu":  "KDV tam istisna / kısmi istisna farkı",
                          "anahtar":  "kdv tam istisna kısmi istisna ihracat eğitim sağlık indirim iade fark",
-                         "cevap":  "Tam istisnada (ör. ihracat) işlem KDV'siz yapılır AMA yüklenilen KDV indirilir/iade alınır. Kısmi istisnada (ör. bazı eğitim, sağlık, kültür işlemleri) işlem KDV'siz olur ancak yüklenilen KDV indirilemez, gider/maliyet yazılır (KDVK m.32 ve GUT). Fark kritik: tam istisna iade doğurur, kısmi istisna doğurmaz.",
+                         "cevap":  "Tam istisnada (ör. ihracat) işlem KDV\u0027siz yapılır AMA yüklenilen KDV indirilir/iade alınır. Kısmi istisnada (ör. bazı eğitim, sağlık, kültür işlemleri) işlem KDV\u0027siz olur ancak yüklenilen KDV indirilemez, gider/maliyet yazılır (KDVK m.32 ve GUT). Fark kritik: tam istisna iade doğurur, kısmi istisna doğurmaz.",
                          "kaynak":  "KDVK (3065 s.K.) m.32"
                      },
                      {
@@ -2414,7 +2414,7 @@
                          "id":  "kanuni-yedek-akce",
                          "konu":  "Kanuni yedek akçe ayırma",
                          "anahtar":  "kanuni yedek akçe genel yüzde 5 20 kar dağıtım sermaye ttk 519",
-                         "cevap":  "Anonim şirket, yıllık kârının %5'ini, ödenmiş sermayenin %20'sine ulaşana kadar genel kanuni yedek akçe olarak ayırmak zorundadır (TTK m.519). Bu sınıra ulaşıldıktan sonra da dağıtılan kâr paylarından belli oranlarda ikinci tertip yedek ayrılır. Yedek akçe ayrılmadan kâr dağıtılamaz.",
+                         "cevap":  "Anonim şirket, yıllık kârının %5\u0027ini, ödenmiş sermayenin %20\u0027sine ulaşana kadar genel kanuni yedek akçe olarak ayırmak zorundadır (TTK m.519). Bu sınıra ulaşıldıktan sonra da dağıtılan kâr paylarından belli oranlarda ikinci tertip yedek ayrılır. Yedek akçe ayrılmadan kâr dağıtılamaz.",
                          "kaynak":  "TTK (6102 s.K.) m.519"
                      },
                      {
@@ -2464,7 +2464,7 @@
                          "id":  "temerrut-faiz",
                          "konu":  "Temerrüt (gecikme) faizi oranı",
                          "anahtar":  "temerrüt faizi gecikme oranı yıllık ticari 3095 avans faiz sözleşme tbk 120",
-                         "cevap":  "Borçlu temerrüde düşünce alacaklı temerrüt faizi isteyebilir. Sözleşmede oran yoksa kanuni faiz uygulanır; ticari işlerde TCMB'nin kısa vadeli avans faizi esas alınır (3095 s.K. ve TBK m.120). Sözleşmeyle daha yüksek faiz kararlaştırılabilir ama aşırı oran hâkim tarafından indirilebilir. Güncel kanuni/ticari faiz oranları için resmî kaynağa bak.",
+                         "cevap":  "Borçlu temerrüde düşünce alacaklı temerrüt faizi isteyebilir. Sözleşmede oran yoksa kanuni faiz uygulanır; ticari işlerde TCMB\u0027nin kısa vadeli avans faizi esas alınır (3095 s.K. ve TBK m.120). Sözleşmeyle daha yüksek faiz kararlaştırılabilir ama aşırı oran hâkim tarafından indirilebilir. Güncel kanuni/ticari faiz oranları için resmî kaynağa bak.",
                          "kaynak":  "TBK (6098 s.K.) m.120 · 3095 s.K."
                      },
                      {
@@ -2478,7 +2478,7 @@
                          "id":  "zamanasimi-10",
                          "konu":  "Alacaklarda genel zamanaşımı (10 yıl)",
                          "anahtar":  "zamanaşımı alacak 10 yıl genel süre borç talep hakkı düşme tbk 146",
-                         "cevap":  "Kanunda başka süre öngörülmemişse her alacak 10 yıllık zamanaşımına tabidir (TBK m.146). Zamanaşımı dolan borç ortadan kalkmaz ama borçlu 'zamanaşımı def'i' ileri sürerse alacaklı dava yoluyla tahsil edemez. Dava açma, icra takibi, borçlunun borcu ikrarı gibi işlemler zamanaşımını keser ve yeniden başlatır.",
+                         "cevap":  "Kanunda başka süre öngörülmemişse her alacak 10 yıllık zamanaşımına tabidir (TBK m.146). Zamanaşımı dolan borç ortadan kalkmaz ama borçlu \u0027zamanaşımı def\u0027i\u0027 ileri sürerse alacaklı dava yoluyla tahsil edemez. Dava açma, icra takibi, borçlunun borcu ikrarı gibi işlemler zamanaşımını keser ve yeniden başlatır.",
                          "kaynak":  "TBK (6098 s.K.) m.146"
                      },
                      {
@@ -2492,14 +2492,14 @@
                          "id":  "itiraz-iptali",
                          "konu":  "İtirazın iptali / itirazın kaldırılması",
                          "anahtar":  "itirazın iptali kaldırılması icra inkar tazminat yüzde 20 mahkeme belge iik 67 68",
-                         "cevap":  "Borçlu ödeme emrine itiraz edince alacaklı iki yoldan gidebilir: elinde imzalı senet/belge varsa icra mahkemesinde 'itirazın kaldırılması' (İİK m.68), yoksa genel mahkemede 'itirazın iptali' davası (İİK m.67). Haksız itiraz eden borçlu aleyhine icra inkâr tazminatı (alacağın %20'sinden az olmamak üzere) hükmedilebilir.",
+                         "cevap":  "Borçlu ödeme emrine itiraz edince alacaklı iki yoldan gidebilir: elinde imzalı senet/belge varsa icra mahkemesinde \u0027itirazın kaldırılması\u0027 (İİK m.68), yoksa genel mahkemede \u0027itirazın iptali\u0027 davası (İİK m.67). Haksız itiraz eden borçlu aleyhine icra inkâr tazminatı (alacağın %20\u0027sinden az olmamak üzere) hükmedilebilir.",
                          "kaynak":  "İİK (2004 s.K.) m.67"
                      },
                      {
                          "id":  "cek-karsiliksiz",
                          "konu":  "Karşılıksız çek yaptırımı",
                          "anahtar":  "karşılıksız çek ceza banka ibraz süre çek yasağı adli para hapis çek 5",
-                         "cevap":  "Çek, üzerinde yazılı düzenleme tarihinde veya ibraz süresi içinde bankaya ibraz edildiğinde karşılığı yoksa 'karşılıksızdır' işlemi yapılır. Karşılıksız çek düzenleyene, hamilin şikâyeti üzerine adli para cezası verilir ve çek düzenleme/hesap açma yasağı uygulanır (Çek K. m.5). Çek bedelini faiziyle öderse yaptırım düşer.",
+                         "cevap":  "Çek, üzerinde yazılı düzenleme tarihinde veya ibraz süresi içinde bankaya ibraz edildiğinde karşılığı yoksa \u0027karşılıksızdır\u0027 işlemi yapılır. Karşılıksız çek düzenleyene, hamilin şikâyeti üzerine adli para cezası verilir ve çek düzenleme/hesap açma yasağı uygulanır (Çek K. m.5). Çek bedelini faiziyle öderse yaptırım düşer.",
                          "kaynak":  "Çek K. (5941 s.K.) m.5"
                      },
                      {
@@ -2549,7 +2549,7 @@
                          "id":  "verbis-kayit",
                          "konu":  "VERBİS kaydı zorunlu mu",
                          "anahtar":  "verbis kvkk veri sorumlusu sicil kayıt zorunlu kişisel veri işleyen 6698",
-                         "cevap":  "Kişisel veri işleyen veri sorumluları, kural olarak veri işlemeye başlamadan önce Veri Sorumluları Sicili'ne (VERBİS) kaydolmak zorundadır (KVKK m.16). Yıllık çalışan sayısı ve mali bilanço gibi ölçütlere göre bazı küçük işletmeler istisna tutulabilir. Kayıt yükümlüsü olup kaydolmayana idari para cezası uygulanır. Güncel istisna eşikleri için KVKK Kurulu kararlarına bak.",
+                         "cevap":  "Kişisel veri işleyen veri sorumluları, kural olarak veri işlemeye başlamadan önce Veri Sorumluları Sicili\u0027ne (VERBİS) kaydolmak zorundadır (KVKK m.16). Yıllık çalışan sayısı ve mali bilanço gibi ölçütlere göre bazı küçük işletmeler istisna tutulabilir. Kayıt yükümlüsü olup kaydolmayana idari para cezası uygulanır. Güncel istisna eşikleri için KVKK Kurulu kararlarına bak.",
                          "kaynak":  "KVKK (6698 s.K.) m.16"
                      },
                      {
@@ -2577,7 +2577,7 @@
                          "id":  "kira-gmsi-beyan",
                          "konu":  "Kira geliri beyanı (GMSİ)",
                          "anahtar":  "kira geliri beyan gmsi gayrimenkul sermaye iradı konut işyeri götürü gerçek gider gvk 70",
-                         "cevap":  "Gayrimenkulden elde edilen kira geliri gayrimenkul sermaye iradıdır (GVK m.70). Yıllık beyanda giderler iki yöntemle düşülür: gerçek gider (fiili masraflar belgeyle) veya götürü gider (belge aranmadan belli bir yüzde — konutta uygulanır, bir kez seçilince 2 yıl dönülemez). Konut kira gelirinde yıllık bir istisna tutarı vardır; işyeri kirasında stopaj yapılmışsa mahsup edilir. İstisna/oran güncel tutarları için GİB'e bak.",
+                         "cevap":  "Gayrimenkulden elde edilen kira geliri gayrimenkul sermaye iradıdır (GVK m.70). Yıllık beyanda giderler iki yöntemle düşülür: gerçek gider (fiili masraflar belgeyle) veya götürü gider (belge aranmadan belli bir yüzde — konutta uygulanır, bir kez seçilince 2 yıl dönülemez). Konut kira gelirinde yıllık bir istisna tutarı vardır; işyeri kirasında stopaj yapılmışsa mahsup edilir. İstisna/oran güncel tutarları için GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.70"
                      },
                      {
@@ -2591,35 +2591,35 @@
                          "id":  "esnaf-muaf",
                          "konu":  "Esnaf muaflığı (vergiden muaf esnaf)",
                          "anahtar":  "esnaf muaflığı vergiden muaf küçük seyyar el emeği internet evden üretim gvk 9",
-                         "cevap":  "Belirli küçük ölçekli faaliyetler (ör. seyyar satıcılık, evde el emeğiyle üretip satma, küçük tamir işleri) kanundaki şartlarla gelir vergisinden muaf esnaf sayılır (GVK m.9). Evden internet üzerinden el emeği ürün satanlar için de özel muafiyet şartları vardır. Muafiyetten yararlanan 'esnaf vergi muafiyeti belgesi' alır. Şartlar aşılırsa muafiyet biter, gerçek/basit usule geçilir.",
+                         "cevap":  "Belirli küçük ölçekli faaliyetler (ör. seyyar satıcılık, evde el emeğiyle üretip satma, küçük tamir işleri) kanundaki şartlarla gelir vergisinden muaf esnaf sayılır (GVK m.9). Evden internet üzerinden el emeği ürün satanlar için de özel muafiyet şartları vardır. Muafiyetten yararlanan \u0027esnaf vergi muafiyeti belgesi\u0027 alır. Şartlar aşılırsa muafiyet biter, gerçek/basit usule geçilir.",
                          "kaynak":  "GVK (193 s.K.) m.9"
                      },
                      {
                          "id":  "teknokent-istisna",
                          "konu":  "Teknokent (teknopark) kazanç istisnası",
                          "anahtar":  "teknokent teknopark tgb yazılım ar-ge kazanç istisna gelir kurumlar 4691 stopaj",
-                         "cevap":  "Teknoloji Geliştirme Bölgesi'nde (teknokent) faaliyet gösteren firmaların, bölgedeki yazılım ve Ar-Ge/tasarım faaliyetlerinden elde ettiği kazanç, süresi uzatılan tarihe kadar gelir/kurumlar vergisinden istisnadır (4691 s.K.). Ayrıca bölgede çalışan Ar-Ge personelinin ücreti gelir vergisi stopajından istisna, SGK işveren payında destek vardır. Güncel süreler için 4691 s.K.'ya bak.",
+                         "cevap":  "Teknoloji Geliştirme Bölgesi\u0027nde (teknokent) faaliyet gösteren firmaların, bölgedeki yazılım ve Ar-Ge/tasarım faaliyetlerinden elde ettiği kazanç, süresi uzatılan tarihe kadar gelir/kurumlar vergisinden istisnadır (4691 s.K.). Ayrıca bölgede çalışan Ar-Ge personelinin ücreti gelir vergisi stopajından istisna, SGK işveren payında destek vardır. Güncel süreler için 4691 s.K.\u0027ya bak.",
                          "kaynak":  "4691 s. Teknoloji Geliştirme Bölgeleri Kanunu"
                      },
                      {
                          "id":  "mtv-odeme",
                          "konu":  "Motorlu taşıtlar vergisi (MTV)",
                          "anahtar":  "mtv motorlu taşıt vergisi araç ocak temmuz iki taksit yaş motor silindir 197",
-                         "cevap":  "Kayıtlı motorlu taşıtlar için sahibinden her yıl MTV alınır; otomobillerde vergi, aracın yaşı ve motor silindir hacmi (ve değeri) esas alınarak belirlenir (197 s.K.). Kural olarak yılda iki taksitte (ocak ve temmuz) ödenir. Ödenmemiş MTV, aracın satış/devir işlemlerini engeller. Tarife tutarları her yıl güncellenir — güncel tutar için GİB'e bak.",
+                         "cevap":  "Kayıtlı motorlu taşıtlar için sahibinden her yıl MTV alınır; otomobillerde vergi, aracın yaşı ve motor silindir hacmi (ve değeri) esas alınarak belirlenir (197 s.K.). Kural olarak yılda iki taksitte (ocak ve temmuz) ödenir. Ödenmemiş MTV, aracın satış/devir işlemlerini engeller. Tarife tutarları her yıl güncellenir — güncel tutar için GİB\u0027e bak.",
                          "kaynak":  "MTV K. (197 s.K.)"
                      },
                      {
                          "id":  "damga-kira-sozlesme",
                          "konu":  "Kira sözleşmesinde damga vergisi",
                          "anahtar":  "damga vergisi kira sözleşmesi binde yıllık toplam kira işyeri konut kefil 488",
-                         "cevap":  "Kira sözleşmeleri damga vergisine tabidir; vergi, sözleşme süresine göre hesaplanan toplam kira bedeli üzerinden binde oranıyla alınır (488 s.K. ekli 1 sayılı tablo). Sözleşmede kefil varsa kefalet için ayrıca damga vergisi doğar. Konut kira sözleşmelerinde uygulama farklılıkları olabilir. Güncel oran ve azami tutar için Damga Vergisi Kanunu ekli tabloya/GİB'e bak.",
+                         "cevap":  "Kira sözleşmeleri damga vergisine tabidir; vergi, sözleşme süresine göre hesaplanan toplam kira bedeli üzerinden binde oranıyla alınır (488 s.K. ekli 1 sayılı tablo). Sözleşmede kefil varsa kefalet için ayrıca damga vergisi doğar. Konut kira sözleşmelerinde uygulama farklılıkları olabilir. Güncel oran ve azami tutar için Damga Vergisi Kanunu ekli tabloya/GİB\u0027e bak.",
                          "kaynak":  "Damga V.K. (488 s.K.)"
                      },
                      {
                          "id":  "gekap-beyan",
                          "konu":  "Geri Kazanım Katılım Payı (GEKAP)",
                          "anahtar":  "gekap geri kazanım katılım payı plastik poşet ambalaj lastik pil beyan çevre 2872",
-                         "cevap":  "Piyasaya sürülen belirli ürünlerin (plastik poşet, ambalaj, lastik, akümülatör, pil, elektronik eşya, madeni yağ vb.) satışında Geri Kazanım Katılım Payı doğar (Çevre Kanunu 2872 s.K. ek m.11). Plastik poşette satış noktasında adet başına; diğerlerinde piyasaya sürenden kilo/adet başına alınır. GEKAP beyannamesi GİB'e verilir. Tutarlar her yıl güncellenir — güncel için GİB/Çevre Bakanlığı'na bak.",
+                         "cevap":  "Piyasaya sürülen belirli ürünlerin (plastik poşet, ambalaj, lastik, akümülatör, pil, elektronik eşya, madeni yağ vb.) satışında Geri Kazanım Katılım Payı doğar (Çevre Kanunu 2872 s.K. ek m.11). Plastik poşette satış noktasında adet başına; diğerlerinde piyasaya sürenden kilo/adet başına alınır. GEKAP beyannamesi GİB\u0027e verilir. Tutarlar her yıl güncellenir — güncel için GİB/Çevre Bakanlığı\u0027na bak.",
                          "kaynak":  "Çevre K. (2872 s.K.) ek m.11",
                          "arac":  "gtip.html"
                      },
@@ -2627,14 +2627,14 @@
                          "id":  "bsmv",
                          "konu":  "Banka ve sigorta muameleleri vergisi (BSMV)",
                          "anahtar":  "bsmv banka sigorta muamele vergisi kredi faiz komisyon kambiyo kdv istisna 6802",
-                         "cevap":  "Banka ve sigorta şirketlerinin yaptığı işlemler (kredi faizi, komisyon, kambiyo vb.) KDV'den istisnadır ama bunun yerine banka ve sigorta muameleleri vergisine (BSMV) tabidir (6802 s.K.). BSMV'yi banka/sigorta şirketi lehine aldığı para üzerinden hesaplar ve öder. Kambiyo (döviz) satışlarında da BSMV uygulanır; oran işlem türüne göre değişir — güncel oran için GİB'e bak.",
+                         "cevap":  "Banka ve sigorta şirketlerinin yaptığı işlemler (kredi faizi, komisyon, kambiyo vb.) KDV\u0027den istisnadır ama bunun yerine banka ve sigorta muameleleri vergisine (BSMV) tabidir (6802 s.K.). BSMV\u0027yi banka/sigorta şirketi lehine aldığı para üzerinden hesaplar ve öder. Kambiyo (döviz) satışlarında da BSMV uygulanır; oran işlem türüne göre değişir — güncel oran için GİB\u0027e bak.",
                          "kaynak":  "Gider Vergileri K. (6802 s.K.)"
                      },
                      {
                          "id":  "isci-hakli-fesih",
                          "konu":  "İşçinin haklı nedenle derhal feshi",
                          "anahtar":  "işçi haklı fesih derhal ücret ödenmedi sigorta yatmadı mobbing sağlık iş 24",
-                         "cevap":  "İşçi, bazı durumlarda iş sözleşmesini ihbar süresi beklemeden derhal feshedebilir ve kıdem tazminatına hak kazanır: ücretin ödenmemesi, SGK priminin yatırılmaması/eksik yatması, sağlık sebepleri, işverenin ahlak-iyiniyet kurallarına aykırı davranışı (hakaret, tehdit, cinsel taciz vb.) (İş K. m.24). Bu haller varsa 'istifa' değil haklı fesihtir; kıdem ödenir.",
+                         "cevap":  "İşçi, bazı durumlarda iş sözleşmesini ihbar süresi beklemeden derhal feshedebilir ve kıdem tazminatına hak kazanır: ücretin ödenmemesi, SGK priminin yatırılmaması/eksik yatması, sağlık sebepleri, işverenin ahlak-iyiniyet kurallarına aykırı davranışı (hakaret, tehdit, cinsel taciz vb.) (İş K. m.24). Bu haller varsa \u0027istifa\u0027 değil haklı fesihtir; kıdem ödenir.",
                          "kaynak":  "İş K. (4857 s.K.) m.24"
                      },
                      {
@@ -2691,7 +2691,7 @@
                          "id":  "gecikme-zammi",
                          "konu":  "Gecikme zammı (vadesinde ödenmeyen vergi)",
                          "anahtar":  "gecikme zammı vadesinde ödenmeyen amme alacağı vergi aylık oran tahsil aatuhk 51",
-                         "cevap":  "Vadesinde ödenmeyen vergi ve diğer amme alacaklarına, ödeninceye kadar geçen süre için aylık gecikme zammı uygulanır (AATUHK m.51). Oran Cumhurbaşkanı kararıyla belirlenir ve değişebilir; ay kesirleri günlük hesaplanır. Pişmanlık zammı ve gecikme faizi de aynı orana bağlıdır. Güncel gecikme zammı oranı için GİB'e bak.",
+                         "cevap":  "Vadesinde ödenmeyen vergi ve diğer amme alacaklarına, ödeninceye kadar geçen süre için aylık gecikme zammı uygulanır (AATUHK m.51). Oran Cumhurbaşkanı kararıyla belirlenir ve değişebilir; ay kesirleri günlük hesaplanır. Pişmanlık zammı ve gecikme faizi de aynı orana bağlıdır. Güncel gecikme zammı oranı için GİB\u0027e bak.",
                          "kaynak":  "AATUHK (6183 s.K.) m.51",
                          "arac":  "ceza-asistani.html"
                      },
@@ -2706,21 +2706,21 @@
                          "id":  "finansman-gider-kisit",
                          "konu":  "Finansman gider kısıtlaması",
                          "anahtar":  "finansman gider kısıtlaması kredi faiz kur farkı yabancı kaynak öz sermaye yüzde 10 kvk 11",
-                         "cevap":  "Yabancı kaynakları (borç) öz kaynaklarını aşan işletmelerde, aşan kısma ait finansman giderlerinin (faiz, kur farkı, komisyon vb.) belli bir oranı gider olarak kabul edilmez (KKEG) (KVK m.11/1-i ve GVK m.41). Kabul edilmeyen oran Cumhurbaşkanı kararıyla belirlenir. Kredi kuruluşları, finansal kiralama gibi bazı sektörler kapsam dışıdır. Güncel oran için GİB'e bak.",
+                         "cevap":  "Yabancı kaynakları (borç) öz kaynaklarını aşan işletmelerde, aşan kısma ait finansman giderlerinin (faiz, kur farkı, komisyon vb.) belli bir oranı gider olarak kabul edilmez (KKEG) (KVK m.11/1-i ve GVK m.41). Kabul edilmeyen oran Cumhurbaşkanı kararıyla belirlenir. Kredi kuruluşları, finansal kiralama gibi bazı sektörler kapsam dışıdır. Güncel oran için GİB\u0027e bak.",
                          "kaynak":  "KVK (5520 s.K.) m.11"
                      },
                      {
                          "id":  "nakdi-sermaye-faiz",
                          "konu":  "Nakdi sermaye artışında faiz indirimi",
                          "anahtar":  "nakdi sermaye artışı faiz indirimi tccmb ticari kredi teşvik kurumlar kvk 10",
-                         "cevap":  "Sermaye şirketleri, nakden (parayla) yaptıkları sermaye artışı tutarı üzerinden, TCMB'nin ilan ettiği ticari kredi faiz oranı dikkate alınarak hesaplanan bir tutarı kurum kazancından indirebilir (KVK m.10/1-ı). Amaç: şirketleri borç yerine öz sermaye ile büyümeye teşvik. İndirim oranı normalde belli bir yüzdedir, bazı hallerde (ör. halka açık, yatırım) artar. İç kaynaktan (yedek) yapılan artış bu indirimden yararlanamaz.",
+                         "cevap":  "Sermaye şirketleri, nakden (parayla) yaptıkları sermaye artışı tutarı üzerinden, TCMB\u0027nin ilan ettiği ticari kredi faiz oranı dikkate alınarak hesaplanan bir tutarı kurum kazancından indirebilir (KVK m.10/1-ı). Amaç: şirketleri borç yerine öz sermaye ile büyümeye teşvik. İndirim oranı normalde belli bir yüzdedir, bazı hallerde (ör. halka açık, yatırım) artar. İç kaynaktan (yedek) yapılan artış bu indirimden yararlanamaz.",
                          "kaynak":  "KVK (5520 s.K.) m.10"
                      },
                      {
                          "id":  "cvoa-cifte-vergi",
                          "konu":  "Çifte vergilendirmeyi önleme anlaşması (ÇVÖA)",
                          "anahtar":  "çifte vergilendirme önleme anlaşması yurtdışı gelir mahsup istisna mukimlik stopaj",
-                         "cevap":  "Türkiye'nin birçok ülkeyle çifte vergilendirmeyi önleme anlaşması (ÇVÖA) vardır; aynı gelirin iki ülkede birden vergilenmesini önler. Anlaşmaya göre gelir ya bir ülkede istisna tutulur ya da ödenen vergi diğer ülkede mahsup edilir; ayrıca stopaj oranları anlaşmayla düşürülebilir. Yararlanmak için mukimlik belgesi gerekir. İlgili ülkeyle anlaşma olup olmadığını ve oranı Hizmet Faturası aracından/GİB'den kontrol et.",
+                         "cevap":  "Türkiye\u0027nin birçok ülkeyle çifte vergilendirmeyi önleme anlaşması (ÇVÖA) vardır; aynı gelirin iki ülkede birden vergilenmesini önler. Anlaşmaya göre gelir ya bir ülkede istisna tutulur ya da ödenen vergi diğer ülkede mahsup edilir; ayrıca stopaj oranları anlaşmayla düşürülebilir. Yararlanmak için mukimlik belgesi gerekir. İlgili ülkeyle anlaşma olup olmadığını ve oranı Hizmet Faturası aracından/GİB\u0027den kontrol et.",
                          "kaynak":  "ÇVÖA (ilgili ikili anlaşma)",
                          "arac":  "hizmet.html"
                      },
@@ -2728,7 +2728,7 @@
                          "id":  "yeniden-degerleme",
                          "konu":  "Taşınmaz/sabit kıymet yeniden değerleme",
                          "anahtar":  "yeniden değerleme sabit kıymet taşınmaz amortisman yi-üfe değer artış fonu vuk mük 298",
-                         "cevap":  "İşletmeler, aktiflerindeki amortismana tabi iktisadi kıymetleri (bazı şartlarla taşınmazları) Yİ-ÜFE oranıyla yeniden değerleyebilir; oluşan değer artışı özel bir fonda (değer artış fonu) izlenir ve yeni değer üzerinden amortisman ayrılır (VUK mük. m.298 ve geçici hükümler). Enflasyon düzeltmesi uygulanan dönemlerde ayrı, uygulanmayan dönemlerde ihtiyari yeniden değerleme farklı işler. Güncel şartlar için GİB'e bak.",
+                         "cevap":  "İşletmeler, aktiflerindeki amortismana tabi iktisadi kıymetleri (bazı şartlarla taşınmazları) Yİ-ÜFE oranıyla yeniden değerleyebilir; oluşan değer artışı özel bir fonda (değer artış fonu) izlenir ve yeni değer üzerinden amortisman ayrılır (VUK mük. m.298 ve geçici hükümler). Enflasyon düzeltmesi uygulanan dönemlerde ayrı, uygulanmayan dönemlerde ihtiyari yeniden değerleme farklı işler. Güncel şartlar için GİB\u0027e bak.",
                          "kaynak":  "VUK (213 s.K.) mük. m.298"
                      },
                      {
@@ -2757,7 +2757,7 @@
                          "id":  "kdv-iade-diib",
                          "konu":  "İhracatta KDV iadesi (tam istisna)",
                          "anahtar":  "ihracat kdv iade tam istisna yüklenilen kdv mahsup nakden ihraç kayıtlı kdvk 11 12",
-                         "cevap":  "Mal ve hizmet ihracı KDV'den tam istisnadır; ihracatçı işlemi KDV'siz yapar ama ihraç edilen mal/hizmet için yüklendiği KDV'yi iade alır (KDVK m.11-12). İade nakden veya vergi/prim borçlarına mahsuben istenir; belli tutarı aşan nakit iadelerde YMM raporu/teminat gerekebilir. İhraç kayıtlı teslimlerde imalatçı da tecil-terkin/iade mekanizmasından yararlanır. Detay için KDV İadesi rehberine bak.",
+                         "cevap":  "Mal ve hizmet ihracı KDV\u0027den tam istisnadır; ihracatçı işlemi KDV\u0027siz yapar ama ihraç edilen mal/hizmet için yüklendiği KDV\u0027yi iade alır (KDVK m.11-12). İade nakden veya vergi/prim borçlarına mahsuben istenir; belli tutarı aşan nakit iadelerde YMM raporu/teminat gerekebilir. İhraç kayıtlı teslimlerde imalatçı da tecil-terkin/iade mekanizmasından yararlanır. Detay için KDV İadesi rehberine bak.",
                          "kaynak":  "KDVK (3065 s.K.) m.11",
                          "arac":  "kdv-iade-rehberi.html"
                      },
@@ -2772,14 +2772,14 @@
                          "id":  "gelir-idaresi-ozelge",
                          "konu":  "Özelge (mukteza) nedir",
                          "anahtar":  "özelge mukteza görüş gib yazılı talep bağlayıcı mı ceza koruma vuk 413",
-                         "cevap":  "Özelge (mukteza), mükelleflerin vergi durumlarıyla ilgili tereddüt ettikleri konuda GİB'den yazılı görüş talep etmesidir (VUK m.413). Özelge sadece talep eden mükellefe ve o olaya özeldir, herkes için bağlayıcı değildir. Ancak özelgeye uygun işlem yapan mükellefe, sonradan aksi yönde tarhiyat yapılsa bile ceza kesilmez (görüşe güven korunur). Başkasına verilmiş özelgeye dayanmak risklidir — kendi durumun için özelge iste.",
+                         "cevap":  "Özelge (mukteza), mükelleflerin vergi durumlarıyla ilgili tereddüt ettikleri konuda GİB\u0027den yazılı görüş talep etmesidir (VUK m.413). Özelge sadece talep eden mükellefe ve o olaya özeldir, herkes için bağlayıcı değildir. Ancak özelgeye uygun işlem yapan mükellefe, sonradan aksi yönde tarhiyat yapılsa bile ceza kesilmez (görüşe güven korunur). Başkasına verilmiş özelgeye dayanmak risklidir — kendi durumun için özelge iste.",
                          "kaynak":  "VUK (213 s.K.) m.413"
                      },
                      {
                          "id":  "vergi-dava-sure",
                          "konu":  "Vergi mahkemesinde dava açma süresi",
                          "anahtar":  "vergi dava açma süre 30 gün mahkeme ihbarname tarhiyat itiraz iyuk 7",
-                         "cevap":  "Vergi/ceza ihbarnamesine veya ödeme emrine karşı vergi mahkemesinde dava, tebliğden itibaren 30 gün içinde açılır (İYUK m.7). Ödeme emrine karşı süre daha kısadır (15 gün — İİK/6183'e göre). Dava süresini kaçırmak hakkı düşürür. Uzlaşma talep edilmişse dava süresi işlemez/durur. Doğru kapıyı (uzlaşma/dava/indirim) seçmek için Ceza Asistanına bak.",
+                         "cevap":  "Vergi/ceza ihbarnamesine veya ödeme emrine karşı vergi mahkemesinde dava, tebliğden itibaren 30 gün içinde açılır (İYUK m.7). Ödeme emrine karşı süre daha kısadır (15 gün — İİK/6183\u0027e göre). Dava süresini kaçırmak hakkı düşürür. Uzlaşma talep edilmişse dava süresi işlemez/durur. Doğru kapıyı (uzlaşma/dava/indirim) seçmek için Ceza Asistanına bak.",
                          "kaynak":  "İYUK (2577 s.K.) m.7",
                          "arac":  "ceza-asistani.html"
                      },
@@ -2787,7 +2787,7 @@
                          "id":  "kontrol-yabanci-kurum",
                          "konu":  "Kontrol edilen yabancı kurum (CFC)",
                          "anahtar":  "kontrol edilen yabancı kurum cfc yurtdışı iştirak pasif gelir düşük vergi kvk 7",
-                         "cevap":  "Türkiye'de tam mükellef gerçek/tüzel kişilerin doğrudan/dolaylı olarak sermaye veya oy hakkının en az %50'sine sahip olduğu yurt dışı iştiraki, belli şartları (pasif karakterli gelir ağırlığı, düşük vergi yükü, belirli hasılat eşiği) taşıyorsa, dağıtılmasa bile kazancı Türkiye'de kurumlar vergisine tabi tutulur (KVK m.7). Amaç: kazancı düşük vergili ülkelerde tutarak vergiyi ertelemeyi önlemek.",
+                         "cevap":  "Türkiye\u0027de tam mükellef gerçek/tüzel kişilerin doğrudan/dolaylı olarak sermaye veya oy hakkının en az %50\u0027sine sahip olduğu yurt dışı iştiraki, belli şartları (pasif karakterli gelir ağırlığı, düşük vergi yükü, belirli hasılat eşiği) taşıyorsa, dağıtılmasa bile kazancı Türkiye\u0027de kurumlar vergisine tabi tutulur (KVK m.7). Amaç: kazancı düşük vergili ülkelerde tutarak vergiyi ertelemeyi önlemek.",
                          "kaynak":  "KVK (5520 s.K.) m.7"
                      },
                      {
@@ -2815,21 +2815,21 @@
                          "id":  "kkeg",
                          "konu":  "Kanunen kabul edilmeyen gider (KKEG)",
                          "anahtar":  "kkeg kanunen kabul edilmeyen gider ticari kar mali kar fark matrah ilave beyanname",
-                         "cevap":  "Muhasebede gider yazılan bazı harcamalar vergi kanunlarınca gider kabul edilmez (KKEG): ödenen vergi cezaları ve gecikme zamları, binek oto gider kısıtı, örtülü sermaye/kazanç, kanunen indirilemeyen KDV, bağış-yardım sınırı aşımı, bazı bağış ve temsil giderleri vb. KKEG'ler beyannamede ticari kâra eklenir (matrahı artırır). Yani muhasebe kârı ile vergi matrahı bu kalemlerle farklılaşır.",
+                         "cevap":  "Muhasebede gider yazılan bazı harcamalar vergi kanunlarınca gider kabul edilmez (KKEG): ödenen vergi cezaları ve gecikme zamları, binek oto gider kısıtı, örtülü sermaye/kazanç, kanunen indirilemeyen KDV, bağış-yardım sınırı aşımı, bazı bağış ve temsil giderleri vb. KKEG\u0027ler beyannamede ticari kâra eklenir (matrahı artırır). Yani muhasebe kârı ile vergi matrahı bu kalemlerle farklılaşır.",
                          "kaynak":  "KVK (5520 s.K.) m.11 · GVK (193 s.K.) m.41"
                      },
                      {
                          "id":  "zirai-kazanc",
                          "konu":  "Çiftçi / zirai kazanç vergisi",
                          "anahtar":  "zirai kazanç çiftçi tarım stopaj gerçek usul işletme büyüklüğü ölçü gvk 52 54",
-                         "cevap":  "Zirai faaliyette bulunan çiftçilerin kazancı zirai kazançtır. Çoğu çiftçi, işletme büyüklüğü ölçülerini aşmıyorsa gerçek usulde vergilenmez; ürün satışları sırasında yapılan stopaj nihai vergi olur (GVK m.52-54). Ölçüleri aşan veya biçerdöver/traktör gibi araçları belli sayıyı geçen çiftçiler gerçek usulde (zirai işletme hesabı/bilanço) vergilenir. Ölçüler için GVK ve GİB'e bak.",
+                         "cevap":  "Zirai faaliyette bulunan çiftçilerin kazancı zirai kazançtır. Çoğu çiftçi, işletme büyüklüğü ölçülerini aşmıyorsa gerçek usulde vergilenmez; ürün satışları sırasında yapılan stopaj nihai vergi olur (GVK m.52-54). Ölçüleri aşan veya biçerdöver/traktör gibi araçları belli sayıyı geçen çiftçiler gerçek usulde (zirai işletme hesabı/bilanço) vergilenir. Ölçüler için GVK ve GİB\u0027e bak.",
                          "kaynak":  "GVK (193 s.K.) m.54"
                      },
                      {
                          "id":  "sirket-birlesme-vergi",
                          "konu":  "Şirket birleşme/devir (vergisiz devir)",
                          "anahtar":  "şirket birleşme devir kurumlar vergisi istisna külli halefiyet zarar mahsup kvk 18 19 20",
-                         "cevap":  "Şirket birleşmeleri kural olarak vergiye tabi 'tasfiye' hükmündedir (KVK m.18); ancak kanundaki şartları taşıyan 'devir' işlemi vergisiz gerçekleşir: devralınan şirketin bilanço değerleriyle aynen devri ve devralanın yükümlülükleri üstlenmesi halinde birleşme kârı vergilenmez (KVK m.19-20). Belli şartlarla devralınan zararlar da mahsup edilebilir. Şartlar sıkıdır — planlamada dikkat.",
+                         "cevap":  "Şirket birleşmeleri kural olarak vergiye tabi \u0027tasfiye\u0027 hükmündedir (KVK m.18); ancak kanundaki şartları taşıyan \u0027devir\u0027 işlemi vergisiz gerçekleşir: devralınan şirketin bilanço değerleriyle aynen devri ve devralanın yükümlülükleri üstlenmesi halinde birleşme kârı vergilenmez (KVK m.19-20). Belli şartlarla devralınan zararlar da mahsup edilebilir. Şartlar sıkıdır — planlamada dikkat.",
                          "kaynak":  "KVK (5520 s.K.) m.19"
                      },
                      {
@@ -2850,7 +2850,7 @@
                          "id":  "bagimsiz-denetim-esik",
                          "konu":  "Bağımsız denetime tabi olma eşikleri",
                          "anahtar":  "bağımsız denetim eşik aktif hasılat çalışan sayısı şirket zorunlu ttk 397",
-                         "cevap":  "Şirketler, aktif büyüklüğü, yıllık net satış hasılatı ve çalışan sayısı ölçütlerinden en az ikisini üst üste iki yıl aşarsa bağımsız denetime tabi olur (TTK m.397 ve Cumhurbaşkanı kararıyla belirlenen eşikler). Ayrıca sektörel (bankacılık, sermaye piyasası vb.) zorunluluklar vardır. Eşikler dönem dönem düşürülür — güncel rakamlar için ilgili karara/KGK'ya bak.",
+                         "cevap":  "Şirketler, aktif büyüklüğü, yıllık net satış hasılatı ve çalışan sayısı ölçütlerinden en az ikisini üst üste iki yıl aşarsa bağımsız denetime tabi olur (TTK m.397 ve Cumhurbaşkanı kararıyla belirlenen eşikler). Ayrıca sektörel (bankacılık, sermaye piyasası vb.) zorunluluklar vardır. Eşikler dönem dönem düşürülür — güncel rakamlar için ilgili karara/KGK\u0027ya bak.",
                          "kaynak":  "TTK (6102 s.K.) m.397"
                      },
                      {
@@ -2864,7 +2864,7 @@
                          "id":  "e-defter-berat",
                          "konu":  "e-Defter ve berat yükleme",
                          "anahtar":  "e-defter berat yükleme süre gib imza aylık üç aylık ferdi vuk 509",
-                         "cevap":  "e-Defter tutan mükellefler, yevmiye ve defter-i kebir kayıtlarını elektronik ortamda oluşturur ve her döneme ait 'berat' dosyasını GİB sistemine yükler (VUK 509 ve e-Defter tebliğleri). Beratlar kanıtlayıcı niteliktedir; yüklenmezse defterler tasdiksiz sayılır ve cezaya yol açar. Berat yükleme süreleri (aylık/üç aylık seçeneği) idari düzenlemeyle belirlenir — güncel takvimi GİB'den teyit et.",
+                         "cevap":  "e-Defter tutan mükellefler, yevmiye ve defter-i kebir kayıtlarını elektronik ortamda oluşturur ve her döneme ait \u0027berat\u0027 dosyasını GİB sistemine yükler (VUK 509 ve e-Defter tebliğleri). Beratlar kanıtlayıcı niteliktedir; yüklenmezse defterler tasdiksiz sayılır ve cezaya yol açar. Berat yükleme süreleri (aylık/üç aylık seçeneği) idari düzenlemeyle belirlenir — güncel takvimi GİB\u0027den teyit et.",
                          "kaynak":  "VUK 509 Sıra No.lu Genel Tebliğ",
                          "arac":  "hatirlatici.html"
                      },
@@ -2893,7 +2893,7 @@
                          "id":  "belirli-sureli-sozlesme",
                          "konu":  "Belirli süreli iş sözleşmesi",
                          "anahtar":  "belirli süreli iş sözleşmesi objektif neden zincirleme yenileme belirsiz süreliye dönüşme is kanunu 11 12",
-                         "cevap":  "Belirli süreli iş sözleşmesi ancak işin belirli süreli olması, belli bir işin tamamlanması gibi OBJEKTİF bir nedene dayanıyorsa yapılabilir (İş K. m.11). Esaslı neden olmadıkça üst üste (zincirleme) yapılamaz; yapılırsa baştan itibaren belirsiz süreli sayılır. Belirli süreli çalışan, ayrımı haklı kılan neden yoksa emsal belirsiz süreli çalışandan farklı işleme tabi tutulamaz (m.12). Yani 'herkesle 1 yıllık sözleşme imzalayalım' uygulaması hukuken belirsiz süreliye dönüşür.",
+                         "cevap":  "Belirli süreli iş sözleşmesi ancak işin belirli süreli olması, belli bir işin tamamlanması gibi OBJEKTİF bir nedene dayanıyorsa yapılabilir (İş K. m.11). Esaslı neden olmadıkça üst üste (zincirleme) yapılamaz; yapılırsa baştan itibaren belirsiz süreli sayılır. Belirli süreli çalışan, ayrımı haklı kılan neden yoksa emsal belirsiz süreli çalışandan farklı işleme tabi tutulamaz (m.12). Yani \u0027herkesle 1 yıllık sözleşme imzalayalım\u0027 uygulaması hukuken belirsiz süreliye dönüşür.",
                          "kaynak":  "İş K. (4857 s.K.) m.11-12"
                      },
                      {
@@ -2907,35 +2907,35 @@
                          "id":  "huzur-hakki",
                          "konu":  "Huzur hakkı (yönetim kurulu ücreti)",
                          "anahtar":  "huzur hakkı yönetim kurulu üyesi ücret genel kurul kararı stopaj ttk 394 gvk 61",
-                         "cevap":  "Anonim şirkette yönetim kurulu üyelerine huzur hakkı, ücret, ikramiye veya prim ödenebilmesi için tutarın ESAS SÖZLEŞMEYLE veya GENEL KURUL KARARIYLA belirlenmiş olması şarttır (TTK m.394) — karar yoksa ödeme yapılamaz. Vergi yönünden huzur hakkı ÜCRET sayılır (GVK m.61) ve gelir vergisi stopajına tabidir; şirket için gider yazılır. SGK yönü kişinin statüsüne göre değişir (şirket ortağı yönetim kurulu üyesi zaten 4/b'lidir) — özel durumda SGK'ya danış.",
+                         "cevap":  "Anonim şirkette yönetim kurulu üyelerine huzur hakkı, ücret, ikramiye veya prim ödenebilmesi için tutarın ESAS SÖZLEŞMEYLE veya GENEL KURUL KARARIYLA belirlenmiş olması şarttır (TTK m.394) — karar yoksa ödeme yapılamaz. Vergi yönünden huzur hakkı ÜCRET sayılır (GVK m.61) ve gelir vergisi stopajına tabidir; şirket için gider yazılır. SGK yönü kişinin statüsüne göre değişir (şirket ortağı yönetim kurulu üyesi zaten 4/b\u0027lidir) — özel durumda SGK\u0027ya danış.",
                          "kaynak":  "TTK (6102 s.K.) m.394 · GVK (193 s.K.) m.61"
                      },
                      {
                          "id":  "engelli-indirimi",
                          "konu":  "Engellilik indirimi (ücrette)",
                          "anahtar":  "engelli indirimi ücret matrah derece çalışma gücü kaybı vergi indirimi gvk 31",
-                         "cevap":  "Engelli çalışanın ücret matrahından aylık engellilik indirimi düşülür (GVK m.31). Dereceler kanunda sabittir: çalışma gücünün en az %80'ini kaybeden 1. derece, en az %60'ını kaybeden 2. derece, en az %40'ını kaybeden 3. derece sayılır. İndirim TUTARLARI her yıl yeniden belirlenir — güncel tutar için GİB'e bak. İndirimden yararlanmak için merkez sağlık kurulu raporu süreci gerekir; serbest meslek erbabı ve basit usul mükellefi de belli şartlarla yararlanır.",
+                         "cevap":  "Engelli çalışanın ücret matrahından aylık engellilik indirimi düşülür (GVK m.31). Dereceler kanunda sabittir: çalışma gücünün en az %80\u0027ini kaybeden 1. derece, en az %60\u0027ını kaybeden 2. derece, en az %40\u0027ını kaybeden 3. derece sayılır. İndirim TUTARLARI her yıl yeniden belirlenir — güncel tutar için GİB\u0027e bak. İndirimden yararlanmak için merkez sağlık kurulu raporu süreci gerekir; serbest meslek erbabı ve basit usul mükellefi de belli şartlarla yararlanır.",
                          "kaynak":  "GVK (193 s.K.) m.31"
                      },
                      {
                          "id":  "isten-cikis-kodu",
                          "konu":  "SGK işten çıkış kodu ve işsizlik maaşı",
                          "anahtar":  "işten çıkış kodu sgk ayrılış bildirgesi işsizlik maaşı işkur kod seçimi düzeltme",
-                         "cevap":  "SGK işten ayrılış bildirgesindeki çıkış kodu, işçinin İŞSİZLİK ÖDENEĞİ alıp alamayacağını belirler: işsizlik maaşı kural olarak kendi istek ve kusuru DIŞINDA işsiz kalanlara ödenir (4447 s.K. m.51). Örneğin işveren feshi kodları genelde hak doğurur; sade istifa doğurmaz. Yanlış kod işçinin maaş hakkını yakar; kod düzeltmesi işverenin SGK'ya başvurusuyla yapılır. Kod seçerken fesih yazısındaki gerekçeyle bildirgedeki kodun tutarlı olmasına dikkat et — uyumsuzluk hem İŞKUR hem dava aşamasında sorun çıkarır.",
+                         "cevap":  "SGK işten ayrılış bildirgesindeki çıkış kodu, işçinin İŞSİZLİK ÖDENEĞİ alıp alamayacağını belirler: işsizlik maaşı kural olarak kendi istek ve kusuru DIŞINDA işsiz kalanlara ödenir (4447 s.K. m.51). Örneğin işveren feshi kodları genelde hak doğurur; sade istifa doğurmaz. Yanlış kod işçinin maaş hakkını yakar; kod düzeltmesi işverenin SGK\u0027ya başvurusuyla yapılır. Kod seçerken fesih yazısındaki gerekçeyle bildirgedeki kodun tutarlı olmasına dikkat et — uyumsuzluk hem İŞKUR hem dava aşamasında sorun çıkarır.",
                          "kaynak":  "4447 s.K. m.51"
                      },
                      {
                          "id":  "sahis-sigorta-indirimi",
                          "konu":  "Şahıs sigortası primi ücret matrahından indirim",
                          "anahtar":  "şahıs sigorta primi hayat sigortası sağlık sigortası ücret matrah indirim yüzde 15 gvk 63",
-                         "cevap":  "Çalışanın kendisi, eşi ve küçük çocuklarına ait şahıs sigortası primleri (sağlık, hastalık vb. tamamı; HAYAT sigortasında ödenen primin %50'si) ücret matrahından indirilir (GVK m.63). Sınır kanunda sabittir: indirilecek toplam prim, ücretlinin AYLIK BRÜT ÜCRETİNİN %15'ini ve YILLIK olarak asgari ücretin yıllık tutarını aşamaz. BES katkı payları ise matrahtan İNDİRİLMEZ — onun teşviki ayrıdır (devlet katkısı sistemi, 4632 s.K.).",
+                         "cevap":  "Çalışanın kendisi, eşi ve küçük çocuklarına ait şahıs sigortası primleri (sağlık, hastalık vb. tamamı; HAYAT sigortasında ödenen primin %50\u0027si) ücret matrahından indirilir (GVK m.63). Sınır kanunda sabittir: indirilecek toplam prim, ücretlinin AYLIK BRÜT ÜCRETİNİN %15\u0027ini ve YILLIK olarak asgari ücretin yıllık tutarını aşamaz. BES katkı payları ise matrahtan İNDİRİLMEZ — onun teşviki ayrıdır (devlet katkısı sistemi, 4632 s.K.).",
                          "kaynak":  "GVK (193 s.K.) m.63"
                      },
                      {
                          "id":  "ikale-sozlesmesi",
                          "konu":  "İkale (karşılıklı anlaşmayla fesih)",
                          "anahtar":  "ikale bozma sözleşmesi karşılıklı anlaşma fesih işsizlik maaşı makul yarar tazminat vergi",
-                         "cevap":  "İkale, iş sözleşmesinin işçi ve işverenin KARŞILIKLI ANLAŞMASIYLA sona erdirilmesidir; teknik olarak fesih değildir. Bu yüzden ikaleyle ayrılan işçi kural olarak İŞSİZLİK ÖDENEĞİ alamaz (4447 m.51 fesih hallerini arar). Yargı, ikalenin geçerliliği için işçiye 'makul yarar' (yasal hakların ÜZERİNE ek menfaat) sağlanmasını arar; bu yüzden pratikte ikale paketine ek ödeme konur. Vergi yönünden ikale kapsamında ödenen tazminatlar ücret kapsamındadır; kıdem tazminatı tavanına kadar olan kısım istisnadır (GVK m.25/7). İkale metnini imzalatmadan önce iki taraf da sonuçlarını bilmeli.",
+                         "cevap":  "İkale, iş sözleşmesinin işçi ve işverenin KARŞILIKLI ANLAŞMASIYLA sona erdirilmesidir; teknik olarak fesih değildir. Bu yüzden ikaleyle ayrılan işçi kural olarak İŞSİZLİK ÖDENEĞİ alamaz (4447 m.51 fesih hallerini arar). Yargı, ikalenin geçerliliği için işçiye \u0027makul yarar\u0027 (yasal hakların ÜZERİNE ek menfaat) sağlanmasını arar; bu yüzden pratikte ikale paketine ek ödeme konur. Vergi yönünden ikale kapsamında ödenen tazminatlar ücret kapsamındadır; kıdem tazminatı tavanına kadar olan kısım istisnadır (GVK m.25/7). İkale metnini imzalatmadan önce iki taraf da sonuçlarını bilmeli.",
                          "kaynak":  "GVK (193 s.K.) m.25/7 · 4447 s.K. m.51"
                      },
                      {
@@ -2949,49 +2949,49 @@
                          "id":  "limited-mudur",
                          "konu":  "Limited şirkette müdür ve sorumluluğu",
                          "anahtar":  "limited şirket müdür ortak temsil yetki kanuni temsilci vergi borcu sorumluluk ttk 623",
-                         "cevap":  "Limited şirkette yönetim ve temsil müdürlere aittir ve EN AZ BİR ORTAĞIN şirketi yönetim hakkının ve temsil yetkisinin bulunması zorunludur (TTK m.623); dışarıdan (ortak olmayan) müdür de atanabilir. Kritik nokta sorumluluk: müdür, şirketin KANUNİ TEMSİLCİSİ olduğundan, şirketten tahsil edilemeyen vergi ve SGK borçlarından şahsi malvarlığıyla sorumlu tutulabilir (AATUHK mük. m.35). Yani 'kağıt üstünde müdürlük' kabul etmeden önce bu riski bil.",
+                         "cevap":  "Limited şirkette yönetim ve temsil müdürlere aittir ve EN AZ BİR ORTAĞIN şirketi yönetim hakkının ve temsil yetkisinin bulunması zorunludur (TTK m.623); dışarıdan (ortak olmayan) müdür de atanabilir. Kritik nokta sorumluluk: müdür, şirketin KANUNİ TEMSİLCİSİ olduğundan, şirketten tahsil edilemeyen vergi ve SGK borçlarından şahsi malvarlığıyla sorumlu tutulabilir (AATUHK mük. m.35). Yani \u0027kağıt üstünde müdürlük\u0027 kabul etmeden önce bu riski bil.",
                          "kaynak":  "TTK (6102 s.K.) m.623 · AATUHK (6183 s.K.) mük. m.35"
                      },
                      {
                          "id":  "vergi-mahremiyeti",
                          "konu":  "Vergi mahremiyeti",
                          "anahtar":  "vergi mahremiyeti gizlilik mükellef bilgisi ifşa yasak ceza vuk 5",
-                         "cevap":  "Vergi işlemlerinde görev alanlar (memurlar, bilirkişiler, komisyon üyeleri), mükellefin ve mükellefle ilgili kişilerin servet, kazanç ve işlerine ilişkin öğrendikleri sırları AÇIKLAYAMAZ (VUK m.5). İhlalin cezası hapistir (VUK m.362 → TCK m.239'a atıf). Kanunun kendisi bazı istisnalar sayar: vergi levhası asma, kesinleşmiş vergi ve ceza borçlarının idarece ilanı gibi. Yani devlete verdiğin bilgi kural olarak sır; ama kesinleşmiş borç listesi ilan edilebilir.",
+                         "cevap":  "Vergi işlemlerinde görev alanlar (memurlar, bilirkişiler, komisyon üyeleri), mükellefin ve mükellefle ilgili kişilerin servet, kazanç ve işlerine ilişkin öğrendikleri sırları AÇIKLAYAMAZ (VUK m.5). İhlalin cezası hapistir (VUK m.362 → TCK m.239\u0027a atıf). Kanunun kendisi bazı istisnalar sayar: vergi levhası asma, kesinleşmiş vergi ve ceza borçlarının idarece ilanı gibi. Yani devlete verdiğin bilgi kural olarak sır; ama kesinleşmiş borç listesi ilan edilebilir.",
                          "kaynak":  "VUK (213 s.K.) m.5"
                      },
                      {
                          "id":  "cevre-temizlik-vergisi",
                          "konu":  "Çevre temizlik vergisi (ÇTV)",
                          "anahtar":  "çevre temizlik vergisi çtv işyeri belediye su faturası tarife 2464",
-                         "cevap":  "Çevre temizlik vergisini belediye sınırları içindeki İŞYERLERİ, belediyeye yıllık tarife üzerinden öder (2464 s. Belediye Gelirleri K. mük. m.44); KONUTLARDA ise vergi su faturasının içinde su tüketimiyle birlikte tahsil edilir — ayrıca ödeme yapılmaz. İşyeri ÇTV'si iki eşit taksitte (emlak vergisi taksit dönemlerinde) ödenir. Tutarlar bina grubuna/dereceye göre tarifelidir ve her yıl değişir — güncel tutarı belediyenden veya tarife cetvelinden öğren.",
+                         "cevap":  "Çevre temizlik vergisini belediye sınırları içindeki İŞYERLERİ, belediyeye yıllık tarife üzerinden öder (2464 s. Belediye Gelirleri K. mük. m.44); KONUTLARDA ise vergi su faturasının içinde su tüketimiyle birlikte tahsil edilir — ayrıca ödeme yapılmaz. İşyeri ÇTV\u0027si iki eşit taksitte (emlak vergisi taksit dönemlerinde) ödenir. Tutarlar bina grubuna/dereceye göre tarifelidir ve her yıl değişir — güncel tutarı belediyenden veya tarife cetvelinden öğren.",
                          "kaynak":  "Belediye Gelirleri K. (2464 s.K.) mük. m.44"
                      },
                      {
                          "id":  "sgk-tesvik-sartlari",
                          "konu":  "SGK prim teşviklerinden yararlanma şartları",
                          "anahtar":  "sgk teşvik prim indirimi şart borcu yok bildirge zamanında kayıt dışı e-sgk sorgulama",
-                         "cevap":  "SGK prim teşviklerinin (prim indirimleri, ilave istihdam destekleri vb.) ortak giriş biletleri şunlardır: SGK'ya prim/idari para cezası borcu bulunmamak (veya yapılandırmış olmak), aylık prim ve hizmet belgelerini/muhtasar-prim beyannamesini SÜRESİNDE vermek ve primleri süresinde ödemek, KAYIT DIŞI işçi çalıştırmamak. Hangi teşvik hangi işçin için uygundur — bunu e-SGK'daki teşvik sorgulama ekranı işçi bazında gösterir; teşvik türleri ve oranları dönem dönem değiştiği için güncel listeyi oradan teyit et.",
+                         "cevap":  "SGK prim teşviklerinin (prim indirimleri, ilave istihdam destekleri vb.) ortak giriş biletleri şunlardır: SGK\u0027ya prim/idari para cezası borcu bulunmamak (veya yapılandırmış olmak), aylık prim ve hizmet belgelerini/muhtasar-prim beyannamesini SÜRESİNDE vermek ve primleri süresinde ödemek, KAYIT DIŞI işçi çalıştırmamak. Hangi teşvik hangi işçin için uygundur — bunu e-SGK\u0027daki teşvik sorgulama ekranı işçi bazında gösterir; teşvik türleri ve oranları dönem dönem değiştiği için güncel listeyi oradan teyit et.",
                          "kaynak":  "5510 s.K. m.81 vd. · e-SGK teşvik ekranları"
                      },
                      {
                          "id":  "ihracat-bedeli",
                          "konu":  "İhracat bedelinin yurda getirilmesi",
                          "anahtar":  "ihracat bedeli yurda getirme 180 gün döviz tcmb bankaya satış ibkb",
-                         "cevap":  "İhracat bedellerinin, fiili ihraç tarihinden itibaren 180 GÜN içinde yurda getirilmesi zorunludur (TCMB İhracat Genelgesi; dayanak 32 sayılı TPKK Kararı). Getirilen bedelin bir bölümünün bankaya/TCMB'ye satışı yönünde dönemsel zorunluluklar uygulanmaktadır — bu oran zaman içinde değiştirildiği için güncel oranı bankandan veya TCMB genelgesinden teyit et. Bedel getirme yükümlülüğü ülke ve tutar bazında istisnalar da içerir; ihracatçıysan genelgenin istisna listesine mutlaka bak.",
+                         "cevap":  "İhracat bedellerinin, fiili ihraç tarihinden itibaren 180 GÜN içinde yurda getirilmesi zorunludur (TCMB İhracat Genelgesi; dayanak 32 sayılı TPKK Kararı). Getirilen bedelin bir bölümünün bankaya/TCMB\u0027ye satışı yönünde dönemsel zorunluluklar uygulanmaktadır — bu oran zaman içinde değiştirildiği için güncel oranı bankandan veya TCMB genelgesinden teyit et. Bedel getirme yükümlülüğü ülke ve tutar bazında istisnalar da içerir; ihracatçıysan genelgenin istisna listesine mutlaka bak.",
                          "kaynak":  "TCMB İhracat Genelgesi · 32 sayılı TPKK Kararı"
                      },
                      {
                          "id":  "arizi-kazanc",
                          "konu":  "Arızi (tek seferlik) kazanç",
                          "anahtar":  "arızi kazanç tek seferlik ticari iş süreklilik istisna beyan gvk 82",
-                         "cevap":  "Süreklilik göstermeyen, tek seferlik faaliyetlerden elde edilen kazançlar 'arızi kazanç'tır (GVK m.82): arada bir yapılan ticari iş, işin bırakılması karşılığı alınan paralar, arızi serbest meslek işleri gibi. Bu kazançların yıllık İSTİSNA tutarı vardır; istisnayı aşan kısım beyan edilir. İstisna tutarı her yıl güncellenir — güncel rakam için GİB'e bak. Faaliyet SÜREKLİLİK kazanırsa (tekrarlanırsa) arızi olmaktan çıkar, mükellefiyet gerekir — sınır tam burasıdır.",
+                         "cevap":  "Süreklilik göstermeyen, tek seferlik faaliyetlerden elde edilen kazançlar \u0027arızi kazanç\u0027tır (GVK m.82): arada bir yapılan ticari iş, işin bırakılması karşılığı alınan paralar, arızi serbest meslek işleri gibi. Bu kazançların yıllık İSTİSNA tutarı vardır; istisnayı aşan kısım beyan edilir. İstisna tutarı her yıl güncellenir — güncel rakam için GİB\u0027e bak. Faaliyet SÜREKLİLİK kazanırsa (tekrarlanırsa) arızi olmaktan çıkar, mükellefiyet gerekir — sınır tam burasıdır.",
                          "kaynak":  "GVK (193 s.K.) m.82"
                      },
                      {
                          "id":  "telif-istisnasi",
                          "konu":  "Telif kazançları istisnası (GVK m.18)",
                          "anahtar":  "telif istisna yazar çizer besteci yazılımcı program eser stopaj serbest meslek gvk 18",
-                         "cevap":  "Müellif, mütercim, heykeltıraş, ressam, besteci, BİLGİSAYAR PROGRAMCISI gibi kişilerin; şiir, kitap, makale, program, film, beste gibi ESERLERİNİ satmasından/devretmesinden doğan hasılat gelir vergisinden istisnadır (GVK m.18); vergileme yalnız stopajla biter, defter-beyanname gerekmez. İKİ SINIR var: (1) eser niteliği taşımalı (5846 s. FSEK kapsamında), (2) yıllık kazanç, gelir vergisi tarifesinin dördüncü dilimindeki tutarı aşarsa istisna kalkar ve beyanname gerekir — o eşiğin güncel tutarına GİB'den bak.",
+                         "cevap":  "Müellif, mütercim, heykeltıraş, ressam, besteci, BİLGİSAYAR PROGRAMCISI gibi kişilerin; şiir, kitap, makale, program, film, beste gibi ESERLERİNİ satmasından/devretmesinden doğan hasılat gelir vergisinden istisnadır (GVK m.18); vergileme yalnız stopajla biter, defter-beyanname gerekmez. İKİ SINIR var: (1) eser niteliği taşımalı (5846 s. FSEK kapsamında), (2) yıllık kazanç, gelir vergisi tarifesinin dördüncü dilimindeki tutarı aşarsa istisna kalkar ve beyanname gerekir — o eşiğin güncel tutarına GİB\u0027den bak.",
                          "kaynak":  "GVK (193 s.K.) m.18"
                      },
                      {
@@ -3005,7 +3005,7 @@
                          "id":  "kdv-ozel-esaslar",
                          "konu":  "KDV özel esaslar (kod listesi)",
                          "anahtar":  "özel esaslar kod listesi sahte belge riskli mükellef kdv iade olumsuz rapor gut",
-                         "cevap":  "Sahte belge düzenleme/kullanma raporu veya tespiti bulunan mükellefler ile bunlardan mal alanlar, KDV iadesinde 'özel esaslara' alınır (KDV GUT IV. bölüm): iadeleri ancak teminat, inceleme veya YMM raporu gibi sıkı şartlarla yerine getirilir. Halk arasında 'koda girmek' denir. Özel esaslardan çıkış; olumsuzluğun düzeltilmesi, yargı kararı veya belirli süre şartlarıyla mümkündür. Tedarikçini tanı — senin iaden, onun sahte faturasına rehin kalabilir.",
+                         "cevap":  "Sahte belge düzenleme/kullanma raporu veya tespiti bulunan mükellefler ile bunlardan mal alanlar, KDV iadesinde \u0027özel esaslara\u0027 alınır (KDV GUT IV. bölüm): iadeleri ancak teminat, inceleme veya YMM raporu gibi sıkı şartlarla yerine getirilir. Halk arasında \u0027koda girmek\u0027 denir. Özel esaslardan çıkış; olumsuzluğun düzeltilmesi, yargı kararı veya belirli süre şartlarıyla mümkündür. Tedarikçini tanı — senin iaden, onun sahte faturasına rehin kalabilir.",
                          "kaynak":  "KDV GUT (IV — özel esaslar bölümü)"
                      },
                      {
@@ -3019,7 +3019,7 @@
                          "id":  "mustahsil-makbuzu",
                          "konu":  "Müstahsil makbuzu",
                          "anahtar":  "müstahsil makbuzu çiftçi alım defter tutmayan stopaj belge vuk 235",
-                         "cevap":  "Defter tutmayan çiftçiden ürün alan tacir ve defter tutan çiftçiler, alım sırasında MÜSTAHSİL MAKBUZU düzenlemek zorundadır (VUK m.235); makbuz iki nüsha olur, biri çiftçiye verilir ve fatura yerine geçer. Ödeme sırasında zirai stopaj kesilir (oranlar ürüne ve borsaya tesciline göre değişir — güncel oranlar için GİB'e bak). e-Müstahsil makbuzu uygulaması kapsama giren mükellefler için zorunludur.",
+                         "cevap":  "Defter tutmayan çiftçiden ürün alan tacir ve defter tutan çiftçiler, alım sırasında MÜSTAHSİL MAKBUZU düzenlemek zorundadır (VUK m.235); makbuz iki nüsha olur, biri çiftçiye verilir ve fatura yerine geçer. Ödeme sırasında zirai stopaj kesilir (oranlar ürüne ve borsaya tesciline göre değişir — güncel oranlar için GİB\u0027e bak). e-Müstahsil makbuzu uygulaması kapsama giren mükellefler için zorunludur.",
                          "kaynak":  "VUK (213 s.K.) m.235"
                      },
                      {
@@ -3033,36 +3033,76 @@
                          "id":  "gayrimenkul-deger-artis",
                          "konu":  "Gayrimenkul satışında 5 yıl kuralı (değer artış kazancı)",
                          "anahtar":  "gayrimenkul konut satış beş yıl değer artış kazancı vergisiz endeksleme gvk mük 80",
-                         "cevap":  "Gerçek kişinin satın aldığı gayrimenkulü İKTİSAP TARİHİNDEN İTİBAREN 5 YIL İÇİNDE satmasından doğan kazanç 'değer artış kazancı' olarak vergilenir (GVK mük. m.80); 5 yıl DOLDUKTAN sonra satış vergisizdir. Miras veya bağışla edinilen gayrimenkulün satışı süreye bakılmaksızın bu verginin dışındadır. Kazanç hesabında alış bedeli enflasyonla endekslenir ve yıllık istisna tutarı düşülür (güncel istisna için GİB'e bak). Süre tapu tescil tarihinden işler — gün hesabı kritik.",
+                         "cevap":  "Gerçek kişinin satın aldığı gayrimenkulü İKTİSAP TARİHİNDEN İTİBAREN 5 YIL İÇİNDE satmasından doğan kazanç \u0027değer artış kazancı\u0027 olarak vergilenir (GVK mük. m.80); 5 yıl DOLDUKTAN sonra satış vergisizdir. Miras veya bağışla edinilen gayrimenkulün satışı süreye bakılmaksızın bu verginin dışındadır. Kazanç hesabında alış bedeli enflasyonla endekslenir ve yıllık istisna tutarı düşülür (güncel istisna için GİB\u0027e bak). Süre tapu tescil tarihinden işler — gün hesabı kritik.",
                          "kaynak":  "GVK (193 s.K.) mük. m.80"
                      },
                      {
                          "id":  "veraset-beyan",
                          "konu":  "Veraset ve intikal vergisi beyan süreleri",
                          "anahtar":  "veraset intikal beyanname süre dört ay ölüm miras taksit mayıs kasım",
-                         "cevap":  "Ölüm Türkiye'de gerçekleşmiş ve mükellefler Türkiye'deyse veraset beyannamesi ölüm tarihinden itibaren 4 AY içinde verilir; ölüm yurt dışında ya da mükellef yurt dışındaysa süre 6 aya uzar (VİVK m.9). Vergi, tahakkuktan itibaren 3 YILDA, her yıl MAYIS ve KASIM aylarında iki eşit taksitle ödenir (m.19). İstisna tutarları (eş-çocuk payları) her yıl güncellenir — güncel rakam için GİB'e bak. Banka hesaplarının çözülmesi için ilişik kesme belgesi bu sürecin sonunda alınır.",
+                         "cevap":  "Ölüm Türkiye\u0027de gerçekleşmiş ve mükellefler Türkiye\u0027deyse veraset beyannamesi ölüm tarihinden itibaren 4 AY içinde verilir; ölüm yurt dışında ya da mükellef yurt dışındaysa süre 6 aya uzar (VİVK m.9). Vergi, tahakkuktan itibaren 3 YILDA, her yıl MAYIS ve KASIM aylarında iki eşit taksitle ödenir (m.19). İstisna tutarları (eş-çocuk payları) her yıl güncellenir — güncel rakam için GİB\u0027e bak. Banka hesaplarının çözülmesi için ilişik kesme belgesi bu sürecin sonunda alınır.",
                          "kaynak":  "VİVK (7338 s.K.) m.9, m.19"
                      },
                      {
                          "id":  "ise-giris-bildirim",
                          "konu":  "İşe giriş bildirgesi ne zaman verilir",
                          "anahtar":  "işe giriş bildirgesi sigortalı çalışmaya başlamadan önce aynı gün inşaat istisna 5510",
-                         "cevap":  "Sigortalı işe giriş bildirgesi kural olarak çalışan İŞE BAŞLAMADAN ÖNCE SGK'ya verilmek zorundadır (5510 s.K. m.8) — 'akşam işe aldım, sabah bildiririm' cezalıdır. Kanunda sayılı istisnalar vardır: inşaat, balıkçılık ve tarım işyerlerinde işe başlatılan sigortalı EN GEÇ ÇALIŞMAYA BAŞLADIĞI GÜN bildirilebilir; ilk defa işyeri açanlarda ilk ay içinde alınan işçiler için de esneklik tanınır. Geç bildirimin yaptırımı sigortalı başına idari para cezasıdır.",
+                         "cevap":  "Sigortalı işe giriş bildirgesi kural olarak çalışan İŞE BAŞLAMADAN ÖNCE SGK\u0027ya verilmek zorundadır (5510 s.K. m.8) — \u0027akşam işe aldım, sabah bildiririm\u0027 cezalıdır. Kanunda sayılı istisnalar vardır: inşaat, balıkçılık ve tarım işyerlerinde işe başlatılan sigortalı EN GEÇ ÇALIŞMAYA BAŞLADIĞI GÜN bildirilebilir; ilk defa işyeri açanlarda ilk ay içinde alınan işçiler için de esneklik tanınır. Geç bildirimin yaptırımı sigortalı başına idari para cezasıdır.",
                          "kaynak":  "5510 s.K. m.8"
                      },
                      {
                          "id":  "yansitma-faturasi",
                          "konu":  "Yansıtma (masraf aktarım) faturası",
                          "anahtar":  "yansıtma fatura masraf aktarımı kdv birebir aktarma damga ceza yansıtma",
-                         "cevap":  "Başkası adına ödediğin bir masrafı gerçek sahibine aktarmak için YANSITMA FATURASI kesilir; amaç kazanç değil masrafın birebir devri olduğundan kâr eklenmez. KDV kuralı masrafın niteliğine bağlıdır: aslı KDV'ye TABİ bir masraf yansıtılıyorsa fatura KDV'li; aslı KDV'nin konusuna girmeyen bir kalem (vergi cezası, damga vergisi gibi) yansıtılıyorsa KDV hesaplanmaz (özelgelerle yerleşik uygulama). Yansıtmaya masraf dışında bedel eklenirse eklenen kısım hizmet sayılır ve KDV'ye tabi olur.",
+                         "cevap":  "Başkası adına ödediğin bir masrafı gerçek sahibine aktarmak için YANSITMA FATURASI kesilir; amaç kazanç değil masrafın birebir devri olduğundan kâr eklenmez. KDV kuralı masrafın niteliğine bağlıdır: aslı KDV\u0027ye TABİ bir masraf yansıtılıyorsa fatura KDV\u0027li; aslı KDV\u0027nin konusuna girmeyen bir kalem (vergi cezası, damga vergisi gibi) yansıtılıyorsa KDV hesaplanmaz (özelgelerle yerleşik uygulama). Yansıtmaya masraf dışında bedel eklenirse eklenen kısım hizmet sayılır ve KDV\u0027ye tabi olur.",
                          "kaynak":  "KDVK (3065 s.K.) m.1 · GİB özelge uygulaması"
                      },
                      {
                          "id":  "avans-kar-payi",
                          "konu":  "Avans kâr payı dağıtımı",
                          "anahtar":  "avans kar payı temettü avansı ara dönem finansal tablo genel kurul stopaj",
-                         "cevap":  "Şirketler, yıl sonunu beklemeden ARA DÖNEM finansal tablolarındaki kâra dayanarak AVANS KÂR PAYI dağıtabilir; bunun için genel kurulun avans dağıtımına yetki veren kararı gerekir ve dağıtım Kâr Payı Avansı Tebliği'ndeki hesaplama sınırlarına tabidir. Avans ödemesi de normal kâr dağıtımı gibi stopaja tabidir. Yıl sonunda kâr, dağıtılan avansı karşılamazsa fark ortaklardan geri istenir — bu yüzden temkinli hesaplanmalıdır.",
+                         "cevap":  "Şirketler, yıl sonunu beklemeden ARA DÖNEM finansal tablolarındaki kâra dayanarak AVANS KÂR PAYI dağıtabilir; bunun için genel kurulun avans dağıtımına yetki veren kararı gerekir ve dağıtım Kâr Payı Avansı Tebliği\u0027ndeki hesaplama sınırlarına tabidir. Avans ödemesi de normal kâr dağıtımı gibi stopaja tabidir. Yıl sonunda kâr, dağıtılan avansı karşılamazsa fark ortaklardan geri istenir — bu yüzden temkinli hesaplanmalıdır.",
                          "kaynak":  "TTK (6102 s.K.) m.509 · Kâr Payı Avansı Tebliği"
+                     },
+                     {
+                         "id":  "devreden-kdv-nedir-iade-alinir-mi",
+                         "konu":  "Devreden KDV nedir, iade alınır mı",
+                         "anahtar":  "devreden kdv sonraki döneme aktarma indirim iade",
+                         "cevap":  "Bir dönemde hesapladığınız KDV, o dönem indirebileceğiniz KDV\u0027den az kalırsa aradaki fark bir sonraki aya \u0027devreden KDV\u0027 (henüz mahsup edilememiş indirim tutarı) olarak taşınır. Bu tutar kural olarak nakden iade edilmez, yalnızca sonraki dönemlerde hesaplanan KDV\u0027den düşülür. İhracat, tevkifat, indirimli oranlı teslim gibi kanunda sayılan istisna işlemlerden kaynaklanan kısım için ise iade istenebilir. Beyannamede devreden KDV ile iadeye konu kısım ayrı satırlarda gösterilir.",
+                         "kaynak":  "3065 KDVK m.29, KDVGUT III",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "kismi-kdv-tevkifati-hangi-islemlerde-uyg",
+                         "konu":  "Kısmi KDV tevkifatı hangi işlemlerde uygulanır",
+                         "anahtar":  "kısmi tevkifat hizmet teslim listesi kapsam",
+                         "cevap":  "Kısmi tevkifat (KDV\u0027nin bir kısmının alıcı tarafından kesilip vergi dairesine yatırılması), Tebliğ\u0027de tek tek sayılan yapım işleri, temizlik, özel güvenlik, danışmanlık, yemek servisi gibi hizmetlerde ve hurda metal, plastik, kağıt gibi bazı mal teslimlerinde uygulanır. Bu liste sınırlıdır; listede olmayan bir mal veya hizmette tevkifat yapılmaz. Hangi işlemin listede olduğunu ve güncel tevkifat oranını fatura kesmeden önce mutlaka kontrol etmek gerekir. Liste ve oranlar zaman zaman değiştiği için güncel halini ilgili araçtan teyit et.",
+                         "kaynak":  "KDV Genel Uygulama Tebliği IV/C (Kısmi Tevkifat Uygulanacak Hâller ve Oranlar)",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "kismi-tevkifatli-islemde-fatura-kdv-si-n",
+                         "konu":  "Kısmi tevkifatlı işlemde fatura KDV\u0027si nasıl gösterilir",
+                         "anahtar":  "tevkifatlı fatura kdv gösterimi tutar hesabı",
+                         "cevap":  "Kısmi tevkifat uygulanan işlemde satıcı, faturaya malın/hizmetin bedelini ve hesaplanan KDV\u0027nin tamamını yazar; ayrıca faturada tevkifat oranı ve tevkif edilecek tutar da gösterilir. Alıcı, KDV\u0027nin tevkifata tabi kısmını satıcıya ödemez, bu kısmı kendisi 2 No\u0027lu KDV Beyannamesi ile doğrudan vergi dairesine öder; kalan (tevkif edilmeyen) KDV kısmı ise satıcıya ödenir. Satıcı, kestiği faturanın tamamı üzerinden 1 No\u0027lu KDV beyannamesinde beyanda bulunur ve tevkif edilen kısmı da bu beyannamede gösterip alıcının ödediği tutarla eşleştirir. Hangi tutarın kime ödeneceği faturada net görünmelidir.",
+                         "kaynak":  "KDV Genel Uygulama Tebliği IV/A-B (Tevkifat Uygulamasında Genel Esaslar ve Beyan)",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "tus-ve-h-s-nedir-kdv-iadesini-nasil-hizl",
+                         "konu":  "İTUS ve HİS nedir, KDV iadesini nasıl hızlandırır",
+                         "anahtar":  "itus his hızlandırılmış iade indirimli teminat sistemi",
+                         "cevap":  "İTUS (İndirimli Teminat Uygulama Sistemi) ve HİS (Hızlandırılmış İade Sistemi), belirli ciro, öz sermaye ve vergi ödeme şartlarını sağlayan mükelleflere Tebliğ\u0027de tanınan özel sertifikalardır. Bu sertifikaya sahip mükellefler, KDV iadelerini daha az teminatla (İTUS) veya vergi inceleme raporu beklenmeden çok daha hızlı şekilde (HİS) alabilir. Sertifika almak için başvuru yapılması ve şartların her yıl yeniden kontrol edilmesi gerekir. Şartlardaki rakamsal eşikler (ciro, sermaye vb.) periyodik değiştiği için güncel tutarları ilgili araçtan teyit et.",
+                         "kaynak":  "KDV Genel Uygulama Tebliği V. Kısım (İTUS ve HİS Uygulaması)",
+                         "arac":  "kdv-iade-rehberi.html"
+                     },
+                     {
+                         "id":  "devreden-kdv-ile-iade-edilecek-kdv-arasi",
+                         "konu":  "Devreden KDV ile iade edilecek KDV arasındaki fark nedir",
+                         "anahtar":  "devreden kdv iade edilecek kdv fark indirim",
+                         "cevap":  "Devreden KDV, bir dönemde indirilecek KDV\u0027nin hesaplanan KDV\u0027den fazla olması durumunda ortaya çıkan ve bir sonraki döneme aktarılarak indirim yoluyla giderilmeye çalışılan tutardır; bu tutar normal şartlarda nakit olarak geri alınamaz. İade edilecek KDV ise sadece tam istisna (ihracat gibi), bazı kısmi istisnalar veya tevkifat gibi kanunun özel olarak izin verdiği hallerde doğar ve mükellef bunu nakden ya da mahsuben talep edebilir. Yani her devreden KDV iade edilebilir anlamına gelmez; iade hakkı ancak kanunda sayılan işlemlerden doğar. Hangi işlemin iade hakkı doğurduğunu kontrol etmeden iade talebinde bulunulmamalıdır.",
+                         "kaynak":  "3065 KDVK m.29; KDVGUT V. Kısım (KDV İadesinde Ortak Hususlar)",
+                         "arac":  "kdv-iade-rehberi.html"
                      }
                  ]
 }
