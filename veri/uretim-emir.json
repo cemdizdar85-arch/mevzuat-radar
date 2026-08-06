@@ -474,6 +474,19 @@
                         "konular":  "",
                         "gerekce":  "Pazar taramasi 06.08: interaktif KGK bankasi pazarda yok, tek sayi iddiasi 980. Maliyet tahmini olculmus oranlardan: ~1.200 is x 0,028 = ~34 USD gonderim; kasa-soru basina ~3 sent (#27 gercek). Cesitlilik kok-tekrar + madde tavani kapilariyla korunur. | 06.08 2. artis: sinir 1200-\u003e1800 (~50 USD tahmine cikti, olculmus 0,028/is oranindan).",
                         "tahmini_usd":  50
+                    },
+                    {
+                        "no":  35,
+                        "tarih":  "06.08.2026",
+                        "veren":  "Cem Dizdar (\"uygula\" - siklik haritali kota)",
+                        "emir":  "KGK siklik tamamlama: KY yeni 10 satir + FY yeni satirlar (hedef 4151)",
+                        "onay":  true,
+                        "sinir":  800,
+                        "ders":  "",
+                        "model":  "claude-sonnet-4-5-20250929",
+                        "konular":  "",
+                        "gerekce":  "2.240 cikmis-soru haritasi (veri/kgk-analiz.json): (c) ici KY %61/FY %39; kota buna cekildi. Tahmin: 800 is x 0,028 = ~22 USD. Turev konusu arsivde 0 kez ciktigi icin kota ACILMADI.",
+                        "tahmini_usd":  22
                     }
                 ]
 }

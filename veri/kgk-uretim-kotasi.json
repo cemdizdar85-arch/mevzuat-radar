@@ -1,6 +1,6 @@
 {
     "tarih":  "01.08.2026 (Cem plan onayi ayni gun: \u0027ONAY VERIYORUM\u0027)",
-    "hedef":  3543,
+    "hedef":  4151,
     "kaynak":  "veri/kgk-sinav-yapisi.json (KGK 28.06.2025 resmi sinav ilani) - SMMM temel alan (a)+(b)+(c). Konu satirlari ambardaki 58 standart + BDY/660 KHK + II-17.1 uzerine kuruldu. Finansal Yonetim satirlari YOK - kurasyon notlari ambara girince eklenecek (2-3 Agustos), kaynaksiz uretim yasak.",
     "not":  "katman A-omurga = standart/mevzuatin cekirdek hukmu. donem alani KGK\u0027da 1 (TESMER donem sayaci degil).",
     "plan":  [
@@ -433,102 +433,151 @@
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "kurumsal yonetim tebligi ii-17.1 uygulama kapsami gruplar",
+                     "konu":  "kurumsal yonetim tebligi komiteler ve gorevleri denetim riskin erken saptanmasi ucret aday gosterme",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  40
+                     "adet":  120
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "kurumsal yonetim ilkeleri pay sahipleri genel kurul",
+                     "konu":  "kurumsal yonetim tebligi iliskili taraf islemleri yaygin ve sureklilik arz eden islemler",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  40
+                     "adet":  100
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "kurumsal yonetim yonetim kurulu bagimsiz uye komiteler",
+                     "konu":  "kurumsal yonetim tebligi genel kurul toplanti usul ve ilkeleri",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  48
+                     "adet":  90
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "kurumsal yonetim kamuyu aydinlatma seffaflik menfaat sahipleri",
+                     "konu":  "kurumsal yonetim tebligi menfaat sahipleri calisanlar paydaslar",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  32
+                     "adet":  90
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "iliskili taraf islemleri yaygin ve sureklilik arz eden islemler",
+                     "konu":  "kurumsal yonetim tebligi yatirimci iliskileri bolumu gorevleri",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  32
+                     "adet":  90
                  },
                  {
                      "ders":  "Kurumsal Yonetim",
-                     "konu":  "yatirimci iliskileri bolumu gorevleri",
-                     "katman":  "A-omurga",
-                     "donem":  1,
-                     "adet":  24
-                 },
-                 {
-                     "ders":  "Finansal Yonetim",
-                     "konu":  "paranin zaman degeri bugunku deger anuite",
-                     "katman":  "A-omurga",
-                     "donem":  1,
-                     "adet":  72
-                 },
-                 {
-                     "ders":  "Finansal Yonetim",
-                     "konu":  "sermaye maliyeti wacc ozkaynak maliyeti",
-                     "katman":  "A-omurga",
-                     "donem":  1,
-                     "adet":  72
-                 },
-                 {
-                     "ders":  "Finansal Yonetim",
-                     "konu":  "sermaye butcelemesi net bugunku deger ic verim orani geri odeme",
+                     "konu":  "kurumsal yonetim tebligi faaliyet raporu icerigi",
                      "katman":  "A-omurga",
                      "donem":  1,
                      "adet":  80
                  },
                  {
-                     "ders":  "Finansal Yonetim",
-                     "konu":  "isletme sermayesi yonetimi nakit dongusu",
+                     "ders":  "Kurumsal Yonetim",
+                     "konu":  "kurumsal yonetim tebligi kamuyu aydinlatma ve seffaflik",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  72
+                     "adet":  80
+                 },
+                 {
+                     "ders":  "Kurumsal Yonetim",
+                     "konu":  "kurumsal yonetim tebligi teminat rehin ipotek yasagi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  70
+                 },
+                 {
+                     "ders":  "Kurumsal Yonetim",
+                     "konu":  "kurumsal yonetim tebligi pay sahipligi haklari azlik haklari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  70
+                 },
+                 {
+                     "ders":  "Kurumsal Yonetim",
+                     "konu":  "kurumsal yonetim ilkeleri uyum raporu kapsam ve zorunluluk",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  70
                  },
                  {
                      "ders":  "Finansal Yonetim",
                      "konu":  "finansal analiz oranlari likidite kaldirac karlilik dupont",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  80
+                     "adet":  70
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "paranin zaman degeri bugunku deger anuite",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "isletme sermayesi yonetimi nakit dongusu finanslama stratejileri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "sermaye maliyeti wacc ozkaynak maliyeti",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  55
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "sermaye butcelemesi net bugunku deger ic verim orani geri odeme",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  55
                  },
                  {
                      "ders":  "Finansal Yonetim",
                      "konu":  "basabas noktasi faaliyet ve finansal kaldirac",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  72
+                     "adet":  55
                  },
                  {
                      "ders":  "Finansal Yonetim",
-                     "konu":  "temettu kar payi politikasi",
+                     "konu":  "tahvil ve para piyasasi araclari ozellikleri fiyatlama finansman bonosu",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  56
+                     "adet":  45
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "faiz hesaplari basit bilesik efektif faiz",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
                  },
                  {
                      "ders":  "Finansal Yonetim",
                      "konu":  "risk getiri portfoy beta capm",
                      "katman":  "A-omurga",
                      "donem":  1,
-                     "adet":  72
+                     "adet":  35
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "finansman teknikleri factoring forfaiting leasing",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  35
+                 },
+                 {
+                     "ders":  "Finansal Yonetim",
+                     "konu":  "temettu kar payi politikasi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  30
                  }
              ],
-    "artis_notu":  "06.08.2026 gece Cem: \u0027pazar taramasi yap, sorulari artiralim ona gore\u0027. Tarama: pazarin tek soru-sayisi iddiasi 980 (Ugurlu); hedef 1.870 -\u003e 2992 (rakibin ~3 kati). Maliyet dayanagi: emir #27 gercek faturasi 35,29 USD / 1.142 soru. | 06.08 2. artis (Cem: \u0027biraz daha artir\u0027): MS/DS x1.26 (kaynak genis, sisirme riski yok; KY/FY kaynak-dar, sabit) -\u003e toplam 3543. SIRADA: KGK cikmis-soru arsivi okunup kota SIKLIK agirligina cevrilecek (Cem: \u0027hangi konu cok cikiyorsa ondan cok\u0027)."
+    "artis_notu":  "06.08.2026 gece Cem: \u0027pazar taramasi yap, sorulari artiralim ona gore\u0027. Tarama: pazarin tek soru-sayisi iddiasi 980 (Ugurlu); hedef 1.870 -\u003e 2992 (rakibin ~3 kati). Maliyet dayanagi: emir #27 gercek faturasi 35,29 USD / 1.142 soru. | 06.08 2. artis (Cem: \u0027biraz daha artir\u0027): MS/DS x1.26 (kaynak genis, sisirme riski yok; KY/FY kaynak-dar, sabit) -\u003e toplam 3543. SIRADA: KGK cikmis-soru arsivi okunup kota SIKLIK agirligina cevrilecek (Cem: \u0027hangi konu cok cikiyorsa ondan cok\u0027). | 06.08 SIKLIK UYGULAMASI (Cem: \u0027uygula\u0027): 2.240 cikmis-soru haritasina gore (c) ici duzeltildi - KY 216-\u003e860 (10 satir, Teblig bolumleri), FY 576-\u003e540 (11 satir; faiz hesaplari + tahvil/para piyasasi + finansman teknikleri EKLENDI, turev cikmadigi icin ACILMADI). MS/DS satirlari aynen. Kaynak: veri/kgk-analiz.json"
 }
