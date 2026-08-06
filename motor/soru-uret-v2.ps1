@@ -565,6 +565,12 @@ MUTLAK KURALLAR:
    islem rakamlariyla ayri satirda, (2) hatanin adi gunluk dille tek cumle,
    (3) dogru islem adimi. Ornek: "108.500 / 3.620 = 29,97 -> butceyi FIILI
    saate boldun; oran butce/butce kurulur: 108.500 / 3.800 = 28,55."
+18. MAKINESIZ HESAP ILKESI (06.08, Cem onayi; TURMOB YK 14.01.2026 karari:
+   sinav oturumlarinda hesap makinesi KULLANILAMAZ): hesap sorusundaki
+   rakamlar KAGIT-KALEMLE 2-3 dakikada islenebilir secilir. Yuvarlak veya
+   kolay bolunen sayilar kullan (850, 1.200, 36.000); 733.727 / 849 gibi
+   makine isteyen bolmeler YASAK. Islemin zorlugu degil KAVRAMIN tuzagi
+   olculur - gercek sinav da artik boyle kuruyor.
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>

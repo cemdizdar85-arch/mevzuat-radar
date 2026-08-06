@@ -221,7 +221,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
              SGS'de ders/adet secimine BAKILMAZ - 130 soru resmi dagilimla kurulur
              (kaynak: veri/sgs-sinav-yapisi.json <- TESMER Uygulama Yonergesi 2024 m.6.2).
              Yeterlilik'te secilen ders 100 uzerinden puanlanir, ders baraji 50. -->
-        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>· Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te seçtiğin ders 100 üzerinden, baraj 50. Gerçek sınavın kendisi.</small></button>
+        <button class="sec" data-mod="prova">🎯 <b>Birebir Prova</b> <small>· Staja Giriş'te 130 soru resmî ders dağılımıyla otomatik kurulur; Yeterlilik'te gerçek 2026 düzeni: seçtiğin dersten 20 soru / 45 dk, yanlış 0,25 götürür, baraj 50. Gerçek sınavın kendisi.</small></button>
       </div>
       <div class="etiket">4 · Soru havuzu</div>
       <div class="secgrup" id="kaynakSec">
@@ -653,6 +653,12 @@ function basla(){
   // ders/adet secimine bakilmaz. Yeterlilik'te normal akis + 100'luk karne yorumu.
   if(MOD==='prova' && SINAV!=='SMMM'){ provaBasla(); return; }
   window.PROVA_MODU=(MOD==='prova'); window.PROVA_EKSIK=[];
+  // 06.08 (Cem onayi) - Yeterlilik 2026 test duzeni (TURMOB YK 14.01.2026):
+  // ders basina 20 soru / 45 dakika, yanlis dogrunun 0,25'ini goturur, hesap
+  // makinesi yasak. Prova "birebir" oldugu icin adet 20'ye sabitlenir ve
+  // 45 dakikalik geri sayim kurulur; sure bitince karneye gidilir.
+  window.PROVA_SMMM = (window.PROVA_MODU && SINAV==='SMMM');
+  var oturumAdet = window.PROVA_SMMM ? 20 : seciliAdet;   // kurulumdaki secim bozulmaz
   var h=havuz(); if(!h.length) return;
   window.INCELEME=false; window.KARNE_KAYDEDILDI=false;   // yeni oturum: inceleme/karne bayraklari sifirlanir
   var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
@@ -675,7 +681,7 @@ function basla(){
       havuzSirali = zList.slice(0, hedefZ*2).concat(dList, zList.slice(hedefZ*2));
     }
   }
-  for(var gi=0; gi<havuzSirali.length && secim.length<seciliAdet; gi++){
+  for(var gi=0; gi<havuzSirali.length && secim.length<oturumAdet; gi++){
     var sg=havuzSirali[gi], gk=sg.benzer_grup||sg.benzerGrup||'';
     if(gk && grupGoruldu[gk]) continue;
     if(gk) grupGoruldu[gk]=1;
@@ -683,9 +689,9 @@ function basla(){
   }
   // gruplar yuzunden istenen adet dolmadiysa, kalanlardan tamamla - ogrenciye
   // "20 soru" deyip 14 vermek olmaz; ama once cesitlilik denenmis olur.
-  if(secim.length<seciliAdet){
+  if(secim.length<oturumAdet){
     var icinde={}; secim.forEach(function(s){icinde[s.id]=1;});
-    for(var gj=0; gj<havuzSirali.length && secim.length<seciliAdet; gj++){
+    for(var gj=0; gj<havuzSirali.length && secim.length<oturumAdet; gj++){
       if(!icinde[havuzSirali[gj].id]) secim.push(havuzSirali[gj]);
     }
   }
@@ -749,7 +755,7 @@ var PROVA_SGS=[
 function dnorm(t){ return String(t||'').toLocaleLowerCase('tr').replace(/[ç]/g,'c').replace(/[ğ]/g,'g').replace(/[ıi̇i]/g,'i').replace(/[ö]/g,'o').replace(/[ş]/g,'s').replace(/[ü]/g,'u').replace(/\s+/g,' ').trim(); }
 
 function provaBasla(){
-  window.PROVA_MODU=true; window.PROVA_EKSIK=[];
+  window.PROVA_MODU=true; window.PROVA_EKSIK=[]; window.PROVA_SMMM=false;
   var gorulen={}; try{ (JSON.parse(localStorage.getItem('mrGorulen')||'[]')).forEach(function(i){gorulen[i]=1;}); }catch(e){}
   var secim=[];
   PROVA_SGS.forEach(function(p){
@@ -782,10 +788,16 @@ function provaPaneli(dogru,yanlis,bos,yuzde){
   yuzde = toplam ? Math.round(100*dogru/toplam) : 0;
   var h='<div class="panel" style="margin-bottom:14px;padding:14px 16px">';
   if(SINAV==='SMMM'){
-    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Yeterlilik</div>'
-     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Bu oturum 100 üzerinden <b style="color:var(--ink)">'+yuzde+'</b> puana denk geldi; ders barajı 50: '
-     +(yuzde>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
-     +'. Gerçek kural: her ders ≥50 <b>ve</b> tüm derslerin ortalaması ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil <span style="color:var(--dim)">(TESMER Uygulama Yönergesi)</span>.</div>';
+    // 06.08 (Cem onayi): 2026 test duzeninde yanlis, dogrunun 0,25'ini goturur
+    // (TURMOB YK 14.01.2026). Puan NET dogru uzerinden hesaplanir; baraj da netle.
+    var net=dogru-0.25*yanlis; if(net<0) net=0;
+    var netStr=(Math.round(net*100)/100).toLocaleString('tr-TR');
+    var puan=toplam?Math.round(100*net/toplam):0;
+    h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Yeterlilik (2026 test düzeni)</div>'
+     +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Net puan 100 üzerinden <b style="color:var(--ink)">'+puan+'</b>; ders barajı 50: '
+     +(puan>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
+     +'. Hesap: '+dogru+' doğru − 0,25 × '+yanlis+' yanlış = <b style="color:var(--ink)">'+netStr+' net</b> / '+toplam+' soru (ham %'+yuzde+'). '
+     +'Gerçek kural: <b>yanlış cevap doğrunun 0,25\'ini götürür</b> — emin değilsen boş bırakmak da stratejidir; her ders ≥50 <b>ve</b> ortalama ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil; oturumda hesap makinesi <b>yasak</b> <span style="color:var(--dim)">(TÜRMOB YK 14.01.2026 · TESMER Uygulama Yönergesi)</span>.</div>';
   } else {
     h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Staja Giriş bileşimi</div>'
      +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir; diğer adaylara göre yerin belirler.</div>';
@@ -808,7 +820,32 @@ function ekranaGec(){
   // Yan panel yalniz CALISMA modunda: sinav provasinda gerekce zaten sona
   // kadar gelmez, sag sutun bos bir soz olurdu.
   document.body.classList.toggle('sinavda', MOD==='calisma');
+  provaSayacKur();
   soruCiz();
+}
+
+// 06.08 (Cem onayi) - Yeterlilik provasi 45 dk geri sayim + makinesiz uyari.
+// Gercek oturum 45 dakikada biter; burada da sure dolunca karne acilir.
+var PROVA_GERI=null;
+function provaSayacKur(){
+  if(PROVA_GERI){ clearInterval(PROVA_GERI); PROVA_GERI=null; }
+  var eski=document.getElementById('provaBant'); if(eski) eski.remove();
+  if(!window.PROVA_SMMM) return;
+  var bant=document.createElement('div'); bant.id='provaBant';
+  bant.style.cssText='margin:0 0 12px;padding:9px 14px;border-radius:8px;background:rgba(245,165,36,.08);border-left:3px solid var(--amber);font-size:12.5px;color:var(--ink);display:flex;gap:10px;flex-wrap:wrap;align-items:center';
+  bant.innerHTML='<b id="provaGeri" style="font-variant-numeric:tabular-nums">45:00</b>'
+    +'<span style="color:var(--muted)">20 soru · yanlış 0,25 götürür · gerçek sınavda hesap makinesi <b style="color:var(--ink)">yasak</b> — makinesiz çöz</span>';
+  var ek=document.getElementById('ekranSoru'); ek.insertBefore(bant, ek.firstChild);
+  var bitis=Date.now()+45*60*1000;
+  PROVA_GERI=setInterval(function(){
+    var kalan=bitis-Date.now(), g=document.getElementById('provaGeri');
+    if(kalan<=0){
+      clearInterval(PROVA_GERI); PROVA_GERI=null;
+      alert('Süre doldu — gerçek sınavda oturum burada biter. Karnen açılıyor.');
+      karneCiz(); return;
+    }
+    if(g){ g.textContent=sureFmt(kalan); if(kalan<5*60*1000) g.style.color='var(--red)'; }
+  },1000);
 }
 
 function karistir(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } }
@@ -1506,6 +1543,7 @@ function kaynakSayCiz(){
 }
 
 function karneCiz(){
+  if(PROVA_GERI){ clearInterval(PROVA_GERI); PROVA_GERI=null; }   // erken bitirende sayac susar
   document.getElementById('ekranSoru').classList.add('gizli');
   document.body.classList.remove('sinavda');
   document.getElementById('ekranKarne').classList.remove('gizli');
