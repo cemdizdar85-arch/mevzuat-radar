@@ -198,16 +198,25 @@ Write-Host "  2) ESKI TERIM (toplam / kehribar kartta):"
 foreach($r in $eskiRapor){ Write-Host ("     {0,-26} {1,5} / {2,4}  -> dogrusu: {3}" -f $r.terim, $r.toplam_soru, $r.KEHRIBAR_KARTTA, $r.dogrusu) }
 Write-Host ("  3) SENARYO ADI: {0} farkli kisi / {1} farkli sirket" -f $kisiSay.Count, $sirketSay.Count)
 
-# ---- -yaz MODU (07.08): dil kusurlulari onarim havuzuna isaretle ----
+# ---- -yaz MODU (07.08, v2): dil kusurlulari onarim havuzuna isaretle ----
+# Ilk kosunun dersi: kasadaki notlarin cogu ESKI DURUM notu (gm-onay vb.) -
+# "dolu notu atla" kurali 3.584 kaydin hepsini atladi. v2: not EKLENIR
+# (' | dil-kusuru: ...'), ezilmez; kapsam SIMDILIK yalniz jargon-yogun
+# (eski-terim hacmi 245+ soru = onarim partisini buyutur -> UCRETLI genisleme,
+# Cem onayina sunulacak; rakamlar sabah raporunda).
 if($yaz){
   $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
+  $notHarita = @{}
+  foreach($s in $kasa){ $notHarita["$($s.id)"] = "$($s.yayin_notu)" }
   $tekil = @{}
-  foreach($h in $yazHedef){ if(-not $tekil.ContainsKey($h.id)){ $tekil[$h.id]=$h } }
-  $isaret=0; $atla=0
+  foreach($h in ($yazHedef | Where-Object { $_.kusur -eq 'jargon-yogun' })){ if(-not $tekil.ContainsKey($h.id)){ $tekil[$h.id]=$h } }
+  $isaret=0; $zatenVar=0
   foreach($h in $tekil.Values){
-    if($h.notlu){ $atla++; continue }   # dolu not EZILMEZ (asil kusur recetesi oncelikli)
-    $gov = ConvertTo-Json -Compress -InputObject @{ yayin=$false; yayin_notu=('dil-kusuru 07.08: ' + $h.kusur + ' - onarim bekliyor (uretici k.15/9)') }
+    $eskiNot = $notHarita[$h.id]
+    if($eskiNot -match 'dil-kusuru'){ $zatenVar++; continue }
+    $yeniNot = if($eskiNot.Trim()){ $eskiNot + ' | dil-kusuru: ' + $h.kusur } else { 'dil-kusuru 07.08: ' + $h.kusur + ' - onarim bekliyor' }
+    $gov = ConvertTo-Json -Compress -InputObject @{ yayin=$false; yayin_notu=$yeniNot }
     try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $h.id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $isaret++ } catch {}
   }
-  Write-Host ("  -yaz: {0} soru dil-kusuru notuyla isaretlendi, {1} atlandi (notu doluydu)" -f $isaret, $atla)
+  Write-Host ("  -yaz v2: {0} jargon-yogun soru isaretlendi (ekleme usulu), {1} zaten isaretliydi" -f $isaret, $zatenVar)
 }

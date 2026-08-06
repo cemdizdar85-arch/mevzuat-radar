@@ -104,7 +104,7 @@ $hedef = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
   # 07.08 Cem "bunlari onar": aritmetik kapisinin isaretledikleri de kapsamda
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,dogru,aciklama,hap,yayin_notu&or=(yayin_notu.like.ic-tutarlilik*,yayin_notu.like.aritmetik*,yayin_notu.like.dil-kusuru*)&order=id&limit=500&offset=$bas" -Headers $SB -TimeoutSec 300 | ForEach-Object { $_ })
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,dogru,aciklama,hap,yayin_notu&or=(yayin_notu.like.ic-tutarlilik*,yayin_notu.like.aritmetik*,yayin_notu.like.*dil-kusuru*)&order=id&limit=500&offset=$bas" -Headers $SB -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $hedef.Add($x) } }
   if($r.Count -lt 500){ break }
