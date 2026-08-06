@@ -208,15 +208,29 @@ if($yaz){
   $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
   $notHarita = @{}
   foreach($s in $kasa){ $notHarita["$($s.id)"] = "$($s.yayin_notu)" }
+  Write-Host ("  [debug] yazHedef toplam: {0}" -f $yazHedef.Count)
+  $yazHedef | Group-Object kusur | ForEach-Object { Write-Host ("  [debug] kusur '{0}': {1}" -f $_.Name, $_.Count) }
   $tekil = @{}
-  foreach($h in ($yazHedef | Where-Object { $_.kusur -eq 'jargon-yogun' })){ if(-not $tekil.ContainsKey($h.id)){ $tekil[$h.id]=$h } }
-  $isaret=0; $zatenVar=0
+  foreach($h in $yazHedef){ if($h.kusur -like 'jargon*' -and -not $tekil.ContainsKey($h.id)){ $tekil[$h.id]=$h } }
+  Write-Host ("  [debug] tekil jargon: {0}" -f $tekil.Count)
+  $isaret=0; $zatenVar=0; $hataSay=0
   foreach($h in $tekil.Values){
     $eskiNot = $notHarita[$h.id]
     if($eskiNot -match 'dil-kusuru'){ $zatenVar++; continue }
     $yeniNot = if($eskiNot.Trim()){ $eskiNot + ' | dil-kusuru: ' + $h.kusur } else { 'dil-kusuru 07.08: ' + $h.kusur + ' - onarim bekliyor' }
     $gov = ConvertTo-Json -Compress -InputObject @{ yayin=$false; yayin_notu=$yeniNot }
-    try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $h.id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $isaret++ } catch {}
+    # 07.08 AG DERSI: PS IRM PATCH'i bu agda modem tarafindan 'SessionTimeout'
+    # sayfasiyla kesiliyor (tek istek gecer, script serisi gecmez); curl.exe
+    # ayni istegi sorunsuz atiyor (204). PATCH kanali curl'e tasindi.
+    $tmpG = [IO.Path]::GetTempFileName()
+    [IO.File]::WriteAllText($tmpG, $gov, (New-Object Text.UTF8Encoding($false)))
+    $kod = & curl.exe -s -o NUL -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
+    Remove-Item $tmpG -Force -ErrorAction SilentlyContinue
+    if("$kod" -eq '204'){ $isaret++ }
+    else {
+      $hataSay++
+      if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): curl kodu {2}" -f $hataSay, $h.id, $kod) }
+    }
   }
   Write-Host ("  -yaz v2: {0} jargon-yogun soru isaretlendi (ekleme usulu), {1} zaten isaretliydi" -f $isaret, $zatenVar)
 }
