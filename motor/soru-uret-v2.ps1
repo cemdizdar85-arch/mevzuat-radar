@@ -331,6 +331,38 @@ function KaynakBul([string]$konu, [string]$ders){
     $tn = TeoriNotuMetni '' $konu
     if($tn -and $tn.metin){ return [pscustomobject]@{ kanun='TEORI'; madde="$($tn.ad)"; ad="$($tn.ad)"; metin="$($tn.metin)"; tur='teori' } }
   }
+  # 2b) KGK EK-ALAN YOLU (06.08 aksam, Cem: "KGK ek-alan paketleri yapalim"):
+  # ek-alan konulari cogu zaman ders adini icermez ("borsalar ve piyasa
+  # isleticileri" gibi) - yol DERS uzerinden secilir, konu kelimeleri o
+  # dersin ambar belgelerinde puanlanir (BELGE yolu ile ayni skorlama).
+  # Kaynaklar 06.08 olcumu: 6362/5411/5684/4632 kanunlari + TSRS 1-2 +
+  # GDS 3000/3400/3402/3410 ambarda; SPK/BDDK teblig derinligi Faz 2.
+  # Standart konulari (tfrs 17 gibi) buraya dusmez - STD yolu once yakalar.
+  $EK_ALAN_DERS = @(
+    @{ desen='(?i)sermaye piyasas';                          on=@('Sermaye Piyasası K.') },
+    @{ desen='(?i)bankac[ıi]l[ıi]k';                         on=@('Bankacılık K.') },
+    @{ desen='(?i)sigortac[ıi]l[ıi]k|[oö]zel emeklilik';     on=@('Sigortacılık K.','BES K.') },
+    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik raporlama';     on=@('TSRS') },
+    @{ desen='(?i)s[uü]rd[uü]r[uü]lebilirlik denetim';       on=@('GDS') }
+  )
+  foreach($ea in $EK_ALAN_DERS){
+    if($ders -notmatch $ea.desen){ continue }
+    $rb = @()
+    foreach($onAd in $ea.on){
+      try { $rb += @(Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString('^'+$onAd) + "&limit=400") -Headers $H -TimeoutSec 90 | ForEach-Object { $_ }) } catch {}
+    }
+    if(@($rb).Count -eq 0){ break }
+    # ASCII<->Turkce tuzagi (konu-kaynak karnesi dersi): konu ASCII ('sirketleri'),
+    # metin Turkce ('şirketi') - iki taraf da katlanir, kelime KOK-6 ile eslesir.
+    $ekFold = { param($x) "$x".ToLowerInvariant().Replace('ç','c').Replace('ğ','g').Replace('ı','i').Replace('ö','o').Replace('ş','s').Replace('ü','u') }
+    $kel = @((Kel $konu) | Where-Object { $_.Length -ge 5 } | ForEach-Object { (& $ekFold $_).Substring(0, [Math]::Min(6, $_.Length)) } | Select-Object -Unique)
+    $puanli = foreach($d in $rb){ $mF = & $ekFold "$($d.metin)"; $pp=0; foreach($w in $kel){ if($mF.Contains($w)){ $pp++ } }; [pscustomobject]@{ d=$d; p=$pp } }
+    $sec = @($puanli | Sort-Object { -$_.p } | Select-Object -First 12 | Where-Object { $_.p -gt 0 } | ForEach-Object { $_.d })
+    if($sec.Count -eq 0){ break }   # konu bu dersin kaynaklarinda karsiliksiz: uydurma uretme, konu atlanir ve RAPORLANIR
+    $btn = (@($sec | ForEach-Object { "$($_.kaynak_ad): $($_.metin)" }) -join "`n")
+    if($btn.Length -gt 24000){ $btn = $btn.Substring(0, 24000) }
+    return [pscustomobject]@{ kanun='EKALAN'; madde="$($sec[0].kaynak_ad)"; ad="$($sec[0].kaynak_ad)"; metin=$btn; tur='belge' }
+  }
   # 3) BELGE YOLU (05.08 gece): yonetmelik/teblig/KHK gibi maddeli-ama-kanun-
   # numarasiz kaynaklar. Emir #27 bu konulari 'maddesiz' diye atlamisti; oysa
   # kaynak 01.08'den beri ambardaydi (BDY, 660 KHK, II-17.1). Konu kelimeleriyle

@@ -1,7 +1,7 @@
 {
     "tarih":  "01.08.2026 (Cem plan onayi ayni gun: \u0027ONAY VERIYORUM\u0027)",
-    "hedef":  4191,
-    "kaynak":  "veri/kgk-sinav-yapisi.json (KGK 28.06.2025 resmi sinav ilani) - SMMM temel alan (a)+(b)+(c). Konu satirlari ambardaki 58 standart + BDY/660 KHK + II-17.1 uzerine kuruldu. Finansal Yonetim satirlari YOK - kurasyon notlari ambara girince eklenecek (2-3 Agustos), kaynaksiz uretim yasak.",
+    "hedef":  5871,
+    "kaynak":  "veri/kgk-sinav-yapisi.json (KGK 28.06.2025 resmi sinav ilani) - SMMM temel alan (a)+(b)+(c). Konu satirlari ambardaki 58 standart + BDY/660 KHK + II-17.1 uzerine kuruldu. Finansal Yonetim satirlari YOK - kurasyon notlari ambara girince eklenecek (2-3 Agustos), kaynaksiz uretim yasak. | 06.08 aksam (Cem: \u0027KGK ek-alan paketleri yapalim\u0027): 5 ek-alan dersi eklendi (c-ek/d/e/f/g), konu satirlari kgk-analiz.json cikmis-soru sikligindan, kaynaklar ambar olcumuyle teyitli (6362/5411/5684/4632 + TSRS 1-2 + GDS\u0027ler).",
     "not":  "katman A-omurga = standart/mevzuatin cekirdek hukmu. donem alani KGK\u0027da 1 (TESMER donem sayaci degil).",
     "plan":  [
                  {
@@ -584,6 +584,314 @@
                      "katman":  "A-omurga",
                      "donem":  1,
                      "adet":  40
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "teknik karsiliklar yonetmeligi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  80
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "tfrs 17 sigorta sözleşmeleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  80
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "ttk sorumluluk sigortalari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "ttk hayat sigortalari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "sigortacilik ic sistemler yonetmeligi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sigortacilik ve Ozel Emeklilik Mevzuati",
+                     "konu":  "bireysel emeklilik devlet katkisi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "borsalar ve piyasa isleticileri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "nitelikli yatirimciya satis",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  60
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "sermaye piyasası suçları",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "borclanma araclari tebligi degistirilebilir tahvil",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "izahname tebliği muafiyet halleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "satis tebligi fiyat dagitim esaslari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "halka arz satış yöntemleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Sermaye Piyasasi Mevzuati",
+                     "konu":  "kayitli sermaye sistemi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 2 sektorler arasi metrikler",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  35
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 2 iklim direncliligi senaryo analizi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 1 gercege uygun sunum",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 1 temel niteliksel ozellikler",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 1 muhakeme hususlari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 1 capraz referans",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 2 iklim hedefleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 2 kapsam 3 olcum cercevesi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 2 senaryo analizi varsayimlari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "sera gazi protokolu kapsam 3 kategorileri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "bddk yesil varlik orani tebligi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "spk yesil borclanma araci rehberi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Raporlamasi",
+                     "konu":  "tsrs 1 senaryo analizi tanimi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  20
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "varlik yonetim sirketleri yonetmeligi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  50
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "bankalarin bagimsiz denetimi yonetmeligi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "kredi islemleri yonetmeligi hesap durumu belgesi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "kredi islemleri yonetmeligi kredi komitesi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "kredi islemleri yonetmeligi kredi acma yetkisi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "katilim bankasi fon kullandirma yontemleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "bankacilik duzeltici onlemler",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "bankalar tekdüzen hesap planı",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "sermaye yeterliliği yönetmeliği operasyonel risk",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "genel karsilik tfrs 9",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Bankacilik Mevzuati",
+                     "konu":  "sorunlu alacak yonetimi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  25
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3000 tarihi finansal bilgi disindaki guvence denetimleri cerceve",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  70
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3000 guvence denetiminde kanit ve onemlilik",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  50
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3410 sera gazi beyanlarina iliskin guvence denetimleri",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  70
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3400 ileriye yonelik finansal bilgilerin incelenmesi",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3402 hizmet kurulusundaki kontrollere iliskin guvence raporlari",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  40
+                 },
+                 {
+                     "ders":  "Surdurulebilirlik Denetimi",
+                     "konu":  "gds 3410 kapsami",
+                     "katman":  "A-omurga",
+                     "donem":  1,
+                     "adet":  30
                  }
              ],
     "artis_notu":  "06.08.2026 gece Cem: \u0027pazar taramasi yap, sorulari artiralim ona gore\u0027. Tarama: pazarin tek soru-sayisi iddiasi 980 (Ugurlu); hedef 1.870 -\u003e 2992 (rakibin ~3 kati). Maliyet dayanagi: emir #27 gercek faturasi 35,29 USD / 1.142 soru. | 06.08 2. artis (Cem: \u0027biraz daha artir\u0027): MS/DS x1.26 (kaynak genis, sisirme riski yok; KY/FY kaynak-dar, sabit) -\u003e toplam 3543. SIRADA: KGK cikmis-soru arsivi okunup kota SIKLIK agirligina cevrilecek (Cem: \u0027hangi konu cok cikiyorsa ondan cok\u0027). | 06.08 SIKLIK UYGULAMASI (Cem: \u0027uygula\u0027): 2.240 cikmis-soru haritasina gore (c) ici duzeltildi - KY 216-\u003e860 (10 satir, Teblig bolumleri), FY 576-\u003e540 (11 satir; faiz hesaplari + tahvil/para piyasasi + finansman teknikleri EKLENDI, turev cikmadigi icin ACILMADI). MS/DS satirlari aynen. Kaynak: veri/kgk-analiz.json | 06.08 ORAN DUZELTMESI (Cem: \u0027yanlis bir sey yapmayalim\u0027 - HAKLIYDI): ilk ayirici FY konularini KY\u0027ye sayiyordu; beyaz-liste ayiriciyla TEMIZ olcum (c) ici FY %73 / KY %27 (264/96). Kota buna cekildi: KY 380, FY 1.060 (+turev satiri ACILDI - swap/varant/forward ciktigi olculdu, onceki \u0027hic cikmadi\u0027 tespiti ayirici hatasiydi)."
