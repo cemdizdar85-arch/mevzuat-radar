@@ -613,6 +613,8 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
     "genel imal gideri/giderleri" -> "genel uretim giderleri (THP 730)"
     "genel idare gideri/giderleri" -> "genel yonetim giderleri" (06.08 Cem
     onayi; VUK m.275 baglaminda parantezle: "(VUK lafzi: genel idare)")
+    "iptidai madde" -> "ilk madde ve malzeme" (06.08 Cem onayi #15; senaryo
+    cumlesinde arkaik kacar; kanun metni TIRNAK icinde aktariliyorsa korunur)
   ISTISNA: kanunun KENDI lafzi tirnak icinde aktariliyorsa degistirme
   (ornek: VUK m.275 "imal edilen emtia" der - o kanun metnidir, korunur;
   D26: guncel terim onde, kanun lafzi parantezde).
@@ -683,6 +685,22 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   (2) hatanin adi gunluk dille, (3) dogru islem adimi. Celdirici hicbir
   mantikli isleme oturmuyorsa D14 geregi rakami tersine coz; cozulmuyorsa
   celdirici yeniden uretilir.
+
+  D37 - ETIKET DOGRULAMA NOTU (06.08, Cem onayi #13; ornek: SGS'de jenerator
+  kredi faizi sorusunun konusu 'esdeger mamul hesabi' cikti): sorunun konu
+  etiketi ICERIKLE uyusmuyorsa aciklama o etikete gore YAZILMAZ - icerige
+  gore yazilir ve uyusmazlik raporda isaretlenir. Etiketin kendisinin
+  duzeltilmesi ayri etiket-onarim adiminin isidir (karne/koc/tuyolar bu
+  etikete dayanir; yanlis etiket koçu da yaniltir).
+
+  D38 - YASAKLI SENARYO ADI DEGISIMI (06.08, Cem onayi #14): senaryoda
+  su adlar geciyorsa FARKLI adlarla degistirilir - kisi: Mehmet, Fatma,
+  Hatice, Ayse, Ahmet; sirket: Yildirim, Yilmaz, Yildiz, Karadeniz, Demir,
+  Demirhan (04.08 olcumu: 'Mehmet' %7,5, 'Yildirim' %8 - makine izi).
+  SINIR: yalniz AD degisir; rakamlar, hukum, hesap, siklarin icerigi AYNEN
+  kalir. Ad degisimi icerik degisimi SAYILMAZ (Cem onayi 06.08) - soru
+  govdesinde yalniz bu amacla dokunulabilir; cinsiyet uyumu korunur
+  (Bey/Hanim ekleri adla tutarli kalir).
 '@ }
   # ========================================================================
   #  04.08 - HARFLERI ACIKCA SAY (Cem: "burada sadece 2 adet yanlis cevap

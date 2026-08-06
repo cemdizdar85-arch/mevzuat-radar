@@ -78,6 +78,7 @@ $ESKI = @(
   @{ ad='mubayaa';           desen='(?i)mubayaa';             dogrusu='satın alma' }
   @{ ad='mezkur';            desen='(?i)mezk[uû]r';           dogrusu='anılan / söz konusu' }
   @{ ad='isbu';              desen='(?i)\bi[şs]bu\b';         dogrusu='bu' }
+  @{ ad='iptidai madde';     desen='(?i)iptidai\s+madde';     dogrusu='ilk madde ve malzeme (kanun alintisi istisna)' }
 )
 # --- 2b) JARGON YOGUNLUGU (#12-C, 06.08 Cem onayi - "annem bile anlasin"):
 #     bir CUMLEDE 2+ teknik terim geciyor VE cumlede gunluk-karsilik isareti
