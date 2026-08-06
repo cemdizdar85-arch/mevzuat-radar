@@ -116,14 +116,14 @@ table.veri{border-collapse:collapse;margin:8px 0;font-size:14px}
 table.veri th,table.veri td{border:1px solid #d8d2c6;padding:5px 10px;text-align:left}
 table.veri th{background:#f2ede3}
 </style></head><body>
-<header><b>$sinav ORNEKLEM</b> · $($secilen.Count) soru · ders-orantili · $(Get-Date -Format 'dd.MM.yyyy HH:mm') · GIZLI DENETIM KOPYASI - paylasilmaz</header>
+<header><b>$sinav ÖRNEKLEMİ</b> · $($secilen.Count) soru · ders dağılımına orantılı · $(Get-Date -Format 'dd.MM.yyyy HH:mm') · GİZLİ DENETİM KOPYASI — paylaşılmaz</header>
 "@)
 
 $no = 0
 foreach($sid in $idler){
   $c = $asil["$sid"]; if($null -eq $c){ continue }
   $no++
-  $yayinRozet = if($c.yayin){ '<span class="rozet">YAYINDA</span>' } else { '<span class="rozetGri">denetim kuyrugunda</span>' }
+  $yayinRozet = if($c.yayin){ '<span class="rozet">YAYINDA</span>' } else { '<span class="rozetGri">denetim kuyruğunda</span>' }
   [void]$sb.Append('<div class="kart"><div class="ust"><span class="no">#' + $no + '</span><span>' + (K "$($c.ders)") + '</span><span>' + (K "$($c.konu)") + '</span>' + $yayinRozet + '<span>' + (K "$($c.uretim)") + '</span></div><div class="govde">')
   [void]$sb.Append('<div class="soru">' + (K "$($c.soru)") + '</div>')
   foreach($h in 'A','B','C','D','E'){
@@ -132,20 +132,20 @@ foreach($sid in $idler){
     [void]$sb.Append('<div class="' + $cl + '"><b>' + $h + ')</b> ' + (K $sn) + '</div>')
   }
   if($c.tablo){ [void]$sb.Append('<h4>TABLO</h4>' + (TabloHtml $c.tablo)) }
-  if($c.yevmiye){ [void]$sb.Append('<h4>YEVMIYE</h4>' + (YevmiyeHtml $c.yevmiye)) }
+  if($c.yevmiye){ [void]$sb.Append('<h4>YEVMİYE</h4>' + (YevmiyeHtml $c.yevmiye)) }
   # 06.08 Cem: (1) "KEHRIBAR KART" ic jargondur, ogrenci yuzunde adi KONUNUN
   # OZETI'dir (04.08 karari, deneme.html ile ayni); (2) once KONU ogretilir -
   # dogru sikkin dort-parca aciklamasi EN USTTE, tuzaklar ondan sonra gelir
   # (sitedeki 1-2-3 merdivenin aynisi; A-E duz sirasi konuyu gomuyordu).
-  if($c.hap){ [void]$sb.Append('<h4>KONUNUN OZETI</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
+  if($c.hap){ [void]$sb.Append('<h4>KONUNUN ÖZETİ</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
   $dh = "$($c.dogru)"
   $acD = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$dh]){ $acD = "$($c.aciklama.$dh)" } } catch {}
-  if($acD -ne ''){ [void]$sb.Append('<h4>KONU ANLATIMI - DOGRU CEVAP (' + $dh + ')</h4><div class="acik">' + (K $acD) + '</div>') }
+  if($acD -ne ''){ [void]$sb.Append('<h4>KONU ANLATIMI — DOĞRU CEVAP (' + $dh + ')</h4><div class="acik">' + (K $acD) + '</div>') }
   foreach($h in 'A','B','C','D','E'){
     if($h -eq $dh){ continue }
     $ac = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$h]){ $ac = "$($c.aciklama.$h)" } } catch {}
     if($ac -eq ''){ continue }
-    [void]$sb.Append('<h4>SIK ' + $h + ' - NEDEN YANLIS</h4><div class="acik">' + (K $ac) + '</div>')
+    [void]$sb.Append('<h4>ŞIK ' + $h + ' — NEDEN YANLIŞ</h4><div class="acik">' + (K $ac) + '</div>')
   }
   if($c.kaynak){ [void]$sb.Append('<h4>KAYNAK</h4><div class="acik">' + (K "$($c.kaynak)") + '</div>') }
   [void]$sb.Append('</div></div>')
@@ -165,7 +165,7 @@ RaporYaz ([ordered]@{
   sinav=$sinav; orneklem=$secilen.Count; ders_sayisi=@($gruplar).Count
   uretilen=$htmlAd; html_bayt=$bayt.Length; geri_okuma_bayt=$geri
   yer="Supabase Storage / kova '$KOVA' (OZEL)"
-  not='0 USD - AI cagrisi yok, kasaya yazilmadi. Orneklem ders-orantili rastgele.'
+  not='0 USD - AI cagrisi yok, kasaya yazilmadi. Orneklem ders orantılı örneklem rastgele.'
 })
 Write-Host ("HTML yazildi: {0} ({1} bayt) | geri okuma {2}" -f $htmlAd, $bayt.Length, $geri)
 if($geri -le 1000){ exit 1 }
