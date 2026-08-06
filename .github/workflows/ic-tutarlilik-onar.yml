@@ -1,0 +1,43 @@
+# .github/workflows/ic-tutarlilik-onar.yml — IC-TUTARLILIK ONARIMCISI (~5 USD)
+# Cem onayi 06.08 gece: "tamam kos 5 usd sorun degil". 610 isaretli sorunun
+# kusurlu kisimlarini Haiku ile onarir; ciktilar OZEL onarim-taslak kovasina
+# (kasaya UYGULANMAZ - hakem + GM okumasi sonrasi ayri adimla uygulanir).
+# Emniyet kemeri: 12 USD asiminda parti kendini durdurur.
+# PARA HARCAYAN IS: cron YOK - yalniz tetik dosyasi ya da elle dispatch.
+name: Ic-Tutarlilik Onarim (~5 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/ic-tutarlilik-onar.txt'
+  workflow_dispatch:
+    inputs:
+      sinir: { description: 'en fazla kac soru (0=hepsi)', required: false, default: '0' }
+permissions:
+  contents: write
+concurrency:
+  group: ic-tutarlilik-onar
+  cancel-in-progress: false
+jobs:
+  onar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - name: Onarim kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          $sinir = '${{ github.event.inputs.sinir }}'
+          if(-not $sinir){ $sinir = '0' }
+          ./motor/ic-tutarlilik-onar.ps1 -sinir ([int]$sinir)
+      - name: Rapor commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/ic-tutarlilik-onar-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Ic-tutarlilik onarim raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
