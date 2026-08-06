@@ -1,5 +1,5 @@
 {
-    "tarih":  "06.08.2026 09:02",
+    "tarih":  "06.08.2026 09:24",
     "aciklama":  "KGK cikmis-soru konu-siklik haritasi. Kaynak: KGK Soru Arsivi resmi kitapciklari (yalniz A kitapcigi; etiket+sayi, soru metni yok). Kota agirliklandirma dayanagi.",
     "toplam_etiketli_soru":  2240,
     "belirsiz":  0,
@@ -24,11 +24,11 @@
     "modul_dagilimi":  {
                            "Surdurulebilirlik (f-g)":  280,
                            "Ek Alanlar (eski birlesik)":  40,
-                           "c: Kurumsal Yonetim":  219,
+                           "c: Kurumsal Yonetim":  96,
                            "Denetim Standartlari":  360,
                            "Sigortacilik-OE (e)":  280,
                            "Sermaye Piyasasi (c-ek)":  280,
-                           "c: Finansal Yonetim":  141,
+                           "c: Finansal Yonetim":  264,
                            "Muhasebe Standartlari":  360,
                            "Bankacilik (d)":  280
                        },
@@ -41,7 +41,7 @@
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 701 kilit denetim konulari",
+                               "konu":  "bds 320 onemlilik",
                                "adet":  6,
                                "donem_sayisi":  6
                            },
@@ -53,13 +53,13 @@
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 320 onemlilik",
+                               "konu":  "bds 450 yanlisliklarin degerlendirilmesi",
                                "adet":  6,
                                "donem_sayisi":  6
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 450 yanlisliklarin degerlendirilmesi",
+                               "konu":  "bds 701 kilit denetim konulari",
                                "adet":  6,
                                "donem_sayisi":  6
                            },
@@ -76,12 +76,6 @@
                                "donem_sayisi":  5
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 41 tarimsal faaliyetler",
-                               "adet":  5,
-                               "donem_sayisi":  5
-                           },
-                           {
                                "modul":  "Denetim Standartlari",
                                "konu":  "bds 505 dis teyitler",
                                "adet":  5,
@@ -94,56 +88,20 @@
                                "donem_sayisi":  5
                            },
                            {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 530 orneklem secim yontemleri",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 500 denetim kanitlari",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 330 kontrol testleri",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 620 uzman calismalari",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 520 analitik prosedurler",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 550 ilişkili taraflar",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 24 iliskili taraf aciklamalari",
+                               "konu":  "tms 41 tarimsal faaliyetler",
+                               "adet":  5,
+                               "donem_sayisi":  5
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "varlik yonetim sirketleri yonetmeligi",
                                "adet":  4,
                                "donem_sayisi":  4
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 16 kullanim hakki varligi olcumu",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "tfrs 17 sigorta sözleşmeleri",
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 2 sektorler arasi metrikler",
                                "adet":  4,
                                "donem_sayisi":  4
                            },
@@ -155,67 +113,73 @@
                            },
                            {
                                "modul":  "Denetim Standartlari",
+                               "konu":  "bds 620 uzman calismalari",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 530 orneklem secim yontemleri",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 330 kontrol testleri",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tfrs 16 kullanim hakki varligi olcumu",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 24 iliskili taraf aciklamalari",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Sigortacilik-OE (e)",
+                               "konu":  "tfrs 17 sigorta sözleşmeleri",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 500 denetim kanitlari",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 520 analitik prosedurler",
+                               "adet":  4,
+                               "donem_sayisi":  4
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
                                "konu":  "bds 610 ic denetci calismalari",
                                "adet":  4,
                                "donem_sayisi":  4
                            },
                            {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 2 sektorler arasi metrikler",
-                               "adet":  4,
-                               "donem_sayisi":  4
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "varlik yonetim sirketleri yonetmeligi",
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 550 ilişkili taraflar",
                                "adet":  4,
                                "donem_sayisi":  4
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "etik kurallar tehdit turleri",
+                               "konu":  "bds 315 risk degerlendirme prosedurleri",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
                            {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim tebligi yatirimci iliskileri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 260 ust yonetimle iletisim",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 1 muhakeme hususlari",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "bankalarin bagimsiz denetimi yonetmeligi",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "kredi islemleri yonetmeligi kredi komitesi",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 210 denetim sozlesmesi sartlari",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 1 temel niteliksel ozellikler",
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 1 finansal tabloların sunuluşu",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
@@ -226,92 +190,14 @@
                                "donem_sayisi":  3
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 36 deger dusuklugu hesabi",
+                               "modul":  "Sigortacilik-OE (e)",
+                               "konu":  "ttk sorumluluk sigortalari",
                                "adet":  3,
                                "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 23 borclanma maliyetleri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 7 nakit akis tablosu",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 706 dikkat cekilen hususlar",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 805 tek finansal tablo denetimi",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 580 yazili beyanlar",
-                               "adet":  3,
-                               "donem_sayisi":  2
                            },
                            {
                                "modul":  "c: Finansal Yonetim",
                                "konu":  "sermaye yapısı yaklaşımları",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 1 capraz referans",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 530 orneklem buyuklugu faktorleri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 1 gercege uygun sunum",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 315 yonetim beyanlari",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 1 ilk uygulama",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 315 risk degerlendirme prosedurleri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 560 bilanco sonrasi olaylar",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 2 iklim direncliligi senaryo analizi",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
@@ -323,13 +209,97 @@
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 710 karsilastirmali bilgiler",
+                               "konu":  "bds 805 tek finansal tablo denetimi",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 10 raporlama sonrasi olaylar",
+                               "konu":  "tms 23 borclanma maliyetleri",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 36 deger dusuklugu hesabi",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 210 denetim sozlesmesi sartlari",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "etik kurallar tehdit turleri",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "nitelikli yatirimciya satis",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 315 yonetim beyanlari",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 7 nakit akis tablosu",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 580 yazili beyanlar",
+                               "adet":  3,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 706 dikkat cekilen hususlar",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 530 orneklem buyuklugu faktorleri",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 2 iklim direncliligi senaryo analizi",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Sigortacilik-OE (e)",
+                               "konu":  "ttk hayat sigortalari",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 1 gercege uygun sunum",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 1 temel niteliksel ozellikler",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "c: Kurumsal Yonetim",
+                               "konu":  "yönetim kurulu komiteleri",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
@@ -341,55 +311,19 @@
                            },
                            {
                                "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim tebligi menfaat sahipleri",
+                               "konu":  "kurumsal yonetim tebligi yatirimci iliskileri",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 28 ozkaynak yontemi",
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 560 bilanco sonrasi olaylar",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 20 devlet tesvikleri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "ttk sorumluluk sigortalari",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "yönetim kurulu komiteleri",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "kredi islemleri yonetmeligi hesap durumu belgesi",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Sermaye Piyasasi (c-ek)",
-                               "konu":  "nitelikli yatirimciya satis",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 1 finansal tabloların sunuluşu",
-                               "adet":  3,
-                               "donem_sayisi":  3
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "kredi islemleri yonetmeligi kredi acma yetkisi",
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 260 ust yonetimle iletisim",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
@@ -400,128 +334,86 @@
                                "donem_sayisi":  3
                            },
                            {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "ttk hayat sigortalari",
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "bankalarin bagimsiz denetimi yonetmeligi",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 20 devlet tesvikleri",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "kredi islemleri yonetmeligi hesap durumu belgesi",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tfrs 1 ilk uygulama",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "kredi islemleri yonetmeligi kredi komitesi",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 1 muhakeme hususlari",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "kredi islemleri yonetmeligi kredi acma yetkisi",
                                "adet":  3,
                                "donem_sayisi":  3
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 560 bilanco tarihinden sonraki olaylar",
-                               "adet":  2,
-                               "donem_sayisi":  2
+                               "konu":  "bds 710 karsilastirmali bilgiler",
+                               "adet":  3,
+                               "donem_sayisi":  3
                            },
                            {
                                "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 2 senaryo analizi",
-                               "adet":  2,
-                               "donem_sayisi":  2
+                               "konu":  "tsrs 1 capraz referans",
+                               "adet":  3,
+                               "donem_sayisi":  3
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 27 bireysel finansal tablolar",
-                               "adet":  2,
-                               "donem_sayisi":  2
+                               "konu":  "tms 10 raporlama sonrasi olaylar",
+                               "adet":  3,
+                               "donem_sayisi":  3
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tms 28 ozkaynak yontemi",
+                               "adet":  3,
+                               "donem_sayisi":  3
                            },
                            {
                                "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim tebligi teminat rehin ipotek",
-                               "adet":  2,
-                               "donem_sayisi":  2
+                               "konu":  "kurumsal yonetim tebligi menfaat sahipleri",
+                               "adet":  3,
+                               "donem_sayisi":  3
                            },
                            {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 13 gercege uygun deger olcumu",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 10 raporlama doneminden sonraki olaylar",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 11 musterek anlasmalar",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim tebligi iliskili taraf islemleri",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 13 gercege uygun deger",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "ihs 4400 mutabik kalinan prosedurler",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 200 mesleki muhakeme",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 23 borclanma maliyeti aktiflestirme",
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 2 iklim hedefleri",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Bankacilik (d)",
-                               "konu":  "sermaye tamponlari kar dagitimi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Finansal Yonetim",
-                               "konu":  "basit faiz hesabi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "derecelendirme kuruluşları yönetmeliği ilkeler",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 230 denetimin belgelendirilmesi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Finansal Yonetim",
-                               "konu":  "oran analizi stok tutari",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Finansal Yonetim",
-                               "konu":  "net bugunku deger hesabi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "sermaye yeterliliği yönetmeliği operasyonel risk",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "bankacılık kanunu mevduat zamanaşımı",
+                               "konu":  "katilim bankasi fon kullandirma yontemleri",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
@@ -532,32 +424,164 @@
                                "donem_sayisi":  2
                            },
                            {
-                               "modul":  "c: Finansal Yonetim",
-                               "konu":  "isletme sermayesi yetersizligi",
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tfrs 9 beklenen kredi zararlari",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 2 kapsam 3 emisyonlari",
+                               "konu":  "tsrs 2 kapsam 3 olcum cercevesi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "sermaye piyasası suçları",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Kurumsal Yonetim",
+                               "konu":  "kurumsal yonetim komitesi gorevleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "borclanma araclari tebligi degistirilebilir tahvil",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Kurumsal Yonetim",
+                               "konu":  "faaliyet raporu içeriği",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 250 mevzuata aykirilik gostergeleri",
+                               "konu":  "bds 200 genel amaclar",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Denetim Standartlari",
-                               "konu":  "bds 810 ozet finansal tablolar",
+                               "konu":  "analitik prosedurler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tfrs 13 gercege uygun deger",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "bankacilik duzeltici onlemler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "izahname tebliği muafiyet halleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Kurumsal Yonetim",
+                               "konu":  "kurumsal yonetim tebligi yaygin surekli islemler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Finansal Yonetim",
+                               "konu":  "finansal yonetim temel ilkeleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 720 diger bilgiler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Finansal Yonetim",
+                               "konu":  "risk getiri degis tokusu ilkesi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "tfrs 3 serefiye hesabi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Kurumsal Yonetim",
+                               "konu":  "yatirimci iliskileri bolumu gorevleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "satis tebligi fiyat dagitim esaslari",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
                                "konu":  "tfrs 9 beklenen kredi zarari",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 265 iç kontrol eksiklikleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 2 senaryo analizi varsayimlari",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sigortacilik-OE (e)",
+                               "konu":  "sigortacilik ic sistemler yonetmeligi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Muhasebe Standartlari",
+                               "konu":  "bobi frs genel hukumler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Finansal Yonetim",
+                               "konu":  "tobin q orani hesabi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "sera gazi protokolu kapsam 3 kategorileri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "bankalar tekdüzen hesap planı",
+                               "adet":  2,
+                               "donem_sayisi":  1
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "gds 3000 guvence denetimleri",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
@@ -569,61 +593,55 @@
                            },
                            {
                                "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "tsrs 1 senaryo analizi tanimi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Bankacilik (d)",
-                               "konu":  "bankalar tekdüzen hesap planı",
-                               "adet":  2,
-                               "donem_sayisi":  1
-                           },
-                           {
-                               "modul":  "Surdurulebilirlik (f-g)",
-                               "konu":  "sera gazi protokolu kapsam 3 kategorileri",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "etik kurallar çıkar çatışması",
+                               "konu":  "bddk yesil varlik orani tebligi",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 40 yatırım amaçlı gayrimenkuller",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 200 genel amaclar",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "gider vergileri kanunu bsmv",
+                               "konu":  "tfrs 5 satis amacli varliklar",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 3 serefiye hesabi",
+                               "konu":  "tfrs 11 musterek anlasmalar",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "sigorta muhasebesi poliçe fesih kaydı",
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 560 bilanco tarihinden sonraki olaylar",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bagimsiz denetim yonetmeligi yaptirimlar",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "c: Finansal Yonetim",
-                               "konu":  "isletme sermayesi ihtiyaci hesabi",
+                               "konu":  "bilesik faiz hesaplama",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 810 ozet finansal tablolar",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "sermaye yeterliliği yönetmeliği operasyonel risk",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Bankacilik (d)",
+                               "konu":  "genel karsilik tfrs 9",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
@@ -635,25 +653,55 @@
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs uygulama kapsami kurul karari",
+                               "konu":  "tms 40 yatırım amaçlı gayrimenkuller",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sigortacilik-OE (e)",
+                               "konu":  "bireysel emeklilik devlet katkisi",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 250 mevzuata aykirilik gostergeleri",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 12 ertelenmis vergi",
+                               "konu":  "tfrs uygulama kapsami kurul karari",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "yatirimci iliskileri bolumu gorevleri",
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "spk yesil borclanma araci rehberi",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim komitesi gorevleri",
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 240 hile sorumluluklari",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "etik kurallar çıkar çatışması",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "c: Finansal Yonetim",
+                               "konu":  "asit test orani hesaplama",
+                               "adet":  2,
+                               "donem_sayisi":  1
+                           },
+                           {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 250 mevzuatin dikkate alinmasi",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
@@ -664,92 +712,44 @@
                                "donem_sayisi":  2
                            },
                            {
+                               "modul":  "Denetim Standartlari",
+                               "konu":  "bds 330 risklere karsi isler",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Sermaye Piyasasi (c-ek)",
+                               "konu":  "halka arz satış yöntemleri",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "gds 3410 kapsami",
+                               "adet":  2,
+                               "donem_sayisi":  2
+                           },
+                           {
                                "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 9 finansal araclar",
+                               "konu":  "tms 12 ertelenmis vergi",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "c: Finansal Yonetim",
-                               "konu":  "efektif faiz orani",
+                               "konu":  "tahvil özellikleri",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "sigorta finansal raporlama yonetmeligi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "sbds 2400 sinirli denetim",
+                               "modul":  "Surdurulebilirlik (f-g)",
+                               "konu":  "tsrs 1 senaryo analizi tanimi",
                                "adet":  2,
                                "donem_sayisi":  2
                            },
                            {
                                "modul":  "Sermaye Piyasasi (c-ek)",
-                               "konu":  "paya donusturulebilir tahvil",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "tobin q orani hesabi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "bobi frs nakit akis tablosu",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tfrs 16 kiralamalar",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 315 yapisal risk faktorleri",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Denetim Standartlari",
-                               "konu":  "bds 265 iç kontrol eksiklikleri",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Sermaye Piyasasi (c-ek)",
-                               "konu":  "satis tebligi fiyat dagitim esaslari",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Sigortacilik-OE (e)",
-                               "konu":  "sigortacilik ic sistemler yonetmeligi",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "c: Kurumsal Yonetim",
-                               "konu":  "kurumsal yonetim tebligi yaygin surekli islemler",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Muhasebe Standartlari",
-                               "konu":  "tms 36 varliklarda deger dusuklugu",
-                               "adet":  2,
-                               "donem_sayisi":  2
-                           },
-                           {
-                               "modul":  "Sermaye Piyasasi (c-ek)",
-                               "konu":  "sermaye piyasası suçları",
+                               "konu":  "kayitli sermaye sistemi",
                                "adet":  2,
                                "donem_sayisi":  2
                            }
@@ -769,13 +769,37 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basit faiz hesaplama",
+                            "konu":  "asit test orani hesaplama",
+                            "adet":  2,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "isletme sermayesi ihtiyaci hesabi",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sistematik olmayan risk",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "forfaiting",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
                             "konu":  "tahvil özellikleri",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "net bugunku deger hesabi",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
@@ -793,7 +817,7 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "net bugunku deger hesabi",
+                            "konu":  "basit faiz hesabi",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
@@ -805,19 +829,13 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz hesabi",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "risk getiri degis tokusu ilkesi",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
                             "konu":  "efektif faiz orani",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "bilesik faiz hesabi",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
@@ -829,31 +847,13 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basit faiz hesabi",
+                            "konu":  "risk getiri degis tokusu ilkesi",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "isletme sermayesi ihtiyaci hesabi",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "alacak tahsil suresi",
-                            "adet":  2,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz sure hesabi",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "optimal sermaye yapisi",
+                            "konu":  "basit faiz hesaplama",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
@@ -865,85 +865,37 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "ozkaynak karlilik orani",
-                            "adet":  1,
+                            "konu":  "optimal sermaye yapisi",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "alacak tahsil suresi",
+                            "adet":  2,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "isletme sermayesi hesaplama yontemleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
+                            "konu":  "tobin q orani hesabi",
+                            "adet":  2,
+                            "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas noktasi analizi",
-                            "adet":  1,
-                            "donem_sayisi":  1
+                            "konu":  "bilesik faiz sure hesabi",
+                            "adet":  2,
+                            "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "piyasa faiz oranı özellikleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
+                            "konu":  "finansal yonetim temel ilkeleri",
+                            "adet":  2,
+                            "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal kaldıraç hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "wacc hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "net bugunku deger",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz getiri orani",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "ortalama faiz orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "portföy beklenen getirisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "isletme sermayesi finanslama stratejileri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "fazla likiditenin etkisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "anuite taksit hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "sermaye yapisi net gelir yaklasimi",
+                            "konu":  "beklenen satis tahmini",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -955,13 +907,115 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "agirlikli ortalama sermaye maliyeti",
+                            "konu":  "kar dagitim teorisi eldeki kus",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm risksiz faiz orani",
+                            "konu":  "portföy beklenen getirisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "miller orr nakit modeli",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nakit akımına yönelik finansal amaçlar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "oran analizi hazir degerler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "borç özkaynak oranı hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finanslama stratejisi karsilastirma",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "fazla likiditenin etkisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "modigliani miller varsayimlari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas noktasi analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "senet iskonto pesin deger hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "swap islemleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "geri odeme suresi hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal kaldirac derecesi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "satici kredisi firsat maliyeti",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "miller orr nakit yonetimi modeli",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "kredinin vergi sonrasi maliyeti",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "geri odeme suresi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "agirlikli ortalama sermaye maliyeti",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -985,7 +1039,139 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "anuite bugunku deger hesabi",
+                            "konu":  "capm risksiz faiz orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "gordon lintner kar payi teorisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nakit donusum suresi orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "satislarin yuzdesi yontemi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal yapi oranlari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "isletme sermayesi hesaplama yontemleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ozkaynak karlilik orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "liste fiyati kdv masraf hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "adi hisse senedi maliyeti",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "surekli anuite bugunku deger",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "likit oran hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "wacc hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sermaye yapisi net gelir yaklasimi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal kaldıraç hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "atak finanslama stratejisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal tablo analiz teknikleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "anuite taksit hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "hisse senedi toplam getiri orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nominal faiz enflasyon ilişkisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "maliyet hacim kar analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "net bugunku deger",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "uzun vadeli fon kaynaklari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ortalama faiz orani hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -997,19 +1183,37 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "net reel getiri enflasyon hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sistematik olmayan riskler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "oto finansman orani",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "sermaye bütçelemesi kapsamı",
+                            "konu":  "turev urunlerin ozellikleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "net bugunku deger nakit akislari",
+                            "konu":  "senet iskontosu pesin deger",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sermaye varliklari fiyatlama modeli",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1021,13 +1225,37 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "pd dd orani hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nakit yonetimi modelleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "net isletme sermayesi ihtiyaci",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "faaliyet başabaş noktası",
+                            "konu":  "sermaye varliklari fiyatlandirma modeli",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "anuite bugunku deger hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sermaye bütçelemesi kapsamı",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1039,13 +1267,49 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "vadeli satışın peşin değeri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "dikey yuzdeler analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "bileşik faizde süre hesabı",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "optimal sermaye yapisi faktorleri",
+                            "konu":  "efektif kredi maliyeti bloke bakiye",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal kaldirac ve rantabilite",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finanslama stratejileri risk karlilik",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "fisher reel getiri hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "borc ozkaynak yapisi uvb hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1063,31 +1327,37 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "tahvil maliyeti hesaplama",
+                            "konu":  "faaliyet başabaş noktası",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "tahvil fiyatlama hesabi",
+                            "konu":  "sharpe orani hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz orani hesabi",
+                            "konu":  "optimal sermaye yapisi faktorleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm varsayımları",
+                            "konu":  "pesin faizli kredi hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal kaldirac ve rantabilite",
+                            "konu":  "piyasa degeri defter degeri orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "du pont analizi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1099,7 +1369,7 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansman bonosu fiyat hesabi",
+                            "konu":  "tahvil fiyatlama hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1111,115 +1381,19 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "tahvil reel getiri hesabi",
+                            "konu":  "finansman bonosu fiyat hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "devir hızları oran analizi",
+                            "konu":  "piyasa faiz oranı özellikleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm beta yorumu",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "dupont analizi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas analizi planlanan kar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "faaliyet kaldıracı hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "portfoy getiri orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal kaldirac derecesi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "alacak devir hizi hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "oran analizi cari oran",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas analizi birim satis fiyati",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "surekli anuite bugunku deger",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "tahvil hisse senedi farklari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "oran analizi cari oran hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "oran analizi ozsermaye",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "cari oran likidite orani stok hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm portfoy getirisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "efektif faiz orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "bugunku deger hesaplama",
+                            "konu":  "belirsizlikte yatirim degerlendirme yontemleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1231,25 +1405,277 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "isletmenin parasal finansal amaclari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "bilesik faiz getiri orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "modigliani miller teorisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "modigliani miller yaklasimi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "tahvil reel getiri hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "dupont analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ic iskonto senet pesin degeri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nakit donusum suresi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "net bugunku deger nakit akislari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "capm beta yorumu",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "devir hızları oran analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas analizi planlanan kar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "capm varsayımları",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "bilesik faiz orani hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "faaliyet kaldıracı hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "borc ozkaynak yapisi hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "riske maruz deger hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "portfoy getiri orani hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "bugunku deger hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "oran analizi ozsermaye",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas analizi birim satis fiyati",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "tahvil degerlemesi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal planlama butceleme ilkeleri",
+                            "konu":  "capm portfoy getirisi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "eldeki kus teorisi temettu",
+                            "konu":  "yatirim net nakit akisi hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal planlama asamalari",
+                            "konu":  "cari oran likidite orani stok hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "kar marji hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "du pont ozsermaye karliligi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "tahvil hisse senedi farklari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal kiralama sakincalari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "du pont aktif karliligi roa",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "alacak devir hizi hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "oran analizi cari oran hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "enflasyon alim gucu hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ozsermaye finansman orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal piyasalarin vade siniflandirmasi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nakit orani hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "du pont net kar marji",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "faaliyet devir hizi hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "varant",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal yonetim politikalari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "riskli yatirim degerlendirme yontemleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "efektif faiz orani hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "net kar marji hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sistematik risk pazar riski",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "nominal reel faiz bilesenleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas noktasi hesaplama",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1261,19 +1687,31 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas noktasi hesabi",
+                            "konu":  "finansal planlama asamalari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "temettu buyume modeli beklenen getiri",
+                            "konu":  "finans yoneticisinin kararlari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "satislarin karlilik orani",
+                            "konu":  "bono kredi degeri hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "brut kar marji net satislar hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "reel getiri hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1285,7 +1723,43 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "factoring",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "temettu buyume modeli beklenen getiri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas noktasi hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "satislarin karlilik orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "eldeki kus teorisi temettu",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "isletme sermayesi ihtiyaci",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "muhasebe verim orani hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1297,13 +1771,43 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "gordon buyume modeli",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "reel kazanc stopaj enflasyon",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "finansman bonosu turleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "aktif karlilik orani",
+                            "konu":  "gordon buyume modeli getiri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "fiyat kazanc orani tahmini",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal planlama butceleme ilkeleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ekonomik siparis miktari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1315,13 +1819,49 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "aktif karlilik orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal piyasaların sınıflandırılması",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "regresyonla stok tahmini",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "tahvil maliyeti hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "imtiyazli pay finansman maliyeti",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "isletme sermayesi cesitleri",
+                            "konu":  "finansal oranlar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "dinamik yatirim degerlendirme yontemleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "para ve sermaye piyasasi araclari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1339,19 +1879,7 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "efektif sermaye maliyeti karşılaştırması",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "temettu verimi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz bugunku deger",
+                            "konu":  "faktoring vade sonu tutari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1363,31 +1891,61 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
+                            "konu":  "enflasyon reel alim gucu kaybi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "bilesik faiz bugunku deger",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "menkul kiymet pazar tanimlari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "oran analizi cari oran",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "isletme sermayesi cesitleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "operasyonel kiralama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal politika teori eslestirme",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "etkin piyasalar hipotezi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
                             "konu":  "oz sermaye devir hizi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "bilesik faiz geliri hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "oran analizi hazir degerler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "bileşik faiz getiri karşılaştırması",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm sermaye maliyeti",
+                            "konu":  "forward futures karsilastirmasi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1399,67 +1957,67 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "birlesik kaldirac derecesi hesabi",
+                            "konu":  "bilesik faiz geliri hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "risksiz faiz orani yatirim araclari",
+                            "konu":  "yatirim degerlendirme statik yontemler",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "isletme sermayesi yetersizligi onlemleri",
+                            "konu":  "nakit bulundurma amaçları",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basit faiz pesin deger",
+                            "konu":  "nakit orani hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas noktasi hesaplama",
+                            "konu":  "dis iskonto senet devri hesabi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "ozsermaye finansman orani",
+                            "konu":  "bileşik faiz getiri karşılaştırması",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "faaliyet devir hizi hesabi",
+                            "konu":  "mamul stoku bulundurma faktorleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "basabas analizi",
+                            "konu":  "isletme sermayesi finanslama stratejileri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "likidite oranlari",
+                            "konu":  "yeniden insa degeri hesaplama",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "likidite orani",
+                            "konu":  "capm sermaye maliyeti",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "capm beklenen getiri hesaplama",
+                            "konu":  "turev sozlesmeler ortak ozellikler",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1471,7 +2029,19 @@
                         },
                         {
                             "modul":  "c: Finansal Yonetim",
-                            "konu":  "finansal yonetimin likidite amaclari",
+                            "konu":  "devir hizlari ile borc hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "karlilik oranlari net kar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "kdv ve islem masrafi tutari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1480,18 +2050,156 @@
                             "konu":  "pay basina temettu hesaplama",
                             "adet":  1,
                             "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "faiz vergi sonrasi net kar hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal yonetimin likidite amaclari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "net reel getiri hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "isletme sermayesi yetersizligi onlemleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "risksiz faiz orani yatirim araclari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basit faiz pesin deger",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "ortalama muhasebe getirisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "hisse fiyati tahmini pd dd",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "basabas analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "senet iskonto vadeli değer",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "yatirim degerlendirme statik dinamik yontemler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "efektif sermaye maliyeti karşılaştırması",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "egilim yuzdeleri analizi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "finansal yöneticinin görevleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "alacak donusum suresi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "temettu verimi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "likidite orani",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "efektif yillik faiz devre secimi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "likidite oranlari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "capm beklenen getiri hesaplama",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "reel getiri degerlendirmesi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "sistematik olmayan risk kaynaklari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Finansal Yonetim",
+                            "konu":  "birlesik kaldirac derecesi hesabi",
+                            "adet":  1,
+                            "donem_sayisi":  1
                         }
                     ],
     "ky_konulari":  [
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yatirimci iliskileri",
+                            "konu":  "yönetim kurulu komiteleri",
                             "adet":  3,
                             "donem_sayisi":  3
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yönetim kurulu komiteleri",
+                            "konu":  "kurumsal yonetim tebligi yatirimci iliskileri",
                             "adet":  3,
                             "donem_sayisi":  3
                         },
@@ -1509,55 +2217,7 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komitesi gorevleri",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yaygin surekli islemler",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "tobin q orani hesabi",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "forfaiting",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "faaliyet raporu içeriği",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi komite gorevleri",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi teminat rehin ipotek",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi komiteler",
-                            "adet":  2,
-                            "donem_sayisi":  2
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi faaliyet raporu",
+                            "konu":  "kurumsal yonetim tebligi iliskili taraf islemleri",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
@@ -1569,61 +2229,79 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi iliskili taraf islemleri",
+                            "konu":  "kurumsal yonetim tebligi teminat rehin ipotek",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "asit test orani hesaplama",
-                            "adet":  2,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal yonetim temel ilkeleri",
+                            "konu":  "kurumsal yonetim tebligi yaygin surekli islemler",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sistematik olmayan risk",
+                            "konu":  "kurumsal yonetim tebligi faaliyet raporu",
                             "adet":  2,
                             "donem_sayisi":  2
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi bagimsiz uye adayligi",
+                            "konu":  "kurumsal yonetim tebligi komiteler",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi komite gorevleri",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "faaliyet raporu içeriği",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim komitesi gorevleri",
+                            "adet":  2,
+                            "donem_sayisi":  2
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "yaygın ilişkili taraf işlemleri raporu",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "bagimsiz uye kriterleri",
+                            "konu":  "kurumsal yonetim komiteler yapisi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "beklenen satis tahmini",
+                            "konu":  "kurumsal yonetim tebligi spk sure",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi komite kurallari",
+                            "konu":  "kurumsal yonetim tebligi komite uyeligi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "enflasyon alim gucu hesabi",
+                            "konu":  "pay sahipleriyle iletisimde oncu komite",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "gordon buyume modeli getiri",
+                            "konu":  "kurumsal yonetim ilkeleri esitlik",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1641,61 +2319,7 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit akımına yönelik finansal amaçlar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit orani hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "faiz vergi sonrasi net kar hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "pay sahipleriyle iletisimde oncu komite",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "fisher reel getiri hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "du pont net kar marji",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komiteler yapisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi komite uyeligi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nominal faiz enflasyon ilişkisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi ortaklik gruplari",
+                            "konu":  "kurumsal yonetim tebligi komite kurallari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1707,43 +2331,109 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kredinin vergi sonrasi maliyeti",
+                            "konu":  "kurumsal yonetim denetimden sorumlu komite",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "genel kurul toplantı esasları",
+                            "konu":  "kurumsal yönetim zorunlu uygulama kriterleri",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "gordon lintner kar payi teorisi",
+                            "konu":  "kurumsal yonetim tebligi ortaklik gruplari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yaygın ilişkili taraf işlemleri raporu",
+                            "konu":  "yillik faaliyet raporu icerigi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "egilim yuzdeleri analizi",
+                            "konu":  "kurumsal yonetim faaliyet raporu icerigi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit bulundurma amaçları",
+                            "konu":  "temel isletme fonksiyonlari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal piyasalarin vade siniflandirmasi",
+                            "konu":  "kamuyu aydinlatma ve seffaflik",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi uyum aciklamasi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "pay sahipliği bilgilerinin sunumu",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "pay sahipligi haklari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi denetim komitesi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "bagimsiz uye sayisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi denetim kurulusu secimi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim ilkeleri ana bolumler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim yonetim kurulu yapisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim ana ilkeleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "vekalet problemi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "spk bagimsiz uye resen atama",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1755,25 +2445,157 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal politika teori eslestirme",
+                            "konu":  "kurumsal yonetim menfaat sahipleri politikasi",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "pesin faizli kredi hesabi",
+                            "konu":  "yonetim kurulu toplantilari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim denetimden sorumlu komite",
+                            "konu":  "bagimsiz uyeligin kaybi proseduru",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "dis iskonto senet devri hesabi",
+                            "konu":  "kurumsal yonetim tebligi pay sahipleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi mali haklar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "yonetim kurulu komitelerinde gorev",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "spk 6362 kurumsal yonetim yetkisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "riskin erken saptanmasi komitesi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim bagimsiz uye kriterleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi yonetim kurulu esaslari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "yonetimin temel fonksiyonlari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi bagimsiz uye",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "risk yonetimi ve ic kontrol raporu",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim komitesi gorev devri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim komiteler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi onemli islemler",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi yatirimci iliskileri kapsami",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim yonetim kurulu faaliyet esaslari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim yonetici mali haklari",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi sorumluluk sigortasi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "bagimsiz uye kriterleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi finansal kurulus",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "bagimsiz yonetim kurulu uyeligi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi bagimsiz uye adayligi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi yonetim kurulu gorevleri",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "genel kurul toplantı esasları",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -1791,835 +2613,7 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "para ve sermaye piyasasi araclari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yonetim kurulu gorevleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim ilkeleri esitlik",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "atak finanslama stratejisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yatirim degerlendirme statik dinamik yontemler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "temel isletme fonksiyonlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi denetim komitesi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim faaliyet raporu icerigi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kamuyu aydinlatma ve seffaflik",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yillik faaliyet raporu icerigi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "miller orr nakit modeli",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "factoring",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "spk bagimsiz uye resen atama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "vekalet problemi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "bono kredi degeri hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim ana ilkeleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "pay sahipliği bilgilerinin sunumu",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yatirim net nakit akisi hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi uyum aciklamasi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi spk sure",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal oranlar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "gordon buyume modeli",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "isletmenin parasal finansal amaclari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "vadeli satışın peşin değeri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "ic iskonto senet pesin degeri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "pay sahipligi haklari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komite calisma esaslari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "riske maruz deger hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "adi hisse senedi maliyeti",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "senet iskonto vadeli değer",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi denetim kurulusu secimi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "faktoring vade sonu tutari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "bagimsiz uye sayisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal tablo analiz teknikleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim ilkeleri ana bolumler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "alacak donusum suresi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "hisse senedi toplam getiri orani",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "dinamik yatirim degerlendirme yontemleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "forward futures karsilastirmasi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "brut kar marji net satislar hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim yonetim kurulu yapisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sermaye varliklari fiyatlandirma modeli",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "reel getiri degerlendirmesi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "karlilik oranlari net kar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "borc ozkaynak yapisi hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "net reel getiri enflasyon hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "hisse fiyati tahmini pd dd",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "mamul stoku bulundurma faktorleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "modigliani miller teorisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "maliyet hacim kar analizi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "senet iskonto pesin deger hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "ortalama muhasebe getirisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "likit oran hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "miller orr nakit yonetimi modeli",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim menfaat sahipleri politikasi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi pay sahipleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "bagimsiz uyeligin kaybi proseduru",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "efektif yillik faiz devre secimi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komiteler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finans yoneticisinin kararlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "du pont aktif karliligi roa",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi onemli islemler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yonetim kurulu toplantilari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "ekonomik siparis miktari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yonetim kurulu komitelerinde gorev",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "turev urunlerin ozellikleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "borç özkaynak oranı hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "spk 6362 kurumsal yonetim yetkisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim bagimsiz uye kriterleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "riskin erken saptanmasi komitesi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi mali haklar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "efektif kredi maliyeti bloke bakiye",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "geri odeme suresi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "senet iskontosu pesin deger",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sistematik olmayan riskler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi bagimsiz uye",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "satislarin yuzdesi yontemi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "reel kazanc stopaj enflasyon",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal yöneticinin görevleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "uzun vadeli fon kaynaklari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kar marji hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "belirsizlikte yatirim degerlendirme yontemleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "modigliani miller yaklasimi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yeniden insa degeri hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit donusum suresi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "net kar marji hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yonetim kurulu esaslari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "riskli yatirim degerlendirme yontemleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "swap islemleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim yonetim kurulu faaliyet esaslari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "regresyonla stok tahmini",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "reel getiri hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yatirimci iliskileri kapsami",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yonetimin temel fonksiyonlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal yonetim politikalari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sharpe orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komitesi gorev devri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "du pont ozsermaye karliligi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi banka komite muafiyeti",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "net reel getiri hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi finansal kurulus",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "modigliani miller varsayimlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "etkin piyasalar hipotezi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "yatirim degerlendirme statik yontemler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "genel kurul bildirim süresi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi lisanslar",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal yapi oranlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "liste fiyati kdv masraf hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "vekil asil acente teorisi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kdv ve islem masrafi tutari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "satici kredisi firsat maliyeti",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "varant",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sistematik olmayan risk kaynaklari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "du pont analizi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "pd dd orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "geri odeme suresi hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kar dagitim teorisi eldeki kus",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nominal reel faiz bilesenleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "bagimsiz yonetim kurulu uyeligi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "operasyonel kiralama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi sorumluluk sigortasi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "enflasyon reel alim gucu kaybi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim yonetici mali haklari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yönetim zorunlu uygulama kriterleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finanslama stratejisi karsilastirma",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal piyasaların sınıflandırılması",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim komiteler faaliyet raporu",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit yonetimi modelleri",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "risk yonetimi ve ic kontrol raporu",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "fiyat kazanc orani tahmini",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finansal kiralama sakincalari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "nakit donusum suresi orani",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sermaye varliklari fiyatlama modeli",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "muhasebe verim orani hesabi",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "finanslama stratejileri risk karlilik",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "turev sozlesmeler ortak ozellikler",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "menkul kiymet pazar tanimlari",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "dikey yuzdeler analizi",
+                            "konu":  "kurumsal yonetim tebligi yonetim kurulu",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -2631,19 +2625,7 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "sistematik risk pazar riski",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "devir hizlari ile borc hesaplama",
-                            "adet":  1,
-                            "donem_sayisi":  1
-                        },
-                        {
-                            "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "piyasa degeri defter degeri orani",
+                            "konu":  "kurumsal yonetim komiteler faaliyet raporu",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
@@ -2655,13 +2637,31 @@
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "borc ozkaynak yapisi uvb hesabi",
+                            "konu":  "kurumsal yonetim komite calisma esaslari",
                             "adet":  1,
                             "donem_sayisi":  1
                         },
                         {
                             "modul":  "c: Kurumsal Yonetim",
-                            "konu":  "kurumsal yonetim tebligi yonetim kurulu",
+                            "konu":  "vekil asil acente teorisi",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi banka komite muafiyeti",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "kurumsal yonetim tebligi lisanslar",
+                            "adet":  1,
+                            "donem_sayisi":  1
+                        },
+                        {
+                            "modul":  "c: Kurumsal Yonetim",
+                            "konu":  "genel kurul bildirim süresi",
                             "adet":  1,
                             "donem_sayisi":  1
                         }

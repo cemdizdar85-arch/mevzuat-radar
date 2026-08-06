@@ -35,7 +35,16 @@ function ModulCati([string]$m){
   if($s -match '^muhasebe$'){ return 'Muhasebe (eski)' }
   return $m
 }
-# FY/KY ayrimi: (c) modulundeki soruyu etiketine bakarak boler
+# 06.08 DUZELTME (Cem: "yanlis bir sey yapmayalim" - hakliydi): FY-pozitif regex
+# yaklasimi onlarca finans konusunu kaciriyordu ('sermaye varliklari fiyatlandirma
+# modeli' CAPM'dir ama 'capm' kelimesi gecmez; senet iskontosu, Miller-Orr, EOQ,
+# MM teorisi, turevler...). Guvenli yon TERSI: KY evreni DARDIR ve nettir
+# (teblig/komite/genel kurul/pay sahipligi/vekalet). KY-desenine uymayan (c)
+# sorusu FY sayilir.
+function KyMi([string]$konu){
+  $s = Sade $konu
+  return ($s -match 'kurumsal yonetim|bagimsiz uye|bagimsiz yonetim kurulu|genel kurul|yonetim kurulu|komite|faaliyet raporu|menfaat sahip|kamuyu aydinlatma|pay sahip|yatirimci iliskileri|vekalet|asil vekil|vekil asil|internet sitesi|riskin erken saptanmasi|sorumluluk sigortasi|mali haklar|uyum aciklamasi|uyum raporu|zorunlu uygulama|ortaklik gruplari|azlik haklari|onemli islemler|teminat rehin ipotek|iliskili taraf|yaygin.*surekli|denetim kurulusu secimi|spk.*sure|spk.*resen|esitlik|ana ilkeler|ana bolumler|isletme fonksiyonlari|yonetimin temel fonksiyon|risk yonetimi ve ic kontrol raporu|banka komite muafiyeti|finansal kurulus|lisanslar')
+}
 function FyMi([string]$konu){
   $s = Sade $konu
   return ($s -match 'wacc|capm|anuite|bugunku deger|ic verim|npv|net bugunku|kaldirac|basabas|temettu|portfoy|beta|oran analiz|cari oran|likidite|dupont|isletme sermayesi|nakit dongusu|sermaye butcele|sermaye maliyeti|tahvil|hisse.*deger|finansal analiz|finansman|karlilik orani|aktif devir|stok devir|alacak devir|faaliyet kaldiraci|finansal planlama|proforma|risk.*getiri|sermaye yapisi|faiz hesap|faiz oran|efektif faiz|basit faiz|bilesik faiz|tahsil suresi|devir hizi|paranin zaman|firma degeri|isletme degeri|finansal varlik fiyat|repo|borsa endeks|halka arz fiyat')
@@ -64,7 +73,7 @@ foreach($d in $dosyalar){
     $donemSay[$donem]++
     $mc = ModulCati "$($s.modul)"
     if($mc -eq 'Kurumsal Yonetim + Finansal Yonetim (c)'){
-      $mc = if(FyMi "$($s.konu)"){ 'c: Finansal Yonetim' } else { 'c: Kurumsal Yonetim' }
+      $mc = if(KyMi "$($s.konu)"){ 'c: Kurumsal Yonetim' } else { 'c: Finansal Yonetim' }
     }
     if(-not $modulSay.ContainsKey($mc)){ $modulSay[$mc] = 0 }
     $modulSay[$mc]++
