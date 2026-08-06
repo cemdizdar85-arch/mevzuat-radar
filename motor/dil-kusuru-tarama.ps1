@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  DIL KUSURU TARAMASI (04.08.2026) — 0 USD, API YOK, YAZMA YOK
 #
 #  Cem'in bu gece taslakta yakaladigi UC dil kusurunu TEK kosuda olcer.
@@ -44,11 +44,16 @@ trap {
 }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 0 }
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
-$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+# sb_secret tipi anahtar Bearer basligiyla 401 verir (karantina-tasi dersi):
+# Bearer yalniz eski tip JWT'de eklenir; robot User-Agent her durumda sart.
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY }
+if($env:SUPABASE_SERVICE_KEY -like 'eyJ*'){ $SB.Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
 function CekListe([string]$uri){
   $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
   $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
-  return @($m | ConvertFrom-Json)
+  # PS5.1/7 farki sigortasi (06.08 dersi): 5.1'de CFJ diziyi TEK nesne dondurur
+  return @(($m | ConvertFrom-Json) | ForEach-Object { $_ })
 }
 $kasa = New-Object System.Collections.Generic.List[object]
 for($o=0; $o -lt 60000; $o+=1000){

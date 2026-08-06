@@ -275,6 +275,12 @@ usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN alm
       hizmet merkezi istisnası; etiket düzeltildi.)
 - [ ] Asgari ücret 2026 kararı — mevzuat.gov.tr tebliğ fihristinde YOK (ölçüldü);
       RG'den `veri/mevzuat-hazir/asgariucret2026.txt` olarak gelecek.
+- [ ] **KGK ek-alan tebliğ derinliği (06.08, emir #37 Faz 2):** SPK ikincil mevzuatı
+      (II-5.1 İzahname, II-31 Borçlanma Araçları, VII-128.1 Pay Tebliği) + BDDK
+      yönetmelikleri (Varlık Yönetim Şirketleri, Bankaların Kredi İşlemleri) +
+      Sigortacılık teknik karşılıklar yönetmeliği. Emir #37 v1 KANUN düzeyinde
+      üretiyor (6362/5411/5684/4632 ambarda); tebliğ-düzeyi soru derinliği bu
+      yutmalardan sonra açılır.
 Kural: yıl-eşikli soru üretiminde dayanak = ilgili yılın tebliği (A1'e ek).
 Altyapı 03.08: koşucu 528'lik seri yağmurda boğuluyordu (02.08 10:07 koşusu ambara
 tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 sn bekleme

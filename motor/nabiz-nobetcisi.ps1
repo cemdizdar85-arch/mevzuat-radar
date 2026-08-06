@@ -88,6 +88,11 @@ $izlenen = [ordered]@{
   "takvim.yml"        = @("Sinav Takvimi Nobetcisi (TESMER PDF)", 30)
   "kalite-tarama.yml" = @("Kasa Kalite Taramasi (haftalik)", 192)
   "yedek.yml"         = @("Haftalik Yedek", 192)
+  # 07.08 (kural: yeni cron'lu robot nabza DOSYA ADIYLA girer) - 06.08 kurulan denetciler:
+  "duyuru-nobetcisi.yml" = @("Kurum Duyuru Nobetcisi (gunluk)", 30)
+  "aritmetik-kapisi.yml" = @("Aritmetik Kapisi (haftalik)", 192)
+  "ders-etiket.yml"      = @("Ders-Etiket Denetimi (haftalik)", 192)
+  "ic-tutarlilik.yml"    = @("Ic-Tutarlilik Denetimi (haftalik)", 192)
 }
 
 $simdi = (Get-Date).ToUniversalTime()

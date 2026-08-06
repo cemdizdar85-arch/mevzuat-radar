@@ -44,6 +44,10 @@ function TrSayi([string]$s){
 }
 $reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
+# 07.08 (Cem'e soz: net rakam): PARANTEZ DESTEGI - "(a ± b) / c = d" kalibi
+# (ortalama/fark-boluk hesabi) once ayri dogrulanir, sonra metinden cikarilir;
+# yoksa duz desen paranteze yarim girip yanlis alarm uretiyordu ((4,5+5,6)/2 vakasi).
+$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
 $reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
 
 # Bir metindeki tum islemleri dogrular; sapma listesi dondurur.
@@ -51,6 +55,22 @@ $reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvar
 # (hepsi %'liyse duz sayi). Karisik +- soldan saga; * veya / karisiksa atlanir.
 function IslemDenetle([string]$metin){
   $bulgu = @()
+  $metin = "$metin"
+  # once parantezli kaliplar: dogrula ve metinden cikar
+  foreach($pm in $reParen.Matches($metin)){
+    $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
+    if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
+    $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
+    $bk = if($pm.Groups['op2'].Value -match '[x×X*]'){ $ic * $c } else { $ic / $c }
+    if($pm.Groups['son'].Value -like '%*' -and [math]::Abs($bk) -lt 1.5){ $bk = $bk * 100.0 }
+    $fark2 = [math]::Abs($bk - $sn)
+    if($fark2 -gt [math]::Max([math]::Abs($bk)*0.005, 0.02)){
+      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$fark2/[math]::Max([math]::Abs($bk),0.0001),2) }
+    }
+  }
+  $metin = $reParen.Replace($metin, ' ')
+  # kalan parantezli karma ifadeler duz desene YARIM girmesin: ic-parantezleri sil
+  $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
@@ -94,7 +114,10 @@ function IslemDenetle([string]$metin){
       $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv; sapmaYuzde=[math]::Round(100*$fark/[math]::Max([math]::Abs($b),0.0001),2) }
     }
   }
-  return ,$bulgu
+  # DIKKAT: 'return ,$bulgu' YAZMA - virgul sarmalayici bos listeyi @(cmd)
+  # baglaminda 1 saydiriyor (07.08 test bataryasi dersi). Duz donus dogru:
+  # bos -> 0 oge, n bulgu -> n oge.
+  return $bulgu
 }
 # ---------- /cekirdek ----------
 

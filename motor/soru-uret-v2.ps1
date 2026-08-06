@@ -1015,8 +1015,22 @@ function TrSayi([string]$s){
 $reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
 $reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+# 07.08 parantez destegi (aritmetik-kapisi ile IKIZ): "(a ± b) / c = d" once
+# ayri dogrulanir, kalan parantezler duz desene yarim girmesin diye silinir.
+$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
 function IslemDenetle([string]$metin){
   $bulgu = @()
+  $metin = "$metin"
+  foreach($pm in $reParen.Matches($metin)){
+    $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
+    if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
+    $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
+    $bk = if($pm.Groups['op2'].Value -match '[x×X*]'){ $ic * $c } else { $ic / $c }
+    if($pm.Groups['son'].Value -like '%*' -and [math]::Abs($bk) -lt 1.5){ $bk = $bk * 100.0 }
+    if([math]::Abs($bk - $sn) -gt [math]::Max([math]::Abs($bk)*0.005, 0.02)){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn } }
+  }
+  $metin = $reParen.Replace($metin, ' ')
+  $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
@@ -1057,7 +1071,7 @@ function IslemDenetle([string]$metin){
     $tol  = [math]::Max([math]::Abs($b) * 0.005, 0.02)
     if($fark -gt $tol){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv } }
   }
-  return ,$bulgu
+  return $bulgu   # ',$bulgu' YASAK - bos liste @(cmd) baglaminda 1 sayiliyordu (07.08)
 }
 # ---------- /ARITMETIK CEKIRDEGI ----------
 function SayiListe([string]$t){ $l=@(); foreach($m in [regex]::Matches("$t",'\d[\d\.\,]*')){ $l += $m.Value.TrimEnd('.',',') }; return $l }
