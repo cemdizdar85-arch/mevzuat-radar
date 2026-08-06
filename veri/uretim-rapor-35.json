@@ -1,0 +1,2222 @@
+{
+  "tarih": "06.08.2026 08:14",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 892,
+    "maddesiz": 242,
+    "metinsiz": 0,
+    "hazir": 707,
+    "tavanDolu": 422,
+    "kaynak_hesap-plani": 91,
+    "kaynak_kanun": 556,
+    "kaynak_standart": 2,
+    "kaynak_belge": 1
+  },
+  "ozet": {
+    "uretilen": 419,
+    "rakamRed": 187,
+    "dilRed": 20,
+    "sikRed": 10,
+    "sablonRed": 22,
+    "tuzakRed": 14,
+    "dogrusuRed": 0,
+    "atifRed": 4,
+    "kokuRed": 19,
+    "benzerRed": 0,
+    "cevapsiz": 12,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 7509064,
+    "cikis": 1072898,
+    "usd": 19.31
+  },
+  "redler": [
+    {
+      "konu": "hisse senedi alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "alacak senedi reeskontu",
+      "sebep": "dil",
+      "deger": "ort 11.4 enuzun 51"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "128 - Şüpheli Ticari Alacaklar,129 - Şüpheli Ticari Alacaklar Karşılığı (-),654 - Karşılık Giderleri,644 - Konusu Kalmayan Karşılıklar,681 - Önceki Dönem Gider ve Zararları,671 - Önceki Dönem Gelir ve Kârları"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "gelecek aylara ait gider mahsubu",
+      "sebep": "dil",
+      "deger": "ort 14.4 enuzun 41"
+    },
+    {
+      "konu": "saticiya mal iadesi",
+      "sebep": "dil",
+      "deger": "ort 8.7 enuzun 45"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 10.6 enuzun 44"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 43"
+    },
+    {
+      "konu": "stok deger dusuklugu karsiligi",
+      "sebep": "dil",
+      "deger": "ort 12.6 enuzun 41"
+    },
+    {
+      "konu": "genel yonetim gideri",
+      "sebep": "dil",
+      "deger": "ort 11.1 enuzun 41"
+    },
+    {
+      "konu": "menkul kiymet alimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(4)"
+    },
+    {
+      "konu": "hisse senedi satisi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "gelecek aylara ait gider",
+      "sebep": "dil",
+      "deger": "ort 11.4 enuzun 42"
+    },
+    {
+      "konu": "gider hesaplari donem karina aktarma",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "arastirma gelistirme giderleri",
+      "sebep": "riskli-sayi",
+      "deger": "5 yıl"
+    },
+    {
+      "konu": "bagli ortaklik sermaye taahhudu",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "menkul kiymet deger dusuklugu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "supheli alacak karsiligi ve tahsilati",
+      "sebep": "riskli-sayi",
+      "deger": "128 Şüpheli Ticari Alacaklar,129 Şüpheli Ticari Alacaklar Karşılığı (-),654 Karşılık Giderleri,644 Konusu Kalmayan Karşılıklar,681 Önceki Dönem Gider ve Zararları,671 Önceki Dönem Gelir ve Kârları"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "odenmemis sermaye kaydi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "bolunme turleri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "bolunme turleri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(5)"
+    },
+    {
+      "konu": "yatirimci varliklari teminat",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(4)"
+    },
+    {
+      "konu": "yatirimci varliklari teminat",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "yatirimci varliklari teminat",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000,500.000"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "tazmin talebi zamanasimi",
+      "sebep": "riskli-sayi",
+      "deger": "2 yıl,10 yıl"
+    },
+    {
+      "konu": "tazmin talebi zamanasimi",
+      "sebep": "riskli-sayi",
+      "deger": "2 yıl,10 yıl"
+    },
+    {
+      "konu": "karsilastirmali tablolar - kisa vadeli mali borc degisimi",
+      "sebep": "dil",
+      "deger": "ort 9.3 enuzun 46"
+    },
+    {
+      "konu": "merkezi takas kurulusu",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "dikey yuzde mali borclar",
+      "sebep": "dil",
+      "deger": "ort 9.4 enuzun 46"
+    },
+    {
+      "konu": "sgk bildirim sureleri",
+      "sebep": "uydurma-atif",
+      "deger": "5510"
+    },
+    {
+      "konu": "gss bakmakla yukumlu",
+      "sebep": "riskli-sayi",
+      "deger": "18 yaş,20 yaş,25 yaş,30 gün"
+    },
+    {
+      "konu": "gss bakmakla yukumlu",
+      "sebep": "dil",
+      "deger": "ort 12.7 enuzun 67"
+    },
+    {
+      "konu": "sgk ise giris bildirgesi",
+      "sebep": "riskli-sayi",
+      "deger": "4/1-a kapsamı,7/1-a sigortalılık başlangıcı,8/1 bildirim zorunluluğu,8/1-a inşaat işyerleri en geç çalışmaya başlatıldığı gün,8/1-b yabancı ülkelere sefer yapan ulaştırma araçları bir ay içinde bildirim,8/1-c kamu idarelerinde sözleşmeli personel bir ay içinde bildirim,8/2 sigortalının bir ay içinde bildirimi,8/3 köy ve mahalle muhtarları iki ay süre,8/3 4/1-b(4) meslek kuruluşu kaydı bir ay içinde,8/5 4/1-c kapsamı onbeş gün içinde bildirim,102 nci madde idarî para cezası"
+    },
+    {
+      "konu": "sgk ise giris bildirgesi",
+      "sebep": "riskli-sayi",
+      "deger": "15 gün"
+    },
+    {
+      "konu": "deneme suresi",
+      "sebep": "riskli-sayi",
+      "deger": "2 ay,4 ay"
+    },
+    {
+      "konu": "deneme suresi",
+      "sebep": "riskli-sayi",
+      "deger": "4"
+    },
+    {
+      "konu": "idari yargi ve vergi yargilamasi",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,2.700 TL,98.000 TL,7.100 TL,500.000 TL,22.760 TL,163.460 TL"
+    },
+    {
+      "konu": "borsalar ve piyasa isleticileri",
+      "sebep": "riskli-sayi",
+      "deger": "4054 sayılı Kanun"
+    },
+    {
+      "konu": "borsalar ve piyasa isleticileri",
+      "sebep": "riskli-sayi",
+      "deger": "4054"
+    },
+    {
+      "konu": "idari yargi karari icrasi",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,2.700 TL,98.000 TL,7.100 TL,500.000 TL,22.760 TL,163.460 TL"
+    },
+    {
+      "konu": "idari yargi basvuru yollari",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,2.700 TL,98.000 TL,7.100 TL,148.000 TL,500.000 TL,22.760 TL,36.260 TL,163.460 TL,159.460 TL"
+    },
+    {
+      "konu": "idari yargi basvuru yollari",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,98.000 TL,500.000 TL,2.700 TL,7.100 TL,22.760 TL,163.460 TL"
+    },
+    {
+      "konu": "idari yargi kararlarinin uygulanmasi",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,2.700 TL,98.000 TL,7.100 TL,148.000 TL,500.000 TL,22.760 TL,36.260 TL,163.460 TL,159.460 TL"
+    },
+    {
+      "konu": "yatirimci varliklari teminati",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 0'i tuzagi soyluyor"
+    },
+    {
+      "konu": "sigortasiz calistirma cezasi",
+      "sebep": "uydurma-atif",
+      "deger": "5510"
+    },
+    {
+      "konu": "birlesme bolunme turleri",
+      "sebep": "dil",
+      "deger": "ort 11.4 enuzun 59"
+    },
+    {
+      "konu": "zamanasimi",
+      "sebep": "riskli-sayi",
+      "deger": "2,10"
+    },
+    {
+      "konu": "borcu sona erdiren haller",
+      "sebep": "riskli-sayi",
+      "deger": "3 işgünü"
+    },
+    {
+      "konu": "malulluk ayligi sartlari",
+      "sebep": "dil",
+      "deger": "ort 12.4 enuzun 40"
+    },
+    {
+      "konu": "idari yargi ilk inceleme",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,2.700 TL,40.000 TL,7.100 TL,98.000 TL,22.760 TL,500.000 TL,163.460 TL,148.000 TL,36.260 TL,159.460 TL"
+    },
+    {
+      "konu": "idari yargi ilk inceleme",
+      "sebep": "riskli-sayi",
+      "deger": "18.000 TL,40.000 TL,2.700 TL,98.000 TL,7.100 TL,148.000 TL,500.000 TL,22.760 TL,36.260 TL,163.460 TL,159.460 TL"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    },
+    {
+      "konu": "piyasa bozucu eylem",
+      "sebep": "riskli-sayi",
+      "deger": "20.000 TL,500.000 TL"
+    }
+  ],
+  "maddesiz_konular": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi karsiligi ayirma"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "demirbas cikisi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "cek tahsilat komisyon"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "halka acik ortaklik borsa basvurusu"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alici tahsilati"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak kâr payi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak alacagi tahsili"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "cek tahsilati komisyon"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacak sayim noksani"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "muhasebe monografisi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alicilardan tahsilat"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "genel kurul cagri suresi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bagli ortaklik alisi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alinan cek muhasebelestirme"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "idari para cezasi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici borcunun senede cevrilmesi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kurul tedbirleri"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kitle fonlamasi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv hesaplari kapama"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis iadesi avans"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yatirim amacli gayrimenkul siniflandirma"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kurumlar vergisi karsiligi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yatirimin tamamlanmasi"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv mahsup tevkifat"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kripto varlik zimmet sucu"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "reeskont islemi"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "halka acik ortaklik statusu"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "kripto varlik zimmet sucu"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "idari para cezasi"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "genel kurul cagri suresi"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "satislardan nakit girisi"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "kitle fonlamasi"
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "grafik yorumlama"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "tbk zamanasimi sureleri"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "isyeri bildirge suresi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "durustluk kuralina aykirilik"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "borclu temerrudu"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "posta ucreti eksikligi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "idari para cezasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "ticari alacaklarda kisa zamanasimi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "denetim engelleme cezasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "is kanunu yonetmelik yetkisi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "genel islem kosullari"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "sgk isyeri bildirgesi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "halka acik ortaklik borsa basvurusu"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "is kazasi meslek hastaligi haklari"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "esasli yanilma"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "dava sarti arabuluculuk"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "is tazminatlari zamanasimi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "yargi yeri uyusmazligi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "vergi dava acma suresi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "davanin acilmamis sayilmasi ve islemden kaldirilmasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "idari para cezasi uygulamasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "4/a sigortalisi kapsami"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "yurutmenin durdurulmasi karari sonuclari"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "haksiz fiil zamanasimi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "yasal sureler"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "genel kurul cagri suresi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "telafi calismasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "kripto varlik zimmet sucu"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "ticaret sicili tescil suresi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "is sozlesmesinin feshi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "ttk ticari isler hukumleri"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "yeni is arama izni"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "kurul tedbirleri"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "is kanunu isveren kapsami"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "arabuluculuk sureleri"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "ticari dava gorevli mahkeme"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "kitle fonlamasi"
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "calisma suresi hesabi"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "halka acik ortaklik borsa basvurusu"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "uretim kayiplari"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "kitle fonlamasi"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "yatirimci nakit ve teminat varliklari"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "kripto varlik zimmet sucu"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "genel kurul cagri suresi"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug dagitim tablosu"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "idari para cezasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "disiplin sorusturmasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "idari para cezasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "ticari faaliyette bulunma yasagi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "gecici mesleki alikoyma cezasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "oda giris ucreti ve aidat tespiti"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "surekli mesleki gelistirme egitimi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "smmm sinav basari sarti"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "genel kurul cagri suresi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "calisanlar listesinden silinme"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "halka acik ortaklik borsa basvurusu"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "surekli mesleki gelistirme kredisi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "sozlesme unsurlari"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "oda genel kurulu"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "ilcede oda kurma sarti"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "yatirimci nakit ve teminatlari"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "meslek mensubu ozel sartlari"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "ticari faaliyette bulunamama yasagi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "staj sonrasi hizmet yasagi ve bekleme suresi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "meslekten cikarma cezasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "tarafsizlik ilkesi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "kitle fonlamasi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "sozlesme asgari unsurlar"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "smmm sinav haklari ve suresi"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "turmob'un gorevleri"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "turmob genel kurulu gorevleri"
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "kripto varlik zimmet sucu"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "mesleki muhakeme"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetim kistasi"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetci bagimsizligi"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "onemlilik kavrami"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "uygulamali mesleki egitim"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "ic kontrol ic denetim"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "yonetimin sorumluluklari (bds)"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "ic kontrol eksikligi tanimi"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetimin amaci kapsami"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "etik kurallar kamu yarari"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetim ustlenememe halleri"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "tespit edememe riski"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "kgk yaptirimlari"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetim ucreti belirlenmesi"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "bilanco sonrasi olaylar"
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "denetim kaniti yeterliligi ve ozellikleri"
+    }
+  ],
+  "madde_tavani": 162,
+  "tavana_takilan": 422,
+  "tavan_listesi": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satilan mal maliyeti",
+      "madde": "THP|621",
+      "mevcut": 259,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kâr dagitimi yedekler",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem net kâri hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yansitma kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi faiz tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kapanis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "acilis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari mal alimi",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel gideri tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem sonu kapanis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi vade siniflandirma",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis ve maliyet kaydi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "buyuk defter hesaplari",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tahakkuku",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borc senedi odemesi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider hesaplari 690 devri",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satilan malin maliyeti",
+      "madde": "THP|621",
+      "mevcut": 259,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bilanco duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri odeme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faiz geliri tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi faiz tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satistan iade kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv mahsubu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit alimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir hesaplari 690 devri",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "amortisman ayirma",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv mahsup kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kambiyo kari kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi kullanimi",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "finansman gideri tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mal alimi ve odeme",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari mal alisi",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet mahsup kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tahvil ihraci kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu ve bilanco duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yatirim tamamlama kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet reeskontu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "stok maliyet duzeltmesi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "nakliye gideri kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "supheli alacak kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit satis zarari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "acilis reeskont kâr aktarim",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem net kâri 692 kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu hesaplarinin kapatilmasi",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi vade siniflama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit alimi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bina alimi kredi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel gider tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "depozito tahsili",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir gider tahakkuku",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortaklardan alacak tahsilati",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yatirim avansi senetli",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici borc mahsubu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir gider hesaplarinin 690 aktarimi",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredili satis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "demirbas alimi senetle",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem sonu bilanco",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici odeme kasa",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozel fon amortisman duzeltme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "cek tahsili kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacak senedi faiz tahsili",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bilanco hazirlama",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satistan iade siparis avansi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit satisi zarari",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri cek odeme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kasa banka mutabakati",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bagli ortaklik alacak tahsili",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "demirbas satisi amortisman",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sayim noksani borc senedi mahsubu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pesin tahsil edilen gelir",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "buyuk defter kapanis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borc senedi yenileme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye tahsilat ihrac primi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel bordro gideri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "verilen cek odemesi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye taahhudu",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi karsiligi mahsubu",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "stok fire kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortaklardan alacak gecmis yil zarari",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi hisse ihraci",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel giderleri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici mahsup kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri kdv'li",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider tahakkuk mahsubu",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel gideri tahakkuk",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortak personel borc odemesi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelecek yil gider ayrimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortaklara borc odeme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit alimi senetle",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "spk tanimlari",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri sgk",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "avans cek mahsubu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gayrimenkul alimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortak borc odeme vergi kesinti",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "buyuk defter mizan",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis ve reeskont kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici borc senedi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yansitma hesaplari kapatma",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satilan mal maliyeti duzeltme",
+      "madde": "THP|621",
+      "mevcut": 259,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet mahsubu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi taksit mahsubu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici borc kapatma",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mal satisi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "duran varlik satisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gecmis yil kâri dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "temettu tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem sonu genel monografi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet tahsilat mahsup",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kambiyo kari cek reeskontu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi odeme",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bina alisi kredili",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi taksit siniflandirma",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi taksit alacak senedi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sayim noksani mahsup",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "acilis kaydi kar dagitimi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borc senedi duzenleme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu hazirlama",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "fifo stok maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "icsel bilgi aciklamasinin ertelenmesi",
+      "madde": "213|227",
+      "mevcut": 216,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozel fon amortisman",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi geri odemesi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gecmis yil zarari mahsubu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bagli ortaklik alimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider hesaplari 690 aktarimi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari mal alisi odeme",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak temettu geliri",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "demirbas satis zarari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozel maliyet amortismani",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "duran varlik alisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mal alisi kdv odeme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi kambiyo kari",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vadeli mevduat faiz tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak alimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortaklardan alacak kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "maliyet hesaplari aktarimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borc senedi odeme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi kisa vade siniflama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ortaklardan alacak kasa",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak bagli ortaklik siniflandirma",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi ortak hesap mahsubu",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "uretim miktari yontemi amortisman",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "siparis avansi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "buyuk defter mizan duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kambiyo kari tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv mahsubu devreden kdv",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yansitma hesap kapatma",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit hurdaya ayirma",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "istirak sermaye taahhudu",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kasa banka transferi",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yansitma ve kapanis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "siparis avansi kdv",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satici borc odeme mal iadesi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bono ihraci",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit alimi borclanma",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacak tahsilati",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi karsiligi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faiz gelir tahakkuku",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mevduat faiz tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi odeme finansman gideri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi karsiligi kapatma",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borclanma senedi ihraci",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bono ihraci kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis iadesi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satistan iade avans",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi hisse satisi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozel maliyet bedeli",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tahvil bono alimi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mizan duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider dagitim tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit satisi amortisman",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacak senedi yenileme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv kapatma kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv muhasebelestirme",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "iade mal maliyet duzeltme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider tahakkuku kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi odemesi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "maliyet duzeltmesi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "acilis ve satis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bina satisi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari mal satisi",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "borc alacak mahsubu",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kar dagitimi yedek ayirma",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelecek donem geliri duzeltme",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "normal kapasite stok maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir gider hesaplari kapanisi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tahvil ve bono ihraci",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacak tahsilat vergi iadesi",
+      "madde": "213|323",
+      "mevcut": 273,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye taahhudu kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "halka arz satis yontemleri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri kdv",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi faiz reeskontu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "stok maliyet duzeltme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari borc kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "amortisman ayirma kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "buyuk defter t hesap",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 162
+    }
+  ]
+}
