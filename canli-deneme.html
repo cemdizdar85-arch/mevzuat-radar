@@ -54,6 +54,47 @@
     <div class="madde"><span class="n">4</span><span>Seri <b>dönüşümlüdür</b>: bir hafta Staja Giriş (sınavı 21.11.2026), ertesi hafta Yeterlilik (sınavı 28.11.2026). Herkes kendi sınavının oturumuna girer; ikisine hazırlanan ikisine de girebilir.</span></div>
   </div>
 
+  <!-- 07.08 KILITLI-SET MOTORU: sinav salonu. Sorular sifreli paketle onceden
+       iner; saat gelince yalniz ANAHTAR yayinlanir (once Supabase public kova
+       = anlik, olmazsa repo dosyasi = CDN yedegi). 5k eszamanliya dayanir. -->
+  <div class="kart" id="salonKart" style="display:none">
+    <h2>🚪 Sınav salonu</h2>
+    <p id="salonDurum">Oturum hazırlanıyor…</p>
+    <button type="button" id="salonBtn" style="display:none">Salona gir</button>
+  </div>
+
+  <div id="sinavEkran" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <b id="seSayac" style="color:var(--amber);font-size:19px;font-variant-numeric:tabular-nums">--:--</b>
+      <span id="seNo" style="color:var(--muted);font-size:13px"></span>
+      <button type="button" id="seBitir" style="background:var(--red);color:#fff">Sınavı bitir</button>
+    </div>
+    <div class="kart">
+      <div id="seDers" style="font-size:11.5px;letter-spacing:.5px;color:var(--dim);font-weight:700"></div>
+      <div id="seSoru" style="font-size:15.5px;line-height:1.65;margin:8px 0 6px"></div>
+      <div id="seGorsel"></div>
+      <div id="seSiklar"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button type="button" id="seGeri" style="background:#1b202b;color:var(--ink)">← Önceki</button>
+      <button type="button" id="seIleri">Sıradaki →</button>
+    </div>
+    <div id="sePalet" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:12px"></div>
+  </div>
+
+  <div id="sonucEkran" style="display:none">
+    <div class="kart">
+      <h2>📊 Sonucun</h2>
+      <div id="soOzet" style="font-size:16px;font-weight:700;margin:6px 0"></div>
+      <p id="soGonderim" class="kucuk"></p>
+      <p class="kucuk">Türkiye geneli yüzdelik, oturum kapandıktan sonra bu sayfada açıklanır — sonucun bu cihazda saklı, geri gel ve karşılaştır.</p>
+    </div>
+    <div class="kart">
+      <h2>Cevap anahtarı ve açıklamalar</h2>
+      <div id="soListe"></div>
+    </div>
+  </div>
+
   <div class="kart">
     <h2>🔔 Listeye yazıl</h2>
     <p>Tarih açıklandığında ve oturum açıldığında e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
@@ -94,7 +135,184 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
     setTimeout(tik, 30000);
   };
   tik();
+  salonKur(o, hedef);
+  // gecmis oturum sonucu bu cihazda varsa ve Turkiye sonucu yayinlandiysa kiyas goster
+  d.oturumlar.forEach(function(ge){
+    var kod = oturumKodu(ge);
+    var yerel = null; try { yerel = JSON.parse(localStorage.getItem('canliSonuc-' + kod) || 'null'); } catch(e){}
+    if(!yerel) return;
+    fetch('veri/canli/sonuc-' + kod + '.json?' + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(tr){
+      if(!tr) return;
+      var kart = document.createElement('div'); kart.className = 'kart';
+      var ic = '<h2>🏁 ' + (ge.sinav||'') + ' ' + ge.tarih + ' sonucun</h2><p><b>' + yerel.dogru + ' doğru</b> · ' + yerel.yanlis + ' yanlış · ' + yerel.bos + ' boş</p>';
+      if(tr.tur === 'yuzdelik' && tr.esikler){
+        var oned = 0;
+        tr.esikler.forEach(function(e){ if(yerel.dogru >= e.dogru){ oned = e.yuzde; } });
+        ic += '<p style="font-size:16px;color:var(--amber);font-weight:800">Katılanların %' + oned + '\'inin önündesin.</p><p class="kucuk">Katılımcı: ' + tr.katilim + '</p>';
+      } else if(tr.tur === 'seviye'){
+        ic += '<p>Türkiye ortalaması: <b>' + tr.ortalama + ' doğru</b> · medyan: ' + tr.medyan + '</p><p class="kucuk">' + (tr.not_ || '') + '</p>';
+      }
+      kart.innerHTML = ic;
+      var ilkKart = document.querySelector('.s .kart');
+      ilkKart.parentNode.insertBefore(kart, ilkKart);
+    }).catch(function(){});
+  });
 }).catch(function(){});
+
+/* ===== KILITLI-SET SINAV MOTORU (07.08) =====
+   Akis: T-30dk'dan itibaren salon karti gorunur ve sifreli paket ONCEDEN
+   indirilir; saat gelince anahtar yoklanir (kova=anlik, repo=yedek),
+   WebCrypto AES-256-CBC ile cozulur, sinav baslar. Teslimde skor + kucuk
+   POST (0-15 sn rastgele gecikme = 5k kisinin ayni saniyede vurmamasi). */
+var CANLI = { paket:null, sorular:null, idx:0, cevap:{}, bitisMs:0, kod:'', oturumAd:'', gonderildi:false };
+function oturumKodu(o){
+  var p = o.tarih.split('.');   // 23.08.2026
+  return ((o.sinav||'').indexOf('SGS') >= 0 ? 'SGS' : 'YET') + '-' + p[0] + p[1];
+}
+function salonKur(o, hedef){
+  CANLI.kod = oturumKodu(o); CANLI.oturumAd = (o.sinav||'') + ' ' + o.tarih;
+  var kart = document.getElementById('salonKart'), durum = document.getElementById('salonDurum'), btn = document.getElementById('salonBtn');
+  var yenile = function(){
+    var ms = hedef - new Date();
+    if(ms > 30*60000){ kart.style.display='none'; setTimeout(yenile, 60000); return; }
+    kart.style.display='block';
+    // paketi simdiden indir (sifreli - acilamaz)
+    if(!CANLI.paket){
+      fetch('veri/canli/' + CANLI.kod + '.enc.json?' + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(p){
+        if(p){ CANLI.paket = p; }
+        else if(ms <= 30*60000){ durum.textContent = 'Paket henüz yüklenmedi — sayfayı sınav saatinde yenile.'; }
+      }).catch(function(){});
+    }
+    if(ms > 0){
+      durum.textContent = 'Soru paketi indirildi, kilitli bekliyor. Kapı ' + o.saat + '\'te açılır — bu sayfada kal.';
+      setTimeout(yenile, 5000);
+    } else {
+      durum.textContent = 'Kapı açılıyor: anahtar bekleniyor…';
+      anahtarBekle();
+    }
+  };
+  yenile();
+}
+function anahtarBekle(){
+  var kovaUrl = 'https://bjrleanjpyujtajmazxn.supabase.co/storage/v1/object/public/canli/anahtar-' + CANLI.kod + '.json';
+  var repoUrl = 'veri/canli/anahtar-' + CANLI.kod + '.json';
+  var dene = function(){
+    fetch(kovaUrl + '?' + Date.now()).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .catch(function(){ return fetch(repoUrl + '?' + Date.now()).then(function(r){ return r.ok ? r.json() : Promise.reject(); }); })
+      .then(function(a){ if(a && a.anahtar){ sinavAc(a.anahtar); } else { throw 0; } })
+      .catch(function(){ setTimeout(dene, 8000 + Math.random()*7000); });
+  };
+  dene();
+}
+function b64ab(b64){ var s = atob(b64), a = new Uint8Array(s.length); for(var i=0;i<s.length;i++){ a[i]=s.charCodeAt(i); } return a.buffer; }
+function sinavAc(anahtarB64){
+  if(!CANLI.paket){ document.getElementById('salonDurum').textContent = 'Paket eksik — sayfayı yenile.'; return; }
+  crypto.subtle.importKey('raw', b64ab(anahtarB64), {name:'AES-CBC'}, false, ['decrypt']).then(function(k){
+    return crypto.subtle.decrypt({name:'AES-CBC', iv:new Uint8Array(b64ab(CANLI.paket.iv))}, k, b64ab(CANLI.paket.veri));
+  }).then(function(duz){
+    var d = JSON.parse(new TextDecoder().decode(duz));
+    CANLI.sorular = d.sorular; CANLI.idx = 0; CANLI.cevap = {};
+    CANLI.bitisMs = Date.now() + (d.sure_dk || 120) * 60000;
+    CANLI.basMs = Date.now();
+    document.getElementById('salonKart').style.display = 'none';
+    document.querySelectorAll('.kart').forEach(function(K){ if(K.id !== 'salonKart') K.style.display = 'none'; });
+    document.getElementById('sinavEkran').style.display = 'block';
+    sayacIsle(); soruGoster();
+  }).catch(function(){ document.getElementById('salonDurum').textContent = 'Anahtar çözülemedi — sayfayı yenileyip tekrar dene.'; });
+}
+function sayacIsle(){
+  if(CANLI.bitti){ return; }
+  var ms = CANLI.bitisMs - Date.now();
+  if(ms <= 0){ teslim(true); return; }
+  var d = Math.floor(ms/60000), s = Math.floor(ms%60000/1000);
+  var el = document.getElementById('seSayac');
+  el.textContent = d + ':' + (s<10?'0':'') + s;
+  if(ms < 5*60000){ el.style.color = 'var(--red)'; }
+  setTimeout(sayacIsle, 1000);
+}
+function esc(t){ var d=document.createElement('div'); d.textContent=String(t==null?'':t); return d.innerHTML; }
+function gorselCiz(s){
+  var h='';
+  if(s.tablo && s.tablo.satirlar){
+    h+='<table style="border-collapse:collapse;margin:8px 0;font-size:13px">';
+    if(s.tablo.kolonlar){ h+='<tr>'+s.tablo.kolonlar.map(function(k){return '<th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">'+esc(k)+'</th>';}).join('')+'</tr>'; }
+    (s.tablo.satirlar||[]).forEach(function(r){ h+='<tr>'+ (r||[]).map(function(c){return '<td style="border:1px solid var(--line2);padding:4px 9px">'+esc(c)+'</td>';}).join('')+'</tr>'; });
+    h+='</table>';
+  }
+  if(s.yevmiye && s.yevmiye.length){
+    h+='<table style="border-collapse:collapse;margin:8px 0;font-size:13px"><tr><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Hesap</th><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Borç</th><th style="border:1px solid var(--line2);padding:4px 9px;background:#161b24">Alacak</th></tr>';
+    s.yevmiye.forEach(function(r){ h+='<tr><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.hesap)+'</td><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.borc||'')+'</td><td style="border:1px solid var(--line2);padding:4px 9px">'+esc(r.alacak||'')+'</td></tr>'; });
+    h+='</table>';
+  }
+  return h;
+}
+function soruGoster(){
+  var s = CANLI.sorular[CANLI.idx];
+  document.getElementById('seNo').textContent = 'Soru ' + (CANLI.idx+1) + ' / ' + CANLI.sorular.length;
+  document.getElementById('seDers').textContent = (s.ders||'').toUpperCase();
+  document.getElementById('seSoru').innerHTML = esc(s.soru);
+  document.getElementById('seGorsel').innerHTML = gorselCiz(s);
+  var sk = document.getElementById('seSiklar'); sk.innerHTML='';
+  ['A','B','C','D','E'].forEach(function(h){
+    var v = s.siklar ? s.siklar[h] : '';
+    if(!v) return;
+    var b = document.createElement('button'); b.type='button';
+    b.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:9px;font-size:14px;border:1px solid ' + (CANLI.cevap[s.id]===h ? 'var(--amber)' : 'var(--line2)') + ';background:' + (CANLI.cevap[s.id]===h ? 'rgba(245,165,36,.12)' : '#0d1016') + ';color:var(--ink);cursor:pointer';
+    b.innerHTML = '<b>' + h + ')</b> ' + esc(v);
+    b.onclick = function(){ CANLI.cevap[s.id] = (CANLI.cevap[s.id]===h ? null : h); if(!CANLI.cevap[s.id]) delete CANLI.cevap[s.id]; soruGoster(); };
+    sk.appendChild(b);
+  });
+  var pl = document.getElementById('sePalet'); pl.innerHTML='';
+  CANLI.sorular.forEach(function(x,i){
+    var p = document.createElement('button'); p.type='button'; p.textContent = i+1;
+    p.style.cssText = 'min-width:34px;padding:5px 0;border-radius:7px;font-size:12px;border:1px solid var(--line2);cursor:pointer;background:' + (i===CANLI.idx ? 'var(--amber)' : (CANLI.cevap[CANLI.sorular[i].id] ? 'rgba(61,220,151,.25)' : '#0d1016')) + ';color:' + (i===CANLI.idx ? '#0a0c10' : 'var(--ink)');
+    p.onclick = function(){ CANLI.idx = i; soruGoster(); window.scrollTo(0,0); };
+    pl.appendChild(p);
+  });
+}
+document.getElementById('seIleri').onclick = function(){ if(CANLI.idx < CANLI.sorular.length-1){ CANLI.idx++; soruGoster(); window.scrollTo(0,0); } };
+document.getElementById('seGeri').onclick = function(){ if(CANLI.idx > 0){ CANLI.idx--; soruGoster(); window.scrollTo(0,0); } };
+document.getElementById('seBitir').onclick = function(){ if(confirm('Sınavı bitirmek istediğine emin misin?')){ teslim(false); } };
+function teslim(otomatik){
+  if(CANLI.bitti){ return; }
+  CANLI.bitti = true;
+  var dg=0, yn=0, bs=0, liste=[];
+  CANLI.sorular.forEach(function(s){
+    var c = CANLI.cevap[s.id];
+    if(!c){ bs++; } else if(c === s.dogru){ dg++; } else { yn++; }
+    liste.push({ s:s, c:c });
+  });
+  document.getElementById('sinavEkran').style.display = 'none';
+  document.getElementById('sonucEkran').style.display = 'block';
+  document.getElementById('soOzet').textContent = dg + ' doğru · ' + yn + ' yanlış · ' + bs + ' boş  (%' + Math.round(100*dg/CANLI.sorular.length) + ')';
+  try { localStorage.setItem('canliSonuc-' + CANLI.kod, JSON.stringify({ dogru:dg, yanlis:yn, bos:bs, t:Date.now() })); } catch(e){}
+  var lst = document.getElementById('soListe'); lst.innerHTML='';
+  liste.forEach(function(o,i){
+    var s=o.s, dgr = (o.c===s.dogru);
+    var ac = (s.aciklama && s.aciklama[s.dogru]) ? String(s.aciklama[s.dogru]) : '';
+    var d = document.createElement('details');
+    d.style.cssText='margin:7px 0;border:1px solid var(--line2);border-radius:9px;padding:9px 12px;background:#0d1016';
+    d.innerHTML = '<summary style="cursor:pointer;font-size:13.5px"><b style="color:' + (o.c ? (dgr?'var(--green)':'var(--red)') : 'var(--dim)') + '">' + (i+1) + '. ' + (o.c ? (dgr?'✓':'✗ senin: '+o.c) : 'boş') + ' · doğru: ' + esc(s.dogru) + '</b> — ' + esc(String(s.soru).slice(0,90)) + '…</summary>' +
+      '<div style="font-size:13px;color:#c8ccd2;margin-top:8px;white-space:pre-wrap">' + esc(ac) + (s.kaynak ? '\n\n📑 Kaynak: ' + esc(s.kaynak) : '') + '</div>';
+    lst.appendChild(d);
+  });
+  // sonucu gonder: 0-15 sn rastgele gecikme + 1 tekrar (5k kisi ayni anda vurmasin)
+  var g = document.getElementById('soGonderim');
+  g.textContent = 'Sonucun Türkiye sıralaması için gönderiliyor…';
+  var govde = JSON.stringify({ oturum: CANLI.kod, dogru: dg, yanlis: yn, bos: bs,
+    sure_sn: Math.round((Date.now()-CANLI.basMs)/1000), cihaz: (innerWidth<760?'mobil':'masaustu') });
+  var yolla = function(kalan){
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/canli_sonuc', {
+      method:'POST', headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Prefer:'return=minimal' }, body: govde
+    }).then(function(r){
+      if(r.ok || r.status===201){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; CANLI.gonderildi=true; }
+      else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1); }, 9000); }
+      else { g.textContent = 'Sonuç gönderilemedi — skorun bu cihazda saklı, sıralama açıklanınca yine görebilirsin.'; }
+    }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1); }, 9000); } else { g.textContent = 'Sonuç gönderilemedi — skorun bu cihazda saklı.'; } });
+  };
+  setTimeout(function(){ yolla(1); }, 500 + Math.random()*15000);
+}
+/* ===== /KILITLI-SET MOTORU ===== */
 document.getElementById('kayitForm').addEventListener('submit', function(e){
   e.preventDefault();
   var em = document.getElementById('kayitEposta').value.trim();
