@@ -1,0 +1,41 @@
+# .github/workflows/taslak-linki.yml — TASLAK LINK POSTACISI (0 USD)
+# Ozel kovadaki denetim taslaklarina SURELI imzali link uretir ve Cem'in
+# e-postasina (Web3Forms kanali - sitedeki hata-bildirimleriyle ayni kutu)
+# gonderir. Linkler 24 saat gecerlidir; repoya YAZILMAZ (sizinti olmasin).
+# Tetik dosyasinin islenmemis son satirlari dosya adlaridir.
+name: Taslak Linki (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/taslak-linki.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linkle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Imzali linkleri uret ve maille
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $STOR = "https://bjrleanjpyujtajmazxn.supabase.co/storage/v1"
+          $SK = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'Content-Type'='application/json' }
+          $dosyalar = @(Get-Content veri/tetik/taslak-linki.txt -Encoding UTF8 | Where-Object { $_.Trim() -and $_ -notmatch '^#' } | Select-Object -Last 6)
+          $satirlar = @()
+          foreach($d in $dosyalar){
+            $ad = $d.Trim()
+            try {
+              $r = Invoke-RestMethod -Uri "$STOR/object/sign/onarim-taslak/$ad" -Method Post -Headers $SK -Body '{"expiresIn":86400}' -TimeoutSec 60
+              $url = "$STOR$($r.signedURL)"
+              $satirlar += "$ad (24 saat gecerli):`n$url`n"
+              Write-Host "imzalandi: $ad"
+            } catch { Write-Host "IMZALANAMADI: $ad :: $($_.Exception.Message)"; $satirlar += "$ad : LINK URETILEMEDI (dosya adini kontrol et)`n" }
+          }
+          $mesaj = "Okuma taslaklarinin linkleri (tiklayinca tarayicida acilir; 24 saat gecerli, kimseyle paylasma):`n`n" + ($satirlar -join "`n")
+          $govde = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TASLAK LINKLERI - okuma turu'; from_name='Tetikte Taslak Postacisi'; message=$mesaj } | ConvertTo-Json
+          Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $govde -TimeoutSec 60 | Out-Null
+          Write-Host "MAIL GONDERILDI ($($dosyalar.Count) link)."
