@@ -660,6 +660,12 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   soruda "mukayyet deger (defterde kayitli tutar)" - VUK m.265 lafzi; TMS/TFRS
   sorusunda "defter degeri". Capraz kullanim duzeltilir (kanun alintisi
   tirnak icindeyse korunur, D26 istisnasi).
+
+  D34 - ANALIZ TABLOSU BASLIK VE ENDEKS (06.08, Cem onayi): egilim/dikey/yatay
+  analiz tablolarinda kolon basligi sinav terimi + baz bilgisi: "Egilim
+  Yuzdesi (2022=100)". "Trend endeksi" duzeltilir (kitapciklarda 0 kez; egilim
+  yuzdeleri 10, trend analizi 8). Endeks degeri isaretsiz rakam (133,72);
+  metin yorumu endeks-100 cevirisini yapar ("%33,72 artis").
 '@ }
   # ========================================================================
   #  04.08 - HARFLERI ACIKCA SAY (Cem: "burada sadece 2 adet yanlis cevap

@@ -538,6 +538,13 @@ MUTLAK KURALLAR:
    kaydi yapacagini bilmeli. KOTU: "doneme yayginlastirilir". IYI: "donemi
    geldiginde gider yazilir". Sinav-oyunu taktigi yazma ("en uzun sik dogrudur"
    gibi) - ipucu gercek kurala dayanacak.
+14. ANALIZ TABLOSU BASLIK VE ENDEKS KURALI (06.08, Cem onayi): egilim/dikey/
+   yatay analiz tablolarinda kolon basligi SINAV TERIMIYLE ve baz bilgisiyle
+   yazilir: "Egilim Yuzdesi (2022=100)", "Dikey Yuzde (%)". "Trend endeksi"
+   deme - gercek kitapciklarda 0 kez gecti (egilim yuzdeleri 10, trend analizi
+   8 kez). Endeks degerleri ISARETSIZ rakamdir (133,72; basina % konmaz -
+   baz 100 endeksidir); metin yorumu endeks-100 cevirisini acikca yapar
+   ("endeks 133,72 -> baz yila gore %33,72 artis").
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>
