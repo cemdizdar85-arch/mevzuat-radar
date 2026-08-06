@@ -1,0 +1,38 @@
+# .github/workflows/aritmetik-kapisi.yml — ARITMETIK KAPISI, GERIYE DONUK (0 USD)
+# Kasadaki tum aciklama/sik metinlerindeki islemleri yeniden hesaplar,
+# sapanlari ve "en yakin/yuvarlama farki/kabul ediyoruz" kaliplarini raporlar.
+# Cem onayi #16. Varsayilan OLCUM (rapor); yaz=true karantinaya ceker.
+# Haftalik da kosar - uretim buyudukce yeni sapma birikmesin.
+name: Aritmetik Kapisi (0 USD)
+on:
+  workflow_dispatch:
+    inputs:
+      yaz: { description: 'true = bulgululari yayindan cek', required: false, default: 'false' }
+  schedule:
+    - cron: '40 3 * * 1'   # pazartesi 06:40 TR
+permissions:
+  contents: write
+concurrency:
+  group: aritmetik-kapisi
+  cancel-in-progress: false
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetim kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if('${{ github.event.inputs.yaz }}' -eq 'true'){ ./motor/aritmetik-kapisi.ps1 -yaz } else { ./motor/aritmetik-kapisi.ps1 }
+      - name: Rapor commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/aritmetik-kapisi-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Aritmetik kapisi raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

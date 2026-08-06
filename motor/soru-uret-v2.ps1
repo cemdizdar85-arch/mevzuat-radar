@@ -968,6 +968,66 @@ for($p2=0; (-not $kurtarPartiler) -and $p2 -lt [math]::Ceiling($isler.Count/$PAR
 }
 
 # --- KAPILAR + yazma
+# ---------- ARITMETIK CEKIRDEGI (06.08, Cem onayi #16; motor/aritmetik-kapisi.ps1 ile IKIZ -
+# birini degistirirsen ikisini degistir). Orneklem denetimi deseni: model formulu dogru
+# kurup SON sonucu isaretli sikka "yuvarlama" bahanesiyle uyduruyor. Bu kapi aciklamadaki
+# her "a x b = c" islemini yeniden hesaplar; binde 5'ten fazla sapan soru COPE GIDER.
+function TrSayi([string]$s){
+  $s = "$s".Trim().TrimStart('%').Trim()
+  if($s -eq ''){ return $null }
+  $s = ($s -replace '\.','') -replace ',','.'
+  $d = 0.0
+  if([double]::TryParse($s, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
+  return $null
+}
+$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
+$reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
+$reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+function IslemDenetle([string]$metin){
+  $bulgu = @()
+  foreach($m in $reIslem.Matches("$metin")){
+    $ifade = $m.Groups['ifade'].Value
+    $sonS  = $m.Groups['sonuc'].Value
+    $sayilar = New-Object System.Collections.Generic.List[object]
+    $opler   = New-Object System.Collections.Generic.List[string]
+    foreach($t in $reToken.Matches($ifade)){
+      if($t.Groups['say'].Success){ $sayilar.Add($t.Groups['say'].Value) }
+      elseif($t.Groups['op'].Success){ $opler.Add($t.Groups['op'].Value) }
+    }
+    if($sayilar.Count -lt 2 -or $opler.Count -ne $sayilar.Count-1){ continue }
+    $n = @($opler | ForEach-Object { $_ -replace '[x×X*]','*' -replace '[÷]','/' -replace '[−]','-' })
+    $carpma = @($n | Where-Object { $_ -in @('*','/') })
+    if($carpma.Count -and (@($n | Select-Object -Unique).Count -gt 1)){ continue }
+    $yuzdeler = @($sayilar | Where-Object { $_ -like '%*' })
+    $hepsiYuzde = ($yuzdeler.Count -eq $sayilar.Count)
+    $deger = @()
+    foreach($s in $sayilar){
+      $v = TrSayi $s
+      if($null -eq $v){ $deger = @(); break }
+      if((-not $hepsiYuzde) -and $s -like '%*' -and $carpma.Count){ $v = $v / 100.0 }
+      $deger += $v
+    }
+    if($deger.Count -lt 2){ continue }
+    $b = $deger[0]
+    for($i2=0; $i2 -lt $n.Count; $i2++){
+      switch($n[$i2]){
+        '+' { $b += $deger[$i2+1] }
+        '-' { $b -= $deger[$i2+1] }
+        '*' { $b *= $deger[$i2+1] }
+        '/' { if($deger[$i2+1] -eq 0){ $b=[double]::NaN } else { $b /= $deger[$i2+1] } }
+      }
+    }
+    if([double]::IsNaN($b)){ continue }
+    $sv = TrSayi $sonS
+    if($null -eq $sv){ continue }
+    if($sonS -like '%*' -and -not $hepsiYuzde -and [math]::Abs($b) -lt 1.5){ $b = $b * 100.0 }
+    $fark = [math]::Abs($b - $sv)
+    $tol  = [math]::Max([math]::Abs($b) * 0.005, 0.02)
+    if($fark -gt $tol){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv } }
+  }
+  return ,$bulgu
+}
+# ---------- /ARITMETIK CEKIRDEGI ----------
 function SayiListe([string]$t){ $l=@(); foreach($m in [regex]::Matches("$t",'\d[\d\.\,]*')){ $l += $m.Value.TrimEnd('.',',') }; return $l }
 $YAZI=[ordered]@{ 'bir'=1;'iki'=2;'uc'=3;'üç'=3;'dort'=4;'dört'=4;'bes'=5;'beş'=5;'alti'=6;'altı'=6;'yedi'=7;'sekiz'=8;'dokuz'=9;'on'=10;'yirmi'=20;'otuz'=30;'elli'=50 }
 function Riskli([string]$t){
@@ -978,7 +1038,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; dogrusuRed=0; atifRed=0; kokuRed=0; benzerRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; dogrusuRed=0; atifRed=0; kokuRed=0; benzerRed=0; aritmetikRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -1024,6 +1084,23 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     }
     if($dogrusuOlan -lt 3){
       $ozet.dogrusuRed++; $red.Add([pscustomobject]@{ konu=$i.konu; sebep='dogrusu-cumlesi-yok'; deger=("4 yanlis siktan {0}'inde 'Dogrusu:' var" -f $dogrusuOlan) }); continue
+    }
+    # ---- ARITMETIK KAPISI (06.08, Cem onayi #16): aciklamadaki her islem
+    # yeniden hesaplanir; sapan VEYA "en yakin sik / yuvarlama farki / kabul
+    # ediyoruz" kalibiyla cevaba uydurulmus soru reddedilir. Orneklem dersi:
+    # SGS'de 63 hesap kartinin 10'u, SMMM'de 110'un 11'i boyle dogmustu.
+    $aritSorun = @()
+    foreach($h in @('A','B','C','D','E')){
+      foreach($tx in @("$($y.siklar.$h)", "$($y.aciklama.$h)")){
+        if(@(IslemDenetle $tx).Count){ $aritSorun += "islem-sapmasi($h)" }
+        if($reUyduruKalip.IsMatch($tx)){ $aritSorun += "uyduru-kalip($h)" }
+      }
+    }
+    if(@(IslemDenetle "$($y.soru)").Count){ $aritSorun += 'islem-sapmasi(soru)' }
+    if($aritSorun.Count){
+      $ozet.aritmetikRed++
+      $red.Add([pscustomobject]@{ konu=$i.konu; sebep='aritmetik'; deger=(($aritSorun | Select-Object -Unique) -join ', ') })
+      continue
     }
     # rakam kapisi
     $tumMetin = "$($y.soru)"; foreach($h in @('A','B','C','D','E')){ $tumMetin += " $($y.siklar.$h) $($y.aciklama.$h)" }

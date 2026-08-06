@@ -1,0 +1,172 @@
+﻿# ============================================================================
+#  ARITMETIK KAPISI — 06.08.2026 (Cem onayi #16)
+#
+#  NEDEN: uc orneklem denetiminde (06.08) desen yakalandi - model formulu
+#  dogru kuruyor, ara islemleri dogru yapiyor, SON carpim/bolme sonucunu
+#  isaretli sikka "yuvarlama/en yakin" bahanesiyle uyduruyor. SGS'de 63 hesap
+#  kartinin 10'unda isaretli cevap matematiksel yanlisti; SMMM'de 110'da 11.
+#
+#  NE YAPAR: kasadaki her sorunun aciklama/sik/hap metnindeki "a x b = c"
+#  islemlerini YENIDEN HESAPLAR; binde 5'ten fazla sapan bulgu olur. Yaninda
+#  kalip avcisi: "en yakin sik/secenek/deger", "yuvarlama farki", "kabul
+#  ediyoruz" gecen aciklama cevaba-uydurma suphelisidir. Yevmiye tablolarinda
+#  borc=alacak dengesi de olculur.
+#
+#  Varsayilan OLCUM: rapora yalniz id + alan + sapma yazilir (icerik public
+#  repoya SIZMAZ). -yaz ile bulgulu sorular yayin=false cekilir - once olc,
+#  yanlis-pozitif oranini gor, sonra yaz (rakam disiplini).
+#
+#  Ayni denetim uretim aninda da kosuyor: motor/soru-uret-v2.ps1 ARITMETIK
+#  KAPISI bolumu bu dosyanin ikizidir - birini degistirirsen ikisini degistir.
+# ============================================================================
+param([switch]$yaz)
+$ErrorActionPreference = 'Stop'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$kok  = Split-Path -Parent $here
+$raporYol = Join-Path $kok 'veri/aritmetik-kapisi-raporu.json'
+
+function RaporYaz($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false))) }
+trap {
+  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
+  Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
+}
+
+# ---------- cekirdek: TR sayi + islem dogrulayici (soru-uret-v2 ile IKIZ) ----------
+function TrSayi([string]$s){
+  $s = "$s".Trim().TrimStart('%').Trim()
+  if($s -eq ''){ return $null }
+  $s = ($s -replace '\.','') -replace ',','.'
+  $d = 0.0
+  if([double]::TryParse($s, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
+  return $null
+}
+$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
+$reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
+$reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+
+# Bir metindeki tum islemleri dogrular; sapma listesi dondurur.
+# Kurallar: TR bicim (nokta binlik, virgul ondalik). %'li carpan /100 sayilir
+# (hepsi %'liyse duz sayi). Karisik +- soldan saga; * veya / karisiksa atlanir.
+function IslemDenetle([string]$metin){
+  $bulgu = @()
+  foreach($m in $reIslem.Matches("$metin")){
+    $ifade = $m.Groups['ifade'].Value
+    $sonS  = $m.Groups['sonuc'].Value
+    $sayilar = New-Object System.Collections.Generic.List[object]
+    $opler   = New-Object System.Collections.Generic.List[string]
+    foreach($t in $reToken.Matches($ifade)){
+      if($t.Groups['say'].Success){ $sayilar.Add($t.Groups['say'].Value) }
+      elseif($t.Groups['op'].Success){ $opler.Add($t.Groups['op'].Value) }
+    }
+    if($sayilar.Count -lt 2 -or $opler.Count -ne $sayilar.Count-1){ continue }
+    $n = @($opler | ForEach-Object { $_ -replace '[x×X*]','*' -replace '[÷]','/' -replace '[−]','-' })
+    $carpma = @($n | Where-Object { $_ -in @('*','/') })
+    if($carpma.Count -and (@($n | Select-Object -Unique).Count -gt 1)){ continue }   # karisik oncelik: atla
+    $yuzdeler = @($sayilar | Where-Object { $_ -like '%*' })
+    $hepsiYuzde = ($yuzdeler.Count -eq $sayilar.Count)
+    $deger = @()
+    foreach($s in $sayilar){
+      $v = TrSayi $s
+      if($null -eq $v){ $deger = @(); break }
+      if((-not $hepsiYuzde) -and $s -like '%*' -and $carpma.Count){ $v = $v / 100.0 }
+      $deger += $v
+    }
+    if($deger.Count -lt 2){ continue }
+    $b = $deger[0]
+    for($i2=0; $i2 -lt $n.Count; $i2++){
+      switch($n[$i2]){
+        '+' { $b += $deger[$i2+1] }
+        '-' { $b -= $deger[$i2+1] }
+        '*' { $b *= $deger[$i2+1] }
+        '/' { if($deger[$i2+1] -eq 0){ $b=[double]::NaN } else { $b /= $deger[$i2+1] } }
+      }
+    }
+    if([double]::IsNaN($b)){ continue }
+    $sv = TrSayi $sonS
+    if($null -eq $sv){ continue }
+    # sonuc %'li, islenenler degilse: oran yuzdesi olabilir (0,2855 -> %28,55)
+    if($sonS -like '%*' -and -not $hepsiYuzde -and [math]::Abs($b) -lt 1.5){ $b = $b * 100.0 }
+    $fark = [math]::Abs($b - $sv)
+    $tol  = [math]::Max([math]::Abs($b) * 0.005, 0.02)
+    if($fark -gt $tol){
+      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv; sapmaYuzde=[math]::Round(100*$fark/[math]::Max([math]::Abs($b),0.0001),2) }
+    }
+  }
+  return ,$bulgu
+}
+# ---------- /cekirdek ----------
+
+$KEY = $env:SUPABASE_SERVICE_KEY
+if(-not $KEY){ Write-Host 'SUPABASE_SERVICE_KEY yok - cikildi.'; exit 0 }
+$U = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
+$H = @{ apikey=$KEY }
+if($KEY -like 'eyJ*'){ $H.Authorization = "Bearer $KEY" }
+
+$taranan=0; $islemli=0
+$bulgular = New-Object System.Collections.Generic.List[object]
+$kalipli  = New-Object System.Collections.Generic.List[object]
+$dengesiz = New-Object System.Collections.Generic.List[object]
+$bas=0
+while($true){
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,hap,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300)
+  if($r.Count -eq 0){ break }
+  foreach($s in $r){
+    if($null -eq $s){ continue }
+    $taranan++
+    $alanlar = [ordered]@{ soru="$($s.soru)"; hap="$($s.hap)" }
+    foreach($hf in 'A','B','C','D','E'){
+      try { $alanlar["sik$hf"] = "$($s.siklar.$hf)" } catch {}
+      try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$hf]){ $alanlar["aciklama$hf"] = "$($s.aciklama.$hf)" } } catch {}
+    }
+    $soruBulgu=@(); $soruKalip=@(); $islemVar=$false
+    foreach($ad in @($alanlar.Keys)){
+      $t = $alanlar[$ad]
+      $bl = IslemDenetle $t
+      if($reIslem.IsMatch($t)){ $islemVar=$true }
+      foreach($b in $bl){ $soruBulgu += [pscustomobject]@{ alan=$ad; sapmaYuzde=$b.sapmaYuzde } }
+      $km = $reKalip.Match($t)
+      if($km.Success){ $soruKalip += [pscustomobject]@{ alan=$ad; kalip=$km.Value } }
+    }
+    if($islemVar){ $islemli++ }
+    # yevmiye dengesi
+    if($s.yevmiye){
+      $tb=0.0; $ta=0.0
+      foreach($sat in @($s.yevmiye)){
+        $vb = TrSayi "$($sat.borc)"; $va = TrSayi "$($sat.alacak)"
+        if($null -ne $vb){ $tb += $vb }; if($null -ne $va){ $ta += $va }
+      }
+      if(($tb -gt 0 -or $ta -gt 0) -and [math]::Abs($tb-$ta) -gt [math]::Max(($tb+$ta)*0.0025,0.02)){
+        $dengesiz.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; borc=[math]::Round($tb,2); alacak=[math]::Round($ta,2) })
+      }
+    }
+    if($soruBulgu.Count){ $bulgular.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; yayin=[bool]$s.yayin; sapmalar=$soruBulgu }) }
+    if($soruKalip.Count){ $kalipli.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; yayin=[bool]$s.yayin; kaliplar=$soruKalip }) }
+  }
+  if($r.Count -lt 500){ break }
+  $bas += 500
+  Write-Host ("  ... {0} tarandi" -f $taranan)
+}
+Write-Host ("Taranan: {0} | islemli: {1} | aritmetik bulgulu: {2} | kalipli: {3} | dengesiz yevmiye: {4}" -f $taranan,$islemli,$bulgular.Count,$kalipli.Count,$dengesiz.Count)
+
+$cekilen=0
+if($yaz){
+  $HW = $H + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
+  $hedefId = @($bulgular | ForEach-Object { $_.id }) + @($kalipli | ForEach-Object { $_.id }) | Select-Object -Unique
+  foreach($id in $hedefId){
+    $gov = ConvertTo-Json -InputObject @{ yayin=$false; yayin_notu='aritmetik kapisi: islem sapmasi/uydurma kalip - hakem yeniden yargisi bekliyor' } -Compress
+    try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $cekilen++ } catch {}
+  }
+  Write-Host ("Cekilen: {0}" -f $cekilen)
+}
+
+RaporYaz ([ordered]@{
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$(if($yaz){'YAZILDI'}else{'OLCUM'})
+  taranan=$taranan; islemliSoru=$islemli
+  aritmetikBulgulu=$bulgular.Count; kalipli=$kalipli.Count; dengesizYevmiye=$dengesiz.Count; cekilen=$cekilen
+  bulgular=@($bulgular | Select-Object -First 400)
+  kaliplilar=@($kalipli | Select-Object -First 200)
+  dengesizler=@($dengesiz | Select-Object -First 100)
+})
+Write-Host 'Bitti.'

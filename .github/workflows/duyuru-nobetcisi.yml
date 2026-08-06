@@ -1,0 +1,34 @@
+# .github/workflows/duyuru-nobetcisi.yml — KURUM DUYURU NOBETCISI (0 USD)
+# 14.01.2026 TURMOB YK karari (0,25 goturme + hesap makinesi yasagi) RG'de
+# yayimlanmadigi icin ayna goremedi - kurum duyurulari ayri kanaldi ve
+# izlenmiyordu. Bu nobetci TESMER/KGK/SGK/TURKPATENT (+TURMOB/GIB kirmizi
+# adaylari) duyurularini gunde bir tarar; yeniler veri/duyuru-yeni.json'a
+# duser ve commit'lenir. Cem onayi #18 + "baska izlenmeyen varsa izleyelim".
+name: Duyuru Nobetcisi (0 USD)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * *'   # her gun 08:30 TR
+permissions:
+  contents: write
+concurrency:
+  group: duyuru-nobetcisi
+  cancel-in-progress: false
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nobet kos
+        shell: pwsh
+        run: ./motor/duyuru-nobetcisi.ps1
+      - name: Sonuc commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/duyuru-durum.json veri/duyuru-yeni.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Duyuru nobeti [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

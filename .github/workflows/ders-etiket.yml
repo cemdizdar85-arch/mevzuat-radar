@@ -1,0 +1,38 @@
+# .github/workflows/ders-etiket.yml — DERS-ETIKET DENETCISI (0 USD)
+# Cem 06.08: "Ataturk Inkilap diyor ders, soru Turkce - butun dersleri denetle,
+# kabul edilemez." Apacik etiket yanlislarini (genel-kultur dersinde kanun
+# kaynagi, Inkilap etiketli Turkce sorusu vb.) kasa capinda yakalar.
+# Varsayilan OLCUM; yaz=true bulgululari yayindan ceker. Haftalik da kosar.
+name: Ders-Etiket Denetimi (0 USD)
+on:
+  workflow_dispatch:
+    inputs:
+      yaz: { description: 'true = bulgululari yayindan cek', required: false, default: 'false' }
+  schedule:
+    - cron: '10 4 * * 1'   # pazartesi 07:10 TR
+permissions:
+  contents: write
+concurrency:
+  group: ders-etiket
+  cancel-in-progress: false
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetim kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if('${{ github.event.inputs.yaz }}' -eq 'true'){ ./motor/ders-etiket-denetimi.ps1 -yaz } else { ./motor/ders-etiket-denetimi.ps1 }
+      - name: Rapor commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/ders-etiket-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Ders-etiket denetim raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
