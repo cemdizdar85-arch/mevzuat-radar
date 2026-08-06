@@ -324,7 +324,10 @@ function KaynakBul([string]$konu, [string]$ders){
   # TeoriNotuMetni gevsemez: baslik-puanli eslesme, emin degilse null (02.08
   # pilot dersi). Yalniz FY dersinde denenir ki baska derslerin kanun/standart
   # yollari teori notuna sapmasin.
-  if($ders -match '(?i)finansal y[oö]netim'){
+  # 06.08: teori yolu Matematik ve Inkilap'a da acildi (Cem: "matematik ve
+  # inkilap emir bas") - resmi mevzuat metni olmayan uc ders ayni desenle
+  # calisir: kaynak = ambardaki 'Teori Notu' belgeleri, eslesme baslik-puanli.
+  if($ders -match '(?i)finansal y[oö]netim|matematik|[iı]nk[iı]lap'){
     $tn = TeoriNotuMetni '' $konu
     if($tn -and $tn.metin){ return [pscustomobject]@{ kanun='TEORI'; madde="$($tn.ad)"; ad="$($tn.ad)"; metin="$($tn.metin)"; tur='teori' } }
   }
