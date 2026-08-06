@@ -84,7 +84,10 @@ $yutKod = $LASTEXITCODE
 })), (New-Object Text.UTF8Encoding($false)))
 
 # --- sonucu bas (ayna ciktilarindaki degisiklikler + rapor)
-git add veri/yerel-ayna-raporu.json veri/mevzuat veri/mevzuat-rapor*.json 2>$null
+# 07.08 ilk kosu dersi: eslesmeyen joker (mevzuat-rapor*.json) git add'i sessizce
+# bosa dusurdu, commit atlandi. Klasor -A ile, rapor tek tek eklenir.
+git add -A veri/mevzuat
+git add veri/yerel-ayna-raporu.json
 git diff --cached --quiet
 if($LASTEXITCODE -ne 0){
   git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' | Out-Null

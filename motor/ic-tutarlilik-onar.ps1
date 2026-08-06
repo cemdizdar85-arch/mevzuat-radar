@@ -104,7 +104,7 @@ $hedef = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
   # 07.08 Cem "bunlari onar": aritmetik kapisinin isaretledikleri de kapsamda
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,dogru,aciklama,hap,yayin_notu&or=(yayin_notu.like.ic-tutarlilik*,yayin_notu.like.aritmetik*)&order=id&limit=500&offset=$bas" -Headers $SB -TimeoutSec 300 | ForEach-Object { $_ })
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,kaynak,soru,siklar,dogru,aciklama,hap,yayin_notu&or=(yayin_notu.like.ic-tutarlilik*,yayin_notu.like.aritmetik*,yayin_notu.like.dil-kusuru*)&order=id&limit=500&offset=$bas" -Headers $SB -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $hedef.Add($x) } }
   if($r.Count -lt 500){ break }
@@ -136,7 +136,7 @@ for($n=0; $n -lt $hedef.Count; $n++){
   $s = $hedef[$n]
   $maliyet = $tIn*$FIY_IN + $tOut*$FIY_OUT
   if($maliyet -gt $TAVAN_USD){ $harcKesildi=$true; Write-Host ('!! EMNIYET KEMERI: {0:N2} USD asildi, parti durdu.' -f $maliyet); break }
-  $kusur = "$($s.yayin_notu)" -replace '^ic-tutarlilik denetimi [\d\.]+:\s*','' -replace '^aritmetik kapisi [\d\.]+:\s*','ARITMETIK: '
+  $kusur = "$($s.yayin_notu)" -replace '^ic-tutarlilik denetimi [\d\.]+:\s*','' -replace '^aritmetik kapisi [\d\.]+:\s*','ARITMETIK: ' -replace '^dil-kusuru [\d\.]+:\s*','DIL: '
   $soruJson = ConvertTo-Json -Depth 6 -InputObject ([ordered]@{ soru="$($s.soru)"; siklar=$s.siklar; dogru="$($s.dogru)"; aciklama=$s.aciklama; hap="$($s.hap)"; kaynak="$($s.kaynak)" })
   $istem = @"
 Sen SMMM/KGK sinav sorusu editorusun. Asagidaki soruda MAKINEYLE OLCULMUS su kusur(lar) var:
@@ -155,6 +155,8 @@ Kurallar:
 - ARITMETIK islem-sapmasi: metindeki HER islemi (a x b = c) yeniden hesapla; sonuc yanlissa dogru sonucu yaz, gerekiyorsa dogru sikki ve celdiricileri hesaba gore duzelt. Islemler kagit-kalemle yapilabilir kalsin.
 - ARITMETIK uyduru-kalip: "en yakin secenek/yuvarlama farkiyla/kabul ediyoruz" gibi cevaba-uydurma cumlelerini SIL; hesabi bastan dogru kur, sik degeriyle birebir tutur.
 - ARITMETIK dengesiz-yevmiye: yevmiye kaydinda borc toplami = alacak toplami olacak sekilde kaydi duzelt (hesap adlari THP'ye uygun kalsin). Yevmiye alanini degistiremiyorsan aciklamada dogru kaydi ver.
+- DIL jargon-yogun: iki+ teknik terimin ust uste yigildigi cumleleri BOL ve her terime gunluk-dil karsiligi ekle ("... yani ...", parantezle); once anlam, terim sonra. Icerik/hesap DEGISMEZ, yalniz dil.
+- DIL eski-terim: eski terimi guncel karsiligiyla degistir (genel imal->genel uretim giderleri, iptidai madde->ilk madde ve malzeme, mezkur->soz konusu); kanun metninden BIREBIR alinti cumlesiyse alintiyi koru, yanina parantezle guncelini yaz.
 - Rakam uydurma YASAK: kaynakta/mevcut metinde olmayan kanun no, oran, tarih ekleme.
 - Hesap iceren metinlerde islemler DOGRU olmali (a x b = c gercekten tutmali).
 - Turkce, sinav dili; yapay-zeka klisesi yok ("bu baglamda", "onem arz etmektedir" yasak).

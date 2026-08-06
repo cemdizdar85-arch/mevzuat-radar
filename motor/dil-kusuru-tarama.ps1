@@ -23,7 +23,12 @@
 #     takilmis. Art arda ayni ismi goren aday makine izi sezer.
 #
 #  CIKTI: veri/dil-kusuru-raporu.json  ·  ENV: SUPABASE_SERVICE_KEY
+#  07.08: -yaz modu (Cem gece yetkisi: 'bedava islere onay bekleme') -
+#  jargon-yogun + eski-terim bulgulari BOS yayin_notu'lu sorulara
+#  'dil-kusuru: ...' notu basar (dolu not EZILMEZ - asil kusur recetesi
+#  oncelikli); onarimci or-secicisiyle bunlari da Haiku'ya tasir.
 # ============================================================================
+param([switch]$yaz)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -57,7 +62,7 @@ function CekListe([string]$uri){
 }
 $kasa = New-Object System.Collections.Generic.List[object]
 for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,ders,soru,dogru,aciklama,hap&order=id&limit=1000&offset=$o"
+  $r = CekListe "$U`?select=id,ders,soru,dogru,aciklama,hap,yayin_notu&order=id&limit=1000&offset=$o"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
   if($r.Count -lt 1000){ break }
@@ -106,6 +111,7 @@ foreach($e in $ESKI){ $eskiSay[$e.ad] = 0; $eskiHapSay[$e.ad] = 0 }
 
 $hapliSoru = 0
 $jargonYogunSoru = 0; $jargonOrnek = New-Object System.Collections.Generic.List[string]
+$yazHedef = New-Object System.Collections.Generic.List[object]   # -yaz icin TAM liste (id + kusur + notlu-mu)
 foreach($s in $kasa){
   $dh = "$($s.dogru)".Trim().ToUpper()
   $ac = ''
@@ -121,7 +127,10 @@ foreach($s in $kasa){
     }
   }
   foreach($e in $ESKI){
-    if([regex]::IsMatch($tum, $e.desen)){ $eskiSay[$e.ad]++ }
+    if([regex]::IsMatch($tum, $e.desen)){
+      $eskiSay[$e.ad]++
+      $yazHedef.Add([pscustomobject]@{ id="$($s.id)"; kusur=('eski-terim: ' + $e.ad); notlu=([bool]("$($s.yayin_notu)".Trim())) })
+    }
     if($hap.Trim().Length -gt 3 -and [regex]::IsMatch($hap, $e.desen)){ $eskiHapSay[$e.ad]++ }
   }
   # 2b jargon-yogunluk: aciklama+hap cumle cumle
@@ -132,7 +141,11 @@ foreach($s in $kasa){
     foreach($j in $JARGON){ if($cumle -match ('(?i)' + [regex]::Escape($j))){ $vurus++ } }
     if($vurus -ge 2 -and -not $reKarsilik.IsMatch($cumle)){ $jarBuldu = $true; break }
   }
-  if($jarBuldu){ $jargonYogunSoru++; if($jargonOrnek.Count -lt 10){ $jargonOrnek.Add("$($s.id)") } }
+  if($jarBuldu){
+    $jargonYogunSoru++
+    if($jargonOrnek.Count -lt 10){ $jargonOrnek.Add("$($s.id)") }
+    $yazHedef.Add([pscustomobject]@{ id="$($s.id)"; kusur='jargon-yogun'; notlu=([bool]("$($s.yayin_notu)".Trim())) })
+  }
   foreach($m in $reKisi.Matches("$($s.soru)")){
     $ad = $m.Groups[1].Value
     if(-not $kisiSay.ContainsKey($ad)){ $kisiSay[$ad]=0 }; $kisiSay[$ad]++
@@ -184,3 +197,17 @@ foreach($r in $uydurmaRapor){ Write-Host ("     {0,-26} {1,5} soru  -> dogrusu: 
 Write-Host "  2) ESKI TERIM (toplam / kehribar kartta):"
 foreach($r in $eskiRapor){ Write-Host ("     {0,-26} {1,5} / {2,4}  -> dogrusu: {3}" -f $r.terim, $r.toplam_soru, $r.KEHRIBAR_KARTTA, $r.dogrusu) }
 Write-Host ("  3) SENARYO ADI: {0} farkli kisi / {1} farkli sirket" -f $kisiSay.Count, $sirketSay.Count)
+
+# ---- -yaz MODU (07.08): dil kusurlulari onarim havuzuna isaretle ----
+if($yaz){
+  $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
+  $tekil = @{}
+  foreach($h in $yazHedef){ if(-not $tekil.ContainsKey($h.id)){ $tekil[$h.id]=$h } }
+  $isaret=0; $atla=0
+  foreach($h in $tekil.Values){
+    if($h.notlu){ $atla++; continue }   # dolu not EZILMEZ (asil kusur recetesi oncelikli)
+    $gov = ConvertTo-Json -Compress -InputObject @{ yayin=$false; yayin_notu=('dil-kusuru 07.08: ' + $h.kusur + ' - onarim bekliyor (uretici k.15/9)') }
+    try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $h.id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $isaret++ } catch {}
+  }
+  Write-Host ("  -yaz: {0} soru dil-kusuru notuyla isaretlendi, {1} atlandi (notu doluydu)" -f $isaret, $atla)
+}
