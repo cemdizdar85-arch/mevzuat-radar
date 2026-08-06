@@ -1122,6 +1122,15 @@ function cevabiGor(tekrarMi){
 }
 
 function tl(n){ return Number(n).toLocaleString('tr-TR'); }
+// #10 (06.08 Cem onayi): para tutari HER gosterimde binlik ayracli. Tablo
+// hucreleri karisik tipte gelir (sayi, "28915", "%20", "1.650.000") - yalniz
+// SAF RAKAM olan 4+ haneli hucre formatlanir, digerlerine dokunulmaz.
+function hucreFmt(c){
+  if(typeof c === 'number') return tl(c);
+  var s = String(c).trim();
+  if(/^\d{4,}$/.test(s)) return tl(s);
+  return s;
+}
 // EXHIBIT TABLOSU (Cem/UWorld fikri 24.07): analiz-tablo sorularinda mini gelir
 // tablosu/bilanco cizilir — hesap lafla degil TABLONUN USTUNDE gosterilir.
 // Format: {baslik, kolonlar:[...], satirlar:[[hucre,...],...]} — icinde '←' gecen satir vurgulanir.
@@ -1150,7 +1159,7 @@ function tabloGorsel(s){
     if(vurgu) stil=' style="background:rgba(94,215,255,.10);font-weight:800"';
     else if(sonuc) stil=' style="background:rgba(61,220,151,.10);font-weight:900;border-top:2px solid rgba(61,220,151,.5)"';
     h+='<tr'+stil+'>';
-    sat.forEach(function(c,i){ h+='<td'+(i>0?' class="t"':'')+'>'+esc(''+c)+'</td>'; });
+    sat.forEach(function(c,i){ h+='<td'+(i>0?' class="t"':'')+'>'+esc(hucreFmt(c))+'</td>'; });
     h+='</tr>';
   });
   h+='</table></div>';

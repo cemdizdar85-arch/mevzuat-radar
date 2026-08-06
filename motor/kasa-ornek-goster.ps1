@@ -73,20 +73,29 @@ for($b=0; $b -lt $idler.Count; $b+=50){
 Write-Host ("Tam satir: {0}" -f $asil.Count)
 
 function K([string]$t){ if($null -eq $t){ return '' }; return ($t -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
+# #10 (06.08 Cem onayi): para tutari her gosterimde binlik ayracli (282.205).
+# Yalniz saf-rakam 4+ haneli degerler formatlanir; "%20" gibi karisik hucreye dokunulmaz.
+$TRK = [Globalization.CultureInfo]::GetCultureInfo('tr-TR')
+function SayiFmt($v){
+  $s = "$v".Trim()
+  if($s -match '^\d{4,}$'){ try { return ([decimal]$s).ToString('N0', $TRK) } catch { return $s } }
+  if($v -is [int] -or $v -is [long] -or $v -is [decimal] -or $v -is [double]){ try { return ([decimal]$v).ToString('N0', $TRK) } catch { return "$v" } }
+  return $s
+}
 function TabloHtml($t){
   if($null -eq $t){ return '' }
   $sb2 = New-Object Text.StringBuilder
   [void]$sb2.Append('<table class="veri">')
   if($t.baslik){ [void]$sb2.Append('<caption>' + (K "$($t.baslik)") + '</caption>') }
   if($t.kolonlar){ [void]$sb2.Append('<tr>'); foreach($k in @($t.kolonlar)){ [void]$sb2.Append('<th>' + (K "$k") + '</th>') }; [void]$sb2.Append('</tr>') }
-  foreach($sat in @($t.satirlar)){ [void]$sb2.Append('<tr>'); foreach($h in @($sat)){ [void]$sb2.Append('<td>' + (K "$h") + '</td>') }; [void]$sb2.Append('</tr>') }
+  foreach($sat in @($t.satirlar)){ [void]$sb2.Append('<tr>'); foreach($h in @($sat)){ [void]$sb2.Append('<td>' + (K (SayiFmt $h)) + '</td>') }; [void]$sb2.Append('</tr>') }
   [void]$sb2.Append('</table>'); return $sb2.ToString()
 }
 function YevmiyeHtml($y){
   if($null -eq $y){ return '' }
   $sb2 = New-Object Text.StringBuilder
   [void]$sb2.Append('<table class="veri"><tr><th>Hesap</th><th>Borç</th><th>Alacak</th></tr>')
-  foreach($r in @($y)){ [void]$sb2.Append('<tr><td>' + (K "$($r.hesap)") + '</td><td>' + (K "$($r.borc)") + '</td><td>' + (K "$($r.alacak)") + '</td></tr>') }
+  foreach($r in @($y)){ [void]$sb2.Append('<tr><td>' + (K "$($r.hesap)") + '</td><td>' + (K (SayiFmt $r.borc)) + '</td><td>' + (K (SayiFmt $r.alacak)) + '</td></tr>') }
   [void]$sb2.Append('</table>'); return $sb2.ToString()
 }
 
