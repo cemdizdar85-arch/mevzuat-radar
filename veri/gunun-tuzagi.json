@@ -1,37 +1,37 @@
 {
-  "tarih": "05.08.2026",
-  "gun": "2026-08-05",
+  "tarih": "06.08.2026",
+  "gun": "2026-08-06",
   "durum": "TAMAM",
-  "id": "3cbc3607",
-  "sinav": "SMMM",
-  "ders": "Muhasebe Denetimi",
-  "konu": "denetim sozlesmesi kabulu ve kapsam sinirlamasi",
-  "soru": "LevelUp Games A.Ş.'nin İrlanda'daki bağlı ortaklığı, konsolide bilançonun yaklaşık %40'ını oluşturuyor. Ana ortaklık yönetimi, denetçinin bu bağlı ortaklığın kayıtlarına ve yönetimiyle görüşmesine erişimini reddediyor. Elde edilemeyen kanıtın olası etkisi hem önemli hem de finansal tablolara yaygın (pervasive) olarak değerlendiriliyor. Denetçinin vereceği görüş türü ne olmalıdır?",
+  "id": "d35f50cd",
+  "sinav": "SGS",
+  "ders": "Finansal Muhasebe",
+  "konu": "gelecek aylara ait gider",
+  "soru": "Bir oyun stüdyosu, 1 Kasım tarihinde sunucu barındırma hizmeti için 6 aylık (Kasım-Nisan) toplam 90.000 TL'yi peşin ödemiş ve ödeme anında bu tutarın tamamını 180 Gelecek Aylara Ait Giderler hesabına kaydetmiştir. 31 Aralık tarihinde (dönem sonu) yapılacak envanter kaydında, cari döneme isabet eden Kasım-Aralık (2 aylık = 30.000 TL) tutar için hangi kayıt yapılmalıdır?",
   "siklar": {
-    "A": "Denetçi başka hiçbir seçeneği olmadığından denetim sözleşmesinden kendiliğinden çekilmek zorundadır.",
-    "B": "Şartlı görüş verilir çünkü etki belirli, sınırlı bir bilanço kalemiyle ilişkilidir.",
-    "C": "Kısıtlama giderilene kadar rapor tarihi ileri bir tarihe ötelenir, bu süre zarfında görüş verilmez.",
-    "D": "Denetçi görüşten çekinir, çünkü olası etki hem önemli hem de yaygındır.",
-    "E": "Olumlu görüş verilir, ancak rapora dikkat çekilecek husus paragrafı eklenir."
+    "A": "180 Gelecek Aylara Ait Giderler (B) 30.000 / Genel Yönetim Giderleri (A) 30.000",
+    "B": "Genel Yönetim Giderleri (B) 30.000 / Kasa (A) 30.000",
+    "C": "Genel Yönetim Giderleri (B) 90.000 / 180 Gelecek Aylara Ait Giderler (A) 90.000",
+    "D": "180 Gelecek Aylara Ait Giderler (B) 60.000 / Genel Yönetim Giderleri (A) 60.000",
+    "E": "Genel Yönetim Giderleri (B) 30.000 / 180 Gelecek Aylara Ait Giderler (A) 30.000"
   },
-  "dogru": "D",
+  "dogru": "E",
   "aciklama": {
-    "A": "Bu şık denetim sözleşmesinden çekilmeyi zorunlu görüyor; oysa denetçi önce görüşten çekinerek rapor verebilir. Çekilme son çare olup, otomatik değildir; görüşten çekinme ise kapsam kısıtlamasında standart çözümdür.",
-    "B": "Bu şık 'şartlı görüş' ile 'görüşten çekinme'yi karıştırıyor. Şartlı görüş, etki önemli ama sınırlı olduğunda verilir; görüşten çekinme ise etki hem önemli hem de yaygın (pervasive) olduğunda verilir.",
-    "C": "Bu şık rapor tarihini ertelemeyi çözüm sanıyor; oysa kapsam kısıtlaması yönetime bağlıysa süre uzatmak sorunu çözmez. Yönetim erişim vermiyorsa denetçi elindeki kanıtla görüşten çekinerek rapor verir, beklemez.",
-    "D": "Ne soruluyor: Denetçi, bağlı ortaklık hakkında kanıt edinemediğinde hangi görüşü verir?\n\nKural: Denetçi yeterli kanıt edinemezse (kapsam kısıtlaması) ve etki hem önemli hem de yaygınsa görüşten çekinir. Yaygın, tablonun birçok kalemini etkilemesi demektir.\n\nBu olayda: İrlanda'daki bağlı ortaklık konsolide bilançonun %40'ını oluşturuyor. Yönetim denetçiye erişim vermiyor. Etki hem önemli hem de yaygın. Denetçi görüşten çekinerek rapor verir.\n\nAkılda kalsın: Kapsam kısıtlaması + önemli + yaygın = görüşten çekinme.",
-    "E": "Bu şık 'olumlu görüş + dikkat çekme paragrafı' ile 'görüşten çekinme'yi karıştırıyor. Dikkat çekme paragrafı, tablolar doğru ama önemli bir husus varsa kullanılır; kapsam kısıtlamasında ise görüş değişir, paragraf eklemek yetmez."
+    "A": "Bu şık borç-alacak yönlerini tersine çevirmiş. 180 Gelecek Aylara Ait Giderler bir aktif hesap olduğu için azalışlar alacak kaydedilir, borç değil.",
+    "B": "Bu şık Kasa hesabını kullanarak nakit çıkışı göstermiş. Oysa para 1 Kasım'da zaten ödenmiş; envanter kaydı sadece hesaplar arasında mahsup işlemidir, yeni ödeme değil.",
+    "C": "Bu şık toplam tutarı (90.000 TL) tamamen gider yazmış. Oysa sadece cari döneme ait kısım (Kasım-Aralık=2 ay=30.000 TL) gider olmalı, geri kalan 60.000 TL gelecek döneme ait.",
+    "D": "Bu şık gelecek döneme ait kısmı (60.000 TL) gider yazmış. Oysa gider olması gereken cari döneme ait kısımdır (30.000 TL); 60.000 TL aktif hesapta kalmalı.",
+    "E": "Ne soruluyor: Peşin ödenen çok dönemli bir giderin, dönem sonu envanterinde cari döneme isabet eden kısmı için hangi kaydın yapılacağı soruluyor.\n\nKural: VUK 283'e göre, peşin ödenen giderler mukayyet değerleriyle (kayıtlı tutarıyla) aktifleştirilir. Dönem sonunda ise cari döneme ait kısmı gider hesabına alırsınız.\n\nBu olayda: Oyun stüdyosu 6 aylık 90.000 TL'yi aktife kaydetmiş. Her ay 15.000 TL düşer (90.000÷6=15.000). Kasım-Aralık 2 ay, yani 30.000 TL cari döneme ait. Bu 30.000 TL'yi aktiften (180 hesabından alacak) çıkarıp gider hesabına (borç) aktarır.\n\nAkılda kalsın: Aktif geçici hesaplardan gidere geçiş, cari döneme isabet eden tutar kadardır."
   },
-  "kaynak": "BDS 705 md 10",
+  "kaynak": "VUK m.283",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Muhasebe Denetimi — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Finansal Muhasebe — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 147,
+    "uygun_aday": 146,
     "yayindaki": 150,
-    "gecmiste": 3
+    "gecmiste": 4
   }
 }
