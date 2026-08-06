@@ -1,10 +1,11 @@
 {
-  "tarih": "06.08.2026 06:09",
+  "tarih": "06.08.2026 06:17",
   "durum": "TAMAM",
   "mod": "OLCUM (0 USD, yazma yok)",
   "kasa": 27584,
   "olcut": "Her sinav KENDI planiyla karsilastirildi. ASIRI >=2 kat, EKSIK <0,8. BOS yalniz hedef>=10 konularda ve kelime aramasiyla dogrulanarak (ad uyusmazligi sahte bosluk uretmesin).",
   "SMMM_bitirme": {
+    "PLAN_DISI_DERSLER": {},
     "sinav": "SMMM",
     "plan": "veri/uretim-kotasi.json",
     "DERS_DURUMU": [
@@ -118,13 +119,6 @@
       },
       {
         "ders": "Finansal Muhasebe",
-        "konu": "gelecek aylara ait gider mahsubu",
-        "hedef": 5,
-        "kasada": 42,
-        "kat": 8.4
-      },
-      {
-        "ders": "Finansal Muhasebe",
         "konu": "yansitma kaydi",
         "hedef": 5,
         "kasada": 42,
@@ -132,7 +126,28 @@
       },
       {
         "ders": "Finansal Muhasebe",
+        "konu": "gelecek aylara ait gider mahsubu",
+        "hedef": 5,
+        "kasada": 42,
+        "kat": 8.4
+      },
+      {
+        "ders": "Finansal Muhasebe",
+        "konu": "alacak senedi yenileme",
+        "hedef": 1,
+        "kasada": 8,
+        "kat": 8.0
+      },
+      {
+        "ders": "Finansal Muhasebe",
         "konu": "kasa sayim noksani",
+        "hedef": 1,
+        "kasada": 8,
+        "kat": 8.0
+      },
+      {
+        "ders": "Finansal Muhasebe",
+        "konu": "hisse senedi alim kaydi",
         "hedef": 1,
         "kasada": 8,
         "kat": 8.0
@@ -153,20 +168,6 @@
       },
       {
         "ders": "Finansal Muhasebe",
-        "konu": "hisse senedi alim kaydi",
-        "hedef": 1,
-        "kasada": 8,
-        "kat": 8.0
-      },
-      {
-        "ders": "Finansal Muhasebe",
-        "konu": "alacak senedi yenileme",
-        "hedef": 1,
-        "kasada": 8,
-        "kat": 8.0
-      },
-      {
-        "ders": "Finansal Muhasebe",
         "konu": "kapanis kaydi",
         "hedef": 7,
         "kasada": 55,
@@ -180,8 +181,8 @@
         "kat": 7.7
       },
       {
-        "ders": "Maliyet Muhasebesi",
-        "konu": "kismi bolunme turleri",
+        "ders": "Vergi Mevzuatı ve Uygulaması",
+        "konu": "binek otomobil gideri kkeg",
         "hedef": 2,
         "kasada": 15,
         "kat": 7.5
@@ -239,13 +240,6 @@
         "kasada": 13
       },
       {
-        "ders": "Muhasebe Denetimi",
-        "konu": "kayitli sermaye tavani",
-        "katman": "B-kapsama",
-        "hedef": 2,
-        "kasada": 1
-      },
-      {
         "ders": "Muh. ve Mali Müş. Meslek Hukuku",
         "konu": "tazmin talebi zamanasimi",
         "katman": "B-kapsama",
@@ -253,22 +247,8 @@
         "kasada": 1
       },
       {
-        "ders": "Muh. ve Mali Müş. Meslek Hukuku",
-        "konu": "meslek kutugunden silinme",
-        "katman": "B-kapsama",
-        "hedef": 2,
-        "kasada": 1
-      },
-      {
-        "ders": "Hukuk",
-        "konu": "kurul tedbirleri",
-        "katman": "B-kapsama",
-        "hedef": 2,
-        "kasada": 1
-      },
-      {
-        "ders": "Hukuk",
-        "konu": "idari para cezasi uygulamasi",
+        "ders": "Muhasebe Denetimi",
+        "konu": "kayitli sermaye tavani",
         "katman": "B-kapsama",
         "hedef": 2,
         "kasada": 1
@@ -286,19 +266,32 @@
         "katman": "B-kapsama",
         "hedef": 2,
         "kasada": 1
+      },
+      {
+        "ders": "Hukuk",
+        "konu": "kurul tedbirleri",
+        "katman": "B-kapsama",
+        "hedef": 2,
+        "kasada": 1
+      },
+      {
+        "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+        "konu": "meslek kutugunden silinme",
+        "katman": "B-kapsama",
+        "hedef": 2,
+        "kasada": 1
+      },
+      {
+        "ders": "Hukuk",
+        "konu": "idari para cezasi uygulamasi",
+        "katman": "B-kapsama",
+        "hedef": 2,
+        "kasada": 1
       }
     ],
     "EKSIK_konu_sayisi": 13,
     "UYUMLU_konu_sayisi": 86,
     "GERCEKTEN_BOS": [
-      {
-        "ders": "Vergi Mevzuatı ve Uygulaması",
-        "konu": "gelir vergisi beyani",
-        "katman": "A-omurga",
-        "hedef": 78,
-        "kelime_aramasiyla_bulunan": 0,
-        "KARAR": "GERCEKTEN BOS"
-      },
       {
         "ders": "Vergi Mevzuatı ve Uygulaması",
         "konu": "gelir vergisi matrahi hesaplama",
@@ -308,8 +301,16 @@
         "KARAR": "GERCEKTEN BOS"
       },
       {
+        "ders": "Vergi Mevzuatı ve Uygulaması",
+        "konu": "gelir vergisi beyani",
+        "katman": "A-omurga",
+        "hedef": 78,
+        "kelime_aramasiyla_bulunan": 0,
+        "KARAR": "GERCEKTEN BOS"
+      },
+      {
         "ders": "Muhasebe Denetimi",
-        "konu": "uygulamali mesleki egitim",
+        "konu": "denetim kistasi",
         "katman": "A-omurga",
         "hedef": 62,
         "kelime_aramasiyla_bulunan": 0,
@@ -325,7 +326,7 @@
       },
       {
         "ders": "Muhasebe Denetimi",
-        "konu": "onemlilik kavrami",
+        "konu": "uygulamali mesleki egitim",
         "katman": "A-omurga",
         "hedef": 62,
         "kelime_aramasiyla_bulunan": 0,
@@ -333,17 +334,9 @@
       },
       {
         "ders": "Muhasebe Denetimi",
-        "konu": "denetim kistasi",
+        "konu": "onemlilik kavrami",
         "katman": "A-omurga",
         "hedef": 62,
-        "kelime_aramasiyla_bulunan": 0,
-        "KARAR": "GERCEKTEN BOS"
-      },
-      {
-        "ders": "Vergi Mevzuatı ve Uygulaması",
-        "konu": "ihrac kaydiyla teslim tecil terkin",
-        "katman": "A-omurga",
-        "hedef": 52,
         "kelime_aramasiyla_bulunan": 0,
         "KARAR": "GERCEKTEN BOS"
       },
@@ -356,10 +349,10 @@
         "KARAR": "GERCEKTEN BOS"
       },
       {
-        "ders": "Sermaye Piyasası Mevzuatı",
-        "konu": "kitle fonlamasi",
+        "ders": "Vergi Mevzuatı ve Uygulaması",
+        "konu": "ihrac kaydiyla teslim tecil terkin",
         "katman": "A-omurga",
-        "hedef": 18,
+        "hedef": 52,
         "kelime_aramasiyla_bulunan": 0,
         "KARAR": "GERCEKTEN BOS"
       },
@@ -378,6 +371,14 @@
         "hedef": 18,
         "kelime_aramasiyla_bulunan": 0,
         "KARAR": "GERCEKTEN BOS"
+      },
+      {
+        "ders": "Sermaye Piyasası Mevzuatı",
+        "konu": "kitle fonlamasi",
+        "katman": "A-omurga",
+        "hedef": 18,
+        "kelime_aramasiyla_bulunan": 0,
+        "KARAR": "GERCEKTEN BOS"
       }
     ],
     "GERCEKTEN_BOS_konu_sayisi": 11,
@@ -385,6 +386,13 @@
     "ad_farkli_ama_var": 7
   },
   "SGS_staja_giris": {
+    "PLAN_DISI_DERSLER": {
+      "Ataturk Ilke ve Inkilap Tarihi": 184,
+      "Yabanci Dil": 1560,
+      "Turkce": 916,
+      "Hukuk": 27,
+      "Matematik": 74
+    },
     "sinav": "SGS",
     "plan": "veri/sgs-uretim-kotasi.json",
     "DERS_DURUMU": [
@@ -463,8 +471,8 @@
         "kat": 23.0
       },
       {
-        "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "konu": "sendikalar kanunu tanimlar",
+        "ders": "Finansal Muhasebe",
+        "konu": "ifac bunyesindeki kuruluslar",
         "hedef": 1,
         "kasada": 21,
         "kat": 21.0
@@ -477,8 +485,8 @@
         "kat": 21.0
       },
       {
-        "ders": "Finansal Muhasebe",
-        "konu": "ifac bunyesindeki kuruluslar",
+        "ders": "Is ve Sosyal Guvenlik Hukuku",
+        "konu": "sendikalar kanunu tanimlar",
         "hedef": 1,
         "kasada": 21,
         "kat": 21.0
@@ -491,15 +499,15 @@
         "kat": 21.0
       },
       {
-        "ders": "Denetim",
-        "konu": "calisma kagitlari amaci",
+        "ders": "Is ve Sosyal Guvenlik Hukuku",
+        "konu": "gecici is goremezlik odenegi",
         "hedef": 1,
         "kasada": 20,
         "kat": 20.0
       },
       {
-        "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "konu": "gecici is goremezlik odenegi",
+        "ders": "Denetim",
+        "konu": "calisma kagitlari amaci",
         "hedef": 1,
         "kasada": 20,
         "kat": 20.0
@@ -554,6 +562,13 @@
         "kat": 15.3
       },
       {
+        "ders": "Is ve Sosyal Guvenlik Hukuku",
+        "konu": "grev lokavt yasagi",
+        "hedef": 3,
+        "kasada": 43,
+        "kat": 14.3
+      },
+      {
         "ders": "Finansal Muhasebe",
         "konu": "kesin mizan hesap kalani",
         "hedef": 3,
@@ -562,16 +577,9 @@
       },
       {
         "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "konu": "grev lokavt yasagi",
+        "konu": "belirli sureli is sozlesmesi",
         "hedef": 3,
-        "kasada": 43,
-        "kat": 14.3
-      },
-      {
-        "ders": "Is ve Sosyal Guvenlik Hukuku",
-        "konu": "is kazasi sayilan haller",
-        "hedef": 1,
-        "kasada": 14,
+        "kasada": 42,
         "kat": 14.0
       },
       {
@@ -627,15 +635,22 @@
         "kasada": 2
       },
       {
-        "ders": "Mali Tablolar Analizi",
-        "konu": "surekli sermaye orani dikey yuzdelerle",
-        "katman": "B-kapsama",
+        "ders": "Ekonomi",
+        "konu": "rasyonel beklentiler hipotezi",
+        "katman": "A-omurga",
         "hedef": 5,
-        "kasada": 3
+        "kasada": 1
       },
       {
         "ders": "Mali Tablolar Analizi",
         "konu": "net isletme sermayesi analizi",
+        "katman": "B-kapsama",
+        "hedef": 5,
+        "kasada": 2
+      },
+      {
+        "ders": "Mali Tablolar Analizi",
+        "konu": "yatay analiz duran varlik yuzdesi",
         "katman": "B-kapsama",
         "hedef": 5,
         "kasada": 2
@@ -648,18 +663,11 @@
         "kasada": 1
       },
       {
-        "ders": "Ekonomi",
-        "konu": "rasyonel beklentiler hipotezi",
-        "katman": "A-omurga",
-        "hedef": 5,
-        "kasada": 1
-      },
-      {
         "ders": "Mali Tablolar Analizi",
-        "konu": "yatay analiz duran varlik yuzdesi",
+        "konu": "surekli sermaye orani dikey yuzdelerle",
         "katman": "B-kapsama",
         "hedef": 5,
-        "kasada": 2
+        "kasada": 3
       },
       {
         "ders": "Mali Tablolar Analizi",
@@ -683,13 +691,6 @@
         "kasada": 2
       },
       {
-        "ders": "Finansal Muhasebe",
-        "konu": "isletme birlesmesi serefiye",
-        "katman": "A-omurga",
-        "hedef": 3,
-        "kasada": 1
-      },
-      {
         "ders": "Ekonomi",
         "konu": "para arzi-acik piyasa islemleri",
         "katman": "B-kapsama",
@@ -704,6 +705,13 @@
         "kasada": 1
       },
       {
+        "ders": "Finansal Muhasebe",
+        "konu": "isletme birlesmesi serefiye",
+        "katman": "A-omurga",
+        "hedef": 3,
+        "kasada": 1
+      },
+      {
         "ders": "Vergi Hukuku",
         "konu": "deger artis kazanci",
         "katman": "B-kapsama",
@@ -712,14 +720,14 @@
       },
       {
         "ders": "Ekonomi",
-        "konu": "cari islemler hesabi",
+        "konu": "marjinal tuketim egilimi",
         "katman": "B-kapsama",
         "hedef": 2,
         "kasada": 1
       },
       {
         "ders": "Ekonomi",
-        "konu": "marjinal tuketim egilimi",
+        "konu": "cari islemler hesabi",
         "katman": "B-kapsama",
         "hedef": 2,
         "kasada": 1
@@ -757,6 +765,7 @@
     "ad_farkli_ama_var": 1
   },
   "KGK_bagimsiz_denetci": {
+    "PLAN_DISI_DERSLER": {},
     "sinav": "KGK",
     "plan": "veri/kgk-uretim-kotasi.json",
     "DERS_DURUMU": [
@@ -796,31 +805,10 @@
       },
       {
         "ders": "Muhasebe Standartlari",
-        "konu": "tfrs 16 kiralamalar kullanim hakki varligi",
+        "konu": "tms 1 finansal tablolarin sunulusu onemlilik netlestirme",
         "katman": "A-omurga",
         "hedef": 60,
-        "kasada": 20
-      },
-      {
-        "ders": "Denetim Standartlari",
-        "konu": "bds 315 onemli yanlislik risklerinin belirlenmesi isletmeyi tanima",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 22
-      },
-      {
-        "ders": "Denetim Standartlari",
-        "konu": "bds 200 bagimsiz denetimin amaci makul guvence",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 22
-      },
-      {
-        "ders": "Denetim Standartlari",
-        "konu": "bds 705 gorus sartli olumsuz gorus vermekten kacinma",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 21
+        "kasada": 26
       },
       {
         "ders": "Muhasebe Standartlari",
@@ -845,10 +833,17 @@
       },
       {
         "ders": "Denetim Standartlari",
-        "konu": "bds 240 finansal tablolarin denetiminde hile",
+        "konu": "bds 320 onemlilik kiyaslama noktasi performans onemliligi",
         "katman": "A-omurga",
         "hedef": 60,
-        "kasada": 26
+        "kasada": 14
+      },
+      {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 705 gorus sartli olumsuz gorus vermekten kacinma",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 21
       },
       {
         "ders": "Muhasebe Standartlari",
@@ -858,6 +853,20 @@
         "kasada": 23
       },
       {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 200 bagimsiz denetimin amaci makul guvence",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 22
+      },
+      {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 240 finansal tablolarin denetiminde hile",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 26
+      },
+      {
         "ders": "Muhasebe Standartlari",
         "konu": "tms 7 nakit akis tablosu isletme yatirim finansman",
         "katman": "A-omurga",
@@ -865,32 +874,11 @@
         "kasada": 27
       },
       {
-        "ders": "Denetim Standartlari",
-        "konu": "bds 320 onemlilik kiyaslama noktasi performans onemliligi",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 14
-      },
-      {
-        "ders": "Denetim Standartlari",
-        "konu": "bds 500 denetim kanitlari yeterli uygun kanit",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 22
-      },
-      {
         "ders": "Muhasebe Standartlari",
-        "konu": "tms 1 finansal tablolarin sunulusu onemlilik netlestirme",
+        "konu": "tfrs 16 kiralamalar kullanim hakki varligi",
         "katman": "A-omurga",
         "hedef": 60,
-        "kasada": 26
-      },
-      {
-        "ders": "Muhasebe Standartlari",
-        "konu": "tfrs 9 finansal araclar siniflandirma deger dusuklugu beklenen kredi zarari",
-        "katman": "A-omurga",
-        "hedef": 60,
-        "kasada": 6
+        "kasada": 20
       },
       {
         "ders": "Muhasebe Standartlari",
@@ -901,6 +889,27 @@
       },
       {
         "ders": "Muhasebe Standartlari",
+        "konu": "tfrs 9 finansal araclar siniflandirma deger dusuklugu beklenen kredi zarari",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 6
+      },
+      {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 315 onemli yanlislik risklerinin belirlenmesi isletmeyi tanima",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 22
+      },
+      {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 500 denetim kanitlari yeterli uygun kanit",
+        "katman": "A-omurga",
+        "hedef": 60,
+        "kasada": 22
+      },
+      {
+        "ders": "Muhasebe Standartlari",
         "konu": "tfrs 15 musteri sozlesmelerinden hasilat bes adim",
         "katman": "A-omurga",
         "hedef": 60,
@@ -908,24 +917,24 @@
       },
       {
         "ders": "Denetim Standartlari",
-        "konu": "bds 230 denetimin belgelendirilmesi calisma kagitlari",
+        "konu": "bds 300 denetimin planlanmasi strateji",
         "katman": "A-omurga",
         "hedef": 50,
-        "kasada": 16
+        "kasada": 20
+      },
+      {
+        "ders": "Denetim Standartlari",
+        "konu": "bds 570 isletmenin surekliligi denetci degerlendirmesi",
+        "katman": "A-omurga",
+        "hedef": 50,
+        "kasada": 15
       },
       {
         "ders": "Muhasebe Standartlari",
-        "konu": "tfrs 13 gercege uygun deger olcumu hiyerarsi",
+        "konu": "tfrs 3 isletme birlesmeleri serefiye",
         "katman": "A-omurga",
         "hedef": 50,
-        "kasada": 18
-      },
-      {
-        "ders": "Muhasebe Standartlari",
-        "konu": "tfrs 10 konsolide finansal tablolar kontrol",
-        "katman": "A-omurga",
-        "hedef": 50,
-        "kasada": 21
+        "kasada": 22
       }
     ],
     "EKSIK_konu_sayisi": 58,
@@ -949,6 +958,14 @@
       },
       {
         "ders": "Kurumsal Yonetim",
+        "konu": "kurumsal yonetim tebligi menfaat sahipleri calisanlar paydaslar",
+        "katman": "A-omurga",
+        "hedef": 90,
+        "kelime_aramasiyla_bulunan": 0,
+        "KARAR": "GERCEKTEN BOS"
+      },
+      {
+        "ders": "Kurumsal Yonetim",
         "konu": "kurumsal yonetim tebligi genel kurul toplanti usul ve ilkeleri",
         "katman": "A-omurga",
         "hedef": 90,
@@ -958,14 +975,6 @@
       {
         "ders": "Kurumsal Yonetim",
         "konu": "kurumsal yonetim tebligi yatirimci iliskileri bolumu gorevleri",
-        "katman": "A-omurga",
-        "hedef": 90,
-        "kelime_aramasiyla_bulunan": 0,
-        "KARAR": "GERCEKTEN BOS"
-      },
-      {
-        "ders": "Kurumsal Yonetim",
-        "konu": "kurumsal yonetim tebligi menfaat sahipleri calisanlar paydaslar",
         "katman": "A-omurga",
         "hedef": 90,
         "kelime_aramasiyla_bulunan": 0,
@@ -997,7 +1006,7 @@
       },
       {
         "ders": "Kurumsal Yonetim",
-        "konu": "kurumsal yonetim tebligi pay sahipligi haklari azlik haklari",
+        "konu": "kurumsal yonetim tebligi teminat rehin ipotek yasagi",
         "katman": "A-omurga",
         "hedef": 70,
         "kelime_aramasiyla_bulunan": 0,
@@ -1005,7 +1014,7 @@
       },
       {
         "ders": "Kurumsal Yonetim",
-        "konu": "kurumsal yonetim tebligi teminat rehin ipotek yasagi",
+        "konu": "kurumsal yonetim tebligi pay sahipligi haklari azlik haklari",
         "katman": "A-omurga",
         "hedef": 70,
         "kelime_aramasiyla_bulunan": 0,
@@ -1020,8 +1029,8 @@
         "KARAR": "GERCEKTEN BOS"
       },
       {
-        "ders": "Finansal Yonetim",
-        "konu": "isletme sermayesi yonetimi nakit dongusu finanslama stratejileri",
+        "ders": "Denetim Standartlari",
+        "konu": "bagimsiz denetim yonetmeligi bagimsizlik yasaklar rotasyon",
         "katman": "A-omurga",
         "hedef": 60,
         "kelime_aramasiyla_bulunan": 0,
@@ -1036,8 +1045,8 @@
         "KARAR": "GERCEKTEN BOS"
       },
       {
-        "ders": "Denetim Standartlari",
-        "konu": "bagimsiz denetim yonetmeligi bagimsizlik yasaklar rotasyon",
+        "ders": "Finansal Yonetim",
+        "konu": "isletme sermayesi yonetimi nakit dongusu finanslama stratejileri",
         "katman": "A-omurga",
         "hedef": 60,
         "kelime_aramasiyla_bulunan": 0,
@@ -1045,7 +1054,7 @@
       },
       {
         "ders": "Finansal Yonetim",
-        "konu": "basabas noktasi faaliyet ve finansal kaldirac",
+        "konu": "sermaye maliyeti wacc ozkaynak maliyeti",
         "katman": "A-omurga",
         "hedef": 55,
         "kelime_aramasiyla_bulunan": 0,
@@ -1053,7 +1062,7 @@
       },
       {
         "ders": "Finansal Yonetim",
-        "konu": "sermaye maliyeti wacc ozkaynak maliyeti",
+        "konu": "basabas noktasi faaliyet ve finansal kaldirac",
         "katman": "A-omurga",
         "hedef": 55,
         "kelime_aramasiyla_bulunan": 0,
@@ -1076,16 +1085,16 @@
         "KARAR": "GERCEKTEN BOS"
       },
       {
-        "ders": "Denetim Standartlari",
-        "konu": "660 khk kamu gozetimi kurumu gorev yetki",
+        "ders": "Finansal Yonetim",
+        "konu": "faiz hesaplari basit bilesik efektif faiz",
         "katman": "A-omurga",
         "hedef": 40,
         "kelime_aramasiyla_bulunan": 0,
         "KARAR": "GERCEKTEN BOS"
       },
       {
-        "ders": "Finansal Yonetim",
-        "konu": "faiz hesaplari basit bilesik efektif faiz",
+        "ders": "Denetim Standartlari",
+        "konu": "660 khk kamu gozetimi kurumu gorev yetki",
         "katman": "A-omurga",
         "hedef": 40,
         "kelime_aramasiyla_bulunan": 0,
