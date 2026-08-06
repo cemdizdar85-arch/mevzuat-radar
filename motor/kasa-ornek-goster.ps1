@@ -152,11 +152,14 @@ foreach($sid in $idler){
   $dh = "$($c.dogru)"
   $acD = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$dh]){ $acD = "$($c.aciklama.$dh)" } } catch {}
   if($acD -ne ''){ [void]$sb.Append('<h4>KONU ANLATIMI — DOĞRU CEVAP (' + $dh + ')</h4><div class="acik">' + (K $acD) + '</div>') }
+  # 06.08 Cem: "NEDEN YANLIS cok soguk" - baslik adaya konusur, aciklamanin
+  # kendi diliyle ayni sicaklikta: "B'Yi ISARETLEDIYSEN". Unlu uyumu haritayla.
+  $sikEk = @{ A="A'YI"; B="B'Yİ"; C="C'Yİ"; D="D'Yİ"; E="E'Yİ" }
   foreach($h in 'A','B','C','D','E'){
     if($h -eq $dh){ continue }
     $ac = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$h]){ $ac = "$($c.aciklama.$h)" } } catch {}
     if($ac -eq ''){ continue }
-    [void]$sb.Append('<h4>ŞIK ' + $h + ' — NEDEN YANLIŞ</h4><div class="acik">' + (K $ac) + '</div>')
+    [void]$sb.Append('<h4>' + $sikEk[$h] + ' İŞARETLEDİYSEN</h4><div class="acik">' + (K $ac) + '</div>')
   }
   if($c.hap){ [void]$sb.Append('<h4>KONUNUN ÖZETİ — AKILDA KALSIN</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
   if($c.kaynak){ [void]$sb.Append('<h4>KAYNAK</h4><div class="acik">' + (K "$($c.kaynak)") + '</div>') }

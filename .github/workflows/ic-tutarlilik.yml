@@ -1,0 +1,46 @@
+# .github/workflows/ic-tutarlilik.yml — SORU IC-TUTARLILIK DENETCISI (0 USD)
+# Cem 06.08: "ayni cevaplar, siklarda ayni sorular olmasin (A ile C ayni gibi),
+# aklima gelmeyen baska ne varsa kontrol ayarla - basmadan." Soru-ici kurallar
+# (sik mukerrer, cevap sizintisi, bos sik, aciklamasiz dogru) + kasa kurallari
+# (tam-metin mukerrer, cevap-harf yigilmasi, dogru-en-uzun yanliligi).
+# Varsayilan OLCUM; yaz=true S1-S5 bulgululari yayindan ceker. Haftalik kosar.
+name: Ic-Tutarlilik Denetimi (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/ic-tutarlilik.txt'
+  workflow_dispatch:
+    inputs:
+      yaz: { description: 'true = bulgululari yayindan cek', required: false, default: 'false' }
+  schedule:
+    - cron: '25 4 * * 1'   # pazartesi 07:25 TR
+permissions:
+  contents: write
+concurrency:
+  group: ic-tutarlilik
+  cancel-in-progress: false
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetim kos
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $yaz = '${{ github.event.inputs.yaz }}'
+          if(-not $yaz -and (Test-Path veri/tetik/ic-tutarlilik.txt)){
+            $yaz = (Get-Content veri/tetik/ic-tutarlilik.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim()
+          }
+          if($yaz -match 'yaz|true'){ ./motor/soru-ic-tutarlilik.ps1 -yaz } else { ./motor/soru-ic-tutarlilik.ps1 }
+      - name: Rapor commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/ic-tutarlilik-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Ic-tutarlilik raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

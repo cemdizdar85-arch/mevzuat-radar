@@ -1038,7 +1038,7 @@ function Riskli([string]$t){
   foreach($m in [regex]::Matches("$t","(?i)(\d+)\s*(g[uü]n|ay|y[iı]l|hafta)\b")){ $l += $m.Groups[1].Value }
   return $l
 }
-$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; dogrusuRed=0; atifRed=0; kokuRed=0; benzerRed=0; aritmetikRed=0; cevapsiz=0; yazmaHatasi=0 }
+$ozet=[ordered]@{ uretilen=0; rakamRed=0; dilRed=0; sikRed=0; sablonRed=0; tuzakRed=0; dogrusuRed=0; atifRed=0; kokuRed=0; benzerRed=0; aritmetikRed=0; icTutarRed=0; cevapsiz=0; yazmaHatasi=0 }
 $red = New-Object System.Collections.Generic.List[object]
 $yeni = New-Object System.Collections.Generic.List[object]
 for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
@@ -1052,6 +1052,27 @@ for($p2=0; $p2 -lt [math]::Ceiling($isler.Count/$PARTI); $p2++){
     $dolu=0; foreach($h in @('A','B','C','D','E')){ if("$($y.siklar.$h)".Trim().Length -gt 2){ $dolu++ } }
     if($dolu -ne 5 -or "$($y.dogru)" -notin @('A','B','C','D','E')){ $ozet.sikRed++; continue }
     if("$($y.aciklama.$($y.dogru))".Trim().Length -lt 300){ $ozet.sikRed++; continue }
+
+    # ---- IC-TUTARLILIK KAPISI (06.08, Cem: "ayni cevaplar, A sik ile C sik
+    # ayni soru gibi olmasin - basmadan kontrol"). motor/soru-ic-tutarlilik.ps1
+    # S1+S2'nin ikizi: (S1) iki sik normalize edilince ayni ise, (S2) dogru
+    # sikkin metni soru kokunde aynen geciyorsa soru COPE GIDER.
+    $icSorun = @()
+    $ikNorm = @{}
+    foreach($h in @('A','B','C','D','E')){
+      $n2 = ("$($y.siklar.$h)".ToLowerInvariant() -replace '\s+',' ') -replace '[\.\,\;\:\!\?\(\)"]',''
+      $n2 = $n2.Trim()
+      if($n2.Length -lt 2){ continue }
+      if($ikNorm.ContainsKey($n2)){ $icSorun += ('ayni-sik:' + $ikNorm[$n2] + '=' + $h) } else { $ikNorm[$n2] = $h }
+    }
+    $dNorm = ("$($y.siklar.$($y.dogru))".ToLowerInvariant() -replace '\s+',' ') -replace '[\.\,\;\:\!\?\(\)"]',''
+    $kNorm = ("$($y.soru)".ToLowerInvariant() -replace '\s+',' ') -replace '[\.\,\;\:\!\?\(\)"]',''
+    if($dNorm.Trim().Length -ge 12 -and $kNorm.Contains($dNorm.Trim())){ $icSorun += 'cevap-sizintisi' }
+    if($icSorun.Count){
+      $ozet.icTutarRed++
+      $red.Add([pscustomobject]@{ konu=$i.konu; sebep='ic-tutarlilik'; deger=($icSorun -join ', ') })
+      continue
+    }
 
     # ---- SABLON KAPISI (29.07, 163 soruluk pilotun GM okumasindan sonra eklendi)
     # Pilot partide 19 ornegin 19'u TUZAK ADLANDIRMIYORDU ve 3'unde dort parcali
