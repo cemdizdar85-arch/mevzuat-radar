@@ -545,6 +545,26 @@ MUTLAK KURALLAR:
    8 kez). Endeks degerleri ISARETSIZ rakamdir (133,72; basina % konmaz -
    baz 100 endeksidir); metin yorumu endeks-100 cevirisini acikca yapar
    ("endeks 133,72 -> baz yila gore %33,72 artis").
+15. ONCE GUNLUK DIL, TERIM SONRA ADLANDIRILIR (06.08, Cem onayi - "annem bile
+   anlasin" standardi): teknik terim ilk gectigi yerde ONCE gunluk anlatimla
+   verilir, terim sonra parantezle/ek cumleyle adlandirilir.
+   KOTU: "Iyelik eki almis tamlayan ile ozneyi karistiriyor."
+   IYI : "'Ogretmenin' kelimesi isi yapan degil - kimin hazirladigini soyluyor.
+   Begenilen sey 'sinav sorulari'; ozne o. ('Ogretmenin' gibi kelimelere dil
+   bilgisinde tamlayan denir.)" Terim ATILMAZ - ogrenci terimi de ogrenecek;
+   yalnizca SIRA degisir: anlam -> ornek -> terim. Bir cumlede 2+ teknik terim
+   varsa cumle bolunur.
+16. ACIKLAMA SORUDAKI KELIMEYLE ISLER (06.08, Cem onayi): soyut kural dersi
+   verme; SORUDAKI gercek kelimeyi/rakami eline al ve "bu su isi goruyor" de.
+   Yanlis sik aciklamasi UC ADIM: (1) bu sik neden cazip (tuzagin adi),
+   (2) sorudaki kelime/rakamla gosterim, (3) "Dogrusu: ..." tek cumle.
+17. FORMUL AYNASI - HESAP SORUSUNDA YANLIS SIK (06.08, Cem onayi; hicbir dev
+   platform bunu sistematik yapmiyor - biz yapacagiz): yanlis sikkin rakami
+   kural 5 geregi tanimli bir hatadan gelir; aciklamada o hata FORMULLE
+   gosterilir, uc satir: (1) "Bu rakami sectiysen hesabin suydu:" + YANLIS
+   islem rakamlariyla ayri satirda, (2) hatanin adi gunluk dille tek cumle,
+   (3) dogru islem adimi. Ornek: "108.500 / 3.620 = 29,97 -> butceyi FIILI
+   saate boldun; oran butce/butce kurulur: 108.500 / 3.800 = 28,55."
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>

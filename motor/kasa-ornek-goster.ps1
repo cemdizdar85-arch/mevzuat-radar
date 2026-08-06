@@ -146,7 +146,9 @@ foreach($sid in $idler){
   # OZETI'dir (04.08 karari, deneme.html ile ayni); (2) once KONU ogretilir -
   # dogru sikkin dort-parca aciklamasi EN USTTE, tuzaklar ondan sonra gelir
   # (sitedeki 1-2-3 merdivenin aynisi; A-E duz sirasi konuyu gomuyordu).
-  if($c.hap){ [void]$sb.Append('<h4>KONUNUN ÖZETİ</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
+  # #12-A (06.08 Cem onayi + UWorld kaniti): SIRA = KONU ANLATIMI ustte,
+  # yanlis siklar ortada, KONUNUN OZETI FINALDE ("Educational Objective"
+  # UWorld'de de sondadir - aday sayfayi kapatirken akilda kalan cumle odur).
   $dh = "$($c.dogru)"
   $acD = ''; try { if($c.aciklama -and $c.aciklama.PSObject.Properties[$dh]){ $acD = "$($c.aciklama.$dh)" } } catch {}
   if($acD -ne ''){ [void]$sb.Append('<h4>KONU ANLATIMI — DOĞRU CEVAP (' + $dh + ')</h4><div class="acik">' + (K $acD) + '</div>') }
@@ -156,6 +158,7 @@ foreach($sid in $idler){
     if($ac -eq ''){ continue }
     [void]$sb.Append('<h4>ŞIK ' + $h + ' — NEDEN YANLIŞ</h4><div class="acik">' + (K $ac) + '</div>')
   }
+  if($c.hap){ [void]$sb.Append('<h4>KONUNUN ÖZETİ — AKILDA KALSIN</h4><div class="hap">' + (K "$($c.hap)") + '</div>') }
   if($c.kaynak){ [void]$sb.Append('<h4>KAYNAK</h4><div class="acik">' + (K "$($c.kaynak)") + '</div>') }
   [void]$sb.Append('</div></div>')
 }

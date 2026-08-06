@@ -666,6 +666,23 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   Yuzdesi (2022=100)". "Trend endeksi" duzeltilir (kitapciklarda 0 kez; egilim
   yuzdeleri 10, trend analizi 8). Endeks degeri isaretsiz rakam (133,72);
   metin yorumu endeks-100 cevirisini yapar ("%33,72 artis").
+
+  D35 - ONCE GUNLUK DIL + SORUDAKI KELIMEYLE (06.08, Cem onayi, #12): teknik
+  terim ilk gecisinde ONCE gunluk anlatim, terim sonra adlandirilir (anlam ->
+  ornek -> terim; terim atilmaz, sira degisir). Bir cumlede 2+ teknik terim
+  varsa cumle bolunur. Aciklama soyut kural dersi vermez; SORUDAKI gercek
+  kelime/rakami isler. Yanlis sik UC ADIM: cazibe (tuzagin adi) -> sorudaki
+  kelimeyle gosterim -> "Dogrusu:" tek cumle.
+  KOTU: "Iyelik eki almis tamlayan ile ozneyi karistiriyor."
+  IYI : "'Ogretmenin' kelimesi isi yapan degil - kimin hazirladigini soyluyor;
+  begenilen sey 'sinav sorulari', ozne o. (Bu tur kelimelere tamlayan denir.)"
+
+  D36 - FORMUL AYNASI (06.08, Cem onayi; dev platformlarda bile sistematik
+  YOK - bizim farkimiz): hesap sorusunda yanlis sikkin aciklamasi uc satir:
+  (1) "Bu rakami sectiysen hesabin suydu:" + YANLIS islem rakamlariyla,
+  (2) hatanin adi gunluk dille, (3) dogru islem adimi. Celdirici hicbir
+  mantikli isleme oturmuyorsa D14 geregi rakami tersine coz; cozulmuyorsa
+  celdirici yeniden uretilir.
 '@ }
   # ========================================================================
   #  04.08 - HARFLERI ACIKCA SAY (Cem: "burada sadece 2 adet yanlis cevap

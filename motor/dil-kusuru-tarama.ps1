@@ -79,7 +79,16 @@ $ESKI = @(
   @{ ad='mezkur';            desen='(?i)mezk[uû]r';           dogrusu='anılan / söz konusu' }
   @{ ad='isbu';              desen='(?i)\bi[şs]bu\b';         dogrusu='bu' }
 )
-# --- 3) SENARYO ISIMLERI (kisi + sirket) ---
+# --- 2b) JARGON YOGUNLUGU (#12-C, 06.08 Cem onayi - "annem bile anlasin"):
+#     bir CUMLEDE 2+ teknik terim geciyor VE cumlede gunluk-karsilik isareti
+#     (yani/demek/denir/anlamina/parantez) YOKSA isaretlenir. Yalniz OLCUM;
+#     karar hakem/insanindir. Terim listesi muhafazakar tutuldu - mevzuat
+#     sinavinda terim kacinilmazdir, olculen sey ACIKLAMASIZ yigilmadir.
+$JARGON = @('tamlayan','iyelik eki','yuklem','ilgec','edat','zamir','ulac','fiilimsi',
+            'muteselsil','iktisap','ruchan','temerrut','tereke','izafe','gayrikabili',
+            'aktiflestir','amortisman ayirma','reeskont','iskonto','tahakkuk','mahsup',
+            'mukayyet','emsal bedel','vergi ziyai','matrah','istisna ve muafiyet')
+$reKarsilik = [regex]'(?i)yani|demek(tir)?|denir|denilen|anlam[ıi]na|g[uü]nl[uü]k dil|\('
 $reKisi   = [regex]'(?i)\b([A-ZÇĞİÖŞÜ][a-zçğıöşü]+)\s+(Bey|Han[ıi]m)\b'
 $reSirket = [regex]'(?i)\b([A-ZÇĞİÖŞÜ][a-zçğıöşü]+)\s+(Makina|Makine|Mobilya|G[ıi]da|Tekstil|Sanayi|Ticaret|In[şs]aat|Nakliyat|Elektronik)\b'
 
@@ -90,6 +99,7 @@ foreach($u in $UYDURMA){ $uydurmaSay[$u.ad] = 0; $uydurmaOrnek[$u.ad] = New-Obje
 foreach($e in $ESKI){ $eskiSay[$e.ad] = 0; $eskiHapSay[$e.ad] = 0 }
 
 $hapliSoru = 0
+$jargonYogunSoru = 0; $jargonOrnek = New-Object System.Collections.Generic.List[string]
 foreach($s in $kasa){
   $dh = "$($s.dogru)".Trim().ToUpper()
   $ac = ''
@@ -108,6 +118,15 @@ foreach($s in $kasa){
     if([regex]::IsMatch($tum, $e.desen)){ $eskiSay[$e.ad]++ }
     if($hap.Trim().Length -gt 3 -and [regex]::IsMatch($hap, $e.desen)){ $eskiHapSay[$e.ad]++ }
   }
+  # 2b jargon-yogunluk: aciklama+hap cumle cumle
+  $jarBuldu = $false
+  foreach($cumle in (($ac + ' ' + $hap) -split '[.!?]')){
+    if($cumle.Trim().Length -lt 20){ continue }
+    $vurus = 0
+    foreach($j in $JARGON){ if($cumle -match ('(?i)' + [regex]::Escape($j))){ $vurus++ } }
+    if($vurus -ge 2 -and -not $reKarsilik.IsMatch($cumle)){ $jarBuldu = $true; break }
+  }
+  if($jarBuldu){ $jargonYogunSoru++; if($jargonOrnek.Count -lt 10){ $jargonOrnek.Add("$($s.id)") } }
   foreach($m in $reKisi.Matches("$($s.soru)")){
     $ad = $m.Groups[1].Value
     if(-not $kisiSay.ContainsKey($ad)){ $kisiSay[$ad]=0 }; $kisiSay[$ad]++
@@ -144,6 +163,7 @@ RaporYaz ([ordered]@{
   kasa=$kasa.Count; kehribar_karti_olan=$hapliSoru
   bir_uydurma_terim=$uydurmaRapor.ToArray()
   iki_eski_terim=$eskiRapor.ToArray()
+  ikib_jargon_yogun=[ordered]@{ soru=$jargonYogunSoru; yuzde=[Math]::Round(100.0*$jargonYogunSoru/[Math]::Max(1,$kasa.Count),2); ornek_id=@($jargonOrnek); olcut='bir cumlede 2+ teknik terim + gunluk-karsilik isareti yok (#12-C)' }
   uc_senaryo_isimleri=[ordered]@{
     farkli_kisi_adi=$kisiSay.Count; toplam_kisi_gecis=$kisiTop
     farkli_sirket_adi=$sirketSay.Count; toplam_sirket_gecis=$sirketTop
