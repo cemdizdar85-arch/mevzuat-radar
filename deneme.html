@@ -1629,6 +1629,34 @@ function gecmisCiz(){
     if(!g.length){ kutu.classList.add('gizli'); return; }
     kutu.classList.remove('gizli');
     var t=document.getElementById('gecmisTablo');
+    // GELISIM GRAFIGI (07.08, dev-platform karari 06.08 "aciliştan once"):
+    // son 20 oturumun dogru-yuzdesi SVG egri. Uydurma yorum yok - iki OLCUM
+    // konusulur: ilk yari ortalamasi vs son yari ortalamasi. 3 kayittan az
+    // veriyle egri CIZILMEZ (tek nokta egri degildir).
+    var gg = document.getElementById('gelisimGrafik');
+    if(!gg){ gg = document.createElement('div'); gg.id='gelisimGrafik'; t.parentNode.insertBefore(gg, t); }
+    var seri = g.slice(-20).map(function(o){ var c=o.d+o.y; return c ? Math.round(100*o.d/c) : null; }).filter(function(x){ return x!==null; });
+    if(seri.length >= 3){
+      var W=560, Hh=120, pad=14;
+      var xs = function(i){ return pad + i*(W-2*pad)/(seri.length-1); };
+      var ys = function(v){ return Hh-pad - (v/100)*(Hh-2*pad); };
+      var yol = seri.map(function(v,i){ return (i?'L':'M') + xs(i).toFixed(1) + ',' + ys(v).toFixed(1); }).join(' ');
+      var nokta = seri.map(function(v,i){ return '<circle cx="'+xs(i).toFixed(1)+'" cy="'+ys(v).toFixed(1)+'" r="3" fill="var(--amber)"/>'; }).join('');
+      var yariN = Math.floor(seri.length/2);
+      var ort = function(a){ var s=0; a.forEach(function(x){s+=x;}); return a.length ? s/a.length : 0; };
+      var ilkO = Math.round(ort(seri.slice(0, yariN))), sonO = Math.round(ort(seri.slice(-yariN)));
+      var fark = sonO - ilkO;
+      var yorum = fark > 2 ? ('📈 Yükseliştesin: ilk oturumların ortalaması %'+ilkO+', son oturumların %'+sonO+' (+'+fark+' puan).')
+                : fark < -2 ? ('İlk oturumların ortalaması %'+ilkO+', son oturumların %'+sonO+' — tempoyu koç önerileriyle toparlayalım.')
+                : ('Ortalaman %'+sonO+' bandında istikrarlı.');
+      gg.innerHTML = '<div style="font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.4px;margin:2px 0 4px">GELİŞİM EĞRİSİ · son '+seri.length+' oturum</div>'
+        + '<svg viewBox="0 0 '+W+' '+Hh+'" style="width:100%;max-width:'+W+'px;display:block" xmlns="http://www.w3.org/2000/svg">'
+        + '<line x1="'+pad+'" y1="'+ys(50)+'" x2="'+(W-pad)+'" y2="'+ys(50)+'" stroke="var(--line2)" stroke-dasharray="4 4"/>'
+        + '<text x="'+(W-pad)+'" y="'+(ys(50)-4)+'" text-anchor="end" font-size="9" fill="var(--dim)">%50</text>'
+        + '<path d="'+yol+'" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linejoin="round"/>' + nokta
+        + '</svg>'
+        + '<div style="font-size:12.5px;color:var(--muted);margin:6px 0 12px">'+yorum+'</div>';
+    } else { gg.innerHTML=''; }
     while(t.rows.length>1){ t.deleteRow(1); }   // yeniden çizimde satırlar çiftlenmesin
     g.slice(-8).reverse().forEach(function(o){
       var cevapli=o.d+o.y, p=cevapli?Math.round(100*o.d/cevapli):0;
