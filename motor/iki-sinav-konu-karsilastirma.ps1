@@ -122,8 +122,15 @@ function SinavAnaliz([string]$sinavAd, [string]$planYolu){
                          KARAR=$(if($eslesen -eq 0){'GERCEKTEN BOS'}else{'AD FARKLI - VAR'}) })
   }
   $gercekBos = @($bos | Where-Object { $_.KARAR -eq 'GERCEKTEN BOS' })
+  # 06.08 Cem: "eksik dersler vardi sanki" - DERS duzeyinde sayim:
+  # planda olan her ders icin kasadaki soru sayisi; 0 olan = EKSIK DERS.
+  $dersPlan = @{}; foreach($p in $plan){ $d = Sade "$($p.ders)"; if(-not $dersPlan.ContainsKey($d)){ $dersPlan[$d] = [ordered]@{ ders="$($p.ders)"; hedef=0; kasada=0 } }; $dersPlan[$d].hedef += [int]$p.adet }
+  foreach($s in $kasa){ if("$($s.sinav)" -ne $sinavAd){ continue }; $d = Sade "$($s.ders)"; if($dersPlan.ContainsKey($d)){ $dersPlan[$d].kasada++ } }
+  $dersDurum = @($dersPlan.Values | Sort-Object { $_.kasada })
   return [ordered]@{
     sinav=$sinavAd; plan=$planYolu
+    DERS_DURUMU=$dersDurum
+    EKSIK_DERSLER=@($dersDurum | Where-Object { $_.kasada -eq 0 } | ForEach-Object { $_.ders })
     kasada_soru=$soruSayisi
     plan_konu=$hedef.Count
     ASIRI=@($asiri | Sort-Object { -$_.kat } | Select-Object -First 20)
