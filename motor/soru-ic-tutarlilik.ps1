@@ -37,8 +37,11 @@ trap {
 $KEY = $env:SUPABASE_SERVICE_KEY
 if(-not $KEY){ Write-Host 'SUPABASE_SERVICE_KEY yok - cikildi.'; exit 0 }
 $U = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
-$H = @{ apikey=$KEY }
-if($KEY -like 'eyJ*'){ $H.Authorization = "Bearer $KEY" }
+# DIKKAT: baslik degiskeni $H OLAMAZ - asagida sik dongusu $h kullaniyor ve
+# PowerShell degisken adlari buyuk-kucuk harf AYIRMAZ ($h = $H). Ilk kosuda
+# ikinci sayfada baslik 'E' stringine donusup patladi (06.08 dersi).
+$BASLIKLAR = @{ apikey=$KEY }
+if($KEY -like 'eyJ*'){ $BASLIKLAR.Authorization = "Bearer $KEY" }
 
 function SikNorm([string]$t){
   $t = "$t".ToLowerInvariant() -replace '\s+',' '
@@ -58,7 +61,7 @@ $uzunToplam=0; $uzunDogru=0  # K3
 $bas=0
 while($true){
   # PS5.1/7 farki sigortasi: boru diziyi her surumde tek tek acar
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | ForEach-Object { $_ })
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,yayin&order=id&limit=500&offset=$bas" -Headers $BASLIKLAR -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($s in $r){
     if($null -eq $s){ continue }
@@ -132,7 +135,7 @@ Write-Host ("Taranan: {0} | soru-ici bulgu: {1} | tam-metin mukerrer grubu: {2} 
 
 $cekilen=0
 if($yaz){
-  $HW = $H + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
+  $HW = $BASLIKLAR + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
   foreach($b in $bulgular){
     $gov = ConvertTo-Json -InputObject @{ yayin=$false; yayin_notu=('ic-tutarlilik denetimi 06.08: ' + $b.sebep) } -Compress
     try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $b.id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $cekilen++ } catch {}
