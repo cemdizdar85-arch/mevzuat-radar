@@ -1,0 +1,45 @@
+# .github/workflows/kasa-ornek.yml — KASA ORNEKLEM OKUYUCUSU (0 USD)
+# Cem'in okuma turu: kasadan sinav-bazli ders-orantili orneklem HTML'i uretir,
+# ozel kovaya koyar. Tetik dosyasinin SON satiri "SINAV ADET" bicimindedir
+# (ornek: "SGS 200"). AI cagrisi yok, kasaya yazim yok.
+name: Kasa Orneklem (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/kasa-ornek.txt'
+  workflow_dispatch:
+    inputs:
+      sinav: { description: 'SGS | SMMM | KGK', required: false, default: 'SGS' }
+      adet:  { description: 'kac soru', required: false, default: '200' }
+permissions:
+  contents: write
+concurrency:
+  group: kasa-ornek
+  cancel-in-progress: false
+jobs:
+  ornek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Orneklem uret
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $sinav = '${{ github.event.inputs.sinav }}'
+          $adet  = '${{ github.event.inputs.adet }}'
+          if(-not $sinav){
+            $son = (Get-Content veri/tetik/kasa-ornek.txt -Encoding UTF8 | Where-Object { $_.Trim() } | Select-Object -Last 1) -split '\s+'
+            $sinav = $son[0]; $adet = $(if($son.Count -gt 1){ $son[1] } else { '200' })
+          }
+          ./motor/kasa-ornek-goster.ps1 -sinav $sinav -adet ([int]$adet)
+      - name: Rapor commit
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/kasa-ornek-raporu.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Kasa orneklem raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
