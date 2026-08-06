@@ -1,5 +1,5 @@
 {
-  "guncelleme": "03.08.2026 20:45",
+  "guncelleme": "06.08.2026 23:35",
   "aciklama": "Sadece ONERI - kasaya hicbir sey yazilmadi. guven=DETERMINISTIK_TEK_ESLESME olanlar D14-ek ile AYNI mantikla (yazilan ad THP'de TEK hesapla eslesiyor) bulundu. Uygulamadan once Cem ilk 10 ornegi gozle okur.",
   "oneriler": [
     {
@@ -352,6 +352,28 @@
       "yazili_ad": "BİNALAR HS.",
       "onerilen_kod": "252",
       "onerilen_ad": "BİNALAR",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "17dc14f5-b2b0-4e0d-8146-cc1566ec49ee",
+      "ders": "Finansal Muhasebe",
+      "alan": "aciklama.A",
+      "yayinda": false,
+      "yazili_kod": "372",
+      "yazili_ad": "kısa vade",
+      "onerilen_kod": "660",
+      "onerilen_ad": "KISA VADELİ BORÇLANMA GİDERLERİ (-)",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "17dc14f5-b2b0-4e0d-8146-cc1566ec49ee",
+      "ders": "Finansal Muhasebe",
+      "alan": "aciklama.B",
+      "yayinda": false,
+      "yazili_kod": "372",
+      "yazili_ad": "ve kısa vadeli",
+      "onerilen_kod": "660",
+      "onerilen_ad": "KISA VADELİ BORÇLANMA GİDERLERİ (-)",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
@@ -1939,6 +1961,61 @@
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.A",
+      "yayinda": false,
+      "yazili_kod": "741",
+      "yazili_ad": "Hesapları",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.B",
+      "yayinda": false,
+      "yazili_kod": "622",
+      "yazili_ad": "Hesapları",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.C",
+      "yayinda": false,
+      "yazili_kod": "622",
+      "yazili_ad": "Hesapları",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.D",
+      "yayinda": false,
+      "yazili_kod": "700",
+      "yazili_ad": "Hesapları",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "siklar.E",
+      "yayinda": false,
+      "yazili_kod": "700",
+      "yazili_ad": "Hesapları",
+      "onerilen_kod": "742",
+      "onerilen_ad": "HİZMET ÜRETİM MALİYETİ FARK HESAPLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
       "soru_id": "8fb04de2-804b-4992-b2d1-c8fd607aab48",
       "ders": "Finansal Muhasebe",
       "alan": "soru",
@@ -2467,6 +2544,17 @@
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
+      "soru_id": "b397bb1b-a7d2-4940-8e0b-6f214e7f637e",
+      "ders": "Maliyet Muhasebesi",
+      "alan": "aciklama.A",
+      "yayinda": false,
+      "yazili_kod": "741",
+      "yazili_ad": "her zaman",
+      "onerilen_kod": "723",
+      "onerilen_ad": "DİREKT İŞÇİLİK SÜRE (ZAMAN) FARKLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
       "soru_id": "b4f58241-2e49-404f-939b-2527946a875c",
       "ders": "Finansal Muhasebe",
       "alan": "aciklama.C",
@@ -2651,6 +2739,17 @@
       "yazili_ad": "Satıştan İadeler",
       "onerilen_kod": "610",
       "onerilen_ad": "Satıştan İadeler (-)",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "c012a86e-7bf6-4047-bdc3-25cfe2ff21ac",
+      "ders": "Finansal Muhasebe",
+      "alan": "aciklama.E",
+      "yayinda": false,
+      "yazili_kod": "124",
+      "yazili_ad": "kısa vadeli",
+      "onerilen_kod": "660",
+      "onerilen_ad": "KISA VADELİ BORÇLANMA GİDERLERİ (-)",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
