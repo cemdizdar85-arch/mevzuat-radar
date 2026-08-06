@@ -577,9 +577,48 @@ function kurulumCiz(){
     };
   });
   kaynakSayCiz();
-  adetCiz(); gecmisCiz(); zayifKonuCiz();
+  adetCiz(); gecmisCiz(); zayifKonuCiz(); kocKartiCiz();
 }
 
+// ==== NOBETCI KOC (06.08, Cem onayi - #9) ====
+// Konu sicilinden zayif konular: en az 3 cozum + dogruluk %50 alti.
+// Dil kurali: gecmis degil ILERLEME konusulur; gorevler kucuk ve bitirilebilir.
+function kocZayifKonular(){
+  var x = konuSicilOku(), liste = [];
+  for(var a in x){
+    var k = x[a], t = k.d + k.y; if(t < 3) continue;
+    var p = a.split('|'); if(p.length < 3) continue;
+    if(SINAV !== 'hepsi' && p[0] !== SINAV) continue;
+    var oran = Math.round(100 * k.d / t);
+    if(oran < 50){ liste.push({ sinav:p[0], ders:p[1], konu:p[2], n:t, oran:oran, anahtar:a }); }
+  }
+  liste.sort(function(a,b){ return a.oran - b.oran; });
+  return liste;
+}
+function kocKartiCiz(){
+  var ek = document.getElementById('ekranKurulum'); if(!ek) return;
+  var kart = document.getElementById('kocKarti');
+  if(!kart){
+    kart = document.createElement('div'); kart.id = 'kocKarti';
+    kart.style.cssText = 'background:linear-gradient(135deg,rgba(245,165,36,.10),rgba(245,165,36,.03));border:1px solid rgba(245,165,36,.4);border-radius:14px;padding:14px 16px;margin:0 0 16px';
+    ek.insertBefore(kart, ek.firstChild);
+  }
+  var z = kocZayifKonular();
+  if(!z.length){ kart.style.display = 'none'; return; }
+  var h = z[0];
+  kart.style.display = 'block';
+  kart.innerHTML = '<div style="font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--amber);margin-bottom:6px">🛡️ NÖBETÇİ KOÇ</div>'
+    + '<div style="font-size:14px;color:var(--ink)"><b>' + esc(h.konu) + '</b> (' + esc(h.ders) + '): ' + h.n + ' çözümde doğruluk %' + h.oran + '. Bu konuyu birlikte oturtalım.</div>'
+    + '<button class="sec aktif" style="margin-top:10px" onclick="kocTuru(\'' + encodeURIComponent(h.ders) + '\',\'' + encodeURIComponent(h.konu) + '\',' + h.oran + ')">🎯 5 soruluk hedefli tur — ~7 dk</button>';
+}
+function kocTuru(dersEnc, konuEnc, onceOran){
+  var ders = decodeURIComponent(dersEnc), konu = decodeURIComponent(konuEnc);
+  var h = BANKA.filter(function(s){ return sinavUyar(s) && s.ders === ders && s.konu === konu; });
+  if(!h.length){ alert('Bu konuda soru bulunamadı.'); return; }
+  karistir(h);
+  MOD = 'calisma'; window.KOC_ONCE = { konu: konu, ders: ders, oran: onceOran, sinav: (h[0] && h[0].sinav) || '' };
+  oturumYukle(h.slice(0, Math.min(5, h.length)), true);
+}
 function havuz(){
   var h=BANKA.filter(function(s){return sinavUyar(s) && seciliDersler[s.ders];});
   if(KAYNAK==='yanlis'){ var x=sicilOku(); h=h.filter(function(s){var k=x[s.id]; return k && k.son==='y';}); }
@@ -626,6 +665,16 @@ function basla(){
   // dusuyordu. Bir oturumda her gruptan EN FAZLA BIR soru.
   // Grubu olmayan sorular serbest (etiketsiz olan cogunluk).
   var havuzSirali=yeni.concat(eski), secim=[], grupGoruldu={};
+  // NOBETCI KOC (#9): calisma modunda secimin ~%40'i zayif konulardan gelir -
+  // "basarisiz oldugu konularda daha cok soru" (Cem). Deneme modu dokunulmaz.
+  if(MOD==='calisma'){
+    var zs={}; kocZayifKonular().forEach(function(z){ zs[z.ders+'|'+z.konu]=1; });
+    if(Object.keys(zs).length){
+      var hedefZ=Math.round(seciliAdet*0.4), zList=[], dList=[];
+      havuzSirali.forEach(function(s){ if(zs[s.ders+'|'+s.konu]){ zList.push(s); } else { dList.push(s); } });
+      havuzSirali = zList.slice(0, hedefZ*2).concat(dList, zList.slice(hedefZ*2));
+    }
+  }
   for(var gi=0; gi<havuzSirali.length && secim.length<seciliAdet; gi++){
     var sg=havuzSirali[gi], gk=sg.benzer_grup||sg.benzerGrup||'';
     if(gk && grupGoruldu[gk]) continue;
@@ -1451,6 +1500,25 @@ function karneCiz(){
   document.getElementById('ekranSoru').classList.add('gizli');
   document.body.classList.remove('sinavda');
   document.getElementById('ekranKarne').classList.remove('gizli');
+  // NOBETCI KOC ilerleme satiri (#9): gecmis degil ILERLEME konusulur.
+  try {
+    if(window.KOC_ONCE){
+      var ko = window.KOC_ONCE; window.KOC_ONCE = null;
+      var ks = konuSicilOku()[(ko.sinav||'')+'|'+ko.ders+'|'+ko.konu];
+      var yeniOran = ks ? Math.round(100*ks.d/(ks.d+ks.y)) : null;
+      var eK = document.getElementById('ekranKarne');
+      var kd = document.getElementById('kocKarneSatir');
+      if(!kd){ kd = document.createElement('div'); kd.id='kocKarneSatir';
+        kd.style.cssText='background:rgba(245,165,36,.08);border-left:3px solid var(--amber);border-radius:8px;padding:10px 14px;margin:0 0 12px;font-size:13.5px;color:var(--ink)';
+        eK.insertBefore(kd, eK.firstChild); }
+      if(yeniOran !== null && yeniOran > ko.oran){
+        kd.textContent = '🛡️ Koçun not düştü: ' + ko.konu + ' %' + ko.oran + ' → %' + yeniOran + '. Yükseliş bu — yarın bir kontrol turu daha.';
+      } else if(yeniOran !== null){
+        kd.textContent = '🛡️ Koçun not düştü: ' + ko.konu + ' üzerinde çalıştık (%' + yeniOran + '). Temel sağlamlaşıyor; yarın aynı konudan kısa bir tur daha atalım.';
+      } else { kd.style.display='none'; }
+      kd.style.display='block';
+    } else { var kd0=document.getElementById('kocKarneSatir'); if(kd0){ kd0.style.display='none'; } }
+  } catch(e){}
   var dogru=0,yanlis=0,bos=0, ders={}, yanlislar=[];
   SORULAR.forEach(function(s){
     var c=CEVAPLAR[s.id];
