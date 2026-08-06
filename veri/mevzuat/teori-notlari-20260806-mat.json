@@ -1,41 +1,41 @@
 {
-  "_aciklama": "SGS Matematik (Genel Yetenek) teori notlari (06.08.2026, Cem: 'matematik ve inkilap emir bas'). Sinavda 8 soru; kasada yalnizca 74 soru vardi. Evrensel matematik kurallari - kaynak tartismasi yok; rakam kapisi her hesabi ters cozerek dogrular.",
-  "belgeler": [
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - yuzde kar zarar faiz hesaplari",
-      "baslik": "",
-      "metin": "Bir sayinin yuzde x'i: Sayi x (x/100). Yuzde artis: Yeni = Eski x (1 + x/100); yuzde azalis: Yeni = Eski x (1 - x/100). Ardisik yuzde degisimlerde oranlar CARPILIR, toplanmaz: %20 artip %20 azalan sey basladigi yere donmez (1,20 x 0,80 = 0,96 → net %4 azalis). Kar-zarar: Satis = Maliyet x (1 + kar orani); zararda Satis = Maliyet x (1 - zarar orani). Etiket uzerinden indirim maliyete gore degil ETIKETE gore hesaplanir. Basit faiz: Faiz = Anapara x oran x sure (yillik oran, sure yil; ay verilirse sure = ay/12). Bilesik faizde her donem anapara buyur: Gelecek = Anapara x (1+i)^n. Tipik tuzaklar: (1) 'yuzde kaç kar' sorusu MALIYETE gore sorulur, satisa gore degil; (2) ardisik indirimde iki yuzdeyi toplamak; (3) faizde sureyi aya cevirmeyi unutmak."
-    },
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - oran oranti ve karisim problemleri",
-      "baslik": "",
-      "metin": "Oran iki buyuklugun bolumudur; oranti iki oranin esitligidir: a/b = c/d ise a.d = b.c (icler-dislar carpimi). Dogru oranti: biri artarken digeri ayni oranda artar (yol-zaman sabit hizda). Ters oranti: carpimlari sabittir (isci sayisi x gun = is; hiz x zaman = yol). Bir sayiyi a:b:c oraninda paylastirmak: toplam pay a+b+c; her pay = toplam x (kendi payi / pay toplami). Karisim problemleri agirlikli ortalamadir: karisim orani = (madde miktarlari toplami) / (karisim toplami). Iki karisim birlesince yeni oran = (b1xk1 + b2xk2) / (b1+b2). Tipik tuzaklar: (1) isci-gun problemlerinde dogru oranti kurmak (isci artarsa gun AZALIR - ters oranti); (2) karisimda su eklemenin madde MIKTARINI degistirmedigi, yalniz toplami buyuttugu; (3) oran esitliginde birimlerin ayni olmasi zorunlulugu."
-    },
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - problem kurma yas isci hiz havuz",
-      "baslik": "",
-      "metin": "Sozel problemin omurgasi bilinmeyeni dogru secmektir; istenen degil, en cok iliski kuran buyukluk x secilir. YAS problemleri: yas FARKI hic degismez; t yil sonra herkes t yas alir. 'Babanin yasi oglunun 3 kati' bugunun iliskisidir, gecmise giderken ikisinden de ayni sayi cikar. ISCI-IS problemleri: birim zamanda yapilan is = 1/sure; birlikte calisanlarin hizlari TOPLANIR: 1/a + 1/b = 1/birlikte. Havuz problemlerinde bosaltan musluk NEGATIF hizdir. HIZ problemleri: Yol = Hiz x Zaman; ayni yonde yaklasma hizi farktir, zit yonde toplamdir; ortalama hiz = TOPLAM yol / TOPLAM zaman (hizlarin aritmetik ortalamasi DEGIL - esit surelerde gidilmedikce). Tipik tuzaklar: (1) yas farkinin sabit kaldigini unutmak; (2) 'iki katindan 3 fazla' ifadesini 2(x+3) diye kurmak (dogrusu 2x+3); (3) ortalama hizi (v1+v2)/2 sanmak."
-    },
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - sayilar bolunebilme ebob ekok",
-      "baslik": "",
-      "metin": "Bolunebilme kurallari: 2 ile cift sayilar; 3 ile rakam toplami 3'un kati olanlar; 4 ile son iki basamak 4'un kati olanlar; 5 ile sonu 0/5; 9 ile rakam toplami 9'un kati; 10 ile sonu 0; 11 ile (tek siradaki rakamlar toplami - cift siradakiler toplami) 11'in kati (0 dahil). 6 = 2x3, 12 = 3x4, 15 = 3x5: aralarinda asal carpanlara ayrilip IKISI birden saglanir. EBOB: ortak asal carpanlarin EN KUCUK uslulerinin carpimi - parcalama/esit bolme sorulari. EKOK: tum asal carpanlarin EN BUYUK uslulerinin carpimi - bulusma/tekrar (kac gunde bir birlikte) sorulari. EBOB x EKOK = iki sayinin carpimi. Ardisik sayilar toplami: 1'den n'ye kadar toplam = n(n+1)/2. Tipik tuzaklar: (1) EBOB ile EKOK sorusunu karistirmak (bolme-parcalama EBOB, bulusma-cakisma EKOK ister); (2) 4 ile bolunebilmeyi rakam toplamiyla denemek; (3) 'iki basamakli en buyuk' gibi sinir sartlarini okumamak."
-    },
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - birinci derece denklem ve esitsizlik",
-      "baslik": "",
-      "metin": "Birinci derece denklem cozumu: bilinmeyenler bir tarafa, sabitler diger tarafa toplanir; her adimda iki tarafa ayni islem yapilir. ax + b = cx + d ise x = (d - b)/(a - c). Iki bilinmeyenli sistemde yok etme (taraf tarafa toplama) veya yerine koyma kullanilir. ESITSIZLIKTE tek kritik kural: iki taraf NEGATIF bir sayiyla carpilir veya bolunurse esitsizlik YON DEGISTIRIR. Mutlak deger: |x| = a (a>0) ise x = a veya x = -a; |x| < a ise -a < x < a; |x| > a ise x < -a veya x > a. Carpma dagilir: a(b+c) = ab + ac; isaret hatasi en sik kaynak: -(x-3) = -x+3. Tipik tuzaklar: (1) negatifle bolerken esitsizligin yonunu cevirmemek; (2) mutlak degerde tek dal yazip ikinci cozumu unutmak; (3) parantez onundeki eksiyi yalniz ilk terime dagitmak."
-    },
-    {
-      "tur": "kanun-madde",
-      "kaynak_ad": "Teori Notu - kumeler sayma olasilik temelleri",
-      "baslik": "",
-      "metin": "Iki kumenin birlesimi: s(A∪B) = s(A) + s(B) - s(A∩B); kesisimi cikarmayi unutmak klasik hatadir ('iki dil bilenler' iki kez sayilir). En az birini bilenlerin tumleyeni hicbirini bilmeyenlerdir. SAYMA: ardisik secimler CARPILIR (temel sayma ilkesi); n farkli nesnenin siralanmasi n! yoldur; n nesneden r tanesinin SIRALI secimi P(n,r) = n!/(n-r)!, SIRASIZ secimi C(n,r) = n!/(r!(n-r)!). 'Kac farkli ikili takim' sirasiz (kombinasyon), 'baskan ve yardimci secimi' sirali (permutasyon). OLASILIK: istenen durum sayisi / tum durum sayisi; 0 ile 1 arasindadir. Bagimsiz olaylarda 'VE' carpilir, ayrik olaylarda 'VEYA' toplanir. En az bir = 1 - hic olmama olasiligi. Tipik tuzaklar: (1) birlesimde kesisimi dusmemek; (2) siranin onemli olup olmadigini sormadan P/C secmek; (3) 'en az bir' sorusunu dogrudan saymaya kalkmak (tumleyenden gitmek kisa yoldur)."
-    }
-  ]
+    "_aciklama":  "SGS Matematik (Genel Yetenek) teori notlari (06.08.2026, Cem: \u0027matematik ve inkilap emir bas\u0027). Sinavda 8 soru; kasada yalnizca 74 soru vardi. Evrensel matematik kurallari - kaynak tartismasi yok; rakam kapisi her hesabi ters cozerek dogrular. | 06.08 14:2x: yukleyici tetigi (ilk push\u0027ta yukle.yml kosmadi - notlar ambara girmedigi icin emir #36 iki kez bos kapandi).",
+    "belgeler":  [
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - yuzde kar zarar faiz hesaplari",
+                         "baslik":  "",
+                         "metin":  "Bir sayinin yuzde x\u0027i: Sayi x (x/100). Yuzde artis: Yeni = Eski x (1 + x/100); yuzde azalis: Yeni = Eski x (1 - x/100). Ardisik yuzde degisimlerde oranlar CARPILIR, toplanmaz: %20 artip %20 azalan sey basladigi yere donmez (1,20 x 0,80 = 0,96 → net %4 azalis). Kar-zarar: Satis = Maliyet x (1 + kar orani); zararda Satis = Maliyet x (1 - zarar orani). Etiket uzerinden indirim maliyete gore degil ETIKETE gore hesaplanir. Basit faiz: Faiz = Anapara x oran x sure (yillik oran, sure yil; ay verilirse sure = ay/12). Bilesik faizde her donem anapara buyur: Gelecek = Anapara x (1+i)^n. Tipik tuzaklar: (1) \u0027yuzde kaç kar\u0027 sorusu MALIYETE gore sorulur, satisa gore degil; (2) ardisik indirimde iki yuzdeyi toplamak; (3) faizde sureyi aya cevirmeyi unutmak."
+                     },
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - oran oranti ve karisim problemleri",
+                         "baslik":  "",
+                         "metin":  "Oran iki buyuklugun bolumudur; oranti iki oranin esitligidir: a/b = c/d ise a.d = b.c (icler-dislar carpimi). Dogru oranti: biri artarken digeri ayni oranda artar (yol-zaman sabit hizda). Ters oranti: carpimlari sabittir (isci sayisi x gun = is; hiz x zaman = yol). Bir sayiyi a:b:c oraninda paylastirmak: toplam pay a+b+c; her pay = toplam x (kendi payi / pay toplami). Karisim problemleri agirlikli ortalamadir: karisim orani = (madde miktarlari toplami) / (karisim toplami). Iki karisim birlesince yeni oran = (b1xk1 + b2xk2) / (b1+b2). Tipik tuzaklar: (1) isci-gun problemlerinde dogru oranti kurmak (isci artarsa gun AZALIR - ters oranti); (2) karisimda su eklemenin madde MIKTARINI degistirmedigi, yalniz toplami buyuttugu; (3) oran esitliginde birimlerin ayni olmasi zorunlulugu."
+                     },
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - problem kurma yas isci hiz havuz",
+                         "baslik":  "",
+                         "metin":  "Sozel problemin omurgasi bilinmeyeni dogru secmektir; istenen degil, en cok iliski kuran buyukluk x secilir. YAS problemleri: yas FARKI hic degismez; t yil sonra herkes t yas alir. \u0027Babanin yasi oglunun 3 kati\u0027 bugunun iliskisidir, gecmise giderken ikisinden de ayni sayi cikar. ISCI-IS problemleri: birim zamanda yapilan is = 1/sure; birlikte calisanlarin hizlari TOPLANIR: 1/a + 1/b = 1/birlikte. Havuz problemlerinde bosaltan musluk NEGATIF hizdir. HIZ problemleri: Yol = Hiz x Zaman; ayni yonde yaklasma hizi farktir, zit yonde toplamdir; ortalama hiz = TOPLAM yol / TOPLAM zaman (hizlarin aritmetik ortalamasi DEGIL - esit surelerde gidilmedikce). Tipik tuzaklar: (1) yas farkinin sabit kaldigini unutmak; (2) \u0027iki katindan 3 fazla\u0027 ifadesini 2(x+3) diye kurmak (dogrusu 2x+3); (3) ortalama hizi (v1+v2)/2 sanmak."
+                     },
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - sayilar bolunebilme ebob ekok",
+                         "baslik":  "",
+                         "metin":  "Bolunebilme kurallari: 2 ile cift sayilar; 3 ile rakam toplami 3\u0027un kati olanlar; 4 ile son iki basamak 4\u0027un kati olanlar; 5 ile sonu 0/5; 9 ile rakam toplami 9\u0027un kati; 10 ile sonu 0; 11 ile (tek siradaki rakamlar toplami - cift siradakiler toplami) 11\u0027in kati (0 dahil). 6 = 2x3, 12 = 3x4, 15 = 3x5: aralarinda asal carpanlara ayrilip IKISI birden saglanir. EBOB: ortak asal carpanlarin EN KUCUK uslulerinin carpimi - parcalama/esit bolme sorulari. EKOK: tum asal carpanlarin EN BUYUK uslulerinin carpimi - bulusma/tekrar (kac gunde bir birlikte) sorulari. EBOB x EKOK = iki sayinin carpimi. Ardisik sayilar toplami: 1\u0027den n\u0027ye kadar toplam = n(n+1)/2. Tipik tuzaklar: (1) EBOB ile EKOK sorusunu karistirmak (bolme-parcalama EBOB, bulusma-cakisma EKOK ister); (2) 4 ile bolunebilmeyi rakam toplamiyla denemek; (3) \u0027iki basamakli en buyuk\u0027 gibi sinir sartlarini okumamak."
+                     },
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - birinci derece denklem ve esitsizlik",
+                         "baslik":  "",
+                         "metin":  "Birinci derece denklem cozumu: bilinmeyenler bir tarafa, sabitler diger tarafa toplanir; her adimda iki tarafa ayni islem yapilir. ax + b = cx + d ise x = (d - b)/(a - c). Iki bilinmeyenli sistemde yok etme (taraf tarafa toplama) veya yerine koyma kullanilir. ESITSIZLIKTE tek kritik kural: iki taraf NEGATIF bir sayiyla carpilir veya bolunurse esitsizlik YON DEGISTIRIR. Mutlak deger: |x| = a (a\u003e0) ise x = a veya x = -a; |x| \u003c a ise -a \u003c x \u003c a; |x| \u003e a ise x \u003c -a veya x \u003e a. Carpma dagilir: a(b+c) = ab + ac; isaret hatasi en sik kaynak: -(x-3) = -x+3. Tipik tuzaklar: (1) negatifle bolerken esitsizligin yonunu cevirmemek; (2) mutlak degerde tek dal yazip ikinci cozumu unutmak; (3) parantez onundeki eksiyi yalniz ilk terime dagitmak."
+                     },
+                     {
+                         "tur":  "kanun-madde",
+                         "kaynak_ad":  "Teori Notu - kumeler sayma olasilik temelleri",
+                         "baslik":  "",
+                         "metin":  "Iki kumenin birlesimi: s(A∪B) = s(A) + s(B) - s(A∩B); kesisimi cikarmayi unutmak klasik hatadir (\u0027iki dil bilenler\u0027 iki kez sayilir). En az birini bilenlerin tumleyeni hicbirini bilmeyenlerdir. SAYMA: ardisik secimler CARPILIR (temel sayma ilkesi); n farkli nesnenin siralanmasi n! yoldur; n nesneden r tanesinin SIRALI secimi P(n,r) = n!/(n-r)!, SIRASIZ secimi C(n,r) = n!/(r!(n-r)!). \u0027Kac farkli ikili takim\u0027 sirasiz (kombinasyon), \u0027baskan ve yardimci secimi\u0027 sirali (permutasyon). OLASILIK: istenen durum sayisi / tum durum sayisi; 0 ile 1 arasindadir. Bagimsiz olaylarda \u0027VE\u0027 carpilir, ayrik olaylarda \u0027VEYA\u0027 toplanir. En az bir = 1 - hic olmama olasiligi. Tipik tuzaklar: (1) birlesimde kesisimi dusmemek; (2) siranin onemli olup olmadigini sormadan P/C secmek; (3) \u0027en az bir\u0027 sorusunu dogrudan saymaya kalkmak (tumleyenden gitmek kisa yoldur)."
+                     }
+                 ]
 }
