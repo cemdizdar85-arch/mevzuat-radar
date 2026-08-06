@@ -683,7 +683,9 @@ if(-not $calistir){
   }))
   Write-Host "OLCUM MODU - 0 USD. Rapor: veri/uretim-olcum-raporu.json"; try{Stop-Transcript|Out-Null}catch{}; exit 0 }
 if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok."; exit 1 }
-if($isler.Count -eq 0){ Write-Host "KIRMIZI: uretilecek is yok."; exit 1 }
+# 06.08: "is yok" artik OZEL kod (3) - tek kurus gitmeden biten emir, kuyrugu
+# kilitleyemez. 05.08 gecesi #31 boyle dustu ve arkasindaki 3 emri 3 saat blokladi.
+if($isler.Count -eq 0){ Write-Host "SARI: uretilecek is yok (0 USD) - emir bos kapanmali, kuyruk devam etmeli."; exit 3 }
 # PARA HARCAMADAN ONCE: yazma yolu saglam mi?
 if(-not (YazmaDenemesi)){ try{Stop-Transcript|Out-Null}catch{}; exit 1 }
 

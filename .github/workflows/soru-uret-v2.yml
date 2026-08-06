@@ -70,6 +70,15 @@ jobs:
                 ./motor/soru-uret-v2.ps1 -calistir -sinir ([int]$x.sinir) -ders "$($x.ders)" `
                    -sinav $sv -emirNo "$($x.no)" -kurtarPartiler $kp -model "$($x.model)" -konular $kn -cikti "veri/uretim-rapor-$($x.no).json"
               }
+              # 06.08: cikis kodu 3 = "uretilecek is yok" (0 USD). Emir bos diye
+              # kuyrugu kilitlemek yanlis - #31 boyle 3 emri 3 saat blokladi.
+              # Emir kapanir, SONRAKINE GECILIR; para giden hicbir yol buradan gecmez.
+              if($LASTEXITCODE -eq 3){
+                $x | Add-Member -NotePropertyName uygulandi -NotePropertyValue ((Get-Date -Format 'dd.MM.yyyy HH:mm') + ' KAPATILDI: uretilecek is yok (0 USD)') -Force
+                [IO.File]::WriteAllText($yol, ($e | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
+                Write-Host "Emir bos kapatildi - sonraki emre geciliyor."
+                continue
+              }
               if($LASTEXITCODE -ne 0){ $ok = $false }
             } catch {
               $ok = $false; Write-Host ("DUSTU: {0}" -f $_.Exception.Message)
