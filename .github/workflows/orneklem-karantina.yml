@@ -3,6 +3,9 @@
 # eslesip) yayindan ceker. Cem onayi #17. Varsayilan olcum; yaz=true ile ceker.
 name: Orneklem Karantina (0 USD)
 on:
+  push:
+    paths:
+      - 'veri/tetik/orneklem-karantina.txt'
   workflow_dispatch:
     inputs:
       yaz: { description: 'true = gercekten yayindan cek', required: false, default: 'false' }
@@ -22,7 +25,11 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          if('${{ github.event.inputs.yaz }}' -eq 'true'){ ./motor/orneklem-karantina.ps1 -yaz } else { ./motor/orneklem-karantina.ps1 }
+          $yaz = '${{ github.event.inputs.yaz }}'
+          if(-not $yaz -and (Test-Path veri/tetik/orneklem-karantina.txt)){
+            $yaz = (Get-Content veri/tetik/orneklem-karantina.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim()
+          }
+          if($yaz -match 'yaz|true'){ ./motor/orneklem-karantina.ps1 -yaz } else { ./motor/orneklem-karantina.ps1 }
       - name: Sonuc commit
         if: always()
         run: |

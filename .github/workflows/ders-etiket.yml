@@ -5,6 +5,9 @@
 # Varsayilan OLCUM; yaz=true bulgululari yayindan ceker. Haftalik da kosar.
 name: Ders-Etiket Denetimi (0 USD)
 on:
+  push:
+    paths:
+      - 'veri/tetik/ders-etiket.txt'
   workflow_dispatch:
     inputs:
       yaz: { description: 'true = bulgululari yayindan cek', required: false, default: 'false' }
@@ -26,7 +29,11 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          if('${{ github.event.inputs.yaz }}' -eq 'true'){ ./motor/ders-etiket-denetimi.ps1 -yaz } else { ./motor/ders-etiket-denetimi.ps1 }
+          $yaz = '${{ github.event.inputs.yaz }}'
+          if(-not $yaz -and (Test-Path veri/tetik/ders-etiket.txt)){
+            $yaz = (Get-Content veri/tetik/ders-etiket.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim()
+          }
+          if($yaz -match 'yaz|true'){ ./motor/ders-etiket-denetimi.ps1 -yaz } else { ./motor/ders-etiket-denetimi.ps1 }
       - name: Rapor commit
         if: always()
         run: |

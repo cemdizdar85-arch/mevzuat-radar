@@ -5,6 +5,9 @@
 # Haftalik da kosar - uretim buyudukce yeni sapma birikmesin.
 name: Aritmetik Kapisi (0 USD)
 on:
+  push:
+    paths:
+      - 'veri/tetik/aritmetik-kapisi.txt'
   workflow_dispatch:
     inputs:
       yaz: { description: 'true = bulgululari yayindan cek', required: false, default: 'false' }
@@ -26,7 +29,11 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          if('${{ github.event.inputs.yaz }}' -eq 'true'){ ./motor/aritmetik-kapisi.ps1 -yaz } else { ./motor/aritmetik-kapisi.ps1 }
+          $yaz = '${{ github.event.inputs.yaz }}'
+          if(-not $yaz -and (Test-Path veri/tetik/aritmetik-kapisi.txt)){
+            $yaz = (Get-Content veri/tetik/aritmetik-kapisi.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim()
+          }
+          if($yaz -match 'yaz|true'){ ./motor/aritmetik-kapisi.ps1 -yaz } else { ./motor/aritmetik-kapisi.ps1 }
       - name: Rapor commit
         if: always()
         run: |
