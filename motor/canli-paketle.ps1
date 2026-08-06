@@ -49,7 +49,8 @@ Write-Host 'Temiz havuz cekiliyor...'
 $havuz = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,ders,konu,benzer_grup&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ })
+  # kasada benzer_grup kolonu YOK (olculdu 07.08) - cesitlilik KONU TAVANIYLA saglanir
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $havuz.Add($x) } }
   if($r.Count -lt 1000){ break }
@@ -61,19 +62,21 @@ Write-Host ("temiz havuz: {0} soru" -f $havuz.Count)
 $rnd = New-Object System.Random
 function Karistir($list){ $a=@($list); for($i=$a.Count-1;$i -gt 0;$i--){ $j=$rnd.Next($i+1); $t=$a[$i]; $a[$i]=$a[$j]; $a[$j]=$t }; return $a }
 $secim = New-Object System.Collections.Generic.List[object]
-$grupG = @{}
 $eksikler = @()
 $plan = if($sinav -eq 'SGS'){ $SGS_BILESIM } else { @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
 foreach($p in $plan){
   $pd = Dnorm $p.ders
   $aday = Karistir ($havuz | Where-Object { (Dnorm $_.ders) -eq $pd })
-  $al=@()
+  $al=@(); $konuSayac=@{}
   foreach($s in $aday){
     if($al.Count -ge $p.n){ break }
-    $g = "$($s.benzer_grup)"
-    if($g -and $grupG.ContainsKey($g)){ continue }
-    if($g){ $grupG[$g]=1 }
+    $kn = Dnorm "$($s.konu)"
+    if($konuSayac.ContainsKey($kn) -and $konuSayac[$kn] -ge 2){ continue }   # ayni konudan en fazla 2
+    $konuSayac[$kn] = 1 + $(if($konuSayac.ContainsKey($kn)){ $konuSayac[$kn] } else { 0 })
     $al += $s
+  }
+  if($al.Count -lt $p.n){
+    foreach($s in $aday){ if($al.Count -ge $p.n){ break }; if($al -notcontains $s){ $al += $s } }   # tavan doldurmazsa gevset
   }
   if($al.Count -lt $p.n){ $eksikler += ("{0}: {1}/{2}" -f $p.ders, $al.Count, $p.n) }
   foreach($x in $al){ $secim.Add($x) }
