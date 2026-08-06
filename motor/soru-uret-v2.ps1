@@ -504,6 +504,33 @@ MUTLAK KURALLAR:
    madde/paragraf numarasini yaz (orn. "TMS 8 p.32-38" ya da "TMS 16 p.61").
    Genel etiket, hakemin yanlis metne bakmasina ve hatanin ONAYLANMASINA yol
    acti - bu yuzden genel etiketli soru supheli sayilir.
+8. KAPSAM SORUSUNDA UNSURLAR HER DURUMDA SAYILIR (06.08, Cem onayi): soru bir
+   kapsam/liste hukmune dayaniyorsa (hangileri dahildir / neler girer tipi),
+   dogru sik aciklamasi dayanaktaki unsurlari TEK TEK sayar - kalip olsun
+   olmasin. "Sinirli sayida/tahdidi" gibi jargon tek basina yazilamaz;
+   kullanilacaksa sade Turkcesiyle ve listeyle birlikte: "kanun bunlari tek
+   tek saymistir; listede olmayan giremez."
+9. "X, Y DEGILDIR" TOTOLOJISI YASAK + TERIM (06.08, Cem onayi, UC SINAVDA):
+   iki terimi karsilastiriyorsan IKISINI DE birer somut ornekle tanimla:
+   genel uretim gideri = uretimle ilgili ama tek mamule dogrudan yuklenemeyen
+   gider (atolye kirasi, fabrika elektrigi, uretim makinesi amortismani);
+   genel yonetim gideri = yonetimin gideri (genel mudur maasi, merkez ofis
+   kirasi). Turnusolu da yaz: gider FABRIKADAN mi dogdu, YONETIMDEN mi?
+   TERIM: "genel yonetim giderleri" yaz (gercek kitapciklarda 116'ya 2 olculdu);
+   VUK m.275 baglaminda parantezle "(VUK lafzi: genel idare giderleri)".
+10. ASAMA GEREKCESI (06.08): bir kalemin dahil olmama sebebi "dahil degildir"
+   diye yazilmaz; HANGI ASAMANIN kalemi oldugu soylenir (pazarlama gideri
+   uretimin degil SATIS asamasinin gideridir -> donem gideri). Zaruri mamul
+   ambalaji (maliyete girer) ile satis ambalaji (donem gideri) ayrimini karistirma.
+11. SAYISAL ORNEK TABLOYA DOKULUR (06.08, Cem onayi): aciklamada sayisal mini
+   ornek anlatiyorsan (orn. 12.000 TL yillik sigorta -> Ocak'ta 1.000 gider,
+   11.000 TL 180 GELECEK AYLARA AIT GIDERLER'e) ayni ornegi "tablo" ya da
+   "yevmiye" alanina da dok - soz uçar, tablo ogretir. Donemsellik/degerleme
+   anlatimlarinda bu zorunludur.
+12. DEGERLEME TERIMI MEVZUATINA GORE (06.08, Cem onayi): VUK'a dayanan soruda
+   "mukayyet deger (defterde kayitli tutar)" yaz (VUK m.265 lafzi); TMS/TFRS
+   sorusunda "defter degeri" yaz (standart terimi; gercek kitapciklarda 304 kez).
+   Capraz kullanma - VUK sorusunda "defter degeri", TMS sorusunda "mukayyet" YANLIS ogretir.
 
 ACIKLAMA SABLONU - dogru sik icin DORT PARCA, bu basliklarla:
 Ne soruluyor: <tek cumle, hic muhasebe bilmeyene>

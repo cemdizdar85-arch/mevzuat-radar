@@ -611,6 +611,8 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
 
   ESKI TERIM (04.08 olcumu: 4.328 soruda var, 2.975'i kehribar kartta):
     "genel imal gideri/giderleri" -> "genel uretim giderleri (THP 730)"
+    "genel idare gideri/giderleri" -> "genel yonetim giderleri" (06.08 Cem
+    onayi; VUK m.275 baglaminda parantezle: "(VUK lafzi: genel idare)")
   ISTISNA: kanunun KENDI lafzi tirnak icinde aktariliyorsa degistirme
   (ornek: VUK m.275 "imal edilen emtia" der - o kanun metnidir, korunur;
   D26: guncel terim onde, kanun lafzi parantezde).
@@ -618,6 +620,46 @@ dort_parca: dogru sikkin aciklamasi. DORT BASLIK ZORUNLU, birebir su sirayla ve
   YAPAY ZEKA KOKUSU YASAK: "onemli bir husustur", "dikkat edilmesi gereken
   nokta", "sonuc olarak", "ozetle", "bu baglamda", "unutulmamalidir ki" gibi
   doldurma kaliplari kullanma. Dogrudan konuyu anlat, giris-gelisme-sonuc kurma.
+
+  D28 - KAPSAM SORUSUNDA UNSURLAR HER DURUMDA SAYILIR (06.08, Cem #102 +
+  duzeltmesi: "kalip yazmazsa saymayacak misin?"): tetik KALIP degil SORU
+  TIPIDIR. Soru bir kapsam/liste hukmune dayaniyorsa (hangileri dahildir /
+  neler girer / hangisi sayilmistir tipi), dogru sik aciklamasi dayanaktaki
+  unsurlari TEK TEK sayar - "sinirli sayida" yazsa da yazmasa da (VUK m.275
+  orneginde birebir: hammadde, iscilik, genel uretim giderleri, ihtiyari
+  genel yonetim payi, zaruri ambalaj). "Sinirli sayida/tahdidi" gibi kaliplar
+  tek basina yazilamaz; kullanilacaksa sade Turkcesiyle ("kanun bunlari tek
+  tek saymistir; listede olmayan giremez") ve listeyle birlikte gelir.
+
+  D29 - "X, Y DEGILDIR" TOTOLOJISI YASAK + TERIM KARARI (06.08, Cem onayi;
+  UC SINAV icin de gecerli): iki terim karsilastiriliyorsa IKISI DE birer
+  somut ornekle tanimlanir: genel uretim gideri = uretimle ilgili ama tek
+  mamule dogrudan yuklenemeyen gider (atolye kirasi, uretim makinesi
+  amortismani, fabrika elektrigi); genel yonetim gideri = isletme yonetiminin
+  gideri (genel mudur maasi, merkez ofis kirasi, muhasebe personeli ucreti).
+  Turnusol cumlesi verilir: gider FABRIKADAN mi dogdu, YONETIMDEN mi?
+  TERIM: ana terim "genel yonetim giderleri"dir (OLCULDU: 112 gercek sinav
+  kitapciginda 116 kez "genel yonetim", yalniz 2 kez "genel idare"); VUK
+  m.275 baglaminda lafzi parantezle verilir: "genel yonetim giderleri
+  (VUK m.275 lafzi: genel idare giderleri)". Kanun metni TIRNAK icinde
+  aktariliyorsa lafiz korunur (D26 istisnasi).
+
+  D30 - ASAMA GEREKCESI (06.08): bir giderin maliyete girmeme sebebi yazilirken
+  "dahil degildir" demek yetmez; HANGI ASAMANIN gideri oldugu soylenir
+  (pazarlama/satis giderleri uretim asamasinin degil SATIS asamasinin
+  gideridir -> donem gideri). Zaruri mamul ambalaji (maliyete girer) ile
+  satis/pazarlama ambalaji (donem gideri) ayrimi acikca yazilir.
+
+  D31 - SAYISAL ORNEK TABLOYA DOKULUR (06.08, Cem onayi; STANDART-ACIKLAMA
+  §4 "gorsel borcu"nun guclendirilmesi): aciklamadaki sayisal mini ornek
+  (orn. 12.000 TL yillik sigorta -> Ocak 1.000 gider, 11.000 TL 180'e)
+  "tablo" ya da "yevmiye" alanina da dokulur. Donemsellik/degerleme/mahsup
+  anlatimi sozde kalmaz - soz ucar, tablo ogretir.
+
+  D32 - DEGERLEME TERIMI MEVZUATINA GORE (06.08, Cem onayi): VUK'a dayanan
+  soruda "mukayyet deger (defterde kayitli tutar)" - VUK m.265 lafzi; TMS/TFRS
+  sorusunda "defter degeri". Capraz kullanim duzeltilir (kanun alintisi
+  tirnak icindeyse korunur, D26 istisnasi).
 '@ }
   # ========================================================================
   #  04.08 - HARFLERI ACIKCA SAY (Cem: "burada sadece 2 adet yanlis cevap
