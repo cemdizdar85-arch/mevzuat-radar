@@ -184,9 +184,14 @@ Write-Host ("Taranan: {0} | islemli: {1} | aritmetik bulgulu: {2} | kalipli: {3}
 $cekilen=0
 if($yaz){
   $HW = $H + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
-  $hedefId = @($bulgular | ForEach-Object { $_.id }) + @($kalipli | ForEach-Object { $_.id }) | Select-Object -Unique
-  foreach($id in $hedefId){
-    $gov = ConvertTo-Json -InputObject @{ yayin=$false; yayin_notu='aritmetik kapisi: islem sapmasi/uydurma kalip - hakem yeniden yargisi bekliyor' } -Compress
+  # 07.08 Cem: "bunlari onar" - dengesiz yevmiyeler de kapsamda; not KUSUR TURUNU
+  # tasir ki onarimci (ic-tutarlilik-onar) dogru receteyi uygulasin.
+  $notlar = @{}
+  foreach($x in $bulgular){ $notlar["$($x.id)"] = 'islem-sapmasi' }
+  foreach($x in $kalipli){ $k="$($x.id)"; if($notlar.ContainsKey($k)){ $notlar[$k] += '+uyduru-kalip' } else { $notlar[$k]='uyduru-kalip' } }
+  foreach($x in $dengesiz){ $k="$($x.id)"; if($notlar.ContainsKey($k)){ $notlar[$k] += '+dengesiz-yevmiye' } else { $notlar[$k]='dengesiz-yevmiye' } }
+  foreach($id in $notlar.Keys){
+    $gov = ConvertTo-Json -InputObject @{ yayin=$false; yayin_notu=('aritmetik kapisi 07.08: ' + $notlar[$id] + ' - onarim + hakem bekliyor') } -Compress
     try { Invoke-RestMethod -Method Patch -Uri ("$U`?id=eq." + $id) -Headers $HW -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -TimeoutSec 60 | Out-Null; $cekilen++ } catch {}
   }
   Write-Host ("Cekilen: {0}" -f $cekilen)
