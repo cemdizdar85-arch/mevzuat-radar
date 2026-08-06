@@ -6,6 +6,8 @@
 #         Amac konu-SIKLIK sayimi (Cem: "hangi soru cok cikiyorsa ondan cok");
 #         sorular hicbir yerde yeniden yayimlanmaz.
 $ErrorActionPreference = 'Continue'
+# 06.08: TLS 1.2 sart - eksikliginde kgk.gov.tr baglantiyi zorla kapatti (34 hata).
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $kok = Split-Path -Parent $PSScriptRoot
 $ars = Join-Path $kok 'veri\kgk-arsiv'
 New-Item -ItemType Directory -Force (Join-Path $ars 'pdf') | Out-Null
@@ -23,8 +25,14 @@ foreach($sat in $satirlar){
   if(-not ($pdf -match '\.pdf$')){ $pdf += '.pdf' }
   $txt = ($pdf -replace '\\pdf\\','\txt\') -replace '\.pdf$','.txt'
   if((Test-Path $txt) -and (Get-Item $txt).Length -gt 3000){ $atlanan++; continue }
+  $indi = $false
+  foreach($deneme in 1..2){
+    try { Invoke-WebRequest -Uri $url -OutFile $pdf -UserAgent $UA -Headers @{ Referer='https://kgk.gov.tr/' } -TimeoutSec 120 -UseBasicParsing; $indi = $true; break }
+    catch { if($deneme -eq 2){ $hata++; Add-Content (Join-Path $ars 'indirme-log.txt') "INDIRME-HATASI: $url :: $($_.Exception.Message)" } else { Start-Sleep -Seconds 3 } }
+  }
+  if(-not $indi){ continue }
   try {
-    Invoke-WebRequest -Uri $url -OutFile $pdf -UserAgent $UA -TimeoutSec 120 -UseBasicParsing
+    $true | Out-Null
     $imza = [IO.File]::ReadAllBytes($pdf)[0..3]
     if(-not ([Text.Encoding]::ASCII.GetString($imza) -eq '%PDF')){ $hata++; Add-Content (Join-Path $ars 'indirme-log.txt') "PDF-DEGIL: $url"; Remove-Item $pdf -Force; continue }
     & pdftotext -enc UTF-8 -layout $pdf $txt 2>$null
