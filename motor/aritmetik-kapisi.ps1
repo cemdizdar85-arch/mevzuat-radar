@@ -58,6 +58,10 @@ function IslemDenetle([string]$metin){
   $metin = "$metin"
   # once parantezli kaliplar: dogrula ve metinden cikar
   foreach($pm in $reParen.Matches($metin)){
+    # ZINCIR KORUMASI (07.08): "(a-b) x c = ARA = SONUC" yazivinda ilk '='
+    # ara adimdir; sonucun hemen ardindan islem geliyorsa bu eslesme atlanir
+    $devam = $metin.Substring($pm.Index + $pm.Length)
+    if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }
     $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
     if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
@@ -72,6 +76,8 @@ function IslemDenetle([string]$metin){
   # kalan parantezli karma ifadeler duz desene YARIM girmesin: ic-parantezleri sil
   $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
+    $devam2 = $metin.Substring($m.Index + $m.Length)
+    if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
     $sayilar = New-Object System.Collections.Generic.List[object]

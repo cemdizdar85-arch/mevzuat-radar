@@ -1022,6 +1022,8 @@ function IslemDenetle([string]$metin){
   $bulgu = @()
   $metin = "$metin"
   foreach($pm in $reParen.Matches($metin)){
+    $devam = $metin.Substring($pm.Index + $pm.Length)
+    if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi (07.08)
     $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
     if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
@@ -1032,6 +1034,8 @@ function IslemDenetle([string]$metin){
   $metin = $reParen.Replace($metin, ' ')
   $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
+    $devam2 = $metin.Substring($m.Index + $m.Length)
+    if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
     $sayilar = New-Object System.Collections.Generic.List[object]

@@ -60,6 +60,8 @@ $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\
 function IslemSapmasiVar([string]$metin){
   $metin = "$metin"
   foreach($pm in $reParen.Matches($metin)){
+    $devam = $metin.Substring($pm.Index + $pm.Length)
+    if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi (07.08)
     $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
     if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
@@ -70,6 +72,8 @@ function IslemSapmasiVar([string]$metin){
   $metin = $reParen.Replace($metin, ' ')
   $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
+    $devam2 = $metin.Substring($m.Index + $m.Length)
+    if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
     $sayilar=@(); $opler=@()
     foreach($t in $reToken.Matches($m.Groups['ifade'].Value)){
       if($t.Groups['say'].Success){ $sayilar += $t.Groups['say'].Value } elseif($t.Groups['op'].Success){ $opler += $t.Groups['op'].Value }
