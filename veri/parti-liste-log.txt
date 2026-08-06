@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260805101628
+Start time: 20260806101753
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/00befd01-0a38-44a7-837a-1160dc37ebe1.ps1'
-Process ID: 2244
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ccd11c9b-b19f-4677-bb75-2f10150bbece.ps1'
+Process ID: 2261
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -21,13 +21,36 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
   sayfa 3: 100 parti (toplam 300)
-  sayfa 4: 13 parti (toplam 313)
+  sayfa 4: 36 parti (toplam 336)
 
-TOPLAM 313 parti bulundu.
+TOPLAM 336 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
-msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr in_progress         0        0 08/05/2026 10:15:54
-msgbatch_01PC6gJKjUcWYmk79wgsT1B8 in_progress         0        0 08/05/2026 10:14:39
+msgbatch_01E5ZzhTRYove531xBSMFgvv ended              52        0 08/06/2026 08:08:19
+msgbatch_01B8Jc3aiQTUt9vSKXpEGTim ended             370        0 08/06/2026 07:49:23
+msgbatch_01GG1SRWzWvJMdYx5hAd82FE ended             107        0 08/06/2026 07:42:55
+msgbatch_01JexKFfhAcK9j7fa3SPLfGA ended             200        0 08/06/2026 07:38:32
+msgbatch_0187AAq6Lrq6A65CQP3DZEuE ended             200        0 08/06/2026 07:34:09
+msgbatch_01HNsxz1sBt7aVf6G2Qqo1Rf ended             200        0 08/06/2026 07:29:26
+msgbatch_01X8zkhqKp5w4XN5jmBu4Gui ended             185        0 08/06/2026 07:22:42
+msgbatch_01L77m3vhwhcB3LNii6Bdztx ended             200        0 08/06/2026 07:18:39
+msgbatch_01Sy2MfsjXML5NAC37exFLDA ended             200        0 08/06/2026 07:13:56
+msgbatch_01F5PfgeHSa9euLgGcFiH9pU ended             200        0 08/06/2026 07:10:13
+msgbatch_01L36XVoYg6QFnXXqnNz8k1d ended              89        0 08/06/2026 07:04:05
+msgbatch_01Y3fZoJiVABAHYGz4z6gKjn ended             200        0 08/06/2026 05:58:05
+msgbatch_01V4H82VXWDagXkG9HUtLYQh ended             200        0 08/06/2026 05:53:42
+msgbatch_01AzZ196hoiNYAcurwogXWbk ended             200        0 08/06/2026 05:49:18
+msgbatch_01BHvKm2eYzwvLTEKkjpfnh8 ended             200        0 08/06/2026 05:45:15
+msgbatch_01YGSoUQjL54zLevGCxz4o2B ended             100        0 08/05/2026 20:13:05
+msgbatch_01Emhidzhim9ZvEg2nx457sz ended             400        0 08/05/2026 20:08:37
+msgbatch_012kbCXCXtbWewbBZCRA9Gtn ended             300        0 08/05/2026 19:18:57
+msgbatch_01FdaZe4sqRF1Nrye3STR7cq ended             200        0 08/05/2026 18:49:16
+msgbatch_017y9DXifXaRQnoauvmSiP4S ended              24        0 08/05/2026 15:15:31
+msgbatch_01LN2NsSM2Rx9dKKMzQhcTzD ended              24        0 08/05/2026 15:04:00
+msgbatch_01HzQmueVueRv1CynMf49dAo ended              14        0 08/05/2026 14:11:32
+msgbatch_01Uezut65KfwFrbSaovc1g3Z ended             200        0 08/05/2026 14:02:24
+msgbatch_01EY3Rz3w2GuYJgoJcUA4zsr ended             200        0 08/05/2026 10:15:54
+msgbatch_01PC6gJKjUcWYmk79wgsT1B8 ended               9        0 08/05/2026 10:14:39
 msgbatch_013NoT7bVPYDKqZfWoN3ym2Q ended               9        0 08/05/2026 08:10:11
 msgbatch_019aYUeitb3LjGZNR6QUttKE ended              10        0 08/05/2026 07:49:23
 msgbatch_01UEwt4dnF5tyquAdChDFYoW ended              12        0 08/04/2026 10:18:14
@@ -340,9 +363,9 @@ msgbatch_01Sy7GFBEKMQxKhU47XxGH3R ended             597        3 07/23/2026 12:4
 msgbatch_01PbSCjeHK3QEarYhWkqLniC ended             600        0 07/23/2026 10:30:33
 msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:18:45
 
--> veri/parti-listesi.json (313 kayit)
-HASADA HAZIR (ended + basarili>0): 311 parti,  sonuc
+-> veri/parti-listesi.json (336 kayit)
+HASADA HAZIR (ended + basarili>0): 336 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260805101630
+End time: 20260806101755
 **********************
