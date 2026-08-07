@@ -241,29 +241,36 @@ if($yaz){
     # ayni istegi sorunsuz atiyor (204). PATCH kanali curl'e tasindi.
     # tek HttpClient baglantisi uzerinden PATCH (ag dersi #3); 500ms fren,
     # basarisizda 5 sn soguma + bir tekrar
-    $kod = 0
+    $kod = 0; $hataDetay = ''
     for($dn2=1; $dn2 -le 2; $dn2++){
       try {
         $istek = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ("$U`?id=eq." + $h.id)
         $istek.Content = New-Object System.Net.Http.StringContent ($gov, [Text.Encoding]::UTF8, 'application/json')
         $cvp = $hc.SendAsync($istek).GetAwaiter().GetResult()
         $kod = [int]$cvp.StatusCode
+        # 07.08 KOR-KALMA: 204 disi cevabin GOVDESI okunur - runner loglari
+        # kilitliyken sebep ancak rapora yazilirsa gorulur (158-hata bilmecesi).
+        if($kod -ne 204){ try { $hataDetay = $cvp.Content.ReadAsStringAsync().GetAwaiter().GetResult() } catch {} }
         $cvp.Dispose(); $istek.Dispose()
-      } catch { $kod = -1 }
+      } catch { $kod = -1; $hataDetay = $_.Exception.Message }
       if($kod -eq 204){ break }
       Start-Sleep -Seconds 5
     }
     if($kod -eq 204){ $isaret++ }
     else {
       $hataSay++
-      if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): kod {2}" -f $hataSay, $h.id, $kod) }
+      if(-not $script:hataOrnekleri){ $script:hataOrnekleri = New-Object System.Collections.Generic.List[object] }
+      if($script:hataOrnekleri.Count -lt 3){
+        $script:hataOrnekleri.Add([ordered]@{ id=$h.id; kod=$kod; cevap=("$hataDetay".Substring(0,[Math]::Min(220,"$hataDetay".Length))) })
+      }
+      if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): kod {2} | {3}" -f $hataSay, $h.id, $kod, $hataDetay) }
     }
     Start-Sleep -Milliseconds 500
   }
   Write-Host ("  -yaz v3: {0} isaretlendi, {1} zaten isaretli, {2} hata" -f $isaret, $zatenVar, $hataSay)
   try {
     $rj = Get-Content $raporYol -Raw -Encoding UTF8 | ConvertFrom-Json
-    $rj | Add-Member -NotePropertyName yaz_metrik -NotePropertyValue ([ordered]@{ isaretlenen=$isaret; zatenVar=$zatenVar; hata=$hataSay; kanal='HttpClient tek-baglanti'; zaman=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Force
+    $rj | Add-Member -NotePropertyName yaz_metrik -NotePropertyValue ([ordered]@{ isaretlenen=$isaret; zatenVar=$zatenVar; hata=$hataSay; ornek_hatalar=$(if($script:hataOrnekleri){ $script:hataOrnekleri.ToArray() } else { @() }); kanal='HttpClient tek-baglanti'; zaman=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Force
     [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $rj -Depth 6), (New-Object Text.UTF8Encoding($false)))
   } catch {}
   $hc.Dispose()
