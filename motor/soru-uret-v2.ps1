@@ -1023,9 +1023,27 @@ $reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)
 # 07.08 parantez destegi (aritmetik-kapisi ile IKIZ): "(a ± b) / c = d" once
 # ayri dogrulanir, kalan parantezler duz desene yarim girmesin diye silinir.
 $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
+# 07.08 AKSAM ORAN DESENI (aritmetik-kapisi ile IKIZ; Cem %17,42 vakasi):
+# "(a/b) x 100 = %p" uc kor noktadan kaciyordu; oran toleransi hane-duyarli.
+$reOran = [regex]'\(?\s*(?<a>\d[\d\.]*(?:,\d+)?)\s*[/÷]\s*(?<b>\d[\d\.]*(?:,\d+)?)\s*\)?\s*[x×X*]\s*100\s*[=≈~]\s*%?\s*(?<son>\d[\d\.]*(?:,\d+)?)'
+function OranTol([string]$yazilan){
+  $hane = 0
+  if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
+}
 function IslemDenetle([string]$metin){
   $bulgu = @()
   $metin = "$metin"
+  foreach($om in $reOran.Matches($metin)){
+    $devam0 = $metin.Substring($om.Index + $om.Length)
+    if($devam0 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }
+    $a=TrSayi $om.Groups['a'].Value; $b=TrSayi $om.Groups['b'].Value; $sn=TrSayi $om.Groups['son'].Value
+    if($null -ne $a -and $null -ne $b -and $null -ne $sn -and $b -ne 0){
+      $bk = ($a / $b) * 100.0
+      if([math]::Abs($bk - $sn) -gt (OranTol $om.Groups['son'].Value)){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn } }
+    }
+  }
+  $metin = $reOran.Replace($metin, ' ')
   foreach($pm in $reParen.Matches($metin)){
     $devam = $metin.Substring($pm.Index + $pm.Length)
     if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi (07.08)

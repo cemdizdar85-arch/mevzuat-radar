@@ -49,6 +49,18 @@ $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
 # yoksa duz desen paranteze yarim girip yanlis alarm uretiyordu ((4,5+5,6)/2 vakasi).
 $reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
 $reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
+# 07.08 AKSAM (Cem %17,42 vakasi): ORAN DESENI - "(a / b) x 100 = %p" ve
+# parantezsiz "a / b x 100 = %p". Bu kalip UC kor noktadan kaciyordu:
+# reParen op1'i yalniz +/- taniyor; satir "ic-parantezleri sil" ifadeyi yok
+# ediyor; parantezsiz hali karisik-oncelik diye atlaniyordu. Ayrica yuzde
+# sonuclarda binde-5 toleransi 0,02'lik sapmayi yutuyordu - oranda tolerans
+# yazilan ondalik hane sayisina gore (yarim birim + pay), cok daha siki.
+$reOran = [regex]'\(?\s*(?<a>\d[\d\.]*(?:,\d+)?)\s*[/÷]\s*(?<b>\d[\d\.]*(?:,\d+)?)\s*\)?\s*[x×X*]\s*100\s*[=≈~]\s*%?\s*(?<son>\d[\d\.]*(?:,\d+)?)'
+function OranTol([string]$yazilan){
+  $hane = 0
+  if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
+}
 
 # Bir metindeki tum islemleri dogrular; sapma listesi dondurur.
 # Kurallar: TR bicim (nokta binlik, virgul ondalik). %'li carpan /100 sayilir
@@ -56,6 +68,19 @@ $reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvar
 function IslemDenetle([string]$metin){
   $bulgu = @()
   $metin = "$metin"
+  # 07.08: ORAN KALIBI once - "(a/b) x 100 = %p" dogrula ve metinden cikar
+  foreach($om in $reOran.Matches($metin)){
+    $devam0 = $metin.Substring($om.Index + $om.Length)
+    if($devam0 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
+    $a=TrSayi $om.Groups['a'].Value; $b=TrSayi $om.Groups['b'].Value; $sn=TrSayi $om.Groups['son'].Value
+    if($null -eq $a -or $null -eq $b -or $null -eq $sn -or $b -eq 0){ continue }
+    $bk = ($a / $b) * 100.0
+    $farkO = [math]::Abs($bk - $sn)
+    if($farkO -gt (OranTol $om.Groups['son'].Value)){
+      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$farkO/[math]::Max([math]::Abs($bk),0.0001),2); tur='oran' }
+    }
+  }
+  $metin = $reOran.Replace($metin, ' ')
   # once parantezli kaliplar: dogrula ve metinden cikar
   foreach($pm in $reParen.Matches($metin)){
     # ZINCIR KORUMASI (07.08): "(a-b) x c = ARA = SONUC" yazivinda ilk '='
