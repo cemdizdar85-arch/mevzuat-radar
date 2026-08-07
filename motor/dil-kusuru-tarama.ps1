@@ -212,6 +212,9 @@ if($yaz){
   $hc = New-Object System.Net.Http.HttpClient
   $hc.Timeout = [TimeSpan]::FromSeconds(60)
   $hc.DefaultRequestHeaders.Add('apikey', $env:SUPABASE_SERVICE_KEY)
+  # 07.08 KOK (runner 158 hata): Authorization eksikti -> istek anon sayilip
+  # RLS PATCH'i bloke ediyordu. $SB ile ayni kosul: JWT tipi anahtara Bearer.
+  if($env:SUPABASE_SERVICE_KEY -like 'eyJ*'){ $hc.DefaultRequestHeaders.Add('Authorization', "Bearer $($env:SUPABASE_SERVICE_KEY)") }
   $hc.DefaultRequestHeaders.Add('Prefer', 'return=minimal')
   $hc.DefaultRequestHeaders.UserAgent.ParseAdd('mevzuat-radar-robot/1.0')
   $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
