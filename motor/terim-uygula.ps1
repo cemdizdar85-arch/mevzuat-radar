@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  TERIM UYGULAYICI (04.08.2026) — KASAYA YAZAR. AI CAGRISI YOK, 0 USD.
 #
 #  CEM: "bizde hazir 27 bin soru vardi, bunlari kural yazip en son mu
@@ -80,6 +80,24 @@ function CekListe([string]$uri){
 $reGenelImal = New-Object System.Text.RegularExpressions.Regex(
   '(genel|Genel|GENEL)(\s+)([iıİI])([mM])([aA])([lL])',
   ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+# 07.08 AKSAM (Cem: "iptidai gibi sinavda sorulmayan, anlami bilinmeyen kelime
+# adayin karsisina cikmasin"): iki kural daha. "iptidai [ve ham] madde" ->
+# "ilk madde ve malzeme" (THP dili; ekler "madde"nin uzerinden akar:
+# "iptidai ve ham maddelerin" -> "ilk madde ve malzemelerin"). "isbu" -> "bu".
+# TIRNAK KORUMASI (D26): cift tirnak ICINDEKI eslesme kanun alintisidir,
+# DOKUNULMAZ - Donustur her kuraldan once metni $script:AKTIF_METIN'e koyar,
+# eslesmenin solundaki tirnak sayisi TEKse alinti icindeyiz demektir.
+$reIptidai = New-Object System.Text.RegularExpressions.Regex(
+  '([iıİI])([pP])[tT][iıİI][dD][aA][iıİI](\s+[vV][eE]\s+[hH][aA][mM])?\s+[mM][aA][dD][dD][eE]',
+  ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+$reIsbu = New-Object System.Text.RegularExpressions.Regex(
+  '([iıİI])([şŞsS])[bB][uU](?=[\s,\.;:])',
+  ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+function TirnakIcinde([int]$konum){
+  if(-not $script:AKTIF_METIN){ return $false }
+  $once = $script:AKTIF_METIN.Substring(0, [Math]::Min($konum, $script:AKTIF_METIN.Length))
+  return ((([regex]::Matches($once, '"')).Count % 2) -eq 1)
+}
 $BUYUK = @([char]'A'..[char]'Z' | ForEach-Object { [char]$_ }) + @([char]0x00C7,[char]0x011E,[char]0x0130,[char]0x00D6,[char]0x015E,[char]0x00DC,[char]0x0049)
 $KURALLAR = @(
   @{ ad='genel imal -> genel uretim'
@@ -98,6 +116,24 @@ $KURALLAR = @(
                 elseif($ilkBuyuk){ 'Üretim' }
                 else { 'üretim' }
         return $m.Groups[1].Value + $m.Groups[2].Value + $yeni
+     } },
+  @{ ad='iptidai (ve ham) madde -> ilk madde ve malzeme'
+     desen = $reIptidai
+     uygula = {
+        param($m)
+        if(TirnakIcinde $m.Index){ return $m.Value }
+        $ilkBuyuk = $script:BUYUK -ccontains $m.Groups[1].Value[0]
+        $ikinciBuyuk = $script:BUYUK -ccontains $m.Groups[2].Value[0]
+        if($ilkBuyuk -and $ikinciBuyuk){ return 'İLK MADDE VE MALZEME' }
+        elseif($ilkBuyuk){ return 'İlk madde ve malzeme' }
+        else { return 'ilk madde ve malzeme' }
+     } },
+  @{ ad='isbu -> bu'
+     desen = $reIsbu
+     uygula = {
+        param($m)
+        if(TirnakIcinde $m.Index){ return $m.Value }
+        if($script:BUYUK -ccontains $m.Groups[1].Value[0]){ return 'Bu' } else { return 'bu' }
      } }
 )
 
@@ -117,7 +153,7 @@ $alanSayaci = @{ soru=0; siklar=0; aciklama=0; hap=0 }
 
 function Donustur([string]$metin){
   $y = $metin
-  foreach($k in $KURALLAR){ $y = $k.desen.Replace($y, $k.uygula) }
+  foreach($k in $KURALLAR){ $script:AKTIF_METIN = $y; $y = $k.desen.Replace($y, $k.uygula) }
   return $y
 }
 
@@ -172,7 +208,7 @@ if(-not $uygula){
   #  sonu, farkli bosluk, "imalat" gibi) gozle gorunur.
   # ==========================================================================
   $reKalan = New-Object System.Text.RegularExpressions.Regex(
-    'genel[\s\-–—]*[iıİI][mM][aA][lL]',
+    'genel[\s\-–—]*[iıİI][mM][aA][lL]|[iıİI][pP][tT][iıİI][dD][aA][iıİI]|[iıİI][şŞsS][bB][uU][\s,\.;:]',
     ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
   $kalanlar = New-Object System.Collections.Generic.List[object]
   foreach($s in $kasa){
@@ -197,8 +233,8 @@ if(-not $uygula){
     alan_dagilimi=$alanSayaci; yayinda_atlanan=$yayindaAtlanan
     TESHIS_donusumden_sonra_kalan=$kalanlar.Count
     TESHIS_ornekler=$kalanlar.ToArray()
-    kural='genel imal -> genel uretim (yalniz orta kelime; ekler ve buyuk/kucuk harf korunur)'
-    dokunulmayan='VUK m.275 "imal edilen emtia" - kanun lafzi, D26 geregi korunur'
+    kural='genel imal->genel uretim; iptidai (ve ham) madde->ilk madde ve malzeme; isbu->bu (Cem 07.08; tirnak icindeki kanun alintisi DOKUNULMAZ)'
+    dokunulmayan='VUK m.275 "imal edilen emtia" (kanun lafzi, D26) + cift tirnak icindeki her eslesme'
     not='Bu bir PROVA. Gercek yazma icin -uygula gerekir (tetikte BAS sarti).'
   })
   Write-Host "`n=== KURU KOSU - kasaya hicbir sey yazilmadi ==="
@@ -241,7 +277,10 @@ for($b2=0; $b2 -lt $kontrolId.Count; $b2+=50){
     $t = "$($s.soru) $($s.hap)"
     try { if($s.siklar){   foreach($p in $s.siklar.PSObject.Properties){   $t += ' ' + "$($p.Value)" } } } catch {}
     try { if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $t += ' ' + "$($p.Value)" } } } catch {}
-    if([regex]::IsMatch($t, '(?i)genel\s+imal')){ $kalanEskiTerim++ }
+    # 07.08: kural-bagimsiz geri okuma - Donustur hala degisiklik istiyorsa
+    # eski terim kalmis demektir (tirnak-korumali kanun alintilari Donustur'da
+    # da atlandigi icin yanlis alarm uretmez).
+    if((Donustur $t) -ne $t){ $kalanEskiTerim++ }
   }
 }
 RaporYaz ([ordered]@{
