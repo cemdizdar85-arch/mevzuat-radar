@@ -20,13 +20,13 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 
 ## ⬜ SIRADA (öncelik: müşteri-görünür → iç sayfa)
 - [~] index.html — 07.08: vaat (Mail+WhatsApp/SMS→dürüst), fiyat bölümü, klişe taraması TEMİZ; 1.191 satırın tam okuma turu sırada
-- [ ] tuzak.html
-- [ ] soru-cevap.html
-- [ ] karne.html
-- [ ] donem-plani.html
-- [ ] bilgi.html
-- [ ] iletisim.html
-- [ ] kurulus.html · kurulus-evrak.html
+- [x] tuzak.html — 07.08 (soru sayısı 29.000+ güncellendi; ton temiz)
+- [x] soru-cevap.html — 07.08 (risk taraması temiz)
+- [~] karne.html — 07.08 risk-grep temiz; tam okuma sırada
+- [x] donem-plani.html — 07.08 (tarihler robot nöbetli + elle teyit notlu)
+- [x] bilgi.html — 07.08 (asgari ücret bloğu kaynak damgalı + iç tutarlı; 9-kat tavan doğru)
+- [x] iletisim.html — 07.08 (temiz)
+- [~] kurulus.html · kurulus-evrak.html — 07.08 risk-grep temiz; tam okuma sırada
 - [ ] gtip.html · risk-taramasi.html · senaryo-raporu.html · fiyatfarki.html · hizmet.html
 - [ ] ceza-asistani.html · asgari-kv.html · destekler.html
 - [ ] marka-radari.html · marka-itiraz.html · tetikte-marka.html
