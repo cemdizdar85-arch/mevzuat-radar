@@ -1,0 +1,630 @@
+{
+  "tarih": "07.08.2026 16:41",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 86,
+    "maddesiz": 1,
+    "metinsiz": 0,
+    "hazir": 175,
+    "tavanDolu": 59,
+    "kaynak_kanun": 64,
+    "kaynak_hesap-plani": 19,
+    "kaynak_belge": 2
+  },
+  "ozet": {
+    "uretilen": 131,
+    "rakamRed": 7,
+    "dilRed": 5,
+    "sikRed": 1,
+    "sablonRed": 1,
+    "tuzakRed": 1,
+    "dogrusuRed": 0,
+    "atifRed": 1,
+    "kokuRed": 12,
+    "benzerRed": 0,
+    "aritmetikRed": 6,
+    "icTutarRed": 1,
+    "cevapsiz": 9,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 2370640,
+    "cikis": 307948,
+    "usd": 5.87
+  },
+  "redler": [
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A), islem-sapmasi(E)"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "dil",
+      "deger": "ort 9.7 enuzun 44"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "dil",
+      "deger": "ort 8.6 enuzun 39"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(C), islem-sapmasi(E)"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(A)"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "dil",
+      "deger": "ort 7.7 enuzun 42"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(E)"
+    },
+    {
+      "konu": "sgk bildirim sureleri",
+      "sebep": "uydurma-atif",
+      "deger": "5510"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B), islem-sapmasi(C), islem-sapmasi(D)"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "satilan mamul maliyeti",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "uretim ve satilan mamul maliyeti",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "satilan mamul maliyeti tablosu (safha maliyet)",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "direkt ilk madde malzeme gideri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı Kanun m.50/2: Değişken sermayeli yatırım ortaklığının payları, yatırımcı payları ile nama yazılı olması zorunlu olan kurucu paylarından oluşur,6362 sayılı Kanun m.50/2: Kurucu payları kuruluştan sonra da Kurulun izni ve genel kurul kararıyla mevcut kurucu ortaklara veya üçüncü kişilere tahsis edilmek üzere ihraç edilebilir,6362 sayılı Kanun m.50/2: Yatırımcı payları, sahibine idari haklar vermez"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "dil",
+      "deger": "ort 10.4 enuzun 48"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı Kanun m.50/2: yatırımcı payları sahibine idari haklar vermez,6362 sayılı Kanun m.50/2: kurucu payları nama yazılı olmak zorundadır,6362 sayılı Kanun m.50/2: kurucu payları sermaye taahhüdünü yerine getirmek suretiyle değişken sermayeli yatırım ortaklığını kuranlara tahsis edilir,6362 sayılı Kanun m.50/2: kurucu paylarının devri Kurulca belirlenen esaslar çerçevesinde Kurul iznine tabidir,6362 sayılı Kanun m.50/2: Kurul onayı alınmaksızın gerçekleştirilen kurucu pay devirleri pay defterine kaydolunmaz ve bu hükme aykırı olarak pay defterine yapılan kayıtlar hükümsüzdür"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı SPK m.50/2: kurucu payları nama yazılı zorunlu,6362 sayılı SPK m.50/2: yatırımcı payları sahibine idari hak vermez,6362 sayılı SPK m.50/2: kurucu payları devri Kurul iznine tabi,6362 sayılı SPK m.50/1: sermaye her zaman net aktif değere eşit,6362 sayılı SPK m.50/2: payların itibari değeri bulunmaz"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı Kanun m.50/2: Kurucu payları nama yazılı, yatırımcı payları sahibine idari hak vermez,6362 sayılı Kanun m.50/3: Pay sahibinin talebi üzerine paylar itfa edilir, sermayede karşılık gelen bedel geri ödenir,6362 sayılı Kanun m.50/1: Sermaye her zaman net aktif değerine eşit; net aktif değer = varlıklar - borçlar"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı SPK m.50/2: kurucu payları nama yazılı zorunlu,6362 sayılı SPK m.50/2: yatırımcı payları sahibine idari hak vermez,6362 sayılı SPK m.50/2: kurucu payları sermaye taahhüdünü yerine getirenlere tahsis edilir,6362 sayılı SPK m.50/1: net aktif değer = varlıklar toplamı - borçlar toplamı,6362 sayılı SPK m.50/2: değişken sermayeli yatırım ortaklığı paylarının itibari değeri yoktur"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı Sermaye Piyasası Kanunu m.50/2,6362 sayılı Sermaye Piyasası Kanunu m.50/3,6362 sayılı Sermaye Piyasası Kanunu m.51"
+    },
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "sebep": "riskli-sayi",
+      "deger": "6362 sayılı Kanun m.50/2: yatırımcı payları sahibine idari haklar vermez,6362 sayılı Kanun m.50/2: kurucu payları nama yazılı olması zorunlu,6362 sayılı Kanun m.50/1: sermaye her zaman net aktif değere eşit"
+    },
+    {
+      "konu": "kismi bolunme turleri",
+      "sebep": "dil",
+      "deger": "ort 10.0 enuzun 48"
+    },
+    {
+      "konu": "kismi bolunme turleri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    }
+  ],
+  "maddesiz_konular": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vergi karsiligi ayirma"
+    }
+  ],
+  "madde_tavani": 162,
+  "tavana_takilan": 59,
+  "tavan_listesi": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kâr dagitimi yedekler",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem net kâri hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "personel gideri tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi vade siniflandirma",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis ve maliyet kaydi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tahakkuku",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri odeme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faiz geliri tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satistan iade kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv mahsup kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu duzenleme",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "banka kredisi kullanimi",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir gider hesaplarinin 690 aktarimi",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satistan iade siparis avansi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pesin tahsil edilen gelir",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "pazarlama gideri kdv'li",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "duran varlik satisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "icsel bilgi aciklamasinin ertelenmesi",
+      "madde": "213|227",
+      "mevcut": 216,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "maliyet hesaplari aktarimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit hurdaya ayirma",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mevduat faiz tahakkuku",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozel maliyet bedeli",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tasit satisi amortisman",
+      "madde": "213|315",
+      "mevcut": 179,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kdv kapatma kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "iade mal maliyet duzeltme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bina satisi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kar dagitimi yedek ayirma",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kredi faiz reeskontu",
+      "madde": "213|283",
+      "mevcut": 483,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "stok maliyet duzeltme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "cari oran",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "trend analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "karsilastirmali tablolar analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "finansal oran analizi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "dikey yuzde analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "devir hizi analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "yatay analiz (karsilastirmali tablo)",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "stok devir suresi",
+      "madde": "213|278",
+      "mevcut": 232,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "gelir tablosu dikey analiz",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "alacak devir hizi yorumu",
+      "madde": "213|323",
+      "mevcut": 277,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "trend analizi net satis",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "brut satis kârliligi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Hukuk",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug yukleme katsayisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "yardimci gider yeri dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug yukleme orani",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "yan urun maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger mamul birimi yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug yukleme katsayisi hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "icsel bilgi aciklamasinin ertelenmesi",
+      "madde": "213|227",
+      "mevcut": 216,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "safha maliyette tamamlanma derecesi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "yari mamul stok ve fire maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger urun birimleri",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 162
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "maliyet hacim kar varsayimlari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 162
+    },
+    {
+      "ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    },
+    {
+      "ders": "Muhasebe Denetimi",
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 162
+    }
+  ]
+}

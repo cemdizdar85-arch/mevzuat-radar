@@ -1,0 +1,76 @@
+**********************
+PowerShell transcript start
+Start time: 20260807163457
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/176f54ac-1d64-4f07-b470-eda40ab01498.ps1'
+Process ID: 2267
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
+Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
+  kasa: 30259 soru
+  konu-kelime indeksi: 1279 kelime
+  MADDE TAVANI: hedef havuz 8080 x %2 = 162 soru/madde | tavani dolmus madde: 22
+    dolu: 213|275 -> 5299 soru
+    dolu: 6102|720 -> 2030 soru
+    dolu: 4857|11 -> 1442 soru
+    dolu: 5018|3 -> 1088 soru
+    dolu: 213|262 -> 727 soru
+  THP hesap indeksi: 266 kelime, 269 kayit
+KONU FILTRESI: 79 konu
+
+  planSatir    86
+  maddesiz     1
+  metinsiz     0
+  hazir        175
+  tavanDolu    59
+  kaynak_kanun 64
+  kaynak_hesap-plani 19
+  kaynak_belge 2
+MALIYET TAHMINI (Batch %50): ~4.15 USD
+KURU DENEME TAMAM - yazma yolu saglam.
+PARTI 1: 175 soru
+  parti kimligi: msgbatch_01N7DfAKqdTpijoEEjTxvW2N
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: Y. Path 'aciklama.A', line 13, position 402."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 24, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[1]', line 30, position 5."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
+
+======== URETIM ========
+  uretilen       131
+  rakamRed       7
+  dilRed         5
+  sikRed         1
+  sablonRed      1
+  tuzakRed       1
+  dogrusuRed     0
+  atifRed        1
+  kokuRed        12
+  benzerRed      0
+  aritmetikRed   6
+  icTutarRed     1
+  cevapsiz       9
+  yazmaHatasi    0
+  GERCEK FATURA: ~5.87 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-42.json
+**********************
+PowerShell transcript end
+End time: 20260807164100
+**********************

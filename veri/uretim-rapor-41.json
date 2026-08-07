@@ -1,0 +1,1184 @@
+{
+  "tarih": "07.08.2026 16:34",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 176,
+    "maddesiz": 3,
+    "metinsiz": 0,
+    "hazir": 154,
+    "tavanDolu": 137,
+    "kaynak_kanun": 144,
+    "kaynak_hesap-plani": 16,
+    "kaynak_standart": 13
+  },
+  "ozet": {
+    "uretilen": 105,
+    "rakamRed": 7,
+    "dilRed": 11,
+    "sikRed": 1,
+    "sablonRed": 2,
+    "tuzakRed": 1,
+    "dogrusuRed": 0,
+    "atifRed": 0,
+    "kokuRed": 4,
+    "benzerRed": 0,
+    "aritmetikRed": 5,
+    "icTutarRed": 4,
+    "cevapsiz": 14,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 2199263,
+    "cikis": 285159,
+    "usd": 5.44
+  },
+  "redler": [
+    {
+      "konu": "tms 2 stoklar",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "tms 2 stoklar",
+      "sebep": "dil",
+      "deger": "ort 11.0 enuzun 59"
+    },
+    {
+      "konu": "tms 2 stoklar",
+      "sebep": "dil",
+      "deger": "ort 12.7 enuzun 46"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "supheli alacak karsiligi",
+      "sebep": "riskli-sayi",
+      "deger": "2"
+    },
+    {
+      "konu": "donem kari zarari hesabi",
+      "sebep": "dil",
+      "deger": "ort 8.0 enuzun 44"
+    },
+    {
+      "konu": "menkul kiymet satisi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tfrs 16 kiralamalar",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(C)"
+    },
+    {
+      "konu": "tfrs 16 kiralamalar",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "tfrs 16 kiralamalar",
+      "sebep": "dil",
+      "deger": "ort 10.3 enuzun 39"
+    },
+    {
+      "konu": "tfrs 16 kullanim hakki",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tms 23 ozellikli varlik",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(B)"
+    },
+    {
+      "konu": "tahvil ihrac farki",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "genel uretim gideri dagitimi",
+      "sebep": "dil",
+      "deger": "ort 9.4 enuzun 54"
+    },
+    {
+      "konu": "genel uretim gideri dagitimi",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "genel uretim gideri dagitimi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "genel uretim gideri yukleme",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "genel uretim gideri yukleme",
+      "sebep": "dil",
+      "deger": "ort 8.3 enuzun 62"
+    },
+    {
+      "konu": "genel uretim gideri yukleme",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "brut satis kari oranindan maliyet hesabi",
+      "sebep": "dil",
+      "deger": "ort 8.2 enuzun 43"
+    },
+    {
+      "konu": "genel uretim giderleri yukleme",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "maddi duran varlik maliyeti tms16",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 1'i tuzagi soyluyor"
+    },
+    {
+      "konu": "stok devir hizi",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "alacak devir hizi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "alacak devir hizi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "alacak devir hizi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 (25.000) TL"
+    },
+    {
+      "konu": "alacak devir hizi",
+      "sebep": "riskli-sayi",
+      "deger": "3.000 TL,25.000 TL"
+    },
+    {
+      "konu": "kisa vadeli yabanci kaynak dikey yuzde",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(A)"
+    },
+    {
+      "konu": "stok devir hizi hesabi",
+      "sebep": "dil",
+      "deger": "ort 9.7 enuzun 53"
+    },
+    {
+      "konu": "maddi duran varlik denetimi",
+      "sebep": "dil",
+      "deger": "ort 10.6 enuzun 59"
+    },
+    {
+      "konu": "maddi duran varlik denetimi",
+      "sebep": "dil",
+      "deger": "ort 12.0 enuzun 39"
+    },
+    {
+      "konu": "maddi duran varlik denetimi",
+      "sebep": "dil",
+      "deger": "ort 10.4 enuzun 40"
+    }
+  ],
+  "maddesiz_konular": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "alacaklar kontrol testleri"
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tms-23 ozellikli varlik"
+    },
+    {
+      "ders": "Ekonomi",
+      "konu": "tufe gsyh deflator farki"
+    }
+  ],
+  "madde_tavani": 293,
+  "tavana_takilan": 137,
+  "tavan_listesi": [
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "net isletme sermayesi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozkaynak hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kademeli dagitim yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faaliyet kâri hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kar dagitimi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yasal yedek akce",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "duran varlik satisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "fifo yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "tahvil ihraci",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "finansman bonosu ihraci",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gelir tablosu hesaplari",
+      "madde": "3568|29",
+      "mevcut": 417,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faaliyet kari hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis iskontosu kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye taahhudu iptali",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet iskonto kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kar dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ozkaynak degisimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "gider yeri dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi ihrac primi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "kâr dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "brut satis kari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis amacli duran varlik siniflamasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sabit-degisken gider ayrimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "senet yenileme kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "vadeli kredi odeme kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye artirimi-ihrac primi",
+      "madde": "6102|482",
+      "mevcut": 461,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "sermaye payi iptal ve satis",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "satis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "olagan kar zarar hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "yedek akce ve temettu hesabi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "ticari mal satis kari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "duran varlik (sabit kiymet) satisi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donem net kâri hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "donen varlik siniflamasi (standartlar)",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "faaliyet marji-brut marj iliskisi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "finansman bonosu muhasebelestirme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "avans mahsup kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "direkt hammadde miktari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "bilanco pasif hesaplari",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "brut satis kâri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "brut kâr marji",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "karsilikli hisse satis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mali tablo standart oranlar",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Finansal Muhasebe",
+      "konu": "mamul stok hesaplama",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "normal maliyet yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "evre maliyet sistemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ekonomik siparis miktari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart maliyet farklari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "yari mamul maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet dagitimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart maliyet sapmasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "direkt ilk madde geriye dogru hesap",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "maliyet yontemleri karsilastirma",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "fifo esdeger birim (dimm)",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart maliyet miktar sapmasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug birim pay hesabi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug dagitimi makine saati",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger birim hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger birim hesabi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet uretim miktari yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet satis degeri yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ozel maliyet amortismani",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis birim maliyeti (makine saati gug)",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ozel maliyet itfasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis avansi ve satis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis gug makine saati yukleme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ozel maliyet (kiralanan bina) amortismani",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ozel maliyet duran varlik",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ozel maliyet gideri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis gug cift yukleme orani",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "safha maliyet esdeger mamul birimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "safha maliyet-esdeger birim",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis maliyetinde gug yukleme orani",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis maliyeti makine saati yukleme",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart gug sapmasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "siparis maliyet-gug hesaplama",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart maliyet-miktar sapmasi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "standart maliyet iscilik farki",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "evre maliyetleme fifo",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "evre maliyet esdeger birim",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "fifo esdeger birim maliyet (safha)",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "fifo esdeger birim (safha)",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger mamul hesabi",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "esdeger birim tamamlanma derecesi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "agirlikli ortalama maliyet",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet satis degeri birim pay",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet net satis hasilati yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "degisken maliyet sistemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "degisken maliyet katki payi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "birlesik maliyet en yuksek pay secimi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "basabas noktasi katki payi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "normal maliyet sabit gug payi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "maliyet hacim kar analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet-katsayili yontem",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dagitimi katsayi yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "normal maliyet-kapasite kullanim",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug iscilik oranli yukleme",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "fifo yontemi maliyet",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "fifo stok maliyeti",
+      "madde": "213|262",
+      "mevcut": 727,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug matematiksel dagitim",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug kademeli dagitim tablosu",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "gug yukleme farklari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "konu": "hareketli ortalama maliyet",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "dikey yuzde analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "yatay analiz",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "aktif devir hizi",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran analizi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran hesaplama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "dikey analiz",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "dikey yuzdelerden bilanco yorumu",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "kâr marji analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "likidite orani",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "finansal oran analizi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "yuzde degisim analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "kapasite artirici harcama amortismani",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "basit (dogrudan) dagitim yontemi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "net calisma sermayesi devir hizi",
+      "madde": "6102|64",
+      "mevcut": 343,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "oran analizi karsilastirma",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "likidite orani olmayan (net kar marji)",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "likidite oranlari",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "likidite orani hesaplama",
+      "madde": "6102|516",
+      "mevcut": 508,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "kredili tasit alimi kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "mali tablo analiz teknikleri",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "yabanci kaynak orani analizi",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "surekli sermaye orani dikey yuzdelerle",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "kaza sonrasi tasit cikis kaydi",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran bilanco analizi",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "dikey yuzde faaliyet kari",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "dikey yuzde ve duran varlik oraniyla donen varlik",
+      "madde": "213|275",
+      "mevcut": 5299,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran ve surekli sermaye orani ile bilanco tamamlama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran-asit test yorumlama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran ozsermaye hesaplama",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran formulu",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran borc ozsermaye",
+      "madde": "5018|3",
+      "mevcut": 1088,
+      "tavan": 293
+    },
+    {
+      "ders": "Borclar Hukuku",
+      "konu": "borc iliskisi sona erme",
+      "madde": "6102|720",
+      "mevcut": 2030,
+      "tavan": 293
+    }
+  ]
+}
