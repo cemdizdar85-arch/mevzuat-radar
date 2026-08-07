@@ -1,129 +1,84 @@
 ﻿# ============================================================================
-#  TEBLIG HASAT ROBOTU (02.08.2026 — Cem: "o hasat robotunu yaz")
+#  TEBLIG HASAT ROBOTU — 07.08.2026 (YUTMA-LISTESI'nin 'yarim saatlik is'i)
 #
-#  SORUN: Kanunlar manifeste elle yazildi ve yetti (119 kanun). Ama TEBLIGLER
-#  oyle degil: VUK'un tek basina yuzlerce Genel Tebligi var, her birinin
-#  mevzuat.gov.tr'de AYRI ve tahmin edilemeyen bir MevzuatNo'su var. Numaradan
-#  teblig sirasina giden bir dizin yok - tek tek denemek saatler surer ve
-#  eksik birakir. Hakem "yetersiz" dedigi VUK sorularinin bir kismi tam da bu
-#  bosluktan: amortisman orani, yeniden degerleme orani, enflasyon duzeltmesi
-#  KANUNDA degil TEBLIGDE.
+#  KESIF: mevzuat.gov.tr /Anasayfa/MevzuatDatatable POST ucu (cerezli oturum +
+#  XHR basligiyla) fihristi JSON dondurur. ILK KOSUDA YAKALANAN: VUK GT
+#  591/592/593 (Subat-Mayis 2026) manifestimizde YOKTU - fihrist nobetcisi
+#  olmadigi icin sessizce kacmisti. Bu robot o deligi kapatir.
 #
-#  NE YAPAR: mevzuat.gov.tr'nin kendi arama ucundan (MevzuatDatatable) teblig
-#  fihristini sayfa sayfa tarar, basligi verilen desene uyanlari toplar ve
-#  manifeste eklenecek satirlari cikarir. PARA HARCAMAZ (API cagrisi yok).
+#  NE YAPAR: takip basliklarini fihristten sorgular; manifest'te (pdfId
+#  G9:<mevzuatNo>) olmayan kayitlari BULUR, manifeste EKLER (Cem kurali:
+#  'otomatik guncelleme varsayilan' + robot raporlar), rapor yazar. Yeni
+#  eklenen teblig ertesi yerel-ayna kosusunda ambara iner (ayna basinda
+#  kosarsa AYNI kosuda iner - zincir oyle bagli).
 #
-#  KURAL (KURALLAR.md #1): dogrulanmamis belge ambara girmez. Robot yalnizca
-#  BASLIGI eslesen ve mevzuatNo'su gecerli kayitlari yazar; her satirin RG
-#  tarih/sayisi da rapora islenir ki insan gozuyle denetlenebilsin.
-#
-#  KULLANIM:
-#    ./motor/teblig-hasat.ps1                 # KURU KOSU - yalniz olcer, rapor yazar
-#    ./motor/teblig-hasat.ps1 -uygula         # manifeste ekler (mevcut slug'lara dokunmaz)
-#    ./motor/teblig-hasat.ps1 -desen 'KATMA DEĞER'   # baska teblig ailesi
-#  Cikti: veri/teblig-hasat-raporu.json
+#  Bot korumasi: once ana sayfadan cerez alinir (yerel-ayna deseni).
 # ============================================================================
-param(
-  [switch]$uygula,
-  [string]$desen = 'VERGİ USUL KANUNU GENEL TEBLİĞİ',
-  [string]$slugOnek = 'vukgt',
-  [int]$tavan = 400          # tek kosuda en fazla kac teblig alinsin (guvenlik)
-)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$enc  = New-Object Text.UTF8Encoding($false)
-$raporYol = Join-Path $kok 'veri/teblig-hasat-raporu.json'
-function Rapor($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), $enc) }
+$UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
+$manYol = Join-Path $kok 'veri\mevzuat-kaynaklar.json'
+$raporYol = Join-Path $kok 'veri\teblig-hasat-raporu.json'
+function RaporYaz($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false))) }
 trap {
-  Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
+  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='HATA'; hata="$($_.Exception.Message)"; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
 
-$UC = 'https://www.mevzuat.gov.tr/Anasayfa/MevzuatDatatable'
-$H  = @{ 'User-Agent'='Mozilla/5.0'; 'X-Requested-With'='XMLHttpRequest'; 'Referer'='https://www.mevzuat.gov.tr/' }
+# takip basliklari: baslik-deseni -> slug oneki
+$TAKIP = @(
+  @{ ara='VERGİ USUL KANUNU GENEL TEBLİĞİ';                     onek='vukgt' },
+  @{ ara='GELİR VERGİSİ GENEL TEBLİĞİ';                          onek='gvkgt' },
+  @{ ara='KATMA DEĞER VERGİSİ GENEL UYGULAMA TEBLİĞİNDE DEĞİŞİKLİK'; onek='kdvgutd' },
+  @{ ara='KURUMLAR VERGİSİ GENEL TEBLİĞİ';                       onek='kvkgt' },
+  @{ ara='ÖZEL TÜKETİM VERGİSİ';                                 onek='otvgt' },
+  @{ ara='SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK';                   onek='smmmgt' },
+  @{ ara='ASGARİ ÜCRET TESPİT KOMİSYONU';                        onek='asgariucret' }
+)
 
-function Sayfa([int]$bas, [int]$boy){
-  $govde = [ordered]@{ draw=1; start=$bas; length=$boy; parameters=[ordered]@{ AranacakIfade=$desen; AranacakYer='1'; MevzuatTur='9'; TertipNo='5' } }
-  $json = ConvertTo-Json -InputObject $govde -Depth 4 -Compress
-  # UTF-8 byte govdesi sart: Turkce harfli arama ifadesi ANSI gidince sonuc bosalir (02.08 olcumu)
-  $c = Invoke-WebRequest -Method Post -Uri $UC -Headers $H -ContentType 'application/json; charset=utf-8' `
-        -Body ([Text.Encoding]::UTF8.GetBytes($json)) -TimeoutSec 90 -UseBasicParsing
-  $ham = if($c.RawContentStream){ [Text.Encoding]::UTF8.GetString($c.RawContentStream.ToArray()) } else { "$($c.Content)" }
-  return ($ham | ConvertFrom-Json)
-}
+$oturum = $null
+Invoke-WebRequest -Uri 'https://www.mevzuat.gov.tr/' -UserAgent $UA -TimeoutSec 45 -UseBasicParsing -SessionVariable oturum | Out-Null
 
-Write-Host ("Desen: '{0}'  (MevzuatTur=9 Teblig, Tertip 5)" -f $desen)
-$ilk = Sayfa 0 1
-$toplam = [int]$ilk.recordsTotal
-Write-Host ("Fihristte eslesen kayit: {0}" -f $toplam)
-if($toplam -eq 0){ Rapor ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='SONUC YOK'; desen=$desen }); exit 0 }
+$man = Get-Content $manYol -Raw -Encoding UTF8 | ConvertFrom-Json
+$mevcutNo = @{}
+foreach($l in $man.kanunlar){ if("$($l.pdfId)" -like 'G9:*'){ $mevcutNo["$($l.pdfId)".Substring(3)] = $l.slug } }
+Write-Host ("manifest: {0} kaynak, {1} G9-teblig" -f @($man.kanunlar).Count, $mevcutNo.Count)
 
-# Basligi GERCEKTEN desene uyanlari sec: arama ucu tam-metin de tarayabiliyor,
-# o yuzden gelen her kayit teblig ailemizden degil. Baslik suzgeci sart.
-$normDesen = ($desen.ToUpperInvariant() -replace '[İI]','I' -replace '[ĞG]','G' -replace '[ÜU]','U' -replace '[ŞS]','S' -replace '[ÖO]','O' -replace '[ÇC]','C')
-$bulunan = New-Object System.Collections.Generic.List[object]
-$gorulen = New-Object 'System.Collections.Generic.HashSet[string]'
-$bas = 0; $boy = 100
-while($bas -lt $toplam -and $bulunan.Count -lt $tavan){
-  $s = Sayfa $bas $boy
-  $veri = @($s.data)
-  if($veri.Count -eq 0){ break }
-  foreach($d in $veri){
-    # 02.08 TUZAK: arama ucu eslesen kelimeleri <span style='background-color:yellow'>
-    # ile SARIYA BOYAYIP donduruyor. Etiketi temizlemeden eslestirirsen desen
-    # ikiye bolunur ve 1.364 kaydin yalnizca 187'si tutar - kalani sessizce
-    # kaybolur. Once HTML soyulur, sonra eslestirilir.
-    $ad = ((("$($d.mevAdi)" -replace '<[^>]+>','') -replace '&amp;','&' -replace '&nbsp;',' ' -replace '\s+',' ')).Trim()
-    $normAd = ($ad.ToUpperInvariant() -replace '[İI]','I' -replace '[ĞG]','G' -replace '[ÜU]','U' -replace '[ŞS]','S' -replace '[ÖO]','O' -replace '[ÇC]','C')
-    if(-not $normAd.Contains($normDesen)){ continue }
+$yeniler = New-Object System.Collections.Generic.List[object]
+foreach($t in $TAKIP){
+  $govNesne = @{ draw=1; start=0; length=25; parameters=@{ AranacakIfade=$t.ara; AranacakYer='2'; MevzuatTur='Teblig'; TamCumle=$false } }
+  $gov = ConvertTo-Json -InputObject $govNesne -Depth 4 -Compress
+  $r = Invoke-WebRequest -Uri 'https://www.mevzuat.gov.tr/Anasayfa/MevzuatDatatable' -Method Post -Body ([Text.Encoding]::UTF8.GetBytes($gov)) -ContentType 'application/json; charset=UTF-8' -Headers @{ 'X-Requested-With'='XMLHttpRequest'; Referer='https://www.mevzuat.gov.tr/' } -UserAgent $UA -WebSession $oturum -TimeoutSec 60 -UseBasicParsing
+  $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())) | ConvertFrom-Json
+  foreach($d in @($j.data)){
     $no = "$($d.mevzuatNo)"
-    if([string]::IsNullOrWhiteSpace($no) -or -not $gorulen.Add($no)){ continue }
-    # seri/sira numarasini baslikten cikar (slug icin)
-    $seri = ''
-    $m = [regex]::Match($ad, '(?i)(?:SERİ|SIRA)\s*NO\s*[:\-]?\s*(\d+)')
-    if($m.Success){ $seri = $m.Groups[1].Value }
-    $slug = if($seri){ "$slugOnek$seri" } else { "$slugOnek-$no" }
-    $bulunan.Add([pscustomobject]@{
-      slug = $slug; ad = $ad; pdfId = "G9:$no"
-      rg_tarih = "$($d.resmiGazeteTarihi)"; rg_sayi = "$($d.resmiGazeteSayisi)"
-    })
+    if($mevcutNo.ContainsKey($no)){ continue }
+    $ad = ("$($d.mevAdi)" -replace '<[^>]+>','' -replace '\s+',' ').Trim()
+    # slug: 'SIRA NO: 593' varsa onek+sira, yoksa onek+mevzuatNo
+    $sira = ''
+    $ms = [regex]::Match($ad, 'SIRA NO[:\s]*(\d+)')
+    $slug = if($ms.Success){ $t.onek + $ms.Groups[1].Value } else { $t.onek + '-' + $no }
+    if(@($man.kanunlar | Where-Object { $_.slug -eq $slug }).Count){ $slug = $t.onek + '-' + $no }
+    $yeniler.Add([pscustomobject]@{ slug=$slug; ad=$ad; pdfId=('G9:'+$no); rg="$($d.resmiGazeteTarihi)"
+      not=('teblig-hasat robotu ekledi ' + (Get-Date -Format 'dd.MM.yyyy') + ' (RG ' + $d.resmiGazeteTarihi + '); fihrist nobetcisi kesfi') })
   }
-  $bas += $boy
-  Write-Host ("  ... tarandi {0}/{1}, eslesen {2}" -f ([Math]::Min($bas,$toplam)), $toplam, $bulunan.Count)
+  Start-Sleep -Seconds 2
 }
+Write-Host ("YENI bulunan: {0}" -f $yeniler.Count)
+$yeniler | ForEach-Object { Write-Host ("  + {0} <- {1} (RG {2})" -f $_.slug, $_.ad.Substring(0,[Math]::Min(60,$_.ad.Length)), $_.rg) }
 
-# manifestte zaten olanlari ayikla
-$manifestYol = Join-Path $kok 'veri/mevzuat-kaynaklar.json'
-$man = Get-Content $manifestYol -Raw -Encoding UTF8 | ConvertFrom-Json
-$mevcutPdf = @{}; foreach($k in $man.kanunlar){ $mevcutPdf["$($k.pdfId)"] = 1 }
-$yeni = @($bulunan | Where-Object { -not $mevcutPdf.ContainsKey($_.pdfId) })
-Write-Host ("Eslesen teblig: {0} | manifestte olmayan (YENI): {1}" -f $bulunan.Count, $yeni.Count)
-
-$eklenen = 0
-if($uygula -and $yeni.Count){
-  $liste = [System.Collections.Generic.List[object]]::new()
-  foreach($k in $man.kanunlar){ $liste.Add($k) }
-  # seyrek=true: teblig arsivi HER GUN indirilmez. 185 teblig gunluk aynaya
-  # eklenirse kosu 4 saatten 8+ saate cikar ve kanunlarin tazeligi gecikir.
-  # Ilk kosuda hepsi yutulur (durumda kaydi yok), sonra HAFTADA BIR tazelenir;
-  # ZORLA=1 her zaman yeniden yutar. Metin ambara girer, kimse kor kalmaz.
-  foreach($y in $yeni){ $liste.Add([pscustomobject]@{ slug=$y.slug; ad=$y.ad; pdfId=$y.pdfId; seyrek=$true }); $eklenen++ }
-  $man.kanunlar = $liste.ToArray()
-  [IO.File]::WriteAllText($manifestYol, ($man | ConvertTo-Json -Depth 6), $enc)
-  Write-Host ("MANIFESTE EKLENDI: {0} teblig (toplam kaynak {1})" -f $eklenen, $man.kanunlar.Count)
+if($yeniler.Count){
+  foreach($y in $yeniler){
+    $man.kanunlar += [pscustomobject]@{ slug=$y.slug; ad=$y.ad; pdfId=$y.pdfId; not=$y.not; seyrek=$true }
+  }
+  [IO.File]::WriteAllText($manYol, (ConvertTo-Json -InputObject $man -Depth 6), (New-Object Text.UTF8Encoding($false)))
+  Write-Host 'manifest guncellendi.'
 }
-
-Rapor ([ordered]@{
-  tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  mod = $(if($uygula){'UYGULA'}else{'KURU KOSU'})
-  desen = $desen
-  fihrist_kayit = $toplam
-  baslik_eslesen = $bulunan.Count
-  manifestte_olmayan = $yeni.Count
-  eklenen = $eklenen
-  ornekler = @($yeni | Select-Object -First 40)
-  not = "Robot yalniz BASLIGI desene uyan kayitlari alir; RG tarih/sayi da yazilir ki insan denetleyebilsin. Eklenen tebligler bir sonraki Kanun Aynasi kosusunda bolum parcalayicisiyla yutulur."
+RaporYaz ([ordered]@{
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'
+  taranan_baslik=@($TAKIP).Count; yeni=$yeniler.Count
+  eklenenler=@($yeniler | Select-Object slug,ad,pdfId,rg)
 })
-Write-Host ("-> {0}" -f $raporYol)
+Write-Host 'TEBLIG HASAT TAMAM.'

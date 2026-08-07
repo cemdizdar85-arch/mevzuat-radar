@@ -36,6 +36,11 @@ function PdfMi([string]$yol){
   try { $b = [IO.File]::ReadAllBytes($yol); if($b.Length -lt 400){ return $false }; return ([Text.Encoding]::ASCII.GetString($b[0..4]) -like '%PDF*') } catch { return $false }
 }
 
+# 07.08: TEBLIG HASAT once kosar - fihriste dusen yeni teblig manifeste
+# girer ve AYNI kosuda indirilip yutulur (asgari ucret karari dahil).
+Write-Host '=== TEBLIG HASAT ==='
+try { & (Join-Path $kok 'motor\teblig-hasat.ps1') } catch { Write-Host ('hasat atlandi: ' + $_.Exception.Message) }
+
 $man = Get-Content (Join-Path $kok 'veri\mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $oturum = OturumAc
 $ok=0; $hazir=0; $htmlRed=0; $agHata=0; $ardisikAg=0; $kesik=$false; $say=0; $onceden=0
