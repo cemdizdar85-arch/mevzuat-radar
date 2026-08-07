@@ -1,0 +1,102 @@
+**********************
+PowerShell transcript start
+Start time: 20260807081358
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/be5294bc-1fe8-4d18-9fe0-6732cbb3667b.ps1'
+Process ID: 2255
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+SINAV: SGS   kota: veri/sgs-uretim-kotasi.json   plan satiri: 2145
+Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
+  kasa: 30081 soru
+  konu-kelime indeksi: 1261 kelime
+  MADDE TAVANI: hedef havuz 14603 x %2 = 293 soru/madde | tavani dolmus madde: 10
+    dolu: 213|275 -> 5299 soru
+    dolu: 6102|720 -> 2030 soru
+    dolu: 4857|11 -> 1442 soru
+    dolu: 5018|3 -> 1088 soru
+    dolu: 213|262 -> 727 soru
+  THP hesap indeksi: 266 kelime, 269 kayit
+
+  planSatir    2145
+  maddesiz     1039
+  metinsiz     0
+  hazir        1579
+  tavanDolu    545
+  kaynak_kanun 790
+  kaynak_standart 116
+  kaynak_hesap-plani 180
+  kaynak_belge 8
+  kaynak_teori 12
+MALIYET TAHMINI (Batch %50): ~38.47 USD
+KURU DENEME TAMAM - yazma yolu saglam.
+KURTARMA MODU: 2 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
+  parti 1/2: msgbatch_01LN2NsSM2Rx9dKKMzQhcTzD
+    24 sonuc alindi
+  parti 2/2: msgbatch_017y9DXifXaRQnoauvmSiP4S
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 22, position 3."
+    23 sonuc alindi
+KURTARMA TOPLAM: 24 sonuc
+HIZALAMA (atif-bazli): 22 eslesti (0'i kanun-yedek kademeden), 2 eslesemedi (yazilmayacak, Anthropic'te durur).
+KURTARMA KONTROL: rakamRed 11/22 = %50.0 (bilgi amacli; soru basina kapi zaten eledi)
+
+======== URETIM ========
+  uretilen       0
+  rakamRed       11
+  dilRed         0
+  sikRed         1
+  sablonRed      0
+  tuzakRed       0
+  dogrusuRed     0
+  atifRed        0
+  kokuRed        0
+  benzerRed      10
+  aritmetikRed   0
+  icTutarRed     0
+  cevapsiz       1557
+  yazmaHatasi    0
+  GERCEK FATURA: ~1.35 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-38.json
+**********************
+PowerShell transcript end
+End time: 20260807081518
+**********************
+gbatch_01LN2NsSM2Rx9dKKMzQhcTzD
+    24 sonuc alindi
+  parti 2/2: msgbatch_017y9DXifXaRQnoauvmSiP4S
+PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 22, position 3."
+    23 sonuc alindi
+KURTARMA TOPLAM: 24 sonuc
+HIZALAMA (atif-bazli): 22 eslesti (0'i kanun-yedek kademeden), 2 eslesemedi (yazilmayacak, Anthropic'te durur).
+KURTARMA KONTROL: rakamRed 11/22 = %50.0 (bilgi amacli; soru basina kapi zaten eledi)
+
+======== URETIM ========
+  uretilen       0
+  rakamRed       11
+  dilRed         0
+  sikRed         1
+  sablonRed      0
+  tuzakRed       0
+  dogrusuRed     0
+  atifRed        0
+  kokuRed        0
+  benzerRed      10
+  aritmetikRed   0
+  icTutarRed     0
+  cevapsiz       1557
+  yazmaHatasi    0
+  GERCEK FATURA: ~1.35 USD
+  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
+-> veri/uretim-rapor-38.json

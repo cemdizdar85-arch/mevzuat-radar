@@ -1,0 +1,615 @@
+{
+  "tarih": "07.08.2026 08:17",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 74,
+    "maddesiz": 10,
+    "metinsiz": 0,
+    "hazir": 2000,
+    "tavanDolu": 9,
+    "kaynak_standart": 58,
+    "kaynak_belge": 2,
+    "kaynak_hesap-plani": 1,
+    "kaynak_teori": 3
+  },
+  "ozet": {
+    "uretilen": 0,
+    "rakamRed": 87,
+    "dilRed": 200,
+    "sikRed": 19,
+    "sablonRed": 23,
+    "tuzakRed": 11,
+    "dogrusuRed": 0,
+    "atifRed": 0,
+    "kokuRed": 74,
+    "benzerRed": 831,
+    "aritmetikRed": 6,
+    "icTutarRed": 7,
+    "cevapsiz": 742,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 30697922,
+    "cikis": 3587921,
+    "usd": 72.96
+  },
+  "redler": [
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "dil",
+      "deger": "ort 10.5 enuzun 39"
+    },
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "dil",
+      "deger": "ort 12.9 enuzun 59"
+    },
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "dil",
+      "deger": "ort 11.9 enuzun 43"
+    },
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "dil",
+      "deger": "ort 11.1 enuzun 42"
+    },
+    {
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "tms 10 raporlama doneminden sonraki olaylar",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "tms 10 raporlama doneminden sonraki olaylar",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "tms 10 raporlama doneminden sonraki olaylar",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "dil",
+      "deger": "ort 11.3 enuzun 39"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(5)"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "dil",
+      "deger": "ort 11.6 enuzun 39"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "dil",
+      "deger": "ort 13.0 enuzun 40"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "dil",
+      "deger": "ort 12.3 enuzun 46"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "dil",
+      "deger": "ort 12.3 enuzun 58"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "dil",
+      "deger": "ort 12.9 enuzun 44"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tms 19 calisanlara saglanan faydalar kidem karsiligi",
+      "sebep": "dil",
+      "deger": "ort 12.1 enuzun 41"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "dil",
+      "deger": "ort 10.7 enuzun 47"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "dil",
+      "deger": "ort 11.9 enuzun 45"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "dil",
+      "deger": "ort 11.0 enuzun 39"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(A), uyduru-kalip(C)"
+    },
+    {
+      "konu": "tms 24 iliskili taraf aciklamalari",
+      "sebep": "dil",
+      "deger": "ort 11.8 enuzun 42"
+    },
+    {
+      "konu": "tms 24 iliskili taraf aciklamalari",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "tms 24 iliskili taraf aciklamalari",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "tekduze-tuzak-kalibi"
+    },
+    {
+      "konu": "tms 27 bireysel finansal tablolar",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "tms 27 bireysel finansal tablolar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 27 bireysel finansal tablolar",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "sebep": "dil",
+      "deger": "ort 12.8 enuzun 47"
+    },
+    {
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "sebep": "dil",
+      "deger": "ort 12.3 enuzun 40"
+    },
+    {
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "sebep": "dil",
+      "deger": "ort 14.3 enuzun 53"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıllık kümülatif enflasyon %100"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıllık kümülatif enflasyon oranı %100'e yaklaşmakta ya da aşmaktadır"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "riskli-sayi",
+      "deger": "3 yıl"
+    },
+    {
+      "konu": "tms 29 yuksek enflasyonlu ekonomide raporlama",
+      "sebep": "dil",
+      "deger": "ort 11.5 enuzun 40"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "dil",
+      "deger": "ort 13.6 enuzun 40"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(5)"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(5)"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(3)"
+    },
+    {
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "sebep": "dil",
+      "deger": "ort 14.1 enuzun 54"
+    }
+  ],
+  "maddesiz_konular": [
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "660 khk kamu gozetimi kurumu gorev yetki"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi komiteler ve gorevleri denetim riskin erken saptanmasi ucret aday gosterme"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi iliskili taraf islemleri yaygin ve sureklilik arz eden islemler"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi menfaat sahipleri calisanlar paydaslar"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi yatirimci iliskileri bolumu gorevleri"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi faaliyet raporu icerigi"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi kamuyu aydinlatma ve seffaflik"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi teminat rehin ipotek yasagi"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim tebligi pay sahipligi haklari azlik haklari"
+    },
+    {
+      "ders": "Kurumsal Yonetim",
+      "konu": "kurumsal yonetim ilkeleri uyum raporu kapsam ve zorunluluk"
+    }
+  ],
+  "madde_tavani": 118,
+  "tavana_takilan": 9,
+  "tavan_listesi": [
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 1 finansal tablolarin sunulusu onemlilik netlestirme",
+      "madde": "STD|TMS 1",
+      "mevcut": 280,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 1 isletmenin surekliligi ve tablo seti",
+      "madde": "STD|TMS 1",
+      "mevcut": 280,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 2 stoklar maliyet ve net gerceklesebilir deger",
+      "madde": "STD|TMS 2",
+      "mevcut": 142,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 7 nakit akis tablosu isletme yatirim finansman",
+      "madde": "STD|TMS 7",
+      "mevcut": 160,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 8 muhasebe politikalari tahmin degisikligi hata",
+      "madde": "STD|TMS 8",
+      "mevcut": 96,
+      "tavan": 118,
+      "kisildi": 28
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 10 raporlama doneminden sonraki olaylar",
+      "madde": "STD|TMS 10",
+      "mevcut": 97,
+      "tavan": 118,
+      "kisildi": 19
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 12 gelir vergileri ertelenmis vergi",
+      "madde": "STD|TMS 12",
+      "mevcut": 93,
+      "tavan": 118,
+      "kisildi": 35
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 16 maddi duran varliklar amortisman yeniden degerleme",
+      "madde": "STD|TMS 16",
+      "mevcut": 118,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 21 kur degisiminin etkileri parasal kalemler",
+      "madde": "STD|TMS 21",
+      "mevcut": 129,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 23 borclanma maliyetleri aktiflestirme",
+      "madde": "STD|TMS 23",
+      "mevcut": 82,
+      "tavan": 118,
+      "kisildi": 4
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 28 istiraklerdeki yatirimlar ozkaynak yontemi",
+      "madde": "STD|TMS 28",
+      "mevcut": 86,
+      "tavan": 118,
+      "kisildi": 8
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 36 varliklarda deger dusuklugu geri kazanilabilir tutar",
+      "madde": "STD|TMS 36",
+      "mevcut": 96,
+      "tavan": 118,
+      "kisildi": 38
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 37 karsiliklar kosullu borclar kosullu varliklar",
+      "madde": "STD|TMS 37",
+      "mevcut": 116,
+      "tavan": 118,
+      "kisildi": 58
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 38 maddi olmayan duran varliklar gelistirme gideri",
+      "madde": "STD|TMS 38",
+      "mevcut": 119,
+      "tavan": 118
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tms 40 yatirim amacli gayrimenkuller gercege uygun deger",
+      "madde": "STD|TMS 40",
+      "mevcut": 111,
+      "tavan": 118,
+      "kisildi": 33
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tfrs 3 isletme birlesmeleri serefiye",
+      "madde": "STD|TFRS 3",
+      "mevcut": 84,
+      "tavan": 118,
+      "kisildi": 16
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tfrs 9 korunma muhasebesi",
+      "madde": "STD|TFRS 9",
+      "mevcut": 108,
+      "tavan": 118,
+      "kisildi": 20
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tfrs 10 konsolide finansal tablolar kontrol",
+      "madde": "STD|TFRS 10",
+      "mevcut": 91,
+      "tavan": 118,
+      "kisildi": 23
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tfrs 15 musteri sozlesmelerinden hasilat bes adim",
+      "madde": "STD|TFRS 15",
+      "mevcut": 80,
+      "tavan": 118,
+      "kisildi": 22
+    },
+    {
+      "ders": "Muhasebe Standartlari",
+      "konu": "tfrs 16 kiralamalar kullanim hakki varligi",
+      "madde": "STD|TFRS 16",
+      "mevcut": 86,
+      "tavan": 118,
+      "kisildi": 28
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 230 denetimin belgelendirilmesi calisma kagitlari",
+      "madde": "STD|BDS 230",
+      "mevcut": 122,
+      "tavan": 118
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 240 finansal tablolarin denetiminde hile",
+      "madde": "STD|BDS 240",
+      "mevcut": 106,
+      "tavan": 118,
+      "kisildi": 48
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 300 denetimin planlanmasi strateji",
+      "madde": "STD|BDS 300",
+      "mevcut": 107,
+      "tavan": 118,
+      "kisildi": 39
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 315 onemli yanlislik risklerinin belirlenmesi isletmeyi tanima",
+      "madde": "STD|BDS 315",
+      "mevcut": 71,
+      "tavan": 118,
+      "kisildi": 13
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 320 onemlilik kiyaslama noktasi performans onemliligi",
+      "madde": "STD|BDS 320",
+      "mevcut": 98,
+      "tavan": 118,
+      "kisildi": 40
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 500 denetim kanitlari yeterli uygun kanit",
+      "madde": "STD|BDS 500",
+      "mevcut": 166,
+      "tavan": 118
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 530 denetimde orneklem orneklem buyuklugu",
+      "madde": "STD|BDS 530",
+      "mevcut": 115,
+      "tavan": 118,
+      "kisildi": 47
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 700 finansal tablolara iliskin gorus olusturma denetci raporu",
+      "madde": "STD|BDS 700",
+      "mevcut": 90,
+      "tavan": 118,
+      "kisildi": 32
+    },
+    {
+      "ders": "Denetim Standartlari",
+      "konu": "bds 705 gorus sartli olumsuz gorus vermekten kacinma",
+      "madde": "STD|BDS 705",
+      "mevcut": 80,
+      "tavan": 118,
+      "kisildi": 22
+    },
+    {
+      "ders": "Finansal Yonetim",
+      "konu": "finansal analiz oranlari likidite kaldirac karlilik dupont",
+      "madde": "TEORI|Teori Notu - finansal analiz oranlari",
+      "mevcut": 0,
+      "tavan": 118,
+      "kisildi": 12
+    }
+  ]
+}
