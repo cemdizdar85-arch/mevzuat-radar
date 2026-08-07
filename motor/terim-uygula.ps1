@@ -93,6 +93,23 @@ $reIptidai = New-Object System.Text.RegularExpressions.Regex(
 $reIsbu = New-Object System.Text.RegularExpressions.Regex(
   '([iıİI])([şŞsS])[bB][uU](?=[\s,\.;:])',
   ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+# 07.08 aksam-2 (Cem: "iptidai gibi baska kelime varsa o da duzelsin"):
+# "imal edilen emtia" (3.369 soru) - ek uyumu farkli oldugu icin ek CIFTLERI
+# tek tek sayilir: emtia->mamul, emtianin->mamulun, emtiayi->mamulu,
+# emtiaya->mamule, emtiada->mamulde, emtiadan->mamulden. Listede olmayan ek
+# bicimi DEGISMEZ ve kalan-tarama raporunda gorunur (sessiz kayip yok).
+$reEmtia = New-Object System.Text.RegularExpressions.Regex(
+  '([iıİI])([mM])[aA][lL]\s+[eE][dD][iıİI][lL][eE][nN]\s+[eE][mM][tT][iıİI][aA](?<ek>[nN][ıiİI][nN]|[yY][ıiİI]|[yY][aA]|[dD][aA][nN]|[dD][aA])?(?=[\s,\.;:)]|$)',
+  ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
+$EMTIA_EK = @{ ''='mamul'; 'nin'='mamulün'; 'yi'='mamulü'; 'ya'='mamule'; 'da'='mamulde'; 'dan'='mamulden' }
+function EmtiaEkAnahtar([string]$ek){
+  $duz = ''
+  foreach($c in $ek.ToCharArray()){
+    $u = [char]::ToLowerInvariant($c)
+    if($u -eq [char]0x0131 -or $u -eq 'i' -or $u -eq [char]0x0130){ $duz += 'i' } else { $duz += $u }
+  }
+  return $duz
+}
 function TirnakIcinde([int]$konum){
   if(-not $script:AKTIF_METIN){ return $false }
   $once = $script:AKTIF_METIN.Substring(0, [Math]::Min($konum, $script:AKTIF_METIN.Length))
@@ -134,6 +151,22 @@ $KURALLAR = @(
         param($m)
         if(TirnakIcinde $m.Index){ return $m.Value }
         if($script:BUYUK -ccontains $m.Groups[1].Value[0]){ return 'Bu' } else { return 'bu' }
+     } },
+  @{ ad='imal edilen emtia(+ek) -> uretilen mamul(+ek)'
+     desen = $reEmtia
+     uygula = {
+        param($m)
+        if(TirnakIcinde $m.Index){ return $m.Value }
+        $ekA = EmtiaEkAnahtar $m.Groups['ek'].Value
+        if(-not $script:EMTIA_EK.ContainsKey($ekA)){ return $m.Value }   # bilinmeyen ek: dokunma, kalan-tarama gorur
+        $govde = $script:EMTIA_EK[$ekA]
+        $b1 = $script:BUYUK -ccontains $m.Groups[1].Value[0]
+        $b2 = $script:BUYUK -ccontains $m.Groups[2].Value[0]
+        if($b1 -and $b2){
+          $tam = 'ÜRETİLEN ' + $govde.ToUpperInvariant()
+          # Turkce-I: buyuk donusumde 'u'->'U', 'ü'->'Ü' invariant dogru calisir
+          return $tam
+        } elseif($b1){ return ('Üretilen ' + $govde) } else { return ('üretilen ' + $govde) }
      } }
 )
 
@@ -208,7 +241,7 @@ if(-not $uygula){
   #  sonu, farkli bosluk, "imalat" gibi) gozle gorunur.
   # ==========================================================================
   $reKalan = New-Object System.Text.RegularExpressions.Regex(
-    'genel[\s\-–—]*[iıİI][mM][aA][lL]|[iıİI][pP][tT][iıİI][dD][aA][iıİI]|[iıİI][şŞsS][bB][uU][\s,\.;:]',
+    'genel[\s\-–—]*[iıİI][mM][aA][lL]|[iıİI][pP][tT][iıİI][dD][aA][iıİI]|[iıİI][şŞsS][bB][uU][\s,\.;:]|[iıİI][mM][aA][lL]\s+[eE][dD][iıİI][lL][eE][nN]\s+[eE][mM][tT][iıİI][aA]',
     ([System.Text.RegularExpressions.RegexOptions]::CultureInvariant))
   $kalanlar = New-Object System.Collections.Generic.List[object]
   foreach($s in $kasa){
