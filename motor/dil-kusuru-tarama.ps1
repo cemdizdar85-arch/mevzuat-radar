@@ -224,13 +224,22 @@ if($yaz){
     # ayni istegi sorunsuz atiyor (204). PATCH kanali curl'e tasindi.
     $tmpG = [IO.Path]::GetTempFileName()
     [IO.File]::WriteAllText($tmpG, $gov, (New-Object Text.UTF8Encoding($false)))
-    $kod = & curl.exe -s -o NUL -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
+    # 07.08 ikinci ag dersi: modem SERI yazma isteklerini birkac taneden sonra
+    # kesiyor (tekil istek 200). Fren: her PATCH arasi 800ms; kod!=204 ise
+    # 6 sn soguma + bir tekrar.
+    $kod = ''
+    for($dn2=1; $dn2 -le 2; $dn2++){
+      $kod = & curl.exe -s -o NUL -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
+      if("$kod" -eq '204'){ break }
+      Start-Sleep -Seconds 6
+    }
     Remove-Item $tmpG -Force -ErrorAction SilentlyContinue
     if("$kod" -eq '204'){ $isaret++ }
     else {
       $hataSay++
       if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): curl kodu {2}" -f $hataSay, $h.id, $kod) }
     }
+    Start-Sleep -Milliseconds 800
   }
   Write-Host ("  -yaz v2: {0} jargon-yogun soru isaretlendi (ekleme usulu), {1} zaten isaretliydi" -f $isaret, $zatenVar)
 }
