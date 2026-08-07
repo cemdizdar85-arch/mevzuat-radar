@@ -1,21 +1,70 @@
 {
-  "tarih": "07.08.2026 18:09",
-  "durum": "KIRMIZI",
-  "mod": "UYGULANDI (KASAYA YAZILDI)",
-  "yedek_dosyasi": "yedek-terim-0807-1756.json",
-  "yedek_kayit": 4916,
-  "yedek_bayt": 3713987,
-  "degisen_soru": 3377,
-  "degisen_alan": 4637,
+  "tarih": "07.08.2026 18:19",
+  "mod": "KURU (0 USD, KASAYA YAZILMADI)",
+  "kasa": 30394,
+  "degisecek_soru": 0,
+  "degisecek_alan": 0,
   "alan_dagilimi": {
-    "soru": 362,
-    "aciklama": 3499,
-    "siklar": 23,
-    "hap": 1032
+    "aciklama": 0,
+    "soru": 0,
+    "siklar": 0,
+    "hap": 0
   },
-  "yazilan_soru": 3377,
-  "yazma_hatasi": 0,
-  "GERI_OKUMA_kalan_eski_terim": 1,
   "yayinda_atlanan": 0,
-  "not": "Geri alma: ozel kovadaki yedek-terim-0807-1756.json icindeki 'eski' degerleri geri yazilir."
+  "TESHIS_donusumden_sonra_kalan": 10,
+  "TESHIS_ornekler": [
+    {
+      "soru_id": "01be497a-91b3-4b7d-9e7a-32ca98bf1a45",
+      "gecen": "iptidai",
+      "baglam": " 275. madde uyarınca mamulün maliyetine iptidai ve hammadde bedeli dahildir. Standart maliyet sistem"
+    },
+    {
+      "soru_id": "02dd4b70-de09-4e81-b897-34583ede818e",
+      "gecen": "iptidai",
+      "baglam": "sur içinde sayılıyor. VUK 275. maddede \"iptidai ve ham maddelerin bedeli\" tek kalem olarak yer alır."
+    },
+    {
+      "soru_id": "02e02c7a-453a-41e0-b7b2-241925bb2bb9",
+      "gecen": "iptidai",
+      "baglam": "yor. Vida dolabın montajında kullanılan iptidai malzemedir, ham madde statüsündedir. Bu tür maddeler"
+    },
+    {
+      "soru_id": "03384bea-748c-44a3-9707-d406ea14ecb6",
+      "gecen": "iptidai",
+      "baglam": "maliyet bedeli beş unsurdan oluşur: (1) iptidai ve hammadde bedeli, (2) işçilik, (3) genel üretim gi"
+    },
+    {
+      "soru_id": "034a6af2-e695-4fba-ace2-4b0b6322a073",
+      "gecen": "iptidai",
+      "baglam": "apsamına girmediği sanılıyor. VUK m.275 iptidai ve hammadde kavramını geniş tutar; mamulün vücuda ge"
+    },
+    {
+      "soru_id": "035a3adc-b9bb-4802-868a-2d7654ab676d",
+      "gecen": "İptidai",
+      "baglam": "i unsurla zorunlu unsur karıştırılıyor. İptidai ve hammadde bedeli mamulün vücuda getirilmesinde sar"
+    },
+    {
+      "soru_id": "04d979d4-d86a-4079-9607-ab7fbce2b7db",
+      "gecen": "iptidai",
+      "baglam": "irine karıştırılıyor. VUK m.275/1'deki \"iptidai ve ham maddelerin bedeli\" ayrı bir unsurdur, işçilik"
+    },
+    {
+      "soru_id": "05872891-f919-446e-b872-032fc3d2242b",
+      "gecen": "iptidai",
+      "baglam": "mulün vücuda getirilmesinde sarf olunan iptidai ve ham maddelerin bedeli\"dir ve zorunludur. Hammadde"
+    },
+    {
+      "soru_id": "0641a573-820b-4e7b-9a75-b3e43c697a83",
+      "gecen": "iptidai",
+      "baglam": "ün maliyet bedeli beş unsur içerir: (1) iptidai ve hammadde bedeli, (2) işçilik, (3) genel üretim gi"
+    },
+    {
+      "soru_id": "06d38ffd-64fd-4492-9849-e46ce3870c8c",
+      "gecen": "iptidai",
+      "baglam": "amulün vücuda gelmesi için zorunlu olan iptidai ve hammadde bedeli maliyet bedelinin mutlaka dahil e"
+    }
+  ],
+  "kural": "genel imal->genel uretim; iptidai (ve ham) madde->ilk madde ve malzeme; isbu->bu (Cem 07.08; tirnak icindeki kanun alintisi DOKUNULMAZ)",
+  "dokunulmayan": "VUK m.275 \"imal edilen emtia\" (kanun lafzi, D26) + cift tirnak icindeki her eslesme",
+  "not": "Bu bir PROVA. Gercek yazma icin -uygula gerekir (tetikte BAS sarti)."
 }
