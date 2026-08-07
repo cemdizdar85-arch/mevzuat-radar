@@ -1,0 +1,339 @@
+{
+  "tarih": "07.08.2026 13:02",
+  "model": "claude-sonnet-4-5-20250929",
+  "hazirlik": {
+    "planSatir": 12,
+    "maddesiz": 0,
+    "metinsiz": 0,
+    "hazir": 264,
+    "tavanDolu": 0,
+    "kaynak_teori": 12
+  },
+  "ozet": {
+    "uretilen": 73,
+    "rakamRed": 89,
+    "dilRed": 6,
+    "sikRed": 40,
+    "sablonRed": 3,
+    "tuzakRed": 3,
+    "dogrusuRed": 0,
+    "atifRed": 0,
+    "kokuRed": 8,
+    "benzerRed": 1,
+    "aritmetikRed": 21,
+    "icTutarRed": 2,
+    "cevapsiz": 18,
+    "yazmaHatasi": 0
+  },
+  "fatura": {
+    "giris": 3333068,
+    "cikis": 427171,
+    "usd": 8.2
+  },
+  "redler": [
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "dil",
+      "deger": "ort 8.2 enuzun 41"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(A)"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "uyduru-kalip(A)"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B), islem-sapmasi(C), islem-sapmasi(D), islem-sapmasi(E)"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "dil",
+      "deger": "ort 10.7 enuzun 66"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B), islem-sapmasi(D), islem-sapmasi(E)"
+    },
+    {
+      "konu": "yuzde kar zarar faiz hesaplari",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B)"
+    },
+    {
+      "konu": "oran oranti karisim problemleri",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "oran oranti karisim problemleri",
+      "sebep": "dil",
+      "deger": "ort 8.4 enuzun 40"
+    },
+    {
+      "konu": "oran oranti karisim problemleri",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(C)"
+    },
+    {
+      "konu": "oran oranti karisim problemleri",
+      "sebep": "yapayzeka-kokusu",
+      "deger": "hepsi-yuvarlak(5)"
+    },
+    {
+      "konu": "oran oranti karisim problemleri",
+      "sebep": "dil",
+      "deger": "ort 9.4 enuzun 55"
+    },
+    {
+      "konu": "problem kurma yas isci hiz havuz",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(C)"
+    },
+    {
+      "konu": "problem kurma yas isci hiz havuz",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(C)"
+    },
+    {
+      "konu": "problem kurma yas isci hiz havuz",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(E)"
+    },
+    {
+      "konu": "problem kurma yas isci hiz havuz",
+      "sebep": "ic-tutarlilik",
+      "deger": "ayni-sik:A=B"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B), islem-sapmasi(E)"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(C), islem-sapmasi(E)"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "riskli-sayi",
+      "deger": "2, 3, 4, 5, 9, 10, 11,6 = 2×3,12 = 3×4,15 = 3×5,1'den n'ye kadar toplam = n(n+1)/2"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "riskli-sayi",
+      "deger": "6 = 2x3,12 = 3x4,15 = 3x5"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "riskli-sayi",
+      "deger": "6 = 2x3,12 = 3x4,15 = 3x5,1'den n'ye kadar toplam = n(n+1)/2"
+    },
+    {
+      "konu": "sayilar bolunebilme ebob ekok",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B), islem-sapmasi(D), islem-sapmasi(E)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A), islem-sapmasi(D), islem-sapmasi(E)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(E)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "ic-tutarlilik",
+      "deger": "cevap-sizintisi"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(A)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(E)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "dil",
+      "deger": "ort 9.8 enuzun 55"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(B)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "aritmetik",
+      "deger": "islem-sapmasi(D)"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "tuzak-adlandirilmamis",
+      "deger": "4 yanlis siktan 2'i tuzagi soyluyor"
+    },
+    {
+      "konu": "birinci derece denklem ve esitsizlik",
+      "sebep": "sablon",
+      "deger": "eksik parca: Ne soruluyor, Kural, Bu olayda, Ak[ıi]lda kals[ıi]n"
+    },
+    {
+      "konu": "kumeler sayma olasilik temelleri",
+      "sebep": "dil",
+      "deger": "ort 10.3 enuzun 59"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayis 1919,22 Haziran 1919,23 Temmuz - 7 Agustos 1919,4-11 Eylul 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "milli mucadele hazirlik donemi kongreler",
+      "sebep": "riskli-sayi",
+      "deger": "30 Ekim 1918,28 Mayıs 1919,22 Haziran 1919,23 Temmuz - 7 Ağustos 1919,4-11 Eylül 1919,28 Ocak 1920,16 Mart 1920,23 Nisan 1920"
+    },
+    {
+      "konu": "kurtulus savasi cepheler ve antlasmalar",
+      "sebep": "riskli-sayi",
+      "deger": "3 Aralık 1920,16 Mart 1921,23 Ağustos - 13 Eylül 1921,20 Ekim 1921,26 Ağustos 1922,11 Ekim 1922,24 Temmuz 1923,1936 Montrö"
+    },
+    {
+      "konu": "kurtulus savasi cepheler ve antlasmalar",
+      "sebep": "riskli-sayi",
+      "deger": "3 Aralık 1920,16 Mart 1921,23 Ağustos - 13 Eylül 1921,20 Ekim 1921,26 Ağustos 1922,11 Ekim 1922,24 Temmuz 1923"
+    },
+    {
+      "konu": "kurtulus savasi cepheler ve antlasmalar",
+      "sebep": "riskli-sayi",
+      "deger": "3 Aralık 1920,16 Mart 1921,23 Ağustos - 13 Eylül 1921,20 Ekim 1921,26 Ağustos 1922,11 Ekim 1922,24 Temmuz 1923"
+    },
+    {
+      "konu": "kurtulus savasi cepheler ve antlasmalar",
+      "sebep": "riskli-sayi",
+      "deger": "3 Aralık 1920,16 Mart 1921,23 Ağustos - 13 Eylül 1921,20 Ekim 1921,26 Ağustos 1922,11 Ekim 1922,24 Temmuz 1923"
+    }
+  ],
+  "maddesiz_konular": [],
+  "madde_tavani": 293,
+  "tavana_takilan": 0,
+  "tavan_listesi": []
+}
