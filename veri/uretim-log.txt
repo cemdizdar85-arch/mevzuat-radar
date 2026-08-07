@@ -1,32 +1,27 @@
-﻿**********************
-Windows PowerShell transcript start
-Start time: 20260807153953
-Username: GK\cemdi
-RunAs User: GK\cemdi
-Configuration Name: 
-Machine: GK (Microsoft Windows NT 10.0.26200.0)
-Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; Set-Location 'C:\Users\cemdi\OneDrive\Masaüstü\mevzuat işi\mevzuat-radar'
-$env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')
-$konular = 'yuzde kar zarar faiz hesaplari,oran oranti karisim problemleri,problem kurma yas isci hiz havuz,sayilar bolunebilme ebob ekok,birinci derece denklem ve esitsizlik,kumeler sayma olasilik temelleri,milli mucadele hazirlik donemi kongreler,kurtulus savasi cepheler ve antlasmalar,siyasi inkilaplar saltanat cumhuriyet halifelik,hukuk egitim ve toplumsal inkilaplar,ataturk ilkeleri,ic politika denemeleri ve dis politika 1923 1938'
-./motor/soru-uret-v2.ps1 -sinir 280 -sinav SGS -emirNo 'olcum-36' -model 'claude-sonnet-4-5-20250929' -konular $konular -cikti 'veri/olcum-36.json' 2>&1 | Select-Object -First 40 | ForEach-Object { "$_" }
-; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
-; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-10be' -Encoding utf8 -NoNewline
-; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
-Process ID: 21820
-PSVersion: 5.1.26100.8972
-PSEdition: Desktop
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8972
-BuildVersion: 10.0.26100.8972
-CLRVersion: 4.0.30319.42000
-WSManStackVersion: 3.0
-PSRemotingProtocolVersion: 2.3
-SerializationVersion: 1.1.0.1
 **********************
-SINAV: SGS   kota: veri/sgs-uretim-kotasi.json   plan satiri: 2145
+PowerShell transcript start
+Start time: 20260807124253
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
+Configuration Name: 
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/13f824f1-f129-4814-b8f0-48e7aed74b11.ps1'
+Process ID: 2250
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Ubuntu 24.04.4 LTS
+Platform: Unix
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+SINAV: SMMM   kota: veri/uretim-kotasi.json   plan satiri: 892
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
   kasa: 30081 soru
   konu-kelime indeksi: 1261 kelime
-  MADDE TAVANI: hedef havuz 14603 x %2 = 293 soru/madde | tavani dolmus madde: 10
+  MADDE TAVANI: hedef havuz 8080 x %2 = 162 soru/madde | tavani dolmus madde: 22
     dolu: 213|275 -> 5299 soru
     dolu: 6102|720 -> 2030 soru
     dolu: 4857|11 -> 1442 soru
@@ -35,15 +30,17 @@ Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
   THP hesap indeksi: 266 kelime, 269 kayit
 KONU FILTRESI: 12 konu
 
-  planSatir    12
+  planSatir    0
   maddesiz     0
   metinsiz     0
-  hazir        264
+  hazir        0
   tavanDolu    0
-  kaynak_teori 12
-MALIYET TAHMINI (Batch %50): ~6,00 USD
-OLCUM MODU - 0 USD. Rapor: veri/uretim-olcum-raporu.json
+MALIYET TAHMINI (Batch %50): ~0.00 USD
+SARI: uretilecek is yok (0 USD) - emir bos kapanmali, kuyruk devam etmeli.
+Emir bos kapatildi - sonraki emre geciliyor.
+PS>$global:?
+False
 **********************
-Windows PowerShell transcript end
-End time: 20260807154123
+PowerShell transcript end
+End time: 20260807124333
 **********************
