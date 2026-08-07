@@ -1,9 +1,9 @@
 {
-  "tarih": "07.08.2026 20:17",
+  "tarih": "07.08.2026 22:06",
   "durum": "TAMAM",
   "mod": "OLCUM (0 USD, yazma yok)",
-  "kasa": 30394,
-  "kehribar_karti_olan": 30387,
+  "kasa": 30413,
+  "kehribar_karti_olan": 30406,
   "bir_uydurma_terim": [
     {
       "terim": "cok donemli gider",
@@ -120,8 +120,8 @@
   "uc_senaryo_isimleri": {
     "farkli_kisi_adi": 132,
     "toplam_kisi_gecis": 7191.0,
-    "farkli_sirket_adi": 1163,
-    "toplam_sirket_gecis": 16785.0,
+    "farkli_sirket_adi": 1164,
+    "toplam_sirket_gecis": 16788.0,
     "en_sik_kisi": [
       {
         "ad": "Mehmet",
@@ -131,12 +131,12 @@
       {
         "ad": "Fatma",
         "soru": 886,
-        "yuzde": 2.92
+        "yuzde": 2.91
       },
       {
         "ad": "Hatice",
         "soru": 804,
-        "yuzde": 2.65
+        "yuzde": 2.64
       },
       {
         "ad": "Ayşe",
@@ -222,7 +222,7 @@
       },
       {
         "ad": "Bir",
-        "soru": 605,
+        "soru": 606,
         "yuzde": 1.99
       },
       {
@@ -279,27 +279,11 @@
   },
   "not": "Yalniz OLCUM - kasaya dokunulmadi. \"KEHRIBAR_KARTTA\" sutunu onemlidir: eski terim her yerde kotudur ama ogrencinin EZBERLEYECEGI kartta olmasi en kotusudur.",
   "yaz_metrik": {
-    "isaretlenen": 0,
-    "zatenVar": 4,
-    "hata": 158,
-    "ornek_hatalar": [
-      {
-        "id": "f7345f87-e89c-4fc9-bf23-21f0152cd041",
-        "kod": -1,
-        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
-      },
-      {
-        "id": "048c34a8-17b7-4485-9e18-5bab5eb5bade",
-        "kod": -1,
-        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
-      },
-      {
-        "id": "972ef13a-89d7-4595-bb34-441f44b2ebd9",
-        "kod": -1,
-        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
-      }
-    ],
+    "isaretlenen": 159,
+    "zatenVar": 3,
+    "hata": 0,
+    "ornek_hatalar": null,
     "kanal": "HttpClient tek-baglanti",
-    "zaman": "07.08.2026 20:45"
+    "zaman": "07.08.2026 22:08"
   }
 }
