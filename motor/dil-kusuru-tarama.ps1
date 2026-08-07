@@ -205,8 +205,15 @@ Write-Host ("  3) SENARYO ADI: {0} farkli kisi / {1} farkli sirket" -f $kisiSay.
 # (eski-terim hacmi 245+ soru = onarim partisini buyutur -> UCRETLI genisleme,
 # Cem onayina sunulacak; rakamlar sabah raporunda).
 if($yaz){
-  # runner (ubuntu) 'curl.exe' adini tanimaz - platforma gore ad (07.08 dersi)
-  $curlAd = if($env:OS -match 'Windows'){ 'curl.exe' } else { 'curl' }
+  # 07.08 AG DERSI #3: modem, supabase.co'ya SERI halinde acilan YENI TLS
+  # baglantilarini kesiyor (tek istek OK, seri curl 000 / IRM 400). Cozum:
+  # TEK HttpClient (keep-alive) uzerinden butun PATCH'ler - tek baglanti.
+  Add-Type -AssemblyName System.Net.Http
+  $hc = New-Object System.Net.Http.HttpClient
+  $hc.Timeout = [TimeSpan]::FromSeconds(60)
+  $hc.DefaultRequestHeaders.Add('apikey', $env:SUPABASE_SERVICE_KEY)
+  $hc.DefaultRequestHeaders.Add('Prefer', 'return=minimal')
+  $hc.DefaultRequestHeaders.UserAgent.ParseAdd('mevzuat-radar-robot/1.0')
   $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
   $notHarita = @{}
   foreach($s in $kasa){ $notHarita["$($s.id)"] = "$($s.yayin_notu)" }
@@ -224,24 +231,32 @@ if($yaz){
     # 07.08 AG DERSI: PS IRM PATCH'i bu agda modem tarafindan 'SessionTimeout'
     # sayfasiyla kesiliyor (tek istek gecer, script serisi gecmez); curl.exe
     # ayni istegi sorunsuz atiyor (204). PATCH kanali curl'e tasindi.
-    $tmpG = [IO.Path]::GetTempFileName()
-    [IO.File]::WriteAllText($tmpG, $gov, (New-Object Text.UTF8Encoding($false)))
-    # 07.08 ikinci ag dersi: modem SERI yazma isteklerini birkac taneden sonra
-    # kesiyor (tekil istek 200). Fren: her PATCH arasi 800ms; kod!=204 ise
-    # 6 sn soguma + bir tekrar.
-    $kod = ''
+    # tek HttpClient baglantisi uzerinden PATCH (ag dersi #3); 500ms fren,
+    # basarisizda 5 sn soguma + bir tekrar
+    $kod = 0
     for($dn2=1; $dn2 -le 2; $dn2++){
-      $kod = & $curlAd -s -o ($(if($env:OS -match 'Windows'){'NUL'}else{'/dev/null'})) -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
-      if("$kod" -eq '204'){ break }
-      Start-Sleep -Seconds 6
+      try {
+        $istek = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ("$U`?id=eq." + $h.id)
+        $istek.Content = New-Object System.Net.Http.StringContent ($gov, [Text.Encoding]::UTF8, 'application/json')
+        $cvp = $hc.SendAsync($istek).GetAwaiter().GetResult()
+        $kod = [int]$cvp.StatusCode
+        $cvp.Dispose(); $istek.Dispose()
+      } catch { $kod = -1 }
+      if($kod -eq 204){ break }
+      Start-Sleep -Seconds 5
     }
-    Remove-Item $tmpG -Force -ErrorAction SilentlyContinue
-    if("$kod" -eq '204'){ $isaret++ }
+    if($kod -eq 204){ $isaret++ }
     else {
       $hataSay++
-      if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): curl kodu {2}" -f $hataSay, $h.id, $kod) }
+      if($hataSay -le 3){ Write-Host ("  [debug] PATCH HATA #{0} ({1}): kod {2}" -f $hataSay, $h.id, $kod) }
     }
-    Start-Sleep -Milliseconds 800
+    Start-Sleep -Milliseconds 500
   }
-  Write-Host ("  -yaz v2: {0} jargon-yogun soru isaretlendi (ekleme usulu), {1} zaten isaretliydi" -f $isaret, $zatenVar)
+  Write-Host ("  -yaz v3: {0} isaretlendi, {1} zaten isaretli, {2} hata" -f $isaret, $zatenVar, $hataSay)
+  try {
+    $rj = Get-Content $raporYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $rj | Add-Member -NotePropertyName yaz_metrik -NotePropertyValue ([ordered]@{ isaretlenen=$isaret; zatenVar=$zatenVar; hata=$hataSay; kanal='HttpClient tek-baglanti'; zaman=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Force
+    [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $rj -Depth 6), (New-Object Text.UTF8Encoding($false)))
+  } catch {}
+  $hc.Dispose()
 }
