@@ -1,0 +1,33 @@
+# .github/workflows/taslak-liste.yml — TASLAK LISTECISI (0 USD, AI cagrisi YOK)
+# Ozel onarim-taslak kovasindaki dosya YOLLARINI repoya yazar (icerik degil).
+# Neden runner'da: yerel modem storage listelemeyi (POST) kesiyor (07.08 dersi).
+name: Taslak Listesi (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/taslak-liste.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: taslak-liste
+  cancel-in-progress: false
+jobs:
+  listele:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kovayi listele
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/taslak-liste.ps1
+      - name: Listeyi commit'le
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/onarim-taslak-listesi.json
+          git diff --cached --quiet || git commit -m "Onarim taslak listesi [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
