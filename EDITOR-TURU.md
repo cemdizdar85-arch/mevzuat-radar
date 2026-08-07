@@ -19,7 +19,7 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 - [x] kdv-iade-rehberi.html — 07.08 (90/30/7 hatırlatma cümlesi e-posta düzeniyle uyumlu)
 
 ## ⬜ SIRADA (öncelik: müşteri-görünür → iç sayfa)
-- [~] index.html — 07.08: vaat (Mail+WhatsApp/SMS→dürüst), fiyat bölümü, klişe taraması TEMİZ; 1.191 satırın tam okuma turu sırada
+- [x] index.html — 07.08 TAM İÇERİK TURU: hero+kapılar+ürün rafları+fiyat+güven bölümleri okundu; 4 bildirim vaadi dürüste çekildi (ihale özet maili / icra uyarısı / alacak haber / ilk-sen-duy → "yol haritasında" diliyle); dayanaklar birincil, yapı sağlam
 - [x] tuzak.html — 07.08 (soru sayısı 29.000+ güncellendi; ton temiz)
 - [x] soru-cevap.html — 07.08 (risk taraması temiz)
 - [x] karne.html — 07.08 TAM OKUNDU: eşik notu tarih damgalı, gizlilik açık, CTA dürüst, Eşik Rehberi linki canlı; eşik DEĞERLERİNİN nüans denetimi #42 kapsamında (ayrı iş)
