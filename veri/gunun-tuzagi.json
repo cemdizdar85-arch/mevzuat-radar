@@ -1,37 +1,37 @@
 {
-  "tarih": "06.08.2026",
-  "gun": "2026-08-06",
+  "tarih": "07.08.2026",
+  "gun": "2026-08-07",
   "durum": "TAMAM",
-  "id": "d35f50cd",
+  "id": "cbf7e80e",
   "sinav": "SGS",
-  "ders": "Finansal Muhasebe",
-  "konu": "gelecek aylara ait gider",
-  "soru": "Bir oyun stüdyosu, 1 Kasım tarihinde sunucu barındırma hizmeti için 6 aylık (Kasım-Nisan) toplam 90.000 TL'yi peşin ödemiş ve ödeme anında bu tutarın tamamını 180 Gelecek Aylara Ait Giderler hesabına kaydetmiştir. 31 Aralık tarihinde (dönem sonu) yapılacak envanter kaydında, cari döneme isabet eden Kasım-Aralık (2 aylık = 30.000 TL) tutar için hangi kayıt yapılmalıdır?",
+  "ders": "Denetim",
+  "konu": "bds 530 orneklem yontemi",
+  "soru": "Bir mobilya üretim şirketinin denetçisi, 800 kalemden oluşan hammadde stok listesini inceleyecek. Listede 50 kalemin tutarı 200.000 TL'nin üzerinde, kalan 750 kalem ise 5.000-50.000 TL aralığında. Denetçi bu 800 kalemi tek bir bütün olarak ele almak yerine önce büyük tutarlı 50 kalemi bir grup, kalan 750 kalemi başka bir grup yapıp her gruptan ayrı örneklem seçmeyi planlıyor. Denetçinin bu uygulaması BDS 530 kapsamında hangi kavramla ifade edilir?",
   "siklar": {
-    "A": "180 Gelecek Aylara Ait Giderler (B) 30.000 / Genel Yönetim Giderleri (A) 30.000",
-    "B": "Genel Yönetim Giderleri (B) 30.000 / Kasa (A) 30.000",
-    "C": "Genel Yönetim Giderleri (B) 90.000 / 180 Gelecek Aylara Ait Giderler (A) 90.000",
-    "D": "180 Gelecek Aylara Ait Giderler (B) 60.000 / Genel Yönetim Giderleri (A) 60.000",
-    "E": "Genel Yönetim Giderleri (B) 30.000 / 180 Gelecek Aylara Ait Giderler (A) 30.000"
+    "A": "Anomali ayıklama: tek seferlik hataları popülasyon dışında tutmak",
+    "B": "Parasal birim örnekleme: bir kalemin seçilme olasılığının tutarıyla orantılı olması",
+    "C": "Tabakalama: popülasyonu benzer özelliklere sahip alt gruplara bölüp her gruptan ayrı örneklem seçmek",
+    "D": "Blok seçim: popülasyondan art arda gelen birimleri tek seferde almak",
+    "E": "İstatistiksel olmayan örnekleme: seçimi mesleki muhakemeye dayalı yapmak"
   },
-  "dogru": "E",
+  "dogru": "C",
   "aciklama": {
-    "A": "Bu şık borç-alacak yönlerini tersine çevirmiş. 180 Gelecek Aylara Ait Giderler bir aktif hesap olduğu için azalışlar alacak kaydedilir, borç değil.",
-    "B": "Bu şık Kasa hesabını kullanarak nakit çıkışı göstermiş. Oysa para 1 Kasım'da zaten ödenmiş; envanter kaydı sadece hesaplar arasında mahsup işlemidir, yeni ödeme değil.",
-    "C": "Bu şık toplam tutarı (90.000 TL) tamamen gider yazmış. Oysa sadece cari döneme ait kısım (Kasım-Aralık=2 ay=30.000 TL) gider olmalı, geri kalan 60.000 TL gelecek döneme ait.",
-    "D": "Bu şık gelecek döneme ait kısmı (60.000 TL) gider yazmış. Oysa gider olması gereken cari döneme ait kısımdır (30.000 TL); 60.000 TL aktif hesapta kalmalı.",
-    "E": "Ne soruluyor: Peşin ödenen çok dönemli bir giderin, dönem sonu envanterinde cari döneme isabet eden kısmı için hangi kaydın yapılacağı soruluyor.\n\nKural: VUK 283'e göre, peşin ödenen giderler mukayyet değerleriyle (kayıtlı tutarıyla) aktifleştirilir. Dönem sonunda ise cari döneme ait kısmı gider hesabına alırsınız.\n\nBu olayda: Oyun stüdyosu 6 aylık 90.000 TL'yi aktife kaydetmiş. Her ay 15.000 TL düşer (90.000÷6=15.000). Kasım-Aralık 2 ay, yani 30.000 TL cari döneme ait. Bu 30.000 TL'yi aktiften (180 hesabından alacak) çıkarıp gider hesabına (borç) aktarır.\n\nAkılda kalsın: Aktif geçici hesaplardan gidere geçiş, cari döneme isabet eden tutar kadardır."
+    "A": "Anomali ayıklama ile tabakalamayı karıştırıyor. Anomali ayıklama, tek seferlik olağandışı hataları popülasyondan çıkarmaktır; tabakalama ise benzer kalemleri gruplara ayırıp her gruptan ayrı örneklem seçmektir.",
+    "B": "Parasal birim örnekleme ile tabakalamayı karıştırıyor. Parasal birim örneklemede tutarı yüksek kalemler otomatik olarak seçilme şansı artar; tabakalamada ise gruplar elle oluşturulup her gruptan ayrı örneklem alınır.",
+    "C": "Ne soruluyor: Denetçinin stok listesini büyük ve küçük tutarlı kalemler olarak iki gruba ayırıp her gruptan ayrı örneklem seçme yöntemi hangi kavramdır?\n\nKural: Tabakalama, denetçinin popülasyonu benzer özelliklere göre alt gruplara böldüğü tekniktir. Her alt gruptan (tabakadan) ayrı örneklem seçer. Böylece önemli kalemler gözden kaçmaz.\n\nBu olayda: Denetçi 800 kalemi iki tabakaya ayırıyor. Birinci tabaka 50 yüksek tutarlı kalem, ikinci tabaka 750 düşük tutarlı kalem. Her tabakadan ayrı örneklem alacak.\n\nAkılda kalsın: Tabakalama, balıkları büyüklüklerine göre ağlara ayırmak gibidir—her ağdan ayrı numune alırsın.",
+    "D": "Blok seçim ile tabakalamayı karıştırıyor. Blok seçim, popülasyondan arka arkaya gelen birimleri (örneğin 50-75 arası numaralar) toplu almaktır; tabakalama ise özelliklere göre gruplar oluşturup her gruptan ayrı örneklem seçmektir.",
+    "E": "İstatistiksel olmayan örnekleme ile tabakalamayı karıştırıyor. İstatistiksel olmayan örnekleme, denetçinin yargısıyla seçim yapmasıdır; tabakalama ise sistematik olarak popülasyonu gruplara ayırıp her gruptan örneklem almaktır."
   },
-  "kaynak": "VUK m.283",
+  "kaynak": "BDS 530 Tanımlar md.5(f) ve Uygulama Rehberi A8",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Finansal Muhasebe — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Denetim — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 146,
+    "uygun_aday": 145,
     "yayindaki": 150,
-    "gecmiste": 4
+    "gecmiste": 5
   }
 }
