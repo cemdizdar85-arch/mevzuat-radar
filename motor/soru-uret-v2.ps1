@@ -54,6 +54,11 @@ param(
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# 07.08: sb_secret anahtar tarayici User-Agent'iyla REDDEDILIR ("Forbidden use of
+# secret API key in browser") - robot kimligi sart (karantina-tasi dersi; yerel
+# olcum kosusunda yakalandi, Actions'ta secret farkli tipte oldugundan gizliydi).
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 
