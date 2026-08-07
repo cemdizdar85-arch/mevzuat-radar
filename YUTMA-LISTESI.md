@@ -273,8 +273,15 @@ usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN alm
       + binek oto hadleri (46.000 kira / 1.200.000-1.380.000-2.600.000). Q5/Q12/Q15
       onarımlarının dayanağı. Günlük sınıfa alındı. (gvkgt334 tarife DEĞİL — nitelikli
       hizmet merkezi istisnası; etiket düzeltildi.)
-- [ ] Asgari ücret 2026 kararı — mevzuat.gov.tr tebliğ fihristinde YOK (ölçüldü);
-      RG'den `veri/mevzuat-hazir/asgariucret2026.txt` olarak gelecek.
+- [!] Asgari ücret 2026 kararı — 07.08 ÖLÇÜLDÜ: RG 26.12.2025 sayfası 20251226-6.pdf
+      TARANMIŞ GÖRÜNTÜ (pdftotext 64 karakter çöp), HTM sürümü YOK (404), GİB SPA
+      slug tahminleri 404. Rakamlar sitede ayrı kaynak damgasıyla yerleşik
+      (bilgi.html: 33.030/1.101, TÜRMOB maliyet). Yol: OCR ya da mevzuat.gov.tr
+      fihristine düşmesini bekle (fihrist nöbetçisi görecek).
+- [~] VUK GT 577 — 07.08: ANA METİN alındı → `veri/mevzuat-hazir/vukgt577.txt`
+      (RG 30.12.2024 M2-14.htm, windows-1254 çözümü). EK HAD LİSTESİ (M2-14-1.pdf)
+      TARANMIŞ — m.323'ün 20.000 eşiği hâlâ makine-okunamaz; dosyada dürüst
+      kürasyon notu var, OCR'lanınca ek eklenecek.
 - [ ] **KGK ek-alan tebliğ derinliği (06.08, emir #37 Faz 2):** SPK ikincil mevzuatı
       (II-5.1 İzahname, II-31 Borçlanma Araçları, VII-128.1 Pay Tebliği) + BDDK
       yönetmelikleri (Varlık Yönetim Şirketleri, Bankaların Kredi İşlemleri) +
