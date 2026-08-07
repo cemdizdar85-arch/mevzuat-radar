@@ -1017,18 +1017,26 @@ function TrSayi([string]$s){
   if([double]::TryParse($s, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
   return $null
 }
-$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
+$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*(?<esit>[=≈~])\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
 $reUyduruKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
 # 07.08 parantez destegi (aritmetik-kapisi ile IKIZ): "(a ± b) / c = d" once
 # ayri dogrulanir, kalan parantezler duz desene yarim girmesin diye silinir.
-$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
+$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*(?<esit>[=≈~])\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
 # 07.08 AKSAM ORAN DESENI (aritmetik-kapisi ile IKIZ; Cem %17,42 vakasi):
 # "(a/b) x 100 = %p" uc kor noktadan kaciyordu; oran toleransi hane-duyarli.
 $reOran = [regex]'\(?\s*(?<a>\d[\d\.]*(?:,\d+)?)\s*[/÷]\s*(?<b>\d[\d\.]*(?:,\d+)?)\s*\)?\s*[x×X*]\s*100\s*[=≈~]\s*%?\s*(?<son>\d[\d\.]*(?:,\d+)?)'
 function OranTol([string]$yazilan){
   $hane = 0
   if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
+}
+# 07.08 aksam-2 (aritmetik-kapisi ile IKIZ): '=' siki hane-duyarli, '≈/~' gevsek.
+function EsitTol([string]$op, [string]$yazilan, [double]$beklenen){
+  if($op -ne '='){ return [math]::Max([math]::Abs($beklenen)*0.005, 0.02) }
+  $hane = 0
+  if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  if($hane -eq 0){ return 1.02 }
   return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
 }
 function IslemDenetle([string]$metin){
@@ -1052,7 +1060,7 @@ function IslemDenetle([string]$metin){
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
     $bk = if($pm.Groups['op2'].Value -match '[x×X*]'){ $ic * $c } else { $ic / $c }
     if($pm.Groups['son'].Value -like '%*' -and [math]::Abs($bk) -lt 1.5){ $bk = $bk * 100.0 }
-    if([math]::Abs($bk - $sn) -gt [math]::Max([math]::Abs($bk)*0.005, 0.02)){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn } }
+    if([math]::Abs($bk - $sn) -gt (EsitTol $pm.Groups['esit'].Value $pm.Groups['son'].Value $bk)){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn } }
   }
   $metin = $reParen.Replace($metin, ' ')
   $metin = $metin -replace '\([^()]*\)', ' '
@@ -1095,7 +1103,7 @@ function IslemDenetle([string]$metin){
     if($null -eq $sv){ continue }
     if($sonS -like '%*' -and -not $hepsiYuzde -and [math]::Abs($b) -lt 1.5){ $b = $b * 100.0 }
     $fark = [math]::Abs($b - $sv)
-    $tol  = [math]::Max([math]::Abs($b) * 0.005, 0.02)
+    $tol  = EsitTol $m.Groups['esit'].Value $sonS $b
     if($fark -gt $tol){ $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv } }
   }
   return $bulgu   # ',$bulgu' YASAK - bos liste @(cmd) baglaminda 1 sayiliyordu (07.08)

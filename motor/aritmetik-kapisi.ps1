@@ -42,12 +42,12 @@ function TrSayi([string]$s){
   if([double]::TryParse($s, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){ return $d }
   return $null
 }
-$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*[=≈~]\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
+$reIslem = [regex]'(?<ifade>%?\d[\d\.]*(?:,\d+)?(?:\s*[+\-−x×X*/÷]\s*%?\d[\d\.]*(?:,\d+)?)+)\s*(?<esit>[=≈~])\s*(?<sonuc>-?%?\d[\d\.]*(?:,\d+)?)'
 $reToken = [regex]'(?<op>[+\-−x×X*/÷])|(?<say>%?\d[\d\.]*(?:,\d+)?)'
 # 07.08 (Cem'e soz: net rakam): PARANTEZ DESTEGI - "(a ± b) / c = d" kalibi
 # (ortalama/fark-boluk hesabi) once ayri dogrulanir, sonra metinden cikarilir;
 # yoksa duz desen paranteze yarim girip yanlis alarm uretiyordu ((4,5+5,6)/2 vakasi).
-$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*[=≈~]\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
+$reParen = [regex]'\(\s*(?<a>%?\d[\d\.]*(?:,\d+)?)\s*(?<op1>[+\-−])\s*(?<b>%?\d[\d\.]*(?:,\d+)?)\s*\)\s*(?<op2>[x×X*/÷])\s*(?<c>%?\d[\d\.]*(?:,\d+)?)\s*(?<esit>[=≈~])\s*(?<son>-?%?\d[\d\.]*(?:,\d+)?)'
 $reKalip = [regex]'(?i)(en yak[ıi]n\s+([şs][ıi]k|se[çc]enek|de[ğg]er)|yuvarlama\s+fark|kabul\s+ediyoruz|oldu[ğg]una\s+g[öo]re\s+kabul|[şs][ıi]klardaki\s+en\s+yak[ıi]n)'
 # 07.08 AKSAM (Cem %17,42 vakasi): ORAN DESENI - "(a / b) x 100 = %p" ve
 # parantezsiz "a / b x 100 = %p". Bu kalip UC kor noktadan kaciyordu:
@@ -59,6 +59,17 @@ $reOran = [regex]'\(?\s*(?<a>\d[\d\.]*(?:,\d+)?)\s*[/÷]\s*(?<b>\d[\d\.]*(?:,\d+
 function OranTol([string]$yazilan){
   $hane = 0
   if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
+}
+# 07.08 AKSAM-2 (Cem 322.490/120=2.695 vakasi): binde-5 GORELI tolerans buyuk
+# tutarlarda TL bazinda kocaman sapmayi yutuyordu (2.687,42'ye 13 TL pay!).
+# Yeni kural: '=' isareti SIKI hane-duyarli (tam sayida ±1,02 - kirpma payi;
+# virgullu yazimda yarim birim + pay); '≈/~' isareti eski gevsek toleransi korur.
+function EsitTol([string]$op, [string]$yazilan, [double]$beklenen){
+  if($op -ne '='){ return [math]::Max([math]::Abs($beklenen)*0.005, 0.02) }
+  $hane = 0
+  if($yazilan -match ',(\d+)\s*$'){ $hane = $Matches[1].Length }
+  if($hane -eq 0){ return 1.02 }
   return [math]::Max(0.6 * [math]::Pow(10, -$hane), 0.006)
 }
 
@@ -93,7 +104,7 @@ function IslemDenetle([string]$metin){
     $bk = if($pm.Groups['op2'].Value -match '[x×X*]'){ $ic * $c } else { $ic / $c }
     if($pm.Groups['son'].Value -like '%*' -and [math]::Abs($bk) -lt 1.5){ $bk = $bk * 100.0 }
     $fark2 = [math]::Abs($bk - $sn)
-    if($fark2 -gt [math]::Max([math]::Abs($bk)*0.005, 0.02)){
+    if($fark2 -gt (EsitTol $pm.Groups['esit'].Value $pm.Groups['son'].Value $bk)){
       $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$fark2/[math]::Max([math]::Abs($bk),0.0001),2) }
     }
   }
@@ -140,7 +151,7 @@ function IslemDenetle([string]$metin){
     # sonuc %'li, islenenler degilse: oran yuzdesi olabilir (0,2855 -> %28,55)
     if($sonS -like '%*' -and -not $hepsiYuzde -and [math]::Abs($b) -lt 1.5){ $b = $b * 100.0 }
     $fark = [math]::Abs($b - $sv)
-    $tol  = [math]::Max([math]::Abs($b) * 0.005, 0.02)
+    $tol  = EsitTol $m.Groups['esit'].Value $sonS $b
     if($fark -gt $tol){
       $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv; sapmaYuzde=[math]::Round(100*$fark/[math]::Max([math]::Abs($b),0.0001),2) }
     }
