@@ -42,7 +42,7 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 
 **GERÇEKTEN EKSİK — ikinci ölçümden sonra yalnızca 2 kaldı** *(ilk yazdığımda BOBİ/KÜMİ'yi de eksik sanmıştım — dosya adını yanlış aramışım: `bobi.json` değil `bobi-frs.json`. Ders: slug'ı script'ten oku, tahmin etme.)*
 - [x] **BOBİ FRS** — YUTULMUŞ (bobi-frs.json, 686 KB; ambarda **349 belge**, 02.08 gece teyitli).
-- ⏸️ **KÜMİ FRS — CEM KARARI 02.08: BEKLESİN, soru çıkarsa bakılır.** Durum: yalnız Kurum duyuru metni yutuldu (kumi-frs.json 3 KB, ambarda 1 belge); standardın kendi metni (22 bölüm, 104 sayfa, RG 16.01.2023-32075 mükerrer) yok. Gerekçe: KÜMİ FRS'yi bağımsız denetime tabi OLMAYAN, TFRS/BOBİ FRS uygulamayan küçük-mikro işletmeler kullanır — SMMM ve KGK sınavlarında çıkma ihtimali düşük; asıl ağırlık BOBİ FRS'de ve o yutuldu (349 belge). **Tetik:** kitapçık okuma hattı yeni bir dönemde KÜMİ FRS'den soru yakalarsa o zaman tam metin yutulur. Kovalamak yarım günlük iş, karşılığı belirsiz — o mesai onarım+üretime gidiyor.
+- [x] **KÜMİ FRS — YUTULDU 07.08 (Cem: "hepsini şuan kapat" — 02.08 beklesin kararı kaldırıldı).** kgk.gov.tr resmî PDF (Web Kurul Kararı enf adj; Kurul Kararı 20.12.2022, RG 16.01.2023-32075 mük.) → kumi-frs-standart slug'ı, **142 belge, kapsama %96,9 + uç-sonda VAR** (fark boşluk normalizasyonu). Eski kumi-frs slug'ı (yalnız duyuru) yerinde duruyor.
 - [x] **Yapılandırma/af kanunları:** 7440 · 7326 · 7143 · 6736 — 02.08 gece manifestin BAŞINA alındı ve yutma tetiklendi. Ölçüm şunu göstermişti: dördü de manifestte VARDI ama hiç yutulmamıştı (damga yok, dosya yok); ambardaki "2 belge" kanunun kendisi değil KDV Tebliği'nin onlardan bahseden pasajlarıydı. **Kök sebep:** günlük listede 127 kaynak, koşu tavanı 120 — sıra hiç gelmemiş. **Ders:** manifestte olmak yutulmuş olmak değildir; tavan/sıra kaynak düşürebilir, sonda ambar sayımı şart.
 - ⚠️ **"SDS 1" DİYE BİR STANDART YOK.** Listede öyle yazıyordu; KGK'nın gerçek metni **SGDS 5000 Sürdürülebilirlik Güvence Denetimlerine İlişkin Genel Hükümler** ve hâlâ **TASLAK** (kamuoyu görüşünde, kgk.gov.tr duyuru 5112). Taslak bağlayıcı değildir — yutulursa "yürürlükteki kural" sanılır. KGK sınavının (g) modülü için taslak ayrı bir `tur` etiketiyle (taslak-madde) yutulabilir ama SORU DAYANAĞI YAPILAMAZ; yürürlüğe girince gerçek metin yutulur.
 
@@ -106,7 +106,8 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 
 **B. MUHASEBE/DENETİM STANDARTLARI — asıl boşluk burada.**
 - [x] **BOBİ FRS** ✓ 02.08 yutuldu (bobi-frs.json 686 KB, ambarda 349 belge) — *bu bölüm 05.08'e kadar "YOK" diyordu; dosyalar tire'siz slug'la (tms20.json) dururken liste tire'li arandığı için bayat kalmış. Ders: listeyi değil depoyu say.*
-- ⏸️ **KÜMİ FRS** — Cem kararı 02.08: BEKLESİN (yalnız duyuru metni ambarda, 1 belge); ayrıntı yukarıda satır 45.
+- [x] **KÜMİ FRS** — 07.08 TAM METİN yutuldu (kumi-frs-standart, 142 belge); Cem "hepsini kapat" talimatıyla beklesin kalktı. Ayrıntı yukarıda.
+- [x] **SGDS 5000** — 07.08: hâlâ TASLAK (RG yok; KGK duyuru 5112) → kural bozulmadan `sgds5000-taslak` slug'ıyla, metnin BAŞINA "TASLAK — SORU DAYANAĞI YAPILAMAZ" damgası basılarak yutuldu (702 belge). RG'de yayımlanınca gerçek metinle değiştirilecek; yürürlük dayanağı GDS 3000+3410 olmaya devam ediyor.
 - [x] **TMS 20, 26, 32, 33, 34** ✓ depoda (tms20/26/32/33/34.json; ambar sayımı 02.08: TMS 33 → 90 belge)
 - [x] **TFRS 1, 2, 6, 11, 12, 14, 17, 18** ✓ depoda (tfrs*.json; ambar: TFRS 17 → 211, TFRS 18 → 23)
 - [x] **TSRS 1 / TSRS 2** ✓ depoda (tsrs1/tsrs2.json; ambar: 105 + 64 belge) — KGK (f) modülü kaynağı TAMAM
@@ -116,8 +117,8 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 **C. TEBLİĞLER — yapısal kusur bulundu ve düzeltildi.**
 - [x] 02.08: G9 (tebliğ) kaynakları günlük aynada **hiç yutulmuyordu** ("madde yapısı yok" diye atlanıyordu) — KDV GUT, VUK 509, KVK GUT, SPK II-17.1 bu yüzden tebliğ değişse bile eskiyordu. Bölüm parçalayıcısı eklendi, artık yutuluyorlar.
 - [~] **VUK Genel Tebliğleri (rakam taşıyanlar):** 02.08 — VUK GT 389 (amortisman faydalı ömür listeleri; mevzuatNo 12689, içerik teyitli) manifeste eklendi. **KALAN:** 333 ve ekleri, yeniden değerleme oranı tebliği (yıllık), enflasyon düzeltmesi tebliğleri. NOT: mevzuat.gov.tr'de her tebliğin ayrı MevzuatNo'su var ve numaradan tebliğ sırasına giden bir dizin yok — tek tek denemek yerine **tebliğ hasat robotu** yazılacak (MevzuatTur=9 fihristini tarayıp başlığı "VERGİ USUL KANUNU GENEL TEBLİĞİ" olanları toplar). Bu iş bedava ama yarım saatlik bir robot; bugün kurulamadıysa yarına kalır.
-- [ ] **MSUGT Sıra No: 2 ve 3** — yalnız No:1 ambarda. RG arşiv PDF'leri indirilebiliyor ama hangi sayının hangi tebliğ olduğu teyit edilmeden yutulmayacak (rakam disiplini: doğrulanmamış belge ambara girmez).
-- [ ] **Bağımsız Denetime Tabi Şirketlerin Belirlenmesine Dair CB Kararı** (11066) — eşik sayfası var ama karar metni ambarda değil.
+- [x] **MSUGT Sıra No: 2 ve 3 — YUTULDU 07.08.** Kimlikler İÇERİKTEN teyitli: No:2 = RG 16.12.1993/21790 (arsiv/21790.pdf, metinde "Sıra No: 2" başlığı görüldü, 14 belge, %94,5 + uç-sonda VAR); No:3 = RG 18.09.1994/22055 (arsiv/22055.pdf, "Sıra No : 3", 7/A-7/B aktif toplamı/net satış ölçütleri, 3 belge, %98,7). Not: 21790 dizgisi harf-aralıklıydı, otomatik birleştirildi (nadir bitişik kelime kalabilir — tereddütte arşiv PDF esas).
+- [x] **CB Kararı 11066** — 05.08 hazır metin (bdkarar11066) + 07.08 yeniden yutuldu; kapalı.
 
 ## 🎓 KGK BAĞIMSIZ DENETÇİLİK SINAVI HATTI (31.07.2026, Cem onayı: "daha erken varsa kuralım")
 *Hedef: üretim 4→5 Ağustos gecesi (SGS/Yeterlilik dilimleri bitince); Cem'in kontrol turu 5-6 Ağustos'a yetişir. İyi haber: TMS/TFRS/BDS setinin büyük kısmı 27.07'de zaten yutuldu (üstteki bölümler) — KGK için kalan boşluklar:*
@@ -273,15 +274,14 @@ usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN alm
       + binek oto hadleri (46.000 kira / 1.200.000-1.380.000-2.600.000). Q5/Q12/Q15
       onarımlarının dayanağı. Günlük sınıfa alındı. (gvkgt334 tarife DEĞİL — nitelikli
       hizmet merkezi istisnası; etiket düzeltildi.)
-- [!] Asgari ücret 2026 kararı — 07.08 ÖLÇÜLDÜ: RG 26.12.2025 sayfası 20251226-6.pdf
-      TARANMIŞ GÖRÜNTÜ (pdftotext 64 karakter çöp), HTM sürümü YOK (404), GİB SPA
-      slug tahminleri 404. Rakamlar sitede ayrı kaynak damgasıyla yerleşik
-      (bilgi.html: 33.030/1.101, TÜRMOB maliyet). Yol: OCR ya da mevzuat.gov.tr
-      fihristine düşmesini bekle (fihrist nöbetçisi görecek).
-- [~] VUK GT 577 — 07.08: ANA METİN alındı → `veri/mevzuat-hazir/vukgt577.txt`
-      (RG 30.12.2024 M2-14.htm, windows-1254 çözümü). EK HAD LİSTESİ (M2-14-1.pdf)
-      TARANMIŞ — m.323'ün 20.000 eşiği hâlâ makine-okunamaz; dosyada dürüst
-      kürasyon notu var, OCR'lanınca ek eklenecek.
+- [x] Asgari ücret 2026 kararı — KAPANDI 07.08 akşam: taranmış RG sayfası
+      (20251226-6.pdf) 150dpi görüntüye çevrilip GÖZLE birebir aktarıldı
+      (Karar 2025/1, 23/12/2025; günlük 1.101 TL 1/1-31/12/2026; destek 1.270 TL;
+      RG 26.12.2025-33119) → asgariucret2026 ambarda (kapsama %99,8).
+- [x] VUK GT 577 EK HAD LİSTESİ — KAPANDI 07.08 akşam: M2-14-1.pdf'in 5 sayfası
+      görüntüden GÖZLE tam aktarıldı (m.104 ilan → mük.413 katılma payı 0,35;
+      **m.323 şüpheli alacak 20.000 TEYİT**) → vukgt577ek yeniden yutuldu
+      (15 belge, uç-sonda VAR). Ana metin zaten vukgt577'deydi.
 - [ ] **KGK ek-alan tebliğ derinliği (06.08, emir #37 Faz 2):** SPK ikincil mevzuatı
       (II-5.1 İzahname, II-31 Borçlanma Araçları, VII-128.1 Pay Tebliği) + BDDK
       yönetmelikleri (Varlık Yönetim Şirketleri, Bankaların Kredi İşlemleri) +
