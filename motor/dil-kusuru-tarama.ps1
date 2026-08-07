@@ -205,6 +205,8 @@ Write-Host ("  3) SENARYO ADI: {0} farkli kisi / {1} farkli sirket" -f $kisiSay.
 # (eski-terim hacmi 245+ soru = onarim partisini buyutur -> UCRETLI genisleme,
 # Cem onayina sunulacak; rakamlar sabah raporunda).
 if($yaz){
+  # runner (ubuntu) 'curl.exe' adini tanimaz - platforma gore ad (07.08 dersi)
+  $curlAd = if($env:OS -match 'Windows'){ 'curl.exe' } else { 'curl' }
   $HW = $SB + @{ Prefer='return=minimal'; 'Content-Type'='application/json' }
   $notHarita = @{}
   foreach($s in $kasa){ $notHarita["$($s.id)"] = "$($s.yayin_notu)" }
@@ -229,7 +231,7 @@ if($yaz){
     # 6 sn soguma + bir tekrar.
     $kod = ''
     for($dn2=1; $dn2 -le 2; $dn2++){
-      $kod = & curl.exe -s -o NUL -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
+      $kod = & $curlAd -s -o ($(if($env:OS -match 'Windows'){'NUL'}else{'/dev/null'})) -w "%{http_code}" -X PATCH -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" -H "Prefer: return=minimal" -H "User-Agent: mevzuat-radar-robot/1.0" --data-binary "@$tmpG" ("$U`?id=eq." + $h.id)
       if("$kod" -eq '204'){ break }
       Start-Sleep -Seconds 6
     }
