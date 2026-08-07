@@ -1,0 +1,34 @@
+{
+  "_aciklama": "DAMGA SOZLUGU (07.08.2026, Cem: 'bunlarin sitemizde hic olmamasi icin ne yapmaliyiz - cok onemli'). Bir kez duzeltilen kaynak-atif hatasi BURAYA yazilir; yapisal denetci her push'ta TUM sayfalari tarar, yasakli es-gorunum yeniden belirirse deploy KIRMIZI. Altin-testin duzyazi surumu: duzeltme geriye gidemez.",
+  "_kural_bicimi": "iddia: sayfada aranan konu deseni (regex) | yasak: ayni SATIRDA gorulurse ihlal sayilan damga deseni | sart: satirda bu da YOKSA ihlal (bos ise yasak tek basina yeter) | ders: nereden geldigi",
+  "kurallar": [
+    {
+      "ad": "asgari-sermaye-7511",
+      "iddia": "asgari sermaye|Asgari sermaye",
+      "yasak": "7511",
+      "sart": "7887",
+      "ders": "13.07 provenance: 50k/250k tutarlarin kaynagi 7887 s. CB Karari (RG 25.11.2023); 7511 yalniz 31.12.2026 uyum suresi. 07.08: kurulus.html'de eski damga bulundu (veri duzeltilmis, duzyazi kacmisti)."
+    },
+    {
+      "ad": "kar-payi-stopaj-eski",
+      "iddia": "k[aâ]r pay[ıi].{0,40}stopaj|stopaj.{0,40}k[aâ]r pay[ıi]",
+      "yasak": "%\\s*10\\b",
+      "sart": "",
+      "ders": "13.07: ikincil ozet %10 diyordu; GIB birincil metni %15 (9286 s. CB Karari, RG 22.12.2024)."
+    },
+    {
+      "ad": "sgk-tavan-eski-kat",
+      "iddia": "prime esas kazan[cç]|SGK.{0,30}tavan|tavan.{0,30}SGK",
+      "yasak": "7,5 kat[ıi]?",
+      "sart": "",
+      "ders": "13.07: 5510 m.82 tavani 01.01.2026'dan 9 kat (7566 s.K., RG 19.12.2025); '7,5 kati' metni eskidi."
+    },
+    {
+      "ad": "yeterlilik-makine-serbest",
+      "iddia": "Yeterlilik.{0,80}hesap makinesi|hesap makinesi.{0,80}Yeterlilik",
+      "yasak": "serbest",
+      "sart": "",
+      "ders": "06.08: TURMOB YK 14.01.2026 - Yeterlilik oturumlarinda hesap makinesi KULLANILAMAZ; eski 'basit makine serbest' iddiasi geri gelemez."
+    }
+  ]
+}

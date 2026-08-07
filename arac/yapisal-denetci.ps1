@@ -346,6 +346,36 @@ try {
   }
 } catch { $uyarilar.Add("THP KOD-AD KAYMASI kapisi kosamadi: " + $_.Exception.Message) }
 
+# ============================================================================
+#  §12 — DAMGA SOZLUGU KALKANI (07.08.2026, Cem: "bunlarin sitemizde HIC
+#  olmamasi icin ne yapmaliyiz"). Bir kez duzeltilen kaynak-atif hatasi
+#  veri/damga-sozlugu.json'a yazilir; burada TUM kok HTML'ler taranir.
+#  Ayni SATIRDA iddia deseni + yasakli damga varsa (ve sart damgasi yoksa)
+#  deploy DURUR. Duzyazi, verinin korumasindan kacamaz artik.
+# ============================================================================
+try {
+  $dsYol = Join-Path $kok 'veri/damga-sozlugu.json'
+  if(Test-Path $dsYol){
+    $ds = Get-Content $dsYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $taranecek = Get-ChildItem (Join-Path $kok '*.html') -File | Where-Object { $_.Name -notmatch '^arsiv' }
+    $dsIhlal = 0
+    foreach($f in $taranecek){
+      $satirlar = [IO.File]::ReadAllLines($f.FullName, [Text.Encoding]::UTF8)
+      for($li=0; $li -lt $satirlar.Count; $li++){
+        $sat = $satirlar[$li]
+        foreach($kr in $ds.kurallar){
+          if($sat -notmatch $kr.iddia){ continue }
+          if($sat -notmatch $kr.yasak){ continue }
+          if("$($kr.sart)" -ne '' -and $sat -match $kr.sart){ continue }   # dogru damga da satirda -> temiz
+          Hata ("DAMGA SOZLUGU [{0}]: {1}:{2} - yasakli es-gorunum yeniden belirdi. Ders: {3}" -f $kr.ad, $f.Name, ($li+1), $kr.ders)
+          $dsIhlal++
+        }
+      }
+    }
+    Write-Host ("   Damga sozlugu: {0} kural x {1} sayfa tarandi, {2} ihlal." -f @($ds.kurallar).Count, @($taranecek).Count, $dsIhlal) -ForegroundColor DarkGray
+  }
+} catch { $uyarilar.Add("DAMGA SOZLUGU kapisi kosamadi: " + $_.Exception.Message) }
+
 ""
 if($uyarilar.Count -gt 0){
   Write-Host "UYARILAR ($($uyarilar.Count)):" -ForegroundColor Yellow
