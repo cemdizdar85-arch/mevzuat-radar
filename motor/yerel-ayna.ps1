@@ -77,6 +77,11 @@ Write-Host '=== YUTUCU ==='
 & (Join-Path $kok 'motor\mevzuat-yut.ps1')
 $yutKod = $LASTEXITCODE
 
+# 07.08: SORU-DAYANAK NOBETCISI - yutma sonrasi damgasi degisen maddeye
+# dayanan sorular otomatik cekilir (Cem'e verilen sozun zinciri).
+Write-Host '=== SORU-DAYANAK NOBETCISI ==='
+& (Join-Path $kok 'motor\soru-dayanak-nobetcisi.ps1')
+
 [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -Depth 4 -InputObject ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); makine='yerel (TR-IP)'
   indirilen=$ok; hazir=$hazir; onceden=$onceden; htmlRed=$htmlRed; agHata=$agHata; devreKesik=$kesik
@@ -88,6 +93,7 @@ $yutKod = $LASTEXITCODE
 # bosa dusurdu, commit atlandi. Klasor -A ile, rapor tek tek eklenir.
 git add -A veri/mevzuat
 git add veri/yerel-ayna-raporu.json
+git add veri/soru-dayanak-raporu.json 2>$null
 git diff --cached --quiet
 if($LASTEXITCODE -ne 0){
   git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' | Out-Null
