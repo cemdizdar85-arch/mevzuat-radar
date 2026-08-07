@@ -86,7 +86,9 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
 function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16) }
 
 $KEY = $env:SUPABASE_SERVICE_KEY
-$H = if($KEY){ @{ apikey=$KEY; Authorization="Bearer $KEY" } } else { $null }
+# 07.08: sb_secret anahtar robot User-Agent ister ("Forbidden use of secret API
+# key in browser") - UA'siz IRM tarayici sayilip TUM ekleri reddediyordu.
+$H = if($KEY){ @{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' } } else { $null }
 $degisen = New-Object System.Collections.Generic.List[string]
 
 foreach($law in $manifest.kanunlar){
@@ -170,7 +172,11 @@ foreach($law in $manifest.kanunlar){
   # metni ambarin disinda birakiyordu. Indirme gercekten bozuksa metin cok
   # kisadir; o durumda (<4.000 karakter) atlama korunur.
   if($docs.Count -lt 5){
-    if($flat.Length -lt 4000){ Write-Host ("UYARI cok kisa metin ({0} kr) -> {1}, atlandi (indirme bozuk)" -f $flat.Length, $law.ad); continue }
+    # 07.08: esik 4000 -> 300. Oran/had tebligleri (orn. VUK GT 585, 688 kr)
+    # GERCEKTEN tek paragraftir ve 4000 esigi onlari "bozuk" diye disarida
+    # birakiyordu. Bozuk-indirme riski artik kaynakta cozuldu: yerel-ayna
+    # %PDF imzasi dogruluyor, bot HTML'i buraya ulasamiyor.
+    if($flat.Length -lt 300){ Write-Host ("UYARI cok kisa metin ({0} kr) -> {1}, atlandi (indirme bozuk)" -f $flat.Length, $law.ad); continue }
     Write-Host ("MADDE DESENI TUTMADI ({0} parca) -> {1}: BOLUM parcalayicisi devrede" -f $docs.Count, $law.ad)
     $docs = New-Object System.Collections.Generic.List[object]
     $BOY = 1800; $d = 0; $n = 1
