@@ -1,11 +1,11 @@
 {
-  "tarih": "06.08.2026 23:35",
+  "tarih": "07.08.2026 17:17",
   "durum": "TAMAM",
-  "kasa": 29064,
-  "taranan_alan": 319788,
-  "toplam_uymuyor_cift": 8060,
+  "kasa": 30394,
+  "taranan_alan": 334421,
+  "toplam_uymuyor_cift": 8355,
   "deterministik_oneri": 323,
-  "supheli_dokunulmayan": 7737,
+  "supheli_dokunulmayan": 8032,
   "ilk_10_ornek": [
     {
       "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
@@ -16,6 +16,28 @@
       "yazili_ad": "Verilen Sipariş Avansları",
       "onerilen_kod": "159",
       "onerilen_ad": "VERİLEN SİPARİŞ AVANSLARI",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "02481def-c29b-4d16-a1d8-4a7cb6cabaca",
+      "ders": "Muhasebe Standartlari",
+      "alan": "siklar.A",
+      "yayinda": false,
+      "yazili_kod": "260",
+      "yazili_ad": "Genel Üretim Giderleri hesabında",
+      "onerilen_kod": "731",
+      "onerilen_ad": "Genel Üretim Giderleri Yansıtma Hesabı",
+      "guven": "DETERMINISTIK_TEK_ESLESME"
+    },
+    {
+      "soru_id": "02481def-c29b-4d16-a1d8-4a7cb6cabaca",
+      "ders": "Muhasebe Standartlari",
+      "alan": "siklar.D",
+      "yayinda": false,
+      "yazili_kod": "260",
+      "yazili_ad": "Genel Üretim Giderleri hesabında",
+      "onerilen_kod": "731",
+      "onerilen_ad": "Genel Üretim Giderleri Yansıtma Hesabı",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     },
     {
@@ -93,28 +115,6 @@
       "yazili_ad": "Hisse Senedi İptal Karları",
       "onerilen_kod": "521",
       "onerilen_ad": "HİSSE SENEDİ İPTAL KARLARI",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "07518966-c5b8-4eb9-86f7-b2e7fb72ed0b",
-      "ders": "Finansal Muhasebe",
-      "alan": "siklar.C",
-      "yayinda": false,
-      "yazili_kod": "181",
-      "yazili_ad": "GELECEK AYLARA AİT GİDERLER",
-      "onerilen_kod": "180",
-      "onerilen_ad": "Gelecek Aylara Ait Giderler",
-      "guven": "DETERMINISTIK_TEK_ESLESME"
-    },
-    {
-      "soru_id": "076e4db1-288d-4cb0-8ace-2cab8835cc26",
-      "ders": "Maliyet Muhasebesi",
-      "alan": "siklar.C",
-      "yayinda": false,
-      "yazili_kod": "153",
-      "yazili_ad": "YARI MAMULLER",
-      "onerilen_kod": "151",
-      "onerilen_ad": "YARI MAMULLER-ÜRETİM",
       "guven": "DETERMINISTIK_TEK_ESLESME"
     }
   ],
