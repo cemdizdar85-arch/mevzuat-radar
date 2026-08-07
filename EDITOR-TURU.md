@@ -1,0 +1,35 @@
+# EDİTÖR TURU ÇENTİK DOSYASI (görev #67)
+Kural: her sayfa okunur → dil ("annem bile anlasın"), vaat dürüstlüğü (kurulmamış
+özellik vaadi YASAK), rakam güncelliği (tarih damgalı), yapay-koku (klişe/tekdüze),
+iç tutarlılık (fiyat/tarih/menü). Biten sayfa TARİHLE işaretlenir — hafızaya değil
+bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
+
+## ✅ BİTENLER
+- [x] genc.html — 06.08 (2026 test düzeni + TÜRMOB kararı işlendi)
+- [x] fiyat.html — 06.08 (KGK 2.790; Yeterlilik tarih düzeltmesi daha eski)
+- [x] deneme.html — 06-07.08 (0,25 motoru + gelişim eğrisi turlarıyla birlikte)
+- [x] canli-deneme.html — 07.08 (salon motoru kurulurken baştan yazıldı)
+- [x] hatirlatici.html — 07.08 (vaat dürüstlüğü + "Karne aracı" bağlamı + dil)
+- [x] belge-kasasi.html — 07.08 (vaat dürüstlüğü; içerik rehberi okundu, temiz)
+- [x] alacak-radari.html — 07.08 (vaat: WhatsApp→e-posta)
+- [x] ihale-radari.html — 07.08 (vaat: WhatsApp→e-posta)
+- [x] radar-app.html — 07.08 (mail/SMS→e-posta)
+- [x] karsilastirma.html — 07.08 (3 paket fiyatı + soru sayısı 29.064 damgalı)
+- [x] songun.html — 07.08 (bina yasağı doğru; SGS'ye özel, temiz)
+- [x] kdv-iade-rehberi.html — 07.08 (90/30/7 hatırlatma cümlesi e-posta düzeniyle uyumlu)
+
+## ⬜ SIRADA (öncelik: müşteri-görünür → iç sayfa)
+- [~] index.html — 07.08: vaat (Mail+WhatsApp/SMS→dürüst), fiyat bölümü, klişe taraması TEMİZ; 1.191 satırın tam okuma turu sırada
+- [ ] tuzak.html
+- [ ] soru-cevap.html
+- [ ] karne.html
+- [ ] donem-plani.html
+- [ ] bilgi.html
+- [ ] iletisim.html
+- [ ] kurulus.html · kurulus-evrak.html
+- [ ] gtip.html · risk-taramasi.html · senaryo-raporu.html · fiyatfarki.html · hizmet.html
+- [ ] ceza-asistani.html · asgari-kv.html · destekler.html
+- [ ] marka-radari.html · marka-itiraz.html · tetikte-marka.html
+- [ ] evrak-radari.html · fis-fabrikasi.html · kartlar.html · radar.html
+- [ ] kvkk.html · mesafeli-satis.html · teslimat-iade.html · uyelik-sozlesmesi.html (hukuki — avukat onayıyla birlikte)
+- [ ] tetikte-kurulum.html · kontrol-listesi.html (iç belgeler, düşük öncelik)
