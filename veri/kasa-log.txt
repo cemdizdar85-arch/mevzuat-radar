@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260806101839
+Start time: 20260807055707
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/03899856-b63d-43e7-b4f8-c012dcfa16fd.ps1'
-Process ID: 2281
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d1c4bca2-b194-4b83-b5f8-2e9c5dd54c98.ps1'
+Process ID: 2249
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -18,7 +18,7 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 KASA SAYIMI basliyor... (kuyruk yenileme)
-  TOPLAM: 29064 soru
+  TOPLAM: 30081 soru
   ...1000
   ...2000
   ...3000
@@ -48,15 +48,16 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
   ...27000
   ...28000
   ...29000
-  cekilen: 29064
+  ...30000
+  cekilen: 30081
 
 ================ KASA SAYIMI ================
-  TOPLAM SORU : 29064
+  TOPLAM SORU : 30081
 
   --- sinav bazinda
      SGS        15477
      SMMM       12445
-     KGK        1142
+     KGK        2159
 
   --- ders bazinda
      Finansal Muhasebe                  9106
@@ -65,11 +66,11 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      Hukuk                              2132
      Yabanci Dil                        1560
      Mali Tablolar Analizi              1504
+     Muhasebe Standartlari              1013
+     Denetim Standartlari               967
      Muh. ve Mali Müş. Meslek Hukuku    920
      Turkce                             916
      Denetim                            868
-     Muhasebe Standartlari              516
-     Denetim Standartlari               447
      Is ve Sosyal Guvenlik Hukuku       446
      Sermaye Piyasası Mevzuatı          431
      Ticaret Hukuku                     410
@@ -86,7 +87,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      Matematik                          74
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 22203
+     mevzuata dayanan (madde bagi kurulabilir) : 23220
      mevzuat disi (dil/matematik/teori)        : 6861
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
@@ -106,24 +107,24 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
       113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      113x  Finansal Muhasebe|gider yansitma kaydi
       113x  Finansal Muhasebe|amortisman ayirma
+      113x  Finansal Muhasebe|gider yansitma kaydi
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
        95x  Finansal Muhasebe|hisse senedi satisi
 
   --- tekil konu sayisi: 2079
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-     bakilan          29064
+     bakilan          30081
      placeholder      43
      hepsiYuvarlak    264
-     klise            35
+     klise            37
      tekduzeTuzak     0
-     toplamIzli       335
-     IZLI ORAN      : %1.2
--> veri/koku-izli.json  (335 kimlik, uslup turu icin)
+     toplamIzli       337
+     IZLI ORAN      : %1.1
+-> veri/koku-izli.json  (337 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (4 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 29064
+     KASADA yayin=false (denetim bekleyen) : 30081
      ...cekilen 1000
      ...cekilen 2000
      ...cekilen 3000
@@ -147,7 +148,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      ...cekilen 21000
      GUVENLIK DURDURMASI: 20.000 asildi
      cekilen yayin=false kayit: 21000
-     UYARI: sayim 29064 diyor, cekim 21000 getirdi - EKSIK.
+     UYARI: sayim 30081 diyor, cekim 21000 getirdi - EKSIK.
        Denetim                            1
        Finansal Muhasebe                  1
        Finansal Tablolar ve Analizi       1
@@ -170,10 +171,10 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      standart+THP orani: %40.7
 
 -> veri/kasa-sayim.json
--> veri/vitrin-sayilar.json  (soru 29064, hakem 7224)
+-> veri/vitrin-sayilar.json  (soru 30081, hakem 7224)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260806102008
+End time: 20260807055857
 **********************
