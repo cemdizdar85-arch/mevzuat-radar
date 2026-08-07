@@ -22,7 +22,7 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 - [~] index.html — 07.08: vaat (Mail+WhatsApp/SMS→dürüst), fiyat bölümü, klişe taraması TEMİZ; 1.191 satırın tam okuma turu sırada
 - [x] tuzak.html — 07.08 (soru sayısı 29.000+ güncellendi; ton temiz)
 - [x] soru-cevap.html — 07.08 (risk taraması temiz)
-- [~] karne.html — 07.08 risk-grep temiz; tam okuma sırada
+- [x] karne.html — 07.08 TAM OKUNDU: eşik notu tarih damgalı, gizlilik açık, CTA dürüst, Eşik Rehberi linki canlı; eşik DEĞERLERİNİN nüans denetimi #42 kapsamında (ayrı iş)
 - [x] donem-plani.html — 07.08 (tarihler robot nöbetli + elle teyit notlu)
 - [x] bilgi.html — 07.08 (asgari ücret bloğu kaynak damgalı + iç tutarlı; 9-kat tavan doğru)
 - [x] iletisim.html — 07.08 (temiz)
