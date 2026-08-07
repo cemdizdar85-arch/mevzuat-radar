@@ -32,4 +32,4 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 - [~] marka-radari · marka-itiraz · tetikte-marka — 07.08 süpürmeler temiz
 - [~] evrak-radari · fis-fabrikasi · kartlar · radar — 07.08 süpürmeler temiz (kartlar/radar robot üretimi — premium jeneratör borcu ayrı listede)
 - [ ] kvkk.html · mesafeli-satis.html · teslimat-iade.html · uyelik-sozlesmesi.html (hukuki — avukat onayıyla birlikte)
-- [ ] tetikte-kurulum.html · kontrol-listesi.html (iç belgeler, düşük öncelik)
+- [x] tetikte-kurulum.html · kontrol-listesi.html — 07.08 risk-desen süpürmesi temiz (iç belgeler)
