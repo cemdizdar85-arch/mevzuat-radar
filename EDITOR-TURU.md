@@ -26,7 +26,7 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 - [x] donem-plani.html — 07.08 (tarihler robot nöbetli + elle teyit notlu)
 - [x] bilgi.html — 07.08 (asgari ücret bloğu kaynak damgalı + iç tutarlı; 9-kat tavan doğru)
 - [x] iletisim.html — 07.08 (temiz)
-- [~] kurulus.html · kurulus-evrak.html — 07.08 risk-grep temiz; tam okuma sırada
+- [x] kurulus.html — 07.08 TAM OKUNDU + PROVENANCE DÜZELTMESİ: asgari sermaye tutar kaynağı 7511→7887 CB Kararı (3 yerde; takvim satırındaki 7511 uyum-süresi bağlamında DOĞRU, korundu) · kurulus-evrak süpürme temiz
 - [~] gtip · risk-taramasi · senaryo-raporu · fiyatfarki · hizmet — 07.08 üç-desen süpürmesi (2025-kalıntı/TASLAK/çift-boşluk) + vaat + fiyat süpürmeleri TEMİZ; derin okuma açılış sonrası
 - [~] ceza-asistani · asgari-kv · destekler — 07.08 süpürmeler temiz; derin okuma açılış sonrası
 - [~] marka-radari · marka-itiraz · tetikte-marka — 07.08 süpürmeler temiz
