@@ -28,11 +28,21 @@ jobs:
       - name: Commit (SESSIZ BASARISIZLIK YASAK)
         if: always()
         run: |
+          # 07.08 dersi: bot commit yagmurunda pull --rebase rapor dosyasinda
+          # cakisip mid-rebase kaliyordu (16:09 vakasi). Yeni usul idempotent:
+          # her denemede origin/main'e sifirla, raporu ustune koy, commit+push.
           set -e
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           if [ ! -f veri/dil-kusuru-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
-          git add veri/dil-kusuru-raporu.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "Dil kusuru taramasi [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          cp veri/dil-kusuru-raporu.json /tmp/dil-raporu.json
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/dil-raporu.json veri/dil-kusuru-raporu.json
+            git add veri/dil-kusuru-raporu.json
+            git diff --cached --quiet || git commit -m "Dil kusuru taramasi [veri-operasyonu]"
+            git push origin HEAD:main && exit 0
+            sleep $((i*5))
+          done
           echo "!! PUSH TUTMADI"; exit 1
