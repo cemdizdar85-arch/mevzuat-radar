@@ -1,0 +1,52 @@
+# .github/workflows/onarim-uygula.yml — ONARIM UYGULAYICI (0 USD, AI cagrisi YOK)
+# GM-onayli taslaklari kasaya basar (yayin=false + hakem kuyrugu). Neden runner:
+# yerel modem seri PATCH'leri kesiyor (07.08 ag dersi #3).
+# GUVENLIK: -onayliDosya repodaki id listesidir (yalniz uuid, icerik yok);
+# taslak icerigi OZEL kovadan runner icinde okunur, repoya yazilmaz.
+# Once OLCUM kosar; yaz tetiginde 'YAZ' kelimesi varsa -yaz ile uygular.
+name: Onarim Uygula
+on:
+  push:
+    paths:
+      - 'veri/tetik/onarim-uygula.txt'
+  workflow_dispatch:
+    inputs:
+      yaz:
+        description: 'YAZ yazilirsa gercek uygulama; bos = olcum'
+        required: false
+        default: ''
+permissions:
+  contents: write
+concurrency:
+  group: onarim-uygula
+  cancel-in-progress: false
+jobs:
+  uygula:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Uygula / Olc
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $onayli = 'veri/gm-onay-guncel.txt'
+          if(-not (Test-Path $onayli)){ Write-Host 'onayli dosya yok - cikildi'; exit 0 }
+          # yaz karari: dispatch girdisi YA DA tetik dosyasinin son satiri 'YAZ' iceriyorsa
+          $yazMi = $false
+          if('${{ github.event.inputs.yaz }}' -eq 'YAZ'){ $yazMi = $true }
+          elseif(Test-Path 'veri/tetik/onarim-uygula.txt'){
+            $son = @(Get-Content 'veri/tetik/onarim-uygula.txt' | Where-Object { $_.Trim() }) | Select-Object -Last 1
+            if($son -match '\bYAZ\b'){ $yazMi = $true }
+          }
+          if($yazMi){ ./motor/onarim-uygula.ps1 -onayliDosya $onayli -yaz } else { ./motor/onarim-uygula.ps1 -onayliDosya $onayli }
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/onarim-uygula-raporu.json ]; then git add veri/onarim-uygula-raporu.json || true; fi
+          git diff --cached --quiet || git commit -m "Onarim uygulayici raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true

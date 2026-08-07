@@ -40,19 +40,31 @@ Write-Host ("GM-onayli id: {0}" -f $onayli.Count)
 if(-not $onayli.Count){ Write-Host 'onayli id yok - cikildi'; exit 0 }
 
 # --- kovadaki taslak dosyalarini indeksle (etiket klasorleri)
-$tmpL=[IO.Path]::GetTempFileName()
-[IO.File]::WriteAllText($tmpL,'{"prefix":"ic-tutarlilik-onar","limit":100,"offset":0}')
-$kokler = & curl.exe -s -X POST -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Authorization: Bearer $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" --data-binary "@$tmpL" "$STOR/object/list/$KOVA" | ConvertFrom-Json
+# 07.08 dersi: curl.exe ubuntu'da yok; listeleme Invoke-RestMethod + offset dongusu
+# (runner'da kosar; yerelde modem POST listelemeyi kesiyor - bu script RUNNER isidir)
+$SBJ = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'Content-Type'='application/json' }
+function KovaListele([string]$onek){
+  $tum=@(); $offset=0
+  while($true){
+    $govde = '{"prefix":"' + $onek + '","limit":1000,"offset":' + $offset + '}'
+    $parca = @(Invoke-RestMethod -Uri "$STOR/object/list/$KOVA" -Method Post -Headers $SBJ -Body $govde -TimeoutSec 90 | ForEach-Object { $_ })
+    $tum += $parca
+    if($parca.Count -lt 1000){ break }
+    $offset += 1000
+  }
+  return $tum
+}
+$kokler = @(KovaListele 'ic-tutarlilik-onar')
 $taslakYol = @{}
-foreach($kk in @($kokler)){
-  [IO.File]::WriteAllText($tmpL, ('{"prefix":"ic-tutarlilik-onar/' + $kk.name + '","limit":5000,"offset":0}'))
-  $dl = & curl.exe -s -X POST -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Authorization: Bearer $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" --data-binary "@$tmpL" "$STOR/object/list/$KOVA" | ConvertFrom-Json
-  foreach($ds in @($dl)){
+foreach($kk in $kokler){
+  if($null -ne $kk.id){ continue }   # kok seviyesinde dosya degil klasor bekliyoruz
+  $dl = @(KovaListele ('ic-tutarlilik-onar/' + $kk.name))
+  foreach($ds in $dl){
+    if($null -eq $ds.id){ continue }
     $id = "$($ds.name)" -replace '\.json$',''
     if(-not $taslakYol.ContainsKey($id)){ $taslakYol[$id] = 'ic-tutarlilik-onar/' + $kk.name + '/' + $ds.name }
   }
 }
-Remove-Item $tmpL -Force -ErrorAction SilentlyContinue
 Write-Host ("kovada taslak: {0} tekil id" -f $taslakYol.Count)
 
 Add-Type -AssemblyName System.Net.Http
