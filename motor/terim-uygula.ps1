@@ -307,13 +307,17 @@ for($b2=0; $b2 -lt $kontrolId.Count; $b2+=50){
   $liste = ($dilim | ForEach-Object { '"' + $_ + '"' }) -join ','
   foreach($s in (CekListe "$U`?select=id,soru,siklar,aciklama,hap&id=in.($liste)")){
     if($null -eq $s){ continue }
-    $t = "$($s.soru) $($s.hap)"
-    try { if($s.siklar){   foreach($p in $s.siklar.PSObject.Properties){   $t += ' ' + "$($p.Value)" } } } catch {}
-    try { if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $t += ' ' + "$($p.Value)" } } } catch {}
-    # 07.08: kural-bagimsiz geri okuma - Donustur hala degisiklik istiyorsa
-    # eski terim kalmis demektir (tirnak-korumali kanun alintilari Donustur'da
-    # da atlandigi icin yanlis alarm uretmez).
-    if((Donustur $t) -ne $t){ $kalanEskiTerim++ }
+    # 07.08 GECE DERSI: alanlar BIRLESTIRILEREK denetlenince tek tirnakli bir
+    # alan sonraki alanlarin tirnak PARITESINI bozuyor ve sahte "kalan" sayiyordu
+    # (BAS kosusu 1 sahte kalanla KIRMIZI bitti; bagimsiz olcumde gercek kalan 0).
+    # Geri okuma ALAN ALAN yapilir - uygulama da alan alan calisiyor, birebir ayni.
+    $alanlar = New-Object System.Collections.Generic.List[string]
+    $alanlar.Add("$($s.soru)"); $alanlar.Add("$($s.hap)")
+    try { if($s.siklar){   foreach($p in $s.siklar.PSObject.Properties){   $alanlar.Add("$($p.Value)") } } } catch {}
+    try { if($s.aciklama){ foreach($p in $s.aciklama.PSObject.Properties){ $alanlar.Add("$($p.Value)") } } } catch {}
+    foreach($al in $alanlar){
+      if($al.Trim() -and ((Donustur $al) -ne $al)){ $kalanEskiTerim++; break }
+    }
   }
 }
 RaporYaz ([ordered]@{
