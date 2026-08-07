@@ -1,5 +1,5 @@
 {
-  "tarih": "07.08.2026 17:26",
+  "tarih": "07.08.2026 17:55",
   "durum": "TAMAM",
   "mod": "OLCUM (0 USD, yazma yok)",
   "kasa": 30394,
@@ -54,6 +54,30 @@
         "3b96dc62-9a8b-4843-befb-332622613c15",
         "7184cd50-a937-492e-9320-78cc60f9106e"
       ]
+    },
+    {
+      "terim": "sapkasiz kar-dativ (ara/net/brut/donem kara)",
+      "soru": 81,
+      "dogrusu": "... kâra (şapkalı; kâr kelimesinin -e hâli)",
+      "ornek_id": [
+        "03969609-73cf-4674-ab07-b5c503758ba0",
+        "041a6dac-4c90-4b47-a797-d1792c341054",
+        "0769a957-f5e5-4c23-be1c-cd6847381d76",
+        "0d331a22-2c79-46c2-9d70-ad04fe8f9ea1",
+        "104c4a5c-edfe-410d-9b0e-e895005642dd"
+      ]
+    },
+    {
+      "terim": "kara bolme/bolunur (bozuk)",
+      "soru": 23,
+      "dogrusu": "kârı ...ya bölme (neye bölündüğü açıkça yazılır)",
+      "ornek_id": [
+        "03969609-73cf-4674-ab07-b5c503758ba0",
+        "0769a957-f5e5-4c23-be1c-cd6847381d76",
+        "082fb05a-e7f3-42f2-8b7b-22d11379287a",
+        "1087ce3f-f3c4-402d-936a-24a34eb7caec",
+        "1d64d4b4-0257-41df-b645-0b0d5b7ff9c5"
+      ]
     }
   ],
   "iki_eski_terim": [
@@ -70,15 +94,9 @@
       "dogrusu": "üretilen mamul"
     },
     {
-      "terim": "isbu",
-      "toplam_soru": 5,
-      "KEHRIBAR_KARTTA": 0,
-      "dogrusu": "bu"
-    },
-    {
       "terim": "iptidai madde",
-      "toplam_soru": 231,
-      "KEHRIBAR_KARTTA": 31,
+      "toplam_soru": 2,
+      "KEHRIBAR_KARTTA": 0,
       "dogrusu": "ilk madde ve malzeme (kanun alintisi istisna)"
     }
   ],
@@ -265,6 +283,6 @@
     "zatenVar": 4,
     "hata": 158,
     "kanal": "HttpClient tek-baglanti",
-    "zaman": "07.08.2026 17:54"
+    "zaman": "07.08.2026 18:23"
   }
 }
