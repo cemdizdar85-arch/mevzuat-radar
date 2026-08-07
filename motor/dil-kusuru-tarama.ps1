@@ -80,6 +80,11 @@ $UYDURMA = @(
   @{ ad='kismi donemli';           desen='(?i)k[ıi]smi\s+dönemli';                    dogrusu='dönemin bir kısmına ait' }
   @{ ad='coklu donem';             desen='(?i)çoklu\s+dönem';                         dogrusu='birden fazla dönem' }
   @{ ad='gider yazimi (tek kelime)'; desen='(?i)giderle[şs]tirme\s+i[şs]lemi';        dogrusu='gider kaydı' }
+  # 07.08 aksam (Cem "ara kara / kara bolme" vakasi): sapkasiz kar-dativ cumleyi
+  # anlamsizlastiriyor ("baska bir kara bolme"). kara=toprak/renk anlamlariyla
+  # karismasin diye yalniz mali baglamdaki on-ekli bicimler taranir.
+  @{ ad='sapkasiz kar-dativ (ara/net/brut/donem kara)'; desen='(?i)\b(ara|net|br[üu]t|dönem)\s+kara\b'; dogrusu='... kâra (şapkalı; kâr kelimesinin -e hâli)' }
+  @{ ad='kara bolme/bolunur (bozuk)';                   desen='(?i)\bkara\s+böl';                       dogrusu='kârı ...ya bölme (neye bölündüğü açıkça yazılır)' }
 )
 # --- 2) ESKI TERIMLER (ozellikle hap/kehribar kartta) ---
 $ESKI = @(
