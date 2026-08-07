@@ -181,20 +181,31 @@ if($yaz){
   }
   $cvp.Dispose(); $istek.Dispose()
   if($kolonVar){
+    # 08.08 dersi: tek tek PATCH 30 bin satirda 150 dk suruyor, workflow tavani
+    # 120 dk - kosu rapor yazamadan olurdu. TOPLU UPSERT (merge-duplicates):
+    # 500'luk partiler, ~61 istek. Id'ler zaten var, upsert UPDATE gibi calisir.
+    $parti = New-Object System.Collections.Generic.List[object]
+    function PartiGonder(){
+      if($script:parti.Count -eq 0){ return }
+      $j = ConvertTo-Json -InputObject @($script:parti.ToArray()) -Depth 4 -Compress
+      try {
+        $i2 = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::Post), $script:U
+        $i2.Content = New-Object System.Net.Http.StringContent ($j, [Text.Encoding]::UTF8, 'application/json')
+        $i2.Headers.Add('Prefer','resolution=merge-duplicates,return=minimal')
+        $c2 = $script:hc.SendAsync($i2).GetAwaiter().GetResult()
+        if([int]$c2.StatusCode -in @(200,201,204)){ $script:yazilan += $script:parti.Count }
+        else { $script:yazHata += $script:parti.Count; if($script:yazHata -le 500){ Write-Host ("  parti HATA kod {0}: {1}" -f [int]$c2.StatusCode, ($c2.Content.ReadAsStringAsync().GetAwaiter().GetResult())) } }
+        $c2.Dispose(); $i2.Dispose()
+      } catch { $script:yazHata += $script:parti.Count }
+      $script:parti.Clear()
+    }
     foreach($s in $kasa){
       $id = "$($s.id)"
       $g = $null; if($grupHarita.ContainsKey($id)){ $g = $grupHarita[$id] }
-      $gov2 = ConvertTo-Json -Compress -InputObject ([ordered]@{ zorluk=[int]$zorlukHarita[$id]; benzer_grup=$g })
-      try {
-        $i2 = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ("$U`?id=eq." + $id)
-        $i2.Content = New-Object System.Net.Http.StringContent ($gov2, [Text.Encoding]::UTF8, 'application/json')
-        $i2.Headers.Add('Prefer','return=minimal')
-        $c2 = $hc.SendAsync($i2).GetAwaiter().GetResult()
-        if([int]$c2.StatusCode -eq 204){ $yazilan++ } else { $yazHata++ }
-        $c2.Dispose(); $i2.Dispose()
-      } catch { $yazHata++ }
-      if(($yazilan % 500) -eq 0 -and $yazilan -gt 0){ Write-Host ("  yazildi: {0}" -f $yazilan) }
+      $parti.Add([ordered]@{ id=$id; zorluk=[int]$zorlukHarita[$id]; benzer_grup=$g })
+      if($parti.Count -ge 500){ PartiGonder; Write-Host ("  yazildi: {0}" -f $yazilan) }
     }
+    PartiGonder
   }
 }
 $hc.Dispose()
