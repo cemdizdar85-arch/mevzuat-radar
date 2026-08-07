@@ -1,0 +1,59 @@
+# .github/workflows/soru-nitelik.yml — SORU NITELIGI (0 USD, AI cagrisi YOK)
+# benzer_grup (ayni kurali olcen sorular) + zorluk (1/2/3) hesaplar.
+# Varsayilan OLCUM; tetik dosyasinin son satirinda YAZ varsa kasaya yazar.
+# Kolonlar yoksa yazmayi atlar ve raporda "KOLON-YOK" der (once SQL sart:
+# radar-app/sql/2026-08-07-soru-nitelik.sql).
+name: Soru Niteligi (0 USD)
+on:
+  push:
+    paths:
+      - 'veri/tetik/soru-nitelik.txt'
+      - 'motor/soru-nitelik.ps1'
+  workflow_dispatch:
+    inputs:
+      yaz:
+        description: 'YAZ yazilirsa kasaya yazar'
+        required: false
+        default: ''
+permissions:
+  contents: write
+concurrency:
+  group: soru-nitelik
+  cancel-in-progress: false
+jobs:
+  hesapla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hesapla
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $yaz = '${{ github.event.inputs.yaz }}'
+          if(-not $yaz -and (Test-Path veri/tetik/soru-nitelik.txt)){
+            $yaz = (Get-Content veri/tetik/soru-nitelik.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim()
+          }
+          if($yaz -match 'YAZ'){ ./motor/soru-nitelik.ps1 -yaz } else { ./motor/soru-nitelik.ps1 }
+      - name: Rapor commit (kor kalma kurali)
+        if: always()
+        run: |
+          # 07.08 dersi: bot commit yagmurunda pull --rebase cakisiyordu -
+          # idempotent usul (dil workflow'undaki ile ayni).
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/soru-nitelik-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
+          cp veri/soru-nitelik-raporu.json /tmp/nitelik-rapor.json
+          cp veri/soru-nitelik.json /tmp/nitelik.json 2>/dev/null || true
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/nitelik-rapor.json veri/soru-nitelik-raporu.json
+            cp /tmp/nitelik.json veri/soru-nitelik.json 2>/dev/null || true
+            git add veri/soru-nitelik-raporu.json veri/soru-nitelik.json
+            git diff --cached --quiet || git commit -m "Soru nitelik raporu [veri-operasyonu]"
+            git push origin HEAD:main && exit 0
+            sleep $((i*5))
+          done
+          echo "!! PUSH TUTMADI"; exit 1
