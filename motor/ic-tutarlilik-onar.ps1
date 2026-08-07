@@ -114,6 +114,30 @@ Write-Host ("Hedef soru: {0}" -f $hedef.Count)
 if($hedef.Count -eq 0){ RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='IS YOK'; not='ic-tutarlilik isaretli soru bulunamadi' }); exit 0 }
 if($sinir -gt 0){ $hedef = $hedef | Select-Object -First $sinir }
 
+# --- KALDIGI YERDEN DEVAM (07.08 dersi: 5 saatlik timeout iki kosuyu bastan
+# baslatti, ilk ~490 soru IKI KEZ onarildi). Kovadaki TUM etiket klasorlerinde
+# taslagi olan id'ler hedeften dusulur - tekrar odeme YOK.
+$mevcutTaslak = @{}
+try {
+  $tmpL = [IO.Path]::GetTempFileName()
+  [IO.File]::WriteAllText($tmpL, '{"prefix":"ic-tutarlilik-onar","limit":100,"offset":0}')
+  $kokler = & curl.exe -s -X POST -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Authorization: Bearer $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" --data-binary "@$tmpL" "$STOR/object/list/$KOVA" | ConvertFrom-Json
+  foreach($kk in @($kokler)){
+    [IO.File]::WriteAllText($tmpL, ('{"prefix":"ic-tutarlilik-onar/' + $kk.name + '","limit":5000,"offset":0}'))
+    $dosyalar = & curl.exe -s -X POST -H "apikey: $($env:SUPABASE_SERVICE_KEY)" -H "Authorization: Bearer $($env:SUPABASE_SERVICE_KEY)" -H "Content-Type: application/json" --data-binary "@$tmpL" "$STOR/object/list/$KOVA" | ConvertFrom-Json
+    foreach($ds in @($dosyalar)){ $mevcutTaslak[("$($ds.name)" -replace '\.json$','')] = 1 }
+  }
+  Remove-Item $tmpL -Force -ErrorAction SilentlyContinue
+} catch { Write-Host ('taslak listesi okunamadi (devam korumasiz): ' + $_.Exception.Message) }
+$onceki = $hedef.Count
+$hedef = @($hedef | Where-Object { -not $mevcutTaslak.ContainsKey("$($_.id)") })
+Write-Host ("Kaldigi yerden: {0} zaten taslakli atlandi, kalan {1}" -f ($onceki - $hedef.Count), $hedef.Count)
+if($hedef.Count -eq 0){ RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'; not='tum hedeflerin taslagi zaten kovada - yeni cagri yok, 0 USD' }); exit 0 }
+
+# IC SURE BEKCISI: is 265 dakikayi asarsa temiz kapan, rapor YAZ (timeout
+# iptali rapor adimini olduruyordu - kor kalma yasak).
+$basZaman = Get-Date
+
 # --- ucus oncesi: kova OZEL mi + deneme yazmasi (03.08 dersi: para gitmeden dogrula)
 try {
   $kh = Invoke-WebRequest -Uri "$STOR/bucket/$KOVA" -Headers $SB -UseBasicParsing -TimeoutSec 60
@@ -134,6 +158,7 @@ try {
 $tIn=0; $tOut=0; $basarili=0; $kapiRed=0; $islenmeyen=@(); $harcKesildi=$false
 for($n=0; $n -lt $hedef.Count; $n++){
   $s = $hedef[$n]
+  if(((Get-Date) - $basZaman).TotalMinutes -gt 265){ $harcKesildi=$true; Write-Host ('!! SURE BEKCISI: 265 dk doldu, temiz kapanis (kalan {0} sonraki kosuda).' -f ($hedef.Count - $n)); break }
   $maliyet = $tIn*$FIY_IN + $tOut*$FIY_OUT
   if($maliyet -gt $TAVAN_USD){ $harcKesildi=$true; Write-Host ('!! EMNIYET KEMERI: {0:N2} USD asildi, parti durdu.' -f $maliyet); break }
   $kusur = "$($s.yayin_notu)" -replace '^ic-tutarlilik denetimi [\d\.]+:\s*','' -replace '^aritmetik kapisi [\d\.]+:\s*','ARITMETIK: ' -replace '^dil-kusuru [\d\.]+:\s*','DIL: '
