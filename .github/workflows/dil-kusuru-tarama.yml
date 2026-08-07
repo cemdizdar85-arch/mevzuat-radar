@@ -5,7 +5,7 @@
 name: Dil Kusuru Taramasi (0 USD)
 on:
   push:
-    paths: ['motor/dil-kusuru-tarama.ps1', '.github/workflows/dil-kusuru-tarama.yml']
+    paths: ['motor/dil-kusuru-tarama.ps1', '.github/workflows/dil-kusuru-tarama.yml', 'veri/tetik/dil-kusuru.txt']
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,7 +21,10 @@ jobs:
       - shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: ./motor/dil-kusuru-tarama.ps1
+        run: |
+          $yaz = ''
+          if(Test-Path veri/tetik/dil-kusuru.txt){ $yaz = (Get-Content veri/tetik/dil-kusuru.txt | Where-Object { $_.Trim() } | Select-Object -Last 1).Trim() }
+          if($yaz -match 'yaz'){ ./motor/dil-kusuru-tarama.ps1 -yaz } else { ./motor/dil-kusuru-tarama.ps1 }
       - name: Commit (SESSIZ BASARISIZLIK YASAK)
         if: always()
         run: |
