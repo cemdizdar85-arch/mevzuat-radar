@@ -1,5 +1,5 @@
 {
-  "tarih": "07.08.2026 17:55",
+  "tarih": "07.08.2026 20:17",
   "durum": "TAMAM",
   "mod": "OLCUM (0 USD, yazma yok)",
   "kasa": 30394,
@@ -89,8 +89,8 @@
     },
     {
       "terim": "imal edilen emtia",
-      "toplam_soru": 2990,
-      "KEHRIBAR_KARTTA": 723,
+      "toplam_soru": 10,
+      "KEHRIBAR_KARTTA": 0,
       "dogrusu": "üretilen mamul"
     },
     {
@@ -282,7 +282,24 @@
     "isaretlenen": 0,
     "zatenVar": 4,
     "hata": 158,
+    "ornek_hatalar": [
+      {
+        "id": "f7345f87-e89c-4fc9-bf23-21f0152cd041",
+        "kod": -1,
+        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
+      },
+      {
+        "id": "048c34a8-17b7-4485-9e18-5bab5eb5bade",
+        "kod": -1,
+        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
+      },
+      {
+        "id": "972ef13a-89d7-4595-bb34-441f44b2ebd9",
+        "kod": -1,
+        "cevap": "Exception calling \"SendAsync\" with \"1\" argument(s): \"An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.\""
+      }
+    ],
     "kanal": "HttpClient tek-baglanti",
-    "zaman": "07.08.2026 18:23"
+    "zaman": "07.08.2026 20:45"
   }
 }
