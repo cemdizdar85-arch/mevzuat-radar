@@ -27,9 +27,9 @@ bu dosyaya güvenilir (KAPSAM-KONTROL disiplini).
 - [x] bilgi.html — 07.08 (asgari ücret bloğu kaynak damgalı + iç tutarlı; 9-kat tavan doğru)
 - [x] iletisim.html — 07.08 (temiz)
 - [~] kurulus.html · kurulus-evrak.html — 07.08 risk-grep temiz; tam okuma sırada
-- [ ] gtip.html · risk-taramasi.html · senaryo-raporu.html · fiyatfarki.html · hizmet.html
-- [ ] ceza-asistani.html · asgari-kv.html · destekler.html
-- [ ] marka-radari.html · marka-itiraz.html · tetikte-marka.html
-- [ ] evrak-radari.html · fis-fabrikasi.html · kartlar.html · radar.html
+- [~] gtip · risk-taramasi · senaryo-raporu · fiyatfarki · hizmet — 07.08 üç-desen süpürmesi (2025-kalıntı/TASLAK/çift-boşluk) + vaat + fiyat süpürmeleri TEMİZ; derin okuma açılış sonrası
+- [~] ceza-asistani · asgari-kv · destekler — 07.08 süpürmeler temiz; derin okuma açılış sonrası
+- [~] marka-radari · marka-itiraz · tetikte-marka — 07.08 süpürmeler temiz
+- [~] evrak-radari · fis-fabrikasi · kartlar · radar — 07.08 süpürmeler temiz (kartlar/radar robot üretimi — premium jeneratör borcu ayrı listede)
 - [ ] kvkk.html · mesafeli-satis.html · teslimat-iade.html · uyelik-sozlesmesi.html (hukuki — avukat onayıyla birlikte)
 - [ ] tetikte-kurulum.html · kontrol-listesi.html (iç belgeler, düşük öncelik)
