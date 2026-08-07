@@ -1,270 +1,270 @@
 {
-    "tarih":  "07.08.2026 15:12",
-    "durum":  "TAMAM",
-    "mod":  "OLCUM (0 USD, yazma yok)",
-    "kasa":  30154,
-    "kehribar_karti_olan":  30147,
-    "bir_uydurma_terim":  [
-                              {
-                                  "terim":  "cok donemli gider",
-                                  "soru":  14,
-                                  "dogrusu":  "birden fazla dönemi ilgilendiren / peşin ödenen",
-                                  "ornek_id":  [
-                                                   "000aa943-facf-431f-8a90-5559531a6a99",
-                                                   "484d010f-79bd-4be9-8cd3-45ab7e4a9850",
-                                                   "4a4bb2b5-703e-4558-8fd5-6d32e87e0e5d",
-                                                   "6a4fd49e-36bc-412d-a41f-a90a3923141a",
-                                                   "9a634110-7e18-4b55-b2cf-41f83c496c6e"
-                                               ]
-                              },
-                              {
-                                  "terim":  "cok yilli gider",
-                                  "soru":  2,
-                                  "dogrusu":  "gelecek yıllara ait giderler",
-                                  "ornek_id":  [
-                                                   "28122876",
-                                                   "6e4b9b4e-1038-4eb5-a245-c3279df8f01d"
-                                               ]
-                              },
-                              {
-                                  "terim":  "donemsel gider",
-                                  "soru":  12,
-                                  "dogrusu":  "döneme ait gider",
-                                  "ornek_id":  [
-                                                   "36c81ae2-9844-47d4-bb29-2fe150cd2023",
-                                                   "60cb75b3-7a84-4363-be47-caf13ccaf1b4",
-                                                   "6ac6870a-b007-4f8e-a947-1428b2e79164",
-                                                   "843782a8",
-                                                   "9b7b00bf-1ffa-49f5-90a2-ee4d093699a2"
-                                               ]
-                              },
-                              {
-                                  "terim":  "coklu donem",
-                                  "soru":  1,
-                                  "dogrusu":  "birden fazla dönem",
-                                  "ornek_id":  [
-                                                   "5a7f9e97-0336-4368-9372-0ab14b75c0d5"
-                                               ]
-                              },
-                              {
-                                  "terim":  "gider yazimi (tek kelime)",
-                                  "soru":  2,
-                                  "dogrusu":  "gider kaydı",
-                                  "ornek_id":  [
-                                                   "3b96dc62-9a8b-4843-befb-332622613c15",
-                                                   "7184cd50-a937-492e-9320-78cc60f9106e"
-                                               ]
-                              }
-                          ],
-    "iki_eski_terim":  [
-                           {
-                               "terim":  "genel imal gideri",
-                               "toplam_soru":  1,
-                               "KEHRIBAR_KARTTA":  0,
-                               "dogrusu":  "genel üretim giderleri (THP 730)"
-                           },
-                           {
-                               "terim":  "imal edilen emtia",
-                               "toplam_soru":  2990,
-                               "KEHRIBAR_KARTTA":  722,
-                               "dogrusu":  "üretilen mamul"
-                           },
-                           {
-                               "terim":  "isbu",
-                               "toplam_soru":  5,
-                               "KEHRIBAR_KARTTA":  0,
-                               "dogrusu":  "bu"
-                           },
-                           {
-                               "terim":  "iptidai madde",
-                               "toplam_soru":  232,
-                               "KEHRIBAR_KARTTA":  31,
-                               "dogrusu":  "ilk madde ve malzeme (kanun alintisi istisna)"
-                           }
-                       ],
-    "ikib_jargon_yogun":  {
-                              "soru":  162,
-                              "yuzde":  0.54,
-                              "ornek_id":  [
-                                               "0036b78e-1127-4b05-b620-efdf1eb1f075",
-                                               "048c34a8-17b7-4485-9e18-5bab5eb5bade",
-                                               "077b272e",
-                                               "0e6b2c8c-55d3-45c2-846a-d521d6e45bcd",
-                                               "0ffc531f",
-                                               "10a473ff-d9b1-4283-b62d-76f7a48dd9b5",
-                                               "10e93954-8314-4a17-b83c-fa7d6e4592c1",
-                                               "122f30e2-d665-4589-8eab-145667570f08",
-                                               "125d377b-45b9-4898-8159-049df07e18c8",
-                                               "132163e1-d9ec-4857-8e3e-78cc41f3b031"
-                                           ],
-                              "olcut":  "bir cumlede 2+ teknik terim + gunluk-karsilik isareti yok (#12-C)"
-                          },
-    "uc_senaryo_isimleri":  {
-                                "farkli_kisi_adi":  130,
-                                "toplam_kisi_gecis":  7133.0,
-                                "farkli_sirket_adi":  1150,
-                                "toplam_sirket_gecis":  16627.0,
-                                "en_sik_kisi":  [
-                                                    {
-                                                        "ad":  "Mehmet",
-                                                        "soru":  2061,
-                                                        "yuzde":  6.83
-                                                    },
-                                                    {
-                                                        "ad":  "Fatma",
-                                                        "soru":  886,
-                                                        "yuzde":  2.94
-                                                    },
-                                                    {
-                                                        "ad":  "Hatice",
-                                                        "soru":  804,
-                                                        "yuzde":  2.67
-                                                    },
-                                                    {
-                                                        "ad":  "Ayşe",
-                                                        "soru":  575,
-                                                        "yuzde":  1.91
-                                                    },
-                                                    {
-                                                        "ad":  "Ahmet",
-                                                        "soru":  430,
-                                                        "yuzde":  1.43
-                                                    },
-                                                    {
-                                                        "ad":  "Zeynep",
-                                                        "soru":  392,
-                                                        "yuzde":  1.3
-                                                    },
-                                                    {
-                                                        "ad":  "Kemal",
-                                                        "soru":  304,
-                                                        "yuzde":  1.01
-                                                    },
-                                                    {
-                                                        "ad":  "Mustafa",
-                                                        "soru":  201,
-                                                        "yuzde":  0.67
-                                                    },
-                                                    {
-                                                        "ad":  "Hüseyin",
-                                                        "soru":  173,
-                                                        "yuzde":  0.57
-                                                    },
-                                                    {
-                                                        "ad":  "Selim",
-                                                        "soru":  152,
-                                                        "yuzde":  0.5
-                                                    },
-                                                    {
-                                                        "ad":  "Selma",
-                                                        "soru":  121,
-                                                        "yuzde":  0.4
-                                                    },
-                                                    {
-                                                        "ad":  "Hasan",
-                                                        "soru":  109,
-                                                        "yuzde":  0.36
-                                                    },
-                                                    {
-                                                        "ad":  "Elif",
-                                                        "soru":  104,
-                                                        "yuzde":  0.34
-                                                    },
-                                                    {
-                                                        "ad":  "Hakan",
-                                                        "soru":  93,
-                                                        "yuzde":  0.31
-                                                    },
-                                                    {
-                                                        "ad":  "Osman",
-                                                        "soru":  56,
-                                                        "yuzde":  0.19
-                                                    }
-                                                ],
-                                "en_sik_sirket":  [
-                                                      {
-                                                          "ad":  "Yıldırım",
-                                                          "soru":  2198,
-                                                          "yuzde":  7.29
-                                                      },
-                                                      {
-                                                          "ad":  "Yılmaz",
-                                                          "soru":  1027,
-                                                          "yuzde":  3.41
-                                                      },
-                                                      {
-                                                          "ad":  "Yıldız",
-                                                          "soru":  827,
-                                                          "yuzde":  2.74
-                                                      },
-                                                      {
-                                                          "ad":  "Karadeniz",
-                                                          "soru":  761,
-                                                          "yuzde":  2.52
-                                                      },
-                                                      {
-                                                          "ad":  "Bir",
-                                                          "soru":  605,
-                                                          "yuzde":  2.01
-                                                      },
-                                                      {
-                                                          "ad":  "Demir",
-                                                          "soru":  498,
-                                                          "yuzde":  1.65
-                                                      },
-                                                      {
-                                                          "ad":  "Demirhan",
-                                                          "soru":  470,
-                                                          "yuzde":  1.56
-                                                      },
-                                                      {
-                                                          "ad":  "Selçuklu",
-                                                          "soru":  447,
-                                                          "yuzde":  1.48
-                                                      },
-                                                      {
-                                                          "ad":  "Çelik",
-                                                          "soru":  418,
-                                                          "yuzde":  1.39
-                                                      },
-                                                      {
-                                                          "ad":  "Türk",
-                                                          "soru":  370,
-                                                          "yuzde":  1.23
-                                                      },
-                                                      {
-                                                          "ad":  "Demirbaş",
-                                                          "soru":  353,
-                                                          "yuzde":  1.17
-                                                      },
-                                                      {
-                                                          "ad":  "Demirtaş",
-                                                          "soru":  283,
-                                                          "yuzde":  0.94
-                                                      },
-                                                      {
-                                                          "ad":  "Çınar",
-                                                          "soru":  261,
-                                                          "yuzde":  0.87
-                                                      },
-                                                      {
-                                                          "ad":  "Selçuk",
-                                                          "soru":  260,
-                                                          "yuzde":  0.86
-                                                      },
-                                                      {
-                                                          "ad":  "Döküm",
-                                                          "soru":  248,
-                                                          "yuzde":  0.82
-                                                      }
-                                                  ]
-                            },
-    "not":  "Yalniz OLCUM - kasaya dokunulmadi. \"KEHRIBAR_KARTTA\" sutunu onemlidir: eski terim her yerde kotudur ama ogrencinin EZBERLEYECEGI kartta olmasi en kotusudur.",
-    "yaz_metrik":  {
-                       "isaretlenen":  0,
-                       "zatenVar":  4,
-                       "hata":  163,
-                       "kanal":  "HttpClient tek-baglanti",
-                       "zaman":  "07.08.2026 18:46"
-                   }
+  "tarih": "07.08.2026 17:26",
+  "durum": "TAMAM",
+  "mod": "OLCUM (0 USD, yazma yok)",
+  "kasa": 30394,
+  "kehribar_karti_olan": 30387,
+  "bir_uydurma_terim": [
+    {
+      "terim": "cok donemli gider",
+      "soru": 19,
+      "dogrusu": "birden fazla dönemi ilgilendiren / peşin ödenen",
+      "ornek_id": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0b7cffe1-25e9-4d6d-ac48-7cbe0dd3041f",
+        "2998cecc-8227-4392-aad4-a0e439ea2d74",
+        "31ef74c4-f0b0-4bcb-bd3b-680a92faf65a",
+        "484d010f-79bd-4be9-8cd3-45ab7e4a9850"
+      ]
+    },
+    {
+      "terim": "cok yilli gider",
+      "soru": 2,
+      "dogrusu": "gelecek yıllara ait giderler",
+      "ornek_id": [
+        "28122876",
+        "6e4b9b4e-1038-4eb5-a245-c3279df8f01d"
+      ]
+    },
+    {
+      "terim": "donemsel gider",
+      "soru": 12,
+      "dogrusu": "döneme ait gider",
+      "ornek_id": [
+        "36c81ae2-9844-47d4-bb29-2fe150cd2023",
+        "60cb75b3-7a84-4363-be47-caf13ccaf1b4",
+        "6ac6870a-b007-4f8e-a947-1428b2e79164",
+        "843782a8",
+        "9b7b00bf-1ffa-49f5-90a2-ee4d093699a2"
+      ]
+    },
+    {
+      "terim": "coklu donem",
+      "soru": 1,
+      "dogrusu": "birden fazla dönem",
+      "ornek_id": [
+        "5a7f9e97-0336-4368-9372-0ab14b75c0d5"
+      ]
+    },
+    {
+      "terim": "gider yazimi (tek kelime)",
+      "soru": 2,
+      "dogrusu": "gider kaydı",
+      "ornek_id": [
+        "3b96dc62-9a8b-4843-befb-332622613c15",
+        "7184cd50-a937-492e-9320-78cc60f9106e"
+      ]
+    }
+  ],
+  "iki_eski_terim": [
+    {
+      "terim": "genel imal gideri",
+      "toplam_soru": 1,
+      "KEHRIBAR_KARTTA": 0,
+      "dogrusu": "genel üretim giderleri (THP 730)"
+    },
+    {
+      "terim": "imal edilen emtia",
+      "toplam_soru": 2990,
+      "KEHRIBAR_KARTTA": 723,
+      "dogrusu": "üretilen mamul"
+    },
+    {
+      "terim": "isbu",
+      "toplam_soru": 5,
+      "KEHRIBAR_KARTTA": 0,
+      "dogrusu": "bu"
+    },
+    {
+      "terim": "iptidai madde",
+      "toplam_soru": 231,
+      "KEHRIBAR_KARTTA": 31,
+      "dogrusu": "ilk madde ve malzeme (kanun alintisi istisna)"
+    }
+  ],
+  "ikib_jargon_yogun": {
+    "soru": 162,
+    "yuzde": 0.53,
+    "ornek_id": [
+      "0036b78e-1127-4b05-b620-efdf1eb1f075",
+      "048c34a8-17b7-4485-9e18-5bab5eb5bade",
+      "077b272e",
+      "0e6b2c8c-55d3-45c2-846a-d521d6e45bcd",
+      "0ffc531f",
+      "10a473ff-d9b1-4283-b62d-76f7a48dd9b5",
+      "10e93954-8314-4a17-b83c-fa7d6e4592c1",
+      "122f30e2-d665-4589-8eab-145667570f08",
+      "125d377b-45b9-4898-8159-049df07e18c8",
+      "132163e1-d9ec-4857-8e3e-78cc41f3b031"
+    ],
+    "olcut": "bir cumlede 2+ teknik terim + gunluk-karsilik isareti yok (#12-C)"
+  },
+  "uc_senaryo_isimleri": {
+    "farkli_kisi_adi": 132,
+    "toplam_kisi_gecis": 7191.0,
+    "farkli_sirket_adi": 1163,
+    "toplam_sirket_gecis": 16785.0,
+    "en_sik_kisi": [
+      {
+        "ad": "Mehmet",
+        "soru": 2061,
+        "yuzde": 6.78
+      },
+      {
+        "ad": "Fatma",
+        "soru": 886,
+        "yuzde": 2.92
+      },
+      {
+        "ad": "Hatice",
+        "soru": 804,
+        "yuzde": 2.65
+      },
+      {
+        "ad": "Ayşe",
+        "soru": 575,
+        "yuzde": 1.89
+      },
+      {
+        "ad": "Ahmet",
+        "soru": 430,
+        "yuzde": 1.41
+      },
+      {
+        "ad": "Zeynep",
+        "soru": 401,
+        "yuzde": 1.32
+      },
+      {
+        "ad": "Kemal",
+        "soru": 316,
+        "yuzde": 1.04
+      },
+      {
+        "ad": "Mustafa",
+        "soru": 201,
+        "yuzde": 0.66
+      },
+      {
+        "ad": "Hüseyin",
+        "soru": 176,
+        "yuzde": 0.58
+      },
+      {
+        "ad": "Selim",
+        "soru": 165,
+        "yuzde": 0.54
+      },
+      {
+        "ad": "Selma",
+        "soru": 128,
+        "yuzde": 0.42
+      },
+      {
+        "ad": "Hasan",
+        "soru": 112,
+        "yuzde": 0.37
+      },
+      {
+        "ad": "Elif",
+        "soru": 104,
+        "yuzde": 0.34
+      },
+      {
+        "ad": "Hakan",
+        "soru": 93,
+        "yuzde": 0.31
+      },
+      {
+        "ad": "Osman",
+        "soru": 57,
+        "yuzde": 0.19
+      }
+    ],
+    "en_sik_sirket": [
+      {
+        "ad": "Yıldırım",
+        "soru": 2198,
+        "yuzde": 7.23
+      },
+      {
+        "ad": "Yılmaz",
+        "soru": 1027,
+        "yuzde": 3.38
+      },
+      {
+        "ad": "Yıldız",
+        "soru": 827,
+        "yuzde": 2.72
+      },
+      {
+        "ad": "Karadeniz",
+        "soru": 761,
+        "yuzde": 2.5
+      },
+      {
+        "ad": "Bir",
+        "soru": 605,
+        "yuzde": 1.99
+      },
+      {
+        "ad": "Demir",
+        "soru": 498,
+        "yuzde": 1.64
+      },
+      {
+        "ad": "Demirhan",
+        "soru": 470,
+        "yuzde": 1.55
+      },
+      {
+        "ad": "Selçuklu",
+        "soru": 448,
+        "yuzde": 1.47
+      },
+      {
+        "ad": "Çelik",
+        "soru": 426,
+        "yuzde": 1.4
+      },
+      {
+        "ad": "Türk",
+        "soru": 372,
+        "yuzde": 1.22
+      },
+      {
+        "ad": "Demirbaş",
+        "soru": 352,
+        "yuzde": 1.16
+      },
+      {
+        "ad": "Demirtaş",
+        "soru": 285,
+        "yuzde": 0.94
+      },
+      {
+        "ad": "Çınar",
+        "soru": 274,
+        "yuzde": 0.9
+      },
+      {
+        "ad": "Selçuk",
+        "soru": 261,
+        "yuzde": 0.86
+      },
+      {
+        "ad": "Döküm",
+        "soru": 248,
+        "yuzde": 0.82
+      }
+    ]
+  },
+  "not": "Yalniz OLCUM - kasaya dokunulmadi. \"KEHRIBAR_KARTTA\" sutunu onemlidir: eski terim her yerde kotudur ama ogrencinin EZBERLEYECEGI kartta olmasi en kotusudur.",
+  "yaz_metrik": {
+    "isaretlenen": 0,
+    "zatenVar": 4,
+    "hata": 158,
+    "kanal": "HttpClient tek-baglanti",
+    "zaman": "07.08.2026 17:54"
+  }
 }
