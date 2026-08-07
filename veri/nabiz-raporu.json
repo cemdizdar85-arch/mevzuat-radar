@@ -1,24 +1,17 @@
 {
-  "tarih": "07.08.2026 04:43",
-  "durum": "ALARM",
-  "kirmizi": 2,
-  "kurtarma": 4,
+  "tarih": "07.08.2026 09:00",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 2,
   "izlenen_robot": 19,
   "izlenen_veri": 5,
-  "maddeler": [
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 470.9 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 182.2 saat once (esik 30s)). Actions loguna bak."
-  ],
+  "maddeler": [],
   "kurtarilan": [
-    "Kurum Duyuru Nobetcisi (gunluk) -> hic basarili kosu yok -> kurtarma: tetiklendi",
-    "Aritmetik Kapisi (haftalik) -> hic basarili kosu yok -> kurtarma: tetiklendi",
-    "Ders-Etiket Denetimi (haftalik) -> hic basarili kosu yok -> kurtarma: tetiklendi",
-    "Ic-Tutarlilik Denetimi (haftalik) -> hic basarili kosu yok -> kurtarma: tetiklendi"
+    "Gunluk Kanun Aynasi -> son basarili kosu 475.2 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
+    "Smoke Nobetcisi -> son basarili kosu 186.4 saat once (esik 30s) -> kurtarma: tetiklendi"
   ],
   "kurtarilan_anahtar": [
-    "KOSU:duyuru-nobetcisi.yml",
-    "KOSU:aritmetik-kapisi.yml",
-    "KOSU:ders-etiket.yml",
-    "KOSU:ic-tutarlilik.yml"
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml"
   ]
 }
