@@ -1,433 +1,49 @@
-**********************
-PowerShell transcript start
-Start time: 20260807081650
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260807153953
+Username: GK\cemdi
+RunAs User: GK\cemdi
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/be5294bc-1fe8-4d18-9fe0-6732cbb3667b.ps1'
-Process ID: 2255
-PSVersion: 7.6.3
-PSEdition: Core
-GitCommitId: 7.6.3
-OS: Ubuntu 24.04.4 LTS
-Platform: Unix
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
-PSRemotingProtocolVersion: 2.4
-SerializationVersion: 1.1.0.1
+Machine: GK (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command try { $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8' } catch {}; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { try { $OutputEncoding = [System.Text.UTF8Encoding]::new() } catch {}; if ($null -ne $PSStyle) { try { $PSStyle.OutputRendering = 'PlainText' } catch {} } }; Set-Location 'C:\Users\cemdi\OneDrive\Masaüstü\mevzuat işi\mevzuat-radar'
+$env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')
+$konular = 'yuzde kar zarar faiz hesaplari,oran oranti karisim problemleri,problem kurma yas isci hiz havuz,sayilar bolunebilme ebob ekok,birinci derece denklem ve esitsizlik,kumeler sayma olasilik temelleri,milli mucadele hazirlik donemi kongreler,kurtulus savasi cepheler ve antlasmalar,siyasi inkilaplar saltanat cumhuriyet halifelik,hukuk egitim ve toplumsal inkilaplar,ataturk ilkeleri,ic politika denemeleri ve dis politika 1923 1938'
+./motor/soru-uret-v2.ps1 -sinir 280 -sinav SGS -emirNo 'olcum-36' -model 'claude-sonnet-4-5-20250929' -konular $konular -cikti 'veri/olcum-36.json' 2>&1 | Select-Object -First 40 | ForEach-Object { "$_" }
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\cemdi\AppData\Local\Temp\claude\claude-pwd-ps-10be' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 21820
+PSVersion: 5.1.26100.8972
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8972
+BuildVersion: 10.0.26100.8972
+CLRVersion: 4.0.30319.42000
 WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
 **********************
-SINAV: KGK   kota: veri/kgk-uretim-kotasi.json   plan satiri: 127
+SINAV: SGS   kota: veri/sgs-uretim-kotasi.json   plan satiri: 2145
 Kasa okunuyor (konu -> madde haritasi + benzerlik icin soru metinleri)...
   kasa: 30081 soru
   konu-kelime indeksi: 1261 kelime
-  MADDE TAVANI: hedef havuz 5871 x %2 = 118 soru/madde | tavani dolmus madde: 35
+  MADDE TAVANI: hedef havuz 14603 x %2 = 293 soru/madde | tavani dolmus madde: 10
     dolu: 213|275 -> 5299 soru
     dolu: 6102|720 -> 2030 soru
     dolu: 4857|11 -> 1442 soru
     dolu: 5018|3 -> 1088 soru
     dolu: 213|262 -> 727 soru
   THP hesap indeksi: 266 kelime, 269 kayit
+KONU FILTRESI: 12 konu
 
-  planSatir    74
-  maddesiz     10
+  planSatir    12
+  maddesiz     0
   metinsiz     0
-  hazir        2000
-  tavanDolu    9
-  kaynak_standart 58
-  kaynak_belge 2
-  kaynak_hesap-plani 1
-  kaynak_teori 3
-MALIYET TAHMINI (Batch %50): ~54.78 USD
-KURU DENEME TAMAM - yazma yolu saglam.
-KURTARMA MODU: 9 parti kimligi - YENI GONDERIM YOK, yalniz sonuc cekme (0 USD).
-  parti 1/9: msgbatch_01RLeDXRZs9uWaYnd4vJ8zkG
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: ç. Path 'soru', line 3, position 855."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[1].satirlar[0]', line 31, position 114."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: M. Path 'soru', line 3, position 331."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.B', line 14, position 1018."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: t. Path 'hap', line 19, position 432."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 17, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-    166 sonuc alindi
-  parti 2/9: msgbatch_01Gwrx359EfN3hLw7eVz5aNd
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: y. Path 'aciklama.C', line 15, position 111."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 21, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: e. Path 'aciklama.B', line 20, position 135."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 27, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 30, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'yevmiye[0]', line 27, position 5."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: m. Path 'aciklama.A', line 13, position 567."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 25, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: h. Path 'aciklama.A', line 13, position 1170."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 34, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 21, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 27, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 27, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 25, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 13, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'siklar.B', line 10, position 5."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 13, position 3."
-    173 sonuc alindi
-  parti 3/9: msgbatch_01VsZTNrBjT1MHHrBHYmPNp8
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'hap', line 19, position 516."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Invalid JavaScript property identifier character: ". Path 'aciklama.D', line 25, position 5."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 14, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 24, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 13, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 25, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 17, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 17, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 25, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 27, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'tablo.satirlar[3]', line 39, position 7."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: A. Path 'soru', line 3, position 351."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 26, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 21, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: B. Path 'soru', line 3, position 558."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-    152 sonuc alindi
-  parti 4/9: msgbatch_01Q7bAyTAJ3qK76fjdK6T4Vo
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.C', line 15, position 647."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 12, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: m. Path 'aciklama.C', line 15, position 831."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: k. Path 'aciklama.C', line 15, position 1875."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 14, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 25, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 17, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.C', line 15, position 531."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 26, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 12, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 15, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 20, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-    160 sonuc alindi
-  parti 5/9: msgbatch_013fwAxr3rC2a95bz6RUbdXJ
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: s. Path 'soru', line 3, position 285."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: f. Path 'aciklama.A', line 13, position 619."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: o. Path 'aciklama.D', line 16, position 323."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: D. Path 'aciklama.B', line 14, position 891."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    169 sonuc alindi
-  parti 6/9: msgbatch_01TqivWRpeyZ5fKCAQGCjX3o
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'soru', line 3, position 396."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: y. Path 'soru', line 3, position 637."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: h. Path 'hap', line 19, position 461."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: S. Path 'soru', line 3, position 351."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    179 sonuc alindi
-  parti 7/9: msgbatch_01AKJnDAxziGssDWsaix7KiD
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: 1. Path 'soru', line 3, position 119."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    193 sonuc alindi
-  parti 8/9: msgbatch_01LaDGkvkN9N1cvkz6j7YUh7
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: s. Path 'soru', line 3, position 344."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: z. Path 'soru', line 3, position 637."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 31, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: y. Path 'aciklama.A', line 13, position 548."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: s. Path 'aciklama.D', line 16, position 35."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 19, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-    185 sonuc alindi
-  parti 9/9: msgbatch_01LYcDeVQm3mhZDRpYQRu1X5
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: o. Path 'soru', line 3, position 173."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 32, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 15, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: n. Path 'aciklama.D', line 16, position 419."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.D', line 16, position 18."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    123 sonuc alindi
-KURTARMA TOPLAM: 1500 sonuc
-HIZALAMA (atif-bazli): 1258 eslesti (0'i kanun-yedek kademeden), 242 eslesemedi (yazilmayacak, Anthropic'te durur).
-KURTARMA KONTROL: rakamRed 87/1258 = %6.9 (bilgi amacli; soru basina kapi zaten eledi)
-
-======== URETIM ========
-  uretilen       0
-  rakamRed       87
-  dilRed         200
-  sikRed         19
-  sablonRed      23
-  tuzakRed       11
-  dogrusuRed     0
-  atifRed        0
-  kokuRed        74
-  benzerRed      831
-  aritmetikRed   6
-  icTutarRed     7
-  cevapsiz       742
-  yazmaHatasi    0
-  GERCEK FATURA: ~72.96 USD
-  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
--> veri/uretim-rapor-40.json
+  hazir        264
+  tavanDolu    0
+  kaynak_teori 12
+MALIYET TAHMINI (Batch %50): ~6,00 USD
+OLCUM MODU - 0 USD. Rapor: veri/uretim-olcum-raporu.json
 **********************
-PowerShell transcript end
-End time: 20260807081751
-**********************
-d character was encountered: y. Path 'soru', line 3, position 637."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: h. Path 'hap', line 19, position 461."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: S. Path 'soru', line 3, position 351."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    179 sonuc alindi
-  parti 7/9: msgbatch_01AKJnDAxziGssDWsaix7KiD
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: 1. Path 'soru', line 3, position 119."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    193 sonuc alindi
-  parti 8/9: msgbatch_01LaDGkvkN9N1cvkz6j7YUh7
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: s. Path 'soru', line 3, position 344."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: z. Path 'soru', line 3, position 637."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 31, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: y. Path 'aciklama.A', line 13, position 548."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: s. Path 'aciklama.D', line 16, position 35."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 19, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-    185 sonuc alindi
-  parti 9/9: msgbatch_01LYcDeVQm3mhZDRpYQRu1X5
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 22, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: o. Path 'soru', line 3, position 173."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 32, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 15, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 23, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: n. Path 'aciklama.D', line 16, position 419."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: After parsing a value an unexpected character was encountered: b. Path 'aciklama.D', line 16, position 18."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'siklar', line 10, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: Unexpected end when deserializing object. Path 'aciklama', line 18, position 3."
-    123 sonuc alindi
-KURTARMA TOPLAM: 1500 sonuc
-HIZALAMA (atif-bazli): 1258 eslesti (0'i kanun-yedek kademeden), 242 eslesemedi (yazilmayacak, Anthropic'te durur).
-KURTARMA KONTROL: rakamRed 87/1258 = %6.9 (bilgi amacli; soru basina kapi zaten eledi)
-
-======== URETIM ========
-  uretilen       0
-  rakamRed       87
-  dilRed         200
-  sikRed         19
-  sablonRed      23
-  tuzakRed       11
-  dogrusuRed     0
-  atifRed        0
-  kokuRed        74
-  benzerRed      831
-  aritmetikRed   6
-  icTutarRed     7
-  cevapsiz       742
-  yazmaHatasi    0
-  GERCEK FATURA: ~72.96 USD
-  NOT: uretilen sorularin HEPSI yayin=false. Profesor + GM onayi olmadan ogrenciye gitmez.
--> veri/uretim-rapor-40.json
-PS>$global:?
-True
-**********************
-PowerShell transcript end
-End time: 20260807081751
+Windows PowerShell transcript end
+End time: 20260807154123
 **********************
