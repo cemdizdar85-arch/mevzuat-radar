@@ -50,6 +50,9 @@ foreach($law in $man.kanunlar){
   $txtYol = Join-Path $kokTxt "$slug.txt"
   if(Test-Path (Join-Path $kok "veri\mevzuat-hazir\$slug.txt")){ Copy-Item (Join-Path $kok "veri\mevzuat-hazir\$slug.txt") $txtYol -Force; $hazir++; continue }
   if(Test-Path $txtYol){ $onceden++; continue }   # bu gunun onceki denemesinden saglam metin
+  # 07.08 aksam: taranmis-goruntu kaynaklar (GeneratePdf govdesi resim) her gun
+  # bosuna indirilmesin - gozle aktarim yapilinca mevzuat-hazir'a girecekler.
+  if($law.taranmis){ continue }
   if($kesik){ continue }
   $url = if($lpid -like 'G7:*'){ 'https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=' + $lpid.Substring(3) + '&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5' }
          elseif($lpid -like 'G9:*'){ 'https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=' + $lpid.Substring(3) + '&mevzuatTur=Teblig&mevzuatTertip=5' }
