@@ -48,7 +48,13 @@ trap {
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 0 }
-$U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
+# 08.08 KOK BULUNDU (158 PATCH hatasinin sebebi): degisken adi $U idi ve
+# asagida "foreach($u in $UYDURMA)" donguleri var. PowerShell degisken adinda
+# BUYUK/KUCUK HARF AYIRMAZ - $u ile $U AYNI degiskendir; dongu bitince URL'nin
+# uzerine terim nesnesi yaziliyor ve PATCH adresi "mutlak URI degil" hatasi
+# veriyordu (GET'ler once kostugu icin sorunsuz gecmisti). Ayni ders 07.08'de
+# $h/$H ile de yasandi. Cozum: tek harfli, cakismaya acik ad birakilmaz.
+$KASA_URL = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 # sb_secret tipi anahtar Bearer basligiyla 401 verir (karantina-tasi dersi):
 # Bearer yalniz eski tip JWT'de eklenir; robot User-Agent her durumda sart.
 $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -62,7 +68,7 @@ function CekListe([string]$uri){
 }
 $kasa = New-Object System.Collections.Generic.List[object]
 for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,ders,soru,dogru,aciklama,hap,yayin_notu&order=id&limit=1000&offset=$o"
+  $r = CekListe "$KASA_URL`?select=id,ders,soru,dogru,aciklama,hap,yayin_notu&order=id&limit=1000&offset=$o"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
   if($r.Count -lt 1000){ break }
@@ -244,7 +250,7 @@ if($yaz){
     $kod = 0; $hataDetay = ''
     for($dn2=1; $dn2 -le 2; $dn2++){
       try {
-        $istek = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ("$U`?id=eq." + $h.id)
+        $istek = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ("$KASA_URL`?id=eq." + $h.id)
         $istek.Content = New-Object System.Net.Http.StringContent ($gov, [Text.Encoding]::UTF8, 'application/json')
         $cvp = $hc.SendAsync($istek).GetAwaiter().GetResult()
         $kod = [int]$cvp.StatusCode
