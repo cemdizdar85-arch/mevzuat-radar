@@ -181,31 +181,52 @@ if($yaz){
   }
   $cvp.Dispose(); $istek.Dispose()
   if($kolonVar){
-    # 08.08 dersi: tek tek PATCH 30 bin satirda 150 dk suruyor, workflow tavani
-    # 120 dk - kosu rapor yazamadan olurdu. TOPLU UPSERT (merge-duplicates):
-    # 500'luk partiler, ~61 istek. Id'ler zaten var, upsert UPDATE gibi calisir.
-    $parti = New-Object System.Collections.Generic.List[object]
-    function PartiGonder(){
-      if($script:parti.Count -eq 0){ return }
-      $j = ConvertTo-Json -InputObject @($script:parti.ToArray()) -Depth 4 -Compress
-      try {
-        $i2 = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::Post), $script:U
-        $i2.Content = New-Object System.Net.Http.StringContent ($j, [Text.Encoding]::UTF8, 'application/json')
-        $i2.Headers.Add('Prefer','resolution=merge-duplicates,return=minimal')
-        $c2 = $script:hc.SendAsync($i2).GetAwaiter().GetResult()
-        if([int]$c2.StatusCode -in @(200,201,204)){ $script:yazilan += $script:parti.Count }
-        else { $script:yazHata += $script:parti.Count; if($script:yazHata -le 500){ Write-Host ("  parti HATA kod {0}: {1}" -f [int]$c2.StatusCode, ($c2.Content.ReadAsStringAsync().GetAwaiter().GetResult())) } }
-        $c2.Dispose(); $i2.Dispose()
-      } catch { $script:yazHata += $script:parti.Count }
-      $script:parti.Clear()
+    # 08.08 DERSI (iki kere ogrenildi): tek tek PATCH 30 bin satirda 150 dk
+    # surer, workflow tavani 120 dk. TOPLU UPSERT (POST merge-duplicates) ise
+    # 23502 verir: PostgREST upsert'i INSERT..ON CONFLICT'tir, INSERT tarafi
+    # NOT NULL kolonlari (sinav, ders...) ister; kismi govde gecmez.
+    # DOGRU ALET: DEGER BAZLI TOPLU PATCH - ayni degeri paylasan id'ler tek
+    # istekte id=in.(...) filtresiyle guncellenir. Zorluk 3 deger, grup ~1.400
+    # deger => ~1.450 istek (30.398 yerine).
+    function TopluPatch([string]$alan, $deger, [string[]]$idler){
+      for($b=0; $b -lt $idler.Count; $b+=300){
+        $dilim = $idler[$b..([Math]::Min($b+299, $idler.Count-1))]
+        $gov = if($null -eq $deger){ '{"' + $alan + '":null}' } elseif($deger -is [int]){ '{"' + $alan + '":' + $deger + '}' } else { '{"' + $alan + '":"' + $deger + '"}' }
+        $ok = $false
+        for($dn=1; $dn -le 2 -and -not $ok; $dn++){
+          try {
+            $i2 = New-Object System.Net.Http.HttpRequestMessage ([System.Net.Http.HttpMethod]::new('PATCH')), ($script:U + '?id=in.(' + ($dilim -join ',') + ')')
+            $i2.Content = New-Object System.Net.Http.StringContent ($gov, [Text.Encoding]::UTF8, 'application/json')
+            $i2.Headers.Add('Prefer','return=minimal')
+            $c2 = $script:hc.SendAsync($i2).GetAwaiter().GetResult()
+            if([int]$c2.StatusCode -eq 204){ $ok = $true; $script:yazilan += $dilim.Count }
+            elseif($script:yazHata -lt 3){ Write-Host ("  PATCH HATA kod {0}: {1}" -f [int]$c2.StatusCode, ($c2.Content.ReadAsStringAsync().GetAwaiter().GetResult())) }
+            $c2.Dispose(); $i2.Dispose()
+          } catch { if($dn -eq 2 -and $script:yazHata -lt 3){ Write-Host ('  PATCH istisna: ' + $_.Exception.Message) } }
+          if(-not $ok){ Start-Sleep -Seconds 3 }
+        }
+        if(-not $ok){ $script:yazHata += $dilim.Count }
+        Start-Sleep -Milliseconds 150
+      }
     }
-    foreach($s in $kasa){
-      $id = "$($s.id)"
-      $g = $null; if($grupHarita.ContainsKey($id)){ $g = $grupHarita[$id] }
-      $parti.Add([ordered]@{ id=$id; zorluk=[int]$zorlukHarita[$id]; benzer_grup=$g })
-      if($parti.Count -ge 500){ PartiGonder; Write-Host ("  yazildi: {0}" -f $yazilan) }
+    # zorluk: 3 deger
+    foreach($z in 1,2,3){
+      $idler = @($zorlukHarita.GetEnumerator() | Where-Object { $_.Value -eq $z } | ForEach-Object { $_.Key })
+      Write-Host ("  zorluk={0}: {1} soru" -f $z, $idler.Count)
+      TopluPatch 'zorluk' ([int]$z) $idler
     }
-    PartiGonder
+    # benzer_grup: grup basina
+    $grupTers = @{}
+    foreach($kv in $grupHarita.GetEnumerator()){
+      if(-not $grupTers.ContainsKey($kv.Value)){ $grupTers[$kv.Value] = New-Object System.Collections.Generic.List[string] }
+      $grupTers[$kv.Value].Add($kv.Key)
+    }
+    $gs=0
+    foreach($kv in $grupTers.GetEnumerator()){
+      TopluPatch 'benzer_grup' $kv.Key @($kv.Value.ToArray())
+      $gs++
+      if(($gs % 200) -eq 0){ Write-Host ("  grup yazildi: {0}/{1}" -f $gs, $grupTers.Count) }
+    }
   }
 }
 $hc.Dispose()
