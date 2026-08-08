@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  YAYIN KAPISI (03.08.2026) — 0 USD, API YOK
 #
 #  CEM: "böyle bir hata ile bir daha karşılaşmamak için ne yapacaksan yap."
@@ -51,6 +51,9 @@ trap {
     hata="$($_.Exception.Message)"; sunucu=$g; satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
+# 08.08: diger motorlarda olan KULLANICI ORTAMI yedegi burada yoktu; elle
+# calistirildiginda 401 aliniyordu. Ayni desen eklendi.
+if(-not $env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 1 }
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 $SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
@@ -130,6 +133,8 @@ $reD3b = [regex]'(?i)\bdo[ğg]ru\s+(cevap|se[çc]enek|[şs][ıi]k)\s*[:\(]?\s*[A
 $reKanun = [regex]'(?i)bil[üu]mum|m[üu]teferri|m[üu]nasebetiyle|i[şs]bu\b|mezk[üu]r|mutazamm[ıi]n|keyfiyet'
 $reYZ    = [regex]'(?i)[öo]nemli bir husus|dikkat edilmesi gereken nokta|sonu[çc] olarak|[öo]zetle\s*,|bu ba[ğg]lamda|unutulmamal[ıi]d[ıi]r'
 $reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
+# 08.08: olumsuz kok tespiti - bu kaliplarda isaretlenmeyen siklar DOGRU ifadedir.
+$reOlumsuzKok = [regex]'(?i)(yanl[ıi][şs]t[ıi]r|hangisi\s+yanl[ıi][şs]|de[ğg]ildir|s[öo]ylenemez|bulunmaz|yer\s+almaz|gerekmez|ba[ğg]da[şs]maz)'
 $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','TANE','KISI','TAKSIT')
 # 03.08 - Cem: "hesap planina gore kontrol et." Kontrol zaten 199 hesabin
 # tamamina bakiyordu; eksik olan DESENDI. Kucuk harfli ad, tireli yazim ve
@@ -223,7 +228,17 @@ foreach($s in $kasa){
       Isaretle 'K8_liste_eksik' $s 'sinir sorusu ama Kural parcasinda listenin kalani sayilmamis (D18)'
     }
   }
-  if($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
+  # 08.08 K5 KOR NOKTASI (kendi el yazimi partimde 39 soru HAKSIZ yere kirmizi
+  # dustu): OLUMSUZ KOKLU soruda ("asagidakilerden hangisi YANLISTIR/degildir")
+  # isaretlenmeyen siklar TUZAK DEGIL, DOGRU IFADELERDIR - onlarda "Dogrusu:"
+  # ARANMAZ, aranmasi da yanlis olur (dogru bir ifadenin "dogrusu" olmaz).
+  # Bu kaliplarda yuk DOGRU sikkin aciklamasindadir; kural orada aranir.
+  $olumsuzKok = $reOlumsuzKok.IsMatch("$($s.soru)")
+  if($olumsuzKok){
+    $dm3=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $dm3="$($s.aciklama.$dh)" } } catch {}
+    if($dm3.Trim().Length -lt 120){ Isaretle 'K5_dogrusu_yok' $s 'olumsuz kok ama dogru sikkin aciklamasi da yok/kisa' }
+  }
+  elseif($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
 
   $tum = "$($s.soru) $tumAciklama"
   $ciftler = New-Object System.Collections.Generic.List[object]
@@ -245,6 +260,23 @@ $toplamYayin = 0; foreach($v in $KY.Values){ $toplamYayin += $v }
 # 03.08 - AMA "GECER" YAZISI YANILTICIYDI: yayinda 0 soru varken kapi yesil
 # yaziyordu, oysa kasada 27.461 kirmizi soru duruyordu. Bos bir kapidan gecmek
 # gecmek degildir. Yayinda soru yoksa karar artik "YAYIN YOK" - yesil degil.
+# 08.08 (Cem: "acilisa kadar yetistirmek icin ne yapmali") - TEMIZ SORU ENVANTERI.
+# Kapi "kac soru KIRMIZI" diyordu ama "kalan TEMIZ sorular hangi derste" demiyordu.
+# Acilis paketi ancak temiz sorular DERSLERE YAYILMISSA kurulabilir; hepsi tek
+# derste toplanmissa 130'luk bir deneme cikmaz. Bu doküm o kararı verdirir.
+$temizDers = @{}
+foreach($s in $kasa){
+  if($kirmiziId.ContainsKey("$($s.id)")){ continue }
+  $anahtar = "$($s.sinav)|$($s.ders)"
+  if(-not $temizDers.ContainsKey($anahtar)){ $temizDers[$anahtar] = 0 }
+  $temizDers[$anahtar]++
+}
+$temizSirali = [ordered]@{}
+foreach($k in ($temizDers.Keys | Sort-Object { -$temizDers[$_] })){ $temizSirali[$k] = $temizDers[$k] }
+Write-Host "`n--- TEMIZ (hicbir kapiya takilmayan) SORULAR: sinav|ders ---"
+foreach($k in $temizSirali.Keys){ Write-Host ("   {0,-46} {1}" -f $k,$temizSirali[$k]) }
+Write-Host ("   TEMIZ TOPLAM: {0}" -f ($kasa.Count - $kirmiziId.Count))
+
 $karar = if($yayindaSayi -eq 0){ 'YAYIN YOK - olculecek soru bulunamadi' }
          elseif($toplamYayin -eq 0){ 'GECER' } else { 'DURDU' }
 $rapor = [ordered]@{
@@ -254,6 +286,8 @@ $rapor = [ordered]@{
   yayinda_soru=$yayindaSayi
   kirmizi_soru_tum_kasa=$kirmiziId.Count
   kirmizi_soru_yayinda=$kirmiziYayin.Count
+  temiz_soru_toplam=($kasa.Count - $kirmiziId.Count)
+  temiz_ders_dagilimi=$temizSirali
   kapilar_tum_kasa=$K
   kapilar_yayinda=$KY
   toplam_ihlal_tum_kasa=$toplamHepsi
