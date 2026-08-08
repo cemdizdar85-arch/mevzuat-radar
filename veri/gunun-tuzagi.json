@@ -1,37 +1,37 @@
 {
-  "tarih": "07.08.2026",
-  "gun": "2026-08-07",
+  "tarih": "08.08.2026",
+  "gun": "2026-08-08",
   "durum": "TAMAM",
-  "id": "cbf7e80e",
-  "sinav": "SGS",
-  "ders": "Denetim",
-  "konu": "bds 530 orneklem yontemi",
-  "soru": "Bir mobilya üretim şirketinin denetçisi, 800 kalemden oluşan hammadde stok listesini inceleyecek. Listede 50 kalemin tutarı 200.000 TL'nin üzerinde, kalan 750 kalem ise 5.000-50.000 TL aralığında. Denetçi bu 800 kalemi tek bir bütün olarak ele almak yerine önce büyük tutarlı 50 kalemi bir grup, kalan 750 kalemi başka bir grup yapıp her gruptan ayrı örneklem seçmeyi planlıyor. Denetçinin bu uygulaması BDS 530 kapsamında hangi kavramla ifade edilir?",
+  "id": "el-23e003",
+  "sinav": "SMMM",
+  "ders": "Finansal Muhasebe",
+  "konu": "mdv sokum maliyeti",
+  "soru": "TMS 16'ya göre aşağıdakilerden hangisi bir maddi duran varlık kaleminin MALİYETİNE dahildir?",
   "siklar": {
-    "A": "Anomali ayıklama: tek seferlik hataları popülasyon dışında tutmak",
-    "B": "Parasal birim örnekleme: bir kalemin seçilme olasılığının tutarıyla orantılı olması",
-    "C": "Tabakalama: popülasyonu benzer özelliklere sahip alt gruplara bölüp her gruptan ayrı örneklem seçmek",
-    "D": "Blok seçim: popülasyondan art arda gelen birimleri tek seferde almak",
-    "E": "İstatistiksel olmayan örnekleme: seçimi mesleki muhakemeye dayalı yapmak"
+    "A": "Varlığın sökülmesi, taşınması ve yerleştirildiği alanın restorasyonuna ilişkin tahmini maliyet (işletmenin katlandığı yükümlülük)",
+    "B": "Varlık alımı sırasında yararlanılan ve satıcının uyguladığı ticari iskonto",
+    "C": "İade alınabilen katma değer vergisi",
+    "D": "Varlığın gelecekte üreteceği tahmini gelirler",
+    "E": "Varlık kullanılmaya başlandıktan sonraki olağan bakım giderleri"
   },
-  "dogru": "C",
+  "dogru": "A",
   "aciklama": {
-    "A": "Anomali ayıklama ile tabakalamayı karıştırıyor. Anomali ayıklama, tek seferlik olağandışı hataları popülasyondan çıkarmaktır; tabakalama ise benzer kalemleri gruplara ayırıp her gruptan ayrı örneklem seçmektir.",
-    "B": "Parasal birim örnekleme ile tabakalamayı karıştırıyor. Parasal birim örneklemede tutarı yüksek kalemler otomatik olarak seçilme şansı artar; tabakalamada ise gruplar elle oluşturulup her gruptan ayrı örneklem alınır.",
-    "C": "Ne soruluyor: Denetçinin stok listesini büyük ve küçük tutarlı kalemler olarak iki gruba ayırıp her gruptan ayrı örneklem seçme yöntemi hangi kavramdır?\n\nKural: Tabakalama, denetçinin popülasyonu benzer özelliklere göre alt gruplara böldüğü tekniktir. Her alt gruptan (tabakadan) ayrı örneklem seçer. Böylece önemli kalemler gözden kaçmaz.\n\nBu olayda: Denetçi 800 kalemi iki tabakaya ayırıyor. Birinci tabaka 50 yüksek tutarlı kalem, ikinci tabaka 750 düşük tutarlı kalem. Her tabakadan ayrı örneklem alacak.\n\nAkılda kalsın: Tabakalama, balıkları büyüklüklerine göre ağlara ayırmak gibidir—her ağdan ayrı numune alırsın.",
-    "D": "Blok seçim ile tabakalamayı karıştırıyor. Blok seçim, popülasyondan arka arkaya gelen birimleri (örneğin 50-75 arası numaralar) toplu almaktır; tabakalama ise özelliklere göre gruplar oluşturup her gruptan ayrı örneklem seçmektir.",
-    "E": "İstatistiksel olmayan örnekleme ile tabakalamayı karıştırıyor. İstatistiksel olmayan örnekleme, denetçinin yargısıyla seçim yapmasıdır; tabakalama ise sistematik olarak popülasyonu gruplara ayırıp her gruptan örneklem almaktır."
+    "A": "Ne soruluyor: Maddi duran varlığın maliyetine hangi unsurlar dahildir?\n\nKural: Varlığın maliyetine, satın alma bedeli, kullanıma hazır hale getirme maliyetleri ve gelecekte varlığı sökme-sahayı eski haline getirme yükümlülüğü (karşılık olarak ayrılan tutar) dahildir.\n\nBu olayda: İşletme varlığı kullandıktan sonra onu sökmek, taşımak ve alanı eski haline getirmek zorunda. Bu yükümlülük başlangıçta tahmin edilir ve varlığın maliyetine eklenir.\n\nAkılda kalsın: Gelecekteki restorasyon yükümlülüğü bugünden maliyete dahil edilir.",
+    "B": "Ticari iskonto ile fatura fiyatını karıştırıyor. Ticari iskonto satıcının fatura düzenlerken yaptığı indirimdir; fatura zaten net tutarı gösterir, iskonto ayrıca maliyete eklenmez.",
+    "C": "İade edilebilir KDV ile maliyet unsurunu karıştırıyor. İade alınabilir KDV işletme geri alacağı için varlığın maliyetine dahil edilmez; sadece iade edilemeyen KDV maliyete girer.",
+    "D": "Varlığın maliyeti ile gelecekteki gelirlerini karıştırıyor. Maliyet varlığı edinmek ve hazır hale getirmek için yapılan harcamadır; varlığın üreteceği gelirler maliyete dahil edilmez.",
+    "E": "İlk edinim maliyeti ile sonraki bakım giderlerini karıştırıyor. Varlık kullanıma başladıktan sonraki olağan bakım ve onarım giderleri maliyete değil, dönem gideri olarak kayıtlanır."
   },
-  "kaynak": "BDS 530 Tanımlar md.5(f) ve Uygulama Rehberi A8",
+  "kaynak": "TMS 16 paragraf 16",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Denetim — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Finansal Muhasebe — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 145,
+    "uygun_aday": 144,
     "yayindaki": 150,
-    "gecmiste": 5
+    "gecmiste": 6
   }
 }
