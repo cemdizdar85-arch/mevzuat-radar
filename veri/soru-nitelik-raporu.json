@@ -1,7 +1,7 @@
 {
-  "tarih": "07.08.2026 22:36",
+  "tarih": "08.08.2026 12:05",
   "durum": "YAZILDI",
-  "kasa": 30413,
+  "kasa": 30510,
   "benzer_grup": {
     "grup": 1375,
     "gruplu_soru": 4799,
@@ -9,9 +9,9 @@
     "en_buyuk_imza": "hukuk|is sozlesmesi feshi|İş sözleşmesi başlangıçtan itibaren belirsiz süreli kabul ed"
   },
   "zorluk": {
-    "kolay": 19177,
-    "orta": 7439,
-    "zor": 3797
+    "kolay": 18473,
+    "orta": 9446,
+    "zor": 2591
   },
   "ornekler": [
     {
@@ -38,7 +38,7 @@
       "id": "000617ca",
       "ders": "Finansal Muhasebe",
       "zorluk": 1,
-      "puan": 0,
+      "puan": 1,
       "sayi": 0,
       "islem": 0,
       "kelime": 20,
@@ -48,11 +48,11 @@
       "id": "000aa943-facf-431f-8a90-5559531a6a99",
       "ders": "Finansal Muhasebe",
       "zorluk": 2,
-      "puan": 2,
+      "puan": 3,
       "sayi": 7,
       "islem": 1,
       "kelime": 66,
-      "sikYakinlik": null
+      "sikYakinlik": 3.2778
     },
     {
       "id": "0010b01e-fae9-43fc-a75a-194192467077",
@@ -77,12 +77,12 @@
     {
       "id": "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
       "ders": "Maliyet Muhasebesi",
-      "zorluk": 1,
-      "puan": 1,
+      "zorluk": 2,
+      "puan": 3,
       "sayi": 5,
       "islem": 0,
       "kelime": 58,
-      "sikYakinlik": null
+      "sikYakinlik": 0.0
     },
     {
       "id": "001df7f2",
@@ -122,20 +122,20 @@
       "sayi": 8,
       "islem": 0,
       "kelime": 99,
-      "sikYakinlik": null
+      "sikYakinlik": 0.2944
     },
     {
       "id": "0023bc76-8009-4dd5-b73a-a26199e690cf",
       "ders": "Hukuk",
       "zorluk": 1,
-      "puan": 0,
+      "puan": 2,
       "sayi": 1,
       "islem": 0,
       "kelime": 68,
       "sikYakinlik": null
     }
   ],
-  "yazilan": 35212,
+  "yazilan": 35309,
   "yazma_hatasi": 0,
   "durust_sinir": "Zorluk YAPI tahminidir (veri yuku + hesap adimi + sik yakinligi). Gercek zorluk canli deneme cevap istatistigi birikince kalibre edilecek; siteye \"zor\" denirken bu ayrim yazilir."
 }
