@@ -19,7 +19,13 @@
 #  Ayni denetim uretim aninda da kosuyor: motor/soru-uret-v2.ps1 ARITMETIK
 #  KAPISI bolumu bu dosyanin ikizidir - birini degistirirsen ikisini degistir.
 # ============================================================================
-param([switch]$yaz)
+# 08.08 - SADECE FILTRESI (Cem: "kolay niye soru yapiyoruz" -> el yazimi partiler).
+# Rapor 1.522 bulgunun yalnizca 400 ORNEGINI sakliyor ve uretim alani tasimiyor;
+# bu yuzden yeni yazilan bir partinin TEMIZ oldugu KANITLANAMIYORDU. Artik
+#   -sadece "gm-elle matematik#1"
+# denirse yalniz o uretim damgasini tasiyan sorular taranir ve parti tek basina
+# sinanabilir. Filtre verilmezse davranis eskisi gibi TUM KASADIR.
+param([switch]$yaz, [string]$sadece = '')
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -177,7 +183,9 @@ $bas=0
 while($true){
   # PS5.1/7 farki: 5.1'de IRM buyuk diziyi TEK nesne olarak dondurur - boru
   # her iki surumde de tek tek acar (06.08 yerel kosu dersi, "taranan: 1" vakasi)
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,soru,siklar,dogru,aciklama,hap,yevmiye,yayin&order=id&limit=500&offset=$bas" -Headers $H -TimeoutSec 300 | ForEach-Object { $_ })
+  $suz = ''
+  if($sadece -ne ''){ $suz = '&uretim=like.' + [uri]::EscapeDataString($sadece + '*') }
+  $r = @(Invoke-RestMethod -Uri "$U`?select=id,sinav,ders,konu,soru,siklar,dogru,aciklama,hap,yevmiye,yayin&order=id&limit=500&offset=$bas$suz" -Headers $H -TimeoutSec 300 | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($s in $r){
     if($null -eq $s){ continue }
