@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260730165409
+Start time: 20260808095833
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5bd0e294-848b-4f4b-8fbc-d041aa6504bb.ps1'
-Process ID: 2187
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6b019d76-3710-4b22-be56-f1debd0de5b8.ps1'
+Process ID: 2236
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,63 +17,77 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Konu sayisi: 3230 (16 donem birlestirilmis)
-  ...100/3230
-  ...500/3230
-  ...600/3230
-  ...700/3230
-  ...800/3230
-  ...900/3230
-  ...1000/3230
-  ...1100/3230
-  ...1200/3230
-  ...1300/3230
-  ...1600/3230
-  ...1700/3230
-  ...1800/3230
-  ...1900/3230
-  ...2000/3230
-  ...2100/3230
-  ...2200/3230
-  ...2300/3230
-  ...2400/3230
-  ...2500/3230
-  ...2600/3230
-  ...2700/3230
-  ...2800/3230
-  ...2900/3230
-  ...3000/3230
+Konu sayisi: 3232 (16 donem birlestirilmis)
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ...100/3232
+  ...500/3232
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ...600/3232
+  ...700/3232
+  ...800/3232
+  ...900/3232
+  ...1000/3232
+  ...1100/3232
+  ...1200/3232
+  ...1300/3232
+  ...1600/3232
+  ...1700/3232
+  ...1800/3232
+  ...1900/3232
+  ...2000/3232
+  ...2100/3232
+  ...2200/3232
+  ...2300/3232
+  ...2400/3232
+  ...2500/3232
+  ...2600/3232
+  ...2700/3232
+  ...2800/3232
+  ...2900/3232
+  ...3000/3232
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2248
-  KAYNAK YOK (once yut)    : 346
-  MEVZUAT-DISI (elle yaz)  : 636
+  URET (kaynak var)        : 2338
+  KAYNAK YOK (once yut)    : 256
+  MEVZUAT-DISI (elle yaz)  : 638
   -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
-    4 soru | Muhasebe                   | depozito iadesi kaydi
-    3 soru | Muhasebe                   | police muhasebelestirme
-    3 soru | Muhasebe                   | nazim hesaplar
+    3 soru | Muhasebe                   | hazine bonosu tahsili
     3 soru | Maliye                     | mali anestezi
     3 soru | Maliye                     | kamu harcamalari artis nedenleri
-    3 soru | Muhasebe                   | hazine bonosu tahsili
-    3 soru | Muhasebe                   | serefiye hesaplama
-    2 soru | Muhasebe                   | kesin mizan hesap kalani
-    2 soru | Muhasebe                   | safha maliyetleme
-    2 soru | Hukuk                      | etik ilkeler tehditler
-    2 soru | Muhasebe                   | maddi duran varlik dogruluk testi
-    2 soru | Muhasebe                   | kredi faiz tahakkuku
-    2 soru | Hukuk                      | meslek mensubu olma engelleri
-    2 soru | Hukuk                      | limited sirket ozellikleri
-    2 soru | Hukuk                      | sorumsuzluk anlasmalari
     2 soru | Maliye                     | vergi kapitalizasyonu
-    2 soru | Maliye                     | vergilemede etkinlik
-    2 soru | Maliye                     | verginin kapitalizasyonu
-    2 soru | Muhasebe                   | birikmis amortisman denetim proseduru
+    2 soru | Muhasebe                   | azalan bakiyelerden normale gecis amortismani
+    2 soru | Hukuk                      | sorumsuzluk anlasmalari
+    2 soru | Hukuk                      | meslek mensubu olma engelleri
     2 soru | Hukuk                      | limited sirket kurallari
+    2 soru | Maliye                     | verginin kapitalizasyonu
+    2 soru | Muhasebe                   | kesin mizan hesap kalani
+    2 soru | Muhasebe                   | kredi faiz tahakkuku
+    2 soru | Muhasebe                   | maddi duran varlik dogruluk testi
+    2 soru | Ekonomi                    | stolper-samuelson teoremi
+    2 soru | Muhasebe                   | safha maliyetleme
+    2 soru | Maliye                     | vergilemede etkinlik
+    2 soru | Ekonomi                    | gresham kanunu
+    1 soru | Muhasebe                   | sektorel oran analizi
+    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
+    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
+    1 soru | Muhasebe                   | cari oran-asit test hesabi
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260730180536
+End time: 20260808104912
 **********************
