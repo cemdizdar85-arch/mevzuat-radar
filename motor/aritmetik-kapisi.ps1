@@ -94,7 +94,7 @@ function IslemDenetle([string]$metin){
     $bk = ($a / $b) * 100.0
     $farkO = [math]::Abs($bk - $sn)
     if($farkO -gt (OranTol $om.Groups['son'].Value)){
-      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$farkO/[math]::Max([math]::Abs($bk),0.0001),2); tur='oran' }
+      $bulgu += [pscustomobject]@{ ifade=($om.Value -replace '\s+',' '); beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$farkO/[math]::Max([math]::Abs($bk),0.0001),2); tur='oran' }
     }
   }
   $metin = $reOran.Replace($metin, ' ')
@@ -104,6 +104,13 @@ function IslemDenetle([string]$metin){
     # ara adimdir; sonucun hemen ardindan islem geliyorsa bu eslesme atlanir
     $devam = $metin.Substring($pm.Index + $pm.Length)
     if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }
+    # 08.08 GERIYE DOGRU ZINCIR KORUMASI: koruma tek yonluydu - eslesmeden
+    # SONRA operator gelip gelmedigine bakiyor ama ONCE gelip gelmedigine
+    # BAKMIYORDU. Ilk parca atlaninca regex kalan KUYRUGU ayri bir ifade
+    # saniyor: "20 x (3+60)/2 = 630" -> bastaki "20 x" dusuyor, (3+60)/2=31,5
+    # ile karsilastirilip %1900 sahte sapma uretiliyordu. Ifadenin BASINDA
+    # operator/rakam/kapali parantez varsa bu bir zincir parcasidir, atlanir.
+    if($pm.Index -gt 0 -and $metin.Substring(0,$pm.Index) -match '(?:[x×X*/÷+\-−]\s*$|[A-Za-z\^]\s*$)'){ continue }
     $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
     if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
@@ -111,7 +118,7 @@ function IslemDenetle([string]$metin){
     if($pm.Groups['son'].Value -like '%*' -and [math]::Abs($bk) -lt 1.5){ $bk = $bk * 100.0 }
     $fark2 = [math]::Abs($bk - $sn)
     if($fark2 -gt (EsitTol $pm.Groups['esit'].Value $pm.Groups['son'].Value $bk)){
-      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$fark2/[math]::Max([math]::Abs($bk),0.0001),2) }
+      $bulgu += [pscustomobject]@{ ifade=($pm.Value -replace '\s+',' '); beklenen=[math]::Round($bk,4); yazan=$sn; sapmaYuzde=[math]::Round(100*$fark2/[math]::Max([math]::Abs($bk),0.0001),2) }
     }
   }
   $metin = $reParen.Replace($metin, ' ')
@@ -119,7 +126,12 @@ function IslemDenetle([string]$metin){
   $metin = $metin -replace '\([^()]*\)', ' '
   foreach($m in $reIslem.Matches("$metin")){
     $devam2 = $metin.Substring($m.Index + $m.Length)
-    if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
+    if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi (ileri)
+    # 08.08 GERIYE DOGRU ZINCIR KORUMASI - bkz. yukaridaki ayrintili not.
+    # Ornekler: "40 + 10 + 10 = 60" icinden "10 + 10 = 60" kopuyordu (%200);
+    # "-1/2 = -0,5" icinden "1/2 = -0,5" kopuyordu (%200). Ifadenin hemen
+    # oncesinde operator varsa eslesme bir ZINCIR PARCASIDIR, dogrulanmaz.
+    if($m.Index -gt 0 -and $metin.Substring(0,$m.Index) -match '(?:[x×X*/÷+\-−]\s*$|[A-Za-z\^]\s*$)'){ continue }
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
     $sayilar = New-Object System.Collections.Generic.List[object]
@@ -159,7 +171,7 @@ function IslemDenetle([string]$metin){
     $fark = [math]::Abs($b - $sv)
     $tol  = EsitTol $m.Groups['esit'].Value $sonS $b
     if($fark -gt $tol){
-      $bulgu += [pscustomobject]@{ beklenen=[math]::Round($b,4); yazan=$sv; sapmaYuzde=[math]::Round(100*$fark/[math]::Max([math]::Abs($b),0.0001),2) }
+      $bulgu += [pscustomobject]@{ ifade=($m.Value -replace '\s+',' '); beklenen=[math]::Round($b,4); yazan=$sv; sapmaYuzde=[math]::Round(100*$fark/[math]::Max([math]::Abs($b),0.0001),2) }
     }
   }
   # DIKKAT: 'return ,$bulgu' YAZMA - virgul sarmalayici bos listeyi @(cmd)
@@ -200,7 +212,7 @@ while($true){
       $t = $alanlar[$ad]
       $bl = IslemDenetle $t
       if($reIslem.IsMatch($t)){ $islemVar=$true }
-      foreach($b in $bl){ $soruBulgu += [pscustomobject]@{ alan=$ad; sapmaYuzde=$b.sapmaYuzde } }
+      foreach($b in $bl){ $soruBulgu += [pscustomobject]@{ alan=$ad; ifade=$b.ifade; beklenen=$b.beklenen; yazan=$b.yazan; sapmaYuzde=$b.sapmaYuzde } }
       $km = $reKalip.Match($t)
       if($km.Success){ $soruKalip += [pscustomobject]@{ alan=$ad; kalip=$km.Value } }
     }
@@ -216,8 +228,8 @@ while($true){
         $dengesiz.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; borc=[math]::Round($tb,2); alacak=[math]::Round($ta,2) })
       }
     }
-    if($soruBulgu.Count){ $bulgular.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; yayin=[bool]$s.yayin; sapmalar=$soruBulgu }) }
-    if($soruKalip.Count){ $kalipli.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; yayin=[bool]$s.yayin; kaliplar=$soruKalip }) }
+    if($soruBulgu.Count){ $bulgular.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; konu=$s.konu; yayin=[bool]$s.yayin; sapmalar=$soruBulgu }) }
+    if($soruKalip.Count){ $kalipli.Add([pscustomobject]@{ id=$s.id; sinav=$s.sinav; ders=$s.ders; konu=$s.konu; yayin=[bool]$s.yayin; kaliplar=$soruKalip }) }
   }
   if($r.Count -lt 500){ break }
   $bas += 500
