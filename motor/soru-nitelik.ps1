@@ -127,8 +127,12 @@ foreach($s in $kasa){
     foreach($h in 'A','B','C','D','E'){
       $v = $null; try { $v = "$($s.siklar.$h)" } catch {}
       if(-not $v){ continue }
+      # 08.08 (2. onarim): sinir 40 -> 90 karakter. Iki rakam + aciklayici kelime
+      # tasiyan sayisal siklar ("90 milyar TL fazla; 150 milyar TL operasyonel
+      # acik" = 50 karakter) 40 sinirina takilip ELENIYORDU; boylece $sayisalSik
+      # 4'e ulasmiyor ve celdirici yakinligi sinyali HIC calismiyordu.
       $m = $reSayi.Match($v)
-      if($m.Success -and $v.Length -le 40){ $sayisalSik += [pscustomobject]@{ h=$h; v=(TrSayi $m.Value) } }
+      if($m.Success -and $v.Length -le 90){ $sayisalSik += [pscustomobject]@{ h=$h; v=(TrSayi $m.Value) } }
     }
   }
   $yakinlik = $null
@@ -147,7 +151,85 @@ foreach($s in $kasa){
   $kelime = @($soruM -split '\s+' | Where-Object { $_ }).Count
   if($kelime -ge 90){ $puan += 1 }
 
-  $z = if($puan -le 1){ 1 } elseif($puan -le 3){ 2 } else { 3 }
+  # ============================================================================
+  # 08.08 CETVEL DUZELTMESI (Cem: "sinavi neden kolay yapmisiz?")
+  # OLCUM: sayisal olmayan derslerde zorluk dagilimi Yabanci Dil %100 kolay,
+  # Ticaret/Vergi %99, Borclar/Maliye %98 cikti. Sebep icerik degil CETVELDI:
+  # (a)-(d) sinyalleri SAYIYA dayaniyor; sayi icermeyen bir hukuk/dil sorusu
+  # en fazla 1 puan alabiliyor, yani "zor" damgasi almasi MATEMATIKSEL OLARAK
+  # IMKANSIZDI. Asagidaki sinyaller sayisal olmayan zorlugu olcer.
+  # ============================================================================
+  $tumMetin = $soruM
+  if($d -match '^[A-E]$'){ foreach($h in 'A','B','C','D','E'){ try { $tumMetin += ' ' + "$($s.siklar.$h)" } catch {} } }
+
+  # (f) OLUMSUZ KOK: "hangisi YANLISTIR / degildir / soylenemez" - aday cift
+  #     olumsuz kurmak zorunda kalir; olcum literaturunde en guclu zorluk
+  #     isaretlerinden biridir.
+  if($soruM -imatch '(yanl[ıi][şs]t[ıi]r|de[ğg]ildir|s[öo]ylenemez|olamaz|yer almaz|bulunmaz|gerekmez)'){ $puan += 1 }
+
+  # (g) COKLU ONERME: "I, II, III ... hangileri" - birden fazla yargiyi ayri
+  #     ayri degerlendirip birlestirmek gerekir.
+  #     08.08 (2. onarim): sabit +2 yerine ONERME SAYISIYLA olceklendi. Dort
+  #     onermeyi tek tek yargilamak, ikisini yargilamaktan olculebilir sekilde
+  #     daha agirdir; eski hali ikisini de ayni puanliyordu.
+  $onermeAdet = ([regex]::Matches($soruM, '(?m)^\s*(I{1,3}V?|IV|VI?)\s*[\.\)]\s')).Count
+  if($onermeAdet -ge 4){ $puan += 3 }
+  elseif($onermeAdet -eq 3){ $puan += 2 }
+  elseif($onermeAdet -eq 2){ $puan += 1 }
+  elseif($soruM -imatch '\bhangileri\b'){ $puan += 1 }
+
+  # (h) ISTISNA/SART YOGUNLUGU: kural + istisna ayrimi gerektiren kokler.
+  $istisna = ([regex]::Matches($tumMetin, '(?i)(ancak|istisna|sakl[ıi]d[ıi]r|d[ıi][şs][ıi]nda|hari[çc]|[şs]art[ıi]yla|ko[şs]uluyla)')).Count
+  if($istisna -ge 4){ $puan += 2 } elseif($istisna -ge 2){ $puan += 1 }
+
+  # (i) UZUN VE YAKIN SIKLAR: siklarin ortalama uzunlugu buyukse aday her
+  #     sikki ayri ayri okuyup karsilastirmak zorundadir.
+  $sikUz = @()
+  if($d -match '^[A-E]$'){ foreach($h in 'A','B','C','D','E'){ try { $v="$($s.siklar.$h)"; if($v){ $sikUz += @($v -split '\s+' | Where-Object { $_ }).Count } } catch {} } }
+  if($sikUz.Count -ge 4){
+    $ortSik = ($sikUz | Measure-Object -Average).Average
+    if($ortSik -ge 18){ $puan += 2 } elseif($ortSik -ge 10){ $puan += 1 }
+  }
+
+  # (j) SENARYO KOKU: olay anlatip hukuk uygulatan sorular, duz tanim
+  #     sorularindan zordur. Isaret: kisi/sirket adi + fiil zinciri.
+  #     08.08 (2. onarim): esik 45 -> 35 kelime ve tetikleyici liste genisletildi.
+  #     Sayisal senaryo kokleri DOGASI GEREGI kisadir ("...Buna gore ulkenin
+  #     birincil dengesi ile operasyonel acigi nedir?" = 39 kelime) ve 45
+  #     esigine takiliyordu; oysa hesap yuku tasiyorlar.
+  if($kelime -ge 35 -and $soruM -imatch '(buna g[öo]re|bu duruma? (g[öo]re|iliskin|ilgili)|s[öo]z konusu|bu olayda|nasil (degisir|adlandirilir|hesaplanir)|kac (TL|birim))'){ $puan += 1 }
+
+  # ==========================================================================
+  # 08.08 IKINCI CETVEL ONARIMI (Cem: "CETVELI ONAR")
+  # OLCUM: el yazimi 30 ORTA/ZOR hedefli sorunun yarisi KOLAY dustu. Sebep
+  # tek tek soktuldu: (a)(b)(d)(e)(i) sinyallerinin BESI DE aslinda HACIM
+  # olcuyor. Ornek - "operasyonel acik" sorusu uc adimli hesap istiyor ama
+  # siklari kisa sayisal ifadeler oldugu icin (d) ve (i) sifir, kok 39 kelime
+  # oldugu icin (j) sifir; toplam 2 puan = KOLAY. Cetvel ZORLUGU degil
+  # UZUNLUGU odullendiriyordu. Asagidaki iki sinyal hacimden BAGIMSIZDIR.
+  # ==========================================================================
+
+  # (k) HESAP ZINCIRI: dogru sikkin aciklamasinda kac ARA SONUC uretiliyor.
+  #     Cok adimli hesap, tek adimlidan olculebilir sekilde zordur ve bu,
+  #     sorunun ya da siklarin uzunlugundan tamamen bagimsizdir. Esitlik
+  #     isareti her hesaplanmis ara sonucu isaretler.
+  $zincir = ([regex]::Matches($acik, '=')).Count
+  if($zincir -ge 5){ $puan += 2 } elseif($zincir -ge 3){ $puan += 1 }
+
+  # (l) AYIRT ETME KOKU: iki kavrami/kalemi birbirinden ayirmayi ya da ikisini
+  #     BIRLIKTE dogru vermeyi isteyen sorular, tek kavram hatirlatan
+  #     sorulardan zordur (aday iki ekseni ayni anda tutmak zorundadir).
+  if($soruM -imatch '(s[ıi]ras[ıi]yla|ayr[ıi]m[ıi]|birlikte do[ğg]ru|hangisinde do[ğg]ru|farkl?[ıi]l?[ıi]k|ile .{0,30} aras[ıi]ndaki)'){ $puan += 1 }
+
+  # 08.08: esikler yeni sinyallerle birlikte yeniden ayarlandi (puan tavani
+  # yukseldigi icin eski 1/3 esikleri her seyi "zor" gosterirdi).
+  # 2. onarim - ESIK KALIBRASYONU: Ilk denemede esikler yeni sinyallerin
+  # TEORIK TAVANINA gore 3 puan yukari cekildi ve dagilim %60 -> %75 kolaya
+  # kaydi. Hata suydu: (k) ve (l) sorularin COGUNDA hic atesenmiyor, dolayisiyla
+  # kazanc saglamayan her soru bir basamak ASAGI dusuyordu. Dogru kalibrasyon
+  # esigi SABIT tutmaktir; boylece yeni sinyal yalnizca HAK EDEN soruyu yukari
+  # tasir, digerlerinin puani aynen korunur.
+  $z = if($puan -le 2){ 1 } elseif($puan -le 5){ 2 } else { 3 }
   $zorlukHarita["$($s.id)"] = $z
   $dagilim[$z]++
   if($ornekler.Count -lt 12){
