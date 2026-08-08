@@ -1045,6 +1045,13 @@ function IslemDenetle([string]$metin){
   foreach($om in $reOran.Matches($metin)){
     $devam0 = $metin.Substring($om.Index + $om.Length)
     if($devam0 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }
+
+    # 08.08 GERIYE DOGRU ZINCIR KORUMASI (IKIZ: motor/aritmetik-kapisi.ps1).
+    # Koruma TEK YONLUYDU - eslesmeden SONRA operator gelip gelmedigine bakiyor,
+    # ONCE gelip gelmedigine bakmiyordu. Ifadenin BASI kopunca kalan kuyruk ayri
+    # bir ifade sanilip sahte sapma uretiliyordu ("40 + 10 + 10 = 60" icinden
+    # "10 + 10 = 60"). Tam kasada 220 HAYALET bulgunun sebebi buydu (1.522 -> 1.302).
+    if($om.Index -gt 0 -and $metin.Substring(0,$om.Index) -match '(?:[x×X*/÷+\-−]\s*$|[A-Za-z\^]\s*$)'){ continue }
     $a=TrSayi $om.Groups['a'].Value; $b=TrSayi $om.Groups['b'].Value; $sn=TrSayi $om.Groups['son'].Value
     if($null -ne $a -and $null -ne $b -and $null -ne $sn -and $b -ne 0){
       $bk = ($a / $b) * 100.0
@@ -1055,6 +1062,13 @@ function IslemDenetle([string]$metin){
   foreach($pm in $reParen.Matches($metin)){
     $devam = $metin.Substring($pm.Index + $pm.Length)
     if($devam -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi (07.08)
+
+    # 08.08 GERIYE DOGRU ZINCIR KORUMASI (IKIZ: motor/aritmetik-kapisi.ps1).
+    # Koruma TEK YONLUYDU - eslesmeden SONRA operator gelip gelmedigine bakiyor,
+    # ONCE gelip gelmedigine bakmiyordu. Ifadenin BASI kopunca kalan kuyruk ayri
+    # bir ifade sanilip sahte sapma uretiliyordu ("40 + 10 + 10 = 60" icinden
+    # "10 + 10 = 60"). Tam kasada 220 HAYALET bulgunun sebebi buydu (1.522 -> 1.302).
+    if($pm.Index -gt 0 -and $metin.Substring(0,$pm.Index) -match '(?:[x×X*/÷+\-−]\s*$|[A-Za-z\^]\s*$)'){ continue }
     $a=TrSayi $pm.Groups['a'].Value; $b=TrSayi $pm.Groups['b'].Value; $c=TrSayi $pm.Groups['c'].Value; $sn=TrSayi $pm.Groups['son'].Value
     if($null -eq $a -or $null -eq $b -or $null -eq $c -or $null -eq $sn -or $c -eq 0){ continue }
     $ic = if($pm.Groups['op1'].Value -eq '+'){ $a + $b } else { $a - $b }
@@ -1067,6 +1081,13 @@ function IslemDenetle([string]$metin){
   foreach($m in $reIslem.Matches("$metin")){
     $devam2 = $metin.Substring($m.Index + $m.Length)
     if($devam2 -match '^\s*[x×X*/÷+\-−]\s*%?\d'){ continue }   # zincir korumasi
+
+    # 08.08 GERIYE DOGRU ZINCIR KORUMASI (IKIZ: motor/aritmetik-kapisi.ps1).
+    # Koruma TEK YONLUYDU - eslesmeden SONRA operator gelip gelmedigine bakiyor,
+    # ONCE gelip gelmedigine bakmiyordu. Ifadenin BASI kopunca kalan kuyruk ayri
+    # bir ifade sanilip sahte sapma uretiliyordu ("40 + 10 + 10 = 60" icinden
+    # "10 + 10 = 60"). Tam kasada 220 HAYALET bulgunun sebebi buydu (1.522 -> 1.302).
+    if($m.Index -gt 0 -and $metin.Substring(0,$m.Index) -match '(?:[x×X*/÷+\-−]\s*$|[A-Za-z\^]\s*$)'){ continue }
     $ifade = $m.Groups['ifade'].Value
     $sonS  = $m.Groups['sonuc'].Value
     $sayilar = New-Object System.Collections.Generic.List[object]
