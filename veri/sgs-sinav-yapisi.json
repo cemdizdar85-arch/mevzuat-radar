@@ -1,44 +1,114 @@
 {
-  "kaynak": "TESMER Staj ve Sinavlara Iliskin Uygulama Yonergesi 2024 (tesmer.org.tr), SGS: m.6.2 tablo (17.07.2020 tarih 22 sayili TURMOB YKK); Yeterlilik: m.13.1 (Sinav Yonetmeligi m.14; 8. ders 12.09.2025 YKK ile eklendi)",
-  "guncelleme": "27.07.2026",
-  "sgs": {
-    "toplamSoru": 130,
-    "not": "Bagil degerlendirme (ortalama 50, std sapma 10); 60+ puan gecer. 5 secenekli, yanlis dogruyu goturmez.",
-    "bolumler": [
-      { "ad": "Genel Kultur ve Yetenek", "oran": "13,33%", "soru": 20, "dersler": [
-        { "ders": "Turkce", "soru": 7 },
-        { "ders": "Matematik", "soru": 8 },
-        { "ders": "Ataturk Ilkeleri ve Inkilap Tarihi", "soru": 5 }
-      ]},
-      { "ad": "Yabanci Dil", "oran": "6,67%", "soru": 10, "dersler": [
-        { "ders": "Yabanci Dil", "soru": 10, "not": "Almanca / Fransizca / Ingilizce secmeli" }
-      ]},
-      { "ad": "Alan Bilgisi", "oran": "80%", "soru": 100, "dersler": [
-        { "ders": "Finansal Muhasebe", "soru": 26, "not": "Finansal Muhasebe + Muhasebe Bilgi Sistemi + Uluslararasi Muhasebe Kuruluslari + Turkiye Muhasebe Standartlari" },
-        { "ders": "Maliyet Muhasebesi", "soru": 8 },
-        { "ders": "Mali Tablolar Analizi", "soru": 8 },
-        { "ders": "Denetim", "soru": 16 },
-        { "ders": "Ekonomi", "soru": 6 },
-        { "ders": "Maliye", "soru": 6 },
-        { "ders": "Meslek Hukuku", "soru": 6, "not": "+ Mesleki Degerler ve Etik" },
-        { "ders": "Is ve Sosyal Guvenlik Hukuku", "soru": 6 },
-        { "ders": "Vergi Hukuku", "soru": 6 },
-        { "ders": "Ticaret Hukuku", "soru": 6 },
-        { "ders": "Borclar Hukuku", "soru": 6 }
-      ]}
-    ]
-  },
-  "yeterlilik": {
-    "not": "Her ders 100 uzerinden; ders basina en az 50 + tum derslerin aritmetik ortalamasi en az 60 sart. Tezkiye notu ortalamaya ayri ders gibi dahil. Ilk sinavdan itibaren 3 yil / en fazla 10 sinav hakki; yilda 3 sinav.",
-    "dersler": [
-      "Finansal Muhasebe",
-      "Finansal Tablolar ve Analizi",
-      "Maliyet Muhasebesi",
-      "Muhasebe Denetimi",
-      "Vergi Mevzuati ve Uygulamasi",
-      "Hukuk (Ticaret Hukuku, Borclar Hukuku, Is Hukuku, SSK ve Bag-Kur Mevzuati, Idari Yargilama Hukuku)",
-      "Muhasebecilik ve Mali Musavirlik Meslek Hukuku",
-      "Sermaye Piyasasi Mevzuati"
-    ]
-  }
+    "kaynak":  "SGS: TESMER Uygulama Yonergesi 2026 m.6.2 YURURLUKTEKI hali YALNIZ uc blok verir - Alan Bilgisi 100 (%80), Genel Kultur ve Yetenek 20 (%13,33), Yabanci Dil 10 (%6,67); toplam 130. DERS BAZLI dagilim (FM 26, Denetim 16 vb.) 17.07.2020 YKK tablosundan gelir ve o madde 2026 yonergesinde MULGA edilmistir - resmi baglayici tablo ARTIK YOKTUR. Ancak dagilim FIILEN uygulanmaya devam ediyor: 16 guncel donem kitapciginin 13\u0027unde birebir tutuyor (58 muhasebe / 30 hukuk / 6 ekonomi / 6 maliye / 12 genel kultur / 8 matematik / 10 yabanci dil); 2024/3\u0027te Ekonomi 8-Maliye 4 (toplam 12 ayni). Olcum 08.08.2026, veri: veri/sgs-analiz.json. Yeterlilik: Yonerge m.13.1 (Sinav Yonetmeligi m.14) - 8 ders, bu YURURLUKTEDIR.",
+    "guncelleme":  "27.07.2026",
+    "sgs":  {
+                "toplamSoru":  130,
+                "not":  "Bagil degerlendirme (ortalama 50, std sapma 10); 60+ puan gecer. 5 secenekli, yanlis dogruyu goturmez.",
+                "bolumler":  [
+                                 {
+                                     "ad":  "Genel Kultur ve Yetenek",
+                                     "oran":  "13,33%",
+                                     "soru":  20,
+                                     "dersler":  [
+                                                     {
+                                                         "ders":  "Turkce",
+                                                         "soru":  7
+                                                     },
+                                                     {
+                                                         "ders":  "Matematik",
+                                                         "soru":  8
+                                                     },
+                                                     {
+                                                         "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
+                                                         "soru":  5
+                                                     }
+                                                 ]
+                                 },
+                                 {
+                                     "ad":  "Yabanci Dil",
+                                     "oran":  "6,67%",
+                                     "soru":  10,
+                                     "dersler":  [
+                                                     {
+                                                         "ders":  "Yabanci Dil",
+                                                         "soru":  10,
+                                                         "not":  "Almanca / Fransizca / Ingilizce secmeli"
+                                                     }
+                                                 ]
+                                 },
+                                 {
+                                     "ad":  "Alan Bilgisi",
+                                     "oran":  "80%",
+                                     "soru":  100,
+                                     "dersler":  [
+                                                     {
+                                                         "ders":  "Finansal Muhasebe",
+                                                         "soru":  26,
+                                                         "not":  "Finansal Muhasebe + Muhasebe Bilgi Sistemi + Uluslararasi Muhasebe Kuruluslari + Turkiye Muhasebe Standartlari"
+                                                     },
+                                                     {
+                                                         "ders":  "Maliyet Muhasebesi",
+                                                         "soru":  8
+                                                     },
+                                                     {
+                                                         "ders":  "Mali Tablolar Analizi",
+                                                         "soru":  8
+                                                     },
+                                                     {
+                                                         "ders":  "Denetim",
+                                                         "soru":  16
+                                                     },
+                                                     {
+                                                         "ders":  "Ekonomi",
+                                                         "soru":  6
+                                                     },
+                                                     {
+                                                         "ders":  "Maliye",
+                                                         "soru":  6
+                                                     },
+                                                     {
+                                                         "ders":  "Meslek Hukuku",
+                                                         "soru":  6,
+                                                         "not":  "+ Mesleki Degerler ve Etik"
+                                                     },
+                                                     {
+                                                         "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                                                         "soru":  6
+                                                     },
+                                                     {
+                                                         "ders":  "Vergi Hukuku",
+                                                         "soru":  6
+                                                     },
+                                                     {
+                                                         "ders":  "Ticaret Hukuku",
+                                                         "soru":  6
+                                                     },
+                                                     {
+                                                         "ders":  "Borclar Hukuku",
+                                                         "soru":  6
+                                                     }
+                                                 ]
+                                 }
+                             ]
+            },
+    "yeterlilik":  {
+                       "not":  "Her ders 100 uzerinden; ders basina en az 50 + tum derslerin aritmetik ortalamasi en az 60 sart. Tezkiye notu ortalamaya ayri ders gibi dahil. Ilk sinavdan itibaren 3 yil / en fazla 10 sinav hakki; yilda 3 sinav.",
+                       "dersler":  [
+                                       "Finansal Muhasebe",
+                                       "Finansal Tablolar ve Analizi",
+                                       "Maliyet Muhasebesi",
+                                       "Muhasebe Denetimi",
+                                       "Vergi Mevzuati ve Uygulamasi",
+                                       "Hukuk (Ticaret Hukuku, Borclar Hukuku, Is Hukuku, SSK ve Bag-Kur Mevzuati, Idari Yargilama Hukuku)",
+                                       "Muhasebecilik ve Mali Musavirlik Meslek Hukuku",
+                                       "Sermaye Piyasasi Mevzuati"
+                                   ]
+                   },
+    "dogrulama":  {
+                      "tarih":  "08.08.2026",
+                      "yontem":  "16 guncel donem (2021/2-2026/2) kitapcik sayimi ile karsilastirma",
+                      "birebir_tutan_donem":  13,
+                      "ekonomi_maliye_kaymasi":  "2024/3 (Ekonomi 8 / Maliye 4; toplam 12 degismedi)",
+                      "ARSIV_EKSIGI":  "2025/2 kitapciginda 1 soru, 2025/3 kitapciginda 8 soru (MATEMATIK BLOGUNUN TAMAMI) okunmamis - dersSayim toplamlari 129 ve 122. Bu bir sinav degisikligi DEGIL, bizim veri eksigimizdir; kitapciklar yeniden okunmali."
+                  }
 }
