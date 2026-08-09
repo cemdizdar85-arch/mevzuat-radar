@@ -1,37 +1,37 @@
 {
-  "tarih": "08.08.2026",
-  "gun": "2026-08-08",
+  "tarih": "09.08.2026",
+  "gun": "2026-08-09",
   "durum": "TAMAM",
-  "id": "el-23e003",
+  "id": "bf42bc82",
   "sinav": "SMMM",
-  "ders": "Finansal Muhasebe",
-  "konu": "mdv sokum maliyeti",
-  "soru": "TMS 16'ya göre aşağıdakilerden hangisi bir maddi duran varlık kaleminin MALİYETİNE dahildir?",
+  "ders": "Vergi Mevzuatı ve Uygulaması",
+  "konu": "vuk kacakcilik suclari",
+  "soru": "Zinde Spor A.Ş., spor salonu üyelik gelirlerinin günlük POS tahsilatının bir kısmını yasal defterlere hiç yansıtmayıp, bu tutarları ayrı tutulan gayri resmi bir Excel takibinde gösteriyor. İnceleme sırasında bu ek kaydın varlığı ve buradaki tutarların yasal deftere kasıtlı olarak aktarılmadığı tespit ediliyor. Bu fiil VUK açısından hangi kaçakçılık suçunu oluşturur?",
   "siklar": {
-    "A": "Varlığın sökülmesi, taşınması ve yerleştirildiği alanın restorasyonuna ilişkin tahmini maliyet (işletmenin katlandığı yükümlülük)",
-    "B": "Varlık alımı sırasında yararlanılan ve satıcının uyguladığı ticari iskonto",
-    "C": "İade alınabilen katma değer vergisi",
-    "D": "Varlığın gelecekte üreteceği tahmini gelirler",
-    "E": "Varlık kullanılmaya başlandıktan sonraki olağan bakım giderleri"
+    "A": "Defterlere kaydı gereken işlemleri vergi matrahını azaltacak şekilde başka bir kayıt ortamına aktarma (hesap ve muhasebe hilesi)",
+    "B": "Sahte belge kullanma",
+    "C": "Sadece vergi ziyaı cezası gerektirir, kaçakçılık suçu oluşmaz",
+    "D": "Sadece özel usulsüzlük cezası gerektiren bir durum",
+    "E": "Muhteviyatı itibariyle yanıltıcı belge düzenleme"
   },
   "dogru": "A",
   "aciklama": {
-    "A": "Ne soruluyor: Maddi duran varlığın maliyetine hangi unsurlar dahildir?\n\nKural: Varlığın maliyetine, satın alma bedeli, kullanıma hazır hale getirme maliyetleri ve gelecekte varlığı sökme-sahayı eski haline getirme yükümlülüğü (karşılık olarak ayrılan tutar) dahildir.\n\nBu olayda: İşletme varlığı kullandıktan sonra onu sökmek, taşımak ve alanı eski haline getirmek zorunda. Bu yükümlülük başlangıçta tahmin edilir ve varlığın maliyetine eklenir.\n\nAkılda kalsın: Gelecekteki restorasyon yükümlülüğü bugünden maliyete dahil edilir.",
-    "B": "Ticari iskonto ile fatura fiyatını karıştırıyor. Ticari iskonto satıcının fatura düzenlerken yaptığı indirimdir; fatura zaten net tutarı gösterir, iskonto ayrıca maliyete eklenmez.",
-    "C": "İade edilebilir KDV ile maliyet unsurunu karıştırıyor. İade alınabilir KDV işletme geri alacağı için varlığın maliyetine dahil edilmez; sadece iade edilemeyen KDV maliyete girer.",
-    "D": "Varlığın maliyeti ile gelecekteki gelirlerini karıştırıyor. Maliyet varlığı edinmek ve hazır hale getirmek için yapılan harcamadır; varlığın üreteceği gelirler maliyete dahil edilmez.",
-    "E": "İlk edinim maliyeti ile sonraki bakım giderlerini karıştırıyor. Varlık kullanıma başladıktan sonraki olağan bakım ve onarım giderleri maliyete değil, dönem gideri olarak kayıtlanır."
+    "A": "Ne soruluyor: POS tahsilatlarının bir kısmını yasal defterlere değil, ayrı bir Excel'de tutmak hangi suçu oluşturur?\n\nKural: Defterlere kaydedilmesi gereken işlemleri, vergi matrahını azaltacak şekilde başka kayıt ortamlarına kaydetmek hesap ve muhasebe hilesidir. Şirket gerçek işlemini yasal deftere tam yazmaz, yan defterde tutarsa bu suç oluşur.\n\nBu olayda: Zinde Spor POS tahsilatlarının bir kısmını yasal defterine hiç yazmıyor. Bu tutarları Excel'de ayrıca takip ediyor. Gelir küçük görünüyor, vergi matrahı azalıyor. İşte bu, işlemleri başka kayıt ortamına aktarma suçudur.\n\nAkılda kalsın: Gerçek işlemi yasal deftere yazmayıp yan tutarsanız, hesap hilesi yapmış olursunuz.",
+    "B": "Sahte belge, hiç gerçekleşmeyen bir işlem için düzenlenir. Burada ise işlem gerçek (müşteriler gerçekten ödeme yapıyor), sadece bir kısmı deftere yazılmıyor. Sahte belge kullanımı değil, kayıt dışı bırakma söz konusu.",
+    "C": "Kaçakçılık suçu ile vergi ziyaı cezası birbirini dışlamaz. Şirket kasıtlı olarak işlemleri başka ortama kaydedip yasal defterden uzak tuttuğunda hem kaçakçılık suçu işler, hem de vergi ziyaı cezası alır.",
+    "D": "Özel usulsüzlük basit defter tutma hatalarında uygulanır. Burada kasıtlı olarak gelirlerin bir kısmı kayıt dışı bırakılıyor, vergi matrahı düşürülüyor. Bu basit usulsüzlük değil, kaçakçılık suçudur.",
+    "E": "Yanıltıcı belge gerçek bir işlemi tutar veya nitelik bakımından yanlış yansıtır. Burada belge sorunu yok, sorun bazı işlemlerin hiç yasal deftere kaydedilmemesi. Belge düzenleme değil kayıt hilesi var."
   },
-  "kaynak": "TMS 16 paragraf 16",
+  "kaynak": "VUK m.359/a-1",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Finansal Muhasebe — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 144,
+    "uygun_aday": 143,
     "yayindaki": 150,
-    "gecmiste": 6
+    "gecmiste": 7
   }
 }
