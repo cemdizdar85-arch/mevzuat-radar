@@ -1,19 +1,14 @@
 {
-  "tarih": "09.08.2026 07:51",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 3,
+  "tarih": "09.08.2026 08:35",
+  "durum": "ALARM",
+  "kirmizi": 2,
+  "kurtarma": 0,
   "izlenen_robot": 19,
   "izlenen_veri": 5,
-  "maddeler": [],
-  "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 522.0 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
-    "Smoke Nobetcisi -> son basarili kosu 233.3 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 07.08.2026 (56 saat eski; esik 48s) -> kurtarma: zaten-kosuyor"
+  "maddeler": [
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 522.7 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 234.0 saat once (esik 30s)). Actions loguna bak."
   ],
-  "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml",
-    "KOSU:smoke.yml",
-    "VERI:vitrin-sayilar.json"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
