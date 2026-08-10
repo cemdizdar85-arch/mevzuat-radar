@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260810060502
+Start time: 20260810120011
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1ecc7e79-5ac1-4a30-b2e0-6435e4d3b8a1.ps1'
-Process ID: 10352
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/77ed1263-a5cd-477f-b869-7dc17a16b13a.ps1'
+Process ID: 10422
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -27,50 +27,66 @@ Izlenecek teblig: 43 mevzuatNo  (43 teblig no)
 -> veri/teblig-damga.json
 
 ======================================================================
-  21 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
+  29 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
 ======================================================================
-  mevzuatNo 24517  (584255 -> 60487 bayt)
+  mevzuatNo 24517  (60487 -> 657821 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24517.pdf
-  mevzuatNo 33766  (594501 -> 60487 bayt)
+  mevzuatNo 33766  (60487 -> 596913 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33766.pdf
-  mevzuatNo 34304  (465046 -> 60487 bayt)
+  mevzuatNo 34304  (60487 -> 465046 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34304.pdf
-  mevzuatNo 34500  (453200 -> 60487 bayt)
+  mevzuatNo 34500  (60487 -> 578297 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34500.pdf
-  mevzuatNo 42662  (145304 -> 60487 bayt)
+  mevzuatNo 41286  (138707 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.41286.pdf
+  mevzuatNo 42662  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.42662.pdf
-  mevzuatNo 44952  (866657 -> 60487 bayt)
+  mevzuatNo 44952  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44952.pdf
-  mevzuatNo 44954  (861589 -> 60487 bayt)
+  mevzuatNo 44954  (60487 -> 861589 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44954.pdf
-  mevzuatNo 44959  (859978 -> 60487 bayt)
+  mevzuatNo 44959  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44959.pdf
-  mevzuatNo 44961  (862527 -> 60487 bayt)
+  mevzuatNo 44961  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44961.pdf
-  mevzuatNo 44963  (859962 -> 60487 bayt)
+  mevzuatNo 44963  (60487 -> 859962 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44963.pdf
-  mevzuatNo 44964  (860022 -> 60487 bayt)
+  mevzuatNo 44964  (60487 -> 860022 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44964.pdf
-  mevzuatNo 44968  (859763 -> 60487 bayt)
+  mevzuatNo 44967  (859781 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44967.pdf
+  mevzuatNo 44968  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44968.pdf
-  mevzuatNo 44970  (370269 -> 60487 bayt)
+  mevzuatNo 44970  (60487 -> 370269 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44970.pdf
-  mevzuatNo 44971  (860720 -> 60487 bayt)
+  mevzuatNo 44971  (60487 -> 860720 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44971.pdf
-  mevzuatNo 44974  (459429 -> 60487 bayt)
+  mevzuatNo 44972  (461601 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44972.pdf
+  mevzuatNo 44974  (60487 -> 459429 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44974.pdf
-  mevzuatNo 44975  (463620 -> 60487 bayt)
+  mevzuatNo 44975  (60487 -> 463620 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44975.pdf
-  mevzuatNo 44978  (463310 -> 60487 bayt)
+  mevzuatNo 44976  (462849 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44976.pdf
+  mevzuatNo 44977  (468934 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44977.pdf
+  mevzuatNo 44978  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44978.pdf
-  mevzuatNo 44979  (141982 -> 60487 bayt)
+  mevzuatNo 44979  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44979.pdf
-  mevzuatNo 44982  (463106 -> 60487 bayt)
+  mevzuatNo 44980  (468010 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44980.pdf
+  mevzuatNo 44981  (459463 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44981.pdf
+  mevzuatNo 44982  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44982.pdf
-  mevzuatNo 44983  (461988 -> 60487 bayt)
+  mevzuatNo 44983  (60487 -> 461988 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44983.pdf
-  mevzuatNo 44986  (465024 -> 60487 bayt)
+  mevzuatNo 44986  (60487 -> 60487 bayt)
      https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44986.pdf
+  mevzuatNo 45094  (477166 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.45094.pdf
 
   YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
   modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
@@ -78,5 +94,5 @@ Izlenecek teblig: 43 mevzuatNo  (43 teblig no)
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260810061227
+End time: 20260810120149
 **********************
