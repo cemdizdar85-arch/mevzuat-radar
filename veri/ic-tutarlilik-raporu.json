@@ -1,44 +1,44 @@
 {
-  "tarih": "07.08.2026 01:45",
+  "tarih": "10.08.2026 09:03",
   "durum": "OLCUM",
-  "taranan": 30081,
-  "soruIciBulgu": 610,
+  "taranan": 30569,
+  "soruIciBulgu": 569,
   "cekilen": 0,
   "mukerrerGrup": 20,
-  "dogruEnUzunYuzde": 28.3,
+  "dogruEnUzunYuzde": 28.2,
   "cevapHarfDagilimi": {
-    "SMMM": {
-      "toplam": 12445.0,
-      "dagilimYuzde": {
-        "C": 19.6,
-        "D": 17.6,
-        "B": 20.2,
-        "A": 25.4,
-        "E": 17.1
-      },
-      "yigilmaAlarmi": ""
-    },
-    "SGS": {
-      "toplam": 15258.0,
-      "dagilimYuzde": {
-        "C": 19.5,
-        "D": 19.6,
-        "B": 20.2,
-        "A": 20.7,
-        "E": 19.9
-      },
-      "yigilmaAlarmi": ""
-    },
     "KGK": {
-      "toplam": 2159.0,
+      "toplam": 2166.0,
       "dagilimYuzde": {
-        "C": 16.3,
-        "D": 10.8,
-        "B": 23.4,
+        "E": 10.1,
         "A": 39.4,
-        "E": 10.1
+        "D": 10.8,
+        "B": 23.5,
+        "C": 16.3
       },
       "yigilmaAlarmi": "A %39.4"
+    },
+    "SGS": {
+      "toplam": 15605.0,
+      "dagilimYuzde": {
+        "E": 19.6,
+        "A": 21.3,
+        "D": 19.4,
+        "B": 20.4,
+        "C": 19.3
+      },
+      "yigilmaAlarmi": ""
+    },
+    "SMMM": {
+      "toplam": 12576.0,
+      "dagilimYuzde": {
+        "E": 16.9,
+        "A": 26.0,
+        "D": 17.5,
+        "B": 20.1,
+        "C": 19.5
+      },
+      "yigilmaAlarmi": ""
     }
   },
   "bulgular": [
@@ -204,6 +204,13 @@
       "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
+      "id": "0958276f-c991-4284-88ba-4edd854d3dc1",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
       "id": "09b29003",
       "sinav": "SGS",
       "ders": "Matematik",
@@ -239,13 +246,6 @@
       "sebep": "S4 bos/eksik sik: A | S3 isaretli dogru sik bos"
     },
     {
-      "id": "0ce2ffd0",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C,E"
-    },
-    {
       "id": "0d4673a2",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -261,13 +261,6 @@
     },
     {
       "id": "0dd305e1",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C"
-    },
-    {
-      "id": "0de308ee",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
       "yayin": false,
@@ -330,13 +323,6 @@
       "sebep": "S4 bos/eksik sik: A,B,C,D"
     },
     {
-      "id": "0f39a76a-bdae-4807-995a-ab0bf7a5a4e8",
-      "sinav": "SMMM",
-      "ders": "Finansal Muhasebe",
-      "yayin": false,
-      "sebep": "S1 ayni sik: A=D"
-    },
-    {
       "id": "0fcd061d",
       "sinav": "SGS",
       "ders": "Turkce",
@@ -365,20 +351,6 @@
       "sebep": "S4 bos/eksik sik: B,C,D | S3 isaretli dogru sik bos"
     },
     {
-      "id": "10f6f6c3",
-      "sinav": "SMMM",
-      "ders": "Finansal Tablolar ve Analizi",
-      "yayin": false,
-      "sebep": "S1 ayni sik: A=C"
-    },
-    {
-      "id": "117a32a8-a2b8-4a41-b671-7667e6a95092",
-      "sinav": "SGS",
-      "ders": "Finansal Muhasebe",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
       "id": "11cc5bab",
       "sinav": "SGS",
       "ders": "Ekonomi",
@@ -393,25 +365,11 @@
       "sebep": "S4 bos/eksik sik: A,B,C,E | S3 isaretli dogru sik bos"
     },
     {
-      "id": "126fc396",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D"
-    },
-    {
       "id": "12f08cbc",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: E"
-    },
-    {
-      "id": "14440331",
-      "sinav": "SGS",
-      "ders": "Matematik",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D,E"
     },
     {
       "id": "14c4f93d",
@@ -449,13 +407,6 @@
       "sebep": "S4 bos/eksik sik: A"
     },
     {
-      "id": "176ea056",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: A"
-    },
-    {
       "id": "179f3400-9a1c-42a7-ad65-a670d10281da",
       "sinav": "SMMM",
       "ders": "Maliyet Muhasebesi",
@@ -482,13 +433,6 @@
       "ders": "Turkce",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,C,D,E"
-    },
-    {
-      "id": "1a151437",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: E"
     },
     {
       "id": "1ad6979b",
@@ -552,13 +496,6 @@
       "ders": "Ekonomi",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A | S1 ayni sik: B=D"
-    },
-    {
-      "id": "1f80bff2",
-      "sinav": "SGS",
-      "ders": "Turkce",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D"
     },
     {
       "id": "2021981e",
@@ -720,13 +657,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "2c123f67",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: A,E"
     },
     {
       "id": "2c8f1ee8",
@@ -1023,13 +953,6 @@
       "sebep": "S4 bos/eksik sik: D,E"
     },
     {
-      "id": "43d726a3-d4ed-44ec-bf72-bcc5208e60a5",
-      "sinav": "SMMM",
-      "ders": "Finansal Muhasebe",
-      "yayin": false,
-      "sebep": "S1 ayni sik: B=E"
-    },
-    {
       "id": "44558dc9",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -1163,13 +1086,6 @@
       "sebep": "S4 bos/eksik sik: A,B,D"
     },
     {
-      "id": "4b27bc00",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: E"
-    },
-    {
       "id": "4bdfb698",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -1198,25 +1114,18 @@
       "sebep": "S4 bos/eksik sik: A"
     },
     {
-      "id": "4ca1e1f2",
-      "sinav": "SGS",
-      "ders": "Matematik",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: A,B"
-    },
-    {
-      "id": "4d18d197",
-      "sinav": "SGS",
-      "ders": "Turkce",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
       "id": "4da69a50",
       "sinav": "SGS",
       "ders": "Turkce",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "4dd7f11b-a106-4a69-8341-3eb40e9e5c56",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B | S3 isaretli dogru sik bos"
     },
     {
       "id": "4e5b3832",
@@ -1282,13 +1191,6 @@
       "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
-      "id": "50e57d9d-7af4-4b63-bcad-8878dfbf5c63",
-      "sinav": "SGS",
-      "ders": "Finansal Muhasebe",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
       "id": "50f6ccc1",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -1322,20 +1224,6 @@
       "ders": "Matematik",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: D"
-    },
-    {
-      "id": "52c5fe4d",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C"
-    },
-    {
-      "id": "5392b329",
-      "sinav": "SGS",
-      "ders": "Maliyet Muhasebesi",
-      "yayin": false,
-      "sebep": "S5 dogru sikkin aciklamasi yok/kisa"
     },
     {
       "id": "53ac3c69",
@@ -1420,13 +1308,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,B,E | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "56e93702",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D,E"
     },
     {
       "id": "57321c68",
@@ -1604,13 +1485,6 @@
       "sebep": "S4 bos/eksik sik: A,E"
     },
     {
-      "id": "6006380f",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B"
-    },
-    {
       "id": "612ab42d-63e1-4420-89cd-9a15d0f31629",
       "sinav": "SGS",
       "ders": "Maliyet Muhasebesi",
@@ -1674,13 +1548,6 @@
       "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
     },
     {
-      "id": "642e049a",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: E"
-    },
-    {
       "id": "649d9d42",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -1688,25 +1555,11 @@
       "sebep": "S4 bos/eksik sik: C"
     },
     {
-      "id": "64cd426b",
-      "sinav": "SGS",
-      "ders": "Ekonomi",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B,E"
-    },
-    {
       "id": "64f79eb3",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,C,D | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "6570e70c",
-      "sinav": "SGS",
-      "ders": "Meslek Hukuku",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
       "id": "6595552c-a09d-429a-927c-60de8d4379dc",
@@ -1968,13 +1821,6 @@
       "sebep": "S4 bos/eksik sik: C | S3 isaretli dogru sik bos"
     },
     {
-      "id": "75298a23",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C"
-    },
-    {
       "id": "759a6b4a",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -2108,25 +1954,11 @@
       "sebep": "S1 ayni sik: A=D | S1 ayni sik: A=E"
     },
     {
-      "id": "7ed2be04",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C"
-    },
-    {
       "id": "7fcccb98",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,B,C,D | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "80e051f5",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C"
     },
     {
       "id": "80edc0de-b32c-43e8-aa0f-45f336123da4",
@@ -2248,13 +2080,6 @@
       "sebep": "S4 bos/eksik sik: A,B,C | S3 isaretli dogru sik bos"
     },
     {
-      "id": "8bf46d71",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: A"
-    },
-    {
       "id": "8c5507cb-092d-45eb-84eb-ad237def2942",
       "sinav": "SMMM",
       "ders": "Maliyet Muhasebesi",
@@ -2302,13 +2127,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: D | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "8dacb2f3",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B"
     },
     {
       "id": "8e262081",
@@ -2381,13 +2199,6 @@
       "sebep": "S4 bos/eksik sik: C"
     },
     {
-      "id": "92b93a74",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B,C,D,E"
-    },
-    {
       "id": "9352220b",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
@@ -2400,13 +2211,6 @@
       "ders": "Finansal Muhasebe",
       "yayin": false,
       "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
-      "id": "94b7a957",
-      "sinav": "SGS",
-      "ders": "Turkce",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B,C,D,E"
     },
     {
       "id": "954ee10a-4804-4729-bf46-eb347753489b",
@@ -2465,18 +2269,18 @@
       "sebep": "S4 bos/eksik sik: A,B,C,D"
     },
     {
-      "id": "972f40a6",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: C,E"
-    },
-    {
       "id": "9746b8f4",
       "sinav": "SGS",
       "ders": "Ataturk Ilke ve Inkilap Tarihi",
       "yayin": false,
       "sebep": "S1 ayni sik: A=B | S1 ayni sik: A=C | S1 ayni sik: A=D | S1 ayni sik: A=E"
+    },
+    {
+      "id": "97c3de18-4da6-4116-902a-d0053d7b5ca8",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: C,D"
     },
     {
       "id": "97e28a21-e40e-4451-ae20-48c06ad4f964",
@@ -2519,13 +2323,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,C | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "9d63e54a",
-      "sinav": "SGS",
-      "ders": "Turkce",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
       "id": "9e604967",
@@ -2878,13 +2675,6 @@
       "sebep": "S4 bos/eksik sik: B,C,D"
     },
     {
-      "id": "b4339b00-4e4b-4098-968f-9af51c504d9e",
-      "sinav": "SGS",
-      "ders": "Maliyet Muhasebesi",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
       "id": "b48ec1d1",
       "sinav": "SGS",
       "ders": "Turkce",
@@ -2983,18 +2773,18 @@
       "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
+      "id": "ba49662b-caa9-4e82-880f-8872e9e0c501",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,D,E | S3 isaretli dogru sik bos"
+    },
+    {
       "id": "ba4c5597",
       "sinav": "SGS",
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: B,E"
-    },
-    {
-      "id": "ba596216",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: E"
     },
     {
       "id": "ba8edaa0-dfa0-4ce1-9847-12c7cd2aef70",
@@ -3151,13 +2941,6 @@
       "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
     },
     {
-      "id": "c3009153",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B,D,E"
-    },
-    {
       "id": "c33771cc-872d-44e5-bbed-641c7cb373eb",
       "sinav": "SMMM",
       "ders": "Muh. ve Mali Müş. Meslek Hukuku",
@@ -3184,13 +2967,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: A,B | S3 isaretli dogru sik bos"
-    },
-    {
-      "id": "c47959be",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D"
     },
     {
       "id": "c53fe7d9-4d00-46b5-bb10-0de9723a8cb8",
@@ -3298,13 +3074,6 @@
       "sebep": "S2 dogru sik metni soru kokunde geciyor"
     },
     {
-      "id": "cb25731b",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: B"
-    },
-    {
       "id": "cb727958",
       "sinav": "SGS",
       "ders": "Turkce",
@@ -3359,13 +3128,6 @@
       "ders": "Yabanci Dil",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: E"
-    },
-    {
-      "id": "cf7f250c",
-      "sinav": "SGS",
-      "ders": "Yabanci Dil",
-      "yayin": false,
-      "sebep": "S4 bos/eksik sik: D,E"
     },
     {
       "id": "cfd6709c",
@@ -3466,13 +3228,6 @@
       "sebep": "S4 bos/eksik sik: A,B"
     },
     {
-      "id": "d44879cd-68fe-4c5b-a8cf-87717ac05dfa",
-      "sinav": "SGS",
-      "ders": "Mali Tablolar Analizi",
-      "yayin": false,
-      "sebep": "S2 dogru sik metni soru kokunde geciyor"
-    },
-    {
       "id": "d49f5af2",
       "sinav": "SGS",
       "ders": "Denetim",
@@ -3541,15 +3296,332 @@
       "ders": "Matematik",
       "yayin": false,
       "sebep": "S4 bos/eksik sik: B,C,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "d9b3780d",
+      "sinav": "SGS",
+      "ders": "Mali Tablolar Analizi",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: D"
+    },
+    {
+      "id": "da1d5b9f",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "da801fad",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "db225ba7-4d6c-4471-8b0c-ab83d92849d3",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "yayin": false,
+      "sebep": "S2 dogru sik metni soru kokunde geciyor"
+    },
+    {
+      "id": "db3d1f1f",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "db7383ad",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B,C,E"
+    },
+    {
+      "id": "dbbb2b42",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dc363537",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,D | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dc63a588",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dc77a395",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dcfa726f",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A"
+    },
+    {
+      "id": "dd3510cf",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: E"
+    },
+    {
+      "id": "dd4f450e",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "ddb4f1b7",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dec73d1d",
+      "sinav": "SGS",
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: C"
+    },
+    {
+      "id": "df3dd41a",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "df3eaee1",
+      "sinav": "SGS",
+      "ders": "Matematik",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "df937ca7",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: C | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "dfcdc95b",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: C,D | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e00570ef",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,C,D,E"
+    },
+    {
+      "id": "e0625964",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S2 dogru sik metni soru kokunde geciyor"
+    },
+    {
+      "id": "e0630d2a",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B,C,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e09a60b4",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e123febd",
+      "sinav": "SGS",
+      "ders": "Ataturk Ilke ve Inkilap Tarihi",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B,C,D,E"
+    },
+    {
+      "id": "e1f5c566-a985-4834-a519-3adaf2457d84",
+      "sinav": "SMMM",
+      "ders": "Finansal Muhasebe",
+      "yayin": false,
+      "sebep": "S1 ayni sik: A=D"
+    },
+    {
+      "id": "e1fbd9d1",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: E"
+    },
+    {
+      "id": "e2f2cf5d",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: C | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e39d1bdd",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e44132ad",
+      "sinav": "SGS",
+      "ders": "Yabanci Dil",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B"
+    },
+    {
+      "id": "e467d6c0",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e476d924-7f81-49dc-872b-e231e39cd4a9",
+      "sinav": "SMMM",
+      "ders": "Maliyet Muhasebesi",
+      "yayin": false,
+      "sebep": "S2 dogru sik metni soru kokunde geciyor"
+    },
+    {
+      "id": "e47abd14",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,D,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e497bab4-94db-4370-8b28-33ebf575cd92",
+      "sinav": "SGS",
+      "ders": "Mali Tablolar Analizi",
+      "yayin": false,
+      "sebep": "S2 dogru sik metni soru kokunde geciyor"
+    },
+    {
+      "id": "e59c2f19",
+      "sinav": "SGS",
+      "ders": "Turkce",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: A,B,C,E | S3 isaretli dogru sik bos"
+    },
+    {
+      "id": "e616203b",
+      "sinav": "SGS",
+      "ders": "Finansal Muhasebe",
+      "yayin": false,
+      "sebep": "S4 bos/eksik sik: E"
     }
   ],
   "mukerrerler": [
+    {
+      "imza": "94BEE28F7D0281AE0C671027",
+      "adet": 2,
+      "idler": [
+        "b3003d51",
+        "f2f8b22a"
+      ]
+    },
+    {
+      "imza": "E4A1D9661960801AE758013A",
+      "adet": 2,
+      "idler": [
+        "31c5a33c",
+        "45dcf01d"
+      ]
+    },
+    {
+      "imza": "B2534F1F32AB6B28D5755916",
+      "adet": 2,
+      "idler": [
+        "27a952cd",
+        "b39527e9"
+      ]
+    },
+    {
+      "imza": "2A5A7A5C9387B0239AC657EE",
+      "adet": 2,
+      "idler": [
+        "3eab198e",
+        "dac4cf08"
+      ]
+    },
+    {
+      "imza": "98E8DC86ED6C7A35E3F9DEA8",
+      "adet": 2,
+      "idler": [
+        "4cb40036",
+        "b2362071"
+      ]
+    },
     {
       "imza": "E4C2D2B48B16722ABC1D7BB0",
       "adet": 2,
       "idler": [
         "706a3013",
         "762331e8"
+      ]
+    },
+    {
+      "imza": "8EA922367EAFCAE4FF3DE918",
+      "adet": 2,
+      "idler": [
+        "63df4348",
+        "7b6c9b1a"
+      ]
+    },
+    {
+      "imza": "4DA9FC14C1112A59D39FEE8A",
+      "adet": 2,
+      "idler": [
+        "755ba231",
+        "e0e38c31"
+      ]
+    },
+    {
+      "imza": "6E4D4579E8D8213F467A4BB1",
+      "adet": 2,
+      "idler": [
+        "6dc1c183",
+        "c334425f"
+      ]
+    },
+    {
+      "imza": "5B68D77EE87BDE32CBE3596A",
+      "adet": 2,
+      "idler": [
+        "8dc67445",
+        "8fe87729"
       ]
     },
     {
@@ -3562,43 +3634,19 @@
       ]
     },
     {
+      "imza": "8A9EF3C7E9BC17A97BD0B2AF",
+      "adet": 2,
+      "idler": [
+        "086eda0f",
+        "d4e4aab3"
+      ]
+    },
+    {
       "imza": "9AD6913534F8945A38D15694",
       "adet": 2,
       "idler": [
         "2bb23962",
         "65cd05a1"
-      ]
-    },
-    {
-      "imza": "C943106BB3E8ED2D0971F7C0",
-      "adet": 2,
-      "idler": [
-        "9f161fb9",
-        "c5ae4772"
-      ]
-    },
-    {
-      "imza": "0BE2BC793F3F1ADFEEE216AE",
-      "adet": 2,
-      "idler": [
-        "849dcbca",
-        "af8fbc74"
-      ]
-    },
-    {
-      "imza": "1048C6C55FE590A89204EE5D",
-      "adet": 2,
-      "idler": [
-        "0ee55d1c",
-        "309f03e8"
-      ]
-    },
-    {
-      "imza": "4DA9FC14C1112A59D39FEE8A",
-      "adet": 2,
-      "idler": [
-        "755ba231",
-        "e0e38c31"
       ]
     },
     {
@@ -3610,59 +3658,19 @@
       ]
     },
     {
-      "imza": "2A5A7A5C9387B0239AC657EE",
+      "imza": "321516FBC5EA48DB0CE589F2",
       "adet": 2,
       "idler": [
-        "3eab198e",
-        "dac4cf08"
+        "599220ec",
+        "6cb0a752"
       ]
     },
     {
-      "imza": "94BEE28F7D0281AE0C671027",
+      "imza": "0BE2BC793F3F1ADFEEE216AE",
       "adet": 2,
       "idler": [
-        "b3003d51",
-        "f2f8b22a"
-      ]
-    },
-    {
-      "imza": "5B68D77EE87BDE32CBE3596A",
-      "adet": 2,
-      "idler": [
-        "8dc67445",
-        "8fe87729"
-      ]
-    },
-    {
-      "imza": "B2534F1F32AB6B28D5755916",
-      "adet": 2,
-      "idler": [
-        "27a952cd",
-        "b39527e9"
-      ]
-    },
-    {
-      "imza": "5D9987C4914D353582D7127C",
-      "adet": 2,
-      "idler": [
-        "20106156",
-        "6a1e7987"
-      ]
-    },
-    {
-      "imza": "8EA922367EAFCAE4FF3DE918",
-      "adet": 2,
-      "idler": [
-        "63df4348",
-        "7b6c9b1a"
-      ]
-    },
-    {
-      "imza": "98E8DC86ED6C7A35E3F9DEA8",
-      "adet": 2,
-      "idler": [
-        "4cb40036",
-        "b2362071"
+        "849dcbca",
+        "af8fbc74"
       ]
     },
     {
@@ -3674,35 +3682,27 @@
       ]
     },
     {
-      "imza": "8A9EF3C7E9BC17A97BD0B2AF",
+      "imza": "1048C6C55FE590A89204EE5D",
       "adet": 2,
       "idler": [
-        "086eda0f",
-        "d4e4aab3"
+        "0ee55d1c",
+        "309f03e8"
       ]
     },
     {
-      "imza": "E4A1D9661960801AE758013A",
+      "imza": "5D9987C4914D353582D7127C",
       "adet": 2,
       "idler": [
-        "31c5a33c",
-        "45dcf01d"
+        "20106156",
+        "6a1e7987"
       ]
     },
     {
-      "imza": "6E4D4579E8D8213F467A4BB1",
+      "imza": "C943106BB3E8ED2D0971F7C0",
       "adet": 2,
       "idler": [
-        "6dc1c183",
-        "c334425f"
-      ]
-    },
-    {
-      "imza": "321516FBC5EA48DB0CE589F2",
-      "adet": 2,
-      "idler": [
-        "599220ec",
-        "6cb0a752"
+        "9f161fb9",
+        "c5ae4772"
       ]
     }
   ],
