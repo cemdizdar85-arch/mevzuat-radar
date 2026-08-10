@@ -1,20 +1,45 @@
 {
-  "tarama": "09.08.2026 05:05",
-  "toplamLink": 744,
+  "tarama": "10.08.2026 06:11",
+  "toplamLink": 803,
   "kirikSayisi": 0,
   "kirikler": [],
-  "dogrulanamayanSayisi": 2,
+  "dogrulanamayanSayisi": 7,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
+    {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=4857&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir",
+      "kod": "bot-engeli",
+      "sayfalar": "kurulus.html"
+    },
     {
       "url": "https://ekapv2.kik.gov.tr/",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
+      "url": "https://ticaret.gov.tr/urun-guvenligi/ithalatta-urun-guvenligi-denetimleri/ithalatta-denetimi-gerceklestirilen-urun-gruplari",
+      "kod": "bot-engeli",
+      "sayfalar": "bilgi.html"
+    },
+    {
       "url": "https://ekapv2.kik.gov.tr",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44976.pdf",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/teblig-damga.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44987.pdf",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/teblig-damga.json"
     }
   ]
 }
