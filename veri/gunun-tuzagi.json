@@ -1,37 +1,37 @@
 {
-  "tarih": "09.08.2026",
-  "gun": "2026-08-09",
+  "tarih": "10.08.2026",
+  "gun": "2026-08-10",
   "durum": "TAMAM",
-  "id": "bf42bc82",
-  "sinav": "SMMM",
-  "ders": "Vergi Mevzuatı ve Uygulaması",
-  "konu": "vuk kacakcilik suclari",
-  "soru": "Zinde Spor A.Ş., spor salonu üyelik gelirlerinin günlük POS tahsilatının bir kısmını yasal defterlere hiç yansıtmayıp, bu tutarları ayrı tutulan gayri resmi bir Excel takibinde gösteriyor. İnceleme sırasında bu ek kaydın varlığı ve buradaki tutarların yasal deftere kasıtlı olarak aktarılmadığı tespit ediliyor. Bu fiil VUK açısından hangi kaçakçılık suçunu oluşturur?",
+  "id": "36b6cbf4",
+  "sinav": "SGS",
+  "ders": "Maliye",
+  "konu": "dolayli vergiler",
+  "soru": "Bir yazılım şirketi, müşterisine özel geliştirdiği programı 15 Mart'ta teslim etmiş, faturayı 10 Nisan'da düzenlemiş, ödemeyi ise müşteri 5 Mayıs'ta yapmıştır. KDV Kanunu'na göre bu işlemde vergiyi doğuran olay hangi tarihte gerçekleşmiştir?",
   "siklar": {
-    "A": "Defterlere kaydı gereken işlemleri vergi matrahını azaltacak şekilde başka bir kayıt ortamına aktarma (hesap ve muhasebe hilesi)",
-    "B": "Sahte belge kullanma",
-    "C": "Sadece vergi ziyaı cezası gerektirir, kaçakçılık suçu oluşmaz",
-    "D": "Sadece özel usulsüzlük cezası gerektiren bir durum",
-    "E": "Muhteviyatı itibariyle yanıltıcı belge düzenleme"
+    "A": "Sözleşmenin imzalandığı tarih",
+    "B": "10 Nisan (fatura tarihi)",
+    "C": "15 Mart (teslim tarihi)",
+    "D": "5 Mayıs (ödeme tarihi)",
+    "E": "Teklifin müşteriye gönderildiği tarih"
   },
-  "dogru": "A",
+  "dogru": "C",
   "aciklama": {
-    "A": "Ne soruluyor: POS tahsilatlarının bir kısmını yasal defterlere değil, ayrı bir Excel'de tutmak hangi suçu oluşturur?\n\nKural: Defterlere kaydedilmesi gereken işlemleri, vergi matrahını azaltacak şekilde başka kayıt ortamlarına kaydetmek hesap ve muhasebe hilesidir. Şirket gerçek işlemini yasal deftere tam yazmaz, yan defterde tutarsa bu suç oluşur.\n\nBu olayda: Zinde Spor POS tahsilatlarının bir kısmını yasal defterine hiç yazmıyor. Bu tutarları Excel'de ayrıca takip ediyor. Gelir küçük görünüyor, vergi matrahı azalıyor. İşte bu, işlemleri başka kayıt ortamına aktarma suçudur.\n\nAkılda kalsın: Gerçek işlemi yasal deftere yazmayıp yan tutarsanız, hesap hilesi yapmış olursunuz.",
-    "B": "Sahte belge, hiç gerçekleşmeyen bir işlem için düzenlenir. Burada ise işlem gerçek (müşteriler gerçekten ödeme yapıyor), sadece bir kısmı deftere yazılmıyor. Sahte belge kullanımı değil, kayıt dışı bırakma söz konusu.",
-    "C": "Kaçakçılık suçu ile vergi ziyaı cezası birbirini dışlamaz. Şirket kasıtlı olarak işlemleri başka ortama kaydedip yasal defterden uzak tuttuğunda hem kaçakçılık suçu işler, hem de vergi ziyaı cezası alır.",
-    "D": "Özel usulsüzlük basit defter tutma hatalarında uygulanır. Burada kasıtlı olarak gelirlerin bir kısmı kayıt dışı bırakılıyor, vergi matrahı düşürülüyor. Bu basit usulsüzlük değil, kaçakçılık suçudur.",
-    "E": "Yanıltıcı belge gerçek bir işlemi tutar veya nitelik bakımından yanlış yansıtır. Burada belge sorunu yok, sorun bazı işlemlerin hiç yasal deftere kaydedilmemesi. Belge düzenleme değil kayıt hilesi var."
+    "A": "Sözleşme tarihi ile vergiyi doğuran olayı karıştırıyor. Sözleşme sadece iş ilişkisini başlatır; vergiyi doğuran olay ise Kanun'un belirlediği anlarda gerçekleşir.",
+    "B": "Fatura tarihini vergiyi doğuran olayla karıştırıyor. Fatura teslimden sonra kesildiğinde vergiyi doğuran olay değişmez; asıl olan teslim tarihi veya fatura tarihinden erken olanıdır.",
+    "C": "Ne soruluyor: Yazılım tesliminde vergiyi doğuran olay hangi tarihte gerçekleşir?\nKural: Hizmet ifasında (bir işin yapılıp teslim edilmesi) vergiyi doğuran olay, hizmetin yapıldığı andır. Eğer fatura daha önce kesilmişse fatura tarihi geçerlidir.\nBu olayda: Yazılım 15 Mart'ta teslim edilmiş, fatura ise 10 Nisan'da kesilmiş. Teslim faturadan önce olduğu için vergiyi doğuran olay 15 Mart'tır.\nAkılda kalsın: Teslim mi fatura mı önce olduysa, o tarih vergiyi doğurur.",
+    "D": "Ödeme tarihini vergiyi doğuran olayla karıştırıyor. Ödeme tarihi sadece paranın ne zaman alındığını gösterir; KDV'de vergiyi doğuran olay teslim veya fatura tarihidir.",
+    "E": "Teklif tarihini vergiyi doğuran olayla karıştırıyor. Teklif sadece iş görüşmesidir; vergiyi doğuran olay ancak mal teslimi, hizmet ifası veya fatura düzenlemesiyle gerçekleşir."
   },
-  "kaynak": "VUK m.359/a-1",
+  "kaynak": "KDV Kanunu m.10/a",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Maliye — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 143,
+    "uygun_aday": 142,
     "yayindaki": 150,
-    "gecmiste": 7
+    "gecmiste": 8
   }
 }
