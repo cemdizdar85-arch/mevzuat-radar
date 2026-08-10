@@ -1,17 +1,14 @@
 {
-  "tarih": "10.08.2026 14:56",
-  "durum": "KURTARMA",
-  "kirmizi": 0,
-  "kurtarma": 2,
+  "tarih": "10.08.2026 21:36",
+  "durum": "ALARM",
+  "kirmizi": 2,
+  "kurtarma": 0,
   "izlenen_robot": 19,
   "izlenen_veri": 5,
-  "maddeler": [],
-  "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 553.1 saat once (esik 30s) -> kurtarma: tetiklendi",
-    "Smoke Nobetcisi -> son basarili kosu 264.4 saat once (esik 30s) -> kurtarma: tetiklendi"
+  "maddeler": [
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 559.8 saat once (esik 30s)). Actions loguna bak.",
+    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 271.1 saat once (esik 30s)). Actions loguna bak."
   ],
-  "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml",
-    "KOSU:smoke.yml"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
