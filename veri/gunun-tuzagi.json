@@ -1,37 +1,37 @@
 {
-  "tarih": "10.08.2026",
-  "gun": "2026-08-10",
+  "tarih": "11.08.2026",
+  "gun": "2026-08-11",
   "durum": "TAMAM",
-  "id": "36b6cbf4",
-  "sinav": "SGS",
-  "ders": "Maliye",
-  "konu": "dolayli vergiler",
-  "soru": "Bir yazılım şirketi, müşterisine özel geliştirdiği programı 15 Mart'ta teslim etmiş, faturayı 10 Nisan'da düzenlemiş, ödemeyi ise müşteri 5 Mayıs'ta yapmıştır. KDV Kanunu'na göre bu işlemde vergiyi doğuran olay hangi tarihte gerçekleşmiştir?",
+  "id": "997b6d0b",
+  "sinav": "SMMM",
+  "ders": "Vergi Mevzuatı ve Uygulaması",
+  "konu": "binek otomobil gideri kkeg",
+  "soru": "Bir işletmenin aktifine kayıtlı binek otomobiline ait bir yıl içinde oluşan akaryakıt, bakım-onarım ve trafik sigortası giderlerinin toplamı 100.000 TL'dir. Bu giderlerle ilgili KKEG tutarı hangisidir?",
   "siklar": {
-    "A": "Sözleşmenin imzalandığı tarih",
-    "B": "10 Nisan (fatura tarihi)",
-    "C": "15 Mart (teslim tarihi)",
-    "D": "5 Mayıs (ödeme tarihi)",
-    "E": "Teklifin müşteriye gönderildiği tarih"
+    "A": "Giderlerin %70'i olan 70.000 TL, çünkü kanunen sadece %30'u gider olarak kabul edilir.",
+    "B": "Giderlerin %30'u olan 30.000 TL, ancak bu tutar KKEG değil, sonraki yıla devreden gider olarak dikkate alınır.",
+    "C": "KKEG oluşmaz, giderlerin tamamı gider olarak kabul edilir çünkü sınırlama sadece kiralama giderlerine özgüdür.",
+    "D": "Giderlerin tamamı olan 100.000 TL, çünkü binek otomobil giderleri hiçbir şekilde gider yazılamaz.",
+    "E": "Giderlerin %30'u olan 30.000 TL."
   },
-  "dogru": "C",
+  "dogru": "E",
   "aciklama": {
-    "A": "Sözleşme tarihi ile vergiyi doğuran olayı karıştırıyor. Sözleşme sadece iş ilişkisini başlatır; vergiyi doğuran olay ise Kanun'un belirlediği anlarda gerçekleşir.",
-    "B": "Fatura tarihini vergiyi doğuran olayla karıştırıyor. Fatura teslimden sonra kesildiğinde vergiyi doğuran olay değişmez; asıl olan teslim tarihi veya fatura tarihinden erken olanıdır.",
-    "C": "Ne soruluyor: Yazılım tesliminde vergiyi doğuran olay hangi tarihte gerçekleşir?\nKural: Hizmet ifasında (bir işin yapılıp teslim edilmesi) vergiyi doğuran olay, hizmetin yapıldığı andır. Eğer fatura daha önce kesilmişse fatura tarihi geçerlidir.\nBu olayda: Yazılım 15 Mart'ta teslim edilmiş, fatura ise 10 Nisan'da kesilmiş. Teslim faturadan önce olduğu için vergiyi doğuran olay 15 Mart'tır.\nAkılda kalsın: Teslim mi fatura mı önce olduysa, o tarih vergiyi doğurur.",
-    "D": "Ödeme tarihini vergiyi doğuran olayla karıştırıyor. Ödeme tarihi sadece paranın ne zaman alındığını gösterir; KDV'de vergiyi doğuran olay teslim veya fatura tarihidir.",
-    "E": "Teklif tarihini vergiyi doğuran olayla karıştırıyor. Teklif sadece iş görüşmesidir; vergiyi doğuran olay ancak mal teslimi, hizmet ifası veya fatura düzenlemesiyle gerçekleşir."
+    "A": "Bu şık yüzdeyi ters yorumluyor. Kanun %70'ini indirebileceğini söyler; yani gider yazılır 70.000 TL. %30'u değil, %30'u KKEG olur.",
+    "B": "Bu şık KKEG ile devreden gideri karıştırıyor. KKEG kalıcı olarak gider yazılamayan kısımdır; devreden gider ise sonraki yıllarda kullanılabilir.",
+    "C": "Bu şık kapsam hatasına düşüyor. Kanundaki sınırlama hem kiralama giderlerine hem de işletme bünyesindeki binek otomobil giderlerine uygulanır; sadece kiralama değil.",
+    "D": "Bu şık tam tersi bir yanılgıya düşüyor. Kanun giderlerin %70'ini kabul eder, sıfırını değil; kalan %30 KKEG olur, tamamı değil.",
+    "E": "Ne soruluyor: Binek otomobilin akaryakıt, bakım-onarım ve sigorta giderlerinden kaynaklanan KKEG tutarı nedir?\n\nKural: İşletmede kayıtlı binek otomobillerin giderlerinin en fazla %70'i gider yazılabilir. Kalan %30'luk kısım hiçbir zaman gider kabul edilmez; buna KKEG (kanunen kabul edilmeyen gider) denir.\n\nBu olayda: Toplam gider 100.000 TL. İşletme bunun %70'ini (70.000 TL) gider yazar. Kalan %30'u (30.000 TL) KKEG olur ve vergi matrahına eklenir.\n\nAkılda kalsın: Binek otomobil giderlerinin %30'u her zaman KKEG'dir."
   },
-  "kaynak": "KDV Kanunu m.10/a",
+  "kaynak": "GVK m.40/1 (5 no'lu bent)",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Maliye — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 142,
+    "uygun_aday": 141,
     "yayindaki": 150,
-    "gecmiste": 8
+    "gecmiste": 9
   }
 }
