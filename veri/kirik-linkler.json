@@ -1,30 +1,30 @@
 {
-  "tarama": "10.08.2026 06:11",
-  "toplamLink": 803,
+  "tarama": "11.08.2026 02:57",
+  "toplamLink": 819,
   "kirikSayisi": 0,
   "kirikler": [],
-  "dogrulanamayanSayisi": 7,
+  "dogrulanamayanSayisi": 6,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
-    {
-      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=4857&MevzuatTur=1&MevzuatTertip=5",
-      "kod": "bot-engeli",
-      "sayfalar": "kontrol-listesi.html"
-    },
-    {
-      "url": "https://icticaret.ticaret.gov.tr/haberler/anonim-ve-limited-sirketlerde-asgari-sermaye-tutarlari-artirilmistir",
-      "kod": "bot-engeli",
-      "sayfalar": "kurulus.html"
-    },
     {
       "url": "https://ekapv2.kik.gov.tr/",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://ticaret.gov.tr/urun-guvenligi/ithalatta-urun-guvenligi-denetimleri/ithalatta-denetimi-gerceklestirilen-urun-gruplari",
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44982.pdf",
       "kod": "bot-engeli",
-      "sayfalar": "bilgi.html"
+      "sayfalar": "veri/teblig-damga.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44987.pdf",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44961.pdf",
+      "kod": "bot-engeli",
+      "sayfalar": "veri/teblig-damga.json"
     },
     {
       "url": "https://ekapv2.kik.gov.tr",
@@ -32,12 +32,7 @@
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44976.pdf",
-      "kod": "bot-engeli",
-      "sayfalar": "veri/teblig-damga.json"
-    },
-    {
-      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.44987.pdf",
+      "url": "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.41286.pdf",
       "kod": "bot-engeli",
       "sayfalar": "veri/teblig-damga.json"
     }
