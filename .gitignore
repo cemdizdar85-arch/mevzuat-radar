@@ -38,3 +38,13 @@ _yerel-indirici-log.txt
 
 veri/kgk-arsiv/
 
+
+# ============================================================================
+# 11.08.2026 - CEVAP ANAHTARI PUBLIC DEPOYA GIRMEZ
+# Bulgu: veri/profesor-rapor-*.json (10 dosya) takipteydi. Soru METNI yok
+# ama her kayitta `isaretli` = DOGRU SIKKIN HARFI var; toplam 31.153 kayit.
+# Site sorulari KIMLIKLE sundugu icin bu bir cevap anahtaridir - 745 parali
+# sorunun 29.07'de kapatilmasiyla ayni sinif risk.
+# NOT: takipten dusurmek GECMISI SILMEZ; eski commit'lerde duruyorlar.
+# ============================================================================
+veri/profesor-rapor*.json
