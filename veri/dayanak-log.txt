@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260812224535
-Username: runnervmzvulz\runner
-RunAs User: runnervmzvulz\runner
+Start time: 20260812231343
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
 Configuration Name: 
-Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b77bfeec-5f5a-47e2-8aa1-f8ab18e5abc4.ps1'
-Process ID: 2088
-PSVersion: 7.6.4
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/19398128-9c23-46ed-ab46-ea908a6b8eae.ps1'
+Process ID: 2232
+PSVersion: 7.6.3
 PSEdition: Core
-GitCommitId: 7.6.4
+GitCommitId: 7.6.3
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -40,10 +40,26 @@ Taranan sayfa: 44
   songun.html                5 dayanak
 
 Tekil (kanun, madde) cifti: 73 - ambarda araniyor...
-  ambarda BULUNAN : 71
-  BULUNAMAYAN     : 2
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+>> TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ambarda BULUNAN : 69
+  BULUNAMAYAN     : 4
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
+     193 m.65   [sorgu-hatasi]
+     193 m.89   [sorgu-hatasi]
      213 m.370   [ambarda-yok]
      213 m.372   [ambarda-yok]
 
@@ -54,5 +70,5 @@ Tekil (kanun, madde) cifti: 73 - ambarda araniyor...
 -> veri/dayanak-haritasi.json  (20 sayfa, 73 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260812224602
+End time: 20260812231452
 **********************
