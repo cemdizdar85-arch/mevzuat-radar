@@ -81,9 +81,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       </div>
     </div>
     <div class="soru" data-k="genc">
-      <b style="font-size:14px">2. 29 yaşından küçüksün ve ilk kez vergi mükellefi mi olacaksın?</b>
+      <b style="font-size:14px" id="gencSoruB">2. 29 yaşından küçüksün ve ilk kez vergi mükellefi mi olacaksın?</b>
       <div class="sec" style="margin:8px 0 14px">
-        <button class="sbtn kck" data-v="evet">Evet, ikisi de doğru</button>
+        <button class="sbtn kck" data-v="evet" id="gencEvetBtn">Evet, ikisi de doğru</button>
         <button class="sbtn kck" data-v="hayir">Hayır</button>
       </div>
     </div>
@@ -410,6 +410,19 @@ function akisCevapli(k){
   return !!CEVAP[k];
 }
 function akisIlerle(){
+  // 12.08 Cem: ortaklıda yaş sorusu kişiye değil GRUBA sorulur — mük. m.20/3 "tüm
+  // ortakların şartları taşıması"; 292 no.lu Tebliğ: biri taşımazsa HİÇBİRİ yararlanamaz.
+  // Ortak ortak yaş sormak bu yüzden gereksiz: hüküm ya hep ya hiç.
+  const gB=document.getElementById('gencSoruB'), gE=document.getElementById('gencEvetBtn');
+  if(gB && gE){
+    if(CEVAP.ortak==='ortakli'){
+      gB.innerHTML='2. Ortakların <u>hepsi</u> 29 yaşından küçük ve ilk kez mi vergi mükellefi olacak?<br><span style="font-size:11px;font-weight:400;color:var(--muted)">Genç girişimci istisnası ortaklıkta ya hep ya hiçtir: ortaklardan biri bile şartları taşımazsa hiçbir ortak yararlanamaz (GVK mük. m.20/3 · 292 no.lu Tebliğ).</span>';
+      gE.textContent='Evet, hepsi taşıyor';
+    } else {
+      gB.textContent='2. 29 yaşından küçüksün ve ilk kez vergi mükellefi mi olacaksın?';
+      gE.textContent='Evet, ikisi de doğru';
+    }
+  }
   let acilan = null;
   for(const k of AKIS_SIRA){
     const el = document.querySelector('#sihirbaz .soru[data-k="'+k+'"]');
@@ -547,6 +560,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
         <div class="satir"><b>Şirket: kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
         <div class="satir"><b>Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
         <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        ${CEVAP.genc==='evet' ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;padding:8px;border:1px solid var(--line2);border-radius:8px">⚠ Genç girişimci istisnası şirket tarafında <b>uygulanmaz</b>: GVK mük. m.20 istisnayı yalnız <b>gelir vergisi</b> mükellefi <b>gerçek kişilere</b> tanır; LTD/AŞ ise kurumlar vergisi mükellefidir — ortağın 29 yaşından küçük olması kurumlar vergisini ve stopajı değiştirmez. İki sütun arasındaki farkın büyük kısmı bu istisnadan gelir; şirket kurarsan bu avantajı kullanamazsın.</div>` : ''}
         <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
       </div>`;
     // İMALATÇI / İHRACATÇI: KV oranı %25 değil (KVK m.32/7-8). 12.08: kutu artık
