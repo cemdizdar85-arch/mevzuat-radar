@@ -108,3 +108,11 @@ if($degisiklikVar){
   }
   if($pushOk){ Log "PUSH tamam ($degisen degisiklik) - ayna tetiklenecek" } else { Log "!! PUSH TUTMADI" ; exit 1 }
 } else { Log "degisiklik yok - push edilmedi" }
+
+# ---------------------------------------------------------------------------
+# 13.08 YANVERI NOBETI (Cem: "yan verilerin otomatik onarimi"): damping listesi
+# + Ithalat Gn.Md. duyuru sinyali. TR-IP'li bu makineden gunde bir; degisiklik
+# yoksa sessiz cikar (K2), varsa 5 kapili onarim + "DEGISTIRDIM" maili.
+# ---------------------------------------------------------------------------
+try { & (Join-Path $kok 'motor\yanveri-onarici.ps1') -Kaynak damping -Uygula } catch { Log ("yanveri damping: " + $_.Exception.Message) }
+try { & (Join-Path $kok 'motor\yanveri-onarici.ps1') -DuyuruSinyal } catch { Log ("yanveri duyuru: " + $_.Exception.Message) }
