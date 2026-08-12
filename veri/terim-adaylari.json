@@ -1,22 +1,12 @@
 {
-  "guncelleme": "05.08.2026 11:40",
-  "kasa": 27478,
+  "guncelleme": "12.08.2026 08:46",
+  "kasa": 30569,
   "yontem": "Uc sinyal: (1) sapkali harf tasiyan kelimeler, (2) bilinen eski terim tohum listesi, (3) kasada sik gecip THP sozlugunde hic gecmeyen kelimeler. Hicbiri tek basina karar vermez - ADAY uretir.",
   "uyari": "Bu liste ONERIDIR. \"tahakkuk\", \"mahsup\", \"tediye\" gibi terimler GUNCEL muhasebe dilidir - degistirilmez. Karar insanindir.",
   "tohum_bulunan": [
     {
-      "terim": "emtia",
-      "soru": 3932,
-      "onerilen": "stok/mal (VUK lafzi korunabilir)",
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
       "terim": "tahakkuk",
-      "soru": 1081,
+      "soru": 1203,
       "onerilen": "",
       "ornek": [
         "0036b78e-1127-4b05-b620-efdf1eb1f075",
@@ -25,8 +15,18 @@
       ]
     },
     {
+      "terim": "emtia",
+      "soru": 654,
+      "onerilen": "stok/mal (VUK lafzi korunabilir)",
+      "ornek": [
+        "0106c26f-74d6-4e10-9de1-ff3765f6299c",
+        "013c84f1-5e59-4446-a842-675527b0c00b",
+        "0184c4b1-4f04-41b9-a134-a0529ebf6f62"
+      ]
+    },
+    {
       "terim": "mahsup",
-      "soru": 337,
+      "soru": 379,
       "onerilen": "",
       "ornek": [
         "0036b78e-1127-4b05-b620-efdf1eb1f075",
@@ -36,17 +36,17 @@
     },
     {
       "terim": "ita",
-      "soru": 305,
+      "soru": 357,
       "onerilen": "",
       "ornek": [
         "00854936",
-        "038fadf8",
-        "04ea3a03"
+        "0210ae36-7751-4f5f-b970-e9ac6767bc8f",
+        "038fadf8"
       ]
     },
     {
       "terim": "imal gideri",
-      "soru": 136,
+      "soru": 135,
       "onerilen": "uretim gideri (THP 730)",
       "ornek": [
         "0166c2ad-5db5-4d31-a72f-9f0b357e26cd",
@@ -56,17 +56,17 @@
     },
     {
       "terim": "tanzim",
-      "soru": 33,
+      "soru": 39,
       "onerilen": "duzenleme",
       "ornek": [
+        "03c39ca4-c81a-4f33-84fb-33b8ffe695cf",
         "1661b38c-70e2-4e7c-a3c2-11c517cbda34",
-        "1e9a2137",
-        "210fc2f9"
+        "1e9a2137"
       ]
     },
     {
       "terim": "zayi",
-      "soru": 15,
+      "soru": 29,
       "onerilen": "kayip",
       "ornek": [
         "0c0716a2",
@@ -96,7 +96,7 @@
     },
     {
       "terim": "iktisadi kiymet",
-      "soru": 4,
+      "soru": 5,
       "onerilen": "varlik (VUK lafzi korunabilir)",
       "ornek": [
         "0a8d84a8-a24d-4286-b2a4-f27353ae023e",
@@ -106,26 +106,28 @@
     },
     {
       "terim": "keyfiyet",
-      "soru": 2,
+      "soru": 4,
       "onerilen": "durum",
       "ornek": [
+        "6455a8a4-063a-4758-a7f3-9d6f7c0c04c8",
         "6fc243bd-2cc4-4892-8578-c44b2870a2b9",
-        "8ce6f26f"
+        "706c0aaf-66f5-4d13-aa04-df7f250dcdff"
       ]
     },
     {
-      "terim": "genel imal",
-      "soru": 1,
-      "onerilen": "genel uretim",
+      "terim": "isbu",
+      "soru": 2,
+      "onerilen": "bu",
       "ornek": [
-        "c6f3915b-8bb2-4e60-b900-b33423081467"
+        "14a8345f-5dd2-4ede-ad1d-9ad243968080",
+        "676aa280-48df-48d6-a0b7-a607edec0215"
       ]
     }
   ],
   "sapkali_kelimeler": [
     {
       "terim": "kârı",
-      "soru": 1063,
+      "soru": 1101,
       "onerilen": "",
       "ornek": [
         "0036b78e-1127-4b05-b620-efdf1eb1f075",
@@ -135,17 +137,17 @@
     },
     {
       "terim": "tezgâhın",
-      "soru": 598,
+      "soru": 613,
       "onerilen": "",
       "ornek": [
         "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "0121951a-38de-4eb5-8efb-44da03b0061c",
-        "02b6c290-3577-49ce-a507-9bf5e5641f11"
+        "00841973-4d3f-4edd-9960-8db5e4018963",
+        "0121951a-38de-4eb5-8efb-44da03b0061c"
       ]
     },
     {
       "terim": "hâlâ",
-      "soru": 432,
+      "soru": 512,
       "onerilen": "",
       "ornek": [
         "007fff68-0d5c-4ed2-a7fd-893d9a6c483f",
@@ -155,7 +157,7 @@
     },
     {
       "terim": "tezgâhı",
-      "soru": 412,
+      "soru": 422,
       "onerilen": "",
       "ornek": [
         "00716ff4-7804-4c0e-bb7c-f868b0528545",
@@ -164,18 +166,8 @@
       ]
     },
     {
-      "terim": "kârın",
-      "soru": 327,
-      "onerilen": "",
-      "ornek": [
-        "01ba3094-8634-4fc7-be7c-4131b87926db",
-        "044e825a-284e-4b8c-8d72-f8fe55b8f941",
-        "09934469-cd01-48ee-8509-b3c8d69ea901"
-      ]
-    },
-    {
       "terim": "merkezî",
-      "soru": 325,
+      "soru": 411,
       "onerilen": "",
       "ornek": [
         "0381029a-4093-42e1-b9e7-5ef0063242ef",
@@ -184,8 +176,18 @@
       ]
     },
     {
+      "terim": "kârın",
+      "soru": 362,
+      "onerilen": "",
+      "ornek": [
+        "01ba3094-8634-4fc7-be7c-4131b87926db",
+        "044e825a-284e-4b8c-8d72-f8fe55b8f941",
+        "09934469-cd01-48ee-8509-b3c8d69ea901"
+      ]
+    },
+    {
       "terim": "dâhil",
-      "soru": 299,
+      "soru": 317,
       "onerilen": "",
       "ornek": [
         "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
@@ -195,7 +197,7 @@
     },
     {
       "terim": "mahallî",
-      "soru": 265,
+      "soru": 300,
       "onerilen": "",
       "ornek": [
         "07bc4705-27ae-4fb1-b22e-0610c4bf34b3",
@@ -205,7 +207,7 @@
     },
     {
       "terim": "kârdan",
-      "soru": 246,
+      "soru": 275,
       "onerilen": "",
       "ornek": [
         "01510a14",
@@ -215,7 +217,7 @@
     },
     {
       "terim": "kârlılık",
-      "soru": 233,
+      "soru": 235,
       "onerilen": "",
       "ornek": [
         "03969609-73cf-4674-ab07-b5c503758ba0",
@@ -225,7 +227,7 @@
     },
     {
       "terim": "tezgâh",
-      "soru": 231,
+      "soru": 234,
       "onerilen": "",
       "ornek": [
         "00716ff4-7804-4c0e-bb7c-f868b0528545",
@@ -235,7 +237,7 @@
     },
     {
       "terim": "kâra",
-      "soru": 194,
+      "soru": 218,
       "onerilen": "",
       "ornek": [
         "044e825a-284e-4b8c-8d72-f8fe55b8f941",
@@ -245,7 +247,7 @@
     },
     {
       "terim": "malî",
-      "soru": 188,
+      "soru": 206,
       "onerilen": "",
       "ornek": [
         "013a3611-8335-4c32-b508-c4f66b46ef34",
@@ -265,7 +267,7 @@
     },
     {
       "terim": "tezgâhının",
-      "soru": 176,
+      "soru": 182,
       "onerilen": "",
       "ornek": [
         "0a1ed704-4599-4618-a26f-485a041ff72a",
@@ -274,28 +276,58 @@
       ]
     },
     {
+      "terim": "kısmî",
+      "soru": 163,
+      "onerilen": "",
+      "ornek": [
+        "0ea89e0f-edb1-49a5-bedc-fa82984741fc",
+        "13aae3cb-db48-4159-881e-1bd96a470015",
+        "21b30099-c174-4ac5-b671-0811aa305ff8"
+      ]
+    },
+    {
       "terim": "kârının",
-      "soru": 145,
+      "soru": 151,
       "onerilen": "",
       "ornek": [
         "005cf825-01e6-4aef-8bc7-c0e970a145b6",
-        "0e191466",
+        "079de0d5-9cf0-4461-afab-33b8839d001a",
         "116cfa3a-0168-4ddc-a9f7-36b65690d395"
       ]
     },
     {
       "terim": "kârından",
-      "soru": 139,
+      "soru": 146,
       "onerilen": "",
       "ornek": [
+        "01335ca8-ca99-46a4-a7dd-46fcb1c6e877",
         "0182b044-98d6-4c45-947f-83a316cc64c2",
-        "0a7d7a44-1e99-4a43-8b43-2aee3a6a5bcf",
-        "0c0824f2"
+        "0a7d7a44-1e99-4a43-8b43-2aee3a6a5bcf"
+      ]
+    },
+    {
+      "terim": "hâlde",
+      "soru": 122,
+      "onerilen": "",
+      "ornek": [
+        "05fb52ff-0ef4-42ef-932c-cec474076264",
+        "09309659-c2d1-4dac-af1a-1f31c889d4ce",
+        "0b9ea17a"
+      ]
+    },
+    {
+      "terim": "kârını",
+      "soru": 116,
+      "onerilen": "",
+      "ornek": [
+        "01ba3094-8634-4fc7-be7c-4131b87926db",
+        "01ee51e1",
+        "02b0f79d"
       ]
     },
     {
       "terim": "kârları",
-      "soru": 113,
+      "soru": 115,
       "onerilen": "",
       "ornek": [
         "0182b044-98d6-4c45-947f-83a316cc64c2",
@@ -314,13 +346,33 @@
       ]
     },
     {
-      "terim": "kârını",
-      "soru": 109,
+      "terim": "imkânı",
+      "soru": 105,
+      "onerilen": "",
+      "ornek": [
+        "02654bd7",
+        "08b8169b-0de7-4b8b-9d3d-28cf6b51f65d",
+        "0e471075-c53b-4592-95c3-72c663a0df0d"
+      ]
+    },
+    {
+      "terim": "kârına",
+      "soru": 98,
       "onerilen": "",
       "ornek": [
         "01ba3094-8634-4fc7-be7c-4131b87926db",
-        "01ee51e1",
-        "02b0f79d"
+        "06b0dad4-ec7e-49e2-9c1d-2f32bfc7a88b",
+        "0a7d7a44-1e99-4a43-8b43-2aee3a6a5bcf"
+      ]
+    },
+    {
+      "terim": "hâlinde",
+      "soru": 91,
+      "onerilen": "",
+      "ornek": [
+        "0262ac06-8dd5-42e5-83e0-881481c22bc3",
+        "086e2464-644a-432e-be98-1ae1bdefd48c",
+        "0938391d-368d-4763-80c6-29ea54567712"
       ]
     },
     {
@@ -354,28 +406,8 @@
       ]
     },
     {
-      "terim": "kârına",
-      "soru": 81,
-      "onerilen": "",
-      "ornek": [
-        "01ba3094-8634-4fc7-be7c-4131b87926db",
-        "0a7d7a44-1e99-4a43-8b43-2aee3a6a5bcf",
-        "0e8c3fd0"
-      ]
-    },
-    {
-      "terim": "imkânı",
-      "soru": 77,
-      "onerilen": "",
-      "ornek": [
-        "02654bd7",
-        "08b8169b-0de7-4b8b-9d3d-28cf6b51f65d",
-        "1239dab7-6134-4ca0-85ef-7df3ac175632"
-      ]
-    },
-    {
       "terim": "resmî",
-      "soru": 72,
+      "soru": 73,
       "onerilen": "",
       "ornek": [
         "017d752a",
@@ -384,18 +416,18 @@
       ]
     },
     {
-      "terim": "hâlde",
-      "soru": 62,
+      "terim": "ilâve",
+      "soru": 66,
       "onerilen": "",
       "ornek": [
-        "09309659-c2d1-4dac-af1a-1f31c889d4ce",
-        "0b9ea17a",
-        "0c5ea2cb-d04a-4771-b1f9-94691cd49b2f"
+        "25a61013-56e6-4e2c-8fd4-ed4417d18938",
+        "318241e9-50ca-417b-a175-8c0558913dc7",
+        "3a648e00-76e6-43c2-8edb-28c669b7963c"
       ]
     },
     {
       "terim": "kârlar",
-      "soru": 58,
+      "soru": 60,
       "onerilen": "",
       "ornek": [
         "0338f30a",
@@ -404,18 +436,18 @@
       ]
     },
     {
-      "terim": "hâlinde",
-      "soru": 54,
+      "terim": "kârlı",
+      "soru": 60,
       "onerilen": "",
       "ornek": [
-        "086e2464-644a-432e-be98-1ae1bdefd48c",
-        "09e4a480-34b5-4da6-819a-7b6e2a13c421",
-        "1957e24d-87e2-431e-a927-1dbe35c28bda"
+        "000617ca",
+        "08db81e0",
+        "1c84564f"
       ]
     },
     {
       "terim": "tezgâhını",
-      "soru": 51,
+      "soru": 55,
       "onerilen": "",
       "ornek": [
         "0121951a-38de-4eb5-8efb-44da03b0061c",
@@ -434,18 +466,8 @@
       ]
     },
     {
-      "terim": "kısmî",
-      "soru": 47,
-      "onerilen": "",
-      "ornek": [
-        "13aae3cb-db48-4159-881e-1bd96a470015",
-        "449fdb25",
-        "47be3301-178d-4d28-98e5-3f13fbba22e2"
-      ]
-    },
-    {
       "terim": "kâğıt",
-      "soru": 45,
+      "soru": 47,
       "onerilen": "",
       "ornek": [
         "00cd5f6d",
@@ -454,18 +476,8 @@
       ]
     },
     {
-      "terim": "kârlı",
-      "soru": 44,
-      "onerilen": "",
-      "ornek": [
-        "000617ca",
-        "08db81e0",
-        "1c84564f"
-      ]
-    },
-    {
       "terim": "kârdır",
-      "soru": 40,
+      "soru": 43,
       "onerilen": "",
       "ornek": [
         "015e44db-aa73-4e56-b91f-8d3b7250eaa9",
@@ -474,13 +486,53 @@
       ]
     },
     {
+      "terim": "kâğıtlarını",
+      "soru": 42,
+      "onerilen": "",
+      "ornek": [
+        "0057b5c3",
+        "306483a4-6303-4533-9816-19cb2b66a7c5",
+        "51e583f7-f1de-45e2-92de-26ff6b7ad36b"
+      ]
+    },
+    {
       "terim": "mahkûm",
-      "soru": 36,
+      "soru": 42,
       "onerilen": "",
       "ornek": [
         "125f07b3-89de-4e5b-acf3-576c1d3d4a25",
         "134e4ca1",
         "158274b1-ebd7-447c-879f-df8ddd0b5d1f"
+      ]
+    },
+    {
+      "terim": "kâğıtlarına",
+      "soru": 42,
+      "onerilen": "",
+      "ornek": [
+        "4b1bb362-7131-4169-acd8-e0fc293e3a6e",
+        "5dc6e52d-f495-423d-9f0b-e92612ad2cb9",
+        "6300815a-2160-4f07-bb28-d225d3c446b4"
+      ]
+    },
+    {
+      "terim": "hâlbuki",
+      "soru": 37,
+      "onerilen": "",
+      "ornek": [
+        "00748317-98fe-4dac-b4de-daeaae2457de",
+        "0257fd2a-94ac-4546-9d8f-5e1ca3e78c3e",
+        "0a415632-2e2f-49cb-99b8-2cf669a20f4e"
+      ]
+    },
+    {
+      "terim": "imkân",
+      "soru": 35,
+      "onerilen": "",
+      "ornek": [
+        "029910fe",
+        "06f7a089-3325-4514-8bbe-bc2030d801de",
+        "1163d41d"
       ]
     },
     {
@@ -504,28 +556,28 @@
       ]
     },
     {
-      "terim": "imkân",
+      "terim": "hâli",
       "soru": 33,
       "onerilen": "",
       "ornek": [
-        "029910fe",
-        "06f7a089-3325-4514-8bbe-bc2030d801de",
-        "1163d41d"
+        "1ea0ae61",
+        "242edb96",
+        "3bc03891"
       ]
     },
     {
-      "terim": "hâlbuki",
+      "terim": "şikâyet",
       "soru": 33,
       "onerilen": "",
       "ornek": [
-        "00748317-98fe-4dac-b4de-daeaae2457de",
-        "0257fd2a-94ac-4546-9d8f-5e1ca3e78c3e",
-        "0a415632-2e2f-49cb-99b8-2cf669a20f4e"
+        "0335973e",
+        "0cb8b961-0db7-44ae-aca1-c346e36fa365",
+        "0f750ea6"
       ]
     },
     {
       "terim": "ıskât",
-      "soru": 31,
+      "soru": 30,
       "onerilen": "",
       "ornek": [
         "07103945-1432-4104-8838-2c5606ea6792",
@@ -535,7 +587,7 @@
     },
     {
       "terim": "kâri",
-      "soru": 29,
+      "soru": 30,
       "onerilen": "",
       "ornek": [
         "01ba3094-8634-4fc7-be7c-4131b87926db",
@@ -555,22 +607,12 @@
     },
     {
       "terim": "hâle",
-      "soru": 28,
+      "soru": 29,
       "onerilen": "",
       "ornek": [
         "0656e2df",
-        "29e87bba",
-        "2e4a75fa"
-      ]
-    },
-    {
-      "terim": "ilâve",
-      "soru": 28,
-      "onerilen": "",
-      "ornek": [
-        "318241e9-50ca-417b-a175-8c0558913dc7",
-        "3a648e00-76e6-43c2-8edb-28c669b7963c",
-        "8894817a-ee91-497c-bd9b-1588f5fc42bf"
+        "156ce8ad-2b82-44d9-8740-592ed5ebe5cf",
+        "29e87bba"
       ]
     },
     {
@@ -584,13 +626,13 @@
       ]
     },
     {
-      "terim": "şikâyet",
-      "soru": 27,
+      "terim": "imkânsız",
+      "soru": 28,
       "onerilen": "",
       "ornek": [
-        "0335973e",
-        "0cb8b961-0db7-44ae-aca1-c346e36fa365",
-        "0f750ea6"
+        "2062ecaa",
+        "376ad781-a41c-463b-a333-6805de34489c",
+        "5df529c9"
       ]
     },
     {
@@ -614,13 +656,13 @@
       ]
     },
     {
-      "terim": "hâli",
+      "terim": "nemâlandırma",
       "soru": 24,
       "onerilen": "",
       "ornek": [
-        "1ea0ae61",
-        "242edb96",
-        "3bc03891"
+        "0d805db0-33aa-48ce-9d6e-84da988301a5",
+        "45ceb732-bf3c-440b-b99e-dec423ead657",
+        "cccf0f45-bdcb-44cc-b0ce-a1ded1113b0e"
       ]
     },
     {
@@ -631,6 +673,16 @@
         "26301134-2813-4fad-bb10-f9ef4b1fe660",
         "3f991bfd-62af-418b-a248-a33749b66996",
         "56b59220-a82f-4273-ad6d-ad828a255b3e"
+      ]
+    },
+    {
+      "terim": "tâbi",
+      "soru": 23,
+      "onerilen": "",
+      "ornek": [
+        "015e1d89-3d77-4b20-bc45-b91a49b50371",
+        "282231a4-1c1f-4f62-9606-ba785792328b",
+        "3a5f3465"
       ]
     },
     {
@@ -654,26 +706,6 @@
       ]
     },
     {
-      "terim": "imkânsız",
-      "soru": 22,
-      "onerilen": "",
-      "ornek": [
-        "2062ecaa",
-        "376ad781-a41c-463b-a333-6805de34489c",
-        "5df529c9"
-      ]
-    },
-    {
-      "terim": "tâbi",
-      "soru": 21,
-      "onerilen": "",
-      "ornek": [
-        "282231a4-1c1f-4f62-9606-ba785792328b",
-        "3a5f3465",
-        "6fc243bd-2cc4-4892-8578-c44b2870a2b9"
-      ]
-    },
-    {
       "terim": "nakdî",
       "soru": 21,
       "onerilen": "",
@@ -684,50 +716,20 @@
       ]
     },
     {
-      "terim": "imkânların",
-      "soru": 20,
+      "terim": "kârda",
+      "soru": 21,
       "onerilen": "",
       "ornek": [
-        "06f7a089-3325-4514-8bbe-bc2030d801de",
-        "26301134-2813-4fad-bb10-f9ef4b1fe660",
-        "2fad88fe-c261-4440-92d0-4a38f60c0a9f"
-      ]
-    },
-    {
-      "terim": "malûllük",
-      "soru": 20,
-      "onerilen": "",
-      "ornek": [
-        "0eb656cc-f698-49dd-bdc3-5065dc22d80a",
-        "379fad5e",
-        "a6114843"
-      ]
-    },
-    {
-      "terim": "kârlarından",
-      "soru": 19,
-      "onerilen": "",
-      "ornek": [
-        "0aab19a6",
-        "5c7793f8-f17a-4d73-898a-7e3e36e9920c",
-        "7098186a"
-      ]
-    },
-    {
-      "terim": "tarihî",
-      "soru": 19,
-      "onerilen": "",
-      "ornek": [
-        "01c54cbb-4ed9-47d3-8daf-d7d7ecc042bb",
-        "06aa5cfc-e78a-4b2b-a943-4484449c7dda",
-        "85287e14"
+        "2f0af7a3-750c-4382-9c90-a1860284a753",
+        "317bc919-67e2-493e-9b73-097978f3e032",
+        "34e74934"
       ]
     }
   ],
   "thp_disi_sik_kelimeler": [
     {
       "kelime": "tuzak",
-      "soru": 70871,
+      "soru": 83109,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000aa943-facf-431f-8a90-5559531a6a99",
@@ -735,17 +737,8 @@
       ]
     },
     {
-      "kelime": "olarak",
-      "soru": 33855,
-      "ornek": [
-        "000585d7",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00125bab-e376-4908-be3e-eeb86d0ef901"
-      ]
-    },
-    {
       "kelime": "değil",
-      "soru": 31120,
+      "soru": 34991,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000aa943-facf-431f-8a90-5559531a6a99",
@@ -754,7 +747,7 @@
     },
     {
       "kelime": "soruluyor",
-      "soru": 29912,
+      "soru": 33702,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000585d7",
@@ -762,17 +755,8 @@
       ]
     },
     {
-      "kelime": "idare",
-      "soru": 28971,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
       "kelime": "kural",
-      "soru": 28224,
+      "soru": 31783,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000585d7",
@@ -781,7 +765,7 @@
     },
     {
       "kelime": "olayda",
-      "soru": 27432,
+      "soru": 30888,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000585d7",
@@ -790,7 +774,7 @@
     },
     {
       "kelime": "akılda",
-      "soru": 26496,
+      "soru": 29460,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000585d7",
@@ -798,8 +782,17 @@
       ]
     },
     {
+      "kelime": "idare",
+      "soru": 29079,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
       "kelime": "kalsın",
-      "soru": 25842,
+      "soru": 28768,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000585d7",
@@ -808,7 +801,7 @@
     },
     {
       "kelime": "dahil",
-      "soru": 25141,
+      "soru": 25958,
       "ornek": [
         "000617ca",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -817,7 +810,7 @@
     },
     {
       "kelime": "yanlış",
-      "soru": 23481,
+      "soru": 25699,
       "ornek": [
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
         "002797e4-e3f1-43ec-b624-079749e8d9c4",
@@ -825,35 +818,17 @@
       ]
     },
     {
-      "kelime": "süreli",
-      "soru": 21150,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "toplam",
-      "soru": 21107,
+      "kelime": "ancak",
+      "soru": 23415,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000aa943-facf-431f-8a90-5559531a6a99",
-        "00125bab-e376-4908-be3e-eeb86d0ef901"
-      ]
-    },
-    {
-      "kelime": "zorunlu",
-      "soru": 21043,
-      "ornek": [
-        "000617ca",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+        "0010b01e-fae9-43fc-a75a-194192467077"
       ]
     },
     {
       "kelime": "faaliyet",
-      "soru": 20400,
+      "soru": 22933,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
@@ -861,26 +836,8 @@
       ]
     },
     {
-      "kelime": "sadece",
-      "soru": 19875,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
-      "kelime": "ancak",
-      "soru": 19836,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0010b01e-fae9-43fc-a75a-194192467077"
-      ]
-    },
-    {
       "kelime": "karıştırılıyor",
-      "soru": 19007,
+      "soru": 22789,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000aa943-facf-431f-8a90-5559531a6a99",
@@ -888,62 +845,17 @@
       ]
     },
     {
-      "kelime": "bedeli",
-      "soru": 18959,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
-      ]
-    },
-    {
-      "kelime": "işçilik",
-      "soru": 18624,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "hangi",
-      "soru": 18387,
+      "kelime": "toplam",
+      "soru": 22566,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000617ca",
-        "0010b01e-fae9-43fc-a75a-194192467077"
-      ]
-    },
-    {
-      "kelime": "karıştırıyor",
-      "soru": 16446,
-      "ornek": [
-        "000585d7",
-        "001df7f2",
-        "002e2dd2"
-      ]
-    },
-    {
-      "kelime": "gideri",
-      "soru": 16386,
-      "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+        "00125bab-e376-4908-be3e-eeb86d0ef901"
       ]
     },
     {
-      "kelime": "protesto",
-      "soru": 16223,
-      "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "00775365-574e-4b5c-b027-d7be70650623"
-      ]
-    },
-    {
-      "kelime": "belirli",
-      "soru": 15827,
+      "kelime": "süreli",
+      "soru": 22309,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -951,8 +863,44 @@
       ]
     },
     {
+      "kelime": "zorunlu",
+      "soru": 22102,
+      "ornek": [
+        "000617ca",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "hangi",
+      "soru": 20721,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "000617ca",
+        "0010b01e-fae9-43fc-a75a-194192467077"
+      ]
+    },
+    {
+      "kelime": "sadece",
+      "soru": 20445,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+      ]
+    },
+    {
+      "kelime": "bedeli",
+      "soru": 19788,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
       "kelime": "satış",
-      "soru": 15611,
+      "soru": 19245,
       "ornek": [
         "00125bab-e376-4908-be3e-eeb86d0ef901",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -960,17 +908,71 @@
       ]
     },
     {
+      "kelime": "işçilik",
+      "soru": 18972,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
       "kelime": "olduğu",
-      "soru": 15258,
+      "soru": 18052,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
         "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "gideri",
+      "soru": 17243,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
+      "kelime": "sanılıyor",
+      "soru": 17010,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
+      "kelime": "karıştırıyor",
+      "soru": 16404,
+      "ornek": [
+        "000585d7",
+        "001df7f2",
         "002e2dd2"
       ]
     },
     {
+      "kelime": "belirli",
+      "soru": 16319,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "protesto",
+      "soru": 16253,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "00775365-574e-4b5c-b027-d7be70650623"
+      ]
+    },
+    {
       "kelime": "mamul",
-      "soru": 15175,
+      "soru": 16125,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
@@ -979,7 +981,7 @@
     },
     {
       "kelime": "vadeli",
-      "soru": 14670,
+      "soru": 16100,
       "ornek": [
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
         "005dc610-071a-44a5-855b-bdf91e63bfd1",
@@ -987,44 +989,8 @@
       ]
     },
     {
-      "kelime": "sözleşme",
-      "soru": 14666,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
-      "kelime": "sanılıyor",
-      "soru": 13913,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
-      ]
-    },
-    {
-      "kelime": "gösteren",
-      "soru": 13559,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "maliyete",
-      "soru": 13441,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
       "kelime": "hesabına",
-      "soru": 13408,
+      "soru": 16059,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -1032,53 +998,44 @@
       ]
     },
     {
-      "kelime": "edilen",
-      "soru": 13205,
+      "kelime": "gösteren",
+      "soru": 15683,
       "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "sözleşme",
+      "soru": 15514,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0010b01e-fae9-43fc-a75a-194192467077",
-        "00125bab-e376-4908-be3e-eeb86d0ef901"
-      ]
-    },
-    {
-      "kelime": "esaslı",
-      "soru": 13170,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "neden",
-      "soru": 12783,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0021f87f",
         "0023bc76-8009-4dd5-b73a-a26199e690cf"
       ]
     },
     {
-      "kelime": "ambalaj",
-      "soru": 12603,
+      "kelime": "yalnızca",
+      "soru": 14942,
       "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "000617ca",
+        "0010b01e-fae9-43fc-a75a-194192467077"
       ]
     },
     {
-      "kelime": "oranı",
-      "soru": 12445,
+      "kelime": "değildir",
+      "soru": 14097,
       "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
       ]
     },
     {
       "kelime": "doğrudan",
-      "soru": 12346,
+      "soru": 14078,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -1087,43 +1044,34 @@
     },
     {
       "kelime": "işletme",
-      "soru": 12262,
+      "soru": 13707,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
       ]
     },
     {
-      "kelime": "değildir",
-      "soru": 12156,
+      "kelime": "maliyete",
+      "soru": 13682,
       "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
       ]
     },
     {
-      "kelime": "yalnızca",
-      "soru": 11763,
+      "kelime": "oranı",
+      "soru": 13375,
       "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000617ca",
-        "0010b01e-fae9-43fc-a75a-194192467077"
-      ]
-    },
-    {
-      "kelime": "noter",
-      "soru": 11711,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
       ]
     },
     {
       "kelime": "tutar",
-      "soru": 11653,
+      "soru": 13326,
       "ornek": [
         "00125bab-e376-4908-be3e-eeb86d0ef901",
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
@@ -1131,8 +1079,8 @@
       ]
     },
     {
-      "kelime": "belirsiz",
-      "soru": 11214,
+      "kelime": "esaslı",
+      "soru": 13252,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -1140,53 +1088,44 @@
       ]
     },
     {
-      "kelime": "şletme",
-      "soru": 11052,
+      "kelime": "finansal",
+      "soru": 12999,
       "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00308718-bc37-422f-859d-127bfaf94f9c"
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "004c2ce7"
       ]
     },
     {
-      "kelime": "zincirleme",
-      "soru": 10826,
+      "kelime": "neden",
+      "soru": 12957,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+        "0021f87f",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
       ]
     },
     {
-      "kelime": "edilir",
-      "soru": 10690,
+      "kelime": "ambalaj",
+      "soru": 12870,
       "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000617ca",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
       ]
     },
     {
-      "kelime": "açıkça",
-      "soru": 10623,
+      "kelime": "doğrusu",
+      "soru": 12432,
       "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "ihtiyari",
-      "soru": 10491,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0038f1e9",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
       ]
     },
     {
       "kelime": "şirket",
-      "soru": 10322,
+      "soru": 12132,
       "ornek": [
         "000617ca",
         "0010b01e-fae9-43fc-a75a-194192467077",
@@ -1194,26 +1133,26 @@
       ]
     },
     {
-      "kelime": "kanun",
-      "soru": 10018,
+      "kelime": "açıkça",
+      "soru": 11938,
       "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
       ]
     },
     {
-      "kelime": "kullanılır",
-      "soru": 10018,
+      "kelime": "noter",
+      "soru": 11849,
       "ornek": [
-        "000585d7",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001df7f2"
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
       ]
     },
     {
       "kelime": "zannediliyor",
-      "soru": 9980,
+      "soru": 11663,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0010b01e-fae9-43fc-a75a-194192467077",
@@ -1221,62 +1160,26 @@
       ]
     },
     {
-      "kelime": "yapılan",
-      "soru": 9919,
+      "kelime": "işletmenin",
+      "soru": 11625,
       "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+      ]
+    },
+    {
+      "kelime": "edilir",
+      "soru": 11589,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "000617ca",
-        "000aa943-facf-431f-8a90-5559531a6a99",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
       ]
     },
     {
-      "kelime": "fiili",
-      "soru": 9890,
-      "ornek": [
-        "000585d7",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "008c8e81"
-      ]
-    },
-    {
-      "kelime": "işletmenin",
-      "soru": 9834,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "maliyetine",
-      "soru": 9818,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "giderlerini",
-      "soru": 9740,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "tutarı",
-      "soru": 9666,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0038f1e9"
-      ]
-    },
-    {
       "kelime": "sonra",
-      "soru": 9639,
+      "soru": 11588,
       "ornek": [
         "000617ca",
         "000aa943-facf-431f-8a90-5559531a6a99",
@@ -1284,26 +1187,89 @@
       ]
     },
     {
-      "kelime": "mamule",
-      "soru": 9481,
+      "kelime": "şletme",
+      "soru": 11570,
       "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+        "00308718-bc37-422f-859d-127bfaf94f9c"
       ]
     },
     {
-      "kelime": "finansal",
-      "soru": 9461,
+      "kelime": "kullanılır",
+      "soru": 11453,
       "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "004c2ce7",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+        "000585d7",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001df7f2"
       ]
     },
     {
-      "kelime": "giderlerinin",
-      "soru": 9369,
+      "kelime": "kanun",
+      "soru": 11369,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "kurulu",
+      "soru": 11344,
+      "ornek": [
+        "000617ca",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "belirsiz",
+      "soru": 11262,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "fiili",
+      "soru": 11166,
+      "ornek": [
+        "000585d7",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
+        "008c8e81"
+      ]
+    },
+    {
+      "kelime": "tutarı",
+      "soru": 11080,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0038f1e9"
+      ]
+    },
+    {
+      "kelime": "yapılan",
+      "soru": 11038,
+      "ornek": [
+        "000617ca",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
+      "kelime": "zincirleme",
+      "soru": 10829,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+      ]
+    },
+    {
+      "kelime": "mamulün",
+      "soru": 10692,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
@@ -1311,44 +1277,8 @@
       ]
     },
     {
-      "kelime": "karşılık",
-      "soru": 8875,
-      "ornek": [
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
-        "00775365-574e-4b5c-b027-d7be70650623",
-        "0080e4fe-bf04-43de-8354-88d82647d48c"
-      ]
-    },
-    {
-      "kelime": "kadar",
-      "soru": 8834,
-      "ornek": [
-        "001df7f2",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00382d66-a672-409d-862f-b87a715c2a79"
-      ]
-    },
-    {
-      "kelime": "muhasebe",
-      "soru": 8806,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
-      ]
-    },
-    {
-      "kelime": "doğru",
-      "soru": 8704,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "001df7f2",
-        "0021f87f"
-      ]
-    },
-    {
-      "kelime": "düşen",
-      "soru": 8635,
+      "kelime": "ihtiyari",
+      "soru": 10524,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
@@ -1356,17 +1286,8 @@
       ]
     },
     {
-      "kelime": "içinde",
-      "soru": 8520,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0010b01e-fae9-43fc-a75a-194192467077"
-      ]
-    },
-    {
       "kelime": "kaydedilir",
-      "soru": 8481,
+      "soru": 10402,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
@@ -1375,7 +1296,7 @@
     },
     {
       "kelime": "ilgili",
-      "soru": 8441,
+      "soru": 10267,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "00125bab-e376-4908-be3e-eeb86d0ef901",
@@ -1383,26 +1304,71 @@
       ]
     },
     {
-      "kelime": "birlikte",
-      "soru": 8354,
+      "kelime": "kadar",
+      "soru": 10200,
       "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+        "001df7f2",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "00382d66-a672-409d-862f-b87a715c2a79"
       ]
     },
     {
-      "kelime": "nasıl",
-      "soru": 8260,
+      "kelime": "içinde",
+      "soru": 10172,
       "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075"
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0010b01e-fae9-43fc-a75a-194192467077"
+      ]
+    },
+    {
+      "kelime": "maliyetine",
+      "soru": 10168,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "karşılık",
+      "soru": 9969,
+      "ornek": [
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
+        "00775365-574e-4b5c-b027-d7be70650623",
+        "0080e4fe-bf04-43de-8354-88d82647d48c"
+      ]
+    },
+    {
+      "kelime": "giderlerini",
+      "soru": 9828,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "denetim",
+      "soru": 9744,
+      "ornek": [
+        "004c2ce7",
+        "0057b5c3",
+        "00607348-f3b7-4d15-b86a-0db1ce35c403"
+      ]
+    },
+    {
+      "kelime": "mamule",
+      "soru": 9624,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
       ]
     },
     {
       "kelime": "varlık",
-      "soru": 8258,
+      "soru": 9592,
       "ornek": [
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
@@ -1411,7 +1377,7 @@
     },
     {
       "kelime": "şirketin",
-      "soru": 8179,
+      "soru": 9573,
       "ornek": [
         "000617ca",
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
@@ -1419,26 +1385,17 @@
       ]
     },
     {
-      "kelime": "birim",
-      "soru": 8167,
+      "kelime": "giderlerinin",
+      "soru": 9530,
       "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "0038f1e9"
-      ]
-    },
-    {
-      "kelime": "yazılı",
-      "soru": 8016,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
       ]
     },
     {
       "kelime": "vergi",
-      "soru": 7911,
+      "soru": 9497,
       "ornek": [
         "000617ca",
         "0036b78e-1127-4b05-b620-efdf1eb1f075",
@@ -1446,35 +1403,8 @@
       ]
     },
     {
-      "kelime": "kurulu",
-      "soru": 7881,
-      "ornek": [
-        "000617ca",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "004c2ce7"
-      ]
-    },
-    {
-      "kelime": "bedeline",
-      "soru": 7686,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "gösterir",
-      "soru": 7630,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0021f87f",
-        "002e2dd2"
-      ]
-    },
-    {
       "kelime": "hizmet",
-      "soru": 7630,
+      "soru": 9398,
       "ornek": [
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
         "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
@@ -1482,17 +1412,107 @@
       ]
     },
     {
-      "kelime": "varlıklar",
-      "soru": 7366,
+      "kelime": "doğru",
+      "soru": 9387,
       "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
-        "008ddb8a"
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "001df7f2",
+        "0021f87f"
+      ]
+    },
+    {
+      "kelime": "edilen",
+      "soru": 9352,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00125bab-e376-4908-be3e-eeb86d0ef901"
+      ]
+    },
+    {
+      "kelime": "nasıl",
+      "soru": 9323,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "birlikte",
+      "soru": 9274,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+      ]
+    },
+    {
+      "kelime": "yazılı",
+      "soru": 9225,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+      ]
+    },
+    {
+      "kelime": "denetçi",
+      "soru": 8930,
+      "ornek": [
+        "004c2ce7",
+        "0057b5c3",
+        "00607348-f3b7-4d15-b86a-0db1ce35c403"
+      ]
+    },
+    {
+      "kelime": "düşen",
+      "soru": 8803,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "birim",
+      "soru": 8533,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "0038f1e9"
+      ]
+    },
+    {
+      "kelime": "sonunda",
+      "soru": 8457,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075"
+      ]
+    },
+    {
+      "kelime": "işlem",
+      "soru": 8444,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+      ]
+    },
+    {
+      "kelime": "durumda",
+      "soru": 8356,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
       ]
     },
     {
       "kelime": "standart",
-      "soru": 7297,
+      "soru": 8225,
       "ornek": [
         "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
         "0092feac-b123-4ca1-abf0-444d83d5eb6c",
@@ -1501,7 +1521,7 @@
     },
     {
       "kelime": "kabul",
-      "soru": 7290,
+      "soru": 8210,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -1509,71 +1529,26 @@
       ]
     },
     {
-      "kelime": "giderlerinden",
-      "soru": 7288,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
-      ]
-    },
-    {
-      "kelime": "hammadde",
-      "soru": 7197,
-      "ornek": [
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "008e2f18-2014-45ff-98af-7a45955bc0c0"
-      ]
-    },
-    {
-      "kelime": "sonunda",
-      "soru": 7172,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075"
-      ]
-    },
-    {
-      "kelime": "durumda",
-      "soru": 7102,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "sayılır",
-      "soru": 7015,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "işlem",
-      "soru": 6998,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "yerine",
-      "soru": 6986,
+      "kelime": "bağlı",
+      "soru": 8136,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "gösterir",
+      "soru": 8109,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
         "0021f87f",
-        "00382d66-a672-409d-862f-b87a715c2a79"
+        "002e2dd2"
       ]
     },
     {
       "kelime": "kendi",
-      "soru": 6940,
+      "soru": 8022,
       "ornek": [
         "000585d7",
         "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
@@ -1582,7 +1557,7 @@
     },
     {
       "kelime": "itibaren",
-      "soru": 6872,
+      "soru": 7833,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -1590,17 +1565,62 @@
       ]
     },
     {
-      "kelime": "bağlı",
-      "soru": 6855,
+      "kelime": "sayılır",
+      "soru": 7794,
       "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
         "00279615-2f64-4d66-bfa6-b7da24986aa7"
       ]
     },
     {
+      "kelime": "yoktur",
+      "soru": 7765,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0057b5c3",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "varlıklar",
+      "soru": 7762,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
+        "008ddb8a"
+      ]
+    },
+    {
+      "kelime": "yerine",
+      "soru": 7751,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "0021f87f",
+        "00382d66-a672-409d-862f-b87a715c2a79"
+      ]
+    },
+    {
+      "kelime": "bedeline",
+      "soru": 7732,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
+      ]
+    },
+    {
+      "kelime": "hisse",
+      "soru": 7683,
+      "ornek": [
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+      ]
+    },
+    {
       "kelime": "fazla",
-      "soru": 6838,
+      "soru": 7662,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -1609,7 +1629,7 @@
     },
     {
       "kelime": "tahsil",
-      "soru": 6829,
+      "soru": 7661,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "005dc610-071a-44a5-855b-bdf91e63bfd1",
@@ -1617,44 +1637,26 @@
       ]
     },
     {
-      "kelime": "hisse",
-      "soru": 6786,
+      "kelime": "önemli",
+      "soru": 7372,
       "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "004c2ce7",
+        "005755b3-f861-4d81-930f-2110b1510daa"
       ]
     },
     {
-      "kelime": "unsur",
-      "soru": 6724,
+      "kelime": "hammadde",
+      "soru": 7362,
       "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
         "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
-      ]
-    },
-    {
-      "kelime": "yoktur",
-      "soru": 6582,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0057b5c3",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "ihtiyaridir",
-      "soru": 6467,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "008e2f18-2014-45ff-98af-7a45955bc0c0"
       ]
     },
     {
       "kelime": "kayıt",
-      "soru": 6464,
+      "soru": 7306,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -1662,8 +1664,35 @@
       ]
     },
     {
+      "kelime": "giderlerinden",
+      "soru": 7303,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+      ]
+    },
+    {
+      "kelime": "üretilen",
+      "soru": 7188,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "hesabında",
+      "soru": 7167,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89"
+      ]
+    },
+    {
       "kelime": "mobilya",
-      "soru": 6395,
+      "soru": 7157,
       "ornek": [
         "00262b15-727a-4fcf-8835-80a3fdeed378",
         "002797e4-e3f1-43ec-b624-079749e8d9c4",
@@ -1671,17 +1700,35 @@
       ]
     },
     {
-      "kelime": "makine",
-      "soru": 6257,
+      "kelime": "paragraf",
+      "soru": 7032,
       "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "unsur",
+      "soru": 6916,
+      "ornek": [
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+      ]
+    },
+    {
+      "kelime": "uygun",
+      "soru": 6914,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
         "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "003c5ba2"
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
       ]
     },
     {
       "kelime": "farklı",
-      "soru": 6153,
+      "soru": 6806,
       "ornek": [
         "007c23f8",
         "008e2f18-2014-45ff-98af-7a45955bc0c0",
@@ -1689,12 +1736,129 @@
       ]
     },
     {
+      "kelime": "gerekir",
+      "soru": 6780,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001df7f2",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
+      ]
+    },
+    {
       "kelime": "burada",
-      "soru": 6137,
+      "soru": 6745,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "0021f87f",
         "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
+      ]
+    },
+    {
+      "kelime": "tarihinde",
+      "soru": 6744,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "makine",
+      "soru": 6696,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "003c5ba2"
+      ]
+    },
+    {
+      "kelime": "yazılır",
+      "soru": 6549,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
+      "kelime": "ihtiyaridir",
+      "soru": 6469,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "başına",
+      "soru": 6457,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "hesaba",
+      "soru": 6414,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
+      "kelime": "ayrıca",
+      "soru": 6382,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "000617ca",
+        "000aa943-facf-431f-8a90-5559531a6a99"
+      ]
+    },
+    {
+      "kelime": "aylık",
+      "soru": 6312,
+      "ornek": [
+        "000617ca",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+      ]
+    },
+    {
+      "kelime": "değeri",
+      "soru": 6297,
+      "ornek": [
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "00841973-4d3f-4edd-9960-8db5e4018963",
+        "008a1976-6171-4aa3-81a1-907f5b999c12"
+      ]
+    },
+    {
+      "kelime": "yapılır",
+      "soru": 6252,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "00308718-bc37-422f-859d-127bfaf94f9c"
+      ]
+    },
+    {
+      "kelime": "kontrol",
+      "soru": 6176,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "007c23f8",
+        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0"
+      ]
+    },
+    {
+      "kelime": "arasında",
+      "soru": 6151,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
       ]
     },
     {
@@ -1707,116 +1871,8 @@
       ]
     },
     {
-      "kelime": "poliçenin",
-      "soru": 5979,
-      "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "00e26682-87d9-48e9-aee8-e09b056a52de"
-      ]
-    },
-    {
-      "kelime": "hesabında",
-      "soru": 5939,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89"
-      ]
-    },
-    {
-      "kelime": "denetim",
-      "soru": 5902,
-      "ornek": [
-        "004c2ce7",
-        "0057b5c3",
-        "0094f8cc-08ab-41f9-92ac-25fe180d3f09"
-      ]
-    },
-    {
-      "kelime": "gerekir",
-      "soru": 5809,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001df7f2",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "mehmet",
-      "soru": 5800,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "00748317-98fe-4dac-b4de-daeaae2457de"
-      ]
-    },
-    {
-      "kelime": "makina",
-      "soru": 5782,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
-      ]
-    },
-    {
-      "kelime": "mamulün",
-      "soru": 5749,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "ayrıca",
-      "soru": 5696,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000617ca",
-        "000aa943-facf-431f-8a90-5559531a6a99"
-      ]
-    },
-    {
-      "kelime": "yazılır",
-      "soru": 5666,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "00382d66-a672-409d-862f-b87a715c2a79"
-      ]
-    },
-    {
-      "kelime": "hesaba",
-      "soru": 5633,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "0037bcbf-fdda-4566-b428-441432b9af2b"
-      ]
-    },
-    {
-      "kelime": "nakit",
-      "soru": 5583,
-      "ornek": [
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "00748317-98fe-4dac-b4de-daeaae2457de"
-      ]
-    },
-    {
-      "kelime": "aylık",
-      "soru": 5555,
-      "ornek": [
-        "000617ca",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
       "kelime": "normal",
-      "soru": 5535,
+      "soru": 6060,
       "ornek": [
         "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
         "008c8e81",
@@ -1824,386 +1880,17 @@
       ]
     },
     {
-      "kelime": "denetçi",
-      "soru": 5535,
+      "kelime": "nakit",
+      "soru": 6002,
       "ornek": [
-        "004c2ce7",
-        "0057b5c3",
-        "008ddb8a"
-      ]
-    },
-    {
-      "kelime": "arasında",
-      "soru": 5494,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "aktif",
-      "soru": 5408,
-      "ornek": [
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "0080e4fe-bf04-43de-8354-88d82647d48c"
-      ]
-    },
-    {
-      "kelime": "başına",
-      "soru": 5264,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "henüz",
-      "soru": 5253,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "yüzde",
-      "soru": 5246,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0038f1e9"
-      ]
-    },
-    {
-      "kelime": "önemli",
-      "soru": 5201,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "004c2ce7",
-        "005755b3-f861-4d81-930f-2110b1510daa"
-      ]
-    },
-    {
-      "kelime": "yanlıştır",
-      "soru": 5187,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "tarihinde",
-      "soru": 5182,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "sanayi",
-      "soru": 5160,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00382d66-a672-409d-862f-b87a715c2a79"
-      ]
-    },
-    {
-      "kelime": "paragraf",
-      "soru": 5156,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
         "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
-      ]
-    },
-    {
-      "kelime": "emtianın",
-      "soru": 5124,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "değeri",
-      "soru": 5115,
-      "ornek": [
-        "00841973-4d3f-4edd-9960-8db5e4018963",
-        "008a1976-6171-4aa3-81a1-907f5b999c12",
-        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
-      ]
-    },
-    {
-      "kelime": "poliçe",
-      "soru": 5075,
-      "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "00e26682-87d9-48e9-aee8-e09b056a52de",
-        "014611da-d8e6-47a4-9566-552fc5d68b9a"
-      ]
-    },
-    {
-      "kelime": "yapılır",
-      "soru": 5036,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "00308718-bc37-422f-859d-127bfaf94f9c"
-      ]
-    },
-    {
-      "kelime": "kaydı",
-      "soru": 5004,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075"
-      ]
-    },
-    {
-      "kelime": "sözleşmesi",
-      "soru": 4894,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "amortisman",
-      "soru": 4887,
-      "ornek": [
-        "00b13d1b",
-        "00d37e2a-2bd7-4181-bd42-47eeab7fb823",
-        "00e23c31-c544-45fc-8f85-81e202caec72"
-      ]
-    },
-    {
-      "kelime": "peşin",
-      "soru": 4832,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
         "005dc610-071a-44a5-855b-bdf91e63bfd1"
       ]
     },
     {
-      "kelime": "arasındaki",
-      "soru": 4793,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "0067c2e8"
-      ]
-    },
-    {
-      "kelime": "uygun",
-      "soru": 4740,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
-      ]
-    },
-    {
-      "kelime": "gözden",
-      "soru": 4729,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0037bcbf-fdda-4566-b428-441432b9af2b"
-      ]
-    },
-    {
-      "kelime": "aşağıdakilerden",
-      "soru": 4722,
-      "ornek": [
-        "000617ca",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
-      ]
-    },
-    {
-      "kelime": "başka",
-      "soru": 4720,
-      "ornek": [
-        "000585d7",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
-      "kelime": "bulunur",
-      "soru": 4703,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "kalan",
-      "soru": 4676,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00382d66-a672-409d-862f-b87a715c2a79"
-      ]
-    },
-    {
-      "kelime": "toplamı",
-      "soru": 4647,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f",
-        "007fff68-0d5c-4ed2-a7fd-893d9a6c483f"
-      ]
-    },
-    {
-      "kelime": "başlangıçtan",
-      "soru": 4615,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "tespit",
-      "soru": 4578,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "hangisi",
-      "soru": 4555,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "ayında",
-      "soru": 4549,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "montaj",
-      "soru": 4548,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
-      ]
-    },
-    {
-      "kelime": "hesaplanır",
-      "soru": 4506,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "hesabının",
-      "soru": 4484,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
-      ]
-    },
-    {
-      "kelime": "olduğundan",
-      "soru": 4473,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "0037bcbf-fdda-4566-b428-441432b9af2b"
-      ]
-    },
-    {
-      "kelime": "sabit",
-      "soru": 4455,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545"
-      ]
-    },
-    {
-      "kelime": "aşağıdaki",
-      "soru": 4435,
-      "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "üçüncü",
-      "soru": 4434,
-      "ornek": [
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "005755b3-f861-4d81-930f-2110b1510daa",
-        "00b7b622-3764-4e76-842a-aeebb67142e9"
-      ]
-    },
-    {
-      "kelime": "ilişkin",
-      "soru": 4367,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1"
-      ]
-    },
-    {
-      "kelime": "eksik",
-      "soru": 4348,
-      "ornek": [
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
-      ]
-    },
-    {
-      "kelime": "edilmesi",
-      "soru": 4326,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "etmiştir",
-      "soru": 4261,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
-      ]
-    },
-    {
-      "kelime": "noterin",
-      "soru": 4242,
+      "kelime": "poliçenin",
+      "soru": 5988,
       "ornek": [
         "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
         "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
@@ -2211,35 +1898,179 @@
       ]
     },
     {
-      "kelime": "yılmaz",
-      "soru": 4242,
+      "kelime": "henüz",
+      "soru": 5980,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "makina",
+      "soru": 5977,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+      ]
+    },
+    {
+      "kelime": "aktif",
+      "soru": 5852,
+      "ornek": [
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1",
+        "0080e4fe-bf04-43de-8354-88d82647d48c"
+      ]
+    },
+    {
+      "kelime": "tespit",
+      "soru": 5822,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
+      ]
+    },
+    {
+      "kelime": "mehmet",
+      "soru": 5810,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "00748317-98fe-4dac-b4de-daeaae2457de"
+      ]
+    },
+    {
+      "kelime": "ilişkin",
+      "soru": 5775,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1"
+      ]
+    },
+    {
+      "kelime": "sanayi",
+      "soru": 5750,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "yıllık",
+      "soru": 5724,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0038f1e9",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+      ]
+    },
+    {
+      "kelime": "hesabının",
+      "soru": 5679,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
+      ]
+    },
+    {
+      "kelime": "kaydı",
+      "soru": 5659,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075"
+      ]
+    },
+    {
+      "kelime": "kalan",
+      "soru": 5653,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00382d66-a672-409d-862f-b87a715c2a79"
+      ]
+    },
+    {
+      "kelime": "hangisi",
+      "soru": 5615,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "arasındaki",
+      "soru": 5588,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "0067c2e8"
+      ]
+    },
+    {
+      "kelime": "peşin",
+      "soru": 5586,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1"
+      ]
+    },
+    {
+      "kelime": "aşağıdakilerden",
+      "soru": 5489,
+      "ornek": [
+        "000617ca",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
+      "kelime": "yüzde",
+      "soru": 5480,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0038f1e9"
+      ]
+    },
+    {
+      "kelime": "amortisman",
+      "soru": 5397,
+      "ornek": [
+        "009f5c1f-05f5-485b-bf2f-cd40bed8c627",
+        "00b13d1b",
+        "00d37e2a-2bd7-4181-bd42-47eeab7fb823"
+      ]
+    },
+    {
+      "kelime": "gözden",
+      "soru": 5387,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
         "0037bcbf-fdda-4566-b428-441432b9af2b"
       ]
     },
     {
-      "kelime": "dikey",
-      "soru": 4232,
+      "kelime": "başka",
+      "soru": 5383,
       "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0",
-        "0149d349"
-      ]
-    },
-    {
-      "kelime": "farkı",
-      "soru": 4197,
-      "ornek": [
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
+        "000585d7",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
       ]
     },
     {
       "kelime": "yeterli",
-      "soru": 4196,
+      "soru": 5351,
       "ornek": [
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
@@ -2247,17 +2078,170 @@
       ]
     },
     {
-      "kelime": "kocaeli",
-      "soru": 4165,
+      "kelime": "yanlıştır",
+      "soru": 5310,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "sözleşmesi",
+      "soru": 5143,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "poliçe",
+      "soru": 5108,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "00e26682-87d9-48e9-aee8-e09b056a52de",
+        "014611da-d8e6-47a4-9566-552fc5d68b9a"
+      ]
+    },
+    {
+      "kelime": "bulunur",
+      "soru": 5089,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+      ]
+    },
+    {
+      "kelime": "toplamı",
+      "soru": 5079,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f",
+        "007fff68-0d5c-4ed2-a7fd-893d9a6c483f"
+      ]
+    },
+    {
+      "kelime": "olması",
+      "soru": 5046,
+      "ornek": [
+        "005755b3-f861-4d81-930f-2110b1510daa",
+        "0057b5c3",
+        "00607348-f3b7-4d15-b86a-0db1ce35c403"
+      ]
+    },
+    {
+      "kelime": "hakkı",
+      "soru": 5027,
+      "ornek": [
+        "000585d7",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "aşağıdaki",
+      "soru": 5020,
+      "ornek": [
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "olduğundan",
+      "soru": 4991,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
+      "kelime": "görüş",
+      "soru": 4961,
+      "ornek": [
+        "0057b5c3",
+        "0094f8cc-08ab-41f9-92ac-25fe180d3f09",
+        "00bbf341"
+      ]
+    },
+    {
+      "kelime": "etmiştir",
+      "soru": 4913,
+      "ornek": [
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89"
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "ayında",
+      "soru": 4911,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "disiplin",
+      "soru": 4910,
+      "ornek": [
+        "00bc85b5",
+        "0120ba26-cc69-4dcc-bb93-cba98f83e0e9",
+        "0147002f-acb3-4a63-81f8-23f7dbcc6a52"
+      ]
+    },
+    {
+      "kelime": "hesaplanır",
+      "soru": 4874,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
+      ]
+    },
+    {
+      "kelime": "şartı",
+      "soru": 4869,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0021f87f",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
+      ]
+    },
+    {
+      "kelime": "sabit",
+      "soru": 4850,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545"
+      ]
+    },
+    {
+      "kelime": "üçüncü",
+      "soru": 4802,
+      "ornek": [
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "005755b3-f861-4d81-930f-2110b1510daa",
+        "00b7b622-3764-4e76-842a-aeebb67142e9"
+      ]
+    },
+    {
+      "kelime": "defter",
+      "soru": 4776,
+      "ornek": [
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "00dd198b-14f3-43b5-b2dc-5eb25a180ebf",
+        "01138d9c-7630-4f53-980f-4517aff973ef"
       ]
     },
     {
       "kelime": "üzerinden",
-      "soru": 4164,
+      "soru": 4715,
       "ornek": [
         "0038f1e9",
         "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
@@ -2265,8 +2249,35 @@
       ]
     },
     {
+      "kelime": "olduğunu",
+      "soru": 4702,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "003c5ba2",
+        "004f7bef"
+      ]
+    },
+    {
+      "kelime": "farkı",
+      "soru": 4695,
+      "ornek": [
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
+      ]
+    },
+    {
+      "kelime": "montaj",
+      "soru": 4656,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+      ]
+    },
+    {
       "kelime": "hangisidir",
-      "soru": 4131,
+      "soru": 4655,
       "ornek": [
         "000617ca",
         "000aa943-facf-431f-8a90-5559531a6a99",
@@ -2274,17 +2285,17 @@
       ]
     },
     {
-      "kelime": "olması",
-      "soru": 4102,
+      "kelime": "süresi",
+      "soru": 4647,
       "ornek": [
-        "005755b3-f861-4d81-930f-2110b1510daa",
-        "0057b5c3",
-        "00645bf8"
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
       ]
     },
     {
-      "kelime": "olmadan",
-      "soru": 4080,
+      "kelime": "başlangıçtan",
+      "soru": 4620,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -2292,26 +2303,116 @@
       ]
     },
     {
-      "kelime": "yıldırım",
-      "soru": 4069,
+      "kelime": "edilmesi",
+      "soru": 4617,
       "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "00775365-574e-4b5c-b027-d7be70650623"
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
       ]
     },
     {
-      "kelime": "kontrol",
-      "soru": 4067,
+      "kelime": "gereken",
+      "soru": 4587,
       "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "007c23f8",
-        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0"
+        "000617ca",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+      ]
+    },
+    {
+      "kelime": "satın",
+      "soru": 4534,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "alınır",
+      "soru": 4521,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "006936cc-a3e3-400d-923d-570cbbf54c91",
+        "008c3999-11a5-49d7-9a87-3dbc057f66ca"
+      ]
+    },
+    {
+      "kelime": "çalışma",
+      "soru": 4512,
+      "ornek": [
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "0057b5c3",
+        "00cbfb3d"
+      ]
+    },
+    {
+      "kelime": "eksik",
+      "soru": 4503,
+      "ornek": [
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
+        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
+      ]
+    },
+    {
+      "kelime": "durum",
+      "soru": 4500,
+      "ornek": [
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "00645bf8",
+        "007c23f8"
+      ]
+    },
+    {
+      "kelime": "zarar",
+      "soru": 4492,
+      "ornek": [
+        "000617ca",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
+      "kelime": "uyarınca",
+      "soru": 4457,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "verir",
+      "soru": 4452,
+      "ornek": [
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
+      ]
+    },
+    {
+      "kelime": "maddi",
+      "soru": 4435,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
+      ]
+    },
+    {
+      "kelime": "meslek",
+      "soru": 4407,
+      "ornek": [
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "0094f8cc-08ab-41f9-92ac-25fe180d3f09",
+        "00bc85b5"
       ]
     },
     {
       "kelime": "zorunludur",
-      "soru": 4065,
+      "soru": 4404,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
         "0021f87f",
@@ -2319,8 +2420,134 @@
       ]
     },
     {
+      "kelime": "yükümlülüğü",
+      "soru": 4390,
+      "ornek": [
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
+      ]
+    },
+    {
+      "kelime": "zaten",
+      "soru": 4389,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0057b5c3"
+      ]
+    },
+    {
+      "kelime": "karar",
+      "soru": 4381,
+      "ornek": [
+        "000617ca",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f",
+        "009380de-53af-43f0-81a4-cc05128f12b7"
+      ]
+    },
+    {
+      "kelime": "dikey",
+      "soru": 4381,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0",
+        "00c93a01-2312-4eb8-88c1-f709d55bcd4c"
+      ]
+    },
+    {
+      "kelime": "kanunu",
+      "soru": 4372,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
+      ]
+    },
+    {
+      "kelime": "dolayısıyla",
+      "soru": 4369,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+      ]
+    },
+    {
+      "kelime": "tarafından",
+      "soru": 4345,
+      "ornek": [
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
+      ]
+    },
+    {
+      "kelime": "geçici",
+      "soru": 4340,
+      "ornek": [
+        "000585d7",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
+      ]
+    },
+    {
+      "kelime": "düşünülüyor",
+      "soru": 4329,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "kararı",
+      "soru": 4313,
+      "ornek": [
+        "000617ca",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "kocaeli",
+      "soru": 4311,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89"
+      ]
+    },
+    {
+      "kelime": "yılmaz",
+      "soru": 4276,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
+      "kelime": "sonuç",
+      "soru": 4251,
+      "ornek": [
+        "0021f87f",
+        "0038f1e9",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+      ]
+    },
+    {
+      "kelime": "noterin",
+      "soru": 4243,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "00e26682-87d9-48e9-aee8-e09b056a52de"
+      ]
+    },
+    {
       "kelime": "hesaplama",
-      "soru": 4056,
+      "soru": 4241,
       "ornek": [
         "00125bab-e376-4908-be3e-eeb86d0ef901",
         "0037bcbf-fdda-4566-b428-441432b9af2b",
@@ -2329,7 +2556,7 @@
     },
     {
       "kelime": "belge",
-      "soru": 4055,
+      "soru": 4228,
       "ornek": [
         "0057b5c3",
         "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
@@ -2337,134 +2564,26 @@
       ]
     },
     {
-      "kelime": "şartı",
-      "soru": 4029,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0021f87f",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
-      "kelime": "nakliye",
-      "soru": 4026,
-      "ornek": [
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "008e2f18-2014-45ff-98af-7a45955bc0c0",
-        "0106c26f-74d6-4e10-9de1-ff3765f6299c"
-      ]
-    },
-    {
-      "kelime": "olduğunu",
-      "soru": 4011,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "003c5ba2",
-        "004f7bef"
-      ]
-    },
-    {
-      "kelime": "yıllık",
-      "soru": 3993,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0038f1e9",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
-      ]
-    },
-    {
-      "kelime": "malzemesi",
-      "soru": 3973,
-      "ornek": [
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
-      ]
-    },
-    {
-      "kelime": "yükümlülüğü",
-      "soru": 3969,
-      "ornek": [
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
-      ]
-    },
-    {
-      "kelime": "sonuç",
-      "soru": 3939,
-      "ornek": [
-        "0021f87f",
-        "0038f1e9",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
-      ]
-    },
-    {
-      "kelime": "zaten",
-      "soru": 3909,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0057b5c3",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
-      ]
-    },
-    {
-      "kelime": "sözleşmenin",
-      "soru": 3886,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf"
-      ]
-    },
-    {
-      "kelime": "katılması",
-      "soru": 3885,
+      "kelime": "aralık",
+      "soru": 4217,
       "ornek": [
         "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
       ]
     },
     {
-      "kelime": "satın",
-      "soru": 3860,
+      "kelime": "olmadan",
+      "soru": 4215,
       "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "defter",
-      "soru": 3855,
-      "ornek": [
-        "01138d9c-7630-4f53-980f-4517aff973ef",
-        "0121951a-38de-4eb5-8efb-44da03b0061c",
-        "012ce1db-33c1-4a79-a870-734f1950741b"
-      ]
-    },
-    {
-      "kelime": "hukuki",
-      "soru": 3854,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
         "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
       ]
     },
     {
-      "kelime": "durum",
-      "soru": 3852,
-      "ornek": [
-        "00645bf8",
-        "007c23f8",
-        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
-      ]
-    },
-    {
       "kelime": "ifade",
-      "soru": 3851,
+      "soru": 4211,
       "ornek": [
         "001df7f2",
         "0021f87f",
@@ -2472,89 +2591,17 @@
       ]
     },
     {
-      "kelime": "unsuru",
-      "soru": 3828,
+      "kelime": "hanım",
+      "soru": 4176,
       "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
-      ]
-    },
-    {
-      "kelime": "gereken",
-      "soru": 3827,
-      "ornek": [
-        "000617ca",
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
-      ]
-    },
-    {
-      "kelime": "dolayısıyla",
-      "soru": 3826,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
-      ]
-    },
-    {
-      "kelime": "alınır",
-      "soru": 3812,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "006936cc-a3e3-400d-923d-570cbbf54c91",
-        "00841973-4d3f-4edd-9960-8db5e4018963"
-      ]
-    },
-    {
-      "kelime": "meslek",
-      "soru": 3802,
-      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
         "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "0094f8cc-08ab-41f9-92ac-25fe180d3f09",
-        "00bc85b5"
-      ]
-    },
-    {
-      "kelime": "yükleme",
-      "soru": 3774,
-      "ornek": [
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "00e23c31-c544-45fc-8f85-81e202caec72",
-        "0121b284-3e21-4363-98c3-3b33470b63a8"
-      ]
-    },
-    {
-      "kelime": "geçici",
-      "soru": 3769,
-      "ornek": [
-        "000585d7",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
-      ]
-    },
-    {
-      "kelime": "kanunu",
-      "soru": 3751,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74"
-      ]
-    },
-    {
-      "kelime": "dağıtım",
-      "soru": 3693,
-      "ornek": [
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "00a70aa0-522e-48c0-a026-1d6a1406ebdf",
-        "0112c569"
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
       ]
     },
     {
       "kelime": "yoksa",
-      "soru": 3656,
+      "soru": 4170,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
@@ -2562,71 +2609,8 @@
       ]
     },
     {
-      "kelime": "soruda",
-      "soru": 3650,
-      "ornek": [
-        "0038f1e9",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "00748317-98fe-4dac-b4de-daeaae2457de"
-      ]
-    },
-    {
-      "kelime": "verir",
-      "soru": 3636,
-      "ornek": [
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
-      ]
-    },
-    {
-      "kelime": "işlemi",
-      "soru": 3633,
-      "ornek": [
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "belgesi",
-      "soru": 3627,
-      "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "00e26682-87d9-48e9-aee8-e09b056a52de"
-      ]
-    },
-    {
-      "kelime": "kullanılan",
-      "soru": 3620,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "00645bf8"
-      ]
-    },
-    {
-      "kelime": "süresi",
-      "soru": 3620,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "giderlerin",
-      "soru": 3612,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545"
-      ]
-    },
-    {
       "kelime": "doğrudur",
-      "soru": 3606,
+      "soru": 4144,
       "ornek": [
         "002e2dd2",
         "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
@@ -2634,53 +2618,26 @@
       ]
     },
     {
-      "kelime": "hakkı",
-      "soru": 3600,
+      "kelime": "nakliye",
+      "soru": 4131,
       "ornek": [
-        "000585d7",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "008e2f18-2014-45ff-98af-7a45955bc0c0",
+        "0106c26f-74d6-4e10-9de1-ff3765f6299c"
       ]
     },
     {
-      "kelime": "zarar",
-      "soru": 3595,
+      "kelime": "hukuki",
+      "soru": 4130,
       "ornek": [
-        "000617ca",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
-      ]
-    },
-    {
-      "kelime": "aralık",
-      "soru": 3570,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "kredi",
-      "soru": 3543,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00748317-98fe-4dac-b4de-daeaae2457de",
-        "00d10f72-31f5-4083-88b0-bfdcf9b7ae6d"
-      ]
-    },
-    {
-      "kelime": "kararı",
-      "soru": 3531,
-      "ornek": [
-        "000617ca",
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
       ]
     },
     {
       "kelime": "geçmiş",
-      "soru": 3522,
+      "soru": 4106,
       "ornek": [
         "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
         "005dc610-071a-44a5-855b-bdf91e63bfd1",
@@ -2688,44 +2645,53 @@
       ]
     },
     {
-      "kelime": "kalır",
-      "soru": 3520,
+      "kelime": "yıldırım",
+      "soru": 4091,
       "ornek": [
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1",
+        "00775365-574e-4b5c-b027-d7be70650623"
       ]
     },
     {
-      "kelime": "saklama",
-      "soru": 3518,
+      "kelime": "işlemi",
+      "soru": 4066,
       "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "00e26682-87d9-48e9-aee8-e09b056a52de"
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
       ]
     },
     {
-      "kelime": "görüş",
-      "soru": 3518,
+      "kelime": "izlenir",
+      "soru": 4058,
       "ornek": [
-        "0057b5c3",
-        "0094f8cc-08ab-41f9-92ac-25fe180d3f09",
-        "00bbf341"
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075"
       ]
     },
     {
-      "kelime": "mutlaka",
-      "soru": 3510,
+      "kelime": "yatırım",
+      "soru": 4046,
       "ornek": [
-        "000617ca",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "009950a4-7f3c-454a-9343-70b50c52a7ca"
+      ]
+    },
+    {
+      "kelime": "sözleşmenin",
+      "soru": 4029,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf"
       ]
     },
     {
       "kelime": "nominal",
-      "soru": 3508,
+      "soru": 4023,
       "ornek": [
         "00382d66-a672-409d-862f-b87a715c2a79",
         "008a1976-6171-4aa3-81a1-907f5b999c12",
@@ -2733,17 +2699,71 @@
       ]
     },
     {
-      "kelime": "fabrika",
-      "soru": 3507,
+      "kelime": "malzemesi",
+      "soru": 4013,
       "ornek": [
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+      ]
+    },
+    {
+      "kelime": "bağımsız",
+      "soru": 3998,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006936cc-a3e3-400d-923d-570cbbf54c91",
+        "008ddb8a"
+      ]
+    },
+    {
+      "kelime": "kullanılan",
+      "soru": 3982,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "00645bf8"
+      ]
+    },
+    {
+      "kelime": "tarihi",
+      "soru": 3982,
+      "ornek": [
+        "001df7f2",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "unsuru",
+      "soru": 3974,
+      "ornek": [
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3"
+      ]
+    },
+    {
+      "kelime": "dağıtım",
+      "soru": 3971,
+      "ornek": [
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "007eea26-ffee-4ac4-b886-d4869b099286"
+      ]
+    },
+    {
+      "kelime": "soruda",
+      "soru": 3968,
+      "ornek": [
+        "0038f1e9",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "00748317-98fe-4dac-b4de-daeaae2457de"
       ]
     },
     {
       "kelime": "girer",
-      "soru": 3493,
+      "soru": 3949,
       "ornek": [
         "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
         "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
@@ -2751,26 +2771,8 @@
       ]
     },
     {
-      "kelime": "hanım",
-      "soru": 3480,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "şekilde",
-      "soru": 3474,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00308718-bc37-422f-859d-127bfaf94f9c"
-      ]
-    },
-    {
       "kelime": "ticaret",
-      "soru": 3432,
+      "soru": 3924,
       "ornek": [
         "000617ca",
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
@@ -2778,8 +2780,188 @@
       ]
     },
     {
+      "kelime": "sayılı",
+      "soru": 3918,
+      "ornek": [
+        "01063ae2-53c7-425a-9615-e10a8ca223bc",
+        "01138d9c-7630-4f53-980f-4517aff973ef",
+        "0120ba26-cc69-4dcc-bb93-cba98f83e0e9"
+      ]
+    },
+    {
+      "kelime": "katılması",
+      "soru": 3904,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+      ]
+    },
+    {
+      "kelime": "yöntemi",
+      "soru": 3897,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "009950a4-7f3c-454a-9343-70b50c52a7ca"
+      ]
+    },
+    {
+      "kelime": "şekilde",
+      "soru": 3895,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00308718-bc37-422f-859d-127bfaf94f9c"
+      ]
+    },
+    {
+      "kelime": "giderlerin",
+      "soru": 3877,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545"
+      ]
+    },
+    {
+      "kelime": "borcuna",
+      "soru": 3873,
+      "ornek": [
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
+      ]
+    },
+    {
+      "kelime": "kredi",
+      "soru": 3863,
+      "ornek": [
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "00748317-98fe-4dac-b4de-daeaae2457de",
+        "00d10f72-31f5-4083-88b0-bfdcf9b7ae6d"
+      ]
+    },
+    {
+      "kelime": "varsa",
+      "soru": 3843,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
+      ]
+    },
+    {
+      "kelime": "talep",
+      "soru": 3840,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+      ]
+    },
+    {
+      "kelime": "kalır",
+      "soru": 3839,
+      "ornek": [
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "yükleme",
+      "soru": 3825,
+      "ornek": [
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "00e23c31-c544-45fc-8f85-81e202caec72",
+        "0121b284-3e21-4363-98c3-3b33470b63a8"
+      ]
+    },
+    {
+      "kelime": "fatura",
+      "soru": 3824,
+      "ornek": [
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "016f4383-5eeb-442a-8710-df62ae0ae47b"
+      ]
+    },
+    {
+      "kelime": "durumu",
+      "soru": 3801,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002e2dd2",
+        "004c2ce7"
+      ]
+    },
+    {
+      "kelime": "kapsamında",
+      "soru": 3795,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00645bf8"
+      ]
+    },
+    {
+      "kelime": "mutlaka",
+      "soru": 3794,
+      "ornek": [
+        "000617ca",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+      ]
+    },
+    {
+      "kelime": "belirtir",
+      "soru": 3783,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "001df7f2",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
+      ]
+    },
+    {
+      "kelime": "vardır",
+      "soru": 3782,
+      "ornek": [
+        "0021f87f",
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "geçerli",
+      "soru": 3775,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "fabrika",
+      "soru": 3774,
+      "ornek": [
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f",
+        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
+      ]
+    },
+    {
+      "kelime": "denetçinin",
+      "soru": 3742,
+      "ornek": [
+        "004c2ce7",
+        "00b13d1b",
+        "00bbf341"
+      ]
+    },
+    {
       "kelime": "ikinci",
-      "soru": 3421,
+      "soru": 3740,
       "ornek": [
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
         "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
@@ -2787,17 +2969,53 @@
       ]
     },
     {
-      "kelime": "gümrük",
-      "soru": 3415,
+      "kelime": "sırasında",
+      "soru": 3738,
       "ornek": [
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
-        "00d6f123-7be0-420c-9375-4122e1f71356"
+        "000617ca",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
+      ]
+    },
+    {
+      "kelime": "karşılığı",
+      "soru": 3708,
+      "ornek": [
+        "000585d7",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
+      ]
+    },
+    {
+      "kelime": "belgesi",
+      "soru": 3677,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "00e26682-87d9-48e9-aee8-e09b056a52de"
+      ]
+    },
+    {
+      "kelime": "ettiği",
+      "soru": 3675,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+      ]
+    },
+    {
+      "kelime": "kısmi",
+      "soru": 3661,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
       ]
     },
     {
       "kelime": "gerçek",
-      "soru": 3404,
+      "soru": 3617,
       "ornek": [
         "008ddb8a",
         "00cd5f6d",
@@ -2805,8 +3023,44 @@
       ]
     },
     {
+      "kelime": "birden",
+      "soru": 3604,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7"
+      ]
+    },
+    {
+      "kelime": "saklama",
+      "soru": 3575,
+      "ornek": [
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
+        "00e26682-87d9-48e9-aee8-e09b056a52de"
+      ]
+    },
+    {
+      "kelime": "devir",
+      "soru": 3564,
+      "ornek": [
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "0080e4fe-bf04-43de-8354-88d82647d48c",
+        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75"
+      ]
+    },
+    {
+      "kelime": "nedeniyle",
+      "soru": 3562,
+      "ornek": [
+        "000617ca",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
       "kelime": "içerir",
-      "soru": 3401,
+      "soru": 3557,
       "ornek": [
         "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
         "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
@@ -2814,8 +3068,53 @@
       ]
     },
     {
+      "kelime": "gümrük",
+      "soru": 3544,
+      "ornek": [
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
+        "00d6f123-7be0-420c-9375-4122e1f71356"
+      ]
+    },
+    {
+      "kelime": "bilgi",
+      "soru": 3530,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "008ee681-1156-45b2-bff6-24759a824f96",
+        "0094f8cc-08ab-41f9-92ac-25fe180d3f09"
+      ]
+    },
+    {
+      "kelime": "kalem",
+      "soru": 3526,
+      "ornek": [
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "0038f1e9",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "yetkisi",
+      "soru": 3524,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00bbf341",
+        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75"
+      ]
+    },
+    {
+      "kelime": "sonucu",
+      "soru": 3523,
+      "ornek": [
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
       "kelime": "dahildir",
-      "soru": 3388,
+      "soru": 3510,
       "ornek": [
         "00125bab-e376-4908-be3e-eeb86d0ef901",
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
@@ -2823,12 +3122,102 @@
       ]
     },
     {
-      "kelime": "tarafından",
+      "kelime": "atlanıyor",
+      "soru": 3507,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
+      ]
+    },
+    {
+      "kelime": "fiyat",
+      "soru": 3497,
+      "ornek": [
+        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
+        "00d4a2eb-f190-46a5-82d0-c0f1381c9dbc",
+        "010234c0"
+      ]
+    },
+    {
+      "kelime": "döneme",
+      "soru": 3487,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1",
+        "00748317-98fe-4dac-b4de-daeaae2457de"
+      ]
+    },
+    {
+      "kelime": "çıkar",
+      "soru": 3483,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "0038f1e9"
+      ]
+    },
+    {
+      "kelime": "yeniden",
+      "soru": 3476,
+      "ornek": [
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "005755b3-f861-4d81-930f-2110b1510daa",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "alınan",
+      "soru": 3461,
+      "ornek": [
+        "000585d7",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
+      ]
+    },
+    {
+      "kelime": "tamamen",
+      "soru": 3458,
+      "ornek": [
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
+      ]
+    },
+    {
+      "kelime": "senedi",
+      "soru": 3433,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "008a1976-6171-4aa3-81a1-907f5b999c12"
+      ]
+    },
+    {
+      "kelime": "geliri",
+      "soru": 3411,
+      "ornek": [
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1",
+        "008a1976-6171-4aa3-81a1-907f5b999c12"
+      ]
+    },
+    {
+      "kelime": "kapsar",
+      "soru": 3394,
+      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
+      ]
+    },
+    {
+      "kelime": "devam",
       "soru": 3369,
       "ornek": [
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00b7b622-3764-4e76-842a-aeebb67142e9",
+        "00bfddf2-f67e-444f-9ce5-f754b81d6c3c"
       ]
     },
     {
@@ -2841,278 +3230,35 @@
       ]
     },
     {
-      "kelime": "ettiği",
-      "soru": 3336,
+      "kelime": "önceden",
+      "soru": 3360,
       "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
+        "008c8e81",
+        "00b13a21-3333-458d-8082-6a75bf367960",
+        "01063ae2-53c7-425a-9615-e10a8ca223bc"
       ]
     },
     {
-      "kelime": "maddi",
-      "soru": 3326,
+      "kelime": "iptal",
+      "soru": 3357,
       "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
-        "008ddb8a"
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "009f5c1f-05f5-485b-bf2f-cd40bed8c627"
       ]
     },
     {
-      "kelime": "birden",
-      "soru": 3324,
+      "kelime": "sonrası",
+      "soru": 3328,
       "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "karar",
-      "soru": 3318,
-      "ornek": [
-        "000617ca",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f",
-        "009380de-53af-43f0-81a4-cc05128f12b7"
-      ]
-    },
-    {
-      "kelime": "kalem",
-      "soru": 3290,
-      "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "0038f1e9",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "çıkar",
-      "soru": 3271,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "0038f1e9"
-      ]
-    },
-    {
-      "kelime": "uyarınca",
-      "soru": 3265,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "yatırım",
-      "soru": 3262,
-      "ornek": [
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "024cba81-c935-42c5-8e2a-5409c113f1de",
-        "024e3b66-be1b-4e57-8332-616c4d08d8fa"
-      ]
-    },
-    {
-      "kelime": "yöntemi",
-      "soru": 3241,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "00bbf341",
-        "012467ad-7989-41ba-88b2-c58700107976"
-      ]
-    },
-    {
-      "kelime": "durumu",
-      "soru": 3237,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "002e2dd2",
-        "004c2ce7"
-      ]
-    },
-    {
-      "kelime": "karşılığı",
-      "soru": 3221,
-      "ornek": [
-        "000585d7",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
-      ]
-    },
-    {
-      "kelime": "borcuna",
-      "soru": 3214,
-      "ornek": [
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
         "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
-      ]
-    },
-    {
-      "kelime": "döneme",
-      "soru": 3183,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "00748317-98fe-4dac-b4de-daeaae2457de"
-      ]
-    },
-    {
-      "kelime": "vardır",
-      "soru": 3182,
-      "ornek": [
-        "0021f87f",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7"
-      ]
-    },
-    {
-      "kelime": "varsa",
-      "soru": 3161,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "005cf825-01e6-4aef-8bc7-c0e970a145b6"
-      ]
-    },
-    {
-      "kelime": "devir",
-      "soru": 3157,
-      "ornek": [
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "0080e4fe-bf04-43de-8354-88d82647d48c",
-        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75"
-      ]
-    },
-    {
-      "kelime": "düşünülüyor",
-      "soru": 3154,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
-      ]
-    },
-    {
-      "kelime": "sonucu",
-      "soru": 3137,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
-      ]
-    },
-    {
-      "kelime": "geçerli",
-      "soru": 3119,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "unsurları",
-      "soru": 3117,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
-        "0080569d-4c67-4411-b467-57d871b5a2c5"
-      ]
-    },
-    {
-      "kelime": "bedelinin",
-      "soru": 3117,
-      "ornek": [
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "0092feac-b123-4ca1-abf0-444d83d5eb6c"
-      ]
-    },
-    {
-      "kelime": "belirtir",
-      "soru": 3114,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "001df7f2",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389"
-      ]
-    },
-    {
-      "kelime": "çalışma",
-      "soru": 3105,
-      "ornek": [
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "0057b5c3",
-        "00cbfb3d"
-      ]
-    },
-    {
-      "kelime": "bedelini",
-      "soru": 3101,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "tamamen",
-      "soru": 3092,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
-      ]
-    },
-    {
-      "kelime": "sigorta",
-      "soru": 3091,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545"
-      ]
-    },
-    {
-      "kelime": "iktisadi",
-      "soru": 3090,
-      "ornek": [
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545"
-      ]
-    },
-    {
-      "kelime": "izlenir",
-      "soru": 3089,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075"
-      ]
-    },
-    {
-      "kelime": "kapsamında",
-      "soru": 3082,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00645bf8"
-      ]
-    },
-    {
-      "kelime": "objektif",
-      "soru": 3057,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "00645bf8"
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
       ]
     },
     {
       "kelime": "hiçbir",
-      "soru": 3051,
+      "soru": 3301,
       "ornek": [
         "002797e4-e3f1-43ec-b624-079749e8d9c4",
         "00308718-bc37-422f-859d-127bfaf94f9c",
@@ -3120,107 +3266,44 @@
       ]
     },
     {
-      "kelime": "tarihi",
-      "soru": 3047,
+      "kelime": "uygulanır",
+      "soru": 3299,
       "ornek": [
-        "001df7f2",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+        "000617ca",
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
       ]
     },
     {
-      "kelime": "alınan",
-      "soru": 3043,
+      "kelime": "sigorta",
+      "soru": 3294,
       "ornek": [
-        "000585d7",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
         "00716ff4-7804-4c0e-bb7c-f868b0528545"
       ]
     },
     {
-      "kelime": "bağımsız",
-      "soru": 3012,
+      "kelime": "önceki",
+      "soru": 3286,
       "ornek": [
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "006936cc-a3e3-400d-923d-570cbbf54c91",
-        "008ddb8a"
-      ]
-    },
-    {
-      "kelime": "sırasında",
-      "soru": 3006,
-      "ornek": [
-        "000617ca",
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae"
-      ]
-    },
-    {
-      "kelime": "yapılmış",
-      "soru": 3003,
-      "ornek": [
-        "0038f1e9",
-        "00748317-98fe-4dac-b4de-daeaae2457de",
-        "00775365-574e-4b5c-b027-d7be70650623"
-      ]
-    },
-    {
-      "kelime": "satışların",
-      "soru": 2984,
-      "ornek": [
-        "0080e4fe-bf04-43de-8354-88d82647d48c",
-        "013ed053-2ae1-41ca-ba61-cd8ec36c1e20",
-        "015e44db-aa73-4e56-b91f-8d3b7250eaa9"
+        "0037bcbf-fdda-4566-b428-441432b9af2b",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1"
       ]
     },
     {
       "kelime": "varlıkların",
-      "soru": 2970,
+      "soru": 3283,
       "ornek": [
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "0080e4fe-bf04-43de-8354-88d82647d48c",
-        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0"
-      ]
-    },
-    {
-      "kelime": "kapsar",
-      "soru": 2962,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
-      ]
-    },
-    {
-      "kelime": "yanilgi",
-      "soru": 2958,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
-      ]
-    },
-    {
-      "kelime": "tercih",
-      "soru": 2953,
-      "ornek": [
-        "001df7f2",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378"
-      ]
-    },
-    {
-      "kelime": "halde",
-      "soru": 2948,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "0080e4fe-bf04-43de-8354-88d82647d48c"
       ]
     },
     {
       "kelime": "birbirine",
-      "soru": 2936,
+      "soru": 3273,
       "ornek": [
         "0038f1e9",
         "006c96af-9a2a-479a-8a3f-b65623ee57b6",
@@ -3228,125 +3311,17 @@
       ]
     },
     {
-      "kelime": "nedeniyle",
-      "soru": 2923,
+      "kelime": "bedelinin",
+      "soru": 3265,
       "ornek": [
-        "000617ca",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "fiyat",
-      "soru": 2868,
-      "ornek": [
-        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
-        "00d4a2eb-f190-46a5-82d0-c0f1381c9dbc",
-        "010234c0"
-      ]
-    },
-    {
-      "kelime": "sonrası",
-      "soru": 2868,
-      "ornek": [
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "yetkisi",
-      "soru": 2868,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00bbf341",
-        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75"
-      ]
-    },
-    {
-      "kelime": "iptal",
-      "soru": 2867,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "00a02f26-17f0-4cb7-b5ad-a8de2b557591"
-      ]
-    },
-    {
-      "kelime": "senedi",
-      "soru": 2866,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "008a1976-6171-4aa3-81a1-907f5b999c12"
-      ]
-    },
-    {
-      "kelime": "tahakkuk",
-      "soru": 2851,
-      "ornek": [
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "00d10f72-31f5-4083-88b0-bfdcf9b7ae6d"
-      ]
-    },
-    {
-      "kelime": "devam",
-      "soru": 2838,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00b7b622-3764-4e76-842a-aeebb67142e9",
-        "00bfddf2-f67e-444f-9ce5-f754b81d6c3c"
-      ]
-    },
-    {
-      "kelime": "tamamı",
-      "soru": 2830,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00308718-bc37-422f-859d-127bfaf94f9c"
-      ]
-    },
-    {
-      "kelime": "fatura",
-      "soru": 2828,
-      "ornek": [
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
         "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "016f4383-5eeb-442a-8710-df62ae0ae47b"
-      ]
-    },
-    {
-      "kelime": "talep",
-      "soru": 2820,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "sayılı",
-      "soru": 2816,
-      "ornek": [
-        "01138d9c-7630-4f53-980f-4517aff973ef",
-        "0120ba26-cc69-4dcc-bb93-cba98f83e0e9",
-        "0121b284-3e21-4363-98c3-3b33470b63a8"
-      ]
-    },
-    {
-      "kelime": "yeniden",
-      "soru": 2811,
-      "ornek": [
-        "005755b3-f861-4d81-930f-2110b1510daa",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
+        "0092feac-b123-4ca1-abf0-444d83d5eb6c"
       ]
     },
     {
       "kelime": "hesabın",
-      "soru": 2788,
+      "soru": 3230,
       "ornek": [
         "0037bcbf-fdda-4566-b428-441432b9af2b",
         "005cf825-01e6-4aef-8bc7-c0e970a145b6",
@@ -3354,53 +3329,44 @@
       ]
     },
     {
-      "kelime": "geliri",
-      "soru": 2786,
-      "ornek": [
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "008a1976-6171-4aa3-81a1-907f5b999c12"
-      ]
-    },
-    {
-      "kelime": "önceden",
-      "soru": 2761,
-      "ornek": [
-        "008c8e81",
-        "01c4c83f",
-        "01c633de-9d4d-4607-9075-95b971332dd6"
-      ]
-    },
-    {
-      "kelime": "yapılamaz",
-      "soru": 2757,
-      "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "bilgi",
-      "soru": 2747,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0094f8cc-08ab-41f9-92ac-25fe180d3f09",
-        "00d6f123-7be0-420c-9375-4122e1f71356"
-      ]
-    },
-    {
-      "kelime": "kısmı",
-      "soru": 2729,
+      "kelime": "tamamı",
+      "soru": 3226,
       "ornek": [
         "000aa943-facf-431f-8a90-5559531a6a99",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00382d66-a672-409d-862f-b87a715c2a79"
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "002b7029-08cb-45ac-baf6-852eaa33a146"
       ]
     },
     {
-      "kelime": "bakım",
-      "soru": 2716,
+      "kelime": "yapılmış",
+      "soru": 3213,
+      "ornek": [
+        "0038f1e9",
+        "00748317-98fe-4dac-b4de-daeaae2457de",
+        "00775365-574e-4b5c-b027-d7be70650623"
+      ]
+    },
+    {
+      "kelime": "dönemi",
+      "soru": 3200,
+      "ornek": [
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "00a869ca-4c05-409a-a745-aac6bc1ef170"
+      ]
+    },
+    {
+      "kelime": "bedelini",
+      "soru": 3192,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "unsurları",
+      "soru": 3182,
       "ornek": [
         "002797e4-e3f1-43ec-b624-079749e8d9c4",
         "006c96af-9a2a-479a-8a3f-b65623ee57b6",
@@ -3408,8 +3374,17 @@
       ]
     },
     {
+      "kelime": "aktarılır",
+      "soru": 3178,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
+      ]
+    },
+    {
       "kelime": "sonraki",
-      "soru": 2707,
+      "soru": 3150,
       "ornek": [
         "00308718-bc37-422f-859d-127bfaf94f9c",
         "0038f1e9",
@@ -3417,71 +3392,8 @@
       ]
     },
     {
-      "kelime": "kesin",
-      "soru": 2662,
-      "ornek": [
-        "001df7f2",
-        "0093d822-3d32-42a9-a7ca-80bf8ac80546",
-        "0094f8cc-08ab-41f9-92ac-25fe180d3f09"
-      ]
-    },
-    {
-      "kelime": "disiplin",
-      "soru": 2658,
-      "ornek": [
-        "00bc85b5",
-        "0120ba26-cc69-4dcc-bb93-cba98f83e0e9",
-        "0147002f-acb3-4a63-81f8-23f7dbcc6a52"
-      ]
-    },
-    {
-      "kelime": "ortalama",
-      "soru": 2645,
-      "ornek": [
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "00748317-98fe-4dac-b4de-daeaae2457de",
-        "00a869ca-4c05-409a-a745-aac6bc1ef170"
-      ]
-    },
-    {
-      "kelime": "malın",
-      "soru": 2640,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "007fff68-0d5c-4ed2-a7fd-893d9a6c483f",
-        "013c84f1-5e59-4446-a842-675527b0c00b"
-      ]
-    },
-    {
-      "kelime": "ortak",
-      "soru": 2628,
-      "ornek": [
-        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75",
-        "0115ce30",
-        "0159c91e-b5fa-44f0-93a7-fd9be1c8bf54"
-      ]
-    },
-    {
-      "kelime": "unsurudur",
-      "soru": 2627,
-      "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
-      ]
-    },
-    {
-      "kelime": "sipariş",
-      "soru": 2616,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "007c23f8"
-      ]
-    },
-    {
-      "kelime": "kıymetin",
-      "soru": 2598,
+      "kelime": "iktisadi",
+      "soru": 3149,
       "ornek": [
         "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
         "00308718-bc37-422f-859d-127bfaf94f9c",
@@ -3489,107 +3401,26 @@
       ]
     },
     {
-      "kelime": "faizi",
-      "soru": 2576,
+      "kelime": "objektif",
+      "soru": 3144,
       "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "009380de-53af-43f0-81a4-cc05128f12b7"
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+        "00607348-f3b7-4d15-b86a-0db1ce35c403"
       ]
     },
     {
-      "kelime": "yüksek",
-      "soru": 2563,
-      "ornek": [
-        "00645bf8",
-        "00841973-4d3f-4edd-9960-8db5e4018963",
-        "008a1976-6171-4aa3-81a1-907f5b999c12"
-      ]
-    },
-    {
-      "kelime": "atlanıyor",
-      "soru": 2562,
-      "ornek": [
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
-      ]
-    },
-    {
-      "kelime": "dikkate",
-      "soru": 2554,
-      "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "006936cc-a3e3-400d-923d-570cbbf54c91"
-      ]
-    },
-    {
-      "kelime": "kısmi",
-      "soru": 2543,
-      "ornek": [
-        "0010b01e-fae9-43fc-a75a-194192467077",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
-      ]
-    },
-    {
-      "kelime": "kaynak",
-      "soru": 2521,
-      "ornek": [
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
-        "0080e4fe-bf04-43de-8354-88d82647d48c"
-      ]
-    },
-    {
-      "kelime": "önceki",
-      "soru": 2521,
-      "ornek": [
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "005dc610-071a-44a5-855b-bdf91e63bfd1"
-      ]
-    },
-    {
-      "kelime": "teslim",
-      "soru": 2520,
-      "ornek": [
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "016f4383-5eeb-442a-8710-df62ae0ae47b"
-      ]
-    },
-    {
-      "kelime": "dönemi",
-      "soru": 2516,
-      "ornek": [
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "00a869ca-4c05-409a-a745-aac6bc1ef170"
-      ]
-    },
-    {
-      "kelime": "gösterilir",
-      "soru": 2509,
+      "kelime": "tahakkuk",
+      "soru": 3102,
       "ornek": [
         "0036b78e-1127-4b05-b620-efdf1eb1f075",
         "005dc610-071a-44a5-855b-bdf91e63bfd1",
-        "00748317-98fe-4dac-b4de-daeaae2457de"
-      ]
-    },
-    {
-      "kelime": "unsurlar",
-      "soru": 2499,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4"
+        "00d10f72-31f5-4083-88b0-bfdcf9b7ae6d"
       ]
     },
     {
       "kelime": "müşteri",
-      "soru": 2493,
+      "soru": 3094,
       "ornek": [
         "007c23f8",
         "00915ee9",
@@ -3597,161 +3428,26 @@
       ]
     },
     {
-      "kelime": "payda",
-      "soru": 2480,
-      "ornek": [
-        "0080e4fe-bf04-43de-8354-88d82647d48c",
-        "00b8804f-fe41-4b5b-9e39-91907ea4ebf0",
-        "00e51054-c290-45f7-8add-92c1e719a349"
-      ]
-    },
-    {
-      "kelime": "yardımcı",
-      "soru": 2477,
-      "ornek": [
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "0080569d-4c67-4411-b467-57d871b5a2c5",
-        "0208e722"
-      ]
-    },
-    {
-      "kelime": "ortaya",
-      "soru": 2474,
-      "ornek": [
-        "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "0037bcbf-fdda-4566-b428-441432b9af2b"
-      ]
-    },
-    {
-      "kelime": "aktarılır",
-      "soru": 2466,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "0036b78e-1127-4b05-b620-efdf1eb1f075",
-        "0037bcbf-fdda-4566-b428-441432b9af2b"
-      ]
-    },
-    {
-      "kelime": "yapılması",
-      "soru": 2464,
+      "kelime": "halde",
+      "soru": 3089,
       "ornek": [
         "00034ecd-ea03-45fb-9802-66c70c0eb43a",
-        "000aa943-facf-431f-8a90-5559531a6a99",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
         "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
       ]
     },
     {
-      "kelime": "hesaplanıyor",
-      "soru": 2463,
+      "kelime": "satışların",
+      "soru": 3081,
       "ornek": [
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "0080569d-4c67-4411-b467-57d871b5a2c5",
-        "0080e4fe-bf04-43de-8354-88d82647d48c"
-      ]
-    },
-    {
-      "kelime": "geçerlidir",
-      "soru": 2461,
-      "ornek": [
-        "0080569d-4c67-4411-b467-57d871b5a2c5",
-        "00854936",
-        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
-      ]
-    },
-    {
-      "kelime": "üretimat",
-      "soru": 2460,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "00d37e2a-2bd7-4181-bd42-47eeab7fb823"
-      ]
-    },
-    {
-      "kelime": "gideridir",
-      "soru": 2428,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00308718-bc37-422f-859d-127bfaf94f9c",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545"
-      ]
-    },
-    {
-      "kelime": "giderini",
-      "soru": 2426,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "0037bcbf-fdda-4566-b428-441432b9af2b",
-        "003f2146-0b5f-4038-a703-c2bcb5cd6e65"
-      ]
-    },
-    {
-      "kelime": "aldığı",
-      "soru": 2416,
-      "ornek": [
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "00775365-574e-4b5c-b027-d7be70650623"
-      ]
-    },
-    {
-      "kelime": "büyük",
-      "soru": 2410,
-      "ornek": [
-        "00382d66-a672-409d-862f-b87a715c2a79",
-        "00748317-98fe-4dac-b4de-daeaae2457de",
-        "00775365-574e-4b5c-b027-d7be70650623"
-      ]
-    },
-    {
-      "kelime": "giderinin",
-      "soru": 2408,
-      "ornek": [
-        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
-      ]
-    },
-    {
-      "kelime": "gerektiği",
-      "soru": 2408,
-      "ornek": [
-        "000aa943-facf-431f-8a90-5559531a6a99",
-        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
-      ]
-    },
-    {
-      "kelime": "yevmiye",
-      "soru": 2405,
-      "ornek": [
-        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
-        "00cd183a-7b54-4c1b-a97f-5f083fe09679",
-        "0142d906-eeac-402c-9dbc-eb20b60f160e"
-      ]
-    },
-    {
-      "kelime": "yaptığı",
-      "soru": 2401,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
-        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
-      ]
-    },
-    {
-      "kelime": "mükellef",
-      "soru": 2393,
-      "ornek": [
-        "00262b15-727a-4fcf-8835-80a3fdeed378",
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+        "0080e4fe-bf04-43de-8354-88d82647d48c",
+        "013ed053-2ae1-41ca-ba61-cd8ec36c1e20",
+        "015e44db-aa73-4e56-b91f-8d3b7250eaa9"
       ]
     },
     {
       "kelime": "dönemde",
-      "soru": 2392,
+      "soru": 3078,
       "ornek": [
         "002797e4-e3f1-43ec-b624-079749e8d9c4",
         "005dc610-071a-44a5-855b-bdf91e63bfd1",
@@ -3759,89 +3455,98 @@
       ]
     },
     {
-      "kelime": "nedenle",
-      "soru": 2372,
+      "kelime": "malın",
+      "soru": 3065,
       "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "009e1f74-e54f-4aa7-9ec0-8460087a19b6"
-      ]
-    },
-    {
-      "kelime": "zorundadır",
-      "soru": 2364,
-      "ornek": [
-        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
-        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
-        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
-      ]
-    },
-    {
-      "kelime": "tablosunda",
-      "soru": 2357,
-      "ornek": [
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
         "007fff68-0d5c-4ed2-a7fd-893d9a6c483f",
-        "012d92e3-4ce2-46d8-80f1-b29d15342929",
-        "013a3611-8335-4c32-b508-c4f66b46ef34"
+        "013c84f1-5e59-4446-a842-675527b0c00b"
       ]
     },
     {
-      "kelime": "çünkü",
-      "soru": 2346,
+      "kelime": "yüksek",
+      "soru": 3056,
       "ornek": [
-        "00125bab-e376-4908-be3e-eeb86d0ef901",
-        "00915ee9",
-        "00af6814"
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "00645bf8",
+        "008a1976-6171-4aa3-81a1-907f5b999c12"
+      ]
+    },
+    {
+      "kelime": "tercih",
+      "soru": 3053,
+      "ornek": [
+        "001df7f2",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "00262b15-727a-4fcf-8835-80a3fdeed378"
+      ]
+    },
+    {
+      "kelime": "kısmı",
+      "soru": 3046,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "00382d66-a672-409d-862f-b87a715c2a79"
       ]
     },
     {
       "kelime": "kurulunun",
-      "soru": 2346,
+      "soru": 3028,
       "ornek": [
         "0010b01e-fae9-43fc-a75a-194192467077",
-        "00a02f26-17f0-4cb7-b5ad-a8de2b557591",
-        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75"
+        "008ee681-1156-45b2-bff6-24759a824f96",
+        "00a02f26-17f0-4cb7-b5ad-a8de2b557591"
       ]
     },
     {
-      "kelime": "elektrik",
-      "soru": 2337,
-      "ornek": [
-        "002797e4-e3f1-43ec-b624-079749e8d9c4",
-        "0049835b-a9a7-4293-8e61-28a33cd9389f",
-        "006c96af-9a2a-479a-8a3f-b65623ee57b6"
-      ]
-    },
-    {
-      "kelime": "verilen",
-      "soru": 2327,
+      "kelime": "teslim",
+      "soru": 3028,
       "ornek": [
         "0022c88f-9b09-42e3-ac04-6d01d885ea89",
-        "00716ff4-7804-4c0e-bb7c-f868b0528545",
-        "00841973-4d3f-4edd-9960-8db5e4018963"
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "007eea26-ffee-4ac4-b886-d4869b099286"
       ]
     },
     {
-      "kelime": "yönteminde",
-      "soru": 2326,
+      "kelime": "gösterilir",
+      "soru": 2989,
       "ornek": [
-        "008c8e81",
-        "012467ad-7989-41ba-88b2-c58700107976",
-        "0146171a-f1c3-43c6-b10e-45a5e8d2b82d"
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "0036b78e-1127-4b05-b620-efdf1eb1f075",
+        "005dc610-071a-44a5-855b-bdf91e63bfd1"
       ]
     },
     {
-      "kelime": "sözleşmeler",
-      "soru": 2323,
+      "kelime": "ortalama",
+      "soru": 2981,
       "ornek": [
-        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "00748317-98fe-4dac-b4de-daeaae2457de",
+        "00a869ca-4c05-409a-a745-aac6bc1ef170"
+      ]
+    },
+    {
+      "kelime": "dikkate",
+      "soru": 2979,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "001f2d01-cf6b-4de9-a5fa-9f92b38b2389",
+        "006936cc-a3e3-400d-923d-570cbbf54c91"
+      ]
+    },
+    {
+      "kelime": "ortaya",
+      "soru": 2978,
+      "ornek": [
         "0023bc76-8009-4dd5-b73a-a26199e690cf",
-        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "0037bcbf-fdda-4566-b428-441432b9af2b"
       ]
     },
     {
       "kelime": "mevcut",
-      "soru": 2320,
+      "soru": 2959,
       "ornek": [
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
         "00308718-bc37-422f-859d-127bfaf94f9c",
@@ -3849,12 +3554,291 @@
       ]
     },
     {
-      "kelime": "uygulanır",
-      "soru": 2317,
+      "kelime": "geçerlidir",
+      "soru": 2947,
+      "ornek": [
+        "0080569d-4c67-4411-b467-57d871b5a2c5",
+        "00854936",
+        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
+      ]
+    },
+    {
+      "kelime": "özkaynak",
+      "soru": 2926,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f"
+      ]
+    },
+    {
+      "kelime": "yanilgi",
+      "soru": 2923,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed",
+        "00666a28-48a4-433d-ad5f-6c6bf6b93fd3"
+      ]
+    },
+    {
+      "kelime": "kesin",
+      "soru": 2917,
+      "ornek": [
+        "001df7f2",
+        "0093d822-3d32-42a9-a7ca-80bf8ac80546",
+        "0094f8cc-08ab-41f9-92ac-25fe180d3f09"
+      ]
+    },
+    {
+      "kelime": "ortak",
+      "soru": 2902,
+      "ornek": [
+        "00c93a01-2312-4eb8-88c1-f709d55bcd4c",
+        "00cb5bfc-fd17-4e7d-8bcd-fc277d86fa75",
+        "0115ce30"
+      ]
+    },
+    {
+      "kelime": "piyasa",
+      "soru": 2893,
+      "ornek": [
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
+        "009dfb0a-1f09-4761-9651-8a81f3631d2a"
+      ]
+    },
+    {
+      "kelime": "bakım",
+      "soru": 2864,
+      "ornek": [
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
+        "0080569d-4c67-4411-b467-57d871b5a2c5"
+      ]
+    },
+    {
+      "kelime": "durumunda",
+      "soru": 2860,
+      "ornek": [
+        "00279615-2f64-4d66-bfa6-b7da24986aa7",
+        "002e2dd2",
+        "008a1976-6171-4aa3-81a1-907f5b999c12"
+      ]
+    },
+    {
+      "kelime": "kanıt",
+      "soru": 2851,
+      "ornek": [
+        "00bbf341",
+        "00cbfb3d",
+        "01945797"
+      ]
+    },
+    {
+      "kelime": "gerektiği",
+      "soru": 2849,
+      "ornek": [
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "0049835b-a9a7-4293-8e61-28a33cd9389f"
+      ]
+    },
+    {
+      "kelime": "yapılamaz",
+      "soru": 2831,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "0023bc76-8009-4dd5-b73a-a26199e690cf",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "tarihinden",
+      "soru": 2811,
+      "ornek": [
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "00b7b622-3764-4e76-842a-aeebb67142e9",
+        "00cd7275"
+      ]
+    },
+    {
+      "kelime": "verilen",
+      "soru": 2780,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545",
+        "00a02f26-17f0-4cb7-b5ad-a8de2b557591"
+      ]
+    },
+    {
+      "kelime": "yapılması",
+      "soru": 2775,
+      "ornek": [
+        "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+        "000aa943-facf-431f-8a90-5559531a6a99",
+        "004658d6-0c82-4e1c-b3d9-a2d9cda53804"
+      ]
+    },
+    {
+      "kelime": "yaptığı",
+      "soru": 2751,
+      "ornek": [
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "006eef0a-eec9-4234-b83c-31cbbf4a2f2b"
+      ]
+    },
+    {
+      "kelime": "zorundadır",
+      "soru": 2747,
+      "ornek": [
+        "0041044e-b8c2-4087-a038-d4e6e4a732f3",
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "005f94e9-cf7e-48d6-9e7d-7e20beb8beed"
+      ]
+    },
+    {
+      "kelime": "kaynak",
+      "soru": 2743,
+      "ornek": [
+        "006c96af-9a2a-479a-8a3f-b65623ee57b6",
+        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
+        "0080e4fe-bf04-43de-8354-88d82647d48c"
+      ]
+    },
+    {
+      "kelime": "raporlama",
+      "soru": 2730,
+      "ornek": [
+        "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+        "00a869ca-4c05-409a-a745-aac6bc1ef170",
+        "00cbfb3d"
+      ]
+    },
+    {
+      "kelime": "gerçeğe",
+      "soru": 2727,
+      "ornek": [
+        "00607348-f3b7-4d15-b86a-0db1ce35c403",
+        "00bfddf2-f67e-444f-9ce5-f754b81d6c3c",
+        "00fcac91-33cc-4473-904a-b961985e29eb"
+      ]
+    },
+    {
+      "kelime": "sorumlu",
+      "soru": 2725,
+      "ornek": [
+        "0092feac-b123-4ca1-abf0-444d83d5eb6c",
+        "0120e27d-2dd8-438a-8de5-09f8d027f4e5",
+        "01400063-d95f-419d-ad27-131d7d0e845a"
+      ]
+    },
+    {
+      "kelime": "büyük",
+      "soru": 2711,
+      "ornek": [
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "00748317-98fe-4dac-b4de-daeaae2457de",
+        "00775365-574e-4b5c-b027-d7be70650623"
+      ]
+    },
+    {
+      "kelime": "çünkü",
+      "soru": 2711,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "007eea26-ffee-4ac4-b886-d4869b099286"
+      ]
+    },
+    {
+      "kelime": "faizi",
+      "soru": 2702,
+      "ornek": [
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "002797e4-e3f1-43ec-b624-079749e8d9c4",
+        "009380de-53af-43f0-81a4-cc05128f12b7"
+      ]
+    },
+    {
+      "kelime": "hakkında",
+      "soru": 2699,
+      "ornek": [
+        "00854936",
+        "008ee681-1156-45b2-bff6-24759a824f96",
+        "00d281ee"
+      ]
+    },
+    {
+      "kelime": "sipariş",
+      "soru": 2696,
+      "ornek": [
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3",
+        "007c23f8"
+      ]
+    },
+    {
+      "kelime": "kurul",
+      "soru": 2696,
       "ornek": [
         "000617ca",
+        "0010b01e-fae9-43fc-a75a-194192467077",
+        "008ee681-1156-45b2-bff6-24759a824f96"
+      ]
+    },
+    {
+      "kelime": "yönteminde",
+      "soru": 2688,
+      "ornek": [
+        "002b7029-08cb-45ac-baf6-852eaa33a146",
+        "008c8e81",
+        "00dd198b-14f3-43b5-b2dc-5eb25a180ebf"
+      ]
+    },
+    {
+      "kelime": "unsurudur",
+      "soru": 2687,
+      "ornek": [
+        "00262b15-727a-4fcf-8835-80a3fdeed378",
+        "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+        "00431f71-54bd-4fd4-a7c4-22c66da1d6b3"
+      ]
+    },
+    {
+      "kelime": "kıymetin",
+      "soru": 2660,
+      "ornek": [
+        "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+        "00308718-bc37-422f-859d-127bfaf94f9c",
+        "00716ff4-7804-4c0e-bb7c-f868b0528545"
+      ]
+    },
+    {
+      "kelime": "nedenle",
+      "soru": 2659,
+      "ornek": [
+        "00125bab-e376-4908-be3e-eeb86d0ef901",
+        "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+        "009e1f74-e54f-4aa7-9ec0-8460087a19b6"
+      ]
+    },
+    {
+      "kelime": "düşük",
+      "soru": 2658,
+      "ornek": [
         "00279615-2f64-4d66-bfa6-b7da24986aa7",
-        "006f27c9-23ed-4ae7-94f4-66c8292c1e3c"
+        "00aabac9",
+        "00f2341f-2b82-4a1a-b764-c1572f057169"
+      ]
+    },
+    {
+      "kelime": "aldığı",
+      "soru": 2655,
+      "ornek": [
+        "00382d66-a672-409d-862f-b87a715c2a79",
+        "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+        "00775365-574e-4b5c-b027-d7be70650623"
       ]
     }
   ]
