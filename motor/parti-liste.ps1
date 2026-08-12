@@ -25,9 +25,14 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 try { Start-Transcript -Path (Join-Path $kok 'veri/parti-liste-log.txt') -Force | Out-Null } catch {}
 
-$AK = "$env:ANTHROPIC_API_KEY".Trim()
-if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok - cikiliyor."; try{Stop-Transcript|Out-Null}catch{}; exit 1 }
-$HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
+# 12.08: cift hat - hedef api-hedef.ps1'den (anthropic | aws)
+. (Join-Path $PSScriptRoot 'api-hedef.ps1')
+$HEDEF = $null
+try { $HEDEF = Get-ApiHedef } catch { Write-Host $_.Exception.Message; try{Stop-Transcript|Out-Null}catch{}; exit 1 }
+$AK = $HEDEF.anahtar
+$HDR = $HEDEF.basliklar
+$API_TABAN = $HEDEF.taban
+Write-Host ("API hedefi: {0}" -f $HEDEF.ad)
 
 Write-Host "Parti listesi cekiliyor (GET /v1/messages/batches)..."
 $hepsi = New-Object System.Collections.Generic.List[object]
@@ -35,7 +40,7 @@ $sonra = ''
 $sayfa = 0
 try {
   while($true){
-    $u = 'https://api.anthropic.com/v1/messages/batches?limit=100'
+    $u = ($API_TABAN + '/v1/messages/batches?limit=100')
     if($sonra){ $u += "&after_id=$sonra" }
     $ham = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $HDR -TimeoutSec 120
     $govde = if($ham.Content -is [byte[]]){ [Text.Encoding]::UTF8.GetString($ham.Content) } else { "$($ham.Content)" }

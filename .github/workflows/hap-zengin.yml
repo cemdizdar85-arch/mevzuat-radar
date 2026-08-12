@@ -33,6 +33,9 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_AWS_API_KEY: ${{ secrets.ANTHROPIC_AWS_API_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ANTHROPIC_AWS_WORKSPACE_ID: ${{ secrets.ANTHROPIC_AWS_WORKSPACE_ID }}
           KURTAR: ${{ github.event.inputs.kurtar == 'true' && '1' || '' }}
         run: ./motor/hap-zengin.ps1
       - name: Rapor + parti kimliklerini commit'le (kor kalma; odenmis is kaybolmaz)

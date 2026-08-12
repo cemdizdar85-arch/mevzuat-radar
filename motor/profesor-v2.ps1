@@ -355,11 +355,16 @@ if($olcum){
 }
 
 # ---------------------------------------------------------------- GERCEK KOSU
-$AK = "$env:ANTHROPIC_API_KEY".Trim()
-if(-not $AK){ Write-Host "ANTHROPIC_API_KEY yok - kosu yapilamaz."; exit 1 }
+# 12.08: cift hat - hedef api-hedef.ps1'den (anthropic | aws)
+. (Join-Path $PSScriptRoot 'api-hedef.ps1')
+$HEDEF = $null
+try { $HEDEF = Get-ApiHedef } catch { Write-Host $_.Exception.Message; exit 1 }
+$AK = $HEDEF.anahtar
 if($isler.Count -eq 0){ Write-Host "Yargilanacak soru yok."; exit 0 }
 
-$HDR = @{ 'x-api-key'=$AK; 'anthropic-version'='2023-06-01' }
+$HDR = $HEDEF.basliklar
+$API_TABAN = $HEDEF.taban
+Write-Host ("API hedefi: {0}" -f $HEDEF.ad)
 $BATCH_MAX = 400   # tek partide en fazla
 
 # --- HATA DEFTERI: Actions loglari admin-kilitli oldugu icin hata DOSYAYA yazilir.
@@ -402,7 +407,7 @@ trap {
 Write-Host "ON KONTROL: anahtar + model kimligi sinaniyor..."
 try {
   $dene = @{ model=$model; max_tokens=1; messages=@(@{ role='user'; content='tamam' }) } | ConvertTo-Json -Depth 5
-  $ok = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages' -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($dene)) -TimeoutSec 60
+  $ok = Invoke-RestMethod -Method Post -Uri ($API_TABAN + '/v1/messages') -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($dene)) -TimeoutSec 60
   Write-Host ("  ON KONTROL TAMAM - model: {0}" -f $ok.model)
 } catch {
   $cevap = ""
@@ -440,7 +445,7 @@ for($p=0; $p -lt $partiler; $p++){
   if($kurtar -and $p -eq 0){
     Write-Host ("KURTARMA MODU: {0} partisinin sonucu YENIDEN GONDERILMEDEN cekiliyor (0 USD)." -f $kurtar)
     $bid = $kurtar
-    $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR -TimeoutSec 60
+    $st = Invoke-RestMethod -Uri "$API_TABAN/v1/messages/batches/$bid" -Headers $HDR -TimeoutSec 60
     Write-Host ("  durum: {0}" -f $st.processing_status)
     if($st.processing_status -ne 'ended'){ Write-Host "  Parti henuz bitmemis - kurtarma yapilamaz."; try { Stop-Transcript | Out-Null } catch {}; exit 1 }
   } else {
@@ -450,7 +455,7 @@ for($p=0; $p -lt $partiler; $p++){
   # 28.07: Actions loglari admin-kilitli. Hata ekrana yazilip kaybolursa kor kaliriz;
   # depo kuralı: HATA DOSYAYA YAZILIR, is akisi always() ile commit'ler.
   try {
-    $b = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages/batches' -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
+    $b = Invoke-RestMethod -Method Post -Uri ($API_TABAN + '/v1/messages/batches') -Headers $HDR -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
   } catch {
     $cevap = ""
     try { $cevap = (New-Object IO.StreamReader($_.Exception.Response.GetResponseStream())).ReadToEnd() } catch {}
@@ -467,7 +472,7 @@ for($p=0; $p -lt $partiler; $p++){
   while($true){
     Start-Sleep -Seconds 20
     $tur++
-    $st = Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages/batches/$bid" -Headers $HDR
+    $st = Invoke-RestMethod -Uri "$API_TABAN/v1/messages/batches/$bid" -Headers $HDR
     Write-Host ("  durum: {0}" -f $st.processing_status)
     if($st.processing_status -eq 'ended'){ break }
     # 29.07 IKI KUSUR BIRDEN DUZELTILDI.
@@ -500,7 +505,7 @@ for($p=0; $p -lt $partiler; $p++){
   # Sonuc adresini SABIT KODLAMA - durum cevabindaki results_url kullanilir.
   # Sabit adres bir yonlendirmeye takilirsa basliklar tasinmaz ve 403 alinir;
   # o hata da parayi harcadiktan SONRA cikar, en pahali yerde.
-  $sonucAdres = if($st.results_url){ "$($st.results_url)" } else { "https://api.anthropic.com/v1/messages/batches/$bid/results" }
+  $sonucAdres = if($st.results_url){ "$($st.results_url)" } else { "$API_TABAN/v1/messages/batches/$bid/results" }
   Write-Host ("  sonuc adresi: {0}" -f $sonucAdres)
   try {
     $cev = Invoke-WebRequest -UseBasicParsing -Uri $sonucAdres -Headers $HDR -TimeoutSec 300

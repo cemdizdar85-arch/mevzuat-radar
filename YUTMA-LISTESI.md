@@ -1,5 +1,24 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 12.08.2026 — ÇIKMIŞ-SINAV TALEP ÖLÇÜMÜ + 33 STANDART TAM YUTULDU (en güncel bölüm)
+
+Cem: *"yutulacak başka bir şey olmadığına sınavda çıkmış sorulara göre bak, emin olalım."*
+Yöntem: 8.409 çıkmış soru metninden (4.492 SGS + 3.917 KGK) standart atıfları
+çıkarıldı, ambar aile envanteriyle (32.601 parça / 3.058 aile) çaprazlandı;
+P2 üretim istek listesi (62 standart) da aynı süzgeçten geçirildi.
+
+**Yutulanlar (hepsi bayt-imza doğrulamalı PDF + kuru koşu kapsama ≥%99,8 + geri okuma):**
+- **TMS (14):** 10, 12, 19, 20, 23, 24, 28, 29, 32, 33, 34, 36, 38, 40 — kaynak KGK 2022 Mavi Kitap
+- **TFRS (8):** 2, 3, 5, 7, 8, 10, 11, 13 — aynı set
+- **BDS (6+2):** 210, 501, 520, 550, 701, 706 (+ aynı gün erken saatte 300, 330) — TDS 2025 seti
+- **GDS (2):** 3400, 3420 — TDS 2025 seti
+- Nokta kontrolleri: TMS 36 p.59 (değer düşüklüğü zararı) ve TMS 12 p.15 (ertelenmiş vergi) birebir geri okundu.
+- `veri/standart-kapasite.csv` 40 satır ölçülmüş rakamlarla güncellendi (örn. TMS 36 kapasite 24→308, BDS 550 kontenjan +143).
+
+**Bilinçli yutulMAyanlar:** TMS 5/11/17/18/31/39 — **mülga** (halefleri TFRS 15/16/9 tam);
+KKS 1 — halefleri **KYS 1 (106 parça) + KYS 2 (35 parça) zaten ambarda**.
+Kalan tek boş kutu: KGK ek-alan tebliğ derinliği (Faz 2, Cem kararı).
+
 ## 🔴 05.08.2026 — 6 SMMM YÖNETMELİĞİ MANİFESTTE VARDI, HİÇ YUTULMAMIŞTI (en güncel bölüm)
 *Sebep: iki-sınav konu ölçümü SMMM tarafında 12 boş omurga konu buldu ("disiplin
 cezaları", "uygulamalı mesleki eğitim"...). Kaynak kontrolünde çıktı: manifest'te
@@ -60,19 +79,20 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [x] BDS 210 Bağımsız Denetim Sözleşmesinin Şartları — YUTULDU 27.07 (ana hükümler p.1-20: denetimin ön şartları, yönetimin üstleneceği sorumluluklar, KAPSAM SINIRLANDIRMASINDA sözleşme kabul edilmez, yazılı sözleşmenin zorunlu içeriği, müteakip denetimler, sartlarda değişikliğin kabulü, mevzuatın ilave yükümlülükleri)
 - [x] BDS 220 Finansal Tabloların Bağımsız Denetiminde Kalite Kontrol — YUTULDU 27.07 (ana hükümler p.1-23: KKS 1 ilişkisi, sorumlu denetçinin liderlik sorumluluğu, etik + BAĞIMSIZLIK, müşteri kabulü, ekibin yetkinliği, yönlendirme-gözetim-gözden geçirme, istişare, DENETİMİN KALİTESİNE YÖNELİK GÖZDEN GEÇİRME, görüş farklılıkları, izleme)
 - [x] KYS 2 kapsamı — BDS 220 p.19-21 ile karşılandı (denetimin kalitesine yönelik gözden geçirme; rapora gözden geçirme bitmeden tarih verilmez)
-- [x] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler — YUTULDU 27.07 (p.1-23: kontrol testi / maddi doğrulama tanımları, kontrol testinin 2 zorunlu hâli, ARA DÖNEM + ÖNCEKİ DENETİM kanıtı + "en az her ÜÇ denetimin birinde test" kuralı, ciddi riskte cari dönemde test, sapma bulunursa 3 karar, HER önemli işlem sınıfı için maddi doğrulama ZORUNLU, kapanış işlemleri + önemli yevmiye kayıtlarının incelenmesi, ciddi riskte DETAY TESTİ şartı)
-- [ ] BDS 540 Muhasebe Tahminlerinin Denetimi (2)
+- [x] BDS 330 Denetçinin Değerlendirilmiş Risklere Karşı Yapacağı İşler — 27.07'de ÖZET yutulmuştu (ambarda yalnız 6 parça kaldığı 12.08 ölçüldü); **12.08 TAM YUTULDU: 96 parça, 72.171 karakter, kapsama %100** (2025 TDS seti PDF, bayt doğrulamalı; p.16 geri okundu birebir)
+- [x] BDS 300 Finansal Tabloların Bağımsız Denetiminin Planlanması — ambarda yalnız 13 parçalık özet olduğu 12.08 itiraf sınıflandırmasında yakalandı; **12.08 TAM YUTULDU: 38 parça, 39.332 karakter, kapsama %100**
+- [x] **BDS 540 Muhasebe Tahminlerinin ve İlgili Açıklamaların Denetimi — YUTULDU 09.08, ✅ 215 parça, kapsama %100.** **TDS_2025_Seti'nden alındı**: önce 2019 setinden yutulmuştu (133.910 krk), 2025 sürümü **208.125 krk** çıktı — **+%55**, standart ciddi revize edilmiş. Eski sürümle soru üretilseydi mülga hükümle çalışılacaktı
 - [x] BDS 550 İlişkili Taraflar — YUTULDU 27.07 (giriş + amaç-tanım p.1-10: ilişkili taraf işlemlerinin risk yaratma sebepleri, HİLE bağlantısı ve BDS 240 ilişkisi, yapısal kısıtlamaların ilişkili taraflarda büyümesi, mesleki şüphecilik, denetçinin 2 amacı, ilişkili taraf tanımı)
 - [x] BDS 701 Kilit Denetim Konularının Bildirilmesi — YUTULDU 27.07 (p.1-15: amaç = raporun iletişim değerini artırmak, 4 "yerine geçmez" hükmü, TÜRKİYE UYGULAMASI 5T = TTK 6102 kapsamındaki TÜM denetime tabi şirketler, belirleme 3 ölçütü, raporda ayrı bölüm + giriş cümlesi, her konuda "neden kilit" + "nasıl ele alındı", bildirilmeme 2 hâli, BDS 705/570 ile etkileşim)
-- [ ] BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim (1) · BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi (1)
-- [ ] BDS 510 İlk Denetimler-Açılış Bakiyeleri (1) · BDS 580 Yazılı Beyanlar (1) · BDS 620 Uzman Çalışmalarının Kullanılması (1) · BDS 720 Diğer Bilgiler (1)
+- [x] **BDS 260 Üst Yönetimden Sorumlu Olanlarla İletişim — YUTULDU 09.08, ✅ 79 parça %100** · **BDS 265 İç Kontrol Eksikliklerinin Bildirilmesi — YUTULDU 09.08, ✅ 42 parça %100** (BDS 265 p.1 ambardan geri okunup kaynak PDF ile karşılaştırıldı: **583 = 583 karakter, birebir**)
+- [x] **BDS 510 İlk Denetimler-Açılış Bakiyeleri ✅ 23** · **BDS 580 Yazılı Beyanlar ✅ 48** · **BDS 620 Uzman Çalışmalarının Kullanılması ✅ 58** · **BDS 720 Diğer Bilgiler ✅ 85** — hepsi YUTULDU 09.08, TDS_2025_Seti, kapsama %100
 
 **EKSİK — TMS/TFRS tarafı:**
 - [x] TFRS 8 Faaliyet Bölümleri — YUTULDU 27.07 (bölüm yöneticisi + matriks yapı, 5 birleştirme kriteri, SAYISAL ALT SINIRLAR = hasılat %10 / kâr-zarar mutlak %10 / varlık %10, YÜZDE 75 KURALI, "diğer tüm bölümler", önceki dönemle tutarlılık, 10 bölüm uygulama sınırı, yönetim yaklaşımıyla ölçme, zorunlu MUTABAKATLAR)
 - [x] TFRS 5 Satış Amaçlı Elde Tutulan Duran Varlıklar ve Durdurulan Faaliyetler — YUTULDU 27.07 (amaç 3 sonuç, ölçüm hükmü uygulanmayan varlıklar, sınıflandırma kriterleri = derhal satılabilir + satış olasılığı yüksek + 1 yıl, yeni edinilende 3 ay, KULLANIMDAN ÇEKİLECEK varlık satış amaçlı SINIFLANDIRILMAZ, ölçüm = defter değeri ile satış maliyeti düşülmüş GUD den DÜŞÜK olanı, iptal tavanı, AMORTİSMAN AYRILMAZ ama borç faizi devam eder)
 - [x] TMS 24 İlişkili Taraf Açıklamaları — YUTULDU 27.07 (amaç, grup içi işlemlerin elimine edilmesi, "işlem olmasa bile ilişki etkiler", ilişkili taraf tanımı kişi+işletme, yakın aile üyeleri, kilit yönetici personel, İLİŞKİLİ SAYILMAYANLAR listesi, ana ortaklık-bağlı ortaklık ilişkisi işlem olmasa da açıklanır, kilit yönetici ücreti 5 kategori, işlem açıklamalarının asgari içeriği + 7 kategori)
 - [x] TMS 28 İştiraklerdeki ve İş Ortaklıklarındaki Yatırımlar — YUTULDU 27.07 (tanımlar, ÖNEMLİ ETKİ = %20 karinesi + 5 gösterge, ÖZKAYNAK YÖNTEMİNİN işleyişi [maliyetle başlar, kâr-zarar payıyla artar-azalır, alınan temettü defter değerini AZALTIR, DKG payı DKG da], uygulama zorunluluğu + muafiyet, TFRS 5 ile ilişki, yöntemin bırakılması + m.24 iştirak↔iş ortaklığı geçişinde YENİDEN ÖLÇÜM YAPILMAZ)
-- [ ] TMS 27 Bireysel Finansal Tablolar (1) · TMS 41 Tarımsal Faaliyetler (1)
+- [x] **TMS 27 Bireysel Finansal Tablolar — YUTULDU 09.08, ✅ 14 parça %100** · **TMS 41 Tarımsal Faaliyetler — YUTULDU 09.08, ✅ 60 parça %100.** Kaynak: **2018 seti** (ambardaki TMS 8/16/37 ile aynı set). ⚠️ 2025 setinde bu ikisi YOK — denendi, **1.499 baytlık HTML hata sayfası** döndü. Ders: KGK'da "200 OK" gelmesi PDF geldiği anlamına gelmiyor, `Content-Type` + boyut kontrol edilmeli
 
 **KGK URL KALIPLARI (27.07 keşfi — sonraki yutmalar için):** eski set `.../Duyurular/v2/BDS/bdsyeni25.12.2017/BDS XXX-Site.pdf` · 2019 revizyonları `.../Duyurular/v2/BDS/BDSyeni11092019/BDS_XXX.pdf` · TMS-TFRS 2026 `.../Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/{TMS|TFRS}/{TMS|TFRS} NN.pdf` · **EN GÜNCEL denetim seti** `.../Duyurular/v2/TDS/TDS_2025_Seti/BDS NNN_2025.pdf` (BDS 200/315/600 orada teyitli).
 
@@ -93,7 +113,7 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [x] TFRS 10 Konsolide Finansal Tablolar — YUTULDU 27.07 (2021/3, 2023/2, 2024/1'de soru; kontrolün 3 unsuru, güç/getiri/vekil-asıl, konsolidasyon hükümleri, kontrol gücü olmayan paylar, kontrolün kaybı)
 - [x] TFRS 13 Gerçeğe Uygun Değer Ölçümü — YUTULDU 27.07 (2022/3'te soru; tanım/çıkış fiyatı, asıl-en avantajlı piyasa, işlem maliyeti düzeltilmez, en iyi ve en üst seviyede kullanım, 3 değerleme yaklaşımı, HİYERARŞİ Seviye 1-2-3)
 - [x] TFRS 15 Müşteri Sözleşmelerinden Hasılat — YUTULDU 27.07 (KGK 2026 Kırmızı Kitap; BEŞ ADIMLI MODELİN tamamı: sözleşme 5 şart, edim yükümlülüğü/farklı mal kriteri, işlem bedeli + değişken bedel, tek başına satış fiyatıyla dağıtım, kontrol devri 5 gösterge + zamana yayılı 3 şart)
-- [x] TFRS 16 Kiralamalar — YUTULDU 27.07 (2021/3, 2023/3'te soru; iki istisna, kiralama tanımı/süresi, KİRACI: kullanım hakkı varlığı + kira yükümlülüğü ilk-sonraki ölçüm + amortisman süresi kuralı + yeniden değerlendirme + sunum, KİRAYA VEREN: finansal/faaliyet 5 örnek + 3 gösterge + net kiralama yatırımı)
+- [x] TFRS 16 Kiralamalar — 27.07'de ÖZET yutulmuştu (12 parça/19 KB; 25+ soru paragrafsız hafızadan yazılmış, 12.08 itiraf sınıflandırması yakaladı); **12.08 TAM YUTULDU: 122 parça, 129.771 karakter, kapsama %99,82** (2022 Mavi Kitap PDF; p.32 amortisman hükmü geri okundu birebir)
 - [x] TFRS 7 Finansal Araçlar: Açıklamalar — ÇEKİRDEK YUTULDU 27.07 (2023/3'te soru; amaç/kapsam, finansal araç sınıfları, bilanço + gelir tablosu açıklamaları, GUD açıklamaları, RİSKLERİN NİTELİĞİ VE DÜZEYİ girişi: kredi/likidite/piyasa riski + niteliksel-sayısal açıklama çerçevesi). RİSK TÜRLERİNİN AYRINTILI HÜKÜMLERİ de eklendi (kredi riski + teminatlar + azami kredi riski, likidite riski vade analizi, piyasa riski DUYARLILIK ANALİZİ + riske maruz değer istisnası) — TFRS 7 sınav kapsamı TAM
 *Not: Ekonomi/Maliye/Maliyet/Analiz öğreti dersleridir (yutulacak kanunu yok) — oralarda teori-notu kürasyonu genişletilecek (şu an 13 not).*
 
@@ -125,7 +145,7 @@ sıra o üretimde (boş+eksik konulara filtrelenmiş, önce kuru koşu maliyet �
 - [x] **Kalan BDS'ler:** ✓ 01.08 tespiti — 260, 265, 320, 450, 510, 530, 540, 580, 620, 720 dahil 30 BDS dosyası veri/mevzuat/'ta ZATEN OKUNMUŞ (27-31.07 koşuları; liste işaretlenmemişti)
 - [x] **Kalan TMS/TFRS:** ✓ aynı tespit — TMS 27, TMS 41, TFRS 9 dahil 28 TMS/TFRS dosyası depoda
 - [x] **KGK kurumsal mevzuatı:** ✓ 01.08 — khk660 (pdfId 4.5.660, HEAD-teyitli) + bd-yonetmelik (G7:16907, içerik teyitli: BDY konsolide, 15.06.2024 değişiklikleri dahil) mevzuat-kaynaklar.json'a eklendi, mevzuat.yml tetiklendi
-- [ ] **Sermaye piyasası ayağı:** 'spk' slug'ı manifestte var (6362 teyidi yapılacak); SPK Kurumsal Yönetim Tebliği (II-17.1) AÇIK — konu (c) Kurumsal Yönetim için gerekli
+- [x] **Sermaye piyasası ayağı — KAPALI (09.08 doğrulandı).** SPK Kurumsal Yönetim Tebliği (II-17.1) **zaten yutulmuş**: `veri/mevzuat/spk-kurumsal-yon.json`, **47 madde**, ambarda (Supabase) teyitli. Bu satır "AÇIK" görünüyordu çünkü liste güncellenmemişti — 02.08'deki *"TSRS 1 eksik sandım, meğer robot yutmuş"* hatasının aynısı. **Ders: bir kalemi eksik ilan etmeden önce ambara sorulur, listeye değil**
 - [x] **KGK sınav ders yapısı** ✓ 01.08 — veri/kgk-sinav-yapisi.json yazıldı; KAYNAK: KGK 28.06.2025 sınav ilanı PDF (ezber değil). ÖNEMLİ BULGU: güncel yapı a-g modül; SMMM temel alan = (a) TMS + (b) TDS + (c) Kurumsal Yönetim/Finansal Yönetim — "Genel Hukuk/Muhasebe" ayrı konu DEĞİL artık. Konu (c) için teori-notu kürasyonu gerekecek (finansal yönetim resmî metinsiz alan)
 - [x] Üretim emri ✓ BASILDI — emir #27 (KGK TEMEL ALAN) 02.08 uygulandı, **1.870 soru kasada**; kalan iş = Finansal Yönetim teori kürasyonu sonrası ek satırlar + deneme.html'e 3. sınav bağlanması
 

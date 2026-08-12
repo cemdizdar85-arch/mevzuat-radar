@@ -56,6 +56,16 @@ if([string]::IsNullOrWhiteSpace($SBKEY) -or [string]::IsNullOrWhiteSpace($AKEY))
 }
 $SBH = @{ apikey = $SBKEY; Authorization = "Bearer $SBKEY" }
 $AH  = @{ "x-api-key" = $AKEY; "anthropic-version" = "2023-06-01"; "Content-Type" = "application/json" }
+# 12.08 cift hat: AWS uclusu ortamdaysa $AAPI ve $AH oradan kurulur (api-hedef.ps1)
+try {
+  . (Join-Path $PSScriptRoot 'api-hedef.ps1')
+  $hedefHZ = Get-ApiHedef
+  $AAPI = $hedefHZ.taban + '/v1'
+  $AH = @{}; foreach($hk in $hedefHZ.basliklar.Keys){ $AH[$hk] = $hedefHZ.basliklar[$hk] }
+  $AH['Content-Type'] = 'application/json'
+  $AKEY = $hedefHZ.anahtar
+  Write-Host ("Claude hedefi: " + $hedefHZ.ad)
+} catch { }   # anahtar yoksa yukaridaki ATLANDI dali zaten calisti
 $MODEL = if("$($emir.model)"){ "$($emir.model)" } else { "claude-haiku-4-5-20251001" }
 $KURTAR = ("$env:KURTAR" -eq '1')
 # 01.08 cift-odeme sigortasi: onceki kosu parti gonderip yazamadan dustuyse

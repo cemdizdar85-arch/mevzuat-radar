@@ -47,10 +47,20 @@ function Uret($istem, $maxtok, $claudeModel){
   throw "uretim icin motor yok"
 }
 
+# 12.08 cift hat: AWS uclusu ortamdaysa Claude cagrilari oradan gider (api-hedef.ps1)
+$CLAUDE_TABAN = 'https://api.anthropic.com'
+$CLAUDE_HDR   = @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" }
+try {
+  . (Join-Path $here 'api-hedef.ps1')
+  $hedefGece = Get-ApiHedef
+  $CLAUDE_TABAN = $hedefGece.taban; $CLAUDE_HDR = $hedefGece.basliklar; $key = $hedefGece.anahtar
+  Write-Host ("Claude hedefi: " + $hedefGece.ad)
+} catch { }   # hicbir Claude anahtari yoksa eski davranis (Gemini'ye duser)
+
 function Claude($istem, $maxtok, $model){
   $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
+  $r = Invoke-RestMethod -Method Post -Uri ($CLAUDE_TABAN + "/v1/messages") `
+        -Headers $CLAUDE_HDR `
         -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 240
   $blocks = @($r.content)
   $txt = ($blocks | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ""

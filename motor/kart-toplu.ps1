@@ -17,7 +17,16 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok = Split-Path -Parent $here
 # Anahtar: CI'da GitHub secret (env), yerelde repo disi dosya
 $key = $env:ANTHROPIC_API_KEY
-if(-not $key){ $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() }
+if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() } catch {} }
+# 12.08 cift hat: AWS uclusu ortamdaysa oradan (api-hedef.ps1); yoksa eski davranis
+$CLAUDE_TABAN = 'https://api.anthropic.com'
+$CLAUDE_HDR   = @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" }
+try {
+  . (Join-Path $here 'api-hedef.ps1')
+  $hedefKart = Get-ApiHedef
+  $CLAUDE_TABAN = $hedefKart.taban; $CLAUDE_HDR = $hedefKart.basliklar; $key = $hedefKart.anahtar
+  Write-Host ("Claude hedefi: " + $hedefKart.ad)
+} catch { if(-not $key){ throw 'Hicbir Claude anahtari yok (env, AWS uclusu ya da yerel dosya).' } }
 $arsivTeblig = Join-Path $here ("arsiv\" + $Gun)
 $parcalar = $Gun.Split("-")
 $tabanUrl = "https://www.resmigazete.gov.tr/eskiler/$($parcalar[2])/$($parcalar[1])/"
@@ -67,7 +76,7 @@ TEBLIG METNI:
 
 function ApiCagri([string]$model, [array]$icerik, [int]$maxTok){
   $govde = @{ model = $model; max_tokens = $maxTok; messages = @(@{ role="user"; content=$icerik }) } | ConvertTo-Json -Depth 10
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 240
+  $r = Invoke-RestMethod -Method Post -Uri ($CLAUDE_TABAN + "/v1/messages") -Headers $CLAUDE_HDR -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 240
   $c = $r.content[0].text.Trim()
   # SADECE PS 5.1: Invoke-RestMethod UTF-8'i Latin-1 sanar -> geri cevir. pwsh 7 dogru cozer; orada bu donusum metni BOZAR.
   if($PSVersionTable.PSVersion.Major -le 5){

@@ -11,7 +11,16 @@ param(
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim()
+$key = $env:ANTHROPIC_API_KEY
+if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() } catch {} }
+# 12.08 cift hat: AWS uclusu ortamdaysa oradan (api-hedef.ps1); yoksa eski davranis
+$CLAUDE_TABAN = 'https://api.anthropic.com'
+$CLAUDE_HDR   = @{ "x-api-key" = $key; "anthropic-version" = "2023-06-01" }
+try {
+  . (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'api-hedef.ps1')
+  $hedefKU = Get-ApiHedef
+  $CLAUDE_TABAN = $hedefKU.taban; $CLAUDE_HDR = $hedefKU.basliklar; $key = $hedefKU.anahtar
+} catch { if(-not $key){ throw 'Hicbir Claude anahtari yok.' } }
 
 # --- tebligi oku (RG eski sayfalari windows-1254) ----------------------------
 $yol = Join-Path $here ("arsiv\" + $Gun + "\" + $Dosya)
@@ -69,7 +78,7 @@ $govde = @{ model = $Model; max_tokens = 1500;
   messages = @(@{ role = "user"; content = $icerik }) } | ConvertTo-Json -Depth 10
 
 Write-Host "Claude'a gonderiliyor ($Model)..."
-$r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" -Headers @{ "x-api-key" = $key; "anthropic-version" = "2023-06-01" } -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json"
+$r = Invoke-RestMethod -Method Post -Uri ($CLAUDE_TABAN + "/v1/messages") -Headers $CLAUDE_HDR -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json"
 
 $cevap = $r.content[0].text.Trim()
 # PS 5.1 cevabi Latin-1 sanarak cozer - UTF-8'e geri cevir
