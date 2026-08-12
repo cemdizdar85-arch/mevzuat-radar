@@ -36,7 +36,17 @@
     "temmuzAralik": 73729.87,
     "not": "Kıdem tazminatı yıllık TAVANI (her yıl 1 çalışma yılı için ödenecek azami tutar): 01.01-30.06.2026 = 64.948,77 TL; 01.07-31.12.2026 = 73.729,87 TL. Memur maaş katsayısıyla 6 ayda bir güncellenir. Tavanı aşan maaşta bile kıdem bu tavandan hesaplanır. İhbar süreleri (İş K. m.17): 0-6 ay→2 hafta, 6 ay-1,5 yıl→4 hafta, 1,5-3 yıl→6 hafta, 3 yıl+→8 hafta. Kaynak: Hazine ve Maliye Bakanlığı mali-sosyal haklar genelgesi (memur katsayısı)."
   },
+  "basitUsul": {
+    "alimHaddi": 1200000,
+    "satisHaddi": 1900000,
+    "hasilatHaddi": 600000,
+    "kiraHaddiBuyuksehir": 99000,
+    "kiraHaddiDiger": 60000,
+    "istisna": true,
+    "not": "Basit usulde tespit edilen kazanç GELİR VERGİSİNDEN İSTİSNA (GVK mük. m.20/A, 7338 s. Kanun ile 2021'den beri). Genel şartlar (m.47): kendi işinde bilfiil çalışmak + işyeri yıllık kirası büyükşehirde 99.000 / diğer yerlerde 60.000 TL'yi aşmamak + gerçek usulde vergiye tabi olmamak. Özel şartlar (m.48): yıllık alım 1.200.000 / satış 1.900.000 TL'yi (hizmet işlerinde hasılat 600.000 TL'yi) aşmamak. Bazı faaliyetler kapsam dışıdır (m.51). Hadler 12.08.2026'da mevzuat.gov.tr konsolide GVK metninden (günlük ayna) okunmuştur; her yıl tebliğle güncellenir — robot nöbetinde."
+  },
   "kaynaklar": {
+    "basitUsul": "GVK m.47-48 konsolide metin (mevzuat.gov.tr aynası, 12.08.2026) + GVK mük. m.20/A istisna",
     "gvDilimler": "GİB — Gelir Vergisi Tarifesi 2026 (gib.gov.tr, ücret dışı tarife)",
     "kvOran": "KVK m.32 genel oran — 2026",
     "karPayiStopaj": "9286 sayılı Cumhurbaşkanı Kararı (RG 22.12.2024/32760 — GVK m.94/1-6 ve KVK m.15/30: %10→%15 birebir teyitlidir)",

@@ -175,8 +175,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <p id="takipSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
   </div>
 
+  <div style="margin-top:26px">
+    <h2 style="font-size:17px">Sihirbazın kıyasladığı üç türün dışında ne var?</h2>
+    <p style="font-size:13px;color:var(--muted);margin:4px 0 10px">Sihirbaz, Türkiye'de kurulan işletmelerin ezici çoğunluğunu oluşturan üç yolu kıyaslar. Duruma göre sonuç ekranında sana <b style="color:var(--ink)">basit usul</b>, <b style="color:var(--ink)">serbest meslek</b>, <b style="color:var(--ink)">adi ortaklık</b> ve <b style="color:var(--ink)">esnaf muaflığı</b> kapılarını da ayrıca gösterir. Aşağıdakiler ise mevzuatta var olan ama bugün yeni girişimde nadiren seçilen türler — bilerek sihirbaza koymadık:</p>
+    <div class="satir"><b>Kollektif şirket</b><span>Tüm ortakların şirket borçlarından sınırsız ve zincirleme sorumlu olduğu şahıs şirketi (TTK m.211 vd.). Sınırlı sorumluluk sağlamadığı için yerini büyük ölçüde LTD'ye bıraktı.</span></div>
+    <div class="satir"><b>Komandit şirket</b><span>Bir kısım ortağı sınırsız (komandite), bir kısmı koyduğu sermayeyle sınırlı (komanditer) sorumlu karma yapı (TTK m.304 vd.; paylı türü m.564 vd.). Uygulamada çok nadir.</span></div>
+    <div class="satir"><b>Kooperatif</b><span>Ortakların ekonomik menfaatlerini karşılıklı yardımla koruma amaçlı, değişir ortaklı yapı (1163 s. Kooperatifler Kanunu). Kâr dağıtma amaçlı ticari girişimin değil, ortak ihtiyacın aracıdır (konut, tarım satış, taşıma kooperatifleri gibi).</span></div>
+  </div>
+
   <div class="notk">⚠ Bu rehber yön vericidir; harç, ücret ve istisna tutarları dönemsel değişir, bilerek yazılmadı. İşlem öncesi güncel tutarları resmî kaynaktan (GİB, ticaret sicili, noter) teyit et; kuruluş kararını muhasebecinle birlikte ver.</div>
-  <div class="dip">Tetikte · Şirket Kuruluşu Rehberi · Dayanaklar: TTK m.332, m.344, m.580, m.585 · 7887 s. CB Kararı (asgari sermaye tutarları) · 7511 s. Kanun (uyum süresi) · GVK mük. m.20 · bir Dizdar Denetim A.Ş. yazılımı</div>
+  <div class="dip">Tetikte · Şirket Kuruluşu Rehberi · Dayanaklar: TTK m.332, m.344, m.580, m.585 · 7887 s. CB Kararı (asgari sermaye tutarları) · 7511 s. Kanun (uyum süresi) · GVK m.9, m.47-48, m.65-66, mük. m.20, mük. m.20/A · TBK m.620 · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
 <script>
@@ -479,6 +487,30 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">dönüşümde 2 yıllık istisna süresinin ne zaman başladığı vergi idaresiyle tartışmalıdır</b> (özelgeler ağırlıkla senet bastırma tarihini esas alır) — satış planı ihtilaflı içtihada emanet edilmez. Unutma: AŞ için kuruluşta peşin gereken tutar {{as}} TL değil, ¼'ü = <b style="color:var(--ink)">{{blokaj}} TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
   }
 
+  // ---- ALTERNATİF YOLLAR (12.08): öneri motoru 3 ana türü kıyaslar; bu kutular
+  // ana öneriyi değiştirmez, şartı tutan adaya bilmediği kapıyı gösterir. ----
+  let altYolHtml = '';
+  // BASİT USUL — şahıs önerilen, düşük riskli/düşük cirolu küçük işlerde
+  if(kazanan==='sahis' && CEVAP.risk!=='yuksek' && CEVAP.ciro!=='yuksek' && SABIT && SABIT.basitUsul){
+    const bu = SABIT.basitUsul;
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(61,220,151,.35);border-left:4px solid var(--green);border-radius:11px;background:rgba(61,220,151,.05);font-size:13px;color:var(--muted)">
+      🌱 <b style="color:var(--green)">Bir kapı daha: basit usul.</b> Şahıs işletmesinin bir de küçük esnaf hâli var ve 2021'den beri en büyük kozu şu: <b style="color:var(--ink)">basit usulde tespit edilen kazanç gelir vergisinden istisna</b> (GVK mük. m.20/A) — yıllık beyanname de verilmez. Şartları (GVK m.47-48): kendi işinde bilfiil çalışmak; işyeri yıllık kirasının büyükşehirde ${TLf(bu.kiraHaddiBuyuksehir)} TL'yi, diğer yerlerde ${TLf(bu.kiraHaddiDiger)} TL'yi aşmaması; yıllık alımların ${TLf(bu.alimHaddi)} TL'yi ya da satışların ${TLf(bu.satisHaddi)} TL'yi (hizmet işinde hasılatın ${TLf(bu.hasilatHaddi)} TL'yi) aşmaması. Bazı faaliyetler kapsam dışıdır (GVK m.51) ve hadler her yıl değişir — <b style="color:var(--ink)">şartları muhasebecinle teyit et</b>; tutuyorsa bu, listedeki en düşük vergili başlangıçtır.</div>`;
+  }
+  // SERBEST MESLEK — tek başına, mesleki bilgiye dayalı hizmet işi
+  if(kazanan==='sahis' && CEVAP.ortak==='tek' && CEVAP.risk!=='yuksek'){
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+      🎓 <b style="color:var(--ink)">İşin mesleki bilgiye mi dayanıyor?</b> Danışmanlık, yazılım, mimarlık, mali müşavirlik gibi sermayeden çok <b style="color:var(--ink)">şahsi mesaiye ve uzmanlığa</b> dayanan işler vergide "ticari kazanç" değil <b style="color:var(--ink)">serbest meslek kazancı</b>dır (GVK m.65-66): şirket kurmadan serbest meslek mükellefiyeti açar, e-SMM (serbest meslek makbuzu) ile çalışırsın; genç girişimci istisnası burada da işler. Hangi tarafa düştüğün faaliyetin niteliğine bakılarak belirlenir — vergi dairesi/muhasebeci ile netleştir.</div>`;
+  }
+  // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
+  if(CEVAP.ortak==='ortakli' && CEVAP.risk!=='yuksek' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+      🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b> — ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.</div>`;
+  }
+  // ESNAF MUAFLIĞI — çok küçük ölçek işareti varsa tek satırlık farkındalık
+  if(kazanan==='sahis' && CEVAP.ciro!=='yuksek' && SABIT && kar>0 && kar <= SABIT.gvDilimler[0][0]){
+    altYolHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Ölçeğin gerçekten küçükse bir ihtimal daha var: bazı faaliyetlerde (işyeri açmadan seyyar çalışma, evde üretilen ürünlerin satışı gibi) <b>esnaf muaflığı</b> (GVK m.9) hiç mükellefiyet açmadan çalışmayı mümkün kılar — şartları dar ve faaliyete bağlıdır, vergi dairesinden/muhasebecinden teyit almadan bu yola girme.</div>`;
+  }
+
   out.innerHTML = yerlestir(`
     <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
@@ -486,6 +518,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]} — koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
       ${gerekce}
       ${uyariHtml}
+      ${altYolHtml}
       ${hesapHtml}
       <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">👇 <b style="color:var(--ink)">${AD[kazanan]}</b> için adım adım kuruluş yolu ve istenen belgeler aşağıda açıldı.</p>
       <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">📖 ${OKU[kazanan]}</p>
