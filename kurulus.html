@@ -539,7 +539,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
 
   // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
-  let hesapHtml = '';
+  let hesapHtml = '', notYolA = '', notYolB = '';
   if(SABIT && kar>0){
     // 12.08 Cem: ortakli senaryoda tablo tek kisilik sahis matematigi basiyordu.
     // Dogrusu: adi ortaklikta kar ortaklara bolunur, genc istisnasi SARTI TASIYAN
@@ -564,14 +564,19 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     }
     hesapHtml = `
       <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
-        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 ${SABIT.yil} VERGİ KIYASI — ${TLf(kar)} TL kâr hedefine göre</div>
-        <div class="satir"><b>${ortakSay>1 ? `Adi ortaklık: ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:#0a0f17;color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'Şahıs: gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü — şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
-        <div class="satir"><b>Şirket: kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
-        <div class="satir"><b>Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
-        <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:4px">💰 ${SABIT.yil} VERGİ KIYASI — ${TLf(kar)} TL kâr hedefine göre</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Bu tablo <b style="color:var(--ink)">iki ayrı yolun</b> vergisini karşılaştırır — ikisi birden ödenmez; hangi türü kurarsan <b style="color:var(--ink)">onun satırı</b> senin vergindir.<!--KAZANANNOT--></div>
+        <div class="satir"><b>${ortakSay>1 ? `YOL A · Adi ortaklık kurarsan — ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:#0a0f17;color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'YOL A · Şahıs kurarsan — gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü — şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
+        <div class="satir"><b>YOL B · Şirket (LTD/AŞ) kurarsan — kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
+        <div class="satir"><b>YOL B · Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
+        <div class="satir"><b>YOL B toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
         ${CEVAP.genc==='evet' ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;padding:8px;border:1px solid var(--line2);border-radius:8px">⚠ Genç girişimci istisnası şirket tarafında <b>uygulanmaz</b>: GVK mük. m.20 istisnayı yalnız <b>gelir vergisi</b> mükellefi <b>gerçek kişilere</b> tanır; LTD/AŞ ise kurumlar vergisi mükellefidir — ortağın 29 yaşından küçük olması kurumlar vergisini ve stopajı değiştirmez. İki sütun arasındaki farkın büyük kısmı bu istisnadan gelir; şirket kurarsan bu avantajı kullanamazsın.</div>` : ''}
         <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
       </div>`;
+    // 12.08 Cem: "AŞ önerildi ama ~0 TL satırına bakıp 0 vergi ödeyeceğim sandım" —
+    // öneri belli olunca kutuya "senin yolun bu satır" notu basılır (aşağıda replace).
+    notYolA = ` <b style="color:var(--green)">Aşağıdaki önerimiz ${ortakSay>1?'adi ortaklık/şahıs':'şahıs'} → senin vergin YOL A satırıdır (~${TLf(sahisVergi)} TL).</b>`;
+    notYolB = ` <b style="color:var(--amber)">Aşağıdaki önerimiz şirket → senin vergin YOL B toplamıdır (~${TLf(sirketVergi)} TL); YOL A satırındaki düşük rakam yalnız kıyas içindir, şirket kurarsan onu ödemezsin.</b>`;
     // İMALATÇI / İHRACATÇI: KV oranı %25 değil (KVK m.32/7-8). 12.08: kutu artık
     // HEDEFLİ - imalat şıkkını seçene tam blok, ticaret seçene yalnız ihracat satırı;
     // hizmet işlerinde gösterilmez (yazılım ihracatçısının yeri m.10/ğ kutusu).
@@ -598,6 +603,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
 
   const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
   const kazanan = sira[0], ikinci = sira[1];
+  if(hesapHtml) hesapHtml = hesapHtml.replace('<!--KAZANANNOT-->', kazanan==='sahis' ? notYolA : notYolB);
   const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket (LTD)', as:'Anonim şirket (AŞ)'};
   const OKU = {
     sahis:'Okuma ödevin: Bilgi Havuzu\'ndan <a href="bilgi.html#hap-gecis">"Şahıstan şirkete ne zaman geçmeliyim?"</a> kartını oku — büyüme sinyallerini bil.',
