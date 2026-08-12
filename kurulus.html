@@ -86,7 +86,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <div class="soru" data-k="istur">
       <b style="font-size:14px">3. İşinin türü hangisine yakın?</b>
       <div class="sec" style="margin:8px 0 14px">
-        <button class="sbtn kck" data-v="ticari">Alım satım / üretim — stoklu iş</button>
+        <button class="sbtn kck" data-v="ticaret">Alım satım — ticaret</button>
+        <button class="sbtn kck" data-v="imalat">Üretim / imalat</button>
         <button class="sbtn kck" data-v="meslek">Uzmanlığa dayalı hizmet: danışmanlık, yazılım, tasarım, mühendislik</button>
         <button class="sbtn kck" data-v="esnaf">Küçük esnaf hizmeti: dükkân, servis, tamir, kuaför</button>
       </div>
@@ -374,7 +375,11 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // 12.08 Cem: eski soru 3 "borclanma/stok/calisan" uc kavrami tek soruya sikistiriyordu
   // ve CALISAN basit usulu kapatir gibi davraniyordu - oysa GVK m.47/1: "yardimci isci
   // ve cirak kullanmak bu sarti bozmaz". Artik is TURU ile borc/ekip YUKU ayri sorulur.
-  const riskYuksek = (CEVAP.istur==='ticari' || CEVAP.risk==='evet');
+  // 12.08 Cem: uretim al-satla ayni sikta duramaz - 2027'den itibaren imalatci
+  // KV orani %12,5'e iniyor (7582 s.K.), al-sat %25 kaliyor. Uzun donemli oneri
+  // veren arac bu ayrimi tasimak zorunda.
+  const stoklu = (CEVAP.istur==='ticaret' || CEVAP.istur==='imalat');
+  const riskYuksek = (stoklu || CEVAP.risk==='evet');
   const eksik = gerekli.filter(k=>!CEVAP[k]);
   const kar = parseInt((document.getElementById('karInput').value||'').replace(/[^\d]/g,''),10) || 0;
   if(eksik.length || !kar){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length ? eksik.length + ' soru cevapsız' : ''}${eksik.length && !kar ? ' ve ' : ''}${!kar ? 'kâr hedefi boş' : ''}. Hepsini doldur, öneri ona göre şekillenecek.</p>`; return; }
@@ -413,6 +418,14 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
 
   if(riskYuksek){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
+
+  // İMALATÇI — uzun vadeli oran farkı (12.08 Cem: "üretim yapanın 2027 oranı düştü,
+  // al-satla aynı yere koymak olmaz"). Şahıs imalatçı bu orandan yararlanamaz.
+  if(CEVAP.istur==='imalat' && SABIT && SABIT.kvOranlari){
+    p.ltd+=2; p.as+=2;
+    neden.ltd.push('Üretici için şirketin ayrı bir kozu var: sanayi sicil belgeli imalatçının ÜRETİM kazancında kurumlar vergisi 2026\'da %'+SABIT.kvOranlari.imalatci2026+', 2027\'den itibaren %'+((''+SABIT.kvOranlari.imalatci2027).replace('.',','))+' (7582 s. Kanun) — al-sat kazancı %'+SABIT.kvOran+'\'te kalırken. Şahıs imalatçı bu orandan yararlanamaz; gelir vergisi tarifesi %40\'a kadar tırmanır. Uzun vadeli plan kuruyorsan bu fark tek başına şirket sebebidir.');
+    neden.as.push('İmalatçı KV indirimi (2027\'den itibaren %'+((''+SABIT.kvOranlari.imalatci2027).replace('.',','))+') LTD ile AŞ\'de aynen işler — tür seçimini diğer ölçütler belirler.');
+  }
   else { p.sahis+=2; neden.sahis.push('Düşük riskli hizmet işinde tüzel kişiliğin maliyetine ilk günden girmek zorunda değilsin.'); }
 
   if(CEVAP.genc==='evet'){ p.sahis+=2; neden.sahis.push('Genç girişimci avantajın var (GVK mük. m.20): 3 yıl boyunca, {{yil}} için yıllık {{genc}} TL\'ye kadar kazancın vergisiz — şahıs mükellefiyetinde işler, şirket ortağı yararlanamaz. {{bagkur}}'); }
@@ -464,19 +477,26 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
         <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
         <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
       </div>`;
-    // İMALATÇI / İHRACATÇI: KV oranı %25 değil — şirketi daha da avantajlı yapar (KVK m.32/7-8)
-    if(SABIT.kvOranlari){
+    // İMALATÇI / İHRACATÇI: KV oranı %25 değil (KVK m.32/7-8). 12.08: kutu artık
+    // HEDEFLİ - imalat şıkkını seçene tam blok, ticaret seçene yalnız ihracat satırı;
+    // hizmet işlerinde gösterilmez (yazılım ihracatçısının yeri m.10/ğ kutusu).
+    if(SABIT.kvOranlari && (CEVAP.istur==='imalat' || CEVAP.istur==='ticaret')){
       const o = SABIT.kvOranlari;
       const vir = x => (''+x).replace('.',',');   // %12.5 -> %12,5 (Türkçe)
       const kvImal26 = Math.round(kar*o.imalatci2026/100), kvImal27 = Math.round(kar*o.imalatci2027/100), kvIhr = Math.round(kar*o.ihracatci/100);
+      const imalatci = (CEVAP.istur==='imalat');
+      const baslikK = imalatci ? '🏭 ÜRETİCİSİN — ŞİRKETTE KV %'+SABIT.kvOran+' DEĞİL' : '🚢 İHRACAT DA YAPACAKSAN — O KAZANÇTA KV DAHA DÜŞÜK';
+      const girisK = imalatci
+        ? `Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. <b style="color:var(--ink)">Sanayi sicil belgeli imalatçının üretim kazancında</b> oran çok daha düşük — ve bu indirimden yalnız ŞİRKET yararlanır, şahıs imalatçı yararlanamaz:`
+        : `Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. Al-sat kazancında indirim yok; ama yaptığın ticaretin <b style="color:var(--ink)">ihracat kısmı</b> varsa o kazançta oran düşer:`;
       hesapHtml += `
       <div style="margin-top:10px;padding:12px;border:1px solid var(--green);border-radius:11px;background:#0a1710">
-        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">🏭 ÜRETİYOR MUSUN / İHRACAT YAPIYOR MUSUN? — KV %25 DEĞİL</div>
-        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Yukarıdaki hesap genel %${SABIT.kvOran} orana göre. Ama <b style="color:var(--ink)">sanayi sicil belgeli imalatçı</b> ya da <b style="color:var(--ink)">ihracatçı</b>ysan, o kazançta kurumlar vergisi daha düşük — bu, şirketi şahıstan daha da avantajlı kılar:</div>
-        <div class="satir"><b>İmalatçı — üretim kazancı (2026, %${o.imalatci2026})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal26)} TL</span></div>
-        <div class="satir"><b>İmalatçı — üretim kazancı (2027'den, %${vir(o.imalatci2027)})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal27)} TL</span></div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin-bottom:8px">${baslikK}</div>
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">${girisK}</div>
+        ${imalatci ? `<div class="satir"><b>İmalatçı — üretim kazancı (2026, %${o.imalatci2026})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal26)} TL</span></div>
+        <div class="satir"><b>İmalatçı — üretim kazancı (2027'den, %${vir(o.imalatci2027)})</b><span style="color:var(--green);font-weight:700">~${TLf(kvImal27)} TL</span></div>` : ''}
         <div class="satir"><b>İhracatçı — ihracat kazancı (%${o.ihracatci})</b><span style="color:var(--green);font-weight:700">~${TLf(kvIhr)} TL</span></div>
-        <div style="font-size:11px;color:var(--dim);margin-top:6px">İndirim yalnız <b>münhasıran üretim/ihracat kazancına</b> uygulanır; al-sat kazancı %${SABIT.kvOran} kalır. İmalatta "sanayi sicil belgesi + fiilen üretim" şarttır. 2027 için %${vir(o.imalatci2027)}: 7582 s. Kanun (RG 04.06.2026). Detay: <a href="bilgi.html#hap-kv-indirim">İmalatçı/İhracatçı KV indirimi →</a></div>
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">İndirim yalnız <b>münhasıran ${imalatci ? 'üretim/ihracat' : 'ihracat'} kazancına</b> uygulanır; al-sat kazancı %${SABIT.kvOran} kalır.${imalatci ? ` İmalatta "sanayi sicil belgesi + fiilen üretim" şarttır. 2027 için %${vir(o.imalatci2027)}: 7582 s. Kanun (RG 04.06.2026).` : ''} Detay: <a href="bilgi.html#hap-kv-indirim">İmalatçı/İhracatçı KV indirimi →</a></div>
       </div>`;
     }
   }
@@ -533,7 +553,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       <b style="color:var(--ink)">2) Teknokente yerleşirsen:</b> bölgedeki yazılım, tasarım ve Ar-Ge kazancın <b style="color:var(--ink)">31.12.2028'e kadar gelir/kurumlar vergisinden tümüyle istisna</b> (4691 s.K. geç. m.2) — üstelik bölgede üretilen yazılımın tesliminde <b style="color:var(--ink)">KDV istisnası</b> da var (KDVK geç. m.20) ve personel ücretlerinde stopaj/SGK teşvikleri işler. Ar-Ge yoğun büyüyeceksen 5746 sayılı Kanun destekleri (Ar-Ge merkezi, teknogirişim) ayrı bir katmandır. Teknokent kirası ve kabul süreci maliyettir — hesabı muhasebecinle kur.</div>`;
   }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
-  if(CEVAP.ortak==='ortakli' && CEVAP.istur!=='ticari' && CEVAP.risk==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
+  if(CEVAP.ortak==='ortakli' && !stoklu && CEVAP.risk==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
       🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b> — ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.</div>`;
   }
