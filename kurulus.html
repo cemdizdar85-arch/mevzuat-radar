@@ -512,6 +512,15 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
       🎓 <b style="color:var(--ink)">İşin mesleki bilgiye mi dayanıyor?</b> Danışmanlık, yazılım, mimarlık, mali müşavirlik gibi sermayeden çok <b style="color:var(--ink)">şahsi mesaiye ve uzmanlığa</b> dayanan işler vergide "ticari kazanç" değil <b style="color:var(--ink)">serbest meslek kazancı</b>dır (GVK m.65-66): şirket kurmadan serbest meslek mükellefiyeti açar, e-SMM (serbest meslek makbuzu) ile çalışırsın; genç girişimci istisnası burada da işler. Hangi tarafa düştüğün faaliyetin niteliğine bakılarak belirlenir — vergi dairesi/muhasebeci ile netleştir.</div>`;
   }
+  // YAZILIM / YAPAY ZEKA / AR-GE — soru 3'te uzmanlık işi seçen HERKESE
+  // (tür fark etmez: 4691 istisnası gelir VE kurumlar vergisi mükellefini kapsar).
+  // Uc iddianin ucu de 12.08'de ambar metninden birebir teyit edildi.
+  if(CEVAP.risk==='meslek'){
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(61,220,151,.35);border-left:4px solid var(--green);border-radius:11px;background:rgba(61,220,151,.05);font-size:13px;color:var(--muted)">
+      💻 <b style="color:var(--green)">Yazılım / yapay zekâ / Ar-Ge işi mi? İki büyük vergi kapısı var.</b><br>
+      <b style="color:var(--ink)">1) Yurt dışına çalışıyorsan:</b> yurt dışındaki müşteriye Türkiye'den verilen ve münhasıran yurt dışında yararlanılan <b style="color:var(--ink)">yazılım, tasarım, mühendislik, veri işleme, veri analizi</b> gibi hizmetlerden elde edilen kazancın <b style="color:var(--ink)">%80'i vergi matrahından indirilir</b> (şahısta GVK m.89/13, şirkette KVK m.10/1-ğ). İki şartı unutma: fatura yurt dışındaki müşteri adına düzenlenmeli ve kazancın tamamı beyanname tarihine kadar Türkiye'ye getirilmiş olmalı. Yapay zekâ işleri "yazılım + veri işleme + veri analizi" olarak listenin tam içinde.<br>
+      <b style="color:var(--ink)">2) Teknokente yerleşirsen:</b> bölgedeki yazılım, tasarım ve Ar-Ge kazancın <b style="color:var(--ink)">31.12.2028'e kadar gelir/kurumlar vergisinden tümüyle istisna</b> (4691 s.K. geç. m.2) — üstelik bölgede üretilen yazılımın tesliminde <b style="color:var(--ink)">KDV istisnası</b> da var (KDVK geç. m.20) ve personel ücretlerinde stopaj/SGK teşvikleri işler. Ar-Ge yoğun büyüyeceksen 5746 sayılı Kanun destekleri (Ar-Ge merkezi, teknogirişim) ayrı bir katmandır. Teknokent kirası ve kabul süreci maliyettir — hesabı muhasebecinle kur.</div>`;
+  }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
   if(CEVAP.ortak==='ortakli' && CEVAP.risk!=='yuksek' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
