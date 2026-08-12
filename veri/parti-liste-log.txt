@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260812030353
+Start time: 20260812113753
 Username: runnervmvrwv9\runner
 RunAs User: runnervmvrwv9\runner
 Configuration Name: 
 Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d27af60a-a453-4fc2-96ca-d2c516c4312d.ps1'
-Process ID: 2455
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/dbc71b7e-5295-491f-b679-b336f73caec2.ps1'
+Process ID: 2156
 PSVersion: 7.6.3
 PSEdition: Core
 GitCommitId: 7.6.3
@@ -17,6 +17,7 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
+API hedefi: anthropic
 Parti listesi cekiliyor (GET /v1/messages/batches)...
   sayfa 1: 100 parti (toplam 100)
   sayfa 2: 100 parti (toplam 200)
@@ -401,5 +402,5 @@ msgbatch_011v19qB46SkzA1Z8u8DaqH1 ended             300        0 07/23/2026 09:1
 HASADA HAZIR (ended + basarili>0): 370 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20260812030355
+End time: 20260812113755
 **********************
