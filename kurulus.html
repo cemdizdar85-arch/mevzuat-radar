@@ -55,6 +55,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 #sihirbaz .soru{display:none}
 #sihirbaz .soru.acik{display:block;animation:soruGel .25s ease}
 @keyframes soruGel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 13.08 Cem: "asagiya surekli inerek okuyoruz, kaliteyi dusuruyor" —
+   sonuc bloklari akordeona alindi (site standardi: bas, acilsin). */
+details.kacc{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:0 16px;margin:12px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+details.kacc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:14px 0;font-weight:750;font-size:14px;color:var(--ink)}
+details.kacc>summary::-webkit-details-marker{display:none}
+details.kacc>summary::after{content:"+";margin-left:auto;color:var(--accent2);font-weight:800;font-size:17px;line-height:1;transition:.15s}
+details.kacc[open]>summary::after{content:"–"}
+details.kacc>summary:hover{color:var(--accent2)}
+details.kacc>.ic{padding:2px 0 14px}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -274,7 +283,7 @@ ltd: {
     ["Asgari sermaye","{{ltd}} TL (TTK m.580; tutar 7887 s. CB Kararı ile 01.01.2024'ten itibaren)"],
     ["Sermaye ödemesi","Kuruluşta peşin ödeme şartı yok; tescili izleyen 24 ay içinde ödenir (TTK m.585)"],
     ["Ortak / yönetim","Tek ortakla kurulabilir; en az bir müdür (ortaklardan biri olabilir)"],
-    ["Sorumluluk","Şirket borçlarında ortağın sorumluluğu koyduğu sermayeyle sınırlı — ANCAK vergi ve SGK borçlarında ortaklar payları oranında şahsen sorumlu olabilir (6183 s. Kanun mük. m.35). 'Limited = tam kalkan' sanma."],
+    ["Sorumluluk","Şirket borçlarında ortağın sorumluluğu koyduğu sermayeyle sınırlı — ANCAK şirketten alınamayan vergi/SGK borcunda ortaklar sermaye payları oranında şahsen sorumludur (6183 s. Kanun m.35); şirketi temsil eden MÜDÜR ise kamu borcunun tamamından sorumlu tutulabilir (mük. m.35). 'Limited = tam kalkan' sanma."],
     ["Kime uygun","Ortaklı ya da ortaklığa açık, ticari hacmi olan KOBİ'ler — Türkiye'de en yaygın tür"]
   ],
   adimlar: [
@@ -316,7 +325,7 @@ function ciz(){
   const adimlar = t.adimlar.map((a,i)=>`<div class="adim"><div class="no">${i+1}</div><div><b>${a[0]}</b><p>${a[1]}</p></div></div>`).join('');
   document.getElementById('icerik').innerHTML = yerlestir(`
     <div class="kart"><h3>${t.ad} — künye</h3>${ozet}</div>
-    <div class="kart" style="border-left-color:var(--green)"><h3>Adım adım kuruluş yolu</h3>${adimlar}</div>
+    <details class="kacc"><summary>📋 Adım adım kuruluş yolu (${t.adimlar.length} adım)</summary><div class="ic">${adimlar}</div></details>
     <div class="kart" style="border-left-color:var(--accent2)"><p style="margin:0;font-size:13.5px;color:var(--muted)">${t.notlar}</p></div>`);
 }
 document.getElementById('sec').addEventListener('click',e=>{
@@ -710,9 +719,9 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]} — koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
       ${gerekce}
       ${uyariHtml}
-      ${altYolHtml}
-      ${hesapHtml}
-      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">👇 <b style="color:var(--ink)">${AD[kazanan]}</b> için adım adım kuruluş yolu ve istenen belgeler aşağıda açıldı.</p>
+      ${hesapHtml ? `<details class="kacc" open><summary>💰 Vergi kıyası — senin rakamlarınla</summary><div class="ic">${hesapHtml}</div></details>` : ''}
+      ${altYolHtml ? `<details class="kacc"><summary>🧭 Durumuna özel ek yollar (basit usul, serbest meslek, adi ortaklık…)</summary><div class="ic">${altYolHtml}</div></details>` : ''}
+      <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">👇 <b style="color:var(--ink)">${AD[kazanan]}</b> künyesi aşağıda; adım adım kuruluş yolu başlığına dokununca açılır.</p>
       <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">📖 ${OKU[kazanan]}</p>
       <p style="margin:10px 0 0;font-size:12px;color:var(--dim)">Bu bir ön öneridir, kişisel durumuna göre değişebilir — son kararı muhasebecinle ver. İstersen bu sonucu ve kuruluş yol haritanı e-postana gönderelim:</p>
       <div class="ara" style="margin-top:10px">
