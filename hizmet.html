@@ -176,7 +176,16 @@ function isyeriSor(){ ilerle(4);
 function sonuc(){ ilerle(5);
   const g = grup();
   let stopaj, sMetin, ozet, ozetT, sRate=null;
-  const kdvNot = "Hizmetten Türkiye'de faydalanıyorsun → sorumlu sıfatıyla %20 KDV beyan+öde; aynı ay 1 No.lu KDV'de indir (net yük ~0, ama beyan zorunlu).";
+  // 12.08 KS-12 duzeltmesi: faiz turunde KDV-2 %20 SABIT DEGIL - yurt disi
+  // BANKA kredisi faizi KDV'den istisna (KDVK m.17/4-e "banka ve sigorta
+  // muameleleri vergisi kapsamina giren islemler" - ambar metninden teyitli);
+  // banka DISI kaynaktan borclanma faizi ise 2 No.lu KDV'ye tabidir.
+  const faizMi = (g==='faiz');
+  const kdvNot = faizMi
+    ? "Ayrım kaynağa göre: yurt dışı BANKADAN kredi faizi KDV'den istisna (KDVK m.17/4-e — BSMV kapsamı işlemler) → 2 No.lu KDV YOK. Banka DIŞI bir firmadan/ortaktan borçlanma faizi ise finansman hizmetidir → sorumlu sıfatıyla %20 KDV beyan+öde."
+    : "Hizmetten Türkiye'de faydalanıyorsun → sorumlu sıfatıyla %20 KDV beyan+öde; aynı ay 1 No.lu KDV'de indir (net yük ~0, ama beyan zorunlu).";
+  const kdvDeger = faizMi ? "banka: yok · diğer: %20" : "%20";
+  const kdvRoz = faizMi ? "n" : "v";
 
   if(g==='ticari'){ stopaj="—"; sRate=0;
     sMetin = (C.tur==='yazilim') ? "Hazır paket yazılımı sadece kullanmak/satmak = TİCARİ KAZANÇ (ÇVÖA m.7). İşyeri yoksa stopaj YOK. (GİB özelgesi.)" : "Salt ticari kazanç: KVK m.30'da bent yok, stopaj YOK. (Anlaşmada işyeri yoksa Türkiye vergilendirmez.)";
@@ -204,7 +213,7 @@ function sonuc(){ ilerle(5);
   const rz=o=>{const c=o.d==='var'?'v':(o.d==='yok'?'y':'n');return '<span class="deg '+c+'">'+o.t+'</span>';};
   const stopajRoz=(stopaj==='—'||stopaj==='%0')?'y':(String(stopaj).indexOf('düş')>=0?'n':'v');
   const baslik = (C.tur==='yazilim') ? (C.yazilimTur==='hazir'?"Yazılım — hazır paket (kullanım/satış)":"Yazılım — telif/çoğaltma hakkı") : TUR[C.tur].ad;
-  window.HESAP = {rate:sRate};
+  window.HESAP = {rate:sRate, faiz:faizMi};
   const rateBilinmez = (sRate===null);
   const hesapKutu = `<div class="kutu" style="margin-top:14px">
       <h3>🧮 Tutarı gir — vergiyi TL hesaplayalım</h3>
@@ -221,7 +230,7 @@ function sonuc(){ ilerle(5);
 
   ekran(`<div class="soru">SONUÇ</div><div class="sbaslik">${TUR[C.tur].em} ${baslik}</div>
     <div class="ozet ${ozetT}">${ozet}<br><span style="font-size:12.5px;color:var(--muted)">${kdvNot}</span></div>
-    <div class="satir"><div class="sol"><div class="ad">🧾 KDV — 2 No.lu (sorumlu sıfatıyla)</div><div class="not">${kdvNot}</div></div><span class="deg v">%20</span></div>
+    <div class="satir"><div class="sol"><div class="ad">🧾 KDV — 2 No.lu (sorumlu sıfatıyla)</div><div class="not">${kdvNot}</div></div><span class="deg ${kdvRoz}">${kdvDeger}</span></div>
     <div class="satir"><div class="sol"><div class="ad">✂️ Stopaj (KVK m.30 tevkifatı)</div><div class="not">${sMetin}</div></div><span class="deg ${stopajRoz}">${stopaj}</span></div>
     <div class="satir"><div class="sol"><div class="ad">💸 KKDF</div><div class="not">${kkdf.not}</div></div>${rz(kkdf)}</div>
     <div class="beyan"><h4>HANGİ BEYANNAME?</h4><div>• 2 No.lu KDV Beyannamesi — izleyen ayın 25'i (ödeme de 25'i; 164 No.lu VUK Sirküleri)</div>${(stopaj!=='—')?"<div>• Muhtasar ve Prim Hizmet Beyannamesi — stopaj (izleyen ayın 26'sı)</div>":""}<div>• Sözleşme varsa: damga vergisi (binde 9,48)</div></div>
@@ -242,7 +251,9 @@ function hesapla(){
     <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">Hizmet bedeli (brüt)</div></div><span class="deg">${fmt(t)}</span></div>
     <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">✂️ Stopaj (%${r}) — muhtasarla öde</div><div class="not">Ödemeden kesip vergi dairesine yatırırsın.</div></div><span class="deg ${r>0?'v':'y'}">${fmt(stopaj)}</span></div>
     <div class="satir" style="margin-bottom:8px;padding:12px 14px"><div class="sol"><div class="ad">➡️ Yurt dışına net ödenecek</div></div><span class="deg y">${fmt(net)}</span></div>
-    <div class="satir" style="margin-bottom:0;padding:12px 14px"><div class="sol"><div class="ad">🧾 2 No.lu KDV (%20) — beyan+öde</div><div class="not">Aynı ay 1 No.lu KDV'de indirilir → net maliyet ~0.</div></div><span class="deg n">${fmt(kdv)}</span></div>`;
+    ${(window.HESAP && window.HESAP.faiz)
+      ? `<div class="satir" style="margin-bottom:0;padding:12px 14px"><div class="sol"><div class="ad">🧾 2 No.lu KDV</div><div class="not">Yurt dışı BANKADAN kredi faiziyse istisna (KDVK m.17/4-e) → 0. Banka DIŞI kaynaktan borçlanmaysa %20 = ${fmt(kdv)} (1 No.lu KDV'de indirilir).</div></div><span class="deg n">banka: 0 · diğer: ${fmt(kdv)}</span></div>`
+      : `<div class="satir" style="margin-bottom:0;padding:12px 14px"><div class="sol"><div class="ad">🧾 2 No.lu KDV (%20) — beyan+öde</div><div class="not">Aynı ay 1 No.lu KDV'de indirilir → net maliyet ~0.</div></div><span class="deg n">${fmt(kdv)}</span></div>`}`;
 }
 baslat();
 </script>

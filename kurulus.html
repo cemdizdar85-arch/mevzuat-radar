@@ -485,8 +485,14 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
   let hesapHtml = '';
   if(SABIT && kar>0){
-    const istisna = (CEVAP.genc==='evet') ? Math.min(kar, SABIT.gencIstisnaTutar) : 0;
-    const sahisVergi = gvHesap(kar - istisna);
+    // 12.08 Cem: ortakli senaryoda tablo tek kisilik sahis matematigi basiyordu.
+    // Dogrusu: adi ortaklikta kar ortaklara bolunur, genc istisnasi SARTI TASIYAN
+    // HER ortaga kendi payinda ayri uygulanir (muk. m.20/3), tarife de kisi basina.
+    const ortakSay = (CEVAP.ortak==='ortakli') ? Math.min(9, Math.max(2, parseInt(CEVAP._os||'2',10)||2)) : 1;
+    const karPay = kar / ortakSay;
+    const istisnaPay = (CEVAP.genc==='evet') ? Math.min(karPay, SABIT.gencIstisnaTutar) : 0;
+    const istisna = istisnaPay * ortakSay;
+    const sahisVergi = Math.round(ortakSay * gvHesap(karPay - istisnaPay));
     const kv = kar * SABIT.kvOran / 100;
     const dagitilan = (CEVAP.cek==='cek') ? (kar - kv) : (CEVAP.cek==='karisik' ? (kar - kv)/2 : 0);
     const stopaj = dagitilan * SABIT.karPayiStopaj / 100;
@@ -503,7 +509,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     hesapHtml = `
       <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:8px">💰 ${SABIT.yil} VERGİ KIYASI — ${TLf(kar)} TL kâr hedefine göre</div>
-        <div class="satir"><b>Şahıs: gelir vergisi</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${TLf(istisna)} TL genç girişimci istisnası düşüldü)</span>`:''}</span></div>
+        <div class="satir"><b>${ortakSay>1 ? `Adi ortaklık: ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:#0a0f17;color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'Şahıs: gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü — şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
         <div class="satir"><b>Şirket: kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
         <div class="satir"><b>Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
         <div class="satir"><b>Şirket toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
