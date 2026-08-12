@@ -1,5 +1,17 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 13.08.2026 — KS-12 BOŞLUKLARI: DİİB + 5986 E-İHRACAT (en güncel bölüm)
+
+KS-12 denetiminin işaretlediği iki ambar boşluğu kapatıldı; üçü de manifest'e girdi (robot nöbeti):
+
+| Metin | Kaynak | Boyut | Not |
+|---|---|---|---|
+| DİR Kararı 2005/8391 (dercedilmiş 16.08.2025) | ticaret.gov.tr resmî .doc → Word ile metne (mevzuat.gov.tr BKK PDF'i JS kapısında, inmiyor) | 101 KB | pdfId=HAZIR — yerel indirici atlar; tazeleme elle (Bakanlık dercedilmiş .doc yenilenince) |
+| DİR Tebliği (İhracat 2006/12) | mevzuat.gov.tr G9:10868 konsolide PDF | 167 KB, 48 madde | tam robot nöbeti |
+| E-İhracat Destekleri Kararı (5986 s. CB K.) | mevzuat.gov.tr 20.5.5986 PDF | 19 KB | tam robot nöbeti; destekler.html e-ihracat kartının bekleyen oran hapı bundan doldurulacak |
+
+Besledikleri: hatirlatici.html DİİB kartları (artık dipnotsuz dayanaklı), destekler.html e-ihracat kartı, gtip/kkdf DİİB muafiyet notu.
+
 ## ✅ 12.08.2026 — ÇIKMIŞ-SINAV TALEP ÖLÇÜMÜ + 33 STANDART TAM YUTULDU (en güncel bölüm)
 
 Cem: *"yutulacak başka bir şey olmadığına sınavda çıkmış sorulara göre bak, emin olalım."*
