@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260812102047
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+Start time: 20260812143539
+Username: runnervmzvulz\runner
+RunAs User: runnervmzvulz\runner
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/11129c19-e68d-4275-a106-2a02244a305f.ps1'
-Process ID: 10523
-PSVersion: 7.6.3
+Machine: runnervmzvulz (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/bcd95051-1cc4-42e6-bc08-0f7fa47893c1.ps1'
+Process ID: 10480
+PSVersion: 7.6.4
 PSEdition: Core
-GitCommitId: 7.6.3
+GitCommitId: 7.6.4
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -27,10 +27,12 @@ Izlenecek teblig: 43 mevzuatNo  (43 teblig no)
 -> veri/teblig-damga.json
 
 ======================================================================
-  1 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
+  2 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
 ======================================================================
-  mevzuatNo 33766  (596913 -> 597303 bayt)
-     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33766.pdf
+  mevzuatNo 24517  (657821 -> 655262 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24517.pdf
+  mevzuatNo 34304  (202801 -> 193654 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34304.pdf
 
   YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
   modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
@@ -38,5 +40,5 @@ Izlenecek teblig: 43 mevzuatNo  (43 teblig no)
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260812102907
+End time: 20260812144315
 **********************
