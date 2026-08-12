@@ -12,6 +12,8 @@ KS-12 denetiminin işaretlediği iki ambar boşluğu kapatıldı; üçü de mani
 
 Besledikleri: hatirlatici.html DİİB kartları (artık dipnotsuz dayanaklı), destekler.html e-ihracat kartı, gtip/kkdf DİİB muafiyet notu.
 
+**KAPSAMA ÖLÇÜMÜ (13.08, ayna parçaladıktan sonra):** diib-karar %99,7 (77 parça) ✅ · diib-teblig %99,8 (140 parça) ✅ · eihracat5986 ham %97,7 (26 parça) — fark dökümü TAM: 75 kr başlık + mülga m.11/13/14 (17.01.2026'da kalkmış; parçalayıcı mülga hükmü bilinçli atlar) → yürürlükteki hüküm kaybı 0 ✅. Geri okuma: 5986 m.4 ambar↔kaynak birebir (523 kr, eşitlik True).
+
 ## ✅ 12.08.2026 — ÇIKMIŞ-SINAV TALEP ÖLÇÜMÜ + 33 STANDART TAM YUTULDU (en güncel bölüm)
 
 Cem: *"yutulacak başka bir şey olmadığına sınavda çıkmış sorulara göre bak, emin olalım."*
