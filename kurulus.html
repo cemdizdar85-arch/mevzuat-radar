@@ -93,10 +93,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       </div>
     </div>
     <div class="soru" data-k="risk">
-      <b style="font-size:14px">4. Kredi/çek kullanacak ya da ekip kuracak mısın?</b>
+      <b style="font-size:14px">4. Borçlanma ya da çalışan olacak mı?</b>
       <div class="sec" style="margin:8px 0 14px">
-        <button class="sbtn kck" data-v="evet">Evet: borçlanma ve/veya çalışanlar olacak</button>
-        <button class="sbtn kck" data-v="hayir">Hayır: tek başıma, borçsuz yürüteceğim</button>
+        <button class="sbtn kck" data-v="borc">Kredi / çek kullanacağım</button>
+        <button class="sbtn kck" data-v="ekip">Borç yok ama çalışanım olacak</button>
+        <button class="sbtn kck" data-v="hayir">İkisi de yok: tek başıma, borçsuz</button>
       </div>
     </div>
     <div class="soru" data-k="ciro">
@@ -379,7 +380,9 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // KV orani %12,5'e iniyor (7582 s.K.), al-sat %25 kaliyor. Uzun donemli oneri
   // veren arac bu ayrimi tasimak zorunda.
   const stoklu = (CEVAP.istur==='ticaret' || CEVAP.istur==='imalat');
-  const riskYuksek = (stoklu || CEVAP.risk==='evet');
+  // 12.08 Cem: kredi ile calisan ayni sikta duramaz - borclanma sert sorumluluk
+  // riski, calisan ise isveren yuku. Ayri sinyaller, ayri sonuclar.
+  const riskYuksek = (stoklu || CEVAP.risk==='borc');
   const eksik = gerekli.filter(k=>!CEVAP[k]);
   const kar = parseInt((document.getElementById('karInput').value||'').replace(/[^\d]/g,''),10) || 0;
   if(eksik.length || !kar){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length ? eksik.length + ' soru cevapsız' : ''}${eksik.length && !kar ? ' ve ' : ''}${!kar ? 'kâr hedefi boş' : ''}. Hepsini doldur, öneri ona göre şekillenecek.</p>`; return; }
@@ -417,7 +420,10 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     }
   }
 
-  if(riskYuksek){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok/ekip riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
+  if(riskYuksek){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
+  // Calisan (borcsuz): sert risk sayilmaz ama isveren yuku ve SGK yukumlulukleri
+  // sirket disiplinini bir tik one cikarir.
+  if(CEVAP.risk==='ekip'){ p.ltd+=1; }
 
   // İMALATÇI — uzun vadeli oran farkı (12.08 Cem: "üretim yapanın 2027 oranı düştü,
   // al-satla aynı yere koymak olmaz"). Şahıs imalatçı bu orandan yararlanamaz.
@@ -462,7 +468,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     // puana etki: belirgin fark varsa (%10+) tarafına yaz
     if(sahisVergi < sirketVergi*0.9 && CEVAP.ortak==='tek'){
       p.sahis+=2;
-      neden.sahis.push(`Vergi kıyası senin lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini vergi ~${TLf(sahisVergi)} TL${istisna? ' (genç girişimci istisnası düşülmüş)':''}; şirkette KV + kâr çekme stopajı ~${TLf(sirketVergi)} TL.`);
+      neden.sahis.push(`Vergi kıyası senin lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini vergi ~${TLf(sahisVergi)} TL${istisna? ' (genç girişimci istisnası düşülmüş — bu istisna şirket ortağında İŞLEMEZ)':''}; şirkette ise ${dagitilan>0 ? `kurumlar vergisi ~${TLf(kv)} TL + kârı çekerken stopaj ~${TLf(stopaj)} TL = toplam ~${TLf(sirketVergi)} TL` : `kurumlar vergisi ~${TLf(sirketVergi)} TL`}.`);
     } else if(sirketVergi < sahisVergi*0.9){
       p.ltd+=2; p.as+=2; // vergi düzeni iki sermaye şirketinde özdeş — puan da eşit
       neden.ltd.push(`Vergi kıyası şirket lehine: ${TLf(kar)} TL kâr hedefinde şahısta tahmini gelir vergisi ~${TLf(sahisVergi)} TL; şirkette ~${TLf(sirketVergi)} TL${CEVAP.cek==='birak' ? ' (kârı şirkette bıraktığın için stopaj yok — büyüme sermayesi vergiden korunuyor)' : ''}.`);
@@ -518,6 +524,12 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
       ⚠ <b style="color:var(--amber)">Ciro uyarısı:</b> beklentin bilanço esası haddini aşıyor (VUK m.177). Şahıs olarak kurabilirsin — yasak yok — ama birinci sınıf tüccar sayılır, <b style="color:var(--ink)">şirketle aynı defter/muhasebe düzenine</b> geçersin ve tüm bunları <b style="color:var(--ink)">sınırsız şahsi sorumlulukla</b> taşırsın. Not: had aşımı tek yılda olmuşsa ve sınırın biraz üzerindeyse (VUK m.179 — %20'ye kadar sapma + süreklilik kuralı) sınıf değişimi otomatik gerçekleşmeyebilir; kesin durumunu muhasebecinle netleştir. Bu ölçekte LTD'yi ciddi düşün.</div>`;
   }
+  // borçlu şahıs uyarısı (12.08): borç/çek seçilip öneri yine şahıs çıktıysa
+  // sorumluluk uyarısı LTD gerekçesinde saklı kalıyordu — artık açıkça gösterilir.
+  if(CEVAP.risk==='borc' && kazanan==='sahis'){
+    uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
+      ⚠ <b style="color:var(--amber)">Kredi/çek uyarısı:</b> genel denge şahıs işletmesini gösteriyor ama unutma — şahısta işletme borcu ile kişisel malvarlığın arasında duvar yok; kredi ve çek yükümlülüklerinden <b style="color:var(--ink)">evin-araban dahil tüm malvarlığınla</b> sorumlusun. Borçlanma büyüyecekse LTD'nin sınırlı sorumluluk kalkanını (vergi/SGK borçları istisnasıyla — 6183 mük. m.35) yeniden düşün; borcu küçük ve kısa vadeli tutacaksan şahıs makul kalır.</div>`;
+  }
   // sermaye artışı bilgi notu (resmî yeni tutar YOK — sadece farkındalık)
   if(kazanan!=='sahis'){
     uyariHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Bilgin olsun: asgari sermaye tutarları 2024'te beş kat artırıldı (LTD {{ltd}} / AŞ {{as}} TL) ve ileride yeniden artırılması gündeme gelebilir — bugün asgariyle kuranlar yarın artırım zorunluluğuyla karşılaşabilir (mevcut şirketlerin {{uyum}} uyum yükümlülüğü gibi). Şu an açıklanmış yeni bir tutar yok; gücün yetiyorsa asgarinin üstünde sermayeyle kurmak seni ileriye taşır.</div>`;
@@ -551,6 +563,13 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       💻 <b style="color:var(--green)">Yazılım / yapay zekâ / Ar-Ge işi mi? İki büyük vergi kapısı var.</b><br>
       <b style="color:var(--ink)">1) Yurt dışına çalışıyorsan:</b> yurt dışındaki müşteriye Türkiye'den verilen ve münhasıran yurt dışında yararlanılan <b style="color:var(--ink)">yazılım, tasarım, mühendislik, veri işleme, veri analizi</b> gibi hizmetlerden elde edilen kazancın <b style="color:var(--ink)">%80'i vergi matrahından indirilir</b> (şahısta GVK m.89/13, şirkette KVK m.10/1-ğ). İki şartı unutma: fatura yurt dışındaki müşteri adına düzenlenmeli ve kazancın tamamı beyanname tarihine kadar Türkiye'ye getirilmiş olmalı. Yapay zekâ işleri "yazılım + veri işleme + veri analizi" olarak listenin tam içinde.<br>
       <b style="color:var(--ink)">2) Teknokente yerleşirsen:</b> bölgedeki yazılım, tasarım ve Ar-Ge kazancın <b style="color:var(--ink)">31.12.2028'e kadar gelir/kurumlar vergisinden tümüyle istisna</b> (4691 s.K. geç. m.2) — üstelik bölgede üretilen yazılımın tesliminde <b style="color:var(--ink)">KDV istisnası</b> da var (KDVK geç. m.20) ve personel ücretlerinde stopaj/SGK teşvikleri işler. Ar-Ge yoğun büyüyeceksen 5746 sayılı Kanun destekleri (Ar-Ge merkezi, teknogirişim) ayrı bir katmandır. Teknokent kirası ve kabul süreci maliyettir — hesabı muhasebecinle kur.</div>`;
+  }
+  // İŞVEREN MALİYETİ — soru 4'te "çalışanım olacak" diyene, sabitlerden (12.08:
+  // kredi/calisan ayrimi Cem istegi; calisan = risk degil YUK, rakamla gosterilir)
+  if(CEVAP.risk==='ekip' && SABIT && SABIT.asgariUcret2026){
+    const au = SABIT.asgariUcret2026;
+    altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
+      👷 <b style="color:var(--ink)">Çalışan planına bir rakam koyalım:</b> ${SABIT.yil}'da asgari ücretli bir çalışanın sana aylık maliyeti <b style="color:var(--ink)">~${TLf(au.isverenMaliyetiTesviksiz)} TL</b> (brüt ${TLf(au.brutAylik)} + işveren SGK payı; asgari ücret desteği ${TLf(au.asgariUcretDestegiAylik)} TL düşülmeden). Bu yük tür seçiminden bağımsızdır — şahısta da şirkette de aynı ödenir; fark şu: işçilik ve SGK borçları da işletme borcudur, şahısta bunlardan tüm malvarlığınla sorumlusun. Kaynak: Asgari Ücret Tespit Komisyonu ${SABIT.yil} + SGK.</div>`;
   }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
   if(CEVAP.ortak==='ortakli' && !stoklu && CEVAP.risk==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
