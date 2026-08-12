@@ -51,6 +51,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
+/* 12.08 asamali akis (Cem): sorular sirayla acilir */
+#sihirbaz .soru{display:none}
+#sihirbaz .soru.acik{display:block;animation:soruGel .25s ease}
+@keyframes soruGel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -69,7 +73,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
     <h3 style="margin-top:0">🧭 Sana hangisi uygun? 9 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim; diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
-    <div class="soru" data-k="ortak">
+    <div class="soru acik" data-k="ortak">
       <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="tek">Tek başımayım</button>
@@ -137,7 +141,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         <button class="sbtn kck" data-v="yuksek"><span data-sabit="as">250.000</span> TL ve üstünü ayırabilirim</button>
       </div>
     </div>
-    <button class="btn" onclick="oner()">Bana uygun türü göster</button>
+    <button class="btn" id="btnOner" onclick="oner()" style="display:none">Bana uygun türü göster</button>
     <div id="oneri"></div>
   </div>
 
@@ -394,7 +398,37 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
   grup.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');
   CEVAP[grup.dataset.k] = b.dataset.v;
+  akisIlerle();
 });
+
+// ---- AŞAMALI AKIŞ (12.08 Cem: "önce bilgileri al, bölümler sırayla açılsın") ----
+// Sorular cevaplandıkça sıradaki açılır; hepsi bitince öneri düğmesi belirir.
+// Motor değişmedi: oner() CEVAP'ı okur, görünürlük yalnız sunumdur.
+const AKIS_SIRA = ['ortak','genc','istur','risk','ciro','_kar','cek','satis','sermaye'];
+function akisCevapli(k){
+  if(k==='_kar'){ const ki=document.getElementById('karInput'); return !!(ki && (ki.value||'').replace(/[^\d]/g,'')); }
+  return !!CEVAP[k];
+}
+function akisIlerle(){
+  let acilan = null;
+  for(const k of AKIS_SIRA){
+    const el = document.querySelector('#sihirbaz .soru[data-k="'+k+'"]');
+    if(!el) continue;
+    if(akisCevapli(k)){ el.classList.add('acik'); continue; }
+    el.classList.add('acik');
+    acilan = el;
+    break;
+  }
+  const btn = document.getElementById('btnOner');
+  if(!acilan){
+    if(btn && btn.style.display==='none'){ btn.style.display=''; btn.scrollIntoView({behavior:'smooth',block:'center'}); }
+  } else if(!acilan.dataset.kaydirildi){
+    acilan.dataset.kaydirildi = '1';
+    acilan.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+document.getElementById('karInput').addEventListener('input',()=>{ akisIlerle(); });
+akisIlerle();
 
 function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus')) return;
   const out = document.getElementById('oneri');
