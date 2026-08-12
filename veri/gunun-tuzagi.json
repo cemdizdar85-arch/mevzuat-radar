@@ -1,37 +1,37 @@
 {
-  "tarih": "11.08.2026",
-  "gun": "2026-08-11",
+  "tarih": "12.08.2026",
+  "gun": "2026-08-12",
   "durum": "TAMAM",
-  "id": "997b6d0b",
-  "sinav": "SMMM",
-  "ders": "Vergi Mevzuatı ve Uygulaması",
-  "konu": "binek otomobil gideri kkeg",
-  "soru": "Bir işletmenin aktifine kayıtlı binek otomobiline ait bir yıl içinde oluşan akaryakıt, bakım-onarım ve trafik sigortası giderlerinin toplamı 100.000 TL'dir. Bu giderlerle ilgili KKEG tutarı hangisidir?",
+  "id": "7cfb716e",
+  "sinav": "SGS",
+  "ders": "Is ve Sosyal Guvenlik Hukuku",
+  "konu": "belirli sureli is sozlesmesi",
+  "soru": "İki yıl süreli olarak yapılan bir belirli süreli iş sözleşmesi, işveren tarafından haklı bir neden bulunmaksızın sözleşmenin 6. ayında feshedilmiştir. İşçinin talep edebileceği tazminat esasına ilişkin doğru ifade hangisidir?",
   "siklar": {
-    "A": "Giderlerin %70'i olan 70.000 TL, çünkü kanunen sadece %30'u gider olarak kabul edilir.",
-    "B": "Giderlerin %30'u olan 30.000 TL, ancak bu tutar KKEG değil, sonraki yıla devreden gider olarak dikkate alınır.",
-    "C": "KKEG oluşmaz, giderlerin tamamı gider olarak kabul edilir çünkü sınırlama sadece kiralama giderlerine özgüdür.",
-    "D": "Giderlerin tamamı olan 100.000 TL, çünkü binek otomobil giderleri hiçbir şekilde gider yazılamaz.",
-    "E": "Giderlerin %30'u olan 30.000 TL."
+    "A": "İşçi yalnızca ihbar tazminatı talep edebilir, bakiye süre ücreti talep edemez",
+    "B": "İşçi, kalan sürenin sadece yarısına ait ücreti talep edebilir",
+    "C": "İşçi, sözleşmenin kalan süresine ait ücreti tazminat olarak talep edebilir",
+    "D": "İşçi, iş güvencesi hükümlerine dayanarak işe iade davası açabilir",
+    "E": "Belirli süreli sözleşmelerde işveren, herhangi bir tazminat ödemeden her zaman serbestçe fesih yapabilir"
   },
-  "dogru": "E",
+  "dogru": "C",
   "aciklama": {
-    "A": "Bu şık yüzdeyi ters yorumluyor. Kanun %70'ini indirebileceğini söyler; yani gider yazılır 70.000 TL. %30'u değil, %30'u KKEG olur.",
-    "B": "Bu şık KKEG ile devreden gideri karıştırıyor. KKEG kalıcı olarak gider yazılamayan kısımdır; devreden gider ise sonraki yıllarda kullanılabilir.",
-    "C": "Bu şık kapsam hatasına düşüyor. Kanundaki sınırlama hem kiralama giderlerine hem de işletme bünyesindeki binek otomobil giderlerine uygulanır; sadece kiralama değil.",
-    "D": "Bu şık tam tersi bir yanılgıya düşüyor. Kanun giderlerin %70'ini kabul eder, sıfırını değil; kalan %30 KKEG olur, tamamı değil.",
-    "E": "Ne soruluyor: Binek otomobilin akaryakıt, bakım-onarım ve sigorta giderlerinden kaynaklanan KKEG tutarı nedir?\n\nKural: İşletmede kayıtlı binek otomobillerin giderlerinin en fazla %70'i gider yazılabilir. Kalan %30'luk kısım hiçbir zaman gider kabul edilmez; buna KKEG (kanunen kabul edilmeyen gider) denir.\n\nBu olayda: Toplam gider 100.000 TL. İşletme bunun %70'ini (70.000 TL) gider yazar. Kalan %30'u (30.000 TL) KKEG olur ve vergi matrahına eklenir.\n\nAkılda kalsın: Binek otomobil giderlerinin %30'u her zaman KKEG'dir."
+    "A": "İhbar tazminatı (fesih bildirim süresine uymadan ayrılanın ödediği tazminat) ile bakiye süre ücretini karıştırıyor. İhbar tazminatı belirsiz süreli sözleşmelere özgüdür; belirli sürelide ise bakiye süre ücreti istenir.",
+    "B": "Belirli süreli sözleşmelerde bakiye süre tazminatı ile kısmi ödeme fikrini karıştırıyor. İşçi kalan sürenin tamamına ait ücreti talep edebilir; yarım ödeme diye bir kural yoktur.",
+    "C": "Ne soruluyor: Belirli süreli sözleşmede haklı neden yokken fesih yapan işveren hangi tazminatı öder?\n\nKural: İşveren haklı sebep olmadan belirli süreli sözleşmeyi feshederse, işçi sözleşmenin kalan süresine ait ücreti tazminat olarak isteyebilir. İşçinin tasarruf ettiği veya başka işten kazandığı miktar bu tazminattan düşülür.\n\nBu olayda: Sözleşme iki yıllık, altıncı ayda feshedilmiş. Geriye on sekiz ay kalıyor. İşçi bu on sekiz aylık ücretini tazminat olarak talep edebilir.\n\nAkılda kalsın: Belirli sürelide haksız fesih, kalan sürenin ücretini getirir.",
+    "D": "İşe iade davası (işten atılanın mahkemeden işine dönme kararı istemesi) ile tazminat talebini karıştırıyor. İşe iade davası farklı kanuna (İş Kanunu) ve özel koşullara tabidir; burada tazminat söz konusudur.",
+    "E": "Belirli süreli sözleşmelerde serbest fesih hakkı ile haklı sebep gerekliliğini karıştırıyor. İşveren belirli sürelide de keyfi fesih yapamaz; haklı sebep yoksa tazminat öder."
   },
-  "kaynak": "GVK m.40/1 (5 no'lu bent)",
+  "kaynak": "6098 sayılı Türk Borçlar Kanunu m.438",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Is ve Sosyal Guvenlik Hukuku — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 141,
+    "uygun_aday": 140,
     "yayindaki": 150,
-    "gecmiste": 9
+    "gecmiste": 10
   }
 }
