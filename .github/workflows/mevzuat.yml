@@ -249,9 +249,30 @@ jobs:
           Write-Host ("KIRMIZI: {0} gozetim tebligi DEGISTI - veri/gtip-durum.json ESKIDI." -f $d.Count)
           foreach($x in $d){ Write-Host ("  mevzuatNo {0}  ({1} -> {2} bayt)  {3}" -f $x.mevzuatNo, $x.eski_boyut, $x.yeni_boyut, $x.url) }
           Write-Host ""
-          Write-Host "YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir)."
-          Write-Host "O kosana kadar GTIP aracindaki gozetim verisi ESKIDIR - arac hasat tarihini ekranda gosteriyor."
+          Write-Host "YAPILACAK: gozetim-onarici asagidaki adimda otomatik deneyecek (iki bagimsiz okuma)."
+          Write-Host "O basana kadar GTIP aracindaki gozetim verisi ESKIDIR - arac hasat tarihini ekranda gosteriyor."
           exit 1
+      # 13.08 (Cem: "2-3 kontrollu, haber beklemeden degissin"): kapi dusunce
+      # onarici kosar. Okuyucu A (deterministik parser) + Okuyucu B (Claude,
+      # cift hat) BIREBIR ayni okursa gtip-durum'u basar, commit'ler ve
+      # "DEGISTIRDIM" maili atar. Uyusmazlikta BASMAZ, KIRMIZI mail. Anahtar
+      # yoksa/tavan doluysa tek-okuma RAPOR maili atar, veri degismez.
+      - name: GOZETIM ONARICI — degiseni iki okumayla onar
+        if: failure()
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_AWS_API_KEY: ${{ secrets.ANTHROPIC_AWS_API_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ANTHROPIC_AWS_WORKSPACE_ID: ${{ secrets.ANTHROPIC_AWS_WORKSPACE_ID }}
+        run: |
+          try { ./motor/gozetim-onarici.ps1 -Damgadan -Uygula } catch { Write-Host "onarici: $($_.Exception.Message)" }
+          git config user.name "mevzuat-radar-bot"; git config user.email "bot@users.noreply.github.com"
+          git add veri/gtip-durum.json
+          if(git status --porcelain veri/gtip-durum.json){
+            git commit -m "gozetim onarici: iki bagimsiz okuma mutabakatiyla otomatik guncelleme [veri-operasyonu]"
+            git pull --rebase; git push
+          } else { Write-Host "onarici veri degistirmedi (mutabakat yok ya da anahtar yok)." }
       # GUVEN KATMANI C: hasat VE commit sonrasi retrieval sigortasi — altin
       # setteki her soru icin beklenen kaynak top-6'da bulunmali. Dusen vaka =
       # kirmizi kosu = GitHub e-postasi. Commit'ten SONRA kosar: kapinin isi
