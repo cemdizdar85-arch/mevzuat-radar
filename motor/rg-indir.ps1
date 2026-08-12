@@ -21,7 +21,7 @@ function Norm([string]$s){
 # Isletmeyi ilgilendiren konu anahtarlari (rg-tarama kategorileriyle uyumlu; genis ama alakasiz
 # atama/ilan gurultusunu almaz). Yeni konu gerekirse buraya eklenir.
 $ANAHTARLAR = @(
-  "gözetim","damping","korunma önlem","ek mali yükümlülük","haksız rekabet",
+  "gözetim","damping","korunma önlem","ek mali yükümlülük","haksız rekabet","ilave gümrük","ithalat rejimi","askıya alma",
   "ithalat","ihracat","gümrük","tarife kontenjan","kota","menşe","dahilde işleme","hariçte işleme",
   "katma değer vergisi","kdv","özel tüketim","ötv","gelir vergisi","kurumlar vergisi","vergi usul","damga vergisi","harçlar",
   "sosyal güvenlik","sgk","asgari ücret","prime esas",
@@ -74,4 +74,26 @@ foreach($s in $secilen){
   Start-Sleep -Milliseconds 400
 }
 Write-Host ("TOPLAM: {0}/{1} teblig -> {2}" -f $ok, $secilen.Count, $hedef)
+
+# ---------------------------------------------------------------------------
+# GTIP VERI SINYALI (13.08 Cem: "haber beklemeden... acik noktalari kapat").
+# Bugunku basliklar gtip.html'i besleyen VERIYI etkileyebilecek turdense
+# (gozetim/damping/IGV/rejim/askiya/OTV/KDV) Cem'e ayni gun mail duser -
+# kart uretiminden BAGIMSIZ ve anahtarsiz/bedava. 11.07 revalorizasyonu
+# 3 gun fark edilmemisti; bu sinyalle ayni gun ogrenilir.
+# ---------------------------------------------------------------------------
+$GTIP_ETKI = @("gözetim","damping","ilave gümrük","ithalat rejimi","askıya alma","korunma önlem","ek mali yükümlülük","özel tüketim","katma değer vergisi")
+$vuranlar = @($secilen | Where-Object { $t = Norm $_.baslik; ($GTIP_ETKI | Where-Object { $t.Contains((Norm $_)) }).Count -gt 0 })
+if($vuranlar.Count -gt 0){
+  $liste = ($vuranlar | ForEach-Object { "- " + $_.baslik }) -join "`n"
+  Write-Host ("GTIP SINYALI: {0} baslik veriyi etkileyebilir - mail gonderiliyor." -f $vuranlar.Count)
+  $mb = @{
+    access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"
+    subject    = "TETIKTE GTIP SINYALI - bugunku RG'de veriyi etkileyebilecek teblig var ($Gun)"
+    from_name  = "Tetikte RG Nobetcisi"
+    email      = "cemdizdar85@hotmail.com"
+    message    = "Bugunku RG'de gtip.html verilerini (gozetim/damping/IGV/rejim/askiya/OTV/KDV) etkileyebilecek basliklar:`n$liste`n`nYapilacak: ilgili tabloyu iki bagimsiz okumayla (parser + gorsel) teyit edip gtip veri dosyasini guncelle - 13.08 revalorizasyon yamasi ornektir."
+  } | ConvertTo-Json -Depth 3
+  try { Invoke-RestMethod -Uri "https://api.web3forms.com/submit" -Method Post -ContentType "application/json" -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 30 | Out-Null; Write-Host "Sinyal maili gitti." } catch { Write-Host ("Sinyal maili gitmedi: " + $_.Exception.Message) }
+}
 exit 0
