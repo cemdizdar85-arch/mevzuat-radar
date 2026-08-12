@@ -56,3 +56,10 @@ jobs:
             echo "::error::Yayin kapisi DURDU - yayindaki sorularda ihlal var. veri/yayin-kapisi.json'a bak."
             exit 1
           fi
+      # 13.08 KOR KALMA SIGORTASI (Cem: "haber beklemeden") - kirmizi kosu aninda mail
+      - name: KIRMIZI NOBETCI - dususte Cem'e mail
+        if: failure()
+        shell: pwsh
+        run: |
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE ROBOT KIRMIZI - yayin-kapisi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="yayin-kapisi.yml KIRMIZI bitti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }

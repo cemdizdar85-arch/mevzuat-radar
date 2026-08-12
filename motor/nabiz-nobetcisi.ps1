@@ -155,6 +155,23 @@ VeriKontrol "ihale-yurtici.json"  { param($j)
 } 36 "Yurt ici ihale beslemesi" "kaynak.yml" "Kaynak Nobetcisi"
 
 # ---------------------------------------------------------------------------
+# HAZIR KAYNAK YASLANMASI (13.08 Cem: "acik noktalari kapatalim").
+# Manifestte pdfId=HAZIR olan metinler robotca TAZELENMEZ (indirilemeyen .doc,
+# taranmis PDF vb.) - elle yenilenene kadar sessizce eskir. 180 gunu asan
+# HAZIR metin ALARM'a girer: "kaynagina bak, degisti mi, metni tazele".
+# ---------------------------------------------------------------------------
+try {
+  $man = Get-Content (Join-Path $kok "veri\mevzuat-kaynaklar.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach($k in $man.kanunlar){
+    if("$($k.pdfId)" -ne 'HAZIR'){ continue }
+    $tx = Join-Path $kok ("veri\mevzuat-hazir\" + $k.slug + ".txt")
+    if(-not (Test-Path $tx)){ $kirmizi.Add("HAZIR kaynak dosyasi YOK: $($k.slug) ($($k.ad))"); continue }
+    $yas = ((Get-Date) - (Get-Item $tx).LastWriteTime).TotalDays
+    if($yas -gt 180){ $kirmizi.Add(("HAZIR kaynak {0} gundur tazelenmedi: {1} ({2}) - kaynagini kontrol et, elle yenile" -f [int]$yas, $k.slug, $k.ad)) }
+  }
+} catch { Write-Host "HAZIR yas kontrolu atlandi: $($_.Exception.Message)" }
+
+# ---------------------------------------------------------------------------
 # RAPOR (kor kalma) — her kosuda yazilir; CI always() ile commit'ler.
 # kurtarilan_anahtar: bir SONRAKI yoklamanin eskalasyon tespiti icin.
 # ---------------------------------------------------------------------------

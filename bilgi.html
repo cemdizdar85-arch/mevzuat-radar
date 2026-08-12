@@ -234,13 +234,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <p style="margin:0 0 10px;font-size:12px;color:var(--dim)">Kaynak: Asgari Ücret Tespit Komisyonu 2026 kararı + SGK. İşveren maliyeti hesabı TURMOB. 01.01.2026'dan itibaren.</p>
 
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--green);margin:12px 0 4px">ASGARİ ÜCRET (2026)</div>
-      <div class="satir"><b>Brüt (aylık)</b><span>33.030,00 TL</span></div>
-      <div class="satir"><b>Net (aylık, eline geçen)</b><span>28.075,50 TL</span></div>
-      <div class="satir"><b>Brüt (günlük)</b><span>1.101,00 TL</span></div>
+      <div class="satir"><b>Brüt (aylık)</b><span data-vs="asgariUcret2026.brutAylik">33.030,00 TL</span></div>
+      <div class="satir"><b>Net (aylık, eline geçen)</b><span data-vs="asgariUcret2026.netAylik">28.075,50 TL</span></div>
+      <div class="satir"><b>Brüt (günlük)</b><span data-vs="asgariUcret2026.brutGunluk">1.101,00 TL</span></div>
 
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:12px 0 4px">SGK PRİME ESAS KAZANÇ (SPEK)</div>
-      <div class="satir"><b>Taban (aylık)</b><span>33.030,00 TL (= asgari ücret)</span></div>
-      <div class="satir"><b>Tavan (aylık)</b><span>297.270,00 TL (tabanın 9 katı)</span></div>
+      <div class="satir"><b>Taban (aylık)</b><span><span data-vs="asgariUcret2026.sgkTabanAylik">33.030,00 TL</span> (= asgari ücret)</span></div>
+      <div class="satir"><b>Tavan (aylık)</b><span><span data-vs="asgariUcret2026.sgkTavanAylik">297.270,00 TL</span> (tabanın 9 katı)</span></div>
       <p style="margin:6px 0;font-size:12.5px">Çalışanın brüt maaşı tavanı aşsa da SGK primi tavandan hesaplanır; taban altına da inilemez.</p>
 
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:12px 0 4px">İŞVERENE AYLIK MALİYET (asgari ücretli 1 çalışan)</div>
@@ -282,8 +282,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <p style="margin:0 0 10px;font-size:12px;color:var(--dim)">Kaynak: 1475 s. İş Kanunu m.14 (kıdem) · 4857 s. İş Kanunu m.17 (ihbar) · tavan: Hazine ve Maliye Bakanlığı memur katsayısı (6 ayda bir).</p>
 
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin:12px 0 4px">KIDEM TAZMİNATI YILLIK TAVANI (2026)</div>
-      <div class="satir"><b>01.01–30.06.2026</b><span>64.948,77 TL</span></div>
-      <div class="satir"><b>01.07–31.12.2026 (güncel)</b><span>73.729,87 TL</span></div>
+      <div class="satir"><b>01.01–30.06.2026</b><span data-vs="kidemTazminatiTavani2026.ocakHaziran">64.948,77 TL</span></div>
+      <div class="satir"><b>01.07–31.12.2026 (güncel)</b><span data-vs="kidemTazminatiTavani2026.temmuzAralik">73.729,87 TL</span></div>
       <p style="margin:6px 0">Her tam çalışma yılı için 30 günlük brüt ücret ödenir; ama <b style="color:var(--ink)">tavanı aşan maaşta bile kıdem bu tavandan</b> hesaplanır. Hak etmek için genelde en az <b style="color:var(--ink)">1 yıl</b> çalışma + işverence fesih ya da haklı nedenle istifa (emeklilik, askerlik, kadında evlilikten 1 yıl içinde ayrılma vb.).</p>
 
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:12px 0 4px">İHBAR SÜRELERİ (İş K. m.17, çalışma süresine göre)</div>
@@ -379,6 +379,17 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <script>
 // linkle gelinen kart otomatik açılsın
 if(location.hash){ const d=document.querySelector(location.hash); if(d && d.tagName==='DETAILS'){ d.setAttribute('open',''); d.scrollIntoView({block:'center'}); } }
+// 13.08 (Cem: "açık noktaları kapatalım"): dönemsel rakamlar HTML'e gömülü
+// kalmasın — data-vs işaretli hücreler vergi-sabitleri.json'dan tazelenir.
+// Robot sabiti güncelleyince bu sayfa da kendiliğinden döner; fetch düşerse
+// HTML'deki son doğru değer görünmeye devam eder (kör kalma yok).
+fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(S=>{
+  const tl = n => n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' TL';
+  document.querySelectorAll('[data-vs]').forEach(el=>{
+    const v = el.dataset.vs.split('.').reduce((o,k)=>o&&o[k], S);
+    if(typeof v === 'number') el.textContent = tl(v);
+  });
+}).catch(()=>{});
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
