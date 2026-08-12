@@ -1,7 +1,7 @@
 {
-  "tarih": "12.08.2026 11:39",
+  "tarih": "12.08.2026 22:22",
   "durum": "HATA",
-  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
-  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
-  "satir": 90
+  "hata": "Response status code does not indicate success: 429 (Too Many Requests).",
+  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your API usage limits: your organization has crossed its monthly API usage threshold, set based on your organization\\u0027s API tier. You will regain access on 2026-09-01 at 00:00 UTC.\",\n    \"details\": {\n      \"error_code\": \"enforced_spend_limit_reached\"\n    }\n  },\n  \"request_id\": \"req_011Cdydp5sqJN",
+  "satir": 142
 }
