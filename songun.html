@@ -36,6 +36,16 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 .cta{display:inline-block;background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:12px 24px;border-radius:11px;text-decoration:none;margin-top:8px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 .damga{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);color:var(--green);background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:4px 11px;margin-top:8px}
+/* 13.08 Cem: bloklar akordeonda — bas, acilsin */
+details.kacc{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:0 16px;margin:12px 0}
+details.kacc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:13px 0}
+details.kacc>summary::-webkit-details-marker{display:none}
+details.kacc>summary::after{content:"+";margin-left:8px;color:var(--accent2);font-weight:800;font-size:17px;line-height:1}
+details.kacc[open]>summary::after{content:"–"}
+details.kacc>summary .bas{flex:1;display:flex;justify-content:space-between;align-items:center;margin:0}
+details.kacc>summary .bas h3{margin:0}
+details.kacc>.ic{padding:2px 0 14px}
+details.kacc .blok{border:0;box-shadow:none;margin:0;padding:0;background:transparent}
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -154,6 +164,19 @@ fetch('veri/sgs-analiz.json?'+Date.now()).then(function(r){return r.json();}).th
   topKonu('Muhasebe','konuMuhasebe'); topKonu('Hukuk','konuHukuk'); topKonu('Ekonomi','konuEkonomi');
   topKonu('Matematik-Istatistik','konuMat'); topKonu('Genel Kultur-Genel Yetenek','konuGkyd');
 }).catch(function(){});
+</script>
+<script>
+// 13.08 akordeon katmani (Cem): bloklar tek satirlik basliga iner, dokununca acilir.
+// .bas elementi CANLI tasinir (dakika rozetleri sonradan dolunca ozette gorunur).
+document.querySelectorAll('.blok').forEach(function(b){
+  var bas = b.querySelector('.bas'); if(!bas) return;
+  var d = document.createElement('details'); d.className = 'kacc';
+  var s = document.createElement('summary');
+  b.parentNode.insertBefore(d, b);
+  s.appendChild(bas);
+  var ic = document.createElement('div'); ic.className = 'ic';
+  d.appendChild(s); d.appendChild(ic); ic.appendChild(b);
+});
 </script>
 <script src="menu.js" defer></script>
 </body>
