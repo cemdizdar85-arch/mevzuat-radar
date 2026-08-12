@@ -21,7 +21,9 @@ param(
   [string]$TebligNo,
   [int]$MevzuatNo,
   [switch]$Damgadan,
-  [switch]$Uygula
+  [switch]$Uygula,
+  [switch]$Bekleyenler,  # yururlugu gelmis BEKLEMEDE kayitlari basar (gunluk kosu)
+  [string]$RgTarihi      # PDF'te RG tarihi yoksa elle: "11.07.2026"
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -92,8 +94,63 @@ function OkuyucuB([string]$pdfYol){
   return $m.Value | ConvertFrom-Json
 }
 
+# ---------- YURURLUK ZEKASI (13.08 Cem) ---------------------------------------
+# Degisiklik tebligleri cogu kez "yayimi takip eden otuzuncu gun" yururluge
+# girer. Sinyal yayim GUNU geldigi icin mutabakatta hemen basmak, HENUZ
+# YURURLUKTE OLMAYAN degeri gostermek olur. Kural: tarih coz; gelmediyse
+# BEKLEMEDE kasasina yaz, yururluk gunu bas. COZULEMEZSE basma (temkin).
+function YururlukCoz([string]$pdfYol){
+  $txt = [IO.Path]::ChangeExtension($pdfYol, '.layout.txt')
+  if(-not (Test-Path $txt)){ return $null }
+  $ham = (Get-Content $txt -Raw -Encoding UTF8) -replace '\s+',' '
+  $rgTarih = $null; $cumle = $null
+  # 1) degisiklik dipnotu + tablo damgasi: "(Degisik tablo:RG-11/7/2026-33307)"
+  $mT = [regex]::Match($ham,'\(De[gğ]i[sş]ik[^)]*RG-(\d{1,2})/(\d{1,2})/(\d{4})')
+  $mC = [regex]::Match($ham,'Bu de[gğ]i[sş]iklik[^.]{0,120}y[üu]r[üu]rl[üu][gğ]e girer')
+  if($mT.Success -and $mC.Success){
+    $rgTarih = Get-Date -Year $mT.Groups[3].Value -Month $mT.Groups[2].Value -Day $mT.Groups[1].Value
+    $cumle = $mC.Value
+  } else {
+    # 2) yeni teblig: Yururluk maddesi + "Yayimlandigi Resmi Gazete" tarihi
+    $mC2 = [regex]::Match($ham,'Bu Tebli[gğ][^.]{0,120}y[üu]r[üu]rl[üu][gğ]e girer')
+    $mT2 = [regex]::Match($ham,'Yay[ıi]mland[ıi][gğ][ıi] Resm[îi] Gazete[^0-9]{0,40}(\d{1,2})[./](\d{1,2})[./](\d{4})')
+    if($mC2.Success -and $mT2.Success){
+      $rgTarih = Get-Date -Year $mT2.Groups[3].Value -Month $mT2.Groups[2].Value -Day $mT2.Groups[1].Value
+      $cumle = $mC2.Value
+    } elseif($mC2.Success -and $script:RgTarihi){
+      # PDF'te RG tarih tablosu yok (bazi yeni tebliglerde basilmiyor) - elle verilen tarih
+      $p3 = $script:RgTarihi.Split('.')
+      $rgTarih = Get-Date -Year $p3[2] -Month $p3[1] -Day $p3[0]
+      $cumle = $mC2.Value
+    }
+  }
+  if(-not $cumle){ return $null }
+  # gun farkini coz: rakamli ("30 uncu gun") ya da yazili sira sayisi
+  $gun = $null
+  if($cumle -match 'yay[ıi]m[ıi] tarihinde'){ $gun = 0 }
+  elseif($cumle -match '(\d+)\s*(?:uncu|üncü|inci|ıncı|nci|ncı)?\s*g[üu]n'){ $gun = [int]$Matches[1] }
+  else {
+    $sira = @{ 'birinci'=1;'besinci'=5;'beşinci'=5;'yedinci'=7;'onuncu'=10;'on besinci'=15;'on beşinci'=15;'yirminci'=20;'otuzuncu'=30;'kirk besinci'=45;'kırk beşinci'=45;'altmisinci'=60;'altmışıncı'=60 }
+    foreach($k in $sira.Keys){ if($cumle -match $k){ $gun = $sira[$k]; break } }
+  }
+  if($null -eq $gun){ return $null }
+  return @{ tarih = $rgTarih.AddDays($gun); cumle = $cumle; rg = $rgTarih.ToString('dd.MM.yyyy') }
+}
+
 # ---------- HAKEM + UYGULAMA -------------------------------------------------
 function Normalle([string]$v){ ($v -replace '\s','') }
+
+function YamaUygula([string]$tno,[hashtable]$final,[string]$birim,[string]$kaynak){
+  $yol = Join-Path $kok 'veri\gtip-durum.json'
+  $d = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+  $sonucMap=[ordered]@{}
+  foreach($p in $d.PSObject.Properties){ $kalan=@(@($p.Value)|Where-Object{$_.teblig -ne $tno}); if($kalan.Count){ $sonucMap[$p.Name]=$kalan } }
+  foreach($k in $final.Keys){
+    $kayit=[pscustomobject]@{ deger=("{0} USD/{1}" -f $final[$k], $birim); teblig=$tno; kaynak=$kaynak }
+    if($sonucMap.Contains($k)){ $sonucMap[$k]=@($sonucMap[$k])+$kayit } else { $sonucMap[$k]=@($kayit) }
+  }
+  [IO.File]::WriteAllText($yol, ($sonucMap|ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
+}
 
 function TebligOnar([string]$tno,[int]$mno){
   Write-Host "=== $tno (mevzuatNo $mno) ==="
@@ -125,22 +182,49 @@ function TebligOnar([string]$tno,[int]$mno){
   Write-Host ("MUTABAKAT: {0} satir, birim {1}" -f $final.Count, $birim)
   if(-not $Uygula){ Write-Host "(-Uygula verilmedi: rapor modu)"; Mail "GOZETIM ONARICI MUTABAKAT ($tno) - rapor modu" (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) $birim"}) -join "`n"); return $true }
 
-  # gtip-durum yamasi (13.08 revalorizasyon deseni)
-  $yol = Join-Path $kok 'veri\gtip-durum.json'
-  $d = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
   $kaynak = "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=$mno&MevzuatTur=9&MevzuatTertip=5"
-  $sonucMap=[ordered]@{}
-  foreach($p in $d.PSObject.Properties){ $kalan=@(@($p.Value)|Where-Object{$_.teblig -ne $tno}); if($kalan.Count){ $sonucMap[$p.Name]=$kalan } }
-  foreach($k in $final.Keys){
-    $kayit=[pscustomobject]@{ deger=("{0} USD/{1}" -f $final[$k], $birim); teblig=$tno; kaynak=$kaynak }
-    if($sonucMap.Contains($k)){ $sonucMap[$k]=@($sonucMap[$k])+$kayit } else { $sonucMap[$k]=@($kayit) }
+  # --- YURURLUK KAPISI: tarih gelmeden BASILMAZ ---
+  $y = YururlukCoz $pdf
+  if(-not $y){
+    Mail "GOZETIM ONARICI KIRMIZI ($tno) - yururluk tarihi COZULEMEDI, basilmadi" ("Mutabakat var ama yururluk cumlesi/RG tarihi metinden cikartilamadi (bazi PDF'lerde RG-tarih tablosu basilmiyor). RG tarihini bul ve soyle kostur:`n./motor/gozetim-onarici.ps1 -TebligNo '$tno' -MevzuatNo $mno -RgTarihi 'GG.AA.YYYY' -Uygula")
+    Write-Host "YURURLUK COZULEMEDI - temkin: basilmadi."; return $false
   }
-  [IO.File]::WriteAllText($yol, ($sonucMap|ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($false)))
-  Mail "GOZETIM ONARICI DEGISTIRDIM ($tno)" ("Iki bagimsiz okuma BIREBIR ayni cikti; gtip-durum guncellendi:`n" + (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) USD/$birim"}) -join "`n"))
+  Write-Host ("Yururluk: {0} (RG {1}; '{2}')" -f $y.tarih.ToString('dd.MM.yyyy'), $y.rg, $y.cumle)
+  if((Get-Date).Date -lt $y.tarih.Date){
+    # BEKLEMEDE kasasina yaz - yururluk gunu gunluk kosu (-Bekleyenler) basar
+    $bYol = Join-Path $kok 'veri\gozetim-bekleyen.json'
+    $bek = if(Test-Path $bYol){ Get-Content $bYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { @() }
+    $bek = @($bek | Where-Object { $_.teblig -ne $tno })
+    $bek += [pscustomobject]@{ teblig=$tno; yururluk=$y.tarih.ToString('yyyy-MM-dd'); birim=$birim; kaynak=$kaynak; satirlar=[pscustomobject]$final; kayitTarihi=(Get-Date).ToString('yyyy-MM-dd') }
+    [IO.File]::WriteAllText($bYol, (ConvertTo-Json @($bek) -Depth 6), (New-Object Text.UTF8Encoding($false)))
+    Mail "GOZETIM ONARICI BEKLEMEDE ($tno) - yururluk $($y.tarih.ToString('dd.MM.yyyy'))" ("Iki okuma BIREBIR ayni; ama degisiklik henuz yururlukte degil (RG $($y.rg) + '$($y.cumle)').`nO gun OTOMATIK basilacak. Satirlar:`n" + (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) USD/$birim"}) -join "`n"))
+    Write-Host "BEKLEMEDE: yururluk gunu basilacak."; return $true
+  }
+  YamaUygula $tno $final $birim $kaynak
+  Mail "GOZETIM ONARICI DEGISTIRDIM ($tno)" ("Iki bagimsiz okuma BIREBIR ayni cikti (yururluk $($y.tarih.ToString('dd.MM.yyyy')) gecmis); gtip-durum guncellendi:`n" + (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) USD/$birim"}) -join "`n"))
   Write-Host "UYGULANDI + mail gitti."; return $true
 }
 
+# ---------- BEKLEYENLERI BAS (gunluk, anahtarsiz) ------------------------------
+function BekleyenleriBas(){
+  $bYol = Join-Path $kok 'veri\gozetim-bekleyen.json'
+  if(-not (Test-Path $bYol)){ Write-Host "bekleyen yok."; return $true }
+  $bek = @(Get-Content $bYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+  $kalan=@(); $basilan=0
+  foreach($b in $bek){
+    if((Get-Date).Date -lt ([datetime]$b.yururluk).Date){ $kalan += $b; continue }
+    $final=@{}; foreach($p in $b.satirlar.PSObject.Properties){ $final[$p.Name]=$p.Value }
+    YamaUygula $b.teblig $final $b.birim $b.kaynak
+    Mail "GOZETIM ONARICI DEGISTIRDIM ($($b.teblig)) - yururluk gunu geldi" ("$($b.yururluk) yururluk tarihi geldi; $($b.kayitTarihi)'de iki okumayla mutabik kalinan satirlar basildi:`n" + (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) USD/$($b.birim)"}) -join "`n"))
+    Write-Host ("BASILDI (yururluk): {0}" -f $b.teblig); $basilan++
+  }
+  [IO.File]::WriteAllText($bYol, (ConvertTo-Json @($kalan) -Depth 6), (New-Object Text.UTF8Encoding($false)))
+  Write-Host ("bekleyen: basilan={0} kalan={1}" -f $basilan, $kalan.Count)
+  return $true
+}
+
 # ---------- GIRIS -------------------------------------------------------------
+if($Bekleyenler){ if(BekleyenleriBas){ exit 0 } else { exit 1 } }
 $isler=@()
 if($Damgadan){
   $t = Get-Content (Join-Path $kok 'veri\teblig-damga.json') -Raw -Encoding UTF8 | ConvertFrom-Json

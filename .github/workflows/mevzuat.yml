@@ -236,6 +236,20 @@ jobs:
           Write-Host ""
           Write-Host "Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz. Ayrinti: veri/dayanak-uyari.json"
           exit 1
+      # 13.08 YURURLUK ZEKASI: mutabakatli ama yururlugu gelmemis degisiklikler
+      # veri/gozetim-bekleyen.json'da bekler; her gun bu adim yururlugu gelen
+      # kaydi basar, commit'ler, "DEGISTIRDIM" maili onaricinin icinden gider.
+      - name: Gozetim BEKLEYENLERI bas (yururluk gunu geldiyse)
+        if: always()
+        shell: pwsh
+        run: |
+          try { ./motor/gozetim-onarici.ps1 -Bekleyenler } catch { Write-Host "bekleyen-bas: $($_.Exception.Message)" }
+          git config user.name "mevzuat-radar-bot"; git config user.email "bot@users.noreply.github.com"
+          git add veri/gtip-durum.json veri/gozetim-bekleyen.json 2>$null
+          if(git status --porcelain veri/gtip-durum.json veri/gozetim-bekleyen.json){
+            git commit -m "gozetim: yururluk gunu gelen mutabakatli degisiklik basildi [veri-operasyonu]"
+            git pull --rebase; git push
+          }
       - name: KAPI — gozetim tebligi degisti mi
         if: always()
         shell: pwsh
