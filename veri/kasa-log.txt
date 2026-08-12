@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260811024907
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+Start time: 20260812030805
+Username: runnervmzvulz\runner
+RunAs User: runnervmzvulz\runner
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8a89ae0a-f92f-47cf-b306-3f67453f221a.ps1'
-Process ID: 2155
-PSVersion: 7.6.3
+Machine: runnervmzvulz (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d5483b0e-02e0-4320-9557-4e186a2e7461.ps1'
+Process ID: 2190
+PSVersion: 7.6.4
 PSEdition: Core
-GitCommitId: 7.6.3
+GitCommitId: 7.6.4
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -107,9 +107,9 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       156x  Finansal Muhasebe|supheli alacak karsiligi
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
-      113x  Finansal Muhasebe|amortisman ayirma
-      113x  Finansal Muhasebe|gider yansitma kaydi
       113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
+      113x  Finansal Muhasebe|gider yansitma kaydi
+      113x  Finansal Muhasebe|amortisman ayirma
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
        95x  Finansal Muhasebe|hisse senedi satisi
 
@@ -177,5 +177,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260811025005
+End time: 20260812030930
 **********************
