@@ -621,8 +621,13 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
   if(CEVAP.ortak==='ortakli' && !stoklu && CEVAP.risk==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
+    // genc notu ayri degiskende kurulur: ternary ici tek tirnakta ${} calismaz,
+    // '' ise dizgiyi KAPATIR (12.08 sozdizimi dersi - sayfa komple kirilmisti)
+    const gencAdiNot = (CEVAP.genc==='evet')
+      ? ` <b style="color:var(--green)">Senin için kritik bir artı:</b> genç girişimci istisnası adi ortaklıkta da işler — ama <b style="color:var(--ink)">TÜM ortakların</b> 29 yaş altı ve ilk kez mükellef olma şartlarını taşıması gerekir (GVK mük. m.20/3); bir ortak bile şartı bozarsa istisna kimseye uygulanmaz. Ortağın da şartları tutuyorsa her ortağın yıllık ${SABIT ? TLf(SABIT.gencIstisnaTutar) : ''} TL'ye kadar kazancı vergisiz olur — LTD kursaydınız ikiniz de kaybederdiniz.`
+      : ` Not: ortaklar genç girişimci şartlarını (29 yaş altı + ilk mükellefiyet) hep birlikte taşıyorsa istisna adi ortaklıkta da işler (GVK mük. m.20/3).`;
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
-      🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b> — ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.</div>`;
+      🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b> — ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.${gencAdiNot}</div>`;
   }
   // ESNAF MUAFLIĞI — çok küçük ölçek işareti varsa tek satırlık farkındalık
   if(kazanan==='sahis' && CEVAP.istur==='esnaf' && CEVAP.ciro!=='yuksek' && SABIT && kar>0 && kar <= SABIT.gvDilimler[0][0]){
