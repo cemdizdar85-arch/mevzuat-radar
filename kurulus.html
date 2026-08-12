@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hangi şirketi kurmalısın? Şahıs, limited, anonim — 9 soruda sana özel öneri | Tetikte</title>
-<meta name="description" content="Şahıs mı, limited mi, anonim mi? 9 soruya cevap ver; sana uygun şirket türünü senin rakamlarınla vergi kıyası yaparak, gerekçesi ve adım adım kuruluş yoluyla söyleyelim.">
+<title>Hangi şirketi kurmalısın? Şahıs, limited, anonim — 10 soruda sana özel öneri | Tetikte</title>
+<meta name="description" content="Şahıs mı, limited mi, anonim mi? 10 soruya cevap ver; sana uygun şirket türünü senin rakamlarınla vergi kıyası yaparak, gerekçesi ve adım adım kuruluş yoluyla söyleyelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -68,10 +68,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="destekler.html">Destek Radarı</a> · <a href="bilgi.html">Bilgi Havuzu</a> · Şirket Kuruluşu</div>
   <h1>Hangi şirketi kurmalısın?</h1>
-  <p class="lead">Bu karar <b style="color:var(--ink)">her yıl ödeyeceğin vergiyi, sigortanı ve şirketi bir gün satarsan cebinde kalacak parayı</b> belirler. Ve çoğu kişi onu 5 dakikada, yanlış kurar. Biz liste vermeyiz: <b style="color:var(--ink)">9 soru, 1 dakika</b> — sana uygun türü senin rakamlarınla vergi hesabı yaparak, gerekçesiyle söyleriz.</p>
+  <p class="lead">Bu karar <b style="color:var(--ink)">her yıl ödeyeceğin vergiyi, sigortanı ve şirketi bir gün satarsan cebinde kalacak parayı</b> belirler. Ve çoğu kişi onu 5 dakikada, yanlış kurar. Biz liste vermeyiz: <b style="color:var(--ink)">10 soru, 1 dakika</b> — sana uygun türü senin rakamlarınla vergi hesabı yaparak, gerekçesiyle söyleriz.</p>
 
   <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
-    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 9 soruda söyleyelim</h3>
+    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 10 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim; diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
     <div class="soru acik" data-k="ortak">
       <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
@@ -96,29 +96,38 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         <button class="sbtn kck" data-v="esnaf">Küçük esnaf hizmeti: dükkân, servis, tamir, kuaför</button>
       </div>
     </div>
-    <div class="soru" data-k="risk">
-      <b style="font-size:14px">4. Borçlanma ya da çalışan olacak mı?</b>
+    <!-- 12.08 Cem (3. itiraz): borç ve çalışan BAĞIMSIZ iki gerçek — tek şıka
+         sıkıştırınca "hem kredi hem çalışan" seçilemiyordu, "tek başıma" da
+         ortaklı kurana ters düşüyordu. İki ayrı evet/hayır sorusuna bölündü. -->
+    <div class="soru" data-k="borc">
+      <b style="font-size:14px">4. Kredi, çek ya da borçlanma kullanacak mısın?</b>
       <div class="sec" style="margin:8px 0 14px">
-        <button class="sbtn kck" data-v="borc">Kredi / çek kullanacağım</button>
-        <button class="sbtn kck" data-v="ekip">Borç yok ama çalışanım olacak</button>
-        <button class="sbtn kck" data-v="hayir">İkisi de yok: tek başıma, borçsuz</button>
+        <button class="sbtn kck" data-v="evet">Evet — kredi / çek / vadeli borç olacak</button>
+        <button class="sbtn kck" data-v="hayir">Hayır — borçsuz yürüteceğim</button>
+      </div>
+    </div>
+    <div class="soru" data-k="calisan">
+      <b style="font-size:14px">5. Çalışanın olacak mı?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="evet">Evet — işçi çalıştıracağım</button>
+        <button class="sbtn kck" data-v="hayir">Hayır — çalışan yok</button>
       </div>
     </div>
     <div class="soru" data-k="ciro">
-      <b style="font-size:14px">5. İlk yıl SATIŞ (ciro) beklentin hangi tarafta?</b>
+      <b style="font-size:14px">6. İlk yıl SATIŞ (ciro) beklentin hangi tarafta?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="dusuk"><span class="ciroHad">3,5 milyon TL</span>'nin altında</button>
         <button class="sbtn kck" data-v="yuksek"><span class="ciroHad">3,5 milyon TL</span> ve üzeri</button>
       </div>
     </div>
     <div class="soru" data-k="_kar">
-      <b style="font-size:14px">6. Peki bu satıştan yıl sonunda elinde ne kalır, hedeflediğin net KÂR nedir? (ciro değil, kâr)</b>
+      <b style="font-size:14px">7. Peki bu satıştan yıl sonunda elinde ne kalır, hedeflediğin net KÂR nedir? (ciro değil, kâr)</b>
       <div class="ara" style="margin:8px 0 14px">
         <input id="karInput" placeholder="ör. 1.500.000 (TL)" inputmode="numeric" autocomplete="off" style="font-size:15px;padding:11px 13px">
       </div>
     </div>
     <div class="soru" data-k="cek">
-      <b style="font-size:14px">7. Kazandığın kârı ne yapacaksın?</b>
+      <b style="font-size:14px">8. Kazandığın kârı ne yapacaksın?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="cek">Her yıl cebime çekeceğim</button>
         <button class="sbtn kck" data-v="birak">Şirkette bırakıp büyüteceğim</button>
@@ -126,7 +135,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       </div>
     </div>
     <div class="soru" data-k="satis">
-      <b style="font-size:14px">8. İleride şirketi satmayı ya da yatırımcı almayı düşünüyor musun?</b>
+      <b style="font-size:14px">9. İleride şirketi satmayı ya da yatırımcı almayı düşünüyor musun?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="evet">Evet, planım var</button>
         <button class="sbtn kck" data-v="belki">Belki, bilmiyorum</button>
@@ -134,7 +143,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       </div>
     </div>
     <div class="soru" data-k="sermaye">
-      <b style="font-size:14px">9. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
+      <b style="font-size:14px">10. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="dusuk">Asgari düzeyde başlamak istiyorum</button>
         <button class="sbtn kck" data-v="orta"><span data-sabit="ltd">50.000</span> TL'yi ayırabilirim</button>
@@ -404,7 +413,7 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
 // ---- AŞAMALI AKIŞ (12.08 Cem: "önce bilgileri al, bölümler sırayla açılsın") ----
 // Sorular cevaplandıkça sıradaki açılır; hepsi bitince öneri düğmesi belirir.
 // Motor değişmedi: oner() CEVAP'ı okur, görünürlük yalnız sunumdur.
-const AKIS_SIRA = ['ortak','genc','istur','risk','ciro','_kar','cek','satis','sermaye'];
+const AKIS_SIRA = ['ortak','genc','istur','borc','calisan','ciro','_kar','cek','satis','sermaye'];
 function akisCevapli(k){
   if(k==='_kar'){ const ki=document.getElementById('karInput'); return !!(ki && (ki.value||'').replace(/[^\d]/g,'')); }
   return !!CEVAP[k];
@@ -445,7 +454,7 @@ akisIlerle();
 
 function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus')) return;
   const out = document.getElementById('oneri');
-  const gerekli = ['ortak','satis','sermaye','istur','risk','genc','cek','ciro'];
+  const gerekli = ['ortak','satis','sermaye','istur','borc','calisan','genc','cek','ciro'];
   // 12.08 Cem: eski soru 3 "borclanma/stok/calisan" uc kavrami tek soruya sikistiriyordu
   // ve CALISAN basit usulu kapatir gibi davraniyordu - oysa GVK m.47/1: "yardimci isci
   // ve cirak kullanmak bu sarti bozmaz". Artik is TURU ile borc/ekip YUKU ayri sorulur.
@@ -455,7 +464,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   const stoklu = (CEVAP.istur==='ticaret' || CEVAP.istur==='imalat');
   // 12.08 Cem: kredi ile calisan ayni sikta duramaz - borclanma sert sorumluluk
   // riski, calisan ise isveren yuku. Ayri sinyaller, ayri sonuclar.
-  const riskYuksek = (stoklu || CEVAP.risk==='borc');
+  const riskYuksek = (stoklu || CEVAP.borc==='evet');
   const eksik = gerekli.filter(k=>!CEVAP[k]);
   const kar = parseInt((document.getElementById('karInput').value||'').replace(/[^\d]/g,''),10) || 0;
   if(eksik.length || !kar){ out.innerHTML = `<p style="color:var(--red);font-size:13.5px;margin:12px 0 0">Bir saniye — ${eksik.length ? eksik.length + ' soru cevapsız' : ''}${eksik.length && !kar ? ' ve ' : ''}${!kar ? 'kâr hedefi boş' : ''}. Hepsini doldur, öneri ona göre şekillenecek.</p>`; return; }
@@ -496,7 +505,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   if(riskYuksek){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok riski taşıyan işte sınırlı sorumluluk şart — şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
   // Calisan (borcsuz): sert risk sayilmaz ama isveren yuku ve SGK yukumlulukleri
   // sirket disiplinini bir tik one cikarir.
-  if(CEVAP.risk==='ekip'){ p.ltd+=1; }
+  if(CEVAP.calisan==='evet'){ p.ltd+=1; }
 
   // İMALATÇI — uzun vadeli oran farkı (12.08 Cem: "üretim yapanın 2027 oranı düştü,
   // al-satla aynı yere koymak olmaz"). Şahıs imalatçı bu orandan yararlanamaz.
@@ -606,7 +615,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
   // borçlu şahıs uyarısı (12.08): borç/çek seçilip öneri yine şahıs çıktıysa
   // sorumluluk uyarısı LTD gerekçesinde saklı kalıyordu — artık açıkça gösterilir.
-  if(CEVAP.risk==='borc' && kazanan==='sahis'){
+  if(CEVAP.borc==='evet' && kazanan==='sahis'){
     uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
       ⚠ <b style="color:var(--amber)">Kredi/çek uyarısı:</b> genel denge şahıs işletmesini gösteriyor ama unutma — şahısta işletme borcu ile kişisel malvarlığın arasında duvar yok; kredi ve çek yükümlülüklerinden <b style="color:var(--ink)">evin-araban dahil tüm malvarlığınla</b> sorumlusun. Borçlanma büyüyecekse LTD'nin sınırlı sorumluluk kalkanını (vergi/SGK borçları istisnasıyla — 6183 mük. m.35) yeniden düşün; borcu küçük ve kısa vadeli tutacaksan şahıs makul kalır.</div>`;
   }
@@ -668,13 +677,13 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
   // İŞVEREN MALİYETİ — soru 4'te "çalışanım olacak" diyene, sabitlerden (12.08:
   // kredi/calisan ayrimi Cem istegi; calisan = risk degil YUK, rakamla gosterilir)
-  if(CEVAP.risk==='ekip' && SABIT && SABIT.asgariUcret2026){
+  if(CEVAP.calisan==='evet' && SABIT && SABIT.asgariUcret2026){
     const au = SABIT.asgariUcret2026;
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
       👷 <b style="color:var(--ink)">Çalışan planına bir rakam koyalım:</b> ${SABIT.yil}'da asgari ücretli bir çalışanın sana aylık maliyeti <b style="color:var(--ink)">~${TLf(au.isverenMaliyetiTesviksiz)} TL</b> (brüt ${TLf(au.brutAylik)} + işveren SGK payı; asgari ücret desteği ${TLf(au.asgariUcretDestegiAylik)} TL düşülmeden). Bu yük tür seçiminden bağımsızdır — şahısta da şirkette de aynı ödenir; fark şu: işçilik ve SGK borçları da işletme borcudur, şahısta bunlardan tüm malvarlığınla sorumlusun. Kaynak: Asgari Ücret Tespit Komisyonu ${SABIT.yil} + SGK.</div>`;
   }
   // ADİ ORTAKLIK — ortaklı ama küçük ölçekli, satış planı olmayan işler
-  if(CEVAP.ortak==='ortakli' && !stoklu && CEVAP.risk==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
+  if(CEVAP.ortak==='ortakli' && !stoklu && CEVAP.borc==='hayir' && CEVAP.ciro!=='yuksek' && CEVAP.satis!=='evet'){
     // genc notu ayri degiskende kurulur: ternary ici tek tirnakta ${} calismaz,
     // '' ise dizgiyi KAPATIR (12.08 sozdizimi dersi - sayfa komple kirilmisti)
     const gencAdiNot = (CEVAP.genc==='evet')
@@ -727,7 +736,7 @@ function oneriGonder(tur){
     email: mail,
     'Önerilen tür': AD[tur],
     'Ortaklık': CEVAP.ortak||'', 'Satış/yatırım planı': CEVAP.satis||'',
-    'Sermaye bandı': CEVAP.sermaye||'', 'İş türü': CEVAP.istur||'', 'Borç/ekip': CEVAP.risk||'', 'Genç girişimci': CEVAP.genc||'',
+    'Sermaye bandı': CEVAP.sermaye||'', 'İş türü': CEVAP.istur||'', 'Borç': CEVAP.borc||'', 'Çalışan': CEVAP.calisan||'', 'Genç girişimci': CEVAP.genc||'',
     'Kâr hedefi (TL)': (document.getElementById('karInput').value||'').replace(/[^\d]/g,''),
     'Kâr politikası': CEVAP.cek||'',
     'Ciro beklentisi': CEVAP.ciro||'',
