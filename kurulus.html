@@ -87,7 +87,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <b style="font-size:14px">3. Ne iş yapacaksın: borçlanma, stok, çalışan olacak mı?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="yuksek">Evet: alım satım / üretim / ekip</button>
-        <button class="sbtn kck" data-v="dusuk">Hayır: hizmet / danışmanlık / tek kişilik</button>
+        <button class="sbtn kck" data-v="meslek">Hayır — uzmanlığa dayalı iş: danışmanlık, yazılım, tasarım, mühendislik</button>
+        <button class="sbtn kck" data-v="dusuk">Hayır — küçük esnaf işi: dükkân, servis, tamir, kuaför</button>
       </div>
     </div>
     <div class="soru" data-k="ciro">
@@ -173,6 +174,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <span>E-postamın bilgilendirme amacıyla işlenmesine izin veriyorum. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></span>
     </label>
     <p id="takipSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
+  </div>
+
+  <div style="margin-top:26px;padding:14px 16px;border:1px solid rgba(255,194,75,.3);border-left:4px solid var(--amber);border-radius:12px;background:rgba(255,194,75,.05)">
+    <h2 style="font-size:16px;margin:0 0 8px">👩‍💼 Kadın girişimci misin? Net konuşalım</h2>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 8px">Önce piyasadaki yanlışı düzeltelim: <b style="color:var(--ink)">vergi kanununda "kadınlara özel" ayrı bir kazanç istisnası bugün yok</b> — genç girişimci istisnası da (GVK mük. m.20) cinsiyetten bağımsızdır, 29 yaş altı herkese işler. Kadın girişimciye gerçekten dokunan iki kapı şunlar:</p>
+    <div class="satir"><b>Ev üretimi muaflığı</b><span>Evde üretilen ürünleri (örgü, dantel, tarhana, erişte, turistik eşya…) işyeri açmadan satanlar <b>esnaf muaflığından</b> yararlanır — hiç mükellefiyet açmadan (GVK m.9). Metin herkese açıktır ama uygulamada bu kapıyı en çok kadın girişimciler kullanır. İnternetten satışta sınır: yıllık satış, o yıl geçerli <b>brüt asgari ücretin yıllık tutarını</b> aşmamalı; muafiyet için bankadan tahsilat ve vergi dairesinden muafiyet belgesi düzenine uyulur.</span></div>
+    <div class="satir"><b>Destek programları</b><span>Kadına özel avantajlar vergiden değil <b>destek programlarından</b> gelir: KOSGEB'in girişimci desteklerinde kadınlara artırılmış oran/öncelik, kamu bankalarının kadın girişimci kredileri, kadın kooperatiflerine Ticaret Bakanlığı destekleri. Bunlar dönemsel değişir — tutar yazmıyoruz; kuruluştan önce güncel çağrıyı KOSGEB ve bankandan teyit et.</span></div>
+    <p style="font-size:11.5px;color:var(--dim);margin:8px 0 0">İşçi alacak işverenlere yönelik kadın istihdamı SGK teşvikleri de zaman zaman uygulanır; süreleri sık değiştiği için burada tutar/oran vermiyoruz — çalışan alma aşamasına gelince muhasebecinle güncel teşvik listesine bak.</p>
   </div>
 
   <div style="margin-top:26px">
@@ -490,14 +499,16 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   // ---- ALTERNATİF YOLLAR (12.08): öneri motoru 3 ana türü kıyaslar; bu kutular
   // ana öneriyi değiştirmez, şartı tutan adaya bilmediği kapıyı gösterir. ----
   let altYolHtml = '';
-  // BASİT USUL — şahıs önerilen, düşük riskli/düşük cirolu küçük işlerde
-  if(kazanan==='sahis' && CEVAP.risk!=='yuksek' && CEVAP.ciro!=='yuksek' && SABIT && SABIT.basitUsul){
+  // BASİT USUL — şahıs önerilen KÜÇÜK ESNAF işlerinde (uzmanlık/serbest meslek işi
+  // basit usule giremez — o yüzden yalnız 'dusuk' şıkkında gösterilir)
+  if(kazanan==='sahis' && CEVAP.risk==='dusuk' && CEVAP.ciro!=='yuksek' && SABIT && SABIT.basitUsul){
     const bu = SABIT.basitUsul;
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(61,220,151,.35);border-left:4px solid var(--green);border-radius:11px;background:rgba(61,220,151,.05);font-size:13px;color:var(--muted)">
       🌱 <b style="color:var(--green)">Bir kapı daha: basit usul.</b> Şahıs işletmesinin bir de küçük esnaf hâli var ve 2021'den beri en büyük kozu şu: <b style="color:var(--ink)">basit usulde tespit edilen kazanç gelir vergisinden istisna</b> (GVK mük. m.20/A) — yıllık beyanname de verilmez. Şartları (GVK m.47-48): kendi işinde bilfiil çalışmak; işyeri yıllık kirasının büyükşehirde ${TLf(bu.kiraHaddiBuyuksehir)} TL'yi, diğer yerlerde ${TLf(bu.kiraHaddiDiger)} TL'yi aşmaması; yıllık alımların ${TLf(bu.alimHaddi)} TL'yi ya da satışların ${TLf(bu.satisHaddi)} TL'yi (hizmet işinde hasılatın ${TLf(bu.hasilatHaddi)} TL'yi) aşmaması. Bazı faaliyetler kapsam dışıdır (GVK m.51) ve hadler her yıl değişir — <b style="color:var(--ink)">şartları muhasebecinle teyit et</b>; tutuyorsa bu, listedeki en düşük vergili başlangıçtır.</div>`;
   }
-  // SERBEST MESLEK — tek başına, mesleki bilgiye dayalı hizmet işi
-  if(kazanan==='sahis' && CEVAP.ortak==='tek' && CEVAP.risk!=='yuksek'){
+  // SERBEST MESLEK — soru 3'te 'uzmanlığa dayalı iş' seçilmişse (12.08: Cem
+  // isteğiyle danışmanlık esnaf şıkkından ayrıldı; kutu artık hedefli çıkar)
+  if(kazanan==='sahis' && CEVAP.ortak==='tek' && CEVAP.risk==='meslek'){
     altYolHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;font-size:13px;color:var(--muted)">
       🎓 <b style="color:var(--ink)">İşin mesleki bilgiye mi dayanıyor?</b> Danışmanlık, yazılım, mimarlık, mali müşavirlik gibi sermayeden çok <b style="color:var(--ink)">şahsi mesaiye ve uzmanlığa</b> dayanan işler vergide "ticari kazanç" değil <b style="color:var(--ink)">serbest meslek kazancı</b>dır (GVK m.65-66): şirket kurmadan serbest meslek mükellefiyeti açar, e-SMM (serbest meslek makbuzu) ile çalışırsın; genç girişimci istisnası burada da işler. Hangi tarafa düştüğün faaliyetin niteliğine bakılarak belirlenir — vergi dairesi/muhasebeci ile netleştir.</div>`;
   }
@@ -507,7 +518,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
       🤝 <b style="color:var(--ink)">Küçük ölçekte üçüncü yol: adi ortaklık.</b> Şirket kurmadan iki (veya daha çok) kişinin emeğini ve parasını birleştirdiği sözleşmeye dayalı yapı (TBK m.620 vd.): kuruluş masrafı ve asgari sermaye yok, her ortak kendi payının gelir vergisini kendi öder. Bedeli de açık: <b style="color:var(--ink)">tüzel kişilik yok, ortaklar tüm borçlardan sınırsız ve birlikte sorumlu</b> — ortağının imzası senin cebini bağlar. Deneme aşamasındaki düşük riskli işler için ucuz bir başlangıç; iş büyüyünce LTD'ye geçilir.</div>`;
   }
   // ESNAF MUAFLIĞI — çok küçük ölçek işareti varsa tek satırlık farkındalık
-  if(kazanan==='sahis' && CEVAP.ciro!=='yuksek' && SABIT && kar>0 && kar <= SABIT.gvDilimler[0][0]){
+  if(kazanan==='sahis' && CEVAP.risk==='dusuk' && CEVAP.ciro!=='yuksek' && SABIT && kar>0 && kar <= SABIT.gvDilimler[0][0]){
     altYolHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Ölçeğin gerçekten küçükse bir ihtimal daha var: bazı faaliyetlerde (işyeri açmadan seyyar çalışma, evde üretilen ürünlerin satışı gibi) <b>esnaf muaflığı</b> (GVK m.9) hiç mükellefiyet açmadan çalışmayı mümkün kılar — şartları dar ve faaliyete bağlıdır, vergi dairesinden/muhasebecinden teyit almadan bu yola girme.</div>`;
   }
 
