@@ -56,13 +56,13 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a><span>›</span><span>Ar-Ge Kapısı Hesabı</span></div>
 
   <h1>Ar-Ge Kapısı Hesabı</h1>
-  <p class="lead">Ar-Ge yapan işletmenin önünde üç kapı var: <b style="color:var(--ink)">Ar-Ge/Tasarım Merkezi (5746)</b>, <b style="color:var(--ink)">Teknokent (4691)</b>, <b style="color:var(--ink)">TÜBİTAK projesi</b>. Kanun gereği <b style="color:var(--ink)">aynı anda hepsinden yararlanamazsın</b> (5746 m.4/5) — ekibini ve rakamlarını gir, hangi kapının sana yılda kaç TL bıraktığını yan yana gör.</p>
+  <p class="lead">Ar-Ge yapan işletmenin önünde üç kapı var: <b style="color:var(--ink)">Ar-Ge/Tasarım Merkezi (5746)</b>, <b style="color:var(--ink)">Teknokent (4691)</b>, <b style="color:var(--ink)">TÜBİTAK projesi</b>. Kanun gereği <b style="color:var(--ink)">aynı kazanç ve harcama için bu teşvikler birlikte kullanılamaz</b> (5746 m.4/5) — ekibini ve rakamlarını gir, hangi kapının sana yılda kaç TL bıraktığını yan yana gör.</p>
   <div class="sayac">⏳ İki rejimin de kanuni süresi <b id="gun">—</b> gün sonra doluyor (31.12.2028 — 5746 m.6 ve 4691 geç. m.2; uzatma çıkmazsa)</div>
 
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px" class="g3s">
     <div class="kutu" style="margin:0;padding:14px 16px">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">KAPI 1 · AR-GE/TASARIM MERKEZİ</div>
-      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> sermaye şirketi + şirket içinde ayrı birim + en az <b style="color:var(--ink)">15 tam zaman eşdeğer Ar-Ge personeli</b> (2016/9093 s. Karar, RG 11.08.2016; motorlu kara taşıtı imalatı ile hava-uzay/askerî araç/motosiklet imalatında 30; tasarım merkezinde 10). Belgeyi Sanayi ve Teknoloji Bakanlığı verir.</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> sermaye şirketi + şirket içinde ayrı birim + en az <b style="color:var(--ink)">15 tam zaman eşdeğer Ar-Ge personeli</b> (2016/9093 s. Karar, RG 11.08.2016; motorlu kara taşıtı imalatı ile hava-uzay/askerî araç/motosiklet imalatında 30 — TZE, üçer aylık ortalamayla ölçülür m.4/3). Tasarım merkezinde eşik 10 (kanuni, m.2). Belgeyi Sanayi ve Teknoloji Bakanlığı verir.</div>
       <div style="font-size:12.5px;color:var(--green);margin-top:6px"><b>Getirisi:</b> harcamanın %100'ü vergi matrahından düşer + personel vergisinin %80-95'i sana kalır + SGK işveren payının yarısı devletten.</div>
     </div>
     <div class="kutu" style="margin:0;padding:14px 16px">
@@ -178,12 +178,14 @@ function kisiHesap(brutAy,teskinOran){ // bir kişinin YILLIK stopaj terkini + S
   const kirkKat=40*AU;
   const tesvikBrut=Math.min(brutAy,kirkKat);          // 40 kat sınırı (m.3/2, geç.m.2)
   const spek=Math.min(brutAy,TAVAN);                   // SGK tavanı (5510 m.82)
-  const gvMatrahAy=tesvikBrut-Math.min(tesvikBrut,TAVAN)*0.15; // işçi kesintisi %15 matrahtan düşer
+  const isciOran=(S.sgkOranlar&&S.sgkOranlar.isciToplam)?S.sgkOranlar.isciToplam/100:0.15;
+  const gvMatrahAy=tesvikBrut-Math.min(tesvikBrut,TAVAN)*isciOran; // işçi kesintisi matrahtan düşer
   const auMatrahYil=AU*12*0.85;
   const auVergi=gvYillik(auMatrahYil);                 // asgari ücret istisnasına isabet eden vergi
   const kisiVergi=Math.max(0,gvYillik(gvMatrahAy*12)-auVergi);
   const terkin=kisiVergi*teskinOran;
-  const sgkYari=spek*0.2175*12/2;                      // 5510 işveren hissesi (12+7,5+2,25)=%21,75'in yarısı (5746 m.3/3)
+  const isv5510=(S.sgkOranlar&&S.sgkOranlar.isveren5510)?S.sgkOranlar.isveren5510/100:0.2175; // sabitlerden; 7566 dersi: orana JS'te gömülü kalma
+  const sgkYari=spek*isv5510*12/2;                     // 5510 işveren hissesinin yarısı (5746 m.3/3)
   return {terkin,sgkYari};
 }
 function ekipHesap(teskinMap){
@@ -220,9 +222,11 @@ $('hesapla').addEventListener('click',()=>{
   const tKv=Math.max(kazanc,0)*kv;
   const tToplam=t.terkin+t.sgk+tKv;
 
-  // KAPI 3 — TÜBİTAK: personel teşvikleri merkez oranlarıyla (yalnız proje personeli) + hibe ayrıca
+  // KAPI 3 — TÜBİTAK: personel teşvikleri merkez oranlarıyla (yalnız proje personeli)
+  // + m.3/1: kamu destekli projenin harcaması da %100 indirime tabidir (merkez şartı YOK;
+  // hibeyle karşılanan kısım m.3/7 gereği indirime girmez) + hibe AYRICA (denetçi bulgusu 13.08)
   const p=ekipHesap({dr:0.95,yl:0.90,dg:0.80});
-  const pToplam=p.terkin+p.sgk;
+  const pToplam=p.terkin+p.sgk+mKvBuYil;
 
   // merkez personel eşiği: 15 TZE (2016/9093 s. Karar; taşıt/havacılık-savunma imalatında 30,
   // tasarım merkezinde 10) — eşiğin altındaki ekip için "önde" rozeti GİRİLEBİLİR kapılardan verilir
@@ -235,7 +239,7 @@ $('hesapla').addEventListener('click',()=>{
   const kartlar=[
     {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı',uyari:merkezEsikAlti?('ekibin '+kisiSay+' kişi — eşik en az 15 tam zaman eşdeğer Ar-Ge personeli (2016/9093 s. Karar; taşıt/havacılık-savunma imalatında 30, tasarım merkezinde 10). Eşiğe ulaşmadan bu kapı açılmaz.'):(kisiSay<30?'Not: sektörün motorlu taşıt ya da hava-uzay/askerî araç imalatıysa eşik 30 kişidir (2016/9093).':null)},
     {ad:'TEKNOKENT (4691)',t:tToplam,alt:'stopaj %100 terkin + SGK yarısı + kazanç istisnası',uyari:null},
-    {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri — üstüne proje hibesi AYRICA eklenir',uyari:null}
+    {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri + proje harcamasının %100 indirimi (m.3/1; hibeyle karşılanan kısım hariç) — proje hibesi AYRICA eklenir',uyari:null}
   ];
   for(const k of kartlar){ const kz=k.ad===enIyi[0];
     const aylikKisi=k.t/(kisiSay*12);
@@ -267,7 +271,7 @@ $('hesapla').addEventListener('click',()=>{
    +'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2).<br>'
    +'· SGK: işveren hissesi %21,75 (MYÖ 12 + GSS 7,5 + KVSK 2,25; 7566 sonrası) × prime esas kazanç × yarısı. İşsizlik primi (%2) 4447 kapsamı olduğundan desteğe dahil edilmedi; m.81/ı 2-puan indirimiyle etkileşim ihmal edildi (yaklaşıklık).<br>'
    +'· KV %'+S.kvOran+' (genel oran) varsayıldı; merkez sütununda %100 indirim TOPLAM kurum kazancından düşülür (m.3/1 + KVK 10), bu yıl nakde dönen kısım toplam kazançla sınırlandı, aşan kısım yeniden değerleme artışlı devir olarak gösterildi. Teknokent istisnası yalnız bölge kazancını kapsar (geç. m.2).<br>'
-   +'· Fazla mesai (45 saat üstü) teşvik dışıdır, hesapta yok. Destek personeli %10 sınırı ve bölge dışı %20 kuralları kullanıcı beyanına bırakıldı.<br>'
+   +'· Fazla mesai (45 saat üstü) teşvik dışıdır, hesapta yok. Destek personeli sınırı %10 (15 kişiye kadar teknokent firmasında %20) ve bölge/merkez dışı çalışma %20 kuralı (CB %100\'e kadar artırmaya yetkili — güncel CB kararını başvuru öncesi kontrol et) kullanıcı beyanına bırakıldı.<br>'
    +'· Teknokentte gayri maddi hak (satış/devir/kiralama) kazançlarında tescil ve nitelikli-harcama oranı sınırlaması vardır — kazancın bu tür geliri içeriyorsa istisna kısmen daralabilir.'
    +'</div></details>';
 

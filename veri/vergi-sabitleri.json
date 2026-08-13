@@ -12,6 +12,12 @@
     "not": "Genel KV %25. İMALATÇI (sanayi sicil belgesi + fiilen üretim) münhasıran ÜRETİM kazancında: 2026'da %24 (1 puan indirim, KVK m.32/8), 2027 ve sonrası %12,5 (12,5 puan indirim; 7582 s. Kanun, RG 04.06.2026/33270). İHRACATÇI münhasıran İHRACAT kazancında %20 (5 puan indirim, KVK m.32/7). AL-SAT/ticaret kazancı: indirim YOK, %25. İndirim yalnız ilgili kazanca uygulanır; karışık kazançta al-sat kısmı %25 kalır. Aynı üretim kazancına hem %12,5 hem 5 puan ihracat indirimi birlikte uygulanmaz."
   },
   "karPayiStopaj": 15,
+  "sgkOranlar": {
+    "isciToplam": 15,
+    "isverenToplam": 23.75,
+    "isveren5510": 21.75,
+    "not": "İşçi %15 = MYÖ 9 + GSS 5 + işsizlik 1. İşveren %23,75 = MYÖ 12 + GSS 7,5 + KVSK 2,25 + işsizlik 2. isveren5510 (%21,75) = işsizlik hariç 5510 primleri — 5746 m.3/3 'işveren hissesinin yarısı' bu taban üzerinden. Dayanak: 5510 m.81 (7566 sonrası, 13.08.2026 ambar okuması) + 4447 m.49."
+  },
   "gencIstisnaTutar": 400000,
   "gencIstisnaYilSayisi": 3,
   "gencBagkur": { "aktif": false, "not": "eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma" },

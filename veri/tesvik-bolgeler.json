@@ -1,5 +1,5 @@
 {
-  "_kaynak": "9903 s. Yatırımlarda Devlet Yardımları Kararı EK-2 (RG 30.05.2025, 32915) — GM 13.08.2026 sayfadan gözle birebir okudu. Geçici m.3: 6.2.2023 depreminden etkilenen (2018/11201 ek-2) ilçelerde 31.12.2026'ya kadar 6. bölge destekleri + imalatta (NACE 10-32, 38.2) asgari tutar şartı aranmaz. Geçici m.4: Cazibe Merkezleri (2018/11201 ek-1) illerindeki OSB/endüstri bölgeleri + Sivas Demirağ OSB 31.12.2026'ya kadar 6. bölge. m.22: OSB/endüstri bölgesindeki yatırım bir ALT bölge SGK desteği alır (6. bölgede süre +2 yıl).",
+  "_kaynak": "9903 s. Yatırımlarda Devlet Yardımları Kararı EK-2 (RG 30.05.2025, 32915) — GM 13.08.2026 sayfadan gözle birebir okudu; 13.08 denetçi düzeltmesi: Geçici m.3 SEKTÖRSÜZ (ek-2 ilçelerinde YAPILACAK YATIRIMLAR 31.12.2026'ya kadar 6. bölge destekli) + yalnız imalatta (NACE 10-32, 38.2) m.5/1 KONU ŞARTI aranmaz — ASGARİ TUTAR (m.5/2) HER DURUMDA ARANIR. Geçici m.4: Cazibe (2018/11201 ek-1) illerindeki OSB/endüstri bölgeleri + Sivas Demirağ OSB'de İMALAT 31.12.2026'ya kadar 6. bölge. m.22: OSB/endüstri bölgesi VEYA EK-5 ilçesi → bir alt bölge; ikisi → iki alt bölge; +2 yıl yalnız coğrafi 6. bölgede.",
   "bolgeler": {
     "1": ["Ankara","Antalya","Bursa","Eskişehir","İstanbul","İzmir","Kocaeli","Muğla"],
     "2": ["Aydın","Balıkesir","Bolu","Çanakkale","Denizli","Edirne","Kayseri","Konya","Manisa","Mersin","Sakarya","Tekirdağ","Yalova"],
@@ -18,7 +18,7 @@
     "sivasNotu": "Sivas EK-1'de yalnız Demirağ OSB'de imalat sanayii kaydıyla yer alır (4976); 9903 geç. m.4 de Sivas Demirağ OSB'yi ayrıca sayar."
   },
   "depremIlceleri": {
-    "_kaynak": "9903 geçici m.3 atfı: mülga 2018/11201 EK-2 = 7028 s. CB Kararı (RG 5.4.2023, 32154) ekli tablo, 9 il 65 ilçe — GM 13.08.2026 RG aslından birebir okudu. Geçici m.3: bu ilçelerde 31.12.2026'ya kadar imalat (NACE 10-32, 38.2) müracaatları 6. bölge destekli + asgari yatırım tutarı şartı aranmaz.",
+    "_kaynak": "9903 geçici m.3 atfı: mülga 2018/11201 EK-2 = 7028 s. CB Kararı (RG 5.4.2023, 32154) ekli tablo, 9 il 65 ilçe — GM 13.08.2026 RG aslından birebir okudu. Geçici m.3 (13.08 denetçi düzeltmesi): bu ilçelerde 31.12.2026'ya kadar YAPILACAK YATIRIMLAR (sektörsüz) 6. bölge destekli; yalnız imalatta (NACE 10-32, 38.2) m.5/1 konu şartı aranmaz — asgari tutar (m.5/2) aranır.",
     "Adıyaman": ["Besni","Çelikhan","Gerger","Gölbaşı","Kâhta","Merkez","Samsat","Sincik","Tut"],
     "Elazığ": ["Alacakaya","Arıcak","Baskil","Karakoçan","Keban","Kovancılar","Maden","Palu","Sivrice"],
     "Gaziantep": ["Araban","İslahiye","Nurdağı"],
