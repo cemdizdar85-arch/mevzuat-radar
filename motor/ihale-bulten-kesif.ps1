@@ -76,7 +76,8 @@ if($boyHam -lt 100000){
   Write-Host ("   " + ((Get-Content $inenYol -Raw -Encoding UTF8) -replace '\s+',' ').Substring(0,300))
   exit 1
 }
-$ilkIki = [byte[]](Get-Content $inenYol -Encoding Byte -TotalCount 2)
+# PS 7 uyumu: "Get-Content -Encoding Byte" kaldirildi, .NET ile okunur
+$fsK = [IO.File]::OpenRead($inenYol); $ilkIki = @($fsK.ReadByte(), $fsK.ReadByte()); $fsK.Close()
 $zipMi = ($ilkIki[0] -eq 0x50 -and $ilkIki[1] -eq 0x4B)
 if($zipMi){
   $zipYol = Join-Path $Klasor ("kamu-ihale-bulteni-{0}.zip" -f $Tur.ToLower())

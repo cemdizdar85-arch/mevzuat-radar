@@ -18,7 +18,9 @@ param(
   # Ayristiriciyi gelistirirken bulteni her seferinde yeniden indirmemek icin:
   # scratchpad'deki mevcut .txt kullanilir. KIK sunucusuna bosuna yuk bindirmez.
   [switch]$YerelMetin,
-  [string]$Klasor = "C:\Users\cemdi\AppData\Local\Temp\claude\C--Users-cemdi-OneDrive-Masa-st--mevzuat-i-i\94aa3424-c78a-4612-b9eb-65883203c30d\scratchpad"
+  # Varsayilan gecici klasor PLATFORM BAGIMSIZ olmali: bu betik GitHub Actions'ta
+  # (Linux + PowerShell 7) da kosuyor, sabit Windows yolu orada patlar.
+  [string]$Klasor = (Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten")
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -66,8 +68,10 @@ function BultenMetni([string]$tur){
     -Headers @{ "User-Agent"=$ua; "Referer"=$adres } -TimeoutSec 300 -UseBasicParsing -OutFile $ham
   if((Get-Item $ham).Length -lt 100000){ return $null }
   $pdf = Join-Path $Klasor ("bulten-{0}.pdf" -f $tur.ToLower())
-  $ilk = [byte[]](Get-Content $ham -Encoding Byte -TotalCount 2)
-  if($ilk[0] -eq 0x50 -and $ilk[1] -eq 0x4B){
+  # "Get-Content -Encoding Byte" PowerShell 7'de KALDIRILDI (-AsByteStream oldu).
+  # Betik hem PS 5.1'de hem Actions'in PS 7'sinde kosacagi icin .NET ile okunur.
+  $fs = [IO.File]::OpenRead($ham); $b0 = $fs.ReadByte(); $b1 = $fs.ReadByte(); $fs.Close()
+  if($b0 -eq 0x50 -and $b1 -eq 0x4B){
     $zip = Join-Path $Klasor ("bulten-{0}.zip" -f $tur.ToLower())
     Copy-Item $ham $zip -Force
     Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -213,6 +217,35 @@ foreach($x in ($hepsi | Select-Object -First 5)){
 
 if($Yaz){
   $yol = Join-Path $kok "veri\ihale-bulten-durum.json"
+  $bugun = Get-Date -Format "dd.MM.yyyy"
+  foreach($x in $hepsi){ $x['eklendi'] = $bugun }
+
+  # BIRIKIMLI HAVUZ: bulten her gun degisir; dosyayi her cekimde sifirlarsak DUN
+  # iptal edilen ihale bugun kaybolur - oysa teklif hazirlayan icin hala onemli.
+  # Eski kayitlar korunur, IKN+durum ile tekillestirilir, 30 gunden eski duser.
+  $eskiIptal = @(); $eskiDuz = @()
+  if(Test-Path $yol){
+    try {
+      $mevcut = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
+      $yeniAnahtar = @($hepsi | ForEach-Object { "$($_.ikn)|$($_.durum)" })
+      $sinir = (Get-Date).AddDays(-30)
+      foreach($e in (@($mevcut.iptal) + @($mevcut.duzeltme))){
+        if(-not $e){ continue }
+        if($yeniAnahtar -contains "$($e.ikn)|$($e.durum)"){ continue }
+        $g = $null; try { $g = [datetime]::ParseExact("$($e.eklendi)","dd.MM.yyyy",$null) } catch {}
+        if($g -and $g -lt $sinir){ continue }
+        $kayit = [ordered]@{}
+        foreach($p in $e.PSObject.Properties){ $kayit[$p.Name] = $p.Value }
+        if(-not $kayit['eklendi']){ $kayit['eklendi'] = $bugun }
+        if($e.durum -eq 'iptal'){ $eskiIptal += $kayit } else { $eskiDuz += $kayit }
+      }
+    } catch { Write-Host "NOT: eski json okunamadi, sifirdan yazilir" }
+  }
+  $iptal    = @($iptal) + $eskiIptal
+  $duzeltme = @($duzeltme) + $eskiDuz
+  Write-Host ("`nHavuz: {0} iptal ({1} bugunku cekim + {2} havuzdan) · {3} duzeltme" -f `
+    $iptal.Count, ($iptal.Count - $eskiIptal.Count), $eskiIptal.Count, $duzeltme.Count)
+
   $cikti = [ordered]@{
     guncelleme = "Kaynak: Kamu İhale Bülteni (KİK) — 4734 s.K. m.13. Son çekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
     kaynak = "ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx"
@@ -220,10 +253,15 @@ if($Yaz){
     duzeltme = $duzeltme
   }
   ($cikti | ConvertTo-Json -Depth 5) | Out-File $yol -Encoding utf8
-  Write-Host ("`n-> {0}" -f $yol)
-  # YAZ -> GERI OKU -> KARSILASTIR
+  Write-Host ("-> {0}" -f $yol)
+  # YAZ -> GERI OKU -> KARSILASTIR (sayim tutmuyorsa kosu KIRMIZI biter)
   $geri = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
-  Write-Host ("   geri okuma: {0} iptal · {1} duzeltme" -f @($geri.iptal).Count, @($geri.duzeltme).Count)
+  $gi = @($geri.iptal).Count; $gd = @($geri.duzeltme).Count
+  Write-Host ("   geri okuma: {0} iptal · {1} duzeltme" -f $gi, $gd)
+  if($gi -ne $iptal.Count -or $gd -ne $duzeltme.Count){
+    Write-Host ("KIRMIZI: yazilan ile geri okunan TUTMUYOR ({0}/{1} vs {2}/{3})" -f $iptal.Count,$duzeltme.Count,$gi,$gd)
+    exit 1
+  }
 } else {
   Write-Host "`n(olcum modu - dosya YAZILMADI. Yazmak icin -Yaz)"
 }

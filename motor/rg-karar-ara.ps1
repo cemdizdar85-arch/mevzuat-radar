@@ -20,7 +20,8 @@ Write-Host ("RG taramasi: {0:dd.MM.yyyy} - {1:dd.MM.yyyy} ({2} gun)" -f $b,$s,((
 Write-Host ("Desenler: " + ($Desen -join ' | ') + "`n")
 
 $bulgu = @(); $okunan = 0; $bosGun = @()
-$gecici = Join-Path $env:TEMP "rg-fihrist.html"
+# platform bagimsiz gecici dosya (Linux/Actions uyumu)
+$gecici = Join-Path ([IO.Path]::GetTempPath()) "rg-fihrist.html"
 # TUZAK (13.08 olculdu): RG fihristi WINDOWS-1254 (Turkce) kodlu ama sayfada charset
 # meta'si yok; Invoke-WebRequest .Content'i Latin1 sanip cozuyor ve "Karar Sayısı"
 # metinde "Karar Sayýsý" oluyor. Ilk kosu 14 gunde SIFIR bulgu verdi - oysa her gun

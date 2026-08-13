@@ -40,6 +40,28 @@ jobs:
         shell: pwsh
         run: ./motor/alacak-ilan-hasat.ps1 -Adet 60
 
+      # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.
+      # YALNIZ SABAH CEKIMINDE: bulten gunde bir yayimlanir, uc tur ~30 MB indirir;
+      # aksam tekrar cekmek KIK sunucusuna bosuna yuk. (Elle tetiklemede de kosar.)
+      #
+      # continue-on-error BILINCLI: mevzuat indiricisinde GitHub Actions IP'si
+      # engellenmisti, ayni risk burada da var. Bu adim duserse yurt ici/disi ihale
+      # verisi ve diger hasatlar COMMIT'LENSIN - tek kaynak yuzunden gun kaybedilmez.
+      # Ama sessiz kalmasin: asagidaki adim duserse Cem'e mail gider.
+      - name: Kamu Ihale Bulteni — iptal + duzeltme (yalniz sabah)
+        id: bulten
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-bulten-hasat.ps1 -Turler Mal,Yapim,Hizmet,Danismanlik -Yaz
+
+      - name: Bulten adimi dustuyse Cem'e haber ver
+        if: steps.bulten.outcome == 'failure'
+        shell: pwsh
+        run: |
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Kamu Ihale Bulteni hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="ihale-bulten-hasat.ps1 dustu (digerleri kosmaya devam etti). Muhtemel sebep: KIK ucu GitHub IP'sini engelliyor ya da sayfa yapisi degisti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1
