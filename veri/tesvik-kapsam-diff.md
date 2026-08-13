@@ -79,7 +79,15 @@ Resmî listede **14 program**, katalogda 11 vardı. Fark:
 - **9224 İstihdamı Koruma kartına** 4447 geç. m.35 köprüsü eklendi (2026–2028 imalat istihdam programları Fon kaynaklı — SGK bölümündeki bulgunun KOSGEB ayağı).
 - Kalan 11 program birebir örtüşüyor (1231, 6492, 9022, 9144, 9146, 9165, 9200, 9206, 9224, 9297, 9327).
 - Doğrulama: sayfa tarayıcıda yeniden yüklendi, PROGRAMLAR dizisi 22 kayıt / KOSGEB 13 kart, JS hatasız.
-## 4) TÜBİTAK doğrudan (1501/1507/1707…) — SIRADA
+## 4) TÜBİTAK DOĞRUDAN ✅ OKUNDU (13.08 — tubitak.gov.tr ulusal destek programları sayfası)
+
+Resmî listede 20+ program var; çoğu kurumsal/aracı hedefli (1503 proje pazarı, 1513 TTO, 1515 öncül lab, 1601/1612/1613 uygulayıcı kuruluş çağrıları). **KOBİ'nin doğrudan başvurabileceği ve katalogda olmayanlardan 3'ü EKLENDİ** (amaç metinleri resmî program sayfalarından birebir):
+- **1707 Siparişe Dayalı Ar-Ge (KOBİ):** Tedarikçi KOBİ + Müşteri Kuruluş ortak başvurur; "şunu geliştirirsen alırım" diyen müşterisi olan üretici için. 2026-2 çağrısı açık görünüyor.
+- **1812 BiGG Yatırım:** teknoloji tabanlı iş fikri → hızlandırma → yatırım; kuruluş aşaması girişimcisi için (genc.html kitlesiyle de kesişir).
+- **1602 Patent:** PCT/WIPO başvuru + EPO/JPO/KIPO/CNIPA/USPTO girişleri; Marka Radarı'yla çapraz bağlantı verildi.
+- Sayfaya **TÜBİTAK kurum grubu** kuruldu (YOLLAR 4 adım — PRODİS eteydeb.tubitak.gov.tr resmî sayfadan teyitli; ISTER_VARSAYILAN; BELGE_BASLIK). 1501/1507 KOSGEB kartlarında zaten var, mükerrer eklenmedi.
+- **BİLİNÇLİ DIŞARIDA:** 1505 (üniversite ortaklı — akademisyen başvurur), 1511/1711/1831/1832/1833 (dönemsel tematik çağrılar — çağrı kapanınca kart yanıltır; "çağrı takvimini izle" adımı bunları kapsıyor), 1514 GSDP (fonlara).
+- Doğrulama: localhost:8123/destekler.html yeniden yüklendi — 25 program, TÜBİTAK 3 kart, sözlükler dolu, konsol hatasız.
 ## 5) KGF + kamu bankası paketleri — SIRADA
 ## 6) İŞKUR (işbaşı eğitim, kısa çalışma…) — SIRADA
 ## 7) Kalkınma Ajansları + TKDK/IPARD — SIRADA
