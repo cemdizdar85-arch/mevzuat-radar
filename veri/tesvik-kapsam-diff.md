@@ -49,8 +49,27 @@
 
 **AÇIK KALEMLER:** EK-5 tam ilçe dökümü + EK-3 tam NACE dökümü (sihirbaz kararı verilirse) · uygulama tebliği (2025 asgari tutarların güncel değeri — yıllık YD tazelemesi) · 2018/11201 ek-1/ek-2 il-ilçe listeleri (Geçici m.3/4 deprem-Cazibe kartı için gerekli; 11201 yürürlükten kalktı ama ekleri referans olarak yaşıyor).
 
-## 2) SGK İŞVEREN TEŞVİKLERİ (5510/4447) — SIRADA (ambardan okunacak)
-Katalogda kurum olarak YOK; kurulus/bilgi sayfalarında dağınık değinme var. Okunacaklar: 5510 m.81 (5 puan), 4447 geç. m.10 (ilave istihdam — süresi metinden teyit), genç-kadın (4447 geç. 19?), engelli (4857 m.30/İşkur), asgari ücret desteği (yıllık kanun maddesi).
+## 2) SGK İŞVEREN TEŞVİKLERİ (5510/4447) ✅ OKUNDU (13.08, ambardan birebir)
+
+**⚡ EN BÜYÜK BULGU — hafızadaki bilgi eskimişti:** 7566 s. Kanun (RG 4.12.2025) ile:
+- **m.81/ı "5 puanlık Hazine indirimi" → İKİ PUANA indi** (dipnot 149: "dört" ibaresi "iki" oldu; güncel metin "iki puanlık kısmına isabet eden tutar Hazinece karşılanır"). Piyasadaki bütün "5 puan" anlatımları eski.
+- **MYÖ prim oranı %20 → %21** (m.81/a; işveren hissesi %11→%12). İşveren toplam payı artık **%23,75** (12 + GSS 7,5 + KVSK 2,25 + işsizlik 2), işçi %15 (9+5+1). İşsizlik oranları 4447 m.49'dan birebir teyit (%1/%2/%1 + 7577 (2.4.2026) Devlet payına CB yetkisi).
+- **m.81/k genç girişimci 1 yıllık Bağ-Kur prim desteği MÜLGA** (kurulus.html'de uyarı zaten var — temiz).
+- 5 puan HÂLÂ yaşayan yerler: m.81/i yurt dışına götürülen sigortalı (GSS işveren hissesinden 5 puan) · m.81/j Bağ-Kur MYÖ 5 puan (isteğe bağlı+muhtar hariç; borçlanma/ihya primi hariç).
+- m.81 ek fıkra: bölgesel **ilave 6 puana kadar** CB yetkisi (sosyo-ekonomik endeksli iller) duruyor.
+- Birlikte uygulanma: m.81/ı desteği "öncelikle uygulanır"; kaçak işçi tespitinde 1 yıl men.
+
+**CANLI dönemsel teşvikler (4447):**
+- **Geç. m.35 (7566, 1.1.2026–31.12.2028): İMALAT SANAYİ istihdam destek programları** — kaynak İşsizlik Fonu prim gelirlerinin %15'ine kadar, uygulayıcı **Sanayi ve Teknoloji Bakanlığı + KOSGEB** (program esasları müşterek tebliğle). → KOSGEB diff'inde (bölüm 3) somut programı aranacak; sitede "imalatçıysan KOSGEB istihdam programlarını izle" kartı.
+- **Geç. m.36 (7590, RG 24.7.2026 — ÇOK TAZE): turizm işletme belgeli konaklama tesisleri**, 2026 Mayıs–Aralık dönemleri, tesis faal olduğu aylarla sınırlı: uzun vadeli kollara bildirilen sigortalıların **prim gün sayısı × 116,67 TL** Fondan karşılanır (prim mahsubu). Şartlar: beyanname süresinde + prim ödenmiş + borç yok (yapılandırma sayılır); diğer teşviklerle birleşince o ay ödenecek primi aşamaz; SGDP'li/yabancı/yurt dışı hariç.
+
+**SÜRESİ BİTMİŞ (sitede "aktif" gibi anlatılMAmalı):** geç. m.10 (6111 genç-kadın, 31.12.2015→CB uzatmaları bitti) · geç. m.19 (7103 ilave istihdam, son uzatma 3248 s. CB kararıyla 31.12.2022) · geç. m.17/18 (687 KHK, 2017).
+
+**Ayrı bakılacak:** engelli teşviki 4857 m.30 (İŞKUR bölümünde) · asgari ücret desteği 2026 (bilgi.html'de 1.270 TL yazılı — kaynağı bu turda ölçülemedi, doğrulanacak).
+
+**SİTE DÜZELTMESİ YAPILDI (13.08):** bilgi.html asgari ücret kartı — "İmalatçı (5 puan)" satırı **"Hazine indirimli (2 puan) ~40.214,03 TL"** oldu (33.030×1,2175; geri-hesapla doğrulandı), %22,5 → %23,75, 7566 uyarı kutusu + kontrol damgası eklendi. Teşviksiz ~40.874,63 zaten %23,75'le uyumluydu.
+
+**YENİ KOL ADAYI:** "İstihdam Teşvik Kontrolü" — sektör (imalat/turizm) + il + çalışan profili → hangi canlı teşvik (2 puan otomatik mi, geç. m.35/36 kapsamı, bölgesel 6 puan var mı) + "5 puan bitti" uyarısı.
 
 ## 3) KOSGEB DİFF — SIRADA (kosgeb.gov.tr listesi vs katalog 14 program)
 ## 4) TÜBİTAK doğrudan (1501/1507/1707…) — SIRADA
