@@ -1,13 +1,20 @@
 # YAYIN HAVUZU — SONUÇ (13.08.2026 gecesi)
 > Cem: *"yap hepsini, kaç soru çıkar görürüz."* Zincir koştu, rakam ölçüldü.
 
-## SONUÇ: **12.672 soru** — 17 kapının HEPSİNDEN temiz
+## SONUÇ: **12.610 soru** — 17 kapının HEPSİNDEN temiz + kopyasız
 | Aşama | Sayı |
 |---|---|
 | Kasa | 30.569 |
 | K1-K10 temiz (K5 düzeltilmiş ölçütle) | **15.550** |
-| Kara liste (K11+K13+K16+K17+GM) | 3.368 |
-| **HEPSİNDEN TEMİZ — yayına aday** | **12.672** |
+| Kara liste (K11+K13+K16+K17+GM+KOPYA) | 3.430 |
+| **HEPSİNDEN TEMİZ — yayına aday** | **12.610** |
+
+### Kopya ayıklama (13.08, Cem onayı "yap")
+72 kopya grubunda 83 fazla soru bulundu; her gruptan **biri tutuldu**, kalan **83'ü havuzdan
+dışlandı** (62'si zaten başka bir kapıdan kara listedeydi, net etki −62). **Kasa değişmedi —
+soru silinmedi**, yalnız yayın havuzundan çıkarıldı; onarılırsa geri alınabilir.
+Tutulacak soru puanla seçildi: kara listede olmayan (100) > kaynağı tam (10) > açıklaması uzun (0-9) > id küçük.
+Kayıt: `veri/kopya-dislanan.json`.
 
 ### Kara listenin dökümü
 | Kapı | Adet | Ne demek |
@@ -30,8 +37,8 @@
 | Doğru şık en uzun mu | — | %31,7 **YEŞİL** (rastgele beklenen ~%20, sınır %45) |
 
 ## AÇIK KALAN — açılış öncesi karar gerektiren
-1. **83 yakın-kopya çifti (K15-T3 KIRMIZI):** aynı denemede iki kopya soru çıkmasın diye her çiftin biri yayından tutulmalı. Mekanik iş, 0 USD — onay verilirse yapılır (havuz ~83 azalır).
-2. **12.672'nin okunmamış olması:** GM okuyucu pilotunda kapı-temiz sorularda %37 kusur çıkmıştı; o pilot ESKİ havuzdaydı (kara liste uygulanmamıştı). Yeni havuzda oran çok daha düşük beklenir ama **ölçülmedi**. Okuma bandı aylık limit nedeniyle durdu; 1 Eylül'de API açılınca ya da limit yükseltilince örneklem okunmalı.
+1. ~~83 yakın-kopya çifti~~ → **KAPANDI 13.08** (yukarıya bak; havuz 12.672 → 12.610).
+2. **12.610'un okunmamış olması:** GM okuyucu pilotunda kapı-temiz sorularda %37 kusur çıkmıştı; o pilot ESKİ havuzdaydı (kara liste uygulanmamıştı). Yeni havuzda oran çok daha düşük beklenir ama **ölçülmedi**. Okuma bandı aylık limit nedeniyle durdu; 1 Eylül'de API açılınca ya da limit yükseltilince örneklem okunmalı.
 3. **VANA KURALI şu an "okuyucu-uygun" şartı arıyor** (yayina-al.ps1): bu şart korunursa yalnız okunmuş 37 soru açılır. Açılışta 12.672 açılacaksa kural "kapı-temiz + örneklem doğrulanmış" şeklinde gevşetilmeli — **Cem kararı**.
 
 ## DERSLER (bu gece yakalanan 5 sessiz hata — hepsi koda yazıldı)

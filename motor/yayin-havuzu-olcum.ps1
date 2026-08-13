@@ -46,6 +46,9 @@ if($k17){
 # --- GM okuyucu kusurlulari
 $gm = Oku 'gm-okuyucu\kusurlu-idler.json'
 if($gm){ foreach($id in @($gm.idler)){ Ekle $kara "$id" 'GM-okuyucu-kusurlu' $sebepSayac } }
+# --- yakin kopya (her gruptan biri tutuldu, digerleri dislandi — 13.08 Cem onayi)
+$kop = Oku 'kopya-dislanan.json'
+if($kop){ foreach($id in @($kop.idler)){ Ekle $kara "$id" 'KOPYA-dislanan' $sebepSayac } }
 
 # --- K1-K10 temiz liste
 $temiz = Oku 'yayin-kapisi-temiz-idler.json'
