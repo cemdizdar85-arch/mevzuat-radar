@@ -41,7 +41,12 @@ if([string]::IsNullOrWhiteSpace($KEY)){
   Yaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="ATLANDI"; not="SUPABASE_SERVICE_KEY yok" })
   Write-Host "SUPABASE_SERVICE_KEY yok - atlandi."; exit 0
 }
-$BASLIK = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
+# 13.08.2026: 'sb_secret' anahtar robot User-Agent ister; UA'siz istek TARAYICI
+# sayilip 401 "Forbidden use of secret API key in browser" doner (bilinen tuzak —
+# 88 motor betigi bu yuzden olmustu). UA hem IWR hem IRM icin ayri yazilir.
+$BASLIK = @{ apikey = $KEY; Authorization = "Bearer $KEY"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
 
 $HARFLER = @('A','B','C','D','E')
 # harf atfi deseni: "B sikki", "C secenegi", "D'yi", "(E)" gibi acik atiflar.

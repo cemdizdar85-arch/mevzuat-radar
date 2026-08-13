@@ -7,6 +7,16 @@
 #  yayin = kapi-temiz VE okundu-temiz VE kusurlu-degil.
 #  Idempotent: her okuyucu partisinden sonra yeniden kosulur.
 # ============================================================================
+#  --- 13.08 "NIYE BOZULUYOR" DERSI (buraya yazildi ki her yayin turunda okunsun) ---
+#  Sik karistirici 02.08'de kasayi dengelemisti (A %44,4 -> %21,3) ama TEK SEFERLIK
+#  kosmustu. 02-05.08 gecelerinde uretilen 3.091 yeni soru ham LLM onyargisiyla geldi
+#  (A %52,8) ve en yeni sorular kapilardan en cok gectigi icin yayin adaylarinin
+#  %82'sini (2.896/3.540) olusturdu -> kume yine bozuldu.
+#  KURAL: ONARIM TEK SEFERLIK, URETIM SUREKLI. Her yeni parti yayina alinmadan once:
+#     1) motor\sik-karistir.ps1 -uygula     (harf dengesi)
+#     2) motor\k15-sinav-teknigi.ps1        (T1 YESIL degilse yayin YOK)
+#  13.08'de kosuldu: 2.741 soru karistirildi, 2.535 harf-atifli dokunulmadi,
+#  T1 KIRMIZI (%47,5 A) -> YESIL (%23,8 A, azami sapma 3,8 puan).
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
