@@ -167,6 +167,26 @@ const YOLLAR = {
     "Teminat yapısını kur (banka teminatı, KGF kefaleti gibi seçenekler görüşülür).",
     "Kredi kullandırılır; sigortada sevkiyat bildirimleriyle poliçe işlemeye başlar."
   ],
+  "KGF": [
+    "Kredi başvurunu çalıştığın bankaya yap — kefalet talebini KGF'ye banka iletir, sen KGF'ye doğrudan başvurmazsın.",
+    "Banka krediyi uygun bulur ama teminatın yetmezse dosya KGF değerlendirmesine gider; uygun bulunursa KGF kredine kefil olur.",
+    "Aktif paket dönemseldir: hangi paketlerin açık olduğunu <a href='https://www.kgf.com.tr' target='_blank' rel='noopener'>kgf.com.tr</a> üzerinden ve bankandan teyit et."
+  ],
+  "İŞKUR": [
+    "<a href='https://www.iskur.gov.tr/isveren/kayit/' target='_blank' rel='noopener'>İŞKUR'a işveren kaydı</a> yap (E-Şube ya da il müdürlüğü).",
+    "Programa başvur: 81 ildeki Çalışma ve İş Kurumu İl Müdürlükleri, Hizmet Merkezleri ya da E-Şube üzerinden.",
+    "Katılımcıyla program sözleşmesi kurulur; program süresince İŞKUR'un ödemeleri katılımcıya doğrudan yapılır."
+  ],
+  "KALKINMA AJANSI": [
+    "Bölgendeki ajansı ve açık çağrıları <a href='https://www.ka.gov.tr/destekler' target='_blank' rel='noopener'>ka.gov.tr/destekler</a> tek listesinden bul — 26 ajansın tüm çağrıları burada.",
+    "Çağrı rehberini indir: uygun başvuru sahibi, desteklenen konular ve teslim tarihi çağrıdan çağrıya değişir.",
+    "Başvuru KAYS (Kalkınma Ajansları Yönetim Sistemi) üzerinden elektronik yapılır; teslim bitiş tarihini kaçırma."
+  ],
+  "TKDK": [
+    "Yatırım konunun IPARD tedbirlerine girip girmediğine ve ilinin kapsamda olup olmadığına <a href='https://www.tkdk.gov.tr' target='_blank' rel='noopener'>tkdk.gov.tr</a> çağrı ilanından bak.",
+    "Çağrı dönemi açıkken il koordinatörlüğüne proje dosyasıyla başvur — IPARD başvurusu ciddi dosya ister (iş planı, izinler), erken hazırlan.",
+    "Sıralama kriterine göre puanlanır; sözleşme sonrası harcamalar belgelendikçe hibe ödenir."
+  ],
   "TÜBİTAK": [
     "Çağrı takvimini izle: programların çoğu dönemsel çağrıyla açılır (<a href='https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari' target='_blank' rel='noopener'>resmî liste</a>).",
     "Başvuru <a href='https://eteydeb.tubitak.gov.tr' target='_blank' rel='noopener'>PRODİS (eteydeb)</a> üzerinden elektronik yapılır — kuruluş yetkilisi tanımı ve e-imza gerekir.",
@@ -231,7 +251,13 @@ const PROGRAMLAR = [
   // ---- TÜBİTAK — doğrudan başvurulan programlar (1501/1507'ye KOSGEB üzerinden bakılır, yukarıda) ----
   {kurum:"TÜBİTAK", ad:"1707 – Siparişe Dayalı Ar-Ge Projeleri (KOBİ)", url:"https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari/1707-siparise-dayali-ar-ge-projeleri-icin-kobi-destekleme-cagrisi", asama:["arge"], amac:"Müşteri Kuruluş ortaklı Ar-Ge: yenilikçi ürünü/süreci Tedarikçi KOBİ geliştirir, potansiyel müşterisi projede ortak olur — hızla ürüne dönüşecek, ticarileşme potansiyeli yüksek projeler desteklenir.", t:{f:["imalat","teknoloji"],n:["hibe"]}, sart:"Ar-Ge'yi yapacak KOBİ (Tedarikçi) + çıktıyı alacak Müşteri Kuruluş birlikte başvurur — elinde 'şunu geliştirirsen alırım' diyen müşterisi olan üretici için biçilmiş kaftan."},
   {kurum:"TÜBİTAK", ad:"1812 – Yatırım Tabanlı Girişimcilik (BiGG Yatırım)", url:"https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari/1812-yatirim-tabanli-girisimcilik-destek-programi-bigg-yatirim", asama:["kurulus","arge"], amac:"Yenilikçi iş fikrini ürüne/hizmete dönüştürmeye üç aşamalı destek: hızlandırma programı (eğitim, rehberlik, kuluçka) → değerlendirme → yatırım; fon yatırımlarının geri dönüşüyle ölçeklenen model.", t:{d:["kurmadim","yeni"],f:["teknoloji"],n:["hibe"]}, sart:"Teknoloji tabanlı iş fikri olan girişimciler; giriş kapısı uygulayıcı kuruluşların hızlandırma programlarıdır."},
-  {kurum:"TÜBİTAK", ad:"1602 – Patent Destek Programı", url:"https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari/1602-tubitak-patent-destek-programi", asama:["arge","buyume"], amac:"TÜRKPATENT kabul ofisli uluslararası (PCT/WIPO) patent başvurularına ve EPO/JPO/KIPO/CNIPA/USPTO ülke girişlerinde inceleme raporu ile tescile destek.", t:{f:["teknoloji","imalat"],n:["hibe"]}, sart:"Buluşunu yurt dışında da korumak isteyen işletme/buluş sahipleri — yurt içi marka-patent takibin için <a href='marka-radari.html'>Marka Radarı</a> ile birlikte düşün."}
+  {kurum:"TÜBİTAK", ad:"1602 – Patent Destek Programı", url:"https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari/1602-tubitak-patent-destek-programi", asama:["arge","buyume"], amac:"TÜRKPATENT kabul ofisli uluslararası (PCT/WIPO) patent başvurularına ve EPO/JPO/KIPO/CNIPA/USPTO ülke girişlerinde inceleme raporu ile tescile destek.", t:{f:["teknoloji","imalat"],n:["hibe"]}, sart:"Buluşunu yurt dışında da korumak isteyen işletme/buluş sahipleri — yurt içi marka-patent takibin için <a href='marka-radari.html'>Marka Radarı</a> ile birlikte düşün."},
+  // ---- KGF & İŞKUR — finansman kefaleti ve istihdam programları ----
+  {kurum:"KGF", ad:"Hazine Destekli Kefalet Paketleri", url:"https://www.kgf.com.tr", asama:["finansman"], amac:"Banka kredisi almak isteyen ama teminatı yetmeyen KOBİ'ye Kredi Garanti Fonu kefil olur. Paketler dönemseldir (yatırım-işletme, ihracat, turizm, dijital dönüşüm gibi başlıklarla açılır-kapanır).", t:{d:["yeni","kurulu"],n:["finans"]}, sart:"Bankasından kredi onayı alabilen ama teminat gösteremeyen işletmeler; başvuru KGF'ye değil BANKAYA yapılır, kefaleti banka talep eder."},
+  {kurum:"İŞKUR", ad:"İşbaşı Eğitim Programı", url:"https://www.iskur.gov.tr/isveren/isbasi-egitim-programlari/", asama:["istihdam"], amac:"İşe alacağın adayı önce işbaşında tanı: program süresince katılımcının cep harçlığını İŞKUR öder; işverenin katılımcıya yaptığı ek fiilî ödemeler de (aylık brüt asgari ücretin yarısını geçmeyen kısmı) vergi matrahından indirilir.", t:{d:["yeni","kurulu"],n:["hibe"]}, sart:"Eleman arayan ve adayı ücretsiz deneme-dönemiyle tanımak isteyen işverenler; başvuru il müdürlüğü ya da E-Şube'den. Kontenjan çalışan sayına bağlıdır — güncel şartları sayfadan teyit et."},
+  // ---- KALKINMA AJANSLARI & TKDK — bölgesel ve kırsal ----
+  {kurum:"KALKINMA AJANSI", ad:"Mali ve Teknik Destek Programları (26 bölge ajansı)", url:"https://www.ka.gov.tr/destekler", asama:["buyume","donusum"], amac:"Bölgendeki kalkınma ajansının dönemsel mali destek (hibe), teknik destek, fizibilite ve güdümlü proje çağrıları — konular bölgenin öncelik alanına göre değişir (imalatta dönüşüm, turizm, sosyal girişimcilik gibi).", t:{d:["yeni","kurulu"],n:["hibe"]}, sart:"Çağrı bölge ve konu bazlıdır: İzmir'deki işletme İzmir Kalkınma Ajansı'nın çağrısına başvurur. Açık çağrıların tamamı ka.gov.tr'de tek listede."},
+  {kurum:"TKDK", ad:"IPARD Hibeleri (tarım-gıda yatırımları)", url:"https://www.tkdk.gov.tr", asama:["buyume"], amac:"AB kaynaklı IPARD programı: tarım, hayvancılık, gıda işleme, kırsal turizm ve çiftlik faaliyetlerinin çeşitlendirilmesi yatırımlarına hibe — çağrı dönemleriyle çalışır (IPARD III sürüyor).", t:{d:["yeni","kurulu"],f:["imalat"],n:["hibe"]}, sart:"Kapsamdaki illerde tarım-gıda-kırsal yatırım yapacaklar; süt/et işleme, soğuk hava deposu, kırsal turizm tesisi gibi konular tipik. 9903 teşvik belgesiyle aynı harcamada birleştirme kurallarına dikkat (m.33 tek-kapı)."}
 ];
 const ETIKET = {kurulus:"KURULUŞ",buyume:"BÜYÜME",ihracat:"İHRACAT",finansman:"FİNANSMAN",donusum:"DÖNÜŞÜM",arge:"AR-GE",istihdam:"İSTİHDAM"};
 

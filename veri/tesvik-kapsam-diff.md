@@ -88,7 +88,20 @@ Resmî listede 20+ program var; çoğu kurumsal/aracı hedefli (1503 proje pazar
 - Sayfaya **TÜBİTAK kurum grubu** kuruldu (YOLLAR 4 adım — PRODİS eteydeb.tubitak.gov.tr resmî sayfadan teyitli; ISTER_VARSAYILAN; BELGE_BASLIK). 1501/1507 KOSGEB kartlarında zaten var, mükerrer eklenmedi.
 - **BİLİNÇLİ DIŞARIDA:** 1505 (üniversite ortaklı — akademisyen başvurur), 1511/1711/1831/1832/1833 (dönemsel tematik çağrılar — çağrı kapanınca kart yanıltır; "çağrı takvimini izle" adımı bunları kapsıyor), 1514 GSDP (fonlara).
 - Doğrulama: localhost:8123/destekler.html yeniden yüklendi — 25 program, TÜBİTAK 3 kart, sözlükler dolu, konsol hatasız.
-## 5) KGF + kamu bankası paketleri — SIRADA
-## 6) İŞKUR (işbaşı eğitim, kısa çalışma…) — SIRADA
-## 7) Kalkınma Ajansları + TKDK/IPARD — SIRADA
-## 8) 5746 Ar-Ge/Tasarım merkezi + 4691 teknokent (sitede kısmen VAR — bağlantı kontrolü) — SIRADA
+## 5) KGF ✅ OKUNDU (13.08 — kgf.com.tr)
+Aktif Hazine destekli paketler (2025-26 dönemi): Yatırım-İşletme, İhracat, Turizm 2026, TKYB Kredi, TURWİB/TURYİB, Dijital Dönüşüm 2024. Ayrıca özkaynak kefaletleri, KOSGEB geri ödemeli destekleri için kefalet, TÜBİTAK transfer ödemeleri için kefalet ürünleri var. **Paketler dönemsel açılıp kapandığından tek tek kart ESKİR** → karar: tek "Hazine Destekli Kefalet Paketleri" kartı eklendi (kurum grubu KGF, 3 adımlı yol; kritik yapısal bilgi: başvuru bankaya yapılır, KGF'ye değil). Geçmiş programlar (Nefes, deprem paketleri) bilinçli dışarıda.
+
+## 6) İŞKUR ✅ OKUNDU (13.08 — iskur.gov.tr/isveren/isbasi-egitim-programlari)
+**İşbaşı Eğitim Programı kartı eklendi** (kurum grubu İŞKUR): katılımcının cep harçlığını İŞKUR öder (resmî sayfada günlük rakamlar dönemsel: geleceğin mesleklerinde 1.403,78 TL vb. — karta yazılmadı, dönemsel); işverenin ek fiilî ödemeleri aylık brüt asgari ücretin yarısına kadar vergi matrahından indirilir (sayfadan birebir). Engelli istihdamı sayfası ve "Her Meslekte Kadın Eli" projesi görüldü; engelli teşviki (4857 m.30 bağlantılı) ayrı kart edilmedi — kurulus/bilgi tarafında zaten değinme var, gerekirse Faz 2. Kısa çalışma ödeneği DESTEK kartı değil kriz aracı — katalog dışı (bilgi.html konusu).
+## 7) KALKINMA AJANSLARI + TKDK ✅ OKUNDU (13.08)
+- **ka.gov.tr/destekler** doğrulandı: 26 ajansın TÜM açık çağrıları tek listede (2026'da açık örnekler: MEVKA imalat sanayinde dönüşüm, Ankara sosyal girişimcilik, Zafer GİSEP, Çukurova fizibilite/teknik destek). **Tek kart eklendi** (bölge+konu bazlı çağrı yapısı kart metninde; KAYS başvuru adımı yolda). Not: ka.gov.tr sertifika zinciri curl'de doğrulanamadı (-k ile okundu) — izleme robotu eklenirse bu bilinmeli.
+- **tkdk.gov.tr** doğrulandı: IPARD III sürüyor (11. çağrı ön incelemesi 31.07.2026'da açıklandı; M7 çiftlik faaliyetleri çeşitlendirme çağrısı aktif). **Tek IPARD kartı eklendi**; m.33 tek-kapı uyarısı karta kondu (9903 ile aynı harcamada birleştirme riski).
+
+## 8) 5746 AR-GE/TASARIM MERKEZİ + 4691 TEKNOKENT ✅ KARAR VERİLDİ (13.08)
+Sitedeki durum: asgari-kv.html'de tek satır değinme; kurulus.html'de 4691 teknokent istisnası anlatımı VAR; RG kartlarında 5746 tebliğ değişiklikleri geçmiş. **Karar: destekler.html'e kart EKLENMEDİ** — bunlar başvurulan çağrı değil sürekli VERGİ REJİMİ; katalog "başvuru programı" vitrini olarak temiz kaldı. **Cem'e öneri:** bilgi.html'e "Ar-Ge yapan işletmenin üç kapısı: 5746 merkez / 4691 teknokent / TÜBİTAK proje — hangisi ne zaman" hap kartı. ÖN KOŞUL: 5746 ve 4691 metinleri ambarda YOK (yutulmalı) — kural 1 gereği kart ancak yutmadan sonra yazılır; YUTMA-LISTESI'ne aday yazıldı.
+
+---
+## SONUÇ ÖZETİ (13.08 itibarıyla 8 bölümün 8'i tamam)
+- destekler.html: 22 → **29 program, 3 → 8 kurum grubu** (TÜBİTAK, KGF, İŞKUR, KALKINMA AJANSI, TKDK yeni; hepsi YOLLAR adımlı, doğrulama localhost'ta hatasız).
+- En kritik iki mevzuat bulgusu: **9903 yeni teşvik rejimi (eski 2012/3305 KALKTI)** ve **SGK 5 puan → 2 puan (7566)**.
+- Cem kararı bekleyen yeni kollar: (1) **Yatırım Teşvik Sihirbazı** (il→bölge verisi `tesvik-bolgeler.json` hazır; EK-5 ilçe + EK-3 tam NACE dökümü onayla birlikte), (2) **İstihdam Teşvik Kontrolü**, (3) bilgi.html Ar-Ge üç-kapı hap kartı (5746+4691 yutma ön koşullu).

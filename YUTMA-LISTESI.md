@@ -1,5 +1,8 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ⏳ ADAY (13.08.2026 — teşvik taraması #24 çıktısı): 5746 + 4691
+bilgi.html'e önerilen "Ar-Ge'nin üç kapısı" hap kartının ÖN KOŞULU: **5746 s. Ar-Ge/Tasarım Kanunu** ve **4691 s. Teknoloji Geliştirme Bölgeleri Kanunu** ambarda YOK. Kart Cem onayı alırsa önce bu ikisi yutulur (mevzuat.gov.tr konsolide PDF; kapsama kapısı + geri okuma standart prosedür). Ayrıca 9903 uygulama tebliği yayımlanınca o da aday (asgari tutarların yıllık güncel değeri oradan gelir).
+
 ## 📌 YILLIK TAZELEME NÖBETİ — ulke-grup.json (13.08.2026 kuruldu)
 
 `veri/ulke-grup.json` YUTMA DEĞİL, GÖZLE-OKUMA ürünüdür: 10790 s. Karar eklerinin (RG 33124 3.M) yalnız s.4 (sütun-1: AB+EFTA+21 STA) ve s.578 (EK-1: GYÜ 14 / ÖTDÜ BOŞ / EAGÜ 48) sayfaları okundu; 601 sayfalık ekin tamamı taranmış görüntüdür, ambara girmedi (tarife tabloları zaten xlsx hasatlarında). **TAZELEME: her yılbaşı mükerrer RG'sinde yeni Karar ekinin s.~4 ve EK-1 sayfaları yeniden gözle okunur, dosya güncellenir.** Sinyal: rg-indir "ithalat rejimi" anahtarı yılbaşı değişikliğini zaten yakalar; o mail geldiğinde bu satır hatırlanır. STA tam metinleri BİLİNÇLİ yutulmadı (oranlar sütunlardan gelir; menşe-kuralı danışmanı ürünü açılırsa Faz 2'de yutulur).
