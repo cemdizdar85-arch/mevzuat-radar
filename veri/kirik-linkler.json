@@ -1,18 +1,29 @@
 {
-  "tarama": "12.08.2026 03:21",
-  "toplamLink": 812,
-  "kirikSayisi": 0,
-  "kirikler": [],
+  "tarama": "13.08.2026 03:23",
+  "toplamLink": 829,
+  "kirikSayisi": 2,
+  "kirikler": [
+    {
+      "url": "https://www.kvkk.gov.tr",
+      "kod": "baglanti-yok",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
+      "url": "https://kgk.gov.tr/ContentAssignmentDetail/5150/Türkiye-Finansal-Raporlama-Forumuna-İlişkin-Duyuru",
+      "kod": "baglanti-yok",
+      "sayfalar": "veri/duyuru-yeni.json"
+    }
+  ],
   "dogrulanamayanSayisi": 2,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
     {
-      "url": "https://ekapv2.kik.gov.tr",
+      "url": "https://ekapv2.kik.gov.tr/",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://ekapv2.kik.gov.tr/",
+      "url": "https://ekapv2.kik.gov.tr",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     }
