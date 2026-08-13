@@ -161,11 +161,27 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     <span style="color:var(--muted);font-size:12.5px">Panelde görmek ücretsiz üyeliğe açık; günlük tek özet e-posta (SMS yol haritasında) ücretli aboneliğin parçası. Tüm ilanların eksiksiz resmî yeri <a href="https://ekapv2.kik.gov.tr" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'tır; Tetikte katalog değil, süzgeç + bildirimdir.</span>
   </div>
   <script>
+  // 14.08 Cem bulgusu: bu kutu sekmelerin USTUNDE duruyor ama "listede 250 ilan"
+  // diyordu - o sayi YALNIZ yurt ici havuzun. AB sekmesine gecince sayi degismiyor,
+  // 250 AB ilani varmis gibi okunuyordu. Artik damga sekmeye gore degisir.
+  var IH_DAMGA = { ic:'', dis:'' };
+  function ihDamgaYaz(){
+    var e=document.getElementById('ihUstDamga'); if(!e) return;
+    var disMi=document.getElementById('paneDis') && document.getElementById('paneDis').classList.contains('on');
+    var m=disMi?IH_DAMGA.dis:IH_DAMGA.ic;
+    if(m) e.innerHTML=m;
+  }
   fetch('veri/ihale-yurtici.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
     var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
     var n=(d.ilanlar||[]).length;
-    var e=document.getElementById('ihUstDamga');
-    if(e && m) e.innerHTML='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · listede '+n+' ilan';
+    if(m) IH_DAMGA.ic='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · Türkiye listesinde '+n+' ilan';
+    ihDamgaYaz();
+  }).catch(function(){});
+  fetch('veri/ihale-ted.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+    var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
+    var n=(d.ihaleler||[]).length;
+    if(m) IH_DAMGA.dis='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · Avrupa (TED) listesinde '+n+' ilan';
+    ihDamgaYaz();
   }).catch(function(){});
   </script>
 
@@ -329,6 +345,7 @@ function tab(t){
   // 13.08 Cem: sekmeye gecince liste KENDILIGINDEN gelsin. Dugmeye basilmadikce bos
   // duran ekran "ihale yok" sanildi. Rakiplerde (TED, Contracts Finder) liste hep acik.
   if(abMi){ kontrol(); }
+  if(typeof ihDamgaYaz==='function'){ ihDamgaYaz(); }   // ust damga sekmeye gore degisir
 }
 // ============ KAMU IHALE BULTENI: iptal + duzeltme (13.08 Cem onayi) ============
 let BD=null;
