@@ -585,12 +585,43 @@ function yurtIciCiz(){
     if(x.durum==='duzeltme') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ Bu bir DÜZELTME ilanıdır${x.asilNo?' — düzeltilen ihale: '+esc(x.asilNo):''}. Asıl ilan metnini de oku.</div>`;
     return '';
   };
+  // 14.08 Cem: "burada hap bilgi versek ihale bedeli vs gibi sence".
+  // Hasatci artik ilan metninden karar bilgilerini cikariyor. YAKLASIK MALIYET
+  // GOSTERILMEZ: 4734'te ilanla aciklanmaz, kaynakta da yoktur - olcmedigimizi
+  // yazmayiz. Gosterilenlerin hepsi ilan metninde YAZAN seylerdir.
+  const trAy=s=>{ const m=/(\d{2})\.(\d{2})\.(\d{4})(?:\s*-\s*(\d{2}):(\d{2}))?/.exec(s||'');
+    return m? new Date(+m[3], +m[2]-1, +m[1], +(m[4]||0), +(m[5]||0)) : null; };
+  const teklifRoz=x=>{
+    const d=x.detay&&x.detay.sonTeklif?trAy(x.detay.sonTeklif):null;
+    if(!d||isNaN(d)) return '';
+    const kg=Math.ceil((d-new Date())/864e5);
+    let s='iyi', t=kg+' gün kaldı';
+    if(kg<0){ s='acil'; t='süre geçti'; } else if(kg===0){ s='acil'; t='SON GÜN'; } else if(kg<=7){ s='acil'; } else if(kg<=21){ s='orta'; }
+    return `<span class="gunroz ${s}">${t}</span>`;
+  };
+  const detayHtml=x=>{
+    const d=x.detay; if(!d) return '';
+    const s=[];
+    if(d.sonTeklif) s.push(`⏰ Son teklif: <b style="color:var(--ink)">${esc(d.sonTeklif)}</b>`);
+    if(d.ikn) s.push(`İKN <b style="color:var(--ink)">${esc(d.ikn)}</b>`);
+    if(d.usul){ const u=/(\d+)\s*[iı]nci|(\d+)\s*uncu/i.exec(d.usul); const md=u?(u[1]||u[2]):'';
+      s.push(`Usul: <b style="color:var(--ink)">${/açık/i.test(d.usul)?'Açık ihale':/pazarlık/i.test(d.usul)?'Pazarlık':/belli/i.test(d.usul)?'Belli istekliler':'—'}</b>${md?` (m.${md})`:''}`); }
+    const ek=[];
+    if(d.teminat){ const o=/%\s*(\d+)/.exec(d.teminat); if(o) ek.push(`Geçici teminat <b style="color:var(--ink)">%${o[1]}</b>`); }
+    if(d.isDeneyimi) ek.push(`İş deneyimi <b style="color:var(--ink)">%${esc(d.isDeneyimi)}</b>`);
+    if(d.gecerlilik) ek.push(`Teklif geçerliliği <b style="color:var(--ink)">${esc(d.gecerlilik)} gün</b>`);
+    if(d.sinirN) ek.push(`Sınır değer N=<b style="color:var(--ink)">${esc(d.sinirN)}</b>`);
+    if(ek.length) s.push(ek.join(' · '));
+    if(d.yerliSart) s.push(`<span style="color:#7ee0a5;font-weight:700">🇹🇷 Yalnız yerli istekliler katılabilir</span>`);
+    if(d.isSuresi) s.push(`İşin süresi: ${esc(d.isSuresi)}`);
+    return s.length? `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.75">${s.join('<br>')}</div>` : '';
+  };
   box.innerHTML = '<div class="igrid">' + liste.slice(0,SINIR).map(x=>`<div class="ikart">
     <div class="ust"><span class="sikon">${TUR_IKON[x.tur]||'📄'}</span>${trBayrak}<b>${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">${esc(x.ilanNo||'')}</span></div>
     <div class="gov"><h3>${esc(x.baslik)}</h3>
-      <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b><br><span style="color:var(--dim)">Yaklaşık maliyet, son teklif ve belgeler ilan metninde.</span></div>
-      ${damgaHtml(x)}</div>
-    <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan metni →</a></div>
+      <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b>${x.detay?'':'<br><span style="color:var(--dim)">Son teklif ve belgeler ilan metninde.</span>'}</div>
+      ${detayHtml(x)}${damgaHtml(x)}</div>
+    <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span>${teklifRoz(x)}<a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2);margin-left:auto">İlan metni →</a></div>
   </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="ikart" style="cursor:pointer;height:100%">
     <div class="ust"><span class="sikon">🔒</span>${trBayrak}<b>${esc(x.il||'')}</b><span style="margin-left:auto;font-size:11px;color:var(--accent2);font-weight:800">üyelere açık</span></div>
     <div class="gov"><h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
