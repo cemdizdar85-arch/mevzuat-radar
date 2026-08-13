@@ -1,0 +1,1202 @@
+{
+    "tarih":  "13.08.2026 19:04",
+    "taranan_betik":  278,
+    "aday":  199,
+    "not":  "PowerShell buyuk/kucuk harf ayirmaz. Tek-iki harfli global sabit + ayni harfli dongu degiskeni = sessiz veri kaybi. Cozum: global sabitlere UZUN ad ver (veriYolu, kapiSayaci), dongu degiskenini anlamlandir (dersAnahtar, sikMetni).",
+    "bulgular":  [
+                     {
+                         "dosya":  "aciklama-sozlesme-olcum.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aciklama-yenile.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aciklama-yenile.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aciklama-yenile.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aciklama-yenile.ps1",
+                         "global":  "$H",
+                         "dongu":  "$h",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "aciklama-yenile.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "acilis-tekduzelik-olcum.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "acilis-tekduzelik-olcum.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ambar-denetim.ps1",
+                         "global":  "$kn",
+                         "dongu":  "$kn",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ambar-denetim.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aritmetik-kapisi.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aritmetik-kapisi.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "aritmetik-kapisi.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "beceri-ders-icerikten.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$ad",
+                         "dongu":  "$ad",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$cc",
+                         "dongu":  "$cc",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$y",
+                         "dongu":  "$y",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "birlesik-yazim-olcum.ps1",
+                         "global":  "$c",
+                         "dongu":  "$c",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-ayristir.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-ayristir.ps1",
+                         "global":  "$n",
+                         "dongu":  "$n",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-ayristir.ps1",
+                         "global":  "$sv",
+                         "dongu":  "$sv",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-ayristir.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-envanter.ps1",
+                         "global":  "$sv",
+                         "dongu":  "$sv",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-karnesi.ps1",
+                         "global":  "$n",
+                         "dongu":  "$n",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-karnesi.ps1",
+                         "global":  "$sv",
+                         "dongu":  "$sv",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-karsilastir.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-karsilastir.ps1",
+                         "global":  "$sv",
+                         "dongu":  "$sv",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "cikmis-soru-karsilastir.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "damping-hasat.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "dayanak-haritasi.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "degisken-cakisma-denetcisi.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "degisken-cakisma-denetcisi.ps1",
+                         "global":  "$ad",
+                         "dongu":  "$ad",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "denetim-500.ps1",
+                         "global":  "$w",
+                         "dongu":  "$w",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "denetim-500.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "denetim-500.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "denetim-500.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ders-bazli-karsilastir.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ders-bazli-karsilastir.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ders-karnesi.ps1",
+                         "global":  "$rd",
+                         "dongu":  "$rd",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ders-karnesi.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "dil-kusuru-tarama.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "dil-kusuru-tarama.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "dil-kusuru-tarama.ps1",
+                         "global":  "$j",
+                         "dongu":  "$j",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "dil-kusuru-tarama.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "emy-hasat.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gece-paket.ps1",
+                         "global":  "$e",
+                         "dongu":  "$e",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-01.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-02.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-03.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-05.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-08.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-14.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-15.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-15.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-16.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gm-okuma-18.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gozetim-onarici.ps1",
+                         "global":  "$B",
+                         "dongu":  "$b",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "gozetim-onarici.ps1",
+                         "global":  "$L",
+                         "dongu":  "$L",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "gunun-tuzagi.ps1",
+                         "global":  "$g",
+                         "dongu":  "$g",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hakem-son-okuma.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "harf-onarim.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "havuz-dogrulayici.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-adi-tarama.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-adi-tarama.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-adi-tarama2.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-adi-tarama2.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-kodu-denetimi.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "hesap-kodu-denetimi.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "ifac-ders-ve-tablo.ps1",
+                         "global":  "$S",
+                         "dongu":  "$s",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "iki-sinav-konu-karsilastirma.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "istem-yuku-olcum.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "k11-coklu-dogru-sik.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kapsam-maliyet-olcum.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "karantina-onar.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "karantina-tasi.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "karantina-tasi.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kardes-kaynak-cikar.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kardes-kaynak-cikar.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kardes-kaynak-cikar.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kart-toplu.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kart-toplu.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kart-toplu.ps1",
+                         "global":  "$g",
+                         "dongu":  "$g",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-bag.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-bag.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-bag.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-desen-olcum.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-desen-olcum.ps1",
+                         "global":  "$U",
+                         "dongu":  "$u",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "kasa-kalite-tarama.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-ornek-goster.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-ornek-goster.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-ornek-goster.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-sayim.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-sayim.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kasa-tam-olcum.ps1",
+                         "global":  "$v",
+                         "dongu":  "$v",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kaynak-butunluk.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kaynak-doygunluk-kapisi.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kaynak-nobetcisi.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kaynak-sahte-kod-olcum.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kdv-hasat.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kdv-hasat.ps1",
+                         "global":  "$f",
+                         "dongu":  "$f",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kgk-envanter.ps1",
+                         "global":  "$y",
+                         "dongu":  "$y",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kgk-siklik-derle.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "konu-dagilim-olcum.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "konu-eslesme.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "konu-eslesme.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "konu-kapsama-karsilastir.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "konu-kapsama-karsilastir.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kopya-ayikla.ps1",
+                         "global":  "$im",
+                         "dongu":  "$im",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kopya-ayikla.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "kota-kur.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "link-nobetcisi.ps1",
+                         "global":  "$u",
+                         "dongu":  "$u",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "madde-coz.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "madde-coz.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "madde-damga.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "madde-damga.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "madde-damga.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mercek-a.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mercek-bc.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mercek-bc.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mevzuat-yukle.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mukerrer-ele.ps1",
+                         "global":  "$g",
+                         "dongu":  "$g",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mukerrer-ele.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "mukerrer-ele.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$y",
+                         "dongu":  "$y",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$i",
+                         "dongu":  "$i",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$mm",
+                         "dongu":  "$mm",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$p",
+                         "dongu":  "$p",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$a",
+                         "dongu":  "$a",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-motoru.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-tarama.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "onarim-uygula.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "orneklem-karantina.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "profesor-v2.ps1",
+                         "global":  "$x",
+                         "dongu":  "$x",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "profesor-v2.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "profesor-v2.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "profesor-v2.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "profesor-v2.ps1",
+                         "global":  "$H",
+                         "dongu":  "$h",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "rg-indir.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sgs-kota-kur.ps1",
+                         "global":  "$u",
+                         "dongu":  "$u",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sgs-tip-olcum.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sik-hesap-kodu-oneri.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sik-hesap-kodu-oneri.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sik-hesap-kodu-uygula.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "sinav-ders-envanteri.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-metin-kalitesi.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-ocr-cift-okuma.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-ocr-cift-okuma.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-ocr-rakam-dogrula.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-ocr-rakam-dogrula.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-yazili-ayristir.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "smmm-yeterlilik-indir.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-ic-tutarlilik.ps1",
+                         "global":  "$sv",
+                         "dongu":  "$sv",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-istatistik.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-nitelik.ps1",
+                         "global":  "$id",
+                         "dongu":  "$id",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-nitelik.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-nitelik.ps1",
+                         "global":  "$z",
+                         "dongu":  "$z",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$md",
+                         "dongu":  "$md",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$ka",
+                         "dongu":  "$ka",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$m",
+                         "dongu":  "$m",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$n",
+                         "dongu":  "$n",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$t",
+                         "dongu":  "$t",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$kl",
+                         "dongu":  "$kl",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$H",
+                         "dongu":  "$h",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "soru-uret-v2.ps1",
+                         "global":  "$i",
+                         "dongu":  "$i",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "tarim-hasat.ps1",
+                         "global":  "$k",
+                         "dongu":  "$k",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "tarim-hasat.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "taslak-denetim.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "taslak-denetim.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "taslak-goster.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "taslak-goster.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "taslak-goster.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "teblig-damgasi.ps1",
+                         "global":  "$d",
+                         "dongu":  "$d",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "terim-taramasi.ps1",
+                         "global":  "$w",
+                         "dongu":  "$w",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "terim-uygula.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "tfrs16-yeniden-parti2.ps1",
+                         "global":  "$S",
+                         "dongu":  "$s",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "toplu-uret.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "tuzak-sozluk-buyut.ps1",
+                         "global":  "$ad",
+                         "dongu":  "$ad",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "uslup-turu.ps1",
+                         "global":  "$H",
+                         "dongu":  "$h",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "vitrin-sec.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "yayin-kapisi.ps1",
+                         "global":  "$b",
+                         "dongu":  "$b",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "yayin-kapisi.ps1",
+                         "global":  "$r",
+                         "dongu":  "$r",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "yayin-kapisi.ps1",
+                         "global":  "$K",
+                         "dongu":  "$k",
+                         "risk":  "YUKSEK - farkli buyuk/kucuk yazim, sessizce ezer"
+                     },
+                     {
+                         "dosya":  "yayin-kapisi.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "yayina-ac.ps1",
+                         "global":  "$g",
+                         "dongu":  "$g",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "yonetmelik-ambar-sayim.ps1",
+                         "global":  "$h",
+                         "dongu":  "$h",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "zorluk-etiketi.ps1",
+                         "global":  "$s",
+                         "dongu":  "$s",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     },
+                     {
+                         "dosya":  "zorluk-turet.ps1",
+                         "global":  "$ad",
+                         "dongu":  "$ad",
+                         "risk":  "ORTA - ayni ad, dongu sonrasi deger kaybolur"
+                     }
+                 ]
+}

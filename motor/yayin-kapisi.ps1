@@ -165,9 +165,9 @@ function AdUyuyorMu([string]$iddia, [string]$resmi){
   $a = @((Sade $iddia) -split ' ' | Where-Object { $_.Length -ge 3 })
   $b = @((Sade $resmi) -split ' ' | Where-Object { $_.Length -ge 3 })
   if($a.Count -eq 0 -or $b.Count -eq 0){ return $true }
-  foreach($k in $a){
+  foreach($adayKod in $a){
     foreach($r in $b){
-      if($k.StartsWith($r) -or $r.StartsWith($k)){ return $true }
+      if($adayKod.StartsWith($r) -or $r.StartsWith($adayKod)){ return $true }
     }
   }
   return $false
@@ -335,7 +335,9 @@ $temizPaket = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kasa=$kas
 Write-Host ("  temiz id listesi yazildi: {0} kayit" -f $temizListe.Count)
 Write-Host "`n=== YAYIN KAPISI: $karar ==="
 Write-Host ("  {0,-22} {1,8}   {2,8}" -f 'KAPI', 'TUM KASA', 'YAYINDA')
-foreach($k in $K.Keys){ Write-Host ("  {0,-22} {1,8}   {2,8}" -f $k, $K[$k], $KY[$k]) }
+# 13.08 IKINCI CAKISMA: burada da $k dongusu $K sayacini eziyordu -> ekrandaki
+# "TUM KASA" sutunu BOS cikiyordu (JSON dogruydu, ekran yalan soyluyordu).
+foreach($kapiAdi in $K.Keys){ Write-Host ("  {0,-22} {1,8}   {2,8}" -f $kapiAdi, $K[$kapiAdi], $KY[$kapiAdi]) }
 Write-Host ("  {0,-22} {1,8}   {2,8}" -f 'KIRMIZI SORU', $kirmiziId.Count, $kirmiziYayin.Count)
 Write-Host ("  Kasa {0} soru, yayinda {1}" -f $kasa.Count, $yayindaSayi)
 if($karar -eq 'DURDU'){ exit 1 }

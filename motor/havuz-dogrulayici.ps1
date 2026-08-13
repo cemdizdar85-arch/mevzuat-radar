@@ -23,7 +23,7 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$V = Join-Path $kok 'veri'
+$veriYolu = Join-Path $kok 'veri'
 if(-not $env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 $SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
 $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -31,11 +31,11 @@ $U = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
 $HARF = @('A','B','C','D','E')
 
 # --- havuz (dogrulanacak liste) ve kara liste (sizmis mi diye)
-$olcum = Get-Content (Join-Path $V 'yayin-havuzu-olcum.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$olcum = Get-Content (Join-Path $veriYolu 'yayin-havuzu-olcum.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $havuz = @{}; foreach($id in @($olcum.idler)){ $havuz["$id"] = $true }
 $karaAd = @{}
 foreach($dosya in @('aritmetik-kapisi-raporu.json','k11-coklu-dogru-sik.json','kopya-dislanan.json')){
-  $y = Join-Path $V $dosya
+  $y = Join-Path $veriYolu $dosya
   if(-not (Test-Path $y)){ continue }
   $d = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach($alan in 'bulgu_idler','idler'){ foreach($id in @($d.$alan)){ if($id){ $karaAd["$id"] = $dosya } } }
@@ -72,8 +72,8 @@ foreach($id in $havuz.Keys){
   $dh = "$($s.dogru)".Trim().ToUpper()
   $sikTam = $true
   foreach($h in $HARF){
-    $v = $null; try { if($s.siklar -and $s.siklar.PSObject.Properties[$h]){ $v = "$($s.siklar.$h)" } } catch {}
-    if([string]::IsNullOrWhiteSpace($v)){ $sikTam = $false }
+    $sikMetni = $null; try { if($s.siklar -and $s.siklar.PSObject.Properties[$h]){ $sikMetni = "$($s.siklar.$h)" } } catch {}
+    if([string]::IsNullOrWhiteSpace($sikMetni)){ $sikTam = $false }
   }
   if(-not $sikTam -or ($HARF -notcontains $dh)){ $d2 += [pscustomobject]@{ id=$id; sorun=$(if(-not $sikTam){'sik eksik/bos'}else{"dogru harf gecersiz: $dh"}) }; continue }
   if($dag.ContainsKey($dh)){ $dag[$dh]++ }
@@ -110,7 +110,7 @@ $rapor = [ordered]@{
   D6_kara_liste_sizintisi=[ordered]@{ adet=$d6.Count; ornek=@($d6 | Select-Object -First 10) }
   hukum=$(if($kirmizi){'KIRMIZI - havuzda yapisal sorun var'}else{'YESIL - havuz bagimsiz olcumden gecti'})
 }
-[IO.File]::WriteAllText((Join-Path $V 'havuz-dogrulama.json'), (ConvertTo-Json $rapor -Depth 6), (New-Object Text.UTF8Encoding($false)))
+[IO.File]::WriteAllText((Join-Path $veriYolu 'havuz-dogrulama.json'), (ConvertTo-Json $rapor -Depth 6), (New-Object Text.UTF8Encoding($false)))
 Write-Host ''
 Write-Host ("D1 hayalet id            : {0}" -f $d1.Count)
 Write-Host ("D2 yapi bozuk            : {0}" -f $d2.Count)
