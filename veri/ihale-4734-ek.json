@@ -1,113 +1,217 @@
-{
-  "guncelleme": "4734 ek katman — yerli malı avantajı (m.63), eşik değerler/parasal limitler (KİK Tebliğ 2026/1), doğrudan temin (m.22), sınır değer (m.38), şikayet/itirazen şikayet (m.54-57), yasaklama (m.58). Kaynak: mevzuat.gov.tr + kik.gov.tr + Resmî Gazete (birincil, 13.07.2026).",
-  "kaynak": "mevzuat.gov.tr / kik.gov.tr / resmigazete.gov.tr",
-  "borcEsigi": {
-    "vergi": 5000,
-    "sgk": 5000,
-    "para": "TL",
-    "tarih": "01.10.2024",
-    "aciklama": "Türkiye genelinde vadesi geçmiş, ödenmemiş kesinleşmiş vergi borcu VEYA sosyal güvenlik prim borcu TOPLAMI 5.000 TL'yi AŞARSA istekli ihale dışı bırakılır (geçici teminatı gelir kaydedilir). 5.000 TL ve altındaki borç ihale dışı bırakmaz. Rakam KİK'çe belirlenir; SGK üst limiti 5.000 TL olarak 01.10.2024'ten itibaren uygulanır.",
-    "kaynak": "Kamu İhale Genel Tebliği m.17.6.3 (KİK); SGK prim borcu üst limiti 5.000 TL — kik.gov.tr duyuru, 01.10.2024"
-  },
-  "yerliMali": {
-    "baslik": "Yerli malı / yerli istekli avantajı (m.63)",
-    "avantaj": "Mal alımı ihalelerinde yerli malı teklif eden istekliler lehine %15'e KADAR fiyat avantajı sağlanabilir.",
-    "zorunlu": "Sanayi ve Teknoloji Bakanlığı'nca belirlenen ORTA-YÜKSEK ve YÜKSEK teknolojili sanayi ürünleri ile yazılım ürünlerinde yerli malı lehine %15 fiyat avantajı ZORUNLUDUR (idare takdir edemez).",
-    "belge": "Yerli Malı Belgesi: TOBB/TESK'e bağlı oda/borsalar düzenler. Şart: sanayi sicil belgesi + yerli katkı oranı ≥ %51 (Yerli Malı Tebliği SGM-2024/10, RG 25.01.2025).",
-    "yapimHizmet": "Yapım ve hizmet ihalelerinde de yalnız yerli istekliler lehine düzenleme yapılabilir (eşik değerin altındaki bazı ihaleler yalnız yerli isteklilere açılabilir).",
-    "kaynak": "4734 m.63; kik.gov.tr orta-yüksek teknoloji listesi; RG 25.01.2025 SGM-2024/10"
-  },
-  "esikDegerler": {
-    "donem": "01.02.2026 – 31.01.2027",
-    "teblig": "Kamu İhale Tebliği No: 2026/1 (RG 22.01.2026)",
-    "malHizmetGenelButce": "18.734.124 TL",
-    "malHizmetDiger": "31.223.628 TL",
-    "yapim": "686.924.429 TL",
-    "dogrudanTeminBuyuksehir": "1.021.827 TL",
-    "dogrudanTeminDiger": "büyükşehir dışı idarelerde daha düşük (tebliğe bak)",
-    "ilanKademe": "2.043.844 TL (m.13 eşik-altı ilan kademesi sınırı)",
-    "ilanBedeli": "KİB tek ilan 7.500 TL + KDV",
-    "not": "Bu tutarlar HER YIL 1 Şubat'ta KİK tebliğiyle güncellenir — koda gömülü değil, tebliğe bağlı (robot yıllık günceller)."
-  },
-  "dogrudanTemin": {
-    "baslik": "Doğrudan temin (m.22)",
-    "metin": "Belirli hallerde ihale usulü uygulanmadan, ilansız, teminatsız doğrudan alım: ihtiyacın tek kaynaktan karşılanması, acil haller, parasal limit altı küçük alımlar (m.22/d) vb. Parasal limit yıllık tebliğe bağlı (2026: büyükşehir içi 1.021.827 TL)."
-  },
-  "sinirDeger": {
-    "baslik": "Aşırı düşük teklif / sınır değer (m.38)",
-    "metin": "İhale komisyonu, teklifleri sınır değere göre değerlendirir. Sınır değerin altındaki tekliflerden yazılı AÇIKLAMA istenir; açıklaması yeterli görülmeyen teklif reddedilir. Amaç: gerçekçi olmayan düşük teklifle işi alıp yapamama riskini önlemek."
-  },
-  "sikayet": {
-    "baslik": "Hakkını ara: şikayet ve itirazen şikayet (m.54-57)",
-    "adimlar": [
-      "1) İDAREYE ŞİKAYET: ihale sürecindeki hukuka aykırı işlem/eylemi öğrendiğin tarihi izleyen 10 GÜN içinde ihaleyi yapan idareye yazılı şikayet. İdare 10 gün içinde karar verir.",
-      "2) KİK'E İTİRAZEN ŞİKAYET: idarenin kararına/cevap vermemesine karşı, kararın bildirimini/süre bitimini izleyen 10 GÜN içinde Kamu İhale Kurumu'na itirazen şikayet + BAŞVURU BEDELİ (yaklaşık maliyete göre kademeli — güncel tutar 2026/1 tebliğinde).",
-      "3) KİK kararına karşı idari yargı (Danıştay/idare mahkemesi)."
-    ],
-    "not": "Süreler HAK DÜŞÜRÜCÜ — 10 günü kaçıran itiraz hakkını kaybeder. (Ceza Asistanı mantığının ihale versiyonu.)"
-  },
-  "yasaklama": {
-    "baslik": "İhalelere katılmaktan yasaklama (m.58)",
-    "metin": "Yasak fiil/davranışta bulunanlar (m.17) veya sözleşme yükümlülüğünü ihlal edenler hakkında, fiilin niteliğine göre 1 YILDAN 2 YILA kadar tüm kamu ihalelerine katılmaktan yasaklama kararı verilir. Yasaklı gerçek/tüzel kişi + sermayesinin çoğunluğuna sahip ortakları da kapsanır. Yasaklılar Resmî Gazete'de yayımlanır."
-  },
-  "isOrtakligi": {
-    "baslik": "İş ortaklığı / konsorsiyum (m.14)",
-    "metin": "Birden fazla istekli, İŞ ORTAKLIĞI (her ortak işin tamamından müştereken sorumlu) veya KONSORSİYUM (her ortak uzmanlık işinden kendi sorumlu) kurarak birlikte teklif verebilir — büyük işlerde yeterliği birleştirmenin yolu."
-  },
-  "damgaVergisi": {
-    "baslik": "Kazanmanın gizli maliyeti — damga vergisi",
-    "ihaleKarari": 0.00569,
-    "ihaleKarariYazi": "İhale kararı: binde 5,69",
-    "sozlesme": 0.00948,
-    "sozlesmeYazi": "Sözleşme: binde 9,48",
-    "metin": "İhaleyi kazanınca İKİ ayrı damga vergisi doğar: ihale kararı üzerinden binde 5,69 + sözleşme bedeli üzerinden binde 9,48. Teklifini verirken bunu maliyetine kat — çoğu kişi unutur.",
-    "kaynak": "488 s. Damga Vergisi Kanunu ekli (1) sayılı tablo; 7491 s. Kanun (RG 28.12.2023) ihale kararı ve ihale sözleşmesini tabloya açıkça ekledi."
-  },
-  "kdvTevkifat": {
-    "baslik": "KDV tevkifatı (kamu idaresine iş yaparsan)",
-    "yapim": "Yapım işleri (KDV dahil bedel ≥ 5.000.000 TL) + birlikte yapılan mühendislik/mimarlık/etüt-proje: (4/10) tevkifat.",
-    "digerHizmet": "Tebliğde özel oran belirlenmeyen diğer hizmetler (5018 sayılı Kanun idarelerine): (5/10) tevkifat.",
-    "metin": "Kamu idaresine yapım/hizmet ifasında, KDV'nin bir kısmını alıcı (idare) sorumlu sıfatıyla keser — senin tahsil edeceğin KDV azalır, nakit akışını etkiler.",
-    "kaynak": "KDV Genel Uygulama Tebliği (GİB, cdn.gib.gov.tr — kısmi tevkifat oranları)"
-  },
-  "surecAkisi": [
-    "1) İlan / davet — EKAP + Kamu İhale Bülteni (süreler m.13).",
-    "2) İhale dokümanını al (m.27): idari şartname, teknik şartname, sözleşme tasarısı. Belirsizlik varsa açıklama iste; idare zeyilname yayınlayabilir (m.29).",
-    "3) Teklifini hazırla (m.30): teklif mektubu + geçici teminat (%3) + yeterlik belgeleri; zarf/e-teklif.",
-    "4) Teklifi ver — son teklif saatine kadar EKAP/elden.",
-    "5) Değerlendirme (m.37-38): yeterlik + aşırı düşük kontrolü.",
-    "6) İhale kararı (m.40): ekonomik açıdan en avantajlı teklif belirlenir → kesinleşen karar bildirilir (m.41).",
-    "7) Sözleşmeye davet (m.42-44): kesin teminat (%6) + damga vergisi + sözleşme imzası. İşe başla."
-  ],
-  "kazanmaKriteri": {
-    "baslik": "Kazanan nasıl seçilir? (m.40)",
-    "metin": "İhale, EKONOMİK AÇIDAN EN AVANTAJLI teklifi verene bırakılır. Bu her zaman EN DÜŞÜK FİYAT demek değildir: idare, fiyatla birlikte FİYAT DIŞI UNSURLAR (kalite, teknik değer, teslim süresi, işletme-bakım maliyeti vb.) belirlemişse, bunların ağırlıklı puanı da hesaba katılır. Şartnamedeki değerlendirme kriterini oku."
-  },
-  "istisnalar": {
-    "baslik": "Bu alım zaten ihaleyle mi? (m.3 istisnaları)",
-    "metin": "Bazı alımlar 4734'ün tam usullerinden istisnadır (m.3): savunma-güvenlik, uluslararası anlaşma kapsamı, bazı kurum kendi mevzuatıyla yaptığı alımlar vb. Ayrıca m.22 doğrudan temin ve parasal limit altı alımlar tam ihale gerektirmez. Yani her kamu alımı büyük ihale süreci değildir."
-  },
-  "digerHukumler": [
-    { "madde": "5", "baslik": "Temel ilkeler — senin 'eşit muamele' hakkının dayanağı", "metin": "İdare; saydamlığı, REKABETİ, EŞİT MUAMELEyİ, güvenirliği, gizliliği, kamuoyu denetimini, ihtiyaçların uygun şartlarla ve zamanında karşılanmasını ve kaynakların verimli kullanılmasını sağlamakla yükümlüdür. Bir isteklinin kayrıldığını/eşit muamele görmediğini düşünüyorsan itirazının dayanağı budur." },
-    { "madde": "15", "baslik": "Alt yükleniciler", "metin": "İhale dokümanında izin verilmişse işin bir KISMINI alt yüklenicilere yaptırabilirsin; ancak işin TAMAMI alt yükleniciye verilemez. İdareye karşı sorumluluk asıl yüklenicidedir." },
-    { "madde": "16", "baslik": "İhale saatinden önce iptal", "metin": "İdare gerekli görürse ihale saatinden ÖNCE ihaleyi iptal edebilir. İstekliler bundan dolayı idareden hak/tazminat talep edemez; alınan teminatlar iade edilir." },
-    { "madde": "28", "baslik": "Dokümanı nasıl alırsın", "metin": "İhale dokümanı EKAP'ta bedelsiz görülebilir/indirilebilir (e-imza ile). Teklif verecek olan dokümanı EKAP'tan indirmiş/almış olmalı." },
-    { "madde": "32", "baslik": "Teklifinin geçerlilik süresi", "metin": "Teklifin, dokümanda belirtilen süre boyunca geçerli/bağlayıcı kalır. İdare gerekçeyle uzatma isteyebilir; kabul etmezsen teklifin değerlendirme dışı kalır (geçici teminatın iade edilir)." },
-    { "madde": "36", "baslik": "Teklifler nasıl açılır", "metin": "Teklifler, ihale saatinde ihale komisyonunca (hazır isteklilerin önünde) açılır; ilk oturumda belge/teminat kontrolü yapılır, fiyatlar okunur. Şeffaflık senin lehine." },
-    { "madde": "39", "baslik": "İdare TÜM teklifleri reddedip ihaleyi İPTAL edebilir (kritik)", "metin": "İhale komisyonu kararıyla idare, verilmiş bütün teklifleri reddederek ihaleyi iptal etmekte SERBESTTİR. İptalden dolayı istekli idareye karşı hiçbir hak/tazminat talebinde bulunamaz; teminatlar iade edilir. Yani emek verip teklif verirsin, idare iptal edebilir — teklif maliyetini buna göre düşün." },
-    { "madde": "44", "baslik": "Kazanıp sözleşme imzalamazsan — CEZASI ağır", "metin": "İhale üzerinde kalırsan, süresi içinde KESİN TEMİNATI (%6) verip sözleşmeyi imzalamak ZORUNDASIN. İmzalamazsan: geçici teminatın GELİR KAYDEDİLİR + m.58'e göre ihalelere katılmaktan YASAKLANIRSIN. 'Kazandım ama vazgeçtim' pahalıya patlar." },
-    { "madde": "45", "baslik": "İdare imzalamazsa", "metin": "İdare kendi kusuruyla süresinde sözleşme imzalamazsa, istekli geçici teminatını geri alır ve varsa uğradığı zararı talep edebilir." },
-    { "madde": "59", "baslik": "İsteklilerin ceza sorumluluğu", "metin": "Yasak fiil/davranışta (m.17) bulunanlar veya üzerine ihale yapıldığı halde taahhüdünü yerine getirmeyenler hakkında; yasaklamanın yanı sıra Türk Ceza Kanunu hükümleri + idarenin uğradığı zararın tazmini gündeme gelir. Ağır fiillerde Cumhuriyet savcılığına suç duyurusu." },
-    { "madde": "65", "baslik": "Tebligat EKAP'tan — SÜRE ne zaman başlar", "metin": "Bildirim ve tebligatlar esas olarak EKAP üzerinden elektronik yapılır. EKAP tebligatı, genellikle bildirimin yapıldığı tarihi izleyen 5. günün sonunda tebliğ edilmiş sayılır — şikayet/itiraz sürelerin (10 gün) bu tarihten işlemeye başlar. Süreyi kaçırmamak için EKAP'ı düzenli kontrol et." },
-    { "madde": "Ek 2", "baslik": "Çerçeve anlaşma", "metin": "İdareler, ileride yapacakları benzer/tekrarlayan alımlar için önce isteklilerle ÇERÇEVE ANLAŞMA yapar; sonra ihtiyaç doğdukça münferit sözleşmelerle alım yapar. Sürekli tedarikçi olmak istiyorsan bu listelere girmek önemli." },
-    { "madde": "Ek 3", "baslik": "Dinamik alım sistemi (DPS)", "metin": "Standart, piyasada hazır malların alımında kullanılan, süresince İSTEDİĞİN AN katılabildiğin tamamen elektronik sistem (AB TED tarafında da gördüğümüz DPS'in yurt içi karşılığı)." },
-    { "madde": "Ek 4", "baslik": "Elektronik eksiltme (e-eksiltme)", "metin": "İlk tekliflerden sonra, isteklilerin elektronik ortamda fiyatlarını (veya belirli unsurları) karşılıklı olarak düşürdüğü aşama. Fiyatını buna göre stratejik belirle." },
-    { "madde": "12", "baslik": "Şartnameler — rekabet engeli yasak", "metin": "Teknik şartnamede belirli bir marka, menşe, patent veya üretim yöntemi belirterek rekabet ENGELLENEMEZ; zorunluysa 'veya dengi' ibaresi eklenir. İdari şartname katılım ve değerlendirme kurallarını içerir. Şartname 'sadece bir firmaya' göre yazılmışsa itiraz dayanağın olabilir (m.5 rekabet ilkesiyle birlikte)." },
-    { "madde": "24", "baslik": "İlanda bulunması zorunlu hususlar", "metin": "İhale ilanı en az şunları içermeli: idarenin adı/adresi, işin niteliği-türü-miktarı-yeri, ihale usulü, ihale tarih-saat-yeri, istenen yeterlik belgeleri, teminat, son teklif verme zamanı. Eksik/yanıltıcı ilan geçersizdir (m.26)." },
-    { "madde": "26", "baslik": "İlanın uygun olmaması", "metin": "İlan m.13/24/25'e aykırıysa GEÇERSİZDİR. Hata düzeltilebilir nitelikteyse düzeltme ilanı yapılır; değilse ihale iptal edilip yeniden ilana çıkılır. Hatalı ilana dayanan mağduriyette itiraz edebilirsin." },
-    { "madde": "35", "baslik": "Teminat mektubu — süre", "metin": "Banka teminat mektubu geçici teminat olarak kabul edilir; mektup, tekliflerin geçerlilik süresinden EN AZ 30 GÜN fazla süreli olmalı. Süresi kısa mektup teklifi geçersiz kılar." },
-    { "madde": "62", "baslik": "Ödenek + arsa şartı (hayali ihaleye karşı korur)", "metin": "İdare ÖDENEĞİ olmadan ihaleye çıkamaz; birden fazla yıla yayılan işte ilk yıl ödeneği proje maliyetinin %10'undan az olamaz. Yapım işinde ARSA temin edilmeden ihale yapılamaz. Yani 'parası/arsası olmayan' bir ihale kural dışıdır — sonradan iptal riski taşır." },
-    { "madde": "Ek 8", "baslik": "Kamu alımıyla yerli sanayi/teknoloji desteği", "metin": "Kamu alımları, bölgesel kalkınmayı ve teknolojik gelişmeyi (yerli üretim, orta-yüksek teknoloji) desteklemek amacıyla kullanılabilir — m.63 yerli malı %15 avantajının politika dayanağı budur." },
-    { "madde": "Ek 12", "baslik": "DMO üzerinden özel alımlar (2023)", "metin": "Devlet Malzeme Ofisi (DMO), idareler adına taşıt alımı/kiralama, akaryakıt, ilaç/tıbbi malzeme/cihaz alımlarını özel satın alma yöntemleriyle (açık/kapalı teklif, davetle, pazarlık) yapabilir; bu alımlarda ceza/yasaklama/sonuç bildirimi HARİÇ 4734 uygulanmaz (7491 s.K., 28.12.2023). Bu ürünlerde DMO'ya tedarikçiyseniz bu kanaldan haberdar olun." }
-  ]
+﻿{
+    "guncelleme":  "4734 ek katman — yerli malı avantajı (m.63), eşik değerler/parasal limitler (KİK Tebliğ 2026/1), doğrudan temin (m.22), sınır değer (m.38), şikayet/itirazen şikayet (m.54-57), yasaklama (m.58). Kaynak: mevzuat.gov.tr + kik.gov.tr + Resmî Gazete (birincil, 13.07.2026).",
+    "kaynak":  "mevzuat.gov.tr / kik.gov.tr / resmigazete.gov.tr",
+    "borcEsigi":  {
+                      "vergi":  5000,
+                      "sgk":  5000,
+                      "para":  "TL",
+                      "tarih":  "01.10.2024",
+                      "aciklama":  "Türkiye genelinde vadesi geçmiş, ödenmemiş kesinleşmiş vergi borcu VEYA sosyal güvenlik prim borcu TOPLAMI 5.000 TL\u0027yi AŞARSA istekli ihale dışı bırakılır (geçici teminatı gelir kaydedilir). 5.000 TL ve altındaki borç ihale dışı bırakmaz. Rakam KİK\u0027çe belirlenir; SGK üst limiti 5.000 TL olarak 01.10.2024\u0027ten itibaren uygulanır.",
+                      "kaynak":  "Kamu İhale Genel Tebliği m.17.6.3 (KİK); SGK prim borcu üst limiti 5.000 TL — kik.gov.tr duyuru, 01.10.2024"
+                  },
+    "yerliMali":  {
+                      "baslik":  "Yerli malı / yerli istekli avantajı (m.63)",
+                      "avantaj":  "Mal alımı ihalelerinde yerli malı teklif eden istekliler lehine %15\u0027e KADAR fiyat avantajı sağlanabilir.",
+                      "zorunlu":  "Sanayi ve Teknoloji Bakanlığı\u0027nca belirlenen ORTA-YÜKSEK ve YÜKSEK teknolojili sanayi ürünleri ile yazılım ürünlerinde yerli malı lehine %15 fiyat avantajı ZORUNLUDUR (idare takdir edemez).",
+                      "belge":  "Yerli Malı Belgesi: TOBB/TESK\u0027e bağlı oda/borsalar düzenler. Şart: sanayi sicil belgesi + yerli katkı oranı ≥ %51 (Yerli Malı Tebliği SGM-2024/10, RG 25.01.2025).",
+                      "yapimHizmet":  "Yapım ve hizmet ihalelerinde de yalnız yerli istekliler lehine düzenleme yapılabilir (eşik değerin altındaki bazı ihaleler yalnız yerli isteklilere açılabilir).",
+                      "kaynak":  "4734 m.63; kik.gov.tr orta-yüksek teknoloji listesi; RG 25.01.2025 SGM-2024/10"
+                  },
+    "esikDegerler":  {
+                         "donem":  "01.02.2026 – 31.01.2027",
+                         "teblig":  "Kamu İhale Tebliği No: 2026/1 (RG 22.01.2026)",
+                         "malHizmetGenelButce":  "18.734.124 TL",
+                         "malHizmetDiger":  "31.223.628 TL",
+                         "yapim":  "686.924.429 TL",
+                         "dogrudanTeminBuyuksehir":  "1.021.827 TL",
+                         "dogrudanTeminDiger":  "büyükşehir dışı idarelerde daha düşük (tebliğe bak)",
+                         "ilanKademe":  "2.043.844 TL (m.13 eşik-altı ilan kademesi sınırı)",
+                         "ilanBedeli":  "KİB tek ilan 7.500 TL + KDV",
+                         "not":  "Bu tutarlar HER YIL 1 Şubat\u0027ta KİK tebliğiyle güncellenir — koda gömülü değil, tebliğe bağlı (robot yıllık günceller)."
+                     },
+    "dogrudanTemin":  {
+                          "baslik":  "Doğrudan temin (m.22)",
+                          "metin":  "Belirli hallerde ihale usulü uygulanmadan, ilansız, teminatsız doğrudan alım: ihtiyacın tek kaynaktan karşılanması, acil haller, parasal limit altı küçük alımlar (m.22/d) vb. Parasal limit yıllık tebliğe bağlı (2026: büyükşehir içi 1.021.827 TL)."
+                      },
+    "sinirDeger":  {
+                       "baslik":  "Aşırı düşük teklif / sınır değer (m.38)",
+                       "metin":  "İhale komisyonu, teklifleri sınır değere göre değerlendirir. Sınır değerin altındaki tekliflerden yazılı AÇIKLAMA istenir; açıklaması yeterli görülmeyen teklif reddedilir. Amaç: gerçekçi olmayan düşük teklifle işi alıp yapamama riskini önlemek."
+                   },
+    "sikayet":  {
+                    "baslik":  "Hakkını ara: şikayet ve itirazen şikayet (m.54-57)",
+                    "adimlar":  [
+                                    "1) İDAREYE ŞİKAYET: ihale sürecindeki hukuka aykırı işlem/eylemi öğrendiğin tarihi izleyen 10 GÜN içinde ihaleyi yapan idareye yazılı şikayet. İdare 10 gün içinde karar verir.",
+                                    "2) KİK\u0027E İTİRAZEN ŞİKAYET: idarenin kararına/cevap vermemesine karşı, kararın bildirimini/süre bitimini izleyen 10 GÜN içinde Kamu İhale Kurumu\u0027na itirazen şikayet + BAŞVURU BEDELİ (yaklaşık maliyete göre kademeli — güncel tutar 2026/1 tebliğinde).",
+                                    "3) KİK kararına karşı idari yargı (Danıştay/idare mahkemesi)."
+                                ],
+                    "not":  "Süreler HAK DÜŞÜRÜCÜ — 10 günü kaçıran itiraz hakkını kaybeder. (Ceza Asistanı mantığının ihale versiyonu.)"
+                },
+    "yasaklama":  {
+                      "baslik":  "İhalelere katılmaktan yasaklama (m.58)",
+                      "metin":  "Yasak fiil/davranışta bulunanlar (m.17) veya sözleşme yükümlülüğünü ihlal edenler hakkında, fiilin niteliğine göre 1 YILDAN 2 YILA kadar tüm kamu ihalelerine katılmaktan yasaklama kararı verilir. Yasaklı gerçek/tüzel kişi + sermayesinin çoğunluğuna sahip ortakları da kapsanır. Yasaklılar Resmî Gazete\u0027de yayımlanır."
+                  },
+    "isOrtakligi":  {
+                        "baslik":  "İş ortaklığı / konsorsiyum (m.14)",
+                        "metin":  "Birden fazla istekli, İŞ ORTAKLIĞI (her ortak işin tamamından müştereken sorumlu) veya KONSORSİYUM (her ortak uzmanlık işinden kendi sorumlu) kurarak birlikte teklif verebilir — büyük işlerde yeterliği birleştirmenin yolu."
+                    },
+    "damgaVergisi":  {
+                         "baslik":  "Kazanmanın gizli maliyeti — damga vergisi",
+                         "ihaleKarari":  0.00569,
+                         "ihaleKarariYazi":  "İhale kararı: binde 5,69",
+                         "sozlesme":  0.00948,
+                         "sozlesmeYazi":  "Sözleşme: binde 9,48",
+                         "metin":  "İhaleyi kazanınca İKİ ayrı damga vergisi doğar: ihale kararı üzerinden binde 5,69 + sözleşme bedeli üzerinden binde 9,48. Teklifini verirken bunu maliyetine kat — çoğu kişi unutur.",
+                         "kaynak":  "488 s. Damga Vergisi Kanunu ekli (1) sayılı tablo; 7491 s. Kanun (RG 28.12.2023) ihale kararı ve ihale sözleşmesini tabloya açıkça ekledi."
+                     },
+    "kdvTevkifat":  {
+                        "baslik":  "KDV tevkifatı (kamu idaresine iş yaparsan)",
+                        "yapim":  "Yapım işleri (KDV dahil bedel ≥ 5.000.000 TL) + birlikte yapılan mühendislik/mimarlık/etüt-proje: (4/10) tevkifat.",
+                        "digerHizmet":  "Tebliğde özel oran belirlenmeyen diğer hizmetler (5018 sayılı Kanun idarelerine): (5/10) tevkifat.",
+                        "metin":  "Kamu idaresine yapım/hizmet ifasında, KDV\u0027nin bir kısmını alıcı (idare) sorumlu sıfatıyla keser — senin tahsil edeceğin KDV azalır, nakit akışını etkiler.",
+                        "kaynak":  "KDV Genel Uygulama Tebliği (GİB, cdn.gib.gov.tr — kısmi tevkifat oranları)"
+                    },
+    "surecAkisi":  [
+                       "1) İlan / davet — EKAP + Kamu İhale Bülteni (süreler m.13).",
+                       "2) İhale dokümanını al (m.27): idari şartname, teknik şartname, sözleşme tasarısı. Belirsizlik varsa açıklama iste; idare zeyilname yayınlayabilir (m.29).",
+                       "3) Teklifini hazırla (m.30): teklif mektubu + geçici teminat (%3) + yeterlik belgeleri; zarf/e-teklif.",
+                       "4) Teklifi ver — son teklif saatine kadar EKAP/elden.",
+                       "5) Değerlendirme (m.37-38): yeterlik + aşırı düşük kontrolü.",
+                       "6) İhale kararı (m.40): ekonomik açıdan en avantajlı teklif belirlenir → kesinleşen karar bildirilir (m.41).",
+                       "7) Sözleşmeye davet (m.42-44): kesin teminat (%6) + damga vergisi + sözleşme imzası. İşe başla."
+                   ],
+    "kazanmaKriteri":  {
+                           "baslik":  "Kazanan nasıl seçilir? (m.40)",
+                           "metin":  "İhale, EKONOMİK AÇIDAN EN AVANTAJLI teklifi verene bırakılır. Bu her zaman EN DÜŞÜK FİYAT demek değildir: idare, fiyatla birlikte FİYAT DIŞI UNSURLAR (kalite, teknik değer, teslim süresi, işletme-bakım maliyeti vb.) belirlemişse, bunların ağırlıklı puanı da hesaba katılır. Şartnamedeki değerlendirme kriterini oku."
+                       },
+    "istisnalar":  {
+                       "baslik":  "Bu alım zaten ihaleyle mi? (m.3 istisnaları)",
+                       "metin":  "Bazı alımlar 4734\u0027ün tam usullerinden istisnadır (m.3): savunma-güvenlik, uluslararası anlaşma kapsamı, bazı kurum kendi mevzuatıyla yaptığı alımlar vb. Ayrıca m.22 doğrudan temin ve parasal limit altı alımlar tam ihale gerektirmez. Yani her kamu alımı büyük ihale süreci değildir."
+                   },
+    "digerHukumler":  [
+                          {
+                              "madde":  "5",
+                              "baslik":  "Temel ilkeler — senin \u0027eşit muamele\u0027 hakkının dayanağı",
+                              "metin":  "İdare; saydamlığı, REKABETİ, EŞİT MUAMELEyİ, güvenirliği, gizliliği, kamuoyu denetimini, ihtiyaçların uygun şartlarla ve zamanında karşılanmasını ve kaynakların verimli kullanılmasını sağlamakla yükümlüdür. Bir isteklinin kayrıldığını/eşit muamele görmediğini düşünüyorsan itirazının dayanağı budur."
+                          },
+                          {
+                              "madde":  "15",
+                              "baslik":  "Alt yükleniciler",
+                              "metin":  "İhale dokümanında izin verilmişse işin bir KISMINI alt yüklenicilere yaptırabilirsin; ancak işin TAMAMI alt yükleniciye verilemez. İdareye karşı sorumluluk asıl yüklenicidedir."
+                          },
+                          {
+                              "madde":  "16",
+                              "baslik":  "İhale saatinden önce iptal",
+                              "metin":  "İdare gerekli görürse ihale saatinden ÖNCE ihaleyi iptal edebilir. İstekliler bundan dolayı idareden hak/tazminat talep edemez; alınan teminatlar iade edilir."
+                          },
+                          {
+                              "madde":  "28",
+                              "baslik":  "Dokümanı nasıl alırsın",
+                              "metin":  "İhale dokümanı EKAP\u0027ta bedelsiz görülebilir/indirilebilir (e-imza ile). Teklif verecek olan dokümanı EKAP\u0027tan indirmiş/almış olmalı."
+                          },
+                          {
+                              "madde":  "32",
+                              "baslik":  "Teklifinin geçerlilik süresi",
+                              "metin":  "Teklifin, dokümanda belirtilen süre boyunca geçerli/bağlayıcı kalır. İdare gerekçeyle uzatma isteyebilir; kabul etmezsen teklifin değerlendirme dışı kalır (geçici teminatın iade edilir)."
+                          },
+                          {
+                              "madde":  "36",
+                              "baslik":  "Teklifler nasıl açılır",
+                              "metin":  "Teklifler, ihale saatinde ihale komisyonunca (hazır isteklilerin önünde) açılır; ilk oturumda belge/teminat kontrolü yapılır, fiyatlar okunur. Şeffaflık senin lehine."
+                          },
+                          {
+                              "madde":  "39",
+                              "baslik":  "İdare TÜM teklifleri reddedip ihaleyi İPTAL edebilir (kritik)",
+                              "metin":  "İhale komisyonu kararıyla idare, verilmiş bütün teklifleri reddederek ihaleyi iptal etmekte SERBESTTİR. İptalden dolayı istekli idareye karşı hiçbir hak/tazminat talebinde bulunamaz; teminatlar iade edilir. Yani emek verip teklif verirsin, idare iptal edebilir — teklif maliyetini buna göre düşün."
+                          },
+                          {
+                              "madde":  "44",
+                              "baslik":  "Kazanıp sözleşme imzalamazsan — CEZASI ağır",
+                              "metin":  "İhale üzerinde kalırsan, süresi içinde KESİN TEMİNATI (%6) verip sözleşmeyi imzalamak ZORUNDASIN. İmzalamazsan: geçici teminatın GELİR KAYDEDİLİR + m.58\u0027e göre ihalelere katılmaktan YASAKLANIRSIN. \u0027Kazandım ama vazgeçtim\u0027 pahalıya patlar."
+                          },
+                          {
+                              "madde":  "45",
+                              "baslik":  "İdare imzalamazsa",
+                              "metin":  "İdare kendi kusuruyla süresinde sözleşme imzalamazsa, istekli geçici teminatını geri alır ve varsa uğradığı zararı talep edebilir."
+                          },
+                          {
+                              "madde":  "59",
+                              "baslik":  "İsteklilerin ceza sorumluluğu",
+                              "metin":  "Yasak fiil/davranışta (m.17) bulunanlar veya üzerine ihale yapıldığı halde taahhüdünü yerine getirmeyenler hakkında; yasaklamanın yanı sıra Türk Ceza Kanunu hükümleri + idarenin uğradığı zararın tazmini gündeme gelir. Ağır fiillerde Cumhuriyet savcılığına suç duyurusu."
+                          },
+                          {
+                              "madde":  "65",
+                              "baslik":  "Tebligat EKAP\u0027tan — SÜRE ne zaman başlar",
+                              "metin":  "Bildirim ve tebligatlar esas olarak EKAP üzerinden elektronik yapılır. EKAP tebligatı, genellikle bildirimin yapıldığı tarihi izleyen 5. günün sonunda tebliğ edilmiş sayılır — şikayet/itiraz sürelerin (10 gün) bu tarihten işlemeye başlar. Süreyi kaçırmamak için EKAP\u0027ı düzenli kontrol et."
+                          },
+                          {
+                              "madde":  "Ek 2",
+                              "baslik":  "Çerçeve anlaşma",
+                              "metin":  "İdareler, ileride yapacakları benzer/tekrarlayan alımlar için önce isteklilerle ÇERÇEVE ANLAŞMA yapar; sonra ihtiyaç doğdukça münferit sözleşmelerle alım yapar. Sürekli tedarikçi olmak istiyorsan bu listelere girmek önemli."
+                          },
+                          {
+                              "madde":  "Ek 3",
+                              "baslik":  "Dinamik alım sistemi (DPS)",
+                              "metin":  "Standart, piyasada hazır malların alımında kullanılan, süresince İSTEDİĞİN AN katılabildiğin tamamen elektronik sistem (AB TED tarafında da gördüğümüz DPS\u0027in yurt içi karşılığı)."
+                          },
+                          {
+                              "madde":  "Ek 4",
+                              "baslik":  "Elektronik eksiltme (e-eksiltme)",
+                              "metin":  "İlk tekliflerden sonra, isteklilerin elektronik ortamda fiyatlarını (veya belirli unsurları) karşılıklı olarak düşürdüğü aşama. Fiyatını buna göre stratejik belirle."
+                          },
+                          {
+                              "madde":  "12",
+                              "baslik":  "Şartnameler — rekabet engeli yasak",
+                              "metin":  "Teknik şartnamede belirli bir marka, menşe, patent veya üretim yöntemi belirterek rekabet ENGELLENEMEZ; zorunluysa \u0027veya dengi\u0027 ibaresi eklenir. İdari şartname katılım ve değerlendirme kurallarını içerir. Şartname \u0027sadece bir firmaya\u0027 göre yazılmışsa itiraz dayanağın olabilir (m.5 rekabet ilkesiyle birlikte)."
+                          },
+                          {
+                              "madde":  "24",
+                              "baslik":  "İlanda bulunması zorunlu hususlar",
+                              "metin":  "İhale ilanı en az şunları içermeli: idarenin adı/adresi, işin niteliği-türü-miktarı-yeri, ihale usulü, ihale tarih-saat-yeri, istenen yeterlik belgeleri, teminat, son teklif verme zamanı. Eksik/yanıltıcı ilan geçersizdir (m.26)."
+                          },
+                          {
+                              "madde":  "26",
+                              "baslik":  "İlanın uygun olmaması",
+                              "metin":  "İlan m.13/24/25\u0027e aykırıysa GEÇERSİZDİR. Hata düzeltilebilir nitelikteyse düzeltme ilanı yapılır; değilse ihale iptal edilip yeniden ilana çıkılır. Hatalı ilana dayanan mağduriyette itiraz edebilirsin."
+                          },
+                          {
+                              "madde":  "35",
+                              "baslik":  "Teminat mektubu — süre",
+                              "metin":  "Banka teminat mektubu geçici teminat olarak kabul edilir; mektup, tekliflerin geçerlilik süresinden EN AZ 30 GÜN fazla süreli olmalı. Süresi kısa mektup teklifi geçersiz kılar."
+                          },
+                          {
+                              "madde":  "62",
+                              "baslik":  "Ödenek + arsa şartı (hayali ihaleye karşı korur)",
+                              "metin":  "İdare ÖDENEĞİ olmadan ihaleye çıkamaz; birden fazla yıla yayılan işte ilk yıl ödeneği proje maliyetinin %10\u0027undan az olamaz. Yapım işinde ARSA temin edilmeden ihale yapılamaz. Yani \u0027parası/arsası olmayan\u0027 bir ihale kural dışıdır — sonradan iptal riski taşır."
+                          },
+                          {
+                              "madde":  "Ek 8",
+                              "baslik":  "Kamu alımıyla yerli sanayi/teknoloji desteği",
+                              "metin":  "Kamu alımları, bölgesel kalkınmayı ve teknolojik gelişmeyi (yerli üretim, orta-yüksek teknoloji) desteklemek amacıyla kullanılabilir — m.63 yerli malı %15 avantajının politika dayanağı budur."
+                          },
+                          {
+                              "madde":  "Ek 12",
+                              "baslik":  "DMO üzerinden özel alımlar (2023)",
+                              "metin":  "Devlet Malzeme Ofisi (DMO), idareler adına taşıt alımı/kiralama, akaryakıt, ilaç/tıbbi malzeme/cihaz alımlarını özel satın alma yöntemleriyle (açık/kapalı teklif, davetle, pazarlık) yapabilir; bu alımlarda ceza/yasaklama/sonuç bildirimi HARİÇ 4734 uygulanmaz (7491 s.K., 28.12.2023). Bu ürünlerde DMO\u0027ya tedarikçiyseniz bu kanaldan haberdar olun."
+                          }
+                      ],
+    "gecTeminat":  {
+                       "baslik":  "Geçici teminat: oranı, neyle ödenir, ne zaman iade (m.33-35)",
+                       "metin":  "ORAN: Teklif edilen bedelin %3\u0027ünden az olmamak üzere, tutarı istekli belirler (m.33). Danışmanlık ihalelerinde dokümanda belirtilirse teminat alınmayabilir. NEYLE ÖDENİR (m.34): (a) Tedavüldeki Türk Parası, (b) teminat mektupları, (c) Devlet İç Borçlanma Senetleri ve yerine düzenlenen belgeler. PÜF NOKTA: \"Teminat mektupları dışındaki teminatlar ihale komisyonlarınca teslim alınamaz; bunların saymanlık ya da muhasebe müdürlüklerine yatırılması zorunludur.\" Yani NAKİT veriyorsan komisyona veremezsin — idarenin saymanlığına yatırıp makbuzu teklifle sunarsın; yalnız banka mektubu doğrudan komisyona verilir. SÜRE (m.35): Geçici teminat mektubu, teklif geçerlilik süresinden EN AZ 30 GÜN FAZLA süreli olmalı; teklif geçerliliği uzatılırsa mektup da aynı süre uzatılır. İADE (m.34): Kazanamayanların teminatı hemen iade edilir; ihale üzerinde kalan ile ikinci en avantajlı teklif sahibininki saymanlığa teslim edilir, sözleşme imzalanınca ikincininki de iade edilir. KESİN TEMİNAT (m.43): Sözleşmeden önce, ihale bedeli üzerinden %6."
+                   },
+    "pazarlikUsulu":  {
+                          "baslik":  "Pazarlık usulü ne zaman uygulanır? (m.21)",
+                          "metin":  "İlanda \"Pazarlık (MD 21/x)\" görürsen ihale açık usulle değil pazarlıkla yapılıyor demektir. Kanunun saydığı haller: (a) Açık ya da belli istekliler usulüyle yapılan ihalede TEKLİF ÇIKMAMASI, (b) doğal afet, salgın, can/mal kaybı tehlikesi gibi ani ve beklenmeyen haller ya da yapı/can güvenliği için ivedilik, (c) savunma ve güvenlikle ilgili özel durumlar, (d) araştırma-geliştirme süreci gerektiren ve seri üretime konu olmayan işler, (e) özgün nitelikte ve karmaşık işler. Neden önemli: pazarlıkta ilan ve süre rejimi farklıdır, bazı bentlerde ilan zorunluluğu yoktur — fırsatı kaçırmamak için ilanı erken yakalamak gerekir."
+                      },
+    "sozlesmeTurleri":  {
+                            "baslik":  "Sözleşme türü: anahtar teslim mi, birim fiyat mı? (4735 m.6)",
+                            "metin":  "Riski kimin taşıdığını bu belirler. ANAHTAR TESLİMİ GÖTÜRÜ BEDEL (yapım): uygulama projeleri ve mahal listelerine dayalı, işin TAMAMI için teklif ettiğin toplam bedel. Miktar artarsa fark istemezsin — miktar riski SENDE. GÖTÜRÜ BEDEL (mal/hizmet): özellikleri ve miktarı idarece belirlenen işin tamamı için toplam bedel. BİRİM FİYAT: idarenin cetvelindeki her iş kaleminin miktarı ile senin birim fiyatının çarpımı. Miktar değişirse bedel de değişir — miktar riski İDAREDE. KARMA (m.6/d): yapım işinde bir kısım anahtar teslim, bir kısım birim fiyat. İlanda \"birim fiyat sözleşme imzalanacaktır\" ifadesini ara; teklif stratejin buna göre değişir."
+                        },
+    "fiyatFarki":  {
+                       "baslik":  "Fiyat farkı: dokümanda hüküm yoksa alamazsın (4735 m.8)",
+                       "metin":  "Enflasyonda hayati konu. Kanun: \"Sözleşme türlerine göre fiyat farkı verilebilmesine ilişkin esas ve usulleri tespite Kamu İhale Kurumunun teklifi üzerine Cumhurbaşkanı yetkilidir.\" Yani fiyat farkı KANUNDAN kendiliğinden doğmaz; Cumhurbaşkanı kararıyla belirlenen esaslar çerçevesinde ve İHALE DOKÜMANINDA HÜKÜM VARSA hesaplanır. İkinci kilit cümle: \"Sözleşmelerde yer alan fiyat farkına ilişkin esas ve usullerde sözleşme imzalandıktan SONRA DEĞİŞİKLİK YAPILAMAZ.\" Sonuç: teklif vermeden önce dokümanda fiyat farkı hükmü var mı diye bakacaksın; yoksa maliyet artışını kendin taşırsın. (Not: bu, ticarette/gümrükte konuşulan fiyat farkından — credit/debit note, ciro primi — tamamen ayrı bir kurumdur.)"
+                   },
+    "fesih":  {
+                  "baslik":  "Sözleşme feshedilirse ne olur? (4735 m.19-20)",
+                  "metin":  "YÜKLENİCİ FESHEDERSE (m.19): Mücbir sebep dışında mali acz nedeniyle taahhüdü yerine getiremeyeceğini yazılı bildirirse, protesto çekmeye gerek kalmaksızın kesin teminat ve varsa ek kesin teminatlar GELİR KAYDEDİLİR, sözleşme feshedilip hesap genel hükümlere göre tasfiye edilir. İDARE FESHEDERSE (m.20): (a) taahhüdü sözleşmeye uygun yerine getirmemen veya işi süresinde bitirmemen üzerine, gecikme cezası uygulanmak kaydıyla idarenin EN AZ 10 GÜN süreli ve nedenleri açıkça belirtilen ihtarına rağmen aynı durumun sürmesi, (b) sözleşmenin uygulanması sırasında m.25\u0027teki yasak fiil veya davranışlarda bulunduğunun tespiti. Bu hallerde de teminatlar gelir kaydedilir ve sözleşme feshedilir. Yani fesih yalnız işi kaybetmek değil, teminatı da kaybetmektir."
+              }
 }

@@ -675,6 +675,14 @@ function renderHapIc(){ if(!EK) return; const k=[];
   if(EK.kdvTevkifat){ const t=EK.kdvTevkifat; k.push({ikon:'🧾', baslik:'KDV tevkifatı', icerik:`${esc(t.metin)}<br>• <b>${esc(t.yapim)}</b><br>• ${esc(t.digerHizmet)}`}); }
   if(EK.esikDegerler){ const e=EK.esikDegerler; k.push({ikon:'📏', baslik:'Eşik değerler 2026', icerik:`(${esc(e.donem)}, ${esc(e.teblig)})<br>Mal/hizmet: <b>${esc(e.malHizmetGenelButce)}</b> (genel bütçe) / ${esc(e.malHizmetDiger)}<br>Yapım: <b>${esc(e.yapim)}</b><br>Doğrudan temin (m.22/d, büyükşehir): <b>${esc(e.dogrudanTeminBuyuksehir)}</b><br>${esc(e.not)}`}); }
   if(EK.dogrudanTemin) k.push({ikon:'🛒', baslik:'Doğrudan temin (m.22)', icerik:esc(EK.dogrudanTemin.metin)});
+  // 14.08 kapsam taramasi: kanunda olup sayfada HIC gecmeyen dort konu + Cem'in
+  // sordugu gecici teminat. Metinler ambardaki madde metninden okunarak yazildi
+  // (kik.json m.21/33/34/35/43 · kisozlesme.json m.6/8/19/20).
+  if(EK.gecTeminat) k.push({ikon:'💵', baslik:EK.gecTeminat.baslik, icerik:esc(EK.gecTeminat.metin)});
+  if(EK.pazarlikUsulu) k.push({ikon:'🤝', baslik:EK.pazarlikUsulu.baslik, icerik:esc(EK.pazarlikUsulu.metin)});
+  if(EK.sozlesmeTurleri) k.push({ikon:'📐', baslik:EK.sozlesmeTurleri.baslik, icerik:esc(EK.sozlesmeTurleri.metin)});
+  if(EK.fiyatFarki) k.push({ikon:'📈', baslik:EK.fiyatFarki.baslik, icerik:esc(EK.fiyatFarki.metin)});
+  if(EK.fesih) k.push({ikon:'✂️', baslik:EK.fesih.baslik, icerik:esc(EK.fesih.metin)});
   if(EK.sinirDeger) k.push({ikon:'📉', baslik:'Sınır değer / aşırı düşük', icerik:esc(EK.sinirDeger.metin)});
   if(EK.istisnalar) k.push({ikon:'🚪', baslik:'İstisnalar (m.3)', icerik:esc(EK.istisnalar.metin)});
   if(EK.isOrtakligi) k.push({ikon:'🤝', baslik:'İş ortaklığı / konsorsiyum', icerik:esc(EK.isOrtakligi.metin)});
