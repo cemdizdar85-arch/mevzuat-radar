@@ -73,6 +73,24 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 .wrap{position:relative;z-index:1}
 .kutu,.kart,.adim,.app-card,.item{box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
 .soru,.deg,.stepno{font-family:var(--mono)}
+/* 13.08 Cem: senaryo cilasi - en avantajli 3 KART + tam tablo akordeonda */
+.hero3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0 4px}
+.hk{position:relative;border:1px solid var(--line2);border-radius:14px;padding:14px 15px;background:linear-gradient(180deg,#0b1119,#0a0f17)}
+.hk.b{border-color:rgba(61,220,151,.45);background:linear-gradient(180deg,rgba(61,220,151,.07),#0a0f17)}
+.hk .bay{font-size:26px;line-height:1}
+.hk .ad{font-weight:750;font-size:13.5px;margin-top:4px;color:var(--ink)}
+.hk .yuk{font-family:var(--mono);font-weight:800;font-size:24px;margin-top:6px;color:var(--green)}
+.hk.s2 .yuk,.hk.s3 .yuk{color:var(--ink)}
+.hk .tl{font-size:11.5px;color:var(--muted);margin-top:2px}
+.hk .rz{position:absolute;top:10px;right:10px;font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:999px;background:rgba(61,220,151,.15);color:var(--green);border:1px solid rgba(61,220,151,.35)}
+.hk .rzd{background:rgba(255,194,75,.14);color:var(--amber);border-color:rgba(255,194,75,.35)}
+details.kacc{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:0 16px;margin:12px 0}
+details.kacc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:14px 0;font-weight:750;font-size:14px;color:var(--ink)}
+details.kacc>summary::-webkit-details-marker{display:none}
+details.kacc>summary::after{content:"+";margin-left:auto;color:var(--accent2);font-weight:800;font-size:17px;line-height:1}
+details.kacc[open]>summary::after{content:"–"}
+details.kacc>.ic{padding:2px 0 14px}
+@media print{ .hero3{grid-template-columns:repeat(3,1fr)} }
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -157,6 +175,8 @@ Promise.all([
   fetch('veri/yanveri-damga.json').then(r=>r.json()).catch(()=>null)
 ]).then(([a,b,c,d,e,f,g,h])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h}; });
 let TAZELIK=null;
+// PDF/yazdirma: kapali akordeon tabloyu yutmasin - baskidan once hepsi acilir
+window.addEventListener('beforeprint',()=>document.querySelectorAll('details.kacc').forEach(d=>d.open=true));
 // 13.08 Cem: "net cevap veriyor deme, her yere kontrolu koy" - robotlarin
 // KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur.
 function tazelikYaz(){
@@ -285,6 +305,13 @@ function olustur(){
     if(kilitli) return `<tr style="cursor:pointer" onclick="location.href='radar-app.html?niyet=gtip'"><td>🔒 ${s.u.em} ${s.u.ad}</td><td class="n" style="filter:blur(4px);user-select:none">${gvT}</td><td class="n" style="filter:blur(4px);user-select:none">${igvT}</td><td class="n" style="filter:blur(4px);user-select:none">${dT}</td><td class="n" style="filter:blur(4px);user-select:none">${geriT}</td></tr>`;
     return `<tr class="${cls}"><td>${s.u.em} ${s.u.ad}${roz}</td><td class="n">${gvT}</td><td class="n">${igvT}</td><td class="n">${dT}</td><td class="n">${geriT}</td></tr>`;
   }).join('');
+  // 13.08 cila: en avantajli 3 mense KART olarak one cikar (tablo detay katmanina iner)
+  const hero3=gecerli.slice(0,3).map((s,i)=>{
+    const yukT='%'+fmtP(s.geriLo)+(s.geriHi>s.geriLo?'–'+fmtP(s.geriHi):'');
+    const tlT=tutar?('yıllık geri gelmeyen yük ≈ '+fmtTL(tutar*s.geriLo/100)+' '+(pb==='TL'?'TL':pb)):'';
+    const roz=i===0?'<span class="rz">EN AVANTAJLI</span>':(s.dmp?'<span class="rz rzd">DAMPİNG VAR</span>':'');
+    return `<div class="hk ${i===0?'b':(i===1?'s2':'s3')}">${roz}<div class="bay">${s.u.em}</div><div class="ad">${i+1}. ${s.u.ad}</div><div class="yuk">${yukT}</div><div class="tl">${tlT}</div><div class="tl" style="color:var(--dim)">belge: ${s.u.belge}</div></div>`;
+  }).join('');
   const kilitNot=(!uye && sonuc.length>3)?`<div class="notlar noprint" style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin-top:8px"><b style="color:var(--ink)">İlk 3 menşe açık — kalan ${sonuc.length-3} ülkenin kalem kalem yükü ücretsiz üyelikte.</b> <a href="radar-app.html?niyet=gtip" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol, tam tabloyu aç →</a></div>`:'';
 
   let notlar=(uye?sonuc:sonuc.slice(0,3)).map(x=>x.u).map(u=>{
@@ -308,11 +335,15 @@ function olustur(){
       <div class="buyuk">${tutar?'≈ '+fmtTL(tasarruf)+' '+tpb+' / yıl tasarruf':'%'+fmtP(farkP)+' puan fark'}</div>
       <div class="alt"><b>${best.u.ad}</b> (geri gelmeyen yük %${fmtP(best.geriLo)}) ile <b>${worst.u.ad}</b> (%${fmtP(worst.geriLo)}) arasındaki fark${tutar?', '+fmtTL(tutar)+' '+tpb+' yıllık hacimde yukarıdaki tutara denk gelir':''}. Bu fark <b>geri gelmez</b> (KDV değil).</div>
     </div>`:''}
+    <div class="hero3">${hero3}</div>
+    <div style="font-size:11px;color:var(--dim);margin:2px 0 4px">Oranların kaynağı: yürürlükteki İthalat Rejimi + İGV Kararı + damping tebliğleri — robot kontrol damgaları raporun altında.</div>
+    <details class="kacc"><summary>📋 ${sonuc.length} menşenin tam tablosu — kalem kalem (Gümrük V. · İGV · Damping)</summary><div class="ic">
     <table>
       <thead><tr><th>Menşe ülke</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th><th class="n">Geri gelmeyen yük</th></tr></thead>
       <tbody>${satirlar}</tbody>
     </table>
     ${kilitNot}
+    </div></details>
     <div class="notlar">
       <div class="n"><span class="ico">🧾</span><div><b>KDV: ${kdv.t}</b> — menşeden bağımsızdır, her ülkede aynı orandır ve <b>indirilir/iade alınır</b> (gerçek maliyet değil, nakit akışı). Bu yüzden ülke karşılaştırmasında "geri gelmeyen yük" (gümrük vergisi + İGV + damping) esas alınmıştır. KDV matrahı = kıymet + gümrük vergisi + İGV olduğundan yüksek vergili menşede KDV tutarı da yüksektir.</div></div>
       ${gozetim?`<div class="n"><span class="ico">👁️</span><div><b>Gözetim uyarısı:</b> Bu kodda gözetim var — birim kıymet eşiğin altındaysa gümrük matrahı yükseltilir, gerçek yük tablodakinden yüksek çıkar. Tüm menşeleri etkiler.</div></div>`:''}
