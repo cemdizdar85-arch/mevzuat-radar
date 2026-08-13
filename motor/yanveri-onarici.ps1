@@ -42,9 +42,15 @@ $KAYNAKLAR = @{
     cikti     = 'gtip-damping.json'
     anahtarAlan = 'm'   # cipa esles(tir)me alani (urun adi)
   }
-  # igv-ek1 / rejim-listeleri: resmi xlsx linki robotca bulunamadi (sayfalar
-  # JS/500). Duyuru-sinyal + RG-sinyal degisikligi ayni gun haber veriyor;
-  # link bulununca buraya satir eklemek yeterli.
+  # IGV (3351) / REJIM (3350) LISTELERI - 13.08 kesif notu:
+  # ticaret.gov.tr konsolide sayfalari robota ACIK (200) ama xlsx linkleri
+  # govdede YOK (icerik ayri bilesenden). DOGRU KAYNAK YOLU: listelerin resmi
+  # ekleri RG'de yayimlaniyor - yilbasi mukerrer RG (tam set) + yil ici
+  # degisiklik kararlarinin ekleri (RG statik, robot-erisilebilir).
+  # PLAN (v2): RG-sinyal 'ithalat rejimi/ilave gumruk' basligi yakaladigi gun
+  # karar ekini RG'den indir -> igv-hasat-ulke/xlsx-igv hasatcisina ver ->
+  # ayni 5 kapidan gecir. O zamana kadar: cift sinyal ayni gun haber veriyor,
+  # hasat elle (deseni kanitli).
 }
 
 function Mail([string]$konu,[string]$govde){
