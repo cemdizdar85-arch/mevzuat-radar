@@ -1934,6 +1934,66 @@
                          "hukum":  "GECER",
                          "kusur":  "",
                          "not":  "VUK m.227 tevsik: belgeler (fatura/dekont/gider pusulasi/irsaliye) vs kayit ortami (yevmiye) ayrimi. D celdiricisi ogretici: gider pusulasi tam da mukellef olmayana odemenin belgesidir. Senaryo gercekci."
+                     },
+                     {
+                         "id":  "5d971d58-69f6-44bc-a7f1-56e96ed08b38",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "C",
+                         "kasaCevabi":  "C",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "hafif: 521 tanim cumlesi iki kurguya acik; ISKAT okumasinda (odeme+hasilat-nominal) 36.650 cikar ve siklarda yok - soru iade-yenileme farki kurgusuyla tek dogrulu kaliyor, ama \"iskat\" olmadigi metinde acik yazilsa daha saglam",
+                         "not":  "Aritmetik: 2.400x10=24.000, 34.150-26.500=7.650, celdirici D=34.150-24.000=10.150 hesapli. 549/500 celdiricileri kavramsal."
+                     },
+                     {
+                         "id":  "5dc87704-f62f-47ae-8133-09c0d5062cf6",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "E",
+                         "kasaCevabi":  "E",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "THP 521 tanimiyla BIREBIR: odemeler 60.000 - hasilat noksani (200.000-176.000=24.000) = 36.000 alacak. Tablolu form, A=24.000 ve D=60.000 celdiricileri formulun yarim uygulanmasi. C yon tuzagi."
+                     },
+                     {
+                         "id":  "5e6a5a7e-7a27-4c39-9ed1-6f08c6cd33f5",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "C",
+                         "kasaCevabi":  "C",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "620/152: satilan 280x1.240=347.200. A (uretilen tumu 496.000) donemsellik tuzagi; D uretici/ticari ayrimi; E hasilat-maliyet karistirma. Temiz."
+                     },
+                     {
+                         "id":  "5fc8e9f8-8ec9-4c8c-9d4f-5c0313e09a4a",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "D",
+                         "kasaCevabi":  "D",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "655 Menkul Kiymet Satis Zararlari: 800x(42-39)=2.400. Celdiriciler 659/680/681/689 grup mantigi ogretiyor."
+                     },
+                     {
+                         "id":  "612f5d4c-ead7-470e-8382-02898f8b0b30",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "D",
+                         "kasaCevabi":  "D",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "Donemsellik 380/480/181 ayrisimi: 45.000 gelir + 180.000 (380) + 135.000 (480) = 360.000 tutuyor. D yanlisligi net (181 tahsil edilmemis islemis gelir icindir; burada pesin tahsilat var). E, 480-\u003e380 aktarim kuralini ogretiyor."
                      }
                  ]
 }
