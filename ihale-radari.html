@@ -169,7 +169,17 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   }).catch(function(){});
   </script>
 
+  <!-- 13.08 Cem: "once yurt ici/yurt disi secilsin, sonra profil sorulsun" — ABD/UK
+       ihale platformlarinin dizilimi de boyle: ONCE KAPSAM, sonra kapsama gore
+       degisen filtreler. Ayrica AB sekmesindeyken "Yerli mali belgem var" sorusu
+       ANLAMSIZ (o 4734/Yerli Mali Tebligi kavrami) - artik gizleniyor. -->
+  <div class="tabs">
+    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi · Türkiye ihaleleri</button>
+    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı · Avrupa ihaleleri</button>
+  </div>
+
   <div class="kutu">
+    <div id="profilBaslik" style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">PROFİLİN — TÜRKİYE İHALELERİ İÇİN</div>
     <div class="grid3">
       <div><label for="sektor">Sektörün / ürün grubun</label><select id="sektor"></select></div>
       <div><label for="gtip">GTİP kodun (opsiyonel)</label><input type="text" id="gtip" placeholder="ör. 5208.52" inputmode="numeric"></div>
@@ -178,15 +188,10 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
       <div id="fUlke" style="display:none"><label for="ulke">Ülke tercihi<span id="ulkeBay"></span></label><select id="ulke"><option value="hepsi">Hepsi</option></select></div>
     </div>
     <div class="grid" style="margin-top:12px">
-      <label class="chk"><input type="checkbox" id="yerli"> Yerli malı belgem var</label>
-      <label class="chk"><input type="checkbox" id="kobi"> KOBİ'yim</label>
+      <label class="chk" id="yerliKutu"><input type="checkbox" id="yerli"> Yerli malı belgem var</label>
+      <label class="chk"><input type="checkbox" id="kobi"> <span id="kobiEtiket">KOBİ'yim</span></label>
     </div>
-  </div>
-
-  <div class="tabs">
-    <!-- 31.07 Cem: "4734 yazma nedeni ne?" - kanun no sekmede JARGON, kaldirildi (yeri sayfa ici) -->
-    <button id="tbIc" class="on" onclick="tab('ic')">🇹🇷 Yurt İçi · Türkiye ihaleleri</button>
-    <button id="tbDis" onclick="tab('dis')">🇪🇺 Yurt Dışı · Avrupa ihaleleri</button>
+    <div id="abNot" style="display:none;font-size:11.5px;color:var(--dim);margin-top:8px">AB ihalelerinde <b style="color:var(--ink)">yerli malı belgesi</b> kavramı yoktur (o 4734 s. Kanun ve Yerli Malı Tebliği düzenidir) — bu yüzden gizlendi. AB'de KOBİ tanımı da farklıdır: <b style="color:var(--ink)">250'den az çalışan + 50 M€ ciro / 43 M€ bilanço</b> (2003/361/EC).</div>
   </div>
 
   <!-- ============ YURT İÇİ ============ -->
@@ -243,7 +248,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   <!-- ============ YURT DIŞI ============ -->
   <div id="paneDis" class="pane">
     <h2>Sana uygun AB ihaleleri</h2>
-    <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Bana uygun ihaleleri getir →</button>
+    <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Profilime göre süz →</button>
       <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu), robot her gün yeniler.</div>
     </div>
     <div id="sonuc"></div>
@@ -285,6 +290,16 @@ function tab(t){
   // 31.07 Cem: yurt icinde Il, yurt disinda Ulke gorunur - ikisi ayni anda anlamsiz
   document.getElementById('fIl').style.display = t==='ic'?'':'none';
   document.getElementById('fUlke').style.display = t==='dis'?'':'none';
+  // 13.08 Cem: AB sekmesinde "yerli mali belgesi" ANLAMSIZ - gizlenir; KOBI etiketi
+  // AB tanimina cevrilir; profil basligi hangi kapsamda oldugunu soyler.
+  const abMi = (t==='dis');
+  const yk=document.getElementById('yerliKutu'); if(yk){ yk.style.display = abMi?'none':''; }
+  const ke=document.getElementById('kobiEtiket'); if(ke){ ke.textContent = abMi?"KOBİ'yim (AB tanımı)":"KOBİ'yim"; }
+  const an=document.getElementById('abNot'); if(an){ an.style.display = abMi?'':'none'; }
+  const pb=document.getElementById('profilBaslik'); if(pb){ pb.textContent = abMi?'PROFİLİN — AVRUPA (TED) İHALELERİ İÇİN':'PROFİLİN — TÜRKİYE İHALELERİ İÇİN'; }
+  // 13.08 Cem: sekmeye gecince liste KENDILIGINDEN gelsin. Dugmeye basilmadikce bos
+  // duran ekran "ihale yok" sanildi. Rakiplerde (TED, Contracts Finder) liste hep acik.
+  if(abMi){ kontrol(); }
 }
 async function veriYukle(){
   if(TED) return;
@@ -337,10 +352,15 @@ async function kontrol(){
   if(gt){ const gi=gtipSektor(gt); if(gi>=0){ si=gi; document.getElementById('sektor').value=String(gi); } }
   const uSec=document.getElementById('ulke').value;
   const sek=CPV.sektorler[si]; const box=document.getElementById('sonuc');
-  if(!sek){ box.innerHTML='<div class="uyari">Sektör seç ya da GTİP gir.</div>'; return; }
-  const bulunan=(TED.ihaleler||[]).filter(i=>sek.cpv.some(p=>String(i.cpv).startsWith(p)) && (uSec==='hepsi'||i.ulke===uSec));
-  let html=`<h3 style="font-size:15px;margin:6px 0">${esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)}</h3>`;
-  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu çekimde eşleşen aktif ihale yok</h3><div class="belg">Robot AB resmî ihale bültenini (TED) her gün tarar; abonelikte CPV'lerine (${sek.cpv.join(', ')}xxxx) yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
+  // 13.08 CEM BULGUSU ("hiç yurt dışı ihale görünmüyor"): sektör "Hepsi" iken
+  // sek tanımsız kalıyor ve ekran "Sektör seç" deyip HİÇBİR ilanı göstermiyordu —
+  // oysa kasada 105 aktif AB ilanı var. Artık "Hepsi" TÜM ilanları listeler;
+  // sektör seçilirse CPV ile süzülür. (Boş ekran, veri yok sanılmasına yol açıyordu.)
+  const hepsiMi = !sek;
+  const bulunan=(TED.ihaleler||[]).filter(i=>(hepsiMi || sek.cpv.some(p=>String(i.cpv).startsWith(p))) && (uSec==='hepsi'||i.ulke===uSec));
+  let html=`<h3 style="font-size:15px;margin:6px 0">${hepsiMi?'Tüm sektörler':esc(sek.ad)}${gt?` · GTİP ${esc(gt)}`:''} · ${uSec==='hepsi'?'tüm ülkeler':bayrak(uSec)+ulkeAd(uSec)} <span style="font-weight:600;color:var(--dim)">· ${bulunan.length} aktif ilan</span></h3>`;
+  if(hepsiMi && bulunan.length){ html+='<div class="belg" style="margin:0 0 8px">Sektörünü seçersen liste CPV koduna göre süzülür; şu an <b style="color:var(--ink)">bu çekimdeki tüm aktif AB ilanları</b> listeleniyor.</div>'; }
+  if(!bulunan.length){ html+=`<div class="kart" style="border-left-color:var(--dim)"><h3>Bu çekimde eşleşen aktif ihale yok</h3><div class="belg">Robot AB resmî ihale bültenini (TED) her gün tarar; abonelikte ${hepsiMi?'seçtiğin CPV kodlarına':`CPV'lerine (${sek.cpv.join(', ')}xxxx)`} yeni ihale düşünce günlük özet maille bildirir.</div></div>`; }
   else {
     // 31.07 Cem: "sahibinden gibi sik" - gorsel kart izgarasi; Kolin uyarisi kart
     // basina tekrar etmek yerine listenin ustunde BIR kez.
@@ -350,7 +370,7 @@ async function kontrol(){
       let sinif='belirsiz', metin='tarih ilanda';
       if(kg!=null){ if(kg<=0){ sinif='acil'; metin='süre geçmiş'; } else if(kg<=14){ sinif='acil'; metin=kg+' gün kaldı'; } else if(kg<=45){ sinif='orta'; metin=kg+' gün kaldı'; } else if(kg<=365){ sinif='iyi'; metin=kg+' gün kaldı'; } else { sinif='iyi'; metin='uzun vadeli sistem (DPS)'; } }
       html+=`<div class="ikart">
-        <div class="ust"><span class="sikon">${sek.ikon||'📦'}</span>${bayrak(i.ulke)}<b>${ulkeAd(i.ulke)}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">CPV ${esc(i.cpv)}</span></div>
+        <div class="ust"><span class="sikon">${(sek&&sek.ikon)||'📦'}</span>${bayrak(i.ulke)}<b>${ulkeAd(i.ulke)}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">CPV ${esc(i.cpv)}</span></div>
         <div class="gov"><h3>${esc(i.baslik)}</h3>
           <div class="m"><b style="color:var(--ink)">${esc(i.alici||'—')}</b><br>${esc(i.usul||'—')} · ilan ${esc(i.no||'—')}<br>📅 Son teklif: <b style="color:var(--ink)">${tarihTR(i.sonTeklif)}</b></div></div>
         <div class="alt"><span class="gunroz ${sinif}">${metin}</span>${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan belgesi →</a>`:''}</div>
