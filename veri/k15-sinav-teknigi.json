@@ -1,0 +1,54 @@
+{
+    "tarih":  "13.08.2026 15:48",
+    "kapsam":  "yayin-adaylari",
+    "soru":  3540,
+    "T1_cevap_dagilimi":  {
+                              "durum":  "KIRMIZI",
+                              "azami_sapma_puan":  27.5,
+                              "dagilim":  {
+                                              "A":  "1681 (%47.5)",
+                                              "B":  "821 (%23.2)",
+                                              "C":  "552 (%15.6)",
+                                              "D":  "293 (%8.3)",
+                                              "E":  "193 (%5.5)"
+                                          }
+                          },
+    "T2_dogru_sik_en_uzun":  {
+                                 "durum":  "YESIL",
+                                 "oran_yuzde":  32.4,
+                                 "olculen":  3540,
+                                 "not":  "rastgele beklenen ~%20; %45 ustu taktikle gecilir"
+                             },
+    "T3_yakin_kopya":  {
+                           "durum":  "KIRMIZI",
+                           "cift":  5,
+                           "ornekler":  [
+                                            {
+                                                "a":  "2bb23962",
+                                                "b":  "65cd05a1",
+                                                "ders":  "Turkce"
+                                            },
+                                            {
+                                                "a":  "74fc01a2",
+                                                "b":  "780a82c8",
+                                                "ders":  "Turkce"
+                                            },
+                                            {
+                                                "a":  "93664288-24d8-442a-98d5-80118424e400",
+                                                "b":  "d1b8df7b-7f01-4b0d-8f22-12f384090f31",
+                                                "ders":  "Finansal Muhasebe"
+                                            },
+                                            {
+                                                "a":  "92739437-283d-48c1-bc10-325d013f8e45",
+                                                "b":  "d603f8bb-d298-4b06-8d6f-4d3f0346a1f1",
+                                                "ders":  "Kurumsal Yonetim"
+                                            },
+                                            {
+                                                "a":  "b25a9812-12f8-4177-b781-0811da6b8c16",
+                                                "b":  "ded68393-a3c3-4bbb-ab9e-afefebff872c",
+                                                "ders":  "Finansal Muhasebe"
+                                            }
+                                        ]
+                       },
+    "not":  "K15 OLCER, karar vermez. KIRMIZI cikan boyut yayin oncesi cozulur: T1/T2 icin sik karistirma (dogru cevabi rastgele sikka tasima) onarim hattinda yapilir; T3 ciftlerinden biri yayindan tutulur."
+}
