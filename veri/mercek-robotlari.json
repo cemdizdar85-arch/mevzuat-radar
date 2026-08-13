@@ -1,0 +1,582 @@
+{
+    "tarih":  "13.08.2026 19:41",
+    "kapsam":  "yayin-havuzu",
+    "denetlenen":  1500,
+    "MercekA_kalibrasyon":  {
+                                "olculen":  1159,
+                                "en_dusuk":  0,
+                                "yuzde1":  0,
+                                "yuzde5":  0,
+                                "ortanca":  53.3,
+                                "en_yuksek":  100,
+                                "not":  "Esik %12 idi ve 0 bulgu verdi. Yuzde1/yuzde5 degerlerine bakip esik yeniden secilecek - hic bulgu vermeyen kapi supheli sayilir."
+                            },
+    "MercekA_mevzuat":  {
+                            "olculen":  1159,
+                            "bulgu":  68,
+                            "not":  "dogru sikkin Kural bolumu ile ambar madde metni arasinda %12 alti kelime ortusmesi = \"kaynak soyledigini soylemiyor\" adayi",
+                            "ornek":  [
+                                          {
+                                              "id":  "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "SMMM K. (3568 s.K.) m.29",
+                                              "kanun":  "3568",
+                                              "madde":  "29",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  20
+                                          },
+                                          {
+                                              "id":  "00b3bd4e-3a52-484e-b569-a07562e256c7",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  15
+                                          },
+                                          {
+                                              "id":  "027b2c7e-fd2c-440f-81b8-88ddb4d2baee",
+                                              "ders":  "Finansal Tablolar ve Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                                              "kanun":  "213",
+                                              "madde":  "275",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  16
+                                          },
+                                          {
+                                              "id":  "02cfd8b5-6531-4b5d-9186-3a1d4a784a8e",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  17
+                                          },
+                                          {
+                                              "id":  "0302827c-4b24-4ebd-be09-cdf19a3da4b8",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "SMMM K. (3568 s.K.) m.29",
+                                              "kanun":  "3568",
+                                              "madde":  "29",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  18
+                                          },
+                                          {
+                                              "id":  "032104aa-4bbb-4d7b-8ebe-ee753ef99996",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
+                                              "kanun":  "213",
+                                              "madde":  "278",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  9
+                                          },
+                                          {
+                                              "id":  "0343892a-9930-432f-a763-11da8dc04725",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                                              "kanun":  "213",
+                                              "madde":  "275",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  12
+                                          },
+                                          {
+                                              "id":  "03a9a300-1d5f-4f20-85f1-a8552a12c4e4",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  13
+                                          },
+                                          {
+                                              "id":  "03d40f9a-b928-4740-9ca1-779e2a8573f8",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                                              "kanun":  "6102",
+                                              "madde":  "64",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  8
+                                          },
+                                          {
+                                              "id":  "048c34a8-17b7-4485-9e18-5bab5eb5bade",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  14
+                                          },
+                                          {
+                                              "id":  "055f60e0-391d-4daa-81b2-3d11880a0b98",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                                              "kanun":  "6102",
+                                              "madde":  "64",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  8
+                                          },
+                                          {
+                                              "id":  "074ff084-5f3d-4740-8feb-725a3de97b66",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                                              "kanun":  "213",
+                                              "madde":  "275",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  13
+                                          },
+                                          {
+                                              "id":  "0777c012-7edb-4a6c-9f7c-95fbbff5a226",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "MSUGT Tekduzen Hesap Plani",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  13
+                                          },
+                                          {
+                                              "id":  "0799c4f3-501d-480b-9781-320b049fbcdd",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  17
+                                          },
+                                          {
+                                              "id":  "088b6a6f-72e4-4934-a77c-7efec486f681",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "MSUGT Tekduzen Hesap Plani - 770, 102",
+                                              "kanun":  "3568",
+                                              "madde":  "29",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  18
+                                          },
+                                          {
+                                              "id":  "08c096fd-416e-4267-ab7d-2e9d198b69cf",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.275 - İmal edilen emtia",
+                                              "kanun":  "213",
+                                              "madde":  "275",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  21
+                                          },
+                                          {
+                                              "id":  "0968597b-8a9e-475c-8f82-1275ca116b96",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  9
+                                          },
+                                          {
+                                              "id":  "09c6d655-6932-419c-97e8-a16b6e398730",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "MSUGT Tekduzen Hesap Plani - 303",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  17
+                                          },
+                                          {
+                                              "id":  "0a9eafbf-ecc8-4a9b-8211-23bcd98bc1ae",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  14
+                                          },
+                                          {
+                                              "id":  "0b12a81c-4bf9-4202-93fb-917b9862319b",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "kaynak":  "TTK (6102 s.K.) m.516",
+                                              "kanun":  "6102",
+                                              "madde":  "516",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  16
+                                          },
+                                          {
+                                              "id":  "0b206ccb-ef56-4bbb-8552-d79937d23405",
+                                              "ders":  "Mali Tablolar Analizi",
+                                              "kaynak":  "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
+                                              "kanun":  "213",
+                                              "madde":  "278",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  8
+                                          },
+                                          {
+                                              "id":  "0beac2ba-355b-4775-a56d-a571d916bbd2",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  13
+                                          },
+                                          {
+                                              "id":  "0c1478db-8b9a-4e0f-b5f4-29d2d2b3296b",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  14
+                                          },
+                                          {
+                                              "id":  "0c512991-6060-49eb-8f49-ddeeb34c237c",
+                                              "ders":  "Finansal Muhasebe",
+                                              "kaynak":  "MSUGT Tekduzen Hesap Plani - 180",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  13
+                                          },
+                                          {
+                                              "id":  "0d3ddb6e-b3c4-4dd3-80fa-7ae3e2b9aa61",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "kaynak":  "TTK (6102 s.K.) m.720",
+                                              "kanun":  "6102",
+                                              "madde":  "720",
+                                              "ortusme_yuzde":  0,
+                                              "kilit_sayisi":  16
+                                          }
+                                      ],
+                            "idler":  [
+                                          "0045f9d7-c2ad-4734-ab3c-da187ba5cc74",
+                                          "00b3bd4e-3a52-484e-b569-a07562e256c7",
+                                          "027b2c7e-fd2c-440f-81b8-88ddb4d2baee",
+                                          "02cfd8b5-6531-4b5d-9186-3a1d4a784a8e",
+                                          "0302827c-4b24-4ebd-be09-cdf19a3da4b8",
+                                          "032104aa-4bbb-4d7b-8ebe-ee753ef99996",
+                                          "0343892a-9930-432f-a763-11da8dc04725",
+                                          "03a9a300-1d5f-4f20-85f1-a8552a12c4e4",
+                                          "03d40f9a-b928-4740-9ca1-779e2a8573f8",
+                                          "048c34a8-17b7-4485-9e18-5bab5eb5bade",
+                                          "055f60e0-391d-4daa-81b2-3d11880a0b98",
+                                          "074ff084-5f3d-4740-8feb-725a3de97b66",
+                                          "0777c012-7edb-4a6c-9f7c-95fbbff5a226",
+                                          "0799c4f3-501d-480b-9781-320b049fbcdd",
+                                          "088b6a6f-72e4-4934-a77c-7efec486f681",
+                                          "08c096fd-416e-4267-ab7d-2e9d198b69cf",
+                                          "0968597b-8a9e-475c-8f82-1275ca116b96",
+                                          "09c6d655-6932-419c-97e8-a16b6e398730",
+                                          "0a9eafbf-ecc8-4a9b-8211-23bcd98bc1ae",
+                                          "0b12a81c-4bf9-4202-93fb-917b9862319b",
+                                          "0b206ccb-ef56-4bbb-8552-d79937d23405",
+                                          "0beac2ba-355b-4775-a56d-a571d916bbd2",
+                                          "0c1478db-8b9a-4e0f-b5f4-29d2d2b3296b",
+                                          "0c512991-6060-49eb-8f49-ddeeb34c237c",
+                                          "0d3ddb6e-b3c4-4dd3-80fa-7ae3e2b9aa61",
+                                          "0dc9f6ff",
+                                          "0dcb1cb0-371d-49a7-b6af-852b7b69dd11",
+                                          "0e540f6b-020d-4a1c-864a-1e01de328953",
+                                          "0e6cadaa-956b-49e1-aa48-534f7b8031b3",
+                                          "0e955da0-3281-4960-9c18-a2bc410037ce",
+                                          "0f0ab0e6-5974-47a6-9a85-5ab34b7b17b6",
+                                          "0f6dfe95-bfb9-4c4b-a02d-912d6b1bcc00",
+                                          "0f7f6bac-fd08-4f80-96e4-7430ecb23911",
+                                          "0fefcba8-4c63-467c-8e1f-8aade553907c",
+                                          "1024bc4a-738e-4448-9683-4dc88341a163",
+                                          "1084f0a3-2929-44d1-b0d3-7321e42892fd",
+                                          "11713845-0f21-4167-bcc7-d944af013f2b",
+                                          "11af0041-faa7-4f4e-9b13-dd81cee8c88e",
+                                          "11c29a3b-7916-415b-ac43-22d730e31342",
+                                          "11ca6ce1-01b8-4d29-9b78-4b764b065f32",
+                                          "12b1294c-245f-4955-96c3-281f4c6f4c65",
+                                          "12ba5b1f-97d7-40b4-a10c-fe553891d4d0",
+                                          "12c3cc97-8eb9-4ae6-b550-5e2415c6ae10",
+                                          "12d6bc46-52e9-4617-a5b5-33c11da02422",
+                                          "130820ae-fdc1-4806-a50d-90a156964bc6",
+                                          "145dd200-7ea2-4c66-9e3d-e0338d2f3197",
+                                          "14b0c540-ec92-4794-9128-60f13d116e47",
+                                          "14d5c16d-78ee-4a71-95dc-5364fe1d2fce",
+                                          "15863086-1e3a-4d6e-8563-7d41fcd8df69",
+                                          "158bd01f-90be-4e55-a9fe-9a51f3a577fc",
+                                          "15958ea3-b99a-467a-875a-ae1c6b533e83",
+                                          "16eaa063-151a-44ba-b26a-24ff3491cbbe",
+                                          "18ef6cdd-5b82-4864-83d6-9c7f5177ff98",
+                                          "190b7bdd-9e64-4b3f-9293-6085a6fccf77",
+                                          "19480e63-2780-4d75-92e4-191124eb140a",
+                                          "1953f168-0b88-4a44-926b-661dd453cbc5",
+                                          "199091a3-01ff-454d-a4be-200efe3027e8",
+                                          "19a14268-77e4-401e-8bdb-989d28c0baee",
+                                          "19e7609f-c917-4482-8577-d25759a17fd6",
+                                          "1a05f932-7e22-4b41-86ce-27383bb4b8a9",
+                                          "1a0fe9c8-0c78-41b8-8f38-a19bb166f89d",
+                                          "1a5cd745-556f-466e-ad11-fdf5da7497aa",
+                                          "1aa8b375-6db7-4fc1-9c52-3d771ea8b2e1",
+                                          "1b2c19cf-8be4-433d-9d05-c270d85bfb88",
+                                          "1b51b01c-1b53-445b-9839-af27e7ffbc81",
+                                          "1bd46574-6e96-48b8-b41c-fabfe14e5ca0",
+                                          "1bf988b8-3113-48bf-9acb-6247d6440474",
+                                          "1c2616cd-b75a-4116-9957-49e0b48f50e7"
+                                      ]
+                        },
+    "MercekB1_thp_kod_ad":  {
+                                "bulgu":  0,
+                                "not":  "SIKLAR DAHIL taranir - eski K4 kapisi siklara bakmiyordu",
+                                "ornek":  [
+
+                                          ],
+                                "idler":  [
+
+                                          ]
+                            },
+    "MercekB2_aritmetik":  {
+                               "olculen":  182,
+                               "bulgu":  2,
+                               "not":  "aciklamadaki a+b+c=X ifadesi yeniden hesaplandi",
+                               "ornek":  [
+                                             {
+                                                 "id":  "00841973-4d3f-4edd-9960-8db5e4018963",
+                                                 "ders":  "Finansal Muhasebe",
+                                                 "ifade":  "6.200 + 9.800 = 157.170",
+                                                 "yazilan":  157170,
+                                                 "hesaplanan":  16000,
+                                                 "fark":  -141170
+                                             },
+                                             {
+                                                 "id":  "1b7d26e3-76b0-461e-9fcc-a8611dc5c1cd",
+                                                 "ders":  "Maliyet Muhasebesi",
+                                                 "ifade":  "247.650 + 18.340 = 266.000",
+                                                 "yazilan":  266000,
+                                                 "hesaplanan":  265990,
+                                                 "fark":  -10
+                                             }
+                                         ],
+                               "idler":  [
+                                             "00841973-4d3f-4edd-9960-8db5e4018963",
+                                             "1b7d26e3-76b0-461e-9fcc-a8611dc5c1cd"
+                                         ]
+                           },
+    "MercekC_celiski":  {
+                            "bulgu":  45,
+                            "not":  "dogru sikkin aciklamasi bir yanlis sikkin %85+ kelimesini iceriyor = cift dogru adayi",
+                            "ornek":  [
+                                          {
+                                              "id":  "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "036914a6-29fe-4ab8-8e9d-c24914804104",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "03d43abf-4257-47fa-ba2e-4040a9d99982",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "E",
+                                              "supheli_sik":  "B",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0487c3a6-4c61-4410-a3fa-d2d099fdc3d1",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "049e299d-c4b0-4e9f-8138-20ec6c81cc37",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "D",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "05501aa4-0c76-409e-bdaf-ff21caf03b4d",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "B",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "057c1474-b7b9-4e33-a316-98acbf6f9f21",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "C",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "060b8b6c-1d58-4322-8714-33b7af534ec7",
+                                              "ders":  "Muhasebe Standartlari",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "06c666fc-4acc-4635-8563-c911599f134f",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "B",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "06e8dc60-d857-44fb-888e-4d4f8351c759",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "C",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "07e9a304-846e-4c2f-a4c6-658f1ca60184",
+                                              "ders":  "Finansal Tablolar ve Analizi",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "08e6384d-1519-4e1b-b8c4-850a23a27d78",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "C",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "090cd380-3b8a-4414-ab8a-4314eb2af5f1",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "C",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "09322d38-8025-42cb-9290-e92ef7a20472",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "D",
+                                              "supheli_sik":  "B",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0ad3df74-3d3b-4447-a659-99348576d5b8",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0afb0bf3-93b9-4832-beaa-08c4986d621b",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "E",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0cb59bd1-94bf-4499-a5a3-e9321b345828",
+                                              "ders":  "Sermaye Piyasası Mevzuatı",
+                                              "dogru":  "B",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0d43edf5-6af6-4ebf-8fe9-18a1c28a1f0b",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "D",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0e714f65-9d18-4cd8-bfaa-f693ca67854e",
+                                              "ders":  "Finansal Muhasebe",
+                                              "dogru":  "C",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0ea30200-11cc-4184-a2a6-5f13b598156c",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "D",
+                                              "supheli_sik":  "C",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "0fc39153-4d91-46c4-b2cc-2b69cb210e4e",
+                                              "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                                              "dogru":  "D",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "107e583b-b183-478f-b886-8b151a9e1e23",
+                                              "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                                              "dogru":  "D",
+                                              "supheli_sik":  "E",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "116d3903-56cf-4ca9-ad94-1d21fa3f6b4b",
+                                              "ders":  "Hukuk",
+                                              "dogru":  "C",
+                                              "supheli_sik":  "B",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "1180a1fb-e7fa-4b7a-9d89-a86ab6079870",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "A",
+                                              "supheli_sik":  "C",
+                                              "ortusme_yuzde":  100
+                                          },
+                                          {
+                                              "id":  "11c3afc5-fb0d-4997-9931-beaab5d0d7c2",
+                                              "ders":  "Maliyet Muhasebesi",
+                                              "dogru":  "C",
+                                              "supheli_sik":  "A",
+                                              "ortusme_yuzde":  100
+                                          }
+                                      ],
+                            "idler":  [
+                                          "003f2146-0b5f-4038-a703-c2bcb5cd6e65",
+                                          "036914a6-29fe-4ab8-8e9d-c24914804104",
+                                          "03d43abf-4257-47fa-ba2e-4040a9d99982",
+                                          "0487c3a6-4c61-4410-a3fa-d2d099fdc3d1",
+                                          "049e299d-c4b0-4e9f-8138-20ec6c81cc37",
+                                          "05501aa4-0c76-409e-bdaf-ff21caf03b4d",
+                                          "057c1474-b7b9-4e33-a316-98acbf6f9f21",
+                                          "060b8b6c-1d58-4322-8714-33b7af534ec7",
+                                          "06c666fc-4acc-4635-8563-c911599f134f",
+                                          "06e8dc60-d857-44fb-888e-4d4f8351c759",
+                                          "07e9a304-846e-4c2f-a4c6-658f1ca60184",
+                                          "08e6384d-1519-4e1b-b8c4-850a23a27d78",
+                                          "090cd380-3b8a-4414-ab8a-4314eb2af5f1",
+                                          "09322d38-8025-42cb-9290-e92ef7a20472",
+                                          "0ad3df74-3d3b-4447-a659-99348576d5b8",
+                                          "0afb0bf3-93b9-4832-beaa-08c4986d621b",
+                                          "0cb59bd1-94bf-4499-a5a3-e9321b345828",
+                                          "0d43edf5-6af6-4ebf-8fe9-18a1c28a1f0b",
+                                          "0e714f65-9d18-4cd8-bfaa-f693ca67854e",
+                                          "0ea30200-11cc-4184-a2a6-5f13b598156c",
+                                          "0fc39153-4d91-46c4-b2cc-2b69cb210e4e",
+                                          "107e583b-b183-478f-b886-8b151a9e1e23",
+                                          "116d3903-56cf-4ca9-ad94-1d21fa3f6b4b",
+                                          "1180a1fb-e7fa-4b7a-9d89-a86ab6079870",
+                                          "11c3afc5-fb0d-4997-9931-beaab5d0d7c2",
+                                          "12b24dc3-1b26-4c19-a495-cde4cc651c43",
+                                          "132e7006-fb5f-49cd-9ae5-48415b72c6b1",
+                                          "155c4e8d-8e2f-4d6f-89fb-918b68d25f2e",
+                                          "15854f93-b5d8-4427-9e49-b56d8838c6c4",
+                                          "163dcddf-14e5-4a2a-99ce-7d90fa85e3c1",
+                                          "172332c7-0b01-4c6b-a6a6-2cbdf4e5f4c7",
+                                          "178b0725-1792-489c-84a4-edd400778bc3",
+                                          "17cf172e-7702-46d2-a5d0-41fc17feb618",
+                                          "1857f5c6-497f-4b6c-b9a8-364eb2d96e8e",
+                                          "19d8efa7-5020-47aa-8c63-3aae1f5a9660",
+                                          "1b577941-93a9-4183-b92d-e5c93957626e",
+                                          "1b6eac3c-fe99-43db-ad66-a265e1533120",
+                                          "1b78206f-f4cc-4296-ba79-44247144f933",
+                                          "1bcd7483-9786-4938-9ece-0f1301be52d7",
+                                          "1be24536-e780-4173-acf4-cc5a68ffab49",
+                                          "1c0eab8d-7197-4553-8cf0-39e9f69c6801",
+                                          "1cab83a4-d62a-4989-9f5d-d720a34599f7",
+                                          "1d388e01-a965-470f-99a5-ba43d9211a90",
+                                          "1da8a514-7cec-4438-94de-04cb4c06fe25",
+                                          "1da9cfaa-f812-4b03-9834-92ae18a0bba8"
+                                      ]
+                        },
+    "kural":  "MERCEKLER ADAY URETIR, KARAR VERMEZ. Her aday elle okunur (GM-OKUYUCU-SARTNAME.md)."
+}

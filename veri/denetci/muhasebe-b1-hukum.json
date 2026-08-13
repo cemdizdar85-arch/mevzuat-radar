@@ -1,0 +1,219 @@
+{
+  "denetci": "muhasebe-B1",
+  "okunan": 30,
+  "gercek_kusur": 21,
+  "yanlis_alarm": 6,
+  "olculemedi": 3,
+  "kayitlar": [
+    {
+      "id": "1eb58fb5-b38e-4205-8e12-65961ee38570",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "Soru/açıklama metninde '300 - Hammadde ödemesi' ya da '420 - Maaş ödemesi' şeklinde bir THP kodu yazımı yok. Robotun yakaladığı '300' ve '420' aslında '487.300 TL' ve '8.420 TL' tutarlarının içindeki 3 haneli alt dizeler.",
+      "dogrusu": "Düzeltme gerekmiyor, kusur yok.",
+      "kapi_dersi": "Robotun sayı ayrıştırıcısı Türkçe binlik ayracıyla yazılmış tutarların (487.300, 8.420 gibi) son 3 hanesini bağımsız hesap kodu sanıyor. Kod eşleşmesi yalnız 'NNN - AD' başlık deseninde aranmalı, TL tutarı içindeki alt diziler hariç tutulmalı."
+    },
+    {
+      "id": "23e98141-14e3-4f17-aab8-03388f03ec03",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "Açıklama C metninde '280 Gelecek Yıllara Ait Giderler hesabı...' geçiyor; THP sözlüğünde 280 = GELECEK YILLARA AİT GİDERLER (msugt-thp-tam.json). Kod-ad tam örtüşüyor. Robotun yakaladığı 'yalnızca bir yıldan sonraki döneme ait olanlar duran varlıkta' ifadesi hesabın işleyişini anlatan bir cümle parçasıdır, hesap adı değildir.",
+      "dogrusu": "Düzeltme gerekmiyor, kusur yok.",
+      "kapi_dersi": "Robot '280' kodundan sonraki ilk cümle parçasını hesap adı sanmış; kod ile ad arasında ' - ' ayracı veya başlık biçimi aranmalı, serbest metin cümlesi hesap adı sayılmamalı."
+    },
+    {
+      "id": "27292c4b-143c-4087-9965-2c53ef79ff62",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şıklarda üç kod-ad çifti THP ile uyuşmuyor: A) '540 - Diğer Alacaklar hesabı' -> THP 540 = YASAL YEDEKLER; D) '340 - Ortaklardan Alacaklar hesabı' -> THP 340 = ALINAN SİPARİŞ AVANSLARI; E) '520 - Bağlı Ortaklıklardan Alacaklar hesabı' -> THP 520 = HİSSE SENEDİ İHRAÇ PRİMLERİ (msugt-thp-tam.json).",
+      "dogrusu": "540=Yasal Yedekler (Diğer Alacaklar'ın doğru kodu 136/236). 340=Alınan Sipariş Avansları (Ortaklardan Alacaklar'ın doğru kodu 131/231). 520=Hisse Senedi İhraç Primleri (Bağlı Ortaklıklardan Alacaklar'ın doğru kodu 133/233).",
+      "kapi_dersi": "Tuzak şık üretirken gerçek bir kodu rastgele/yanlış bir hesap adıyla eşleştirmek tehlikeli: öğrenci yanlış şıkkı elese de kod-ad ilişkisini yanlış öğrenebilir. Tuzak ya yanlış kodla (adı doğru bırakılarak) ya da doğru kodla ama yanlış bağlamda kurulmalı."
+    },
+    {
+      "id": "2f02adf4-6038-414f-809c-754ec663efbc",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "Şıklarda hiçbir yerde '340 - Yurtiçi Satışlar/Alıcılar/Alacak Senetleri' şeklinde bir kod yazımı yok; metinde tekrar eden '52.340 TL' tutarının içindeki '340' alt dizesi robot tarafından yakalanıp yakınındaki gerçek hesap adlarıyla eşleştirilmiş.",
+      "dogrusu": "Düzeltme gerekmiyor, kusur yok. Sorudaki hesap adları (Alıcılar, Alacak Senetleri, Yurtiçi Satışlar, Kasa) kod numarasız yazılmış ve doğru kullanılmış.",
+      "kapi_dersi": "Aynı bug: tutar içindeki 3 haneli alt dize ('52.340' -> '340') hesap kodu sanılıyor. Kod tespitinde nokta+3hane deseni (binlik ayracı) filtrelenmeli."
+    },
+    {
+      "id": "36be165f-aaf3-4fcf-9f84-1e29463606db",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "'440' kodu '61.440 TL' tutarının (şık C, işaretli doğru cevap) içindeki alt dizeden geliyor; 'o zaman soru' ifadesi de aynı açıklamadan bir cümle parçası. Soruda '440 - ...' şeklinde gerçek bir THP kod yazımı yok.",
+      "dogrusu": "B1 açısından düzeltme gerekmiyor.",
+      "kapi_dersi": "AYRI VE ÇOK DAHA CİDDİ BULGU (B1 kapsamı dışı, ayrıca bildirildi): açıklama C metninde modelin ham düşünme süreci sızmış ('Dur, kontrol...', 'Galiba şık yanlış ya da ben yanlış anladım... O zaman şıkları değiştireyim'). Kendi hesabına göre 2025 (3. yıl) amortismanı 86.400x0,40=34.560 TL çıkıyor ama işaretli doğru şık 61.440 TL; hiçbir şıkta 34.560 yok. Bu soru hem 'yapay zeka kokusu' hem olası yanlış cevap anahtarı taşıyor, B2/öğreticilik mercekleri tarafından ayrıca incelenmeli."
+    },
+    {
+      "id": "3dc104b6-785e-403f-b51a-91e39cddf848",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık E: '680 - Finansman Giderleri hesabına kaydedilir...' THP 680 = ÇALIŞMAYAN KISIM GİDER VE ZARARLARI (-) (msugt1.json). 'Finansman Giderleri Hesabı' THP'de 780 kodludur (msugt1.json: THP 780 - Finansman Giderleri Hesabı).",
+      "dogrusu": "680 = Çalışmayan Kısım Gider ve Zararları (-); Finansman Giderleri'nin doğru kodu 780'dir.",
+      "kapi_dersi": "Tuzak şıklarda kod+ad eşleşmesi THP ile birebir doğrulanmalı; yalnız doğru cevap şıkkı değil tüm şıklar taranmalı."
+    },
+    {
+      "id": "3ef224fc-b51f-41ff-8922-6d5d6d628a00",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık E: '151 - İlk Madde ve Malzeme hesabının alacağına kaydedilir.' THP 151 = YARI MAMULLER-ÜRETİM (msugt-thp-tam.json). İlk Madde ve Malzeme'nin doğru kodu 150'dir (msugt1.json: THP 150 - İLK MADDE VE MALZEME).",
+      "dogrusu": "151 = Yarı Mamuller-Üretim; İlk Madde ve Malzeme'nin doğru kodu 150'dir.",
+      "kapi_dersi": "150/151 gibi ardışık kodlar sıkça karıştırılıyor; ardışık kod çiftleri özellikle taranmalı."
+    },
+    {
+      "id": "4261cda7-64b9-40ee-9ede-0daed351534f",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "5 şıktan 4'ü THP ile uyuşmuyor: A) '241 - Bağlı Menkul Kıymetler' -> THP 241 = BAĞLI MENKUL KIYMETLER DEĞER DÜŞÜKLÜĞÜ KARŞILIĞI (-) (Bağlı Menkul Kıymetler'in kodu 240). B) '244 - Bağlı Ortaklıklar' -> THP 244 = İŞTİRAKLER SERMAYE PAYLARI DEĞER DÜŞÜKLÜĞÜ KARŞILIĞI (-) (Bağlı Ortaklıklar'ın kodu 245). C) '245 - Bağlı Ortaklıklara Sermaye Taahhütleri' -> THP 245 = BAĞLI ORTAKLIKLAR (bu taahhüdün kodu 246). D) '247 - İştirakler' -> THP 247 = BAĞLI ORTAKLIKLAR SERMAYE PAYLARI DEĞER DÜŞÜKLÜĞÜ KARŞILIĞI (-) (İştirakler'in kodu 242). Yalnız doğru cevap E (248 - Diğer Mali Duran Varlıklar) THP ile uyumlu.",
+      "dogrusu": "240=Bağlı Menkul Kıymetler, 241=Bağlı Menkul Kıymetler Değer Düşüklüğü Karşılığı(-), 242=İştirakler, 243=İştiraklere Sermaye Taahhütleri(-), 244=İştirakler Sermaye Payları Değer Düşüklüğü Karşılığı(-), 245=Bağlı Ortaklıklar, 246=Bağlı Ortaklıklara Sermaye Taahhütleri(-), 247=Bağlı Ortaklıklar Sermaye Payları Değer Düşüklüğü Karşılığı(-).",
+      "kapi_dersi": "Bu soruda kodlar sistematik bir kaymayla yanlış adlandırılmış (241<->240, 244<->245, 245<->246, 247<->242); üretici 240-249 aralığındaki hesap grubunu sırayla bilmiyor gibi görünüyor. Bu tip 'komşu kod grubu' sorularında tüm şıklar tek tek sözlükle karşılaştırılmalı."
+    },
+    {
+      "id": "4c540555-341e-4182-bdd1-c868c400c5c9",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "Şık D'de '191 İNDİRİLECEK KDV hesabının borcuna 17.470 TL' yazıyor; THP 191 = İNDİRİLECEK KDV (msugt-thp-tam.json). Kod-ad tam örtüşüyor. Robotun yakaladığı 'bedeli ilgili stok hesabının borcuna, ödenen KDV ayrı hesaba' ifadesi açıklama D metnindeki bir kural cümlesi parçasıdır, hesap adı değil.",
+      "dogrusu": "Düzeltme gerekmiyor, kusur yok.",
+      "kapi_dersi": "Robot '191' rakamının parantez içinde geçtiği açıklama cümlesini ('...ayrı hesaba (191) borç...') hesap adı sanmış; parantez içi referanslar ile 'NNN - AD' başlık deseni ayrılmalı."
+    },
+    {
+      "id": "4db5c876-c1bd-425b-9092-4e4e3dfb734f",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık A: '500 - ÖDENECEK VERGİ VE FONLAR' -> THP 500 = SERMAYE (msugt-thp-tam.json); Ödenecek Vergi ve Fonlar'ın doğru kodu 360'tır. Şık C: '520 - BANKALAR' -> THP 520 = HİSSE SENEDİ İHRAÇ PRİMLERİ; Bankalar'ın doğru kodu 102'dir.",
+      "dogrusu": "500=Sermaye (doğru cevap B'de doğru kullanılmış); Ödenecek Vergi ve Fonlar=360, Bankalar=102.",
+      "kapi_dersi": "Robotun bulgusu doğrulandı. 'Gerçek kod + tamamen alakasız gerçek hesap adı' kombinasyonu en tehlikeli kusur türü çünkü ikisi de gerçek THP adı, öğrenci ayırt edemez."
+    },
+    {
+      "id": "60e3710b-9db8-4f80-8963-04a0db1e6a58",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "İŞARETLİ DOĞRU CEVAP (B) dahil B, C, E şıklarında '257 - ÖZEL MALIYETLI SATILAN TİCARİ MALLAR hesabı' yazıyor; THP 257 = BİRİKMİŞ AMORTİSMANLAR (-) (msugt1.json). 'Özel Maliyetli Satılan Ticari Mallar' THP'de hiç yok, tamamen hayali bir hesap adı. Ayrıca B ve D şıklarında '760 - KAMBIYO ZARARLARI hesabı' yazıyor; THP 760 = PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ (msugt-thp-tam.json); Kambiyo Zararları'nın doğru kodu 656'dır (THP 656 - KAMBİYO ZARARLARI (-)).",
+      "dogrusu": "257=Birikmiş Amortismanlar(-); 'Özel Maliyetli Satılan Ticari Mallar' diye bir THP hesabı yok. 760=Pazarlama Satış ve Dağıtım Giderleri; Kambiyo Zararları'nın doğru kodu 656'dır.",
+      "kapi_dersi": "EN KRİTİK KUSUR TÜRÜ: hatalı kod-ad çifti İŞARETLİ DOĞRU CEVABIN İÇİNDE. Öğrenci doğru cevabı ezberlerken '257=Özel Maliyetli Satılan Ticari Mallar' ve '760=Kambiyo Zararları' gibi tamamen yanlış bilgiyi doğru sanıp öğrenir. Doğru cevap şıkkı taramada önceliklendirilmeli."
+    },
+    {
+      "id": "623fdec2-ebe9-4391-951e-00345216deb3",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık A: '642 - Faaliyet Giderleri' -> THP 642 = FAİZ GELİRLERİ (msugt1.json: THP 642 - Faiz Gelirleri). 'Faaliyet Giderleri' THP'de tek başına bir hesap adı değil.",
+      "dogrusu": "642 = Faiz Gelirleri.",
+      "kapi_dersi": "Robotun bulgusu doğruydu, aynen onaylandı."
+    },
+    {
+      "id": "69ad5ac5-3e84-4c8b-be68-b29a0ef5f1b1",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "İki ayrı hata: (1) Soru metninde '749 - Özel Maliyetler hesabına yazmıştır' deniyor; THP'de 749 diye bir kod yok, Özel Maliyetler'in doğru kodu 264'tür (msugt-thp-tam.json: THP 264 - ÖZEL MALİYETLER). (2) Şık B: '740 - Örgütlenme Giderleri hesabına kaydedilmelidir' -> THP 740 = HİZMET ÜRETİM MALİYETİ; Örgütlenme (Kuruluş ve Örgütlenme) Giderleri'nin doğru kodu 262'dir.",
+      "dogrusu": "Özel Maliyetler=264; Kuruluş ve Örgütlenme Giderleri=262; 740=Hizmet Üretim Maliyeti.",
+      "kapi_dersi": "Robotun bulduğu 740 kusuru doğrulandı; ayrıca robotun kaçırdığı ikinci bir kusur (soru gövdesindeki '749') bağımsız taramada bulundu. Robot yalnız şıkları değil soru gövdesini de taramalı."
+    },
+    {
+      "id": "6f3f0f86-2e6e-4024-b24b-4fb6e278c5b9",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '197 - Birikmiş Amortismanlar' -> THP 197 = SAYIM VE TESELLÜM NOKSANLARI (msugt-thp-tam.json). Birikmiş Amortismanlar'ın doğru kodu (duran varlık grubuna göre) 257/268/299'dur.",
+      "dogrusu": "197 = Sayım ve Tesellüm Noksanları; Birikmiş Amortismanlar bağlama göre 257, 268 veya 299'dur.",
+      "kapi_dersi": "Robotun bulgusu doğruydu, aynen onaylandı."
+    },
+    {
+      "id": "8d7016cc-a0bc-4fee-8ff4-c0bb78527a88",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "İŞARETLİ DOĞRU CEVAP (B) dahil B, D, E şıklarında '151 İLK MADDE VE MALZ. HS.' yazıyor; THP 151 = YARI MAMULLER-ÜRETİM. İlk Madde ve Malzeme'nin doğru kodu 150'dir.",
+      "dogrusu": "150 = İlk Madde ve Malzeme; 151 = Yarı Mamuller-Üretim.",
+      "kapi_dersi": "Bu id robotun 30'luk listesine 'aday' girmiş ama paket dosyasında ayrıntı yoktu; bağımsız tarama gerçek kusur (ve doğru cevapta!) buldu. Robot ayrıntısız adayları da tam taramalı."
+    },
+    {
+      "id": "8e5fc614-6ad3-462e-957f-a9ba196b19a2",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '197 - Diğer Stoklara İlişkin Değer Düşüklüğü Karşılığı (-)' -> THP 197 = SAYIM VE TESELLÜM NOKSANLARI. Ayrıca açıklama B metni '197 numaralı böyle bir hesap bulunmaz' diyor; bu iddia da yanlış -- 197 gerçekten var, sadece adı farklı.",
+      "dogrusu": "197 = Sayım ve Tesellüm Noksanları. Stok değer düşüklüğü karşılığı için THP'de 158 (dönen varlık) ve 298 (duran varlık) kodları var, 197 değil.",
+      "kapi_dersi": "Açıklama metninin kendisi de yanlış iddiada bulunuyor ('böyle bir hesap yok'); açıklama üretiminde kod var/yok iddiaları da sözlükle doğrulanmalı, salt sezgiyle yazılmamalı."
+    },
+    {
+      "id": "9349be9f-8686-4b80-b73c-1cf152e4526a",
+      "hukum": "YANLIŞ ALARM",
+      "kanit": "Tüm şıklardaki kod-ad çiftleri THP ile birebir uyumlu: 153=Ticari Mallar, 320=Satıcılar, 150=İlk Madde ve Malzeme, 191=İndirilecek KDV, 391=Hesaplanan KDV. Hiçbir mismatch yok.",
+      "dogrusu": "Düzeltme gerekmiyor, kusur yok.",
+      "kapi_dersi": "Bu id aday listesine girmiş ama gerçek kusur yok; robotun aday seçim eşiği gözden geçirilmeli."
+    },
+    {
+      "id": "96f3bd90-e012-4142-b03f-505131f3393c",
+      "hukum": "ÖLÇÜLEMEDİ",
+      "kanit": "Soru ve şıklarda hiçbir THP hesap kodu ('NNN - AD') geçmiyor; tamamen mali tablo oranları (cari oran, sürekli sermaye oranı) sorusu.",
+      "dogrusu": "B1 kapsamı dışı.",
+      "kapi_dersi": "Hesap kodu içermeyen sorular B1 adayı olarak seçilmemeli; aday üretim mantığı gözden geçirilmeli."
+    },
+    {
+      "id": "978a9127-73e6-4601-8e05-ef70239ef259",
+      "hukum": "ÖLÇÜLEMEDİ",
+      "kanit": "Soru ve şıklarda THP hesap kodu yok, yalnız VUK madde numaraları (m.283, m.274, m.279, m.281, m.285) geçiyor.",
+      "dogrusu": "B1 kapsamı dışı.",
+      "kapi_dersi": "Aynı: hesap kodu içermeyen sorular B1 adayı olmamalı."
+    },
+    {
+      "id": "9acd6c7c-26e2-4d67-aa35-f28eb1098ae4",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '129 - Diğer Hazır Değerler Değer Düşüklüğü Karşılığı' -> THP 129 = ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI (-). Şık C: '242 - Bağlı Menkul Kıymetler İhraç Primi' -> THP 242 = İŞTİRAKLER; böyle bir 'ihraç primi' hesabı THP'de yok. Şık E: '549 - Bağlı Ortaklıklar Sermaye Taahhütleri' -> THP 549 = ÖZEL FONLAR; bu taahhüdün doğru kodu 246'dır.",
+      "dogrusu": "129=Şüpheli Ticari Alacaklar Karşılığı(-); 242=İştirakler; 549=Özel Fonlar; Bağlı Ortaklıklara Sermaye Taahhütleri'nin doğru kodu 246'dır.",
+      "kapi_dersi": "Bu id robotun 30'luk aday listesinde ama paket dosyasında hiç ayrıntısı yoktu; bağımsız tarama 3 ayrı gerçek kusur buldu. Robot ayrıntısız adayları atlamamalı."
+    },
+    {
+      "id": "a61fe538-1971-4e11-a7ca-b93d922bb447",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '229 - Diğer Ticari Alacaklar Karşılığı' -> THP 229 = ŞÜPHELİ ALACAKLAR KARŞILIĞI (-). Şık C: '257 - Bağlı Ortaklıklardan Alacaklar Karşılığı' -> THP 257 = BİRİKMİŞ AMORTİSMANLAR (-); böyle bir alacak karşılığı 257'de yok. Şık D: '549 - Özel Karşılıklar' -> THP 549 = ÖZEL FONLAR, 'Özel Karşılıklar' diye bir THP adı yok.",
+      "dogrusu": "229=Şüpheli Alacaklar Karşılığı(-); 257=Birikmiş Amortismanlar(-); 549=Özel Fonlar.",
+      "kapi_dersi": "Ayrıntısız adaydan bağımsız tarama ile bulundu; aynı 240-249/220-229 hesap grubu karışıklık kalıbı tekrarlıyor (bkz. 4261cda7)."
+    },
+    {
+      "id": "ac0b41e5-19c9-4b8a-8f62-d6f549c28440",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık C: '254 - Makineler' -> THP 254 = TAŞITLAR; Makineler'in (Tesis, Makine ve Cihazlar) doğru kodu 253'tür.",
+      "dogrusu": "254=Taşıtlar; Tesis, Makine ve Cihazlar=253.",
+      "kapi_dersi": "Ardışık kod karışıklığı (253<->254) tekrarlıyor; 250-260 aralığındaki maddi duran varlık grubu özellikle riskli."
+    },
+    {
+      "id": "ad07a48c-6ead-4d52-a437-44a563489432",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '646 - Reeskont Faiz Giderleri' -> THP 646 = KAMBİYO KÂRLARI; Reeskont Faiz Giderleri'nin doğru kodu 657'dir. Şık D: '526 - Reeskont Faiz Gelirleri' -> THP'de 526 diye bir kod yok; Reeskont Faiz Gelirleri'nin doğru kodu 647'dir.",
+      "dogrusu": "646=Kambiyo Kârları; Reeskont Faiz Giderleri=657; 526 THP'de yok, Reeskont Faiz Gelirleri=647.",
+      "kapi_dersi": "Hem 'gerçek kod+yanlış ad' hem 'tümüyle uydurma kod' aynı soruda bir arada; kod var/yok kontrolü sözlükte arama ile otomatikleştirilmeli."
+    },
+    {
+      "id": "b3e879dd-0be5-4cf7-a824-33c70226977f",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık A: '549 - Diğer Olağan Gelir ve Karlar' -> THP 549 = ÖZEL FONLAR; Diğer Olağan Gelir ve Karlar'ın (Faaliyetle İlgili) doğru kodu 649'dur. Şık B: '500 - Ödenmiş Sermaye' -> THP 500 = SERMAYE; 'Ödenmiş Sermaye' THP'de ayrı bir hesap adı değil. Şık C: '522 - Hisse Senedi İptal Zararları' -> THP 522 = M.D.V. YENİDEN DEĞERLEME ARTIŞLARI; 'Hisse Senedi İptal Zararları' diye bir THP hesabı yok.",
+      "dogrusu": "549=Özel Fonlar; Diğer Olağan Gelir ve Karlar=649; 500=Sermaye; 522=M.D.V. Yeniden Değerleme Artışları.",
+      "kapi_dersi": "500'ler ve 600'ler hesap grubunda sistematik kod-ad karışıklığı; bu bölgedeki sorular toplu tekrar taransın."
+    },
+    {
+      "id": "b6befc25-fb0d-4d12-aecb-89246a3bfab5",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık D: '520 - Karşılıklı İştirak Sermaye Düzeltmesi' -> THP 520 = HİSSE SENEDİ İHRAÇ PRİMLERİ; bu kavram THP'nin 269 hesap listesinde yok. Şık E: '548 - Diğer Sermaye Yedekleri' -> THP 548 = DİĞER KAR YEDEKLERİ; Diğer Sermaye Yedekleri'nin doğru kodu 529'dur.",
+      "dogrusu": "520=Hisse Senedi İhraç Primleri; 548=Diğer Kar Yedekleri; Diğer Sermaye Yedekleri=529.",
+      "kapi_dersi": "Kar yedekleri (540-549) ile sermaye yedekleri (520-529) grupları birbirine karıştırılıyor; iki grup arası sınır otomatik kontrolde ayrıca vurgulanmalı."
+    },
+    {
+      "id": "ba2a1bd8-22ec-4c6e-9ecd-a50e1beeefb2",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '630 - Pazarlama Satış ve Dağıtım Giderleri' -> THP 630 = ARAŞTIRMA VE GELİŞTİRME GİDERLERİ (-) (msugt-thp2.json); Pazarlama Satış ve Dağıtım Giderleri'nin doğru kodu 631'dir. Şık D: '622 - Dışarıdan Sağlanan Fayda ve Hizmetler' -> THP 622 = SATILAN HİZMET MALİYETİ (-); Dışarıdan Sağlanan Fayda ve Hizmetler'in doğru kodu 793'tür.",
+      "dogrusu": "630=Araştırma ve Geliştirme Giderleri(-); Pazarlama Satış ve Dağıtım Giderleri=631; 622=Satılan Hizmet Maliyeti(-); Dışarıdan Sağlanan Fayda ve Hizmetler=793.",
+      "kapi_dersi": "7'li grup (esasa yansıtılan giderler, 630-632) ile 62 grubu (satış maliyeti) karıştırılıyor; bu iki farklı bölüm net ayrılmalı."
+    },
+    {
+      "id": "c8587ca3-9d81-4973-8178-1cea5f2b0b94",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık A: '530 - Geçmiş Yıllar Karları' -> THP'de 530 diye bir kod yok; Geçmiş Yıllar Karları'nın doğru kodu 570'tir. Şık E: '370 - Gelecek Aylara Ait Gelirler' -> THP 370 = DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI; Gelecek Aylara Ait Gelirler'in doğru kodu 380'dir.",
+      "dogrusu": "530 THP'de yok, Geçmiş Yıllar Karları=570; 370=Dönem Karı Vergi ve Diğer Yasal Yükümlülük Karşılıkları; Gelecek Aylara Ait Gelirler=380.",
+      "kapi_dersi": "Uydurma kod (530) + gerçek kod yanlış adla (370) aynı soruda; ikisi de aynı ciddiyette kusur sayılmalı."
+    },
+    {
+      "id": "cba0bd84-0980-4e70-adbb-87c2e1247f60",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık B: '542 - Statü Yedekleri' -> THP 542 = OLAĞANÜSTÜ YEDEKLER; Statü Yedekleri'nin doğru kodu 541'dir.",
+      "dogrusu": "542=Olağanüstü Yedekler; Statü Yedekleri=541.",
+      "kapi_dersi": "540-542 ardışık kod grubu (Yasal/Statü/Olağanüstü Yedekler) yine karışmış; bu üçlü grup ayrıca kontrol listesine eklenmeli."
+    },
+    {
+      "id": "e372b75c-dcd3-4257-a65b-c2b93660894a",
+      "hukum": "ÖLÇÜLEMEDİ",
+      "kanit": "Soru ve şıklarda THP hesap kodu yok; salt maliyet muhasebesi hesaplaması (ilk madde, işçilik, GÜG, genel idare payı, net satışlar üzerinden brüt kâr).",
+      "dogrusu": "B1 kapsamı dışı; olası aritmetik doğrulama B2 mercek işi.",
+      "kapi_dersi": "Hesap kodu içermeyen aday, B1 listesine hatalı girmiş."
+    },
+    {
+      "id": "e612e57b-4f9d-4fb5-b0d3-1848c33aeb14",
+      "hukum": "GERÇEK KUSUR",
+      "kanit": "Şık D: '579 - Diğer Sermaye Yedekleri' -> THP'de 579 diye bir kod yok; doğru kod 529'dur. Şık E: '548 - Hisse Senedi İptal Karları' -> THP 548 = DİĞER KAR YEDEKLERİ; Hisse Senedi İptal Karları'nın doğru kodu 521'dir.",
+      "dogrusu": "579 THP'de yok, Diğer Sermaye Yedekleri=529; 548=Diğer Kar Yedekleri; Hisse Senedi İptal Karları=521.",
+      "kapi_dersi": "520-529 (sermaye yedekleri) ile 540-549 (kar yedekleri) arası karışıklığı yine tekrarlıyor; sistemik desen kesinleşti -- üretici 5 grubu hesap sırasını doğru bilmiyor."
+    }
+  ]
+}
