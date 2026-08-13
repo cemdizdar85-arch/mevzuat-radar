@@ -71,7 +71,14 @@
 
 **YENİ KOL ADAYI:** "İstihdam Teşvik Kontrolü" — sektör (imalat/turizm) + il + çalışan profili → hangi canlı teşvik (2 puan otomatik mi, geç. m.35/36 kapsamı, bölgesel 6 puan var mı) + "5 puan bitti" uyarısı.
 
-## 3) KOSGEB DİFF — SIRADA (kosgeb.gov.tr listesi vs katalog 14 program)
+## 3) KOSGEB DİFF ✅ OKUNDU (13.08 — kosgeb.gov.tr resmî destekler sayfası birebir çekildi)
+
+Resmî listede **14 program**, katalogda 11 vardı. Fark:
+- **EKSİKTİ → EKLENDİ (13.08):** 9145 "1501 – TÜBİTAK Sanayi Ar-Ge" (hibe, çağrılı, azami 36 ay — amaç metni resmî sayfadan) · 9414 "**Yapay Zekâ Kredi Programı**" (yeni; KREDİ, hibe değil — n:finans etiketiyle).
+- **BİLİNÇLİ DIŞARIDA:** 9378 "Girişim Sermayesi Yatırım Fonları Yatırımları" — başvuran KOBİ değil FON (KOSGEB fona kaynak taahhüt ediyor: tek fona azami 500M TL, tur asgari 50M TL). Son kullanıcımız KOBİ olduğundan karta dönüştürülmedi; "yatırım fonu arayan girişim" içeriği gerekirse ayrı anlatım olur.
+- **9224 İstihdamı Koruma kartına** 4447 geç. m.35 köprüsü eklendi (2026–2028 imalat istihdam programları Fon kaynaklı — SGK bölümündeki bulgunun KOSGEB ayağı).
+- Kalan 11 program birebir örtüşüyor (1231, 6492, 9022, 9144, 9146, 9165, 9200, 9206, 9224, 9297, 9327).
+- Doğrulama: sayfa tarayıcıda yeniden yüklendi, PROGRAMLAR dizisi 22 kayıt / KOSGEB 13 kart, JS hatasız.
 ## 4) TÜBİTAK doğrudan (1501/1507/1707…) — SIRADA
 ## 5) KGF + kamu bankası paketleri — SIRADA
 ## 6) İŞKUR (işbaşı eğitim, kısa çalışma…) — SIRADA
