@@ -19,7 +19,12 @@
 #  PARA HARCAMAZ. ENV: SUPABASE_SERVICE_KEY
 #  Cikti: veri/bildirim-nobeti-raporu.json
 # ============================================================================
-param([int]$esik = 2, [switch]$kuru)
+# 13.08.2026 CEM KURALI ("dogru olmayan veriyi biz yok edecegiz"): esik 2 -> 1.
+# TEK gecerli bildirim soruyu askiya alir - soru masum kanitlanana dek yayinda kalmaz.
+# Denge: tek kisi tum siteyi indiremesin diye OTURUM TAVANI eklendi (asagida) -
+# bir oturum bir kosuda en fazla $oturumTavan farkli soruyu aski tetikleyebilir;
+# asan oturumun bildirimleri supheli sayilir, aski YAPILMAZ, rapora ve maile duser.
+param([int]$esik = 1, [int]$oturumTavan = 5, [switch]$kuru)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -75,6 +80,18 @@ foreach($b in $bildirimler){
   [void]$soruOturum[$sid].Add($ot)
   if(-not $soruBildirimId.ContainsKey($sid)){ $soruBildirimId[$sid] = New-Object System.Collections.Generic.List[string] }
   $soruBildirimId[$sid].Add("$($b.id)")
+}
+# --- OTURUM TAVANI (13.08): bir oturum kac FARKLI soruda bildirim yapmis?
+$oturumSoruSayisi = @{}
+foreach($b in $bildirimler){
+  $ot = "$($b.oturum)"; if($ot.Length -eq 0){ $ot = "uye:$($b.uye)" }; if($ot -eq 'uye:'){ $ot = "kayit:$($b.id)" }
+  if(-not $oturumSoruSayisi.ContainsKey($ot)){ $oturumSoruSayisi[$ot] = New-Object 'System.Collections.Generic.HashSet[string]' }
+  [void]$oturumSoruSayisi[$ot].Add("$($b.soru_id)")
+}
+$supheliOturumlar = @($oturumSoruSayisi.GetEnumerator() | Where-Object { $_.Value.Count -gt $oturumTavan } | ForEach-Object { $_.Key })
+if($supheliOturumlar.Count -gt 0){
+  Write-Host ("SUPHELI OTURUM ({0} adet, tavan {1} soru): bildirimleri aski hesabina KATILMADI - elle incelenecek." -f $supheliOturumlar.Count, $oturumTavan)
+  foreach($sid in @($soruOturum.Keys)){ foreach($so in $supheliOturumlar){ [void]$soruOturum[$sid].Remove($so) } }
 }
 $esikGecen = @($soruOturum.GetEnumerator() | Where-Object { $_.Value.Count -ge $esik })
 Write-Host ("Esigi ({0} farkli aday) gecen soru: {1}" -f $esik, $esikGecen.Count)

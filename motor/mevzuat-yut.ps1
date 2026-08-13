@@ -271,4 +271,44 @@ try {
     } else { Write-Host "ETKI ZINCIRI: degisen kanunlara atif yapan icerik yok." }
   }
 } catch { Write-Host "ETKI ZINCIRI UYARI (hasat etkilenmedi): $_" }
+
+# ============================================================================
+# SORU ETKI ZINCIRI (13.08.2026 — Cem: "kanun-degisince-soru-askiya, yapalim"):
+# kanun DEGISTIYSE, o kanuna dayanan YAYINDAKI sorular OTOMATIK ASKIYA alinir
+# (yayin=false + yayin_notu damgasi). Soru masum kanitlanana dek yayinda kalmaz;
+# okuyucu hatti yeniden dogrulayinca insan karariyla geri acilir. try/catch:
+# hata olsa bile hasat bozulmaz.
+# ============================================================================
+try {
+  if($degisen.Count -gt 0 -and $H){
+    $kanunNolar = New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($l in $manifest.kanunlar){
+      if($degisen -contains $l.slug){
+        $no = [regex]::Match("$($l.ad)",'\b\d{3,5}\b').Value
+        if(-not $no){ $no = [regex]::Match("$($l.slug)",'\d{3,5}').Value }
+        if($no){ [void]$kanunNolar.Add($no) }
+      }
+    }
+    if($kanunNolar.Count -gt 0){
+      $inListe = ($kanunNolar | ForEach-Object { '"' + $_ + '"' }) -join ','
+      $sr = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/soru_havuzu?select=id,ders,kanun_no&yayin=eq.true&kanun_no=in.($inListe)&limit=2000" -Headers $H -TimeoutSec 120
+      $askiAday = @(([Text.Encoding]::UTF8.GetString($sr.RawContentStream.ToArray()) | ConvertFrom-Json))
+      if($askiAday.Count -gt 0){
+        $notMetni = "ETKI-ZINCIRI ASKISI $bugun : dayandigi kanun degisti ($(($kanunNolar) -join ',')) - okuyucu yeniden dogrulayana kadar yayin disi."
+        $govde = (@{ yayin=$false; yayin_notu=$notMetni } | ConvertTo-Json)
+        foreach($grup in ($askiAday | Group-Object { [math]::Floor([array]::IndexOf($askiAday,$_)/100) })){
+          $idIn = ($grup.Group | ForEach-Object { '"' + $_.id + '"' }) -join ','
+          Invoke-RestMethod -Method Patch -Uri "$SB_URL/rest/v1/soru_havuzu?id=in.($idIn)" -Headers ($H + @{ Prefer='return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120 | Out-Null
+        }
+        Write-Host ("SORU ETKI ZINCIRI: {0} yayindaki soru askiya alindi (kanun: {1})." -f $askiAday.Count, ($kanunNolar -join ', '))
+        if($env:RESEND_KEY){
+          $sat2 = ($askiAday | Select-Object -First 25 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.ders)) — kanun $($_.kanun_no)</li>" }) -join ""
+          $html2 = "<h3>Soru Etki Zinciri</h3><p>Degisen kanun(lar) <b>$($kanunNolar -join ', ')</b> nedeniyle <b>$($askiAday.Count)</b> yayindaki soru OTOMATIK ASKIYA alindi. Okuyucu hatti yeniden dogrulayinca insan karariyla acilir.</p><ul>$sat2</ul><p>Tetikte — soru sigortasi</p>"
+          $mb2 = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE SORU ASKISI: kanun degisti, $($askiAday.Count) soru yayindan cekildi"; html=$html2 } | ConvertTo-Json -Depth 3
+          try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb2)) -ContentType "application/json" | Out-Null } catch { Write-Host "soru-aski maili hatasi: $_" }
+        }
+      } else { Write-Host "SORU ETKI ZINCIRI: degisen kanunlara dayanan yayinda soru yok." }
+    }
+  }
+} catch { Write-Host "SORU ETKI ZINCIRI UYARI (hasat etkilenmedi): $_" }
 exit 0
