@@ -43,6 +43,22 @@ if(-not (Test-Path $Klasor)){ New-Item -ItemType Directory -Force $Klasor | Out-
 $adres = "https://ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx"
 $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) MevzuatRadar-BultenHasat/1.0"
 
+# --- HTTP KATMANI: once curl, olmazsa Invoke-WebRequest ----------------------
+# 14.08 OLCUM: Actions'ta AYNI makineden curl KIK'e http=200 aliyor, openssl el
+# sikismasi tertemiz, ama PowerShell'in Invoke-WebRequest'i "The SSL connection
+# could not be established" diyor. TLS surumunu ayarlamak da cozmedi. Sebebi daha
+# fazla kazmak yerine CALISTIGI OLCULEN yola geciyoruz: HTTP isini curl yapiyor.
+# curl hem Ubuntu'da hem Windows 10+'ta hazir; yoksa eski yola dusuluyor.
+# DIKKAT: PowerShell 5.1'de "curl" Invoke-WebRequest'in TAKMA ADIDIR - gercek
+# programi bulmak icin -CommandType Application sart, yoksa kendi kendini cagirir.
+$script:CurlYol = $null
+# DIKKAT 2: Get-Command birden fazla curl bulabilir (Windows'ta system32 + Git'inki);
+# ".Source" o zaman DIZI doner ve iki yol yan yana yapisip komut adi bozulur (olculdu).
+foreach($c in @('curl.exe','curl')){
+  $k = @(Get-Command $c -CommandType Application -ErrorAction SilentlyContinue)
+  if($k.Count){ $script:CurlYol = $k[0].Source; break }
+}
+
 function GizliAl([string]$html, [string]$ad){
   $m = [regex]::Match($html, 'id="' + [regex]::Escape($ad) + '"[^>]*value="([^"]*)"')
   if($m.Success){ return $m.Groups[1].Value }
@@ -58,9 +74,19 @@ function BultenMetni([string]$tur){
     if(Test-Path $hazir){ Write-Host "   (yerel metin kullanildi)"; return (Get-Content $hazir -Raw -Encoding UTF8) }
     Write-Host "   (yerel metin yok - indiriliyor)"
   }
+  $cerez = Join-Path $Klasor ("cerez-{0}.txt" -f $tur.ToLower())
+  $sayfa = Join-Path $Klasor ("sayfa-{0}.html" -f $tur.ToLower())
   $oturum = $null
-  $s1 = Invoke-WebRequest -Uri $adres -Headers @{ "User-Agent"=$ua } -SessionVariable oturum -TimeoutSec 90 -UseBasicParsing
-  $html = $s1.Content
+  $html = ""
+  if($script:CurlYol){
+    Write-Host "   (curl ile)"
+    & $script:CurlYol -sS --max-time 120 -A $ua -c $cerez -o $sayfa $adres
+    if($LASTEXITCODE -ne 0 -or -not (Test-Path $sayfa)){ throw "curl sayfayi alamadi (cikis $LASTEXITCODE)" }
+    $html = Get-Content $sayfa -Raw -Encoding UTF8
+  } else {
+    $s1 = Invoke-WebRequest -Uri $adres -Headers @{ "User-Agent"=$ua } -SessionVariable oturum -TimeoutSec 90 -UseBasicParsing
+    $html = $s1.Content
+  }
   $govde = @{
     '__EVENTTARGET'   = "ctl00`$ContentPlaceHolder1`$lnkBtn$tur"
     '__EVENTARGUMENT' = ''
@@ -75,9 +101,20 @@ function BultenMetni([string]$tur){
     'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = ''
   }
   $ham = Join-Path $Klasor ("bulten-{0}.ham" -f $tur.ToLower())
-  # TUZAK: IWR .Content ikili veriyi bozar - -OutFile sart (13.08 olculdu)
-  Invoke-WebRequest -Uri $adres -Method Post -Body $govde -WebSession $oturum `
-    -Headers @{ "User-Agent"=$ua; "Referer"=$adres } -TimeoutSec 300 -UseBasicParsing -OutFile $ham
+  if($script:CurlYol){
+    # --data-urlencode her alani ayri ayri kodlar (VIEWSTATE/EVENTVALIDATION'da
+    # +, /, = gibi karakterler var; duz --data ile gonderilirse sunucu reddeder).
+    $argv = @('-sS','--max-time','300','-A',$ua,'-b',$cerez,'-c',$cerez,'-e',$adres,'-o',$ham)
+    foreach($k in $govde.Keys){ $argv += '--data-urlencode'; $argv += ("{0}={1}" -f $k, $govde[$k]) }
+    $argv += $adres
+    & $script:CurlYol @argv
+    if($LASTEXITCODE -ne 0){ throw "curl bulteni alamadi (cikis $LASTEXITCODE)" }
+  } else {
+    # TUZAK: IWR .Content ikili veriyi bozar - -OutFile sart (13.08 olculdu)
+    Invoke-WebRequest -Uri $adres -Method Post -Body $govde -WebSession $oturum `
+      -Headers @{ "User-Agent"=$ua; "Referer"=$adres } -TimeoutSec 300 -UseBasicParsing -OutFile $ham
+  }
+  if(-not (Test-Path $ham)){ return $null }
   if((Get-Item $ham).Length -lt 100000){ return $null }
   $pdf = Join-Path $Klasor ("bulten-{0}.pdf" -f $tur.ToLower())
   # "Get-Content -Encoding Byte" PowerShell 7'de KALDIRILDI (-AsByteStream oldu).
