@@ -64,6 +64,14 @@ jobs:
           openssl version -a | head -3
           grep -n "SECLEVEL\|CipherString\|MinProtocol" /etc/ssl/openssl.cnf || true
 
+      # 14.08: curl calisiyor ama Invoke-WebRequest calismiyorsa suclu PowerShell'in
+      # TLS ayaridir. Bu adim ayarlari TEK TEK dener - hangisinin tuttugu olculur.
+      - name: TESHIS — PowerShell TLS ayarlari
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/tls-teshis.ps1
+
       - name: Kamu Ihale Bulteni — iptal + duzeltme (yalniz sabah)
         id: bulten
         if: github.event.schedule != '13 14 * * *'

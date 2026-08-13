@@ -23,7 +23,19 @@ param(
   [string]$Klasor = (Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten")
 )
 $ErrorActionPreference = "Stop"
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# 14.08 OLCUM (Actions teshis adimi): AYNI makineden curl KIK'e http=200 aliyor ve
+# openssl el sikismasi tertemiz (GlobalSign zinciri, verify return:1, CN=*.kik.gov.tr).
+# Yani ag da sertifika da SAGLAM - suclu asagidaki satirdi.
+# .NET Core'da (PowerShell 7 = Actions) SecurityProtocol'u Tls12'ye SABITLEMEK
+# TLS 1.3'u kapatir; sunucuyla TLS 1.2 sifre takimlarinda anlasilamazsa baglanti
+# hic kurulmaz ve hatanin adi tam olarak "The SSL connection could not be
+# established" olur. Windows PowerShell 5.1'de ise varsayilan TLS 1.0'dir ve
+# sabitleme SARTTIR. Bu yuzden surume gore ayrilir:
+#   PS 5.1  -> Tls12 zorla (yoksa hicbir modern siteye baglanamaz)
+#   PS 7+   -> .NET'in kendi varsayilanina birak (TLS 1.3 dahil)
+if($PSVersionTable.PSVersion.Major -lt 6){
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+}
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 if(-not (Test-Path $Klasor)){ New-Item -ItemType Directory -Force $Klasor | Out-Null }
