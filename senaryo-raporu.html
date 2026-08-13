@@ -123,7 +123,16 @@ details.kacc>.ic{padding:2px 0 14px}
     </div>
     <!-- 31.07 Cem onayi (a): ulke secimi ZORUNLU degil - biz hepsini hesaplayip siralariz;
          kutucuklar yalnizca daraltma suzgeci (bos = tum ulkeler) -->
-    <label>MENŞE ÜLKE SÜZGECİ</label>
+    <label>MENŞE ÜLKE — ADIYLA ARA</label>
+    <!-- 13.08 Cem: "butun ulkeler olmasi lazim" - ulke adiyla arama; arkada RG'nin
+         resmi sutun eslemesi (EK-1 + II sayili liste sutun-1; kaynak veri/ulke-grup.json) -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:2px 0 6px">
+      <input id="ulkeAra" list="ulkeList" placeholder="Ülke yaz… (ör. Vietnam, Brezilya, Nijerya)" autocomplete="off" style="flex:1;min-width:230px;padding:11px 13px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-family:inherit;font-size:14px">
+      <datalist id="ulkeList"></datalist>
+      <button type="button" onclick="ulkeAraEkle()" style="cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;padding:11px 16px;border-radius:10px;border:1px solid var(--line2);background:#0a0f17;color:var(--accent2)">+ Ekle</button>
+    </div>
+    <div id="ozelUlkeler" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px"></div>
+    <label>YA DA GRUP SÜZGECİYLE SEÇ</label>
     <!-- 13.08 Cem: "hepsini sec gibi sutun koyalim, boyle mantikli gorunmuyor" -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px">
       <button type="button" onclick="ulkeToplu(true)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:#0a0f17;color:var(--ink)">☑ Tümünü seç</button>
@@ -172,8 +181,33 @@ Promise.all([
   fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/teblig-damga.json').then(r=>r.json()).catch(()=>null),
-  fetch('veri/yanveri-damga.json').then(r=>r.json()).catch(()=>null)
-]).then(([a,b,c,d,e,f,g,h])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h}; });
+  fetch('veri/yanveri-damga.json').then(r=>r.json()).catch(()=>null),
+  fetch('veri/ulke-grup.json').then(r=>r.json()).catch(()=>null)
+]).then(([a,b,c,d,e,f,g,h,ug])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h};
+  UGRUP=ug; if(ug&&ug.ulkeler){ document.getElementById('ulkeList').innerHTML = ug.ulkeler.map(u=>`<option value="${u.ad}">`).join(''); }
+});
+let UGRUP=null; const OZEL_SECIM=[];
+const GRUP_ETIKET={abSta:'AB/STA sütunu',katar:'Katar sütunu',bae:'BAE-CEPA sütunu',gyu:'GTS-GYÜ sütunu',eagu:'EAGÜ sütunu',otdu:'ÖTDÜ sütunu',du:'Diğer Ülkeler sütunu',abd:'DÜ sütunu + misilleme notu'};
+// 13.08: ulke adiyla ekleme - RG'nin resmi listesinden eslenir; listede olmayan
+// ulke RESMEN DU'dur (EK-1 kurali) - kullaniciya bunu soyleyerek ekleriz.
+function ulkeAraEkle(){
+  const inp=document.getElementById('ulkeAra'); const q=(inp.value||'').trim(); if(!q||!UGRUP) return;
+  const norm=s=>s.toLowerCase().replace(/i̇/g,'i').replace(/[çğıöşü]/g,ch=>({'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u'}[ch]));
+  let u=UGRUP.ulkeler.find(x=>norm(x.ad)===norm(q)) || UGRUP.ulkeler.find(x=>norm(x.ad).includes(norm(q)));
+  if(!u){
+    if(!confirm(q+' resmi tercih listelerinde (STA/GTS/EAGÜ) yok — İthalat Rejimi kuralı gereği "Diğer Ülkeler" sütunu uygulanır. Bu şekilde ekleyeyim mi?')) return;
+    u={ad:q, em:'🌐', grup:'du', belge:'Menşe şahadetnamesi', duVarsayim:true};
+  }
+  if(OZEL_SECIM.some(x=>x.ad===u.ad)){ inp.value=''; return; }
+  OZEL_SECIM.push({k:'oz'+OZEL_SECIM.length, ad:u.ad, em:u.em, grup:u.grup, belge:u.belge, damp:u.damp, misilleme:!!u.misilleme, notK:u.not, duVarsayim:!!u.duVarsayim});
+  inp.value=''; ozelCiz();
+}
+function ozelSil(i){ OZEL_SECIM.splice(i,1); ozelCiz(); }
+function ozelCiz(){
+  document.getElementById('ozelUlkeler').innerHTML = OZEL_SECIM.map((u,i)=>
+    `<span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid rgba(245,165,36,.4);background:rgba(245,165,36,.08);color:var(--ink)">${u.em} ${u.ad} <span style="color:var(--dim);font-weight:500">${GRUP_ETIKET[u.grup]||u.grup}</span> <span onclick="ozelSil(${i})" style="cursor:pointer;color:var(--dim)">✕</span></span>`).join('');
+}
+document.getElementById('ulkeAra').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); ulkeAraEkle(); } });
 let TAZELIK=null;
 // PDF/yazdirma: kapali akordeon tabloyu yutmasin - baskidan once hepsi acilir
 window.addEventListener('beforeprint',()=>document.querySelectorAll('details.kacc').forEach(d=>d.open=true));
@@ -278,7 +312,8 @@ function olustur(){
   const nkod=nrm(dkod);
   // suzgec bos ya da tek ulke = TUM ulkeler hesaplanir (siralama isi bizim, kullanicinin degil)
   let secili=[...document.querySelectorAll('#ulkeler input:checked')].map(i=>ULKELER.find(u=>u.k===i.dataset.k));
-  if(secili.length<2) secili=ULKELER.slice();
+  secili=secili.concat(OZEL_SECIM);   // ulke-adiyla eklenenler her zaman dahil
+  if(secili.length<2) secili=ULKELER.slice().concat(OZEL_SECIM);
   const tutar=parseFloat(nrm(document.getElementById('tutar').value).replace(',','.'))||0;
   const pb=document.getElementById('pb').value;
   const kdv=kdvOran(nkod);
@@ -321,6 +356,8 @@ function olustur(){
     if(u.misilleme) ek+=' Bazı ürünlerde ABD menşeli mala <b>misilleme ek vergisi</b> uygulanabilir (2018/11973).';
     if(s.gvTah||s.igvTah) ek+=' <i>(*) Bu kodda ülke-bazlı kesin sütun yok; aralık üst sınırı kullanıldı.</i>';
     if(s.veriYok) ek+=' <b>Bu kod için vergi verisi bulunamadı.</b>';
+    if(u.notK && UGRUP && UGRUP.notlar && UGRUP.notlar[u.notK]) ek+=' <b style="color:var(--amber)">Sektör istisnası:</b> '+UGRUP.notlar[u.notK];
+    if(u.duVarsayim) ek+=' <i>Bu ülke resmi tercih listelerinde yer almadığından "Diğer Ülkeler" sütunu uygulandı (EK-1 kuralı).</i>';
     return `<div class="n"><span class="ico">${u.em}</span><div><b>${u.ad}:</b> Gerekli belge — ${u.belge}.${ek}</div></div>`;
   }).join('');
 
