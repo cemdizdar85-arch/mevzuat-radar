@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ar-Ge Kapısı Hesabı — Merkez mi, Teknokent mi, TÜBİTAK mı sana daha çok kazandırır? | Tetikte</title>
+<meta name="description" content="Ekibini ve rakamlarını gir; Ar-Ge Merkezi (5746), Teknokent (4691) ve TÜBİTAK yollarının sana yıllık kaç TL bıraktığını yan yana gör. Türkiye'de ilk karşılaştırmalı Ar-Ge teşvik hesabı.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
+a{color:var(--accent2)}.wrap{max-width:860px;margin:0 auto;padding:24px 18px 70px;position:relative;z-index:1}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);display:inline-block;flex:none}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 14px}
+.sayac{display:inline-block;background:rgba(255,107,94,.1);border:1px solid rgba(255,107,94,.35);border-radius:11px;padding:8px 14px;font-size:13px;color:var(--muted);margin-bottom:20px}
+.sayac b{color:var(--red);font-family:var(--mono)}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+label{display:block;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:12px 0 5px}
+input,select{width:100%;padding:11px 13px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.35);transition:transform .15s;margin-top:16px;width:100%}
+.btn:hover{transform:translateY(-2px)}
+.btn2{appearance:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;padding:8px 14px;border-radius:10px;background:#0a0f17;color:var(--accent2);border:1px solid var(--line2)}
+.btn2:hover{border-color:var(--accent)}
+.psatir{display:grid;grid-template-columns:minmax(150px,2fr) 90px minmax(120px,1.4fr) 34px;gap:8px;margin-bottom:8px;align-items:center}
+.psatir input,.psatir select{padding:9px 10px;font-size:14px}
+.psil{appearance:none;border:1px solid var(--line2);background:#0a0f17;color:var(--red);border-radius:9px;cursor:pointer;font-weight:800;height:38px}
+.hero3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media(max-width:680px){.hero3{grid-template-columns:1fr}.psatir{grid-template-columns:1fr 70px 1fr 30px}}
+.hkart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.hkart.kazanan{border-color:rgba(61,220,151,.5);background:linear-gradient(135deg,rgba(61,220,151,.12),rgba(61,220,151,.03)),var(--panel)}
+.hkart .ad{font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent2)}
+.hkart.kazanan .ad{color:var(--green)}
+.hkart .tut{font-size:clamp(19px,3vw,24px);font-weight:800;letter-spacing:-.5px;margin:6px 0 2px;font-family:var(--mono)}
+.hkart .alt{font-size:11px;color:var(--dim)}
+.rozet{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 9px;border-radius:20px;background:rgba(61,220,151,.15);color:var(--green);margin-bottom:6px}
+.satir{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}.satir b{color:var(--ink);font-weight:600}.satir span{text-align:right;color:var(--muted);font-family:var(--mono)}
+details.kacc{background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-bottom:10px;overflow:hidden}
+details.kacc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.kacc>summary::after{content:"▾";color:var(--dim);transition:transform .2s}
+details.kacc[open]>summary::after{transform:rotate(180deg)}
+details.kacc>summary::-webkit-details-marker{display:none}
+details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
+.tuzak{background:rgba(255,107,94,.06);border:1px solid rgba(255,107,94,.3);border-left:5px solid var(--red);border-radius:14px;padding:14px 16px;margin:12px 0;font-size:13.5px;color:var(--muted)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+#sonuc{display:none}
+@media print{.btn,.top,.btn2,.psil{display:none}details.kacc{border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a><span>›</span><span>Ar-Ge Kapısı Hesabı</span></div>
+
+  <h1>Ar-Ge Kapısı Hesabı</h1>
+  <p class="lead">Ar-Ge yapan işletmenin önünde üç kapı var: <b style="color:var(--ink)">Ar-Ge/Tasarım Merkezi (5746)</b>, <b style="color:var(--ink)">Teknokent (4691)</b>, <b style="color:var(--ink)">TÜBİTAK projesi</b>. Kanun gereği <b style="color:var(--ink)">aynı anda hepsinden yararlanamazsın</b> (5746 m.4/5) — ekibini ve rakamlarını gir, hangi kapının sana yılda kaç TL bıraktığını yan yana gör.</p>
+  <div class="sayac">⏳ İki rejimin de kanuni süresi <b id="gun">—</b> gün sonra doluyor (31.12.2028 — 5746 m.6 ve 4691 geç. m.2; uzatma çıkmazsa)</div>
+
+  <div class="kutu">
+    <label style="margin-top:0">AR-GE / TASARIM / YAZILIM EKİBİN</label>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:8px">Profil · kişi sayısı · ortalama aylık BRÜT ücret (TL)</div>
+    <div id="pListe"></div>
+    <button class="btn2" id="pEkle">+ personel grubu ekle</button>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px" class="g3">
+      <div>
+        <label for="harcama">YILLIK AR-GE/TASARIM HARCAMAN (TL)</label>
+        <input id="harcama" inputmode="numeric" placeholder="personel + malzeme… ör. 30.000.000">
+      </div>
+      <div>
+        <label for="kazanc">AR-GE/YAZILIM KAZANCIN (TL)</label>
+        <input id="kazanc" inputmode="numeric" placeholder="bölgeye taşınabilir kazanç… ör. 12.000.000">
+      </div>
+      <div>
+        <label for="toplamKazanc">İŞLETMENİN TOPLAM KAZANCI (TL)</label>
+        <input id="toplamKazanc" inputmode="numeric" placeholder="Ar-Ge dışı dahil… ör. 40.000.000">
+      </div>
+    </div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:6px">Neden iki ayrı kazanç? Merkez indirimi (5746) işletmenin <b>toplam</b> kazancından düşülür; Teknokent istisnası (4691) yalnız <b>bölgedeki Ar-Ge/yazılım kazancını</b> kapsar. Fark, kapı seçimini çoğu zaman tek başına belirler.</div>
+    <style>@media(max-width:680px){.g3{grid-template-columns:1fr !important}}</style>
+    <button class="btn" id="hesapla">Üç kapıyı karşılaştır →</button>
+  </div>
+
+  <div id="sonuc"></div>
+
+  <div class="uyari">⚠ Bu bir <b>karşılaştırma pusulasıdır</b>, kesin vergi hesabı değildir: gelir vergisi yıllık kümülatif tarifeyle kişi bazında değişir, SGK işveren desteğinin diğer prim indirimleriyle etkileşimi ve gayri maddi hak (patent kutusu) sınırlamaları özel durumlar doğurur. Kapı seçimini bu tabloyla değil, bu tabloyu önüne koyup <b>müşavirinle</b> yap.</div>
+  <div class="dip">Tetikte · Ar-Ge Kapısı Hesabı · Dayanak (tümü 13.08.2026'da güncel konsolide metinden birebir okundu): 5746 s. Kanun m.2, m.3/1-4, m.3/A, m.4, m.6 · 4691 s. Kanun geç. m.2 · 5510 m.81-82 (7566 sonrası oranlar) · GV tarifesi ve KV oranı <a href="veri/vergi-sabitleri.json">vergi-sabitleri.json</a> (GİB 2026) · bir Dizdar Denetim A.Ş. yazılımı</div>
+</div>
+
+<script src="menu.js"></script>
+<script>
+let S=null;
+const $=id=>document.getElementById(id);
+const TLf=n=>Math.round(n).toLocaleString('tr-TR');
+const sayi=v=>parseFloat((v||'0').toString().replace(/\./g,'').replace(',','.'))||0;
+
+// 2028 geri sayımı
+(function(){ const kalan=Math.max(0,Math.ceil((new Date('2028-12-31T23:59:59')-new Date())/86400000)); $('gun').textContent=kalan.toLocaleString('tr-TR'); })();
+
+fetch('veri/vergi-sabitleri.json').then(r=>r.json()).then(j=>{S=j;});
+
+// ---- personel satırları ----
+const PROFIL=[
+  ["dr","Doktoralı / desteklenen alanda YL (%95)"],
+  ["yl","Yüksek lisanslı / desteklenen alanda lisans (%90)"],
+  ["dg","Diğer Ar-Ge/tasarım personeli (%80)"]
+];
+function pSatirEkle(prof,adet,brut){
+  const d=document.createElement('div'); d.className='psatir';
+  d.innerHTML='<select>'+PROFIL.map(p=>`<option value="${p[0]}" ${p[0]===prof?'selected':''}>${p[1]}</option>`).join('')+'</select>'+
+    `<input inputmode="numeric" value="${adet||''}" placeholder="kişi">`+
+    `<input inputmode="numeric" value="${brut||''}" placeholder="aylık brüt TL">`+
+    '<button class="psil" title="satırı sil">×</button>';
+  d.querySelector('.psil').addEventListener('click',()=>d.remove());
+  $('pListe').appendChild(d);
+}
+pSatirEkle('dg','',''); pSatirEkle('yl','','');
+$('pEkle').addEventListener('click',()=>pSatirEkle('dg','',''));
+
+// ---- vergi çekirdeği ----
+function gvYillik(matrah){ // kümülatif artan tarife (S.gvDilimler)
+  if(matrah<=0) return 0;
+  let v=0, onceki=0;
+  for(const [ust,oran] of S.gvDilimler){
+    const tavan=(ust===null)?Infinity:ust;
+    if(matrah>tavan){ v+=(tavan-onceki)*oran/100; onceki=tavan; }
+    else { v+=(matrah-onceki)*oran/100; return v; }
+  }
+  return v;
+}
+function kisiHesap(brutAy,teskinOran){ // bir kişinin YILLIK stopaj terkini + SGK işveren yarısı
+  const AU=S.asgariUcret2026.brutAylik, TAVAN=S.asgariUcret2026.sgkTavanAylik;
+  const kirkKat=40*AU;
+  const tesvikBrut=Math.min(brutAy,kirkKat);          // 40 kat sınırı (m.3/2, geç.m.2)
+  const spek=Math.min(brutAy,TAVAN);                   // SGK tavanı (5510 m.82)
+  const gvMatrahAy=tesvikBrut-Math.min(tesvikBrut,TAVAN)*0.15; // işçi kesintisi %15 matrahtan düşer
+  const auMatrahYil=AU*12*0.85;
+  const auVergi=gvYillik(auMatrahYil);                 // asgari ücret istisnasına isabet eden vergi
+  const kisiVergi=Math.max(0,gvYillik(gvMatrahAy*12)-auVergi);
+  const terkin=kisiVergi*teskinOran;
+  const sgkYari=spek*0.2175*12/2;                      // 5510 işveren hissesi (12+7,5+2,25)=%21,75'in yarısı (5746 m.3/3)
+  return {terkin,sgkYari};
+}
+function ekipHesap(teskinMap){
+  let terkin=0, sgk=0, kisi=0;
+  document.querySelectorAll('.psatir').forEach(s=>{
+    const prof=s.children[0].value, adet=sayi(s.children[1].value), brut=sayi(s.children[2].value);
+    if(adet>0&&brut>0){ const h=kisiHesap(brut,teskinMap[prof]); terkin+=h.terkin*adet; sgk+=h.sgkYari*adet; kisi+=adet; }
+  });
+  return {terkin,sgk,kisi};
+}
+
+$('hesapla').addEventListener('click',()=>{
+  if(!S){ alert('Sabitler yükleniyor — bir saniye sonra tekrar dene.'); return; }
+  const harcama=sayi($('harcama').value), kazanc=sayi($('kazanc').value);
+  const toplamKazanc=Math.max(sayi($('toplamKazanc').value), kazanc); // toplam, Ar-Ge kazancından küçük olamaz
+  const kv=S.kvOran/100;
+
+  // KAPI 1 — Merkez: terkin %95/90/80 + SGK yarısı + harcama %100 indirim × KV (TOPLAM kazançtan düşer, m.3/1)
+  const m=ekipHesap({dr:0.95,yl:0.90,dg:0.80});
+  const mKvBuYil=Math.min(harcama,Math.max(toplamKazanc,0))*kv; // bu yıl nakde dönen kısım toplam kazançla sınırlı; aşan devreder
+
+  const mDevir=Math.max(0,harcama-Math.max(toplamKazanc,0))*kv;
+  const mToplam=m.terkin+m.sgk+mKvBuYil;
+
+  // KAPI 2 — Teknokent: terkin %100 + SGK yarısı + kazanç istisnası × KV
+  const t=ekipHesap({dr:1,yl:1,dg:1});
+  const tKv=Math.max(kazanc,0)*kv;
+  const tToplam=t.terkin+t.sgk+tKv;
+
+  // KAPI 3 — TÜBİTAK: personel teşvikleri merkez oranlarıyla (yalnız proje personeli) + hibe ayrıca
+  const p=ekipHesap({dr:0.95,yl:0.90,dg:0.80});
+  const pToplam=p.terkin+p.sgk;
+
+  const kApi=[['AR-GE MERKEZİ (5746)',mToplam],['TEKNOKENT (4691)',tToplam],['TÜBİTAK PROJESİ',pToplam]];
+  const enIyi=kApi.reduce((a,b)=>b[1]>a[1]?b:a);
+
+  let h='<div class="hero3">';
+  const kartlar=[
+    {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı'},
+    {ad:'TEKNOKENT (4691)',t:tToplam,alt:'stopaj %100 terkin + SGK yarısı + kazanç istisnası'},
+    {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri — üstüne proje hibesi AYRICA eklenir'}
+  ];
+  for(const k of kartlar){ const kz=k.ad===enIyi[0];
+    h+=`<div class="hkart ${kz?'kazanan':''}">${kz?'<span class="rozet">SENİN DURUMUNDA ÖNDE</span><br>':''}<span class="ad">${k.ad}</span><div class="tut">${TLf(k.t)} TL/yıl</div><div class="alt">${k.alt}</div></div>`;
+  }
+  h+='</div>';
+
+  h+='<details class="kacc" open><summary>🧮 Kalem kalem döküm ('+m.kisi+' kişilik ekip)</summary><div class="ic">';
+  h+='<div class="satir"><b>Merkez — personel GV stopaj terkini (%95/90/80, m.3/2)</b><span>'+TLf(m.terkin)+' TL</span></div>';
+  h+='<div class="satir"><b>Teknokent — personel GV terkini (%100, geç. m.2)</b><span>'+TLf(t.terkin)+' TL</span></div>';
+  h+='<div class="satir"><b>SGK işveren hissesinin yarısı (her iki kapıda, m.3/3)</b><span>'+TLf(m.sgk)+' TL</span></div>';
+  h+='<div class="satir"><b>Merkez — harcama indiriminin bu yıl KV\'den düşen kısmı</b><span>'+TLf(mKvBuYil)+' TL'+(mDevir>0?' (+'+TLf(mDevir)+' TL sonraki yıllara YD artışlı devir)':'')+'</span></div>';
+  h+='<div class="satir"><b>Teknokent — kazanç istisnasının KV karşılığı (%'+S.kvOran+')</b><span>'+TLf(tKv)+' TL</span></div>';
+  h+='<div class="satir"><b>Damga vergisi istisnası (iki kapıda da var)</b><span>hesaba katılmadı — artı yönde</span></div>';
+  h+='</div></details>';
+
+  // yorum
+  let yorum='';
+  if(enIyi[0].startsWith('TEKNOKENT')) yorum='Ar-Ge kazancın belirleyici: bölge kazanç istisnası + %100 stopaj terkini öne geçiyor. Bölgede yer bulmak ve yönetici şirket onayı ilk adımın.';
+  else if(enIyi[0].startsWith('AR-GE')) yorum='Toplam kurum kazancın yüksek olduğu için %100 harcama indirimi merkezde daha çok nakit bırakıyor (indirim Ar-Ge dışı kazancından da düşer — teknokent istisnası bunu yapamaz). Personel eşiğini (kanunda 50 TZE; CB indirmeye yetkili — güncel eşiği Bakanlıktan teyit et) sağlaman kritik.';
+  else yorum='Ekip küçükken en hızlı kapı TÜBİTAK: merkez/bölge şartı yok, proje onayıyla personel teşvikleri açılır; üstüne çağrı hibesi eklenir.';
+  h+='<div class="kutu" style="border-left:5px solid var(--accent)"><b style="color:var(--ink)">Pusula okuma:</b> <span style="color:var(--muted);font-size:13.5px">'+yorum+'</span></div>';
+
+  h+='<div class="tuzak"><b style="color:var(--red)">⚠ KAPILAR BİRLEŞMEZ (5746 m.4/5):</b> 5746 teşviklerinden yararlanan, aynı kazanç/harcama için 4691 geç. m.2 istisnasından ve GVK 89/13–KVK 10/ğ indiriminden ayrıca yararlanamaz. Tabloda iki sütunun toplamını alamazsın — biri seçilir. TÜBİTAK projesi ise merkez/bölge içindeki personel için zaten aynı 5746 teşvikleridir, üst üste binmez.</div>';
+
+  h+='<details class="kacc"><summary>📋 Varsayımlar ve yöntem (şeffaf hesap)</summary><div class="ic">'
+   +'· GV: 2026 tarifesi, kişi başına yıllık kümülatif; matrah = brüt − %15 işçi kesintisi (SGK tavanı '+TLf(S.asgariUcret2026.sgkTavanAylik)+' TL/ay gözetildi). Asgari ücret istisnasına isabet eden vergi (GVK 23/18) düşüldükten sonra kalan vergiye terkin oranı uygulandı.<br>'
+   +'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2).<br>'
+   +'· SGK: işveren hissesi %21,75 (MYÖ 12 + GSS 7,5 + KVSK 2,25; 7566 sonrası) × prime esas kazanç × yarısı. İşsizlik primi (%2) 4447 kapsamı olduğundan desteğe dahil edilmedi; m.81/ı 2-puan indirimiyle etkileşim ihmal edildi (yaklaşıklık).<br>'
+   +'· KV %'+S.kvOran+' (genel oran) varsayıldı; merkez sütununda %100 indirim TOPLAM kurum kazancından düşülür (m.3/1 + KVK 10), bu yıl nakde dönen kısım toplam kazançla sınırlandı, aşan kısım yeniden değerleme artışlı devir olarak gösterildi. Teknokent istisnası yalnız bölge kazancını kapsar (geç. m.2).<br>'
+   +'· Fazla mesai (45 saat üstü) teşvik dışıdır, hesapta yok. Destek personeli %10 sınırı ve bölge dışı %20 kuralları kullanıcı beyanına bırakıldı.<br>'
+   +'· Teknokentte gayri maddi hak (satış/devir/kiralama) kazançlarında tescil ve nitelikli-harcama oranı sınırlaması vardır — kazancın bu tür geliri içeriyorsa istisna kısmen daralabilir.'
+   +'</div></details>';
+
+  h+='<div style="font-size:12px;color:var(--dim);margin-top:8px">Sıradaki adım: kapını seçtiysen <a href="destekler.html">Destek Radarı</a>\'ndan TÜBİTAK/KOSGEB programlarına, yatırım da yapacaksan <a href="tesvik-sihirbazi.html">Yatırım Teşvik Sihirbazı</a>\'na bak. Üç kapının kural özeti: <a href="bilgi.html#hap-arge-uc-kapi">Bilgi Havuzu kartı</a>.</div>';
+
+  $('sonuc').innerHTML=h; $('sonuc').style.display='block'; $('sonuc').scrollIntoView({behavior:'smooth'});
+});
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.kacc').forEach(d=>d.open=true);});
+</script>
+</body>
+</html>
