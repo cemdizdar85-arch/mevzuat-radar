@@ -1,37 +1,37 @@
 {
-  "tarih": "12.08.2026",
-  "gun": "2026-08-12",
+  "tarih": "13.08.2026",
+  "gun": "2026-08-13",
   "durum": "TAMAM",
-  "id": "7cfb716e",
-  "sinav": "SGS",
-  "ders": "Is ve Sosyal Guvenlik Hukuku",
-  "konu": "belirli sureli is sozlesmesi",
-  "soru": "İki yıl süreli olarak yapılan bir belirli süreli iş sözleşmesi, işveren tarafından haklı bir neden bulunmaksızın sözleşmenin 6. ayında feshedilmiştir. İşçinin talep edebileceği tazminat esasına ilişkin doğru ifade hangisidir?",
+  "id": "325023d8",
+  "sinav": "SMMM",
+  "ders": "Vergi Mevzuatı ve Uygulaması",
+  "konu": "ihtiyati haciz halleri",
+  "soru": "XYZ Elektronik A.Ş.'nin vergi borcu nedeniyle hakkında haciz işlemi başlatılacağını öğrenen ortak, depodaki emtiayı hızla üçüncü bir kişiye satmaya çalışırken vergi dairesi durumu tespit ederek ihtiyati haciz uygulamıştır. 6183 sayılı Kanun'a göre ihtiyati haczin uygulanma usulüne ilişkin aşağıdakilerden hangisi doğrudur?",
   "siklar": {
-    "A": "İşçi yalnızca ihbar tazminatı talep edebilir, bakiye süre ücreti talep edemez",
-    "B": "İşçi, kalan sürenin sadece yarısına ait ücreti talep edebilir",
-    "C": "İşçi, sözleşmenin kalan süresine ait ücreti tazminat olarak talep edebilir",
-    "D": "İşçi, iş güvencesi hükümlerine dayanarak işe iade davası açabilir",
-    "E": "Belirli süreli sözleşmelerde işveren, herhangi bir tazminat ödemeden her zaman serbestçe fesih yapabilir"
+    "A": "İhtiyati haciz uygulanabilmesi için borçluya önceden haciz yapılacağına dair tebligat gönderilmesi şarttır.",
+    "B": "İhtiyati haciz sadece kesinleşmiş amme alacakları için ve icra takibi başladıktan sonra uygulanabilir.",
+    "C": "İhtiyati haciz, ancak vergi mahkemesinin haciz kararı vermesi üzerine uygulanabilir.",
+    "D": "İhtiyati haciz kararı ancak Maliye Bakanlığı'nın onayı ile yürürlüğe girer.",
+    "E": "İhtiyati haciz, alacaklı tahsil dairesinin bağlı bulunduğu mahalli en büyük memurunun kararıyla, alacağın dava veya icra takibine konu edilmiş olmasına bakılmaksızın derhal uygulanır."
   },
-  "dogru": "C",
+  "dogru": "E",
   "aciklama": {
-    "A": "İhbar tazminatı (fesih bildirim süresine uymadan ayrılanın ödediği tazminat) ile bakiye süre ücretini karıştırıyor. İhbar tazminatı belirsiz süreli sözleşmelere özgüdür; belirli sürelide ise bakiye süre ücreti istenir.",
-    "B": "Belirli süreli sözleşmelerde bakiye süre tazminatı ile kısmi ödeme fikrini karıştırıyor. İşçi kalan sürenin tamamına ait ücreti talep edebilir; yarım ödeme diye bir kural yoktur.",
-    "C": "Ne soruluyor: Belirli süreli sözleşmede haklı neden yokken fesih yapan işveren hangi tazminatı öder?\n\nKural: İşveren haklı sebep olmadan belirli süreli sözleşmeyi feshederse, işçi sözleşmenin kalan süresine ait ücreti tazminat olarak isteyebilir. İşçinin tasarruf ettiği veya başka işten kazandığı miktar bu tazminattan düşülür.\n\nBu olayda: Sözleşme iki yıllık, altıncı ayda feshedilmiş. Geriye on sekiz ay kalıyor. İşçi bu on sekiz aylık ücretini tazminat olarak talep edebilir.\n\nAkılda kalsın: Belirli sürelide haksız fesih, kalan sürenin ücretini getirir.",
-    "D": "İşe iade davası (işten atılanın mahkemeden işine dönme kararı istemesi) ile tazminat talebini karıştırıyor. İşe iade davası farklı kanuna (İş Kanunu) ve özel koşullara tabidir; burada tazminat söz konusudur.",
-    "E": "Belirli süreli sözleşmelerde serbest fesih hakkı ile haklı sebep gerekliliğini karıştırıyor. İşveren belirli sürelide de keyfi fesih yapamaz; haklı sebep yoksa tazminat öder."
+    "A": "Bu sık ihtiyati haczi normal hacizle karıştırıyor. Normal hacizde borçluya ödeme emri tebliğ edilir ve süre tanınır; ihtiyati hacizde ise acil durumlarda önceden tebligat yapılmadan doğrudan işlem başlatılır.",
+    "B": "Bu sık ihtiyati haczi olağan haciz süreciyle karıştırıyor. Olağan haciz kesinleşmiş borçlar için icra takibinde uygulanır; ihtiyati haciz ise henüz kesinleşmemiş veya dava açılmamış alacaklar için de acil hallerde derhal uygulanabilir.",
+    "C": "Bu sık ihtiyati haczi mahkeme kararına bağlı işlemlerle karıştırıyor. Mahkeme kararı gereken hacizler ayrı usullere tabidir; ihtiyati haciz ise idari bir karar olup mahalli en büyük memurun onayıyla hemen uygulanır.",
+    "D": "Bu sık ihtiyati haczi merkezi onay gerektiren işlemlerle karıştırıyor. Bakanlık onayı gereken durumlar ayrı düzenlenmiştir; ihtiyati haciz yerel düzeyde mahalli en büyük memurun kararıyla derhal uygulanır ve üst onay gerektirmez.",
+    "E": "Ne soruluyor: Malların kaçırılması ihtimali varken ihtiyati haciz nasıl uygulanır? Kural: İhtiyati haciz (acil durumlarda uygulanan geçici el koyma), mahalli en büyük memurun (vali, kaymakam gibi) kararıyla hemen uygulanır. Alacak henüz dava veya icra safhasında olmasa bile, malların kaçırılması gibi tehlike varsa beklemeden işlem yapılır. Bu olayda: Şirket ortağı malları satarak kaçırmaya çalışıyor. Vergi dairesi durumu tespit edince mahalli en büyük memura başvurur. Karar çıkınca derhal depodaki mallar haciz altına alınır. Akılda kalsın: İhtiyati haciz acil durumlarda idari kararla anında uygulanır, mahkeme veya kesinleşme beklemez."
   },
-  "kaynak": "6098 sayılı Türk Borçlar Kanunu m.438",
+  "kaynak": "6183 sayılı AATUHK m.13",
   "paylasim": {
     "baslik": "Günün Tuzağı",
-    "alt": "Is ve Sosyal Guvenlik Hukuku — bu soruda iki şık doğru gibi görünüyor.",
+    "alt": "Vergi Mevzuatı ve Uygulaması — bu soruda iki şık doğru gibi görünüyor.",
     "kapanis": "Cevap ve hangi kanun maddesinden geldiği: tetikte.com/tuzak.html\n\nHer sorunun dayanağı yazılıdır. #SMMM #stajagiris #malimüşavir"
   },
   "havuz": {
     "kaynak": "vitrin-bankasi",
-    "uygun_aday": 140,
+    "uygun_aday": 139,
     "yayindaki": 150,
-    "gecmiste": 10
+    "gecmiste": 11
   }
 }
