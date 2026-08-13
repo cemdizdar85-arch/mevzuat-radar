@@ -1,7 +1,12 @@
 # MEVZUAT YUTMA LİSTESİ
 
-## ⏳ ADAY (13.08.2026 — teşvik taraması #24 çıktısı): 5746 + 4691
-bilgi.html'e önerilen "Ar-Ge'nin üç kapısı" hap kartının ÖN KOŞULU: **5746 s. Ar-Ge/Tasarım Kanunu** ve **4691 s. Teknoloji Geliştirme Bölgeleri Kanunu** ambarda YOK. Kart Cem onayı alırsa önce bu ikisi yutulur (mevzuat.gov.tr konsolide PDF; kapsama kapısı + geri okuma standart prosedür). Ayrıca 9903 uygulama tebliği yayımlanınca o da aday (asgari tutarların yıllık güncel değeri oradan gelir).
+## ✅ 13.08.2026 — 5746 + 4691 YUTULDU (Cem onayı, Ar-Ge üç-kapı kartı ön koşulu)
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| 5746 s. Ar-Ge Kanunu | mevzuat.gov.tr 1.5.5746 konsolide PDF | **31 madde-parça, kapsama %99,4**; manifest'e `arge5746` girdi (robot nöbeti) |
+| 4691 s. Teknokent Kanunu | mevzuat.gov.tr 1.5.4691 konsolide PDF | **41 madde-parça, kapsama %99,6**; manifest'e `teknokent4691` girdi |
+
+İki ders: (1) yerel xpdf pdftotext varsayılanı Latin1 — Türkçe için **`-enc UTF-8` ŞART** (harfler sessizce düşüyor); (2) xpdf üst-simge dipnotu madde numarasına bitiştirdi: 4691 "Geçici Madde 2"+dipnot 15 → "gec. m.215" olarak yutuldu, _txt elle düzeltilip yeniden yutuldu. **NÖBET NOTU: robotun Linux poppler'ı yarınki koşuda aynı kaynağı yeniden yutacak — `gec. m.215` yeniden belirirse parçalayıcıya dipnot sigortası yazılır.** Besledikleri: bilgi.html `#hap-arge-uc-kapi` kartı. Sırada aday: 9903 uygulama tebliği (yayımlanınca).
 
 ## 📌 YILLIK TAZELEME NÖBETİ — ulke-grup.json (13.08.2026 kuruldu)
 
