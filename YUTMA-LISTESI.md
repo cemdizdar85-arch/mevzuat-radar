@@ -1,5 +1,9 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 📌 YILLIK TAZELEME NÖBETİ — ulke-grup.json (13.08.2026 kuruldu)
+
+`veri/ulke-grup.json` YUTMA DEĞİL, GÖZLE-OKUMA ürünüdür: 10790 s. Karar eklerinin (RG 33124 3.M) yalnız s.4 (sütun-1: AB+EFTA+21 STA) ve s.578 (EK-1: GYÜ 14 / ÖTDÜ BOŞ / EAGÜ 48) sayfaları okundu; 601 sayfalık ekin tamamı taranmış görüntüdür, ambara girmedi (tarife tabloları zaten xlsx hasatlarında). **TAZELEME: her yılbaşı mükerrer RG'sinde yeni Karar ekinin s.~4 ve EK-1 sayfaları yeniden gözle okunur, dosya güncellenir.** Sinyal: rg-indir "ithalat rejimi" anahtarı yılbaşı değişikliğini zaten yakalar; o mail geldiğinde bu satır hatırlanır. STA tam metinleri BİLİNÇLİ yutulmadı (oranlar sütunlardan gelir; menşe-kuralı danışmanı ürünü açılırsa Faz 2'de yutulur).
+
 ## ✅ 13.08.2026 — KS-12 BOŞLUKLARI: DİİB + 5986 E-İHRACAT (en güncel bölüm)
 
 KS-12 denetiminin işaretlediği iki ambar boşluğu kapatıldı; üçü de manifest'e girdi (robot nöbeti):
