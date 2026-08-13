@@ -1,16 +1,20 @@
 {
-  "tarih": "13.08.2026 07:28",
+  "tarih": "13.08.2026 13:17",
   "durum": "ALARM",
-  "kirmizi": 4,
-  "kurtarma": 0,
+  "kirmizi": 2,
+  "kurtarma": 2,
   "izlenen_robot": 19,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 617.6 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 328.9 saat once (esik 30s)). Actions loguna bak.",
     "VERI: Damping listesi kontrolu -> damga okunamadi: '2026-08-13 12:00'",
     "VERI: Ithalat Gn.Md. duyuru sinyali -> tarih damgasi BOS (yanveri-damga.json)"
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Gunluk Kanun Aynasi -> son basarili kosu 623.5 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 334.7 saat once (esik 30s) -> kurtarma: tetiklendi"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml"
+  ]
 }
