@@ -105,7 +105,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     </div>
     <!-- 31.07 Cem onayi (a): ulke secimi ZORUNLU degil - biz hepsini hesaplayip siralariz;
          kutucuklar yalnizca daraltma suzgeci (bos = tum ulkeler) -->
-    <label>MENŞE ÜLKE SÜZGECİ <span style="color:var(--dim);font-weight:500;text-transform:none">— boş bırak, 16 ülkenin hepsini sıralayalım; daraltmak istersen seç</span></label>
+    <label>MENŞE ÜLKE SÜZGECİ</label>
+    <!-- 13.08 Cem: "hepsini sec gibi sutun koyalim, boyle mantikli gorunmuyor" -->
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px">
+      <button type="button" onclick="ulkeToplu(true)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:#0a0f17;color:var(--ink)">☑ Tümünü seç</button>
+      <button type="button" onclick="ulkeToplu(false)" style="cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid var(--line2);background:#0a0f17;color:var(--ink)">☐ Temizle</button>
+      <span id="ulkeSayacY" style="font-size:12.5px;color:var(--dim)">Seçili: 0 — boş bırakırsan 16'sının hepsini sıralarız</span>
+    </div>
     <div class="ulkeler" id="ulkeler"></div>
     <button class="btn" onclick="olustur()">📊 Raporu oluştur</button>
     <div class="hata" id="hata"></div>
@@ -151,7 +157,19 @@ Promise.all([
 
 // --- ülke seçim kutuları ---
 const uc=document.getElementById('ulkeler');
-uc.innerHTML=ULKELER.map(u=>`<label class="ulke" onclick="this.classList.toggle('on', this.querySelector('input').checked=!this.querySelector('input').checked)"><input type="checkbox" data-k="${u.k}">${u.em} ${u.ad}</label>`).join('');
+uc.innerHTML=ULKELER.map(u=>`<label class="ulke" onclick="this.classList.toggle('on', this.querySelector('input').checked=!this.querySelector('input').checked); ulkeSayac()"><input type="checkbox" data-k="${u.k}">${u.em} ${u.ad}</label>`).join('');
+// 13.08: toplu sec/temizle + canli sayac (Cem istegi)
+function ulkeToplu(sec){
+  document.querySelectorAll('#ulkeler .ulke').forEach(l=>{ l.querySelector('input').checked=sec; l.classList.toggle('on',sec); });
+  ulkeSayac();
+}
+function ulkeSayac(){
+  const n=document.querySelectorAll('#ulkeler input:checked').length;
+  const s=document.getElementById('ulkeSayacY'); if(!s) return;
+  s.textContent = n===0 ? 'Seçili: 0 — boş bırakırsan 16\'sının hepsini sıralarız'
+                : n===1 ? 'Seçili: 1 — kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız'
+                : ('Seçili: '+n+' ülke karşılaştırılacak');
+}
 // uyelik: radar-app ayni alan adinda Supabase oturumu localStorage'a yazar - o izden taniriz
 function uyeMi(){ try{ return Object.keys(localStorage).some(k=>k.indexOf('-auth-token')>-1); }catch(e){ return false; } }
 
