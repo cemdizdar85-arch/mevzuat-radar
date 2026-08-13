@@ -192,6 +192,18 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
       <label class="chk"><input type="checkbox" id="kobi"> <span id="kobiEtiket">KOBİ'yim</span></label>
     </div>
     <div id="abNot" style="display:none;font-size:11.5px;color:var(--dim);margin-top:8px">AB ihalelerinde <b style="color:var(--ink)">yerli malı belgesi</b> kavramı yoktur (o 4734 s. Kanun ve Yerli Malı Tebliği düzenidir) — bu yüzden gizlendi. AB'de KOBİ tanımı da farklıdır: <b style="color:var(--ink)">250'den az çalışan + 50 M€ ciro / 43 M€ bilanço</b> (2003/361/EC).</div>
+
+    <!-- 13.08 Cem onayi: KAYITLI ARAMA ucretsiz, e-posta bildirimi ucretli kalir.
+         Rakip paritesi: SAM.gov (ABD) ve Find a Tender (İngiltere) kayitli aramayi
+         bedava veriyor; bizde suzgec vardi ama HAFIZASI yoktu - adam her gelisinde
+         ayni filtreyi elle kuruyordu. "Hatirlama bedava, hatirlatma parali." -->
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button type="button" onclick="aramaKaydet()" style="background:transparent;border:1px solid var(--accent2);color:var(--accent2);font-weight:700;font-size:12.5px;padding:6px 12px;border-radius:8px;cursor:pointer">🔖 Bu aramayı kaydet</button>
+        <span style="font-size:11.5px;color:var(--dim)">Bir daha kurmana gerek kalmaz — tek tıkla geri gelir.</span>
+      </div>
+      <div id="kayitliSerit" style="margin-top:10px"></div>
+    </div>
   </div>
 
   <!-- ============ YURT İÇİ ============ -->
@@ -301,6 +313,61 @@ function tab(t){
   // duran ekran "ihale yok" sanildi. Rakiplerde (TED, Contracts Finder) liste hep acik.
   if(abMi){ kontrol(); }
 }
+// ==================== KAYITLI ARAMA (13.08 Cem onayi) ====================
+// Tarayici hafizasinda durur - hesap gerektirmez, sürtünme sifir. Cihaz degisince
+// kaybolur; o yuzden "her cihazda dursun + ilan dusunce haber verelim" ucretsiz
+// uyelige cagri olarak yazilir. Bildirim (mail/SMS) ucretli aboneligin parcasidir.
+const ARAMA_ANAHTAR='tetikte_ihale_aramalar';
+function aramalariOku(){
+  try{ const h=localStorage.getItem(ARAMA_ANAHTAR); const d=h?JSON.parse(h):[]; return Array.isArray(d)?d:[]; }catch(e){ return []; }
+}
+function aramalariYaz(d){ try{ localStorage.setItem(ARAMA_ANAHTAR, JSON.stringify(d.slice(0,8))); }catch(e){} }
+function suAnkiArama(){
+  const dis=document.getElementById('paneDis').classList.contains('on');
+  const d=(id)=>{ const e=document.getElementById(id); return e?e.value:''; };
+  return { sekme: dis?'dis':'ic', sektor: d('sektor'), gtip: d('gtip'),
+           ulke: d('ulke'), il: d('yiIl'), kelime: d('yiKelime') };
+}
+function aramaAdi(a){
+  const p=[];
+  const si=+(a.sektor||-1); const sk=(CPV&&CPV.sektorler&&CPV.sektorler[si]);
+  p.push(sk?sk.ad:'Tüm sektörler');
+  if(a.sekme==='dis'){ p.push(a.ulke&&a.ulke!=='hepsi'?ulkeAd(a.ulke):'tüm AB'); }
+  else { if(a.il&&a.il!=='hepsi') p.push(a.il); if(a.kelime) p.push('"'+a.kelime+'"'); }
+  if(a.gtip) p.push('GTİP '+a.gtip);
+  return p.join(' · ');
+}
+function aramaKaydet(){
+  const a=suAnkiArama(); a.ad=aramaAdi(a);
+  const d=aramalariOku();
+  // ayni arama iki kez kaydedilmesin (ad degil, ALANLAR karsilastirilir)
+  const ayni=x=>x.sekme===a.sekme&&x.sektor===a.sektor&&x.gtip===a.gtip&&x.ulke===a.ulke&&x.il===a.il&&x.kelime===a.kelime;
+  if(d.some(ayni)){ aramaSeridiCiz('Bu arama zaten kayıtlı.'); return; }
+  d.unshift(a); aramalariYaz(d); aramaSeridiCiz('Kaydedildi.');
+}
+function aramaSil(i){ const d=aramalariOku(); d.splice(i,1); aramalariYaz(d); aramaSeridiCiz(); }
+function aramaUygula(i){
+  const a=aramalariOku()[i]; if(!a) return;
+  tab(a.sekme);
+  const ata=(id,v)=>{ const e=document.getElementById(id); if(e&&v!=null) e.value=v; };
+  ata('sektor',a.sektor); ata('gtip',a.gtip); ata('ulke',a.ulke); ata('il',a.il); ata('yiIl',a.il); ata('yiKelime',a.kelime);
+  const ub=document.getElementById('ulkeBay'); if(ub) ub.innerHTML=(a.ulke&&a.ulke!=='hepsi')?bayrak(a.ulke):'';
+  if(a.sekme==='dis'){ kontrol(); } else { yurtIciCiz(); }
+  document.getElementById(a.sekme==='dis'?'paneDis':'paneIc').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function aramaSeridiCiz(mesaj){
+  const k=document.getElementById('kayitliSerit'); if(!k) return;
+  const d=aramalariOku();
+  if(!d.length){ k.innerHTML=mesaj?`<div style="font-size:11.5px;color:var(--accent2)">${esc(mesaj)}</div>`:''; return; }
+  k.innerHTML=(mesaj?`<div style="font-size:11.5px;color:var(--accent2);margin-bottom:6px">${esc(mesaj)}</div>`:'')
+    +'<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">KAYITLI ARAMALARIN</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+d.map((a,i)=>`<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 6px 5px 11px;font-size:12px">
+      <span onclick="aramaUygula(${i})" style="cursor:pointer;font-weight:600">${a.sekme==='dis'?'🇪🇺':'🇹🇷'} ${esc(a.ad||'arama')}</span>
+      <span onclick="aramaSil(${i})" title="Sil" style="cursor:pointer;color:var(--dim);font-weight:800;padding:0 4px">×</span>
+    </span>`).join('')+'</div>'
+    +'<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Bu aramalar <b style="color:var(--ink)">bu tarayıcıda</b> durur. Her cihazda dursun ve bu filtreye uyan yeni ilan düşünce haber verelim mi? <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol →</a></div>';
+}
+
 async function veriYukle(){
   if(TED) return;
   const g=async f=>{ try{ return await (await fetch('veri/'+f+'?cb='+Date.now())).json(); }catch(e){ return null; } };
@@ -334,6 +401,7 @@ async function veriYukle(){
   uSel.addEventListener('change',bayGoster); bayGoster();
   document.getElementById('yerli').addEventListener('change',renderYerliMali);
   renderSorular(); renderKatilimBilgi(); renderYurtdisi(); renderYerliMali(); renderSikayet(); renderHapIc();
+  aramaSeridiCiz();  // kayitli aramalar sektor listesi dolduktan SONRA cizilir (ad icin gerekli)
 }
 // ---- yurt dışı ----
 function tarihTR(iso){ const p=(iso||'').split('-'); if(p.length!==3) return iso||'—'; return p[2]+'.'+p[1]+'.'+p[0]; }
