@@ -223,6 +223,23 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     </div>
     <div id="yiListe"></div>
 
+    <!-- 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal/duzeltme hasadi.
+         Neden ayri bolum: bulten IKN (2026/1254015) kullanir, ilan.gov.tr ILN
+         (ILN02529303) - IKISI FARKLI KIMLIK. Baslik benzerligiyle eslestirme
+         DENENMEDI: yanlis eslesme "senin ihalen iptal" demek olur, en kotu hata.
+         Kullanici kendi IKN'siyle arar.
+         PAYWALL YOK (GM karari): bu kacirma degil ZARAR ONLEME bilgisi - iptal
+         olmus ihaleye teklif hazirlayan para ve zaman kaybeder. Ucretli tarafimiz
+         bildirim, bu degil. -->
+    <h2>İptal ve düzeltme ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· Kamu İhale Bülteni</span></h2>
+    <div class="kutu">
+      <div class="grid">
+        <div><label for="iknAra">Takip ettiğin ihalenin İKN'si (ör. 2026/1254015)</label><input type="text" id="iknAra" placeholder="İKN yaz — iptal ya da düzeltme var mı" oninput="bultenCiz()"></div>
+      </div>
+      <div id="bultenListe"></div>
+      <div class="belg" id="bultenKaynak">Kaynak: Kamu İhale Bülteni (KİK) — 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri.</div>
+    </div>
+
     <!-- 31.07 Cem: araclar da alt alta uzamasin - 4 arac karesi, tiklayinca acilir -->
     <h2>Karar araçların</h2>
     <div class="kgrid">
@@ -313,6 +330,38 @@ function tab(t){
   // duran ekran "ihale yok" sanildi. Rakiplerde (TED, Contracts Finder) liste hep acik.
   if(abMi){ kontrol(); }
 }
+// ============ KAMU IHALE BULTENI: iptal + duzeltme (13.08 Cem onayi) ============
+let BD=null;
+function bultenCiz(){
+  const k=document.getElementById('bultenListe'); if(!k||!BD) return;
+  const ara=(document.getElementById('iknAra')||{}).value||'';
+  const sayi=trFold2(ara.replace(/\s/g,''));
+  const hepsi=[].concat(BD.iptal||[], BD.duzeltme||[]);
+  const suz = sayi ? hepsi.filter(x=>trFold2(String(x.ikn||'')).includes(sayi)||trFold2(String(x.isAdi||'')).includes(sayi)||trFold2(String(x.idare||'')).includes(sayi)) : hepsi;
+  const ip=(BD.iptal||[]).length, dz=(BD.duzeltme||[]).length;
+  let h=`<div class="belg" style="margin:0 0 10px">Bu çekimde <b style="color:#ff9a9a">${ip} iptal</b> · <b style="color:#ffd27a">${dz} düzeltme</b> ilanı var. İKN, iş adı ya da idare adıyla ara — <b style="color:var(--ink)">teklif hazırladığın ihale iptal olmuşsa boşuna emek harcama</b>.</div>`;
+  if(!suz.length){
+    h += ara ? `<div class="kart" style="border-left-color:var(--dim)"><h3>Bu aramaya uyan iptal/düzeltme ilanı yok</h3><div class="belg">Bu, "ihalen iptal olmadı" anlamına gelmez — yalnız <b style="color:var(--ink)">bu çekimdeki bültenlerde</b> yok demektir. Kesin bilgi ${'<a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'}'tadır.</div></div>`
+                : '<div class="belg">Bu çekimde iptal/düzeltme ilanı bulunmadı.</div>';
+    k.innerHTML=h; return;
+  }
+  h += '<div class="igrid">' + suz.slice(0,24).map(x=>{
+    const iptalMi = x.durum==='iptal';
+    const renk = iptalMi ? '#ff9a9a' : '#ffd27a';
+    return `<div class="ikart">
+      <div class="ust"><span class="sikon">${iptalMi?'⛔':'✏️'}</span><b style="color:${renk}">${iptalMi?'İPTAL':'DÜZELTME'}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">İKN ${esc(x.ikn||'—')}</span></div>
+      <div class="gov"><h3>${esc(x.isAdi||'—')}</h3>
+        <div class="m"><b style="color:var(--ink)">${esc(x.idare||'—')}</b>
+        ${x.sebep?`<br><span style="color:${renk}">Sebep:</span> ${esc(x.sebep)}`:''}
+        ${x.asilIlan?`<br>İlanın yayımlandığı bülten: <b style="color:var(--ink)">${esc(x.asilIlan)}</b>`:''}
+        ${x.tarih?`<br>📅 İptal tarihi: <b style="color:var(--ink)">${esc(x.tarih)}</b>`:''}</div></div>
+      <div class="alt"><span class="gunroz belirsiz">${esc(x.tur||'')}</span><a href="https://ekapv2.kik.gov.tr/ekap/search" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">EKAP'ta aç →</a></div>
+    </div>`;
+  }).join('') + '</div>';
+  if(suz.length>24) h += `<div class="belg" style="margin-top:8px">${suz.length-24} ilan daha var — İKN ya da idare adıyla daralt.</div>`;
+  k.innerHTML=h;
+}
+
 // ==================== KAYITLI ARAMA (13.08 Cem onayi) ====================
 // Tarayici hafizasinda durur - hesap gerektirmez, sürtünme sifir. Cihaz degisince
 // kaybolur; o yuzden "her cihazda dursun + ilan dusunce haber verelim" ucretsiz
@@ -377,6 +426,7 @@ async function veriYukle(){
   YD=await g('ihale-yurtdisi-rehber.json')||{};
   EK=await g('ihale-4734-ek.json')||{};
   YI=await g('ihale-yurtici.json')||{ilanlar:[]};
+  BD=await g('ihale-bulten-durum.json')||{iptal:[],duzeltme:[]};
   // yurt ici il filtresi + ilk cizim
   const yiIller=[...new Set((YI.ilanlar||[]).map(x=>x.il).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
   const yiSel=document.getElementById('yiIl');
@@ -402,6 +452,9 @@ async function veriYukle(){
   document.getElementById('yerli').addEventListener('change',renderYerliMali);
   renderSorular(); renderKatilimBilgi(); renderYurtdisi(); renderYerliMali(); renderSikayet(); renderHapIc();
   aramaSeridiCiz();  // kayitli aramalar sektor listesi dolduktan SONRA cizilir (ad icin gerekli)
+  bultenCiz();
+  if(BD&&BD.guncelleme){ const bk=document.getElementById('bultenKaynak'); const bm=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(BD.guncelleme);
+    if(bk&&bm) bk.innerHTML="Kaynak: Kamu İhale Bülteni (KİK) — 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri · son çekim: <b style=\"color:var(--ink)\">"+bm[1]+"</b>."; }
 }
 // ---- yurt dışı ----
 function tarihTR(iso){ const p=(iso||'').split('-'); if(p.length!==3) return iso||'—'; return p[2]+'.'+p[1]+'.'+p[0]; }
