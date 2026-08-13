@@ -40,6 +40,9 @@
 20. GoatCounter hesabı (analitik — hâlâ kör uçuyoruz)
 21. **GitHub push token** (commit'ler lokalde bekliyor)
 
+## 📈 PAZAR İSTİHBARATI MOTORU (vitrin kutusu 30.07'den beri YAKINDA — veri keşfi 13.08 TAMAM)
+Kaynak KANITLANDI: BM Comtrade preview API (anahtarsız, 0 USD) — TR ithalat HS6 bazlı aylık değer+kg+birim fiyat; toplam-satır süzme kalıbı ve örnek çekim `veri/pazar-istihbarat-kesif.md`. Kısıt: ~8 ay gecikme (son dönem 2025-12) + HS6 düzeyi — kutunun "trend" vaadiyle uyumlu. İŞ: `motor/pazar-hasat.ps1` + ekran + lead buluşması; açılış sonrası ilk hafta kur.
+
 ## 🚫 YAPILMAYACAKLAR (Excel s.7 — değişmedi)
 SGK teşvik hesaplama · beyanname/BİLGE · mevzuat arşivi · reklam geliri · EKAP ·
 hukuki mütalaa · ilk yıl mobil app · firma bazlı veri toplama · kullanıcı verisi istihbaratı ·
