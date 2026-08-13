@@ -152,8 +152,27 @@ Promise.all([
   fetch('veri/gtip-igv-ulke.json').then(r=>r.json()).catch(()=>({})),
   fetch('veri/gtip-damping.json').then(r=>r.json()).catch(()=>([])),
   fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({})),
-  fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({}))
-]).then(([a,b,c,d,e,f])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f; });
+  fetch('veri/gtip-durum.json').then(r=>r.json()).catch(()=>({})),
+  fetch('veri/teblig-damga.json').then(r=>r.json()).catch(()=>null),
+  fetch('veri/yanveri-damga.json').then(r=>r.json()).catch(()=>null)
+]).then(([a,b,c,d,e,f,g,h])=>{ VERGI=a;VERGI_ULKE=b;IGV_ULKE=c;DAMPING=Array.isArray(d)?d:[];KDV=e;VERI=f;TAZELIK={teblig:g,yanveri:h}; });
+let TAZELIK=null;
+// 13.08 Cem: "net cevap veriyor deme, her yere kontrolu koy" - robotlarin
+// KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur.
+function tazelikYaz(){
+  const el=document.getElementById('tazelikSatiri'); if(!el||!TAZELIK) return;
+  const p=[]; let bayat=false;
+  const yasKontrol=(txt)=>{ const s=String(txt||'');
+    let m=s.match(/(\d{2})\.(\d{2})\.(\d{4})/); let d=null;
+    if(m) d=new Date(m[3],m[2]-1,m[1]); else { m=s.match(/(\d{4})-(\d{2})-(\d{2})/); if(m) d=new Date(m[1],m[2]-1,m[3]); }
+    if(!d) return true;
+    return (Date.now()-d.getTime())/86400000 > 4; };
+  if(TAZELIK.teblig&&TAZELIK.teblig.tarih){ p.push('gözetim tebliğleri: '+TAZELIK.teblig.tarih+' ('+TAZELIK.teblig.izlenen+' tebliğ izlemede)'); if(yasKontrol(TAZELIK.teblig.tarih)) bayat=true; }
+  if(TAZELIK.yanveri&&TAZELIK.yanveri.damping){ const dmp=TAZELIK.yanveri.damping; p.push('damping listesi: '+(dmp.kontrol||dmp.tarih)); if(yasKontrol(dmp.kontrol||dmp.tarih)) bayat=true; }
+  p.push('rejim/İGV: günlük RG + Bakanlık duyuru sinyaliyle izleniyor');
+  el.innerHTML = '🕐 <b style="color:var(--ink)">Veri tazeliği (robot kontrol damgaları):</b> ' + p.join(' · ');
+  if(bayat){ el.style.borderColor='rgba(255,194,75,.5)'; el.innerHTML += ' — <b style="color:var(--amber)">bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et.</b>'; }
+}
 
 // --- ülke seçim kutuları ---
 const uc=document.getElementById('ulkeler');
@@ -302,6 +321,7 @@ function olustur(){
     <div class="varsayim">
       <b>Varsayımlar ve kapsam:</b> Yük yüzdeleri gümrük kıymeti (CIF) üzerinden hesaplanmıştır. "Geri gelmeyen yük" = gümrük vergisi + İlave Gümrük Vergisi (İGV) + varsa dampinge/sübvansiyona karşı vergi. AB/STA oranlarını kapmak için ilgili <b>menşe/dolaşım belgesi şarttır</b>; belge yoksa gümrük en yüksek (Diğer Ülkeler) oranını uygular. KKDF (vadeli ödemede %6), ÖTV, GEKAP, TRT bandrolü ve gözetim kıymet etkisi bu tabloya dahil değildir; ürününüze göre <a href="gtip.html">GTİP Kontrolü</a>'nden bakınız. Damping oranı aralık ise üretici firmaya göre değişir. Veri kaynağı: yürürlükteki İthalat Rejimi / İGV / damping tebliğleri / GİB KDV. Bu rapor bilgilendirme amaçlıdır; beyan öncesi gümrük müşaviri ve YMM teyidi gerekir.
     </div>
+    <div id="tazelikSatiri" style="margin-top:8px;font-size:11.5px;color:var(--dim);border:1px dashed var(--line2);border-radius:9px;padding:8px 12px">🕐 Veri tazeliği yükleniyor…</div>
     <div class="imza">
       <div class="satir"><span>Bu rapor müşterinin verdiği ürün/kod bilgisine göre hazırlanmıştır.</span><span>Rapor No: MR-${bugun.replace(/\./g,'')}-${nkod.slice(0,6)}</span></div>
       <div class="kase">Dizdar Denetim A.Ş. &nbsp;·&nbsp; Kaşe / İmza: ________________________</div>
@@ -325,6 +345,7 @@ function olustur(){
      <button class="btn ghost" onclick="document.getElementById('rapor').scrollIntoView()">↑ Yukarı</button>
    </div>`;
   window.HESAPRAPOR={dkod,tutar,pb,best:best?best.u.ad:'',secili:secili.map(u=>u.ad)};
+  tazelikYaz();
   document.getElementById('rapor').scrollIntoView({behavior:'smooth',block:'start'});
 }
 

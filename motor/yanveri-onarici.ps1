@@ -76,6 +76,10 @@ if($DuyuruSinyal){
     Write-Host ("YENI DUYURU: {0}" -f $yeni.Count)
   } else { Write-Host "duyuru: yeni yok ($($duyurular.Count) girdi)." }
   if($d.PSObject.Properties['duyurular']){ $d.duyurular = $duyurular } else { $d | Add-Member -NotePropertyName duyurular -NotePropertyValue $duyurular }
+  # 13.08 Cem: "her yere kontrolu koyalim" - KONTROL EDILDI damgasi (degisiklik olmasa da).
+  # Nabiz bunu izler: damga eskirse "kontrol mekanizmasi durmus" alarmi.
+  $dt=(Get-Date).ToString('dd.MM.yyyy HH:mm')
+  if($d.PSObject.Properties['duyuruKontrol']){ $d.duyuruKontrol=$dt } else { $d | Add-Member -NotePropertyName duyuruKontrol -NotePropertyValue $dt }
   DamgaYaz $d
   exit 0
 }
@@ -112,7 +116,11 @@ Write-Host "K1 GECTI: cift indirme birebir ($h1)"
 # K2: surum damgasi (url + hash onceki ile ayni mi)
 $d = DamgaOku
 $onceki = if($d.PSObject.Properties[$Kaynak]){ $d.$Kaynak } else { $null }
-if($onceki -and $onceki.sha -eq $h1){ Write-Host "K2: degisiklik yok (ayni surum). Cikiliyor."; exit 0 }
+if($onceki -and $onceki.sha -eq $h1){
+  # "kontrol edildi" tarihi degismese de yazilir - nabiz kontrol mekanizmasini izler (Cem 13.08)
+  $onceki | Add-Member -NotePropertyName kontrol -NotePropertyValue ((Get-Date).ToString('dd.MM.yyyy HH:mm')) -Force
+  DamgaYaz $d
+  Write-Host "K2: degisiklik yok (ayni surum). Kontrol damgasi yazildi, cikiliyor."; exit 0 }
 Write-Host ("K2: YENI SURUM (eski: {0})" -f $(if($onceki){ $onceki.url } else { 'ilk kayit' }))
 
 # K3: hasat (eski ciktiyi yedekle, hasatciyi kostur)

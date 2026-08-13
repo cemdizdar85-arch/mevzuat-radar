@@ -154,6 +154,14 @@ VeriKontrol "ihale-yurtici.json"  { param($j)
   if($m.Success){ $m.Groups[1].Value } else { $null }
 } 36 "Yurt ici ihale beslemesi" "kaynak.yml" "Kaynak Nobetcisi"
 
+# 13.08 Cem: "net cevap veriyor DEME, her yere kontrolu koy" - KONTROLUN
+# KONTROLU: veri tazeleyen robotlarin "kontrol ettim" damgalari eskirse
+# (robot durmus/sessiz olmus demektir) ALARM. Degisiklik olmamasi mazeret
+# degildir; damga her kosuda yazilir.
+VeriKontrol "teblig-damga.json"  { param($j) $j.tarih } 48 "Gozetim teblig damgasi (43 teblig)" "mevzuat.yml" "Kanun Aynasi"
+VeriKontrol "yanveri-damga.json" { param($j) if($j.damping){ if($j.damping.PSObject.Properties['kontrol']){$j.damping.kontrol}else{$j.damping.tarih+' 12:00'} } } 96 "Damping listesi kontrolu" "yerel-indirici" "Yanveri Onarici"
+VeriKontrol "yanveri-damga.json" { param($j) $j.duyuruKontrol } 96 "Ithalat Gn.Md. duyuru sinyali" "yerel-indirici" "Yanveri Onarici"
+
 # ---------------------------------------------------------------------------
 # HAZIR KAYNAK YASLANMASI (13.08 Cem: "acik noktalari kapatalim").
 # Manifestte pdfId=HAZIR olan metinler robotca TAZELENMEZ (indirilemeyen .doc,
