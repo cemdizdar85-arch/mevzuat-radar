@@ -194,15 +194,30 @@ function IlanlariCoz([string]$metin, [string]$bolumBasi, [string]$bolumSonu, [st
 }
 
 $hepsi = @()
+$basarisiz = @()
 foreach($t in $Turler){
   Write-Host ("--- {0} bulteni ---" -f $t)
   $metin = $null
   try { $metin = BultenMetni $t } catch { Write-Host ("   HATA: {0}" -f $_.Exception.Message) }
-  if(-not $metin){ Write-Host "   alinamadi, atlandi"; continue }
+  if(-not $metin){ Write-Host "   alinamadi, atlandi"; $basarisiz += $t; continue }
   Write-Host ("   metin: {0:N0} karakter" -f $metin.Length)
   $ip = @(IlanlariCoz $metin '3. İHALE DÜZELTME İLANLARI' '5. ÇERÇEVE ANLAŞMA' $t)
   Write-Host ("   duzeltme+iptal bolumunden cikan: {0} ilan" -f $ip.Count)
   $hepsi += $ip
+}
+
+# ==== SESSIZ BASARISIZLIK KAPISI (14.08 dersi) ================================
+# Ilk Actions kosusunda dort bultenin dordu de SSL hatasi verdi, betik "alinamadi,
+# atlandi" deyip DEVAM ETTI ve exit 0 ile bitti -> adim YESIL TIK aldi, kirmizi
+# nobetci maili tetiklenmedi. Sifir veri "basarili" gorundu.
+# Kural: hicbiri alinamazsa KIRMIZI biter. Bir kismi alinamazsa da sessiz gecmez.
+if($basarisiz.Count -eq $Turler.Count){
+  Write-Host ("`nKIRMIZI: hicbir bulten alinamadi ({0}). Veri tazelenmedi." -f ($basarisiz -join ', '))
+  Write-Host "Mevcut dosyaya DOKUNULMADI - eski veri korunuyor, tazelik damgasi da eskisi kaliyor."
+  exit 1
+}
+if($basarisiz.Count){
+  Write-Host ("`nUYARI: {0} tur alinamadi ({1}) - digerleri islendi." -f $basarisiz.Count, ($basarisiz -join ', '))
 }
 
 $iptal    = @($hepsi | Where-Object { $_.durum -eq 'iptal' })
@@ -246,8 +261,11 @@ if($Yaz){
   Write-Host ("`nHavuz: {0} iptal ({1} bugunku cekim + {2} havuzdan) · {3} duzeltme" -f `
     $iptal.Count, ($iptal.Count - $eskiIptal.Count), $eskiIptal.Count, $duzeltme.Count)
 
+  # Tazelik damgasi YALAN SOYLEMEMELI: bir tur alinamadiysa bu damgada yazar.
+  $eksikNot = ""
+  if($basarisiz.Count){ $eksikNot = " (bu çekimde alınamayan tür: " + ($basarisiz -join ', ') + ")" }
   $cikti = [ordered]@{
-    guncelleme = "Kaynak: Kamu İhale Bülteni (KİK) — 4734 s.K. m.13. Son çekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
+    guncelleme = "Kaynak: Kamu İhale Bülteni (KİK) — 4734 s.K. m.13. Son çekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "." + $eksikNot
     kaynak = "ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx"
     iptal = $iptal
     duzeltme = $duzeltme

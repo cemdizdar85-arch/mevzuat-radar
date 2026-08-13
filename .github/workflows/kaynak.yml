@@ -48,6 +48,22 @@ jobs:
       # engellenmisti, ayni risk burada da var. Bu adim duserse yurt ici/disi ihale
       # verisi ve diger hasatlar COMMIT'LENSIN - tek kaynak yuzunden gun kaybedilmez.
       # Ama sessiz kalmasin: asagidaki adim duserse Cem'e mail gider.
+      # 14.08 TESHIS: ilk kosuda dort bulten de "SSL connection could not be
+      # established" verdi. Sebep TAHMIN EDILMEZ, olculur: asagidaki adim KIK'in
+      # TLS el sikismasini ve sertifikasini dokuyor. Ubuntu'nun OpenSSL 3 politikasi
+      # (SECLEVEL=2) eski sifre takimlarini reddediyorsa burada gorunur.
+      - name: TESHIS — KIK ucuna TLS el sikismasi
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        run: |
+          echo "--- openssl s_client ---"
+          timeout 25 openssl s_client -connect ekap.kik.gov.tr:443 -servername ekap.kik.gov.tr </dev/null 2>&1 | head -30 || true
+          echo "--- curl (varsayilan) ---"
+          curl -sS -o /dev/null -w "http=%{http_code} tls=%{ssl_verify_result}\n" --max-time 25 https://ekap.kik.gov.tr/ekap/ilan/bultenindirme.aspx || true
+          echo "--- openssl surumu / seclevel ---"
+          openssl version -a | head -3
+          grep -n "SECLEVEL\|CipherString\|MinProtocol" /etc/ssl/openssl.cnf || true
+
       - name: Kamu Ihale Bulteni — iptal + duzeltme (yalniz sabah)
         id: bulten
         if: github.event.schedule != '13 14 * * *'
