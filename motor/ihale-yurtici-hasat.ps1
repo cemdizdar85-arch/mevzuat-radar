@@ -20,6 +20,24 @@ function SlugTur([string]$slug){
   if($slug -match 'yapim'){ return 'yapim' }
   return 'diger'
 }
+# 13.08 OLCUM (ihale-slug-kesif.ps1, 600 ilan): duzeltme ve iptal ilanlari AYRI ilan
+# olarak dusuyor ve simdiye kadar acik ihale gibi listeleniyordu. Iyi haber: bu
+# ilanlarin BASLIGINDA duzelttikleri/iptal ettikleri ilanin numarasi yaziyor:
+#   "Duzeltme ilani ILN02527595 ihale"  ·  "Ihale iptal ilani ( ILN02523833 ihale)"
+# Birlestirme kimligi bu numaradir - uydurmaya gerek yok, kaynakta yaziyor.
+function IlanDurumu([string]$baslik, [string]$slug){
+  $h = "$baslik $slug"
+  if($h -imatch 'iptal'){ return 'iptal' }
+  if($h -imatch 'd[uü]zeltme|tashih'){ return 'duzeltme' }
+  return 'asil'
+}
+function AsilIlanNo([string]$baslik, [string]$kendiNo){
+  # Baslikta kendi numarasi disinda bir ILN varsa, o duzeltilen/iptal edilen ilandir.
+  foreach($m in ([regex]'ILN\d{6,}').Matches("$baslik")){
+    if("$($m.Value)" -ne "$kendiNo"){ return $m.Value }
+  }
+  return ""
+}
 $hamAds = @()
 $atla = 0; $tur = 0
 while($hamAds.Count -lt $Adet -and $tur -lt 25){
@@ -47,6 +65,8 @@ foreach($a in $hamAds){
     ilce   = $a.addressCountyName
     tarih  = $tarih
     tur    = (SlugTur "$($a.slugifyTitle)")
+    durum  = (IlanDurumu "$($a.title)" "$($a.slugifyTitle)")
+    asilNo = (AsilIlanNo "$($a.title)" "$($a.adNo)")
     url    = "https://www.ilan.gov.tr/ilan/$($a.id)/$($a.slugifyTitle)"
   }
 }
@@ -68,7 +88,9 @@ if(Test-Path $yol){
       if($eskiSlug -notmatch '^ihale-duyurulari'){ continue }  # eski cop (emlak/tebligat/personel) havuzdan dusurulur
       $t = $null; try { $t = [datetime]::ParseExact("$($e.tarih)","dd.MM.yyyy",$null) } catch {}
       if($t -and $t -lt $sinirTarih){ continue }
-      $eskiler += [ordered]@{ ilanNo=$e.ilanNo; baslik=$e.baslik; kurum=$e.kurum; il=$e.il; ilce=$e.ilce; tarih=$e.tarih; tur=(SlugTur $eskiSlug); url=$e.url }
+      # eski havuz kayitlarina da durum/asilNo hesaplanir (yeni alanlar geriye donuk dolar)
+      $eskiler += [ordered]@{ ilanNo=$e.ilanNo; baslik=$e.baslik; kurum=$e.kurum; il=$e.il; ilce=$e.ilce; tarih=$e.tarih;
+        tur=(SlugTur $eskiSlug); durum=(IlanDurumu "$($e.baslik)" $eskiSlug); asilNo=(AsilIlanNo "$($e.baslik)" "$($e.ilanNo)"); url=$e.url }
     }
   } catch { Write-Host "NOT: eski json okunamadi, sifirdan yazilir" }
 }

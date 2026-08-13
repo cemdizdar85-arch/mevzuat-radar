@@ -406,6 +406,29 @@ function yurtIciCiz(){
     }
     return !kel || t.includes(kel);
   });
+  // 13.08 Cem "aynı ihalenin ilanlarını birleştirelim": ilan.gov.tr düzeltme ve iptal
+  // ilanlarını AYRI ilan olarak yayımlıyor; şimdiye kadar bunlar açık ihale gibi
+  // listeleniyordu. Hasatçı artık durum + asilNo çıkarıyor (başlıktaki ILN numarası).
+  // Asıl ilan havuzdaysa: iki kayıt TEK karta iner, karta damga basılır.
+  // Havuzda değilse: kart yine görünür ama "bu bir iptal/düzeltme ilanıdır" diye
+  // işaretlenir — açık ihale sanılmasın.
+  const damga={};
+  for(const x of (YI.ilanlar||[])){
+    if(x.asilNo && (x.durum==='iptal'||x.durum==='duzeltme')){
+      const d=damga[x.asilNo]||(damga[x.asilNo]={});
+      d[x.durum]={ilanNo:x.ilanNo,tarih:x.tarih,url:x.url};
+    }
+  }
+  const havuzNo=new Set((YI.ilanlar||[]).map(x=>String(x.ilanNo)));
+  liste=liste.filter(x=>{
+    // asıl ilanı havuzda olan düzeltme/iptal kaydı ayrı kart olarak GÖSTERİLMEZ;
+    // bilgisi asıl ilanın kartına damga olarak biner.
+    if(x.asilNo && (x.durum==='iptal'||x.durum==='duzeltme') && havuzNo.has(String(x.asilNo))) return false;
+    return true;
+  });
+  // NOT: iptal edilmiş ihale listeden ÇIKARILMAZ ve sona da atılmaz — teklif hazırlayan
+  // kişi tam da "bu ihaleye ne oldu" diye arar. Yerinde durur, damgası uyarır.
+  // (İlk denemede sona atılmıştı; 250 ilanlık havuzda damga hiç ekrana gelmedi.)
   if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; robot her sabah-akşam yeni ilanları çeker. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini kaydet, düşünce haber verelim →</a></div></div>'; return; }
   // 31.07 Cem: bedava giren 5 ilan gorur; kalani BUGULU kilit kart (il+tur okunur,
   // baslik bugulu) - neyi kacirdigini gorsun, uyelige somut neden olsun.
@@ -414,10 +437,21 @@ function yurtIciCiz(){
   const TUR_AD={mal:'Mal alımı',hizmet:'Hizmet alımı',yapim:'Yapım-inşaat'};
   const TUR_IKON={mal:'📦',hizmet:'🛎️',yapim:'🏗️',diger:'📄'};
   const trBayrak='<img class="bayrak" src="https://flagcdn.com/w20/tr.png" srcset="https://flagcdn.com/w40/tr.png 2x" alt="" loading="lazy">';
+  // asıl ilana binen damga (iptal > düzeltme) — ihaleye gitmeden önce görülmesi gereken bilgi
+  const damgaHtml=x=>{
+    const d=damga[x.ilanNo];
+    if(d&&d.iptal) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ BU İHALE İPTAL EDİLDİ — iptal ilanı ${esc(d.iptal.ilanNo)}${d.iptal.tarih?' · '+esc(d.iptal.tarih):''} <a href="${esc(d.iptal.url)}" target="_blank" rel="noopener" style="color:#ff9a9a;text-decoration:underline">iptal metni →</a></div>`;
+    if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI — ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:#ffd27a;text-decoration:underline">düzeltme metnini oku →</a></div>`;
+    // asıl ilanı havuzda olmayan düzeltme/iptal kaydı: açık ihale sanılmasın
+    if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?' — iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
+    if(x.durum==='duzeltme') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ Bu bir DÜZELTME ilanıdır${x.asilNo?' — düzeltilen ihale: '+esc(x.asilNo):''}. Asıl ilan metnini de oku.</div>`;
+    return '';
+  };
   box.innerHTML = '<div class="igrid">' + liste.slice(0,SINIR).map(x=>`<div class="ikart">
     <div class="ust"><span class="sikon">${TUR_IKON[x.tur]||'📄'}</span>${trBayrak}<b>${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">${esc(x.ilanNo||'')}</span></div>
     <div class="gov"><h3>${esc(x.baslik)}</h3>
-      <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b><br><span style="color:var(--dim)">Yaklaşık maliyet, son teklif ve belgeler ilan metninde.</span></div></div>
+      <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b><br><span style="color:var(--dim)">Yaklaşık maliyet, son teklif ve belgeler ilan metninde.</span></div>
+      ${damgaHtml(x)}</div>
     <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">İlan metni →</a></div>
   </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="ikart" style="cursor:pointer;height:100%">
     <div class="ust"><span class="sikon">🔒</span>${trBayrak}<b>${esc(x.il||'')}</b><span style="margin-left:auto;font-size:11px;color:var(--accent2);font-weight:800">üyelere açık</span></div>
