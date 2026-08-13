@@ -21,7 +21,12 @@ $k11 = Oku 'k11-coklu-dogru-sik.json'
 if($k11){ foreach($x in @($k11.riskli + $k11.bulgular + $k11.supheli)){ if($x){ Ekle $kara "$($x.id)" 'K11-coklu-dogru' $sebepSayac } } }
 # --- K13 aritmetik
 $k13 = Oku 'aritmetik-kapisi-raporu.json'
-if($k13){ foreach($alan in 'bulgular','dengesiz','kalipli'){ foreach($x in @($k13.$alan)){ if($x){ Ekle $kara "$($x.id)" "K13-aritmetik-$alan" $sebepSayac } } } }
+if($k13){
+  # TAM id listesi varsa onu kullan (13.08 duzeltmesi); yoksa kirpili ornek listesine dus
+  if($k13.bulgu_idler){ foreach($id in @($k13.bulgu_idler)){ Ekle $kara "$id" 'K13-aritmetik' $sebepSayac } }
+  else { foreach($x in @($k13.bulgular)){ if($x){ Ekle $kara "$($x.id)" 'K13-aritmetik-ornek' $sebepSayac } } }
+  foreach($alan in 'dengesizler','kaliplilar'){ foreach($x in @($k13.$alan)){ if($x){ Ekle $kara "$($x.id)" "K13-$alan" $sebepSayac } } }
+}
 # --- K16 tablo (TAM id listesi; yoksa ornek listesine duser)
 $k16 = Oku 'k16-tablo-denetimi.json'
 if($k16){

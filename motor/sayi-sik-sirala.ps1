@@ -38,10 +38,20 @@ function SayiCoz([string]$m){
 
 $aday=0; $atifli=0; $zatenSirali=0; $duzelen=0; $hata=0
 $degisenler = New-Object System.Collections.Generic.List[object]
-for($of=0; $of -lt 40000; $of+=500){
-  $r = Invoke-WebRequest -UseBasicParsing -Uri "$U`?select=id,soru,siklar,dogru,aciklama&order=id&limit=500&offset=$of" -Headers $SB -TimeoutSec 180
-  $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json)
-  if(@($j).Count -eq 0){ break }
+# 13.08: es zamanli agir kosularda Supabase 500 doner; tek hata tum turu
+# oldurmesin diye 3 denemeli + kucuk sayfali cekim (idempotent: zaten sirali
+# soru atlanir, betik bastan kosulabilir).
+for($of=0; $of -lt 40000; $of+=250){
+  $j = $null
+  for($deneme=1; $deneme -le 3; $deneme++){
+    try{
+      $r = Invoke-WebRequest -UseBasicParsing -Uri "$U`?select=id,soru,siklar,dogru,aciklama&order=id&limit=250&offset=$of" -Headers $SB -TimeoutSec 180
+      $j = ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json); break
+    } catch {
+      if($deneme -eq 3){ Write-Host ("  UYARI: offset {0} cekilemedi - atlandi" -f $of); $j = @() } else { Start-Sleep -Seconds (5*$deneme) }
+    }
+  }
+  if(@($j).Count -eq 0){ if($of -gt 30000){ break } else { continue } }
   foreach($s in $j){
     if(-not $s.siklar){ continue }
     $d = "$($s.dogru)".Trim().ToUpper()
@@ -85,13 +95,22 @@ for($of=0; $of -lt 40000; $of+=500){
     if($yeniDogru -eq ''){ continue }
     if(-not $uygula){ $duzelen++; continue }
     $govde = [ordered]@{ siklar=$yeniSik; aciklama=$yeniAcik; dogru=$yeniDogru } | ConvertTo-Json -Depth 5
-    try{
-      Invoke-RestMethod -Method Patch -Uri "$U`?id=eq.$($s.id)" -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 60 | Out-Null
+    $yazildi = $false
+    for($yd=1; $yd -le 3; $yd++){
+      try{
+        Invoke-RestMethod -Method Patch -Uri "$U`?id=eq.$($s.id)" -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 60 | Out-Null
+        $yazildi = $true; break
+      } catch { if($yd -lt 3){ Start-Sleep -Seconds (2*$yd) } }
+    }
+    if($yazildi){
       $duzelen++
       if($degisenler.Count -lt 30){ $degisenler.Add([pscustomobject]@{ id="$($s.id)"; eski_dogru=$d; yeni_dogru=$yeniDogru }) }
-    } catch { $hata++ }
+    } else { $hata++ }
   }
-  if(@($j).Count -lt 500){ break }
+  # 13.08 HATA DERSI: sayfa boyu 500'den 250'ye indirilirken bu cikis sarti
+  # guncellenmemisti -> ilk sayfadan sonra dongü KIRILIYORDU (yalniz 250 soru
+  # tarandi, "duzelen 0" gorundu). Sayfa boyu ile cikis sarti AYNI sabitten okunur.
+  if(@($j).Count -lt 250){ break }
 }
 $rapor = [ordered]@{ tarih=(Get-Date).ToString('dd.MM.yyyy HH:mm'); mod=$(if($uygula){'uygula'}else{'olcum'})
   sirasiz_aday=$aday; harf_atifli_dokunulmadi=$atifli; zaten_sirali=$zatenSirali; duzelen=$duzelen; hata=$hata; ornek=$degisenler.ToArray()

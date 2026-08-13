@@ -257,7 +257,11 @@ RaporYaz ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$(if($yaz){'YAZILDI'}else{'OLCUM'})
   taranan=$taranan; islemliSoru=$islemli
   aritmetikBulgulu=$bulgular.Count; kalipli=$kalipli.Count; dengesizYevmiye=$dengesiz.Count; cekilen=$cekilen
+  # 13.08: rapor 400'de kirpiliyordu -> kara liste kesisimi 1.302 bulgunun
+#  yalniz 400'unu goruyordu (yayin havuzu eksik suzuluyordu). Ornek listesi
+#  kirpili kalir ama TAM ID LISTESI ayrica yazilir.
   bulgular=@($bulgular | Select-Object -First 400)
+  bulgu_idler=@($bulgular | ForEach-Object { $_.id } | Sort-Object -Unique)
   kaliplilar=@($kalipli | Select-Object -First 200)
   dengesizler=@($dengesiz | Select-Object -First 100)
 })

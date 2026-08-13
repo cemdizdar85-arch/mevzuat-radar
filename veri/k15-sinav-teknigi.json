@@ -1,32 +1,112 @@
 {
-    "tarih":  "13.08.2026 16:26",
+    "tarih":  "13.08.2026 18:26",
     "kapsam":  "yayin-adaylari",
-    "soru":  3540,
+    "soru":  15550,
     "T1_cevap_dagilimi":  {
                               "durum":  "YESIL",
-                              "azami_sapma_puan":  3.8000000000000007,
+                              "azami_sapma_puan":  4.6999999999999993,
                               "dagilim":  {
-                                              "A":  "841 (%23.8)",
-                                              "B":  "730 (%20.6)",
-                                              "C":  "628 (%17.7)",
-                                              "D":  "736 (%20.8)",
-                                              "E":  "605 (%17.1)"
+                                              "A":  "3081 (%19.8)",
+                                              "B":  "3143 (%20.2)",
+                                              "C":  "3643 (%23.4)",
+                                              "D":  "3299 (%21.2)",
+                                              "E":  "2384 (%15.3)"
                                           }
                           },
     "T2_dogru_sik_en_uzun":  {
-                                 "durum":  "UYARI",
-                                 "oran_yuzde":  33.5,
-                                 "olculen":  3540,
+                                 "durum":  "YESIL",
+                                 "oran_yuzde":  31.7,
+                                 "olculen":  15550,
                                  "not":  "rastgele beklenen ~%20; %45 ustu taktikle gecilir"
                              },
     "T3_yakin_kopya":  {
                            "durum":  "KIRMIZI",
-                           "cift":  5,
+                           "cift":  83,
                            "ornekler":  [
+                                            {
+                                                "a":  "00e23c31-c544-45fc-8f85-81e202caec72",
+                                                "b":  "177fbb0b-d212-4b96-bcca-8df1a329da06",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
+                                            {
+                                                "a":  "07e9a304-846e-4c2f-a4c6-658f1ca60184",
+                                                "b":  "18f1b4b4-308e-468d-8299-57d8094bfa02",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
+                                            {
+                                                "a":  "0f0debfd-239d-42f5-916f-5e5b6cee2f0d",
+                                                "b":  "1cc4ed58-ebeb-48dd-a7f3-43b4bd7a944f",
+                                                "ders":  "Finansal Tablolar ve Analizi"
+                                            },
+                                            {
+                                                "a":  "23989b24-271c-4dda-9cd8-72ed574c843e",
+                                                "b":  "2c0f8792-6510-46a5-9afa-16b4c2e63097",
+                                                "ders":  "Hukuk"
+                                            },
+                                            {
+                                                "a":  "2a6f7976-7611-4071-9769-f8a58cbd2b4d",
+                                                "b":  "32a991d3-dc60-421c-9ee4-57f10fcdf3eb",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
+                                            {
+                                                "a":  "0ef80db7-2182-4b0c-9ae9-52b4f569745a",
+                                                "b":  "3db0d7db-1067-4a5b-9b70-d44798300c44",
+                                                "ders":  "Finansal Muhasebe"
+                                            },
+                                            {
+                                                "a":  "2a6f7976-7611-4071-9769-f8a58cbd2b4d",
+                                                "b":  "47c4c56d-0daa-47f0-a760-4b74e78122b0",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
+                                            {
+                                                "a":  "2ceed839-ccdd-4d09-be43-900d23dd9ccb",
+                                                "b":  "4a11eb28-bfaf-48e0-94b8-496e38b88e0d",
+                                                "ders":  "Finansal Tablolar ve Analizi"
+                                            },
+                                            {
+                                                "a":  "031397cd-dc23-49ea-9d93-8c8d53937620",
+                                                "b":  "51feb3f3-404c-49a3-86d9-9f4c6f756608",
+                                                "ders":  "Mali Tablolar Analizi"
+                                            },
+                                            {
+                                                "a":  "40dd96c3-1f95-485c-b783-399e92794373",
+                                                "b":  "56838e27-89f0-46ca-9319-6b506525b9ba",
+                                                "ders":  "Finansal Tablolar ve Analizi"
+                                            },
+                                            {
+                                                "a":  "50d6a2ed-d268-403d-b20e-767d8cb2cc98",
+                                                "b":  "591ce1a2-9677-4b69-8dea-37b59eae02cc",
+                                                "ders":  "Finansal Muhasebe"
+                                            },
+                                            {
+                                                "a":  "047451c4-8d40-4aba-87a0-3f2337856db6",
+                                                "b":  "5ec57f0a-e5b7-4cc2-b648-d7eec555e114",
+                                                "ders":  "Hukuk"
+                                            },
+                                            {
+                                                "a":  "13b48f07-dee5-4118-a3e5-b55ba53899e6",
+                                                "b":  "6181e538-87e6-4b54-93f4-c6e5bda57f0b",
+                                                "ders":  "Hukuk"
+                                            },
+                                            {
+                                                "a":  "14ff4547-d570-474f-b746-fc12da06dc7b",
+                                                "b":  "65ca2545-2b71-4bc0-8a48-0c04a8db894b",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
                                             {
                                                 "a":  "2bb23962",
                                                 "b":  "65cd05a1",
                                                 "ders":  "Turkce"
+                                            },
+                                            {
+                                                "a":  "688ec204-4dfb-4ef3-8582-4d6f346b83cc",
+                                                "b":  "68948840-2675-4f35-b49a-32340b193188",
+                                                "ders":  "Maliyet Muhasebesi"
+                                            },
+                                            {
+                                                "a":  "5bd42eee-960c-417a-9e9a-8a0c13b3bfcc",
+                                                "b":  "6c0c0f1f-a484-4f4b-95da-f3727c9da7ad",
+                                                "ders":  "Muh. ve Mali Müş. Meslek Hukuku"
                                             },
                                             {
                                                 "a":  "74fc01a2",
@@ -34,19 +114,14 @@
                                                 "ders":  "Turkce"
                                             },
                                             {
-                                                "a":  "93664288-24d8-442a-98d5-80118424e400",
-                                                "b":  "d1b8df7b-7f01-4b0d-8f22-12f384090f31",
-                                                "ders":  "Finansal Muhasebe"
+                                                "a":  "5168af1c-d243-4614-9b49-61f18f02dc41",
+                                                "b":  "7a5a049c-de1d-49a3-bdc5-f9963153939b",
+                                                "ders":  "Mali Tablolar Analizi"
                                             },
                                             {
-                                                "a":  "92739437-283d-48c1-bc10-325d013f8e45",
-                                                "b":  "d603f8bb-d298-4b06-8d6f-4d3f0346a1f1",
-                                                "ders":  "Kurumsal Yonetim"
-                                            },
-                                            {
-                                                "a":  "b25a9812-12f8-4177-b781-0811da6b8c16",
-                                                "b":  "ded68393-a3c3-4bbb-ab9e-afefebff872c",
-                                                "ders":  "Finansal Muhasebe"
+                                                "a":  "60700c19-c1b2-4356-8fe3-7b8ce7f28520",
+                                                "b":  "7dc9454f-1560-4d51-88e7-300b4914dbf2",
+                                                "ders":  "Hukuk"
                                             }
                                         ]
                        },

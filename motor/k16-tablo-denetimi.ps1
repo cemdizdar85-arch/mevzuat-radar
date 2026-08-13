@@ -42,7 +42,10 @@ for($of=0; $of -lt 40000; $of+=$SAYFA){
 Write-Host ("Cekilen: {0} soru" -f $kayitlar.Count)
 
 function Duz([object]$o){ if($null -eq $o){ return '' }; if($o -is [string]){ return $o }; $p=New-Object System.Collections.Generic.List[string]; try{ if($o -is [System.Collections.IEnumerable]){ foreach($e in $o){ $p.Add((Duz $e)) } } else { foreach($x in $o.PSObject.Properties){ $p.Add((Duz $x.Value)) } } } catch { $p.Add("$o") }; return ($p -join ' ') }
-function Sayilar([string]$m){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($x in [regex]::Matches($m,'\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d{4,}')){ [void]$s.Add(($x.Value -replace '[.,]','')) }; return $s }
+# 13.08: fonksiyon bazen $null donuyordu (bos HashSet PowerShell'de pipeline'da
+# duserek null'a cevriliyor) -> Contains cagrisi patliyordu. Virgul ile SARMALA:
+# ,$s tek elemanli dizi olarak dondurur, HashSet bozulmadan gelir.
+function Sayilar([string]$m){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; if($m){ foreach($x in [regex]::Matches($m,'\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d{4,}')){ [void]$s.Add(($x.Value -replace '[.,]','')) } }; return ,$s }
 
 $reHesapli = [regex]'(?i)\bTL\b|tutar|hesapla|oran[ıi]n[ıi]|kay[ıi]t|yevmiye|maliyet|amortisman'
 $v1eksik=@(); $v2bozuk=@(); $v3dengesiz=@(); $v4uydurma=@(); $tabloVar=0; $yevmiyeVar=0
