@@ -1,6 +1,24 @@
-{
+﻿{
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
+                     {
+                         "ad":  "Yerli Mali Tebligi (SGM-2024/10)",
+                         "pdfId":  "9.5.42656",
+                         "slug":  "yerli-mali-teblig",
+                         "not":  "14.08 kapsam taramasi: ihale-radari.html bu tebliğe ATIF yapiyor ve yerli mali fiyat avantaji hesabi buna dayaniyor, ama metin ambarda YOKTU. RG 25.01.2025/32793. Tebliğ no 2024/10 ama yayim 2025 - ikisi karistirilmasin."
+                     },
+                     {
+                         "ad":  "Kamu Ihale Tebligi (2026/1) - esik degerler",
+                         "pdfId":  "9.5.44999",
+                         "slug":  "kik-esik-teblig",
+                         "not":  "Esik degerler ve parasal limitler HER YIL degisir; ihale araclarindaki tum tutar sinirlari buna dayanir. RG 22.01.2026/33028. Eskisi kalirsa hesaplar sessizce yanlis olur."
+                     },
+                     {
+                         "ad":  "Kamu Ihale Genel Tebligi",
+                         "pdfId":  "9.5.13354",
+                         "slug":  "kik-genel-teblig",
+                         "not":  "4734/4735 uygulamasinin ana metni: asiri dusuk teklif sinir degeri, is deneyimi, yeterlik kriterleri. 517 bin karakter. RG 22.08.2009/27327."
+                     },
                      {
                          "slug":  "bd-yonetmelik",
                          "ad":  "Bagimsiz Denetim Yonetmeligi",

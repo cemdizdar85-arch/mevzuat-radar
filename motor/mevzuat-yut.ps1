@@ -37,7 +37,14 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     $end = if($i -lt $m.Count-1){ $m[$i+1].Index } else { $flatMetin.Length }
     $govde = $flatMetin.Substring($start, $end-$start).Trim()
     $no = $m[$i].Groups['no'].Value; $tur = $m[$i].Groups['tur'].Value; $pre = $m[$i].Groups['pre'].Value.Trim()
-    if($govde -match '^.{0,70}\(Mülga'){ continue }
+    # 14.08 KUSUR (olculdu, Yerli Mali Tebligi vakasi): bu kontrol "(Mülga" gordugu
+    # anda maddeyi atiyordu - ama "(Mülga ibare:...)" / "(Mülga fıkra:...)" MADDENIN
+    # KENDISI degil, ICINDEKI bir parca mulga demektir; madde yururlukte.
+    # Somut zarar: Yerli Mali Tebligi m.4 (yerli mali kabul sartlari) ve m.8 (yerli
+    # katki orani formulu) ambara HIC GIRMEDI - ikisi de "(1) Sanayi (Mülga ibare:
+    # RG-15/10/2025-33048) urunlerinin..." diye basliyor. Kapsama %77,7'ye dusmustu.
+    # Artik yalniz MADDENIN KENDISI mulgaysa atlanir: "(Mülga:" veya "(Mülga madde".
+    if($govde -match '^.{0,70}\(Mülga\s*(?:madde)?\s*:'){ continue }
     # 02.08 CEM KURALI ("ustunkoru degil, en kucuk maddesine kadar"): 60
     # karakterden kisa madde ATILIYORDU. Kisa madde de maddedir (yururluk,
     # yurutme, tanim fikralari) ve soru-cevap araci onlari da arar. Artik
