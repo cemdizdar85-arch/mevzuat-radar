@@ -1,0 +1,22 @@
+name: yetki-devri-denetcisi
+# Sayfadaki rakam kanunla uyumlu gorunse bile kanunun CB/Bakanlik/teblige
+# devrettigi ikincil duzenleme rakami degistirmis olabilir (5746 esik 50->15,
+# 5510 tavan 7,5->9 kat vakalari). Bu kapi, yetki-devri kalibi tasiyan kanuna
+# atifli YENI sayisal iddia gorunce KIRMIZI cikar; aday elle okunup
+# veri/yetki-devri-okundu.json'a karar notuyla yazilmadan yesile donmez.
+on:
+  push:
+    branches: [main]
+    paths: ['*.html', 'veri/mevzuat/**', 'motor/yetki-devri-denetcisi.ps1']
+  schedule:
+    - cron: '30 5 * * 1'   # her pazartesi 08:30 TR — ambar guncellemeleri sonrasi haftalik tam tur
+  workflow_dispatch: {}
+
+jobs:
+  denetle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Denetciyi kos (YENI kirmizi aday varsa is KIRMIZI biter)
+        shell: pwsh
+        run: ./motor/yetki-devri-denetcisi.ps1
