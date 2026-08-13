@@ -71,6 +71,8 @@
 
 **YENİ KOL ADAYI:** "İstihdam Teşvik Kontrolü" — sektör (imalat/turizm) + il + çalışan profili → hangi canlı teşvik (2 puan otomatik mi, geç. m.35/36 kapsamı, bölgesel 6 puan var mı) + "5 puan bitti" uyarısı.
 
+**✅ 4 BOZUK SORU DÜZELTİLDİ (13.08, Cem onayı "düzeltelim"):** dördü de tek tek okunarak PATCH'lendi, geri okumayla birebir doğrulandı (65a43d42'nin hap'i zaten güncel olduğundan dokunulmadı). Ortak desen: doğru şık %21 / işveren %12 / sigortalı %9'a çekildi; **eski %20-%11 düzeni bilinçli TUZAK çeldiricisi yapıldı** ("7566 öncesi oran" açıklamasıyla — sınav tuzağı olarak öğretiyor). `d48aba26`'da hesap 20.000×0,12=2.400 TL'ye taşındı (doğru şık C→B), `fd085f37`'de kök %21'e çekildi, eşit-paylaşım çeldiricisi %10,5'e güncellendi. Hepsi hâlâ yayın dışı — yayın kararı normal hattan.
+
 **KASA TARAMASI (13.08, `motor/tesvik-7566-tarama.ps1` → `veri/tesvik-7566-tarama.json`, 30.569 soru, 11 tekil bulgu HEPSİ elle okundu, TOPTAN DÜZELTME YAPILMADI):**
 - **KESİN BOZUK 4 soru (hepsi yayın dışı, 7566 öncesi %20 / %9-%11 oranını DOĞRU şık yapıyor):**
   - `029b72db` (SGS İş-SGK) — doğru şık "%20; işveren %11" ESKİ; üstelik A/E şık açıklamaları "7566 ile %21 oldu" diyor → soru KENDİ İÇİNDE ÇELİŞİK.
