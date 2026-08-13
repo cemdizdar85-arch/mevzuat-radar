@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yatırım Teşvik Sihirbazı — ilin, sektörün ve tutarınla hangi destek? | Tetikte</title>
+<meta name="description" content="9903 sayılı yeni teşvik sistemine göre il + ilçe + sektör + yatırım tutarı gir; bölgeni, SGK destek süreni, vergi indirimini, deprem/Cazibe 6. bölge fırsatını ve tek-kapı tuzağını gör.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
+a{color:var(--accent2)}.wrap{max-width:760px;margin:0 auto;padding:24px 18px 70px;position:relative;z-index:1}
+.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim);flex-wrap:wrap}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}
+.logo{width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);display:inline-block;flex:none}
+h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 22px}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 26px 55px -32px rgba(0,0,0,.9)}
+label{display:block;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin:14px 0 5px}
+input,select{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:16px;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,36,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:12px;background:var(--grad);color:#03101f;box-shadow:0 6px 24px rgba(245,165,36,.35);transition:transform .15s;margin-top:16px;width:100%}
+.btn:hover{transform:translateY(-2px)}
+.rozet{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 10px;border-radius:20px;background:rgba(245,165,36,.13);color:var(--accent2);margin:2px 4px 2px 0;vertical-align:middle}
+.rozet.yesil{background:rgba(61,220,151,.13);color:var(--green)}
+.rozet.kirmizi{background:rgba(255,107,94,.13);color:var(--red)}
+.firsat{background:linear-gradient(135deg,rgba(61,220,151,.14),rgba(61,220,151,.05)),var(--panel);border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:14px;padding:16px 18px;margin:12px 0}
+.tuzak{background:rgba(255,107,94,.06);border:1px solid rgba(255,107,94,.3);border-left:5px solid var(--red);border-radius:14px;padding:14px 16px;margin:12px 0;font-size:13.5px;color:var(--muted)}
+.satir{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}.satir b{color:var(--ink);font-weight:600}.satir span{text-align:right;color:var(--muted)}
+details.kacc{background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-bottom:10px;overflow:hidden}
+details.kacc>summary{cursor:pointer;padding:13px 16px;font-weight:700;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.kacc>summary::after{content:"▾";color:var(--dim);transition:transform .2s}
+details.kacc[open]>summary::after{transform:rotate(180deg)}
+details.kacc>summary::-webkit-details-marker{display:none}
+details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
+.uyari{font-size:12px;color:var(--dim);margin-top:22px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.22);border-radius:10px;padding:12px 14px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+.tazelik{font-size:11.5px;color:var(--dim);margin-top:8px}
+#sonuc{display:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+@media print{details.kacc{border:1px solid #ccc}.btn,.top{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a><span>›</span><span>Yatırım Teşvik Sihirbazı</span></div>
+
+  <h1>Yatırım Teşvik Sihirbazı</h1>
+  <p class="lead">Eski teşvik sistemi (2012/3305) <b style="color:var(--ink)">kalktı</b> — yerine <b style="color:var(--ink)">9903 sayılı Karar</b> (RG 30.05.2025) geldi. İlini, ilçeni, sektörünü ve yatırım tutarını gir; <b style="color:var(--ink)">bölgeni, destek unsurlarını, 31.12.2026 son tarihli 6. bölge fırsatlarını</b> ve seni yakabilecek tek-kapı tuzağını gör.</p>
+
+  <div class="kutu">
+    <div class="grid2">
+      <div>
+        <label for="il">YATIRIMIN YAPILACAĞI İL</label>
+        <select id="il"><option value="">— il seç —</option></select>
+      </div>
+      <div>
+        <label for="ilce">İLÇE (biliyorsan — fırsat tespiti için önemli)</label>
+        <input id="ilce" list="ilceList" placeholder="ör. Nurdağı, Haymana…" autocomplete="off">
+        <datalist id="ilceList"></datalist>
+      </div>
+    </div>
+    <div class="grid2">
+      <div>
+        <label for="osb">YATIRIM YERİ OSB / ENDÜSTRİ BÖLGESİNDE Mİ?</label>
+        <select id="osb"><option value="hayir">Hayır / bilmiyorum</option><option value="evet">Evet, OSB veya endüstri bölgesinde</option></select>
+      </div>
+      <div>
+        <label for="sektor">YATIRIM KONUSU</label>
+        <select id="sektor">
+          <option value="imalat-yuksek">İmalat — yüksek teknoloji (NACE 21 eczacılık, 26 elektronik, 30.3 havacılık)</option>
+          <option value="imalat-ortayuksek">İmalat — orta-yüksek teknoloji (NACE 20, 25.3, 27, 28, 29, 30.2/30.4/30.9, 32.5)</option>
+          <option value="imalat" selected>İmalat — diğer (NACE 10-32, 38.2)</option>
+          <option value="turizm">Turizm / konaklama</option>
+          <option value="bilisim">Yazılım / bilişim / veri merkezi</option>
+          <option value="egitim">Eğitim / sağlık / kreş / bakım merkezi</option>
+          <option value="tarim">Tarım / hayvancılık / sera</option>
+          <option value="diger">Diğer hizmet</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid2">
+      <div>
+        <label for="tutar">SABİT YATIRIM TUTARI (TL)</label>
+        <input id="tutar" inputmode="numeric" placeholder="ör. 25.000.000">
+      </div>
+      <div>
+        <label for="istihdam">PLANLANAN İLAVE İSTİHDAM (kişi, boş geçilebilir)</label>
+        <input id="istihdam" inputmode="numeric" placeholder="ör. 15">
+      </div>
+    </div>
+    <button class="btn" id="hesapla">Teşvik durumumu göster →</button>
+  </div>
+
+  <div id="sonuc"></div>
+
+  <div class="uyari">⚠ Bu araç <b>ön değerlendirmedir</b>; teşvik belgesi başvurusu E-TUYS üzerinden yapılır ve nihai değerlendirme Sanayi ve Teknoloji Bakanlığı'nındır. Asgari tutarlar 2025 bazlıdır ve her yıl yeniden değerleme oranında tebliğle güncellenir. Kesin başvuru öncesi müşavirinle ve Bakanlıkla teyitleş.</div>
+  <div class="tazelik" id="tazelik"></div>
+  <div class="dip">Tetikte · Yatırım Teşvik Sihirbazı · Kaynaklar birebir okundu: 9903 s. Karar (RG 30.05.2025, 32915) m.4-5, m.13-22, geç. m.3-4, EK-1/2/5 · mülga 2018/11201 EK-1 son hâli (RG zinciri 30312→31267→31704) · 7028 s. Karar EK-2 (RG 5.4.2023, 32154) · bir Dizdar Denetim A.Ş. yazılımı</div>
+</div>
+
+<script src="menu.js"></script>
+<script>
+let V=null; // tesvik-bolgeler.json
+const $=id=>document.getElementById(id);
+const TLf=n=>n.toLocaleString('tr-TR');
+
+fetch('veri/tesvik-bolgeler.json').then(r=>r.json()).then(d=>{
+  V=d; ilDoldur(); tazelikYaz(d);
+}).catch(()=>{ $('sonuc').style.display='block'; $('sonuc').innerHTML='<div class="tuzak">Veri dosyası yüklenemedi — sayfayı yenile ya da daha sonra dene.</div>'; });
+
+function ilDoldur(){
+  const tum=[]; for(const b in V.bolgeler) V.bolgeler[b].forEach(il=>tum.push(il));
+  tum.sort((a,b)=>a.localeCompare(b,'tr'));
+  const s=$('il'); tum.forEach(il=>{const o=document.createElement('option');o.value=il;o.textContent=il;s.appendChild(o);});
+  s.addEventListener('change',ilceOner);
+}
+function ilceOner(){
+  const il=$('il').value, dl=$('ilceList'); dl.innerHTML='';
+  if(!il) return;
+  const set=new Set();
+  (V.altBolgeIlceleri[il]||[]).forEach(x=>set.add(x));
+  (V.depremIlceleri[il]||[]).forEach(x=>set.add(x));
+  [...set].sort((a,b)=>a.localeCompare(b,'tr')).forEach(x=>{const o=document.createElement('option');o.value=x;dl.appendChild(o);});
+}
+function tazelikYaz(d){
+  $('tazelik').textContent='Veri damgası: '+(d._kaynak||'').slice(0,120)+'… (son kontrol GM, 13.08.2026)';
+}
+function norm(s){return (s||'').toLocaleLowerCase('tr').replace(/[İI]/g,'i').replace(/\s+/g,' ').trim();}
+
+function bolgeBul(il){ for(const b in V.bolgeler){ if(V.bolgeler[b].includes(il)) return parseInt(b);} return null; }
+
+$('hesapla').addEventListener('click',()=>{
+  if(!V) return;
+  const il=$('il').value; if(!il){ alert('Önce il seç.'); return; }
+  const ilce=$('ilce').value.trim();
+  const osb=$('osb').value==='evet';
+  const sektor=$('sektor').value;
+  const imalatMi=sektor.startsWith('imalat');
+  const tutar=parseInt(($('tutar').value||'0').replace(/[^\d]/g,''))||0;
+  const ist=parseInt(($('istihdam').value||'0').replace(/[^\d]/g,''))||0;
+
+  const baz=bolgeBul(il);
+  const ek5Listesi=V.altBolgeIlceleri[il]||[];
+  const ek5=ilce && ek5Listesi.some(x=>norm(x)===norm(ilce));
+  const depremListesi=V.depremIlceleri[il]||[];
+  const deprem=ilce && depremListesi.some(x=>norm(x)===norm(ilce));
+  const cazibeIl=V.cazibeIlleri.iller.includes(il);
+  const sivasDemirag = il==='Sivas'; // Sivas'ta geç. m.4 yalnız Demirağ OSB — metinle uyarılır
+
+  // m.22: OSB veya EK-5 → bir alt bölge; ikisi → iki alt bölge (SGK işveren desteği açısından)
+  const altSayisi=(osb?1:0)+(ek5?1:0);
+  let sgkBolge=Math.min(6, baz+altSayisi);
+  let sgkArti2 = (baz===6 && altSayisi>0); // m.22/2: 6. bölgede süreye +2 yıl
+
+  // Geçici m.3 (deprem) ve m.4 (Cazibe OSB): 31.12.2026'ya kadar imalat müracaatları 6. bölge
+  const bugunOnce2027 = new Date() <= new Date('2026-12-31T23:59:59');
+  const gecM3 = deprem && imalatMi && bugunOnce2027;
+  const gecM4 = cazibeIl && osb && imalatMi && bugunOnce2027 && il!=='Sivas';
+  const gecM4Sivas = sivasDemirag && osb && imalatMi && bugunOnce2027;
+  let efektifBolge = baz;
+  if(gecM3 || gecM4 || gecM4Sivas) efektifBolge = 6;
+
+  // asgari tutar (m.5, 2025 bazı) — geç. m.3'te aranmaz
+  const a=V.asgariYatirim2025;
+  const asgari=(baz<=2)?a.bolge12:a.diger;
+  const tutarYeterli = gecM3 ? true : (tutar>=asgari);
+
+  // SGK süresi: geçici maddelerle 6. bölgeye çıkıyorsa 6. bölge süresi + (OSB/EK-5 varsa +2 m.22/2)
+  const S=V.sgkIsverenSure;
+  let sgkSure;
+  if(efektifBolge===6){ sgkSure=S["6"]; if(altSayisi>0) sgkSure+=2; }
+  else { sgkSure=S[String(sgkBolge)]; if(sgkArti2) sgkSure+=2; }
+
+  const yko=V.vergiIndirimi.yko;
+  let sistem, ykoOran;
+  if(sektor==='imalat-yuksek'||sektor==='imalat-ortayuksek'){ sistem='Teknoloji Hamlesi adayı (öncelikli ürün listesi kontrol edilir) — değilse Öncelikli/Hedef'; ykoOran=yko.tykh+'% (TYKH ise) / %'+yko.oncelikli+' (Öncelikli ise)'; }
+  else if(sektor==='bilisim'){ sistem='Öncelikli Yatırımlar adayı (ihtisas SB\'de yazılım asgari tutar ŞARTSIZ; veri merkezi 3MW+/500kW şartları)'; ykoOran='%'+yko.oncelikli; }
+  else if(sektor==='egitim'){ sistem='Öncelikli Yatırımlar adayı (kreş-okul-eğitim, 100+ kapasiteli bakım merkezi)'; ykoOran='%'+yko.oncelikli; }
+  else if(sektor==='turizm'){ sistem='Öncelikli (turizm koruma bölgesi/termal) ya da Hedef Yatırımlar (otel 50 oda+)'; ykoOran='%'+yko.oncelikli+' / %'+yko.hedef; }
+  else if(sektor==='tarim'){ sistem='Hedef Yatırımlar (EK-3 eşikleri: sera dekar, süt 150-500 baş, kümes 100-200 bin — bölgene göre)'; ykoOran='%'+yko.hedef; }
+  else if(imalatMi){ sistem='Hedef Yatırımlar (EK-3 NACE listesi + varsa 100M/200M+ tutarla Stratejik Hamle)'; ykoOran='%'+yko.hedef; }
+  else { sistem='Hedef Yatırımlar kapsamına EK-3 üzerinden bakılır — hizmet konularının çoğu şartlıdır'; ykoOran='%'+yko.hedef; }
+  if(tutar>=200000000 || (sektor==='imalat-yuksek' && tutar>=100000000)) sistem+=' · tutarın Stratejik Hamle eşiğinde (100M yüksek-tek / 200M diğer) — %40 YKO kapısı';
+
+  let h='';
+  // fırsat kartları
+  if(gecM3) h+='<div class="firsat"><b style="color:var(--green)">🎯 DEPREM İLÇESİ FIRSATI (geçici m.3)</b><br>'+il+' / '+ilce+' — 7028 s. Karar EK-2 listesinde. <b>31.12.2026\'ya kadar</b> yapılacak imalat müracaatları <b>6. BÖLGE destekleriyle</b> değerlendirilir ve <b>asgari yatırım tutarı şartı aranmaz</b>. Bu tarihten sonra hak kaybolur — müracaatı öne çek.</div>';
+  if(gecM4) h+='<div class="firsat"><b style="color:var(--green)">🎯 CAZİBE OSB FIRSATI (geçici m.4)</b><br>'+il+', mülga Cazibe Merkezleri il listesinde ve yatırımın OSB/endüstri bölgesinde: <b>31.12.2026\'ya kadar</b> imalat müracaatları <b>6. BÖLGE destekli</b>.</div>';
+  if(gecM4Sivas) h+='<div class="firsat"><b style="color:var(--green)">🎯 SİVAS DEMİRAĞ OSB FIRSATI (geçici m.4)</b><br>Sivas\'ta bu fırsat <b>yalnız Demirağ OSB\'deki</b> imalat yatırımları için geçerli — yatırım Demirağ OSB\'deyse 31.12.2026\'ya kadar 6. bölge destekli.</div>';
+  if(cazibeIl && imalatMi && !osb && bugunOnce2027 && !gecM3) h+='<div class="firsat" style="border-left-color:var(--amber);border-color:rgba(255,194,75,.35);background:var(--panel)"><b style="color:var(--amber)">💡 Yer seçimiyle 6. bölgeye çıkabilirsin</b><br>'+il+' Cazibe il listesinde: aynı yatırımı <b>OSB/endüstri bölgesinde</b> yaparsan geçici m.4 ile 31.12.2026\'ya kadar 6. bölge desteklerine geçersin.</div>';
+
+  // özet
+  h+='<div class="kutu"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">BÖLGE TESPİTİ</div>';
+  h+='<div class="satir"><b>'+il+' — baz bölge</b><span>'+baz+'. bölge</span></div>';
+  if(ek5) h+='<div class="satir"><b>'+ilce+' — EK-5 alt bölge ilçesi</b><span class="rozet yesil">SGK\'da +1 bölge</span></div>';
+  if(osb) h+='<div class="satir"><b>OSB / endüstri bölgesi</b><span class="rozet yesil">SGK\'da +1 bölge (m.22)</span></div>';
+  h+='<div class="satir"><b>Destek uygulanacak bölge</b><span style="color:var(--ink);font-weight:800">'+(efektifBolge===6&&(gecM3||gecM4||gecM4Sivas)?'6. bölge (geçici madde ile)':(sgkBolge+'. bölge'+(sgkArti2?' (+2 yıl süre)':'')))+'</span></div>';
+  h+='<div class="satir"><b>Asgari yatırım (2025 bazı, tebliğle güncellenir)</b><span>'+(gecM3?'ARANMAZ (geç. m.3)':TLf(asgari)+' TL — senin tutarın '+TLf(tutar)+' TL '+(tutarYeterli?'✓':'✗ EKSİK'))+'</span></div>';
+  h+='<div class="satir"><b>Sistem/program adayı</b><span>'+sistem+'</span></div>';
+  h+='</div>';
+
+  if(!tutarYeterli) h+='<div class="tuzak"><b style="color:var(--red)">⛔ Tutar asgarinin altında:</b> bu tutarla teşvik belgesi düzenlenmez (m.5). Ya tutarı büyüt, ya da deprem ilçesi kapsamına giren bir yer seç (orada asgari tutar aranmıyor). Finansal kiralamada makine başına asgari '+TLf(a.leasing)+' TL kuralı ayrıca geçerli.</div>';
+
+  // unsurlar
+  const sgkIsci = (efektifBolge===6)||((gecM3||gecM4||gecM4Sivas));
+  h+='<details class="kacc" open><summary>📦 Yararlanabileceğin destek unsurları</summary><div class="ic">';
+  h+='<div class="satir"><b>KDV istisnası (m.14)</b><span>Makine-teçhizat + yazılım ve gayri maddi hak alımları</span></div>';
+  h+='<div class="satir"><b>Gümrük vergisi muafiyeti (m.13)</b><span>İthal makine-teçhizat — EK-4 listesindeki 233 kalem (forklift, vinç, tekstil makineleri, mobilya, otobüs-kamyon…) HARİÇ</span></div>';
+  h+='<div class="satir"><b>Vergi indirimi (m.20)</b><span>KV/GV %'+V.vergiIndirimi.indirimliOran+' indirimli; yatırıma katkı oranı '+ykoOran+'</span></div>';
+  h+='<div class="satir"><b>SGK işveren hissesi (m.18)</b><span>'+(sgkSure>0?('<b style="color:var(--ink)">'+sgkSure+' yıl</b>'+(ist?' — planladığın '+ist+' kişilik ilave istihdamın asgari ücrete isabet eden işveren primi':'')+' ('+(efektifBolge===6?'6. bölgede TAMAMI':'%50\'si')+' karşılanır)'):'— bu bölgede SGK işveren desteği yok (OSB\'ye ya da EK-5 ilçesine taşınırsa açılır)')+'</span></div>';
+  h+='<div class="satir"><b>SGK işçi hissesi (m.19)</b><span>'+(sgkIsci?'✓ 10 yıl (6. bölge ayrıcalığı)':'— yalnız 6. bölgede var')+'</span></div>';
+  h+='<div class="satir"><b>Faiz/kâr payı desteği (m.15)</b><span>Repo oranına endeksli puan desteği — program türüne göre (kredi sabit yatırımın %70\'ine kadar)</span></div>';
+  h+='<div class="satir"><b>Makine desteği (m.16 — YENİ)</b><span>Yalnız TYKH programlarında: 2M TL+ makinelerde bedelin %25\'i geri ödenir; <b>faiz desteğiyle aynı anda alınamaz</b></span></div>';
+  h+='<div class="satir"><b>Yatırım yeri tahsisi (m.21)</b><span>Vergi indirimli belgelerde mümkün; elektrik üretimine yok</span></div>';
+  h+='</div></details>';
+
+  // tuzaklar
+  h+='<div class="tuzak"><b style="color:var(--red)">⚠ TEK KAPI KURALI (m.33) — en çok yakan tuzak:</b> Bu Karar\'dan desteklenen harcama, KOSGEB/TKDK/ajans gibi <b>başka kamu desteğinden yararlanamaz</b> (geri alım + faiz). İstisnalar: Teknoloji Hamlesi yatırımları KOSGEB ve TÜBİTAK\'tan da desteklenebilir; sübvansiyonlu krediye bu Karar\'dan faiz/makine desteği almadıysan diğer unsurlar kullanılabilir. Aynı makineye iki kapıdan destek isteme.</div>';
+
+  h+='<details class="kacc"><summary>🗺 Yol haritası: başvurudan vizeye</summary><div class="ic">';
+  h+='1) <b>E-TUYS</b> üzerinden elektronik müracaat (son genel tarih 31.12.2030; geçici m.3/4 fırsatları 31.12.2026).<br>2) Belge düzenlenince harcamalara başla — belge ÖNCESİ harcama desteklenmez (firma tescilinden 1 yıl önceye kadar istisnası m.20/4).<br>3) Yatırım süresi bitince <b>3 ay içinde</b> tamamlama vizesi müracaatı (m.29) — kaçırma.<br>4) Kullanılmış makine ithali ancak Bakanlık ekspertiziyle (m.23); serbest bölgeden kullanılmış komple tesis olmaz.</div></details>';
+
+  h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">Kontrol damgası: bu sonuçtaki her kural 9903 s. Karar metninden ve RG asıllarından birebir okunarak kodlandı (13.08.2026); rakamlar dönemseldir, başvuru öncesi güncel tebliği kontrol et.</div>';
+
+  $('sonuc').innerHTML=h; $('sonuc').style.display='block';
+  $('sonuc').scrollIntoView({behavior:'smooth'});
+});
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.kacc').forEach(d=>d.open=true);});
+</script>
+</body>
+</html>

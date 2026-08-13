@@ -71,6 +71,16 @@
 
 **YENİ KOL ADAYI:** "İstihdam Teşvik Kontrolü" — sektör (imalat/turizm) + il + çalışan profili → hangi canlı teşvik (2 puan otomatik mi, geç. m.35/36 kapsamı, bölgesel 6 puan var mı) + "5 puan bitti" uyarısı.
 
+**KASA TARAMASI (13.08, `motor/tesvik-7566-tarama.ps1` → `veri/tesvik-7566-tarama.json`, 30.569 soru, 11 tekil bulgu HEPSİ elle okundu, TOPTAN DÜZELTME YAPILMADI):**
+- **KESİN BOZUK 4 soru (hepsi yayın dışı, 7566 öncesi %20 / %9-%11 oranını DOĞRU şık yapıyor):**
+  - `029b72db` (SGS İş-SGK) — doğru şık "%20; işveren %11" ESKİ; üstelik A/E şık açıklamaları "7566 ile %21 oldu" diyor → soru KENDİ İÇİNDE ÇELİŞİK.
+  - `65a43d42` (SGS İş-SGK) — doğru şık "%20; %9 sigortalı, %11 işveren" ESKİ; açıklamaların TAMAMI "%21, %9/%12" anlatıyor → şık-açıklama çelişkisi.
+  - `d48aba26` (SGS İş-SGK) — soru gövdesi "%20 toplam, %11 işveren" veriyor, hesap (20.000×%11=2.200 TL) eski orana dayalı; düzeltme şık değerlerini de değiştirir.
+  - `fd085f37` (SGS İş-SGK) — doğru şık "işçi %9, işveren %11" ESKİ (güncel %9/%12; toplam %21).
+- **GÜNCEL-UYUMLU 5 soru (7566'yı bilerek yazılmış, eski oran yalnız "değişiklik öncesi" tuzak şıkta — DOKUNMA):** `0eb656cc` (%23,25=%21+%2,25), `39ad6039` (%9/%12), `941dacf3` (%21; %9/%12), `a92412b4` (%21,75+%14=%35,75; not: E şık açıklamasındaki %37,8 rakamı şüpheli, 37,75 beklenir — 7566 dışı nitelik notu), `917d9014` (Mart 2026, güncel oranlarla; işçi %14=9+5 işsizlik hariç doğru kurgu).
+- **DÜŞÜK/İLGİSİZ 2 soru:** `1cb173c1` (vergi takozu TEORİ; senaryo rakamı 6.750/30.000=%22,5 örtük eski toplam işveren oranına denk geliyor, soru orana atıf yapmıyor — istenirse rakam tazelenir), `ff9cfd5c` (m.41 borçlanma %32 — ambar m.41 metninden teyit: %32/%45 SABİT yazılı, 7566 değişikliği YOK, soru güncel; yalnız D şık açıklamasında "%20 MYÖ" anması eski oran izi).
+- **SIFIRLAR GERÇEK (ham bağlamsız sayımla doğrulandı):** "beş/5 puan"+SGK **0** (ham 5 iz analiz sorularındaki "12,5/7,5/3,5 puan fark" kalıbı çıktı) · genç girişimci Bağ-Kur **0** · 4447 geç. m.10/19, 6111, 17103/27103, "ilave istihdam" **0** (ham 7103 izi VUK 278/A'nın ekleyen kanunu, 4447 izleri bildirge/parafiskal soruları — teşvik anlatımı yok).
+
 ## 3) KOSGEB DİFF ✅ OKUNDU (13.08 — kosgeb.gov.tr resmî destekler sayfası birebir çekildi)
 
 Resmî listede **14 program**, katalogda 11 vardı. Fark:
@@ -104,4 +114,10 @@ Sitedeki durum: asgari-kv.html'de tek satır değinme; kurulus.html'de 4691 tekn
 ## SONUÇ ÖZETİ (13.08 itibarıyla 8 bölümün 8'i tamam)
 - destekler.html: 22 → **29 program, 3 → 8 kurum grubu** (TÜBİTAK, KGF, İŞKUR, KALKINMA AJANSI, TKDK yeni; hepsi YOLLAR adımlı, doğrulama localhost'ta hatasız).
 - En kritik iki mevzuat bulgusu: **9903 yeni teşvik rejimi (eski 2012/3305 KALKTI)** ve **SGK 5 puan → 2 puan (7566)**.
-- Cem kararı bekleyen yeni kollar: (1) **Yatırım Teşvik Sihirbazı** (il→bölge verisi `tesvik-bolgeler.json` hazır; EK-5 ilçe + EK-3 tam NACE dökümü onayla birlikte), (2) **İstihdam Teşvik Kontrolü**, (3) bilgi.html Ar-Ge üç-kapı hap kartı (5746+4691 yutma ön koşullu).
+- Cem kararı bekleyen yeni kollar: ~~(1) Yatırım Teşvik Sihirbazı~~ → **ONAYLANDI ve KURULDU (13.08)**, (2) **İstihdam Teşvik Kontrolü**, (3) bilgi.html Ar-Ge üç-kapı hap kartı (5746+4691 yutma ön koşullu).
+
+## SİHİRBAZ KURULDU (13.08, Cem onayı "1 açalım")
+- **tesvik-sihirbazi.html** canlı: il+ilçe+OSB+sektör+tutar+istihdam → bölge tespiti, geç. m.3/4 fırsat kartları, asgari tutar kapısı, 8 unsur, m.33 tuzak kutusu, E-TUYS yol haritası. Vitrin: index kg? Vergi-Rehberler grubu + menu.js GRUPLAR.
+- Veri tamamlandı (`tesvik-bolgeler.json`): **EK-5 tam döküm 55 il / 289 ilçe** (9903 s.43-50 gözle); **m.22 kuralı birebir** (OSB VEYA EK-5 → 1 alt bölge; İKİSİ → 2 alt bölge; 6. bölgede +2 yıl — s.14 yeniden okundu); **Cazibe EK-1 son hâli 25 kalem** (RG zinciri asıllarından: 30312 orijinal 23 → 3063 ile 24 (+Kilis) → 4976 ile +Sivas yalnız Demirağ OSB; 384 ve 3204 EK-1'e dokunmadı); **deprem EK-2 = 7028 s. Karar (RG 5.4.2023/32154) 9 il 65 ilçe birebir**.
+- Doğrulama (localhost, 4 senaryo): Gaziantep/Nurdağı imalat 5M → deprem fırsatı + asgari aranmaz + 6. bölge 12 yıl ✓ · Ankara/Haymana OSB 15M → çift alt bölge 1→3, 2 yıl ✓ · Van OSB → Cazibe fırsatı + 12+2=14 yıl ✓ · İzmir 5M → asgari EKSİK uyarısı + "bu bölgede SGK desteği yok" ✓. Konsol hatasız, 81 il yüklü.
+- Bilinçli sınırlar: SGK desteğinin TL hesabı YAPILMIYOR (asgari ücrete endeksli — yalnız süre/kapsam); 7028 geç. m.1'deki hasar-oranlı istihdam kabulleri ve 30M faiz tavanı araca konmadı (uzman işi, sayfada "ön değerlendirme" uyarısı var); EK-3 NACE-bazlı şart sorgusu Faz 2.
