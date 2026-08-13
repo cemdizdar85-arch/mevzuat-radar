@@ -59,6 +59,35 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
   <p class="lead">Ar-Ge yapan işletmenin önünde üç kapı var: <b style="color:var(--ink)">Ar-Ge/Tasarım Merkezi (5746)</b>, <b style="color:var(--ink)">Teknokent (4691)</b>, <b style="color:var(--ink)">TÜBİTAK projesi</b>. Kanun gereği <b style="color:var(--ink)">aynı anda hepsinden yararlanamazsın</b> (5746 m.4/5) — ekibini ve rakamlarını gir, hangi kapının sana yılda kaç TL bıraktığını yan yana gör.</p>
   <div class="sayac">⏳ İki rejimin de kanuni süresi <b id="gun">—</b> gün sonra doluyor (31.12.2028 — 5746 m.6 ve 4691 geç. m.2; uzatma çıkmazsa)</div>
 
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px" class="g3s">
+    <div class="kutu" style="margin:0;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">KAPI 1 · AR-GE/TASARIM MERKEZİ</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> sermaye şirketi + şirket içinde ayrı birim + yeterli tam zamanlı Ar-Ge personeli (kanunda 50; tasarım merkezinde 10 — Cumhurbaşkanı eşiği indirmeye yetkili, güncelini Bakanlıktan teyit et). Belgeyi Sanayi ve Teknoloji Bakanlığı verir.</div>
+      <div style="font-size:12.5px;color:var(--green);margin-top:6px"><b>Getirisi:</b> harcamanın %100'ü vergi matrahından düşer + personel vergisinin %80-95'i sana kalır + SGK işveren payının yarısı devletten.</div>
+    </div>
+    <div class="kutu" style="margin:0;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">KAPI 2 · TEKNOKENT</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> personel sayısı şartı YOK — Teknoloji Geliştirme Bölgesi'nde ofis kiralayıp yönetici şirkete projeni onaylatman yeter; tek kişilik yazılımcı da girer.</div>
+      <div style="font-size:12.5px;color:var(--green);margin-top:6px"><b>Getirisi:</b> bölgedeki yazılım/Ar-Ge <b>kazancın 31.12.2028'e kadar vergisiz</b> + personel vergisinin %100'ü sana kalır + SGK yarısı.</div>
+    </div>
+    <div class="kutu" style="margin:0;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">KAPI 3 · TÜBİTAK PROJESİ</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> ne merkez ne bölge — onaylı bir TÜBİTAK projesi (1507 ilk projeye, 1707 müşterisi hazır olana). Başvuru PRODİS'ten.</div>
+      <div style="font-size:12.5px;color:var(--green);margin-top:6px"><b>Getirisi:</b> proje harcamasına hibe + o projede çalışanlar için merkezle aynı vergi/SGK teşvikleri (proje süresince).</div>
+    </div>
+  </div>
+  <style>@media(max-width:680px){.g3s{grid-template-columns:1fr !important}}</style>
+
+  <div class="kutu">
+    <div style="font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">⚡ RAKAM YAZMADAN DENE — hazır senaryoya tıkla, sonucu gör:</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <button class="btn2" data-sen="s1">👨‍💻 8 kişilik yazılım ekibi</button>
+      <button class="btn2" data-sen="s2">🏭 18 kişilik mühendislik ekibi</button>
+      <button class="btn2" data-sen="s3">🏢 55 kişilik Ar-Ge merkezi adayı</button>
+    </div>
+    <div style="font-size:11px;color:var(--dim)">Senaryolar temsilî maaş/kâr rakamlarıyla doldurur — kendi rakamlarınla değiştir, sonuç anında güncellenir.</div>
+  </div>
+
   <div class="kutu">
     <label style="margin-top:0">AR-GE / TASARIM / YAZILIM EKİBİN</label>
     <div style="font-size:12px;color:var(--dim);margin-bottom:8px">Profil · kişi sayısı · ortalama aylık BRÜT ücret (TL)</div>
@@ -120,6 +149,19 @@ function pSatirEkle(prof,adet,brut){
 pSatirEkle('dg','',''); pSatirEkle('yl','','');
 $('pEkle').addEventListener('click',()=>pSatirEkle('dg','',''));
 
+// ---- hazır senaryolar (temsilî rakamlar; kullanıcı değiştirebilir) ----
+const SENARYO={
+  s1:{p:[['dg','6','90000'],['yl','2','120000']], kazanc:'8000000', toplam:'12000000', harcama:''},
+  s2:{p:[['dg','12','95000'],['yl','4','130000'],['dr','2','170000']], kazanc:'15000000', toplam:'30000000', harcama:''},
+  s3:{p:[['dg','40','100000'],['yl','10','140000'],['dr','5','180000']], kazanc:'40000000', toplam:'120000000', harcama:''}
+};
+document.querySelectorAll('[data-sen]').forEach(b=>b.addEventListener('click',()=>{
+  const s=SENARYO[b.dataset.sen]; $('pListe').innerHTML='';
+  s.p.forEach(x=>pSatirEkle(x[0],x[1],x[2]));
+  $('harcama').value=s.harcama; $('kazanc').value=s.kazanc; $('toplamKazanc').value=s.toplam;
+  $('hesapla').click();
+}));
+
 // ---- vergi çekirdeği ----
 function gvYillik(matrah){ // kümülatif artan tarife (S.gvDilimler)
   if(matrah<=0) return 0;
@@ -155,7 +197,14 @@ function ekipHesap(teskinMap){
 
 $('hesapla').addEventListener('click',()=>{
   if(!S){ alert('Sabitler yükleniyor — bir saniye sonra tekrar dene.'); return; }
-  const harcama=sayi($('harcama').value), kazanc=sayi($('kazanc').value);
+  // yıllık personel brütü (akıllı varsayılanların tabanı)
+  let yillikBrut=0, kisiSay=0;
+  document.querySelectorAll('.psatir').forEach(s=>{ const a=sayi(s.children[1].value), b=sayi(s.children[2].value); if(a>0&&b>0){ yillikBrut+=a*b*12; kisiSay+=a; } });
+  if(kisiSay===0){ alert('Önce ekibini gir ya da üstteki hazır senaryolardan birine tıkla.'); return; }
+  let harcama=sayi($('harcama').value), kazanc=sayi($('kazanc').value);
+  let varsayimNotu=[];
+  if(harcama<=0){ harcama=yillikBrut; varsayimNotu.push('Harcamayı yazmadın — yıllık personel brütün ('+TLf(yillikBrut)+' TL) kadar varsaydık (Ar-Ge harcamasının ana kalemi personeldir); kendi rakamını yazarsan güncellenir.'); }
+  if(kazanc<0) kazanc=0;
   const toplamKazanc=Math.max(sayi($('toplamKazanc').value), kazanc); // toplam, Ar-Ge kazancından küçük olamaz
   const kv=S.kvOran/100;
 
@@ -175,19 +224,25 @@ $('hesapla').addEventListener('click',()=>{
   const p=ekipHesap({dr:0.95,yl:0.90,dg:0.80});
   const pToplam=p.terkin+p.sgk;
 
-  const kApi=[['AR-GE MERKEZİ (5746)',mToplam],['TEKNOKENT (4691)',tToplam],['TÜBİTAK PROJESİ',pToplam]];
-  const enIyi=kApi.reduce((a,b)=>b[1]>a[1]?b:a);
+  // merkez personel eşiği: kanunda 50 TZE (tasarım 10; CB indirmeye yetkili) —
+  // eşiğin altındaki ekip için "önde" rozeti GİRİLEBİLİR kapılar arasından verilir
+  const merkezEsikAlti = kisiSay < 50;
+  const kApi=[['AR-GE MERKEZİ (5746)',mToplam,!merkezEsikAlti],['TEKNOKENT (4691)',tToplam,true],['TÜBİTAK PROJESİ',pToplam,true]];
+  const girilebilir=kApi.filter(k=>k[2]);
+  const enIyi=girilebilir.reduce((a,b)=>b[1]>a[1]?b:a);
 
   let h='<div class="hero3">';
   const kartlar=[
-    {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı'},
-    {ad:'TEKNOKENT (4691)',t:tToplam,alt:'stopaj %100 terkin + SGK yarısı + kazanç istisnası'},
-    {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri — üstüne proje hibesi AYRICA eklenir'}
+    {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı',uyari:merkezEsikAlti?('ekibin '+kisiSay+' kişi — kanuni eşik 50 tam zamanlı Ar-Ge personeli (tasarım merkezinde 10; Cumhurbaşkanı indirmeye yetkili). Eşik şartını Bakanlıktan teyit etmeden bu kapıya güvenme.'):null},
+    {ad:'TEKNOKENT (4691)',t:tToplam,alt:'stopaj %100 terkin + SGK yarısı + kazanç istisnası',uyari:null},
+    {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri — üstüne proje hibesi AYRICA eklenir',uyari:null}
   ];
   for(const k of kartlar){ const kz=k.ad===enIyi[0];
-    h+=`<div class="hkart ${kz?'kazanan':''}">${kz?'<span class="rozet">SENİN DURUMUNDA ÖNDE</span><br>':''}<span class="ad">${k.ad}</span><div class="tut">${TLf(k.t)} TL/yıl</div><div class="alt">${k.alt}</div></div>`;
+    const aylikKisi=k.t/(kisiSay*12);
+    h+=`<div class="hkart ${kz?'kazanan':''}">${kz?'<span class="rozet">SENİN DURUMUNDA ÖNDE</span><br>':''}<span class="ad">${k.ad}</span><div class="tut">${TLf(k.t)} TL/yıl</div><div class="alt">≈ çalışan başına ayda <b style="color:var(--ink)">${TLf(aylikKisi)} TL</b> devlet katkısı<br>${k.alt}</div>${k.uyari?'<div style="margin-top:7px;font-size:11px;color:var(--red);border-top:1px solid var(--line);padding-top:6px">⚠ '+k.uyari+'</div>':''}</div>`;
   }
   h+='</div>';
+  if(varsayimNotu.length) h+='<div style="font-size:12px;color:var(--dim);margin:0 0 10px;background:rgba(255,194,75,.05);border:1px solid rgba(255,194,75,.18);border-radius:9px;padding:8px 12px">ℹ '+varsayimNotu.join(' ')+'</div>';
 
   h+='<details class="kacc" open><summary>🧮 Kalem kalem döküm ('+m.kisi+' kişilik ekip)</summary><div class="ic">';
   h+='<div class="satir"><b>Merkez — personel GV stopaj terkini (%95/90/80, m.3/2)</b><span>'+TLf(m.terkin)+' TL</span></div>';
