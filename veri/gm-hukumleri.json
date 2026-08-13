@@ -1994,6 +1994,66 @@
                          "hukum":  "GECER",
                          "kusur":  "",
                          "not":  "Donemsellik 380/480/181 ayrisimi: 45.000 gelir + 180.000 (380) + 135.000 (480) = 360.000 tutuyor. D yanlisligi net (181 tahsil edilmemis islemis gelir icindir; burada pesin tahsilat var). E, 480-\u003e380 aktarim kuralini ogretiyor."
+                     },
+                     {
+                         "id":  "617cbee6-788a-413c-b112-83605d1eaf02",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "A",
+                         "kasaCevabi":  "A",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "620/152: yalniz mamul 287.600; aksesuar (621) ve donem sonu stok bilincli parazit veri. C (karistirma) ve E (stok dusme) gercek hata yollari."
+                     },
+                     {
+                         "id":  "61dce0e5-9eb5-48c5-97ed-51a33f0d42b3",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "D",
+                         "kasaCevabi":  "D",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "Kesin degersizlesme: 129 borc / 128 alacak (karsilik tam ayrilmisti). E (644e cozme) tahsil EDILSEYDI dogru olurdu - ayrimi ogreten celdirici. Sureç anlatimi (icra-\u003ekarsilik-\u003eiflas) gercekci."
+                     },
+                     {
+                         "id":  "6276340f-e274-42e1-a39b-7f5c00c79af7",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "D",
+                         "kasaCevabi":  "D",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "654/158: 68.300-51.750=16.550. E (29.450=hurdayi katma) parazit-veri tuzagi; B yon tuzagi. Cok-ciktili (hesap+hesap+tutar) format sinav tarzina uygun."
+                     },
+                     {
+                         "id":  "634b3b39-e3b3-4240-afc7-fa736ca5b0df",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "D",
+                         "kasaCevabi":  "D",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "",
+                         "not":  "INCELIKLI: 224 (-) alacak kalani verir; soru bilerek BORC kalanini soruyor -\u003e 0. A (75.500=562.800-487.300) hesabi dogru yapip hesap yonunu dusunmeyeni avliyor. 48x11.725=562.800 tutuyor."
+                     },
+                     {
+                         "id":  "64545517-5373-4b60-9bab-dfa53712defd",
+                         "ders":  "Finansal Muhasebe",
+                         "tarih":  "13.08.2026",
+                         "yontem":  "kor",
+                         "gmCevabi":  "C",
+                         "kasaCevabi":  "C",
+                         "uyusma":  true,
+                         "hukum":  "GECER",
+                         "kusur":  "hafif: B sikki (165.100) ciplak sayi, digerleri TL ekli - bicim tutarsizligi",
+                         "not":  "632 suzme: 94.600+58.400+7.250+13.500+4.850=178.600. A (173.750) amortisman-atlama, E (218.200) pazarlama-katma tuzaklari hesapli. Veri 9 kalem - sinav yogunlugunda."
                      }
                  ]
 }
