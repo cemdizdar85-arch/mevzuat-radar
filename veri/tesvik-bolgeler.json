@@ -1,0 +1,14 @@
+{
+  "_kaynak": "9903 s. Yatırımlarda Devlet Yardımları Kararı EK-2 (RG 30.05.2025, 32915) — GM 13.08.2026 sayfadan gözle birebir okudu. Geçici m.3: 6.2.2023 depreminden etkilenen (2018/11201 ek-2) ilçelerde 31.12.2026'ya kadar 6. bölge destekleri + imalatta (NACE 10-32, 38.2) asgari tutar şartı aranmaz. Geçici m.4: Cazibe Merkezleri (2018/11201 ek-1) illerindeki OSB/endüstri bölgeleri + Sivas Demirağ OSB 31.12.2026'ya kadar 6. bölge. m.22: OSB/endüstri bölgesindeki yatırım bir ALT bölge SGK desteği alır (6. bölgede süre +2 yıl).",
+  "bolgeler": {
+    "1": ["Ankara","Antalya","Bursa","Eskişehir","İstanbul","İzmir","Kocaeli","Muğla"],
+    "2": ["Aydın","Balıkesir","Bolu","Çanakkale","Denizli","Edirne","Kayseri","Konya","Manisa","Mersin","Sakarya","Tekirdağ","Yalova"],
+    "3": ["Adana","Bilecik","Burdur","Düzce","Gaziantep","Isparta","Karabük","Karaman","Kırıkkale","Kırklareli","Kütahya","Nevşehir","Rize","Samsun","Trabzon","Uşak","Zonguldak"],
+    "4": ["Afyonkarahisar","Aksaray","Amasya","Artvin","Çorum","Elazığ","Erzincan","Kastamonu","Kırşehir","Malatya","Sivas"],
+    "5": ["Bartın","Bayburt","Çankırı","Erzurum","Giresun","Hatay","Kahramanmaraş","Kilis","Niğde","Ordu","Osmaniye","Sinop","Tokat","Tunceli","Yozgat"],
+    "6": ["Adıyaman","Ağrı","Ardahan","Batman","Bingöl","Bitlis","Diyarbakır","Gümüşhane","Hakkâri","Iğdır","Kars","Mardin","Muş","Siirt","Şanlıurfa","Şırnak","Van"]
+  },
+  "sgkIsverenSure": { "1": 0, "2": 1, "3": 2, "4": 4, "5": 8, "6": 12, "tykh": 8, "tykh6": 12, "notu": "m.18/2 tablosu; TYKH programlarında her bölgede 8 yıl, 6. bölgede 12 (m.18/3); OSB'de bir alt bölge süresi, 6. bölgede +2 yıl (m.22)" },
+  "vergiIndirimi": { "indirimliOran": 60, "yko": { "tykh": 50, "stratejik": 40, "oncelikli": 30, "hedef": 20 }, "notu": "m.20: KV/GV %60 indirimli; diğer kazançlara YKO'nun %50'sine kadar" },
+  "asgariYatirim2025": { "bolge12": 12000000, "diger": 6000000, "leasing": 3000000, "notu": "m.5/2-3 (2025 bazı; m.5/10 uyarınca her yıl YD ile tebliğle güncellenir — YILLIK TAZELEME NÖBETİ)" }
+}
