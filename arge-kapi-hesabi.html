@@ -62,7 +62,7 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px" class="g3s">
     <div class="kutu" style="margin:0;padding:14px 16px">
       <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">KAPI 1 · AR-GE/TASARIM MERKEZİ</div>
-      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> sermaye şirketi + şirket içinde ayrı birim + yeterli tam zamanlı Ar-Ge personeli (kanunda 50; tasarım merkezinde 10 — Cumhurbaşkanı eşiği indirmeye yetkili, güncelini Bakanlıktan teyit et). Belgeyi Sanayi ve Teknoloji Bakanlığı verir.</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:6px"><b style="color:var(--ink)">Şartı:</b> sermaye şirketi + şirket içinde ayrı birim + en az <b style="color:var(--ink)">15 tam zaman eşdeğer Ar-Ge personeli</b> (2016/9093 s. Karar, RG 11.08.2016; motorlu kara taşıtı imalatı ile hava-uzay/askerî araç/motosiklet imalatında 30; tasarım merkezinde 10). Belgeyi Sanayi ve Teknoloji Bakanlığı verir.</div>
       <div style="font-size:12.5px;color:var(--green);margin-top:6px"><b>Getirisi:</b> harcamanın %100'ü vergi matrahından düşer + personel vergisinin %80-95'i sana kalır + SGK işveren payının yarısı devletten.</div>
     </div>
     <div class="kutu" style="margin:0;padding:14px 16px">
@@ -224,16 +224,16 @@ $('hesapla').addEventListener('click',()=>{
   const p=ekipHesap({dr:0.95,yl:0.90,dg:0.80});
   const pToplam=p.terkin+p.sgk;
 
-  // merkez personel eşiği: kanunda 50 TZE (tasarım 10; CB indirmeye yetkili) —
-  // eşiğin altındaki ekip için "önde" rozeti GİRİLEBİLİR kapılar arasından verilir
-  const merkezEsikAlti = kisiSay < 50;
+  // merkez personel eşiği: 15 TZE (2016/9093 s. Karar; taşıt/havacılık-savunma imalatında 30,
+  // tasarım merkezinde 10) — eşiğin altındaki ekip için "önde" rozeti GİRİLEBİLİR kapılardan verilir
+  const merkezEsikAlti = kisiSay < 15;
   const kApi=[['AR-GE MERKEZİ (5746)',mToplam,!merkezEsikAlti],['TEKNOKENT (4691)',tToplam,true],['TÜBİTAK PROJESİ',pToplam,true]];
   const girilebilir=kApi.filter(k=>k[2]);
   const enIyi=girilebilir.reduce((a,b)=>b[1]>a[1]?b:a);
 
   let h='<div class="hero3">';
   const kartlar=[
-    {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı',uyari:merkezEsikAlti?('ekibin '+kisiSay+' kişi — kanuni eşik 50 tam zamanlı Ar-Ge personeli (tasarım merkezinde 10; Cumhurbaşkanı indirmeye yetkili). Eşik şartını Bakanlıktan teyit etmeden bu kapıya güvenme.'):null},
+    {ad:'AR-GE MERKEZİ (5746)',t:mToplam,alt:'stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı',uyari:merkezEsikAlti?('ekibin '+kisiSay+' kişi — eşik en az 15 tam zaman eşdeğer Ar-Ge personeli (2016/9093 s. Karar; taşıt/havacılık-savunma imalatında 30, tasarım merkezinde 10). Eşiğe ulaşmadan bu kapı açılmaz.'):(kisiSay<30?'Not: sektörün motorlu taşıt ya da hava-uzay/askerî araç imalatıysa eşik 30 kişidir (2016/9093).':null)},
     {ad:'TEKNOKENT (4691)',t:tToplam,alt:'stopaj %100 terkin + SGK yarısı + kazanç istisnası',uyari:null},
     {ad:'TÜBİTAK PROJESİ',t:pToplam,alt:'proje personeli teşvikleri — üstüne proje hibesi AYRICA eklenir',uyari:null}
   ];
@@ -256,7 +256,7 @@ $('hesapla').addEventListener('click',()=>{
   // yorum
   let yorum='';
   if(enIyi[0].startsWith('TEKNOKENT')) yorum='Ar-Ge kazancın belirleyici: bölge kazanç istisnası + %100 stopaj terkini öne geçiyor. Bölgede yer bulmak ve yönetici şirket onayı ilk adımın.';
-  else if(enIyi[0].startsWith('AR-GE')) yorum='Toplam kurum kazancın yüksek olduğu için %100 harcama indirimi merkezde daha çok nakit bırakıyor (indirim Ar-Ge dışı kazancından da düşer — teknokent istisnası bunu yapamaz). Personel eşiğini (kanunda 50 TZE; CB indirmeye yetkili — güncel eşiği Bakanlıktan teyit et) sağlaman kritik.';
+  else if(enIyi[0].startsWith('AR-GE')) yorum='Toplam kurum kazancın yüksek olduğu için %100 harcama indirimi merkezde daha çok nakit bırakıyor (indirim Ar-Ge dışı kazancından da düşer — teknokent istisnası bunu yapamaz). Ekibin 15 TZE eşiğinin üstünde (2016/9093) — başvuru yolun açık.';
   else yorum='Ekip küçükken en hızlı kapı TÜBİTAK: merkez/bölge şartı yok, proje onayıyla personel teşvikleri açılır; üstüne çağrı hibesi eklenir.';
   h+='<div class="kutu" style="border-left:5px solid var(--accent)"><b style="color:var(--ink)">Pusula okuma:</b> <span style="color:var(--muted);font-size:13.5px">'+yorum+'</span></div>';
 
