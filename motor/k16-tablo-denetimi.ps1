@@ -95,10 +95,10 @@ foreach($s in $kayitlar){
 $rapor = [ordered]@{
   tarih=(Get-Date).ToString('dd.MM.yyyy HH:mm'); kapsam=$(if($tumKasa){'tum-kasa'}else{'yayin-adaylari'}); soru=$kayitlar.Count
   tablo_olan=$tabloVar; yevmiye_olan=$yevmiyeVar
-  V1_gorsel_eksik=[ordered]@{ adet=$v1eksik.Count; not='3+ rakam iceren hesapli soruda tablo/yevmiye YOK - Cem sozu: hesapli soru tabloyla anlatilir'; ornek=@($v1eksik | Select-Object -First 25) }
-  V2_yapi_bozuk=[ordered]@{ adet=$v2bozuk.Count; ornek=@($v2bozuk | Select-Object -First 25) }
-  V3_dengesiz_yevmiye=[ordered]@{ adet=$v3dengesiz.Count; ornek=@($v3dengesiz | Select-Object -First 25) }
-  V4_tabloda_uydurma_rakam=[ordered]@{ adet=$v4uydurma.Count; not='tablodaki 4+ haneli sayi soru/aciklama metninde hic gecmiyor'; ornek=@($v4uydurma | Select-Object -First 25) }
+  V1_gorsel_eksik=[ordered]@{ adet=$v1eksik.Count; not='3+ rakam iceren hesapli soruda tablo/yevmiye YOK - Cem sozu: hesapli soru tabloyla anlatilir'; ornek=@($v1eksik | Select-Object -First 25); idler=@($v1eksik | ForEach-Object { $_.id }) }
+  V2_yapi_bozuk=[ordered]@{ adet=$v2bozuk.Count; ornek=@($v2bozuk | Select-Object -First 25); idler=@($v2bozuk | ForEach-Object { $_.id }) }
+  V3_dengesiz_yevmiye=[ordered]@{ adet=$v3dengesiz.Count; ornek=@($v3dengesiz | Select-Object -First 25); idler=@($v3dengesiz | ForEach-Object { $_.id }) }
+  V4_tabloda_uydurma_rakam=[ordered]@{ adet=$v4uydurma.Count; not='tablodaki 4+ haneli sayi soru/aciklama metninde hic gecmiyor'; ornek=@($v4uydurma | Select-Object -First 25); idler=@($v4uydurma | ForEach-Object { $_.id }) }
   not='K16 OLCER, karar vermez. Her aday okuyucu hattinda elle dogrulanir.'
 }
 [IO.File]::WriteAllText($ciktiYol, (ConvertTo-Json $rapor -Depth 6), (New-Object Text.UTF8Encoding($false)))

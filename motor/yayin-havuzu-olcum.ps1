@@ -22,17 +22,20 @@ if($k11){ foreach($x in @($k11.riskli + $k11.bulgular + $k11.supheli)){ if($x){ 
 # --- K13 aritmetik
 $k13 = Oku 'aritmetik-kapisi-raporu.json'
 if($k13){ foreach($alan in 'bulgular','dengesiz','kalipli'){ foreach($x in @($k13.$alan)){ if($x){ Ekle $kara "$($x.id)" "K13-aritmetik-$alan" $sebepSayac } } } }
-# --- K16 tablo
+# --- K16 tablo (TAM id listesi; yoksa ornek listesine duser)
 $k16 = Oku 'k16-tablo-denetimi.json'
 if($k16){
-  foreach($x in @($k16.V2_yapi_bozuk.ornek)){ Ekle $kara "$($x.id)" 'K16-tablo-yapi' $sebepSayac }
-  foreach($x in @($k16.V4_tabloda_uydurma_rakam.ornek)){ Ekle $kara "$($x.id)" 'K16-uydurma-rakam' $sebepSayac }
+  foreach($alan in 'V2_yapi_bozuk','V4_tabloda_uydurma_rakam'){
+    $kaynak = if($k16.$alan.idler){ @($k16.$alan.idler) } else { @($k16.$alan.ornek | ForEach-Object { $_.id }) }
+    foreach($id in $kaynak){ Ekle $kara "$id" "K16-$alan" $sebepSayac }
+  }
 }
 # --- K17 yazim kusuru (ipucu veren aileler: F1 mutlak, F2 hepsi, F3 uzunluk, F5 kelime)
 $k17 = Oku 'k17-madde-yazim.json'
 if($k17){
   foreach($alan in 'F1_mutlak_terim','F2_hepsi_hicbiri','F3_uzunluk_ipucu','F5_kelime_tekrari'){
-    foreach($x in @($k17.$alan.ornek)){ Ekle $kara "$($x.id)" "K17-$alan" $sebepSayac }
+    $kaynak = if($k17.$alan.idler){ @($k17.$alan.idler) } else { @($k17.$alan.ornek | ForEach-Object { $_.id }) }
+    foreach($id in $kaynak){ Ekle $kara "$id" "K17-$alan" $sebepSayac }
   }
 }
 # --- GM okuyucu kusurlulari

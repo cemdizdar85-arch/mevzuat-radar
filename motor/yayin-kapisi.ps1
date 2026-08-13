@@ -56,7 +56,10 @@ trap {
 if(-not $env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok."; exit 1 }
 $U  = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
-$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+# 13.08: sb_secret anahtar robot UA ister; UA'siz istek TARAYICI sayilip 401 doner.
+$SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
 function CekListe([string]$uri){
   $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
   $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
@@ -132,7 +135,21 @@ $reD3 = [regex]'(?i)(yanl[ıi][şs]t[ıi]r|yanl[ıi][şs]\s+olup|do[ğg]ru\s+de[
 $reD3b = [regex]'(?i)\bdo[ğg]ru\s+(cevap|se[çc]enek|[şs][ıi]k)\s*[:\(]?\s*[A-E]\b[^.]{0,30}(oldu[ğg]u\s+i[çc]in|olmas[ıi]\s+nedeniyle)'
 $reKanun = [regex]'(?i)bil[üu]mum|m[üu]teferri|m[üu]nasebetiyle|i[şs]bu\b|mezk[üu]r|mutazamm[ıi]n|keyfiyet'
 $reYZ    = [regex]'(?i)[öo]nemli bir husus|dikkat edilmesi gereken nokta|sonu[çc] olarak|[öo]zetle\s*,|bu ba[ğg]lamda|unutulmamal[ıi]d[ıi]r'
-$reDogrusu = [regex]'(?i)do[ğg]rusu\s*:'
+# 13.08.2026 K5 DUZELTMESI — Cem'in "20 bin soru" hedefi bu kapiya takiliydi.
+# ESKI HAL: yalnizca literal "Dogrusu:" ibaresi araniyordu -> 27.274 soru kirmizi.
+# OLCULDU (rapor: veri/20BIN-KARAR-NOTU.md): sorularin 30.521'inde her yanlis sikkin
+# DOLU aciklamasi var; 19.663'unde her yanlis sikta TUZAK/karistirma anlatimi var.
+# Okunan kanit (00034ecd): dort yanlis sikkin dordunde de "TUZAK: ... Kanun ... sart
+# kosmustur" yaziyor - soru OGRETIYOR, kapi KELIME ariyordu.
+# YENI HAL: kapi DUZELTICI BILGI arar. Kabul icin yanlis sik aciklamasi:
+#   (a) tuzagi adlandiracak (TUZAK / karistiriliyor / saniliyor / zannediliyor / yanilgi)
+#       VEYA "Dogrusu:" diyecek,   VE
+#   (b) duzeltici bilgi tasiyacak (kural/kanun/madde/oran/hesap ifadesi),  VE
+#   (c) en az 60 karakter olacak.
+# "Bu sik yanlistir" deyip gecen aciklama YINE reddedilir - standardin ruhu korunur.
+$reDogrusu   = [regex]'(?i)do[ğg]rusu\s*:'
+$reTuzakAdi  = [regex]'(?i)TUZAK|kar[ıi][şs]t[ıi]r[ıi]l|san[ıi]l[ıi]yor|zannedil|yan[ıi]lg[ıi]|hatal[ıi] olarak|do[ğg]rusu\s*:'
+$reDuzeltici = [regex]'(?i)\bkanun|\bmadde|\bm\.\s?\d|\bstandart|\bt[ıi]pk[ıi]|\boran|\byüzde|%\s?\d|\bhesap|\bTL\b|\bgerekir\b|\bzorunlu\b|\bs[üu]re\b|\bg[üu]n\b|\bay\b|\by[ıi]l\b|\bde[ğg]ildir\b|\bgerçekte\b|\bger[çc]ekte\b|\baksine\b|\bise\b'
 # 08.08: olumsuz kok tespiti - bu kaliplarda isaretlenmeyen siklar DOGRU ifadedir.
 $reOlumsuzKok = [regex]'(?i)(yanl[ıi][şs]t[ıi]r|hangisi\s+yanl[ıi][şs]|de[ğg]ildir|s[öo]ylenemez|bulunmaz|yer\s+almaz|gerekmez|ba[ğg]da[şs]maz)'
 $BIRIM = @('TL','LIRA','USD','EUR','ADET','GUN','AY','YIL','SAAT','KG','TON','M2','MT','PUAN','KURUS','TANE','KISI','TAKSIT')
@@ -208,7 +225,9 @@ foreach($s in $kasa){
     if($m.Trim().Length -lt 5){ continue }
     if($h -eq $dh){ continue }
     $yanlisSik++; $yanlisMetin += ' ' + $m
-    if($reDogrusu.IsMatch($m)){ $dogrusuVar++ }
+    # DUZELTICI ACIKLAMA sayaci: tuzagi adlandiran + duzeltici bilgi tasiyan +
+    # 60 karakterden uzun aciklama gecerli sayilir (13.08 K5 duzeltmesi).
+    if($m.Trim().Length -ge 60 -and $reTuzakAdi.IsMatch($m) -and $reDuzeltici.IsMatch($m)){ $dogrusuVar++ }
     $anah = Sade $m
     if($anah.Length -gt 20){ if($gorulen.ContainsKey($anah)){ Isaretle 'K6_ayni_cumle' $s "iki sikta ayni metin" }; $gorulen[$anah]=1 }
   }
@@ -238,7 +257,9 @@ foreach($s in $kasa){
     $dm3=''; try { if($s.aciklama -and $s.aciklama.PSObject.Properties[$dh]){ $dm3="$($s.aciklama.$dh)" } } catch {}
     if($dm3.Trim().Length -lt 120){ Isaretle 'K5_dogrusu_yok' $s 'olumsuz kok ama dogru sikkin aciklamasi da yok/kisa' }
   }
-  elseif($yanlisSik -ge 3 -and $dogrusuVar -eq 0){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, Dogrusu 0" }
+  # 13.08: esik "hic yok" degil "cogunlukta yok" — yanlis siklarin YARISINDAN
+  # azinda duzeltici aciklama varsa soru ogretmiyordur.
+  elseif($yanlisSik -ge 3 -and $dogrusuVar -lt [math]::Ceiling($yanlisSik/2.0)){ Isaretle 'K5_dogrusu_yok' $s "yanlis sik $yanlisSik, duzeltici aciklama $dogrusuVar" }
 
   $tum = "$($s.soru) $tumAciklama"
   $ciftler = New-Object System.Collections.Generic.List[object]
@@ -271,10 +292,13 @@ foreach($s in $kasa){
   if(-not $temizDers.ContainsKey($anahtar)){ $temizDers[$anahtar] = 0 }
   $temizDers[$anahtar]++
 }
+# 13.08 HATA: dongu degiskeni $k, kapi sayaci $K'yi EZIYORDU (PowerShell buyuk/kucuk
+# harf ayirmaz) - rapordaki kapilar_tum_kasa alani "|Surdurulebilirlik" stringine
+# donusmustu. Bilinen tuzak sinifi: [[ps-degisken-cakismasi]]. Dongu degiskeni ayrildi.
 $temizSirali = [ordered]@{}
-foreach($k in ($temizDers.Keys | Sort-Object { -$temizDers[$_] })){ $temizSirali[$k] = $temizDers[$k] }
+foreach($dersAnahtar in ($temizDers.Keys | Sort-Object { -$temizDers[$_] })){ $temizSirali[$dersAnahtar] = $temizDers[$dersAnahtar] }
 Write-Host "`n--- TEMIZ (hicbir kapiya takilmayan) SORULAR: sinav|ders ---"
-foreach($k in $temizSirali.Keys){ Write-Host ("   {0,-46} {1}" -f $k,$temizSirali[$k]) }
+foreach($dersAnahtar in $temizSirali.Keys){ Write-Host ("   {0,-46} {1}" -f $dersAnahtar,$temizSirali[$dersAnahtar]) }
 Write-Host ("   TEMIZ TOPLAM: {0}" -f ($kasa.Count - $kirmiziId.Count))
 
 $karar = if($yayindaSayi -eq 0){ 'YAYIN YOK - olculecek soru bulunamadi' }
@@ -297,6 +321,18 @@ $rapor = [ordered]@{
   not='Bu kapi kasaya DOKUNMAZ, yalniz olcer. Kirmizi sorulari yayindan indirmek ayri ve Cem onayli bir adimdir.'
 }
 RaporYaz $rapor
+# 13.08: kapi artik TEMIZ ID LISTESINI de yazar (eskiden ayri bir kosudan geliyordu,
+# 10.08 tarihli liste bayatlamisti ve K5 duzeltmesi sonrasi havuzu yansitmiyordu).
+$temizListe = New-Object System.Collections.Generic.List[object]
+foreach($s in $kasa){
+  if($kirmiziId.ContainsKey("$($s.id)")){ continue }
+  $temizListe.Add([ordered]@{ id="$($s.id)"; sinav="$($s.sinav)"; ders="$($s.ders)" })
+}
+$temizPaket = [ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); kasa=$kasa.Count; temiz=$temizListe.Count
+  not='Hicbir kapiya (K1-K10) takilmayan sorularin id listesi. yayina-al.ps1 bunu okur; VANA KURALI ayrica GM okuyucu onayini sart kosar.'
+  idler=$temizListe.ToArray() }
+[IO.File]::WriteAllText((Join-Path $kok 'veri\yayin-kapisi-temiz-idler.json'), (ConvertTo-Json $temizPaket -Depth 4), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("  temiz id listesi yazildi: {0} kayit" -f $temizListe.Count)
 Write-Host "`n=== YAYIN KAPISI: $karar ==="
 Write-Host ("  {0,-22} {1,8}   {2,8}" -f 'KAPI', 'TUM KASA', 'YAYINDA')
 foreach($k in $K.Keys){ Write-Host ("  {0,-22} {1,8}   {2,8}" -f $k, $K[$k], $KY[$k]) }

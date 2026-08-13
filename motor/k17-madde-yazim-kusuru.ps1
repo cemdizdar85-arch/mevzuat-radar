@@ -109,12 +109,14 @@ function Yuzde($a){ if($n){ [math]::Round(100.0*$a/$n,1) } else { 0 } }
 $rapor = [ordered]@{
   tarih=(Get-Date).ToString('dd.MM.yyyy HH:mm'); kapsam=$(if($tumKasa){'tum-kasa'}else{'yayin-adaylari'}); soru=$n
   olcut='NBME Item-Writing Guide (ABD) ipucu-kusuru aileleri, Turkceye uyarlandi'
-  F1_mutlak_terim=[ordered]@{ adet=$f1.Count; yuzde=(Yuzde $f1.Count); ornek=@($f1 | Select-Object -First 20) }
-  F2_hepsi_hicbiri=[ordered]@{ adet=$f2.Count; yuzde=(Yuzde $f2.Count); ornek=@($f2 | Select-Object -First 20) }
-  F3_uzunluk_ipucu=[ordered]@{ adet=$f3.Count; yuzde=(Yuzde $f3.Count); ornek=@($f3 | Select-Object -First 20) }
-  F4_sayi_sirasi=[ordered]@{ adet=$f4.Count; yuzde=(Yuzde $f4.Count); ornek=@($f4 | Select-Object -First 20) }
-  F5_kelime_tekrari=[ordered]@{ adet=$f5.Count; yuzde=(Yuzde $f5.Count); ornek=@($f5 | Select-Object -First 20) }
-  F6_olumsuz_kok_vurgusuz=[ordered]@{ adet=$f6.Count; yuzde=(Yuzde $f6.Count); ornek=@($f6 | Select-Object -First 20) }
+  # 13.08: kara liste kesisimi icin TAM id listeleri de yazilir (ornek listesi
+  # yetmiyordu - yayin havuzu olcumu eksik kara liste ile calisiyordu).
+  F1_mutlak_terim=[ordered]@{ adet=$f1.Count; yuzde=(Yuzde $f1.Count); ornek=@($f1 | Select-Object -First 20); idler=@($f1 | ForEach-Object { $_.id }) }
+  F2_hepsi_hicbiri=[ordered]@{ adet=$f2.Count; yuzde=(Yuzde $f2.Count); ornek=@($f2 | Select-Object -First 20); idler=@($f2 | ForEach-Object { $_.id }) }
+  F3_uzunluk_ipucu=[ordered]@{ adet=$f3.Count; yuzde=(Yuzde $f3.Count); ornek=@($f3 | Select-Object -First 20); idler=@($f3 | ForEach-Object { $_.id }) }
+  F4_sayi_sirasi=[ordered]@{ adet=$f4.Count; yuzde=(Yuzde $f4.Count); ornek=@($f4 | Select-Object -First 20); idler=@($f4 | ForEach-Object { $_.id }) }
+  F5_kelime_tekrari=[ordered]@{ adet=$f5.Count; yuzde=(Yuzde $f5.Count); ornek=@($f5 | Select-Object -First 20); idler=@($f5 | ForEach-Object { $_.id }) }
+  F6_olumsuz_kok_vurgusuz=[ordered]@{ adet=$f6.Count; yuzde=(Yuzde $f6.Count); ornek=@($f6 | Select-Object -First 20); idler=@($f6 | ForEach-Object { $_.id }) }
   not='K17 OLCER, karar vermez. F1/F2 yeniden yazim ister; F3 sik dengeleme; F4 siralama (mekanik, guvenli); F5 kok/sik kelime revizyonu; F6 vurgu eklenmesi.'
 }
 [IO.File]::WriteAllText($ciktiYol, (ConvertTo-Json $rapor -Depth 6), (New-Object Text.UTF8Encoding($false)))
