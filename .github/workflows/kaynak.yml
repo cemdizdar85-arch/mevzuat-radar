@@ -40,6 +40,14 @@ jobs:
         shell: pwsh
         run: ./motor/alacak-ilan-hasat.ps1 -Adet 60
 
+      # Borclu firma adi + (tek/gecerli) VKN'yi ilan.gov.tr detayindan cek. Canli
+      # besleme her gun yenilendigi icin HEMEN ardindan kosar. Dort kontrol kapisi
+      # yanlis firma gostermeyi engeller (emin degilse bos birakir).
+      - name: Alacak ilanlarina borclu adi + VKN ekle
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/alacak-borclu-cek.ps1
+
       # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.
       # YALNIZ SABAH CEKIMINDE: bulten gunde bir yayimlanir, uc tur ~30 MB indirir;
       # aksam tekrar cekmek KIK sunucusuna bosuna yuk. (Elle tetiklemede de kosar.)
