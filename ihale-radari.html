@@ -231,7 +231,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
          SUZGEC + BILDIRIM satiyoruz. Bakis bedava (ornek kesit + filtre),
          nobet paralı (iline/sektorune suzulmus TAM akis + gunluk ozet mail). -->
     <h2>Yurt içi ihaleler <span style="font-size:13px;color:var(--dim);font-weight:600">· güncel; robot her gün yeniler</span></h2>
-    <div class="belg" style="margin:2px 0 12px"><b style="color:var(--ink)">Bu liste her gün sabah-akşam otomatik yenilenir</b>; tazelik damgasını (Son çekim) üstte görürsün. Tüm ilanların eksiksiz yeri EKAP'tır; Tetikte'nin işi katalog değil <b style="color:var(--ink)">süzgeç + bildirim</b>: iline ve sektörüne uyan ilanlar <b style="color:var(--ink)">abonelere günlük tek özet mail</b> olarak gider (her ilana ayrı mail atıp boğmayız; mail-SMS bildirimi ücretli aboneliğin parçasıdır, panelde görmek ücretsiz üyeye açıktır). <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
+    <div class="belg" style="margin:2px 0 12px">Her gün sabah-akşam otomatik yenilenir, tazelik damgası üstte. Eksiksiz kaynak EKAP'tır; bizim işimiz <b style="color:var(--ink)">süzgeç + bildirim</b>: iline/sektörüne uyanlar abonelere <b style="color:var(--ink)">günlük tek özet mail</b> gider. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
     <div class="kutu">
       <div class="grid">
         <div><label for="yiKelime">Ürün / iş ara</label><input type="text" id="yiKelime" placeholder="ör. jeneratör, asansör, diş malzeme, motorin" oninput="yurtIciCiz()"></div>
@@ -239,6 +239,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
       <div class="belg" id="yiKaynak">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr).</div>
       <div class="belg" style="color:var(--amber)">⚠ Bu liste özet/yönlendirmedir; kamu ihale ilanlarının <b>asıl ve eksiksiz</b> yayın yeri <a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener">EKAP'tır (Kamu İhale Kurumu) ↗</a>. Yaklaşık maliyet, son teklif tarihi ve şartname EKAP/ilan metnindedir; teklif vermeden önce oradan teyit et.</div>
     </div>
+    <div id="yiSayac" style="margin:0 0 10px;font-size:14px;color:var(--muted)"></div>
     <div id="yiListe"></div>
 
     <!-- 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal/duzeltme hasadi.
@@ -422,8 +423,8 @@ function aramaUygula(i){
   const ata=(id,v)=>{ const e=document.getElementById(id); if(e&&v!=null) e.value=v; };
   ata('sektor',a.sektor); ata('gtip',a.gtip); ata('ulke',a.ulke); ata('il',a.il); ata('yiIl',a.il); ata('yiKelime',a.kelime);
   const ub=document.getElementById('ulkeBay'); if(ub) ub.innerHTML=(a.ulke&&a.ulke!=='hepsi')?bayrak(a.ulke):'';
-  if(a.sekme==='dis'){ kontrol(); } else { yurtIciCiz(); }
-  document.getElementById(a.sekme==='dis'?'paneDis':'paneIc').scrollIntoView({behavior:'smooth',block:'start'});
+  if(a.sekme==='dis'){ kontrol(); document.getElementById('paneDis').scrollIntoView({behavior:'smooth',block:'start'}); }
+  else { yurtIciCiz(); yiAtla(); }
 }
 function aramaSeridiCiz(mesaj){
   const k=document.getElementById('kayitliSerit'); if(!k) return;
@@ -463,14 +464,14 @@ async function veriYukle(){
   // yurt ici il filtresi + ilk cizim
   const yiIller=[...new Set((YI.ilanlar||[]).map(x=>x.il).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
   const yiSel=document.getElementById('yiIl');
-  if(yiSel){ yiSel.innerHTML='<option value="hepsi">Hepsi</option>'+yiIller.map(x=>`<option>${esc(x)}</option>`).join(''); yiSel.addEventListener('change',yurtIciCiz); }
+  if(yiSel){ yiSel.innerHTML='<option value="hepsi">Hepsi</option>'+yiIller.map(x=>`<option>${esc(x)}</option>`).join(''); yiSel.addEventListener('change',yiDegis); }
   if(YI.guncelleme){ const yk=document.getElementById('yiKaynak'); if(yk) yk.textContent=YI.guncelleme; }
   // TED tarafina da tarih damgasi (soze degil tarihe bak kurali)
   if(TED.guncelleme){ const tk=document.getElementById('tedKaynak'); const tm=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(TED.guncelleme); if(tk&&tm) tk.innerHTML='Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB\'nin resmî ihale bülteni TED (ted.europa.eu) · son çekim: <b style="color:var(--ink)">'+tm[1]+'</b>.'; }
   yurtIciCiz();
   // 31.07 Cem: sektor de yurt ici listeyi suzsun - varsayilan 'Hepsi', secilince anahtar kelimeyle eslesir
   document.getElementById('sektor').innerHTML='<option value="-1">Hepsi (tüm sektörler)</option>'+CPV.sektorler.map((s,i)=>`<option value="${i}">${esc(s.ad)}</option>`).join('');
-  document.getElementById('sektor').addEventListener('change',yurtIciCiz);
+  document.getElementById('sektor').addEventListener('change',yiDegis);
   // GTIP yazilirsa sektoru otomatik bul (yurt ici liste de ona gore suzulur)
   document.getElementById('gtip').addEventListener('input',function(){
     const gi=gtipSektor(this.value.trim());
@@ -540,6 +541,21 @@ function trFold2(s){ return (s||'').toLocaleLowerCase('tr-TR'); }
 // çekiliş, genel kurul davetleri). Bunları ele — kullanıcı çekilişi ihale sanmasın.
 const IHALE_DISI = ['durusma','duruşma','tebligat','tebliğ','ilanen','mahkeme','icra','ceza','cekilis','çekiliş','genel kurul','kayyim','kayyım','iflas','konkordato','veraset','nufus','nüfus','vasi','gaiplik'];
 function ihaleMi(x){ const t=trFold2((x.baslik||'')+' '+(x.kurum||'')); return !IHALE_DISI.some(k=>t.includes(k)); }
+// 14.08 Cem "adam istediğini HEMEN yaptırabilmeli": il/sektör seçilince liste
+// çizilir VE sonuç görünür alana kayar. Sayfa başındaki filtreye bakıp
+// "sonuç nerede" diye aramak yok. Kelime yazarken (oninput) kaydırmayız,
+// yalnız açık seçim değişiminde — her tuş vuruşunda zıplamak rahatsız eder.
+function yiAtla(){
+  const s=document.getElementById('yiSayac')||document.getElementById('yiListe');
+  if(!s) return;
+  const y=s.getBoundingClientRect().top+window.scrollY-90;
+  // smooth destekli tarayicida yumusak kayar; desteklemeyende (bazi gomulu
+  // gorunumler smooth'u yok sayiyor) anlik scrollTo garanti eder.
+  try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
+  const bas=window.scrollY;
+  setTimeout(function(){ if(Math.abs(window.scrollY-bas)<2 && Math.abs(bas-y)>4) window.scrollTo(0,y); },260);
+}
+function yiDegis(){ yurtIciCiz(); yiAtla(); }
 function yurtIciCiz(){
   const box=document.getElementById('yiListe'); if(!box||!YI) return;
   const il=(document.getElementById('yiIl')||{}).value||'hepsi';
@@ -590,6 +606,22 @@ function yurtIciCiz(){
   // NOT: iptal edilmiş ihale listeden ÇIKARILMAZ ve sona da atılmaz — teklif hazırlayan
   // kişi tam da "bu ihaleye ne oldu" diye arar. Yerinde durur, damgası uyarır.
   // (İlk denemede sona atılmıştı; 250 ilanlık havuzda damga hiç ekrana gelmedi.)
+  // 14.08 Cem "Apple olmalıyız": süzünce anında "işe yaradı mı" geri bildirimi.
+  // ihalepro giriş yapmadan hiçbir sayı vermiyor; biz filtrenin sonucunu canlı sayarız.
+  (function(){
+    const sy=document.getElementById('yiSayac'); if(!sy) return;
+    const et=[];
+    if(il!=='hepsi') et.push(esc(il));
+    if(sek) et.push(esc(sek.ad));
+    const kelHam=((document.getElementById('yiKelime')||{}).value||'').trim();
+    if(kelHam) et.push('“'+esc(kelHam)+'”');
+    const suz=et.length?(' <span style="color:var(--dim)">· '+et.join(' · ')+'</span>'):'';
+    const n=liste.length;
+    if(!n){ sy.innerHTML='<span style="color:var(--amber)">Bu filtreye uyan güncel ihale yok</span>'+suz; return; }
+    const acik=Math.min(n,5), kilit=n-acik;
+    sy.innerHTML='<b style="color:var(--accent2);font-size:17px">'+n+'</b> ilan bu filtreye uyuyor'+suz
+      +(kilit>0?' <span style="color:var(--dim)">(ilk '+acik+' açık, '+kilit+' tanesi üyelikte)</span>':'');
+  })();
   if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; robot her sabah-akşam yeni ilanları çeker. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini kaydet, düşünce haber verelim →</a></div></div>'; return; }
   // 31.07 Cem: bedava giren 5 ilan gorur; kalani BUGULU kilit kart (il+tur okunur,
   // baslik bugulu) - neyi kacirdigini gorsun, uyelige somut neden olsun.
