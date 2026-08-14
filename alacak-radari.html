@@ -129,23 +129,26 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   //  m.235 sıra cetveline itiraz 7 gün · m.218 basit tasfiye süre İLANDA (20g-2ay).
   //  Yalnız SABİT kuralı olan ilana geri sayım; toplantı/duruşma/ret/tasdik/sonuç
   //  ilanına YAZILMAZ (yanlış hüküm olur), belirsiz olana nötr not.
+  // HAP BİLGİ: her ilan türü için ne demek + alacaklı ne yapar + süre. Hepsi
+  // birincil İİK metninden (mevzuat.gov.tr): m.299/219/235/218/217.
   function aiSure(x){
     var b=(x.baslik||'').toLocaleLowerCase('tr');
     if(x.tur==='konkordato'){
       if(/red|ret|kaldır|tasdik|fesh|iflas|toplantı|duruşma/.test(b)) return null;
       if(/alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b))
-        return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün'};
-      return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.'};
+        return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; kaçırırsan müzakereye giremez, oy kullanamazsın.'};
+      return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Konkordato aşaması. Alacaklı olarak oyunu kullan (m.302), borçtan sorumlu kefil/ortağa alacağının tamamı için gidebilirsin (m.303).'};
     }
     if(x.tur==='iflas'){
-      // sonuç/kapanış ilanları: süre yok
       if(/kaldır|kapanma|kapandı|kapanmasına|tamamlan|paraya çevr|satış|ihale ilanı|tescil|kesinleş|onaylan/.test(b)) return null;
+      if(/tasfiyenin tatili|iflasın tatili|tasfiyenin tatiline/.test(b))
+        return {tip:'İflas takibine devam', madde:'m.217', gun:30, aciklama:'ilandan 30 gün', hap:'Masada mal yok, daire tasfiyeyi tatil etti. Takibin sürmesini istiyorsan 30 gün içinde masrafı peşin öde; kimse ödemezse iflas kapanır.'};
       if(/sıra cetvel/.test(b))
-        return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün'};
+        return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün', hap:'Alacaklıların sırası ve tutarı belirlendi. Sıranı ya da tutarını yanlış buluyorsan 7 gün içinde icra mahkemesinde itiraz et.'};
       if(/basit tasfiye/.test(b))
-        return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.'};
+        return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.', hap:'Masadaki mal tasfiye masrafını karşılamıyor, basit usul uygulanıyor. Alacağını ilandaki sürede bildir; istersen masrafı verip adi tasfiye isteyebilirsin.'};
       if(/iflasın açılması|adi tasfiye|alacaklarını.*(kaydet|bildir)|alacaklıları.*davet|alacak kayd/.test(b))
-        return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay'};
+        return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay', hap:'İflas açıldı, adi tasfiye başladı. Alacağını 1 ay içinde belgelerinle iflas masasına kaydettir.'};
       return null;
     }
     return null;
@@ -232,17 +235,23 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     kutu.innerHTML = suz.slice(0,40).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
       var sure='', kural=aiSure(x);
-      if(kural && kural.not){
-        sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ '+kural.not+'</div>';
-      } else if(kural){
-        var g=aiSonTarih(x.tarih, kural);
-        if(g){
-          var renk = g.kalan<=3?'var(--red)':(g.kalan<=7?'var(--amber)':'var(--green)');
-          var mesaj;
-          if(g.kalan>0) mesaj=kural.tip+': <b style="color:'+renk+'">'+g.kalan+' gün</b> kaldı';
-          else if(g.kalan===0) mesaj=kural.tip+': <b style="color:var(--red)">son gün BUGÜN</b>';
-          else mesaj=kural.tip+': <b style="color:var(--dim)">süre geçmiş görünüyor</b>';
-          sure='<div style="margin-top:7px;font-size:12.5px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.28);border-radius:8px;padding:7px 10px">⏳ '+mesaj+' <span style="color:var(--dim)">('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
+      if(kural){
+        if(kural.not){
+          sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ '+kural.not+'</div>';
+        } else {
+          var g=aiSonTarih(x.tarih, kural);
+          if(g){
+            var renk = g.kalan<=3?'var(--red)':(g.kalan<=7?'var(--amber)':'var(--green)');
+            var mesaj;
+            if(g.kalan>0) mesaj=kural.tip+': <b style="color:'+renk+'">'+g.kalan+' gün</b> kaldı';
+            else if(g.kalan===0) mesaj=kural.tip+': <b style="color:var(--red)">son gün BUGÜN</b>';
+            else mesaj=kural.tip+': <b style="color:var(--dim)">süre geçmiş görünüyor</b>';
+            sure='<div style="margin-top:7px;font-size:12.5px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.28);border-radius:8px;padding:7px 10px">⏳ '+mesaj+' <span style="color:var(--dim)">('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
+          }
+        }
+        // HAP BİLGİ: karşı taraf bunu yaptı, sen ne yaparsın (İİK teyitli)
+        if(kural.hap){
+          sure+='<div style="margin-top:6px;font-size:12px;color:var(--muted);line-height:1.55"><b style="color:var(--accent2)">💊</b> '+kural.hap+'</div>';
         }
       }
       return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
