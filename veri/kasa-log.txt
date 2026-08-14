@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260813031220
-Username: runnervmzvulz\runner
-RunAs User: runnervmzvulz\runner
+Start time: 20260814031053
+Username: runnervmvrwv9\runner
+RunAs User: runnervmvrwv9\runner
 Configuration Name: 
-Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c56e6321-c9e8-47b1-bee1-ababbe01d026.ps1'
-Process ID: 2176
-PSVersion: 7.6.4
+Machine: runnervmvrwv9 (Unix 6.17.0.1020)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5c8e58b8-7ae3-4851-baf3-b7d5bf729c32.ps1'
+Process ID: 2109
+PSVersion: 7.6.3
 PSEdition: Core
-GitCommitId: 7.6.4
+GitCommitId: 7.6.3
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -96,8 +96,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       506x  Maliyet Muhasebesi|ortak maliyet dagitimi
       484x  Finansal Tablolar ve Analizi|dikey yuzde analizi
       342x  Finansal Tablolar ve Analizi|finansal oran analizi
-      317x  Maliyet Muhasebesi|satilan mamul maliyeti
       317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+      317x  Maliyet Muhasebesi|satilan mamul maliyeti
       217x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
       216x  Finansal Tablolar ve Analizi|trend analizi
       211x  Maliyet Muhasebesi|gug yukleme katsayisi
@@ -107,9 +107,9 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       156x  Finansal Muhasebe|supheli alacak karsiligi
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
+      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       113x  Finansal Muhasebe|amortisman ayirma
       113x  Finansal Muhasebe|gider yansitma kaydi
-      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
        95x  Finansal Muhasebe|borc senedi reeskontu
 
@@ -177,5 +177,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260813031347
+End time: 20260814031249
 **********************
