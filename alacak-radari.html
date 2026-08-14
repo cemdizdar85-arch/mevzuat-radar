@@ -155,23 +155,44 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302), borçtan sorumlu kefil/ortağa alacağının tamamı için gidebilirsin (m.303).'};
     }
     if(x.tur==='iflas'){
-      if(/kaldır|kapanma|kapandı|kapanmasına|tamamlan|paraya çevr|satış|ihale ilanı|tescil|kesinleş|onaylan/.test(b)) return null;
-      if(/tasfiyenin tatili|iflasın tatili|tasfiyenin tatiline/.test(b))
+      // saf idari/satış ilanı: eylem yok ama İİK'ya yönlendir
+      if(/tamamlan|paraya çevr|satış|ihale ilanı|tescil|kesinleş|onaylan/.test(b))
+        return {hap:'İflas tasfiyesine ilişkin işlem ilanı. Alacaklı haklarını ve sürelerini aşağıdaki İİK bölümünden oku.'};
+      // İFLASIN KALDIRILMASI -> m.182 (borçlu iflastan çıkıyor)
+      if(/kaldırılma|kaldırıldığ|iflasın kaldır/.test(b))
+        return {hap:'Borçlu iflastan çıkıyor (borçlar ödendi ya da alacaklılar rıza gösterdi, m.182). Alacağın ödenmediyse kaldırma kararına itiraz et.'};
+      // İFLASIN KAPANMASI/KAPATILMASI -> m.254 + aciz vesikası
+      if(/kapanma|kapandı|kapatılma|kapatıldı|kapatılması/.test(b))
+        return {hap:'İflas kapandı, tasfiye bitti (m.254). Masadan tahsil edemediğin kısım için aciz vesikası alıp borçluyu ayrıca takip edebilirsin.'};
+      // TASFİYE TATİLİ -> m.217, 30 gün
+      if(/tasfiye.{0,8}tatil|iflasın tatil/.test(b))
         return {tip:'İflas takibine devam', madde:'m.217', gun:30, aciklama:'ilandan 30 gün', hap:'Masada mal yok, daire tasfiyeyi tatil etti. Takibin sürmesini istiyorsan 30 gün içinde masrafı peşin öde; kimse ödemezse iflas kapanır.'};
+      // SIRA CETVELİ -> m.235, 7 gün
       if(/sıra cetvel/.test(b))
         return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün', hap:'Alacaklıların sırası ve tutarı belirlendi. Sıranı ya da tutarını yanlış buluyorsan 7 gün içinde icra mahkemesinde itiraz et.'};
-      // ADİ TASFİYE / iflasın açılması -> m.219, 1 ay (toplantı ondan ÖNCE gelmeli)
+      // ADİ TASFİYE / iflasın açılması -> m.219, 1 ay
       if(/iflasın açılması|adi tasfiye|alacaklarını.*(kaydet|bildir)|alacaklıları.*davet|alacak kayd/.test(b))
         return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay', hap:'İflas açıldı, adi tasfiye başladı. Alacağını 1 ay içinde belgelerinle iflas masasına kaydettir.'};
-      if(/basit tasfiye/.test(b))
+      // BASİT USUL -> m.218
+      if(/basit (tasfiye|usul)/.test(b))
         return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.', hap:'Masadaki mal tasfiye masrafını karşılamıyor, basit usul uygulanıyor. Alacağını ilandaki sürede bildir; istersen masrafı verip adi tasfiye isteyebilirsin.'};
-      // TEREKE / MİRAS iflas usulüyle tasfiye -> reddedilen mirasta kayıt 10 gün (m.220)
-      if(/tereke|miras/.test(b))
-        return {not:'Terekenin iflas hükümlerine göre tasfiyesi; alacak bildirim süresi ilandadır (reddedilen mirasta kayıt süresi 10 güne iner, m.220), ilan metnini oku.', hap:'Miras/tereke iflas usulüyle tasfiye ediliyor. Alacağını ilanda yazan sürede masaya bildir.'};
-      // İFLAS ALACAKLILAR TOPLANTISI -> m.223
+      // TEREKE / İFLAS HÜKÜMLERİ GEREĞİ -> m.220
+      if(/tereke|miras|iflas hükümleri gereği/.test(b))
+        return {not:'İflas hükümleri gereği tasfiye; alacak bildirim süresi ilandadır (reddedilen mirasta kayıt 10 güne iner, m.220), ilan metnini oku.', hap:'İflas hükümlerine göre tasfiye ediliyor. Alacağını ilanda yazan sürede masaya bildir.'};
+      // TASFİYEYE BAŞLAMA
+      if(/tasfiyeye başlan|tasfiyenin başla/.test(b))
+        return {hap:'İflas tasfiyesi başladı. Alacağını ilanda yazan sürede belgelerinle masaya kaydettir.'};
+      // İFLAS TALEBİ / DAVASI (henüz iflas yok)
+      if(/iflas talebi|iflas davası|talebine ilişkin dava|talebinin ilan/.test(b))
+        return {hap:'İflas davası/talebi ilan edildi; iflas henüz AÇILMADI. Süreci izle, iflas açılırsa alacağını masaya kaydedersin.'};
+      // ALACAKLILAR TOPLANTISI -> m.223
       if(/toplantı|içtima/.test(b))
         return {hap:'Alacaklılar toplantısına davet edildin. Katıl, oy kullan; iflas idaresi seçimi ve masa kararları burada alınır (m.223).'};
-      return null;
+      // TADİL (düzeltme)
+      if(/tadil/.test(b))
+        return {hap:'Tasfiye/cetvel düzeltildi (tadil). İlan metnini oku; sıranı ya da tutarını ilgilendiriyorsa süresinde itiraz et.'};
+      // GENEL yedek: hiçbirine uymayan iflas ilanı da İİK'ya yönlendirilir
+      return {hap:'İflas sürecine ilişkin ilan. Alacaklı olarak haklarını ve sürelerini aşağıdaki İİK bölümünden oku.'};
     }
     return null;
   }
