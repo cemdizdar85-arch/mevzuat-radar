@@ -71,6 +71,16 @@ function DetayCek([string]$id){
   } catch { return $null }
   $h = "$($d.result.content)"
   if(-not $h){ return $null }
+  # 14.08 CEM BULGUSU ("burda hap bilgi yok"): Osmangazi EDAS drone ilaninda kart
+  # BOMBOS kaliyordu. Sebep: detay cikarici yalniz 4734 kaliplarini ariyordu
+  # ("İhale Kayıt Numarası (İKN)", "geçici teminat", "4734 sayılı Kanunun ... maddesi")
+  # ama o ilan 4734 KAPSAMINDA DEGIL - "Elektrik Dağıtım Şirketleri Satın Alma-Satma
+  # ve İhale Yönetmeliği"ne tabi. Havuzdaki 97 detayli ilanin 9'u boyle.
+  # COZUM: API'nin adTypeFilters alani usul/tur/kayit no/tarihi YAPISAL veriyor -
+  # her rejimde calisir. Once oradan alinir, 4734'e ozgu alanlar metinden eklenir.
+  $yapisal = @{}
+  foreach($f in @($d.result.adTypeFilters)){ if($f.key){ $yapisal["$($f.key)"] = "$($f.value)".Trim() } }
+  $kategori = (@($d.result.categories) | Where-Object { $_.name } | Select-Object -Last 2 | ForEach-Object { $_.name }) -join ' › '
   # HTML tablodan duz metin (etiketler sokulur, bosluklar sadelesir)
   $m = ($h -replace '<[^>]+>',' ') -replace '&nbsp;',' ' -replace '&amp;','&' -replace '\s+',' '
   $al = {
@@ -79,16 +89,33 @@ function DetayCek([string]$id){
     if($r.Success){ return ($r.Groups[1].Value.Trim() -replace '\s{2,}',' ') }
     return ""
   }
+  # 4734 disi ilanlarda tarih metin icinde serbest yazilir; yapisal alan yoksa
+  # "Tekliflerin sunulacağı Tarih ve saat" kalibi denenir.
+  $sonT = (& $al '2\.1\.\s*Tarih ve Saati\s*:\s*([\d.]+\s*-\s*[\d:]+)')
+  if(-not $sonT){ $sonT = (& $al 'Teklif(?:ler)?in(?:in)? sunulaca[ğg][ıi] [Tt]arih ve saat\s*:?\s*([\d.]+[^0-9]{0,20}[\d:]+)') }
+  if(-not $sonT -and $yapisal['İhale ve Teklif Açma Tarihi']){ $sonT = $yapisal['İhale ve Teklif Açma Tarihi'] }
+  $u = (& $al '(4734 sayılı Kamu İhale Kanununun \d+ [^.]{0,40}maddesine göre [^.]{0,45}usul[üu])')
+  if(-not $u){ $u = $yapisal['İhale Usulü'] }
+  $k = (& $al 'İhale Kayıt Numarası \(İKN\)\s*:\s*(\d{4}/\d+)')
+  if(-not $k){ $k = $yapisal['İhale Kayıt No'] }
+
   [ordered]@{
-    ikn        = (& $al 'İhale Kayıt Numarası \(İKN\)\s*:\s*(\d{4}/\d+)')
-    sonTeklif  = (& $al '2\.1\.\s*Tarih ve Saati\s*:\s*([\d.]+\s*-\s*[\d:]+)')
-    usul       = (& $al '(4734 sayılı Kamu İhale Kanununun \d+ [^.]{0,40}maddesine göre [^.]{0,45}usul[üu])')
+    ikn        = $k
+    sonTeklif  = $sonT
+    usul       = $u
+    kapsam     = $(if("$u" -match '4734'){ '4734' } elseif($u){ 'ozel' } else { '' })
+    tur        = $yapisal['İhale Türü']
+    kategori   = $kategori
+    # asagidakiler YALNIZ 4734 ilanlarinda bulunur; digerlerinde bos kalir (uydurulmaz)
     teminat    = (& $al '(teklif ettikleri bedelin\s*%\s*\d+\S{0,2}[^.]{0,60}geçici teminat)')
     yerliSart  = (& $al '(İhaleye sadece yerli istekliler katılabilecektir)')
     isDeneyimi = (& $al 'teklif edilen bedelin\s*%\s*(\d+)\s*oranından az olmamak')
     gecerlilik = (& $al 'tekliflerin geçerlilik süresi, ihale tarihinden itibaren\s*(\d+\s*\([^)]*\))')
     isSuresi   = (& $al '3\.4\.\s*Süresi/teslim tarihi\s*:\s*([^:]{5,90}?)\s*3\.5')
     sinirN     = (& $al 'Sınır Değer Katsayısı \(N\)\s*:\s*([\d,]+)')
+    # 4734 disi ilanlarda kritik: dokuman nereden alinir + acik eksiltme var mi
+    dokumanYer = (& $al '(?:İhale [Dd]okümanı|[Dd]etaylı bilgi)[^.]{0,90}?((?:www\.|https?://)[^\s,;]{6,60})')
+    eksiltme   = (& $al '(Açık eksiltme [Tt]arih ve saati\s*:?\s*[\d.]+[^0-9]{0,20}[\d:]+)')
   }
 }
 

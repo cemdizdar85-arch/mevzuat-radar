@@ -605,9 +605,21 @@ function yurtIciCiz(){
     const d=x.detay; if(!d) return '';
     const s=[];
     if(d.sonTeklif) s.push(`⏰ Son teklif: <b style="color:var(--ink)">${esc(d.sonTeklif)}</b>`);
-    if(d.ikn) s.push(`İKN <b style="color:var(--ink)">${esc(d.ikn)}</b>`);
-    if(d.usul){ const u=/(\d+)\s*[iı]nci|(\d+)\s*uncu/i.exec(d.usul); const md=u?(u[1]||u[2]):'';
-      s.push(`Usul: <b style="color:var(--ink)">${/açık/i.test(d.usul)?'Açık ihale':/pazarlık/i.test(d.usul)?'Pazarlık':/belli/i.test(d.usul)?'Belli istekliler':'—'}</b>${md?` (m.${md})`:''}`); }
+    if(d.eksiltme) s.push(`<span style="color:var(--amber)">🔻 ${esc(d.eksiltme)}</span> — fiyat kırma turu var, teklif stratejini buna göre kur`);
+    const kimlik=[];
+    if(d.ikn) kimlik.push(`İKN <b style="color:var(--ink)">${esc(d.ikn)}</b>`);
+    if(d.tur) kimlik.push(esc(d.tur));
+    if(d.kategori) kimlik.push(`<span style="color:var(--dim)">${esc(d.kategori)}</span>`);
+    if(kimlik.length) s.push(kimlik.join(' · '));
+    // 14.08 Cem: 4734 DISI ihalede teminat, yeterlik ve ITIRAZ YOLU tamamen farkli.
+    // Kullanici bunu bilmeden hareket ederse yanlis kapiyi calar - en kritik uyari bu.
+    if(d.kapsam==='ozel'){
+      s.push(`<span style="display:inline-block;margin-top:3px;padding:5px 9px;border-radius:7px;background:rgba(255,176,32,.13);color:var(--amber);font-weight:700">⚠ Bu ihale 4734 KAPSAMINDA DEĞİL</span>`);
+      s.push(`<span style="color:var(--muted)">Tabi olduğu düzen: <b style="color:var(--ink)">${esc(d.usul)}</b><br>Teminat oranı, yeterlik belgeleri ve <b style="color:var(--ink)">itiraz yolu</b> 4734'ten farklıdır — KİK'e itirazen şikâyet yolu burada işlemez. Şartlar ihale dokümanındadır.</span>`);
+    } else if(d.usul){
+      const u=/(\d+)\s*[iı]nci|(\d+)\s*uncu/i.exec(d.usul); const md=u?(u[1]||u[2]):'';
+      s.push(`Usul: <b style="color:var(--ink)">${/açık/i.test(d.usul)?'Açık ihale':/pazarlık/i.test(d.usul)?'Pazarlık':/belli/i.test(d.usul)?'Belli istekliler':esc(d.usul)}</b>${md?` (4734 m.${md})`:''}`);
+    }
     const ek=[];
     if(d.teminat){ const o=/%\s*(\d+)/.exec(d.teminat); if(o) ek.push(`Geçici teminat <b style="color:var(--ink)">%${o[1]}</b>`); }
     if(d.isDeneyimi) ek.push(`İş deneyimi <b style="color:var(--ink)">%${esc(d.isDeneyimi)}</b>`);
@@ -616,6 +628,10 @@ function yurtIciCiz(){
     if(ek.length) s.push(ek.join(' · '));
     if(d.yerliSart) s.push(`<span style="color:#7ee0a5;font-weight:700">🇹🇷 Yalnız yerli istekliler katılabilir</span>`);
     if(d.isSuresi) s.push(`İşin süresi: ${esc(d.isSuresi)}`);
+    // 14.08 Cem ("kaç tane alacan, hangi özellikli drone?"): MİKTAR ve TEKNİK
+    // ÖZELLİK ilan metninde YOKTUR, ihale dokümanındadır. Uydurmuyoruz; nereden
+    // alınacağını söylüyoruz. Bu, "ölçmediğimizi yazmayız" kuralının uygulaması.
+    s.push(`<span style="color:var(--dim)">Miktar ve teknik özellikler ilan metninde değil, <b style="color:var(--muted)">ihale dokümanındadır</b>${d.dokumanYer?` — <a href="${/^https?:/.test(d.dokumanYer)?esc(d.dokumanYer):'https://'+esc(d.dokumanYer)}" target="_blank" rel="noopener" style="color:var(--accent2)">${esc(d.dokumanYer)}</a>`:''}.</span>`);
     return s.length? `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.75">${s.join('<br>')}</div>` : '';
   };
   box.innerHTML = '<div class="igrid">' + liste.slice(0,SINIR).map(x=>`<div class="ikart">
