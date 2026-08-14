@@ -4,6 +4,22 @@
 (function(){
 if(window.MRMenu) return;
 
+/* ---- 14.08 MOBIL DOKUNMA HEDEFI (Cem: "onlari buyut") ----------------------
+   Olculdu: ust menu baglantilari mobilde 21px yuksekligindeydi; parmakla
+   basmak icin onerilen alt sinir ~44px. Duzeltme YALNIZ MOBILDE (<=600px)
+   uygulanir - masaustu tasarimi degismesin. Menu 20+ sayfada ayni oldugu icin
+   her dosyaya dokunmak yerine tek noktadan, menu.js'ten cozuluyor.
+   Metin ICI baglantilar (cumle icinde gecenler) bilerek DISARIDA: onlari
+   buyutmek metni bozar, standart uygulama da onlari muaf tutar. */
+try {
+  var dk = document.createElement('style');
+  dk.textContent = '@media (max-width:600px){'
+    + '.top a{display:inline-block;padding:15px 4px;line-height:1.1}'
+    + '.top{gap:4px 10px}'
+    + '}';
+  (document.head||document.documentElement).appendChild(dk);
+} catch(e){}
+
 /* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
 /* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
    Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
