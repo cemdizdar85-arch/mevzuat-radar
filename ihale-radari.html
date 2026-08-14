@@ -354,6 +354,7 @@ function tab(t){
 let BD=null;
 let BI=null, BIX={};   // Kamu Ihale Bulteni ilan metni + IKN dizini
 let SO=null;           // sonuc ilanlarindan cikan kirim/rekabet ozeti
+var bultenHepsi=false;  // "hepsini gör" tıklanınca true; arama varken zaten tam liste
 function bultenCiz(){
   const k=document.getElementById('bultenListe'); if(!k||!BD) return;
   const ara=(document.getElementById('iknAra')||{}).value||'';
@@ -367,7 +368,12 @@ function bultenCiz(){
                 : '<div class="belg">Bu çekimde iptal/düzeltme ilanı bulunmadı.</div>';
     k.innerHTML=h; return;
   }
-  h += '<div class="igrid">' + suz.slice(0,24).map(x=>{
+  // 14.08 Cem "site çok aşağıya kayıyor": bu bölüm sayfanın ~%40'ıydı (24 kart hep açık).
+  // Bu bir ARAMA bölümü (İKN ile "ihalem iptal mi"); varsayılan 6 kart + "hepsini gör"
+  // yeter. Arama yapılınca (sayi) zaten tam eşleşme listesi açılır.
+  const acik = sayi || bultenHepsi;
+  const goster = acik ? 24 : 6;
+  h += '<div class="igrid">' + suz.slice(0,goster).map(x=>{
     const iptalMi = x.durum==='iptal';
     const renk = iptalMi ? '#ff9a9a' : '#ffd27a';
     return `<div class="ikart">
@@ -380,7 +386,11 @@ function bultenCiz(){
       <div class="alt"><span class="gunroz belirsiz">${esc(x.tur||'')}</span><a href="https://ekapv2.kik.gov.tr/ekap/search" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">EKAP'ta aç →</a></div>
     </div>`;
   }).join('') + '</div>';
-  if(suz.length>24) h += `<div class="belg" style="margin-top:8px">${suz.length-24} ilan daha var, İKN ya da idare adıyla daralt.</div>`;
+  if(!acik && suz.length>goster){
+    h += `<button onclick="bultenHepsi=true;bultenCiz();" style="margin-top:10px;background:none;border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:700 13px inherit;padding:9px 15px;cursor:pointer">Tüm iptal/düzeltme ilanlarını gör (${suz.length}) →</button>`;
+  } else if(suz.length>24){
+    h += `<div class="belg" style="margin-top:8px">${suz.length-24} ilan daha var, İKN ya da idare adıyla daralt.</div>`;
+  }
   k.innerHTML=h;
 }
 
@@ -872,10 +882,12 @@ function yurtIciCiz(){
     <div class="gov"><h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
       <div class="m" style="filter:blur(5px);user-select:none"><b>${esc(x.kurum||'—')}</b></div></div>
     <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><span style="font-size:12.5px;font-weight:700;color:var(--accent2)">Kilidi aç →</span></div>
-  </div></a>`).join(''):'') + '</div>' + (fazla>0?`<div class="kart" style="border-left-color:var(--accent2)">
-    <h3>${il==='hepsi'?'Listede':esc(il)+"'de"} <span style="color:var(--accent2)">${fazla} ilan daha</span> var, kilidi ücretsiz üyelik açar</h3>
-    <div class="belg">Üstelik yalnız liste değil: her ihale için <b style="color:var(--ink)">katılabilir miyim kontrolü, yerli malı avantajın, teminat hesabın ve kaybedersen itiraz yolun</b> aynı ekranda. İhale sitelerinin verdiği liste; bizim verdiğimiz karar.</div>
-    <a class="btn" href="radar-app.html?niyet=ihale" style="text-decoration:none;margin-top:8px">Ücretsiz üye ol, hepsini gör →</a>
+  </div></a>`).join(''):'') + '</div>' + (fazla>0?`<div class="kart" style="border-left-color:var(--accent2);display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;justify-content:space-between">
+    <div style="flex:1 1 320px;min-width:260px">
+      <h3 style="margin:0 0 4px">${il==='hepsi'?'Listede':esc(il)+"'de"} <span style="color:var(--accent2)">${fazla} ilan daha</span> var, kilidi ücretsiz üyelik açar</h3>
+      <div class="belg" style="margin:0">Üstelik yalnız liste değil: her ihale için <b style="color:var(--ink)">katılabilir miyim kontrolü, yerli malı avantajın, teminat hesabın ve kaybedersen itiraz yolun</b> aynı ekranda. İhale sitelerinin verdiği liste; bizim verdiğimiz karar.</div>
+    </div>
+    <a class="btn" href="radar-app.html?niyet=ihale" style="text-decoration:none;white-space:nowrap;flex:0 0 auto">Ücretsiz üye ol, hepsini gör →</a>
   </div>`:'');
 }
 
