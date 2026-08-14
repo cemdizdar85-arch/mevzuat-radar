@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260814091038
+Start time: 20260814093524
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ff58d515-4237-4652-88e9-b27fd49ad4c2.ps1'
-Process ID: 10478
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9a14c1c7-00b0-4b7d-843d-82bce55cbd7e.ps1'
+Process ID: 10429
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -17,11 +17,20 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
+Degisen madde : 7
 Haritadaki sayfa: 20
+  ayristirilan cift: 1
+  AYRISTIRILAMAYAN 6 kayit (gozden kacmasin diye yaziliyor):
+     Avukatlık K. (1136 s.K.) ek gec. m.1 (gec/ek serisi - normal madde ile eslestirilmedi)
+     Dahilde İşleme Rejimi Kararı (2005/8391) gec. m.11 (gec/ek serisi - normal madde ile eslestirilmedi)
+     Dahilde İşleme Rejimi Kararı (2005/8391) m.12
+     Dahilde İşleme Rejimi Kararı (2005/8391) m.15
+     Dahilde İşleme Rejimi Kararı (2005/8391) m.19 [1/8]
+     Dahilde İşleme Rejimi Kararı (2005/8391) m.26 [1/2]
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20260814091038
+End time: 20260814093524
 **********************
