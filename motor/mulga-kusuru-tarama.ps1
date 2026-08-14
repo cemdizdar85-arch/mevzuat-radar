@@ -91,7 +91,16 @@ foreach($s in $hedefler){
   $pdfKimlik = $pdfIdler["$($s.slug)"]
   if(-not $pdfKimlik){ $okunamayan += "$($s.slug) (manifestte yok)"; continue }
   $pdf = Join-Path $kls "$($s.slug).pdf"; $txt = Join-Path $kls "$($s.slug).txt"
-  if(-not (Test-Path $txt)){
+  # 14.08: pdfId "HAZIR" olan kaynaklarin metni ZATEN DEPODA duruyor
+  # (veri/mevzuat-hazir/<slug>.txt - RG'den elle hazirlanan ekli tebligler,
+  # kararlar). Bunlari mevzuat.gov.tr'den indirmeye calismak bosuna ve sonucu
+  # "indirilemedi" oluyordu; vukgt577ek ile diib-karar bu yuzden olculememisti.
+  $hazirYol = Join-Path $kok "veri\mevzuat-hazir\$($s.slug).txt"
+  if($pdfKimlik -eq 'HAZIR'){
+    if(Test-Path $hazirYol){ Copy-Item $hazirYol $txt -Force }
+    else { $okunamayan += "$($s.slug) (HAZIR ama depoda metin yok)"; continue }
+  }
+  elseif(-not (Test-Path $txt)){
     # 14.08 olculdu: teblig/yonetmelik PDF'leri "MevzuatMetin/yonetmelik/" ALT
     # KLASORUNDE duruyor (tur kodu 9.x / 7.x). Duz "MevzuatMetin/9.5.13354.pdf"
     # 60 KB'lik hata sayfasi donduruyor - kik-genel-teblig bu yuzden inmemisti.

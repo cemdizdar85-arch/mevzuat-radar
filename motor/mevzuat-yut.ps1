@@ -29,7 +29,23 @@ if(Test-Path $durumYol){ try { (Get-Content $durumYol -Raw -Encoding UTF8 | Conv
 # 22.07.2026: taksimli madde (32/A, 32/C...) + TUM-BUYUK "EK MADDE/GECICI MADDE/MUKERRER MADDE"
 # varyantlari eklendi — KVK 32/C (asgari KV) ve 7524 ek maddeleri bu desenin disinda kaliyordu.
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
-  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*[–—-]'
+  # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
+  # numarasindan HEMEN SONRA tire bekliyordu. Ama bazi metinlerde degisiklik
+  # parantezi ARAYA giriyor ve tire ondan SONRA geliyor:
+  #     "Madde 12- ..."                        <- eski desen yakaliyor
+  #     "Madde 13 (Değişik: R.G.-...)- ..."    <- tire parantezten SONRA
+  #     "Madde 16 (Değişik: R.G.-...) Şartlı"  <- ayrac HIC YOK
+  #     "Madde 21 (Değişik: R.G.-...): Firma"  <- ayrac IKI NOKTA
+  # Somut zarar: diib-karar'da m.13/16/20/21/22/23 (ihracatin gerceklestirilmesi,
+  # sartli muafiyet, denetim yetkisi) ambara HIC girmemisti.
+  # Kural: numaradan sonra ya DOGRUDAN tire gelir, ya da bir DEGISIKLIK PARANTEZI
+  # gelir ve ardindaki ayrac istege baglidir.
+  # PARANTEZ HERHANGI BIR PARANTEZ OLAMAZ (14.08 olculdu): serbest birakilinca
+  # 4734'un sonundaki esik deger tablosu ve degisiklik listesindeki ATIFLAR
+  # ("MADDE 3 (g)", "MADDE 21 (f)", "MADDE 53 (j)/1") madde basligi sanildi ve
+  # 7 SAHTE madde uretti. Bu yuzden parantez yalniz Degisik/Mulga/Ek/Baslik
+  # kaliplariyla baslarsa kabul edilir - gercek degisiklik serhleri boyledir.
+  $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:–—-]?|[–—-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
   for($i=0; $i -lt $m.Count; $i++){
