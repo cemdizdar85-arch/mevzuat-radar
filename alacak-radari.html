@@ -66,6 +66,10 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
 .nasil b{color:var(--ink)}
 .adim{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
 .no{flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center;margin-top:1px}
+/* 14.08 canlı liste tür filtresi (İhale Radarı deseni) */
+.tbtn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:700 12.5px inherit;padding:8px 12px;cursor:pointer}
+.tbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
+.tbtn:hover{color:var(--ink)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
@@ -97,24 +101,66 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
   <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı; robot her gün yeniler</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
+  <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
+       arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
+       yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
+  <div class="kutu" style="padding:14px 16px;margin:0 0 12px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input type="text" id="aiAra" placeholder="Borçlu/firma adı, il ya da mahkeme ara…" oninput="aiCiz()" style="flex:1;min-width:210px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <div style="display:flex;gap:6px" id="aiTurler">
+        <button type="button" class="tbtn on" data-t="hepsi" onclick="aiFiltre('hepsi')">Tümü</button>
+        <button type="button" class="tbtn" data-t="konkordato" onclick="aiFiltre('konkordato')">Konkordato</button>
+        <button type="button" class="tbtn" data-t="iflas" onclick="aiFiltre('iflas')">İflas</button>
+      </div>
+    </div>
+    <div id="aiSayac" style="margin-top:9px;font-size:13.5px;color:var(--muted)"></div>
+  </div>
   <div id="aiListe"></div>
   <script>
+  var AI_L=[], AI_TUR='hepsi';
+  function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
+  function aiKac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   fetch('veri/alacak-ilan-canli.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+    AI_L=(d.ilanlar||[]);
     var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
-    var L=(d.ilanlar||[]);
     var e=document.getElementById('aiDamga');
-    if(e&&m) e.innerHTML='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · havuzda '+L.length+' ilan';
+    if(e&&m) e.innerHTML='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · havuzda '+AI_L.length+' ilan';
+    aiCiz();
+  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
+  function aiFiltre(t){ AI_TUR=t; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); }
+  function aiCiz(){
+    var kutu=document.getElementById('aiListe'); if(!kutu) return;
+    var q=aiFold((document.getElementById('aiAra')||{}).value||'');
     var TUR={konkordato:['KONKORDATO','var(--amber)'],iflas:['İFLAS','var(--red)'],diger:['İLAN','var(--dim)']};
-    function kac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-    document.getElementById('aiListe').innerHTML = L.slice(0,10).map(function(x){
+    var suz=AI_L.filter(function(x){
+      if(AI_TUR!=='hepsi' && x.tur!==AI_TUR) return false;
+      if(!q) return true;
+      return aiFold((x.baslik||'')+' '+(x.kurum||'')+' '+(x.il||'')).indexOf(q)>=0;
+    });
+    var ko=AI_L.filter(function(x){return x.tur==='konkordato';}).length;
+    var ifl=AI_L.filter(function(x){return x.tur==='iflas';}).length;
+    var sy=document.getElementById('aiSayac');
+    if(sy){
+      if(q || AI_TUR!=='hepsi'){
+        var etiket = AI_TUR==='konkordato'?' konkordato':(AI_TUR==='iflas'?' iflas':'');
+        var aramaMetni=((document.getElementById('aiAra')||{}).value||'').trim();
+        sy.innerHTML='<b style="color:var(--accent2);font-size:16px">'+suz.length+'</b>'+etiket+' ilan bu aramaya uyuyor'
+          + (aramaMetni?' <span style="color:var(--dim)">· "'+aiKac(aramaMetni)+'"</span>':'')
+          + '<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Bu borçlu için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
+      } else {
+        sy.innerHTML='Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Borçlunu bu akışta aramak için yukarı yaz.';
+      }
+    }
+    if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
+    kutu.innerHTML = suz.slice(0,40).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
       return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
         '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+
-        ' <span style="font-size:11.5px;color:var(--dim)">'+kac(x.il||'')+' · '+kac(x.tarih||'')+'</span>'+
-        '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+kac(x.baslik)+'</div>'+
-        '<div style="font-size:12px;color:var(--muted);margin-top:3px">'+kac(x.kurum||'')+' · <a href="'+kac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
-    }).join('') + (L.length>10?'<div class="ipucu">İlk 10 gösteriliyor, kendi borçlularına birebir eşleşen uyarı için aşağıdaki aracı dene, aboneliğe geç.</div>':'');
-  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
+        ' <span style="font-size:11.5px;color:var(--dim)">'+aiKac(x.il||'')+' · '+aiKac(x.tarih||'')+'</span>'+
+        '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+aiKac(x.baslik)+'</div>'+
+        '<div style="font-size:12px;color:var(--muted);margin-top:3px">'+aiKac(x.kurum||'')+' · <a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
+    }).join('') + (suz.length>40?'<div class="ipucu">İlk 40 gösteriliyor ('+suz.length+' sonuç), aramayı daralt.</div>':'');
+  }
   </script>
 
   <div class="kutu">
