@@ -318,13 +318,22 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
 
   <!-- ============ YURT DIŞI ============ -->
   <div id="paneDis" class="pane">
-    <h2>Sana uygun AB ihaleleri</h2>
-    <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Profilime göre süz →</button>
-      <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu), robot her gün yeniler.</div>
+    <!-- 14.08 Cem: yurt dışına da segment (yurt içiyle aynı) + ihale bilgi bölümü -->
+    <div class="segnav" id="ydSegNav">
+      <button class="segbtn on" data-sek="ilan" onclick="ydSek('ilan')">📋 AB ihaleleri</button>
+      <button class="segbtn" data-sek="rehber" onclick="ydSek('rehber')">🧭 Nasıl katılırım?</button>
     </div>
-    <div id="sonuc"></div>
-    <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
-    <div id="yurtdisi"></div>
+    <div class="ydSek" id="ydIlan">
+      <h2>Sana uygun AB ihaleleri</h2>
+      <div class="kutu"><button class="btn" onclick="kontrol()" style="margin-top:0">Profilime göre süz →</button>
+        <div class="belg" id="tedKaynak">Sektör/GTİP/ülke profilini yukarıdan seç. Kaynak: AB'nin resmî ihale bülteni TED (ted.europa.eu), robot her gün yeniler.</div>
+      </div>
+      <div id="sonuc"></div>
+    </div>
+    <div class="ydSek" id="ydRehber" style="display:none">
+      <h2>Yurt dışı ihaleye Türk firması nasıl katılır?</h2>
+      <div id="yurtdisi"></div>
+    </div>
   </div>
 
   <div class="cta">
@@ -598,6 +607,13 @@ function yiSekGoster(name){
   if(nav) nav.querySelectorAll('.segbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.sek===name); });
 }
 function yiSek(name){ yiSekGoster(name); yiKaydir(document.getElementById('yiSegNav'),70); }
+// yurt dışı segment: AB ihaleleri / Nasıl katılırım?
+function ydSek(name){
+  ['Ilan','Rehber'].forEach(function(S){ var el=document.getElementById('yd'+S); if(el) el.style.display=(S.toLowerCase()===name)?'':'none'; });
+  var nav=document.getElementById('ydSegNav');
+  if(nav) nav.querySelectorAll('.segbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.sek===name); });
+  yiKaydir(nav,70);
+}
 // filtre (il/sektör) değişince: Açık bölümüne dön + sonuca kaydır
 function yiDegis(){ yiSekGoster('acik'); yurtIciCiz(); yiAtla(); }
 function yurtIciCiz(){
@@ -1055,11 +1071,18 @@ function kareAc(hedefId,no){
 function renderYurtdisi(){ if(!YD.katilabilirlik) return;
   const tbl=(YD.katilabilirlik||[]).map(x=>`<div style="padding:8px 0;border-top:1px solid var(--line)"><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.durum)}</span></div>`).join('');
   const adim=(YD.adimlar||[]).map(x=>`<div style="display:flex;gap:11px;margin:9px 0"><span style="flex:0 0 24px;height:24px;border-radius:7px;background:var(--grad);color:#03101f;font-weight:800;font-size:13px;display:grid;place-items:center">${x.no}</span><div><b style="color:var(--ink)">${esc(x.baslik)}</b><br><span style="color:var(--muted);font-size:13px">${esc(x.metin)}</span></div></div>`).join('');
+  // 14.08 Cem "yurt içindeki gibi ihale bilgi ekleyelim": teminat + resmî kaynaklar
+  // verisi ambarda VARDI ama ekranda yoktu; uydurma değil, YD dosyasından geliyor.
+  const kLabel={GPA:'WTO GPA (Kamu Alımları Anlaşması)',GumrukBirligi:'AB–Türkiye Gümrük Birliği',Direktif2014_24:'AB İhale Direktifi 2014/24',KolinKarari:'ABAD Kolin kararı (C-652/22)',IPI:'IPI 2022/1031 (3. ülke aracı)',ESPD_eCertis:'ESPD & eCertis (belge sistemi)',eCertisArac:'eCertis aracı',TED:'TED (AB ihale bülteni)',FundingTendersPortal:'AB Funding & Tenders Portalı'};
+  const kay=YD.kaynaklar||{};
+  const kayHtml=Object.keys(kay).map(k=>`<div style="padding:6px 0;border-top:1px solid var(--line)"><a href="${esc(kay[k])}" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:600">${esc(kLabel[k]||k)} ↗</a></div>`).join('');
   kareKur('yurtdisi',[
     {ikon:'⚖️', baslik:'Dürüst çerçeve', icerik:esc(YD.durustCerceve)},
     {ikon:'🇹🇷', baslik:"Türkiye'nin durumu", icerik:tbl},
     {ikon:'🧭', baslik:'Adım adım teklif', icerik:adim},
-    {ikon:'🤝', baslik:'En güçlü strateji + süreler', icerik:`<b>En güçlü strateji:</b> ${esc(YD.strateji)}<br><br><b>Süreler:</b> ${esc(YD.sureler)}`}
+    {ikon:'🤝', baslik:'En güçlü strateji + süreler', icerik:`<b>En güçlü strateji:</b> ${esc(YD.strateji)}<br><br><b>Süreler:</b> ${esc(YD.sureler)}`},
+    {ikon:'💰', baslik:'Teminat (bid/performance bond)', icerik:esc(YD.teminat)},
+    {ikon:'📚', baslik:'Resmî kaynaklar', icerik:kayHtml||'—'}
   ]);
 }
 veriYukle();
