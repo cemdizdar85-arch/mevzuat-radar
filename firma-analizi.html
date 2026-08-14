@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rakip Firma Analizi — bir firma hangi ihaleleri kazandı? | Tetikte</title>
+<meta name="description" content="Firma adı yaz; kamu ihalelerinde kaç iş aldı, hangi bedellerle, hangi kurumlarla çalıştı, kırım oranı ne — Kamu İhale Bülteni sonuç ilanlarından ölçüldü.">
+<style>
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 80px}
+h1{font-size:clamp(24px,5vw,33px);letter-spacing:-.9px;margin:6px 0 6px;font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin:0 0 16px}
+.kutu{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:0 0 7px}
+input[type=text]{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:15px;padding:13px 15px}
+.uyari{font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:14px 0;line-height:1.6}
+.firma{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0}
+.firma h3{margin:0 0 4px;font-size:17px}
+.rozetler{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.rz{background:var(--panel2);border:1px solid var(--line2);border-radius:9px;padding:6px 11px;font-size:12.5px}
+.rz b{color:var(--accent2);font-size:14px}
+.rz.yesil b{color:var(--green)}
+.ihaleler{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.ih{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.ih:last-child{border-bottom:none}
+.ih .ust{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.ih .ad{font-weight:600;color:var(--ink)}
+.ih .idare{color:var(--muted);font-size:12px}
+.ih .sayilar{margin-top:3px;font-size:12px;color:var(--dim)}
+.ih .bedel{color:var(--ink);font-weight:700}
+.ih .kirim{color:var(--accent2);font-weight:700}
+.dugme{background:none;border:1px solid var(--line2);color:var(--muted);border-radius:8px;font:600 12px inherit;padding:6px 12px;cursor:pointer;margin-top:10px}
+.dugme:hover{color:var(--ink)}
+.dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line);line-height:1.6}
+.ustluk{background:linear-gradient(135deg,rgba(61,220,151,.08),rgba(245,165,36,.06));border:1px solid rgba(61,220,151,.25);border-radius:12px;padding:12px 15px;font-size:13px;line-height:1.65;margin:14px 0}
+mark{background:rgba(245,165,36,.28);color:var(--accent2);padding:0 2px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Rakip Firma Analizi</h1>
+  <p class="lead">Bir firma adı yaz — kamu ihalelerinde kaç iş almış, hangi bedellerle, hangi kurumlarla çalışmış, ne kadar kırım yapmış. Rakibini tanı, teklifini ona göre kur.</p>
+
+  <div class="ustluk">
+    <b style="color:var(--green)">Bizi ayıran ne?</b> Diğer siteler "bu firma bu işi 2.750.000 TL'ye aldı" der. Biz sonuç ilanındaki <b style="color:var(--ink)">yaklaşık maliyeti ve kırım oranını</b> da taşıdığımız için "…<b style="color:var(--ink)">%6,7 kırımla, 3 firma arasından</b> aldı" diyebiliyoruz. Teklif stratejin için asıl kıymetli olan budur.
+  </div>
+
+  <div class="kutu">
+    <label for="ara">Firma adı</label>
+    <input type="text" id="ara" placeholder="ör. ecza, inşaat, medikal, bir firma adı…" autocomplete="off">
+    <div id="sayac" style="font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+
+  <div id="sonuc"></div>
+
+  <div class="dip" id="dip">Yükleniyor…</div>
+</div>
+<script src="menu.js"></script>
+<script>
+var FIRMA=[], DIP='';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function trFold(s){return String(s||'').toLocaleLowerCase('tr').replace(/İ/g,'i').replace(/I/g,'ı');}
+function tl(n){ if(n==null) return '—'; return Number(n).toLocaleString('tr-TR',{maximumFractionDigits:0})+' TL'; }
+function vr(n){ return String(n).replace('.',','); }
+
+fetch('veri/ihale-firma-ozet.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  FIRMA=d.firmalar||[]; DIP=d.guncelleme||'';
+  document.getElementById('dip').innerHTML='<b style="color:var(--muted)">Kaynak:</b> '+esc(DIP)+' — '+FIRMA.length+' firma, '+(d.kayitSayisi||0)+' sonuç ilanından ölçüldü. '+esc(d.not||'');
+  ciz('');
+}).catch(function(){ document.getElementById('dip').textContent='Firma verisi okunamadı.'; });
+
+document.getElementById('ara').addEventListener('input',function(){ ciz(this.value.trim()); });
+
+function ciz(q){
+  var qf=trFold(q);
+  var liste = qf ? FIRMA.filter(function(f){ return trFold(f.ad).indexOf(qf)>=0; }) : FIRMA.slice(0,15);
+  var sc=document.getElementById('sayac');
+  if(qf) sc.textContent = liste.length+' firma bulundu'+(liste.length>60?' (ilk 60 gösteriliyor)':'');
+  else sc.innerHTML = 'En çok iş alan 15 firma listeleniyor — aramak için firma adı yaz. <b style="color:var(--muted)">Toplam '+FIRMA.length+' firma.</b>';
+  liste = liste.slice(0,60);
+  var box=document.getElementById('sonuc');
+  if(!liste.length){ box.innerHTML='<div class="uyari">Bu adla eşleşen firma yok. Farklı bir kelime dene (ör. sadece "ecza" ya da "inşaat").</div>'; return; }
+  box.innerHTML = liste.map(function(f,i){
+    var vurgu=function(ad){ if(!qf) return esc(ad); var idx=trFold(ad).indexOf(qf); if(idx<0) return esc(ad); return esc(ad.slice(0,idx))+'<mark>'+esc(ad.slice(idx,idx+q.length))+'</mark>'+esc(ad.slice(idx+q.length)); };
+    var roz=[];
+    roz.push('<span class="rz"><b>'+f.ihaleSayisi+'</b> iş aldı</span>');
+    if(f.toplamBedel) roz.push('<span class="rz">toplam <b>'+tl(f.toplamBedel)+'</b></span>');
+    if(f.ortKirim!=null) roz.push('<span class="rz yesil">ort. kırım <b>%'+vr(f.ortKirim)+'</b><span style="color:var(--dim)"> ('+f.kirimOlculen+' işte)</span></span>');
+    if(f.kurumSayisi) roz.push('<span class="rz"><b>'+f.kurumSayisi+'</b> kurumla</span>');
+    var ihId='ih'+i;
+    var ihHtml=(f.ihaleler||[]).map(function(ih){
+      var alt=[];
+      if(ih.bedel) alt.push('<span class="bedel">'+tl(ih.bedel)+'</span>');
+      if(ih.yaklasik&&ih.bedel) alt.push('yak. maliyet '+tl(ih.yaklasik));
+      if(ih.kirim!=null) alt.push('<span class="kirim">%'+vr(ih.kirim)+' kırım</span>');
+      if(ih.teklif) alt.push(ih.teklif+' teklif');
+      if(ih.tarih) alt.push(esc(ih.tarih));
+      return '<div class="ih"><div class="ust"><span class="ad">'+esc(ih.isAdi||ih.ikn)+'</span></div>'
+        +'<div class="idare">'+esc(ih.idare||'')+'</div>'
+        +'<div class="sayilar">'+alt.join(' · ')+'</div></div>';
+    }).join('');
+    var ilkGoster = f.ihaleSayisi>3;
+    return '<div class="firma"><h3>'+vurgu(f.ad)+'</h3>'
+      +'<div class="rozetler">'+roz.join('')+'</div>'
+      +'<div class="ihaleler" id="'+ihId+'" style="'+(ilkGoster?'max-height:250px;overflow:hidden':'')+'">'+ihHtml+'</div>'
+      +(ilkGoster?'<button class="dugme" onclick="var e=document.getElementById(\''+ihId+'\');e.style.maxHeight=e.style.maxHeight?\'\':\'250px\';e.style.overflow=e.style.maxHeight?\'hidden\':\'visible\';this.textContent=e.style.maxHeight?\'Tüm işleri gör ('+f.ihaleSayisi+')\':\'Daralt\';">Tüm işleri gör ('+f.ihaleSayisi+')</button>':'')
+      +'</div>';
+  }).join('');
+}
+</script>
+</body>
+</html>

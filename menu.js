@@ -102,6 +102,7 @@ var GRUPLAR=[
   ["kartlar.html","💊","Günün Hap Kartları","30 saniyelik özet kartlar"],
   ["destekler.html","🎯","Destek Radarı","Profiline uyan KOSGEB ve destekler"],
   ["ihale-radari.html","📣","İhale Radarı","Yurt içi + Avrupa ihaleleri"],
+  ["firma-analizi.html","🔎","Rakip Firma Analizi","Firma hangi ihaleleri kaça aldı"],
   ["alacak-radari.html","🚨","Alacak Radarı","Müşterin konkordato/iflasta — ilk sen duy"],
   ["marka-radari.html","™️","Marka Radarı","Yenileme + benzer başvuru uyarısı"],
   ["marka-itiraz.html","🔍","Marka İtiraz & Benzerlik","İtiraz süren dolmadan gör"]]},

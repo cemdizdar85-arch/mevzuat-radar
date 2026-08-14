@@ -234,7 +234,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     <div class="belg" style="margin:2px 0 12px"><b style="color:var(--ink)">Bu liste her gün sabah-akşam otomatik yenilenir</b>; tazelik damgasını (Son çekim) üstte görürsün. Tüm ilanların eksiksiz yeri EKAP'tır; Tetikte'nin işi katalog değil <b style="color:var(--ink)">süzgeç + bildirim</b>: iline ve sektörüne uyan ilanlar <b style="color:var(--ink)">abonelere günlük tek özet mail</b> olarak gider (her ilana ayrı mail atıp boğmayız; mail-SMS bildirimi ücretli aboneliğin parçasıdır, panelde görmek ücretsiz üyeye açıktır). <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
     <div class="kutu">
       <div class="grid">
-        <div><label for="yiKelime">Anahtar kelime (iş konusu)</label><input type="text" id="yiKelime" placeholder="ör. yapım, araç, yemek, temizlik" oninput="yurtIciCiz()"></div>
+        <div><label for="yiKelime">Ürün / iş ara</label><input type="text" id="yiKelime" placeholder="ör. jeneratör, asansör, diş malzeme, motorin" oninput="yurtIciCiz()"></div>
       </div>
       <div class="belg" id="yiKaynak">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr).</div>
       <div class="belg" style="color:var(--amber)">⚠ Bu liste özet/yönlendirmedir; kamu ihale ilanlarının <b>asıl ve eksiksiz</b> yayın yeri <a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener">EKAP'tır (Kamu İhale Kurumu) ↗</a>. Yaklaşık maliyet, son teklif tarihi ve şartname EKAP/ilan metnindedir; teklif vermeden önce oradan teyit et.</div>
@@ -553,7 +553,14 @@ function yurtIciCiz(){
   let liste=(YI.ilanlar||[]).filter(x=>{
     if(!ihaleMi(x)) return false;
     if(il!=='hepsi'&&x.il!==il) return false;
-    const t=trFold2((x.baslik||'')+' '+(x.kurum||''));
+    // 14.08 Cem "ÜRÜN BAZLI ARAMA": ilan.gov.tr başlığı çoğu zaman jenerik
+    // ("Sarf malzeme satın alınacaktır"). İlanın İKN'si bültende eşleşiyorsa,
+    // bültenin ZENGİN ürün metnini (ne alınıyor, iş adı, benzer iş) de arama
+    // havuzuna katıyoruz. Kullanıcı "jeneratör" yazınca başlıkta geçmese bile
+    // bülten miktar alanında geçiyorsa ilan gelir. Ek kaynak yok — elimizdeki
+    // 2.184 ilanlık bülten verisi artık ARANABİLİR.
+    const bx=(x.detay&&x.detay.ikn&&typeof BIX!=='undefined')?BIX[String(x.detay.ikn).trim()]:null;
+    const t=trFold2((x.baslik||'')+' '+(x.kurum||'')+(bx?' '+(bx.miktar||'')+' '+(bx.isAdi||'')+' '+(bx.benzerIs||''):''));
     if(sek){
       if(sek.tur && x.tur && x.tur!=='diger' && x.tur!==sek.tur) return false;
       if(sek.tur!=='yapim' && anah.length && !anah.some(k=>t.includes(trFold2(k)))) return false;

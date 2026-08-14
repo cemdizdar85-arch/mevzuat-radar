@@ -110,6 +110,15 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-sonuc-ozet.ps1 -Yaz
 
+      # Rakip firma analizi (firma-analizi.html): sonuc ilanlarindaki yuklenici
+      # firmalari gruplayip "firma -> kazandigi ihaleler" ozeti uretir.
+      - name: Rakip firma analizi ozeti
+        id: firmaozet
+        if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-firma-ozet.ps1 -Yaz
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
