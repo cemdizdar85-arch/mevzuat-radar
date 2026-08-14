@@ -668,15 +668,26 @@ function yurtIciCiz(){
         for(const k in SO.idare){ if(k.indexOf(ilk3)===0) return {ist:SO.idare[k], nasil:'Bu idarenin sonuçlanmış', dar:true}; }
       }
     }
-    // 2) benzer iş — başlıktaki anlamlı kelimelerden en çok kayıtlısı
+    // 2) benzer iş — 14.08 Cem: "İLK KELİMEYE göre eşleştir". Önceden başlıktaki
+    // anlamlı kelimelerden en çok KAYITLISI seçiliyordu; o yüzden "Tribün Koltuk
+    // Alımı" için alakasız "Montaj" çıkabiliyordu. Artık iş adının BAŞTAN İLK
+    // anlamlı kelimesi (4+ harf, dur-kelime değil) alınır; o kelime sonuç
+    // özetinde yoksa sıradaki kelimeye geçilir. İş adının ilk kelimesi işi en
+    // iyi tanımlar ("Tribün…", "Jeneratör…", "Asfalt…").
     if(SO.kelime){
-      const bas=soSade((bultenAdi(x)||x.baslik)+' '+((x.detay&&x.detay.kategori)||''));
+      // KAYNAK ÖNCELİĞİ: ilan.gov.tr başlığı çoğu zaman İDAREYLE başlıyor
+      // ("Kilis Gençlik ve Spor İl Müdürlüğü … Tribün Koltuk") — ilk kelime alınca
+      // idareyi ("Spor") yakalıyordu. Bültenin MİKTAR (ne alınıyor) alanı ürünü
+      // baştan verir ("Tribün Koltukları"), onu tercih ediyoruz; yoksa iş adı.
+      const bx=(x.detay&&x.detay.ikn&&typeof BIX!=='undefined')?BIX[String(x.detay.ikn).trim()]:null;
+      const kaynak=(bx&&bx.miktar&&!/belirtilmemiş|dokümanı/i.test(bx.miktar))?bx.miktar:(bultenAdi(x)||x.baslik);
+      const bas=soSade(kaynak);
+      const kelimeler=bas.split(' ').filter(function(w){ return w.length>=4 && SO_DUR.indexOf(w)<0; });
       let en=null;
-      bas.split(' ').forEach(function(w){
-        if(w.length<4 || SO_DUR.indexOf(w)>=0) return;
-        const g=SO.kelime[w];
-        if(g && g.kirimOlculen && (!en || g.kirimOlculen>en.g.kirimOlculen)) en={w:w,g:g};
-      });
+      for(var ki=0; ki<kelimeler.length; ki++){
+        const g=SO.kelime[kelimeler[ki]];
+        if(g && g.kirimOlculen){ en={w:kelimeler[ki],g:g}; break; }   // İLK bulunan kazanır
+      }
       if(en){ const kw=en.w.charAt(0)+en.w.slice(1).toLowerCase(); return {ist:en.g, nasil:'Adında "'+kw+'" geçen', dar:true}; }
     }
     // 3) işin türü — en genel eşleşme.
