@@ -23,9 +23,9 @@
         "B": "Bu, ortağın gerçek kişi mi kurum mu olduğuna bakmadan her kâr payı ödemesine standart %10'u uygulama hatası. Ortağın tam mükellef kurum olması durumu tamamen değiştirir.",
         "C": "%15 gibi eski/farklı bir oranla hesaplanmış, üstelik ortağın kurum olduğu için stopajın hiç kesilmeyeceği gözden kaçırılmış - iki hata üst üste binmiş.",
         "D": "Burada GVK m.22/2'deki 'kâr payının yarısı istisna' kuralı kurum ortağa uygulanmaya çalışılmış. O kural sadece gerçek kişiler içindir, kurum ortakla hiçbir ilgisi yoktur.",
-        "E": "Doğru. GVK m.94/6-b-i'nin parantez içi hükmü, tam mükellef kurumdan tam mükellef kuruma yapılan kâr payı dağıtımını stopaj dışında tutar; çünkü bu kâr payı zaten alıcı kurumun beyannamesinde iştirak kazancı istisnasıyla vergisiz kalacaktır, iki kez kesinti yapılmaz."
+        "E": "Doğru. GVK m.94/6-b'nin (i) ve (ii) alt bentleri stopajı gerçek kişilere, vergiden muaf olanlara ve dar mükelleflere yapılan dağıtımlar için öngörür; tam mükellef kurumdan tam mükellef kuruma dağıtım bu kapsamın DIŞINDA kaldığı için kesinti yoktur; çünkü bu kâr payı zaten alıcı kurumun beyannamesinde iştirak kazancı istisnasıyla vergisiz kalacaktır, iki kez kesinti yapılmaz."
       },
-      "hap": "Bir kurum başka bir kuruma kâr payı dağıtırsa, GVK m.94/6-b-i'nin parantez içindeki istisnası devreye girer ve hiç stopaj kesilmez - çünkü zaten kâr payını alan kurum bunu kendi kurumlar vergisi beyannamesinde iştirak kazancı istisnasıyla vergisiz tutacak. Stopaj sadece gerçek kişilere, dar mükelleflere ve vergiden muaf kurumlara yapılan dağıtımlarda kesilir. Ortağın kurum mu gerçek kişi mi olduğunu sormadan direkt %10 kesersen tuzağa düşersin.",
+      "hap": "Bir kurum başka bir kuruma kâr payı dağıtırsa, kesinti yapılmaz: GVK m.94/6-b'nin stopaj öngördüğü alt bentler tam mükellef GERÇEK KİŞİLERİ, vergiden muaf olanları (i) ve DAR mükellefleri (ii) sayar; tam mükellef kuruma dağıtım bu kapsamda yoktur - çünkü zaten kâr payını alan kurum bunu kendi kurumlar vergisi beyannamesinde iştirak kazancı istisnasıyla vergisiz tutacak. Stopaj sadece gerçek kişilere, dar mükelleflere ve vergiden muaf kurumlara yapılan dağıtımlarda kesilir. Ortağın kurum mu gerçek kişi mi olduğunu sormadan direkt %10 kesersen tuzağa düşersin.",
       "kaynak": "193 sayılı GVK m.94/6-b-i",
       "tablo": null,
       "yevmiye": null,
