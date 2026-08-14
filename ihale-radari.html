@@ -31,6 +31,12 @@ select,input[type=text]{width:100%;background:var(--panel2);border:1px solid var
 .tabs button{flex:1;background:var(--panel);border:1px solid var(--line2);color:var(--muted);font:inherit;font-size:15px;font-weight:800;padding:13px;border-radius:12px 12px 0 0;cursor:pointer}
 .tabs button.on{background:var(--grad);color:#03101f;border-color:transparent}
 .pane{display:none}.pane.on{display:block}
+/* 14.08 Cem "yukarıda seçmeli olsa aşağıya inmez": paneIc içi bölüm seçici */
+.segnav{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 18px}
+.segbtn{background:var(--panel2,#0a0f17);border:1px solid var(--line2);color:var(--muted);border-radius:11px;font:700 13.5px inherit;padding:9px 14px;cursor:pointer;transition:.15s}
+.segbtn:hover{color:var(--ink)}
+.segbtn.on{background:var(--grad);color:#03101f;border-color:transparent}
+.yiSek h2:first-child{margin-top:0}
 .kart{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin:13px 0;background:var(--panel2);border-left:4px solid var(--accent2)}
 .kart.iyi{border-left-color:var(--green)}.kart.dikkat{border-left-color:var(--amber)}.kart.kotu{border-left-color:var(--red)}
 .rozet{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;background:rgba(255,194,75,.13);color:var(--accent2);text-transform:uppercase}
@@ -230,6 +236,15 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
          KONUM: tum ilanlarin eksiksiz yeri zaten EKAP - biz katalog degil
          SUZGEC + BILDIRIM satiyoruz. Bakis bedava (ornek kesit + filtre),
          nobet paralı (iline/sektorune suzulmus TAM akis + gunluk ozet mail). -->
+    <!-- 14.08 Cem "yukarıda seçmeli olsa açık/iptal diye, aşağıya inmez":
+         dört bölüm alt alta uzamasin; segment cubuguyla teki gorunsun. -->
+    <div class="segnav" id="yiSegNav">
+      <button class="segbtn on" data-sek="acik" onclick="yiSek('acik')">📋 Açık ihaleler</button>
+      <button class="segbtn" data-sek="iptal" onclick="yiSek('iptal')">⛔ İptal & düzeltme</button>
+      <button class="segbtn" data-sek="arac" onclick="yiSek('arac')">🧰 Karar araçların</button>
+      <button class="segbtn" data-sek="hap" onclick="yiSek('hap')">📚 Hap bilgi</button>
+    </div>
+    <div class="yiSek" id="sekAcik">
     <h2>Yurt içi ihaleler <span style="font-size:13px;color:var(--dim);font-weight:600">· güncel; robot her gün yeniler</span></h2>
     <div class="belg" style="margin:2px 0 12px">Her gün sabah-akşam otomatik yenilenir, tazelik damgası üstte. Eksiksiz kaynak EKAP'tır; bizim işimiz <b style="color:var(--ink)">süzgeç + bildirim</b>: iline/sektörüne uyanlar abonelere <b style="color:var(--ink)">günlük tek özet mail</b> gider. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini tanıt, ihalen kaçmasın →</a></div>
     <div class="kutu">
@@ -241,7 +256,9 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     </div>
     <div id="yiSayac" style="margin:0 0 10px;font-size:14px;color:var(--muted)"></div>
     <div id="yiListe"></div>
+    </div><!-- /sekAcik -->
 
+    <div class="yiSek" id="sekIptal" style="display:none">
     <!-- 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal/duzeltme hasadi.
          Neden ayri bolum: bulten IKN (2026/1254015) kullanir, ilan.gov.tr ILN
          (ILN02529303) - IKISI FARKLI KIMLIK. Baslik benzerligiyle eslestirme
@@ -259,6 +276,9 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
       <div class="belg" id="bultenKaynak">Kaynak: Kamu İhale Bülteni (KİK), 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri.</div>
     </div>
 
+    </div><!-- /sekIptal -->
+
+    <div class="yiSek" id="sekArac" style="display:none">
     <!-- 31.07 Cem: araclar da alt alta uzamasin - 4 arac karesi, tiklayinca acilir -->
     <h2>Karar araçların</h2>
     <div class="kgrid">
@@ -287,10 +307,13 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     </div>
 
     <div class="asec" id="as_itiraz" style="display:none"><div id="sikayet"></div></div>
+    </div><!-- /sekArac -->
 
+    <div class="yiSek" id="sekHap" style="display:none">
     <h2>Bilmen gerekenler (hap bilgi)</h2>
     <div id="hapIc"></div>
     <div id="katilimBilgi"></div>
+    </div><!-- /sekHap -->
   </div>
 
   <!-- ============ YURT DIŞI ============ -->
@@ -555,17 +578,28 @@ function ihaleMi(x){ const t=trFold2((x.baslik||'')+' '+(x.kurum||'')); return !
 // çizilir VE sonuç görünür alana kayar. Sayfa başındaki filtreye bakıp
 // "sonuç nerede" diye aramak yok. Kelime yazarken (oninput) kaydırmayız,
 // yalnız açık seçim değişiminde — her tuş vuruşunda zıplamak rahatsız eder.
-function yiAtla(){
-  const s=document.getElementById('yiSayac')||document.getElementById('yiListe');
-  if(!s) return;
-  const y=s.getBoundingClientRect().top+window.scrollY-90;
-  // smooth destekli tarayicida yumusak kayar; desteklemeyende (bazi gomulu
-  // gorunumler smooth'u yok sayiyor) anlik scrollTo garanti eder.
+// smooth destekli tarayicida yumusak kayar; desteklemeyende (bazi gomulu
+// gorunumler smooth'u yok sayiyor) anlik scrollTo garanti eder.
+function yiKaydir(el,ofset){
+  if(!el) return;
+  const y=el.getBoundingClientRect().top+window.scrollY-(ofset||90);
   try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
   const bas=window.scrollY;
   setTimeout(function(){ if(Math.abs(window.scrollY-bas)<2 && Math.abs(bas-y)>4) window.scrollTo(0,y); },260);
 }
-function yiDegis(){ yurtIciCiz(); yiAtla(); }
+function yiAtla(){ yiKaydir(document.getElementById('yiSayac')||document.getElementById('yiListe'),90); }
+// SEGMENT: Cem "yukarıda seçmeli olsa aşağıya inmez" - paneIc'in dört bölümünden
+// (Açık ihaleler / İptal / Karar araçları / Hap bilgi) yalnız biri görünür.
+function yiSekGoster(name){
+  ['Acik','Iptal','Arac','Hap'].forEach(function(S){
+    var el=document.getElementById('sek'+S); if(el) el.style.display=(S.toLowerCase()===name)?'':'none';
+  });
+  var nav=document.getElementById('yiSegNav');
+  if(nav) nav.querySelectorAll('.segbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.sek===name); });
+}
+function yiSek(name){ yiSekGoster(name); yiKaydir(document.getElementById('yiSegNav'),70); }
+// filtre (il/sektör) değişince: Açık bölümüne dön + sonuca kaydır
+function yiDegis(){ yiSekGoster('acik'); yurtIciCiz(); yiAtla(); }
 function yurtIciCiz(){
   const box=document.getElementById('yiListe'); if(!box||!YI) return;
   const il=(document.getElementById('yiIl')||{}).value||'hepsi';
