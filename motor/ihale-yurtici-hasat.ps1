@@ -116,6 +116,27 @@ function DetayCek([string]$id){
     # 4734 disi ilanlarda kritik: dokuman nereden alinir + acik eksiltme var mi
     dokumanYer = (& $al '(?:İhale [Dd]okümanı|[Dd]etaylı bilgi)[^.]{0,90}?((?:www\.|https?://)[^\s,;]{6,60})')
     eksiltme   = (& $al '(Açık eksiltme [Tt]arih ve saati\s*:?\s*[\d.]+[^0-9]{0,20}[\d:]+)')
+    # ---- DUZELTME/IPTAL ILANLARI ICIN (14.08 Cem'in bos kart bulgusu) --------
+    # Duzeltme ilaninda okunmasi gereken tek sey NEYIN DEGISTIGI. Metinde
+    # "...maddesi asagidaki sekilde degistirilmistir" / "Duzeltilen madde" gibi
+    # kaliplarla yaziliyor. Asil ilanin numarasi da burada geciyor.
+    asilIlanNo = (& $al '(?:[İI]lan [Nn]o|[İI]LN)\s*:?\s*(ILN\d{6,})')
+    asilIkn    = (& $al 'İhale Kayıt Numarası[^0-9]{0,20}(\d{4}/\d+)')
+    asilDosya  = (& $al '([A-Z]{2}\d{6,})\s*dosya numaralı')
+    # OLCULDU (ADM Elektrik duzeltme ilani, ham metin okundu): duzeltme metni
+    # "... ile ilgili asagidaki hususlarda degisiklik yapilmistir" cumlesiyle
+    # basliyor, ardindan "Eski Hali / Yeni Hali" tablosu geliyor. Teklif
+    # hazirlayanin bilmesi gereken sey ORADA: o ilanda ihale YERI Denizli'den
+    # Izmir'e tasinmis, tarih 19.08 15:00 -> 25.08 11:30 kaymis.
+    # Degisen sartname maddeleri toplanir; hicbiri uydurulmaz, metinde YAZAR.
+    degisenler = $(
+      $lst = @()
+      foreach($mm in [regex]::Matches($m, '(?:İdari|Teknik)\s+Şartname[^.]{0,24}?Madde\s*\d+')){
+        $lst += (($mm.Value -replace '\s+',' ').Trim())
+      }
+      ($lst | Select-Object -Unique) -join ' · ')
+    yerDegisti = (& $al '(İhalenin Yapılacağı Adres\s*:\s*[^:]{6,90}?)\s*İhale \(Son Teklif')
+    eskiTarih  = (& $al '(\d{2}/\d{2}/\d{4})[^.]{0,30}?günü saat\s*[\d:]+[^.]{0,20}?yapılacak olan')
   }
 }
 
@@ -135,8 +156,16 @@ foreach($a in $hamAds){
   $tarih = ""
   if($a.publishStartDate){ try { $tarih = ([datetime]$a.publishStartDate).ToString("dd.MM.yyyy") } catch { $tarih = "$($a.publishStartDate)".Substring(0,10) } }
   $detay = $null
+  # 14.08 CEM BULGUSU (ekran goruntusu, ADM Elektrik duzeltme ilani): kart BOMBOS,
+  # icinde yalnizca "bu bir duzeltme ilanidir" damgasi ve altinda kocaman bosluk.
+  # SEBEP: duzeltme/iptal ilanlarinin slug'i "ihale-duzeltme-zeyilname-duyurulari"
+  # oldugu icin SlugTur 'diger' donuyor ve asagidaki kosul detayi HIC cekmiyordu.
+  # Oysa duzeltme ilaninin metni tam da okunmasi gereken sey: neyin degistigi ve
+  # asil ilanin numarasi orada. Artik durum'u duzeltme/iptal olanlarin da detayi
+  # cekilir (gunde 4-5 ilan, kaynaga ek yuk yok).
+  $ilanDurum = (IlanDurumu "$($a.title)" "$($a.slugifyTitle)")
   if($eskiDetay.ContainsKey("$($a.adNo)")){ $detay = $eskiDetay["$($a.adNo)"] }
-  elseif((SlugTur "$($a.slugifyTitle)") -ne 'diger'){
+  elseif((SlugTur "$($a.slugifyTitle)") -ne 'diger' -or $ilanDurum -in @('duzeltme','iptal')){
     # yalniz gercek ihale ilanlari icin detay cekilir; kaynaga nazik olmak icin bekleme
     $detay = DetayCek "$($a.id)"
     $detayCekilen++
@@ -150,8 +179,14 @@ foreach($a in $hamAds){
     ilce   = $a.addressCountyName
     tarih  = $tarih
     tur    = (SlugTur "$($a.slugifyTitle)")
-    durum  = (IlanDurumu "$($a.title)" "$($a.slugifyTitle)")
-    asilNo = (AsilIlanNo "$($a.title)" "$($a.adNo)")
+    durum  = $ilanDurum
+    # asil ilan no oncelikle BASLIKTAN cikarilir; baslikta yoksa (Cem'in gordugu
+    # ADM ilaninda oyleydi - asilNo bostu) detay metnindeki ILN/IKN denenir.
+    asilNo = $(
+      $an = (AsilIlanNo "$($a.title)" "$($a.adNo)")
+      if($an){ $an }
+      elseif($detay -and $detay.asilIlanNo){ $detay.asilIlanNo }
+      else { '' })
     detay  = $detay
     url    = "https://www.ilan.gov.tr/ilan/$($a.id)/$($a.slugifyTitle)"
   }

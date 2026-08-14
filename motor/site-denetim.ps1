@@ -39,7 +39,14 @@ foreach($f in $sayfalar){
   $mm = $mojibake.Matches($govde)
   if($mm.Count){ $bozukTr += ("{0} ({1} iz, ornek: {2})" -f $ad, $mm.Count, $mm[0].Value) }
   # 4) menu
-  if($t -notmatch 'menu\.js'){ $menuYok += $ad }
+  # IC BELGE ISTISNASI (14.08): menusuz sayfa her zaman kusur degil. Bilincli ic
+  # belgeler var (soru denetim masasi, kurulum kilavuzu, marka taslagi) - bunlar
+  # SITEYE ACIK DEGIL: noindex tasiyorlar, basliklarinda "(ic belge)"/"(ic calisma)"
+  # yaziyor ve hicbir yerden baglanti verilmiyor. Menuye eklenmemeleri KARAR.
+  # Istisna DAR tutulur: yalniz noindex + baslikta ic-belge damgasi olan sayfa.
+  # Boylece gercekten menu unutulmus bir arac sayfasi yine YAKALANIR.
+  $icBelge = ($t -match 'noindex') -and ($t -match '(?i)<title>[^<]*\((?:iç belge|ic belge|iç çalışma|ic calisma)\)')
+  if($t -notmatch 'menu\.js' -and -not $icBelge){ $menuYok += $ad }
   # 5) title
   $tm = [regex]::Match($t,'(?s)<title>(.*?)</title>')
   if(-not $tm.Success -or $tm.Groups[1].Value.Trim().Length -lt 8){ $titleYok += $ad }

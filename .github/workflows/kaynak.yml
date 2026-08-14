@@ -1,4 +1,4 @@
-# Bu dosyanin GitHub'daki yolu: .github/workflows/kaynak.yml
+﻿# Bu dosyanin GitHub'daki yolu: .github/workflows/kaynak.yml
 # Kaynak Nobetcisi: resmi kaynaklari haftalik izler; degisince Cem'e mail atar
 # ve (deterministik olanlari) yeniden hasat edip commit'ler.
 name: Kaynak Nobetcisi
@@ -79,11 +79,42 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-bulten-hasat.ps1 -Turler Mal,Yapim,Hizmet,Danismanlik -Yaz
 
+      # 14.08 Cem: "kimler katilabilir, kac tane, ne istiyorlar — HAP olarak
+      # gorsunler". Bulten ilan METNINDEN cikarilir; ayni ZIP'ler zaten yukaridaki
+      # adimda indirildi, ek istek YOK. Havuz BIRIKIMLIDIR: ihaleler 7-40 gun
+      # onceden ilan edildigi icin tek gunluk bulten yetmez, her gun uzerine eklenir.
+      - name: Kamu Ihale Bulteni — ilan metni ayristir (hap bilgi)
+        id: bultenilan
+        if: github.event.schedule != '13 14 * * *' && steps.bulten.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-ilan-ayristir.ps1 -Yaz
+
+      # 14.08 BULGUSU: bulten ZIP'inde IKI PDF varmis (ilanlar + SONUC ilanlari);
+      # 12 MB'lik sonuc bultenini her gun cope atiyormusuz. Icinde yaklasik
+      # maliyet, sozlesme bedeli, kazanan firma ve teklif sayisi var - yani
+      # "bu is gercekte kaca yapiliyor" sorusunun cevabi. Ek istek YOK, ayni ZIP.
+      - name: Kamu Ihale Bulteni — SONUC ilanlari (yaklasik maliyet + kazanan)
+        id: bultensonuc
+        if: github.event.schedule != '13 14 * * *' && steps.bulten.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-sonuc-ayristir.ps1 -Yaz
+
+      # Ham sonuc verisi 1,7 MB - siteye OZET gider (kirim medyani + rekabet).
+      # Kartlar "bu is gercekte kaca yapiliyor" satirini bundan cizer.
+      - name: Sonuc ilanlarindan ozet uret (karta giden veri)
+        id: bultenozet
+        if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-sonuc-ozet.ps1 -Yaz
+
       - name: Bulten adimi dustuyse Cem'e haber ver
-        if: steps.bulten.outcome == 'failure'
+        if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Kamu Ihale Bulteni hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="ihale-bulten-hasat.ps1 dustu (digerleri kosmaya devam etti). Muhtemel sebep: KIK ucu GitHub IP'sini engelliyor ya da sayfa yapisi degisti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Kamu Ihale Bulteni hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Kamu Ihale Bulteni adimlarindan biri dustu (hasat: ${{ steps.bulten.outcome }} / ilan: ${{ steps.bultenilan.outcome }} / sonuc: ${{ steps.bultensonuc.outcome }}). Digerleri kosmaya devam etti. Muhtemel sebep: KIK ucu GitHub IP'sini engelliyor ya da bulten metin yapisi degisti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
           try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
 
       - name: Yapisal denetci (imkansiz/celisik veri — patlarsa commit YOK)

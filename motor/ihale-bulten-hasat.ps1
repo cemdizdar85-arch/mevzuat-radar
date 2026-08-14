@@ -18,6 +18,16 @@ param(
   # Ayristiriciyi gelistirirken bulteni her seferinde yeniden indirmemek icin:
   # scratchpad'deki mevcut .txt kullanilir. KIK sunucusuna bosuna yuk bindirmez.
   [switch]$YerelMetin,
+  # ---- ARSIV DENEMESI: SONUC = CALISMIYOR (14.08, olculdu) ------------------
+  # Sayfada bir tarih alani var (etBultenTarihi). Bos gonderiliyordu; oraya
+  # "11.08.2026" yazip denedim, 11.236.861 baytlik gecerli ZIP geldi ve ILK
+  # BAKISTA "arsiv acildi" sandim. YANLISTI: ZIP'in icindeki dosya adi
+  # BULTEN_14082026_MAL.pdf idi - yani yine O GUNUN bulteni. Boyut farkina
+  # bakip dosya adina bakmamak hataydi.
+  # Anlasilan tarih secimi tek basina POST alaniyla degil, takvim kontrolunun
+  # kendi postback'iyle isliyor. Parametre yerinde biraktim ama ISE YARAMIYOR;
+  # arsiv gerekiyorsa once bu cozulmeli. Yanlis iddia kalmasin diye yaziyorum.
+  [string]$Tarih = "",
   # Varsayilan gecici klasor PLATFORM BAGIMSIZ olmali: bu betik GitHub Actions'ta
   # (Linux + PowerShell 7) da kosuyor, sabit Windows yolu orada patlar.
   [string]$Klasor = (Join-Path ([IO.Path]::GetTempPath()) "tetikte-bulten")
@@ -98,7 +108,8 @@ function BultenMetni([string]$tur){
     '__EVENTVALIDATION' = (GizliAl $html '__EVENTVALIDATION')
     'ctl00$Menu1$hdnAktIKN' = (GizliAl $html 'ctl00_Menu1_hdnAktIKN')
     'ctl00$ContentPlaceHolder1$ddlstBxIhaleTur' = '0'
-    'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = ''
+    # bos = bugunun bulteni · "dd.MM.yyyy" = o gunun bulteni (arsiv)
+    'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = $Tarih
   }
   $ham = Join-Path $Klasor ("bulten-{0}.ham" -f $tur.ToLower())
   if($script:CurlYol){
@@ -125,9 +136,27 @@ function BultenMetni([string]$tur){
     Copy-Item $ham $zip -Force
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $ar = [IO.Compression.ZipFile]::OpenRead($zip)
-    $g = @($ar.Entries | Where-Object { $_.Name -match '\.pdf$' })[0]
-    if(-not $g){ $ar.Dispose(); return $null }
-    [IO.Compression.ZipFileExtensions]::ExtractToFile($g, $pdf, $true)
+    # ===== 14.08 BULGUSU: ZIP'TE IKI PDF VAR, BIRINI ATLIYORDUK ==============
+    # ZIP icerigi:  BULTEN_14082026_MAL.pdf        (3,2 MB) - ihale ILANLARI
+    #               BULTEN_14082026_MAL_SONUC.pdf (12,1 MB) - SONUC ilanlari
+    # Eski kod "ilk .pdf"i aliyordu, yani 12 MB'lik sonuc bulteni her gun cope
+    # gidiyordu. Icinde ne var (olculdu): 1118 sonuc ilani, "Yaklaşık Maliyet"
+    # 1319 kez, "Yüklenici" 2699 kez, "Teklif Sayısı" 2236 kez.
+    # BU ONEMLI: yaklasik maliyet ihale ILANINDA aciklanmaz (4734) ama SONUC
+    # ilaninda ACIKLANIR - sozlesme bedeli, kazanan firma ve teklif sayisiyla
+    # birlikte. Cem'in "bedel bilgisi" sorusunun gercek cevabi burada.
+    $ilanPdf  = @($ar.Entries | Where-Object { $_.Name -match '\.pdf$' -and $_.Name -notmatch 'SONUC' })[0]
+    $sonucPdf = @($ar.Entries | Where-Object { $_.Name -match 'SONUC\.pdf$' })[0]
+    if(-not $ilanPdf){ $ilanPdf = @($ar.Entries | Where-Object { $_.Name -match '\.pdf$' })[0] }
+    if(-not $ilanPdf){ $ar.Dispose(); return $null }
+    [IO.Compression.ZipFileExtensions]::ExtractToFile($ilanPdf, $pdf, $true)
+    if($sonucPdf){
+      $spdf = Join-Path $Klasor ("sonuc-{0}.pdf" -f $tur.ToLower())
+      [IO.Compression.ZipFileExtensions]::ExtractToFile($sonucPdf, $spdf, $true)
+      $stxt = Join-Path $Klasor ("sonuc-{0}.txt" -f $tur.ToLower())
+      & pdftotext -enc UTF-8 -layout $spdf $stxt
+      if(Test-Path $stxt){ Write-Host ("   sonuc bulteni: {0:N0} karakter" -f (Get-Item $stxt).Length) }
+    }
     $ar.Dispose()
   } else { Copy-Item $ham $pdf -Force }
   $txt = Join-Path $Klasor ("bulten-{0}.txt" -f $tur.ToLower())

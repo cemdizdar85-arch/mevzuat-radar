@@ -351,6 +351,8 @@ function tab(t){
 }
 // ============ KAMU IHALE BULTENI: iptal + duzeltme (13.08 Cem onayi) ============
 let BD=null;
+let BI=null, BIX={};   // Kamu Ihale Bulteni ilan metni + IKN dizini
+let SO=null;           // sonuc ilanlarindan cikan kirim/rekabet ozeti
 function bultenCiz(){
   const k=document.getElementById('bultenListe'); if(!k||!BD) return;
   const ara=(document.getElementById('iknAra')||{}).value||'';
@@ -446,6 +448,18 @@ async function veriYukle(){
   EK=await g('ihale-4734-ek.json')||{};
   YI=await g('ihale-yurtici.json')||{ilanlar:[]};
   BD=await g('ihale-bulten-durum.json')||{iptal:[],duzeltme:[]};
+  // Kamu Ihale Bulteni ILAN METNI (14.08) - Cem: "kimler katilabilir, kac tane,
+  // ne istiyorlar hap olarak gorsunler". ilan.gov.tr ozeti bunlari vermiyor;
+  // bulten ilan metni veriyor. IKN ile eslestirilir.
+  // İNCE dosya (14.08): tam havuz 1,3 MB ve birikimli büyüyordu; kart yalnız
+  // ilan.gov.tr listesiyle eşleşen kayıtları çizebildiği için siteye sadece
+  // onlar + kartın okuduğu 15 alan taşınır. Tam veri veri/ihale-bulten-ilan.json.
+  BI=await g('ihale-bulten-ilan-site.json')||{ilanlar:[]};
+  BIX={}; (BI.ilanlar||[]).forEach(function(x){ if(x.ikn) BIX[String(x.ikn).trim()]=x; });
+  // 14.08: SONUÇ ilanlarından çıkarılan kırım/rekabet özeti. Ham veri 1,7 MB
+  // olduğu için siteye ÖZET gider (61 KB) — kart yalnız "kaça veriliyor, kaç
+  // kişi giriyor" sorusuna cevap arıyor, 1393 kaydın tamamına ihtiyacı yok.
+  SO=await g('ihale-sonuc-ozet.json')||null;
   // yurt ici il filtresi + ilk cizim
   const yiIller=[...new Set((YI.ilanlar||[]).map(x=>x.il).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
   const yiSel=document.getElementById('yiIl');
@@ -584,7 +598,17 @@ function yurtIciCiz(){
     if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI — ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:#ffd27a;text-decoration:underline">düzeltme metnini oku →</a></div>`;
     // asıl ilanı havuzda olmayan düzeltme/iptal kaydı: açık ihale sanılmasın
     if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?' — iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
-    if(x.durum==='duzeltme') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ Bu bir DÜZELTME ilanıdır${x.asilNo?' — düzeltilen ihale: '+esc(x.asilNo):''}. Asıl ilan metnini de oku.</div>`;
+    if(x.durum==='duzeltme'){
+      // 14.08 Cem (ADM Elektrik kartı "hatalı görünüyor"): kart yalnız "bu bir
+      // düzeltme ilanıdır" deyip bomboş kalıyordu. Düzeltme ilanında okunması
+      // gereken şey NE DEĞİŞTİĞİ — o ilanda ihale yeri Denizli'den İzmir'e
+      // taşınmış, tarih 19.08 15:00'ten 25.08 11:30'a kaymıştı. Artık yazılıyor.
+      const dd=x.detay||{}, par=[];
+      if(dd.eskiTarih && dd.sonTeklif) par.push(`<b style="color:#ffd27a">Tarih değişti:</b> ${esc(dd.eskiTarih.replace(/\//g,'.'))} → <b style="color:var(--ink)">${esc(dd.sonTeklif)}</b>`);
+      if(dd.degisenler) par.push(`<b style="color:#ffd27a">Değişen maddeler:</b> ${esc(String(dd.degisenler).slice(0,220))}`);
+      if(dd.asilDosya) par.push(`<span style="color:var(--dim)">İdarenin dosya no: ${esc(dd.asilDosya)}</span>`);
+      return `<div class="belg" style="margin:6px 0 0;padding:7px 9px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;line-height:1.65"><b>✏️ Bu bir DÜZELTME ilanıdır</b>${x.asilNo?' — düzeltilen ihale: '+esc(x.asilNo):''}${par.length?'<br>'+par.join('<br>'):''}<br><span style="color:var(--muted);font-weight:400">Şartlar değişmiş olabilir; asıl ilan metnini de oku.</span></div>`;
+    }
     return '';
   };
   // 14.08 Cem: "burada hap bilgi versek ihale bedeli vs gibi sence".
@@ -600,6 +624,86 @@ function yurtIciCiz(){
     let s='iyi', t=kg+' gün kaldı';
     if(kg<0){ s='acil'; t='süre geçti'; } else if(kg===0){ s='acil'; t='SON GÜN'; } else if(kg<=7){ s='acil'; } else if(kg<=21){ s='orta'; }
     return `<span class="gunroz ${s}">${t}</span>`;
+  };
+  // 14.08 Cem "ürün görünmüyor": ilan.gov.tr başlığı jenerik oluyor ("Diş sarf
+  // malzeme satın alınacaktır"), bültendeki resmî iş adı ise somut ("134 Kalem
+  // Diş Sarf Malzeme Alımı"). Aynı ihale, daha net ad — başlıkta o kullanılır.
+  // 14.08 Cem (ADM Elektrik kartı): rozet "İhale" diye jenerik yazıyordu. Sebep:
+  // düzeltme ilanlarının slug'ı tür vermediği için tur='diger'. Oysa ilan detayı
+  // türü YAPISAL olarak veriyor ("Kiralama ve Hizmet Alımı"). Önce o kullanılır.
+  const turEtiket=x=>{
+    const t=(x.detay&&x.detay.tur)?String(x.detay.tur).trim():'';
+    if(t && t.length<34) return t;
+    return TUR_AD[x.tur]||'İhale';
+  };
+  const bultenAdi=x=>{
+    const b=(x.detay&&x.detay.ikn)?BIX[String(x.detay.ikn).trim()]:null;
+    const a=b&&b.isAdi?String(b.isAdi).trim():'';
+    return (a.length>8 && a.length<160)? a : '';
+  };
+  // ---- 14.08 Cem "kartlara bağla": GEÇMİŞ SONUÇLARDAN KIRIM/REKABET --------
+  // Açık ihalede yaklaşık maliyet ilan edilmez. Ama AYNI İŞ daha önce yapıldıysa
+  // sonuç ilanında yaklaşık maliyet + sözleşme bedeli açıklanmıştır. Buradan
+  // "bu iş gerçekte ne kadar kırımla veriliyor, kaç kişi giriyor" çıkar.
+  // Öncelik: aynı idare > benzer iş (anahtar kelime) > işin türü.
+  // RAKAM DİSİPLİNİ: kaç ihalede ölçüldüğü HER ZAMAN yazılır; ölçülmemiş grup
+  // gösterilmez (özet üreticide n<3 zaten elenmiş).
+  const soSade=t=>String(t||'').toUpperCase().replace(/[^A-ZÇĞİÖŞÜ0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  const SO_DUR=['ALIMI','ALIM','SATIN','ALINACAKTIR','İŞİ','İŞ','VE','İLE','İÇİN','ADET','KALEM','MAL','HİZMET','YAPIM','YAPTIRILACAKTIR','KİRALAMA','TEMİNİ','TEMİN','MALZEME','MALZEMESİ','MALZEMELERİ','YILI','AYLIK','TOPLAM','MUHTELİF','ÇEŞİTLİ','GENEL','BAKIM','ONARIM'];
+  const gecmisIst=x=>{
+    if(!SO) return null;
+    // 1) aynı idare — en değerli eşleşme
+    const kur=soSade(x.kurum);
+    if(kur && SO.idare){
+      if(SO.idare[kur]) return {ist:SO.idare[kur], nasil:'Bu idarenin sonuçlanmış', dar:true};
+      const ilk3=kur.split(' ').slice(0,3).join(' ');
+      if(ilk3.length>8){
+        for(const k in SO.idare){ if(k.indexOf(ilk3)===0) return {ist:SO.idare[k], nasil:'Bu idarenin sonuçlanmış', dar:true}; }
+      }
+    }
+    // 2) benzer iş — başlıktaki anlamlı kelimelerden en çok kayıtlısı
+    if(SO.kelime){
+      const bas=soSade((bultenAdi(x)||x.baslik)+' '+((x.detay&&x.detay.kategori)||''));
+      let en=null;
+      bas.split(' ').forEach(function(w){
+        if(w.length<4 || SO_DUR.indexOf(w)>=0) return;
+        const g=SO.kelime[w];
+        if(g && g.kirimOlculen && (!en || g.kirimOlculen>en.g.kirimOlculen)) en={w:w,g:g};
+      });
+      if(en){ const kw=en.w.charAt(0)+en.w.slice(1).toLowerCase(); return {ist:en.g, nasil:'Adında "'+kw+'" geçen', dar:true}; }
+    }
+    // 3) işin türü — en genel eşleşme.
+    // ilan.gov.tr adres kalıbı tür vermediğinde tur='diger' oluyor (düzeltme
+    // ilanları böyle). O ilanların DETAYINDA tür yapısal olarak yazılı
+    // ("Kiralama ve Hizmet Alımı") — kart boş kalmasın diye oradan çıkarılır.
+    const tmap={mal:'Mal',hizmet:'Hizmet',yapim:'Yapim'};
+    let tk=x.tur;
+    if(tk==='diger' && x.detay && x.detay.tur){
+      const dt=String(x.detay.tur);
+      if(/yapım|yapim|inşaat/i.test(dt)) tk='yapim';
+      else if(/hizmet|kiralama|danışmanlık/i.test(dt)) tk='hizmet';
+      else if(/mal/i.test(dt)) tk='mal';
+    }
+    const t=tmap[tk];
+    if(t && SO.tur && SO.tur[t] && SO.tur[t].kirimOlculen) return {ist:SO.tur[t], nasil:(tk==='yapim'?'Yapım işlerinde':tk==='hizmet'?'Hizmet alımlarında':'Mal alımlarında')+' ölçülen', dar:false};
+    return null;
+  };
+  const gecmisHtml=x=>{
+    const r=gecmisIst(x); if(!r) return '';
+    const i=r.ist, vr=n=>String(n).replace('.',',');
+    // MEDYAN yazılır, ortalama değil: ortalama tek bir uç kayıttan bozuluyor
+    // (bir hizmet sözleşmesi maliyetin %91,7 ÜSTÜNDE kapanmış). Medyan
+    // "ihalelerin yarısı bunun üstünde" der — teklif verecek için ölçü budur.
+    const med=(i.kirimMedyan!==undefined?i.kirimMedyan:i.kirimOrt);
+    const p=[];
+    p.push(`<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı <b style="color:var(--accent2)">%${vr(med)}</b> ve üzeri kırımla kapandı`);
+    if(i.teklifOrt) p.push(`ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> teklif geldi`);
+    // negatif alt sınırı "-%91,7" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor
+    if(i.maliyetUstu) p.push(`<span style="color:var(--amber)">${i.maliyetUstu} tanesi maliyetin üstünde kapandı</span>`);
+    return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
+      <b style="color:#7ee0a5">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}
+      <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b> — idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
+    </div>`;
   };
   const detayHtml=x=>{
     const d=x.detay; if(!d) return '';
@@ -631,15 +735,79 @@ function yurtIciCiz(){
     // 14.08 Cem ("kaç tane alacan, hangi özellikli drone?"): MİKTAR ve TEKNİK
     // ÖZELLİK ilan metninde YOKTUR, ihale dokümanındadır. Uydurmuyoruz; nereden
     // alınacağını söylüyoruz. Bu, "ölçmediğimizi yazmayız" kuralının uygulaması.
-    s.push(`<span style="color:var(--dim)">Miktar ve teknik özellikler ilan metninde değil, <b style="color:var(--muted)">ihale dokümanındadır</b>${d.dokumanYer?` — <a href="${/^https?:/.test(d.dokumanYer)?esc(d.dokumanYer):'https://'+esc(d.dokumanYer)}" target="_blank" rel="noopener" style="color:var(--accent2)">${esc(d.dokumanYer)}</a>`:''}.</span>`);
+    // 14.08 Cem: "EKAP çeksek — kimler katılabilir, başlangıç bedeli... HAP olarak
+    // görsünler". EKAP arama API'si korumalı (401); o kapıyı zorlamıyoruz. Ama
+    // aradığımız her şey Kamu İhale Bülteni'nin ilan METNİNDE var ve bülteni KİK
+    // indirilmek üzere yayımlıyor (4734 m.13). İKN ile eşleştirip buraya basıyoruz.
+    const b = d.ikn ? BIX[String(d.ikn).trim()] : null;
+    if(b){
+      const kisalt=(t,n)=>{ t=String(t||''); return t.length>n? t.slice(0,n).replace(/\s\S*$/,'')+'…' : t; };
+      const bs=[];
+      // 14.08 Cem: "ürün görünmüyor". ÖLÇÜLDÜ (262 ilan): %41'inde 90+ karakterlik
+      // gerçek ürün tanımı var (kalem kalem dökülmüş olanlar dahil), %63'ünde
+      // adet/kalem sayısı var, %11'inde miktar alanı iş adının TEKRARINDAN ibaret.
+      // Üç kusur vardı: (1) uzun tanım 240 karakterde kesiliyordu, (2) tekrar olan
+      // %11 doluymuş gibi yazılıyordu, (3) "327 Kalem" gibi sayı göze çarpmıyordu.
+      const sadeM=String(b.miktar||'').replace(/[^\p{L}\p{N}]/gu,'').toLowerCase();
+      const sadeA=String(b.isAdi||'').replace(/[^\p{L}\p{N}]/gu,'').toLowerCase();
+      const tekrarMi = !b.miktar || sadeM===sadeA || (sadeA && sadeM.indexOf(sadeA)===0 && sadeM.length < sadeA.length+15);
+      if(tekrarMi){
+        bs.push(`<b style="color:var(--accent2)">Ne alınıyor:</b> <span style="color:var(--amber)">Bu ilan ürünü tarif etmiyor</span> — idare yalnız işin adını yazmış. Kalem listesi ve teknik özellikler ihale dokümanında.`);
+      } else {
+        // uzun tanım KESİLMEZ: kalem listesi tam da burada oluyor.
+        // ROZET DENENDİ, KALDIRILDI: miktar sayısı zaten cümlenin BAŞINDA geçiyor,
+        // rozet onu tekrarlıyordu; üstelik "10.000 Metrekare"yi "10.000 metre" diye
+        // yanlış birimle yakaladı. Yanlış birim göstermektense hiç gösterme.
+        bs.push(`<b style="color:var(--accent2)">Ne alınıyor:</b> ${esc(kisalt(b.miktar,700))}`);
+      }
+      // "kimler katilabilir" - ilanin 4. bolumu
+      const yeter=[];
+      if(b.isDeneyimi) yeter.push(`iş deneyimi <b style="color:var(--ink)">%${esc(b.isDeneyimi)}</b>`);
+      if(b.ekonomik && !/belirtilmemiştir/i.test(b.ekonomik)) yeter.push(`mali yeterlik aranıyor`);
+      if(b.ekonomik && /belirtilmemiştir/i.test(b.ekonomik) && b.teknik && /belirtilmemiştir/i.test(b.teknik)) yeter.push(`<span style="color:#7ee0a5">ek yeterlik belgesi İSTENMİYOR</span>`);
+      if(yeter.length) bs.push(`<b style="color:var(--accent2)">Kimler katılabilir:</b> ${yeter.join(' · ')}`);
+      // 14.08 Cem: "ne isterler bizden". "teknik yeterlik araniyor" demek bos laf -
+      // ISTENEN BELGENIN ADI yaziliyor ("Tıbbi Cihaz Satış Merkezi Yetki Belgesi").
+      // Yapim/hizmette 4.3 govdesi is deneyimi anlatisiyla basliyor; o kisim zaten
+      // ustte yuzde olarak var, tekrar etmesin diye ayiklanir.
+      if(b.teknik && !/belirtilmemiştir/i.test(b.teknik)){
+        // CÜMLE BAZLI AYIKLAMA (desen bazlısı iki kez tutmadı: aynı fıkra
+        // "Son on beş yıl…" / "Yapımla ilgili hizmet işlerinde son onbeş yıl…"
+        // diye farklı yazılıyor, bitişi de "standart forma" / "e-forma" değişiyor).
+        // Bu fıkralar HER ilanda aynı kanun metni — bilgi değeri yok, üstelik
+        // oranı zaten "iş deneyimi %X" olarak yukarıda yazılı. Standart kalıbı
+        // İÇEREN cümle atılır; geriye gerçek bir istek kalmazsa satır HİÇ yazılmaz.
+        const STD=[/bedel içeren bir sözleşme kapsamında/i, /[Tt]üzel kişi tarafından iş deneyimini göstermek/i,
+                   /yurt dışında gerçekleştirilen işlerden elde edilen iş deneyimi/i,
+                   /iş deneyimini gösteren belgeler/i, /iş ortaklığında pilot ortağın/i];
+        let tk=String(b.teknik).replace(/4\.3\.\d+(\.\d+)*\.?\s*/g,'|').split(/\|+|(?<=\.)\s+(?=[A-ZÇĞİÖŞÜ])/)
+          .map(c=>c.trim()).filter(c=>c.length>12 && !STD.some(r=>r.test(c)))
+          .join(' · ').replace(/\s+/g,' ').trim();
+        if(tk.length>12) bs.push(`<b style="color:var(--accent2)">Ne istiyorlar:</b> ${esc(kisalt(tk,230))}`);
+      }
+      if(b.benzerIs) bs.push(`<b style="color:var(--accent2)">Benzer iş:</b> ${esc(kisalt(b.benzerIs,170))}`);
+      if(b.yerliMali) bs.push(`🇹🇷 ${esc(b.yerliMali)}`);
+      // YAKLASIK MALIYET: ilanda ACIKLANMAZ. Cikarilabilen tek sey TAVAN - gerekcesi
+      // motor/ihale-ilan-ayristir.ps1 MaliyetTavan() icinde ambar atifli yazili.
+      // Cikarilamiyorsa RAKAM YAZILMAZ, "cikarilamiyor" yazilir.
+      if(b.maliyetTavan){
+        bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz. Ama ${b.maliyetGun} günlük ilan süresi yaklaşık maliyeti <b style="color:var(--ink)">en fazla ${Number(b.maliyetTavan).toLocaleString('tr-TR')} TL</b> ile sınırlar <span style="color:var(--dim)">(4734 m.13/${esc(String(b.maliyetDayanak||'').replace('m.13/',''))} + 2026/1 Tebliği)</span>`);
+      } else {
+        bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz; bu ilanın süresinden <b style="color:var(--muted)">tavan da çıkarılamıyor</b> <span style="color:var(--dim)">(m.13 kısaltma hükümleri devrede)</span>`);
+      }
+      if(b.ayrintiNerede) bs.push(`<span style="color:var(--dim)">📄 Kalem listesi ve teknik şartname ilanda değil, <b style="color:var(--muted)">${esc(b.ayrintiNerede)}</b>${b.dokumanErisim?' — '+esc(b.dokumanErisim):''}</span>`);
+      s.push(`<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.22);line-height:1.7">${bs.join('<br>')}<div style="font-size:11px;color:var(--dim);margin-top:6px">Kaynak: Kamu İhale Bülteni ${esc(b.ilanTarih||'')}${b.bultenSayi?' · Sayı '+esc(b.bultenSayi):''} — ilan metninde YAZAN bilgiler.</div></div>`);
+    } else {
+      s.push(`<span style="color:var(--dim)">Miktar ve teknik özellikler ilan metninde değil, <b style="color:var(--muted)">ihale dokümanındadır</b>${d.dokumanYer?` — <a href="${/^https?:/.test(d.dokumanYer)?esc(d.dokumanYer):'https://'+esc(d.dokumanYer)}" target="_blank" rel="noopener" style="color:var(--accent2)">${esc(d.dokumanYer)}</a>`:''}.</span>`);
+    }
     return s.length? `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.75">${s.join('<br>')}</div>` : '';
   };
   box.innerHTML = '<div class="igrid">' + liste.slice(0,SINIR).map(x=>`<div class="ikart">
     <div class="ust"><span class="sikon">${TUR_IKON[x.tur]||'📄'}</span>${trBayrak}<b>${esc(x.il||'')}${x.ilce?' / '+esc(x.ilce):''}</b><span style="margin-left:auto;font-size:11px;color:var(--dim)">${esc(x.ilanNo||'')}</span></div>
-    <div class="gov"><h3>${esc(x.baslik)}</h3>
+    <div class="gov"><h3>${esc(bultenAdi(x)||x.baslik)}</h3>
       <div class="m"><b style="color:var(--ink)">${esc(x.kurum||'—')}</b><br>📅 İlan tarihi: <b style="color:var(--ink)">${esc(x.tarih||'—')}</b>${x.detay?'':'<br><span style="color:var(--dim)">Son teklif ve belgeler ilan metninde.</span>'}</div>
-      ${detayHtml(x)}${damgaHtml(x)}</div>
-    <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span>${teklifRoz(x)}<a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2);margin-left:auto">İlan metni →</a></div>
+      ${detayHtml(x)}${gecmisHtml(x)}${damgaHtml(x)}</div>
+    <div class="alt"><span class="gunroz belirsiz">${esc(turEtiket(x))}</span>${teklifRoz(x)}<a href="${esc(x.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2);margin-left:auto">İlan metni →</a></div>
   </div>`).join('') + (fazla>0? liste.slice(SINIR,SINIR+3).map(x=>`<a href="radar-app.html?niyet=ihale" style="text-decoration:none;color:inherit"><div class="ikart" style="cursor:pointer;height:100%">
     <div class="ust"><span class="sikon">🔒</span>${trBayrak}<b>${esc(x.il||'')}</b><span style="margin-left:auto;font-size:11px;color:var(--accent2);font-weight:800">üyelere açık</span></div>
     <div class="gov"><h3 style="filter:blur(5px);user-select:none">${esc(x.baslik)}</h3>
