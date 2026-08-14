@@ -7,7 +7,36 @@
 <meta name="description" content="SGS deneme sınavı: özgün sorular, her şıkkın neden doğru/yanlış olduğu, kaynak kural ve madde damgası. Çalışma modu ve deneme modu; ezber değil, gerekçe.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+/* ---- 14.08 UC TEMA (Cem: "yap uc secenek olsun") -------------------------
+   Rakip olcumu: UWorld'un soru cozme arayuzunde tema secici var ve UC secenek
+   sunuyor (beyaz / siyah / sepya) - satis sayfasinda degil, tam da SORU
+   COZULEN ekranda. Gerekcesi acik: aday saatlerce orada kaliyor; gece beyaz
+   ekran goz yakar, gunduz ofiste koyu ekran okunmaz. Biz de UWorld duzenini
+   kullaniyorduk ama en ise yarar parcasini almamistik.
+   Sepya = kitap kagidi tonu, uzun okumada en az yoran secenek.
+   Vurgu rengi (kehribar) her temada korunur - marka; ama acik/sepya zeminde
+   okunabilirlik icin KOYULASTIRILIR (ince sari yazi beyaz zeminde okunmaz). */
+body.temaAcik{
+  --bg:#ffffff; --panel:#f6f7f9; --panel2:#eef1f5; --line:rgba(0,0,0,.10); --line2:rgba(0,0,0,.16);
+  --ink:#14181f; --muted:#4f5967; --dim:#7c8794;
+  --accent:#9a5b00; --accent2:#7d4a00;
+  --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
+  --red:#c0392b; --amber:#9a6500; --green:#1a7f4f;
+  color-scheme:light;
+}
+body.temaSepya{
+  --bg:#f3ead6; --panel:#faf4e6; --panel2:#f0e6d0; --line:rgba(92,71,40,.16); --line2:rgba(92,71,40,.26);
+  --ink:#2f2618; --muted:#5f5137; --dim:#8a7a5e;
+  --accent:#8a5200; --accent2:#6f4200;
+  --grad:linear-gradient(135deg,#e0a341 0%,#f0bd63 100%);
+  --red:#a83228; --amber:#8a5c00; --green:#1f6f47;
+  color-scheme:light;
+}
+/* sinav cubugu sabit koyu gradyan kullaniyordu - temaya bagli hale getirildi */
+body.temaAcik .sinavbar{background:linear-gradient(180deg,#ffffff,#f2f4f7)}
+body.temaSepya .sinavbar{background:linear-gradient(180deg,#faf4e6,#f0e5cd)}
+body.temaAcik .sinavbar,body.temaSepya .sinavbar{box-shadow:0 6px 18px rgba(0,0,0,.10)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.09),transparent 72%);pointer-events:none}
 a{color:var(--accent2)}.wrap{max-width:820px;margin:0 auto;padding:24px 18px 70px;position:relative}
@@ -19,12 +48,12 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 .panel{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:20px 22px;margin-top:14px}
 .etiket{font-size:10.5px;font-weight:800;letter-spacing:1.1px;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
 .secgrup{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
-.sec{background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:9px 15px;cursor:pointer;user-select:none}
+.sec{background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--muted);font:inherit;font-size:13.5px;font-weight:700;padding:9px 15px;cursor:pointer;user-select:none}
 .sec.aktif{background:linear-gradient(135deg,rgba(245,165,36,.18),rgba(255,194,75,.10));border-color:rgba(245,165,36,.55);color:var(--ink)}
 .sec small{font-weight:600;color:var(--dim)}
 .basla{background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:15px;padding:13px 30px;border:none;border-radius:12px;cursor:pointer;margin-top:6px}
 .basla:disabled{opacity:.4;cursor:not-allowed}
-.ilerleme{height:6px;background:#0a0f17;border-radius:99px;overflow:hidden;margin:14px 0 18px}
+.ilerleme{height:6px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:14px 0 18px}
 .ilerleme div{height:100%;background:var(--grad);border-radius:99px;transition:width .3s}
 .soruUst{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--dim);flex-wrap:wrap}
 .rozet{font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;color:var(--muted)}
@@ -52,7 +81,7 @@ h2{font-size:17px;font-weight:800;margin:24px 0 10px;letter-spacing:-.3px}
 body.yaziB .hesapSatir{font-size:17px}
 .sikIst{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:.2px}
 .sikIst.cok{color:var(--amber)}
-.sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#0a0f17;border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
+.sik{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;color:var(--ink);font:inherit;font-size:14.5px;padding:12px 15px;cursor:pointer;margin-bottom:9px;transition:border-color .15s}
 .sik:hover{border-color:rgba(245,165,36,.5)}
 .sik .harf{font-family:var(--mono);font-weight:800;color:var(--accent2);flex-shrink:0}
 .sik.secili{border-color:var(--accent);background:linear-gradient(135deg,rgba(245,165,36,.14),rgba(255,194,75,.06))}
@@ -64,7 +93,7 @@ body.yaziB .hesapSatir{font-size:17px}
 .sinavbar{position:sticky;top:8px;z-index:50;background:linear-gradient(180deg,#0d1728,#0a111e);border:1px solid var(--line2);border-radius:13px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 8px 22px rgba(0,0,0,.4);margin-bottom:10px}
 .kron{font-family:var(--mono);font-weight:800;color:var(--accent2);font-size:15px;min-width:54px;text-align:right}
 .navray{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 10px}
-.navk{width:31px;height:31px;border-radius:8px;border:1px solid var(--line2);background:#0a0f17;color:var(--muted);font:700 12px/29px var(--mono);text-align:center;cursor:pointer;padding:0;transition:transform .12s}
+.navk{width:31px;height:31px;border-radius:8px;border:1px solid var(--line2);background:var(--panel2);color:var(--muted);font:700 12px/29px var(--mono);text-align:center;cursor:pointer;padding:0;transition:transform .12s}
 .navk:hover{transform:translateY(-2px)}
 .navk.suanki{outline:2px solid var(--accent2)}
 .navk.d{border-color:rgba(61,220,151,.65);color:var(--green)}
@@ -73,7 +102,7 @@ body.yaziB .hesapSatir{font-size:17px}
 .navk.i{box-shadow:inset 0 -3px 0 var(--amber)}
 .hedefKutu{margin-top:12px;border:1px solid rgba(94,215,255,.4);background:rgba(94,215,255,.08);border-radius:11px;padding:11px 14px;font-size:13.5px;color:var(--ink)}
 /* A+ yazi boyutu (UWorld arac cubugu klasigi) */
-.yaziBtn{border:1px solid var(--line2);background:#0a0f17;color:var(--muted);border-radius:8px;font:700 12px var(--mono);padding:5px 9px;cursor:pointer}
+.yaziBtn{border:1px solid var(--line2);background:var(--panel2);color:var(--muted);border-radius:8px;font:700 12px var(--mono);padding:5px 9px;cursor:pointer}
 .yaziBtn.aktif{color:var(--accent2);border-color:rgba(245,165,36,.5)}
 body.yaziB .soruMetin{font-size:19px}
 body.yaziB .sik{font-size:16.5px}
@@ -145,13 +174,13 @@ body.yaziB .hapKart .hapMetin{font-size:17px}
 .ikincil{background:none;border:1px solid var(--line2);color:var(--muted);font:inherit;font-size:13px;font-weight:700;padding:10px 18px;border-radius:11px;cursor:pointer}
 .hataLink{font-size:11.5px;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;padding:0}
 .skorIzgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
-.skart{background:#0a0f17;border:1px solid var(--line2);border-radius:13px;padding:14px 16px;text-align:center}
+.skart{background:var(--panel2);border:1px solid var(--line2);border-radius:13px;padding:14px 16px;text-align:center}
 .skart .b{font-size:26px;font-weight:800;letter-spacing:-1px}
 .skart .a{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
 table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
 th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
-.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:#0a0f17}
+.tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:var(--panel2)}
 .bos{color:var(--muted);font-size:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.25);border-radius:13px;padding:16px 18px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 .gizli{display:none!important}
@@ -232,7 +261,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
       <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b>: kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
-      <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:#0a0f17">
+      <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:var(--panel2)">
         <div id="uyeKapali">
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
           <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır, bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
@@ -293,7 +322,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     <div class="sinavbar">
       <span id="soruSayac" style="font-weight:800;color:var(--ink)"></span>
       <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="rozet gizli" id="sicilRozet" style="color:var(--amber);border-color:rgba(255,194,75,.45)"></span> <span class="rozet" id="soruDers"></span> <span class="rozet" id="soruKonu"></span></span>
-      <span style="display:flex;gap:8px;align-items:center"><button type="button" class="yaziBtn" id="yaziBtn" onclick="yaziBoyut()" title="Yazı boyutu">A+</button><span class="kron" id="kron">0:00</span></span>
+      <span style="display:flex;gap:8px;align-items:center"><button type="button" class="yaziBtn" id="temaBtn" onclick="temaDegistir()" title="Tema" aria-label="Tema değiştir">🌙</button><button type="button" class="yaziBtn" id="yaziBtn" onclick="yaziBoyut()" title="Yazı boyutu">A+</button><span class="kron" id="kron">0:00</span></span>
     </div>
     <div class="navray" id="navRay"></div>
     <div class="ilerleme"><div id="ilerlemeBar" style="width:0%"></div></div>
@@ -316,7 +345,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
              Arkasi gercek: soru_bildirim tablosu + gunde 3 kez kosan nobetci;
              ayni soruya 2 ayri oturumdan bildirim = otomatik yayindan cekme. -->
         <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px"><b style="color:var(--ink)">Sözümüz söz:</b> her sorumuz birincil kaynağa (kanun/tebliğ/standart maddesine) dayanır. Ne hatalı görünüyor? Kısaca yaz — <b style="color:var(--ink)">aynı gün</b> kaynağıyla bakılır; haklıysan soru düzeltilir ya da yayından iner, düzeltme şeffaf yayınlanır. Yanılan biz olursak bunu saklamayız.</div>
-        <textarea id="hataMetin" rows="2" style="width:100%;background:#0a0f17;border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px 12px;resize:vertical"></textarea>
+        <textarea id="hataMetin" rows="2" style="width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px 12px;resize:vertical"></textarea>
         <div style="margin-top:8px;display:flex;gap:8px">
           <button class="ikincil" onclick="hataGonder()" style="border-color:rgba(255,194,75,.4);color:var(--amber)">Bildir</button>
           <button class="ikincil" onclick="document.getElementById('hataKutu').classList.add('gizli')">Vazgeç</button>
@@ -857,6 +886,31 @@ function yaziBoyut(){
   try{ localStorage.setItem('tetikteYazi', b?'B':''); }catch(e){}
   var el=document.getElementById('yaziBtn'); if(el) el.classList.toggle('aktif', b);
 }
+/* ---- UC TEMA: koyu (varsayilan) -> acik -> sepya -> koyu ------------------
+   Secim localStorage'da kalir; aday her oturumda yeniden secmez. */
+var TEMALAR=[
+  {ad:'koyu',  sinif:'',           ikon:'🌙', baslik:'Tema: koyu (gece)'},
+  {ad:'acik',  sinif:'temaAcik',   ikon:'☀️', baslik:'Tema: açık (gündüz)'},
+  {ad:'sepya', sinif:'temaSepya',  ikon:'📖', baslik:'Tema: sepya (uzun okuma)'}
+];
+function temaUygula(ad){
+  var t=TEMALAR.filter(function(x){return x.ad===ad;})[0]||TEMALAR[0];
+  TEMALAR.forEach(function(x){ if(x.sinif) document.body.classList.remove(x.sinif); });
+  if(t.sinif) document.body.classList.add(t.sinif);
+  /* TUZAK (olculdu): color-scheme'i body'ye yazmak YETMIYOR - tarayici onu
+     <html> uzerinden okur. Body'de birakinca acik/sepya temada onay kutulari
+     ve acilir listeler KOYU cizilmeye devam ediyordu (ters kusur). */
+  try{ document.documentElement.style.colorScheme = (t.ad==='koyu' ? 'dark' : 'light'); }catch(e){}
+  var b=document.getElementById('temaBtn');
+  if(b){ b.textContent=t.ikon; b.title=t.baslik+' — değiştirmek için tıkla'; b.setAttribute('aria-label',t.baslik); }
+  try{ localStorage.setItem('tetikteTema', t.ad); }catch(e){}
+}
+function temaDegistir(){
+  var su=(function(){ try{ return localStorage.getItem('tetikteTema')||'koyu'; }catch(e){ return 'koyu'; } })();
+  var i=TEMALAR.map(function(x){return x.ad;}).indexOf(su);
+  temaUygula(TEMALAR[(i+1)%TEMALAR.length].ad);
+}
+try{ temaUygula(localStorage.getItem('tetikteTema')||'koyu'); }catch(e){ temaUygula('koyu'); }
 try{ if(localStorage.getItem('tetikteYazi')==='B'){ document.body.classList.add('yaziB'); var yb=document.getElementById('yaziBtn'); if(yb) yb.classList.add('aktif'); } }catch(e){}
 
 /* ===== 03.08 UWORLD PAKETI (Cem onayi) — uc madde, hepsi 0 USD =====
@@ -2095,7 +2149,7 @@ body:not(:has(#ekranSoru:not(.gizli))) #hmPanel{display:none!important}
 </style>
 <div id="hmAc" onclick="hmToggle()" style="position:fixed;right:16px;bottom:16px;z-index:1200;width:46px;height:46px;border-radius:50%;background:#0d141e;border:1px solid rgba(255,194,75,.4);display:grid;place-items:center;font-size:20px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)" title="Hesap makinesi">🧮</div>
 <div id="hmPanel" style="display:none;position:fixed;right:16px;bottom:70px;z-index:1201;width:230px;background:#0d141e;border:1px solid rgba(255,194,75,.4);border-radius:14px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6)">
-  <input id="hmGiris" inputmode="decimal" placeholder="ör. 38500*0,18" style="width:100%;box-sizing:border-box;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:9px;color:#eef2f7;font:inherit;font-size:15px;padding:9px 11px;text-align:right" onkeydown="if(event.key==='Enter')hmHesapla()">
+  <input id="hmGiris" inputmode="decimal" placeholder="ör. 38500*0,18" style="width:100%;box-sizing:border-box;background:var(--panel2);border:1px solid rgba(255,255,255,.14);border-radius:9px;color:var(--ink);font:inherit;font-size:15px;padding:9px 11px;text-align:right" onkeydown="if(event.key==='Enter')hmHesapla()">
   <div id="hmSonuc" style="text-align:right;font-size:19px;font-weight:800;color:#ffc24b;min-height:26px;margin:7px 2px;font-variant-numeric:tabular-nums"></div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
     <button onclick="hmEkle('7')" class="hmb">7</button><button onclick="hmEkle('8')" class="hmb">8</button><button onclick="hmEkle('9')" class="hmb">9</button><button onclick="hmEkle('/')" class="hmb">÷</button>
@@ -2105,7 +2159,7 @@ body:not(:has(#ekranSoru:not(.gizli))) #hmPanel{display:none!important}
     <button onclick="hmEkle('(')" class="hmb">(</button><button onclick="hmEkle(')')" class="hmb">)</button><button onclick="hmEkle('%')" class="hmb">%</button><button onclick="hmHesapla()" class="hmb" style="background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800">=</button>
   </div>
 </div>
-<style>.hmb{appearance:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:#0a0f17;color:#eef2f7;font:inherit;font-size:14px;padding:8px 0;cursor:pointer}.hmb:hover{border-color:rgba(255,194,75,.5)}</style>
+<style>.hmb{appearance:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:var(--panel2);color:var(--ink);font:inherit;font-size:14px;padding:8px 0;cursor:pointer}.hmb:hover{border-color:rgba(255,194,75,.5)}</style>
 <script>
 function hmToggle(){ var p=document.getElementById('hmPanel'); p.style.display=(p.style.display==='none')?'block':'none'; if(p.style.display==='block') document.getElementById('hmGiris').focus(); }
 function hmEkle(c){ var g=document.getElementById('hmGiris'); g.value+=c; g.focus(); }
