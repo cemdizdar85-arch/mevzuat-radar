@@ -4,7 +4,16 @@
 #  API: POST /api/api/services/app/Ad/AdsByFilter  (Ilan Turu attr=2, IHALE deger=45984)
 #  Robot gunluk kosar (kaynak.yml); UI: ihale-radari.html Yurt Ici sekmesi.
 # ============================================================================
-param([int]$Adet = 40)
+param(
+  [int]$Adet = 40,
+  # 14.08 Cem "ilan gov tr 250 eslestir": havuzdaki ESKI ilanlarin cogu detay-cekme
+  # ozelligi eklenmeden once girdigi icin detaysiz/IKN'siz kalmis (250'nin 209'u).
+  # IKN olmayinca bultenle eslesemiyorlar. Bu mod API'ye HIC gitmez; havuzdaki
+  # detaysiz ilanlarin url'indeki ilan.gov.tr ID'siyle detayi (ve IKN'yi) geriye
+  # donuk doldurur. Gunluk hasat yeni ilanlari zaten detayli cekiyor; bu tek
+  # seferlik toparlama.
+  [switch]$DetayTamamla
+)
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -40,7 +49,7 @@ function AsilIlanNo([string]$baslik, [string]$kendiNo){
 }
 $hamAds = @()
 $atla = 0; $tur = 0
-while($hamAds.Count -lt $Adet -and $tur -lt 25){
+while(-not $DetayTamamla -and $hamAds.Count -lt $Adet -and $tur -lt 25){
   $govde = @{ adFilterAttributes = @(@{ attributeId = 2; attributeValueIds = @(45984) }); maxResultCount = 20; skipCount = $atla } | ConvertTo-Json -Depth 5
   $r = Invoke-RestMethod -Method Post -Uri "https://www.ilan.gov.tr/api/api/services/app/Ad/AdsByFilter" `
     -Headers @{ "Accept"="application/json"; "User-Agent"="Mozilla/5.0 (MevzuatRadar-IhaleRobotu)" } `
@@ -140,9 +149,43 @@ function DetayCek([string]$id){
   }
 }
 
+$yolOn = Join-Path $kok "veri\ihale-yurtici.json"
+
+# ==== DETAY TAMAMLAMA MODU (14.08) ==========================================
+# Havuzdaki detaysiz ilanlarin url'indeki ID ile detayi (ve IKN'yi) geriye donuk
+# doldurur; API listeleme akisina hic girmez, dosyayi yerinde gunceller.
+if($DetayTamamla){
+  if(-not (Test-Path $yolOn)){ Write-Host "havuz yok - once normal hasat kosmali"; exit 1 }
+  $veri = Get-Content $yolOn -Raw -Encoding UTF8 | ConvertFrom-Json
+  $liste = @($veri.ilanlar)
+  $detaysiz = @($liste | Where-Object { -not $_.detay })
+  Write-Host ("Havuz: {0} ilan · detaysiz: {1}" -f $liste.Count, $detaysiz.Count)
+  $dolduruldu = 0; $iknKazanan = 0; $basarisiz = 0
+  foreach($x in $detaysiz){
+    # url: https://www.ilan.gov.tr/ilan/<ID>/<slug>
+    $mid = [regex]::Match("$($x.url)", '/ilan/(\d+)/')
+    if(-not $mid.Success){ $basarisiz++; continue }
+    $d = DetayCek $mid.Groups[1].Value
+    if($d){
+      $x | Add-Member -NotePropertyName detay -NotePropertyValue $d -Force
+      $dolduruldu++
+      if($d.ikn){ $iknKazanan++ }
+    } else { $basarisiz++ }
+    Start-Sleep -Milliseconds 350   # kaynaga nazik
+    if($dolduruldu % 25 -eq 0 -and $dolduruldu){ Write-Host ("   ... {0} detay cekildi" -f $dolduruldu) }
+  }
+  Write-Host ("`nDetay dolduruldu: {0} · IKN kazanan: {1} · basarisiz: {2}" -f $dolduruldu, $iknKazanan, $basarisiz)
+  # yaz + geri oku dogrulamasi
+  $veri.ilanlar = $liste
+  ($veri | ConvertTo-Json -Depth 8) | Out-File $yolOn -Encoding utf8
+  $geri = Get-Content $yolOn -Raw -Encoding UTF8 | ConvertFrom-Json
+  $iknli = @($geri.ilanlar | Where-Object { $_.detay -and $_.detay.ikn }).Count
+  Write-Host ("-> geri okuma: {0} ilan · IKN'si olan: {1}" -f @($geri.ilanlar).Count, $iknli)
+  exit 0
+}
+
 # Havuzda detayi ZATEN olan ilanlari tekrar cekmemek icin once eskiyi oku
 $eskiDetay = @{}
-$yolOn = Join-Path $kok "veri\ihale-yurtici.json"
 if(Test-Path $yolOn){
   try {
     $on = Get-Content $yolOn -Raw -Encoding UTF8 | ConvertFrom-Json

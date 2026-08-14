@@ -18,15 +18,14 @@ param(
   # Ayristiriciyi gelistirirken bulteni her seferinde yeniden indirmemek icin:
   # scratchpad'deki mevcut .txt kullanilir. KIK sunucusuna bosuna yuk bindirmez.
   [switch]$YerelMetin,
-  # ---- ARSIV DENEMESI: SONUC = CALISMIYOR (14.08, olculdu) ------------------
-  # Sayfada bir tarih alani var (etBultenTarihi). Bos gonderiliyordu; oraya
-  # "11.08.2026" yazip denedim, 11.236.861 baytlik gecerli ZIP geldi ve ILK
-  # BAKISTA "arsiv acildi" sandim. YANLISTI: ZIP'in icindeki dosya adi
-  # BULTEN_14082026_MAL.pdf idi - yani yine O GUNUN bulteni. Boyut farkina
-  # bakip dosya adina bakmamak hataydi.
-  # Anlasilan tarih secimi tek basina POST alaniyla degil, takvim kontrolunun
-  # kendi postback'iyle isliyor. Parametre yerinde biraktim ama ISE YARAMIYOR;
-  # arsiv gerekiyorsa once bu cozulmeli. Yanlis iddia kalmasin diye yaziyorum.
+  # ---- ARSIV COZULDU (14.08, olculdu) ---------------------------------------
+  # Bos = bugunun bulteni. "dd.MM.yyyy" = O GUNUN bulteni (arsiv).
+  # YOL: sayfadaki "Bulten Arsivi" bolumu - btnYukle butonu + Ihale Turu
+  # dropdown (Mal=1..) + tarih. Ilk denememde ustteki "guncel" tur linklerini
+  # (lnkBtnMal) kullandigim icin tarih yok sayilip hep bugun geliyordu; asil
+  # arsiv formu ayri. Duzeltildi (bkz. BultenMetni icindeki $Tarih dali).
+  # 11.08.2026 ile dogrulandi: BULTEN_11082026_MAL.zip, ilk satir "11 AĞUSTOS
+  # 2026 - Sayı 5674". Icerik de teyit etti.
   [string]$Tarih = "",
   # Varsayilan gecici klasor PLATFORM BAGIMSIZ olmali: bu betik GitHub Actions'ta
   # (Linux + PowerShell 7) da kosuyor, sabit Windows yolu orada patlar.
@@ -97,19 +96,46 @@ function BultenMetni([string]$tur){
     $s1 = Invoke-WebRequest -Uri $adres -Headers @{ "User-Agent"=$ua } -SessionVariable oturum -TimeoutSec 90 -UseBasicParsing
     $html = $s1.Content
   }
-  $govde = @{
-    '__EVENTTARGET'   = "ctl00`$ContentPlaceHolder1`$lnkBtn$tur"
-    '__EVENTARGUMENT' = ''
-    '__VIEWSTATE'     = (GizliAl $html '__VIEWSTATE')
-    '__PIT'           = (GizliAl $html '__PIT')
-    '__PITC'          = (GizliAl $html '__PITC')
-    '__SCROLLPOSITIONX' = (GizliAl $html '__SCROLLPOSITIONX')
-    '__SCROLLPOSITIONY' = (GizliAl $html '__SCROLLPOSITIONY')
-    '__EVENTVALIDATION' = (GizliAl $html '__EVENTVALIDATION')
-    'ctl00$Menu1$hdnAktIKN' = (GizliAl $html 'ctl00_Menu1_hdnAktIKN')
-    'ctl00$ContentPlaceHolder1$ddlstBxIhaleTur' = '0'
-    # bos = bugunun bulteni · "dd.MM.yyyy" = o gunun bulteni (arsiv)
-    'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = $Tarih
+  # ==== 14.08 ARSIV COZULDU: SAYFADA IKI AYRI MEKANIZMA VAR ==================
+  # Sayfa iki bolum: (1) ustte "BUGUN Yayimlanan Bultenler" - tur linkleri
+  #   (lnkBtnMal/Yapim/...). Bunlar YALNIZ GUNCEL gunu verir, tarih alanini YOK
+  #   SAYAR (11.08 gonderdim, 14.08 geldi - olculdu).
+  # (2) altta "Bulten Arsivi" - Ihale Turu dropdown + Bulten Tarihi + "Bulten
+  #   Indir" butonu (btnYukle). GECMIS gunu bu verir.
+  # Onceki kod hep (1)'i kullaniyordu, bu yuzden arsiv "calismiyor" saniliyordu.
+  # Dropdown kodlari (olculdu): Mal=1 · Yapim=2 · Hizmet=3 · Danismanlik=4 · Seçiniz=0
+  $turKod = @{ 'Mal'='1'; 'Yapim'='2'; 'Yapım'='2'; 'Hizmet'='3'; 'Danismanlik'='4'; 'Danışmanlık'='4' }
+  if($Tarih){
+    # ARSIV yolu: btnYukle + dropdown tur kodu + tarih
+    $kod = $turKod["$tur"]; if(-not $kod){ $kod = '1' }
+    $govde = @{
+      '__EVENTTARGET'   = 'ctl00$ContentPlaceHolder1$btnYukle'
+      '__EVENTARGUMENT' = ''
+      '__VIEWSTATE'     = (GizliAl $html '__VIEWSTATE')
+      '__PIT'           = (GizliAl $html '__PIT')
+      '__PITC'          = (GizliAl $html '__PITC')
+      '__SCROLLPOSITIONX' = '0'
+      '__SCROLLPOSITIONY' = '0'
+      '__EVENTVALIDATION' = (GizliAl $html '__EVENTVALIDATION')
+      'ctl00$Menu1$hdnAktIKN' = (GizliAl $html 'ctl00_Menu1_hdnAktIKN')
+      'ctl00$ContentPlaceHolder1$ddlstBxIhaleTur' = $kod
+      'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = $Tarih
+    }
+  } else {
+    # GUNCEL yolu: tur linki (tarih alani yok sayilir)
+    $govde = @{
+      '__EVENTTARGET'   = "ctl00`$ContentPlaceHolder1`$lnkBtn$tur"
+      '__EVENTARGUMENT' = ''
+      '__VIEWSTATE'     = (GizliAl $html '__VIEWSTATE')
+      '__PIT'           = (GizliAl $html '__PIT')
+      '__PITC'          = (GizliAl $html '__PITC')
+      '__SCROLLPOSITIONX' = (GizliAl $html '__SCROLLPOSITIONX')
+      '__SCROLLPOSITIONY' = (GizliAl $html '__SCROLLPOSITIONY')
+      '__EVENTVALIDATION' = (GizliAl $html '__EVENTVALIDATION')
+      'ctl00$Menu1$hdnAktIKN' = (GizliAl $html 'ctl00_Menu1_hdnAktIKN')
+      'ctl00$ContentPlaceHolder1$ddlstBxIhaleTur' = '0'
+      'ctl00$ContentPlaceHolder1$etBultenTarihi$EkapTakvimTextBox_etBultenTarihi' = ''
+    }
   }
   $ham = Join-Path $Klasor ("bulten-{0}.ham" -f $tur.ToLower())
   if($script:CurlYol){

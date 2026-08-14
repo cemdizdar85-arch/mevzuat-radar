@@ -12,10 +12,15 @@
 #  bulteninde. Tek gunluk bulten yapisi geregi eksik kalir.
 #
 #  NASIL (yeni kapi zorlanmadi):
-#    KIK'in bulten indirme sayfasindaki tarih alanina (etBultenTarihi) tarih
-#    yazilinca o gunun bulteni geliyor. 11.08.2026 ile sinandi: 11.236.861
-#    baytlik gecerli ZIP. EKAP'in korumali uclarina (401 arama API'si, 406 v2)
-#    DOKUNULMAZ; bu, KIK'in indirilmek uzere yayimladigi resmi bultenin arsivi.
+#    Bulten indirme sayfasinin ALT bolumundeki "Bulten Arsivi" formu: btnYukle
+#    butonu + Ihale Turu dropdown (Mal=1..) + Bulten Tarihi. Ustteki "guncel"
+#    tur linkleri (lnkBtnMal) tarihi yok sayar; arsiv formu ayridir.
+#    11.08.2026 ile dogrulandi: BULTEN_11082026_MAL.zip, ilk satir "11 AĞUSTOS
+#    2026 - Sayı 5674". EKAP'in korumali uclarina (401/406) DOKUNULMAZ; bu, KIK'in
+#    indirilmek uzere yayimladigi resmi bultenin arsividir.
+#
+#  OLCULEN ETKI (14.08): eslesme %65 -> %85 (12.08 gunu eklenince). Havuz
+#  birikimli oldugu icin gecmis gunler eklendikce derinlik artar.
 #
 #  KAYNAGA NAZIK: gunler arasi bekleme var, tek koside sinirli gun cekilir,
 #  ayni gun ikinci kez cekilmez (havuzda o tarih varsa atlanir).

@@ -370,8 +370,39 @@ if($Yaz){
   $siteAlan = @('ikn','isAdi','miktar','ayrintiNerede','dokumanErisim','ekonomik',
                 'teknik','benzerIs','isDeneyimi','yerliMali','maliyetTavan',
                 'maliyetGun','maliyetDayanak','ilanTarih','bultenSayi')
+  # TEKNIK ALANI SADELESTIRME (14.08 Cem "kozmetik kusuru duzelt"):
+  # "Ne istiyorlar" satiri teknik yeterlikte ISTENEN OZEL BELGEYI gostermeli
+  # ("Tıbbi Cihaz Satış Merkezi Yetki Belgesi" gibi). Ama teknik alani her ilanda
+  # AYNI olan standart is-deneyimi fikralariyla dolu; onlar zaten "iş deneyimi %X"
+  # olarak ayri gosteriliyor. Onceden bunlari KART (JS) ayikliyordu, ama site
+  # dosyasi teknik'i 260'a KIRPINCA jenerik cumle ORTADAN kesiliyor ("...iş
+  # deneyimini g") ve JS onu taniyamayip GOSTERIYORDU. Cozum: ayiklamayi KIRPMADAN
+  # ONCE, burada yap - kart JS'inin yaptigi ayiklamanin ayni mantigi.
+  $stdKalip = @(
+    'bedel içeren bir sözleşme kapsamında',
+    'Tüzel kişi tarafından iş deneyimini',
+    'yurt dışında gerçekleştirilen işlerden elde edilen',
+    'iş deneyimini gösteren belgeler',
+    'iş ortaklığında pilot ortağın'
+  )
+  function TeknikSade([string]$t){
+    if(-not $t){ return '' }
+    if($t -match 'belirtilmemiştir'){ return $t }   # "aranmiyor" bilgisini koru
+    $t = $t -replace '4\.3\.\d+(\.\d+)*\.?\s*', '|'
+    $parcalar = $t -split '\|+|(?<=\.)\s+(?=\p{Lu})'
+    $tut = @()
+    foreach($p in $parcalar){
+      $p = $p.Trim()
+      if($p.Length -lt 13){ continue }
+      $std = $false
+      foreach($k in $stdKalip){ if($p -match [regex]::Escape($k)){ $std = $true; break } }
+      if(-not $std){ $tut += $p }
+    }
+    return (($tut -join ' · ') -replace '\s+',' ').Trim()
+  }
+
   # uzun alanlar kartta gosterilen sinira kirpilir - gorunum DEGISMEZ
-  $kirp = @{ teknik = 400; miktar = 700; benzerIs = 300; ekonomik = 120 }
+  $kirp = @{ teknik = 260; miktar = 500; benzerIs = 200; ekonomik = 120 }
   $siteKayit = New-Object Collections.ArrayList
   foreach($x in $hepsi){
     if(-not $x.ikn){ continue }
@@ -379,6 +410,7 @@ if($Yaz){
     $r = [ordered]@{}
     foreach($a in $siteAlan){
       $v = $x.$a
+      if($a -eq 'teknik'){ $v = TeknikSade "$v" }   # ONCE sadele
       if($kirp.ContainsKey($a) -and "$v".Length -gt $kirp[$a]){ $v = "$v".Substring(0, $kirp[$a]) }
       if($null -ne $v -and "$v" -ne ''){ $r[$a] = $v }
     }
