@@ -134,10 +134,25 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   function aiSure(x){
     var b=(x.baslik||'').toLocaleLowerCase('tr');
     if(x.tur==='konkordato'){
-      if(/red|ret|kaldır|tasdik|fesh|iflas|toplantı|duruşma/.test(b)) return null;
-      if(/alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b))
+      // KAYIT ÇAĞRISI -> m.299, 15 gün geri sayım (toplantı hariç)
+      if(!/toplantı/.test(b) && /alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b))
         return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; kaçırırsan müzakereye giremez, oy kullanamazsın.'};
-      return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Konkordato aşaması. Alacaklı olarak oyunu kullan (m.302), borçtan sorumlu kefil/ortağa alacağının tamamı için gidebilirsin (m.303).'};
+      // DURUŞMA GÜNÜ -> m.304 (tarih ilanda; geri sayım yok, hap var)
+      if(/duruşma/.test(b))
+        return {hap:'Konkordato tasdik duruşması günü ilan edildi. İtirazın varsa sebeplerini duruşmadan en az 3 gün önce yazılı bildir, duruşmaya katılabilirsin (m.304).'};
+      // RET -> m.308 (iflasa dönebilir)
+      if(/reddine|talebinin red|davasının red| red\b/.test(b))
+        return {hap:'Konkordato reddedildi. Borçlu iflasa tabiyse mahkeme iflasına karar verebilir; iflas açılırsa alacağını masaya kaydettir (m.308).'};
+      // MÜHLET KALDIRMA -> takip yasağı sona erer
+      if(/kaldır/.test(b))
+        return {hap:'Mühlet kaldırıldı; borçluya karşı takip yasağı sona erdi, takibini sürdürebilirsin.'};
+      // ALACAKLILAR TOPLANTISI -> m.302 oy
+      if(/toplantı/.test(b))
+        return {hap:'Alacaklılar toplantısına davet edildin. Katıl, oyunu kullan; konkordato projesi (vade/indirim) burada oylanır (m.302).'};
+      // TASDİK -> m.305-306 bağlar
+      if(/tasdik/.test(b))
+        return {hap:'Konkordato tasdik edildi; proje (vade/indirim) itiraz etmeyen dahil tüm alacaklıları bağlar (m.305-306).'};
+      return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302), borçtan sorumlu kefil/ortağa alacağının tamamı için gidebilirsin (m.303).'};
     }
     if(x.tur==='iflas'){
       if(/kaldır|kapanma|kapandı|kapanmasına|tamamlan|paraya çevr|satış|ihale ilanı|tescil|kesinleş|onaylan/.test(b)) return null;
@@ -145,10 +160,17 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         return {tip:'İflas takibine devam', madde:'m.217', gun:30, aciklama:'ilandan 30 gün', hap:'Masada mal yok, daire tasfiyeyi tatil etti. Takibin sürmesini istiyorsan 30 gün içinde masrafı peşin öde; kimse ödemezse iflas kapanır.'};
       if(/sıra cetvel/.test(b))
         return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün', hap:'Alacaklıların sırası ve tutarı belirlendi. Sıranı ya da tutarını yanlış buluyorsan 7 gün içinde icra mahkemesinde itiraz et.'};
-      if(/basit tasfiye/.test(b))
-        return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.', hap:'Masadaki mal tasfiye masrafını karşılamıyor, basit usul uygulanıyor. Alacağını ilandaki sürede bildir; istersen masrafı verip adi tasfiye isteyebilirsin.'};
+      // ADİ TASFİYE / iflasın açılması -> m.219, 1 ay (toplantı ondan ÖNCE gelmeli)
       if(/iflasın açılması|adi tasfiye|alacaklarını.*(kaydet|bildir)|alacaklıları.*davet|alacak kayd/.test(b))
         return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay', hap:'İflas açıldı, adi tasfiye başladı. Alacağını 1 ay içinde belgelerinle iflas masasına kaydettir.'};
+      if(/basit tasfiye/.test(b))
+        return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.', hap:'Masadaki mal tasfiye masrafını karşılamıyor, basit usul uygulanıyor. Alacağını ilandaki sürede bildir; istersen masrafı verip adi tasfiye isteyebilirsin.'};
+      // TEREKE / MİRAS iflas usulüyle tasfiye -> reddedilen mirasta kayıt 10 gün (m.220)
+      if(/tereke|miras/.test(b))
+        return {not:'Terekenin iflas hükümlerine göre tasfiyesi; alacak bildirim süresi ilandadır (reddedilen mirasta kayıt süresi 10 güne iner, m.220), ilan metnini oku.', hap:'Miras/tereke iflas usulüyle tasfiye ediliyor. Alacağını ilanda yazan sürede masaya bildir.'};
+      // İFLAS ALACAKLILAR TOPLANTISI -> m.223
+      if(/toplantı|içtima/.test(b))
+        return {hap:'Alacaklılar toplantısına davet edildin. Katıl, oy kullan; iflas idaresi seçimi ve masa kararları burada alınır (m.223).'};
       return null;
     }
     return null;
