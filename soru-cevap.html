@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Net Cevap — muhasebe · finans · gümrük sorunu sor | Tetikte</title>
-<meta name="description" content="Vergi, gümrük, mevzuat sorunu yaz; kaynağıyla (madde/tebliğ) net cevap al. Uydurma yok — cevap yalnız doğrulanmış birincil kaynaktan; kapsamda yoksa dürüstçe söyleriz.">
+<meta name="description" content="Vergi, gümrük, mevzuat sorunu yaz; kaynağıyla (madde/tebliğ) net cevap al. Uydurma yok, cevap yalnız doğrulanmış birincil kaynaktan; kapsamda yoksa dürüstçe söyleriz.">
 <style>
 :root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}
@@ -86,15 +86,15 @@ textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);borde
          BILMELIYDI. Aciklama + KVKK baglantisi eklendi. -->
     <div style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.5">
       Sorular kimlikle eşleştirilmez. Cevaplayamadığımız soru, kapsama eklenmesi
-      için yazdığın haliyle ekibe iletilir — kişisel veri yazmamanı öneririz.
+      için yazdığın haliyle ekibe iletilir, kişisel veri yazmamanı öneririz.
       <a href="kvkk.html" style="color:var(--accent2)">Aydınlatma metni</a>
     </div>
   </div>
 
   <div id="cevapAlan"></div>
 
-  <div class="uyari"><b>Dürüstlük:</b> Her cevap doğrulanmış birincil kaynaktan (kanun/tebliğ) verilir; bu bir bilgilendirmedir, kesin işlem için müşavirine danış. Kapsamımızda olmayan soruyu <b>uydurmaz</b>, "kapsamda değil" der ve kaydederiz — bilgi tabanımız her gün büyüyor.</div>
-  <div class="dip">Tetikte · Net Cevap (kaynağa bağlı) · Kaynak: mevzuat.gov.tr / GİB / KİK / TÜRKPATENT — birincil. Tetikte — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+  <div class="uyari"><b>Dürüstlük:</b> Her cevap doğrulanmış birincil kaynaktan (kanun/tebliğ) verilir; bu bir bilgilendirmedir, kesin işlem için müşavirine danış. Kapsamımızda olmayan soruyu <b>uydurmaz</b>, "kapsamda değil" der ve kaydederiz, bilgi tabanımız her gün büyüyor.</div>
+  <div class="dip">Tetikte · Net Cevap (kaynağa bağlı) · Kaynak: mevzuat.gov.tr / GİB / KİK / TÜRKPATENT, birincil. Tetikte, bir Dizdar Denetim A.Ş. yazılımıdır.</div>
 </div>
 
 <script>
@@ -149,9 +149,9 @@ function guvenFooter(kaynakHtml){
 function durustKutu(){
   return `<div class="durust"><div class="konu">KAPSAMDA DEĞİL</div>`
     +`<h3>Bunu şu an güvenle cevaplayamıyorum</h3>`
-    +`<p>Bu soru doğrulanmış bilgi tabanımızda henüz yok. <b>Uydurmuyorum</b> — yanlış bir rakam/süre sana ceza olarak döner, o riski almam.</p>`
+    +`<p>Bu soru doğrulanmış bilgi tabanımızda henüz yok. <b>Uydurmuyorum</b>, yanlış bir rakam/süre sana ceza olarak döner, o riski almam.</p>`
     +`<p>Sorunu kaydettim; kaynağını (madde/tebliğ/özelge) yükleyip ekleyeceğiz. Bu arada resmî kaynağa (mevzuat.gov.tr / GİB) ya da müşavirine danış.</p>`
-    +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor — talebin ona ekleniyor.</div></div>`;
+    +`<div class="neden"><b>Neden boş cevap veriyoruz?</b> Çünkü emin olmadığımızda konuşmak, emin olduğumuzda konuşmaktan daha kötüdür. Bilgi tabanımız her gün büyüyor, talebin ona ekleniyor.</div></div>`;
 }
 async function sor(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('sorucevap')) return;
   const q=$('#soru').value.trim(); if(q.length<4){ $('#cevapAlan').innerHTML='<div class="cevap yok"><p>Lütfen sorunu biraz daha yaz.</p></div>'; return; }

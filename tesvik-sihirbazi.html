@@ -47,7 +47,7 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a><span>›</span><span>Yatırım Teşvik Sihirbazı</span></div>
 
   <h1>Yatırım Teşvik Sihirbazı</h1>
-  <p class="lead">Eski teşvik sistemi (2012/3305) <b style="color:var(--ink)">kalktı</b> — yerine <b style="color:var(--ink)">9903 sayılı Karar</b> (RG 30.05.2025) geldi. İlini, ilçeni, sektörünü ve yatırım tutarını gir; <b style="color:var(--ink)">bölgeni, destek unsurlarını, 31.12.2026 son tarihli 6. bölge fırsatlarını</b> ve seni yakabilecek tek-kapı tuzağını gör.</p>
+  <p class="lead">Eski teşvik sistemi (2012/3305) <b style="color:var(--ink)">kalktı</b>, yerine <b style="color:var(--ink)">9903 sayılı Karar</b> (RG 30.05.2025) geldi. İlini, ilçeni, sektörünü ve yatırım tutarını gir; <b style="color:var(--ink)">bölgeni, destek unsurlarını, 31.12.2026 son tarihli 6. bölge fırsatlarını</b> ve seni yakabilecek tek-kapı tuzağını gör.</p>
 
   <div class="kutu">
     <div class="grid2">
@@ -56,7 +56,7 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
         <select id="il"><option value="">— il seç —</option></select>
       </div>
       <div>
-        <label for="ilce">İLÇE (biliyorsan — fırsat tespiti için önemli)</label>
+        <label for="ilce">İLÇE (biliyorsan, fırsat tespiti için önemli)</label>
         <input id="ilce" list="ilceList" placeholder="ör. Nurdağı, Haymana…" autocomplete="off">
         <datalist id="ilceList"></datalist>
       </div>
@@ -69,9 +69,9 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
       <div>
         <label for="sektor">YATIRIM KONUSU</label>
         <select id="sektor">
-          <option value="imalat-yuksek">İmalat — yüksek teknoloji (NACE 21 eczacılık, 26 elektronik, 30.3 havacılık)</option>
-          <option value="imalat-ortayuksek">İmalat — orta-yüksek teknoloji (NACE 20, 25.3, 27, 28, 29, 30.2/30.4/30.9, 32.5)</option>
-          <option value="imalat" selected>İmalat — diğer (NACE 10-32, 38.2)</option>
+          <option value="imalat-yuksek">İmalat, yüksek teknoloji (NACE 21 eczacılık, 26 elektronik, 30.3 havacılık)</option>
+          <option value="imalat-ortayuksek">İmalat, orta-yüksek teknoloji (NACE 20, 25.3, 27, 28, 29, 30.2/30.4/30.9, 32.5)</option>
+          <option value="imalat" selected>İmalat, diğer (NACE 10-32, 38.2)</option>
           <option value="turizm">Turizm / konaklama</option>
           <option value="bilisim">Yazılım / bilişim / veri merkezi</option>
           <option value="egitim">Eğitim / sağlık / kreş / bakım merkezi</option>
@@ -115,7 +115,7 @@ const TLf=n=>n.toLocaleString('tr-TR');
 
 fetch('veri/tesvik-bolgeler.json').then(r=>r.json()).then(d=>{
   V=d; ilDoldur(); tazelikYaz(d);
-}).catch(()=>{ $('sonuc').style.display='block'; $('sonuc').innerHTML='<div class="tuzak">Veri dosyası yüklenemedi — sayfayı yenile ya da daha sonra dene.</div>'; });
+}).catch(()=>{ $('sonuc').style.display='block'; $('sonuc').innerHTML='<div class="tuzak">Veri dosyası yüklenemedi, sayfayı yenile ya da daha sonra dene.</div>'; });
 
 function ilDoldur(){
   const tum=[]; for(const b in V.bolgeler) V.bolgeler[b].forEach(il=>tum.push(il));
@@ -154,7 +154,7 @@ $('hesapla').addEventListener('click',()=>{
   const depremListesi=V.depremIlceleri[il]||[];
   const deprem=ilce && depremListesi.some(x=>norm(x)===norm(ilce));
   const cazibeIl=V.cazibeIlleri.iller.includes(il);
-  const sivasDemirag = il==='Sivas'; // Sivas'ta geç. m.4 yalnız Demirağ OSB — metinle uyarılır
+  const sivasDemirag = il==='Sivas'; // Sivas'ta geç. m.4 yalnız Demirağ OSB, metinle uyarılır
 
   // m.22: OSB veya EK-5 → bir alt bölge; ikisi → iki alt bölge (SGK işveren desteği açısından)
   const altSayisi=(osb?1:0)+(ek5?1:0);
@@ -167,7 +167,7 @@ $('hesapla').addEventListener('click',()=>{
   const bugunOnce2027 = new Date() <= new Date('2026-12-31T23:59:59');
   const gecM3 = deprem && bugunOnce2027;
   const gecM4 = cazibeIl && osb && imalatMi && bugunOnce2027 && il!=='Sivas';
-  const gecM4Sivas = sivasDemirag && osb && imalatMi && bugunOnce2027; // yalnız Demirağ OSB — hesaba YANSITILMAZ, kartla anlatılır
+  const gecM4Sivas = sivasDemirag && osb && imalatMi && bugunOnce2027; // yalnız Demirağ OSB, hesaba YANSITILMAZ, kartla anlatılır
   let efektifBolge = baz;
   if(gecM3 || gecM4) efektifBolge = 6;
 
@@ -186,52 +186,52 @@ $('hesapla').addEventListener('click',()=>{
 
   const yko=V.vergiIndirimi.yko;
   let sistem, ykoOran;
-  if(sektor==='imalat-yuksek'||sektor==='imalat-ortayuksek'){ sistem='Teknoloji Hamlesi adayı (öncelikli ürün listesi kontrol edilir) — değilse Öncelikli/Hedef'; ykoOran=yko.tykh+'% (TYKH ise) / %'+yko.oncelikli+' (Öncelikli ise)'; }
+  if(sektor==='imalat-yuksek'||sektor==='imalat-ortayuksek'){ sistem='Teknoloji Hamlesi adayı (öncelikli ürün listesi kontrol edilir), değilse Öncelikli/Hedef'; ykoOran=yko.tykh+'% (TYKH ise) / %'+yko.oncelikli+' (Öncelikli ise)'; }
   else if(sektor==='bilisim'){ sistem='Öncelikli Yatırımlar adayı (ihtisas SB\'de yazılım asgari tutar ŞARTSIZ; veri merkezi 3MW+/500kW şartları)'; ykoOran='%'+yko.oncelikli; }
   else if(sektor==='egitim'){ sistem='Öncelikli Yatırımlar adayı (kreş-okul-eğitim, 100+ kapasiteli bakım merkezi)'; ykoOran='%'+yko.oncelikli; }
   else if(sektor==='turizm'){ sistem='Öncelikli (turizm koruma bölgesi/termal) ya da Hedef Yatırımlar (otel 50 oda+)'; ykoOran='%'+yko.oncelikli+' / %'+yko.hedef; }
-  else if(sektor==='tarim'){ sistem='Hedef Yatırımlar (EK-3 eşikleri: sera dekar, süt 150-500 baş, kümes 100-200 bin — bölgene göre)'; ykoOran='%'+yko.hedef; }
+  else if(sektor==='tarim'){ sistem='Hedef Yatırımlar (EK-3 eşikleri: sera dekar, süt 150-500 baş, kümes 100-200 bin, bölgene göre)'; ykoOran='%'+yko.hedef; }
   else if(imalatMi){ sistem='Hedef Yatırımlar (EK-3 NACE listesi + varsa 100M/200M+ tutarla Stratejik Hamle)'; ykoOran='%'+yko.hedef; }
-  else { sistem='Hedef Yatırımlar kapsamına EK-3 üzerinden bakılır — hizmet konularının çoğu şartlıdır'; ykoOran='%'+yko.hedef; }
-  if(tutar>=200000000 || (sektor==='imalat-yuksek' && tutar>=100000000)) sistem+=' · tutarın Stratejik Hamle eşiğinde (100M yüksek-tek / 200M diğer) — %40 YKO kapısı';
+  else { sistem='Hedef Yatırımlar kapsamına EK-3 üzerinden bakılır, hizmet konularının çoğu şartlıdır'; ykoOran='%'+yko.hedef; }
+  if(tutar>=200000000 || (sektor==='imalat-yuksek' && tutar>=100000000)) sistem+=' · tutarın Stratejik Hamle eşiğinde (100M yüksek-tek / 200M diğer), %40 YKO kapısı';
 
   let h='';
   // fırsat kartları
-  if(gecM3) h+='<div class="firsat"><b style="color:var(--green)">🎯 DEPREM İLÇESİ FIRSATI (geçici m.3)</b><br>'+il+' / '+ilce+' — 7028 s. Karar EK-2 listesinde. <b>31.12.2026\'ya kadar</b> yapılacak müracaatlar (sektör sınırı YOK — otel, sağlık, imalat…) <b>6. BÖLGE destekleriyle</b> değerlendirilir; imalatta (NACE 10-32, 38.2) ayrıca <b>EK-3 konu şartı aranmaz</b> (asgari yatırım tutarı ARANIR — m.5/2). Bu tarihten sonra hak kaybolur, müracaatı öne çek.</div>';
+  if(gecM3) h+='<div class="firsat"><b style="color:var(--green)">🎯 DEPREM İLÇESİ FIRSATI (geçici m.3)</b><br>'+il+' / '+ilce+', 7028 s. Karar EK-2 listesinde. <b>31.12.2026\'ya kadar</b> yapılacak müracaatlar (sektör sınırı YOK, otel, sağlık, imalat…) <b>6. BÖLGE destekleriyle</b> değerlendirilir; imalatta (NACE 10-32, 38.2) ayrıca <b>EK-3 konu şartı aranmaz</b> (asgari yatırım tutarı ARANIR, m.5/2). Bu tarihten sonra hak kaybolur, müracaatı öne çek.</div>';
   if(gecM4) h+='<div class="firsat"><b style="color:var(--green)">🎯 CAZİBE OSB FIRSATI (geçici m.4)</b><br>'+il+', mülga Cazibe Merkezleri il listesinde ve yatırımın OSB/endüstri bölgesinde: <b>31.12.2026\'ya kadar</b> imalat müracaatları <b>6. BÖLGE destekli</b>.</div>';
-  if(gecM4Sivas) h+='<div class="firsat" style="border-left-color:var(--amber);border-color:rgba(255,194,75,.35)"><b style="color:var(--amber)">🎯 SİVAS\'TA YALNIZ DEMİRAĞ OSB (geçici m.4)</b><br>Sivas\'ta 6. bölge fırsatı <b>yalnız Demirağ OSB\'deki</b> imalat yatırımları için geçerli. Aşağıdaki tablo Demirağ DIŞI (normal '+baz+'. bölge) hesabıdır; yatırımın Demirağ OSB\'deyse destekler 6. bölge oran/süreleriyle uygulanır — E-TUYS başvurusunda bunu belirt.</div>';
+  if(gecM4Sivas) h+='<div class="firsat" style="border-left-color:var(--amber);border-color:rgba(255,194,75,.35)"><b style="color:var(--amber)">🎯 SİVAS\'TA YALNIZ DEMİRAĞ OSB (geçici m.4)</b><br>Sivas\'ta 6. bölge fırsatı <b>yalnız Demirağ OSB\'deki</b> imalat yatırımları için geçerli. Aşağıdaki tablo Demirağ DIŞI (normal '+baz+'. bölge) hesabıdır; yatırımın Demirağ OSB\'deyse destekler 6. bölge oran/süreleriyle uygulanır, E-TUYS başvurusunda bunu belirt.</div>';
   if(cazibeIl && imalatMi && !osb && bugunOnce2027 && !gecM3) h+='<div class="firsat" style="border-left-color:var(--amber);border-color:rgba(255,194,75,.35);background:var(--panel)"><b style="color:var(--amber)">💡 Yer seçimiyle 6. bölgeye çıkabilirsin</b><br>'+il+' Cazibe il listesinde: aynı yatırımı <b>OSB/endüstri bölgesinde</b> yaparsan geçici m.4 ile 31.12.2026\'ya kadar 6. bölge desteklerine geçersin.</div>';
 
   // özet
   h+='<div class="kutu"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">BÖLGE TESPİTİ</div>';
-  h+='<div class="satir"><b>'+il+' — baz bölge</b><span>'+baz+'. bölge</span></div>';
-  if(ek5) h+='<div class="satir"><b>'+ilce+' — EK-5 alt bölge ilçesi</b><span class="rozet yesil">SGK\'da +1 bölge</span></div>';
+  h+='<div class="satir"><b>'+il+', baz bölge</b><span>'+baz+'. bölge</span></div>';
+  if(ek5) h+='<div class="satir"><b>'+ilce+', EK-5 alt bölge ilçesi</b><span class="rozet yesil">SGK\'da +1 bölge</span></div>';
   if(osb) h+='<div class="satir"><b>OSB / endüstri bölgesi</b><span class="rozet yesil">SGK\'da +1 bölge (m.22)</span></div>';
   h+='<div class="satir"><b>Destek uygulanacak bölge</b><span style="color:var(--ink);font-weight:800">'+(efektifBolge===6&&(gecM3||gecM4)?'6. bölge (geçici madde ile)':(sgkBolge+'. bölge'+(sgkArti2?' (+2 yıl süre)':'')))+'</span></div>';
-  h+='<div class="satir"><b>Asgari yatırım (2025 bazı, tebliğle güncellenir)</b><span>'+TLf(asgari)+' TL — senin tutarın '+TLf(tutar)+' TL '+(tutarYeterli?'✓':'✗ EKSİK')+'</span></div>';
+  h+='<div class="satir"><b>Asgari yatırım (2025 bazı, tebliğle güncellenir)</b><span>'+TLf(asgari)+' TL, senin tutarın '+TLf(tutar)+' TL '+(tutarYeterli?'✓':'✗ EKSİK')+'</span></div>';
   h+='<div class="satir"><b>Sistem/program adayı</b><span>'+sistem+'</span></div>';
   h+='</div>';
 
-  if(!tutarYeterli) h+='<div class="tuzak"><b style="color:var(--red)">⛔ Tutar asgarinin altında:</b> bu tutarla teşvik belgesi düzenlenmez (m.5/2) — deprem ilçesi dahil her yerde asgari tutar aranır. Finansal kiralama yoluyla alımda her bir kiralama şirketi için toplam asgari '+TLf(a.leasing)+' TL kuralı (m.5/3) ayrıca geçerli.</div>';
+  if(!tutarYeterli) h+='<div class="tuzak"><b style="color:var(--red)">⛔ Tutar asgarinin altında:</b> bu tutarla teşvik belgesi düzenlenmez (m.5/2), deprem ilçesi dahil her yerde asgari tutar aranır. Finansal kiralama yoluyla alımda her bir kiralama şirketi için toplam asgari '+TLf(a.leasing)+' TL kuralı (m.5/3) ayrıca geçerli.</div>';
 
   // unsurlar
   const sgkIsci = (efektifBolge===6);
   h+='<details class="kacc" open><summary>📦 Yararlanabileceğin destek unsurları</summary><div class="ic">';
   h+='<div class="satir"><b>KDV istisnası (m.14)</b><span>Makine-teçhizat + yazılım ve gayri maddi hak alımları</span></div>';
-  h+='<div class="satir"><b>Gümrük vergisi muafiyeti (m.13)</b><span>İthal makine-teçhizat — EK-4 listesindeki 233 kalem (forklift, vinç, tekstil makineleri, mobilya, otobüs-kamyon…) HARİÇ</span></div>';
+  h+='<div class="satir"><b>Gümrük vergisi muafiyeti (m.13)</b><span>İthal makine-teçhizat, EK-4 listesindeki 233 kalem (forklift, vinç, tekstil makineleri, mobilya, otobüs-kamyon…) HARİÇ</span></div>';
   h+='<div class="satir"><b>Vergi indirimi (m.20)</b><span>KV/GV %'+V.vergiIndirimi.indirimliOran+' indirimli; yatırıma katkı oranı '+ykoOran+'</span></div>';
-  h+='<div class="satir"><b>SGK işveren hissesi (m.18)</b><span>'+(sgkSure>0?('<b style="color:var(--ink)">'+sgkSure+' yıl</b>'+(ist?' — planladığın '+ist+' kişilik ilave istihdamın asgari ücrete isabet eden işveren primi':'')+' ('+(efektifBolge===6?'6. bölgede TAMAMI':'%50\'si')+' karşılanır)'):'— bu bölgede SGK işveren desteği yok (OSB\'ye ya da EK-5 ilçesine taşınırsa açılır)')+'</span></div>';
+  h+='<div class="satir"><b>SGK işveren hissesi (m.18)</b><span>'+(sgkSure>0?('<b style="color:var(--ink)">'+sgkSure+' yıl</b>'+(ist?', planladığın '+ist+' kişilik ilave istihdamın asgari ücrete isabet eden işveren primi':'')+' ('+(efektifBolge===6?'6. bölgede TAMAMI':'%50\'si')+' karşılanır)'):'— bu bölgede SGK işveren desteği yok (OSB\'ye ya da EK-5 ilçesine taşınırsa açılır)')+'</span></div>';
   h+='<div class="satir"><b>SGK işçi hissesi (m.19)</b><span>'+(sgkIsci?'✓ 10 yıl, tamamlama vizesinden sonra başlar (6. bölge ayrıcalığı)':'— yalnız 6. bölgede var')+'</span></div>';
-  h+='<div class="satir"><b>Faiz/kâr payı desteği (m.15)</b><span>Repo oranına endeksli puan desteği — program türüne göre (kredi sabit yatırımın %70\'ine kadar)</span></div>';
-  h+='<div class="satir"><b>Makine desteği (m.16 — YENİ)</b><span>Yalnız TYKH programlarında: 2M TL+ makinelerde bedelin %25\'i geri ödenir; <b>faiz desteğiyle aynı anda alınamaz</b></span></div>';
+  h+='<div class="satir"><b>Faiz/kâr payı desteği (m.15)</b><span>Repo oranına endeksli puan desteği, program türüne göre (kredi sabit yatırımın %70\'ine kadar)</span></div>';
+  h+='<div class="satir"><b>Makine desteği (m.16, YENİ)</b><span>Yalnız TYKH programlarında: 2M TL+ makinelerde bedelin %25\'i geri ödenir; <b>faiz desteğiyle aynı anda alınamaz</b></span></div>';
   h+='<div class="satir"><b>Yatırım yeri tahsisi (m.21)</b><span>Vergi indirimli belgelerde mümkün; elektrik üretimine yok</span></div>';
   h+='</div></details>';
 
   // tuzaklar
-  h+='<div class="tuzak"><b style="color:var(--red)">⚠ TEK KAPI KURALI (m.33) — en çok yakan tuzak:</b> Bu Karar\'dan desteklenen harcama, KOSGEB/TKDK/ajans gibi <b>başka kamu desteğinden yararlanamaz</b> (geri alım + faiz). İstisnalar: Teknoloji Hamlesi yatırımları KOSGEB ve TÜBİTAK\'tan da desteklenebilir; sübvansiyonlu krediye bu Karar\'dan faiz/makine desteği almadıysan diğer unsurlar kullanılabilir. Aynı makineye iki kapıdan destek isteme.</div>';
+  h+='<div class="tuzak"><b style="color:var(--red)">⚠ TEK KAPI KURALI (m.33), en çok yakan tuzak:</b> Bu Karar\'dan desteklenen harcama, KOSGEB/TKDK/ajans gibi <b>başka kamu desteğinden yararlanamaz</b> (geri alım + faiz). İstisnalar: Teknoloji Hamlesi yatırımları KOSGEB ve TÜBİTAK\'tan da desteklenebilir; sübvansiyonlu krediye bu Karar\'dan faiz/makine desteği almadıysan diğer unsurlar kullanılabilir. Aynı makineye iki kapıdan destek isteme.</div>';
 
   h+='<details class="kacc"><summary>🗺 Yol haritası: başvurudan vizeye</summary><div class="ic">';
-  h+='1) <b>E-TUYS</b> üzerinden elektronik müracaat (son genel tarih 31.12.2030; geçici m.3/4 fırsatları 31.12.2026).<br>2) Belge düzenlenince harcamalara başla — belge öncesi harcama desteklenmez.<br>3) Yatırım süresi bitince <b>3 ay içinde</b> tamamlama vizesi müracaatı (m.29) — kaçırma.<br>4) Kullanılmış makine ithali ancak Bakanlık ekspertiziyle (m.23); serbest bölgeden kullanılmış komple tesis olmaz.</div></details>';
+  h+='1) <b>E-TUYS</b> üzerinden elektronik müracaat (son genel tarih 31.12.2030; geçici m.3/4 fırsatları 31.12.2026).<br>2) Belge düzenlenince harcamalara başla, belge öncesi harcama desteklenmez.<br>3) Yatırım süresi bitince <b>3 ay içinde</b> tamamlama vizesi müracaatı (m.29), kaçırma.<br>4) Kullanılmış makine ithali ancak Bakanlık ekspertiziyle (m.23); serbest bölgeden kullanılmış komple tesis olmaz.</div></details>';
 
   h+='<div style="font-size:11.5px;color:var(--dim);margin-top:10px">Kontrol damgası: bu sonuçtaki her kural 9903 s. Karar metninden ve RG asıllarından birebir okunarak kodlandı (13.08.2026); rakamlar dönemseldir, başvuru öncesi güncel tebliği kontrol et.</div>';
 

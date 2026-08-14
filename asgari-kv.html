@@ -96,7 +96,7 @@ details li{margin-bottom:5px}
   <button class="btn" id="hesapla">Asgari vergiye takılıyor muyum? →</button>
   <div id="sonuc"></div>
 
-  <div class="uyari"><b>Bilgilendirme:</b> Bu simülatör KVK m.32/C'nin ana kurallarını birebir uygular; ancak özellikli durumlar (indirimli oran kombinasyonları, özel hesap dönemi, tebliğdeki ayrıntılar) sonucu değiştirebilir. %10 oranını Cumhurbaşkanı sıfıra kadar indirmeye veya bir katına çıkarmaya yetkilidir (m.32/C-7). Beyandan önce mali müşavirinle doğrula — bu sayfa hukuki mütalaa değildir.</div>
+  <div class="uyari"><b>Bilgilendirme:</b> Bu simülatör KVK m.32/C'nin ana kurallarını birebir uygular; ancak özellikli durumlar (indirimli oran kombinasyonları, özel hesap dönemi, tebliğdeki ayrıntılar) sonucu değiştirebilir. %10 oranını Cumhurbaşkanı sıfıra kadar indirmeye veya bir katına çıkarmaya yetkilidir (m.32/C-7). Beyandan önce mali müşavirinle doğrula, bu sayfa hukuki mütalaa değildir.</div>
   <div class="dip">Kaynak: KVK (5520 s.K.) m.32/C (Ek: 28.7.2024-7524/36; değişik bent: 21.5.2026-7582/9); mevzuat.gov.tr konsolide metninden 22.07.2026'da okunmuştur. Geçici vergi dönemlerinde de uygulanır (m.32/C-4).</div>
 </div>
 
@@ -130,11 +130,11 @@ $('#hesapla').addEventListener('click',()=>{
     +'<div class="satir"><span>= YURT İÇİ ASGARİ KURUMLAR VERGİSİ</span><b>'+tl(asgari)+'</b></div>'
     +'<div class="satir"><span>Beyannamede hesaplanan (normal) vergi</span><b>'+tl(hkv)+'</b></div></div>';
   if(takildi){
-    h+='<div class="skart vurgu"><div class="et">SONUÇ — TABANA TAKILDIN</div><div class="buyuk" style="color:var(--amber)">Ödenecek: '+tl(asgari)+'</div>'
+    h+='<div class="skart vurgu"><div class="et">SONUÇ, TABANA TAKILDIN</div><div class="buyuk" style="color:var(--amber)">Ödenecek: '+tl(asgari)+'</div>'
       +'<div style="font-size:13.5px;color:var(--muted)">Hesaplanan vergin asgari tutarın ALTINDA kaldı. Aradaki <b style="color:var(--ink)">'+tl(fark)+'</b> fark kadar ek vergi yükü doğar; indirim ve istisnaların bu kısmı fiilen vergi avantajı sağlamaz. Geçici vergi dönemlerinde de aynı hesap yapılır (m.32/C-4).</div></div>';
   } else {
-    h+='<div class="skart temiz"><div class="et">SONUÇ — TABANA TAKILMADIN</div><div class="buyuk" style="color:var(--green)">Ödenecek: '+tl(hkv)+'</div>'
-      +'<div style="font-size:13.5px;color:var(--muted)">Normal hesaplanan vergin asgari tutarın üzerinde ('+tl(hkv)+' ≥ '+tl(asgari)+') — m.32/C ek yük getirmiyor.</div></div>';
+    h+='<div class="skart temiz"><div class="et">SONUÇ, TABANA TAKILMADIN</div><div class="buyuk" style="color:var(--green)">Ödenecek: '+tl(hkv)+'</div>'
+      +'<div style="font-size:13.5px;color:var(--muted)">Normal hesaplanan vergin asgari tutarın üzerinde ('+tl(hkv)+' ≥ '+tl(asgari)+'), m.32/C ek yük getirmiyor.</div></div>';
   }
   el.innerHTML=h;
 });

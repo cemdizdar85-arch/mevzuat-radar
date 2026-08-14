@@ -60,7 +60,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Marka Radarı</div>
-  <h1>Marka Yenileme Radarı — markan ne zaman düşüyor?</h1>
+  <h1>Marka Yenileme Radarı, markan ne zaman düşüyor?</h1>
   <p class="lead">Tescilli markanın koruması <b>başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b>düşer</b>; düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b>son 6 ay</b>; kaçarsan <b>6 ay ek süre (ek ücretle)</b>. Markanın bitiş tarihini ve şu anki durumunu gör; unutmamak için takibe al.</p>
 
   <div class="form">
@@ -98,8 +98,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="kutu">
     <h3>⚖️ Kanun ne diyor? (SMK 6769)</h3>
     <div class="h"><span class="no">m.23</span><div><b>Koruma süresi başvuru tarihinden 10 yıl</b>, onar yıllık dönemlerle yenilenir. Yenileme talebi bitişten önceki <b>6 ay</b> içinde; kaçarsan bitişten sonra <b>6 ay ek süre + ek ücret</b>.</div></div>
-    <div class="h"><span class="no">m.28</span><div>Koruma süresi dolar ve süresi içinde yenilenmezse <b>marka hakkı sona erer</b>, sicilden düşer (m.28/1-a). <span style="color:var(--dim)">(m.26'daki "iptal" ayrı bir yoldur: 5 yıl kullanmama, markanın jenerik ada dönüşmesi gibi hâllerde Kurum kararıyla işler — yenilememeyle karıştırma.)</span></div></div>
-    <div class="h"><span class="no">m.6/8</span><div>Marka yenilenmeyip düşerse bile <b>2 yıllık itiraz kalkanın</b> var: sona ermeden itibaren 2 yıl içinde başkası aynı/benzer markaya başvurursa, <b>itiraz etmen ve markayı bu 2 yılda kullanmış olman şartıyla</b> başvuru reddedilir. 2 yıl dolunca kalkan düşer — yenilememek yine de hak kaybıdır.</div></div>
+    <div class="h"><span class="no">m.28</span><div>Koruma süresi dolar ve süresi içinde yenilenmezse <b>marka hakkı sona erer</b>, sicilden düşer (m.28/1-a). <span style="color:var(--dim)">(m.26'daki "iptal" ayrı bir yoldur: 5 yıl kullanmama, markanın jenerik ada dönüşmesi gibi hâllerde Kurum kararıyla işler, yenilememeyle karıştırma.)</span></div></div>
+    <div class="h"><span class="no">m.6/8</span><div>Marka yenilenmeyip düşerse bile <b>2 yıllık itiraz kalkanın</b> var: sona ermeden itibaren 2 yıl içinde başkası aynı/benzer markaya başvurursa, <b>itiraz etmen ve markayı bu 2 yılda kullanmış olman şartıyla</b> başvuru reddedilir. 2 yıl dolunca kalkan düşer, yenilememek yine de hak kaybıdır.</div></div>
   </div>
 
   <div class="uyari"><b>Bilgilendirme amaçlıdır.</b> Kesin tarih ve ücretler için <b>marka vekili</b> veya TÜRKPATENT sicil kaydı esastır. Bu araç başvuru tarihi + 10 yıl üzerinden tahmini gösterir; kısmi yenileme, ortak marka gibi özel haller değişebilir.</div>
@@ -143,7 +143,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <!-- 30.07 soz defteri: bu sayfada abonelik CTA'si YOKTU (cikmaz sokak) -
        vitrindeki Marka kutusu bu yuzden dogrudan panele baglanmisti. -->
   <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;margin-top:26px">
-    <h3 style="margin:0 0 6px;font-size:19px;letter-spacing:-.4px">Tarihi takvimine sen yazma — radar yazsın</h3>
+    <h3 style="margin:0 0 6px;font-size:19px;letter-spacing:-.4px">Tarihi takvimine sen yazma, radar yazsın</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Markanı bir kez tanıt; yenileme penceresi yaklaşınca ve benzer başvuru çıkınca panelde gör, abonelikte günlük özet mailinle öğren.</p>
     <a style="display:inline-block;background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 6px 24px rgba(245,165,36,.35)" href="radar-app.html?niyet=marka">Markanı radara bağla →</a>
   </div>
@@ -194,14 +194,14 @@ function hesapla(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('mark
   const no=(document.getElementById('no').value||'').trim(), sinif=(document.getElementById('sinif').value||'').trim();
   SON={ad,no,sinif,basvuru:fmt(basvuru),bitis:fmt(gercekBitis),acilis:fmt(gercekAcilis),durum};
   document.getElementById('sonuc').innerHTML=`
-    <div class="ozet ${ozetT}"><span class="buyuk">${durum}${ad?' — '+ad:''}</span>${mesaj}</div>
+    <div class="ozet ${ozetT}"><span class="buyuk">${durum}${ad?', '+ad:''}</span>${mesaj}</div>
     <div class="satir"><span class="l">Koruma başlangıcı (başvuru)</span><span class="v">${fmt(basvuru)}</span></div>
     <div class="satir"><span class="l">Koruma bitişi (+10 yıl)</span><span class="v">${fmt(gercekBitis)}</span></div>
     <div class="satir"><span class="l">Yenileme penceresi (son 6 ay)</span><span class="v">${fmt(gercekAcilis)} → ${fmt(gercekBitis)}</span></div>
     <div class="satir"><span class="l">Ek süre (ek ücretli)</span><span class="v">${fmt(gercekBitis)} → ${fmt(gercekEk)}</span></div>
     ${zaman}<div class="zt"><span>başvuru</span><span>pencere</span><span>bitiş</span><span>ek süre</span></div>
     <div class="takip">
-      <h3>🔔 Bu tarihi unutma — biz hatırlatalım</h3>
+      <h3>🔔 Bu tarihi unutma, biz hatırlatalım</h3>
       <p>E-postanı bırak; yenileme penceresi açılmadan <b>6 ay önce</b> ve son günlerde seni uyaralım. Birden fazla markan varsa hepsini takibe alırız (ücretsiz).</p>
       <div class="row">
         <input id="mail" type="email" placeholder="ornek@firma.com">

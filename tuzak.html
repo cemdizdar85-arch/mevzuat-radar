@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Günün Tuzağı | Tetikte</title>
-<meta name="description" content="Her gün bir SMMM sınav sorusu — iki şık doğru gibi görünür. Cevabı ve dayandığı kanun maddesi açıkça yazılıdır. Ücretsiz, üyelik gerekmez.">
+<meta name="description" content="Her gün bir SMMM sınav sorusu, iki şık doğru gibi görünür. Cevabı ve dayandığı kanun maddesi açıkça yazılıdır. Ücretsiz, üyelik gerekmez.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <style>
   :root{color-scheme:dark; --bg:#0a0c10; --kart:#12151c; --line:#252a35; --line2:#2e3542; --ink:#e8eaed;
@@ -56,7 +56,7 @@
 <div class="s">
 
 <h1>Günün Tuzağı</h1>
-<p class="alt">Her gün bir soru. İki şık doğru gibi görünür — biri tuzaktır.
+<p class="alt">Her gün bir soru. İki şık doğru gibi görünür, biri tuzaktır.
 Cevabı ve <b style="color:var(--ink)">dayandığı kanun maddesini</b> aşağıda açıkça yazıyoruz.
 Üyelik yok, kart bilgisi yok.</p>
 
@@ -71,7 +71,7 @@ Cevabı ve <b style="color:var(--ink)">dayandığı kanun maddesini</b> aşağı
 </div>
 
 <p class="kucuk" style="margin-top:20px">Soru Tetikte'nin özgün üretimidir; çıkmış sınav sorusu kopyalanmaz.
-Hata gördüğünü düşünüyorsan <a href="iletisim.html">bize yaz</a> — aynı gün kaynağıyla bakarız,
+Hata gördüğünü düşünüyorsan <a href="iletisim.html">bize yaz</a>, aynı gün kaynağıyla bakarız,
 haklıysan düzeltir ve açıkça duyururuz.</p>
 
 </div>
@@ -88,7 +88,7 @@ fetch('veri/gunun-tuzagi.json?' + Date.now())
 function hata(){
   document.getElementById('kap').innerHTML =
     '<div class="tuzak"><div class="soru">Bugünün sorusu henüz hazırlanmadı. ' +
-    'Robot her sabah 08:25\'te yeni soruyu koyar — biraz sonra tekrar bak. ' +
+    'Robot her sabah 08:25\'te yeni soruyu koyar, biraz sonra tekrar bak. ' +
     'Bu arada <a href="deneme.html">kabinde çözmeye başlayabilirsin</a>.</div></div>';
 }
 
@@ -125,7 +125,7 @@ function sec(harf){
   var a = d.aciklama || {};
   var h = '<div class="cevapKutu">';
   if(harf === dogru){
-    h += '<div style="font-weight:800;color:var(--green);font-size:15px">✓ Doğru — tuzağa düşmedin.</div>';
+    h += '<div style="font-weight:800;color:var(--green);font-size:15px">✓ Doğru, tuzağa düşmedin.</div>';
   } else {
     h += '<div style="font-weight:800;color:var(--red);font-size:15px">✗ Tuzak tam da buydu. Doğrusu ' + esc(dogru) + '.</div>';
     if(a[harf]) h += '<div class="neden"><b class="bas">Neden ' + esc(harf) + ' değil:</b> ' + esc(a[harf]) + '</div>';
@@ -139,7 +139,7 @@ function sec(harf){
   }
   if(d.kaynak){
     h += '<div class="kaynak">📎 Dayanak: ' + esc(d.kaynak) + '</div>'
-       + '<div class="kaynakAlt">Bu soru bu maddenin metniyle doğrulandı — yapay zekâya sorulmadı.</div>';
+       + '<div class="kaynakAlt">Bu soru bu maddenin metniyle doğrulandı, yapay zekâya sorulmadı.</div>';
   }
   h += '<a class="btn" href="deneme.html">Bunun gibi 15 soru daha çöz →</a>';
   h += '</div>';

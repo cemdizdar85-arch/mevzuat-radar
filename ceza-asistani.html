@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ceza Asistanı — beyanname unuttum / yanlış verdim / ceza geldi, ne yapmalıyım? | Tetikte</title>
-<meta name="description" content="KDV/muhtasar beyannamesini unuttum, eksik/yanlış verdim, fatura kesmedim, gümrük beyanı eksik ya da ceza tebliğ edildi — ne yapmalıyım? Pişmanlık, izaha davet, cezada indirim, uzlaşma, dava. Birincil kanun maddeleriyle sade yol haritası; yanlış kapı fazla ödetir.">
+<meta name="description" content="KDV/muhtasar beyannamesini unuttum, eksik/yanlış verdim, fatura kesmedim, gümrük beyanı eksik ya da ceza tebliğ edildi, ne yapmalıyım? Pişmanlık, izaha davet, cezada indirim, uzlaşma, dava. Birincil kanun maddeleriyle sade yol haritası; yanlış kapı fazla ödetir.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -70,7 +70,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     .gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--red);border:1px solid rgba(255,107,94,.35);background:rgba(255,107,94,.07);border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
   </style>
   <div><span class="gozalici">⚖️ Seni yakaladılar mı, kendin mi fark ettin?</span></div>
-  <h1>Ne oldu? — beyanname, belge ya da ceza sorununu çöz</h1>
+  <h1>Ne oldu?, beyanname, belge ya da ceza sorununu çöz</h1>
   <p class="lead">"KDV beyannamesini unuttum", "eksik/yanlış verdim", "fatura kesmedim", "gümrük beyanım eksik" ya da "ceza tebliğ edildi" olabilir. Durumunu seç, sana <b>doğru kapıyı</b> (pişmanlık, izaha davet, cezada indirim, uzlaşma, dava) birincil kanun maddeleriyle göstereyim. <b>Anahtar soru şu: seni yakaladılar mı, yoksa kendin mi fark ettin?</b> Cevabı her şeyi değiştirir.</p>
   <div class="sayac">⏱️ <b>Zamanla yarışıyorsun:</b> kendin bildirirsen (yakalanmadan) ceza çoğu zaman <b>sıfırlanır</b>; ihbarname geldiyse vergide <b>30</b>, gümrükte <b>15</b> günün var.</div>
 
@@ -155,7 +155,7 @@ function pismanlikSonuc(){ ilerle(2);
 
 // ===== İZAHA DAVET (ceza %20) =====
 function izahaSonuc(){ ilerle(2);
-  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">✉️ İzaha davet geldi — sakin ol, bu bir fırsat</div>
+  ekran(`<div class="soru">YOL HARİTASI</div><div class="sbaslik">✉️ İzaha davet geldi, sakin ol, bu bir fırsat</div>
     <div class="ozet dikkat">İzaha davet <b>henüz ceza değil</b>. İyi haber: uyarsan ceza <b>çok düşük</b> (%20). Kötü haber: bu konuda artık <b>pişmanlıktan yararlanamazsın</b> (m.370). Doğru hamle: 30 günü kaçırmadan izah + ödeme.</div>
     ${kapi('İzaha davete uy (VUK m.370)','30 GÜN',true,'Yazının tebliğinden <b>30 gün</b> içinde <b>izahta bulun</b>. İzahın yeterli görülürse tarhiyat/ceza olmayabilir. Ziyaa uğratılan vergi varsa: vergiyi + <b>vergi ziyaı cezasının yalnızca %20\'sini</b> ödersin (normal 1 kat yerine, büyük indirim) ve beyannameni bu süre içinde verirsin.',true)}
     ${kapi('Uygun değilse / izah yetmezse','',false,'İzah kabul edilmezse tarhiyat yapılır; o aşamada <b>uzlaşma</b> veya <b>cezada indirim (m.376)</b> veya <b>dava</b> kapıları açılır (aşağıdaki "ihbarname geldi" akışına bak).')}

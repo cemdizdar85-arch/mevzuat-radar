@@ -62,7 +62,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP</a> · <a href="ihale-radari.html">İhale</a> · <a href="alacak-radari.html">Alacak</a> · <a href="belge-kasasi.html">Belge Kasası</a> · <a href="kdv-iade-rehberi.html">KDV İadesi</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <b style="color:var(--ink)">Hatırlatıcı</b></div>
 
   <h1>Tarihi geçirme, cebin yanmasın</h1>
-  <p class="lead">Yükümlülük Karnesi aracı <b style="color:var(--ink)">"buna tabisin"</b> der; bu sayfa <b style="color:var(--ink)">"tarihi geldi"</b> der. Belgeni ekle: <b style="color:var(--ink)">son günü, kalan günü ve kaçırırsan ne ödeyeceğini</b> gör. En pahalısı DİİB kapaması — kaçarsa vergiler ceza ve gecikme zammıyla geri döner.</p>
+  <p class="lead">Yükümlülük Karnesi aracı <b style="color:var(--ink)">"buna tabisin"</b> der; bu sayfa <b style="color:var(--ink)">"tarihi geldi"</b> der. Belgeni ekle: <b style="color:var(--ink)">son günü, kalan günü ve kaçırırsan ne ödeyeceğini</b> gör. En pahalısı DİİB kapaması, kaçarsa vergiler ceza ve gecikme zammıyla geri döner.</p>
 
   <div class="uyari">Süre kuralları <b style="color:var(--muted)">birincil mevzuattan</b> okunmuştur (2006/12 DİR Tebliği m.37/38/45 · TTK m.409/617; kaynaklar kartlarda). Bu sayfa tarayıcında saklar (demo); <b style="color:var(--ink)">otomatik e-posta uyarısı (SMS yol haritasında) abonelikte</b>. Bilgilendirme amaçlıdır; kesin süre için belgenin/tebliğin metni esastır.</div>
 
@@ -174,7 +174,7 @@ function ciz(){
     return `<div class="kart ${cls}">
       <button class="sil" onclick="sil(${r.k})">✕ kaldır</button>
       <span class="rozet ${roz[0]}">${roz[1]}</span>
-      <h3>${esc(s.ad)}${r.etiket?' — '+esc(r.etiket):''}</h3>
+      <h3>${esc(s.ad)}${r.etiket?', '+esc(r.etiket):''}</h3>
       <div class="satir"><b>${esc(s.tarihEtiketi)}</b><span>${trT(new Date(r.tarih+'T00:00:00'))}</span></div>
       <div class="satir"><b>SON GÜN</b><span style="color:${kalan<=30?'var(--red)':'var(--ink)'}">${trT(son)}</span></div>
       <div class="satir"><b>Kural</b><span>${esc(s.sonGunAciklama)}</span></div>

@@ -218,7 +218,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Deneme Sınavı</div>
-  <h1>Deneme Sınavı — soru kabini</h1>
+  <h1>Deneme Sınavı, soru kabini</h1>
   <p class="lead">Özgün sorular; her şıkkın <b style="color:var(--ink)">neden doğru / neden yanlış</b> olduğu, altında kaynak kuralı. Ezber değil, gerekçe. Yanlışın nedenini gördüğün soru, sınavda bir daha yanılmadığın sorudur.</p>
 
   <!-- KURULUM -->
@@ -239,7 +239,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       <div class="secgrup" id="dersSec"></div>
       <div class="etiket">2 · Soru sayısı</div>
       <div class="secgrup" id="adetSec"></div>
-      <!-- 30.07 Cem: "Çalışma / Deneme ne, amacı ne?" — GM'nin bile sorduğu
+      <!-- 30.07 Cem: "Çalışma / Deneme ne, amacı ne?", GM'nin bile sorduğu
            etiket öğrenciye hiç anlatmaz. Her seçeneğin NE İŞE YARADIĞI artık
            düğmenin üzerinde yazıyor; ayrı yardım metnine gerek kalmadı. -->
       <div class="etiket">3 · Çalışma biçimi</div>
@@ -344,7 +344,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <!-- 02.08 Cem onayi (oneri 3): itiraz VITRINI - taahhut acikca yazilir.
              Arkasi gercek: soru_bildirim tablosu + gunde 3 kez kosan nobetci;
              ayni soruya 2 ayri oturumdan bildirim = otomatik yayindan cekme. -->
-        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px"><b style="color:var(--ink)">Sözümüz söz:</b> her sorumuz birincil kaynağa (kanun/tebliğ/standart maddesine) dayanır. Ne hatalı görünüyor? Kısaca yaz — <b style="color:var(--ink)">aynı gün</b> kaynağıyla bakılır; haklıysan soru düzeltilir ya da yayından iner, düzeltme şeffaf yayınlanır. Yanılan biz olursak bunu saklamayız.</div>
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px"><b style="color:var(--ink)">Sözümüz söz:</b> her sorumuz birincil kaynağa (kanun/tebliğ/standart maddesine) dayanır. Ne hatalı görünüyor? Kısaca yaz, <b style="color:var(--ink)">aynı gün</b> kaynağıyla bakılır; haklıysan soru düzeltilir ya da yayından iner, düzeltme şeffaf yayınlanır. Yanılan biz olursak bunu saklamayız.</div>
         <textarea id="hataMetin" rows="2" style="width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:13.5px;padding:10px 12px;resize:vertical"></textarea>
         <div style="margin-top:8px;display:flex;gap:8px">
           <button class="ikincil" onclick="hataGonder()" style="border-color:rgba(255,194,75,.4);color:var(--amber)">Bildir</button>
@@ -372,7 +372,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     </div>
   </div>
 
-  <div class="dip">Bu sorular <b>Tetikte özgün üretimidir</b> — çıkmış sınav sorusu kopyalanmaz; sorular, resmî kitapçıkların konu haritasına göre sıfırdan yazılır ve çift bağımsız çözücü + kaynak denetiminden geçer. Yine de bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir: aynı gün bakarız, düzeltme <a href="genc.html">şeffaf</a> yayınlanır. · <a href="kvkk.html">KVKK</a></div>
+  <div class="dip">Bu sorular <b>Tetikte özgün üretimidir</b>, çıkmış sınav sorusu kopyalanmaz; sorular, resmî kitapçıkların konu haritasına göre sıfırdan yazılır ve çift bağımsız çözücü + kaynak denetiminden geçer. Yine de bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir: aynı gün bakarız, düzeltme <a href="genc.html">şeffaf</a> yayınlanır. · <a href="kvkk.html">KVKK</a></div>
 </div>
 
 <script>
@@ -638,7 +638,7 @@ function kocKartiCiz(){
   kart.style.display = 'block';
   kart.innerHTML = '<div style="font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--amber);margin-bottom:6px">🛡️ NÖBETÇİ KOÇ</div>'
     + '<div style="font-size:14px;color:var(--ink)"><b>' + esc(h.konu) + '</b> (' + esc(h.ders) + '): ' + h.n + ' çözümde doğruluk %' + h.oran + '. Bu konuyu birlikte oturtalım.</div>'
-    + '<button class="sec aktif" style="margin-top:10px" onclick="kocTuru(\'' + encodeURIComponent(h.ders) + '\',\'' + encodeURIComponent(h.konu) + '\',' + h.oran + ')">🎯 5 soruluk hedefli tur — ~7 dk</button>';
+    + '<button class="sec aktif" style="margin-top:10px" onclick="kocTuru(\'' + encodeURIComponent(h.ders) + '\',\'' + encodeURIComponent(h.konu) + '\',' + h.oran + ')">🎯 5 soruluk hedefli tur, ~7 dk</button>';
 }
 function kocTuru(dersEnc, konuEnc, onceOran){
   var ders = decodeURIComponent(dersEnc), konu = decodeURIComponent(konuEnc);
@@ -826,7 +826,7 @@ function provaPaneli(dogru,yanlis,bos,yuzde){
      +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Net puan 100 üzerinden <b style="color:var(--ink)">'+puan+'</b>; ders barajı 50: '
      +(puan>=50?'<b style="color:var(--green)">baraj üstü ✓</b>':'<b style="color:var(--red)">baraj altı ✗</b>')
      +'. Hesap: '+dogru+' doğru − 0,25 × '+yanlis+' yanlış = <b style="color:var(--ink)">'+netStr+' net</b> / '+toplam+' soru (ham %'+yuzde+'). '
-     +'Gerçek kural: <b>yanlış cevap doğrunun 0,25\'ini götürür</b> — emin değilsen boş bırakmak da stratejidir; her ders ≥50 <b>ve</b> ortalama ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil; oturumda hesap makinesi <b>yasak</b> <span style="color:var(--dim)">(TÜRMOB YK 14.01.2026 · TESMER Uygulama Yönergesi)</span>.</div>';
+     +'Gerçek kural: <b>yanlış cevap doğrunun 0,25\'ini götürür</b>, emin değilsen boş bırakmak da stratejidir; her ders ≥50 <b>ve</b> ortalama ≥60; tezkiye notu ortalamaya ayrı ders gibi dahil; oturumda hesap makinesi <b>yasak</b> <span style="color:var(--dim)">(TÜRMOB YK 14.01.2026 · TESMER Uygulama Yönergesi)</span>.</div>';
   } else {
     h+='<div style="font-weight:800;color:var(--ink)">🎯 Birebir Prova · Staja Giriş bileşimi</div>'
      +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px">Ham başarı <b style="color:var(--ink)">%'+yuzde+'</b> ('+dogru+' doğru / '+toplam+' soru). Gerçek SGS <b>bağıl</b> değerlendirilir: ortalama 50, standart sapma 10 kabul edilir; <b>60 ve üzeri puan geçer</b>; yanlış doğruyu götürmez <span style="color:var(--dim)">(TESMER Uygulama Yönergesi m.6.2)</span>. Ham yüzde bağıl puanın kendisi değildir; diğer adaylara göre yerin belirler.</div>';
@@ -863,14 +863,14 @@ function provaSayacKur(){
   var bant=document.createElement('div'); bant.id='provaBant';
   bant.style.cssText='margin:0 0 12px;padding:9px 14px;border-radius:8px;background:rgba(245,165,36,.08);border-left:3px solid var(--amber);font-size:12.5px;color:var(--ink);display:flex;gap:10px;flex-wrap:wrap;align-items:center';
   bant.innerHTML='<b id="provaGeri" style="font-variant-numeric:tabular-nums">45:00</b>'
-    +'<span style="color:var(--muted)">20 soru · yanlış 0,25 götürür · gerçek sınavda hesap makinesi <b style="color:var(--ink)">yasak</b> — makinesiz çöz</span>';
+    +'<span style="color:var(--muted)">20 soru · yanlış 0,25 götürür · gerçek sınavda hesap makinesi <b style="color:var(--ink)">yasak</b>, makinesiz çöz</span>';
   var ek=document.getElementById('ekranSoru'); ek.insertBefore(bant, ek.firstChild);
   var bitis=Date.now()+45*60*1000;
   PROVA_GERI=setInterval(function(){
     var kalan=bitis-Date.now(), g=document.getElementById('provaGeri');
     if(kalan<=0){
       clearInterval(PROVA_GERI); PROVA_GERI=null;
-      alert('Süre doldu — gerçek sınavda oturum burada biter. Karnen açılıyor.');
+      alert('Süre doldu, gerçek sınavda oturum burada biter. Karnen açılıyor.');
       karneCiz(); return;
     }
     if(g){ g.textContent=sureFmt(kalan); if(kalan<5*60*1000) g.style.color='var(--red)'; }
@@ -902,7 +902,7 @@ function temaUygula(ad){
      ve acilir listeler KOYU cizilmeye devam ediyordu (ters kusur). */
   try{ document.documentElement.style.colorScheme = (t.ad==='koyu' ? 'dark' : 'light'); }catch(e){}
   var b=document.getElementById('temaBtn');
-  if(b){ b.textContent=t.ikon; b.title=t.baslik+' — değiştirmek için tıkla'; b.setAttribute('aria-label',t.baslik); }
+  if(b){ b.textContent=t.ikon; b.title=t.baslik+', değiştirmek için tıkla'; b.setAttribute('aria-label',t.baslik); }
   try{ localStorage.setItem('tetikteTema', t.ad); }catch(e){}
 }
 function temaDegistir(){
@@ -973,7 +973,7 @@ function soruCiz(){
     document.getElementById('soruMetin').insertAdjacentElement('beforebegin', isEl);
   }
   if(window.YUMUSAMA_MSG){ isEl.textContent=window.YUMUSAMA_MSG; isEl.style.display='block'; window.YUMUSAMA_MSG=''; }
-  else if(MOD==='calisma' && window.ISINMA_SON && IDX < window.ISINMA_SON){ isEl.textContent='🌱 Isınıyorsun — bu derse yeni başlıyorsan tam yerindesin; sorular birazdan seviye atlayacak.'; isEl.style.display='block'; }
+  else if(MOD==='calisma' && window.ISINMA_SON && IDX < window.ISINMA_SON){ isEl.textContent='🌱 Isınıyorsun, bu derse yeni başlıyorsan tam yerindesin; sorular birazdan seviye atlayacak.'; isEl.style.display='block'; }
   else { isEl.style.display='none'; }
   var sc=sicilOku()[s.id], rz=document.getElementById('sicilRozet');
   if(sc && sc.y>0){
@@ -1118,7 +1118,7 @@ function cevabiGor(tekrarMi){
       kalan.forEach(function(x,i){ x.__ix=i; });
       kalan.sort(function(a,b){ return (zorluk(a)-zorluk(b)) || (a.__ix-b.__ix); });
       SORULAR=SORULAR.slice(0,IDX+1).concat(kalan);
-      window.YUMUSAMA_MSG='🧱 Temeli sağlamlaştırıp dönüyoruz — birkaç sağlam adım, sonra yeniden yukarı.';
+      window.YUMUSAMA_MSG='🧱 Temeli sağlamlaştırıp dönüyoruz, birkaç sağlam adım, sonra yeniden yukarı.';
       window.YSTREAK=0;
     }
   }
@@ -1613,7 +1613,7 @@ function karneCiz(){
         kd.style.cssText='background:rgba(245,165,36,.08);border-left:3px solid var(--amber);border-radius:8px;padding:10px 14px;margin:0 0 12px;font-size:13.5px;color:var(--ink)';
         eK.insertBefore(kd, eK.firstChild); }
       if(yeniOran !== null && yeniOran > ko.oran){
-        kd.textContent = '🛡️ Koçun not düştü: ' + ko.konu + ' %' + ko.oran + ' → %' + yeniOran + '. Yükseliş bu — yarın bir kontrol turu daha.';
+        kd.textContent = '🛡️ Koçun not düştü: ' + ko.konu + ' %' + ko.oran + ' → %' + yeniOran + '. Yükseliş bu, yarın bir kontrol turu daha.';
       } else if(yeniOran !== null){
         kd.textContent = '🛡️ Koçun not düştü: ' + ko.konu + ' üzerinde çalıştık (%' + yeniOran + '). Temel sağlamlaşıyor; yarın aynı konudan kısa bir tur daha atalım.';
       } else { kd.style.display='none'; }
@@ -1701,7 +1701,7 @@ function gecmisCiz(){
       var ilkO = Math.round(ort(seri.slice(0, yariN))), sonO = Math.round(ort(seri.slice(-yariN)));
       var fark = sonO - ilkO;
       var yorum = fark > 2 ? ('📈 Yükseliştesin: ilk oturumların ortalaması %'+ilkO+', son oturumların %'+sonO+' (+'+fark+' puan).')
-                : fark < -2 ? ('İlk oturumların ortalaması %'+ilkO+', son oturumların %'+sonO+' — tempoyu koç önerileriyle toparlayalım.')
+                : fark < -2 ? ('İlk oturumların ortalaması %'+ilkO+', son oturumların %'+sonO+', tempoyu koç önerileriyle toparlayalım.')
                 : ('Ortalaman %'+sonO+' bandında istikrarlı.');
       gg.innerHTML = '<div style="font-size:12px;color:var(--dim);font-weight:700;letter-spacing:.4px;margin:2px 0 4px">GELİŞİM EĞRİSİ · son '+seri.length+' oturum</div>'
         + '<svg viewBox="0 0 '+W+' '+Hh+'" style="width:100%;max-width:'+W+'px;display:block" xmlns="http://www.w3.org/2000/svg">'

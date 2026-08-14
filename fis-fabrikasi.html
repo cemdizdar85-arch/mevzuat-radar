@@ -57,12 +57,12 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="evrak-radari.html">Evrak Radarı</a> · Fiş Fabrikası</div>
-  <h1>Fiş Fabrikası — banka ekstresi → Luca fişi</h1>
-  <p class="lead">Banka ekstresini yükle; her hareketi <b style="color:var(--ink)">çift taraflı muhasebe fişine</b> çevirip Luca aktarım Excel'i üretelim. <b style="color:var(--ink)">Rakamlar ekstreden okunur — uydurulmaz;</b> her fişte borç=alacak dengesi kontrol edilir. <span class="gizli">🔒 Dosya bilgisayarından çıkmaz — tarayıcıda işlenir</span></p>
+  <h1>Fiş Fabrikası, banka ekstresi → Luca fişi</h1>
+  <p class="lead">Banka ekstresini yükle; her hareketi <b style="color:var(--ink)">çift taraflı muhasebe fişine</b> çevirip Luca aktarım Excel'i üretelim. <b style="color:var(--ink)">Rakamlar ekstreden okunur, uydurulmaz;</b> her fişte borç=alacak dengesi kontrol edilir. <span class="gizli">🔒 Dosya bilgisayarından çıkmaz, tarayıcıda işlenir</span></p>
 
   <div class="adim" id="a0" style="border-color:rgba(61,220,151,.28)">
     <span class="no" style="background:linear-gradient(135deg,#3ddc97,#ffc24b)">★</span><h2>Firma / mükellef profili</h2>
-    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her firmanın kendi hesap planı ve kuralları vardır. Profil seç ya da yeni firma ekle — <b style="color:var(--green)">ayarları bir kez kur, kaydet, bir daha uğraşma.</b> Profiller bu tarayıcıda saklanır (veri sunucuya gitmez).</div>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her firmanın kendi hesap planı ve kuralları vardır. Profil seç ya da yeni firma ekle, <b style="color:var(--green)">ayarları bir kez kur, kaydet, bir daha uğraşma.</b> Profiller bu tarayıcıda saklanır (veri sunucuya gitmez).</div>
     <div class="grid" style="margin-top:12px;grid-template-columns:1fr auto auto auto;align-items:end">
       <div><label class="f">AKTİF FİRMA / MÜKELLEF</label><select id="profilSec"></select></div>
       <button class="btn k" id="profilYeni">+ Yeni firma</button>
@@ -89,14 +89,14 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
 
   <div class="adim pasif" id="a2">
     <span class="no">2</span><h2>Kolonları eşleştir</h2>
-    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki hangi kolon ne? Otomatik tahmin ettim — yanlışsa düzelt.</div>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki hangi kolon ne? Otomatik tahmin ettim, yanlışsa düzelt.</div>
     <div class="grid" style="margin-top:10px" id="eslesGrid"></div>
     <div style="font-size:11.5px;color:var(--dim);margin-top:8px">💡 Bankalar borç/alacak için ya <b>iki ayrı kolon</b> (Borç, Alacak) ya <b>tek kolon + işaret</b> (eksi=çıkış) kullanır. İkisini de destekliyoruz.</div>
   </div>
 
   <div class="adim pasif" id="a3">
     <span class="no">3</span><h2>Açıklama → hesap kodu kuralları</h2>
-    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki açıklama şu kelimeyi içeriyorsa, karşı hesap şu olsun. Kural ekle/çıkar — <b>bir kez öğret, hep kullan.</b> Eşleşmeyen hareket "kontrol et" işaretlenir (uydurulmaz).</div>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Ekstredeki açıklama şu kelimeyi içeriyorsa, karşı hesap şu olsun. Kural ekle/çıkar, <b>bir kez öğret, hep kullan.</b> Eşleşmeyen hareket "kontrol et" işaretlenir (uydurulmaz).</div>
     <div id="kurallar" style="margin-top:12px"></div>
     <button class="btn k" id="kuralEkle">+ Kural ekle</button>
     <div class="grid" style="margin-top:12px">
@@ -105,8 +105,8 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
   </div>
 
   <div class="adim pasif" id="a4">
-    <span class="no">4</span><h2>Çıktı formatı — hangi muhasebe programı?</h2>
-    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her program kendi aktarım formatını ister. Luca hazır; başka program kullanıyorsan <b style="color:var(--green)">o programdan boş bir aktarım şablonu (Excel) indir, buraya yükle</b> — kolonlarını öğrenip o formatta üretiriz. Öğrendiğimiz format firmanın profiline kaydolur.</div>
+    <span class="no">4</span><h2>Çıktı formatı, hangi muhasebe programı?</h2>
+    <div style="font-size:12.5px;color:var(--dim);margin-top:8px">Her program kendi aktarım formatını ister. Luca hazır; başka program kullanıyorsan <b style="color:var(--green)">o programdan boş bir aktarım şablonu (Excel) indir, buraya yükle</b>, kolonlarını öğrenip o formatta üretiriz. Öğrendiğimiz format firmanın profiline kaydolur.</div>
     <div class="grid" style="margin-top:12px;grid-template-columns:1fr auto;align-items:end">
       <div><label class="f">MUHASEBE PROGRAMI / ÇIKTI FORMATI</label>
         <select id="formatSec">
@@ -122,7 +122,7 @@ td .kh{width:90px;padding:5px 7px;font-family:var(--mono);font-size:12px}
     <div id="onizleme"></div>
   </div>
 
-  <div class="uyari"><b>Deterministik üretim:</b> tutarlar ekstreden birebir okunur, yapay zekâ rakam üretmez. Her fişte <b>borç toplamı = alacak toplamı</b> kontrol edilir; eşleşmeyen açıklamalar "kontrol et" olarak işaretlenir. <b style="color:var(--amber)">Üretilen Excel'i Luca'ya aktarmadan önce gözden geçir</b> — bu araç muhasebecinin işini hızlandırır, yerini almaz.</div>
+  <div class="uyari"><b>Deterministik üretim:</b> tutarlar ekstreden birebir okunur, yapay zekâ rakam üretmez. Her fişte <b>borç toplamı = alacak toplamı</b> kontrol edilir; eşleşmeyen açıklamalar "kontrol et" olarak işaretlenir. <b style="color:var(--amber)">Üretilen Excel'i Luca'ya aktarmadan önce gözden geçir</b>, bu araç muhasebecinin işini hızlandırır, yerini almaz.</div>
   <div class="dip">Fiş Fabrikası · Banka ekstresi → Luca 14 kolon aktarım formatı · Tümü tarayıcıda işlenir (veri sunucuya gitmez) · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
@@ -198,7 +198,7 @@ async function sablonSecildi(f){
     OZEL_FORMAT={tip:'ozel', ad:f.name.replace(/\.(xlsx|xls|csv)$/i,''), kolonlar, harita};
     $('#formatDurum').innerHTML='<span class="rozet ok">✓ '+kolonlar.length+' kolon öğrenildi</span> <span style="color:var(--dim)">— aşağıda eşleşmeyi kontrol et, sonra 💾 profile kaydet.</span>';
     formatEslesUI();
-  }catch(e){ $('#formatDurum').innerHTML='<span class="rozet hata">✗ Şablon okunamadı — programından boş aktarım şablonunu Excel olarak indirip yükle</span>'; }
+  }catch(e){ $('#formatDurum').innerHTML='<span class="rozet hata">✗ Şablon okunamadı, programından boş aktarım şablonunu Excel olarak indirip yükle</span>'; }
 }
 function formatEslesUI(){
   if(!OZEL_FORMAT){ $('#formatEsles').innerHTML=''; return; }
@@ -214,7 +214,7 @@ function formatSistemiKur(){
     $('#sablonBtn').style.display=ozel?'inline-flex':'none';
     if(!ozel){ $('#formatDurum').innerHTML=''; $('#formatEsles').innerHTML=''; }
     else if(OZEL_FORMAT){ $('#formatDurum').innerHTML='<span class="rozet ok">✓ '+OZEL_FORMAT.ad+' ('+OZEL_FORMAT.kolonlar.length+' kolon)</span>'; formatEslesUI(); }
-    else $('#formatDurum').innerHTML='Programından boş bir aktarım şablonu (Excel) indirip yükle — kolonlarını bir kez öğrenelim, hep kullanalım.';
+    else $('#formatDurum').innerHTML='Programından boş bir aktarım şablonu (Excel) indirip yükle, kolonlarını bir kez öğrenelim, hep kullanalım.';
   };
   $('#sablonDosya').addEventListener('change',e=>{ if(e.target.files[0]) sablonSecildi(e.target.files[0]); e.target.value=''; });
 }
@@ -254,7 +254,7 @@ async function dosyaSecildi(f){
     HAM=satirlar.slice(bi+1).filter(r=>r.some(c=>(''+c).trim()!==''));
     $('#yukleDurum').innerHTML='<span class="rozet ok">✓ '+HAM.length+' hareket satırı okundu</span>';
     kolonEsles(); a3Kur(); ['#a2','#a3','#a4'].forEach(x=>$(x).classList.remove('pasif'));
-  }catch(e){ $('#yukleDurum').innerHTML='<span class="rozet hata">✗ Dosya okunamadı — Excel/CSV olduğundan emin ol</span>'; }
+  }catch(e){ $('#yukleDurum').innerHTML='<span class="rozet hata">✗ Dosya okunamadı, Excel/CSV olduğundan emin ol</span>'; }
 }
 
 // ---- 2) KOLON EŞLEŞTİRME (otomatik tahmin) ----
@@ -318,7 +318,7 @@ $('#uret').onclick=()=>{
     if(!cikis && !giris) continue; // boş hareket
     fisNo++;
     const {hesap,kesin}=hesapBul(acik, kurallar, varsay);
-    const detay=(kesin?'':'⚠ KONTROL ET — ')+acik;
+    const detay=(kesin?'':'⚠ KONTROL ET, ')+acik;
     // ÇİFT TARAFLI KAYIT
     if(giris>0){ // para girişi: banka BORÇ, karşı hesap ALACAK
       rows.push(sat(fisNo,tar,onek,banka,detay,giris,0)); toplamB+=giris;
@@ -336,7 +336,7 @@ $('#uret').onclick=()=>{
   if(F.tip==='ozel'){
     const kullanilan=Object.values(F.harita);
     const eksik=['hesap','borc','alacak'].filter(a=>!kullanilan.includes(a));
-    if(eksik.length){ $('#ozet').innerHTML='<span class="rozet hata">✗ Özel formatta şu alanlar hiçbir kolona eşlenmedi: '+eksik.join(', ')+' — Adım 4\'te eşleştir</span>'; $('#onizleme').innerHTML=''; return; }
+    if(eksik.length){ $('#ozet').innerHTML='<span class="rozet hata">✗ Özel formatta şu alanlar hiçbir kolona eşlenmedi: '+eksik.join(', ')+', Adım 4\'te eşleştir</span>'; $('#onizleme').innerHTML=''; return; }
   }
   const denk=Math.abs(toplamB-toplamA)<0.01;
   const tl=n=>n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -411,7 +411,7 @@ function profilSeciciDoldur(){
 function profilDurum(msg, renk){ $('#profilDurum').innerHTML='<span style="color:'+(renk||'var(--green)')+'">'+msg+'</span>'; }
 function profilYukle(ad){
   const p=profilleriOku();
-  if(p[ad]){ ayarlariUygula(p[ad]); aktifYaz(ad); profilDurum('✓ <b>'+ad+'</b> profili yüklendi — bu firmanın hesap planı ve kuralları hazır.'); }
+  if(p[ad]){ ayarlariUygula(p[ad]); aktifYaz(ad); profilDurum('✓ <b>'+ad+'</b> profili yüklendi, bu firmanın hesap planı ve kuralları hazır.'); }
 }
 // olaylar
 function profilSistemiKur(){
@@ -435,7 +435,7 @@ function profilSistemiKur(){
     if(!ad){ ad=(prompt('Bu ayarları hangi firma adına kaydedeyim?')||'').trim(); if(!ad) return; aktifYaz(ad); }
     const p=profilleriOku(); p[ad]=ayarlariTopla(); profilleriYaz(p);
     profilSeciciDoldur(); $('#profilSec').value=ad;
-    profilDurum('💾 <b>'+ad+'</b> kaydedildi — kural sayısı: '+p[ad].kurallar.length+'. Bir dahaki gelişte otomatik yüklenir.');
+    profilDurum('💾 <b>'+ad+'</b> kaydedildi, kural sayısı: '+p[ad].kurallar.length+'. Bir dahaki gelişte otomatik yüklenir.');
   };
   $('#profilSil').onclick=()=>{
     const ad=aktifOku(); if(!ad){ profilDurum('Silinecek aktif firma yok.','var(--amber)'); return; }

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rakip Firma Analizi — bir firma hangi ihaleleri kazandı? | Tetikte</title>
-<meta name="description" content="Firma adı yaz; kamu ihalelerinde kaç iş aldı, hangi bedellerle, hangi kurumlarla çalıştı, kırım oranı ne — Kamu İhale Bülteni sonuç ilanlarından ölçüldü.">
+<meta name="description" content="Firma adı yaz; kamu ihalelerinde kaç iş aldı, hangi bedellerle, hangi kurumlarla çalıştı, kırım oranı ne, Kamu İhale Bülteni sonuç ilanlarından ölçüldü.">
 <style>
 :root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,Consolas,monospace}
 *{box-sizing:border-box}
@@ -68,7 +68,7 @@ function vr(n){ return String(n).replace('.',','); }
 
 fetch('veri/ihale-firma-ozet.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   FIRMA=d.firmalar||[]; DIP=d.guncelleme||'';
-  document.getElementById('dip').innerHTML='<b style="color:var(--muted)">Kaynak:</b> '+esc(DIP)+' — '+FIRMA.length+' firma, '+(d.kayitSayisi||0)+' sonuç ilanından ölçüldü. '+esc(d.not||'');
+  document.getElementById('dip').innerHTML='<b style="color:var(--muted)">Kaynak:</b> '+esc(DIP)+', '+FIRMA.length+' firma, '+(d.kayitSayisi||0)+' sonuç ilanından ölçüldü. '+esc(d.not||'');
   ciz('');
 }).catch(function(){ document.getElementById('dip').textContent='Firma verisi okunamadı.'; });
 
@@ -79,7 +79,7 @@ function ciz(q){
   var liste = qf ? FIRMA.filter(function(f){ return trFold(f.ad).indexOf(qf)>=0; }) : FIRMA.slice(0,15);
   var sc=document.getElementById('sayac');
   if(qf) sc.textContent = liste.length+' firma bulundu'+(liste.length>60?' (ilk 60 gösteriliyor)':'');
-  else sc.innerHTML = 'En çok iş alan 15 firma listeleniyor — aramak için firma adı yaz. <b style="color:var(--muted)">Toplam '+FIRMA.length+' firma.</b>';
+  else sc.innerHTML = 'En çok iş alan 15 firma listeleniyor, aramak için firma adı yaz. <b style="color:var(--muted)">Toplam '+FIRMA.length+' firma.</b>';
   liste = liste.slice(0,60);
   var box=document.getElementById('sonuc');
   if(!liste.length){ box.innerHTML='<div class="uyari">Bu adla eşleşen firma yok. Farklı bir kelime dene (ör. sadece "ecza" ya da "inşaat").</div>'; return; }

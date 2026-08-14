@@ -69,10 +69,10 @@ textarea{resize:vertical;min-height:44px}
     .gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--red);border:1px solid rgba(255,107,94,.35);background:rgba(255,107,94,.07);border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
   </style>
   <div><span class="gozalici">📁 "O faturanın aslı nerede?"</span></div>
-  <h1>Evrak Radarı — mükellef kovalamayı bırak, <span style="color:var(--accent2)">link at</span></h1>
-  <p class="lead">Ay sonu şu sorular birikiyor: <b>"bu 45.000 TL ödeme neydi?"</b>, <b>"o faturanın aslı nerede?"</b>, <b>"bu masraf şahsi mi?"</b> — WhatsApp'ta kayboluyor, mükellef cevaplamıyor, sen beyanname gününe kadar kovalıyorsun. Burada: <b>soru listesini oluştur → mükellefe link → o telefonundan cevaplar + fişi yükler → cevaplamayana otomatik hatırlatma → hepsi organize ekranına düşer.</b></p>
+  <h1>Evrak Radarı, mükellef kovalamayı bırak, <span style="color:var(--accent2)">link at</span></h1>
+  <p class="lead">Ay sonu şu sorular birikiyor: <b>"bu 45.000 TL ödeme neydi?"</b>, <b>"o faturanın aslı nerede?"</b>, <b>"bu masraf şahsi mi?"</b>, WhatsApp'ta kayboluyor, mükellef cevaplamıyor, sen beyanname gününe kadar kovalıyorsun. Burada: <b>soru listesini oluştur → mükellefe link → o telefonundan cevaplar + fişi yükler → cevaplamayana otomatik hatırlatma → hepsi organize ekranına düşer.</b></p>
 
-  <div class="demoBar">🧪 <b>Çalışan demo</b> — veriler yalnızca senin tarayıcında tutulur (backend yok). İki rolü de dene: muhasebeci olarak istek at, sonra mükellefe geçip cevapla. <button onclick="sifirla()">↺ Demoyu sıfırla</button></div>
+  <div class="demoBar">🧪 <b>Çalışan demo</b>, veriler yalnızca senin tarayıcında tutulur (backend yok). İki rolü de dene: muhasebeci olarak istek at, sonra mükellefe geçip cevapla. <button onclick="sifirla()">↺ Demoyu sıfırla</button></div>
 
   <div class="roller">
     <div class="rol on" id="rolMuh" onclick="rolSec('muh')">👨‍💼 Muhasebeci ekranı<small>istek oluştur, takip et, hatırlat</small></div>
@@ -91,7 +91,7 @@ const LS='evrakradari_demo_v1';
 const VARSAYILAN={
   mukellefler:[{id:'m1',ad:'Ahmet Tekstil Ltd.'},{id:'m2',ad:'Beta Gıda A.Ş.'},{id:'m3',ad:'Cem İnşaat'}],
   istekler:[
-    {id:'i1',mukellefId:'m1',baslik:'Mart ayı kapanışı — eksikler',kanal:'SMS',hatirlatma:1,tarih:'03.04',
+    {id:'i1',mukellefId:'m1',baslik:'Mart ayı kapanışı, eksikler',kanal:'SMS',hatirlatma:1,tarih:'03.04',
      sorular:[
        {id:'s1',tip:'soru',metin:'12 Mart\'taki 45.000 TL banka çıkışı ne içindi?',cevap:'Tedarikçi Öz İplik\'e mal ödemesi',dosya:null,durum:'ok'},
        {id:'s2',tip:'belge',metin:'Mart elektrik faturasının aslını yükle',cevap:'',dosya:'elektrik-mart.pdf',durum:'ok'},
@@ -125,7 +125,7 @@ function cizMuh(){
     <label>Mükellef</label>
     <select class="gir" id="yeniMuk" style="margin-bottom:12px">${S.mukellefler.map(m=>`<option value="${m.id}">${esc(m.ad)}</option>`).join('')}</select>
     <label>Başlık</label>
-    <input class="gir" id="yeniBaslik" placeholder="ör. Nisan ayı kapanışı — eksik belgeler" style="margin-bottom:12px">
+    <input class="gir" id="yeniBaslik" placeholder="ör. Nisan ayı kapanışı, eksik belgeler" style="margin-bottom:12px">
     <label>Sorular / istenen belgeler</label>
     <div id="soruAlan"></div>
     <button class="mini2" onclick="soruEkle()" style="margin:2px 0 14px">＋ satır ekle</button>
@@ -136,7 +136,7 @@ function cizMuh(){
     </div></div>`;
   // mevcut istekler
   h+=`<div class="kart"><div class="kbas">📋 GÖNDERİLEN İSTEKLER</div>`;
-  if(!S.istekler.length){ h+=`<div class="bos">Henüz istek yok — yukarıdan oluştur.</div>`; }
+  if(!S.istekler.length){ h+=`<div class="bos">Henüz istek yok, yukarıdan oluştur.</div>`; }
   S.istekler.forEach(i=>{
     const ok=i.sorular.filter(s=>s.durum==='ok').length, tot=i.sorular.length;
     const tamam=ok===tot;
@@ -184,7 +184,7 @@ function istekGonder(){
   toast('📨 Link '+mukAd(mk)+' mükellefine '+kan+' ile gönderildi (demo)');
 }
 function acKapat(id){ acikIstek=acikIstek===id?null:id; ciz(); }
-function hatirlat(id){ const i=S.istekler.find(x=>x.id===id); if(i){ i.hatirlatma++; kaydet(); ciz(); toast('🔔 '+i.kanal+' hatırlatması gönderildi (demo) — '+mukAd(i.mukellefId)); } }
+function hatirlat(id){ const i=S.istekler.find(x=>x.id===id); if(i){ i.hatirlatma++; kaydet(); ciz(); toast('🔔 '+i.kanal+' hatırlatması gönderildi (demo), '+mukAd(i.mukellefId)); } }
 
 function cizMuk(){
   let h=`<div class="kart"><div class="kbas">📱 MÜKELLEF GÖRÜNÜMÜ (linki açan kişi)</div>
@@ -218,7 +218,7 @@ function cevapGonder(iid,sid){
   const i=S.istekler.find(x=>x.id===iid); const s=i.sorular.find(x=>x.id===sid);
   if(s.tip==='soru'){ const v=(document.getElementById('c_'+sid)||{}).value||''; if(!v.trim()){ toast('Cevabını yaz'); return; } s.cevap=v.trim(); }
   else { if(!_dosyalar[sid]){ toast('Bir dosya seç'); return; } s.dosya=_dosyalar[sid]; }
-  s.durum='ok'; kaydet(); ciz(); toast('✅ Gönderildi — muhasebecinin ekranına düştü');
+  s.durum='ok'; kaydet(); ciz(); toast('✅ Gönderildi, muhasebecinin ekranına düştü');
 }
 ciz();
 </script>

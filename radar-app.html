@@ -59,7 +59,7 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
     <span id="ustSag"></span>
   </div>
   <div id="ekran"><div class="kutu"><p class="mini">Yükleniyor…</p></div></div>
-  <div class="dip">Radar Paneli · Verilerin Supabase'de, yalnız sana ait (RLS). Uyarılar (ihale · alacak · marka · süre · RG) profiline göre üretilir; robot bildirimleri (e-posta (SMS yol haritasında)) yakında. Tetikte — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+  <div class="dip">Radar Paneli · Verilerin Supabase'de, yalnız sana ait (RLS). Uyarılar (ihale · alacak · marka · süre · RG) profiline göre üretilir; robot bildirimleri (e-posta (SMS yol haritasında)) yakında. Tetikte, bir Dizdar Denetim A.Ş. yazılımıdır.</div>
 </div>
 
 <script type="module">
@@ -85,17 +85,17 @@ let SECILI=null, IHALE=null, KARTLAR=null;
 // girip kaybolmasin diye cihazda saklanir; ilk firma formunda TEK odakli
 // soru olarak sorulur. Uyelik aninda ekstra soru YOK (e-posta+sifre yeter).
 const NIYETLER = {
-  gtip:    { baslik:'GTİP kodlarını gir — radar onları izlesin', alan:'f_gtip',  ipucu:'Resmî Gazete senin kodlarına dokununca panelde ve uyarıda göreceksin.' },
-  alacak:  { baslik:'Borçlu VKN\'lerini gir — ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
-  marka:   { baslik:'Markanı gir — yenileme ve benzer başvuru nöbeti başlasın', alan:'f_marka', ipucu:'SMK m.23: tescil 10 yılda bir yenilenir — tarihi radar takip eder.' },
-  musavir: { baslik:'İlk mükellefini ekle — her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' },
-  ihale:   { baslik:'İlini ve sektörünü gir — ihaleler sana gelsin', alan:'f_il', ipucu:'İline çıkan ihaleler günlük tek özet mail olarak gelir; son teklif tarihi yaklaşanlar üstte.' },
-  firsat:  { baslik:'İlini gir — icradan satış fırsatları sana gelsin', alan:'f_il', ipucu:'İlindeki icra ve açık artırma satışları (makine, stok, taşınmaz) panelde birikir; abonelikte günlük özet maille gelir.' },
+  gtip:    { baslik:'GTİP kodlarını gir, radar onları izlesin', alan:'f_gtip',  ipucu:'Resmî Gazete senin kodlarına dokununca panelde ve uyarıda göreceksin.' },
+  alacak:  { baslik:'Borçlu VKN\'lerini gir, ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
+  marka:   { baslik:'Markanı gir, yenileme ve benzer başvuru nöbeti başlasın', alan:'f_marka', ipucu:'SMK m.23: tescil 10 yılda bir yenilenir, tarihi radar takip eder.' },
+  musavir: { baslik:'İlk mükellefini ekle, her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' },
+  ihale:   { baslik:'İlini ve sektörünü gir, ihaleler sana gelsin', alan:'f_il', ipucu:'İline çıkan ihaleler günlük tek özet mail olarak gelir; son teklif tarihi yaklaşanlar üstte.' },
+  firsat:  { baslik:'İlini gir, icradan satış fırsatları sana gelsin', alan:'f_il', ipucu:'İlindeki icra ve açık artırma satışları (makine, stok, taşınmaz) panelde birikir; abonelikte günlük özet maille gelir.' },
   // TAM ABONELIK (30.07 Cem): "sinav harici HER SEYI isteyen olursa tum
   // bilgileri istememiz lazim." Dogru - ama anket gibi degil: her alanin
   // HANGI RADARI ACTIGI soylenir; bos birakilan alan = kapali radar,
   // panel zaten "GTIP GIR / MARKA GIR" rozetleriyle eksigi kovalar.
-  tam: { baslik:'Tam nöbet — firma profilini doldur, her alan bir radarı açar', alan:'f_ad', tam:true,
+  tam: { baslik:'Tam nöbet, firma profilini doldur, her alan bir radarı açar', alan:'f_ad', tam:true,
     ipucu:'Boş bıraktığın alanın radarı kapalı kalır; panelden sonra da açabilirsin. Defter/evrak tarafı (mükelleften evrak toplama + fiş üretimi) ayrı modüldür.' }
 };
 let NIYET = (new URLSearchParams(location.search).get('niyet')||'').toLowerCase();
@@ -110,7 +110,7 @@ sb.auth.onAuthStateChange((_e,s)=>{ s?app():giris(); });
 function giris(){
   ustSag.innerHTML='';
   const niyetSatiri = (NIYET && NIYETLER[NIYET])
-    ? `<div style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--accent2);border:1px solid rgba(255,194,75,.3);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin-bottom:12px">● ${esc(NIYETLER[NIYET].baslik)} — üyelikten hemen sonra soracağız, başka soru yok.</div>`
+    ? `<div style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--accent2);border:1px solid rgba(255,194,75,.3);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin-bottom:12px">● ${esc(NIYETLER[NIYET].baslik)}, üyelikten hemen sonra soracağız, başka soru yok.</div>`
     : '';
   ekran.innerHTML=`
     <h1>Radar Paneli</h1>
@@ -130,11 +130,11 @@ function giris(){
         </label>
         <label style="display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-weight:400;margin-top:8px">
           <input type="checkbox" id="rizaOnay" style="width:16px;height:16px;margin-top:2px;accent-color:var(--accent)">
-          <span>Hizmet duyuruları ve mevzuat bilgilendirmeleri için e-posta gönderilmesine <a href="kvkk.html#" target="_blank">açık rıza</a> veriyorum. <span style="color:var(--dim)">(isteğe bağlı — her e-postada çıkış bağlantısı olur)</span></span>
+          <span>Hizmet duyuruları ve mevzuat bilgilendirmeleri için e-posta gönderilmesine <a href="kvkk.html#" target="_blank">açık rıza</a> veriyorum. <span style="color:var(--dim)">(isteğe bağlı, her e-postada çıkış bağlantısı olur)</span></span>
         </label>
       </div>
       <div class="hata" id="ahata"></div>
-      <p class="mini" style="margin-top:8px">Erken erişim — ücretsiz. Verilerin yalnız sana ait.</p>
+      <p class="mini" style="margin-top:8px">Erken erişim, ücretsiz. Verilerin yalnız sana ait.</p>
     </div>`;
   $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
   $('#kayitBtn').onclick=async()=>{
@@ -142,7 +142,7 @@ function giris(){
     const {data,error}=await sb.auth.signUp({ email:$('#email').value.trim(), password:$('#sifre').value,
       options:{ data:{ kosul_kabul:new Date().toISOString(), pazarlama_rizasi:$('#rizaOnay').checked, riza_tarihi:($('#rizaOnay').checked?new Date().toISOString():null) } } });
     if(error){$('#ahata').textContent=error.message;return;}
-    if(!data.session)$('#ahata').textContent='Kayıt alındı — giriş yapabilirsin.';
+    if(!data.session)$('#ahata').textContent='Kayıt alındı, giriş yapabilirsin.';
   };
 }
 
@@ -162,7 +162,7 @@ async function app(){
       <div class="firmakart ${f.id===SECILI?'sec':''}" data-id="${f.id}">
         <h3>${esc(f.firma_adi)}</h3>
         <div class="ozet">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${(f.gtip_kodlari||[]).length} GTİP · ${(f.markalar||[]).length} marka</div>
-      </div>`).join('') || '<p class="mini">Henüz firma yok — aşağıdan ekle.</p>'}
+      </div>`).join('') || '<p class="mini">Henüz firma yok, aşağıdan ekle.</p>'}
     </div>
     <button class="btn ghost sm" id="yeniFirma">+ Firma ekle</button>
     <div id="formAlan" class="gizli"></div>
@@ -185,7 +185,7 @@ function firmaForm(){
       ${[['İl','ihale radarı'],['GTİP kodları','Resmî Gazete radarı'],['Markalar','yenileme nöbeti'],['Borçlu VKN','alacak radarı'],['Telefon','SMS/WhatsApp uyarısı']]
         .map(x=>`<span style="font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:6px 10px"><b style="color:var(--accent2)">${x[0]}</b> → ${x[1]}</span>`).join('')}
     </div>` : '';
-  const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)}${ny.tam?'':' <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın — şimdilik yalnız firma adı yeter.</span>'}</div>${tamLejant}` : '';
+  const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)}${ny.tam?'':' <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın, şimdilik yalnız firma adı yeter.</span>'}</div>${tamLejant}` : '';
   fa.innerHTML=`<div class="kutu">
     <h3 style="margin:0 0 4px;font-size:16px">${esc(baslik)}</h3>
     ${ipucu}
@@ -196,11 +196,11 @@ function firmaForm(){
       <div><label>Sektör</label><input id="f_sektor" placeholder="ör. seramik, tekstil"></div>
     </div>
     <label>GTİP kodların <span class="mini">(virgülle: 6907.21, 8471.30)</span></label><textarea id="f_gtip" placeholder="6907.21.00, 6907.22.00"></textarea>
-    <label>Markaların <span class="mini">(virgülle)</span></label><textarea id="f_marka" placeholder="ABC — 2016/12345"></textarea>
-    <label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı — virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea>
+    <label>Markaların <span class="mini">(virgülle)</span></label><textarea id="f_marka" placeholder="ABC, 2016/12345"></textarea>
+    <label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı, virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea>
     <div class="grid2">
       <div><label>Uyarı kanalı</label><select id="f_kanal"><option value="mail">E-posta</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select></div>
-      <div><label>Telefon <span class="mini">(SMS/WhatsApp için — 0 ile başlar)</span></label><input id="f_tel" type="tel" inputmode="numeric" maxlength="14" placeholder="05xx xxx xx xx" oninput="telBicim(this)"></div>
+      <div><label>Telefon <span class="mini">(SMS/WhatsApp için, 0 ile başlar)</span></label><input id="f_tel" type="tel" inputmode="numeric" maxlength="14" placeholder="05xx xxx xx xx" oninput="telBicim(this)"></div>
     </div>
     <div style="margin-top:16px;display:flex;gap:10px"><button class="btn" id="kaydet">Kaydet</button><button class="btn ghost" id="iptal">Vazgeç</button></div>
     <div class="hata" id="fhata"></div>
@@ -220,7 +220,7 @@ function firmaForm(){
     const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
     const kanal=$('#f_kanal').value, telHam=$('#f_tel').value.trim();
     // SMS/WhatsApp kanalı seçiliyse telefon zorunlu ve geçerli cep olmalı (0 ile başlar)
-    if((kanal==='sms'||kanal==='whatsapp') && !telGecerli(telHam)){ $('#fhata').textContent='SMS/WhatsApp için geçerli cep numarası gir (0 ile başlar, 11 hane — ör. 0532 123 45 67).'; return; }
+    if((kanal==='sms'||kanal==='whatsapp') && !telGecerli(telHam)){ $('#fhata').textContent='SMS/WhatsApp için geçerli cep numarası gir (0 ile başlar, 11 hane, ör. 0532 123 45 67).'; return; }
     if(telHam && !telGecerli(telHam)){ $('#fhata').textContent='Telefon 0 ile başlamalı ve 11 hane olmalı (ör. 0532 123 45 67).'; return; }
     const {data:{user}}=await sb.auth.getUser();
     const kayit={ user_id:user.id, email:user.email, firma_adi:ad, rol:$('#f_rol').value, il:$('#f_il').value.trim(), sektor:$('#f_sektor').value.trim(),
@@ -246,7 +246,7 @@ async function pano(f){
   const eslesen=(IHALE.ilanlar||[]).filter(x=> ihaleMi(x) && ilU && trUp(x.il)===ilU ).slice(0,40);
   const ihaleHtml = eslesen.length
     ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
-    : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok — robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
+    : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok, robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
 
   // canlı RG kartı ↔ GTİP eşleşmesi
   if(!KARTLAR){ try{ KARTLAR=await (await fetch('veri/kartlar-guncel.json?cb='+Date.now())).json(); }catch(e){ KARTLAR={kartlar:[]}; } }
@@ -255,7 +255,7 @@ async function pano(f){
   const yon=v=>({'ithalatci aleyhine':['var(--red)','⚠ aleyhine'],'ithalatci lehine':['var(--green)','✓ lehine'],'karisik':['var(--amber)','~ karışık']})[(v||'').replace(/İ/g,'i').toLowerCase()]||['var(--dim)',''];
   const kartHtml = kartEslesen.length
     ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p></div>`;}).join('')
-    : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok — robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;
+    : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok, robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;
 
   // robotun yazdığı uyarılar
   let uyarilar=[]; try{ const {data}=await sb.from('firma_uyarilari').select('*').eq('firma_id',f.id).order('created_at',{ascending:false}).limit(10); uyarilar=data||[]; }catch(e){}
@@ -265,7 +265,7 @@ async function pano(f){
 
   p.innerHTML=`
     ${uyarilar.length?`<h2>🔔 Radar uyarıların (${uyarilar.length})</h2>${uyariHtml}`:''}
-    <h2>${esc(f.firma_adi)} — profil</h2>
+    <h2>${esc(f.firma_adi)}, profil</h2>
     <div class="kutu">
       <div class="ozet mini">${esc(f.rol||'—')} · ${esc(f.il||'il yok')} · ${esc(f.sektor||'')}</div>
       <label style="margin-top:12px">GTİP kodların</label><div>${gtipChips}</div>

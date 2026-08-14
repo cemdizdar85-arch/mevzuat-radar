@@ -53,8 +53,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="marka-radari.html">Marka Yenileme</a> · <a href="gtip.html">GTİP</a> · İtiraz Değerlendirici</div>
-  <h1>Markana benzer başvuru mu çıktı? — itiraz eder misin?</h1>
-  <p class="lead">Kendi markanı ve şüpheli/yeni başvuruyu gir; <b>işaret + fonetik benzerliği</b> ve <b>sınıf çakışmasını</b> ölçelim, <b>karıştırılma ihtimalini</b> ve <b>itiraz edilebilirliğini</b> gösterelim. <b>Kullanmama def'i</b> ve <b>2 aylık itiraz süresi</b> dahil — boşa itiraz etme, gerçekten geçerliyse hareket et.</p>
+  <h1>Markana benzer başvuru mu çıktı?, itiraz eder misin?</h1>
+  <p class="lead">Kendi markanı ve şüpheli/yeni başvuruyu gir; <b>işaret + fonetik benzerliği</b> ve <b>sınıf çakışmasını</b> ölçelim, <b>karıştırılma ihtimalini</b> ve <b>itiraz edilebilirliğini</b> gösterelim. <b>Kullanmama def'i</b> ve <b>2 aylık itiraz süresi</b> dahil, boşa itiraz etme, gerçekten geçerliyse hareket et.</p>
 
   <div class="iki">
     <div><h3 class="a">🟢 SENİN MARKAN (önceki hak)</h3>
@@ -123,11 +123,11 @@ function degerlendir(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('
   // karıştırılma ihtimali
   let seviye, ozetT, ana;
   const isaretYuksek=isaret>=70;
-  if(isaretYuksek && (sinifVar===true || tanin)){ seviye='YÜKSEK'; ozetT='tehlike'; ana='Karıştırılma ihtimali <b>YÜKSEK</b> — itiraz için güçlü zemin var.'; }
+  if(isaretYuksek && (sinifVar===true || tanin)){ seviye='YÜKSEK'; ozetT='tehlike'; ana='Karıştırılma ihtimali <b>YÜKSEK</b>, itiraz için güçlü zemin var.'; }
   else if(isaretYuksek && sinifVar===null){ seviye='OLASI'; ozetT='dikkat'; ana='İşaretler çok benzer; sınıf bilgisi eksik. Sınıflar çakışıyorsa itiraz güçlü.'; }
-  else if(isaretYuksek && sinifVar===false){ seviye='DÜŞÜK'; ozetT='iyi'; ana='İşaret benzer <b>ama sınıflar farklı</b> — karıştırılma zayıf (tanınmış değilse itiraz genelde reddedilir).'; }
-  else if(isaret>=45 && (sinifVar===true||sinifVar===null)){ seviye='ORTA'; ozetT='dikkat'; ana='Orta düzey benzerlik — hukuki takdire açık; vekiline değerlendirt.'; }
-  else { seviye='DÜŞÜK'; ozetT='iyi'; ana='Benzerlik düşük — karıştırılma ihtimali zayıf, itiraz muhtemelen sonuç vermez.'; }
+  else if(isaretYuksek && sinifVar===false){ seviye='DÜŞÜK'; ozetT='iyi'; ana='İşaret benzer <b>ama sınıflar farklı</b>, karıştırılma zayıf (tanınmış değilse itiraz genelde reddedilir).'; }
+  else if(isaret>=45 && (sinifVar===true||sinifVar===null)){ seviye='ORTA'; ozetT='dikkat'; ana='Orta düzey benzerlik, hukuki takdire açık; vekiline değerlendirt.'; }
+  else { seviye='DÜŞÜK'; ozetT='iyi'; ana='Benzerlik düşük, karıştırılma ihtimali zayıf, itiraz muhtemelen sonuç vermez.'; }
 
   // uyarılar
   let uyari='';
@@ -135,7 +135,7 @@ function degerlendir(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('
     uyari+=`<div class="n"><span class="i">⚠️</span><div><b>Kullanmama def'i riski (m.19/2):</b> markan 5 yıldan eski ve "kullanmıyorum" dedin. Karşı taraf kullanım ispatı isterse itirazın <b>reddedilebilir</b>. Önce kullanım delillerini (fatura, reklam, ambalaj) topla.</div></div>`;
   }
   if(syas==='e' && skul==='h'){
-    uyari+=`<div class="n"><span class="i">🔻</span><div><b>Kendi markan da risk altında (m.9/m.26):</b> 5 yıl kullanmayan marka <b>iptal ettirilebilir</b> — rakibin senin markanı da düşürebilir. Kullan ya da kaybet.</div></div>`;
+    uyari+=`<div class="n"><span class="i">🔻</span><div><b>Kendi markan da risk altında (m.9/m.26):</b> 5 yıl kullanmayan marka <b>iptal ettirilebilir</b>, rakibin senin markanı da düşürebilir. Kullan ya da kaybet.</div></div>`;
   }
   uyari+=`<div class="n"><span class="i">⏳</span><div><b>Süre (m.18):</b> itiraz bültende yayımdan <b>2 ay</b> içinde. ${ytarih?`Yayım ${fmt(new Date(ytarih))} → <b>son gün ${fmt(ay(new Date(ytarih),2))}</b>.`:'Yayım tarihini girersen son günü hesaplarız.'} Geç kalırsan tescil edilir; 5 yıl ses çıkarmazsan hükümsüzlük hakkını da kaybedersin (m.25/6).</div></div>`;
 
@@ -168,7 +168,7 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
       <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0"><input type="email" name="email" required placeholder="ornek@firma.com" style="flex:1;min-width:170px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px"><input type="text" name="konu" required placeholder="Kisaca konun (or. ceza geldi / ithalat plani)" style="flex:2;min-width:210px;background:#0a0f17;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#eef2f7;font:inherit;font-size:14px;padding:11px 13px">
       <button type="submit" style="background:linear-gradient(135deg,#3ddc97,#ffc24b);color:#03140d;font-weight:800;font-size:14px;padding:11px 22px;border:none;border-radius:11px;cursor:pointer">Teklif iste &rarr;</button>
     </form>
-    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi — ayni gun donus yapacagiz.</div>
+    <div class="mr-teklif-ok" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:6px">&#10003; Talebin alindi, ayni gun donus yapacagiz.</div>
     <div style="font-size:11px;color:#5d6b7c;margin-top:11px">Talep gonderince iletisim icin e-postani kullanmamizi kabul edersin · <a href="kvkk.html" style="color:#93a1b3">KVKK aydinlatma</a></div>
   </div>
   <script>function mrTeklif(f){var e=(f.email.value||"").trim(),k=(f.konu.value||"").trim();if(!e||!k)return false;var hp=f.querySelector("input[name=_hp]");if(hp&&hp.value){return false;}var lt=+(localStorage.getItem("mrTeklif")||0);if(Date.now()-lt<8000){f.style.display="none";var o2=f.parentNode.querySelector(".mr-teklif-ok");if(o2)o2.style.display="block";return false;}localStorage.setItem("mrTeklif",Date.now());try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:k,subject:"DANISMANLIK TALEBI ("+location.pathname+")",from_name:"Tetikte Teklif"})});}catch(err){}f.style.display="none";var ok=f.parentNode.querySelector(".mr-teklif-ok");if(ok)ok.style.display="block";return false;}</script>

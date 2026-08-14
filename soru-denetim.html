@@ -3,7 +3,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Soru Denetim Masası (iç belge) | Tetikte</title>
 <!-- ============================================================================
-  SORU DENETIM MASASI — 14.08.2026
+  SORU DENETIM MASASI, 14.08.2026
   Cem karari: "sen bence bu sorulari siteden cikar, bizim denetleyecegimiz yerde
   beklesin, sorulari orda denetleyelim."
   Gerekce: 150 vitrin sorusundan 5'i kaynak-karsilastirmali okundu, 1'inde
@@ -50,9 +50,9 @@ h1{font-size:24px;letter-spacing:-.5px;margin:0 0 6px}
   <div style="color:var(--muted);font-size:13.5px;margin-bottom:14px">Vitrinden çekilen sorular burada bekliyor. Her soruyu <b style="color:var(--ink)">kaynağıyla karşılaştırarak</b> oku, kararını işaretle. Kararlar tarayıcında birikir; sonunda dosya olarak indirilir.</div>
 
   <div class="uyari">
-    <b style="color:var(--ink)">Bu sayfa siteye açık değil</b> — arama motorlarına kapalı, menüde yok, kasaya hiçbir şey yazmaz.
+    <b style="color:var(--ink)">Bu sayfa siteye açık değil</b>, arama motorlarına kapalı, menüde yok, kasaya hiçbir şey yazmaz.
     Kararı işaretlemek soruyu değiştirmez; yalnız <b style="color:var(--ink)">not düşer</b>. Uygulamayı sen onayladıktan sonra yaparım.
-    <br><b style="color:var(--ink)">Neden buradalar:</b> 150 sorunun 5'i kaynak metniyle karşılaştırıldı, 1'inde gerekçe kusuru çıktı (GVK kâr payı — cevap doğru, gerekçe yanlış madde parçasına dayanıyordu). Kalan 145 okunmadı.
+    <br><b style="color:var(--ink)">Neden buradalar:</b> 150 sorunun 5'i kaynak metniyle karşılaştırıldı, 1'inde gerekçe kusuru çıktı (GVK kâr payı, cevap doğru, gerekçe yanlış madde parçasına dayanıyordu). Kalan 145 okunmadı.
   </div>
 
   <div class="ustbar">
@@ -115,7 +115,7 @@ function ciz(){
       +'<div class="ust"><span class="rz">'+esc(s.sinav||'')+'</span><span class="rz">'+esc(s.ders||'')+'</span><span>'+esc(s.konu||'')+'</span><span style="margin-left:auto;font-family:var(--mono)">'+esc(s.id)+'</span></div>'
       +'<div class="soru">'+esc(s.soru)+'</div>'+siklar
       +(s.hap?'<div class="blok"><div class="et">HAP ANLATIM</div>'+esc(s.hap)+'</div>':'')
-      +'<div class="blok"><div class="et">KAYNAK — bunu ambardan doğrula</div><span class="kaynak">'+esc(s.kaynak||'(yok)')+'</span></div>'
+      +'<div class="blok"><div class="et">KAYNAK, bunu ambardan doğrula</div><span class="kaynak">'+esc(s.kaynak||'(yok)')+'</span></div>'
       +'<div class="kararlar">'
         +'<button class="btn'+(sec==='onay'?' on':'')+'" onclick="karar(\''+s.id+'\',\'onay\')">✓ Onay</button>'
         +'<button class="btn'+(sec==='kusur'?' on':'')+'" onclick="karar(\''+s.id+'\',\'kusur\')">⚠ Kusur var</button>'

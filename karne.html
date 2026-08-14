@@ -7,7 +7,7 @@
      "katalogdaki maddeler gibi olsun, maddenin icinden girilsin" dedi.
      Bolum index.html'den BIREBIR buraya tasindi (motor + esikler ayni). -->
 <title>Yükümlülük Karnesi — firmana özel yükümlülük fotoğrafı | Tetikte</title>
-<meta name="description" content="Çalışan sayısı, ciro, şirket türü — 4-5 bilgi gir; hangi yasal yükümlülüklere tabisin, hangilerine yaklaşıyorsun gör. Renk kodlu, dayanaklı, PDF alınabilir. Verin tarayıcında kalır.">
+<meta name="description" content="Çalışan sayısı, ciro, şirket türü, 4-5 bilgi gir; hangi yasal yükümlülüklere tabisin, hangilerine yaklaşıyorsun gör. Renk kodlu, dayanaklı, PDF alınabilir. Verin tarayıcında kalır.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
   :root{color-scheme:dark;
@@ -139,7 +139,7 @@
   <div class="top"><span class="logo"></span><a href="index.html">Tetikte</a> · <a href="sayfalar/index.html">Eşik Rehberi</a> · <a href="hatirlatici.html">Hatırlatıcı</a> · <a href="kartlar.html">Hap Kartlar</a> · <b style="color:var(--ink)">Yükümlülük Karnesi</b></div>
 
   <h1>Yükümlülük Karnesi</h1>
-  <p class="lead">Firmanın 4-5 temel bilgisini gir; sadece <b>seni etkileyen</b> yükümlülükleri gör — renk kodlu, dayanaklı, PDF alınabilir.</p>
+  <p class="lead">Firmanın 4-5 temel bilgisini gir; sadece <b>seni etkileyen</b> yükümlülükleri gör, renk kodlu, dayanaklı, PDF alınabilir.</p>
 
   <div class="app-card" id="formKart">
     <div class="grid">
@@ -172,7 +172,7 @@
         </select>
       </div>
       <div>
-        <label>Esas sermaye <span class="hint">(TL — AŞ için)</span></label>
+        <label>Esas sermaye <span class="hint">(TL, AŞ için)</span></label>
         <input id="sermaye" type="text" placeholder="ör. 1.250.000" inputmode="numeric">
       </div>
       <div>
@@ -201,7 +201,7 @@
 
     <div class="note">
       <span>🔒</span>
-      <span>Girdiğin veriler tarayıcından dışarı çıkmaz — hesaplama cihazında yapılır.
+      <span>Girdiğin veriler tarayıcından dışarı çıkmaz, hesaplama cihazında yapılır.
       Eşik değerleri Temmuz 2026 itibarıyla günceldir; kesin sonuç için mevzuat metni esastır.</span>
     </div>
   </div>
@@ -242,7 +242,7 @@
 
       <div class="note">
         <span>✓</span>
-        <span><b style="color:var(--ink)">Tetikte — bir Dizdar Denetim A.Ş. yazılımıdır.</b>
+        <span><b style="color:var(--ink)">Tetikte, bir Dizdar Denetim A.Ş. yazılımıdır.</b>
         Bu karne yalnızca bilgilendirme amaçlıdır, hukuki/mali mütalaa değildir. Eşik değerleri ve
         yükümlülükler firmanın somut durumuna göre değişebilir; kesin sonuç için mevzuat metni ve
         uzman görüşü esastır. Değerlendirme, girilen bilgilerle sınırlıdır.</span>
@@ -263,13 +263,13 @@ const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
    doğrulanması önerilir — bir SMMM imzasıyla çıkacak ürün.
    ============================================================================ */
 const ESIKLER = {
-  engelliKota:      { minCalisan:50,  teyit:true, not:"50+ işçide %3 (özel sektör) — 4857/m.30" },
-  isgKurulu:        { minCalisan:50,  teyit:true, not:"50+ ve 6 aydan uzun süren iş — 6331/m.22" },
-  calisanTemsilcisi:{ minCalisan:2,   teyit:true, not:"2-50 arası 1, kademeli artar — 6331/m.20" },
+  engelliKota:      { minCalisan:50,  teyit:true, not:"50+ işçide %3 (özel sektör), 4857/m.30" },
+  isgKurulu:        { minCalisan:50,  teyit:true, not:"50+ ve 6 aydan uzun süren iş, 6331/m.22" },
+  calisanTemsilcisi:{ minCalisan:2,   teyit:true, not:"2-50 arası 1, kademeli artar, 6331/m.20" },
   verbis:           { minCalisan:50, minAktif:100000000, teyit:true, not:">50 çalışan VEYA >100M bilanço (2026 güncel)" },
   emzirmeOdasi:     { minKadin:100,   teyit:true, not:"100-150 kadın çalışan" },
   kres:             { minKadin:150,   teyit:true, not:"150+ kadın çalışan (yurt/bakımevi)" },
-  topluIsten:       { minCalisan:20,  teyit:true, not:"20+ çalışanda bildirim — 4857/m.29" },
+  topluIsten:       { minCalisan:20,  teyit:true, not:"20+ çalışanda bildirim, 4857/m.29" },
   eFatura:          { minCiro:3000000,  teyit:true, not:"genel eşik 3M; e-ticaret/gayrimenkul/araç 500K" },
   eIrsaliye:        { minCiro:10000000, teyit:true, not:"genel 10M; ÖTV/demir-çelik/hal ciro şartsız" },
   bagimsizDenetim:  { aktif:500000000, ciro:1000000000, calisan:150, kacKriter:2, teyit:true, not:"11066 s. Karar (17.03.2026 RG), 2026 hesap dönemi; 3 ölçütten 2'si, 2 yıl üst üste" },
@@ -310,7 +310,7 @@ function karneUret(p){
     push({ grup:'Çalışan sayısı', ad:'Engelli çalıştırma yükümlülüğü',
       status: p.calisan>=e.minCalisan ? 'tabi' : (yaklasiyor(p.calisan,e.minCalisan)?'yaklasiyor':'degil'),
       neden: p.calisan>=e.minCalisan
-        ? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar — en az ${Math.floor(p.calisan*0.03+0.5)} kişi — engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`
+        ? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar, en az ${Math.floor(p.calisan*0.03+0.5)} kişi, engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`
         : `Engelli kotası 50 çalışanda başlar; şu an ${p.calisan} çalışanınla kapsam dışısın.`,
       aksiyon:'İŞKUR’dan açık kontenjanı kontrol et; kapatmazsan her ay <b>idari para cezası</b> işler.',
       dayanak:'4857 sayılı İş Kanunu m.30', teyitEksik:!e.teyit });
@@ -326,7 +326,7 @@ function karneUret(p){
 
     if(p.calisan>=1){
       push({ grup:'Çalışan sayısı', ad:'İSG uzmanı + işyeri hekimi bulundurma', status:'tabi',
-        neden:`Bir kişi bile SGK’lı çalıştıran her işyeri, tehlike sınıfına göre İSG uzmanı ve işyeri hekimi hizmeti almak zorunda.${p.tehlike&&p.tehlike!=='bilinmiyor'?` Senin sınıfın: ${({az:'az tehlikeli',tehlikeli:'tehlikeli',cok:'çok tehlikeli'})[p.tehlike]} — hizmet süreleri buna göre değişir.`:''}`,
+        neden:`Bir kişi bile SGK’lı çalıştıran her işyeri, tehlike sınıfına göre İSG uzmanı ve işyeri hekimi hizmeti almak zorunda.${p.tehlike&&p.tehlike!=='bilinmiyor'?` Senin sınıfın: ${({az:'az tehlikeli',tehlikeli:'tehlikeli',cok:'çok tehlikeli'})[p.tehlike]}, hizmet süreleri buna göre değişir.`:''}`,
         aksiyon:'OSGB’den hizmet al ya da kendi uzmanını görevlendir.',
         dayanak:'6331 sayılı İSG Kanunu m.6' });
 
@@ -435,9 +435,9 @@ function karneUret(p){
       push({ grup:'Denetim & TTK', ad:'Bağımsız denetim yükümlülüğü',
         status: denetimTabi?'tabi':(yak?'yaklasiyor':'degil'),
         neden: denetimTabi
-          ? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=>o.ad).join(', ')}) — bağımsız denetime tabisin.`
+          ? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=>o.ad).join(', ')}), bağımsız denetime tabisin.`
           : `Eşikler: aktif ${tl(bd.aktif)} TL, ciro ${tl(bd.ciro)} TL, çalışan ${bd.calisan}. En az 2’sini (2 yıl üst üste) aşınca kapsama girersin.`,
-        aksiyon:'Kapsamdaysan <b>bağımsız denetçiyle</b> sözleşme yap — bu, internet sitesi (TTK 1524) yükümlülüğünü de tetikler.',
+        aksiyon:'Kapsamdaysan <b>bağımsız denetçiyle</b> sözleşme yap, bu, internet sitesi (TTK 1524) yükümlülüğünü de tetikler.',
         dayanak:'6102 sayılı TTK m.397 ve Cumhurbaşkanı Kararı', teyitEksik:!bd.teyit });
       if(denetimTabi){
         push({ grup:'Denetim & TTK', ad:'İnternet sitesi açma (TTK 1524)', status:'tabi',
@@ -475,7 +475,7 @@ function karneUret(p){
       aksiyon:'PTT/KEP sağlayıcısından KEP adresi al, e-Tebligat kutunu düzenli kontrol et.',
       dayanak:'TTK ve Elektronik Tebligat Yönetmeliği' });
 
-    push({ grup:'Şirket türü & sermaye', ad:'TTK 376 — sermaye kaybı takibi', status:'bilgi',
+    push({ grup:'Şirket türü & sermaye', ad:'TTK 376, sermaye kaybı takibi', status:'bilgi',
       neden:`Sermaye + yasal yedeklerin yarısı ya da üçte ikisi zararla karşılıksız kaldıysa, genel kurulu toplama ve önlem alma yükümlülüğü doğar. Piyasada kimse bunu otomatik izlemiyor.`,
       aksiyon:'Yıl sonu bilançonda sermaye erimesi var mı, mali müşavirine <b>kontrol ettir</b>.',
       dayanak:'6102 sayılı TTK m.376' });
@@ -551,7 +551,7 @@ function epostaGonder(){
   if(!$('kvkk').checked){ goster('Devam için onay kutusunu işaretle.',false); return; }
 
   if(!EPOSTA_ENDPOINT){
-    goster('Teşekkürler! (E-posta toplama henüz bağlanmadı — yayına alınınca aktifleşecek.)',true);
+    goster('Teşekkürler! (E-posta toplama henüz bağlanmadı, yayına alınınca aktifleşecek.)',true);
     return;
   }
 
@@ -566,11 +566,11 @@ function epostaGonder(){
   if(p.ciro!=null) profil.push(tl(p.ciro)+' TL ciro');
   if(p.aktif!=null) profil.push(tl(p.aktif)+' TL aktif');
   const payload = {
-    subject: 'Yeni müşteri adayı — Yükümlülük Karnesi',
+    subject: 'Yeni müşteri adayı, Yükümlülük Karnesi',
     from_name: 'Tetikte',
     email: mail, // cevapla (reply-to) adresi olarak da kullanılır
     'Firma profili': profil.join(' · ') || 'Belirtilmedi',
-    'Tabi olduğu yükümlülükler': tabiListe.length ? (tabiListe.length+' adet — '+tabiListe.join(', ')) : 'Yok',
+    'Tabi olduğu yükümlülükler': tabiListe.length ? (tabiListe.length+' adet, '+tabiListe.join(', ')) : 'Yok',
     'Eşiğe yaklaştıkları': yakListe.length ? yakListe.join(', ') : 'Yok',
     'Kayıt kaynağı': 'Yükümlülük Karnesi (karne.html)'
   };

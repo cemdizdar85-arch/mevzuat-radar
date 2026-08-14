@@ -89,7 +89,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div><span class="gozalici">🚨 Müşterin konkordato ilan etti mi?</span></div>
   <h1>Müşterin batmadan haber al</h1>
-  <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız — <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
+  <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız, <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
 
   <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b>, yani mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır; <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
 
@@ -113,8 +113,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         ' <span style="font-size:11.5px;color:var(--dim)">'+kac(x.il||'')+' · '+kac(x.tarih||'')+'</span>'+
         '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+kac(x.baslik)+'</div>'+
         '<div style="font-size:12px;color:var(--muted);margin-top:3px">'+kac(x.kurum||'')+' · <a href="'+kac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
-    }).join('') + (L.length>10?'<div class="ipucu">İlk 10 gösteriliyor — kendi borçlularına birebir eşleşen uyarı için aşağıdaki aracı dene, aboneliğe geç.</div>':'');
-  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi — birazdan yenile.'; });
+    }).join('') + (L.length>10?'<div class="ipucu">İlk 10 gösteriliyor, kendi borçlularına birebir eşleşen uyarı için aşağıdaki aracı dene, aboneliğe geç.</div>':'');
+  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
   </script>
 
   <div class="kutu">
@@ -140,7 +140,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="nasil">
     <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
     <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir. Aynı isimli firma karışıklığı olmaz.</div></div>
-    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti — İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakereye giremezsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
+    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakereye giremezsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
   </div>
 
   <h2>Alacaklı olarak İİK'da hakların ve sürelerin</h2>
@@ -238,7 +238,7 @@ async function dosyaSecildi(file){
   } catch(e){ yukleDurum('Dosya okunamadı. Excel/CSV/PDF olduğundan emin ol ya da elle yaz.', 'var(--amber)'); return; }
 
   if(!sonuc.gecerli.length){
-    const ekNot = sonuc.elenen.length ? ' ('+sonuc.elenen.length+' sayı bulundu ama VKN/TCKN kontrolünden geçmedi — telefon/tutar olabilir)' : '';
+    const ekNot = sonuc.elenen.length ? ' ('+sonuc.elenen.length+' sayı bulundu ama VKN/TCKN kontrolünden geçmedi, telefon/tutar olabilir)' : '';
     yukleDurum('Dosyada geçerli VKN/TCKN bulamadım'+ekNot+'. Elle de yazabilirsin.', 'var(--amber)'); return;
   }
   const mevcut = document.getElementById('giris').value.trim();
@@ -274,7 +274,7 @@ function tarihEkle(ddmmyyyy, gun){
   return iki(d.getDate())+'.'+iki(d.getMonth()+1)+'.'+d.getFullYear();
 }
 function turAd(t,d){
-  if(t==='konkordato') return d==='kesin-muhlet'?'Konkordato — kesin mühlet':(d==='gecici-muhlet'?'Konkordato — geçici mühlet':'Konkordato');
+  if(t==='konkordato') return d==='kesin-muhlet'?'Konkordato, kesin mühlet':(d==='gecici-muhlet'?'Konkordato, geçici mühlet':'Konkordato');
   if(t==='iflas') return 'İflas kararı';
   if(t==='tasfiye') return 'Tasfiye';
   return t;
@@ -306,16 +306,16 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
     for(const {il, b, eslesen} of bulunan){
       const sonGun = tarihEkle(il.yayinTarihi, il.bildirimGun);
       html += `<div class="kart risk">
-        <span class="rozet risk">⚠ Risk — ${turAd(il.tur,il.durum)}</span>
+        <span class="rozet risk">⚠ Risk, ${turAd(il.tur,il.durum)}</span>
         <h3>${b.unvan}</h3>
         <div class="satir"><b>Eşleşen kaydın</b><span>${eslesen.ham}${b.vkn?' · VKN '+b.vkn:''}</span></div>
         <div class="satir"><b>Mahkeme / dosya</b><span>${il.mahkeme||'—'} · ${il.dosya||'—'}</span></div>
         <div class="satir"><b>Yer</b><span>${[il.ilce,il.il].filter(Boolean).join(' / ')||'—'}</span></div>
         <div class="satir"><b>İlan tarihi</b><span>${il.yayinTarihi||'—'}</span></div>
         ${il.komiser?`<div class="satir"><b>Komiser</b><span>${il.komiser}</span></div>`:''}
-        <div class="sure">⏳ <b>İİK m.${il.iikMadde||'299'} — alacağını ${il.bildirimGun||15} gün içinde kaydet.</b> ${sonGun?`Bu ilanda son gün: <b>${sonGun}</b>.`:''} Süreyi kaçıran alacaklı konkordato müzakeresine <b>giremez, oy kullanamaz</b> ve alacağı nisaba katılmaz.</div>
+        <div class="sure">⏳ <b>İİK m.${il.iikMadde||'299'}, alacağını ${il.bildirimGun||15} gün içinde kaydet.</b> ${sonGun?`Bu ilanda son gün: <b>${sonGun}</b>.`:''} Süreyi kaçıran alacaklı konkordato müzakeresine <b>giremez, oy kullanamaz</b> ve alacağı nisaba katılmaz.</div>
         ${b.ticSicil?'':''}
-        ${il.belgeler?`<div class="belg"><b style="color:var(--ink)">İstenen belgeler:</b> ${il.belgeler}${il.komiserAdres?' — Kayıt adresi: '+il.komiserAdres:''}</div>`:''}
+        ${il.belgeler?`<div class="belg"><b style="color:var(--ink)">İstenen belgeler:</b> ${il.belgeler}${il.komiserAdres?', Kayıt adresi: '+il.komiserAdres:''}</div>`:''}
         ${il.url?`<div class="belg"><a href="${il.url}" target="_blank" rel="noopener">Resmî ilan metni →</a></div>`:''}
       </div>`;
     }

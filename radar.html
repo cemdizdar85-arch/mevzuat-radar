@@ -21,7 +21,7 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · Bugün RG'de</div>
 <h1>Bugün Resmî Gazete'de ne var?</h1>
-<div class='alt'>14.08.2026 tarihli sayının radar taraması — 6 maddeden <b style='color:var(--ink)'>2</b> tanesi işletmeleri ilgilendiriyor.</div>
+<div class='alt'>14.08.2026 tarihli sayının radar taraması, 6 maddeden <b style='color:var(--ink)'>2</b> tanesi işletmeleri ilgilendiriyor.</div>
 <div id="tazelik" style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin:4px 0 4px"><span style="width:7px;height:7px;border-radius:50%;background:#3ddc97;display:inline-block"></span><span id="tazelikM">Nöbet damgası yükleniyor…</span></div>
 <script>fetch("veri/kart-durum.json?c="+Date.now()).then(function(r){return r.json()}).then(function(d){var e=document.getElementById("tazelikM");if(d&&d.sonTarama){e.textContent="Robotun son RG nöbeti: "+d.sonTarama;}else{e.textContent="Nöbet damgası okunamadı";}}).catch(function(){document.getElementById("tazelik").style.display="none";});</script>
 <div class="uyari">Bu liste otomatik ön taramadır; başlıklar Resmî Gazete fihristinden alınır ve tıklandığında kaynağa gider. Bu maddelerin sade Türkçe özetleri için: <a href="kartlar.html">Günün Hap Kartları →</a></div>

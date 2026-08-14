@@ -60,7 +60,7 @@ summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(-
   <h1>Belge Kasası</h1>
   <p class="lead">DİİB, A.TR, EUR.1, mukimlik, gözetim belgesi, kapasite raporu, marka tescili… <b>Hepsi tek kasada.</b> Geçerlilik tarihini bir kez gir; süresi dolmadan robot sana haber versin. Kaçan belge = duran sevkiyat, biten teşvik, düşen hak.</p>
 
-  <div class="uyari">Geçerlilik tarihini <b>belgenin üstünden</b> sen girersin — biz uydurmayız, takip eder ve uyarırız. Bu demo belgelerini <b>tarayıcında</b> saklar; gerçek kasada (PDF yükle, ekibinle paylaş, otomatik e-posta uyarısı (SMS yol haritasında)) belgeler güvenli sunucuda tutulur — abonelikte açılır.</p>
+  <div class="uyari">Geçerlilik tarihini <b>belgenin üstünden</b> sen girersin, biz uydurmayız, takip eder ve uyarırız. Bu demo belgelerini <b>tarayıcında</b> saklar; gerçek kasada (PDF yükle, ekibinle paylaş, otomatik e-posta uyarısı (SMS yol haritasında)) belgeler güvenli sunucuda tutulur, abonelikte açılır.</p>
 
   <div class="kutu">
     <div class="grid">
@@ -68,7 +68,7 @@ summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(-
       <div><label for="no">Belge no <span style="color:var(--dim);font-weight:400">(varsa)</span></label><input type="text" id="no" placeholder="ör. 2026/D1-0123"></div>
       <div><label for="bitis">Geçerlilik bitiş tarihi</label><input type="date" id="bitis"></div>
     </div>
-    <div style="margin-top:12px"><label for="not2">Not <span style="color:var(--dim);font-weight:400">(firma, dosya, hatırlatma)</span></label><input type="text" id="not2" placeholder="ör. Ege Gümrük — kırmızı hat"></div>
+    <div style="margin-top:12px"><label for="not2">Not <span style="color:var(--dim);font-weight:400">(firma, dosya, hatırlatma)</span></label><input type="text" id="not2" placeholder="ör. Ege Gümrük, kırmızı hat"></div>
     <button class="btn" onclick="ekle()">Kasaya ekle →</button>
   </div>
 
@@ -76,7 +76,7 @@ summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(-
   <div id="liste"></div>
 
   <details>
-    <summary>📘 Belge türleri rehberi — bu belge nedir, nasıl yenilenir</summary>
+    <summary>📘 Belge türleri rehberi, bu belge nedir, nasıl yenilenir</summary>
     <div class="ref" id="rehber"></div>
   </details>
 
@@ -86,17 +86,17 @@ summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(-
     <a class="btn" href="index.html#fiyat" style="text-decoration:none">Radar aboneliğine katıl →</a>
   </div>
 
-  <div class="dip" id="dip">Kaynaklar: 2006/12 DİR Tebliği (DİİB süre/kapama) · 6769 SMK m.23 (marka 10 yıl) · Gümrük Birliği & tercihli ticaret anlaşmaları (A.TR / EUR.1) · ilgili gözetim tebliğleri — mevzuat.gov.tr. Belgelerin kendi geçerlilik süresi esastır; bu araç bilgilendirme ve hatırlatma amaçlıdır. Tetikte — bir Dizdar Denetim A.Ş. yazılımıdır.</div>
+  <div class="dip" id="dip">Kaynaklar: 2006/12 DİR Tebliği (DİİB süre/kapama) · 6769 SMK m.23 (marka 10 yıl) · Gümrük Birliği & tercihli ticaret anlaşmaları (A.TR / EUR.1) · ilgili gözetim tebliğleri, mevzuat.gov.tr. Belgelerin kendi geçerlilik süresi esastır; bu araç bilgilendirme ve hatırlatma amaçlıdır. Tetikte, bir Dizdar Denetim A.Ş. yazılımıdır.</div>
 </div>
 
 <script>
 const TURLER = [
-  {id:"diib",   ad:"DİİB — Dahilde İşleme İzin Belgesi", nedir:"Üretimde kullanacağın hammaddeyi ithalat vergilerini ödemeden (teminatla) getirmeni sağlar.", yenileme:"Belge süresi sektöre göre azami 12 ay (2006/12 Tebliği m.20); haklı sebeple ek süre alınabilir. Taahhüt kapama başvurusu belge süresi sonundan itibaren 3 ay içinde. Süreyi kaçırırsan vergiler ceza+faizle geri döner."},
+  {id:"diib",   ad:"DİİB, Dahilde İşleme İzin Belgesi", nedir:"Üretimde kullanacağın hammaddeyi ithalat vergilerini ödemeden (teminatla) getirmeni sağlar.", yenileme:"Belge süresi sektöre göre azami 12 ay (2006/12 Tebliği m.20); haklı sebeple ek süre alınabilir. Taahhüt kapama başvurusu belge süresi sonundan itibaren 3 ay içinde. Süreyi kaçırırsan vergiler ceza+faizle geri döner."},
   {id:"atr",    ad:"A.TR Dolaşım Belgesi", nedir:"Türkiye–AB Gümrük Birliği kapsamında sanayi ürünlerinin serbest (gümrüksüz) dolaşımını sağlar.", yenileme:"Her sevkiyat için ayrı düzenlenir; ihracatçı düzenler, gümrük vize eder. Vize sonrası ithalatçı ülkeye ibraz süresine dikkat et."},
   {id:"eur1",   ad:"EUR.1 / EUR-MED Dolaşım Belgesi", nedir:"Serbest ticaret / tercihli ticaret anlaşmalı ülkelerde malın menşeini ispat eder → indirimli veya sıfır gümrük vergisi.", yenileme:"Genelde düzenlendiği tarihten itibaren belirli süre (çoğu anlaşmada 4 ay) içinde ithalatçı ülke gümrüğüne ibraz edilmeli. Anlaşma metnindeki süreyi teyit et."},
   {id:"mukimlik",ad:"Mukimlik Belgesi", nedir:"Çifte Vergilendirmeyi Önleme Anlaşması indirimini/istisnasını uygulayabilmek için karşı taraftan alınan resmî belge.", yenileme:"Ödeme yapılan yıla ait olmalı; apostilli + yeminli tercümeli. Belgesiz anlaşma indirimi uygulanamaz (tam stopaj kesilir)."},
   {id:"gozetim",ad:"Gözetim Belgesi", nedir:"İthalatta gözetim uygulanan üründe, birim kıymetin altındaki beyanlarda Ticaret Bakanlığından alınır.", yenileme:"Belgenin üstünde yazılı geçerlilik süresi esastır. Süre dolmadan sevkiyatı tamamla ya da yeni belge başvurusunu planla (başvuru–sonuç süresini hesaba kat)."},
-  {id:"kapasite",ad:"Kapasite Raporu", nedir:"Sanayi/ticaret odası (TOBB) düzenler; işletmenin üretim kapasitesini gösterir. DİİB, teşvik vb. başvurularda aranır.", yenileme:"Geçerlilik süresi belgede yazılıdır; dolmadan yenile — DİİB/teşvik başvurularını aksatmasın."},
+  {id:"kapasite",ad:"Kapasite Raporu", nedir:"Sanayi/ticaret odası (TOBB) düzenler; işletmenin üretim kapasitesini gösterir. DİİB, teşvik vb. başvurularda aranır.", yenileme:"Geçerlilik süresi belgede yazılıdır; dolmadan yenile, DİİB/teşvik başvurularını aksatmasın."},
   {id:"marka",  ad:"Marka Tescil Belgesi", nedir:"Markanın TÜRKPATENT nezdinde tescilli koruması.", yenileme:"Koruma başvuru tarihinden itibaren 10 yıl; her 10 yılda bir yenilenir (SMK 6769 m.23). Sürenin bitiminden önceki 6 ay içinde yenile; ayrıca 6 ay ek süre (ek ücretle). Yenilenmezse marka hükümden düşer."},
   {id:"tesvik", ad:"Yatırım Teşvik Belgesi", nedir:"Teşvikli yatırımda vergi/gümrük/SGK avantajları sağlar.", yenileme:"Belgenin süresi ve tamamlama vizesi tarihleri belgede yazılıdır; süre bitmeden tamamlama vizesini al, aksi halde teşvikler geri alınabilir."},
   {id:"urun",   ad:"CE / TSE / Ürün Uygunluk Belgesi", nedir:"Ürünün güvenlik/standart uygunluğunu gösterir (ithalat denetimi, satış için gerekebilir).", yenileme:"Belge/sertifika üzerindeki geçerlilik tarihini takip et; denetim döngüsüne göre yenilenir."},
@@ -127,7 +127,7 @@ function sil(k){ kaydet(kayitlar().filter(x=>x.k!==k)); ciz(); }
 function ciz(){
   const box=document.getElementById('liste');
   const a=kayitlar();
-  if(!a.length){ box.innerHTML='<div class="kart gri"><h3>Kasan henüz boş</h3><div class="belg">Yukarıdan ilk belgeni ekle. Örnek: DİİB\'inin geçerlilik bitişi 30.09.2026 ise gir — kalan günü ve renkli uyarıyı gör.</div></div>'; return; }
+  if(!a.length){ box.innerHTML='<div class="kart gri"><h3>Kasan henüz boş</h3><div class="belg">Yukarıdan ilk belgeni ekle. Örnek: DİİB\'inin geçerlilik bitişi 30.09.2026 ise gir, kalan günü ve renkli uyarıyı gör.</div></div>'; return; }
   const bugun=new Date(); bugun.setHours(0,0,0,0);
   const satirlar=a.map(r=>{ const s=bul(r.id)||bul('diger'); const son=new Date(r.bitis+'T00:00:00'); const kalan=Math.ceil((son-bugun)/864e5); return {r,s,kalan}; })
     .sort((x,y)=>x.kalan-y.kalan);
@@ -137,7 +137,7 @@ function ciz(){
     return `<div class="kart ${cls}">
       <button class="sil" onclick="sil(${r.k})">✕ kaldır</button>
       <span class="rozet ${roz[0]}">${roz[1]}</span>
-      <h3>${esc(s.ad)}${r.no?' — '+esc(r.no):''}</h3>
+      <h3>${esc(s.ad)}${r.no?', '+esc(r.no):''}</h3>
       <div class="satir"><b>Geçerlilik bitişi</b><span style="color:${kalan<=30?'var(--red)':'var(--ink)'}">${trT(r.bitis)}</span></div>
       ${r.not2?`<div class="satir"><b>Not</b><span style="font-family:inherit">${esc(r.not2)}</span></div>`:''}
       <div class="belg"><b>Yenileme:</b> ${esc(s.yenileme)}</div>

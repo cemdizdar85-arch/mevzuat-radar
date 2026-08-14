@@ -60,9 +60,9 @@ function durumHesap(bitis){ // marka_takvim'den gelen koruma_bitisi
   const bugun=new Date();bugun.setHours(0,0,0,0);
   const b=new Date(bitis), acilis=new Date(b);acilis.setMonth(acilis.getMonth()-6); const ek=new Date(b);ek.setMonth(ek.getMonth()+6);
   const gecti=bugun>=ek;
-  if(gecti) return {t:'ℹ️ Yenilemeye bağlı',c:'dikkat',mesaj:'İlk süre doldu — yenilediysen sonraki dönem, yenilemediysen düşmüş olabilir. Sicili teyit et.'};
+  if(gecti) return {t:'ℹ️ Yenilemeye bağlı',c:'dikkat',mesaj:'İlk süre doldu, yenilediysen sonraki dönem, yenilemediysen düşmüş olabilir. Sicili teyit et.'};
   if(bugun<acilis){ const g=Math.round((acilis-bugun)/86400000); return {t:'✅ Güvende',c:'iyi',mesaj:`Yenileme penceresi ${fmt(acilis)} açılır (${g} gün).`}; }
-  if(bugun<b){ const g=Math.round((b-bugun)/86400000); return {t:'⚠️ Pencere AÇIK',c:'dikkat',mesaj:`Normal ücretle yenilenebilir — son gün ${fmt(b)} (${g} gün). Kaçırma!`}; }
+  if(bugun<b){ const g=Math.round((b-bugun)/86400000); return {t:'⚠️ Pencere AÇIK',c:'dikkat',mesaj:`Normal ücretle yenilenebilir, son gün ${fmt(b)} (${g} gün). Kaçırma!`}; }
   const g=Math.round((ek-bugun)/86400000); return {t:'🔴 Ek süre',c:'tehlike',mesaj:`Süre doldu; ${fmt(ek)} tarihine kadar EK ÜCRETLE yenilenebilir (${g} gün).`};
 }
 
@@ -71,7 +71,7 @@ sb.auth.onAuthStateChange((_e,s)=>{ if(s)markaApp(); else giris(); });
 
 function giris(){
   W().innerHTML=`<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Marka İzleme</div>
-  <h1>Marka İzleme — giriş</h1>
+  <h1>Marka İzleme, giriş</h1>
   <p class="lead">Markalarını ekle; yenileme tarihlerini takip edelim, kullanım delillerini sakla. (Evrak Radarı ile aynı hesap.)</p>
   <div class="kart" style="max-width:420px"><div class="kbas">GİRİŞ / KAYIT</div>
     <label>E-posta</label><input class="gir" id="email" type="email" placeholder="ornek@firma.com">
@@ -94,7 +94,7 @@ async function markaApp(){
     <div class="chk"><input type="checkbox" id="tan"><label style="margin:0">Tanınmış marka (m.6/5)</label></div>
     <button class="btn" id="ekle">Marka ekle</button><div class="hata" id="me"></div></div>
   <div class="kart"><div class="kbas">📋 İZLENEN MARKALAR</div><div id="liste"></div></div>
-  <div class="uy">Kullanım delili dosyaların <b>gizli</b> saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail — kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka vekili yapar.</div>`;
+  <div class="uy">Kullanım delili dosyaların <b>gizli</b> saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail, kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka vekili yapar.</div>`;
   W().innerHTML=h;
   $('#cikis').onclick=e=>{e.preventDefault();sb.auth.signOut();};
   $('#ekle').onclick=markaEkle;
@@ -110,11 +110,11 @@ async function markaEkle(){
 }
 async function listeCiz(markalar){
   const el=$('#liste'); if(!el)return;
-  if(!markalar.length){el.innerHTML='<div class="bos">Henüz marka yok — yukarıdan ekle.</div>';return;}
+  if(!markalar.length){el.innerHTML='<div class="bos">Henüz marka yok, yukarıdan ekle.</div>';return;}
   // her marka için delil sayısı
   el.innerHTML=markalar.map(m=>{
     const d=durumHesap(m.koruma_bitisi);
-    const kullanmamaUyari=(!m.kullaniliyor)?`<div class="uyari">⚠️ <b>Kullan-ya-kaybet (m.9/m.26):</b> "kullanmıyorum" işaretli. 5 yıl kullanılmayan marka <b>iptal ettirilebilir</b> — kullanım delili yükle, koru.</div>`:'';
+    const kullanmamaUyari=(!m.kullaniliyor)?`<div class="uyari">⚠️ <b>Kullan-ya-kaybet (m.9/m.26):</b> "kullanmıyorum" işaretli. 5 yıl kullanılmayan marka <b>iptal ettirilebilir</b>, kullanım delili yükle, koru.</div>`:'';
     return `<div class="marka">
       <div class="h"><div><div class="ad">®️ ${esc(m.marka_adi)}</div><div class="alt">${m.tescil_no?esc(m.tescil_no)+' · ':''}${(m.siniflar||[]).length?'Sınıf: '+m.siniflar.join(', '):'sınıf —'}${m.taninmis?' · tanınmış':''}</div></div><span class="durum ${d.c}">${d.t}</span></div>
       <div style="font-size:12.5px;color:var(--muted);margin-top:6px">${d.mesaj}</div>

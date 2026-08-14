@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>İhale Radarı — yurt içi + yurt dışı ihale, katılım ve avantaj rehberi | Tetikte</title>
-<meta name="description" content="Profilini gir; Türkiye ve Avrupa ihalelerinde kim katılabilir/katılamaz, yerli malı avantajın, teminatın, itiraz yolun — tek ekranda.">
+<meta name="description" content="Profilini gir; Türkiye ve Avrupa ihalelerinde kim katılabilir/katılamaz, yerli malı avantajın, teminatın, itiraz yolun, tek ekranda.">
 <style>
 :root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
 *{box-sizing:border-box}
@@ -149,8 +149,8 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     .gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
   </style>
   <div><span class="gozalici">📣 Sektörüne uyan ihale var mı?</span></div>
-  <h1>İhale Radarı — yurt içi + yurt dışı</h1>
-  <p class="lead">Profilini bir kez gir; hem Türkiye hem Avrupa tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b> — tek ekranda, başka yere bakmadan.</p>
+  <h1>İhale Radarı, yurt içi + yurt dışı</h1>
+  <p class="lead">Profilini bir kez gir; hem Türkiye hem Avrupa tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b>, tek ekranda, başka yere bakmadan.</p>
 
   <!-- 31.07 Cem (kesin karar): "guncel diyecegiz, tekrar konusmayalim" -
        robot gunde 2 cekiyor (03:13+17:13), tarih damgasi iddiayi kanitlar. -->
@@ -185,7 +185,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   }).catch(function(){});
   </script>
 
-  <!-- 13.08 Cem: "once yurt ici/yurt disi secilsin, sonra profil sorulsun" — ABD/UK
+  <!-- 13.08 Cem: "once yurt ici/yurt disi secilsin, sonra profil sorulsun", ABD/UK
        ihale platformlarinin dizilimi de boyle: ONCE KAPSAM, sonra kapsama gore
        degisen filtreler. Ayrica AB sekmesindeyken "Yerli mali belgem var" sorusu
        ANLAMSIZ (o 4734/Yerli Mali Tebligi kavrami) - artik gizleniyor. -->
@@ -195,7 +195,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
   </div>
 
   <div class="kutu">
-    <div id="profilBaslik" style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">PROFİLİN — TÜRKİYE İHALELERİ İÇİN</div>
+    <div id="profilBaslik" style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:8px">PROFİLİN, TÜRKİYE İHALELERİ İÇİN</div>
     <div class="grid3">
       <div><label for="sektor">Sektörün / ürün grubun</label><select id="sektor"></select></div>
       <div><label for="gtip">GTİP kodun (opsiyonel)</label><input type="text" id="gtip" placeholder="ör. 5208.52" inputmode="numeric"></div>
@@ -207,7 +207,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
       <label class="chk" id="yerliKutu"><input type="checkbox" id="yerli"> Yerli malı belgem var</label>
       <label class="chk"><input type="checkbox" id="kobi"> <span id="kobiEtiket">KOBİ'yim</span></label>
     </div>
-    <div id="abNot" style="display:none;font-size:11.5px;color:var(--dim);margin-top:8px">AB ihalelerinde <b style="color:var(--ink)">yerli malı belgesi</b> kavramı yoktur (o 4734 s. Kanun ve Yerli Malı Tebliği düzenidir) — bu yüzden gizlendi. AB'de KOBİ tanımı da farklıdır: <b style="color:var(--ink)">250'den az çalışan + 50 M€ ciro / 43 M€ bilanço</b> (2003/361/EC).</div>
+    <div id="abNot" style="display:none;font-size:11.5px;color:var(--dim);margin-top:8px">AB ihalelerinde <b style="color:var(--ink)">yerli malı belgesi</b> kavramı yoktur (o 4734 s. Kanun ve Yerli Malı Tebliği düzenidir), bu yüzden gizlendi. AB'de KOBİ tanımı da farklıdır: <b style="color:var(--ink)">250'den az çalışan + 50 M€ ciro / 43 M€ bilanço</b> (2003/361/EC).</div>
 
     <!-- 13.08 Cem onayi: KAYITLI ARAMA ucretsiz, e-posta bildirimi ucretli kalir.
          Rakip paritesi: SAM.gov (ABD) ve Find a Tender (İngiltere) kayitli aramayi
@@ -218,7 +218,7 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
         <!-- 14.08: dolgu 6px'ten 11px'e cikarildi - mobilde dugme 30px yuksekligindeydi,
              parmakla basmak icin onerilen alt sinir ~44px (olculdu). -->
         <button type="button" onclick="aramaKaydet()" style="background:transparent;border:1px solid var(--accent2);color:var(--accent2);font-weight:700;font-size:12.5px;padding:13px 14px;border-radius:8px;cursor:pointer">🔖 Bu aramayı kaydet</button>
-        <span style="font-size:11.5px;color:var(--dim)">Bir daha kurmana gerek kalmaz — tek tıkla geri gelir.</span>
+        <span style="font-size:11.5px;color:var(--dim)">Bir daha kurmana gerek kalmaz, tek tıkla geri gelir.</span>
       </div>
       <div id="kayitliSerit" style="margin-top:10px"></div>
     </div>
@@ -252,10 +252,10 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     <h2>İptal ve düzeltme ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· Kamu İhale Bülteni</span></h2>
     <div class="kutu">
       <div class="grid">
-        <div><label for="iknAra">Takip ettiğin ihalenin İKN'si (ör. 2026/1254015)</label><input type="text" id="iknAra" placeholder="İKN yaz — iptal ya da düzeltme var mı" oninput="bultenCiz()"></div>
+        <div><label for="iknAra">Takip ettiğin ihalenin İKN'si (ör. 2026/1254015)</label><input type="text" id="iknAra" placeholder="İKN yaz, iptal ya da düzeltme var mı" oninput="bultenCiz()"></div>
       </div>
       <div id="bultenListe"></div>
-      <div class="belg" id="bultenKaynak">Kaynak: Kamu İhale Bülteni (KİK) — 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri.</div>
+      <div class="belg" id="bultenKaynak">Kaynak: Kamu İhale Bülteni (KİK), 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri.</div>
     </div>
 
     <!-- 31.07 Cem: araclar da alt alta uzamasin - 4 arac karesi, tiklayinca acilir -->
@@ -343,7 +343,7 @@ function tab(t){
   const yk=document.getElementById('yerliKutu'); if(yk){ yk.style.display = abMi?'none':''; }
   const ke=document.getElementById('kobiEtiket'); if(ke){ ke.textContent = abMi?"KOBİ'yim (AB tanımı)":"KOBİ'yim"; }
   const an=document.getElementById('abNot'); if(an){ an.style.display = abMi?'':'none'; }
-  const pb=document.getElementById('profilBaslik'); if(pb){ pb.textContent = abMi?'PROFİLİN — AVRUPA (TED) İHALELERİ İÇİN':'PROFİLİN — TÜRKİYE İHALELERİ İÇİN'; }
+  const pb=document.getElementById('profilBaslik'); if(pb){ pb.textContent = abMi?'PROFİLİN, AVRUPA (TED) İHALELERİ İÇİN':'PROFİLİN, TÜRKİYE İHALELERİ İÇİN'; }
   // 13.08 Cem: sekmeye gecince liste KENDILIGINDEN gelsin. Dugmeye basilmadikce bos
   // duran ekran "ihale yok" sanildi. Rakiplerde (TED, Contracts Finder) liste hep acik.
   if(abMi){ kontrol(); }
@@ -360,9 +360,9 @@ function bultenCiz(){
   const hepsi=[].concat(BD.iptal||[], BD.duzeltme||[]);
   const suz = sayi ? hepsi.filter(x=>trFold2(String(x.ikn||'')).includes(sayi)||trFold2(String(x.isAdi||'')).includes(sayi)||trFold2(String(x.idare||'')).includes(sayi)) : hepsi;
   const ip=(BD.iptal||[]).length, dz=(BD.duzeltme||[]).length;
-  let h=`<div class="belg" style="margin:0 0 10px">Bu çekimde <b style="color:#ff9a9a">${ip} iptal</b> · <b style="color:#ffd27a">${dz} düzeltme</b> ilanı var. İKN, iş adı ya da idare adıyla ara — <b style="color:var(--ink)">teklif hazırladığın ihale iptal olmuşsa boşuna emek harcama</b>.</div>`;
+  let h=`<div class="belg" style="margin:0 0 10px">Bu çekimde <b style="color:#ff9a9a">${ip} iptal</b> · <b style="color:#ffd27a">${dz} düzeltme</b> ilanı var. İKN, iş adı ya da idare adıyla ara, <b style="color:var(--ink)">teklif hazırladığın ihale iptal olmuşsa boşuna emek harcama</b>.</div>`;
   if(!suz.length){
-    h += ara ? `<div class="kart" style="border-left-color:var(--dim)"><h3>Bu aramaya uyan iptal/düzeltme ilanı yok</h3><div class="belg">Bu, "ihalen iptal olmadı" anlamına gelmez — yalnız <b style="color:var(--ink)">bu çekimdeki bültenlerde</b> yok demektir. Kesin bilgi ${'<a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'}'tadır.</div></div>`
+    h += ara ? `<div class="kart" style="border-left-color:var(--dim)"><h3>Bu aramaya uyan iptal/düzeltme ilanı yok</h3><div class="belg">Bu, "ihalen iptal olmadı" anlamına gelmez, yalnız <b style="color:var(--ink)">bu çekimdeki bültenlerde</b> yok demektir. Kesin bilgi ${'<a href="https://ekapv2.kik.gov.tr/" target="_blank" rel="noopener" style="color:var(--accent2)">EKAP</a>'}'tadır.</div></div>`
                 : '<div class="belg">Bu çekimde iptal/düzeltme ilanı bulunmadı.</div>';
     k.innerHTML=h; return;
   }
@@ -379,7 +379,7 @@ function bultenCiz(){
       <div class="alt"><span class="gunroz belirsiz">${esc(x.tur||'')}</span><a href="https://ekapv2.kik.gov.tr/ekap/search" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:var(--accent2)">EKAP'ta aç →</a></div>
     </div>`;
   }).join('') + '</div>';
-  if(suz.length>24) h += `<div class="belg" style="margin-top:8px">${suz.length-24} ilan daha var — İKN ya da idare adıyla daralt.</div>`;
+  if(suz.length>24) h += `<div class="belg" style="margin-top:8px">${suz.length-24} ilan daha var, İKN ya da idare adıyla daralt.</div>`;
   k.innerHTML=h;
 }
 
@@ -487,7 +487,7 @@ async function veriYukle(){
   aramaSeridiCiz();  // kayitli aramalar sektor listesi dolduktan SONRA cizilir (ad icin gerekli)
   bultenCiz();
   if(BD&&BD.guncelleme){ const bk=document.getElementById('bultenKaynak'); const bm=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(BD.guncelleme);
-    if(bk&&bm) bk.innerHTML="Kaynak: Kamu İhale Bülteni (KİK) — 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri · son çekim: <b style=\"color:var(--ink)\">"+bm[1]+"</b>."; }
+    if(bk&&bm) bk.innerHTML="Kaynak: Kamu İhale Bülteni (KİK), 4734 s. Kanun m.13 uyarınca ilanların resmî yayın yeri · son çekim: <b style=\"color:var(--ink)\">"+bm[1]+"</b>."; }
 }
 // ---- yurt dışı ----
 function tarihTR(iso){ const p=(iso||'').split('-'); if(p.length!==3) return iso||'—'; return p[2]+'.'+p[1]+'.'+p[0]; }
@@ -518,7 +518,7 @@ async function kontrol(){
   else {
     // 31.07 Cem: "sahibinden gibi sik" - gorsel kart izgarasi; Kolin uyarisi kart
     // basina tekrar etmek yerine listenin ustunde BIR kez.
-    html+=`<div class="elig" style="margin:8px 0 4px">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024) — idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum. Her ilanda <b>katılım/menşe şartını</b> oku.</div><div class="igrid">`;
+    html+=`<div class="elig" style="margin:8px 0 4px">⚠ <b>Türk firması:</b> AB'de eşit muamele garantisi YOK (Kolin 2024), idare dışlayabilir/düşük puanlayabilir. En sağlam yol: AB'li ortak/konsorsiyum. Her ilanda <b>katılım/menşe şartını</b> oku.</div><div class="igrid">`;
     for(const i of bulunan){
       const kg=kalanGun(i.sonTeklif);
       let sinif='belirsiz', metin='tarih ilanda';
@@ -601,10 +601,10 @@ function yurtIciCiz(){
   // asıl ilana binen damga (iptal > düzeltme) — ihaleye gitmeden önce görülmesi gereken bilgi
   const damgaHtml=x=>{
     const d=damga[x.ilanNo];
-    if(d&&d.iptal) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ BU İHALE İPTAL EDİLDİ — iptal ilanı ${esc(d.iptal.ilanNo)}${d.iptal.tarih?' · '+esc(d.iptal.tarih):''} <a href="${esc(d.iptal.url)}" target="_blank" rel="noopener" style="color:#ff9a9a;text-decoration:underline">iptal metni →</a></div>`;
-    if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI — ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:#ffd27a;text-decoration:underline">düzeltme metnini oku →</a></div>`;
+    if(d&&d.iptal) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ BU İHALE İPTAL EDİLDİ, iptal ilanı ${esc(d.iptal.ilanNo)}${d.iptal.tarih?' · '+esc(d.iptal.tarih):''} <a href="${esc(d.iptal.url)}" target="_blank" rel="noopener" style="color:#ff9a9a;text-decoration:underline">iptal metni →</a></div>`;
+    if(d&&d.duzeltme) return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;font-weight:700">✏️ DÜZELTME İLANI YAYIMLANDI, ${esc(d.duzeltme.ilanNo)}${d.duzeltme.tarih?' · '+esc(d.duzeltme.tarih):''}; şartlar değişmiş olabilir, <a href="${esc(d.duzeltme.url)}" target="_blank" rel="noopener" style="color:#ffd27a;text-decoration:underline">düzeltme metnini oku →</a></div>`;
     // asıl ilanı havuzda olmayan düzeltme/iptal kaydı: açık ihale sanılmasın
-    if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?' — iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
+    if(x.durum==='iptal') return `<div class="belg" style="margin:6px 0 0;padding:6px 8px;border-radius:6px;background:rgba(220,60,60,.12);color:#ff9a9a;font-weight:700">⛔ Bu bir İPTAL ilanıdır${x.asilNo?', iptal edilen ihale: '+esc(x.asilNo):''}. Açık ihale değildir.</div>`;
     if(x.durum==='duzeltme'){
       // 14.08 Cem (ADM Elektrik kartı "hatalı görünüyor"): kart yalnız "bu bir
       // düzeltme ilanıdır" deyip bomboş kalıyordu. Düzeltme ilanında okunması
@@ -614,7 +614,7 @@ function yurtIciCiz(){
       if(dd.eskiTarih && dd.sonTeklif) par.push(`<b style="color:#ffd27a">Tarih değişti:</b> ${esc(dd.eskiTarih.replace(/\//g,'.'))} → <b style="color:var(--ink)">${esc(dd.sonTeklif)}</b>`);
       if(dd.degisenler) par.push(`<b style="color:#ffd27a">Değişen maddeler:</b> ${esc(String(dd.degisenler).slice(0,220))}`);
       if(dd.asilDosya) par.push(`<span style="color:var(--dim)">İdarenin dosya no: ${esc(dd.asilDosya)}</span>`);
-      return `<div class="belg" style="margin:6px 0 0;padding:7px 9px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;line-height:1.65"><b>✏️ Bu bir DÜZELTME ilanıdır</b>${x.asilNo?' — düzeltilen ihale: '+esc(x.asilNo):''}${par.length?'<br>'+par.join('<br>'):''}<br><span style="color:var(--muted);font-weight:400">Şartlar değişmiş olabilir; asıl ilan metnini de oku.</span></div>`;
+      return `<div class="belg" style="margin:6px 0 0;padding:7px 9px;border-radius:6px;background:rgba(240,180,40,.12);color:#ffd27a;line-height:1.65"><b>✏️ Bu bir DÜZELTME ilanıdır</b>${x.asilNo?', düzeltilen ihale: '+esc(x.asilNo):''}${par.length?'<br>'+par.join('<br>'):''}<br><span style="color:var(--muted);font-weight:400">Şartlar değişmiş olabilir; asıl ilan metnini de oku.</span></div>`;
     }
     return '';
   };
@@ -720,14 +720,14 @@ function yurtIciCiz(){
     if(i.maliyetUstu) p.push(`<span style="color:var(--amber)">${i.maliyetUstu} tanesi maliyetin üstünde kapandı</span>`);
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
       <b style="color:#7ee0a5">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}
-      <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b> — idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
     </div>`;
   };
   const detayHtml=x=>{
     const d=x.detay; if(!d) return '';
     const s=[];
     if(d.sonTeklif) s.push(`⏰ Son teklif: <b style="color:var(--ink)">${esc(d.sonTeklif)}</b>`);
-    if(d.eksiltme) s.push(`<span style="color:var(--amber)">🔻 ${esc(d.eksiltme)}</span> — fiyat kırma turu var, teklif stratejini buna göre kur`);
+    if(d.eksiltme) s.push(`<span style="color:var(--amber)">🔻 ${esc(d.eksiltme)}</span>, fiyat kırma turu var, teklif stratejini buna göre kur`);
     const kimlik=[];
     if(d.ikn) kimlik.push(`İKN <b style="color:var(--ink)">${esc(d.ikn)}</b>`);
     if(d.tur) kimlik.push(esc(d.tur));
@@ -737,7 +737,7 @@ function yurtIciCiz(){
     // Kullanici bunu bilmeden hareket ederse yanlis kapiyi calar - en kritik uyari bu.
     if(d.kapsam==='ozel'){
       s.push(`<span style="display:inline-block;margin-top:3px;padding:5px 9px;border-radius:7px;background:rgba(255,176,32,.13);color:var(--amber);font-weight:700">⚠ Bu ihale 4734 KAPSAMINDA DEĞİL</span>`);
-      s.push(`<span style="color:var(--muted)">Tabi olduğu düzen: <b style="color:var(--ink)">${esc(d.usul)}</b><br>Teminat oranı, yeterlik belgeleri ve <b style="color:var(--ink)">itiraz yolu</b> 4734'ten farklıdır — KİK'e itirazen şikâyet yolu burada işlemez. Şartlar ihale dokümanındadır.</span>`);
+      s.push(`<span style="color:var(--muted)">Tabi olduğu düzen: <b style="color:var(--ink)">${esc(d.usul)}</b><br>Teminat oranı, yeterlik belgeleri ve <b style="color:var(--ink)">itiraz yolu</b> 4734'ten farklıdır, KİK'e itirazen şikâyet yolu burada işlemez. Şartlar ihale dokümanındadır.</span>`);
     } else if(d.usul){
       const u=/(\d+)\s*[iı]nci|(\d+)\s*uncu/i.exec(d.usul); const md=u?(u[1]||u[2]):'';
       s.push(`Usul: <b style="color:var(--ink)">${/açık/i.test(d.usul)?'Açık ihale':/pazarlık/i.test(d.usul)?'Pazarlık':/belli/i.test(d.usul)?'Belli istekliler':esc(d.usul)}</b>${md?` (4734 m.${md})`:''}`);
@@ -770,7 +770,7 @@ function yurtIciCiz(){
       const sadeA=String(b.isAdi||'').replace(/[^\p{L}\p{N}]/gu,'').toLowerCase();
       const tekrarMi = !b.miktar || sadeM===sadeA || (sadeA && sadeM.indexOf(sadeA)===0 && sadeM.length < sadeA.length+15);
       if(tekrarMi){
-        bs.push(`<b style="color:var(--accent2)">Ne alınıyor:</b> <span style="color:var(--amber)">Bu ilan ürünü tarif etmiyor</span> — idare yalnız işin adını yazmış. Kalem listesi ve teknik özellikler ihale dokümanında.`);
+        bs.push(`<b style="color:var(--accent2)">Ne alınıyor:</b> <span style="color:var(--amber)">Bu ilan ürünü tarif etmiyor</span>, idare yalnız işin adını yazmış. Kalem listesi ve teknik özellikler ihale dokümanında.`);
       } else {
         // uzun tanım KESİLMEZ: kalem listesi tam da burada oluyor.
         // ROZET DENENDİ, KALDIRILDI: miktar sayısı zaten cümlenin BAŞINDA geçiyor,
@@ -813,10 +813,10 @@ function yurtIciCiz(){
       } else {
         bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz; bu ilanın süresinden <b style="color:var(--muted)">tavan da çıkarılamıyor</b> <span style="color:var(--dim)">(m.13 kısaltma hükümleri devrede)</span>`);
       }
-      if(b.ayrintiNerede) bs.push(`<span style="color:var(--dim)">📄 Kalem listesi ve teknik şartname ilanda değil, <b style="color:var(--muted)">${esc(b.ayrintiNerede)}</b>${b.dokumanErisim?' — '+esc(b.dokumanErisim):''}</span>`);
-      s.push(`<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.22);line-height:1.7">${bs.join('<br>')}<div style="font-size:11px;color:var(--dim);margin-top:6px">Kaynak: Kamu İhale Bülteni ${esc(b.ilanTarih||'')}${b.bultenSayi?' · Sayı '+esc(b.bultenSayi):''} — ilan metninde YAZAN bilgiler.</div></div>`);
+      if(b.ayrintiNerede) bs.push(`<span style="color:var(--dim)">📄 Kalem listesi ve teknik şartname ilanda değil, <b style="color:var(--muted)">${esc(b.ayrintiNerede)}</b>${b.dokumanErisim?', '+esc(b.dokumanErisim):''}</span>`);
+      s.push(`<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.22);line-height:1.7">${bs.join('<br>')}<div style="font-size:11px;color:var(--dim);margin-top:6px">Kaynak: Kamu İhale Bülteni ${esc(b.ilanTarih||'')}${b.bultenSayi?' · Sayı '+esc(b.bultenSayi):''}, ilan metninde YAZAN bilgiler.</div></div>`);
     } else {
-      s.push(`<span style="color:var(--dim)">Miktar ve teknik özellikler ilan metninde değil, <b style="color:var(--muted)">ihale dokümanındadır</b>${d.dokumanYer?` — <a href="${/^https?:/.test(d.dokumanYer)?esc(d.dokumanYer):'https://'+esc(d.dokumanYer)}" target="_blank" rel="noopener" style="color:var(--accent2)">${esc(d.dokumanYer)}</a>`:''}.</span>`);
+      s.push(`<span style="color:var(--dim)">Miktar ve teknik özellikler ilan metninde değil, <b style="color:var(--muted)">ihale dokümanındadır</b>${d.dokumanYer?`, <a href="${/^https?:/.test(d.dokumanYer)?esc(d.dokumanYer):'https://'+esc(d.dokumanYer)}" target="_blank" rel="noopener" style="color:var(--accent2)">${esc(d.dokumanYer)}</a>`:''}.</span>`);
     }
     return s.length? `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.75">${s.join('<br>')}</div>` : '';
   };
@@ -832,7 +832,7 @@ function yurtIciCiz(){
       <div class="m" style="filter:blur(5px);user-select:none"><b>${esc(x.kurum||'—')}</b></div></div>
     <div class="alt"><span class="gunroz belirsiz">${TUR_AD[x.tur]||'İhale'}</span><span style="font-size:12.5px;font-weight:700;color:var(--accent2)">Kilidi aç →</span></div>
   </div></a>`).join(''):'') + '</div>' + (fazla>0?`<div class="kart" style="border-left-color:var(--accent2)">
-    <h3>${il==='hepsi'?'Listede':esc(il)+"'de"} <span style="color:var(--accent2)">${fazla} ilan daha</span> var — kilidi ücretsiz üyelik açar</h3>
+    <h3>${il==='hepsi'?'Listede':esc(il)+"'de"} <span style="color:var(--accent2)">${fazla} ilan daha</span> var, kilidi ücretsiz üyelik açar</h3>
     <div class="belg">Üstelik yalnız liste değil: her ihale için <b style="color:var(--ink)">katılabilir miyim kontrolü, yerli malı avantajın, teminat hesabın ve kaybedersen itiraz yolun</b> aynı ekranda. İhale sitelerinin verdiği liste; bizim verdiğimiz karar.</div>
     <a class="btn" href="radar-app.html?niyet=ihale" style="text-decoration:none;margin-top:8px">Ücretsiz üye ol, hepsini gör →</a>
   </div>`:'');
@@ -853,12 +853,12 @@ function renderSorular(){
 }
 function cev(i,v){ cevaplar[i]=v; document.getElementById('e'+i).classList.toggle('on',v===1); document.getElementById('h'+i).classList.toggle('on',v===0); }
 function cevT(i){ cevaplar[i]=parseFloat(document.getElementById('t'+i).value.replace(/\./g,'').replace(/[^\d,]/g,'').replace(',','.'))||0; }
-function bentMetin(kaynak,bent){ const r=(K[kaynak]||[]).find(x=>x.bent===bent); return r?`m.${r.madde} (${bent}) — ${r.kisa}`:bent; }
+function bentMetin(kaynak,bent){ const r=(K[kaynak]||[]).find(x=>x.bent===bent); return r?`m.${r.madde} (${bent}), ${r.kisa}`:bent; }
 function katilimDegerlendir(){
   const es=borcEsik(); const e=[]; let borcYakin=false;
   SORULAR.forEach((s,i)=>{
     if(s.tip==='tutar'){ const th=es[s.esik]||5000; const val=cevaplar[i]||0;
-      if(val>th) s.b.forEach(b=>e.push(bentMetin(s.k,b)+` — borcun ${fmt(val)} TL, ${fmt(th)} TL eşiğini AŞIYOR`));
+      if(val>th) s.b.forEach(b=>e.push(bentMetin(s.k,b)+`, borcun ${fmt(val)} TL, ${fmt(th)} TL eşiğini AŞIYOR`));
       else if(val>0) borcYakin=true;
     } else if(cevaplar[i]===1) s.b.forEach(b=>e.push(bentMetin(s.k,b)));
   });
@@ -866,7 +866,7 @@ function katilimDegerlendir(){
   if(e.length){
     v.innerHTML=`<div class="verdict no">⛔ Bu haliyle ihale <b>DIŞI</b> bırakılırsın / katılamazsın:<br>${[...new Set(e)].map(x=>'• '+esc(x)).join('<br>')}<br><span style="font-weight:400;color:var(--muted);font-size:12.5px">Çözüm: borcu ${fmt(es.vergi)} TL altına indir/yapılandır (yapılandırılıp taksitleri aksatılmayan borç "kesinleşmiş" sayılmaz), sonra teklif ver.</span></div>`;
   } else {
-    const ek = borcYakin ? ` <span style="font-weight:400;color:var(--muted);font-size:12.5px">(Borcun var ama ${fmt(es.vergi)} TL eşiğinin altında — engel değil, ama ihale tarihine kadar aşmamaya dikkat.)</span>` : '';
+    const ek = borcYakin ? ` <span style="font-weight:400;color:var(--muted);font-size:12.5px">(Borcun var ama ${fmt(es.vergi)} TL eşiğinin altında, engel değil, ama ihale tarihine kadar aşmamaya dikkat.)</span>` : '';
     v.innerHTML=`<div class="verdict ok">✅ Bu sayaçlara göre engel yok.${ek}<br>Sıradaki adım: <b>yeterlik belgelerini</b> sağla + teklif bedelinin <b>%3'ü geçici teminat</b>. Kesin karar idarenin değerlendirmesine bağlıdır.</div>`;
   }
 }
@@ -879,7 +879,7 @@ function renderYerliMali(){
       <div class="belg">${esc(y.avantaj||'')}<br><br><b>${esc(y.zorunlu||'')}</b><br><br>${esc(y.yapimHizmet||'')}</div>
       <div class="satir"><b>Dayanak</b><span>4734 m.63</span></div></div>`;
   } else {
-    box.innerHTML=`<div class="kart dikkat"><span class="rozet dikkat">Fırsat</span><h3>Yerli malı belgesi al — %15'e kadar avantaj</h3>
+    box.innerHTML=`<div class="kart dikkat"><span class="rozet dikkat">Fırsat</span><h3>Yerli malı belgesi al, %15'e kadar avantaj</h3>
       <div class="belg">${esc(y.avantaj||'')} <b>${esc(y.zorunlu||'')}</b><br><br><b>Nasıl alınır:</b> ${esc(y.belge||'')}</div></div>`;
   }
 }
@@ -894,8 +894,8 @@ function teminatHesap(){
   const damga=Math.round(b*dk)+Math.round(b*ds);
   o.innerHTML=`<b>Geçici teminat (en az %3, m.33):</b> ${fmt(Math.round(b*0.03))} TL <span style="color:var(--dim)">(teklifle; sonra iade)</span><br>
     <b>Kesin teminat (%6, m.43):</b> ${fmt(Math.round(b*0.06))} TL <span style="color:var(--dim)">(kazanırsan; iş bitince iade)</span><br>
-    <b style="color:var(--amber)">Damga vergisi — ihale kararı (binde 5,69):</b> ${fmt(Math.round(b*dk))} TL<br>
-    <b style="color:var(--amber)">Damga vergisi — sözleşme (binde 9,48):</b> ${fmt(Math.round(b*ds))} TL<br>
+    <b style="color:var(--amber)">Damga vergisi, ihale kararı (binde 5,69):</b> ${fmt(Math.round(b*dk))} TL<br>
+    <b style="color:var(--amber)">Damga vergisi, sözleşme (binde 9,48):</b> ${fmt(Math.round(b*ds))} TL<br>
     <span style="color:var(--amber)">↳ Kazanınca cebinden çıkan GERÇEK maliyet (iade edilmez) ≈ <b>${fmt(damga)} TL</b> damga vergisi. Teklifine kat!</span>`;
 }
 // ---- şikayet / hap ----

@@ -50,7 +50,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="genc.html">Genç Müşavir</a> · Dönem Planı</div>
-  <h1>🗺️ Dönem Planı — SGS 2026/3</h1>
+  <h1>🗺️ Dönem Planı, SGS 2026/3</h1>
   <p class="lead">Sınav dönemi <b style="color:var(--ink)">3 ayda bir</b> gelir; kazananlar son haftaya değil, <b style="color:var(--ink)">döneme</b> çalışır. Bu sayfa kalan haftaları sayar ve her fazı, çıkmış soru haritasının gerçek ağırlıklarıyla doldurur.
   <span class="damga" id="haritaDamga">📊 Harita yükleniyor…</span></p>
 
@@ -60,9 +60,9 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
     <div class="skart"><div class="b" style="font-size:16px;padding-top:7px">21 Kasım 2026</div><div class="a">SGS 3. Dönem</div></div>
     <div class="skart"><div class="b" style="font-size:16px;padding-top:7px">21 Eyl – 9 Eki</div><div class="a">Başvuru penceresi</div></div>
   </div>
-  <div class="uyari"><b>Başvuruyu unutma:</b> başvuru penceresi sınavdan haftalar önce KAPANIR (21 Eylül – 9 Ekim 2026, TÜRMOB takvimi). Çalışıp da başvuramamak, her dönem yaşanan en acı hikâyedir — <a href="genc.html">takvim sayfasındaki</a> geri sayımı işaretle.</div>
+  <div class="uyari"><b>Başvuruyu unutma:</b> başvuru penceresi sınavdan haftalar önce KAPANIR (21 Eylül – 9 Ekim 2026, TÜRMOB takvimi). Çalışıp da başvuramamak, her dönem yaşanan en acı hikâyedir, <a href="genc.html">takvim sayfasındaki</a> geri sayımı işaretle.</div>
 
-  <h2>📅 Üç faz — kalan haftalara göre</h2>
+  <h2>📅 Üç faz, kalan haftalara göre</h2>
   <div id="fazlar"><div style="color:var(--dim);font-size:13px">Hesaplanıyor…</div></div>
 
   <h2>🔁 Haftalık ritim (her fazda aynı iskelet)</h2>
@@ -76,12 +76,12 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   </div>
 
   <h2>📚 Ders ders "sırayla çalış" listeleri</h2>
-  <p style="font-size:13px;color:var(--muted);margin:0 0 4px">Sıralama, son sınavlarda o konudan çıkan soru sayısına göredir — en çok soru getiren en önde. Yeni dönem analiz edildikçe listeler kendiliğinden güncellenir.</p>
+  <p style="font-size:13px;color:var(--muted);margin:0 0 4px">Sıralama, son sınavlarda o konudan çıkan soru sayısına göredir, en çok soru getiren en önde. Yeni dönem analiz edildikçe listeler kendiliğinden güncellenir.</p>
   <div id="dersListeleri"></div>
 
   <div class="paket">
     <h2>🎓 Sınav Paketi ile bu plan yaşayan sisteme döner</h2>
-    <div style="font-size:13.5px;color:var(--muted)">Plan iskeleti herkese açık. Pakette (<b style="color:var(--ink)"><a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a></b> — sınav gününe kadar her şey dahil): büyüyen <b style="color:var(--ink)">soru bankası</b> her şıkkın gerekçesiyle, konu konu <b style="color:var(--ink)">hap kartlar</b>, yanlışlarından kurulan kişisel tekrar listesi ve <a href="songun.html">Son Gün 5 Saat</a> finali. Açılışta ilk kayıt olanlara Kurucu Üye şartları geçerli.</div>
+    <div style="font-size:13.5px;color:var(--muted)">Plan iskeleti herkese açık. Pakette (<b style="color:var(--ink)"><a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a></b>, sınav gününe kadar her şey dahil): büyüyen <b style="color:var(--ink)">soru bankası</b> her şıkkın gerekçesiyle, konu konu <b style="color:var(--ink)">hap kartlar</b>, yanlışlarından kurulan kişisel tekrar listesi ve <a href="songun.html">Son Gün 5 Saat</a> finali. Açılışta ilk kayıt olanlara Kurucu Üye şartları geçerli.</div>
     <a class="cta" href="genc.html">Açılınca haber ver →</a>
   </div>
 
@@ -111,9 +111,9 @@ var SINAV = new Date('2026-11-21T00:00:00');
     var f1=Math.max(1,Math.round(h*0.5)), f3=Math.max(1,Math.round(h*0.2)), f2=Math.max(1,h-f1-f3);
     var pay=function(a){ return Math.round(100*(ders[a]||0)/toplam); };
     var fz='';
-    fz+='<div class="faz"><span class="fk">FAZ 1 · TEMEL — '+f1+' hafta</span><b>Muhasebe + Hukuk çekirdeği.</b> Haritada iki ders toplam soruların %'+(pay('Muhasebe')+pay('Hukuk'))+"'ini getiriyor — temel bu ikisinin üstüne kurulur. Her hafta ritim iskeletiyle: ana ders Muhasebe, ikinci ders Hukuk, yan ders dönüşümlü.</div>";
-    fz+='<div class="faz"><span class="fk">FAZ 2 · GENİŞLEME — '+f2+' hafta</span><b>Ekonomi, Maliye, Matematik-İstatistik devreye girer;</b> Muhasebe-Hukuk tekrarla sıcak tutulur. Deneme günü artık karma (tüm dersler).</div>';
-    fz+='<div class="faz"><span class="fk">FAZ 3 · SPRİNT — '+f3+' hafta</span><b>Zayıf konu kapatma:</b> deneme karnelerindeki yanlış listen programın kendisi olur. GK-Türkçe ve Yabancı Dil taktiği bu faza girer (ağırlıkları düşük — %13,33 + %6,67). Son 24 saat: <a href="songun.html">Son Gün 5 Saat</a>.</div>';
+    fz+='<div class="faz"><span class="fk">FAZ 1 · TEMEL, '+f1+' hafta</span><b>Muhasebe + Hukuk çekirdeği.</b> Haritada iki ders toplam soruların %'+(pay('Muhasebe')+pay('Hukuk'))+"'ini getiriyor, temel bu ikisinin üstüne kurulur. Her hafta ritim iskeletiyle: ana ders Muhasebe, ikinci ders Hukuk, yan ders dönüşümlü.</div>";
+    fz+='<div class="faz"><span class="fk">FAZ 2 · GENİŞLEME, '+f2+' hafta</span><b>Ekonomi, Maliye, Matematik-İstatistik devreye girer;</b> Muhasebe-Hukuk tekrarla sıcak tutulur. Deneme günü artık karma (tüm dersler).</div>';
+    fz+='<div class="faz"><span class="fk">FAZ 3 · SPRİNT, '+f3+' hafta</span><b>Zayıf konu kapatma:</b> deneme karnelerindeki yanlış listen programın kendisi olur. GK-Türkçe ve Yabancı Dil taktiği bu faza girer (ağırlıkları düşük, %13,33 + %6,67). Son 24 saat: <a href="songun.html">Son Gün 5 Saat</a>.</div>';
     document.getElementById('fazlar').innerHTML=fz;
     // ders ders siralama listeleri (alan dersleri, agirlik sirali)
     var alan=['Muhasebe','Hukuk','Ekonomi','Maliye','Matematik-Istatistik'];
@@ -123,7 +123,7 @@ var SINAV = new Date('2026-11-21T00:00:00');
       var list=Object.entries(konular).filter(function(e){ return e[0].indexOf(a+'|')===0; })
         .sort(function(x,y){ return y[1]-x[1]; }).slice(0,10)
         .map(function(e,i){ return (i+1)+'. '+e[0].split('|')[1]; });
-      out+='<div class="tablosar" style="margin-top:10px"><table><tr><th>'+a+' — '+ders[a]+' soru (%'+pay(a)+')</th></tr><tr><td style="font-size:13px;color:var(--muted)">'+list.join(' &nbsp;·&nbsp; ')+'</td></tr></table></div>';
+      out+='<div class="tablosar" style="margin-top:10px"><table><tr><th>'+a+', '+ders[a]+' soru (%'+pay(a)+')</th></tr><tr><td style="font-size:13px;color:var(--muted)">'+list.join(' &nbsp;·&nbsp; ')+'</td></tr></table></div>';
     });
     document.getElementById('dersListeleri').innerHTML=out;
   }).catch(function(){});
