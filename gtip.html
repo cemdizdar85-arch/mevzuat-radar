@@ -332,8 +332,8 @@ function otvKart(kod){
     const eslesti = otvKodlar.some(k => d.startsWith(k) || k.startsWith(d));
     if(!eslesti){
       return `<div style="margin-top:12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
-        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV, bu alt kod büyük olasılıkla DIŞINDA</div>
-        <div style="font-size:12px;color:var(--muted);line-height:1.5">${htmlEsc(rec.kapsamNot||('Bu pozisyonda ÖTV yalnız bazı alt kodları kapsar; bu kod muhtemelen dışında.'))} <b style="color:var(--ink)">Kesin kapsam için GİB ÖTV listesine / gümrük müşavirine teyit et.</b></div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:6px">ⓘ ÖTV KAPSAMINI TEYİT ET</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">${htmlEsc(rec.kapsamNot||('Bu pozisyonda ÖTV yalnız bazı alt kodları kapsar; bu kodun kapsamda olup olmadığı bu araçtan kesinleşmez.'))} <b style="color:var(--ink)">Kesin kapsam için GİB ÖTV (4760 s.K.) listesine / gümrük müşavirine teyit et.</b></div>
       </div>`;
     }
   }
