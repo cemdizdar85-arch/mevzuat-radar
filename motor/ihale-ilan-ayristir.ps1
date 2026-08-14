@@ -368,8 +368,7 @@ if($Yaz){
   # kartin OKUDUGU 15 alan; digerleri yazilmaz (cogu zaten ihale-yurtici.json
   # icindeki detay alaninda var - mukerrer tasiniyordu)
   $siteAlan = @('ikn','isAdi','miktar','ayrintiNerede','dokumanErisim','ekonomik',
-                'teknik','benzerIs','isDeneyimi','yerliMali','maliyetTavan',
-                'maliyetGun','maliyetDayanak','ilanTarih','bultenSayi')
+                'teknik','benzerIs','isDeneyimi','yerliMali','ilanTarih','bultenSayi')
   # TEKNIK ALANI SADELESTIRME (14.08 Cem "kozmetik kusuru duzelt"):
   # "Ne istiyorlar" satiri teknik yeterlikte ISTENEN OZEL BELGEYI gostermeli
   # ("Tıbbi Cihaz Satış Merkezi Yetki Belgesi" gibi). Ama teknik alani her ilanda

@@ -808,11 +808,13 @@ function yurtIciCiz(){
       // YAKLASIK MALIYET: ilanda ACIKLANMAZ. Cikarilabilen tek sey TAVAN - gerekcesi
       // motor/ihale-ilan-ayristir.ps1 MaliyetTavan() icinde ambar atifli yazili.
       // Cikarilamiyorsa RAKAM YAZILMAZ, "cikarilamiyor" yazilir.
-      if(b.maliyetTavan){
-        bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz. Ama ${b.maliyetGun} günlük ilan süresi yaklaşık maliyeti <b style="color:var(--ink)">en fazla ${Number(b.maliyetTavan).toLocaleString('tr-TR')} TL</b> ile sınırlar <span style="color:var(--dim)">(4734 m.13/${esc(String(b.maliyetDayanak||'').replace('m.13/',''))} + 2026/1 Tebliği)</span>`);
-      } else {
-        bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz; bu ilanın süresinden <b style="color:var(--muted)">tavan da çıkarılamıyor</b> <span style="color:var(--dim)">(m.13 kısaltma hükümleri devrede)</span>`);
-      }
+      // 14.08 Cem "%100 doğru veri olmadan koymayalım" + GM kararı: yaklaşık
+      // maliyet TAVANI bir ÇIKARIMDI (m.13'ten hesap), kaynakta yazan bir tutar
+      // DEĞİL. Kaldırıldı. Yerine kartın altındaki "Bu iş gerçekte kaça yapılıyor?"
+      // kutusu geçmiş SONUÇ ilanlarından GERÇEK bedel/kırımı gösteriyor (kaynakta
+      // yazan, %100). Burada yalnız "ilanla açıklanmaz" gerçeği söylenir, rakam
+      // uydurulmaz/çıkarılmaz.
+      bs.push(`<b style="color:var(--accent2)">Bedel:</b> ilanla açıklanmaz (4734). Benzer işlerin <b style="color:var(--muted)">gerçek bedeli ve kırımı</b> aşağıda.`);
       if(b.ayrintiNerede) bs.push(`<span style="color:var(--dim)">📄 Kalem listesi ve teknik şartname ilanda değil, <b style="color:var(--muted)">${esc(b.ayrintiNerede)}</b>${b.dokumanErisim?', '+esc(b.dokumanErisim):''}</span>`);
       s.push(`<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.22);line-height:1.7">${bs.join('<br>')}<div style="font-size:11px;color:var(--dim);margin-top:6px">Kaynak: Kamu İhale Bülteni ${esc(b.ilanTarih||'')}${b.bultenSayi?' · Sayı '+esc(b.bultenSayi):''}, ilan metninde YAZAN bilgiler.</div></div>`);
     } else {
