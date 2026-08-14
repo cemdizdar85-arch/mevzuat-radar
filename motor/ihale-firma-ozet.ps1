@@ -53,33 +53,59 @@ foreach($k in $grup.Keys){
   if($ihaleler.Count -lt $AsgariGoster){ continue }
   # gorunen ad: en uzun/tam yazim (normalize kayipsiz olsun diye orijinali tut)
   $gorunenAd = ($ihaleler | Sort-Object { "$($_.yuklenici)".Length } -Descending | Select-Object -First 1).yuklenici
-  $bedeller = @($ihaleler | Where-Object { $_.sozlesmeBedeli } | ForEach-Object { [double]$_.sozlesmeBedeli })
-  $kirimlar = @($ihaleler | Where-Object { $null -ne $_.kirimYuzde } | ForEach-Object { [double]$_.kirimYuzde })
-  $kurumlar = @($ihaleler | Where-Object { $_.idare } | ForEach-Object { "$($_.idare)".Trim() } | Select-Object -Unique)
+
+  # ==== KISIMLI IHALE DUZELTMESI (14.08 Cem, ekranda gorundu) ================
+  # Sonuc ilanlarinin %78'i kismi teklife acik: bir ihale kisimlara bolunup her
+  # kisim AYRI sozlesme olarak yayimlaniyor (ayni IKN, ayni yaklasik maliyet).
+  # Onceden her kisim ayri "is" sayiliyordu; FMB Hirdavat "8 is aldi" diyordu ama
+  # 5'i AYNI Eskisehir ihalesinin kisimlariydi. Ustelik her kisimda tam ihalenin
+  # yaklasik maliyeti (92 M) gosterilince "kisim bedeli / tam maliyet = %98 kirim"
+  # gibi yaniltici gorunuyordu.
+  # DOGRUSU: firma icinde IKN bazinda grupla. Ayni IKN'nin kisimlari TEK ihale;
+  # firmanin o ihaleden aldigi is = kisim bedellerinin TOPLAMI. Kisimliysa
+  # yaklasik maliyet GOSTERILMEZ (kisim toplami tam maliyeti vermez) ve kirim
+  # hesaplanmaz.
+  $iknGrup = [ordered]@{}
+  foreach($ih in $ihaleler){ $ik = "$($ih.ikn)"; if(-not $iknGrup.Contains($ik)){ $iknGrup[$ik] = New-Object Collections.ArrayList }; [void]$iknGrup[$ik].Add($ih) }
+
   $ihListe = New-Object Collections.ArrayList
-  foreach($ih in ($ihaleler | Sort-Object { "$($_.sozlesmeTarih)" } -Descending)){
-    # KOZMETIK: bazi sonuc ilanlarinda is adi "...İlaç Alımı Alımı" gibi ARDISIK
-    # kelime tekrariyla geliyor (kaynak metninde baslik iki kez akiyor). Ardisik
-    # ayni kelime tekilleştirilir - anlam degismez, gorunum duzelir.
-    $isAd = ("$($ih.isAdi)".Trim()) -replace '\b(\p{L}{3,})\s+\1\b', '$1'
+  $bedeller = @(); $kirimlar = @(); $kurumSet = @{}
+  foreach($ik in $iknGrup.Keys){
+    $kisimlar = @($iknGrup[$ik])
+    $ilk = $kisimlar[0]
+    $kisimBedel = @($kisimlar | Where-Object { $_.sozlesmeBedeli } | ForEach-Object { [double]$_.sozlesmeBedeli })
+    $toplamKisimBedel = $(if($kisimBedel.Count){ [math]::Round(($kisimBedel | Measure-Object -Sum).Sum, 2) } else { $null })
+    $cokKisim = $kisimlar.Count -gt 1
+    # KOZMETIK: ardisik kelime tekrari ("İlaç Alımı Alımı") tekillestirilir
+    $isAd = ("$($ilk.isAdi)".Trim()) -replace '\b(\p{L}{3,})\s+\1\b', '$1'
+    if("$($ilk.idare)".Trim()){ $kurumSet["$($ilk.idare)".Trim()] = 1 }
+    if($toplamKisimBedel){ $bedeller += $toplamKisimBedel }
+    # kirim: yalniz TEK kisimli ihalede (kismiliyse tam maliyet guvenilir degil)
+    $ihKirim = $(if(-not $cokKisim -and $null -ne $ilk.kirimYuzde){ [double]$ilk.kirimYuzde } else { $null })
+    if($null -ne $ihKirim){ $kirimlar += $ihKirim }
     [void]$ihListe.Add([ordered]@{
-      ikn = $ih.ikn; tur = $ih.tur
+      ikn = $ilk.ikn; tur = $ilk.tur
       isAdi = $isAd
-      idare = "$($ih.idare)".Trim()
-      tarih = $ih.sozlesmeTarih
-      bedel = $ih.sozlesmeBedeli
-      yaklasik = $ih.yaklasikMaliyet
-      kirim = $ih.kirimYuzde
-      teklif = $ih.teklifSayisi
+      idare = "$($ilk.idare)".Trim()
+      tarih = $ilk.sozlesmeTarih
+      bedel = $toplamKisimBedel
+      yaklasik = $(if($cokKisim){ $null } else { $ilk.yaklasikMaliyet })   # kisimliysa gizle
+      kirim = $ihKirim
+      teklif = $ilk.teklifSayisi
+      kisimSayisi = $kisimlar.Count
     })
   }
+  # en yeni sozlesme once
+  $ihListe = @($ihListe | Sort-Object { "$($_.tarih)" } -Descending)
+
   [void]$firmalar.Add([ordered]@{
     ad = $gorunenAd
-    ihaleSayisi = $ihaleler.Count
+    ihaleSayisi = $iknGrup.Count              # benzersiz IKN = gercek ihale sayisi
+    kisimliKayit = $ihaleler.Count            # ham kayit (kisimlar dahil) - seffaflik
     toplamBedel = $(if($bedeller.Count){ [math]::Round(($bedeller | Measure-Object -Sum).Sum, 2) } else { $null })
     ortKirim = $(if($kirimlar.Count){ [math]::Round(($kirimlar | Measure-Object -Average).Average, 1) } else { $null })
     kirimOlculen = $kirimlar.Count
-    kurumSayisi = $kurumlar.Count
+    kurumSayisi = $kurumSet.Count
     ihaleler = @($ihListe)
   })
 }

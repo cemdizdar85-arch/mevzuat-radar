@@ -86,7 +86,7 @@ function ciz(q){
   box.innerHTML = liste.map(function(f,i){
     var vurgu=function(ad){ if(!qf) return esc(ad); var idx=trFold(ad).indexOf(qf); if(idx<0) return esc(ad); return esc(ad.slice(0,idx))+'<mark>'+esc(ad.slice(idx,idx+q.length))+'</mark>'+esc(ad.slice(idx+q.length)); };
     var roz=[];
-    roz.push('<span class="rz"><b>'+f.ihaleSayisi+'</b> iş aldı</span>');
+    roz.push('<span class="rz"><b>'+f.ihaleSayisi+'</b> ihale aldı'+((f.kisimliKayit&&f.kisimliKayit>f.ihaleSayisi)?' <span style="color:var(--dim)">('+f.kisimliKayit+' kısım)</span>':'')+'</span>');
     if(f.toplamBedel) roz.push('<span class="rz">toplam <b>'+tl(f.toplamBedel)+'</b></span>');
     if(f.ortKirim!=null) roz.push('<span class="rz yesil">ort. kırım <b>%'+vr(f.ortKirim)+'</b><span style="color:var(--dim)"> ('+f.kirimOlculen+' işte)</span></span>');
     if(f.kurumSayisi) roz.push('<span class="rz"><b>'+f.kurumSayisi+'</b> kurumla</span>');
@@ -94,6 +94,7 @@ function ciz(q){
     var ihHtml=(f.ihaleler||[]).map(function(ih){
       var alt=[];
       if(ih.bedel) alt.push('<span class="bedel">'+tl(ih.bedel)+'</span>');
+      if(ih.kisimSayisi>1) alt.push('<span style="color:var(--dim)">'+ih.kisimSayisi+' kısım toplamı</span>');
       if(ih.yaklasik&&ih.bedel) alt.push('yak. maliyet '+tl(ih.yaklasik));
       if(ih.kirim!=null) alt.push('<span class="kirim">%'+vr(ih.kirim)+' kırım</span>');
       if(ih.teklif) alt.push(ih.teklif+' teklif');
