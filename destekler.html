@@ -312,16 +312,21 @@ function kartHtml(p, acik){
 // az sayida) eskisi gibi ACIK kart kalir - oneri saklanmaz.
 function ciz(){
   const liste = document.getElementById('liste');
+  // 14.08 Cem "sayacı diğer yerlere de uygula": filtrelenince kaç program
+  // kaldığını üstte anında say. Kurum başlıklarındaki "· N program" korunur;
+  // bu, toplam görünürlüğü ekler.
+  const say=(n,ek)=>'<div style="margin:0 0 4px;font-size:14px"><b style="color:var(--accent2);font-size:17px">'+n+'</b> program'+(ek?' <span style="color:var(--dim)">· '+ek+'</span>':'')+'</div>';
   if(UYGUNLAR){
-    liste.innerHTML = UYGUNLAR.map(p=>kartHtml(p,true)).join('')
-      || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`;
+    liste.innerHTML = (UYGUNLAR.length?say(UYGUNLAR.length,'profiline uydu'):'') + (UYGUNLAR.map(p=>kartHtml(p,true)).join('')
+      || `<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`);
     return;
   }
   const veri = SECILI==="hepsi" ? PROGRAMLAR : PROGRAMLAR.filter(p=>p.asama.includes(SECILI));
   if(!veri.length){ liste.innerHTML=`<div class="kart"><h3>Bu filtreye uygun program bulunamadı.</h3><p>Tüm programlar için "Tümü"ne dön.</p></div>`; return; }
+  const sayBas = say(veri.length, SECILI==='hepsi'?'tüm aşamalar':(ETIKET[SECILI]||SECILI));
   const gruplar=[];
   veri.forEach(p=>{ let g=gruplar.find(x=>x.k===p.kurum); if(!g){ g={k:p.kurum,list:[]}; gruplar.push(g); } g.list.push(p); });
-  liste.innerHTML = gruplar.map(g=>
+  liste.innerHTML = sayBas + gruplar.map(g=>
     `<div style="font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--accent2);margin:20px 0 8px">${g.k} <span style="color:var(--dim);font-weight:600">· ${g.list.length} program</span></div>`+
     `<div class="dkgrid">`+g.list.map(p=>{ const i=PROGRAMLAR.indexOf(p);
       return `<div class="dkare" id="dk_${i}" onclick="dAc(${i})"><b>${p.ad}</b><span>${p.asama.map(a=>ETIKET[a]||a).join(' · ')}</span></div>`; }).join('')+`</div>`+

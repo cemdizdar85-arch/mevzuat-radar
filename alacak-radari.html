@@ -300,6 +300,12 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
   // eşleşmeyen sorguları da göster (temiz)
   const eslesmisSorgu = new Set(bulunan.map(x=>x.eslesen.ham));
   let html = '<h2>Tarama sonucu</h2>';
+  // 14.08 Cem "sayacı diğer yerlere de uygula": tarama sonucu anında ölçülür.
+  // Kaç kayıtta risk çıktı, kaç sorgudan kaçı temiz — sonuç kartlarına inmeden görülür.
+  const riskN = bulunan.length, taranan = sorgular.length, temizN = taranan - eslesmisSorgu.size;
+  if(bulunan.length){
+    html += '<div style="margin:0 0 12px;font-size:14px"><b style="color:var(--red);font-size:17px">'+riskN+'</b> kayıtta risk bulundu <span style="color:var(--dim)">· '+temizN+'/'+taranan+' sorgu temiz</span></div>';
+  }
   if(!bulunan.length){
     html += '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Bu, örnek (tohum) veriye göredir. Canlı abonelikte robot her gün tüm resmî ilanları tarar ve yeni bir ilan çıktığı an seni uyarır.</div></div>';
   } else {
@@ -323,6 +329,11 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
     if(temizler.length){ html += `<div class="belg" style="margin-top:6px">Diğer ${temizler.length} kayıtta ilan yok (bu örnek veriye göre).</div>`; }
   }
   box.innerHTML = html;
+  // sonuç görünür alana insin (buton tetikli, her yerde güvenli)
+  const y = box.getBoundingClientRect().top + window.scrollY - 80;
+  try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
+  const bas = window.scrollY;
+  setTimeout(function(){ if(Math.abs(window.scrollY-bas)<2 && Math.abs(bas-y)>4) window.scrollTo(0,y); }, 260);
 }
 </script>
 </div>
