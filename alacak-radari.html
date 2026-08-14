@@ -123,18 +123,36 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet
   // ilanına uyar. Ret/kaldırma/tasdik ya da salt duruşma-günü ilanına 15-gün
   // YAZILMAZ (yanlış hüküm olur). Uymayan konkordato ilanına nötr not verilir.
-  function aiKonkKayit(x){
-    if(x.tur!=='konkordato') return false;
+  // 14.08 SÜRE SINIFLANDIRMASI (hepsi birincil İİK metninden, mevzuat.gov.tr):
+  //  m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·
+  //  m.235 sıra cetveline itiraz 7 gün · m.218 basit tasfiye süre İLANDA (20g-2ay).
+  //  Yalnız SABİT kuralı olan ilana geri sayım; toplantı/duruşma/ret/tasdik/sonuç
+  //  ilanına YAZILMAZ (yanlış hüküm olur), belirsiz olana nötr not.
+  function aiSure(x){
     var b=(x.baslik||'').toLocaleLowerCase('tr');
-    // TOPLANTI (m.301, belirli gün) ve DURUŞMA ilanı 15-gün DEĞİLDİR; ret/tasdik de.
-    if(/red|ret|kaldır|tasdik|fesh|iflas|toplantı|duruşma/.test(b)) return false;
-    // yalnız komiserin "alacaklarını bildir/kaydet" çağrısı = m.299'un 15 günü.
-    return /alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b);
+    if(x.tur==='konkordato'){
+      if(/red|ret|kaldır|tasdik|fesh|iflas|toplantı|duruşma/.test(b)) return null;
+      if(/alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b))
+        return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün'};
+      return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.'};
+    }
+    if(x.tur==='iflas'){
+      // sonuç/kapanış ilanları: süre yok
+      if(/kaldır|kapanma|kapandı|kapanmasına|tamamlan|paraya çevr|satış|ihale ilanı|tescil|kesinleş|onaylan/.test(b)) return null;
+      if(/sıra cetvel/.test(b))
+        return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün'};
+      if(/basit tasfiye/.test(b))
+        return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.'};
+      if(/iflasın açılması|adi tasfiye|alacaklarını.*(kaydet|bildir)|alacaklıları.*davet|alacak kayd/.test(b))
+        return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay'};
+      return null;
+    }
+    return null;
   }
-  function aiGunKalan(tarihStr, ekle){
+  function aiSonTarih(tarihStr, opt){
     var p=(tarihStr||'').split('.'); if(p.length!==3) return null;
     var d=new Date(+p[2],+p[1]-1,+p[0]); if(isNaN(d.getTime())) return null;
-    d.setDate(d.getDate()+ekle);
+    if(opt.ay) d.setMonth(d.getMonth()+opt.ay); else d.setDate(d.getDate()+(opt.gun||0));
     var bugun=new Date(); bugun.setHours(0,0,0,0);
     var kalan=Math.round((d-bugun)/86400000);
     var iki=function(n){return String(n).padStart(2,'0');};
@@ -174,19 +192,19 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
     kutu.innerHTML = suz.slice(0,40).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
-      var sure='';
-      if(aiKonkKayit(x)){
-        var g=aiGunKalan(x.tarih,15);
+      var sure='', kural=aiSure(x);
+      if(kural && kural.not){
+        sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ '+kural.not+'</div>';
+      } else if(kural){
+        var g=aiSonTarih(x.tarih, kural);
         if(g){
           var renk = g.kalan<=3?'var(--red)':(g.kalan<=7?'var(--amber)':'var(--green)');
           var mesaj;
-          if(g.kalan>0) mesaj='Alacak kaydına <b style="color:'+renk+'">'+g.kalan+' gün</b> kaldı';
-          else if(g.kalan===0) mesaj='Alacak kaydı için <b style="color:var(--red)">son gün BUGÜN</b>';
-          else mesaj='<b style="color:var(--dim)">15 günlük kayıt süresi geçmiş görünüyor</b>';
-          sure='<div style="margin-top:7px;font-size:12.5px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.28);border-radius:8px;padding:7px 10px">⏳ '+mesaj+' <span style="color:var(--dim)">(m.299 · ilan tarihinden 15 gün, son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
+          if(g.kalan>0) mesaj=kural.tip+': <b style="color:'+renk+'">'+g.kalan+' gün</b> kaldı';
+          else if(g.kalan===0) mesaj=kural.tip+': <b style="color:var(--red)">son gün BUGÜN</b>';
+          else mesaj=kural.tip+': <b style="color:var(--dim)">süre geçmiş görünüyor</b>';
+          sure='<div style="margin-top:7px;font-size:12.5px;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.28);border-radius:8px;padding:7px 10px">⏳ '+mesaj+' <span style="color:var(--dim)">('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</span></div>';
         }
-      } else if(x.tur==='konkordato'){
-        sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.</div>';
       }
       return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
         '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+
@@ -237,6 +255,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <p style="color:var(--dim);font-size:11.5px;margin-top:10px">Kaynak: 2004 s. İİK m.294/299/302/303/305/306/308 (28/2/2018-7101 ile güncel); birincil metinden okundu. Kesin işlem için avukatına danış.</p>
     </div>
   </details>
+
+  <h2>Uluslararası standart: sürekli izleme + erken uyarı</h2>
+  <div class="kutu">
+    <div style="font-size:13px;color:var(--muted);line-height:1.6">ABD'de Bankruptcy Noticing Center, İngiltere'de The Gazette ve büyük kredi izleme firmaları (Dun &amp; Bradstreet, Creditsafe) tek bir modeli kurar: <b style="color:var(--ink)">borçlu portföyünü bir kez ver, her gün otomatik izlensin</b>. Tetikte bunu iki katmanda getiriyor.</div>
+    <div class="adim" style="margin-top:13px"><span class="no" style="background:linear-gradient(135deg,#3ddc97,#ffc24b)">1</span><div><b style="color:var(--ink)">Sürekli izleme (abonelik).</b> Borçlularını bir kez kaydet; robot her gün resmî iflas/konkordato ilanlarını tarasın, biri düştüğü gün <b style="color:var(--ink)">mahkeme, dosya ve son gün</b> ile e-postana gelsin. <span style="color:var(--dim)">Yurt dışındaki "monitor once, alert forever" modelinin Türkiye karşılığı.</span></div></div>
+    <div class="adim"><span class="no" style="background:rgba(255,176,32,.35)">2</span><div><b style="color:var(--ink)">Erken uyarı</b> <span style="font-size:11px;color:var(--amber);border:1px solid rgba(255,176,32,.4);border-radius:6px;padding:1px 7px">yol haritası</span> Asıl kıymet, iflastan <b style="color:var(--ink)">önce</b> yakalamakta: protesto, ödememe ve dava sinyalleri. Bu veriler açık değildir (Risk Merkezi / Findeks = ücretli); veri kaynağı bağlandığında abonelere açılacak. <span style="color:var(--dim)">Dun &amp; Bradstreet'in erken uyarı katmanının karşılığı.</span></div></div>
+  </div>
 
   <div class="cta">
     <h3>Bir müşterinin batması, alacağının tamamı demek</h3>
