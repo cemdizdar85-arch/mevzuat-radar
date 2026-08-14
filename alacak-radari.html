@@ -185,8 +185,24 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 BU ÇEKİMİN MAKRO SİNYALİ</div>'
       +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
       +satir
-      +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir. (Merkez Bankası protesto/çek verisi, EVDS API göçü tamamlanınca eklenecek.)</div>'
+      +'<div id="aiResmi"></div>'
+      +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
       +'</div>';
+    // RESMÎ KATMAN: TBB Risk Merkezi aylık bülteninden (protesto senet + karşılıksız
+    // çek). Rakamlar bültende infografik; robot yeni bülteni yakalayıp teyit sinyali
+    // atar, elle teyit sonrası risk-merkezi.json güncellenir -> yalnız teyitli rakam.
+    fetch('veri/risk-merkezi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+      var el=document.getElementById('aiResmi'); if(!el||!d||!d.veriler) return;
+      var v=d.veriler, tl=function(n){return Number(n).toLocaleString('tr-TR');};
+      el.innerHTML='<div style="margin-top:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(61,220,151,.08),transparent),var(--panel2);border:1px solid rgba(61,220,151,.22);border-radius:10px">'
+        +'<div style="font-size:12px;font-weight:800;color:var(--green)">🏦 RESMÎ: TBB RİSK MERKEZİ · '+aiKac(d.donem)+'</div>'
+        +'<div style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.7">'
+        +'Protesto edilen senet: <b style="color:var(--ink)">'+tl(v.protestoSenetTutarMilyarTL)+' Milyar TL</b><br>'
+        +'Karşılıksız işlemi yapılan çek: <b style="color:var(--ink)">'+tl(v.karsilaksizCekTutarMilyarTL)+' Milyar TL</b> <span style="color:var(--dim)">(bankalara ibraz: '+tl(v.bankalaraIbrazCekTutarMilyarTL)+' Milyar TL)</span>'
+        +'</div>'
+        +'<div style="font-size:11px;color:var(--dim);margin-top:7px">Kaynak: <a href="'+aiKac(d.kaynakUrl)+'" target="_blank" rel="noopener">TBB Risk Merkezi Aylık Bülteni</a> ('+aiKac(d.bultenAyi)+'). '+aiKac(d.guncelleme)+'</div>'
+        +'</div>';
+    }).catch(function(){});
   }
   function aiFiltre(t){ AI_TUR=t; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); }
   function aiCiz(){

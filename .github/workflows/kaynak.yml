@@ -128,6 +128,15 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-idare-ozet.ps1 -Yaz
 
+      # TBB Risk Merkezi aylik bulten izleme (alacak-radari makro resmi katman).
+      # Erken cikar; yeni bulten yoksa hizli doner. Yeni bulten cikinca Cem'e
+      # "teyit et" maili atar (rakam infografik oldugu icin elle teyitli).
+      - name: Risk Merkezi bulten izle
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/risk-merkezi-hasat.ps1
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
