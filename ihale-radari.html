@@ -615,12 +615,19 @@ function yurtIciCiz(){
     if(sek) et.push(esc(sek.ad));
     const kelHam=((document.getElementById('yiKelime')||{}).value||'').trim();
     if(kelHam) et.push('“'+esc(kelHam)+'”');
-    const suz=et.length?(' <span style="color:var(--dim)">· '+et.join(' · ')+'</span>'):'';
+    const filtreVar=et.length>0;
+    const suz=filtreVar?(' <span style="color:var(--dim)">· '+et.join(' · ')+'</span>'):'';
+    // NİYET KANCASI: kullanıcı tam da bu filtreyi süzdü — bu an, ölçülmüş niyettir.
+    // Sayaç ne kadar ilan olduğunu söyler; hemen altında "bu filtreye uyan YENİ ilan
+    // düştüğünde haber verelim" der. Boş sonuçta bile (belki de ÖZELLİKLE) değerli:
+    // "şu an yok ama düştüğü an ilk sen duy". Filtresiz genel listede gösterilmez.
+    const etDuz=et.join(' · ').replace(/[“”]/g,'');
+    const haber=filtreVar?('<div style="margin-top:7px;font-size:12.5px"><a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 <b>'+esc(etDuz)+'</b> için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>'):'';
     const n=liste.length;
-    if(!n){ sy.innerHTML='<span style="color:var(--amber)">Bu filtreye uyan güncel ihale yok</span>'+suz; return; }
+    if(!n){ sy.innerHTML='<span style="color:var(--amber)">Bu filtreye uyan güncel ihale yok</span>'+suz+haber; return; }
     const acik=Math.min(n,5), kilit=n-acik;
     sy.innerHTML='<b style="color:var(--accent2);font-size:17px">'+n+'</b> ilan bu filtreye uyuyor'+suz
-      +(kilit>0?' <span style="color:var(--dim)">(ilk '+acik+' açık, '+kilit+' tanesi üyelikte)</span>':'');
+      +(kilit>0?' <span style="color:var(--dim)">(ilk '+acik+' açık, '+kilit+' tanesi üyelikte)</span>':'')+haber;
   })();
   if(!liste.length){ box.innerHTML='<div class="kart" style="border-left-color:var(--dim)"><h3>Filtreye uyan ihale yok</h3><div class="belg">Kelimeyi/ili değiştir; robot her sabah-akşam yeni ilanları çeker. <a href="radar-app.html?niyet=ihale" style="color:var(--accent2);font-weight:700">İlini kaydet, düşünce haber verelim →</a></div></div>'; return; }
   // 31.07 Cem: bedava giren 5 ilan gorur; kalani BUGULU kilit kart (il+tur okunur,
