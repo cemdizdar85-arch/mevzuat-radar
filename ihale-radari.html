@@ -714,8 +714,8 @@ function yurtIciCiz(){
     // "ihalelerin yarısı bunun üstünde" der — teklif verecek için ölçü budur.
     const med=(i.kirimMedyan!==undefined?i.kirimMedyan:i.kirimOrt);
     const p=[];
-    p.push(`<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı <b style="color:var(--accent2)">%${vr(med)}</b> ve üzeri kırımla kapandı`);
-    if(i.teklifOrt) p.push(`ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> teklif geldi`);
+    p.push(`<b style="color:var(--ink)">${esc(r.nasil)} ${i.kirimOlculen} ihalenin</b> yarısı, yaklaşık maliyetin en az <b style="color:var(--accent2)">%${vr(med)}</b> altına inerek kapandı <span style="color:var(--dim)">(indirim/kırım oranı)</span>`);
+    if(i.teklifOrt) p.push(`ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> firma teklif verdi <span style="color:var(--dim)">(rekabet)</span>`);
     // negatif alt sınırı "-%91,7" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor
     if(i.maliyetUstu) p.push(`<span style="color:var(--amber)">${i.maliyetUstu} tanesi maliyetin üstünde kapandı</span>`);
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
