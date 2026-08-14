@@ -119,6 +119,15 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-firma-ozet.ps1 -Yaz
 
+      # Idare analizi (idare-analizi.html): sonuc ilanlarini KURUM bazinda
+      # gruplayip "idare -> actigi ihaleler, calistigi firmalar, ort teklif" ozeti.
+      - name: Idare analizi ozeti
+        id: idareozet
+        if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/ihale-idare-ozet.ps1 -Yaz
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
