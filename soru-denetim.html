@@ -1,0 +1,133 @@
+<!doctype html><html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Soru Denetim Masası (iç belge) | Tetikte</title>
+<!-- ============================================================================
+  SORU DENETIM MASASI — 14.08.2026
+  Cem karari: "sen bence bu sorulari siteden cikar, bizim denetleyecegimiz yerde
+  beklesin, sorulari orda denetleyelim."
+  Gerekce: 150 vitrin sorusundan 5'i kaynak-karsilastirmali okundu, 1'inde
+  gerekce kusuru cikti (GVK kar payi: cevap dogru, gerekce yanlis madde
+  parcasina dayaniyordu). Kalan 145 okunmadi.
+
+  BU SAYFA SITEYE ACIK DEGIL: noindex + menuye eklenmedi + veri yalnizca
+  soru-bankasi.json'dan okunuyor. Kasaya HICBIR SEY YAZMAZ - kararlar tarayicida
+  birikir, sonunda JSON olarak indirilir. Uygulamayi GM Cem onayiyla yapar.
+============================================================================ -->
+<style>
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 18px 80px}
+h1{font-size:24px;letter-spacing:-.5px;margin:0 0 6px}
+.ustbar{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,#0d1728,#0a111e);border:1px solid var(--line2);border-radius:13px;padding:11px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 18px;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.sayac{font-weight:800;font-size:14px}
+.sayac span{font-family:var(--mono)}
+.btn{background:var(--panel2);border:1px solid var(--line2);color:var(--muted);border-radius:9px;font:600 12.5px inherit;padding:9px 13px;cursor:pointer}
+.btn:hover{color:var(--ink)}
+.btn.on{background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;border-color:transparent;font-weight:800}
+.kart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.kart.onay{border-color:rgba(61,220,151,.45)}
+.kart.kusur{border-color:rgba(255,176,32,.5)}
+.kart.cikar{border-color:rgba(255,107,94,.5);opacity:.72}
+.ust{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--dim);margin-bottom:9px}
+.rz{border:1px solid var(--line2);border-radius:20px;padding:2px 9px;font-weight:700;font-size:11px}
+.soru{font-size:15.5px;font-weight:600;margin-bottom:11px}
+.sik{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:6px;font-size:14px}
+.sik.dogru{border-color:rgba(61,220,151,.5);background:rgba(61,220,151,.07)}
+.sikH{font-weight:800;color:var(--accent2);margin-right:6px}
+.ack{font-size:12.5px;color:var(--muted);margin-top:5px;padding-left:2px;border-left:2px solid var(--line2);padding-left:9px}
+.blok{margin-top:11px;padding-top:10px;border-top:1px solid var(--line)}
+.et{font-size:10.5px;font-weight:800;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kaynak{font-family:var(--mono);font-size:12.5px;color:var(--accent2)}
+.kararlar{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.not{flex:1;min-width:220px;background:var(--panel2);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:8px 11px}
+.uyari{background:rgba(255,176,32,.10);border:1px solid rgba(255,176,32,.34);border-radius:12px;padding:12px 15px;font-size:13.5px;line-height:1.62;margin-bottom:16px}
+.dip{font-size:11.5px;color:var(--dim);margin-top:22px;padding-top:12px;border-top:1px solid var(--line)}
+</style></head><body>
+<div class="wrap">
+  <h1>Soru Denetim Masası</h1>
+  <div style="color:var(--muted);font-size:13.5px;margin-bottom:14px">Vitrinden çekilen sorular burada bekliyor. Her soruyu <b style="color:var(--ink)">kaynağıyla karşılaştırarak</b> oku, kararını işaretle. Kararlar tarayıcında birikir; sonunda dosya olarak indirilir.</div>
+
+  <div class="uyari">
+    <b style="color:var(--ink)">Bu sayfa siteye açık değil</b> — arama motorlarına kapalı, menüde yok, kasaya hiçbir şey yazmaz.
+    Kararı işaretlemek soruyu değiştirmez; yalnız <b style="color:var(--ink)">not düşer</b>. Uygulamayı sen onayladıktan sonra yaparım.
+    <br><b style="color:var(--ink)">Neden buradalar:</b> 150 sorunun 5'i kaynak metniyle karşılaştırıldı, 1'inde gerekçe kusuru çıktı (GVK kâr payı — cevap doğru, gerekçe yanlış madde parçasına dayanıyordu). Kalan 145 okunmadı.
+  </div>
+
+  <div class="ustbar">
+    <span class="sayac">Toplam <span id="sT">0</span></span>
+    <span class="sayac" style="color:var(--green)">Onay <span id="sO">0</span></span>
+    <span class="sayac" style="color:var(--amber)">Kusur <span id="sK">0</span></span>
+    <span class="sayac" style="color:var(--red)">Çıkar <span id="sC">0</span></span>
+    <span class="sayac" style="color:var(--dim)">Bekleyen <span id="sB">0</span></span>
+    <span style="margin-left:auto;display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn" id="fHepsi" onclick="suz('hepsi')">Hepsi</button>
+      <button class="btn" onclick="suz('bekleyen')">Bekleyenler</button>
+      <button class="btn" onclick="suz('kusur')">Kusurlular</button>
+      <button class="btn" onclick="indir()">⬇ Kararları indir</button>
+    </span>
+  </div>
+
+  <div id="liste"></div>
+  <div class="dip">Kaynak: veri/soru-bankasi.json · Bu sayfa iç belgedir (noindex). Kararlar tarayıcı hafızasında tutulur; başka cihazda görünmez.</div>
+</div>
+<script>
+var SORULAR=[], SUZ='hepsi';
+var KARAR=(function(){ try{ return JSON.parse(localStorage.getItem('tetikteSoruDenetim')||'{}'); }catch(e){ return {}; } })();
+function kaydet(){ try{ localStorage.setItem('tetikteSoruDenetim', JSON.stringify(KARAR)); }catch(e){} }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+fetch('veri/soru-bankasi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  SORULAR=d.sorular||[]; ciz();
+}).catch(function(){ document.getElementById('liste').innerHTML='<div class="uyari">soru-bankasi.json okunamadı.</div>'; });
+
+function karar(id,deger){
+  if(!KARAR[id]) KARAR[id]={};
+  KARAR[id].karar=(KARAR[id].karar===deger?'':deger);
+  kaydet(); ciz();
+}
+function notYaz(id,v){ if(!KARAR[id]) KARAR[id]={}; KARAR[id].not=v; kaydet(); sayacGuncelle(); }
+function suz(v){ SUZ=v; ciz(); }
+function sayacGuncelle(){
+  var o=0,k=0,c=0;
+  SORULAR.forEach(function(s){ var d=(KARAR[s.id]||{}).karar; if(d==='onay')o++; else if(d==='kusur')k++; else if(d==='cikar')c++; });
+  document.getElementById('sT').textContent=SORULAR.length;
+  document.getElementById('sO').textContent=o;
+  document.getElementById('sK').textContent=k;
+  document.getElementById('sC').textContent=c;
+  document.getElementById('sB').textContent=SORULAR.length-o-k-c;
+}
+function ciz(){
+  var liste=SORULAR.filter(function(s){
+    var d=(KARAR[s.id]||{}).karar||'';
+    if(SUZ==='bekleyen') return !d;
+    if(SUZ==='kusur') return d==='kusur';
+    return true;
+  });
+  document.getElementById('liste').innerHTML=liste.map(function(s,i){
+    var d=(KARAR[s.id]||{}), sec=d.karar||'';
+    var siklar=['A','B','C','D','E'].filter(function(h){ return s.siklar&&s.siklar[h]; }).map(function(h){
+      var ack=(s.aciklama&&s.aciklama[h])?'<div class="ack">'+esc(s.aciklama[h])+'</div>':'';
+      return '<div class="sik'+(s.dogru===h?' dogru':'')+'"><span class="sikH">'+h+')</span>'+esc(s.siklar[h])+(s.dogru===h?' <b style="color:var(--green);font-size:11.5px">◄ DOĞRU</b>':'')+ack+'</div>';
+    }).join('');
+    return '<div class="kart '+sec+'">'
+      +'<div class="ust"><span class="rz">'+esc(s.sinav||'')+'</span><span class="rz">'+esc(s.ders||'')+'</span><span>'+esc(s.konu||'')+'</span><span style="margin-left:auto;font-family:var(--mono)">'+esc(s.id)+'</span></div>'
+      +'<div class="soru">'+esc(s.soru)+'</div>'+siklar
+      +(s.hap?'<div class="blok"><div class="et">HAP ANLATIM</div>'+esc(s.hap)+'</div>':'')
+      +'<div class="blok"><div class="et">KAYNAK — bunu ambardan doğrula</div><span class="kaynak">'+esc(s.kaynak||'(yok)')+'</span></div>'
+      +'<div class="kararlar">'
+        +'<button class="btn'+(sec==='onay'?' on':'')+'" onclick="karar(\''+s.id+'\',\'onay\')">✓ Onay</button>'
+        +'<button class="btn'+(sec==='kusur'?' on':'')+'" onclick="karar(\''+s.id+'\',\'kusur\')">⚠ Kusur var</button>'
+        +'<button class="btn'+(sec==='cikar'?' on':'')+'" onclick="karar(\''+s.id+'\',\'cikar\')">✕ Çıkar</button>'
+        +'<input class="not" placeholder="not (kusursa neresi?)" value="'+esc(d.not||'')+'" oninput="notYaz(\''+s.id+'\',this.value)">'
+      +'</div></div>';
+  }).join('') || '<div class="uyari">Bu süzgeçte soru yok.</div>';
+  sayacGuncelle();
+}
+function indir(){
+  var c=SORULAR.map(function(s){ var d=KARAR[s.id]||{}; return {id:s.id,ders:s.ders,konu:s.konu,kaynak:s.kaynak,karar:d.karar||'bekliyor',not:d.not||''}; });
+  var b=new Blob([JSON.stringify({tarih:new Date().toISOString(),toplam:c.length,kararlar:c},null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='soru-denetim-kararlari.json'; a.click();
+}
+</script></body></html>
