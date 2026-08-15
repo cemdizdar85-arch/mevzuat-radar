@@ -112,6 +112,12 @@ function seviye(r){ return r>=70?['YÜKSEK','y']:r>=45?['ORTA','o']:['DÜŞÜK',
 
 function durumNot(x){
   var d=(x.durum||'').toLowerCase();
+  // #3 ITIRAZ GERI SAYIMI: robot yayim anini yakaladiysa (sahip gizliden gorundu)
+  if(x.yayim){ var yd=parseTr(x.yayim); if(yd){ var son=ayEkle(yd,2); var bugun=new Date(); bugun.setHours(0,0,0,0);
+    var kalan=Math.round((son-bugun)/86400000);
+    var renk=kalan<=7?'var(--red)':kalan<=20?'var(--amber)':'var(--green)';
+    if(kalan>=0) return '⏳ <b style="color:'+renk+'">İtiraza '+kalan+' gün</b> kaldı — yayımlandı '+esc(x.yayim)+', son gün <b>'+fmtTr(son)+'</b> (m.18 · yayım+2 ay; kesin süreyi TÜRKPATENT\'ten teyit et).';
+    return '⌛ İtiraz süresi (m.18 · 2 ay) <b>dolmuş görünüyor</b> (yayım '+esc(x.yayim)+'). Benzerlik yüksekse hükümsüzlük yolu ayrıdır (m.25), vekiline danış.'; } }
   if(d==='filed') return '📋 <b>Başvuru aşaması</b> — henüz Resmî Marka Bülteni\'nde yayımlanmadı, sahip yayıma kadar gizli. <b>Yayımlanınca m.18 · 2 aylık itiraz süresi başlar</b>; o an yakalarız.';
   if(d==='registered') return '✅ <b>Tescil edilmiş</b> — yayıma itiraz süresi geçmiş olabilir; benzerlik yüksekse hükümsüzlük yolu ayrıdır (m.25), vekiline danış.';
   if(d==='ended') return '⚪ <b>Sona ermiş/düşmüş</b> marka — aktif bir tehdit değil.';
@@ -170,8 +176,17 @@ function takip(){
   o.style.color='var(--green)'; o.textContent='Aldık. Marka izleme aboneliği açılınca benzer başvuru düştüğünde ilk sen haber al.';
 }
 
+function parseTr(s){ var p=(''+(s||'')).split('.'); return p.length===3?new Date(+p[2],+p[1]-1,+p[0]):null; }
+function ayEkle(d,n){ var x=new Date(d.getTime()); x.setMonth(x.getMonth()+n); return x; }
+function fmtTr(d){ function i(n){return(''+n).padStart(2,'0');} return i(d.getDate())+'.'+i(d.getMonth()+1)+'.'+d.getFullYear(); }
 fetch('veri/marka-yeni-basvurular.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
-  MI_L=(d.basvurular||[]); MI_META={pencereGun:d.pencereGun, sayi:d.sayi};
+  var kol=d.kolon||["ad","no","tarih","sinif","sahip","durum","st13","yayim"];
+  var iAd=kol.indexOf('ad'),iNo=kol.indexOf('no'),iTr=kol.indexOf('tarih'),iSn=kol.indexOf('sinif'),iSa=kol.indexOf('sahip'),iDu=kol.indexOf('durum'),iSt=kol.indexOf('st13'),iYa=kol.indexOf('yayim');
+  MI_L=(d.basvurular||[]).map(function(b){
+    if(!Array.isArray(b)) return b; // eski obje formatina toleransli
+    return { ad:b[iAd], no:b[iNo], tarih:b[iTr], sinif:(''+(b[iSn]||'')).split(',').filter(Boolean), sahip:b[iSa]||'', durum:b[iDu], st13:b[iSt], yayim:b[iYa]||'' };
+  });
+  MI_META={pencereGun:d.pencereGun, sayi:d.sayi};
   var dg=document.getElementById('damga');
   if(dg) dg.innerHTML='📡 <b style="color:var(--ink)">'+MI_L.length+'</b> başvuru yüklendi · '+esc(d.guncelleme||'');
   ciz();

@@ -152,7 +152,20 @@ jobs:
         if: github.event.schedule != '13 14 * * *'
         continue-on-error: true
         shell: pwsh
-        run: ./motor/marka-izleme-hasat.ps1 -Yaz -Gun 30
+        run: ./motor/marka-izleme-hasat.ps1 -Yaz
+
+      # #4 per-user watch: kullanicilarin markalarini yeni basvurulara karsi tara,
+      # benzer cikaninca marka_uyari'ya yaz (panel gosterir) + RESEND acikSA mail.
+      # Indeksten SONRA kosar. Anahtar yoksa kendini atlar.
+      - name: Marka watch - kullanici markalari (Supabase + mail)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/marka-watch-kullanici.ps1
 
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
