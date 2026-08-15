@@ -154,8 +154,21 @@ async function app(){
   if(error){ ekran.innerHTML=`<div class="kutu"><p class="hata">Tablo bulunamadı. Supabase'de radar-app/schema.sql'i çalıştır.</p><p class="mini">${esc(error.message)}</p></div>`; return; }
   if(!SECILI && firmalar.length) SECILI=firmalar[0].id;
   const sf=firmalar.find(f=>f.id===SECILI);
+  // #4 MARKA WATCH: markana benzer yeni basvuru uyarilari (robot marka_uyari'ya yazar)
+  let uyariBanner='';
+  try{
+    const {data:uy}=await sb.from('marka_uyari').select('*').eq('goruldu',false).order('created_at',{ascending:false}).limit(15);
+    if(uy&&uy.length){
+      uyariBanner=`<div style="background:rgba(255,107,94,.10);border:1px solid rgba(255,107,94,.4);border-radius:14px;padding:16px 18px;margin:0 0 18px">
+        <div style="font-weight:800;color:#ff9d93;font-size:15px;margin-bottom:8px">🚨 ${uy.length} markana benzer yeni başvuru düştü</div>
+        ${uy.map(u=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(u.marka)}</b> ← <b style="color:var(--ink)">${esc(u.benzer_ad)}</b> <span class="mini">(başvuru ${esc(u.basvuru_no)}, %${u.risk} risk${u.sinif_cakisiyor?', sınıf çakışıyor':''})</span></div>`).join('')}
+        <div style="margin-top:8px;font-size:12.5px"><a href="marka-izleme.html" style="color:var(--accent2);font-weight:700">Detay + itiraz süresi →</a> <span class="mini">İtiraz süresi yayımdan 2 aydır (SMK m.18).</span></div>
+      </div>`;
+    }
+  }catch(e){}
   ekran.innerHTML=`
     <h1>Benim Mevzuatım</h1>
+    ${uyariBanner}
     <p class="lead">Firmalarını ekle, her birine özel radar çalışsın. Mali müşavirsen tüm mükelleflerini buraya gir.</p>
     <h2>Firmalarım (${firmalar.length})</h2>
     <div id="firmaListe">${firmalar.map(f=>`
