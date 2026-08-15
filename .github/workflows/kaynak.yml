@@ -145,6 +145,15 @@ jobs:
         shell: pwsh
         run: ./motor/risk-merkezi-hasat.ps1
 
+      # Marka Izleme (watch): TMview (TR) uzerinden son gunlerin marka basvurulari.
+      # Istemci (marka-izleme.html) kullanicinin markasiyla benzerlik motorundan
+      # eslestirir. TMview 10.000 tavani var; gunluk kosu en yeniyi ceker.
+      - name: Marka izleme - yeni basvurular (TMview TR)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/marka-izleme-hasat.ps1 -Yaz -Gun 30
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh

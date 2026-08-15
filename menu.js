@@ -106,6 +106,7 @@ var GRUPLAR=[
   ["idare-analizi.html","🏛️","İdare Analizi","Kurum ne açtı, kaça kapandı, kaç teklif"],
   ["alacak-radari.html","🚨","Alacak Radarı","Müşterin konkordato/iflasta — ilk sen duy"],
   ["marka-radari.html","™️","Marka Radarı","Yenileme + benzer başvuru uyarısı"],
+  ["marka-izleme.html","📡","Marka İzleme Radarı","Markana benzer YENİ başvuru düştü mü"],
   ["marka-itiraz.html","🔍","Marka İtiraz & Benzerlik","İtiraz süren dolmadan gör"]]},
  {ad:"🧮 Muhasebe Bürosu (SMMM)", araclar:[
   ["fis-fabrikasi.html","🏭","Fiş Fabrikası","Banka ekstresi → programına hazır fiş"],
