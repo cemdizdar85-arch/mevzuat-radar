@@ -31,7 +31,11 @@ Write-Host ("kaynak: {0} sonuc ilani" -f $s.Count)
 function Sade([string]$x){ ("$x".ToUpper() -replace '[^A-ZÇĞİÖŞÜ0-9 ]',' ' -replace '\s+',' ').Trim() }
 function Ist($liste){
   # kirimi OLCULEBILEN kayitlarin istatistigi (digerleri sayilmaz)
-  $k = @($liste | Where-Object { $null -ne $_.kirimYuzde } | ForEach-Object { [double]$_.kirimYuzde })
+  # AKIL SINIRI (15.08): kirim fiziksel olarak (-100,+100) disina cikamaz -
+  # bedel negatif olamaz (>%100 imkansiz), <-%100 bedel>2xmaliyet demek =
+  # neredeyse her zaman ayristirma hatasi ( or. 8,29 MILYAR bedel okunmus tek
+  # kayit ortalamayi -%135'e cekmisti). Band disi = OLCULEMEZ, sayilmaz.
+  $k = @($liste | Where-Object { $null -ne $_.kirimYuzde -and [double]$_.kirimYuzde -gt -100 -and [double]$_.kirimYuzde -lt 100 } | ForEach-Object { [double]$_.kirimYuzde })
   $t = @($liste | Where-Object { $_.teklifSayisi } | ForEach-Object { [int]$_.teklifSayisi })
   $o = [ordered]@{ kayit = @($liste).Count }
   if($k.Count -ge 1){
