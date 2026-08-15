@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260814031053
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+Start time: 20260815020258
+Username: runnervmzvulz\runner
+RunAs User: runnervmzvulz\runner
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5c8e58b8-7ae3-4851-baf3-b7d5bf729c32.ps1'
-Process ID: 2109
-PSVersion: 7.6.3
+Machine: runnervmzvulz (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b9ccb428-62be-4927-b418-13a778c44386.ps1'
+Process ID: 2187
+PSVersion: 7.6.4
 PSEdition: Core
-GitCommitId: 7.6.3
+GitCommitId: 7.6.4
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -108,10 +108,10 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
       113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      113x  Finansal Muhasebe|amortisman ayirma
       113x  Finansal Muhasebe|gider yansitma kaydi
+      113x  Finansal Muhasebe|amortisman ayirma
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|borc senedi reeskontu
+       95x  Finansal Muhasebe|hisse senedi satisi
 
   --- tekil konu sayisi: 2262
 
@@ -177,5 +177,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260814031249
+End time: 20260815020427
 **********************
