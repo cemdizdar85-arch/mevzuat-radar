@@ -176,6 +176,18 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/marka-watch-kullanici.ps1
 
+      # Portfoy oto-durum: kullanici markalarinin TURKPATENT durumunu izle,
+      # degisince (tescil/ret/devir) ya da yenileme yaklasinca uyar.
+      - name: Marka portfoy oto-durum (Supabase + TMview)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/marka-portfoy-durum.ps1
+
       - name: Bulten adimi dustuyse Cem'e haber ver
         if: steps.bulten.outcome == 'failure' || steps.bultenilan.outcome == 'failure' || steps.bultensonuc.outcome == 'failure'
         shell: pwsh
