@@ -19,7 +19,7 @@
 #  Bu dosya SITEYE gidiyor, yani sinirsiz buyuyemez. Kayit sayisina gore
 #  siralanip en cok kayitli N idare/kelime yazilir. Tur istatistigi HIC
 #  kirpilmaz - kartin son care eslesmesi odur ve kapsami %100'dur.
-param([switch]$Yaz, [int]$AsgariOrnek = 3, [int]$Tavan = 150)
+param([switch]$Yaz, [int]$AsgariOrnek = 5, [int]$Tavan = 150)
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here

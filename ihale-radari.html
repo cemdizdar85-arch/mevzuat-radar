@@ -817,8 +817,12 @@ function yurtIciCiz(){
     if(i.teklifOrt) p.push(`ortalama <b style="color:var(--ink)">${vr(i.teklifOrt)}</b> firma teklif verdi <span style="color:var(--dim)">(rekabet)</span>`);
     // negatif alt sınırı "-%91,7" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor
     if(i.maliyetUstu) p.push(`<span style="color:var(--amber)">${i.maliyetUstu} tanesi maliyetin üstünde kapandı</span>`);
+    // DÜRÜSTLÜK KADEMESİ: az örnekli grupta sayı "kesin oran" gibi okunmasın.
+    // n<10 = eğilim (kesin değil); n>=10 temiz. n<5 grup zaten yayımlanmıyor.
+    const azOrnek = i.kirimOlculen < 10
+      ? `<div style="font-size:11px;color:var(--amber);margin-top:4px">⚠️ Az örnek (${i.kirimOlculen} ihale): bu bir kesin oran değil, <b>eğilim</b>. Örnek biriktikçe netleşir.</div>` : '';
     return `<div style="margin-top:7px;padding:8px 10px;border-radius:9px;background:rgba(61,220,151,.07);border:1px solid rgba(61,220,151,.22);line-height:1.7">
-      <b style="color:#7ee0a5">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}
+      <b style="color:#7ee0a5">📊 Bu iş gerçekte kaça yapılıyor?</b><br>${p.join('<br>')}${azOrnek}
       <div style="font-size:11px;color:var(--dim);margin-top:5px">Kaynak: Kamu İhale Bülteni <b style="color:var(--muted)">sonuç ilanları</b>, idarece açıklanan yaklaşık maliyet ve sözleşme bedelinden ölçüldü. Kısmi teklife açık ihaleler ölçüme dahil değildir. <b style="color:var(--muted)">Bu ihalenin bedeli değil</b>, benzerlerinin geçmişidir.</div>
     </div>`;
   };
