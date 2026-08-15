@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260814142234
+Start time: 20260815014949
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/dccab6d3-a652-4b51-bb46-bf6cf9d3245e.ps1'
-Process ID: 10449
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b41242c2-9435-47fa-9414-05a28a830df2.ps1'
+Process ID: 10343
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -18,76 +18,17 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 51 mevzuatNo  (54 teblig no)
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...10/51
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...20/51
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...30/51
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...40/51
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
->> TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...50/51
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
-  indirilen : 0
-  inemeyen  : 51
-     24517 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     33766 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     34304 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     34500 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     41286 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     42662 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     44952 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     44953 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
+  indirilen : 51
+  inemeyen  : 0
 -> veri/teblig-damga.json
 
 TEMIZ: izlenen tebliglerin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260814143104
+End time: 20260815015908
 **********************
