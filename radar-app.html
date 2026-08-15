@@ -190,17 +190,17 @@ function firmaForm(){
     <h3 style="margin:0 0 4px;font-size:16px">${esc(baslik)}</h3>
     ${ipucu}
     <div class="grid2">
-      <div><label>Firma adı *</label><input id="f_ad" placeholder="ör. Ege Seramik Ltd."></div>
-      <div><label>Rol</label><select id="f_rol"><option value="ithalatci">İthalatçı</option><option value="ihracatci">İhracatçı</option><option value="uretici">Üretici</option><option value="tuccar">Tüccar</option><option value="musteri">Müşavir müşterisi</option></select></div>
-      <div><label>İl</label><input id="f_il" placeholder="ör. İzmir"></div>
-      <div><label>Sektör</label><input id="f_sektor" placeholder="ör. seramik, tekstil"></div>
+      <div class="alan" data-a="f_ad"><label>Firma adı *</label><input id="f_ad" placeholder="ör. Ege Seramik Ltd."></div>
+      <div class="alan" data-a="f_rol"><label>Rol</label><select id="f_rol"><option value="ithalatci">İthalatçı</option><option value="ihracatci">İhracatçı</option><option value="uretici">Üretici</option><option value="tuccar">Tüccar</option><option value="musteri">Müşavir müşterisi</option></select></div>
+      <div class="alan" data-a="f_il"><label>İl</label><input id="f_il" placeholder="ör. İzmir"></div>
+      <div class="alan" data-a="f_sektor"><label>Sektör</label><input id="f_sektor" placeholder="ör. seramik, tekstil"></div>
     </div>
-    <label>GTİP kodların <span class="mini">(virgülle: 6907.21, 8471.30)</span></label><textarea id="f_gtip" placeholder="6907.21.00, 6907.22.00"></textarea>
-    <label>Markaların <span class="mini">(virgülle)</span></label><textarea id="f_marka" placeholder="ABC, 2016/12345"></textarea>
-    <label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı, virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea>
+    <div class="alan" data-a="f_gtip"><label>GTİP kodların <span class="mini">(virgülle: 6907.21, 8471.30)</span></label><textarea id="f_gtip" placeholder="6907.21.00, 6907.22.00"></textarea></div>
+    <div class="alan" data-a="f_marka"><label>Markaların <span class="mini">(virgülle)</span></label><textarea id="f_marka" placeholder="ABC, 2016/12345"></textarea></div>
+    <div class="alan" data-a="f_vkn"><label>İzlenecek borçlu VKN'leri <span class="mini">(alacak radarı, virgülle)</span></label><textarea id="f_vkn" placeholder="1234567890, 9876543210"></textarea></div>
     <div class="grid2">
-      <div><label>Uyarı kanalı</label><select id="f_kanal"><option value="mail">E-posta</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select></div>
-      <div><label>Telefon <span class="mini">(SMS/WhatsApp için, 0 ile başlar)</span></label><input id="f_tel" type="tel" inputmode="numeric" maxlength="14" placeholder="05xx xxx xx xx" oninput="telBicim(this)"></div>
+      <div class="alan" data-a="f_kanal"><label>Uyarı kanalı</label><select id="f_kanal"><option value="mail">E-posta</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select></div>
+      <div class="alan" data-a="f_tel"><label>Telefon <span class="mini">(SMS/WhatsApp için, 0 ile başlar)</span></label><input id="f_tel" type="tel" inputmode="numeric" maxlength="14" placeholder="05xx xxx xx xx" oninput="telBicim(this)"></div>
     </div>
     <div style="margin-top:16px;display:flex;gap:10px"><button class="btn" id="kaydet">Kaydet</button><button class="btn ghost" id="iptal">Vazgeç</button></div>
     <div class="hata" id="fhata"></div>
@@ -215,6 +215,18 @@ function firmaForm(){
       setTimeout(()=>{ alanEl.focus(); alanEl.scrollIntoView({behavior:'smooth',block:'center'}); },150);
     }
   }
+  // Niyete gore ALANLARI BUDA: her radar yalniz kendi sorusunu sorsun (Cem 15.08:
+  // "alacaga uye olan marka/GTIP gormesin, ne isteyeceksek onu"). tam/musavir/
+  // niyetsiz = HEPSI gorunur (bilincli, tam profil). Gizli alan bos gider = kapali radar.
+  const NIYET_ALAN = {
+    alacak: ['f_ad','f_vkn','f_kanal','f_tel'],
+    gtip:   ['f_ad','f_rol','f_sektor','f_gtip','f_kanal','f_tel'],
+    marka:  ['f_ad','f_marka','f_kanal','f_tel'],
+    ihale:  ['f_ad','f_il','f_sektor','f_kanal','f_tel'],
+    firsat: ['f_ad','f_il','f_kanal','f_tel']
+  };
+  const izin = NIYET_ALAN[NIYET];
+  if(izin){ fa.querySelectorAll('.alan').forEach(w=>{ if(izin.indexOf(w.dataset.a)<0) w.style.display='none'; }); }
   $('#iptal').onclick=()=>{fa.classList.add('gizli');fa.innerHTML='';};
   $('#kaydet').onclick=async()=>{
     const ad=$('#f_ad').value.trim(); if(!ad){$('#fhata').textContent='Firma adı gerekli.';return;}
