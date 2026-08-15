@@ -97,6 +97,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b>, yani mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır; <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
 
+  <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
+    <button type="button" onclick="aiFiltre('konkordato',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,176,32,.16),rgba(255,176,32,.06));border:1px solid rgba(255,176,32,.4);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">📄 Konkordato ilanları <span style="color:var(--amber)">→</span></button>
+    <button type="button" onclick="aiFiltre('iflas',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,94,.16),rgba(255,107,94,.06));border:1px solid rgba(255,107,94,.42);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">⚖️ İflas ilanları <span style="color:var(--red)">→</span></button>
+  </div>
+
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
   <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı; robot her gün yeniler</span></h2>
@@ -104,7 +110,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
        arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
        yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
-  <div class="kutu" style="padding:14px 16px;margin:0 0 12px">
+  <div class="kutu" id="aiFiltreKutu" style="padding:14px 16px;margin:0 0 12px;scroll-margin-top:12px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <input type="text" id="aiAra" placeholder="Borçlu/firma adı, il ya da mahkeme ara…" oninput="aiCiz()" style="flex:1;min-width:210px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <div style="display:flex;gap:6px" id="aiTurler">
@@ -197,6 +203,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     return null;
   }
   function aiSonTarih(tarihStr, opt){
+    if(!opt || (!opt.gun && !opt.ay)) return null;
     var p=(tarihStr||'').split('.'); if(p.length!==3) return null;
     var d=new Date(+p[2],+p[1]-1,+p[0]); if(isNaN(d.getTime())) return null;
     if(opt.ay) d.setMonth(d.getMonth()+opt.ay); else d.setDate(d.getDate()+(opt.gun||0));
@@ -250,7 +257,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         +'</div>';
     }).catch(function(){});
   }
-  function aiFiltre(t){ AI_TUR=t; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); }
+  function aiFiltre(t, kaydir){ AI_TUR=t; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir){ var el=document.getElementById('aiFiltreKutu'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); } }
   function aiCiz(){
     var kutu=document.getElementById('aiListe'); if(!kutu) return;
     var q=aiFold((document.getElementById('aiAra')||{}).value||'');
@@ -281,7 +288,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       if(kural){
         if(kural.not){
           sure='<div style="margin-top:7px;font-size:12px;color:var(--dim)">⚖️ '+kural.not+'</div>';
-        } else {
+        } else if(kural.gun||kural.ay){
           var g=aiSonTarih(x.tarih, kural);
           if(g){
             var renk = g.kalan<=3?'var(--red)':(g.kalan<=7?'var(--amber)':'var(--green)');
