@@ -161,7 +161,7 @@ async function app(){
     if(uy&&uy.length){
       uyariBanner=`<div style="background:rgba(255,107,94,.10);border:1px solid rgba(255,107,94,.4);border-radius:14px;padding:16px 18px;margin:0 0 18px">
         <div style="font-weight:800;color:#ff9d93;font-size:15px;margin-bottom:8px">🚨 ${uy.length} markana benzer yeni başvuru düştü</div>
-        ${uy.map(u=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(u.marka)}</b> ← <b style="color:var(--ink)">${esc(u.benzer_ad)}</b> <span class="mini">(başvuru ${esc(u.basvuru_no)}, %${u.risk} risk${u.sinif_cakisiyor?', sınıf çakışıyor':''})</span></div>`).join('')}
+        ${uy.map(u=>`<div style="font-size:13px;color:var(--muted);margin-bottom:5px"><b style="color:var(--ink)">${esc(u.marka)}</b> ← <b style="color:var(--ink)">${esc(u.benzer_ad)}</b> <span class="mini">(başvuru ${esc(u.basvuru_no)}, %${u.risk} risk${u.sinif_cakisiyor?', sınıf çakışıyor':''}${u.tip==='benzer-intl'?', 🌍 '+esc(u.ofis||'yurt dışı'):''})</span></div>`).join('')}
         <div style="margin-top:8px;font-size:12.5px"><a href="marka-izleme.html" style="color:var(--accent2);font-weight:700">Detay + itiraz süresi →</a> <span class="mini">İtiraz süresi yayımdan 2 aydır (SMK m.18).</span></div>
       </div>`;
     }

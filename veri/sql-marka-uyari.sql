@@ -13,6 +13,8 @@ create table if not exists public.marka_uyari (
   sinif_cakisiyor boolean default false,
   basvuru_tarih   text,
   durum           text,                   -- Filed / Registered ...
+  tip             text default 'benzer-tr', -- benzer-tr | benzer-intl | durum-degisikligi
+  ofis            text,                   -- TR | EM | WO ... (uluslararasi icin)
   goruldu         boolean default false,  -- kullanici gordu mu (panel)
   created_at      timestamptz default now(),
   unique (user_id, marka, basvuru_no)     -- ayni uyari iki kez yazilmaz

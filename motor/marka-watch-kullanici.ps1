@@ -36,6 +36,24 @@ function Norm($s){ $s="$s"; $m=@{ ([char]0x00E7)='c'; ([char]0x00C7)='c'; ([char
 function Fon($s){ $s=Norm $s; $s=$s -replace '[iy]','i' -replace '[uv]','u' -replace '[kq]','k' -replace '[sz]','s' -replace '[cj]','c' -replace 'ph','f'; return ($s -replace '(.)\1+','$1') }
 function Lev($a,$b){ $m=$a.Length; $n=$b.Length; if($m -eq 0){return $n}; if($n -eq 0){return $m}; $p=0..$n; for($i=1;$i -le $m;$i++){ $prev=$p[0]; $p[0]=$i; for($j=1;$j -le $n;$j++){ $t=$p[$j]; $c=if($a[$i-1] -eq $b[$j-1]){0}else{1}; $p[$j]=[Math]::Min([Math]::Min($p[$j]+1,$p[$j-1]+1),$prev+$c); $prev=$t } }; return $p[$n] }
 function Benz($a,$b){ if(-not $a -or -not $b){return 0}; return [Math]::Round((1-(Lev $a $b)/[Math]::Max($a.Length,$b.Length))*100) }
+# TMview canli sorgu (uluslararasi #7): terim + ofisler -> benzer kayitlar
+$TMV = "https://www.tmdn.org/tmview/api/search/results?translate=true"
+$TH  = @{ "User-Agent"="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126 Safari/537.36"; "Referer"="https://www.tmdn.org/tmview/"; "Content-Type"="application/json"; "Accept"="application/json" }
+function TmvAra($terim,$ofisler){
+  $sonuc = New-Object System.Collections.Generic.List[object]
+  if(-not $terim -or $terim.Length -lt 2){ return $sonuc }
+  $govde = @{ page="1"; pageSize="30"; criteria="C"; basicSearch=$terim; fOffices=@($ofisler); fields=@("tmName","applicationNumber","applicationDate","tradeMarkStatus","niceClass","office") } | ConvertTo-Json -Compress
+  try{
+    $w = Invoke-WebRequest -Uri $TMV -Method Post -Headers $TH -Body $govde -TimeoutSec 30 -UseBasicParsing
+    $j = ([Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())) | ConvertFrom-Json
+    foreach($t in @($j.tradeMarks)){
+      $td = try{ ([datetime]$t.applicationDate).ToString("dd.MM.yyyy") }catch{ "" }
+      $sonuc.Add([pscustomobject]@{ ad="$($t.tmName)"; no="$($t.applicationNumber)"; tarih=$td; durum="$($t.tradeMarkStatus)"; ofis="$($t.office)" })
+    }
+  }catch{}
+  Start-Sleep -Milliseconds 200
+  return $sonuc
+}
 
 # --- son basvurular indeksi (kompakt dizi) ---------------------------------
 $idxYol = Join-Path $kok 'veri/marka-yeni-basvurular.json'
@@ -59,6 +77,7 @@ foreach($f in $firmalar){
   $ksin = @("$($f.sinif)".Split(',') | Where-Object { $_ -match '^\d+$' })
   foreach($mk in $markalar){
     $nm = Norm $mk; $fm = Fon $mk; if($nm.Length -lt 2){ continue }
+    # --- TR: yerel indekse karsi ---
     foreach($x in $basvurular){
       $yazim = Benz $nm $x.nAd; $fonetik = Benz $fm $x.fAd; $isaret = [Math]::Max($yazim,$fonetik)
       if($isaret -lt $esikIsaret){ continue }
@@ -67,13 +86,19 @@ foreach($f in $firmalar){
       $anahtar = "$($f.user_id)|$mk|$($x.no)"
       if($gonderilmis.ContainsKey($anahtar)){ continue }
       $risk = if($cak -eq $true){ $isaret } else { [Math]::Round($isaret*0.85) }
-      $kayit = [ordered]@{ user_id="$($f.user_id)"; email="$($f.email)"; firma="$($f.firma_adi)"; marka=$mk; basvuru_no="$($x.no)"; benzer_ad=$x.ad; risk=$risk; isaret=$isaret; sinif_cak=$cak; basvuru_tarih=$x.tarih; durum=$x.durum }
-      $yeniUyari.Add($kayit)
-      $gonderilmis[$anahtar]=$true
-      if("$($f.kanal)" -eq 'mail' -and "$($f.email)" -match '^[^@\s]+@[^@\s]+\.[^@\s]+$'){
-        if(-not $mailKuyruk.ContainsKey("$($f.email)")){ $mailKuyruk["$($f.email)"]=New-Object System.Collections.Generic.List[object] }
-        $mailKuyruk["$($f.email)"].Add($kayit)
-      }
+      $kayit = [ordered]@{ user_id="$($f.user_id)"; email="$($f.email)"; firma="$($f.firma_adi)"; marka=$mk; basvuru_no="$($x.no)"; benzer_ad=$x.ad; risk=$risk; isaret=$isaret; sinif_cak=$cak; basvuru_tarih=$x.tarih; durum=$x.durum; tip="benzer-tr"; ofis="TR" }
+      $yeniUyari.Add($kayit); $gonderilmis[$anahtar]=$true
+      if("$($f.kanal)" -eq 'mail' -and "$($f.email)" -match '^[^@\s]+@[^@\s]+\.[^@\s]+$'){ if(-not $mailKuyruk.ContainsKey("$($f.email)")){ $mailKuyruk["$($f.email)"]=New-Object System.Collections.Generic.List[object] }; $mailKuyruk["$($f.email)"].Add($kayit) }
+    }
+    # --- #7 ULUSLARARASI: TMview'de EM(EUIPO)+WO(WIPO) canli sorgu (marka basina) ---
+    foreach($x in (TmvAra $mk @("EM","WO"))){
+      $yazim = Benz $nm (Norm $x.ad); $fonetik = Benz $fm (Fon $x.ad); $isaret=[Math]::Max($yazim,$fonetik)
+      if($isaret -lt $esikIsaret){ continue }
+      $anahtar = "$($f.user_id)|$mk|$($x.no)"
+      if($gonderilmis.ContainsKey($anahtar)){ continue }
+      $kayit = [ordered]@{ user_id="$($f.user_id)"; email="$($f.email)"; firma="$($f.firma_adi)"; marka=$mk; basvuru_no="$($x.no)"; benzer_ad=$x.ad; risk=$isaret; isaret=$isaret; sinif_cak=$null; basvuru_tarih=$x.tarih; durum=$x.durum; tip="benzer-intl"; ofis=$x.ofis }
+      $yeniUyari.Add($kayit); $gonderilmis[$anahtar]=$true
+      if("$($f.kanal)" -eq 'mail' -and "$($f.email)" -match '^[^@\s]+@[^@\s]+\.[^@\s]+$'){ if(-not $mailKuyruk.ContainsKey("$($f.email)")){ $mailKuyruk["$($f.email)"]=New-Object System.Collections.Generic.List[object] }; $mailKuyruk["$($f.email)"].Add($kayit) }
     }
   }
 }
@@ -83,7 +108,7 @@ Write-Host ("Yeni uyari: {0} - mail kuyrugu: {1} kullanici" -f $yeniUyari.Count,
 $yazildi=0; $yaziHata=0
 if(-not $kuru){
   foreach($u in $yeniUyari){
-    $govde = [ordered]@{ user_id=$u.user_id; marka=$u.marka; basvuru_no=$u.basvuru_no; benzer_ad=$u.benzer_ad; risk=$u.risk; sinif_cakisiyor=[bool]($u.sinif_cak -eq $true); basvuru_tarih=$u.basvuru_tarih; durum=$u.durum }
+    $govde = [ordered]@{ user_id=$u.user_id; marka=$u.marka; basvuru_no=$u.basvuru_no; benzer_ad=$u.benzer_ad; risk=$u.risk; sinif_cakisiyor=[bool]($u.sinif_cak -eq $true); basvuru_tarih=$u.basvuru_tarih; durum=$u.durum; tip=$u.tip; ofis=$u.ofis }
     $sc = SbPost "marka_uyari" $govde
     if($sc -ge 400){ $yaziHata++ } else { $yazildi++ }
   }

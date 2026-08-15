@@ -54,6 +54,20 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
 
   <div id="sonuc"></div>
 
+  <h2>🖼️ Logo benzerliği (görsel)</h2>
+  <div class="kutu">
+    <p class="mini" style="margin:0 0 10px">Logonu yükle; son başvurular arasında <b style="color:var(--ink)">görsel olarak</b> benzeyen logoları algısal hash (dHash) ile bulalım. Kelime değil, şekil/görsel benzerliği. Robot logoları işledikçe kapsam artar.</p>
+    <input type="file" id="logoDosya" accept="image/*" class="gir">
+    <button class="btn" style="margin-top:10px" onclick="logoTara()">🖼️ Benzer logo ara →</button>
+    <div id="logoSonuc" style="margin-top:12px"></div>
+  </div>
+
+  <h2>🌍 Uluslararası (EUIPO / WIPO)</h2>
+  <div class="kutu">
+    <p class="mini" style="margin:0 0 10px">Markanı yurt dışı sicillerde (AB · WIPO · Almanya · Fransa · İngiltere · ABD) TMview'de ara. <b style="color:var(--ink)">Otomatik uluslararası izleme</b> abonelikte: robot markanı bu ofislerde de tarar, benzer başvuru çıkınca uyarır.</p>
+    <button class="btn ghost" onclick="uluslararasiAc()">🌍 TMview'de uluslararası ara ↗</button>
+  </div>
+
   <h2>📡 Son marka başvuruları akışı</h2>
   <div class="kutu" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -176,15 +190,41 @@ function takip(){
   o.style.color='var(--green)'; o.textContent='Aldık. Marka izleme aboneliği açılınca benzer başvuru düştüğünde ilk sen haber al.';
 }
 
+// #6 LOGO BENZERLIGI: yuklenen logonun dHash'i (istemcide) vs indeks logo hash'leri
+function dhashCanvas(img){
+  var c=document.createElement('canvas'); c.width=9;c.height=8; var x=c.getContext('2d');
+  x.drawImage(img,0,0,9,8); var d=x.getImageData(0,0,9,8).data;
+  function g(px,py){ var i=(py*9+px)*4; return 0.299*d[i]+0.587*d[i+1]+0.114*d[i+2]; }
+  var bits=''; for(var y=0;y<8;y++)for(var px=0;px<8;px++){ bits+=(g(px,y)<g(px+1,y))?'1':'0'; }
+  var hex=''; for(var i=0;i<64;i+=4){ hex+=parseInt(bits.substr(i,4),2).toString(16); }
+  return hex;
+}
+function hamming(a,b){ if(!a||!b||a.length!==b.length)return 64; var d=0; for(var i=0;i<a.length;i++){ var v=parseInt(a[i],16)^parseInt(b[i],16); while(v){ d+=v&1; v>>=1; } } return d; }
+function logoTara(){
+  var f=(document.getElementById('logoDosya').files||[])[0]; var out=document.getElementById('logoSonuc');
+  if(!f){ out.innerHTML='<span class="hata">Önce logo dosyası seç.</span>'; return; }
+  var logolu=MI_L.filter(function(x){ return x.logo && x.logo!=='-' && x.logo.length===16; });
+  if(!logolu.length){ out.innerHTML='<div class="uyari">Logo veritabanı henüz doluyor (robot görselleri işliyor, her gün bir parça). Birkaç gün içinde bu arama aktifleşir.</div>'; return; }
+  var img=new Image();
+  img.onload=function(){
+    var h=dhashCanvas(img);
+    var es=logolu.map(function(x){ return {x:x,d:hamming(h,x.logo)}; }).filter(function(o){ return o.d<=14; }).sort(function(a,b){ return a.d-b.d; });
+    if(!es.length){ out.innerHTML='<div class="uyari" style="border-color:rgba(61,220,151,.32);background:rgba(61,220,151,.07)"><b>Görsel-benzer logo bulunamadı</b> ('+logolu.length+' logolu başvuru tarandı).</div>'; return; }
+    out.innerHTML='<div class="mini" style="margin-bottom:8px">'+es.length+' görsel-benzer başvuru ('+logolu.length+' logo tarandı):</div>'+es.slice(0,15).map(function(o){ var b=Math.round((1-o.d/64)*100); return '<div class="kart"><img src="https://www.tmdn.org/tmview/api/trademark/thumbnail/'+esc(o.x.st13)+'" style="height:34px;vertical-align:middle;background:#fff;border-radius:4px;margin-right:8px" onerror="this.style.display=\'none\'"><b>'+esc(o.x.ad)+'</b> <span class="rz d">%'+b+' görsel</span><div class="mini" style="margin-top:3px">Başvuru '+esc(o.x.no)+' · '+esc(o.x.tarih)+' · sınıf '+esc((o.x.sinif||[]).join(','))+'</div></div>'; }).join('');
+  };
+  img.onerror=function(){ out.innerHTML='<span class="hata">Görsel okunamadı.</span>'; };
+  img.src=URL.createObjectURL(f);
+}
+function uluslararasiAc(){ var m=encodeURIComponent(((document.getElementById('ad')||{}).value||'').trim()); if(!m){ alert('Önce markanı yaz (en üstteki kutu).'); return; } window.open('https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch='+m+'&fOffices=EM,WO,DE,FR,GB,US','_blank','noopener'); }
 function parseTr(s){ var p=(''+(s||'')).split('.'); return p.length===3?new Date(+p[2],+p[1]-1,+p[0]):null; }
 function ayEkle(d,n){ var x=new Date(d.getTime()); x.setMonth(x.getMonth()+n); return x; }
 function fmtTr(d){ function i(n){return(''+n).padStart(2,'0');} return i(d.getDate())+'.'+i(d.getMonth()+1)+'.'+d.getFullYear(); }
 fetch('veri/marka-yeni-basvurular.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   var kol=d.kolon||["ad","no","tarih","sinif","sahip","durum","st13","yayim"];
-  var iAd=kol.indexOf('ad'),iNo=kol.indexOf('no'),iTr=kol.indexOf('tarih'),iSn=kol.indexOf('sinif'),iSa=kol.indexOf('sahip'),iDu=kol.indexOf('durum'),iSt=kol.indexOf('st13'),iYa=kol.indexOf('yayim');
+  var iAd=kol.indexOf('ad'),iNo=kol.indexOf('no'),iTr=kol.indexOf('tarih'),iSn=kol.indexOf('sinif'),iSa=kol.indexOf('sahip'),iDu=kol.indexOf('durum'),iSt=kol.indexOf('st13'),iYa=kol.indexOf('yayim'),iLo=kol.indexOf('logo');
   MI_L=(d.basvurular||[]).map(function(b){
     if(!Array.isArray(b)) return b; // eski obje formatina toleransli
-    return { ad:b[iAd], no:b[iNo], tarih:b[iTr], sinif:(''+(b[iSn]||'')).split(',').filter(Boolean), sahip:b[iSa]||'', durum:b[iDu], st13:b[iSt], yayim:b[iYa]||'' };
+    return { ad:b[iAd], no:b[iNo], tarih:b[iTr], sinif:(''+(b[iSn]||'')).split(',').filter(Boolean), sahip:b[iSa]||'', durum:b[iDu], st13:b[iSt], yayim:b[iYa]||'', logo:(iLo>=0?(b[iLo]||''):'') };
   });
   MI_META={pencereGun:d.pencereGun, sayi:d.sayi};
   var dg=document.getElementById('damga');

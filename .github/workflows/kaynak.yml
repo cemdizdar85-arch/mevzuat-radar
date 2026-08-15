@@ -154,6 +154,15 @@ jobs:
         shell: pwsh
         run: ./motor/marka-izleme-hasat.ps1 -Yaz
 
+      # #6 logo/gorsel benzerlik: figuratif basvurularin kucuk gorselinden dHash
+      # (ImageMagick, ubuntu'da kurulu). Incremental+tavanli; istemci yuklenen
+      # logoyu bununla Hamming'le karsilastirir. Indeksten SONRA kosar.
+      - name: Marka logo hash (dHash - gorsel benzerlik)
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/marka-logo-hash.ps1 -Adet 500
+
       # #4 per-user watch: kullanicilarin markalarini yeni basvurulara karsi tara,
       # benzer cikaninca marka_uyari'ya yaz (panel gosterir) + RESEND acikSA mail.
       # Indeksten SONRA kosar. Anahtar yoksa kendini atlar.
