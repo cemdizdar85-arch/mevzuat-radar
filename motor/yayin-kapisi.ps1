@@ -61,9 +61,18 @@ $SB = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE
 $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
 function CekListe([string]$uri){
-  $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
-  $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
-  return @($m | ConvertFrom-Json)
+  # 15.08: Supabase ara sira 500 "statement timeout" (57014) donuyor (gecici DB
+  # yavaslamasi). Bir kayma tum kapiyi DURDU yapmasin diye 3 kez, artan beklemeyle
+  # tekrar dene; hepsi tutmazsa cagiran DURDU verir (olculemeyen guvenli sayilmaz).
+  $sonHata = $null
+  for($d=1; $d -le 3; $d++){
+    try{
+      $h = Invoke-WebRequest -Uri $uri -Headers $SB -UseBasicParsing -TimeoutSec 180
+      $m = if($h.RawContentStream){ [Text.Encoding]::UTF8.GetString($h.RawContentStream.ToArray()) } else { "$($h.Content)" }
+      return @($m | ConvertFrom-Json)
+    } catch { $sonHata = $_; if($d -lt 3){ Start-Sleep -Seconds ($d*5) } }
+  }
+  throw $sonHata
 }
 
 # --- Turkce duyarsiz sadelestirme: KARAKTER KARAKTER (regex degil).
