@@ -1,29 +1,34 @@
 {
-  "tarama": "14.08.2026 03:26",
-  "toplamLink": 861,
-  "kirikSayisi": 2,
+  "tarama": "15.08.2026 02:13",
+  "toplamLink": 872,
+  "kirikSayisi": 3,
   "kirikler": [
+    {
+      "url": "https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler",
+      "kod": "baglanti-yok",
+      "sayfalar": "destekler.html, veri/kirik-linkler.json"
+    },
     {
       "url": "https://kgk.gov.tr/ContentAssignmentDetail/5150/Türkiye-Finansal-Raporlama-Forumuna-İlişkin-Duyuru",
       "kod": "baglanti-yok",
       "sayfalar": "veri/duyuru-yeni.json, veri/kirik-linkler.json"
     },
     {
-      "url": "https://www.kosgeb.gov.tr/site/tr/genel/destekler/3/destekler",
+      "url": "https://www.turkiye.gov.tr/kik-yasakli-sorgula",
       "kod": "baglanti-yok",
-      "sayfalar": "destekler.html"
+      "sayfalar": "alacak-radari.html"
     }
   ],
-  "dogrulanamayanSayisi": 4,
+  "dogrulanamayanSayisi": 3,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
     {
-      "url": "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=7043&amp;mevzuatTur=KurumVeKurulusYonetmeligi&amp;mevzuatTertip=5",
+      "url": "https://ekapv2.kik.gov.tr",
       "kod": "bot-engeli",
-      "sayfalar": "genc.html"
+      "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
-      "url": "https://ekapv2.kik.gov.tr",
+      "url": "https://ekapv2.kik.gov.tr/ekap/search",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
@@ -31,11 +36,6 @@
       "url": "https://ekapv2.kik.gov.tr/",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
-    },
-    {
-      "url": "https://ekapv2.kik.gov.tr/ekap/search",
-      "kod": "bot-engeli",
-      "sayfalar": "ihale-radari.html"
     }
   ]
 }
