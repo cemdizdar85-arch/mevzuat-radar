@@ -118,8 +118,10 @@ var css=''+
 '#mrxFab{position:fixed;right:18px;bottom:18px;z-index:99990;appearance:none;border:1px solid rgba(255,255,255,.16);'+
  'background:linear-gradient(135deg,#f5a524,#ffc24b);color:#03101f;font-weight:800;font-size:14px;'+
  'font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;padding:12px 18px;border-radius:999px;'+
- 'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px}'+
+ 'cursor:pointer;box-shadow:0 8px 28px rgba(46,140,255,.45);letter-spacing:.2px;'+
+ 'transition:transform .28s ease,opacity .28s ease}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
+'#mrxFab.mrxGizli{transform:translateY(140%);opacity:0;pointer-events:none}'+
 '#mrxKaplama{position:fixed;inset:0;z-index:99991;background:rgba(3,6,12,.82);backdrop-filter:blur(6px);'+
  'display:none;overflow-y:auto;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
 '#mrxKaplama.acik{display:block}'+
@@ -203,6 +205,18 @@ function kur(){
     document.getElementById('mrxYok').style.display=toplam?'none':'block';
   }
   fab.addEventListener('click',ac);
+  // Aşağı kaydırırken düğmeyi kenara çek (içeriği örtmesin), yukarı kaydırınca
+  // ya da durunca geri getir. Panel açıkken ve sayfa başındayken hep görünür.
+  var sonY=window.pageYOffset||0;
+  function scr(){
+    if(kap.classList.contains('acik')){ return; }
+    var y=window.pageYOffset||0;
+    if(y<160){ fab.classList.remove('mrxGizli'); }          // sayfa başı: hep görünür
+    else if(y>sonY+6){ fab.classList.add('mrxGizli'); }     // aşağı: kenara çek
+    else if(y<sonY-6){ fab.classList.remove('mrxGizli'); }  // yukarı: geri getir
+    sonY=y;
+  }
+  window.addEventListener('scroll',scr,{passive:true});
   document.getElementById('mrxKapat').addEventListener('click',kapat);
   kap.addEventListener('click',function(e){ if(e.target===kap) kapat(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') kapat(); });
