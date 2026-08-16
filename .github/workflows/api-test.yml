@@ -1,0 +1,40 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/api-test.yml
+# API TEST PROBU: OpenRouter yedek hattini CANLI dogrular (tek tikla).
+# Actions -> "API Testi (OpenRouter)" -> Run workflow.
+# Bir gercek cagri yapar: JSON bicimi + Turkce diakritik + ornek KGK sorusu.
+# Loglarda uretilen ornek soruyu okursun; maliyet ~0,01 USD.
+name: API Testi (OpenRouter)
+
+on:
+  workflow_dispatch:
+    inputs:
+      hat:
+        description: "Test edilecek hat"
+        required: true
+        default: "openrouter"
+        type: choice
+        options:
+          - openrouter
+          - auto
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: API probunu kos
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: |
+          if (-not $env:OPENROUTER_KEY) {
+            Write-Host "OPENROUTER_KEY secret'i yok. Repo Settings -> Secrets and variables -> Actions -> New repository secret (Ad: OPENROUTER_KEY)" -ForegroundColor Red
+            exit 1
+          }
+          ./motor/api-test.ps1 -Hat "${{ inputs.hat }}"

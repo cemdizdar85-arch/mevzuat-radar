@@ -15,18 +15,16 @@ $ErrorActionPreference = "Stop"
 try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingProvider]::Instance) } catch {}
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok = Split-Path -Parent $here
-# Anahtar: CI'da GitHub secret (env), yerelde repo disi dosya
+# Anahtar (yalniz hata mesaji redaksiyonu icin; cagri artik Invoke-ClaudeMesaj uzerinden gider)
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() } catch {} }
-# 12.08 cift hat: AWS uclusu ortamdaysa oradan (api-hedef.ps1); yoksa eski davranis
-$CLAUDE_TABAN = 'https://api.anthropic.com'
-$CLAUDE_HDR   = @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" }
-try {
-  . (Join-Path $here 'api-hedef.ps1')
-  $hedefKart = Get-ApiHedef
-  $CLAUDE_TABAN = $hedefKart.taban; $CLAUDE_HDR = $hedefKart.basliklar; $key = $hedefKart.anahtar
-  Write-Host ("Claude hedefi: " + $hedefKart.ad)
-} catch { if(-not $key){ throw 'Hicbir Claude anahtari yok (env, AWS uclusu ya da yerel dosya).' } }
+# 16.08 uc hat: birincil Anthropic/AWS, LIMIT dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
+$hatAd = ''
+try { $hatAd = (Get-ApiHedef).ad } catch {}
+if(-not $hatAd -and (Read-ApiEnv 'OPENROUTER_KEY')){ $hatAd = 'openrouter' }
+if(-not $hatAd){ throw 'Hicbir Claude hatti yok (ANTHROPIC_API_KEY / AWS uclusu / OPENROUTER_KEY).' }
+Write-Host ("Claude birincil hat: " + $hatAd + " (limit dolarsa OpenRouter yedegine gecer)")
 $arsivTeblig = Join-Path $here ("arsiv\" + $Gun)
 $parcalar = $Gun.Split("-")
 $tabanUrl = "https://www.resmigazete.gov.tr/eskiler/$($parcalar[2])/$($parcalar[1])/"
@@ -75,14 +73,10 @@ TEBLIG METNI:
 "@
 
 function ApiCagri([string]$model, [array]$icerik, [int]$maxTok){
-  $govde = @{ model = $model; max_tokens = $maxTok; messages = @(@{ role="user"; content=$icerik }) } | ConvertTo-Json -Depth 10
-  $r = Invoke-RestMethod -Method Post -Uri ($CLAUDE_TABAN + "/v1/messages") -Headers $CLAUDE_HDR -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType "application/json" -TimeoutSec 240
-  $c = $r.content[0].text.Trim()
-  # SADECE PS 5.1: Invoke-RestMethod UTF-8'i Latin-1 sanar -> geri cevir. pwsh 7 dogru cozer; orada bu donusum metni BOZAR.
-  if($PSVersionTable.PSVersion.Major -le 5){
-    $c = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::GetEncoding("ISO-8859-1").GetBytes($c))
-  }
-  return @{ metin = $c; girdi = $r.usage.input_tokens; cikti = $r.usage.output_tokens }
+  # 16.08: cagri api-hedef.ps1 uzerinden - Anthropic birincil, limit dolunca OpenRouter yedegi.
+  # Bicim cevirisi (OpenAI<->Anthropic) + Turkce Latin-1 duzeltmesi Invoke-ClaudeMesaj icinde.
+  $r = Invoke-ClaudeMesaj -Model $model -Icerik $icerik -MaxTok $maxTok
+  return @{ metin = $r.metin; girdi = $r.girdi; cikti = $r.cikti }
 }
 
 function JsonAyikla([string]$c){
@@ -344,7 +338,9 @@ $metin
   } catch {
     # tek yeniden deneme (JSON hatasi gecici olabilir)
     $hatali++
-    Write-Host ("HATA {0}: {1}" -f $d.Name, ($_.Exception.Message -replace [regex]::Escape($key),"***")) -ForegroundColor Yellow
+    $hmsg = $_.Exception.Message
+    if($key){ $hmsg = $hmsg -replace [regex]::Escape($key),"***" }
+    Write-Host ("HATA {0}: {1}" -f $d.Name, $hmsg) -ForegroundColor Yellow
   }
 }
 
@@ -397,16 +393,6 @@ if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
 } else {
   [System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
 }
-
-# 16.08 KOR-KALMA AYRIMI: 0 kart "sakin RG" mi yoksa "API/uretim dususu" mu?
-# Ayirt edici = $hatali (API cagri hata sayaci). 0 kart + hata VARSA sessizce
-# "RG sakin" demek YALAN olur (14.08'de 2 ilgili teblig vardi ama 0 kart cikti).
-# Durumu yaz; kartlar.yml nobetcisi 'api-hatasi' gorurse kirmizi + mail.
-$kartSay = @($guncelKartlar).Count
-$sonuc = if($kartSay -gt 0){ 'kart-var' } elseif($hatali -gt 0){ 'api-hatasi' } else { 'sakin' }
-$durumObj = [ordered]@{ gun=$Gun; uretilenKart=$kartSay; hataliCagri=$hatali; hakemSayisi=$hakemSayisi; sonuc=$sonuc; damga=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
-($durumObj | ConvertTo-Json) | Out-File (Join-Path $kok "veri\kart-uretim-durum.json") -Encoding utf8
-if($sonuc -eq 'api-hatasi'){ Write-Host ("KOR-KALMA: {0} gununde {1} API/uretim hatasi, 0 kart -- 'RG sakin' DEGIL, uretim dustu." -f $Gun,$hatali) -ForegroundColor Red }
 
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
