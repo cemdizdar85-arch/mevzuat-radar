@@ -260,7 +260,13 @@ function Test-LimitHatasi($err){
       $body = $sr.ReadToEnd()
     } catch {}
   }
-  if($body -match '(?i)credit balance|spend limit|monthly limit|exceeded|quota|insufficient|billing|organization.{0,30}disabled|rate.?limit|too_many_requests'){ return $true }
+  # 16.08 OLCULDU - KOPRUNUN COKTUGU YER BURASIYDI:
+  # Anthropic tavan hatasini 429 DEGIL, HTTP 400 invalid_request_error olarak
+  # veriyor ve metni su: "You have reached your specified API usage limits.
+  # You will regain access on 2026-09-01 at 00:00 UTC."
+  # Eski desen bu cumlenin HICBIR kelimesini tutmuyordu -> yedek hat hic
+  # devreye girmedi, istek 400 ile oldu, 27 teblig kart uretemedi.
+  if($body -match '(?i)credit balance|spend limit|monthly limit|usage limit|reached your specified|regain access|exceeded|quota|insufficient|billing|organization.{0,30}disabled|rate.?limit|too_many_requests'){ return $true }
   return $false
 }
 

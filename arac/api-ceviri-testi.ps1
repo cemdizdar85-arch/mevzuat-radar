@@ -73,7 +73,26 @@ Kontrol '"ad" yoksa blok oldugu gibi geciyor' {
   $a[0].text -eq 'q'
 }
 
-Write-Host '4) Model eslemesi'
+Write-Host '4) Limit teshisi (yedek hatta gecis karari) - CAGRI YOK, yalniz metin eslemesi'
+# 16.08: koprunun coktugu yer burasiydi. Anthropic tavani 429 degil HTTP 400
+# "invalid_request_error" ile geliyor; metni asagidaki. Eski desen tutmuyordu.
+function SahteHata([string]$govde){
+  $e = New-Object psobject
+  $e | Add-Member -NotePropertyName ErrorDetails -NotePropertyValue ([pscustomobject]@{ Message = $govde })
+  $e | Add-Member -NotePropertyName Exception -NotePropertyValue ([pscustomobject]@{ Response = $null })
+  return $e
+}
+Kontrol 'Anthropic tavan metni LIMIT sayiliyor' {
+  Test-LimitHatasi (SahteHata '{"type":"error","error":{"type":"invalid_request_error","message":"You have reached your specified API usage limits. You will regain access on 2026-09-01 at 00:00 UTC."}}')
+}
+Kontrol 'kredi/fatura metni LIMIT sayiliyor' {
+  Test-LimitHatasi (SahteHata '{"error":{"message":"Your credit balance is too low"}}')
+}
+Kontrol 'ALAKASIZ hata limit SAYILMIYOR (yedege bosuna gecmesin)' {
+  -not (Test-LimitHatasi (SahteHata '{"error":{"type":"invalid_request_error","message":"messages.0.content.0.text: field required"}}'))
+}
+
+Write-Host '5) Model eslemesi'
 Kontrol 'tarihli haiku -> anthropic/claude-haiku-4.5' { (ConvertTo-ORModel 'claude-haiku-4-5-20251001') -eq 'anthropic/claude-haiku-4.5' }
 Kontrol 'sonnet-5 -> anthropic/claude-sonnet-5'       { (ConvertTo-ORModel 'claude-sonnet-5') -eq 'anthropic/claude-sonnet-5' }
 Kontrol 'zaten OpenRouter slug ise dokunmuyor'        { (ConvertTo-ORModel 'anthropic/claude-haiku-4.5') -eq 'anthropic/claude-haiku-4.5' }

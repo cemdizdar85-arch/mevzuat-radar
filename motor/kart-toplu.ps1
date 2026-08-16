@@ -35,6 +35,54 @@ $TarihNokta = "$($parcalar[0]).$($parcalar[1]).$($parcalar[2])"
 
 function NormD([string]$s){ if(-not $s){ return "" }; return (($s -replace "\s+"," ").Trim().ToLowerInvariant()) }
 
+# ============================================================================
+#  YANLIS-NEGATIF DUZELTMESI (16.08.2026 - Cem: "hap halinde veriyor muyuz?")
+#
+#  Cift okuma uzlasmasi ham metni HARFI HARFINE kiyasliyordu. Iki okuma ayni
+#  sayiyi bulup FARKLI YAZDIGINDA (1,25 USD/kg <-> 1,25 ABD Dolari/Kg)
+#  "ihtilafli" sayilip deger DUSUYORDU. Sonuc: vitrindeki 12 kartin 5'inde
+#  hic rakam yok, 6'sinda yururluk yerine "kaynak tebligdeki maddeye bakin".
+#  Bu bir kalite kapisi degil OLCUM KUSURUDUR - cubugu indirmeden duzeltilir.
+#  Kural degismedi: SAYI ya da BIRIM gercekten farkliysa deger yine DUSER.
+# ============================================================================
+function KiymetNorm([string]$s){
+  if(-not $s){ return "" }
+  $t = $s.ToLowerInvariant()
+  $t = $t -replace 'abd\s*dolar[^\s\/]*|amerikan\s*dolar[^\s\/]*|usd|\$','usd'
+  $t = $t -replace 'kilogram|\bkg\b','kg'
+  $t = $t -replace '\badet\b|\bad\b','adet'
+  $t = $t -replace 'metrekare|\bm2\b','m2'
+  $t = $t -replace '\blitre\b|\blt\b','lt'
+  $m = [regex]::Match($t, '\d[\d\.\,]*')
+  $sayi = ''
+  if($m.Success){
+    $ham = $m.Value
+    if($ham -match ',\d{1,3}$'){ $ham = ($ham -replace '\.','') -replace ',','.' }
+    else { $ham = $ham -replace ',','' }
+    $d = 0.0
+    if([double]::TryParse($ham, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)){
+      $sayi = $d.ToString('0.######', [Globalization.CultureInfo]::InvariantCulture)
+    }
+  }
+  $birimler = @()
+  foreach($b in @('usd','kg','adet','m2','lt')){ if($t -match $b){ $birimler += $b } }
+  return ($sayi + '|' + (($birimler | Sort-Object) -join '/'))
+}
+
+# "yayimini takip eden otuzuncu gun" ile "yayimini takip eden 30. gun" AYNIDIR.
+function YururlukNorm([string]$s){
+  if(-not $s){ return "" }
+  $t = (NormD $s)
+  $t = $t -replace ([string][char]0x0131),'i' -replace ([string][char]0x011F),'g' -replace ([string][char]0x015F),'s' -replace ([string][char]0x00FC),'u' -replace ([string][char]0x00F6),'o' -replace ([string][char]0x00E7),'c'
+  $yazi = [ordered]@{ 'birinci'='1';'ikinci'='2';'ucuncu'='3';'dorduncu'='4';'besinci'='5';'onuncu'='10';'onbesinci'='15';'yirminci'='20';'otuzuncu'='30';'kirkinci'='40';'altmisinci'='60';'doksaninci'='90' }
+  foreach($k in $yazi.Keys){ $t = $t -replace $k, $yazi[$k] }
+  if($t -match '(\d{2})[\.\/](\d{2})[\.\/](\d{4})'){ return ('tarih:' + $Matches[1] + '.' + $Matches[2] + '.' + $Matches[3]) }
+  if($t -match 'takip eden\D*(\d+)'){ return ('takip:' + $Matches[1]) }
+  if($t -match 'yayim\w*\s*tarihinde|yayimlandigi tarihte'){ return 'yayim' }
+  if($t -match 'belirtilmemis|bakin'){ return '' }
+  return $t
+}
+
 # ---- kalici kiymet hafizasi -------------------------------------------------
 $hafizaDir = Join-Path $here "hafiza"
 New-Item -ItemType Directory -Force $hafizaDir | Out-Null
@@ -193,7 +241,14 @@ foreach($d in $dosyalar){
     }
 
     # yururluk (kalipli oldugu icin esitlik saglikli)
-    $yurFinal = if((NormD $k1.yururluk) -eq (NormD $k2.yururluk)){ $k1.yururluk } else { "Kaynak tebliğdeki yürürlük maddesine bakın" }
+    # Bicim farki ihtilaf DEGILDIR. Biri somut digeri bos ise SOMUT olan yazilir -
+    # bilgi elimizdeyken "kaynak tebligdeki maddeye bakin" demek okuyucuya ihanettir.
+    $yn1 = YururlukNorm $k1.yururluk
+    $yn2 = YururlukNorm $k2.yururluk
+    $yurFinal = if($yn1 -and $yn1 -eq $yn2){ $k1.yururluk }
+                elseif($yn1 -and -not $yn2){ $k1.yururluk }
+                elseif($yn2 -and -not $yn1){ $k2.yururluk }
+                else { "Kaynak tebliğdeki yürürlük maddesine bakın" }
 
     # etki yonu: iki okuma anlasamiyorsa YORUM yayinlanmaz ("belirsiz") - yorumda tek okumaya guvenilmez
     $etkiFinal = $null
@@ -264,7 +319,11 @@ $metin
     $tumKodlar = @($m1.Keys) + @($m2.Keys) | Select-Object -Unique
     $kesin = [ordered]@{}; $ihtilafli = @()
     foreach($kod in $tumKodlar){
-      if($m1.ContainsKey($kod) -and $m2.ContainsKey($kod) -and ((NormD $m1[$kod]) -eq (NormD $m2[$kod]))){ $kesin[$kod] = $m1[$kod] }
+      # SAYI + BIRIM kiyaslanir, yazim bicimi degil. Gercek fark varsa kod
+      # yine IHTILAFLI kalir ve hakeme gider - kural gevsemedi.
+      $n1 = if($m1.ContainsKey($kod)){ KiymetNorm $m1[$kod] } else { '' }
+      $n2 = if($m2.ContainsKey($kod)){ KiymetNorm $m2[$kod] } else { '' }
+      if($n1 -and $n1 -eq $n2){ $kesin[$kod] = $m1[$kod] }
       else { $ihtilafli += $kod }
     }
 
@@ -286,7 +345,7 @@ $metin
           if(-not $kod -or $ihtilafli -notcontains $kod){ continue }
           if((NormD $hd) -eq "okunamadi" -or -not $hd){ continue }
           # 2/3 oy: hakem, iki okumadan biriyle uyusuyorsa kabul
-          if(($m1.ContainsKey($kod) -and (NormD $m1[$kod]) -eq (NormD $hd)) -or ($m2.ContainsKey($kod) -and (NormD $m2[$kod]) -eq (NormD $hd))){
+          if(($m1.ContainsKey($kod) -and (KiymetNorm $m1[$kod]) -eq (KiymetNorm $hd)) -or ($m2.ContainsKey($kod) -and (KiymetNorm $m2[$kod]) -eq (KiymetNorm $hd))){
             $kesin[$kod] = $hd
             $ihtilafli = @($ihtilafli | Where-Object { $_ -ne $kod })
           }
