@@ -241,7 +241,18 @@ jobs:
             Write-Host ("      hasat: {0}   eslesen yayin: {1}" -f $x.hasat, $x.eslesme_sayisi)
           }
           Write-Host ""
-          Write-Host "Bu dosyalar OTOMATIK BESLENMIYOR - kaynagin guncel hali indirilip"
-          Write-Host "hasat betigi yeniden kosulmali. Ayrinti: veri/arac-uyari.json"
+          Write-Host "Ayrinti: veri/arac-uyari.json"
           Write-Host "NOT: bu bir TRIPWIRE'dir - yanlis alarm verebilir, GM okuyup karar verir."
-          exit 1
+          Write-Host ""
+          # 17.08.2026 SAHIPLIK DEVRI (Cem: "otomatik indirsin, hep ayni seyi
+          # konusmayalim"). Bu kapi eskiden exit 1 verip KART KOSUSUNU kirmizi
+          # yapiyordu; cunku yan veri elle tazeleniyordu ve her RG'de insana is
+          # dusuyordu. Artik tazeleme .github/workflows/yanveri.yml'e ait ve
+          # OTOMATIK: yanveri-onarici kaynagi indirir, K1/K4/K5 kapilarindan
+          # gecirir, tutmazsa eski veriyi geri koyup mail atar.
+          # Kart kosusunu bu yuzden kirmizi yapmiyoruz - her gun kirmizi yanan
+          # alarm, bakilmayan alarmdir. Yan veri gercekten bozulursa Yan Veri
+          # Nobeti KENDI kosusunda kirmizi biter; sahibi orasidir.
+          Write-Host "Tazeleme YAN VERI NOBETI'ne ait (yanveri.yml, her gun 07:20) - elle is YOK."
+          Write-Host "Bu adim bilgi amaclidir; kart kosusunu dusurmez."
+          exit 0

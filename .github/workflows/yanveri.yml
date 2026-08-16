@@ -1,0 +1,61 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/yanveri.yml
+#
+# YAN VERI NOBETI — GTIP yan verisi (damping/subvansiyon) KENDI KENDINE tazelenir.
+#
+# NEDEN BU DOSYA VAR (17.08.2026, Cem: "otomatik indirsin ama hep ayni seyi
+# konusmayalim, her sey otomatik olacak"):
+# Arac Nobetcisi her RG'de "gtip-damping.json ESKIMIS OLABILIR - kaynagin
+# guncel halini indirip hasat betigini yeniden kosun" diye kirmizi veriyordu.
+# Yani her seferinde INSANA is dusuyordu. Oysa motor/yanveri-onarici.ps1
+# indirmeyi de hasadi da ZATEN yapiyordu - sadece onu CAGIRAN kimse yoktu.
+# Bugun ayni sinifin ucuncu ornegi: "kuruldu ama kimse gormedi".
+#
+# GUVENLIK: yanveri-onarici kendi kapilarini tasiyor -
+#   K1 cift indirme birebir ayni mi · K4 kayit sayisi sapmasi · K5 CIPA
+#   (koklu kayitlar yeni sette duruyor mu). Kapi tutmazsa ESKI VERI GERI
+#   KONUR ve mail gider. Yani otomatik tazeleme sessizce bozamaz.
+#
+# PARA HARCAMAZ: yalniz ticaret.gov.tr'den sayfa + xlsx indirir.
+name: Yan Veri Nobeti
+
+on:
+  schedule:
+    # 07:20 TR - RG nobeti ve kart motoru bittikten sonra.
+    - cron: "20 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  yanveri:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Duyuru sinyali (Ithalat Gn.Md. yeni duyuru var mi)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/yanveri-onarici.ps1 -DuyuruSinyal
+
+      - name: Damping/subvansiyon listesini TAZELE
+        shell: pwsh
+        run: ./motor/yanveri-onarici.ps1 -Kaynak damping -Uygula
+
+      - name: Degisiklik varsa yayinla
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          for f in veri/gtip-damping.json veri/yanveri-damga.json veri/arac-uyari.json; do
+            git add "$f" 2>/dev/null || true
+          done
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok - kaynak tazeydi, commit atilmadi."
+            exit 0
+          fi
+          ADET=$(grep -o '"u"' veri/gtip-damping.json 2>/dev/null | wc -l | tr -d ' ')
+          git commit -m "Yan veri nobeti: damping/subvansiyon listesi tazelendi ($ADET kayit) [veri-operasyonu]"
+          git pull --rebase || true
+          git push
