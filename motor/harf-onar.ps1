@@ -85,23 +85,29 @@ Write-Host ("Sozluk: {0} kelime" -f $SOZLUK.Count)
 #  bakar; tr-TR'de 'I' ile 'i' ayni harf DEGILDIR, bu yuzden IgnoreCase
 #  kullanan bir esleme buyuk harfli bicimleri sessizce kacirirdi. Duyarli
 #  esleme bu tuzagi tamamen ortadan kaldirir.
+# TEK BIRLESIK DESEN. Sozluk basina ayri Replace cagirmak 329 kelime x 12 alan
+# x 30.569 satir = ~120 milyon regex gecisi demekti (PowerShell'de saatler).
+# Tek alternasyon deseni metni BIR KEZ tarar; hangi kelimenin eslestigini
+# eslesme metninden (harfe duyarli Dictionary) buluruz.
+# Uzun formlar once yazilir (ornek "sikteki" > "sikte") - kelime siniri zaten
+# koruyor ama alternasyon sirasi garantiye alinir.
 $SECENEK = [Text.RegularExpressions.RegexOptions]::CultureInvariant
-$desenler = New-Object 'System.Collections.Generic.Dictionary[string,regex]'   # @{} harf ayirmaz - kullanma
-foreach($a in $SOZLUK.Keys){
-  $desenler[$a] = [regex]::new('(?<![\p{L}])' + [regex]::Escape($a) + '(?![\p{L}])', $SECENEK)
-}
+$siraliAnahtar = @($SOZLUK.Keys | Sort-Object -Property Length -Descending)
+$alternasyon = ($siraliAnahtar | ForEach-Object { [regex]::Escape($_) }) -join '|'
+$BIRLESIK = [regex]::new('(?<![\p{L}])(?:' + $alternasyon + ')(?![\p{L}])', $SECENEK)
+
 function MetinOnar([string]$metin, [ref]$sayac){
   if([string]::IsNullOrEmpty($metin)){ return $metin }
-  $sonuc = $metin
-  foreach($a in $SOZLUK.Keys){
-    $dogru = $SOZLUK[$a]
-    $sonuc = $desenler[$a].Replace($sonuc, {
-      param($m)
+  if(-not $BIRLESIK.IsMatch($metin)){ return $metin }   # hizli cikis
+  return $BIRLESIK.Replace($metin, {
+    param($m)
+    $karsilik = $null
+    if($SOZLUK.TryGetValue($m.Value, [ref]$karsilik)){
       $sayac.Value = $sayac.Value + 1
-      $dogru
-    })
-  }
-  return $sonuc
+      return $karsilik
+    }
+    return $m.Value   # harfe duyarli eslesme tutmadi (ornek "SIK") - DOKUNMA
+  })
 }
 
 # --- kasayi tara

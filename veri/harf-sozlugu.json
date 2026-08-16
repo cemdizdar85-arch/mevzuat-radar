@@ -1,13 +1,20 @@
 {
-  "baslik": "Turkce harf onarim sozlugu - Sinif 1 (serpme bozulma), 'sik' ailesi",
+  "baslik": "Turkce harf onarim sozlugu - ONAYLI (elle okunmus)",
   "tarih": "16.08.2026",
   "yontem": "Kasa (30.569 soru) tarandi; kelime basi 'sik*' gecen 293 satirdaki 497 gecisin 41 yazim formu ELLE OKUNDU (hepsi, orneklem degil). Hedef yazim kasadaki dogru yazimlarla dogrulandi.",
+  "surum": "v2 - \"sik\" ailesi (41 form okundu) + aday sozlugun ilk 300 satiri okundu",
   "olcum": {
     "kasa_satir": 30569,
     "etkilenen_satir": 293,
     "toplam_gecis": 497,
     "yazim_formu": 41,
-    "alan_dagilimi": "aciklama %97 (A-E), hap 12, siklar 3, soru 0"
+    "alan_dagilimi": "aciklama %97 (A-E), hap 12, siklar 3, soru 0",
+    "kasa_geneli_bozuk_satir": 3390,
+    "kasa_geneli_gecis": 63434,
+    "aday_sozluk_satiri": 4507,
+    "okunan_satir": 300,
+    "onaylanan_satir": 329,
+    "haric_tutulan_cakisma": 7
   },
   "kanit_notlari": [
     "'sikte' -> 'sikta' degil 'sikta': kasada dogru yazim 'sikta' 158+ satirda geciyor, 'sikte' 0. Yani bozuk bicimdeki 'e' sesli harfi de bozulmanin parcasi.",
@@ -15,61 +22,2043 @@
     "Buyuk/kucuk harf varyantlari AYRI SATIR: eslesme harfe duyarli, cunku 'SIK' mesru bir kelimedir."
   ],
   "kelimeler": [
-    { "ascii": "sik",              "dogru": "şık",              "gecis": 239, "gerekce": "sik ailesi - 'Bu sik 129.470 TL...' (secenek)" },
-    { "ascii": "Sik",              "dogru": "Şık",              "gecis": 13,  "gerekce": "cumle basi; 'Sik, karar gerektiren III ve V...'" },
-    { "ascii": "sikte",            "dogru": "şıkta",            "gecis": 86,  "gerekce": "'Bu sikte alacaklandirilmis' - kasada dogru yazim sikta" },
-    { "ascii": "sikteki",          "dogru": "şıktaki",          "gecis": 33,  "gerekce": "'bu sikteki ifade' - kasada sikteki 0, siktaki var" },
-    { "ascii": "Sikteki",          "dogru": "Şıktaki",          "gecis": 1,   "gerekce": "cumle basi varyant" },
-    { "ascii": "sikta",            "dogru": "şıkta",            "gecis": 24,  "gerekce": "'bu sikta iscilik payi gibi bir sayi'" },
-    { "ascii": "Sikta",            "dogru": "Şıkta",            "gecis": 1,   "gerekce": "cumle basi varyant" },
-    { "ascii": "siktaki",          "dogru": "şıktaki",          "gecis": 8,   "gerekce": "'bu siktaki deger'" },
-    { "ascii": "sikkin",           "dogru": "şıkkın",           "gecis": 13,  "gerekce": "'Bu sikkin uydurdugu islem' (tamlayan hali)" },
-    { "ascii": "Sikkin",           "dogru": "Şıkkın",           "gecis": 3,   "gerekce": "cumle basi varyant" },
-    { "ascii": "sikka",            "dogru": "şıkka",            "gecis": 9,   "gerekce": "'bu sikka ulasir', 'hicbir sikka uymadigindan' (yonelme hali)" },
-    { "ascii": "siktir",           "dogru": "şıktır",           "gecis": 3,   "gerekce": "'bu yaklasik bu siktir' - kufur gorunumu, ivedi" },
-    { "ascii": "sikki",            "dogru": "şıkkı",            "gecis": 2,   "gerekce": "'sonuc B sikki', 'bu sikki yanlis kilar'" },
-    { "ascii": "sikı",             "dogru": "şıkkı",            "gecis": 2,   "gerekce": "'bu mantik hatasi siki gecersiz kilar' - yarim bozulmus bicim" },
-    { "ascii": "sikkidir",         "dogru": "şıkkıdır",         "gecis": 1,   "gerekce": "'en dogru yanit ... A sikkidir'" },
-    { "ascii": "sikkindaki",       "dogru": "şıkkındaki",       "gecis": 2,   "gerekce": "secenek icindeki ifadeye atif" },
-    { "ascii": "sikkindeki",       "dogru": "şıkkındaki",       "gecis": 1,   "gerekce": "ayni; 'sikkindeki' Turkcede yok (unlu uyumu)" },
-    { "ascii": "sikkte",           "dogru": "şıkta",            "gecis": 1,   "gerekce": "'Bu sikkte 740.850 / ...' - cift k yazim hatasi" },
-    { "ascii": "sikdeki",          "dogru": "şıktaki",          "gecis": 1,   "gerekce": "'Bu sikdeki degerler' - sert unsuz benzesmesi" },
-    { "ascii": "siklarda",         "dogru": "şıklarda",         "gecis": 2,   "gerekce": "'siklarda en yakin deger B'" },
-    { "ascii": "siklar",           "dogru": "şıklar",           "gecis": 1,   "gerekce": "'siklar arasinda %17,28 yer aliyorsa'" },
-    { "ascii": "sikler",           "dogru": "şıklar",           "gecis": 1,   "gerekce": "'sikler arasinda' - 'sikler' unlu uyumuna aykiri" },
-    { "ascii": "Siklara",          "dogru": "Şıklara",          "gecis": 1,   "gerekce": "'Siklara bakinca en yakin deger'" },
-    { "ascii": "sikini",           "dogru": "şıkkını",          "gecis": 2,   "gerekce": "'(C) sikini kontrol et'" },
-    { "ascii": "sikine",           "dogru": "şıkkına",          "gecis": 1,   "gerekce": "'824.470 TL sikine yakin'" },
-    { "ascii": "sikinde",          "dogru": "şıkkında",         "gecis": 1,   "gerekce": "'(C) sikinde parantez acilimi'" },
-    { "ascii": "sikle",            "dogru": "şıkla",            "gecis": 1,   "gerekce": "'bu sikle karistiriliyor' - 'sikle' unlu uyumuna aykiri" },
-
-    { "ascii": "siklikla",         "dogru": "sıklıkla",         "gecis": 4,   "gerekce": "AYRI KELIME: 'sik'(cok kez). 'ogrenciler siklikla karistirir'" },
-    { "ascii": "sikligiyla",       "dogru": "sıklığıyla",       "gecis": 1,   "gerekce": "AYRI KELIME: 'test sikligiyla ilgilidir'" },
-    { "ascii": "sikca",            "dogru": "sıkça",            "gecis": 3,   "gerekce": "AYRI KELIME: 'sinavda sikca cikiyor'" },
-    { "ascii": "SIKCA",            "dogru": "SIKÇA",            "gecis": 2,   "gerekce": "AYRI KELIME, buyuk harf: 'SIKCA ya da AGIR zarar' (TBK m.71)" },
-    { "ascii": "sikistirma",       "dogru": "sıkıştırma",       "gecis": 4,   "gerekce": "AYRI KELIME: 'YERLESME (sikistirma/concentration) etkisi'" },
-    { "ascii": "SIKISTIRMA",       "dogru": "SIKIŞTIRMA",       "gecis": 1,   "gerekce": "AYRI KELIME, buyuk harf varyanti" },
-    { "ascii": "sikistirilmasini", "dogru": "sıkıştırılmasını", "gecis": 1,   "gerekce": "AYRI KELIME: 'ilgisiz duzenlemelerin araya sikistirilmasini (torba hukum)'" },
-    { "ascii": "sikisikligini",    "dogru": "sıkışıklığını",    "gecis": 1,   "gerekce": "AYRI KELIME: 'nakit sikisikligini rahatlatmak'" },
-    { "ascii": "sikilasma",        "dogru": "sıkılaşma",        "gecis": 3,   "gerekce": "AYRI KELIME: 'asiri sikilasma buyumeyi durdurur' (para politikasi)" },
-    { "ascii": "sikilasir",        "dogru": "sıkılaşır",        "gecis": 1,   "gerekce": "AYRI KELIME: 'para politikasi ne sikilasir ne gevser'" }
+    {
+      "ascii": "sik",
+      "dogru": "şık",
+      "gecis": 239,
+      "gerekce": "sik ailesi - 'Bu sik 129.470 TL...' (secenek)"
+    },
+    {
+      "ascii": "Sik",
+      "dogru": "Şık",
+      "gecis": 13,
+      "gerekce": "cumle basi; 'Sik, karar gerektiren III ve V...'"
+    },
+    {
+      "ascii": "sikte",
+      "dogru": "şıkta",
+      "gecis": 86,
+      "gerekce": "'Bu sikte alacaklandirilmis' - kasada dogru yazim sikta"
+    },
+    {
+      "ascii": "sikteki",
+      "dogru": "şıktaki",
+      "gecis": 33,
+      "gerekce": "'bu sikteki ifade' - kasada sikteki 0, siktaki var"
+    },
+    {
+      "ascii": "Sikteki",
+      "dogru": "Şıktaki",
+      "gecis": 1,
+      "gerekce": "cumle basi varyant"
+    },
+    {
+      "ascii": "sikta",
+      "dogru": "şıkta",
+      "gecis": 24,
+      "gerekce": "'bu sikta iscilik payi gibi bir sayi'"
+    },
+    {
+      "ascii": "Sikta",
+      "dogru": "Şıkta",
+      "gecis": 1,
+      "gerekce": "cumle basi varyant"
+    },
+    {
+      "ascii": "siktaki",
+      "dogru": "şıktaki",
+      "gecis": 8,
+      "gerekce": "'bu siktaki deger'"
+    },
+    {
+      "ascii": "sikkin",
+      "dogru": "şıkkın",
+      "gecis": 13,
+      "gerekce": "'Bu sikkin uydurdugu islem' (tamlayan hali)"
+    },
+    {
+      "ascii": "Sikkin",
+      "dogru": "Şıkkın",
+      "gecis": 3,
+      "gerekce": "cumle basi varyant"
+    },
+    {
+      "ascii": "sikka",
+      "dogru": "şıkka",
+      "gecis": 9,
+      "gerekce": "'bu sikka ulasir', 'hicbir sikka uymadigindan' (yonelme hali)"
+    },
+    {
+      "ascii": "siktir",
+      "dogru": "şıktır",
+      "gecis": 3,
+      "gerekce": "'bu yaklasik bu siktir' - kufur gorunumu, ivedi"
+    },
+    {
+      "ascii": "sikki",
+      "dogru": "şıkkı",
+      "gecis": 2,
+      "gerekce": "'sonuc B sikki', 'bu sikki yanlis kilar'"
+    },
+    {
+      "ascii": "sikı",
+      "dogru": "şıkkı",
+      "gecis": 2,
+      "gerekce": "'bu mantik hatasi siki gecersiz kilar' - yarim bozulmus bicim"
+    },
+    {
+      "ascii": "sikkidir",
+      "dogru": "şıkkıdır",
+      "gecis": 1,
+      "gerekce": "'en dogru yanit ... A sikkidir'"
+    },
+    {
+      "ascii": "sikkindaki",
+      "dogru": "şıkkındaki",
+      "gecis": 2,
+      "gerekce": "secenek icindeki ifadeye atif"
+    },
+    {
+      "ascii": "sikkindeki",
+      "dogru": "şıkkındaki",
+      "gecis": 1,
+      "gerekce": "ayni; 'sikkindeki' Turkcede yok (unlu uyumu)"
+    },
+    {
+      "ascii": "sikkte",
+      "dogru": "şıkta",
+      "gecis": 1,
+      "gerekce": "'Bu sikkte 740.850 / ...' - cift k yazim hatasi"
+    },
+    {
+      "ascii": "sikdeki",
+      "dogru": "şıktaki",
+      "gecis": 1,
+      "gerekce": "'Bu sikdeki degerler' - sert unsuz benzesmesi"
+    },
+    {
+      "ascii": "siklarda",
+      "dogru": "şıklarda",
+      "gecis": 2,
+      "gerekce": "'siklarda en yakin deger B'"
+    },
+    {
+      "ascii": "siklar",
+      "dogru": "şıklar",
+      "gecis": 1,
+      "gerekce": "'siklar arasinda %17,28 yer aliyorsa'"
+    },
+    {
+      "ascii": "sikler",
+      "dogru": "şıklar",
+      "gecis": 1,
+      "gerekce": "'sikler arasinda' - 'sikler' unlu uyumuna aykiri"
+    },
+    {
+      "ascii": "Siklara",
+      "dogru": "Şıklara",
+      "gecis": 1,
+      "gerekce": "'Siklara bakinca en yakin deger'"
+    },
+    {
+      "ascii": "sikini",
+      "dogru": "şıkkını",
+      "gecis": 2,
+      "gerekce": "'(C) sikini kontrol et'"
+    },
+    {
+      "ascii": "sikine",
+      "dogru": "şıkkına",
+      "gecis": 1,
+      "gerekce": "'824.470 TL sikine yakin'"
+    },
+    {
+      "ascii": "sikinde",
+      "dogru": "şıkkında",
+      "gecis": 1,
+      "gerekce": "'(C) sikinde parantez acilimi'"
+    },
+    {
+      "ascii": "sikle",
+      "dogru": "şıkla",
+      "gecis": 1,
+      "gerekce": "'bu sikle karistiriliyor' - 'sikle' unlu uyumuna aykiri"
+    },
+    {
+      "ascii": "siklikla",
+      "dogru": "sıklıkla",
+      "gecis": 4,
+      "gerekce": "AYRI KELIME: 'sik'(cok kez). 'ogrenciler siklikla karistirir'"
+    },
+    {
+      "ascii": "sikligiyla",
+      "dogru": "sıklığıyla",
+      "gecis": 1,
+      "gerekce": "AYRI KELIME: 'test sikligiyla ilgilidir'"
+    },
+    {
+      "ascii": "sikca",
+      "dogru": "sıkça",
+      "gecis": 3,
+      "gerekce": "AYRI KELIME: 'sinavda sikca cikiyor'"
+    },
+    {
+      "ascii": "SIKCA",
+      "dogru": "SIKÇA",
+      "gecis": 2,
+      "gerekce": "AYRI KELIME, buyuk harf: 'SIKCA ya da AGIR zarar' (TBK m.71)"
+    },
+    {
+      "ascii": "sikistirma",
+      "dogru": "sıkıştırma",
+      "gecis": 4,
+      "gerekce": "AYRI KELIME: 'YERLESME (sikistirma/concentration) etkisi'"
+    },
+    {
+      "ascii": "SIKISTIRMA",
+      "dogru": "SIKIŞTIRMA",
+      "gecis": 1,
+      "gerekce": "AYRI KELIME, buyuk harf varyanti"
+    },
+    {
+      "ascii": "sikistirilmasini",
+      "dogru": "sıkıştırılmasını",
+      "gecis": 1,
+      "gerekce": "AYRI KELIME: 'ilgisiz duzenlemelerin araya sikistirilmasini (torba hukum)'"
+    },
+    {
+      "ascii": "sikisikligini",
+      "dogru": "sıkışıklığını",
+      "gecis": 1,
+      "gerekce": "AYRI KELIME: 'nakit sikisikligini rahatlatmak'"
+    },
+    {
+      "ascii": "sikilasma",
+      "dogru": "sıkılaşma",
+      "gecis": 3,
+      "gerekce": "AYRI KELIME: 'asiri sikilasma buyumeyi durdurur' (para politikasi)"
+    },
+    {
+      "ascii": "sikilasir",
+      "dogru": "sıkılaşır",
+      "gecis": 1,
+      "gerekce": "AYRI KELIME: 'para politikasi ne sikilasir ne gevser'"
+    },
+    {
+      "ascii": "kalsin",
+      "dogru": "kalsın",
+      "gecis": 1303,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "icin",
+      "dogru": "için",
+      "gecis": 1036,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Dogrusu",
+      "dogru": "Doğrusu",
+      "gecis": 709,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ayni",
+      "dogru": "aynı",
+      "gecis": 628,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gore",
+      "dogru": "göre",
+      "gecis": 609,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Akilda",
+      "dogru": "Akılda",
+      "gecis": 605,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degil",
+      "dogru": "değil",
+      "gecis": 559,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "deger",
+      "dogru": "değer",
+      "gecis": 548,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "oldugu",
+      "dogru": "olduğu",
+      "gecis": 520,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yalnizca",
+      "dogru": "yalnızca",
+      "gecis": 439,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "onemli",
+      "dogru": "önemli",
+      "gecis": 327,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yonetim",
+      "dogru": "yönetim",
+      "gecis": 318,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "satis",
+      "dogru": "satış",
+      "gecis": 305,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dogrudan",
+      "dogru": "doğrudan",
+      "gecis": 295,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "diger",
+      "dogru": "diğer",
+      "gecis": 270,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yanlis",
+      "dogru": "yanlış",
+      "gecis": 254,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "islem",
+      "dogru": "işlem",
+      "gecis": 253,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gecici",
+      "dogru": "geçici",
+      "gecis": 247,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gosteren",
+      "dogru": "gösteren",
+      "gecis": 246,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "orani",
+      "dogru": "oranı",
+      "gecis": 242,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yanlistir",
+      "dogru": "yanlıştır",
+      "gecis": 242,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ayri",
+      "dogru": "ayrı",
+      "gecis": 241,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "denetci",
+      "dogru": "denetçi",
+      "gecis": 238,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yil",
+      "dogru": "yıl",
+      "gecis": 236,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uretim",
+      "dogru": "üretim",
+      "gecis": 231,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "varlik",
+      "dogru": "varlık",
+      "gecis": 225,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degeri",
+      "dogru": "değeri",
+      "gecis": 219,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "donem",
+      "dogru": "dönem",
+      "gecis": 217,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "iscilik",
+      "dogru": "işçilik",
+      "gecis": 209,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "borc",
+      "dogru": "borç",
+      "gecis": 207,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "icinde",
+      "dogru": "içinde",
+      "gecis": 203,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kullanilir",
+      "dogru": "kullanılır",
+      "gecis": 202,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "isletme",
+      "dogru": "işletme",
+      "gecis": 199,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gorus",
+      "dogru": "görüş",
+      "gecis": 197,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "once",
+      "dogru": "önce",
+      "gecis": 197,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "acikca",
+      "dogru": "açıkça",
+      "gecis": 196,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degildir",
+      "dogru": "değildir",
+      "gecis": 195,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "KARISTIRILIYOR",
+      "dogru": "KARIŞTIRILIYOR",
+      "gecis": 191,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "iliskin",
+      "dogru": "ilişkin",
+      "gecis": 185,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "farkli",
+      "dogru": "farklı",
+      "gecis": 182,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "bagli",
+      "dogru": "bağlı",
+      "gecis": 181,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hesabina",
+      "dogru": "hesabına",
+      "gecis": 180,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olmasi",
+      "dogru": "olması",
+      "gecis": 166,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tum",
+      "dogru": "tüm",
+      "gecis": 157,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ust",
+      "dogru": "üst",
+      "gecis": 157,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kanit",
+      "dogru": "kanıt",
+      "gecis": 156,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hesabi",
+      "dogru": "hesabı",
+      "gecis": 152,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "donemde",
+      "dogru": "dönemde",
+      "gecis": 151,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "denetcinin",
+      "dogru": "denetçinin",
+      "gecis": 149,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dogru",
+      "dogru": "doğru",
+      "gecis": 148,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karistiriliyor",
+      "dogru": "karıştırılıyor",
+      "gecis": 146,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "isletmenin",
+      "dogru": "işletmenin",
+      "gecis": 145,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uyarinca",
+      "dogru": "uyarınca",
+      "gecis": 141,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "DOGRU",
+      "dogru": "DOĞRU",
+      "gecis": 139,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tutari",
+      "dogru": "tutarı",
+      "gecis": 138,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yatirim",
+      "dogru": "yatırım",
+      "gecis": 137,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ozel",
+      "dogru": "özel",
+      "gecis": 134,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Isletme",
+      "dogru": "İşletme",
+      "gecis": 131,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yazili",
+      "dogru": "yazılı",
+      "gecis": 131,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kisa",
+      "dogru": "kısa",
+      "gecis": 129,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yuzden",
+      "dogru": "yüzden",
+      "gecis": 126,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uygulanir",
+      "dogru": "uygulanır",
+      "gecis": 125,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dusen",
+      "dogru": "düşen",
+      "gecis": 125,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "butce",
+      "dogru": "bütçe",
+      "gecis": 122,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "varligin",
+      "dogru": "varlığın",
+      "gecis": 122,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "arasinda",
+      "dogru": "arasında",
+      "gecis": 122,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uzerinden",
+      "dogru": "üzerinden",
+      "gecis": 122,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yapilan",
+      "dogru": "yapılan",
+      "gecis": 121,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "basina",
+      "dogru": "başına",
+      "gecis": 119,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "saniliyor",
+      "dogru": "sanılıyor",
+      "gecis": 116,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yuksek",
+      "dogru": "yüksek",
+      "gecis": 114,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Ayni",
+      "dogru": "Aynı",
+      "gecis": 112,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Denetci",
+      "dogru": "Denetçi",
+      "gecis": 112,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sayilir",
+      "dogru": "sayılır",
+      "gecis": 112,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "edilmis",
+      "dogru": "edilmiş",
+      "gecis": 112,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "alinir",
+      "dogru": "alınır",
+      "gecis": 110,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gozden",
+      "dogru": "gözden",
+      "gecis": 109,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "nasil",
+      "dogru": "nasıl",
+      "gecis": 108,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yapilir",
+      "dogru": "yapılır",
+      "gecis": 108,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karistiriyor",
+      "dogru": "karıştırıyor",
+      "gecis": 106,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yuzde",
+      "dogru": "yüzde",
+      "gecis": 106,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kalir",
+      "dogru": "kalır",
+      "gecis": 103,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kayit",
+      "dogru": "kayıt",
+      "gecis": 101,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "payi",
+      "dogru": "payı",
+      "gecis": 101,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hesabinda",
+      "dogru": "hesabında",
+      "gecis": 101,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "cok",
+      "dogru": "çok",
+      "gecis": 100,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "duzeltme",
+      "dogru": "düzeltme",
+      "gecis": 100,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "asagidakilerden",
+      "dogru": "aşağıdakilerden",
+      "gecis": 99,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "arasindaki",
+      "dogru": "arasındaki",
+      "gecis": 97,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sekilde",
+      "dogru": "şekilde",
+      "gecis": 97,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "YURTICI",
+      "dogru": "YURTİÇİ",
+      "gecis": 95,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "bagimsiz",
+      "dogru": "bağımsız",
+      "gecis": 94,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yazilir",
+      "dogru": "yazılır",
+      "gecis": 94,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "cunku",
+      "dogru": "çünkü",
+      "gecis": 94,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sozlesme",
+      "dogru": "sözleşme",
+      "gecis": 93,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "alir",
+      "dogru": "alır",
+      "gecis": 93,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ucret",
+      "dogru": "ücret",
+      "gecis": 92,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "fiyati",
+      "dogru": "fiyatı",
+      "gecis": 92,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karsilik",
+      "dogru": "karşılık",
+      "gecis": 91,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gosterir",
+      "dogru": "gösterir",
+      "gecis": 91,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yillik",
+      "dogru": "yıllık",
+      "gecis": 90,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dogrudur",
+      "dogru": "doğrudur",
+      "gecis": 90,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "amacli",
+      "dogru": "amaçlı",
+      "gecis": 90,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "vardir",
+      "dogru": "vardır",
+      "gecis": 90,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "BORC",
+      "dogru": "BORÇ",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gun",
+      "dogru": "gün",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sonuc",
+      "dogru": "sonuç",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "odeme",
+      "dogru": "ödeme",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hasilat",
+      "dogru": "hasılat",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "baska",
+      "dogru": "başka",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "oldugunu",
+      "dogru": "olduğunu",
+      "gecis": 89,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tarafindan",
+      "dogru": "tarafından",
+      "gecis": 88,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Ayrica",
+      "dogru": "Ayrıca",
+      "gecis": 87,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yonetimden",
+      "dogru": "yönetimden",
+      "gecis": 87,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dogrulama",
+      "dogru": "doğrulama",
+      "gecis": 87,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dusuk",
+      "dogru": "düşük",
+      "gecis": 86,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yonetimin",
+      "dogru": "yönetimin",
+      "gecis": 86,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dagitim",
+      "dogru": "dağıtım",
+      "gecis": 85,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Sti",
+      "dogru": "Şti",
+      "gecis": 85,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sirasinda",
+      "dogru": "sırasında",
+      "gecis": 84,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Yalnizca",
+      "dogru": "Yalnızca",
+      "gecis": 83,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ayrica",
+      "dogru": "ayrıca",
+      "gecis": 82,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "varliklar",
+      "dogru": "varlıklar",
+      "gecis": 81,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dort",
+      "dogru": "dört",
+      "gecis": 81,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kavrami",
+      "dogru": "kavramı",
+      "gecis": 81,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "donemi",
+      "dogru": "dönemi",
+      "gecis": 81,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "asagidaki",
+      "dogru": "aşağıdaki",
+      "gecis": 80,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "odenen",
+      "dogru": "ödenen",
+      "gecis": 80,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "siniflandirma",
+      "dogru": "sınıflandırma",
+      "gecis": 80,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ettigi",
+      "dogru": "ettiği",
+      "gecis": 80,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "politikasi",
+      "dogru": "politikası",
+      "gecis": 79,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "acik",
+      "dogru": "açık",
+      "gecis": 78,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kullanilan",
+      "dogru": "kullanılan",
+      "gecis": 78,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kapsaminda",
+      "dogru": "kapsamında",
+      "gecis": 78,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ortaklik",
+      "dogru": "ortaklık",
+      "gecis": 77,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "farki",
+      "dogru": "farkı",
+      "gecis": 76,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "artis",
+      "dogru": "artış",
+      "gecis": 75,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degisimi",
+      "dogru": "değişimi",
+      "gecis": 75,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "unsurlari",
+      "dogru": "unsurları",
+      "gecis": 75,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sonrasi",
+      "dogru": "sonrası",
+      "gecis": 74,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Aralik",
+      "dogru": "Aralık",
+      "gecis": 74,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "etmistir",
+      "dogru": "etmiştir",
+      "gecis": 74,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hakki",
+      "dogru": "hakkı",
+      "gecis": 73,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Satis",
+      "dogru": "Satış",
+      "gecis": 72,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dolayisiyla",
+      "dogru": "dolayısıyla",
+      "gecis": 72,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "disi",
+      "dogru": "dışı",
+      "gecis": 72,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "cikar",
+      "dogru": "çıkar",
+      "gecis": 72,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "butun",
+      "dogru": "bütün",
+      "gecis": 71,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kapsamli",
+      "dogru": "kapsamlı",
+      "gecis": 71,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yanlislik",
+      "dogru": "yanlışlık",
+      "gecis": 70,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kaydi",
+      "dogru": "kaydı",
+      "gecis": 70,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "toplami",
+      "dogru": "toplamı",
+      "gecis": 69,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tablolarin",
+      "dogru": "tabloların",
+      "gecis": 69,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kaniti",
+      "dogru": "kanıtı",
+      "gecis": 68,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "niteligi",
+      "dogru": "niteliği",
+      "gecis": 68,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "henuz",
+      "dogru": "henüz",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "esit",
+      "dogru": "eşit",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "oldugundan",
+      "dogru": "olduğundan",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yukumlulugu",
+      "dogru": "yükümlülüğü",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "islemi",
+      "dogru": "işlemi",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "katilmasi",
+      "dogru": "katılması",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gosterilir",
+      "dogru": "gösterilir",
+      "gecis": 67,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Diger",
+      "dogru": "Diğer",
+      "gecis": 66,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sayili",
+      "dogru": "sayılı",
+      "gecis": 66,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "satin",
+      "dogru": "satın",
+      "gecis": 65,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "urun",
+      "dogru": "ürün",
+      "gecis": 65,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "icindeki",
+      "dogru": "içindeki",
+      "gecis": 65,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "iliskisi",
+      "dogru": "ilişkisi",
+      "gecis": 65,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "soz",
+      "dogru": "söz",
+      "gecis": 64,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "DIGER",
+      "dogru": "DİĞER",
+      "gecis": 62,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "disinda",
+      "dogru": "dışında",
+      "gecis": 62,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kullanim",
+      "dogru": "kullanım",
+      "gecis": 61,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degerleme",
+      "dogru": "değerleme",
+      "gecis": 61,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hesaplanir",
+      "dogru": "hesaplanır",
+      "gecis": 61,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "soyler",
+      "dogru": "söyler",
+      "gecis": 61,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sinirli",
+      "dogru": "sınırlı",
+      "gecis": 60,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yontem",
+      "dogru": "yöntem",
+      "gecis": 60,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karsiligi",
+      "dogru": "karşılığı",
+      "gecis": 59,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ayinda",
+      "dogru": "ayında",
+      "gecis": 59,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "alinan",
+      "dogru": "alınan",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "calisma",
+      "dogru": "çalışma",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hicbir",
+      "dogru": "hiçbir",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yontemi",
+      "dogru": "yöntemi",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "artisi",
+      "dogru": "artışı",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Yilmaz",
+      "dogru": "Yılmaz",
+      "gecis": 58,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uzere",
+      "dogru": "üzere",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yonetime",
+      "dogru": "yönetime",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hic",
+      "dogru": "hiç",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "secenegi",
+      "dogru": "seçeneği",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dogar",
+      "dogru": "doğar",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olculur",
+      "dogru": "ölçülür",
+      "gecis": 57,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kurali",
+      "dogru": "kuralı",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "aylik",
+      "dogru": "aylık",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karsi",
+      "dogru": "karşı",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dusuklugu",
+      "dogru": "düşüklüğü",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yilinda",
+      "dogru": "yılında",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kac",
+      "dogru": "kaç",
+      "gecis": 56,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ozkaynak",
+      "dogru": "özkaynak",
+      "gecis": 55,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gecerli",
+      "dogru": "geçerli",
+      "gecis": 55,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "acisindan",
+      "dogru": "açısından",
+      "gecis": 55,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kaciyor",
+      "dogru": "kaçıyor",
+      "gecis": 54,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yili",
+      "dogru": "yılı",
+      "gecis": 54,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "istirak",
+      "dogru": "iştirak",
+      "gecis": 54,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "doneme",
+      "dogru": "döneme",
+      "gecis": 54,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hesabinin",
+      "dogru": "hesabının",
+      "gecis": 54,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "YONETIM",
+      "dogru": "YÖNETİM",
+      "gecis": 53,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "guvence",
+      "dogru": "güvence",
+      "gecis": 53,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "saglanan",
+      "dogru": "sağlanan",
+      "gecis": 53,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sart",
+      "dogru": "şart",
+      "gecis": 53,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sayilan",
+      "dogru": "sayılan",
+      "gecis": 53,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yabanci",
+      "dogru": "yabancı",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gercek",
+      "dogru": "gerçek",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "iliskili",
+      "dogru": "ilişkili",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "amaciyla",
+      "dogru": "amacıyla",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sarti",
+      "dogru": "şartı",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yapilmis",
+      "dogru": "yapılmış",
+      "gecis": 52,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Gecici",
+      "dogru": "Geçici",
+      "gecis": 51,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Sirket",
+      "dogru": "Şirket",
+      "gecis": 51,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dis",
+      "dogru": "dış",
+      "gecis": 51,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hukum",
+      "dogru": "hüküm",
+      "gecis": 51,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olmalidir",
+      "dogru": "olmalıdır",
+      "gecis": 51,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "esasli",
+      "dogru": "esaslı",
+      "gecis": 50,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gerceklesen",
+      "dogru": "gerçekleşen",
+      "gecis": 50,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olusur",
+      "dogru": "oluşur",
+      "gecis": 50,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "zorundadir",
+      "dogru": "zorundadır",
+      "gecis": 49,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sirket",
+      "dogru": "şirket",
+      "gecis": 49,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ucreti",
+      "dogru": "ücreti",
+      "gecis": 49,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yanilgisi",
+      "dogru": "yanılgısı",
+      "gecis": 49,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Uretim",
+      "dogru": "Üretim",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "altinda",
+      "dogru": "altında",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "mumkun",
+      "dogru": "mümkün",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "boyle",
+      "dogru": "böyle",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yukumlulukler",
+      "dogru": "yükümlülükler",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olmadigini",
+      "dogru": "olmadığını",
+      "gecis": 48,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yardimci",
+      "dogru": "yardımcı",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "duser",
+      "dogru": "düşer",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kosulu",
+      "dogru": "koşulu",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yapilmaz",
+      "dogru": "yapılmaz",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "icerir",
+      "dogru": "içerir",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "gecerlidir",
+      "dogru": "geçerlidir",
+      "gecis": 47,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "mallarin",
+      "dogru": "malların",
+      "gecis": 46,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degerini",
+      "dogru": "değerini",
+      "gecis": 46,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "esik",
+      "dogru": "eşik",
+      "gecis": 46,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degerinden",
+      "dogru": "değerinden",
+      "gecis": 46,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Isletmenin",
+      "dogru": "İşletmenin",
+      "gecis": 45,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "aykiri",
+      "dogru": "aykırı",
+      "gecis": 45,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "isci",
+      "dogru": "işçi",
+      "gecis": 45,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sozlesmenin",
+      "dogru": "sözleşmenin",
+      "gecis": 45,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kazanilabilir",
+      "dogru": "kazanılabilir",
+      "gecis": 45,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "GOZDEN",
+      "dogru": "GÖZDEN",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "temettu",
+      "dogru": "temettü",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "onceki",
+      "dogru": "önceki",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kisim",
+      "dogru": "kısım",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "baslangic",
+      "dogru": "başlangıç",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olmadigi",
+      "dogru": "olmadığı",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "varliklarin",
+      "dogru": "varlıkların",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "katki",
+      "dogru": "katkı",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "avansi",
+      "dogru": "avansı",
+      "gecis": 44,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "buyuk",
+      "dogru": "büyük",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "karari",
+      "dogru": "kararı",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "isleme",
+      "dogru": "işleme",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "maasi",
+      "dogru": "maaşı",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "uzerinde",
+      "dogru": "üzerinde",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "musteri",
+      "dogru": "müşteri",
+      "gecis": 43,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "satilan",
+      "dogru": "satılan",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Yonetim",
+      "dogru": "Yönetim",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "BUTCE",
+      "dogru": "BÜTÇE",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "varligi",
+      "dogru": "varlığı",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "yakin",
+      "dogru": "yakın",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kisi",
+      "dogru": "kişi",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "prosedurleri",
+      "dogru": "prosedürleri",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sorumlulugu",
+      "dogru": "sorumluluğu",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "hakkinda",
+      "dogru": "hakkında",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "guvenilir",
+      "dogru": "güvenilir",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "iletisim",
+      "dogru": "iletişim",
+      "gecis": 42,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olcum",
+      "dogru": "ölçüm",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tutarin",
+      "dogru": "tutarın",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "mamulun",
+      "dogru": "mamulün",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "islemlerin",
+      "dogru": "işlemlerin",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "degere",
+      "dogru": "değere",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "tutarinin",
+      "dogru": "tutarının",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "Yildiz",
+      "dogru": "Yıldız",
+      "gecis": 41,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "GORUS",
+      "dogru": "GÖRÜŞ",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "ambalajli",
+      "dogru": "ambalajlı",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "bakim",
+      "dogru": "bakım",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "kosul",
+      "dogru": "koşul",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "sifat",
+      "dogru": "sıfat",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "dusulur",
+      "dogru": "düşülür",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "olusan",
+      "dogru": "oluşan",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "zorunlulugu",
+      "dogru": "zorunluluğu",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "isletmeye",
+      "dogru": "işletmeye",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    },
+    {
+      "ascii": "omur",
+      "dogru": "ömür",
+      "gecis": 40,
+      "kaynak": "ilk-300 elle okundu (16.08)"
+    }
   ],
   "haric_tutulanlar": [
     {
-      "ascii": "SIK", "gecis": 2,
+      "ascii": "SIK",
+      "gecis": 2,
       "sebep": "MESRU KELIME - DOKUNULMAYACAK. 'EN SIK HATA burada' = en cok yapilan hata. Ikisi de okundu, ikisi de dogru yazim. Harf-korur otomatik cevrim bunlari 'SIK' yapip metni BOZARDI."
     },
     {
-      "ascii": "siki", "gecis": 16,
+      "ascii": "siki",
+      "gecis": 16,
       "sebep": "KARISIK - 15 gecis 'sikki' (secenek) ama 1 gecis GERCEK 'siki' kelimesi: 'buro duzenini siki kurallara baglar'. Toptan degisim o satiri bozar. Elle ayiklanmali."
     },
     {
-      "ascii": "sikke", "gecis": 4,
+      "ascii": "sikke",
+      "gecis": 4,
       "sebep": "BELIRSIZ - baglamda 'sikka' mi 'sikta' mi oldugu kesin degil ('Bu sikke farkli bir oran karistirilmistir'). Ayrica 'sikke' Turkcede gercek bir kelimedir (madeni para). Insan karari."
     },
     {
-      "ascii": "sike", "gecis": 1,
+      "ascii": "sike",
+      "gecis": 1,
       "sebep": "BELIRSIZ - 'ters islem bu sike ulastirir': 'sikka' mi 'sika' mi belirsiz. Tek gecis, elle duzeltilir."
+    },
+    {
+      "ascii": "mudur",
+      "gecis": 152,
+      "onerilen_hedef": "müdür",
+      "sebep": "Gecislerin neredeyse tamami \"Bu kayit dogru MUDUR?\" soru eki - mesru. 150 soru bozulurdu."
+    },
+    {
+      "ascii": "asli",
+      "gecis": 150,
+      "onerilen_hedef": "aslı",
+      "sebep": "Karisik: \"police ASLI\" (asil nusha) ile \"ASLI kamu gorevi\" (asli/esas) ayni yazimda."
+    },
+    {
+      "ascii": "sure",
+      "gecis": 143,
+      "onerilen_hedef": "süre",
+      "sebep": "Karisik: Turkce \"sure\" ile INGILIZCE \"make sure\" (Ingilizce sorular) ayni yazimda."
+    },
+    {
+      "ascii": "tur",
+      "gecis": 129,
+      "onerilen_hedef": "tür",
+      "sebep": "Karisik: \"bu TUR rakamlar\" (tur) ile \"ikinci TUR etkisi\" / \"TUR organizasyonu\" (tur) ayni yazimda."
+    },
+    {
+      "ascii": "kismi",
+      "gecis": 53,
+      "onerilen_hedef": "kısmi",
+      "sebep": "Otomatik hedef YANLIS. Gecisler \"sabit KISMI\", \"asan KISMI\" yani kismi degil KISMI. Hafizadaki kismi uyarisi birebir dogrulandi."
+    },
+    {
+      "ascii": "kari",
+      "gecis": 45,
+      "onerilen_hedef": "karı",
+      "sebep": "Hepsi kar/kazanc anlaminda ama yazim karari Cem in: kari mi kari mi (sapkali). Anlam belirsiz degil, IMLA karari bekliyor."
+    },
+    {
+      "ascii": "turu",
+      "gecis": 43,
+      "onerilen_hedef": "türü",
+      "sebep": "Ayni aile: \"gorus TURU\" (turu) ile \"Ilk TURU dusme\" (tur) ayni yazimda."
     }
   ],
   "kural": "Belirsiz kelime sozluge GIRMEZ. Ayni ilke 'kismi' vakasinda da uygulanmisti (kismi mi kismi mi baglamsiz cozulemez)."
