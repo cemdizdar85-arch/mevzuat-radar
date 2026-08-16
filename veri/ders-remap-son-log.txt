@@ -1,4 +1,8 @@
-Kasa: 30569 soru
-Remap edilecek: 0
-TAMAM: 0 soru resmi derse tasindi.
+HATA: Invoke-RestMethod: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/ders-remap.ps1:60
+Line |
+  60 |    $r = Invoke-RestMethod -Uri $u -Headers $H -TimeoutSec 60
+     |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     |  {   "code": "57014",   "details": null,   "hint": null,   "message":
+     | "canceling statement due to statement timeout" }
+
 
