@@ -349,10 +349,35 @@ $hafizaObj = [ordered]@{}
 foreach($kod in ($hafiza.Keys | Sort-Object)){ $hafizaObj[$kod] = $hafiza[$kod] }
 ($hafizaObj | ConvertTo-Json -Depth 6) | Out-File $hafizaYol -Encoding utf8
 
+# ============================================================================
+#  KOR KALMA FRENI (16.08.2026 - Cem: "burasi calismiyor")
+#
+#  NE OLDU: 12 ve 14 Agustos'ta RG'den ilgili teblig INDI, uretim API tavani
+#  yuzunden her tebligde patladi, $kartlar BOS kaldi. Bos dizinin
+#  ConvertTo-Json ciktisi BOSTUR -> diske 0 BAYTLIK kartlar.json yazildi.
+#  O dosya kartlar.yml icin "bu gun islendi" damgasi sayildigi icin iki gun
+#  bir daha HIC denenmedi; ustelik vitrin "0 duzenleme"ye ezildi ve 05.08'den
+#  beri duran kartlar sayfadan silindi. Commit mesaji da "RG sakin" dedi -
+#  teblig vardi, uretim colmustu. Uc kati kor kalma.
+#
+#  KURAL: teblig islenmis ama HATA yuzunden kart cikmamissa bu gun
+#  ISLENMIS SAYILMAZ. Damga yazilmaz, vitrin ezilmez, kosu KIRMIZI biter.
+# ============================================================================
+if($kartlar.Count -eq 0 -and $hatali -gt 0){
+  Write-Host ""
+  Write-Host ("KIRMIZI: {0} gununde {1} teblig islendi, HEPSI HATA verdi, kart uretilemedi." -f $Gun, $hatali) -ForegroundColor Red
+  Write-Host "Bu gun ISLENMIS SAYILMIYOR - damga yazilmadi, vitrin korundu, sonraki kosu yeniden deneyecek."
+  Write-Host "(Sebep genellikle API hattidir: Anthropic tavani dolduysa OpenRouter yedegi devrede mi bak.)"
+  exit 1
+}
+
 # kart verisini kaydet
 $gunKartDir = Join-Path $here ("kartlar\" + $Gun)
 New-Item -ItemType Directory -Force $gunKartDir | Out-Null
-$kartlar | ConvertTo-Json -Depth 8 | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
+# DIKKAT: bos dizinin ConvertTo-Json ciktisi BOS STRING'dir (0 baytlik dosya).
+# Gecerli JSON yaz - yoksa dosya hem okunamaz hem "islendi" yalani soyler.
+$kartJson = if($kartlar.Count -eq 0){ '[]' } else { $kartlar | ConvertTo-Json -Depth 8 }
+$kartJson | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
 
 # radar-app panosunun GTIP eslesmesi icin sabit "guncel kartlar" (yalniz GTIP'li kartlar, trim)
 # FIRSAT ROZETI (#63, 30.07): yapilandirma/af kaliplari karti FIRSAT yapar -
@@ -475,7 +500,21 @@ foreach($k in $kartlar){
 [void]$s.AppendLine("<div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>")
 [void]$s.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
 $kartlarHtml = Join-Path $kok "kartlar.html"
-[System.IO.File]::WriteAllText($kartlarHtml, $s.ToString(), (New-Object System.Text.UTF8Encoding($false)))
+# ============================================================================
+#  VITRIN KORUMASI (16.08.2026)
+#  Sayfadaki nobet rozeti aynen soyle diyor: "Kart gerektiren yeni duzenleme
+#  cikmadigi gunlerde LISTE DEGISMEZ." Kod bu sozu tutmuyordu: sakin gunde
+#  0 kartlik sayfa yazilip 05.08'den beri duran kartlar vitrinden siliniyordu.
+#  Kullanicinin gordugu "0 duzenleme + bombos sayfa" bundandi.
+#  Artik SIFIR kart varsa vitrin YENIDEN YAZILMAZ; son iyi hal durur, tarih
+#  bilgisini rozet (veri/kart-durum.json) tasir. Gunluk arsiv kopyasi yine
+#  yazilir - o gunun "sakin gecti" kaydi tarihsel olarak dogrudur.
+# ============================================================================
+if($kartlar.Count -eq 0){
+  Write-Host ("VITRIN KORUNDU: {0} gununde kart yok - kartlar.html'e dokunulmadi (son iyi hal duruyor)." -f $Gun)
+} else {
+  [System.IO.File]::WriteAllText($kartlarHtml, $s.ToString(), (New-Object System.Text.UTF8Encoding($false)))
+}
 
 # gunluk arsiv kopyasi (goreli linkler icin <base> eklenir)
 $arsivDirSite = Join-Path $kok "arsiv"

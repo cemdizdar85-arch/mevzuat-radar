@@ -115,11 +115,24 @@ jobs:
           # sonra yeni teblig cikarsa klasor zaten vardir ve gun bir daha hic
           # islenmez. Bu yuzden BUGUN her zaman aday; gecmis gunler yalnizca
           # karti yoksa aday.
+          # BOS DAMGA TUZAGI (16.08.2026): "klasor var" yetmez. 12 ve 14 Agustos'ta
+          # uretim API tavaninda coktu ve geriye 0 BAYTLIK kartlar.json kaldi;
+          # klasor var diye o iki gun bir daha HIC denenmedi. Artik olcut
+          # DOSYANIN ICI: kartlar.json yoksa, bossa ya da "[]" ise gun
+          # ISLENMEMIS sayilir ve yeniden denenir.
+          function KartVar([string]$ad){
+            $y = "motor/kartlar/$ad/kartlar.json"
+            if(-not (Test-Path $y)){ return $false }
+            $ic = (Get-Content $y -Raw -ErrorAction SilentlyContinue)
+            if([string]::IsNullOrWhiteSpace($ic)){ return $false }
+            if($ic.Trim() -eq '[]'){ return $false }
+            return $true
+          }
           $bugun = (Get-Date).ToString('dd-MM-yyyy')
           $adaylar = @(Get-ChildItem "motor/arsiv" -Directory -ErrorAction SilentlyContinue |
             Where-Object {
               (Get-ChildItem $_.FullName -Filter *.htm -ErrorAction SilentlyContinue) -and
-              ($_.Name -eq $bugun -or -not (Test-Path ("motor/kartlar/" + $_.Name)))
+              ($_.Name -eq $bugun -or -not (KartVar $_.Name))
             } |
             Sort-Object { try { [datetime]::ParseExact($_.Name,'dd-MM-yyyy',$null) } catch { [datetime]'1900-01-01' } } -Descending)
           $islenecek = New-Object System.Collections.Generic.List[string]
@@ -127,9 +140,20 @@ jobs:
           if($adaylar.Count -gt $islenecek.Count){
             Write-Host ("Bekleyen gun: {0} - bu kosuda {1} tanesi islenecek, kalani yarin." -f $adaylar.Count, $islenecek.Count)
           }
-          if($islenecek.Count -eq 0){ Write-Host "Islenecek gun yok - ilgilendiren teblig cikmamis. Kart uretilmedi."; exit 0 }
+          if($islenecek.Count -eq 0){ Write-Host "Islenecek gun yok - RG fihristinde anahtar kelimelerimize uyan teblig inmemis. (Bu, uretim hatasi DEGIL.)"; exit 0 }
           Write-Host ("Islenecek gun: " + ($islenecek -join ', '))
-          foreach($g in $islenecek){ ./motor/kart-toplu.ps1 -Gun $g }
+          # Bir gun patlarsa digerleri yine denensin; ama SONUCTA hata varsa
+          # adim KIRMIZI biter - "sakin gun" ile "uretim coktu" ayni sey degil.
+          $patlayan = @()
+          foreach($g in $islenecek){
+            try { ./motor/kart-toplu.ps1 -Gun $g; if($LASTEXITCODE -ne 0){ $patlayan += $g } }
+            catch { $patlayan += $g; Write-Host ("  {0}: {1}" -f $g, $_.Exception.Message) }
+          }
+          if($patlayan.Count -gt 0){
+            Write-Host ("KIRMIZI: teblig vardi ama su gunlerde kart uretilemedi -> " + ($patlayan -join ', '))
+            Write-Host "Bu gunler ISLENMIS SAYILMADI, sonraki kosu yeniden deneyecek. Sebep genellikle API hattidir."
+            exit 1
+          }
 
       - name: Yapisal denetci (kart yayini oncesi guvenlik)
         shell: pwsh
@@ -185,7 +209,16 @@ jobs:
             ADET=$(grep -o '"baslik"' veri/kartlar-guncel.json 2>/dev/null | wc -l | tr -d ' ')
             MESAJ="Hap kartlar: $BUGUN - $ADET kart uretildi"
           else
-            MESAJ="Hap kartlar: $BUGUN - kart uretilmedi (RG sakin / ilgili teblig yok), nobet damgasi guncellendi"
+            # 16.08 DUZELTME: eskiden burada her halukarda "RG sakin / ilgili teblig
+            # yok" yaziyordu - teblig INDIGI ve uretimin COKTUGU gunlerde bile.
+            # Robot kendi sonucunu dogrulamadan mazeret uyduruyordu. Artik gunun
+            # arsivinde .htm var mi diye BAKILIR ve iki hal ayri yazilir.
+            GUNKLASOR="motor/arsiv/$(TZ=Europe/Istanbul date +%d-%m-%Y)"
+            if ls "$GUNKLASOR"/*.htm >/dev/null 2>&1; then
+              MESAJ="Hap kartlar: $BUGUN - ILGILI TEBLIG VARDI AMA KART URETILEMEDI (uretim hatasi), nobet damgasi guncellendi"
+            else
+              MESAJ="Hap kartlar: $BUGUN - RG fihristinde anahtarlarimiza uyan teblig yok, nobet damgasi guncellendi"
+            fi
           fi
           git commit -m "$MESAJ"
           git pull --rebase || true
