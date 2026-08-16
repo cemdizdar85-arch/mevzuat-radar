@@ -36,6 +36,31 @@ $TarihNokta = "$($parcalar[0]).$($parcalar[1]).$($parcalar[2])"
 function NormD([string]$s){ if(-not $s){ return "" }; return (($s -replace "\s+"," ").Trim().ToLowerInvariant()) }
 
 # ============================================================================
+#  GORSEL BICIMI (17.08.2026 - OLCULDU, kart uretimini kiran seydi)
+#
+#  Eski kural: ".png ise image/png, DEGILSE image/jpeg". Oysa RG tebliglerinin
+#  gorselleri .gif ve .wmz (Windows metafile) olabiliyor. Ikisi de "image/jpeg"
+#  diye etiketlenip gonderiliyordu; API bozuk veri gorup 400 (Bad Request)
+#  veriyor ve O TEBLIGIN TAMAMI cope gidiyordu.
+#  Olcum: 14.08 kosusunda gorseli OLMAYAN teblig islendi (kart cikti), gorseli
+#  OLAN iki teblig 400 aldi. Gozetim tebligi tablolarinin GORUNTU olmasi
+#  yuzunden kiymet cikmamasinin sebebi de buydu.
+#
+#  Kural: uzantiya gore DOGRU tur; model okuyamayacagi vektor/metafile
+#  bicimleri (wmz/wmf/emf) HIC GONDERILMEZ - cagriyi bastan cope atmaktansa
+#  o gorseli atlayip metinle devam etmek yegdir. Atlanan gorsel LOGLANIR
+#  (sessizce kaybolmasin - tablo o gorselde olabilir).
+# ============================================================================
+function GorselTuru([string]$src){
+  $u = "$src".ToLowerInvariant()
+  if($u -match '\.png(\?|$)'){  return 'image/png' }
+  if($u -match '\.gif(\?|$)'){  return 'image/gif' }
+  if($u -match '\.webp(\?|$)'){ return 'image/webp' }
+  if($u -match '\.jpe?g(\?|$)'){ return 'image/jpeg' }
+  return $null   # wmz/wmf/emf/bilinmeyen -> gonderilmez
+}
+
+# ============================================================================
 #  YANLIS-NEGATIF DUZELTMESI (16.08.2026 - Cem: "hap halinde veriyor muyuz?")
 #
 #  Cift okuma uzlasmasi ham metni HARFI HARFINE kiyasliyordu. Iki okuma ayni
@@ -181,8 +206,9 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo){
     try {
       $wcI = New-Object System.Net.WebClient
       $wcI.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+      $mi = GorselTuru $srcE
+      if(-not $mi){ Write-Host ("  gorsel ATLANDI (desteklenmeyen bicim): " + $srcE); continue }
       $bi = $wcI.DownloadData($iu)
-      $mi = if($srcE -match "\.png$"){ "image/png" } else { "image/jpeg" }
       $gorsellerE += @{ type="image"; source=@{ type="base64"; media_type=$mi; data=[Convert]::ToBase64String($bi) } }
     } catch {}
   }
@@ -218,8 +244,9 @@ foreach($d in $dosyalar){
       try {
         $wc = New-Object System.Net.WebClient
         $wc.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-v0)")
+        $mime = GorselTuru $src
+        if(-not $mime){ Write-Host ("  gorsel ATLANDI (desteklenmeyen bicim): " + $src); continue }
         $b = $wc.DownloadData($imgUrl)
-        $mime = if($src -match "\.png$"){ "image/png" } else { "image/jpeg" }
         $gorseller += @{ type="image"; source=@{ type="base64"; media_type=$mime; data=[Convert]::ToBase64String($b) } }
       } catch {}
     }
@@ -689,3 +716,9 @@ $maliyet = ($topGirdi/1000000.0)*1.0 + ($topCikti/1000000.0)*5.0 + ($hakemGirdi/
 ("Toplam maliyet: ~{0:N3} USD" -f $maliyet)
 "Hafizadaki kod sayisi: $($hafiza.Keys.Count)"
 "Sayfalar: kartlar.html + arsiv/kartlar-$Gun.html + arsiv/index.html"
+
+# 17.08: ACIK CIKIS KODU. Betik basariyla bittiginde $LASTEXITCODE, icerde
+# cagrilan DIS komutlardan (curl/qpdf) devralinmis eski bir deger tasiyabiliyor;
+# kartlar.yml bunu "bu gun patladi" sanip 14.08'i basarisiz listesine yazdi -
+# oysa o gun 1 kart URETILMISTI. Basari acikca bildirilir.
+exit 0
