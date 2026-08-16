@@ -5,6 +5,11 @@
 #  Cikti yalniz SAYI (soru metni yok). ENV: SUPABASE_SERVICE_KEY.
 # ============================================================================
 $ErrorActionPreference = "Stop"
+# Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
+# (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
+#  bu yuzden her kaynaga "ambarda-yok" diyordu.) IRM ve IWR AYRI yazilir.
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $U = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu"
 $BASLIK = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)"; Prefer = "count=exact" }

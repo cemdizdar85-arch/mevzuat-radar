@@ -1,0 +1,982 @@
+{
+    "tarih":  "16.08.2026 20:19",
+    "durum":  "OLCUM",
+    "taranan":  30569,
+    "kovalar":  {
+                    "damgasiz":  3402,
+                    "kaynaksiz":  0,
+                    "cozulemedi":  236,
+                    "tutan_sade":  123,
+                    "tutan_ham":  14128,
+                    "atif_supheli":  1969,
+                    "metin_degismis":  4972,
+                    "yeniden_yutma":  5739
+                },
+    "kova_toplami":  30569,
+    "hesap_tutuyor":  true,
+    "bayrak_toplam":  12680,
+    "bayrak_orani":  47.1,
+    "cozulemedi_sebep":  {
+                             "kanun-bulunamadi":  185,
+                             "ambarda-yok":  7,
+                             "madde-bulunamadi":  1,
+                             "mevzuat-disi":  43
+                         },
+    "ders_dagilimi":  {
+                          "Borclar Hukuku":  13,
+                          "Ekonomi":  6,
+                          "Finansal Yonetim":  71,
+                          "Muhasebe Standartlari":  1017,
+                          "Muhasebe Denetimi":  118,
+                          "Is ve Sosyal Guvenlik Hukuku":  204,
+                          "Vergi Mevzuatı ve Uygulaması":  86,
+                          "Finansal Tablolar ve Analizi":  893,
+                          "Maliyet Muhasebesi":  2324,
+                          "Ticaret Hukuku":  57,
+                          "Denetim Standartlari":  967,
+                          "Denetim":  775,
+                          "Finansal Muhasebe":  4208,
+                          "Vergi Hukuku":  172,
+                          "Muh. ve Mali Müş. Meslek Hukuku":  466,
+                          "Meslek Hukuku":  177,
+                          "Hukuk":  206,
+                          "Kurumsal Yonetim":  25,
+                          "Maliye":  129,
+                          "Mali Tablolar Analizi":  603,
+                          "Sermaye Piyasası Mevzuatı":  163
+                      },
+    "kanun_dagilimi":  {
+                           "THP":  3399,
+                           "6102":  858,
+                           "193":  79,
+                           "197":  1,
+                           "6356":  50,
+                           "5510":  142,
+                           "4054":  51,
+                           "1475":  7,
+                           "5174":  1,
+                           "3065":  67,
+                           "1319":  10,
+                           "5520":  91,
+                           "5941":  5,
+                           "6585":  5,
+                           "4857":  237,
+                           "6098":  3,
+                           "213":  1668,
+                           "6802":  4,
+                           "4760":  10,
+                           "1211":  2,
+                           "5018":  1159,
+                           "492":  6,
+                           "6183":  22,
+                           "STD":  4309,
+                           "3577":  1,
+                           "7338":  1,
+                           "2464":  1,
+                           "6362":  23,
+                           "3568":  468
+                       },
+    "ornek":  [
+                  {
+                      "id":  "000aa943-facf-431f-8a90-5559531a6a99",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 380",
+                      "kanun_no":  "THP",
+                      "madde_no":  "380",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00125bab-e376-4908-be3e-eeb86d0ef901",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "TMS 16 p.1 - Amaç",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 16",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00279615-2f64-4d66-bfa6-b7da24986aa7",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 28 p.1-3 - Amac, kapsam ve TANIMLAR",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 28",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "002b7029-08cb-45ac-baf6-852eaa33a146",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 27 p.1-5 - Amac, kapsam ve TANIMLAR",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 27",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00308718-bc37-422f-859d-127bfaf94f9c",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0036b78e-1127-4b05-b620-efdf1eb1f075",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 371",
+                      "kanun_no":  "THP",
+                      "madde_no":  "371",
+                      "yayin_notu":  "dil-kusuru 07.08: jargon-yogun - onarim bekliyor"
+                  },
+                  {
+                      "id":  "0037bcbf-fdda-4566-b428-441432b9af2b",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 690",
+                      "kanun_no":  "THP",
+                      "madde_no":  "690",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00382d66-a672-409d-862f-b87a715c2a79",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 521",
+                      "kanun_no":  "THP",
+                      "madde_no":  "521",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0038f1e9",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "TMS 1 Finansal Tabloların Sunuluşu, m.38 (Karşılaştırmalı Bilgi ilkesi)",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 1",
+                      "yayin_notu":  "ic-tutarlilik denetimi 06.08: S4 bos/eksik sik: C"
+                  },
+                  {
+                      "id":  "0057b5c3",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 230 madde 8",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 230",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TMS 21 p.1 - Amaç",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 21",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "005cf825-01e6-4aef-8bc7-c0e970a145b6",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 692",
+                      "kanun_no":  "THP",
+                      "madde_no":  "692",
+                      "yayin_notu":  "aritmetik kapisi 07.08: dengesiz-yevmiye - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "005dc610-071a-44a5-855b-bdf91e63bfd1",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 380",
+                      "kanun_no":  "THP",
+                      "madde_no":  "380",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00607348-f3b7-4d15-b86a-0db1ce35c403",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim Standartlari",
+                      "kaynak":  "BDS 540 p.1-11 - Kapsam, muhasebe tahminlerinin niteligi ve YAPISAL RISK FAKTORLERI",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 540",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TFRS 16 p.1-4 - Amac ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TFRS 16",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00716ff4-7804-4c0e-bb7c-f868b0528545",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00775365-574e-4b5c-b027-d7be70650623",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "323",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "007eea26-ffee-4ac4-b886-d4869b099286",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 798",
+                      "kanun_no":  "THP",
+                      "madde_no":  "798",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "007fff68-0d5c-4ed2-a7fd-893d9a6c483f",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 621",
+                      "kanun_no":  "THP",
+                      "madde_no":  "621",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "0080e4fe-bf04-43de-8354-88d82647d48c",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "64",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00841973-4d3f-4edd-9960-8db5e4018963",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TFRS 16 Kiralamalar p.23-24 - Kullanım hakkı varlığının ilk ölçümü",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 1",
+                      "yayin_notu":  "TFRS 16 YENIDEN YAZIM 09.08.2026 - TMS 17 mulga oldugu icin soru konusu degistirildi; kaynak ambardaki TFRS 16 metni."
+                  },
+                  {
+                      "id":  "0087391f-6266-456f-8094-802b6c5274d9",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 129",
+                      "kanun_no":  "THP",
+                      "madde_no":  "129",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "008a1976-6171-4aa3-81a1-907f5b999c12",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 520",
+                      "kanun_no":  "THP",
+                      "madde_no":  "520",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "008ddb8a",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 320, A6-A9 (Kıyaslama Noktasının Belirlenmesi)",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 320",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "009950a4-7f3c-454a-9343-70b50c52a7ca",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 27 p.1-5 - Amac, kapsam ve TANIMLAR",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 27",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "009dfb0a-1f09-4761-9651-8a81f3631d2a",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 12 - Amac ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 12",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "009e1f74-e54f-4aa7-9ec0-8460087a19b6",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "MSUGT Tekduzen Hesap Plani - 500, 102",
+                      "kanun_no":  "6102",
+                      "madde_no":  "720",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "009f5c1f-05f5-485b-bf2f-cd40bed8c627",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TFRS 16 p.1-4 - Amac ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TFRS 16",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00a869ca-4c05-409a-a745-aac6bc1ef170",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TMS 21 p.1 - Amaç",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 21",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00aabac9",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 530 madde 5(b) ve 12",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 530",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "00b13a21-3333-458d-8082-6a75bf367960",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 129",
+                      "kanun_no":  "THP",
+                      "madde_no":  "129",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00b8804f-fe41-4b5b-9e39-91907ea4ebf0",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00bbf341",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 520 Analitik Prosedürler, m.7",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 520",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "00bfddf2-f67e-444f-9ce5-f754b81d6c3c",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 247",
+                      "kanun_no":  "THP",
+                      "madde_no":  "247",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00c8b4b3-bfb7-49f8-944f-d7b4b1f062ea",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 622",
+                      "kanun_no":  "THP",
+                      "madde_no":  "622",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00c93a01-2312-4eb8-88c1-f709d55bcd4c",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "THP 499",
+                      "kanun_no":  "THP",
+                      "madde_no":  "499",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "00cbfb3d",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Denetim",
+                      "kaynak":  "TTK m.400 (Denetçinin nitelikleri ve mesleki özen)",
+                      "kanun_no":  "6102",
+                      "madde_no":  "400",
+                      "yayin_notu":  "KARANTINA: denetci itiraz etti, GM HENUZ OKUMADI."
+                  },
+                  {
+                      "id":  "00d10f72-31f5-4083-88b0-bfdcf9b7ae6d",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "TMS 23 p.1-4 - Temel ilke ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 23",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00d281ee",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Is ve Sosyal Guvenlik Hukuku",
+                      "kaynak":  "4857 sayılı İş Kanunu m.13",
+                      "kanun_no":  "4857",
+                      "madde_no":  "13",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "00dd198b-14f3-43b5-b2dc-5eb25a180ebf",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 27 p.1-5 - Amac, kapsam ve TANIMLAR",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 27",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00e51054-c290-45f7-8add-92c1e719a349",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00f3a8f1-4118-46ee-8608-d2477f8134b9",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 23 p.1-4 - Temel ilke ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 23",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00f73459-fde2-4f4f-8a19-3d51c340570a",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "00fcac91-33cc-4473-904a-b961985e29eb",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Denetim Standartlari",
+                      "kaynak":  "BDS 700 p.1 - Kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 700",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01063ae2-53c7-425a-9615-e10a8ca223bc",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Hukuk",
+                      "kaynak":  "SMMM K. (3568 s.K.) m.50 [1/2]",
+                      "kanun_no":  "3568",
+                      "madde_no":  "50",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0106c26f-74d6-4e10-9de1-ff3765f6299c",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "010d8675",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 520 Analitik Prosedürler, madde 6(b)",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 520",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "010f1bc4-342f-4b9c-8a8c-d3bc24a81496",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 521",
+                      "kanun_no":  "THP",
+                      "madde_no":  "521",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01138d9c-7630-4f53-980f-4517aff973ef",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                      "kaynak":  "SMMM K. (3568 s.K.) m.45 [1/2]",
+                      "kanun_no":  "3568",
+                      "madde_no":  "45",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0115ce30",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Vergi Hukuku",
+                      "kaynak":  "KVK m.4/1-k",
+                      "kanun_no":  "5520",
+                      "madde_no":  "4",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "0120ba26-cc69-4dcc-bb93-cba98f83e0e9",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TTK (6102 s.K.) m.88 [1/2]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "88",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "0120e27d-2dd8-438a-8de5-09f8d027f4e5",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim Standartlari",
+                      "kaynak":  "BDS 220 - on bolum",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 220",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0121b284-3e21-4363-98c3-3b33470b63a8",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Hukuk",
+                      "kaynak":  "İş K. (4857 s.K.) m.4 [1/2]",
+                      "kanun_no":  "4857",
+                      "madde_no":  "4",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "012ce1db-33c1-4a79-a870-734f1950741b",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "VUK (213 s.K.) m.280",
+                      "kanun_no":  "213",
+                      "madde_no":  "280",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "012d92e3-4ce2-46d8-80f1-b29d15342929",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 620",
+                      "kanun_no":  "THP",
+                      "madde_no":  "620",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01335ca8-ca99-46a4-a7dd-46fcb1c6e877",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 10 p.1-2 - Amac ve kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 10",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0133b868",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Denetim",
+                      "kaynak":  "BDS 530 Denetimde Örnekleme, Ek 3",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 530",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "013a3611-8335-4c32-b508-c4f66b46ef34",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "013c84f1-5e59-4446-a842-675527b0c00b",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 621",
+                      "kanun_no":  "THP",
+                      "madde_no":  "621",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "013ed053-2ae1-41ca-ba61-cd8ec36c1e20",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "64",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0141180f-ab70-49e1-8f6e-6e85e33a6224",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "0142d906-eeac-402c-9dbc-eb20b60f160e",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "64",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "0149d349",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "TMS 1 (Finansal Tabloların Sunuluşu) md. 38 - Karşılaştırmalı Bilgi Sunma İlkesi",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 1",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "014d724b-dcc8-4af6-9b43-34595a450f25",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01510a14",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "VUK m.274 - Emtia maliyet bedeliyle değerlenir; işletmeler stok maliyetini farklı usullerle (FIFO, ağırlıklı ortalama vb.) tespit edebilir.",
+                      "kanun_no":  "213",
+                      "madde_no":  "274",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "015e1d89-3d77-4b20-bc45-b91a49b50371",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 27 p.1-5 - Amac, kapsam ve TANIMLAR",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 27",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "015e44db-aa73-4e56-b91f-8d3b7250eaa9",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "016f4383-5eeb-442a-8710-df62ae0ae47b",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "231",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "016ff2ca-f2a5-4d6f-9ffe-35cf6ce70f66",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Hukuk",
+                      "kaynak":  "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "231",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0175ec52-3b3a-4abd-a278-7423d86906f7",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 229",
+                      "kanun_no":  "THP",
+                      "madde_no":  "229",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "017d4358-12b1-4713-b711-ff06ebf88184",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "64",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0184c4b1-4f04-41b9-a134-a0529ebf6f62",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0187e786-f813-439a-abc4-5708390b4598",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TMS 38 p.1 - Amac",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 38",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01945797",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "BDS 705 md.6-7 (Önemli fakat yaygın olmayan yanlışlıkta şartlı görüş)",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 705",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01a0565a-d12b-4f27-9bbb-36757b0c59b7",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "323",
+                      "yayin_notu":  "aritmetik kapisi 07.08: islem-sapmasi - onarim + hakem bekliyor"
+                  },
+                  {
+                      "id":  "01a63814-ad37-4462-901e-4f2edf74e330",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "TTK (6102 s.K.) m.64 [1/3]",
+                      "kanun_no":  "6102",
+                      "madde_no":  "64",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01a835f2-eea0-4ad5-940a-7585cd534b9e",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 622",
+                      "kanun_no":  "THP",
+                      "madde_no":  "622",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01b24948-0184-4907-8878-29362d02530f",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim Standartlari",
+                      "kaynak":  "BDS 220 p.1-6 - Kapsam, KKS 1 iliskisi ve amac",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 220",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01b5dacf-f210-4b62-afa0-91065a67e0fd",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 520",
+                      "kanun_no":  "THP",
+                      "madde_no":  "520",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01ba3094-8634-4fc7-be7c-4131b87926db",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "MSUGT Tekduzen Hesap Plani - 590",
+                      "kanun_no":  "6102",
+                      "madde_no":  "720",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01be966f-9912-4633-bf97-b1403d5d7870",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01c16066",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliye",
+                      "kaynak":  "KDVK (3065 s.K.) m.10/b — malın tesliminden önce fatura düzenlenmesi hâlinde vergiyi doğuran olay fatura tarihinde meydana gelir",
+                      "kanun_no":  "3065",
+                      "madde_no":  "10",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01c54cbb-4ed9-47d3-8daf-d7d7ecc042bb",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TFRS 3 p.10-13 - Finansal tablolara alma ilkesi",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TFRS 3",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01c633de-9d4d-4607-9075-95b971332dd6",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 741",
+                      "kanun_no":  "THP",
+                      "madde_no":  "741",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01cab538-dcd8-4678-ae32-a74d1c0f029c",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                      "kaynak":  "SMMM K. (3568 s.K.) m.50 [1/2]",
+                      "kanun_no":  "3568",
+                      "madde_no":  "50",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01d4d231-2036-4292-bbb6-e057b8500b8e",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "THP 734",
+                      "kanun_no":  "THP",
+                      "madde_no":  "734",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01d65063-c59e-499c-a56f-9b42a1bc114b",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TMS 36 p.100-102 - Sirket varliklari",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 36",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01d9d966-e7d3-4c1c-98ec-0128ad48d8f3",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Mali Tablolar Analizi",
+                      "kaynak":  "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
+                      "kanun_no":  "5018",
+                      "madde_no":  "3",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01dfcde1-fe7b-4a0b-83bc-670e42f60dbe",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Finansal Tablolar ve Analizi",
+                      "kaynak":  "VUK (213 s.K.) m.231 - Fatura nizamı [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "231",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01e57099",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Hukuk",
+                      "kaynak":  "5510 sayılı SGK Kanunu m.8; 4857 sayılı İş Kanunu m.15",
+                      "kanun_no":  "5510",
+                      "madde_no":  "8",
+                      "yayin_notu":  "02.08.2026 GM: insan okumasindan gecmeden yayinda kalamaz (Cem kurali: tek bir yanlis soru bile olmayacak). Kasada duruyor, okunan partiyle yeniden acilacak."
+                  },
+                  {
+                      "id":  "01f00d8d-fedb-419e-9356-87aeaed3e0fd",
+                      "sinif":  "atif_supheli",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 180",
+                      "kanun_no":  "THP",
+                      "madde_no":  "180",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01f2fd64-105a-48f1-a992-33f95e0a4ff0",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "TMS 16 p.1 - Amaç",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 16",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01f9a714-066a-4303-aa92-7cbd3ed0f2df",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Muh. ve Mali Müş. Meslek Hukuku",
+                      "kaynak":  "SMMM K. (3568 s.K.) m.45 [1/2]",
+                      "kanun_no":  "3568",
+                      "madde_no":  "45",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "01f9dda2-a18d-4dd3-a73f-bb2419a8832d",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 480",
+                      "kanun_no":  "THP",
+                      "madde_no":  "480",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0204cbae-1535-48bc-bd51-ca017d47f628",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "02119f28-0959-4d8a-8907-6f3894d38f62",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Muhasebe Standartlari",
+                      "kaynak":  "TMS 2 p.1 - Amaç",
+                      "kanun_no":  "STD",
+                      "madde_no":  "TMS 2",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0212a228-bc06-4a88-b70c-37c1c7750b5e",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Finansal Muhasebe",
+                      "kaynak":  "THP 762",
+                      "kanun_no":  "THP",
+                      "madde_no":  "762",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0222888d-8d00-4026-8e5d-2b9c8e2fcc16",
+                      "sinif":  "metin_degismis",
+                      "ders":  "Maliyet Muhasebesi",
+                      "kaynak":  "VUK (213 s.K.) m.262 - Alış bedeli. Maliyet bedeli [1/2]",
+                      "kanun_no":  "213",
+                      "madde_no":  "262",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  },
+                  {
+                      "id":  "0223b254-f376-4b28-81f7-e3d56a2cbd9b",
+                      "sinif":  "yeniden_yutma",
+                      "ders":  "Denetim Standartlari",
+                      "kaynak":  "BDS 450 p.1 - Kapsam",
+                      "kanun_no":  "STD",
+                      "madde_no":  "BDS 450",
+                      "yayin_notu":  "YENI URETIM - profesor denetimi ve GM okumasi bekliyor. Denetlenmeden yayina cikmaz."
+                  }
+              ],
+    "not":  "tutan_ham = damga eski (Sadelestir siz) formulle yazilmis ama METIN AYNI. atif_supheli = kaynagin gosterdigi kod soruda hic gecmiyor (THP 380 \u003c-\u003e 180 vakasi). metin_degismis = kanun metni degismis. yeniden_yutma = metin ayni, damga bayat."
+}

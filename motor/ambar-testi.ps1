@@ -6,6 +6,11 @@
 #  Yerel: pwsh motor/ambar-testi.ps1   CI: mevzuat.yml hasat sonrasi adim.
 # ============================================================================
 $ErrorActionPreference = 'Stop'
+# Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
+# (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
+#  bu yuzden her kaynaga "ambarda-yok" diyordu.) IRM ve IWR AYRI yazilir.
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $SB  = 'https://bjrleanjpyujtajmazxn.supabase.co'
 $KEY = if ($env:SB_PUBLISHABLE) { $env:SB_PUBLISHABLE } else { 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' }  # public anon key
 

@@ -47,6 +47,10 @@ jobs:
         shell: pwsh
         run: ./arac/api-ceviri-testi.ps1
 
+      - name: Kimlik denetimi (Supabase cagiran betik kimliksiz kalmasin)
+        shell: pwsh
+        run: ./arac/kimlik-denetimi.ps1
+
       - name: "Veri bekcisi (her sayfanin cektigi json - var mi / parse / dolu mu)"
         shell: pwsh
         run: ./arac/veri-bekcisi.ps1

@@ -20,6 +20,11 @@
 # ============================================================================
 param([switch]$yaz, [int]$tavan = 0, [string]$klasor = '', [string]$sinavAdi = '')
 $ErrorActionPreference='Continue'
+# Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
+# (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
+#  bu yuzden her kaynaga "ambarda-yok" diyordu.) IRM ve IWR AYRI yazilir.
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 if($klasor -eq ''){ $klasor = Join-Path $env:TEMP 'cikmis-soru' }
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here

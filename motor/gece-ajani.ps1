@@ -17,6 +17,11 @@
 #  görülünce YAYIN=1 ile canlıya (bilgi-tabani.json'a) yazmaya çevrilir.
 # ============================================================================
 $ErrorActionPreference = "Stop"
+# Supabase gizli anahtarli istegi KIMLIKSIZ gelirse 401 ile reddeder.
+# (16.08.2026 olculdu: ayni sorgu UA'siz 401, UA'li 5 kayit. madde-coz.ps1
+#  bu yuzden her kaynaga "ambarda-yok" diyordu.) IRM ve IWR AYRI yazilir.
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingProvider]::Instance) } catch {}
 
