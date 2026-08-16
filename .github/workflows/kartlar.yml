@@ -130,6 +130,26 @@ jobs:
           Write-Host ("Islenecek gun: " + ($islenecek -join ', '))
           foreach($g in $islenecek){ ./motor/kart-toplu.ps1 -Gun $g }
 
+      # 16.08 KOR-KALMA NOBETCISI: kart-toplu 0 kart uretip API/uretim dustuyse
+      # (veri/kart-uretim-durum.json sonuc='api-hatasi'), robot "RG sakin" diye
+      # YALAN soylemesin -- adim KIRMIZI biter + Cem'e mail. Boylece 11 gun
+      # sessizce bos kalmaz (14.08: 2 ilgili teblig vardi, "sakin" denmisti).
+      - name: Kor-kalma nobetcisi (0 kart = sakin mi, uretim dususu mu)
+        if: always()
+        shell: pwsh
+        run: |
+          $y = "veri/kart-uretim-durum.json"
+          if (-not (Test-Path $y)) { Write-Host "Durum dosyasi yok (kart uretimi hic kosmadi ya da atlandi) - gecildi."; exit 0 }
+          $d = Get-Content $y -Raw -Encoding UTF8 | ConvertFrom-Json
+          Write-Host ("Kart uretim durumu: {0} - gun {1}, kart {2}, hata {3}" -f $d.sonuc, $d.gun, $d.uretilenKart, $d.hataliCagri)
+          if ("$($d.sonuc)" -eq 'api-hatasi') {
+            Write-Host "::error::KOR KALMA - kart uretimi API/uretim hatasiyla dustu ($($d.hataliCagri) hata, 0 kart). 'RG sakin' DEGIL. Muhtemel API tavani/AWS anahtari."
+            $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Hap kart URETILEMEDI (kor kalma, uretim dustu)'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Gun $($d.gun): islenen madde vardi ama $($d.hataliCagri) API/uretim hatasi, 0 kart. 'RG sakin' degil. Muhtemel API tavani ya da AWS anahtari eksik. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+            try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
+            exit 1
+          }
+          Write-Host "Kor-kalma nobetcisi: temiz (0 kart varsa gercekten sakin RG gunu)."
+
       - name: Yapisal denetci (kart yayini oncesi guvenlik)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1

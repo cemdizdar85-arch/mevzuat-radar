@@ -398,6 +398,16 @@ if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
   [System.IO.File]::WriteAllText($guncelYol, ($guncelObj | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($true)))
 }
 
+# 16.08 KOR-KALMA AYRIMI: 0 kart "sakin RG" mi yoksa "API/uretim dususu" mu?
+# Ayirt edici = $hatali (API cagri hata sayaci). 0 kart + hata VARSA sessizce
+# "RG sakin" demek YALAN olur (14.08'de 2 ilgili teblig vardi ama 0 kart cikti).
+# Durumu yaz; kartlar.yml nobetcisi 'api-hatasi' gorurse kirmizi + mail.
+$kartSay = @($guncelKartlar).Count
+$sonuc = if($kartSay -gt 0){ 'kart-var' } elseif($hatali -gt 0){ 'api-hatasi' } else { 'sakin' }
+$durumObj = [ordered]@{ gun=$Gun; uretilenKart=$kartSay; hataliCagri=$hatali; hakemSayisi=$hakemSayisi; sonuc=$sonuc; damga=(Get-Date -Format 'dd.MM.yyyy HH:mm') }
+($durumObj | ConvertTo-Json) | Out-File (Join-Path $kok "veri\kart-uretim-durum.json") -Encoding utf8
+if($sonuc -eq 'api-hatasi'){ Write-Host ("KOR-KALMA: {0} gununde {1} API/uretim hatasi, 0 kart -- 'RG sakin' DEGIL, uretim dustu." -f $Gun,$hatali) -ForegroundColor Red }
+
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">')
