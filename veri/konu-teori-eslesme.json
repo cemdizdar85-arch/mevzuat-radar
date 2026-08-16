@@ -1,0 +1,40 @@
+{
+  "baslik": "Konu -> teori notu acik eslesme tablosu",
+  "tarih": "16.08.2026",
+  "dogus": "5018 m.3'e yanlis baglanmis 1.089 sorunun yeniden baglanmasi sirasinda cikti. Otomatik teori eslestirici (TeoriNotuMetni) 5 harften KISA kelimeleri atiyor; 'cari' ve 'oran' 4 harf oldugu icin en buyuk konu gruplari hic eslesmiyordu. Eslestirici 02.08'de BILEREK sikilastirilmisti (gevsek eslesme 31 soruyu alakasiz nota baglamisti) - onu gevsetmek yerine acik tablo yazildi.",
+  "kural": "Desen SORUNUN KONUSUNA uygulanir; tutmazsa tabloya bakilmaz ve soru DOKUNULMADAN birakilir. Tabloya yalniz ambarda ADI DOGRULANMIS teori notlari yazilir - olmayan nota baglama YASAK.",
+  "eslesmeler": [
+    {
+      "desen": "^finansal oran analizi",
+      "teori_notu": "Teori Notu - finansal analiz oranlari",
+      "gerekce": "Konunun tamami oran analizi; notun adi birebir ortusuyor. 328 soru."
+    },
+    {
+      "desen": "cari oran",
+      "teori_notu": "Teori Notu - oran analizi likidite",
+      "gerekce": "Cari oran bir LIKIDITE oranidir; not tam bu basligi tasiyor. 'cari oran', 'cari oran analizi', 'cari oran hesaplama', 'aktif devir hizindan cari oran' desenin altina girer."
+    },
+    {
+      "desen": "^oran analizi",
+      "teori_notu": "Teori Notu - oran analizi likidite",
+      "gerekce": "'oran analizi', 'oran analizi karsilastirma' konulari."
+    },
+    {
+      "desen": "isletme sermayesi",
+      "teori_notu": "Teori Notu - isletme sermayesi yonetimi",
+      "gerekce": "'net isletme sermayesi', 'brut isletme sermayesi', 'isletme sermayesi yonetimi nakit dongusu'. Otomatik eslestirici bunlari zaten buluyordu; tabloya tutarlilik icin yazildi."
+    }
+  ],
+  "kapsam_disi_birakilanlar": [
+    {
+      "konu": "degisken sermayeli yatirim ortakligi",
+      "soru": 57,
+      "sebep": "Dayanagi SPK ikincil mevzuati; ambarda karsiligi teyit edilmedi. Uydurma baglama yapilmadi - once kaynak yutulmali."
+    },
+    {
+      "konu": "kredi vade siniflandirma",
+      "soru": 21,
+      "sebep": "Hangi teori notuna gittigi belirsiz; belirsize kusur da baglanti da yazilmaz."
+    }
+  ]
+}
