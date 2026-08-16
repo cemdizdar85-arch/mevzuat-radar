@@ -119,19 +119,31 @@ $k = [ordered]@{
 #  Kanun maddelerinde UYGULANMAZ - sorular madde numarasini cogu zaman
 #  yazmaz, uygulanirsa yanlis alarm yagar. Emin olamadigina kusur demeyiz.
 # ============================================================================
-function AtifSupheliMi([string]$kaynak, [string]$soruMetni){
-  if([string]::IsNullOrWhiteSpace($kaynak) -or [string]::IsNullOrWhiteSpace($soruMetni)){ return $false }
-  $thp = [regex]::Match($kaynak, '(?i)\bTHP\s*(\d{3})\b')
-  if($thp.Success){
-    $kod = $thp.Groups[1].Value
-    return (-not ($soruMetni -match ("(?<!\d)" + $kod + "(?!\d)")))
-  }
-  $std = [regex]::Match($kaynak, '(?i)\b(TMS|TFRS|BDS)\s*(\d{1,3})\b')
-  if($std.Success){
-    $ad = $std.Groups[1].Value; $no = $std.Groups[2].Value
-    return (-not ($soruMetni -match ("(?i)" + $ad + "\s*" + $no + "(?!\d)")))
-  }
-  return $false
+#  ⚠️ ILK OLCUT CURUDU (16.08, 6 ornek elle okundu). Once "kaynagin kodu
+#  soruda geciyor mu" diye bakiyordu; 6 bayraktan 4'u YANLIS ALARM cikti:
+#  iyi sorular kodu metinde yazmaz, senaryoyu anlatir (THP 380 vakasinda soru
+#  depoyu KIRAYA VERMIS - kaynak dogruydu). O olcutle uretilen 1.969 sayisi
+#  GUVENILMEZDIR.
+#
+#  YENI OLCUT - sorunun metnine hic bakmaz, iki BELGE KIMLIGINI kiyaslar:
+#     kaynak ne diyor  <->  cozucu hangi belgeyi getirdi
+#  Uyusmuyorsa soru YANLIS METINLE yargilaniyor demektir. Bu deterministiktir
+#  ve sorunun uslubuna bagli degildir. Elle okumada iki gercek vaka boyle
+#  yakalandi: "TMS 1 m.38" istenmis TFRS 18 gelmis; "BDS 320 A6-A9" istenmis
+#  BDS 320 p.1 gelmis.
+function BelgeKimligi([string]$metin){
+  if([string]::IsNullOrWhiteSpace($metin)){ return '' }
+  $m = [regex]::Match($metin, '(?i)\b(TMS|TFRS|BDS|KKS|KYS)\s*(\d{1,3})')
+  if($m.Success){ return ($m.Groups[1].Value.ToUpperInvariant() + ' ' + $m.Groups[2].Value) }
+  $t = [regex]::Match($metin, '(?i)\bTHP\s*(\d{3})')
+  if($t.Success){ return ('THP ' + $t.Groups[1].Value) }
+  return ''
+}
+function AtifSupheliMi([string]$kaynak, [string]$cozulenAd){
+  $a = BelgeKimligi $kaynak
+  $b = BelgeKimligi $cozulenAd
+  if(-not $a -or -not $b){ return $false }   # kimlik cikarilamiyorsa kusur DEME
+  return ($a -ne $b)
 }
 $dersDagilim = @{}; $kanunDagilim = @{}; $cozHata = @{}
 $bayrakli = New-Object System.Collections.Generic.List[object]
@@ -156,10 +168,8 @@ foreach($s in $parti){
 
   # --- UC KOVAYA AYIR (tek "degismis" yorumlanamaz bir sayiydi)
   $ders = "$($s.ders)"; $kn = "$($s.kanun_no)"
-  $soruMetni = "$($s.soru)"
-  foreach($harf in @('A','B','C','D','E')){ try { $soruMetni += ' ' + "$($s.siklar.$harf)" } catch {} }
   $sinif = ''
-  if(AtifSupheliMi $kay $soruMetni){ $sinif = 'atif_supheli'; $k.atif_supheli++ }
+  if(AtifSupheliMi $kay "$($c.ad)"){ $sinif = 'atif_supheli'; $k.atif_supheli++ }
   elseif($kn -match '^\d+$'){        $sinif = 'metin_degismis'; $k.metin_degismis++ }
   else {                             $sinif = 'yeniden_yutma'; $k.yeniden_yutma++ }
 
