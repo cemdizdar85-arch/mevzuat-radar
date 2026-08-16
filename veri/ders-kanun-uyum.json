@@ -1,0 +1,45 @@
+{
+  "baslik": "Ders <-> kanun uyum tablosu (soru dayanagi denetimi)",
+  "tarih": "16.08.2026",
+  "dogus": "16.08 okumasi: 'cari oran hesaplama' sorulari dayanak olarak Kamu Mali Yonetimi K. m.3'u (kamu idarelerinin tanim cetveli) gosteriyordu. 1.089 sorunun 1.064'u yanlis bagliydi ve bu tek bir bozuk parti degil, kota-v2 #16-#26 partilerine yayilmis sistematik bir kusurdu.",
+  "kural": "SADECE bu tabloda yer alan DAR KAPSAMLI kanunlar icin hukum verilir. Tabloda olmayan kanun icin KUSUR DENMEZ. VUK/TTK/GVK/KDV gibi genis kanunlar bilerek DISARIDA - onlar hemen her muhasebe dersinde mesru sekilde gecer.",
+  "olcum_dayanagi": "30.443 sorunun (kanun_no x ders) dagilimi olculdu; tabloya yalniz dagilimda ACIKCA celiskili cikan kanunlar alindi.",
+  "kanunlar": [
+    {
+      "kanun_no": "5018",
+      "ad": "Kamu Malî Yönetimi ve Kontrol Kanunu",
+      "gerekce": "Kamu idarelerinin butce/muhasebe duzenini kurar. Ozel sektor bilanco analizi (cari oran, finansal oran) ile ilgisi YOKTUR.",
+      "olcum": "1.342 soru: 593 Finansal Tablolar ve Analizi + 282 Mali Tablolar Analizi + 155 Finansal Muhasebe + 68 SPK + 32 Maliyet Muhasebesi = 1.130 supheli; yerinde olan Maliye yalniz 126.",
+      "uygun_dersler": ["Maliye", "Kamu Maliyesi", "Devlet Muhasebesi", "Hukuk", "Vergi Hukuku", "Vergi Mevzuatı ve Uygulaması"]
+    },
+    {
+      "kanun_no": "4857",
+      "ad": "İş Kanunu",
+      "gerekce": "Is iliskisini duzenler. Bordro/iscilik baglaminda muhasebe derslerinde gecebilir, ama Sermaye Piyasasi Mevzuati ile ilgisi yoktur.",
+      "olcum": "1.765 soru: 69 Sermaye Piyasası Mevzuatı + 21 Finansal Tablolar + 21 Maliyet Muhasebesi supheli.",
+      "uygun_dersler": ["Hukuk", "Is ve Sosyal Guvenlik Hukuku", "İş ve Sosyal Güvenlik Hukuku", "Muh. ve Mali Müş. Meslek Hukuku", "Meslek Hukuku", "Finansal Muhasebe", "Maliyet Muhasebesi"]
+    },
+    {
+      "kanun_no": "6356",
+      "ad": "Sendikalar ve Toplu İş Sözleşmesi Kanunu",
+      "gerekce": "Toplu is hukuku. Muhasebe/analiz dersleriyle bagi yoktur.",
+      "olcum": "191 soru: 172 Is ve Sosyal Guvenlik (yerinde), 18 Hukuk (yerinde), 1 Maliye (supheli).",
+      "uygun_dersler": ["Is ve Sosyal Guvenlik Hukuku", "İş ve Sosyal Güvenlik Hukuku", "Hukuk"]
+    },
+    {
+      "kanun_no": "4054",
+      "ad": "Rekabetin Korunması Hakkında Kanun",
+      "gerekce": "Rekabet hukuku. Finansal tablo analizi dersinde dayanak olamaz.",
+      "olcum": "Degisen-madde listesinde m.4 uzerinden 51 soru 'Finansal Tablolar ve Analizi' dersinde gorundu.",
+      "uygun_dersler": ["Hukuk", "Ticaret Hukuku", "Rekabet Hukuku"]
+    },
+    {
+      "kanun_no": "6362",
+      "ad": "Sermaye Piyasası Kanunu",
+      "gerekce": "Sermaye piyasasi duzeni. Maliyet muhasebesi hesaplama sorusuna dayanak olamaz.",
+      "olcum": "Tabloya onlem olarak alindi; dagilimda buyuk sapma gorulmedi.",
+      "uygun_dersler": ["Sermaye Piyasası Mevzuatı", "Hukuk", "Ticaret Hukuku", "Finansal Tablolar ve Analizi", "Mali Tablolar Analizi", "Muhasebe Denetimi", "Denetim"]
+    }
+  ],
+  "not": "Tablo genisletilirken KURAL AYNI: once (kanun x ders) dagilimi olculur, ACIKCA celiskili olan eklenir. Sezgiyle kanun eklenmez."
+}
