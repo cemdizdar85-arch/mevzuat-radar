@@ -1,0 +1,76 @@
+{
+  "baslik": "Turkce harf onarim sozlugu - Sinif 1 (serpme bozulma), 'sik' ailesi",
+  "tarih": "16.08.2026",
+  "yontem": "Kasa (30.569 soru) tarandi; kelime basi 'sik*' gecen 293 satirdaki 497 gecisin 41 yazim formu ELLE OKUNDU (hepsi, orneklem degil). Hedef yazim kasadaki dogru yazimlarla dogrulandi.",
+  "olcum": {
+    "kasa_satir": 30569,
+    "etkilenen_satir": 293,
+    "toplam_gecis": 497,
+    "yazim_formu": 41,
+    "alan_dagilimi": "aciklama %97 (A-E), hap 12, siklar 3, soru 0"
+  },
+  "kanit_notlari": [
+    "'sikte' -> 'sikta' degil 'sikta': kasada dogru yazim 'sikta' 158+ satirda geciyor, 'sikte' 0. Yani bozuk bicimdeki 'e' sesli harfi de bozulmanin parcasi.",
+    "Ayni gerekce 'sikteki' -> 'siktaki' (kasada 'sikteki' 0), 'sikkindeki' -> 'sikkindaki', 'sikler' -> 'siklar' (buyuk unlu uyumu).",
+    "Buyuk/kucuk harf varyantlari AYRI SATIR: eslesme harfe duyarli, cunku 'SIK' mesru bir kelimedir."
+  ],
+  "kelimeler": [
+    { "ascii": "sik",              "dogru": "şık",              "gecis": 239, "gerekce": "sik ailesi - 'Bu sik 129.470 TL...' (secenek)" },
+    { "ascii": "Sik",              "dogru": "Şık",              "gecis": 13,  "gerekce": "cumle basi; 'Sik, karar gerektiren III ve V...'" },
+    { "ascii": "sikte",            "dogru": "şıkta",            "gecis": 86,  "gerekce": "'Bu sikte alacaklandirilmis' - kasada dogru yazim sikta" },
+    { "ascii": "sikteki",          "dogru": "şıktaki",          "gecis": 33,  "gerekce": "'bu sikteki ifade' - kasada sikteki 0, siktaki var" },
+    { "ascii": "Sikteki",          "dogru": "Şıktaki",          "gecis": 1,   "gerekce": "cumle basi varyant" },
+    { "ascii": "sikta",            "dogru": "şıkta",            "gecis": 24,  "gerekce": "'bu sikta iscilik payi gibi bir sayi'" },
+    { "ascii": "Sikta",            "dogru": "Şıkta",            "gecis": 1,   "gerekce": "cumle basi varyant" },
+    { "ascii": "siktaki",          "dogru": "şıktaki",          "gecis": 8,   "gerekce": "'bu siktaki deger'" },
+    { "ascii": "sikkin",           "dogru": "şıkkın",           "gecis": 13,  "gerekce": "'Bu sikkin uydurdugu islem' (tamlayan hali)" },
+    { "ascii": "Sikkin",           "dogru": "Şıkkın",           "gecis": 3,   "gerekce": "cumle basi varyant" },
+    { "ascii": "sikka",            "dogru": "şıkka",            "gecis": 9,   "gerekce": "'bu sikka ulasir', 'hicbir sikka uymadigindan' (yonelme hali)" },
+    { "ascii": "siktir",           "dogru": "şıktır",           "gecis": 3,   "gerekce": "'bu yaklasik bu siktir' - kufur gorunumu, ivedi" },
+    { "ascii": "sikki",            "dogru": "şıkkı",            "gecis": 2,   "gerekce": "'sonuc B sikki', 'bu sikki yanlis kilar'" },
+    { "ascii": "sikı",             "dogru": "şıkkı",            "gecis": 2,   "gerekce": "'bu mantik hatasi siki gecersiz kilar' - yarim bozulmus bicim" },
+    { "ascii": "sikkidir",         "dogru": "şıkkıdır",         "gecis": 1,   "gerekce": "'en dogru yanit ... A sikkidir'" },
+    { "ascii": "sikkindaki",       "dogru": "şıkkındaki",       "gecis": 2,   "gerekce": "secenek icindeki ifadeye atif" },
+    { "ascii": "sikkindeki",       "dogru": "şıkkındaki",       "gecis": 1,   "gerekce": "ayni; 'sikkindeki' Turkcede yok (unlu uyumu)" },
+    { "ascii": "sikkte",           "dogru": "şıkta",            "gecis": 1,   "gerekce": "'Bu sikkte 740.850 / ...' - cift k yazim hatasi" },
+    { "ascii": "sikdeki",          "dogru": "şıktaki",          "gecis": 1,   "gerekce": "'Bu sikdeki degerler' - sert unsuz benzesmesi" },
+    { "ascii": "siklarda",         "dogru": "şıklarda",         "gecis": 2,   "gerekce": "'siklarda en yakin deger B'" },
+    { "ascii": "siklar",           "dogru": "şıklar",           "gecis": 1,   "gerekce": "'siklar arasinda %17,28 yer aliyorsa'" },
+    { "ascii": "sikler",           "dogru": "şıklar",           "gecis": 1,   "gerekce": "'sikler arasinda' - 'sikler' unlu uyumuna aykiri" },
+    { "ascii": "Siklara",          "dogru": "Şıklara",          "gecis": 1,   "gerekce": "'Siklara bakinca en yakin deger'" },
+    { "ascii": "sikini",           "dogru": "şıkkını",          "gecis": 2,   "gerekce": "'(C) sikini kontrol et'" },
+    { "ascii": "sikine",           "dogru": "şıkkına",          "gecis": 1,   "gerekce": "'824.470 TL sikine yakin'" },
+    { "ascii": "sikinde",          "dogru": "şıkkında",         "gecis": 1,   "gerekce": "'(C) sikinde parantez acilimi'" },
+    { "ascii": "sikle",            "dogru": "şıkla",            "gecis": 1,   "gerekce": "'bu sikle karistiriliyor' - 'sikle' unlu uyumuna aykiri" },
+
+    { "ascii": "siklikla",         "dogru": "sıklıkla",         "gecis": 4,   "gerekce": "AYRI KELIME: 'sik'(cok kez). 'ogrenciler siklikla karistirir'" },
+    { "ascii": "sikligiyla",       "dogru": "sıklığıyla",       "gecis": 1,   "gerekce": "AYRI KELIME: 'test sikligiyla ilgilidir'" },
+    { "ascii": "sikca",            "dogru": "sıkça",            "gecis": 3,   "gerekce": "AYRI KELIME: 'sinavda sikca cikiyor'" },
+    { "ascii": "SIKCA",            "dogru": "SIKÇA",            "gecis": 2,   "gerekce": "AYRI KELIME, buyuk harf: 'SIKCA ya da AGIR zarar' (TBK m.71)" },
+    { "ascii": "sikistirma",       "dogru": "sıkıştırma",       "gecis": 4,   "gerekce": "AYRI KELIME: 'YERLESME (sikistirma/concentration) etkisi'" },
+    { "ascii": "SIKISTIRMA",       "dogru": "SIKIŞTIRMA",       "gecis": 1,   "gerekce": "AYRI KELIME, buyuk harf varyanti" },
+    { "ascii": "sikistirilmasini", "dogru": "sıkıştırılmasını", "gecis": 1,   "gerekce": "AYRI KELIME: 'ilgisiz duzenlemelerin araya sikistirilmasini (torba hukum)'" },
+    { "ascii": "sikisikligini",    "dogru": "sıkışıklığını",    "gecis": 1,   "gerekce": "AYRI KELIME: 'nakit sikisikligini rahatlatmak'" },
+    { "ascii": "sikilasma",        "dogru": "sıkılaşma",        "gecis": 3,   "gerekce": "AYRI KELIME: 'asiri sikilasma buyumeyi durdurur' (para politikasi)" },
+    { "ascii": "sikilasir",        "dogru": "sıkılaşır",        "gecis": 1,   "gerekce": "AYRI KELIME: 'para politikasi ne sikilasir ne gevser'" }
+  ],
+  "haric_tutulanlar": [
+    {
+      "ascii": "SIK", "gecis": 2,
+      "sebep": "MESRU KELIME - DOKUNULMAYACAK. 'EN SIK HATA burada' = en cok yapilan hata. Ikisi de okundu, ikisi de dogru yazim. Harf-korur otomatik cevrim bunlari 'SIK' yapip metni BOZARDI."
+    },
+    {
+      "ascii": "siki", "gecis": 16,
+      "sebep": "KARISIK - 15 gecis 'sikki' (secenek) ama 1 gecis GERCEK 'siki' kelimesi: 'buro duzenini siki kurallara baglar'. Toptan degisim o satiri bozar. Elle ayiklanmali."
+    },
+    {
+      "ascii": "sikke", "gecis": 4,
+      "sebep": "BELIRSIZ - baglamda 'sikka' mi 'sikta' mi oldugu kesin degil ('Bu sikke farkli bir oran karistirilmistir'). Ayrica 'sikke' Turkcede gercek bir kelimedir (madeni para). Insan karari."
+    },
+    {
+      "ascii": "sike", "gecis": 1,
+      "sebep": "BELIRSIZ - 'ters islem bu sike ulastirir': 'sikka' mi 'sika' mi belirsiz. Tek gecis, elle duzeltilir."
+    }
+  ],
+  "kural": "Belirsiz kelime sozluge GIRMEZ. Ayni ilke 'kismi' vakasinda da uygulanmisti (kismi mi kismi mi baglamsiz cozulemez)."
+}
