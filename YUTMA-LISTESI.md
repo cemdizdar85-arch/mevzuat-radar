@@ -320,6 +320,21 @@ usulsüzlük cezaları) dayanağını kanundan değil O YILIN TEBLİĞİNDEN alm
       + binek oto hadleri (46.000 kira / 1.200.000-1.380.000-2.600.000). Q5/Q12/Q15
       onarımlarının dayanağı. Günlük sınıfa alındı. (gvkgt334 tarife DEĞİL — nitelikli
       hizmet merkezi istisnası; etiket düzeltildi.)
+- [ ] **GVK GT 217 — GEÇİCİ VERGİ USUL VE ESASLARI (16.08.2026, Cem'in mükellef sorusundan çıktı)**
+      **Ölçülmüş boşluk:** GVK mük. m.120 ambarda TAM var (2.953 karakter, 2 parça) ama
+      maddenin kendisi **kümülatif mahsup usulünü yazmıyor**; son fıkra *"Geçici vergi
+      uygulamasına ilişkin usuller Maliye Bakanlığınca tespit edilir"* diyerek tebliğe
+      havale ediyor. O usul 217 Seri No'lu GVK GT'de. Ambarda arandı → **0 kayıt**
+      (`*217*Gelir Vergisi*`, `*gecici vergi*teblig*`, `*217 Seri*` üçü de boş).
+      **Neden önemli:** "Ocak-Mart geçici vergisi Ağustos'ta ödendi, Ocak-Haziran
+      beyanında düşer mi?" tipi soruların cevabı maddede DEĞİL bu tebliğde. Bugün
+      hakem, geçici vergi konulu hiçbir soruyu doğru metinle yargılayamıyor —
+      dayanak ambarda olmadığı için "ölçülemedi" demesi gerekir.
+      **Ayrım:** maddede olan (yıllık beyanname mahsubu için *"tahakkuk ettirilerek
+      TAHSİL EDİLEN"* şartı, gecikme faizi/ceza, beyan 14 / ödeme 17) ile tebliğde
+      olan (dönem içi kümülatif hesap, önceki dönemde HESAPLANAN verginin indirilmesi)
+      birbirine karıştırılmamalı; soru üretiminde ikisi ayrı dayanak.
+      **Kaynak:** mevzuat.gov.tr konsolide + GİB. Yutulunca kapsama ölçülür (≥%98 kapı).
 - [x] Asgari ücret 2026 kararı — KAPANDI 07.08 akşam: taranmış RG sayfası
       (20251226-6.pdf) 150dpi görüntüye çevrilip GÖZLE birebir aktarıldı
       (Karar 2025/1, 23/12/2025; günlük 1.101 TL 1/1-31/12/2026; destek 1.270 TL;
