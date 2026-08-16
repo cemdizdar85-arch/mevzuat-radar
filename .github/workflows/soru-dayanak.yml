@@ -1,0 +1,55 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/soru-dayanak.yml
+#
+# SORU-DAYANAK NOBETI — "mevzuat degisince sorular ne olacak?" sorusunun
+# otomatik cevabi. (Cem, 16.08.2026: "tebligleri okumustuk sanki; sinav icin
+# okumaz isek cikan sinavlarda yanlis olmaz mi?")
+#
+# NEDEN BU DOSYA VAR: motor/soru-dayanak-nobetcisi.ps1 07.08'de yazilmis ama
+# HICBIR WORKFLOW ONU CAGIRMIYORDU. Yani koruma agi kuruluydu ve hic
+# kosmuyordu; ancak biri elle calistirirsa is goruyordu. Bu depoda "kuruldu
+# ama kimse gormedi" sinifinin bir ornegi daha.
+#
+# ZINCIR: ayna kanunu yeniden yutar -> madde damgalari degisir -> bu nobetci
+# damgasi DEGISEN maddeye dayanan kasa sorularini bulur, yayindan ceker ve
+# 'mevzuat-degisti' notu birakir -> hakem + GM yeniden yargilar.
+#
+# PARA HARCAMAZ: yalniz Supabase okuma/yazma. Modele hic gitmez.
+name: Soru Dayanak Nobeti
+
+on:
+  schedule:
+    # 06:40 TR. Gunluk kanun aynasi ve madde damgasi sabaha karsi kosar;
+    # nobetci ONLARDAN SONRA bakmali, yoksa dunku damgayi kiyaslar.
+    - cron: "40 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Soru-dayanak nobetcisi
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/soru-dayanak-nobetcisi.ps1
+
+      - name: Raporu commit'le (sessiz kosu yasak)
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/soru-dayanak-raporu.json veri/mevzuat/_madde-damga-onceki.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok - commit atilmadi."
+            exit 0
+          fi
+          ISARET=$(grep -o '"isaretlenenSoru":[[:space:]]*[0-9]*' veri/soru-dayanak-raporu.json | grep -o '[0-9]*$' || echo "?")
+          git commit -m "Soru-dayanak nobeti: $ISARET soru mevzuat-degisti notuyla cekildi [veri-operasyonu]"
+          git pull --rebase || true
+          git push

@@ -50,9 +50,16 @@ foreach($p in $onceki.PSObject.Properties){
 Write-Host ("degisen madde: {0} | silinen: {1}" -f $degisen.Count, $silinen.Count)
 
 $isaretli=0; $etkilenen = New-Object System.Collections.Generic.List[object]
-if($degisen.Count){
+# 16.08 DUZELTME (1): kapi yalniz $degisen'e bakiyordu. Degisen 0 ama SILINEN
+# varsa blok HIC calismiyor, yani mulga/kaldirilmis maddeye dayanan sorular
+# sessizce yayinda kaliyordu. Ikisinin toplamina bakilir.
+if(($degisen.Count + $silinen.Count) -gt 0){
   $SRV = $env:SUPABASE_SERVICE_KEY
   foreach($anahtar in ($degisen + $silinen)){
+    # 16.08 DUZELTME (2): 'ad|...' anahtarlari (standart/teblig) kanun_no+madde_no
+    # sorgusunda HICBIR ZAMAN eslesmiyor - 16.08 kosusunda 4.489 bosuna istek
+    # atildi. Yalniz kanun tipi anahtar sorgulanir; standart tarafi ayri is.
+    if($anahtar -notmatch '^\d+\|'){ continue }
     $par = $anahtar -split '\|'
     if($par.Count -lt 2){ continue }
     $kanun = $par[0]; $madde = $par[1]
@@ -75,11 +82,25 @@ if($degisen.Count){
   }
 }
 
-Copy-Item $guncelYol $oncekiYol -Force   # taban ilerletilir
+# 16.08 DUZELTME (3): taban KOSULSUZ ilerliyordu. Kosu yarida hata alsa bile
+# "onceki damga" ileri gidiyor ve DEGISIM SINYALI KALICI OLARAK KAYBOLUYORDU -
+# o madde bir daha hic "degisti" demezdi. Artik taban yalniz isaretleme
+# tamamlandiysa ilerler; aksi halde bir sonraki kosu ayni degisimi yeniden
+# gorur (tekrar gormek, kaybetmekten iyidir).
+$isaretlemeTamam = ($isaretli -gt 0) -or ($etkilenen.Count -eq 0)
+if($isaretlemeTamam){
+  Copy-Item $guncelYol $oncekiYol -Force
+  Write-Host 'Taban ilerletildi.'
+} else {
+  Write-Host 'TABAN ILERLETILMEDI: etkilenen soru bulundu ama hicbiri isaretlenemedi - sinyal korunuyor.'
+}
+$durum = if($isaretlemeTamam){ 'TAMAM' } else { 'KIRMIZI' }
 RaporYaz ([ordered]@{
-  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='TAMAM'
+  tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$durum
   degisenMadde=$degisen.Count; silinenMadde=$silinen.Count; isaretlenenSoru=$isaretli
+  taban_ilerletildi=$isaretlemeTamam
   etkilenen=@($etkilenen | Select-Object -First 100)
   not='Isaretlenen sorular yayin=false + mevzuat-degisti notu tasir; hakem+GM yargisi sonrasi geri acilir.'
 })
-Write-Host ("TAMAM: {0} soru mevzuat-degisti notuyla cekildi." -f $isaretli)
+Write-Host ("{0}: {1} soru mevzuat-degisti notuyla cekildi." -f $durum, $isaretli)
+if($durum -eq 'KIRMIZI'){ exit 1 }
