@@ -276,6 +276,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}   # 16.08 yedek hat: Anthropic limiti dolunca otomatik gecis
           ANTHROPIC_AWS_API_KEY: ${{ secrets.ANTHROPIC_AWS_API_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ANTHROPIC_AWS_WORKSPACE_ID: ${{ secrets.ANTHROPIC_AWS_WORKSPACE_ID }}
@@ -319,6 +320,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}   # 16.08 yedek hat: Anthropic limiti dolunca otomatik gecis
         run: ./motor/cevap-hakemi.ps1
       # 13.08 KOR KALMA SIGORTASI (Cem: "haber beklemeden"): kapi kirmizi
       # yandiginda log'da beklemesin — Cem'e ANINDA e-posta dussun. Gozetim

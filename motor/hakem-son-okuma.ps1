@@ -171,9 +171,10 @@ if(-not $uygula){
 }
 
 # --- PARALI (yalniz tetikte BAS varsa workflow buraya gelir) ---
-if(-not $env:ANTHROPIC_API_KEY){ RaporYaz @{ durum='KIRMIZI'; sebep='ANTHROPIC_API_KEY yok' }; exit 1 }
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
+if(-not $env:ANTHROPIC_API_KEY -and -not (Read-ApiEnv 'OPENROUTER_KEY')){ RaporYaz @{ durum='KIRMIZI'; sebep='Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY)' }; exit 1 }
 $MODEL='claude-haiku-4-5-20251001'
-$AH=@{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
 $KOVA='onarim-taslak'; $STOR="https://bjrleanjpyujtajmazxn.supabase.co/storage/v1"
 $SK=@{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
 $etiketAdi = "hakem-$(Get-Date -Format 'ddMM-HHmm')"
@@ -184,11 +185,10 @@ $kusurDagilim=@{}; $sonuc=New-Object System.Collections.Generic.List[object]
 Write-Host ("HAKEM basliyor: {0} soru" -f $parti.Count)
 for($n=0; $n -lt $parti.Count; $n++){
   $s = $parti[$n]
-  $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{ model=$MODEL; max_tokens=800; messages=@(@{ role='user'; content=(IstemKur $s) }) }
-  try { $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120 }
+  try { $c = Invoke-ClaudeMesaj -Model $MODEL -Icerik (IstemKur $s) -MaxTok 800 }
   catch { $bozuk++; continue }
-  $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
-  $metin=''; foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
+  $tIn += $c.girdi; $tOut += $c.cikti
+  $metin = $c.metin
   $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
   $o=$null; try { $o = $temiz | ConvertFrom-Json } catch { $bozuk++; continue }
   if($o.temiz -eq $true){ $temizSayi++; continue }

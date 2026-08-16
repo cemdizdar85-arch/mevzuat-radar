@@ -23,8 +23,10 @@ $FIYAT_C = if($env:ANALIZ_FIY_C){ [double]$env:ANALIZ_FIY_C } else { 15.0 }
 # 29.07: LIMIT sabit 3'tu. Kuyrukta 169 kitapcik var (136 SMMM + 33 SGS);
 # 3'erli kosuyla 57 kosu gerekirdi. Artik ortamdan verilebiliyor.
 $LIMIT = if($env:ANALIZ_LIMIT){ [int]$env:ANALIZ_LIMIT } else { 3 }
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
 $key = $env:ANTHROPIC_API_KEY
-if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
+if(-not $key -and -not (Read-ApiEnv 'OPENROUTER_KEY')){ Write-Host "Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY) - atlandi."; exit 0 }
 
 # 29.07: KOSU KENDI KAYDINI TUTAR. Kosu #13 "basarili" dondu ama HICBIR
 # KITAPCIK ISLEMEDI ve sebebi okunamadi - Actions loglari admin-kilitli.
@@ -44,26 +46,22 @@ $analizS = if(Test-Path $analizSYol){ Get-Content $analizSYol -Raw -Encoding UTF
 # OLCUYORUZ. Tahminle 169 kitapcik acmak, yanlis rakamla butce yakmaktir.
 $script:tokGiris = 0; $script:tokCikis = 0; $script:cagri = 0
 function ClaudePdf($b64, $istem, $maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
-    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 } },
-    @{ type="text"; text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 900
-  $script:tokGiris += [int]"$($r.usage.input_tokens)"
-  $script:tokCikis += [int]"$($r.usage.output_tokens)"
+  # 16.08: cagri api-hedef.ps1 uzerinden (Anthropic birincil, limit dolunca OpenRouter).
+  # NOT: PDF blogunun OpenRouter karsiligi ('file') henuz canli olculmedi.
+  $r = Invoke-ClaudeMesaj -Model $MODEL -MaxTok $maxtok -Icerik @(
+    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 }; ad="kitapcik.pdf" },
+    @{ type="text"; text=$istem })
+  $script:tokGiris += $r.girdi
+  $script:tokCikis += $r.cikti
   $script:cagri++
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  return $r.metin
 }
 function ClaudeTxt($istem, $maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
-  $script:tokGiris += [int]"$($r.usage.input_tokens)"
-  $script:tokCikis += [int]"$($r.usage.output_tokens)"
+  $r = Invoke-ClaudeMesaj -Model $MODEL -Icerik $istem -MaxTok $maxtok
+  $script:tokGiris += $r.girdi
+  $script:tokCikis += $r.cikti
   $script:cagri++
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  return $r.metin
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; return $null }
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }

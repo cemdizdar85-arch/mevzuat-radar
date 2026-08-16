@@ -985,11 +985,13 @@ if(-not $uygula){
 #  CIKTI veri/fabrika/ ALTINA yazilir - orasi .gitignore'da. Parali soru icerigi
 #  public depoya GIRMEZ (29-30.07 karari).
 # ============================================================================
-if(-not $env:ANTHROPIC_API_KEY){
-  Write-Host "ANTHROPIC_API_KEY yok - parali kosu yapilamaz."
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
+if(-not $env:ANTHROPIC_API_KEY -and -not (Read-ApiEnv 'OPENROUTER_KEY')){
+  Write-Host "Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY) - parali kosu yapilamaz."
   Set-Content -LiteralPath $raporYol -Encoding UTF8 -NoNewline -Value (ConvertTo-Json -Depth 3 -InputObject ([ordered]@{
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod='PILOT - ANAHTAR YOK'; durum='KIRMIZI'
-    not='ANTHROPIC_API_KEY sirri tanimli degil; hicbir cagri yapilmadi, para harcanmadi.' }))
+    not='Ne ANTHROPIC_API_KEY ne OPENROUTER_KEY tanimli; hicbir cagri yapilmadi, para harcanmadi.' }))
   exit 1
 }
 $MODEL = 'claude-haiku-4-5-20251001'
@@ -1077,7 +1079,7 @@ try {
   exit 1
 }
 
-$AH = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
+# (Claude basliklari artik api-hedef.ps1 icinde kuruluyor - hangi hat acikca oraya bakar)
 $sonuc = New-Object System.Collections.Generic.List[object]
 $tIn=0; $tOut=0; $basarili=0; $bozukJson=0; $hataliCagri=0; $tekrarKusurlu=0
 $tekrarDenenen=0; $kesilen=0
@@ -1130,21 +1132,15 @@ for($n=0; $n -lt $parti.Count; $n++){
       2 { $istem + "`n`nUYARI: onceki cevabin GECERLI JSON DEGILDI - buyuk ihtimalle uzunlugundan kesildi. Bu kez YER ACILDI; icerigi kisaltmana gerek yok, YALNIZ kapali ve gecerli TEK bir JSON nesnesi dondur. JSON disinda hicbir sey yazma." }
       3 { ($istem -replace '(?m)^- tablo:.*$','' -replace '(?m)^- yevmiye:.*$','') + "`n`nUYARI: iki kez gecerli JSON alinamadi. Bu kez TABLO VE YEVMIYE URETME - yalniz metin alanlarini (dort_parca/tuzak/dogrusu) yaz. Kisa tut ve MUTLAKA kapali, gecerli tek bir JSON nesnesi dondur." }
     }
-    $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{
-      model=$MODEL; max_tokens=$tavan
-      messages=@(@{ role='user'; content=$istemBu })
-    }
     try {
-      $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH `
-           -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 180
+      $c = Invoke-ClaudeMesaj -Model $MODEL -Icerik $istemBu -MaxTok $tavan
     } catch {
       if($deneme -eq 3){ $hataliCagri++; Write-Host ("  [{0}] CAGRI HATASI: {1}" -f ($n+1), $_.Exception.Message) }
       continue
     }
-    $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
-    if("$($c.stop_reason)" -eq 'max_tokens'){ $kesildi = $true }
-    $metin = ''
-    foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
+    $tIn += $c.girdi; $tOut += $c.cikti
+    if("$($c.dur)" -eq 'max_tokens'){ $kesildi = $true }   # iki hatta da ayni ad (api-hedef.ps1 cevirir)
+    $metin = $c.metin
     $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
     try { $obj = $temiz | ConvertFrom-Json } catch { $obj = $null }
 

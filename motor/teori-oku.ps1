@@ -22,7 +22,10 @@ $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $MODEL = "claude-sonnet-5"
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
 $key = $env:ANTHROPIC_API_KEY
+if(-not $key -and (Read-ApiEnv 'OPENROUTER_KEY')){ $key = 'openrouter' }
 $enc = New-Object System.Text.UTF8Encoding $false
 $rapor = @()   # her hedef icin sonuc satiri — kosu sonunda DOSYAYA yazilir
 
@@ -36,24 +39,18 @@ if(-not $key){
 }
 
 function ClaudePdf($b64, $istem, $maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
-    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 } },
-    @{ type="text"; text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 900
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  # 16.08: cagri api-hedef.ps1 uzerinden (Anthropic birincil, limit dolunca OpenRouter)
+  return (Invoke-ClaudeMesaj -Model $MODEL -MaxTok $maxtok -Icerik @(
+    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 }; ad="teori.pdf" },
+    @{ type="text"; text=$istem })).metin
 }
 # 24.07: ayni PDF parcasina pes pese cok soru soruldugunda belge blogu prompt-onbellegine
 # alinir (cache_control) - THP tam yutmasi gibi cok-cagrili islerde girdi maliyeti ~%90 duser.
 function ClaudePdfOnbellekli($b64, $istem, $maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
-    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 }; cache_control=@{ type="ephemeral" } },
-    @{ type="text"; text=$istem }) }) } | ConvertTo-Json -Depth 8 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 900
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  # Onbellek yalniz Anthropic hattinda gecerli; yedek hatta uyari verilir (api-hedef.ps1)
+  return (Invoke-ClaudeMesaj -Model $MODEL -MaxTok $maxtok -Icerik @(
+    @{ type="document"; source=@{ type="base64"; media_type="application/pdf"; data=$b64 }; cache_control=@{ type="ephemeral" }; ad="teori.pdf" },
+    @{ type="text"; text=$istem })).metin
 }
 
 # KESIK-JSON SIGORTASI: once tam diziyi dene; olmazsa (cevap token sinirinda

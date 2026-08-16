@@ -31,16 +31,18 @@ trap {
   Write-Host ("HATA (satir {0}): {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); exit 1
 }
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host 'SUPABASE_SERVICE_KEY yok - cikildi.'; exit 0 }
-if(-not $env:ANTHROPIC_API_KEY){
-  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='KIRMIZI'; not='ANTHROPIC_API_KEY yok; cagri yapilmadi, para harcanmadi.' })
-  Write-Host 'ANTHROPIC_API_KEY yok - cikildi.'; exit 1
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
+if(-not $env:ANTHROPIC_API_KEY -and -not (Read-ApiEnv 'OPENROUTER_KEY')){
+  RaporYaz ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='KIRMIZI'; not='Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY); cagri yapilmadi, para harcanmadi.' })
+  Write-Host 'Hicbir Claude anahtari yok - cikildi.'; exit 1
 }
 
 $U    = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
 $STOR = 'https://bjrleanjpyujtajmazxn.supabase.co/storage/v1'
 $KOVA = 'onarim-taslak'
 $SB   = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
-$AH   = @{ 'x-api-key'=$env:ANTHROPIC_API_KEY; 'anthropic-version'='2023-06-01'; 'content-type'='application/json' }
+# (Claude basliklari artik api-hedef.ps1 icinde kuruluyor - hangi hat acikca oraya bakar)
 $MODEL = 'claude-haiku-4-5-20251001'
 $FIY_IN = 1.0/1000000.0; $FIY_OUT = 5.0/1000000.0
 $TAVAN_USD = 25.0   # 07.08: kapsam buyudu (610 + aritmetik ~700) - kemer 12->25; tahmin ~10-12 USD
@@ -192,11 +194,10 @@ CIKTI: yalniz su alanlarla KAPALI TEK JSON nesnesi dondur, baska hicbir sey yazm
   for($deneme=1; $deneme -le 3; $deneme++){
     $tavan = if($deneme -eq 1){ 4000 } else { 8000 }
     $istemBu = if($deneme -eq 1){ $istem } else { $istem + "`n`nUYARI: onceki cevabin gecerli JSON degildi. YALNIZ kapali, gecerli TEK JSON nesnesi dondur." }
-    $govde = ConvertTo-Json -Depth 5 -Compress -InputObject @{ model=$MODEL; max_tokens=$tavan; messages=@(@{ role='user'; content=$istemBu }) }
-    try { $c = Invoke-RestMethod -Uri 'https://api.anthropic.com/v1/messages' -Method Post -Headers $AH -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 180 }
+    try { $c = Invoke-ClaudeMesaj -Model $MODEL -Icerik $istemBu -MaxTok $tavan }
     catch { if($deneme -eq 3){ $islenmeyen += "$($s.id)|cagri-hatasi" }; continue }
-    $tIn += [int]$c.usage.input_tokens; $tOut += [int]$c.usage.output_tokens
-    $metin=''; foreach($p in @($c.content)){ if($p.type -eq 'text'){ $metin += "$($p.text)" } }
+    $tIn += $c.girdi; $tOut += $c.cikti
+    $metin = $c.metin
     $temiz = ($metin -replace '(?s)^\s*```(?:json)?\s*','' -replace '(?s)\s*```\s*$','').Trim()
     try { $obj = $temiz | ConvertFrom-Json } catch { $obj = $null }
     if($null -ne $obj){ break }

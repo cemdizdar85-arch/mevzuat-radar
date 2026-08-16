@@ -49,6 +49,7 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}   # 16.08 yedek hat: Anthropic limiti dolunca otomatik gecis
         run: ./motor/hakem-son-okuma.ps1 -uygula
       - name: Raporu commit'le (SESSIZ BASARISIZLIK YASAK)
         if: always()

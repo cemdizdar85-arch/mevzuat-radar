@@ -60,6 +60,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}   # 16.08 yedek hat: Anthropic limiti dolunca otomatik gecis
           ANALIZ_LIMIT: ${{ steps.emir.outputs.limit }}
           ANALIZ_MODEL: ${{ steps.emir.outputs.model }}
           ANALIZ_SINAV: ${{ steps.emir.outputs.sinav }}

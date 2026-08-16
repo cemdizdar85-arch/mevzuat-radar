@@ -21,6 +21,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}   # 16.08 yedek hat: Anthropic limiti dolunca otomatik gecis
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/karsit-profesor.ps1

@@ -9,8 +9,10 @@
 #  (ambar-testi.ps1) zaten kosuyor.
 # ============================================================================
 $ErrorActionPreference = 'Stop'
+# 16.08: cagri api-hedef.ps1 uzerinden - Anthropic birincil, limit dolunca OpenRouter yedegi
+. (Join-Path $PSScriptRoot 'api-hedef.ps1')
 $AK = "$env:ANTHROPIC_API_KEY".Trim()
-if (-not $AK) { Write-Host 'ATLANDI: ANTHROPIC_API_KEY tanimli degil (retrieval kapisi yine de kostu).'; exit 0 }
+if (-not $AK -and -not (Read-ApiEnv 'OPENROUTER_KEY')) { Write-Host 'ATLANDI: hicbir Claude anahtari tanimli degil (retrieval kapisi yine de kostu).'; exit 0 }
 
 $EDGE = 'https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/net-cevap'
 $KEY  = if ($env:SB_PUBLISHABLE) { $env:SB_PUBLISHABLE } else { 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' }
@@ -37,9 +39,8 @@ BEKLENEN KAYNAK PARCASI: $($beklenen -join ' | ')
 SERVIS CIKTISI:
 $cevapJson
 "@
-  $govde = @{ model = 'claude-haiku-4-5-20251001'; max_tokens = 200; messages = @(@{ role = 'user'; content = $istem }) } | ConvertTo-Json -Depth 6
-  $r = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages' -Headers @{ 'x-api-key' = $AK; 'anthropic-version' = '2023-06-01' } -ContentType 'application/json' -Body ([Text.Encoding]::UTF8.GetBytes($govde))
-  $mt = [regex]::Match($r.content[0].text, '\{[\s\S]*\}')
+  $r = Invoke-ClaudeMesaj -Model 'claude-haiku-4-5-20251001' -Icerik $istem -MaxTok 200
+  $mt = [regex]::Match($r.metin, '\{[\s\S]*\}')
   if (-not $mt.Success) { return $null }
   return ($mt.Value | ConvertFrom-Json)
 }

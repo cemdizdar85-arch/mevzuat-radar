@@ -23,7 +23,9 @@
 #    $r = Invoke-ClaudeMesaj -Model 'claude-haiku-4-5' -Icerik $icerikDizisi -MaxTok 6000
 #    $r.metin  -> cevap metni (Turkce duzeltmesi yapilmis)
 #    $r.girdi  -> girdi token ; $r.cikti -> cikti token ; $r.kaynak -> 'anthropic'|'aws'|'openrouter'
-#    ($Icerik = Anthropic icerik blogu dizisi: @(@{type='text';text=...}, @{type='image';source=...}))
+#    $r.dur    -> bitis sebebi ; 'max_tokens' = cevap KESILDI (iki hatta da ayni ad)
+#    ($Icerik = Anthropic icerik blogu dizisi: @(@{type='text';text=...}, @{type='image';source=...})
+#      ya da DUZ METIN: -Icerik $istem  -> icerde text blogua sarilir)
 #
 #  ESKI KULLANIM (batch API'si icin hala gecerli - Get-ApiHedef target dondurur):
 #    $H = Get-ApiHedef ; $H.taban ; $H.basliklar ; $H.ad  (batch OpenRouter'da YOK)
@@ -134,16 +136,54 @@ function ConvertTo-ORModel([string]$m){
   }
 }
 
+# Cagiran duz metin de verebilir ("...istem...") ya da tek blok. Hepsini
+# Anthropic blok dizisine cevir - yoksa OpenAI cevirisi bos content uretir
+# (16.08: 14 anlik betigin cogu content olarak duz string veriyordu).
+function ConvertTo-IcerikBloklari($icerik){
+  $out = @()
+  foreach($blok in @($icerik)){
+    if($null -eq $blok){ continue }
+    if($blok -is [string]){ $out += @{ type='text'; text=$blok } }
+    else { $out += $blok }
+  }
+  return ,$out
+}
+
 # Anthropic icerik blogu dizisi -> OpenAI content dizisi
+# KURAL: tanimadigi blogu SESSIZCE DUSURMEZ, hata firlatir. Sessiz dusurme
+# 16.08'de yakalandi: sinav-analiz PDF'i 'document' blogu ile yolluyordu,
+# cevirici onu atiyordu -> model bos istem gorup "analiz edemedim" diyecekti.
 function ConvertTo-OpenAiIcerik($icerik){
   $out = @()
   foreach($blok in @($icerik)){
     if($blok.type -eq 'text'){
+      # cache_control yedek hatta tasinmaz: sonuc AYNI, girdi maliyeti tam odenir.
+      # Kosu basina bir kez uyar (her cagrida bagirmasin).
+      if($blok.cache_control -and -not $script:OnbellekUyarisi){
+        $script:OnbellekUyarisi = $true
+        Write-Host '  [!] Yedek hatta prompt onbellegi (cache_control) yok - girdi maliyeti tam odenir, cikti kalitesi ayni.' -ForegroundColor Yellow
+      }
       $out += @{ type='text'; text=[string]$blok.text }
     } elseif($blok.type -eq 'image'){
       $src = $blok.source
       $url = ('data:{0};base64,{1}' -f $src.media_type, $src.data)
       $out += @{ type='image_url'; image_url=@{ url=$url } }
+    } elseif($blok.type -eq 'document'){
+      # OpenRouter PDF: {type:'file', file:{filename, file_data:'data:...;base64,...'}}
+      # DIKKAT: bu yol CANLI OLCULMEDI (yalniz Anthropic hattinda kosuldu). PDF
+      # kosulari pahalidir (sayfa basina token); kor bir kosunun 169 kitapcigi
+      # cope yazmasindansa DURUR. Tek PDF'lik prob yapilip dogrulaninca
+      # MEVZUAT_YEDEK_PDF=1 verilir ve bu yol acilir.
+      if((Read-ApiEnv 'MEVZUAT_YEDEK_PDF') -ne '1'){
+        throw 'PDF (document) blogu yedek hattan (OpenRouter) gecirilmek istendi ama bu yol henuz OLCULMEDI. Once tek PDF ile prob yap, sonra MEVZUAT_YEDEK_PDF=1 ver. (Anthropic hatti acikken bu hata cikmaz.)'
+      }
+      if($blok.cache_control){ Write-Host '  [!] Yedek hatta PDF onbellegi (cache_control) tasinmadi - girdi maliyeti tam odenir.' -ForegroundColor Yellow }
+      $src = $blok.source
+      $url = ('data:{0};base64,{1}' -f $src.media_type, $src.data)
+      $ad  = if($blok.ad){ [string]$blok.ad } else { 'belge.pdf' }
+      $out += @{ type='file'; file=@{ filename=$ad; file_data=$url } }
+    } else {
+      throw ("OpenRouter cevirisi taniyamadigi icerik blogu ile karsilasti: '{0}'. Sessizce dusurmek yerine durduruldu - cevirici genisletilmeli." -f $blok.type)
     }
   }
   return ,$out
@@ -157,10 +197,28 @@ function Repair-ClaudeMetin($r){
   return $r
 }
 
+# 'ad' bizim ic alanimiz (OpenRouter dosya adi icin). Anthropic bilmedigi alani
+# 400 ile reddeder -> gondermeden once ayikla.
+function ConvertTo-AnthropicIcerik($icerik){
+  $out = @()
+  foreach($blok in @($icerik)){
+    if($blok -is [hashtable] -and $blok.ContainsKey('ad')){
+      $kopya = @{}
+      foreach($k in $blok.Keys){ if($k -ne 'ad'){ $kopya[$k] = $blok[$k] } }
+      $out += $kopya
+    } else { $out += $blok }
+  }
+  return ,$out
+}
+
 function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef){
-  $govde = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($icerik) }) } | ConvertTo-Json -Depth 20
+  $temiz = ConvertTo-AnthropicIcerik $icerik
+  $govde = @{ model=$model; max_tokens=$maxTok; messages=@(@{ role='user'; content=@($temiz) }) } | ConvertTo-Json -Depth 20
   $r = Invoke-RestMethod -Method Post -Uri ($hedef.taban + '/v1/messages') -Headers $hedef.basliklar -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 240
-  return @{ metin=("$($r.content[0].text)").Trim(); girdi=[int]"$($r.usage.input_tokens)"; cikti=[int]"$($r.usage.output_tokens)"; kaynak=$hedef.ad }
+  # content[0] her zaman metin DEGILDIR (dusunme blogu one gelebilir) -> tum metin bloklarini birlestir
+  $metin = (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ''
+  # dur = bitis sebebi; 'max_tokens' ise cevap KESILMISTIR (onarim-motoru bunu okur)
+  return @{ metin=$metin.Trim(); girdi=[int]"$($r.usage.input_tokens)"; cikti=[int]"$($r.usage.output_tokens)"; kaynak=$hedef.ad; dur="$($r.stop_reason)" }
 }
 
 function Invoke-OpenRouterAnlik([string]$model,[array]$icerik,[int]$maxTok){
@@ -182,7 +240,10 @@ function Invoke-OpenRouterAnlik([string]$model,[array]$icerik,[int]$maxTok){
   $r = Invoke-RestMethod -Method Post -Uri 'https://openrouter.ai/api/v1/chat/completions' -Headers $hdr -Body ([System.Text.Encoding]::UTF8.GetBytes($govde)) -ContentType 'application/json' -TimeoutSec 240
   $c = $r.choices[0].message.content
   if($c -is [array]){ $c = ($c | ForEach-Object { $_.text }) -join '' }
-  return @{ metin=("$c").Trim(); girdi=[int]"$($r.usage.prompt_tokens)"; cikti=[int]"$($r.usage.completion_tokens)"; kaynak='openrouter' }
+  # OpenAI bicimi finish_reason='length' der; Anthropic karsiligi 'max_tokens' (kesildi)
+  $dur = "$($r.choices[0].finish_reason)"
+  if($dur -eq 'length'){ $dur = 'max_tokens' } elseif($dur -eq 'stop'){ $dur = 'end_turn' }
+  return @{ metin=("$c").Trim(); girdi=[int]"$($r.usage.prompt_tokens)"; cikti=[int]"$($r.usage.completion_tokens)"; kaynak='openrouter'; dur=$dur }
 }
 
 # limit/kota hatasi mi? (429/402 ya da fatura/limit iceren govde) -> yedege gec
@@ -217,6 +278,7 @@ function Invoke-ClaudeMesaj {
   )
   $orVar  = [bool](Read-ApiEnv 'OPENROUTER_KEY')
   $antVar = Test-AnthropicVar
+  $Icerik = ConvertTo-IcerikBloklari $Icerik   # duz metin de kabul
 
   if(-not $YalnizOpenRouter -and -not $script:AnthropicTukendi -and $antVar){
     try {

@@ -20,8 +20,11 @@ $MODEL_URET = "claude-sonnet-5"
 $MODEL_COZ  = "claude-haiku-4-5-20251001"
 $KONU_LIMIT = 15   # 23.07 Cem "1500 de az": kosu basi 90 aday (15 konu x 6); 12 vardiya = ~1.080 aday/gun
 $ADET = 6
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
 $key = $env:ANTHROPIC_API_KEY
-if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
+if(-not $key -and (Read-ApiEnv 'OPENROUTER_KEY')){ $key = 'openrouter' }
+if(-not $key){ Write-Host "Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY) - atlandi."; exit 0 }
 
 $analizYol = Join-Path $kok "veri/sgs-analiz.json"
 if(-not (Test-Path $analizYol)){ Write-Host "sgs-analiz.json yok - ONCE Sinav Analizi calistir."; exit 0 }
@@ -48,23 +51,17 @@ if(Test-Path $fabrikaDir){
 }
 
 function Claude($istem,$maxtok,$model){
-  $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  # 16.08: cagri api-hedef.ps1 uzerinden (Anthropic birincil, limit dolunca OpenRouter)
+  return (Invoke-ClaudeMesaj -Model $model -Icerik $istem -MaxTok $maxtok).metin
 }
 # 23.07 MALIYET SIGORTASI: uretim isteminin SABIT kurallar blogu prompt-onbellegine
 # alinir (cache_control) — kosu icinde 15 konu ayni kurallari tasidigi icin tekrarlarin
 # girdi maliyeti ~%90 duser. Degisken kisim (ders/konu/mevcut acilar) ayri blok.
 function ClaudeOnbellekli($sabit,$degisken,$maxtok,$model){
-  $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=@(
+  # Onbellek yalniz Anthropic hattinda gecerli; yedek hatta bir kez uyari verilir
+  return (Invoke-ClaudeMesaj -Model $model -MaxTok $maxtok -Icerik @(
     @{ type="text"; text=$sabit; cache_control=@{ type="ephemeral" } },
-    @{ type="text"; text=$degisken }) }) } | ConvertTo-Json -Depth 8 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+    @{ type="text"; text=$degisken })).metin
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }

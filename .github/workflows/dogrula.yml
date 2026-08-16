@@ -43,6 +43,10 @@ jobs:
         shell: pwsh
         run: ./arac/nokta-kontrol.ps1
 
+      - name: API ceviri testi (Anthropic <-> OpenRouter yedek hatti; cagri YOK)
+        shell: pwsh
+        run: ./arac/api-ceviri-testi.ps1
+
       - name: "Veri bekcisi (her sayfanin cektigi json - var mi / parse / dolu mu)"
         shell: pwsh
         run: ./arac/veri-bekcisi.ps1

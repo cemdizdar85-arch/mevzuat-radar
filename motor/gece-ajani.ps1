@@ -28,9 +28,10 @@ $ADET  = 6                          # her gece kaç yeni cevap denesin
 $YAYIN = ($env:GECE_YAYIN -eq "1")  # 1 ise doğrudan bilgi-tabani'na yazar (kalite kanıtlanınca)
 
 $key = $env:ANTHROPIC_API_KEY
+if(-not $key -and $env:OPENROUTER_KEY){ $key = 'openrouter' }   # 16.08: yedek hat da Claude sayilir
 $gkey = $env:GEMINI_API_KEY          # BEDAVA MOTOR (23.07.2026, Cem: "disarida bedava vardir"):
 $GMODEL = if($env:GEMINI_MODEL){ $env:GEMINI_MODEL } else { "gemini-2.0-flash" }
-if(-not $key -and -not $gkey){ Write-Host "Ne ANTHROPIC ne GEMINI anahtari var — gece ajani atlandi."; exit 0 }
+if(-not $key -and -not $gkey){ Write-Host "Ne ANTHROPIC/OPENROUTER ne GEMINI anahtari var — gece ajani atlandi."; exit 0 }
 
 # Gemini (ucretsiz kota) — varsa URETIM ve DOGRULAMA once bundan denenir;
 # hata/kota biterse Claude'a duser (varsa). Kalite sigortasi ayni: kapilar
@@ -47,25 +48,14 @@ function Uret($istem, $maxtok, $claudeModel){
   throw "uretim icin motor yok"
 }
 
-# 12.08 cift hat: AWS uclusu ortamdaysa Claude cagrilari oradan gider (api-hedef.ps1)
-$CLAUDE_TABAN = 'https://api.anthropic.com'
-$CLAUDE_HDR   = @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" }
-try {
-  . (Join-Path $here 'api-hedef.ps1')
-  $hedefGece = Get-ApiHedef
-  $CLAUDE_TABAN = $hedefGece.taban; $CLAUDE_HDR = $hedefGece.basliklar; $key = $hedefGece.anahtar
-  Write-Host ("Claude hedefi: " + $hedefGece.ad)
-} catch { }   # hicbir Claude anahtari yoksa eski davranis (Gemini'ye duser)
+# 16.08 uc hat: Anthropic birincil, limit/kota dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
+try { Write-Host ("Claude birincil hedefi: " + (Get-ApiHedef).ad) } catch { Write-Host "Claude birincil hedefi yok - yedek hat denenecek." }
 
 function Claude($istem, $maxtok, $model){
-  $body = @{ model=$model; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri ($CLAUDE_TABAN + "/v1/messages") `
-        -Headers $CLAUDE_HDR `
-        -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 240
-  $blocks = @($r.content)
-  $txt = ($blocks | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ""
-  if(-not $txt){ $ozet=(($r | ConvertTo-Json -Depth 6 -Compress) -replace '\s+',' '); Write-Host ("HAM API YANIT (ilk 800): " + $ozet.Substring(0,[Math]::Min(800,$ozet.Length))) }
-  return $txt
+  $r = Invoke-ClaudeMesaj -Model $model -Icerik $istem -MaxTok $maxtok
+  if(-not $r.metin){ Write-Host ("BOS API YANIT (kanal: " + $r.kaynak + ", bitis: " + $r.dur + ")") }
+  return $r.metin
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Slug($s){ $x=("$s".ToLower() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u'); $x=($x -replace '[^a-z0-9]+','-').Trim('-'); if($x.Length -gt 40){ $x=$x.Substring(0,40).Trim('-') }; return $x }

@@ -13,15 +13,13 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $MODEL = "claude-sonnet-5"
 $ORNEKLEM = 10
+# 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
+. (Join-Path $here 'api-hedef.ps1')
 $key = $env:ANTHROPIC_API_KEY
-if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
+if(-not $key -and -not (Read-ApiEnv 'OPENROUTER_KEY')){ Write-Host "Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY) - atlandi."; exit 0 }
 
 function Claude($istem,$maxtok){
-  $body = @{ model=$MODEL; max_tokens=$maxtok; messages=@(@{ role="user"; content=$istem }) } | ConvertTo-Json -Depth 6 -Compress
-  $r = Invoke-RestMethod -Method Post -Uri "https://api.anthropic.com/v1/messages" `
-        -Headers @{ "x-api-key"=$key; "anthropic-version"="2023-06-01" } `
-        -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType "application/json" -TimeoutSec 300
-  return (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
+  return (Invoke-ClaudeMesaj -Model $MODEL -Icerik $istem -MaxTok $maxtok).metin
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\{.*\}'); if($m.Success){ return $m.Value }; return $null }
 
