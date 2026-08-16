@@ -67,7 +67,9 @@ Write-Host 'Kasa cekiliyor...'
 $kasaSatirlari = New-Object System.Collections.Generic.List[object]
 $bas = 0
 while($true){
-  $sayfa = "$U`?select=id,ders,kaynak,kanun_no,madde_no,madde_damga,yayin,yayin_notu&order=id&limit=1000&offset=$bas"
+  # soru + siklar da cekilir: atif dogrulugu ancak sorunun KENDI metnine
+  # bakarak olculebilir (THP 380 <-> 180 vakasi soyle yakalandi).
+  $sayfa = "$U`?select=id,ders,kaynak,kanun_no,madde_no,madde_damga,yayin,yayin_notu,soru,siklar&order=id&limit=1000&offset=$bas"
   $r = Invoke-WebRequest -Uri $sayfa -Headers $H -UseBasicParsing -TimeoutSec 300
   # PS 5.1 TUZAGI (16.08 olculdu): @($metin | ConvertFrom-Json) bir JSON DIZISINI
   # TEK nesne sayar -> 1000 kayit "1 kayit" gorunur ve dongu ilk sayfada biter.
@@ -98,7 +100,38 @@ $k = [ordered]@{
   cozulemedi    = 0   # cozucu ambarda bulamadi
   tutan_sade    = 0   # Sadelestir'li formulle tuttu -> metin DEGISMEMIS
   tutan_ham     = 0   # ham formulle tuttu -> metin DEGISMEMIS (eski formul)
-  degismis      = 0   # iki formul de tutmadi -> DAYANAK METNI DEGISMIS
+  atif_supheli  = 0   # kaynagin gosterdigi KOD soruda hic gecmiyor -> ATIF YANLIS
+  metin_degismis= 0   # kanun maddesi; iki formul de tutmadi -> METIN DEGISMIS
+  yeniden_yutma = 0   # STD/THP; atif tutuyor ama damga tutmuyor -> parcalama/formul
+}
+
+# ============================================================================
+#  ATIF DENETIMI (16.08 - elle okuma sonucu dogdu)
+#  Okunan iki ornekten biri sunu gosterdi: soru "gelecek aylara ait GIDER"i
+#  (180) anlatiyor, dayanagi ise "THP 380 - Gelecek Aylara Ait GELIRLER"
+#  gosteriyor. Soru DOGRU, ATIF YANLIS. Bu, mevzuat degisikliginden bagimsiz
+#  ve daha tehlikeli bir kusur: hakem yanlis metne bakip "destekliyor" der ve
+#  hata DOGRULANMIS gibi gecer.
+#
+#  OLCUT (temkinli): yalniz KODU KESIN olan kaynaklarda calisir.
+#   - THP <kod>  : kod soruda/siklarda hic gecmiyorsa supheli
+#   - TMS/TFRS/BDS <no> : standart adi+no soruda/siklarda hic gecmiyorsa supheli
+#  Kanun maddelerinde UYGULANMAZ - sorular madde numarasini cogu zaman
+#  yazmaz, uygulanirsa yanlis alarm yagar. Emin olamadigina kusur demeyiz.
+# ============================================================================
+function AtifSupheliMi([string]$kaynak, [string]$soruMetni){
+  if([string]::IsNullOrWhiteSpace($kaynak) -or [string]::IsNullOrWhiteSpace($soruMetni)){ return $false }
+  $thp = [regex]::Match($kaynak, '(?i)\bTHP\s*(\d{3})\b')
+  if($thp.Success){
+    $kod = $thp.Groups[1].Value
+    return (-not ($soruMetni -match ("(?<!\d)" + $kod + "(?!\d)")))
+  }
+  $std = [regex]::Match($kaynak, '(?i)\b(TMS|TFRS|BDS)\s*(\d{1,3})\b')
+  if($std.Success){
+    $ad = $std.Groups[1].Value; $no = $std.Groups[2].Value
+    return (-not ($soruMetni -match ("(?i)" + $ad + "\s*" + $no + "(?!\d)")))
+  }
+  return $false
 }
 $dersDagilim = @{}; $kanunDagilim = @{}; $cozHata = @{}
 $bayrakli = New-Object System.Collections.Generic.List[object]
@@ -120,11 +153,19 @@ foreach($s in $parti){
   }
   if((DamgaSade $c.metin) -eq $damga){ $k.tutan_sade++; continue }
   if((DamgaHam  $c.metin) -eq $damga){ $k.tutan_ham++;  continue }
-  $k.degismis++
+
+  # --- UC KOVAYA AYIR (tek "degismis" yorumlanamaz bir sayiydi)
   $ders = "$($s.ders)"; $kn = "$($s.kanun_no)"
+  $soruMetni = "$($s.soru)"
+  foreach($harf in @('A','B','C','D','E')){ try { $soruMetni += ' ' + "$($s.siklar.$harf)" } catch {} }
+  $sinif = ''
+  if(AtifSupheliMi $kay $soruMetni){ $sinif = 'atif_supheli'; $k.atif_supheli++ }
+  elseif($kn -match '^\d+$'){        $sinif = 'metin_degismis'; $k.metin_degismis++ }
+  else {                             $sinif = 'yeniden_yutma'; $k.yeniden_yutma++ }
+
   if($dersDagilim.ContainsKey($ders)){ $dersDagilim[$ders]++ } else { $dersDagilim[$ders] = 1 }
   if($kanunDagilim.ContainsKey($kn)){ $kanunDagilim[$kn]++ } else { $kanunDagilim[$kn] = 1 }
-  $bayrakli.Add([pscustomobject]@{ id="$($s.id)"; ders=$ders; kaynak=$kay; kanun_no=$kn; madde_no="$($s.madde_no)"; yayin_notu="$($s.yayin_notu)" })
+  $bayrakli.Add([pscustomobject]@{ id="$($s.id)"; sinif=$sinif; ders=$ders; kaynak=$kay; kanun_no=$kn; madde_no="$($s.madde_no)"; yayin_notu="$($s.yayin_notu)" })
 }
 
 $toplamKova = 0; foreach($x in $k.Keys){ $toplamKova += $k[$x] }
@@ -134,9 +175,13 @@ Write-Host ''
 Write-Host '======== SORU DAMGA DENETIMI ========'
 foreach($x in $k.Keys){ Write-Host ("  {0,-14}: {1}" -f $x, $k[$x]) }
 Write-Host ("  {0,-14}: {1} / {2}  {3}" -f 'KOVA TOPLAMI', $toplamKova, $parti.Count, $(if($hesapTutuyor){'(tutuyor)'}else{'(TUTMUYOR - kovalar eksik!)'}))
-$kiyaslanan = $k.tutan_sade + $k.tutan_ham + $k.degismis
+$bayrakToplam = $k.atif_supheli + $k.metin_degismis + $k.yeniden_yutma
+$kiyaslanan = $k.tutan_sade + $k.tutan_ham + $bayrakToplam
 if($kiyaslanan -gt 0){
-  Write-Host ("  kiyaslanabilen : {0} | DEGISMIS ORANI: {1}%" -f $kiyaslanan, [math]::Round(100*$k.degismis/$kiyaslanan,1))
+  Write-Host ("  kiyaslanabilen : {0} | BAYRAKLI: {1} (%{2})" -f $kiyaslanan, $bayrakToplam, [math]::Round(100*$bayrakToplam/$kiyaslanan,1))
+  Write-Host ("     atif_supheli  : {0}  <-- EN DEGERLI: soru dogru olabilir ama DAYANAGI yanlis" -f $k.atif_supheli)
+  Write-Host ("     metin_degismis: {0}  <-- kanun metni gercekten degismis, insan okumali" -f $k.metin_degismis)
+  Write-Host ("     yeniden_yutma : {0}  <-- metin ayni, damga bayat; tazelenir, soruya dokunulmaz" -f $k.yeniden_yutma)
 }
 if($cozHata.Count){
   Write-Host '  cozulemedi sebepleri:'
@@ -150,12 +195,13 @@ RaporYaz ([ordered]@{
   kovalar = $k
   kova_toplami = $toplamKova
   hesap_tutuyor = $hesapTutuyor
-  degismis_orani = $(if($kiyaslanan -gt 0){ [math]::Round(100*$k.degismis/$kiyaslanan,1) } else { 0 })
+  bayrak_toplam = $bayrakToplam
+  bayrak_orani = $(if($kiyaslanan -gt 0){ [math]::Round(100*$bayrakToplam/$kiyaslanan,1) } else { 0 })
   cozulemedi_sebep = $cozHata
   ders_dagilimi = $dersDagilim
   kanun_dagilimi = $kanunDagilim
   ornek = @($bayrakli | Select-Object -First 100)
-  not = 'tutan_ham = damga eski (Sadelestir siz) formulle yazilmis ama METIN AYNI. degismis = iki formul de tutmadi.'
+  not = 'tutan_ham = damga eski (Sadelestir siz) formulle yazilmis ama METIN AYNI. atif_supheli = kaynagin gosterdigi kod soruda hic gecmiyor (THP 380 <-> 180 vakasi). metin_degismis = kanun metni degismis. yeniden_yutma = metin ayni, damga bayat.'
 })
 Write-Host ("-> veri/soru-damga-denetimi.json")
 
