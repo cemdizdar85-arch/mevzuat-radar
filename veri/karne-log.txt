@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260808095833
-Username: runnervmvrwv9\runner
-RunAs User: runnervmvrwv9\runner
+Start time: 20260816182642
+Username: runnervmzvulz\runner
+RunAs User: runnervmzvulz\runner
 Configuration Name: 
-Machine: runnervmvrwv9 (Unix 6.17.0.1020)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6b019d76-3710-4b22-be56-f1debd0de5b8.ps1'
-Process ID: 2236
-PSVersion: 7.6.3
+Machine: runnervmzvulz (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/935d0333-00f0-4388-8f23-2281b585f45f.ps1'
+Process ID: 2325
+PSVersion: 7.6.4
 PSEdition: Core
-GitCommitId: 7.6.3
+GitCommitId: 7.6.4
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,7 +17,7 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Konu sayisi: 3232 (16 donem birlestirilmis)
+Konu sayisi: 3233 (16 donem birlestirilmis)
 PS>TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
@@ -25,8 +25,6 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-  ...100/3232
-  ...500/3232
 PS>TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
@@ -34,60 +32,188 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-  ...600/3232
-  ...700/3232
-  ...800/3232
-  ...900/3232
-  ...1000/3232
-  ...1100/3232
-  ...1200/3232
-  ...1300/3232
-  ...1600/3232
-  ...1700/3232
-  ...1800/3232
-  ...1900/3232
-  ...2000/3232
-  ...2100/3232
-  ...2200/3232
-  ...2300/3232
-  ...2400/3232
-  ...2500/3232
-  ...2600/3232
-  ...2700/3232
-  ...2800/3232
-  ...2900/3232
-  ...3000/3232
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ...100/3233
+  ...500/3233
+  ...600/3233
+  ...700/3233
+  ...800/3233
+  ...900/3233
+  ...1000/3233
+  ...1100/3233
+  ...1200/3233
+  ...1300/3233
+  ...1600/3233
+  ...1700/3233
+  ...1800/3233
+  ...1900/3233
+  ...2000/3233
+  ...2100/3233
+  ...2200/3233
+  ...2300/3233
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+  ...2400/3233
+  ...2500/3233
+  ...2600/3233
+  ...2700/3233
+  ...2800/3233
+  ...2900/3233
+  ...3000/3233
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2338
-  KAYNAK YOK (once yut)    : 256
+  URET (kaynak var)        : 2519
+  KAYNAK YOK (once yut)    : 76
   MEVZUAT-DISI (elle yaz)  : 638
   -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
-    3 soru | Muhasebe                   | hazine bonosu tahsili
-    3 soru | Maliye                     | mali anestezi
-    3 soru | Maliye                     | kamu harcamalari artis nedenleri
-    2 soru | Maliye                     | vergi kapitalizasyonu
     2 soru | Muhasebe                   | azalan bakiyelerden normale gecis amortismani
-    2 soru | Hukuk                      | sorumsuzluk anlasmalari
-    2 soru | Hukuk                      | meslek mensubu olma engelleri
-    2 soru | Hukuk                      | limited sirket kurallari
-    2 soru | Maliye                     | verginin kapitalizasyonu
-    2 soru | Muhasebe                   | kesin mizan hesap kalani
-    2 soru | Muhasebe                   | kredi faiz tahakkuku
-    2 soru | Muhasebe                   | maddi duran varlik dogruluk testi
-    2 soru | Ekonomi                    | stolper-samuelson teoremi
-    2 soru | Muhasebe                   | safha maliyetleme
-    2 soru | Maliye                     | vergilemede etkinlik
-    2 soru | Ekonomi                    | gresham kanunu
-    1 soru | Muhasebe                   | sektorel oran analizi
-    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
-    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
+    1 soru | Ekonomi                    | alman merkantilizmi
+    1 soru | Muhasebe                   | donem ayirici gelir duzeltme kaydi
+    1 soru | Muhasebe                   | denetim kaniti kiyaslamasi
+    1 soru | Muhasebe                   | denetim amaci-prosedur eslestirmesi
+    1 soru | Muhasebe                   | cek cirosunun bilanco esitligine etkisi
     1 soru | Muhasebe                   | cari oran-asit test hesabi
+    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
+    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
+    1 soru | Muhasebe                   | bilanco esitliginden cikarim
+    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
+    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
+    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
+    1 soru | Muhasebe                   | azalan bakiyelerden esit tutara gecis
+    1 soru | Muhasebe                   | avansli satis teslim kaydi
+    1 soru | Muhasebe                   | avans mahsuplu ilk madde alimi
+    1 soru | Muhasebe                   | donem ayirici gelir duzeltmesi
+    1 soru | Muhasebe                   | alinan siparis avanslarinin nitelikleri
+    1 soru | Muhasebe                   | duzenleyici hesap borclandirma (reeskont)
+    1 soru | Muhasebe                   | faaliyet kar marjini etkilemeyenler
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260808104912
+End time: 20260816192732
 **********************
