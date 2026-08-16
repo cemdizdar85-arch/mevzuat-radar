@@ -1,8 +1,8 @@
 {
-  "tarih": "02.08.2026 12:19",
+  "tarih": "16.08.2026 18:28",
   "durum": "TAMAM",
   "ortam": {
-    "ps_surum": "7.6.3",
+    "ps_surum": "7.6.4",
     "ps_edition": "Core",
     "isletim": "Unix",
     "actions": "true",
@@ -15,48 +15,48 @@
   },
   "ham_sorgu": {
     "uri": "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad&kaynak_ad=imatch.%5EVUK.%2Am%5C.323&limit=5",
-    "http": 200,
-    "kayit": 2,
-    "ilk": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]"
+    "http": -1,
+    "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
+    "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}"
   },
   "vaka_sayisi": 12,
-  "cozulen": 12,
+  "cozulen": 6,
   "sonuclar": [
     {
       "kaynak": "5510 sayılı Kanun m.50",
-      "durum": "cozuldu",
-      "metin_kr": 804,
-      "ad": "5510 s. SGK Kanunu m.50"
+      "durum": "ambarda-yok",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "4857 sayılı İş Kanunu m.13",
-      "durum": "cozuldu",
-      "metin_kr": 2275,
-      "ad": "İş K. (4857 s.K.) m.13 [1/2]"
+      "durum": "ambarda-yok",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "VUK m.235",
-      "durum": "cozuldu",
-      "metin_kr": 1198,
-      "ad": "VUK (213 s.K.) m.235 - Hazine ve Maliye Bakanlığı yetkilidir. Müstahsil makbuzu"
+      "durum": "ambarda-yok",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "TMS 21 p.1 - Amaç",
-      "durum": "cozuldu-standart",
-      "metin_kr": 16714,
-      "ad": "TMS 21 p.1 - Amaç"
+      "durum": "kanun-bulunamadi",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "TFRS 10 p.1-3 - Amac",
-      "durum": "cozuldu-standart",
-      "metin_kr": 9946,
-      "ad": "TFRS 10 p.1-3 - Amac"
+      "durum": "kanun-bulunamadi",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "TBK m.52",
-      "durum": "cozuldu",
-      "metin_kr": 430,
-      "ad": "TBK (6098 s.K.) m.52"
+      "durum": "ambarda-yok",
+      "metin_kr": 0,
+      "ad": ""
     },
     {
       "kaynak": "SMMM K. (3568 s.K.) m.50 [1/2]",
