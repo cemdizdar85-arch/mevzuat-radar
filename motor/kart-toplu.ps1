@@ -7,7 +7,10 @@
 param(
   [Parameter(Mandatory=$true)][string]$Gun,
   [string]$Model = "claude-haiku-4-5",
-  [string]$HakemModel = "claude-sonnet-5"
+  [string]$HakemModel = "claude-sonnet-5",
+  # 16.08: teblig islemeden yalniz vitrini birikmis havuzdan yeniden uretir.
+  # API'ye HIC gitmez, gun damgasi/besleme yazmaz - sayfa tazeleme aleti.
+  [switch]$YalnizVitrin
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -138,7 +141,17 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo){
   return @{ metin = $metinE; gorseller = $gorsellerE; url = $eskiUrl }
 }
 
-$dosyalar = Get-ChildItem $arsivTeblig -Filter "*.htm" | Sort-Object Name
+# Arsiv klasoru yoksa bu HATA DEGILDIR: o gun ilgilendiren teblig inmemistir.
+# (Eskiden Get-ChildItem patliyor, betik hic calismiyordu - vitrini havuzdan
+#  tazelemek bile mumkun degildi.)
+$dosyalar = @()
+if($YalnizVitrin){
+  "YALNIZ VITRIN modu: teblig islenmeyecek, sayfa birikmis havuzdan yeniden uretilecek. (API cagrisi YOK)"
+} elseif(Test-Path $arsivTeblig){
+  $dosyalar = @(Get-ChildItem $arsivTeblig -Filter "*.htm" | Sort-Object Name)
+} else {
+  "Arsiv klasoru yok ($Gun) - islenecek teblig bulunmadi."
+}
 "Toplam teblig: $($dosyalar.Count) | Model: $Model | Hakem: $HakemModel"
 $kartlar = @(); $topGirdi = 0; $topCikti = 0; $hakemGirdi = 0; $hakemCikti = 0; $hatali = 0; $hakemSayisi = 0
 
@@ -371,13 +384,46 @@ if($kartlar.Count -eq 0 -and $hatali -gt 0){
   exit 1
 }
 
-# kart verisini kaydet
-$gunKartDir = Join-Path $here ("kartlar\" + $Gun)
-New-Item -ItemType Directory -Force $gunKartDir | Out-Null
-# DIKKAT: bos dizinin ConvertTo-Json ciktisi BOS STRING'dir (0 baytlik dosya).
-# Gecerli JSON yaz - yoksa dosya hem okunamaz hem "islendi" yalani soyler.
-$kartJson = if($kartlar.Count -eq 0){ '[]' } else { $kartlar | ConvertTo-Json -Depth 8 }
-$kartJson | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
+# kart verisini kaydet (YalnizVitrin modunda YAZILMAZ - sahte "islendi" izi birakmasin)
+if(-not $YalnizVitrin){
+  $gunKartDir = Join-Path $here ("kartlar\" + $Gun)
+  New-Item -ItemType Directory -Force $gunKartDir | Out-Null
+  # DIKKAT: bos dizinin ConvertTo-Json ciktisi BOS STRING'dir (0 baytlik dosya).
+  # Gecerli JSON yaz - yoksa dosya hem okunamaz hem "islendi" yalani soyler.
+  $kartJson = if($kartlar.Count -eq 0){ '[]' } else { $kartlar | ConvertTo-Json -Depth 8 }
+  $kartJson | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
+}
+
+# ============================================================================
+#  VITRIN HAVUZU (16.08.2026 - Cem: "burda veri gelmiyor mu?")
+#
+#  ESKI DAVRANIS: vitrin YALNIZ o gunun kartlarini basiyordu. RG'nin sakin
+#  gectigi her donemde sayfa "0 duzenleme" ile bombos kaliyordu - oysa
+#  arsivde 85 dolu gunde 182 kart birikmisti. Veri vardi, sayfa gostermiyordu.
+#
+#  YENI: vitrin BIRIKMIS HAVUZUN en yeni N kartini gosterir. Gunluk arsiv
+#  sayfasi (arsiv/kartlar-<gun>.html) degismez - o hala o gunun kaydidir.
+# ============================================================================
+$VITRIN_ADET = 12
+$havuz = New-Object System.Collections.Generic.List[object]
+foreach($gd in (Get-ChildItem (Join-Path $here 'kartlar') -Directory -ErrorAction SilentlyContinue)){
+  $jy = Join-Path $gd.FullName 'kartlar.json'
+  if(-not (Test-Path $jy)){ continue }
+  $ham = (Get-Content $jy -Raw -Encoding UTF8)
+  if([string]::IsNullOrWhiteSpace($ham)){ continue }
+  $obj = $null
+  try { $obj = $ham | ConvertFrom-Json } catch { continue }
+  $tarih = [datetime]'1900-01-01'
+  try { $tarih = [datetime]::ParseExact($gd.Name,'dd-MM-yyyy',$null) } catch { continue }
+  foreach($kk in @($obj)){
+    if($null -eq $kk -or -not $kk.baslik_sade){ continue }
+    Add-Member -InputObject $kk -NotePropertyName '_gun' -NotePropertyValue ($gd.Name -replace '-','.') -Force
+    Add-Member -InputObject $kk -NotePropertyName '_tarih' -NotePropertyValue $tarih -Force
+    [void]$havuz.Add($kk)
+  }
+}
+$vitrin = @($havuz | Sort-Object -Property _tarih -Descending | Select-Object -First $VITRIN_ADET)
+Write-Host ("Vitrin havuzu: {0} kart birikmis, en yeni {1} tanesi sayfaya konacak." -f $havuz.Count, $vitrin.Count)
 
 # radar-app panosunun GTIP eslesmesi icin sabit "guncel kartlar" (yalniz GTIP'li kartlar, trim)
 # FIRSAT ROZETI (#63, 30.07): yapilandirma/af kaliplari karti FIRSAT yapar -
@@ -448,17 +494,32 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('</style></head><body><div class="wrap">')
 [void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
 [void]$s.AppendLine("<h1>Günün Hap Kartları</h1>")
-[void]$s.AppendLine("<div class='alt'>$TarihNokta — Resmî Gazete'deki $($kartlar.Count) düzenleme, 30 saniyede okunur kartlar hâlinde.</div>")
+$enYeniGun = if($vitrin.Count){ $vitrin[0]._gun } else { $TarihNokta }
+$bugunMetni = if($kartlar.Count -gt 0){ "Bugün ($TarihNokta) $($kartlar.Count) yeni düzenleme." } else { "Bugün ($TarihNokta) kart gerektiren yeni düzenleme çıkmadı." }
+$vitrinUst = "<div class='alt'>$bugunMetni Aşağıda son <b>$($vitrin.Count)</b> kart — en yenisi $enYeniGun tarihli, 30 saniyede okunur.</div>"
+$arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.Count) düzenleme — o günün kaydı.</div>"
+[void]$s.AppendLine($vitrinUst)
 # nobet damgasi: robot her gun tarar; kart cikmasa da "son tarama" tarihi canli gorunur (veri/kart-durum.json'u kartlar.yml yazar)
 [void]$s.AppendLine('<div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>')
 [void]$s.AppendLine('<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>')
 [void]$s.AppendLine('<div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>')
-foreach($k in $kartlar){
+# ============================================================================
+#  KART BLOGU URETICISI (16.08 - iki sayfa ayrildi)
+#  Vitrin (kartlar.html) BIRIKMIS HAVUZU gosterir; gunluk arsiv sayfasi ise
+#  YALNIZ O GUNUN kartlarini. Ikisi ayni cizimi kullandigi icin kart uretimi
+#  fonksiyona alindi - yoksa arsiv de havuzu basiyordu (16.08'de bir kez oldu).
+# ============================================================================
+function KartBloguHtml($liste){
+  $b = New-Object System.Text.StringBuilder
+  foreach($k in @($liste)){
+  $s = $b   # kart govdesi $s'e yazar - yerel StringBuilder'a yonlendir
   [void]$s.AppendLine('<div class="kart">')
+  # Havuzdan gelen kart hangi gune ait - okuyucu tarihi gormeden guvenemez
+  $gunEtiketi = if($k._gun){ " <span style='color:var(--dim);font-weight:400'>· $($k._gun)</span>" } else { "" }
   if(KartFirsatMi $k){
-    [void]$s.AppendLine('<div class="etiket" style="color:var(--amber)">★ FIRSAT PENCERESİ — süreyi kaçırma</div>')
+    [void]$s.AppendLine("<div class='etiket' style='color:var(--amber)'>★ FIRSAT PENCERESİ — süreyi kaçırma$gunEtiketi</div>")
   } else {
-    [void]$s.AppendLine('<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>')
+    [void]$s.AppendLine("<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ$gunEtiketi</div>")
   }
   [void]$s.AppendLine("<h3>$($k.baslik_sade)</h3>")
   [void]$s.AppendLine("<p><b>Ne oldu:</b> $($k.ne_oldu)</p>")
@@ -493,7 +554,12 @@ foreach($k in $kartlar){
   }
   [void]$s.AppendLine("<div class='meta'><a href='$($k.kaynak)' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>")
   [void]$s.AppendLine('</div>')
+  }
+  return $b.ToString()
 }
+# Vitrin: havuzun en yenileri. Arsiv sayfasi asagida GUNUN kartlariyla uretilir.
+$vitrinBlok = KartBloguHtml $vitrin
+[void]$s.AppendLine($vitrinBlok)
 [void]$s.AppendLine('<div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>')
 [void]$s.AppendLine('<p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>')
 [void]$s.AppendLine('<a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>')
@@ -510,8 +576,11 @@ $kartlarHtml = Join-Path $kok "kartlar.html"
 #  bilgisini rozet (veri/kart-durum.json) tasir. Gunluk arsiv kopyasi yine
 #  yazilir - o gunun "sakin gecti" kaydi tarihsel olarak dogrudur.
 # ============================================================================
-if($kartlar.Count -eq 0){
-  Write-Host ("VITRIN KORUNDU: {0} gununde kart yok - kartlar.html'e dokunulmadi (son iyi hal duruyor)." -f $Gun)
+#  16.08 GUNCELLEME: olcut artik gunun kart sayisi DEGIL, vitrin havuzudur.
+#  Sakin gunde de sayfa yazilir (havuzdaki son 12 kart durur, tarih satiri
+#  tazelenir); yalniz havuz TAMAMEN bossa dokunulmaz.
+if($vitrin.Count -eq 0){
+  Write-Host "VITRIN KORUNDU: havuzda hic kart yok - kartlar.html'e dokunulmadi (son iyi hal duruyor)."
 } else {
   [System.IO.File]::WriteAllText($kartlarHtml, $s.ToString(), (New-Object System.Text.UTF8Encoding($false)))
 }
@@ -519,8 +588,15 @@ if($kartlar.Count -eq 0){
 # gunluk arsiv kopyasi (goreli linkler icin <base> eklenir)
 $arsivDirSite = Join-Path $kok "arsiv"
 New-Item -ItemType Directory -Force $arsivDirSite | Out-Null
-$arsivHtml = $s.ToString().Replace('<head>','<head><base href="../">')
-[System.IO.File]::WriteAllText((Join-Path $arsivDirSite ("kartlar-" + $Gun + ".html")), $arsivHtml, (New-Object System.Text.UTF8Encoding($false)))
+# ARSIV SAYFASI = O GUNUN KAYDI (vitrin havuzu DEGIL).
+# Vitrin blogu gunun bloguyla, vitrin ust yazisi gun yazisiyla degistirilir.
+# Kart cikmayan gune arsiv sayfasi ACILMAZ - bos kayit arsivi kirletir.
+if($kartlar.Count -gt 0 -and -not $YalnizVitrin){
+  $arsivHtml = $s.ToString().Replace($vitrinBlok, (KartBloguHtml $kartlar)).Replace($vitrinUst, $arsivUst).Replace('<head>','<head><base href="../">')
+  [System.IO.File]::WriteAllText((Join-Path $arsivDirSite ("kartlar-" + $Gun + ".html")), $arsivHtml, (New-Object System.Text.UTF8Encoding($false)))
+} else {
+  Write-Host ("Arsiv sayfasi yazilmadi ({0}) - o gun kart yok ya da yalniz-vitrin modu." -f $Gun)
+}
 
 # arsiv index'ini yeniden kur
 $gunler = Get-ChildItem $arsivDirSite -Filter "kartlar-*.html" | ForEach-Object {
