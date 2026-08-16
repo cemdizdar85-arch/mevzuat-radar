@@ -76,8 +76,11 @@ function KanunNo([string]$kaynak){
 function MaddeNo([string]$kaynak){
   $k = "$kaynak"
   # "m.40", "m. 40", "madde 40", "40 inci maddesi"
-  $m = [regex]::Match($k, '(?:m\.\s*|madde\s+)(\d{1,4})')
-  if($m.Success){ return $m.Groups[1].Value }
+  # 16.08: TAKSIM HARFI de yakalanir ("m.278/A", "m.48/A"). Eskiden yalniz
+  # rakam okunuyordu; "m.48/A" istegi duz m.48'e sapiyordu - yani soruya
+  # BASKA MADDENIN metni dayanak yapiliyordu. Ambarda 356 taksimli kayit var.
+  $m = [regex]::Match($k, '(?:m\.\s*|madde\s+)(\d{1,4}(?:\s*/\s*[A-Za-zÇĞİÖŞÜçğıöşü])?)')
+  if($m.Success){ return ($m.Groups[1].Value -replace '\s+','').ToUpperInvariant() }
   $m2 = [regex]::Match($k, '(\d{1,4})\s*(?:inci|nci|uncu|üncü|ıncı)\s+madde')
   if($m2.Success){ return $m2.Groups[1].Value }
   return $null
@@ -130,7 +133,16 @@ function MaddeMetni([string]$kanunNo, [string]$maddeNo, [string]$seri = ''){
 
   # ayni maddenin parcalarini sirala ve birlestir; farkli madde varsa (m.4 ararken m.40
   # gelmesi gibi) ELE: kaynak_ad'da "m.<no>" hemen ardindan rakam GELMEMELI
-  $temiz = @($kayitlar | Where-Object { "$($_.kaynak_ad)" -match ("[^a-zA-Z0-9]m\." + $maddeNo + "(?!\d)") })
+  # 16.08 TAKSIMLI MADDE AYRIMI: ambarda "m.278 - Kiymeti dusen mallar" ile
+  # "m.278/A - Imha edilmesi gereken mallar" AYRI kayitlardir ama eski desen
+  # ikisini birden tutup BIRLESTIRIYORDU. Sonuc: "kiymeti dusen mallar"
+  # sorusunun dayanak metnine "imha edilmesi gereken mallar" karisiyor;
+  # ustelik 278/A degisince m.278'e dayanan butun sorular "degismis"
+  # isaretleniyordu. Ambarda 356 taksimli kayit var - kusur sistemik.
+  # Kural: duz madde istendiyse taksimli olan HARIC; taksimli istendiyse
+  # (ornek "48/A") tam o yazim aranir.
+  $maddeDeseni = if($maddeNo -match '/'){ [regex]::Escape($maddeNo) + '(?!\d)' } else { $maddeNo + '(?![\d/])' }
+  $temiz = @($kayitlar | Where-Object { "$($_.kaynak_ad)" -match ("[^a-zA-Z0-9]m\." + $maddeDeseni) })
   if(@($temiz).Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
 
   $sirali = @($temiz | Sort-Object { $p=[regex]::Match("$($_.kaynak_ad)", '\[(\d+)/\d+\]'); if($p.Success){ [int]$p.Groups[1].Value } else { 0 } })
