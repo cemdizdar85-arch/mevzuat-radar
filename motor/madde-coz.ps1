@@ -22,6 +22,19 @@ $kok  = Split-Path -Parent $here
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 $KEY = if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg" }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
+# ============================================================================
+#  KIMLIK SATIRI (16.08.2026 - OLCULDU, sessiz olumdu)
+#  Supabase GIZLI anahtarli istegi, PowerShell'in varsayilan "Mozilla..."
+#  kimligiyle geldiginde 401 ile REDDEDIYOR. Bu dosyanin dort cagrisinin
+#  HICBIRI kimlik gondermiyordu; sonuc: cozucu her kaynaga "ambarda-yok"
+#  diyordu. Yani soru-dayanak zincirinin TEMELI oluydu ve kimse gormedi -
+#  cunku yerelde anahtar yokken publishable anahtara dusup calisiyor gibi
+#  gorunuyor, CI'da (gizli anahtar var) oluyordu.
+#  Olcum: ayni sorgu UA'siz 401, UA'li 5 kayit dondu.
+#  IWR ve IRM AYRI AYRI yazilir - biri otekini kapsamaz. Bkz [[supabase-tarayici-kimligi]]
+# ============================================================================
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 
 # --- KISALTMA -> KANUN NUMARASI (ambardaki kaynak_ad bicimlerinden cikarildi)
 $KISALTMA = @{
