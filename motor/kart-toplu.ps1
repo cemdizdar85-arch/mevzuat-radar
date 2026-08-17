@@ -804,7 +804,13 @@ $arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.C
 [void]$s.AppendLine($vitrinUst)
 # nobet damgasi: robot her gun tarar; kart cikmasa da "son tarama" tarihi canli gorunur (veri/kart-durum.json'u kartlar.yml yazar)
 [void]$s.AppendLine('<div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>')
-[void]$s.AppendLine('<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>')
+# 17.08 SESSIZ GUN DURUSTLUGU (Cem: "en son 14.08 var bugun 17.08").
+# Eskiden sakin gunde sayfa hicbir sey soylemiyordu; ziyaretci gunler oncesine
+# ait karti gorup "bu site durmus" saniyordu. Oysa robot her gun kosuyordu ve
+# o gunlerde RG'de gercekten ilgili duzenleme yoktu. Nobetin GORUNMESI de
+# nobetin kendisi kadar onemli: artik o gun RG'de KAC duzenleme vardi ve NEDEN
+# kart cikmadigi yaziliyor (rg-gun-durum.json, rg-indir.ps1 yazar).
+[void]$s.AppendLine('<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>')
 [void]$s.AppendLine('<div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>')
 # ============================================================================
 #  KART BLOGU URETICISI (16.08 - iki sayfa ayrildi)
