@@ -266,11 +266,17 @@ function Invoke-OpenRouterAnlik([string]$model,[array]$icerik,[int]$maxTok){
             kaynak='openrouter'; dur=$dur }
 }
 
-# limit/kota hatasi mi? (429/402 ya da fatura/limit iceren govde) -> yedege gec
+# Birincil hat KULLANILAMAZ mi? (limit/kota YA DA gecersiz kimlik) -> yedege gec
 function Test-LimitHatasi($err){
   $status = 0
   try { $status = [int]$err.Exception.Response.StatusCode } catch {}
   if($status -eq 429 -or $status -eq 402){ return $true }
+  # 17.08 EKLENDI - 401/403 de yedege gecirtir.
+  # Olculdu: yerel Anthropic anahtari 401 donduruyordu ve yedek hat DEVREYE
+  # GIRMIYORDU (kosul yalniz 429/402'ydi). Anahtar iptal edilir ya da rotasyona
+  # girerse butun robotlar sessizce olurdu - oysa OpenRouter'in kimligi AYRI,
+  # calismaya devam edebilirdi. Kimlik hatasi da "bu hat kullanilamaz"dir.
+  if($status -eq 401 -or $status -eq 403){ return $true }
   $body = ''
   try { $body = "$($err.ErrorDetails.Message)" } catch {}
   if(-not $body){

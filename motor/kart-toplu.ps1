@@ -166,6 +166,105 @@ function DoluKiymetler($nesne){
   return $cikti.ToArray()   # @(List) PS 5.1'de ArgumentException verir
 }
 
+# ============================================================================
+#  SERIT AYIKLAMA (17.08.2026 - Cem ornekleri gorunce: "eski yeni
+#  karsilastirmasi iyi degil")
+#
+#  Deterministik cikarim metne SADIK ama AYIKLAMASIZDI: metindeki her ibare
+#  degisikligini ayni agirlikta gosteriyordu. Olculdu: 50 kartta 157 satir,
+#  mukerrer ayiklaninca 137 (20 satir gereksiz), 5 kart 9+ satirli, en uzunu
+#  17 satir. Gercek ornekler:
+#    - Sigorta karti: "Musteslarliga -> Kuruma" 17 KEZ (tek kurum adi
+#      degisikligi, tebligde 17 yerde geciyor)
+#    - Kurumlar Vergisi: "Örnek: -> Örnek 4:"  (bilgi degil, numaralandirma)
+#  Seridin isi HER degisikligi listelemek degil, KARARI DEGISTIRENI one
+#  cikarmak. Kurum adi duzeltmesiyle on yillik sure uzatimi yan yana duramaz.
+#
+#  AYIKLAMA BASIM ANINDA yapilir - depodaki eski_yeni TAM kalir. Politika
+#  degisirse veriyi yeniden uretmek gerekmez.
+# ============================================================================
+$SERIT_UST_SINIR = 5
+
+# Rakam/tarih/tutar/oran tasiyan satir KARAR DEGISTIRIR -> one alinir.
+$SERIT_ONEMLI = '(\d{1,2}[./]\d{1,2}[./]\d{2,4})|(%\s*\d)|(\d)'
+
+# Biçimsel mi: iki taraftan RAKAM ve NOKTALAMA atilinca ayni ve BOS OLMAYAN
+# metne dusuyorsa evet.
+#   "Örnek:" / "Örnek 4:"  -> ikisi de "örnek"  -> BICIMSEL, gosterilmez
+#   "5" / "1"              -> ikisi de ""       -> bos, bicimsel DEGIL (kalir)
+#   "beş" / "dört"         -> farkli            -> kalir
+function SeritBicimselMi([string]$eski, [string]$yeni){
+  $ce = ((NormD $eski) -replace '[\d]','' -replace '[^\p{L}]',' ' -replace '\s+',' ').Trim()
+  $cy = ((NormD $yeni) -replace '[\d]','' -replace '[^\p{L}]',' ' -replace '\s+',' ').Trim()
+  if(-not $ce -and -not $cy){ return $false }   # iki taraf da salt rakam -> gercek degisiklik
+  return ($ce -eq $cy)
+}
+
+# Girdi: ham eski_yeni satirlari. Cikti: @{ satirlar=[...]; gizli=N }
+# satirlar[].tekrar -> ayni cift kac yerde geciyor (1 ise yazilmaz)
+function SeritHazirla($ham){
+  $gecerli = @($ham | Where-Object { $_ -and "$($_.eski)".Trim() -and "$($_.yeni)".Trim() })
+  if(-not $gecerli.Count){ return @{ satirlar=@(); gizli=0 } }
+
+  # (a) bicimsel olanlari dusur
+  $suzulmus = @($gecerli | Where-Object { -not (SeritBicimselMi $_.eski $_.yeni) })
+
+  # (b) ayni (eski->yeni) ciftini BIRLESTIR, kac yerde gectigini say
+  $harita = [ordered]@{}
+  $sira = 0
+  foreach($r in $suzulmus){
+    $a = (NormD $r.eski) + '>' + (NormD $r.yeni)
+    if($harita.Contains($a)){ $harita[$a].tekrar++ ; continue }
+    $harita[$a] = [pscustomobject]@{
+      konu=$r.konu; eski=$r.eski; yeni=$r.yeni; kaynak=$r.kaynak; tekrar=1
+      onem = if(("$($r.eski)$($r.yeni)") -match $SERIT_ONEMLI){ 1 } else { 0 }
+      sira = $sira
+    }
+    $sira++
+  }
+  $benzersiz = @($harita.Values)
+
+  # (b2) AYNI DEGISIKLIGIN CEKIMLI HALLERINI birlestir.
+  # Sigorta kartinda "Müsteşarlığa->Kuruma", "Müsteşarlığın->Kurumun",
+  # "Müsteşarlıkça->Kurumca" ayri satirlardi; ucu de TEK kurum adi
+  # degisikligi ve 5 satirlik yerin 3'unu yiyip gercek bilgiyi disari
+  # itiyordu. Iki tarafin da ORTAK ONEKI yeterince uzunsa ayni degisiklik
+  # sayilir; en kisa hali gosterilir, tekrarlar toplanir.
+  # YALNIZ kelime satirlarinda (onem=0) calisir - rakam/tarih satirlari
+  # ASLA birlestirilmez (20.000->26.000 ile 20.500->26.500 ayri kalir).
+  $ortakOnek = {
+    param($a,$b)
+    $n = [math]::Min($a.Length,$b.Length); $i = 0
+    while($i -lt $n -and $a[$i] -eq $b[$i]){ $i++ }
+    return $i
+  }
+  $birlesik = New-Object System.Collections.Generic.List[object]
+  foreach($r in $benzersiz){
+    $es = $null
+    if($r.onem -eq 0){
+      foreach($v in $birlesik){
+        if($v.onem -ne 0){ continue }
+        $pe = & $ortakOnek (NormD $v.eski) (NormD $r.eski)
+        $py = & $ortakOnek (NormD $v.yeni) (NormD $r.yeni)
+        if($pe -ge 6 -and $py -ge 5){ $es = $v; break }
+      }
+    }
+    if($es){
+      $es.tekrar += $r.tekrar
+      # en KISA hali goster (cekimsiz koke en yakin olan)
+      if($r.eski.Length -lt $es.eski.Length){ $es.eski = $r.eski; $es.yeni = $r.yeni }
+    } else { $birlesik.Add($r) }
+  }
+  $benzersiz = $birlesik.ToArray()   # @(List) PS 5.1'de ArgumentException verir
+
+  # (c) onemliyi one al. Sort-Object -Stable PS 5.1'de YOK (PS7'de geldi) -
+  # kararli sirayi ikinci anahtarla saglariz: onem azalan, sonra ilk gorulme.
+  $sirali = @($benzersiz | Sort-Object -Property @{Expression='onem';Descending=$true}, @{Expression='sira';Descending=$false})
+
+  $gost = @($sirali | Select-Object -First $SERIT_UST_SINIR)
+  return @{ satirlar=$gost; gizli=([math]::Max(0, $sirali.Count - $gost.Count)) }
+}
+
 # ---- kalici kiymet hafizasi -------------------------------------------------
 $hafizaDir = Join-Path $here "hafiza"
 New-Item -ItemType Directory -Force $hafizaDir | Out-Null
@@ -731,8 +830,13 @@ function KartFirsatMi($kk){
 # "alan var ama bos" ile "alan yok"u ayirt etmek zorunda kalmasin).
 $guncelKartlar = @(@($kartlar | ForEach-Object {
   $o = [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon); firsat=(KartFirsatMi $_) }
-  $ey = @($_.eski_yeni) | Where-Object { $_ -and $_.eski -and $_.yeni }
-  if($ey.Count){ $o["eski_yeni"] = @($ey) }
+  # Besleme de AYNI ayiklamayi kullanir - ana sayfa ile kart sayfasi ayni seyi
+  # gostersin diye. Gizlenen sayisi da tasinir (on yuz "+N daha" yazabilsin).
+  $sr = SeritHazirla $_.eski_yeni
+  if(@($sr.satirlar).Count){
+    $o["eski_yeni"] = @($sr.satirlar)
+    if($sr.gizli -gt 0){ $o["eski_yeni_gizli"] = $sr.gizli }
+  }
   if($_.degistirilen_teblig){ $o["degistirilen_teblig"] = $_.degistirilen_teblig }
   # 17.08 - deterministik yapidan gelen ucu de siteye tasinir
   if($_.teblig_no){ $o["teblig_no"] = $_.teblig_no }
@@ -849,7 +953,11 @@ function KartBloguHtml($liste){
     [void]$s.AppendLine("<p><b>Neler değişti:</b></p>")
     foreach($dm in $degMad){ [void]$s.AppendLine("<div class='kiymet'>• $dm</div>") }
   }
-  if(@($k.eski_yeni).Count){
+  # 17.08: ham liste degil AYIKLANMIS liste basilir (bicimsel satirlar duser,
+  # mukerrer cift birlesir, onemli one gelir, en fazla 5 satir). Ayiklamadan
+  # sonra hicbir sey kalmadiysa baslik da basilmaz.
+  $serit = SeritHazirla $k.eski_yeni
+  if(@($serit.satirlar).Count){
     # ETIKET DOGRU OLMALI: deterministik satirlar cift okumadan GECMEDI, tebligin
     # kendi cumlesinden ("X ibaresi Y seklinde degistirilmistir") birebir alindi.
     # Onlara "cift okumayla dogrulanmis" demek kendi arayuzumuzde yanlis beyandir.
@@ -860,7 +968,7 @@ function KartBloguHtml($liste){
                 elseif($metinSatir){ "(tebliğ metninden; bir kısmı çift okumayla doğrulandı)" }
                 else { "(tebliğ metninden, çift okumayla doğrulanmış)" }
     [void]$s.AppendLine("<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>$eyEtiket</span></p>")
-    foreach($ey in @($k.eski_yeni)){
+    foreach($ey in @($serit.satirlar)){
       # YUZDE BURADA HESAPLANIR, MODELE SORULMAZ. Iki taraf da taninan bir
       # BIRIM tasimiyorsa (or. "(II/C/6.3.) bolumu" gibi atif) yuzde YAZILMAZ -
       # satir yine gosterilir. Birim degisiyorsa da yazilmaz (5 TL vs 5 USD
@@ -875,7 +983,14 @@ function KartBloguHtml($liste){
           $oran = " <b style='color:$renk'>$ok%$([math]::Abs($o))</b>"
         }
       }
-      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b>$oran</div>")
+      # Ayni cift metinde birden cok yerde geciyorsa TEK satir + kac yerde.
+      # (Sigorta kartinda "Müsteşarlığa -> Kuruma" 17 satir basiliyordu.)
+      $tekrarNot = if($ey.tekrar -gt 1){ " <span style='color:var(--dim);font-size:11px'>(metinde $($ey.tekrar) yerde)</span>" } else { "" }
+      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b>$oran$tekrarNot</div>")
+    }
+    # Gizlenen satir SESSIZCE dusurulmez - kac tane oldugu yazilir.
+    if($serit.gizli -gt 0){
+      [void]$s.AppendLine("<div class='kiymet' style='color:var(--dim)'>+$($serit.gizli) değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>")
     }
   }
   # Eski deger metinde yoksa UYDURULMAZ - onceki resmi belgenin linki verilir.
