@@ -22,7 +22,18 @@ jobs:
         run: |
           # API anahtari / servis anahtari / uzun JWT desenleri tracked dosyalarda aranir.
           # sb_publishable_ anahtari kasten HARIC: o publishable'dir, sitede acik durur.
-          desenler='sk-ant-[A-Za-z0-9_-]{20,}|service_role|re_[A-Za-z0-9]{20,}|eyJhbGciOi[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}'
+          #
+          # 17.08 DUZELTME - 'service_role' KELIMESI desenden CIKARILDI.
+          # Kapi en az 6 kosudur (#1192-#1197) kirmizi bitiyordu ve sebebi tek bir
+          # SEY DEGILDI: veri/sql-marka-uyari.sql + sql-marka-durum.sql icindeki
+          # UC ACIKLAMA SATIRI ("-- Yazma yalniz service_role (robot) ile").
+          # service_role, Supabase'in hazir POSTGRES ROL ADI; sizabilecek sey rolun
+          # adi degil ANAHTARI. Anahtarin iki bicimi var, ikisi de kapsanir:
+          #   - eski tip: JWT (asagidaki eyJhbGciOi... deseni)
+          #   - yeni tip: sb_secret_... (bu turda EKLENDI; simdilik 0 bulgu)
+          # Surekli kirmizi kapi kapi degildir - kimse okumaz. Kelime yerine
+          # ANAHTAR BICIMI aranir; kapsama daralmiyor, yanlis alarm bitiyor.
+          desenler='sk-ant-[A-Za-z0-9_-]{20,}|sb_secret_[A-Za-z0-9_-]{20,}|re_[A-Za-z0-9]{20,}|eyJhbGciOi[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{60,}\.[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}'
           bulunan=$(git grep -I -nE "$desenler" -- . ':!*.md' ':!.github/workflows/dogrula.yml' || true)
           if [ -n "$bulunan" ]; then
             echo "SIR BEKCISI KIRMIZI — olasi anahtar sizintisi:"
