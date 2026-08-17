@@ -23,6 +23,12 @@ $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Raw).Trim() } catch {} }
 # 16.08 uc hat: birincil Anthropic/AWS, LIMIT dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
 . (Join-Path $here 'api-hedef.ps1')
+# 17.08 - DETERMINISTIK TEBLIG YAPISI. Ibare degisikligi, yururluk, eklenen/
+# kaldirilan madde ve teblig numarasi METINDEN cikar; modele sorulmaz.
+# Sebep: 01.08 kartinda eski_yeni BOS kaldi cunku iki LLM okumasi anlasamadi -
+# oysa tebligde "31/7/2026 ibaresi 31/1/2027 seklinde degistirilmistir" yaziyordu.
+# Kesin bilgiyi zar atmaya cevirmistik.
+. (Join-Path $here 'teblig-yapi.ps1')
 $hatAd = ''
 try { $hatAd = (Get-ApiHedef).ad } catch {}
 if(-not $hatAd -and (Read-ApiEnv 'OPENROUTER_KEY')){ $hatAd = 'openrouter' }
@@ -136,6 +142,28 @@ function KiymetDegerGecerli([string]$deger){
   if($d.Length -gt 60){ return $false }                       # tanim metni sizmis
   if($d -match '(?i)belirtilmemis|belirtilmemiş|bilinmiyor'){ return $false }
   return ($d -match $KIYMET_BIRIM)
+}
+
+# kesin_kiymetler tur olarak IKI SEKILDE gelebilir: uretim sirasinda hashtable,
+# havuza JSON yazilip geri okununca PSCustomObject. Ikisinde .Count farkli
+# davranir (hashtable'da eleman sayisi, PSCustomObject'te guvenilmez), o yuzden
+# "bos mu" sorusu tur uzerinden DEGIL, DOLU ALAN SAYISI uzerinden sorulur.
+# Bos donerse cagiran taraf basligi hic basmaz.
+function DoluKiymetler($nesne){
+  if($null -eq $nesne){ return @() }
+  $cikti = New-Object System.Collections.Generic.List[object]
+  if($nesne -is [System.Collections.IDictionary]){
+    foreach($anahtar in $nesne.Keys){
+      $d = "$($nesne[$anahtar])".Trim()
+      if($d){ $cikti.Add([pscustomobject]@{ kod=$anahtar; deger=$d }) }
+    }
+  } else {
+    foreach($p in @($nesne.PSObject.Properties)){
+      $d = "$($p.Value)".Trim()
+      if($d){ $cikti.Add([pscustomobject]@{ kod=$p.Name; deger=$d }) }
+    }
+  }
+  return $cikti.ToArray()   # @(List) PS 5.1'de ArgumentException verir
 }
 
 # ---- kalici kiymet hafizasi -------------------------------------------------
@@ -351,6 +379,13 @@ foreach($d in $dosyalar){
 
     $notlar = @()
 
+    # ================= DETERMINISTIK YAPI (modelden ONCE) ===================
+    # Metinden dogrudan okunanlar modele SORULMAZ ve model onlari EZEMEZ.
+    # Cokerse kart uretimi durmaz; yalnizca bu zenginlestirme atlanir.
+    $yapi = $null
+    try { $yapi = TebligYapiCikar $d.FullName }
+    catch { $notlar += ("Yapi cikarimi yapilamadi: " + $_.Exception.Message) }
+
     # GTIP karsilastirma
     $gtip1 = @($k1.gtip_kodlari) -join ","; $gtip2 = @($k2.gtip_kodlari) -join ","
     $gtipFinal = if($gtip1 -eq $gtip2){ @($k1.gtip_kodlari) } else {
@@ -358,15 +393,41 @@ foreach($d in $dosyalar){
       @($k1.gtip_kodlari) | Where-Object { @($k2.gtip_kodlari) -contains $_ }
     }
 
-    # yururluk (kalipli oldugu icin esitlik saglikli)
-    # Bicim farki ihtilaf DEGILDIR. Biri somut digeri bos ise SOMUT olan yazilir -
-    # bilgi elimizdeyken "kaynak tebligdeki maddeye bakin" demek okuyucuya ihanettir.
-    $yn1 = YururlukNorm $k1.yururluk
-    $yn2 = YururlukNorm $k2.yururluk
-    $yurFinal = if($yn1 -and $yn1 -eq $yn2){ $k1.yururluk }
-                elseif($yn1 -and -not $yn2){ $k1.yururluk }
-                elseif($yn2 -and -not $yn1){ $k2.yururluk }
-                else { "Kaynak tebliğdeki yürürlük maddesine bakın" }
+    # ---- YURURLUK -----------------------------------------------------------
+    # 17.08 (Cem, 01.08 karti): kartta "Kaynak tebliğdeki yürürlük maddesine
+    # bakın" yaziyordu. Tebligin MADDE 8'i ise sunu diyordu:
+    #     a) 6'nci maddesi yayimi tarihinde, b) diger hukumleri 1/10/2026'da.
+    # Yani tebligin IKI AYRI yururluk tarihi vardi ve kartin en karar-degistirici
+    # bilgisi buydu. Cevabi bilip soylememek, nobetci olan bir urunun yapabilecegi
+    # en kotu sey. Yeni sira:
+    #   1) DETERMINISTIK cikarim (yururluge girer maddesi) - modeli EZER
+    #   2) iki okumanin uzlastigi/tek somut olani
+    #   3) hicbiri yoksa BOS - alan hic basilmaz. Yer tutucu ARTIK YOK.
+    $yurBentler = @()
+    if($yapi -and @($yapi.yururluk).Count){
+      $yurBentler = @($yapi.yururluk | Where-Object { $_.tarih })
+    }
+    $yurFinal = $null
+    if($yurBentler.Count -eq 1 -and -not $yurBentler[0].bent){
+      $yurFinal = $yurBentler[0].tarih
+    } elseif($yurBentler.Count -ge 1){
+      # bolunmus yururluk: her bent ayri yazilir
+      $yurFinal = (($yurBentler | ForEach-Object { "$($_.kapsam): $($_.tarih)" }) -join ' · ')
+    } else {
+      $yn1 = YururlukNorm $k1.yururluk
+      $yn2 = YururlukNorm $k2.yururluk
+      $yurFinal = if($yn1 -and $yn1 -eq $yn2){ $k1.yururluk }
+                  elseif($yn1 -and -not $yn2){ $k1.yururluk }
+                  elseif($yn2 -and -not $yn1){ $k2.yururluk }
+                  else { $null }
+    }
+    # KAPI: yer tutucu cevaplar reddedilir. Istemde kural vardi (satir ~189)
+    # ama ZORLAMASI yoktu; model kurali cignedi ve hicbir sey yakalamadi.
+    # Olculdu: 6 kartta bu yer tutucu var.
+    if($yurFinal -and (NormD $yurFinal) -match 'kaynak teblig|bakin|bakiniz|ilgili madde|maddesine bak'){
+      $notlar += "Yururluk yer tutucu geldi ('$yurFinal') - REDDEDILDI, alan bos birakildi"
+      $yurFinal = $null
+    }
 
     # etki yonu: iki okuma anlasamiyorsa YORUM yayinlanmaz ("belirsiz") - yorumda tek okumaya guvenilmez
     $etkiFinal = $null
@@ -381,10 +442,29 @@ foreach($d in $dosyalar){
     $ey1 = @($k1.eski_yeni) | Where-Object { $_.eski -and (NormD $_.eski) -notmatch "belirtilmemis|belirtilmemiş|yer almiyor" }
     $ey2 = @($k2.eski_yeni) | Where-Object { $_.eski -and (NormD $_.eski) -notmatch "belirtilmemis|belirtilmemiş|yer almiyor" }
     $eskiYeniFinal = @()
+
+    # (A) DETERMINISTIK SATIRLAR — BIRINCIL KAYNAK, cift okuma kapisina TABI DEGIL.
+    # "X ibaresi Y seklinde degistirilmistir" Turk mevzuatinin standart kalibidir;
+    # duz metin eslemesiyle hatasiz cikar. Bunu iki LLM okumasinin anlasmasina
+    # baglamak 01.08 kartinda dogru cifti (31/7/2026 -> 31/1/2027) COPE ATMISTI.
+    # Model gorusu degil metnin kendisi oldugu icin uzlasma aranmaz.
+    $ibareAnahtar = @{}
+    if($yapi){
+      foreach($ib in @($yapi.ibare)){
+        $satir = [pscustomobject]@{ konu = $ib.konu; eski = $ib.eski; yeni = $ib.yeni }
+        $eskiYeniFinal += $satir
+        $ibareAnahtar[(NormD $ib.eski) + '>' + (NormD $ib.yeni)] = $true
+      }
+    }
+
+    # (B) MODELIN BULDUKLARI — yalnizca EK. Burada cift okuma sarti AYNEN durur
+    # (uydurmaya karsi kilit), ayrica deterministik listede zaten varsa tekrarlanmaz.
     foreach($r in $ey1){
       if(-not $r.konu){ continue }
       $es = $ey2 | Where-Object { (NormD $_.konu) -eq (NormD $r.konu) } | Select-Object -First 1
-      if($es -and (NormD $es.yeni) -eq (NormD $r.yeni)){ $eskiYeniFinal += $r }
+      if(-not ($es -and (NormD $es.yeni) -eq (NormD $r.yeni))){ continue }
+      if($ibareAnahtar.ContainsKey((NormD $r.eski) + '>' + (NormD $r.yeni))){ continue }
+      $eskiYeniFinal += $r
     }
     if($ey1.Count -and -not $eskiYeniFinal.Count){ $notlar += "Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi" }
 
@@ -522,7 +602,21 @@ $metin
     $final = [ordered]@{
       dosya = $d.Name; kaynak = ($tabanUrl + $d.Name)
       baslik_sade = $k1.baslik_sade; ne_oldu = $k1.ne_oldu
-      degistirilen_teblig = $k1.degistirilen_teblig
+      # 17.08: teblig KENDI numarasini soylemiyordu. 01.08 karti "2023/5'i
+      # degistirdi" diyordu ama okuyan hangi tebligi arayacagini bilmiyordu;
+      # aradigi numara 2026/11'di. Basliktan deterministik cikar.
+      teblig_no = $(if($yapi){ $yapi.teblig_no })
+      # Hangi maddeler eklendi/kaldirildi/bastan yazildi. Kart "yeni maddelerle
+      # agir yaptirimlar getirildi" gibi genel konusuyordu; oysa numaralar
+      # metinde acikca duruyor (4/A yaptirim, 6/A inceleme, 6/B usul).
+      degisen_maddeler = $(if($yapi){
+        @(
+          @($yapi.eklenen    | ForEach-Object { "$($_.madde) eklendi" }) +
+          @($yapi.kaldirilan | ForEach-Object { "$($_.madde) yürürlükten kaldırıldı" }) +
+          @($yapi.degisen    | ForEach-Object { "$($_.madde) baştan yazıldı" })
+        ) | Where-Object { $_ }
+      } else { @() })
+      degistirilen_teblig = $(if($yapi -and $yapi.degistirilen_teblig){ $yapi.degistirilen_teblig } else { $k1.degistirilen_teblig })
       onceki_belge = (OncekiBelge $k1.degistirilen_teblig ([datetime]::ParseExact($Gun,'dd-MM-yyyy',$null)))
       eski_yeni = $eskiYeniFinal
       eski_karsilastirma = $eskiKarUrl
@@ -640,9 +734,15 @@ $guncelKartlar = @(@($kartlar | ForEach-Object {
   $ey = @($_.eski_yeni) | Where-Object { $_ -and $_.eski -and $_.yeni }
   if($ey.Count){ $o["eski_yeni"] = @($ey) }
   if($_.degistirilen_teblig){ $o["degistirilen_teblig"] = $_.degistirilen_teblig }
+  # 17.08 - deterministik yapidan gelen ucu de siteye tasinir
+  if($_.teblig_no){ $o["teblig_no"] = $_.teblig_no }
+  $dm = @($_.degisen_maddeler | Where-Object { "$_".Trim() })
+  if($dm.Count){ $o["degisen_maddeler"] = $dm }
+  if("$($_.yururluk)".Trim()){ $o["yururluk"] = $_.yururluk }
   if($_.onceki_belge){ $o["onceki_belge"] = $_.onceki_belge }
   if($_.eski_karsilastirma){ $o["eski_karsilastirma"] = $_.eski_karsilastirma }
-  if($_.kesin_kiymetler -and $_.kesin_kiymetler.Count){ $o["kiymetler"] = $_.kesin_kiymetler }
+  $kymt = @(DoluKiymetler $_.kesin_kiymetler)
+  if($kymt.Count){ $o["kiymetler"] = $_.kesin_kiymetler }
   if($_.ne_yapmali){ $o["ne_yapmali"] = $_.ne_yapmali }
   $o
 } | Sort-Object -Property @{ Expression = { @($_.gtip).Count -gt 0 }; Descending = $true }))
@@ -726,9 +826,33 @@ function KartBloguHtml($liste){
   }
   [void]$s.AppendLine("<h3>$($k.baslik_sade)</h3>")
   [void]$s.AppendLine("<p><b>Ne oldu:</b> $($k.ne_oldu)</p>")
-  if($k.degistirilen_teblig){ [void]$s.AppendLine("<p><b>Neyi değiştiriyor:</b> $($k.degistirilen_teblig)</p>") }
+  # 17.08: eskiden yalnizca "Neyi degistiriyor: 2023/5" yaziyordu ve tebligin
+  # KENDI numarasi (2026/11) hicbir yerde gecmiyordu - okuyan hangi belgeyi
+  # arayacagini bilmiyordu. Ikisi birlikte yazilir.
+  if($k.degistirilen_teblig -or $k.teblig_no){
+    $nd = if($k.teblig_no -and $k.degistirilen_teblig){
+            "<b>$($k.teblig_no)</b> sayılı Tebliğ, <b>$($k.degistirilen_teblig)</b> sayılı Tebliği değiştiriyor"
+          } elseif($k.teblig_no){ "<b>$($k.teblig_no)</b> sayılı Tebliğ" }
+          else { "$($k.degistirilen_teblig) sayılı Tebliği değiştiriyor" }
+    [void]$s.AppendLine("<p><b>Hangi tebliğ:</b> $nd</p>")
+  }
+  # Hangi maddeler eklendi/kaldirildi/bastan yazildi - "yeni maddelerle" gibi
+  # genel ifadenin yerine numaralar.
+  $degMad = @($k.degisen_maddeler | Where-Object { "$_".Trim() })
+  if($degMad.Count){
+    [void]$s.AppendLine("<p><b>Neler değişti:</b></p>")
+    foreach($dm in $degMad){ [void]$s.AppendLine("<div class='kiymet'>• $dm</div>") }
+  }
   if(@($k.eski_yeni).Count){
-    $eyEtiket = if($k.eski_karsilastirma){ "($($k.eski_karsilastirma) tarihli RG'deki eski metinle karşılaştırıldı)" } else { "(tebliğ metninden, çift okumayla doğrulanmış)" }
+    # ETIKET DOGRU OLMALI: deterministik satirlar cift okumadan GECMEDI, tebligin
+    # kendi cumlesinden ("X ibaresi Y seklinde degistirilmistir") birebir alindi.
+    # Onlara "cift okumayla dogrulanmis" demek kendi arayuzumuzde yanlis beyandir.
+    $metinSatir = @($k.eski_yeni | Where-Object { $_.kaynak -eq 'metin' }).Count
+    $tumSatir   = @($k.eski_yeni | Where-Object { $_ -and $_.eski -and $_.yeni }).Count
+    $eyEtiket = if($k.eski_karsilastirma){ "($($k.eski_karsilastirma) tarihli RG'deki eski metinle karşılaştırıldı)" }
+                elseif($metinSatir -and $metinSatir -eq $tumSatir){ "(tebliğ metninden birebir alındı)" }
+                elseif($metinSatir){ "(tebliğ metninden; bir kısmı çift okumayla doğrulandı)" }
+                else { "(tebliğ metninden, çift okumayla doğrulanmış)" }
     [void]$s.AppendLine("<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>$eyEtiket</span></p>")
     foreach($ey in @($k.eski_yeni)){
       # YUZDE BURADA HESAPLANIR, MODELE SORULMAZ. Iki taraf da taninan bir
@@ -753,18 +877,32 @@ function KartBloguHtml($liste){
     [void]$s.AppendLine("<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='$($k.onceki_belge.url)' target='_blank' rel='noopener'>$($k.onceki_belge.tarih) tarihli Resmî Gazete</a> (Tebliğ $($k.onceki_belge.teblig_no))</div>")
   }
   if($k.urun_tanimi){ [void]$s.AppendLine("<p><b>Ürün:</b> $($k.urun_tanimi)</p>") }
-  if(@($k.gtip_kodlari).Count){
-    $chips = (@($k.gtip_kodlari) | ForEach-Object { "<span class='gtip'>$_</span>" }) -join ""
+  # 17.08 BOS BASLIK KUSURU: eskiden kosul "@($k.gtip_kodlari).Count" idi ve
+  # PowerShell'de @($null).Count = 1 dondurur (null'i saran @() TEK ELEMANLI
+  # dizi yapar). Kosul dogru saniliyor, dongu bir kez donuyor ve $_ null oldugu
+  # icin BOS bir cip basiliyordu:  <p><b>GTİP:</b><br><span class='gtip'></span></p>
+  # kartlar.html'de uc kartta birden vardi (GTIP'i olmayan teblig kartlari).
+  # Cem 17.08: kart yarim gorunuyor. Cozum: SAYMADAN ONCE SUZ.
+  $gtipDolu = @($k.gtip_kodlari | Where-Object { "$_".Trim() })
+  if($gtipDolu.Count){
+    $chips = ($gtipDolu | ForEach-Object { "<span class='gtip'>$_</span>" }) -join ""
     [void]$s.AppendLine("<p><b>GTİP:</b><br>$chips</p>")
   }
-  if($k.kesin_kiymetler.Count){
+  # kesin_kiymetler havuzdan hashtable OLARAK DA PSCustomObject OLARAK DA
+  # gelebiliyor (JSON'a yazilip geri okununca tur degisiyor); .Count ikisinde
+  # ayni davranmaz. Degeri DOLU alanlar sayilir - bos nesne baslik bastirmaz.
+  $kiymetCift = @(DoluKiymetler $k.kesin_kiymetler)
+  if($kiymetCift.Count){
     [void]$s.AppendLine("<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>")
-    foreach($kod in $k.kesin_kiymetler.Keys){ [void]$s.AppendLine("<div class='kiymet'>$kod → <b>$($k.kesin_kiymetler[$kod])</b></div>") }
+    foreach($c in $kiymetCift){ [void]$s.AppendLine("<div class='kiymet'>$($c.kod) → <b>$($c.deger)</b></div>") }
   }
   foreach($ky in @($k.kiyaslar)){ [void]$s.AppendLine("<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — $ky</div>") }
   [void]$s.AppendLine("<p><b>Kimi ilgilendirir:</b> $($k.kimi_ilgilendirir)</p>")
   [void]$s.AppendLine("<p><b>Ne yapmalısın:</b> $($k.ne_yapmali)</p>")
-  [void]$s.AppendLine("<p><b>Yürürlük:</b> $($k.yururluk)</p>")
+  # Yururluk BOS ise alan hic basilmaz. Eskiden bos kalinca yerine
+  # "Kaynak tebliğdeki yürürlük maddesine bakın" yaziliyordu - okuyucuyu geri
+  # gondermek, nobet tutmanin tam tersi. Bilmiyorsak susariz.
+  if("$($k.yururluk)".Trim()){ [void]$s.AppendLine("<p><b>Yürürlük:</b> $($k.yururluk)</p>") }
   if($k.etki){
     $renk = switch(($k.etki.yon -replace "İ","i").ToLowerInvariant()){
       "ithalatci aleyhine" { "var(--amber)" }
