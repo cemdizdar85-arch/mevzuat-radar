@@ -57,3 +57,7 @@ veri/bulten-gunluk-son-kosu.txt
 # gormek icin depoyu oldugu gibi servis eden kucuk bir node sunucusu.
 # Yayina hicbir etkisi yok, o yuzden depoya girmez.
 .claude/
+
+# 17.08 - onarim betiklerinin aldigi yedekler (kiymetler.json.yedek-20260817-193741
+# gibi). Yerelde kalir; depoya girerse her onarim kosusu bir kopya daha birakir.
+*.yedek-*

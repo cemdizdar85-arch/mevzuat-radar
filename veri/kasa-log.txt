@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260816020914
+Start time: 20260817020716
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/d707339a-4ea4-43b7-b766-c32d9b46e4b2.ps1'
-Process ID: 2375
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/ab4b9b14-76a6-4fa7-8476-fc222e3e6fda.ps1'
+Process ID: 2118
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -88,8 +88,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      Surdurulebilirlik                  3
 
   --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 23373
-     mevzuat disi (dil/matematik/teori)        : 7196
+     mevzuata dayanan (madde bagi kurulabilir) : 22469
+     mevzuat disi (dil/matematik/teori)        : 8100
 
   --- EN YOGUN 20 KONU (kota sisteminin girdisi)
      1389x  Hukuk|is sozlesmesi feshi
@@ -166,10 +166,10 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
 -> veri/pilot-ornek.json  (10 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
 -> veri/pilot-kuyrugu.json  (5270 kimlik, hakem -idler icin)
    KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
-     standart (STD)    : 1288
+     standart (STD)    : 1299
      hesap plani (THP) : 997
      toplam            : 5270
-     standart+THP orani: %43.4
+     standart+THP orani: %43.6
 
 -> veri/kasa-sayim.json
 -> veri/vitrin-sayilar.json  (soru 30569, hakem 7224)
@@ -177,5 +177,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260816021100
+End time: 20260817020846
 **********************
