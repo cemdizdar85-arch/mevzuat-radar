@@ -1,23 +1,39 @@
 {
-  "tarama": "16.08.2026 02:21",
-  "toplamLink": 874,
-  "kirikSayisi": 0,
-  "kirikler": [],
-  "dogrulanamayanSayisi": 3,
+  "tarama": "17.08.2026 02:22",
+  "toplamLink": 900,
+  "kirikSayisi": 2,
+  "kirikler": [
+    {
+      "url": "https://www.turkiye.gov.tr/kik-yasakli-sorgula",
+      "kod": "baglanti-yok",
+      "sayfalar": "alacak-radari.html"
+    },
+    {
+      "url": "https://www.tobb.org.tr/TurkiyeTicaretSicilGazetesi/Sayfalar/Sorgulama.php",
+      "kod": "baglanti-yok",
+      "sayfalar": "alacak-radari.html"
+    }
+  ],
+  "dogrulanamayanSayisi": 4,
   "dogrulanamayanNot": "Resmi siteler bulut robotunu engelliyor - bunlar KIRIK degil, dogrulanamayan. Supheye dusersen elle ac.",
   "dogrulanamayanlar": [
-    {
-      "url": "https://ekapv2.kik.gov.tr",
-      "kod": "bot-engeli",
-      "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
-    },
     {
       "url": "https://ekapv2.kik.gov.tr/",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     },
     {
+      "url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=6698&MevzuatTur=1&MevzuatTertip=5",
+      "kod": "bot-engeli",
+      "sayfalar": "kontrol-listesi.html"
+    },
+    {
       "url": "https://ekapv2.kik.gov.tr/ekap/search",
+      "kod": "bot-engeli",
+      "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
+    },
+    {
+      "url": "https://ekapv2.kik.gov.tr",
       "kod": "bot-engeli",
       "sayfalar": "ihale-radari.html, veri/kirik-linkler.json"
     }
