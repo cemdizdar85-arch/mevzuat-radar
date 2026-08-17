@@ -155,6 +155,25 @@ jobs:
             exit 1
           }
 
+      # 17.08 - iki dosya "ureticisi var ama cagiran yok" borcundaydi; ikisi de
+      # kart motorunun cikardigi veriden turuyor, dolayisiyla dogru yer BURASI.
+      #  - radar-kiymet.json : kiymet defterinden suzulup siteye verilen kiyas
+      #                        verisi. Defter her kart kosusunda degisiyordu ama
+      #                        site kopyasi ELLE tazeleniyordu.
+      #  - gozetim-teblig-zinciri.json : "bu tebligin bir onceki hali" linkini
+      #                        besleyen zincir. Kart motoru bunu OKUYOR, o yuzden
+      #                        kartlar uretildikten SONRA degil, veri tazelenince
+      #                        yeniden kurulur (bir sonraki kosuda kullanilir).
+      - name: Kiymet defterini siteye suz (radar-kiymet.json)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/kiymet-temizle.ps1
+
+      - name: Gozetim teblig zincirini tazele
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/rg-gozetim-cikar.ps1 -Uygula
+
       - name: Yapisal denetci (kart yayini oncesi guvenlik)
         shell: pwsh
         run: ./arac/yapisal-denetci.ps1
@@ -195,8 +214,14 @@ jobs:
           #     uretilmedigi gunlerde bile. Robot kendi sonucunu dogrulamadan
           #     zafer ilan ediyordu. Artik mesaj SAYIYOR: kac kart var, kart
           #     dosyasi degisti mi.
+          # 17.08: radar-kiymet.json ve gozetim-teblig-zinciri.json bu listeye
+          # EKLENDI. Yukarida iki yeni adim onlari uretiyor; listeye yazilmasa
+          # her kosuda uretilip her kosuda kaybolacaklardi - yukaridaki (1)
+          # numarali kusurun tam aynisi.
           for f in kartlar.html arsiv/ motor/kartlar/ motor/hafiza/ motor/arsiv/ \
                    veri/kart-durum.json veri/kartlar-guncel.json \
+                   veri/radar-kiymet.json veri/gozetim-teblig-zinciri.json \
+                   veri/rg-gozetim-haritasi.json \
                    veri/arac-uyari.json veri/arac-nobet-log.txt; do
             git add "$f" 2>/dev/null || true
           done

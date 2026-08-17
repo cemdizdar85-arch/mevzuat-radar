@@ -1,0 +1,27 @@
+{
+  "baslik": "Otomasyon borcu - sitenin okudugu ama otomatik beslenmeyen veri dosyalari",
+  "tarih": "17.08.2026",
+  "dogus": "Cem: 'sitede otomatik guncellenmeyen veri kalmasin, otomatik guncellesin her sey.' Olcum: sitenin okudugu 48 veri dosyasinin 23'u otomatik, 25'i degil.",
+  "olcum_notu": "Rakam 17.08 icinde uc kez duzeldi cunku KAPININ KENDISI kusurluydu. (1) Ilk surum 'adi gecen ilk betik'i uretici sayiyordu -> degisken izlemeye cevrildi; ihale-bulten-ilan, ihale-yurtici, smmm-analiz borctan cikti (zaten kaynak.yml/sinav-analiz.yml besliyordu). (2) Yorum satirlari CAGRI sayiliyordu: hepsini-hasat.ps1'deki 'tanim-hasat.ps1 orkestrasyona dahil DEGIL' yorumu, gtip-tanim'i otomatik gosteriyordu -> yorumlar ayiklandi. (3) Listedeki 'gtip-ulke-gruplari ELLE' kaydi YANLISTI; dosyayi vergi-hasat-ulke.ps1:97 yaziyor. Son durum: 48 = 32 otomatik + 16 borc.",
+  "kural": "Bu listedeki dosyalar arac/otomasyon-denetimi.ps1 kapisini KIRMIZI YAPMAZ - bilinen ve kayitli borctur. Kapinin isi YENI elle beslenen dosya eklenmesini engellemek. Borc kapandikca satir SILINIR.",
+  "kok_sebep": "GTIP ailesinin hasatcilari TEK SEFERLIK DONUSTURUCU idi: varsayilan kaynaklari eski bir oturumun gecici klasoru (.../45bc0a17.../scratchpad/rejim2026, igv2026, tgtc2026) ve o klasorler BOS. 17.08'de REJIM+IGV icin kaynak indiricisi kuruldu (motor/rejim-indir.ps1 + rejim.yml), 8 dosya borctan cikti. TGTC hala acik.",
+  "cozuldu_17_08": "13.08 notu ('ticaret.gov.tr'de xlsx linkleri govdede YOK') DIZIN sayfasi icin dogruydu ama ALT SAYFALAR taranmamisti. Alt sayfalarda zip duruyor: .../1-ithalat-rejimi-karari... -> 'rejim 2026.zip' (1,37 MB, 16 xlsx) ve .../2-ithalatta-ilave-gumruk-vergisi... -> 'IGV.zip' (249 KB, 2 xlsx). RG'ye gerek KALMADI. Olculen etki: taze kaynakla gtip-vergi-ulke +45 kayit (94 yeni kod / 49 giden - nomenklatur alt kirilimi), gtip-askiya 606->610, gtip-nihai 106->105. Yani site aylardir eski veriyle cevap veriyormus.",
+  "dosyalar": [
+    { "dosya": "gtip-tanim.json",          "hasatci": "tanim-hasat.ps1",         "sebep": "kaynak: TGTC (tgtc2026) - indirici yok. AYRICA tanim-hasat Excel COM istiyor, ubuntu runner'da kosmaz; once COM'suz ayristiriciya cevrilmeli" },
+    { "dosya": "gtip-kdv.json",            "hasatci": "kdv-hasat.ps1",           "sebep": "kaynak KDV oran listesi - indirici yok" },
+    { "dosya": "gtip-otv.json",            "hasatci": "otv-birlestir.ps1",       "sebep": "OTV listeleri elle birlestiriliyor" },
+    { "dosya": "gtip-ihracat-kisit.json",  "hasatci": "ihracat-kisit-hasat.ps1", "sebep": "kaynak indirilmiyor" },
+    { "dosya": "gecikme-zammi.json",       "hasatci": "gecikme-hasat.ps1",       "sebep": "gecikme zammi orani - RG karari, indirici yok. YILLIK RAKAM NOBETI kismen izliyor" },
+    { "dosya": "canli-deneme.json",        "hasatci": "canli-paketle.ps1",       "sebep": "canli deneme paketi - sinav gunune bagli, elle tetiklenmesi BILINCLI" },
+    { "dosya": "sgs-sinav-yapisi.json",    "hasatci": "ders-karnesi.ps1",        "sebep": "sinav yapisi nadiren degisir; yillik gozden gecirme yeterli" },
+    { "dosya": "vergi-sabitleri.json",     "hasatci": null, "sebep": "ELLE YAZILMIS. Yillik hadler (VUK GT) yutuldukca guncellenmeli; yillik-rakam-nobeti sinyal veriyor ama yazma elle" },
+    { "dosya": "ulke-grup.json",           "hasatci": null, "sebep": "ELLE - 10790 s. Karar ekinden GOZLE okundu (601 sayfa taranmis goruntu). Yillik tazeleme nobeti YUTMA-LISTESI'nde kayitli" },
+    { "dosya": "gtip-ekvergi.json",        "hasatci": null, "sebep": "ELLE - ek mali yukumluluk listesi" },
+    { "dosya": "tesvik-bolgeler.json",     "hasatci": null, "sebep": "ELLE - yatirim tesvik bolge tablosu; nadiren degisir" },
+    { "dosya": "cvoa-oranlar.json",        "hasatci": null, "sebep": "ELLE - CVOA 92 ulke tablosu; anlasma degisince guncellenir" },
+    { "dosya": "hatirlatici-sablonlar.json","hasatci": null, "sebep": "ELLE - urun metni, veri degil. Otomatiklesmesi ANLAMSIZ" },
+    { "dosya": "risk-merkezi.json",        "hasatci": "risk-merkezi-hasat.ps1", "sebep": "BILINCLI ELLE: hasatci yeni bulten cikinca MAIL atiyor ama dosyaya BASMIYOR - rakamlar bultende infografik, otomatik cekilse yanlis rakam riski var. Insan teyidi kasitli." },
+    { "dosya": "alacak-ilan.json",         "hasatci": null, "sebep": "VKN'li TOHUM dosya (eslestirme motorunun cekirdegi) - canli besleme ayri dosyada (alacak-ilan-canli.json, alacak-ilan-hasat.ps1 yaziyor, otomatik). Tohum elle buyur." }
+  ],
+  "sira": "1) RG'den Ithalat Rejimi eki indiricisi yazilir - BIR INDIRICI 7 DOSYAYI BIRDEN ACAR (gtip-vergi, -ulke, -tarim, askiya, balik, emy-tarim, nihai). 2) Ayni indirici IGV ve TGTC eklerine genisletilir (+2 dosya). 3) Elle yazilanlar icin yillik tazeleme nobeti + mail."
+}

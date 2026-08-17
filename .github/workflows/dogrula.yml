@@ -58,3 +58,12 @@ jobs:
       - name: "Koku olcer (YZ izi - jargon/klise kapisi, emoji/unlem raporu)"
         shell: pwsh
         run: ./arac/koku-olcer.ps1
+
+      # 17.08 - Cem: "sitede otomatik guncellenmeyen veri kalmasin."
+      # Sitenin okudugu her veri/*.json icin sorar: ureten betik var mi, onu
+      # cagiran workflow var mi. Yoksa KIRMIZI. Bilinen eksikler
+      # veri/otomasyon-borcu.json'da gerekcesiyle kayitli ve kapiyi dusurmez -
+      # kapinin isi YENI elle beslenen dosya eklenmesini engellemek.
+      - name: "Otomasyon denetimi (yeni veri dosyasi elle beslenmesin)"
+        shell: pwsh
+        run: ./arac/otomasyon-denetimi.ps1

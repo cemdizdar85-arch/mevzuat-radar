@@ -49,6 +49,20 @@ $KISALTMA = @{
 # --- ambar onbellegi: ayni madde defalarca istenirse tek sorgu
 $script:onbellek = @{}
 
+# --- CAGRI HATASI DEFTERI ---------------------------------------------------
+# "Ambarda yok" ile "soramadim" AYRI SONUCLARDIR. Ikisini ayni kovaya atmak,
+# olculmemis olana kusur demektir (bkz. olcemedigine-kusur-deme dersi).
+# Cagri hatasi ONBELLEGE YAZILMAZ: gecici bir ag/limit hatasi o maddeyi kalici
+# olarak "yok" isaretlememeli.
+$script:cagriHatalari = New-Object System.Collections.Generic.List[object]
+function MaddeCozHataYaz([string]$anahtar,[string]$mesaj){
+  $script:cagriHatalari.Add([pscustomobject]@{ anahtar=$anahtar; mesaj=$mesaj })
+}
+# Cagiran betikler bunu okuyup raporunda AYRI satir gostermeli:
+#   "ambarda bulunamadi: N"  ve  "SORULAMADI (cagri hatasi): M"
+function MaddeCozHatalari(){ return $script:cagriHatalari }
+function MaddeCozHataSayisi(){ return $script:cagriHatalari.Count }
+
 function KanunNo([string]$kaynak){
   $k = "$kaynak"
   # 28.07 DUZELTME: eski desen numaradan sonra "K." ya da "Kanun" ARIYORDU.
@@ -116,7 +130,16 @@ function MaddeMetni([string]$kanunNo, [string]$maddeNo, [string]$seri = ''){
   $desen = "$kanunNo.*[^a-zA-Z0-9]m\.$maddeNo(?![0-9])"
   try {
     $r = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString($desen) + "&order=kaynak_ad&limit=200") -Headers $H -TimeoutSec 60
-  } catch { $script:onbellek[$anahtar] = $null; return $null }
+  } catch {
+    # 17.08 SESSIZ HATA SINIFI AYRILDI. Onceden cagri hatasi ile "ambarda yok"
+    # AYNI sonuca ($null) cikiyordu; ustelik hata ONBELLEGE yaziliyordu - tek
+    # bir ag kesintisi o maddeyi tum kosu boyunca "yok" isaretliyordu ve
+    # rapor "ambarda bulunamadi" diye yalan soyluyordu.
+    # Artik: hata ONBELLEGE YAZILMAZ (sonraki denemede tekrar sorulur) ve
+    # ayri bir listede sayilir. MaddeCozHatalari ile okunur.
+    MaddeCozHataYaz $anahtar $_.Exception.Message
+    return $null
+  }
 
   # Seri ayrimi SART: "213 m.5" ile "213 gec. m.5" ve "213 ek m.5" UC AYRI
   # maddedir. Karistirmak, soruya YANLIS METNI dayanak yapmak demektir - ki bu
@@ -161,7 +184,7 @@ function StandartMetni([string]$kaynak){
   if($script:onbellek.ContainsKey($anahtar)){ return $script:onbellek[$anahtar] }
   try {
     $r = Invoke-RestMethod -Uri ("$SB_URL/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=imatch." + [uri]::EscapeDataString("$ad\s*$no(?!\d)") + "&order=kaynak_ad&limit=25") -Headers $H -TimeoutSec 60
-  } catch { $script:onbellek[$anahtar] = $null; return $null }
+  } catch { MaddeCozHataYaz $anahtar $_.Exception.Message; return $null }
   if(@($r).Count -eq 0){ $script:onbellek[$anahtar] = $null; return $null }
   $metin = (@($r | ForEach-Object { "$($_.kaynak_ad): $($_.metin)" }) -join "`n")
   $sonuc = [ordered]@{ standart="$ad $no"; parca=@($r).Count; ad=$r[0].kaynak_ad; metin=$metin }

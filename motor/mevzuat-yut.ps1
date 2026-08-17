@@ -45,6 +45,19 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   # ("MADDE 3 (g)", "MADDE 21 (f)", "MADDE 53 (j)/1") madde basligi sanildi ve
   # 7 SAHTE madde uretti. Bu yuzden parantez yalniz Degisik/Mulga/Ek/Baslik
   # kaliplariyla baslarsa kabul edilir - gercek degisiklik serhleri boyledir.
+  # --- BASLIK DOGRULAMA (bkz. asagida "17.08 BASLIK KIRPILMASI") -------------
+  # Gercek madde basligi: cumle degildir (nokta ile bitmez), bolum basligi
+  # degildir, kirik bir kelimeyle baslamaz.
+  function BaslikGecerli([string]$b){
+    $t = "$b".Trim()
+    if($t.Length -lt 3){ return $false }
+    if($t.EndsWith('.')){ return $false }                       # "Amortismana tabi tutulur."
+    if($t -match '(?i)\b(KISIM|BÖLÜM|KİTAP|FASIL|AYIRIM)\s*$'){ return $false }  # "Ü KISIM"
+    if($t -match '^\S{1,2}\s'){ return $false }                 # tek-iki harflik kirik bas
+    if($t -match '^\d'){ return $false }                        # "3 (g)" gibi atif kalintisi
+    return $true
+  }
+
   $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:–—-]?|[–—-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
@@ -70,6 +83,15 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
       continue
     }
     if($tur -match 'kerrer'){ $md = "muk. m.$no" } elseif($tur -match 'Ek Ge'){ $md = "ek gec. m.$no" } elseif($tur -match 'Ge'){ $md = "gec. m.$no" } elseif($tur -match 'Ek'){ $md = "ek m.$no" } else { $md = "m.$no" }
+    # 17.08 BASLIK KIRPILMASI. Olculen iki vaka:
+    #   VUK m.227 -> "Ü KISIM"                    (BESINCI/DORDUNCU KISIM kuyrugu)
+    #   VUK m.315 -> "Amortismana tabi tutulur."  (onceki maddenin son CUMLESI)
+    # Sebep: pre deseni maddenin onundeki metinden en fazla 70 karakter geri
+    # gidiyor; baslik yoksa oradaki metnin KUYRUGUNU baslik saniyor.
+    # Cozum: yakalanan basligi DOGRULA. Gecmezse baslik hic yazilmaz - kayit
+    # "VUK m.315" olur. Yanlis baslik, baslik yoklugundan KOTUDUR: arama ve
+    # hakem o basliga bakip maddeyi yanlis taniyor.
+    if($pre -and -not (BaslikGecerli $pre)){ $pre = '' }
     $ad = if($pre){ "$kanunAd $md - $pre" } else { "$kanunAd $md" }
 
     # 27.07.2026 DUZELTME — 1800 KESIGI:

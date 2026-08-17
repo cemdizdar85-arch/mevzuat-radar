@@ -166,8 +166,15 @@ if(-not $uygula){
 }
 
 # --- UYGULA + GERI OKU + KARSILASTIR
-$parti = @($degisecek)
-if($sinir -gt 0){ $parti = @($degisecek | Select-Object -First $sinir) }
+# 17.08 KUSUR: burasi "$parti = @($degisecek)" idi ve PS 5.1'de
+# "Bagimsiz degisken turleri eslesmiyor" diye PATLIYORDU - $degisecek bir
+# Generic.List[object] ve @() onu ceviremiyor. Olcum yolu ayni listeyi BORU
+# HATTIYLA (@($degisecek | Select-Object ...)) kullandigi icin calisiyordu;
+# yani kusur YALNIZ yazma yolundaydi ve olcum kosulari bunu hic gostermedi.
+# 30 satirlik deneme tam da bunu yakaladi - kasaya tek satir yazilmadan.
+# Dogru alet: .ToArray()
+$parti = $degisecek.ToArray()
+if($sinir -gt 0 -and $sinir -lt $parti.Count){ $parti = $parti[0..($sinir-1)] }
 Write-Host ("YAZILIYOR: {0} satir" -f $parti.Count)
 $yazildi = 0; $yazmaHatasi = 0; $hatalar = @()
 foreach($d in $parti){

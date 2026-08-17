@@ -1,0 +1,64 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/rejim.yml
+#
+# ITHALAT REJIMI / IGV NOBETI — GTIP vergi verisi KENDI KENDINE tazelenir.
+#
+# NEDEN BU DOSYA VAR (17.08.2026):
+# veri/arac-dayanak.json 29.07'de sunu yazmisti: "bu dosyalarin HICBIRI otomatik
+# bir kaynaktan beslenmiyor... Ithalat Rejimi Karari bir Cumhurbaskani Karariyla
+# degistiginde GTIP verimiz SESSIZCE eskiyor ve kimse haberdar olmuyor."
+# Bugun olculdu ve DOGRU CIKTI: taze kaynakla hasat edilince
+#   gtip-vergi-ulke +45 kayit · gtip-askiya 606->610 · gtip-nihai 106->105
+# Yani site aylardir eski veriyle cevap veriyordu.
+#
+# Eksik olan hasatci DEGILDI (7 hasatci zaten yazili ve calisiyor) - eksik olan
+# KAYNAK INDIRICISIYDI. motor/rejim-indir.ps1 o halkayi kapatti.
+#
+# GUVENLIK (kor kalma kurali):
+#   - CDN link kimligi SABIT YAZILMAZ; dizin -> alt sayfa -> zip zinciri her
+#     kosuda yeniden cozulur (Bakanlik dosyayi yeniden yukleyince id degisir).
+#   - Link yok / zip bozuk / icinde xlsx yok -> MAIL + kirmizi, sessiz gecis YOK.
+#   - sha256 damgasi ayni ise hasat KOSMAZ (bosuna commit yok).
+#   - Damga YALNIZ hasat basarili olursa yazilir; basarisiz kosu kaynagi
+#     "islenmis" saymaz, ertesi gun yeniden dener.
+#
+# PARA HARCAMAZ: yalniz ticaret.gov.tr'den sayfa + zip indirir.
+name: Ithalat Rejimi Nobeti
+
+on:
+  schedule:
+    # 07:40 TR - yan veri nobetinden sonra, gunun geri kalanini bosaltmadan.
+    # Rejim Karari sik degismez; gunluk kontrol ucuz (sha ayniysa hicbir sey olmaz).
+    - cron: "40 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rejim:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Kaynagi indir ve degistiyse hasat et
+        shell: pwsh
+        run: ./motor/rejim-indir.ps1 -Uygula
+
+      - name: Degisiklik varsa yayinla
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          for f in veri/gtip-vergi.json veri/gtip-vergi-ulke.json veri/gtip-vergi-tarim.json \
+                   veri/gtip-emy-tarim.json veri/gtip-balik.json veri/gtip-askiya.json \
+                   veri/gtip-nihai.json veri/gtip-igv-ulke.json veri/rejim-kaynak-damga.json; do
+            git add "$f" 2>/dev/null || true
+          done
+          if git diff --cached --quiet; then
+            echo "Degisiklik yok - kaynak tazeydi, commit atilmadi."
+            exit 0
+          fi
+          git commit -m "Ithalat Rejimi nobeti: GTIP vergi verisi kaynaktan tazelendi [veri-operasyonu]"
+          git pull --rebase || true
+          git push

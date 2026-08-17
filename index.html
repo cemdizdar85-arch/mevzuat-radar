@@ -858,6 +858,17 @@ function gtipGit(e){
 .rgk h4{margin:5px 0 4px;font-size:15px;letter-spacing:-.2px}
 .rgk p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
 .rgk .meta{margin-top:9px;font-size:10.5px;color:var(--dim)}
+/* ESKI -> YENI SERIDI: kartin "ne degisti"yi tek bakista soyleyen satiri.
+   17.08'e kadar bu veri uretiliyor ama besleme dosyasina yazilmiyordu. */
+.rgk .ey{margin-top:9px;border-top:1px dashed var(--line);padding-top:8px;display:grid;gap:5px}
+.rgk .ey-satir{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.45}
+.rgk .ey-k{display:block;font-size:10px;color:var(--dim);letter-spacing:.3px}
+.rgk .ey-satir s{color:var(--dim);text-decoration-color:rgba(255,255,255,.28)}
+.rgk .ey-satir b{color:var(--ink)}
+.rgk .ey-satir b.up{color:var(--red)}
+.rgk .ey-satir b.down{color:var(--green)}
+.rgk .ey-onceki{font-size:11px;color:var(--dim);line-height:1.5}
+.rgk .ey-onceki a{color:var(--accent2);text-decoration:none;border-bottom:1px dotted rgba(255,194,75,.4)}
 @media(max-width:820px){ #rgKartlar{grid-template-columns:1fr !important} }
 </style>
 <script>
@@ -925,12 +936,58 @@ function gtipGit(e){
       var k = (d && d.kartlar) ? d.kartlar : [];
       if(!k.length){ kacir('Bugün seni ilgilendiren bir değişiklik çıkmadı.'); return; }
       var renk = ['red','green'];
+      // 17.08 - Cem: "eski hali kanun buymus yeni hali bu oldu gibi guzel bir
+      // aciklama yapmamiz lazim." Kart motoru eski/yeni ciftlerini kaynaktan
+      // cikariyor; burasi onu gosterir.
+      // YUZDE KURALI: oran BURADA hesaplanir, modele SORULMAZ. Iki taraf da
+      // sayiya cevrilemiyorsa yuzde YAZILMAZ - metin degisikligi (ibare
+      // degisimi) oldugu gibi gosterilir. Uydurma sayi yok.
+      // BIRIM SARTI: cipilak sayi yeterli DEGIL. Arsiv olcumunde bu kural
+      // olmadan "(II/C/6.3.) -> (II/C/7.3)" bolum referansindan "%16 artis"
+      // hesaplanmisti - tam da uydurma sayi. Artik sayi ancak TANINAN BIR
+      // BIRIMLE birlikte geliyorsa nicelik sayilir; parantezli/referansli
+      // ifadeler elenir ve o satirda yuzde YAZILMAZ (metin yine gosterilir).
+      var BIRIM = /(-?\d{1,3}(?:\.\d{3})*(?:,\d+)?|-?\d+(?:,\d+)?)\s*(%|ABD|USD|Dolar|Avro|Euro|EUR|TL|kg|Kg|KG|ton|adet)\b/;
+      function sayi(s){
+        var t = String(s||'');
+        if(t.indexOf('(') >= 0 || t.indexOf(')') >= 0) return null;   // (II/C/6.3) gibi atiflar
+        var m = t.match(BIRIM);
+        if(!m) return null;
+        var v = parseFloat(m[1].replace(/\./g,'').replace(',', '.')); // 1.250,75 -> 1250.75
+        return isFinite(v) ? v : null;
+      }
+      // Iki taraf ayni birimde mi? "5 ABD Dolari/Kg" -> "5 TL" karsilastirmasi
+      // anlamsizdir; birim degisiyorsa yuzde yazilmaz.
+      function birim(s){
+        var m = String(s||'').match(BIRIM);
+        return m ? m[2].toLowerCase() : null;
+      }
+      function seritHtml(x){
+        var ey = (x.eski_yeni||[]).filter(function(r){ return r && r.eski && r.yeni; });
+        // Eski deger metinde yoksa UYDURMUYORUZ - onceki resmi belgenin
+        // LINKINI veriyoruz. "Eski: belirtilmemis" yazmak kural ihlali.
+        var onc = x.onceki_belge;
+        var oncHtml = onc ? ('<div class="ey-onceki">Bu tebliğin bir önceki hâli: '
+              + '<a href="'+ onc.url +'" target="_blank" rel="noopener">'+ onc.tarih +' tarihli Resmî Gazete</a>'
+              + ' <span class="ey-k">(Tebliğ '+ onc.teblig_no +')</span></div>') : '';
+        if(!ey.length) return oncHtml ? '<div class="ey">'+oncHtml+'</div>' : '';
+        return '<div class="ey">' + oncHtml + ey.slice(0,3).map(function(r){
+          var a = sayi(r.eski), b = sayi(r.yeni), yuzde = '';
+          if(a !== null && b !== null && a !== 0 && birim(r.eski) === birim(r.yeni)){
+            var o = Math.round((b - a) / Math.abs(a) * 100);
+            if(o !== 0) yuzde = ' <b class="'+(o>0?'up':'down')+'">'+(o>0?'▲':'▼')+'%'+Math.abs(o)+'</b>';
+          }
+          return '<div class="ey-satir"><span class="ey-k">'+ (r.konu||'') +'</span>'
+               + '<s>'+ r.eski +'</s> → <b>'+ r.yeni +'</b>'+ yuzde +'</div>';
+        }).join('') + '</div>';
+      }
       kutu.innerHTML = k.slice(0,2).map(function(x,i){
         var gtip = (x.gtip && x.gtip.length) ? (x.gtip.length + ' GTİP kodunu ilgilendiriyor') : 'Resmî Gazete';
         return '<div class="rgk '+renk[i]+'">'
              + '<div class="tag">■ RESMÎ GAZETE</div>'
              + '<h4>'+ (x.baslik||'') +'</h4>'
              + '<p>'+ String(x.ne_oldu||'').slice(0,150) +'…</p>'
+             + seritHtml(x)
              + '<div class="meta">'+ gtip +'</div></div>';
       }).join('');
       // 29.07: TARIHI SOYLEMEK YETMIYOR, ESKIYSE ESKI DEMEK LAZIM.

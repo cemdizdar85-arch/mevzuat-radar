@@ -376,6 +376,29 @@ try {
   }
 } catch { $uyarilar.Add("DAMGA SOZLUGU kapisi kosamadi: " + $_.Exception.Message) }
 
+# --- VITRIN TAVANI (17.08) --------------------------------------------------
+# veri/soru-bankasi.json PUBLIC depoda duran ucretli soru ornegidir. 150 adet
+# Cem'in 31.07 onayiyla BILINCLI ifsadir (kontrollu reklam stoku); tavani
+# vitrin-sec.ps1 kendi icinde koruyor.
+# KUSUR: tavani YALNIZ o betik koruyordu. diff-bekcisi sadece AZALMAYI
+# frenliyor (silme freni), artisi gormuyor. Yani baska bir yolla dosyaya 500
+# soru yazilsa hicbir kapi yakalamayacakti - "duvar kur kimse goremesin"
+# kuralinin tam da delinme sekli.
+# Artik tavan her push'ta burada da olculur.
+try {
+  $vitrinYol = Join-Path $kok 'veri/soru-bankasi.json'
+  if(Test-Path $vitrinYol){
+    $VITRIN_TAVAN = 150
+    $vj = Get-Content $vitrinYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $vn = @($vj.sorular).Count
+    if($vn -gt $VITRIN_TAVAN){
+      Hata ("VITRIN TAVANI: veri/soru-bankasi.json {0} soru tasiyor, tavan {1}. Ucretli icerik PUBLIC depoya sizmis - vitrin-sec.ps1 disinda bir sey yazmis olabilir." -f $vn, $VITRIN_TAVAN)
+    } else {
+      Write-Host ("   Vitrin tavani: {0}/{1} soru - temiz." -f $vn, $VITRIN_TAVAN) -ForegroundColor DarkGray
+    }
+  }
+} catch { $uyarilar.Add("VITRIN TAVANI kapisi kosamadi: " + $_.Exception.Message) }
+
 ""
 if($uyarilar.Count -gt 0){
   Write-Host "UYARILAR ($($uyarilar.Count)):" -ForegroundColor Yellow

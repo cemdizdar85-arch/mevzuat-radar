@@ -62,11 +62,23 @@ function Claude($istem,$maxtok,$model){
 # 23.07 MALIYET SIGORTASI: uretim isteminin SABIT kurallar blogu prompt-onbellegine
 # alinir (cache_control) — kosu icinde 15 konu ayni kurallari tasidigi icin tekrarlarin
 # girdi maliyeti ~%90 duser. Degisken kisim (ders/konu/mevcut acilar) ayri blok.
+# 17.08 ONBELLEK OLCUMU EKLENDI. Buraya kadar cache_control KONULUYORDU ama
+# calisip calismadigi hic olculmuyordu (yardimci yalniz .metin donduruyordu).
+# Onemli: minimum onbelleklenebilir on ek MODELE GORE degisir -
+#   Sonnet 5 / Sonnet 4.5 : 1.024 jeton   |   Haiku 4.5 : 4.096 jeton
+# Bu betigin sabit kurallar blogu ~3.200 karakter (~1.100-1.600 jeton): Sonnet
+# yolunda onbellege girer, HAIKU yolunda esigin ALTINDA kalir ve sessizce hic
+# onbelleklenmez. Kosu sonundaki satir hangisinin gerceklestigini soyler.
+$script:onbYaz = 0
+$script:onbOku = 0
 function ClaudeOnbellekli($sabit,$degisken,$maxtok,$model){
   # Onbellek yalniz Anthropic hattinda gecerli; yedek hatta bir kez uyari verilir
-  return (Invoke-ClaudeMesaj -Model $model -MaxTok $maxtok -Icerik @(
+  $r = Invoke-ClaudeMesaj -Model $model -MaxTok $maxtok -Icerik @(
     @{ type="text"; text=$sabit; cache_control=@{ type="ephemeral" } },
-    @{ type="text"; text=$degisken })).metin
+    @{ type="text"; text=$degisken })
+  $script:onbYaz += [int]$r.onbellekYazma
+  $script:onbOku += [int]$r.onbellekOkuma
+  return $r.metin
 }
 function JsonBul($t){ $m=[regex]::Match($t,'(?s)\[.*\]'); if($m.Success){ return $m.Value }; $m2=[regex]::Match($t,'(?s)\{.*\}'); if($m2.Success){ return $m2.Value }; return $null }
 function Fold($s){ return ("$s".ToLowerInvariant().Trim() -replace 'ç','c' -replace 'ğ','g' -replace 'ı','i' -replace 'ö','o' -replace 'ş','s' -replace 'ü','u' -replace '\s+',' ') }
@@ -353,4 +365,15 @@ $cikti = [ordered]@{
 [IO.File]::WriteAllText($ciktiYol, ($cikti | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 Write-Host "--- RAPOR ---"; $rapor | ForEach-Object { Write-Host "  $_" }
 Write-Host ("KOSU URUNU: {0} yeni soru -> {1}" -f $yeniListe.Count, (Split-Path $ciktiYol -Leaf))
+# ONBELLEK DOGRULAMASI (17.08): okunan > 0 ise onbellek gercekten tuttu.
+# Sifir kalirsa iki sebep olabilir: (1) sabit blok modelin minimum esiginin
+# altinda (Haiku 4.5'te 4.096 jeton), (2) kosu yedek hatta (OpenRouter) dustu -
+# orada prompt onbellegi yok. Ikisi de sessizdir, o yuzden bu satir yaziliyor.
+if($script:onbOku -gt 0){
+  Write-Host ("ONBELLEK: yazilan {0} | OKUNAN {1} jeton - CALISIYOR (okunan jeton taban girdi fiyatinin %10'u)" -f $script:onbYaz, $script:onbOku) -ForegroundColor Green
+} elseif($script:onbYaz -gt 0){
+  Write-Host ("ONBELLEK: {0} jeton YAZILDI ama hic OKUNMADI - tek cagrilik kosuda normaldir; tekrarli kosuda kusurdur." -f $script:onbYaz) -ForegroundColor Yellow
+} else {
+  Write-Host "ONBELLEK: 0 - ISABET YOK. Sabit blok modelin esiginin altinda olabilir (Haiku 4.5: 4.096 jeton) ya da kosu yedek hatta dustu." -ForegroundColor Yellow
+}
 exit 0

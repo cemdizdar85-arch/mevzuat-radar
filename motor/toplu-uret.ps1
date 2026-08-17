@@ -288,12 +288,31 @@ $mevcutKokler = @($tumSorular | ForEach-Object { KokAnahtar $_ })
 $yeniListe = New-Object System.Collections.Generic.List[object]
 $rapor = New-Object System.Collections.Generic.List[string]
 $islenen = 0
+# Onbellek/token sayaclari (17.08) - dongude batch sonuclarindan toplanir,
+# kosu sonunda raporlanir. Acik ilkleme: PowerShell $null + int'i tolere eder
+# ama sayacin varligini okuyana belli etmek gerekir.
+$script:onbYaz = 0
+$script:onbOku = 0
+$script:hamGirdi = 0
+$script:hamCikti = 0
 foreach($satir in $satirlar){
   $sonuc = $null
   try { $sonuc = $satir | ConvertFrom-Json } catch { continue }
   $cid = $sonuc.custom_id
   $meta = $metaMap[$cid]; if(-not $meta){ continue }
   if($sonuc.result.type -ne 'succeeded'){ $rapor.Add("BATCH HATA ($cid $($meta.konu)): $($sonuc.result.type)"); continue }
+  # 17.08 ONBELLEK OLCUMU. Her batch istegi ayni $sabitIstem blogunu cache_control
+  # ile tasiyor ama bugune kadar tuttugu HIC OLCULMEDI - sonuctaki usage okunmuyordu.
+  # Batch'te de ayni kural: minimum onbelleklenebilir on ek MODELE GORE degisir
+  # (Sonnet 4.5/5: 1.024 jeton, Haiku 4.5: 4.096). Sabit blok ~3.400 karakter
+  # (~1.150-1.700 jeton) -> Sonnet yolunda girer, Haiku yolunda GIRMEZ.
+  $u = $sonuc.result.message.usage
+  if($u){
+    try { $script:onbYaz += [int]"$($u.cache_creation_input_tokens)" } catch {}
+    try { $script:onbOku += [int]"$($u.cache_read_input_tokens)" } catch {}
+    try { $script:hamGirdi += [int]"$($u.input_tokens)" } catch {}
+    try { $script:hamCikti += [int]"$($u.output_tokens)" } catch {}
+  }
   $ham = (@($sonuc.result.message.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join ""
   $islenen++
   $uretilen = @()
@@ -349,4 +368,19 @@ $cikti = [ordered]@{
 }
 [IO.File]::WriteAllText($ciktiYol, ($cikti | ConvertTo-Json -Depth 8), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("TOPLU URETIM BITTI: {0} gorev -> {1} soru 5 kapidan GECTI -> {2}" -f $gorevler.Count, $yeniListe.Count, (Split-Path $ciktiYol -Leaf))
+# ONBELLEK + MALIYET (17.08). Batch fiyati zaten taban fiyatin %50'si; onbellekten
+# OKUNAN jeton bunun da %10'una duser, YAZILAN %125'ine. Ucu ayri fiyatlanir,
+# yoksa rapor maliyeti fazla gosterir.
+$tamGirdi = $script:hamGirdi
+if($tamGirdi -lt 0){ $tamGirdi = 0 }
+Write-Host ("TOKEN: ham girdi {0} | onbellege yazilan {1} | onbellekten OKUNAN {2} | cikti {3}" -f $tamGirdi, $script:onbYaz, $script:onbOku, $script:hamCikti)
+if($script:onbOku -gt 0){
+  $pay = $tamGirdi + $script:onbYaz + $script:onbOku
+  $oran = if($pay -gt 0){ [math]::Round(100.0*$script:onbOku/$pay,1) } else { 0 }
+  Write-Host ("ONBELLEK CALISIYOR: girdinin %{0}'i onbellekten okundu (taban fiyatin %10'u)" -f $oran) -ForegroundColor Green
+} elseif($script:onbYaz -gt 0){
+  Write-Host "ONBELLEK: yazildi ama OKUNMADI - tek gorevlik kosuda normal, cok gorevli kosuda KUSUR." -ForegroundColor Yellow
+} else {
+  Write-Host "ONBELLEK: 0 - ISABET YOK. Sabit blok modelin minimum esiginin altinda olabilir (Sonnet 1.024 / Haiku 4.096 jeton)." -ForegroundColor Yellow
+}
 exit 0

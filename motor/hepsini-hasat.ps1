@@ -17,6 +17,11 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # her harvest: ad + betik + parametreler
 $isler = @(
+  # 17.08: vergi-hasat.ps1 BU LISTEDE YOKTU. Otomasyon denetimi yakaladi -
+  # veri/gtip-vergi.json (13.404 kod, sitenin en cok okudugu GTIP dosyasi)
+  # hicbir orkestrasyona bagli degildi. Kaynak indiricisi kurulunca ortaya
+  # cikti: dosya "degismedi" degil, HIC YENIDEN URETILMIYORDU.
+  @{ ad="Gümrük Vergisi + İGV (birleşik)"; b="vergi-hasat.ps1";    p=@{ RejimKlasor=$RejimKlasor; IgvKlasor=$IgvKlasor } },
   @{ ad="Gümrük Vergisi (sanayi, ülke)"; b="vergi-hasat-ulke.ps1"; p=@{ RejimKlasor=$RejimKlasor } },
   @{ ad="İGV (sanayi, ülke)";            b="igv-hasat-ulke.ps1";   p=@{ IgvKlasor=$IgvKlasor } },
   @{ ad="Gümrük Vergisi (tarım)";        b="tarim-hasat.ps1";      p=@{ RejimKlasor=$RejimKlasor } },
@@ -47,3 +52,8 @@ foreach($is in $isler){
 "  basarili: $basari | hatali: $hata"
 $ozet | ForEach-Object { "  $_" }
 if($hata -gt 0){ exit 1 }
+# 17.08: ACIK exit 0 SART. Bu satir olmadan betik "duserek" bitiyor ve
+# $LASTEXITCODE icerideki son komuttan MIRAS kaliyor - cagiran taraf 7/7
+# basarili hasadi HATA sanmisti (rejim-indir.ps1 ilk kosusu). Ayni tuzak
+# kart-toplu.ps1'de de yasanmisti.
+exit 0

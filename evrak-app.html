@@ -103,7 +103,10 @@ function girisEkrani(){
     <div style="display:flex;gap:8px"><button class="btn" id="girisBtn">Giriş yap</button><button class="btn k" id="kayitBtn">Kayıt ol</button></div>
     <div class="hata" id="ahata"></div>
   </div>
-  <div class="uyari">İlk kez mi? "Kayıt ol"a bas. E-posta onayı açıksa gelen linke tıkla, sonra giriş yap. (Test için Supabase → Authentication → Email → "Confirm email" kapatılabilir.)</div>`;
+  <!-- 17.08: buradaki "(Test için Supabase → Authentication → Email → Confirm email
+       kapatılabilir.)" cümlesi MÜŞTERİYE görünüyordu. Kendi kurulum notumuzu
+       ürünün giriş ekranında bırakmışız; kaldırıldı. -->
+  <div class="uyari">İlk kez mi? "Kayıt ol"a bas. E-postana gelen onay linkine tıkla, sonra giriş yap.</div>`;
   $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=error.message; };
   $('#kayitBtn').onclick=async()=>{ const {data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value}); if(error){$('#ahata').textContent=error.message;return;} if(!data.session)$('#ahata').textContent='Kayıt alındı, e-postana gelen onay linkine tıkla, sonra giriş yap.'; };
 }

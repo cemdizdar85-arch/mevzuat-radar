@@ -275,13 +275,36 @@ async function pano(f){
     ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
     : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok, robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
 
+  // ESKI -> YENI SERIDI (17.08). Firma kendi GTIP'ine dokunan degisiklikte
+  // "eskiden neydi"yi burada gorur. Yuzde BURADA hesaplanir, modele sorulmaz;
+  // sayinin yaninda TANINAN BIR BIRIM yoksa yuzde yazilmaz - "(II/C/6.3.)"
+  // gibi bolum atiflarindan sahte artis uretilmesin diye. Eski deger hic
+  // yoksa uydurulmaz, onceki resmi belgenin linki verilir.
+  const _BIRIM=/(-?\d{1,3}(?:\.\d{3})*(?:,\d+)?|-?\d+(?:,\d+)?)\s*(%|ABD|USD|Dolar|Avro|Euro|EUR|TL|kg|Kg|KG|ton|adet)\b/;
+  const _sayi=s=>{const t=String(s||'');if(t.indexOf('(')>=0||t.indexOf(')')>=0)return null;const m=t.match(_BIRIM);if(!m)return null;const v=parseFloat(m[1].replace(/\./g,'').replace(',','.'));return isFinite(v)?v:null;};
+  const _birim=s=>{const m=String(s||'').match(_BIRIM);return m?m[2].toLowerCase():null;};
+  function degisimSerit(k){
+    const ey=(k.eski_yeni||[]).filter(r=>r&&r.eski&&r.yeni);
+    const onc=k.onceki_belge;
+    const oncH=onc?`<p style="font-size:11.5px;opacity:.75">Bu tebliğin bir önceki hâli: <a href="${esc(onc.url)}" target="_blank" rel="noopener">${esc(onc.tarih)} tarihli RG</a> (Tebliğ ${esc(onc.teblig_no)})</p>`:'';
+    if(!ey.length) return oncH;
+    return oncH+ey.slice(0,3).map(r=>{
+      const a=_sayi(r.eski), b=_sayi(r.yeni); let o='';
+      if(a!==null&&b!==null&&a!==0&&_birim(r.eski)===_birim(r.yeni)){
+        const p=Math.round((b-a)/Math.abs(a)*100);
+        if(p!==0) o=` <b style="color:${p>0?'var(--red)':'var(--green)'}">${p>0?'▲':'▼'}%${Math.abs(p)}</b>`;
+      }
+      return `<p style="font-size:12px;font-variant-numeric:tabular-nums"><span style="opacity:.6">${esc(r.konu||'')}</span><br><s style="opacity:.55">${esc(r.eski)}</s> → <b>${esc(r.yeni)}</b>${o}</p>`;
+    }).join('');
+  }
+
   // canlı RG kartı ↔ GTİP eşleşmesi
   if(!KARTLAR){ try{ KARTLAR=await (await fetch('veri/kartlar-guncel.json?cb='+Date.now())).json(); }catch(e){ KARTLAR={kartlar:[]}; } }
   const fgtip=f.gtip_kodlari||[];
   const kartEslesen=(KARTLAR.kartlar||[]).filter(k=> fgtip.some(fk=> (k.gtip||[]).some(kk=> gtipEslesir(fk,kk)) )).slice(0,5);
   const yon=v=>({'ithalatci aleyhine':['var(--red)','⚠ aleyhine'],'ithalatci lehine':['var(--green)','✓ lehine'],'karisik':['var(--amber)','~ karışık']})[(v||'').replace(/İ/g,'i').toLowerCase()]||['var(--dim)',''];
   const kartHtml = kartEslesen.length
-    ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p></div>`;}).join('')
+    ? kartEslesen.map(k=>{const y=yon(k.etki);return `<div class="radar-kart eslesme"><h4>${esc(k.baslik)}</h4><p>${esc(k.ne_oldu||'').slice(0,150)} ${k.etki?`<b style="color:${y[0]}">${y[1]}</b>`:''} · <a href="${esc(k.url)}" target="_blank" rel="noopener">tebliğ →</a></p>${degisimSerit(k)}</div>`;}).join('')
     : `<div class="radar-kart"><p>${fgtip.length?('GTİP kodlarına ('+fgtip.slice(0,3).join(', ')+'…) bugün dokunan değişiklik yok, robot her sabah tarar.'):'GTİP kodlarını gir, seni ilgilendiren mevzuat değişikliklerini burada gör.'}</p></div>`;
 
   // robotun yazdığı uyarılar

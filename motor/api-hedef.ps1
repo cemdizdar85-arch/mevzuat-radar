@@ -218,7 +218,22 @@ function Invoke-AnthropicAnlik([string]$model,[array]$icerik,[int]$maxTok,$hedef
   # content[0] her zaman metin DEGILDIR (dusunme blogu one gelebilir) -> tum metin bloklarini birlestir
   $metin = (@($r.content) | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join ''
   # dur = bitis sebebi; 'max_tokens' ise cevap KESILMISTIR (onarim-motoru bunu okur)
-  return @{ metin=$metin.Trim(); girdi=[int]"$($r.usage.input_tokens)"; cikti=[int]"$($r.usage.output_tokens)"; kaynak=$hedef.ad; dur="$($r.stop_reason)" }
+  # 17.08 ONBELLEK MUHASEBESI. Anthropic'te input_tokens YALNIZ son onbellek
+  # sinirindan SONRAKI jetonlari sayar; gercek toplam sudur:
+  #     toplam = cache_read + cache_creation + input_tokens
+  # Bu alanlar dondurulmezse cache_control ekleyen her betik girdiyi EKSIK
+  # raporlar (maliyet olcumu sessizce yanlis cikar) ve onbellegin calisip
+  # calismadigi DOGRULANAMAZ. Dokumanin kendi kontrolu: onbellek isabet
+  # ediyorsa onbellekOkuma > 0 olur.
+  # 'girdi' ANLAMI KORUNUR (ham input_tokens) - eski cagiranlar bozulmasin;
+  # gercek toplam icin 'girdiToplam' kullanilir.
+  $oYaz = 0; $oOku = 0
+  try { $oYaz = [int]"$($r.usage.cache_creation_input_tokens)" } catch {}
+  try { $oOku = [int]"$($r.usage.cache_read_input_tokens)" } catch {}
+  $ham = 0; try { $ham = [int]"$($r.usage.input_tokens)" } catch {}
+  return @{ metin=$metin.Trim(); girdi=$ham; cikti=[int]"$($r.usage.output_tokens)";
+            onbellekYazma=$oYaz; onbellekOkuma=$oOku; girdiToplam=($ham + $oYaz + $oOku)
+            kaynak=$hedef.ad; dur="$($r.stop_reason)" }
 }
 
 function Invoke-OpenRouterAnlik([string]$model,[array]$icerik,[int]$maxTok){
@@ -243,7 +258,12 @@ function Invoke-OpenRouterAnlik([string]$model,[array]$icerik,[int]$maxTok){
   # OpenAI bicimi finish_reason='length' der; Anthropic karsiligi 'max_tokens' (kesildi)
   $dur = "$($r.choices[0].finish_reason)"
   if($dur -eq 'length'){ $dur = 'max_tokens' } elseif($dur -eq 'stop'){ $dur = 'end_turn' }
-  return @{ metin=("$c").Trim(); girdi=[int]"$($r.usage.prompt_tokens)"; cikti=[int]"$($r.usage.completion_tokens)"; kaynak='openrouter'; dur=$dur }
+  # Yedek hatta prompt onbellegi TASINMADIGI icin onbellek alanlari daima 0'dir
+  # ve prompt_tokens ZATEN tam girdiyi sayar - girdiToplam = girdi.
+  $hamO = 0; try { $hamO = [int]"$($r.usage.prompt_tokens)" } catch {}
+  return @{ metin=("$c").Trim(); girdi=$hamO; cikti=[int]"$($r.usage.completion_tokens)";
+            onbellekYazma=0; onbellekOkuma=0; girdiToplam=$hamO
+            kaynak='openrouter'; dur=$dur }
 }
 
 # limit/kota hatasi mi? (429/402 ya da fatura/limit iceren govde) -> yedege gec

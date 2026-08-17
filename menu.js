@@ -108,10 +108,15 @@ var GRUPLAR=[
   ["marka-radari.html","™️","Marka Radarı","Yenileme + benzer başvuru uyarısı"],
   ["marka-portfoy.html","📋","Marka Portföy Panosu","Tüm markaların, tüm tarihler tek ekranda"],
   ["marka-izleme.html","📡","Marka İzleme Radarı","Markana benzer YENİ başvuru düştü mü"],
-  ["marka-itiraz.html","🔍","Marka İtiraz & Benzerlik","İtiraz süren dolmadan gör"]]},
+  ["marka-itiraz.html","🔍","Marka İtiraz & Benzerlik","İtiraz süren dolmadan gör"],
+  // 17.08: marka-app.html BITMIS ve CALISAN bir uygulamaydi ama SITEDE HICBIR
+  // YERDEN ERISILEMIYORDU - ne menude ne bir sayfada linki vardi. Tarama
+  // yakaladi. Ayni durum evrak-app.html'de de vardi (asagida).
+  ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]},
  {ad:"🧮 Muhasebe Bürosu (SMMM)", araclar:[
   ["fis-fabrikasi.html","🏭","Fiş Fabrikası","Banka ekstresi → programına hazır fiş"],
   ["evrak-radari.html","📁","Evrak Radarı","Mükelleften evrak kovalamayı bitir"],
+  ["evrak-app.html","🔐","Evrak Radarı — hesabım","Liste oluştur, mükellefe link at, cevapları gör"],
   ["belge-kasasi.html","🗄️","Belge Kasası","Belgeler tek yerde, süreleri takipte"],
   ["hatirlatici.html","⏰","Süre Hatırlatıcı","DİİB · KDV · SGK kritik tarihleri"]]}
 ];

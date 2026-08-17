@@ -108,6 +108,36 @@ function YururlukNorm([string]$s){
   return $t
 }
 
+# ---- DEFTER KAPISI: anahtar ve deger bicim denetimi ------------------------
+# Ayni kural arac/kiymet-defteri-onar.ps1 ve index.html'de de gecerli - defter,
+# onarici ve ekran AYNI olcute bakmali, yoksa biri "gecerli" digeri "cop" der.
+$KIYMET_BIRIM = '(?<s>-?\d{1,3}(?:\.\d{3})*(?:,\d+)?|-?\d+(?:,\d+)?)\s*(?<b>%|ABD|USD|Dolar|Avro|Euro|EUR|TL|[kK][gG]|ton|adet)'
+function KiymetKodGecerli([string]$kod){
+  # GTIP: 4 haneli fasil + en fazla 4 nokta grubu (0713.20 · 3009.40.00.00.12)
+  return ("$kod".Trim() -match '^\d{4}(\.\d{2}){0,4}$')
+}
+function KiymetSayi([string]$s){
+  if("$s" -match '[()]'){ return $null }        # "(II/C/6.3.)" gibi atiflar nicelik degil
+  $m = [regex]::Match("$s", $KIYMET_BIRIM)
+  if(-not $m.Success){ return $null }
+  $ham = ($m.Groups['s'].Value -replace '\.','') -replace ',','.'
+  $v = 0.0
+  if([double]::TryParse($ham,[Globalization.NumberStyles]::Float,[Globalization.CultureInfo]::InvariantCulture,[ref]$v)){ return $v }
+  return $null
+}
+function KiymetBirim([string]$s){
+  $m = [regex]::Match("$s", $KIYMET_BIRIM)
+  if(-not $m.Success){ return $null }
+  return $m.Groups['b'].Value.ToLowerInvariant()
+}
+function KiymetDegerGecerli([string]$deger){
+  $d = "$deger".Trim()
+  if(-not $d){ return $false }
+  if($d.Length -gt 60){ return $false }                       # tanim metni sizmis
+  if($d -match '(?i)belirtilmemis|belirtilmemiş|bilinmiyor'){ return $false }
+  return ($d -match $KIYMET_BIRIM)
+}
+
 # ---- kalici kiymet hafizasi -------------------------------------------------
 $hafizaDir = Join-Path $here "hafiza"
 New-Item -ItemType Directory -Force $hafizaDir | Out-Null
@@ -116,6 +146,37 @@ $hafiza = @{}
 if(Test-Path $hafizaYol){
   $j = Get-Content $hafizaYol -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach($p in $j.PSObject.Properties){ $hafiza[$p.Name] = @($p.Value) }
+}
+
+# ---- gozetim teblig zinciri (motor/rg-gozetim-cikar.ps1 uretir) -------------
+# 17.08 - Cem: "eski hali buymus yeni hali bu oldu". Olculdu: 189 arsiv kartinin
+# 130'u hangi tebligi degistirdigini SOYLUYOR ama 3'unde eski deger var. Sebep
+# Turk mevzuat yazim usulu: "... asagidaki sekilde degistirilmistir" denip yalniz
+# YENI metin yaziliyor, eski hal belgede GECMIYOR. Yani eski deger uydurulamaz,
+# ONCEKI BELGEDEN okunmali.
+# Bu zincir o onceki belgeyi verir - ama YALNIZ ithalat gozetim/korunma
+# tebligleri icin (130 kartin 22'si). Genel Teblig (13) ve digerleri (95) icin
+# kaynak mevzuat.gov.tr konsolide metni; o hat HENUZ KURULMADI.
+# Kart yalnizca "onceki belge suymus" LINKINI tasir - deger UYDURULMAZ.
+$zincirYol = Join-Path $kok "veri\gozetim-teblig-zinciri.json"
+$gozetimZincir = $null
+if(Test-Path $zincirYol){
+  try { $gozetimZincir = (Get-Content $zincirYol -Raw -Encoding UTF8 | ConvertFrom-Json).zincir } catch { $gozetimZincir = $null }
+}
+function OncekiBelge([string]$degistirilen, [datetime]$kartTarihi){
+  if(-not $gozetimZincir -or -not $degistirilen){ return $null }
+  $m = [regex]::Match($degistirilen, '(?<![\d/])(\d{4}\s*/\s*\d+)(?![\d/])')
+  if(-not $m.Success){ return $null }
+  $no = ($m.Groups[1].Value -replace '\s','')
+  $liste = $gozetimZincir.$no
+  if(-not $liste){ return $null }
+  $onceki = @($liste | Where-Object {
+    $t = $null
+    if([datetime]::TryParseExact($_.tarih,'dd.MM.yyyy',$null,[Globalization.DateTimeStyles]::None,[ref]$t)){ $t -lt $kartTarihi } else { $false }
+  })
+  if($onceki.Count -eq 0){ return $null }
+  $s = $onceki[-1]
+  return [ordered]@{ teblig_no=$no; tarih=$s.tarih; url=$s.url; tur=$s.tur }
 }
 
 $istemSablon = @"
@@ -152,8 +213,21 @@ function ApiCagri([string]$model, [array]$icerik, [int]$maxTok){
   # 16.08: cagri api-hedef.ps1 uzerinden - Anthropic birincil, limit dolunca OpenRouter yedegi.
   # Bicim cevirisi (OpenAI<->Anthropic) + Turkce Latin-1 duzeltmesi Invoke-ClaudeMesaj icinde.
   $r = Invoke-ClaudeMesaj -Model $model -Icerik $icerik -MaxTok $maxTok
-  return @{ metin = $r.metin; girdi = $r.girdi; cikti = $r.cikti }
+  # 17.08: onbellek sayaclari da tasinir. 'girdi' artik GERCEK toplam girdiyi
+  # tasir (ham + onbellege yazilan + onbellekten okunan) - cache_control
+  # eklendikten sonra ham input_tokens yalniz sinirdan sonrasini sayardi ve
+  # maliyet raporu sessizce eksik cikardi.
+  $gt = if($null -ne $r.girdiToplam){ [int]$r.girdiToplam } else { [int]$r.girdi }
+  $script:onbYaz += [int]$r.onbellekYazma
+  $script:onbOku += [int]$r.onbellekOkuma
+  return @{ metin = $r.metin; girdi = $gt; cikti = $r.cikti;
+            onbellekYazma = [int]$r.onbellekYazma; onbellekOkuma = [int]$r.onbellekOkuma }
 }
+# Kosu boyu onbellek toplami - kosu sonunda raporlanir. Onbellek CALISIYORSA
+# onbOku > 0 olmalidir; sifir kalirsa isaret bir yere OTURMAMIS demektir
+# (en sik sebep: on ek modelin minimum onbellek esiginin altinda).
+$script:onbYaz = 0
+$script:onbOku = 0
 
 function JsonAyikla([string]$c){
   if($c -match "(?s)\{.*\}"){ return ($Matches[0] | ConvertFrom-Json) }
@@ -250,7 +324,24 @@ foreach($d in $dosyalar){
         $gorseller += @{ type="image"; source=@{ type="base64"; media_type=$mime; data=[Convert]::ToBase64String($b) } }
       } catch {}
     }
-    $icerikTam = @() + $gorseller + @(@{ type="text"; text=($istemSablon + $metin) })
+    # 17.08 PROMPT ONBELLEGI. Asagidaki cift gecis AYNI istemi 2 kez (JSON bozulursa
+    # 3-4 kez) gonderiyor. Son bloga cache_control konunca 1. cagri onbellege YAZAR,
+    # 2./3./4. cagri tamamini OKUR - okuma taban girdi fiyatinin %10'u.
+    #   2 cagri : 1,25 + 0,10 = 1,35  (yerine 2,00)  -> %32 tasarruf
+    #   4 cagri : 1,25 + 0,30 = 1,55  (yerine 4,00)  -> %61 tasarruf
+    #
+    # NEDEN SON BLOK, sablonun kendisi DEGIL: onbellek ON-EK eslesmesidir ve
+    # minimum onbelleklenebilir on ek MODELE GORE degisir - Haiku 4.5'te 4.096
+    # JETON. Sablon tek basina 4.557 KARAKTER (~1.500-1.800 jeton) yani esigin
+    # ALTINDA: ona isaret koymak sessizce hic onbelleklemez. Tam istem (sablon +
+    # 12.000 karakterlik teblig metni + 3 gorsele kadar) esigi rahat gecer.
+    # Olculdu 17.08; jeton sayma ucu de harcama tavanina takili oldugu icin
+    # karakterden yuruldu - 4.557 karakterin 4.096 jetona cikmasi 1,11 krk/jeton
+    # gerektirir, hicbir metinde mumkun degil.
+    #
+    # Yedek hatta (OpenRouter) cache_control TASINMAZ: api-hedef.ps1 onu ayiklar
+    # ve kosu basina bir kez uyarir. Sonuc ayni, girdi maliyeti tam odenir.
+    $icerikTam = @() + $gorseller + @(@{ type="text"; text=($istemSablon + $metin); cache_control=@{ type="ephemeral" } })
 
     # --- cift gecis (uzun tablolar icin genis token; JSON bozuksa o gecis 1 kez tekrarlanir) ---
     $g1 = ApiCagri $Model $icerikTam 6000; $topGirdi += $g1.girdi; $topCikti += $g1.cikti
@@ -385,6 +476,16 @@ $metin
     $kiyaslar = @()
     foreach($kod in $kesin.Keys){
       $yeni = $kesin[$kod]
+      # 17.08 DEFTER KAPISI. Olculdu: kiymetler.json'daki 313 kaydin 200'u
+      # NICELIK DEGIL METINDI - "0713.20 -> Istanbul Tekstil ve Konfeksiyon
+      # Ihracatci Birligi", "3211.00.00.00.00 -> mustahzar kurutucu maddeler",
+      # "3215.90.70.00.12 -> kaynakta belirtilmemis". 15 anahtar da GTIP
+      # bicimine uymuyordu (biri 160 karakter, biri "336"). Bu defter
+      # "eski -> yeni" seridinin TEMELI; ici cop olursa serit yalan soyler.
+      # Iki kapi: anahtar GTIP biciminde olacak, deger TANINAN BIR BIRIM
+      # tasiyacak. Gecemeyen kayit deftere GIRMEZ (kart yine basilir).
+      if(-not (KiymetKodGecerli $kod)){   continue }
+      if(-not (KiymetDegerGecerli $yeni)){ continue }
       if(-not $hafiza.ContainsKey($kod)){ $hafiza[$kod] = @() }
       $sonKayit = if($hafiza[$kod].Count){ $hafiza[$kod][-1] } else { $null }
       # kiyas SADECE onceki kayit baska bir gundense (ayni gun tekrar calistirma gurultusu kiyas sayilmaz)
@@ -422,6 +523,7 @@ $metin
       dosya = $d.Name; kaynak = ($tabanUrl + $d.Name)
       baslik_sade = $k1.baslik_sade; ne_oldu = $k1.ne_oldu
       degistirilen_teblig = $k1.degistirilen_teblig
+      onceki_belge = (OncekiBelge $k1.degistirilen_teblig ([datetime]::ParseExact($Gun,'dd-MM-yyyy',$null)))
       eski_yeni = $eskiYeniFinal
       eski_karsilastirma = $eskiKarUrl
       gtip_kodlari = $gtipFinal; urun_tanimi = $k1.urun_tanimi
@@ -526,8 +628,23 @@ function KartFirsatMi($kk){
 # kart uretildigi halde ana sayfa 11.07'de takili kaldi. Artik TUM kartlar
 # besleniyor; GTIP'liler basa aliniyor (radar-app eslemesi onlari kullanir,
 # gtip alani bos olani kendisi eler).
+# 17.08 - Cem: "eski hali kanun buymus yeni hali bu oldu gibi guzel bir
+# aciklama yapmamiz lazim." Olculdu: motor eski_yeni / kesin_kiymetler /
+# degistirilen_teblig alanlarini ZATEN uretiyordu ama BU SATIR onlari
+# dusuruyordu - siteye 6 alan gidiyor, gerisi cope. Yani "eski -> yeni"
+# verisi vardi, ana sayfa hic gormemisti. Alanlar artik besleniyor.
+# Bos alan TASINMAZ: eski_yeni yoksa anahtar hic yazilmaz (on yuzler
+# "alan var ama bos" ile "alan yok"u ayirt etmek zorunda kalmasin).
 $guncelKartlar = @(@($kartlar | ForEach-Object {
-  [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon); firsat=(KartFirsatMi $_) }
+  $o = [ordered]@{ baslik=$_.baslik_sade; ne_oldu=$_.ne_oldu; gtip=@($_.gtip_kodlari); url=$_.kaynak; etki=($_.etki.yon); firsat=(KartFirsatMi $_) }
+  $ey = @($_.eski_yeni) | Where-Object { $_ -and $_.eski -and $_.yeni }
+  if($ey.Count){ $o["eski_yeni"] = @($ey) }
+  if($_.degistirilen_teblig){ $o["degistirilen_teblig"] = $_.degistirilen_teblig }
+  if($_.onceki_belge){ $o["onceki_belge"] = $_.onceki_belge }
+  if($_.eski_karsilastirma){ $o["eski_karsilastirma"] = $_.eski_karsilastirma }
+  if($_.kesin_kiymetler -and $_.kesin_kiymetler.Count){ $o["kiymetler"] = $_.kesin_kiymetler }
+  if($_.ne_yapmali){ $o["ne_yapmali"] = $_.ne_yapmali }
+  $o
 } | Sort-Object -Property @{ Expression = { @($_.gtip).Count -gt 0 }; Descending = $true }))
 $guncelObj = [ordered]@{ gun=$Gun; guncelleme=("Günün hap kartları — " + $TarihNokta); kartlar=$guncelKartlar }
 $guncelYol = Join-Path $kok "veri\kartlar-guncel.json"
@@ -614,8 +731,26 @@ function KartBloguHtml($liste){
     $eyEtiket = if($k.eski_karsilastirma){ "($($k.eski_karsilastirma) tarihli RG'deki eski metinle karşılaştırıldı)" } else { "(tebliğ metninden, çift okumayla doğrulanmış)" }
     [void]$s.AppendLine("<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>$eyEtiket</span></p>")
     foreach($ey in @($k.eski_yeni)){
-      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b></div>")
+      # YUZDE BURADA HESAPLANIR, MODELE SORULMAZ. Iki taraf da taninan bir
+      # BIRIM tasimiyorsa (or. "(II/C/6.3.) bolumu" gibi atif) yuzde YAZILMAZ -
+      # satir yine gosterilir. Birim degisiyorsa da yazilmaz (5 TL vs 5 USD
+      # karsilastirmasi anlamsizdir).
+      $oran = ''
+      $ea = KiymetSayi $ey.eski; $yb = KiymetSayi $ey.yeni
+      if($null -ne $ea -and $null -ne $yb -and $ea -ne 0 -and (KiymetBirim $ey.eski) -eq (KiymetBirim $ey.yeni)){
+        $o = [math]::Round((($yb - $ea) / [math]::Abs($ea)) * 100)
+        if($o -ne 0){
+          $ok = if($o -gt 0){ '▲' } else { '▼' }
+          $renk = if($o -gt 0){ 'var(--red)' } else { 'var(--green)' }
+          $oran = " <b style='color:$renk'>$ok%$([math]::Abs($o))</b>"
+        }
+      }
+      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b>$oran</div>")
     }
+  }
+  # Eski deger metinde yoksa UYDURULMAZ - onceki resmi belgenin linki verilir.
+  if($k.onceki_belge){
+    [void]$s.AppendLine("<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='$($k.onceki_belge.url)' target='_blank' rel='noopener'>$($k.onceki_belge.tarih) tarihli Resmî Gazete</a> (Tebliğ $($k.onceki_belge.teblig_no))</div>")
   }
   if($k.urun_tanimi){ [void]$s.AppendLine("<p><b>Ürün:</b> $($k.urun_tanimi)</p>") }
   if(@($k.gtip_kodlari).Count){
@@ -708,11 +843,27 @@ foreach($g in $gunler){ [void]$a.AppendLine("<a class='g' href='arsiv/$($g.dosya
 [void]$a.AppendLine('<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>')
 [System.IO.File]::WriteAllText((Join-Path $arsivDirSite "index.html"), $a.ToString(), (New-Object System.Text.UTF8Encoding($false)))
 
-$maliyet = ($topGirdi/1000000.0)*1.0 + ($topCikti/1000000.0)*5.0 + ($hakemGirdi/1000000.0)*3.0 + ($hakemCikti/1000000.0)*15.0
+# 17.08 ONBELLEKLI MALIYET. Onbellekten OKUNAN jeton taban girdi fiyatinin
+# %10'una, onbellege YAZILAN %125'ine faturalanir. Eski hesap her girdi jetonunu
+# tam fiyattan sayiyordu; cift gecis ayni istemi 2-4 kez gonderdigi icin bu artik
+# maliyeti FAZLA gosterirdi. Ucu ayri ayri fiyatlanir.
+$tamGirdi = $topGirdi - $script:onbYaz - $script:onbOku
+if($tamGirdi -lt 0){ $tamGirdi = 0 }
+$maliyet = ($tamGirdi/1000000.0)*1.0 + ($script:onbYaz/1000000.0)*1.25 + ($script:onbOku/1000000.0)*0.10 `
+         + ($topCikti/1000000.0)*5.0 + ($hakemGirdi/1000000.0)*3.0 + ($hakemCikti/1000000.0)*15.0
 ""
 "TOPLU URETIM BITTI (v0.2)"
 "Kart: $($kartlar.Count) | Hatali: $hatali | Hakem devreye girdi: $hakemSayisi kart"
 "Ana model token: $topGirdi/$topCikti | Hakem token: $hakemGirdi/$hakemCikti"
+# DOGRULAMA: onbellek isabet ettiyse okuma > 0 olur. Sifir kalirsa isaret bir
+# yere oturmamistir - en sik sebep on ekin modelin minimum esiginin altinda
+# kalmasi (Haiku 4.5'te 4.096 jeton).
+if($script:onbOku -gt 0 -or $script:onbYaz -gt 0){
+  $oran = if(($script:onbOku + $tamGirdi) -gt 0){ [math]::Round(100.0*$script:onbOku/($script:onbOku + $tamGirdi + $script:onbYaz),1) } else { 0 }
+  "Onbellek: yazilan $($script:onbYaz) | OKUNAN $($script:onbOku) jeton (girdinin %$oran'i) - CALISIYOR"
+} else {
+  "Onbellek: 0 - ISABET YOK. On ek modelin minimum esiginin altinda olabilir (Haiku 4.5: 4.096 jeton) ya da yedek hatta (OpenRouter) kosuldu."
+}
 ("Toplam maliyet: ~{0:N3} USD" -f $maliyet)
 "Hafizadaki kod sayisi: $($hafiza.Keys.Count)"
 "Sayfalar: kartlar.html + arsiv/kartlar-$Gun.html + arsiv/index.html"
