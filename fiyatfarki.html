@@ -82,6 +82,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="dip">Tetikte · Yurt dışı fiyat farkı sihirbazı · Kaynak: <b>KDV Kanunu m.35, m.21/c</b> · <b>KDV Genel Uygulama Tebliği</b> (6 Seri No.lu değişiklik, RG 21.05.2016) · <b>Gümrük Kanunu m.24, m.27</b> (gümrük kıymeti, royalti/lisans ilavesi) · <b>Gümrük Yönetmeliği m.45, m.51, m.53, m.56</b> (sonradan düzeltme, kıymete eklenecekler, tamamlayıcı beyan/istisnai kıymet, royalti) · GİB özelgesi <b>İVDB 19.02.2015 · 39044742-KDV.1-293</b> · Gümrükler Genel Müd. <b>02.07.2015/9021634</b> · bir Dizdar Denetim A.Ş. yazılımı</div>
 </div>
 
+<script src="gtip-ara.js"></script>
 <script>
 const C = {};
 const SEN = {
@@ -235,24 +236,10 @@ function hesapla(tip){
 baslat();
 
 // ============ TEK KUTU: GTİP kodu YA DA ürün adı → gümrük vergisi + KDV oranını doldur ============
-// (gtip.html/senaryo'daki motorun eşi) Veriler SADECE kutuya yazılınca yüklenir; sihirbaz akışı yavaşlamaz.
-let TANIM=null, TANIM_IDX=null, TANIM_SOZ=null, ARA_ZAMANLAYICI=null, FF_VERI=null, FF_VERI_SOZ=null;
-function trFold(s){ return (''+s).toLocaleLowerCase('tr')
-  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
-  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a').replace(/û/g,'u'); }
-function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function harfliMi(s){ return /[a-zçğıöşüâîû]/i.test(s); }
+// Arama = ortak motor gtip-ara.js (üç araçta aynı). Vergi verileri SADECE kutuya yazılınca yüklenir.
+let ARA_ZAMANLAYICI=null, FF_VERI=null, FF_VERI_SOZ=null;
 function nrm(s){ return String(s).replace(/\./g,'').trim(); }
 function asArr(v){ if(Array.isArray(v))return v; if(v===null||v===undefined||v===''||typeof v==='object')return []; return [v]; }
-function tanimYukle(){
-  if(TANIM) return Promise.resolve();
-  if(TANIM_SOZ) return TANIM_SOZ;
-  TANIM_SOZ = fetch('veri/gtip-tanim.json').then(r=>r.json()).then(j=>{
-    TANIM = j;
-    TANIM_IDX = Object.keys(j).map(k => [k, trFold(j[k])]);
-  }).catch(()=>{ TANIM_SOZ = null; });
-  return TANIM_SOZ;
-}
 function ffVeriYukle(){
   if(FF_VERI) return Promise.resolve();
   if(FF_VERI_SOZ) return FF_VERI_SOZ;
@@ -267,7 +254,7 @@ function ffKutu(){
   const el=document.getElementById('ffKod'); if(!el) return;
   const ham=el.value.trim();
   clearTimeout(ARA_ZAMANLAYICI);
-  if(!harfliMi(ham)){
+  if(!GtipAra.harfliMi(ham)){
     document.getElementById('ffAraSonuc').innerHTML='';
     if(nrm(ham).length>=4){ ARA_ZAMANLAYICI=setTimeout(()=>ffOranDoldur(ham),300); } // rakam = kod modu
     return;
@@ -277,46 +264,15 @@ function ffKutu(){
 function ffAraYap(){
   const out = document.getElementById('ffAraSonuc'); if(!out) return;
   const ham = document.getElementById('ffKod').value.trim();
-  if(!harfliMi(ham)){ out.innerHTML=''; return; }
-  const q = trFold(ham);
-  if(q.length < 3){ out.innerHTML = '<div style="font-size:12px;color:var(--dim);margin-top:5px">En az 3 harf yaz…</div>'; return; }
-  if(!TANIM_IDX){
-    out.innerHTML = '<div style="font-size:12px;color:var(--muted);margin-top:5px">⏳ Tarife cetveli yükleniyor (ilk açılışta bir kez)…</div>';
-    tanimYukle().then(ffAraYap);
+  if(!GtipAra.harfliMi(ham)){ out.innerHTML=''; return; }
+  if(GtipAra.trFold(ham).length < 3){ out.innerHTML = GtipAra.MESAJ.az; return; }
+  if(!GtipAra.hazir()){
+    out.innerHTML = GtipAra.MESAJ.yukleniyor;
+    GtipAra.yukle().then(ffAraYap);
     return;
   }
-  const parcalar = q.split(/\s+/).filter(t => t.length >= 2);
-  if(!parcalar.length){ out.innerHTML=''; return; }
-  const bulunan = [];
-  for(const [kod, txt] of TANIM_IDX){
-    let hepsiVar = true;
-    for(const p of parcalar){ if(txt.indexOf(p) < 0){ hepsiVar = false; break; } }
-    if(!hepsiVar) continue;
-    // puan: kelime kodun KENDİ tanımında (son › parçası) geçiyorsa öne al; kısa metin öne al
-    const sonAyrac = txt.lastIndexOf('›');
-    const kendi = sonAyrac >= 0 ? txt.slice(sonAyrac+1) : txt;
-    let puan = 0;
-    for(const p of parcalar){ if(kendi.indexOf(p) >= 0) puan += 10; }
-    puan -= txt.length / 800;
-    bulunan.push([puan, kod]);
-  }
-  if(!bulunan.length){
-    out.innerHTML = '<div style="font-size:12.5px;color:var(--muted);margin-top:5px">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır, eş anlamlı dene (ör. "buzdolabı" → "soğutucu") ya da malzemesiyle ara.</div>';
-    return;
-  }
-  bulunan.sort((a,b) => b[0]-a[0]);
-  const ust = bulunan.slice(0, 8);
-  out.innerHTML = ust.map(([p, kod]) => {
-    const t = TANIM[kod];
-    const sonAyrac = t.lastIndexOf('›');
-    const zincir = sonAyrac >= 0 ? t.slice(0, sonAyrac).trim() : '';
-    const kendi  = sonAyrac >= 0 ? t.slice(sonAyrac+1).trim() : t;
-    return `<div onclick="ffSec('${kod}')" style="padding:9px 11px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:#06090f;cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
-      <b style="color:var(--green);font-size:13.5px">${kod}</b>
-      <div style="font-size:12.5px;color:var(--ink);margin-top:2px">${htmlEsc(kendi)}</div>
-      ${zincir ? `<div style="font-size:11px;color:var(--dim);margin-top:2px">${htmlEsc(zincir)}</div>` : ''}
-    </div>`;
-  }).join('') + (bulunan.length > 8 ? `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">+${bulunan.length-8} eşleşme daha var, kelime ekleyerek daralt.</div>` : '');
+  const kodlar = GtipAra.ara(ham);
+  out.innerHTML = kodlar.length ? GtipAra.kartlarHtml(kodlar, 'ffSec', 8) : GtipAra.MESAJ.bos;
 }
 function ffSec(kod){
   document.getElementById('ffKod').value = kod;
