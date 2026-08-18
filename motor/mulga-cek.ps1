@@ -46,6 +46,15 @@ function Getir([string]$uri){
   return @($r | Where-Object { $null -ne $_ })
 }
 
+# KOR-KALMA TANIGI: anahtar kasayi gercekten goruyor mu? (anon okuma 0 verir;
+# 0 aday raporu ancak toplam ~30bin gorunuyorsa "gercek yokluk" sayilir)
+$toplamKasa = -1
+try {
+  $tw = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/soru_havuzu?select=id&limit=1" -Headers ($H + @{ Prefer='count=exact' }) -TimeoutSec 60
+  $toplamKasa = [int](($tw.Headers['Content-Range'] -split '/')[-1])
+} catch { Write-Host "toplam sayim alinamadi: $($_.Exception.Message)" }
+Write-Host ("Kasa toplami (tanik): {0}" -f $toplamKasa)
+
 # --- ADAY TOPLAMA: kaba ilike ile genis cek, KESIN regex ile daralt --------
 # Kaba desen kasitli genis (TMS*17 "TMS 17x"i de yakalar); kesin karar
 # istemci tarafinda kelime-sinirli regexle verilir. TMS 170+ yoktur ama
@@ -57,14 +66,17 @@ $MULGA = @(
 )
 
 $hedef = @{}   # id -> [ordered]@{sebep; ders; kaynak}
+$kabaIz = [ordered]@{}   # rapora: kaba kac aday geldi, sorgu hatasi var mi
 foreach($m in $MULGA){
   $adaylar = @()
+  $sorguHatasi = @()
   foreach($kolonFiltre in @(
       ("kaynak=ilike." + [uri]::EscapeDataString($m.kaba)),
       ("kanun_no=ilike." + [uri]::EscapeDataString($m.kaba)) )){
     try { $adaylar += Getir "$SB_URL/rest/v1/soru_havuzu?select=id,ders,kaynak,kanun_no,madde_no&$kolonFiltre&limit=500" }
-    catch { Write-Host ("  aday sorgusu atlandi ({0}): {1}" -f $kolonFiltre, $_.Exception.Message) }
+    catch { $sorguHatasi += "$kolonFiltre : $($_.Exception.Message)"; Write-Host ("  aday sorgusu atlandi ({0}): {1}" -f $kolonFiltre, $_.Exception.Message) }
   }
+  $kabaIz[$m.ad] = [ordered]@{ kaba_aday=$adaylar.Count; sorgu_hatasi=$sorguHatasi }
   $sayilan = 0
   foreach($a in $adaylar){
     $metaveri = "$($a.kaynak) $($a.kanun_no)"
@@ -98,6 +110,7 @@ Write-Host ("Su an yayinda: {0}" -f $yayinda.Count)
 if(-not $yaz){
   [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject ([ordered]@{
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum='OLCUM'; mod='olcum'
+    kasa_toplami_tanik=$toplamKasa; kaba_iz=$kabaIz
     hedef_toplam=$idler.Count; su_an_yayinda=$yayinda.Count
     adaylar=@($hedef.GetEnumerator() | ForEach-Object { [ordered]@{ id=$_.Key; sebep=$_.Value.sebep; ders=$_.Value.ders; kaynak=$_.Value.kaynak; kanun_no=$_.Value.kanun_no; madde_no=$_.Value.madde_no } })
     not='OLCUM modu - hicbir sey yazilmadi. Cekme icin -yaz ile kosulmali.'
