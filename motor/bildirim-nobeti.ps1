@@ -35,12 +35,12 @@ $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 if(-not $env:SUPABASE_SERVICE_KEY){ Write-Host "SUPABASE_SERVICE_KEY yok - cikildi."; exit 0 }
-$KOK = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"
+$API = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1"   # 18.08: adi $KOK idi ve $kok (depo koku) ile CAKISIYORDU - PS harf ayirmaz, URL depo yolunu ezdi, nobet "Cannot find drive https" ile olduruyordu (ps-degisken-cakismasi 4. vaka)
 $SB  = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)" }
 $raporYol = Join-Path $kok 'veri/bildirim-nobeti-raporu.json'
 
 function Getir($yol){
-  $w = Invoke-WebRequest -Uri "$KOK/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck
+  $w = Invoke-WebRequest -Uri "$API/$yol" -Headers $SB -UseBasicParsing -TimeoutSec 120 -SkipHttpErrorCheck
   $ham = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
   if([int]$w.StatusCode -ge 400){ throw ("Supabase {0}: {1}" -f $w.StatusCode, $ham) }
   return @($ham | ConvertFrom-Json)
@@ -115,7 +115,7 @@ foreach($e in $esikGecen){
     }
     # yayindan cek - PATCH ile yalniz iki kolon (kismi-upsert NOT NULL tuzagi)
     $govde = @{ yayin = $false; yayin_notu = ("Ogrenci bildirimi ile karantinaya alindi ({0} farkli aday) - {1}" -f $e.Value.Count, (Get-Date -Format 'dd.MM.yyyy HH:mm')) } | ConvertTo-Json -Compress
-    $w = Invoke-WebRequest -Uri ("$KOK/soru_havuzu?id=eq." + [uri]::EscapeDataString($sid)) -Method Patch -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck
+    $w = Invoke-WebRequest -Uri ("$API/soru_havuzu?id=eq." + [uri]::EscapeDataString($sid)) -Method Patch -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck
     if([int]$w.StatusCode -ge 400){
       $hata++
       $g = if($w.RawContentStream){ [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) } else { $w.Content }
@@ -124,7 +124,7 @@ foreach($e in $esikGecen){
     # bildirimleri karantina=true olarak isaretle (durum 'yeni' kalir - GM bakacak)
     foreach($bid in $soruBildirimId[$sid]){
       $g2 = @{ karantina = $true } | ConvertTo-Json -Compress
-      Invoke-WebRequest -Uri "$KOK/soru_bildirim?id=eq.$bid" -Method Patch -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($g2)) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck | Out-Null
+      Invoke-WebRequest -Uri "$API/soru_bildirim?id=eq.$bid" -Method Patch -Headers ($SB + @{ 'Content-Type'='application/json'; Prefer='return=minimal' }) -Body ([Text.Encoding]::UTF8.GetBytes($g2)) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck | Out-Null
     }
     $cekilen.Add([ordered]@{ id=$sid; ders="$($s[0].ders)"; konu="$($s[0].konu)"; bildirim=$e.Value.Count; islem='YAYINDAN CEKILDI' })
     Write-Host ("  CEKILDI: {0} [{1} / {2}] - {3} farkli aday bildirdi" -f $sid, $s[0].ders, $s[0].konu, $e.Value.Count)
