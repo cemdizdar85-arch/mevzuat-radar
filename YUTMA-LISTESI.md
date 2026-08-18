@@ -1,5 +1,22 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 19.08.2026 — SPK İKİNCİL MEVZUAT: II-15.1 + III-52.1 YUTULDU (Cem onayı, karne boşluğu)
+*Sebep: yeterlilik konu-kaynak karnesi (18-19.08, taze arşivle) "içsel bilgi açıklamasının
+ertelenmesi" (5 satır) ve "şemsiye fon türleri" konularını KAYNAK YOK gösterdi; ambar
+doğrulaması ikisini de teyit etti ("içsel bilgi" 0, "şemsiye fon" 0 — 6362 ambarda ama
+bu tabirler kanunda değil tebliğlerde).*
+
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| Özel Durumlar Tebliği (II-15.1) | mevzuat.gov.tr G9:19331 konsolide (RG 23.01.2014/28891) | **45 belge, kapsama %99,8**; geri okuma m.5 birebir ✓; manifest `spk-ozel-durum-teblig` (robot nöbeti) |
+| Yatırım Fonlarına İlişkin Esaslar Tebliği (III-52.1) | mevzuat.gov.tr G9:18564 konsolide (RG 09.07.2013/28702) | **66 belge, kapsama %99,8**; manifest `spk-yatirim-fon-teblig` (robot nöbeti) |
+
+İndirme TR-IP'den (bu makine), metinler `veri/mevzuat-hazir/` kaçış kapısıyla; push aynayı
+tetikledi, 2 dakikada ambara indi. Besledikleri: yeterlilik + KGK sınav hattının SPK ayağı.
+Aynı karne turunun diğer bulgusu: SGS 70 + yeterlilik kalan 28 "KAYNAK YOK" satırı büyük
+ölçüde ölçüm artefaktı (kısa kelime süzgeci, yazım hatası, "kaynak var ama o adla demiyor")
+— otomatik yutma listesi YAPILMADI, elle okuma bekliyor.
+
 ## ✅ 13.08.2026 — 5746 + 4691 YUTULDU (Cem onayı, Ar-Ge üç-kapı kartı ön koşulu)
 | Metin | Kaynak | Sonuç |
 |---|---|---|
