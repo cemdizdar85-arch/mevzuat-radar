@@ -1,11 +1,11 @@
 {
-  "tarih": "08.08.2026 10:04",
+  "tarih": "18.08.2026 16:58",
   "kaynak": "kasa",
-  "kasa_etiketi": 2144,
-  "kitapcik_konusu": 3217,
-  "birebir_tutan": 108,
-  "sozlukle_eslesen": 1415,
-  "eslesmeyen": 621,
+  "kasa_etiketi": 2253,
+  "kitapcik_konusu": 3248,
+  "birebir_tutan": 162,
+  "sozlukle_eslesen": 1426,
+  "eslesmeyen": 665,
   "esik": 0.55,
   "not": "Yanlis kunye, kunye yoklugundan KOTUDUR (D9). Esik 0.55 altindakiler REDDEDILIR ve o soruda kunye gosterilmez. Kasa etiketleri DEGISTIRILMEDI - bu yalniz bir arama sozlugudur, geri alinabilir.",
   "sozluk": {
@@ -49,6 +49,14 @@
       "d": 2,
       "s": 2
     },
+    "ataturk ilke ve inkilap tarihi|balkan antanti": {
+      "hedef": "genel kultur genel yetenek|balkan antanti",
+      "puan": 1.0,
+      "kasa": "Ataturk Ilke ve Inkilap Tarihi|balkan antanti",
+      "kitapcik": "Genel Kultur-Genel Yetenek|balkan antanti",
+      "d": 1,
+      "s": 1
+    },
     "ataturk ilke ve inkilap tarihi|cumhuriyet ilani": {
       "hedef": "genel kultur genel yetenek|cumhuriyet ilani",
       "puan": 1.0,
@@ -57,13 +65,21 @@
       "d": 1,
       "s": 1
     },
+    "ataturk ilke ve inkilap tarihi|i dunya savasi": {
+      "hedef": "genel kultur genel yetenek|i dunya savasi",
+      "puan": 1.0,
+      "kasa": "Ataturk Ilke ve Inkilap Tarihi|i. dunya savasi",
+      "kitapcik": "Genel Kultur-Genel Yetenek|i. dunya savasi",
+      "d": 3,
+      "s": 3
+    },
     "ataturk ilke ve inkilap tarihi|kurtulus savasi antlasmalari": {
       "hedef": "genel kultur genel yetenek|kurtulus savasi antlasmalari",
       "puan": 1.0,
       "kasa": "Ataturk Ilke ve Inkilap Tarihi|kurtulus savasi antlasmalari",
       "kitapcik": "Genel Kultur-Genel Yetenek|kurtulus savasi antlasmalari",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "ataturk ilke ve inkilap tarihi|kurtulus savasi cepheleri": {
       "hedef": "genel kultur genel yetenek|kurtulus savasi cepheleri",
@@ -134,8 +150,8 @@
       "puan": 1.0,
       "kasa": "Borclar Hukuku|adam calistiranin sorumlulugu",
       "kitapcik": "Hukuk|adam calistiranin sorumlulugu",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "borclar hukuku|borc iliskisi sona erme": {
       "hedef": "hukuk|borc iliskisi sona erme",
@@ -182,16 +198,32 @@
       "puan": 1.0,
       "kasa": "Borclar Hukuku|genel islem kosullari",
       "kitapcik": "Hukuk|genel islem kosullari",
-      "d": 8,
-      "s": 8
+      "d": 9,
+      "s": 9
+    },
+    "borclar hukuku|genel islem kosullari nitelendirme": {
+      "hedef": "hukuk|genel islem kosullari",
+      "puan": 0.75,
+      "kasa": "Borclar Hukuku|genel islem kosullari - nitelendirme",
+      "kitapcik": "Hukuk|genel islem kosullari",
+      "d": 9,
+      "s": 9
+    },
+    "borclar hukuku|genel islem kosullari yazilmamis sayilma": {
+      "hedef": "hukuk|genel islem kosullari",
+      "puan": 0.6,
+      "kasa": "Borclar Hukuku|genel islem kosullari - yazilmamis sayilma",
+      "kitapcik": "Hukuk|genel islem kosullari",
+      "d": 9,
+      "s": 9
     },
     "borclar hukuku|genel islem sartlari": {
       "hedef": "hukuk|genel islem sartlari",
       "puan": 1.0,
       "kasa": "Borclar Hukuku|genel islem sartlari",
       "kitapcik": "Hukuk|genel islem sartlari",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "borclar hukuku|haksiz fiil": {
       "hedef": "hukuk|haksiz fiil",
@@ -230,8 +262,8 @@
       "puan": 1.0,
       "kasa": "Borclar Hukuku|haksiz fiil sorumlulugu",
       "kitapcik": "Hukuk|haksiz fiil sorumlulugu",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "borclar hukuku|haksiz fiil tazminat indirimi": {
       "hedef": "hukuk|haksiz fiil tazminat indirimi",
@@ -318,8 +350,8 @@
       "puan": 1.0,
       "kasa": "Borclar Hukuku|sebepsiz zenginlesme",
       "kitapcik": "Hukuk|sebepsiz zenginlesme",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "borclar hukuku|sebepsiz zenginlesme giderler": {
       "hedef": "hukuk|sebepsiz zenginlesme giderler",
@@ -401,14 +433,6 @@
       "d": 1,
       "s": 1
     },
-    "borclar hukuku|temsil hukumleri": {
-      "hedef": "hukuk|temsil hukumleri",
-      "puan": 1.0,
-      "kasa": "Borclar Hukuku|temsil hukumleri",
-      "kitapcik": "Hukuk|temsil hukumleri",
-      "d": 1,
-      "s": 1
-    },
     "borclar hukuku|ucret sozlesmesi": {
       "hedef": "hukuk|ucret sozlesmesi",
       "puan": 1.0,
@@ -454,8 +478,8 @@
       "puan": 1.0,
       "kasa": "Borclar Hukuku|zamanasimi suresi",
       "kitapcik": "Hukuk|zamanasimi suresi",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "denetim standartlari|bds 230 denetimin belgelendirilmesi calisma kagitlari": {
       "hedef": "muhasebe|bds 230 calisma kagitlari",
@@ -518,8 +542,8 @@
       "puan": 1.0,
       "kasa": "Denetim Standartlari|bds 701 kilit denetim konulari",
       "kitapcik": "Muhasebe|bds 701 kilit denetim konulari",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim standartlari|bds 706 dikkat cekilen hususlar diger hususlar": {
       "hedef": "muhasebe|bds 706 dikkat cekilen hususlar",
@@ -542,8 +566,8 @@
       "puan": 1.0,
       "kasa": "Denetim|analitik prosedurler",
       "kitapcik": "Muhasebe|analitik prosedurler",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "denetim|bagimsiz denetim sureci": {
       "hedef": "muhasebe|bagimsiz denetim sureci",
@@ -566,8 +590,8 @@
       "puan": 1.0,
       "kasa": "Denetim|bds 230 denetim belgelendirme",
       "kitapcik": "Muhasebe|bds 230 denetim belgelendirme",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|bds 240 hasilat hile denetimi": {
       "hedef": "muhasebe|bds 240 hasilat hile denetimi",
@@ -606,8 +630,8 @@
       "puan": 1.0,
       "kasa": "Denetim|bds 300 denetim planlamasi",
       "kitapcik": "Muhasebe|bds 300 denetim planlamasi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|bds 300 genel denetim stratejisi": {
       "hedef": "muhasebe|bds 300 genel denetim stratejisi",
@@ -678,8 +702,8 @@
       "puan": 1.0,
       "kasa": "Denetim|bds 501 fiziki stok sayimi",
       "kitapcik": "Muhasebe|bds 501 fiziki stok sayimi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|bds 530 orneklem buyuklugu": {
       "hedef": "muhasebe|bds 530 orneklem buyuklugu",
@@ -710,8 +734,8 @@
       "puan": 1.0,
       "kasa": "Denetim|bds 700 denetci gorusu",
       "kitapcik": "Muhasebe|bds 700 denetci gorusu",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|bds 700 denetci raporu": {
       "hedef": "muhasebe|bds 700 denetci raporu",
@@ -734,8 +758,8 @@
       "puan": 1.0,
       "kasa": "Denetim|bds 701 kilit denetim konulari",
       "kitapcik": "Muhasebe|bds 701 kilit denetim konulari",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|bds 705 denetim gorusu": {
       "hedef": "muhasebe|bds 705 denetim gorusu",
@@ -758,8 +782,8 @@
       "puan": 1.0,
       "kasa": "Denetim|birikmis amortisman denetim proseduru",
       "kitapcik": "Muhasebe|birikmis amortisman denetim proseduru",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|calisma kagitlari": {
       "hedef": "muhasebe|calisma kagitlari",
@@ -846,8 +870,8 @@
       "puan": 1.0,
       "kasa": "Denetim|denetim kanit toplama prosedurleri",
       "kitapcik": "Muhasebe|denetim kanit toplama prosedurleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|denetim kaniti guvenilirligi": {
       "hedef": "muhasebe|denetim kaniti guvenilirligi",
@@ -953,6 +977,22 @@
       "d": 2,
       "s": 2
     },
+    "denetim|gorus turleri olumsuz gorus": {
+      "hedef": "muhasebe|olumsuz gorus",
+      "puan": 1.0,
+      "kasa": "Denetim|gorus turleri - olumsuz gorus",
+      "kitapcik": "Muhasebe|olumsuz gorus",
+      "d": 1,
+      "s": 1
+    },
+    "denetim|gorus turleri sinirli olumlu yanlislik": {
+      "hedef": "muhasebe|sinirli olumlu gorus",
+      "puan": 0.75,
+      "kasa": "Denetim|gorus turleri - sinirli olumlu (yanlislik)",
+      "kitapcik": "Muhasebe|sinirli olumlu gorus",
+      "d": 1,
+      "s": 1
+    },
     "denetim|guvence hizmetleri": {
       "hedef": "muhasebe|guvence hizmetleri",
       "puan": 1.0,
@@ -998,16 +1038,16 @@
       "puan": 1.0,
       "kasa": "Denetim|ic kontrol sistemi",
       "kitapcik": "Muhasebe|ic kontrol sistemi",
-      "d": 3,
-      "s": 3
+      "d": 4,
+      "s": 4
     },
     "denetim|ic kontrol sistemi ozellikleri": {
       "hedef": "muhasebe|ic kontrol sistemi ozellikleri",
       "puan": 1.0,
       "kasa": "Denetim|ic kontrol sistemi ozellikleri",
       "kitapcik": "Muhasebe|ic kontrol sistemi ozellikleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|ic kontrol sistemi tanimi": {
       "hedef": "muhasebe|ic kontrol sistemi tanimi",
@@ -1126,16 +1166,16 @@
       "puan": 1.0,
       "kasa": "Denetim|onemlilik kavrami denetim",
       "kitapcik": "Muhasebe|onemlilik kavrami denetim",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "denetim|onemlilik kiyaslama noktasi": {
       "hedef": "muhasebe|onemlilik kiyaslama noktasi",
       "puan": 1.0,
       "kasa": "Denetim|onemlilik kiyaslama noktasi",
       "kitapcik": "Muhasebe|onemlilik kiyaslama noktasi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "denetim|onemlilik varsayimlari": {
       "hedef": "muhasebe|onemlilik varsayimlari",
@@ -1150,8 +1190,8 @@
       "puan": 1.0,
       "kasa": "Denetim|orneklem buyuklugu faktorleri",
       "kitapcik": "Muhasebe|orneklem buyuklugu faktorleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|ornekleme riski": {
       "hedef": "muhasebe|ornekleme riski",
@@ -1174,8 +1214,8 @@
       "puan": 1.0,
       "kasa": "Denetim|sinirli olumlu gorus",
       "kitapcik": "Muhasebe|sinirli olumlu gorus",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "denetim|sinirli olumlu gorus nedenleri": {
       "hedef": "muhasebe|sinirli olumlu gorus nedenleri",
@@ -1198,8 +1238,8 @@
       "puan": 1.0,
       "kasa": "Denetim|stok sayimi denetimi",
       "kitapcik": "Muhasebe|stok sayimi denetimi",
-      "d": 3,
-      "s": 3
+      "d": 4,
+      "s": 4
     },
     "denetim|tms 36 geri kazanilabilir tutar": {
       "hedef": "muhasebe|geri kazanilabilir tutar",
@@ -1241,6 +1281,14 @@
       "d": 1,
       "s": 1
     },
+    "ekonomi|yeni klasik model para arzi": {
+      "hedef": "ekonomi|yeni klasik model",
+      "puan": 0.6,
+      "kasa": "Ekonomi|yeni klasik model para arzi",
+      "kitapcik": "Ekonomi|yeni klasik model",
+      "d": 1,
+      "s": 1
+    },
     "finansal muhasebe|7 a secenegi uretim maliyeti kaydi": {
       "hedef": "muhasebe|7 a secenegi uretim maliyeti kaydi",
       "puan": 1.0,
@@ -1262,8 +1310,8 @@
       "puan": 0.75,
       "kasa": "Finansal Muhasebe|acilis kaydi kar dagitimi",
       "kitapcik": "Muhasebe|kar dagitimi kaydi",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "finansal muhasebe|acilis ve satis kaydi": {
       "hedef": "muhasebe|acilis kaydi",
@@ -1358,8 +1406,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|alacak senetleri reeskontu",
       "kitapcik": "Muhasebe|alacak senetleri reeskontu",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|alacak tahsilat suresi": {
       "hedef": "muhasebe|alacak tahsilat suresi",
@@ -1382,8 +1430,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|alacaklar kontrol testleri",
       "kitapcik": "Muhasebe|alacaklar kontrol testleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|alinan teminatlar": {
       "hedef": "muhasebe|alinan teminatlar",
@@ -1434,10 +1482,10 @@
       "s": 1
     },
     "finansal muhasebe|amortisman yontemi degisikligi": {
-      "hedef": "muhasebe|amortisman yontemi degisikligi",
-      "puan": 1.0,
+      "hedef": "muhasebe|amortisman yontemi",
+      "puan": 0.667,
       "kasa": "Finansal Muhasebe|amortisman yontemi degisikligi",
-      "kitapcik": "Muhasebe|amortisman yontemi degisikligi",
+      "kitapcik": "Muhasebe|amortisman yontemi",
       "d": 1,
       "s": 1
     },
@@ -1470,8 +1518,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|aralikli envanter yontemi",
       "kitapcik": "Muhasebe|aralikli envanter yontemi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|aralikli envanter yurt ici satislar": {
       "hedef": "muhasebe|aralikli envanter yurt ici satislar",
@@ -1638,16 +1686,16 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|bds 700 denetci gorusu",
       "kitapcik": "Muhasebe|bds 700 denetci gorusu",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|bilanco hesaplari": {
       "hedef": "muhasebe|bilanco hesaplari",
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|bilanco hesaplari",
       "kitapcik": "Muhasebe|bilanco hesaplari",
-      "d": 2,
-      "s": 2
+      "d": 3,
+      "s": 3
     },
     "finansal muhasebe|bilanco ilkeleri ve ozellikleri": {
       "hedef": "muhasebe|bilanco ilkeleri ve ozellikleri",
@@ -1726,8 +1774,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|brut kar orani",
       "kitapcik": "Muhasebe|brut kar orani",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|brut satis k ri": {
       "hedef": "muhasebe|brut satis k ri",
@@ -1930,10 +1978,10 @@
       "s": 1
     },
     "finansal muhasebe|donem k ri zarari hesabi": {
-      "hedef": "muhasebe|donem k ri zarari hesabi",
-      "puan": 1.0,
+      "hedef": "muhasebe|donem k ri veya zarari hesabi",
+      "puan": 0.75,
       "kasa": "Finansal Muhasebe|donem kâri zarari hesabi",
-      "kitapcik": "Muhasebe|donem kâri zarari hesabi",
+      "kitapcik": "Muhasebe|donem kâri veya zarari hesabi",
       "d": 1,
       "s": 1
     },
@@ -2130,10 +2178,10 @@
       "s": 1
     },
     "finansal muhasebe|duran varlik hesaplama": {
-      "hedef": "muhasebe|duran varlik hesaplama",
-      "puan": 1.0,
+      "hedef": "muhasebe|duran varlik toplami hesaplama",
+      "puan": 0.75,
       "kasa": "Finansal Muhasebe|duran varlik hesaplama",
-      "kitapcik": "Muhasebe|duran varlik hesaplama",
+      "kitapcik": "Muhasebe|duran varlik toplami hesaplama",
       "d": 1,
       "s": 1
     },
@@ -2158,8 +2206,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|duran varlik satisi",
       "kitapcik": "Muhasebe|duran varlik satisi",
-      "d": 3,
-      "s": 3
+      "d": 4,
+      "s": 4
     },
     "finansal muhasebe|duran varlik satisi amortisman": {
       "hedef": "muhasebe|amortisman ve duran varlik satisi",
@@ -2170,12 +2218,12 @@
       "s": 1
     },
     "finansal muhasebe|duran varlik satisi kaydi": {
-      "hedef": "muhasebe|duran varlik satisi kaydi",
-      "puan": 1.0,
+      "hedef": "muhasebe|duran varlik satisi",
+      "puan": 0.75,
       "kasa": "Finansal Muhasebe|duran varlik satisi kaydi",
-      "kitapcik": "Muhasebe|duran varlik satisi kaydi",
-      "d": 1,
-      "s": 1
+      "kitapcik": "Muhasebe|duran varlik satisi",
+      "d": 4,
+      "s": 4
     },
     "finansal muhasebe|duran varlik sigorta kaydi": {
       "hedef": "muhasebe|duran varlik sigorta kaydi",
@@ -2230,8 +2278,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|faaliyet kâri hesaplama",
       "kitapcik": "Muhasebe|faaliyet kâri hesaplama",
-      "d": 2,
-      "s": 4
+      "d": 1,
+      "s": 2
     },
     "finansal muhasebe|faaliyet kari hesaplama": {
       "hedef": "muhasebe|faaliyet kari hesaplama",
@@ -2350,8 +2398,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|finansal raporlama degerlendirmesi",
       "kitapcik": "Muhasebe|finansal raporlama degerlendirmesi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|finansal tablolar": {
       "hedef": "muhasebe|finansal tablolar",
@@ -2518,8 +2566,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|gelecek aylara ait giderler",
       "kitapcik": "Muhasebe|gelecek aylara ait giderler",
-      "d": 5,
-      "s": 5
+      "d": 4,
+      "s": 4
     },
     "finansal muhasebe|gelecek donem giderlerini ayirma kaydi": {
       "hedef": "muhasebe|gelecek donem giderlerini ayirma kaydi",
@@ -2822,8 +2870,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|gug dagitimi makine saati",
       "kitapcik": "Muhasebe|gug dagitimi makine saati",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|hasilat kavrami": {
       "hedef": "muhasebe|hasilat kavrami",
@@ -3030,22 +3078,14 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|ic kontrol sistemi ozellikleri",
       "kitapcik": "Muhasebe|ic kontrol sistemi ozellikleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|ifac bunyesindeki kuruluslar": {
       "hedef": "muhasebe|ifac bunyesindeki kuruluslar",
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|ifac bunyesindeki kuruluslar",
       "kitapcik": "Muhasebe|ifac bunyesindeki kuruluslar",
-      "d": 1,
-      "s": 1
-    },
-    "finansal muhasebe|ifac kuruluslari": {
-      "hedef": "muhasebe|ifac kuruluslari",
-      "puan": 1.0,
-      "kasa": "Finansal Muhasebe|ifac kuruluslari",
-      "kitapcik": "Muhasebe|ifac kuruluslari",
       "d": 1,
       "s": 1
     },
@@ -3145,14 +3185,6 @@
       "d": 2,
       "s": 2
     },
-    "finansal muhasebe|isletme hakki haklar hesabi": {
-      "hedef": "muhasebe|isletme hakki haklar hesabi",
-      "puan": 1.0,
-      "kasa": "Finansal Muhasebe|isletme hakki (haklar hesabi)",
-      "kitapcik": "Muhasebe|isletme hakki (haklar hesabi)",
-      "d": 1,
-      "s": 1
-    },
     "finansal muhasebe|isletme ici kullanim ticari mal cikisi": {
       "hedef": "muhasebe|isletme ici kullanim ticari mal cikisi",
       "puan": 1.0,
@@ -3206,8 +3238,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|kâr dagitimi",
       "kitapcik": "Muhasebe|kâr dagitimi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|k r dagitimi yedekler": {
       "hedef": "muhasebe|k r dagitimi yedekler",
@@ -3326,8 +3358,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|kar dagitimi kaydi",
       "kitapcik": "Muhasebe|kar dagitimi kaydi",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "finansal muhasebe|kar dagitimi yedek akce": {
       "hedef": "muhasebe|kar dagitimi yedek akce",
@@ -3402,10 +3434,10 @@
       "s": 1
     },
     "finansal muhasebe|karsilik gideri kaydi": {
-      "hedef": "muhasebe|karsilik gideri kaydi",
-      "puan": 1.0,
+      "hedef": "muhasebe|karsilik gideri kaydi ikramiye",
+      "puan": 0.75,
       "kasa": "Finansal Muhasebe|karsilik gideri kaydi",
-      "kitapcik": "Muhasebe|karsilik gideri kaydi",
+      "kitapcik": "Muhasebe|karsilik gideri kaydi (ikramiye)",
       "d": 1,
       "s": 1
     },
@@ -3518,8 +3550,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|kavramsal cerceve niteliksel ozellikler",
       "kitapcik": "Muhasebe|kavramsal cerceve niteliksel ozellikler",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|kayit sisteminin izlenmesi teknigi": {
       "hedef": "muhasebe|kayit sisteminin izlenmesi teknigi",
@@ -3582,8 +3614,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|kesin mizan hesap kalani",
       "kitapcik": "Muhasebe|kesin mizan hesap kalani",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|kidem tazminati karsiligi": {
       "hedef": "muhasebe|kidem tazminati karsiligi",
@@ -3654,8 +3686,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|kontrol cevresi unsurlari",
       "kitapcik": "Muhasebe|kontrol cevresi unsurlari",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|kontrol iliskisi turleri tfrs 10 11": {
       "hedef": "muhasebe|kontrol iliskisi turleri tfrs 10 11",
@@ -3922,10 +3954,10 @@
       "s": 1
     },
     "finansal muhasebe|menkul kiymet satis kaydi": {
-      "hedef": "muhasebe|menkul kiymet satis kaydi",
-      "puan": 1.0,
+      "hedef": "muhasebe|menkul kiymet hisse senedi satis kaydi",
+      "puan": 0.667,
       "kasa": "Finansal Muhasebe|menkul kiymet satis kaydi",
-      "kitapcik": "Muhasebe|menkul kiymet satis kaydi",
+      "kitapcik": "Muhasebe|menkul kiymet (hisse senedi) satis kaydi",
       "d": 1,
       "s": 1
     },
@@ -4022,8 +4054,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|muhasebe bilgi sistemi girdi",
       "kitapcik": "Muhasebe|muhasebe bilgi sistemi girdi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|muhasebe bilgi sistemi ilkeleri": {
       "hedef": "muhasebe|muhasebe bilgi sistemi",
@@ -4118,8 +4150,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|nakit akis tablosu",
       "kitapcik": "Muhasebe|nakit akis tablosu",
-      "d": 8,
-      "s": 9
+      "d": 7,
+      "s": 8
     },
     "finansal muhasebe|nakit degisim hesabi": {
       "hedef": "muhasebe|nakit degisim hesabi",
@@ -4230,16 +4262,16 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|onemlilik kavrami denetim",
       "kitapcik": "Muhasebe|onemlilik kavrami denetim",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|onemlilik kiyaslama noktasi": {
       "hedef": "muhasebe|onemlilik kiyaslama noktasi",
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|onemlilik kiyaslama noktasi",
       "kitapcik": "Muhasebe|onemlilik kiyaslama noktasi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|ortak maliyet dagitimi": {
       "hedef": "muhasebe|ortak maliyet dagitimi",
@@ -4390,8 +4422,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|pay senedi getirisi",
       "kitapcik": "Muhasebe|pay senedi getirisi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|personel gider tahakkuku": {
       "hedef": "muhasebe|gider tahakkuku",
@@ -4590,8 +4622,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|satis iskontosu kaydi",
       "kitapcik": "Muhasebe|satis iskontosu kaydi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|satis kaydi": {
       "hedef": "muhasebe|satis kaydi",
@@ -4686,8 +4718,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|senet iskonto kaydi",
       "kitapcik": "Muhasebe|senet iskonto kaydi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|senet vade uzatimi yenileme kaydi": {
       "hedef": "muhasebe|senet vade uzatimi yenileme kaydi",
@@ -4792,14 +4824,6 @@
       "kitapcik": "Muhasebe|sermaye kaydi",
       "d": 2,
       "s": 2
-    },
-    "finansal muhasebe|sermaye payi iptal ve satis": {
-      "hedef": "muhasebe|sermaye payi iptal ve satis",
-      "puan": 1.0,
-      "kasa": "Finansal Muhasebe|sermaye payi iptal ve satis",
-      "kitapcik": "Muhasebe|sermaye payi iptal ve satis",
-      "d": 1,
-      "s": 1
     },
     "finansal muhasebe|sermaye taahhudu": {
       "hedef": "muhasebe|sermaye taahhudu",
@@ -4982,8 +5006,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|stokta kalma suresi",
       "kitapcik": "Muhasebe|stokta kalma suresi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|stopaj kesintisi kira gideri": {
       "hedef": "muhasebe|stopaj kesintisi kira gideri",
@@ -5334,8 +5358,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|tfrs 3 isletme birlesmeleri",
       "kitapcik": "Muhasebe|tfrs 3 isletme birlesmeleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|tfrs 3 negatif serefiye": {
       "hedef": "muhasebe|tfrs 3 negatif serefiye",
@@ -5366,8 +5390,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|tfrs 8 faaliyet bolumleri",
       "kitapcik": "Muhasebe|tfrs 8 faaliyet bolumleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|tfrs 9 finansal yukumluluk olcumu": {
       "hedef": "muhasebe|tfrs 9 finansal yukumluluk olcumu",
@@ -5625,14 +5649,6 @@
       "d": 1,
       "s": 1
     },
-    "finansal muhasebe|tms 17 finansal kiralama": {
-      "hedef": "muhasebe|tms 17 finansal kiralama",
-      "puan": 1.0,
-      "kasa": "Finansal Muhasebe|tms 17 finansal kiralama",
-      "kitapcik": "Muhasebe|tms 17 finansal kiralama",
-      "d": 1,
-      "s": 1
-    },
     "finansal muhasebe|tms 17 kiralama": {
       "hedef": "muhasebe|tms 17 kiralama",
       "puan": 1.0,
@@ -5710,8 +5726,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|tms 21 gecerli para birimi",
       "kitapcik": "Muhasebe|tms 21 gecerli para birimi",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "finansal muhasebe|tms 21 gecerli para birimi faktorleri": {
       "hedef": "muhasebe|tms 21 gecerli para birimi faktorleri",
@@ -5870,8 +5886,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|tms 36 deger dusuklugu kapsami",
       "kitapcik": "Muhasebe|tms 36 deger dusuklugu kapsami",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "finansal muhasebe|tms 36 deger dusuklugu testi": {
       "hedef": "muhasebe|tms 36 deger dusuklugu testi",
@@ -6094,8 +6110,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|toplulastirma riski",
       "kitapcik": "Muhasebe|toplulastirma riski",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|tutarlilik ilkesi": {
       "hedef": "muhasebe|tutarlilik ilkesi",
@@ -6222,8 +6238,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|yapilmakta olan yatirimlar",
       "kitapcik": "Muhasebe|yapilmakta olan yatirimlar",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "finansal muhasebe|yardimci gider yeri dagitimi": {
       "hedef": "muhasebe|yardimci gider yeri dagitimi",
@@ -6254,8 +6270,8 @@
       "puan": 1.0,
       "kasa": "Finansal Muhasebe|yatay analiz",
       "kitapcik": "Muhasebe|yatay analiz",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "finansal muhasebe|yatirim amacli gayrimenkul siniflandirma": {
       "hedef": "muhasebe|tms 40 yatirim amacli gayrimenkul",
@@ -6366,8 +6382,8 @@
       "puan": 0.667,
       "kasa": "Finansal Tablolar ve Analizi|bilanco yatay analiz",
       "kitapcik": "Muhasebe|yatay analiz",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "finansal tablolar ve analizi|brut satis k rliligi": {
       "hedef": "muhasebe|brut satis k ri",
@@ -6566,24 +6582,24 @@
       "puan": 0.667,
       "kasa": "Hukuk|alacak zamanasimi suresi",
       "kitapcik": "Hukuk|zamanasimi suresi",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "hukuk|genel zamanasimi suresi": {
       "hedef": "hukuk|zamanasimi suresi",
       "puan": 0.667,
       "kasa": "Hukuk|genel zamanasimi suresi",
       "kitapcik": "Hukuk|zamanasimi suresi",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "hukuk|is kanunu isveren kapsami": {
       "hedef": "hukuk|is kanunu kapsami",
       "puan": 0.667,
       "kasa": "Hukuk|is kanunu isveren kapsami",
-      "kitapcik": "Hukuk|is kanunu kapsami",
-      "d": 4,
-      "s": 4
+      "kitapcik": "Hukuk|İs kanunu kapsami",
+      "d": 3,
+      "s": 3
     },
     "hukuk|is kazasi ve meslek hastaligi sigortasi haklari": {
       "hedef": "hukuk|is kazasi meslek hastaligi",
@@ -6614,8 +6630,8 @@
       "puan": 1.0,
       "kasa": "Is ve Sosyal Guvenlik Hukuku|belirli sureli is sozlesmesi",
       "kitapcik": "Hukuk|belirli sureli is sozlesmesi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "is ve sosyal guvenlik hukuku|calisma suresi": {
       "hedef": "hukuk|calisma suresi",
@@ -6633,14 +6649,6 @@
       "d": 2,
       "s": 2
     },
-    "is ve sosyal guvenlik hukuku|gecici is goremezlik odenegi": {
-      "hedef": "hukuk|gecici is goremezlik odenegi",
-      "puan": 1.0,
-      "kasa": "Is ve Sosyal Guvenlik Hukuku|gecici is goremezlik odenegi",
-      "kitapcik": "Hukuk|gecici is goremezlik odenegi",
-      "d": 1,
-      "s": 1
-    },
     "is ve sosyal guvenlik hukuku|gecici is goremezlik sigorta kollari": {
       "hedef": "hukuk|gecici is goremezlik sigorta kollari",
       "puan": 1.0,
@@ -6654,16 +6662,8 @@
       "puan": 1.0,
       "kasa": "Is ve Sosyal Guvenlik Hukuku|grev lokavt yasagi",
       "kitapcik": "Hukuk|grev lokavt yasagi",
-      "d": 3,
-      "s": 3
-    },
-    "is ve sosyal guvenlik hukuku|ihbar bildirim sekli": {
-      "hedef": "hukuk|ihbar bildirim sekli",
-      "puan": 1.0,
-      "kasa": "Is ve Sosyal Guvenlik Hukuku|ihbar/bildirim sekli",
-      "kitapcik": "Hukuk|ihbar/bildirim sekli",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "is ve sosyal guvenlik hukuku|is kanunu fesih": {
       "hedef": "hukuk|is kanunu fesih",
@@ -6677,9 +6677,9 @@
       "hedef": "hukuk|is kanunu kapsami",
       "puan": 1.0,
       "kasa": "Is ve Sosyal Guvenlik Hukuku|is kanunu kapsami",
-      "kitapcik": "Hukuk|is kanunu kapsami",
-      "d": 4,
-      "s": 4
+      "kitapcik": "Hukuk|İs kanunu kapsami",
+      "d": 3,
+      "s": 3
     },
     "is ve sosyal guvenlik hukuku|is kazasi isveren sorumlulugu": {
       "hedef": "hukuk|is kazasi isveren sorumlulugu",
@@ -6726,8 +6726,8 @@
       "puan": 1.0,
       "kasa": "Is ve Sosyal Guvenlik Hukuku|is sozlesmesi turleri",
       "kitapcik": "Hukuk|is sozlesmesi turleri",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "is ve sosyal guvenlik hukuku|isci ucretleri": {
       "hedef": "hukuk|isci ucretleri",
@@ -6894,16 +6894,16 @@
       "puan": 1.0,
       "kasa": "Is ve Sosyal Guvenlik Hukuku|uzun vadeli sigorta kollari",
       "kitapcik": "Hukuk|uzun vadeli sigorta kollari",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "mali tablolar analizi|aktif devir hizi": {
       "hedef": "muhasebe|aktif devir hizi",
       "puan": 1.0,
       "kasa": "Mali Tablolar Analizi|aktif devir hizi",
       "kitapcik": "Muhasebe|aktif devir hizi",
-      "d": 7,
-      "s": 7
+      "d": 8,
+      "s": 8
     },
     "mali tablolar analizi|aktif devir hizindan cari oran": {
       "hedef": "muhasebe|aktif devir hizindan cari oran",
@@ -7038,8 +7038,8 @@
       "puan": 1.0,
       "kasa": "Mali Tablolar Analizi|cari oran duran varlik",
       "kitapcik": "Muhasebe|cari oran duran varlik",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "mali tablolar analizi|cari oran duran varliklar": {
       "hedef": "muhasebe|cari oran duran varliklar",
@@ -7178,10 +7178,10 @@
       "s": 1
     },
     "mali tablolar analizi|dikey yuzde analiz": {
-      "hedef": "muhasebe|dikey yuzde analiz",
-      "puan": 1.0,
+      "hedef": "muhasebe|mali analiz dikey yuzde",
+      "puan": 0.75,
       "kasa": "Mali Tablolar Analizi|dikey yuzde analiz",
-      "kitapcik": "Muhasebe|dikey yuzde analiz",
+      "kitapcik": "Muhasebe|mali analiz dikey yuzde",
       "d": 1,
       "s": 1
     },
@@ -7358,8 +7358,8 @@
       "puan": 1.0,
       "kasa": "Mali Tablolar Analizi|kâr marji analizi",
       "kitapcik": "Muhasebe|kâr marji analizi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "mali tablolar analizi|kaldirac orani hesabi borc ozsermaye": {
       "hedef": "muhasebe|kaldirac orani hesabi borc ozsermaye",
@@ -7654,8 +7654,8 @@
       "puan": 1.0,
       "kasa": "Mali Tablolar Analizi|yatay analiz",
       "kitapcik": "Muhasebe|yatay analiz",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "mali tablolar analizi|yatay analiz degisim yuzdesi": {
       "hedef": "muhasebe|yatay analiz degisim yuzdesi",
@@ -7678,8 +7678,8 @@
       "puan": 0.667,
       "kasa": "Mali Tablolar Analizi|yatay (karsilastirmali) analiz",
       "kitapcik": "Muhasebe|yatay analiz",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "mali tablolar analizi|yuzde degisim analizi": {
       "hedef": "muhasebe|yuzde degisim analizi",
@@ -7688,6 +7688,46 @@
       "kitapcik": "Muhasebe|yuzde degisim analizi",
       "d": 2,
       "s": 2
+    },
+    "maliye|dolayli vergiler": {
+      "hedef": "maliye|dolayli vergiler ozellikleri",
+      "puan": 0.667,
+      "kasa": "Maliye|dolayli vergiler",
+      "kitapcik": "Maliye|dolayli vergiler ozellikleri",
+      "d": 1,
+      "s": 1
+    },
+    "maliye|ek butce": {
+      "hedef": "maliye|butce ilkeleri",
+      "puan": 1.0,
+      "kasa": "Maliye|ek butce",
+      "kitapcik": "Maliye|butce ilkeleri",
+      "d": 4,
+      "s": 4
+    },
+    "maliye|mali yanilsama": {
+      "hedef": "maliye|mali yanilsama modeli",
+      "puan": 0.667,
+      "kasa": "Maliye|mali yanilsama",
+      "kitapcik": "Maliye|mali yanilsama modeli",
+      "d": 1,
+      "s": 1
+    },
+    "maliye|tam istihdam butce acigi": {
+      "hedef": "maliye|mali kaldirac tam istihdam butce acigi",
+      "puan": 0.667,
+      "kasa": "Maliye|tam istihdam butce acigi",
+      "kitapcik": "Maliye|mali kaldirac (tam istihdam butce acigi)",
+      "d": 1,
+      "s": 1
+    },
+    "maliye|vergi yansimasi arz talep": {
+      "hedef": "ekonomi|vergi yansimasi arz talep",
+      "puan": 1.0,
+      "kasa": "Maliye|vergi yansimasi arz talep",
+      "kitapcik": "Ekonomi|vergi yansimasi arz talep",
+      "d": 1,
+      "s": 1
     },
     "maliyet muhasebesi|7 a genel uretim gideri kapsami": {
       "hedef": "muhasebe|7 a genel uretim gideri kapsami",
@@ -7758,8 +7798,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|alinan siparis avanslari",
       "kitapcik": "Muhasebe|alinan siparis avanslari",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "maliyet muhasebesi|aralikli envanter satilan mal maliyeti": {
       "hedef": "muhasebe|aralikli envanter satilan mal maliyeti",
@@ -8014,8 +8054,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|direkt iscilik farklari",
       "kitapcik": "Muhasebe|direkt iscilik farklari",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "maliyet muhasebesi|direkt iscilik gideri": {
       "hedef": "muhasebe|direkt iscilik gideri",
@@ -8110,8 +8150,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|esdeger birim hesaplama",
       "kitapcik": "Muhasebe|esdeger birim hesaplama",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "maliyet muhasebesi|esdeger birim maliyeti": {
       "hedef": "muhasebe|esdeger birim maliyeti",
@@ -8258,10 +8298,10 @@
       "s": 3
     },
     "maliyet muhasebesi|genel uretim giderleri": {
-      "hedef": "muhasebe|genel uretim giderleri dagitimi",
-      "puan": 0.75,
+      "hedef": "muhasebe|genel uretim giderleri",
+      "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|genel uretim giderleri",
-      "kitapcik": "Muhasebe|genel uretim giderleri dagitimi",
+      "kitapcik": "Muhasebe|genel uretim giderleri",
       "d": 1,
       "s": 1
     },
@@ -8274,10 +8314,10 @@
       "s": 1
     },
     "maliyet muhasebesi|genel uretim giderleri kapsami": {
-      "hedef": "muhasebe|7 a genel uretim gideri kapsami",
-      "puan": 0.6,
+      "hedef": "muhasebe|genel uretim giderleri",
+      "puan": 0.75,
       "kasa": "Maliyet Muhasebesi|genel uretim giderleri kapsami",
-      "kitapcik": "Muhasebe|7/a genel uretim gideri kapsami",
+      "kitapcik": "Muhasebe|genel uretim giderleri",
       "d": 1,
       "s": 1
     },
@@ -8314,10 +8354,10 @@
       "s": 2
     },
     "maliyet muhasebesi|gug dagitim tablosu": {
-      "hedef": "muhasebe|gug dagitim tablosu",
-      "puan": 1.0,
+      "hedef": "muhasebe|gug kademeli dagitim tablosu",
+      "puan": 0.75,
       "kasa": "Maliyet Muhasebesi|gug dagitim tablosu",
-      "kitapcik": "Muhasebe|gug dagitim tablosu",
+      "kitapcik": "Muhasebe|gug kademeli dagitim tablosu",
       "d": 1,
       "s": 1
     },
@@ -8326,8 +8366,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|gug dagitimi makine saati",
       "kitapcik": "Muhasebe|gug dagitimi makine saati",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "maliyet muhasebesi|gug iscilik oranli yukleme": {
       "hedef": "muhasebe|gug iscilik oranli yukleme",
@@ -8362,10 +8402,10 @@
       "s": 1
     },
     "maliyet muhasebesi|gug yukleme orani": {
-      "hedef": "muhasebe|siparis gug cift yukleme orani",
-      "puan": 0.6,
+      "hedef": "muhasebe|gug yukleme orani",
+      "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|gug yukleme orani",
-      "kitapcik": "Muhasebe|siparis gug cift yukleme orani",
+      "kitapcik": "Muhasebe|gug yukleme orani",
       "d": 1,
       "s": 1
     },
@@ -8602,12 +8642,12 @@
       "s": 13
     },
     "maliyet muhasebesi|ortak maliyet dagitimi katsayi yontemi": {
-      "hedef": "muhasebe|ortak maliyet dagitimi katsayi yontemi",
-      "puan": 1.0,
+      "hedef": "muhasebe|ortak maliyet dagitimi",
+      "puan": 0.6,
       "kasa": "Maliyet Muhasebesi|ortak maliyet dagitimi katsayi yontemi",
-      "kitapcik": "Muhasebe|ortak maliyet dagitimi katsayi yontemi",
-      "d": 1,
-      "s": 1
+      "kitapcik": "Muhasebe|ortak maliyet dagitimi",
+      "d": 13,
+      "s": 13
     },
     "maliyet muhasebesi|ortak maliyet katsayili yontem": {
       "hedef": "muhasebe|ortak maliyet katsayili yontem",
@@ -8822,8 +8862,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|satilan mamul maliyeti",
       "kitapcik": "Muhasebe|satilan mamul maliyeti",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "maliyet muhasebesi|satilan mamul maliyeti hesabi": {
       "hedef": "muhasebe|satilan mamul maliyeti hesabi",
@@ -8870,8 +8910,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|satislarin maliyeti tablosu",
       "kitapcik": "Muhasebe|satislarin maliyeti tablosu",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "maliyet muhasebesi|satislarin maliyeti uretim ticari": {
       "hedef": "muhasebe|satislarin maliyeti uretim ticari",
@@ -9062,8 +9102,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|standart maliyet direkt iscilik",
       "kitapcik": "Muhasebe|standart maliyet direkt iscilik",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "maliyet muhasebesi|standart maliyet farklari": {
       "hedef": "muhasebe|standart maliyet farklari",
@@ -9118,8 +9158,8 @@
       "puan": 1.0,
       "kasa": "Maliyet Muhasebesi|standart maliyet miktar sapmasi",
       "kitapcik": "Muhasebe|standart maliyet miktar sapmasi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "maliyet muhasebesi|standart maliyet sapma analizi": {
       "hedef": "muhasebe|standart maliyet sapma analizi",
@@ -9374,8 +9414,8 @@
       "puan": 0.75,
       "kasa": "Maliyet Muhasebesi|uretim ve satilan mamul maliyeti",
       "kitapcik": "Muhasebe|satilan mamul maliyeti",
-      "d": 4,
-      "s": 4
+      "d": 5,
+      "s": 5
     },
     "maliyet muhasebesi|verilen siparis avansi": {
       "hedef": "muhasebe|verilen siparis avansi",
@@ -9481,6 +9521,14 @@
       "d": 1,
       "s": 1
     },
+    "matematik|geometrik seri toplami": {
+      "hedef": "matematik istatistik|seri toplami",
+      "puan": 0.667,
+      "kasa": "Matematik|geometrik seri toplami",
+      "kitapcik": "Matematik-Istatistik|seri toplami",
+      "d": 6,
+      "s": 6
+    },
     "matematik|iki nokta arasi uzaklik": {
       "hedef": "matematik istatistik|iki nokta arasi uzaklik",
       "puan": 1.0,
@@ -9496,6 +9544,14 @@
       "kitapcik": "Matematik-Istatistik|isci isi problemi",
       "d": 1,
       "s": 1
+    },
+    "matematik|karmasik kesir islemi": {
+      "hedef": "matematik istatistik|karmasik kesir islemi",
+      "puan": 1.0,
+      "kasa": "Matematik|karmasik kesir islemi",
+      "kitapcik": "Matematik-Istatistik|karmasik kesir islemi",
+      "d": 3,
+      "s": 3
     },
     "matematik|kesirli islemler": {
       "hedef": "matematik istatistik|kesirli islemler",
@@ -9569,6 +9625,14 @@
       "d": 4,
       "s": 4
     },
+    "matematik|seri toplami": {
+      "hedef": "matematik istatistik|seri toplami",
+      "puan": 1.0,
+      "kasa": "Matematik|seri toplami",
+      "kitapcik": "Matematik-Istatistik|seri toplami",
+      "d": 6,
+      "s": 6
+    },
     "matematik|tanimli islem": {
       "hedef": "matematik istatistik|tanimli islem",
       "puan": 1.0,
@@ -9601,21 +9665,29 @@
       "d": 2,
       "s": 2
     },
+    "matematik|uslu ifadeler isaret": {
+      "hedef": "matematik istatistik|uslu ifadeler",
+      "puan": 0.667,
+      "kasa": "Matematik|uslu ifadeler - isaret",
+      "kitapcik": "Matematik-Istatistik|uslu ifadeler",
+      "d": 4,
+      "s": 4
+    },
+    "matematik|uslu sayilar": {
+      "hedef": "matematik istatistik|uslu sayilar",
+      "puan": 1.0,
+      "kasa": "Matematik|uslu sayilar",
+      "kitapcik": "Matematik-Istatistik|uslu sayilar",
+      "d": 5,
+      "s": 5
+    },
     "matematik|yas problemi": {
       "hedef": "matematik istatistik|yas problemi",
       "puan": 1.0,
       "kasa": "Matematik|yas problemi",
       "kitapcik": "Matematik-Istatistik|yas problemi",
-      "d": 5,
-      "s": 6
-    },
-    "matematik|yuzde kar zarar problemi": {
-      "hedef": "matematik istatistik|yuzde k r zarar problemi",
-      "puan": 0.75,
-      "kasa": "Matematik|yuzde kar-zarar problemi",
-      "kitapcik": "Matematik-Istatistik|yuzde kâr-zarar problemi",
-      "d": 1,
-      "s": 1
+      "d": 6,
+      "s": 7
     },
     "meslek hukuku|3568 sayili kanun birlik": {
       "hedef": "hukuk|3568 sayili kanun birlik",
@@ -9650,12 +9722,12 @@
       "s": 11
     },
     "meslek hukuku|disiplin cezalari kinama": {
-      "hedef": "hukuk|disiplin cezalari kinama",
-      "puan": 1.0,
+      "hedef": "hukuk|disiplin cezalari",
+      "puan": 0.667,
       "kasa": "Meslek Hukuku|disiplin cezalari kinama",
-      "kitapcik": "Hukuk|disiplin cezalari kinama",
-      "d": 1,
-      "s": 1
+      "kitapcik": "Hukuk|disiplin cezalari",
+      "d": 11,
+      "s": 11
     },
     "meslek hukuku|disiplin cezasi kinama": {
       "hedef": "hukuk|disiplin cezasi kinama",
@@ -9710,8 +9782,8 @@
       "puan": 1.0,
       "kasa": "Meslek Hukuku|haksiz rekabet reklam yasagi",
       "kitapcik": "Hukuk|haksiz rekabet reklam yasagi",
-      "d": 8,
-      "s": 8
+      "d": 7,
+      "s": 7
     },
     "meslek hukuku|internet reklam yasagi": {
       "hedef": "hukuk|internet reklam yasagi",
@@ -9762,10 +9834,10 @@
       "s": 2
     },
     "meslek hukuku|meslek mensubu sosyal sorumluluk": {
-      "hedef": "hukuk|meslek mensubu sosyal sorumluluk",
-      "puan": 1.0,
+      "hedef": "hukuk|meslek mensubu etik sosyal sorumluluk",
+      "puan": 0.8,
       "kasa": "Meslek Hukuku|meslek mensubu sosyal sorumluluk",
-      "kitapcik": "Hukuk|meslek mensubu sosyal sorumluluk",
+      "kitapcik": "Hukuk|meslek mensubu etik sosyal sorumluluk",
       "d": 1,
       "s": 1
     },
@@ -9776,14 +9848,6 @@
       "kitapcik": "Hukuk|meslek mensubu ucret esaslari",
       "d": 3,
       "s": 3
-    },
-    "meslek hukuku|meslek odalari gelirleri": {
-      "hedef": "hukuk|meslek odalari gelirleri",
-      "puan": 1.0,
-      "kasa": "Meslek Hukuku|meslek odalari gelirleri",
-      "kitapcik": "Hukuk|meslek odalari gelirleri",
-      "d": 1,
-      "s": 1
     },
     "meslek hukuku|meslek standartlari ihlali": {
       "hedef": "hukuk|meslek standartlari ihlali",
@@ -9838,8 +9902,8 @@
       "puan": 1.0,
       "kasa": "Meslek Hukuku|serbest meslek kazanci",
       "kitapcik": "Hukuk|serbest meslek kazanci",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "meslek hukuku|smmm disiplin cezalari": {
       "hedef": "hukuk|smmm disiplin cezalari",
@@ -9870,16 +9934,16 @@
       "puan": 1.0,
       "kasa": "Meslek Hukuku|ucret tarifesi",
       "kitapcik": "Hukuk|ucret tarifesi",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "meslek hukuku|ucret tarifesi esaslari": {
       "hedef": "hukuk|ucret tarifesi",
       "puan": 1.0,
       "kasa": "Meslek Hukuku|ucret tarifesi esaslari",
       "kitapcik": "Hukuk|ucret tarifesi",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "meslek hukuku|yeminli mali musavirlik sinavi": {
       "hedef": "hukuk|yeminli mali musavirlik sinavi",
@@ -9934,8 +9998,8 @@
       "puan": 1.0,
       "kasa": "Muh. ve Mali Müş. Meslek Hukuku|etik ilkeler kisisel cikar tehdidi",
       "kitapcik": "Hukuk|etik ilkeler kisisel cikar tehdidi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "muh ve mali mus meslek hukuku|etik ilkeler tehdit onlemleri": {
       "hedef": "hukuk|etik ilkeler tehdit",
@@ -9974,8 +10038,8 @@
       "puan": 1.0,
       "kasa": "Muh. ve Mali Müş. Meslek Hukuku|haksiz rekabet reklam yasagi",
       "kitapcik": "Hukuk|haksiz rekabet reklam yasagi",
-      "d": 8,
-      "s": 8
+      "d": 7,
+      "s": 7
     },
     "muh ve mali mus meslek hukuku|meslek mensubu olma genel sartlari": {
       "hedef": "hukuk|meslek mensubu genel sartlari",
@@ -10054,8 +10118,8 @@
       "puan": 1.0,
       "kasa": "Muh. ve Mali Müş. Meslek Hukuku|reklam yasagi haksiz rekabet",
       "kitapcik": "Hukuk|haksiz rekabet reklam yasagi",
-      "d": 8,
-      "s": 8
+      "d": 7,
+      "s": 7
     },
     "muh ve mali mus meslek hukuku|reklam yasagi kurallari": {
       "hedef": "hukuk|reklam yasagi",
@@ -10070,8 +10134,8 @@
       "puan": 1.0,
       "kasa": "Muh. ve Mali Müş. Meslek Hukuku|reklam yoluyla haksiz rekabet",
       "kitapcik": "Hukuk|reklam yoluyla haksiz rekabet",
-      "d": 1,
-      "s": 1
+      "d": 2,
+      "s": 2
     },
     "muh ve mali mus meslek hukuku|temel etik ilkeler": {
       "hedef": "hukuk|etik ilkeler",
@@ -10170,10 +10234,18 @@
       "s": 1
     },
     "muhasebe denetimi|denetimde orneklem buyuklugu": {
-      "hedef": "muhasebe|orneklem buyuklugu",
+      "hedef": "muhasebe|denetimde orneklem",
       "puan": 0.667,
       "kasa": "Muhasebe Denetimi|denetimde orneklem buyuklugu",
-      "kitapcik": "Muhasebe|orneklem buyuklugu",
+      "kitapcik": "Muhasebe|denetimde orneklem",
+      "d": 1,
+      "s": 1
+    },
+    "muhasebe denetimi|dis teyitler": {
+      "hedef": "muhasebe|dis teyitler",
+      "puan": 1.0,
+      "kasa": "Muhasebe Denetimi|dis teyitler",
+      "kitapcik": "Muhasebe|dis teyitler",
       "d": 1,
       "s": 1
     },
@@ -10230,16 +10302,16 @@
       "puan": 0.75,
       "kasa": "Muhasebe Standartlari|tfrs 3 isletme birlesmeleri serefiye",
       "kitapcik": "Muhasebe|tfrs 3 isletme birlesmeleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "muhasebe standartlari|tfrs 8 faaliyet bolumleri raporlanabilir bolum": {
       "hedef": "muhasebe|tfrs 8 faaliyet bolumleri",
       "puan": 0.6,
       "kasa": "Muhasebe Standartlari|tfrs 8 faaliyet bolumleri raporlanabilir bolum",
       "kitapcik": "Muhasebe|tfrs 8 faaliyet bolumleri",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "muhasebe standartlari|tms 12 gelir vergileri ertelenmis vergi": {
       "hedef": "muhasebe|tms 12 ertelenmis vergi",
@@ -10274,10 +10346,10 @@
       "s": 1
     },
     "muhasebe standartlari|tms 23 borclanma maliyetleri aktiflestirme": {
-      "hedef": "muhasebe|tms 23 borclanma maliyeti aktiflestirme",
-      "puan": 0.6,
+      "hedef": "muhasebe|borclanma maliyetleri aktiflestirme",
+      "puan": 0.75,
       "kasa": "Muhasebe Standartlari|tms 23 borclanma maliyetleri aktiflestirme",
-      "kitapcik": "Muhasebe|tms 23 borclanma maliyeti aktiflestirme",
+      "kitapcik": "Muhasebe|borclanma maliyetleri aktiflestirme",
       "d": 1,
       "s": 1
     },
@@ -10350,8 +10422,8 @@
       "puan": 1.0,
       "kasa": "Ticaret Hukuku|anonim sirket temsili",
       "kitapcik": "Hukuk|anonim sirket temsili",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "ticaret hukuku|anonim sirket yonetim kurulu yetkisi": {
       "hedef": "hukuk|anonim sirket yonetim kurulu yetkisi",
@@ -10417,6 +10489,14 @@
       "d": 5,
       "s": 5
     },
+    "ticaret hukuku|cekte muhatap banka": {
+      "hedef": "hukuk|cekte muhatap banka",
+      "puan": 1.0,
+      "kasa": "Ticaret Hukuku|cekte muhatap banka",
+      "kitapcik": "Hukuk|cekte muhatap banka",
+      "d": 1,
+      "s": 1
+    },
     "ticaret hukuku|ciro turleri": {
       "hedef": "hukuk|ciro turleri",
       "puan": 1.0,
@@ -10446,14 +10526,6 @@
       "puan": 1.0,
       "kasa": "Ticaret Hukuku|kambiyo senedi beyaz ciro",
       "kitapcik": "Hukuk|kambiyo senedi beyaz ciro",
-      "d": 1,
-      "s": 1
-    },
-    "ticaret hukuku|kambiyo senedi gidersiz kaydi": {
-      "hedef": "hukuk|kambiyo senedi gidersiz kaydi",
-      "puan": 1.0,
-      "kasa": "Ticaret Hukuku|kambiyo senedi gidersiz kaydi",
-      "kitapcik": "Hukuk|kambiyo senedi gidersiz kaydi",
       "d": 1,
       "s": 1
     },
@@ -10590,8 +10662,8 @@
       "puan": 1.0,
       "kasa": "Ticaret Hukuku|ticari defter tutma yukumlulugu",
       "kitapcik": "Hukuk|ticari defter tutma yukumlulugu",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "ticaret hukuku|ticari is kavrami": {
       "hedef": "hukuk|ticari is kavrami",
@@ -10642,12 +10714,12 @@
       "s": 1
     },
     "turkce|anlatim akisini bozan cumle": {
-      "hedef": "genel kultur genel yetenek|anlatim akisini bozan cumle",
-      "puan": 1.0,
+      "hedef": "genel kultur genel yetenek|dusuncenin akisini bozan cumle",
+      "puan": 0.6,
       "kasa": "Turkce|anlatim akisini bozan cumle",
-      "kitapcik": "Genel Kultur-Genel Yetenek|anlatim akisini bozan cumle",
-      "d": 1,
-      "s": 1
+      "kitapcik": "Genel Kultur-Genel Yetenek|dusuncenin akisini bozan cumle",
+      "d": 2,
+      "s": 2
     },
     "turkce|anlatim bicimleri": {
       "hedef": "genel kultur genel yetenek|anlatim bicimleri",
@@ -10662,8 +10734,8 @@
       "puan": 1.0,
       "kasa": "Turkce|anlatim bozuklugu",
       "kitapcik": "Genel Kultur-Genel Yetenek|anlatim bozuklugu",
-      "d": 14,
-      "s": 14
+      "d": 15,
+      "s": 15
     },
     "turkce|anlatim ozellikleri": {
       "hedef": "genel kultur genel yetenek|anlatim ozellikleri",
@@ -10686,14 +10758,6 @@
       "puan": 1.0,
       "kasa": "Turkce|balkan antanti",
       "kitapcik": "Genel Kultur-Genel Yetenek|balkan antanti",
-      "d": 1,
-      "s": 1
-    },
-    "turkce|balkan antanti dis politika": {
-      "hedef": "genel kultur genel yetenek|balkan antanti dis politika",
-      "puan": 1.0,
-      "kasa": "Turkce|balkan antanti dis politika",
-      "kitapcik": "Genel Kultur-Genel Yetenek|balkan antanti dis politika",
       "d": 1,
       "s": 1
     },
@@ -10742,8 +10806,8 @@
       "puan": 1.0,
       "kasa": "Turkce|cumle ogeleri",
       "kitapcik": "Genel Kultur-Genel Yetenek|cumle ogeleri",
-      "d": 5,
-      "s": 5
+      "d": 4,
+      "s": 4
     },
     "turkce|cumle ogeleri analizi": {
       "hedef": "genel kultur genel yetenek|cumle ogeleri analizi",
@@ -10758,8 +10822,8 @@
       "puan": 1.0,
       "kasa": "Turkce|dusunceyi gelistirme yollari",
       "kitapcik": "Genel Kultur-Genel Yetenek|dusunceyi gelistirme yollari",
-      "d": 6,
-      "s": 6
+      "d": 5,
+      "s": 5
     },
     "turkce|duzeltme isareti": {
       "hedef": "genel kultur genel yetenek|duzeltme isareti",
@@ -10786,10 +10850,10 @@
       "s": 1
     },
     "turkce|heyet i temsiliye merkezi": {
-      "hedef": "genel kultur genel yetenek|heyet i temsiliye merkezi",
-      "puan": 1.0,
+      "hedef": "genel kultur genel yetenek|heyet i temsiliye",
+      "puan": 0.667,
       "kasa": "Turkce|heyet-i temsiliye merkezi",
-      "kitapcik": "Genel Kultur-Genel Yetenek|heyet-i temsiliye merkezi",
+      "kitapcik": "Genel Kultur-Genel Yetenek|heyet-i temsiliye",
       "d": 1,
       "s": 1
     },
@@ -10814,8 +10878,8 @@
       "puan": 1.0,
       "kasa": "Turkce|kesme isareti kullanimi",
       "kitapcik": "Genel Kultur-Genel Yetenek|kesme isareti kullanimi",
-      "d": 3,
-      "s": 3
+      "d": 2,
+      "s": 2
     },
     "turkce|kisa cizgi kullanimi": {
       "hedef": "genel kultur genel yetenek|kisa cizgi kullanimi",
@@ -10854,14 +10918,6 @@
       "puan": 1.0,
       "kasa": "Turkce|milletler cemiyeti",
       "kitapcik": "Genel Kultur-Genel Yetenek|milletler cemiyeti",
-      "d": 1,
-      "s": 1
-    },
-    "turkce|milliyetcilik ve osmanli duzenlemeleri": {
-      "hedef": "genel kultur genel yetenek|milliyetcilik ve osmanli duzenlemeleri",
-      "puan": 1.0,
-      "kasa": "Turkce|milliyetcilik ve osmanli duzenlemeleri",
-      "kitapcik": "Genel Kultur-Genel Yetenek|milliyetcilik ve osmanli duzenlemeleri",
       "d": 1,
       "s": 1
     },
@@ -10950,16 +11006,16 @@
       "puan": 1.0,
       "kasa": "Turkce|sozcukte anlam",
       "kitapcik": "Genel Kultur-Genel Yetenek|sozcukte anlam",
-      "d": 9,
-      "s": 9
+      "d": 8,
+      "s": 8
     },
     "turkce|sozcukte zarf kullanimi": {
       "hedef": "genel kultur genel yetenek|sozcukte zarf kullanimi",
       "puan": 1.0,
       "kasa": "Turkce|sozcukte zarf kullanimi",
       "kitapcik": "Genel Kultur-Genel Yetenek|sozcukte zarf kullanimi",
-      "d": 2,
-      "s": 2
+      "d": 1,
+      "s": 1
     },
     "turkce|temsil heyeti": {
       "hedef": "genel kultur genel yetenek|temsil heyeti",
@@ -10974,8 +11030,8 @@
       "puan": 1.0,
       "kasa": "Turkce|unlu degisimi",
       "kitapcik": "Genel Kultur-Genel Yetenek|unlu degisimi",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "turkce|v mehmet resat donemi": {
       "hedef": "genel kultur genel yetenek|v mehmet resat donemi",
@@ -10990,8 +11046,8 @@
       "puan": 1.0,
       "kasa": "Turkce|yazim kurallari",
       "kitapcik": "Genel Kultur-Genel Yetenek|yazim kurallari",
-      "d": 15,
-      "s": 16
+      "d": 16,
+      "s": 17
     },
     "vergi hukuku|amme alacagi tasarruf iptali": {
       "hedef": "hukuk|amme alacagi tasarruf iptali",
@@ -11126,8 +11182,8 @@
       "puan": 1.0,
       "kasa": "Vergi Hukuku|kdv vergiyi doguran olay",
       "kitapcik": "Hukuk|kdv vergiyi doguran olay",
-      "d": 5,
-      "s": 5
+      "d": 4,
+      "s": 4
     },
     "vergi hukuku|kurumlar vergisi istisnasi": {
       "hedef": "hukuk|kurumlar vergisi istisnasi",
@@ -11178,20 +11234,12 @@
       "s": 3
     },
     "vergi hukuku|ozel tuketim vergisi konusu": {
-      "hedef": "hukuk|ozel tuketim vergisi konusu",
-      "puan": 1.0,
+      "hedef": "hukuk|ozel tuketim vergisi",
+      "puan": 0.75,
       "kasa": "Vergi Hukuku|ozel tuketim vergisi konusu",
-      "kitapcik": "Hukuk|ozel tuketim vergisi konusu",
-      "d": 1,
-      "s": 1
-    },
-    "vergi hukuku|vergi mukellefiyeti ve odevi": {
-      "hedef": "hukuk|vergi mukellefiyeti ve odevi",
-      "puan": 1.0,
-      "kasa": "Vergi Hukuku|vergi mukellefiyeti ve odevi",
-      "kitapcik": "Hukuk|vergi mukellefiyeti ve odevi",
-      "d": 1,
-      "s": 1
+      "kitapcik": "Hukuk|ozel tuketim vergisi",
+      "d": 3,
+      "s": 3
     },
     "vergi hukuku|vergi tarhi on islemleri": {
       "hedef": "hukuk|vergi tarhi on islemleri",
@@ -11270,8 +11318,8 @@
       "puan": 1.0,
       "kasa": "Vergi Mevzuatı ve Uygulaması|kdv istisnalari",
       "kitapcik": "Hukuk|kdv istisnalari",
-      "d": 2,
-      "s": 2
+      "d": 3,
+      "s": 3
     },
     "vergi mevzuati ve uygulamasi|kdv nin konusu": {
       "hedef": "hukuk|kdv konusu",
@@ -11302,8 +11350,8 @@
       "puan": 0.75,
       "kasa": "Vergi Mevzuatı ve Uygulaması|serbest meslek kazanci beyani",
       "kitapcik": "Hukuk|serbest meslek kazanci",
-      "d": 4,
-      "s": 4
+      "d": 3,
+      "s": 3
     },
     "vergi mevzuati ve uygulamasi|veraset intikal vergisi beyan suresi": {
       "hedef": "hukuk|veraset intikal vergisi beyan suresi",
@@ -11326,6 +11374,46 @@
       "puan": 0.6,
       "kasa": "Vergi Mevzuatı ve Uygulaması|yurt ici asgari kurumlar vergisi",
       "kitapcik": "Hukuk|asgari kurumlar vergisi",
+      "d": 2,
+      "s": 2
+    },
+    "yabanci dil|edat kullanimi preposition": {
+      "hedef": "yabanci dil|edat kullanimi",
+      "puan": 0.667,
+      "kasa": "Yabanci Dil|edat kullanimi (preposition)",
+      "kitapcik": "Yabanci Dil|edat kullanimi",
+      "d": 6,
+      "s": 6
+    },
+    "yabanci dil|fiil zamani tense": {
+      "hedef": "yabanci dil|fiil zamani past tense",
+      "puan": 0.75,
+      "kasa": "Yabanci Dil|fiil zamani (tense)",
+      "kitapcik": "Yabanci Dil|fiil zamani (past tense)",
+      "d": 1,
+      "s": 1
+    },
+    "yabanci dil|kelime secimi isim": {
+      "hedef": "yabanci dil|kelime bilgisi isim secimi",
+      "puan": 0.75,
+      "kasa": "Yabanci Dil|kelime secimi (isim)",
+      "kitapcik": "Yabanci Dil|kelime bilgisi (isim secimi)",
+      "d": 1,
+      "s": 1
+    },
+    "yabanci dil|kelime secimi sifat": {
+      "hedef": "yabanci dil|kelime bilgisi sifat secimi",
+      "puan": 0.75,
+      "kasa": "Yabanci Dil|kelime secimi (sifat)",
+      "kitapcik": "Yabanci Dil|kelime bilgisi (sifat secimi)",
+      "d": 1,
+      "s": 1
+    },
+    "yabanci dil|kelime secimi zarf": {
+      "hedef": "yabanci dil|kelime secimi",
+      "puan": 0.667,
+      "kasa": "Yabanci Dil|kelime secimi (zarf)",
+      "kitapcik": "Yabanci Dil|kelime secimi",
       "d": 2,
       "s": 2
     }
