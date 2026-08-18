@@ -104,14 +104,15 @@ details.kacc>.ic{padding:2px 0 14px}
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Vergi Kontrolü</a> · <a href="risk-taramasi.html">Beyanname Risk Taraması</a> · <a href="hizmet.html">Hizmet Faturası</a> · <a href="fiyatfarki.html">Fiyat Farkı</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Menşe Senaryo Raporu</div>
   <h1>Menşe Senaryo Raporu, hangi ülkeden alırsam ne kadar öderim?</h1>
-  <p class="lead">Ürünün <b>GTİP kodunu</b> ve <b>yıllık ithalat tutarını</b> gir, <b>16 menşe seçeneğinin tamamını</b> hesaplayıp en ucuzdan pahalıya sıralayalım; <b>yıllık tasarruf farkın</b> büyük puntoyla önüne gelsin. En avantajlı 3 menşe herkese açık; tam tablo ücretsiz üyelikte, <b>SMMM raporu (PDF)</b> üyelikle. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
+  <p class="lead">Ürünün <b>GTİP kodunu</b> (bilmiyorsan <b>adını</b>) ve <b>yıllık ithalat tutarını</b> gir, <b>16 menşe seçeneğinin tamamını</b> hesaplayıp en ucuzdan pahalıya sıralayalım; <b>yıllık tasarruf farkın</b> büyük puntoyla önüne gelsin. En avantajlı 3 menşe herkese açık; tam tablo ücretsiz üyelikte, <b>SMMM raporu (PDF)</b> üyelikle. <span style="color:var(--dim)">Vergi verisi GTİP Kontrolü ile aynı doğrulanmış kaynaktan.</span></p>
 
   <div class="form noprint">
     <div class="satirlar">
       <div>
-        <label>GTİP KODU</label>
-        <input class="gir" id="kod" placeholder="örn. 8516.71.00.00.11" inputmode="decimal">
-        <div style="font-size:11.5px;color:var(--dim);margin-top:5px">Kodu bilmiyorsan <a href="gtip.html" target="_blank">GTİP Kontrolü'nden ürün adıyla bul →</a></div>
+        <label>GTİP KODU YA DA ÜRÜN ADI</label>
+        <input class="gir" id="kod" placeholder="örn. 8516.71.00.00.11 ya da: klima" autocomplete="off">
+        <div style="font-size:11.5px;color:var(--dim);margin-top:5px">Kodu bilmiyorsan ürün adını yaz; resmî Tarife Cetveli tanımlarında arar (15.717 kod), tıklayınca kod dolar. İpucu: resmî tanımlar teknik dille yazılır, "buzdolabı" bulamazsan "soğutucu" dene.</div>
+        <div id="adAraSonuc"></div>
       </div>
       <div>
         <label>YILLIK İTHALAT TUTARI (CIF)</label>
@@ -294,10 +295,84 @@ function ulkeYuk(dkod, nkod, u){ // dkod=noktalı, nkod=noktasız
 function fmtTL(n){ return n.toLocaleString('tr-TR',{maximumFractionDigits:0}); }
 function fmtP(n){ return (Math.round(n*100)/100).toLocaleString('tr-TR'); }
 
+// ============ TEK KUTU: harf yazılırsa ürün adından GTİP ara (gtip.html'deki motorun eşi) ============
+// veri/gtip-tanim.json (~5MB) SADECE harf yazılınca yüklenir — kodla normal akış yavaşlamaz.
+let TANIM=null, TANIM_IDX=null, TANIM_SOZ=null, ARA_ZAMANLAYICI=null;
+function trFold(s){ return (''+s).toLocaleLowerCase('tr')
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
+  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a').replace(/û/g,'u'); }
+function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function tanimYukle(){
+  if(TANIM) return Promise.resolve();
+  if(TANIM_SOZ) return TANIM_SOZ;
+  TANIM_SOZ = fetch('veri/gtip-tanim.json').then(r=>r.json()).then(j=>{
+    TANIM = j;
+    TANIM_IDX = Object.keys(j).map(k => [k, trFold(j[k])]);
+  }).catch(()=>{ TANIM_SOZ = null; });
+  return TANIM_SOZ;
+}
+function harfliMi(s){ return /[a-zçğıöşüâîû]/i.test(s); }
+function kodKutuDegisti(){
+  const ham = document.getElementById('kod').value.trim();
+  if(!harfliMi(ham)){ document.getElementById('adAraSonuc').innerHTML=''; return; } // rakam/nokta = kod modu
+  clearTimeout(ARA_ZAMANLAYICI); ARA_ZAMANLAYICI = setTimeout(adAraYap, 220);
+}
+function adAraYap(){
+  const out = document.getElementById('adAraSonuc');
+  const ham = document.getElementById('kod').value.trim();
+  if(!harfliMi(ham)){ out.innerHTML=''; return; }
+  const q = trFold(ham);
+  if(q.length < 3){ out.innerHTML = '<div style="font-size:12.5px;color:var(--dim);margin-top:6px">En az 3 harf yaz…</div>'; return; }
+  if(!TANIM_IDX){
+    out.innerHTML = '<div style="font-size:12.5px;color:var(--muted);margin-top:6px">⏳ Tarife cetveli yükleniyor (ilk açılışta bir kez)…</div>';
+    tanimYukle().then(adAraYap);
+    return;
+  }
+  const parcalar = q.split(/\s+/).filter(t => t.length >= 2);
+  if(!parcalar.length){ out.innerHTML=''; return; }
+  const bulunan = [];
+  for(const [kod, txt] of TANIM_IDX){
+    let hepsiVar = true;
+    for(const p of parcalar){ if(txt.indexOf(p) < 0){ hepsiVar = false; break; } }
+    if(!hepsiVar) continue;
+    // puan: kelime kodun KENDİ tanımında (son › parçası) geçiyorsa öne al; kısa metin öne al
+    const sonAyrac = txt.lastIndexOf('›');
+    const kendi = sonAyrac >= 0 ? txt.slice(sonAyrac+1) : txt;
+    let puan = 0;
+    for(const p of parcalar){ if(kendi.indexOf(p) >= 0) puan += 10; }
+    puan -= txt.length / 800;
+    bulunan.push([puan, kod]);
+  }
+  if(!bulunan.length){
+    out.innerHTML = '<div style="font-size:13px;color:var(--muted);margin-top:6px">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır, eş anlamlı dene (ör. "cep telefonu" → "telefon", "buzdolabı" → "soğutucu") ya da malzemesiyle ara.</div>';
+    return;
+  }
+  bulunan.sort((a,b) => b[0]-a[0]);
+  const ust = bulunan.slice(0, 10);
+  out.innerHTML = ust.map(([p, kod]) => {
+    const t = TANIM[kod];
+    const sonAyrac = t.lastIndexOf('›');
+    const zincir = sonAyrac >= 0 ? t.slice(0, sonAyrac).trim() : '';
+    const kendi  = sonAyrac >= 0 ? t.slice(sonAyrac+1).trim() : t;
+    return `<div onclick="adAraSec('${kod}')" style="padding:10px 12px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:#06090f;cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
+      <b style="color:var(--green);font-size:14px">${kod}</b>
+      <div style="font-size:13px;color:var(--ink);margin-top:2px">${htmlEsc(kendi)}</div>
+      ${zincir ? `<div style="font-size:11.5px;color:var(--dim);margin-top:2px">${htmlEsc(zincir)}</div>` : ''}
+    </div>`;
+  }).join('') + (bulunan.length > 10 ? `<div style="font-size:12px;color:var(--dim);margin-top:8px">+${bulunan.length-10} eşleşme daha var, kelime ekleyerek daralt.</div>` : '');
+}
+function adAraSec(kod){
+  document.getElementById('kod').value = kod;
+  document.getElementById('adAraSonuc').innerHTML = '';
+  document.getElementById('tutar').focus();
+}
+document.getElementById('kod').addEventListener('input', kodKutuDegisti);
+
 function olustur(){
   const h=document.getElementById('hata'); h.textContent='';
   const kodIn=document.getElementById('kod').value.trim();
-  if(!kodIn){ h.textContent='GTİP kodunu gir.'; return; }
+  if(!kodIn){ h.textContent='GTİP kodunu gir ya da ürün adı yaz.'; return; }
+  if(harfliMi(kodIn)){ h.textContent='Ürün adı yazdın; alttaki eşleşmelerden birine tıkla, kod dolsun (ya da 12 haneli GTİP kodunu gir).'; adAraYap(); return; }
   // 31.07 Cem: site geneli kural - 5 sorgu bedava, sonrasi ucretsiz uyelik (ortak sayac menu.js'te)
   if(typeof ttSorguHakki==='function' && !ttSorguHakki('senaryo')){
     document.getElementById('rapor').innerHTML=`<div class="rk" style="border-color:rgba(255,194,75,.4)">
