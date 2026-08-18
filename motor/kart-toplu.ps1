@@ -908,7 +908,17 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('<div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG''de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>')
 [void]$s.AppendLine("<h1>Günün Hap Kartları</h1>")
 $enYeniGun = if($vitrin.Count){ $vitrin[0]._gun } else { $TarihNokta }
-$bugunMetni = if($kartlar.Count -gt 0){ "Bugün ($TarihNokta) $($kartlar.Count) yeni düzenleme." } else { "Bugün ($TarihNokta) kart gerektiren yeni düzenleme çıkmadı." }
+# 18.08: BASLIK ISLENEN GUNE GORE YAZILMAZ. Telafi kosusunda gunler yeniden
+# eskiye islenir ve EN SON islenen eski gun basliga "Bugün (01.05.2026) 1 yeni
+# düzenleme" diye sizdi (canlida goruldu; kart listesi dogruydu, yalniz baslik
+# yalan soyluyordu). Baslik artik GERCEK bugune (TR saati) ve havuza gore
+# kurulur - islenme sirasi ne olursa olsun ayni cikar. CI Linux'ta tz kimligi
+# 'Europe/Istanbul', Windows'ta 'Turkey Standard Time'; ikisi de denenir.
+$tzTR = $null
+foreach($tzAd in @('Europe/Istanbul','Turkey Standard Time')){ try { $tzTR = [TimeZoneInfo]::FindSystemTimeZoneById($tzAd); break } catch {} }
+$gercekBugun = if($tzTR){ [TimeZoneInfo]::ConvertTimeFromUtc([datetime]::UtcNow,$tzTR).ToString('dd.MM.yyyy') } else { (Get-Date).ToString('dd.MM.yyyy') }
+$bugunkuSayi = @($vitrin | Where-Object { $_._gun -eq $gercekBugun }).Count
+$bugunMetni = if($bugunkuSayi -gt 0){ "Bugün ($gercekBugun) $bugunkuSayi yeni düzenleme." } else { "Bugün ($gercekBugun) kart gerektiren yeni düzenleme çıkmadı." }
 $vitrinUst = "<div class='alt'>$bugunMetni Aşağıda son <b>$($vitrin.Count)</b> kart — en yenisi $enYeniGun tarihli, 30 saniyede okunur.</div>"
 $arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.Count) düzenleme — o günün kaydı.</div>"
 [void]$s.AppendLine($vitrinUst)
