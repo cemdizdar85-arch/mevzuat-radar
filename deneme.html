@@ -1947,8 +1947,13 @@ function hataGonder(){
       if(window.sb){
         var op=localStorage.getItem('tetikteOturum');
         if(!op){ op=Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem('tetikteOturum',op); }
+        // 19.08 KRITIK: .then SART. supabase-js v2 sorgulari TEMBELDIR - then'e
+        // abone olunmayan insert HIC GONDERILMEZ. Bu satir 02.08'den beri then'siz
+        // duruyordu: aday "tesekkurler" goruyordu ama tabloya 0 kayit dustu
+        // (17 gunde yalniz elle atilan test satiri vardi). cevap_kaydi'daki
+        // insert zaten then'liydi - ayni kaliba cekildi.
         window.sb.from('soru_bildirim').insert({soru_id:String(s.id),ders:s.ders||null,konu:s.konu||null,not_metni:not,oturum:op,
-          uye:(window.AKTIF_UYE&&window.AKTIF_UYE.email)?window.AKTIF_UYE.email:null});
+          uye:(window.AKTIF_UYE&&window.AKTIF_UYE.email)?window.AKTIF_UYE.email:null}).then(function(){},function(){});
       }
     }catch(e){}
   }
