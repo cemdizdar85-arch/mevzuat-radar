@@ -93,6 +93,11 @@ $izlenen = [ordered]@{
   "aritmetik-kapisi.yml" = @("Aritmetik Kapisi (haftalik)", 192)
   "ders-etiket.yml"      = @("Ders-Etiket Denetimi (haftalik)", 192)
   "ic-tutarlilik.yml"    = @("Ic-Tutarlilik Denetimi (haftalik)", 192)
+  # 19.08 - Bildirim Nobeti LISTEDE YOKTU ve gunlerce kirmizi kaldi ($KOK/$kok
+  # cakismasi); ogrenci itirazi cekilmeden bekleseydi kimse gormeyecekti.
+  # Nobetcileri izlemeyen nabiz, nobetcinin olumune kordur. Gunde 3 kosu var;
+  # 30 saatlik esik en az bir basarili kosuyu garanti eder.
+  "bildirim-nobeti.yml"  = @("Bildirim Nobeti (ogrenci itirazi)", 30)
 }
 
 $simdi = (Get-Date).ToUniversalTime()
