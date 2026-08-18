@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260818234023
+Start time: 20260818234447
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/17b8643e-3496-41a7-961b-dde241d9f728.ps1'
-Process ID: 2164
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9a5debf0-7e32-434a-b0c8-ec478266c53a.ps1'
+Process ID: 2202
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -17,7 +17,7 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Taranan sayfa: 51
+Taranan sayfa: 52
   alacak-radari.html         7 dayanak
   asgari-kv.html             1 dayanak
   belge-kasasi.html          1 dayanak
@@ -41,12 +41,14 @@ Taranan sayfa: 51
   songun.html                5 dayanak
 
 Tekil (kanun, madde) cifti: 73 - ambarda araniyor...
-  ambarda BULUNAN : 71
-  BULUNAMAYAN     : 2
+  ambarda BULUNAN : 69
+  BULUNAMAYAN     : 4
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
      213 m.370   [ambarda-yok]
      213 m.372   [ambarda-yok]
+     6098 m.620   [ambarda-yok]
+     6098 m.77   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
   olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
@@ -55,5 +57,5 @@ Tekil (kanun, madde) cifti: 73 - ambarda araniyor...
 -> veri/dayanak-haritasi.json  (21 sayfa, 73 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260818234042
+End time: 20260818234517
 **********************
