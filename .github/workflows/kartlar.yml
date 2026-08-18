@@ -246,8 +246,16 @@ jobs:
             fi
           fi
           git commit -m "$MESAJ"
-          git pull --rebase || true
-          git push
+          # 18.08 YARIS DUZELTMESI: 5 dakikalik uretim sirasinda baska bir robot
+          # main'e basarsa push reddediliyor ve URETILEN KARTLAR KOSUYLA BIRLIKTE
+          # COPE gidiyordu (bugun boyle iki kosu kaybedildi; para harcanmisti).
+          # Iki sigorta: (a) --autostash - adimlarin biraktigi izlenmeyen
+          # degisiklikler rebase'i "unstaged changes" diye durduruyordu, pull
+          # sessizce basarisiz olup push'u ole birakiyordu; (b) push yine
+          # reddedilirse bir kez daha cek-bas denenir, o da tutmazsa adim
+          # KIRMIZI biter (dogru davranis - kayip sessiz olmasin).
+          git pull --rebase --autostash || true
+          git push || { git pull --rebase --autostash && git push; }
       # KIRMIZI KAPI (29.07). Kartlar yayinlandiktan SONRA calisir: vitrin
       # her halukarda guncellenir, ama eskiyen arac verisi varsa kosu KIRMIZI
       # biter ve GM gorur. Bu depoda dort katman "kuruldu ama kimse gormedi"
