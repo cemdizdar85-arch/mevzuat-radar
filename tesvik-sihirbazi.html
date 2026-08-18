@@ -110,12 +110,14 @@ details.kacc>.ic{padding:2px 16px 14px;font-size:13.5px;color:var(--muted)}
 <script src="menu.js"></script>
 <script>
 let V=null; // tesvik-bolgeler.json
+let CG=null; // cagri-radar.json (Çağrı Radarı 19.08 — yüklenemezse kutu genel metinle çizilir)
 const $=id=>document.getElementById(id);
 const TLf=n=>n.toLocaleString('tr-TR');
 
 fetch('veri/tesvik-bolgeler.json').then(r=>r.json()).then(d=>{
   V=d; ilDoldur(); tazelikYaz(d);
 }).catch(()=>{ $('sonuc').style.display='block'; $('sonuc').innerHTML='<div class="tuzak">Veri dosyası yüklenemedi, sayfayı yenile ya da daha sonra dene.</div>'; });
+fetch('veri/cagri-radar.json').then(r=>r.json()).then(d=>{ CG=d; }).catch(()=>{});
 
 function ilDoldur(){
   const tum=[]; for(const b in V.bolgeler) V.bolgeler[b].forEach(il=>tum.push(il));
@@ -230,6 +232,10 @@ $('hesapla').addEventListener('click',()=>{
   // tuzaklar
   h+='<div class="tuzak"><b style="color:var(--red)">⚠ TEK KAPI KURALI (m.33), en çok yakan tuzak:</b> Bu Karar\'dan desteklenen harcama, KOSGEB/TKDK/ajans gibi <b>başka kamu desteğinden yararlanamaz</b> (geri alım + faiz). İstisnalar: Teknoloji Hamlesi yatırımları KOSGEB ve TÜBİTAK\'tan da desteklenebilir; sübvansiyonlu krediye bu Karar\'dan faiz/makine desteği almadıysan diğer unsurlar kullanılabilir. Aynı makineye iki kapıdan destek isteme.</div>';
 
+  // diğer kapılar (Çağrı Radarı 19.08): yatırım teşviki tek kapı değil —
+  // çağrı tabanlı TÜBİTAK/KOSGEB/AB dünyasına köprü. Veri robotla günlük.
+  h+=digerKapilar(sektor);
+
   h+='<details class="kacc"><summary>🗺 Yol haritası: başvurudan vizeye</summary><div class="ic">';
   h+='1) <b>E-TUYS</b> üzerinden elektronik müracaat (son genel tarih 31.12.2030; geçici m.3/4 fırsatları 31.12.2026).<br>2) Belge düzenlenince harcamalara başla, belge öncesi harcama desteklenmez.<br>3) Yatırım süresi bitince <b>3 ay içinde</b> tamamlama vizesi müracaatı (m.29), kaçırma.<br>4) Kullanılmış makine ithali ancak Bakanlık ekspertiziyle (m.23); serbest bölgeden kullanılmış komple tesis olmaz.</div></details>';
 
@@ -238,6 +244,27 @@ $('hesapla').addEventListener('click',()=>{
   $('sonuc').innerHTML=h; $('sonuc').style.display='block';
   $('sonuc').scrollIntoView({behavior:'smooth'});
 });
+// Diğer kapılar kutusu: bu araç 9903'ü hesaplar; TÜBİTAK/KOSGEB/AB ÇAĞRI tabanlıdır,
+// kurala gömülmez — robotun bugün çektiği açık çağrı sayısı + en yakın kapanış gösterilir.
+function digerKapilar(sektor){
+  const argeAday = sektor.startsWith('imalat') || sektor==='bilisim';
+  let ic = argeAday
+    ? 'Yatırımın makine-bina ayağını 9903 karşılar; <b>Ar-Ge/geliştirme ayağı</b> için TÜBİTAK ve KOSGEB çağrıları ayrı kapıdır (Teknoloji Hamlesi yatırımlarında m.33 istisnasıyla birleşebilir, yukarıdaki tek-kapı kuralını oku).'
+    : 'Yatırım teşviki tek kapı değil: sektörüne göre TÜBİTAK, KOSGEB ve AB çağrıları da açılıp kapanıyor.';
+  if(CG && CG.cagrilar && CG.cagrilar.length){
+    const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : t; };
+    const tub = CG.cagrilar.filter(c=>c.kaynak==='TÜBİTAK');
+    const kos = CG.cagrilar.filter(c=>c.kaynak==='KOSGEB');
+    const ab  = CG.cagrilar.filter(c=>(c.kaynak||'').indexOf('AB')===0);
+    const enYakin = tub.map(c=>c.sonTarih).filter(Boolean).sort()[0];
+    ic += '<br>Robotun bugünkü sayımı: <b>TÜBİTAK ' + tub.length + ' açık çağrı</b>'
+      + (enYakin ? ' (en yakın kapanış ' + gd(enYakin) + ')' : '')
+      + (kos.length ? ', <b>KOSGEB ' + kos.length + ' çağrı</b>' : '')
+      + (ab.length ? ', <b>AB (Ufuk Avrupa) ' + ab.length + '+ konu</b>' : '') + '.';
+  }
+  return '<div class="kutu" style="border-left:5px solid var(--accent)"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🚪 DİĞER KAPILAR</div>'
+    + '<div style="font-size:13.5px;color:var(--muted)">' + ic + ' Liste her gün otomatik yenilenir: <a href="destekler.html#acik-cagrilar">açık çağrılar (Destek Radarı) →</a></div></div>';
+}
 window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.kacc').forEach(d=>d.open=true);});
 </script>
 </body>

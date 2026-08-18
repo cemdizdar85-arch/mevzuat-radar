@@ -65,7 +65,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
   <h1>Destek Radarı</h1>
-  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b>, başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı, Türk Eximbank ve TÜBİTAK</b> programlarını gör, yeni çağrı açıldığında haber verelim.</p>
+  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b>, başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı, Türk Eximbank ve TÜBİTAK</b> programlarını gör. <b style="color:var(--ink)">Şu an açık TÜBİTAK, KOSGEB ve AB (Ufuk Avrupa) çağrılarını</b> robot her gün kurum sitelerinden çekip aşağıda listeler.</p>
 
   <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
     <h3 style="margin-top:0">🧭 Hangi destekleri kullanabilirsin? 4 soruda söyleyelim</h3>
@@ -106,6 +106,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <p id="dsonuc" style="margin:12px 0 0;font-size:13.5px;font-weight:600;display:none"></p>
   </div>
 
+  <!-- 19.08 Çağrı Radarı: veri/cagri-radar.json robotla günlük çekilir (motor/cagri-hasat.ps1).
+       Veri yüklenemezse bölüm hiç görünmez - sayfa statik hâliyle çalışmaya devam eder. -->
+  <div id="acikCagrilar" style="display:none">
+    <h2 id="acik-cagrilar" style="font-size:19px;letter-spacing:-.4px;margin:26px 0 4px">🔴 Şu an açık çağrılar</h2>
+    <p style="font-size:13px;color:var(--dim);margin:0 0 12px">Robot her gün kurum sitelerinden çeker; burada gördüğün çağrı <b style="color:var(--ink)">bugün açık</b> demektir. <span id="cagriDamga"></span></p>
+    <div id="cagriListe"></div>
+  </div>
+
   <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
   <div class="filtre" id="filtre">
     <button class="fbtn on" data-a="hepsi">Tümü</button>
@@ -120,7 +128,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div id="liste"></div>
 
-  <div class="uyari">⚠ Bu sayfa <b>yön vericidir</b>: hangi destek türünün var olduğunu gösterir. <b>Güncel destek tutarı, oranı ve başvuru tarihi</b> dönemsel açılan çağrılara göre değişir, her kartın altındaki resmî KOSGEB bağlantısından teyit et. Burada bilerek tutar/tarih yazmıyoruz; yanlış rakam vermektense kaynağa yönlendiriyoruz.</div>
+  <div class="uyari">⚠ Bu sayfa <b>yön vericidir</b>: hangi destek türünün var olduğunu gösterir. <b>Güncel destek tutarı ve oranı</b> dönemsel açılan çağrılara göre değişir, her kartın altındaki resmî bağlantıdan teyit et. Program kartlarında bilerek tutar yazmıyoruz; yanlış rakam vermektense kaynağa yönlendiriyoruz. <b>Açık çağrı tarihleri</b> ise yukarıdaki "Şu an açık çağrılar" bölümüne robotla her gün kurum sitelerinden çekilir.</div>
 
   <div class="cta" id="takipKutu">
     <h3>🔔 Destek çağrısı açılınca ilk sen duy</h3>
@@ -351,6 +359,38 @@ document.getElementById('filtre').addEventListener('click',e=>{
   b.classList.add('on'); SECILI=b.dataset.a; ciz();
 });
 ciz();
+
+// ---- AÇIK ÇAĞRILAR (Çağrı Radarı, 19.08) ----
+// veri/cagri-radar.json: motor/cagri-hasat.ps1 günlük yazar (TÜBİTAK + KOSGEB + AB).
+// Yüklenemezse bölüm görünmez; sayfa statik hâliyle çalışır (kör kalma değil: damga da gizlenir).
+fetch('veri/cagri-radar.json').then(r=>r.json()).then(cd=>{
+  const liste = (cd.cagrilar||[]);
+  if(!liste.length) return;
+  const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : t; };
+  const kalan = t => { if(!t) return null; const g = Math.ceil((new Date(t+'T23:59:59') - new Date())/86400000); return g; };
+  const rozetle = t => { const g = kalan(t); if(g===null) return '';
+    if(g<0) return '';
+    if(g<=14) return ' <span class="rozet" style="background:rgba(255,107,94,.13);color:var(--red)">son '+g+' gün</span>';
+    return ' <span class="rozet">'+gd(t)+' son'+'</span>'; };
+  const satir = c => '<div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:baseline">'
+    + '<span><a href="'+c.url+'" target="_blank" rel="noopener" style="font-weight:600">'+c.baslik+'</a>'
+    + (c.acilis&&kalan(c.acilis)>0 ? ' <span class="rozet" style="background:rgba(61,220,151,.13);color:var(--green)">'+gd(c.acilis)+"'de açılır</span>" : '')
+    + rozetle(c.sonTarih) + '</span>'
+    + '<span style="color:var(--muted);white-space:nowrap">'+(c.sonTarih ? 'kapanış '+gd(c.sonTarih) : 'tarih duyuruda')+'</span></div>';
+  const grup = (ad, dizi, acik, ustNot) => !dizi.length ? '' :
+    '<details class="kart" style="padding:14px 18px" '+(acik?'open':'')+'><summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">'+ad+' <span style="color:var(--dim);font-weight:600">· '+dizi.length+' çağrı</span></summary>'
+    + (ustNot||'') + dizi.map(satir).join('') + '</details>';
+  const tub = liste.filter(c=>c.kaynak==='TÜBİTAK');
+  const kos = liste.filter(c=>c.kaynak==='KOSGEB');
+  const ab  = liste.filter(c=>(c.kaynak||'').indexOf('AB')===0);
+  document.getElementById('cagriListe').innerHTML =
+    grup('TÜBİTAK', tub, true, '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Başvuru PRODİS (eteydeb) üzerinden; 9903 teşvik belgen varsa m.33 tek-kapı kuralına dikkat (aynı harcamaya iki destek olmaz; Teknoloji Hamlesi istisna).</p>')
+    + grup('KOSGEB', kos, true, '')
+    + grup('AB — Ufuk Avrupa (en yakın son tarihli '+ab.length+' konu)', ab, false,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Türkiye Ufuk Avrupa\'ya asosiye ülke: Türk şirketleri başvurabilir. Tam liste ve konu detayı <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals" target="_blank" rel="noopener">AB Funding &amp; Tenders portalında</a>; ulusal irtibat noktası <a href="https://ufukavrupa.org.tr" target="_blank" rel="noopener">ufukavrupa.org.tr</a>.</p>');
+  document.getElementById('cagriDamga').textContent = cd.guncelleme || '';
+  document.getElementById('acikCagrilar').style.display = 'block';
+}).catch(()=>{});
 
 // ---- DESTEK SİHİRBAZI ----
 const DC = {};
