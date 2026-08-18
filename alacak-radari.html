@@ -132,7 +132,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // YAZILMAZ (yanlış hüküm olur). Uymayan konkordato ilanına nötr not verilir.
   // 14.08 SÜRE SINIFLANDIRMASI (hepsi birincil İİK metninden, mevzuat.gov.tr):
   //  m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·
-  //  m.235 sıra cetveline itiraz 7 gün · m.218 basit tasfiye süre İLANDA (20g-2ay).
+  //  m.235 sıra cetveline itiraz: esas/miktara DAVA ticaret mahkemesi 15 gün,
+  //  yalnız SIRAYA şikâyet icra mahkemesi (m.16: öğrenmeden 7 gün) ·
+  //  m.218 basit tasfiye süre İLANDA (20g-2ay).
   //  Yalnız SABİT kuralı olan ilana geri sayım; toplantı/duruşma/ret/tasdik/sonuç
   //  ilanına YAZILMAZ (yanlış hüküm olur), belirsiz olana nötr not.
   // HAP BİLGİ: her ilan türü için ne demek + alacaklı ne yapar + süre. Hepsi
@@ -166,19 +168,19 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         return {hap:'İflas tasfiyesine ilişkin işlem ilanı. Alacaklı haklarını ve sürelerini aşağıdaki İİK bölümünden oku.'};
       // İFLASIN KALDIRILMASI -> m.182 (borçlu iflastan çıkıyor)
       if(/kaldırılma|kaldırıldığ|iflasın kaldır/.test(b))
-        return {hap:'Borçlu iflastan çıkıyor (borçlar ödendi ya da alacaklılar rıza gösterdi, m.182). Alacağın ödenmediyse kaldırma kararına itiraz et.'};
+        return {hap:'Borçlu iflastan çıkıyor (borçlar ödendi, alacaklılar taleplerini geri aldı ya da konkordato tasdik edildi, m.182). Alacağın ödenmediyse kaldırma hükmüne karşı tebliğden itibaren 2 hafta içinde istinafa gidebilirsin.'};
       // İFLASIN KAPANMASI/KAPATILMASI -> m.254 + aciz vesikası
       if(/kapanma|kapandı|kapatılma|kapatıldı|kapatılması/.test(b))
-        return {hap:'İflas kapandı, tasfiye bitti (m.254). Masadan tahsil edemediğin kısım için aciz vesikası alıp borçluyu ayrıca takip edebilirsin.'};
+        return {hap:'İflas kapandı, tasfiye bitti (m.254). Tahsil edemediğin kısım için dağıtımda sana aciz vesikası verilmiş olmalı (m.251); müflisi bununla yeniden takip ancak YENİ MAL edinirse mümkün.'};
       // TASFİYE TATİLİ -> m.217, 30 gün
       if(/tasfiye.{0,8}tatil|iflasın tatil/.test(b))
         return {tip:'İflas takibine devam', madde:'m.217', gun:30, aciklama:'ilandan 30 gün', hap:'Masada mal yok, daire tasfiyeyi tatil etti. Takibin sürmesini istiyorsan 30 gün içinde masrafı peşin öde; kimse ödemezse iflas kapanır.'};
-      // SIRA CETVELİ -> m.235, 7 gün
+      // SIRA CETVELİ -> m.235, 15 gün dava (yalnız sıraya itiraz: şikâyet, m.16 7 gün)
       if(/sıra cetvel/.test(b))
-        return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:7, aciklama:'cetvelin ilanından 7 gün', hap:'Alacaklıların sırası ve tutarı belirlendi. Sıranı ya da tutarını yanlış buluyorsan 7 gün içinde icra mahkemesinde itiraz et.'};
+        return {tip:'Sıra cetveline itiraz', madde:'m.235', gun:15, aciklama:'cetvelin ilanından 15 gün', hap:'Alacaklıların sırası ve tutarı belirlendi. Alacağın reddedildi ya da tutarı yanlışsa cetvelin ilanından 15 gün içinde ticaret mahkemesinde dava aç; itirazın YALNIZ sıraya ilişkinse icra mahkemesine şikâyet (öğrenmeden 7 gün, m.16).'};
       // ADİ TASFİYE / iflasın açılması -> m.219, 1 ay
       if(/iflasın açılması|adi tasfiye|alacaklarını.*(kaydet|bildir)|alacaklıları.*davet|alacak kayd/.test(b))
-        return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay', hap:'İflas açıldı, adi tasfiye başladı. Alacağını 1 ay içinde belgelerinle iflas masasına kaydettir.'};
+        return {tip:'Alacak kaydı', madde:'m.219', ay:1, aciklama:'ilandan 1 ay', hap:'İflas açıldı, adi tasfiye başladı. Alacağını 1 ay içinde belgelerinle iflas masasına kaydettir. Kaçırdıysan bitmedi: geç kayıt iflas kapanana dek kabul edilir (m.236) ama masrafı sen ödersin ve önceki paylaştırmalara katılamazsın.'};
       // BASİT USUL -> m.218
       if(/basit (tasfiye|usul)/.test(b))
         return {not:'Basit tasfiye, alacak bildirim süresi ilanda belirlenir (m.218 · 20 gün-2 ay arası), ilan metnini oku.', hap:'Masadaki mal tasfiye masrafını karşılamıyor, basit usul uygulanıyor. Alacağını ilandaki sürede bildir; istersen masrafı verip adi tasfiye isteyebilirsin.'};
