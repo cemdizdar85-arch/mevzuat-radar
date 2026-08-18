@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260816182642
+Start time: 20260818165829
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/935d0333-00f0-4388-8f23-2281b585f45f.ps1'
-Process ID: 2325
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3a9c7fe8-ba6f-4dee-88bd-23e17d0a04c6.ps1'
+Process ID: 2202
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -17,7 +17,7 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Konu sayisi: 3233 (16 donem birlestirilmis)
+Konu sayisi: 3264 (16 donem birlestirilmis)
 PS>TerminatingError(Invoke-WebRequest): "
 {
   "code": "57014",
@@ -25,195 +25,64 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-  ...100/3233
-  ...500/3233
-  ...600/3233
-  ...700/3233
-  ...800/3233
-  ...900/3233
-  ...1000/3233
-  ...1100/3233
-  ...1200/3233
-  ...1300/3233
-  ...1600/3233
-  ...1700/3233
-  ...1800/3233
-  ...1900/3233
-  ...2000/3233
-  ...2100/3233
-  ...2200/3233
-  ...2300/3233
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-  ...2400/3233
-  ...2500/3233
-  ...2600/3233
-  ...2700/3233
-  ...2800/3233
-  ...2900/3233
-  ...3000/3233
+  ...100/3264
+  ...500/3264
+  ...600/3264
+  ...700/3264
+  ...800/3264
+  ...900/3264
+  ...1000/3264
+  ...1100/3264
+  ...1200/3264
+  ...1300/3264
+  ...1400/3264
+  ...1600/3264
+  ...1700/3264
+  ...1800/3264
+  ...1900/3264
+  ...2000/3264
+  ...2100/3264
+  ...2200/3264
+  ...2300/3264
+  ...2400/3264
+  ...2500/3264
+  ...2600/3264
+  ...2700/3264
+  ...2800/3264
+  ...2900/3264
+  ...3000/3264
+  ...3100/3264
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2519
-  KAYNAK YOK (once yut)    : 76
-  MEVZUAT-DISI (elle yaz)  : 638
+  URET (kaynak var)        : 2557
+  KAYNAK YOK (once yut)    : 70
+  MEVZUAT-DISI (elle yaz)  : 637
   -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
     2 soru | Muhasebe                   | azalan bakiyelerden normale gecis amortismani
     1 soru | Ekonomi                    | alman merkantilizmi
-    1 soru | Muhasebe                   | donem ayirici gelir duzeltme kaydi
-    1 soru | Muhasebe                   | denetim kaniti kiyaslamasi
-    1 soru | Muhasebe                   | denetim amaci-prosedur eslestirmesi
-    1 soru | Muhasebe                   | cek cirosunun bilanco esitligine etkisi
-    1 soru | Muhasebe                   | cari oran-asit test hesabi
-    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
-    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
-    1 soru | Muhasebe                   | bilanco esitliginden cikarim
-    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
-    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
-    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
     1 soru | Muhasebe                   | azalan bakiyelerden esit tutara gecis
-    1 soru | Muhasebe                   | avansli satis teslim kaydi
-    1 soru | Muhasebe                   | avans mahsuplu ilk madde alimi
+    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
+    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
+    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
+    1 soru | Muhasebe                   | bilanco esitliginden cikarim
+    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
+    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
+    1 soru | Muhasebe                   | cari oran-asit test hesabi
+    1 soru | Muhasebe                   | cek cirosunun bilanco esitligine etkisi
+    1 soru | Muhasebe                   | denetim amaci-prosedur eslestirmesi
+    1 soru | Muhasebe                   | denetim kaniti kiyaslamasi
+    1 soru | Muhasebe                   | donem ayirici gelir duzeltme kaydi
     1 soru | Muhasebe                   | donem ayirici gelir duzeltmesi
-    1 soru | Muhasebe                   | alinan siparis avanslarinin nitelikleri
     1 soru | Muhasebe                   | duzenleyici hesap borclandirma (reeskont)
+    1 soru | Muhasebe                   | etik catismada danisilacak taraflar
     1 soru | Muhasebe                   | faaliyet kar marjini etkilemeyenler
+    1 soru | Muhasebe                   | orneklemede kabul edilemez hata payi
+    1 soru | Muhasebe                   | norwalk uzlasisi (fasb-iasb)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260816192732
+End time: 20260818175944
 **********************
