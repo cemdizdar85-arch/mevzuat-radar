@@ -1,0 +1,40 @@
+# .github/workflows/mulga-cek.yml — MULGA-DAYANAK CEKME (19.08.2026)
+# 09.08 olcumundeki mulga-dayanakli sorular (TMS 17/TMS 18/6762) icin.
+# Push-tetikli; script varsayilan OLCUM modunda kosar (hicbir sey yazmaz),
+# MULGA_YAZ repo degiskeni/asagidaki satir -yaz yapilinca ceker.
+name: Mulga-Dayanak Cek
+
+on:
+  push:
+    paths:
+      - 'motor/mulga-cek.ps1'
+      - '.github/workflows/mulga-cek.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mulga-cek
+  cancel-in-progress: false
+
+jobs:
+  cek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kos (OLCUM modu - yaz icin satira -yaz eklenir)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/mulga-cek.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/mulga-cek-sonuc.json ]; then git add veri/mulga-cek-sonuc.json || true; fi
+          git diff --cached --quiet || git commit -m "Mulga-dayanak cekme raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
