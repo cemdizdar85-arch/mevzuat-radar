@@ -809,8 +809,61 @@ foreach($gd in (Get-ChildItem (Join-Path $here 'kartlar') -Directory -ErrorActio
     [void]$havuz.Add($kk)
   }
 }
-$vitrin = @($havuz | Sort-Object -Property _tarih -Descending | Select-Object -First $VITRIN_ADET)
+# ============================================================================
+#  VITRIN KAPISI (18.08.2026 - Cem karari: "suzgec daralmasin, VITRIN daralsin")
+#
+#  Ters suzgec kanun duzeyi degisiklikleri de isliyor (dogru - kacirmayalim)
+#  ama 18.08'de ceza/infaz/emeklilik kanunlari vitrine cikti. Vitrinin sozu
+#  "isini ilgilendireni suzeriz"; kapi ISLETME/MALI ilgiyi arar. Uymayan kart
+#  ATILMAZ: gunun arsiv sayfasinda ve havuzda durur, yalniz vitrine cikmaz.
+#
+#  OLCULEREK kuruldu (245 kartlik havuzda, dusenler tek tek okundu):
+#  - Arama alani YALNIZ baslik_sade + kimi_ilgilendirir. urun_tanimi ve
+#    ne_yapmali BILEREK disarida: model ilgisiz kartin urun alanina
+#    "ithalatla ilgili urun grubu ICERMEMEKTEDIR" gibi FERAGAT yaziyor ve
+#    kelime aramasi feragati eslesme saniyor (itiraf-taramasi dersinin aynisi:
+#    negatif cumledeki kelime yanlis pozitif uretir). Genis alanla 3 kanun
+#    kartinin 3'u de geciyordu; dar alanla 245'te 6 dogru kart dusuyor.
+#  - Sozluk SALT ASCII, metin katlanarak aranir. Katlama Turkce harf
+#    SABITI icermez (char kodlariyla) - BOM'suz okunan dosyada Turkce sabit
+#    sessizce bozulur, kapi yerelde olur CI'da yasar (rg-indir dersi).
+#  - Kokler ek yumusamasina dayanikli secildi: 'ithal' (ithalat/ithal eden),
+#    'desteg' (destegi), 'uretim'/'uretici' ayri.
+$VITRIN_ILGI = @('ithal','ihrac','gumruk','gtip','gozetim','damping','kota','tarife','mense',
+  'vergi','kdv','otv','matrah','mukellef','beyanname','sgk','prim','isveren','istihdam',
+  'tesvik','destek','desteg','hibe','firma','sirket','isletme','ticaret','ticari','esnaf',
+  'sanayici','uretici','uretim','musavir','muhasebe','fatura','defter','bilanco','denetim',
+  'sermaye','banka','mevduat','doviz','kambiyo','kiralama','leasing','sigorta','ihale',
+  'marka','patent','lisans','tacir','kooperatif','antrepo','serbest bolge','fuar','lojistik','tasimaci')
+function VitrinKucult([string]$s){
+  $t = "$s".ToLowerInvariant()
+  $sb = New-Object System.Text.StringBuilder
+  foreach($ch in $t.ToCharArray()){
+    $kod = [int]$ch
+    switch($kod){
+      0x0307 { }                                  # I->i cevriminden kalan birlesik nokta
+      0x0131 { [void]$sb.Append('i') }            # noktasiz i
+      0x0130 { [void]$sb.Append('i') }            # noktali buyuk I
+      0x015F { [void]$sb.Append('s') }            # s-sedil
+      0x011F { [void]$sb.Append('g') }            # yumusak g
+      0x00FC { [void]$sb.Append('u') }            # u-umlaut
+      0x00F6 { [void]$sb.Append('o') }            # o-umlaut
+      0x00E7 { [void]$sb.Append('c') }            # c-sedil
+      default { [void]$sb.Append($ch) }
+    }
+  }
+  return $sb.ToString()
+}
+function VitrinUygun($kk){
+  $metin = VitrinKucult ("{0} {1}" -f $kk.baslik_sade, $kk.kimi_ilgilendirir)
+  foreach($w in $VITRIN_ILGI){ if($metin.Contains($w)){ return $true } }
+  return $false
+}
+$vitrinAday = @($havuz | Where-Object { VitrinUygun $_ })
+$vitrinDisi = $havuz.Count - $vitrinAday.Count
+$vitrin = @($vitrinAday | Sort-Object -Property _tarih -Descending | Select-Object -First $VITRIN_ADET)
 Write-Host ("Vitrin havuzu: {0} kart birikmis, en yeni {1} tanesi sayfaya konacak." -f $havuz.Count, $vitrin.Count)
+if($vitrinDisi -gt 0){ Write-Host ("Vitrin kapisi: {0} kart isletme/mali ilgi tasimadigi icin vitrine cikmadi (arsiv sayfasinda durur)." -f $vitrinDisi) }
 
 # radar-app panosunun GTIP eslesmesi icin sabit "guncel kartlar" (yalniz GTIP'li kartlar, trim)
 # FIRSAT ROZETI (#63, 30.07): yapilandirma/af kaliplari karti FIRSAT yapar -
@@ -917,8 +970,14 @@ $enYeniGun = if($vitrin.Count){ $vitrin[0]._gun } else { $TarihNokta }
 $tzTR = $null
 foreach($tzAd in @('Europe/Istanbul','Turkey Standard Time')){ try { $tzTR = [TimeZoneInfo]::FindSystemTimeZoneById($tzAd); break } catch {} }
 $gercekBugun = if($tzTR){ [TimeZoneInfo]::ConvertTimeFromUtc([datetime]::UtcNow,$tzTR).ToString('dd.MM.yyyy') } else { (Get-Date).ToString('dd.MM.yyyy') }
+# Uc durum (18.08 - vitrin kapisiyla birlikte): bugunun karti vitrinde ise
+# sayisi soylenir; kart CIKTI ama kapida kaldiysa "cikmadi" demek yalan olur,
+# durustce "isletmeyi ilgilendirmiyor" denir; hic kart yoksa eski cumle.
 $bugunkuSayi = @($vitrin | Where-Object { $_._gun -eq $gercekBugun }).Count
-$bugunMetni = if($bugunkuSayi -gt 0){ "Bugün ($gercekBugun) $bugunkuSayi yeni düzenleme." } else { "Bugün ($gercekBugun) kart gerektiren yeni düzenleme çıkmadı." }
+$bugunHavuz  = @($havuz  | Where-Object { $_._gun -eq $gercekBugun }).Count
+$bugunMetni = if($bugunkuSayi -gt 0){ "Bugün ($gercekBugun) $bugunkuSayi yeni düzenleme." }
+  elseif($bugunHavuz -gt 0){ "Bugün ($gercekBugun) Resmî Gazete'de $bugunHavuz düzenleme vardı; işletmeleri ilgilendiren çıkmadı (kayıtları arşivde)." }
+  else { "Bugün ($gercekBugun) kart gerektiren yeni düzenleme çıkmadı." }
 $vitrinUst = "<div class='alt'>$bugunMetni Aşağıda son <b>$($vitrin.Count)</b> kart — en yenisi $enYeniGun tarihli, 30 saniyede okunur.</div>"
 $arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.Count) düzenleme — o günün kaydı.</div>"
 [void]$s.AppendLine($vitrinUst)
