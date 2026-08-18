@@ -26,6 +26,8 @@ $MAX_GOREV = 600          # 23.07 Cem "bugun bitirsin": dalga basi 600 gorev x 6
 $KONU_GECE_TAVANI = 18    # tek konuya gecede en fazla 18 soru (cesitlilik korunur)
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key){ Write-Host "ANTHROPIC_API_KEY yok - atlandi."; exit 0 }
+# 18.08 A1: yazma aninda Turkce harf kapisi (soru-uret ile ortak dosya)
+. (Join-Path $here 'harf-kapisi.ps1')
 
 $analiz = Get-Content (Join-Path $kok "veri/sgs-analiz.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 $banka = if(Test-Path (Join-Path $kok "veri/soru-bankasi-onay.json")){ Get-Content (Join-Path $kok "veri/soru-bankasi-onay.json") -Raw -Encoding UTF8 | ConvertFrom-Json } else { [pscustomobject]@{ sorular=@() } }
@@ -51,7 +53,12 @@ function AmbarSorgu($filtre, $desen){
   try{
     $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=kaynak_ad&limit=25"
     $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
-    foreach($x in @($r)){ if("$($x.kaynak_ad)" -match $desen){ return 'ok' } }
+    foreach($x in @($r)){
+      # 18.08: TASLAK etiketli kayit (SGDS 5000, 702 bolum) kaynak SAYILMAZ -
+      # adinda "SORU DAYANAGI YAPILAMAZ" yaziyor, kapi da oyle davranmali.
+      if("$($x.kaynak_ad)" -match '(?i)taslak'){ continue }
+      if("$($x.kaynak_ad)" -match $desen){ return 'ok' }
+    }
     return 'yok'
   }catch{ return 'atla' }
 }
@@ -325,6 +332,10 @@ foreach($satir in $satirlar){
     if(@($uretilen).Count -gt 0){ $rapor.Add("KURTARILDI ($($meta.konu)): $(@($uretilen).Count)") }
   }
   foreach($s in @($uretilen)){
+    # KAPI 0 (18.08 A1): Turkce harf - bozuk metin kasaya hic girmez.
+    # DIL DERSI ISTISNASI YOK: Turkce/YD sorusu da Turkce yonergeyle yazilir.
+    $harfKusur = HarfKusuru (SoruMetniBirlestir $s)
+    if($harfKusur){ $rapor.Add("RET (harf kapisi: $harfKusur): $($meta.konu)"); continue }
     # 28.07 DUZELTME (Cem'e bildirildi): eskiden kok'un ILK 60 KARAKTERI karsilastiriliyordu.
     # "Asagidaki cumlelerin hangisinde bir yazim yanlisi vardir?" (54 karakter) gibi GENEL
     # kaliplarda farkli sorular ayni prefix'e dusuyor ve parasi odenmis soru "tekrar" diye
@@ -339,15 +350,18 @@ foreach($satir in $satirlar){
     # damgasi; kalite yuku cift cozucu + GM denetiminde. Meslek dersleri SIKI MOD aynen.
     $at = if($DIL_DERSLER -contains $meta.ders){ 'dil-icerik' } else { AmbarTeyit $s.kaynak }
     if($at -ne 'ok' -and $at -ne 'dil-icerik'){ $rapor.Add("RET (teyitsiz kaynak): $($s.kaynak)"); continue }
-    $cIstem = "Su coktan secmeli soruyu coz. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
+    # 18.08 A2: cozucuden ders uyumu da istenir (soru-uret ile AYNI kural -
+    # biri degisirse ikisini guncelle). Yanlis etiket kasada kanser.
+    $cIstem = "Su coktan secmeli soruyu coz ve su dersin sorusu olup olmadigini soyle: '$($meta.ders)'. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`",`"ders_uyumu`":`"evet ya da hayir`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
     $ok=$true
     foreach($t in 1,2){
-      $cv=$null; $hamC=$null
+      $cv=$null; $hamC=$null; $dersUyum=$null
       if($t -eq 2){ $hamC = GeminiCoz $cIstem }   # cozucu-2: once Gemini (capraz model, bedava)
       if(-not $hamC){ foreach($den in 1,2){ try{ $hamC = Claude $cIstem 200 $MODEL_COZ; break }catch{ if($den -lt 2){ Start-Sleep -Seconds 5 } } } }
-      if($hamC){ try{ $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{} }
+      if($hamC){ try{ $cj=((JsonBul $hamC) | ConvertFrom-Json); $cv=$cj.cevap; $dersUyum=$cj.ders_uyumu }catch{} }
       if(-not $cv -and $hamC){ $mC=[regex]::Match($hamC.ToUpper(),'(?<![A-Z])([A-E])(?![A-Z])'); if($mC.Success){ $cv=$mC.Groups[1].Value } }
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($meta.konu)"); break }
+      if("$dersUyum" -match '(?i)hay[iı]r'){ $ok=$false; $rapor.Add("RET (etiket: cozucu$t '$($meta.ders)' dersi degil dedi): $($meta.konu)"); break }
     }
     if(-not $ok){ continue }
     $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav=$meta.sinav; ders=$meta.ders; konu=$meta.konu;

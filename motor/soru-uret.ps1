@@ -27,6 +27,8 @@ $KONU_LIMIT = 15   # 23.07 Cem "1500 de az": kosu basi 90 aday (15 konu x 6); 12
 $ADET = 6
 # 16.08 uc hat: Anthropic birincil, limit dolunca OTOMATIK OpenRouter yedegi (api-hedef.ps1)
 . (Join-Path $here 'api-hedef.ps1')
+# 18.08 A1: yazma aninda Turkce harf kapisi (Cem: "riskleri kapatmadan basmak yok")
+. (Join-Path $here 'harf-kapisi.ps1')
 $key = $env:ANTHROPIC_API_KEY
 if(-not $key -and (Read-ApiEnv 'OPENROUTER_KEY')){ $key = 'openrouter' }
 if(-not $key){ Write-Host "Hicbir Claude anahtari yok (ANTHROPIC_API_KEY / OPENROUTER_KEY) - atlandi."; exit 0 }
@@ -100,7 +102,13 @@ function AmbarSorgu($filtre, $desen){
   try{
     $u="$SB_URL/rest/v1/dokumanlar?kaynak_ad=ilike."+[uri]::EscapeDataString($filtre)+"&select=kaynak_ad&limit=25"
     $r=Invoke-RestMethod -Uri $u -Headers @{apikey=$SB_ANON;Authorization="Bearer $SB_ANON"} -TimeoutSec 30
-    foreach($x in @($r)){ if("$($x.kaynak_ad)" -match $desen){ return 'ok' } }
+    foreach($x in @($r)){
+      # 18.08 KAPI DELIGI KAPANDI: ambarda "TASLAK (SORU DAYANAGI YAPILAMAZ)"
+      # onekiyle duran kayitlar var (702 SGDS 5000 bolumu). Ad eslesiyor diye
+      # taslagi 'kaynak var' saymak, taslaga dayali soru URETTIRIRDI.
+      if("$($x.kaynak_ad)" -match '(?i)taslak'){ continue }
+      if("$($x.kaynak_ad)" -match $desen){ return 'ok' }
+    }
     return 'yok'
   }catch{ return 'atla' }
 }
@@ -212,6 +220,37 @@ function AmbarTeyit($kaynak){
   return AmbarSorgu ("*$no*"+$on+"m."+$md+"*") ('(?i)'+$onDesen+'m\.'+$md+'($|[^0-9A-Za-z])')
 }
 
+# ============================================================================
+# 18.08 A3 - KOSU BASI CANLILIK PROBU (Cem: "riskleri kapatmadan basmak yok").
+# NEDEN: 16.08'de cozucu OLUYDU (kimliksiz istek -> 401) ve sorular KAPISIZ
+# gecti; onarim hattinda 626 sorunun 455'i bu yuzden cope gitti. Kapilarin
+# CANLI oldugu kanitlanmadan tek soru bile uretilmez - olu kapiyla uretim,
+# parayi en pahali sekilde yakmaktir.
+# ============================================================================
+Write-Host "Canlilik probu..." -NoNewline
+$probOk = $false
+try {
+  $probC = (Invoke-ClaudeMesaj -Model $MODEL_COZ -Icerik "Yalnizca OK yaz." -MaxTok 8).metin
+  if("$probC" -match '(?i)ok'){ $probOk = $true }
+} catch {}
+if(-not $probOk){
+  Write-Host ""
+  Write-Host "KIRMIZI: COZUCU HATTI OLU (probe cevap vermedi). Parti BASLAMADI." -ForegroundColor Red
+  Write-Host "Olu kapiyla uretim yasak - 626/455 vakasinin tekrarina izin yok."
+  exit 1
+}
+# Ambar probu: bugun varligi olculmus bir kayit (TSRS 1 p.1) bulunabilmeli.
+# 'yok' da 'atla' da KIRMIZI: sorgu calisiyorsa kayit orada olmali; degilse
+# ya ambar erisimi olu (16.08 UA vakasi) ya kayit ucup gitmis - ikisi de durdurur.
+$probA = AmbarSorgu '*TSRS 1 p.1*' '(?i)TSRS\s*1\s+p\.1($|[^0-9])'
+if($probA -ne 'ok'){
+  Write-Host ""
+  Write-Host ("KIRMIZI: AMBAR PROBU DUSTU (sonuc: {0}). Parti BASLAMADI." -f $probA) -ForegroundColor Red
+  Write-Host "Ambar teyidi olu kosarsa her kaynak 'yok' sayilir ya da sessiz gecer - ikisi de kabul edilemez."
+  exit 1
+}
+Write-Host " cozucu CANLI + ambar CANLI. Devam."
+
 # KILITLI HAVUZ: Supabase'e tasinan paket sorulari da kok-tekrar ve doygunluk
 # hesabina girer (yoksa ayni sorular yeniden uretilirdi). Service key yalniz
 # Actions ortaminda vardir; yerelde/anahtarsiz zarifce atlanir.
@@ -313,6 +352,10 @@ $aciBlok
   if(@($uretilen).Count -eq 0){ $rapor.Add("URETIM HATASI (JSON kurtarilamadi): $konu"); continue }
 
   foreach($s in @($uretilen)){
+    # KAPI 0 (18.08 A1): TURKCE HARF - en ucuz kapi en one. Bozuk metin kasaya
+    # HIC girmez; Agustos'ta ~%2 bozuk girmisti, temizligi hala suruyor.
+    $harfKusur = HarfKusuru (SoruMetniBirlestir $s)
+    if($harfKusur){ $rapor.Add("RET (harf kapisi: $harfKusur): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); continue }
     $kokOzet = KokAnahtar $s
     # KAPI 5: kok tekrari (kok + siklar birlikte)
     if($mevcutKokler -contains $kokOzet){ $rapor.Add("RET (tekrar): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); continue }
@@ -330,7 +373,11 @@ $aciBlok
     $at = AmbarTeyit $s.kaynak
     if($at -ne 'ok'){ $rapor.Add("RET (kaynak ambardan teyit edilemedi - once YUT): $($s.kaynak)"); continue }
     # KAPI 1+2: iki bagimsiz cozucu (cevapsiz soruyu cozer)
-    $cIstem = "Su coktan secmeli soruyu coz. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
+    # 18.08 A2: cozucu zaten soruyu OKUYOR - ayni cagrida DERS UYUMU da sorulur.
+    # Sebep: hat ISTENEN konuyu kaydediyordu, uretileni degil; Genel Yetenek'in
+    # %24,6'si yanlis etiketli cikti ("anlatim bozuklugu" sorusu "Ataturk'un
+    # eserleri" etiketiyle). Etiketten SUPHELI soru kasaya girmez.
+    $cIstem = "Su coktan secmeli soruyu coz ve su dersin sorusu olup olmadigini soyle: '$ders'. SADECE JSON: {`"cevap`":`"A-E arasi tek harf`",`"ders_uyumu`":`"evet ya da hayir`"}`nSORU: $($s.soru)`nA) $($s.siklar.A)`nB) $($s.siklar.B)`nC) $($s.siklar.C)`nD) $($s.siklar.D)`nE) $($s.siklar.E)"
     $ok=$true
     foreach($t in 1,2){
       # 23.07 dersi: cozucu bazen JSON yerine duz "B" yaziyor, bos sayilip saglam soru kesiliyordu.
@@ -341,9 +388,14 @@ $aciBlok
       foreach($den in 1,2){
         try{ $hamC = Claude $cIstem 200 $MODEL_COZ; break }catch{ if($den -lt 2){ Start-Sleep -Seconds 5 } }
       }
-      if($hamC){ try{ $cv=((JsonBul $hamC) | ConvertFrom-Json).cevap }catch{} }
+      $dersUyum=$null
+      if($hamC){ try{ $cj=((JsonBul $hamC) | ConvertFrom-Json); $cv=$cj.cevap; $dersUyum=$cj.ders_uyumu }catch{} }
       if(-not $cv -and $hamC){ $mC=[regex]::Match($hamC.ToUpper(),'(?<![A-Z])([A-E])(?![A-Z])'); if($mC.Success){ $cv=$mC.Groups[1].Value } }
       if("$cv".Trim().ToUpper() -ne "$($s.dogru)".Trim().ToUpper()){ $ok=$false; $rapor.Add("RET (cozucu$t '$cv' != '$($s.dogru)'): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); break }
+      # A2: cozucu "bu soru o dersin sorusu degil" diyorsa kasaya GIRMEZ.
+      # (Alan okunamadiysa RET yok - saglam soruyu ayristirma gurultusune kurban etme;
+      #  ama acikca 'hayir' geldiyse tek oy bile yeter: yanlis etiket kasada kanser.)
+      if("$dersUyum" -match '(?i)hay[iı]r'){ $ok=$false; $rapor.Add("RET (etiket: cozucu$t '$ders' dersi degil dedi): $($s.soru.Substring(0,[Math]::Min(40,$s.soru.Length)))"); break }
     }
     if(-not $ok){ continue }
     $yeniListe.Add([pscustomobject]@{ id=[guid]::NewGuid().ToString().Substring(0,8); sinav=$sinavAd; ders=$ders; konu=$konu;
