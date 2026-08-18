@@ -18,7 +18,10 @@
 #  VARSAYILAN: OLCUM (hicbir sey yazilmaz). Yazmak icin: -uygula
 #  ENV: SUPABASE_SERVICE_KEY. Rapor: veri/harf-onarim.json
 # ============================================================================
-param([switch]$uygula, [int]$sinir = 0)
+param([switch]$uygula, [int]$sinir = 0,
+  # 18.08 - Cem B1 karari: "once kufur temizligi". Sozlugun tamami onayli ama
+  # kapsam SIRAYLA acilir; -aile 'sik' yalniz o ascii-onekli kelimeleri isler.
+  [string]$aile = '')
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -67,6 +70,10 @@ $sozlukHam = Get-Content $sozlukYol -Raw -Encoding UTF8 | ConvertFrom-Json
 $SOZLUK = New-Object 'System.Collections.Generic.Dictionary[string,string]'
 foreach($e in @($sozlukHam.kelimeler)){
   $a = "$($e.ascii)"; $d = "$($e.dogru)"
+  # aile suzgeci: yalniz verilen onekle baslayan ascii formlar (buyuk/kucuk
+  # varyantlar dahil - onek karsilastirmasi kuculterek yapilir; sozluk zaten
+  # her varyanti ayri satir tutar, degisim yine harfe duyarli calisir)
+  if($aile -and -not $a.ToLowerInvariant().StartsWith($aile.ToLowerInvariant())){ continue }
   if($SOZLUK.ContainsKey($a)){ throw ("Sozlukte mukerrer anahtar: {0}" -f $a) }
   $SOZLUK[$a] = $d
 }
