@@ -3913,6 +3913,24 @@
                          "ad":  "TASLAK (SORU DAYANAGI YAPILAMAZ) - SGDS 5000 Surdurulebilirlik Guvence Denetimlerine Iliskin Genel Hukumler",
                          "pdfId":  "HAZIR",
                          "not":  "RGde YAYIMLANMADI (07.08.2026 itibariyla taslak; KGK duyuru 5112). Yururlukteki dayanak GDS 3000 + GDS 3410. RGde cikinca gercek metinle degistirilecek."
+                     },
+                     {
+                         "slug":  "tevkifat14592",
+                         "ad":  "GVK 94 Tevkifat Oranlari BKK (2009/14592)",
+                         "pdfId":  "HAZIR",
+                         "not":  "19.08.2026: mevzuat.gov.tr BKK metinlerini HIC tutmuyor (tur listesinde BKK yok) - kaynak GIB portal konsolidesi (gib.gov.tr/mevzuat/kanun/433/bkk/1232, API: /api/gibportal/mevzuat/bkk/findById?id=1232). 9284+9286+9707+11344 CK degisiklikleri isli. Gunluk ayna indiremez; oran degisikligi nobeti gvk.txt dipnotlarindan yakalanir, degisince elle/betikle tazelenir (scratchpad bkk-cek.ps1 deseni)."
+                     },
+                     {
+                         "slug":  "tevkifat14593",
+                         "ad":  "KVK 30 Tevkifat Oranlari BKK (2009/14593)",
+                         "pdfId":  "HAZIR",
+                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1379, API id=1379). Dar mukellef stopaj oranlari: gayrimaddi hak %20, serbest meslek %20 (petrol %5), GMSI %20 (fin.kiralama %1), faiz banka %0/diger %10, kar payi %15 (9286). 9707: yillara-sari insaat raylı/gemi/nukleer %1, diger %5."
+                     },
+                     {
+                         "slug":  "tevkifat14594",
+                         "ad":  "KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594)",
+                         "pdfId":  "HAZIR",
+                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1378, API id=1378). Tam mukellef kurumlara yapilan odemelerde kesinti oranlari."
                      }
                  ]
 }

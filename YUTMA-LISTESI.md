@@ -1,5 +1,25 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 19.08.2026 — CB TEVKİFAT KARARLARI ÜÇLÜSÜ YUTULDU (Cem emri; 9707 alarmının kalıcı kapanışı)
+*Sebep: hizmet/fiyatfarkı teyit turunda kvk.txt dipnotu "9707 sayılı CB Kararına bakınız" deyince
+oranların eskiyip eskimediği ancak dış araştırmayla çözülebildi — stopaj oranlarının kendisi
+ambarda yoktu. Kritik keşif: **mevzuat.gov.tr BKK metinlerini HİÇ tutmuyor** (tür listesinde
+"Bakanlar Kurulu Kararları" yok) ve RG karar PDF'leri taranmış görüntü (pdftotext boş, OCR yasak).
+Çözüm: GİB mevzuat portalının konsolide HTML'i (API: `/api/gibportal/mevzuat/bkk/findById?id=N`;
+IRM kodlamayı bozar → ham bayt + UTF-8 çöz, `scratchpad/bkk-cek.ps1` deseni).*
+
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| GVK 94 Tevkifat Oranları BKK (2009/14592) | GİB portal konsolide (kanun/433/bkk/**1232**) | **10 belge**; hüküm bölgesi kapsama %99,9; 9284+9286+9707+**11344 (19.05.2026 nükleer %1)** işli; manifest `tevkifat14592` (pdfId HAZIR) |
+| KVK 30 Tevkifat Oranları BKK (2009/14593) | GİB portal konsolide (kanun/435/bkk/**1379**) | **6 belge**; %99,9; geri okuma: gayrimaddi %20 ✓ banka faizi %0 ✓ fin.kiralama %1 ✓ kâr payı %15 (9286) ✓ |
+| KVK 15 Vergi Kesintisi Oranları BKK (2009/14594) | GİB portal konsolide (kanun/435/bkk/**1378**) | **6 belge**; %99,9 |
+
+Kapsama kapısı notu: ham oran %89,9-97,3 çıktı — kayıp yalnız MADDE 1 öncesi usul girişi
+(başlık + "Bakanlar Kurulu'nca kararlaştırılmıştır" cümlesi); hüküm bölgesi %99,9, istisna gerekçeli.
+Günlük ayna bu üçünü İNDİREMEZ (kaynak GİB HTML); oran değişikliği nöbeti gvk/kvk dipnotlarından
+yakalanır, değişince `bkk-cek.ps1` deseniyle elle tazelenir. Supabase'e 17 satır basıldı, geri okundu.
+Besledikleri: hizmet.html + fiyatfarki.html stopaj kutuları, soru-cevap aracı, gelecek stopaj araçları.
+
 ## ✅ 19.08.2026 — SPK İKİNCİL MEVZUAT: II-15.1 + III-52.1 YUTULDU (Cem onayı, karne boşluğu)
 *Sebep: yeterlilik konu-kaynak karnesi (18-19.08, taze arşivle) "içsel bilgi açıklamasının
 ertelenmesi" (5 satır) ve "şemsiye fon türleri" konularını KAYNAK YOK gösterdi; ambar
