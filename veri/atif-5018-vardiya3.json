@@ -1,0 +1,51 @@
+{
+    "tarih":  "19.08.2026 01:54",
+    "durum":  "TAMAM",
+    "aciklama":  "5018 vardiya-3 SONUC: icerik-baska 109 soru. 102 yeniden baglandi (92 ilk tur + 10 Turkce I/i regex kacagi ikinci tur; hepsi ambar-dogrulamali, damga+kaynak yazildi, geri okuma tutmayan 0). 7 bulunamadi yayin=false cekildi (kurgu bozuk / teori notu eksik). Ilk turun kanun dagilimi + kacaklarin TEORI baglamasi asagida. Turkce ders: bu makinede regex IgnoreCase I harfini Turkce katlar (TEORI deseni Teori ile eslesmez) - buyuk I iceren desenlerde RegexOptions.CultureInvariant ya da acik harf sinifi sart.",
+    "ilk_tur":  {
+                    "tarih":  "19.08.2026 01:52",
+                    "durum":  "TAMAM",
+                    "aciklama":  "5018 vardiya-3: icerik-baska 109 sorunun ambar-dogrulamali yeniden baglanmasi (4 aile ajani + yazici). Damga/alan gelenekleri dayanak-yeniden-bagla.ps1 ile ayni.",
+                    "plan":  92,
+                    "yazilan":  92,
+                    "ambar_yok":  [
+
+                                  ],
+                    "patch_hata":  [
+
+                                   ],
+                    "bulunamadi_cekilen":  7,
+                    "geri_okuma_tutmayan":  [
+
+                                            ],
+                    "kanun_dagilimi":  [
+                                           {
+                                               "kanun":  "6362",
+                                               "adet":  34
+                                           },
+                                           {
+                                               "kanun":  "THP",
+                                               "adet":  41
+                                           },
+                                           {
+                                               "kanun":  "TEORI",
+                                               "adet":  2
+                                           },
+                                           {
+                                               "kanun":  "STD",
+                                               "adet":  13
+                                           },
+                                           {
+                                               "kanun":  "213",
+                                               "adet":  2
+                                           }
+                                       ]
+                },
+    "kacak_10":  {
+                     "yazilan":  10,
+                     "geri_okuma_tutmayan":  0,
+                     "hepsi":  "TEORI (4 tekil not adi)"
+                 },
+    "kasada_kalan_5018":  324,
+    "kalan_dagilim":  "170 mesru (Maliye/Hukuk) + 14 SGS-Maliye (atif dogru) + 105 SMMM kapsam-disi cekik + 28 bozuk cekik + 7 dayanaksiz cekik = 324"
+}
