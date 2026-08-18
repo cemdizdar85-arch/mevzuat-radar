@@ -1,7 +1,7 @@
 {
-  "tarih": "18.08.2026 01:49",
+  "tarih": "18.08.2026 21:52",
   "durum": "HATA",
-  "hata": "Response status code does not indicate success: 400 (Bad Request).",
-  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"You have reached your specified API usage limits. You will regain access on 2026-09-01 at 00:00 UTC.\"\n  },\n  \"request_id\": \"req_011Ce9NeKZcqaZgBcGUrC9kS\"\n}",
+  "hata": "Response status code does not indicate success: 429 (Too Many Requests).",
+  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your API usage limits: your organization has crossed its monthly API usage threshold, set based on your organization\\u0027s API tier. You will regain access on 2026-09-01 at 00:00 UTC.\",\n    \"details\": {\n      \"error_code\": \"enforced_spend_limit_reached\"\n    }\n  },\n  \"request_id\": \"req_011CeAxP6EUG7",
   "satir": 147
 }
