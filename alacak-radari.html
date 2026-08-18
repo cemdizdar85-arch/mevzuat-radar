@@ -142,7 +142,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(x.tur==='konkordato'){
       // KAYIT ÇAĞRISI -> m.299, 15 gün geri sayım (toplantı hariç)
       if(!/toplantı/.test(b) && /alacaklılara çağrı|komiserliğinden alacaklılara|alacaklarını (bildir|kaydet)|alacak kayd/.test(b))
-        return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; kaçırırsan müzakereye giremez, oy kullanamazsın.'};
+        return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; bildirmezsen borçlunun bilançosunda kayıtlı olmadıkça müzakereye alınmaz, oy kullanamazsın.'};
       // DURUŞMA GÜNÜ -> m.304 (tarih ilanda; geri sayım yok, hap var)
       if(/duruşma/.test(b))
         return {hap:'Konkordato tasdik duruşması günü ilan edildi. İtirazın varsa sebeplerini duruşmadan en az 3 gün önce yazılı bildir, duruşmaya katılabilirsin (m.304).'};
@@ -338,14 +338,15 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="nasil">
     <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
     <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir. Aynı isimli firma karışıklığı olmaz.</div></div>
-    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakereye giremezsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
+    <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
   </div>
 
   <h2>Alacaklı olarak İİK'da hakların ve sürelerin</h2>
   <details style="background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:10px 0" open>
     <summary style="cursor:pointer;padding:14px 0;font-weight:700;font-size:14px;color:var(--accent2)">⚖️ Müşterin konkordato/iflas ilan etti: madde madde ne yapabilirsin</summary>
     <div style="font-size:13px;color:var(--muted);line-height:1.65;padding-bottom:14px">
-      <p style="margin:8px 0"><b style="color:var(--ink)">m.299 · 15 gün:</b> İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Kaçırırsan müzakereye giremez, oy kullanamazsın.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">m.299 · 15 gün:</b> İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Bildirmezsen, borçlunun bilançosunda kayıtlı değilsen müzakereye alınmaz, oy kullanamazsın.</p>
+      <p style="margin:8px 0"><b style="color:var(--ink)">"Bana mektup gelmez mi?"</b> Kanun, ilanın bir suretinin <b style="color:var(--ink)">adresi belli olan</b> alacaklılara postayla gönderilmesini de söylüyor (m.299/301). Ama üç tuzak var: <b style="color:var(--ink)">süre mektuptan değil İLAN tarihinden işler</b>; adresin borçlunun kayıtlarında yoksa ya da yanlışsa mektup hiç gelmez; iflasta (m.219) böyle bir posta hükmü de yok, yalnız ilan var. Mektubu bekleyen süreyi yakar — ilanı gününde görmek gerekir.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">m.294 · Mühlette takip DURUR:</b> Kesin mühlet içinde borçluya karşı (amme/6183 dahil) takip yapamazsın, başlamış takipler durur, ihtiyati haciz uygulanmaz, rehinsiz alacağa faiz işlemez. İYİ HABER: bu sürede zamanaşımı ve hak düşürücü süreler de İŞLEMEZ, alacağın erimez. (İşçi vb. imtiyazlı alacaklar haciz yapabilir.)</p>
       <p style="margin:8px 0"><b style="color:var(--green)">m.303 · KEFİLE gidebilirsin (en değerlisi):</b> Konkordatoya KARŞI çıkan alacaklı, borçtan birlikte sorumlu olanlara (kefil, müteselsil borçlu, ciranta) karşı TÜM haklarını korur. Yani borçlu konkordatoyla borcunu indirse bile, kefil/ortak borçludan alacağının tamamını isteyebilirsin. Tahsil için asıl yolun bu olabilir.</p>
       <p style="margin:8px 0"><b style="color:var(--ink)">m.302 · Oyunu kullan:</b> Konkordato projesi; kaydedilmiş alacaklıların YARISI + alacakların YARISI, VEYA alacaklıların DÖRTTE BİRİ + alacakların ÜÇTE İKİSİ çoğunlukla kabul edilir. Projeden etkilenen alacaklı olarak toplantıda oy ver; nisabı sen belirlersin.</p>
@@ -383,7 +384,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div class="cta">
     <h3>Bir müşterinin batması, alacağının tamamı demek</h3>
-    <p>15 günü kaçıran alacaklı konkordato müzakeresine giremez, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün e-postana düşsün (WhatsApp/SMS yol haritasında).</p>
+    <p>15 günü kaçıran alacaklı, borçlunun bilançosunda kayıtlı değilse konkordato müzakeresine alınmaz, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün e-postana düşsün (WhatsApp/SMS yol haritasında).</p>
     <!-- 30.07: hedef index#app'ti (Yukumluluk Karnesi formu!) - yanlis kapi.
          Artik panele NIYETLE gider: uyelikten sonra ilk soru VKN olur. -->
     <a class="btn" href="radar-app.html?niyet=alacak" style="text-decoration:none">Alacak Radarına abone ol →</a>
@@ -543,7 +544,7 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
         <div class="satir"><b>Yer</b><span>${[il.ilce,il.il].filter(Boolean).join(' / ')||'—'}</span></div>
         <div class="satir"><b>İlan tarihi</b><span>${il.yayinTarihi||'—'}</span></div>
         ${il.komiser?`<div class="satir"><b>Komiser</b><span>${il.komiser}</span></div>`:''}
-        <div class="sure">⏳ <b>İİK m.${il.iikMadde||'299'}, alacağını ${il.bildirimGun||15} gün içinde kaydet.</b> ${sonGun?`Bu ilanda son gün: <b>${sonGun}</b>.`:''} Süreyi kaçıran alacaklı konkordato müzakeresine <b>giremez, oy kullanamaz</b> ve alacağı nisaba katılmaz.</div>
+        <div class="sure">⏳ <b>İİK m.${il.iikMadde||'299'}, alacağını ${il.bildirimGun||15} gün içinde kaydet.</b> ${sonGun?`Bu ilanda son gün: <b>${sonGun}</b>.`:''} Süreyi kaçıran alacaklı, borçlunun bilançosunda kayıtlı değilse konkordato müzakeresine <b>alınmaz, oy kullanamaz</b> ve alacağı nisaba katılmaz.</div>
         ${b.ticSicil?'':''}
         ${il.belgeler?`<div class="belg"><b style="color:var(--ink)">İstenen belgeler:</b> ${il.belgeler}${il.komiserAdres?', Kayıt adresi: '+il.komiserAdres:''}</div>`:''}
         ${il.url?`<div class="belg"><a href="${il.url}" target="_blank" rel="noopener">Resmî ilan metni →</a></div>`:''}
