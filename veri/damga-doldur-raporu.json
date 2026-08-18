@@ -1,0 +1,162 @@
+{
+    "tarih":  "19.08.2026 02:07",
+    "durum":  "TAMAM",
+    "aciklama":  "Bos kanun_no / damgasiz backfill (19.08, Cem onayi). 09.08in 3.729u buyuk olcude onceki turlarda erimisti; bugunku gercek: kanun_no bos 126, damgasiz 3.402. Yapilan: cozucuyle 29 (4 yeni bag + 25 damga) + MSUGT temel kavram deseniyle 87 + dikey-analiz teori notuna 6 = 122 baglandi/damgalandi, hepsi ambar metni damgasiyla. Kalan damgasiz yapisal/elle.",
+    "baslangic":  {
+                      "kanun_no_bos":  126,
+                      "damgasiz":  3402
+                  },
+    "yazilan":  {
+                    "cozucu":  29,
+                    "msugt_kavram":  87,
+                    "dikey_teori":  6,
+                    "toplam":  122
+                },
+    "kalan":  {
+                  "damgasiz":  3280,
+                  "kanun_no_bos":  122,
+                  "dokum":  "3.227 mevzuat-disi (dil/matematik/teori - dayanak yoktur, yapisal) + 16 atif-tutarsiz (yazilmadi, damga-doldur-raporu listesinde) + ~40 cozulemedi (6 KDV taksimli firka + 4 coklu-MSUGT + TTK kiymetli evrak + benzeri - elle)"
+              },
+    "dersler":  "PS degisken cakismasi ($sb, $SB ezdi - 29 PATCH aslinda yazilmisti, sayac hata dedi; kasadan son_kontrol ile kanitlandi) + IWR/IRM UA ayri ayri sart (iki kez tekrarladi)",
+    "ilk_olcum":  {
+                      "tarih":  "19.08.2026 02:02",
+                      "mod":  "yaz",
+                      "hedef":  3373,
+                      "kovalar":  {
+                                      "bag_yeni":  0,
+                                      "damga_tamam":  0,
+                                      "atif_tutarsiz":  16,
+                                      "mevzuat_disi":  3227,
+                                      "cozulemedi":  130
+                                  },
+                      "cozulememe":  {
+                                         "kanun-bulunamadi":  {
+                                                                  "adet":  123,
+                                                                  "ornek":  [
+                                                                                "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Muhasebenin Temel Kavramları, Önemlilik Kavramı",
+                                                                                "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Temel Kavramlar, Önemlilik Kavramı",
+                                                                                "Muhasebe Sistemi Uygulama Genel Tebliği (1 Sıra No\u0027lu) - Muhasebenin Temel Kavramları / Özün Önceliği Kavramı",
+                                                                                "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği (MSUGT) - Muhasebenin Temel Kavramları, Önemlilik Kavramı",
+                                                                                "1 Sıra No\u0027lu Muhasebe Sistemi Uygulama Genel Tebliği - Temel Kavramlar, Önemlilik Kavramı"
+                                                                            ]
+                                                              },
+                                         "ambarda-yok":  {
+                                                             "adet":  6,
+                                                             "ornek":  [
+                                                                           "KDV Kanunu m.24/a",
+                                                                           "KDV Kanunu m.10/g",
+                                                                           "KDV Kanunu m.10/d",
+                                                                           "Anayasa (2709) m.161; 5018 s.K. m.19",
+                                                                           "5510 sayılı Kanun m.41/son fıkra"
+                                                                       ]
+                                                         },
+                                         "madde-bulunamadi":  {
+                                                                  "adet":  1,
+                                                                  "ornek":  [
+                                                                                "TTK kıymetli evrak hükümleri — hamiline yazılı senetlerde devir için zilyetliğin geçirilmesi (teslim) yeterlidir"
+                                                                            ]
+                                                              }
+                                     },
+                      "yazildi":  0,
+                      "yazma_hatasi":  0,
+                      "atif_tutarsiz_ornekler":  [
+                                                     {
+                                                         "id":  "061760d5-572c-4c05-b5e3-6f2c3f1e4234",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "116fe96b-08b1-4a6c-a141-3c445e8d2a0f",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "2a4779c0-91e1-41a6-936f-295c63d1f81a",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "2b19b1d0-66d0-4fb7-86fc-ce55c8a1676f",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "369e5281-029c-4a1a-a001-43a4bd59c112",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "58557f5d-0ed0-4c2c-b17c-ccb60d517aff",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "616e294b-6743-48e2-ad38-b4c421e340c2",
+                                                         "kasa":  "213|muk298",
+                                                         "cozulen":  "THP|298",
+                                                         "kaynak":  "MSUGT Tekduzen Hesap Plani - 298"
+                                                     },
+                                                     {
+                                                         "id":  "61dd819b-cd98-4b49-9905-4d40060e17a6",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "6bb74076-513c-4bd7-b42c-9315507f00e5",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "7b27d8f1-b3eb-4995-b117-297ff5f7fb56",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "8b8c6ea1",
+                                                         "kasa":  "THP|",
+                                                         "cozulen":  "STD|TMS 1",
+                                                         "kaynak":  "TMS 1 Finansal Tabloların Sunuluşu p.25-26 (İşletmenin Sürekliliği Varsayımı); Muhasebe Sistemi Uygulama Genel Tebliği (Sıra No:1)"
+                                                     },
+                                                     {
+                                                         "id":  "9acdcc11-b6c8-4b74-9dc9-6ca7ce135ec7",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "dadcb6f4-c1fd-4c17-bf7f-55a866e83eea",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.51",
+                                                         "cozulen":  "6362|51",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.51"
+                                                     },
+                                                     {
+                                                         "id":  "e29be148-1d66-4514-af35-eee639fe1736",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "f09a7480-b0fe-4281-97f0-a9ac5e66fd00",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     },
+                                                     {
+                                                         "id":  "f3dc1bb1-b7d6-4096-ba99-a99c88db1b87",
+                                                         "kasa":  "EKALAN|Sermaye Piyasası K. (6362 s.K.) m.48",
+                                                         "cozulen":  "6362|48",
+                                                         "kaynak":  "Sermaye Piyasası K. (6362 s.K.) m.48"
+                                                     }
+                                                 ],
+                      "not":  "Dar kapsam: yalniz damgasiz satirlar. Cozulemeyen ve atif-tutarsiz YAZILMADI."
+                  }
+}
