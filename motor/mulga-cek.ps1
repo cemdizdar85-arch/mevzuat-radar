@@ -76,7 +76,8 @@ foreach($m in $MULGA){
     try { $adaylar += Getir "$SB_URL/rest/v1/soru_havuzu?select=id,ders,kaynak,kanun_no,madde_no&$kolonFiltre&limit=500" }
     catch { $sorguHatasi += "$kolonFiltre : $($_.Exception.Message)"; Write-Host ("  aday sorgusu atlandi ({0}): {1}" -f $kolonFiltre, $_.Exception.Message) }
   }
-  $kabaIz[$m.ad] = [ordered]@{ kaba_aday=$adaylar.Count; sorgu_hatasi=$sorguHatasi }
+  $kabaIz[$m.ad] = [ordered]@{ kaba_aday=$adaylar.Count; sorgu_hatasi=$sorguHatasi
+    kaba_ornekler=@($adaylar | ForEach-Object { "$($_.kaynak) | kanun_no=$($_.kanun_no)" } | Sort-Object -Unique | Select-Object -First 15) }
   $sayilan = 0
   foreach($a in $adaylar){
     $metaveri = "$($a.kaynak) $($a.kanun_no)"
