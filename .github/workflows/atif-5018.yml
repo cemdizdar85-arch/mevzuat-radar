@@ -1,0 +1,38 @@
+# .github/workflows/atif-5018.yml — 5018 YANLIS ATIF OLCUMU (19.08.2026)
+# Yalniz olcer, kasaya yazmaz. Push-tetikli.
+name: Atif 5018 Olcum
+
+on:
+  push:
+    paths:
+      - 'motor/atif-5018.ps1'
+      - '.github/workflows/atif-5018.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atif-5018
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Olc
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/atif-5018.ps1
+      - name: Raporu commit'le (kor kalma kurali)
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/atif-5018-olcum.json ]; then git add veri/atif-5018-olcum.json || true; fi
+          git diff --cached --quiet || git commit -m "5018 yanlis atif olcum raporu [veri-operasyonu]"
+          git pull --rebase || true
+          git push || true
