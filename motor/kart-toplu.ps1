@@ -297,9 +297,15 @@ function OncekiBelge([string]$degistirilen, [datetime]$kartTarihi){
   $no = ($m.Groups[1].Value -replace '\s','')
   $liste = $gozetimZincir.$no
   if(-not $liste){ return $null }
+  # 18.08: TryParseExact YASAK. CI'nin pwsh'inde (yeni .NET) Span'li asiri
+  # yuklemeler cikti ve 5-argumanli cagri "Cannot find an overload" ile patladi;
+  # 4 kosu ust uste kirmizi bitti, 18.08 kartlari uretilip COPE gitti. Ayni
+  # dosyanin cagiran workflow'unda ParseExact($s,$fmt,$null) deseni CI'da
+  # kanitli calisiyor - ayni desene cevrildi.
   $onceki = @($liste | Where-Object {
     $t = $null
-    if([datetime]::TryParseExact($_.tarih,'dd.MM.yyyy',$null,[Globalization.DateTimeStyles]::None,[ref]$t)){ $t -lt $kartTarihi } else { $false }
+    try { $t = [datetime]::ParseExact("$($_.tarih)",'dd.MM.yyyy',$null) } catch {}
+    if($t){ $t -lt $kartTarihi } else { $false }
   })
   if($onceki.Count -eq 0){ return $null }
   $s = $onceki[-1]

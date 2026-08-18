@@ -140,9 +140,12 @@ foreach($kk in ($havuz.Keys | Sort-Object)){
   }
   if($liste.Count -eq 0){ continue }
   # kronolojik sirala: serit "onceki deger"i dogru bulsun
+  # 18.08: TryParseExact YASAK (CI pwsh'inde Span asiri-yukleme belirsizligi
+  # "Cannot find an overload" verdi; bkz motor/kart-toplu.ps1 ayni tarihli not).
   $yeni[$kk] = @($liste | Sort-Object {
     $t = [datetime]::MinValue
-    [void][datetime]::TryParseExact($_.tarih,'dd.MM.yyyy',$null,[Globalization.DateTimeStyles]::None,[ref]$t); $t })
+    try { $t = [datetime]::ParseExact("$($_.tarih)",'dd.MM.yyyy',$null) } catch {}
+    $t })
 }
 
 $atilanKodKaydi = 0
