@@ -137,7 +137,7 @@ function degerlendir(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('
   if(syas==='e' && skul==='h'){
     uyari+=`<div class="n"><span class="i">🔻</span><div><b>Kendi markan da risk altında (m.9/m.26):</b> 5 yıl kullanmayan marka <b>iptal ettirilebilir</b>, rakibin senin markanı da düşürebilir. Kullan ya da kaybet.</div></div>`;
   }
-  uyari+=`<div class="n"><span class="i">⏳</span><div><b>Süre (m.18):</b> itiraz bültende yayımdan <b>2 ay</b> içinde. ${ytarih?`Yayım ${fmt(new Date(ytarih))} → <b>son gün ${fmt(ay(new Date(ytarih),2))}</b>.`:'Yayım tarihini girersen son günü hesaplarız.'} Geç kalırsan tescil edilir; 5 yıl ses çıkarmazsan hükümsüzlük hakkını da kaybedersin (m.25/6).</div></div>`;
+  uyari+=`<div class="n"><span class="i">⏳</span><div><b>Süre (m.18):</b> itiraz bültende yayımdan <b>2 ay</b> içinde. ${ytarih?`Yayım ${fmt(new Date(ytarih))} → <b>son gün ${fmt(ay(new Date(ytarih),2))}</b>.`:'Yayım tarihini girersen son günü hesaplarız.'} Geç kalırsan tescil edilir; 5 yıl ses çıkarmazsan hükümsüzlük hakkını da kaybedersin (m.25/6; sonraki tescil kötüniyetliyse bu süre işlemez).</div></div>`;
 
   document.getElementById('sonuc').innerHTML=`
     <div class="ozet ${ozetT}"><span class="buyuk">Karıştırılma ihtimali: ${seviye}</span>${ana}</div>
