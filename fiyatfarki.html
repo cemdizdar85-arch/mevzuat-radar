@@ -186,9 +186,14 @@ function sonuc(){ ilerle(3);
 
 function hesapKutu(tip){
   const ekRate = (tip==='artis')
-    ? `<div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">Gümrük vergisi oranını gir (GTİP'ine göre, <a href="gtip.html">GTİP aracından</a> bak): <input id="gv" type="number" inputmode="decimal" placeholder="%" oninput="hesapla('${tip}')" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit">%
-       <span style="margin-left:10px">Malın KDV oranı: <select id="kdvOran" onchange="hesapla('${tip}')" style="padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit;cursor:pointer"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></span>
-       <div style="font-size:11.5px;color:var(--dim);margin-top:4px">İthalde ek KDV malın KENDİ oranından hesaplanır (%1 / %10 / %20, 2007/13033 s. Karar listeleri); oranı GTİP aracında görebilirsin.</div></div>`
+    ? `<div style="font-size:12.5px;color:var(--muted);margin:2px 0 10px">
+       <div style="font-size:11.5px;font-weight:700;color:var(--accent2);letter-spacing:.3px;margin-bottom:4px">GTİP KODU YA DA ÜRÜN ADI, oranları biz dolduralım</div>
+       <input id="ffKod" placeholder="örn. 8418.61.00.00.00 ya da: klima" autocomplete="off" oninput="ffKutu()" style="width:100%;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:#0a0f17;color:var(--ink);font-size:14px;font-family:inherit">
+       <div id="ffAraSonuc"></div>
+       <div id="ffNot" style="font-size:11.5px;color:var(--dim);margin-top:4px"></div>
+       <div style="margin-top:10px">Gümrük vergisi oranı: <input id="gv" type="number" inputmode="decimal" placeholder="%" oninput="hesapla('${tip}')" style="width:64px;padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit">%
+       <span style="margin-left:10px">Malın KDV oranı: <select id="kdvOran" onchange="hesapla('${tip}')" style="padding:7px 9px;border:1px solid var(--line2);border-radius:9px;background:#0a0f17;color:var(--ink);font-family:inherit;cursor:pointer"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></span></div>
+       <div style="font-size:11.5px;color:var(--dim);margin-top:4px">İthalde ek KDV malın KENDİ oranından hesaplanır (%1 / %10 / %20, 2007/13033 s. Karar listeleri). Oranları elle de değiştirebilirsin.</div></div>`
     : '';
   const baslik = (tip==='artis') ? "🧮 Fiyat farkını gir, ek vergiyi hesapla" : "🧮 Royalti tutarını gir, vergiyi hesapla";
   return `<div class="kutu" style="margin-top:14px">
@@ -228,6 +233,137 @@ function hesapla(tip){
   }
 }
 baslat();
+
+// ============ TEK KUTU: GTİP kodu YA DA ürün adı → gümrük vergisi + KDV oranını doldur ============
+// (gtip.html/senaryo'daki motorun eşi) Veriler SADECE kutuya yazılınca yüklenir; sihirbaz akışı yavaşlamaz.
+let TANIM=null, TANIM_IDX=null, TANIM_SOZ=null, ARA_ZAMANLAYICI=null, FF_VERI=null, FF_VERI_SOZ=null;
+function trFold(s){ return (''+s).toLocaleLowerCase('tr')
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
+  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a').replace(/û/g,'u'); }
+function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function harfliMi(s){ return /[a-zçğıöşüâîû]/i.test(s); }
+function nrm(s){ return String(s).replace(/\./g,'').trim(); }
+function asArr(v){ if(Array.isArray(v))return v; if(v===null||v===undefined||v===''||typeof v==='object')return []; return [v]; }
+function tanimYukle(){
+  if(TANIM) return Promise.resolve();
+  if(TANIM_SOZ) return TANIM_SOZ;
+  TANIM_SOZ = fetch('veri/gtip-tanim.json').then(r=>r.json()).then(j=>{
+    TANIM = j;
+    TANIM_IDX = Object.keys(j).map(k => [k, trFold(j[k])]);
+  }).catch(()=>{ TANIM_SOZ = null; });
+  return TANIM_SOZ;
+}
+function ffVeriYukle(){
+  if(FF_VERI) return Promise.resolve();
+  if(FF_VERI_SOZ) return FF_VERI_SOZ;
+  FF_VERI_SOZ = Promise.all([
+    fetch('veri/gtip-vergi.json').then(r=>r.json()).catch(()=>({})),
+    fetch('veri/gtip-vergi-ulke.json').then(r=>r.json()).catch(()=>({})),
+    fetch('veri/gtip-kdv.json').then(r=>r.json()).catch(()=>({}))
+  ]).then(([v,vu,k])=>{ FF_VERI={V:v,VU:vu,K:k}; }).catch(()=>{ FF_VERI_SOZ=null; });
+  return FF_VERI_SOZ;
+}
+function ffKutu(){
+  const el=document.getElementById('ffKod'); if(!el) return;
+  const ham=el.value.trim();
+  clearTimeout(ARA_ZAMANLAYICI);
+  if(!harfliMi(ham)){
+    document.getElementById('ffAraSonuc').innerHTML='';
+    if(nrm(ham).length>=4){ ARA_ZAMANLAYICI=setTimeout(()=>ffOranDoldur(ham),300); } // rakam = kod modu
+    return;
+  }
+  ARA_ZAMANLAYICI=setTimeout(ffAraYap,220);
+}
+function ffAraYap(){
+  const out = document.getElementById('ffAraSonuc'); if(!out) return;
+  const ham = document.getElementById('ffKod').value.trim();
+  if(!harfliMi(ham)){ out.innerHTML=''; return; }
+  const q = trFold(ham);
+  if(q.length < 3){ out.innerHTML = '<div style="font-size:12px;color:var(--dim);margin-top:5px">En az 3 harf yaz…</div>'; return; }
+  if(!TANIM_IDX){
+    out.innerHTML = '<div style="font-size:12px;color:var(--muted);margin-top:5px">⏳ Tarife cetveli yükleniyor (ilk açılışta bir kez)…</div>';
+    tanimYukle().then(ffAraYap);
+    return;
+  }
+  const parcalar = q.split(/\s+/).filter(t => t.length >= 2);
+  if(!parcalar.length){ out.innerHTML=''; return; }
+  const bulunan = [];
+  for(const [kod, txt] of TANIM_IDX){
+    let hepsiVar = true;
+    for(const p of parcalar){ if(txt.indexOf(p) < 0){ hepsiVar = false; break; } }
+    if(!hepsiVar) continue;
+    // puan: kelime kodun KENDİ tanımında (son › parçası) geçiyorsa öne al; kısa metin öne al
+    const sonAyrac = txt.lastIndexOf('›');
+    const kendi = sonAyrac >= 0 ? txt.slice(sonAyrac+1) : txt;
+    let puan = 0;
+    for(const p of parcalar){ if(kendi.indexOf(p) >= 0) puan += 10; }
+    puan -= txt.length / 800;
+    bulunan.push([puan, kod]);
+  }
+  if(!bulunan.length){
+    out.innerHTML = '<div style="font-size:12.5px;color:var(--muted);margin-top:5px">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır, eş anlamlı dene (ör. "buzdolabı" → "soğutucu") ya da malzemesiyle ara.</div>';
+    return;
+  }
+  bulunan.sort((a,b) => b[0]-a[0]);
+  const ust = bulunan.slice(0, 8);
+  out.innerHTML = ust.map(([p, kod]) => {
+    const t = TANIM[kod];
+    const sonAyrac = t.lastIndexOf('›');
+    const zincir = sonAyrac >= 0 ? t.slice(0, sonAyrac).trim() : '';
+    const kendi  = sonAyrac >= 0 ? t.slice(sonAyrac+1).trim() : t;
+    return `<div onclick="ffSec('${kod}')" style="padding:9px 11px;margin-top:6px;border:1px solid var(--line2);border-radius:10px;background:#06090f;cursor:pointer" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line2)'">
+      <b style="color:var(--green);font-size:13.5px">${kod}</b>
+      <div style="font-size:12.5px;color:var(--ink);margin-top:2px">${htmlEsc(kendi)}</div>
+      ${zincir ? `<div style="font-size:11px;color:var(--dim);margin-top:2px">${htmlEsc(zincir)}</div>` : ''}
+    </div>`;
+  }).join('') + (bulunan.length > 8 ? `<div style="font-size:11.5px;color:var(--dim);margin-top:6px">+${bulunan.length-8} eşleşme daha var, kelime ekleyerek daralt.</div>` : '');
+}
+function ffSec(kod){
+  document.getElementById('ffKod').value = kod;
+  document.getElementById('ffAraSonuc').innerHTML = '';
+  ffOranDoldur(kod);
+}
+// senaryo-raporu ile aynı sütun düzeni: gtip-vergi-ulke satırı = [abSta,katar,bae,eagu,otdu,gyu,du]
+const FF_DU_IDX = 6; // "Diğer Ülkeler" sütunu
+function ffKodCoz(q){
+  q=q.trim(); const s=nrm(q);
+  let keys=Object.keys(FF_VERI.VU).filter(k=>k===q||nrm(k).startsWith(s));
+  if(keys.length) return keys.find(k=>k===q)||keys[0];
+  keys=Object.keys(FF_VERI.V).filter(k=>k===q||nrm(k).startsWith(s));
+  return keys.length?(keys.find(k=>k===q)||keys[0]):null;
+}
+function ffKdvOran(nkod){ // menşe-bağımsız KDV oranı (senaryo-raporu'daki kuralın eşi)
+  const f=FF_VERI.K.fasil&&FF_VERI.K.fasil[nkod.slice(0,2)]; if(!f) return {r:20,t:'%20 (genel)'};
+  const poz=nkod.slice(0,4);
+  const uy=h=>{ const kl=asArr(h.kod); if(kl.some(k=>{const kk=nrm(k);return kk&&(kk.startsWith(nkod)||nkod.startsWith(kk));}))return true;
+    if(h.tumF===true) return !asArr(h.haric).some(x=>{const xx=nrm(x);return xx.length>=4&&nkod.startsWith(xx);});
+    return asArr(h.poz).indexOf(poz)>=0; };
+  const o1=asArr(f.o1).filter(uy).filter(h=>!h.kosul), o10=asArr(f.o10).filter(uy).filter(h=>!h.kosul);
+  if(o1.length&&o10.length) return {r:10,t:'%1 veya %10 (indirimli, ürün tanımına göre; %10 yazıldı)'};
+  if(o1.length) return {r:1,t:'%1 (indirimli)'};
+  if(o10.length) return {r:10,t:'%10 (indirimli)'};
+  return {r:20,t:'%20 (genel)'};
+}
+function ffOranDoldur(girilen){
+  const not=document.getElementById('ffNot'); if(!not) return;
+  not.innerHTML='⏳ Vergi verisi yükleniyor…';
+  ffVeriYukle().then(()=>{
+    if(!FF_VERI){ not.innerHTML='Vergi verisi yüklenemedi; oranları elle gir.'; return; }
+    const dkod=ffKodCoz(girilen);
+    if(!dkod){ not.innerHTML='Bu kod için vergi verisi bulunamadı; oranları elle gir ya da <a href="gtip.html" target="_blank">GTİP Kontrolü</a>\'nden doğrula.'; return; }
+    const nkod=nrm(dkod);
+    const uSat=FF_VERI.VU[dkod], v=FF_VERI.V[dkod]||[null,null,null,null];
+    let gv=null, gvKaynak='';
+    if(uSat&&uSat[FF_DU_IDX]!==null&&uSat[FF_DU_IDX]!==undefined){ gv=uSat[FF_DU_IDX]; gvKaynak='"Diğer Ülkeler" sütunu'; }
+    else if(v[1]!==null&&v[1]!==undefined){ gv=v[1]; gvKaynak='aralık üst sınırı'; }
+    const kdv=ffKdvOran(nkod);
+    const gvEl=document.getElementById('gv'), kEl=document.getElementById('kdvOran');
+    if(gvEl&&gv!==null) gvEl.value=gv;
+    if(kEl) kEl.value=String(kdv.r);
+    not.innerHTML = `<b style="color:var(--ink)">${dkod}</b> → gümrük vergisi ${gv===null?'bulunamadı, elle gir':'%'+gv+' ('+gvKaynak+')'} · KDV ${kdv.t}. <b style="color:var(--amber)">Esas olan, orijinal beyannamede uygulanan orandır:</b> AB/STA menşeli + belgeliyse gümrük vergisi daha düşük (çoğu sanayi ürününde 0) olabilir, gerekirse elle düzelt.`;
+    hesapla('artis');
+  });
+}
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>
   <div style="background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),#0d141e;border:1px solid rgba(245,165,36,.3);border-radius:16px;padding:24px;text-align:center">
