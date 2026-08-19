@@ -93,9 +93,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <div><span class="gozalici">🚨 Müşterin konkordato ilan etti mi?</span></div>
   <h1>Müşterin batmadan haber al</h1>
-  <p class="lead">Borçlularının vergi numaralarını gir. Biri <b style="color:var(--ink)">konkordato ya da iflas</b> ilan ederse, İcra-İflas Kanunu süreleriyle seni uyarırız, <b style="color:var(--ink)">alacağını zamanında kaydet, müzakere ve oy hakkını kaybetme.</b></p>
+  <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
 
-  <div class="uyari">Kaynak: <b style="color:var(--muted)">Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr)</b>, yani mahkemelerin iflas/konkordato ilanları. Aşağıdaki <b style="color:var(--ink)">canlı ilan akışını robot her gün sabah-akşam çeker</b>; VKN eşleştirme aracı ise örnek (tohum) veriyle tanıtım modundadır; <b style="color:var(--ink)">VKN'ne birebir eşleşen otomatik uyarı abonelikte</b>. Dürüst not: konkordatoda komiser, ilan suretini <b style="color:var(--ink)">adresi borçlunun kayıtlarında olan</b> alacaklılara postayla da gönderir (İİK m.299/301) — yani mektup gelebilir. Ama <b style="color:var(--ink)">süre mektuptan değil İLAN tarihinden işler</b>, kayıtlarda yoksan ya da adresin yanlışsa mektup hiç gelmez, iflasta (m.219) posta hükmü zaten yok. Radar, mektuba kalmadan ilanı çıktığı gün önüne koymak içindir. Bilgilendirme amaçlıdır, hukuki tavsiye değildir.</div>
+  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Aşağıdaki canlı akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki VKN eşleştirme aracı örnek veriyle tanıtım modundadır; <b style="color:var(--ink)">kayıtlı borçlu listesiyle birebir eşleşen otomatik uyarılar abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
 
   <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
@@ -105,7 +105,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
-  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı; robot her gün yeniler</span></h2>
+  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı akış · günde iki kez otomatik güncellenir</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
   <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
        arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
@@ -218,7 +218,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     AI_L=(d.ilanlar||[]);
     var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
     var e=document.getElementById('aiDamga');
-    if(e&&m) e.innerHTML='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · havuzda '+AI_L.length+' ilan';
+    if(e&&m) e.innerHTML='son güncelleme: <b style="color:var(--ink)">'+m[1]+'</b> · havuzda '+AI_L.length+' ilan';
     aiMakro(); aiCiz();
   }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
@@ -339,7 +339,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h2>Nasıl çalışır</h2>
   <div class="nasil">
     <div class="adim"><span class="no">1</span><div><b>Borçlu listeni ver.</b> Sana borcu olan firmaların VKN'lerini bir kez gir (muhasebe programından toplu alınır).</div></div>
-    <div class="adim"><span class="no">2</span><div><b>Robot her gün resmî ilanları tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanlarını VKN ile eşleştirir. Aynı isimli firma karışıklığı olmaz.</div></div>
+    <div class="adim"><span class="no">2</span><div><b>Sistem resmî ilanları her gün tarar.</b> ilan.gov.tr'deki iflas/konkordato ilanları borçlu listenle VKN üzerinden eşleştirilir; aynı unvanlı farklı firmalar karışmaz.</div></div>
     <div class="adim"><span class="no">3</span><div><b>Eşleşince hap kart gelir.</b> "Müşterin X konkordato ilan etti, İİK m.299, <b>15 gün içinde</b> alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin." Mahkeme, dosya no, komiser adresi, istenen belgeler hazır.</div></div>
   </div>
 
@@ -381,12 +381,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
     <div class="adim"><span class="no" style="background:linear-gradient(135deg,#3ddc97,#ffc24b)">2</span><div><b style="color:var(--ink)">Senin kendi cari/çek verin, tarayıcı-içi.</b> Ödeme yavaşlıyor mu, bakiye büyürken tahsilat seyrekleşiyor mu, elindeki çekin vadesi yaklaşıyor mu? Verin bilgisayarından çıkmaz, sende okunur. <span style="font-size:11px;color:var(--amber);border:1px solid rgba(255,176,32,.4);border-radius:6px;padding:1px 7px">yakında</span></div></div>
 
-    <div class="adim"><span class="no" style="background:rgba(255,176,32,.35)">3</span><div><b style="color:var(--ink)">Sürekli izleme (abonelik).</b> Borçlularını bir kez kaydet; robot her gün resmî ilanları ve Ticaret Sicili'ni tarasın, sinyal düştüğü gün <b style="color:var(--ink)">olay ve son gün</b> ile e-postana gelsin. <span style="color:var(--dim)">Yurt dışındaki "monitor once, alert forever" modelinin Türkiye karşılığı.</span></div></div>
+    <div class="adim"><span class="no" style="background:rgba(255,176,32,.35)">3</span><div><b style="color:var(--ink)">Sürekli izleme (abonelik).</b> Borçlularını bir kez kaydet; sistem resmî ilanları ve Ticaret Sicili'ni her gün tarar, sinyal düştüğü gün <b style="color:var(--ink)">olay ve son gün</b> ile e-postana gelsin. <span style="color:var(--dim)">Yurt dışındaki "monitor once, alert forever" modelinin Türkiye karşılığı.</span></div></div>
   </div>
 
   <div class="cta">
     <h3>Bir müşterinin batması, alacağının tamamı demek</h3>
-    <p>15 günü kaçıran alacaklı, borçlunun bilançosunda kayıtlı değilse konkordato müzakeresine alınmaz, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün e-postana düşsün (WhatsApp/SMS yol haritasında).</p>
+    <p>Konkordatoda alacak kaydı süresi, ilan tarihinden itibaren 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz ve oy kullanamaz. Borçlu listeni bir kez tanımla; eşleşen ilan yayımlandığı gün, yasal süre ve yapılacak işlemle birlikte e-postana ulaşsın.</p>
     <!-- 30.07: hedef index#app'ti (Yukumluluk Karnesi formu!) - yanlis kapi.
          Artik panele NIYETLE gider: uyelikten sonra ilk soru VKN olur. -->
     <a class="btn" href="radar-app.html?niyet=alacak" style="text-decoration:none">Alacak Radarına abone ol →</a>
@@ -534,7 +534,7 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
     html += '<div style="margin:0 0 12px;font-size:14px"><b style="color:var(--red);font-size:17px">'+riskN+'</b> kayıtta risk bulundu <span style="color:var(--dim)">· '+temizN+'/'+taranan+' sorgu temiz</span></div>';
   }
   if(!bulunan.length){
-    html += '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Bu, örnek (tohum) veriye göredir. Canlı abonelikte robot her gün tüm resmî ilanları tarar ve yeni bir ilan çıktığı an seni uyarır.</div></div>';
+    html += '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Bu sonuç örnek veriye göredir. Abonelikte sistem tüm resmî ilanları her gün tarar; borçlularınla eşleşen yeni bir ilan yayımlandığı gün uyarı alırsın.</div></div>';
   } else {
     for(const {il, b, eslesen} of bulunan){
       const sonGun = tarihEkle(il.yayinTarihi, il.bildirimGun);
