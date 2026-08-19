@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,34 +35,36 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>14.05.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli laminat parke ithalatına karşı dampinge karşı önlem</h3>
-<p><b>Ne oldu:</b> Almanya Federal Cumhuriyeti menşeli laminat parke ürünü kapsam dışına çıkarılmış, önlem yalnızca Çin Halk Cumhuriyeti menşeli ürün için devam ettirilmiştir. Ayrıca bazı teknik ve prosedürel düzenlemeler de yapılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/36)</p>
+<h3>Çin menşeli laminat parke ithalatında dampinge karşı önlem güncellenmesi</h3>
+<p><b>Ne oldu:</b> Almanya menşeli laminat parke ürünlerine uygulanan dampinge karşı önlemler kaldırılmış, sadece Çin menşeli ürünlere yönelik önlemler devam ettirilmektedir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/36) sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(04.01.2020 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• Kapsam - Almanya: <span style='color:var(--dim);text-decoration:line-through'>Çin Halk Cumhuriyeti ve Almanya Federal Cumhuriyeti menşeli ürün</span> → <b>Sadece Çin Halk Cumhuriyeti menşeli ürün</b></div>
-<div class='kiymet'>• GTIP pozisyonları: <span style='color:var(--dim);text-decoration:line-through'>4411.13.90.00.11, 4411.14.90.00.11, 4411.92.90.00.11 ve 4411.93.90.00.11</span> → <b>Tabloda gösterilen pozisyon(lar) - spesifik değer görülemedi</b></div>
-<div class='kiymet'>• Tanımlar - Almanya tanımı: <span style='color:var(--dim);text-decoration:line-through'>Almanya: Almanya Federal Cumhuriyeti'ni (tanımlı)</span> → <b>Almanya tanımı kaldırıldı</b></div>
-<div class='kiymet'>• Tanımlar - ÇHC tanımı: <span style='color:var(--dim);text-decoration:line-through'>ÇHC: Çin Halk Cumhuriyeti'ni (tanımlı)</span> → <b>ÇHC tanımı kaldırıldı</b></div>
-<div class='kiymet'>• Karar bölümü - referans tebliğ: <span style='color:var(--dim);text-decoration:line-through'>Tebliğ No: 2014/14 ve Tebliğ No: 2015/21 (iki ayrı tebliğ)</span> → <b>Tebliğ No: 2019/36 (tek tebliğ)</b></div>
-<div class='kiymet'>• Karar bölümü - Almanya önlemi: <span style='color:var(--dim);text-decoration:line-through'>Almanya'ya yönelik yürürlükte bulunan dampinge karşı önlemlerin de uygulanmaya devam edilmesi</span> → <b>Almanya'ya yönelik önlem metinde yer almıyor</b></div>
-<div class='kiymet'>• Madde 5(1) - oran/tuttar ifadesi: <span style='color:var(--dim);text-decoration:line-through'>karşısında gösterilen oranda dampinge karşı kesin önlemleri</span> → <b>karşısında gösterilen tutarda/oranda dampinge karşı kesin önlemi</b></div>
-<div class='kiymet'>• Madde 5(3) - tanım değişikliği: <span style='color:var(--dim);text-decoration:line-through'>tarife pozisyonunda yapılacak değişiklikler</span> → <b>tarife pozisyonunda ve/veya tanımında yapılacak değişiklikler</b></div>
-<div class='kiymet'>• Madde 5(5) - yönetmelik fıkrası: <span style='color:var(--dim);text-decoration:line-through'>Yönetmeliğin 35 inci maddesinin dördüncü fıkrası</span> → <b>Yönetmeliğin 35 inci maddesinin beşinci fıkrası</b></div>
-<p><b>Ürün:</b> Laminat parke (Çin Halk Cumhuriyeti menşeli)</p>
-<p><b>GTİP:</b><br><span class='gtip'>4411.13.91.00.00</span><span class='gtip'>4411.13.94.00.11</span><span class='gtip'>4411.14.91.00.00</span><span class='gtip'>4411.14.95.00.00</span><span class='gtip'>4411.14.97.00.11</span><span class='gtip'>4411.92.90.00.11</span><span class='gtip'>4411.93.00.00.11</span></p>
+<div class='karsi'><span class='kon'>Referans tebliğ (Madde 4/2)</span><span class='hap eski'>Tebliğ No: 2014/14 ve Tebliğ No: 2015/21</span><span class='ok'>→</span><span class='hap yeni'>Tebliğ No: 2019/36</span></div>
+<div class='karsi'><span class='kon'>Yönetmelik madde referansı (Madde 5/5)</span><span class='hap eski'>Yönetmeliğin 35 inci maddesinin dördüncü fıkrası</span><span class='ok'>→</span><span class='hap yeni'>Yönetmeliğin 35 inci maddesinin beşinci fıkrası</span></div>
+<div class='karsi'><span class='kon'>Kapsam - Almanya menşeli ürünler</span><span class='hap eski'>Çin Halk Cumhuriyeti ve Almanya Federal Cumhuriyeti menşeli laminat parke</span><span class='ok'>→</span><span class='hap yeni'>Çin Halk Cumhuriyeti menşeli laminat parke</span></div>
+<div class='karsi'><span class='kon'>Tanımlar - d maddesi</span><span class='hap eski'>Almanya: Almanya Federal Cumhuriyeti'ni, ÇHC: Çin Halk Cumhuriyeti'ni</span><span class='ok'>→</span><span class='hap yeni'>Bu tanımlar kaldırılmıştır</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Gümrük idareleri, Çin menşeli laminat parkeyi serbest dolaşıma giriş rejiminde ithal ederken tabloda gösterilen tutarda dampinge karşı kesin önlemi tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Önlem yürürlük tarihinden itibaren 5 yıl süreyle geçerlidir; bu süre sonunda yürürlükten kalkar (Madde 5/4).</div>
+<div class='kiymet'>• 5 yıllık dönem sona ermeden nihai gözden geçirme soruşturması başlatılırsa, soruşturma tamamlanıncaya kadar önlem devam eder (Madde 5/5).</div>
+<div class='kiymet'>• Ürünün tarife pozisyonunda veya tanımında yapılacak değişiklikler tebliğ hükümlerinin uygulanmasına engel değildir (Madde 5/3).</div>
+<div class='kiymet'>• Bu tebliğ yayım tarihinde yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Çin Halk Cumhuriyeti menşeli laminat parke (döşeme malzemesi)</p>
+<p><b>GTİP:</b><br><span class='gtip'>4411.13.91.00.00</span><span class='gtip'>4411.13.94.00.11</span><span class='gtip'>4411.14.91.00.00</span><span class='gtip'>4411.92.90.00.11</span><span class='gtip'>4411.93.00.00.11</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>4411.14.97.00.11 → <b>kaynakta belirtilmemiş</b></div>
-<div class='kiymet'>4411.93.00.00.11 → <b>kaynakta belirtilmemiş</b></div>
+<div class='kiymet'>4411.93.00.00.11 → <b>2,40 ABD Doları/m³</b></div>
+<div class='kiymet'>4411.14.91.00.00 → <b>1,60 ABD Doları/m³</b></div>
+<div class='kiymet'>4411.13.94.00.11 → <b>1,60 ABD Doları/m³</b></div>
 <div class='kiymet'>4411.13.91.00.00 → <b>1,60 ABD Doları/m³</b></div>
-<div class='kiymet'>4411.14.91.00.00 → <b>1,60 ABD doları/m²</b></div>
-<p><b>Kimi ilgilendirir:</b> Laminat parke ithal eden ticari işletmeler ve inşaat malzemesi dağıtıcıları</p>
-<p><b>Ne yapmalısın:</b> Çin menşeli laminat parke ithalatında, tabloda belirtilen birim kıymetleri ve ürün tanımlarını karşılaştırın. Gümrük beyannamelerinde doğru GTİP kodu ve menşe ülkesinin belirtildiğini kontrol edin. Yürürlük tarihinden itibaren ödemeleri güncellenen tabloya uygun şekilde düzenleyin.</p>
+<div class='kiymet'>4411.92.90.00.11 → <b>2,40 ABD Doları/m³</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin'den laminat parke ithal eden inşaat malzemeleri distribütörleri, perakendeci ve imalatçılar</p>
+<p><b>Ne yapmalısın:</b> Çin menşeli laminat parke ithalatında hemen verilen GTİP kodlarını kontrol et, sevkiyat bedellerini güncel damping oranıyla karşılaştır ve gümrük beyannamelerinde ek malı yükümlülüğün eklenip eklenmediğini doğrula.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Almanya menşeli ürünler için ithalatçılar lehine bir gelişme söz konusudur (tebliğ kapsamı dışına çıkarılmıştır). Çin menşeli ürünler için ise ithalatçılar aleyhine bir durum devam etmektedir (dampinge karşı önlem sürmektedir).</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Almanya'dan laminat parke ithalatında dampinge karşı önlemler tamamen kaldırılmıştır. Bu, Almanya menşeli ürünleri ithal eden işletmelerin aleyhine olan yükümlülüğü ortadan kaldırarak bu menşe için ticari avantaj sağlamıştır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260514-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260514-4.html'>Neyin nesi değişti? →</a></div>
 </div>

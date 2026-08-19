@@ -1,31 +1,34 @@
-﻿{
-    "dosya":  "20251008-3.htm",
-    "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/10/20251008-3.htm",
-    "baslik_sade":  "Türkiye-Malezya ticaretinde menşe denetimi prosedürleri güçlendirildi",
-    "ne_oldu":  "Ticaret Bakanlığı, tercihli menşe belgelerinin kontrolünde ithalatçıdan bilgi talep usulünü ve özellikle yanlış menşe beyanı durumunda uygulanacak yaptırımları düzenleyen yeni hükümleri yürürlüğe koydu. Menşe kontrolü sırasında gümrük vergileri teminata bağlanabilecek ve 90 günlük cevap süresi öngörüldü.",
-    "degistirilen_teblig":  "Türkiye - Malezya Serbest Ticaret Anlaşması Çerçevesindeki Ticarette Eşyanın Tercihli Menşeinin Tespiti Hakkında Yönetmelik",
-    "eski_yeni":  [
-
-                  ],
-    "eski_karsilastirma":  null,
-    "gtip_kodlari":  null,
-    "urun_tanimi":  "Türkiye-Malezya tercihli menşe belgeli tüm ticarî eşyalar",
-    "kimi_ilgilendirir":  "Malezya\u0027dan tercihli menşe belgesiyle mal ithal eden firmalar",
-    "ne_yapmali":  "Gümrük müdürlüğünden menşe belgesi kontrol talep yazısı alırsan, 90 gün içinde Ek-5 formunu doldur ve tüm destekleyici belgeleri gönder. Beklemede kalan sevkiyatların vergilerinin teminata bağlanabileceğini hesaba kat. Menşe belgelerinde hatalı beyan riskini değerlendir.",
-    "yururluk":  "yayimi tarihinde",
-    "kesin_kiymetler":  {
-
-                        },
-    "kiyaslar":  [
-
-                 ],
-    "etki":  {
-                 "aciklama":  "Denetim usulü formalize edilerek ithalatçıya daha ağır belge hazırlama yükü ve 90 günlük cevap baskısı getirdi. Yanlış menşe beyanı bulunması halinde hem fark gümrük vergisi hem ceza ödenmesi zorunlu hale geldi; teminata bağlama nedeniyle nakit akışı etkilenir.",
-                 "yon":  "ithalatci aleyhine"
-             },
-    "guven_notu":  "GTIP kodları ve birim kıymetler kaynakta belirtilmemiş. Ek-5 formunun içeriği eklere yönlendirme yapıldığı için metinde görünmüyor. Denetim talebine konu edilecek belgeler tanımı \u0027menşe ispat belgesi + menşe statüsünü kanıtlayan ilave belgeler\u0027 şeklinde genel tutulmuş, spesifik listesi yok. | Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi",
-    "degisen_maddeler":  [
-                             "MADDE 39/A eklendi",
-                             "MADDE 39/B eklendi"
-                         ]
+{
+  "dosya": "20251008-3.htm",
+  "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/10/20251008-3.htm",
+  "baslik_sade": "Türkiye-Malezya Serbest Ticaret Anlaşması menşe kontrolünde yeni bilgi talep prosedürü",
+  "ne_oldu": "Ticaret Bakanlığı, Malezya'dan ithal edilen eşyaların tercihli menşe belgelerinin kontrolünde gümrük müdürlüklerinin ithalatçılardan 90 gün içinde belge sunmasını zorunlu kılıyor. Menşe doğruluğu tespit edilemediği takdirde fark vergiler tahakkuk ettiriliyor ve ceza uygulanıyor.",
+  "teblig_no": null,
+  "degisen_maddeler": [
+    "MADDE 39/A eklendi",
+    "MADDE 39/B eklendi"
+  ],
+  "degistirilen_teblig": "Türkiye - Malezya Serbest Ticaret Anlaşması Çerçevesindeki Ticarette Eşyanın Tercihli Menşeinin Tespiti Hakkında Yönetmelik",
+  "onceki_belge": null,
+  "eski_yeni": [],
+  "eski_karsilastirma": null,
+  "kilit_hukumler": [
+    "Gümrük müdürlüğü talep yazısı tarihinden itibaren 90 gün içinde Ek-5 formunun doldurulmasını zorunlu kılıyor (Madde 39/A/2).",
+    "Form süresi içinde sunulmazsa fark gümrük vergileri tahakkuk eder ve Gümrük Kanunu 234. maddeye göre ceza uygulanır (Madde 39/B/2).",
+    "Menşe doğru tespit edilirse alınmış teminat iade edilir; yanlış tespit edilirse fark vergiler tahakkuk eder (Madde 39/B/3).",
+    "İhracatçı ülkeden 90 gün içinde yanıt alınamazsa veya yanıt yeterli bilgi içermezse, istisnaî hâller dışında tercihli tarife tanınması reddedilir (Madde 42/5).",
+    "Teblig yayımı tarihinde yürürlüğe girer (Madde 6)."
+  ],
+  "gtip_kodlari": null,
+  "urun_tanimi": "Türkiye-Malezya Serbest Ticaret Anlaşması kapsamında ithal edilen tüm eşya",
+  "kimi_ilgilendirir": "Malezya'dan tercihli menşe belgesiyle eşya ithal eden firmalar, gümrük müşavirleri, nakliyeciler",
+  "ne_yapmali": "Gümrük müdürlüğünden menşe belgesi kontrol talep yazısı alındığında Ek-5 formu 90 gün içinde tamamlanmalı ve sunulmadan önce ticari faturalarla, üretim belgeleriyle, sevkiyat belgeleriyle karşılaştırılmalıdır. Menşe doğrulanamadığı takdirde fark vergilerin tahakkuk edeceği hesaplanarak nakit/ipotek teminata önceden hazırlıklı olunmalıdır.",
+  "yururluk": "yayımı tarihinde",
+  "kesin_kiymetler": {},
+  "kiyaslar": [],
+  "etki": {
+    "yon": "ithalatci aleyhine",
+    "aciklama": "Menşe kontrolü yapıldığında ithalatçı 90 gün içinde belge sunmak zorundadır; form sunulmadığında veya menşe yanlış tespit edildiğinde fark gümrük vergileri ve yasal ceza tahakkuk eder. Bu durum, menşe belgesi beyanında hata riskini artırırken denetim yükünü ve planlama süresini de uzatmaktadır."
+  },
+  "guven_notu": "Ek-5 formunun içeriği kaynakta belirtilmemiş; teblig metninde form örneği yoktur. Gümrük müdürlüğünün talep yazısı üzerine Ticaret Bakanlığının resmi Ek-5 formunu almak gerekli. 90 günlük yanıt süresi, ihracatçı ülke yetkili makamından 180 günde yanıt alınamayan bellere ilişkin uzatma koşulu açık değildir. | Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi"
 }

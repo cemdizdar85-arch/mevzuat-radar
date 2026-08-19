@@ -1,33 +1,49 @@
 {
-    "dosya":  "20250801-8.htm",
-    "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/08/20250801-8.htm",
-    "baslik_sade":  "Merkez Bankası döviz desteği tebliğinde uygulama süresi uzatıldı",
-    "ne_oldu":  "Merkez Bankası, yurt dışı kaynaklı döviz satışına ilişkin destek programının geçici uygulanacağı son tarihi 31 Temmuz 2025\u0027ten 31 Ekim 2025\u0027e çıkardı. Ayrıca banka tanımında ve tebliğin amacı hükmünde küçük düzeltmeler yapıldı.",
-    "degistirilen_teblig":  "Firmaların Yurt Dışı Kaynaklı Dövizlerinin Türk Lirasına Dönüşümünün Desteklenmesi Hakkında Tebliğ (Sayı: 2023/5)",
-    "eski_yeni":  [
-                      {
-                          "konu":  "geçici 1 inci madde",
-                          "eski":  "31/7/2025",
-                          "yeni":  "31/10/2025",
-                          "kaynak":  "metin"
-                      }
-                  ],
-    "eski_karsilastirma":  null,
-    "gtip_kodlari":  null,
-    "urun_tanimi":  "Döviz desteği programı (ürün tanımı değil)",
-    "kimi_ilgilendirir":  "Yurt dışından döviz geliri olan firmalar, ihracat yapan ve döviz ciro yapan işletmeler",
-    "ne_yapmali":  "Program kapsamındaki döviz satış işlemlerinin planlanmasında yeni son tarihi (31.10.2025) dikkate al. Temmuz sonunda sona erecek işlemlerin Ekim sonuna kaymış olduğunu iş takvimine yansıt.",
-    "yururluk":  "yayimi tarihinde",
-    "kesin_kiymetler":  {
-
-                        },
-    "kiyaslar":  [
-
-                 ],
-    "etki":  {
-                 "aciklama":  "Program süresinin üç ay uzatılması döviz geliri olan firmalara nefes aldıyor; Temmuz-Ekim arası döviz satış işlemleri destek kapsamında kalabiliyor. Dönem planlaması değişirse biriken döviz pozisyonlarını daha uzun süre tutabilecekleri anlamına geliyor.",
-                 "yon":  "ithalatci lehine"
-             },
-    "guven_notu":  "Teblig metin tablosu içermemektedir. GTIP kodu, birim kiymet veri veya rakamsal esik tespit edilmemiştir. Banka tanımındaki değişiklik tanımsal netleştirmedir, programa etkisi belirsizdir. | Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi | Ana tebligin eski metni RG arsivinde bulunamadi (26.01.2023)",
-    "teblig_no":  "2025/18"
+  "dosya": "20250801-8.htm",
+  "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/08/20250801-8.htm",
+  "baslik_sade": "Döviz dönüşüm desteğinin kapsamı daraltılmış, uygulama süresi ise uzatılmıştır",
+  "ne_oldu": "Tebliğ kapsamından Türk lirası vadeli mevduat ve katılma hesaplarına dönüşüm desteği çıkarılmış, uygulama yalnızca Merkez Bankasına satış desteğiyle sınırlandırılmıştır. Banka tanımı mevduat ve katılım bankalarından tüm bankaları kapsayacak şekilde genişletilmiş, uygulama süresi ise 3 ay uzatılmıştır.",
+  "teblig_no": "2025/18",
+  "degisen_maddeler": null,
+  "degistirilen_teblig": "2023/5",
+  "onceki_belge": {
+    "teblig_no": "2023/5",
+    "tarih": "25.02.2023",
+    "url": "https://www.resmigazete.gov.tr/eskiler/2023/02/20230225-13.htm",
+    "tur": "asil"
+  },
+  "eski_yeni": [
+    {
+      "konu": "Madde 1 - Tebliğin amacı",
+      "eski": "firmaların yurt dışı kaynaklı dövizlerinin Merkez Bankasına satılması ile Türk lirası vadeli mevduat ve katılma hesaplarına dönüştürülmesi halinde firmalara sağlanacak desteğe ilişkin usul ve esasları düzenlemektir",
+      "yeni": "firmaların Merkez Bankasınca belirlenecek yurt dışı kaynaklı dövizlerinin Merkez Bankasına satılması halinde firmalara sağlanacak desteğe ilişkin usul ve esasları düzenlemektir"
+    },
+    {
+      "konu": "Madde 3(a) - Banka tanımı",
+      "eski": "mevduat ve katılım bankalarını",
+      "yeni": "bankaları"
+    },
+    {
+      "konu": "Geçici 1. Madde - Son uygulama tarihi",
+      "eski": "31/7/2025",
+      "yeni": "31/10/2025"
+    }
+  ],
+  "eski_karsilastirma": "26.01.2023",
+  "kilit_hukumler": [
+    "Firmalar tarafından Merkez Bankasına satılan yurt dışı kaynaklı dövizlere sağlanan destekle ilgili uygulamalar 31 Ekim 2025'e kadar devam ediyor (Geçici m.1/1).",
+    "Tebliğ yayım tarihi olan 1 Ağustos 2025'te yürürlüğe girdi (m.4)."
+  ],
+  "gtip_kodlari": null,
+  "urun_tanimi": "Yurt dışı kaynaklı döviz",
+  "kimi_ilgilendirir": "Yurt dışından döviz geliri elde eden tüm firmaları",
+  "ne_yapmali": "Mevcut döviz satış anlaşmaları ve Ekim sonuna ilişkin planlamalar gözden geçirilmeli; destekten yararlanan havaleler bakımından hazırlık süreci yeniden değerlendirilmelidir.",
+  "yururluk": "yayımı tarihinde",
+  "kesin_kiymetler": {},
+  "kiyaslar": [],
+  "etki": {
+    "yon": "ithalatci aleyhine",
+    "aciklama": "Destek kapsamının daraltılması ve katılma hesaplarına dönüşüm desteğinin kaldırılması, firmaların yararlanabileceği destek mekanizmalarını sınırlandırmıştır."
+  },
+  "guven_notu": "Teblig metni tablo içermemiştir. Madde 1 ve 2'deki değişiklikler esas tebliğin sözcük/tanım düzeltmesi niteliğindedir - maddi bir etki doğurmaz. Destek tutarları, döviz türleri, depo şartları gibi ayrıntılar kaynakta belirtilmemiştir. | Yorum, eski-yeni metin karsilastirmasina dayanir | Karsilastirma 26.01.2023 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
 }

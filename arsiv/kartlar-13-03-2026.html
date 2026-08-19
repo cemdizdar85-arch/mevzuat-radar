@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,26 +33,32 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>13.03.2026 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>13.03.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Malezya kontrplak ithalatında dampinge karşı önlem: Mentakab firması için sıfır tarife</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Malezya menşeli kontrplak (GTIP 4412.10, 4412.31, 4412.33, 4412.34, 4412.39) ithalatında uygulanan dampinge karşı önlemi, yeni ihracatçı statüsündeki Mentakab Veneer & Plywood Sdn. Bhd. firması için tamamen kaldırıyor. Firma 'Üretici/İhracatçı Belgesi' ibraz etmek koşuluyla önceki ölçü kapsamı işlemlerde hiçbir gümrük önlemi ödemeyecek.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/2)</p>
-<p><b>Ürün:</b> Kontrplaklar (ağaç levhalarından meydana gelen)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Malezya'dan kontrplak ithalatında dampinge karşı önlemde muafiyet</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Malezya menşeli kontrplak (yapı malzemesi olarak kullanılan ağaç levha) ithalatına uygulanmakta olan dampinge karşı önlemi (gümrük vergisine benzer ek mali yükümlülük), Mentakab Veneer & Plywood Sdn. Bhd. firması için sıfır olarak uygulama kararı aldı. Firma yeni ihracatçı statüsünde tespit edilmiş olup önlemi etkisiz kılmaya yönelik herhangi bir faaliyeti bulunmamaktadır.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2025/2 sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250704-4.htm' target='_blank' rel='noopener'>04.07.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/2)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Mentakab Veneer & Plywood Sdn. Bhd. firmasından Malezya menşeli kontplek ithalatında dampinge karşı önlem uygulanmaz, sadece Üretici/İhracatçı Belgesi istenir (Madde 6/1).</div>
+<div class='kiymet'>• Gümrük idarelerine uygulama tarihi 27 Mart 2025'ten itibaren geçerlidir (Madde 6/1).</div>
+<div class='kiymet'>• Tebliğ yayım tarihi olan 13 Mart 2026'da yürürlüğe girer (Madde 7/1).</div>
+<p><b>Ürün:</b> Kontrplaklar (ağaç levhalarından oluşan yapı malzemeleri)</p>
 <p><b>GTİP:</b><br><span class='gtip'>4412.10</span><span class='gtip'>4412.31</span><span class='gtip'>4412.33</span><span class='gtip'>4412.34</span><span class='gtip'>4412.39</span></p>
-<p><b>Kimi ilgilendirir:</b> Malezya'dan kontrplak ithal eden inşaat malzemecileri ve mobilya üreticileri, özellikle Mentakab Veneer & Plywood Sdn. Bhd. ile ticaret yapanlar</p>
-<p><b>Ne yapmalısın:</b> Mentakab menşeli sevkiyatları tespit et; gümrük deklerasyonlarında 'Üretici/İhracatçı Belgesi' ekli olduğunu doğrula; önceki dönem işlemlerde ilgili tarife pozisyonlarında ödediğin damping ücretinin iade edilip edilmeyeceğini vergi danışmanınla karşılaştır.</p>
+<p><b>Kimi ilgilendirir:</b> Malezya'dan kontrplak ithal eden inşaat malzemecileri ve dış ticaret firmaları; özellikle Mentakab Veneer & Plywood Sdn. Bhd. ile ticari ilişkisi bulunan ithalatçılar.</p>
+<p><b>Ne yapmalısın:</b> Mentakab firmasından gelen kontrplak sevkiyatlarının gümrük işlemlerinde Üretici/İhracatçı Belgesi talebini kontrol edin; önceki beyanlarda yanlış ödenmiş dampinge karşı önlem bedelinin iadesi için gümrük idaresine başvurun.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı lehine):</b> Mentakab için gümrük ödeyim sıfırlandığından bu firmanın ürünleri rekabetçi fiyatlanabilir. Ancak diğer Malezya ihracatçılarından gelen mallar halen m³ başına 140 dolar ödeyecekse, pazar segmentasyonu söz konusu.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Yeni ihracatçı incelemesi:</b> önleme tabi ülkeden, ilk soruşturma döneminde Türkiye'ye satış yapmamış bir firmanın kendisi için ayrı oran istemesi üzerine açılan inceleme. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Mentakab için dampinge karşı ek mali yükümlülük kaldırıldı. Bu firmanın kontrplak maliyeti ciddi ölçüde düşecek; rakip ülkelerden ithalat yapanlara kıyasla fiyat avantajı elde edecek. Ancak etki sınırlı: tek firmayla ve belirli bir tarihten itibaren (27 Mart 2025) geçerli.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Yeni ihracatçı incelemesi:</b> önleme tabi ülkeden, ilk soruşturma döneminde Türkiye'ye satış yapmamış bir firmanın kendisi için ayrı oran istemesi üzerine açılan inceleme. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260313-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

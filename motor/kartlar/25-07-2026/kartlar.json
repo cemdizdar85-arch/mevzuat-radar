@@ -1,27 +1,35 @@
-﻿{
-    "dosya":  "20260725-3.htm",
-    "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2026/07/20260725-3.htm",
-    "baslik_sade":  "PET reçinesi ithalatında tarife kontenjanı ve muafiyet başvuru usulü",
-    "ne_oldu":  "Ticaret Bakanlığı, 10 Temmuz 2026 tarihli korunma önlemi kararıyla uygulanan ek mali yükümlülükten muafiyet sağlayan tarife kontenjanının dağıtım ve kullanım kurallarını düzenliyor. Başvurular elektronik imzayla Bakanlık portal üzerinden, ilk gelen ilk alır esasıyla yapılacak.",
-    "degistirilen_teblig":  "",
-    "eski_yeni":  [
-
-                  ],
-    "eski_karsilastirma":  null,
-    "gtip_kodlari":  "3907.61.00.00.00",
-    "urun_tanimi":  "PET reçinesi (78 ml/g veya daha fazla viskozitesi olanlar)",
-    "kimi_ilgilendirir":  "PET resin ithal eden üreticiler ve ithalatçılar",
-    "ne_yapmali":  "Muafiyet kapsamında ithal yapacaksan 3907.61.00.00.00 GTIP kodlu malları kontrol et. Başvuruyu www.ticaret.gov.tr E-İmza Uygulamaları altından elektronik imzayla yap; TPS-0951-İthal Lisansı seçip Ek-2\u0027deki belgeleri sisteme yükle. Lisans alındıktan sonra gümrük beyannamesi 44 nolu kutuda belge numarası (23 hane) ve tarihini göster. Mevcut lisanstan sonra 30 gün ve ithalat tamamlanmasını bekle. 150 tonluk tavanın altında başvuru yap.",
-    "yururluk":  "yayimi tarihinde",
-    "kesin_kiymetler":  {
-
-                        },
-    "kiyaslar":  [
-
-                 ],
-    "etki":  {
-                 "yon":  "ithalatci lehine",
-                 "aciklama":  "Tarife kontenjanı muafiyeti, korunma önleminin ek mali yükünü ortadan kaldırıyor. Öte yandan kontenjan sınırlı (birinci dönemde 12.041 ton, sonraki dönemlerde 24.081 ton) ve başvuru sayısı artarsa ilk gelen ilk alır yöntemi nedeniyle erişim güç hale gelebilir."
-             },
-    "guven_notu":  "Ek-1 ve Ek-2 belgesi metinde belirtildi ancak içeriği görüntüde yok. Elektronik imza yetkilendirmesi için 31.12.2025 tarihli RG 33124 sayılı teblige atıf var; o tebliğin tam metni kaynakta verilmemişse yetkilendirme detayları doğrulanamıyor. Dönem başlama tarihleri (birinci, ikinci, üçüncü dönem) kesin tarihleri metinde belirtilmemiş, korunma önlemi kararında yer alıyor olmalı. Ülkeler ve gümrük bölgeleri listesi \u0027Karar ekinde\u0027 deniyor ama burada gösterilmiyor. | Su kodlarin kiymeti guvenle okunamadi: 3907.61.00.00.00"
+{
+  "dosya": "20260725-3.htm",
+  "kaynak": "https://www.resmigazete.gov.tr/eskiler/2026/07/20260725-3.htm",
+  "baslik_sade": "PET resin ithalatında tarife kontenjanı muafiyeti için başvuru usulü",
+  "ne_oldu": "Ticaret Bakanlığı, PET resin (özel viskoziteye sahip plastik hammaddesi) ithalatında uygulanan koruma önleminden muaf tutulabilecek mallar için tarife kontenjanı sistemi devreye aldı. Müteahhitler ve plastik işletmecileri, bu kontenjan kapsamında ithal edebilecekleri miktarları temin etmek üzere elektronik veya fiziksel olarak başvuruda bulunacak.",
+  "teblig_no": null,
+  "degisen_maddeler": null,
+  "degistirilen_teblig": "",
+  "onceki_belge": null,
+  "eski_yeni": [],
+  "eski_karsilastirma": null,
+  "kilit_hukumler": [
+    "Kontenjant toplam miktarı birinci dönemde 12.041 ton, ikinci ve üçüncü dönemlerde dönem başına 24.081 ton (Madde 3/1).",
+    "Ülke veya gümrük bölgesi başına dönemlik tahsis birinci dönemde 4.014 ton, diğer dönemlerde dönem başına 8.027 ton ile sınırlandırılmış (Madde 3/2).",
+    "Başvurular Ticaret Bakanlığı internet sitesindeki E-İmza Uygulamaları üzerinden elektronik imza ile yapılacak veya Ek-1 formu kullanılarak fiziksel olarak sunulacak (Madde 4/1-4).",
+    "Bir ithal lisansı en fazla 150 ton kontenjanta hak verir ve sadece bir ülke veya gümrük bölgesi için geçerli (Madde 5/2).",
+    "Yeni lisans almadan önce önceki lisansın belge tarihinden en az 30 gün geçmeli ve o lisansdaki tüm ithalat tamamlanmış olması şart (Madde 5/3).",
+    "İthal lisansı gümrük idaresine bildirim yapılırken 23 haneli belge numarası ve belge tarihi gümrük beyanamesinin 44 nolu kutusuna yazılacak (Madde 6/3).",
+    "Gümrük sisteminde kaydı olmayan ithalatçı bildirimden sonra 5 iş gün içinde kayıt yaptırmazsa başvuru geçersiz sayılır (Madde 6/4).",
+    "İthal lisansının geçerlilik süresi içinde yapılmayan ithalat kontenjant kapsamı dışında kalır (Madde 6/5).",
+    "İthal lisansı devredilemez (Madde 6/6)."
+  ],
+  "gtip_kodlari": "3907.61.00.00.00",
+  "urun_tanimi": "PET resin (polietilentereftalat), viskozitesi 78 ml/g veya daha yüksek olan plastik hammaddesi",
+  "kimi_ilgilendirir": "PET resin ithal eden plastik işletmeleri, ambalaj üreticileri, tekstil ve kimya sektörü temsilcileri",
+  "ne_yapmali": "PET resin ithal ediyorsanız Bakanlığın internet sitesine girip 'İthalat İşlemleri' bölümünden 'TPS-0951-İthal Lisansı (Korunma)' belge türüyle başvuru yapmanız gerekir. Ek-2'de belirtilen belgeleri eksiksiz yükleyip elektronik imza atmalısınız. Lisansın geçerlilik tarihini mutlaka not edin; mallarınızı bu tarihten önce serbest dolaşıma sokmazsanız kontenjan hakkınızı kaybedersiniz. Önceki bir lisansınız varsa, belge tarihinden itibaren 30 gün geçmesi ve ithalatınızın tamamının bitmiş olması şartıyla yeni başvuru yapabilirsiniz.",
+  "yururluk": "yayımı tarihinde",
+  "kesin_kiymetler": {},
+  "kiyaslar": [],
+  "etki": {
+    "yon": "ithalatci lehine",
+    "aciklama": "Kontenjan sistemi, belirli ülkelerden gelen PET resinler için koruma önleminden muafiyet sağlamaktadır. İthalatçılar, kendilerine tahsis edilen miktara kadar gümrük vergisinden muaf tutulur; bu durum fiyat avantajı yaratır. Ancak lisans şartlarına (30 günlük bekleme süresi, ithalatın eksiksiz tamamlanması vb.) uyulmaması halinde başvuru geçersiz hale gelir."
+  },
+  "guven_notu": "Ek-1 ve Ek-2'deki formlar ile istenen belgeler metinde referans gösterilmiş ancak belge içeriği PDF'de yer almamış. Dönem tanımı (birinci/ikinci/üçüncü ne zaman başlıyor) ve ülke listesi 'Karar ekinde' belirtiliş olup kaynakta verilmemiş. Kontenjant tahsisinin 'ilk gelen ilk alır' ilkesiyle ne zaman başlayacağı (başvuru açılış tarihi) belirtilmemiş. | Su kodlarin kiymeti guvenle okunamadi: 3907.61.00.00.00"
 }

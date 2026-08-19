@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,26 +33,42 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>12.12.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>12.12.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Doğal çiçek soğanları 2026 ihracat listesi yayımlandı</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, 2026 yılında yasak olan, kota altında tutulan ve serbest ihraç edilebilen doğal çiçek soğanlarının türlerini belirledi. Önceki yıl (2025) listesi yerini almıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Doğal Çiçek Soğanlarının 2025 Yılı İhracat Listesi Hakkında Tebliğ (Tebliğ No: 2024/41)</p>
-<p><b>Ürün:</b> Doğal çiçek soğanları, yumru, rizom, korm ve yeşil aksamı</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Doğal çiçek soğanları ihracat listesinin 2025 yılından 2026 yılına güncellenmesi</h3>
+<p><b>Ne oldu:</b> Tebliğ yıllık olarak güncellenmiş; 2025 yılı ihracat listesi, 2026 yılı ihracat listesiyle değiştirilmiştir. Ayrıca MADDE 1'e, kapsamı detaylandıran yeni bir fıkra eklenmiştir.</p>
+<p><b>Hangi tebliğ:</b> Doğal Çiçek Soğanlarının 2025 Yılı İhracat Listesi Hakkında Tebliğ (Tebliğ No: 2024/41) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(14.12.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğ numarası</span><span class='hap eski'>2024/41</span><span class='ok'>→</span><span class='hap yeni'>2025/32</span></div>
+<div class='karsi'><span class='kon'>Yürürlük tarihi</span><span class='hap eski'>1/1/2025</span><span class='ok'>→</span><span class='hap yeni'>1/1/2026</span></div>
+<div class='karsi'><span class='kon'>MADDE 1 kapsam - ikinci fıkra</span><span class='hap eski'>Yoktur</span><span class='ok'>→</span><span class='hap yeni'>Eklendi: doğal çiçek soğanlarının soğan, yumru, rizom, korm ve yeşil aksamının yıllık ihracatının düzenlenmesi</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2026 yılında doğadan toplanarak ihracatı yasak olan türler Ek-1 tablosunun (I) sütununda gösterilen listede yer alıyor; bu türlerin ihracatı yapılamaz (Madde 4/a).</div>
+<div class='kiymet'>• Orchidaceae (salepgiller) familyası türlerinin yumru ve drogları (toz, tablet ve her türlü formda), GTIP numarası 0714.90.20.00.12 ve 1106.20.90.00.11 olması kaydıyla ihracatı yasaktır (Madde 4/a).</div>
+<div class='kiymet'>• Kontenjanlı türler (Tablonun II sütunu) için firmaların aldıkları kontenjanlar Teknik Komite tarafından tespit edilerek Bakanlıkça onaylanınca yürürlüğe girer; firmalar arasında kontenjan devri yapılamaz (Madde 4/b).</div>
+<div class='kiymet'>• Doğa kontenjanı, il müdürlüğünce verilen Menşei Belgesi karşılığında doğadan; üretim kontenjanı ise Hasat Belgesi karşılığında kendi arazilerinden veya sözleşmeli çiftçi arazilerinden temin edilir (Madde 4/c).</div>
+<div class='kiymet'>• Tüm türlerin yaprak, tohum, çiçek, soğan, yumru ve benzeri aksamlarının ihraç edilebilmesi için Bakanlıktan ihraç müsaadesi alınması zorunludur (Madde 4/ç).</div>
+<div class='kiymet'>• Kültüre alınan türler (Tablonun III sütunu) için il müdürlüğünden Hasat Belgesi alındıktan sonra il müdürlüğü ihraç izni verir; CITES'e tabi türler için BÜGEM tarafından CITES İzin Belgesi düzenlenir (Madde 4/d).</div>
+<div class='kiymet'>• Galanthus elwesii, Cyclamen hederifolium, Cyclamen cilicium ve Eranthis hyemalis türleri nöbetleşme esaslarına göre belirlenmiş yerlerde doğadan toplanamaz (Madde 6).</div>
+<div class='kiymet'>• Bu tebliğ 1 Ocak 2026'da yürürlüğe girer (Madde 9).</div>
+<p><b>Ürün:</b> Doğal çiçek soğanları (soğan, yumru, rizom, korm ve yeşil aksam)</p>
 <p><b>GTİP:</b><br><span class='gtip'>0601.10.90.10.00</span><span class='gtip'>0714.90.20.00.12</span><span class='gtip'>1106.20.90.00.11</span></p>
-<p><b>Kimi ilgilendirir:</b> Doğal çiçek soğanı ihraç eden firmalar ve ticarethaneler</p>
-<p><b>Ne yapmalısın:</b> Ek-1 tablosuna erişerek 2026 yılı sınıflandırmasını (yasak/kontenjanlı/serbest) kontrol et. Kontenjan tahsisi için Teknik Komite'nin kararını bekle. İhraç planlamas gerekiyorsa, türün durumunu (I/II/III sütun) belirle ve gerekli menşei/hasat belgelerini hazırla.</p>
+<p><b>Kimi ilgilendirir:</b> Doğal çiçek soğanlarını doğadan toplayarak ve/veya üreterek ihraç eden firmalar ile çiçek soğanı üretimi ve ticaretiyle iştigal eden işletmeler</p>
+<p><b>Ne yapmalısın:</b> Ek-1 tablosu indirilerek ihracatı planlanan türlerin (I), (II) veya (III) kategorisinde yer alıp almadığı kontrol edilmelidir. Tür kontenjanlı (II) ise teknik komite kararı beklenmeli ve kontenjan tahsisi başvurusu başlatılmalıdır. Doğa kontenjanı için Menşei Belgesi, üretim kontenjanı için ise Hasat Belgesi hazırlıklarına başlanmalıdır. CITES'e tabi türler için BÜGEM'den ön izin alınması organize edilmelidir.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ işletme yasakları ve kotaları yıllık günceller. Listenin detaylandırılması Ek-1 tablosunda olduğu için yürürlük etkisini belirlemek üzere söz konusu tabloya bakılmalıdır.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Kota:</b> belirli bir dönemde yapılmasına izin verilen ithalatın miktar veya değer sınırı. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Söz konusu değişiklikler yıllık rutin güncelleme niteliğinde olup ihracatçıları veya ithalatçıları doğrudan olumlu ya da olumsuz yönde etkilememektedir. Detaylı etki, Ek-1 tablolarının içeriğine bağlı olarak şekillenecektir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251212-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

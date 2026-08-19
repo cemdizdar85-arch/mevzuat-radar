@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,19 +35,24 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>28.07.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Tarım ürünleri ithal denetiminde iki GTIP kodu eklendi, biri kaldırıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2026/5 sayılı Tebliğ'in Ek-2 tablosunu güncelledi. İki yeni GTIP satırı (gıda katkı maddeleri ve contalar) eklendi; 3902.30.00.00.11 kodlu satır yürürlükten kaldırıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Tarım ve Orman Bakanlığının Kontrolüne Tabi Ürünlerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2026/5)</p>
-<p><b>Ürün:</b> Gıda katkı maddeleri, aroma vericiler, işlem yardımcıları, sakız mayası ve contalar</p>
-<p><b>GTİP:</b><br><span class='gtip'>3902.20.00.00.00</span><span class='gtip'>3902.30.00.00.09</span><span class='gtip'>3902.30.00.00.11</span><span class='gtip'>3926.90.97.90.20</span><span class='gtip'>3926.90.97.90.23</span></p>
-<p><b>Kimi ilgilendirir:</b> Gıda üretiminde kullanılan hammadde ve teknik malzeme ithal eden üreticiler</p>
-<p><b>Ne yapmalısın:</b> Ocak 2026'dan itibaren yapılacak beyanlarda 3902.30.00.00.09 ve 3926.90.97.90.23 kodlu ürünleri yeni kontrol kapsamında değerlendirin. 3902.30.00.00.11 kodu altında açılmış eski girişleri ikmal edin.</p>
+<h3>Tarım ürünleri ithalat denetimi listesinde kod ekleme ve çıkarma</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Tarım ve Orman Bakanlığına tabi ürünlerin ithalat denetimi listesini güncelleyerek yeni GTIP kodları eklemiş ve bir kodun yürürlüğünü kaldırmıştır.</p>
+<p><b>Hangi tebliğ:</b> Tarım ve Orman Bakanlığının Kontrolüne Tabi Ürünlerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2026/5) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (m.2).</div>
+<div class='kiymet'>• 3902.30.00.00.11 kodlu satır yürürlükten kaldırılmıştır (m.1).</div>
+<div class='kiymet'>• 3902.30.00.00.09 ve 3926.90.97.90.23 kodlu satırlar denetim listesine eklenmiştir (m.1).</div>
+<p><b>Ürün:</b> Tarım ürünleri (gıda katkı maddeleri, aroma vericiler, işlem yardımcıları, sakız mayası, contalar)</p>
+<p><b>GTİP:</b><br><span class='gtip'>3902.30.00.00.09</span><span class='gtip'>3926.90.97.90.23</span></p>
+<p><b>Kimi ilgilendirir:</b> Tarım ürünü ithal eden firmalar, gıda üreticileri ve tedarikçiler</p>
+<p><b>Ne yapmalısın:</b> 3902.30.00.00.11 kodlu mevcut ithalatlarda denetim yükümlülüğünün kalkıp kalkmadığını kontrol edin; 3902.30.00.00.09 ve 3926.90.97.90.23 kodlarına ilişkin yeni denetim kurallarını temin ederek sevkiyat prosedürlerinizi buna göre güncelleyin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Gıda katkı maddeleri ve contaların ithalatında denetim kapsamı genişledi; buna karşılık 3902.30.00.00.11 kodunun kaldırılması bazı ürün tanımlamalarını sadeleştirebilir. Beyan sürecinde kod seçimine daha fazla özen gösterilmesi gerekir.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260728-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>

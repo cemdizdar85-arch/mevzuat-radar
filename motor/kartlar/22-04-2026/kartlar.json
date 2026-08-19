@@ -1,8 +1,8 @@
 {
   "dosya": "20260422-3.htm",
   "kaynak": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260422-3.htm",
-  "baslik_sade": "Özel tüketim vergisinde ortopedik engelliler için yeni istisna kategorisi",
-  "ne_oldu": "Tebliğ, ÖTV II. Sayılı Liste Uygulama Genel Tebliğine ortopedik engel oranı %40 ve üzeri olan, sürücü belgesi alamayan engellilerin taşıt alımlarında yeni bir istisna kategorisi ekledi. Belli taşıt türleri ve bedel limitlerinde bu engelliler ÖTV'den muaf tutulacak.",
+  "baslik_sade": "Ortopedik engellilere otomobil satışında ÖTV istisnası genişletildi",
+  "ne_oldu": "Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliği'ne yeni bir istisna türü eklendi. Sürücü belgesi alamayan ortopedik engelli kişiler, belirli araçları ÖTV ödemeden satın alabilecek; satıcı faturada vergisiz tutarı gösterecek, alıcı ise sağlık kurulu raporuyla birlikte vergi dairesine başvuracak.",
   "teblig_no": null,
   "degisen_maddeler": null,
   "degistirilen_teblig": "Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliği",
@@ -15,16 +15,33 @@
     }
   ],
   "eski_karsilastirma": null,
-  "gtip_kodlari": null,
-  "urun_tanimi": "Binek otomobil, panelvan, pick-up, arazi taşıtı, ATV, jeep, steyşın vagon (87.03); van, panelvan, kamyonet, pick-up (87.04); motosiklet (87.11)",
-  "kimi_ilgilendirir": "Ortopedik engel oranı %40 ve üzeri olan, sürücü belgesi alamayan engelliler ve onlara araç satan otomobil/araç satıcıları",
-  "ne_yapmali": "Eğer sürücü belgesi alamayan ortopedik engelli müşterileriniz varsa, limitleri karşılayan araçların (87.03'te 2.873.900 TL altı, 87.04'te 2800 cm³ altı) satışında ÖTV istisna prosedürünü uygula. Satışta engellililik sağlık kurulu raporunun %40 oranı belgeleyen kısmını ve sürücü belgesi alamayacağına dair raporu faturayla birlikte vergi dairesine sunmak gerekiyor; vergi dairesi elektronik teyiti yapıp ÖTV Ödeme Belgesi verecek.",
+  "kilit_hukumler": [
+    "87.03 tarife pozisyonunda (otomobil, panelvan, pick-up, jeep vb.) ÖTV'den istisna tutarı: 2.873.900 TL'nin altında olan araçlar (m.1.3.2)",
+    "87.04 tarife pozisyonunda (van, kamyonet vb.) ÖTV'den istisna: 2800 cm³ veya altında motor hacmine sahip araçlar (m.1.3.2)",
+    "87.11 tarife pozisyonunda motosikletler: motor silindir hacmine bakılmaksızın tüm motosikletler ÖTV'den istisna (m.1.3.2)",
+    "İstisnanın uygulanma koşulu: Ortopedik engel oranı en az %40 olması ve sürücü belgesi alma hakkında sağlık kurulu kararı (m.1.3.2)",
+    "Satıcı tarafından faturada 'ÖTV Kanununun 7/2 Maddesi Kapsamında Hesaplanıp Fatura Bedeline Dâhil Edilmeyen ÖTV Tutarı' belirtilmesi zorunlu (m.1.3.2)",
+    "Alıcı, (2A) numaralı ÖTV Beyannamesi verecek ancak belgede ÖTV hesaplanmayacak (m.1.3.2)",
+    "Beyanname verildiği günü takip eden günün mesai saati bitine kadar engelliliğin teyidi için sağlık kurulu raporu ve satış faturasının aslı imzalı kopyası vergi dairesine sunulması gerekiyor (m.1.3.2)",
+    "Vergi dairesi, sağlık kurulu raporundaki ortopedik engel oranını %40+ olarak teyit etmesi halinde 'ÖTV Ödeme Belgesi' mükellefi adına düzenleyecek (m.1.3.2)",
+    "Tebliğ yayım tarihi olan 22 Nisan 2026'da yürürlüğe giriyor (m.3)"
+  ],
+  "gtip_kodlari": [
+    "87.03",
+    "87.04",
+    "87.11"
+  ],
+  "urun_tanimi": "Ortopedik engellilere satılan motorlu araçlar (otomobil, kamyonet, van, motosiklet)",
+  "kimi_ilgilendirir": "Sürücü belgesi alamayan ortopedik engelli kişiler; taşıt satıcıları ve ÖTV mükellefleri",
+  "ne_yapmali": "Ortopedik engelliye taşıt satan mükellefler, ÖTV tutarını faturaya dâhil etmemeli ve gerekli şerhi düşmelidir. Alıcının sağlık kurulu raporuyla birlikte beyanname ve ilgili belgeleri hazırlayıp vergi dairesine sunması gerekir. Raporda engel oranının %40'ın üzerinde olduğunun ve sürücü belgesi alamama durumunun açıkça belirtilmesi kritik önem taşır; belge elektronik ortamda teyit edilemiyorsa noter onaylı suret veya aslının ibraz edilmesi gerekir.",
   "yururluk": "yayımı tarihinde",
-  "kesin_kiymetler": {},
+  "kesin_kiymetler": {
+    "87.03": "2.873.900 TL tavanı (ÖTV ve diğer vergiler dahil)"
+  },
   "kiyaslar": [],
   "etki": {
-    "aciklama": "Belirtilen özelliklerdeki binek ve yük taşıtlarında ÖTV muafiyeti, ortopedik engeli sürücülüğe engel olan müşteri segmentine giderim sağlıyor. Satıcılar için dokumentasyon yükü artsa da, hedef kitle için fiyat uygunluğu ve beyan prosedürü netleşti.",
-    "yon": "ithalatci lehine"
+    "yon": "ithalatci lehine",
+    "aciklama": "Sürücü belgesi alamayan ortopedik engelliler için yeni bir ÖTV istisnası getirildi; önceki düzenleme yalnızca %90 ve üzeri engel derecesine istisna tanıyordu. Ancak belge yükü—sağlık kurulu raporu, noter onayı, vergi dairesi onayı—satıcı ve alıcı açısından işlem maliyeti doğurmaktadır; tanım ve oranlamaya ilişkin kuralların karmaşıklığı, hatalı başvuru riskini artırmaktadır."
   },
-  "guven_notu": "Tebliğ metni tam olarak okunmuştur. Teblig 22 Nisan 2026 tarihli Resmî Gazete'de yayımlanmıştır (Sayı: 33232). Eski tebliğ tarihi 18 Nisan 2015, sayı 29330'dir. Bedel limiti (2.873.900 TL) ve motor silindir hacmi limiti (2800 cm³) kaynaktan doğru çıkarılmıştır. | GTIP listesi iki okumada farkli - kesisim alindi | Su kodlarin kiymeti guvenle okunamadi: 87.04, 87.03, 8703, 8711, 8704 | Cila gecisi rakam degistirdi - reddedildi, orijinal metin kullanildi"
+  "guven_notu": "Tebliğ metni tam okundu, tablo/görüntü dosyası bulunmamaktadır. GTIP kodlarına ek kırılımlar (örn. üretim yılı, yapı tipi) metinde belirtilmemiştir. 'Yerli katkı oranı en az %40' şartının uygulaması müstesna satırında yer aldığı Ek (II) tablosunda değilse ayrı teyit gerekir. Sürücü belgesi 'olumsuzluğu' tanımı çeşitli engel türü kombinasyonlarında hesaplanma yöntemi tebliğde detaylı yazılmış ancak pratik uygulamada vergi dairesi teyit işlemi uzun sürebilir—zaman planı müşteriye iletilmeli. | Su kodlarin kiymeti guvenle okunamadi: 87.04"
 }

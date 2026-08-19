@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,24 +33,38 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>22.08.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>22.08.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrük Yönetmeliği'nde yatırım izni şartları ve antrepo kuralları güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı gümrük yönetmeliğini değiştirerek yatırım izni için gerekli ödenmiş sermaye tutarlarını bölgelere göre tanımladı, antrepolara ilişkin yeni şartlar ekledi ve yıllık fiyat tarifesi yayımlama zorunluluğunu getirdi.</p>
-<p><b>Neyi değiştiriyor:</b> 7/10/2009 tarihli Gümrük Yönetmeliği</p>
-<p><b>Ürün:</b> Antrepo ve geçici depolama yerleri; gümrük müşteri hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Gümrük antrepo işletmecileri, genel antrepo işletim yapanlar, yatırım izni başvurusu yapacak şirketler</p>
-<p><b>Ne yapmalısın:</b> Antrepo işletmeciliği yapıyorsan Ocak sonuna kadar (yeni başladıysan izin ayını takip eden ay sonuna kadar) fiyat tarifesini bölge müdürlüğüne gönder ve siteye yayımlatılmasını kontrol et. Yatırım izni başvurusunda Sosyal Güvenlik Kurumuna borç olmadığını gösteren yazıyı hazırla. Mevcut sermayeni bölge kategorisine göre (1-2. Bölge: 40M TL, 3-4. Bölge: 20M TL, 5-6. Bölge: 10M TL) kontrol et.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Antrepo işletmecileri için yıllık fiyat tarifesi açıklaması zorunlu hale geldi; geç bildirenler eşya alamayacak. Yatırım izni şartları bölgelere göre farklılaştırılarak küçük bölgelere (5-6. Bölge) daha düşük sermaye istenmesi yatırımcılara lehine, ancak antrepo sayısına sınırlama getirme yetkisi Bakanlığa verilmesi işletmeciler açısından belirsiz etki yaratır.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Gümrük Yönetmeliğinde yatırım izni, antrepo koşulları ve fiyat tarifelerine ilişkin değişiklikler yapıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Gümrük Yönetmeliği'nde değişikliğe gitti. Yatırım izni alacak antrepolar için ödenmiş sermaye eşiklerini bölgelere göre 10–40 milyon TL olarak belirledi ve antrepo alanının en az yüzde 20'sinin kapalı olması şartını getirdi. Genel antrepolarda ise yıllık fiyat tarifesinin internet üzerinden yayımlanması zorunlu hale getirildi.</p>
+<p><b>Hangi tebliğ:</b> Gümrük Yönetmeliği (7/10/2009 tarihli, 27369 mükerrer sayılı) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 23 eklendi</div>
+<div class='kiymet'>• GEÇİCİ MADDE 24 eklendi</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yatırım izni sadece kamu kurum/kuruluşları, belediyeler ve en az üç yıldır faaliyette olan şirketlere verilebilir; sermaye eşikleri bölgeye göre 10–40 milyon TL (Madde 1 - m.518/2)</div>
+<div class='kiymet'>• Başvuru dilekçesi, ticaret sicili gazetesi, adli sicil belgeleri, kesinleşmiş vergi ve ceza borcu belgeleri, Sosyal Güvenlik Kurumuna borcu olmadığını gösteren yazı gerekmektedir (Madde 1 - m.518/8)</div>
+<div class='kiymet'>• Antrepo alanının toplamında en az yüzde 20'si kapalı alan olmak zorundadır (Madde 2 - m.519/3)</div>
+<div class='kiymet'>• Aynı işleticinin aynı gayrimenkuldeki antrepoları tek bir gümrük müdürlüğüne bağlanabilir (Madde 2 - m.519/4)</div>
+<div class='kiymet'>• Bakanlık gümrük müdürlüğü veya bölge özelinde antrepo açılış izni sayısını sınırlayabilir (Madde 2 - m.519/5)</div>
+<div class='kiymet'>• Genel antrepolarda yıllık fiyat tarifesi Ocak ayı sonuna kadar sunulmalı ve internet sitesinde yayımlanmalı; aksi halde eşya girişine izin verilmez (Madde 3 - m.525/11)</div>
+<div class='kiymet'>• Faaliyete yeni başlayan antrepolarda fiyat tarifesi açma izninin ardından takip eden ayın sonuna kadar sunulmalıdır (Madde 3 - m.525/11)</div>
+<div class='kiymet'>• Bu Yönetmelikten önceki tarihte yatırım izni alan antrepolar için eski kurallar geçici süre uygulanmaya devam edebilir (Geçici m.23/1)</div>
+<div class='kiymet'>• Mevcut antrepolarda yüzde 20 kapalı alan şartı uygulanmaz (Geçici m.23/1-b)</div>
+<p><b>Ürün:</b> Antrepo ve geçici depolama yeri hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> Gümrük antrepo işletmecileri, yatırım izni başvurusunda bulunacaklar, genel antrepo işletmecileri</p>
+<p><b>Ne yapmalısın:</b> Mevcut yatırım izni başvurularınızı gözden geçirin — sermaye eşikleri bölgeye göre 10–40 milyon TL olarak belirlendi; antrepo planlarındaki kapalı alan oranını yüzde 20'ye yükseltin; fiyat tarifelerini Ocak ayı sonuna kadar hazırlayarak Bakanlık sitesinde yayımlayın; başvuru dosyasına Sosyal Güvenlik Kurumu'na borcu bulunmadığına dair yazıyı eklemeyi unutmayın.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Yatırım izni için sermaye eşiklerinin belirlenmesi antrepo açılışlarını daha denetimli bir sürece bağlarken, fiyat tarifesinin yayımlanma zorunluluğu işletmecilere ek idari yük getiriyor. Kapalı alan şartı ile antrepo sayısına ilişkin sınırlamalar ise pazara giriş açısından engel teşkil edebilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250822-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

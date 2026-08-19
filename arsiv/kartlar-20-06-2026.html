@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,32 +35,34 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>20.06.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Etil asetat ithalatında tarife kontenjanı dağıtım yöntemi ve başvuru usulleri değiştirildi</h3>
-<p><b>Ne oldu:</b> Tarife kontenjanının dağıtımında uygulanan ilk gelen ilk alır yöntemi terk edilerek talep toplama yöntemine geçilmiş, başvuru dönemleri belirli tarih aralıklarıyla sınırlandırılmış, başvuru platformu ile yetkilendirme usulleri güncellenmiş ve dağıtımda çok sayıda kritere yer verilmeye başlanmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Kota ve Tarife Kontenjanı İdaresine İlişkin Tebliğ (Tebliğ No: 2025/4)</p>
-<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(19.06.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• Tarife kontenjanı dağıtım yöntemi: <span style='color:var(--dim);text-decoration:line-through'>İlk gelen ilk alır yöntemiyle dağıtılır</span> → <b>Talep toplama yöntemi ile yapılır; kalan miktar ilk gelen ilk alır yöntemiyle dağıtılır</b></div>
-<div class='kiymet'>• Bir başvuru sahibinin farklı ülke/bölge başvuru sayısı: <span style='color:var(--dim);text-decoration:line-through'>Sınırlama belirtilmemiş</span> → <b>Talep toplama döneminde en fazla üç farklı ülke veya gümrük bölgesi menşeli eşya için başvuru yapılabilir</b></div>
-<div class='kiymet'>• Başvuru yapılacak zaman dilimi: <span style='color:var(--dim);text-decoration:line-through'>Belirlenmemiş; sürekli başvuru imkanı</span> → <b>İkinci dönemde 22/8/2026 tarihine kadar; üçüncü dönemde 22/6/2027-22/8/2027 tarihleri arasında</b></div>
-<div class='kiymet'>• Başvuru platformu ve menü yapısı: <span style='color:var(--dim);text-decoration:line-through'>E-İmza Uygulamaları altındaki İthalat İşlemleri kısmı</span> → <b>E-Hizmetler başlığı altındaki E-İşlemler menüsündeki İthalat Belge İşlemleri (İthalatBİS) uygulaması</b></div>
-<div class='kiymet'>• Yetkilendirme Tebliği tarihi ve sayısı: <span style='color:var(--dim);text-decoration:line-through'>31/12/2024 tarihli, 32769 üçüncü mükerrer sayılı RG, İthalat: 2025/19</span> → <b>31/12/2025 tarihli, 33124 üçüncü mükerrer sayılı RG, İthalat: 2026/19</b></div>
-<div class='kiymet'>• Başvuru formunun konumu: <span style='color:var(--dim);text-decoration:line-through'>Ek-1'de yer alan başvuru formu (fiziksel başvuru için)</span> → <b>Ek-1 ve Ek-2'de belirtilen belgeler</b></div>
-<div class='kiymet'>• 30 günlük bekleme süresi uygulanması: <span style='color:var(--dim);text-decoration:line-through'>Tüm başvurulara uygulanır</span> → <b>Sadece ilk gelen ilk alır yöntemiyle dağıtılan kısım için geçerli</b></div>
-<div class='kiymet'>• Tarife kontenjanı dağıtımında dikkate alınacak kriterler: <span style='color:var(--dim);text-decoration:line-through'>Belirtilmemiş</span> → <b>Geçerli başvuru tarih/sayısı, toplam talep, fiili sarfiyat, üretim miktarı/kapasitesi, tüketim kapasitesi, ithalat miktarı, tedarik kaynağı, önceki yıl performansı</b></div>
-<div class='kiymet'>• Tebliğ numarası ve yürürlük tarihi: <span style='color:var(--dim);text-decoration:line-through'>2025/4, 22/6/2025</span> → <b>2026/5, 22/6/2026</b></div>
+<h3>Etil asetat ithalatında tarife kontenjanı dağıtım usulleri belirlendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, etil asetat (GTIP: 2915.31.00.00.00) ithalatında korunma önleminden muafiyet sağlanması amacıyla genel tarife kontenjanı açtı. Kontenjandan yararlanmak isteyen ithalatçıların elektronik başvuru yöntemiyle talepte bulunmaları gerekmektedir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Kota ve Tarife Kontenjanı İdaresine İlişkin Tebliğ (Tebliğ No: 2025/4) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250731-12.htm' target='_blank' rel='noopener'>31.07.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/4)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Etil asetat ithalatında ek mali yükümlülükten muafiyet sağlayan tarife kontenjani her dönem için 10.000 tondur (Madde 3/1).</div>
+<div class='kiymet'>• İkinci dönemde 22 Ağustos 2026'ya kadar, üçüncü dönemde 22 Haziran - 22 Ağustos 2027 tarihleri arasında Bakanlık e-hizmetler portalından elektronik imzayla başvuru yapılması zorunludur (Madde 4/3).</div>
+<div class='kiymet'>• Talep toplama döneminde bir başvuru sahibi en fazla üç farklı ülke veya gümrük bölgesinden gelecek etil asetat için başvuru yapabilir (Madde 4/2).</div>
+<div class='kiymet'>• Tarife kontenjani kaldığında kalan miktar ilk gelen ilk alır yöntemiyle dağıtılır; her başvuruya maksimum 150 ton tahsis edilebilir (Madde 5/3).</div>
+<div class='kiymet'>• İthal lisansı elektronik olarak düzenlenir ve e-posta ile bildirilir; başvuru sahibi lisans numarasını gümrük beyannamesinin 44 nolu kutusuna yazması gerekir (Madde 6/2, 6/3).</div>
+<div class='kiymet'>• Gümrük sistemine kayıt olmayan ithalatçılar bildirim aldıktan 5 iş günü içinde kayıt yaptırmalı; aksi takdirde başvuru geçersiz sayılır (Madde 6/4).</div>
+<div class='kiymet'>• Etil asetat yalnızca ithal lisansının geçerlilik süresi içerisinde serbest dolaşıma girebilir (Madde 6/5).</div>
+<div class='kiymet'>• İthal lisansı devredilemez (Madde 6/6).</div>
+<div class='kiymet'>• İlk gelen ilk alır yöntemiyle yeni lisans düzenlenmesi için bir önceki lisansın tarihinden 30 gün geçmiş ve bu lisans kapsamındaki tüm ithalat tamamlanmış olması gerekir (Madde 5/4).</div>
 <p><b>Ürün:</b> Etil asetat</p>
 <p><b>GTİP:</b><br><span class='gtip'>2915.31.00.00.00</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>2915.31.00.00.00 → <b>10.000 Ton (genel tarife kontenjanı)</b></div>
-<p><b>Kimi ilgilendirir:</b> Etil asetat ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> İkinci dönem için 22 Ağustos 2026 tarihine kadar, üçüncü dönem için ise 22 Haziran - 22 Ağustos 2027 tarihleri arasında www.ticaret.gov.tr adresindeki E-İşlemler menüsü altında yer alan İthalat Belge İşlemleri uygulaması üzerinden elektronik imzayla başvuru yapılması gerekmektedir. Başvuruda Belge Türü olarak 'TPS-0951-İthal Lisansı (Korunma)' seçilmeli, Ek-1 ve Ek-2'de belirtilen belgeler eksiksiz olarak sisteme yüklenmelidir.</p>
+<div class='kiymet'>2915.31.00.00.00 → <b>10.000 ton / dönem</b></div>
+<p><b>Kimi ilgilendirir:</b> Etil asetat ithal eden kimyasal madde ithalatçıları</p>
+<p><b>Ne yapmalısın:</b> Uygun dönem içinde Bakanlığın e-hizmetler portalı üzerinden elektronik başvuruyu gerçekleştirin; menşe ülkeleri belirleyin (en fazla 3 ülke); gümrük sistemindeki kayıtların kontrolünü yapın; tahsisatın alınmasının ardından lisans numarasını beyannamenin 44 numaralı kutusuna yazarak gümrük işlemini tamamlayın.</p>
 <p><b>Yürürlük:</b> 22.06.2026</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Talep toplama yönteminin benimsenmesi ve belirli kriterlerin dikkate alınması, ithalatçılara kontenjan tahsisinde daha adil ve öngörülebilir bir sistem sunmaktadır. Bununla birlikte, başvuru dönemlerinin belirli tarih aralıklarıyla sınırlandırılmış olması ithalatçıları zamanında başvuru yapmaya zorlayacağından, uygulamada bu hususa özellikle dikkat edilmesi gerekmektedir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260620-21.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260620-21.html'>Neyin nesi değişti? →</a></div>
 </div>
 

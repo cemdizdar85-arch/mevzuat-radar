@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,24 +33,35 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>18.12.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>18.12.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Türkiye İş Kurumu İstihdam Uzmanlığı Yönetmeliği'nde yapısal değişiklikler</h3>
-<p><b>Ne oldu:</b> Türkiye İş Kurumu'nun istihdam uzmanı alımı ile ilgili yönetmelik güncellenmiştir. Personel tanımı revize edilmiş, sınav duyurusu prosedürü netleştirilmiş, aranan öğrenim dalları ve konuları yeniden düzenlenmiş, yeterlik sınavı süresi belirlenmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> Türkiye İş Kurumu İstihdam Uzmanlığı Yönetmeliği</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> İstihdam uzmanı pozisyonuna başvuracak adaylar ve Türkiye İş Kurumu</p>
-<p><b>Ne yapmalısın:</b> Başvuru yapacaksanız, giriş sınavına ilişkin duyuruyu Resmî Gazete ve kurum internet sitesinden takip et; lisan eğitim alanlarının yeni tanımını kontrol ederek niteliklerini doğrula.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik değişikliği, istihdam uzmanı alım sürecinin prosedürünü ve nitelik kriterlerini netleştirmektedir. Operasyonel düzey bir güncellemedir; başvuru şartlarında önemli genişleme yapılmıştır.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Türkiye İş Kurumu İstihdam Uzmanlığı Yönetmeliği'nde değişiklik yapıldı</h3>
+<p><b>Ne oldu:</b> İstihdam uzmanı alımına ilişkin yönetmelikte kurum içi terminoloji ('İnsan Kaynakları' yerine 'Personel' ibaresi), sınav duyurusu süresi, müdür yardımcılığı şartları ve bazı sınav konuları güncellenmiştir. Yönetmeliğin bir maddesi tamamen yürürlükten kaldırılmıştır.</p>
+<p><b>Hangi tebliğ:</b> Türkiye İş Kurumu İstihdam Uzmanlığı Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>13 üncü madde</span><span class='hap eski'>İnsan Kaynakları</span><span class='ok'>→</span><span class='hap yeni'>Personel</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Sınav duyurusu giriş sınavından en az otuz gün önce Resmî Gazete, Cumhurbaşkanınca belirlenen kurum internet sitesi ve Türkiye İş Kurumu internet sitesinde yapılır (madde 7).</div>
+<div class='kiymet'>• Müdür yardımcılığı için dört yıllık lisans gerekmektedir; hukuk, siyasal bilgiler, iktisadî ve idarî bilimler, işletme, iktisat, iletişim, mühendislik, mimarlık fakülteleri veya istatistik, matematik, aktüerya bölümleri kabul edilir (madde 4).</div>
+<div class='kiymet'>• Yazılı sınav aşaması iki ayrı konuya tabi tutulur: hukuk/siyasal bilgiler/iktisadî-idarî bilimler/işletme/iktisat mezunları ile iletişim/mühendislik/mimarlık/istatistik/matematik/aktüerya mezunları (madde 5).</div>
+<div class='kiymet'>• Yeterlik sınavı, tez kabul tarihinden itibaren en geç altı ay içinde, yeterlik ve tez kurulu uygun gördüğü tarihte yapılır (madde 7).</div>
+<div class='kiymet'>• Yönetmelik yayımı tarihinde yürürlüğe girmektedir (madde 8).</div>
+<p><b>Ürün:</b> İnsan kaynakları hizmetleri / Kamu personel seçimi</p>
+<p><b>Kimi ilgilendirir:</b> Türkiye İş Kurumu istihdam uzmanlığı pozisyonuna başvurmayı planlayan adaylar</p>
+<p><b>Ne yapmalısın:</b> Başvuru yapmayı düşünüyorsanız hukuk, iktisat, iletişim, mühendislik veya mimarlık lisans mezuniyetinizi doğrulayın. Tez hazırlayacaksanız, yeterlik sınavına tez konusunun kabul edildiği tarihten itibaren altı ay içinde hazır olun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, teknik ve prosedürel nitelikte bir güncellemedir. Müdür yardımcılığı şartlarının genişletilmesi aday havuzunu büyütürken, sınav konularının ayrıştırılması farklı disiplinlerden gelen adayların yaşadığı dezavantajı gidermeyi amaçlamaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251218-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251218-4.html'>Neyin nesi değişti? →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

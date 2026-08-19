@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,24 +33,46 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>01.08.2026 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>01.08.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Döviz dönüşüm desteği uygulamasında kontrol mekanizmaları ve cezai hükümler eklendi</h3>
-<p><b>Ne oldu:</b> Merkez Bankası, döviz dönüşüm desteğine ilişkin 2023/5 sayılı tebliği değiştirdi. Destek oranı %2'de sabit kaldı ancak yeni maddelerle gerçeğe aykırı beyanda bulunmuş ve usulsüz yararlanmış firmalara karşı ağır yaptırımlar (geri ödeme, faiz, kredi talebine yasak) getirildi. Merkez Bankası'nın inceleme yetkisi genişletildi.</p>
-<p><b>Neyi değiştiriyor:</b> 2023/5</p>
-<p><b>Ürün:</b> Döviz dönüşüm desteği (tüm sektörler)</p>
-<p><b>Kimi ilgilendirir:</b> Yurt dışından döviz geliri olan firmalar, aracı bankalar, ihracat şirketleri</p>
-<p><b>Ne yapmalısın:</b> Döviz dönüşüm desteği talepleri sırasında sunacağın belgeleri ve firmanın mali bilgilerini kontrol et. Döviz pozisyonu oranını aracı bankaya tevsik ettiğiniz belgenin doğruluğundan emin ol. Geçmiş dönemlerde hatalı beyanda bulunmuş şirket veya kontrollü firmalar ise başvuru reddedilebileceğini bilmek gereken.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Döviz dönüşüm desteği: kontrol tanımı, destek oranı ve cezai hükümler değişti</h3>
+<p><b>Ne oldu:</b> Merkez Bankası, döviz dönüşüm desteği programında değişikliğe gitti. Firma kontrolü tanımı genişletildi, destek mekanizması detaylandırıldı, gerçeğe aykırı beyan ve kötüye kullanıma karşı cezai hükümler eklendi; ayrıca uygulama süresi 31 Ocak 2027'ye uzatıldı.</p>
+<p><b>Hangi tebliğ:</b> <b>2026/11</b> sayılı Tebliğ, <b>2023/5</b> sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• MADDE 4/A eklendi</div>
+<div class='kiymet'>• MADDE 6/A eklendi</div>
+<div class='kiymet'>• MADDE 6/B eklendi</div>
+<div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
+<div class='kiymet'>• GEÇİCİ MADDE 3 eklendi</div>
+<div class='kiymet'>• 6 ncı maddesi yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 4 üncü maddesi baştan yazıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>geçici 1 inci madde</span><span class='hap eski'>31/7/2026</span><span class='ok'>→</span><span class='hap yeni'>31/1/2027</span></div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2023/02/20230225-13.htm' target='_blank' rel='noopener'>25.02.2023 tarihli Resmî Gazete</a> (Tebliğ 2023/5)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Destek programı 1 Ocak 2027'ye kadar uygulanmaya devam ediyor; 31 Temmuz 2026 bitiş tarihi 31 Ocak 2027'ye uzatılmıştır (Geçici m.1).</div>
+<div class='kiymet'>• Firmalar yurt dışı kaynaklı dövizi aracı banka üzerinden Merkez Bankası'na satarken %2 oranında döviz dönüşüm desteği alabilir; destek Merkez Bankası'nca belirlenen döviz pozisyonu oranını aşmamak şartıyla ödenir (m.4/1).</div>
+<div class='kiymet'>• Firma kontrolü en az %50 hisse, oy hakkı veya yönetim kurulu seçme/kontrol yetkisi anlamına gelmektedir; bu tanım yüzde hesaplamalarına temel oluşturur (m.3).</div>
+<div class='kiymet'>• Destek öncesi firmalar aracı bankalara döviz pozisyon oranının Merkez Bankası limitini aşmadığını ispat etmek zorundadır; limitler firma kârlılığı ve işgücü maliyeti dikkate alınarak Merkez Bankası'nca belirlenir (m.4/5-6).</div>
+<div class='kiymet'>• Gerçeğe aykırı beyan veya usulsüz kullanım tespit edilirse ödenen destek kur farkı ve faiz ile birlikte geri alınır; firmanın destek ve Merkez Bankası kredisi talepleri belirli süreler boyunca reddedilir ve suç duyurusu yapılır (m.4/A/1).</div>
+<div class='kiymet'>• Cezalı firma ile onun kontrol ettiği, kendisini kontrol eden ve bunların kontrol ettiği diğer firmalar da aynı süre boyunca destek ve kredi talebinde bulunamaz (m.4/A/2).</div>
+<div class='kiymet'>• Aracı bankalar şüpheli işlemleri Merkez Bankası'na bildirmeli; ceza tutarı bir ayda aktarılmamışsa Merkez Bankası bankanın hesabından kendisi tahsil edebilir (m.4/A/3).</div>
+<div class='kiymet'>• Merkez Bankası istediği bilgi ve belgeyi sunmayan firmaların destek talepleri reddedilir; döviz satışı yapılmışsa iade yapılmaz (m.6/A/1).</div>
+<div class='kiymet'>• Şüpheli gördüğü firmalar incelemeye alınır; inceleme süresince destek ödenmez; usulsüzlük tespit edilirse talep reddedilir ve cezalı hükümler uygulanır (m.6/A/2-4).</div>
+<p><b>Ürün:</b> Yurt dışından gelen döviz (tüm para birimleri)</p>
+<p><b>Kimi ilgilendirir:</b> Yurt dışından döviz geliri elde eden ihracatçı firmalar, dış ticaret şirketleri, aracılı ihracatçılar ve bunlara ürün tedarik eden şirketler</p>
+<p><b>Ne yapmalısın:</b> Mevcut döviz dönüşüm desteği taleplerini yeni tanımlar ışığında gözden geçirin; firma kontrolü yüzdesine ilişkin belgelendirmeyi kontrol edin. Aracı bankayla pozisyon oranı limitini ve gerekebilecek ek belgeleri netleştirin. Destek talep tarihleriniz 31 Ocak 2027 sınırına yaklaşıyorsa zaman kısıtı konusunda bankayla iş birliği yapın.</p>
 <p><b>Yürürlük:</b> 6 ncı maddesi: yayımı tarihinde · Diğer hükümleri: 01.10.2026</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Destek mekanizması korunmuş (yüzde 2) ancak gerçeğe aykırı beyanda bulunmuş firmalara geri ödeme, faiz ve kredi yasağı getirildi. Merkez Bankası'nın inceleme yetkisi geniş tutuldu; destekten yararlanmadan önce döviz pozisyonu oranını tevsik etmeleri zorunlu hale geldi. Işletme riski arttı.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Program kapsamı yapılan tanımlamayla netleşti ve kontrolü sağlayıcı hükümler eklendi (ithalatçı lehine); buna karşılık cezai mekanizmalar katılaştırıldı ve gerçeğe aykırı beyanda bulunanların bağlantılı firmalarını da kapsayan yaptırımlar getirildi (ithalatçı aleyhine). Uyumlu davranan ihracatçılar açısından program daha güvenilir hale gelirken, hile riski taşıyan davranışlara karşı süreç sertleşti.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260801-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260801-4.html'>Neyin nesi değişti? →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

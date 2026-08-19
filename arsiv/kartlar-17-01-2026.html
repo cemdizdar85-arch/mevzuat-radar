@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,27 +33,36 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>17.01.2026 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>17.01.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>PET reçine ithalatında tarife kontenjanı muafiyet usulü ve limitleri</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 31 Aralık 2025'te yürürlüğe konulan geçici koruma önleminden muaf olacak PET reçine (78 ml/g ve üzeri viskozite) ithalatı için tarife kontenjanı açtı. Toplam 11.079 ton miktar, ülke/gümrük bölgesi başına maksimum 3.693 ton, ithal lisans başına maksimum 150 ton olarak sınırlandırıldı.</p>
-<p><b>Ürün:</b> 78 ml/g veya daha fazla viskozitesi olan PET reçine</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>PET reçinesi ithalatında tarife kontenjansı açılması ve kullanım kuralları</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 31 Aralık 2025'te yürürlüğe konulan geçici koruma önleminden muafiyet sağlamak üzere PET reçinesi (3907.61.00.00.00) ithalatında 11.079 tonluk tarife kontenjansı açtı. Kontenjans, ilk gelen ilk alır yöntemiyle, elektronik başvuru ile dağıtılacak; başvuru sahibi başına en fazla 150 ton tahsis edilebilecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tarife kontenjansı kapsamındaki toplam miktar 11.079 ton; her menşe ülkesi/bölge için bir dönemde en fazla 3.693 ton tahsis edilebilir (Madde 3/1-2).</div>
+<div class='kiymet'>• Başvurular Ticaret Bakanlığı internet sitesinden elektronik imza ile yapılır; elektronik başvuru yapılamazsa fiziki formla başvuruya izin verilir (Madde 4/1-4).</div>
+<div class='kiymet'>• Bir başvuru sahibi adına yeni ithal lisansı alabilmesi için en son tahsis edilen lisansın belge tarihinden en az 30 gün geçmiş ve önceki lisans kapsamındaki ithalatlar tamamlanmış olması gerekir (Madde 5/3).</div>
+<div class='kiymet'>• Her bir ithal lisansında en fazla 150 ton tahsis edilebilir ve lisans tek bir menşe ülkesi/bölge için geçerlidir (Madde 5/2).</div>
+<div class='kiymet'>• İthal lisansı gümrük beyannamesinde 44 nolu kutuya 23 haneli belge numarası ve tarih beyan edilerek kullanılır (Madde 6/3).</div>
+<div class='kiymet'>• Tarife kontenjansı konusu eşya yalnızca ithal lisansının geçerlilik süresi içinde serbest dolaşıma girebilir (Madde 6/5).</div>
+<div class='kiymet'>• İthal lisansı devredilemez (Madde 6/6).</div>
+<div class='kiymet'>• Başvuru sahibi gümrük kaydında yoksa beş iş günü içinde kayıt yaptırmak zorundadır; aksi takdirde başvuru geçersiz sayılır (Madde 6/4).</div>
+<div class='kiymet'>• Tebliğ 31 Aralık 2025 tarihinden geçerli olmak üzere yayımı tarihinde yürürlüğe girmektedir (Madde 7).</div>
+<p><b>Ürün:</b> PET reçinesi (viskozitesi 78 ml/g veya daha fazla)</p>
 <p><b>GTİP:</b><br><span class='gtip'>3907.61.00.00.00</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>3907.61.00.00.00 → <b>kaynakta belirtilmemis</b></div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 3907.61.00.00.00: onceki kaydimiz  (11.07.2026) -> yeni kaynakta belirtilmemis</div>
-<p><b>Kimi ilgilendirir:</b> PET reçine ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> E-imza ile www.ticaret.gov.tr adresindeki İthalat İşlemleri bölümünden başvuru yap; başvuruda Belge Türü TPS-0951 ve bu tebliği seç. Ek-2'deki belgeleri tam yükle. Lisans onaylandığında e-posta ile 23 haneli belge numarası ve tarih alacaksın; gümrük beyannamesi 44 nolu kutuda bu numarayı ve tarihi gir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<p><b>Kimi ilgilendirir:</b> PET reçinesi ithal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> Başvuru sahibi olacaksan Ticaret Bakanlığı sitesinden elektronik imza ile başvuru yap; gümrük kaydın yoksa lisans tahsisinden sonra beş iş günü içinde kayıt yaptır. Gümrük müşaviri olarak müşterinin lisans numarası ve tarihini gümrük beyannamesinin 44 nolu kutusuna doğru beyan etmeyi kontrol et.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Geçici koruma önleminden muafiyet sağlayan kontenjans açılması, mahrum kalan pazar payını işletmelere geri sunar; ancak 150 tonluk lisans sınırı ve 30 günlük bekleme süresi, ithalatçıların planlama esnekliğini kısıtlar.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/01/20260117-14.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

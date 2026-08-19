@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,20 +39,19 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>8516.10.80.00.19 GTİP Numarasının Bölünerek Yeni Pozisyon Açılması ve Kapsam Dışına Alınması</h3>
-<p><b>Ne oldu:</b> 30/12/2025 tarihli Cumhurbaşkanı Kararı ile Türk Gümrük Tarife Cetveli'nde (TGTC) 8516.10.80.00.19 GTİP numarası bölünerek yeni bir pozisyon olan 8516.10.80.00.13 ihdas edilmiş ve bu yeni pozisyon dampinge karşı önlem kapsamından çıkarılmıştır.</p>
+<h3>8516.10.80.00.19 GTİP'nin bölünmesi ve 8516.10.80.00.13 GTİP'nin önlem kapsamından çıkarılması</h3>
+<p><b>Ne oldu:</b> 30 Aralık 2025 tarihli Cumhurbaşkanı Kararı ile 8516.10.80.00.19 GTİP iki ayrı GTİP'e bölünmüş, yeni oluşturulan 8516.10.80.00.13 GTİP ise dampinge karşı önlem kapsamından çıkarılmıştır.</p>
 <p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/31) sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(30.08.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• GTIP 8516.10.80.00.19 pozisyonu: <span style='color:var(--dim);text-decoration:line-through'>Tek pozisyon olarak dampinge karşı kesin önlem kapsamında</span> → <b>8516.10.80.00.13 ve 8516.10.80.00.19 olarak ayrılmış; 8516.10.80.00.13 önlem kapsamından çıkarılmış</b></div>
-<p><b>Ürün:</b> Elektrikli ısıtıcılar (elektrikli ısıtma cihazları)</p>
+<div class='karsi'><span class='kon'>8516.10.80.00.19 GTİP</span><span class='hap eski'>Tek GTİP olarak dampinge karşı kesin önlem kapsamında</span><span class='ok'>→</span><span class='hap yeni'>8516.10.80.00.13 ve 8516.10.80.00.19 olmak üzere iki GTİP'e bölünmüştür</span></div>
+<div class='karsi'><span class='kon'>8516.10.80.00.13 GTİP</span><span class='hap eski'>Bu GTİP bulunmamaktaydı</span><span class='ok'>→</span><span class='hap yeni'>Yeni açılan GTİP, dampinge karşı kesin önlem kapsamından çıkarılmıştır</span></div>
+<p><b>Ürün:</b> Elektrikli ısıtıcılar (sıvı ısıtma cihazları)</p>
 <p><b>GTİP:</b><br><span class='gtip'>8516.10.80.00.13</span><span class='gtip'>8516.10.80.00.19</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>8516.10.80.00.19 → <b>...</b></div>
-<div class='kiymet'>8516.10.80.00.13 → <b>...</b></div>
-<p><b>Kimi ilgilendirir:</b> Elektrikli ısıtıcı, su ısıtıcısı ve elektrikli ısıtma cihazı ithal eden işletmeler</p>
-<p><b>Ne yapmalısın:</b> 15 Nisan 2026 tarihinden itibaren 8516.10.80.00.13 kodlu ısıtıcıların gümrük beyannamelerinde dampinge karşı kesin önlem uygulanmadığının teyit edilmesi gerekmektedir. Bu koda ilişkin önceki beyanlar ve ödenmiş bulunan kesin önlem vergilerinin iadesinin gerekip gerekmediği hususu Gümrük Müdürlüğü nezdinde kontrol edilmelidir.</p>
+<p><b>Kimi ilgilendirir:</b> Elektrikli ısıtıcı ihraç eden ülkeler ile bu ürünleri ithal eden Türk ticari işletmeleri</p>
+<p><b>Ne yapmalısın:</b> Söz konusu GTİP kodları kapsamında ithalat yapılan veya yapılması planlanan ülkelerin gözden geçirilmesi, muafiyet tanınan kodlara ilişkin damping dosyasının güncellenmesi gerekmektedir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yeni 8516.10.80.00.13 pozisyonunda sınıflandırılan ürünler dampinge karşı kesin önlemden muaf tutulmuş, böylece ithalatçıların yükümlülükleri hafifletilmiştir.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yeni 8516.10.80.00.13 GTİP altında sınıflandırılan ürünler artık dampinge karşı kesin önlem ödemekten muaf tutulmuş olup, bu durum söz konusu ithalatçılar açısından gümrük vergilendirmesinde hafifletme anlamına gelmektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260415-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260415-4.html'>Neyin nesi değişti? →</a></div>
 </div>
 

@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,25 +33,43 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>19.11.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>19.11.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sentetik iplik ithalatına korunma önlemi üç yıl uzatıldı, ek mali yükümlülük belirlendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 5402 serisi GTIP kodlarında sınıflandırılan naylon ve poliamid iplikler üzerindeki korunma önlemini üç yıl daha sürdürmeye karar verdi. Ürün gruplarına göre kilogram başına 0,0475 ile 0,24 dolar arasında değişen ek mali yükümlülükler getirildi.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Korunma Önlemlerine İlişkin Tebliğ (Tebliğ No: 2025/5)</p>
-<p><b>Ürün:</b> Naylon ve diğer poliamid sentetik iplikler</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Naylon ve poliamid ipliklerde korunma önleminin uzatılması kararı sonucu eklenen ek mali yükümlülükler</h3>
+<p><b>Ne oldu:</b> Yürütülen soruşturma sonucunda korunma önlemi üç yıl süreyle uzatılmış ve beş GTP kaleminde ek mali yükümlülükler belirlenmiştir. Söz konusu yükümlülükler, dönemler itibarıyla kademeli olarak azalacak şekilde tasarlanmıştır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Korunma Önlemlerine İlişkin Tebliğ (Tebliğ No: 2025/5) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(19.06.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTP 5402.31 ek mali yükümlülük (1. Dönem 21/11/2025-20/11/2026)</span><span class='hap eski'>Belirtilmemiş</span><span class='ok'>→</span><span class='hap yeni'>0,24 $/Kg</span></div>
+<div class='karsi'><span class='kon'>GTP 5402.31 ek mali yükümlülük (2. Dönem 21/11/2026-20/11/2027)</span><span class='hap eski'>Belirtilmemiş</span><span class='ok'>→</span><span class='hap yeni'>0,23 $/Kg</span></div>
+<div class='karsi'><span class='kon'>GTP 5402.31 ek mali yükümlülük (3. Dönem 21/11/2027-20/11/2028)</span><span class='hap eski'>Belirtilmemiş</span><span class='ok'>→</span><span class='hap yeni'>0,22 $/Kg</span></div>
+<div class='karsi'><span class='kon'>GTP 5402.45 ek mali yükümlülük (1. Dönem 21/11/2025-20/11/2026)</span><span class='hap eski'>Belirtilmemiş</span><span class='ok'>→</span><span class='hap yeni'>0,0475 $/Kg</span></div>
+<div class='karsi'><span class='kon'>GTP 5402.45 ek mali yükümlülük (2. Dönem 21/11/2026-20/11/2027)</span><span class='hap eski'>Belirtilmemiş</span><span class='ok'>→</span><span class='hap yeni'>0,045 $/Kg</span></div>
+<div class='kiymet' style='color:var(--dim)'>+1 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250815-3.htm' target='_blank' rel='noopener'>15.08.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/5)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Naylon ve poliamid iplikler (GTIP 5402.31, 5402.32, 5402.45, 5402.51, 5402.61) ithalatında uygulanan korunma önlemi 21 Kasım 2025'ten itibaren üç yıl süreyle uzatıldı (Madde 3/1).</div>
+<div class='kiymet'>• Ek mali yükümlülük üç dönemde aşamalı uygulanacak: 1. dönem (21 Kasım 2025 - 20 Kasım 2026) 0,24 $/kg, 2. dönem (21 Kasım 2026 - 20 Kasım 2027) 0,23 $/kg, 3. dönem (21 Kasım 2027 - 20 Kasım 2028) 0,22 $/kg (5402.31, 5402.32, 5402.51, 5402.61); 5402.45 için sırasıyla 0,0475, 0,045, 0,0425 $/kg (Madde 3/1).</div>
+<div class='kiymet'>• Gelişmekte olan ülkelere muafiyet tanınması öngörüldü (Madde 3/1).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde (19 Kasım 2025) yürürlüğe girdi (Madde 4).</div>
+<p><b>Ürün:</b> Naylon ve poliamid iplikler</p>
 <p><b>GTİP:</b><br><span class='gtip'>5402.31</span><span class='gtip'>5402.32</span><span class='gtip'>5402.45</span><span class='gtip'>5402.51</span><span class='gtip'>5402.61</span></p>
-<p><b>Kimi ilgilendirir:</b> Sentetik iplik ithal eden tekstil, havacılık ve endüstriyel kumaş üreticileri</p>
-<p><b>Ne yapmalısın:</b> Kasım 2025 ve sonrası sevkiyatlarınızı yeni ek mali yükümlülük oranlarıyla gözden geçir. 5402 kodlu ürünler için proforma ve fatura bedellerine ilgili dönemdeki maliyeti ekle (1. dönem 21 Kasım 2025 başlangıç).</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>5402.45 → <b>0,0425 ABD Doları/Kilogram (3. Dönem)</b></div>
+<div class='kiymet'>5402.31 → <b>0,22 ABD Doları/Kilogram (3. Dönem)</b></div>
+<p><b>Kimi ilgilendirir:</b> Naylon ve sentetik poliamid iplik üreten ve ithal eden tekstil üreticileri.</p>
+<p><b>Ne yapmalısın:</b> Naylon iplik ithalatınız varsa, yeni ek mali yükümlülük tutarlarını (21 Kasım 2025 itibarıyla) sevkiyat belgelerinize ve maliyet hesaplamalarınıza yansıtın. Gelişmekte olan ülkelerden tedarik sağlıyorsanız, muafiyet koşullarını gümrük müşavirinizle birlikte teyit edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> İthalatçılar, naylon ve poliamid iplik ithalatında ek mali yükümlülük ödeyecektir. Bu durum ithalat maliyetini artırarak ithalatçıları olumsuz yönde etkilemektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251119-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

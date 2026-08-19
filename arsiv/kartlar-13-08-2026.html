@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,21 +39,27 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Ömrünü tamamlamış lastiklerin kontrolü yönetmeliğinde yapısal değişiklikler</h3>
-<p><b>Ne oldu:</b> Çevre, Şehircilik ve İklim Değişikliği Bakanlığı, ÖTL toplama, taşıma ve bertaraf süreçlerini yeniden düzenleyen bir değişiklik yönetmeliği yayımladı. Yetkili taşıyıcı tanımı eklendi, il müdürlüklerinin yetkileri netleştirildi, taşıma araçlarına uyarı levhası zorunluluğu getirildi ve Ticaret Bakanlığı atıfları güncellendi.</p>
+<h3>Ömrünü tamamlamış lastiklerin yönetimi ve denetim kurallarında değişiklik</h3>
+<p><b>Ne oldu:</b> Çevre, Şehircilik ve İklim Değişikliği Bakanlığı, ömrünü tamamlamış lastiklerin (ÖTL) toplanması, taşınması ve işlenmesine ilişkin yönetmelikte güncelleme yaptı. Değişiklik; yetkili toplayıcıların yetkilendirilmesi, taşıma araçlarının taşıması gereken standartlar ve geri kazanım tesislerinin yükümlülüklerine dair hükümler içeriyor.</p>
 <p><b>Hangi tebliğ:</b> Ömrünü Tamamlamış Lastiklerin Kontrolü Yönetmeliği sayılı Tebliği değiştiriyor</p>
 <p><b>Neler değişti:</b></p>
 <div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Çevre ve şehircilik il müdürlükleri</span> → <b>İl müdürlükleri</b></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Çevre ve Şehircilik</span> → <b>Çevre, Şehircilik ve İklim Değişikliği</b> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Dış Ticaret Müsteşarlığı</span> → <b>Ticaret Bakanlığı</b></div>
-<p><b>Ürün:</b> Ömrünü tamamlamış lastikler (atık)</p>
-<p><b>Kimi ilgilendirir:</b> Lastik üreticileri, yetkili toplayıcılar, geri kazanım ve bertaraf tesisleri, geçici depolama işletmeleri, lastik tamirhaneleri, oto sanayicileri</p>
-<p><b>Ne yapmalısın:</b> Lastik toplama ve taşıma operasyonlarında yeni tanım ve yetki sistemini gözden geçirin. Taşıma araçlarındaki uyarı levhası uyumluluğunu kontrol edin. Yetkili toplayıcılarla yapılan sözleşmelerde taşıyıcı tanımını ve Bakanlığa bildirim yükümlülüğünü kesinleştirin. Geçici depolama tesisiyseniz il müdürlüğü izin şartlarını yenileyin.</p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Çevre ve şehircilik il müdürlükleri</span><span class='ok'>→</span><span class='hap yeni'>İl müdürlükleri</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Çevre ve Şehircilik</span><span class='ok'>→</span><span class='hap yeni'>Çevre, Şehircilik ve İklim Değişikliği</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Dış Ticaret Müsteşarlığı</span><span class='ok'>→</span><span class='hap yeni'>Ticaret Bakanlığı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yetkili toplayıcı olmak isteyen işletmeler Bakanlıktan ÖTL toplama yetkisi almak zorunda (Madde 5/k).</div>
+<div class='kiymet'>• Yetkili toplayıcılar yıllık olarak topladıkları ÖTL miktarını her Mart ayı sonuna kadar Bakanlığa bildirmek zorunda (Madde 5/k).</div>
+<div class='kiymet'>• ÖTL taşıma araçlarının kapalı kasa veya ağ/branda ile kapatılmış olması ve her iki yüzünde en az 20 cm yüksekliğinde 'Ömrünü Tamamlamış Lastik Taşıma Aracı' yazısı bulundurması zorunlu (Madde 14/1).</div>
+<div class='kiymet'>• Üreticiler, bir önceki yıl iç piyasaya sürülen lastik tonajını esas alarak Bakanlık tarafından belirlenecek oranlarda ÖTL toplamak veya toplatmak zorunda (Madde 17/2).</div>
+<div class='kiymet'>• Geçici depolama tesislerinde tespit edilen aksaklık iki ay ile altı ay içinde giderilmezse işletmenin izni iptal edilir (Madde 23/1).</div>
+<p><b>Ürün:</b> Ömrünü tamamlamış lastikler (ÖTL)</p>
+<p><b>Kimi ilgilendirir:</b> Lastik üreticileri, yetkili toplayıcılar, taşıyıcılar, geri kazanım ve bertaraf tesisleri, lastik tamirhaneleri, kaplamacılar, perakende satış noktaları ve oto sanayicileri</p>
+<p><b>Ne yapmalısın:</b> Lastik toplama veya taşıma faaliyetinde bulunuyorsanız Bakanlıktan yetkili toplayıcı ya da taşıyıcı belgesi almak üzere başvuruda bulunun. Taşımada kullanılacak araçlara zorunlu levhayı ekleyin ve uyarı yazısını sabit hale getirin. Geçici depolama alanı kuracaksanız il müdürlüğünden izin alın (tamirhaneler ve perakende satış noktaları bu yükümlülükten muaftır). Toplama miktarınızı her yıl Mart sonuna kadar Bakanlığa bildirin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik yapısal ve idari düzenlemeler içermekte olup vergi, tarife veya ürün sınıflandırmasında bir değişiklik getirmemektedir. Maliyete doğrudan etkisi, yetkili taşıyıcı yetkilendirme süreci ve depolama kontrol akışıyla sınırlıdır.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu değişiklik, ömrünü tamamlamış lastiklerin yönetim zincirini netleştiriyor. Yetkili toplayıcı ve taşıyıcıların tanımlanması, geri kazanım tesislerinin yükümlülükleri, taşıma araçlarına ilişkin standartlar ve denetim usulü, önceki düzenlemedeki eksiklikleri tamamlıyor; ithal edilen veya yurt içinde üretilen lastiklerde herhangi bir fiyat etkisi yaratmıyor.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260813-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260813-1.html'>Neyin nesi değişti? →</a></div>
 </div>
 

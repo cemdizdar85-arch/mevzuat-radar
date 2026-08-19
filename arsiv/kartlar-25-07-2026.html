@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,19 +35,29 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>25.07.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>PET reçinesi ithalatında tarife kontenjanı ve muafiyet başvuru usulü</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 10 Temmuz 2026 tarihli korunma önlemi kararıyla uygulanan ek mali yükümlülükten muafiyet sağlayan tarife kontenjanının dağıtım ve kullanım kurallarını düzenliyor. Başvurular elektronik imzayla Bakanlık portal üzerinden, ilk gelen ilk alır esasıyla yapılacak.</p>
-<p><b>Ürün:</b> PET reçinesi (78 ml/g veya daha fazla viskozitesi olanlar)</p>
+<h3>PET resin ithalatında tarife kontenjanı muafiyeti için başvuru usulü</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, PET resin (özel viskoziteye sahip plastik hammaddesi) ithalatında uygulanan koruma önleminden muaf tutulabilecek mallar için tarife kontenjanı sistemi devreye aldı. Müteahhitler ve plastik işletmecileri, bu kontenjan kapsamında ithal edebilecekleri miktarları temin etmek üzere elektronik veya fiziksel olarak başvuruda bulunacak.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kontenjant toplam miktarı birinci dönemde 12.041 ton, ikinci ve üçüncü dönemlerde dönem başına 24.081 ton (Madde 3/1).</div>
+<div class='kiymet'>• Ülke veya gümrük bölgesi başına dönemlik tahsis birinci dönemde 4.014 ton, diğer dönemlerde dönem başına 8.027 ton ile sınırlandırılmış (Madde 3/2).</div>
+<div class='kiymet'>• Başvurular Ticaret Bakanlığı internet sitesindeki E-İmza Uygulamaları üzerinden elektronik imza ile yapılacak veya Ek-1 formu kullanılarak fiziksel olarak sunulacak (Madde 4/1-4).</div>
+<div class='kiymet'>• Bir ithal lisansı en fazla 150 ton kontenjanta hak verir ve sadece bir ülke veya gümrük bölgesi için geçerli (Madde 5/2).</div>
+<div class='kiymet'>• Yeni lisans almadan önce önceki lisansın belge tarihinden en az 30 gün geçmeli ve o lisansdaki tüm ithalat tamamlanmış olması şart (Madde 5/3).</div>
+<div class='kiymet'>• İthal lisansı gümrük idaresine bildirim yapılırken 23 haneli belge numarası ve belge tarihi gümrük beyanamesinin 44 nolu kutusuna yazılacak (Madde 6/3).</div>
+<div class='kiymet'>• Gümrük sisteminde kaydı olmayan ithalatçı bildirimden sonra 5 iş gün içinde kayıt yaptırmazsa başvuru geçersiz sayılır (Madde 6/4).</div>
+<div class='kiymet'>• İthal lisansının geçerlilik süresi içinde yapılmayan ithalat kontenjant kapsamı dışında kalır (Madde 6/5).</div>
+<div class='kiymet'>• İthal lisansı devredilemez (Madde 6/6).</div>
+<p><b>Ürün:</b> PET resin (polietilentereftalat), viskozitesi 78 ml/g veya daha yüksek olan plastik hammaddesi</p>
 <p><b>GTİP:</b><br><span class='gtip'>3907.61.00.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> PET resin ithal eden üreticiler ve ithalatçılar</p>
-<p><b>Ne yapmalısın:</b> Muafiyet kapsamında ithal yapacaksan 3907.61.00.00.00 GTIP kodlu malları kontrol et. Başvuruyu www.ticaret.gov.tr E-İmza Uygulamaları altından elektronik imzayla yap; TPS-0951-İthal Lisansı seçip Ek-2'deki belgeleri sisteme yükle. Lisans alındıktan sonra gümrük beyannamesi 44 nolu kutuda belge numarası (23 hane) ve tarihini göster. Mevcut lisanstan sonra 30 gün ve ithalat tamamlanmasını bekle. 150 tonluk tavanın altında başvuru yap.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Tarife kontenjanı muafiyeti, korunma önleminin ek mali yükünü ortadan kaldırıyor. Öte yandan kontenjan sınırlı (birinci dönemde 12.041 ton, sonraki dönemlerde 24.081 ton) ve başvuru sayısı artarsa ilk gelen ilk alır yöntemi nedeniyle erişim güç hale gelebilir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır.</div>
+<p><b>Kimi ilgilendirir:</b> PET resin ithal eden plastik işletmeleri, ambalaj üreticileri, tekstil ve kimya sektörü temsilcileri</p>
+<p><b>Ne yapmalısın:</b> PET resin ithal ediyorsanız Bakanlığın internet sitesine girip 'İthalat İşlemleri' bölümünden 'TPS-0951-İthal Lisansı (Korunma)' belge türüyle başvuru yapmanız gerekir. Ek-2'de belirtilen belgeleri eksiksiz yükleyip elektronik imza atmalısınız. Lisansın geçerlilik tarihini mutlaka not edin; mallarınızı bu tarihten önce serbest dolaşıma sokmazsanız kontenjan hakkınızı kaybedersiniz. Önceki bir lisansınız varsa, belge tarihinden itibaren 30 gün geçmesi ve ithalatınızın tamamının bitmiş olması şartıyla yeni başvuru yapabilirsiniz.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Kontenjan sistemi, belirli ülkelerden gelen PET resinler için koruma önleminden muafiyet sağlamaktadır. İthalatçılar, kendilerine tahsis edilen miktara kadar gümrük vergisinden muaf tutulur; bu durum fiyat avantajı yaratır. Ancak lisans şartlarına (30 günlük bekleme süresi, ithalatın eksiksiz tamamlanması vb.) uyulmaması halinde başvuru geçersiz hale gelir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260725-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

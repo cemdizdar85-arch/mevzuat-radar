@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,21 +35,22 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>17.07.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İthalatta Gözetim Uygulanmasına İlişkin Tebliğde Kıymet Kontrolüne Yönelik Değişiklik</h3>
-<p><b>Ne oldu:</b> Madde 6'nın üçüncü fıkrasında kontrol unsurları 'kıymet veya miktar' ifadesinden yalnızca 'kıymet' olacak şekilde daraltılmıştır. Ek 2-E'deki yazım hatası da düzeltilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2020/9)</p>
+<h3>İthalatta Gözetim Tebliğinin Kıymet ve Miktar Kontrolü Kuralları Değiştirildi</h3>
+<p><b>Ne oldu:</b> Madde 6 Fıkra 3'te kontrol kriteri daraltılmış; miktar aşımı toleransı kaldırılarak yalnızca kıymet aşımı toleransı bırakılmıştır. Ek 2-E'deki yazım hatası düzeltilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2020/9) sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(25.12.2020 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• Madde 6, Fıkra 3 - Kıymet ve Miktar Kontrolü Şartı: <span style='color:var(--dim);text-decoration:line-through'>Gümrük beyannamesinin tescili sırasında gümrüklerce tespit ve kabul edilen kıymet veya miktarın, Kayıt Belgesinde kayıtlı kıymet veya miktarı, toplam %5'ten (%5 dâhil) daha az bir oranda aşması ithalatın yapılmasını engellemez.</span> → <b>Gümrük beyannamesinin tescili sırasında gümrüklerce tespit ve kabul edilen kıymetin, Kayıt Belgesinde kayıtlı kıymeti %5'ten (%5 dâhil) daha az bir oranda aşması ithalatın yapılmasını engellemez.</b></div>
-<div class='kiymet'>• Ek 2-E - Başvuru Belgeleri İbaresi: <span style='color:var(--dim);text-decoration:line-through'>eksiz</span> → <b>eksiksiz</b></div>
-<p><b>Ürün:</b> Tüm ithal mallar (gözetim kapsamındaki)</p>
-<p><b>Kimi ilgilendirir:</b> İthalatçılar ve gümrük müşavirleri</p>
-<p><b>Ne yapmalısın:</b> Gümrük beyannamesi tescil edilirken Kayıt Belgesindeki kıymetle arasındaki %5'lik sapma marjı dikkate alınmalı; bu sayede ek belge talebiyle karşılaşma riski azaltılmalıdır. Gözetim kapsamında sevkiyatı bulunanların uygulamayı derhal gözden geçirmesi gerekmektedir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Kontrol kapsamının miktar unsuru çıkarılarak yalnızca kıymetle sınırlandırılması, ithalatçılara miktar farklılıklarında daha geniş bir esneklik alanı sağlamaktadır.</div>
+<div class='karsi'><span class='kon'>Madde 6, Fıkra 3 - Gümrük beyannamesindeki kıymet/miktar aşımı toleransı</span><span class='hap eski'>Gümrük beyannamesinin tescili sırasında gümrüklerce tespit ve kabul edilen kıymet veya miktarın, Kayıt Belgesinde kayıtlı kıymet veya miktarı, toplam %5'ten (%5 dâhil) daha az bir oranda aşması ithalatın yapılmasını engellemez.</span><span class='ok'>→</span><span class='hap yeni'>Gümrük beyannamesinin tescili sırasında gümrüklerce tespit ve kabul edilen kıymetin, Kayıt Belgesinde kayıtlı kıymeti %5'ten (%5 dâhil) daha az bir oranda aşması ithalatın yapılmasını engellemez.</span></div>
+<div class='karsi'><span class='kon'>Ek 2-E - Kayıt Belgesi başvuru belgelerindeki yazım</span><span class='hap eski'>Ek 2-E'sinde 'eksiz' ibaresi</span><span class='ok'>→</span><span class='hap yeni'>Ek 2-E'sinde 'eksiksiz' ibaresi</span></div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2023/03/20230309-5.htm' target='_blank' rel='noopener'>09.03.2023 tarihli Resmî Gazete</a> (Tebliğ 2020/9)</div>
+<p><b>Ürün:</b> Tüm ithal ürünler (kapsamlı gözetim uygulaması)</p>
+<p><b>Kimi ilgilendirir:</b> Gümrük müşavirleri, ithalatçılar ve lojistik işletmeleri</p>
+<p><b>Ne yapmalısın:</b> Süregelen ya da planlanan ithalatlarınızda Kayıt Belgesi değerini kontrol edin; beyan değeri ile arasındaki farkı %5 sınırında tutacak şekilde belgelerinizi hazırlayın.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Miktar aşımına ilişkin %5 toleransının kaldırılması, ithalatçılar için daha katı bir kontrol ortamı oluşturmuştur. Yalnızca kıymet aşımında tolerans devam etmektedir.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260717-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260717-8.html'>Neyin nesi değişti? →</a></div>
 </div>
