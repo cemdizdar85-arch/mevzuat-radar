@@ -1003,7 +1003,26 @@ $VITRIN_KURUM_ICI = @('universite','yuksekokul','fakulte','enstitu','konservatua
 #  KANITLAMAYAN kokler. Guclu kume = VITRIN_ILGI eksi bunlar.
 $VITRIN_ZAYIF = @('destek','desteg','sermaye','ihale','denetim','lisans',
   'uretim','uretici','sigorta','kiralama','ticari')
+#  --- UCUNCU KAT: BASLIKTA ADI GECEN KURUM (19.08.2026, ikinci vaka) ---
+#  Ikinci kat yetmedi: ayni gun model "Izmir Konak MYO Ihale Yonetmeligi..."
+#  kartinin kimi_ilgilendirir alanina "muhasebe ve satin alma personeli"
+#  yazdi; 'muhasebe' GUCLU kelime oldugu icin kart yine vitrine cikti.
+#  Kelime kumesini buyutmek bu yarisi bitirmez - model her kosuda baska
+#  kelime yaziyor. YAPISAL olcut gerekiyordu:
+#  BASLIKTA bir kurumun ADI gecerse (iyelik ekli tekil bicim: Universitesi,
+#  Yuksekokulu, Fakultesi...) o kart O KURUMUN KENDI ic duzenlemesidir ve
+#  vitrine CIKMAZ - kelimeye bakilmaz. Genel duzenlemeler kurum adiyla degil
+#  TEBLIG adiyla anilir ("KDV Genel Uygulama Tebligi'nde vakif universite
+#  hastaneleri..." - iyelik eki YOK, kart vitrinde kalir).
+#  OLCULDU (255 kart): kural tam 4 karti vuruyor - bugunku 3 okul karti ve
+#  ITU Uzay Merkezi yonetmeligi. Korunmasi gereken uc kart (KDV vakif
+#  universite hastaneleri, SGK klinik arastirma, Dijital Donusum) VURULMUYOR.
+$VITRIN_KURUM_ADI = @('universitesi','yuksekokulu','fakultesi','enstitusu',
+  'akademisi','konservatuvari','rektorlugu')
 function VitrinUygun($kk){
+  # Once yapisal fren: baslikta kurum ADI varsa kelimeye bakilmadan disarida
+  $baslik = VitrinKucult "$($kk.baslik_sade)"
+  foreach($w in $VITRIN_KURUM_ADI){ if($baslik.Contains($w)){ return $false } }
   $metin = VitrinKucult ("{0} {1}" -f $kk.baslik_sade, $kk.kimi_ilgilendirir)
   $eslesen = @($VITRIN_ILGI | Where-Object { $metin.Contains($_) })
   if(-not $eslesen.Count){ return $false }
