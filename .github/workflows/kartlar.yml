@@ -46,6 +46,11 @@ on:
     - cron: "20 3 * * *"     # 06:20 TR - 1. yedek
     - cron: "20 6 * * *"     # 09:20 TR - 2. yedek (musavir masaya oturdugunda kart hazir)
   workflow_dispatch:
+    inputs:
+      zorla:
+        description: "Bugunu kaynak degismese de yeniden uret (API harcar)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -145,11 +150,23 @@ jobs:
             if($ic.Trim() -eq '[]'){ return $false }
             return $true
           }
+          # KAYNAK DAMGASI (19.08.2026 - Cem onayi): bugun ADAY olmaya devam
+          # eder (ogleden sonraki mukerrer sayilar kacmasin) ama kaynak
+          # DEGISMEDIYSE yeniden uretilmez. Sebep 19.08'de canli goruldu:
+          # ayni teblig her kosuda yeniden okutulunca baslik her seferinde
+          # farkli yaziliyor, vitrin oynuyor ve API bosuna harcaniyor.
+          # Elle tetikte "zorla" secilirse damga yok sayilir.
+          . ./motor/kaynak-damga.ps1
+          $zorla = ("${{ github.event.inputs.zorla }}" -eq "true")
+          if($zorla){ Write-Host "ZORLA modu: bugun kaynak degismese de yeniden uretilecek." }
           $bugun = (Get-Date).ToString('dd-MM-yyyy')
           $adaylar = @(Get-ChildItem "motor/arsiv" -Directory -ErrorAction SilentlyContinue |
             Where-Object {
               (Get-ChildItem $_.FullName -Filter *.htm -ErrorAction SilentlyContinue) -and
-              ($_.Name -eq $bugun -or -not (KartVar $_.Name))
+              (
+                ($_.Name -eq $bugun -and ($zorla -or (KaynakDegistiMi $_.FullName "motor/kartlar/$($_.Name)"))) -or
+                -not (KartVar $_.Name)
+              )
             } |
             Sort-Object { try { [datetime]::ParseExact($_.Name,'dd-MM-yyyy',$null) } catch { [datetime]'1900-01-01' } } -Descending)
           $islenecek = New-Object System.Collections.Generic.List[string]
@@ -157,7 +174,15 @@ jobs:
           if($adaylar.Count -gt $islenecek.Count){
             Write-Host ("Bekleyen gun: {0} - bu kosuda {1} tanesi islenecek, kalani yarin." -f $adaylar.Count, $islenecek.Count)
           }
-          if($islenecek.Count -eq 0){ Write-Host "Islenecek gun yok - RG fihristinde anahtar kelimelerimize uyan teblig inmemis. (Bu, uretim hatasi DEGIL.)"; exit 0 }
+          if($islenecek.Count -eq 0){
+            Write-Host "Islenecek gun yok - yeni teblig inmemis ya da bugunun kaynagi degismemis. (Bu, uretim hatasi DEGIL.)"
+            # VITRIN YINE DE TAZELENIR (API CAGRISI YOK). Uretim atlaninca sayfa
+            # hic yeniden yazilmazsa ustteki "Bugun (GG.AA.YYYY)" satiri bayatlar
+            # ve site bir gun geride gorunur - 18.08'de yasanan "site 17.08'de
+            # kaldi" vakasinin aynisi. YalnizVitrin modu 0 USD'dir.
+            ./motor/kart-toplu.ps1 -Gun $bugun -YalnizVitrin
+            exit 0
+          }
           Write-Host ("Islenecek gun: " + ($islenecek -join ', '))
           # Bir gun patlarsa digerleri yine denensin; ama SONUCTA hata varsa
           # adim KIRMIZI biter - "sakin gun" ile "uretim coktu" ayni sey degil.

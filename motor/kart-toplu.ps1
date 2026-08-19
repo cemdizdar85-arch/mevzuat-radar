@@ -29,6 +29,8 @@ if(-not $key){ try { $key = (Get-Content "C:\Users\cemdi\.mevzuat-radar-api" -Ra
 # oysa tebligde "31/7/2026 ibaresi 31/1/2027 seklinde degistirilmistir" yaziyordu.
 # Kesin bilgiyi zar atmaya cevirmistik.
 . (Join-Path $here 'teblig-yapi.ps1')
+# 19.08 - kaynak damgasi: bugun bosuna yeniden uretilmesin (kartlar.yml okur)
+. (Join-Path $here 'kaynak-damga.ps1')
 $hatAd = ''
 try { $hatAd = (Get-ApiHedef).ad } catch {}
 if(-not $hatAd -and (Read-ApiEnv 'OPENROUTER_KEY')){ $hatAd = 'openrouter' }
@@ -896,6 +898,14 @@ if(-not $YalnizVitrin){
   # Gecerli JSON yaz - yoksa dosya hem okunamaz hem "islendi" yalani soyler.
   $kartJson = if($kartlar.Count -eq 0){ '[]' } else { $kartlar | ConvertTo-Json -Depth 8 }
   $kartJson | Out-File (Join-Path $gunKartDir "kartlar.json") -Encoding utf8
+  # KAYNAK DAMGASI (19.08): bu gun HANGI teblig dosyalariyla uretildi.
+  # kartlar.yml bugunu yeniden isleyip islemeyecegine buna bakarak karar verir.
+  # Kart cikmadiysa damga YAZILMAZ - yoksa "islendi" yalani soyler ve gun bir
+  # daha hic denenmez (16.08 bos damga tuzaginin aynisi).
+  if($kartlar.Count -gt 0){
+    $dmg = KaynakDamgasi $arsivTeblig
+    if($dmg){ KaynakDamgaYaz $gunKartDir $dmg (@(Get-ChildItem $arsivTeblig -Filter *.htm -ErrorAction SilentlyContinue).Count) }
+  }
 }
 
 # ============================================================================
