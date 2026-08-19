@@ -1,5 +1,24 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 19.08.2026 (3. tur) — KGK KARNESİ 6 MEVZUAT + 10 TEORİ NOTU (üç-sınav kuralı, Cem: "ikisini birden")
+*Sebep: KGK karnesi ilk kez koştu (10 etiketli dönem/1.536 konu); 42 KAYNAK-YOK satırının
+ayıklamasında 16 gerçek boşluk çıktı (veri/karne-ayiklama-kgk.json).*
+
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| Sermaye Piyasası Araçlarının Satışı Tebliği (II-5.2) | mevzuat.gov.tr G9:18527 (RG 28.06.2013/28691) | **51 madde, %99,8** |
+| Yatırım Hizmetleri ve Faaliyetleri Tebliği (III-37.1) | mevzuat.gov.tr G9:18576 (RG 11.07.2013/28704) | **125 madde** |
+| Değerleme Standartları Tebliği (III-62.1) | SPK portalı api/Mevzuat/File/179 — HAZIR (mevzuat.gov.tr'de kimlik yok; RG 01.02.2017/29966) | **6 madde, %99,2** (tek sayfalık tebliğ, UDS'ye uyum) |
+| Katılım Esasları Çerç. Sigortacılık ve BES Yön. | mevzuat.gov.tr G7:36076 (RG 19.12.2020/31339) | **22 madde, %98,7** |
+| Bankaların Muhasebe Uygulamaları Yön. | mevzuat.gov.tr G7:10747 (RG 01.11.2006/26333) | **24 madde** |
+| BDDK Sorunlu Alacak Çözümleme Rehberi | bddk.org.tr DokumanGetir/1040 — HAZIR (Kurul 29.06.2021/9644) | **102 parça, %100** (madde deseni yok → BÖLÜM parçalayıcı); geri okuma birebir ✓ |
+| 10 teori notu (`teori-notlari-20260819-kgk.json`) | GM elle yazımı | AB ETS · AB Taksonomi CapEx · fin. kiralama sakıncaları · Sharpe/portföy ölçütleri · sigorta muhasebesi ailesi (acente tahakkuku, koasürans, kazanılmış prim, teknik karşılıklar) · sigortalanabilirlik · zeyilname |
+
+Kimlik avı dersleri: mevzuat.gov.tr site araması o sabah bozuktu — kimlikler WebSearch'teki
+GeneratePdf bağlantılarından bulunup **indirilen PDF'in başlığından teyit edildi** (dört yanlış
+aday başlık teyidiyle elendi: 19974=Lisanslama, 33762=III-62.3, 20645=Bağımsız Denetim Yön.,
+10737=Üst Yönetim Yön.). Ayrıca ayna koşusu tavana takılınca yutma yerel SADECE koşusuyla yapıldı.
+
 ## ✅ 19.08.2026 — FUAR MEVZUATI YUTULDU (Cem emri; site teyit turlarının son açık kalemi)
 *Sebep: bilgi.html'in fuar desteği hapı (19.08 turunda tek doğrulanamayan blok) ambarda olmayan
 kaynaklara dayanıyordu.*
