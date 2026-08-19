@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,110 +35,148 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>04.07.2026 tarihli Resmî Gazete'de 7 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Yurt dışı kazancı yirmi yıl boyunca muaf tutan yeni istisna düzenlemesi</h3>
-<p><b>Ne oldu:</b> Türkiye'ye yeni yerleşen gerçek kişiler, önceki üç yılda Türkiye'de vergi mükellefi olmamaları koşuluyla yurt dışından elde ettikleri kazanç ve iratları yirmi yıl süreyle gelir vergisinden istisna tutabilecekler. İstisna belgesi alınabilmesi için mükellefiyetin tesis edildiği yılın sonuna kadar başvuruda bulunulması zorunludur.</p>
-<p><b>Ürün:</b> İlgili değil (gelir vergisi prosedürü)</p>
-<p><b>Kimi ilgilendirir:</b> Türkiye'ye yerleşen yabancı uyruklular ile yurt dışında ticari faaliyet yürüten Türk vatandaşları</p>
-<p><b>Ne yapmalısın:</b> Koşulları taşıyorsanız (son üç yılda Türkiye'de mükellefiyet ve ikametgahınız bulunmuyorsa) mükellefiyet tarihini izleyen takvim yılının sonuna kadar vergi dairesine istisna belgesi için başvurun. Belgeyi almadan yurt dışı gelirinizi beyannameden çıkarmayın. Belgeniz olsa dahi Türkiye'de elde ettiğiniz gelirler (kira, ücret, ticari kazanç) tamamen vergiye tabidir.</p>
+<h3>Yurt dışı kazançları için yirmi yıllık vergi istisnası; başvuru ve belgelendirme süreci</h3>
+<p><b>Ne oldu:</b> Türkiye'ye yerleşen kişiler, yerleşmeden önceki üç yıl boyunca yurt dışında elde ettikleri kazanç ve iratları yirmi yıl süreyle gelir vergisinden istisna tutabiliyor. İstisnanın geçerlilik kazanabilmesi için belirlenen süre içinde vergi dairesine başvurarak istisna belgesi alınması zorunludur.</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• Madde 20/D eklendi</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 1/1/2026'dan itibaren Türkiye'de yerleşmiş sayılan gerçek kişiler istisna kapsamına girebiliyor (Madde 3/3).</div>
+<div class='kiymet'>• Yerleştiği takvim yılının sonuna kadar, takvim yılının son iki ayında yerleşenlerin ise takip eden yılın Şubat sonuna kadar vergi dairesine başvurarak istisna belgesi almak gerekiyor (Madde 3/4).</div>
+<div class='kiymet'>• Daha önceden Türkiye'de gayrimenkul kira geliri, hisse senedi geliri veya değer artışı kazancı nedeniyle mükellefiyet bulunması istisna almaya engel değil (Madde 3/5).</div>
+<div class='kiymet'>• İstisna kapsamındaki yurt dışı kazançları için yıllık beyanname verilmiyor ve diğer gelirlerin beyannamesi yapılırsa bu kazançlar dahil edilmiyor (Madde 3/6).</div>
+<div class='kiymet'>• Türkiye'de elde edilen tüm kazançlar istisna dışında kalmaya devam ediyor; mükelleflerin vergisel yükümlülüğü sürmektedir (Madde 3/7).</div>
+<p><b>Ürün:</b> İnsan kaynağı / yatırımcı hareketi değil, vergi hukuku alanına giren bir düzenlemedir (ürün grubu yok)</p>
+<p><b>Kimi ilgilendirir:</b> Türkiye'ye yerleşen yabancı uyruklu gerçek kişiler, göçmenler, yurt dışında yatırımı veya işi bulunan kişiler</p>
+<p><b>Ne yapmalısın:</b> 1/1/2026 itibarıyla Türkiye'ye yerleştiyseniz ve yurt dışında gelir kaynağınız varsa, yerleştiğiniz takvim yılının sonuna kadar vergi dairesine başvurarak istisna belgesi almayı ihmal etmeyin; başvuru tarihi belirleyici kriterdir. Başvurudan önce, 2023-2025 yıllarında Türkiye'de mükellefiyetinizin bulunmadığını gösterecek belgeleri hazırlayın. Türkiye'de kira geliriniz veya hisse geliriniz varsa bu belgeleri de yanınızda bulundurun; bu durum başvuruya engel olmaz ancak vergi dairesinin incelemesini kolaylaştırır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yurt dışından gelir elde edenleri yirmi yıl boyunca vergi yükünden kurtararak Türkiye'ye kalıcı yerleşimi teşvik ediyor. Ancak Türkiye içi faaliyetler tam olarak vergilenmeye devam ediyor; istisna belgesi olmadan ya da başvurusu gecikenlere ceza uygulanıyor.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Bu tebliğ, vergi mükelleflerine yönelik değil, gelir idaresinin istisna uygulamasını düzenleyen bir usul metnidir. Uluslararası yatırımcı ve göçmenleri Türkiye'ye çekmek amacıyla hazırlanmış olup, yurt dışı kazançları üzerindeki vergi yükünü yirmi yıl boyunca ortadan kaldırarak ülkeye sermaye akışını teşvik etmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-14.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Nitelikli hizmet merkezlerinde çalışanların ücretlerine gelir vergisi istisnası</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 7582 sayılı Kanun'la eklenen hüküm uyarınca nitelikli hizmet merkezlerinde istihdam edilen personelin ücretlerinin belirli bir kısmını gelir vergisinden istisna tutmuştur. Genel kural olarak brüt asgari ücretin üç katına kadar olan kısım; İstanbul Finans Merkezi ve uygun endüstri bölgelerinde faaliyet gösterenler için ise beş katına kadar olan kısım istisna kapsamındadır.</p>
-<p><b>Neyi değiştiriyor:</b> 31/12/1960 tarihli 193 sayılı Gelir Vergisi Kanunu (23. madde, birinci fıkra, 20. bent)</p>
-<p><b>Ürün:</b> İnsan kaynağı hizmetleri (nitelikli hizmet personelinin ücretlendirilmesi)</p>
-<p><b>Kimi ilgilendirir:</b> Nitelikli hizmet merkezleri, teknoloji şirketleri, finansal hizmet kuruluşları ve yabancı yatırım yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> İnsan kaynakları müdürü veya muhasebe ekibi olarak, istihdam edilen personelin nitelikli hizmet erbabı statüsünü 4875 sayılı Kanun'a göre belgelendirin. Aylık brüt ücretleri, konuma göre üç veya beş kat sınırıyla karşılaştırın. Bu eşiği aşan kısmı genel vergi hükümlerine göre muhasebeleştirin ve izleyen ay muhtasar beyanname ile bildirin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yurt dışından personel çeken ve yabancı yatırım yapan nitelikli hizmet merkezleri için işgücü maliyeti düşüyor. Personel tarafında da belirli ücret düzeyine kadar vergi yükü hafifliyor; ancak bu düzeyin üzerindeki maaşlar normal vergi tarifesine tabi kalmaya devam ediyor.</div>
+<h3>Nitelikli hizmet merkezlerinde çalışanlara yönelik ücret gelir vergisi istisnası</h3>
+<p><b>Ne oldu:</b> Gelir Vergisi Kanunu'nun 23. maddesine yeni bir bent eklenmiştir. Buna göre, nitelikli hizmet merkezlerinde istihdam edilen personelin ücretlerinin belirli bir tutara kadar olan kısmı gelir vergisinden istisna tutulacak olup bu tutarlar, merkezin bulunduğu yere göre farklılık göstermektedir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Nitelikli hizmet merkezlerinde çalışanların ücretleri brüt asgari ücretin üç katına kadar gelir vergisinden muaf (Madde 3/2).</div>
+<div class='kiymet'>• Endüstri bölgelerinde ve İstanbul Finans Merkezinde faaliyet gösteren nitelikli hizmet merkezleri için muafiyet sınırı brüt asgari ücretin beş katına yükselti (Madde 3/3).</div>
+<div class='kiymet'>• Muafiyet sınırını aşan ücret kısmı genel vergi kurallarına göre vergilendirilir; asgari ücrete isabet eden vergi mahsup edilir (Madde 5/1).</div>
+<div class='kiymet'>• Muaf tutulan ücretlere damga vergisi istisnası da uygulanır (Madde 5/3).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Nitelikli hizmet merkezlerinde istihdam edilen personelin ücretleri</p>
+<p><b>Kimi ilgilendirir:</b> Nitelikli hizmet merkezlerinde çalışan personel ile bu merkezleri işleten işverenler, endüstri bölgesi yöneticileri ve İstanbul Finans Merkezi katılımcıları</p>
+<p><b>Ne yapmalısın:</b> İnsan kaynakları müdürü olarak, personelin nitelikli hizmet personeli tanımına girip girmediğini ve merkezin statüsünü (genel/endüstri bölgesi/İstanbul Finans Merkezi) doğrulayınız. Ücretlerin brüt asgari ücretin 3 ila 5 katına kadar olan kısmını vergi beyanında istisna olarak gösteriniz. Muafiyet sınırını aşan ücret tutarlarını toplam gelirden ayrıştırarak genel vergi kurallarına göre hesaplayınız.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Nitelikli hizmet merkezlerinde ücret maliyetinin düşmesi, yabancı yatırımcılar açısından işletme giderlerinin azalması anlamına gelmektedir. Endüstri bölgeleri ve İstanbul Finans Merkezi konumundaki merkezler, daha yüksek muafiyet sınırından faydalanarak rekabet avantajı elde edecektir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-15.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Teknogirişim şirketlerinde çalışanlara verilen pay senetlerinde vergi istisnası düzenlemesi</h3>
-<p><b>Ne oldu:</b> 326 Seri No'lu Gelir Vergisi Genel Tebliği ile teknogirişim şirketi çalışanlarına bedelsiz veya indirimli olarak verilen pay senetlerine ilişkin vergi istisnasının şartları ve tutarı yeniden düzenlendi. İstisna kapsamı yıllık brüt ücretin iki katını aşmayan kısımla sınırlandırıldı, elde tutma süreleri kısaltıldı ve hesaplama yöntemi güncellendi.</p>
-<p><b>Neyi değiştiriyor:</b> Gelir Vergisi Genel Tebliği (Seri No: 326)</p>
-<p><b>Ürün:</b> Teknogirişim şirketi hisse senetleri (çalışan katılım planları)</p>
-<p><b>Kimi ilgilendirir:</b> Teknogirişim şirketi niteliğini taşıyan işverenler ve bu şirketlerde çalışanlar</p>
-<p><b>Ne yapmalısın:</b> Şubat 2026 sonrasında verilecek pay senetlerinde istisna tutarını brüt ücretin iki katıyla karşılaştırın. Çalışanın elde tutma süresine ilişkin şartları takip edin; altı yıldan önce satış gerçekleşmesi halinde gecikme faizi ve vergi düzeltme işlemlerini başlatın. Pay senedi satışlarını vergi dairesine Ek-2 dilekçesiyle bildirin.</p>
-<p><b>Yürürlük:</b> 4.6.2026</p>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-16.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260704-16.html'>Neyin nesi değişti? →</a></div>
-</div>
-<div class="kart">
-<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>TIR İşlemleri Tebliği'nde gümrük idaresi sayı sınırları ve kurum adları güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2010 tarihli TIR İşlemleri Tebliği'nde değişikliğe gitti. Düzenlemeyle bazı hükümlerdeki gümrük idaresi sayı sınırları yükseltildi, kurum adları güncellendi ve form ekleri yenilendi.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrük Genel Tebliği (TIR İşlemleri) (Seri No: 1)</p>
-<p><b>Ürün:</b> TIR karnesi ile uluslararası transit taşımacılığı kapsamı</p>
-<p><b>Kimi ilgilendirir:</b> TIR işletmecileri, gümrük müşavirleri ve uluslararası taşımacılık yapan lojistik şirketleri</p>
-<p><b>Ne yapmalısın:</b> Mevcut TIR işlemleri prosedürlerinizi gözden geçirin; özellikle sekiz gümrük idaresini aşan çok duraklı taşımalarda getirilen yeni iki yöntemi -art arda karne veya paralel karne uygulamasını- değerlendirin. Ek 3, Ek 4 ve Ek 10'u güncel versiyonlarıyla kullanın.</p>
+<h3>Teknogirişim şirketlerinde çalışanlara verilen pay senetlerine ilişkin vergi istisnası düzenlemesi değişti</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, teknogirişim şirketlerinin hizmet erbabına bedelsiz veya indirimli olarak verdiği pay senetlerinde istisna uygulamasını genişletti. Elde tutma süreleri kısaltıldı, düşük tutarlı erken çıkışlarda uygulanan ceza oranları düşürüldü.</p>
+<p><b>Hangi tebliğ:</b> Gelir Vergisi Genel Tebliği (Seri No: 326) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>tutarını</span><span class='ok'>→</span><span class='hap yeni'>tutarının iki katını</span></div>
+<div class='karsi'><span class='kon'>4 üncü madde</span><span class='hap eski'>Yedi ila on iki</span><span class='ok'>→</span><span class='hap yeni'>Beş ila altı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Teknogirişim şirketi niteliğindeki işverenlerin, hizmet erbabına bedelsiz veya indirimli verdiği pay senetlerinin rayiç değeri, yıllık brüt ücretin iki katını aşmayan tutarı gelir vergisinden istisnadır (Madde 17/1).</div>
+<div class='kiymet'>• Pay senedi verildiği sırada yıllık brüt ücret tespit edilemezse, o aydaki ücret 12 ile çarpılarak yıllık tutar tahmin edilebilir; yıl sonunda gerçek tutarla karşılaştırılarak düzeltme yapılır (Madde 5/2).</div>
+<div class='kiymet'>• Hizmet erbabı pay senetlerini iki yıl içinde satarsa, istisnanın tamamı; üç ila dört yıl içinde satarsa %75'i; beş ila altı yıl içinde satarsa %25'i, vergi ziyaı cezası olmaksızın gecikme faizi ile tahsil edilir (Madde 4/3).</div>
+<div class='kiymet'>• Altı yıldan uzun süre elde tutulan pay senetleri tamamen istisna edilir; ceza veya ilave vergi tahsili olmaz (Madde 4/3 ve Madde 5/1).</div>
+<div class='kiymet'>• İşten ayrılan çalışanın pay senetlerini elde tutma süresi, ayrıldıktan sonraki dönemleri de içerir; vefat durumunda mirasçıların tutma süresi sayılır (Madde 5/8).</div>
+<div class='kiymet'>• İşveren, çalışanın pay senetlerini satması durumunda bunu dilekçe ile vergi dairesine bildirmek zorundadır (Madde 5/5).</div>
+<p><b>Ürün:</b> Teknogirişim şirketlerinin çalışanlarına verdiği pay senetleri (hisse senedi)</p>
+<p><b>Kimi ilgilendirir:</b> Teknogirişim niteliğindeki şirketlerde çalışıp bedelsiz veya indirimli pay senedi alan personel ile bu senetleri işveren sıfatıyla veren şirketler</p>
+<p><b>Ne yapmalısın:</b> Teknogirişim şirketiyle anlaşması bulunan çalışanların pay senedi alış tarihlerini, tutarlarını, elde tutma sürelerini ve satış (elden çıkarma) planlarını yeniden değerlendirin. Yeni elde tutma koşullarına uyum sağlanıp sağlanamayacağını, özellikle altı yıl elde tutmanın vergi avantajı yaratıp yaratmayacağını inceleyin. İşverenle birlikte satış zamanlaması ve ceza riskine yönelik planlama görüşmeleri yapın.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-17.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260704-17.html'>Neyin nesi değişti? →</a></div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Düzenleme hizmet erbabı açısından olumlu; istisna tavanı iki katına çıkarıldı, elde tutma süreleri kısaltıldı. Altı yıl elde tutulması halinde vergi cezası doğmuyor. Bu sayede teknogirişim çalışanları için pay senedi planlaması daha cazip hale geldi.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-16.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Diş freze makinelerine yönelik dampinge karşı kesin önlem kararının yürürlüğe girmesi</h3>
-<p><b>Ne oldu:</b> Damping soruşturması sonuçlanmış olup, GTİP 9018.49.90.00.22 kapsamındaki CNC freze makinelerinin Çin menşeli ithalatında adet başına 8.555 ABD Doları tutarında kesin dampinge karşı önlem uygulanmasına karar verilmiştir. Böylece soruşturmanın açılışına ilişkin tebliğ, nihai kararı içeren tebliğe dönüşmüştür.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2025/33</p>
-<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(11.10.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• GTİP 9018.49.90.00.22 CNC Freze Makineleri dampinge karşı önlem: <span style='color:var(--dim);text-decoration:line-through'>Soruşturma açılması (henüz karar verilmemiş)</span> → <b>8.555 ABD Doları/adet dampinge karşı kesin önlem</b></div>
-<div class='kiymet'>• Tebliğ kapsamı: <span style='color:var(--dim);text-decoration:line-through'>Damping soruşturması açılması ve usul esaslarının belirlenmesi</span> → <b>Tamamlanan soruşturma sonucunda alınan kararın yürürlüğe konulması</b></div>
-<div class='kiymet'>• Tanımlar bölümü madde sayısı ve içeriği: <span style='color:var(--dim);text-decoration:line-through'>9 maddede detaylı tanımlar (Bakanlık, CIF, ÇHC, EBYS, Genel Müdürlük, GTİP, GTP, Kanun, Karar, KEP, TGTC, Yönetmelik)</span> → <b>4 maddede sınırlı tanımlar (GTİP, Kurul, TGTC, Yönetmelik)</b></div>
-<div class='kiymet'>• Soruşturma açılışı ve bildirim maddeleri: <span style='color:var(--dim);text-decoration:line-through'>MADDE 4-12 arasında soruşturma konusu ürün, damping iddiası, zarar, nedensellik, karar, piyasa ekonomisi, bildirim ve yetkili merci hakkında detaylı hükümler</span> → <b>Soruşturma açılışı ile ilgili maddeleri yok, soruşturma tamamlanmış</b></div>
-<div class='kiymet'>• Uygulama süresi: <span style='color:var(--dim);text-decoration:line-through'>Belirtilmemiş</span> → <b>5 yıl (Yönetmeliğin 35. maddesine göre yürürlük tarihinden itibaren 5 yıl sonra sona erer)</b></div>
-<p><b>Ürün:</b> CNC frezeler (dişçilikte kullanılan diş freze/kazıyıcı makineleri)</p>
-<p><b>GTİP:</b><br><span class='gtip'>9018.49.90.00.22</span></p>
+<h3>TIR İşlemleri Yönetmeliği'nde gümrük idaresi sayısı ve kurum adları güncellendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, TIR karnesi işlemlerinde gümrük idaresi sayısını artırıyor ve ardışık iki karne kullanılmasına izin veriyor. Ayrıca kurum adlarında yeniden düzenlemeye gidildi.</p>
+<p><b>Hangi tebliğ:</b> Gümrük Genel Tebliği (TIR İşlemleri) (Seri No: 1) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>iki</span><span class='ok'>→</span><span class='hap yeni'>üç</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>Ulaştırma, Denizcilik ve Haberleşme Bakanlığından</span><span class='ok'>→</span><span class='hap yeni'>Ulaştırma ve Altyapı Bakanlığından</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• TIR taşımasında hareket ve varış gümrük idarelerinin toplam sayısı sekizi aşamaz; idareler bu sayıyı azami üçten az, yediden az olarak sınırlandırabiliyor (Madde 20/1).</div>
+<div class='kiymet'>• Sekizden fazla gümrük idaresinde işlem yapmak için ardışık iki ayrı TIR karnesi kullanılabiliyor; ilk karne sekiz idarede, ikincisi en fazla yedi idarede işlem görebiliyor, toplamda on beş idarede işlem yapılmış oluyor (Madde 20/3a).</div>
+<div class='kiymet'>• Taşıt dizisi veya konteyner ile TIR taşıması yapılırken her taşıt veya konteyner için ayrı TIR karnesi düzenlenebiliyor ve her karneye diğer karnemin numarası yazılıyor (Madde 20/3b).</div>
+<div class='kiymet'>• Her iki TIR taşımasının da en az bir sınır geçilerek yapılması zorunlu (Madde 20/3a).</div>
+<div class='kiymet'>• Gümrük idareleri gerekli görürse taşıtları değerlendirirken diğer risk unsurlarını da dikkate alarak kontrol kararı verebiliyor (Madde 8/4).</div>
+<p><b>Ürün:</b> TIR karnesiyle taşınan tüm mallar</p>
+<p><b>Kimi ilgilendirir:</b> TIR karnesi kullanan taşıyıcılar, gümrük müşavirleri, lojistik şirketleri</p>
+<p><b>Ne yapmalısın:</b> Mevcut TIR işlemlerinizi gözden geçirin; sekiz idareden fazla gümrük geçişi planlanıyorsa ardışık iki karne stratejisini veya çoklu karne yöntemini değerlendirin. Kurum adı değişikliklerini sisteminizde ve yazışmalarınızda güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-17.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin menşeli diş freze makinelerine dampinge karşı kesin önlem</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin'den ithal edilen dişçilik freze makinelerine yönelik damping soruşturmasını sonuçlandırdı. Soruşturma neticesinde bu ürünlerin dampingli fiyatlarla satıldığı ve yerli üretimin bu durumdan zarar gördüğü tespit edildi. Alınan karar uyarınca ithalatçılar, makine adedine göre belirlenen tutarı ödeyecek.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2025/33 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin menşeli CNC freze makineleri (GTİP 9018.49.90.00.22) için gümrük idareleri serbest dolaşıma girişte adet başına 8.555 ABD doları tutarında dampinge karşı kesin önlem tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Gümrük tarife pozisyonunda veya tanımında yapılacak değişiklikler bu Tebliğ uygulanmasına engel olmaz (Madde 5/3).</div>
+<div class='kiymet'>• Tebliğ kapsamındaki önlemler, yürürlük tarihinden itibaren 5 yıl sonra yürürlükten kalkar (Madde 5/4).</div>
+<div class='kiymet'>• Son tarihin öncesinde nihai gözden geçirme soruşturması başlatılırsa, önlemler soruşturma tamamlanana dek sürer (Madde 5/5).</div>
+<div class='kiymet'>• Bu Tebliğ yayım tarihinde hemen yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Dişçilikte kullanılan CNC freze makineleri</p>
+<p><b>GTİP:</b><br><span class='gtip'>9018.49.90.00.22</span><span class='gtip'>9018.41</span><span class='gtip'>9018.49</span><span class='gtip'>8479.89.97.90.19</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>9018.49.90.00.22 → <b>8.555 ABD Doları/adet</b></div>
-<p><b>Kimi ilgilendirir:</b> Dişçilik ekipmanı ithal eden ticari kuruluşlar, diş hekimleri ve diş laboratuvarları</p>
-<p><b>Ne yapmalısın:</b> Çin'den yapılan diş freze ithalatında gümrük girişlerinde adet başına 8.555 ABD Doları tutarında ücret tahakkuk ettirilmeli; nakliye ve vergi öncesi fiyatlandırmalar bu yeni eşiğe göre yeniden değerlendirilmeli; devam eden siparişlerdeki düşük fiyat koşulları gözden geçirilmelidir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Çin menşeli CNC freze makinelerinin ithalatında adet başına 8.555 ABD Doları tutarında gümrük önlemi uygulanacak olup, bu durum ithalatçılar için ithalat maliyetini artıracak ve rekabet gücünü azaltacaktır.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-18.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260704-18.html'>Neyin nesi değişti? →</a></div>
+<div class='kiymet'>9018.49.90.00.22 → <b>8.555 ABD Doları/Adet</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin'den dişçilik freze makinesi ithal eden ticari işletmeler</p>
+<p><b>Ne yapmalısın:</b> Ocak 2026'dan itibaren Çin menşeli bu tür makineleri ithal edecekseniz, gümrük beyannamelerinde adet başına 8.555 ABD doları tutarında ön ödeme yapılması gerektiğini dikkate alın. Açık siparişlerinizde fiyat güncellemesini ve nakliye zamanlamasını buna göre gözden geçirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Adet başına sabit tutarlı bir dampinge karşı önlem yürürlüğe girdi. Çin'den yapılan makine ithalatı bu kapsamda maliyet açısından daha ağır hale geldi; fiyatlandırma yapınızın ve satın alma bütçelerinizin yeniden planlanması gerekiyor. Bu düzenleme, Türk diş teknolojisi üreticilerinin rekabet gücünü destekler nitelikte.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-18.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kalem ithalatında dampinge karşı önleme ilişkin nihai gözden geçirme soruşturması açılması</h3>
-<p><b>Ne oldu:</b> Eski teblig (2021/37) kesin dampinge karşı önlemi yürürlüğe koymayı amaçlamışken, yeni teblig (2026/26) bu önlemin beş yıllık geçerlilik süresinin sonunda nihai gözden geçirme soruşturması açılmasını ve aynı zamanda 9608.10.99.00.00 GTIP'i (jel mürekkepli kalemler) soruşturma kapsamına alınmasını içermektedir.</p>
-<p><b>Neyi değiştiriyor:</b> 2021/37</p>
-<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(15.07.2021 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• GTIP 9608.10.99.00.00: <span style='color:var(--dim);text-decoration:line-through'>Tebliğde yer almıyor</span> → <b>Soruşturma konusu ürün olarak dahil edildi</b></div>
-<div class='kiymet'>• Dampinge karşı önlem türü: <span style='color:var(--dim);text-decoration:line-through'>Kesin önlem uygulanmakta (0,066 ABD doları/adet)</span> → <b>Nihai gözden geçirme soruşturması açılması (önlem devam ediyor, soruşturma başlatıldı)</b></div>
-<div class='kiymet'>• Tebliğ amacı: <span style='color:var(--dim);text-decoration:line-through'>Soruşturmanın tamamlanmasına ilişkin karar yürürlüğe konulması</span> → <b>Nihai gözden geçirme soruşturması açılması ve usul-esaslarının belirlenmesi</b></div>
-<p><b>Ürün:</b> Plastik maddelerden sıvı mürekkepli bilyalı kalemler, jel mürekkepli bilyalı kalemler ve bu ürünleri içeren kalem takımları</p>
+<h3>Çin menşeli kalemlere yönelik nihai gözden geçirme soruşturması başlatılıyor</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, plastik bilyalı ve jel mürekkepli kalemler ile kalem takımlarının Çin'den ithalatında yürürlükte bulunan 0,066 ABD doları/adet tutarındaki dampinge karşı önlemi gözden geçirmek amacıyla soruşturma başlattı. Bu kapsamda dampingin devam edip etmeyeceği incelenecek.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2021/37 (15/7/2021, RG 31542) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma 4 Temmuz 2026 tarihinde başlamıştır (M.15/1).</div>
+<div class='kiymet'>• Soru formlarına yanıt verme süresi bildirimin gönderildiği tarihten itibaren 37 gün olup posta süresi de dâhil tutulur (M.12/1).</div>
+<div class='kiymet'>• Bildirimi alamayan ilgili taraflar için cevap süresi tebliğin yayımı tarihinden itibaren 37 gündür (M.12/2).</div>
+<div class='kiymet'>• Mevcut 0,066 ABD doları/adet gözetime karşı önlem soruşturma sonlanıncaya kadar yürürlükte kalır (M.14/1).</div>
+<div class='kiymet'>• Yerli üretim dalı 37 gün içinde piyasa ekonomisi koşullarını ispat etmezse normal değer Türkiye'nin ülkesi olarak seçilerek hesaplanacak (M.9/1).</div>
+<p><b>Ürün:</b> Plastik maddelerden sıvı mürekkepli bilyalı kalemler, jel mürekkepli bilyalı kalemler ve bu kalemlerden oluşan takımlar</p>
 <p><b>GTİP:</b><br><span class='gtip'>9608.10.10.10.00</span><span class='gtip'>9608.10.99.00.00</span><span class='gtip'>9608.50.00.10.00</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
 <div class='kiymet'>9608.10.10.10.00 → <b>0,066 ABD Doları/Adet</b></div>
+<div class='kiymet'>9608.10.99.00.00 → <b>0,066 ABD Doları/Adet</b></div>
 <div class='kiymet'>9608.50.00.10.00 → <b>0,066 ABD Doları/Adet</b></div>
-<div class='kiymet'>9608.10.99.00.00 → <b>kaynakta belirtilmemis</b></div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 9608.10.10.10.00: onceki kaydimiz 15/7/2026 (06.02.2026) -> yeni 0,066 ABD Doları/Adet</div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 9608.50.00.10.00: onceki kaydimiz 15/7/2026 (06.02.2026) -> yeni 0,066 ABD Doları/Adet</div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 9608.10.99.00.00: onceki kaydimiz 15/7/2026 (06.02.2026) -> yeni kaynakta belirtilmemis</div>
-<p><b>Kimi ilgilendirir:</b> Çin'den bu ürünleri ithal eden firmalar, yerli kalem üreticileri</p>
-<p><b>Ne yapmalısın:</b> İthalatçılar soru formlarını belirtilen sürede (12. madde) cevapla; Bakanlık'ın KEP adresine (ticaretbakanligi@hs01.kep.tr) gönder. Yurt dışında yerleşik firmalar yazılı başvuru ile ithebys@ticaret.gov.tr'ye de bilgi gönder. Vekaletnameli temsilci göndermek gerekirse apostil tasdikli yetki belgesi hazırla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Yürürlükteki 0,066 ABD doları/adet dampinge karşı kesin önlem devam etmekte, aynı zamanda jel mürekkepli kalemler (GTIP 9608.10.99.00.00) gibi yeni ürün grupları soruşturma kapsamına alınarak potansiyel olarak ek önlemler getirilebilmektedir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-19.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260704-19.html'>Neyin nesi değişti? →</a></div>
+<p><b>Kimi ilgilendirir:</b> Çin'den kalem ve kırtasiye ürünü ithal eden firmalar, yerli kalem üreticileri, ihracatçılar ve ithalatçılar</p>
+<p><b>Ne yapmalısın:</b> Çin'den kalem ithal ediyorsanız soru formlarını 37 gün içinde yanıtlayıp destekleyici belgelerle birlikte Damping ve Sübvansiyon Dairesi'ne iletmeniz gerekir (KEP: ticaretbakanligi@hs01.kep.tr veya yazılı başvuru yoluyla). Yurt dışında bulunuyorsanız yanıtları yazılı olarak, eklerini ise elektronik ortamda (CD/USB) hazırlayıp ithebys@ticaret.gov.tr adresine gönderiniz. Piyasa ekonomisi koşullarını ispatlamak istiyorsanız yasal temsilci aracılığıyla başvurabilirsiniz; ancak bu durumda vekaletnamenin Türkçe tercümesiyle birlikte apostil tasdikli olması şarttır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Mevcut gözetim önlemi kapsamında 0,066 ABD doları/adet tutar uygulandığından Çin'den kalem ithalatı maliyetli olmaya devam ediyor. Soruşturma süresince yürürlükteki gözetime uyum zorunludur; aksi halde belge düzenlemede sıkıntı yaşanabilir. İş birliğinden kaçınılması hâlinde cezai yaptırımla karşılaşılabilir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-19.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Yağlık ayçiçeği tohumu ve ham ayçiçeği yağı ithalatında tarife kontenjanı uygulaması</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yağlık ayçiçeği tohumu ve ham ayçiçeği yağı ithalatında tarife kontenjanı sistemi başlatıyor. Toplam 1 milyon 250 bin ton tohum veya 500 bin ton yağ eşdeğeri için indirimli gümrük vergisi uygulanacak; ithalatçılar 1-15 Aralık 2026 arasında başvuru yapabilecek.</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yağlık ayçiçeği tohumu ve ham ayçiçeği yağı ithalatında tarife kontenjanı sistemini başlatıyor. Kontenjan 1 milyon 250 bin ton (tohum bazında) olarak belirlendi; Aralık 2026'da başvurular alınacak ve kontenjan tahsis edilen firmalar ithal lisansı alacak.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Başvurular 1-15 Aralık 2026 tarihleri arasında e-Devlet veya Ticaret Bakanlığı internet sitesi üzerinden elektronik imzalı yapılır (Madde 4/3).</div>
+<div class='kiymet'>• Tarife kontenjans 1 milyon 250 bin ton yağlık ayçiçeği tohumu veya %40 randıman ile karşılığı 500 bin ton ham ayçiçeği yağı olarak dağıtılır (Madde 4/2).</div>
+<div class='kiymet'>• Tahsisat alan firma adına düzenlenen ithal lisansı e-posta ile bildirilir; yazılı bildirim yapılmaz (Madde 5/1).</div>
+<div class='kiymet'>• İthal lisansı üçüncü kişilere devredilemez; ithalatı lisans sahibi firma yapmalıdır (Madde 6/4).</div>
+<div class='kiymet'>• Belgelerde tahrifat, sahte belge, yanlış bilgi veya lisans devri tespit edilirse tahsisat iptal edilir (Madde 8/1).</div>
+<div class='kiymet'>• Gümrük beyannamesi ithal lisansının geçerlilik süresi içinde tescil edilmiş olmalıdır (Madde 6/2).</div>
+<div class='kiymet'>• Teblig yayımı tarihinde yürürlüğe girer (Madde 11/1).</div>
 <p><b>Ürün:</b> Yağlık ayçiçeği tohumu ve ham ayçiçeği yağı</p>
-<p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Yağlık ayçiçeği tohumu alımı yapan ve ham veya rafine ayçiçeği yağı üreten sanayici firmalar</p>
-<p><b>Ne yapmalısın:</b> Başvuru tarihlerini (1-15 Aralık 2026) not et. e-Devlet veya Ticaret Bakanlığı portalı üzerinden elektronik imzalı başvuru hazırla. Ek-1'de istenen belgeleri tam olarak topla. Başvuru formundaki e-posta adresini kontrol et (lisans bu adrese gönderilecek). Gümrük beyannamesinin kontenjan dönemi içinde tescil edilmesini sağla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Kontenjani kapsamındaki ithalatlar indirimli gümrük vergisine tabi tutulur. Ancak dağıtım talep sırasına ve belirtilen kriterlerine bağlı; talep taşınımını aşarsa oransal azaltma yapılabilir. Başvuru süresi dar (15 gün) ve elektronik ortam şartları katı.</div>
+<p><b>Kimi ilgilendirir:</b> Yağlık ayçiçeği tohumu alımı yapan ve ham ya da rafine ayçiçeği yağı üreten sanayi firmaları</p>
+<p><b>Ne yapmalısın:</b> Aralık başında başvuru hazırlarken Ek-2'de yer alan tüm belgeleri kontrol edin. Başvuru formunda doğru e-posta adresinin ve elektronik imza yetkisinin (31.12.2025 tarihli tebliğ uyarınca) tanımlı olduğunu teyit edin. Tahsis edilen lisans numarasını gümrük beyannamesinin 44 nolu kutusuna doğru şekilde kaydedin ve tescili lisans süresi içinde yaptırın.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260704-20.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>

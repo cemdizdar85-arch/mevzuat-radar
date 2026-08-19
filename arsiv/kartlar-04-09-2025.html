@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,116 +33,163 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>04.09.2025 — Resmî Gazete'deki 8 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>04.09.2025 tarihli Resmî Gazete'de 8 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Malezya menşeli sentetik lifli mensucat ithalatına dampinge karşı önlem</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Malezya'da üretilen 55.13–55.16 GTP kodlu sentetik lifli dokuma kumaşlara %44 dampinge karşı önlem uygulamaya başlıyor. Penfabric Sdn. Berhad firması bu önlemden muaf tutuluyor.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/11)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Malezya menşeli sentetik lifli mensucat ithalatına damping karşı önlem</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Malezya'dan gelen sentetik veya suni devamsız liflerden dokunmuş mensucat ithalatında, Çin menşeli ürünler için yürürlükte olan %44 oranındaki dampinge karşı önlemin teşmiline karar verdi. Penfabric Sdn. Berhad firmasının ürünleri ise istisnai olarak bu önlemden muaf tutulmuştur.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2025/11 (23/6/2025 tarihli) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Malezya menşeli/çıkışlı 55.13, 55.14, 55.15 ve 55.16 GTIP kodlarındaki sentetik lifli mensucat ithalatında %44 oranında dampinge karşı kesin önlem uygulanır (Madde 6/1).</div>
+<div class='kiymet'>• Penfabric Sdn. Berhad tarafından üretilen eşya ithalatında Üretici/İhracatçı Belgesi aranarak dampinge karşı önlem uygulanmaz (Madde 6/2).</div>
+<div class='kiymet'>• Gümrük idareleri tarafından, soruşturma konusu eşya hakkında mevcut teminata bağlı işlemler için İthalatta Haksız Rekabetin Önlenmesi Hakkında Karar 11. maddesinin üçüncü fıkrası uyarınca işlem yapılır (Madde 6/4).</div>
+<div class='kiymet'>• Bu Tebliğ yayımı tarihinde yürürlüğe girer (Madde 7/1).</div>
 <p><b>Ürün:</b> Sentetik veya suni devamsız liflerden dokunmuş mensucat</p>
 <p><b>GTİP:</b><br><span class='gtip'>55.13</span><span class='gtip'>55.14</span><span class='gtip'>55.15</span><span class='gtip'>55.16</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>55.15 → <b></b></div>
-<div class='kiymet'>55.16 → <b></b></div>
-<div class='kiymet'>55.14 → <b></b></div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 55.15: onceki kaydimiz soruşturma konusu (21.10.2025) -> yeni </div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 55.16: onceki kaydimiz soruşturma konusu (21.10.2025) -> yeni </div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 55.14: onceki kaydimiz soruşturma konusu (21.10.2025) -> yeni </div>
-<p><b>Kimi ilgilendirir:</b> Malezya menşeli sentetik lifli mensucat ithal eden firmalar (Penfabric Sdn. Berhad hariç)</p>
-<p><b>Ne yapmalısın:</b> Malezya menşeli 55.13–55.16 kodlu mensucat ithalatında %44 dampinge karşı önlemi gümrük belgelerine yansıt. Penfabric Sdn. Berhad'dan üretici/ihracatçı belgesine göre muafiyet işlemini hazırla. Mevcut teminatlı işlemleri gözden geçir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Malezya'dan sentetik ve suni lifli dokuma ürünleri ithal eden tekstil işletmeleri (Penfabric Sdn. Berhad hariç)</p>
+<p><b>Ne yapmalısın:</b> Malezya menşeli 55.13–55.16 GTIP kodlarındaki dokuma ürünlerinin ithal bedellerini %44 dampinge karşı önlem oranına göre güncelleyin. Penfabric Sdn. Berhad'dan kaynaklanan ürünlerde Üretici/İhracatçı Belgesi talep edin. Teminata bağlı bekleyen işlemleri gümrük müdürlüğüne bildirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Malezya'dan gelen sentetik lifli dokuma ürünlerine %44 dampinge karşı ek ücret uygulanması, bu kaynaktan yapılan ithalatın maliyetini artırmakta ve beyan değerlerinin güncellenmesini gerektirmektedir. İstisna kapsamındaki Penfabric Sdn. Berhad'dan yapılan alımlar bu süreçte tercih edilir hale gelebilir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İnsan doku ve hücre ürünleri tebliği yürürlükten kaldırılıyor</h3>
-<p><b>Ne oldu:</b> Türkiye İlaç ve Tıbbi Cihaz Kurumu, 2014'ten bu yana yürürlükte bulunan insan doku ve hücre ürünlerine ilişkin tebliği yürürlükten kaldırdı. Yeni düzenleme 1 Ocak 2026 tarihinde yürürlüğe girecek.</p>
-<p><b>Neyi değiştiriyor:</b> 4/4/2014 tarihli ve 28962 sayılı Resmî Gazete'de yayımlanan İnsan Doku ve Hücre Ürünlerinin Ruhsatlandırılması ve Bu Ürünlerin Üretim, İthalat, İhracat, Depolama ve Dağıtım Faaliyetlerini Yürüten Merkezler Hakkında Tebliğ</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İnsan doku ve hücre ürünleri ruhsatlandırma tebliği yürürlükten kaldırılıyor</h3>
+<p><b>Ne oldu:</b> 4 Nisan 2014'te yayımlanan ve insan doku ile hücre ürünlerinin ruhsatlandırması, üretimi, ithalatı, ihracatı, depolanması ve dağıtımını düzenleyen tebliğ tamamen ortadan kaldırılıyor. Yeni düzenlemenin yürürlüğe giriş tarihi 1 Ocak 2026.</p>
+<p><b>Hangi tebliğ:</b> 4/4/2014 tarihli ve 28962 sayılı Resmî Gazete'de yayımlanan İnsan Doku ve Hücre Ürünlerinin Ruhsatlandırılması ve Bu Ürünlerin Üretim, İthalat, İhracat, Depolama ve Dağıtım Faaliyetlerini Yürüten Merkezler Hakkında Tebliğ sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 4 Nisan 2014 tarihli tebliğin tamamı yürürlükten kaldırılıyor (Madde 1).</div>
+<div class='kiymet'>• Yeni düzenleme 1 Ocak 2026'da yürürlüğe giriyor (Madde 2).</div>
 <p><b>Ürün:</b> İnsan doku ve hücre ürünleri</p>
-<p><b>Kimi ilgilendirir:</b> İnsan doku ve hücre ürünlerini üreten, ithal eden, ihraç eden, depolayan ve dağıtan merkezler</p>
-<p><b>Ne yapmalısın:</b> Kurum tarafından yayımlanacak yeni tebliği takip edin ve 2026 başına kadar mevcut uygulamalarınızı gözden geçirin. Tedavi hizmetlerinde veya ticari faaliyetlerde herhangi bir aksama yaşanmaması için Kuruma başvuruda bulunun.</p>
+<p><b>Kimi ilgilendirir:</b> İnsan doku ve hücre ürünlerini üretim, ithalat, ihracat, depolama veya dağıtım yapan merkezler ve Türkiye İlaç ve Tıbbî Cihaz Kurumu</p>
+<p><b>Ne yapmalısın:</b> Mevcut faaliyetlerinizin hangi yeni düzenlemeye tabi olacağını Türkiye İlaç ve Tıbbî Cihaz Kurumundan öğren. 1 Ocak 2026 öncesinde geçiş için gereken adımları belirle.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Ar-Ge ve tasarım personeli gelir vergisi stopajı teşviki düzenlemesi güncellendi</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 5746 sayılı Kanun kapsamındaki gelir vergisi stopajı teşvikine ilişkin kuralları yeniden düzenledi. Doktoralı ve yüksek eğitimli Ar-Ge/tasarım personeline yönelik indirim oranları, fazla mesai kapsamı ve merkez dışı faaliyetlerde uygulama şartları netleştirildi.</p>
-<p><b>Neyi değiştiriyor:</b> 5746 Sayılı Araştırma, Geliştirme ve Tasarım Faaliyetlerinin Desteklenmesi Hakkında Kanun Genel Tebliği (Seri No: 4)</p>
-<p><b>Ürün:</b> Ar-Ge merkezleri, tasarım merkezleri ve teknoloji merkezi işletmelerinde istihdam edilen personel</p>
-<p><b>Kimi ilgilendirir:</b> Ar-Ge merkezleri, tasarım merkezleri, teknoloji merkezi işletmeleri, teknogirişim şirketleri, uluslararası fonlar tarafından desteklenen projeler yürüten kurumlar ve TÜBİTAK projelerine katılan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Eylül 2025 sonrası yeni işe alınan doktoralı ve yüksek eğitimli personelin ücretlerini yeni oranlara göre hesapla. Ödenen her ay için 40 katı asgari ücret tutarını kontrol et; bu tavanı aşan ödenekleri teşvik dışında tut. Merkez dışı çalışmalar varsa Bakanlık onayı almış mı diye teyit et. Muhtasar beyannamelerde indirim tutarlarını dönem bazında karşıllaştır.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Ar-Ge ve tasarım personeli gelir vergisi stopajı teşviğinde değişiklik</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 5746 sayılı Kanun kapsamındaki gelir vergisi stopajı teşvikinin hesaplanma yöntemi ile kapsam kurallarını yeniden düzenlemiştir. Buna göre teşvik oranları (doktoralı personel için %95, yüksek lisanslı personel için %90, diğerleri için %80), destek personeli sayısına ilişkin sınır (%10), merkez dışında yürütülen faaliyetler ve üniversitede ders verme koşulları açıklığa kavuşturulmuştur.</p>
+<p><b>Hangi tebliğ:</b> 5746 Sayılı Araştırma, Geliştirme ve Tasarım Faaliyetlerinin Desteklenmesi Hakkında Kanun Genel Tebliği (Seri No: 4) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 8 inci maddesinin üçüncü fıkrası yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Ar-Ge ve tasarım personelinin brüt asgari ücretin 40 katını aşmayan ücret kısmı üzerindeki gelir vergisinden asgari ücret istisnası düşüldükten sonra kalan tutarın: doktoralı personel ile en az yüksek lisans derecesine sahip olanlar için %95'i, yüksek lisanslı personel ile lisans derecesine sahip olanlar için %90'ı, diğerleri için %80'i indirilir (Madde 3/2).</div>
+<div class='kiymet'>• Destek personelinin teşvikten yararlanma oranı, toplam tam zamanlı Ar-Ge veya tasarım personeli sayısının %10'unu geçemez (Madde 4/2).</div>
+<div class='kiymet'>• Ar-Ge veya tasarım merkezi dışında yürütülen faaliyetlere ilişkin ücretler, merkez yönetimi onayı ve Sanayi ve Teknoloji Bakanlığı bilgilendirmesi koşuluyla teşvik kapsamında değerlendirilir (Madde 3/2).</div>
+<div class='kiymet'>• Doktora mezunu personelin üniversitelerde Ar-Ge ders vermesi veya tasarım personelinin teknoloji geliştirme bölgelerinde mentorluk yapması, haftalık 8 saati aşmamak şartıyla teşvik kapsamındadır (Madde 3/2).</div>
+<div class='kiymet'>• Personelin toplam sayısının veya çalışma sürelerinin %20'sini aşmamak kaydıyla merkez dışında geçirilen süreler de teşvik kapsamında değerlendirilir; Cumhurbaşkanı bu oranı bölgesel/sektörel alanlara göre %0 ile %100 arasında ayarlamaya yetkilidir (Madde 3/2).</div>
+<div class='kiymet'>• Haftalık 45 saatin üzerindeki ve ek çalışma sürelerine ilişkin ücretler teşvikten faydalanamaz (Madde 3/2).</div>
+<div class='kiymet'>• Teşvik koşullarının sağlanıp sağlanmadığı en geç üçer yıllık süreler itibarıyla kontrol edilir (Madde 4/1).</div>
+<div class='kiymet'>• Şartların ihlali halinde zamanında tahakkuk ettirilmemiş vergiler vergi ziyaı sayılır; sağlanan vergi dışı destekler ise 6183 sayılı Kanun hükümleri ve gecikme zammı uygulanarak tahsil edilir (Madde 4/4).</div>
+<div class='kiymet'>• Ar-Ge, yenilik ve tasarım faaliyetlerine ilişkin yerindelik ve uygunluk denetimleri Sanayi ve Teknoloji Bakanlığı veya teknoloji geliştirme bölgeleri yönetici şirketleri tarafından yapılır; nihai karar mercii Bakanlıktır (Madde 3/8).</div>
+<p><b>Ürün:</b> Ar-Ge merkezi, tasarım merkezi ve yenilik projeleri kapsamında istihdam edilen personel</p>
+<p><b>Kimi ilgilendirir:</b> Ar-Ge merkezleri, tasarım merkezleri, teknoloji merkezleri, teknogirişimler, kamu kurum ve kuruluşları, vakıflar, TÜBİTAK destekli projeler ile teknoloji geliştirme bölgelerinde faaliyet gösteren işletmeler</p>
+<p><b>Ne yapmalısın:</b> Eylül 2025'ten sonra istihdam edilen veya mevcut personelin ücretlerini yeni teşvik oranlarına göre yeniden hesaplayın. Destek personeli sayısının toplam personel sayısının %10'unu aşmadığını doğrulayın. Merkez dışında yürütülen faaliyetler için merkez yönetiminin onayı ile bakanlık bilgilendirme işlemlerini hazırlayın. Personelin eğitim düzeyine göre (%95, %90, %80) teşvik tutarlarını ayrı ayrı kayıtlara işleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Ar-Ge damga vergisi istisnasına asgari ücret tavanı uygulaması</h3>
-<p><b>Ne oldu:</b> Araştırma, Geliştirme ve Tasarım Faaliyetlerinin Desteklenmesi Kanunu'na ilişkin tebliğde değişiklik yapılmıştır. Damga vergisi istisnasından yararlanan personel ücretlerinde, brüt asgari ücretin kırk katını aşan kısmlar artık genel hükümlere tabi tutulacaktır.</p>
-<p><b>Neyi değiştiriyor:</b> 5746 Sayılı Araştırma, Geliştirme ve Tasarım Faaliyetlerinin Desteklenmesi Hakkında Kanun Genel Tebliği (Seri No: 5)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemişti</p>
-<p><b>Kimi ilgilendirir:</b> Ar-Ge, geliştirme ve tasarım faaliyetleri yapan şirketler ve bu işlerde istihdam edilen personel</p>
-<p><b>Ne yapmalısın:</b> Mevcut Ar-Ge personel ücret ödemeleri (ücret bordrosu, kağıt düzenlemeleri) taranız. Brüt asgari ücretin kırk katını hesapla; bunun üstündeki tutar için damga vergisini yeniden değerlendir ve gerekli düzeltmeleri hazırla.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Ar-Ge faaliyetlerinde damga vergisi istisnasına brüt asgari ücret tavanı getirildi</h3>
+<p><b>Ne oldu:</b> Ar-Ge, yenilik ve tasarım faaliyetleri kapsamında çalışanlara yapılan ödemelerde damga vergisi istisnası, brüt asgari ücretin 40 katıyla sınırlandırıldı. Bu tutarı aşan kısım normal damga vergisine tabi olacak. Aylık prim ve hizmet belgeleri ise tamamen muaf tutuldu.</p>
+<p><b>Hangi tebliğ:</b> 5746 Sayılı Araştırma, Geliştirme ve Tasarım Faaliyetlerinin Desteklenmesi Hakkında Kanun Genel Tebliği (Seri No: 5) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• 3 üncü maddesinin dördüncü fıkrası baştan yazıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Ar-Ge, yenilik ve tasarım faaliyetleri kapsamında çalışanlara yapılan ücret ödemelerine damga vergisi istisnaı brüt asgari ücretin 40 katı tutarına kadar uygulanır; aşan kısım vergiye tabi (Madde 2)</div>
+<div class='kiymet'>• Sigortalılar için düzenlenecek aylık prim ve hizmet belgelerinden damga vergisi alınmaz (Madde 2)</div>
+<div class='kiymet'>• Teblig yayım tarihinde yürürlüğe girer (Madde 3)</div>
+<p><b>Ürün:</b> Ar-Ge, yenilik ve tasarım faaliyetlerine ilişkin ücret belgeleri ile prim belgesi</p>
+<p><b>Kimi ilgilendirir:</b> Ar-Ge ve yenilik projeleri yürüten işletmeler, tasarım hizmeti sunan firmalar ve bu alanda istihdam sağlayan işverenler</p>
+<p><b>Ne yapmalısın:</b> Mevcut Ar-Ge projelerinde çalışan ücretlerinin toplam tutarını brüt asgari ücretin 40 katıyla karşılaştırarak vergiye tabi kısmı belirleyin. İnsan Kaynakları ve muhasebe ekibiyle koordinasyon sağlayarak prim/hizmet belgelerindeki muafiyet uygulamasını netleştirin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Ar-Ge faaliyetlerinde damga vergisi muafiyeti artık sınırlı; ücret ödemelerinde brüt asgari ücretin 40 katı tavanı getirildi. Bu tutarı aşan işletmelerde muhasebe maliyeti artacak ve vergi yükü yoğunlaşacaktır. Prim belgelerinin tamamen muaf tutulması olumlu bir gelişme olmakla birlikte, ücret ödeme planlamasının yeniden gözden geçirilmesi gerekmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Ar-Ge personeli ücretlerinde gelir vergisi stopaj teşviki ve istisna uygulaması</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, Teknoloji Geliştirme Bölgeleri ile araştırma altyapılarında çalışan Ar-Ge, tasarım ve destek personelinin ücretlerine uygulanacak gelir ve damga vergisi teşvik ve istisnalarını düzenleyen tebliği yayımladı. Teşvik ve istisna, asgari ücretin 40 katına kadar olan tutarlar için geçerli.</p>
-<p><b>Ürün:</b> Ar-Ge, tasarım ve destek personeli ücretleri</p>
-<p><b>Kimi ilgilendirir:</b> Teknoloji Geliştirme Bölgelerinde ve araştırma altyapılarında faaliyet gösteren firmalar ile Ar-Ge personeli istihdam eden işverenler</p>
-<p><b>Ne yapmalısın:</b> Bölge ve araştırma altyapısında çalışan personelin ücretlerini asgari ücretin 40 katı sınırı çerçevesinde tespit edin. Muhtasar ve prim hizmet beyannamesi ekinde yer alan ilgili formları (Ek:1 veya Ek:2) doldurarak vergi dairesine sunun. Brüt asgari ücretin 40 katını aşan kısımlar için normal vergilendirmeyi uygulayın.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Ar-Ge personeline yapılan ücret ödemelerinde gelir vergisi stopaj teşvikinin (Teknoloji Bölgeleri) veya istisnanın (araştırma altyapıları) uygulanması, iş gücü maliyetini düşürerek işverenlerin Ar-Ge istihdamını teşvik etmesini sağlar. Asgari ücretin 40 katına kadar olan kısımda vergi yükü hafifler.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Ar-Ge personelinin ücretlerinde gelir vergisi stopajı teşviki ve damga vergisi istisnası</h3>
+<p><b>Ne oldu:</b> Tebliğ, teknoloji geliştirme bölgelerinde ve araştırma altyapılarında çalışan Ar-Ge, tasarım ve destek personelinin brüt asgari ücretin 40 katını aşmayan ücretlerine gelir vergisi stopajı teşviki ve damga vergisi istisnası uygulanacağını açıklamaktadır. Bölgelerde çalışan personelin ücret geliri bu eşiği aştığında, aşan kısım normal vergilendirme düzenine tabi tutulur.</p>
+<p><b>Ürün:</b> Ar-Ge, tasarım ve destek personelinin ücretleri; araştırma altyapı projelerinde istihdam edilen personelin ücretleri</p>
+<p><b>Kimi ilgilendirir:</b> Teknoloji geliştirme bölgelerinde faaliyet gösteren firmalar; araştırma merkezleri ve araştırma altyapı projelerini yürüten kuruluşlar; Ar-Ge, tasarım ve destek personeli</p>
+<p><b>Ne yapmalısın:</b> Teknik personel ücretlerini asgari ücretin 40 katı eşiğine göre ayrıştırın. Eşiğin altında kalanların vergi hesaplamasında asgari ücret istisnasını düşün, kalan tutarı terkin ettirin. Eşiği aşanların aşan kısmını ayrı satırda vergilendirin. Her kişi için ayrı hesaplama yaparak muhtasar beyannamenin ekinde vergi dairesine bildirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Bölge ve araştırma altyapı firmalarının Ar-Ge personeli maliyeti düşer; bu teşvikle istihdamın ve Ar-Ge yatırımının artması hedeflenmektedir. Ancak eşiğin üzerindeki kısımlar normal vergilendirmeye tabi kalacağından, yüksek maaşlı personel açısından tam bir avantaj söz konusu değildir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Milli savunma ve iç güvenlik taşıt alımlarında KDV istisnası genişletildi</h3>
-<p><b>Ne oldu:</b> Katma Değer Vergisi Genel Uygulama Tebliği değiştirildi. Milli Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı ve Millî İstihbarat Teşkilatı Başkanlığının belirli motorlu taşıt alımlarında KDV istisnası tanındı. Ayrıca ÖTV teminatlı ithalatın KDV matrahına dahil edilmesi düzenlendi.</p>
-<p><b>Neyi değiştiriyor:</b> Katma Değer Vergisi Genel Uygulama Tebliği</p>
-<p><b>Ürün:</b> Motorlu taşıtlar (yük ve yolcu taşıyıcıları, savunma amaçlı araçlar)</p>
-<p><b>GTİP:</b><br><span class='gtip'>87.03</span><span class='gtip'>87.04</span><span class='gtip'>87.11</span></p>
-<p><b>Kimi ilgilendirir:</b> Milli Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı ve Millî İstihbarat Teşkilatı Başkanlığı; motorlu taşıt üreticileri ve satıcıları; savunma sanayii yüklenicileri; enerji ürünleri ithal edenler ve distribütörleri</p>
-<p><b>Ne yapmalısın:</b> Milli güvenlik kurumlarına taşıt satanlar: Defterdarlığa istisna belgesi için başvur, belgede referans numarasını faturaya yaz. İthalatçılar: ÖTV teminatlı malların ithal bedelini hesap ederken teminat tutarını KDV matrahına dahil et, gümrük KDV'sini indirim yap, yurt içi satışta toplam bedel üzerinden yeniden KDV hesapla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Milli güvenlik kurumlarının taşıt alımlarında KDV istisnaası maliyeti düşürür ancak satıcılar belge olmadan istisna uygularsa müteselsil sorumluluğa girişir. ÖTV teminatlı ithalatı KDV matrahına dahil etmek ithalatçıların gümrük aşamasında daha yüksek KDV ödemesi anlamına gelir; bu tutar gümrük KDV'si olarak indirilebilir.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20250904-7.html'>Neyin nesi değişti? →</a></div>
-</div>
-<div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kurumlar Vergisi Genel Tebliğinde teşvik belgesi indirim süresi ve kapsamı değişti</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, indirimli kurumlar vergisi uygulamasını düzenleyen Kurumlar Vergisi Genel Tebliğini değiştirdi. 24 Temmuz 2025 tarihinden sonra alınan yatırım teşvik belgelerine maksimum on hesap dönemi indirim hakkı uygulanacak; arazi, arsa, royalti, yedek parça ve bazı harcamalar bu kapsamdan çıkarıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Kurumlar Vergisi Genel Tebliği (Seri No: 1)</p>
-<p><b>Ürün:</b> Yatırım teşvik belgesi kapsamında gerçekleştirilen yatırımlar (sektör ve ürün grubu belirtilmemiş - genel düzenleme)</p>
-<p><b>Kimi ilgilendirir:</b> Sanayi ve Teknoloji Bakanlığından yatırım teşvik belgesi alan tüm kurumlar; özellikle 24 Temmuz 2025 tarihinden sonra belge alanlar ve 16 Haziran 2025 tarihinden önce başvurusu yapılmış belgeler sahipleri</p>
-<p><b>Ne yapmalısın:</b> Halihazırda teşvik belgesi altında çalışan şirketlerin, teşvik belgesinin alınış tarihine göre eski mi yeni mi hükme tâbi olduğunu teyit et. 24 Temmuz 2025 sonrası belgeler için on yıllık kullanım süresi sınırlamasını ve arazi/arsa/royalti harcamalarının kapsamdan çıkarılmasını muhasebe planlamalarına yansıt. Diğer faaliyetlerden kazançlara uygulanacak indirim süresini (dört hesap dönemi) kontrol et.</p>
-<p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> 24 Temmuz 2025 sonrası teşvik belgesi alanlar için on yıllık indirim süresi sınırlaması, yatırım harcamalarından arazi ve arsa gibi kalemlerin kapsamdan çıkması maliyetleri artırır. Diğer faaliyetlerden kazançlar üzerindeki indirim imkânının dört hesap dönemle sınırlandırılması da vergi yükünü ağırlaştırır.</div>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20250904-8.html'>Neyin nesi değişti? →</a></div>
-</div>
-<div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Ulusal güvenlik kuruluşlarının taşıt alımlarında ÖTV istisnası eklendi</h3>
-<p><b>Ne oldu:</b> Tebliğ, Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliğine yeni bir bölüm ekledi. Millî Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı ve Millî İstihbarat Teşkilatı Başkanlığı tarafından millî savunma ve iç güvenlik amaçlı ilk iktisap edilen belirli taşıtlar ÖTV'den istisna tutuldu.</p>
-<p><b>Neyi değiştiriyor:</b> 18/4/2015 tarihli Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliği</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>KDV Genel Uygulama Tebliğinde savunma sanayii, taşıt teslimi, gayrimenkul ve iade işlemleri düzenlemeleri</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı KDV Genel Uygulama Tebliğine kapsamlı değişiklikler getirmiştir. Savunma sanayii ürünlerinin imalatçılarına KDV istisnası, milli savunma ve iç güvenlik kuruluşlarına taşıt tesliminde yeni KDV istisna rejimi, gayrimenkul işlemlerinde istisna kapsamı genişletilmesi, aktif taşıt ve alet kullanıcılarının (ATİK) iade hesabı kurallarının detaylandırılması ve iade taleplerinin asgari tutarı belirlenmiştir.</p>
+<p><b>Hangi tebliğ:</b> Katma Değer Vergisi Genel Uygulama Tebliği sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• (II/C/6.2) bölümündeki referans: <span style='color:var(--dim);text-decoration:line-through'>(II/C/6.3.)</span> → <b>(II/C/7.3)</b></div>
-<div class='kiymet'>• (II/C/6.4) bölümündeki referans: <span style='color:var(--dim);text-decoration:line-through'>(II/C/6.3)</span> → <b>(II/C/7.3)</b></div>
-<p><b>Ürün:</b> Motorlu taşıtlar (hafif yük taşıması ve yolcu taşıması için tasarlanan araçlar, eşya taşıma araçları, motosikletler)</p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>31/12/2025</span><span class='ok'>→</span><span class='hap yeni'>31/12/2028</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<p><b>Ürün:</b> Motorlu taşıtlar (yük taşıması maksimum 3,5 ton, yolcu kapasitesi %50 altında olan araçlar; otobüsler; özel amaçlı araçlar); savunma sanayii ürünleri (uçak, helikopter, gemi, denizaltı, tank, panzer, zırhlı personel taşıyıcı, roket, füze); özel tüketim vergisine tabi mallar (I) listesinde yer alan mallar</p>
 <p><b>GTİP:</b><br><span class='gtip'>87.03</span><span class='gtip'>87.04</span><span class='gtip'>87.11</span></p>
-<p><b>Kimi ilgilendirir:</b> Millî Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı, Millî İstihbarat Teşkilatı Başkanlığı'na taşıt tedarik eden ÖTV mükellefleri ve ithalatçılar</p>
-<p><b>Ne yapmalısın:</b> İstisna kapsamında taşıt satışı veya ithalatı yapıyorsan, faturaya 'ÖTV Kanununun 7/3-ç Maddesi Kapsamında Hesaplanıp Fatura Bedeline Dâhil Edilmeyen ÖTV Tutarı' şerhini ekle. Ulusal güvenlik kuruluşundan gelen yazının aslının aynı olduğuna dair onaylı fotokopisini ÖTV beyannamesinin verildiği vergi dairesine dilekçe ekinde gönder.</p>
+<p><b>Kimi ilgilendirir:</b> Milli Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı, Milli İstihbarat Teşkilatı Başkanlığı; savunma sanayii ürünleri imalatçı yüklenicileri; motorlu taşıt satıcıları; aktif taşıt ve alet kullanan ulaştırma ve taşımacılık işletmeleri; ÖTV'ye tabi mal ithalatçıları; gayrimenkul satıcıları (Hazine, belediyeler, il özel idareleri, TOKİ, Kentsel Dönüşüm Başkanlığı, vakıflar)</p>
+<p><b>Ne yapmalısın:</b> Milli savunma kuruluşlarına taşıt satıyorsanız, Defterdarlığa başvurarak istisna belgesi alınması gerektiğini öğren ve belge olmadan satış yaparsan müteselsil sorumluluğa dikkat et. ÖTV teminatlı mal ithal ediyorsan, KDV matrahınızı teminat ÖTV tutarı dahil hesapla ve faturalandır. Aktif araç kullanan taşımacılıksa, iade dönemlerinde kullanım oranlarını dikkate alan iade hesabı şablonunu hazırla ve arşivle. Gayrimenkul satışı yapıyorsan TOKİ veya Kentsel Dönüşüm ise arsa-arazi sınırını kontrol et. 1 Nisan sonrası iade talepleri 10.000 TL'den aşağı değerlendirilmeyeceğini dikkate al.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20250904-9.html'>Neyin nesi değişti? →</a></div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Savunma sanayii ve milli güvenlik kurumlarına KDV istisnası müşteri tabanını daraltır ama bu sektörlerin maliyetlerini azaltır. ÖTV teminatlı ithalatın KDV matrahına dahil edilmesi ithalatçılar için vergi yükünü artırır. Gayrimenkul istisnasının genişlemesi (TOKİ, belediyeler) bu kurumlar tarafından yapılan satışlarda maliyeti düşürür. ATİK KDV kurallarının detaylandırılması şartlı iade imkanı sunarken hesaplama karmaşıklığını artırır. Iade asgari tutarının 10.000 TL'ye çıkarılması küçük mükellefleri etkileyebilir.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Kurumlar vergisinde yatırım teşvik belgelerinin indirim süresi ve kapsamı değişti</h3>
+<p><b>Ne oldu:</b> Kurumlar Vergisi Genel Tebliği'nde yatırım teşvik belgeleri için indirim süresi en fazla 10 hesap dönemine sınırlandırıldı. 24 Temmuz 2025 ve sonrasında alınan belgelerde indirim oranı %60'a sabitlendi; diğer faaliyetlerden kazanca uygulanabilecek yatırıma katkı tutarı en fazla dört hesap dönemine kaldırıldı.</p>
+<p><b>Hangi tebliğ:</b> Kurumlar Vergisi Genel Tebliği (Seri No: 1) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>18 inci madde</span><span class='hap eski'>Bakanlar Kurulu</span><span class='ok'>→</span><span class='hap yeni'>Cumhurbaşkanı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 24 Temmuz 2025 ve sonrasında alınan yatırım teşvik belgelerine indirim süresi en fazla on hesap dönem uygulanacak; 16 Haziran 2025 öncesi başvurusu yapılan belgeler eski hükümler uyarınca işlem görecek (Madde 2/a).</div>
+<div class='kiymet'>• On hesap dönem süresi, yatırıma fiilen başlanılan tarihi içeren hesap döneminin başından sayılır (Madde 2/a).</div>
+<div class='kiymet'>• Diğer faaliyetlerden elde edilen kazança indirim hakkı, ilk hesap dönemi dahil en fazla dört hesap dönem kullanılabilecek; üst sınır toplam yatırıma katkı tutarının %50'sini ve hak edilen yatırıma katkı tutarını aşamayacak (Madde 2/d).</div>
+<div class='kiymet'>• Arazi, arsa, royalti, yedek parça ve amortismana tâbi olmayan harcamalar yatırıma katkı tutarı hesaplamasında dikkate alınmayacaktır (Madde 2/c).</div>
+<div class='kiymet'>• Hak kazanılmış olan yatırıma katkı tutarı müteakip dönemlerde kullanılmamışsa, müteakip dönemlerde dikkate alınamayacaktır (Madde 2/a).</div>
+<div class='kiymet'>• Yatırımı devreden ve devralan için birlikte toplam on yıllık süre uygulanır; on yıllık süre bittikten sonra diğer vergi borçlarından terkin yapılamaz (Madde 2/h, ı).</div>
+<div class='kiymet'>• Belirli harcama kalemleri (arsa, kullanılmış makine, yedek parça vb.) oranları Cumhurbaşkanı tarafından sınırlandırılabilir (Madde 2/c).</div>
+<div class='kiymet'>• Birden fazla teşvik belgesi bulunması durumunda, diğer faaliyetlerden kazanç yetersizse hangi belgeye öncelik verileceği mükellefi tarafından serbestçe belirlenebilir (Madde 2/e).</div>
+<p><b>Ürün:</b> Yatırım teşvik belgesi kapsamındaki endüstri, teknoloji ve inşaat yatırımları</p>
+<p><b>Kimi ilgilendirir:</b> Sanayi ve Teknoloji Bakanlığından yatırım teşvik belgesi alan kurumlar ve girişimciler</p>
+<p><b>Ne yapmalısın:</b> 24 Temmuz 2025 sonrasında alınan yatırım teşvik belgelerinizin başvuru ve alım tarihlerini kontrol et. 16 Haziran 2025 öncesinde başvuru yapılmış belgeler için eski kurallar geçerli. Yeni belgeler için hesap planlamalarını on hesap dönemi süreye göre güncelle ve diğer faaliyetlerden kazanç yararlanmasını dört hesap dönem olarak yeniden hesapla. Arsa, makine, yedek parça gibi harcama kalemlerinin ilgili Cumhurbaşkanı Kararı'na uygunluğunu doğrula.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> 24 Temmuz 2025 sonrasında belge alanlar için yatırıma katkı tutarından yararlanma süresi 10 hesap dönem olarak sınırlandırıldı ve diğer faaliyetlerden kazanç yararlanması 4 hesap dönem ile kısıtlandı. Eski belgeleri olanlar eski kuralların daha esnekliğinden yararlanmaya devam edecek. Yatırım maliyeti tarafsız olmakla birlikte, vergi planlaması ve nakit akış tahmini daha sıkı hale geldi.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Ulusal güvenlik kuruluşlarının araç alımlarında ÖTV istisnası genişletildi</h3>
+<p><b>Ne oldu:</b> Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliği'ne yeni bir bölüm eklendi. Buna göre Millî Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı ve Millî İstihbarat Teşkilatı tarafından millî savunma ve iç güvenlik amacıyla ilk iktisap edilen belirli motorlu taşıtlar ÖTV'den istisna tutulmuştur. Ayrıca tebliğin diğer bölümlerinde teknik düzeltmeler yapılmış ve arazi taşıtı tanımına yer verilmiştir.</p>
+<p><b>Hangi tebliğ:</b> Özel Tüketim Vergisi (II) Sayılı Liste Uygulama Genel Tebliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Millî Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı ve Milli İstihbarat Teşkilatı tarafından millî savunma ve iç güvenlik ihtiyaçlarında kullanılmak üzere ilk iktisap edilen belirli motorlu araçlar ÖTV'den muaftır (m.5.1 ve 5.2).</div>
+<div class='kiymet'>• İstisna kapsamında: 87.03 G.T.İ.P. numarasında azami ağırlığı 3,5 tonu aşmayan ve yolcu taşıma kapasitesi yükümlülüğünün %50'sinin altında olan araçlar, 87.04 numarasında eşya taşımaya mahsus motorlu taşıtlar ve 87.11 numarasında elektrik motorlu motosikletler ile yardımcı motorlu araçlar dahildir (m.5.2).</div>
+<div class='kiymet'>• Mükellef, istisna kapsamındaki taşıtlara ait faturada ÖTV tutarını ayrıca göstermesi ve ÖTV beyannamesi vermesi gerekmektedir (m.5.2).</div>
+<div class='kiymet'>• Ulusal güvenlik kuruluşundan alınan yazı ile satış faturasının onaylı fotokopisi vergi dairesine sunulur; vergi dairesi kontrol sonrası ÖTV Ödeme Belgesi verir (m.5.2).</div>
+<div class='kiymet'>• İstisna şartlarına uyulmaması veya istisna koşullarını taşımayan taşıt teslim/ithal edilmesi halinde ziyaa uğratılan vergi, vergi ziyaı cezası ve faizler teslim eden mükellef, gümrük idaresi ve alıcıdan müteselsilen aranır (m.5.3).</div>
+<div class='kiymet'>• Teslim sonrası istisna şartlarının ihlal edilmesi tespit edilirse, ziyaa uğratılan vergi ile ceza, faiz ve zamlar alıcıdan talep edilir (m.5.3).</div>
+<p><b>Ürün:</b> Motorlu araçlar (yük taşıtları, yolcu taşıtları, motosikletler ve traktör tipi araçlar)</p>
+<p><b>GTİP:</b><br><span class='gtip'>87.03</span><span class='gtip'>87.04</span><span class='gtip'>87.11</span></p>
+<p><b>Kimi ilgilendirir:</b> Millî Savunma Bakanlığı, İçişleri Bakanlığı, Savunma Sanayii Başkanlığı, Millî İstihbarat Teşkilatı ile bu kuruluşlara araç tedarik eden mühendislik ve otomotiv şirketleri</p>
+<p><b>Ne yapmalısın:</b> Ulusal güvenlik kuruluşlarına araç tedarik ediyorsanız ilgili kurumdan gerekli yazıyı temin edin ve ÖTV muhasebesinde istisna kaydını faturaya yansıtın. Beyanname düzenlenirken ÖTV hesaplanmayan satırı işaretleyin, ilgili belgelerle birlikte vergi dairesine başvurarak ÖTV Ödeme Belgesi'ni alın. Ayrıca teslim sonrasında bu araçların yalnızca millî savunma veya iç güvenlik amacıyla kullanıldığını belgeleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250904-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

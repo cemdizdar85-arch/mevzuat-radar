@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,47 +33,72 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>03.04.2026 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>03.04.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Tarımsal sulama sistemlerine hibe desteği programı 2026 yılında başlıyor</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, Kırsal Kalkınma Yatırım Programı kapsamında tasarruflu tarımsal sulama sistemlerine yönelik yatırımları destekleyecek. Program 81 ilde uygulanacak; damla sulama, yağmurlama, pivot sistemler, güneş enerjili sulama ve akıllı sulama gibi teknikleri kapsıyor.</p>
-<p><b>Ürün:</b> Tasarruflu tarımsal sulama sistemleri (damla sulama, yağmurlama, mikro yağmurlama, yüzey altı damla sulama, pivot/lineer sistemler, tamburlu sistemler, güneş enerjili sulama, akıllı sulama)</p>
-<p><b>Kimi ilgilendirir:</b> Tarım yapan gerçek kişiler, tarım şirketleri, sulama kooperatifleri ve tarım kredi kooperatifleri</p>
-<p><b>Ne yapmalısın:</b> Başvuru sahipleri: Bakanlık kayıt sistemine kayıtlı olduğunuzu kontrol et ve beş yıl boyunca kaydınızın devam etmesini sağla. Hibe sözleşmesi imzalandıktan sonra alımı yapılan sistemlerin 75 gün içinde tarlada montajını tamamla. Faydalanıcılar katkı payı ve ayni katkıyı öz kaynaklarından temin etmek zorunda; satın alma işlemlerini protokole uygun dokümantasyon ile gerçekleştir ve belgeleri muhafaza et.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Tasarruflu tarımsal sulama yatırımlarına hibe desteği programı başladı</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, kırsal alanda su kaynaklarının verimli kullanılmasını teşvik etmek amacıyla tasarruflu sulama sistemlerine (damla, yağmurlama, güneş enerjili, akıllı sistemler vb.) yönelik yatırımlara hibe ödemesi yapacak. Destekleme oranı, yatırım türüne ve bölgeye göre %50–%70 arasında değişmektedir.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2021/7 sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Hibe sözleşmesi imzalandıktan sonra makine ve ekipmanlar 75 gün içinde tarlada montajlanmış olmalı (Madde 9).</div>
+<div class='kiymet'>• Faydalanıcılar başvuru tarihi itibarıyla Bakanlık kayıt sistemlerine kayıtlı olmalı ve ödeme tarihinden 5 yıl boyunca kayıtlı kalmalı (Madde 10/1).</div>
+<div class='kiymet'>• Gerçek kişiler ve şirketler kendi arazileri veya minimum 5 yıllık noter onaylı kira sözleşmesine sahip araziler için başvuru yapabilir (Madde 10/2).</div>
+<div class='kiymet'>• Aynı parsel için son 5 yıl içinde bireysel sulama hibesi alındıysa tekrar başvuru yapılamaz; parsel bölümlendiyse kalan kısım için şartlar sağlandığında başvuru mümkün (Madde 10/4).</div>
+<div class='kiymet'>• Hibeye esas proje tutarı 10 milyon liraya kadar; fazlası faydalanıcı tarafından ayni katkı olarak karşılanır (Madde 11/6).</div>
+<div class='kiymet'>• Başvuru son tarihine kadar teslim edilen dosyalar 30 gün içinde incelenir; değerlendirme sonuçları il müdürlüğü internet sitesinde 5 gün ilan edilir (Madde 19).</div>
+<div class='kiymet'>• Asıl listedekilerin sözleşme imzalamama durumunda yedek listeden seçilen başvuru sahipleri 10 gün içinde sözleşme imzalamak zorunda (Madde 20/2).</div>
+<div class='kiymet'>• Satın alma tarihi ile fatura tarihi hibe sözleşmesi imzalanma tarihinden sonra ve proje tamamlanma süresi içinde olmalı (Madde 23/2).</div>
+<div class='kiymet'>• Montaj kontrolleri ödeme talebinden sonra 30 gün içinde yapılır ve tutanağa bağlanır (Madde 23/3).</div>
+<p><b>Ürün:</b> Tasarruflu tarımsal sulama sistemleri ve ekipmanları: damla sulama, yağmurlama, mikro yağmurlama, yüzey altı damla sulama, center pivot/lineer/tamburlu sulama makineleri, güneş enerjili sulama sistemleri, akıllı sulama/otomasyon sistemleri</p>
+<p><b>Kimi ilgilendirir:</b> Gerçek kişi çiftçiler, kooperatifler, sulama birlikleri, tarımsal amaçlı şirketler ve sulama kooperatifleri</p>
+<p><b>Ne yapmalısın:</b> Başvuru yapacaklar, başvuru rehberini il müdürlüğünden veya bakanlığın internet sitesinden temin etmeli; gerekli teknik projeyi yetkili bir ziraat mühendisine hazırlatmalı; su kaynağı kullanım izin belgesini almalı ve başvuru dosyasını belirtilen tarihler arasında veri giriş sistemine yüklemelidir. Sözleşme imzalayanların, sözleşmede belirlenen proje tutarına ve süre sınırlarına uyması gerekir. Satın alma sonrasında fatura ve ödeme talebi 10 gün içinde teslim edilmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Teblig yatırım desteği mekanizmasını belirlemektedir. Ekonomik etki, destekleme oranı ve kriter detayları metinde tam olarak açıklanmamıştır; bu bilgiler uygulama rehberinde yer alacaktır.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yerli imalatçıları destekleyen bir hibe programıdır: çiftçilerin sulama yatırımı maliyetlerinin %50–%70'i devlet tarafından karşılanacaktır. Yerli makine ve ekipman tedarikçilerine yönelik talebin artması beklenmekte olup, program sulama sistemi üreticileri ve tedarikçileri açısından fayda sağlayacaktır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260403-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Tarım ürünleri ithalat denetiminde GTİP kapsamları ve istisnaları güncellendi</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığına tabi ürünlerin ithalat denetimine ilişkin tebliğde; özel ilaç maddeleri, baharat tohumları ve deniz yosunu ürünleri bakımından kapsamlar daraltılmıştır. Bazı satırlar yeni koşullarla yeniden düzenlenmiş, bir satır ise yürürlükten kaldırılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Tarım ve Orman Bakanlığının Kontrolüne Tabi Ürünlerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2026/5)</p>
-<p><b>Ürün:</b> Pregabalin (ilaç), baharat tohumları (anason, rezene, kişniş, kimyon), ardıç meyveleri, zencefil, safran, zerdeçal, kekik, defne yaprağı, köri, kalkerleşmiş deniz yosunu</p>
-<p><b>GTİP:</b><br><span class='gtip'>2922.49</span><span class='gtip'>2922.49.85.90.35</span><span class='gtip'>09.09</span><span class='gtip'>09.10</span><span class='gtip'>0901.11.00.00.00</span><span class='gtip'>0910.11.00.00.00</span><span class='gtip'>1212.29.00.90.00</span><span class='gtip'>0713.90.00.00.13</span></p>
-<p><b>Kimi ilgilendirir:</b> İlaçlı ürün, baharat ve şifalı madde ithal eden firmalar ile hayvan yemi üreticileri</p>
-<p><b>Ne yapmalısın:</b> Önceki sevkiyatlarınızda 2922.49 GTİP kodlu ürün bulunuyorsa Pregabalin içeriğini kontrol ediniz. Baharat tohumu ithalatında tohumluk niteliğinin belgelenmesi gerekmektedir. Deniz yosunu sevkiyatlarında hayvan beslemesi amacı taşıyanları ayrı değerlendiriniz. 1 Temmuz 2026 tarihinden önceki sevkiyatların eski kurala göre işleme alınabileceği hususunu dikkate alınız.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Tarım ürünleri ithalat denetimi kurallarında tablo güncellemeleri</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığının denetimine tabi ürünlerin ithalat denetim tebliği değiştirildi. Pregabalin ve bazı baharat-tohum grupları için denetim kapsamı düzenlendi; bazı satırlar yürürlükten kaldırıldı.</p>
+<p><b>Hangi tebliğ:</b> Tarım ve Orman Bakanlığının Kontrolüne Tabi Ürünlerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2026/5) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Pregabalin (GTIP 2922.49.85.90.35), ithalat denetim kapsamından çıkarıldı (Madde 1-2).</div>
+<div class='kiymet'>• Anason, Çin anasonu, rezene, kişniş, kimyon, karaman kimyonu tohumları ve ardıç meyvesi (tohumluk) denetim kapsamına alındı (Madde 3, 1/7/2026'dan geçerli).</div>
+<div class='kiymet'>• Zencefil, safran, zerdeçal, kekik, defne yaprakları, köri ve benzer baharatlar (tohumluk) denetim kapsamına alındı (Madde 3, 1/7/2026'dan geçerli).</div>
+<div class='kiymet'>• Aynı baharat grupları ezilmiş/öğütülmüş olmadıkları müddetçe Ek-7'ye eklendi (Madde 4, 1/7/2026'dan geçerli).</div>
+<div class='kiymet'>• Karabiber (GTIP 0910.11.00.00.00) denetim listesinden kaldırıldı (Madde 5, 1/7/2026'dan geçerli).</div>
+<div class='kiymet'>• Hayvan beslenmesi amaçlı kalkerleşmiş deniz algi, GTIP 1212.29.00.90.00 kapsamı dışında tutuldu (Madde 6, yayım tarihinde geçerli).</div>
+<p><b>Ürün:</b> Pregabalin eczacılık maddesi, baharat ve baharat tohumları, ardıç meyvesi, deniz algi, hayvan yemi</p>
+<p><b>GTİP:</b><br><span class='gtip'>2922.49</span><span class='gtip'>2922.49.85.90.35</span><span class='gtip'>0713.90.00.00.13</span><span class='gtip'>0901.11.00.00.00</span><span class='gtip'>0910.11.00.00.00</span><span class='gtip'>1212.29.00.90.00</span></p>
+<p><b>Kimi ilgilendirir:</b> Baharat, tohum, eczacılık maddesi ve hayvan yemi ithal eden şirketler; gıda ve ziraat ürünleri tedarikçileri</p>
+<p><b>Ne yapmalısın:</b> Mevcut ithalat işlemlerini 1 Temmuz 2026 tarihine göre gözden geçir. Pregabalin beyanlarınızdan muafiyeti kontrol et. Baharat-tohum ve deniz algi sevkiyatlarını yeni denetim listelerine göre hazırla. 30 Haziran 2026'ya kadar tedarikçilerini yeni kapsama uyarında bulun.</p>
 <p><b>Yürürlük:</b> 3 üncü, 4 üncü ve 5 inci maddeleri: 01.07.2026 · Diğer maddeleri: yayımı tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260403-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kırsal Kalkınma Yatırım Programı Kapsamında Tarımsal İşletmelere Hibe Desteği Usul ve Esasları</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı; mikro, küçük ve orta ölçekli tarımsal işletmelere, genç ve kadın girişimcilere ile tarımsal örgütlere yönelik hibe desteği programının usul ve esaslarını belirleyen yeni bir tebliğ yayımladı. Program, geleneksel tarımsal yatırımların yanı sıra dijitalleşme, yapay zekâ tabanlı karar destek sistemleri ve akıllı tarım teknolojilerine yönelik destekleri de kapsamaktadır.</p>
-<p><b>Ürün:</b> Tarımsal yatırımlar (hayvancılık, su ürünleri, kapalı ortamda bitkisel üretim, kültür mantarı üretimi); tarımsal ürün işleme, paketleme ve depolama tesisleri; akıllı tarım teknolojileri ve dijitalleşme uygulamaları.</p>
-<p><b>Kimi ilgilendirir:</b> Mikro, küçük ve orta ölçekli tarımsal işletmeler; 18-40 yaş arasındaki genç girişimciler; kadın girişimciler; tarımsal amaçlı kooperatif ve birlikler; tarımsal üretici birlikleri; sulama birlikleri; hayvancılık ve su ürünleri yetiştiriciliğiyle uğraşanlar.</p>
-<p><b>Ne yapmalısın:</b> Program kapsamında başvuru yapılacaksa projenin, Kırsal Kalkınma Yatırım Programı listesinde yer alan yatırım konularından biri (hayvancılık, bitkisel üretim, dijitalleşme vb.) olması gerekir. Teknik personel tarafından onaylanmış, detaylı projeler (mimari, statik, tesisat) hazırlanmalıdır. Ayni katkı payı belirlenmeli ve il tarım müdürlüğüne başvuruda bulunulmalıdır; proje önce il proje değerlendirme komisyonunca incelenecek, ardından merkez komisyonca değerlendirilecektir. Hibe sözleşmesi imzalandıktan sonra dört ayda bir ilerleme raporu sunulmalı; nihai ödemenin ardından beş yıl süreyle izlemeye tabi olunacaktır.</p>
-<p><b>Yürürlük:</b> kaynakta belirtilmemis</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, mevcut Kırsal Kalkınma Yatırım Programının usul ve esaslarını düzenleyen bir yönetmelik niteliğindedir; yeni bir destek şeması getirmekten ziyade program uygulama kurallarını yazılı hâle getirmektedir. Desteklenecek tarımsal yatırımlar genişletilmiş, dijitalleşme ve akıllı tarım uygulamaları da kapsama dahil edilmiştir; bu durum katılımcılar için fırsat yaratmakla birlikte planlama ve proje hazırlık yükünü de artırmaktadır.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Kırsal Kalkınma Yatırım Programı'nda hibe desteği usul ve esasları belirlendi</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, mikro, küçük ve orta ölçekli işletmelerle tarımsal amaçlı örgütlere kırsal alanda yapacakları yatırımlar için hibe desteği koşullarını düzenleyen yeni tebliği yayımladı. Desteklenecek yatırım konuları, başvuru sahiplerinin nitelikleri, proje değerlendirme süreci, ödeme koşulları ve izleme hükümleri tanımlandı.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2024/43 sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Ürün:</b> Tarımsal ürün işleme ve depolama tesisleri, tarımsal üretim tesisleri, su ürünleri yetiştiriciliği, arı yetiştiriciliği, tarımsal dijitalleşme ve akıllı tarım sistemleri, yenilenebilir enerji uygulamaları</p>
+<p><b>Kimi ilgilendirir:</b> Kırsal alanlarda tarıma dayalı faaliyetler yürüten mikro, küçük ve orta ölçekli işletmeler; tarımsal kooperatifler, tarım kredi kooperatifleri, ziraat odaları, tohumculuk birliği, veteriner hizmetleri ve gıda mevzuatı kapsamında kurulmuş ıslah amaçlı yetiştirici birlikleri, tarımsal üretici birlikleri, sulama birlikleri, kadın ve genç girişimciler</p>
+<p><b>Ne yapmalısın:</b> Başvuru yapmayı planlayan işletmeler il müdürlüğünden programın detaylarını ve ilgili yatırım konularını öğrensin; başvuru öncesi projeyi uygulama rehberindeki kriterlere göre hazırlasın; hibe sözleşmesi imza öncesi gerekli yasal izin ve ruhsatları tam olarak hazırlasın; proje uygulaması sırasında dört ayda bir ilerleme raporunu il müdürlüğüne sunmakla yükümlü tutulacağını unutmasın; tesisin izleme süresi içinde faaliyete devam etmek ve mülkiyetini korumak zorunda olacağını akılda tutsun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Tebliğ, kırsal alanda tarımsal yatırımların hibe ile desteklenmesini sağlayarak yerli üretim kapasitesini arttırmayı amaçlar. Mikro ve küçük işletmelerin harita da yer alan yatırım konularında yapacakları projeler hibeyle karşılanacağından, ithal tarımsal ürün ve teknoloji ihtiyacının azalması beklenmektedir; ancak makine-ekipman ödemelerinin gerektiğinde ithal kaynaktan da yapılabileceği düşünülürse etki karma değerlendirilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260403-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>
