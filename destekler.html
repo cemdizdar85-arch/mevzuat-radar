@@ -122,6 +122,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <input id="fuarAra" placeholder="fuar adı, şehir ya da ülke yaz… (ör. Düsseldorf, CES, mobilya)" style="width:100%;padding:11px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit;margin:8px 0">
       <div id="fuarSonuc" style="font-size:13px;color:var(--muted)"></div>
     </details>
+
+    <!-- 19.08 Cem: "eximbank kredilerini ekleyelim" — krediler kural tabanlı
+         (katalogda); radar gibi işleyen parçası GÜNCEL ORANLAR. Bankanın kendi
+         veri ucundan günlük çekilir; PDF bilerek kullanılmaz (eski kalıyordu). -->
+    <details class="kart" style="padding:14px 18px" id="eximGrubu">
+      <summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">Türk Eximbank — Güncel Faiz / Kâr Payı Oranları <span style="color:var(--dim);font-weight:600" id="eximSayi">· aç, bugünkü oranları gör</span></summary>
+      <p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Oranlar bankanın kendi yayınından robotla günlük çekilir; kesin koşul, limit ve teminat için <a href="https://www.eximbank.gov.tr/tr/faiz-ve-kar-payi-oranlari" target="_blank" rel="noopener">Eximbank</a>'la ya da aracı bankanla görüş. Hangi kredinin sana uyduğu için yukarıdaki katalogda Eximbank kartlarına bak.</p>
+      <div class="filtre" id="eximDoviz" style="margin:8px 0"></div>
+      <div id="eximSonuc" style="font-size:13px;color:var(--muted)"></div>
+    </details>
   </div>
 
   <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
@@ -436,6 +446,37 @@ document.getElementById('fuarGrubu').addEventListener('toggle', function(){
   }).catch(()=>{ document.getElementById('fuarSonuc').textContent = 'Liste yüklenemedi, sayfayı yenile.'; });
 });
 document.getElementById('fuarAra').addEventListener('input', fuarCiz);
+
+// ---- EXİMBANK GÜNCEL ORANLARI (19.08) ----
+let EXIM = null, EXIM_DOVIZ = 'TRY';
+function eximCiz(){
+  if(!EXIM) return;
+  const kutu = document.getElementById('eximSonuc');
+  const secili = EXIM.oranlar.filter(o=>o.doviz===EXIM_DOVIZ);
+  const programlar = [];
+  secili.forEach(o=>{ let g=programlar.find(p=>p.ad===o.program); if(!g){ g={ad:o.program, satirlar:[]}; programlar.push(g);} g.satirlar.push(o); });
+  kutu.innerHTML = programlar.map(p =>
+    '<div style="font-size:12px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin:12px 0 2px">'+p.ad+'</div>'
+    + '<div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:11px;color:var(--dim);border-bottom:1px solid var(--line)"><span>VADE</span><span style="white-space:nowrap">KOBİ · KOBİ dışı</span></div>'
+    + p.satirlar.map(o=>'<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px"><span style="color:var(--muted)">'+o.vade+'</span><span style="white-space:nowrap;color:var(--ink)">'+o.kobi+' · '+o.kobiDisi+'</span></div>').join('')
+  ).join('') + '<p style="font-size:11.5px;color:var(--dim);margin-top:10px">'+(EXIM.guncelleme||'')+' '+(EXIM.not||'')+'</p>';
+}
+document.getElementById('eximGrubu').addEventListener('toggle', function(){
+  if(!this.open || EXIM) return;
+  fetch('veri/eximbank-oran.json?'+Date.now()).then(r=>r.json()).then(d=>{
+    EXIM = d;
+    const dovizler = [...new Set(d.oranlar.map(o=>o.doviz))].sort((a,b)=>a==='TRY'?-1:b==='TRY'?1:a.localeCompare(b));
+    document.getElementById('eximDoviz').innerHTML = dovizler.map(dv=>'<button class="fbtn'+(dv===EXIM_DOVIZ?' on':'')+'" data-dv="'+dv+'">'+dv+'</button>').join('');
+    document.getElementById('eximSayi').textContent = '· '+d.oranlar.length+' oran satırı, günlük güncel';
+    eximCiz();
+  }).catch(()=>{ document.getElementById('eximSonuc').textContent = 'Oranlar yüklenemedi, sayfayı yenile.'; });
+});
+document.getElementById('eximDoviz').addEventListener('click', e=>{
+  const b = e.target.closest('.fbtn'); if(!b) return;
+  EXIM_DOVIZ = b.dataset.dv;
+  document.querySelectorAll('#eximDoviz .fbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); eximCiz();
+});
 
 // ---- DESTEK SİHİRBAZI ----
 const DC = {};
