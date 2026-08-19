@@ -131,8 +131,18 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <p>Konkordatoda alacak kaydı süresi, ilan tarihinden itibaren 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz ve oy kullanamaz. Borçlu listeni bir kez tanımla; eşleşen ilan yayımlandığı gün, yasal süre ve yapılacak işlemle birlikte e-postana ulaşsın.</p>
     <!-- 30.07: hedef index#app'ti (Yukumluluk Karnesi formu!) - yanlis kapi.
          Artik panele NIYETLE gider: uyelikten sonra ilk soru VKN olur. -->
-    <a class="btn" href="radar-fiyat.html" style="text-decoration:none">Alacak Radarına abone ol · 599 TL/ay →</a>
-    <a href="radar-app.html?niyet=alacak" style="display:inline-block;margin-left:10px;font-size:13.5px;font-weight:700;color:var(--muted);text-decoration:none">ya da ücretsiz üye ol</a>
+    <!-- 19.08 Cem: "yan yana koy, hangisini isterse" — tek radar / tam paket kıyaslamalı seçim -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+      <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:var(--grad);color:#03101f;border-radius:12px;padding:13px 18px;text-align:center;box-shadow:0 6px 24px rgba(245,165,36,.35)">
+        <span style="display:block;font-weight:800;font-size:15.5px">Alacak Radarı</span>
+        <span style="display:block;font-size:12.5px;font-weight:700;opacity:.8;margin-top:2px">599 TL/ay · yalnız bu nöbet</span>
+      </a>
+      <a href="radar-fiyat.html" style="flex:1;min-width:225px;text-decoration:none;background:linear-gradient(135deg,rgba(61,220,151,.16),rgba(255,194,75,.08));border:1px solid rgba(61,220,151,.45);color:var(--ink);border-radius:12px;padding:12px 18px;text-align:center">
+        <span style="display:block;font-weight:800;font-size:15.5px">Tüm Radarlar</span>
+        <span style="display:block;font-size:12.5px;font-weight:700;color:var(--green);margin-top:2px">999 TL/ay · alacak + marka + ihale + süre</span>
+      </a>
+    </div>
+    <div style="margin-top:10px"><a href="radar-app.html?niyet=alacak" style="font-size:13.5px;font-weight:700;color:var(--muted);text-decoration:none">ya da ücretsiz üye ol →</a></div>
     <div style="margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.6"><b style="color:var(--muted)">Nasıl ücretlendirilir:</b> Aracı kendin kullanmak ücretsizdir (ayda 5 sorgu; <b style="color:var(--muted)">ücretsiz üyelikle sınırsız</b>). Abonelik yalnız sürekli izleme içindir: borçlu listeni sen taramadan da sistem her gün tarar, eşleşme çıktığı gün e-postana bildirir. <a href="radar-fiyat.html" style="color:var(--accent2);font-weight:700">Fiyatların tamamı →</a></div>
   </div>
 
