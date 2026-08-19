@@ -656,8 +656,12 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
   if(bulunan.length){
     html += '<div style="margin:0 0 12px;font-size:14px"><b style="color:var(--red);font-size:17px">'+riskN+'</b> kayıtta risk bulundu <span style="color:var(--dim)">· '+temizN+'/'+taranan+' sorgu temiz</span></div>';
   }
+  // 19.08 KUSUR: "Temiz" karti demo tohum verisine bakip HEMEN basiliyordu; arsiv
+  // taramasi sonra kostugu icin ekranda once "Temiz" sonra "Risk" gorunuyordu.
+  // Artik temiz hukmu ARSIV DE tarandiktan sonra, en sonda veriliyor.
+  let temizKarti = '';
   if(!bulunan.length){
-    html += '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Bu sonuç örnek veriye göredir. Abonelikte sistem tüm resmî ilanları her gün tarar; borçlularınla eşleşen yeni bir ilan yayımlandığı gün uyarı alırsın.</div></div>';
+    temizKarti = '<div class="kart temiz"><span class="rozet temiz">Temiz</span><h3>Girdiğin borçlularda iflas/konkordato ilanı bulunamadı</h3><div class="belg">Arşivin tamamı tarandı. Abonelikte sistem tüm resmî ilanları her gün tarar; borçlularınla eşleşen yeni bir ilan yayımlandığı gün uyarı alırsın.</div></div>';
   } else {
     for(const {il, b, eslesen, tip} of bulunan){
       const sonGun = tarihEkle(il.yayinTarihi, il.bildirimGun);
@@ -710,11 +714,12 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
   window.SON_TARAMA_ABONE = false;
   window.SON_TARAMA_KILITLI = 0;
   try{
-    let kayitlar = [], abone = false, atlanan = 0, eslesme = 0, kasaCalisti = true;
+    let kayitlar = [], abone = false, atlanan = 0, eslesme = 0, eslesenSorgu = 0, kasaCalisti = true;
     if(toplu===true){
       const tk = await sbRpc('alacak_toplu', { p_liste: sorgular.map(q=>q.ham) });
       kayitlar = (tk && tk.kayitlar) || []; abone = !!(tk && tk.abone);
       atlanan = (tk && tk.atlanan) || 0; eslesme = (tk && tk.eslesme) || 0;
+      eslesenSorgu = (tk && tk.eslesenSorgu) || 0;
     } else {
       const tek = await sbRpc('alacak_ara', { p_sorgu: sorgular[0].ham });
       abone = true; // tek sorguda kilit yok
@@ -722,11 +727,12 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
         sorgu: sorgular[0].ham, gizli:false, tip:r.tip, tur:r.tur, tarih:r.tarih_str,
         baslik:r.baslik, borclu:r.borclu, vkn:r.vkn, kurum:r.kurum, il:r.il, url:r.url
       }));
-      eslesme = kayitlar.length;
+      eslesme = kayitlar.length; eslesenSorgu = kayitlar.length ? 1 : 0;
     }
     window.SON_TARAMA_ABONE = abone;
     window.SON_TARAMA_KILITLI = kayitlar.filter(k=>k.gizli).length;
     window.SON_TARAMA_ATLANAN = atlanan;
+    window.SON_TARAMA_ESLESEN_SORGU = eslesenSorgu;
 
     if(kayitlar.length){
       html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl)</span></h2>';
@@ -738,8 +744,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           html += '<div class="kart risk" style="opacity:.92">'
             +'<span class="rozet risk">🔒 '+turAdi+' eşleşmesi · abonelikte açılır</span>'
             +'<h3 style="filter:blur(4px);user-select:none">'+aiKac(k.borclu||'••••••••')+'</h3>'
-            +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
-            +'<div class="belg">Bu kayıtta <b style="color:var(--ink)">gerçek bir eşleşme</b> var. Borçlunun adı, mahkeme/dosya bilgisi, yasal süresi ve ilan bağlantısı abonelikte görünür.</div>'
+            +'<div class="belg">Bu kayıtta <b style="color:var(--ink)">gerçek bir eşleşme</b> var. <b style="color:var(--ink)">Listenin hangi satırı</b> olduğu, borçlunun adı, mahkeme/dosya bilgisi, yasal süresi ve ilan bağlantısı abonelikte görünür.</div>'
             +'</div>';
           continue;
         }
@@ -791,10 +796,12 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           +'<div style="margin-top:12px"><a href="radar-fiyat.html" class="btn" style="text-decoration:none;display:inline-block;margin:0">Abonelik seçeneklerini gör →</a></div></div>';
       }
     } else if(kasaCalisti){
-      html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşiv de tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
+      html += temizKarti;
+      html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşivin tamamı tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
     }
   }catch(e){
-    // ÖLÇEMEDİĞİNE KUSUR DEME: kasaya ulaşılamadıysa "temiz" DENMEZ, açıkça söylenir.
+    // ÖLÇEMEDİĞİNE KUSUR DEME: kasaya ulaşılamadıysa "temiz" DENMEZ (temizKarti
+    // bilerek basılmaz), durum açıkça söylenir.
     const kisa = /KISA_SORGU/.test(e.message||'') , hizli = /COK_HIZLI/.test(e.message||'');
     html += '<div class="uyari" style="margin-top:10px">'
       + (kisa ? '<b style="color:var(--amber)">Sorgu çok kısa:</b> tam VKN/TCKN yaz ya da unvanı en az iki kelimeyle gir (tek kelime yanlış firma getirir).'
@@ -807,15 +814,24 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
   // yüklediği listenin TAMAMINI işaretlenmiş halde geri alsın (satır kaybı olmasın).
   try{
     const eslesenler = new Set(window.SON_TARAMA.map(r=>r['Sorgu']));
-    // ÖLÇMEDİĞİNE "TEMİZ" DEME: ücretsiz katmanda listenin yalnız ilk 25 satırı
-    // taranır; taranmayan satır TEMİZ değil TARANMADI olarak işaretlenir.
+    // ÖLÇMEDİĞİNE "TEMİZ" DEME — iki ayrı tuzak:
+    //  (1) ücretsiz katmanda listenin yalnız ilk 25 satırı taranır; taranmayan
+    //      satır TEMİZ değil TARANMADI'dır.
+    //  (2) kilitli eşleşme varsa hangi satırda olduğunu BİLMİYORUZ (sunucu
+    //      bilerek söylemiyor); o yüzden hiçbir satıra TEMİZ damgası vurulmaz,
+    //      yalnız sayılar yazılır. Yanlış "temiz" damgası, kilidi delmekten
+    //      daha büyük zarar verir: adam batmış müşterisini temiz sanır.
     const atl = window.SON_TARAMA_ATLANAN || 0;
+    const kilitliVar = (window.SON_TARAMA_KILITLI || 0) > 0;
     const taranmisSon = sorgular.length - atl;
     sorgular.forEach(function(q, i){
       if(eslesenler.has(q.ham)) return;
+      const taranmis = (i < taranmisSon);
       window.SON_TARAMA.push({
         'Sorgu': q.ham,
-        'Durum': (i < taranmisSon) ? 'TEMİZ (arşivde ilan bulunamadı)' : 'TARANMADI (ücretsiz sınır — abonelikte taranır)',
+        'Durum': !taranmis ? 'TARANMADI (ücretsiz sınır — abonelikte taranır)'
+               : kilitliVar ? 'BELİRSİZ (kilitli eşleşmelerden biri olabilir — abonelikte netleşir)'
+               : 'TEMİZ (arşivde ilan bulunamadı)',
         'Borçlu':'', 'VKN':'',
         'Tür':'', 'İlan tarihi':'', 'Mahkeme / dosya':'', 'İl':'',
         'Yasal süre':'', 'Son gün':'', 'Ne yapmalı':'', 'İlan linki':''
@@ -825,17 +841,29 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
       const riskli = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('RİSK')===0).length;
       const olasi  = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('OLASI')===0).length;
       const temiz  = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('TEMİZ')===0).length;
+      const belirsiz = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('BELİRSİZ')===0).length;
       const taranmadi = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('TARANMADI')===0).length;
       const kilitli = window.SON_TARAMA_KILITLI || 0;
+      const esSorgu = window.SON_TARAMA_ESLESEN_SORGU || 0;
       const abn = window.SON_TARAMA_ABONE;
+      // DÜRÜST SAYIM: sunucu "kaç SATIR eşleşti"i söylüyor (esSorgu) ama kilitli
+      // olanların hangisi olduğunu söylemiyor. Buradan çıkan aritmetik nettir:
+      //   açık eşleşen satır = ekranda gösterilenler
+      //   kilitli eşleşen satır = esSorgu - açık
+      //   kesin temiz satır = taranan - esSorgu
+      const acikSorgu = new Set(window.SON_TARAMA.filter(r=>r['Durum'].indexOf('RİSK')===0||r['Durum'].indexOf('OLASI')===0).map(r=>r['Sorgu'])).size;
+      const kilitliSorgu = Math.max((esSorgu||acikSorgu) - acikSorgu, 0);
+      const kesinTemiz = Math.max(window.SON_TARAMA.length - taranmadi - acikSorgu - kilitliSorgu, 0);
       html += '<div class="kutu" style="margin-top:16px;text-align:center">'
         + '<div style="font-size:13.5px;color:var(--muted);margin-bottom:10px">Listenin '
-        + window.SON_TARAMA.length + ' satırı durum sütunuyla işaretlendi: <b style="color:var(--red)">'
-        + riskli + ' risk</b> · <b style="color:var(--amber)">' + olasi + ' olası</b> · <b style="color:var(--green)">'
-        + temiz + ' temiz</b>'
-        + (kilitli ? ' · <b style="color:var(--amber)">'+kilitli+' kilitli</b>' : '')
-        + (taranmadi ? ' · <b style="color:var(--dim)">'+taranmadi+' taranmadı</b>' : '')
+        + window.SON_TARAMA.length + ' satırı tarandı: <b style="color:var(--red)">'
+        + riskli + ' risk</b> · <b style="color:var(--amber)">' + olasi + ' olası</b>'
+        + (kesinTemiz ? ' · <b style="color:var(--green)">'+kesinTemiz+' satırda ilan yok</b>' : '')
+        + (taranmadi ? ' · <b style="color:var(--dim)">'+taranmadi+' satır taranmadı</b>' : '')
         + '</div>'
+        + (kilitliSorgu && !abn
+            ? '<div style="font-size:13px;color:var(--ink);background:rgba(255,107,94,.09);border:1px solid rgba(255,107,94,.28);border-radius:10px;padding:10px 12px;margin-bottom:12px">Bunların dışında <b style="color:var(--red)">'+kilitliSorgu+' satırda daha</b> resmî ilan eşleşmesi bulundu — <b>hangi satır(lar) olduğunu ücretsiz katmanda göstermiyoruz</b>. Abonelikte hepsi açılır.</div>'
+            : '')
         + (abn
             ? '<button class="btn" onclick="taramaExcelIndir()" style="margin:0">📥 Sonucu Excel olarak indir</button>'
               + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Excel dosyası bilgisayarında oluşturulur; yüklediğin dosya bize hiç ulaşmadı.</div>'

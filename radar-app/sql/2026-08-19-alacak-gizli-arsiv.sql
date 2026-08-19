@@ -98,7 +98,16 @@ revoke all on public.alacak_ilan from anon, authenticated;
 create index if not exists alacak_vkn_idx    on public.alacak_ilan (vkn)   where vkn  is not null;
 create index if not exists alacak_tckn_idx   on public.alacak_ilan (tckn)  where tckn is not null;
 create index if not exists alacak_tarih_idx  on public.alacak_ilan (tarih desc);
-create index if not exists alacak_norm_idx   on public.alacak_ilan using gin (borclu_norm gin_trgm_ops);
+-- Unvan aramasi '%...%' kalibiyla calisir; trigram indeksi bunu hizlandirir.
+-- pg_trgm bulunamazsa betik COKMESIN diye sarmalandi (arama yine calisir, yavas).
+do $blk$
+begin
+  execute 'create index if not exists alacak_norm_idx on public.alacak_ilan using gin (borclu_norm gin_trgm_ops)';
+exception when others then
+  raise notice 'trigram indeksi kurulamadi (%), unvan aramasi indekssiz calisacak', sqlerrm;
+  execute 'create index if not exists alacak_norm_idx on public.alacak_ilan (borclu_norm)';
+end
+$blk$;
 
 -- ---------------------------------------------------------------- BOLUM 3/5
 --  ABONELIK. Odeme su an EFT ile elden alindigi icin satirlari Cem doldurur:
@@ -292,9 +301,14 @@ begin
     'atlanan', greatest(toplam - tavan, 0),
     'eslesme', (select count(*) from t),
     'acik',    (select count(*) from t where sira <= acik),
+    -- kac AYRI satirin eslestigi (ilan degil, kullanicinin satiri). Ucretsiz
+    -- katmanda "kac musterim riskli" bunun uzerinden durustce sayilir.
+    'eslesenSorgu', (select count(distinct ham) from t),
     'kayitlar', coalesce((
       select jsonb_agg(jsonb_build_object(
-        'sorgu',  t.ham,
+        -- KILITLI KAYITTA SORGU DA MASKELENIR: aksi halde "senin 4100007934
+        -- numarali musterinde ilan var" demis oluruz ve kilidin anlami kalmaz.
+        'sorgu',  case when t.sira <= acik then t.ham else null end,
         'gizli',  (t.sira > acik),
         'tip',    t.tip,
         'tur',    t.tur,
@@ -302,8 +316,7 @@ begin
         'baslik', case when t.sira <= acik then t.baslik else null end,
         'borclu', case when t.sira <= acik then t.borclu
                        else left(coalesce(t.borclu,'—'),1) || repeat('•', 9) end,
-        'vkn',    case when t.sira <= acik then t.vkn
-                       else case when t.vkn is null then null else left(t.vkn,3)||'•••••••' end end,
+        'vkn',    case when t.sira <= acik then t.vkn else null end,
         'kurum',  case when t.sira <= acik then t.kurum else null end,
         'il',     case when t.sira <= acik then t.il else null end,
         'url',    case when t.sira <= acik then t.url else null end
@@ -395,15 +408,21 @@ as $fn$
     'son30Konkordato', (select count(*) from public.alacak_ilan where tarih >= current_date - 30 and tur='konkordato'),
     'son30Iflas',      (select count(*) from public.alacak_ilan where tarih >= current_date - 30 and tur='iflas'),
     'iller', coalesce((
-      select jsonb_agg(x order by (x->>'t')::int desc) from (
-        select jsonb_build_object('il', coalesce(nullif(il,''),'Belirtilmemiş'),
-                                  't', count(*),
-                                  'k', count(*) filter (where tur='konkordato'),
-                                  'i', count(*) filter (where tur='iflas')) as x
+      -- once GRUPLA (duz kolonlarla), SONRA jsonb'ye cevir. Tek adimda yapilinca
+      -- "aggregate functions are not allowed in GROUP BY" hatasi veriyor.
+      select jsonb_agg(jsonb_build_object('il', g.il_ad, 't', g.t, 'k', g.k, 'i', g.i)
+                       order by g.t desc)
+      from (
+        select coalesce(nullif(il,''),'Belirtilmemiş') as il_ad,
+               count(*)                                as t,
+               count(*) filter (where tur='konkordato') as k,
+               count(*) filter (where tur='iflas')      as i
         from public.alacak_ilan
         where tarih >= current_date - 365
-        group by 1 order by count(*) desc limit 12
-      ) s
+        group by 1
+        order by 2 desc
+        limit 12
+      ) g
     ), '[]'::jsonb),
     'ilanlar', coalesce((
       select jsonb_agg(jsonb_build_object(
