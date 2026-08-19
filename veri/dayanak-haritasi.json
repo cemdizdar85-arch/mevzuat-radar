@@ -1,7 +1,7 @@
 {
-  "tarih": "19.08.2026 08:42",
+  "tarih": "19.08.2026 08:58",
   "aciklama": "Hangi sayfa hangi kanun maddesine yaslaniyor. Ambar damgasi degisince bu listeden hangi sayfanin etkilendigi bulunur.",
-  "sayfa_sayisi": 21,
+  "sayfa_sayisi": 22,
   "tekil_dayanak": 74,
   "ambarda_bulunan": 72,
   "bulunamayan": [
@@ -21,7 +21,21 @@
   "sayfalar": [
     {
       "sayfa": "alacak-radari.html",
-      "dayanak_sayisi": 8,
+      "dayanak_sayisi": 2,
+      "dayanak": [
+        {
+          "kanun_no": "2004",
+          "madde_no": "299"
+        },
+        {
+          "kanun_no": "2004",
+          "madde_no": "301"
+        }
+      ]
+    },
+    {
+      "sayfa": "alacakli-rehberi.html",
+      "dayanak_sayisi": 7,
       "dayanak": [
         {
           "kanun_no": "2004",
@@ -30,10 +44,6 @@
         {
           "kanun_no": "2004",
           "madde_no": "299"
-        },
-        {
-          "kanun_no": "2004",
-          "madde_no": "301"
         },
         {
           "kanun_no": "2004",
