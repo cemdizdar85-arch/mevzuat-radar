@@ -60,8 +60,19 @@ jobs:
       # Mukerrer sayidaki eski teblig metinleri yalniz PDF (19.08.2026):
       # pdftotext metin denemesi, pdftoppm gomulu-font PDF'i sayfa goruntusune
       # cevirir (EskiMetinBul). Kurulu degilse PDF adaylari sessizce null doner.
-      - name: PDF araclari (poppler)
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      # 19.08 OGLE DERSI: ilk surum (apt-get update && install) iki kosuyu 45+
+      # dakika ASILI birakti. Kurulum ZAMAN SINIRLI ve OLUMCUL DEGIL: poppler
+      # bir zenginlestirmedir, kurulamazsa motor PDF'siz calisir - kart nobeti
+      # hicbir kosulda bu adima kurban edilmez.
+      - name: PDF araclari (poppler; kurulamazsa kosu DURMAZ)
+        timeout-minutes: 4
+        continue-on-error: true
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          sudo apt-get install -y --no-install-recommends poppler-utils \
+            || { sudo apt-get update -o Acquire::Retries=2 -qq || true; \
+                 sudo apt-get install -y --no-install-recommends poppler-utils \
+                 || echo "poppler kurulamadi - PDF yolu bu kosuda kapali (motor PDF'siz devam eder)"; }
 
       - name: Gunun tarihi (TR)
         id: g
