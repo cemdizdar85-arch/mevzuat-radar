@@ -496,14 +496,73 @@ if(-not $pdf2txt){
 $kaynakDurum["TKDK (IPARD)"] = if($tkdkOlduMu){ "OK ($tkdkAdet açık ilan — çağrı aralarında 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
 Write-Host ("TKDK: {0}" -f $kaynakDurum["TKDK (IPARD)"])
 
+# --- 6) HAMLE - Teknoloji Odakli Sanayi Hamlesi (19.08 Cem: "teshvik almadigimiz
+# yer kaldi mi" taramasi) ----------------------------------------------------
+# EN VAHIM BOSLUKTU: tesvik sihirbazi 5 yerde "Teknoloji Hamlesi adayisin" diyor
+# ama cagrisini izlemiyorduk. Yatirim tesvikinin en ust kademesi (TYKH: %40 YKO,
+# makine destegi, m.16). Kaynak: hamle.gov.tr/Home/CagriPlani - cagri adi +
+# etiketli tarih ciftleri ("On Basvuru Baslangic/Bitis Tarihi", "Kesin Basvuru
+# Bitis Tarihi"). Tarih bicimi "20 Mayis 2026" (TrTarihCoz cozer).
+Write-Host "HAMLE cagri plani okunuyor..."
+$hamleAdet = 0; $hamleOlduMu = $false
+$hamleHtml = GuvenliCek "https://www.hamle.gov.tr/Home/CagriPlani"
+if($hamleHtml -and $hamleHtml.Length -gt 5000){
+  $hamleOlduMu = $true
+  # duz metne indir: etiket ve tarih ayri etiketlerde duruyor
+  $duz = ($hamleHtml -replace '(?s)<script.*?</script>',' ') -replace '<[^>]*>',"`n"
+  $duz = $duz -replace '&nbsp;',' '
+  $satirlar = @($duz -split "`n" | ForEach-Object { ($_ -replace '\s+',' ').Trim() } | Where-Object { $_ })
+  # cagri adi: "... Cagrisi" ile biten ilk uzun satir (duyuru basligi)
+  $hamleBaslik = ""
+  foreach($s in $satirlar){
+    if($s.Length -ge 15 -and $s.Length -le 120 -and $s -match 'Ça.r.s.$' -and $s -notmatch 'Önceki|Plan'){ $hamleBaslik = $s; break }
+  }
+  # etiket -> tarih: etiket satirini takip eden ilk tarih satiri
+  $hamleTarihler = @(); $hamleAcilis = ""; $hamleSon = ""
+  for($i=0; $i -lt $satirlar.Count; $i++){
+    if($satirlar[$i] -notmatch 'Tarihi$'){ continue }
+    $etiket = $satirlar[$i]
+    for($j=$i+1; $j -lt [Math]::Min($i+4, $satirlar.Count); $j++){
+      $coz = TrTarihCoz $satirlar[$j]
+      if($coz){
+        $hamleTarihler += [ordered]@{ etiket=$etiket; tarih=$coz }
+        $normE = Normalize $etiket
+        if($normE -match 'baslangic' -and -not $hamleAcilis){ $hamleAcilis = $coz }
+        # SON TARIH = kesin basvuru bitisi (on basvuru bitse de cagri surer)
+        if($normE -match 'kesin basvuru bitis'){ $hamleSon = $coz }
+        break
+      }
+    }
+  }
+  # sayfada etiketler iki kez geciyor - mukerrer tarih satirlarini ayikla
+  $gorulenT = @{}; $tekilT = @()
+  foreach($t in $hamleTarihler){ $ax = "$($t.etiket)|$($t.tarih)"; if(-not $gorulenT.ContainsKey($ax)){ $gorulenT[$ax]=1; $tekilT += $t } }
+  $hamleTarihler = $tekilT
+  if(-not $hamleSon -and $hamleTarihler.Count){ $hamleSon = ($hamleTarihler | ForEach-Object { $_.tarih } | Sort-Object | Select-Object -Last 1) }
+  # yalniz son tarihi GELECEKTE olan cagri "acik"; gecmisse liste disi
+  $hamleGecerli = $false
+  if($hamleSon){ try { $hamleGecerli = ([datetime]::ParseExact($hamleSon,"yyyy-MM-dd",$null) -ge $bugun) } catch {} }
+  if($hamleBaslik -and $hamleGecerli){
+    $cagrilar += [ordered]@{
+      kaynak="HAMLE (Teknoloji Odaklı Sanayi Hamlesi)"; kod="TYKH"; baslik=$hamleBaslik; durum="acik"
+      acilis=$hamleAcilis; sonTarih=$hamleSon; tarihler=$hamleTarihler
+      url="https://www.hamle.gov.tr/Home/CagriPlani"
+    }
+    $hamleAdet = 1
+  }
+}
+$kaynakDurum["HAMLE"] = if($hamleOlduMu){ "OK ($hamleAdet açık çağrı — çağrı aralarında 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
+Write-Host ("HAMLE: {0}" -f $kaynakDurum["HAMLE"])
+
 # --- kor kalma + eski veriyi koruma -----------------------------------------
-$KAYNAK_SAYISI = 5
+$KAYNAK_SAYISI = 6
 $olculenler = @()
 if($tubitakOlduMu){ $olculenler += "TÜBİTAK" }
 if($kosgebOlduMu){ $olculenler += "KOSGEB" }
 if($abOlduMu){ $olculenler += "AB" }
 if($kaOlduMu){ $olculenler += "Kalkınma Ajansları" }
 if($tkdkOlduMu){ $olculenler += "TKDK (IPARD)" }
+if($hamleOlduMu){ $olculenler += "HAMLE" }
 if(-not $olculenler.Count){
   Write-Host "HATA: kaynaklarin hicbiri olculemedi - dosyaya DOKUNULMADI (eski veri korunur)"
   exit 1
@@ -556,6 +615,7 @@ $cikti = [ordered]@{
     [ordered]@{ ad="AB"; url="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals"; durum=$kaynakDurum["AB"]; sonUretim=(SaglikDamgasi "AB") }
     [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"]; sonUretim=(SaglikDamgasi "Kalkınma") }
     [ordered]@{ ad="TKDK (IPARD)"; url="https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv"; durum=$kaynakDurum["TKDK (IPARD)"]; sonUretim=(SaglikDamgasi "TKDK") }
+    [ordered]@{ ad="HAMLE"; url="https://www.hamle.gov.tr/Home/CagriPlani"; durum=$kaynakDurum["HAMLE"]; sonUretim=(SaglikDamgasi "HAMLE") }
   )
   cagrilar = $cagrilar
 }

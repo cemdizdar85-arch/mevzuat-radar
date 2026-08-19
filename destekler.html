@@ -413,13 +413,14 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
     + '<span>'+((c.kaynak==='Kalkınma Ajansları'&&c.kod)?'<span class="rozet" style="margin:0 6px 0 0">'+c.kod+'</span>':'')+((c.kaynak==='AB'&&c.program)?'<span class="rozet" style="margin:0 6px 0 0">'+c.program+'</span>':'')+'<a href="'+c.url+'" target="_blank" rel="noopener" style="font-weight:600">'+c.baslik+'</a>'
     + (c.acilis&&kalan(c.acilis)>0 ? ' <span class="rozet" style="background:rgba(61,220,151,.13);color:var(--green)">'+gd(c.acilis)+"'de açılır</span>" : '')
     + rozetle(c.sonTarih) + '</span>'
-    + '<span style="color:var(--muted);white-space:nowrap">'+(c.sonTarih ? 'kapanış '+gd(c.sonTarih) : 'tarih duyuruda')+'</span></div>';
+    + '<span style="color:var(--muted);white-space:nowrap;text-align:right">'+(c.sonTarih ? 'kapanış '+gd(c.sonTarih) : 'tarih duyuruda')+((c.tarihler&&c.tarihler.length>1)?'<br><span style="font-size:11px;color:var(--dim)">'+c.tarihler.map(t=>t.etiket.replace(/ Tarihi$/,'')+' '+gd(t.tarih)).join('<br>')+'</span>':'')+'</span></div>';
   const grup = (ad, dizi, acik, ustNot) => !dizi.length ? '' :
     '<details class="kart" style="padding:14px 18px" '+(acik?'open':'')+'><summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">'+ad+' <span style="color:var(--dim);font-weight:600">· '+dizi.length+' çağrı</span></summary>'
     + (ustNot||'') + dizi.map(satir).join('') + '</details>';
   const tub = liste.filter(c=>c.kaynak==='TÜBİTAK');
   const kos = liste.filter(c=>c.kaynak==='KOSGEB');
   const ka  = liste.filter(c=>c.kaynak==='Kalkınma Ajansları');
+  const hm  = liste.filter(c=>(c.kaynak||'').indexOf('HAMLE')===0);
   const tk  = liste.filter(c=>c.kaynak==='TKDK (IPARD)');
   const ab  = liste.filter(c=>(c.kaynak||'').indexOf('AB')===0);
   const abAcik = ab.filter(c=>c.durum!=='yakinda');
@@ -427,6 +428,8 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   document.getElementById('cagriListe').innerHTML =
     grup('TÜBİTAK', tub, true, '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Başvuru PRODİS (eteydeb) üzerinden; 9903 teşvik belgen varsa m.33 tek-kapı kuralına dikkat (aynı harcamaya iki destek olmaz; Teknoloji Hamlesi istisna).</p>')
     + grup('KOSGEB', kos, true, '')
+    + grup('HAMLE — Teknoloji Odaklı Sanayi Hamlesi', hm, true,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Yatırım teşvikinin <b style="color:var(--ink)">en üst kademesi</b> (TYKH): öncelikli ürün listesindeki yatırımlara %40 yatırıma katkı, makine desteği ve stratejik hamle kapısı. Çağrı dönemseldir, ön başvuru + kesin başvuru iki aşamalıdır — tarihler aşağıda. Sihirbaz sana "Teknoloji Hamlesi adayısın" dediyse asıl kapı burasıdır.</p>')
     + grup('Kalkınma Ajansları', ka, false,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">26 bölge ajansının güncel destekleri (mali, teknik, fizibilite). Çağrı <b style="color:var(--ink)">bölge bazlıdır</b>: kısaltma ajansı gösterir (İZKA=İzmir, MEVKA=Konya-Karaman…), kendi bölgendekine başvurabilirsin; başvuru KAYS üzerinden. 9903 teşvik belgen varsa m.33 tek-kapı kuralını unutma.</p>')
     + grup('TKDK — IPARD (tarım-gıda hibeleri)', tk, true,

@@ -263,6 +263,7 @@ function digerKapilar(sektor){
       + (kos.length ? ', <b>KOSGEB ' + kos.length + ' çağrı</b>' : '')
       + (ka.length ? ', <b>kalkınma ajansları ' + ka.length + ' destek</b>' : '')
       + (function(){ const tk=CG.cagrilar.filter(c=>c.kaynak==='TKDK (IPARD)'); return tk.length ? ', <b>TKDK/IPARD ' + tk.length + ' açık ilan</b>' : ''; })()
+      + (function(){ const hm=CG.cagrilar.filter(c=>(c.kaynak||'').indexOf('HAMLE')===0); return hm.length ? ', <b>Teknoloji Hamlesi çağrısı AÇIK</b> (' + (hm[0].sonTarih? 'kesin başvuru ' + gd(hm[0].sonTarih):'tarih duyuruda') + ')' : ''; })()
       + (ab.length ? ', <b>AB ' + ab.filter(c=>c.durum!=='yakinda').length + ' açık konu</b> (' + ab.filter(c=>c.durum==='yakinda').length + ' de yakında)' : '') + '.';
   }
   return '<div class="kutu" style="border-left:5px solid var(--accent)"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🚪 DİĞER KAPILAR</div>'
