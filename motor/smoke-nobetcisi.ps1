@@ -79,8 +79,9 @@ if($kirmizi.Count -eq 0){ Write-Host "SMOKE TEMIZ: $($SAYFALAR.Count) uc noktani
 Write-Host "SMOKE KIRMIZI:"; $kirmizi | ForEach-Object { Write-Host "  $_" }
 if($env:RESEND_KEY){
   $sat = ($kirmizi | ForEach-Object { "<li>$_</li>" }) -join ""
-  $html = "<h3>Smoke Nobetcisi ALARM</h3><p>tetikte.com gunluk saglik taramasinda $($kirmizi.Count) sorun:</p><ul>$sat</ul><p>Hemen bak — ziyaretci gormeden duzelt. Tetikte</p>"
-  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE SMOKE ALARM: $($kirmizi.Count) sayfa sorunlu"; html=$html } | ConvertTo-Json -Depth 3
+  $html = "<h3>Smoke Nobetcisi alarmi</h3><p>tetikte.com gunluk saglik taramasinda $($kirmizi.Count) sorun:</p><ul>$sat</ul><p>Hemen bak — ziyaretci gormeden duzelt. Tetikte</p>"
+  $duz = "Smoke Nobetcisi alarmi`ntetikte.com gunluk saglik taramasinda $($kirmizi.Count) sorun:`n" + (($kirmizi | ForEach-Object { "- $_" }) -join "`n") + "`nHemen bak — ziyaretci gormeden duzelt. Tetikte"
+  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte smoke alarmi: $($kirmizi.Count) sayfa sorunlu"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "mail hatasi: $_" }
 }
 exit 1

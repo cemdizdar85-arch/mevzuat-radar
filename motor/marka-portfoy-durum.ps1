@@ -80,8 +80,10 @@ if($env:RESEND_KEY -and -not $kuru){
   $from=if($env:RESEND_FROM){$env:RESEND_FROM}else{'Tetikte <bildirim@tetikte.com>'}
   foreach($mail in $mailKuyruk.Keys){ $liste=$mailKuyruk[$mail]
     $satir=($liste|ForEach-Object{ "<li><b>$($_.marka)</b>: $($_.benzer_ad)</li>" }) -join ""
-    $html="<p>Merhaba,</p><p>Portfoyundeki markalarda durum guncellemesi:</p><ul>$satir</ul><p>Panelinden bak: https://tetikte.com/marka-portfoy.html</p><p>Tetikte</p>"
-    $body=@{ from=$from; to=@($mail); reply_to="cem@dizdardenetim.com"; subject="Marka durum guncellemesi"; html=$html }
+    # 19.08 onemsiz-kutu dersi: uye mailinde duz-metin alternatif + List-Unsubscribe sart
+    $html="<p>Merhaba,</p><p>Portfoyundeki markalarda durum guncellemesi:</p><ul>$satir</ul><p>Panelinden bak: https://tetikte.com/marka-portfoy.html</p><p>Tetikte</p><p style='color:#888;font-size:12px'>Bu maili marka portfoy aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin.</p>"
+    $duz="Merhaba,`n`nPortfoyundeki markalarda durum guncellemesi:`n" + (($liste|ForEach-Object{ "- $($_.marka): $($_.benzer_ad)" }) -join "`n") + "`n`nPanelinden bak: https://tetikte.com/marka-portfoy.html`n`nTetikte`nBu maili marka portfoy aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin."
+    $body=@{ from=$from; to=@($mail); reply_to="cem@dizdardenetim.com"; subject="Marka durum guncellemesi"; html=$html; text=$duz; headers=@{ "List-Unsubscribe"="<mailto:cem@dizdardenetim.com?subject=iptal>" } }
     try{ $w=Invoke-WebRequest -Uri "https://api.resend.com/emails" -Method Post -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')); 'Content-Type'='application/json' } -Body ([Text.Encoding]::UTF8.GetBytes(($body|ConvertTo-Json -Compress -Depth 6))) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; if([int]$w.StatusCode -lt 400){ $mailAtilan++ } }catch{} }
 }
 $ozet=[ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod=$(if($kuru){'KURU'}else{'CANLI'}); markali_firma=$firmalar.Count; izlenen_marka=$izlenen; belirsiz_ad=$belirsiz; degisim_uyari=$degisim.Count; mail_atilan=$mailAtilan; resend=[bool]$env:RESEND_KEY; ornekler=@($degisim|Select-Object -First 10); not="Tam-ad eslesen markalarin durumu TMview'den izlendi; degisen ya da yenilemesi yaklasan marka_uyari'ya yazildi. Belirsiz ad (0/>1 eslesme) izlenmedi." }

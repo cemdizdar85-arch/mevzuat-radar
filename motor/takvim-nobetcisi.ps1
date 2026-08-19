@@ -26,7 +26,7 @@ try {
   # indirilemeyen kaynak da alarm sebebi (URL degisti = takvim yenilendi olabilir)
   $mesaj = "TURMOB sinav takvimi PDF'i INDIRILEMEDI: $url — dosya tasinmis/yenilenmis olabilir. tesmer.org.tr'den yeni takvimi bul, genc.html + sinav-takvimi.json guncelle."
   if($env:RESEND_KEY){
-    $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE NOBETCI: sinav takvimi PDF erisim alarmi"; html="<p>$mesaj</p>" } | ConvertTo-Json -Depth 3
+    $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte nobetcisi: sinav takvimi PDF erisim alarmi"; html="<p>$mesaj</p>"; text=$mesaj } | ConvertTo-Json -Depth 3
     try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "alarm maili gitti" } catch { Write-Host "mail hatasi: $_" }
   }
   exit 0
@@ -51,7 +51,8 @@ $j | Add-Member -NotePropertyName "yeniHashBeklemede" -NotePropertyValue $yeniHa
 
 if($env:RESEND_KEY){
   $html = "<h3>TURMOB sinav takvimi PDF'i DEGISTI</h3><p>Tespit: $bugun · eski hash $($j.pdfHash) → yeni $yeniHash</p><p><b>Yapilacak:</b> <a href='$url'>guncel PDF'i ac</a>, tarihleri oku; genc.html tablolari + geri sayim olaylarini ve sinav-takvimi.json'daki pdfHash/sonTeyit alanlarini guncelle. Robot tarihleri BILEREK kendisi degistirmez.</p><p>Tetikte — takvim nobetcisi</p>"
-  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE NOBETCI: TURMOB sinav takvimi DEGISTI — teyit gerekli"; html=$html } | ConvertTo-Json -Depth 3
+  $duz = "TURMOB sinav takvimi PDF'i degisti`nTespit: $bugun · eski hash $($j.pdfHash) -> yeni $yeniHash`nYapilacak: guncel PDF'i ac ($url), tarihleri oku; genc.html tablolari + geri sayim olaylarini ve sinav-takvimi.json'daki pdfHash/sonTeyit alanlarini guncelle. Robot tarihleri BILEREK kendisi degistirmez.`nTetikte — takvim nobetcisi"
+  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte nobetcisi: TURMOB sinav takvimi degisti — teyit gerekli"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "degisiklik maili gitti" } catch { Write-Host "mail hatasi: $_" }
 }
 exit 0

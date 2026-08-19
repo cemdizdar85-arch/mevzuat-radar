@@ -121,8 +121,11 @@ if($env:RESEND_KEY -and -not $kuru){
   foreach($mail in $mailKuyruk.Keys){
     $liste = $mailKuyruk[$mail]
     $satir = ($liste | ForEach-Object { "<li><b>$($_.marka)</b> markana benzer: <b>$($_.benzer_ad)</b> (basvuru $($_.basvuru_no), $($_.basvuru_tarih), risk %$($_.risk)$(if($_.sinif_cak -eq $true){', sinif cakisiyor'})).</li>" }) -join ""
-    $html = "<p>Merhaba,</p><p>Izledigimiz markalarina benzer <b>$($liste.Count)</b> yeni basvuru TURKPATENT'e dustu:</p><ul>$satir</ul><p>Detay ve itiraz suresi icin panelinden bak: https://tetikte.com/marka-izleme.html · Itiraz suresi yayimdan 2 aydir (SMK m.18).</p><p>Tetikte</p>"
-    $body = @{ from=$from; to=@($mail); reply_to="cem@dizdardenetim.com"; subject=("Marka izleme: {0} yeni benzer basvuru" -f $liste.Count); html=$html }
+    # 19.08 onemsiz-kutu dersi: uye mailinde duz-metin alternatif + List-Unsubscribe sart
+    $html = "<p>Merhaba,</p><p>Izledigimiz markalarina benzer <b>$($liste.Count)</b> yeni basvuru TURKPATENT'e dustu:</p><ul>$satir</ul><p>Detay ve itiraz suresi icin panelinden bak: https://tetikte.com/marka-izleme.html · Itiraz suresi yayimdan 2 aydir (SMK m.18).</p><p>Tetikte</p><p style='color:#888;font-size:12px'>Bu maili marka izleme aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin.</p>"
+    $duzSatir = ($liste | ForEach-Object { "- $($_.marka) markana benzer: $($_.benzer_ad) (basvuru $($_.basvuru_no), $($_.basvuru_tarih), risk %$($_.risk))" }) -join "`n"
+    $duz = "Merhaba,`n`nIzledigimiz markalarina benzer $($liste.Count) yeni basvuru TURKPATENT'e dustu:`n$duzSatir`n`nDetay ve itiraz suresi icin panelinden bak: https://tetikte.com/marka-izleme.html · Itiraz suresi yayimdan 2 aydir (SMK m.18).`n`nTetikte`nBu maili marka izleme aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin."
+    $body = @{ from=$from; to=@($mail); reply_to="cem@dizdardenetim.com"; subject=("Marka izleme: {0} yeni benzer basvuru" -f $liste.Count); html=$html; text=$duz; headers=@{ "List-Unsubscribe"="<mailto:cem@dizdardenetim.com?subject=iptal>" } }
     try{ $w=Invoke-WebRequest -Uri "https://api.resend.com/emails" -Method Post -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')); 'Content-Type'='application/json' } -Body ([Text.Encoding]::UTF8.GetBytes(($body|ConvertTo-Json -Compress -Depth 6))) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; if([int]$w.StatusCode -lt 400){ $mailAtilan++ } }catch{}
   }
 } else { Write-Host "RESEND_KEY yok - mail atlandi (uyarilar panelde gorunur)." }

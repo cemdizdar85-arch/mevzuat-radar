@@ -310,7 +310,8 @@ try {
       if($env:RESEND_KEY){
         $sat = ($etkilenen | Select-Object -First 20 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)</li>" }) -join ""
         $html = "<h3>Etki Zinciri uyarisi</h3><p>Bugun degisen kanun(lar): <b>$($degisen -join ', ')</b>. Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).</p><ul>$sat</ul><p>Tetikte — kanun aynasi</p>"
-        $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE ETKI ZINCIRI: degisen kanun $($etkilenen.Count) icerigi etkiliyor"; html=$html } | ConvertTo-Json -Depth 3
+        $duz = "Etki Zinciri uyarisi`nBugun degisen kanun(lar): $($degisen -join ', '). Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).`n" + (($etkilenen | Select-Object -First 20 | ForEach-Object { "- $($_.id) ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)" }) -join "`n") + "`nTetikte — kanun aynasi"
+        $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte etki zinciri: degisen kanun $($etkilenen.Count) icerigi etkiliyor"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
         try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "etki maili hatasi: $_" }
       }
     } else { Write-Host "ETKI ZINCIRI: degisen kanunlara atif yapan icerik yok." }
@@ -349,7 +350,8 @@ try {
         if($env:RESEND_KEY){
           $sat2 = ($askiAday | Select-Object -First 25 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.ders)) — kanun $($_.kanun_no)</li>" }) -join ""
           $html2 = "<h3>Soru Etki Zinciri</h3><p>Degisen kanun(lar) <b>$($kanunNolar -join ', ')</b> nedeniyle <b>$($askiAday.Count)</b> yayindaki soru OTOMATIK ASKIYA alindi. Okuyucu hatti yeniden dogrulayinca insan karariyla acilir.</p><ul>$sat2</ul><p>Tetikte — soru sigortasi</p>"
-          $mb2 = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE SORU ASKISI: kanun degisti, $($askiAday.Count) soru yayindan cekildi"; html=$html2 } | ConvertTo-Json -Depth 3
+          $duz2 = "Soru Etki Zinciri`nDegisen kanun(lar) $($kanunNolar -join ', ') nedeniyle $($askiAday.Count) yayindaki soru otomatik askiya alindi. Okuyucu hatti yeniden dogrulayinca insan karariyla acilir.`n" + (($askiAday | Select-Object -First 25 | ForEach-Object { "- $($_.id) ($($_.ders)) — kanun $($_.kanun_no)" }) -join "`n") + "`nTetikte — soru sigortasi"
+          $mb2 = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte soru askisi: kanun degisti, $($askiAday.Count) soru yayindan cekildi"; html=$html2; text=$duz2 } | ConvertTo-Json -Depth 3
           try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb2)) -ContentType "application/json" | Out-Null } catch { Write-Host "soru-aski maili hatasi: $_" }
         }
       } else { Write-Host "SORU ETKI ZINCIRI: degisen kanunlara dayanan yayinda soru yok." }

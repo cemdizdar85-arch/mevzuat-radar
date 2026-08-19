@@ -94,7 +94,8 @@ Write-Host ("{0} KIRIK LINK bulundu." -f $kirik.Count)
 if($env:RESEND_KEY){
   $sat = ($kirik | Select-Object -First 25 | ForEach-Object { "<li><a href='$($_.url)'>$($_.url)</a> — kod: $($_.kod) — gecen sayfa: $($_.sayfalar)</li>" }) -join ""
   $html = "<h3>Olu Link Nobetcisi raporu</h3><p>$($linkler.Count) dis link tarandi, <b>$($kirik.Count)</b> kirik/erisimsiz bulundu:</p><ul>$sat</ul><p>Duzeltme: dogru guncel linki bul, sayfada degistir. Tetikte — link nobetcisi</p>"
-  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE LINK NOBETCISI: $($kirik.Count) kirik dis link"; html=$html } | ConvertTo-Json -Depth 3
+  $duz = "Olu Link Nobetcisi raporu`n$($linkler.Count) dis link tarandi, $($kirik.Count) kirik/erisimsiz bulundu:`n" + (($kirik | Select-Object -First 25 | ForEach-Object { "- $($_.url) — kod: $($_.kod) — gecen sayfa: $($_.sayfalar)" }) -join "`n") + "`nDuzeltme: dogru guncel linki bul, sayfada degistir. Tetikte — link nobetcisi"
+  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte link nobetcisi: $($kirik.Count) kirik dis link"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "rapor maili gitti" } catch { Write-Host "mail hatasi: $_" }
 }
 exit 0

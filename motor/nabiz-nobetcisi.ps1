@@ -212,11 +212,14 @@ if($kirmizi.Count -eq 0){
 Write-Host "NABIZ KIRMIZI ($($kirmizi.Count)):"; $kirmizi | ForEach-Object { Write-Host "  $_" }
 
 # --- mail: yalniz makinenin COZEMEDIGI icin (Resend varsa Resend; yoksa web3forms) ---
-$konu = "TETIKTE NABIZ ALARM: $($kirmizi.Count) sorun (makine cozemedi)"
+# 19.08 onemsiz-kutu dersi: TUM-BUYUK konu + HTML-tek govde spam puani yukseltir;
+# konu cumle duzeni, her maile duz-metin (text) alternatif eklenir.
+$konu = "Tetikte nabiz alarmi: $($kirmizi.Count) sorun (makine cozemedi)"
 if($env:RESEND_KEY){
   $sat = ($kirmizi | ForEach-Object { "<li>$_</li>" }) -join ""
-  $html = "<h3>Nabiz Nobetcisi ALARM</h3><p>Otomatik kurtarma denendi ama cozulemedi:</p><ul>$sat</ul><p>Actions sekmesinden ilgili robotun loguna bak. Tetikte</p>"
-  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject=$konu; html=$html } | ConvertTo-Json -Depth 3
+  $html = "<h3>Nabiz Nobetcisi alarmi</h3><p>Otomatik kurtarma denendi ama cozulemedi:</p><ul>$sat</ul><p>Actions sekmesinden ilgili robotun loguna bak. Tetikte</p>"
+  $duz = "Nabiz Nobetcisi alarmi`n`nOtomatik kurtarma denendi ama cozulemedi:`n" + (($kirmizi | ForEach-Object { "- $_" }) -join "`n") + "`n`nActions sekmesinden ilgili robotun loguna bak. Tetikte"
+  $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject=$konu; html=$html; text=$duz } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "MAIL (resend) gonderildi" } catch { Write-Host "resend hatasi: $_" }
 } else {
   $mb = @{
