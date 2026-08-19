@@ -1,18 +1,34 @@
 {
-  "tarih": "03.08.2026 20:30",
-  "durum": "TAMAM",
-  "mod": "UYGULANDI (KASAYA YAZILDI)",
+  "tarih": "19.08.2026 06:48",
+  "mod": "KURU (0 USD, KASAYA YAZILMADI)",
   "tier": "yuksek",
-  "yedek_dosyasi": "yedek-sik-kod-0803-2030.json",
-  "yedek_kayit": 344,
-  "yedek_bayt": 101882,
-  "hazirlanan_degisiklik": 344,
-  "etkilenen_soru": 105,
-  "yazilan_soru": 105,
-  "yazma_hatasi": 0,
-  "geri_okuma_dogrulanan": 105,
-  "geri_okuma_dogrulanmayan": 0,
+  "oneri_dosyasi": 323,
+  "secilen": 6,
+  "hazirlanan_degisiklik": 2,
+  "etkilenen_soru": 2,
   "yayinda_atlanan": 0,
   "bulunamayan": 0,
-  "not": "Geri alma: ozel kovadaki yedek-sik-kod-0803-2030.json dosyasindaki eski_metin degerleri geri yazilir."
+  "atlanan_ornek": [
+    {
+      "soru_id": "02481def-c29b-4d16-a1d8-4a7cb6cabaca",
+      "alan": "siklar.D",
+      "sebep": "eski metin bulunamadi (zaten duzeltilmis olabilir)"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "alan": "siklar.B",
+      "sebep": "eski metin bulunamadi (zaten duzeltilmis olabilir)"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "alan": "siklar.C",
+      "sebep": "eski metin bulunamadi (zaten duzeltilmis olabilir)"
+    },
+    {
+      "soru_id": "8e39462a-2f74-4278-b089-c6a5b595ea59",
+      "alan": "siklar.D",
+      "sebep": "eski metin bulunamadi (zaten duzeltilmis olabilir)"
+    }
+  ],
+  "not": "Bu bir PROVA. Gercek yazma icin -uygula gerekir (workflow tetiginde BAS sarti)."
 }
