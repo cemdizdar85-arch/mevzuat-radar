@@ -93,7 +93,31 @@ if($blokBas -ge 0){
   $bagLinkler = [regex]::Matches($blok, '<a href="(/tr/[^"]*/cagri-[^"]*)"[^>]*>([^<]+)</a>') |
     ForEach-Object { [pscustomobject]@{ href=$_.Groups[1].Value; baslik=(($_.Groups[2].Value -replace '\s+',' ').Trim()) } } |
     Sort-Object href -Unique
-  foreach($bag in ($bagLinkler | Select-Object -First 12)){
+  $bagLinkler = @($bagLinkler)
+  # 19.08 CAPRAZ KONTROL: sanayi blogu DAR kaliyor - ana sayfa duyurularinda
+  # blokta OLMAYAN cagrilar var (olculdu: BiGG+ Tohum Yatirim 2026/1). Sirket
+  # sinyali tasiyanlar eklenir: 4 haneli program kodu YA DA sanayi/kobi/girisim/
+  # bigg/ar-ge/teknoloji/patent/yatirim kelimesi. Akademik cagrilar (Kutup
+  # Arastirmalari, Gokyuzu Gozlem) boylece elenir - kitlemiz SIRKET.
+  $anaHtmlTb = GuvenliCek $tubitakKok
+  if($anaHtmlTb){
+    $mevcutBasliklar = @($bagLinkler | ForEach-Object { (Normalize $_.baslik) })
+    $ekAdaylar = [regex]::Matches($anaHtmlTb, '<a[^>]*href="(/tr/duyuru/[^"]+)"[^>]*>([^<]{5,160})</a>') |
+      ForEach-Object { [pscustomobject]@{ href=$_.Groups[1].Value; baslik=(($_.Groups[2].Value -replace '\s+',' ').Trim()) } } |
+      Sort-Object href -Unique
+    foreach($aday in $ekAdaylar){
+      $normA = Normalize $aday.baslik
+      if($normA -notmatch 'cagri'){ continue }
+      $sirketSinyali = ($aday.baslik -match '\d{4}\s*-|\b\d{4}\b') -or ($normA -match 'sanayi|kobi|girisim|bigg|ar-ge|arge|teknoloji|patent|yatirim')
+      if(-not $sirketSinyali){ continue }
+      # mukerrer: ayni cagri hem blokta hem duyuruda olabilir (ilk 30 karakter)
+      $kisaA = if($normA.Length -gt 30){ $normA.Substring(0,30) } else { $normA }
+      if(@($mevcutBasliklar | Where-Object { $_.StartsWith($kisaA) }).Count){ continue }
+      $bagLinkler += $aday
+      Write-Host ("  duyuru akisindan eklendi: {0}" -f $aday.baslik)
+    }
+  }
+  foreach($bag in ($bagLinkler | Select-Object -First 18)){
     $kod = ""; if($bag.baslik -match '^\s*(\d{4})'){ $kod = $Matches[1] }
     $acilis = ""; $sonTarih = ""; $tarihler = @()
     $duyuruHtml = GuvenliCek ($tubitakKok + $bag.href)
@@ -238,19 +262,19 @@ $sediaDosya = Join-Path ([IO.Path]::GetTempPath()) "sedia-cagri.json"
 $sorguDosya = Join-Path ([IO.Path]::GetTempPath()) "sedia-sorgu.json"
 $dilDosya   = Join-Path ([IO.Path]::GetTempPath()) "sedia-dil.json"
 $siraDosya  = Join-Path ([IO.Path]::GetTempPath()) "sedia-sira.json"
-[IO.File]::WriteAllText($sorguDosya, '{"bool":{"must":[{"terms":{"type":["1","2"]}},{"terms":{"status":["31094502"]}},{"terms":{"frameworkProgramme":["43108390"]}}]}}')
+[IO.File]::WriteAllText($sorguDosya, '{"bool":{"must":[{"terms":{"type":["1","2"]}},{"terms":{"status":["31094502","31094501"]}}]}}')
 [IO.File]::WriteAllText($dilDosya,   '["en"]')
 [IO.File]::WriteAllText($siraDosya,  '{"field":"deadlineDate","order":"ASC"}')
 try {
   # sunucu pageSize'i 100'e KIRPAR (olculdu: 500 istendi 100 geldi) -> sayfalama sart.
   # ASC siralamada ilk sayfalar gecmis cut-off'lu eski konular; TUM sayfalar gezilir.
   $abListe = @(); $sayfa = 1; $toplamAB = -1
-  while($sayfa -le 10){
+  while($sayfa -le 20){
     # baglanti ortada kopabiliyor (19.08: sayfa 2'de Recv failure -> kesik JSON) - 2 deneme
     $sedia = $null
     foreach($deneme in 1,2){
       Remove-Item $sediaDosya -ErrorAction SilentlyContinue
-      & $curlKomut -sS -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
+      & $curlKomut -sS --connect-timeout 25 -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
         -F "query=<$sorguDosya;type=application/json" `
         -F "languages=<$dilDosya;type=application/json" `
         -F "sort=<$siraDosya;type=application/json" `
@@ -270,11 +294,30 @@ try {
       $meta = $sonuc.metadata
       $kimlik = "$($meta.identifier)"; $baslikAB = "$($meta.title)"
       if(-not $kimlik -or -not $baslikAB){ continue }
-      # gelecek tarihli en yakin son tarih (cut-off) alinir; yoksa cagri atlanir.
+      # 19.08 Cem karari: kapsam Ufuk Avrupa'nin OTESINE acildi (tum AB programlari)
+      # + "yakinda acilacak" cagrilar da alinir. Durum status kodundan okunur:
+      # 31094502 = acik, 31094501 = yakinda (forthcoming).
+      $durumAB = if("$($meta.status)" -eq '31094501'){ 'yakinda' } else { 'acik' }
+      # 19.08 OLCULDU: SEDIA topic kayitlarinda program ADI YOK, yalniz
+      # frameworkProgramme ID'si var. Program adi KIMLIK ONEKINDEN cozulur
+      # (HORIZON-..., ERASMUS-..., LIFE-...); bilinmeyen onek oldugu gibi yazilir,
+      # UYDURULMAZ.
+      $onek = (($kimlik -split '-')[0] -split '/')[0]
+      $programSozluk = @{
+        'HORIZON'='Ufuk Avrupa'; 'ERASMUS'='Erasmus+'; 'LIFE'='LIFE (çevre-iklim)';
+        'DIGITAL'='Dijital Avrupa'; 'CREA'='Yaratıcı Avrupa'; 'CERV'='Yurttaşlar ve Eşitlik';
+        'SMP'='Tek Pazar Programı'; 'CEF'="Avrupa'yı Bağlama"; 'EU4H'='AB Sağlık Programı';
+        'ESC'='Avrupa Dayanışma Programı'; 'EDF'='Avrupa Savunma Fonu'; 'AMIF'='Göç ve Uyum Fonu';
+        'ISF'='İç Güvenlik Fonu'; 'BMVI'='Sınır Yönetimi Fonu'; 'JUST'='Adalet Programı';
+        'IMCAP'='Tarım Tanıtım'; 'AGRIP'='Tarım Tanıtım'; 'EMFAF'='Denizcilik ve Balıkçılık';
+        'PERF'='Performans Programı'; 'RFCS'='Kömür-Çelik Araştırma'; 'UCPM'='Sivil Koruma'
+      }
+      $programAB = if($programSozluk.ContainsKey($onek)){ $programSozluk[$onek] } else { $onek }
+      if(-not $programAB){ $programAB = "AB programı" }
+      # gelecek tarihli en yakin son tarih (cut-off).
       # DIKKAT (19.08 CI vakasi): pwsh 7 ConvertFrom-Json ISO tarih dizesini
       # KENDILIGINDEN [datetime] yapar; "$ham".Substring o zaman kultur-bicimli
       # dize verir ve ParseExact sessizce patlar (CI'da 345 konunun hepsi elendi).
-      # Iki tur da ayri ele alinir.
       $gelecek = @()
       foreach($ham in @($meta.deadlineDate)){
         $t = $null
@@ -282,10 +325,28 @@ try {
         else { try { $t = [datetime]::ParseExact("$ham".Substring(0,10),"yyyy-MM-dd",$null) } catch {} }
         if($t -and $t -ge $bugun){ $gelecek += $t }
       }
-      if(-not $gelecek.Count){ continue }
+      # acilis tarihi (yakinda olanlarda ASIL bilgi budur)
+      $acilisAB = ""
+      foreach($ham in @($meta.startDate)){
+        $t = $null
+        if($ham -is [datetime]){ $t = $ham.Date }
+        else { try { $t = [datetime]::ParseExact("$ham".Substring(0,10),"yyyy-MM-dd",$null) } catch {} }
+        if($t){ $acilisAB = $t.ToString("yyyy-MM-dd"); break }
+      }
+      # ACIK kayitta gelecek son tarih SART (yoksa fiilen kapanmis);
+      # YAKINDA kayitta son tarih ya da gelecek acilis yeter.
+      $sonAB = if($gelecek.Count){ ($gelecek | Sort-Object | Select-Object -First 1).ToString("yyyy-MM-dd") } else { "" }
+      if($durumAB -eq 'acik'){
+        if(-not $sonAB){ continue }
+      } else {
+        $acilisGelecekte = $false
+        if($acilisAB){ try { $acilisGelecekte = ([datetime]::ParseExact($acilisAB,"yyyy-MM-dd",$null) -ge $bugun) } catch {} }
+        if(-not $sonAB -and -not $acilisGelecekte){ continue }
+      }
       $abListe += [ordered]@{
-        kaynak="AB (Ufuk Avrupa)"; kod="$($meta.callIdentifier)"; baslik=$baslikAB; durum="acik"
-        acilis=""; sonTarih=(($gelecek | Sort-Object | Select-Object -First 1).ToString("yyyy-MM-dd"))
+        kaynak="AB"; kod="$($meta.callIdentifier)"; baslik=$baslikAB; durum=$durumAB
+        program=$programAB
+        acilis=$acilisAB; sonTarih=$sonAB
         tarihler=@()
         url=("https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/" + $kimlik)
       }
@@ -304,11 +365,18 @@ try {
     # mukerrer kimlik ayikla (ayni konu iki sayfada gelebilir)
     $gorulen = @{}; $tekil = @()
     foreach($kayit in $abListe){ if(-not $gorulen.ContainsKey($kayit.url)){ $gorulen[$kayit.url]=1; $tekil += $kayit } }
-    # siteye en yakin 60 son tarih gider (sessiz kirpma degil: sayi damgada yazar)
+    # Siteye: ACIK en yakin 60 + YAKINDA en yakin 40 (sessiz kirpma degil,
+    # gercek toplamlar damgaya yazilir). Havuz Horizon disini da kapsadigi
+    # icin sayfalama tavani 10 -> 20 yukseltildi.
+    $abAcik = @($tekil | Where-Object { $_.durum -eq 'acik' })
+    $abYakin = @($tekil | Where-Object { $_.durum -eq 'yakinda' })
+    $secAcik = @($abAcik | Sort-Object { $_.sonTarih } | Select-Object -First 60)
+    $secYakin = @($abYakin | Sort-Object { if($_.acilis){ $_.acilis } else { $_.sonTarih } } | Select-Object -First 40)
+    $cagrilar += $secAcik
+    $cagrilar += $secYakin
     $abGelecekli = @($tekil).Count
-    $cagrilar += @($tekil | Sort-Object { $_.sonTarih } | Select-Object -First 60)
-    $abAdet = [Math]::Min(60, $abGelecekli)
-    $kaynakDurum["AB (Ufuk Avrupa)"] = "OK (portalda açık $toplamAB konu; gelecek son-tarihli $abGelecekli, en yakın $abAdet tanesi listede)"
+    $abAdet = @($secAcik).Count + @($secYakin).Count
+    $kaynakDurum["AB"] = "OK (portalda $toplamAB konu tarandi; tarihi gecerli $abGelecekli — açık $(@($abAcik).Count), yakında $(@($abYakin).Count); listede en yakın $abAdet)"
   }
 } catch {
   # YARIM OLCUM TAM OLCUM DEGILDIR (19.08 dersi): sayfa ortasinda kopan cekim
@@ -319,8 +387,8 @@ try {
   $kisa = "$($_.Exception.Message)"; if($kisa.Length -gt 200){ $kisa = $kisa.Substring(0,200) + "..." }
   Write-Host ("  SEDIA hatasi: {0}" -f $kisa)
 }
-if(-not $abOlduMu){ $kaynakDurum["AB (Ufuk Avrupa)"] = "ÖLÇÜLEMEDİ" }
-Write-Host ("AB: {0}" -f $kaynakDurum["AB (Ufuk Avrupa)"])
+if(-not $abOlduMu){ $kaynakDurum["AB"] = "ÖLÇÜLEMEDİ" }
+Write-Host ("AB: {0}" -f $kaynakDurum["AB"])
 
 # --- 4) KALKINMA AJANSLARI (ka.gov.tr) --------------------------------------
 # 26 ajansin tum guncel destekleri tek API'de: api/supports (Nuxt arka ucu).
@@ -433,7 +501,7 @@ $KAYNAK_SAYISI = 5
 $olculenler = @()
 if($tubitakOlduMu){ $olculenler += "TÜBİTAK" }
 if($kosgebOlduMu){ $olculenler += "KOSGEB" }
-if($abOlduMu){ $olculenler += "AB (Ufuk Avrupa)" }
+if($abOlduMu){ $olculenler += "AB" }
 if($kaOlduMu){ $olculenler += "Kalkınma Ajansları" }
 if($tkdkOlduMu){ $olculenler += "TKDK (IPARD)" }
 if(-not $olculenler.Count){
@@ -444,9 +512,15 @@ if((Test-Path $ciktiYolu) -and ($olculenler.Count -lt $KAYNAK_SAYISI)){
   try {
     $eski = Get-Content $ciktiYolu -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($eskiKayit in @($eski.cagrilar)){
-      if($olculenler -notcontains "$($eskiKayit.kaynak)"){
+      # kaynak adi zamanla degisebilir ("AB (Ufuk Avrupa)" -> "AB"): ONEK
+      # eslesmesi yapilir, yoksa ayni kaynagin eski kayitlari MUKERRER eklenir.
+      $eskiAd = "$($eskiKayit.kaynak)"
+      $olculdu = $false
+      foreach($o in $olculenler){ if($eskiAd.StartsWith($o) -or $o.StartsWith($eskiAd)){ $olculdu = $true; break } }
+      if(-not $olculdu){
         $cagrilar += [ordered]@{
           kaynak=$eskiKayit.kaynak; kod="$($eskiKayit.kod)"; baslik=$eskiKayit.baslik; durum=$eskiKayit.durum
+          program="$($eskiKayit.program)"
           acilis="$($eskiKayit.acilis)"; sonTarih="$($eskiKayit.sonTarih)"
           tarihler=@($eskiKayit.tarihler | ForEach-Object { [ordered]@{ etiket=$_.etiket; tarih=$_.tarih } })
           url=$eskiKayit.url
@@ -456,14 +530,32 @@ if((Test-Path $ciktiYolu) -and ($olculenler.Count -lt $KAYNAK_SAYISI)){
   } catch { Write-Host "NOT: eski json okunamadi, yalniz taze kaynaklar yazilir" }
 }
 
+# --- kaynak saglik damgasi (19.08 KOSGEB dersi) ------------------------------
+# "okunuyor + 0 sonuc = normal" varsayimi bir kez kor birakti. Her kaynagin
+# BU KOSUDA urettigi kayit sayisi ve son uretim tarihi damgaya yazilir; bir
+# kaynak uzun suredir 0 uretiyorsa denetimde hemen gorunur.
+$eskiSaglik = @{}
+if(Test-Path $ciktiYolu){
+  try {
+    $onceki = Get-Content $ciktiYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($k in @($onceki.kaynaklar)){ if($k.sonUretim){ $eskiSaglik["$($k.ad)"] = "$($k.sonUretim)" } }
+  } catch {}
+}
+function SaglikDamgasi([string]$ad){
+  $adet = @($cagrilar | Where-Object { "$($_.kaynak)".StartsWith($ad) }).Count
+  if($adet -gt 0){ return (Get-Date -Format "yyyy-MM-dd") }
+  if($eskiSaglik.ContainsKey($ad)){ return $eskiSaglik[$ad] }
+  return ""
+}
+
 $cikti = [ordered]@{
   guncelleme = "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
   kaynaklar = @(
-    [ordered]@{ ad="TÜBİTAK"; url="https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari"; durum=$kaynakDurum["TÜBİTAK"] }
-    [ordered]@{ ad="KOSGEB"; url="https://www.kosgeb.gov.tr/site/tr/genel/duyurular"; durum=$kaynakDurum["KOSGEB"] }
-    [ordered]@{ ad="AB (Ufuk Avrupa)"; url="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals"; durum=$kaynakDurum["AB (Ufuk Avrupa)"] }
-    [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"] }
-    [ordered]@{ ad="TKDK (IPARD)"; url="https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv"; durum=$kaynakDurum["TKDK (IPARD)"] }
+    [ordered]@{ ad="TÜBİTAK"; url="https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari"; durum=$kaynakDurum["TÜBİTAK"]; sonUretim=(SaglikDamgasi "TÜBİTAK") }
+    [ordered]@{ ad="KOSGEB"; url="https://www.kosgeb.gov.tr"; durum=$kaynakDurum["KOSGEB"]; sonUretim=(SaglikDamgasi "KOSGEB") }
+    [ordered]@{ ad="AB"; url="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals"; durum=$kaynakDurum["AB"]; sonUretim=(SaglikDamgasi "AB") }
+    [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"]; sonUretim=(SaglikDamgasi "Kalkınma") }
+    [ordered]@{ ad="TKDK (IPARD)"; url="https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv"; durum=$kaynakDurum["TKDK (IPARD)"]; sonUretim=(SaglikDamgasi "TKDK") }
   )
   cagrilar = $cagrilar
 }

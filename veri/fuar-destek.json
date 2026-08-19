@@ -1,8 +1,494 @@
 ﻿{
-    "guncelleme":  "Kaynak: Ticaret Bakanligi destek kapsamina alinan yurt disi fuar listeleri (xlsx, robotla). Son cekim: 19.08.2026 10:13.",
-    "kaynakSayfa":  "https://ticaret.gov.tr/ihracat/fuarlar/2025-2026-yillarinda-destek-kapsamina-alinan-yurtdisi-fuarlar",
-    "kural":  "5973 s. Karar destegi; basvuru fuarin BITISINDEN itibaren 3 ay icinde DYS uzerinden (Genelge m.7). Tutar ve oranlar icin resmi listeye bak.",
+    "guncelleme":  "Kaynak: Ticaret Bakanligi destek kapsamina alinan yurt disi fuar listeleri (xlsx, robotla). Son cekim: 19.08.2026 13:36.",
+    "kaynakSayfa":  "https://ticaret.gov.tr/ihracat/fuarlar/2025-2026-yillarinda-destek-kapsamina-alinan-yurtdisi-fuarlar · https://ticaret.gov.tr/ihracat/fuarlar/2026-yilinda-destek-kapsamina-alinan-sektorel-nitelikli-yurt-ici-fuarlar",
+    "kural":  "5973 s. Karar destegi; basvuru fuarin BITISINDEN itibaren 3 ay icinde DYS uzerinden (Genelge m.7). Tutar ve oranlar icin resmi listeye bak. Yurt ici prestijli fuar destegi bir takvim yilinda EN FAZLA 2 fuar icindir (liste dosyasinin kendi notu).",
     "fuarlar":  [
+                    {
+                        "fuar":  "Automechanıka Istanbul",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-05-19",
+                        "bitis":  "2026-05-22",
+                        "konu":  "Uluslararası Otomotiv Üretim, Dağıtım, Bakım Ve Servis Ekipmanları Fuarı",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Hometex 2026 Uluslararası Ev Tekstili Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-05-19",
+                        "bitis":  "2026-05-22",
+                        "konu":  "Ev Tekstili Ve Aksesuarları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Komatek 2026 18. Uluslararası  İş Ve İnşaat, Makine, Teknoloji Ve Aletleri İhtisas Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-03",
+                        "bitis":  "2026-06-06",
+                        "konu":  "İş Ve İnşaat Makine, Teknolojileri Ve Aletleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "13.Uluslararası İstanbul  Av Silah Ve Doğa Sporları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-03",
+                        "bitis":  "2026-06-06",
+                        "konu":  "Av, Silah, Savunma Sanayi, Balıkçılık Ve Doğa Sporları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Itm 2026 Uluslararası  Tekstil Makineleri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-09",
+                        "bitis":  "2026-06-13",
+                        "konu":  "Tekstil, İplik, Dokuma, Örgü, Boya, Terbiye, Baskı, Dijital Baskı, Çorap Makineleri, Yan Sanayileri Ve Kimyasalları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Hıghtex 2026 Uluslararası Teknik Tekstiller Ve Nonwoven  Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-09",
+                        "bitis":  "2026-06-13",
+                        "konu":  "Teknik Tekstiller, Nonwovenlar,Konfeksiyon Makineleri Ve Yan Sanayii",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Wın Eurasia 2026",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-10",
+                        "bitis":  "2026-06-13",
+                        "konu":  "Otomasyon, Hidrolik, Elektrik, Elektronik, Enerji Otomasyonu, İmalat Makinaları, Kaynak",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Paper Eurasıa - Kağıt, Oluklu Mukavva, Hijyenik Kağıt, Matbaa, Kağıt Ambalaj Ürünleri Ve Makineleri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-10",
+                        "bitis":  "2026-06-12",
+                        "konu":  "Kağıt, Oluklu Mukavva, Hijyenik Kağıt, Matbaa, Ambalaj Ürünleri, Makineleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Busworld Türkiye 2026",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-17",
+                        "bitis":  "2026-06-19",
+                        "konu":  "Otobüs Endüstrisi Ve Yan Sanayi",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Paıntistanbul 2026",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-17",
+                        "bitis":  "2026-06-19",
+                        "konu":  "Boya, Boya Ham Maddeleri, Yapı Kimyasalları Ve Yapıştırıcı Ham Maddeleri, Laboratuvar Ve Üretim Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "İdma 11. Uluslararası Un, Yem, İrmik, Pirinç, Mısır, Bulgur, Değirmen Makineleri Ve Bakliyat, Makarna, Bisküvi Teknolojileri  Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-06-25",
+                        "bitis":  "2026-06-27",
+                        "konu":  "Un, Yem, İrmik, Pirinç, Mısır, Bulgur, Değirmen Makineleri Ve Bakliyat, Makarna, Bisküvi Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Ifco İstanbul Fashion Connection Hazır Giyim Ve Moda Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-08-19",
+                        "bitis":  "2026-08-21",
+                        "konu":  "Hazır Giyim, Moda, Konfeksiyon, Deri Ve Linexpo İç Giyim",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "F İstanbul Gıda İçecek Ürünleri Ve Üretim Teknolojileri; Bisküvi, Çikolata, Şekerli Ürünler Ve Üretim Teknolojileri; Kuru \u0026 Sert Kabuklu Meyveler \u0026 Atıştırmalik Ürünler Ve Üretim Teknolojileri, Gıda Ambalaj Endüstrisi Ve Katkı Maddeleri; Market Ve Mağaza Ekipmanları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-08-26",
+                        "bitis":  "2026-08-29",
+                        "konu":  "Temel Gıda, İçecek, Şekerleme, Kuruyemiş, Makine, Katkı, Ambalaj, Mağaza Donanımları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "World Sports İstanbul - Uluslararası Fitness Ekipmanları, Spor Teknolojileri, Gıda, Giyim Ve Wellness Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-08-27",
+                        "bitis":  "2026-08-30",
+                        "konu":  "Spor Ekipmanları, Teknolojileri, Gıda, Giyim Ve Wellness",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Beauty Eurasia 2026 - 21. Uluslararası Kozmetik, Güzellik, Kuaför, Ambalaj, Hammadde, Hijyen Ve Private Label Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-02",
+                        "bitis":  "2026-09-04",
+                        "konu":  "Kozmetik, Güzellik, Parfüm, Kuaför, Temizlik, Ambalaj \u0026 Paketleme Ve Hammadde",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Zuchex 36. Uluslararası Ev Ve Mutfak Eşyaları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-09",
+                        "bitis":  "2026-09-12",
+                        "konu":  "Züccaciye, Porselen, Seramik, Ev Elektroniği, Elektrikli Ev Eşyaları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Texhibition İstanbul Kumaş, Denim, Tekstil Aksesuarları Ve İplik Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-09",
+                        "bitis":  "2026-09-11",
+                        "konu":  "Kumaş, Denim, Tekstil Aksesuarları Ve İplik",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Kapex Kapı Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-09",
+                        "bitis":  "2026-09-12",
+                        "konu":  "Çelik, Ahşap, Cam, Alimünyum, Plastik Ve Her Türlü Kapı Üretimi",
+                        "sehir":  "Kayseri",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Ibıa Expo - 5. Uluslararası Yatak Yan Sanayi Ve Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-16",
+                        "bitis":  "2026-09-19",
+                        "konu":  "Yatak Yan Sanayi Ve Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Metal Expo Eurasıa İstanbul – 8. Uluslararası Demir, Demir Dışı Metaller, Çelik, Boru, Profil, Paslanmaz Çelik, Alaşımlı Metal Dövme Teknolojileri Ve Ürünleri Fuarı.",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-16",
+                        "bitis":  "2026-09-18",
+                        "konu":  "Demir, Çelik, Metal, Makine, Aksam Satış  Ve Üretim Prosesleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Fastener Expo Eurasia \nAvrasya Endüstriyel Bağlantı Ve Sabitleme Elemanları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-17",
+                        "bitis":  "2026-09-20",
+                        "konu":  "Endüstriyel Bağlantı Ve Sabitleme Elemanları, Üretim Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Intermob 2026    28.Uluslararası Mobilya Yan Sanayi, Aksesuarları Orman Ürünleri Ve Ahşap Teknolojisi Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-17",
+                        "bitis":  "2026-09-20",
+                        "konu":  "Ahşap Orman Ürünleri Ve Malzemeler, Mobilya Aksesuarları, Oturma Grubu Ve Yatak Üretim Malzemeleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Müsiad Expo 2026 Uluslararası Müsiad Ticaret Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-23",
+                        "bitis":  "2026-09-26",
+                        "konu":  "İnşaat, Mobilya, Tekstil Ve Hazır Giyim, Gıda Ürünleri, Makine Ekipmanları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Sıgn İstanbul 27. Uluslararası Endüstriyel Reklam Ve Dijital Baskı Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-23",
+                        "bitis":  "2026-09-26",
+                        "konu":  "Baskı, Reklamcılık, Bayilik, Promosyon, Tasarım",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Future Fısh Eurasıa",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-24",
+                        "bitis":  "2026-09-26",
+                        "konu":  "Uluslararası Su Ürünleri İhracat Ve İşleme, Akuakültür Ve Balıkçılık Fuarı",
+                        "sehir":  "İzmir",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Maktek Avrasya 2026 -  9. Uluslararası Takım Tezgahları, Metal Sac İşleme Makineleri, Tutucular -Kesici Takımlar, Kalite Kontrol, Ölçüm Sistemleri, Cad/Cam, Plm, Yazılımları, Ve Üretim Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-28",
+                        "bitis":  "2026-10-03",
+                        "konu":  "Takım Tezgahları, Metal İşleme Makineleri, Kaynak, Kesme, Delme Teknolojileri, Kalite Kontrol, Test Ve Ölçüm Cihazları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Ijs - İstanbul Jewelry Show 60. İstanbul Uluslararası Mücevher, Altın, Gümüş, Değerli Taş Ve Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-09-30",
+                        "bitis":  "2026-10-03",
+                        "konu":  "Mücevher, Altın, Gümüş, Değerli Taş, Teknolojileri, İlgili Yan Sanayi",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Craftistanbul 7.Uluslararası Yöresel Ve Geleneksel El Sanatları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-01",
+                        "bitis":  "2026-10-04",
+                        "konu":  "Yöresel, Geleneksel El Sanatları Ve Tasarım",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Aymod Uluslararası Ayakkabı Moda Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-07",
+                        "bitis":  "2026-10-10",
+                        "konu":  "Ayakkabılar, Çantalar, Kemerler, Cüzdanlar, Kurum, Mümessilikler Ve Dergiler",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "6. Uluslararası Mobısad Imex Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-07",
+                        "bitis":  "2026-10-10",
+                        "konu":  "Mobil İletişim Tüketici Elektroniği Ve Yeni Teknolojiler Fuarı",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Isaf Smartex Fuarı - 15.Uluslararası Akıllı Şehirler, Binalar, Ulaşım, Yönetim Ve Yaşam Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-07",
+                        "bitis":  "2026-10-10",
+                        "konu":  "Akıllı Şehirler, Binalar, Ulaşım, Yönetim Ve Yaşam",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Isaf International Fuarı - 30.Uluslararası Güvenlik, Ülke Güvenliği, Siber Güvenlik, Yangın, İsg Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-07",
+                        "bitis":  "2026-10-10",
+                        "konu":  "Güvenlik, Ülke Güvenliği, Siber Güvenlik, Yangın, İsg",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Petzoo Eurasia 12. Uluslararası Evcil Hayvan Ürün Malzeme Ve Aksesuar Tedarikçileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-07",
+                        "bitis":  "2026-10-10",
+                        "konu":  "Evcil Hayvan Ürün Malzeme Ve Aksesuarları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Avrasya Ambalaj 2026- İstanbul 31.Uluslararası Ambalaj Endüstrisi Fuarı (Printpack\u0026Converting-Ambalaj Baskı Teknolojileri, Oluklu Mukavva-Kağıt-Karton Ambalaj Üretim Teknolojileri Özel Bölümü) /Foodtech Eurasia Gıda İçecek Üretim Ve İşleme Teknolojileri Özel Bölümü",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-13",
+                        "bitis":  "2026-10-16",
+                        "konu":  "Ambalaj Ürünleri, Makineleri, İçecek Ve Sıvı Gıda Teknolojileri, Baskı Teknolojiler, Oluklu Mukavva Karton, Gıda İçecek Üretim Ve İşleme Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Agrogreen Bursa 2. Tarım, Hayvancılık, Süt, Sera Teknolojileri, Tohum Fide Fidan Ve Canlı Hayvan Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-14",
+                        "bitis":  "2026-10-17",
+                        "konu":  "Canlı Hayvan, Tarım, Hayvancılık, Tarım Makineleri, Et, Süt, Sera Teknolojileri, Yem, Tohum",
+                        "sehir":  "Bursa",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Ibaktech 15. Uluslararası Ekmek, Pasta Makinalari, Dondurma, Çikolata Ve Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-14",
+                        "bitis":  "2026-10-17",
+                        "konu":  "Ekmek, Pasta Makinaları, Dondurma, Çikolata Ve Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Ankiros 17. Uluslararası Demir-Çelik, Döküm, Demirdışı Metalürji Teknolojileri, Makine Ve Ürünleri İhtisas Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-22",
+                        "bitis":  "2026-10-24",
+                        "konu":  "Demir-Çelik, Döküm Ve Demirdışı Metaller Teknolojileri, Mikina Ve Ekipmanları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Woodtech 2026 - 39.Uluslararası Ağaç İşleme Makineleri, Kesici Takımlar, El Aletleri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-10-22",
+                        "bitis":  "2026-10-25",
+                        "konu":  "Ağaç İşleme Makineleri, Mobilya İmal  Makine Ve Tezgahları, Kesici Takımlar, El Aletleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Unıcera - İstanbul Seramik, Banyo, Mutfak Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-02",
+                        "bitis":  "2026-11-06",
+                        "konu":  "Seramik , Banyo, Mutfak Ekipmanları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Eıf 2026 15. Enerji Dönüşümü Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-05",
+                        "bitis":  "2026-11-07",
+                        "konu":  "Enerji Sektörünün Buluşması",
+                        "sehir":  "Antalya",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Hostech By Tusıd  İstanbul Uluslararası  Otel, Restoran, Kafe Gastronomi, Unlu Mamuller Ve Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-10",
+                        "bitis":  "2026-11-14",
+                        "konu":  "Mutfak Ve Catering Donanımı, Masaüstü Ekipmanları, Oda Banyo Ekipmanları, Çamaşırhane Ekipmanları, Otel Tekstili, Mobilya Ve Dekorasyon End, Spor-Havuz-Spor Ve Rekreasyon Endüstrisi, Kafe Gastronomi, Unlu Mamuller",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Aysaf 2026 Ayakkabı Yan Sanayi Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-11",
+                        "bitis":  "2026-11-13",
+                        "konu":  "Ayakkabı Komponentleri, Deri, Aksesuarlar, Kimyasallar, Makine Ve Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "10. Uluslararası İstanbul Hırdavat Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-18",
+                        "bitis":  "2026-11-21",
+                        "konu":  "Hırdavat, İş Sağlığı, İş Güvenliği Ürünleri Ve Teknolojileri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Uluslararası Sılmo Istanbul Optık Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-18",
+                        "bitis":  "2026-11-21",
+                        "konu":  "Optik Ve Oftalmolojik Ürünler,Yedek Parçalar,Endüstri Makinaları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Avrasya Pencere\u0026 Avrasya Kapı 2026 - 27. Uluslararası Pencere, Kapı, Panjur, Cephe Sistemleri Ve Aksesuarları, Profil Üretim Teknolojileri Ve Makineleri, Yalıtım Malzemeleri, Hammadde Ve Tamamlayıcı Ürünler Fuarı(Alüminyum Profil, Cephe Sistemleri Ve Aksesuarları Özel Bölümü /Gölgelendirme, Koruma Ve Kapatma Sistemleri Özel Bölümü/Kapı, Kepenk, Geçiş Kontrol Sistemleri, Kilit Ve Aksesuarı  Özel Bölümü )",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-21",
+                        "bitis":  "2026-11-24",
+                        "konu":  "Pencere,Kapı, Panjur,Cephe Ve Profil,Üretim Makineleri, Aksesuar, Yalıtım M, Hammadde",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Avrasya Cam 2026 - 16. Uluslararası Cam Ürünleri Ve Uygulamaları, Üretim-İşleme Teknolojileri Ve Makineleri, Tamamlayıcı Ürün Ve Kimyasalları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-21",
+                        "bitis":  "2026-11-24",
+                        "konu":  "Cam Ürünleri, Uygulamaları, Üretim İşleme Teknolojileri Ve Makineleri, Tamamlayıcı Ürün Ve Kimyasalları",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Growtech. Antalya 2026, 25.Uluslararası Sera, Tarım Teknolojileri Ve Hayvancılık Ekipmanları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-24",
+                        "bitis":  "2026-11-27",
+                        "konu":  "Sera, Tarımteknolojileri Ve Hayvancılık Ekipmanları",
+                        "sehir":  "Antalya",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Uluslararası Helal Ekspo / Dünya Helal Zirvesi",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-25",
+                        "bitis":  "2026-11-28",
+                        "konu":  "Helal Gıda ,Gıda Paketleme , Catering Ekipmanları, İlaç Ve Kozmetik Ürünleri , Tekstil Ürünleri Ve Tekstil Teknolojileri , Yiyecek Ve İçecek Ürünleri ,Ambalaj , Doğal Ve Organik Ürünler ,",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "11 .Turkchem Eurasıa Uluslararası Kimya Sanayi Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-25",
+                        "bitis":  "2026-11-27",
+                        "konu":  "Özel Spesifik Kimyasallar, Genel Kimyasallar, Petrokimyasallar, Laboratuvari Ölçüm Cihazları, Proses Ve Otomasyon Endüstrisi, Paketleme, Geri Dönüşüm Ve Çevre",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "7.Interdye \u0026 Textıle Prıntıng Eurasıa",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-25",
+                        "bitis":  "2026-11-27",
+                        "konu":  "6.Uluslararası Boyarmadde, Pigmentler, Tekstil Kimyasalları, Dijital Tekstil Baskı, Boyama Ve Baskı Teknolojileri Fuarı",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "5. Ev Charge Show - Elektrikli Araç Şarj Teknolojileri Ve Ekipmanları Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-11-26",
+                        "bitis":  "2026-11-28",
+                        "konu":  "Elektrikli Araçları Şarj Etmek İçin Üniteler",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Plast  Eurasia  İstanbul    35.Uluslararası  Plastik Endüstrisi Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-12-02",
+                        "bitis":  "2026-12-05",
+                        "konu":  "Plastik Makineleri, Hammaddeler, Kalıp, Isı, Kontrol Cihazları, Hidrolik-Pnömatik",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Cbme Türkiye, 44.Uluslararası İstanbul Anne Bebek Çocuk Ürünleri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-12-02",
+                        "bitis":  "2026-12-05",
+                        "konu":  "Anne, Bebek Ve Çocuk Ürünleri",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
+                    {
+                        "fuar":  "Worldfood İstanbul 2026 - 34. Uluslararası Gıda Ürünleri Teknolojileri Fuarı",
+                        "tur":  "yurt-ici",
+                        "baslangic":  "2026-12-15",
+                        "bitis":  "2026-12-18",
+                        "konu":  "Gıda Ürünleri İşleme Teknolojileri, Makineleri, Paketleme \u0026 Ambalaj",
+                        "sehir":  "İstanbul",
+                        "ulke":  "TÜRKİYE"
+                    },
                     {
                         "fuar":  "PLASTEXPO 2025 \u0026 PACKEXPO 2025",
                         "tur":  "bireysel",

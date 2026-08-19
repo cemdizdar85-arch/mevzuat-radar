@@ -410,7 +410,7 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
     if(g<=14) return ' <span class="rozet" style="background:rgba(255,107,94,.13);color:var(--red)">son '+g+' gün</span>';
     return ' <span class="rozet">'+gd(t)+' son'+'</span>'; };
   const satir = c => '<div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:baseline">'
-    + '<span>'+(c.kaynak==='Kalkınma Ajansları'&&c.kod?'<span class="rozet" style="margin:0 6px 0 0">'+c.kod+'</span>':'')+'<a href="'+c.url+'" target="_blank" rel="noopener" style="font-weight:600">'+c.baslik+'</a>'
+    + '<span>'+((c.kaynak==='Kalkınma Ajansları'&&c.kod)?'<span class="rozet" style="margin:0 6px 0 0">'+c.kod+'</span>':'')+((c.kaynak==='AB'&&c.program)?'<span class="rozet" style="margin:0 6px 0 0">'+c.program+'</span>':'')+'<a href="'+c.url+'" target="_blank" rel="noopener" style="font-weight:600">'+c.baslik+'</a>'
     + (c.acilis&&kalan(c.acilis)>0 ? ' <span class="rozet" style="background:rgba(61,220,151,.13);color:var(--green)">'+gd(c.acilis)+"'de açılır</span>" : '')
     + rozetle(c.sonTarih) + '</span>'
     + '<span style="color:var(--muted);white-space:nowrap">'+(c.sonTarih ? 'kapanış '+gd(c.sonTarih) : 'tarih duyuruda')+'</span></div>';
@@ -422,6 +422,8 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   const ka  = liste.filter(c=>c.kaynak==='Kalkınma Ajansları');
   const tk  = liste.filter(c=>c.kaynak==='TKDK (IPARD)');
   const ab  = liste.filter(c=>(c.kaynak||'').indexOf('AB')===0);
+  const abAcik = ab.filter(c=>c.durum!=='yakinda');
+  const abYakin = ab.filter(c=>c.durum==='yakinda');
   document.getElementById('cagriListe').innerHTML =
     grup('TÜBİTAK', tub, true, '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Başvuru PRODİS (eteydeb) üzerinden; 9903 teşvik belgen varsa m.33 tek-kapı kuralına dikkat (aynı harcamaya iki destek olmaz; Teknoloji Hamlesi istisna).</p>')
     + grup('KOSGEB', kos, true, '')
@@ -429,8 +431,10 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">26 bölge ajansının güncel destekleri (mali, teknik, fizibilite). Çağrı <b style="color:var(--ink)">bölge bazlıdır</b>: kısaltma ajansı gösterir (İZKA=İzmir, MEVKA=Konya-Karaman…), kendi bölgendekine başvurabilirsin; başvuru KAYS üzerinden. 9903 teşvik belgen varsa m.33 tek-kapı kuralını unutma.</p>')
     + grup('TKDK — IPARD (tarım-gıda hibeleri)', tk, true,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">AB ortak finansmanlı geri ödemesiz kırsal kalkınma hibeleri; başvuru ilindeki TKDK İl Koordinatörlüğüne, desteklenen sektörler ve iller ilan PDF\'inde yazar. IPARD dosyası ciddi hazırlık ister, erken başla; 9903 belgesiyle aynı harcamada m.33 tek-kapı kuralına dikkat.</p>')
-    + grup('AB — Ufuk Avrupa (en yakın son tarihli '+ab.length+' konu)', ab, false,
-      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Türkiye Ufuk Avrupa\'ya asosiye ülke: Türk şirketleri başvurabilir. Tam liste ve konu detayı <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals" target="_blank" rel="noopener">AB Funding &amp; Tenders portalında</a>; ulusal irtibat noktası <a href="https://ufukavrupa.org.tr" target="_blank" rel="noopener">ufukavrupa.org.tr</a>.</p>');
+    + grup('AB — şu an açık çağrılar', abAcik, false,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Ufuk Avrupa <b style="color:var(--ink)">ve diğer AB programları</b> (LIFE, Erasmus+, Dijital Avrupa…). Türkiye Ufuk Avrupa\'ya asosiye ülke: Türk şirketleri doğrudan başvurabilir, diğer programlarda katılım kuralı çağrıya göre değişir. Tam liste: <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals" target="_blank" rel="noopener">AB Funding &amp; Tenders portalı</a> · ulusal irtibat <a href="https://ufukavrupa.org.tr" target="_blank" rel="noopener">ufukavrupa.org.tr</a>.</p>')
+    + grup('AB — yakında açılıyor', abYakin, false,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Henüz açılmamış, açılış tarihi belli çağrılar. AB proje dosyası aylar sürer; <b style="color:var(--ink)">erken görmek hazırlık süresi kazandırır</b>.</p>');
   document.getElementById('cagriDamga').textContent = cd.guncelleme || '';
   document.getElementById('acikCagrilar').style.display = 'block';
 }).catch(()=>{});
@@ -450,7 +454,7 @@ function fuarCiz(){
   if(!eslesen.length){ kutu.innerHTML = '<b style="color:var(--red)">Bu aramayla destekli fuar bulunamadı.</b> <span style="color:var(--dim)">Listede olmayan fuara katılım desteklenmez (Genelge); gitmeden resmî listeyle de teyitleş.</span>'; return; }
   kutu.innerHTML = '<div style="margin:4px 0 6px"><b style="color:var(--green)">'+eslesen.length+' destekli fuar</b>'+(eslesen.length>30?' <span style="color:var(--dim)">(ilk 30 gösteriliyor, aramayı daralt)</span>':'')+'</div>'
     + eslesen.slice(0,30).map(f => '<div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">'
-      + '<span><b style="color:var(--ink)">'+f.fuar+'</b> <span class="rozet">'+(f.tur==='milli'?'MİLLİ KATILIM':'BİREYSEL')+'</span><br><span style="font-size:12px;color:var(--dim)">'+f.sehir+' / '+f.ulke+(f.konu?' · '+f.konu:'')+'</span></span>'
+      + '<span><b style="color:var(--ink)">'+f.fuar+'</b> <span class="rozet">'+(f.tur==='milli'?'MİLLİ KATILIM':(f.tur==='yurt-ici'?'YURT İÇİ':'BİREYSEL'))+'</span><br><span style="font-size:12px;color:var(--dim)">'+f.sehir+' / '+f.ulke+(f.konu?' · '+f.konu:'')+'</span></span>'
       + '<span style="white-space:nowrap;text-align:right;font-size:12.5px">'+(f.baslangic?gd(f.baslangic)+' –':'')+' '+gd(f.bitis)+'</span></div>').join('');
 }
 document.getElementById('fuarGrubu').addEventListener('toggle', function(){

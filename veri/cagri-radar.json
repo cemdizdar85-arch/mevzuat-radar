@@ -1,30 +1,35 @@
 ﻿{
-    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 11:39.",
+    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 13:52.",
     "kaynaklar":  [
                       {
                           "ad":  "TÜBİTAK",
                           "url":  "https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari",
-                          "durum":  "OK (5 çağrı)"
+                          "durum":  "OK (6 çağrı)",
+                          "sonUretim":  "2026-08-19"
                       },
                       {
                           "ad":  "KOSGEB",
-                          "url":  "https://www.kosgeb.gov.tr/site/tr/genel/duyurular",
-                          "durum":  "OK (1 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)"
+                          "url":  "https://www.kosgeb.gov.tr",
+                          "durum":  "OK (1 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)",
+                          "sonUretim":  "2026-08-19"
                       },
                       {
-                          "ad":  "AB (Ufuk Avrupa)",
+                          "ad":  "AB",
                           "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
-                          "durum":  "OK (portalda açık 346 konu; gelecek son-tarihli 204, en yakın 60 tanesi listede)"
+                          "durum":  "OK (portalda 1247 konu tarandi; tarihi gecerli 646 — açık 376, yakında 270; listede en yakın 100)",
+                          "sonUretim":  "2026-08-19"
                       },
                       {
                           "ad":  "Kalkınma Ajansları",
                           "url":  "https://ka.gov.tr/destekler",
-                          "durum":  "OK (26 ajansta güncel 94 destek, 26 tanesi listede)"
+                          "durum":  "OK (26 ajansta güncel 94 destek, 26 tanesi listede)",
+                          "sonUretim":  "2026-08-19"
                       },
                       {
                           "ad":  "TKDK (IPARD)",
                           "url":  "https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv",
-                          "durum":  "OK (1 açık ilan — çağrı aralarında 0 olması normal)"
+                          "durum":  "OK (1 açık ilan — çağrı aralarında 0 olması normal)",
+                          "sonUretim":  "2026-08-19"
                       }
                   ],
     "cagrilar":  [
@@ -122,6 +127,18 @@
                          "url":  "https://tubitak.gov.tr/tr/destekler/destek/sanayi/ulusal-destek-programlari/cagri-1831-yesil-inovasyon-teknoloji-mentorluk-cagrisi"
                      },
                      {
+                         "kaynak":  "TÜBİTAK",
+                         "kod":  "",
+                         "baslik":  "BiGG+ Tohum Yatırım 2026 Yılı 1. Çağrısı Açılıyor",
+                         "durum":  "acik",
+                         "acilis":  "",
+                         "sonTarih":  "",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://tubitak.gov.tr/tr/duyuru/bigg-tohum-yatirim-2026-yili-1-cagrisi-aciliyor"
+                     },
+                     {
                          "kaynak":  "KOSGEB",
                          "kod":  "",
                          "baslik":  "KOSGEB’den COP31 Odaklı Hızlandırma Desteği Çağrısı",
@@ -134,11 +151,77 @@
                          "url":  "https://www.kosgeb.gov.tr/site/tr/genel/detay/9453/kosgebden-cop31-odakli-hizlandirma-destegi-cagrisi"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
+                         "kod":  "EMFAF-2026-PIA-ARCTIC",
+                         "baslik":  "Support to awareness raising about the Arctic communities, including Indigenous People",
+                         "durum":  "acik",
+                         "program":  "Denizcilik ve Balıkçılık",
+                         "acilis":  "2026-05-19",
+                         "sonTarih":  "2026-08-20",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EMFAF-2026-PIA-ARCTIC"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "186614",
+                         "baslik":  "Papua New Guinea (PNG) – Civic Participation and Women’s Political\nand Decision-making Participation",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/186614/DD/ACT/Multi",
+                         "acilis":  "2026-05-25",
+                         "sonTarih":  "2026-08-24",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186614/DD/ACT/Multi"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "PPPA-2026-SOCIAL-ECONOMY-TOURISM",
+                         "baslik":  "Smart Social Economy Model in Tourism (Long Distance Trails)",
+                         "durum":  "acik",
+                         "program":  "PPPA",
+                         "acilis":  "2026-05-28",
+                         "sonTarih":  "2026-08-26",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/PPPA-2026-SOCIAL-ECONOMY-TOURISM"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "ERDFTA-2026-UAACQUIS22",
+                         "baslik":  "Capacity building for Ukrainian regional policy stakeholders",
+                         "durum":  "acik",
+                         "program":  "ERDFTA",
+                         "acilis":  "2026-06-10",
+                         "sonTarih":  "2026-08-26",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERDFTA-2026-UAACQUIS22"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "186091",
+                         "baslik":  "Partnering for impact in pursuit of the green and just energy transition",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/186091/DD/ACT/ZA",
+                         "acilis":  "2026-05-29",
+                         "sonTarih":  "2026-08-27",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186091/DD/ACT/ZA"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "ERC-2026-ADG",
                          "baslik":  "ERC ADVANCED GRANTS",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "ERC",
+                         "acilis":  "2026-05-28",
                          "sonTarih":  "2026-08-27",
                          "tarihler":  [
 
@@ -146,47 +229,77 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2026-ADG"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANEUPRIZE",
-                         "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Man EU Prize",
+                         "kaynak":  "AB",
+                         "kod":  "186288",
+                         "baslik":  "Call for Proposals for the Sustainable Management of Caribbean OCTs’ Natural Capital",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
+                         "program":  "EuropeAid/186288/DD/ACT/Multi",
+                         "acilis":  "2026-06-12",
+                         "sonTarih":  "2026-08-28",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANEUPRIZE"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186288/DD/ACT/Multi"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "ERC-2026-PLUS",
-                         "baslik":  "ERC PLUS GRANTS",
+                         "kaynak":  "AB",
+                         "kod":  "186948",
+                         "baslik":  "North Macedonia: Human Rights and Democracy Thematic Programme 2025-2026",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
+                         "program":  "EuropeAid/186948/DD/ACT/MK",
+                         "acilis":  "2026-05-26",
+                         "sonTarih":  "2026-08-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2026-PLUS"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186948/DD/ACT/MK"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-EDCTP3-2026-OUTSFEMALESCIENTISTPRIZE",
-                         "baslik":  "HORIZON-JU-EDCTP3-2026-Outstanding Female Scientist Prize",
+                         "kaynak":  "AB",
+                         "kod":  "186824",
+                         "baslik":  "Strengthening the Palestinian Monetary Authority and its role to support the stability, transparency, accountability and the digital transition of the financial sector in Palestine",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
+                         "program":  "EuropeAid/186824/DD/ACT/PS",
+                         "acilis":  "2026-06-17",
+                         "sonTarih":  "2026-08-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-OUTSFEMALESCIENTISTPRIZE"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186824/DD/ACT/PS"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
+                         "kod":  "186358",
+                         "baslik":  "CONVOCATORIA TEMÁTICA PARA LAS ORGANIZACIONES DE LA SOCIEDAD CIVIL Y LOS DERECHOS HUMANOS EN ECUADOR",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/186358/DD/ACT/Multi",
+                         "acilis":  "2026-06-25",
+                         "sonTarih":  "2026-09-01",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186358/DD/ACT/Multi"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "RENEWFM-2026-INVEST",
+                         "baslik":  "Renewable energy financing mechanism technology specific",
+                         "durum":  "acik",
+                         "program":  "RENEWFM",
+                         "acilis":  "2026-03-03",
+                         "sonTarih":  "2026-09-01",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/RENEWFM-2026-INVEST-TECH-SPEC"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANSSAPRIZE",
                          "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Man SSA Prize",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
                          "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
@@ -194,47 +307,12 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANSSAPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-EDCTP3-2026-DRPASCOALMOCUMBIPRIZE",
-                         "baslik":  "HORIZON-JU-EDCTP3-2026-Dr Pascoal Mocumbi Prize",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-DRPASCOALMOCUMBIPRIZE"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-GH-EDCTP3-2026-03",
-                         "baslik":  "Training and innovation networks for sustained capacity development related to ethics, regulatory, pharmacovigilance, and related digital regulatory platforms",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-GH-EDCTP3-2026-03-SERP-01"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-GH-EDCTP3-2026-03",
-                         "baslik":  "Enhancing integrated research and healthcare in sub-Saharan Africa through digital innovation and Artificial Intelligence",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-GH-EDCTP3-2026-03-DIGIT-02"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-JU-EDCTP3-2026-OUTSRESEARCHTEAMPRIZE",
                          "baslik":  "HORIZON-JU-EDCTP3-2026-Outstanding Research Team Prize",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
                          "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
@@ -242,23 +320,12 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-OUTSRESEARCHTEAMPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANEUPRIZE",
-                         "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Woman EU Prize",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANEUPRIZE"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANSSAPRIZE",
                          "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Woman SSA Prize",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
                          "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
@@ -266,83 +333,116 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANSSAPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-SNS-2026-FEM",
-                         "baslik":  "Microelectronic – Front-End Module (FEM)",
+                         "kaynak":  "AB",
+                         "kod":  "ERC-2026-PLUS",
+                         "baslik":  "ERC PLUS GRANTS",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "ERC",
+                         "acilis":  "2026-06-02",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-SNS-2026-FEM-STREAM-B-02"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2026-PLUS"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Preparing demonstration missions for Earth Observation and Satellite telecommunication for Space solutions (Space Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-EDCTP3-2026-OUTSFEMALESCIENTISTPRIZE",
+                         "baslik":  "HORIZON-JU-EDCTP3-2026-Outstanding Female Scientist Prize",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-32"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-OUTSFEMALESCIENTISTPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Digital enablers and building-blocks for Earth Observation and Satellite telecommunication for Space solutions (Space Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANEUPRIZE",
+                         "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Man EU Prize",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-31"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPMANEUPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Space critical Equipment for EU non-dependence – Space Refuelling Interface",
+                         "kaynak":  "AB",
+                         "kod":  "ESF-2026-SE-INCUBATION",
+                         "baslik":  "Inclusive Incubation and Finance for More Entrepreneurs",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "ESF",
+                         "acilis":  "2026-05-28",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-86"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ESF-2026-SE-INCUBATION"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Space critical EEE components for EU non-dependence – Radiation Hard FPGA on 7nm",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-EDCTP3-2026-DRPASCOALMOCUMBIPRIZE",
+                         "baslik":  "HORIZON-JU-EDCTP3-2026-Dr Pascoal Mocumbi Prize",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-81"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-DRPASCOALMOCUMBIPRIZE"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Critical Facilities Serving Space EEE components for EU non-dependence – High and Very High Energy Irradiation Test Facility Market Deployment",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-GH-EDCTP3-2026-03",
+                         "baslik":  "Enhancing integrated research and healthcare in sub-Saharan Africa through digital innovation and Artificial Intelligence",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-03",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-01-14",
+                         "sonTarih":  "2026-09-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-85"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-GH-EDCTP3-2026-03-DIGIT-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANEUPRIZE",
+                         "baslik":  "HORIZON-JU-EDCTP3-2026-Scientific Leadership Woman EU Prize",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-27",
+                         "sonTarih":  "2026-09-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EDCTP3-2026-SCILEADERSHIPWOMANEUPRIZE"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-GH-EDCTP3-2026-03",
+                         "baslik":  "Training and innovation networks for sustained capacity development related to ethics, regulatory, pharmacovigilance, and related digital regulatory platforms",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-01-14",
+                         "sonTarih":  "2026-09-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-GH-EDCTP3-2026-03-SERP-01"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2026-03",
                          "baslik":  "Reinforcing EU autonomous access to space through EU-based spaceports",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
                          "sonTarih":  "2026-09-03",
                          "tarihler":  [
 
@@ -350,23 +450,129 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-11"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL4-2026-03",
-                         "baslik":  "Scientific analysis and exploitation of space data",
+                         "kaynak":  "AB",
+                         "kod":  "LIFE-2026-STRAT-two-stage",
+                         "baslik":  "Strategic Integrated Projects - Climate Action",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "LIFE (çevre-iklim)",
+                         "acilis":  "2026-04-21",
                          "sonTarih":  "2026-09-03",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-61"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/LIFE-2026-STRAT-CLIMA-SIP-two-stage"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Space critical EEE components for EU non-dependence – Radiation Hard FPGA on 7nm",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-81"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Preparing demonstration missions for Earth Observation and Satellite telecommunication for Space solutions (Space Partnership)",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-32"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "LIFE-2026-STRAT-two-stage",
+                         "baslik":  "Strategic Nature Projects",
+                         "durum":  "acik",
+                         "program":  "LIFE (çevre-iklim)",
+                         "acilis":  "2026-04-21",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/LIFE-2026-STRAT-NAT-SNAP-two-stage"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Space critical Equipment for EU non-dependence – Space Refuelling Interface",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-86"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-JU-SNS-2026-FEM",
+                         "baslik":  "Microelectronic – Front-End Module (FEM)",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-05-26",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-SNS-2026-FEM-STREAM-B-02"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "LIFE-2026-STRAT-two-stage",
+                         "baslik":  "Strategic Integrated Projects - Environment",
+                         "durum":  "acik",
+                         "program":  "LIFE (çevre-iklim)",
+                         "acilis":  "2026-04-21",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/LIFE-2026-STRAT-ENV-SIP-two-stage"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Digital enablers and building-blocks for Earth Observation and Satellite telecommunication for Space solutions (Space Partnership)",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-31"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "ISF-2026-TF2-AG-OC",
+                         "baslik":  "Organised crime and drug trafficking",
+                         "durum":  "acik",
+                         "program":  "İç Güvenlik Fonu",
+                         "acilis":  "2026-05-21",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ISF-2026-TF2-AG-OCDT"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2026-03",
                          "baslik":  "Space critical EEE components for EU non-dependence – GaN MMICs mm-Wave Foundations (Phase A): Development and Industrialization of Semi-insulating SiC Substrate Capabilities",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
                          "sonTarih":  "2026-09-03",
                          "tarihler":  [
 
@@ -374,11 +580,90 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-82"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
+                         "kod":  "ISF-2026-TF2-AG-OC",
+                         "baslik":  "Trafficking in human beings",
+                         "durum":  "acik",
+                         "program":  "İç Güvenlik Fonu",
+                         "acilis":  "2026-05-21",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ISF-2026-TF2-AG-THB"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "ERASMUS-EDU-2026-PEX-COVE",
+                         "baslik":  "Centres of Vocational Excellence",
+                         "durum":  "acik",
+                         "program":  "Erasmus+",
+                         "acilis":  "2025-12-04",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2026-PEX-COVE"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Scientific analysis and exploitation of space data",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-61"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2026-03",
+                         "baslik":  "Critical Facilities Serving Space EEE components for EU non-dependence – High and Very High Energy Irradiation Test Facility Market Deployment",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-03-10",
+                         "sonTarih":  "2026-09-03",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-SPACE-03-85"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "186002",
+                         "baslik":  "Promotion de la culture d\u0027égalité au Maroc",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/186002/DD/ACT/MA",
+                         "acilis":  "2026-06-02",
+                         "sonTarih":  "2026-09-08",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186002/DD/ACT/MA"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "LIFE-2026-NGO-OG-FPA",
+                         "baslik":  "Framework Partnership Agreements for operating grants to support non-profit organisations",
+                         "durum":  "acik",
+                         "program":  "LIFE (çevre-iklim)",
+                         "acilis":  "2026-05-12",
+                         "sonTarih":  "2026-09-08",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/LIFE-2026-NGO-OG-FPA"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-MSCA-2026-PF-01",
                          "baslik":  "MSCA Postdoctoral Fellowships 2026",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-09",
                          "sonTarih":  "2026-09-09",
                          "tarihler":  [
 
@@ -386,11 +671,12 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MSCA-2026-PF-01-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-WIDERA-2026-05",
                          "baslik":  "ERA Fellowships",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-09",
                          "sonTarih":  "2026-09-09",
                          "tarihler":  [
 
@@ -398,95 +684,25 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2026-05-WIDENING-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Development of a research capacity building programme on cancer with and for Ukraine",
+                         "kaynak":  "AB",
+                         "kod":  "187202",
+                         "baslik":  "MK 24 IPA JH 01 26 “Enhancing Performance of Police, Law Enforcement, and Cybersecurity”",
                          "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
+                         "program":  "EuropeAid/187202/DD/ACT/MK",
+                         "acilis":  "2026-06-18",
+                         "sonTarih":  "2026-09-10",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-06"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/187202/DD/ACT/MK"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Microbiome for early cancer prediction before the onset of disease",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-02"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Virtual Human Twin (VHT) Models for Cancer Research",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-01"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-EURATOM-LS-2026-01",
-                         "baslik":  "Safety of SMRs, advanced and innovative nuclear reactors and fuels",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-LS-2026-01-02"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-EURATOM-LS-2026-01",
-                         "baslik":  "Towards a European production of stable isotopes for novel nuclear medicine therapies (SAMIRA/ERVI)",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-LS-2026-01-05"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-EURATOM-LS-2026-01",
-                         "baslik":  "Safety of operating nuclear power plants and research reactors",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-LS-2026-01-01"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Earlier and more precise palliative care",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-04"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-CID-2026-01",
                          "baslik":  "R\u0026I in Support of the Clean Industrial Deal: Decarbonisation of energy intensive industries (IA) (Processes4Planet and Clean Steel partnerships)",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2025-12-18",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
@@ -494,59 +710,12 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CID-2026-01-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CID-2026-01",
-                         "baslik":  "R\u0026I in Support of the Clean Industrial Deal: Clean Technologies for Climate Action",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CID-2026-01-02"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-HLTH-2026-02",
-                         "baslik":  "European Partnership on Rare Diseases (ERDERA) (Phase 2)",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-02-DISEASE-12"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Improve the Quality of Life of older cancer patients",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-07"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-MISS-2026-02",
-                         "baslik":  "Boosting mental health of young cancer survivors through the European Cancer Patient Digital Centre (ECPDC)",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-15",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-05"
-                     },
-                     {
-                         "kaynak":  "AB (Ufuk Avrupa)",
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-MISS-2026-02",
                          "baslik":  "Pragmatic clinical trials to optimise immunotherapeutic interventions for patients with refractory cancers",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
@@ -554,304 +723,732 @@
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-03"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Coordinated topic with India on recycling of EV batteries",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CID-2026-01",
+                         "baslik":  "R\u0026I in Support of the Clean Industrial Deal: Clean Technologies for Climate Action",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2025-12-18",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D2-04"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CID-2026-01-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Advanced data platforms to integrate whole life carbon in building information tools, assessments, and certification (Built4People Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "CERV-2026-CHAR-LITI",
+                         "baslik":  "Promoting an enabling civic space",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Yurttaşlar ve Eşitlik",
+                         "acilis":  "2026-05-20",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D4-03"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CHAR-LITI-CIVIC"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Low disturbance prefabrication approaches for deep renovation of multi-storey buildings (Built4People Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-HLTH-2026-02",
+                         "baslik":  "European Partnership on Rare Diseases (ERDERA) (Phase 2)",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D4-02"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-02-DISEASE-12"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Innovative technologies and solutions to improve wind energy systems supporting the Strategic Energy Technology (SET) Plan on wind",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-MISS-2026-02",
+                         "baslik":  "Microbiome for early cancer prediction before the onset of disease",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D3-03"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Producing battery-grade materials for electrodes through sustainable processing and refining of raw materials or developing bio-based materials (BATT4EU Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-MISS-2026-02",
+                         "baslik":  "Development of a research capacity building programme on cancer with and for Ukraine",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D2-01"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-06"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Full-scale demonstration of heat upgrade solutions in industrial processes",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-MISS-2026-02",
+                         "baslik":  "Earlier and more precise palliative care",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D4-08"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-04"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Researching the technical, social \u0026 economic factors impacting the energy performance of Smart Buildings (Built4People Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-MISS-2026-02",
+                         "baslik":  "Boosting mental health of young cancer survivors through the European Cancer Patient Digital Centre (ECPDC)",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D4-01"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-05"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL3-2026-02-CS-ECCC",
-                         "baslik":  "Approaches and tools for security in software and hardware development and assessment",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-MISS-2026-02",
+                         "baslik":  "Improve the Quality of Life of older cancer patients",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-02-10",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-02-CANCER-07"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL3-2026-02-CS-ECCC",
-                         "baslik":  "Advanced cryptographic schemes and High-Assurance high-speed cryptographic implementations",
+                         "kaynak":  "AB",
+                         "kod":  "CERV-2026-CHAR-LITI",
+                         "baslik":  "Raising awareness of and building capacity for the EU Charter of Fundamental Rights",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Yurttaşlar ve Eşitlik",
+                         "acilis":  "2026-05-20",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-03"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CERV-2026-CHAR-LITI-CHARTER"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-EURATOM-LS-2026-01",
+                         "kaynak":  "AB",
+                         "kod":  "187022",
+                         "baslik":  "INDIA - Civil society contribution to policy dialogue, climate action and sustainable value chains",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/187022/DD/ACT/IN",
+                         "acilis":  "2026-07-17",
+                         "sonTarih":  "2026-09-15",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/187022/DD/ACT/IN"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "186052",
+                         "baslik":  "Strengthening the role of women’s rights organisations in the implementation of gender equality and women’s empowerment in Zimbabwe",
+                         "durum":  "acik",
+                         "program":  "EuropeAid/186052/DD/ACT/ZW",
+                         "acilis":  "2026-07-28",
+                         "sonTarih":  "2026-09-15",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186052/DD/ACT/ZW"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2026-01",
+                         "baslik":  "Enhancing the European nuclear competence  area",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-23",
+                         "sonTarih":  "2026-09-15",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2026-01-03"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2026-01",
+                         "baslik":  "Co-funded European partnership for research in nuclear materials",
+                         "durum":  "acik",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-23",
+                         "sonTarih":  "2026-09-15",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2026-01-08"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2026-01",
                          "baslik":  "Support for the Sustainable Nuclear Energy Technology Platform to address cross-sectoral challenges and non-power applications of ionising radiation",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-23",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-LS-2026-01-06"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2026-01-06"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL5-2026-09",
-                         "baslik":  "Validating policies and business models for affordable and sustainable housing (Built4People Partnership)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2026-01",
+                         "baslik":  "Safety of SMRs, advanced and innovative nuclear reactors and fuels",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-23",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-09-D4-04"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2026-01-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL3-2026-02-CS-ECCC",
-                         "baslik":  "Enhancing the Security, Privacy and Robustness of AI Models and Systems (SecureAI)",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2026-01",
+                         "baslik":  "European Partnership for research in radiation protection and detection of ionising radiation",
                          "durum":  "acik",
-                         "acilis":  "",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-04-23",
                          "sonTarih":  "2026-09-15",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2026-01-09"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-CHIPS-2026-FT2-IA",
-                         "baslik":  "IA Resilience call reinforcing Europe\u0027s strength in photonics",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL6-2026-04",
+                         "baslik":  "Additional activities for the European Partnership of Agriculture of Data",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-08-25",
+                         "sonTarih":  "2026-11-26",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-FT2-IA"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-CHIPS-2026-3-RIA",
-                         "baslik":  "Call with Digital Partnership and TTC countries",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "ESF-2027-PEP-ENGAGEMENT",
+                         "baslik":  "Structured dialogue with people with lived experience of poverty",
+                         "durum":  "yakinda",
+                         "program":  "ESF",
+                         "acilis":  "2026-09-01",
+                         "sonTarih":  "2026-10-29",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-3-RIA"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ESF-2027-PEP-ENGAGEMENT"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-EIC-2026-TRANSITIONOPEN",
-                         "baslik":  "EIC Transition Open",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-WIDERA-2027-04",
+                         "baslik":  "Excellence Hubs",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-02",
+                         "sonTarih":  "2027-03-04",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-TRANSITIONOPEN"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-04-WIDENING-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-CHIPS-2026-FT1-IA",
-                         "baslik":  "IA Resilience call reinforcing Europe\u0027s strenght in power electronics",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "EDF-EDIP-P-2026-2027-FNLC-SA",
+                         "baslik":  "Support for the functioning of SEAPs, including  for the purpose of establishing, managing and maintaining defence industrial readiness pools",
+                         "durum":  "yakinda",
+                         "program":  "Avrupa Savunma Fonu",
+                         "acilis":  "2026-09-02",
+                         "sonTarih":  "2026-10-13",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-FT1-IA"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-P-2026-2027-FNLC-SA-SEAP"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-CHIPS-2026-2-RIA",
-                         "baslik":  "RIA Resilience call reinforcing Europe\u0027s strength in 6G radio communication systems",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-EURATOM-2027-01",
+                         "baslik":  "Key enabling technologies for fusion power plants (European Partnership on Fusion Energy)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-15",
+                         "sonTarih":  "2027-03-04",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-2-RIA"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2027-01-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-JU-CHIPS-2026-FT3-IA",
-                         "baslik":  "IA Resilience call reinforcing Europe\u0027s strenght in health",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-16",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Circular innovative advanced materials: facilitating the transition from design to markets (RIA) (Innovative Advanced Materials for the EU and Made in Europe partnerships)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-FT3-IA"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Advanced recovery of critical raw materials from Waste from Electrical and Electronic Equipment (WEEE)",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Factory processes and automation for de- and re-manufacturing (RIA) (Made in Europe partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-03"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Supporting pre-normative research for standardization of the bio-based products",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-06",
+                         "baslik":  "Fast Track to Innovation for breakthroughs in the Chemical Industry Action Plan  (Research and Innovation Action)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-08"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Understanding biomass flows in Europe",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Advanced manufacturing for key products (IA) (Made in Europe partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-05"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Improving circularity of multilayer flexible plastic food contact packaging",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-RAISE-2027-01",
+                         "baslik":  "Automated Scientific Discovery (RAISE pilot) (RIA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-01"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Bio-based innovation in society: supporting the sustainable way of living",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "‘Proof of market’ to improve valorisation and commercialisation of Horizon generated R\u0026I results (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-10"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-49"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Advancing recycling technologies for mixed post-consumer textiles waste from blended products",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-RAISE-2027-01",
+                         "baslik":  "Automated Scientific Discovery – Food (RAISE pilot)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-02"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-02"
                      },
                      {
-                         "kaynak":  "AB (Ufuk Avrupa)",
-                         "kod":  "HORIZON-CL6-2026-01",
-                         "baslik":  "Demonstrating and deploying innovative collection, sorting-for-reuse and repair systems for textiles at city/region level (Circular Cities and Regions Initiative topic)",
-                         "durum":  "acik",
-                         "acilis":  "",
-                         "sonTarih":  "2026-09-17",
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Innovative advanced materials and new production processes – reducing dependencies on Critical and Strategic Raw Materials (IA) (Innovative Advanced Materials for the EU and Processes4Planet partnerships)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-04"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Expert network on Critical raw materials (CSA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-02-two-stage",
+                         "baslik":  "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-02-two-stage",
+                         "baslik":  "Efficient energy input from renewable sources and energy management in the process industries (IA) (Processes4Planet and Innovative Advanced Materials for the EU partnerships)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Technologies for innovative processing of raw materials (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-06",
+                         "baslik":  "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Pilot access schemes to Technology Infrastructures for European startups, scaleups and innovative SMEs (CSA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Unlocking the potential of academic intellectual assets for industry, SMEs and startups (CSA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Textile circularity through advanced processing and manufacturing technologies and system approaches (IA) (Textiles for the Future partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-08"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-05",
+                         "baslik":  "Advanced integrated photonic devices for extended features and ultra-low power consumption (RIA) (Photonics Partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Energy efficiency and sustainability of AI data processing in Data Centres (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "EU Frontier AI Initiative:  Developing frontier AI solutions that are safe and computationally efficient within Apply AI (RIA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-11"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Facilitate the engagement of European stakeholders in international digital standardisation (CSA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-07"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "International cooperation in AI (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Horizon scanning and foresight in future enabling digital technologies (CSA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Advanced and Innovative hardware components for Virtual Worlds (RIA) (Virtual Worlds Partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-01"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Apply AI: AI-Driven Robotics for Industry: Enabling System Integration and Adoption (IA) (Partnership in AI, Data and Robotics)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-05"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Advancing understanding, modelling and prediction of extreme events in a changing climate",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-07"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Assessing the performance of policy instruments to inform climate change mitigation action",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-09"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Palaeoclimate science for a better understanding of Earth system dynamics",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-08"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Next generation scenarios for informing climate and sustainability transitions",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-13"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Understanding and avoiding maladaptation to climate change",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-10"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Africa-EU CO-FUND action on climate",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-11"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL5-2027-01",
+                         "baslik":  "Better understanding and attribution of land and ocean carbon sources and sinks",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-04",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-12"
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -864,30 +1461,6 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVJvrbeRY7p6n-KdCIbjumZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
-                         "baslik":  "Kreatif Endüstriler Teknik Destek Programı (2026)",
-                         "durum":  "acik",
-                         "acilis":  "2026-08-06",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-02-18",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -912,6 +1485,30 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "Kreatif Endüstriler Teknik Destek Programı (2026)",
+                         "durum":  "acik",
+                         "acilis":  "2026-08-06",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-02-18",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -975,15 +1572,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "CKA",
-                         "baslik":  "2026 Yılı Fizibilite Desteği Programı",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "2026 Yılı Kırsal İşletmeler Teknik Destek Programı",
                          "durum":  "acik",
-                         "acilis":  "2026-03-01",
-                         "sonTarih":  "2026-12-31",
+                         "acilis":  "2026-04-07",
+                         "sonTarih":  "2026-12-30",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXRXLHQRty3d_1yA2oJR-f1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qSpWSxO9g0EdbxYGjF1IaCVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -999,27 +1596,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
-                         "baslik":  "2026 Yılı Kırsal İşletmeler Teknik Destek Programı",
+                         "kod":  "CKA",
+                         "baslik":  "2026 Yılı Fizibilite Desteği Programı",
                          "durum":  "acik",
-                         "acilis":  "2026-04-07",
-                         "sonTarih":  "2026-12-30",
+                         "acilis":  "2026-03-01",
+                         "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qSpWSxO9g0EdbxYGjF1IaCVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "FKA",
-                         "baslik":  "Fırat Turu Destek Programı (2025-2026)",
-                         "durum":  "acik",
-                         "acilis":  "2025-07-28",
-                         "sonTarih":  "2026-10-30",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qezYcM-p074WPsHoyogixSVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXRXLHQRty3d_1yA2oJR-f1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1035,15 +1620,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "GMKA",
-                         "baslik":  "GMKA Yatırım Ortamının İyileştirilmesi Teknik Destek Programı",
+                         "kod":  "FKA",
+                         "baslik":  "Fırat Turu Destek Programı (2025-2026)",
                          "durum":  "acik",
-                         "acilis":  "2026-02-01",
-                         "sonTarih":  "2026-10-31",
+                         "acilis":  "2025-07-28",
+                         "sonTarih":  "2026-10-30",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qezYcM-p074WPsHoyogixSVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1056,6 +1641,18 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qdfQV9nf3wV0UhAGml1CNyZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "GMKA",
+                         "baslik":  "GMKA Yatırım Ortamının İyileştirilmesi Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-02-01",
+                         "sonTarih":  "2026-10-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
