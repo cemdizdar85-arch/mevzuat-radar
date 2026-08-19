@@ -53,6 +53,13 @@ $KAYNAKLAR = @{
   # hasat elle (deseni kanitli).
 }
 
+# 19.08 LINUX UYUMU. Bu betik Windows'ta yazildi, CI Linux'ta kosuyor ve iki
+# yerden oluyordu: (1) 'curl.exe' Linux'ta yok (Windows'ta bilerek .exe --
+# PS5.1'de 'curl' takma adi IWR'ye gider); (2) $env:TEMP Linux'ta BOS ->
+# Join-Path null patlar. Ikisi de platforma gore secilir.
+$CURL = if($env:OS -eq 'Windows_NT'){ 'curl.exe' } else { 'curl' }
+$TMPD = [IO.Path]::GetTempPath()
+
 function Mail([string]$konu,[string]$govde){
   $mb = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject=$konu; from_name='Tetikte Yanveri Onarici'; email='cemdizdar85@hotmail.com'; message=$govde } | ConvertTo-Json -Depth 3
   try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -UserAgent 'Mozilla/5.0 (TetikteNobetci)' -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 30 | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
@@ -64,7 +71,7 @@ function DamgaYaz($d){ [IO.File]::WriteAllText($damgaYol, ($d|ConvertTo-Json -De
 # ---------- DUYURU SINYALI (ikinci bagimsiz kaynak; RG-sinyalin esi) ----------
 if($DuyuruSinyal){
   $u = 'https://ithalat.ticaret.gov.tr'
-  $html = & curl.exe -s -L -A $UA --max-time 60 $u
+  $html = & $CURL -s -L -A $UA --max-time 60 $u
   if($LASTEXITCODE -ne 0){ throw "duyuru sayfasi indirilemedi" }
   $html = $html -join "`n"
   $duyurular = @([regex]::Matches($html,'href="(/duyurular/[^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
@@ -91,10 +98,10 @@ Write-Host "=== YANVERI: $Kaynak ==="
 
 # xlsx linkini resmi sayfadan cek (curl.exe: PS5.1 TLS'i ticaret.gov.tr'ye yetmiyor)
 function CurlIndir([string]$url,[string]$hedefYol){
-  & curl.exe -s -L -A $UA --max-time 120 -o $hedefYol $url
+  & $CURL -s -L -A $UA --max-time 120 -o $hedefYol $url
   if($LASTEXITCODE -ne 0 -or -not (Test-Path $hedefYol)){ throw "curl indiremedi: $url" }
 }
-$sayfaTmp = Join-Path $env:TEMP "yanveri-$Kaynak-sayfa.html"
+$sayfaTmp = Join-Path $TMPD "yanveri-$Kaynak-sayfa.html"
 CurlIndir $K.sayfa $sayfaTmp
 $sayfa = Get-Content $sayfaTmp -Raw -Encoding UTF8
 $m = [regex]::Match($sayfa, $K.linkDesen)
@@ -105,7 +112,7 @@ $xlsxUrl = [System.Uri]::EscapeUriString($xlsxUrl)   # bosluk + Turkce karakterl
 Write-Host "link: $xlsxUrl"
 
 # K1: cift indirme + hash esitligi
-$p1 = Join-Path $env:TEMP "yanveri-$Kaynak-1.xlsx"; $p2 = Join-Path $env:TEMP "yanveri-$Kaynak-2.xlsx"
+$p1 = Join-Path $TMPD "yanveri-$Kaynak-1.xlsx"; $p2 = Join-Path $TMPD "yanveri-$Kaynak-2.xlsx"
 CurlIndir $xlsxUrl $p1
 Start-Sleep -Seconds 2
 CurlIndir $xlsxUrl $p2
@@ -125,7 +132,7 @@ Write-Host ("K2: YENI SURUM (eski: {0})" -f $(if($onceki){ $onceki.url } else { 
 
 # K3: hasat (eski ciktiyi yedekle, hasatciyi kostur)
 $ciktiYol = Join-Path $kok ("veri\" + $K.cikti)
-$yedek = Join-Path $env:TEMP ("yanveri-eski-" + $K.cikti)
+$yedek = Join-Path $TMPD ("yanveri-eski-" + $K.cikti)
 $eskiVeri = $null
 if(Test-Path $ciktiYol){ Copy-Item $ciktiYol $yedek -Force; $eskiVeri = Get-Content $ciktiYol -Raw -Encoding UTF8 | ConvertFrom-Json }
 & (Join-Path $here $K.hasatci) -Xlsx $p1
