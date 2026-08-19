@@ -40,6 +40,17 @@ GeneratePdf bağlantılarından bulunup **indirilen PDF'in başlığından teyit
 aday başlık teyidiyle elendi: 19974=Lisanslama, 33762=III-62.3, 20645=Bağımsız Denetim Yön.,
 10737=Üst Yönetim Yön.). Ayrıca ayna koşusu tavana takılınca yutma yerel SADECE koşusuyla yapıldı.
 
+## ✅ 19.08.2026 (2. tur) — II-5.1 İZAHNAME TEBLİĞİ + 14 TEORİ NOTU (karne ayıklaması kapanışı, Cem: "ikisini birden")
+*Sebep: 100 "KAYNAK YOK" karne satırının elle ayıklaması (veri/karne-ayiklama-sonuc.json):
+59 artefakt çıktı, 39 gerçek boşluğun dökümü = 14 teori notu ihtiyacı + tek mevzuat boşluğu II-5.1.*
+
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| İzahname ve İhraç Belgesi Tebliği (II-5.1) | mevzuat.gov.tr G9:18509 konsolide (RG 22.06.2013/28685) | **54 madde-parça, kapsama %99,8**; geri okuma m.4 birebir ✓; manifest `spk-izahname-teblig` (robot nöbeti). Not: ayna koşusu işlemeyince 05.08 kurtarma yolu (yerel SADECE koşusu) kullanıldı |
+| 14 teori notu (`teori-notlari-20260819-karne.json`) | GM elle yazımı | **14/14 ambarda, geri okuma birebir**. Başlıklar: monografi çözüm adımları (en kritik — yeterlilik 6 satırı + yevmiye-pratiği ailesini kapsar), oran-türetme, işlem-etkisi, faaliyet kâr marjı, kaldıraç kapasitesi, Norwalk, tipleştirme, maliye teorisyenleri, kameralizm, mali sürüklenme, Accountancy Europe, grafik yorumlama, iç kontrol bileşenleri, muhasebe türleri |
+
+Ayıklamanın diğer dersi: ambar 269 THP kaydını "THP 690 - DÖNEM KARI VEYA ZARARI" biçiminde tutar — birebir eq araması bulamaz, kod+tire+ad ile aranır. Kalan küçük aday: MSUGT-1 gelir tablosu FORMAT bölümü (soruları teori notları karşılıyor, acil değil).
+
 ## ✅ 19.08.2026 — FUAR MEVZUATI YUTULDU (Cem emri; site teyit turlarının son açık kalemi)
 *Sebep: bilgi.html'in fuar desteği hapı (19.08 turunda tek doğrulanamayan blok) ambarda olmayan
 kaynaklara dayanıyordu.*
