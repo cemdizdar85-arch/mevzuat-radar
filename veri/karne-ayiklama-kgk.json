@@ -1,0 +1,369 @@
+{
+    "tarih":  "19.08.2026 12:15",
+    "durum":  "TAMAM",
+    "aciklama":  "KGK karnesi 42 KAYNAK-YOK satirinin GM ayiklamasi (uc-sinav kurali geregi, Cem 19.08). VAR 26 (karne korlugu: kisa kisaltmalar WACC/KYS/ETS suzgecte aranmiyor + yazim farklari; 5411=298 ve 5684=134 belgeyle ambarda TAM) / GERCEK-YOK 16 / BELIRSIZ 0. Surpriz: ipotekli alacakli onceligi TMK m.879da birebir.",
+    "sayim":  {
+                  "VAR":  26,
+                  "GERCEK_YOK":  16,
+                  "BELIRSIZ":  0
+              },
+    "mevzuat_onerileri":  [
+                              "BDDK Muhasebe Uygulamalari Yonetmeligi",
+                              "BDDK Sorunlu Alacak Rehberi",
+                              "SPK Degerleme Standartlari Tebligi (seri no yutulurken teyit edilecek)",
+                              "II-5.2 Sermaye Piyasasi Araclarinin Satisi Tebligi",
+                              "III-37.1 Yatirim Hizmetleri Tebligi",
+                              "Katilim Esaslari Yonetmeligi (tekaful)"
+                          ],
+    "teori_notu_onerileri":  [
+                                 "AB ETS fazlari ve tahsisat",
+                                 "AB Yesil Taksonomi metrikleri",
+                                 "finansal kiralama sakincalari",
+                                 "Sharpe/portfoy performans olcutleri",
+                                 "acente prim tahakkuku kaydi",
+                                 "koasurans prim kayitlari",
+                                 "net kazanilmis prim hesabi",
+                                 "rizikonun sigortalanabilirligi",
+                                 "zeyilname",
+                                 "sigorta muhasebesi genel"
+                             ],
+    "kalici_serh":  "KGK konu haritasi 104 kitapcigin 10undan (1.640 etiketli soru) - kalan 94 kitapcigin etiketlenmesi acik is",
+    "kayitlar":  [
+                     {
+                         "ders":  "Bankacılık Mevzuatı",
+                         "konu":  "bkn 5411 banka turlerine gore faaliyet yasaklari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Bankacılık K. (5411 s.K.) m.60",
+                         "kanit":  "fer\u0027an meslek edinerek mevduat veya katılım fonu kabul edemez",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Bankacılık Mevzuatı",
+                         "konu":  "bkn 5411 ozel cari hesap",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Bankacılık K. (5411 s.K.) m.3 [4/4]",
+                         "kanit":  "Özel cari hesap: Katılım bankalarında açılabilen, istenildiğinde her an geri çekilebilme özelliği taşıyan",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Bankacılık Mevzuatı",
+                         "konu":  "muhasebe yonetmeligi yurtdisi sube konsolidasyonu",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: Bankaların Muhasebe Uygulamalarına ve Belgelerin Saklanmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik (BDDK)"
+                     },
+                     {
+                         "ders":  "Bankacılık Mevzuatı",
+                         "konu":  "sorunlu alacak yonetimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: BDDK Sorunlu Alacak Yönetimine İlişkin Rehber"
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "ab ets fazlari ve tahsisat",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: AB Emisyon Ticaret Sistemi (ETS) fazları ve tahsisat yöntemleri (GDS 3410 emisyon ticaretine değinir ama fazları anlatmaz)"
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "ab yesil taksonomi capex metrigi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: AB Yeşil Taksonomisi ve CapEx/OpEx/Ciro metrikleri"
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "tsrs 1 kaynak ve iliskilere baglilik",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TSRS 1 p.2",
+                         "kanit":  "kaynak ve ilişkilere olan bağımlılıkları ile bunlar üzerindeki etkileri, risk ve fırsatları meydana getirir",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "tsrs 2 sektorler arasi metrik ornekleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TSRS 2 p.29",
+                         "kanit":  "karşı tarafları sınıflandırmak için Küresel Endüstri Sınıflandırma Standardı (GICS) kodu kullanır",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "tsrs karsilastirmali tutar revizyonu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TSRS 1 p.21 [3/4]",
+                         "kanit":  "Karşılaştırmalı bilgi (52, 70 ve 83-86 ncı paragraflar) B49: raporlama döneminde açıklanan tutarlar",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Sürdürülebilirlik Raporlaması ve Denetimi",
+                         "konu":  "tsrs nicel bilgi acilamama istisnasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TSRS 1 p.39",
+                         "kanit":  "beceri, yetenek ve kaynaklarla orantılı yaklaşım; karar vermesi durumunda nicel bilgi sağlamaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "anuite esit taksit hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - paranin zaman degeri",
+                         "kanit":  "Anüite, eşit aralıklarla eşit tutarlı ödemeler dizisidir; adi anüitede ödemeler dönem sonunda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "anuite taksit hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - paranin zaman degeri",
+                         "kanit":  "Anüite, eşit aralıklarla eşit tutarlı ödemeler dizisidir; peşin anüitede dönem başında",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "bileşik faiz getiri karşılaştırması",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - paranin zaman degeri",
+                         "kanit":  "Bileşik faizde faiz, anapara ile birikmiş faizin toplamı üzerinden işler; efektif yıllık oran",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "faaliyet kaldıracı hesaplama",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - kaldirac ve basabas",
+                         "kanit":  "faaliyet kaldıraç derecesi (FKD) = katkı payı / FVÖK; sabit faaliyet giderlerinden doğar",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "finansal kiralama sakincalari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: finansal kiralamanın üstünlük ve sakıncaları (mevcut not leasing\u0027i kaynak olarak sayıyor, sakıncalarını anlatmıyor)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "finansal planlama butceleme ilkeleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - finansal planlama proforma ve ek fon ihtiyaci",
+                         "kanit":  "Finansal planlamanın temel aracı proforma (tahmini) finansal tablolardır; satış yüzdesi yöntemi",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "forward futures karsilastirmasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - turev urunler forward futures opsiyon swap",
+                         "kanit":  "FORWARD: gelecekte belirli tarihte belirli fiyattan alım-satımı bağlayıcı kılan tezgahüstü sözleşme",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "modigliani miller varsayimlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - finansman kaynaklari ve sermaye yapisi",
+                         "kanit":  "Modigliani-Miller\u0027in vergisiz dünyasında sermaye yapısı firma değerini etkilemez; vergili dünyada vergi kalkanı",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "optimal sermaye yapisi faktorleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - finansman kaynaklari ve sermaye yapisi",
+                         "kanit":  "Optimal sermaye yapısı, WACC\u0027yi en düşük yapan borç/özsermaye bileşimidir",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "pay sahipleriyle iletisimde oncu komite",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Kurumsal Yonetim Tebligi (II-17.1) m.11",
+                         "kanit":  "yatırımcılar arasındaki iletişimi sağlayan yatırımcı ilişkileri bölümünün oluşturulması",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "risk getiri degis tokusu ilkesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - risk getiri portfoy",
+                         "kanit":  "Getiri, kazancın yatırılan tutara oranı; risk, gerçekleşen getirinin beklenenden sapma olasılığı",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "sermaye bütçelemesi kapsamı",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - sermaye butcelemesi NPV IRR",
+                         "kanit":  "Sermaye bütçelemesi, uzun vadeli yatırım projelerinin değerlendirilmesidir; NBD \u003e 0 ise kabul",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "sharpe orani hesabi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: portföy performans ölçütleri (Sharpe, Treynor, Jensen) — ambarda \u0027sharpe\u0027 geçen tek kayıt yok"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "wacc hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - sermaye maliyeti WACC",
+                         "kanit":  "WACC = (E/V)×ke + (D/V)×kd×(1−t); piyasa değeri ağırlıklarıyla ortalama",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "degerleme standartlari tebligi uds yayimlayani",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: SPK Sermaye Piyasasında Değerleme Standartları Hakkında Tebliğ (UDS\u0027yi kabul eden tebliğ; seri numarası yutulurken teyit edilmeli)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "halka arz tahsisat oranlari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: Sermaye Piyasası Araçlarının Satışı Tebliği (II-5.2)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "izahname hazirlanmayan durumlar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Izahname ve Ihrac Belgesi Tebligi (II-5.1) m.12",
+                         "kanit":  "ihraççıların izahname hazırlanmaksızın gerçekleştirilen her türlü sermaye piyasası aracı ihracında",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "spkn 6362 imtiyazli paylarin kalkmasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.28",
+                         "kanit":  "üst üste beş yıl dönem zararı eden ortaklıklarda imtiyazlar Kurul kararı ile kalkar",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "spkn 6362 kaydilestirme sonuclari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.13",
+                         "kanit":  "kaydileştirmesine, kayıtların tutulmasına ve payların kayden izlenmesine ilişkin usul ve esaslar",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "spkn 6362 tedrici tasfiye organ yetkileri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.86",
+                         "kanit":  "tedricî tasfiye kararı; bu durumda tedricî tasfiye işlemleri YTM tarafından yürütülür",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "yatirim hizmetleri tebligi turev kaldiracli islemler",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: Yatırım Hizmetleri ve Faaliyetleri ile Yan Hizmetlere İlişkin Esaslar Hakkında Tebliğ (III-37.1)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "zarar halinde imtiyazlarin kalkmasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.28",
+                         "kanit":  "üst üste beş yıl dönem zararı; oy hakkı ve yönetim kurulu temsil imtiyazları kalkar",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "bankacilik kredi sinirlamalari istisnalar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Bankacılık K. (5411 s.K.) m.55",
+                         "kanit":  "Aşağıdaki kredi işlemleri 54 üncü maddedeki sınırlamalara tâbi değildir: karşılığı nakit",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "acente prim tahakkuku kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sigorta muhasebesi temel kayıtları; mevzuat: Sigortacılık Hesap Planı ve İzahnamesi Hakkında Tebliğ"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "ipotekli alacakli oncelikli hak",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMK (4721 s.K.) m.879",
+                         "kanit":  "Muaccel olan sigorta tazminatı, malike ancak bütün rehinli alacaklıların rızasıyla ödenebilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "koasurans prim uretimi kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sigorta muhasebesi — koasürans kayıtları (ambarda \u0027koasürans\u0027 yalnız damga vergisi bağlamında geçiyor)"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "rizikonun sigortalanabilirlik ozellikleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: rizikonun sigortalanabilme şartları (5684 m.15 yalnız yurt içinde yaptırma zorunluluğunu düzenliyor, özellikleri anlatmıyor)"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "sigorta muhasebesi koasurans prim kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sigorta muhasebesi — koasürans prim kaydı; mevzuat: Sigortacılık Hesap Planı ve İzahnamesi Hakkında Tebliğ"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "sigorta muhasebesi net kazanilmis prim hesabi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sigorta muhasebesi — kazanılmış prim ve kazanılmamış primler karşılığı hesabı"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "zeyilname tanimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sigortacılıkta zeyilname tanımı (ambarda \u0027zeyilname\u0027 yalnız kamu ihale bağlamında geçiyor)"
+                     },
+                     {
+                         "ders":  "Sigortacılık ve Özel Emeklilik",
+                         "konu":  "katılım sigortacılığı tekafül modeli",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: Katılım Esasları Çerçevesinde Sigortacılık ve Bireysel Emeklilik Faaliyetlerine İlişkin Yönetmelik"
+                     },
+                     {
+                         "ders":  "Türkiye Denetim Standartları",
+                         "konu":  "kys 1 sistem bilesenleri zafiyeti",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "KYS 1 p.6",
+                         "kanit":  "kalite yönetim sisteminin üst yönetim ve liderlik unsuru, sistemin işleyişini destekleyen çevre oluşturur",
+                         "oneri":  ""
+                     }
+                 ]
+}
