@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,48 +35,76 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>19.06.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Nükleer ve radyoaktif atık tesislerinde bağımsız gözetim kuralları genişletildi</h3>
-<p><b>Ne oldu:</b> Nükleer Düzenleme Kurumu, bağımsız gözetim faaliyetlerine ilişkin yönetmelikte değişikliğe giderek kapsamı radyoaktif atık tesislerini de içerecek şekilde genişletti. Gözetim kurumlarının bağımsızlığı, personel nitelikleri, denetim programları ve uyuşmazlık yönetimi sistemine dair yeni ve ayrıntılı hükümler getirildi.</p>
-<p><b>Neyi değiştiriyor:</b> Nükleer Tesislerde Bağımsız Gözetim Faaliyetlerine İlişkin Yönetmelik</p>
+<h3>Nükleer tesislerde bağımsız gözetim kuralları radyoaktif atık tesislerine genişletildi</h3>
+<p><b>Ne oldu:</b> Nükleer Düzenleme Kurumu, nükleer tesislerdeki bağımsız gözetim faaliyetlerini düzenleyen yönetmelikte değişikliğe giderek kapsamı radyoaktif atık tesislerini de içerecek şekilde genişletti. Buna ek olarak, gözetim faaliyeti yürüten kuruluşların (BGŞ) bağımsızlığına ve personel niteliklerine ilişkin şartlar ile uygunsuzluk yönetimi, denetim prosedürleri ve gözetimi reddetme koşulları güçlendirildi.</p>
+<p><b>Hangi tebliğ:</b> Nükleer Tesislerde Bağımsız Gözetim Faaliyetlerine İlişkin Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Yönetmelik adı: <span style='color:var(--dim);text-decoration:line-through'>Nükleer Tesislerde Bağımsız Gözetim Faaliyetlerine İlişkin Yönetmelik</span> → <b>Nükleer Tesislerde ve Radyoaktif Atık Tesislerinde Bağımsız Gözetim Faaliyetlerine İlişkin Yönetmelik</b></div>
-<p><b>Ürün:</b> Nükleer tesis yapı ve ekipmanları ile radyoaktif atık tesisleri</p>
-<p><b>Kimi ilgilendirir:</b> Nükleer tesis işletmecileri, radyoaktif atık tesis işletmecileri, bağımsız gözetim şirketleri, tesis tedarikçileri</p>
-<p><b>Ne yapmalısın:</b> Mevcut sözleşmelerinizi ve gözetim prosedürlerinizi gözden geçirerek yeni bağımsızlık ve personel nitelikleri şartlarına uyumu kontrol edin. Radyoaktif atık tesisleriniz varsa, bunların gözetim kapsamına alındığını ve mali yapı düzenlemesini inceleyin. BGŞ ile iletişim yöntemleri, gözetim reddi prosedürleri ve uyuşmazlık yönetimi sistemine ilişkin sözleşme maddelerini güncelleyin. 31 Aralık 2027'ye kadar sürecek geçiş sürecini takip edin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik, düzenleyici kapsamı ve güvenlik standartlarını yükseltmekle birlikte ithalat üzerinde doğrudan bir fiyat etkisi yaratmamaktadır. Nükleer tesis inşasında malzeme bedellerini etkileyen kâr marjı, personel maliyeti ve gözetim süresi öngörüleri değişebilir; mevcut projelerde keşif güncellemesi gerekebilir.</div>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>Nükleer tesisler</span><span class='ok'>→</span><span class='hap yeni'>Tesisler</span> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>pay sahibi olduğu</span><span class='ok'>→</span><span class='hap yeni'>pay sahibi olduğu veya yönetim kurullarında görev aldığı</span></div>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>durdurulması ve devam etmesine</span><span class='ok'>→</span><span class='hap yeni'>gözetiminin reddedilmesine ve gözetime devam edilmesine</span></div>
+<div class='karsi'><span class='kon'>8 inci madde</span><span class='hap eski'>on beş</span><span class='ok'>→</span><span class='hap yeni'>yirmi</span></div>
+<div class='karsi'><span class='kon'>9 uncu madde</span><span class='hap eski'>ve muayenelerde</span><span class='ok'>→</span><span class='hap yeni'>, muayene ve ölçüm faaliyetlerinde</span></div>
+<div class='kiymet' style='color:var(--dim)'>+4 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Radyoaktif atık tesisleri, nükleer tesislerle eşit şekilde gözetim kapsamına alındı (Madde 1, 2, 3, 4).</div>
+<div class='kiymet'>• BGŞ gözetim faaliyetlerini bağımsız yürütür, kontrol noktalarını bağımsız belirler ve habersiz denetimler yapabilir (Madde 5/5).</div>
+<div class='kiymet'>• Sözleşmede BGŞ'nin bağımsızlığıyla çelişecek şekilde hizmet bedeli gözetim sonuçlarına bağlanamaz (Madde 5/5).</div>
+<div class='kiymet'>• BGŞ tesis sahasında tam zamanlı bir proje yöneticisi bulundurmalı; bu kişi koordinasyon, planlama ve organizasyondan sorumlu (Madde 8/2).</div>
+<div class='kiymet'>• BGŞ kontrol noktalarını ve değişiklikleri faaliyetten önce Kurumun erişimine açması zorunlu (Madde 10/1).</div>
+<div class='kiymet'>• BGŞ, uygunsuzluk giderilene kadar işin gözetimini reddedebilir ve bu kararı ivedilikle Kurum ve Kuruluşa bildirmeli (Madde 10/5).</div>
+<div class='kiymet'>• Kuruluş ve tedarikçiler, BGŞ'nin gözetimini reddettiği durumda faaliyet yürütemez; çalışma ancak BGŞ'nin onayından sonra devam eder (Madde 10/6).</div>
+<div class='kiymet'>• 17/3/2023 tarihinden önce yürütülen nükleer yapı denetimi faaliyetleri için ilave yükümlülükler 31/12/2027 tarihine kadar uygulanır (Madde 14/5, Geçici Madde 2).</div>
+<div class='kiymet'>• Kuruluş; BGŞ ile iletişim, gözetim talepleri, sonuçların değerlendirilmesi, BGŞ değişikliği ve görevleri tanımlayan prosedürleri bulundurmalı (Madde 6/5).</div>
+<p><b>Ürün:</b> Nükleer tesisler ve radyoaktif atık tesisleri</p>
+<p><b>Kimi ilgilendirir:</b> Nükleer Düzenleme Kurumu tarafından yetkilendirilen nükleer tesisler, radyoaktif atık tesisleri ile bunlara yönelik bağımsız gözetim faaliyeti yürüten kuruluşlar (BGŞ)</p>
+<p><b>Ne yapmalısın:</b> Mevcut nükleer yapı denetimi sözleşmelerini gözden geçirin; BGŞ bağımsızlığı, tam zamanlı proje yöneticisi istihdamı, uygunsuzluk yönetim sistemi, kontrol noktalarında şeffaflık ve gözetimi reddetme prosedürlerinin 31/12/2027 tarihine kadar hayata geçirilmesini sağlayın. Yeni bir denetim sürecine başlarken tüm prosedürlerin eksiksiz hazır olduğundan emin olun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Radyoaktif atık tesislerinin kapsama dahil edilmesi gözetim yükünü artırırken, BGŞ'nin gözetimi reddetme hakkı mal sahibi (Kuruluş) açısından ek bir risk oluşturmaktadır. Bununla birlikte, bağımsızlık şartlarının güçlendirilmesi ve şeffaflık gerekliliklerinin (kontrol noktaları, uygunsuzluk yönetimine ilişkin elektronik sistem, proje yöneticisinin sahada bulunması) getirilmesi, uygunsuzlukların tespit edilme oranını ve işin kalitesini artıracaktır. Uzun geçiş süresi (2027 sonuna kadar tanınan süre) mevcut faaliyetler üzerindeki etkiyi göreli olarak yumuşatmaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260619-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260619-2.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin, Malezya ve Vietnam'dan solar cam ithalatında damping soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Türkiye Şişe ve Cam Fabrikaları A.Ş.'nin başvurusu üzerine 70.06 ve 70.07 GTIP kodlarında sınıflandırılan solar cam ürünü için Çin Halk Cumhuriyeti, Malezya ve Vietnam menşeli ithalatın damping soruşturmasını açmaya karar verdi. Soruşturmada normal değer tespitinde iki yöntem uygulanmış ve her iki yöntemde de ihmal edilebilir oranın üzerinde damping marjı tespit edilmiştir.</p>
-<p><b>Ürün:</b> Solar cam (70.06 ve 70.07 GTIP'leri altında sınıflandırılan)</p>
+<h3>Çin, Malezya ve Vietnam menşeli solar cam ürünlerine damping soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli cam üreticilerinin başvurusu üzerine Çin Halk Cumhuriyeti, Malezya ve Vietnam menşeli solar cam ithalatına yönelik damping soruşturması başlatmıştır. Soruşturma kapsamında normal değer ile ihraç fiyatı karşılaştırılmış, dampingli ithalatın yerli üretim dalında maddi zarara yol açtığı tespit edilmiştir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma 19 Haziran 2026 tarihinde başlamıştır (Madde 15/1).</div>
+<div class='kiymet'>• Soru formuna cevap verme süresi, bildirimin gönderildiği tarihten itibaren posta süresi dâhil 37 gündür (Madde 12/1).</div>
+<div class='kiymet'>• Bildirimi almayan ilgili taraflar cevaplarını tebliğ yayım tarihinden itibaren 37 gün içinde sunmalıdır (Madde 12/2).</div>
+<div class='kiymet'>• Soruşturma boyunca geçici önlem uygulanabilir ve kesin önlem geriye dönük olarak uygulanabilir (Madde 14/1).</div>
+<div class='kiymet'>• Piyasa ekonomisi koşullarını ispat eden Çin ve Vietnam'daki üreticiler normal değer tespitinde avantajlı muamele görebilir (Madde 9/1).</div>
+<p><b>Ürün:</b> Solar cam (70.06 ve 70.07 gümrük tarife pozisyonlarında sınıflandırılan cam ürünleri)</p>
 <p><b>GTİP:</b><br><span class='gtip'>70.06</span><span class='gtip'>70.07</span></p>
-<p><b>Kimi ilgilendirir:</b> Solar cam üreten ve ithalatçı firmalar; Çin, Malezya ve Vietnam menşeli cam ihracatçıları ve üreticileri</p>
-<p><b>Ne yapmalısın:</b> Soru formlarına verilen cevap süresine dikkat et. Çin ve Vietnam'da yerleşik üreticiler piyasa ekonomisi koşullarını ispatlayan belgeleri 12. maddede belirtilen süreler içinde sunmalı; aksi durumda Yönetmeliğin 7. maddesi kapsamında damping hesaplamasına tabi olacaklar. İthalatçılar ve üreticiler kendilerini kaynayan ülkelerin büyükelçilikleri veya Bakanlık posta/KEP adreslerine bildirmeli ve soru formlarını cevaplamakla ilgili talimatları adımlayarak takip etmeli.</p>
+<p><b>Kimi ilgilendirir:</b> Solar cam ithal eden şirketler ve distribütörler, Çin, Malezya ve Vietnam'daki cam üreticileri ve ihracatçıları ile cam sektörüne ilişkin meslek kuruluşları</p>
+<p><b>Ne yapmalısın:</b> Bildirim tebliğ edilen ithalatçı ve ihracatçı işletmelerin, 37 günlük cevap süresi (posta süresi dâhil) içinde soru formlarını eksiksiz doldurarak Ticaret Bakanlığı İthalat Genel Müdürlüğü Damping ve Sübvansiyon Dairesine göndermesi gerekmektedir. Bildirimi alamayanların ise tebliğin yayım tarihinden itibaren 37 gün içinde yanıtlarını sunmaları gerekir. Adres ve KEP bilgileri için Bakanlığın internet sitesinin incelenmesi önerilir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma açılması ithalatçıların sevkiyatlarında belirsizlik yaratır. Çin, Malezya ve Vietnam menşeli solar cam ithalatı ile ilgili fiyatlandırma ve bedel tahmini revize edilmeli; soruşturma sonucunda geçerli olacak antidamping vergileri planlamaya alınmalı.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260619-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin'den etil asetat ithalatına damping soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Adokim Kimya'nın başvurusu üzerine Çin kökenli etil asetat (GTIP 2915.31.00.00.00) ithalatına yönelik damping soruşturması açılmasına karar vermiştir. Soruşturma, hesaplanan damping marjının ihmal edilebilir oranın üzerinde çıkması ve yerli üretimin zarar gördüğünün tespit edilmesi üzerine başlatılmıştır.</p>
-<p><b>Ürün:</b> Etil asetat (organik kimya ürünü)</p>
+<h3>Çin'den ithal edilen etil asetat ürününe damping soruşturması açılması</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Adokim Kimya Sanayi ve Ticaret A.Ş.'nin başvurusu üzerine Çin Halk Cumhuriyeti menşeli etil asetat (GTIP 2915.31.00.00.00) için damping soruşturması açmıştır. Soruşturma kapsamında dampingli ihracat tespit edilmiş, yerli üreticinin ekonomik göstergelerinin bu durumdan zarar gördüğü belirlenmiştir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma bu Tebliğin yayımı tarihinde başlamış sayılır (Madde 15/1).</div>
+<div class='kiymet'>• Soru formuna cevaplama süresi, Tebliğ yayımından itibaren posta süresi dâhil 37 gündür (Madde 12/1-2).</div>
+<div class='kiymet'>• Bildirimi almayan ilgili taraflar da yayım tarihinden itibaren 37 gün içinde cevaplarını sunabilir (Madde 12/2).</div>
+<div class='kiymet'>• Soruşturma kapsamında geçici önlem uygulanabilir ve kesin önlem geriye dönük olarak uygulanabilir (Madde 14/1).</div>
+<div class='kiymet'>• İş birliğine gelmeyen taraflar için soruşturma sonucu daha az avantajlı olabilir (Madde 13/2).</div>
+<p><b>Ürün:</b> Etil asetat (Çin menşeli)</p>
 <p><b>GTİP:</b><br><span class='gtip'>2915.31.00.00.00</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>2915.31.00.00.00 → <b>kaynakta belirtilmemis</b></div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 2915.31.00.00.00: onceki kaydimiz 10.000 Ton (genel tarife kontenjanı) (20.06.2026) -> yeni kaynakta belirtilmemis</div>
-<p><b>Kimi ilgilendirir:</b> Çin'den etil asetat ithal eden firmalar, yerli etil asetat üreticileri, ihracatçılar, gümrük uzmanları</p>
-<p><b>Ne yapmalısın:</b> İthalatçılar: Soru formlarını 37 gün içinde yanıtlayarak kendi iç piyasa fiyatlandırmalarını damping marjı tanımları çerçevesinde karşılaştırmalıdır. Yerli üreticiler: Soruşturma sürecini ticaret.gov.tr/ithalat adresinden takip etmelidir. Yurt dışı taraflar: KEP veya posta yoluyla iletişime geçmeli, Türkçe belgelendirme ve apostil şartlarını yerine getirmelidir.</p>
+<p><b>Kimi ilgilendirir:</b> Etil asetat imalatçıları, Çin'den ithalat yapan işletmeler ve ilgili meslek kuruluşları</p>
+<p><b>Ne yapmalısın:</b> Soru formları, Tebliğin yayımı tarihinden itibaren 37 gün içinde doldurularak Ticaret Bakanlığı İthalat Genel Müdürlüğü Damping ve Sübvansiyon Dairesine gönderilmelidir. Türkiye'de yerleşik firmalar ticaretbakanligi@hs01.kep.tr KEP adresini kullanmalıdır. Yurt dışındaki taraflar yazılı başvuru ve elektronik ekler (CD/USB) yoluyla iletişime geçmeli, ayrıca ithebys@ticaret.gov.tr adresine bildirimde bulunmalıdır. Yabancı firmalar yasal temsilci aracılığıyla başvuruda bulunacaksa apostil tasdikli vekâletname gereklidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturmanın açılması, damping iddiasının 2025 verilerine göre tespit edildiği anlamına gelmektedir; geçici veya kesin koruma önlemleri Çin menşeli ithalatı kısıtlayabilir. Bakanlık, damping marjını hesaplarken normal değeri Türkiye'deki benzer malın maliyeti ve kârına göre oluşturmuş olup, bu durum ithalatçıların gümrük bedellerinde artışa yol açabilir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260619-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

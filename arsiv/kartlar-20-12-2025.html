@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,36 +33,61 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>20.12.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>20.12.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Pan-Avrupa-Akdeniz menşe kurallarına ilişkin yeni yönetmelik yürürlüğe girdi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyon Ortak Komitesinin 1/2023 Sayılı Kararını uygulamak üzere yeni bir yönetmelik yayımladı. Yönetmelik, Türkiye ile Avrupa Birliği, EFTA ülkeleri, Balkan ülkeleri ve diğer anlaşmalı ülkeler arasındaki tercihli ticaret kapsamında menşe kurallarının uygulanmasına ilişkin usul ve esasları belirliyor.</p>
-<p><b>Ürün:</b> Tüm menşeli ürünler (fasıl ayrımı yapılmaksızın bölgesel kümülasyon kapsamında)</p>
-<p><b>Kimi ilgilendirir:</b> Avrupa Birliği, EFTA ülkeleri, Balkan ülkeleri ve Barselona sürecine katılım sağlayan ülkelere ihracat yapan veya söz konusu ülkelerden ithalatçılar</p>
-<p><b>Ne yapmalısın:</b> EUR.1 dolaşım belgesi düzenlemesi ve menşe beyanı yapan ihracatçılar, yönetmeliğin 6. ve 7. maddelerine uygun olarak menşe tanımını kontrol et. Tamamen elde edilen ürünlerin tanımı ve yeterli işçilik şartlarını işletmenin ürün grupları açısından karşılaştır; elektronik sistem üzerinden belge düzenleme prosedürünü güncelle.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Pan-Avrupa-Akdeniz Tercihli Menşe Kuralları Yönetmeliği yürürlüğe girdi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyon Ortak Komitesinin 1/2023 Sayılı Kararı kapsamında yeni bir yönetmelik yayımladı. Bu yönetmelik, tercihli ticaret anlaşmaları çerçevesinde ürünlerin menşeinin tespitine ilişkin usul ve esasları düzenlemektedir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik 1/1/2025 tarihinden itibaren yürürlüğe giriyor; 31/12/2025 tarihine kadar yeni düzenlemeye göre hazırlanan belgeler 'REVISED RULES' ibaresi taşıyacak (Geçici m.1).</div>
+<div class='kiymet'>• 2012 kurallarına göre düzenlenen menşe ispat belgelerine 31/12/2029 tarihine kadar sonradan kontrol uygulanabiliyor (Geçici m.2).</div>
+<div class='kiymet'>• Türkiye, Avrupa Birliği, Balkan ülkeleri, EFTA, Faroe Adaları, Gürcistan, Moldova ve Ukrayna arasındaki ticaret menşe kurallarına tabi (m.2).</div>
+<div class='kiymet'>• Tamamen elde edilen ürünler ve yeterli işçilik gören ürünler tercihli menşe statüsü kazanabiliyor (m.5-7).</div>
+<div class='kiymet'>• Menşe kümülasyonu uygulanıyorsa belgeye 'CUMULATION APPLIED WITH' ibaresi yazılması zorunlu; bazı ülkeler bu şarttan feragat edebiliyor (m.10).</div>
+<p><b>Ürün:</b> Tüm ürün kategorileri (Armonize Sistem nomenklatürü kapsamında)</p>
+<p><b>Kimi ilgilendirir:</b> İhracatçılar, ithalatçılar, gümrük müşavirleri ve tercihli ticaret anlaşmalarından yararlanan işletmeler</p>
+<p><b>Ne yapmalısın:</b> Tercihli ticaretten yararlanmak isteyen şirketler, menşe belgesi düzenleme prosedürlerini Yönetmelik'e uygun hale getirmelidir. EUR.1 dolaşım belgesi veya menşe beyanı, Ek III-IV örneklerine uygun şekilde hazırlanmalıdır. Kümülasyon uygulanan hallerde ilgili ibareler belgede belirtilmelidir. Tedarikçi beyanlarının doğruluğu teyit edilmeli ve belgeler arşivlenmelidir. Sonradan kontrol talebi halinde, dördüncü madde uyarınca gümrük idaresine süresi içinde yanıt verilmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251220-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kalaylı çelik ürünlerine damping karşı vergi getirildi; beş ülkeden yapılan ithalat bu kapsamda değerlendirilecek.</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Almanya, Çin, Kore, Japonya ve Sırbistan menşeli kalaylı demir ve çelik ürünlerine yönelik dampinge karşı kesin önlem uygulanmasına karar verdi. Yürütülen soruşturma neticesinde, söz konusu ülkelerden yapılan ithalatın dampingli olduğu ve yerli üretimde zarara yol açtığı tespit edilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/21)</p>
-<p><b>Ürün:</b> Kalaylı (teneke) kaplamalı demir veya alaşımsız çelikten mamul yassı hadde ürünleri</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Damping soruşturması açılışından kesin önlemlere geçiş tebliği</h3>
+<p><b>Ne oldu:</b> Damping soruşturması tamamlanmış olup Almanya, Çin, Kore, Japonya ve Sırbistan menşeli ürünlere karşı %5,53 ile %50,08 arasında değişen kesin dampinge karşı önlemlerin uygulanmasına karar verilmiştir. Soruşturma açılış tebliğinin ardından sonuç ve kesin önlem tebliğine geçilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/21) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(28.06.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğin kapsamı</span><span class='hap eski'>Soruşturma açılış tebliği (Tebliğ No: 2024/21)</span><span class='ok'>→</span><span class='hap yeni'>Soruşturma sonuç tebliği (Tebliğ No: 2025/40) ve kesin önlem tablosu</span></div>
+<div class='karsi'><span class='kon'>Almanya Federal Cumhuriyeti - GTP 7210.11 - Thyssenkrupp Rasselstein GmbH</span><span class='hap eski'>Tanımlanmamış (soruşturma aşaması)</span><span class='ok'>→</span><span class='hap yeni'>Dampinge Karşı Önlem: %5,53</span></div>
+<div class='karsi'><span class='kon'>Almanya Federal Cumhuriyeti - GTP 7210.11 - Diğerleri</span><span class='hap eski'>Tanımlanmamış (soruşturma aşaması)</span><span class='ok'>→</span><span class='hap yeni'>Dampinge Karşı Önlem: %11,05</span></div>
+<div class='karsi'><span class='kon'>Çin Halk Cumhuriyeti - GTP 7210.11 - Handan Jintai</span><span class='hap eski'>Tanımlanmamış (soruşturma aşaması)</span><span class='ok'>→</span><span class='hap yeni'>Dampinge Karşı Önlem: %24,83</span></div>
+<div class='karsi'><span class='kon'>Çin Halk Cumhuriyeti - GTP 7210.12.20 - Handan Steel Group</span><span class='hap eski'>Tanımlanmamış (soruşturma aşaması)</span><span class='ok'>→</span><span class='hap yeni'>Dampinge Karşı Önlem: %23,88</span></div>
+<div class='kiymet' style='color:var(--dim)'>+12 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Gümrük idareleri tabloda listelenen ürünlerin ithalatında belirtilen oranlarda dampinge karşı kesin önlemleri tahsil eder (m.5/1).</div>
+<div class='kiymet'>• Önlemler yürürlük tarihinden itibaren 5 yıl sonra yürürlükten kalkar (m.5/4).</div>
+<div class='kiymet'>• Yürürlük süresinde nihai gözden geçirme soruşturması başlatılırsa önlemler soruşturma sonuçlanıncaya kadar devam eder (m.5/5).</div>
+<div class='kiymet'>• Bu Tebliğ yayımı tarihinde yürürlüğe girer (m.6/1).</div>
+<p><b>Ürün:</b> Kalayla kaplanmış (teneke) demir veya alaşımsız çelikten yassı hadde ürünleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>7210.11.00</span><span class='gtip'>7210.12.20</span><span class='gtip'>7210.90.40</span><span class='gtip'>7212.10.10</span><span class='gtip'>7212.10.90</span><span class='gtip'>7212.40.20</span></p>
-<p><b>Kimi ilgilendirir:</b> Kalaylı çelik ve teneke ürünlerinin ithalatçıları ile bu malzemeleri kullanan ambalaj, inşaat ve beyaz eşya üreticileri</p>
-<p><b>Ne yapmalısın:</b> Almanya, Çin, Kore, Japonya ve Sırbistan menşeli sevkiyatlara ait GTIP kodlarının, tabloda yer alan firmalarla eşleştirilmesi gerekmektedir. CIF bedeli tespit edilerek, tabloda belirtilen oran üzerinden ek ödeme (dampinge karşı önlem) tahsil edilecek şekilde ön finansman ve gümrük işlemlerinin güncellenmesi önem arz etmektedir. Ocak 2026 itibarıyla yürürlüğe girecek bu oranların müşteri fiyatlandırmasına yansıtılması gerekmektedir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>7212.10.10 → <b>Japonya - Nippon Steel Corporation için %20,29; diğerleri için %16,28 (CIF bedelinin yüzdesi)</b></div>
+<div class='kiymet'>7212.40.20 → <b>Sırbistan - HBIS Group Serbia Iron&Steel d.o.o. Beograd için %15,43; diğerleri için %36,87 (CIF bedelinin yüzdesi)</b></div>
+<div class='kiymet'>7210.90.40 → <b>Kore - KG Dongbu Steel Co., Ltd. için %12,54; diğerleri için %50,08 (CIF bedelinin yüzdesi)</b></div>
+<div class='kiymet'>7210.11.00 → <b>Almanya - Thyssenkrupp Rasselstein GmbH için %5,53; diğer Almanya firmaları için %11,05; Çin için %24,83 (CIF bedelinin yüzdesi)</b></div>
+<p><b>Kimi ilgilendirir:</b> Bu ürünleri Almanya, Çin, Kore, Japonya ve Sırbistan'dan ithal eden metal, otomotiv, elektrik ve ambalaj sektörü işletmeleri</p>
+<p><b>Ne yapmalısın:</b> 20 Aralık 2025 tarihinden itibaren söz konusu ülkelerden gelen beyannamelerinizi kontrol edin; CIF bedeline tabloda yer alan oranlar uygulanacaktır. Firma adı tabloda ayrıca listelenen ithalatçılar daha düşük oran üzerinden vergilendirilecektir. Gümrük müşavirinizle teslim maliyeti hesaplarını güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> İthalatçılar, damping önlemleri nedeniyle söz konusu ülkelerden yapacakları ithalatta CIF bedelinin %5,53 ile %50,08 arasında ek gümrük vergisi ödeyecek, bu ürünler pahalı hale gelecektir. Bu durum ithalatçılar aleyhine sonuç doğurmaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251220-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

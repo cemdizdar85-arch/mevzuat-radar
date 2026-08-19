@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,71 +35,95 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>24.05.2026 tarihli Resmî Gazete'de 4 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kurumlar Vergisi Genel Tebliği'nde istisna ve asgari vergi düzenlemeleri değiştirildi</h3>
-<p><b>Ne oldu:</b> Gayrimenkul yatırım ortaklıklarının kâr dağıtım kuralları detaylandırıldı; istisnaların faaliyet esaslı ve işlem esaslı uygulamaları birbirinden ayrıştırıldı; asgari kurumlar vergisinden indirilen yatırıma katkı tutarının hesaplanmasında 2 Ağustos 2024 öncesi yatırımların esas alınacağı açıklandı.</p>
-<p><b>Neyi değiştiriyor:</b> Kurumlar Vergisi Genel Tebliği (Seri No: 1)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
-<p><b>Kimi ilgilendirir:</b> Gayrimenkul yatırım ortaklıkları, yatırım fon ve ortaklıkları, teknoloji geliştirme bölgelerinde faaliyet gösteren kurumlar, yatırım teşvik belgesi sahibi mükellefler</p>
-<p><b>Ne yapmalısın:</b> Gayrimenkul yatırım ortaklıkları, 2025 yılından itibaren kâr dağıtımı hesaplamasına avans kâr paylarını da dahil etmeli; taşınmaz ve diğer faaliyetlere ilişkin hesaplamaları ayrı ayrı yapmalıdır. Teknoloji bölgesi gibi faaliyet esaslı istisnaların uygulanmasında hesap dönemindeki tüm faaliyetler birlikte değerlendirilmelidir. Yatırım teşvik belgesinde revize yapan mükellefler ise asgari vergi indirim hesaplamasında 2 Ağustos 2024 öncesi tutarı esas almalıdır.</p>
-<p><b>Yürürlük:</b> 24.05.2026</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Gayrimenkul ortaklıkları açısından kâr dağıtım şartının kısmen yumuşatılması (zararla sonuçlanan faaliyetlerde şart aranmaması) lehe bir düzenleme; ancak 2025'ten itibaren avans kâr paylarının da hesaplamaya dahil edilmesi ve daha detaylı hesaplama gerekliliği maliyet artırıcı niteliktedir. Yatırım teşvik belgesinde revize yapanlar için ise indirilen asgari vergi hesaplamasındaki daralma aleyhe bir etki doğurmaktadır.</div>
+<h3>Kurumlar vergisinde fon ve ortaklıkların kâr dağıtımı ile asgari vergi kurallarında değişiklik</h3>
+<p><b>Ne oldu:</b> Gayrimenkul yatırım ortaklıkları ve fonları için kâr dağıtım şartının hesaplanmasına ilişkin yeni hükümler getirildi. Ayrıca asgari kurumlar vergisinden indirilen yatırıma katkı tutarı bakımından, 2 Ağustos 2024 öncesinde teşvik belgesi almış mükelleflere yönelik uygulama açıklığa kavuşturuldu.</p>
+<p><b>Hangi tebliğ:</b> Kurumlar Vergisi Genel Tebliği (Seri No: 1) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Gayrimenkul yatırım ortaklıkları taşınmazlardan elde ettikleri kazançları dağıtma zorunluluğundan, taşınmaz faaliyeti zararla sonuçlanırsa muaf tutulur (Madde 1, 5.5 bölüm)</div>
+<div class='kiymet'>• Taşınmaz faaliyeti karla, diğer faaliyetler zararla sonuçlanırsa ve net kazanç taşınmaz kazancından düşükse, kazancın yarısı dağıtılması istisna açısından yeterlidir (Madde 1, 5.5 bölüm)</div>
+<div class='kiymet'>• Müşterek giderlerin taşınmaz ve diğer faaliyetler arasında dağıtımı, cari yıl maliyetlerinin oranına göre yapılır (Madde 1, 5.5 bölüm)</div>
+<div class='kiymet'>• Faaliyet esaslı istisnaların uygulanmasında aynı hesap dönemindeki tüm ilgili faaliyetlerden doğan kazanç ve zararlar birlikte değerlendirilir (Madde 2, 5.18 bölüm)</div>
+<div class='kiymet'>• İşlem esaslı istisnaların uygulanmasında her işlemden doğan kazanç veya zarar ayrı ayrı dikkate alınır (Madde 2, 5.18 bölüm)</div>
+<div class='kiymet'>• 2 Ağustos 2024 tarihinden önce yatırım teşvik belgesi alan mükelleflerin asgari vergisinden indirilen yatırıma katkı tutarı, sadece söz konusu tarihteki belgede kayıtlı yatırım tutarı esas alınarak hesaplanır (Madde 4, 32.5.7 bölüm)</div>
+<p><b>Ürün:</b> Kurumlar vergisi uygulamalarına ilişkin genel açıklamalar ve istisna uygulamaları</p>
+<p><b>Kimi ilgilendirir:</b> Gayrimenkul yatırım ortaklıkları, yatırım fonları, teknoloji geliştirme bölgelerinde faaliyet gösteren şirketler ve yatırım teşvik belgesi sahibi mükellefler</p>
+<p><b>Ne yapmalısın:</b> 2025 yılı vergi beyannamenizi hazırlarken taşınmaz faaliyeti ile diğer faaliyetlerin kâr/zararını ayrı hesaplayın ve müşterek giderleri maliyetlerin oranına göre dağıtın. 2 Ağustos 2024 öncesinde alınmış ve sonradan revize edilmiş bir yatırım teşvik belgeniz varsa, asgari vergi indiriminde tam indirim ile orantılı indirim yöntemlerinden hangisinin sizin için daha uygun olduğunu kontrol edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260524-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260524-3.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli alüminyum folyo ithalatına karşı dampinge karşı önlem</h3>
-<p><b>Ne oldu:</b> Tebliğ ile ürün tanımı daha ayrıntılı hale getirilmiş, CIF tanımı eklenmiş ve dampinge karşı önlemin tutar ve/veya oran üzerinden uygulanabileceği açıklığa kavuşturulmuştur. Önceki tebliğe yapılan atıf güncellenmiş, ayrıca tarife pozisyonu değişikliklerine karşı daha esnek bir hüküm getirilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/34)</p>
+<h3>Çin menşeli alüminyum folyolarda dampinge karşı önlem oranı değiştirildi</h3>
+<p><b>Ne oldu:</b> Tebliğ yeniden düzenlenmiş, atıfta bulunulan önceki tebliğ değiştirilmiş ve tanımlara CIF ibaresi eklenmiştir. Dampinge karşı önlem mekanizması tutarlılığın sağlanması amacıyla güçlendirilmiş; tanım veya pozisyonda yapılacak değişiklikleri de kapsayacak şekilde genişletilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/34) sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(04.01.2020 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• Ürün tanımı detaylandırılması: <span style='color:var(--dim);text-decoration:line-through'>alüminyumdan mesnetsiz folyolar</span> → <b>kalınlığı 0,2 mm'yi geçmeyen, haddelenmiş fakat daha ileri bir işleme tutulmamış alüminyumdan mesnetsiz yapraklar ve şeritler (7607.11) ve diğerleri (7607.19)</b></div>
-<div class='kiymet'>• Tanımlar bölümüne eklenen madde: <span style='color:var(--dim);text-decoration:line-through'>CIF tanımı yer almıyordu</span> → <b>CIF: Masraflar, sigorta ve navlun dâhil teslimi</b></div>
-<div class='kiymet'>• Karar maddesinde referans tebliğ: <span style='color:var(--dim);text-decoration:line-through'>26/7/2014 tarihli ve 29072 sayılı RG'de yayımlanan Tebliğ No: 2014/25</span> → <b>4/1/2020 tarihli ve 30998 sayılı RG'de yayımlanan Tebliğ No: 2019/34</b></div>
-<div class='kiymet'>• Uygulama maddesinde damping müdahale şekli: <span style='color:var(--dim);text-decoration:line-through'>oranda dampinge karşı kesin önlemi</span> → <b>tutarda/oranda dampinge karşı kesin önlemi</b></div>
-<div class='kiymet'>• Tarife pozisyon değişikliği hükmü: <span style='color:var(--dim);text-decoration:line-through'>TGTC'de yer alan tarife pozisyonunda yapılacak değişiklikler</span> → <b>TGTC'de yer alan tarife pozisyonunda ve/veya tanımında yapılacak değişiklikler</b></div>
-<p><b>Ürün:</b> Çin Halk Cumhuriyeti menşeli, kalınlığı 0,2 mm'yi geçmeyen, haddelenmiş fakat daha ileri bir işleme tabi tutulmamış alüminyumdan mesnetsiz yaprak ve şeritler ile diğerleri</p>
+<div class='karsi'><span class='kon'>GTP 7607.11 ve 7607.19 dampinge karşı önlem oranı</span><span class='hap eski'>% 22</span><span class='ok'>→</span><span class='hap yeni'>Tabloda gösterilen biçimde (yeni metinde tablo değeri görünmüyor)</span></div>
+<div class='karsi'><span class='kon'>Tanımlar maddesinde yeni tanım</span><span class='hap eski'>CIF tanımı yok</span><span class='ok'>→</span><span class='hap yeni'>CIF: Masraflar, sigorta ve navlun dâhil teslimi</span></div>
+<div class='karsi'><span class='kon'>MADDE 5(1) önlem tahsil şekli</span><span class='hap eski'>karşısında gösterilen oranda</span><span class='ok'>→</span><span class='hap yeni'>karşısında gösterilen tutarda/oranda</span></div>
+<div class='karsi'><span class='kon'>MADDE 5(3) tarife pozisyonu değişikliği hükmü</span><span class='hap eski'>tarife pozisyonunda yapılacak değişiklikler</span><span class='ok'>→</span><span class='hap yeni'>tarife pozisyonunda ve/veya tanımında yapılacak değişiklikler</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin menşeli 7607.11 ve 7607.19 gümrük tarife pozisyonundaki ince alüminyum ürünlerine dampinge karşı kesin önlem uygulanır (Madde 5/1).</div>
+<div class='kiymet'>• Gümrük idareleri, serbest dolaşıma giriş sırasında tabloda belirtilen oranda dampinge karşı önlemi tahsil ederler (Madde 5/1).</div>
+<div class='kiymet'>• Önlem yürürlük tarihinden itibaren 5 yıl süreyle geçerli kalır (Madde 5/4).</div>
+<div class='kiymet'>• Son tarihinden önce yeniden gözden geçirme soruşturması başlatılırsa, soruşturma tamamlanana kadar önlem devam eder (Madde 5/5).</div>
+<div class='kiymet'>• Bu Tebliğ yayımı tarihinde yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Kalınlığı 0,2 mm'yi geçmeyen, haddelenmiş fakat daha ileri işleme tabi tutulmamış alüminyumdan mesnetsiz yapraklar ve şeritler ile diğer benzer ürünler</p>
 <p><b>GTİP:</b><br><span class='gtip'>7607.11</span><span class='gtip'>7607.19</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>7607.19 → <b>kaynakta belirtilmemis</b></div>
-<div class='kiymet'>7607.11 → <b>kaynakta belirtilmemis</b></div>
-<p><b>Kimi ilgilendirir:</b> Çin'den alüminyum yaprak ve şerit ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> Söz konusu ürünün ithalatında (7607.11 ve 7607.19 pozisyonlarında) dampinge karşı kesin önlem tutarını gümrük beyannamelerine yansıtın. Fiyat anlaşmalarını ve muhasebe kayıtlarını bu ek yükün etkisi açısından gözden geçirin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Dampinge karşı önlem tutarlı biçimde devam etmektedir. Ürün tanımının ayrıntılandırılması ve CIF tanımının eklenmesi, müdahalenin kapsamını ve hesaplama yöntemini netleştirerek ithalatçıları olumsuz yönde etkilemektedir. Damping oranına ilaveten tutar bazlı müdahalenin de uygulanabilir hale gelmesi, ithalatçılar açısından maliyeti artırıcı bir değişikliktir.</div>
+<div class='kiymet'>7607.11 → <b>kaynakta belirtilmemis (tablonun ek kısmında yer almaktadır)</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin'den ince alüminyum yaprak ve şerit ithal eden endüstri tedarikçileri ve üreticiler</p>
+<p><b>Ne yapmalısın:</b> Çin menşeli alüminyum ürünleri ithal ediyorsanız, gümrük mukabelesi sırasında damping önleminin (tabloda belirtilen oranda) tahsil edileceğini göz önünde bulundurun. Tablonun ekini inceleyerek birim başına kesin tutarı belirleyin. Mevcut sözleşmelerdeki fiyatlandırmayı ve gümrük maliyetlerini bu doğrultuda güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260524-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260524-4.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli çapa makinelerine dampinge karşı nihai gözden geçirme soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 8432.29.90.00.19 GTIP kodlu Çin menşeli 'diğer çapa makineleri' ürününün ithalatında yürürlükte bulunan dampinge karşı önlemin süresinin dolacak olması üzerine, dampingin devam edip etmeyeceğinin tespiti amacıyla nihai gözden geçirme soruşturması (NGGS) başlatmıştır. Mevcut önlem, CIF bedelinin %49,49 ile %92,25'i arasında değişen oranlarda uygulanmaktadır.</p>
+<h3>Çin menşeli çapa makinelerine yönelik dampinge karşı nihai gözden geçirme soruşturması</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin menşeli diğer çapa makinelerine uygulanan mevcut dampinge karşı önlemin yürürlük süresinin dolmasından önce, önlemin devamını haklı kılacak yeterli delil tespit ettiğinden nihai gözden geçirme soruşturması başlatmıştır. Soruşturma, Tebliğin yayım tarihi itibarıyla başlamış bulunmaktadır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturmada ilgili taraf olmak için soru formlarını cevaplamak ya da görüşünü sunmak ve bu şekilde kendini yetkiliye bildirmek zorunlu (Madde 10/1).</div>
+<div class='kiymet'>• Türkiye'deki firmalar soru formlarını KEP ile Bakanlığa gönderecek; yurt dışı firmalar yazılı olarak posta ile, ekler ise elektronik ortamda (CD/USB) gönderecek (Madde 11/2-3).</div>
+<div class='kiymet'>• Yurt dışı firmalar soru formu cevaplarını yasal temsilci aracılığıyla iletiyorsa, vekaletname imzalı, Türkçe ya da İngilizce tercümeli ve apostil tasdikli olmalı (Madde 11/4).</div>
+<div class='kiymet'>• Soru formlarına cevap süresi, bildirim gönderilen taraflar için 37 gün; bildirim ulaşmayan taraflar için Tebliğ yayımından itibaren 37 gün (Madde 12/1-2).</div>
+<div class='kiymet'>• Gerekli bilgi ve belgeleri sunmayan, reddetmeyen ya da yanlış/yanıltıcı bilgi veren taraf iş birliğine gelmemiş sayılır ve daha az avantajlı sonuçla karşılaşabilir (Madde 13/1-2).</div>
+<div class='kiymet'>• Soruşturma sonuçlanıncaya kadar %49,49 ile %92,25 arasında firma bazında değişen mevcut dampinge karşı önlem yürürlükte kalmaya devam edecek (Madde 14/1).</div>
+<div class='kiymet'>• Çin'de yerleşik üreticiler, piyasa ekonomisi koşullarının geçerli olduğunu 37 gün içinde ispat etmedikleri takdirde, normal değer tayininde Türkiye emsal ülke olarak kullanılacak (Madde 9/1).</div>
+<div class='kiymet'>• Tüm yazılı iletişim Türkçe yapılacak; Türkçe dışı dilde sunulan bilgi ve belgeler dikkate alınmayacak (Madde 11/5).</div>
+<div class='kiymet'>• Soruşturmanın başlangıç tarihi bu Tebliğin yayım tarihi olan 24 Mayıs 2026'dır (Madde 15/1).</div>
 <p><b>Ürün:</b> Diğer çapa makineleri (Çin menşeli)</p>
 <p><b>GTİP:</b><br><span class='gtip'>8432.29.90.00.19</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>8432.29.90.00.19 → <b>CIF bedelinin %49,49 ile %92,25 arasında (mevcut önlem oranı; soruşturma sonucu belirlenecek)</b></div>
-<p><b>Kimi ilgilendirir:</b> Çin'den çapa makinesi ithal eden firmalar, yerli çapa makinesi üreticileri, ihracatçı ve yabancı üreticiler</p>
-<p><b>Ne yapmalısın:</b> İthalatçıların soru formlarını 37 gün içinde yanıtlaması gerekmektedir. Yanıtlar; yerli firmalarca KEP üzerinden, yurt dışı firmalarca ise hem yazılı hem elektronik ortamda iletilmelidir. Piyasa ekonomisi koşullarını ispat etmek isteyen Çin menşeli ihracatçı ve üreticilerin gerekli delilleri hazırlaması gerekir. Yurt dışı firmaların yasal temsilci görevlendirmesi halinde notere tasdikli vekaletname ile apostil şerhinin eklenmesi zorunludur. İletişim: ticaretbakanligi@hs01.kep.tr ve ithebys@ticaret.gov.tr.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturmanın açılması, mevcut dampinge karşı önlemin uygulanmaya devam edeceği anlamına gelmektedir. İthalatçılar, soruşturma sonuçlanıncaya kadar %49,49–%92,25 aralığındaki maliyeti ödemeye devam edecek; soruşturma sonucunda bu oran artabilir, azalabilir veya tamamen kaldırılabilir. Sevkiyat planlamaları ve fiyat teklifleri bu belirsizlik dikkate alınarak yapılmalıdır.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='kiymet'>8432.29.90.00.19 → <b>%49,49 ile %92,25 arasında (firma bazında değişen oranlarda dampinge karşı ek gümrük vergisi - CIF bedelinin yüzdesi olarak)</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin'den çapa makinesi ihraç eden/üreten işletmeler, Türkiye'deki ithalatçılar ve benzer ürünü üreten yerli üreticiler</p>
+<p><b>Ne yapmalısın:</b> Bildirimin tarafınıza tebliğ edildiği tarihten itibaren 37 gün içinde soru formunu eksiksiz doldurup Bakanlığa iletmeniz gerekmektedir. Türkiye'de mukimseniz KEP üzerinden, yurt dışında iseniz posta yoluyla yazılı cevabınızı elektronik ekleriyle birlikte gönderiniz. Gizli tutulmasını talep ettiğiniz veriler için gerekli açıklamayı ilgili formda belirtiniz.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260524-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli koagüle suni deri ithalatında nihai gözden geçirme soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yürürlükteki dampinge karşı önlemin süresi dolmadan önce, koagüle suni deri (GTIP 5603.14 ve 3921.13) ithalatına yönelik nihai gözden geçirme soruşturması başlatmıştır. Soruşturma kapsamında, önlemin kaldırılması halinde dampingin ve zararın devam edip etmeyeceği tespit edilecektir.</p>
-<p><b>Neyi değiştiriyor:</b> 2015/9 (16/10/2018 tarihinde kapsamı genişletilmiş)</p>
-<p><b>Ürün:</b> Koagüle suni deri (dokumaya elverişli maddelerden mesnedi bulunan, m² ağırlığı 150 gramı geçen deri taklitleri dahil)</p>
+<h3>Çin menşeli suni deri ithalatına nihai gözden geçirme soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, koagüle suni deri (GTIP 5603.14 ve 3921.13) üzerinde yürürlükte bulunan dampinge karşı önlemi gözden geçirmek amacıyla soruşturma başlattı. Mevcut 1,9 ABD Doları/kg tutarındaki önlem, soruşturma sonuçlanıncaya kadar uygulanmaya devam edecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma bu Tebliğin yayım tarihinde (24 Mayıs 2026) başlamış sayılır (Madde 15/1).</div>
+<div class='kiymet'>• Bildirilen ilgili taraflar soru formlarına 37 gün içinde (posta süresi dâhil) cevap verir (Madde 12/1).</div>
+<div class='kiymet'>• Bildirimi ulaşmayan taraflar soru formlarına Tebliğ yayım tarihinden itibaren 37 gün içinde cevap verir (Madde 12/2).</div>
+<div class='kiymet'>• Mevcut 1,9 ABD Doları/kg dampinge karşı önlem soruşturma sonlanıncaya dek yürürlükte kalır (Madde 14/1).</div>
+<div class='kiymet'>• Yurt dışında yerleşik taraflar soru formlarını yasal temsilci aracılığıyla gönderirlerse apostil tasdikli vekaletname sunmalıdır (Madde 11/4).</div>
+<p><b>Ürün:</b> Koagüle suni deri (dokumaya elverişli maddelerden mesnedi bulunan, metrekare ağırlığı 150 gramı geçen deri taklitleri dahil)</p>
 <p><b>GTİP:</b><br><span class='gtip'>5603.14</span><span class='gtip'>3921.13</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
 <div class='kiymet'>5603.14 → <b>1,9 ABD Doları/kg</b></div>
-<p><b>Kimi ilgilendirir:</b> Çin menşeli koagüle suni deri ithal eden ticari kuruluşlar, yapay deri üreticileri ve konfeksiyoncu firmalar</p>
-<p><b>Ne yapmalısın:</b> Çin'den haziran–eylül 2026 dönemine ait sevkiyatlarınızı gümrük müşavirinizle birlikte kontrol edin; soru formu gönderilmesi halinde 37 gün içinde yanıt verin; maliyet hesaplamalarında yürürlükteki dampinge karşı önlem tutarını (1,9 ABD Doları/kg) dikkate alın.</p>
+<p><b>Kimi ilgilendirir:</b> Çin'den suni deri ithal eden firmalar; yerli suni deri üreticileri; soruşturma konusu ürünü kullanan sanayi kuruluşları</p>
+<p><b>Ne yapmalısın:</b> Soru formları, bildirimin gönderildiği tarihten itibaren 37 gün içinde ilgili adrese gönderilmelidir. Türkiye'de yerleşik taraflar KEP (ticaretbakanligi@hs01.kep.tr) üzerinden, yurt dışında yerleşik taraflar ise posta yoluyla ve EBYS e-postasına (ithebys@ticaret.gov.tr) başvuracaktır. Gizlilik talebine konu bilgiler özet biçimde hazırlanmalıdır. Bildirim kendisine ulaşmayan taraflar, Bakanlığın web sitesini (https://www.ticaret.gov.tr/ithalat > Ticaret Politikası Savunma Araçları > Damping ve Sübvansiyon > Soruşturmalar) takip etmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Mevcut dampinge karşı önlem, soruşturma süresince yürürlükte kalacağından ithalatçılar ek uyum maliyetiyle karşı karşıyadır. 2021 yılındaki önceki gözden geçirmede önlemin sürdürülmesine karar verilmişti; bu soruşturma da yönetmeliğin süresi dolan önlemlerin yeniden değerlendirilmesine ilişkin hükümlere dayandığından, önlemin devam ettirilmesi ya da artırılması ihtimali yüksek görünmektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260524-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

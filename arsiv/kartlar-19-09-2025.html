@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,68 +33,96 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>19.09.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>19.09.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Vergi borcu açıklaması için 5 milyon TL eşik ve kapsamı belirlendi</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı 2025 yılında yapılacak vergi borcu açıklamalarının usulünü düzenledi. Açıklamaya her vergi dairesine 5 milyon TL ve üzeri borcu olan mükelleflerin alınması, 1 Aralık - 15 Aralık arasında vergi dairelerinde, 16 Aralık - 30 Aralık arasında da Gelir İdaresi Başkanlığı internet sitesinde yapılması kararlaştırıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 293)</p>
-<p><b>Ürün:</b> Vergi usulü işlemleri (kamu alacakları açıklaması)</p>
-<p><b>Kimi ilgilendirir:</b> Her vergi dairesine 5 milyon TL ve üzeri vergi borcu olan mükelleflerin muhasebesi ve mali işleri yönetenleri</p>
-<p><b>Ne yapmalısın:</b> Dönem sonu borç pozisyonunu kontrol et; 5 milyon TL eşiğini aş bulunduruyorsan açıklama tarihlerinde (1-15 ve 16-30 Aralık) vergi dairesi ve GİB sitesini izle. Yapılandırılan borçlarının (6552, 6736, 7020, 7143, 7256, 7326, 7440 sayılı kanunlar kapsamında) açıklanmayacağını not et.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Vergi borcu bulunan mükelleflerin açıklanması ve 2025 yılı usul ve takvimi</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, kesinleşmiş vergi ve cezaları ile ödenmemiş vergi borcu bulunan mükelleflerin açıklanma usulünü ve 2025 yılı takvimini belirleyen bir Genel Tebliğ yayımladı. Açıklama Aralık 2025'te yapılacak olup kapsama 5 milyon TL ve üzerinde borcu bulunan mükellefler dahil edilecek.</p>
+<p><b>Hangi tebliğ:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 293) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Açıklamalar 1-15 Aralık 2025'te vergi dairelerinde asılmak suretiyle, 16-30 Aralık 2025'te Gelir İdaresi Başkanlığı internet sitesinde yapılacak (Madde 2/a).</div>
+<div class='kiymet'>• Açıklama kapsamına 31 Aralık 2024 itibarıyla vadesi geldiği halde 27 Kasım 2025 itibarıyla ödenmemiş vergi ve cezalar ile 1 Haziran 2024-31 Mayıs 2025 arasında kesinleşen borçlar alınacak (Madde 2/c).</div>
+<div class='kiymet'>• Açıklama kapsamına her vergi dairesinde 5 milyon TL ve daha fazla borçlu mükelleflerin alınması (Madde 2/b).</div>
+<div class='kiymet'>• Belediye takas ve mahsup başvuruları kapsamındaki vadesi 31 Aralık 2004 ve öncesi borçlar açıklamaya alınmayacak (Madde 3/a).</div>
+<div class='kiymet'>• Çeşitli yeniden yapılandırma kanunları kapsamında yapılandırılması devam eden borçlar açıklamaya alınmayacak (Madde 3/1/c-ğ).</div>
+<div class='kiymet'>• Kahramanmaraş deprem mücbir sebep halinde ilan edilen mükelleflerin tüm kesinleşen vergi, ceza ve borçları açıklamaya alınmayacak (Madde 3/2).</div>
+<div class='kiymet'>• Tebliğ yayımı tarihinde yürürlüğe gir (Madde 4).</div>
+<p><b>Ürün:</b> Doğrudan mükelleflerin kesinleşmiş vergi ve cezalarını kapsayan bir borç açıklamasıdır; belirli bir ürün grubu tanımı bulunmamaktadır.</p>
+<p><b>Kimi ilgilendirir:</b> Vergi dairelerine 5 milyon TL ve üzerinde kesinleşmiş vergi, ceza veya borcu bulunan tüm mükellefleri; belediyeler ve bağlı kuruluşlarını; yeniden yapılandırma sürecindeki borçluları; Kahramanmaraş deprem bölgesindeki mükellefleri ilgilendirmektedir.</p>
+<p><b>Ne yapmalısın:</b> Kayıtlı olduğunuz vergi dairesinin ilan yerlerini 1-15 Aralık 2025 tarihleri arasında kontrol edin. 16-30 Aralık 2025 tarihleri arasında Gelir İdaresi Başkanlığı'nın web sitesi üzerinden borç sorgulaması yapın. Sorgulama sonucunda görünen borç tutarlarını muhasebe kayıtlarınızla karşılaştırın. 5 milyon TL eşiğini aşan ve açıklama kapsamına alınan mükelleflerin ödeme takvimini buna göre güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250919-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Nitril eldiven ithalatında gözetim belgesi şartı; birim kıymet eşikleri</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli nitril ürünlerin ithalatında gözetim belgesi zorunluluğunu getirdi. Belgesi olmayan veya birim kıymet eşiğinin altındaki beyanlar gümrük işlemlerine tabi tutulmayacak.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2007/25</p>
-<p><b>Ürün:</b> Nitril eldiven ve benzeri elastomer malzemedeki koruyucu giysi</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Nitril eldivenlerde gözetim belgesi zorunluluğu: 10 ABD Doları/kg'ye kadar</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli nitril eldivenlerin ithalatında gözetim belgesi almayı zorunlu hale getirdi. Belgeler elektronik başvuru sistemi üzerinden düzenlenecek ve altı ay geçerli olacak.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2007/25) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2022/01/20220122-16.htm' target='_blank' rel='noopener'>22.01.2022 tarihli Resmî Gazete</a> (Tebliğ 2007/25)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Nitril eldivenlerin (GTIP 4015.12.00.00.11 ve 4015.12.00.00.19) 10 ABD Doları/kg'ye kadar birim kıymeti olanlarının ithalatında gözetim belgesi zorunlu (Madde 2/1).</div>
+<div class='kiymet'>• Gözetim belgesi başvuruları Ticaret Bakanlığının e-hizmetleri veya e-Devlet üzerinden elektronik imzayla yapılır (Madde 3/1).</div>
+<div class='kiymet'>• Belge talepleri öncesinde yetkilendirme 31/12/2024 tarihli Tebliğ çerçevesinde gerçekleştirilir (Madde 3/2).</div>
+<div class='kiymet'>• Gözetim belgeleri elektronik ortamda düzenlenir ve e-posta ile bildirilir; altı ay geçerlidir (Madde 7/1).</div>
+<div class='kiymet'>• Tebliğ, 3/7/2007 tarihli Tebliğ No: 2007/25'i yürürlükten kaldırır (Madde 8/1).</div>
+<div class='kiymet'>• Bu Tebliğ yayım tarihini takip eden otuzuncu gün yürürlüğe girer (Madde 9/1).</div>
+<p><b>Ürün:</b> Nitril eldiveni</p>
 <p><b>GTİP:</b><br><span class='gtip'>4015.12.00.00.11</span><span class='gtip'>4015.12.00.00.19</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>4015.12.00.00.19 → <b>kaynakta belirtilmemis</b></div>
-<p><b>Kimi ilgilendirir:</b> Nitril eldiven ithal eden işletmeler, gümrük müşevirler, lojistik operatörleri</p>
-<p><b>Ne yapmalısın:</b> Eğer bu ürünler ithal ediyorsan: e-Devlet üzerinden veya www.ticaret.gov.tr deki İthalat Belge İşlemleri bölümünde gözetim belgesi talebinde bulun (belge türü: TPS-0964). Beyanlarını hazırlarken birim kıymet eşiklerini kontrol et—10 ABD Doları/Kg altındaki fiyatlar incelemeye giriyor.</p>
+<div class='kiymet'>4015.12.00.00.11 → <b>10 ABD Doları/Kg</b></div>
+<div class='kiymet'>4015.12.00.00.19 → <b>10 ABD Doları/Kg</b></div>
+<p><b>Kimi ilgilendirir:</b> Nitril eldiveni ithal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> 30 Eylül 2025'ten itibaren bu ürünlerin ithalatı için gümrük beyannamesinde gözetim belgesini referans numarası ile beyan et. Önceden başvuru yaptırmadıysan elektronik sisteme (www.ticaret.gov.tr) veya e-Devlet üzerinden hemen başvur; belge alma süreci 5-10 iş günü alır.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Gözetim belgesinin zorunluluğu ithalatçılar için başvuru-inceleme süreci (5-10 iş gün) ve idari yükümlülük yaratır. Belgesi olmayan sevkiyatlar gümrükte reddedilecek; 10 ABD Doları/kg'ye kadar fiyatlı ürünler bu kısıtlamaya tabi olduğundan uygun fiyat planlaması gerekir.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250919-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İthalatta gözetim belgesi şartı: lastik ürünlerinde birim kıymet eşikleri</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli lastik ürünlerinin ithalatını gözetim belgesi şartına tabi tuttu. Birim kıymet eşiklerin altındaki mallar için bu belge zorunlu.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2017/2</p>
-<p><b>Ürün:</b> Otomotiv, motorsiklet ve bisiklet lastikleri; tarım ve orman taşıtlarında kullanılan lastikler</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İthalatta gözetim belgesi sistemi: lastik ürünlerine kıymet esası</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli lastik ürünlerinin ithalatında gözetim belgesi zorunluluğu getirdi. Belge, gümrük kıymetinin altındaki birim değerlere sahip ürünler için ithal aşamasında talep edilecek; elektronik imzayla e-Hizmetler veya e-Devlet üzerinden başvuru yapılacak.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2017/2 sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tabloda gösterilen GTIP kodlarının her biri için, belirtilen ABD Doları/kg birim kıymetinin altındaki mallar ithal aşamasında gözetim belgesi ile gümrük beyannamesinin tescilinde sunulmak zorunda (m.2).</div>
+<div class='kiymet'>• Gözetim belgesi talepleri, Ticaret Bakanlığı internet sayfasındaki E-Hizmetler bölümüne elektronik imza ile veya e-Devlet üzerinden yapılır; fiziksel başvuru da mümkündür (m.3).</div>
+<div class='kiymet'>• Gözetim belgesi elektronik ortamda düzenlenir, başvuru formundaki e-posta adresine 23 haneli belge numarası ve tarihi iletilir; başvuru sahibi bu bilgileri gümrük beyannamesinde 44 nolu kutuya yazacak (m.5).</div>
+<div class='kiymet'>• Gözetim belgesi altı ay geçerlidir (m.7).</div>
+<div class='kiymet'>• Teblig 19 Eylül 2025 yayımını takip eden otuzuncu gün yürürlüğe girer (m.9).</div>
+<p><b>Ürün:</b> Otomobil, motosiklet, bisiklet, tarım ve orman taşıtlarında kullanılan kauçuk lastikler</p>
 <p><b>GTİP:</b><br><span class='gtip'>4011.10.00.10.00</span><span class='gtip'>4011.10.00.90.09</span><span class='gtip'>4011.10.00.90.11</span><span class='gtip'>4011.10.00.90.12</span><span class='gtip'>4011.10.00.90.18</span><span class='gtip'>4011.20.10.00.11</span><span class='gtip'>4011.20.10.00.12</span><span class='gtip'>4011.20.10.00.19</span><span class='gtip'>4011.20.90.00.11</span><span class='gtip'>4011.20.90.00.19</span><span class='gtip'>4011.40.00.00.00</span><span class='gtip'>4011.50.00.00.00</span><span class='gtip'>4011.70.00.00.00</span><span class='gtip'>4013.20.00.00.00</span><span class='gtip'>4013.90.00.00.11</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>4011.50.00.00.00 → <b>3 ABD Doları/Kg</b></div>
-<div class='kiymet'>4013.20.00.00.00 → <b>3,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.10.00.90.09 → <b>4,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.20.10.00.12 → <b>5,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.10.00.90.18 → <b>5,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4013.90.00.00.11 → <b>6 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.10.00.10.00 → <b>5,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.20.10.00.11 → <b>6 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.70.00.00.00 → <b>5,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.40.00.00.00 → <b>5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.20.10.00.19 → <b>6 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.20.90.00.19 → <b>5,5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.20.90.00.11 → <b>5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.10.00.90.11 → <b>5 ABD Doları/Kg</b></div>
-<div class='kiymet'>4011.10.00.90.12 → <b>6 ABD Doları/Kg</b></div>
-<p><b>Kimi ilgilendirir:</b> Lastik ithal eden firmaların gümrük işlemleri sorumluluk alanları</p>
-<p><b>Ne yapmalısın:</b> Mevcut ve yeni ithalatlarında gözetim belgesi başvurusunu www.ticaret.gov.tr veya e-Devlet üzerinden gerçekleştir. Birim kıymet eşikleri karşılaştırarak hangi ürünlerin belgeye tabi olduğunu belirle. Gümrük beyannamesinin 44 nolu kutusuna belge numarası ve tarihini aktarmalısın.</p>
+<div class='kiymet'>4011.10.00.90.09 → <b>4,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.10.00.90.11 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.10.00.90.18 → <b>5,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.10.00.10.00 → <b>5,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.50.00.00.00 → <b>3 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.10.00.90.12 → <b>6 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.20.90.00.19 → <b>5,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4013.90.00.00.11 → <b>6 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.70.00.00.00 → <b>5,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.20.10.00.11 → <b>6 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.20.10.00.19 → <b>6 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.20.90.00.11 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>4013.20.00.00.00 → <b>3,5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.40.00.00.00 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>4011.20.10.00.12 → <b>5,5 ABD Doları/kg</b></div>
+<p><b>Kimi ilgilendirir:</b> Lastik üreticileri ve ticari dağıtıcıları, otomobil tedarik zincirindeki ithalat operatörleri</p>
+<p><b>Ne yapmalısın:</b> Ekim 2025 sonuna kadar elektronik imza yetkilendirmesini kontrol et. Tebliğ yürürlüğe girdikten sonra bu GTIP kodlarında ithal edeceğin her sevkiyatın birim fiyatını tablodaki eşikle karşılaştır; eşiğin altındaydsa gözetim belgesi başvurusu yap ve sistem tarafından verilen belge numarasını gümrük beyannamesine 44 nolu kutuya yazacağını operasyonel takımına bildir.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Birim kıymet eşiklerin altında getirilen ürünler artık gözetim belgesi şartına bağlanmış. Bu, gümrük işlemlerinde ek adım ve zaman getirir; fakat tedarik zincirinde kalite kontrolü güçlenebilir. Proforma fiyat karşılaştırmaları sıklaştırmalısın.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250919-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

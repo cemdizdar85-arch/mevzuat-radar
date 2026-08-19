@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,45 +33,80 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>04.11.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>04.11.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Hayvancılık desteklemelerine ilişkin uygulama kurallarında kapsamlı değişiklikler</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, hayvancılık desteklemelerinin uygulanmasına ilişkin şartları ve prosedürleri değiştirdi. Eğitim saati şartı kaldırıldı, küçükbaş desteklemesine üçüncü bir başvuru dönemi eklendi ve hayvan ile sürü sağlığı desteği adıyla yeni bir destek türü getirildi.</p>
-<p><b>Neyi değiştiriyor:</b> Hayvancılık Desteklemeleri Uygulama Tebliği (Tebliğ No: 2024/23)</p>
-<p><b>Ürün:</b> Canlı hayvanlar (sığır, koyun, keçi cinsi hayvanlar)</p>
-<p><b>Kimi ilgilendirir:</b> Damızlık koyun keçi yetiştiricileri, sığır yetiştiricileri, küçükbaş hayvancılıkta istihdam sağlayanlar</p>
-<p><b>Ne yapmalısın:</b> Mevcut başvuru takvimlerini yeniden değerlendirin; üçüncü dönem başvurusu için Kasım ayındaki son tarihi not edin. Buzağı/malak desteklemesinde 10 başlık üst sınırını kontrol edin. Sürü yöneticisi belgelerini 5 Ocak, 15 Haziran ve Kasım ayının üçüncü haftasının son iş günü tarihlerine göre düzenleyin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Hayvancılık Desteklemeleri Tebliği'nde köklü değişiklikler: yeni sağlık desteği, dönem artışı ve muhasebe kuralları güncellendi</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, hayvancılık desteklemelerinin uygulanmasını düzenleyen tebliğde kapsamlı değişiklikler yaptı. Küçükbaş hayvan desteğinde üçüncü başvuru dönemi eklendi; arı ve sığır desteğinde yeni kriterler getirildi; veteriner sağlık uygulamalarına destek sağlanmaya başlandı.</p>
+<p><b>Hangi tebliğ:</b> Hayvancılık Desteklemeleri Uygulama Tebliği (Tebliğ No: 2024/23) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• MADDE 11/A eklendi</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 12 nci maddesi baştan yazıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>4 üncü madde</span><span class='hap eski'>yılının son gününe</span><span class='ok'>→</span><span class='hap yeni'>yılı Ekim ayının son iş gününe</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>iki</span><span class='ok'>→</span><span class='hap yeni'>üç</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>ikinci</span><span class='ok'>→</span><span class='hap yeni'>ikinci ve üçüncü</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>İkinci</span><span class='ok'>→</span><span class='hap yeni'>Üçüncü</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Küçükbaş hayvan desteğinde üçüncü başvuru dönemi: Kasım ayının ilk iş gününden Kasım ayının üçüncü haftası son iş gününe kadar; birinci dönemde başvuran yetiştiriciler otomatik olarak ikinci ve üçüncü dönemlerde de başvurmuş sayılır (Madde 4, m.6/4-a).</div>
+<div class='kiymet'>• Veteriner sağlık ve hayvan tanımlama uygulamalarına yönelik yeni destek türü: Bakanlık belirleyeceği biyolojik ürün ve tanımlama araçları için sığır, koyun ve keçi yetiştiricilerine destek ödenir; detaylar HAYGEM tarafından her dönem açıklanır (Madde 7, m.11/A).</div>
+<div class='kiymet'>• Kuzu/oğlak desteğinde aile işletmesi, ari işletme ve AB onaylı süt çiftliği desteği: Dişi yavrulara ilave destek verilir; arılık veya sertifikası askıda olan işletmeler sonraki yıl 1 Temmuz kayıtlarında yenilenirse ilave destekten yararlanır (Madde 2, m.4-e,g).</div>
+<div class='kiymet'>• Müstahsil makbuzu kesim tarihi şartı: Kesim tarihinden itibaren 60 gün içinde canlı hayvan veya karkas et olarak düzenlenmesi gerekir; avansa bağlı ödeme işlemlerinde kesim öncesi 7 gün içinde canlı hayvan olmalıdır (Madde 6, m.10/3-e).</div>
+<div class='kiymet'>• Sürü yöneticisi (çoban) desteğinin otomatikleştirilmesi: Küçükbaş hayvan desteği başvurusu yapan yetiştiriciler çoban desteğine de başvurmuş kabul edilir; aynı çoban iki işletme adına kaydedilemez (Madde 5, m.7/2-a).</div>
+<div class='kiymet'>• Koruma projelerine yeni başvuru ve seçim: Desteklemeden ilk defa veya devam etmek isteyen yetiştiriciler bu tebliğin yayımından sonra 45 gün içinde başvurabilir; seçim komisyonu tarafından seçilen hayvanların özellikleri il müdürlüğü tarafından kontrol edilir (Madde 8, m.12/1-b).</div>
+<div class='kiymet'>• Hassas koruma desteği kriterleri: Irk popülasyonu 500 baş ve altına düşen Çine Çaparı, Kaçeli, Karagül, Tuj koyunları ile Abaza, Norduz, Osmanlı keçileri desteklenir; 1.000 baş ve altına düşen GAK sığırı ve Zavot ırkı desteklenir (Madde 8, m.12/1-ç/2).</div>
+<div class='kiymet'>• Arı yetiştiriciliğinde minimum koloni şartı: Kafkas, Efe Trakya ve Yığılca arı ırkları için sadece izole bölgelerde yetiştiren yetiştiriciler en az 20 koloniye sahip olmalıdır (Madde 8, m.12/1-ç/3).</div>
+<div class='kiymet'>• Damızlık erkek materyal desteğinde kullanım zorunluluğu: Proje kapsamındaki işletmelerde anaç materyal için projeden elde edilen koç/tekeler dışında erkek materyal kullanılamaz; ihlal halinde o yıl hiçbir destek ödenmez (Madde 8, m.12/2-ç-d).</div>
+<p><b>Ürün:</b> Sığır, koyun, keçi, arı, manda ve ipek böceği gibi hayvancılık ürünleri ile destekleme şartları</p>
+<p><b>Kimi ilgilendirir:</b> Sığır, koyun, keçi, arı ve manda yetiştiriciliği yapıp Bakanlığın kayıt sistemine kayıtlı olan yetiştiriciler; koruma projelerine katılan ve/veya küçükbaş hayvan ıslahı projesinde yer alan işletmeler</p>
+<p><b>Ne yapmalısın:</b> Küçükbaş hayvan desteği alanlar: Kasım döneminde de başvuru yapılabileceğini unutmayın; birinci dönem başvurusu yapılmışsa süreç otomatik olarak devam eder. Sürü yöneticisi belgelerine hazırlıklı olun (çobanın sosyal güvenlik prim belgesini temin edin). Arılık/süt çiftliği sertifikanız askıda mı diye kontrol edin; sonraki yıl 1 Temmuz kayıtlarında yenileme yaptırırsanız ilave destekten yararlanırsınız. Müstahsil makbuzunda kesim tarihini esas alın ve 60 günlük süreyi takip edin. Proje kapsamındaysanız koç/teke seçiminin HAYGEM ve proje liderinin onayına bağlı olduğunu unutmayın; kendi seçiminiz işleme yaramaz.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251104-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251104-7.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Devlet destekli ticari alacak sigortası sigorta limiti yükseltildi</h3>
-<p><b>Ne oldu:</b> Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumu, devlet destekli ticari alacak sigortası sisteminde sigorta limitini 500 milyondan 1 milyar tutarına çıkartıyor. Aynı zamanda 12. maddedeki tarifeli tablolarda revizyon yapıldı.</p>
-<p><b>Neyi değiştiriyor:</b> 7/1/2023 tarihli ve 32066 sayılı Resmî Gazete'de yayımlanan Devlet Destekli Ticari Alacak Sigortası Sisteminin Tarife ve Talimatları ile Çalışma Usul ve Esaslarına Dair Tebliğ</p>
-<p><b>Ürün:</b> Devlet destekli ticari alacak sigortası hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Ticari alacak sigortası sunan sigorta şirketleri, bu sigortayı kullanan ihracatçı ve satış yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Mevcut poliçelerinizin kapsama limitlerini yeni sınırla karşılaştır. Temmuz 2025 sonrasında verilecek tekliflerde 1 milyar limiti baz al. Satış müzakereleri ve kredi limitlerini gözden geçir.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Devlet destekli ticari alacak sigortasında teminat limiti ve tablo değişiklikleri</h3>
+<p><b>Ne oldu:</b> Kurumun 2023 tarihli tebliğinde teminat tavanı 500 milyon dolardan 1 milyar dolara yükseltilmiştir. Ayrıca 12. maddenin birinci ve beşinci fıkralarında yer alan tablolar güncellenmiştir.</p>
+<p><b>Hangi tebliğ:</b> Devlet Destekli Ticari Alacak Sigortası Sisteminin Tarife ve Talimatları ile Çalışma Usul ve Esaslarına Dair Tebliğ sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>4 üncü madde</span><span class='hap eski'>beş yüz milyon</span><span class='ok'>→</span><span class='hap yeni'>bir milyar</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Devlet destekli ticari alacak sigortasında tek bir sigortalıya sağlanabilecek azami teminat 1 milyar dolardır (4. m. 2. fıkra a/4).</div>
+<p><b>Ürün:</b> Sigortacılık ürünü - devlet destekli ticari alacak sigortası</p>
+<p><b>Kimi ilgilendirir:</b> İhracat kredisi ve ticari alacakları sigortalayan finans kuruluşları ile Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumunun denetimine tabi sigortacılar</p>
+<p><b>Ne yapmalısın:</b> Mevcut poliçelerdeki teminat tavanları, 1 milyar dolarlık yeni üst sınır çerçevesinde gözden geçirilmelidir. Yeni sigorta başvurularında ise güncellenen tablo değerleri esas alınmalıdır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Teminat tavanının iki katına çıkarılması, ihracatçıların daha yüksek tutarlı alacaklarını sigortalamasına imkân tanımakta ve ticari risklerle karşılaşılması halinde koruma kapsamını genişletmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251104-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251104-8.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Avukatlık asgari ücret tarifesi yenilendi; mahkeme kararlarında uygulanacak</h3>
-<p><b>Ne oldu:</b> Türkiye Barolar Birliği, avukatlık hizmetleri için asgari ücret tarifesini belirledi. Tarife, mahkemelerce verilecek avukatlık ücreti kararlarında, taraflar arasında sözleşmeye varılmadığında veya sözleşme geçersiz sayıldığında uygulanacak.</p>
-<p><b>Ürün:</b> Avukatlık hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Avukatlar, dava tarafları, mahkemeler</p>
-<p><b>Ne yapmalısın:</b> Avukat ile sözleşme yapacaksanız tarifenin asgari ücret hükümlerini gözden geçir; maktu ücretli işlerde (icra takipleri, tüketici uyuşmazlıkları gibi) belirlenen tutarları kontrol et. Mahkemece karşı tarafa yüklenmesi gereken ücreti hesaplarken bu tarifede belirtilen sınırları kullan.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Avukatlık asgari ücret tarifesi 2025 yılı uygulaması</h3>
+<p><b>Ne oldu:</b> Türkiye Barolar Birliği, yeni avukatlık asgari ücret tarifesini yayımladı. Tarife; mahkemelerde, idari mercilerde ve hakem heyetlerinde avukatlara ödenecek asgari ücretleri belirliyor ve dava türü, aşaması ile değerine göre farklı hesaplama yöntemleri öngörüyor.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Taraflar arası akdi ücret kararlaştırılmamışsa mahkeme bu tarifenin altında ücrete hükmeden tutulamaz (Madde 1/2).</div>
+<div class='kiymet'>• Dava hukuk kazanıncaya, dava dışı işlerde ise hukuki yardım tamamlanıncaya kadar avukat ücretine haktur (Madde 2/1).</div>
+<div class='kiymet'>• Temyiz ve istinaf başvurusunda karara konu tutanak imzalanıncaya kadar hükmolunan ücret, başvurunun sonuçlanma tarihindeki tarife kullanılarak belirlenir (Madde 2/3).</div>
+<div class='kiymet'>• Ön inceleme tutanağı imzalanmadan anlaşmazlık çözülürse ücretin yarısı, tutanak imzalandıktan sonra çözülürse tamamı hükmolunur (Madde 6/1).</div>
+<div class='kiymet'>• İcra takiplerinde 56.250,00 TL'ye kadarı maktu ücrete tabi; borçlu ödeme süresinde ödemesi halinde belirlenen ücretin dörtte üçü takdir edilir (Madde 11/1 ve 11/4).</div>
+<div class='kiymet'>• Seri davalarda ilk on dosya tam ücret, sonraki kırk dosya %50, sonraki elli dosya %40, yüzüncü sonrası %25 oranında ücrete hak kazanılır (Madde 22/1).</div>
+<div class='kiymet'>• Arabuluculuk aşamasında anlaşma sağlanırsa ücret, dava görüldüğü mahkeme maktu ücretinin dörtte bir fazlası olarak belirlenir (Madde 16/2-a ve b).</div>
+<div class='kiymet'>• Manevi tazminat davasında hükmolunan ücret kabul veya reddedilen miktarını geçemez (Madde 10/2).</div>
+<div class='kiymet'>• Kötü niyetli dava açan taraf, yargılama giderlerine ek olarak karşı avukat ile kararlaştırılan vekâlet ücretinin tamamını veya kısmını ödemeye mahkûm edilir (Madde 23/1).</div>
+<p><b>Ürün:</b> Hukuki yardım ve avukatlık hizmeti</p>
+<p><b>Kimi ilgilendirir:</b> Avukatlar, davacı ve davalı taraflar, mahkemeler</p>
+<p><b>Ne yapmalısın:</b> Yürürlükteki ücretlendirmede tarife maddelerini kontrol edin; dava konusu, mahkeme türü ve tutanağın imza durumuna göre uygulanacak maddeyi belirleyin. Akdi ücret kararlaştırılan davalar tarifeden bağımsız değerlendirilir; ancak bu tutar tarifede öngörülen asgari değerin altında olamaz. Seri dava dosyalarının tamamını kayıt altına alın; on, elli ve yüz dosya eşiklerini takip edin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tarife, avukatlık ücretlerinin belirlenmesinde alt sınırı tanımlar; mahkemeler tarifenin altında karar veremez ancak üst sınırı (tarifenin üç katına kadar) aşabilir. Davacı için ücret artış riski taşırken, tanımlanmış işlerde (icra, tüketici heyetleri) maktu ücret güvenlik sağlar.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tarife, hem tarafların hem de avukatların haklarını güvence altına alır. Asgari ücretteki artış müvekkilin maliyetini yükseltebilir; buna karşılık hukuki yardımın kalitesini ve tutarlılığını da güvence altına alır. Dava aşaması, anlaşma zamanlaması ve dosya sayısı, ücret hesaplamasında belirleyici unsurlardır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251104-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

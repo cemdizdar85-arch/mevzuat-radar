@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,62 +33,119 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>07.08.2025 — Resmî Gazete'deki 4 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>07.08.2025 tarihli Resmî Gazete'de 4 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Balon balığı avlanmasında destekleme ödemeleri ve ödeme koşulları değişti</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, balon balığı avcılığını destekleyen ödemelerin tutarlarını ve limit koşullarını yeniden düzenledi. Lagocephalus sceleratus için adet başına 35 TL (100 bin adede kadar), diğer türler için adet başına 10 TL (200 bin adede kadar) ödeme yapılacak.</p>
-<p><b>Neyi değiştiriyor:</b> Balon Balığı Avcılığının Desteklenmesine İlişkin Tebliğ (Tebliğ No: 2024/8)</p>
-<p><b>Ürün:</b> Balon balığı (Lagocephalus sceleratus ve diğer Lagocephalus türleri ile Tylerius spinosissimus, Sphoeroides pachygaster, Torquigener flavimaculosus)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Balon balığı destekleme ödemesi ve alım kotalarında değişiklik yapılmıştır</h3>
+<p><b>Ne oldu:</b> Lagocephalus sceleratus için birim destekleme ödemesi 25 TL'den 35 TL'ye yükseltilirken alım kotası 150.000 adetten 100.000 adete düşürülmüştür. Ek-2'deki diğer türler için alım kotası 125.000 adetten 200.000 adete çıkarılmıştır.</p>
+<p><b>Hangi tebliğ:</b> Balon Balığı Avcılığının Desteklenmesine İlişkin Tebliğ (Tebliğ No: 2024/8) sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-3.htm' target='_blank' rel='noopener'>17.07.2025 tarihli Resmî Gazete</a> (Tebliğ 2024/8)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Lagocephalus sceleratus (bir tür balon balığı) için yılda 100.000 adete kadar her adet başına 35 lira destekleme ödemesi yapılır (Madde 1-b).</div>
+<div class='kiymet'>• Yedi diğer balon balığı türü (Lagocephalus spadiceus, L. suezensis, L. guentheri, Tylerius spinosissimus, L. lagocephalus, Sphoeroides pachygaster, Torquigener flavimaculosus) için yılda 200.000 adete kadar her adet başına 10 lira ödemesi yapılır (Madde 1-c).</div>
+<div class='kiymet'>• Alımlar her yılın Aralık ayının son iş günü mesai bitiminde kapatılır; kotalar daha erken dolduysa Genel Müdürlük aynı gün içinde SUBİS sistemi üzerinden alımı durdurur ve internet sitesinde ilan eder (Madde 1-ç).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 2).</div>
+<p><b>Ürün:</b> Balon balığı (Lagocephalus sceleratus, Lagocephalus spadiceus, Lagocephalus suezensis, Lagocephalus guentheri, Tylerius spinosissimus, Lagocephalus lagocephalus, Sphoeroides pachygaster, Torquigener flavimaculosus)</p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>Lagocephalus spadiceus, Lagocephalus suezensis, Lagocephalus guentheri, Tylerius spinosissimus, Lagocephalus lagocephalus, Sphoeroides pachygaster, Torquigener flavimaculosus → <b>10 Türk Lirası/adet</b></div>
 <div class='kiymet'>Lagocephalus sceleratus → <b>35 Türk Lirası/adet</b></div>
-<p><b>Kimi ilgilendirir:</b> Balon balığı avlanması yapan balıkçılar ve avcılık desteklemesinden yararlanan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Avlanma planlarını yeni ödeme tutarlarına (35 ve 10 TL) ve aylık limitlere göre güncelleyin. Aralık ayının son iş günü süresinin dolması veya ön limitin dolması nedeniyle ödemelerin kesilme riskini takip edin.</p>
+<p><b>Kimi ilgilendirir:</b> Balon balığı avlayan balıkçılar ve Su Ürünleri Kooperatifleri</p>
+<p><b>Ne yapmalısın:</b> Destekleme hakkında başvuru yapacaksanız, hangi türü kaç adet sundukça Genel Müdürlüğün SUBİS sistemini izle; kotalar dolunca o yıl için alım kapanır. Aralık sonuna kadar teslim etmeyi planla.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Lagocephalus sceleratus için birim ödeme artışı balıkçıya lehine ancak daha düşük kota ithalatçıya aleyhine etki yaratmaktadır. Diğer türlerde daha yüksek kota ithalatçıya lehine etki yapmaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250807-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>7325.91 ve 7326.11 kod ürünlerinde koruma önlemi 3 yıl uzatıldı</h3>
-<p><b>Ne oldu:</b> İthalat Genel Müdürlüğü'nün soruşturması sonucu İthalatta Korunma Önlemlerini Değerlendirme Kurulu, söz konusu ürünlerde uygulanan koruma önlemini 3 yıl daha uzatmaya ve ek mali yükümlülüğü tabloda belirtildiği şekilde belirlemeye karar verdi. Kararın yürürlüğe girmesi Cumhurbaşkanlığı Kararı'na bağlı.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Korunma Önlemlerine İlişkin Tebliğ (Tebliğ No: 2025/1)</p>
-<p><b>Ürün:</b> 7325.91 ve 7326.11 GTIP kodlarında sınıflandırılan eşya</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Öğütücü bilyalar ithalatında korunma önlemi 3 yıl uzatıldı</h3>
+<p><b>Ne oldu:</b> Öğütücü bilyalar ithalatında korunma önlemi 3 yıl uzatılmış, ek mali yükümlülük ilk dönemde hafifletilerek 185 ABD Dolarından 180 ABD Dolarına indirilmiş ve sonraki dönemlerde kademeli olarak azalmıştır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Korunma Önlemlerine İlişkin Tebliğ (Tebliğ No: 2025/1) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(04.03.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTIP 7325.91.00.00 ek mali yükümlülük (2. Dönem: 26.08.2026-25.08.2027)</span><span class='hap eski'>Gösterilmemiş</span><span class='ok'>→</span><span class='hap yeni'>180 ABD Dolari/Ton</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>GTIP 7325.91.00.00 ek mali yükümlülük (3. Dönem: 26.08.2027-25.08.2028)</span><span class='hap eski'>Gösterilmemiş</span><span class='ok'>→</span><span class='hap yeni'>175 ABD Dolari/Ton</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/01/20250111-11.htm' target='_blank' rel='noopener'>11.01.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/1)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Gelişmekte olan ülkelere muafiyet tanınmıştır (WTO Korunma Önlemleri Anlaşması m.9.1).</div>
+<p><b>Ürün:</b> Optik bileşenler ve optik malzeme işleme cihazları; ağırlık/hacim ölçüm aletleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>7325.91.00.00.00</span><span class='gtip'>7326.11.00.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Bu ürünleri ithal eden firmalar ve üretim sektörü</p>
-<p><b>Ne yapmalısın:</b> Söz konusu GTIP kodlarında ithal eden mal sahipleri için Cumhurbaşkanlığı Kararı'nın yayımlanmasını izle; yürürlüğe girdiğinde gümrük müşevirile ek mali yükümlülüğün hesaplanması ve beyan hazırlığını gözden geçir. Tabloda gösterilen birim kıymetleri danışmanla doğrula.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
+<p><b>Kimi ilgilendirir:</b> Optik ürün ithal eden işletmeler, makine ve ölçüm cihazı üreticileri</p>
+<p><b>Ne yapmalısın:</b> Cari ve gelecek sevkiyatlarının GTIP kodlarını kontrol et; 26.06.2025 tarihinden itibaren ek mali yükümlülüğü (vergi ve benzeri maliyeti değil, gözetim değeri) fiyat hesaplamalarına ekle; gelişmekte olan ülkelerden ithalatın muafiyet şartlarını teyit et.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> İthalatçılar için ek mali yükümlülük azaldığından ithalatcı lehine hareket söz konusudur; ancak korunma önleminin 3 yıl daha uzatılması genel olarak ithalatı sınırlandırmaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250807-28.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çevre için kontrol altında tutulan kimyasallarda ithalat denetimi koşulları güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, kimyasal ithalatında muafiyet beyanı prosedürünü ve gümrük belgesi gerekliliklerini yeniden düzenledi. Laboratuvar referans standardı ve araştırma amaçlı ithalatlar artık Çevre Bakanlığından muafiyet yazısı talep edebiliyor.</p>
-<p><b>Neyi değiştiriyor:</b> Çevrenin Korunması Yönünden Kontrol Altında Tutulan Kimyasalların İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2025/6)</p>
-<p><b>Ürün:</b> Çevrenin korunması yönünden kontrol altında tutulan kimyasallar (Ek-3/A ve Ek-3/B listelerindeki maddeler, karışımlar ve eşyalar)</p>
-<p><b>Kimi ilgilendirir:</b> Kimyasal ithalatçıları, laboratuvarlar, araştırma ve geliştirme kurumları</p>
-<p><b>Ne yapmalısın:</b> Ek-3/A veya Ek-3/B listelerindeki ürün ithalatı planlıyorsan referans standart, araştırma ya da muafiyet kapsamına girip girmediğini kontrol et. Muafiyet statüsü varsa Ek-6 formunu hazırla ve Çevre Bakanlığına başvur. Gümrük beyannamesine muafiyet yazısını ekle.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Laboratuvar ve araştırma amaçlı kimyasal ithalatında muafiyet şartları genişletildi</h3>
+<p><b>Ne oldu:</b> Ek-3/A listesindeki maddelerin ithalatı, tamamen yasaklı statüsünden çıkarılarak laboratuvar amaçlı referans standart kullanımına açılmıştır. Ek-3/B'deki kimyasallarda ise ithalata ilişkin muafiyet şartları, bilimsel araştırma-geliştirme ve laboratuvar referans standardı amaçlarını da kapsayacak şekilde genişletilmiştir.</p>
+<p><b>Hangi tebliğ:</b> Çevrenin Korunması Yönünden Kontrol Altında Tutulan Kimyasalların İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2025/6) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• 13 üncü maddesi baştan yazıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(31.12.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Ek-3/A listesindeki maddelerin ithalatı</span><span class='hap eski'>yasaktır (Ek-3/B'dekilere kıyasla farklı değerlendirme)</span><span class='ok'>→</span><span class='hap yeni'>laboratuvarlarda referans standart olarak kullanılma amacıyla ithal edilebilir</span></div>
+<div class='karsi'><span class='kon'>MADDE 13 - Gümrük işlemlerinde aranan belgeler</span><span class='hap eski'>5. madde ve Ek-2, Ek-3/B'deki listelerde yer alan eşyanın ithalatında belgeler aranır (Ek-3/A'dan bahsedilmez)</span><span class='ok'>→</span><span class='hap yeni'>Ek-3/A ve Ek-3/B'deki listelerde yer alan madde, karışım ve eşyanın 12. maddenin ikinci fıkrası kapsamındaki ithalatında Muafiyet Beyanı Kabul Yazısı aranır</span></div>
+<div class='karsi'><span class='kon'>Ek-3/B listesindeki kimyasalların ithalatı</span><span class='hap eski'>Kalıcı Organik Kirleticiler Hakkında Yönetmeliğin muafiyetleri sağlanması halinde ithal edilebilir</span><span class='ok'>→</span><span class='hap yeni'>muafiyetler VEYA bilimsel araştırma-geliştirme VEYA laboratuvarlarda referans standart kullanımı halinde ithal edilebilir</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Ek-3/A listelendeki maddelerin ithalatı yalnızca laboratuvar referans standart kullanımı için izinli (Madde 12/2)</div>
+<div class='kiymet'>• Ek-3/B listelendeki kimyasallar ancak Kalıcı Organik Kirleticiler Yönetmeliğindeki muafiyetler veya bilimsel araştırma/laboratuvar amaçlı ithal edilebilir (Madde 12/2)</div>
+<div class='kiymet'>• Bu kimyasalların ithalatçısı Çevre Bakanlığına Muafiyet Beyanı Kabul Yazısı için başvuruda bulunmak zorunda (Madde 12/2)</div>
+<div class='kiymet'>• Gümrük beyannamesi tescilinde Muafiyet Beyanı Kabul Yazısı istenir (Madde 13/1-c)</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 4)</div>
+<p><b>Ürün:</b> Çevrenin korunması bakımından kontrol altında tutulan kimyasallar, maddeler ve karışımlar</p>
+<p><b>Kimi ilgilendirir:</b> Kontrole tabi kimyasalları ithal eden kimya sektörü şirketleri, laboratuvar operatörleri ile araştırma-geliştirme birimleri</p>
+<p><b>Ne yapmalısın:</b> Mevcut stoklarınızdaki ve planlanan ithalatlarınızdaki ürünleri Ek-3/A ve Ek-3/B listeleriyle karşılaştırın; muafiyet kapsamına giren ithalatlar için Çevre Bakanlığı'na yapılacak başvuru prosedürünü kontrol edin; gümrük müşavirinize yeni belge gerekçelerini bildirin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Ek-3/A ve Ek-3/B listelerinde yer alan kimyasallar için laboratuvar, araştırma-geliştirme ve referans standardı kullanım amacıyla ithalat imkânı tanınmış; ithalatçılar açısından uygunluk koşulları esnetilmiştir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250807-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin ve Tayland menşeli bebek ürünlerinde nihai gözden geçirme soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, plastikten mamul emzik, biberon ve bebek bakım ürünlerinde 2020 yılından beri yürürlükte olan dampinge karşı önlemin sona ermesine karşı nihai gözden geçirme soruşturması açmıştır. Burda Bebek Ürünleri tarafından desteklenen başvuru üzerine, damping ve zararın devam edeceğine dair yeterli delil bulunduğu tespit edilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2020/20</p>
-<p><b>Ürün:</b> Plastikten mamul emzik, biberon ve diğer bebek beslenme, emzirme ve bakım ürünleri (mama kabı, çatal-kaşık seti, mama kaşığı, meyve süzgeci, süt saklama poşeti, alıştırma bardağı, süt saklama kabı, diş kaşıyıcı/halkası, emzik askısı/tutacı, manuel burun aspiratörü, göğüs koruyucu, manuel göğüs pompası, emzik saklama kabı/kutusu, çatal-kaşık saklama kabı, biberon emziği/başlığı, biberon şişesi)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin ve Tayland menşeli bebek ürünlerinde dampinge karşı inceleme yeniden açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, plastikten mamul emzik, biberon ve bebek bakım ürünlerinin ithalatına yönelik mevcut dampinge karşı önlemin yürürlükten kalkmasından önce nihai gözden geçirme soruşturması açılmasına karar vermiştir. Soruşturma, Çin ve Tayland menşeli 20 farklı gümrük tarife pozisyonundaki ürünleri kapsamaktadır.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2020/20 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma Tebliğin yayımı tarihinde başlamış sayılır ve esas soruşturmanın sonuçlanmasına kadar mevcut dampinge karşı önlem (Çin için CIF'in %12'si, Tayland için %26'sı) yürürlükte kalmaya devam eder (m.14, m.15, m.16).</div>
+<div class='kiymet'>• Soru formu cevapları ve resmi görüşler yurt içi firmalar tarafından KEP adresi (ticaretbakanligi@hs01.kep.tr) ile, yurt dışı firmalar tarafından yazılı ve elektronik ortamda (ithebys@ticaret.gov.tr) gönderilecektir (m.11).</div>
+<div class='kiymet'>• Türkiye'de yerleşik firma, kurum ve kuruluşlar soru formlarına 37 gün içinde cevap vermek zorundadır; bildirimi almayan taraflar Tebliğ yayımından itibaren aynı sürede cevap verir (m.12).</div>
+<div class='kiymet'>• Yurt dışında yerleşik firmaların yasal temsilci aracılığıyla cevap vermesi durumunda imzalı vekaletname, Türkçe/İngilizce tercüme ve apostil tasdik gerekir (m.11).</div>
+<div class='kiymet'>• Soruşturma konusu ürünün TGTC tarife pozisyonlarında yapılacak değişiklikler bu Tebliğ hükümlerinin uygulanmasına engel teşkil etmez (m.4).</div>
+<p><b>Ürün:</b> Plastikten mamul emzik, biberon, mama kabı, çatal-kaşık takımı, mama kaşığı, meyve süzgeci, süt saklama poşeti, alıştırma bardağı, diş kaşıyıcı/halkası, emzik askısı/tutucusu, manuel burun aspiratörü/temizleyicisi, göğüs koruyucu, manuel göğüs pompası ve bunlarla ilişkili bebek beslenme, emzirme ve bakım ürünleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>3923.21.00.00.01</span><span class='gtip'>3923.21.00.00.09</span><span class='gtip'>3923.29.10.00.01</span><span class='gtip'>3923.29.10.00.09</span><span class='gtip'>3923.29.90.00.11</span><span class='gtip'>3923.30.10.00.19</span><span class='gtip'>3924.10.00.00.21</span><span class='gtip'>3924.10.00.00.22</span><span class='gtip'>3924.10.00.00.29</span><span class='gtip'>3924.10.00.00.31</span><span class='gtip'>3924.10.00.00.32</span><span class='gtip'>3924.10.00.00.39</span><span class='gtip'>3924.90.00.00.11</span><span class='gtip'>3924.90.00.00.19</span><span class='gtip'>3926.90.97.90.16</span><span class='gtip'>3926.90.97.90.17</span><span class='gtip'>3926.90.97.90.18</span><span class='gtip'>8414.10.81.90.00</span><span class='gtip'>8414.10.89.90.11</span><span class='gtip'>8414.10.89.90.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin ve Tayland'dan bebek bakım ürünleri ithal eden firmalar; yerli bebek ürünleri üreticileri</p>
-<p><b>Ne yapmalısın:</b> Soruşturma döneminde bu ürünlerin CIF fiyatlarını mevcut gümrük bildirimlerinde %12 (Çin) ve %26 (Tayland) oranında dampinge karşı önlemin etkisini dikkate alarak kontrol et. Soru formlarına yanıt verme durumunda tüm talep edilen belgeleri belirtilen KEP/EBYS adreslerine (yurt içi için ticaretbakanligi@hs01.kep.tr, yurt dışı için ithebys@ticaret.gov.tr) tam ve zamanında sun. Soruşturmada ilgili taraf olarak yer almak istiyorsan 12. maddede belirtilen süreler içinde başvuru yap.</p>
-<p><b>Yürürlük:</b> kaynakta belirtilmemis</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8414.10.89.90.19 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.30.10.00.19 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3926.90.97.90.18 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.21.00.00.09 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3926.90.97.90.16 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.90.00.00.11 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.29.10.00.01 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.39 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>8414.10.89.90.11 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.29 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.31 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.32 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3926.90.97.90.17 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.29.10.00.09 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.21 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.90.00.00.19 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.29.90.00.11 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3923.21.00.00.01 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>8414.10.81.90.00 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>3924.10.00.00.22 → <b>kaynakta belirtilmemis</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin ve Tayland menşeli söz konusu ürünleri ithal eden ithalatçılar ve gümrük müşavirleri; plastik bebek ürünleri üreten ve satışını yapan firmalar</p>
+<p><b>Ne yapmalısın:</b> İthalatçılar ve dış ticaret temsilcileri, soruşturma bildirimini aldıktan sonra soru formunu 37 gün içinde yanıtlamalıdır. Yurt dışı temsilci kullanacak firmalar, yasal vekaletname ve apostil belgelerini hazır bulundurmalıdır. Tebliğin yayımından itibaren soruşturma açılış bildirimi almayan firmalar, Ticaret Bakanlığı web sitesi üzerinden (https://www.ticaret.gov.tr/ithalat > Ticaret Politikası Savunma Araçları > Damping ve Sübvansiyon > Soruşturmalar) gerekli bilgilere erişebilir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Nihai gözden geçirme soruşturması süresince mevcut dampinge karşı önlem (Çin %12, Tayland %26) yürürlükte kalmaya devam edecektir. İthalatçılar, yeniden hesaplanacak oranlar netleşene kadar bu ürünlerde fiyatlandırma ve gümrük işlemlerini belirsizlik altında yürütmek durumunda kalacaktır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250807-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

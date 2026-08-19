@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,60 +33,78 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>17.12.2025 — Resmî Gazete'deki 4 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>17.12.2025 tarihli Resmî Gazete'de 4 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli akrilik elyaflara karşı damping önlemi uygulanacak</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı damping soruşturmasını tamamladı. Çin'den ithal edilen akrilik elyafa karşı firma bazında %6,72 ile %14,24 oranlarında kesin önlem uygulanacak.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/40</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin menşeli akrilik elyafa yönelik dampinge karşı kesin önlem uygulanması</h3>
+<p><b>Ne oldu:</b> Yürütülen damping soruşturması sonuçlanmış olup Çin menşeli akrilik elyaf ürünlerine karşı CIF bedelin %6,72 ile %14,24'ü oranında kesin dampinge karşı önlem uygulanmasına karar verilmiştir. Söz konusu önlemler 5 yıl süreyle yürürlükte kalacaktır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/40) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(25.12.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tanımlar - Madde 3 kapsamı</span><span class='hap eski'>9 tanım (Bakanlık, CIF, ÇHC, EBYS, Genel Müdürlük, GTİP, Kanun, Karar, KEP, TGTC, Yönetmelik)</span><span class='ok'>→</span><span class='hap yeni'>5 tanım (CIF, GTİP, Kurul, TGTC, Yönetmelik)</span></div>
+<div class='karsi'><span class='kon'>Dampinge karşı önlem - Jilin Jimont</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%6,72 CIF bedelin yüzdesi</span></div>
+<div class='karsi'><span class='kon'>Dampinge karşı önlem - Jilin Qifeng</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%14,24 CIF bedelin yüzdesi</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>Önlemlerin yürürlük süresi</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>Yürürlük tarihinden itibaren 5 yıl</span></div>
+<div class='karsi'><span class='kon'>Tebliğin amacı</span><span class='hap eski'>Damping soruşturması açılması ve usul esaslarının belirlenmesi</span><span class='ok'>→</span><span class='hap yeni'>Tamamlanan damping soruşturmasının sonucunun yürürlüğe konulması</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin Halk Cumhuriyeti menşeli GTIP 5501.30.00.00.00 (akrilik veya modakrilik elyaf) ürününün ithalatında dampinge karşı kesin önlem uygulanır (Madde 4).</div>
+<div class='kiymet'>• Jilin Jimont Acrylic Fiber Co., Ltd. firmasa ait ürünlere CIF bedelinin %6,72 oranında önlem tahsil edilir; diğer Çin firmaları için oran %14,24'tür (Madde 4).</div>
+<div class='kiymet'>• Gümrük idareleri, serbest dolaşıma giriş rejimindeki ithalatında tabloda gösterilen oranlarda kesin önlemleri tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Yürürlükten kaldırılması: Bu tebliğ kapsamındaki önlemler, yürürlük tarihinden itibaren 5 yıl sonra sona erer (Madde 5/4).</div>
+<div class='kiymet'>• Nihai gözden geçirme: Sona erme tarihinden önce yeniden soruşturma başlatılırsa, önlemler soruşturma sonuçlanıncaya kadar devam eder (Madde 5/5).</div>
 <p><b>Ürün:</b> Akrilik veya modakrilik elyaf</p>
 <p><b>GTİP:</b><br><span class='gtip'>5501.30.00.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin'den akrilik elyaf ithal eden tekstil sanayicileri ve konfeksiyon üreticileri</p>
-<p><b>Ne yapmalısın:</b> Ocak 2026'den itibaren Çin kökenli akrilik elyaf beyanlarında %6,72 (Jilin Jimont ve Jilin Qifeng için) veya %14,24 (diğer üreticiler) oranında ek bedel hesapla. Mevcut kontratlarla yeni maliyeti karşılaştır, gerekirse tedarikçi değişikliğini değerlendir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Çin'den gelen akrilik elyafın CIF değerine doğrudan yüzdesel bir bedel katılıyor. Bu, ithal maliyetini artırıyor; yerli elyaf üreticilerine karşılıklı bir koruma sağlıyor.</div>
+<p><b>Kimi ilgilendirir:</b> Çin'den akrilik elyaf ithal eden tekstil üreticileri ile ihracat yapan yerli lif endüstrisi</p>
+<p><b>Ne yapmalısın:</b> Çin menşeli akrilik elyaf ithalatı kontrol edilmeli ve bildirilen CIF bedellerine, firmaya göre %6,72 (Jilin Jimont) veya %14,24 (diğerleri) oranında ek maliyet yansıtılmalıdır. Mevcut siparişlere ilişkin maliyet planlaması güncellenmeli, tedarikçinin firma unvanı mutlaka doğrulanmalıdır; zira farklı firmalar farklı oranlara tabidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Çin menşeli akrilik elyaf ithalatçıları, ürün maliyetine ek olarak %6,72 ile %14,24 arasında değişen oranlarda dampinge karşı vergi ödemek durumunda kalacaktır. Bu durum ithalatçılar aleyhine önemli bir mali yük oluşturmaktadır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251217-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Mısır menşeli sikatifler ithalatında damping soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Ege Kimya'nın başvurusu üzerine Mısır'dan ithal edilen sikatifler (müstahzar kurutucu maddeler) için damping soruşturması açmaya karar verdi. İnceleme döneminde (1/7/2024–30/6/2025) dampingli ihracat tespit edilerek yerli üreticiye zarar verildiği anlaşıldı.</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Ege Kimya Sanayi ve Ticaret A.Ş.'nin başvurusu üzerine Mısır'dan ithal edilen müstahzar kurutucu maddeler (sikatifler) için damping soruşturması başlatmıştır. Soruşturma kapsamında normal değer ile ihraç fiyatları karşılaştırıldığında damping marjının ihmal edilebilir oranın üzerinde olduğu; ayrıca yerli üreticinin satış miktarı, birim kârlılığı ve pazar payında ciddi bir gerileme yaşandığı tespit edilmiştir.</p>
 <p><b>Ürün:</b> Müstahzar kurutucu maddeler (sikatifler)</p>
 <p><b>GTİP:</b><br><span class='gtip'>3211.00.00.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Sikatif ithal eden kimya sektörü işletmeleri, ihracatçılar ve Mısır merkezli üreticiler</p>
-<p><b>Ne yapmalısın:</b> Mısır'dan sikatif ithalatlarını takip et; soruşturma açılışı bildirimini ve soru formlarını kontrol et. Eğer ilgili taraf statüsünü almak istiyorsan 37 gün içinde soru formunu cevapla. Bakanlık internet sitesinden (https://www.ticaret.gov.tr/ithalat) soruşturma ilerleyişini izle.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma sonucunda damping vergilendirmesi uygulanması beklentisiyle, Mısır menşeli sikatif ithalatı maliyeti artacak. Yerli üreticiye karşı fiyat rekabeti zayıflayacak; ithal edenlerin tedarik stratejileri ve marj hesaplaması revize edilmesi gerekebilir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Mısır'dan sikatif ithal eden firmalar, yerli sikatif üreticileri, Mısır merkezli ihracatçılar ve tedarikçiler</p>
+<p><b>Ne yapmalısın:</b> Soruşturma kapsamında yer almak isteyen taraflar (ithalatçı, ihracatçı, üretici, meslek kuruluşu) Damping ve Sübvansiyon Dairesi'ne başvurmalı, soru formlarını 37 gün içinde yanıtlamalı ve tüm yazışmalarını Türkçe olarak veya belirtilen KEP/e-posta adresleri üzerinden iletmelidir. Dış ticaret işlemlerinde yasal temsilci kullanılması hâlinde apostil tasdikli vekâletname düzenlenmesi gerekmektedir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Damping soruşturmasının açılması ve olası geçici/nihai koruma önlemleri, Mısır menşeli sikatif ithalatının maliyetini artıracak; yerli üreticilerin ise fiyat baskısından kurtulması beklenmektedir. İthalatçıların, bu belirsizliğe karşı tedarik planlamalarını gözden geçirmesi yerinde olacaktır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251217-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>2026 muhasebeci ve müşavir asgari ücret tarifesi yayımlandı</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, serbest muhasebeci, serbest muhasebeci mali müşavir ve yeminli mali müşavir meslek mensuplarının 2026 yılında uygulanacak asgari ücret tarifesini belirledi. Tarife ekte sunulmaktadır.</p>
-<p><b>Ürün:</b> muhasebe ve müşavirlik hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> serbest muhasebeci, serbest muhasebeci mali müşavir, yeminli mali müşavir</p>
-<p><b>Ne yapmalısın:</b> Tarife ekini indir, muhasebeci/müşavir unvanınızla eşleştirerek 2026 yılında uygulanacak asgari ücreti belirle. Mevcut sözleşmelerdeki ücretleri kontrol et ve gerekirse güncellemeleri Ocak ayına kadar tamamla.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>2026 yılı muhasebeci ve mali müşavir asgari ücret tarifesi belirlendi</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, serbest muhasebeci, serbest muhasebeci mali müşavir ve yeminli mali müşavir meslek mensuplarının 2026 yılında uygulayacağı asgari ücret tarifesini yayımladı. Tarife, 3568 sayılı Kanun ile 1990 tarihli Yönetmelik hükümleri esas alınarak hazırlandı.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2026 asgari ücret tarifesi 1 Ocak 2026'da yürürlüğe giriyor (Madde 2/1).</div>
+<p><b>Ürün:</b> Muhasebe ve mali müşavirlik hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> Serbest muhasebeci, serbest muhasebeci mali müşavir ve yeminli mali müşavir olarak faaliyet gösteren meslek mensupları</p>
+<p><b>Ne yapmalısın:</b> Tebliğ ekindeki tarifenin tamamı indirilmeli ve 2026 yılından itibaren düzenlenecek tüm faturalarda bu tarifede belirtilen ücretler uygulanmalıdır. Ayrıca mevcut müşteri sözleşmeleri gözden geçirilmelidir.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu teblig asgari ücret tarifesini belirlemekte, meslek mensuplarının minimum hizmet bedelleri üzerinde doğrudan etkiye sahiptir. Tarife ek belgede sunulduğu için etki yönü eksi incelemeden belirlenemez.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu tarife, muhasebeci ve mali müşavirlerin 2026 yılında talep edebilecekleri asgari ücreti belirler; hizmet fiyatlandırması bu tarifenin altında kalamaz.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251217-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrük işlemlerinde ücret ve ceza tutarları 2026 için yeniden belirlendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2025 yılı yeniden değerleme oranı %25,49 kullanarak gümrük usulsüzlük cezasını, fazla çalışma ücretlerini ve gümrük yönetmeliğindeki çeşitli tutarları 2026'dan itibaren yeni rakamlarla uygulamaya başlıyor.</p>
-<p><b>Ürün:</b> Tüm ithal/ihracat işlemleri</p>
-<p><b>Kimi ilgilendirir:</b> Gümrük müşevirler, ihracat ve ithalatçılar, gümrük depo işletmecileri</p>
-<p><b>Ne yapmalısın:</b> Beden ve fazla çalışma ücretlerini sisteminizde güncelle; usulsüzlük cezası ile karşılaştığında 1.494,00 TL'yi uygula. Gümrük beyannamelerinde 4.730.000,00 TL, 47.397.000,00 TL eşikleri kontrol et.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>2026 yılı gümrük işlemleri tutarları ve cezalarının yeniden belirlenmesi</h3>
+<p><b>Ne oldu:</b> Vergi Usul Kanunu Genel Tebliği'nde belirlenen 2025 yılı yeniden değerleme oranı olan %25,49 uygulanarak gümrük işlemlerine ilişkin tutarlar, usulsüzlük cezaları ve fazla çalışma ücretleri güncellenmiştir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ 1 Ocak 2026'da yürürlüğe girer (m.5).</div>
+<p><b>Ürün:</b> Tüm ithal ve ihraç edilen mallar (gümrük işlemleri kapsamı)</p>
+<p><b>Kimi ilgilendirir:</b> Gümrük müşavirleri, ithalat-ihracat firmaları, gümrük temsilcileri ve bu işlemleri yürüten kamu görevlileri</p>
+<p><b>Ne yapmalısın:</b> Ocak 2026'dan itibaren düzenleyeceğiniz gümrük beyannamelerinde, ceza hesaplamalarında ve fazla çalışma ücretlerinde bu yeni tutarları kullanın. Sözleşmeli temsilcilik ücretlerine yansıyan eski katsayıları güncelleyin.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Usulsüzlük cezaları ve gümrük işlem ücretleri %25,49 oranında yükselmiştir. İthalatçılar, uygunsuz beyan ve işlemlerde daha yüksek cezalarla karşı karşıya kalacak; gümrük temsilciliği hizmetleri de pahalılaşacaktır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251217-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

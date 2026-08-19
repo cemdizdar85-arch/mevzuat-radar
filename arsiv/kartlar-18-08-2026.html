@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,51 +39,71 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çocuk koruma ve ceza hukuku: Silah, bıçak, ceza müeyyideleri ve yönlendirme tedbirlerine ilişkin yasal değişiklikler</h3>
-<p><b>Ne oldu:</b> Çocuk Koruma Kanunu kapsamında ateşli silahlar, bıçaklar, ceza sorumluluğu yaşı ve çocuk hükümlülerin infazına ilişkin geniş kapsamlı düzenlemeler yürürlüğe girmiştir. Silah ve bıçak taşınmasına yönelik denetim sıkılaştırılmış, çocuk suçlulara uygulanan cezalar ağırlaştırılmıştır; bunun yanı sıra ceza sorumluluğu bulunmayan çocuklara yönelik yönlendirme tedbirleri (sosyal hizmetler, dijital güvenlik, kitap, çevre, bağımlılık tedavisi) sunulacaktır.</p>
+<h3>Çocuk koruması güçlendiriliyor: ceza düzenlemeleri ve yönlendirme tedbirleri</h3>
+<p><b>Ne oldu:</b> Çocuklara yönelik suçlarda cezalar ağırlaştırıldı; kasten öldürme ve cinsel suçlara ilişkin hapis süreleri yükseltildi. Çocuklara bıçak satışı yasaklandı; 15 yaşını doldurmamış çocuklar için sosyal hizmet, spor, kütüphane ve çevre temizliği gibi yönlendirme tedbirleri getirildi.</p>
 <p><b>Neler değişti:</b></p>
 <div class='kiymet'>• MADDE 13/A eklendi</div>
 <div class='kiymet'>• MADDE 43/C eklendi</div>
 <div class='kiymet'>• MADDE 5/A eklendi</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• 31 inci madde: <span style='color:var(--dim);text-decoration:line-through'>oniki yıldan fazla</span> → <b>onbeş yıldan fazla</b></div>
-<div class='kiymet'>• 233 üncü madde: <span style='color:var(--dim);text-decoration:line-through'>üç aydan bir yıla</span> → <b>bir yıldan üç yıla</b></div>
-<div class='kiymet'>• 11 inci madde: <span style='color:var(--dim);text-decoration:line-through'>Çocuk tutukluların</span> → <b>Çocuk hükümlülerin veya tutukluların</b></div>
-<div class='kiymet'>• 15 inci madde: <span style='color:var(--dim);text-decoration:line-through'>Suça sürüklenen</span> → <b>Adli süreçteki</b> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
-<p><b>Ürün:</b> Kanun metni (ithalatla ilgili ürün grubu içermemektedir)</p>
-<p><b>Kimi ilgilendirir:</b> Kaynakta belirtilmemiştir</p>
-<p><b>Ne yapmalısın:</b> Kaynakta belirtilmemiştir</p>
+<div class='karsi'><span class='kon'>31 inci madde</span><span class='hap eski'>oniki yıldan fazla</span><span class='ok'>→</span><span class='hap yeni'>onbeş yıldan fazla</span></div>
+<div class='karsi'><span class='kon'>233 üncü madde</span><span class='hap eski'>üç aydan bir yıla</span><span class='ok'>→</span><span class='hap yeni'>bir yıldan üç yıla</span></div>
+<div class='karsi'><span class='kon'>11 inci madde</span><span class='hap eski'>Çocuk tutukluların</span><span class='ok'>→</span><span class='hap yeni'>Çocuk hükümlülerin veya tutukluların</span></div>
+<div class='karsi'><span class='kon'>15 inci madde</span><span class='hap eski'>Suça sürüklenen</span><span class='ok'>→</span><span class='hap yeni'>Adli süreçteki</span> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 18 yaşından küçük çocuklara her türlü bıçak, kesici ve delici aletlerin satılması ve taşınması 1 Aralık 2026'dan itibaren yasaklanıyor (Kabahatler K. m.43/C/1).</div>
+<div class='kiymet'>• Kasten öldürme suçlarının cezası artırıldı: onsekiz yaşını doldurmayan ancak onbeş yaşını doldurmuş çocuklara karşı işlenen suçlarda hakim takdir edebilecek; oniki-onbeş yaş arası çocuklara karşı ise ağırlaştırılmış ceza uygulanabilecek (TCK m.31/4).</div>
+<div class='kiymet'>• Çocuk hükümlüler kasıtlı suçlardan toplam üç yıl veya daha az, taksirli suçlardan toplam beş yıl veya daha az ceza aldıklarında doğrudan çocuk eğitimevinde cezalarını çeker (Ceza İnfazı K. m.15/4).</div>
+<div class='kiymet'>• Ceza sorumluluğu olmayan çocuklar için sosyal hizmet (20-300 saat), spor/kültür faaliyetleri, kütüphane hizmetleri, çevre temizliği ve bağımlılık tedavi programları yönlendirme tedbirlerine alındı (Çocuk Koruma K. m.5/A).</div>
+<div class='kiymet'>• 15 yaşını doldurmamış çocuklar hakkında sosyal inceleme yaptırılması zorunlu; 15 yaşını doldurmuş çocuklar için zorunlu değil ama yapılmazsa gerekçesi kararda gösterilmeli (Çocuk Koruma K. m.35/3).</div>
+<div class='kiymet'>• Adli süreçteki çocuklara açılan kamu davası durumu, gerekli idari tedbirlerin alınması için Aile ve Sosyal Hizmetler ile Milli Eğitim müdürlüklerine bildirilir (Çocuk Koruma K. m.15/4).</div>
+<div class='kiymet'>• Acil korunma kararı için rapor 24 saatte, sağlık kurulu raporu 48 saatte düzenlenecek ve hakim 48 saat içinde karar verecek (Çocuk Koruma K. m.9/4-5).</div>
+<div class='kiymet'>• Koruyucu ve destekleyici tedbir kararlarına uymayan ana, baba, vasi veya bakıcıya çocuk hâkimi kararıyla 3-10 gün tazyik hapsi verilebilir (Çocuk Koruma K. m.45/5).</div>
+<div class='kiymet'>• Bıçak satışı yasağı 1 Aralık 2026'de, diğer tüm hükümler kanunun yayım tarihinde (18 Ağustos 2026) yürürlüğe girer (m.16).</div>
+<p><b>Ürün:</b> Ateşli silahlar, bıçaklar ve diğer kesici-delici aletler</p>
+<p><b>Kimi ilgilendirir:</b> Tehlikeli mal kategorisinde perakende veya online satış yapan işletmeler; okullar, sosyal hizmet kuruluşları, spor tesisleri, kütüphaneler; hâkimler ve savcılar; polis ve kolluk görevlileri; aile ve sosyal hizmetler müdürlükleri</p>
+<p><b>Ne yapmalısın:</b> Bıçak ve benzeri aletlerin satışında ve teşhirinde 18 yaş sınırının uygulanmasını sağlayın. Mağaza ve online satış kanallarında yaş doğrulama mekanizması kurun. İşletme politikanızı Kabahatler Kanunu m.43/C hükümlerine uygun şekilde güncelleyin. Çalışanlarınızı 1 Aralık tarihinden itibaren geçerli olacak yasağın kapsamı hakkında bilgilendirin.</p>
 <p><b>Yürürlük:</b> bendi hükmü: 01.12.2026 · Diğer hükümleri: yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu kanun, çocuk koruma ve ceza sorumluluğu alanında düzenlemeler içermekte olup ticari ithalat, gümrük veya vergi uygulamaları üzerinde doğrudan bir etkisi bulunmamaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260818-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260818-1.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Emekli Sandığı ve Terörle Mücadele Görevlileri İçin Aylık Düzenlemeleri</h3>
-<p><b>Ne oldu:</b> 7594 sayılı Kanun, emekli ve gazi personeline ilişkin çeşitli hükümlerde değişiklik yapmıştır. Terörle mücadele görevi sırasında yaralanan ancak malul sayılmayan personel için yeni aylık bağlama koşulları getirilmiş; emekli keseneği ve gösterge rakamlarında da düzenlemelere gidilmiştir.</p>
+<h3>Emekli Sandığı ve terörle mücadelede yaralanan personele aylık düzenlemeleri</h3>
+<p><b>Ne oldu:</b> 7594 sayılı Kanun; Emekli Sandığı Kanunu, Terörle Mücadele Kanunu ve Sosyal Sigortalar Kanunu'nda değişiklik yaparak bazı personelin aylık hesaplama yöntemlerini ve gösterge rakamlarını güncelledi. Terör eylemleri sonucu yaralanan asker, polis ve istihbarat personeline 17.135 gösterge rakamından aylık bağlanması imkânı eklendi.</p>
 <p><b>Neler değişti:</b></p>
 <div class='kiymet'>• GEÇİCİ MADDE 20 eklendi</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• geçici 18 inci madde: <span style='color:var(--dim);text-decoration:line-through'>askerlik çağı dışına çıktıkları</span> → <b>55 yaşını doldurdukları</b></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Erbaş ve erler ile yedek subay ve yedek astsubay okulu öğrencilerinin ana ve babalarına</span> → <b>Ana ve babalara</b></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>iki katı</span> → <b>iki buçuk katı</b></div>
-<div class='kiymet'>• 14 üncü madde: <span style='color:var(--dim);text-decoration:line-through'>maddenin</span> → <b>fıkranın</b></div>
-<p><b>Ürün:</b> Hukuki düzenleme (dış ticaret kapsamı dışında)</p>
-<p><b>Kimi ilgilendirir:</b> Terörle mücadele görevinde yaralanan asker, polis, istihbarat ve güvenlik personeli ile Emekli Sandığı müstefitleri</p>
-<p><b>Ne yapmalısın:</b> Personel dosyalarındaki gösterge rakamı güncellemeleri gözden geçirilmelidir. Terörle mücadele görevinde yaralanan personelin başvuru hakkına ilişkin, 1 Eylül 2026 tarihinden itibaren geçerli olacak yeni aylık bağlama koşulları İnsan Kaynakları ve Muhasebe birimlerine iletilmelidir.</p>
+<div class='karsi'><span class='kon'>geçici 18 inci madde</span><span class='hap eski'>askerlik çağı dışına çıktıkları</span><span class='ok'>→</span><span class='hap yeni'>55 yaşını doldurdukları</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Erbaş ve erler ile yedek subay ve yedek astsubay okulu öğrencilerinin ana ve babalarına</span><span class='ok'>→</span><span class='hap yeni'>Ana ve babalara</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>iki katı</span><span class='ok'>→</span><span class='hap yeni'>iki buçuk katı</span></div>
+<div class='karsi'><span class='kon'>14 üncü madde</span><span class='hap eski'>maddenin</span><span class='ok'>→</span><span class='hap yeni'>fıkranın</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Madde 1, 2, 3, 4 ve 7 yayımı takip eden ödeme döneminden itibaren geçerli; Madde 5 ise 1/9/2026'dan itibaren geçerli (M.8).</div>
+<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
+<p><b>Kimi ilgilendirir:</b> Türk Silahlı Kuvvetleri, Jandarma Genel Komutanlığı, Sahil Güvenlik Komutanlığı asker ve erbaşları; Millî İstihbarat Teşkilatı mensupları; Emniyet Teşkilatı Emniyet Hizmetleri Sınıfı personeli; güvenlik korucuları; terör eylemleri sonucu yaralanan bu kişilerin emekli ve dul/yetim hak sahipleri.</p>
+<p><b>Ne yapmalısın:</b> Terör eylemlerinden yaralanan personel, olay tarihinde mensubu olduğu kuruma başvuru dosyasını hazırlamalı. Başvuru bir yıl içinde yapılmalı (başvuru süresi 1/9/2026'dan itibaren başlıyor). Yaralanmayla ilgili tıbbi belgeler toplanmalı. Emekli aylığı hesaplamalarında yeni gösterge rakamları ve ek gösterge tutarları kontrol edilmeli.</p>
 <p><b>Yürürlük:</b> 1 inci, 2 nci , 3 üncü, 4 üncü ve 7 nci maddeleri yayımını takip eden ödeme döneminden geçerli olmak üzere: yayımı tarihinde · 5 inci maddesi tarihinden itibaren geçerli olmak üzere: yayımı tarihinde · Diğer maddeleri: yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Terörle mücadele görevinde yaralanan personel için yeni aylık hakları doğmakta olup, bu düzenleme söz konusu kesim lehinedir. Ancak emekli keseneği hesaplamalarında gösterge rakamlarının değişmesi, mevcut emeklilerin aylıklarını da etkileyebilecektir; bu etkinin yönü uygulanacak katsayıya bağlıdır.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Terör yaralanmaları için tanınan yeni aylık hakkı emekli ve gazilere avantaj sağlarken, uygulama süreci ilgili kurumlar ile Sosyal Güvenlik Kurumu'na iş yükü getiriyor. Başvuru süresi sınırlı olduğundan gecikme, hak kaybına yol açabilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260818-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260818-2.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>PKK/KCK terör örgütü üyeleri için soruşturma ve ceza infazı erteleme kanunu</h3>
-<p><b>Ne oldu:</b> Kanun 7595, PKK/KCK terör örgütünün fiili varlığını sona erdirdiğinin ve silah teslim ettiğinin resmi tespitinden sonra, belirli terör suçlarına ilişkin soruşturma, kovuşturma ve ceza infazını beş veya on yıl süreyle erteleyen mekanizmayı düzenliyor. Erteleme süresi boyunca dava zamanaşımı işlemiyor ve belirlenen sürede yeni suç işlenmezse kovuşturma yapılmaz ya da ceza infaz edilmiş sayılır.</p>
-<p><b>Ürün:</b> Geçerli değil (bu kanun vergi/gümrük materyali değil)</p>
-<p><b>Kimi ilgilendirir:</b> PKK/KCK terör örgütü mensubu olarak nitelendirilen kişiler, cumhuriyet savcılıkları, adli makamlar, güvenlik kurumları</p>
-<p><b>Ne yapmalısın:</b> Etkilenen müşteriler varsa (dolaylı müşteri temas noktası): başsavcılık nezdinde yazılı başvuru hazırla, süresi altı ay olduğunun (Madde 9) farkında ol. İş/ticaret yönü yoksa işlem yok.</p>
+<h3>PKK/KCK terör örgütü mensuplarına soruşturma ve ceza infazı erteleme imkanı</h3>
+<p><b>Ne oldu:</b> Milli Güvenlik Kurulu'nun PKK/KCK'nın fiili varlığını sona erdirdiğini ve silahlarını teslim ettiğini teyit eden kararı Resmi Gazete'de yayımlandıktan sonra, örgüt faaliyeti kapsamındaki suçlardan dolayı yürütülen soruşturma ve kovuşturmalar ile verilen mahkûmiyet hükümleri belirli süreler ertelenebilecek. Kasten öldürme ve 1/6/2005 öncesi ağır cezalı suçlar bu kapsamın dışında tutuluyor.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Milli Güvenlik Kurulu kararı Resmi Gazete'de yayımlandıktan sonra altı ay içinde yararlanmak isteyenler Cumhuriyet başsavcılıklarına bildirim yapmalı (M.9).</div>
+<div class='kiymet'>• On beş yıl veya daha az hapis gerektiren suçlardaki soruşturma ve kovuşturmalar beş yıl süreyle ertelenir (M.3/1).</div>
+<div class='kiymet'>• On beş yıldan fazla veya müebbet hapis gerektiren suçlardaki soruşturma ve kovuşturmalar on yıl süreyle ertelenir (M.3/1).</div>
+<div class='kiymet'>• Erteleme süresi içinde terör suçu işlenirse erteleme kaldırılarak kovuşturmaya devam edilir (M.5/2).</div>
+<div class='kiymet'>• Suç işlenmeksizin erteleme süresi tamamlanırsa kovuşturma yapılmaz veya düşme kararı verilir (M.5/2).</div>
+<div class='kiymet'>• Mahkûm olanlar için de beş yıl (on beş yıl dahil ceza için) veya on yıl (on beş yıldan fazla ceza için) infaz ertelenir (M.6/1).</div>
+<div class='kiymet'>• Kasten öldürme suçundan mahkûmlar ile 1/6/2005 öncesi ağır cezalılar erteleme kapsamı dışında tutuluyor (M.3/1, M.6/1).</div>
+<div class='kiymet'>• Erteleme kararları Cumhuriyet başsavcılıklarınca takip edilir (M.6/5).</div>
+<div class='kiymet'>• Cumhurbaşkanı Yardımcısı başkanlığında oluşturulan Kurul uygulamayı takip ve değerlendir (M.7/1).</div>
+<p><b>Kimi ilgilendirir:</b> PKK/KCK terör örgütü mensupları; soruşturma ve kovuşturmaları devam edenler ya da mahkûm olanlar</p>
+<p><b>Ne yapmalısın:</b> Bu haktan yararlanmak isteyenlerin, bulunduğu yerdeki Cumhuriyet başsavcılığına veya kurulun görev verdiği kuruma yazılı bildirimde bulunması gerekir. Bildirim, Resmi Gazete'de yayım tarihinden itibaren altı ay içinde yapılmalıdır. Dosyadaki suçun türü (kasten öldürme olup olmadığı, işlenme tarihi) ve tahliye durumu, başvuru sonucunu belirleyen temel unsurlardır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Kanun doğrudan vergi, gümrük, ya da ithalatçı-ihracatçı ticari ilişkilerine etki yapmıyor. Güvenlik, hukuk ve ceza infazı mekanizmasını düzenliyor.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Kanun, cezai sorumluluk ve ceza infazında erteleme imkânı sağlamaktadır; bu ekonomik değil, hukuki ve siyasi nitelikte bir düzenlemedir. İthalatçı, firma, mal veya gümrük işlemleri bakımından herhangi bir kapsamı bulunmamaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260818-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

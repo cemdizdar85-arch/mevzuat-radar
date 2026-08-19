@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,70 +33,113 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>30.12.2025 — Resmî Gazete'deki 5 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>30.12.2025 tarihli Resmî Gazete'de 5 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Tütün mamulleri ve makaron işletmelerinin 2026 başvuru ve belge bedelleri</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, tütün mamulleri (sigara, puro, sigarillo, yaprak sigara kâğıdı, sigara filtresi), makaron üretim ve ticaretine ilişkin yönetmeliklerdeki belge ve hizmet bedellerini 2026 yılı için güncelledi. Bedeller yeniden hesaplanmış ve Başvuru Bedelleri ile Piyasaya Arz Uygunluk Belgesi ücretleri artmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Tütün Mamullerinin Üretim ve Ticaretine İlişkin Usul ve Esaslar Hakkında Yönetmeliğin 23. Maddesi; Puro ve Sigarillo İthalatı, Fiyatının Belirlenmesi ve Yurt İçinde Pazarlanmasına İlişkin Usul ve Esaslar Hakkında Karar 6. Maddesi; Makaron Üretimi ve Ticaretine İlişkin Usul ve Esaslar Hakkında Yönetmeliğin 23. Maddesi; Yaprak Sigara Kâğıdı Üretimi ve Ticaretine İlişkin Usul ve Esaslar Hakkında Yönetmeliğin 23. Maddesi; Sigara Filtresi Üretimi ve Ticaretine İlişkin Usul ve Esaslar Hakkında Yönetmeliğin 24. Maddesi</p>
-<p><b>Ürün:</b> Sigara, puro, sigarillo, makaron, yaprak sigara kâğıdı, sigara filtresi; tütün mamulleri</p>
-<p><b>Kimi ilgilendirir:</b> Sigara, puro, sigarillo, makaron, yaprak sigara kâğıdı ve sigara filtresi üreten ve ithalatı yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> 2026 tarihli başvuru ve belge taleplerinde yeni bedelleri uygula. Mevcut izin ve belgeleriniz için yıllık uzatım talebinde güncel ücret listesini kullan. İthalatçı belgesi için yenileme işlemiyle başvur.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Tütün mamulleri, makaron ve sigara filtresi üretim ve ithal belgelerinin 2026 ücretleri</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, tütün mamulleri (sigara, puro, sigarillo), makaron ve sigara filtresi üretim tesisleri ile ithalatçılar için gerekli tesis kurma, piyasaya arz ve ithal belgesi başvuru ücretlerini 2026 yılı için güncellemiştir. Yetki belgesi, bandrol satışı ve diğer hizmet bedelleri de belirlenmiştir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tütün mamulleri üretim tesisleri için tesis kurma uygunluk belgesi başına sigara kapasitesi her yüz milyon adet için 211.238 TL (m.1)</div>
+<div class='kiymet'>• Puro ve sigarillo ithalatı yetki belgesi 1.227.224 TL, yıllık uzatımı 102.964 TL (m.2)</div>
+<div class='kiymet'>• Makaron üretim ve ithal belgesi ücretleri ve bandrol satış hizmet bedeli 198,27 TL/bin adet (m.3)</div>
+<div class='kiymet'>• Yaprak sigara kâğıdı üretim kapasitesi her yüz milyon adet için tesis belgesi 111.015 TL (m.4)</div>
+<div class='kiymet'>• Sigara filtresi ithal belgesi 37.647 TL; satış hizmet bedeli 2,50 TL/bin metre (m.5)</div>
+<div class='kiymet'>• Tüm ücretler ve bedeller 1 Ocak 2026'da yürürlüğe girer (m.6)</div>
+<p><b>Ürün:</b> Tütün mamulleri (sigara, puro, sigarillo, makaron, yaprak sigara kâğıdı, sigara filtresi)</p>
+<p><b>Kimi ilgilendirir:</b> Tütün mamulleri, makaron ve sigara filtresi üreten veya ithal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> 2026 başından itibaren geçerli yeni ücretleri sisteme girin; mevcut belgelerinizin yıllık uzatımı ve yeni başvurular için bu tarifeler geçerli olacaktır. Puro/sigarillo ithalatçısıysanız 1.227.224 TL'yi hazırlayın.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, sadece yetki belgesi ve hizmet ücretlerini 2026 yılı için güncellemektedir. Üreticiler ve ithalatçılar açısından oluşan maliyet artışı, ürün maliyetlemesi yapılırken bu yeni tarifeler dikkate alınarak hesaplanmalıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-12.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrük Genel Tebliğine yeni gözetim değeri satırı eklendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 4 Eylül 2012 tarihli Gümrük Genel Tebliğinin 3. maddesine bir satır eklemişti. Eklenen satırın içeriği metinde gösterilmemiş.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrük Genel Tebliği (Gümrük İşlemleri) (Seri No: 97)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> gümrük müşevirler, ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> Gümrük Genel Tebliği Seri No: 97'nin 3. maddedeki güncel tabloyu temin et ve eklenen satırın mallarınızı etkileyip etkilemediğini kontrol et.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Gümrük gözetim eşikleri: yeni ürün grubu tabloya eklendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2012'den bu yana yürürlükte olan Gümrük Genel Tebliği'ne yeni bir satır ekledi. Tablo genişletildi; ancak eklenen ürün grubu görselden net olarak okunamadı.</p>
+<p><b>Hangi tebliğ:</b> Gümrük Genel Tebliği (Gümrük İşlemleri) (Seri No: 97) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Gümrük Genel Tebliği Seri No: 97'nin 3. maddesindeki tabloya yeni bir satır eklenmektedir (m.1).</div>
+<div class='kiymet'>• Tebliğ yayımlandığı tarihte hemen yürürlüğe girmektedir (m.2).</div>
+<p><b>Ürün:</b> Kaynakta belirtilmemiştir.</p>
+<p><b>Kimi ilgilendirir:</b> İthal malı beyan eden gümrük müşavirleri ve dış ticaretle iştigal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> Tablo görseli net olmadığından, eklenen yeni satırı doğrudan Resmî Gazete'den teyit ediniz; gümrük sistemine girilmiş beyanlarınızı buna göre güncelleyiniz.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-16.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrük müşavirlik asgari ücret tarifesinde oran ve tutarlar değiştirildi</h3>
-<p><b>Ne oldu:</b> Gümrük Bakanlığı, gümrük müşavirliği hizmetlerine ilişkin asgari ücret tarifesinde düzenleme yaptı. Beş maddelik metnin (b) bendindeki oran % 25'ten % 20'ye indirildi; (ç) bendinde ise iki tutar yükseltildi.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrük Müşavirliği ve Yetkilendirilmiş Gümrük Müşavirliği Asgari Ücret Tarifesine İlişkin Tebliğ</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Gümrük müşavirliği ücret tarifesinde oran ve bedel değişiklikleri</h3>
+<p><b>Ne oldu:</b> Gümrük müşavirliği ve yetkilendirilmiş gümrük müşavirliği hizmetlerine ilişkin asgari ücret tarifesinde yer alan oranlar ve sabit tutarlar güncellenmiştir.</p>
+<p><b>Hangi tebliğ:</b> 30/12/2015 tarihli ve 29578 sayılı 'Gümrük Müşavirliği ve Yetkilendirilmiş Gümrük Müşavirliği Asgari Ücret Tarifesine İlişkin Tebliğ' sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>20.000</span><span class='ok'>→</span><span class='hap yeni'>26.000</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ 1 Ocak 2026'da yürürlüğe giriyor (Madde 3).</div>
+<div class='kiymet'>• Madde 5'in birinci fıkrasının (b) bendinde yer alan oran %25'ten %20'ye indirildi (Madde 1).</div>
+<div class='kiymet'>• Aynı maddenin (ç) bendindeki tutarlar 60.000'den 78.000'e ve 20.000'den 26.000'e çıkarıldı (Madde 1).</div>
+<div class='kiymet'>• Ek-1 ve Ek-2 tarifeler değiştirilmiştir; ayrıntılar tebliğin eklerinde yer almaktadır (Madde 2).</div>
 <p><b>Ürün:</b> Gümrük müşavirlik hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Gümrük müşavir ve yetkilendirilmiş gümrük müşavir olarak faaliyet gösteren şirketler</p>
-<p><b>Ne yapmalısın:</b> Geçerli tarife kartlarını güncelle. Ocak 2026'den itibaren hangi hizmet türlerinin yeni oranlar ve tutarlarla sunulacağını yönetim ve muhasebede bildir.</p>
+<p><b>Kimi ilgilendirir:</b> Gümrük müşavirliği faaliyeti yürüten denetçi müşavirler</p>
+<p><b>Ne yapmalısın:</b> Mevcut ücret tarifelerinizi (özellikle Ek-1 ve Ek-2) indirin; 1 Ocak 2026 tarihinden itibaren müşteri faturalarınızda yeni oran ve tutarları uygulamaya başlayın.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Oran indirimi müşavir ücretlerini düşürürken, tutarlar arttırılmış. Net etkisi ücret yapısında karma değişimi işaret ediyor; somut etki hizmet türüne ve işlem hacmine göre değişecek.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik, hizmet tarifesinin güncellenmesini öngörmektedir. (b) bendindeki oran azalışı yapılan işin değerini düşürürken, (ç) bendindeki tutarlardaki artış işletme bedeline ilişkin hesaplamaları etkileyecektir. Net etki, müşteri nezdinde yapılan işin niteliğine ve seçilen tarife seçeneğine bağlı olarak değişecektir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-17.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251230-17.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Borsa aracılığı gözetimi: son uyum tarihi bir yıl ertelendi</h3>
-<p><b>Ne oldu:</b> Türkiye Ürün İhtisas Borsası'nda aracılık faaliyetleri düzenleyen yönetmeliğin geçici hükmü değiştirildi. Aracıların uyum sağlaması gereken tarih 31 Aralık 2025'ten 31 Aralık 2026'ya uzatıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Türkiye Ürün İhtisas Borsasında Aracılık Faaliyetleri ile Aracıların Gözetimi ve Denetimi Hakkında Yönetmelik</p>
-<p><b>Ürün:</b> Borsa aracılık faaliyetleri (finansal hizmet)</p>
-<p><b>Kimi ilgilendirir:</b> Türkiye Ürün İhtisas Borsası'nda aracılık yapan firmalar ve gözetim sorumlusu kurumlar (Ticaret Bakanlığı, Sermaye Piyasası Kurulu)</p>
-<p><b>Ne yapmalısın:</b> Uyum projelendirmesinin takvimini gözden geçir; 31 Aralık 2026 deadline'ı iç planlamaya aktar.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Türkiye Ürün İhtisas Borsası Aracı Gözetim Yönetmeliği'nde son tarih uzatıldı</h3>
+<p><b>Ne oldu:</b> Aracılık faaliyetlerinin denetimini düzenleyen yönetmelikteki geçici bir hüküm değiştirilerek son tarih 31 Aralık 2025'ten 31 Aralık 2026'ya ertelendi.</p>
+<p><b>Hangi tebliğ:</b> Türkiye Ürün İhtisas Borsasında Aracılık Faaliyetleri ile Aracıların Gözetimi ve Denetimi Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>geçici 1 inci madde</span><span class='hap eski'>31/12/2025</span><span class='ok'>→</span><span class='hap yeni'>31/12/2026</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik yayımlandığı tarihte yürürlüğe girdi (Madde 2).</div>
+<p><b>Ürün:</b> Türkiye Ürün İhtisas Borsası aracılık faaliyetleri</p>
+<p><b>Kimi ilgilendirir:</b> Türkiye Ürün İhtisas Borsası'nda aracılık faaliyeti yürüten kurumlar</p>
+<p><b>Ne yapmalısın:</b> Mevcut aracılık izinlerinin yürürlük durumunu yeni son tarih doğrultusunda gözden geçirin; gerekirse 31 Aralık 2026'ya kadar uyum sürecini planlayın.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Aracılara tanınan uyum süresi bir yıl uzatıldı. Bu değişiklik, mevcut aracıların denetim ve lisanslama yükümlülüklerini tamamlaması için daha rahat bir zaman dilimi sağlıyor.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251230-3.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Tarım destekleme tebliğinde değişiklik: KOBÜKS sistemi ve kapalı ortamda üretim kuralları</h3>
-<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, 2025-2027 yılları tarım desteklemeleri tebliğini (2024/39) değiştirdi. Kapalı ortamda bitkisel üretim için yeni tanımlar ve destek şartları eklendi; sertifikalı tohum, biyolojik mücadele, organik tarım ve yem bitkisi desteği kuralları güncellendi.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/39</p>
-<p><b>Ürün:</b> Bitkisel ürünler (mısır, patates, şeker pancarı, domates, havuç, yem bitkileri, ayçiçeği, soya, pamuk, turunçgil, domates), kapalı ortamda bitkisel üretim ürünleri</p>
-<p><b>Kimi ilgilendirir:</b> Çiftçiler, tarımsal amaçlı örgütler, seracılık ve kapalı ortamda bitkisel üretim yapanlar, organik tarım faaliyetinde bulunanlar</p>
-<p><b>Ne yapmalısın:</b> ÇKS/ÖKS/KOBÜKS kayıt durumunu kontrol et. Kapalı ortamda üretim yapıyorsan KOBÜKS'e kayıtlı olduğundan emin ol. Sertifikalı tohum kullanacaksan tescil edilen çeşit koşullarını ve belge taleplerini gözden geçir. Biyolojik mücadele desteklerinde yeni ödeme şartlarına (feromon, tuzak, ürün bazlı) göre başvuru hazırla. 2026 yılı başında fiğ, yulaf, çavdar, tritikale hariç yem bitkilerine ait dan ürünler için planlı üretim desteğine başvurma.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Tarımsal destek tebliğinde değişiklik: kapalı ortamda bitkisel üretim ve kayıt sistemi düzenlemeleri</h3>
+<p><b>Ne oldu:</b> Tarım ve Orman Bakanlığı, 2025-2027 yıllarına ilişkin tarımsal destek tebliğinde (Tebliğ No: 2024/39) değişiklik yaparak kapalı ortamda bitkisel üretim (KOBÜKS) kapsamına dair yeni hükümler eklemiş, destek koşullarını revize etmiş ve ödeme şartlarını güncellemiştir.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2024/39 (31/12/2024 tarihli, 32769 sayılı Resmi Gazete) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 19 uncu maddesinin on ikinci fıkrası baştan yazıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>5</span><span class='ok'>→</span><span class='hap yeni'>1</span></div>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>üretimde</span><span class='ok'>→</span><span class='hap yeni'>üretim ünitelerine</span></div>
+<div class='karsi'><span class='kon'>5 inci madde</span><span class='hap eski'>ÇKS’ye</span><span class='ok'>→</span><span class='hap yeni'>ÇKS/ÖKS/KOBÜKS’e</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>ÇKS</span><span class='ok'>→</span><span class='hap yeni'>ÇKS/ÖKS/KOBÜKS</span> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Seracılık:</span><span class='ok'>→</span><span class='hap yeni'>Kapalı ortamda bitkisel üretim:</span></div>
+<div class='kiymet' style='color:var(--dim)'>+4 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kapalı ortamda bitkisel üretim yapan kadın veya son takvim gününde 41 yaşından genç çiftçilere KOBÜKS'e kayıtlı alanlar (alçak tünel hariç) için 3 katsayı ile ilave temel destek ödenir (Madde 3, 5. Fıkra).</div>
+<div class='kiymet'>• 2026 üretim yılından itibaren belirtilen havzalarda ayçiçeği, mısır, soya ve patates için kamu/üniversiteler tarafından ıslah edilerek tescil edilmiş sertifikalı tohumlar kullanıldığında sertifikalı tohum desteği ödenir (Madde 5, 7.1/3. Alt bent).</div>
+<div class='kiymet'>• OTBİS'te kayıtlı organik tarım yapan birinci derece tarımsal amaçlı örgüt üyesi çiftçilerin arazilerine ürün grubuna karşılık gelen destek katsayısının %25'i kadar ilave organik tarım desteği ödenir (Madde 5, 7.1/3. Alt bent).</div>
+<div class='kiymet'>• KOBÜKS'e kayıtlı kapalı ortamda bitkisel üretim ünitelerinin içinde yer alan Hazine arazileri, dere yatağı ve yol gibi tahsisli olmayan alanlar toplam alandan çıkartılır; bu alanlar için destek ödenmez (Madde 12, 17.1/ğ. Bent).</div>
+<div class='kiymet'>• Yeraltı sularının yetersiz seviyede olduğu havzalarda mısır (dane) ve patates ekilişlerine destek ödenmez (Madde 12, 17.2/j. Bent).</div>
+<div class='kiymet'>• Fiğ, yulaf, çavdar ve tritikale hariç yem bitkileri ekilişlerini daneye bırakanlar planlı üretim desteğinden yararlanamaz (Madde 12, 17.5. Fıkra).</div>
+<div class='kiymet'>• Mülkiyeti kamuya ait araziler taahhütname ile kayıt sistemi girdikten sonra kira sözleşmesi ibraz edilmediği takdirde destek ödemesi yapılmaz (Madde 12, 17.26. Fıkra).</div>
+<div class='kiymet'>• ÇMVA (Çiftlik Müşterek Varlığı Aracı) katılım primi desteği 2026 ve 2027 yıllarında uygulanmaz (Madde 7, 11.9. Fıkra).</div>
+<div class='kiymet'>• 2025 üretim yılında başlatılmış destekleme işlemleri bu tebliğin yürürlüğe girmesinden önce yürürlükte olan hükümler uyarınca yönetilir (Geçici Madde 2).</div>
+<p><b>Ürün:</b> Bitkisel ürünler: tahıllar (mısır, buğday, arpa, çavdar, tritikale), yem bitkileri (yonca, korunga, üçgül, fiğ, yulaf), endüstri bitkileri (pamuk, ayçiçeği, soya, şeker pancarı), sebzeler (domates, havuç, patates), turunçgiller</p>
+<p><b>Kimi ilgilendirir:</b> Tarımsal üretime katılan çiftçileri, tarımsal amaçlı örgütleri (birinci derece), kapalı ortamda (sera, tünel, mantar, yapay ışıkla) bitkisel üretim yapanları, organik tarımla iştigal edenleri ve iyi tarım uygulaması gerçekleştirenleri ilgilendirmektedir.</p>
+<p><b>Ne yapmalısın:</b> ÇKS/ÖKS/KOBÜKS kayıtlarınızı kontrol ederek güncelleyiniz. Kapalı ortamda üretim yapıyorsanız KOBÜKS kayıt işlemlerinizi tamamlayınız. 2025 yılı başvurularında eski koşullar, 2026 yılından itibaren ise yeni koşullar geçerli olacağından bu ayrımı dikkate alınız. Hazine arazileri ile dere yatağı gibi alanların kapalı ortamdaki ünite alanından çıkarıldığını teyit ediniz. Sertifikalı tohum kullanacaksanız Bakanlık ıslahı ürünlere ilişkin belgeleri hazırlayınız. Yem bitkileri ekilişinde fiğ, yulaf, çavdar ve tritikalenin (yeşil ot/dane) kapsam dışı tutulduğunu kontrol ediniz.</p>
 <p><b>Yürürlük:</b> 01.01.2026</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> KOBÜKS sistemi ve kapalı ortamda üretim tanımının tebliğe dahil edilmesi, bu alanda çalışan çiftçilere yeni destek kapıları açarken belge ve kayıt yükümlülüklerini artırıyor. Biyolojik mücadele destek oranının düşürülmesi (40'tan 20'ye) bu yöntemi kullanan çiftçilerin brüt desteğini azaltıyor; ancak organik tarım ve sertifikalı tohum kullanım desteğindeki genişlemeler bazı üreticiler için olumlu. 2025 yılı başlamış işlemler eski kurala tabi olacak.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251230-9.html'>Neyin nesi değişti? →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,69 +33,113 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>30.08.2025 — Resmî Gazete'deki 4 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>30.08.2025 tarihli Resmî Gazete'de 4 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kore çeliği ithalatında dampinge karşı kesin önlem uygulanacak</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Kore Cumhuriyeti menşeli sıcak haddelenmiş yassı çelik (kalın levha) ithalatında dampingli uygulama tespit etti. Soruşturma tamamlandı; tebligde belirtilen oranlarda koruyucu gümrük vergisi uygulanacak.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/14)</p>
-<p><b>Ürün:</b> Kore Cumhuriyeti menşeli rulo halinde olmayan sıcak haddelenmiş yassı çelik (kalın levha)</p>
-<p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Kore'den çelik levha ithal eden inşaat malzemecileri, metal işleri üreticileri ve çelik ticarethaneleri</p>
-<p><b>Ne yapmalısın:</b> Söz konusu kalem için gümrük işlemlerinde tabloda yer alan oranında ek gümrük vergisi hesapla; Eylül sevkiyatlarının CIF değerlerini tebliğe uygun olarak kontrol et; mevcut açık siparişlerin maliyeti yeniden hesapla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Kore menşeli çelik levhaya koruyucu vergi uygulanması ithal maliyetini yükseltiyor. Yerli üretim sektörü korunurken, hammadde kullanan sanayiye bedel artışı aktarılacak; fiyat artışına hazırlık ve tedarik zinciri gözden geçirme gerekli.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Kore Cumhuriyeti menşeli sıcak haddelenmiş yassı çelikte damping önlemleri kararı</h3>
+<p><b>Ne oldu:</b> Yürütülen damping soruşturması sonuçlanmış olup, Kore Cumhuriyeti menşeli sıcak haddelenmiş yassı çelik ürününün ithalatında dampinge karşı kesin önlem uygulanmasına karar verilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/14) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(02.04.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğ No</span><span class='hap eski'>2024/14</span><span class='ok'>→</span><span class='hap yeni'>2025/30</span></div>
+<div class='karsi'><span class='kon'>Soruşturma konusu ürün (Madde 4 eski)</span><span class='hap eski'>Madde 4'te GTP ve GTİP'ler ayrıntılı olarak sıralanmıştır</span><span class='ok'>→</span><span class='hap yeni'>Madde 4'te tabloda gösterilmektedir</span></div>
+<div class='karsi'><span class='kon'>Tebliğ amacı</span><span class='hap eski'>Damping soruşturması açılması</span><span class='ok'>→</span><span class='hap yeni'>Tamamlanan soruşturmanın sonucu kapsamında kesin önlemin uygulanması</span></div>
+<div class='karsi'><span class='kon'>Tanımlar bölümü</span><span class='hap eski'>Bakanlık, EBYS, Genel Müdürlük, Güney Kore, Kanun, Karar, KEP gibi tanımlar yer almaktadır</span><span class='ok'>→</span><span class='hap yeni'>Kurul tanımı eklenmiş, bazı tanımlar kaldırılmıştır</span></div>
+<div class='karsi'><span class='kon'>Damping marjı ve önlem oranları</span><span class='hap eski'>Damping marjlarının hesaplandığı ancak oranları belirtilmemiştir</span><span class='ok'>→</span><span class='hap yeni'>Tabloda dampinge karşı kesin önlem oranları gösterilmektedir</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kore menşeli rulo halinde olmayan sıcak haddelenmiş yassı çelik ürünü ithalatında tabloda belirtilen oranlarda damping karşı ek gümrük vergisi alınacak (Madde 5/1).</div>
+<div class='kiymet'>• Uygulamaya esas olan tanım yürürlükteki Türk Gümrük Tarife Cetvelindeki GTİP/GTP ve Madde 4'teki tablodaki eşya tanımıdır; Bilgilendirme Raporu genel niteliktedir (Madde 5/2).</div>
+<div class='kiymet'>• Tarife pozisyonunda veya tanımında yapılan değişiklikler tebliğ hükümlerinin uygulanmasını engellemez (Madde 5/3).</div>
+<div class='kiymet'>• Bu önlemler yürürlük tarihinden itibaren beş yıl sonra otomatik olarak sona erer (Madde 5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatılırsa, soruşturma bitene kadar önlemler yürürlükte kalmaya devam eder (Madde 5/5).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde (30 Ağustos 2025) yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Kore Cumhuriyeti menşeli, rulo halinde olmayan sıcak haddelenmiş yassı çelik (kalın levha)</p>
+<p><b>GTİP:</b><br><span class='gtip'>7208.51</span><span class='gtip'>7208.52</span><span class='gtip'>7225.99</span><span class='gtip'>7208.90.80</span><span class='gtip'>7211.19.00.21.00</span><span class='gtip'>7211.19.00.29.00</span><span class='gtip'>7211.13.00.11.00</span><span class='gtip'>7211.13.00.19.00</span><span class='gtip'>7211.14.00.21.11</span><span class='gtip'>7211.14.00.21.12</span><span class='gtip'>7211.14.00.29.11</span><span class='gtip'>7211.14.00.29.12</span><span class='gtip'>7211.14.00.31.00</span><span class='gtip'>7211.14.00.39.00</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>7211.19.00.21.00 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.31.00 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.19.00.29.00 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7225.99 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.29.11 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.13.00.19.00 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.21.11 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.39.00 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.21.12 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7208.90.80 → <b>Kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7211.14.00.29.12 → <b>Kaynakta belirtilmemis</b></div>
+<p><b>Kimi ilgilendirir:</b> Kore'den sıcak haddelenmiş çelik plaka ve levha ithal eden demir-çelik distribütörleri, inşaat malzemesi tedarikçileri ve metalurji sektöründe faaliyet gösteren şirketler</p>
+<p><b>Ne yapmalısın:</b> Kore menşeli sıcak haddelenmiş çelik plaka ithalatı planlanıyorsa, satın alma işlemine ve gümrük beyannamesi hazırlığına geçmeden önce Madde 4'teki tablodan ilgili ürün koduna ait damping oranı tespit edilmeli ve fiyat yapısına yansıtılmalıdır. Yolda olan sevkiyat varsa gümrük statüsü de ayrıca kontrol edilmelidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Kore menşeli ürün ithalatında kesin dampinge karşı önlemler yürürlüğe girmiştir. Bu durum, Kore'den ithalat yapanlar açısından maliyeti artırmakta ve ithalatı sınırlayıcı bir etki yaratmaktadır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250830-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Termosifon ve depolu su ısıtıcılarında damping önlemi yürürlükte kalıyor</h3>
-<p><b>Ne oldu:</b> Çin, İtalya ve Sırbistan'dan ithal edilen termosifon ve elektrikli depolu su ısıtıcılarına karşı önceki tebliğde yer alan damping önlemi, nihai gözden geçirme soruşturmasından sonra aynı şekilde uygulanmaya devam edecek.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/11)</p>
-<p><b>Ürün:</b> Termosifon-elektrikli, depolu su ısıtıcısı (diğerleri sınıflandırması)</p>
-<p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin, İtalya ve Sırbistan'dan termosifon ve su ısıtıcısı ithal eden dış ticaret yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Söz konusu ülkelerden gelen sevkiyatlarınızın gümrük girişlerinde tebliğde belirtilen tutarda/oranda damping önleminin tahsil edileceğini dikkate alarak maliyet planlaması güncelleyin; uygulanacak kesin oranı Madde 4'teki tabloda kontrol edin (tablo metinde ekle referansı ile verilmiştir).</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Mevcut damping önlemi devam ediyor, yeni bir artış yok. Ancak soruşturma bulguları dampingin kalkması halinde zarar devam etme riski tespit etmiş; bu nedenle koruma beş yıl daha uzuyor.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin, İtalya ve Sırbistan menşeli termosifon ithalatında dampinge karşı önlem sürüyor</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, elektrikli depolu su ısıtıcılarının bu üç ülkeden ithalatına yönelik başlatılan nihai gözden geçirme soruşturmasını sonuçlandırdı. Dampingin devam etme riskinin tespit edilmesi üzerine, 2019 yılından bu yana uygulanan koruma önlemi aynı tutarlar üzerinden yürürlükte kalacak.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2019/11 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Önlem yürürlük tarihinden itibaren 5 yıl sonra otomatik olarak kalkacak (Madde 5/4).</div>
+<div class='kiymet'>• Gümrük idareleri tabloda gösterilen tutarda/oranda dampinge karşı kesin önlemi serbest dolaşıma giriş aşamasında tahsil edecek (Madde 5/1).</div>
+<div class='kiymet'>• Ürünün TGTC'deki tarife pozisyonu veya tanımında yapılacak değişiklikler bu Tebliğ uygulamasını engellemeyecek (Madde 5/3).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatılırsa önlem soruşturma sonuçlanıncaya kadar yürürlükte kalır (Madde 5/5).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde (30 Ağustos 2025) yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Elektrikli depolu su ısıtıcısı, termosifon</p>
+<p><b>GTİP:</b><br><span class='gtip'>8516.10.80.00.19</span></p>
+<p><b>Kimi ilgilendirir:</b> Çin, İtalya ve Sırbistan'dan elektrikli su ısıtıcısı ithal eden firmalar ile bu ülkelerden ihracat yapan üreticiler</p>
+<p><b>Ne yapmalısın:</b> Temmuz 2025 sonrasındaki sevkiyatları kontrol edin ve her konşimentoda 8516.10.80.00.19 GTIP kodlu ürünü tabloda belirtilen oran/tutar üzerinden dampinge karşı ek mali yükümlülüğe tabi tutun. Gümrük müşaviriyle birlikte cari kontrol prosedürünü güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250830-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli su ısıtıcılarına dampinge karşı önlem sürdürülüyor</h3>
-<p><b>Ne oldu:</b> Nihai gözden geçirme soruşturması tamamlanmıştır. Çin'den ithal edilen gazla çalışan anında su ısıtıcılara (GTIP 8419.11.00.00.00) yönelik mevcut dampinge karşı önlem, aynı tutarda devam etmektedir.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2019/33</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin menşeli su ısıtıcılarına dampinge karşı kesin önlem yürürlüğe konuyor</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, gazla çalışan anında su ısıtıcılarının (GTIP 8419.11.00.00.00) Çin'den ithalatına yönelik nihai gözden geçirme soruşturmasını tamamladı. Soruşturma sonucunda dampingin devam riski bulunduğu saptandığı için, mevcut korunma önleminin uygulanmaya devam edilmesine karar verildi.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/37) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin menşeli gazla çalışan anında su ısıtıcılarının ithalatına karşı kesin dampinge karşı önlem, tabloda belirtilen tutarlar oranında gümrük idareleri tarafından tahsil edilir (Madde 5/1).</div>
+<div class='kiymet'>• Önlem yürürlük tarihinden itibaren 5 yıl süreyle uygulanır; bu tarihte otomatik olarak sona erer (Madde 5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatılırsa, soruşturma sonuçlanıncaya kadar önlem yürürlükte kalır (Madde 5/5).</div>
+<div class='kiymet'>• Tebliğ kapsamındaki GTIP ve eşya tanımı uygulamada esas alınır; TGTC'de yapılacak tarife değişiklikleri Tebliğ uygulamasına engel teşkil etmez (Madde 5/2, 5/3).</div>
+<div class='kiymet'>• Bu Tebliğ yayım tarihinde (30 Ağustos 2025) yürürlüğe girer (Madde 6/1).</div>
 <p><b>Ürün:</b> Gazla çalışan anında su ısıtıcılar</p>
 <p><b>GTİP:</b><br><span class='gtip'>8419.11.00.00.00</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>8419.11.00.00.00 → <b>kaynakta belirtilmemis</b></div>
-<p><b>Kimi ilgilendirir:</b> Çin menşeli su ısıtıcı ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> GTIP 8419.11.00.00.00 kapsamındaki gümrük beyannamelerine 4. maddedeki tabloda belirtilen dampinge karşı önlem tutarını uygulayın. Beyan edilen birim değerleri yeni soruşturma sonuçlarıyla karşılaştırın.</p>
+<p><b>Kimi ilgilendirir:</b> Çin menşeli gazla çalışan anında su ısıtıcı ürünü ithal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> Ağustos 2025 ve sonrası gümrük beyannamelerinizi kontrol et; söz konusu GTIP kodunda Çin menşeli ürünler için tabloya göre dampinge karşı önlem tahsil edilecek. Mevcut stoklar için müruru zaman yapıyorsa formülasyonu gözden geçir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Dampinge karşı önlem devam etmektedir. Soruşturma sonucunda, dampingin sona ermesi halinde zararın yeniden ortaya çıkmasının muhtemel olduğu tespit edilmiştir; ithal maliyeti planlaması güncellenmiş birim değerler üzerinden kontrol edilmelidir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Korunma önlemi:</b> bir üründe ithalat artışı yerli üreticilere ciddi zarar veriyorsa veya verme tehdidi varsa soruşturma sonucunda getirilen geçici koruma; genellikle ek vergi veya miktar sınırı olarak uygulanır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250830-12.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Mısır menşeli boru bağlantı parçalarına damping soruşturması açılması</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Trakya Döküm firmasının başvurusu üzerine Mısır Arap Cumhuriyeti menşeli 7307.19 GTP kodlu boru bağlantı parçalarına yönelik damping soruşturması açtı. 2024 yılı verilerine göre söz konusu ürünün ithalatında damping marjının önemli ölçüde tespit edildiği belirtilmiştir.</p>
-<p><b>Ürün:</b> Boru bağlantı parçaları (diğerleri)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Mısır menşeli boru bağlantı parçalarına damping soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Trakya Döküm'ün başvurusu üzerine Mısır'dan ithal edilen 7307.19 GTIP kodlu boru bağlantı parçalarına yönelik damping soruşturması açtı. İnceleme, 1/1/2022-31/12/2024 dönemindeki ithalatı kapsıyor; hesaplamalarda normal değer olarak İtalya'ya yapılan ihracat fiyatları, karşılaştırma fiyatı olarak ise Mısır'dan Türkiye'ye yapılan ithalatın CIF fiyatları esas alındı.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma bu Tebliğin yayımı tarihinde (30 Ağustos 2025) başlamış sayılır (m.14).</div>
+<div class='kiymet'>• Bildirimi alan ilgili taraflar soru formlarını gönderim tarihinden itibaren 37 gün içinde cevaplamak zorunda; bildirimi almayanlar bu Tebliğin yayımından itibaren 37 gün içinde sunacak (m.11/1-2).</div>
+<div class='kiymet'>• Mısır'da yerleşik üretici/ihracatçı, ithalatçı ve meslek kuruluşları ancak soru formlarını cevaplarsa veya görüş sunarsa ilgili taraf olarak sayılırlar (m.9/1).</div>
+<div class='kiymet'>• Yurt dışı merkezli firmalar soru formlarını yasal temsilci vasıtasıyla gönderecekse, yetkili imza yetkilisince imzalanmış vekaletname, Türkçe/İngilizce tercüme ve apostil şerhi gerekir (m.10/4).</div>
+<div class='kiymet'>• Tüm yazılı iletişim Türkçe yapılır; Türkçe dışında sunulan bilgi, belge, görüş ve talepler dikkate alınmaz (m.10/5).</div>
+<div class='kiymet'>• Soru formlarına verilen cevaplar yazılı sunulur ve ilgili tarafın ad, unvan, adres, e-posta, telefon, faks bilgileri belirtilir; Türkiye'de yerleşik taraflar KEP adresini de verecek (m.10/6).</div>
+<div class='kiymet'>• İş birliğine gelmediği veya kısmen gelmediği anlaşılan taraflar için soruşturma sonucu iş birliğine gelenden daha az avantajlı olabilir (m.12/2).</div>
+<div class='kiymet'>• Damping marjı Yönetmelik m.28'de belirtilen ihmal edilebilir oranın üstünde tespit edilmiştir (m.6/4).</div>
+<div class='kiymet'>• Mısır menşeli ithalatın 2022–2024'te üretim, istihdam, satış hacmi, kapasite kullanımı, pazar payı ve birim karlılık başta olmak üzere yerli üreticinin temel ekonomik göstergelerine maddi zarar verdiği değerlendirilmiştir (m.7/4-5).</div>
+<p><b>Ürün:</b> Boru bağlantı parçaları (7307.19 GTIP altında 'diğerleri' başlığında sınıflandırılan)</p>
 <p><b>GTİP:</b><br><span class='gtip'>7307.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Mısır'dan boru bağlantı parçası ithal eden firmalar, yerli üreticiler, yurt içi dağıtıcı ve satıcılar</p>
-<p><b>Ne yapmalısın:</b> Mısır menşeli boru bağlantı parçası ithalatçı ve üreticileri soru formlarını cevaplamak için 37 günlük süreyi takip et; gümrük beyannamesinde menşe ülke doğruluğunu kontrol et; soruşturma süreci boyunca Bakanlık'ın https://www.ticaret.gov.tr/ithalat adresinden güncelleme takibi yap.</p>
+<p><b>Kimi ilgilendirir:</b> Mısır menşeli boru bağlantı parçası ithal eden şirketler; Mısır'daki üretici ve ihracatçılar; yerli döküm ve metal işleri üreticileri</p>
+<p><b>Ne yapmalısın:</b> Mısır'dan boru bağlantı parçası ithal eden firmalar: Soruşturma açılışı kendilerine bildirilmişse soru formunu 37 gün içinde yanıtlamalı; bildirim gelmemişse Tebliğ'in yayımı tarihinden itibaren 37 gün içinde sunmalıdır. Merkezi yurt dışında olan firmalar yasal temsilci atayarak vekaletname, tercüme ve apostil işlemlerini tamamlamalıdır. Mısır'daki üretici ve ihracatçılar da aynı süreler içinde soru formlarını yanıtlamalı; aksi takdirde iş birliğine gelmemiş sayılacaktır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Damping tespit edilmesi nedeniyle soruşturma açıldı; ithalatçılar için geçici ve kesin önlem riski oluşmaktadır. Soruşturma süresi boyunca maliyetlendirme ve hedging planlaması gözden geçirilmeli, gerekirse yasal temsilci aracılığıyla Bakanlık'a bilgi sunulmalı.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma döneminde Mısır'dan gelen boru bağlantı parçalarının ithalatının hem mutlak hem de nispi olarak arttığı, bu ürünlerin yerli üreticinin fiyatlarını kırdığı ve baskıladığı tespit edilmiştir. Henüz geçici önlem uygulanmasa da, soruşturma sonucunda dampingli ithalatı sınırlayıcı geçici veya kesin önlemler uygulanması muhtemeldir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250830-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>
