@@ -103,6 +103,27 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <button type="button" onclick="aiFiltre('iflas',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,94,.16),rgba(255,107,94,.06));border:1px solid rgba(255,107,94,.42);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">⚖️ İflas ilanları <span style="color:var(--red)">→</span></button>
   </div>
 
+  <!-- 19.08 Cem: "Excel'i göremedim" — tarama kutusu canlı akışın ALTINA gömülüydü
+       (40 kart sonrası); asıl ürün eylemi olduğu için akışın ÜSTÜNE taşındı. -->
+  <div class="kutu" style="margin-top:18px">
+    <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
+    <label>Müşteri / borçlu listeni yükle (muhasebe programından tek tuşla Excel al)</label>
+    <label class="yukle" id="yukleKutu">
+      <div class="ikon">📄</div>
+      <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
+      <div class="alt">Cari listeni (VKN'li) yükle; <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
+      <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
+    </label>
+    <div class="yukle-durum" id="yukleDurum"></div>
+    <div class="ayrac">ya da elle yaz</div>
+    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz, her satıra bir tane. <b style="color:var(--ink)">En kesin sonuç VKN iledir.</b> Firma adıyla da arayabilirsin; tek kelimelik kısa ad (yalnız soyadı gibi) karışıklığı önlemek için taranmaz, en az iki kelime yaz.</label>
+    <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
+    <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
+    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni yükle ya da yaz.</div>
+  </div>
+
+  <div id="sonuc"></div>
+
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
   <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı akış · günde iki kez otomatik güncellenir</span></h2>
@@ -316,25 +337,6 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     }).join('') + (suz.length>40?'<div class="ipucu">İlk 40 gösteriliyor ('+suz.length+' sonuç), aramayı daralt.</div>':'');
   }
   </script>
-
-  <div class="kutu">
-    <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
-    <label>Müşteri / borçlu listeni yükle (muhasebe programından tek tuşla Excel al)</label>
-    <label class="yukle" id="yukleKutu">
-      <div class="ikon">📄</div>
-      <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
-      <div class="alt">Cari listeni (VKN'li) yükle; <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
-      <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
-    </label>
-    <div class="yukle-durum" id="yukleDurum"></div>
-    <div class="ayrac">ya da elle yaz</div>
-    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz, her satıra bir tane. <b style="color:var(--ink)">En kesin sonuç VKN iledir.</b> Firma adıyla da arayabilirsin; tek kelimelik kısa ad (yalnız soyadı gibi) karışıklığı önlemek için taranmaz, en az iki kelime yaz.</label>
-    <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
-    <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
-    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni yükle ya da yaz.</div>
-  </div>
-
-  <div id="sonuc"></div>
 
   <h2>Nasıl çalışır</h2>
   <div class="nasil">
