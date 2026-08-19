@@ -133,21 +133,28 @@ const HIZ_SOZLUK={
 function hizFold(s){ return String(s||'').toLocaleLowerCase('tr')
   .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
   .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a'); }
+// Türkçe ek toleransı: "aboneliğini" → "abonelig…" kök öne doğru kırpılarak denenir (en az 4 harf)
+function hizKok(metin,p){
+  if(p.length<=4) return metin.indexOf(p)>=0;
+  for(let L=p.length;L>=4;L--){ if(metin.indexOf(p.slice(0,L))>=0) return true; }
+  return false;
+}
 function hizSuz(){
   const q=hizFold(document.getElementById('hizAra').value.trim());
   const parcalar=q.split(/\s+/).filter(t=>t.length>=2);
   const notEl=document.getElementById('hizAraNot');
+  const btnlar=[...document.querySelectorAll('#ekran .secenek[data-k]')];
+  if(!parcalar.length){ btnlar.forEach(b=>b.style.display=''); notEl.textContent=''; return; }
+  // puanlama: eşleşen kelime 1/df ağırlıklı (df = kaç kartta geçtiği) — "yurt dışı, aldım" gibi
+  // her yerde geçen dolgu kelimeler kendiliğinden değersizleşir, ayırt edici kelime kazanır
+  const metinler=btnlar.map(b=>{ const k=b.dataset.k; return hizFold(TUR[k].ad+' '+TUR[k].ornek+' '+(HIZ_SOZLUK[k]||'')); });
+  const df=parcalar.map(p=>metinler.reduce((t,m)=>t+(hizKok(m,p)?1:0),0));
+  const puanlar=metinler.map(m=>parcalar.reduce((t,p,i)=>t+(df[i]&&hizKok(m,p)?1/df[i]:0),0));
+  const tavan=Math.max(...puanlar)-1e-9;
+  if(tavan<0){ btnlar.forEach(b=>b.style.display=''); notEl.textContent='Tam eşleşme çıkmadı, 9 türün hepsi gösteriliyor; en yakınını seç.'; return; }
   let gorunen=0;
-  document.querySelectorAll('#ekran .secenek[data-k]').forEach(b=>{
-    const k=b.dataset.k;
-    const metin=hizFold(TUR[k].ad+' '+TUR[k].ornek+' '+(HIZ_SOZLUK[k]||''));
-    const uyar = !parcalar.length || parcalar.every(p=>metin.indexOf(p)>=0);
-    b.style.display = uyar?'':'none'; if(uyar) gorunen++;
-  });
-  if(parcalar.length && !gorunen){
-    document.querySelectorAll('#ekran .secenek[data-k]').forEach(b=>{ b.style.display=''; });
-    notEl.textContent='Tam eşleşme çıkmadı, 9 türün hepsi gösteriliyor; en yakınını seç.';
-  } else notEl.textContent = parcalar.length ? (gorunen===1?'Tek tür kaldı; karta tıkla, sorularla netleştirelim.':'') : '';
+  btnlar.forEach((b,i)=>{ const uyar=puanlar[i]>=tavan; b.style.display=uyar?'':'none'; if(uyar) gorunen++; });
+  notEl.textContent = gorunen===1?'Tek tür kaldı; karta tıkla, sorularla netleştirelim.':'';
 }
 function baslat(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('hizmet')) return; C.tur=null;C.grupOverride=null;C.cvoa=null;C.belge=null;C.isyeri=null;C.yazilimTur=null; ilerle(0);
   ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Nasıl bir hizmet aldın?</div><div class="sac">Ne aldığını yaz, kartlar süzülsün; ya da aşağıdan doğrudan seç.</div>

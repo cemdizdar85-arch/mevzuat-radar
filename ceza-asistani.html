@@ -112,22 +112,64 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 const C={};
 function ilerle(n){ let h=''; for(let i=0;i<3;i++) h+=`<div class="nokta ${i<n?'ok':''}"></div>`; document.getElementById('ilerle').innerHTML=h; }
 function ekran(html){ document.getElementById('ekran').innerHTML='<div class="adim">'+html+'</div>'; document.getElementById('ekran').scrollIntoView({behavior:'smooth',block:'nearest'}); }
-function sec(list,back){ return list.map(o=>`<button class="secenek" onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+(back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
+function sec(list,back){ return list.map(o=>`<button class="secenek" ${o.attr||''} onclick="${o.on}">${o.t}${o.s?'<small>'+o.s+'</small>':''}</button>`).join('')+(back?`<button class="geri" onclick="${back}">← geri</button>`:''); }
+
+// TEK KUTU: başına geleni kendi kelimenle yaz, durum kartları süzülsün. Sözlük yalnız
+// YÖNLENDİRİR; hangi kapının açık olduğuna her zaman sihirbazın soruları karar verir.
+// Çift anlamlı kelime ("beyanname", "ceza geldi") bilerek birden çok kartı bırakır.
+const CZ_SOZLUK={
+  vermedim:"beyanname vermedim vermemişim geç kaldım unuttum unutmuşum süresinde gecikti kdv muhtasar geçici vergi yıllık gelir kurumlar damga boş atlamışım",
+  yanlis:"yanlış eksik hatalı düzeltme matrah düşük az beyan hata yaptım sehven",
+  belge:"fatura kesmedim kesilmedi e-fatura efatura e-arşiv earşiv e-defter edefter belge fiş gider pusulası serbest meslek makbuzu özel usulsüzlük irsaliye",
+  gumruk:"gümrük ithalat ihracat kıymet gtip tarife ek tahakkuk kaçakçılık antrepo menşe ceza kararı geldi tebliğ",
+  izaha:"izaha davet izah ön tespit açıklama istendi yazı geldi sahte belge smiyb",
+  sgk:"sgk sigorta prim bildirge aphb işe giriş çıkış bildirimi idari para cezası bağkur kurum geç eksik verilmedi verdim",
+  ihbarname:"ihbarname tarhiyat tebliğ vergi ziyaı inceleme rapor takdir vergi dairesinden ceza kesildi geldi"
+};
+function czFold(s){ return String(s||'').toLocaleLowerCase('tr')
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/î/g,'i')
+  .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/â/g,'a'); }
+// Türkçe ek toleransı: "beyannamesini" → "beyanna…" kök öne doğru kırpılarak denenir (en az 4 harf)
+function czKok(metin,p){
+  if(p.length<=4) return metin.indexOf(p)>=0;
+  for(let L=p.length;L>=4;L--){ if(metin.indexOf(p.slice(0,L))>=0) return true; }
+  return false;
+}
+function czSuz(){
+  const q=czFold(document.getElementById('czAra').value.trim());
+  const parcalar=q.split(/\s+/).filter(t=>t.length>=2);
+  const notEl=document.getElementById('czAraNot');
+  const btnlar=[...document.querySelectorAll('#ekran .secenek[data-k]')];
+  if(!parcalar.length){ btnlar.forEach(b=>b.style.display=''); notEl.textContent=''; return; }
+  // puanlama: eşleşen kelime 1/df ağırlıklı (df = kaç kartta geçtiği) — "geldi, ceza" gibi
+  // her yerde geçen dolgu kelimeler kendiliğinden değersizleşir, ayırt edici kelime kazanır
+  const metinler=btnlar.map(b=>czFold(b.textContent+' '+(CZ_SOZLUK[b.dataset.k]||'')));
+  const df=parcalar.map(p=>metinler.reduce((t,m)=>t+(czKok(m,p)?1:0),0));
+  const puanlar=metinler.map(m=>parcalar.reduce((t,p,i)=>t+(df[i]&&czKok(m,p)?1/df[i]:0),0));
+  const tavan=Math.max(...puanlar)-1e-9;
+  if(tavan<0){ btnlar.forEach(b=>b.style.display=''); notEl.textContent='Tam eşleşme çıkmadı, hepsi gösteriliyor; en yakınını seç.'; return; }
+  let gorunen=0;
+  btnlar.forEach((b,i)=>{ const uyar=puanlar[i]>=tavan; b.style.display=uyar?'':'none'; if(uyar) gorunen++; });
+  notEl.textContent = gorunen===1?'Tek durum kaldı; karta tıkla, sorularla netleştirelim.':'';
+}
 function kapi(ad,sure,acil,ac,oner){ return `<div class="kapi ${oner?'oner':''}"><div class="b"><div class="ad">${ad}${oner?'<span class="rozet">SANA UYGUN</span>':''}</div>${sure?`<div class="sure ${acil?'acil':''}">${sure}</div>`:''}</div><div class="ac">${ac}</div></div>`; }
 function btnGeri(){ return `<button class="btn" onclick="baslat()">↺ Baştan sorgula</button>`; }
 
 // ===== ADIM 1 — NE OLDU? =====
 function baslat(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('ceza')) return; C.senaryo=null;C.asama=null;C.bakis=null;C.kacakcilik=null; ilerle(0);
-  ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Durumunu seç.</div><div class="sac">En yakın olanı işaretle; sonraki adımda detaylandırırız.</div>`+
+  ekran(`<div class="soru">ADIM 1</div><div class="sbaslik">Ne oldu? Durumunu seç.</div><div class="sac">Başına geleni yaz, kartlar süzülsün; ya da aşağıdan en yakınını işaretle.</div>
+    <input id="czAra" autocomplete="off" oninput="czSuz()" placeholder="ör. kdv beyannamesini unuttum, sgk cezası geldi, fatura kesmedim…" style="width:100%;margin:0 0 6px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit">
+    <div id="czAraNot" style="font-size:12px;color:var(--dim);margin:0 0 12px"></div>`+
     sec([
-      {t:"📄 Beyannameyi hiç vermedim / geç kaldım",s:"KDV, muhtasar, geçici vergi, yıllık beyanname… süresinde verilmedi",on:"C.senaryo='vermedim';asamaSor()"},
-      {t:"✏️ Beyannameyi eksik/yanlış verdim",s:"Matrah/vergi olması gerekenden düşük çıktı, hata yaptım",on:"C.senaryo='yanlis';asamaSor()"},
-      {t:"🧾 Fatura / e-fatura / e-belge kesmedim",s:"Belge düzenlememe-almama, e-arşiv/e-defter/e-fatura eksiği",on:"C.senaryo='belge';belgeSonuc()"},
-      {t:"🛃 Gümrük beyanım eksik/yanlış",s:"Kıymet düşük, yanlış GTİP, eksik vergi (ithalat/ihracatta)",on:"C.senaryo='gumruk';gumrukSenaryo()"},
-      {t:"✉️ İdareden 'İZAHA DAVET' yazısı geldi",s:"'Şu tespit var, izah et' diyen resmî yazı (henüz ceza değil)",on:"C.senaryo='izaha';izahaSonuc()"},
-      {t:"🧑‍💼 SGK idari para cezası geldi",s:"Eksik/geç bildirge (APHB, işe giriş-çıkış), belge · farklı rejim, 15 gün",on:"C.senaryo='sgk';sgkSonuc()"},
-      {t:"📩 Ceza / vergi ihbarnamesi ELİME GEÇTİ",s:"Tarhiyat yapıldı; damga, KDV, gelir/kurumlar dahil her vergi cezası (süre işliyor)",on:"C.senaryo='ihbarname';kurumSor()"}
+      {t:"📄 Beyannameyi hiç vermedim / geç kaldım",s:"KDV, muhtasar, geçici vergi, yıllık beyanname… süresinde verilmedi",on:"C.senaryo='vermedim';asamaSor()",attr:'data-k="vermedim"'},
+      {t:"✏️ Beyannameyi eksik/yanlış verdim",s:"Matrah/vergi olması gerekenden düşük çıktı, hata yaptım",on:"C.senaryo='yanlis';asamaSor()",attr:'data-k="yanlis"'},
+      {t:"🧾 Fatura / e-fatura / e-belge kesmedim",s:"Belge düzenlememe-almama, e-arşiv/e-defter/e-fatura eksiği",on:"C.senaryo='belge';belgeSonuc()",attr:'data-k="belge"'},
+      {t:"🛃 Gümrük beyanım eksik/yanlış",s:"Kıymet düşük, yanlış GTİP, eksik vergi (ithalat/ihracatta)",on:"C.senaryo='gumruk';gumrukSenaryo()",attr:'data-k="gumruk"'},
+      {t:"✉️ İdareden 'İZAHA DAVET' yazısı geldi",s:"'Şu tespit var, izah et' diyen resmî yazı (henüz ceza değil)",on:"C.senaryo='izaha';izahaSonuc()",attr:'data-k="izaha"'},
+      {t:"🧑‍💼 SGK idari para cezası geldi",s:"Eksik/geç bildirge (APHB, işe giriş-çıkış), belge · farklı rejim, 15 gün",on:"C.senaryo='sgk';sgkSonuc()",attr:'data-k="sgk"'},
+      {t:"📩 Ceza / vergi ihbarnamesi ELİME GEÇTİ",s:"Tarhiyat yapıldı; damga, KDV, gelir/kurumlar dahil her vergi cezası (süre işliyor)",on:"C.senaryo='ihbarname';kurumSor()",attr:'data-k="ihbarname"'}
     ]));
+  document.getElementById('czAra').focus();
 }
 
 // ===== ADIM 2 — SENİ YAKALADILAR MI? =====
