@@ -1,7 +1,7 @@
 {
-  "tarih": "18.08.2026 23:29",
+  "tarih": "19.08.2026 01:51",
   "durum": "HATA",
   "hata": "Response status code does not indicate success: 429 (Too Many Requests).",
-  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your API usage limits: your organization has crossed its monthly API usage threshold, set based on your organization\\u0027s API tier. You will regain access on 2026-09-01 at 00:00 UTC.\",\n    \"details\": {\n      \"error_code\": \"enforced_spend_limit_reached\"\n    }\n  },\n  \"request_id\": \"req_011CeB5jrKDau",
+  "sunucu": "\n{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"rate_limit_error\",\n    \"message\": \"You have reached your API usage limits: your organization has crossed its monthly API usage threshold, set based on your organization\\u0027s API tier. You will regain access on 2026-09-01 at 00:00 UTC.\",\n    \"details\": {\n      \"error_code\": \"enforced_spend_limit_reached\"\n    }\n  },\n  \"request_id\": \"req_011CeBGcni1aS",
   "satir": 147
 }
