@@ -47,15 +47,27 @@ $arsiv = [ordered]@{
 }
 [System.IO.File]::WriteAllText($arsivYol, ($arsiv | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding $false))
 
+# --- SON 30 GUN SAYACI (19.08 Cem: sayfa rozeti soyut korku degil OLCULMUS
+#     rakam gostersin). Sayilan sey ILAN adedidir, firma adedi DEGILDIR: ayni
+#     dosyada mühlet/sira cetveli/tebligat gibi birden cok ilan cikabiliyor.
+#     Rozet metni de bu yuzden "ilan" der. Hesap TAM arsivden yapilir (canli
+#     400 kayit 30 gunu kapatmayabilir).
+$esik  = (Get-Date).Date.AddDays(-30)
+$son30 = @($liste | Where-Object { (TarihAnahtar $_.tarih) -ge $esik })
+
 # --- CANLI (son N) ---
 $son = @($liste | Select-Object -First $CANLI_ADET)
 $canliYeni = [ordered]@{
-  guncelleme = $sonGuncelleme
-  kaynak     = $arsiv.kaynak
-  adet       = @($son).Count
-  arsivAdet  = @($liste).Count
-  arsivDosya = 'veri/alacak-arsiv.json'
-  ilanlar    = $son
+  guncelleme      = $sonGuncelleme
+  kaynak          = $arsiv.kaynak
+  adet            = @($son).Count
+  arsivAdet       = @($liste).Count
+  arsivDosya      = 'veri/alacak-arsiv.json'
+  son30Gun        = 30
+  son30           = @($son30).Count
+  son30Konkordato = @($son30 | Where-Object { $_.tur -eq 'konkordato' }).Count
+  son30Iflas      = @($son30 | Where-Object { $_.tur -eq 'iflas' }).Count
+  ilanlar         = $son
 }
 [System.IO.File]::WriteAllText($canliYol, ($canliYeni | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding $false))
 
@@ -68,4 +80,6 @@ $vknA = @($ga.ilanlar | Where-Object { $_.vkn }).Count
 $borcA = @($ga.ilanlar | Where-Object { $_.borclu }).Count
 Write-Host ("ARSIV : {0} ilan · {1} MB · borclu {2} · VKN {3}" -f @($ga.ilanlar).Count, $mbA, $borcA, $vknA)
 Write-Host ("CANLI : {0} ilan · {1} KB (sayfa acilisi)" -f @($gc.ilanlar).Count, $kbC)
+Write-Host ("SON30 : {0} ilan (konkordato {1} / iflas {2}) - sayfa rozeti bunu basar" -f $gc.son30, $gc.son30Konkordato, $gc.son30Iflas)
 if (@($ga.ilanlar).Count -lt @($liste).Count) { throw 'KAYIP: arsiv eksik yazildi' }
+if ($gc.son30 -ne @($son30).Count) { throw 'KAYIP: son30 sayaci geri okunamadi' }
