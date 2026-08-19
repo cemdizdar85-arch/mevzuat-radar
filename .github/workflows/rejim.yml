@@ -45,6 +45,13 @@ jobs:
         shell: pwsh
         run: ./motor/rejim-indir.ps1 -Uygula
 
+      # TGTC (esya tanimlari) seti ayri nobet: degisince MAIL (hasat yerelde,
+      # tanim-hasat Excel COM ister). rejim-indir kirmizi olsa da kossun.
+      - name: TGTC seti degisti mi (tanim nobeti)
+        if: always()
+        shell: pwsh
+        run: ./motor/tgtc-nobet.ps1
+
       - name: Degisiklik varsa yayinla
         if: always()
         run: |
@@ -52,7 +59,8 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           for f in veri/gtip-vergi.json veri/gtip-vergi-ulke.json veri/gtip-vergi-tarim.json \
                    veri/gtip-emy-tarim.json veri/gtip-balik.json veri/gtip-askiya.json \
-                   veri/gtip-nihai.json veri/gtip-igv-ulke.json veri/rejim-kaynak-damga.json; do
+                   veri/gtip-nihai.json veri/gtip-igv-ulke.json veri/rejim-kaynak-damga.json \
+                   veri/tgtc-kaynak-damga.json; do
             git add "$f" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
