@@ -25,12 +25,83 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>09.04.2026 — Resmî Gazete'deki 0 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>09.04.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Yatırım tamamlama vizesi için Yeminli Mali Müşavir raporu şartı getirildi</h3>
+<p><b>Ne oldu:</b> Yatırım tamamlama vizesine ilişkin olarak yeni bir belge şartı getirilmiştir. Elektrik enerjisi üretimine yönelik yatırımlar hariç olmak üzere tüm yatırımlarda, Genel Müdürlükçe belirlenecek hâllerde Yeminli Mali Müşavir raporu zorunlu tutulmuştur.</p>
+<p><b>Hangi tebliğ:</b> Yatırımlarda Devlet Yardımları Hakkında Kararın Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2025/1) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(21.06.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='kiymet'>• Yatırım tamamlama vizesi için istenen belgeler: <span style='color:var(--dim);text-decoration:line-through'>EK-4 bölümünde 8. madde bulunmamaktadır</span> → <b>EK-4'ün 8. maddesi: Elektrik enerjisi üretimine yönelik yatırımlar hariç bütün yatırım konularında, Genel Müdürlükçe belirlenecek hallerde, EK-5'te yer alan formata uygun hazırlanmış Yeminli Mali Müşavir raporu</b></div>
+<div class='kiymet'>• Yeminli Mali Müşavir raporu uygulanması: <span style='color:var(--dim);text-decoration:line-through'>Önceki tebliğde yer almamaktadır</span> → <b>Daha önceki Bakanlar Kurulu kararlarına istinaden düzenlenen teşvik belgelerine de uygulanmak üzere</b></div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/01/20250111-11.htm' target='_blank' rel='noopener'>11.01.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/1)</div>
+<p><b>Ürün:</b> Devlet teşvikinden yararlanan yatırımlar (elektrik üretimi hariç)</p>
+<p><b>Kimi ilgilendirir:</b> Devlet teşvikinden faydalanan ve yatırım tamamlama vizesi talep eden üretim işletmeleri ile danışmanları</p>
+<p><b>Ne yapmalısın:</b> Müracaat hazırlanmışsa ve konu elektrik üretimi dışında bir yatırımsa, Genel Müdürlükçe talep edilmesi hâlinde mali müşavir raporu EK-5 formatında hazırlatılarak vize başvurusuna eklenmelidir; önceki teşvik belgelerinin vize süreci devam ediyorsa bu kural söz konusu dosyalar için de geçerlidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Yatırımcılar açısından yeni bir idari yük ve maliyet unsuru doğmuştur. Yeminli Mali Müşavir raporunun hazırlatılması ek bir harcamayı gerektirecektir.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260409-14.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İthalatta gözetim belgesi gerektiren 47 valf ve aksesuar kodu</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirtilen valf ve kontrol sistemlerinin ithalatında gözetim uygulamasını yürürlüğe koydu. Söz konusu eşya, ancak elektronik gözetim belgesi ibraz edilmek suretiyle gümrük beyannamesine konu edilebilecektir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2018/6) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/02/20250228-4.htm' target='_blank' rel='noopener'>28.02.2025 tarihli Resmî Gazete</a> (Tebliğ 2018/6)</div>
+<p><b>Ürün:</b> Valf ve kontrol sistemleri (yangın söndürme tetikleri, filtre kombine valfler, hidrolik transmisyon kontrol valfleri, pnömatik kontrol valfleri, termostatik valfler, hidrantlar, buhar kapanları, diyafram valfler)</p>
+<p><b>GTİP:</b><br><span class='gtip'>8424.90.80.00.12</span><span class='gtip'>8481.10.05.00.00</span><span class='gtip'>8481.10.19.00.00</span><span class='gtip'>8481.10.99.00.00</span><span class='gtip'>8481.20.10.00.00</span><span class='gtip'>8481.20.90.00.00</span><span class='gtip'>8481.30.91.00.00</span><span class='gtip'>8481.30.99.00.00</span><span class='gtip'>8481.40.10.00.00</span><span class='gtip'>8481.40.90.00.11</span><span class='gtip'>8481.40.90.00.19</span><span class='gtip'>8481.80.11.00.00</span><span class='gtip'>8481.80.19.00.01</span><span class='gtip'>8481.80.19.00.09</span><span class='gtip'>8481.80.19.00.12</span><span class='gtip'>8481.80.31.00.00</span><span class='gtip'>8481.80.39.00.00</span><span class='gtip'>8481.80.40.00.00</span><span class='gtip'>8481.80.51.00.00</span><span class='gtip'>8481.80.59.00.11</span><span class='gtip'>8481.80.59.00.19</span><span class='gtip'>8481.80.61.00.00</span><span class='gtip'>8481.80.63.00.00</span><span class='gtip'>8481.80.69.00.00</span><span class='gtip'>8481.80.71.00.00</span><span class='gtip'>8481.80.73.00.00</span><span class='gtip'>8481.80.79.00.00</span><span class='gtip'>8481.80.81.00.00</span><span class='gtip'>8481.80.85.00.11</span><span class='gtip'>8481.80.85.00.19</span><span class='gtip'>8481.80.87.00.00</span><span class='gtip'>8481.80.99.00.11</span><span class='gtip'>8481.80.99.00.12</span><span class='gtip'>8481.80.99.00.13</span><span class='gtip'>8481.80.99.00.21</span><span class='gtip'>8481.80.99.00.29</span><span class='gtip'>8481.90.00.00.11</span><span class='gtip'>8481.90.00.00.19</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8481.80.40.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.85.00.19 → <b>12 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.11.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.99.00.11 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.31.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8424.90.80.00.12 → <b>12 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.99.00.21 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.99.00.13 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.19.00.01 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.40.90.00.11 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.30.99.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.61.00.00 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.63.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.30.91.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.90.00.00.11 → <b>5 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.10.05.00.00 → <b>30 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.90.00.00.19 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.73.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.99.00.12 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.59.00.19 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.85.00.11 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.10.99.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.69.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.40.10.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.19.00.09 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.71.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.81.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.87.00.00 → <b>10 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.10.19.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.20.10.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.40.90.00.19 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.19.00.12 → <b>12 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.79.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.20.90.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.59.00.11 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.39.00.00 → <b>15 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.51.00.00 → <b>20 ABD Doları/kg</b></div>
+<div class='kiymet'>8481.80.99.00.29 → <b>15 ABD Doları/kg</b></div>
+<p><b>Kimi ilgilendirir:</b> Metal işleri, makine, otomotiv, HVAC, yangın güvenliği sistemleri ile endüstriyel kontrol ekipmanları üretimi ve ithalatıyla iştigal eden firmalar</p>
+<p><b>Ne yapmalısın:</b> Mevcut ve planlanan valf ithalatlarınıza ilişkin her bir GTİP kodunu ve birim kıymeti tabloyla karşılaştırarak kontrol ediniz. Sevkiyatlara ilişkin gözetim belgesi başvurusunu E-Hizmetler portalı üzerinden, elektronik imza ile tamamlayınız. Belgeler sistem tarafından e-posta yoluyla iletilecek olup, belge numarası ve tarihinin gümrük beyannamesinin 44 nolu kutusuna kaydedilmesi gerektiğini unutmayınız.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260409-15.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

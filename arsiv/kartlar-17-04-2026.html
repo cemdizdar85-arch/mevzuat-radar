@@ -25,12 +25,57 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>17.04.2026 — Resmî Gazete'deki 0 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>17.04.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Mısır ithalatında tarife kontenjanından yararlanma usulü belirlendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 16 Nisan 2026 tarihli Cumhurbaşkanı Kararı ile yürürlüğe giren mısır ithalatına ilişkin tarife kontenjanının dağıtım yöntemini, başvuru ve kullanım kurallarını tebliğ etti. Kontenjan, gümrük beyannamesinin tescil sırası esas alınarak tahsis edilecek; her beyanname için azami miktar sınırlandırılmış olup bu miktarı aşan kısım standart gümrük vergisine tabi tutulacak.</p>
+<p><b>Ürün:</b> Mısır</p>
+<p><b>GTİP:</b><br><span class='gtip'>1005.90.00.00.19</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>1005.90.00.00.19 → <b>8.000 ton</b></div>
+<p><b>Kimi ilgilendirir:</b> Mısır ithalatçıları, gümrük müşavirleri, lojistik ve ticaret şirketleri</p>
+<p><b>Ne yapmalısın:</b> Mısır ithal edecekseniz beyanname tescili sırasında kontenjandan yararlanacağınızı ilgili muafiyet kodunu seçerek belirtin. Ek-1 tablosunda yer alan azami miktarı kontrol edin; bu miktarı aşan kısım standart vergiye tabi olacaktır. Beyanname tescilinden sonra 3 gün süreyle kontenjanın yeniden kullanılamayacağını göz önünde bulundurun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-32.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Dahilde işleme rejimi izinlerine geçici süre uzatımı imkânı</h3>
+<p><b>Ne oldu:</b> Dahilde işleme izinlerine ilişkin kapatılmamış ihracat taahhüt hesapları, 6 ay içinde başvuru yapılması kaydıyla, orijinal sürenin yarısı kadar ek süreden yararlanabilecek. Kıymetli madenler (7108, 7112.91, 7113.19) için ek süre 3 ayla, diğer ürünler için ise 1 ayla sınırlı tutulmuştur.</p>
+<p><b>Hangi tebliğ:</b> Dahilde İşleme Rejimi Tebliği (İhracat: 2006/12) sayılı Tebliği değiştiriyor</p>
+<p><b>Ürün:</b> Kıymetli metaller ve bunlardan mamul eşya (altın, gümüş, platin grubu metaller)</p>
+<p><b>GTİP:</b><br><span class='gtip'>7108</span><span class='gtip'>7112.91</span><span class='gtip'>7113.19</span></p>
+<p><b>Kimi ilgilendirir:</b> Dahilde işleme rejimi kapsamında kıymetli metal ve basit metal işleri ihraç eden firmalar</p>
+<p><b>Ne yapmalısın:</b> Açık ihracat taahhüt hesabınız bulunuyor ve süreler kritik seviyedeyse, tebliğin yürürlüğe girmesinden itibaren 6 ay içinde Ticaret Bakanlığı'na başvurunuzu yapınız; kıymetli metaller hattında işleminiz varsa 3 aylık ek süreyi planlamanıza dahil ediniz.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Açık dahilde işleme izinlerinin süresi uzatılabilmekte olup, bu düzenleme özellikle kıymetli metallerle çalışan ihracatçıların pazar dalgalanmalarına karşı işlemlerini sonuçlandırma konusundaki esnekliğini artırmaktadır.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+<div class="kart">
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İthalat gözetim esikleri yükseltildi; ürün grubu başına yeni bedel tablosu</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, ithalatta gözetim uygulamasının esik değerlerini güncelleştirdi. Tebliğ No: 2026/17'nin madde 1'indeki tablo yeniden düzenlenmiş; yalınız motor güçlerine göre sınıflandırılan ürünlerin gözetim başlangıç bedelleri revize edilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2026/17) sayılı Tebliği değiştiriyor</p>
+<p><b>Ürün:</b> Yalınız motor gücüne göre sınıflandırılan yer otomobilleri (18 kW ile 130 kW arası)</p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8703.21.10.90.19 (75 kW ile 130 kW arası, fakültatif 130 kW'ye kadar) → <b>35.000 ABD Doları/Adet</b></div>
+<div class='kiymet'>8703.21.10.90.19 (18 kW ile 37 kW arası, fakültatif 37 kW'ye kadar) → <b>12.000 ABD Doları/Adet</b></div>
+<div class='kiymet'>8703.21.10.90.19 (130 kW ve üzeri) → <b>44.890 ABD Doları/Adet</b></div>
+<div class='kiymet'>8703.21.10.90.19 (18 kW'ye kadar) → <b>5.078 ABD Doları/Adet</b></div>
+<div class='kiymet'>8703.21.10.90.19 (37 kW ile 75 kW arası, fakültatif 75 kW'ye kadar) → <b>25.000 ABD Doları/Adet</b></div>
+<p><b>Kimi ilgilendirir:</b> Otomotiv sektöründe ithal yapan firmalar; gözetim tebliğine tabi ürün sevk eden ve ithal eden işletmeler</p>
+<p><b>Ne yapmalısın:</b> Şubat ve sonrası sevkiyatlarının proforma fatura ve deklarasyon değerlerini tablodaki yeni esiklerle karşılaştır; esik altındaki beyanları tanımla ve gerekli ek belgeler ile denetim hazırlığını yap. Satış fiyatlandırması stratejisini gözden geçir.</p>
+<p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Gözetim esikleri motor gücü kategorileri bazında belirgin oranda yükseltilmiştir. Bu bedellerin altında kalan beyanlar resmi gözetim ve ek dokümantasyon yüküne tabi olacak; ithal maliyeti planlama ve fiyatlandırma stratejileri güncellenmesi gerekir.</div>
+<div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
+</div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>
