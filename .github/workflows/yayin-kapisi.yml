@@ -43,8 +43,14 @@ jobs:
           # 19.08: --autostash SART (kartlar.yml 18.08 dersi). Onceki adimlarin
           # biraktigi izlenmeyen degisiklikler rebase'i "unstaged changes" diye
           # durduruyordu; uc deneme de AYNI sebepten dusuyor, kosu KIRMIZI bitiyordu.
+          # 19.08 (2. kat): ardisik iki kosu ayni rapor dosyasinin ayni satirini
+          # degistirince rebase CAKISMADA TAKILI kaliyor ve sonraki denemeler
+          # "unresolved conflict" ile dusuyordu. Her denemede takili rebase iptal
+          # edilir; rapor dosyasinda dogru cozum SON YAZAN KAZANIR (-X theirs,
+          # rebase sirasinda "theirs" = bizim yeni commit).
           for i in 1 2 3; do
-            git pull --rebase --autostash && git push && break
+            git rebase --abort >/dev/null 2>&1 || true
+            git pull --rebase --autostash -X theirs && git push && break
             echo "push denemesi $i tutmadi"; sleep 5
             if [ $i -eq 3 ]; then echo "!! PUSH TUTMADI"; exit 1; fi
           done
