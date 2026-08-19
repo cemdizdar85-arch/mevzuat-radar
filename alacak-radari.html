@@ -115,11 +115,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
     </label>
     <div class="yukle-durum" id="yukleDurum"></div>
-    <div class="ayrac">ya da elle yaz</div>
-    <label for="giris">Borçlularının VKN'lerini (vergi kimlik no) yaz, her satıra bir tane. <b style="color:var(--ink)">En kesin sonuç VKN iledir.</b> Firma adıyla da arayabilirsin; tek kelimelik kısa ad (yalnız soyadı gibi) karışıklığı önlemek için taranmaz, en az iki kelime yaz.</label>
-    <textarea id="giris" placeholder="Örnek (bu demo verisinde eşleşir):&#10;280365097&#10;690485912&#10;PERGEL METAL"></textarea>
+    <div class="ayrac">ya da tek borçlu sorgula</div>
+    <label for="giris"><b style="color:var(--ink)">Bir VKN ya da bir firma adı</b> yaz. En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Çok sayıda borçlu için yukarıdan <b style="color:var(--ink)">Excel/CSV yükle</b>.</label>
+    <input type="text" id="giris" class="gir" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font:inherit;font-size:15px" placeholder="ör. 280365097 ya da PERGEL METAL (demo verisinde eşleşir)" onkeydown="if(event.key==='Enter')kontrol()">
     <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
-    <div class="ipucu">Deneme için üstteki örnek VKN'leri kullanabilirsin. Gerçek kullanımda kendi müşteri/borçlu listeni yükle ya da yaz.</div>
+    <div class="ipucu">Deneme için örnek VKN 280365097'yi arayabilirsin. Gerçek kullanımda kendi borçlunu yaz ya da listeni yükle.</div>
   </div>
 
   <div id="sonuc"></div>
@@ -471,13 +471,15 @@ async function dosyaSecildi(file){
     const ekNot = sonuc.elenen.length ? ' ('+sonuc.elenen.length+' sayı bulundu ama VKN/TCKN kontrolünden geçmedi, telefon/tutar olabilir)' : '';
     yukleDurum('Dosyada geçerli VKN/TCKN bulamadım'+ekNot+'. Elle de yazabilirsin.', 'var(--amber)'); return;
   }
-  const mevcut = document.getElementById('giris').value.trim();
-  document.getElementById('giris').value = (mevcut ? mevcut+'\n' : '') + sonuc.gecerli.join('\n');
-  let msg = '✓ <b>'+sonuc.gecerli.length+'</b> geçerli VKN/TCKN ayıklandı ve aşağı eklendi.';
+  // 19.08 Cem kurgusu: elle giriş TEK kayıt, toplu iş DOSYAYLA gelir ve dosya
+  // yüklenir yüklenmez kendiliğinden taranır (listeyi kutuya dökmek yok).
+  TOPLU_LISTE = sonuc.gecerli.slice();
+  let msg = '✓ <b>'+sonuc.gecerli.length+'</b> geçerli VKN/TCKN ayıklandı, taranıyor…';
   if(sonuc.elenen.length) msg += ' <span style="color:var(--dim)">'+sonuc.elenen.length+' sayı telefon/geçersiz görünüp elendi.</span>';
-  msg += ' <b>"Alacaklarımı tara"</b>ya bas.';
   yukleDurum(msg, 'var(--green)');
+  kontrol(true);
 }
+let TOPLU_LISTE = [];
 
 document.addEventListener('DOMContentLoaded', ()=>{
   const kutu=document.getElementById('yukleKutu'), inp=document.getElementById('dosya');
@@ -509,11 +511,20 @@ function turAd(t,d){
   if(t==='tasfiye') return 'Tasfiye';
   return t;
 }
-async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('alacak')) return;
+async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('alacak')) return;
   const veri = await veriYukle();
-  const satirlar = document.getElementById('giris').value.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
   const box = document.getElementById('sonuc');
-  if(!satirlar.length){ box.innerHTML='<div class="uyari">Önce en az bir VKN ya da firma adı gir.</div>'; return; }
+  let satirlar;
+  if(toplu===true){
+    satirlar = (TOPLU_LISTE||[]).slice();
+    if(!satirlar.length){ box.innerHTML='<div class="uyari">Dosyadan geçerli VKN çıkmadı; tek borçluyu elle sorgulayabilirsin.</div>'; return; }
+  } else {
+    const ham = (document.getElementById('giris').value||'').trim();
+    if(!ham){ box.innerHTML='<div class="uyari">Bir VKN ya da bir firma adı yaz; çok sayıda borçlu için yukarıdan Excel/CSV yükle.</div>'; return; }
+    const parcalar = ham.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
+    if(parcalar.length>1){ box.innerHTML='<div class="uyari">Burada <b>tek kayıt</b> sorgulanır (bir VKN ya da bir firma adı). Çok sayıda borçluyu taramak için yukarıdan <b>Excel/CSV yükle</b> — liste otomatik taranır.</div>'; return; }
+    satirlar = parcalar;
+  }
 
   const sorgular = satirlar.map(s=>({ ham:s, vkn:rakam(s), unvan:trFold(s) }));
   // 19.08 YANLIŞ POZİTİF SİGORTASI (Cem: "dizdar yazsa başka Dizdar da gelir"):
