@@ -1,19 +1,22 @@
 {
-  "tarih": "19.08.2026 06:27",
+  "tarih": "19.08.2026 09:51",
   "durum": "ALARM",
-  "kirmizi": 7,
-  "kurtarma": 0,
+  "kirmizi": 4,
+  "kurtarma": 2,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 760.6 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 471.9 saat once (esik 30s)). Actions loguna bak.",
-    "VERI: Damping listesi kontrolu -> damga okunamadi: '2026-08-13 12:00'",
-    "VERI: Ithalat Gn.Md. duyuru sinyali -> tarih damgasi BOS (yanveri-damga.json)",
     "HAZIR kaynak dosyasi YOK: tevkifat14592 (GVK 94 Tevkifat Oranlari BKK (2009/14592))",
     "HAZIR kaynak dosyasi YOK: tevkifat14593 (KVK 30 Tevkifat Oranlari BKK (2009/14593))",
+    "HAZIR kaynak dosyasi YOK: fuar-genelge (Fuar Desteklerine Iliskin Genelge (5973 uygulama))",
     "HAZIR kaynak dosyasi YOK: tevkifat14594 (KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594))"
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Gunluk Kanun Aynasi -> son basarili kosu 764.0 saat once (esik 30s) -> kurtarma: zaten-kosuyor",
+    "Smoke Nobetcisi -> son basarili kosu 475.3 saat once (esik 30s) -> kurtarma: zaten-kosuyor"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml"
+  ]
 }
