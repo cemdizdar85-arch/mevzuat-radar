@@ -95,7 +95,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
 
-  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Aşağıdaki canlı akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki VKN eşleştirme aracı örnek veriyle tanıtım modundadır; <b style="color:var(--ink)">kayıtlı borçlu listesiyle birebir eşleşen otomatik uyarılar abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
+  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Aşağıdaki canlı akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) canlı ilan havuzunda ve örnek veride anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
 
   <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
@@ -112,7 +112,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
   <div class="kutu" id="aiFiltreKutu" style="padding:14px 16px;margin:0 0 12px;scroll-margin-top:12px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <input type="text" id="aiAra" placeholder="Borçlu/firma adı, il ya da mahkeme ara…" oninput="aiCiz()" style="flex:1;min-width:210px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <input type="text" id="aiAra" placeholder="Firma adı, VKN, il ya da mahkeme ara…" oninput="aiCiz()" style="flex:1;min-width:210px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
       <div style="display:flex;gap:6px" id="aiTurler">
         <button type="button" class="tbtn on" data-t="hepsi" onclick="aiFiltre('hepsi')">Tümü</button>
         <button type="button" class="tbtn" data-t="konkordato" onclick="aiFiltre('konkordato')">Konkordato</button>
@@ -555,6 +555,48 @@ async function kontrol(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi
     const temizler = sorgular.filter(q=>!eslesmisSorgu.has(q.ham));
     if(temizler.length){ html += `<div class="belg" style="margin-top:6px">Diğer ${temizler.length} kayıtta ilan yok (bu örnek veriye göre).</div>`; }
   }
+  // 19.08 CANLI HAVUZ TARAMASI: yüklenen liste yalnız örnek veriyle değil, son
+  // çekimlerdeki resmî ilan akışıyla (AI_L) da eşleştirilir. VKN alanı yalnız
+  // dört kontrol kapısından geçen tekil VKN'lerde dolu; unvan eşleşmesi sadece
+  // çıkarılmış BORÇLU adına bakar (başlıkta alacaklı adları da geçer, oraya bakılmaz).
+  try{
+    const canli = (typeof AI_L!=='undefined' && Array.isArray(AI_L)) ? AI_L : [];
+    const canliBulunan = [];
+    for(const x of canli){
+      const xv = rakam(x.vkn||''), xb = trFold(x.borclu||'');
+      const es = sorgular.find(q =>
+        (q.vkn.length>=7 && xv && (xv===q.vkn || xv.startsWith(q.vkn) || q.vkn.startsWith(xv))) ||
+        (q.unvan.length>=5 && xb && xb.includes(q.unvan))
+      );
+      if(es) canliBulunan.push({x, es});
+    }
+    if(canliBulunan.length){
+      html += '<h2 style="margin-top:22px">Canlı havuz eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· son çekimlerdeki '+canli.length+' resmî ilan tarandı</span></h2>';
+      for(const esk of canliBulunan.slice(0,20)){
+        const x = esk.x, es = esk.es;
+        let sureHtml='';
+        try{
+          const kural = aiSure(x);
+          if(kural && (kural.gun||kural.ay)){
+            const g = aiSonTarih(x.tarih, kural);
+            if(g && g.kalan>=0) sureHtml = '<div class="sure">⏳ <b>'+kural.tip+': '+(g.kalan===0?'son gün BUGÜN':g.kalan+' gün kaldı')+'</b> ('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</div>';
+          }
+          if(kural && kural.hap) sureHtml += '<div class="belg">💊 '+kural.hap+'</div>';
+        }catch(e){}
+        html += '<div class="kart risk">'
+          +'<span class="rozet risk">⚠ Risk, '+(x.tur==='konkordato'?'Konkordato':(x.tur==='iflas'?'İflas':'İlan'))+'</span>'
+          +'<h3>'+aiKac(x.borclu||x.baslik)+'</h3>'
+          +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(es.ham)+(x.vkn?' · VKN '+aiKac(x.vkn):'')+'</span></div>'
+          +'<div class="satir"><b>Kurum</b><span>'+aiKac(x.kurum||'—')+'</span></div>'
+          +'<div class="satir"><b>Yer / ilan tarihi</b><span>'+aiKac([x.il,x.tarih].filter(Boolean).join(' · ')||'—')+'</span></div>'
+          +sureHtml
+          +(x.url?'<div class="belg"><a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">Resmî ilan metni →</a></div>':'')
+          +'</div>';
+      }
+    } else if(canli.length){
+      html += '<div class="belg" style="margin-top:10px">Canlı havuz da tarandı ('+canli.length+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
+    }
+  }catch(e){}
   box.innerHTML = html;
   // sonuç görünür alana insin (buton tetikli, her yerde güvenli)
   const y = box.getBoundingClientRect().top + window.scrollY - 80;
