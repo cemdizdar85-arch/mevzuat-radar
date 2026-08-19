@@ -24,7 +24,10 @@ $sonEk='Limited Şirketi|Anonim Şirketi|Ltd\.?\s*Şti\.?|Kollektif Şirketi|Kom
 # Bir ünvan kelimesi (büyük harfle başlar; ve/ile/için bağlaçları serbest)
 $W='(?:[A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşüİı0-9\.]*|ve|Ve|VE|ile|İle|İLE|için)'
 $firmaRx="($W(?:\s+$W){0,15}\s+(?:$sonEk))"
-$junk='^(Yukarıda|Sicil|Sayılı\w*|Adresindeki|adresindeki|Olan|olan|Müflis|müflis|Yazılı|yazılı|Numaraları|Numarası|Adres|adres|Nezdinde|Hakkında|Davacılar|Davacı|Davalı|Ve|ve|İle|ile|Sayın|Borçlu|borçlu|Borçlusu|borçlusu|Ait|ait|Esas|Karar|İLAN|İLANI|İlan|İlanı|Alacaklılar|alacaklılar|Toplantısına|toplantısına|Toplantı|Davet|davet|Tebligat|tebligat|Konusu|konusu|Talebinde|talebinde|Bulunan|bulunan|Talep|talep)\s+'
+# 19.08 ARSIV TURU KUSURU: "Vergi (Kimlik) Numaralı X A.S." kaliplarinda onek
+# temizlenmiyordu (88 kayitta "Vergi Numaralı ..." unvana yapisti). Junk listesinde
+# "Numarası/Numaraları" vardi ama "Numaralı" ve "Vergi/Kimlik" YOKTU - eklendi.
+$junk='^(Yukarıda|Sicil|Sayılı\w*|Adresindeki|adresindeki|Olan|olan|Müflis|müflis|Yazılı|yazılı|Numaraları|Numarası|Numaralı|numaralı|Vergi|vergi|Kimlik|kimlik|Kayıtlı|kayıtlı|Tarihli|tarihli|Adres|adres|Nezdinde|Hakkında|Davacılar|Davacı|Davalı|Ve|ve|İle|ile|Sayın|Borçlu|borçlu|Borçlusu|borçlusu|Ait|ait|Esas|Karar|İLAN|İLANI|İlan|İlanı|Alacaklılar|alacaklılar|Toplantısına|toplantısına|Toplantı|Davet|davet|Tebligat|tebligat|Konusu|konusu|Talebinde|talebinde|Bulunan|bulunan|Talep|talep)\s+'
 # Etiket-öncelikli kalıplar: hepsi borçluyu AÇIKÇA tanımlar (yanlış firma riski düşük)
 $firmaEtiket=@(
   "MÜFLİS\s*:?\s*$firmaRx",
@@ -46,6 +49,9 @@ $ilanlar=@($obj.ilanlar)
 $fN=0;$vN=0;$kN=0;$say=0
 foreach($x in $ilanlar){
   if($x.tur -ne 'iflas' -and $x.tur -ne 'konkordato'){ continue }
+  # 19.08 ARSIV TURU: havuz 343'ten binlere ciktigi icin her kosuda hepsini yeniden
+  # cekmek israf (ilan basina 1 istek). Bir kez tarananin damgasi kalir; ZORLA=1 hepsini yeniler.
+  if($x.tarandi -and "$($env:ZORLA)" -ne '1'){ continue }
   $id=[regex]::Match("$($x.url)",'/ilan/(\d+)/').Groups[1].Value; if(-not $id){ continue }
   try{ $d=Invoke-RestMethod -Uri "https://www.ilan.gov.tr/api/api/services/app/AdDetail/GetAdDetail?id=$id" -Headers $h -TimeoutSec 30 }catch{ continue }
   $say++
@@ -75,6 +81,7 @@ foreach($x in $ilanlar){
   # VKN (yalnız tek geçerli; TCKN 11 hane olduğundan \b\d{10}\b'e takılmaz)
   $vkn=@([regex]::Matches($c,'\b\d{10}\b')|ForEach-Object{$_.Value}|Select-Object -Unique|Where-Object{VknGecerli $_})
   if($vkn.Count -eq 1){ $x | Add-Member -NotePropertyName vkn -NotePropertyValue $vkn[0] -Force; $vN++ }
+  $x | Add-Member -NotePropertyName tarandi -NotePropertyValue $true -Force
   Start-Sleep -Milliseconds 200
 }
 Write-Host ("Taranan iflas/konkordato: {0} · firma: {1} · kişi: {2} · VKN: {3}" -f $say,$fN,$kN,$vN)

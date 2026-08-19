@@ -48,6 +48,15 @@ jobs:
         shell: pwsh
         run: ./motor/alacak-borclu-cek.ps1
 
+      # 19.08 ARSIV AYRIMI: 1 yillik arsiv (5.728 ilan / 4 MB) sayfa acilisinda
+      # inmesin diye ikiye bolunur — canli dosya son 400 ilan (~283 KB), tam arsiv
+      # ayri dosyada ve YALNIZ tarama yapilinca yuklenir. Hasat + borclu turundan
+      # SONRA kosar: yeni ilanlari arsive isler, canliyi 400'e kirpar (idempotent).
+      - name: Alacak arsivini guncelle (canli/arsiv ayrimi)
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/alacak-arsiv-bol.ps1
+
       # 19.08 Cem onayi: Cagri Radari - TUBITAK + KOSGEB + AB (Ufuk Avrupa) acik
       # destek cagrilari (destekler.html canli bolum + tesvik sihirbazi "diger
       # kapilar"). Gunde BIR cekim yeter (cagrilar saatlik degismez) -> yalniz
