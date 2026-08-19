@@ -79,11 +79,21 @@ jobs:
         shell: pwsh
         run: ./motor/eximbank-oran-hasat.ps1
 
-      - name: Cagri/fuar/exim hasadi dustuyse Cem'e haber ver
-        if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure'
+      # 19.08 Cem: KGF aktif paketleri - kurum menusunun kendi aktif/gecmis
+      # siniflamasindan; katalog karti "kgf.com.tr'den teyit et" diyordu,
+      # teyidi artik robot yapiyor.
+      - name: KGF aktif paketleri (yalniz sabah)
+        id: kgf
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/kgf-paket-hasat.ps1
+
+      - name: Cagri/fuar/exim/kgf hasadi dustuyse Cem'e haber ver
+        if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure' || steps.kgf.outcome == 'failure'
         shell: pwsh
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari / fuar hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari / fuar hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }} / kgf: ${{ steps.kgf.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
           try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
 
       # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.

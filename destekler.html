@@ -132,6 +132,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <div class="filtre" id="eximDoviz" style="margin:8px 0"></div>
       <div id="eximSonuc" style="font-size:13px;color:var(--muted)"></div>
     </details>
+
+    <!-- 19.08 Cem: "kgf paketlerini ekleyebilirsin" — paketler dönemseldir;
+         KGF menüsünün kendi aktif/geçmiş sınıflaması robotla günlük çekilir. -->
+    <details class="kart" style="padding:14px 18px" id="kgfGrubu">
+      <summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">KGF — Aktif Kefalet ve Destek Paketleri <span style="color:var(--dim);font-weight:600" id="kgfSayi">· aç, bugün açık paketleri gör</span></summary>
+      <p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Teminatın yetmiyorsa KGF kefil olur; paketler dönemseldir, burada <b style="color:var(--ink)">KGF'nin bugün aktif saydığı</b> paketler listelenir (robot her gün çeker). Başvuru <b style="color:var(--ink)">KGF'ye değil çalıştığın bankaya</b> yapılır; limit-vade-sektör şartı paket sayfasında.</p>
+      <div id="kgfSonuc" style="font-size:13px;color:var(--muted)"></div>
+    </details>
   </div>
 
   <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
@@ -476,6 +484,22 @@ document.getElementById('eximDoviz').addEventListener('click', e=>{
   EXIM_DOVIZ = b.dataset.dv;
   document.querySelectorAll('#eximDoviz .fbtn').forEach(x=>x.classList.remove('on'));
   b.classList.add('on'); eximCiz();
+});
+
+// ---- KGF AKTİF PAKETLER (19.08) ----
+let KGF = null;
+document.getElementById('kgfGrubu').addEventListener('toggle', function(){
+  if(!this.open || KGF) return;
+  fetch('veri/kgf-paket.json?'+Date.now()).then(r=>r.json()).then(d=>{
+    KGF = d;
+    document.getElementById('kgfSayi').textContent = '· '+d.paketler.length+' aktif paket';
+    const sira = ['Hazine destekli','KOSGEB destekli','Özkaynak / banka kredisi','Doğrudan kredi'];
+    const gruplar = sira.filter(k=>d.paketler.some(p=>p.kategori===k));
+    document.getElementById('kgfSonuc').innerHTML = gruplar.map(k =>
+      '<div style="font-size:12px;font-weight:800;letter-spacing:.4px;color:var(--accent2);margin:12px 0 2px">'+k.toLocaleUpperCase('tr')+' <span style="color:var(--dim);font-weight:600">· '+d.paketler.filter(p=>p.kategori===k).length+' paket</span></div>'
+      + d.paketler.filter(p=>p.kategori===k).map(p=>'<div style="padding:5px 0;border-bottom:1px solid var(--line)"><a href="'+p.url+'" target="_blank" rel="noopener" style="font-weight:600;font-size:13px">'+p.paket+'</a></div>').join('')
+    ).join('') + '<p style="font-size:11.5px;color:var(--dim);margin-top:10px">'+(d.guncelleme||'')+'</p>';
+  }).catch(()=>{ document.getElementById('kgfSonuc').textContent = 'Liste yüklenemedi, sayfayı yenile.'; });
 });
 
 // ---- DESTEK SİHİRBAZI ----
