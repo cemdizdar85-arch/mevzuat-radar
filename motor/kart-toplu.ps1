@@ -373,11 +373,39 @@ function JsonAyikla([string]$c){
 #  Onbellek: motor/arsiv-eski/ (her eski teblig bir kez indirilir; CI'da commit'lenir).
 $eskiDir = Join-Path $here "arsiv-eski"
 New-Item -ItemType Directory -Force $eskiDir | Out-Null
-function EskiMetinBul([string]$rgTarih, [string]$tebligNo){
-  # rgTarih: GG.AA.YYYY ; tebligNo: or 2018/5
+# Turkce katlama: buyuk/kucuk + diakritik farkini yok eder (I/i tuzagi:
+# ToUpperInvariant 'i'->'I' yapar ama 'İ' oldugu gibi kalir; once harf esle).
+function TrKatla([string]$s){
+  if(-not $s){ return "" }
+  $s = $s -creplace 'İ','I' -creplace 'ı','i' -creplace 'Ğ','G' -creplace 'ğ','g' -creplace 'Ü','U' -creplace 'ü','u' -creplace 'Ş','S' -creplace 'ş','s' -creplace 'Ö','O' -creplace 'ö','o' -creplace 'Ç','C' -creplace 'ç','c'
+  return (($s -replace '\s+',' ').Trim().ToUpperInvariant())
+}
+function EskiMetinBul([string]$rgTarih, [string]$tebligNo, [string]$tebligAd = ""){
+  # rgTarih: GG.AA.YYYY ; tebligNo: or 2018/5 ; tebligAd: degistirilen tebligin ADI
+  # 19.08 KUSURU: yalniz numara eslesiyordu - ayni gun ayni numarali FARKLI teblig
+  # yakalaniyordu (22.02.2020'de gozetim 2020/1 yerine TSE hortum tebligi 2020/1,
+  # 31.12.2025'te korunma 2026/1 yerine enerji IPC tebligi 2026/1 inmisti).
+  # Simdi: ad koku hem baglanti metninde hem INEN DOSYADA aranir; tutmayan silinir.
   $guvenliAd = ($rgTarih -replace '\.','-') + "_" + ($tebligNo -replace '/','-') + ".htm"
   $cachYol = Join-Path $eskiDir $guvenliAd
   $eskiUrl = $null
+  # ad koku: parantezden onceki ilk uc anlamli kelime (or. "ITHALATTA GOZETIM UYGULANMASINA")
+  $adKok = ""
+  if($tebligAd){
+    $duz = TrKatla (($tebligAd -split '\(')[0])
+    $kelimeler = @($duz -split ' ' | Where-Object { $_.Length -ge 3 }) | Select-Object -First 3
+    if($kelimeler.Count -ge 2){ $adKok = $kelimeler -join ' ' }
+  }
+  function DosyaDogru([string]$yol){
+    if(-not $adKok){ return $true }
+    try { $icerik = TrKatla ([System.Text.Encoding]::GetEncoding(1254).GetString([System.IO.File]::ReadAllBytes($yol)) -replace '<[^>]+>',' ') } catch { return $false }
+    return $icerik.Contains($adKok)
+  }
+  # eski (yanlis inmis olabilecek) onbellek de kapidan gecmek zorunda
+  if((Test-Path $cachYol) -and -not (DosyaDogru $cachYol)){
+    Write-Host ("  eski-metin onbellegi YANLIS TEBLIGE aitmis, silindi: " + $guvenliAd)
+    Remove-Item $cachYol -Force
+  }
   if(-not (Test-Path $cachYol)){
     try {
       $fih = (Invoke-WebRequest -Uri ("https://www.resmigazete.gov.tr/" + $rgTarih) -UserAgent "Mozilla/5.0 (MevzuatRadar-KartMotoru)" -TimeoutSec 60 -UseBasicParsing).Content
@@ -385,18 +413,24 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo){
     $rxE = [regex]'(?is)<a[^>]+href="(?<u>[^"]*eskiler/\d{4}/\d{2}/\d{8}-\d+\.htm)"[^>]*>(?<t>.*?)</a>'
     foreach($m in $rxE.Matches($fih)){
       $t = ($m.Groups["t"].Value -replace "<[^>]+>"," " -replace "\s+"," ")
-      # eslesme anahtari: teblig numarasi (or "2018/5") - basliklarda hep gecer
-      if($t -match [regex]::Escape($tebligNo)){
-        $u = $m.Groups["u"].Value
-        if($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
-        try {
-          $wcE = New-Object System.Net.WebClient
-          $wcE.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
-          [System.IO.File]::WriteAllBytes($cachYol, $wcE.DownloadData($u))
-          $eskiUrl = $u
-        } catch { return $null }
-        break
+      # eslesme: teblig numarasi + (verilmisse) ad koku - numara tek basina yaniltir
+      if($t -notmatch [regex]::Escape($tebligNo)){ continue }
+      if($adKok -and -not (TrKatla $t).Contains($adKok)){ continue }
+      $u = $m.Groups["u"].Value
+      if($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+      try {
+        $wcE = New-Object System.Net.WebClient
+        $wcE.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+        [System.IO.File]::WriteAllBytes($cachYol, $wcE.DownloadData($u))
+      } catch { return $null }
+      # indirilen dosyanin kendisi de dogrulanir - fihrist metni kisaltilmis olabilir
+      if(-not (DosyaDogru $cachYol)){
+        Write-Host ("  indirilen eski metin ad kokuyle uyusmadi, atlandi: " + $u)
+        Remove-Item $cachYol -Force
+        continue
       }
+      $eskiUrl = $u
+      break
     }
     if(-not (Test-Path $cachYol)){ return $null }
   }
@@ -581,7 +615,7 @@ foreach($d in $dosyalar){
     $tebNoM = [regex]::Match("$($k1.degistirilen_teblig)", '\d{4}/\d+')
     $eskiRg1 = "$($k1.eski_rg)"
     if($tebNoM.Success -and $eskiRg1 -match '^\d{2}\.\d{2}\.\d{4}$' -and $eskiRg1 -eq "$($k2.eski_rg)"){
-      $eskiVeri = EskiMetinBul $eskiRg1 $tebNoM.Value
+      $eskiVeri = EskiMetinBul $eskiRg1 $tebNoM.Value "$($k1.degistirilen_teblig)"
       if($eskiVeri){
         try {
           $kIstem = @"
