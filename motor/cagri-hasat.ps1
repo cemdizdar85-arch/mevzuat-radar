@@ -167,29 +167,65 @@ $kaynakDurum["TÜBİTAK"] = if($tubitakOlduMu){ "OK ($tubitakAdet çağrı)" } e
 Write-Host ("TUBITAK: {0}" -f $kaynakDurum["TÜBİTAK"])
 
 # --- 2) KOSGEB ---------------------------------------------------------------
-Write-Host "KOSGEB duyuru akisi okunuyor..."
-$kosgebHtml = GuvenliCek "https://www.kosgeb.gov.tr/site/tr/genel/duyurular"
+# 19.08 Cem kontrolu KUSUR YAKALADI: cagrilar duyurular sayfasinda DEGIL,
+# ANA SAYFA haber akisinda ilan ediliyor (COP31 cagrisi acikken 0 sayiyorduk).
+# Iki kaynak birlikte taranir; eslesen duyurunun DETAYINDAN tarih cozulur
+# ("basvurular X - Y tarihleri arasinda" kalibi), bitisi gecmis olan ELENIR
+# (ana sayfada kapanmis cagri da duruyor - 2026/1-2 donem ornekleri olculdu).
+Write-Host "KOSGEB ana sayfa + duyuru akisi okunuyor..."
 $kosgebAdet = 0; $kosgebOlduMu = $false
-if($kosgebHtml){
-  $duyurular = [regex]::Matches($kosgebHtml, '(?s)<a[^>]*href="(/site/tr/genel/detay/[^"]*)"[^>]*>(.{5,250}?)</a>') |
-    ForEach-Object { [pscustomobject]@{ href=$_.Groups[1].Value; baslik=(((($_.Groups[2].Value -replace '<[^>]*>','') -replace '&nbsp;',' ') -replace '\s+',' ').Trim()) } } |
-    Sort-Object href -Unique
-  if(@($duyurular).Count -ge 3){
-    $kosgebOlduMu = $true   # akis okunabildi; cagri olmamasi normal
-    foreach($duyuru in $duyurular){
-      $normBaslik = Normalize $duyuru.baslik
-      if($normBaslik -match 'cagri' -or $normBaslik -match 'proje teklif'){
-        $cagrilar += [ordered]@{
-          kaynak="KOSGEB"; kod=""; baslik=$duyuru.baslik; durum="acik"
-          acilis=""; sonTarih=""; tarihler=@()
-          url=("https://www.kosgeb.gov.tr" + $duyuru.href)
-        }
-        $kosgebAdet++
-      }
-    }
+$kosgebHavuz = @{}
+foreach($kaynakSayfasi in @("https://www.kosgeb.gov.tr","https://www.kosgeb.gov.tr/site/tr/genel/duyurular")){
+  $kosgebHtml = GuvenliCek $kaynakSayfasi
+  if(-not $kosgebHtml){ continue }
+  $bulunan = [regex]::Matches($kosgebHtml, '(?s)<a[^>]*href="(/site/tr/genel/detay/[^"]*)"[^>]*>(.{5,250}?)</a>')
+  if(@($bulunan).Count -ge 3){ $kosgebOlduMu = $true }   # en az bir kanal okunabildi
+  foreach($m in $bulunan){
+    $href = $m.Groups[1].Value
+    $baslik = (((($m.Groups[2].Value -replace '<[^>]*>','') -replace '&nbsp;',' ') -replace '\s+',' ').Trim())
+    if($baslik -and -not $kosgebHavuz.ContainsKey($href)){ $kosgebHavuz[$href] = $baslik }
   }
 }
-$kaynakDurum["KOSGEB"] = if($kosgebOlduMu){ "OK ($kosgebAdet çağrı — 0 olması normal, çağrı yokken boş)" } else { "ÖLÇÜLEMEDİ" }
+foreach($href in $kosgebHavuz.Keys){
+  $baslik = $kosgebHavuz[$href]
+  if($baslik -match '^devam'){ continue }   # "devamı" linkleri ayni detaya gider
+  $normBaslik = Normalize $baslik
+  if(-not ($normBaslik -match 'cagri' -or $normBaslik -match 'proje teklif')){ continue }
+  # detaydan tarih: "basvurular[,] 20 Nisan - 8 Mayis 2026 tarihleri arasinda"
+  # (ilk tarihte yil OLMAYABILIR - bitisin yili kullanilir)
+  $acilisK = ""; $sonK = ""
+  $detayHtml = GuvenliCek ("https://www.kosgeb.gov.tr" + $href)
+  if($detayHtml){
+    $cumle = [regex]::Match($detayHtml, '(?is)ba.{0,2}vurular[^<>]{0,120}?tarihleri\s+aras')
+    if($cumle.Success){
+      $tarihParcalari = [regex]::Matches($cumle.Value, '(\d{1,2})\s+([A-Za-zÇĞİÖŞÜçğıöşü]+)(?:\s+(\d{4}))?|(\d{1,2}[./]\d{1,2}[./]\d{4})')
+      $cozulmus = @()
+      # once yilli olanlar cozulur; yilsiz ilk tarihe bitisin yili verilir
+      $sonYil = ""
+      foreach($p in $tarihParcalari){ if($p.Groups[3].Value){ $sonYil = $p.Groups[3].Value } }
+      foreach($p in $tarihParcalari){
+        $hamT = $p.Value.Trim()
+        if($p.Groups[1].Value -and -not $p.Groups[3].Value -and $sonYil){ $hamT = "$hamT $sonYil" }
+        $t = TrTarihCoz $hamT
+        if($t){ $cozulmus += $t }
+      }
+      if($cozulmus.Count -ge 2){ $acilisK = ($cozulmus | Sort-Object | Select-Object -First 1); $sonK = ($cozulmus | Sort-Object | Select-Object -Last 1) }
+      elseif($cozulmus.Count -eq 1){ $sonK = $cozulmus[0] }
+    }
+  }
+  # bitisi gecmis cagri listelenmez; tarihi cozulemesyen TEMKINLE listelenir (tarih duyuruda)
+  if($sonK){
+    try { if([datetime]::ParseExact($sonK,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch {}
+  }
+  $cagrilar += [ordered]@{
+    kaynak="KOSGEB"; kod=""; baslik=$baslik; durum="acik"
+    acilis=$acilisK; sonTarih=$sonK; tarihler=@()
+    url=("https://www.kosgeb.gov.tr" + $href)
+  }
+  $kosgebAdet++
+  Start-Sleep -Milliseconds 200
+}
+$kaynakDurum["KOSGEB"] = if($kosgebOlduMu){ "OK ($kosgebAdet açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
 Write-Host ("KOSGEB: {0}" -f $kaynakDurum["KOSGEB"])
 
 # --- 3) AB / Ufuk Avrupa (SEDIA) --------------------------------------------

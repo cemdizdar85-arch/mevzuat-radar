@@ -1,5 +1,5 @@
 ﻿{
-    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 09:53.",
+    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 11:39.",
     "kaynaklar":  [
                       {
                           "ad":  "TÜBİTAK",
@@ -9,7 +9,7 @@
                       {
                           "ad":  "KOSGEB",
                           "url":  "https://www.kosgeb.gov.tr/site/tr/genel/duyurular",
-                          "durum":  "OK (0 çağrı — 0 olması normal, çağrı yokken boş)"
+                          "durum":  "OK (1 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)"
                       },
                       {
                           "ad":  "AB (Ufuk Avrupa)",
@@ -120,6 +120,18 @@
 
                                       ],
                          "url":  "https://tubitak.gov.tr/tr/destekler/destek/sanayi/ulusal-destek-programlari/cagri-1831-yesil-inovasyon-teknoloji-mentorluk-cagrisi"
+                     },
+                     {
+                         "kaynak":  "KOSGEB",
+                         "kod":  "",
+                         "baslik":  "KOSGEB’den COP31 Odaklı Hızlandırma Desteği Çağrısı",
+                         "durum":  "acik",
+                         "acilis":  "2026-08-09",
+                         "sonTarih":  "2026-08-30",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://www.kosgeb.gov.tr/site/tr/genel/detay/9453/kosgebden-cop31-odakli-hizlandirma-destegi-cagrisi"
                      },
                      {
                          "kaynak":  "AB (Ufuk Avrupa)",
@@ -844,26 +856,14 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "baslik":  "MEVKA 2026 Yılı İmalat Sanayinde Dönüşüm Teknik Destek Programı İlanı",
                          "durum":  "acik",
-                         "acilis":  "2026-02-18",
+                         "acilis":  "2026-02-06",
                          "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Turizm Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-03-02",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qeKP7JDtDU8NmcD6I7_LswRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVJvrbeRY7p6n-KdCIbjumZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -876,6 +876,30 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-02-18",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Kırsal Kalkınma Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-03-02",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXweafIXfar6SAtnHgXBWW5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -892,26 +916,14 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı İmalat Sanayinde Dönüşüm Teknik Destek Programı İlanı",
-                         "durum":  "acik",
-                         "acilis":  "2026-02-06",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVJvrbeRY7p6n-KdCIbjumZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Kırsal Kalkınma Teknik Destek Programı",
+                         "baslik":  "MEVKA 2026 Yılı Turizm Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-03-02",
                          "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXweafIXfar6SAtnHgXBWW5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qeKP7JDtDU8NmcD6I7_LswRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1060,18 +1072,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "ANKARAKA",
-                         "baslik":  "ANKARAKA 2026 Yılı Ankara Sağlık Turizmi Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-02-20",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qUGVaO2He2c5L-NH1kGA0aVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
                          "baslik":  "ANKARAKA 2026 Yılı Sosyal Yenilik ve Sosyal Kalkınma Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-02-20",
@@ -1080,6 +1080,18 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qeRkQLo2WuMSGo8JIr8tvc5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "ANKARAKA 2026 Yılı Ankara Sağlık Turizmi Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-02-20",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qUGVaO2He2c5L-NH1kGA0aVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1120,18 +1132,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "OKA",
-                         "baslik":  "2026 Yılı İhracatta İkiz Dönüşüm Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-01-15",
-                         "sonTarih":  "2026-12-25",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "OKA",
                          "baslik":  "2026 Yılı Anadoludakiler: Turizm ve Yöresel Değerler Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-01-15",
@@ -1140,6 +1140,18 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qc6HfV3sk_H2bl-GNkVx6JhQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "OKA",
+                         "baslik":  "2026 Yılı İhracatta İkiz Dönüşüm Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-01-15",
+                         "sonTarih":  "2026-12-25",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
