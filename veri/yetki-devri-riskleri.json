@@ -1,12 +1,12 @@
 {
-    "tarih":  "13.08.2026 13:31",
+    "tarih":  "19.08.2026 10:02",
     "aciklama":  "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50-\u003e15 (2016/9093), 5510 tavan 7,5-\u003e9 kat (7566).",
-    "ambar_dosya":  760,
-    "riskli_madde":  1253,
-    "sayfa":  46,
-    "atifli_iddia":  187,
-    "dayanaksiz_iddia":  195,
-    "kirmizi_aday":  18,
+    "ambar_dosya":  770,
+    "riskli_madde":  1257,
+    "sayfa":  52,
+    "atifli_iddia":  223,
+    "dayanaksiz_iddia":  222,
+    "kirmizi_aday":  26,
     "yeni_aday":  0,
     "yeni":  [
 
@@ -14,56 +14,91 @@
     "kirmizi":  [
                     {
                         "sayfa":  "alacak-radari.html",
-                        "satir":  143,
+                        "satir":  130,
                         "iddia":  "15 gün",
                         "kanun":  "299",
-                        "metin":  "3 Eşleşince hap kart gelir. \"Müşterin X konkordato ilan etti — İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakereye giremezsin.\" Mahkeme, dosya no, komiser adresi, "
+                        "metin":  "// m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet"
                     },
                     {
                         "sayfa":  "alacak-radari.html",
-                        "satir":  150,
+                        "satir":  134,
                         "iddia":  "15 gün",
                         "kanun":  "299",
-                        "metin":  "m.299 · 15 gün: İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Kaçırırsan müzakereye giremez, oy kullanamazsın."
+                        "metin":  "// m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·"
+                    },
+                    {
+                        "sayfa":  "alacak-radari.html",
+                        "satir":  145,
+                        "iddia":  "15 gün",
+                        "kanun":  "299",
+                        "metin":  "// KAYIT ÇAĞRISI -\u003e m.299, 15 gün geri sayım (toplantı hariç)"
+                    },
+                    {
+                        "sayfa":  "alacak-radari.html",
+                        "satir":  147,
+                        "iddia":  "15 gün",
+                        "kanun":  "299",
+                        "metin":  "return {tip:\u0027Alacak kaydı\u0027, madde:\u0027m.299\u0027, gun:15, aciklama:\u0027ilan tarihinden 15 gün\u0027, hap:\u0027Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; b"
+                    },
+                    {
+                        "sayfa":  "alacak-radari.html",
+                        "satir":  163,
+                        "iddia":  "7 gün",
+                        "kanun":  "302",
+                        "metin":  "return {not:\u0027Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.\u0027, hap:\u0027Alacaklı olarak oyunu kullan (m.302"
+                    },
+                    {
+                        "sayfa":  "alacak-radari.html",
+                        "satir":  343,
+                        "iddia":  "15 gün",
+                        "kanun":  "299",
+                        "metin":  "3 Eşleşince hap kart gelir. \"Müşterin X konkordato ilan etti, İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin.\" Mahkeme, dosya no, komiser a"
+                    },
+                    {
+                        "sayfa":  "alacak-radari.html",
+                        "satir":  350,
+                        "iddia":  "15 gün",
+                        "kanun":  "299",
+                        "metin":  "m.299 · 15 gün: İlan tarihinden 15 gün içinde alacağını komisere kaydet (belgelerle). Bildirmezsen, borçlunun bilançosunda kayıtlı değilsen müzakereye alınmaz, oy kullanamazsın."
                     },
                     {
                         "sayfa":  "arge-kapi-hesabi.html",
-                        "satir":  236,
+                        "satir":  247,
                         "iddia":  "en az 15",
                         "kanun":  "5746",
-                        "metin":  "{ad:\u0027AR-GE MERKEZİ (5746)\u0027,t:mToplam,alt:\u0027stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı\u0027,uyari:merkezEsikAlti?(\u0027ekibin \u0027+kisiSay+\u0027 kişi — eşik en az 15"
+                        "metin":  "{ad:\u0027AR-GE MERKEZİ (5746)\u0027,t:mToplam,alt:\u0027stopaj terkini + SGK yarısı + harcama indiriminin bu yıl nakde dönen kısmı\u0027,uyari:merkezEsikAlti?(\u0027ekibin \u0027+kisiSay+\u0027 kişi, eşik en az 15 "
                     },
                     {
                         "sayfa":  "arge-kapi-hesabi.html",
-                        "satir":  237,
+                        "satir":  248,
                         "iddia":  "%100",
                         "kanun":  "4691",
                         "metin":  "{ad:\u0027TEKNOKENT (4691)\u0027,t:tToplam,alt:\u0027stopaj %100 terkin + SGK yarısı + kazanç istisnası\u0027,uyari:null},"
                     },
                     {
                         "sayfa":  "arge-kapi-hesabi.html",
-                        "satir":  267,
+                        "satir":  278,
                         "iddia":  "40 katı",
                         "kanun":  "5746",
                         "metin":  "+\u0027· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). \u0027"
                     },
                     {
                         "sayfa":  "bilgi.html",
-                        "satir":  259,
+                        "satir":  260,
                         "iddia":  "%99,4",
                         "kanun":  "5746",
-                        "metin":  "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2 — güncel konsolide metinler 13.08.2026\u0027da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden"
+                        "metin":  "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026\u0027da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
                     },
                     {
                         "sayfa":  "bilgi.html",
-                        "satir":  270,
+                        "satir":  271,
                         "iddia":  "40 kat",
                         "kanun":  "5746",
                         "metin":  "Personel tarafı 40 kat sınırlı GV terkini + damga istisnası + SGK işveren yarısı (5746 m.3/3 teknokent personelini de kapsar); destek personeli %10 (15 kişiye kadar firmada %20); b"
                     },
                     {
                         "sayfa":  "bilgi.html",
-                        "satir":  277,
+                        "satir":  278,
                         "iddia":  "%100",
                         "kanun":  "5746",
                         "metin":  "Üçüne de girmeyen işletme için yedek kapı: kendi bünyendeki Ar-Ge projesini Sanayi ve Teknoloji Bakanlığı\u0027na onaylatırsan harcamanın %100\u0027ü yine indirim konusu (5746 m.3/A)."
@@ -91,28 +126,49 @@
                     },
                     {
                         "sayfa":  "ceza-asistani.html",
-                        "satir":  304,
+                        "satir":  305,
                         "iddia":  "%25,",
                         "kanun":  "5510",
                         "metin":  "Peşin ödeme indirimi (%25, 5510 m.102) − ${f(ind)} TL"
                     },
                     {
                         "sayfa":  "destekler.html",
-                        "satir":  228,
+                        "satir":  232,
+                        "iddia":  "%50,",
+                        "kanun":  "5973",
+                        "metin":  "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Yurt Dışı Birim, Kira ve Tanıtım Destekleri\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karar"
+                    },
+                    {
+                        "sayfa":  "destekler.html",
+                        "satir":  233,
                         "iddia":  "%50",
+                        "kanun":  "5973",
+                        "metin":  "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Pazara Giriş Belgesi Desteği\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-iliskin-genel"
+                    },
+                    {
+                        "sayfa":  "destekler.html",
+                        "satir":  234,
+                        "iddia":  "%50,",
+                        "kanun":  "5973",
+                        "metin":  "{kurum:\"TİCARET BAKANLIĞI\", ad:\"Marka ve TURQUALITY® Destek Programı\", url:\"https://ticaret.gov.tr/destekler/ihracat-destekleri/5973-sayili-ihracat-destekleri-hakkinda-karara-ilisk"
+                    },
+                    {
+                        "sayfa":  "destekler.html",
+                        "satir":  236,
+                        "iddia":  "%50,",
                         "kanun":  "5986",
-                        "metin":  "oran:[\"Temel oran %50 — pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20\u0027si)\",\"Sipariş karşılama (fulfilmen"
+                        "metin":  "oran:[\"Temel oran %50, pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20\u0027si)\",\"Sipariş karşılama (fulfilment"
                     },
                     {
                         "sayfa":  "hizmet.html",
                         "satir":  193,
                         "iddia":  "%15",
                         "kanun":  "476",
-                        "metin":  "else if(g===\u0027reklam\u0027){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti — 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA\u0027dan bağımsız kesiliyor (tartışmalı; YMM\u0027ne danış"
+                        "metin":  "else if(g===\u0027reklam\u0027){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti, 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA\u0027dan bağımsız kesiliyor (tartışmalı; YMM\u0027ne danış)"
                     },
                     {
                         "sayfa":  "index.html",
-                        "satir":  643,
+                        "satir":  646,
                         "iddia":  "15 gün",
                         "kanun":  "299",
                         "metin":  "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -142,37 +198,37 @@
     "dayanaksiz":  [
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  73,
+                           "satir":  77,
                            "iddia":  "% 100",
                            "metin":  "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z"
                        },
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  162,
+                           "satir":  389,
                            "iddia":  "15 gün",
-                           "metin":  "15 günü kaçıran alacaklı konkordato müzakeresine giremez, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün e-postana düşsün (WhatsApp/SMS yol haritasında)."
+                           "metin":  "15 günü kaçıran alacaklı, borçlunun bilançosunda kayıtlı değilse konkordato müzakeresine alınmaz, oy kullanamaz. Borçlularını bırak biz izleyelim; ilan çıktığı gün e-postana düşsün"
                        },
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  184,
+                           "satir":  411,
                            "iddia":  "%10",
                            "metin":  "if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;"
                        },
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  185,
+                           "satir":  412,
                            "iddia":  "%10",
                            "metin":  "if(d.slice(0,10).reduce((a,b)=\u003ea+b,0)%10 !== d[10]) return false;"
                        },
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  195,
+                           "satir":  422,
                            "iddia":  "% 9",
                            "metin":  "sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;"
                        },
                        {
                            "sayfa":  "alacak-radari.html",
-                           "satir":  197,
+                           "satir":  424,
                            "iddia":  "% 10",
                            "metin":  "return v[9] === (10 - (sum % 10)) % 10;"
                        },
@@ -208,25 +264,25 @@
                        },
                        {
                            "sayfa":  "arge-kapi-hesabi.html",
-                           "satir":  136,
+                           "satir":  143,
                            "iddia":  "%95",
                            "metin":  "[\"dr\",\"Doktoralı / desteklenen alanda YL (%95)\"],"
                        },
                        {
                            "sayfa":  "arge-kapi-hesabi.html",
-                           "satir":  137,
+                           "satir":  144,
                            "iddia":  "%90",
                            "metin":  "[\"yl\",\"Yüksek lisanslı / desteklenen alanda lisans (%90)\"],"
                        },
                        {
                            "sayfa":  "arge-kapi-hesabi.html",
-                           "satir":  138,
+                           "satir":  145,
                            "iddia":  "%80",
                            "metin":  "[\"dg\",\"Diğer Ar-Ge/tasarım personeli (%80)\"]"
                        },
                        {
                            "sayfa":  "arge-kapi-hesabi.html",
-                           "satir":  218,
+                           "satir":  227,
                            "iddia":  "%100",
                            "metin":  "// KAPI 2 — Teknokent: terkin %100 + SGK yarısı + kazanç istisnası × KV"
                        },
@@ -292,13 +348,13 @@
                        },
                        {
                            "sayfa":  "bilgi.html",
-                           "satir":  319,
+                           "satir":  320,
                            "iddia":  "3 yıl",
                            "metin":  "1,5 – 3 yıl 6 hafta"
                        },
                        {
                            "sayfa":  "bilgi.html",
-                           "satir":  320,
+                           "satir":  321,
                            "iddia":  "3 yıl",
                            "metin":  "3 yıl ve üzeri 8 hafta"
                        },
@@ -306,7 +362,7 @@
                            "sayfa":  "canli-deneme.html",
                            "satir":  53,
                            "iddia":  "%12",
-                           "metin":  "3 Sonuçlar toplanır; Türkiye geneli yüzdelik sıralaman açıklanır — \"80 aldım\" değil, \"katılanların %12\u0027sinin önündeyim\" dersin. Sınavın bağıl değerlendirmesinin tek gerçekçi karşıl"
+                           "metin":  "3 Sonuçlar toplanır; Türkiye geneli yüzdelik sıralaman açıklanır, \"80 aldım\" değil, \"katılanların %12\u0027sinin önündeyim\" dersin. Sınavın bağıl değerlendirmesinin tek gerçekçi karşılı"
                        },
                        {
                            "sayfa":  "ceza-asistani.html",
@@ -346,99 +402,105 @@
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  12,
+                           "satir":  41,
                            "iddia":  "% 100",
                            "metin":  "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(61,220,151,.09),transparent 72%);pointer-events:none}"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  47,
+                           "satir":  76,
                            "iddia":  "%38",
                            "metin":  "/* Sik istatistigi: \"adaylarin %38\u0027i C\u0027yi secti\" */"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  584,
+                           "satir":  613,
                            "iddia":  "en az 3",
                            "metin":  "// Konu sicilinden zayif konular: en az 3 cozum + dogruluk %50 alti."
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  674,
+                           "satir":  703,
                            "iddia":  "%40",
                            "metin":  "// NOBETCI KOC (#9): calisma modunda secimin ~%40\u0027i zayif konulardan gelir -"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  864,
+                           "satir":  918,
                            "iddia":  "%38",
                            "metin":  "2) Sik istatistigi \"adaylarin %38\u0027i C\u0027yi secti\" -\u003e SIK_IST (robot uretir)"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  876,
+                           "satir":  930,
                            "iddia":  "3 kisi",
                            "metin":  "/* Bir sikki kac aday secmis? Yeterli veri yoksa HIC gosterme - 3 kisilik"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  877,
+                           "satir":  931,
                            "iddia":  "%33",
                            "metin":  "ornekten \"%33\" demek, rakam vermemekten kotudur (rakam disiplini). */"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  994,
+                           "satir":  1048,
                            "iddia":  "%97",
                            "metin":  "// SABLON-GEREKCE BICIMLEYICI (30.07): kalite taramasi kasanin %97\u0027sinde"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  998,
+                           "satir":  1052,
                            "iddia":  "En az 2",
                            "metin":  "// bloklara boler. En az 2 baslik yoksa metne DOKUNMAZ (dogal cumleler,"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1163,
+                           "satir":  1217,
                            "iddia":  "%20",
                            "metin":  "// hucreleri karisik tipte gelir (sayi, \"28915\", \"%20\", \"1.650.000\") - yalniz"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1454,
+                           "satir":  1508,
                            "iddia":  "%41",
                            "metin":  "Boylece \"adaylarin %41\u0027i B\u0027yi secti - en sik dusulen tuzak bu\" diyebiliriz;"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1465,
+                           "satir":  1519,
                            "iddia":  "%50",
                            "metin":  "%50\u0027sin\" demek, rakam vermemekten kotudur. */"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1510,
+                           "satir":  1564,
                            "iddia":  "%25",
                            "metin":  "// %25\u0027lik konusu olan ogrenciye \"zayif konun gorunmuyor\" dedik - sebep"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1529,
+                           "satir":  1583,
                            "iddia":  "en az 20",
                            "metin":  ": \u0027 Aday ortalaması henüz oluşmadı. Karşılaştırma, bir konuyu en az 20 aday çözünce açılır. \u0027;"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1533,
+                           "satir":  1587,
                            "iddia":  "en az 20",
                            "metin":  "+ \u0027 \"Adaylar\" sütunu, o konuyu en az 20 kez çözen adayların ortalamasıdır; az veri varsa boş bırakılır. Kimseye ait kişisel bilgi tutulmaz. \u0027;"
                        },
                        {
                            "sayfa":  "deneme.html",
-                           "satir":  1889,
+                           "satir":  1943,
                            "iddia":  "48 saat",
                            "metin":  "// basina yetmiyordu - sayilamiyor, 48 saat takibi olculemiyor ve en onemlisi"
+                       },
+                       {
+                           "sayfa":  "deneme.html",
+                           "satir":  1953,
+                           "iddia":  "17 gun",
+                           "metin":  "// (17 gunde yalniz elle atilan test satiri vardi). cevap_kaydi\u0027daki"
                        },
                        {
                            "sayfa":  "destekler.html",
@@ -462,13 +524,19 @@
                            "sayfa":  "evrak-radari.html",
                            "satir":  73,
                            "iddia":  "45.000 TL",
-                           "metin":  "Ay sonu şu sorular birikiyor: \"bu 45.000 TL ödeme neydi?\" , \"o faturanın aslı nerede?\" , \"bu masraf şahsi mi?\" — WhatsApp\u0027ta kayboluyor, mükellef cevaplamıyor, sen beyanname gününe"
+                           "metin":  "Ay sonu şu sorular birikiyor: \"bu 45.000 TL ödeme neydi?\" , \"o faturanın aslı nerede?\" , \"bu masraf şahsi mi?\" , WhatsApp\u0027ta kayboluyor, mükellef cevaplamıyor, sen beyanname gününe"
                        },
                        {
                            "sayfa":  "evrak-radari.html",
-                           "satir":  96,
+                           "satir":  101,
                            "iddia":  "45.000 TL",
                            "metin":  "{id:\u0027s1\u0027,tip:\u0027soru\u0027,metin:\u002712 Mart\\\u0027taki 45.000 TL banka çıkışı ne içindi?\u0027,cevap:\u0027Tedarikçi Öz İplik\\\u0027e mal ödemesi\u0027,dosya:null,durum:\u0027ok\u0027},"
+                       },
+                       {
+                           "sayfa":  "firma-analizi.html",
+                           "satir":  48,
+                           "iddia":  "2.750.000 TL",
+                           "metin":  "Bizi ayıran ne? Diğer siteler \"bu firma bu işi 2.750.000 TL\u0027ye aldı\" der. Biz sonuç ilanındaki yaklaşık maliyeti ve kırım oranını da taşıdığımız için \"… %6,7 kırımla, 3 firma arası"
                        },
                        {
                            "sayfa":  "fis-fabrikasi.html",
@@ -627,6 +695,30 @@
                            "metin":  "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z"
                        },
                        {
+                           "sayfa":  "fiyatfarki.html",
+                           "satir":  298,
+                           "iddia":  "%1",
+                           "metin":  "if(o1.length\u0026\u0026o10.length) return {r:10,t:\u0027%1 veya %10 (indirimli, ürün tanımına göre; %10 yazıldı)\u0027};"
+                       },
+                       {
+                           "sayfa":  "fiyatfarki.html",
+                           "satir":  299,
+                           "iddia":  "%1",
+                           "metin":  "if(o1.length) return {r:1,t:\u0027%1 (indirimli)\u0027};"
+                       },
+                       {
+                           "sayfa":  "fiyatfarki.html",
+                           "satir":  300,
+                           "iddia":  "%10",
+                           "metin":  "if(o10.length) return {r:10,t:\u0027%10 (indirimli)\u0027};"
+                       },
+                       {
+                           "sayfa":  "fiyatfarki.html",
+                           "satir":  301,
+                           "iddia":  "%20",
+                           "metin":  "return {r:20,t:\u0027%20 (genel)\u0027};"
+                       },
+                       {
                            "sayfa":  "genc.html",
                            "satir":  12,
                            "iddia":  "% 100",
@@ -660,7 +752,7 @@
                            "sayfa":  "genc.html",
                            "satir":  256,
                            "iddia":  "%55",
-                           "metin":  "Kaç doğru yeter? Sabit bir sayı YOK — yönergenin kendi ifadesiyle: geçmişte soruların %55\u0027ini doğru yapanın geçtiği sınav da oldu, %63\u0027ünü doğru yapanın kaldığı sınav da. Rakip ne "
+                           "metin":  "Kaç doğru yeter? Sabit bir sayı YOK, yönergenin kendi ifadesiyle: geçmişte soruların %55\u0027ini doğru yapanın geçtiği sınav da oldu, %63\u0027ünü doğru yapanın kaldığı sınav da. Rakip ne k"
                        },
                        {
                            "sayfa":  "genc.html",
@@ -688,57 +780,51 @@
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  176,
+                           "satir":  177,
                            "iddia":  "%0",
-                           "metin":  "✅ GÜMRÜK VERGİSİ ASKIYA ALINMIŞ OLABİLİR (%0) — V Sayılı Liste"
+                           "metin":  "✅ GÜMRÜK VERGİSİ ASKIYA ALINMIŞ OLABİLİR (%0), V Sayılı Liste"
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  178,
+                           "satir":  179,
                            "iddia":  "%0",
-                           "metin":  "Bu listede yer alan ürünlerde gümrük vergisi %0\u0027a askıya alınmıştır — ama ŞARTLIDIR (ürün tanımı birebir uymalı, çoğu nihai kullanım/dipnot şartına tabi). Kesin GV için tam kodun t"
+                           "metin":  "Bu listede yer alan ürünlerde gümrük vergisi %0\u0027a askıya alınmıştır , ama ŞARTLIDIR (ürün tanımı birebir uymalı, çoğu nihai kullanım/dipnot şartına tabi). Kesin GV için tam kodun t"
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  262,
+                           "satir":  263,
                            "iddia":  "%6",
-                           "metin":  "⚠ KKDF — ÇOĞU İTHALATÇININ ATLADIĞI %6"
+                           "metin":  "⚠ KKDF, ÇOĞU İTHALATÇININ ATLADIĞI %6"
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  371,
+                           "satir":  372,
                            "iddia":  "%20",
                            "metin":  "// bir çapraz-atıf açıklamasıdır, o kodu dışlamamalı — yoksa 84.02 buhar kazanı yanlış %20 olur."
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  382,
+                           "satir":  383,
                            "iddia":  "%20",
                            "metin":  "// kod bazında değerlendirilir (8703 dersi: yeni binek oto %20; yalnız kullanılmış %1). Ayrı gösterilir."
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  389,
+                           "satir":  390,
                            "iddia":  "%20",
-                           "metin":  "Aşağıdaki hüküm bir koşula bağlıdır (ör. yalnız kullanılmış/ikinci el ). Ürün sıfır/yeni ise genel oran %20 \u0027dir; koşulu sağlıyorsan indirimli olabilir — gümrük müşavirinle teyit e"
+                           "metin":  "Aşağıdaki hüküm bir koşula bağlıdır (ör. yalnız kullanılmış/ikinci el ). Ürün sıfır/yeni ise genel oran %20 \u0027dir; koşulu sağlıyorsan indirimli olabilir, gümrük müşavirinle teyit et"
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  401,
+                           "satir":  402,
                            "iddia":  "%1",
                            "metin":  "if(o1u.length) oranEt.push(\u0027%1\u0027);"
                        },
                        {
                            "sayfa":  "gtip.html",
-                           "satir":  402,
+                           "satir":  403,
                            "iddia":  "%10",
                            "metin":  "if(o10u.length) oranEt.push(\u0027%10\u0027);"
-                       },
-                       {
-                           "sayfa":  "gtip.html",
-                           "satir":  449,
-                           "iddia":  "En az 3",
-                           "metin":  "if(q.length En az 3 harf yaz… \u0027 : \u0027\u0027; return; }"
                        },
                        {
                            "sayfa":  "hatirlatici.html",
@@ -774,7 +860,7 @@
                            "sayfa":  "hizmet.html",
                            "satir":  82,
                            "iddia":  "%20",
-                           "metin":  "✓ Anlaşma oranı düşürüyor mu? ÇVÖA\u0027lı ülke + mukimlik belgesi varsa stopaj %20\u0027den sıfıra kadar inebilir — kontrol eder."
+                           "metin":  "✓ Anlaşma oranı düşürüyor mu? ÇVÖA\u0027lı ülke + mukimlik belgesi varsa stopaj %20\u0027den sıfıra kadar inebilir, kontrol eder."
                        },
                        {
                            "sayfa":  "hizmet.html",
@@ -798,29 +884,71 @@
                            "sayfa":  "hizmet.html",
                            "satir":  171,
                            "iddia":  "183 gün",
-                           "metin":  "{t:\"❌ Hayır — iş yurt dışından/kısa süreli yapıldı\", s:\"Türkiye\u0027de işyeri yok ve 183 günü aşmadı (çoğu uzaktan hizmet böyle)\", on:\"C.isyeri=false;sonuc()\"},"
+                           "metin":  "{t:\"❌ Hayır, iş yurt dışından/kısa süreli yapıldı\", s:\"Türkiye\u0027de işyeri yok ve 183 günü aşmadı (çoğu uzaktan hizmet böyle)\", on:\"C.isyeri=false;sonuc()\"},"
                        },
                        {
                            "sayfa":  "ihale-radari.html",
-                           "satir":  71,
+                           "satir":  77,
                            "iddia":  "% 100",
                            "metin":  "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z"
                        },
                        {
                            "sayfa":  "ihale-radari.html",
-                           "satir":  82,
+                           "satir":  88,
                            "iddia":  "%3",
                            "metin":  "select{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 width=\u002710\u0027 height=\u00276\u0027%3E%3Cpath d=\u0027M1 1l4 4 4-4\u0027 stroke=\u0027%2393a1b3\u0027 stroke-width=\u00271.6\u0027 fil"
                        },
                        {
                            "sayfa":  "ihale-radari.html",
-                           "satir":  276,
+                           "satir":  361,
                            "iddia":  "5 yıl",
                            "metin":  "{q:\"Son 5 yılda mesleki faaliyetinden hüküm giydin mi?\", b:[\"e\"], k:\"ihaleDisi\"},"
                        },
                        {
                            "sayfa":  "ihale-radari.html",
-                           "satir":  443,
+                           "satir":  403,
+                           "iddia":  "%40",
+                           "metin":  "// 14.08 Cem \"site çok aşağıya kayıyor\": bu bölüm sayfanın ~%40\u0027ıydı (24 kart hep açık)."
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  812,
+                           "iddia":  "%91,7",
+                           "metin":  "// (bir hizmet sözleşmesi maliyetin %91,7 ÜSTÜNDE kapanmış). Medyan"
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  818,
+                           "iddia":  "%91,7",
+                           "metin":  "// negatif alt sınırı \"-%91,7\" diye yazmak kafa karıştırıyordu; sayı olarak veriliyor"
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  867,
+                           "iddia":  "%41",
+                           "metin":  "// 14.08 Cem: \"ürün görünmüyor\". ÖLÇÜLDÜ (262 ilan): %41\u0027inde 90+ karakterlik"
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  869,
+                           "iddia":  "%11",
+                           "metin":  "// adet/kalem sayısı var, %11\u0027inde miktar alanı iş adının TEKRARINDAN ibaret."
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  871,
+                           "iddia":  "%11",
+                           "metin":  "// %11 doluymuş gibi yazılıyordu, (3) \"327 Kalem\" gibi sayı göze çarpmıyordu."
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  918,
+                           "iddia":  "%100",
+                           "metin":  "// yazan, %100). Burada yalnız \"ilanla açıklanmaz\" gerçeği söylenir, rakam"
+                       },
+                       {
+                           "sayfa":  "ihale-radari.html",
+                           "satir":  977,
                            "iddia":  "%3",
                            "metin":  "v.innerHTML=` ✅ Bu sayaçlara göre engel yok.${ek} Sıradaki adım: yeterlik belgelerini sağla + teklif bedelinin %3\u0027ü geçici teminat . Kesin karar idarenin değerlendirmesine bağlıdır"
                        },
@@ -922,25 +1050,31 @@
                        },
                        {
                            "sayfa":  "index.html",
-                           "satir":  654,
+                           "satir":  657,
                            "iddia":  "30 gün",
                            "metin":  "İthalatta gözetim eşikleri güncellendi, 30 gün sonra yürürlüğe girecek"
                        },
                        {
                            "sayfa":  "index.html",
-                           "satir":  935,
+                           "satir":  947,
+                           "iddia":  "%16",
+                           "metin":  "// olmadan \"(II/C/6.3.) -\u003e (II/C/7.3)\" bolum referansindan \"%16 artis\""
+                       },
+                       {
+                           "sayfa":  "index.html",
+                           "satir":  995,
                            "iddia":  "18 gun",
                            "metin":  "// Vitrinde 18 gunluk kart \"gercek tarama\" diye duruyordu; ziyaretci"
                        },
                        {
                            "sayfa":  "index.html",
-                           "satir":  936,
+                           "satir":  996,
                            "iddia":  "3 gun",
                            "metin":  "// tarihi okumadan taze sanir. Veri 3 gunden eskiyse acikca yaziyoruz."
                        },
                        {
                            "sayfa":  "index.html",
-                           "satir":  944,
+                           "satir":  1004,
                            "iddia":  "19 gun",
                            "metin":  "// 30.07: \"Son tarama 11.07 - 19 gun once\" diye yaziyorduk; o tarih son"
                        },
@@ -972,13 +1106,13 @@
                            "sayfa":  "karne.html",
                            "satir":  313,
                            "iddia":  "%3",
-                           "metin":  "? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar — en az ${Math.floor(p.calisan*0.03+0.5)} kişi — engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`"
+                           "metin":  "? `${p.calisan} çalışanınla, çalışan sayısının %3’ü kadar, en az ${Math.floor(p.calisan*0.03+0.5)} kişi, engelli çalıştırmak zorundasın (yarım ve üzeri kesir tama yuvarlanır).`"
                        },
                        {
                            "sayfa":  "karne.html",
                            "satir":  438,
                            "iddia":  "en az 2",
-                           "metin":  "? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=\u003eo.ad).join(\u0027, \u0027)}) — bağımsız denetime tabisin.`"
+                           "metin":  "? `3 ölçütten en az 2’sini aşıyorsun (${asan.map(o=\u003eo.ad).join(\u0027, \u0027)}), bağımsız denetime tabisin.`"
                        },
                        {
                            "sayfa":  "karsilastirma.html",
@@ -1003,6 +1137,30 @@
                            "satir":  124,
                            "iddia":  "208 saat",
                            "metin":  "Yüksek (bir programda 208 saat canlı ders)"
+                       },
+                       {
+                           "sayfa":  "kartlar.html",
+                           "satir":  71,
+                           "iddia":  "2027 yıl",
+                           "metin":  "Ne oldu: Ticaret Bakanlığı, 2027 yılının ilk yarısında yürürlük süresi dolacak mevcut dampinge ve sübvansiyona karşı önlemleri duyurdu. Bu önlemlerin uygulanmaya devam edebilmesi i"
+                       },
+                       {
+                           "sayfa":  "kartlar.html",
+                           "satir":  115,
+                           "iddia":  "3 yıl",
+                           "metin":  "Ne yapmalısın: Lisans veya transfer başvurusunda bulunacaksanız spora katılım sağlık durumu değerlendirme formunu (EK-1) e-Devlet veya sağlık bilgi sistemi üzerinden doldurun. A gr"
+                       },
+                       {
+                           "sayfa":  "kartlar.html",
+                           "satir":  160,
+                           "iddia":  "30 gün",
+                           "metin":  "Ne yapmalısın: Vergi dairesinden cari teminat talebinizi kontrol edin. Uyumlu mükellef statüsündeyseniz teminatınızı yeni oran üzerinden yeniden hesaplayın. Sahte belge düzenleme y"
+                       },
+                       {
+                           "sayfa":  "kartlar.html",
+                           "satir":  187,
+                           "iddia":  "30 gün",
+                           "metin":  "Ne yapmalısın: Muafiyet kapsamında ithal yapacaksan 3907.61.00.00.00 GTIP kodlu malları kontrol et. Başvuruyu www.ticaret.gov.tr E-İmza Uygulamaları altından elektronik imzayla yap"
                        },
                        {
                            "sayfa":  "kdv-iade-rehberi.html",
@@ -1050,7 +1208,7 @@
                            "sayfa":  "kurulus.html",
                            "satir":  241,
                            "iddia":  "1 yıl",
-                           "metin":  "bagkur:\u0027⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun) — internette hâlâ yazan eski bilgiye aldanma.\u0027 };"
+                           "metin":  "bagkur:\u0027⚠ Dikkat: eskiden verilen 1 yıllık Bağ-Kur prim desteği 1 Ocak 2026 itibarıyla kaldırıldı (7566 s. Kanun), internette hâlâ yazan eski bilgiye aldanma.\u0027 };"
                        },
                        {
                            "sayfa":  "kurulus.html",
@@ -1092,23 +1250,23 @@
                            "sayfa":  "kurulus.html",
                            "satir":  643,
                            "iddia":  "2 yıl",
-                           "metin":  "⚠ Satış planın için kritik uyarı: bu türle kurarsan, satış günü kazancın vergiye tabi olur — 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ\u0027ye dönüşmek mümkün "
+                           "metin":  "⚠ Satış planın için kritik uyarı: bu türle kurarsan, satış günü kazancın vergiye tabi olur, 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ\u0027ye dönüşmek mümkün a"
                        },
                        {
                            "sayfa":  "kurulus.html",
                            "satir":  783,
                            "iddia":  "7 gün",
-                           "metin":  "document.getElementById(\u0027takvimNot\u0027).textContent = \"✓ İndirildi — dosyayı açınca takvimine kaydolur (30 ve 7 gün önce hatırlatmalı).\";"
+                           "metin":  "document.getElementById(\u0027takvimNot\u0027).textContent = \"✓ İndirildi, dosyayı açınca takvimine kaydolur (30 ve 7 gün önce hatırlatmalı).\";"
                        },
                        {
                            "sayfa":  "kvkk.html",
-                           "satir":  67,
+                           "satir":  66,
                            "iddia":  "en az 20",
                            "metin":  "anonim ders ortalaması hesaplamak için kullanılır. Ortalamalar en az 20 çözümden"
                        },
                        {
                            "sayfa":  "kvkk.html",
-                           "satir":  131,
+                           "satir":  130,
                            "iddia":  "30 gün",
                            "metin":  "30 gün içinde ücretsiz sonuçlandırılır."
                        },
@@ -1116,7 +1274,7 @@
                            "sayfa":  "marka-app.html",
                            "satir":  97,
                            "iddia":  "6 ay",
-                           "metin":  "Kullanım delili dosyaların gizli saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail — kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka ve"
+                           "metin":  "Kullanım delili dosyaların gizli saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail, kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka vek"
                        },
                        {
                            "sayfa":  "marka-app.html",
@@ -1141,6 +1299,36 @@
                            "satir":  66,
                            "iddia":  "5 yıl",
                            "metin":  "5 yıldan az 5 yıldan fazla"
+                       },
+                       {
+                           "sayfa":  "marka-izleme.html",
+                           "satir":  35,
+                           "iddia":  "% 100",
+                           "metin":  "body{position:relative}body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%"
+                       },
+                       {
+                           "sayfa":  "marka-portfoy.html",
+                           "satir":  35,
+                           "iddia":  "% 100",
+                           "metin":  "body{position:relative}body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%"
+                       },
+                       {
+                           "sayfa":  "marka-portfoy.html",
+                           "satir":  93,
+                           "iddia":  "10 yil",
+                           "metin":  "// yenileme (basvuru tarihinden 10 yil) - tescilli ve tarih varsa"
+                       },
+                       {
+                           "sayfa":  "marka-portfoy.html",
+                           "satir":  100,
+                           "iddia":  "10 yıl",
+                           "metin":  "r.satirlar.push(\u0027Koruma bitişi (+10 yıl): \u0027+fmt(gercekBitis)+\u0027 \u0027);"
+                       },
+                       {
+                           "sayfa":  "marka-portfoy.html",
+                           "satir":  130,
+                           "iddia":  "30 gün",
+                           "metin":  "ozet.innerHTML=\u0027 \u0027+a.length+\u0027 marka \u0027+pencere+\u0027 işlem gerektiren \u0027+acil+\u0027 30 gün içinde \u0027;"
                        },
                        {
                            "sayfa":  "marka-radari.html",
@@ -1198,13 +1386,13 @@
                        },
                        {
                            "sayfa":  "radar-app.html",
-                           "satir":  285,
+                           "satir":  335,
                            "iddia":  "6 ay",
                            "metin":  "${(f.markalar||[]).length?\u0027● AKTİF\u0027:\u0027○ MARKA GİR\u0027} Marka radarı Yenileme 6 ay kala + benzer başvuru çıkınca uyarı."
                        },
                        {
                            "sayfa":  "radar-app.html",
-                           "satir":  286,
+                           "satir":  336,
                            "iddia":  "15 gün",
                            "metin":  "${(f.borclu_vkn||[]).length?\u0027● AKTİF\u0027:\u0027○ VKN GİR\u0027} Alacak radarı İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı."
                        },
@@ -1228,43 +1416,43 @@
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  215,
+                           "satir":  217,
                            "iddia":  "4 gun",
                            "metin":  "// KONTROL DAMGALARI kullaniciya da gosterilir; 4 gunden eski damga AMBER olur."
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  228,
+                           "satir":  230,
                            "iddia":  "4 gün",
-                           "metin":  "if(bayat){ el.style.borderColor=\u0027rgba(255,194,75,.5)\u0027; el.innerHTML += \u0027 — bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et. \u0027; }"
+                           "metin":  "if(bayat){ el.style.borderColor=\u0027rgba(255,194,75,.5)\u0027; el.innerHTML += \u0027, bir damga 4 günden eski görünüyor; rakamları beyandan önce GTİP Kontrolü/resmî kaynakla teyit et. \u0027; }"
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  243,
+                           "satir":  245,
                            "iddia":  "en az 2",
-                           "metin":  ": n===1 ? \u0027Seçili: 1 — kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız\u0027"
+                           "metin":  ": n===1 ? \u0027Seçili: 1, kıyas için en az 2 gerekir; tek seçimde yine hepsini sıralarız\u0027"
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  266,
+                           "satir":  268,
                            "iddia":  "%1",
-                           "metin":  "if(o1.length\u0026\u0026o10.length) return {r:10,t:\u0027%1 veya %10 (indirimli — ürün tanımına göre)\u0027};"
+                           "metin":  "if(o1.length\u0026\u0026o10.length) return {r:10,t:\u0027%1 veya %10 (indirimli, ürün tanımına göre)\u0027};"
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  267,
+                           "satir":  269,
                            "iddia":  "%1",
                            "metin":  "if(o1.length) return {r:1,t:\u0027%1 (indirimli)\u0027};"
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  268,
+                           "satir":  270,
                            "iddia":  "%10",
                            "metin":  "if(o10.length) return {r:10,t:\u0027%10 (indirimli)\u0027};"
                        },
                        {
                            "sayfa":  "senaryo-raporu.html",
-                           "satir":  269,
+                           "satir":  271,
                            "iddia":  "%20",
                            "metin":  "return {r:20,t:\u0027%20 (genel)\u0027};"
                        },
@@ -1284,7 +1472,7 @@
                            "sayfa":  "songun.html",
                            "satir":  61,
                            "iddia":  "5 Saat",
-                           "metin":  "⏳ Son Gün 5 Saat — SGS"
+                           "metin":  "⏳ Son Gün 5 Saat, SGS"
                        },
                        {
                            "sayfa":  "soru-cevap.html",
@@ -1300,15 +1488,45 @@
                        },
                        {
                            "sayfa":  "tesvik-sihirbazi.html",
-                           "satir":  181,
+                           "satir":  194,
                            "iddia":  "50 oda",
                            "metin":  "else if(sektor===\u0027turizm\u0027){ sistem=\u0027Öncelikli (turizm koruma bölgesi/termal) ya da Hedef Yatırımlar (otel 50 oda+)\u0027; ykoOran=\u0027%\u0027+yko.oncelikli+\u0027 / %\u0027+yko.hedef; }"
                        },
                        {
                            "sayfa":  "tesvik-sihirbazi.html",
-                           "satir":  185,
+                           "satir":  198,
                            "iddia":  "%40",
-                           "metin":  "if(tutar\u003e=200000000 || (sektor===\u0027imalat-yuksek\u0027 \u0026\u0026 tutar\u003e=100000000)) sistem+=\u0027 · tutarın Stratejik Hamle eşiğinde (100M yüksek-tek / 200M diğer) — %40 YKO kapısı\u0027;"
+                           "metin":  "if(tutar\u003e=200000000 || (sektor===\u0027imalat-yuksek\u0027 \u0026\u0026 tutar\u003e=100000000)) sistem+=\u0027 · tutarın Stratejik Hamle eşiğinde (100M yüksek-tek / 200M diğer), %40 YKO kapısı\u0027;"
+                       },
+                       {
+                           "sayfa":  "toplu-gtip.html",
+                           "satir":  35,
+                           "iddia":  "% 100",
+                           "metin":  "body::before{content:\"\";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z"
+                       },
+                       {
+                           "sayfa":  "toplu-gtip.html",
+                           "satir":  127,
+                           "iddia":  "%1",
+                           "metin":  "if(o1.length\u0026\u0026o10.length) return {r:10,t:\u0027%1/%10*\u0027};"
+                       },
+                       {
+                           "sayfa":  "toplu-gtip.html",
+                           "satir":  128,
+                           "iddia":  "%1",
+                           "metin":  "if(o1.length) return {r:1,t:\u0027%1\u0027};"
+                       },
+                       {
+                           "sayfa":  "toplu-gtip.html",
+                           "satir":  129,
+                           "iddia":  "%10",
+                           "metin":  "if(o10.length) return {r:10,t:\u0027%10\u0027};"
+                       },
+                       {
+                           "sayfa":  "toplu-gtip.html",
+                           "satir":  130,
+                           "iddia":  "%20",
+                           "metin":  "return {r:20,t:\u0027%20\u0027};"
                        }
                    ],
     "riskli_maddeler":  [
@@ -1410,7 +1628,7 @@
                             {
                                 "dosya":  "arge5746",
                                 "kaynak_ad":  "5746 s. Ar-Ge Kanunu m.3 [2/16]",
-                                "kesit":  "...3 sayılı Kanuna göre her yıl belirlenen yeniden değerleme oranında artırılarak dikkate alınır. 89 7 16/6/2009 tarihli ve 5904 sayılı Kanunun 27 nci maddesiyle; bu maddenin birinci fıkrasının ilk cümle..."
+                                "kesit":  "...3 sayılı Kanuna göre her yıl belirlenen yeniden değerleme oranında artırılarak dikkate alınır. 89 16/6/2009 tarihli ve 5904 sayılı Kanunun 27 nci maddesiyle; bu maddenin birinci fıkrasının ilk cümlesi..."
                             },
                             {
                                 "dosya":  "arge5746",
@@ -3648,6 +3866,11 @@
                                 "kesit":  "...anlığınca her yıl tespit ve ilan edilen yeniden değerleme oranında artırılması suretiyle uygulanır. Bu şekilde belirlenen sınırların bin Türk lirasını aşmayan kısımları dikkate alınmaz.73 (2) (Değişik..."
                             },
                             {
+                                "dosya":  "ihracat5973",
+                                "kaynak_ad":  "Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari) m.30",
+                                "kesit":  "...Karar kapsamındaki destek üst limitleri her takvim yılı başında (TÜFE + Yİ-ÜFE)/2 oranında güncellenir. (2) (Ek:RG-23/2/2024-32469-CK-8191/11 md.) Bu Kararda yer alan desteklere ilişkin üst limitler, ..."
+                            },
+                            {
                                 "dosya":  "iik",
                                 "kaynak_ad":  "İİK (2004 s.K.) m.4 - Bakanlığınca yürürlüğe konulan yönetmelikle belirlenir. İcra mahkemesi",
                                 "kesit":  "...Bakanlığınca yürürlüğe konulan yönetmelikle belirlenir. İcra mahkemesi: Madde 4 – (Değişik: 3/7/1940-3890/1 md.) (Değişik birinci fıkra: 17/7/2003-4949/1 md.) İcra ve iflâs dairelerinin muamelelerine ..."
@@ -4101,6 +4324,11 @@
                                 "dosya":  "kamumali",
                                 "kaynak_ad":  "Kamu Malî Yönetimi K. (5018 s.K.) ek m.6",
                                 "kesit":  "...k gerekli her türlü düzenlemeyi yapmaya Cumhurbaşkanı yetkilidir. Kamu idarelerinin yeniden teşkilatlanmasına ilişkin süreç tamamlanıncaya kadar yapılması gereken zorunlu harcamalar kapatılan idare ve..."
+                            },
+                            {
+                                "dosya":  "kamumali",
+                                "kaynak_ad":  "Kamu Malî Yönetimi K. (5018 s.K.) gec. m.11",
+                                "kesit":  "...Maliye Bakanlığınca yürürlüğe konulacak yönetmelikle belirlenir. Fonların muhasebesi de bu Kanunun öngördüğü muhasebe sistemine göre yürütülür. (Mülga dördüncü fıkra: 22/12/2005-5436/10 md.)..."
                             },
                             {
                                 "dosya":  "katmulk",
@@ -4901,6 +5129,11 @@
                                 "dosya":  "mtv",
                                 "kaynak_ad":  "MTV K. (197 s.K.) m.5 [4/4]",
                                 "kesit":  "...rmeye ve kanuni oranına kadar artırmaya Cumhurbaşkanı yetkilidir.15 (Ek fıkra: 28/11/2017-7061/23 md.) Bu maddenin uygulamasına ilişkin usul ve esasları belirlemeye Maliye Bakanlığı yetkilidir...."
+                            },
+                            {
+                                "dosya":  "mtv",
+                                "kaynak_ad":  "MTV K. (197 s.K.) m.10 [1/2]",
+                                "kesit":  "...ükümleri uyarınca tespit ve ilan olunan yeniden değerleme oranında artırılır.29 25/12/2003 tarihli ve 5035 sayılı Kanunun 48 inci maddesiyle bu fıkrada yer alan \"Maliye ve Gümrük Bakanlığı\" ibaresi, “..."
                             },
                             {
                                 "dosya":  "mtvgt22",
@@ -6225,7 +6458,7 @@
                             {
                                 "dosya":  "teknokent4691",
                                 "kaynak_ad":  "4691 s. Teknokent Kanunu m.5 [3/5]",
-                                "kesit":  "... ve projesi uygun görülen girişimcilere yönetmelikle belirlenecek usul ve esaslara göre Bölge içerisinde yer tahsis edilmesi,” ibaresi eklenmiştir. (Ek fıkra:28/1/2021-7263/4 md.) Teknoloji Geliştirme..."
+                                "kesit":  "... ve projesi uygun görülen girişimcilere yönetmelikle belirlenecek usul ve esaslara göre Bölge içerisinde yer tahsis edilmesi,” ibaresi eklenmiştir. 5 (Ek fıkra:28/1/2021-7263/4 md.) Teknoloji Geliştir..."
                             },
                             {
                                 "dosya":  "teknokent4691",
@@ -6235,7 +6468,7 @@
                             {
                                 "dosya":  "teknokent4691",
                                 "kaynak_ad":  "4691 s. Teknokent Kanunu m.8 [2/3]",
-                                "kesit":  "...denekle sınırlı olmak üzere, Bakanlıkça yönetmelikle belirlenen şartlar çerçevesinde destek verilebilir. (Ek fıkra:28/1/2021-7263/5 md.) Bu Kanun kapsamında stajyer istihdam eden firmalar, 11 16/2/201..."
+                                "kesit":  "...denekle sınırlı olmak üzere, Bakanlıkça yönetmelikle belirlenen şartlar çerçevesinde destek verilebilir. (Ek fıkra:28/1/2021-7263/5 md.) Bu Kanun kapsamında stajyer istihdam eden firmalar, 16/2/2016 t..."
                             },
                             {
                                 "dosya":  "teknokent4691",
@@ -6254,17 +6487,17 @@
                             },
                             {
                                 "dosya":  "teknokent4691",
-                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.2 [2/5]",
-                                "kesit":  "...de metninden çıkarılmıştır. tanımlamaya Cumhurbaşkanı, bu kapsamda tescil, kayıt veya bildirim şartının yerine getirilmesine ve uygulamaya ilişkin usul ve esasları belirlemeye Hazine ve Maliye Bakanlı..."
+                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.215 [2/5]",
+                                "kesit":  "...metninden çıkarılmıştır. 15 tanımlamaya Cumhurbaşkanı, bu kapsamda tescil, kayıt veya bildirim şartının yerine getirilmesine ve uygulamaya ilişkin usul ve esasları belirlemeye Hazine ve Maliye Bakanlı..."
                             },
                             {
                                 "dosya":  "teknokent4691",
-                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.2 [3/5]",
+                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.215 [3/5]",
                                 "kesit":  "...etlerinin yüzde yüzünü aşmamak şartıyla Cumhurbaşkanınca ayrı ayrı veya birlikte belirlenecek kısmı ile Bölgede yer alan işletmelerde (…)15 çalışan AR-GE ve tasarım personelinin yüksek lisans yapanlar..."
                             },
                             {
                                 "dosya":  "teknokent4691",
-                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.2 [4/5]",
+                                "kaynak_ad":  "4691 s. Teknokent Kanunu gec. m.215 [4/5]",
                                 "kesit":  "...ajı teşviki kapsamında değerlendirilir. Cumhurbaşkanı, yüzde yirmi olarak belirlenen bu oranı belirleyeceği bölgesel ve/veya sektörel alanlarda ya da meslek gruplarına göre yüzde yüze kadar artırmaya ..."
                             },
                             {
@@ -7449,13 +7682,18 @@
                             },
                             {
                                 "dosya":  "vukgt578",
-                                "kaynak_ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 578) m.6 [1/4]",
-                                "kesit":  "...i maddesi hükümleri uyarınca belirlenen yeniden değerleme oranında artırılır...."
+                                "kaynak_ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 578) m.2 [3/5]",
+                                "kesit":  "...kin olarak bu Kanun uyarınca belirlenen yeniden değerleme oranında artırılır...."
                             },
                             {
                                 "dosya":  "vukgt578",
-                                "kaynak_ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 578) m.6 [3/4]",
-                                "kesit":  "...i maddesi hükümleri uyarınca belirlenen yeniden değerleme oranında artırılan katılma payı tutarları Başkanlığın resmi internet sitesinde (www.gib.gov.tr) yayımlanır...."
+                                "kaynak_ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 578) m.6",
+                                "kesit":  "...i maddesi hükümleri uyarınca belirlenen yeniden değerleme oranında artırılır. Katılma payının hesaplanması ve bildirilmesi..."
+                            },
+                            {
+                                "dosya":  "vukgt578",
+                                "kaynak_ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 578) m.9",
+                                "kesit":  "...i maddesi hükümleri uyarınca belirlenen yeniden değerleme oranında artırılan katılma payı tutarları Başkanlığın resmi internet sitesinde (www.gib.gov.tr) yayımlanır. (4) Tebliğin 8 inci maddesi gereği..."
                             },
                             {
                                 "dosya":  "vukgt580",
