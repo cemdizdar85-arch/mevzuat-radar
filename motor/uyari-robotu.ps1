@@ -145,7 +145,7 @@ if($RK -and $RF){
   foreach($fid in $mailKuyruk.Keys){
     $m = $mailKuyruk[$fid]; if(-not $m.satirlar.Count){ continue }
     $html = "<h2>Radar uyariniz — $($m.ad)</h2><p>Firmanizi ilgilendiren yeni gelismeler:</p><p>" + ($m.satirlar -join "<br>") + "</p><p><a href='https://tetikte.com/radar-app.html'>Panele git &rarr;</a></p><p style='color:#888;font-size:12px'>Tetikte — bir Dizdar Denetim A.S. yazilimidir.</p>"
-    $mb = @{ from=$RF; to=@($m.email); subject="Radar: firmanizi ilgilendiren $($m.satirlar.Count) yeni gelisme"; html=$html } | ConvertTo-Json -Depth 4
+    $mb = @{ from=$RF; to=@($m.email); reply_to="cem@dizdardenetim.com"; subject="Radar: firmanizi ilgilendiren $($m.satirlar.Count) yeni gelisme"; html=$html } | ConvertTo-Json -Depth 4
     try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $RK"; "Content-Type"="application/json" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 60 | Out-Null; $sent++ } catch { Write-Host "Mail hata ($($m.email)): $($_.Exception.Message)" }
   }
   Write-Host ("Gonderilen mail: {0}" -f $sent)

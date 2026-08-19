@@ -81,7 +81,7 @@ if($env:RESEND_KEY -and -not $kuru){
   foreach($mail in $mailKuyruk.Keys){ $liste=$mailKuyruk[$mail]
     $satir=($liste|ForEach-Object{ "<li><b>$($_.marka)</b>: $($_.benzer_ad)</li>" }) -join ""
     $html="<p>Merhaba,</p><p>Portfoyundeki markalarda durum guncellemesi:</p><ul>$satir</ul><p>Panelinden bak: https://tetikte.com/marka-portfoy.html</p><p>Tetikte</p>"
-    $body=@{ from=$from; to=@($mail); subject="Marka durum guncellemesi"; html=$html }
+    $body=@{ from=$from; to=@($mail); reply_to="cem@dizdardenetim.com"; subject="Marka durum guncellemesi"; html=$html }
     try{ $w=Invoke-WebRequest -Uri "https://api.resend.com/emails" -Method Post -Headers @{ Authorization="Bearer $($env:RESEND_KEY)"; 'Content-Type'='application/json' } -Body ([Text.Encoding]::UTF8.GetBytes(($body|ConvertTo-Json -Compress -Depth 6))) -UseBasicParsing -TimeoutSec 60 -SkipHttpErrorCheck; if([int]$w.StatusCode -lt 400){ $mailAtilan++ } }catch{} }
 }
 $ozet=[ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); mod=$(if($kuru){'KURU'}else{'CANLI'}); markali_firma=$firmalar.Count; izlenen_marka=$izlenen; belirsiz_ad=$belirsiz; degisim_uyari=$degisim.Count; mail_atilan=$mailAtilan; resend=[bool]$env:RESEND_KEY; ornekler=@($degisim|Select-Object -First 10); not="Tam-ad eslesen markalarin durumu TMview'den izlendi; degisen ya da yenilemesi yaklasan marka_uyari'ya yazildi. Belirsiz ad (0/>1 eslesme) izlenmedi." }
