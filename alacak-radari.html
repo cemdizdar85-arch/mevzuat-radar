@@ -133,7 +133,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
   <div class="kutu" id="aiFiltreKutu" style="padding:14px 16px;margin:0 0 12px;scroll-margin-top:12px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <input type="text" id="aiAra" placeholder="Firma adı, VKN, il ya da mahkeme ara…" oninput="aiCiz()" style="flex:1;min-width:210px;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:11px 13px">
+      <!-- 19.08 Cem: "ikisi üst üste binmiş, ilkini sil" — serbest arama girişi kaldırıldı;
+           arama/tarama tek yerden: üstteki alacak taraması kutusu. Tür düğmeleri kaldı. -->
       <div style="display:flex;gap:6px" id="aiTurler">
         <button type="button" class="tbtn on" data-t="hepsi" onclick="aiFiltre('hepsi')">Tümü</button>
         <button type="button" class="tbtn" data-t="konkordato" onclick="aiFiltre('konkordato')">Konkordato</button>
@@ -259,7 +260,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     }).join('');
     box.innerHTML='<div class="kutu" style="margin:0">'
       +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 BU ÇEKİMİN MAKRO SİNYALİ</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
       +satir
       +'<div id="aiResmi"></div>'
       +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
@@ -301,7 +302,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
           + (aramaMetni?' <span style="color:var(--dim)">· "'+aiKac(aramaMetni)+'"</span>':'')
           + '<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Bu borçlu için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
       } else {
-        sy.innerHTML='Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Borçlunu bu akışta aramak için yukarı yaz.';
+        sy.innerHTML='Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Borçlunu aramak için yukarıdaki <b style="color:var(--ink)">alacak taraması</b> kutusunu kullan.';
       }
     }
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
