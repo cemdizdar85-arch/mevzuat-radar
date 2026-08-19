@@ -64,7 +64,8 @@ function XlsxUlkeOran($xlsx){
 }
 
 # --- SADECE Ek-1 (sanayi, 7-grup sema) ---
-$ek1 = Get-ChildItem $IgvKlasor -Filter "Ek-1.xlsx" | Select-Object -First 1
+# IGV.zip alt klasore acilir (Turkce "IGV" adi platforma gore bozulur) + ad EK-1/Ek-1 degisebilir: recurse + harf duyarsiz
+$ek1 = Get-ChildItem $IgvKlasor -Recurse -File | Where-Object { $_.Name -match '(?i)^ek-?1\.xlsx$' } | Select-Object -First 1
 if(-not $ek1){ Write-Host "Ek-1.xlsx bulunamadi!"; exit 1 }
 $igv = XlsxUlkeOran $ek1.FullName
 Write-Host ("{0}: {1} kod" -f $ek1.Name, $igv.Count)

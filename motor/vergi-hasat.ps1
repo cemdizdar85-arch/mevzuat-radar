@@ -46,9 +46,12 @@ function XlsxOran($xlsx){
         else { $h[$idx] = $cm.Groups[3].Value }
       }
       $a = if($h.ContainsKey(0)){ ($h[0] -as [string]).Trim() } else { "" }
+      # 86-89 fasil dosyasi kodlari NOKTALI tutuyor (8601.10.00.00.00) - normalize et
+      $a = $a -replace '\.',''
       if($a -notmatch '^\d{12}$'){ continue }
       $oranlar = @()
-      for($k=2;$k -le 8;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim(); if($v -match '^\d+([.,]\d+)?$'){ $oranlar += [double]($v -replace ',','.') } } }
+      # dipnotlu oranlar da okunur: "10(3)", "0(1) (2)" -> sayi kismi (8703 binek oto satirlari boyleydi)
+      for($k=2;$k -le 8;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim(); if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $oranlar += [double]($Matches[1] -replace ',','.') } } }
       if($oranlar.Count){ $sonuc[(Noktali $a)] = $oranlar }
     }
   }
@@ -58,7 +61,7 @@ function XlsxOran($xlsx){
 
 # --- GV: rejim klasorundeki TUM xlsx ---
 $gv = @{}
-Get-ChildItem $RejimKlasor -Filter "*.xlsx" | ForEach-Object {
+Get-ChildItem $RejimKlasor -Filter "*.xlsx" -Recurse | ForEach-Object {
   $o = XlsxOran $_.FullName
   foreach($k in $o.Keys){ if(-not $gv.ContainsKey($k)){ $gv[$k] = $o[$k] } }
   Write-Host ("GV {0}: +{1} kod (toplam {2})" -f $_.Name, $o.Count, $gv.Count)
@@ -66,7 +69,8 @@ Get-ChildItem $RejimKlasor -Filter "*.xlsx" | ForEach-Object {
 
 # --- IGV: igv klasorundeki TUM xlsx ---
 $igv = @{}
-Get-ChildItem $IgvKlasor -Filter "*.xlsx" | ForEach-Object {
+# IGV.zip "ĞGV/" benzeri alt klasore acilir (Turkce ad, platforma gore bozulur) - Recurse sart
+Get-ChildItem $IgvKlasor -Filter "*.xlsx" -Recurse | ForEach-Object {
   $o = XlsxOran $_.FullName
   foreach($k in $o.Keys){ if(-not $igv.ContainsKey($k)){ $igv[$k] = $o[$k] } }
   Write-Host ("IGV {0}: +{1} kod (toplam {2})" -f $_.Name, $o.Count, $igv.Count)

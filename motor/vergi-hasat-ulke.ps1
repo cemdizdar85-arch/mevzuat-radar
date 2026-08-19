@@ -57,7 +57,8 @@ function XlsxUlkeOran($xlsx){
       for($k=2;$k -le 8;$k++){
         if($h.ContainsKey($k)){
           $v=($h[$k] -as [string]).Trim()
-          if($v -match '^\d+([.,]\d+)?$'){ $satir += [double]($v -replace ',','.') }
+          # dipnotlu oranlar da okunur: "10(3)", "0(1) (2)", "6,5(3)" -> sayi kismi (8703 binek oto satirlari boyleydi)
+          if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $satir += [double]($Matches[1] -replace ',','.') }
           else { $satir += $null }
         } else { $satir += $null }
       }
