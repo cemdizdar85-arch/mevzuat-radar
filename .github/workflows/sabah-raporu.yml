@@ -1,0 +1,48 @@
+# .github/workflows/sabah-raporu.yml — SABAH RAPORU (0 USD)
+# 19.08 Cem karari: "sabah 7 cok gec - 4 kossun 5 kossun 6 kossun".
+# Gecenin tek satirlik ozeti mail atilir. Kural betikte: 04 her zaman,
+# 05/06 yalniz kirmizi varsa ya da kirmizidan yesile donduyse.
+name: Sabah Raporu (0 USD)
+
+on:
+  schedule:
+    - cron: '6 1 * * *'   # 04:06 TR
+    - cron: '6 2 * * *'   # 05:06 TR
+    - cron: '6 3 * * *'   # 06:06 TR
+  workflow_dispatch:
+    inputs:
+      kuru:
+        description: "true = kuru kosu (mail atmaz, satiri yazar)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: sabah-raporu
+  cancel-in-progress: false
+
+jobs:
+  rapor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rapor
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ("${{ github.event.inputs.kuru }}" -eq "true") { ./motor/sabah-raporu.ps1 -Kuru } else { ./motor/sabah-raporu.ps1 }
+      - name: Durum dosyasini commit'le
+        if: always()
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ -f veri/sabah-rapor.json ]; then git add veri/sabah-rapor.json || true; fi
+          git diff --cached --quiet && exit 0
+          git commit -m "Sabah raporu durumu [veri-operasyonu]"
+          # 18.08 kartlar.yml dersi: yaris sigortasi - autostash + push tekrari
+          git pull --rebase --autostash || true
+          git push || { git pull --rebase --autostash && git push; }
