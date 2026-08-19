@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260819065442
-Username: runnervm76f27\runner
-RunAs User: runnervm76f27\runner
+Start time: 20260819135824
+Username: runnervmzvulz\runner
+RunAs User: runnervmzvulz\runner
 Configuration Name: 
-Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/417e835d-d0b8-4b1c-a781-ef56143367ab.ps1'
-Process ID: 10427
-PSVersion: 7.6.5
+Machine: runnervmzvulz (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6e884172-9848-451f-87d8-80ace5b02007.ps1'
+Process ID: 10517
+PSVersion: 7.6.4
 PSEdition: Core
-GitCommitId: 7.6.5
+GitCommitId: 7.6.4
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,11 +17,13 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
-Haritadaki sayfa: 21
+Degisen madde : 1
+Haritadaki sayfa: 22
+  ayristirilan cift: 1
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20260819065442
+End time: 20260819135824
 **********************
