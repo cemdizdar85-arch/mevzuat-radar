@@ -40,7 +40,12 @@ foreach($is in $isler){
   foreach($k in $is.p.Keys){ if($is.p[$k] -ne ""){ $args[$k] = $is.p[$k] } }
   Write-Host ("=== {0} ===" -f $is.ad)
   try {
+    # 19.08: exit kodu YUTULMAZ. "& betik" exception atmaz; igv-hasat-ulke
+    # "Ek-1.xlsx bulunamadi! + exit 1" dedigi halde OK sayilmisti (kor kalma).
+    # Once sifirla (17.08 dersi: exit'siz biten betik eski kodu miras birakir).
+    $global:LASTEXITCODE = 0
     & $yol @args
+    if($LASTEXITCODE -ne 0){ throw "betik hata koduyla dondu: exit $LASTEXITCODE" }
     $basari++; $ozet += "OK  - $($is.ad)"
   } catch {
     $hata++; $ozet += "HATA- $($is.ad): $($_.Exception.Message)"
