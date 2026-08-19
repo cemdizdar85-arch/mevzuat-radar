@@ -844,7 +844,9 @@ $metin
       $sonKayit = if($hafiza[$kod].Count){ $hafiza[$kod][-1] } else { $null }
       # kiyas SADECE onceki kayit baska bir gundense (ayni gun tekrar calistirma gurultusu kiyas sayilmaz)
       if($sonKayit -and $sonKayit.tarih -ne $TarihNokta -and (NormD $sonKayit.deger) -ne (NormD $yeni)){
-        $kiyaslar += ("{0}: onceki kaydimiz {1} ({2}) -> yeni {3}" -f $kod, $sonKayit.deger, $sonKayit.tarih, $yeni)
+        # 19.08: hap gosterimi icin YAPILANDIRILMIS kiyas (duz cumle yerine
+        # kod/eski/tarih/yeni ayri ayri) - basim tarafi haplari boyle kurar.
+        $kiyaslar += [pscustomobject]@{ kod=$kod; eski=$sonKayit.deger; eski_tarih=$sonKayit.tarih; yeni=$yeni }
       }
       if($sonKayit -and $sonKayit.tarih -eq $TarihNokta){
         # ayni gunun kaydini guncelle (kopya olusturma)
@@ -1181,6 +1183,18 @@ $s = New-Object System.Text.StringBuilder
 [void]$s.AppendLine('.kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}')
 [void]$s.AppendLine('.gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}')
 [void]$s.AppendLine('.kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}')
+# HAP KARSILASTIRMA (19.08 - Cem fikri): "eskiden bu -> simdi bu" yan yana iki
+# hap. Tablo DEGIL: telefonda tablo kirilir, haplar satir sonunda alt satira
+# akar. Uc kaynak da (teblig metni, eski RG, kayit defteri) AYNI gorsel dili
+# kullanir - okuyucu bir kez ogrenir.
+[void]$s.AppendLine('.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}')
+[void]$s.AppendLine('.karsi .kon{color:var(--muted);margin-right:2px}')
+[void]$s.AppendLine('.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}')
+[void]$s.AppendLine('.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}')
+[void]$s.AppendLine('.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}')
+[void]$s.AppendLine('.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}')
+[void]$s.AppendLine('.karsi .ok{color:var(--dim)}')
+[void]$s.AppendLine('.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}')
 [void]$s.AppendLine('.kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}')
 [void]$s.AppendLine('.meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}')
 [void]$s.AppendLine('.cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}')
@@ -1292,7 +1306,7 @@ function KartBloguHtml($liste){
       # Ayni cift metinde birden cok yerde geciyorsa TEK satir + kac yerde.
       # (Sigorta kartinda "Müsteşarlığa -> Kuruma" 17 satir basiliyordu.)
       $tekrarNot = if($ey.tekrar -gt 1){ " <span style='color:var(--dim);font-size:11px'>(metinde $($ey.tekrar) yerde)</span>" } else { "" }
-      [void]$s.AppendLine("<div class='kiymet'>• $($ey.konu): <span style='color:var(--dim);text-decoration:line-through'>$($ey.eski)</span> → <b>$($ey.yeni)</b>$oran$tekrarNot</div>")
+      [void]$s.AppendLine("<div class='karsi'><span class='kon'>$($ey.konu)</span><span class='hap eski'>$($ey.eski)</span><span class='ok'>→</span><span class='hap yeni'>$($ey.yeni)</span>$oran$tekrarNot</div>")
     }
     # Gizlenen satir SESSIZCE dusurulmez - kac tane oldugu yazilir.
     if($serit.gizli -gt 0){
@@ -1332,7 +1346,19 @@ function KartBloguHtml($liste){
     [void]$s.AppendLine("<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>")
     foreach($c in $kiymetCift){ [void]$s.AppendLine("<div class='kiymet'>$($c.kod) → <b>$($c.deger)</b></div>") }
   }
-  foreach($ky in @($k.kiyaslar)){ [void]$s.AppendLine("<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — $ky</div>") }
+  # Kayit defteri kiyaslari da AYNI hap dilinde (19.08). Eski kartlarda bu alan
+  # DUZ CUMLE olarak kaydedilmisti; ikisini de destekle - gecmis kart bozulmaz.
+  $kiyasListe = @($k.kiyaslar | Where-Object { $_ })
+  if($kiyasListe.Count){
+    [void]$s.AppendLine("<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(kendi kayıt defterimizden)</span></p>")
+    foreach($ky in $kiyasListe){
+      if($ky -is [string]){
+        [void]$s.AppendLine("<div class='kiyas'>📊 $ky</div>")
+      } else {
+        [void]$s.AppendLine("<div class='karsi'><span class='kon'>$($ky.kod)</span><span class='hap eski'>$($ky.eski)</span><span class='ok'>→</span><span class='hap defter'>$($ky.yeni)</span><span class='kaynak'>önceki kaydımız $($ky.eski_tarih)</span></div>")
+      }
+    }
+  }
   [void]$s.AppendLine("<p><b>Kimi ilgilendirir:</b> $($k.kimi_ilgilendirir)</p>")
   [void]$s.AppendLine("<p><b>Ne yapmalısın:</b> $($k.ne_yapmali)</p>")
   # Yururluk BOS ise alan hic basilmaz. Eskiden bos kalinca yerine

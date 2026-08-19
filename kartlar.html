@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -80,9 +88,9 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Çevre ve şehircilik il müdürlükleri</span> → <b>İl müdürlükleri</b></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Çevre ve Şehircilik</span> → <b>Çevre, Şehircilik ve İklim Değişikliği</b> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Dış Ticaret Müsteşarlığı</span> → <b>Ticaret Bakanlığı</b></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Çevre ve şehircilik il müdürlükleri</span><span class='ok'>→</span><span class='hap yeni'>İl müdürlükleri</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Çevre ve Şehircilik</span><span class='ok'>→</span><span class='hap yeni'>Çevre, Şehircilik ve İklim Değişikliği</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Dış Ticaret Müsteşarlığı</span><span class='ok'>→</span><span class='hap yeni'>Ticaret Bakanlığı</span></div>
 <p><b>Ürün:</b> Ömrünü tamamlamış lastikler (atık)</p>
 <p><b>Kimi ilgilendirir:</b> Lastik üreticileri, yetkili toplayıcılar, geri kazanım ve bertaraf tesisleri, geçici depolama işletmeleri, lastik tamirhaneleri, oto sanayicileri</p>
 <p><b>Ne yapmalısın:</b> Lastik toplama ve taşıma operasyonlarında yeni tanım ve yetki sistemini gözden geçirin. Taşıma araçlarındaki uyarı levhası uyumluluğunu kontrol edin. Yetkili toplayıcılarla yapılan sözleşmelerde taşıyıcı tanımını ve Bakanlığa bildirim yükümlülüğünü kesinleştirin. Geçici depolama tesisiyseniz il müdürlüğü izin şartlarını yenileyin.</p>
@@ -127,7 +135,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class='kiymet'>• 6 ncı maddesi yürürlükten kaldırıldı</div>
 <div class='kiymet'>• 4 üncü maddesi baştan yazıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden birebir alındı)</span></p>
-<div class='kiymet'>• geçici 1 inci madde: <span style='color:var(--dim);text-decoration:line-through'>31/7/2026</span> → <b>31/1/2027</b></div>
+<div class='karsi'><span class='kon'>geçici 1 inci madde</span><span class='hap eski'>31/7/2026</span><span class='ok'>→</span><span class='hap yeni'>31/1/2027</span></div>
 <p><b>Ürün:</b> Döviz dönüşüm desteği (tüm sektörler)</p>
 <p><b>Kimi ilgilendirir:</b> Yurt dışından döviz geliri olan firmalar, aracı bankalar, ihracat şirketleri</p>
 <p><b>Ne yapmalısın:</b> Döviz dönüşüm desteği talepleri sırasında sunacağın belgeleri ve firmanın mali bilgilerini kontrol et. Döviz pozisyonu oranını aracı bankaya tevsik ettiğiniz belgenin doğruluğundan emin ol. Geçmiş dönemlerde hatalı beyanda bulunmuş şirket veya kontrollü firmalar ise başvuru reddedilebileceğini bilmek gereken.</p>
@@ -198,7 +206,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class='kiymet'>• MADDE 8/B eklendi</div>
 <div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden birebir alındı)</span></p>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Müsteşarlığa</span> → <b>Kuruma</b></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Müsteşarlığa</span><span class='ok'>→</span><span class='hap yeni'>Kuruma</span></div>
 <p><b>Ürün:</b> Sigorta destek hizmetleri (hasar yönetimi, asistans, hasar araştırmacılığı)</p>
 <p><b>Kimi ilgilendirir:</b> Sigorta şirketlerine hasar yönetimi, acil yardım-asistans ve hasar araştırması hizmeti sağlayan kuruluşlar; hasar araştırmacı olarak faaliyette bulunan gerçek ve tüzel kişiler</p>
 <p><b>Ne yapmalısın:</b> Mevcut sağlayıcı iseniz, Kurum iznini 31.12.2026'ye kadar (anonim şirket yapısı) ve 31.12.2028'e kadar (amin olmayan koşullar) sağlayın; özsermayeyi 31.12.2026 itibariyle en az %25, 31.12.2028 itibariyle %50, 31.12.2030 itibariyle %100 artırın. Hasar araştırmacısı iseniz 31.12.2026'ya kadar şartlara uyum sağlayın; son bir yıldaki hizmet sunuşunuzu belgeleyin.</p>
