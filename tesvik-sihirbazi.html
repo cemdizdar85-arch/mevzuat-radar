@@ -117,7 +117,7 @@ const TLf=n=>n.toLocaleString('tr-TR');
 fetch('veri/tesvik-bolgeler.json').then(r=>r.json()).then(d=>{
   V=d; ilDoldur(); tazelikYaz(d);
 }).catch(()=>{ $('sonuc').style.display='block'; $('sonuc').innerHTML='<div class="tuzak">Veri dosyası yüklenemedi, sayfayı yenile ya da daha sonra dene.</div>'; });
-fetch('veri/cagri-radar.json').then(r=>r.json()).then(d=>{ CG=d; }).catch(()=>{});
+fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(d=>{ CG=d; }).catch(()=>{});
 
 function ilDoldur(){
   const tum=[]; for(const b in V.bolgeler) V.bolgeler[b].forEach(il=>tum.push(il));

@@ -363,7 +363,7 @@ ciz();
 // ---- AÇIK ÇAĞRILAR (Çağrı Radarı, 19.08) ----
 // veri/cagri-radar.json: motor/cagri-hasat.ps1 günlük yazar (TÜBİTAK + KOSGEB + AB).
 // Yüklenemezse bölüm görünmez; sayfa statik hâliyle çalışır (kör kalma değil: damga da gizlenir).
-fetch('veri/cagri-radar.json').then(r=>r.json()).then(cd=>{
+fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   const liste = (cd.cagrilar||[]);
   if(!liste.length) return;
   const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : t; };
