@@ -526,6 +526,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 // 19.08: TAM ARSIV (5.728 ilan / 1 yil) yalniz tarama aninda yuklenir — sayfa
 // acilisi hafif kalsin diye ayri dosyada. Bir kez inince bellekte tutulur.
+// 19.08 Cem: yüklenen Excel, tarama sonucu işlenmiş olarak GERİ VERİLİR.
+// SheetJS zaten yüklü (okuma için); yazma da aynı kütüphaneyle yapılır.
+// Dosya tarayıcıda üretilir — hiçbir veri sunucuya gitmez.
+function taramaExcelIndir(){
+  const satirlar = window.SON_TARAMA || [];
+  if(!satirlar.length){ alert('Önce bir tarama yap.'); return; }
+  try{
+    const ws = XLSX.utils.json_to_sheet(satirlar);
+    ws['!cols'] = [{wch:18},{wch:26},{wch:38},{wch:13},{wch:12},{wch:12},{wch:34},{wch:16},{wch:30},{wch:12},{wch:52},{wch:38}];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Alacak Taraması');
+    const d = new Date(), iki = n => String(n).padStart(2,'0');
+    XLSX.writeFile(wb, 'alacak-taramasi-'+d.getFullYear()+iki(d.getMonth()+1)+iki(d.getDate())+'.xlsx');
+  }catch(e){ alert('Excel oluşturulamadı: '+e.message); }
+}
+
 let ARSIV = null;
 async function arsivYukle(){
   if(ARSIV) return ARSIV;
@@ -594,6 +610,9 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
   }
   // eşleşmeyen sorguları da göster (temiz)
   const eslesmisSorgu = new Set(bulunan.map(x=>x.eslesen.ham));
+  // 19.08 Cem: "adam Excel atınca biz ona işaretlenmiş Excel geri verelim" —
+  // her sorgu için tek satır biriktirilir, altta "Excel indir" düğmesiyle verilir.
+  window.SON_TARAMA = [];
   let html = '<h2>Tarama sonucu</h2>';
   // 14.08 Cem "sayacı diğer yerlere de uygula": tarama sonucu anında ölçülür.
   // Kaç kayıtta risk çıktı, kaç sorgudan kaçı temiz — sonuç kartlarına inmeden görülür.
@@ -606,6 +625,20 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
   } else {
     for(const {il, b, eslesen, tip} of bulunan){
       const sonGun = tarihEkle(il.yayinTarihi, il.bildirimGun);
+      window.SON_TARAMA.push({
+        'Sorgu': eslesen.ham,
+        'Durum': tip==='vkn' ? 'RİSK (VKN birebir)' : 'OLASI (unvan benzerliği)',
+        'Borçlu': b.unvan||'',
+        'VKN': b.vkn||'',
+        'Tür': turAd(il.tur, il.durum),
+        'İlan tarihi': il.yayinTarihi||'',
+        'Mahkeme / dosya': [il.mahkeme, il.dosya].filter(Boolean).join(' · '),
+        'İl': [il.ilce, il.il].filter(Boolean).join(' / '),
+        'Yasal süre': 'İİK m.'+(il.iikMadde||'299')+' · '+(il.bildirimGun||15)+' gün',
+        'Son gün': sonGun||'',
+        'Ne yapmalı': 'Alacağını belgelerle komisere/masaya kaydettir',
+        'İlan linki': il.url||''
+      });
       html += `<div class="kart risk">
         <span class="rozet risk">${tip==='vkn'?'⚠ Risk, '+turAd(il.tur,il.durum)+' · VKN birebir eşleşti':'⚠ OLASI eşleşme, '+turAd(il.tur,il.durum)+' · unvan benzerliği'}</span>
         <h3>${b.unvan}</h3>
@@ -643,8 +676,9 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     const canli = await arsivYukle();
     const canliBulunan = [];
     for(const x of canli){
-      const xv = rakam(x.vkn||''), xb = trFold(x.borclu||'');
-      const vknEs = sorgular.find(q => vknEsle(q,xv));
+      const xv = rakam(x.vkn||''), xt = rakam(x.tckn||''), xb = trFold(x.borclu||'');
+      // VKN (10 hane) ya da TCKN (11 hane, 19.08 Cem kararıyla saklanıyor) birebir
+      const vknEs = sorgular.find(q => vknEsle(q,xv) || (xt && q.vkn.length===11 && q.vkn===xt));
       const adEs = vknEs ? null : sorgular.find(q => adSorguUygun(q) && xb && xb.includes(q.unvan));
       const es = vknEs || adEs;
       if(es) canliBulunan.push({x, es, tip: vknEs?'vkn':'ad'});
@@ -653,15 +687,32 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
       html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+canli.length.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl)</span></h2>';
       for(const esk of canliBulunan.slice(0,20)){
         const x = esk.x, es = esk.es, tip = esk.tip;
-        let sureHtml='';
+        let sureHtml='', xlSure='', xlSonGun='', xlHap='';
         try{
           const kural = aiSure(x);
           if(kural && (kural.gun||kural.ay)){
             const g = aiSonTarih(x.tarih, kural);
-            if(g && g.kalan>=0) sureHtml = '<div class="sure">⏳ <b>'+kural.tip+': '+(g.kalan===0?'son gün BUGÜN':g.kalan+' gün kaldı')+'</b> ('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</div>';
+            if(g && g.kalan>=0){
+              sureHtml = '<div class="sure">⏳ <b>'+kural.tip+': '+(g.kalan===0?'son gün BUGÜN':g.kalan+' gün kaldı')+'</b> ('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</div>';
+              xlSure = kural.tip+' ('+kural.madde+' · '+kural.aciklama+')'; xlSonGun = g.sonGun;
+            }
           }
-          if(kural && kural.hap) sureHtml += '<div class="belg">💊 '+kural.hap+'</div>';
+          if(kural && kural.hap){ sureHtml += '<div class="belg">💊 '+kural.hap+'</div>'; xlHap = kural.hap; }
         }catch(e){}
+        window.SON_TARAMA.push({
+          'Sorgu': es.ham,
+          'Durum': tip==='vkn' ? 'RİSK (VKN/TCKN birebir)' : 'OLASI (unvan benzerliği)',
+          'Borçlu': x.borclu || x.baslik || '',
+          'VKN': x.vkn || '',
+          'Tür': x.tur==='konkordato' ? 'Konkordato' : (x.tur==='iflas' ? 'İflas' : 'İlan'),
+          'İlan tarihi': x.tarih || '',
+          'Mahkeme / dosya': x.kurum || '',
+          'İl': x.il || '',
+          'Yasal süre': xlSure,
+          'Son gün': xlSonGun,
+          'Ne yapmalı': xlHap,
+          'İlan linki': x.url || ''
+        });
         html += '<div class="kart risk">'
           +'<span class="rozet risk">'+(tip==='vkn'?'⚠ Risk, ':'⚠ OLASI eşleşme, ')+(x.tur==='konkordato'?'Konkordato':(x.tur==='iflas'?'İflas':'İlan'))+(tip==='vkn'?' · VKN birebir eşleşti':' · unvan benzerliği')+'</span>'
           +'<h3>'+aiKac(x.borclu||x.baslik)+'</h3>'
@@ -675,6 +726,32 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
       }
     } else if(canli.length){
       html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşiv de tarandı ('+canli.length.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
+    }
+  }catch(e){}
+
+  // 19.08: eşleşmeyen sorgular da Excel'e "TEMİZ" olarak girer — kullanıcı
+  // yüklediği listenin TAMAMINI işaretlenmiş halde geri alsın (satır kaybı olmasın).
+  try{
+    const eslesenler = new Set(window.SON_TARAMA.map(r=>r['Sorgu']));
+    for(const q of sorgular){
+      if(!eslesenler.has(q.ham)){
+        window.SON_TARAMA.push({
+          'Sorgu': q.ham, 'Durum': 'TEMİZ (arşivde ilan bulunamadı)', 'Borçlu':'', 'VKN':'',
+          'Tür':'', 'İlan tarihi':'', 'Mahkeme / dosya':'', 'İl':'',
+          'Yasal süre':'', 'Son gün':'', 'Ne yapmalı':'', 'İlan linki':''
+        });
+      }
+    }
+    if(window.SON_TARAMA.length){
+      const riskli = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('RİSK')===0).length;
+      const olasi  = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('OLASI')===0).length;
+      html += '<div class="kutu" style="margin-top:16px;text-align:center">'
+        + '<div style="font-size:13.5px;color:var(--muted);margin-bottom:10px">Taradığın listenin tamamı ('
+        + window.SON_TARAMA.length + ' satır) durum sütunlarıyla işaretlendi: <b style="color:var(--red)">'
+        + riskli + ' risk</b> · <b style="color:var(--amber)">' + olasi + ' olası</b> · <b style="color:var(--green)">'
+        + (window.SON_TARAMA.length - riskli - olasi) + ' temiz</b></div>'
+        + '<button class="btn" onclick="taramaExcelIndir()" style="margin:0">📥 Sonucu Excel olarak indir</button>'
+        + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Dosya bilgisayarında oluşturulur; veri sunucuya gitmez.</div></div>';
     }
   }catch(e){}
   box.innerHTML = html;

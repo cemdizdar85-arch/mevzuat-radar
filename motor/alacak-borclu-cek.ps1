@@ -16,8 +16,10 @@ $ErrorActionPreference="Continue"
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
-$yol=Join-Path $kok "veri\alacak-ilan-canli.json"
-if(-not (Test-Path $yol)){ Write-Host "alacak-ilan-canli.json yok"; exit 0 }
+# HEDEF ile arsiv dosyasi da taranabilir (19.08): HEDEF=veri\alacak-arsiv.json
+$yol = if("$($env:HEDEF)".Trim()){ Join-Path $kok $env:HEDEF } else { Join-Path $kok "veri\alacak-ilan-canli.json" }
+if(-not (Test-Path $yol)){ Write-Host "hedef dosya yok: $yol"; exit 0 }
+Write-Host ("HEDEF: {0}" -f (Split-Path $yol -Leaf))
 $h=@{ "User-Agent"="Mozilla/5.0 (MevzuatRadar-Alacak)"; "Accept"="application/json" }
 # Şirket son ekleri (hem başlık-harf "Limited Şirketi" hem TÜM-BÜYÜK "LİMİTED ŞİRKETİ")
 $sonEk='Limited Şirketi|Anonim Şirketi|Ltd\.?\s*Şti\.?|Kollektif Şirketi|Komandit Şirketi|LİMİTED ŞİRKETİ|ANONİM ŞİRKETİ|KOLLEKTİF ŞİRKETİ|KOMANDİT ŞİRKETİ|Limited Şti|LİMİTED ŞTİ'
@@ -43,10 +45,25 @@ $kisiEtiket=@(
   "MÜFLİS\s*:?\s*([A-ZÇĞİÖŞÜ][A-ZÇĞİÖŞÜ]+(?:\s+[A-ZÇĞİÖŞÜ][A-ZÇĞİÖŞÜ]+){1,3})\s*[\(,]"
 )
 function VknGecerli($s){ if($s -notmatch '^\d{10}$'){return $false}; $v=$s.ToCharArray()|%{[int]([string]$_)}; $sum=0; for($i=0;$i -lt 9;$i++){ $tmp=($v[$i]+(9-$i))%10; $sum+=$(if($tmp -eq 9){9}else{($tmp*[Math]::Pow(2,9-$i))%9}) }; return $v[9] -eq ((10-($sum%10))%10) }
+# 19.08 CEM KARARI: sahis borclular TCKN ile aniliyor; TCKN ARTIK SAKLANIR.
+# (Onceki kural "TCKN asla saklanmaz"di; Cem riski bilerek B secenegini secti.)
+# Iki sinirlama korunur: yalniz TEK gecerli TCKN varsa yazilir (ilanda alacakli
+# TCKN'leri de gecebilir, karismasin) ve ekranda MASKELI gosterilir (123*****901).
+# Hukuki dayanak: ilan İİK m.288 geregi ALENI + alacaklinin hakkinin korunmasi
+# (KVKK m.5/2-e/f). Sorumluluk: aydinlatma + guvenlik + basvuru + imha politikasi.
+function TcknGecerli($s){
+  if($s -notmatch '^[1-9]\d{10}$'){ return $false }
+  $d=$s.ToCharArray()|%{[int]([string]$_)}
+  $tek=$d[0]+$d[2]+$d[4]+$d[6]+$d[8]; $cift=$d[1]+$d[3]+$d[5]+$d[7]
+  $h10=((($tek*7)-$cift)%10); if($h10 -lt 0){ $h10+=10 }
+  if($d[9] -ne $h10){ return $false }
+  $top=0; for($i=0;$i -lt 10;$i++){ $top+=$d[$i] }
+  return $d[10] -eq ($top%10)
+}
 
 $obj=Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
 $ilanlar=@($obj.ilanlar)
-$fN=0;$vN=0;$kN=0;$say=0
+$fN=0;$vN=0;$kN=0;$tN=0;$say=0
 foreach($x in $ilanlar){
   if($x.tur -ne 'iflas' -and $x.tur -ne 'konkordato'){ continue }
   # 19.08 ARSIV TURU: havuz 343'ten binlere ciktigi icin her kosuda hepsini yeniden
@@ -81,10 +98,13 @@ foreach($x in $ilanlar){
   # VKN (yalnız tek geçerli; TCKN 11 hane olduğundan \b\d{10}\b'e takılmaz)
   $vkn=@([regex]::Matches($c,'\b\d{10}\b')|ForEach-Object{$_.Value}|Select-Object -Unique|Where-Object{VknGecerli $_})
   if($vkn.Count -eq 1){ $x | Add-Member -NotePropertyName vkn -NotePropertyValue $vkn[0] -Force; $vN++ }
+  # TCKN (19.08 Cem kararı): yalnız TEK geçerli TCKN varsa yazılır
+  $tckn=@([regex]::Matches($c,'\b\d{11}\b')|ForEach-Object{$_.Value}|Select-Object -Unique|Where-Object{TcknGecerli $_})
+  if($tckn.Count -eq 1){ $x | Add-Member -NotePropertyName tckn -NotePropertyValue $tckn[0] -Force; $tN++ }
   $x | Add-Member -NotePropertyName tarandi -NotePropertyValue $true -Force
   Start-Sleep -Milliseconds 200
 }
-Write-Host ("Taranan iflas/konkordato: {0} · firma: {1} · kişi: {2} · VKN: {3}" -f $say,$fN,$kN,$vN)
+Write-Host ("Taranan: {0} · firma: {1} · kişi: {2} · VKN: {3} · TCKN: {4}" -f $say,$fN,$kN,$vN,$tN)
 ($obj | ConvertTo-Json -Depth 6) | Out-File $yol -Encoding utf8
 # geri oku (yaz->oku->karsilastir)
 $geri=Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
