@@ -213,10 +213,17 @@ try {
       $meta = $sonuc.metadata
       $kimlik = "$($meta.identifier)"; $baslikAB = "$($meta.title)"
       if(-not $kimlik -or -not $baslikAB){ continue }
-      # gelecek tarihli en yakin son tarih (cut-off) alinir; yoksa cagri atlanir
+      # gelecek tarihli en yakin son tarih (cut-off) alinir; yoksa cagri atlanir.
+      # DIKKAT (19.08 CI vakasi): pwsh 7 ConvertFrom-Json ISO tarih dizesini
+      # KENDILIGINDEN [datetime] yapar; "$ham".Substring o zaman kultur-bicimli
+      # dize verir ve ParseExact sessizce patlar (CI'da 345 konunun hepsi elendi).
+      # Iki tur da ayri ele alinir.
       $gelecek = @()
       foreach($ham in @($meta.deadlineDate)){
-        try { $t = [datetime]::ParseExact("$ham".Substring(0,10),"yyyy-MM-dd",$null); if($t -ge $bugun){ $gelecek += $t } } catch {}
+        $t = $null
+        if($ham -is [datetime]){ $t = $ham.Date }
+        else { try { $t = [datetime]::ParseExact("$ham".Substring(0,10),"yyyy-MM-dd",$null) } catch {} }
+        if($t -and $t -ge $bugun){ $gelecek += $t }
       }
       if(-not $gelecek.Count){ continue }
       $abListe += [ordered]@{
@@ -229,6 +236,12 @@ try {
     if((@($sedia.results).Count) -lt 100){ break }   # son sayfa
     $sayfa++
     Start-Sleep -Milliseconds 400
+  }
+  # imkansiz-veri sigortasi (yapisal denetci felsefesi): portal "345 acik konu"
+  # diyorsa gelecekli 0 olamaz - olcum bozuktur, OLCULEMEDI say ki eski veri korunsun.
+  if($abOlduMu -and $toplamAB -ge 20 -and (@($abListe).Count) -eq 0){
+    Write-Host ("  CELISKI: portal {0} acik konu diyor ama gelecekli 0 cikti - olcum bozuk sayildi" -f $toplamAB)
+    $abOlduMu = $false
   }
   if($abOlduMu){
     # mukerrer kimlik ayikla (ayni konu iki sayfada gelebilir)
