@@ -178,6 +178,86 @@ if($uibHtml){
     Start-Sleep -Milliseconds 250
   }
 }
+# --- KALAN 11 BIRLIK: GUNLUK YOKLAMA ----------------------------------------
+# 19.08 Cem: "yilda bir cok, her gun dene 1 kere". 11 birlik bugun JS ile
+# ciziyor (olculdu) ama site yenilenirse okunabilir hale gelebilir. Her gun
+# BIR kez yoklanir: aday yollar denenir, sayfada HEM heyet/UR-GE basligi HEM
+# tarih varsa "okunabilir" sayilir ve kayitlar genel desenle cikarilir.
+# Maliyet: birlik basina 1-3 istek, gunde bir. Sonuc her kosuda json'a yazilir
+# (birlikDurum) - bir birlik acilirsa ayni gun gorulur, kimse elle bakmaz.
+$digerBirlikler = @(
+  @{ ad = "AKİB (Akdeniz)";        kok = "https://www.akib.org.tr";   yollar = @("/tr/heyetler","/tr/duyurular","/tr/etkinlikler") },
+  @{ ad = "BAİB (Batı Akdeniz)";   kok = "https://www.baib.gov.tr";   yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "DENİB (Denizli)";       kok = "https://www.denib.gov.tr";  yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "DAİB (Doğu Anadolu)";   kok = "https://www.daib.org.tr";   yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "DKİB (Doğu Karadeniz)"; kok = "https://www.dkib.org.tr";   yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "GAİB (Güneydoğu)";      kok = "https://www.gaib.org.tr";   yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "İİB (İstanbul)";        kok = "https://www.iib.org.tr";    yollar = @("/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "İMMİB (Maden-Metal)";   kok = "https://www.immib.org.tr";  yollar = @("/tr/heyetler","/tr/duyurular","/tr/etkinlikler") },
+  @{ ad = "İTKİB (Tekstil)";       kok = "https://www.itkib.org.tr";  yollar = @("/tr/heyetler","/tr/duyurular","/duyurular") },
+  @{ ad = "KİB (Karadeniz)";       kok = "https://www.kib.org.tr";    yollar = @("/tr/heyetler","/duyurular","/tr/duyurular") },
+  @{ ad = "OAİB (Orta Anadolu)";   kok = "https://oaib.org.tr";       yollar = @("/heyetler","/duyurular","/etkinlikler") }
+)
+$birlikDurum = @()
+$yeniAcilan = @()
+foreach($birlik in $digerBirlikler){
+  $durum = "okunamıyor (JS ile çiziliyor)"
+  $bulunanKayit = 0
+  foreach($yol in $birlik.yollar){
+    $sayfa = ""
+    try { $sayfa = (Invoke-WebRequest -Uri ($birlik.kok + $yol) -UserAgent "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -TimeoutSec 25 -UseBasicParsing).Content } catch { continue }
+    if(-not $sayfa -or $sayfa.Length -lt 5000){ continue }
+    # OKUNABILIRLIK OLCUTU: heyet/UR-GE basligi TASIYAN link + sayfada tarih deseni
+    $adaylar = [regex]::Matches($sayfa, '<a[^>]*href="([^"#]{3,160})"[^>]*>([^<]{12,140})</a>')
+    $konulu = @()
+    foreach($a in $adaylar){
+      $bas = (EntityCoz ((($a.Groups[2].Value -replace '\s+',' ').Trim())))
+      $nb = Normalize $bas
+      if($nb -match 'heyet|ur-ge|urge' -and $nb -notmatch 'kosullari|rehber|kilavuz|katilim kosul'){
+        $konulu += [pscustomobject]@{ baslik=$bas; href=$a.Groups[1].Value }
+      }
+    }
+    if(@($konulu).Count -lt 2){ continue }
+    $tarihVar = [regex]::IsMatch($sayfa, '\d{1,2}[./]\d{1,2}[./]\d{4}|\d{1,2}\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\s+\d{4}')
+    if(-not $tarihVar){ continue }
+    # okunabilir! genel desenle kayit cikar (tarihi cozulen ve GELECEK olanlar)
+    foreach($k in @($konulu | Select-Object -First 10)){
+      $adres = $k.href
+      if($adres -notmatch '^https?://'){ $adres = $birlik.kok + $(if($adres.StartsWith('/')){ $adres } else { "$yol/$adres" -replace '//','/' }) }
+      if($gorulen.ContainsKey($adres)){ continue }
+      $detay = ""
+      try { $detay = (Invoke-WebRequest -Uri $adres -UserAgent "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -TimeoutSec 25 -UseBasicParsing).Content } catch { continue }
+      $duz = ((($detay -replace '(?s)<script.*?</script>',' ') -replace '<[^>]*>',' ') -replace '&nbsp;',' ') -replace '\s+',' '
+      $tIso = ""
+      $mm = [regex]::Match($duz, '(\d{1,2})\s*[-/]\s*(\d{1,2})\s+([A-Za-zÀ-ɏ]+)\s+(\d{4})')
+      if($mm.Success){ $tIso = TrTarihCoz ("{0} {1} {2}" -f $mm.Groups[2].Value, $mm.Groups[3].Value, $mm.Groups[4].Value) }
+      if(-not $tIso){
+        $mm2 = [regex]::Match($duz, '(\d{1,2})\s+([A-Za-zÀ-ɏ]+)\s+(\d{4})\s+tarih')
+        if($mm2.Success){ $tIso = TrTarihCoz ("{0} {1} {2}" -f $mm2.Groups[1].Value, $mm2.Groups[2].Value, $mm2.Groups[3].Value) }
+      }
+      if(-not $tIso){ continue }
+      try { if([datetime]::ParseExact($tIso,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch { continue }
+      $gorulen[$adres] = 1
+      $kayitlar += [ordered]@{
+        baslik = $k.baslik; konu = "Ticaret heyeti"; birlik = $birlik.ad
+        tarih = $tIso; ozet = ""; url = $adres
+      }
+      $bulunanKayit++
+      Start-Sleep -Milliseconds 200
+    }
+    $durum = "OKUNABİLİR ($yol, $bulunanKayit kayıt)"
+    $yeniAcilan += ("{0} -> {1}" -f $birlik.ad, $yol)
+    break
+  }
+  $birlikDurum += [ordered]@{ birlik = $birlik.ad; durum = $durum }
+  Start-Sleep -Milliseconds 200
+}
+if(@($yeniAcilan).Count){
+  Write-Host ("*** YENI OKUNABILIR BIRLIK: {0}" -f ($yeniAcilan -join " | "))
+} else {
+  Write-Host ("11 birlik yoklandi: hepsi hala JS ile ciziyor (bugun yeni acilan yok)")
+}
+
 if($okunanSorgu -eq 0){
   Write-Host "HATA: EIB arama ucunun hicbir sorgusu okunamadi - dosyaya DOKUNULMADI"
   exit 1
@@ -186,9 +266,10 @@ if($okunanSorgu -eq 0){
 $kayitlar = @($kayitlar | Sort-Object { $_.tarih } -Descending)
 
 $cikti = [ordered]@{
-  guncelleme = "Kaynak: Ege Ihracatci Birlikleri duyuru servisi (eib.org.tr arama ucu). Son cekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
+  guncelleme = "Kaynak: ihracatci birliklerinin kendi duyuru kanallari. Son cekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
   kaynakSayfa = "https://www.eib.org.tr/Duyurular.Asp"
-  not = "PILOT: yalniz Ege Ihracatci Birlikleri (Izmir). UR-GE ve heyet destekleri 5973 s. Karar kapsamindadir; basvuru uyesi oldugun birlik ve DYS uzerinden yurur. Son 120 gunun duyurulari listelenir."
+  not = "UR-GE ve heyet destekleri 5973 s. Karar kapsamindadir; basvuru uyesi oldugun birlik ve DYS uzerinden yurur. EIB ve UIB makinece okunuyor; kalan 11 birlik HER GUN yoklanir (asagidaki birlikDurum), acilan olursa ayni gun listeye girer."
+  birlikDurum = $birlikDurum
   kayitlar = $kayitlar
 }
 ($cikti | ConvertTo-Json -Depth 4) | Out-File $ciktiYolu -Encoding utf8

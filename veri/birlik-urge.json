@@ -1,7 +1,53 @@
 ﻿{
-    "guncelleme":  "Kaynak: Ege Ihracatci Birlikleri duyuru servisi (eib.org.tr arama ucu). Son cekim: 19.08.2026 16:33.",
+    "guncelleme":  "Kaynak: ihracatci birliklerinin kendi duyuru kanallari. Son cekim: 19.08.2026 16:40.",
     "kaynakSayfa":  "https://www.eib.org.tr/Duyurular.Asp",
-    "not":  "PILOT: yalniz Ege Ihracatci Birlikleri (Izmir). UR-GE ve heyet destekleri 5973 s. Karar kapsamindadir; basvuru uyesi oldugun birlik ve DYS uzerinden yurur. Son 120 gunun duyurulari listelenir.",
+    "not":  "UR-GE ve heyet destekleri 5973 s. Karar kapsamindadir; basvuru uyesi oldugun birlik ve DYS uzerinden yurur. EIB ve UIB makinece okunuyor; kalan 11 birlik HER GUN yoklanir (asagidaki birlikDurum), acilan olursa ayni gun listeye girer.",
+    "birlikDurum":  [
+                        {
+                            "birlik":  "AKİB (Akdeniz)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "BAİB (Batı Akdeniz)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "DENİB (Denizli)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "DAİB (Doğu Anadolu)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "DKİB (Doğu Karadeniz)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "GAİB (Güneydoğu)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "İİB (İstanbul)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "İMMİB (Maden-Metal)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "İTKİB (Tekstil)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "KİB (Karadeniz)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        },
+                        {
+                            "birlik":  "OAİB (Orta Anadolu)",
+                            "durum":  "okunamıyor (JS ile çiziliyor)"
+                        }
+                    ],
     "kayitlar":  [
                      {
                          "baslik":  "VİETNAM - TAYLAND SEKTÖREL TİCARET HEYETİ",
