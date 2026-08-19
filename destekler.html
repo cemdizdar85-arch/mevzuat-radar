@@ -65,7 +65,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="radar.html">Bugün RG'de</a> · Destek Radarı</div>
   <h1>Destek Radarı</h1>
-  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b>, başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı, Türk Eximbank ve TÜBİTAK</b> programlarını gör. <b style="color:var(--ink)">Şu an açık TÜBİTAK, KOSGEB, kalkınma ajansı ve AB (Ufuk Avrupa) çağrılarını</b> robot her gün kurum sitelerinden çekip aşağıda listeler.</p>
+  <p class="lead">Devletin KOBİ'lere ayırdığı destekler <b style="color:var(--ink)">dağınık ve tarihli</b>, başvuru dönemleri sessizce açılıp kapanıyor. İşletmenin aşamasını seç; sana uygun <b style="color:var(--ink)">KOSGEB, Ticaret Bakanlığı, Türk Eximbank ve TÜBİTAK</b> programlarını gör. <b style="color:var(--ink)">Şu an açık TÜBİTAK, KOSGEB, kalkınma ajansı, TKDK/IPARD ve AB (Ufuk Avrupa) çağrılarını</b> robot her gün kurum sitelerinden çekip aşağıda listeler.</p>
 
   <div class="kart" id="dsihirbaz" style="border-left-color:var(--accent2)">
     <h3 style="margin-top:0">🧭 Hangi destekleri kullanabilirsin? 4 soruda söyleyelim</h3>
@@ -383,12 +383,15 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   const tub = liste.filter(c=>c.kaynak==='TÜBİTAK');
   const kos = liste.filter(c=>c.kaynak==='KOSGEB');
   const ka  = liste.filter(c=>c.kaynak==='Kalkınma Ajansları');
+  const tk  = liste.filter(c=>c.kaynak==='TKDK (IPARD)');
   const ab  = liste.filter(c=>(c.kaynak||'').indexOf('AB')===0);
   document.getElementById('cagriListe').innerHTML =
     grup('TÜBİTAK', tub, true, '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Başvuru PRODİS (eteydeb) üzerinden; 9903 teşvik belgen varsa m.33 tek-kapı kuralına dikkat (aynı harcamaya iki destek olmaz; Teknoloji Hamlesi istisna).</p>')
     + grup('KOSGEB', kos, true, '')
     + grup('Kalkınma Ajansları', ka, false,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">26 bölge ajansının güncel destekleri (mali, teknik, fizibilite). Çağrı <b style="color:var(--ink)">bölge bazlıdır</b>: kısaltma ajansı gösterir (İZKA=İzmir, MEVKA=Konya-Karaman…), kendi bölgendekine başvurabilirsin; başvuru KAYS üzerinden. 9903 teşvik belgen varsa m.33 tek-kapı kuralını unutma.</p>')
+    + grup('TKDK — IPARD (tarım-gıda hibeleri)', tk, true,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">AB ortak finansmanlı geri ödemesiz kırsal kalkınma hibeleri; başvuru ilindeki TKDK İl Koordinatörlüğüne, desteklenen sektörler ve iller ilan PDF\'inde yazar. IPARD dosyası ciddi hazırlık ister, erken başla; 9903 belgesiyle aynı harcamada m.33 tek-kapı kuralına dikkat.</p>')
     + grup('AB — Ufuk Avrupa (en yakın son tarihli '+ab.length+' konu)', ab, false,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Türkiye Ufuk Avrupa\'ya asosiye ülke: Türk şirketleri başvurabilir. Tam liste ve konu detayı <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals" target="_blank" rel="noopener">AB Funding &amp; Tenders portalında</a>; ulusal irtibat noktası <a href="https://ufukavrupa.org.tr" target="_blank" rel="noopener">ufukavrupa.org.tr</a>.</p>');
   document.getElementById('cagriDamga').textContent = cd.guncelleme || '';

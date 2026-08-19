@@ -262,6 +262,7 @@ function digerKapilar(sektor){
       + (enYakin ? ' (en yakın kapanış ' + gd(enYakin) + ')' : '')
       + (kos.length ? ', <b>KOSGEB ' + kos.length + ' çağrı</b>' : '')
       + (ka.length ? ', <b>kalkınma ajansları ' + ka.length + ' destek</b>' : '')
+      + (function(){ const tk=CG.cagrilar.filter(c=>c.kaynak==='TKDK (IPARD)'); return tk.length ? ', <b>TKDK/IPARD ' + tk.length + ' açık ilan</b>' : ''; })()
       + (ab.length ? ', <b>AB (Ufuk Avrupa) ' + ab.length + '+ konu</b>' : '') + '.';
   }
   return '<div class="kutu" style="border-left:5px solid var(--accent)"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🚪 DİĞER KAPILAR</div>'
