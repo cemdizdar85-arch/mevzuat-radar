@@ -3960,13 +3960,13 @@
                          "slug":  "tevkifat14592",
                          "ad":  "GVK 94 Tevkifat Oranlari BKK (2009/14592)",
                          "pdfId":  "HAZIR",
-                         "not":  "19.08.2026: mevzuat.gov.tr BKK metinlerini HIC tutmuyor (tur listesinde BKK yok) - kaynak GIB portal konsolidesi (gib.gov.tr/mevzuat/kanun/433/bkk/1232, API: /api/gibportal/mevzuat/bkk/findById?id=1232). 9284+9286+9707+11344 CK degisiklikleri isli. Gunluk ayna indiremez; oran degisikligi nobeti gvk.txt dipnotlarindan yakalanir, degisince elle/betikle tazelenir (scratchpad bkk-cek.ps1 deseni)."
+                         "not":  "19.08.2026: mevzuat.gov.tr BKK metinlerini HIC tutmuyor (tur listesinde BKK yok) - kaynak GIB portal konsolidesi (gib.gov.tr/mevzuat/kanun/433/bkk/1232, API: /api/gibportal/mevzuat/bkk/findById?id=1232). 9284+9286+9707+11344 CK degisiklikleri isli. Gunluk ayna indiremez; oran degisikligi nobeti gvk.txt dipnotlarindan yakalanir, degisince motor\\hazir-tazele.ps1 ile tazelenir (ham metin: veri\\mevzuat-hazir\\tevkifat14592.txt)."
                      },
                      {
                          "slug":  "tevkifat14593",
                          "ad":  "KVK 30 Tevkifat Oranlari BKK (2009/14593)",
                          "pdfId":  "HAZIR",
-                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1379, API id=1379). Dar mukellef stopaj oranlari: gayrimaddi hak %20, serbest meslek %20 (petrol %5), GMSI %20 (fin.kiralama %1), faiz banka %0/diger %10, kar payi %15 (9286). 9707: yillara-sari insaat raylı/gemi/nukleer %1, diger %5."
+                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1379, API id=1379; motor\\hazir-tazele.ps1 ile tazelenir). Dar mukellef stopaj oranlari: gayrimaddi hak %20, serbest meslek %20 (petrol %5), GMSI %20 (fin.kiralama %1), faiz banka %0/diger %10, kar payi %15 (9286). 9707: yillara-sari insaat raylı/gemi/nukleer %1, diger %5."
                      },
                      {
                          "slug":  "ihracat5973",
@@ -3978,13 +3978,13 @@
                          "slug":  "fuar-genelge",
                          "ad":  "Fuar Desteklerine Iliskin Genelge (5973 uygulama)",
                          "pdfId":  "HAZIR",
-                         "not":  "19.08.2026: bilgi.html fuar hapinin GENELGE ayagi (basvuru 3 ay, degerlendirme formu m.10, banka kanali m.39, pazarlamaci m.41). Kaynak ticaret.gov.tr resmi PDF (data/5b868a8d13b87818a009d3b0/Fuar Desteklerine Iliskin Genelge.pdf) - gunluk ayna indiremez, degisiklik ticaret.gov.tr duyurulariyla izlenir, elle tazelenir."
+                         "not":  "19.08.2026: bilgi.html fuar hapinin GENELGE ayagi (basvuru 3 ay, degerlendirme formu m.10, banka kanali m.39, pazarlamaci m.41). Kaynak ticaret.gov.tr resmi PDF (data/5b868a8d13b87818a009d3b0/ + dosya adi TURKCE HARFLI: Fuar Desteklerine \u0130li\u015fkin Genelge.pdf - ASCII'ye duzlestirilmis ad 500 doner, PDF yerine HTML hata sayfasi iner!) - gunluk ayna indiremez, degisiklik ticaret.gov.tr duyurulariyla izlenir, motor\\hazir-tazele.ps1 ile tazelenir."
                      },
                      {
                          "slug":  "tevkifat14594",
                          "ad":  "KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594)",
                          "pdfId":  "HAZIR",
-                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1378, API id=1378). Tam mukellef kurumlara yapilan odemelerde kesinti oranlari."
+                         "not":  "19.08.2026: GIB portal konsolidesi (kanun/435/bkk/1378, API id=1378; motor\\hazir-tazele.ps1 ile tazelenir). Tam mukellef kurumlara yapilan odemelerde kesinti oranlari."
                      }
                  ]
 }

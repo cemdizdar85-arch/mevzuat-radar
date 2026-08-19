@@ -1,5 +1,26 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## 🔧 19.08.2026 — HAM METİN ONARIMI: 4 HAZIR KAYNAK DOSYASI YERİNE KONDU (Nabız Nöbetçisi alarmı)
+*Nöbetçi "HAZIR kaynak dosyası YOK" dedi: tevkifat14592/93/94 + fuar-genelge. **Ambar eksik değildi** —
+o gün yutulan metinler Supabase'e ve eri/mevzuat/*.json'a girmişti, ama HAM METİN scratchpad'de
+kalıp eri/mevzuat-hazir/ altına konmamıştı. Çekme tarifinin geçici klasörde yaşaması kök nedendi.*
+
+| Slug | Kaynak | Kapsama (kaynak→ambar) |
+|---|---|---|
+| tevkifat14592 | GİB portal API id=1232 | %99,0 |
+| tevkifat14593 | GİB portal API id=1379 | %92,0 |
+| tevkifat14594 | GİB portal API id=1378 | %92,9 |
+| fuar-genelge | ticaret.gov.tr PDF | %99,9 |
+
+Tevkifat üçlüsündeki kayıp **satır satır ölçüldü**: tamamı başlık + "Bakanlar Kurulu'nca
+kararlaştırılmıştır" usul girişi; **tek bir hüküm eksik değil** (19.08 kaydıyla birebir aynı istisna).
+Push öncesi parçalayıcı yerelde koşturuldu: **10/6/6/85 madde — 19.08 ambarıyla metin birebir aynı**,
+yani ayna yeniden yutunca ambar değişmeyecek.
+**Kalıcı önlem:** motor/hazir-tazele.ps1 — tarif artık repoda. Yeni bir HAZIR kaynak yutulduğunda
+ham metin eri/mevzuat-hazir/<slug>.txt olarak yazılır ve çekme tarifi bu betiğe eklenir.
+**Tuzak (kalıcı ders):** ticaret.gov.tr dosya adı TÜRKÇE HARFLİ ("Fuar Desteklerine İlişkin Genelge.pdf");
+ASCII'ye düzleştirilmiş ad 500 döner ve PDF sanılan bir **HTML hata sayfası** iner — manifest notu düzeltildi.
+
 ## ✅ 19.08.2026 (3. tur) — KGK KARNESİ 6 MEVZUAT + 10 TEORİ NOTU (üç-sınav kuralı, Cem: "ikisini birden")
 *Sebep: KGK karnesi ilk kez koştu (10 etiketli dönem/1.536 konu); 42 KAYNAK-YOK satırının
 ayıklamasında 16 gerçek boşluk çıktı (veri/karne-ayiklama-kgk.json).*
