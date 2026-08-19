@@ -386,8 +386,14 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo, [string]$tebligAd = "
   # yakalaniyordu (22.02.2020'de gozetim 2020/1 yerine TSE hortum tebligi 2020/1,
   # 31.12.2025'te korunma 2026/1 yerine enerji IPC tebligi 2026/1 inmisti).
   # Simdi: ad koku hem baglanti metninde hem INEN DOSYADA aranir; tutmayan silinir.
-  $guvenliAd = ($rgTarih -replace '\.','-') + "_" + ($tebligNo -replace '/','-') + ".htm"
-  $cachYol = Join-Path $eskiDir $guvenliAd
+  # 19.08 EK: MUKERRER SAYI destegi - ana fihristte yoksa gunun mukerrer
+  # fihristleri de taranir (/fihrist?tarih=YYYY-AA-GG&mukerrer=N). Mukerrer
+  # belgeler RG'de yalniz PDF olarak durur (or. 20251231M5-34.pdf); PDF'in
+  # metni pdftotext ile cikarilir, pdftotext yoksa aday atlanir (yanlis/eksik
+  # veri yerine null - olculemedi).
+  $tabanAd = ($rgTarih -replace '\.','-') + "_" + ($tebligNo -replace '/','-')
+  $cachHtm = Join-Path $eskiDir ($tabanAd + ".htm")
+  $cachPdf = Join-Path $eskiDir ($tabanAd + ".pdf")
   $eskiUrl = $null
   # ad koku: parantezden onceki ilk uc anlamli kelime (or. "ITHALATTA GOZETIM UYGULANMASINA")
   $adKok = ""
@@ -396,63 +402,139 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo, [string]$tebligAd = "
     $kelimeler = @($duz -split ' ' | Where-Object { $_.Length -ge 3 }) | Select-Object -First 3
     if($kelimeler.Count -ge 2){ $adKok = $kelimeler -join ' ' }
   }
+  function PdfMetin([string]$yol){
+    $ptt = Get-Command pdftotext -ErrorAction SilentlyContinue
+    if(-not $ptt){ Write-Host "  pdftotext yok - PDF eski metin okunamadi (olculemedi)"; return $null }
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+      & $ptt.Source -enc UTF-8 $yol $tmp 2>$null
+      if((Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0){ return [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8) }
+    } catch {} finally { Remove-Item $tmp -Force -ErrorAction SilentlyContinue }
+    return $null
+  }
+  # RG mukerrer PDF'leri cogunlukla ToUnicode tablosuz gomulu fontla basiliyor:
+  # pdftotext anlamsiz simge yigini veriyor (31.12.2025 M5-34 ile OLCULDU).
+  # Saglamlik testi: cozulmus Turkce metinde bu kelimelerden en az biri gecer.
+  function MetinSaglamMi([string]$t){
+    if(-not $t){ return $false }
+    $k = TrKatla $t
+    return ($k.Contains('TEBLIG') -or $k.Contains('MADDE') -or $k.Contains('RESMI GAZETE'))
+  }
+  function DosyaMetni([string]$yol){
+    if($yol.ToLowerInvariant().EndsWith('.pdf')){
+      $t = PdfMetin $yol
+      if($null -eq $t){ return $null }
+      return (($t -replace '\s+',' ').Trim())
+    }
+    $htmlE = [System.Text.Encoding]::GetEncoding(1254).GetString([System.IO.File]::ReadAllBytes($yol))
+    $m = ($htmlE -replace "(?is)<script.*?</script>","" -replace "(?is)<style.*?</style>","" -replace "<[^>]+>"," " -replace "&nbsp;"," " -replace "\s+"," ").Trim()
+    return [System.Net.WebUtility]::HtmlDecode($m)
+  }
   function DosyaDogru([string]$yol){
     if(-not $adKok){ return $true }
-    try { $icerik = TrKatla ([System.Text.Encoding]::GetEncoding(1254).GetString([System.IO.File]::ReadAllBytes($yol)) -replace '<[^>]+>',' ') } catch { return $false }
-    return $icerik.Contains($adKok)
+    try { $icerik = DosyaMetni $yol } catch { return $false }
+    if($null -eq $icerik){ return $false }
+    # PDF metni cozulemiyorsa (gomulu font) icerik dogrulamasi yapilamaz;
+    # PDF onbellege YALNIZ baglanti-metni (no + ad koku) eslesince yazildigi
+    # icin kabul edilir - eski kusurlu kod hic PDF yazmadi, miras riski yok.
+    if($yol.ToLowerInvariant().EndsWith('.pdf') -and -not (MetinSaglamMi $icerik)){ return $true }
+    return (TrKatla $icerik).Contains($adKok)
   }
   # eski (yanlis inmis olabilecek) onbellek de kapidan gecmek zorunda
-  if((Test-Path $cachYol) -and -not (DosyaDogru $cachYol)){
-    Write-Host ("  eski-metin onbellegi YANLIS TEBLIGE aitmis, silindi: " + $guvenliAd)
-    Remove-Item $cachYol -Force
+  foreach($c in @($cachHtm, $cachPdf)){
+    if((Test-Path $c) -and -not (DosyaDogru $c)){
+      Write-Host ("  eski-metin onbellegi YANLIS TEBLIGE aitmis, silindi: " + (Split-Path -Leaf $c))
+      Remove-Item $c -Force
+    }
   }
-  if(-not (Test-Path $cachYol)){
+  $cachYol = if(Test-Path $cachHtm){ $cachHtm } elseif(Test-Path $cachPdf){ $cachPdf } else { $null }
+  if(-not $cachYol){
     try {
       $fih = (Invoke-WebRequest -Uri ("https://www.resmigazete.gov.tr/" + $rgTarih) -UserAgent "Mozilla/5.0 (MevzuatRadar-KartMotoru)" -TimeoutSec 60 -UseBasicParsing).Content
     } catch { return $null }
-    $rxE = [regex]'(?is)<a[^>]+href="(?<u>[^"]*eskiler/\d{4}/\d{2}/\d{8}-\d+\.htm)"[^>]*>(?<t>.*?)</a>'
-    foreach($m in $rxE.Matches($fih)){
-      $t = ($m.Groups["t"].Value -replace "<[^>]+>"," " -replace "\s+"," ")
-      # eslesme: teblig numarasi + (verilmisse) ad koku - numara tek basina yaniltir
-      if($t -notmatch [regex]::Escape($tebligNo)){ continue }
-      if($adKok -and -not (TrKatla $t).Contains($adKok)){ continue }
-      $u = $m.Groups["u"].Value
-      if($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+    # fihrist sayfalari: once ana sayi, sonra gunun mukerrer sayilari (baglantilardan kesfedilir)
+    $pT = $rgTarih.Split('.'); $tarIso = "$($pT[2])-$($pT[1])-$($pT[0])"
+    $fihristler = New-Object System.Collections.Generic.List[object]
+    $fihristler.Add(@{ ad='ana'; icerik=$fih })
+    $mukNolar = [regex]::Matches($fih, [regex]::Escape("/fihrist?tarih=$tarIso") + '&(?:amp;)?mukerrer=(\d+)') | ForEach-Object { [int]$_.Groups[1].Value } | Sort-Object -Unique
+    foreach($mn in $mukNolar){
       try {
-        $wcE = New-Object System.Net.WebClient
-        $wcE.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
-        [System.IO.File]::WriteAllBytes($cachYol, $wcE.DownloadData($u))
-      } catch { return $null }
-      # indirilen dosyanin kendisi de dogrulanir - fihrist metni kisaltilmis olabilir
-      if(-not (DosyaDogru $cachYol)){
-        Write-Host ("  indirilen eski metin ad kokuyle uyusmadi, atlandi: " + $u)
-        Remove-Item $cachYol -Force
-        continue
-      }
-      $eskiUrl = $u
-      break
+        $mf = (Invoke-WebRequest -Uri ("https://www.resmigazete.gov.tr/fihrist?tarih=$tarIso&mukerrer=$mn") -UserAgent "Mozilla/5.0 (MevzuatRadar-KartMotoru)" -TimeoutSec 60 -UseBasicParsing).Content
+        $fihristler.Add(@{ ad="$mn. mukerrer"; icerik=$mf })
+      } catch { Write-Host ("  mukerrer fihrist okunamadi ($mn) - atlandi") }
     }
-    if(-not (Test-Path $cachYol)){ return $null }
+    # baglanti bicimleri: normal sayida ...\d{8}-N.htm, mukerrerde ...\d{8}M\d+-N.pdf
+    $rxE = [regex]'(?is)<a[^>]+href="(?<u>[^"]*eskiler/\d{4}/\d{2}/\d{8}[^"]*\.(?:htm|pdf))"[^>]*>(?<t>.*?)</a>'
+    foreach($sayfa in $fihristler){
+      if($cachYol){ break }
+      foreach($m in $rxE.Matches($sayfa.icerik)){
+        $t = ($m.Groups["t"].Value -replace "<[^>]+>"," " -replace "\s+"," ")
+        # eslesme: teblig numarasi + (verilmisse) ad koku - numara tek basina yaniltir
+        if($t -notmatch [regex]::Escape($tebligNo)){ continue }
+        if($adKok -and -not (TrKatla $t).Contains($adKok)){ continue }
+        $u = $m.Groups["u"].Value
+        if($u -notmatch "^https?:"){ $u = "https://www.resmigazete.gov.tr" + $(if($u.StartsWith("/")){""}else{"/"}) + $u }
+        $hedef = if($u.ToLowerInvariant().EndsWith('.pdf')){ $cachPdf } else { $cachHtm }
+        try {
+          $wcE = New-Object System.Net.WebClient
+          $wcE.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+          [System.IO.File]::WriteAllBytes($hedef, $wcE.DownloadData($u))
+        } catch { continue }
+        # indirilen dosyanin kendisi de dogrulanir - fihrist metni kisaltilmis olabilir
+        if(-not (DosyaDogru $hedef)){
+          Write-Host ("  indirilen eski metin ad kokuyle uyusmadi, atlandi: " + $u)
+          Remove-Item $hedef -Force
+          continue
+        }
+        if($sayfa.ad -ne 'ana'){ Write-Host ("  eski metin " + $sayfa.ad + " sayidan bulundu: " + $u) }
+        $eskiUrl = $u
+        $cachYol = $hedef
+        break
+      }
+    }
+    if(-not $cachYol){ return $null }
   }
-  # metin + gorseller (eski tablolar da goruntude olabilir)
-  $hamE = [System.IO.File]::ReadAllBytes($cachYol)
-  $htmlE = [System.Text.Encoding]::GetEncoding(1254).GetString($hamE)
-  $metinE = ($htmlE -replace "(?is)<script.*?</script>","" -replace "(?is)<style.*?</style>","" -replace "<[^>]+>"," " -replace "&nbsp;"," " -replace "\s+"," ").Trim()
-  $metinE = [System.Net.WebUtility]::HtmlDecode($metinE)
+  # metin (+ htm ise gorseller: eski tablolar goruntude olabilir)
+  $metinE = DosyaMetni $cachYol
+  if($null -eq $metinE){ return $null }
   if($metinE.Length -gt 9000){ $metinE = $metinE.Substring(0,9000) }
   $gorsellerE = @()
-  $pE = $rgTarih.Split("."); $tabanE = "https://www.resmigazete.gov.tr/eskiler/$($pE[2])/$($pE[1])/"
-  $imgE = [regex]::Matches($htmlE,'(?i)<img[^>]+src="([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 2
-  foreach($srcE in $imgE){
-    $iu = if($srcE -match "^https?:"){ $srcE } else { $tabanE + ($srcE -replace "^\./","") }
-    try {
-      $wcI = New-Object System.Net.WebClient
-      $wcI.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
-      $mi = GorselTuru $srcE
-      if(-not $mi){ Write-Host ("  gorsel ATLANDI (desteklenmeyen bicim): " + $srcE); continue }
-      $bi = $wcI.DownloadData($iu)
-      $gorsellerE += @{ type="image"; source=@{ type="base64"; media_type=$mi; data=[Convert]::ToBase64String($bi) } }
-    } catch {}
+  if($cachYol.ToLowerInvariant().EndsWith('.pdf')){
+    # Gomulu-font PDF: metin cozulemiyorsa icerik SAYFA GORUNTUSU olarak verilir
+    # (karsilastirma cagrisi zaten gorsel destekli). pdftoppm yoksa ve metin de
+    # cozulemiyorsa null - yanlis veri yerine olculemedi.
+    $metinCozuldu = MetinSaglamMi $metinE
+    $ppm = Get-Command pdftoppm -ErrorAction SilentlyContinue
+    if($ppm){
+      $onek = Join-Path ([System.IO.Path]::GetTempPath()) ("rg-eski-" + [System.IO.Path]::GetFileNameWithoutExtension($cachYol))
+      try {
+        & $ppm.Source -png -r 110 -f 1 -l 2 $cachYol $onek 2>$null
+        foreach($png in (Get-ChildItem ($onek + "*.png") -ErrorAction SilentlyContinue | Sort-Object Name | Select-Object -First 2)){
+          $gorsellerE += @{ type="image"; source=@{ type="base64"; media_type="image/png"; data=[Convert]::ToBase64String([System.IO.File]::ReadAllBytes($png.FullName)) } }
+          Remove-Item $png.FullName -Force -ErrorAction SilentlyContinue
+        }
+      } catch {}
+    }
+    if(-not $metinCozuldu){
+      if(-not $gorsellerE.Count){ Write-Host "  PDF metni cozulemedi ve sayfa goruntusu uretilemedi - eski metin OLCULEMEDI"; return $null }
+      $metinE = "(PDF metni cozulemedi - gomulu font. Eski tebligin icerigi ekli sayfa goruntulerindedir; degerleri goruntuden oku.)"
+    }
+  }
+  if($cachYol.ToLowerInvariant().EndsWith('.htm')){
+    $htmlE = [System.Text.Encoding]::GetEncoding(1254).GetString([System.IO.File]::ReadAllBytes($cachYol))
+    $pE = $rgTarih.Split("."); $tabanE = "https://www.resmigazete.gov.tr/eskiler/$($pE[2])/$($pE[1])/"
+    $imgE = [regex]::Matches($htmlE,'(?i)<img[^>]+src="([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 2
+    foreach($srcE in $imgE){
+      $iu = if($srcE -match "^https?:"){ $srcE } else { $tabanE + ($srcE -replace "^\./","") }
+      try {
+        $wcI = New-Object System.Net.WebClient
+        $wcI.Headers.Add("User-Agent","Mozilla/5.0 (MevzuatRadar-KartMotoru)")
+        $mi = GorselTuru $srcE
+        if(-not $mi){ Write-Host ("  gorsel ATLANDI (desteklenmeyen bicim): " + $srcE); continue }
+        $bi = $wcI.DownloadData($iu)
+        $gorsellerE += @{ type="image"; source=@{ type="base64"; media_type=$mi; data=[Convert]::ToBase64String($bi) } }
+      } catch {}
+    }
   }
   return @{ metin = $metinE; gorseller = $gorsellerE; url = $eskiUrl }
 }

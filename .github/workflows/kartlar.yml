@@ -57,6 +57,12 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
+      # Mukerrer sayidaki eski teblig metinleri yalniz PDF (19.08.2026):
+      # pdftotext metin denemesi, pdftoppm gomulu-font PDF'i sayfa goruntusune
+      # cevirir (EskiMetinBul). Kurulu degilse PDF adaylari sessizce null doner.
+      - name: PDF araclari (poppler)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
       - name: Gunun tarihi (TR)
         id: g
         run: echo "gun=$(TZ=Europe/Istanbul date +%d-%m-%Y)" >> "$GITHUB_OUTPUT"
