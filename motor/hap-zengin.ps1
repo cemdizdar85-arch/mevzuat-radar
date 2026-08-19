@@ -41,6 +41,18 @@ $partiYol = Join-Path $kok "veri/bekleyen-hap-partileri.json"
 function Rapor($n){ [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -InputObject $n -Depth 5), (New-Object Text.UTF8Encoding($false))) }
 trap {
   $govde = ""; if($_.ErrorDetails -and $_.ErrorDetails.Message){ $govde = $_.ErrorDetails.Message }  # pwsh7: hata govdesi BURADA (29.07 dersi)
+  # 19.08 TAVAN BEKLEMESI: Anthropic aylik tavani (enforced_spend_limit_reached)
+  # 1 Eylul'e kadar KALKMAZ ve OpenRouter yedegi Batch API'yi DESTEKLEMEZ -
+  # bu robot o gune kadar isini yapamaz. Bilinen ve eylemsiz durum her gun
+  # kirmizi yakmasin (her gun kirmizi yanan alarm, bakilmayan alarmdir);
+  # rapor gercegi soyler, sabah raporu YENI sorunlara temiz kalir. Emir acik
+  # kalir, tavan acilinca kaldigi yerden devam eder.
+  if($govde -match 'enforced_spend_limit_reached|monthly API usage threshold'){
+    Rapor ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAVAN-BEKLEMEDE"
+      not="Anthropic aylik tavani dolu (1 Eylul 00:00 UTC'de acilir). Emir acik birakildi; bekleyen odenmis parti varsa o gun once hasat edilir." })
+    Write-Host "Anthropic TAVANI dolu - 1 Eylul'e kadar BEKLEMEDE (kirmizi degil, is yapilmadi)."
+    exit 0
+  }
   Rapor ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="HATA"
     hata="$($_.Exception.Message)"; sunucu=$govde.Substring(0,[Math]::Min(400,$govde.Length)); satir=$_.InvocationInfo.ScriptLineNumber })
   Write-Host ("HATA (satir {0}): {1} | sunucu: {2}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message, $govde)
