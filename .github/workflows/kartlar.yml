@@ -317,7 +317,12 @@ jobs:
             if git push; then BASARILI=1; break; fi
             echo "Push reddedildi (deneme $DENEME) - uzaktaki degisiklikler aliniyor."
             git fetch origin || true
-            if git rebase origin/main; then continue; fi
+            # --autostash SART: adimlar (kart uretimi, kiymet defteri, nobet
+            # damgasi) izlenmeyen degisiklikler birakiyor ve rebase bunlari
+            # gorunce "cannot rebase: You have unstaged changes" deyip durur.
+            # 19.08'de bu bayrak dusurulunce yayin adimi tam da bu yuzden
+            # coktu - eski kodun --autostash'i bosuna degildi.
+            if git rebase --autostash origin/main; then continue; fi
             TEMIZ=1
             for f in $(git diff --name-only --diff-filter=U); do
               if uretilen_mi "$f"; then
