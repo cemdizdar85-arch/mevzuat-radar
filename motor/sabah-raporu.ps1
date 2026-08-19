@@ -83,11 +83,22 @@ if($dunKirmiziIdi -and $durum -eq 'YESIL'){ $satir = $satir + ' (DUZELDI)' }
 if($Kuru){ Write-Host "KURU KOSU - mail atilmadi. gonder=$gonder"; exit 0 }
 if(-not $gonder){ Write-Host 'Ayni sabah ikinci yesil - mail atilmadi (kural: 04 her zaman, sonrasi yalniz kirmizi/duzeldi).'; exit 0 }
 
-$govde = @{ access_key=$WEB3; subject=$satir; from_name='Tetikte Sabah Raporu'
-            message=("Saat (TR): {0}`nSite rozeti: {1}`nGece tamamlanan kosu: {2}`nAcik kirmizi: {3}`n`nAyrinti: https://github.com/$REPO/actions" -f $trSimdi.ToString('HH:mm'), $rozet, $toplamKosu, $(if($halaKirmizi.Count){$halaKirmizi -join ', '}else{'yok'})) } | ConvertTo-Json
-$y = Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $govde -TimeoutSec 60
-if(-not $y.success){ Write-Host "MAIL GONDERILEMEDI: $($y.message)"; exit 1 }
-Write-Host 'Mail gonderildi.'
+# 19.08 ILK KOSU DERSI: web3forms CI'dan CALISMAZ - GitHub'in veri merkezi
+# IP'si Cloudflare bot korumasina takiliyor ("Just a moment..."). Tarayicidan
+# calisiyor olmasi yaniltti. Kanal nabiz-nobetcisi ile ayni: Resend birincil,
+# web3forms yalniz yedek (yerel kosuda ise yarar, CI'da buyuk ihtimal duser).
+$mesaj = ("Saat (TR): {0}`nSite rozeti: {1}`nGece tamamlanan kosu: {2}`nAcik kirmizi: {3}`n`nAyrinti: https://github.com/$REPO/actions" -f $trSimdi.ToString('HH:mm'), $rozet, $toplamKosu, $(if($halaKirmizi.Count){$halaKirmizi -join ', '}else{'yok'}))
+$gitti = $false
+if($env:RESEND_KEY){
+  $html = '<p><b>' + $satir + '</b></p><pre>' + $mesaj + '</pre>'
+  $mb = @{ from=$env:RESEND_FROM; to=@('cemdizdar85@hotmail.com'); subject=$satir; html=$html } | ConvertTo-Json -Depth 3
+  try { Invoke-RestMethod -Method Post -Uri 'https://api.resend.com/emails' -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType 'application/json' -TimeoutSec 60 | Out-Null; $gitti = $true; Write-Host 'Mail (resend) gonderildi.' } catch { Write-Host "resend hatasi: $($_.Exception.Message)" }
+}
+if(-not $gitti){
+  $govde = @{ access_key=$WEB3; subject=$satir; from_name='Tetikte Sabah Raporu'; email='cemdizdar85@hotmail.com'; message=$mesaj } | ConvertTo-Json
+  try { $y = Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -UserAgent 'Mozilla/5.0 (TetikteNobetci)' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 60; if($y.success){ $gitti = $true; Write-Host 'Mail (web3forms) gonderildi.' } } catch { Write-Host "web3forms hatasi: $($_.Exception.Message)" }
+}
+if(-not $gitti){ Write-Host 'MAIL GONDERILEMEDI - iki kanal da dustu.'; exit 1 }
 
 # durum dosyasi (05/06 kosusu bugunu bilsin)
 @{ tarih=$bugun; durum=$durum; saat=$trSimdi.ToString('HH:mm'); satir=$satir } | ConvertTo-Json | Out-File $durumYol -Encoding utf8

@@ -33,6 +33,8 @@ jobs:
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           if ("${{ github.event.inputs.kuru }}" -eq "true") { ./motor/sabah-raporu.ps1 -Kuru } else { ./motor/sabah-raporu.ps1 }
       - name: Durum dosyasini commit'le
