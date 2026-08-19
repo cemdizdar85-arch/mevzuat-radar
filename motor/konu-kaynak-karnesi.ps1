@@ -85,16 +85,32 @@ function TurkceRegex([string]$s, [bool]$bosluklaEsnek = $true){
   return $sb.ToString()
 }
 
+# 18.08 DERS (olcemedigine-kusur-deme): sorgu HATASI "kayit yok" DEGILDIR.
+# Ilk buyuk kosuda hiz siniri yuzunden sorgular sessizce -1 dondu ve TMS 37
+# (ambarda 95 kayit) bile KAYNAK YOK sayildi. Artik: 3 deneme + geri cekilme,
+# yine olmazsa konu OLCULEMEDI olarak isaretlenir - KAYNAK YOK denmez.
+$script:hataliSorgu = 0
 function KayitSay([string]$filtre){
-  try {
-    $u = "$SB_URL/rest/v1/dokumanlar?select=id&$filtre&limit=1"
-    $r = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers ($H + @{ Prefer = "count=exact" }) -TimeoutSec 45
-    return [int](($r.Headers['Content-Range'] -split '/')[-1])
-  } catch { return -1 }
+  for($deneme=1; $deneme -le 3; $deneme++){
+    try {
+      $u = "$SB_URL/rest/v1/dokumanlar?select=id&$filtre&limit=1"
+      $r = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers ($H + @{ Prefer = "count=exact" }) -TimeoutSec 45
+      return [int](($r.Headers['Content-Range'] -split '/')[-1])
+    } catch {
+      if($deneme -lt 3){ Start-Sleep -Seconds (2 * $deneme) }
+    }
+  }
+  $script:sorguHata = $true
+  $script:hataliSorgu++
+  return -1
 }
 
 # --- konu listesini topla ---
-$analiz = Get-Content (Join-Path $kok "veri\sgs-analiz.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+# 18.08: girdi/cikti ortamdan secilebilir (varsayilan davranis AYNEN korunur).
+# KARNE_GIRDI=smmm-analiz.json + KARNE_CIKTI=konu-kaynak-karnesi-smmm.json ile
+# ayni motor Yeterlilik arsivini de olcer; CI kosusu bu degiskenleri bilmez.
+$girdiAd = if($env:KARNE_GIRDI){ $env:KARNE_GIRDI } else { "sgs-analiz.json" }
+$analiz = Get-Content (Join-Path $kok "veri\$girdiAd") -Raw -Encoding UTF8 | ConvertFrom-Json
 $konular = @{}
 foreach($d in @($analiz.donemler)){
   if(-not $d.konuSayim){ continue }
@@ -104,7 +120,7 @@ foreach($d in @($analiz.donemler)){
 Write-Host ("Konu sayisi: {0} (16 donem birlestirilmis)" -f $konular.Count)
 
 $karne = New-Object System.Collections.Generic.List[object]
-$say = @{ URET=0; 'KAYNAK YOK'=0; 'MEVZUAT-DISI'=0 }
+$say = @{ URET=0; 'KAYNAK YOK'=0; 'MEVZUAT-DISI'=0; 'OLCULEMEDI'=0 }
 $n = 0
 foreach($anahtar in ($konular.Keys | Sort-Object)){
   $n++
@@ -117,6 +133,10 @@ foreach($anahtar in ($konular.Keys | Sort-Object)){
     $say['MEVZUAT-DISI']++
     continue
   }
+
+  # 18.08: hiz siniri sigortasi - sorgular arasi kisa nefes
+  Start-Sleep -Milliseconds 120
+  $script:sorguHata = $false
 
   # 1) konuda standart atfi var mi (tms 40, tfrs 15, bds 260)
   $std = [regex]::Match($konu, '(tms|tfrs|bds)\s*(\d{1,3})', 'IgnoreCase')
@@ -155,6 +175,10 @@ foreach($anahtar in ($konular.Keys | Sort-Object)){
   if($bulunan -gt 0){
     $karne.Add([ordered]@{ ders=$ders; konu=$konu; cikmisSoru=$adet; ambarKayit=$bulunan; karar='URET'; not=$nasil })
     $say['URET']++
+  } elseif($script:sorguHata){
+    # sorgu(lar) hata dondu - yokluk OLCULMEDI, iddia edilemez
+    $karne.Add([ordered]@{ ders=$ders; konu=$konu; cikmisSoru=$adet; ambarKayit=-1; karar='OLCULEMEDI'; not='Sorgu hatasi (3 deneme) - kaynak yok DENEMEZ, yeniden olculmeli' })
+    $say['OLCULEMEDI']++
   } else {
     $karne.Add([ordered]@{ ders=$ders; konu=$konu; cikmisSoru=$adet; ambarKayit=0; karar='KAYNAK YOK'; not='Ambarda metin bulunamadi - once kaynak yutulmali' })
     $say['KAYNAK YOK']++
@@ -169,7 +193,8 @@ $cikti = [ordered]@{
   ozet       = $say
   konular    = $karne.ToArray()
 }
-$yol = Join-Path $kok "veri\konu-kaynak-karnesi.json"
+$ciktiAd = if($env:KARNE_CIKTI){ $env:KARNE_CIKTI } else { "konu-kaynak-karnesi.json" }
+$yol = Join-Path $kok "veri\$ciktiAd"
 [IO.File]::WriteAllText($yol, ($cikti | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 
 Write-Host ""
@@ -177,6 +202,8 @@ Write-Host "=========== KONU-KAYNAK KARNESI ==========="
 Write-Host ("  URET (kaynak var)        : {0}" -f $say['URET'])
 Write-Host ("  KAYNAK YOK (once yut)    : {0}" -f $say['KAYNAK YOK'])
 Write-Host ("  MEVZUAT-DISI (elle yaz)  : {0}" -f $say['MEVZUAT-DISI'])
+Write-Host ("  OLCULEMEDI (sorgu hatasi): {0}" -f $say['OLCULEMEDI'])
+Write-Host ("  hatali sorgu toplami     : {0}" -f $script:hataliSorgu)
 Write-Host ("  -> {0}" -f $yol)
 Write-Host ""
 Write-Host "--- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):"
