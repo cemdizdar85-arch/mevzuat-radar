@@ -1,10 +1,16 @@
 # ============================================================================
 #  MAIL TEST (19.08.2026) — elle tetiklenir; yeni teslim bicimiyle (duz-metin +
 #  cumle duzeni konu) tek test maili atar. Amac: onemsiz/gelen kutusu olcumu.
+#  alici girdisiyle istenen adrese atilir (varsayilan: Cem'in Hotmail'i).
 # ============================================================================
 name: mail-test
 on:
   workflow_dispatch:
+    inputs:
+      alici:
+        description: "Test mailinin alicisi"
+        required: false
+        default: "cemdizdar85@hotmail.com"
 
 jobs:
   gonder:
@@ -15,11 +21,13 @@ jobs:
         env:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          ALICI: ${{ inputs.alici }}
         run: |
           if(-not $env:RESEND_KEY){ Write-Host "RESEND_KEY secret yok"; exit 1 }
+          $alici = if($env:ALICI){ $env:ALICI } else { "cemdizdar85@hotmail.com" }
           $damga = (Get-Date).ToString("dd.MM.yyyy HH:mm") + " UTC"
           $html = "<h3>Tetikte test maili</h3><p>Yeni teslim bicimi denemesi ($damga): duz-metin govde + cumle duzeni konu. Bu mail gelen kutusuna dustuyse ayarlar calisiyor; onemsizde ise alan adi itibari daha oturmamis demektir.</p><p>Tetikte</p>"
           $duz = "Tetikte test maili`n`nYeni teslim bicimi denemesi ($damga): duz-metin govde + cumle duzeni konu. Bu mail gelen kutusuna dustuyse ayarlar calisiyor; onemsizde ise alan adi itibari daha oturmamis demektir.`n`nTetikte"
-          $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte test maili: teslim kontrolu ($damga)"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
+          $mb = @{ from=$env:RESEND_FROM; to=@($alici); subject="Tetikte test maili: teslim kontrolu ($damga)"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
           $r = Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json"
-          Write-Host ("gonderildi, resend id: {0}" -f $r.id)
+          Write-Host ("gonderildi -> {0}, resend id: {1}" -f $alici, $r.id)
