@@ -551,7 +551,7 @@ document.getElementById('iskurGrubu').addEventListener('toggle', function(){
 let URGE = null;
 document.getElementById('urgeGrubu').addEventListener('toggle', function(){
   if(!this.open || URGE) return;
-  fetch('veri/eib-urge.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  fetch('veri/birlik-urge.json?'+Date.now()).then(r=>r.json()).then(d=>{
     URGE = d;
     const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : ''; };
     document.getElementById('urgeSayi').textContent = '· '+d.kayitlar.length+' duyuru (son 120 gün)';
@@ -562,6 +562,7 @@ document.getElementById('urgeGrubu').addEventListener('toggle', function(){
       ? tekil.map(k=>'<div style="padding:7px 0;border-bottom:1px solid var(--line)">'
           + '<a href="'+k.url+'" target="_blank" rel="noopener" style="font-weight:600;font-size:13px">'+k.baslik+'</a>'
           + ' <span class="rozet">'+k.konu+'</span>'
+          + (k.birlik?' <span class="rozet" style="background:rgba(61,220,151,.13);color:var(--green)">'+k.birlik+'</span>':'')
           + '<div style="font-size:11.5px;color:var(--dim);margin-top:2px">'+gd(k.tarih)+(k.ozet?' · '+k.ozet.slice(0,120)+'…':'')+'</div></div>').join('')
         + '<p style="font-size:11.5px;color:var(--dim);margin-top:10px">'+(d.guncelleme||'')+'</p>'
       : '<span style="color:var(--dim)">Son 120 günde UR-GE/heyet duyurusu yok.</span>';

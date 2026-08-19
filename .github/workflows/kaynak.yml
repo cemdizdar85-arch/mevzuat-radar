@@ -100,12 +100,12 @@ jobs:
       # 19.08 Cem: UR-GE icin EIB pilotu. Ihracatci birlikleri 5973'un basvuru
       # mercii; UR-GE proje cagrilari + ticaret/alim heyeti takvimi yalniz birlik
       # duyurularinda cikiyor. Once tek birlik (Ege/Izmir) - tutarsa 13'e genisler.
-      - name: EIB UR-GE / heyet duyurulari (yalniz sabah)
+      - name: Ihracatci birlikleri UR-GE / heyet duyurulari (yalniz sabah)
         id: urge
         if: github.event.schedule != '13 14 * * *'
         continue-on-error: true
         shell: pwsh
-        run: ./motor/eib-urge-hasat.ps1
+        run: ./motor/birlik-urge-hasat.ps1
       - name: Cagri/fuar/exim/kgf/iskur/urge hasadi dustuyse Cem'e haber ver
         if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure' || steps.kgf.outcome == 'failure' || steps.iskur.outcome == 'failure' || steps.urge.outcome == 'failure'
         shell: pwsh
