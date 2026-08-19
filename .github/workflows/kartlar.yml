@@ -296,8 +296,50 @@ jobs:
           # sessizce basarisiz olup push'u ole birakiyordu; (b) push yine
           # reddedilirse bir kez daha cek-bas denenir, o da tutmazsa adim
           # KIRMIZI biter (dogru davranis - kayip sessiz olmasin).
-          git pull --rebase --autostash || true
-          git push || { git pull --rebase --autostash && git push; }
+          # 19.08 UCUNCU KAT - REBASE CAKISMASI. Onceki iki sigorta yalniz
+          # "push reddedildi" halini kurtariyordu. Bugun cakisma cikti
+          # (kartlar.html iki taraftan da degismisti): pull --rebase depoyu
+          # UNMERGED birakti, sonraki komutlar "unresolved conflict" ile coktu,
+          # adim exit 128 verdi ve URETILEN KART YINE COPE GITTI.
+          # Kural: cakisma URETILEN dosyalardaysa BIZIM surumumuz gecerlidir -
+          # hepsi kaynaktan yeniden uretiliyor, uzaktaki hali zaten eskimis.
+          # Uretilmeyen bir dosyada cakisma varsa rebase IPTAL edilir ve adim
+          # kirmizi biter: baska robotun verisini korukorune ezmeyiz.
+          URETILEN="kartlar.html arsiv motor/kartlar motor/hafiza motor/arsiv veri/kart-durum.json veri/kartlar-guncel.json veri/radar-kiymet.json veri/gozetim-teblig-zinciri.json veri/rg-gozetim-haritasi.json veri/arac-uyari.json veri/arac-nobet-log.txt"
+          uretilen_mi() {
+            for u in $URETILEN; do
+              case "$1" in "$u"|"$u"/*) return 0 ;; esac
+            done
+            return 1
+          }
+          BASARILI=0
+          for DENEME in 1 2 3; do
+            if git push; then BASARILI=1; break; fi
+            echo "Push reddedildi (deneme $DENEME) - uzaktaki degisiklikler aliniyor."
+            git fetch origin || true
+            if git rebase origin/main; then continue; fi
+            TEMIZ=1
+            for f in $(git diff --name-only --diff-filter=U); do
+              if uretilen_mi "$f"; then
+                echo "  cakisma cozuldu (uretilen dosya, bizim surumumuz): $f"
+                git checkout --theirs -- "$f" 2>/dev/null || true
+                git add "$f" 2>/dev/null || true
+              else
+                echo "  CAKISMA URETILEN DOSYA DISINDA: $f"
+                TEMIZ=0
+              fi
+            done
+            if [ "$TEMIZ" != "1" ]; then
+              git rebase --abort || true
+              echo "Rebase iptal edildi - elle bakilmali."
+              break
+            fi
+            GIT_EDITOR=true git rebase --continue || GIT_EDITOR=true git rebase --skip || { git rebase --abort || true; break; }
+          done
+          if [ "$BASARILI" != "1" ]; then
+            echo "KIRMIZI: uretilen kartlar yayinlanamadi (push/rebase). Uretim bosa gitmesin diye kosu kirmizi biter."
+            exit 1
+          fi
       # KIRMIZI KAPI (29.07). Kartlar yayinlandiktan SONRA calisir: vitrin
       # her halukarda guncellenir, ama eskiyen arac verisi varsa kosu KIRMIZI
       # biter ve GM gorur. Bu depoda dort katman "kuruldu ama kimse gormedi"
