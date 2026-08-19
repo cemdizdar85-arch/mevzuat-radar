@@ -19,7 +19,8 @@ h1{font-size:clamp(25px,5vw,34px);letter-spacing:-.9px;margin:6px 0 6px;font-wei
    eylem") sitenin ORTAK DILI olsun - sapka + pencere cubugu iceri de girdi. */
 .gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;
   color:var(--red);border:1px solid rgba(255,107,94,.35);background:rgba(255,107,94,.07);
-  border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
+  border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase;
+  flex-wrap:wrap;line-height:1.5;max-width:100%}
 .pbar{display:flex;align-items:center;gap:6px;margin:-20px -20px 16px;padding:10px 14px;
   border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:16px 16px 0 0}
 .pbar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.1)}
@@ -91,8 +92,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
 
-  <div><span class="gozalici">🚨 Müşterin konkordato ilan etti mi?</span></div>
-  <h1>Müşterin batmadan haber al</h1>
+  <!-- 19.08 Cem: rozet iki türü de kapsasın ve soyut korku yerine ÖLÇÜLMÜŞ rakam
+       göstersin. Sayı canlı JSON'daki son30 alanından basılır (motor/alacak-arsiv-bol.ps1
+       her hasattan sonra tam arşivden hesaplar). Veri inmezse aşağıdaki rakamsız
+       metin kalır — rakam ASLA gömülü yazılmaz. -->
+  <div><span class="gozalici" id="aiRozet">🚨 Müşterin iflas veya konkordato ilan etti mi?</span></div>
+  <h1>Müşterin battı, senin haberin yok</h1>
   <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
 
   <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: 5.728 ilan</b>, VKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
@@ -268,6 +273,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var m=/([0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9:]+)/.exec(d.guncelleme||'');
     var e=document.getElementById('aiDamga');
     if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN ile aranabilir</span> · son güncelleme: <b style="color:var(--ink)">'+(m?m[1]:(d.guncelleme||'—'))+'</b>';
+    // ROZET: yalnız ölçülmüş sayı basılır; alan yoksa rakamsız metin olduğu gibi kalır.
+    var rz=document.getElementById('aiRozet');
+    if(rz && d.son30>0){
+      rz.innerHTML='🚨 Son '+(d.son30Gun||30)+' günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?';
+    }
     aiMakro(); aiCiz();
   }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
@@ -614,6 +624,17 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     const temizler = sorgular.filter(q=>!eslesmisSorgu.has(q.ham));
     if(temizler.length){ html += `<div class="belg" style="margin-top:6px">Diğer ${temizler.length} kayıtta ilan yok (bu örnek veriye göre).</div>`; }
   }
+  // 19.08 TCKN DÜRÜSTLÜĞÜ (Cem: "şahıs TC oluyor, 11 haneli"): arşivde TCKN
+  // BİLİNÇLİ OLARAK saklanmıyor (KVKK; alacak-borclu-cek.ps1'deki kural), yani
+  // TCKN ile arayan sessizce "eşleşme yok" görüyordu. Artık açıkça söylüyoruz.
+  const tcknSorgu = sorgular.filter(q => q.vkn.length === 11);
+  if(tcknSorgu.length){
+    html += '<div class="uyari" style="margin-top:10px"><b style="color:var(--amber)">TC kimlik numarasıyla arama:</b> '
+      + tcknSorgu.length + ' kayıt TCKN olarak girildi. Gerçek kişilerin TC kimlik numaralarını <b>kişisel veri koruması gereği arşivimizde saklamıyoruz</b>, bu yüzden TCKN eşleştirmesi yapılamaz. '
+      + 'Şahıs işletmesi borçlular için <b>ad-soyad</b> ile arayın (en az iki kelime, ör. "AHMET YILMAZ"); '
+      + 'ilan metninde kişi adı geçiyorsa yakalanır. Kesin kontrol için ilan.gov.tr\'de de arayabilirsiniz.</div>';
+  }
+
   // 19.08 CANLI HAVUZ TARAMASI: yüklenen liste yalnız örnek veriyle değil, son
   // çekimlerdeki resmî ilan akışıyla (AI_L) da eşleştirilir. VKN alanı yalnız
   // dört kontrol kapısından geçen tekil VKN'lerde dolu; unvan eşleşmesi sadece
