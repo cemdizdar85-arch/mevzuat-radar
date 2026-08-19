@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radar Abonelik Fiyatları | Tetikte</title>
+<meta name="description" content="Alacak, marka, ihale ve süre radarları için abonelik fiyatları. Tek radar 599 TL/ay, tüm radarlar 999 TL/ay. Araçlar ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir. KDV dahil.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
+<style>
+  :root{color-scheme:dark; --bg:#0a0c10; --kart:#12151c; --line:#252a35; --ink:#e8eaed; --muted:#9aa0a6;
+         --dim:#7d848c; --amber:#f5a524; --green:#3ddc97; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
+  .s{ max-width:1060px; margin:0 auto; padding:26px 18px 80px; }
+  .top{ display:flex; align-items:center; gap:10px; font-size:13px; margin-bottom:22px; color:var(--dim); flex-wrap:wrap }
+  .top a{ color:var(--muted); text-decoration:none; font-weight:600 } .top a:hover{ color:var(--ink) }
+  .lamba{ width:14px;height:14px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 5px rgba(245,165,36,.16),0 0 18px rgba(245,165,36,.55);display:inline-block;flex:none }
+  h1{ font-size:clamp(24px,4vw,32px); margin:0 0 6px; letter-spacing:-.5px; }
+  .alt{ color:var(--muted); font-size:15px; margin:0 0 20px; }
+  .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:8px 0 26px; }
+  .p{ background:var(--kart); border:1px solid var(--line); border-radius:14px; padding:22px 20px; display:flex; flex-direction:column; position:relative; }
+  .p.one{ border-color:rgba(245,165,36,.55); box-shadow:0 0 0 1px rgba(245,165,36,.18); }
+  .rozet{ position:absolute; top:-11px; left:20px; background:var(--amber); color:#0a0c10; font-size:11px; font-weight:800; letter-spacing:.6px; padding:4px 10px; border-radius:20px; }
+  .p h3{ margin:0 0 2px; font-size:17px; } .p .kim{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
+  .aylik{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
+  .aylik small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
+  .yillik{ font-size:14.5px; font-weight:700; color:#c8ccd2; margin-top:6px; }
+  .kdv{ font-size:11.5px; color:var(--dim); margin-top:3px; }
+  .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
+  .p li{ padding:5px 0 5px 21px; position:relative; color:#c8ccd2; }
+  .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
+  .p li.yok{ color:var(--dim); } .p li.yok::before{ content:"—"; color:var(--dim); }
+  .btn{ margin-top:18px; display:block; text-align:center; text-decoration:none; background:var(--amber); color:#0a0c10; font-weight:800; padding:11px; border-radius:10px; }
+  .btn.ikincil{ background:transparent; border:1px solid var(--line); color:var(--ink); font-weight:600; }
+  .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:12px; padding:16px 19px; margin:16px 0; }
+  .kutu h2{ font-size:16px; margin:0 0 8px; } .kutu.vurgu{ border-color:rgba(245,165,36,.4); }
+  .kutu b.a{ color:var(--amber); }
+  table{ border-collapse:collapse; width:100%; font-size:13.5px; margin-top:8px; }
+  th,td{ text-align:left; padding:8px 10px; border-bottom:1px solid #1e222b; }
+  th{ color:var(--muted); font-size:11.5px; text-transform:uppercase; letter-spacing:.6px; }
+  td.sag,th.sag{ text-align:right; font-variant-numeric:tabular-nums; }
+  .kucuk{ font-size:12px; color:var(--dim); } .tabsar{ overflow-x:auto; }
+  a{ color:#6fb3ff; }
+  .form{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px }
+  .form input,.form select{ flex:1; min-width:190px; background:#0a0f17; border:1px solid var(--line); border-radius:11px; color:var(--ink); font:inherit; font-size:14px; padding:11px 13px }
+  .form button{ background:var(--amber); color:#0a0c10; font-weight:800; font-size:14px; padding:11px 22px; border:none; border-radius:11px; cursor:pointer }
+  .ok{ display:none; color:var(--green); font-weight:700; font-size:14px; margin-top:8px }
+</style>
+</head>
+<body>
+<div class="s">
+  <div class="top"><span class="lamba"></span><a href="index.html">Tetikte</a> · <a href="alacak-radari.html">Alacak Radarı</a> · <a href="marka-radari.html">Marka Radarı</a> · Radar Fiyatları</div>
+
+  <h1>Radar abonelikleri</h1>
+  <p class="alt">Araçları kullanmak ücretsizdir. Abonelik yalnız <b style="color:var(--ink)">sürekli izleme</b> içindir: sen bakmasan da sistem her gün tarar, eşleşme çıktığı gün yasal süresiyle birlikte e-postana bildirir. Fiyatlar KDV dahildir.</p>
+
+  <div class="kartlar">
+
+    <div class="p">
+      <h3>Ücretsiz</h3>
+      <div class="kim">Kendin bak, para verme</div>
+      <div class="aylik">0 <small>TL</small></div>
+      <div class="yillik">Süresiz</div>
+      <div class="kdv">Kart bilgisi istemiyoruz</div>
+      <ul>
+        <li>Tüm araçlar: alacak taraması, GTİP, ceza asistanı, marka, ihale…</li>
+        <li>Excel/CSV yükleyip toplu tarama</li>
+        <li>Canlı iflas &amp; konkordato akışı</li>
+        <li>İİK süre hesabı ve yol haritası</li>
+        <li class="yok">Sürekli izleme (senin yerine tarama)</li>
+        <li class="yok">Eşleşme uyarı e-postası</li>
+      </ul>
+      <a class="btn ikincil" href="alacak-radari.html">Araçları kullan</a>
+      <p class="kucuk" style="margin:10px 0 0">Anonim kullanımda ayda 5 sorgu; <b>ücretsiz üyelikle sınırsız</b>.</p>
+    </div>
+
+    <div class="p">
+      <h3>Tek Radar</h3>
+      <div class="kim">Hangisi lazımsa: alacak, marka, ihale ya da süre</div>
+      <div class="aylik">599 <small>TL / ay</small></div>
+      <div class="yillik">5.990 TL / yıl <span style="color:var(--green);font-weight:700">· 2 ay bedava</span></div>
+      <div class="kdv">KDV dahil · istediğin an bırakırsın</div>
+      <ul>
+        <li>Seçtiğin radarda <b>sürekli izleme</b></li>
+        <li>Portföyünü bir kez tanımla (VKN listesi)</li>
+        <li>Eşleşme çıktığı gün e-posta uyarısı</li>
+        <li>Uyarıda <b>yasal süre + son gün + ne yapmalı</b></li>
+        <li>Günlük tek özet e-postası</li>
+        <li class="yok">Diğer radarlar</li>
+      </ul>
+      <a class="btn ikincil" href="#abone">Tek radara abone ol</a>
+    </div>
+
+    <div class="p one">
+      <span class="rozet">EN ÇOK SEÇİLEN</span>
+      <h3>Tam Paket</h3>
+      <div class="kim">Tüm radarlar tek abonelikte</div>
+      <div class="aylik">999 <small>TL / ay</small></div>
+      <div class="yillik">9.990 TL / yıl <span style="color:var(--green);font-weight:700">· 2 ay bedava</span></div>
+      <div class="kdv">KDV dahil · istediğin an bırakırsın</div>
+      <ul>
+        <li><b>Alacak Radarı</b>: konkordato/iflas ilanı izleme</li>
+        <li><b>Marka Radarı</b>: yenileme penceresi + benzer başvuru</li>
+        <li><b>İhale Radarı</b>: yeni ihale ve sonuç takibi</li>
+        <li><b>Süre Bekçisi</b>: yasal süre ve son gün nöbeti</li>
+        <li>Tek günlük özet: hepsi tek e-postada</li>
+        <li>Yeni radarlar çıktığında <b>ücretsiz dahil</b></li>
+      </ul>
+      <a class="btn" href="#abone">Tam pakete abone ol</a>
+    </div>
+
+  </div>
+
+  <div class="kutu vurgu">
+    <h2>Kurucu fiyatı: ilk 100 abone</h2>
+    <p style="margin:0;font-size:14px">Açılışa özel: <b class="a">Tam Paket, tek radar fiyatına — 599 TL/ay</b>.
+    Bu fiyat sana <b>ömür boyu sabit</b> kalır; liste büyüyüp fiyat artsa bile sen kurucu fiyatında kalırsın.
+    Karşılığında tek şey istiyoruz: eksik gördüğün yeri bize yaz.</p>
+  </div>
+
+  <div class="kutu">
+    <h2>Neden bu fiyat?</h2>
+    <p style="margin:0;font-size:14px">Piyasada <b>tek konulu</b> takip servisleri (yalnız konkordato/iflas ya da yalnız marka izleme)
+    <b class="a">800 – 1.480 TL/ay</b> bandında; tek markanın bülten takibi için vekil firmalarının yıllık ücreti
+    <b class="a">9.000 TL</b> düzeyinde <span class="kucuk">(19.08.2026'da servislerin kendi sitelerinden okundu)</span>.
+    Tam Paket, bunların <b>tek</b> konusundan daha ucuza dört nöbeti birden veriyor.</p>
+    <p style="margin:10px 0 0;font-size:14px">Farkımız fiyat değil, <b>karar</b>: rakipler ilanı haber verir,
+    biz ilanın hangi maddeye göre kaç gün süre doğurduğunu ve ne yapman gerektiğini de söyleriz.</p>
+  </div>
+
+  <div class="kutu">
+    <h2>Dürüst olalım: şu an neyi vermiyoruz</h2>
+    <ul style="margin:0;padding-left:18px;font-size:14px;color:#c8ccd2">
+      <li><b>SMS uyarısı yok</b> — uyarılar e-posta ile gider. SMS yol haritasında.</li>
+      <li><b>Erken uyarı katmanı (Ticaret Sicili taraması) kuruluyor</b> — bugün resmî ilan izleme çalışıyor.</li>
+      <li><b>Kart ödemesi henüz açık değil</b> — abonelikler havale/EFT ile başlıyor (aşağıda).</li>
+    </ul>
+    <p class="kucuk" style="margin:10px 0 0">Bunları satıştan sonra öğrenmeyesin diye buraya yazdık.</p>
+  </div>
+
+  <div class="kutu" id="abone">
+    <h2>Abone ol</h2>
+    <p style="margin:0;font-size:14px">Kart ödemesi kurulum aşamasında. Şimdilik abonelikler <b>havale/EFT</b> ile başlıyor:
+    formu bırak, aynı gün fatura bilgileri ve ödeme talimatını e-postana gönderelim; ödeme görünür görünmez izleme başlar.</p>
+    <form class="form" onsubmit="return radarAbone(this)">
+      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0">
+      <input type="email" name="email" required placeholder="ornek@firma.com">
+      <select name="paket">
+        <option value="Tam Paket (999 TL/ay)">Tam Paket — 999 TL/ay</option>
+        <option value="Tam Paket YILLIK (9.990 TL)">Tam Paket — 9.990 TL/yıl</option>
+        <option value="Tek Radar (599 TL/ay)">Tek Radar — 599 TL/ay</option>
+        <option value="Tek Radar YILLIK (5.990 TL)">Tek Radar — 5.990 TL/yıl</option>
+        <option value="KURUCU: Tam Paket 599 TL/ay">Kurucu fiyatı — Tam Paket 599 TL/ay</option>
+      </select>
+      <button type="submit">Ödeme bilgilerini gönder →</button>
+    </form>
+    <div class="ok" id="aboneOk">✓ Talebin alındı. Fatura ve ödeme bilgilerini aynı gün e-postana göndereceğiz.</div>
+    <p class="kucuk" style="margin:10px 0 0">Form gönderince iletişim için e-postanı kullanmamızı kabul edersin ·
+    <a href="kvkk.html">KVKK aydınlatma</a></p>
+  </div>
+
+  <div class="kutu">
+    <h2>Sık sorulanlar</h2>
+    <p style="margin:8px 0;font-size:14px"><b>Araçları kullanmak için abone olmam gerekiyor mu?</b><br>
+    Hayır. Tarama, süre hesabı ve canlı akış ücretsiz; anonim kullanımda ayda 5 sorgu, ücretsiz üyelikle sınırsızdır.
+    Abonelik yalnız senin yerine her gün bakan nöbet içindir.</p>
+    <p style="margin:8px 0;font-size:14px"><b>Kaç borçlu/marka takip edebilirim?</b><br>
+    Makul kullanım sınırları içinde sınır koymuyoruz. Yüzlerce VKN'li kurumsal portföyler için bize yaz, birlikte planlayalım.</p>
+    <p style="margin:8px 0;font-size:14px"><b>İstediğim zaman bırakabilir miyim?</b><br>
+    Evet. Aylık abonelikte sonraki dönem tahsilat yapılmaz; yıllık abonelikte kalan süreye karşılık gelen kısım iade edilir.</p>
+    <p style="margin:8px 0;font-size:14px"><b>Fatura kesiliyor mu?</b><br>
+    Evet, Dizdar Denetim A.Ş. adına e-fatura/e-arşiv düzenlenir. Fiyatlar KDV dahildir.</p>
+  </div>
+
+  <p class="kucuk">Fiyatlar Türk Lirasıdır ve KDV dahildir. Tetikte bilgilendirme ve izleme aracıdır; hukuki danışmanlık hizmeti değildir.
+  Satıcı bilgileri ödeme açılışında bu sayfada yayımlanır.</p>
+</div>
+
+<script>
+function radarAbone(f){
+  var e=(f.email.value||"").trim(), p=f.paket.value;
+  if(!e) return false;
+  var hp=f.querySelector("input[name=_hp]"); if(hp&&hp.value) return false;
+  try{
+    fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+      body:JSON.stringify({access_key:"5b227e56-94fb-4123-a39a-4286f63db14a",email:e,message:"Radar abonelik talebi — paket: "+p,
+      subject:"RADAR ABONELIK TALEBI ("+p+")",from_name:"Tetikte Radar Fiyat"})});
+  }catch(err){}
+  f.style.display="none";
+  var ok=document.getElementById("aboneOk"); if(ok) ok.style.display="block";
+  return false;
+}
+</script>
+<script src="menu.js" defer></script>
+</body>
+</html>
