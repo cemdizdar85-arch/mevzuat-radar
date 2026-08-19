@@ -127,11 +127,18 @@ if($RESMI.Count -lt 200){
 #  cunku ogrenciye giden odur - ama SAYIM tum kasayi kapsar. Boylece Cem
 #  27.478 soruya degil TEK RAPORA bakar; hangi kusur kac soruda, gorur.
 # ============================================================================
+# 19.08: OFFSET sayfalamasi kaldirildi. offset buyudukce Postgres her seferinde
+# o kadar satiri atlayarak tarar; 30k+ kasada son sayfalar agirlasip yogun DB
+# gununde statement timeout (500) uretti - kapi iki kosu ust uste DURDU dedi.
+# Anahtar-takipli sayfalama (id=gt.sonId) her sayfada sabit maliyettir.
 $kasa = New-Object System.Collections.Generic.List[object]
-for($o=0; $o -lt 60000; $o+=1000){
-  $r = CekListe "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,yayin&order=id&limit=1000&offset=$o"
+$sonId = ''
+for($sayfa=0; $sayfa -lt 60; $sayfa++){
+  $filtre = if($sonId){ "&id=gt." + [uri]::EscapeDataString($sonId) } else { "" }
+  $r = CekListe "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,kaynak,yayin&order=id&limit=1000$filtre"
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($null -ne $x){ $kasa.Add($x) } }
+  $sonId = "$(@($r)[-1].id)"
   if($r.Count -lt 1000){ break }
 }
 $yayindaSayi = @($kasa | Where-Object { $_.yayin -eq $true }).Count
