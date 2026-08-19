@@ -1,0 +1,25 @@
+# ============================================================================
+#  MAIL TEST (19.08.2026) — elle tetiklenir; yeni teslim bicimiyle (duz-metin +
+#  cumle duzeni konu) tek test maili atar. Amac: onemsiz/gelen kutusu olcumu.
+# ============================================================================
+name: mail-test
+on:
+  workflow_dispatch:
+
+jobs:
+  gonder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test maili gonder (Resend)
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          if(-not $env:RESEND_KEY){ Write-Host "RESEND_KEY secret yok"; exit 1 }
+          $damga = (Get-Date).ToString("dd.MM.yyyy HH:mm") + " UTC"
+          $html = "<h3>Tetikte test maili</h3><p>Yeni teslim bicimi denemesi ($damga): duz-metin govde + cumle duzeni konu. Bu mail gelen kutusuna dustuyse ayarlar calisiyor; onemsizde ise alan adi itibari daha oturmamis demektir.</p><p>Tetikte</p>"
+          $duz = "Tetikte test maili`n`nYeni teslim bicimi denemesi ($damga): duz-metin govde + cumle duzeni konu. Bu mail gelen kutusuna dustuyse ayarlar calisiyor; onemsizde ise alan adi itibari daha oturmamis demektir.`n`nTetikte"
+          $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte test maili: teslim kontrolu ($damga)"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
+          $r = Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json"
+          Write-Host ("gonderildi, resend id: {0}" -f $r.id)
