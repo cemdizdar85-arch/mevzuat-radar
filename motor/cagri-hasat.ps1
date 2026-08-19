@@ -17,6 +17,10 @@
 #   - KOSGEB: program sayfalarinda cagri tarihi YOK (olculdu); duyuru akisi
 #     taranir, basliginda "cagri / proje teklif" gecenler alinir. 0 sonuc
 #     NORMALDIR (cagri yokken bos olur) - sayfa hic link vermezse OLCULEMEDI.
+#   - KALKINMA AJANSLARI (19.08 Cem: "kalkinma ajansi cagrilarini da"):
+#     ka.gov.tr Nuxt uygulamasi, veri api/supports ucundan JSON (sayfali, 20/sayfa).
+#     DIKKAT: www.ka.gov.tr sertifikasi YANLIS PRINCIPAL verir - daima apex
+#     (https://ka.gov.tr) kullanilir; cekim curl ile (SEDIA'yla ayni sebep).
 #
 #  Kor kalma kurali: bir kaynak olculemezse o kaynagin ESKI kayitlari korunur
 #  ve kaynak durumu "OLCULEMEDI" yazilir; UC kaynak birden olculemezse dosyaya
@@ -52,6 +56,16 @@ function TrTarihCoz([string]$ham){
         try { return (Get-Date -Year ([int]$Matches[3]) -Month $aylar[$anahtar] -Day ([int]$Matches[1])).ToString("yyyy-MM-dd") } catch { return "" }
       }
     }
+  }
+  return ""
+}
+function IsoTarih($ham){
+  # pwsh 7 ConvertFrom-Json ISO tarihleri kendiliginden [datetime] yapar (19.08 CI dersi);
+  # dize de gelebilir ("2026-03-02 08:58:12" / "2026-03-02T08:58:12"). yyyy-MM-dd dondurur, cozulemezse bos.
+  if($ham -is [datetime]){ return $ham.ToString("yyyy-MM-dd") }
+  $s = "$ham"
+  if($s.Length -ge 10){
+    try { return ([datetime]::ParseExact($s.Substring(0,10),"yyyy-MM-dd",$null)).ToString("yyyy-MM-dd") } catch {}
   }
   return ""
 }
@@ -257,16 +271,66 @@ try {
 if(-not $abOlduMu){ $kaynakDurum["AB (Ufuk Avrupa)"] = "ÖLÇÜLEMEDİ" }
 Write-Host ("AB: {0}" -f $kaynakDurum["AB (Ufuk Avrupa)"])
 
+# --- 4) KALKINMA AJANSLARI (ka.gov.tr) --------------------------------------
+# 26 ajansin tum guncel destekleri tek API'de: api/supports (Nuxt arka ucu).
+# www degil APEX: www.ka.gov.tr sertifikasi yanlis-principal (olculdu 19.08).
+Write-Host "Kalkinma Ajanslari API okunuyor..."
+$kaAdet = 0; $kaOlduMu = $false
+$kaDosya = Join-Path ([IO.Path]::GetTempPath()) "ka-supports.json"
+try {
+  $kaListe = @(); $kaSayfa = 1; $kaToplamSayfa = 1; $kaToplam = 0
+  while($kaSayfa -le [Math]::Min($kaToplamSayfa, 15)){
+    & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" `
+      -o $kaDosya "https://ka.gov.tr/api/supports?filter_details=1&page=$kaSayfa"
+    if(-not (Test-Path $kaDosya)){ break }
+    $ka = Get-Content $kaDosya -Raw -Encoding UTF8 | ConvertFrom-Json
+    if(-not $ka.state){ break }
+    $kaToplamSayfa = [int]$ka.info.total_page
+    $kaToplam = [int]$ka.info.total
+    $kaOlduMu = $true
+    foreach($destek in @($ka.data)){
+      $bitis = IsoTarih $destek.support_end_date
+      # basvurusu gecmis kayit listeye girmez (API "guncel" der ama tarihle de suzeriz)
+      if($bitis){
+        try { if([datetime]::ParseExact($bitis,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch {}
+      }
+      $kaListe += [ordered]@{
+        kaynak="Kalkınma Ajansları"; kod="$($destek.agency_code)".ToUpperInvariant(); baslik="$($destek.name)"; durum="acik"
+        acilis=(IsoTarih $destek.support_start_date); sonTarih=$bitis
+        tarihler=@()
+        url="$($destek.redirect_url)"
+      }
+    }
+    if($kaSayfa -ge $kaToplamSayfa){ break }
+    $kaSayfa++
+    Start-Sleep -Milliseconds 300
+  }
+  # imkansiz-veri sigortasi: API "N guncel destek" derken listeye 0 dustuyse olcum bozuktur
+  if($kaOlduMu -and $kaToplam -ge 10 -and (@($kaListe).Count) -eq 0){
+    Write-Host ("  CELISKI: ka.gov.tr {0} guncel destek diyor ama listeye 0 dustu - olcum bozuk sayildi" -f $kaToplam)
+    $kaOlduMu = $false
+  }
+  if($kaOlduMu){
+    $cagrilar += $kaListe
+    $kaAdet = @($kaListe).Count
+    $kaynakDurum["Kalkınma Ajansları"] = "OK (26 ajansta güncel $kaToplam destek, $kaAdet tanesi listede)"
+  }
+} catch { Write-Host ("  ka.gov.tr hatasi: {0}" -f $_.Exception.Message) }
+if(-not $kaOlduMu){ $kaynakDurum["Kalkınma Ajansları"] = "ÖLÇÜLEMEDİ" }
+Write-Host ("KALKINMA AJANSLARI: {0}" -f $kaynakDurum["Kalkınma Ajansları"])
+
 # --- kor kalma + eski veriyi koruma -----------------------------------------
+$KAYNAK_SAYISI = 4
 $olculenler = @()
 if($tubitakOlduMu){ $olculenler += "TÜBİTAK" }
 if($kosgebOlduMu){ $olculenler += "KOSGEB" }
 if($abOlduMu){ $olculenler += "AB (Ufuk Avrupa)" }
+if($kaOlduMu){ $olculenler += "Kalkınma Ajansları" }
 if(-not $olculenler.Count){
-  Write-Host "HATA: uc kaynak da olculemedi - dosyaya DOKUNULMADI (eski veri korunur)"
+  Write-Host "HATA: kaynaklarin hicbiri olculemedi - dosyaya DOKUNULMADI (eski veri korunur)"
   exit 1
 }
-if((Test-Path $ciktiYolu) -and ($olculenler.Count -lt 3)){
+if((Test-Path $ciktiYolu) -and ($olculenler.Count -lt $KAYNAK_SAYISI)){
   try {
     $eski = Get-Content $ciktiYolu -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($eskiKayit in @($eski.cagrilar)){
@@ -288,6 +352,7 @@ $cikti = [ordered]@{
     [ordered]@{ ad="TÜBİTAK"; url="https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari"; durum=$kaynakDurum["TÜBİTAK"] }
     [ordered]@{ ad="KOSGEB"; url="https://www.kosgeb.gov.tr/site/tr/genel/duyurular"; durum=$kaynakDurum["KOSGEB"] }
     [ordered]@{ ad="AB (Ufuk Avrupa)"; url="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals"; durum=$kaynakDurum["AB (Ufuk Avrupa)"] }
+    [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"] }
   )
   cagrilar = $cagrilar
 }

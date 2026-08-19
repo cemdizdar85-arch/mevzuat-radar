@@ -64,7 +64,7 @@ jobs:
         if: steps.cagri.outcome == 'failure'
         shell: pwsh
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (TUBITAK+KOSGEB+AB) uc kaynagin ucunde de olcum yapamadi ya da beklenmedik hata verdi; veri/cagri-radar.json GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (TUBITAK+KOSGEB+AB+Kalkinma Ajanslari) kaynaklarin hicbirinde olcum yapamadi ya da beklenmedik hata verdi; veri/cagri-radar.json GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
           try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
 
       # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.

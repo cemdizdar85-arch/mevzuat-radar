@@ -255,11 +255,13 @@ function digerKapilar(sektor){
     const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : t; };
     const tub = CG.cagrilar.filter(c=>c.kaynak==='TÜBİTAK');
     const kos = CG.cagrilar.filter(c=>c.kaynak==='KOSGEB');
+    const ka  = CG.cagrilar.filter(c=>c.kaynak==='Kalkınma Ajansları');
     const ab  = CG.cagrilar.filter(c=>(c.kaynak||'').indexOf('AB')===0);
     const enYakin = tub.map(c=>c.sonTarih).filter(Boolean).sort()[0];
     ic += '<br>Robotun bugünkü sayımı: <b>TÜBİTAK ' + tub.length + ' açık çağrı</b>'
       + (enYakin ? ' (en yakın kapanış ' + gd(enYakin) + ')' : '')
       + (kos.length ? ', <b>KOSGEB ' + kos.length + ' çağrı</b>' : '')
+      + (ka.length ? ', <b>kalkınma ajansları ' + ka.length + ' destek</b>' : '')
       + (ab.length ? ', <b>AB (Ufuk Avrupa) ' + ab.length + '+ konu</b>' : '') + '.';
   }
   return '<div class="kutu" style="border-left:5px solid var(--accent)"><div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2);margin-bottom:6px">🚪 DİĞER KAPILAR</div>'
