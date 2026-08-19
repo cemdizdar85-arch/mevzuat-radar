@@ -24,8 +24,18 @@ function Noktali($k12){
 }
 
 # Bir xlsx'i oku -> @{ kod = @(oranlar) }
+# ORAN KOLON PENCERESI dosyaya gore degisir (19.08 olcumu, korlemesine C..I eksikti):
+#   varsayilan C..N : I sayili + II(04-24) + II sanayi + III (O'dan sonrasi EMY) + IGV EK-1
+#   IV sayili  C..M : N'den itibaren EMY(%) kolonlari - GV araligina KARISMAMALI
+#   IGV EK 2-3 D..M : C = "GTIP 2022" ESKI KOD kolonu (oran degil!), oranlar D..M
+# Eski pencere (C..I) yuzunden: 24 tarim kodunda GV max eksikti (muz %7 gorunuyordu,
+# DU gercekte %50), EK2-3'un 113 kodunda IGV max hep 0'di (GTS/DU %20'ler J..M'de).
 function XlsxOran($xlsx){
   $sonuc = @{}
+  $ad = Split-Path $xlsx -Leaf
+  $kBas = 2; $kSon = 13
+  if($ad -match '^IV'){ $kSon = 12 }
+  if($ad -match '^EK\s*2'){ $kBas = 3; $kSon = 12 }
   try { $zip = [System.IO.Compression.ZipFile]::OpenRead($xlsx) } catch { return $sonuc }
   function OkuE($z,$ad){ $e = $z.Entries | Where-Object { $_.FullName -eq $ad } | Select-Object -First 1; if(-not $e){ return $null }; $sr = New-Object System.IO.StreamReader($e.Open(),[System.Text.Encoding]::UTF8); $t=$sr.ReadToEnd(); $sr.Close(); return $t }
   $ssXml = OkuE $zip "xl/sharedStrings.xml"
@@ -51,7 +61,7 @@ function XlsxOran($xlsx){
       if($a -notmatch '^\d{12}$'){ continue }
       $oranlar = @()
       # dipnotlu oranlar da okunur: "10(3)", "0(1) (2)" -> sayi kismi (8703 binek oto satirlari boyleydi)
-      for($k=2;$k -le 8;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim(); if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $oranlar += [double]($Matches[1] -replace ',','.') } } }
+      for($k=$kBas;$k -le $kSon;$k++){ if($h.ContainsKey($k)){ $v=($h[$k] -as [string]).Trim(); if($v -match '^(\d+([.,]\d+)?)\s*(\(\d+\)\s*)*$'){ $oranlar += [double]($Matches[1] -replace ',','.') } } }
       if($oranlar.Count){ $sonuc[(Noktali $a)] = $oranlar }
     }
   }
