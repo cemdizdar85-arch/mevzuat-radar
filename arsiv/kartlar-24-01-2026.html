@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,46 +33,61 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>24.01.2026 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>24.01.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>2025 yılı sonu döviz değerlemesi için borsada rayici olmayan paraların kurları belirlendi</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, Vergi Usul Kanunu kapsamında 2025 yılı sonu itibarıyla borsada rayici olmayan yabancı paraların değerlemesinde kullanılacak kurları tebliğ etti. Kurlar ekli listede gösterilmiş olup, kurların ilan edilmediği durumlarda T.C. Merkez Bankası kurları esas alınacak.</p>
-<p><b>Ürün:</b> yabancı paralar ve bu paralarla olan alacak ve borçlar</p>
-<p><b>Kimi ilgilendirir:</b> döviz veya efektif cinsinden alacak-borcu olan ve 2025 yılı sonunda değerleme yapması gereken işletmeler</p>
-<p><b>Ne yapmalısın:</b> Ekli listenin tamamını indir. 31 Aralık 2025 tarihinde yapacağın döviz değerlemesinde bu kurları kullan; kurların Bakanlık tarafından ilan edilmediği durumda Merkez Bankası kurlarını esas al. Bankalar kendi fiili kurlarını uygulayabilir—senin kayıtlarda hangi kuru kullandığını belgele.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>2025 yılı sonu itibarıyla borsada rayici olmayan dövizlerin değerleme kurları</h3>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 213 sayılı Vergi Usul Kanunu uyarınca 2025 yılı sonunda borsada rayici bulunmayan yabancı paraların değerlemesinde esas alınacak kurları belirlemiştir. Söz konusu kurlar tebliğ ekinde yer alan listede gösterilmiştir.</p>
+<p><b>Ürün:</b> Borsada rayici olmayan yabancı paralar</p>
+<p><b>Kimi ilgilendirir:</b> Muhasebe ve vergi danışmanları, gümrük müşavirliği firmaları, ithalatçı ve ihracatçılar ile dış ticaret işlemi yürüten kuruluşlar</p>
+<p><b>Ne yapmalısın:</b> 31 Aralık 2025 tarihli yabancı para alacak ve borçlarınızı tebliğ ekindeki kurlar üzerinden değerleyin. İlgili kur tebliğ ekindeki listede yer almıyorsa Merkez Bankası kurlarına başvurun. Değerleme işlemini bankanız aracılığıyla yaptırıyorsanız, kullanılan kuru bankanızla teyit edin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ yalnızca değerleme kurunun belirlenmesi prosedürünü açıklar; getiri ve gider etkisi döviz kuru hareketlerine bağlıdır. Kurun uygulanış yöntemi tarafsız.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, yabancı para hesaplarının vergisel değerlemesinde kullanılacak kurları standart hale getirmektedir. Uygulamada mevcut kurallar geçerliliğini korumakta olup yeni bir yükümlülük getirilmemektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/01/20260124-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Türk Lirası mevduat dönüşüm desteği tebliği yürürlükten kaldırıldı</h3>
-<p><b>Ne oldu:</b> Merkez Bankası, Aralık 2021'de yayımlanan ve Türk Lirası mevduat ile katılma hesaplarına dönüşüm desteği sağlayan 2021/14 sayılı Tebliği iptal etti. Düzenleme bu tebliğin yayım tarihi olan 24 Ocak 2026'da geçersiz hale geldi.</p>
-<p><b>Neyi değiştiriyor:</b> Türk Lirası Mevduat ve Katılma Hesaplarına Dönüşümün Desteklenmesi Hakkında Tebliğ (Sayı: 2021/14)</p>
-<p><b>Ürün:</b> Finansal hizmet (mevduat ve katılma hesapları)</p>
-<p><b>Kimi ilgilendirir:</b> Bankalar ve katılım bankaları; Türk Lirası cinsinden mevduat ve katılma hesabı işletmesi yapan finansal kurumlar</p>
-<p><b>Ne yapmalısın:</b> Daha önce 2021/14 tebliği kapsamında uyguladığın destek mekanizmalarını devre dışı bırak; bu tarihten sonra yapılan dönüşüm işlemlerinde söz konusu teşvikleri artık sunamayacaksın.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ yürürlükten kaldırıldığından, Türk Lirası mevduat desteği uygulaması sona erdi. Devlet tarafından sağlanan bu teşvik mekanizması artık kullanılamaz; kurumlar kendi kaynakları ile müşteri dönüşüm stratejileri geliştirmeleri gerekecek.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Türk Lirası Mevduat ve Katılma Hesaplarına Dönüşüm Tebliği yürürlükten kaldırıldı</h3>
+<p><b>Ne oldu:</b> 21 Aralık 2021 tarihli ve 2021/14 sayılı Tebliğ tamamen yürürlükten kaldırılmıştır. Buna göre, döviz tevdiat ve katılım fonu hesaplarının Türk lirası mevduat ve katılma hesaplarına dönüştürülmesine yönelik destek uygulaması artık yürütülmemektedir.</p>
+<p><b>Hangi tebliğ:</b> <b>2026/1</b> sayılı Tebliğ, <b>2021/14</b> sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(21.12.2021 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğ (Sayı: 2021/14) geçerlilik durumu</span><span class='hap eski'>Yürürlükte</span><span class='ok'>→</span><span class='hap yeni'>Yürürlükten kaldırıldı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2021/14 sayılı Tebliğ 24 Ocak 2026'da yürürlükten kalkmıştır (Madde 1).</div>
+<p><b>Ürün:</b> Türk lirası mevduat ve katılma hesapları</p>
+<p><b>Kimi ilgilendirir:</b> Merkez Bankası</p>
+<p><b>Ne yapmalısın:</b> Söz konusu tebliğ kapsamında yürütülen işlemler gözden geçirilmeli; eski düzenlemenin uygulanmasından kaynaklanan devam eden bir yükümlülük bulunması hâlinde Merkez Bankası'na başvurulmalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Döviz cinsinden tasarruflarını Türk lirasına dönüştüren yerleşik gerçek kişilere sağlanan kur farkı desteği sona ermiş olup, bu işlemler artık desteklenmemektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/01/20260124-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Altın hesaplarından lira mevduata dönüşüm desteği uygulaması kaldırıldı</h3>
-<p><b>Ne oldu:</b> Merkez Bankası, altın hesaplarından Türk lirası mevduat ve katılma hesaplarına geçişi teşvik eden 2021/16 sayılı Tebliği iptal etti. Uygulama 24 Ocak 2026'da sona erdi.</p>
-<p><b>Neyi değiştiriyor:</b> Altın Hesaplarından Türk Lirası Mevduat ve Katılma Hesaplarına Dönüşümün Desteklenmesi Hakkında Tebliğ (Sayı: 2021/16)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> altın hesabı bulunduran mevduat müşterileri, katılma hesabı sahipleri</p>
-<p><b>Ne yapmalısın:</b> Altın hesaplarında kalan bakiyeler için vadesiz ya da vadeli mevduat seçeneklerini gözden geçir; Merkez Bankası desteği artık sağlanmayacağı için yeni strateji belirle.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Altın hesaplarından TL'ye dönüşümü destekleyen tebliğ yürürlükten kaldırıldı</h3>
+<p><b>Ne oldu:</b> Altın hesaplarından Türk lirası mevduat ve katılma hesaplarına dönüşümü teşvik eden Tebliğ (2021/16), tamamen yürürlükten kaldırılmıştır.</p>
+<p><b>Hangi tebliğ:</b> <b>2026/2</b> sayılı Tebliğ, <b>2021/16</b> sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(29.12.2021 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğ (2021/16) yürürlük durumu</span><span class='hap eski'>Yayımı tarihinde (29.12.2021) yürürlüğe girer</span><span class='ok'>→</span><span class='hap yeni'>24.01.2026 tarihinde yürürlükten kaldırılmıştır</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2021/16 sayılı tebliğ yürürlükten kaldırılmıştır (Madde 1)</div>
+<div class='kiymet'>• Yürürlükten kaldırma 24 Ocak 2026'da geçerli olmuştur (Madde 2)</div>
+<p><b>Ürün:</b> Finansal hizmetler (altın hesabı dönüşümü)</p>
+<p><b>Kimi ilgilendirir:</b> Merkez Bankası nezdinde altın hesabı bulunan müşteriler ile altın işlemleri gerçekleştiren banka ve finansal kuruluşlar</p>
+<p><b>Ne yapmalısın:</b> Altın hesabından lira mevduatına geçişte Merkez Bankası teşvikine güvenmeyin; mevcut katılım durumunuzu yeniden değerlendirin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Altın hesaplarının TL'ye dönüştürülmesine ilişkin destek kaldırıldığından, hesap sahiplerine sağlanan faiz/kâr payı ve fiyat farkı destekleri sona ermiştir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/01/20260124-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

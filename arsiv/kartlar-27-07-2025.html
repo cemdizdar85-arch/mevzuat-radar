@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,25 +33,35 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>27.07.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>27.07.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Türkiye-Katar ticaret anlaşmasında menşeli ürün tanımı yönetmeliği</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Türkiye-Katar arasındaki ticaret anlaşmasının uygulanmasını düzenleyen yönetmeliği yayımladı. Yönetmelik, menşeli ürünlerin tanımı, tercihli menşe kuralları ve menşe ispat belgesi (EUR.1) düzenleme usullerini belirliyor.</p>
-<p><b>Ürün:</b> Tüm ürünler (Armonize Sistem tüm fasıl ve pozisyonları)</p>
-<p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Katar'a ihracat yapan türk ihracatçılar ve gümrük müşavirleri</p>
-<p><b>Ne yapmalısın:</b> Katar'a sevkiyat yapacaksan, ürünün menşe statüsünü Madde 5-9 hükümleriyle kontrol et. Tercihli rejimden yararlanmak için EUR.1 dolaşım belgesi talep et. Ek-II'deki yeterli işçilik şartlarını ürün bazında karşılıyor musun denetçi aracılığıyla teyit et. Menşeli olmayan girdilerin katma değer oranını hesapla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik tercihli ticaret rejiminin usullerini açıklıyor. Koşulları karşılayan ihracatçılar Katar pazarında gümrük avantajından faydalanabilir; şartları yerine getirmeyenler tercihli muamele alamaz.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Türkiye-Katar ticari anlaşması kapsamında tercihli menşe belirleme yönetmeliği</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Türkiye ile Katar arasında 2018'de imzalanan ve 2024'te onaylanan Ticaret ve Ekonomik Ortaklık Anlaşması'nın uygulanmasına ilişkin yönetmeliği yayımladı. Yönetmelik; menşeli ürünlerin tanımı, menşe ispat belgeleri (EUR.1 dolaşım belgesi), fatura beyanları ve gümrük idareleri arasındaki işbirliğine dair usul ve esasları düzenlemektedir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Menşeli ürün statüsü kazanmak için ürün ya tamamen Taraf ülkede elde edilmiş ya da Taraf ülkede yeterli işçilik/işleme tâbi tutulmuş olmalıdır (Madde 5).</div>
+<div class='kiymet'>• Diğer Taraf ülke menşeli girdiler, nihai ürün elde edilen ülkede menşeli kabul edilir; ikili kümülasyon uygulanır (Madde 6).</div>
+<div class='kiymet'>• Menşe ispat belgesi EUR.1 Dolaşım Belgesi veya fatura beyanı ile ibraz edilmeli, belgeler düzenlenme tarihinden itibaren dört ay içinde ithalatçı ülke gümrüklerine sunulmalıdır (Madde 24/1).</div>
+<div class='kiymet'>• Onaylanmış ihracatçılar sık sevkiyat yapanlar ile Bakanlık tarafından yetkilendirilenlere fatura beyanı hazırlama yetkisi verilebilir (Madde 31).</div>
+<div class='kiymet'>• Elektronik sistem üzerinden EUR.1 Dolaşım Belgesi düzenlenmesi esastır; manuel doldurulan belgeler de kabul edilir ancak belirli şekil şartlarına tâbi olur (Madde 19/3, 20).</div>
+<div class='kiymet'>• Menşe ispat belgesi sonradan kontrol talebine tâbi tutulabilir; ihracatçı ülke gümrüğü kontrolü yapmalı, ithalatçı ülke gümrüğü kontrol sonucunu on ay içinde almalıdır (Madde 37-40).</div>
+<div class='kiymet'>• Türkiye veya Katar dışında gerçekleştirilen işçilik/işlem, söz konusu ülkeden geri getirilen mallar üzerindeki katma değer %10'u geçmediği takdirde menşe statüsü etkilenmez (Madde 14/3).</div>
+<div class='kiymet'>• Teknik nedenlerle reddedilen EUR.1 Dolaşım Belgesi sonradan düzenlenebilir; çalınan, kayıp veya hasar gören belge için ikinci nüsha istenebilir (Madde 21, 23).</div>
+<div class='kiymet'>• Küçük paketler (500 Avro) veya yolcu zati eşyası (1.200 Avro) menşe ispat belgesi ibrazına gerek olmaksızın menşeli kabul edilebilir (Madde 26).</div>
+<p><b>Ürün:</b> Türkiye-Katar ticari anlaşması kapsamındaki tüm menşeli ürünler (herhangi bir sınırlama bulunmamaktadır); yönetmelik sektör ayrımı gözetmeksizin uygulanır.</p>
+<p><b>Kimi ilgilendirir:</b> Türkiye'den Katar'a ve Katar'dan Türkiye'ye mal ihraç veya ithal eden tüm işletmeler, gümrük idareleri ve onaylanmış ihracatçılar.</p>
+<p><b>Ne yapmalısın:</b> İhracatçılar, menşeli ürünlerin belgelendirilmesi amacıyla EUR.1 Dolaşım Belgesi veya fatura beyanı düzenleyerek gümrüğe sunmalıdır. İthalatçılar ise menşe ispat belgesini gümrüğe ibraz tarihinden dört ay öncesine kadar temin etmeli; sonradan kontrol talep edilmesi hâlinde gümrüğün olumsuz yanıt vermesi durumunda tercihli vergi farkı geri alınabilir. Onaylanmış ihracatçı statüsü edinmek isteyenlerin Bakanlığa başvuruda bulunması gerekmektedir.</p>
+<p><b>Yürürlük:</b> 01.08.2025</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, tercihli ticaret rejiminin uygulanmasına ilişkin prosedürel ve teknik kuralları ortaya koymaktadır. İhracatçılar açısından, doğru belgelendirme yapıldığında tercihli gümrük tarifelerinden yararlanma imkânı doğar; ithalatçılar açısından ise menşe belgesinin zamanında ve doğru şekilde ibraz edilmesi zorunluluk arz eder. Ticari açıdan tarafsız nitelikte bir yönetmelik olup, sağlayacağı fayda veya doğuracağı zarar tarafların ticari tercihlerine bağlıdır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250727-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

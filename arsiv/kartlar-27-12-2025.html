@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,47 +33,65 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>27.12.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>27.12.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Türkiye-Hong Kong yatırım anlaşması onay kanunu yürürlüğe girdi</h3>
-<p><b>Ne oldu:</b> 1 Haziran 2023'te Ankara'da, 31 Ekim 2023'te Hong Kong'da imzalanan yatırımların karşılıklı teşviki ve korunmasına ilişkin anlaşma onaylanmış ve 27 Aralık 2025 tarihinde yürürlüğe girmiştir.</p>
-<p><b>Ürün:</b> Uygulama kapsamı: yatırım koruma anlaşması</p>
-<p><b>Kimi ilgilendirir:</b> Hong Kong'da yatırım yapan veya Türkiye'ye Hong Kong kaynaklı yatırım getiren işletmeler</p>
-<p><b>Ne yapmalısın:</b> Anlaşma metnini hukuk müşaviri aracılığıyla incele; mevcut Hong Kong yatırımların koruma hükümleri altında tutulduğundan emin ol; yeni yatırım planlıyorsan anlaşmada yer alan teşvik mekanizmalarını gözden geçir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu kanun ticari bir gözetim uygulaması değildir; yatırım hukuku çerçevesinde iki ülke arasında karşılıklı koruma ve teşvik koşullarını belirleyen bir anlaşmadır. Ticarette doğrudan vergi, gümrük veya fiyat eşiği düzenlemesi içermez.</div>
+<p><b>Ne oldu:</b> Türkiye Cumhuriyeti ile Hong Kong Özel İdari Bölgesi arasında yatırımların karşılıklı teşviki ve korunmasına ilişkin anlaşma onaylanmıştır. Kanun, 7570 sayı ile 27 Aralık 2025 tarihinde Resmi Gazete'de yayımlanmıştır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 1 Haziran 2023'te Ankara'da ve 31 Ekim 2023'te Hong Kong'da imzalanan yatırım anlaşması onaylandı (Madde 1).</div>
+<div class='kiymet'>• Kanun yayımı tarihinde yürürlüğe girer (Madde 2).</div>
+<p><b>Ürün:</b> Uygulama yok - ikili yatırım anlaşması</p>
+<p><b>Kimi ilgilendirir:</b> Hong Kong bölgesinde yatırım yapan veya yatırım yapmayı planlayan Türk işletmeleri ile iki ülke arasındaki ticari ilişkileri yürütenler</p>
+<p><b>Ne yapmalısın:</b> Dış ticaret ve yatırım departmanınız, Hong Kong bölgesine yapılacak yatırımlar için anlaşma koşullarını ve koruma mekanizmalarını gözden geçirmelidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251227-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli paslanmaz çelik ürünlerine damping önlemi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin Halk Cumhuriyeti menşeli soğuk haddelenmiş paslanmaz yassı çelik ürünlerinin dampingli ithalatını tespit etti ve kesin önlem uygulamaya karar verdi. Endonezya menşeli aynı ürünler için soruşturma dampinge karşı kesin önlem alınmaksızın kapatıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/20</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Soğuk haddelenmiş paslanmaz çelik ürünlerine damping önlemi uygulanması kararı</h3>
+<p><b>Ne oldu:</b> Soruşturma sonuçlanmış olup Endonezya menşeli ürünlere damping önlemi uygulanmamasına, Çin menşeli ürünlere ise belirlenen oranlarda kesin damping önlemi uygulanmasına karar verilmiştir. Ayrıca GTIP 7220.20.89.00.12 soruşturma kapsamından çıkarılmıştır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/20) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(28.06.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTIP 7220.20.89.00.12 - Kalem durumu</span><span class='hap eski'>Soruşturma kapsamında yer almakta (açılış tebliğinde listelenen)</span><span class='ok'>→</span><span class='hap yeni'>Soruşturma kapsamından çıkarılmış (nihai karar tebliğinde listelenmemiş)</span></div>
+<div class='karsi'><span class='kon'>Endonezya menşeli ürün ithalatına karşı önlem</span><span class='hap eski'>Zarar tespit edildiği için damping önlemi uygulanacak</span><span class='ok'>→</span><span class='hap yeni'>İhmal edilebilir düzeyde damping ve zarar yok - soruşturma kapatıldı, önlem uygulanmıyor</span></div>
+<div class='karsi'><span class='kon'>Çin Halk Cumhuriyeti menşeli ürün ithalatına karşı önlem</span><span class='hap eski'>Damping ve zarar tespit edildiği belirtildi</span><span class='ok'>→</span><span class='hap yeni'>Kesin damping önlemi oranları belirlenerek uygulanmaya başlandı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin Halk Cumhuriyeti menşeli sorgu konusu ürünlere karşı kesin damping önlemi uygulanır (Madde 4/1).</div>
+<div class='kiymet'>• Endonezya Cumhuriyeti menşeli ithalatına yönelik soruşturma hiçbir önlem alınmaksızın kapatılır (Madde 4/2).</div>
+<div class='kiymet'>• Gümrük idareleri, damping öncül ürünlerde Madde 4'teki tabloda belirtilen oranlarda kesin önlemi tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Uygulamada esas olan, yürürlükteki Türk Gümrük Tarife Cetveli'ndeki GTIP ve Madde 4'teki tablo tanımıdır (Madde 5/2).</div>
+<div class='kiymet'>• Dampinge karşı kesin önlemler yürürlük tarihinden 5 yıl sonra kalkacak; öncesinde nihai gözden geçirme başlatılırsa sona erme tarihi uzar (Madde 5/4, 5/5).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 6/1).</div>
 <p><b>Ürün:</b> Soğuk haddelenmiş paslanmaz yassı çelik ürünler</p>
 <p><b>GTİP:</b><br><span class='gtip'>7219.31.00.00.00</span><span class='gtip'>7219.32.10.00.00</span><span class='gtip'>7219.32.90.00.00</span><span class='gtip'>7219.33.10.00.00</span><span class='gtip'>7219.33.90.00.00</span><span class='gtip'>7219.34.10.00.00</span><span class='gtip'>7219.34.90.00.00</span><span class='gtip'>7219.35.10.00.00</span><span class='gtip'>7219.35.90.00.00</span><span class='gtip'>7220.20.21.00.11</span><span class='gtip'>7220.20.21.00.12</span><span class='gtip'>7220.20.29.00.11</span><span class='gtip'>7220.20.29.00.12</span><span class='gtip'>7220.20.41.00.11</span><span class='gtip'>7220.20.41.00.12</span><span class='gtip'>7220.20.49.00.11</span><span class='gtip'>7220.20.49.00.12</span><span class='gtip'>7220.20.81.00.11</span><span class='gtip'>7220.20.81.00.12</span><span class='gtip'>7220.20.89.00.11</span><span class='gtip'>7220.20.89.00.12</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin menşeli paslanmaz çelik ürün ithal eden firmalar ve bu ürünleri kullanan sanayiciler</p>
-<p><b>Ne yapmalısın:</b> Çin'den ithal edilen paslanmaz çelik ürünler için beyannameleri gözden geçir; dampinge karşı kesin önlem oranını söz konusu tabloda karşılığında bul (Tebliğ ekinde yer alan tablo henüz metnin içinde gösterilmediği için oranları doğrula). Sevkiyat maliyeti hesaplamalarını güncelle.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Paslanmaz çelik levha ve şerit ithal eden metal ürünü işleyicileri, inşaat malzemecileri, otomotiv ve beyaz eşya tedarikçileri</p>
+<p><b>Ne yapmalısın:</b> Çin'den gelen paslanmaz çelik ithalatlarında gümrük beyannamelerinizi kontrol edin; ödenecek kesin damping önlemi tutarını Madde 4'teki tabloya göre hesaplayın. Endonezya'dan gelen sevkiyatlarda herhangi bir ek maliyet bulunmadığını teyit edin. Tedarikçi ülke dağılımınızı gözden geçirip alternatif kaynakları değerlendirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Çin menşeli soğuk haddelenmiş paslanmaz çelik ürünleri ithalatında damping önlemi uygulanması, ithalatçıların maliyetlerini artıracaktır. Endonezya menşeli ürünlerde önlem bulunmadığından, bu ülkeden ithalat yapanlar rekabet avantajı elde edecektir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251227-13.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Uluslararası gözetim şirketi faaliyetleri süreli olarak durduruldu</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, mülga Tebliğ hükümlerine aykırı davranan bir uluslararası gözetim şirketi hakkında Teknik Düzenlemeler Rejimi Kararı'nın ilgili maddeleri uyarınca faaliyetlerin süreli durdurulmasını uyguladı. Durdurma süresi tebliğde belirlenen dönem olup, şirket bu dönemde gözetim faaliyeti yürütemez.</p>
-<p><b>Neyi değiştiriyor:</b> Uluslararası Gözetim Şirketi Statüsüne İlişkin Tebliğ (Ürün Güvenliği ve Denetimi: 2015/24)</p>
-<p><b>Ürün:</b> Uluslararası gözetim hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Uluslararası gözetim şirketi olarak faaliyet gösteren veya bu hizmetleri kullanan ithal/ihracat yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Söz konusu şirketin gözetim hizmetlerini kullanan firmalar, durdurma süresi boyunca alternatif gözetim sağlayıcısı bulmak için harekete geç. Önceki denetim raporlarını belgelere ekle ve durdurma kaldırılıncaya kadar başka bir yetkili gözetim şirketi ile anlaşma yap.</p>
-<p><b>Yürürlük:</b> yayımını takip eden 15. gün</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Uluslararası gözetim şirketinin faaliyeti geçici olarak durduruldu</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Teknik Düzenlemeler Rejimi Kararı'nın 13. maddesine dayanarak, mülga tebliğin hükümlerine aykırı davranan KRMP LOJİSAN. VE TİC.LTD ŞTİ.'nin gözetim faaliyetlerini tabloda belirtilen süre kadar durdurmuştur.</p>
+<p><b>Hangi tebliğ:</b> 31/12/2014 tarihli ve 29222 sayılı Resmî Gazete'de yayımlanan Uluslararası Gözetim Şirketi Statüsüne İlişkin Tebliğ (Ürün Güvenliği ve Denetimi: 2015/24) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• KRMP LOJİSAN. VE TİC.LTD ŞTİ.'nin gözetim faaliyetleri tabloda belirtilen süre kadar durdurulmuştur (Madde 1).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinden 15 gün sonra yürürlüğe girer (Madde 2).</div>
+<p><b>Ürün:</b> Gözetim hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> KRMP LOJİSAN. VE TİC.LTD ŞTİ. ve bu şirketi kullanan ithalatçılar</p>
+<p><b>Ne yapmalısın:</b> Halihazırda bu şirketin gözetim raporu alan firmalar, söz konusu şirketin faaliyetinin durdurulduğundan haberdar ol ve gümrük işlemlerinde başka bir yetkili gözetim şirketine geç. Durdurma süresi sonunda kaynağa dön.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251227-14.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

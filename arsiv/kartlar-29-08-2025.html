@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,39 +33,54 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>29.08.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>29.08.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sentetik dokuma mensucat ithalatında Malezya menşeli Power Fabric için yeni ihracatçı soruşturması</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Power Fabric SDN. BHD. (Malezya) firması başvurusuna istinaden, dampinge karşı önceki önlemlerin kapsamındaki sentetik filament iplikten dokuma mensucatta yeni ihracatçı için gözden geçirme soruşturması açmıştır. Firma, soruşturma döneminde (2017-2019) Türkiye'ye ihracat yapmadığı, 2025 Nisan'dan itibaren ihraç etmeye başladığı tespit edilmiştir.</p>
-<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyim için olanlar)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Malezya menşeli sentetik iplik mensucatı için yeni ihracatçı incelemesi başlatıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Malezya'da yerleşik Power Fabric SDN. BHD. firması hakkında dampinge karşı önlem kapsamında yeni ihracatçı gözden geçirme soruşturması açtı. Firma, soruşturma döneminde (2017-2019) üretilip damping önlemine tabi tutulan bu ürünü ilk kez 2025 Nisan ayında Türkiye'ye ihraç etmeye başlamıştır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma, bu tebliğin yayım tarihinde (29 Ağustos 2025) başlamış sayılır (Madde 12/1).</div>
+<div class='kiymet'>• Soru formlarının cevaplandırma süresi, bildirimin gönderildiği tarihten itibaren posta süresi de dahil 37 gündür; bildirimi almayan taraflar için bu tebliğin yayımından sonraki 37 gün geçerli (Madde 9/1-2).</div>
+<div class='kiymet'>• Soruşturmaya katılmak isteyen yerli üreticiler, ithalatçılar ve ilgili kesimler, tebliğ yayımından itibaren 37 gün içinde yazılı görüş ve belgeleri Genel Müdürlüğe bildirmelidir (Madde 9/3).</div>
+<div class='kiymet'>• Gerekli bilgiyi vermeyen, yanlış bilgi veren veya soruşturmayı engelleyen taraflar hakkında karar mevcut veriye göre alınır (Madde 10/1).</div>
+<div class='kiymet'>• Soruşturmaya ilişkin tüm iletişim Türkçe yapılır; Türkçe dışında sunulan bilgi, belge ve görüşler (soru cevapları hariç) dikkate alınmaz (Madde 8/3).</div>
+<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyim için olanlar), Malezya menşeli/çıkışlı</p>
 <p><b>GTİP:</b><br><span class='gtip'>54.07</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>54.07 → <b>kaynakta belirtilmemis</b></div>
-<p><b>Kimi ilgilendirir:</b> Malezya menşeli sentetik dokuma mensucat üreticileri ve ithal edenler; özellikle damping önlemi kapsamında faaliyet gösteren ithalatçılar</p>
-<p><b>Ne yapmalısın:</b> Soruşturma bildirimi alan ithalatçılar ve Power Fabric SDN. BHD., 37 günü kullanarak soru formlarını tamamlayıp cevaplandır. İthalat yapan firmalar bu tarihten sonra ek belgeler varsa yazılı olarak sunmalı. Soru formuna yanıt vermeyen taraf için soruşturma kesinleşebilir.</p>
+<p><b>Kimi ilgilendirir:</b> Malezya'da yerleşik tekstil/giyim ihracatçıları, Türkiye'deki ithalatçılar, yerli tekstil üreticileri, sektör meslek kuruluşları</p>
+<p><b>Ne yapmalısın:</b> Malezya menşeli sentetik iplik mensucatı ithal eden firmalar, soruşturma açılış bildirimini ve soru formlarını incelemelidir. Formlar 37 gün içinde cevaplandırılmalıdır. Soruşturmayı etkileyebilecek her türlü belge ve görüş, Genel Müdürlüğe (oeksorusturma@ticaret.gov.tr, KEP: ticaretbakanligi@hs01.kep.tr) yazılı olarak iletilmelidir. Yurtdışında yerleşik firmaların yanıtlarını yasal temsilcileri aracılığıyla göndermesi halinde apostil tasdikli vekâletname hazırlanmalıdır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Yeni ihracatçı incelemesi:</b> önleme tabi ülkeden, ilk soruşturma döneminde Türkiye'ye satış yapmamış bir firmanın kendisi için ayrı oran istemesi üzerine açılan inceleme. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250829-20.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Cam ev eşyasında damping soruşturması açıldı: Çin ve Mısır menşeli ithalata</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Türkiye Şişe ve Cam Fabrikaları A.Ş.'nin başvurusu üzerine, Çin Halk Cumhuriyeti ve Mısır Arap Cumhuriyeti menşeli cam ev eşyası (GTIP 70.13) ürününe yönelik damping soruşturması açmıştır. Soruşturma kapsamında, her iki menşe için dampingli ithalat tespit edilmiş ve yerli üretim dalının ekonomik göstergelerinde maddi zarar saptanmıştır.</p>
-<p><b>Ürün:</b> Sofra, mutfak, tuvalet, yazıhane, ev tezyinatı ve benzeri işler için cam eşya (70.10 ve 70.18 pozisyonundakiler hariç)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin ve Mısır menşeli cam ev eşyasına damping soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Türkiye Şişe ve Cam Fabrikaları A.Ş.'nin başvurusu üzerine, Çin Halk Cumhuriyeti ve Mısır Arap Cumhuriyeti menşeli cam ev eşyası (GTIP 70.13) ithalatına yönelik damping soruşturması başlatmıştır. Soruşturma, her iki ülkeden gerçekleştirilen ithalatın dampingli fiyatlarla yapıldığı ve yerli üreticiye maddi zarar verdiği iddiasına dayanmaktadır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturmanın kapsamı: Çin ve Mısır menşeli, GTIP 70.13 altında sınıflandırılan cam ev eşyası (sofra, mutfak, tuvalet, yazıhane, ev tezyinatı amaçlı cam eşyalar) (Madde 4).</div>
+<div class='kiymet'>• Soru formlarına cevap verme süresi: Bildirimi alanlar için 37 gün (posta dahil), bildirimi almayan ön üreticiler ve ithalatçılar için tebliğ yayım tarihinden itibaren 37 gün (Madde 12/1-2).</div>
+<div class='kiymet'>• Çin menşeli ürünler için piyasa ekonomisi koşulu: Üreticiler, piyasa ekonomisi koşullarının bulunduğunu ispat etmedikçe normal değerin belirlenmesinde Türkiye emsal ülke olarak kullanılacak (Madde 9).</div>
+<div class='kiymet'>• Türkiye'de yerleşik taraflar cevaplarını KEP adresi (ticaretbakanligi@hs01.kep.tr) üzerinden, yurt dışındakiler yazılı ve elektronik formda gönderecek (Madde 11/2-3).</div>
+<div class='kiymet'>• Yurt dışında yerleşik taraflar yasal temsilci kullanırsa, apostil tasdikli veya Türk konsolosluğu tasdikli vekâletnâme sunmak zorunlu (Madde 11/4).</div>
+<div class='kiymet'>• Tüm yazılı iletişim Türkçe yapılacak; Türkçe dışında sunulan belgeler dikkate alınmayacak (Madde 11/5).</div>
+<div class='kiymet'>• İş birliğine gelmeyenler için soruşturma sonucu daha az avantajlı olabilir (Madde 13/2).</div>
+<div class='kiymet'>• Geçici önlem uygulanması ve kesin önlemlerin geriye dönük uygulanması mümkün (Madde 14).</div>
+<div class='kiymet'>• Soruşturma, tebliğ yayım tarihinde (29 Ağustos 2025) başlamış sayılır (Madde 15).</div>
+<p><b>Ürün:</b> Cam ev eşyası (sofra, mutfak, tuvalet, yazıhane, ev tezyinatı ve benzeri amaçlarla kullanılan cam eşya)</p>
 <p><b>GTİP:</b><br><span class='gtip'>70.13</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin ve Mısır'dan cam ev eşyası ithal eden firmalar, yerli cam üreticileri ve bu ürünleri kullanan perakendeciler</p>
-<p><b>Ne yapmalısın:</b> İthalatçılar, soruşturma açılış tebliğini, soru formlarını ve başvurunun gizli olmayan özetini ticaret.gov.tr/ithalat sitesinden kontrol etmeli. Yurt dışında yerleşik ihracatçı/üreticiyse soru formuna yazılı cevap vermeli. Yanıt süresini (12. maddede belirtilen) kaçırmamak kritik. Türkiye'de yerleşik ise KEP üzerinden ticaretbakanligi@hs01.kep.tr adresine göndermelidir.</p>
+<p><b>Kimi ilgilendirir:</b> Çin ve Mısır'dan cam ev eşyası ithal eden firmalar, yerli cam üreticileri, ihracatçı ülke hükümetleri ve ilgili meslek kuruluşları</p>
+<p><b>Ne yapmalısın:</b> Bildirimi alan ithalatçı ve ihracatçıların, soru formlarını vakit kaybetmeden temin edip 37 gün içinde yanıtlaması gerekmektedir (Türkiye'de yerleşik ve KEP adresi bulunanlar KEP üzerinden, diğerleri yazılı ve elektronik ortamda). İthalat planlarının gözden geçirilmesi, geçici önlem uygulanabileceği dikkate alınarak hareket edilmesi önerilir. Mısır menşeli ürünlerde ek belgeleme talebi gündeme gelebilir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma kapsamında dampingli olduğu tespit edilen ithalatın gelecekte vergilendirilebilir hale gelmesi beklenmektedir. Bu, Çin ve Mısır'dan gelen cam ev eşyasının ithalat maliyetini yükseltecek ve yerli üretimin rekabet koşullarını iyileştirecektir; ithal eden firmalar fiyatlandırma stratejilerini gözden geçirmeli ve tedarik zincirini yeniden değerlendirmelidir.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma, dampingli olduğu iddia edilen ithalata karşı nihai bir koruma önlemi getirilmesini hedeflemektedir. Çin menşeli ürünlerde piyasa ekonomisi koşulunun sağlanamaması halinde normal değer yüksek belirlenecek, bu da damping marjını ve dolayısıyla antidamping vergisi riskini artıracaktır. Mısır menşeli ithalatta ise fiyat kırılması zaten tespit edildiğinden, önlem uygulamasına karşı hazırlıklı olunmalıdır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250829-21.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

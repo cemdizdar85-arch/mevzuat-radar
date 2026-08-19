@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,34 +33,55 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>03.03.2026 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>03.03.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İmalatçılara istihdam koruma desteği: 2026'da prim gün tutarı esasında ödeme</h3>
-<p><b>Ne oldu:</b> Çalışma ve Sanayi bakanlıkları, 2026 yılında istihdamını koruyacak imalat işletmelerine nakit destek sağlayacak. Tekstil, giyim, deri, mobilya ve seçili ürün gruplarında aylık otuz prim gün için 3.500 lira, diğer imalat KOBİ'leri ise kredi desteğine erişecek.</p>
-<p><b>Ürün:</b> Tekstil, giyim, deri, mobilya ürünleri ile seçili imalat sanayi mamülleri</p>
-<p><b>Kimi ilgilendirir:</b> Tekstil, giyim, deri, mobilya üreticileri ve genel imalat sektöründe çalışan KOBİ'ler</p>
-<p><b>Ne yapmalısın:</b> 2025 Kasım-Aralık aylarındaki aylık ortalama prim gün sayısını kayıt et. 2026'da başvuru portalı açıldığında (takvim henüz ilanedilmemiş) bu veriyle başvuru yap. Aylık prim gün sayısı referans seviyede tutulursa her ayda destek talep edebilirsin. Belirlenen desteğin türüne göre (nakit veya kredi) talep kağıdını hazırla; son başvuru tarihi 31 Mart 2027.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İmalat sanayisinde istihdamı koruyan işletmelere 2026'da destek programı</h3>
+<p><b>Ne oldu:</b> Sanayi ve Teknoloji Bakanlığı, tekstil, giyim, deri, mobilya ve belirli imalat sektörlerinde faaliyet gösteren işletmelere istihdam koruma desteği sağlayacak. Program 2026 yılında uygulanacak olup başvurular belirlenecek takvime göre alınacak.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Program 1 Ocak – 31 Aralık 2026 tarihlerinde uygulanır; başvuru ve ödeme takvimi Bakanlık ve KOSGEB tarafından ilan edilir (Madde 5/1).</div>
+<div class='kiymet'>• İşletme, 2025 Kasım-Aralık ortalamasındaki aylık prim gün sayısını 2026'da aylık bazda koruyacak; eşit veya üstünde prim gün sayısı istihdam koruması sayılır (Madde 5/2).</div>
+<div class='kiymet'>• Tekstil, giyim, deri, mobilya ve belirtilen ürünler imalatında faaliyet gösteren işletmelere korunan her 30 prim gün için aylık 3.500 TL destek sağlanır (Madde 5/3).</div>
+<div class='kiymet'>• Diğer imalat sektörlerindeki KOBİ'lere destek, kullanılan krediye göre hesaplanır; azami 36 ay vadeli, 6 ay anapara ödemesiz kredi için 10 destek puanını geçemez (Madde 5/4).</div>
+<div class='kiymet'>• Başvurular çevrimiçi portal üzerinden alınır; istihdam verisi SGK kayıtlarından tespit edilir (Madde 6/1, 6/4).</div>
+<div class='kiymet'>• Destek ödemeleri ödeme talebini takip eden ayın sonuna kadar yapılır; en geç 31 Mart 2027'ye kadar ödeme talep edilebilir (Madde 7/5, 7/6).</div>
+<div class='kiymet'>• Aynı destek unsuru için işletme Başkanlık ve Bakanlıktan birlikte destek alamaz (Madde 7/4).</div>
+<div class='kiymet'>• Gerçeğe aykırı beyanda bulunması veya diğer sebeplerle desteğin sonlandırılmasında, ödenen tutarlar yasal faiziyle geri tahsil edilir (Madde 11/1).</div>
+<div class='kiymet'>• İşletmenin tasfiyesi, kapanması, devri, bölünmesi veya başka işletme ile birleşmesi halinde ödeme talepleri işleme alınmaz ve iade istenmez (Madde 11/2).</div>
+<p><b>Ürün:</b> Tekstil, giyim, deri ve ilgili ürünler, mobilya imalatı ve belirtilen imalat sanayi ürünleri</p>
+<p><b>Kimi ilgilendirir:</b> İmalat sanayi işletmeleri; özellikle tekstil, giyim, deri ve mobilya üretim sektörleri ile KOBİ statüsündeki diğer imalat işletmeleri</p>
+<p><b>Ne yapmalısın:</b> 2025 Kasım-Aralık dönemindeki aylık prim gün ortalaması belirlenmeli ve işletmenin NACE kodunun programın kapsadığı sektörde olup olmadığı kontrol edilmelidir. Uygunluk halinde çevrimiçi başvuru portalından başvuru yapılmalı; Bakanlık başvuru takvimini ilan ettikten sonra talep edilecek belgeler (muhasebe kayıtları, SGK kaydı, kredi kullanım bilgileri) hazırlanmalıdır. Ödeme talebi 31 Mart 2027'den önce yapılmalıdır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yurtiçi imalatçılara istihdam tutundurmak için doğrudan nakit ve kredi desteği sağlanıyor. Tekstil ve giyim sektörü özellikle güçlendirilmiş: ithal muadillere karşı rekabet kapasitesi artacak, prim yükü azalacak. Kredi desteğinin vadesi 36 aya kadar ve 6 ay anapara ödemesiz olması, işletmelerin nakitini kurtaracak.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Yerli imalat sektörüne, özellikle işgücü yoğun tekstil-giyim-deri kollarına doğrudan nakdi destek sağlanmaktadır. İstihdam seviyesi korunmadığı takdirde destek verilmeyeceğinden işletmeler istihdam düzeyini muhafaza etmeye yönlendirilmekte; bu durum söz konusu işletmelerin dış pazarlardaki rekabet gücünü artırmakta ve ithalatı kısmen telafi edebilmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260303-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Klinik araştırmalarda SGK finansmanı için ödeme usulleri düzenlendi</h3>
-<p><b>Ne oldu:</b> Sosyal Güvenlik Kurumu, kamu hastaneleri ve devlet üniversitelerinde yürütülen, TÜSEB tarafından desteklenen klinik araştırmalarda sunulan sağlık hizmetlerinin ödenmesine ilişkin yeni yönetmeliği yayımladı. Yönetmelik, başvuru prosedürü, finansman kapsamı, hastaların zarar görmesi durumunda sorumluluk ve kurumun denetim yetkilerini düzenlüyor.</p>
-<p><b>Ürün:</b> Klinik araştırma hizmetleri (sağlık hizmetleri)</p>
-<p><b>Kimi ilgilendirir:</b> Kamu hastaneleri, devlet üniversiteleri, TÜSEB, Sosyal Güvenlik Kurumu, klinik araştırmalara katılan genel sağlık sigortalıları</p>
-<p><b>Ne yapmalısın:</b> Klinik araştırma yürüten hastane/üniversiteler: başvuruyu kurumun belirlediği yönteme göre hazırla, kullanılacak araştırma ürünlerini bildir, Sağlık Bakanlığı izin belgesi ile TÜSEB destek belgesi ve katılımcı bilgilerini ilet, faturalarını SUT ve ilgili mevzuata uygun düzenle, araştırmanın başlama, durdurma, sonlandırma hallerini derhal bildir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik klinik araştırmalardaki sağlık hizmet ödemelerinin usul ve esaslarını tanımlıyor; SGK finansmanı 63. madde kapsamı ile sınırlı, araştırma ürünleri kapsamı dışında, araştırma sigortası ve zarar durumları kurumun sorumluluğunda değil. Hastane ve üniversitelerin prosedürel uyum yükü artıyor.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Klinik araştırmalarda sunulan sağlık hizmetlerinin SGK tarafından ödenmesine ilişkin yönetmelik</h3>
+<p><b>Ne oldu:</b> Sosyal Güvenlik Kurumu, Türkiye Sağlık Enstitüleri Başkanlığı tarafından desteklenen ve Sağlık Bakanlığı tarafından onaylanan kamu hastaneleri ile devlet üniversitelerinde yürütülen klinik araştırmalarda; sigortalılara ve bakmakla yükümlü olunan kişilere sunulan sağlık hizmetlerinin finansmanına ilişkin usul ve esasları belirleyen yönetmeliği yayımlamıştır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Klinik araştırmada sunulan sağlık hizmetleri SGK tarafından belirlenen sınırlar dahilinde finansmanı sağlanır; araştırma ürünlerinin sağlanması kapsam dışındadır (m.5/4).</div>
+<div class='kiymet'>• Başvuru yapan kamu hastanesi veya Devlet üniversitesi Sağlık Bakanlığı izin belgesi, TÜSEB destek belgesi, katılımcı bilgileri ve araştırma süresine dair belgeleri SGK'ya sunmak zorundadır (m.5/3).</div>
+<div class='kiymet'>• Araştırmada kullanılacak ürün veya ürünler başvuru sırasında SGK'ya bildirilmesi zorunludur (m.5/2).</div>
+<div class='kiymet'>• Kamu hastanesi veya Devlet üniversitesi ile SGK arasında götürü bedel sözleşmesi varsa, klinik araştırma kapsamında verilen sağlık hizmetleri bu götürü bedel dışında değerlendirilir (m.5/5).</div>
+<div class='kiymet'>• Araştırmada katılımcının geçici veya kalıcı zarar görmesi ya da ölümü durumunda oluşan sağlık giderleri SGK tarafından ödenmez (m.5/10).</div>
+<div class='kiymet'>• Araştırma sona ermesi, geçici durdurulması veya erken sonlandırılması SGK'ya bildirilmelidir (m.5/11).</div>
+<div class='kiymet'>• Kurum kamu hastaneleri ve üniversitelerden her türlü veri, doküman, fatura, defter ve kayıt asıllarını isteme, inceleme, kopyalama ve ilgili kişilerin bilgilerine başvurma yetkisine sahiptir (m.6/2).</div>
+<div class='kiymet'>• Fazla veya yersiz ödeme tespit edilmesi halinde ilgili miktar geri alınır (m.5/8).</div>
+<div class='kiymet'>• Araştırma sigorta kapsamında yer alan giderler SGK tarafından karşılanmaz (m.5/9).</div>
+<p><b>Ürün:</b> Klinik araştırmalarda sunulan sağlık hizmetleri (araştırma ürünleri hariç)</p>
+<p><b>Kimi ilgilendirir:</b> Kamu hastaneleri, devlet üniversiteleri, TÜSEB tarafından desteklenen klinik araştırma yürüten kurumlar ve bu araştırmalara katılan genel sağlık sigortalıları</p>
+<p><b>Ne yapmalısın:</b> Klinik araştırma planlayan kamu hastaneleri ve üniversiteler, başvuru yöntemini, gerekli belgeleri ve bildirim prosedürünü öğrenmek üzere SGK ile görüşmelidir. Başvuru öncesinde Sağlık Bakanlığı izninin ve TÜSEB desteğinin alınmış olması gerektiği unutulmamalıdır. Araştırma süresince düzenlenecek hizmet faturalarında SUT ve ilgili mevzuata uyum sağlandığından emin olunmalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, mevcut uygulamaları düzenleyen yeni bir yasal çerçeve oluşturmaktadır. İthalatçılar veya dış ticaret açısından doğrudan bir etkisi bulunmamakta olup düzenleme, sağlık hizmetleri finansmanı ve kamu kuruluşlarının araştırma yönetimi kapsamında kalmaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260303-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

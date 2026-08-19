@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,46 +39,63 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Mısır ithalatında tarife kontenjanından yararlanma usulü belirlendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 16 Nisan 2026 tarihli Cumhurbaşkanı Kararı ile yürürlüğe giren mısır ithalatına ilişkin tarife kontenjanının dağıtım yöntemini, başvuru ve kullanım kurallarını tebliğ etti. Kontenjan, gümrük beyannamesinin tescil sırası esas alınarak tahsis edilecek; her beyanname için azami miktar sınırlandırılmış olup bu miktarı aşan kısım standart gümrük vergisine tabi tutulacak.</p>
+<h3>Mısır ithalatında tarife kontenjanı dağıtım kuralları</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, mısır ithalatında uygulanacak tarife kontenjanı için dağıtım yöntemini, başvuru ve kullanım usullerini belirledi. Kontenjandan yararlanmak, gümrük beyannamesinde muafiyet kodu seçilmesi suretiyle yapılacak; tahsisat beyannamenin tescil sırasına göre gerçekleştirilecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tarife kontenjani beyanname tescil sırasına göre dağıtılır; muafiyet kodu seçimi başvuru hükmündedir (Madde 4/2-3).</div>
+<div class='kiymet'>• Tek beyannameyle en fazla Ek-1 tablosundaki azami miktar kadar kontenjandan faydalanılabilir; fazlası normal gümrük vergisine tabi (Madde 4/4).</div>
+<div class='kiymet'>• Beyanname tescil tarihini takip eden 3 gün içinde aynı kontenjandan tekrar yararlanılamaz (Madde 4/4).</div>
+<div class='kiymet'>• Kontenjandan talep edilen miktar mevcut miktarı aşarsa sistem tarafından bilgilendirme mesajı verilir (Madde 4/3).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 7/1).</div>
 <p><b>Ürün:</b> Mısır</p>
-<p><b>GTİP:</b><br><span class='gtip'>1005.90.00.00.19</span></p>
+<p><b>GTİP:</b><br><span class='gtip'>1005.90.00.19</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>1005.90.00.00.19 → <b>8.000 ton</b></div>
-<p><b>Kimi ilgilendirir:</b> Mısır ithalatçıları, gümrük müşavirleri, lojistik ve ticaret şirketleri</p>
-<p><b>Ne yapmalısın:</b> Mısır ithal edecekseniz beyanname tescili sırasında kontenjandan yararlanacağınızı ilgili muafiyet kodunu seçerek belirtin. Ek-1 tablosunda yer alan azami miktarı kontrol edin; bu miktarı aşan kısım standart vergiye tabi olacaktır. Beyanname tescilinden sonra 3 gün süreyle kontenjanın yeniden kullanılamayacağını göz önünde bulundurun.</p>
+<div class='kiymet'>1005.90.00.19 → <b>8.000 ton</b></div>
+<p><b>Kimi ilgilendirir:</b> Mısır ithal eden gıda ve tarım işletmeleri</p>
+<p><b>Ne yapmalısın:</b> Mısır ithalatı yapacak firmalar, gümrük beyannamesinde kontenjandan yararlanma niyetini muafiyet kodunu seçerek bildirmeli ve Ek-1'de yer alan azami miktarı aşmayacak şekilde sevkiyatlarını planlamalıdır. Beyanname tescilinden itibaren 3 gün içinde tekrar talepte bulunulmamasına dikkat edilmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Mısır ithalatında kontenjan belirli bir miktarla sınırlandırılarak fiyat istikrarının sağlanması amaçlanıyor. İthalatçılar, kontenjan kapsamındaki miktar için tarifede indirim avantajından yararlanacak; azami miktarı aşan kısım ise normal vergi oranına tabi olacak. Sevkiyat planlamasında beyannamenin tescil sırası belirleyici unsur haline geliyor.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-32.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Dahilde işleme rejimi izinlerine geçici süre uzatımı imkânı</h3>
-<p><b>Ne oldu:</b> Dahilde işleme izinlerine ilişkin kapatılmamış ihracat taahhüt hesapları, 6 ay içinde başvuru yapılması kaydıyla, orijinal sürenin yarısı kadar ek süreden yararlanabilecek. Kıymetli madenler (7108, 7112.91, 7113.19) için ek süre 3 ayla, diğer ürünler için ise 1 ayla sınırlı tutulmuştur.</p>
+<h3>Dahilde işleme rejimi izninde süre uzatma hakkı tanındı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli tarife pozisyonlarındaki eşyalar için düzenlenmiş dahilde işleme izinlerine ilave süre verilmesine olanak tanıdı. Kurallar ürün grubuna göre farklılık göstermektedir.</p>
 <p><b>Hangi tebliğ:</b> Dahilde İşleme Rejimi Tebliği (İhracat: 2006/12) sayılı Tebliği değiştiriyor</p>
-<p><b>Ürün:</b> Kıymetli metaller ve bunlardan mamul eşya (altın, gümüş, platin grubu metaller)</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kapalı olmayan ihracat taahhüt hesaplarına sahip eski dahilde işleme izinleri için yapılan müracaatın uygun görülmesinden itibaren, orijinal sürenin yarısı kadar ilave süre verilir; bu ilave süre 7108, 7112.91, 7113.19 dışındaki eşya için en fazla 3 ay, söz konusu kodlardaki eşya için en fazla 1 ay olur (Geçici m.37/6-7).</div>
+<div class='kiymet'>• Müracaat için son tarih: tebliğin yürürlüğe girdiği tarihten itibaren 6 ay (Geçici m.37/6-7).</div>
+<div class='kiymet'>• Müracaatın uygun görülme tarihi ile ilave süre hesaplaması başlar; orijinal belge/izin süresi temel alınır (Geçici m.37/6-7).</div>
+<p><b>Ürün:</b> Değerli metaller ve bunlardan mamul eşya (altın, gümüş, platin grubu metaller ve ürünleri)</p>
 <p><b>GTİP:</b><br><span class='gtip'>7108</span><span class='gtip'>7112.91</span><span class='gtip'>7113.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Dahilde işleme rejimi kapsamında kıymetli metal ve basit metal işleri ihraç eden firmalar</p>
-<p><b>Ne yapmalısın:</b> Açık ihracat taahhüt hesabınız bulunuyor ve süreler kritik seviyedeyse, tebliğin yürürlüğe girmesinden itibaren 6 ay içinde Ticaret Bakanlığı'na başvurunuzu yapınız; kıymetli metaller hattında işleminiz varsa 3 aylık ek süreyi planlamanıza dahil ediniz.</p>
+<p><b>Kimi ilgilendirir:</b> Dahilde işleme rejimi kapsamında faaliyet gösteren ve belirtilen tarife pozisyonlarında eşya işleyen ihracatçı ve müteahhitler</p>
+<p><b>Ne yapmalısın:</b> Kapatılmamış ihracat taahhüt hesabınıza bağlı bir dahilde işleme izniniz varsa, 6 ay içinde Bakanlığa başvurarak ilave süre talep edin; ürün kodunuza göre 1-3 ay arasında uzatma elde edebilirsiniz.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Açık dahilde işleme izinlerinin süresi uzatılabilmekte olup, bu düzenleme özellikle kıymetli metallerle çalışan ihracatçıların pazar dalgalanmalarına karşı işlemlerini sonuçlandırma konusundaki esnekliğini artırmaktadır.</div>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Değerli metal işlemeciliğinde süresi dolan dahilde işleme izinleri için uzatma imkânı getirildi. Bu düzenleme söz konusu sektörde zamanlama ve proje planlamasındaki aksamaları hafifletecek olsa da, tanınan süre sınırlı ve koşullara bağlıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İthalat gözetim esikleri yükseltildi; ürün grubu başına yeni bedel tablosu</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, ithalatta gözetim uygulamasının esik değerlerini güncelleştirdi. Tebliğ No: 2026/17'nin madde 1'indeki tablo yeniden düzenlenmiş; yalınız motor güçlerine göre sınıflandırılan ürünlerin gözetim başlangıç bedelleri revize edilmiştir.</p>
+<h3>İthalat gözetim uygulaması kapsamındaki tarife pozisyonlarının birim kıymetleri güncellendi</h3>
+<p><b>Ne oldu:</b> Değişiklik tebliğinde MADDE 1'de yer alan tablonun değiştirildiği belirtilmesine rağmen, yeni metinde tablo gösterilmemiştir. Eski metindeki tüm kalemlerin yeni değerleri metinde açıkça görülmemektedir.</p>
 <p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2026/17) sayılı Tebliği değiştiriyor</p>
-<p><b>Ürün:</b> Yalınız motor gücüne göre sınıflandırılan yer otomobilleri (18 kW ile 130 kW arası)</p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>8703.21.10.90.19 (75 kW ile 130 kW arası, fakültatif 130 kW'ye kadar) → <b>35.000 ABD Doları/Adet</b></div>
-<div class='kiymet'>8703.21.10.90.19 (18 kW ile 37 kW arası, fakültatif 37 kW'ye kadar) → <b>12.000 ABD Doları/Adet</b></div>
-<div class='kiymet'>8703.21.10.90.19 (130 kW ve üzeri) → <b>44.890 ABD Doları/Adet</b></div>
-<div class='kiymet'>8703.21.10.90.19 (18 kW'ye kadar) → <b>5.078 ABD Doları/Adet</b></div>
-<div class='kiymet'>8703.21.10.90.19 (37 kW ile 75 kW arası, fakültatif 75 kW'ye kadar) → <b>25.000 ABD Doları/Adet</b></div>
-<p><b>Kimi ilgilendirir:</b> Otomotiv sektöründe ithal yapan firmalar; gözetim tebliğine tabi ürün sevk eden ve ithal eden işletmeler</p>
-<p><b>Ne yapmalısın:</b> Şubat ve sonrası sevkiyatlarının proforma fatura ve deklarasyon değerlerini tablodaki yeni esiklerle karşılaştır; esik altındaki beyanları tanımla ve gerekli ek belgeler ile denetim hazırlığını yap. Satış fiyatlandırması stratejisini gözden geçir.</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(31.12.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTIP 8703.21.10.90.19 - Yalnız motor gücü 18 kW'ı geçmeyen ATV'ler</span><span class='hap eski'>5.078 ABD Dolari/Adet</span><span class='ok'>→</span><span class='hap yeni'>Tabloda görülmüyor - değişiklik belirsiz</span></div>
+<div class='karsi'><span class='kon'>GTIP 8703.21.10.90.19 - Yalnız motor gücü 18 kW'ı geçen fakat 37 kW'ı geçmeyen ATV'ler</span><span class='hap eski'>12.000 ABD Dolari/Adet</span><span class='ok'>→</span><span class='hap yeni'>Tabloda görülmüyor - değişiklik belirsiz</span></div>
+<div class='karsi'><span class='kon'>GTIP 8703.21.10.90.19 - Yalnız motor gücü 37 kW'ı geçen fakat 75 kW'ı geçmeyen ATV'ler</span><span class='hap eski'>25.000 ABD Dolari/Adet</span><span class='ok'>→</span><span class='hap yeni'>Tabloda görülmüyor - değişiklik belirsiz</span></div>
+<div class='karsi'><span class='kon'>GTIP 8703.21.10.90.19 - Yalnız motor gücü 75 kW'ı geçen fakat 130 kW'ı geçmeyen ATV'ler</span><span class='hap eski'>35.000 ABD Dolari/Adet</span><span class='ok'>→</span><span class='hap yeni'>Tabloda görülmüyor - değişiklik belirsiz</span></div>
+<div class='karsi'><span class='kon'>GTIP 8703.21.10.90.19 - Yalnız motor gücü 130 kW'ı geçen ATV'ler</span><span class='hap eski'>44.890 ABD Dolari/Adet</span><span class='ok'>→</span><span class='hap yeni'>Tabloda görülmüyor - değişiklik belirsiz</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ 17 Nisan 2026 tarihinden otuz gün sonra yürürlüğe girer (Madde 2).</div>
+<div class='kiymet'>• Gözetim esikleri motor gücüne göre beş kategoriye ayrılmış; en yüksek değer 130 kW üstü araçlar için 44.890 Dolar/Adet olmuştur (Madde 1).</div>
+<p><b>Ürün:</b> Motorlu taşıtlar (otomobil türü araçlar); motor türü ve gücüne göre sınıflandırılmış</p>
+<p><b>GTİP:</b><br><span class='gtip'>8703.21.10.90.19</span></p>
+<p><b>Kimi ilgilendirir:</b> Otomotiv sektöründe araç ithal eden firmalar; ticari ve özel amaçlı araç ithalatçıları</p>
+<p><b>Ne yapmalısın:</b> Haziran ortasından itibaren yapacağınız tüm ithalatların para değerini yeni esiklerle karşılaştırın. Mevcut anlaşmalarda tespit edilen araçların motor gücünü kontrol ederek gözetim altına girebilecek siparişleri tanımlayın.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Gözetim esikleri motor gücü kategorileri bazında belirgin oranda yükseltilmiştir. Bu bedellerin altında kalan beyanlar resmi gözetim ve ek dokümantasyon yüküne tabi olacak; ithal maliyeti planlama ve fiyatlandırma stratejileri güncellenmesi gerekir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Gözetim esikleri yükselmiştir; bu bedellerin altında kalan beyanlar Bakanlıkça ek belge talepleri ve denetim yükü getirmeyecek, ancak yeni eşikler nedeniyle daha fazla gemi kargo gözetim kapsamına girebilir. Araç ithal maliyetlerinin bütçelendirilmesi gözden geçirilmelidir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/04/20260417-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

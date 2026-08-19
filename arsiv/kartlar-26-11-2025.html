@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,42 +33,54 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>26.11.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>26.11.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli anjiyografi ve balon kateter için damping soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli üretici Alvimedica'nın başvurusu üzerine Çin'den ithal edilen anjiyografi kateteri ve PTCA balon kateter ürünlerine karşı damping soruşturması başlattı. Soruşturmada dampingli ithalatın yerli üreticiye maddi zarar verdiği tespit edilmiştir.</p>
-<p><b>Ürün:</b> Anjiyografi kateteri ve PTCA balon kateter</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin menşeli anjiyografi ve balon kateter ürünlerine damping soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, yerli tıbbi malzeme üreticisinin başvurusu üzerine Çin'den ithal edilen anjiyografi kateteri ve PTCA balon kateter ürünlerine yönelik damping soruşturması başlatmıştır. Soruşturma kapsamında oluşturulmuş normal değer ile fabrika çıkış aşamasındaki ihraç fiyatı karşılaştırılmış ve damping marjının ihmal edilebilir oranın üzerinde olduğu tespit edilmiştir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Damping soruşturması 26 Kasım 2025 tarihinde başlamıştır (Madde 15/1).</div>
+<div class='kiymet'>• Bildirim alan ilgili taraflar soru formuna 37 gün içinde cevap vermelidir; bildirimi alamayan taraflar aynı süreyi tebliğ yayımı tarihinden itibaren saymaya başlar (Madde 12/1-2).</div>
+<div class='kiymet'>• Türkiye'de yerleşik firmalar cevapları ve görüşlerini KEP adresi ticaretbakanligi@hs01.kep.tr'ye gönderir; yurt dışı firmalar yazılı olarak posta ile ve elektronik ekleri EBYS e-posta ithebys@ticaret.gov.tr'ye iletir (Madde 11/2-3).</div>
+<div class='kiymet'>• Yurt dışında yerleşik üretici veya ihracatçılar, soruşturmanın asıl kurallarına karşı piyasa ekonomisi koşullarını 12 nci maddede belirtilen süreler içinde ispat ederse normal değer belirleme yönetmeliğin 5 inci maddesi uyarınca yapılır; aksi takdirde 7 nci madde hükümleri geçerli olur ve emsal ülke Türkiye olacaktır (Madde 9/1).</div>
+<div class='kiymet'>• İlgili taraflar soru formunda istenen bilgilerin dışında soruşturma ile ilgili diğer belge, bilgi ve görüşlerini 12 nci maddedeki süre içinde sunabilir (Madde 11/7).</div>
+<div class='kiymet'>• Geçici önlem uygulanması kararlaştırılabilir ve kesin önlem geriye dönük olarak uygulanabilir (Madde 14/1).</div>
+<div class='kiymet'>• İlgili taraf iş birliğine gelmez sayılırsa (gerekli bilgiyi sağlamaz, reddetse, engel olursa ya da yanlış bilgi verse) soruşturmanın sonuçları mevcut veriler üzerinden belirlenebilir ve bu taraf için sonuç daha az avantajlı olabilir (Madde 13/1-2).</div>
+<div class='kiymet'>• Soruşturma yazılı ve sözlü iletişim Türkçe yapılır; Türkçe dışı belgeler (soru formu cevapları hariç) dikkate alınmaz (Madde 11/5).</div>
+<p><b>Ürün:</b> Anjiyografi kateteri ve PTCA (perkütan translüminal koroner anjiyoplasti) balon kateter</p>
 <p><b>GTİP:</b><br><span class='gtip'>9018.39.00.00.29</span></p>
-<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>9018.39.00.00.29 → <b>kaynakta belirtilmemis</b></div>
-<p><b>Kimi ilgilendirir:</b> Tıbbi malzeme ithalatçıları, Çin'den kateter ihracatçıları, yerli tıbbi ürün üreticileri</p>
-<p><b>Ne yapmalısın:</b> Inceleme döneminde (1/7/2024 - 30/6/2025) Çin'den gelen sevkiyatlarının CIF fiyatlarını kontrol et. Soru formlarının yanıt süresini takip et; 37 günlük süre yayım tarihinden başlıyor. İthalatçı iseniz Bakanlığa KEP adresinden (ticaretbakanligi@hs01.kep.tr) veya yazılı olarak cevap gönder.</p>
+<p><b>Kimi ilgilendirir:</b> Çin'den anjiyografi ve kardiyoloji kateteri ithal eden tıbbi malzeme dağıtıcıları ve ithalatçıları; yerli tıbbi malzeme üreticileri</p>
+<p><b>Ne yapmalısın:</b> Soru formu elinize ulaştıysa 37 günlük süreyi hemen başlatarak cevaplarınızı hazırlayın. Bildirim size ulaşmadıysa, bu tebliğin yayım tarihinden (26 Kasım 2025) itibaren 37 gün içinde Bakanlığa görüşünüzü sunun. Çin merkezli tedarikçilerin piyasa ekonomisi şartlarını ispat etmeleri halinde normal değer belirleme yönteminin değişebileceğini not ediniz. Yurt dışındaysanız düzenlediğiniz vekâletnameyi apostil tasdikiyle birlikte gönderiniz.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturmada Çin'den gelen kateterler dampingli olarak tespit edildi ve yerli üreticiye maddi zarar verdiği değerlendirildi. Bu soruşturma döneminde ve sonrasında ithalatçılar için fiyat baskısı ve potansiyel gümrük önlemleri riskiyle karşı karşıyadır.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturmada damping tespit edilmiş olup geçici ve/veya kesin koruma önlemleri devreye alınabilecektir. Bu ürünlere ek gümrük vergisi uygulanması, ithalatçıların maliyetini ve pazardaki rekabet gücünü olumsuz etkileyecek; fiyatlandırma planlarının yeniden değerlendirilmesi gerekmektedir.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251126-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Haksız rekabetin önlenmesine ilişkin tebliğde GTIP kodu değişikliği</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2024/33 nolu tebliğin ekinde yer alan tabloda 7212.60.00.19.29 GTIP koduna ilişkin satırı değiştirdi. Değiştirilmiş içerik metinde yer almamaktadır.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/33)</p>
-<p><b>Ürün:</b> Demir veya çelik mamulleri</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>7212.60.00.19.29 pozisyonunun damping vergisi oranında yapılan değişiklik</h3>
+<p><b>Ne oldu:</b> Yeni metinde GTIP 7212.60.00.19.29 için değişiklik yapıldığı belirtilmekle birlikte, eski metinde bu pozisyona ilişkin açık bir oran yer almamaktadır. Değişikliğin detayı yeni metinde de belirtilmemiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/33) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(11.10.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTIP 7212.60.00.19.29 damping vergisi oranı</span><span class='hap eski'>9.00</span><span class='ok'>→</span><span class='hap yeni'>9.00</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ 26 Kasım 2025 tarihi itibariyle yürürlüğe giriyor (Madde 2).</div>
+<p><b>Ürün:</b> Bimetal (iki metal tabakalı) demir veya çelik ürünleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>7212.60.00.19.29</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>7212.60.00.19.29 → <b>kaynakta belirtilmemiş</b></div>
-<p><b>Kimi ilgilendirir:</b> Demir ve çelik ürünleri ithal eden şirketler</p>
-<p><b>Ne yapmalısın:</b> 2024/33 nolu tebliğin güncel metni ve Ek-1 tablosunu temin et; 7212.60.00.19.29 kodlu sevkiyatlarında yeni koşulları uygula</p>
+<div class='kiymet'>7212.60.00.19.29 → <b>kaynakta belirtilmemis</b></div>
+<p><b>Kimi ilgilendirir:</b> Demir-çelik ve bimetal levha ithalatçıları</p>
+<p><b>Ne yapmalısın:</b> Temmuz 2025 sonrası bu koda ait ithalat beyanlarını ve referans fiyatlandırmayı tebliğ ekindeki güncellenmiş eşikle karşılaştırarak uygunluğunu kontrol edin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251126-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

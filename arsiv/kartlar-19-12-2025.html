@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,47 +33,82 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>19.12.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>19.12.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Dış ticaret sermaye şirketi statüsü için ihracat ve sermaye şartları belirlendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, dış ticaret sermaye şirketi statüsüne ilişkin yeni tebliği yayımladı. Statü almak için şirketlerin bir önceki yılda en az 100 milyon ABD Doları ihracat ve en az 10 milyon TL ödenmiş sermaye sahibi olması gerekiyor. Başvurular her yılın ocak ayının son gününe kadardir.</p>
-<p><b>Neyi değiştiriyor:</b> Dış Ticaret Sermaye Şirketi Statüsüne İlişkin Tebliğ (İhracat: 2004/12)</p>
-<p><b>Ürün:</b> İhracat yapan tüm mal ve ürünler</p>
-<p><b>Kimi ilgilendirir:</b> En az 100 milyon ABD Doları yıllık ihracat hacmine sahip anonim şirketler, kooperatif ve tarım satış kooperatifleri</p>
-<p><b>Ne yapmalısın:</b> Statü almayı hedefleyen şirketler, geçiş döneminde (31 Aralık 2026'ya kadar) 2 milyon TL sermaye ile başvurabilir; bu tarihten sonra başvuran şirketler 10 milyon TL sermaye gösterecek. Başvurular İhracat Genel Müdürlüğü'ne Destek Yönetim Sistemi üzerinden yapılacak, eksiklikler bir ay içinde tamamlanması gerekir. Vergi dairesinden sahte veya yanıltıcı belge kullanılmadığına ilişkin yazı almayı unutma.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Yeni teblig eski statü sahiplerine geçiş ayrıcalığı veriyor (2026 yılına kadar eski şartlarla devam edebilirler), ancak yeni başvurucular daha yüksek sermaye şartıyla karşı karşıyadır. Aracılık yapan şirketlerde sorumluluk dağılımı net hale getirildi; imalatçı ve tedarikçiler kendi belgelerinden sorumlu olacak.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Dış ticaret sermaye şirketi statüsüne ilişkin yeni tebliğ yayımlandı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, şirketlere dış ticaret sermaye şirketi statüsü verilmesine, geri alınmasına ve yetkilendirme usulüne ilişkin yeni bir tebliğ yayımlamıştır. Eski tebliğ (2004/12) yürürlükten kaldırılmıştır.</p>
+<p><b>Hangi tebliğ:</b> Dış Ticaret Sermaye Şirketi Statüsüne İlişkin Tebliğ (İhracat: 2004/12) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Statü almak için şirketler bir önceki takvim yılında en az 100 milyon ABD doları (FOB) ihracat gerçekleştirmiş ve en az 10 milyon TL ödenmiş sermayeli anonim şirket olmalıdır (Madde 4/1).</div>
+<div class='kiymet'>• Statü başvuruları her yılın ocak ayının son gününe kadar yapılabilir veya mevcut statüler yenilenebilir (Madde 4/2).</div>
+<div class='kiymet'>• Başvuru sahibi şirket, vergi dairesinden yanıltıcı belge düzenlenmediğine/kullanılmadığına dair yazı almak zorundadır (Madde 4/4).</div>
+<div class='kiymet'>• Başvuruda eksik bilgi varsa başvuru sahibine DYS üzerinden bildirim yapılır; eksiklikler bildirim tarihinden itibaren bir ay içinde tamamlanmalıdır, aksi halde başvuru reddedilir (Madde 5/2).</div>
+<div class='kiymet'>• Statü, yayımlandığı tarihten itibaren müteakip yıla ait karar yayımlanıncaya kadar geçerlidir (Madde 6/2).</div>
+<div class='kiymet'>• Dış ticaret sermaye şirketleri başka şirketlerin ihracatına aracılık edebilir; aracılık öncesi tedarikçi şirketlerden vergi dairesine yazı alınması gerekir (Madde 7/1).</div>
+<div class='kiymet'>• Sahte/yanıltıcı belge kullanılarak statü alındığı tespit edilirse statü verildiği tarih itibarıyla geri alınır ve şirket iki yıl yeni başvuru yapamaz (Madde 9/2).</div>
+<div class='kiymet'>• Statü aldıktan sonra yanıltıcı belge düzenlenmesi/kullanılması tespit edilirse statü karar yayımı itibarıyla geri alınır ve şirket bir yıl yeni başvuru yapamaz (Madde 9/3).</div>
+<div class='kiymet'>• 31 Aralık 2026'ye kadar statü başvurusunda bulunan şirketler için geçiş dönemi olarak 2 milyon TL ödenmiş sermaye yeterli sayılır (Geçici Madde 1/1).</div>
+<p><b>Ürün:</b> Tüm sektörlere konu dış ticaret faaliyetleri</p>
+<p><b>Kimi ilgilendirir:</b> Yüksek ihracat hacmine sahip anonim şirketler, kooperatifler ve birlikleri; tarım satış kooperatifleri; ihracat aracılığı yapan firmalar</p>
+<p><b>Ne yapmalısın:</b> Ocak 2025 sonuna kadar statü başvurusunda bulunacak şirketler, belgelerini hazırlayarak Destek Yönetim Sistemi üzerinden Bakanlığa (İhracat Genel Müdürlüğü) başvurmalıdır. Vergi dairesinden yanıltıcı belge yazısı önceden talep edilmelidir. Mevcut statüye sahip firmaların 31 Aralık 2026'ya kadar geçiş dönemine tabi olduğu unutulmamalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251219-22.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sektörel dış ticaret şirketi statüsüne ilişkin usul ve esaslar</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, sektörel dış ticaret şirketi statüsünün verilmesi, geri alınması ve denetlenmesine dair kuralları düzenleyen yeni tebliği yayımladı. Statü almak için minimum beş şirketin bir araya gelmesi, en az 5 milyon TL ödenmiş sermaye ve ortaklık payı sınırlamaları gerekir.</p>
-<p><b>Ürün:</b> Statüye tabi olmayan belirli ürün grubu; teblig genel nitelikli düzenlemedir</p>
-<p><b>Kimi ilgilendirir:</b> Dış ticarette ihracat yapacak ve sektörel dış ticaret şirketi statüsü almak isteyen işletmeler ve kooperatifler</p>
-<p><b>Ne yapmalısın:</b> Statü başvurusu yapacak şirketler: en az beş tüzel kişi ortakla yapılanma sağla; her ortağın sermaye payı %20'yi aşmaması koşulunu kontrol et; tüm ortakların en az iki yıl öncesinden ticaret siciline kayıtlı olduğunu teyit et; DYS üzerinden Bakanlık İhracat Genel Müdürlüğüne başvur; Statü alan şirketler: her yıl Ocak sonuna kadar faaliyet raporu sun; değişiklikleri bir ay içinde bildir; BDK denetimini ayarla.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Sektörel dış ticaret şirketleri statüsü yeniden düzenlendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, sektörel dış ticaret şirketlerine statü verilmesi, statünün geri alınması ve denetim koşullarına ilişkin esasları yeni bir tebliğle belirledi. İhracat amaçlı şirket birleşmelerinin kurumsal yapı, sermaye ve performans kriterlerine tabi olacağı hükme bağlandı.</p>
+<p><b>Hangi tebliğ:</b> Sektörel Dış Ticaret Şirketleri Statüsüne İlişkin Tebliğ (İhracat 2004/4) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Statü almak için asgari beş şirketin bir araya gelmesi ve 5.000.000 TL ödenmiş sermayeye sahip anonim şirket olması şart (m.4/1).</div>
+<div class='kiymet'>• Her ortağın başvuru tarihinden iki yıl önce ticaret siciline kayıtlı olması gerekir (m.4/2).</div>
+<div class='kiymet'>• Tüzel kişi ortakların sermaye payı toplam sermayenin %20'sini aşamaz (m.4/3).</div>
+<div class='kiymet'>• Statü verildikten sonraki ilk yılı hariç olmak üzere her takvim yılında en az 5.000.000 ABD Doları ihracat yapması zorunludur (m.12/1/a).</div>
+<div class='kiymet'>• Statünün geri alınmasını gerektiren kusurlar tespit edilen şirkete bir aylık düzeltme süresi verilir (m.12/5).</div>
+<div class='kiymet'>• Statü aldıkları yılı hariç takip eden her yıl bağımsız denetim kuruluşu tarafından denetlenmeleri şart (m.12/4).</div>
+<div class='kiymet'>• Sahte veya yanıltıcı belge ile statü alanlar, iki takvim yılı boyunca yeniden başvuru yapamaz (m.12/2).</div>
+<div class='kiymet'>• Diğer kusurlardan dolayı statüsü geri alınanlar, bir takvim yılı boyunca yeniden başvuru yapamaz (m.12/3).</div>
+<div class='kiymet'>• 2004/4 sayılı tebliğ yürürlükten kaldırılmıştır (m.15).</div>
+<p><b>Ürün:</b> İhracat amaçlı sektörel şirket birlikleri (tüm sektörler)</p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>kaynakta belirtilmemis → <b>5.000.000 ABD Doları (minimum yıllık ihracat)</b></div>
+<p><b>Kimi ilgilendirir:</b> Ortak hedef pazarlara sahip olup birleşerek ihracat gerçekleştirecek şirketler ile finans ve nakliye hizmeti sağlayıcıları</p>
+<p><b>Ne yapmalısın:</b> Statü almak isteyen şirket birlikleri, başvuru belgelerini Destek Yönetim Sistemi üzerinden İhracat Genel Müdürlüğüne sunmalı; tespit edilen eksiklikleri bir ay içinde tamamlamalıdır. Statü sahibi şirketler ise bağımsız denetim raporlarını her yıl mart ayı sonuna kadar ibraz etmeli; yönetim kurulu değişikliği gibi hususları bir ay içinde Bakanlığa bildirmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Teblig, yeni bir statü türünü kurucu nitelikte olup ithalatçıları doğrudan etkilemez. İhracat yapan şirketlerin tedarik, finansman, gümrük işlemlerinde hizmet alabilecekleri bir şirket yapısını tanımlar.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251219-23.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İhracat belgelerinde müeyyide itiraz süresi 30'dan 60 güne çıktı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, ihracat vergi istisna belgelerinde taahhüt hesabı kapatılırken uygulanan müeyyidelere karşı itiraz süresini 30 günden 60 güne uzattı. Ayrıca geçmiş dönem belgeleri ve belgesiz kredilerin kullanım sürelerine 12 aylık ek süre tanındı.</p>
-<p><b>Neyi değiştiriyor:</b> İhracat, Transit Ticaret, İhracat Sayılan Satış ve Teslimler ile Döviz Kazandırıcı Hizmet ve Faaliyetlerde Vergi, Resim ve Harç İstisnası Hakkında Tebliğ (İhracat: 2017/4)</p>
-<p><b>Ürün:</b> İhracat vergi, resim ve harç istisna belgeleri ve belgesiz ihracat kredileri</p>
-<p><b>Kimi ilgilendirir:</b> İhracat yapan firmalar, vergi istisna belgesi sahibi işletmeler, belgesiz kredi kullanan ihracatçılar</p>
-<p><b>Ne yapmalısın:</b> Müeyyide tahsil edilmiş veya yapılmış ihracat belgelerinizi ve belgesiz kredilerinizi kontrol et. Kapatılmış taahhüt hesaplarında uyuşmazlık varsa 60 gün içinde Ticaret Bakanlığı İhracat Genel Müdürlüğü'ne yazılı itiraz et. Süresi geçmiş belgeler ve kredilerin uzatma talebini ilgili kuruma (Bakanlık/banka) başvuru tarihinden 3 aylık (belgeler) veya 1 aylık (krediler) süre içinde yap.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> İhracatçılar müeyyide itirazı için daha uzun zaman kazandı. Geçmiş dönem belgelerinde 12 aylık ek süre, belge imha riskini azaltarak ve cari işlemleri yumuşatarak ihracat işlemlerinin uzunluğundan kaynaklanan sürü sorunlarını hafifletme hedefi taşıyor.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İhracat belgelerinde taahhüt kapanış süresi 30 günden 60 güne çıktı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, ihracat istisnası belgelerine ilişkin taahhüt hesabının kapatılma süresini uzattı. Ayrıca daha önce düzenlenmiş belgelerde müeyyide kısmen ödenmemiş olsa dahi 60 gün içinde Bakanlığa itiraz hakkı tanındı; belge/kredi süresi de 12 ay uzatılabilecek.</p>
+<p><b>Hangi tebliğ:</b> İhracat, Transit Ticaret, İhracat Sayılan Satış ve Teslimler ile Döviz Kazandırıcı Hizmet ve Faaliyetlerde Vergi, Resim ve Harç İstisnası Hakkında Tebliğ (İhracat: 2017/4) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 9 eklendi</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>10 uncu madde</span><span class='hap eski'>30 (otuz)</span><span class='ok'>→</span><span class='hap yeni'>60 (altmış)</span></div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2020/03/20200308-13.htm' target='_blank' rel='noopener'>08.03.2020 tarihli Resmî Gazete</a> (Tebliğ 2017/4)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Müeyyidesi kısmen veya tamamen tahsil edilmemiş eski ihracat istisnası belgeleri için yapılan taahhüt kapatmışına karşı yürürlük tarihinden 60 gün içinde Bakanlığa yazılı itiraz edilebilir (Geçici m.8/2).</div>
+<div class='kiymet'>• Yürürlük tarihinden önce düzenlenmiş belge/kredilerin taahhüt hesabı henüz kapalı değilse, belge süresi sonundan itibaren 3 ay içinde (belgesiz kredilerde 1 ay içinde) Bakanlığa/banka başvurusu şartıyla 12 ay ek süre verilir (Geçici m.9/1).</div>
+<div class='kiymet'>• Tebliğ yayımı tarihinde yürürlüğe girer (Madde 4).</div>
+<p><b>Ürün:</b> İhracat işlemlerine konu tüm mallar ve hizmetler</p>
+<p><b>Kimi ilgilendirir:</b> İhracat yapan firmalar, vergi resim harç istisnası belgesi kullananlar ve belgesiz ihracat kredisi kullananlar</p>
+<p><b>Ne yapmalısın:</b> Eski tarihli belgelerinizde taahhüt hesabının durumunu kontrol edin. Kapatılmamış hesaplar varsa ve müeyyide kısmen ödenmemişse 60 gün içinde itiraz başvurunuzu hazırlayın. Belge süresinin bitimini izleyen 3 aylık pencere içinde Bakanlığa ek süre talebinizi iletin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Taahhüt kapanış süresinin uzaması ihracatçılara daha geniş hareket alanı sağlayacak; ancak eski belgelerde müeyyide tahsil edilmişse bu kolaylık sınırlı kalacak. Belge süresi uzatma hakkı yalnızca süresi içinde başvuranları koruyor; başvuru penceresi kaçırıldığında bu haktan yararlanılamıyor—takvime dikkat edilmeli.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251219-24.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251219-24.html'>Neyin nesi değişti? →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

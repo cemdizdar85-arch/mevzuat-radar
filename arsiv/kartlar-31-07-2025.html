@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,48 +33,70 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>31.07.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>31.07.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Pan-Avrupa-Akdeniz menşe kuralları konvansiyonu tadil kararı onaylandı</h3>
-<p><b>Ne oldu:</b> Türkiye, 7 Aralık 2023 tarihinde kabul edilen Pan-Avrupa-Akdeniz Tercihli Menşe Kuralları Ortak Komitesi'nin 1/2023 Sayılı Kararını, 1 Ocak 2025 tarihinden itibaren geçerli olmak üzere onayladı. Karar, ticari menşe belirleme kurallarında değişiklik getiriyor.</p>
-<p><b>Neyi değiştiriyor:</b> Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyonu</p>
-<p><b>Ürün:</b> Tüm ticari mallar</p>
-<p><b>Kimi ilgilendirir:</b> Pan-Avrupa-Akdeniz bölgesine ihracat yapan ve menşe belgesi düzenleyen firmalar, gümrük müşavirleri, dış ticaret uzmanları</p>
-<p><b>Ne yapmalısın:</b> Ocak 2025 itibarıyla menşe belgelendirme sürecinizi yeni kurallara göre revize edin. Tedarikçilerinizin ve üretim süreci belgelerinizin, konvansiyonun güncel hükümleriyle uyumlu olup olmadığını kontrol edin.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Pan-Avrupa-Akdeniz Menşe Kuralları Konvansiyonu tadilinin onaylanması</h3>
+<p><b>Ne oldu:</b> Türkiye, 7 Aralık 2023 tarihinde kabul edilen Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyon'un tadilini (1/2023 Sayılı Karar) onaylamıştır. Söz konusu düzenleme 1 Ocak 2025 tarihinden itibaren yürürlüğe girecektir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyonun tadilini içeren 1/2023 Sayılı Karar 1 Ocak 2025'ten itibaren geçerli (Madde 1).</div>
+<div class='kiymet'>• Kanun yayımı tarihinde (31 Temmuz 2025) yürürlüğe girmiştir (Madde 2).</div>
+<p><b>Ürün:</b> Gümrük menşe kurallarına tabi tüm ticari mallar</p>
+<p><b>Kimi ilgilendirir:</b> Akdeniz ve Avrupa ülkeleriyle tercihli ticaret gerçekleştiren ithalatçı ve ihracatçılar</p>
+<p><b>Ne yapmalısın:</b> Menşe belgelendirmesi ve gümrük işlemlerini yürüten firmaların, 1 Ocak 2025 tarihinden itibaren uygulanacak yeni menşe kurallarını tedarik zincirlerine ve gümrük beyannamelerine yansıtmaları gerekmektedir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250731-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Sodyum Glukonat ithalatında gözetim belgesi uygulaması başlıyor</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2918.16.00.00.13 GTIP kodlu sodyum glukonatın kilogram başına 1,5 ABD Dolarının altındaki birim kıymetli ithalatlarında gözetim belgesi zorunluluğu getirdi. Tüm ithalatçılar, gümrük beyannamesinin tescilinde Bakanlıktan elektronik yolla alınmış gözetim belgesi ibraz etmek zorunda olacak.</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, sodyum glukonat ithalatında gözetim sistemi uygulamasına geçiyor. Belirlenen birim kıymet eşiğinin altında kalan ithalatlar, artık gözetim belgesi ibraz edilmeden gümrük beyannamesine konu edilemeyecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Sodyum glukonat ithalatı (GTIP 2918.16.00.00.13) ancak Ticaret Bakanlığından alınan gözetim belgesiyle yapılır; belge gümrük idaresi tarafından gümrük beyannamesi tescilinde aranır (Madde 2/1).</div>
+<div class='kiymet'>• Gözetim belgesi başvurusu elektronik imzayla Ticaret Bakanlığı e-hizmetler portalı veya e-Devlet üzerinden yapılır; fiziksel başvuru da mümkün (Madde 3/1-4).</div>
+<div class='kiymet'>• Gözetim belgesi elektronik ortamda düzenlenir ve e-posta ile bildirilir; 23 haneli belge numarası beyannamenin 44 nolu kutusunda beyan edilir (Madde 5/1).</div>
+<div class='kiymet'>• Başvuru sahibinin gümrük idaresi kaydı yoksa, bildirim sonrasında beş iş günü içinde sisteme kayıt yaptırması gerekir; aksi halde başvuru geçersiz sayılır (Madde 5/2).</div>
+<div class='kiymet'>• Gözetim belgesi altı ay geçerlidir (Madde 7/1).</div>
+<div class='kiymet'>• Tebliğ yayımını takip eden otuzuncu günde yürürlüğe girer (Madde 8/1).</div>
 <p><b>Ürün:</b> Sodyum glukonat</p>
 <p><b>GTİP:</b><br><span class='gtip'>2918.16.00.00.13</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>2918.16.00.00.13 → <b>1,5 ABD Doları/kg</b></div>
 <p><b>Kimi ilgilendirir:</b> Sodyum glukonat ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> Şimdi ithalatınızda bu ürün varsa Ticaret Bakanlığı E-Hizmetler portalından gözetim belgesi talep etmeye başlayın. Başvuruda TPS-0964-Gözetim Belgesi Sanayi türünü seçin. Belgeler onaylandıktan sonra 23 haneli belge numarasını gümrük beyannamesinin 44 nolu kutusuna yazmalı, belgenin altı ay geçerli olduğunu hatırda tutmalısınız.</p>
-<p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<p><b>Ne yapmalısın:</b> Birim kıymeti 1,5 ABD Doları/kg'nin altında olan sodyum glukonat ithalatınız için Ticaret Bakanlığından gözetim belgesi talep edin; başvurunuzu e-imza ile www.ticaret.gov.tr portalı üzerinden yapın ve belge kopyasını gümrük beyannamesinde 44 numaralı kutuda belirtin. Beş iş günlük kayıt süresi varsa bu süreyi kaçırmayın.</p>
+<p><b>Yürürlük:</b> yayimini takip eden 30. gun</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250731-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Buz yapma makineleri ithalatında gözetim belgesi zorunlu hale geldi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli özelliklerdeki buz yapma makinelerinin ithalatına gözetim uygulaması getirdi. 16 ABD Doları/Kg altındaki birim kıymete sahip ürünler artık gözetim belgesi olmadan gümrük beyannamesine konu olamayacak.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Buz yapma makineleri ithalatında gözetim belgesi zorunluluğu</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 8418.69.00.99.12 GTİP kodlu buz yapma makinelerinin (birim kıymeti 16 ABD Doları/kg altında olanlar) ithalatında gözetim belgesi uygulamasını başlatmaktadır. Belgeler, elektronik başvuru yoluyla İthalat Genel Müdürlüğü tarafından düzenlenecektir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 8418.69.00.99.12 GTIP kodlu, birim kıymeti 16 ABD Doları/kg'dan düşük buz yapma makineleri ancak gözetim belgesiyle ithal edilebilir (m.2/1).</div>
+<div class='kiymet'>• Gözetim belgesi başvuruları Ticaret Bakanlığının internet sayfasındaki E-Hizmetler bölümü veya e-Devlet üzerinden elektronik imzayla yapılır (m.3/1).</div>
+<div class='kiymet'>• Gözetim belgesi elektronik ortamda düzenlenir ve başvuru formundaki e-posta adresine bildirilir; belge numarası gümrük beyannamesinin 44 nolu kutusunda beyan edilir (m.5/1).</div>
+<div class='kiymet'>• Başvuru sahibinin gümrük idaresinde kaydının bulunmaması halinde ithalatçı beş iş günü içinde kayıt yaptırmalı, aksi takdirde başvuru geçersiz sayılır (m.5/2).</div>
+<div class='kiymet'>• Gözetim belgesinin geçerlilik süresi altı aydır (m.7/1).</div>
+<div class='kiymet'>• Tebliğ, yayımını takip eden otuzuncu gün yürürlüğe girer (m.8/1).</div>
 <p><b>Ürün:</b> Buz yapma makineleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>8418.69.00.99.12</span></p>
-<p><b>Kimi ilgilendirir:</b> Buz yapma makineleri ithal eden gümrük müşevirler ve ithalatçılar</p>
-<p><b>Ne yapmalısın:</b> E-Devlet veya ticaret.gov.tr'nin İthalat Belge İşlemleri kısmından gözetim belgesi talep et. Başvuruda TPS-0964-Gözetim Belgesi Sanayi belge türünü seç. Sistem tarafından verilen 23 haneli belge numarasını ve tarihi gümrük beyannamesinin 44 nolu kutusuna yaz. Eğer elektronik başvuru mümkün değilse fiziksel başvuru formunu (Ek-1) kullanarak Ticaret Bakanlığına gönder.</p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8418.69.00.99.12 → <b>16 ABD Doları/kg (brüt)</b></div>
+<p><b>Kimi ilgilendirir:</b> Buz yapma makinesi üreten ve ithal eden şirketler</p>
+<p><b>Ne yapmalısın:</b> İthalat tarihinden önce gözetim belgesi başvurusunu www.ticaret.gov.tr adresindeki E-Hizmetler bölümünden elektronik imza ile yapınız. Ticaret sicil tasdiknamesini ve Ek-2'de belirtilen tüm belgeleri sisteme yükleyiniz. Gümrük beyannamesinin 44 nolu kutusunda belge referans numarasını ve tarihini beyan ediniz.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · ithalatçı aleyhine):</b> Söz konusu ürünlerin ithalatında yeni bir idari yükümlülük ortaya çıkmaktadır. Gözetim belgesi alınmadan ithalat yapılması mümkün değildir. Bu durum ithalat sürecini uzatacak ve önceden başvurusu yapılmayan sevkiyatlar gümrük kapısında bekletilecektir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250731-12.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

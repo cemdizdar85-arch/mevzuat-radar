@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,41 +35,58 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>18.06.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sinema sektörü destek yönetmeliğinde değişiklikler; dizi film kuralları hafifletildi</h3>
-<p><b>Ne oldu:</b> Kültür ve Turizm Bakanlığı, sinema yapımlarına verilen devlet desteğinin şartlarını güncelledi. Başvuru formu zorunluluğu kaldırıldı, dizi film desteğine ayrı usuller uygulanmaya başlandı ve yabancı film çekimlerinin desteklenmesine ilişkin standart yeniden düzenlendi.</p>
-<p><b>Neyi değiştiriyor:</b> Sinema Sektörünün Desteklenmesi Hakkında Yönetmelik</p>
-<p><b>Ürün:</b> Sinema filmleri ve dizi filmler (yapım, dağıtım, gösterim destekleri)</p>
-<p><b>Kimi ilgilendirir:</b> Sinema yapımcıları, yönetmenler, senaryo yazarları, belgesel yapımcıları, yabancı yapım şirketleri, sinema dağıtıcıları, TV kanalları, dizi film yapımcıları</p>
-<p><b>Ne yapmalısın:</b> Dizi film projelerine yönelik başvuruları kontrol edin; sezon şartı artık uygulanmıyor, ancak 3 yıllık yayın tarihi şartı geçerli. Yasal takip geçmişi bulunan ya da destek iadesi yapmış projelerle ilişkilendirilmiş başvuruları reddedin. Başvuru formunun artık zorunlu olmadığını muhasebe ve proje ekiplerine iletin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Dizi film desteğinin kuralları sadeleşti (sezon şartı kaldırıldı) ve başvuru prosedürü hafifletildi; bu durum yapımcılar lehine bir gelişme. Buna karşılık, yasal takip geçmişi olanlar ve borcunu ödeyenler tamamen kapsam dışında bırakıldı; yabancı yapım desteğinde %30 tavan netleşti. Sinema endüstrisinin mali disiplini sıkılaştırıldı.</div>
+<h3>Sinema sektörü destek programında başvuru ve uygunluk şartları değiştirildi</h3>
+<p><b>Ne oldu:</b> Kültür ve Turizm Bakanlığı, sinema destekleme yönetmeliğinde kapsamlı değişikliklere gitti. Destek türlerinin tanımları genişletildi, başvuru prosedürleri sadeleştirildi, dizi film desteğine ilişkin yeni kurallar getirildi ve yasal takibe konu olan projelerin yeniden destek alması engellendi.</p>
+<p><b>Hangi tebliğ:</b> Sinema Sektörünün Desteklenmesi Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Dizi film bölümünün ilk gösterimi başvuru tarihinden önce en fazla 3 yıl içerisinde Türkiye'de kablo, uydu veya karasal ortamlarda yayın yapan televizyon kanallarında gerçekleştirilmiş olması zorunlu (m.25/3).</div>
+<div class='kiymet'>• Başvuru belgeleri Genel Müdürlükçe incelenir; tespit edilen eksiklikler bildirilebilir, ancak dizi film desteğinde eksiklik bildirimi uygulanmaz (m.9/2).</div>
+<div class='kiymet'>• Yasal takipe konu edilmiş veya ödenen desteği iade etmiş projeler yeniden destek başvurusu yapamaz (m.29/3).</div>
+<div class='kiymet'>• Bölüm başına ve toplam destek verilebilecek en yüksek tutar yıllık bütçe imkânları çerçevesinde Bakanlıkça belirlenir (m.25/6).</div>
+<div class='kiymet'>• Yönetmelik yayımı tarihinde yürürlüğe girdi (m.6).</div>
+<p><b>Ürün:</b> Sinema ve dizi film üretimi, dağıtımı ve gösterimine yönelik destekler</p>
+<p><b>Kimi ilgilendirir:</b> Sinema yapımcıları, yönetmenler, senaristler, dizi film yapımcıları, sinema salonu işletmecileri ve yurt dışında üretim yapan şirketler</p>
+<p><b>Ne yapmalısın:</b> Mevcut destek başvurularında dizi film projeleri için sezon şartının kaldırıldığını teyit edin; yasal takip veya destek iadesi geçmişi bulunanları tarama sisteminden çıkarın; destek tutarı üst limitlerini bakanlığın güncel bütçe duyurusundan kontrol edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik prosedürel açıdan kolaylaştırıcı niteliktedir (başvuru formu kaldırıldı, dizi film ön kontrolü hafifletildi); ancak maddi yükümlülük tarafında artış söz konusudur: yasal takiple karşılaşan ve desteği iade eden projeler kapsam dışı bırakıldı. Düzenleme, sektörde yeni olmayan yapımcılar lehine işlerken riskli/uygunsuz projeler açısından denetimi sıkılaştırmaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260618-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrük Uzlaşma Yönetmeliği'nde başvuru eşiği 3 milyondan 7 milyona yükseltildi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Gümrük Uzlaşma Yönetmeliği'nin 9. maddesinde yer alan parasal eşiği değiştirdi. Önceden 3 milyon olan limit 7 milyona çıkarıldı. Ayrıca yönetmeliğe geçici bir madde eklendi; bu düzenlemenin yürürlüğe girmesinden önce yapılan başvurularda eski eşiğin uygulanmaya devam edeceği hükme bağlandı.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrük Uzlaşma Yönetmeliği</p>
-<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
-<p><b>Kimi ilgilendirir:</b> Gümrük uzlaşması başvurusunda bulunan ithalatçılar ve gümrük müşavirleri</p>
-<p><b>Ne yapmalısın:</b> Ocak 2026 ve sonrasındaki gümrük uzlaşması başvurularını 7 milyonluk yeni eşikle karşılaştırın. Beyanınızı bu tarihten sonra yapıyorsanız yeni limit geçerli olacaktır. Bu tarihten önceki başvurularınızda ise eski 3 milyonluk eşiği esas alın.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<h3>Gümrük Uzlaşma Yönetmeliği'nde eşik değer 3 milyondan 7 milyona yükseltildi</h3>
+<p><b>Ne oldu:</b> Gümrük Uzlaşma Yönetmeliği'nin 9. maddesinde yer alan parasal eşik, 3.000.000 birimden 7.000.000 birime yükseltilmiştir. Değişiklik öncesinde yapılmış başvurularda eski eşik uygulanmaya devam edecektir.</p>
+<p><b>Hangi tebliğ:</b> Gümrük Uzlaşma Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 4 eklendi</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>9 uncu madde</span><span class='hap eski'>3.000.000.-</span><span class='ok'>→</span><span class='hap yeni'>7.000.000.-</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik yayım tarihinde yürürlüğe girer (Madde 3).</div>
+<div class='kiymet'>• Yürürlüğe girmeden önce yapılan başvurulara eski esik (3.000.000) uygulanır (Geçici Madde 4).</div>
+<p><b>Ürün:</b> Gümrük uzlaşmasına konu başvurular (gümrük işlemleri)</p>
+<p><b>Kimi ilgilendirir:</b> Gümrük müşavirleri, dış ticaretle iştigal eden firmalar ve gümrük uzlaşması başvurusunda bulunan taraflar.</p>
+<p><b>Ne yapmalısın:</b> Daha önceki tarihlerde yapılmış başvuruların 3 milyonluk eski eşik üzerinden işlem gördüğünü kontrol ediniz. Temmuz 2026 sonrasında yapılacak başvurularda ise 7 milyonluk yeni eşiği esas alınız.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260618-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260618-4.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Gümrüksüz satış mağazaları yönetmeliğinde denetim ve muhasebeci şartları güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, gümrüksüz satış mağazaları yönetmeliğinde beş maddede değişikliğe gitti. Buna göre gemi satış mağazalarının tanımı genişletildi, muhasebeci yeterliliği koşuluna serbest muhasebeci mali müşavir de eklendi, denetim sorumluluğu alanı yeniden tanımlandı; parfüm ve kozmetik ürünlere ilişkin ibraz şartı da genişletildi.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrüksüz Satış Mağazaları Yönetmeliği</p>
-<p><b>Ürün:</b> Gümrüksüz satış mağazalarında satılan kumanya ve kozmetik ürünleri</p>
-<p><b>Kimi ilgilendirir:</b> Gümrüksüz satış mağazası işletmecileri, gemi operatörleri, muhasebe ve müşavirlik firmaları, gümrük müdürlükleri</p>
-<p><b>Ne yapmalısın:</b> Mağazanın denetimine tabi olduğu gümrük müdürlüğü yeniden belirlenmeli. Muhasebeci sözleşmeleri güncellenerek serbest muhasebeci mali müşavir hizmetinin kapsamı netleştirilmeli. Parfüm ve kozmetik ürünlerin ibraz sistemi yeniden tasarlanmalı.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Muhasebe şartının esnekleştirilmesi mağaza işletmecileri açısından olumlu bir gelişme; ancak denetim sorumluluğunun gümrük müdürlüğü bazında genişlemesi ve parfüm-kozmetik ibraz koşulunun kapsamının artması idari yükü büyütüyor. Uyum maliyeti sektöre göre farklılık gösterecek.</div>
+<h3>Gümrüksüz satış mağazaları yönetmeliğinde gemilere satış ve muhasebeci koşulları güncellendi.</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, gümrüksüz satış mağazalarını düzenleyen yönetmelikte beş değişiklik yaptı. Gemilere kumanya satışının tanımı genişletildi, muhasebeci niteliği esnekleştirildi, mağaza denetiminin coğrafi kapsamı düzeltildi ve kozmetik ürünlere ilişkin gümrük kontrolü kuralı eklendi.</p>
+<p><b>Hangi tebliğ:</b> Gümrüksüz Satış Mağazaları Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Mağazanın bulunduğu limandan</span><span class='ok'>→</span><span class='hap yeni'>Mağazanın denetimi altında faaliyet gösterdiği gümrük müdürlüğüne bağlı limanlardan</span></div>
+<p><b>Ürün:</b> Gümrüksüz satış mağazalarında satılan kumanya ve tüketim malları (parfüm, kozmetik, gemilere sağlanan erzak).</p>
+<p><b>Kimi ilgilendirir:</b> Gümrüksüz satış mağazası işletmecileri, özellikle liman bölgelerinde gemilere kumanya ve ürün satan ticaret kuruluşları.</p>
+<p><b>Ne yapmalısın:</b> Gümrüksüz mağazanızın muhasebe görevlisinin belgelerini (Yeminli Mali Müşavir veya Serbest Muhasebeci Mali Müşavir sertifikası) kontrol edin. Parfüm ve kozmetik ürünler için gümrük idaresine ibraz prosedürünü gözden geçirin. Gemilere mal sevkiyatı yapıyorsanız mağazanın denetim kapsamındaki tüm limanları belirleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Serbest Muhasebeci Mali Müşavir kabulü işletmeciler için seçenek yaratırken, kozmetik ürünlere gümrük kontrolü eklenmesi sevkiyat yönetimini karmaşıklaştırabilir. Liman kapsamının genişlemesi bazı işletmelerin denetim coğrafyasını değiştirebilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260618-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260618-5.html'>Neyin nesi değişti? →</a></div>
 </div>
 

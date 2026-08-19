@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,62 +33,76 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>23.03.2026 — Resmî Gazete'deki 4 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>23.03.2026 tarihli Resmî Gazete'de 4 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Jandarma mal satış yönetmeliğinde taşınır devir usulü değiştirildi</h3>
-<p><b>Ne oldu:</b> İçişleri Bakanlığı, Jandarma Genel Komutanlığı mallarının bedelsiz devirine ilişkin yönetmeliği güncelledi. Devir kararında Çevre, Şehircilik ve İklim Değişikliği Bakanlığının belirleyeceği usul ve esaslar uygulanacak.</p>
-<p><b>Neyi değiştiriyor:</b> Jandarma Genel Komutanlığına Ait Araç, Gereç, Mal ve Malzemelerin Satış, Hibe, Hek ve Hurda Durum ve İşlemleri ile Hizmet Satışına Dair Yönetmelik</p>
-<p><b>Ürün:</b> Jandarma taşınır mal ve ekipmanları</p>
-<p><b>Kimi ilgilendirir:</b> Jandarma birlikleri, kamu kurum ve kuruluşları, Milli Emlak Müdürlükleri, MKEK</p>
-<p><b>Ne yapmalısın:</b> İdari ve mali birimlerine tebliği duyur; mal devri talebinde Çevre Bakanlığının usul ve esaslarını öğren; henüz başlatılmamış devir işlemlerinin bu esaslara uygun hale getirilmesini kontrol et.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu değişiklik iç idari işlem niteliğindedir. Dış ticareti veya özel kesim ithalatını doğrudan etkilemez; yalnızca kamu mal devir prosedürünü düzenler.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Jandarma mallarının devir usullerinde değişiklik; Çevre Bakanlığı yönergesi eklendi</h3>
+<p><b>Ne oldu:</b> Jandarmaya ait taşınır mallar artık Çevre, Şehircilik ve İklim Değişikliği Bakanlığının belirlediği usul ve esaslara göre kamu kurumlarına, Milli Emlak Müdürlüklerine veya Makine ve Kimya Endüstrisi Anonim Şirketine bedelsiz devredilebilecek. Daha önce bu yetki için sadece üst yöneticinin onayı yeterli olurken, artık Çevre Bakanlığının belirlediği esaslar dikkate alınacak.</p>
+<p><b>Hangi tebliğ:</b> Jandarma Genel Komutanlığına Ait Araç, Gereç, Mal ve Malzemelerin Satış, Hibe, Hek ve Hurda Durum ve İşlemleri ile Hizmet Satışına Dair Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Jandarma taşınırlarının devri işleminde Çevre, Şehircilik ve İklim Değişikliği Bakanlığı tarafından belirlenen usul ve esaslar uygulanır (m.41/1)</div>
+<p><b>Ürün:</b> Jandarma Genel Komutanlığına ait araç, gereç, mal ve malzemeler</p>
+<p><b>Kimi ilgilendirir:</b> Jandarma Genel Komutanlığı, kamu kurum ve kuruluşları, Milli Emlak Müdürlükleri, Makine ve Kimya Endüstrisi Anonim Şirketi</p>
+<p><b>Ne yapmalısın:</b> Jandarma mallarının devrini planlıyorsanız, Çevre, Şehircilik ve İklim Değişikliği Bakanlığının belirleyeceği usul ve esasları önceden öğrenin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik bir koordinasyon mekanizması eklemekte olup devredilebilecek mal kapsamında veya bedelsizlik şartında herhangi bir değişiklik bulunmamaktadır. Devir usulü Çevre Bakanlığının gözetiminde yürütülecek; kurumlar arasındaki süreci hızlandıracak veya yavaşlatacak bir etkiye metinde yer verilmemiştir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İkili menşe kümülasyon sistemi yönetmeliğinde madde değişikliği</h3>
-<p><b>Ne oldu:</b> Tercihli menşe tespiti yönetmeliğinin 2. maddesinin birinci fıkrasındaki (b) ve (c) bentleri yürürlükten kaldırıldı. Değişiklik yayım tarihinde geçerli hale geldi.</p>
-<p><b>Neyi değiştiriyor:</b> İkili Menşe Kümülasyon Sistemi Kapsamı Ticarette Eşyanın Tercihli Menşeinin Tespiti Hakkında Yönetmelik</p>
-<p><b>Ürün:</b> Tercihli menşe belirleme kapsamı eşyalar (belirtilmemiş)</p>
-<p><b>Kimi ilgilendirir:</b> İkili ticaret anlaşmaları çerçevesinde mal ithalatı yapan firmalar</p>
-<p><b>Ne yapmalısın:</b> Mevcut menşe belgelerinizi gözden geçir; uyguladığınız kümülasyon yöntemi hakkında Ticaret Bakanlığı'na başvurabilirsiniz.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İkili menşe kümülasyonu sisteminde tercihli menşe tespitine ilişkin yönetmelik değişti</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 31 Aralık 2025 tarihinde yayımlanan menşe kümülasyonu yönetmeliğinin 2. maddesindeki (b) ve (c) bentlerini yürürlükten kaldırdı. Değişiklik 23 Mart 2026 tarihinde yürürlüğe girdi.</p>
+<p><b>Hangi tebliğ:</b> İkili Menşe Kümülasyon Sistemi Kapsamı Ticarette Eşyanın Tercihli Menşeinin Tespiti Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2. maddenin birinci fıkrasının (b) ve (c) bentleri yürürlükten kaldırıldı (Madde 1)</div>
+<p><b>Ürün:</b> Tercihli menşe belgesi kapsamına giren tüm eşyalar</p>
+<p><b>Kimi ilgilendirir:</b> Tercihli ticaret anlaşmalarından faydalanan ihracatçı ve ithalatçılar</p>
+<p><b>Ne yapmalısın:</b> Dış ticaret süreçlerinizdeki menşe tespiti uygulamalarını gözden geçirin; (b) ve (c) bentlerinin yürürlükten kalkması hakkında muhasebecinizi ve gümrük müşavirinizi bilgilendirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Tercihli menşe kurallarında üç ülke anlaşması eklendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Pan-Avrupa-Akdeniz tercihli menşe yönetmeliğine Sırbistan, Moldova ve Mısır ile yapılan serbest ticaret anlaşmalarını ekledi. Aynı zamanda yönetmelikte referans verilen eski menşe kümülasyon yönetmeliklerinin listesini güncelledi.</p>
-<p><b>Neyi değiştiriyor:</b> Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyon Ortak Komitesinin 1/2023 Sayılı Kararı Kapsamı Tercihli Menşe Kuralları Hakkında Yönetmelik</p>
-<p><b>Ürün:</b> Tüm ticareti yapılan eşyalar (menşe belirlenmesi gereken ürünler)</p>
-<p><b>Kimi ilgilendirir:</b> Sırbistan, Moldova ve Mısır menşeli ürün ithal eden firmalar; tercihli menşe sertifikasyonu hazırlayan dış ticaret müşavirleri</p>
-<p><b>Ne yapmalısın:</b> Sırbistan, Moldova ve Mısır'dan gelen ithalatlarda menşe belgesi kontrolünde yeni protokolleri (Protokol II, Ek I, Protokol III) kontrol et. Ülke anlaşmalarında muafiyet veya katma değer kurallarında değişiklik varsa müşteri profitabilitesini gözden geçir.</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Pan-Avrupa-Akdeniz menşe kuralları yönetmeliğine Sırbistan, Moldova ve Mısır ile yapılan serbest ticaret anlaşmalarının menşe protokollerini eklemiştir. Ayrıca eski menşe kümülasyon yönetmeliklerine yapılan atıflar güncellenmiştir.</p>
+<p><b>Hangi tebliğ:</b> 20/12/2025 tarihli ve 33113 sayılı Resmî Gazete'de yayımlanan Pan-Avrupa-Akdeniz Tercihli Menşe Kurallarına Dair Bölgesel Konvansiyon Ortak Komitesinin 1/2023 Sayılı Kararı Kapsamı Tercihli Menşe Kuralları Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik yayımı tarihinde yürürlüğe girer (Madde 3)</div>
+<p><b>Ürün:</b> Tercihli menşe kurallarına tabi tüm ticari eşya</p>
+<p><b>Kimi ilgilendirir:</b> Sırbistan, Moldova ve Mısır'dan ithalat yapan dış ticaret şirketleri; menşe belgesi düzenleyen ve kontrol eden gümrük müşavirliği ile ticaret müşavir firmaları</p>
+<p><b>Ne yapmalısın:</b> Sırbistan, Moldova veya Mısır'dan gelen beyanlarınızı menşe protokollerinin yeni referanslarıyla kontrol edin; mevcut menşe belgesi prosedürlerinizi güncelleyin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik üç ülke ile serbest ticaret anlaşmalarının menşe belirleme prosedürlerini sisteme dahil etti. İthalatçılar için doğrudan maliyet etkisi yok; ancak bu ülkelerden gelen malların tercihli muamelesi alabilmesi için yeni protokol şartlarını kontrol etmeleri gerekli.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli kapı kilitlerine nihai gözden geçirme soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin'den ithal edilen kapı kilitleri ve barel/kilit kasalarına karşı yürürlükte olan dampinge karşı önlemin yenilenmesini değerlendirmek üzere nihai gözden geçirme soruşturması başlattı. Soruşturma, yerli üretici Kale Kilit'in 2021 tarihli önceki soruşturmada belirlenen önlemlerin devam etmesini talep etmesi üzerine açılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2021/9</p>
-<p><b>Ürün:</b> Silindirli kapı kilitleri (elektromekanik/elektromanyetik/tam elektronik olanlar hariç), soğuk hava deposu kilitleri, kapı kilidi silindirleri (barel) ve yalnız kapı kilitleri için kilit kasaları</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin menşeli kapı kilitleri için dampinge karşı nihai gözden geçirme soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin'den ithal edilen silindirli kapı kilitleri, kapı kilidi silindirleri ve kilit kasaları için dampinge karşı kesin önlemin yürürlükten kalkmasını müteakip, bu ürünlerin ithalatına yönelik nihai gözden geçirme soruşturması açmıştır. Soruşturma, Bakanlık İthalat Genel Müdürlüğü tarafından yürütülecek olup mevcut önlem, soruşturma sonuçlanıncaya kadar geçerliliğini sürdürecektir.</p>
+<p><b>Hangi tebliğ:</b> 2021/9 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma 23 Mart 2026 tarihinde başlamıştır; bu tarihten itibaren 37 gün içinde soru formlarına cevap verilmesi gerekmektedir (m.12/1-2).</div>
+<div class='kiymet'>• Bildirimin ulaşmadığı taraflar, tebliğ yayımı tarihinden itibaren 37 günlük süre içinde cevaplarını ve görüşlerini sunabilir (m.12/2).</div>
+<div class='kiymet'>• Mevcut dampinge karşı önlem (4 ABD Doları/kg) soruşturma tamamlanıncaya kadar uygulanmaya devam eder (m.14/1).</div>
+<div class='kiymet'>• Çin'de yerleşik üreticiler, piyasa ekonomisi koşullarının geçerli olduğunu 12. maddede belirtilen süreler içinde ispat ederlerse normal değer tayininde olumlu kural uygulanır, aksi takdirde Türkiye emsal ülke olarak kullanılır (m.9/1).</div>
+<div class='kiymet'>• Soru formlarına yanıt vermek veya bilgi sunmak isteyenler ilgili taraf sayılır ve soruşturma dosyasına erişim hakkı kazanır (m.10/1).</div>
+<p><b>Ürün:</b> Silindirli kapı kilitleri (elektromekanik, elektromanyetik, tam elektronik olanlar hariç), soğuk hava deposu kapı kilitleri, kapı kilidi silindirleri (barel) ve kilit kasaları</p>
 <p><b>GTİP:</b><br><span class='gtip'>8301.40.11.00.00</span><span class='gtip'>8301.40.19.00.11</span><span class='gtip'>8301.40.19.00.19</span><span class='gtip'>8301.60.00.00.11</span><span class='gtip'>8301.60.00.00.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin'den kapı kilidi, barel ve kilit kasası ithal eden firmalar; yerli kilit üreticileri ve ihracatçılar</p>
-<p><b>Ne yapmalısın:</b> Soru formu cevaplarını belirtilen zaman sınırına kadar hazırla. Türkiye'de yerleşik firmalar KEP adresinden (ticaretbakanligi@hs01.kep.tr) gönder. Yurt dışında yerleşik firmalar yazılı ve elektronik ortamda (ithebys@ticaret.gov.tr) sunun. Soruşturma gelişmelerini https://www.ticaret.gov.tr/ithalat sitesinden takip et.</p>
-<p><b>Yürürlük:</b> kaynakta belirtilmemis</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Çin'den kapı kilidi ürünleri ithal eden firmalar, ithalatçılar ve söz konusu ürünleri üreten yerli kilit üreticileri</p>
+<p><b>Ne yapmalısın:</b> Soru formunu alma: ticaretbakanligi@hs01.kep.tr adresinden talep edin veya ticaret.gov.tr üzerindeki 'Damping ve Sübvansiyon' sekmesinden indirin. Cevap hazırlama: 37 gün içinde (tebliğin yayımından +37 gün veya bildirimin alınışından +37 gün) gerekli bilgi ve belgeleri toplayın. Türkiye'de yerleşik firmalar KEP adresi üzerinden gönderim yapmalı; yurt dışında bulunanlar ise yazılı ve elektronik ortamda (ithebys@ticaret.gov.tr) başvuruda bulunmalıdır. Vekaletname: Yurt dışındaki firma bir temsilciye vekalet verecekse apostil tasdikli vekaletnameyi eklemesi gerekir. Gizlilik: Ticari sır niteliğindeki bilgiler için gizlilik talebinde bulunulmalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

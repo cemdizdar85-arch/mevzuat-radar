@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,46 +39,55 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İzmir Kavram Meslek Yüksekokulu adı Konak olarak değiştirildi</h3>
-<p><b>Ne oldu:</b> Kurumun adı ve ana yönetmeliğinde geçen tüm 'Kavram' ifadeleri 'Konak' ile değiştirilmiştir. Değişiklik 1, 2, 4 ve 37. maddeler ile madde 4'ün alt bentlerini kapsamaktadır.</p>
+<h3>İzmir Kavram Meslek Yüksekokulu'nun adı Konak olarak değiştirildi</h3>
+<p><b>Ne oldu:</b> Kurumun adı ve yönetmeliğinde yer alan tüm 'Kavram' ifadeleri 'Konak' şeklinde güncellenmiştir. Değişiklik, yayım tarihi itibarıyla yürürlüğe girmiştir.</p>
 <p><b>Hangi tebliğ:</b> İzmir Kavram Meslek Yüksekokulu Ana Yönetmeliği sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Kavram</span> → <b>Konak</b> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
-<p><b>Ürün:</b> Kurumsal yönetmelik değişikliği; eğitim kurumu</p>
-<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu yönetimi, öğrenciler ve personeli</p>
-<p><b>Ne yapmalısın:</b> Kurumsal belge ve sistemlerde 'Kavram' ifadesini 'Konak' ile güncelle; öğrenci sicilleri, diplomalar ve resmi yazışmalarda yeni adı kullan.</p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Kavram</span><span class='ok'>→</span><span class='hap yeni'>Konak</span> <span style='color:var(--dim);font-size:11px'>(metinde 3 yerde)</span></div>
+<div class='karsi'><span class='kon'>Kurum adı</span><span class='hap eski'>İzmir Kavram Meslek Yüksekokulu Ana Yönetmeliği</span><span class='ok'>→</span><span class='hap yeni'>İzmir Konak Meslek Yüksekokulu Ana Yönetmeliği</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kurum adı İzmir Konak Meslek Yüksekokulu olarak değiştirildi (Madde 1)</div>
+<div class='kiymet'>• Yönetmelik yayım tarihinde yürürlüğe girer (Madde 5)</div>
+<p><b>Ürün:</b> Eğitim kurumu yönetmeliği</p>
+<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu, öğrenciler, idari personel</p>
+<p><b>Ne yapmalısın:</b> Kurum belgelerinizi, resmi yazışmalarınızı ve iç yönetmelik referanslarınızı yeni kurum adıyla güncelleyiniz.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik yasal statüyü veya eğitim hizmetinin kapsamını etkilemez; idari ve kurumsal kimlik güncellemesidir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu değişiklik idari nitelikte olup herhangi bir ticari yükümlülük veya maliyet etkisi doğurmamaktadır. Kurum adı ve iç referanslar güncellenmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260819-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260819-3.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İzmir Konak Meslek Yüksekokulu İhale Yönetmeliği'nin adı ve içeriği güncellendi</h3>
-<p><b>Ne oldu:</b> İzmir Kavram Meslek Yüksekokulu'nun adı, İzmir Konak Meslek Yüksekokulu olarak değiştirildi. Bu kapsamda yönetmeliğin adında ve 1, 3, 47. maddelerinde yer alan 'Kavram' ibareleri 'Konak' şeklinde düzeltildi.</p>
+<h3>İzmir Konak Meslek Yüksekokulu İhale Yönetmeliği adı ve içeriği güncellendi</h3>
+<p><b>Ne oldu:</b> İzmir Kavram Meslek Yüksekokulu İhale Yönetmeliği, kurumun unvan değişikliğine paralel olarak yeniden düzenlenmiştir. Yönetmeliğin başlığında ve 1., 3. ile 47. maddelerinde geçen 'Kavram' ifadesi 'Konak' olarak değiştirilmiştir.</p>
 <p><b>Hangi tebliğ:</b> İzmir Kavram Meslek Yüksekokulu İhale Yönetmeliği sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Değişen ibare: <span style='color:var(--dim);text-decoration:line-through'>Kavram</span> → <b>Konak</b></div>
-<div class='kiymet'>• Yönetmelik adı: <span style='color:var(--dim);text-decoration:line-through'>İzmir Kavram Meslek Yüksekokulu İhale Yönetmeliği</span> → <b>İzmir Konak Meslek Yüksekokulu İhale Yönetmeliği</b></div>
-<p><b>Ürün:</b> Yönetmelik (eğitim kurumu ihale işlemleri)</p>
-<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu yönetimi, muhasebe ve satın alma personeli</p>
-<p><b>Ne yapmalısın:</b> Kurumun ihale dosyalarında ve sistemlerinde 'Kavram' ibaresi geçen tüm referanslar 'Konak' olarak güncellenmeli; arşivler, yönetmeliğin yeni adı esas alınarak düzenlenmelidir.</p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Kavram</span><span class='ok'>→</span><span class='hap yeni'>Konak</span></div>
+<div class='karsi'><span class='kon'>Yönetmelik adı</span><span class='hap eski'>İzmir Kavram Meslek Yüksekokulu İhale Yönetmeliği</span><span class='ok'>→</span><span class='hap yeni'>İzmir Konak Meslek Yüksekokulu İhale Yönetmeliği</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik yayımı tarihinde yürürlüğe girer (Madde 3).</div>
+<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
+<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu ile tedarik işlemlerinde yer alan ilgili taraflar</p>
+<p><b>Ne yapmalısın:</b> Kurum içinde ihale süreçlerinde kullanılan yönetmelik metni, güncellenen ad ve maddelerle yeniden düzenlenmeli; tüm çalışanlar yeni adlandırma hususunda bilgilendirilmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik idari nitelikte olup, yalnızca kurumsal adlandırmanın düzeltilmesinden ibarettir. İhale işlemleri ve yönetmeliğin maddi hükümleri bu değişiklikten etkilenmemiştir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu değişiklik yönetmeliğin işlevsel ve yasal içeriğinde herhangi bir değişikliğe yol açmamakta, sadece kurumun unvan değişikliğini yansıtmaktadır. İhale usulleri ve yetki dağılımı aynen devam etmektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260819-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260819-4.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İzmir Konak Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği'nde ad değişikliği</h3>
-<p><b>Ne oldu:</b> İzmir Kavram Meslek Yüksekokulu'nun adı İzmir Konak Meslek Yüksekokulu olarak değiştirildi. Yönetmeliğin ilgili maddelerinde geçen 'Kavram' ibareleri 'Konak' şeklinde düzeltildi.</p>
+<h3>İzmir Kavram Meslek Yüksekokulu'nun adı Konak olarak değiştirildi</h3>
+<p><b>Ne oldu:</b> Kurumun adında ve yönetmeliğinde geçen tüm 'Kavram' ibareleri 'Konak' şeklinde düzeltilmiştir. Değişiklik, yayım tarihinde yürürlüğe girmiştir.</p>
 <p><b>Hangi tebliğ:</b> İzmir Kavram Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• 14 üncü madde: <span style='color:var(--dim);text-decoration:line-through'>Kavram</span> → <b>Konak</b></div>
-<div class='kiymet'>• Yönetmelik adı: <span style='color:var(--dim);text-decoration:line-through'>İzmir Kavram Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği</span> → <b>İzmir Konak Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği</b></div>
-<p><b>Ürün:</b> Yönetmelik düzenlemesi (kurumsal)</p>
-<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu öğrencileri ve personeli</p>
-<p><b>Ne yapmalısın:</b> Kurumsal kayıtlarda yönetmelik adı güncellenmeli; yaz öğretimi başvuru ve kabul işlemlerinde yeni ad kullanılmalıdır.</p>
+<div class='karsi'><span class='kon'>14 üncü madde</span><span class='hap eski'>Kavram</span><span class='ok'>→</span><span class='hap yeni'>Konak</span></div>
+<div class='karsi'><span class='kon'>Yönetmelik adı</span><span class='hap eski'>İzmir Kavram Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği</span><span class='ok'>→</span><span class='hap yeni'>İzmir Konak Meslek Yüksekokulu Yaz Öğretimi Yönetmeliği</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yönetmelik 19 Ağustos 2026 tarihinde yürürlüğe girdi (Madde 3).</div>
+<div class='kiymet'>• İzmir Konak Meslek Yüksekokulu Müdürü yönetmeliği yürütür (Madde 4).</div>
+<p><b>Ürün:</b> Meslek yüksekokulu yönetmeliği (eğitim kurumu düzenlemesi)</p>
+<p><b>Kimi ilgilendirir:</b> İzmir Konak Meslek Yüksekokulu öğretim kadrosu, yönetimi ve yaz öğretimi katılımcıları</p>
+<p><b>Ne yapmalısın:</b> Yönetmelik metinlerindeki kurum adını ve ilgili atıfları güncelleyiniz. Kayıtlı belgelerinizde 'Kavram' yerine 'Konak' ibaresini kullanmaya başlayınız.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Kurum adının yasal değişikliği niteliğinde olup vergi, harç veya ticari konularda doğrudan bir etkisi bulunmamaktadır. Ancak idari ve bürokratik işlemlerde yeni adın kullanılması zorunlu hale gelmiştir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu bir idari adlandırma düzeltmesidir. Yaz öğretimi programlarının içeriği ve şartlarında herhangi bir değişiklik olmamış; yalnızca kurumun adı ve yazışmalarda kullanılacak unvanı güncellenmiştir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260819-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260819-7.html'>Neyin nesi değişti? →</a></div>
 </div>
 

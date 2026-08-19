@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,30 +35,39 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>31.07.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Vergi Usul Kanunu'nda teminat oranları ve sahte belge düzenleyenlere yönelik kurallar değişti</h3>
-<p><b>Ne oldu:</b> Tebliğ, 2021'de yayımlanan Vergi Usul Kanunu Genel Tebliği'nin teminat şartlarını güncellemiştir. Uyumlu mükelleflerde teminat oranı beşte bir olarak sabitlenirken, sahte veya yanıltıcı belge düzenlediği yönünde vergi inceleme raporu bulunan mükelleflerin teminatı beş katına çıkarılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 531)</p>
-<p><b>Ürün:</b> Değişiklik vergi prosedürü ve teminat koşullarına ilişkin olup ürün grubu tanımı bu kapsamda uygulanamaz.</p>
-<p><b>Kimi ilgilendirir:</b> Vergi incelemesiyle karşılaşan ve teminat verme yükümlülüğü bulunan tüm mükellefler; özellikle uyumlu mükellefler ile sahte veya yanıltıcı belge düzenlediği yönünde raporlanmış işletmeler.</p>
-<p><b>Ne yapmalısın:</b> Vergi dairesinden cari teminat talebinizi kontrol edin. Uyumlu mükellef statüsündeyseniz teminatınızı yeni oran üzerinden yeniden hesaplayın. Sahte belge düzenleme yönünde raporunuz bulunuyorsa, 30 günlük sürenin başladığı tarihi tespit edip tamamlama tarihini yakından takip edin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Uyumlu mükelleflerin teminat yükü hafiflemiş (beşte bir oranı), buna karşılık sahte belge düzenlediği yönünde raporlanmış mükelleflere yönelik yaptırım belirgin şekilde ağırlaşmıştır. Teminat eksikliğinin giderilmesi için 30 günlük ek süre tanınmış olup bu süre zarfında tamamlanmaması hâlinde cezai işlemler uygulanacaktır.</div>
+<h3>Vergi usul tebliğinde teminat oranı değişikliği</h3>
+<p><b>Ne oldu:</b> Gelir İdaresi Başkanlığı, uyumlu mükelleflerin teminat yükümlülüğünü beşte bir oranına indirtti. Sahte veya yanıltıcı belge kullanan mükelleflerin teminatı ise beş kat arttı.</p>
+<p><b>Hangi tebliğ:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 531) sayılı Tebliği değiştiriyor</p>
+<p><b>Ürün:</b> Vergiye tabi gelir ve kurumlar vergisi beyannameleri</p>
+<p><b>Kimi ilgilendirir:</b> Uyumlu vergi mükellefleri; sahte veya yanıltıcı belge düzenleme/kullanmakla suçlanan işletmeler</p>
+<p><b>Ne yapmalısın:</b> Şu anki teminat mektuplarının oranını kontrol et. Uyumlu status nedeniyle beşte bir indirim alabilip almadığını Gelir İdaresi kayıtlarından doğrula. Vergi incelemesi yapılan firmalarsa teminat talebine 30 gün içinde yanıt hazırla.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260731-10.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Maldivler menşeli ürünlerde tarife kontenjanı düzenlemesi yürürlüğe girdi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Maldivler Cumhuriyeti ile yapılan tercihli ticaret anlaşması kapsamında belirli ürünlerin ithalatında uygulanacak tarife kontenjanına ilişkin tebliği yayımladı. Kontenjanlar, talep toplama yöntemi (TTY) veya beyanname sırasına göre tahsis yöntemi (BSGTY) ile dağıtılacak.</p>
-<p><b>Ürün:</b> Maldivler menşeli çeşitli ürünler (ayrıntılar Ek-1 tablosunda yer almaktadır)</p>
+<h3>Maldivler menşeli ürünlerde tarife kontenjanı düzenlemesi başladı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Maldivler Cumhuriyeti menşeli bazı ürünlerin ithalatında tarife kontenjanı (gümrük vergisi ve/veya ek mali yükümlülüklerde indirim) uygulamasını başlattı. Kontenjanlar, talep toplama yöntemi (TTY) veya beyanname sırasına göre tahsis yöntemi (BSGTY) esas alınarak dağıtılacak; ayrıca tahsisatta önceliğe sahip kamu kurumları bulunuyor.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• TTY ile dağıtılan kontenjanlar için 1 Ağustos 2026 öncesinde müracaat zorunlu; BSGTY'de beyanname tesciline kadar gerekli (Madde 7/1).</div>
+<div class='kiymet'>• TTY başvuruları e-Devlet veya Bakanlık internet sitesinden e-imza ile yapılır; bir kontenjan için bir başvuru (Madde 7/3-6).</div>
+<div class='kiymet'>• Sanayici (üretim/tüketim performansı), ithalatçı (referans dönemde ithal geçmişi) veya üretim/tüketim performansı olan firmalar tahsisat alabilir (Madde 6).</div>
+<div class='kiymet'>• İthal lisansı 23 haneli belge numarası ile e-posta yoluyla bildirilir; yazılı tebligat yapılmaz (Madde 9/1).</div>
+<div class='kiymet'>• İthal lisansı sahibi dışında üçüncü kişi tarafından ithalat yapılamaz; devir yasaktır (Madde 10/4).</div>
+<div class='kiymet'>• Sahte/tahrif belge, izinsiz devir veya diğer hukuk ihlalleri tespit halinde tahsisat iptal edilir ve 5 yıl müddetle yeni tahsisat verilmez (Madde 11/1).</div>
+<div class='kiymet'>• Kontenjanlar gümrük beyannamesinin tescil tarihi sırasıyla veya talep sırasıyla dağıtılır (Madde 8/6).</div>
+<div class='kiymet'>• Azami miktarı aşan kısım normal ithalat rejimi rejimine tabi tutulur; bir firma maksimum miktar kullandıktan 7 gün sonra aynı kontenjanı yeniden kullanamaz (Madde 8/7).</div>
+<div class='kiymet'>• Başvurulardaki eksiklikler kontenjan dönemi içinde tamamlanabilir ancak bu konuda bildirim yapılmaz (Madde 7/10).</div>
+<p><b>Ürün:</b> Maldivler Cumhuriyeti menşeli bazı ürünler (GTIP kodları Ek-1 tablosunda belirtilmiştir)</p>
 <p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Maldivler menşeli ürün ithal eden geleneksel ithalatçılar ile üretim veya tüketim performansına sahip sanayiciler; ayrıca ESK, TMO, YTTSKB, TŞF, TTKK gibi tahsisat önceliği bulunan kurum ve kuruluşlar</p>
-<p><b>Ne yapmalısın:</b> TTY ile dağıtılan kontenjanlar için, tarife kontenjanı döneminin başlangıcından önceki 1 ay içinde e-Devlet veya www.ticaret.gov.tr üzerinden elektronik imzalı başvuru yapılmalı; BSGTY kapsamında ise gümrük beyannamesinde kontenjandan yararlanılacağı belirtilmelidir. Başvuruda, 3 adede kadar 12 haneli GTİP, eşya ismi ve ithal edilecek miktar bilgisi eksiksiz olarak verilmeli; gerekli hallerde Ek-2'de yer alan belgeler tam ve eksiksiz şekilde hazırlanmalıdır.</p>
+<p><b>Kimi ilgilendirir:</b> Maldivler menşeli ürün ithalatı gerçekleştiren firmalar; sanayiciler (ham madde olarak kullananlar), geleneksel ithalatçılar; Et ve Süt Kurumu, Toprak Mahsulleri Ofisi, Yağlı Tohumlar Tarım Satış Kooperatifleri Birliği, Türkiye Şeker Fabrikaları ve Tarım Kredi Kooperatifleri gibi kamu kurumları</p>
+<p><b>Ne yapmalısın:</b> Talep toplama yöntemiyle dağıtılan kontenjanlar için 31 Temmuz 2026'ya kadar Bakanlığa başvurulmalıdır. Başvuru formu e-imza ile doldurularak Ek-2'de yer alan belgeler sisteme yüklenmelidir. GTIP kodları (en fazla 3 adet), ürün adı ve talep edilen miktar her kod için ayrı ayrı ve net şekilde belirtilmelidir. Beyanname tesciline kadar ithal lisansı belge numarası ve tarihi ilgili kutucukta hazır bulundurulmalıdır. Azami miktarı aşan ithalatta normal gümrük vergisi oranı üzerinden hesaplama yapılmalıdır.</p>
 <p><b>Yürürlük:</b> 01.08.2026</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Tarife kontenjanı:</b> belirli bir dönemde belirli miktara kadar yapılan ithalatta gümrük vergisinin indirimli ya da sıfır uygulanması; kontenjan dolunca normal vergiye dönülür. <b>Ek mali yükümlülük:</b> gümrük vergisine ek olarak ithalatta alınan ilave ödeme. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260731-11.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

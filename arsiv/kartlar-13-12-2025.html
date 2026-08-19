@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,48 +33,79 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>13.12.2025 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>13.12.2025 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İhracatçı birlikleri insan kaynakları yönetmeliğinde belirli süreli istihdam düzenlemesi</h3>
-<p><b>Ne oldu:</b> Türkiye İhracatçılar Meclisi ve İhracatçı Birlikleri İnsan Kaynakları Yönetmeliği'nde değişikliğe gidildi. Belirli süreli hizmet sözleşmesiyle istihdam edilecek personelin ücret sınırları, yaş ve eleme sınavı koşulları ile ilerleme hakkına ilişkin hususlar yeniden düzenlendi.</p>
-<p><b>Neyi değiştiriyor:</b> Türkiye İhracatçılar Meclisi ve İhracatçı Birlikleri İnsan Kaynakları Yönetmeliği</p>
-<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
-<p><b>Kimi ilgilendirir:</b> Türkiye İhracatçılar Meclisi, ihracatçı birlikleri ve bu kuruluşlarda belirli süreli hizmet sözleşmesiyle istihdam edilecek personel</p>
-<p><b>Ne yapmalısın:</b> İnsan kaynakları birimi veya yönetim kurulu, yürürlükteki belirli süreli istihdam sözleşmelerini yönetmeliğin yeni hükümleriyle karşılaştırmalı; ücret yapılandırmasını ve ilerleme hak ile yükümlülüklerini gözden geçirmelidir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik değişikliği işe alım ve ücretlendirme süreçlerini yeniden düzenlemektedir. Belirli süreli personel için yaş ve sınav koşullarında esneklik sağlanırken, ücret ve ilerleme haklarında sınırlamalara gidilmiştir.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İhracatçı Birlikleri İnsan Kaynakları Yönetmeliği'nde belirli süreli istihdama ilişkin düzenleme</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, İhracatçılar Meclisi ve İhracatçı Birlikleri İnsan Kaynakları Yönetmeliği'ne belirli süreli çalışmaya dair hükümler eklemiştir. Buna göre belirli süreli sözleşmeli personelin ücret tavanı, finansmanın yarısının dışarıdan karşılanması halinde iki katına kadar yükseltilebilecek; bilgi teknolojileri alanında istihdam edilecek en fazla iki kişi ise bu sınırlamaya tabi olmayacaktır.</p>
+<p><b>Hangi tebliğ:</b> Türkiye İhracatçılar Meclisi ve İhracatçı Birlikleri İnsan Kaynakları Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Belirli süreli sözleşmeli personelin aylık çıplak ücreti, aynı ünvandaki sabit personelin ücretini aşamaz (Madde 2).</div>
+<div class='kiymet'>• Proje giderlerinin en az yüzde ellisinin ulusal ve uluslararası kaynaklardan finanse edilmesi koşuluyla, o projeye özel belirli süreli çalışan ücret tavanı iki katına çıkabilir (Madde 2).</div>
+<div class='kiymet'>• Bilgi teknolojileri alanında en fazla iki belirli süreli personel, ücret sınırının iki katına kadar kazanabilir (Madde 2).</div>
+<div class='kiymet'>• Belirli süreli sözleşmeli personele ilerleme (grup ve basamak ilerlemesi) yapılmaz (Madde 2).</div>
+<div class='kiymet'>• Yönetmelik yayım tarihinde yürürlüğe girer (Madde 3).</div>
+<p><b>Ürün:</b> Geçerli değil - insan kaynakları yönetmeliği</p>
+<p><b>Kimi ilgilendirir:</b> Türkiye İhracatçılar Meclisi, İhracatçı Birlikleri ve bunlara bağlı personel</p>
+<p><b>Ne yapmalısın:</b> İhracatçı birliği yönetimlerinin, belirli süreli personel alımlarında yeni ücret tavanı ve buna ilişkin kısıtlamaları personel müdürlüğü prosedürlerine yansıtması gerekmektedir. Proje bazlı belirli süreli istihdam söz konusuysa, finansman kaynaklarına ilişkin belgelerin hazır bulundurulması önerilir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, belirli süreli istihdam uygulamasına yönetmelik düzeyinde açık bir hukuki dayanak getirmektedir. Projelerin yarısının dışarıdan finanse edilmesi halinde ücret tavanı uygulaması ortadan kalkmakta; bilgi teknolojileri alanında iki kişilik bir istisna öngörülmektedir. Düzenleme, ithalatçıları doğrudan ilgilendirmeyen bir personel yönetimi konusudur.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251213-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Meslek odaları muhasebe beyannamesi gönderişinde aracılık yapabilecek</h3>
-<p><b>Ne oldu:</b> Vergi Usul Kanunu Genel Tebliği 486'ya geçici madde eklendi. 1 Ocak 2026'dan itibaren basit usuldan gerçek usule geçen mükelleflerin muhasebe işlemleri ve beyan gönderişini, meslek odaları/birlikler de yapabilir hâle geldi—şartı yetkin muhasebeci bulunması veya gözetim altında yapılması.</p>
-<p><b>Neyi değiştiriyor:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 486)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> Basit usulden gerçek usule geçen mükellefleri ve bunlara hizmet veren meslek odaları/birlikler (muhasebe, denetim, vergi müşavir).</p>
-<p><b>Ne yapmalısın:</b> Geçişe dahil firmalar: meslek odanız ile aracılık sözleşmesi imzalanıp imzalanmadığını kontrol et. Henüz şifre almamış odalar: www.defterbeyan.gov.tr'den form indir, vergi dairesine başvur. Beyan gönderişlerini yeni süreçten itibaren uyumlu hale getir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Meslek odaları elektronik defter beyan aracılığına yetkili kılındı</h3>
+<p><b>Ne oldu:</b> Basit usulden gerçek usule geçecek mükelleflerin defter ve beyan işlemlerini artık meslek odaları ve birlikler de yürütebilecek. Odaların yetki talep formunu göndermesi ve sözleşme imzalaması zorunlu tutuluyor.</p>
+<p><b>Hangi tebliğ:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 486) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 4 eklendi</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 1/1/2026'dan gerçek usule geçecek mükelleflerin defter ve beyan işlemleri meslek odaları/birlikler tarafından da yapılabilir (Geçici m.4/1).</div>
+<div class='kiymet'>• İşlem yapacak odada/birlikte yeterli sayıda yetkilendirilen meslek mensubu bulunmak veya işi meslek mensubunun gözetiminde yürütmek gerekir (Geçici m.4/2).</div>
+<div class='kiymet'>• Şifresi olmayan meslek odaları/birlikler Ek-2 formunu vergi dairesine/defterdarlığa göndererek kullanıcı kodu ve şifre alabilir (Geçici m.4/3).</div>
+<div class='kiymet'>• Üyelerle 'Defter-Beyan Sistemi Kullanımı Aracılık ve Sorumluluk Sözleşmesi' imzalanması zorunludur (Geçici m.4/4).</div>
+<div class='kiymet'>• Form ve sözleşmeler defterbeyan.gov.tr üzerinden yayımlanacak; güncellemeleri takip etmek gerekir (Geçici m.4/5).</div>
+<div class='kiymet'>• Sözleşme düzenleme, sona erdirme, iptal/fesih bildirimlerinde 340 Sıra No.lu Tebliğin usulü uygulanır (Geçici m.4/6).</div>
+<p><b>Ürün:</b> İlgili değil - vergisel usul tebliği</p>
+<p><b>Kimi ilgilendirir:</b> Basit usulden gerçek usule geçecek mükelleflerin bağlı bulunduğu meslek odaları, birlikler ve muhasebe müdürleri</p>
+<p><b>Ne yapmalısın:</b> Oda/birliğiniz, meslek mensuplarınızın 1/1/2026 tarihli geçişini kapsayacaksa: defterbeyan.gov.tr üzerinden Ek-2 formunu indirip vergi dairesine gönderin, kullanıcı kodunuzu alın; ardından üyelerinizle Ek-3 sözleşmesini imzalayarak sisteme bildirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251213-7.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli fotovoltaik panel alüminyum çerçevelerine geçici damping önlemi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin'den ithal edilen fotovoltaik panellerde kullanılan alüminyum çerçevelerde dampingli fiyatlandırma tespit etmiştir. GTIP 8541.90.00.00.11 kodlu bu ürünlere karşı, ithalatçılardan CIF bedelinin %14,79 ile %31,40 arasında değişen oranlarda teminat alınması uygulanacaktır.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2025/10</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Fotovoltaik panellerin alüminyum çerçevelerine geçici damping önlemi</h3>
+<p><b>Ne oldu:</b> Önceki tebliğ, damping soruşturmasının açılışını öngörmekteyken; yeni tebliğ, soruşturma sürecinde ulaşılan ön tespitler doğrultusunda beş firma için ayrı teminat oranları belirleyerek geçici damping önlemini yürürlüğe koymuştur. Diğer firmalar için ise %31,40 oranında genel teminat uygulanmaktadır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/10) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(25.05.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Teminat oranı - Jiangsu Yuejia Metallic Technology Co., Ltd</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%14,79 (CIF bedelin yüzdesi)</span></div>
+<div class='karsi'><span class='kon'>Teminat oranı - Jiangyin Haihong New Energy Technology Co., Ltd</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%27,20 (CIF bedelin yüzdesi)</span></div>
+<div class='karsi'><span class='kon'>Teminat oranı - Anhui Krant Aluminum Products Co., Ltd.</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%21,99 (CIF bedelin yüzdesi)</span> <span style='color:var(--dim);font-size:11px'>(metinde 4 yerde)</span></div>
+<div class='karsi'><span class='kon'>Teminat oranı - Diğer firmalar</span><span class='hap eski'>Belirlenmemiş</span><span class='ok'>→</span><span class='hap yeni'>%31,40 (CIF bedelin yüzdesi)</span></div>
+<div class='karsi'><span class='kon'>Geçici önlemlerin yürürlük süresi</span><span class='hap eski'>Tanımlanmamış</span><span class='ok'>→</span><span class='hap yeni'>Azami 6 ay, kesin karar yayımlanana kadar</span></div>
+<div class='kiymet' style='color:var(--dim)'>+2 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251106-5.htm' target='_blank' rel='noopener'>06.11.2025 tarihli Resmî Gazete</a> (Tebliğ 2025/10)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin menşeli fotovoltaik panel çerçeklerinin ithalatında, gümrük idareleri tabloda belirtilen oranlarda teminat (CIF bedelinin yüzdesi) alır (m.5/1).</div>
+<div class='kiymet'>• Jiangsu Yuejia Metallic Technology Co., Ltd. adlı firmadan ithal edilen ürüne %14,79 oranında teminat uygulanır (m.4/2 - Tablo).</div>
+<div class='kiymet'>• Diğer Çin menşeli üreticilerden gelen ürünlere %31,40 oranında teminat uygulanır (m.4/2 - Tablo).</div>
+<div class='kiymet'>• Geçici önlemler, Kanunun 12. maddesi çerçevesinde kesin koruma önlemi kararının Resmî Gazete'de yayımlanmasına kadar azami 6 ay süreyle geçerlidir (m.6/1).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (m.7/1).</div>
 <p><b>Ürün:</b> Fotovoltaik paneller için alüminyum çerçeveler</p>
 <p><b>GTİP:</b><br><span class='gtip'>8541.90.00.00.11</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin menşeli fotovoltaik panel çerçevesi ithal eden elektrik ve güneş enerjisi sistemleri üreticileri</p>
-<p><b>Ne yapmalısın:</b> Çin'den bu ürünü ithal ediyorsanız, gümrük müşavirlik merkezine başvurarak firmanıza özgü teminat oranını sorgulatınız (listede yer alan 6 firma için %14,79–%27,20; diğerleri için %31,40). Teminat yükünü likidite planınıza yansıtarak revize ediniz. Soruşturma sonuçlanıncaya kadar (azami 6 ay) bu oranlar yürürlükte kalacaktır.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Çin'den fotovoltaik panel çerçevesi ithal eden şirketler ve güneş enerjisi üreticileri</p>
+<p><b>Ne yapmalısın:</b> Çin menşeli panel çerçevesi tedarik ediyorsanız, Aralık 2025 sonrası sevkiyatlarınızın teminat oranını kontrol edin (firmaya göre %14,79 ile %31,40 arasında değişmektedir). Maliyet planınızı güncelleyin; 6 aylık geçici dönemin sonunda kesin oran belirlenmeden önceki sevkiyat takviminizi buna göre ayarlayın.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Çin'den ithal edilen fotovoltaik panellere ait alüminyum çerçeveler için %14,79 ile %31,40 arasında değişen oranlarda teminat uygulaması başlatılmıştır. Bu durum ithalatçılar açısından ek maliyet ve işletme sermayesi gereksinimi doğurmaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251213-9.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

@@ -1,92 +1,103 @@
 [
-    {
-        "dosya":  "20250823-3.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-3.htm",
-        "baslik_sade":  "Öğütücü bilya ithalatında tarife kontenjanı muafiyeti usul ve esasları",
-        "ne_oldu":  "Ticaret Bakanlığı, 6 Ağustos 2025 tarihli Cumhurbaşkanı Kararı ile başlatılan öğütücü bilya korunma önleminden muafiyet sağlamak üzere tarife kontenjanı sistemi kurdu. Kontenjan dönem başına toplam 1.040 ton, ülke başına en fazla 347 ton, lisans başına maksimum 20 ton olarak tahsis edilecek.",
-        "degistirilen_teblig":  "",
-        "eski_yeni":  [
-
-                      ],
-        "eski_karsilastirma":  null,
-        "gtip_kodlari":  [
-                             "7325.91.00.00.00",
-                             "7326.11.00.00.00"
-                         ],
-        "urun_tanimi":  "Öğütücü bilya (çelik bilyeler ve benzeri öğütme araçları)",
-        "kimi_ilgilendirir":  "Demir çelikten öğütücü bilya üreten veya ithal eden endüstriyel firmalar",
-        "ne_yapmali":  "Başvuruyu www.ticaret.gov.tr\u0027deki E-İmza Uygulamalarında \u0027İthalat İşlemleri\u0027 modülü üzerinden elektronik imzayla gönder; belge türü olarak \u0027TPS-0951-İthal Lisansı (Korunma)\u0027 seç. Ek-2\u0027de talep edilen belgeleri eksiksiz ekle. Lisans tahsis alındıktan sonra gümrük beyannamesinin 44 nolu kutusuna tebligde verilen 23 haneli belge numarasını ve belge tarihini gir. Lisans alınmış malları ancak geçerlilik süresi içinde serbest dolaşıma çıkar.",
-        "yururluk":  "26.08.2025",
-        "kesin_kiymetler":  {
-                                "7326.11.00.00.00":  null,
-                                "7325.91.00.00.00":  "kaynakta belirtilmemis"
-                            },
-        "kiyaslar":  [
-
-                     ],
-        "etki":  {
-                     "aciklama":  "Korunma önleminden muafiyet alan ithalatçılar ek mali yükümlülük ödemeden mallarını serbest dolaşıma sokabilir. Kontenjan sınırı (dönem başına 1.040 ton) nedeniyle tüm talepte karşılanmayacağından, erken başvuru ve hızlı gümrük işlemleri kritiktir.",
-                     "yon":  "ithalatçı lehine"
-                 },
-        "guven_notu":  "Tebligde birim kıymetler, korunma önleminin tutarı veya muafiyet koşulları açıkça belirtilmemiştir. Dayanak karara (6/8/2025 tarihli Cumhurbaşkanı Kararı 10174) referans yapılmıştır ancak o karara ilişkin detaylar metinde yer almamaktadır. Ek-1 ve Ek-2 belgeleri metinde görüntülenememektedir."
+  {
+    "dosya": "20250823-3.htm",
+    "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-3.htm",
+    "baslik_sade": "Öğütücü bilya ithalatında tarife kontenjanı yönetim usulü",
+    "ne_oldu": "Ticaret Bakanlığı, 6 Ağustos 2025 tarihli korunma tedbirinin kapsamına giren öğütücü bilyaların ithalatında ek mali yükümlülükten muafiyet sağlayan tarife kontenjanının kullanım esaslarını duyurdu. Toplam 1.040 tonluk kota, ülke başına 347 tonu aşmayacak şekilde paylaştırılacak ve elektronik başvuru üzerinden ilk gelen ilk alır ilkesiyle tahsis edilecek.",
+    "teblig_no": null,
+    "degisen_maddeler": null,
+    "degistirilen_teblig": "",
+    "onceki_belge": null,
+    "eski_yeni": [],
+    "eski_karsilastirma": null,
+    "kilit_hukumler": [
+      "Tarife kontenjanı toplam miktarı her dönem 1.040 ton, ülke/gümrük bölgesi başına azami 347 ton (Madde 3/1-2).",
+      "Başvurular Bakanlık internet sitesi üzerinden elektronik imza ile yapılır; fiziksel başvuru ancak elektronik sorun nedeniyle mümkündür (Madde 4/1-4).",
+      "Her ithal lisansında azami 20 ton tahsis edilir ve her lisans tek ülke/bölgeye ait eşya içindir (Madde 5/2).",
+      "Yeni lisans alabilmek için önceki lisansın belge tarihi üzerinden en az 30 gün geçmiş ve eski lisans kapsamı tamamen ithal edilmiş olmalıdır (Madde 5/3).",
+      "Kota konusu eşya ancak ithal lisansının geçerlilik süresi içinde serbest dolaşıma girer (Madde 6/5).",
+      "Gümrük kaydı olmayan ithalatçı 5 iş günü içinde kayıt yaptırmazsa başvuru geçersiz sayılır (Madde 6/4)."
+    ],
+    "gtip_kodlari": [
+      "7325.91.00.00.00",
+      "7326.11.00.00.00"
+    ],
+    "urun_tanimi": "Öğütücü bilya (çelik bilya ve döner değirmenlerde kullanılan mineral işleme malzemeleri)",
+    "kimi_ilgilendirir": "Öğütücü bilya ithal eden firmalar, gümrük müşavirlik ve lojistik şirketleri",
+    "ne_yapmali": "Başvuru yapacak firmaların Bakanlık E-İmza Uygulamalarına giriş yaparak 'İthalat İşlemleri' bölümünde belge türünü 'TPS-0951-İthal Lisansı (Korunma)' olarak seçmesi ve başvuruyu Ek-2 belgeleriyle tamamlaması gerekmektedir. Gümrük kaydı bulunmayan firmaların, lisans tahsisinin ardından 5 iş günü içinde kayıt işlemlerini gerçekleştirmesi gerekir.",
+    "yururluk": "26.08.2025",
+    "kesin_kiymetler": {},
+    "kiyaslar": [],
+    "etki": null,
+    "guven_notu": "Ek-1 ve Ek-2 belgeleri metinde yazılı görselle sağlanmamıştır; başvuru yapacak firmalar Bakanlık sitesinden indirecektir. Koruma önlemi kararının (10174 sayılı CBK) ekinde sayılı ülkeler/bölgeler metinde açıkça listelenmemiştir; kontenjan başına ülke ayırımı için o karar referans alınmalıdır. İthal lisansının geçerlilik süresi (kaç ay) kaynakta belirtilmemiştir. | Etki yorumu iki okumada farkli cikti - yayinlanmadi | Su kodlarin kiymeti guvenle okunamadi: 7325.91.00.00.00, 7326.11.00.00.00"
+  },
+  {
+    "dosya": "20250823-4.htm",
+    "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-4.htm",
+    "baslik_sade": "Türk Lirası Dönüşüm Desteği Programının 23 Ağustos 2025'te Sonlandırılması",
+    "ne_oldu": "Tebliğ ile 23 Ağustos 2025 tarihinden itibaren yürürlüğe giren geçici bir madde uyarınca, döviz tevdiat hesaplarının Türk lirasına dönüşümünü destekleyen program sona erdirilmiştir. Bu tarihten itibaren program kapsamında yeni hesap açılışı yapılamayacak, mevcut hesaplar için de yenileme imkânı bulunmayacaktır.",
+    "teblig_no": "2025/20",
+    "degisen_maddeler": null,
+    "degistirilen_teblig": "2021/14",
+    "onceki_belge": null,
+    "eski_yeni": [
+      {
+        "konu": "Program uygulaması",
+        "eski": "20/12/2021 tarihinden itibaren devam eden döviz tevdiat hesapları dönüşüm desteği",
+        "yeni": "23/8/2025 tarihinden itibaren yeni hesap açılmaz, açılmış hesaplar yenilenmez"
+      }
+    ],
+    "eski_karsilastirma": "21.12.2021",
+    "kilit_hukumler": [
+      "23 Ağustos 2025'ten itibaren program kapsamında hesap açılmaz ve açılmış hesaplar yenilenmez (Geçici m.1).",
+      "Tebliğ yayım tarihinde yürürlüğe girer (m.2)."
+    ],
+    "gtip_kodlari": null,
+    "urun_tanimi": "Finansal hizmetler - banka mevduat hesapları",
+    "kimi_ilgilendirir": "Ticari bankalar ve katılım bankaları ile program kapsamında hesap açtırmış müşteriler",
+    "ne_yapmali": "Şubat ayı sonuna kadar devam eden hesap yenileme taleplerinizi gözden geçiriniz; programın sona ermesi durumunda atılacak adımları şimdiden planlayınız.",
+    "yururluk": "yayımı tarihinde",
+    "kesin_kiymetler": {},
+    "kiyaslar": [],
+    "etki": {
+      "aciklama": "Döviz varlığı bulunan yerleşik gerçek kişiler, bu desteklenmiş dönüşüm mekanizmasından artık yararlanamayacaktır. Programın sona ermesiyle birlikte döviz sahipleri, Türk lirasına geçişte sağlanan avantajlardan yoksun kalacaktır.",
+      "yon": "ithalatci aleyhine"
     },
-    {
-        "dosya":  "20250823-4.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-4.htm",
-        "baslik_sade":  "Merkez Bankası Türk lirası mevduat dönüşüm desteğini 23 Ağustos\u0027ta sonlandırıyor",
-        "ne_oldu":  "2021 yılında başlatılan Türk lirası mevduat ve katılma hesaplarına dönüşüm destek programı 23 Ağustos 2025 tarihi itibarıyla sona erdiriliyor. Bu tarihten sonra yeni hesap açılmayacak, mevcut hesaplar da yenilenmeyecek.",
-        "degistirilen_teblig":  "Türk Lirası Mevduat ve Katılma Hesaplarına Dönüşümün Desteklenmesi Hakkında Tebliğ (Sayı: 2021/14)",
-        "eski_yeni":  [
-
-                      ],
-        "eski_karsilastirma":  null,
-        "gtip_kodlari":  null,
-        "urun_tanimi":  "kaynakta belirtilmemiş",
-        "kimi_ilgilendirir":  "ticari bankalar, katılım bankaları, mevduat sahibi müşteriler",
-        "ne_yapmali":  "Dış ticaret kapsamında ilgi durumu bulunmuyorsa kaynakta veri yok; banka müşterisiyseniz işleminizi 23 Ağustos\u0027tan önce tamamlayın. Bilanço yenileme takviminizi kontrol edin.",
-        "yururluk":  "yayımı tarihinde",
-        "kesin_kiymetler":  {
-
-                            },
-        "kiyaslar":  [
-
-                     ],
-        "etki":  null,
-        "guven_notu":  "Kaynak tebliğ finansal/parasal düzenleme; GTIP kodu, birim kiymet, ürün tanımı mevcut değildir. Dış ticaret vergi/tarife tebligi değildir. Teblig yayim tarihi 23 Ağustos 2025. | Etki yorumu iki okumada farkli cikti - yayinlanmadi | Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi | Ana tebligin eski metni RG arsivinde bulunamadi (21.12.2021)",
-        "teblig_no":  "2025/20",
-        "degisen_maddeler":  [
-                                 "GEÇİCİ MADDE 1 eklendi"
-                             ]
+    "guven_notu": "Tebliğin finansal/parasal politika alanı kapsamında olması nedeniyle GTIP kodları, birim kıymetler ve 'ithalatçı' etki değerlendirmesi değil, makro politika sonucu olarak değerlendirilmiştir. Teblig mevcut dış ticaret/gümrük mevzuatıyla ilgili değildir. | Yorum, eski-yeni metin karsilastirmasina dayanir | Karsilastirma 21.12.2021 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
+  },
+  {
+    "dosya": "20250823-5.htm",
+    "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-5.htm",
+    "baslik_sade": "Altın hesaplarından TL mevduata dönüşüm desteği sona erdi",
+    "ne_oldu": "Altın hesaplarından Türk lirası mevduat ve katılma hesaplarına dönüşümü destekleyen program 23 Ağustos 2025 itibarıyla sonlandırılmıştır.",
+    "teblig_no": "2025/21",
+    "degisen_maddeler": null,
+    "degistirilen_teblig": "2021/16",
+    "onceki_belge": null,
+    "eski_yeni": [
+      {
+        "konu": "Program uygulama tarihi sonu",
+        "eski": "Program devam etmekte",
+        "yeni": "23/8/2025 tarihinden itibaren yeni hesap açılmaz, açılmış hesaplar yenilenmez"
+      }
+    ],
+    "eski_karsilastirma": "29.12.2021",
+    "kilit_hukumler": [
+      "23 Ağustos 2025'ten itibaren (bu tarih dahil) yeni altın hesap açılması durduruldu (Geçici m.1/1).",
+      "Açılmış olan altın hesaplar yenilenmeyecek (Geçici m.1/1).",
+      "Tebliğ yayım tarihinde yürürlüğe girdi (m.2)."
+    ],
+    "gtip_kodlari": null,
+    "urun_tanimi": "Altın hesapları ve lira mevduat/katılma hesapları",
+    "kimi_ilgilendirir": "Altın hesabı bulunan bireysel ve kurumsal müşteriler; bankalar ve katılım bankaları",
+    "ne_yapmali": "Altın hesabınız varsa ve lira mevduat/katılma hesabına geçmeyi düşünüyorsanız işleminizi 23 Ağustos'tan önce tamamlayın; bu tarihten sonra yeni hesap açtırmak mümkün olmayacaktır. Dönüşüm işlemi yapılmışsa yenileme talebinizi de aynı tarihten önce iletin.",
+    "yururluk": "yayımı tarihinde",
+    "kesin_kiymetler": {},
+    "kiyaslar": [],
+    "etki": {
+      "aciklama": "Programın sonlandırılmasıyla altın hesabı sahipleri bu dönüşüm desteğinden artık yararlanamayacak ve fiyat farkı ödemesi alamayacaktır. Mevcut hesaplar yenilenebilecek, ancak yeni hesap açılmasına imkân kalmayacaktır.",
+      "yon": "ithalatci aleyhine"
     },
-    {
-        "dosya":  "20250823-5.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/08/20250823-5.htm",
-        "baslik_sade":  "Altın hesaplarından lira mevduata dönüşüm desteği 23 Ağustos\u0027ta sona eriyor",
-        "ne_oldu":  "Merkez Bankası, altın hesaplarından türk lirası mevduat ve katılma hesaplarına geçişi destekleyen programı kapatıyor. 23 Ağustos 2025\u0027ten itibaren yeni hesap açılmayacak, mevcut hesaplar yenilenmiyor.",
-        "degistirilen_teblig":  "Altın Hesaplarından Türk Lirası Mevduat ve Katılma Hesaplarına Dönüşümün Desteklenmesi Hakkında Tebliğ (Sayı: 2021/16)",
-        "eski_yeni":  [
-
-                      ],
-        "eski_karsilastirma":  null,
-        "gtip_kodlari":  null,
-        "urun_tanimi":  "Finansal hizmet (altın hesaptan lira mevduata dönüşüm)",
-        "kimi_ilgilendirir":  "Altın hesabı olan bireysel ve kurumsal müşteriler",
-        "ne_yapmali":  "Altın hesabını lira mevduata çevirmek isteyen müşterilerine 23 Ağustos tarihinden önce işlem yaptır; bu tarihten sonra yeni hesap açılmayacağını ve mevcut hesapların yenilenemeyeceğini bildir.",
-        "yururluk":  "yayımı tarihinde",
-        "kesin_kiymetler":  {
-
-                            },
-        "kiyaslar":  [
-
-                     ],
-        "etki":  {
-                     "aciklama":  "Destek programının sona ermesi müşterilerin altın pozisyonlarını planlaması gerektiği anlamına geliyor. Program kapsama alınan dönüşümler artık yapılamayacak.",
-                     "yon":  "notr"
-                 },
-        "guven_notu":  "GTIP kodu ve birim kıymet içermiyor (finansal/para kurumu düzenlemesi olması nedeniyle). Tebliğ metni tam ve açıktır; hiçbir ambiguite yoktur. | Eski-yeni karsilastirmasi iki okumada uyusmadi - yayinlanmadi | Ana tebligin eski metni RG arsivinde bulunamadi (29.12.2021)",
-        "teblig_no":  "2025/21",
-        "degisen_maddeler":  [
-                                 "GEÇİCİ MADDE 1 eklendi"
-                             ]
-    }
+    "guven_notu": "Teblig yalnızca kapanış hükmünü içeriyor; destek mekanizmasının (faiz/getiri avantajı vb.) detayları bu metinde açıklanmamış. Orijinal 2021/16 Tebliğinin metni gözden geçirilmeli. Yenileme yasağının mevcut hesapların devamını etkileyip etkilemediği kaynakta belirtilmemiş. | Yorum, eski-yeni metin karsilastirmasina dayanir | Karsilastirma 29.12.2021 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
+  }
 ]

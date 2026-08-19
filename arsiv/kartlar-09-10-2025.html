@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,34 +33,55 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>09.10.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>09.10.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sosyal Güvenlik Kurumu taşınmaz satışlarında şartname bedeli düzenlemesi</h3>
-<p><b>Ne oldu:</b> Sosyal Güvenlik Kurumu'nun elektronik ortamda yaptığı taşınmaz satışlarına ilişkin yönetmelikte değişiklik yapıldı. Şartname bedeli kavramı tanımlandı; bu bedel taşınmazın tahmini satış bedelinin binde birini geçmeyecek şekilde yıllık olarak Kurum Yönetim Kurulu tarafından belirlenecek ve ödenmesi halinde ihaleye katılım mümkün olacak.</p>
-<p><b>Neyi değiştiriyor:</b> Sosyal Güvenlik Kurumu Taşınmazlarının Elektronik Ortamda Yapılacak Satışlarına İlişkin Yönetmelik</p>
-<p><b>Ürün:</b> Sosyal Güvenlik Kurumu taşınmazları (gayrimenkuller)</p>
-<p><b>Kimi ilgilendirir:</b> Sosyal Güvenlik Kurumu taşınmaz satışlarına katılmak isteyen ihale isteklileri</p>
-<p><b>Ne yapmalısın:</b> İhaleye katılmayı planlayan firmalar şartname bedelinin ne kadar olacağını yakında Kurum tarafından duyurulan tutardan öğren. Teknik düzenlemeler tamamlanıncaya kadar eski kurallar geçerli kalacak; güncellemeyi takip et.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik prosedürel düzenlemedir; şartname bedeli taşınmazın tahmini satış bedelinin binde birini geçmeyeceği için mali etki sınırlı. İhalelere katılım şartları net hale gelmiş, rekabeti engellemeyen bir bedel yapısı kurulmuştur.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Sosyal Güvenlik Kurumu taşınmaz satışlarında şartname bedeli uygulaması başlıyor</h3>
+<p><b>Ne oldu:</b> Sosyal Güvenlik Kurumu'nun elektronik ortamda gerçekleştireceği taşınmaz satışlarına ilişkin yönetmelikte değişikliğe gidildi. İhalelerde şartname (satış koşullarını içeren belge) için bedel alınması uygulaması getirildi; bu bedel taşınmazın tahmini satış bedelinin binde birini geçemeyecek ve her yıl Kurum Yönetim Kurulu tarafından belirlenecek.</p>
+<p><b>Hangi tebliğ:</b> Sosyal Güvenlik Kurumu Taşınmazlarının Elektronik Ortamda Yapılacak Satışlarına İlişkin Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>11 inci madde</span><span class='hap eski'>teminat bedelinin,</span><span class='ok'>→</span><span class='hap yeni'>teminat bedelinin ve Kurum Yönetim Kurulu tarafından belirlenecek tutardaki şartname bedelinin,</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Şartname bedeli taşınmazın tahmini satış bedelinin binde birinden fazla olamayacak ve her yıl Kurum Yönetim Kurulu tarafından belirlenecek (Madde 1, 2, 3)</div>
+<div class='kiymet'>• Şartname bedeli yatırıldıktan sonra isteklinin ihaleye katılıp katılmamasına bakılmaksızın iade edilmez (Madde 2)</div>
+<div class='kiymet'>• Yeni düzenlemelerin uygulanmaya başlama tarihi Kurum tarafından duyurulacak teknik düzenlemelerin tamamlanmasından sonra belirlenecek; o tarihten önceki ihaleler eski yönetmeliğe göre yapılır (Geçici Madde 1)</div>
+<div class='kiymet'>• Açık artırma süresinde son on dakika içinde teklif verilirse süre beş dakika uzatılır ve her yeni tekliften itibaren beş dakika daha uzatılır ancak toplam uzama süresi bir saati geçemez (Madde 6)</div>
+<p><b>Ürün:</b> Taşınmaz (gayrimenkul) satış ihalelerine ilişkin idari düzenleme</p>
+<p><b>Kimi ilgilendirir:</b> Sosyal Güvenlik Kurumu'nun taşınmaz satışlarına teklif veren istekliler ile ihale sürecini yürüten Kurum</p>
+<p><b>Ne yapmalısın:</b> Sosyal Güvenlik Kurumu'nun uygulamaya ilişkin duyuracağı başlangıç tarihini takip edin; kendi kurumunuz taşınmaz satışı yapıyorsa Kurum'un bildirim tarihine kadar mevcut prosedürü sürdürün. Elektronik Satış Portalı'ndan taşınmaz bilgilerini incelemeden önce şartname bedelini öğrenin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/10/20251009-1.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251009-1.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Nükleer ihracat ve ithalat kontrolüne yönelik yeni yönetmelik yürürlüğe girdi</h3>
-<p><b>Ne oldu:</b> Nükleer Düzenleme Kurumu, nükleer silahların yayılmasını önlemek amacıyla nükleer ihracat ve ithalat kontrolünü düzenleyen yeni bir yönetmelik çıkardı. Yönetmelik, ihraç ve ithal edilecek nükleer madde, malzeme, ekipman ile ilgili teknolojiye ilişkin usul ve esasları belirliyor.</p>
-<p><b>Ürün:</b> Nükleer Transfer Uyarı Listesi ve Nükleer Çift Kullanım Listesinde yer alan nükleer madde, malzeme, ekipman, sistem, bileşen ve ilgili teknoloji</p>
-<p><b>Kimi ilgilendirir:</b> Nükleer alanında madde, malzeme ve ekipman ihraç veya ithal eden üreticiler, dış ticaret şirketleri ve ilgili taşıyıcı firmalar</p>
-<p><b>Ne yapmalısın:</b> İhracat niyeti varsa Nükleer Düzenleme Kurumundan izin almak için başvuru yap; başvuruda biçim ve içeriği kurumca belirlenen Başvuru Formu, Son Kullanım Sertifikası, odaya kayıtlılığını gösteren belge ve eşyanın teknik özelliklerini gösteren belgeyi sunmak zorunlu. Transfer uyarı listesindeki eşyalar için alıcı ülkenin Güvence Belgesi Kuruma sunulmadan izin verilmiyor.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Nükleer ihracat ve ithalat kontrolüne ilişkin yeni yönetmelik yürürlüğe girdi</h3>
+<p><b>Ne oldu:</b> Nükleer Düzenleme Kurumu, nükleer silahların yayılmasını önlemek amacıyla nükleer madde, malzeme, ekipman ve teknolojilerin ihracat ve ithalatını kontrol altına alan kapsamlı bir yönetmelik yayımladı. Yönetmelik, ihracatçı ve ithalatçılara Kurum'dan izin alma, gerekli belgeleri sunma ve nükleer güvence şartlarını sağlama yükümlülüğü getiriyor.</p>
+<p><b>Hangi tebliğ:</b> 13/2/2020 tarihli ve 31038 sayılı Resmî Gazete'de yayımlanan Nükleer İhracat Kontrolü Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• İhraç edilen eşya veya onunla üretilen ürün nükleer silah ya da patlayıcı yapımında kullanılamaz; bu taahhüdü veren İhracatçı olmadıkça ihracat izni verilmez (m.5).</div>
+<div class='kiymet'>• Nükleer Transfer Uyarı Listesinde yer alan eşya ihraç edilirken alıcı ülkenin ilgili resmî makamlarından güvence belgesi Kurum'a sunulması gerekir (m.11/3).</div>
+<div class='kiymet'>• Nükleur İhracat Kontrolüne Tabi Eşya Listesinde yer alan eşyanın ihracatı için Kurum'dan izin alınması zorunludur (m.10/2).</div>
+<div class='kiymet'>• Ihracat izni radyoaktif maddeler için 3 ay, diğer eşya için 1 yıl geçerlidir (m.13/1).</div>
+<div class='kiymet'>• İthalat izni radyoaktif maddeler için 3 ay, diğer eşya için 6 ay geçerlidir (m.17/1).</div>
+<div class='kiymet'>• Ihracatçı, izin başvurusundan sonra 3 iş gün içinde izin kapsamındaki bilgilerdeki değişiklikleri Kurum'a bildirmek zorundadır; aksi takdirde izin iptal edilebilir (m.13/3).</div>
+<div class='kiymet'>• Başvuruda sunulan eksikliklerin tamamlanması için Kurum'dan 3 ay süre verilir; gerekçeli talepte ilave 6 aya kadar uzatılabilir (m.12/4).</div>
+<div class='kiymet'>• Zenginleştirme tesisi, ekipmanı veya teknolojisinin ihracatında %20'nin üzerinde zenginleştirilmiş uranyum üretimine izin vermeyecek taahhüd gerekir (m.8).</div>
+<div class='kiymet'>• Nükleer Çift Kullanım Listesinde yer alan eşya, UAEA denetimi altında olmayan nükleer yakıt çevrimi faaliyetinde kullanılamaz (m.7/2).</div>
+<p><b>Ürün:</b> Nükleer Transfer Uyarı Listesi'nde veya Nükleer Çift Kullanım Listesi'nde yer alan, nükleer alanda kullanılmak üzere özel olarak tasarlanmış ya da hazırlanmış madde, malzeme, ekipman, sistem, bileşen ve ilgili teknolojiler; ayrıca barışçıl amaçlarla ithalatı yapılan ve Nükleer Düzenleme Kurumu tarafından belirlenen madde, malzeme, ekipman, sistem ve bileşenler</p>
+<p><b>Kimi ilgilendirir:</b> Nükleer alanda kullanılan madde, malzeme, ekipman ve teknoloji ihraç ya da ithal eden firmalar; ticaret odalarına kayıtlı ihracatçı ve ithalatçılar</p>
+<p><b>Ne yapmalısın:</b> Nükleer alanda faaliyet gösteriyorsanız: (1) İhraç ya da ithal etmek istediğiniz eşyanın Nükleer İhracat/İthalat Kontrolüne Tabi Eşya Listeleri'nde yer alıp almadığını Kurum'un internet sitesinden kontrol edin. (2) Eşya listede yer alıyorsa başvuru formu, son kullanım sertifikası, teknik belgeler ve ticaret odası üyelik belgesiyle Kurum'a başvurun. (3) Nükleer Transfer Uyarı Listesi'nde yer alan eşya için alıcı ülkeden güvence belgesi temin edin. (4) İhracat/ithalat gerçekleştikten sonra gümrük beyannamesini 1 ay içinde Kurum'a sunmayı ihmal etmeyin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, nükleer silahların yayılmasını önlemeye yönelik uluslararası yükümlülüklerin yerine getirilmesi amacıyla idari kontrol mekanizmaları kuruyor. Nükleer madde ticareti yapan firmalar için ek başvuru, belge ve onay gerekliliklerini beraberinde getiriyor; bu durum geçiş süresini ve maliyetleri artırabilir, ancak yasal kompliyansa uyum sağlayan işletmeleri engellemeyen nötr bir denetim sistemi niteliği taşıyor.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/10/20251009-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

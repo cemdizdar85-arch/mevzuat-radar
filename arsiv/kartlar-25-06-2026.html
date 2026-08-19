@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,30 +35,45 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>25.06.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>TENMAK ödül programı yönetmeliğinde değişiklik yapıldı</h3>
-<p><b>Ne oldu:</b> Türkiye Enerji, Nükleer ve Maden Araştırma Kurumu Ödül Yönetmeliği'nde yapılan değişiklikler yürürlüğe girmiştir. Bilim Ödülü, Hizmet Ödülü, Genç Araştırmacı Ödülü ve Özel Ödül kategorilerinde ödül alma koşulları ile derecelendirme kuralları yeniden düzenlenmiş, ayrıca 15. madde yürürlükten kaldırılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Türkiye Enerji, Nükleer ve Maden Araştırma Kurumu Ödül Programı ve Etkinlik Desteklerine İlişkin Yönetmelik</p>
-<p><b>Ürün:</b> Değişiklik yönetmeliği niteliğinde olduğundan ürün tanımı bu düzenleme için uygulanamaz</p>
-<p><b>Kimi ilgilendirir:</b> TENMAK personeli ile ödül almaya hak kazanan bilim insanları ve araştırmacılar</p>
-<p><b>Ne yapmalısın:</b> Kurumun ödül programını yürütenler, başvuru ve değerlendirme süreçlerini yeni kurallara göre güncellemeli; yaş şartındaki 'hayatta olma' ifadesini ve derecelendirme yasağını başvuru dokümanlarına yansıtmalı; Özel Ödül'ün yalnızca bir kez verilebileceğine ilişkin kuralı da uygulama notlarına eklemelidir.</p>
+<h3>TENMAK ödül programında kriter ve yönetim değişiklikleri</h3>
+<p><b>Ne oldu:</b> TÜBİTAK'ın bilim, hizmet, genç araştırmacı ve özel ödüllerine ilişkin belirleme usulü yeniden düzenlendi. Cumhurbaşkanı üst limitleri belirleyecek, Başkan teklifte bulunacak, Yürütme Kurulu ise kararı verecek. Hayatta olmayan bilim insanlarına ait ödüller mirasçılarına intikal edecek; genç araştırmacı tanımına 'yaşıyor olma' kriteri eklendi.</p>
+<p><b>Hangi tebliğ:</b> Türkiye Enerji, Nükleer ve Maden Araştırma Kurumu Ödül Programı ve Etkinlik Desteklerine İlişkin Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Bilim Ödülü sayısı ve miktarı Cumhurbaşkanı üst limitleri içinde Başkan teklifi üzerine Yürütme Kurulu belirler; plaket ve berat verilir (m.6/3).</div>
+<div class='kiymet'>• Hizmet Ödülü sayısı ve miktarı Cumhurbaşkanı üst limitleri içinde Başkan teklifi üzerine Yürütme Kurulu belirler; hayatta olmayan bilim insanlarının ödülleri kanuni mirasçılarına verilir (m.7/3).</div>
+<div class='kiymet'>• Genç Araştırmacı Ödülü adayı kırk yaşını tamamlamamış olan hayatta bulunan kişi olmak zorunda; sayı ve miktarı Yürütme Kurulu belirler (m.8/1 ve m.8/3).</div>
+<div class='kiymet'>• Özel Ödül aynı kişiye en fazla bir kez verilir; sayısı ve miktarı Yürütme Kurulu belirler (m.9/2 ve m.9/3).</div>
+<div class='kiymet'>• Yönetmelik yayım tarihinde yürürlüğe girer (m.7).</div>
+<p><b>Ürün:</b> Devlet kurumu ödül yönetimi (idari nitelikte)</p>
+<p><b>Kimi ilgilendirir:</b> TÜBİTAK (Türkiye Enerji, Nükleer ve Maden Araştırma Kurumu) yönetimi ile ödül almaya hak kazanabilecek araştırmacılar</p>
+<p><b>Ne yapmalısın:</b> TÜBİTAK Yürütme Kurulu'nun yeni usul ve kriterlerini insan kaynakları sistemine işleyin; ödül adaylarında yaş ve yaşam durumu kontrolünü sıkılaştırın; hayatta olmayan bilim insanları için mirasçı belgesi talep sürecine hazırlanın.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu düzenleme, yönetmelikteki idari ve prosedürel hususları netleştirmektedir. Ödül derecelendirmesinin kaldırılması ve derecelendirme yasağının getirilmesi, ödül programının daha kapsayıcı bir yapıya kavuşturulduğunu ortaya koymakta; yaş şartına 'hayatta olma' ibaresinin eklenmesi ise muğlak durumları netliğe kavuşturmaktadır.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Bu değişiklik idari düzen ve gözetim mekanizmasına ilişkindir; ödül alıcılarının hak veya yükümlülüklerinde bir değişikliğe yol açmaz. Kurumun iç karar mekanizmasını netleştirir ve hayatta olmayan bilim insanlarının ödül haklarının korunmasını sağlar.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260625-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Helal belgeli ürünlerin ithalatında denetim zorunluluğu başlıyor</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, helal işareti taşıyan ithal ürünlere yönelik yeni bir denetim rejimi getiriyor. Denetim TAREKS sistemi üzerinden yürütülecek, belgeler zorunlu hale gelecek ve uygunsuz beyanlar reddedilecek.</p>
-<p><b>Ürün:</b> Helal Akreditasyon Kurumunun akreditasyon hizmeti verdiği uygunluk değerlendirme alanlarına konu olan madde, müstahzar ve eşya</p>
-<p><b>GTİP:</b><br><span class='gtip'>kaynakta belirtilmemis</span></p>
-<p><b>Kimi ilgilendirir:</b> Helal işareti taşıyan ürünleri ithal eden firmalar (gıda, tekstil, kimya ve diğer sektörler)</p>
-<p><b>Ne yapmalısın:</b> TAREKS sistemine tescil olun. Helal belgelerinizi sisteme yükleyin. Gümrük beyannamesinin 44. hanesine TAREKS referans numarasını veya kapsam dışı referans numarasını kaydedin. İthalatın reddedilme riskine karşı belgelerinizi önceden kontrol edin.</p>
-<p><b>Yürürlük:</b> yayimini takip eden 3. ay</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Helal belgesi bulunmayan veya uygunsuz belgeyle gelen ürünler reddedilebiliyor. Denetim süreci uzayabiliyor ve risk analiziyle belirlenen ürünlerde fiziki kontrol artıyor. İthalatçı, tüm belgeleri TAREKS'e yükleme ve gümrük beyannamesini doğru düzenleme yükümlülüğüyle ek bir uyum maliyetine katlanıyor.</div>
+<h3>İthal edilen helal belgeli ürünlerin denetim prosedürü ve belgelendirme zorunluluğu</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, helal işareti taşıyan ithal ürünlerin piyasaya arz edilmeden önce denetlenmesini ve akreditasyonlu kuruluşlarca belgelendirilmesini zorunlu hale getirdi. Denetim, TAREKS sistemi üzerinden risk analizine dayalı olarak yürütülecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Helal işareti, markası, damgası veya herhangi bir helal ibaresi taşıyan ithal ürünleri, Helal Akreditasyon Kurumu tarafından akreditasyonlu kuruluşlar belgelemek zorundadır (m.6/2).</div>
+<div class='kiymet'>• İthalatçı, TAREKS uygulaması üzerinden denetim başvurusu yapacak ve ürünle ilgili tüm helal uygunluk belgelerini sisteme yüklemek zorundadır (m.7/2).</div>
+<div class='kiymet'>• Risk analizi sonucunda fiili denetime tâbi tutulan ürünler, Ticaret Denetmeni tarafından ambalaj ve ürün üzerindeki helal ibaresinin gerçekliği kontrol edilmek suretiyle denetlenecektir (m.8/2-3).</div>
+<div class='kiymet'>• Denetim sonucu mevzuata uygun bulunmayan ürünler ithal edilemez; ambalajdaki helal ibaresi çıkarılabilirse ithalata izin verilebilir, aksi takdirde mahrecine iade veya imha edilecektir (m.10/1-2).</div>
+<div class='kiymet'>• Gümrük beyannamesinin 44 numaralı hanesine TAREKS referans numarası kaydedilmemesi halinde ürünün ithalatına izin verilmeyecektir (m.11/1).</div>
+<div class='kiymet'>• İthalatçı, denetlensin veya denetlenmesin, ithal ettiği ürünlerin ilgili mevzuata uygun olmasından sorumludur; TAREKS referans numarası ürünün güvenli ve mevzuata uygun olduğunun ispatı değildir (m.14/1,3).</div>
+<div class='kiymet'>• TAREKS referans numarası verildiği tarihten itibaren 1 yıl süreyle geçerlidir (m.11/3).</div>
+<div class='kiymet'>• Bu Tebliğe aykırı hareket eden veya yanlış beyanda bulunanlar hakkında Helal Akreditasyon Kurumu Kanunu, Teknik Düzenlemeler Rejimi Kararı ve ilgili mevzuat hükümleri uygulanacaktır (m.15/1).</div>
+<p><b>Ürün:</b> Helal Akreditasyon Kurumunun akreditasyon hizmeti verdiği uygunluk değerlendirme alanlarına konu olan tüm madde, müstahzar ve eşya (ürün listesi Tebliğ ekinde yer almaktadır)</p>
+<p><b>Kimi ilgilendirir:</b> Helal işareti veya helal ibaresi taşıyan ürünleri ithal eden firmalar ve taşıyıcılar</p>
+<p><b>Ne yapmalısın:</b> İthal edilecek ürünü TAREKS sistemine tanıtmak, ürüne ilişkin tüm helal uygunluk belgelerini sisteme yüklemek ve gümrük beyannamesinin 44 numaralı hanesine alınan referans numarasını işlemek gerekmektedir. Denetim talebi gelmesi halinde firma temsilcisinin denetimde hazır bulunmasını sağlamak ve istenen tüm belgeleri ibraz etmek gerekir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260625-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

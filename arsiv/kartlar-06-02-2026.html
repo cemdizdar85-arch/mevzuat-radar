@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,46 +33,65 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>06.02.2026 — Resmî Gazete'deki 3 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>06.02.2026 tarihli Resmî Gazete'de 3 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Serbest bölgelerde işletici ruhsatları ve ek faaliyetler yeniden düzenlendi</h3>
-<p><b>Ne oldu:</b> Serbest Bölgeler Uygulama Yönetmeliği değiştirildi. 25. maddeye işletici/B.K.İ. ruhsatları, ek ruhsatlar ve muhasebe kaydı ayırımına dair yeni fıkra eklendi; 27/A maddesinin 14. fıkrası yürürlükten kaldırıldı; geçici hükümler ile eski süresi uzatımlarının geçerliliği ve üstyapı kiralanması koşulları belirlendi.</p>
-<p><b>Neyi değiştiriyor:</b> Serbest Bölgeler Uygulama Yönetmeliği</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> Serbest bölge işletmecileri, B.K.İ. (Bölge Kullanıcı İşletmeleri) ve üstyapı kiralayan kuruluşlar</p>
-<p><b>Ne yapmalısın:</b> Mevcut ruhsat sözleşmelerini inceleyerek ek ruhsat yapılarının muhasebe ayrımını kontrol et; Hazine arazili bölgelerde 49 yıl süresi uzatım talepleri varsa yeni koşullara göre hazırla.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Serbest Bölgeler Uygulama Yönetmeliğinde ruhsat ve muhasebe düzenlemesi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, serbest bölge işletmeciliğinde faaliyet ruhsatı ve ek ruhsatlara ilişkin muhasebe kayıtlarının ayrı tutulmasını zorunlu kıldı. Ayrıca hazine arazili bölgelerde B.K.İ. (bölge kurucu işletmecisi) için üstyapı işletme koşulları tanımlandı.</p>
+<p><b>Hangi tebliğ:</b> Serbest Bölgeler Uygulama Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• Madde 6 eklendi</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 27/A maddesinin yürürlüğe girmesinden önce verilen ruhsat süre uzatımları uzatma döneminin sonuna kadar geçerlidir (Geçici Mad. 6).</div>
+<div class='kiymet'>• Arazisi hazineye ait bölgelerde, B.K.İ.'ye ait ruhsatlara bağlı üstyapılar ruhsat süresi sonunda Hazineye intikal eder (Geçici Mad. 6).</div>
+<div class='kiymet'>• Hazine arazili bölgelerde, B.K.İ. talep etmesi halinde üstyapı işletme hakkı, yapılan süre uzatım dönemini aşmayacak şekilde verilebilir; şartlar: açık alan kirasının ödenmesi, brüt kira gelirlerinin en az yüzde yirmisinin Özel Hesaba aktarılması ve bakım onarımın B.K.İ. tarafından karşılanması (Geçici Mad. 6).</div>
+<p><b>Ürün:</b> Serbest bölge işletmeciliği ve hizmet faaliyetleri</p>
+<p><b>Kimi ilgilendirir:</b> Serbest bölgelerde faaliyet gösteren işletmeciler ve bölge kurucu işletmecileri (B.K.İ.)</p>
+<p><b>Ne yapmalısın:</b> Mevcut faaliyet ruhsatlarınız ve ek ruhsatlarınız için muhasebe kayıtlarının tamamen ayrı tutulduğundan emin olun. Hazine arazili bölgede ek ruhsat sahibiyseniz, mevcut uzatım döneminin bitişine kadar üstyapı işletme koşullarını sözleşmeye yazılı olarak ekletiniz.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/02/20260206-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Onaylanmış Kişiler için gümrük usul talep şartları esnetildi</h3>
-<p><b>Ne oldu:</b> Gümrük Bakanlığı, Onaylanmış Kişi Statüsü ya da Yetkilendirilmiş Yükümlü Sertifikası sahibi olanların yaygın basitleştirilmiş usul talebini artık eşyanın fiziki özelliklerine bakılmaksızın kabul etmesini zorunlu kıldı.</p>
-<p><b>Neyi değiştiriyor:</b> Gümrük Genel Tebliği (Gümrük İşlemleri) (Seri No: 16)</p>
-<p><b>Ürün:</b> Tüm gümrük beyanı konusu eşyalar</p>
-<p><b>Kimi ilgilendirir:</b> Onaylanmış Kişi Statüsü ya da Yetkilendirilmiş Yükümlü Sertifikası sahibi ithalatçılar ve gümrük müşavir bürolarıdır</p>
-<p><b>Ne yapmalısın:</b> Onaylanmış Kişi statünüze göre yaygın basitleştirilmiş usul talebinde bulunurken dokümantasyon kalitesini gözden geçir; reddedilme riski düştü ama muhasebe entegrasyonunda değişiklik gerekebilir.</p>
-<p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Onaylanmış Kişi ve Yetkilendirilmiş Yükümlü için basitleştirilmiş gümrük usulü</h3>
+<p><b>Ne oldu:</b> Gümrük Genel Tebliği'nde değişiklik yapıldı. Onaylanmış Kişi Statüsü veya Yetkilendirilmiş Yükümlü Sertifikası sahibi olanlar, artık eşyanın özelliklerine bakılmaksızın basitleştirilmiş gümrük usulünden yararlanabilecek.</p>
+<p><b>Hangi tebliğ:</b> Gümrük Genel Tebliği (Gümrük İşlemleri) (Seri No: 16) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Onaylanmış Kişi Statü Belgesi ya da Yetkilendirilmiş Yükümlü Sertifikası sahibi olanlar eşyaları için basitleştirilmiş usul talep edebilir (m.3 değişiklik)</div>
+<div class='kiymet'>• Talep edilen basitleştirilmiş usul, eşyanın özellikleri ne olursa olsun kabul edilir (m.3 değişiklik)</div>
+<div class='kiymet'>• Teblig yayımını takip eden 30. gün yürürlüğe girer (m.2)</div>
+<p><b>Ürün:</b> Tüm dış ticaret eşyaları</p>
+<p><b>Kimi ilgilendirir:</b> Onaylanmış Kişi Statüsü veya Yetkilendirilmiş Yükümlü Sertifikası sahibi ithalatçılar ile gümrük müşavirleri</p>
+<p><b>Ne yapmalısın:</b> Mevcut belge statünüzü kontrol edin; uygunsa ilgili gümrük müdürlüğüne basitleştirilmiş usul talebinizi iletin ve gümrük işlem prosedürünüzü buna göre gözden geçirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/02/20260206-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin, ABD ve Vietnam menşeli damping önlemlerinin 2026 yıl sonu yürürlük tarihleri ilan edildi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2026 yılının ikinci yarısında süresi dolacak dört damping karşı önlemin nihai bitiş tarihlerini açıkladı. Söz konusu ürünlere ilişkin gümrük gözetim ve vergi yükümlülükleri bu tarihlerden itibaren kaldırılacaktır; ancak yerli üreticiler bitmeden üç ay önce nihai gözden geçirme soruşturması talep edebilirler.</p>
-<p><b>Ürün:</b> Plastik maddelerden sıvı mürekkepli ve jel mürekkepli bilyalı kalemler, polivinil klorür, çelik borular</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Çin, ABD ve Vietnam menşeli dört ürün grubunun damping önlemleri Temmuz 2026'da sona eriyor</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2021 yılında yürürlüğe giren ve önlemlerin yarısı 2026 yılında sona erecek olan dampinge karşı koruma tedbirlerini duyurdu. Bilyalı kalemler (Çin), polivinil klorür (ABD) ve paslanmaz çelik borular (Vietnam) üretiminde uygulanan damping vergileri Temmuz ortası itibarıyla kalkacak; yerli üreticiler, sürenin uzatılması için sona erme tarihinden en geç üç ay öncesine kadar başvuruda bulunabilecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Temmuz 2026 ortasında sona erecek dört damping önleminin uygulama süresi metindeki tarihlerde bitecek (Madde 4).</div>
+<div class='kiymet'>• Önemlerin yürürlükten kalması, yerli üreticiler tarafından nihai gözden geçirme soruşturması açılması talebi yapılmadığı takdirde gerçekleşecek (Madde 5/1-2).</div>
+<div class='kiymet'>• Nihai gözden geçirme talep formu Ticaret Bakanlığı web sitesinden 'Ticaret Politikası Savunma Araçları' > 'Damping ve Sübvansiyon' bölümünden indirilecek (Madde 5/3).</div>
+<div class='kiymet'>• Yeterli kanıtlarla desteklenmiş başvuruların önlemin sona erme tarihinden en geç üç ay öncesinde elektronik yolla gönderilmesi zorunlu (Madde 5/4).</div>
+<div class='kiymet'>• Başvuru kabul edilirse nihai gözden geçirme başlatılır ve bu sürece kadar mevcut tarifeler devam eder (Madde 5/7-8).</div>
+<p><b>Ürün:</b> Plastik maddelerden bilyalı kalemler (sıvı ve jel mürekkepli), süspansiyon tipi polivinil klorür (PVC), paslanmaz çelik borular</p>
 <p><b>GTİP:</b><br><span class='gtip'>9608.10.10.10.00</span><span class='gtip'>9608.10.99.00.00</span><span class='gtip'>9608.50.00.10.00</span><span class='gtip'>3904.10.00.00.19</span><span class='gtip'>7306.40.20.90.00</span><span class='gtip'>7306.40.80.90.00</span><span class='gtip'>7306.61.10.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Çin, ABD ve Vietnam menşeli yazı malzemesi, kimya ve metal ürünleri ithal edenler; yerli kalem, polivinil klorür ve çelik boru üreticileri</p>
-<p><b>Ne yapmalısın:</b> İthalatçılar şubat–haziran ayı arası sevkiyatlarının bu tarihler sonrasında gümrük işlemlerinde gözetim kapsamından çıkacağını bilerek program güncellesinler. Yerli üreticiler, damping devam ediyorsa ve hasarın kalmışsa, her önlem için en geç üç ay önce Bakanlığa KEP yoluyla yazılı talep sunabilirler (form: ticaret.gov.tr/ithalat).</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Çin, ABD ve Vietnam'dan bu ürünleri ithal eden şirketler; yerli kalem, kimya ve çelik boru üreticileri</p>
+<p><b>Ne yapmalısın:</b> Damping vergisinden etkilenen ithalatçı müşterileriniz için 15 Temmuz, 14 Temmuz ve 10 Temmuz 2026 tarihlerini takvime not edin—önlemlerin sona ermesi maliyetleri doğrudan etkileyecek. Yerli üretici müşterileriniz varsa, Bakanlık sitesinden başvuru formunu indirip 15 Nisan, 14 Nisan ve 10 Nisan 2026 tarihlerine kadar (sırasıyla) hazır bulundurun.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Koruma önlemleri kalktığında Çin kaynaklı kalemler, ABD menşeli polivinil ve Vietnam çeliği daha uygun fiyata gelebilecek; ancak yerli üreticiler nihai gözden geçirme başvurusunda bulunabilir. İthalatçıların Temmuz ayından itibaren artan rekabete hazırlıklı olması ve tedarik zincirlerini yeniden değerlendirmesi gerekir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/02/20260206-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>
