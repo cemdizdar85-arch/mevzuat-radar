@@ -116,11 +116,16 @@ const EPOSTA_ENDPOINT = "https://api.web3forms.com/submit";
 const EPOSTA_ANAHTAR  = "5b227e56-94fb-4123-a39a-4286f63db14a";
 let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 
-// Gözetim verisinin hasat tarihi. 13.08.2026: 11.07.2026 RG-33307
+// Gözetim verisinin hasat tarihi. 19.08.2026: eşleme tablosundaki 180 tebliğin
+// tamamı mevzuat.gov.tr resmî birleşik PDF'lerinden yeniden okundu (pdftotext -table,
+// sütun hizalı). 22 tebliğ + 97 GTİP satırı eklendi (54 → 76 tebliğ), 2025/9'un 6
+// satırı düzeltildi (biri Tarife Cetveli'nde olmayan bir koddu). Okuyucu önce
+// sitedeki 54 tebliğ üzerinde sınandı: 136 değer birebir tuttu.
+// 13.08.2026: 11.07.2026 RG-33307
 // revalorizasyonu işlendi (9 tebliğ tablosu değişti + 6 yeni tebliğ eklendi;
 // RG görsel tablolarından elle okundu, yürürlük 10.08.2026).
 // Ekranda gösterilir — kullanıcı verinin ne kadar taze olduğunu BİLMELİ.
-const GOZETIM_HASAT = "13.08.2026";
+const GOZETIM_HASAT = "19.08.2026";
 
 let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null;
 Promise.all([
