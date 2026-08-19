@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,23 +35,28 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>05.05.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin ve Vietnam Menşeli Dokuma Brandalara Yönelik Nihai Dampinge Karşı Soruşturma Açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, polietilen ve polipropilenden mamul dokuma mensucat (dokuma branda) ithalatına ilişkin nihai gözden geçirme soruşturması başlatmıştır. Söz konusu soruşturma, mevcut dampinge karşı kesin önlemin süresi dolmadan önce açılmıştır.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2021/24 (6 Mayıs 2021 tarihli)</p>
-<p><b>Ürün:</b> Polietilen ve polipropilenden mamul şerit veya benzeri malzemelerden dokunmuş mensucat (yalnızca dokuma brandalar)</p>
+<h3>Çin ve Vietnam menşeli dokuma brandalar için nihai gözden geçirme soruşturması başlatıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, polietilen ve polipropilenden mamul dokuma brandalara yönelik yürürlükteki dampinge karşı önlemin süresinin dolmak üzere olması nedeniyle nihai gözden geçirme soruşturması başlatmıştır. Soruşturma, Çin Halk Cumhuriyeti ve Vietnam Sosyalist Cumhuriyeti menşeli ürünleri kapsamaktadır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma Çin Halk Cumhuriyeti ve Vietnam menşeli 3921.90.60.00.11, 3921.90.60.00.13 ve 3926.90.97.90.29 GTIP kodları altında kayıtlı polietilen ve polipropilenden mamul dokuma brandalarının ithalatına yönelik açılmıştır (Madde 8).</div>
+<div class='kiymet'>• Soru formlarına cevap verme süresi bildirimin gönderildiği tarihten itibaren 37 gündür; bildirimi alamayan taraflar için bu süre tebliğin yayımı tarihinden itibaren başlar (Madde 12).</div>
+<div class='kiymet'>• Mevcut dampinge karşı önlem (1,06-1,16 ABD Doları/Kg) soruşturma sonuçlanıncaya kadar yürürlükte kalır (Madde 14).</div>
+<div class='kiymet'>• Soruşturma Ticaret Bakanlığı İthalat Genel Müdürlüğü Damping ve Sübvansiyon Dairesi tarafından yürütülür; ilgili taraflar KEP veya elektronik ortamda iletişim kurar (Madde 11).</div>
+<div class='kiymet'>• Gerek duyulan taraflar soruşturmadan etkileneceklerini bildirerek gözlemci sıfatıyla sürece katılabilir; Bakanlık internet sitesinde ilan ve soru formları yer alır (Madde 10).</div>
+<p><b>Ürün:</b> Polietilen ve polipropilenden mamul şerit veya benzerlerinden dokunmuş mensucat (dokuma brandalar)</p>
 <p><b>GTİP:</b><br><span class='gtip'>3921.90.60.00.11</span><span class='gtip'>3921.90.60.00.13</span><span class='gtip'>3926.90.97.90.29</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>3921.90.60.00.11 → <b>kaynakta belirtilmemis (soruşturma devam ediyor)</b></div>
-<div class='kiymet'>3921.90.60.00.13 → <b>kaynakta belirtilmemis (soruşturma devam ediyor)</b></div>
-<div class='kiyas'>📊 Eskiden → Şimdi (kayıt defterimizden) — 3921.90.60.00.11: onceki kaydimiz Poliitilen ve polipropilenden mamul genit veya benzerleriinden dokunmus mensucat (yalitim dokuma brancilari) (16.07.2025) -> yeni kaynakta belirtilmemis (soruşturma devam ediyor)</div>
-<p><b>Kimi ilgilendirir:</b> Çin ve Vietnam menşeli dokuma branda ihracatı yapan firmalar, Türkiye'deki ithalatçılar ile benzer ürünleri üreten yerli tekstil şirketleri</p>
-<p><b>Ne yapmalısın:</b> İthalatçıların, soru formlarına cevap verme süreleri konusunda dikkatli olması gerekmektedir (12. maddede belirtilen tarihler). Başvuru usulü metinde ayrıca belirtilmiş olup, yurtiçi firmaların KEP adresi üzerinden, yurtdışı firmaların ise posta ve e-posta yoluyla başvuru yapması öngörülmektedir. Mevcut dampinge karşı kesin önleme ilişkin dördüncü gözden geçirme süreci başlamış olduğundan, ürünlere uygulanacak yeni oranların yakından takip edilmesi önem arz etmektedir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Mevcut dampinge karşı kesin önlemin süresi dolmadan nihai gözden geçirme süreci başlatılmıştır. İthalatçılar, soruşturma süresince belirsiz bir dönemle karşı karşıya kalacak; süreç sonunda uygulanacak yeni oranlar ise maliyet planlaması ve fiyatlandırma stratejilerini doğrudan etkileyecektir.</div>
+<div class='kiymet'>3921.90.60.00.11 → <b>kaynakta belirtilmemis (mevcut önlem 1,06-1,16 ABD Doları/Kg)</b></div>
+<div class='kiymet'>3921.90.60.00.13 → <b>kaynakta belirtilmemis (mevcut önlem 1,06-1,16 ABD Doları/Kg)</b></div>
+<div class='kiymet'>3926.90.97.90.29 → <b>kaynakta belirtilmemis</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin ve Vietnam'daki dokuma branda üreticileri ile ihracatçıları; Türkiye'deki ithalatçılar ve yerli üreticiler (Ekonet Tekstil, Rad Tekstil ve destekçi firmalar)</p>
+<p><b>Ne yapmalısın:</b> Soruşturma konusu ürünü ithal eden firmalar, soru formlarını bildirilen süreler içinde yanıtlayabilmek için Bakanlığın iletişim bilgilerini (KEP: ticaretbakanligi@hs01.kep.tr veya posta adresi) not almalıdır. Yurt dışındaki ihracatçılar, yasal temsilci görevlendirecekse apostilli vekâletname hazırlamalıdır. Mevcut malı depoda veya transit şartlarda bulunduranlar, uygulanan tarifeyi (1,06-1,16 ABD Doları/Kg) dikkate alarak maliyet planlamalarını güncellemelidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma sonuçlanana kadar yürürlükteki dampinge karşı önlem (1,06-1,16 ABD Doları/Kg) uygulanmaya devam edecek ve büyük olasılıkla yenileneceğinden ithalatçıların ürün maliyeti artacaktır. Soruşturmaya resmi olarak katılan taraflar nihai kararlara müdahale imkânı bulabilecek, işbirliği yapmayanlar ise daha ağır yükümlülüklere tabi tutulabilecektir.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260505-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>

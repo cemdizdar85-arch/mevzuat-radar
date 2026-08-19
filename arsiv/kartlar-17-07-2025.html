@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,36 +33,52 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>17.07.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>17.07.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İthalatta gözetim uygulaması eşik değerleri güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2023/2 nolu tebliğin birinci maddesindeki gözetim eşik tablosunu değiştirdi. Yeni eşikler 60 gün sonra yürürlüğe girecek.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2023/2)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> İthalatçılar, gümrük müşevirler, ithal malı ticareti yapan işletmeler</p>
-<p><b>Ne yapmalısın:</b> Mevcut sevkiyatlarınız için hangi ürün gruplarının etkilendiğini öğrenene kadar yeni tabloyu incele. Eğer değişiklik senin gözetim yükünü arttırıyorsa, Ocak-Temmuz arası faturaları gözden geçir ve riskli kalemler için ek belgelendirmeyi simüle et.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>GTIP 8541.42.00.00.00 birim gümrük kıymetinde değişiklik</h3>
+<p><b>Ne oldu:</b> Bir modül hâlinde birleştirilmemiş veya panolarda düzenlenmemiş fotovoltaik hücrelerin birim gümrük kıymeti 60 ABD Doları/Kg'den 170 ABD Doları/Kg'ye yükseltilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2023/2) sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2024/05/20240504-3.htm' target='_blank' rel='noopener'>04.05.2024 tarihli Resmî Gazete</a> (Tebliğ 2023/2)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ, yayımından itibaren altmış gün sonra yürürlüğe giriyor (Madde 2).</div>
+<p><b>Ürün:</b> Kristal silisyum fotovoltaik hücreler</p>
+<p><b>GTİP:</b><br><span class='gtip'>8541.42.00.00.00</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8541.42.00.00.00 → <b>170 ABD Doları/Kg</b></div>
+<p><b>Kimi ilgilendirir:</b> Güneş paneli ve fotovoltaik sistem ithal eden elektrikli teçhizat üreticileri</p>
+<p><b>Ne yapmalısın:</b> Gümrük müşaviriyle birlikte Temmuz sonu sevkiyatlarında yeni eşik (170 $/Kg) ile mevcut deklarasyonlarınızı karşılaştırın; eşiğin altındaki beyanlar ek belgelendirme gerektirecektir.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 60. gün</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Kıymet limitinin yükseltilmesi, daha fazla ithalatın gözetim belgesi gerektirmesi anlamına gelmekte olup ithalatçıların işlemlerini daha zor ve maliyetli hâle getirmektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İthalatta gözetim uygulaması: birim kıymetler tablosu güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, ithalatçıların beyanlarında uygulanacak gözetim eşiklerini belirleyen tabloda değişiklik yaptı. Yeni değerler 60 gün sonra yürürlüğe girecek.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2024/8)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemiş (tablo görselinden okunamadı)</p>
-<p><b>Kimi ilgilendirir:</b> Tüm ithalatçılar ve gümrük müşaviri firmalar</p>
-<p><b>Ne yapmalısın:</b> Tebliğin tam metnini inceleyerek tablonun hangi satırlarında değişiklik yapıldığını teyit edin; mevcut beyanlarınızın yeni eşiklere uygunluğunu kontrol edin.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İthalat gözetim uygulamasında iki kalemde birim kıymet artışı</h3>
+<p><b>Ne oldu:</b> Her iki kalemde birim kıymet sınırı 85 ABD Doları/Kg'den 170 ABD Doları/Kg'ye yükseltilmiştir. Bu değişiklik, gözetim uygulamasının kapsamını daraltmıştır.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2024/8) sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2024/08/20240808-7.htm' target='_blank' rel='noopener'>08.08.2024 tarihli Resmî Gazete</a> (Tebliğ 2024/8)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ, yayım tarihini takip eden 60. günde yürürlüğe girer (MADDE 2).</div>
+<p><b>Ürün:</b> Mavi boya ve diğer boyalar (seramik ve inşaat malzemeleri endüstrisinde kullanılan kimyasal ürünler)</p>
+<p><b>GTİP:</b><br><span class='gtip'>3818.00.10.00.00</span><span class='gtip'>3818.00.90.00.00</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>3818.00.90.00.00 → <b>170 ABD Doları/Kilogram</b></div>
+<div class='kiymet'>3818.00.10.00.00 → <b>170 ABD Doları/Kilogram</b></div>
+<p><b>Kimi ilgilendirir:</b> Mavi boya veya boya ürünü ithal eden kimya, seramik ve inşaat malzemesi firmaları</p>
+<p><b>Ne yapmalısın:</b> Eylül başından itibaren yapacağınız beyannamelerde malları 170 dolar/kg eşiğine göre kontrol edin; bu değerin altındaki gönderimler için ek belge ve denetim hazırlığı yapın.</p>
 <p><b>Yürürlük:</b> yayımını takip eden 60. gün</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Birim kıymet eşiğinin yükselmesi, daha düşük değerli ürünlerin gözetim belgesi gerekliliğinden muaf tutulmasını sağlayarak ithalatçıların işlem yükünü azaltmaktadır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

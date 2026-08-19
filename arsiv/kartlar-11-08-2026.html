@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -31,13 +39,22 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sporcu sağlık raporları ve sağlık durum belgelerine ilişkin usul ve esaslar</h3>
-<p><b>Ne oldu:</b> Sağlık Bakanlığı ile Gençlik ve Spor Bakanlığı, sporcuların lisans ve transfer işlemlerinde ve okul ile sosyal aktivite amaçlı spor faaliyetlerine katılımında düzenlenecek sağlık raporları ve belgelerine ilişkin yeni yönetmeliği yayımladı. Yönetmelik; spor dallarının sağlık risk sınıflamasına (A, B, C grupları) göre farklı belgelerin düzenlenmesini, işlemlerin e-Devlet üzerinden yürütülmesini ve belgelerin geçerlilik sürelerinin belirlenmesini kurala bağladı.</p>
-<p><b>Ürün:</b> Spor sağlığı hizmetleri (belge ve rapor düzenlenmesi)</p>
-<p><b>Kimi ilgilendirir:</b> Lisanslı sporcular, okul spor faaliyetlerine katılanlar, sosyal aktivite amaçlı spor yapanlar, spor federasyonları ve sağlık hizmeti sunucuları (hastaneler, aile hekimliği birimleri, özel sağlık kuruluşları)</p>
-<p><b>Ne yapmalısın:</b> Lisans veya transfer başvurusunda bulunacaksanız spora katılım sağlık durumu değerlendirme formunu (EK-1) e-Devlet veya sağlık bilgi sistemi üzerinden doldurun. A grubu spor dallarında mutlaka sporcu sağlık raporu alın. B grubu spor dallarında sistem sizi tabibe yönlendirirse rapor düzenletin; yönlendirme yapılmazsa sağlık durum belgesi yeterlidir. C grubu spor dalları ile okul veya sosyal aktivite amaçlı sporlar için sağlık durum belgesi alın. Belgelerin geçerlilik sürelerine dikkat edin (rapor 3 yıl, belge 1 yıl geçerlidir).</p>
+<h3>Sporcu sağlık raporları ve durum belgelerinin düzenlenmesine ilişkin yönetmelik</h3>
+<p><b>Ne oldu:</b> Sağlık Bakanlığı ile Gençlik ve Spor Bakanlığı, sporcuların lisans ve transfer işlemlerine ayrıca okul ve sosyal spor faaliyetlerine katılabilmeleri için gereken sağlık raporları ve belgelerin düzenlenmesine yön verecek yeni bir yönetmelik yayımlamıştır. Rapor ve belgelerin türü, geçerlilik süresi ile düzenlenme koşulları, ilgili spor dalının risk sınıflamasına göre değişecektir.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• A grubu spor dalları için her durumda sporcu sağlık raporu düzenlenir; B grubu için sağlık bilgi sistemi yönlendirmesi halinde, C grubu ve okul/sosyal aktivite spor faaliyetleri için sağlık durum belgesi düzenlenir (Madde 5/2).</div>
+<div class='kiymet'>• Sporcu sağlık raporu 3 yıl, sağlık durum belgesi 1 yıl geçerlidir (Madde 8/1-2).</div>
+<div class='kiymet'>• Spor faaliyetine katılmak için e-Devlet Kapısı veya sağlık bilgi sistemi üzerinden spora katılım sağlık durumu değerlendirme formu doldurulması gerekir (Madde 6/1, Madde 7/1).</div>
+<div class='kiymet'>• Küçük veya kısıtlı kişiler için veli ya da vasisi tarafından form doldurulur ve talep yapılır (Madde 6/1, Madde 7/1).</div>
+<div class='kiymet'>• Sporcu sağlık raporu yalnızca Sağlık Bakanlığı hastaneleri, üniversite merkezleri, aile hekimlikleri ve Sağlık Raporları Yönetmeliği kapsamında yetkilendirilen özel sağlık kuruluşlarında düzenlenebilir (Madde 6/4).</div>
+<div class='kiymet'>• Yurt dışında düzenlenen sağlık raporları yeminli tercüme ile noter onayı gerektirir (Madde 5/5).</div>
+<div class='kiymet'>• Mevcut sporcu sağlık raporları yönetmelik yürürlüğe girdikten sonra da raporda belirlenen geçerlilik süresi bitene kadar geçerli kalır (Geçici Madde 1).</div>
+<div class='kiymet'>• Sağlık durumunda değişiklik olması halinde rapor geçerlilik süresi beklenmeksizin yeniden düzenlenir (Madde 8/3).</div>
+<p><b>Ürün:</b> Spor faaliyetleri ve sporcu sağlık hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> Spor federasyonları, spor kulüpleri, okul yönetimleri, sporcu lisans işlemlerini yürüten kurumlar ve spor faaliyetlerine katılmak isteyen bireyler</p>
+<p><b>Ne yapmalısın:</b> Spora katılacak sporcular, e-Devlet Kapısı veya sağlık bilgi sistemi üzerinden spora katılım sağlık durumu değerlendirme formunu doldurarak başvuruda bulunmalıdır. Spor dalının risk sınıfı (A, B veya C) belirlendikten sonra, gereken belgeyi (rapor veya durum belgesi) almak üzere yetkilendirilmiş sağlık kuruluşlarıyla iletişime geçilmelidir. Yurt dışı sağlık raporu kullanacak bireylerin ise belgelerinin yeminli tercümesini yaptırıp noter onayından geçirmesi gerekmektedir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik yeni bir düzenleme getirmekte olup mevcut uygulamada herhangi bir değişiklik öngörmemektedir. Spor faaliyetlerine katılım için sağlık belgelendirme sürecinin sistematik hale getirilmesi ve e-Devlet entegrasyonu, idari işlemleri kolaylaştıracak ancak beraberinde bir uyum süreci gerektirecektir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik idari nitelikte bir düzenleme olup spor faaliyetlerine katılımın resmi şartlarını belirlemektedir. Sporcular ve spor kuruluşları açısından işlem süreleri ile gereken belgeler konusunda netlik sağlamakla birlikte, harç veya maliyet kalemlerinde doğrudan bir değişikliğe yol açmamaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/08/20260811-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

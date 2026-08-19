@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,18 +35,36 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>23.07.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sigorta destek hizmeti sağlayıcılarına yeni sermaye ve nitelik şartları</h3>
-<p><b>Ne oldu:</b> Sigortacılık Destek Hizmetleri Yönetmeliği değiştirildi. Hasar yönetimi, asistans ve hasar araştırmacılığı hizmetleri veren kuruluşlar artık Kurum iznine tabi. Yeni sermaye (250 milyon TL) ve yapısal nitelikler getiriliyor; mevcut sağlayıcılara geçiş süresi tanındı.</p>
-<p><b>Neyi değiştiriyor:</b> Sigortacılık Destek Hizmetleri Hakkında Yönetmelik</p>
-<p><b>Ürün:</b> Sigorta destek hizmetleri (hasar yönetimi, asistans, hasar araştırmacılığı)</p>
-<p><b>Kimi ilgilendirir:</b> Sigorta şirketlerine hasar yönetimi, acil yardım-asistans ve hasar araştırması hizmeti sağlayan kuruluşlar; hasar araştırmacı olarak faaliyette bulunan gerçek ve tüzel kişiler</p>
-<p><b>Ne yapmalısın:</b> Mevcut sağlayıcı iseniz, Kurum iznini 31.12.2026'ye kadar (anonim şirket yapısı) ve 31.12.2028'e kadar (amin olmayan koşullar) sağlayın; özsermayeyi 31.12.2026 itibariyle en az %25, 31.12.2028 itibariyle %50, 31.12.2030 itibariyle %100 artırın. Hasar araştırmacısı iseniz 31.12.2026'ya kadar şartlara uyum sağlayın; son bir yıldaki hizmet sunuşunuzu belgeleyin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Mevcut sağlayıcılara karşı sıkılaştırma (sermaye artışı, nitelik şartları, Kurum denetimi) operasyonel maliyeti yükseltiyor. Yeni sağlayıcı girişine yüksek bariyer; ancak formalize yapı ve hizmet kalitesi standartlı hale geliyor. Sigorta şirketleri seçici tedarikçi sayısıyla karşılaşabilir.</div>
+<h3>Sigorta destek hizmetleri: yeni nitelik şartları ve özsermaye gereklilikleri</h3>
+<p><b>Ne oldu:</b> Sigortacılık Destek Hizmetleri Yönetmeliği kapsamlı biçimde yeniden düzenlendi. Hasar yönetimi, asistans ve hasar araştırması hizmeti veren kuruluşların Kurumdan izin alması zorunlu hale getirildi; asgari özsermaye tutarı 250 milyon lira olarak belirlendi. Mevcut hizmet sağlayıcılarına ise geçiş süresi tanındı.</p>
+<p><b>Hangi tebliğ:</b> Sigortacılık Destek Hizmetleri Hakkında Yönetmelik sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• MADDE 8/A eklendi</div>
+<div class='kiymet'>• MADDE 8/B eklendi</div>
+<div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Müsteşarlığa</span><span class='ok'>→</span><span class='hap yeni'>Kuruma</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Hasar yönetimi ve asistans hizmeti sağlayanlar Kurumdan izin almak zorundadır; izinsiz hizmet verilemez (Madde 8/A.1-8).</div>
+<div class='kiymet'>• Destek hizmeti sağlayıcının asgari özsermayesi 250 milyon liradır; Kurum bunu yarısına indirmek veya iki katına çıkarmaya yetkilidir (Madde 8/A.7).</div>
+<div class='kiymet'>• Özsermaye tutarı her yıl Yurtiçi Üretici Fiyat Endeksi oranında artırılır (Madde 8/A.7).</div>
+<div class='kiymet'>• Hasar araştırmacısı olabilmek için en az iki yıllık yükseköğretim ve sigorta sektöründe en az iki yıl iş deneyimi gerekir (Madde 8/B.2.d-e).</div>
+<div class='kiymet'>• Hasar araştırmacılarının kanaatleri somut belge ve bilgiye dayanmalıdır; taraflı karar verirse izni iptal edilir (Madde 8/B.5).</div>
+<div class='kiymet'>• Mevcut sağlayıcılar 31/12/2026'ya kadar uyum sağlamak zorundadır; özsermayeyi aşamalı artırmalıdır (Geçici Madde 2.1-2).</div>
+<div class='kiymet'>• Mevcut hasar araştırmacıları 31/12/2026'ya kadar yönetmelik şartlarına uymalı; yükseköğretim şartında muaf tutulabilir (Geçici Madde 2.4-5).</div>
+<div class='kiymet'>• Kurum geçiş sürelerini altı ay uzatmaya yetkilidir (Geçici Madde 2.7).</div>
+<div class='kiymet'>• İzin verilen şartları sonradan kaybeden sağlayıcıya üç aydan az olmamak üzere düzeltme süresi verilir; uymamazsa izin iptal edilir (Madde 8/A.10).</div>
+<p><b>Ürün:</b> Sigorta destek hizmetleri (hasar yönetimi, asistans, hasar araştırması)</p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>kaynakta belirtilmemis → <b>250.000.000 Türk Lirası (asgari özsermaye)</b></div>
+<p><b>Kimi ilgilendirir:</b> Sigorta şirketlerine hasar yönetimi, asistans veya hasar araştırması hizmeti sunan gerçek ve tüzel kişiler ile mevcut hizmet sağlayıcıları</p>
+<p><b>Ne yapmalısın:</b> Destek hizmeti sağlıyorsanız: halihazırda faaliyet gösteriyorsanız Kuruma başvurarak izin alın ve 31/12/2026 tarihine kadar tüm şartları yerine getirin. Özsermayenizi 31/12/2026'da %25, 31/12/2028'de %50, 31/12/2030'da %100 seviyesine yükseltin. Hasar araştırmacısıysanız Kurumdan izin almanız zorunludur; eğitim, deneyim ve öğrenim belgelerinizi hazır bulundurun. Uyum süresi 31/12/2026 tarihine kadar uzatılabilmektedir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Yeni kuruluşlar açısından giriş engelleri yükseldi (250 milyon lira özsermaye şartı, izin süreci); mevcut hizmet sağlayıcıları ise tanınan geçiş süresiyle rekabet avantajı elde etti. Sigorta şirketleri için hizmet kalitesi standartları yükselecek olsa da sağlayıcı seçenekleri daralabilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/07/20260723-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260723-2.html'>Neyin nesi değişti? →</a></div>
 </div>
 

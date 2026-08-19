@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,35 +33,43 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>12.08.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>12.08.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Asansör piyasa gözetimi yönetmeliğine monte edenler için sorumluluk maddesi eklendi</h3>
-<p><b>Ne oldu:</b> Sanayi ve Teknoloji Bakanlığı, asansör monte eden ve imalatçıları Kanun'un 7. maddesindeki yükümlülüklere tabi kılacak yeni bir fıkra ekledi. Aykırılıklar artık yasal yaptırım kapsamına giriyor.</p>
-<p><b>Neyi değiştiriyor:</b> Asansör Piyasa Gözetimi ve Denetimi Yönetmeliği</p>
-<p><b>Ürün:</b> Asansör ve asansör parçaları</p>
-<p><b>Kimi ilgilendirir:</b> Asansör monte eden firmalar, asansör imalatçıları, bu sektörün tedarikçileri</p>
-<p><b>Ne yapmalısın:</b> Asansör monte eden ve imalatan işletmeler iç prosedürlerini gözden geçir; Kanun'un 7. maddesindeki yükümlülükleri (belgelendirme, uygunluk beyanı, teknik dosya vs.) tam karşıladığını teyit et.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Asansör monte edenlere Kanun yükümlülükleri genişletildi</h3>
+<p><b>Ne oldu:</b> Asansör Piyasa Gözetimi ve Denetimi Yönetmeliği'ne yeni bir fıkra eklendi. Asansör monte eden ve aynı zamanda imalatçı sıfatını taşıyan kişi ve kuruluşlar, Kanun'un 7. maddesinde düzenlenen yükümlülüklere tabi tutuldu; bu yükümlülüklerin ihlali halinde Kanun'da öngörülen cezalar uygulanacak.</p>
+<p><b>Hangi tebliğ:</b> Asansör Piyasa Gözetimi ve Denetimi Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Asansör monte eden ve imalatçı olan kuruluşlar Kanunun 7. maddesindeki yükümlülüklere tabi oldu (m.15/10).</div>
+<div class='kiymet'>• Bu yükümlülüklere aykırı hareket halinde Kanunda düzenlenen yaptırımlar uygulanır (m.15/10).</div>
+<p><b>Ürün:</b> Asansörler</p>
+<p><b>Kimi ilgilendirir:</b> Asansör monte eden işletmeler ve asansör imalatçıları</p>
+<p><b>Ne yapmalısın:</b> Kanun'un 7. maddesinde yer alan yükümlülükler gözden geçirilmeli; monte edilen ve üretilen tüm asansörlerin bu şartları karşıladığı teyit edilmelidir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Monte eden ile imalatçı sıfatının birleşmesi, tek bir aktörü her iki aşamaya ait tüm yükümlülükleri yerine getirmekle sorumlu kılıyor. Kanun'un 7. maddesi (kaynakta içeriği belirtilmemiş) muhtemelen uygunluk değerlendirmesi, belgelendirme ve gözetim yükümlülüklerini kapsadığından, bu durum maliyeti ve denetim yükünü artırabilir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250812-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İhracat muafiyet tebliğinde belge gereklilikleri güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, ihracat ve döviz kazandırıcı hizmetlerde vergi muafiyeti için sunulacak belgeleri detaylandırdı. Değişiklik, faaliyetin uluslararası niteliğini ve finansman kaynağını ispatlayan dokümantasyon yükümlülüğünü netleştiriyor.</p>
-<p><b>Neyi değiştiriyor:</b> İhracat, Transit Ticaret, İhracat Sayılan Satış ve Teslimler ile Döviz Kazandırıcı Hizmet ve Faaliyetlerde Vergi, Resim ve Harç İstisnası Hakkında Tebliğ (İhracat: 2017/4)</p>
-<p><b>Ürün:</b> İhracat malları ve döviz kazandırıcı hizmetler</p>
-<p><b>Kimi ilgilendirir:</b> İhraç yapan işletmeler, yurt dışında hizmet sunan firmalar, savunma sanayii müteahhitleri</p>
-<p><b>Ne yapmalısın:</b> Muafiyet başvurusunda (a) ihalenin uluslararası niteliğini gösteren bakanlık yazısı, (b) kamu yatırımı istisnasında protokol, (c) savunma sanayii işlerinde Savunma Sanayii Başkanlığı onay yazısı ve iş alındı belgesi ekle.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>İhracat tebliğinde belge gereksinimleri güncellendi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, ihracat ve döviz kazandırıcı faaliyetlerde vergi istisnası için gereken belgeler listesini düzenleyen 2017/4 sayılı tebliğde değişiklik yaptı. Değişiklik, kamu yatırımları, savunma sanayii işleri ve işveren belgesi gereksinimlerini açıklayan metni yeniden şekillendirdi.</p>
+<p><b>Hangi tebliğ:</b> İhracat, Transit Ticaret, İhracat Sayılan Satış ve Teslimler ile Döviz Kazandırıcı Hizmet ve Faaliyetlerde Vergi, Resim ve Harç İstisnası Hakkında Tebliğ (İhracat: 2017/4) sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2020/03/20200308-13.htm' target='_blank' rel='noopener'>08.03.2020 tarihli Resmî Gazete</a> (Tebliğ 2017/4)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 2).</div>
+<p><b>Ürün:</b> İhracat işleri, transit ticaret, döviz kazandırıcı hizmetler</p>
+<p><b>Kimi ilgilendirir:</b> İhracat yapan firmalar, döviz kazandırıcı hizmet sağlayıcılar, kamu ihaleleri yüklenicileri, savunma sanayii işlerinde yer alan işletmeler</p>
+<p><b>Ne yapmalısın:</b> Mevcut 2017/4 sayılı tebliğ kapsamında işlem yapıyorsanız, madde 9'daki belge listesini güncelleyin; özellikle kamu yatırımları, savunma sanayii onayı ve işveren belgesi başvuruları için ilave yazışma gerekip gerekmediğini kontrol edin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Belge gereklilikleri detaylandırılarak başvuru süreci netleşti. Eksik belge riski azaldı ama uyum için muhasebe/gümrük ekibi yeni kontrol listesi hazırlamalı, özellikle savunma sanayii işlerinde Savunma Sanayii Başkanlığı onayı zorunlu hale geldi.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, mevcut düzenlemedeki belge gereksinimlerini açıkça tanımlamakla birlikte yeni bir yük veya kolaylık getirmemektedir. Uygulamada netlik sağlar; ihracat işlemlerini yürüten firmalar için idari işlem süresi etkilenmez.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250812-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

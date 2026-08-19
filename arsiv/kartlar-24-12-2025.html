@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,35 +33,45 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>24.12.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>24.12.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Çalışma ve Sosyal Güvenlik Eğitim Merkezi döner sermaye yönetmeliğinde değişiklik</h3>
-<p><b>Ne oldu:</b> Çalışma ve Sosyal Güvenlik Bakanlığı bünyesindeki eğitim merkezinin yönetmeliğinde, görev tanımlarını ve kuruluş sermayesini düzenleyen değişiklik yürürlüğe girdi.</p>
-<p><b>Neyi değiştiriyor:</b> Çalışma ve Sosyal Güvenlik Eğitim ve Araştırma Merkezi Döner Sermaye İşletmesi Yönetmeliği</p>
-<p><b>Ürün:</b> kaynakta belirtilmemiş</p>
-<p><b>Kimi ilgilendirir:</b> Çalışma ve Sosyal Güvenlik Eğitim ve Araştırma Merkezi</p>
-<p><b>Ne yapmalısın:</b> Merkez müdürlüğü, güncellenen yönetmeliği sistem ve prosedürlerine uyarlamalı; eğitim ve proje hizmetleri ile etkinlik düzenleme kapsamındaki yeni görev tanımlarını operasyonel olarak hayata geçirmelidir.</p>
+<p><b>Ne oldu:</b> Çalışma ve Sosyal Güvenlik Bakanlığı'na bağlı eğitim merkezinin döner sermaye işletme yönetmeliğinde hukuki dayanak, görev alanları ve kuruluş sermayesi güncellendi.</p>
+<p><b>Hangi tebliğ:</b> Çalışma ve Sosyal Güvenlik Eğitim ve Araştırma Merkezi Döner Sermaye İşletmesi Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Merkezin döner sermaye işletmesi kuruluş sermayesi 5 milyon Türk lirası olarak belirlenmiştir (Madde 3).</div>
+<div class='kiymet'>• Merkez, görev alanlarıyla ilgili eğitim ve danışmanlık hizmeti verebilir, araştırma projesi yürütebilir, ulusal ve uluslararası etkinlikler düzenleyebilir (Madde 2).</div>
+<div class='kiymet'>• Yönetmelik yayımı tarihinde yürürlüğe girmektedir (Madde 4).</div>
+<p><b>Ürün:</b> Yüksek öğretim kurumuna bağlı eğitim ve araştırma merkezi hizmetleri</p>
+<p><b>Kimi ilgilendirir:</b> Çalışma ve Sosyal Güvenlik Bakanlığı, merkez yönetimi ve hizmet talep edenler</p>
+<p><b>Ne yapmalısın:</b> Merkezin faaliyetlerini güncellenmiş yönetmeliğe göre uyarlayın. İç yönetim prosedürlerinizi beş milyon liralık sermaye tutarına ve genişletilen hizmet kapsamına (danışmanlık, uluslararası etkinlikler) uygun şekilde revize edin.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, idari işleyişteki görev tanımlarını netleştirmekte ve sermaye tabanını belirlemektedir. İthalatçılar açısından doğrudan bir etkisi bulunmamakta olup, kurum içi işleyişi düzenleyen teknik bir değişikliktir.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Değişiklik, merkezin hukuki temelini netleştiriyor ve eğitim-araştırma-etkinlik hizmet kapsamını açıkça tanımlıyor. Sermaye artırımı (5 milyon TL) işletme kabiliyetini güçlendiriyor. İthalatçı veya dış ticaret üzerinde doğrudan bir etkisi bulunmamaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251224-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>2025 dördüncü geçici vergi döneminde enflasyon düzeltmesi uygulanmayacak</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 2025 hesap döneminin dördüncü geçici vergi döneminde (30 Aralık 2025'te yayımlanmıştır) bilanço esasında hesap tutan mükelleflerin enflasyon düzeltmesi yapmamasını uygun bulmuştur. Altın-gümüş işleten mükelleflerin istisna olarak düzeltmeye devam etmesi gerekir; geçici vergi beyannamelerine de bu dönem için bilanço eklenmeyecektir.</p>
-<p><b>Neyi değiştiriyor:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 582)</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> Bilanço esasında hesap tutan gelir ve kurumlar vergisi mükellefleri; münhasıran altın-gümüş alım-satımı ve imali yapanlar (istisna yükümlü)</p>
-<p><b>Ne yapmalısın:</b> 2025 dördüncü geçici vergi beyannamesi vermen gerekir. Bilanço ekleme. Eğer altın-gümüş işletiyorsan (münhasıran ve sürekli) o zaman enflasyon düzeltmesini yap ve bilanço da ekle. Diğerlerse sadece dönemin mali rakamlarıyla bey verdikten sonra yıl sonunda düzeltmeyi değerlendir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
+<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, 2025 hesap döneminin dördüncü geçici vergi döneminde enflasyon düzeltmesi yapılmayacağını duyurmuştur. İstisna: altın ve gümüş alım-satımı ile uğraşan mükellefler bu dönemde de düzeltme yapmak zorundadır.</p>
+<p><b>Hangi tebliğ:</b> Vergi Usul Kanunu Genel Tebliği (Sıra No: 582) sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 2025 dördüncü geçici vergi döneminde geçici gelir/kurumlar vergisi beyannamelerinin ekine bilanço eklenmeyecektir (m.3/3).</div>
+<div class='kiymet'>• Münhasıran altın, gümüş alım-satımı ve imali ile iştigal eden mükellefleri istisna: bu dönemde de enflasyon düzeltmesi yapmaya devam etmeleri zorunlu (m.3/4).</div>
+<div class='kiymet'>• 2025 takvim yılı içinde başlayan özel hesap dönemli mükelleflere tebliğ uygulanırken 2025 içindeki dördüncü geçici vergi dönemi dikkate alınacak (m.3/2).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde (24 Aralık 2025'te) yürürlüğe girer (m.4).</div>
+<p><b>Ürün:</b> Vergi usul uygulaması; altın ve gümüş sektörü istisnası</p>
+<p><b>Kimi ilgilendirir:</b> Bilanço esasına göre kazanç tespit eden gelir ve kurumlar vergisi mükellefleri; özellikle altın ve gümüş alım-satımıyla iştigal edenler</p>
+<p><b>Ne yapmalısın:</b> Dördüncü geçici vergi beyannamenizi bilanço eklemeden hazırlayın. Altın/gümüş işletmeniz veya iştigal konunuz varsa enflasyon düzeltmesine devam edin. Mali tablolarınızın enflasyon düzeltme kapsamında olup olmadığını (aktif toplamı/ciro) kontrol edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/12/20251224-8.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

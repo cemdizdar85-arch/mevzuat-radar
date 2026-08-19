@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,37 +33,57 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>06.09.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>06.09.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Küçük cam balkon tekerlekleri ithalatında gözetim belgesi zorunluluğu</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı 6 Eylül 2025'ten itibaren birim gümrük kıymeti 5,5 ABD Doları/Kg'nin altında olan küçük tekerleklerin (cam balkon tekerleği) ithalatında gözetim belgesi şartı getiriyor. Belgeler elektronik ortamda İthalat Genel Müdürlüğü tarafından düzenlenecek ve altı ay süre ile geçerli olacak.</p>
-<p><b>Ürün:</b> Küçük tekerlekler (yalnız cam balkon tekerleği)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Küçük cam balkon tekerleklerinin ithalatında gözetim belgesi zorunlu hale geldi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 8302.20.00.00.00 GTİP kodlu küçük cam balkon tekerleklerinden (birim kıymeti 5,5 ABD Doları/Kg altında olanlar) yapılacak ithalatta gözetim belgesi başvurusunu zorunlu hale getirmiştir. Belgeler elektronik ortamda, Gümrükler Tek Pencere Sistemi üzerinden düzenlenecek olup altı ay süreyle geçerli olacaktır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Söz konusu eşya ancak İthalat Genel Müdürlüğü tarafından düzenlenen gözetim belgesi ile ithal edilebilir; gümrük beyannamesinin tescilinde belge istenir (Madde 2/1).</div>
+<div class='kiymet'>• Başvuru, Gümrükler Tek Pencere Sistemi (www.ticaret.gov.tr) üzerinden e-Devlet (www.turkiye.gov.tr) veya direkt Bakanlık internet sayfasından elektronik imza ile yapılır (Madde 3/1).</div>
+<div class='kiymet'>• Elektronik ortamda başvuru yapılamıyorsa, Ek-1 formunun fiziksel olarak sunulması mümkündür; bu durumda ticaret sicil tasdiknamesi eklenmesi gerekir (Madde 3/4).</div>
+<div class='kiymet'>• Gözetim belgesi sistem tarafından elektronik ortamda düzenlenir; 23 haneli belge numarası ve tarihi gümrük beyannamesinin 44 nolu kutusunda beyan edilir (Madde 5/1).</div>
+<div class='kiymet'>• Gümrük idaresinde kaydı olmayan ithalatçılar, bildirimi alan tarihten itibaren beş iş günü içinde sistem kaydını yaptırmak zorundadır; aksi takdirde başvuru geçersiz sayılır (Madde 5/2).</div>
+<div class='kiymet'>• Gözetim belgesi geçerlilik süresi altı aydır (Madde 7/1).</div>
+<div class='kiymet'>• Tebliğ yayımını takip eden otuzuncu gün yürürlüğe girer (Madde 8/1).</div>
+<p><b>Ürün:</b> Küçük cam balkon tekerlekleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>8302.20.00.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Cam balkon tekerlekleri imal eden veya ithal eden üreticiler ve dış ticaret şirketleri</p>
-<p><b>Ne yapmalısın:</b> Söz konusu ürün ithalatın durduğunu fark et; 30 Eylül 2025 yürürlüğünü bekle. Tedarikçilerin proforma faturalarını birim kıymeti 5,5 ABD Doları/Kg'ye karşılaştır. Sistem açıldığında (www.ticaret.gov.tr E-Hizmetler bölümü) gözetim belgesi başvurusunu elektronik imza ile başlat; fiziksel başvuru alternatifi varsa Ek-1 formunu hazırla.</p>
-<p><b>Yürürlük:</b> yayimini takip eden 30. gun</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Eşik altındaki sevkiyatlar artık gözetim belgesi olmadan ithal edilemiyor. Bu, tedarik zincirini yavaşlatıyor ve bürokratik yükü arttırıyor; özellikle 5,5 ABD Doları/Kg sınırına yakın fiyatlardan gelen mallar denetim riski taşıyor.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>8302.20.00.00.00 → <b>5,5 ABD Doları/Kg (Brüt)</b></div>
+<p><b>Kimi ilgilendirir:</b> Cam balkon tekerleği ithal eden firmalar ile dış ticaret müşavirleri</p>
+<p><b>Ne yapmalısın:</b> Mevcut ve gelecekteki tüm cam balkon tekerleği ithalatlarınız için Gümrükler Tek Pencere Sistemi üzerinden gözetim belgesi başvurusunda bulununuz. Başvuru öncesinde Ek-1 ve Ek-2 formlarını temin ederek gerekli belgeleri hazırlayınız. Belge onaylandığında sistem üzerinden kontrol ederek 23 haneli referans numarasını kaydediniz; gümrük beyannamesinin 44 no'lu kutusuna bu numarayı giriniz.</p>
+<p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Gözetim belgesi uygulaması, ithalatçılara yeni bir yönetim ve zaman yükü getirmektedir. Gümrük kıymeti 5,5 ABD Doları/Kg'nin altında olan mallar için ek belge ve inceleme prosedürü zorunlu hale gelmiş olup, sevkiyat planlamalarının buna göre güncellenmesi gerekmektedir; belgesi bulunmayan ithalatlar ise reddedilecektir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250906-16.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Polimerler ithalatında gözetim belgesi zorunluluğu başlıyor</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli polimerlerin ithalatında gözetim belgesi şartı getirdi. Belgeler e-imza ile talep edilecek, gümrük beyannamesinin tescilinde aranacak ve altı ay geçerli olacak.</p>
-<p><b>Ürün:</b> Toz polimerler (başka yerde belirtilmeyenler)</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, belirli polimerlerin (toz formunda, birim gümrük kıymeti 2,5 ABD Doları/kg'ın altında olanlar) ithalatında gözetim belgesi aranmasına ilişkin yeni bir tebliğ yayımladı. Belge, elektronik başvuru yoluyla temin edilecek; başvurunun gümrük beyannamesine eklenmesi halinde ithalat gerçekleştirilebilecek.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• 3905.29.00.00.00 GTİP kodlu, 2,5 ABD Doları/kg'ın altı birim kıymete sahip toz polimerler yalnız gözetim belgesi ile ithal edilir (m.2).</div>
+<div class='kiymet'>• Gözetim belgesi talepleri www.ticaret.gov.tr'deki E-Hizmetler veya e-Devlet üzerinden elektronik imza ile yapılır; fiziksel başvuru da mümkündür (m.3).</div>
+<div class='kiymet'>• Belgeler elektronik ortamda düzenlenir ve başvuru formundaki e-posta adresine bildirilir; 23 haneli numara gümrük beyannamesinin 44. kutusuna yazılır (m.5).</div>
+<div class='kiymet'>• Başvuru sahibi kaydının gümrük idaresinde yoksa, ithalatçı 5 iş günü içinde sisteme kayıt yaptırmalı; aksi halde başvuru geçersiz sayılır (m.5/2).</div>
+<div class='kiymet'>• Gözetim belgesi geçerlilik süresi 6 aydır (m.7/1).</div>
+<div class='kiymet'>• Tebliğ, 6 Eylül 2025'teki yayımından itibaren 30. gün (yaklaşık 6 Ekim 2025'te) yürürlüğe girer (m.8).</div>
+<p><b>Ürün:</b> Toz polimerler (diğer polimer türleri)</p>
 <p><b>GTİP:</b><br><span class='gtip'>3905.29.00.00.00</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>3905.29.00.00.00 → <b>2,5 ABD Doları/Kg</b></div>
 <p><b>Kimi ilgilendirir:</b> Toz polimer ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> Söz konusu GTIP kodu altında ithalat yapıyorsanız, Bakanlığın web sayfası (www.ticaret.gov.tr) üzerinden e-İmza ile gözetim belgesi talebine başlayın. Beyannamenin 44 nolu kutusunda belge numarasını ve tarihini belirtin. Her başvuruyu ibraz ettiğiniz belgelerle tutarlı hazırlayın; eksiklik veya çelişki tespit edilirse talebiniz reddedilebilir.</p>
-<p><b>Yürürlük:</b> yayımını takip eden 30. gün</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
+<p><b>Ne yapmalısın:</b> Eylül sonu itibarıyla, söz konusu ürünlerin ithalatı planlanıyorsa Bakanlığın web sitesi üzerinden kayıt işlemi tamamlanmalı ve gözetim belgesi başvurusu hazırlanmalıdır. Ayrıca gümrük muhasebe iş akışına, ilgili ürün kodu ve birim kıymet kontrolünün eklenmesi gerekmektedir.</p>
+<p><b>Yürürlük:</b> yayimini takip eden 30. gun</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Gözetim belgesi:</b> ithalatın izlemeye alınması: belirlenen birim fiyatın altında kalan ithalat ancak Ticaret Bakanlığından alınan 'gözetim belgesi' ile yapılabilir; bu bir vergi değil izleme aracıdır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/09/20250906-17.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

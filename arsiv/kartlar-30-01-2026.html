@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,26 +33,43 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>30.01.2026 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>30.01.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Polyester elyaf ithalatında dampinge karşı önlem oranları güncellendi</h3>
-<p><b>Ne oldu:</b> Hindistan, Çin Tayvanı ve Tayland menşeli polyester elyaf ithalatında uygulanacak dampinge karşı önlem oranları belirlenmiştir. Renkli ve diğer polyesterler için farklı oranlar tanımlanmış olup menşe ülke ve ithalatçı firma bazında değişkenlik söz konusudur.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2019/26</p>
-<p><b>Ürün:</b> Polyester elyaf (poliesterlerden)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Polyester elyaf ithalatında dampinge karşı önlemlerin güncellenmesi ve oranların değiştirilmesi</h3>
+<p><b>Ne oldu:</b> Renkli polyester elyaflar için ayrı bir GTİP alt pozisyonu (5503.20.00.00.11) oluşturulmuş ve bu ürünlere daha düşük dampinge karşı önlem oranları uygulanmaya başlanmıştır. Diğer ürünler (5503.20.00.00.19) için eski oranlar korunmuştur.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2019/26) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(04.08.2019 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTİP 5503.20.00.00.00 - Hindistan Futura Polyesters Ltd. dampinge karşı önlem</span><span class='hap eski'>12,0%</span><span class='ok'>→</span><span class='hap yeni'>Renkli olanlar: 6,00% | Diğerleri: 12,00%</span> <b style='color:var(--green)'>▼%50</b></div>
+<div class='karsi'><span class='kon'>GTİP 5503.20.00.00.00 - Hindistan Reliance Industries Ltd. dampinge karşı önlem</span><span class='hap eski'>8,5%</span><span class='ok'>→</span><span class='hap yeni'>Renkli olanlar: 4,25% | Diğerleri: 8,50%</span> <b style='color:var(--green)'>▼%50</b></div>
+<div class='karsi'><span class='kon'>GTİP 5503.20.00.00.00 - Tayvan Chung Shing Textile Co. Ltd. dampinge karşı önlem</span><span class='hap eski'>11,6%</span><span class='ok'>→</span><span class='hap yeni'>Renkli olanlar: 5,80% | Diğerleri: 11,60%</span> <b style='color:var(--green)'>▼%50</b></div>
+<div class='karsi'><span class='kon'>GTİP 5503.20.00.00.00 - Tayvan Far Eastern New Century Corporation dampinge karşı önlem</span><span class='hap eski'>7,1%</span><span class='ok'>→</span><span class='hap yeni'>Renkli olanlar: 3,55% | Diğerleri: 7,10%</span> <b style='color:var(--green)'>▼%50</b></div>
+<div class='karsi'><span class='kon'>GTİP 5503.20.00.00.00 - Tayvan Shinkong Synthetics Fibers Corp. dampinge karşı önlem</span><span class='hap eski'>6,4%</span><span class='ok'>→</span><span class='hap yeni'>Renkli olanlar: 3,20% | Diğerleri: 6,40%</span> <b style='color:var(--green)'>▼%50</b></div>
+<div class='kiymet' style='color:var(--dim)'>+3 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Hindistan, Çin Tayvanı ve Tayland menşeli 5503.20 gümrük tarifeleri altındaki polyester elyafa, 4. maddede belirtilen tabloya göre %3,20 ile %12,00 arasında dampinge karşı kesin önlem uygulanacak (Madde 5/1).</div>
+<div class='kiymet'>• Gümrük idareleri serbest dolaşıma girişte ilâve bedeli tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Önceki damping önlemi (2019/26 Tebliği) yerine yeni tarife esası uygulanır (Madde 4/2).</div>
+<div class='kiymet'>• Önlem, yürürlük tarihinden itibaren 5 yıl boyunca geçerlidir (Madde 5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme başlatılırsa, soruşturma sonuçlanana kadar önlem sürer (Madde 5/5).</div>
+<p><b>Ürün:</b> Polyester elyaf (poliesterlerden yapılmış sentetik lifler)</p>
 <p><b>GTİP:</b><br><span class='gtip'>5503.20.00.00.11</span><span class='gtip'>5503.20.00.00.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Hindistan, Çin Tayvanı ve Tayland menşeli polyester elyaf ithalatçıları ile tekstil ve lifli maddeler sektörü</p>
-<p><b>Ne yapmalısın:</b> Sevkiyat fiyatları GTIP kodu ve menşe ülke bazında karşılaştırılmalı; Futura Polyesters ve Reliance (Hindistan), Chung Shing ve Far Eastern (Çin Tayvanı), Tuntex ve Indo Poly (Tayland) gibi adı geçen firmalardan gelen mallara ilişkin oranlar gümrük beyannamelerine yansıtılmalıdır.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> CIF bedeline uygulanacak dampinge karşı önlem oranları %3,20 ile %12,00 arasında değişmektedir. Renkli polyesterlerde daha düşük oranlar (ortalama %3-6), diğer polyesterlerde ise daha yüksek oranlar (ortalama %6-12) uygulanacak; bu durum maliyetleri artıracak ve gümrük işlemlerini karmaşıklaştıracaktır.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>5503.20.00.00.11 → <b>Futura Polyesters Ltd. (Hindistan): %6,00; Reliance Industries Ltd. (Hindistan): %4,25; Diğer (Hindistan): %6,00; Chung Shing Textile Co. Ltd. (Çin Tayvanı): %5,80; Far Eastern New Century Corporation (Çin Tayvanı): %3,55; Nan Ya Plastics Corporation (Çin Tayvanı): %6,00; Shinkong Synthetics Fibers Corp. (Çin Tayvanı): %3,20; Diğer (Çin Tayvanı): %6,00; Tuntex (Thailand) Public Co. Ltd. (Tayland): %6,00; Indo Poly (Thailand) Ltd. (Tayland): %6,00; Diğer (Tayland): %6,00</b></div>
+<div class='kiymet'>5503.20.00.00.19 → <b>Futura Polyesters Ltd. (Hindistan): %12,00; Reliance Industries Ltd. (Hindistan): %8,50; Diğer (Hindistan): %12,00; Chung Shing Textile Co. Ltd. (Çin Tayvanı): %11,60; Far Eastern New Century Corporation (Çin Tayvanı): %7,10; Nan Ya Plastics Corporation (Çin Tayvanı): %12,00; Shinkong Synthetics Fibers Corp. (Çin Tayvanı): %6,40; Diğer (Çin Tayvanı): %12,00; Tuntex (Thailand) Public Co. Ltd. (Tayland): %12,00; Indo Poly (Thailand) Ltd. (Tayland): %12,00; Diğer (Tayland): %12,00</b></div>
+<p><b>Kimi ilgilendirir:</b> Hindistan, Çin Tayvanı ve Tayland'dan polyester elyaf ithal eden tekstil ve hazır giyim üreticileri</p>
+<p><b>Ne yapmalısın:</b> Mevcut polyester ithalatı için 4. maddedeki tablodan menşe ülke, firma ve ürün tanımı (renkli/diğer) ile eşleştirip ilâve bedel oranını belirle. Subat sevkiyatlarının CIF bedellerine kaynakça uygulanacak yüzdeyi hesapla ve beyan belgelerine ekleme talimatı ver.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Renkli polyester elyaflar ithalatçılara lehine (oranlar yarıya düşmüş), diğer polyester elyaflar ithalatçılara aleyine (oranlar değişmez) etki yapacaktır.</div>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/01/20260130-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

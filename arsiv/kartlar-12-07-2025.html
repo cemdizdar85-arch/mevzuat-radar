@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,36 +33,57 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>12.07.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>12.07.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Dijital Dönüşüm Destek Programı Tebliğinde yasal çerçeve ve tutarlar güncellendi</h3>
-<p><b>Ne oldu:</b> Sanayi ve Teknoloji Bakanlığı, Dijital Dönüşüm Destek Programı Tebliğini yeni devlet yardımları çerçevesiyle uyumlu hale getirdi. Referans alınan kararlar, tanımlamalar ve ödemeler düzeni revize edildi.</p>
-<p><b>Neyi değiştiriyor:</b> Dijital Dönüşüm Destek Programı Uygulama Esaslarına İlişkin Tebliğ</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Dijital Dönüşüm Destek Programı Tebliğinde adı ve referanslar güncellendi</h3>
+<p><b>Ne oldu:</b> Sanayi ve Teknoloji Bakanlığı, 2024 yılında yayımlanan Dijital Dönüşüm Destek Programı Tebliğinin adını kısaltarak, içindeki yasal referansları ve tanımları 2025 yılındaki yeni devlet yardımları kararına uyarladı. Tebliğ metni içindeki 'destek' sözcüğü kimi yerlerde kaldırıldı, madde referansları güncellendi.</p>
+<p><b>Hangi tebliğ:</b> 26/7/2024 tarihli ve 32613 sayılı Resmî Gazete'de yayımlanan Dijital Dönüşüm Destek Programı Uygulama Esaslarına İlişkin Tebliğ sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 13 üncü maddesinin birinci fıkrası baştan yazıldı</div>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
-<div class='kiymet'>• Tebliğ adı: <span style='color:var(--dim);text-decoration:line-through'>Dijital Dönüşüm Destek Programı Uygulama Esaslarına İlişkin Tebliğ</span> → <b>Dijital Dönüşüm Programı Uygulama Esaslarına İlişkin Tebliğ</b></div>
-<p><b>Ürün:</b> Bu tebliğ gümrük kodlarıyla sınırlandırılmamış olup, dijital dönüşüm yatırım desteklerinin uygulanışını düzenler</p>
-<p><b>Kimi ilgilendirir:</b> Dijital dönüşüm ve yenililik projeleri için devlet desteği alan (veya alan) işletmeler, proje danışmanları, üniversitelere görevlendirilecek izleyici öğretim elemanları</p>
-<p><b>Ne yapmalısın:</b> Devam eden başvurularını yeni Cumhurbaşkanı Kararı çerçevesinde yeniden değerlendir. Tutarlarını güncellenmiş 5. ve 8. maddelere karşı çıkart. Uygulama Tebliği olarak Tebliğ No: 2025/1'i ve 32933 sayılı RG'yi kütüphanenize ekle.</p>
+<div class='karsi'><span class='kon'>9 uncu madde</span><span class='hap eski'>Kararın 17 nci maddesinin birinci fıkrası</span><span class='ok'>→</span><span class='hap yeni'>Kararın 29 uncu maddesi</span></div>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>Dijital dönüşüm destek programı</span><span class='ok'>→</span><span class='hap yeni'>Dijital dönüşüm programı</span> <span style='color:var(--dim);font-size:11px'>(metinde 2 yerde)</span></div>
+<div class='karsi'><span class='kon'>10 uncu madde</span><span class='hap eski'>düzenlenir</span><span class='ok'>→</span><span class='hap yeni'>düzenlenebilir</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Bu tebliğ yayımı tarihinde yürürlüğe girdi (Madde 11).</div>
+<div class='kiymet'>• Dijital dönüşüm programının desteklenebileceği yasal çerçeve, 29/5/2025 tarihli Cumhurbaşkanı Kararına dayandırıldı (Madde 3, 4, 6).</div>
+<div class='kiymet'>• Yatırımların stratejik hamle programı veya öncelikli yatırımlar teşvik sistemi kapsamında yer alan desteklerden faydalanması mümkün (Madde 5).</div>
+<div class='kiymet'>• İzleyici görevini yapan öğretim elemanları ve alan uzmanlarına MTGM tarafından ödeme yapılması hükmü korundu (Madde 9).</div>
+<p><b>Ürün:</b> dijital dönüşüm yatırımları</p>
+<p><b>Kimi ilgilendirir:</b> dijital dönüşüme destek alan işletmeler, araştırma geliştirme yapan kuruluşlar</p>
+<p><b>Ne yapmalısın:</b> Mevcut başvurularında referans olarak kullandığınız 2012/1 Tebliğ numarasını 2025/1 ile güncelle. Yatırım tutarı kontrol ediliyorsa, asgari yatırım eşikleri için Cumhurbaşkanı Kararının 5. ve 8. maddelerini kontrol et. Program adına yönelik yazışmalarda 'Destek Programı' yerine 'Programı' terimini kullan.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250712-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20250712-5.html'>Neyin nesi değişti? →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Sağlık Bakanlığı izinli maddelerde ithalat denetimi tablosu güncellendi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Sağlık Bakanlığının özel iznine tabi maddelerin ithalat denetimini düzenleyen tebliğin ekindeki tabloda değişiklik yaptı. 99. satırda yapılan değişiklik 15 gün sonra yürürlüğe girecek.</p>
-<p><b>Neyi değiştiriyor:</b> Sağlık Bakanlığının Özel İznine Tabi Maddelerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2025/4)</p>
-<p><b>Ürün:</b> Sağlık Bakanlığının özel iznine tabi maddeler</p>
-<p><b>Kimi ilgilendirir:</b> Sağlık Bakanlığı izinli ürün ithal eden firmalar</p>
-<p><b>Ne yapmalısın:</b> 31 Aralık 2024 tarihli tebliğin Ek-1 tablosundaki 99. satırı kontrol edin; 15 Ocak 2026 itibarıyla geçerli olacak yeni düzenlemeler doğrultusunda beyan ve belge hazırlıklarınızı güncelleyin.</p>
-<p><b>Yürürlük:</b> yayımını takip eden 15. gün</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>GTIP 2933.39.99.00.39 piperisidon ürününün tanımında yapılan değişiklik</h3>
+<p><b>Ne oldu:</b> Değişiklik tebliğinde, GTIP 2933.39.99.00.39 için Ek-1 tablosunun 99. satırında bir değişiklik yapıldığı belirtilmekte, ancak yeni metnin değiştirilmiş hâli açıkça görülememektedir.</p>
+<p><b>Hangi tebliğ:</b> Sağlık Bakanlığının Özel İznine Tabi Maddelerin İthalat Denetimi Tebliği (Ürün Güvenliği ve Denetimi: 2025/4) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(31.12.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>GTIP 2933.39.99.00.39 ürün tanımı</span><span class='hap eski'>Diğerleri (Yalınzea 1-boc pipericidone oxopiperidine-1-carboxylate), pipericidone)</span><span class='ok'>→</span><span class='hap yeni'>Görüntü net olarak okunamadığı için yazılamaz</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Teblig 12 Temmuz 2025 tarihinde yayımlandıktan 15 gün sonra yürürlüğe girmektedir (Madde 2).</div>
+<p><b>Ürün:</b> Piperidon ve oksipiperidin türevleri (ilaç ham maddesi/kimyasal)</p>
+<p><b>GTİP:</b><br><span class='gtip'>2933.39.99.00.39</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>2933.39.99.00.39 → <b>kaynakta belirtilmemiş</b></div>
+<p><b>Kimi ilgilendirir:</b> Farmasötik ham madde ithal eden kimya şirketleri, Sağlık Bakanlığından izin alan ithalatçılar</p>
+<p><b>Ne yapmalısın:</b> Temmuz ayının son haftasındaki sevkiyatlarda 99. satırın yeni tanımını denetim belgesiyle karşılaştırarak doğrulayın; tedarikçilere bildirilen ürün tanımını güncelleyin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250712-6.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

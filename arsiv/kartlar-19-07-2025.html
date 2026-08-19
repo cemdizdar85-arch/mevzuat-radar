@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,40 +33,62 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>19.07.2025 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>19.07.2025 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Mısır menşeli granit ithalatına dampinge karşı kesin önlem</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Mısır'dan ithal edilen granit ürünlerinin dampingli olduğunu ve yerli üretimi zarar gördüğünü tespit etti. GTIP 6802.23 ve 6802.93 kodlarına karşı kesin önlemler uygulanacak.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/27)</p>
-<p><b>Ürün:</b> Granit</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Mısır menşeli granit ithalatında kesin dampinge karşı önlem uygulanması</h3>
+<p><b>Ne oldu:</b> Orijinal damping soruşturmasının açılışını düzenleyen tebliğ, soruşturma tamamlanıp kesin karar alındıktan sonra, kesin önlemleri (dampinge karşı vergi oranlarını) yürürlüğe koyan yeni bir tebliğle değiştirilmiştir. Soruşturma sürecine ilişkin maddeler yürürlükten kaldırılmış; kesin önlem uygulaması ve oranları tabloda gösterilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2024/27) sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(09.08.2024 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
+<div class='karsi'><span class='kon'>Tebliğ referansı</span><span class='hap eski'>Tebliğ No: 2024/27 (9 Ağustos 2024)</span><span class='ok'>→</span><span class='hap yeni'>Tebliğ No: 2025/17 (19 Temmuz 2025)</span></div>
+<div class='karsi'><span class='kon'>Tanımlar maddesinin kapsamı</span><span class='hap eski'>13 tanım (Bakanlık, EBYS, Genel Müdürlük, Kanun, Karar, KEP, Mısır vb.)</span><span class='ok'>→</span><span class='hap yeni'>5 tanım (CIF, GTP, Kurul, TGTC, Yönetmelik)</span></div>
+<div class='karsi'><span class='kon'>Ana karar metni</span><span class='hap eski'>Soruşturma açılması kararı (Madde 8)</span><span class='ok'>→</span><span class='hap yeni'>Kesin dampinge karşı önlemlerin uygulanması kararı (Madde 4-5)</span></div>
+<div class='karsi'><span class='kon'>Bildirim ve ilgili taraflar</span><span class='hap eski'>Madde 9-11'de detaylı bildirim prosedürü ve süreler</span><span class='ok'>→</span><span class='hap yeni'>Maddelerde yer almayan soruşturma açılış bildirimi ve ilgili taraf tanımı</span></div>
+<div class='karsi'><span class='kon'>İş birliğine gelinmemesi hükmü</span><span class='hap eski'>Madde 12'de yer alan detaylı hüküm</span><span class='ok'>→</span><span class='hap yeni'>Maddelerde yer almayan hüküm</span></div>
+<div class='kiymet' style='color:var(--dim)'>+4 değişiklik daha (kelime/atıf düzeltmesi) — tamamı için kaynak tebliğe bakın</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Mısır menşeli 6802.23 ve 6802.93 GTIP kodlu granit ürünü ithalatında tabloda belirtilen oranlarda dampinge karşı kesin önlem uygulanır (m.4).</div>
+<div class='kiymet'>• Gümrük idareleri, serbest dolaşıma giriş rejiminde bu ürünlerin ithalatında damping karşı önlemleri tahsil eder (m.5/1).</div>
+<div class='kiymet'>• Uygulamaya esas olan tanım ve GTIP kodu Türk Gümrük Tarife Cetveli'nde yer alan halidir; Bilgilendirme Raporu ek içerik niteliğindedir (m.5/2).</div>
+<div class='kiymet'>• Önlemler yürürlük tarihinden itibaren 5 yıl sonra otomatik sona erer (m.5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatıldığı takdirde önlemler soruşturma bitene kadar yürürlükte kalır (m.5/5).</div>
+<p><b>Ürün:</b> Granit (Mısır Arap Cumhuriyeti menşeli)</p>
 <p><b>GTİP:</b><br><span class='gtip'>6802.23</span><span class='gtip'>6802.93</span></p>
-<p><b>Kimi ilgilendirir:</b> Mısır menşeli granit ithal eden inşaat malzemecileri ve dekoratif taş ticaret şirketleri</p>
-<p><b>Ne yapmalısın:</b> Mısır'dan gelen granit sevkiyatlarının GTIP kodlarını kontrol et. İlgili ürünler için damping karşı kesin önlemlerin (oran kaynakta tablo halinde) uygulandığını gümrük beyannamelerinde ve bedel planlamalarında dikkate al. Bilgilendirme Raporu'nu indir; net oranlar ve tanım ayrıntıları orada yer alıyor.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Damping karşı kesin önlemler Mısır'dan granit ithalatını pahalılaştırır. İthalatçılar bedel ve maliyetlendirmelerini güncellemelidir; beş yıl müddetle geçerli olacak önlemler sonrası gözden geçirme mümkündür.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Mısır'dan granit ithal eden peyzaj ve inşaat malzemeleri dağıtıcıları, mermerciler ve taş işlemecileri</p>
+<p><b>Ne yapmalısın:</b> Mevcut ve yaklaşan Mısır kaynaklı granit ithalatlarının CIF bedellerini tabloda yer alan damping oranlarıyla karşılaştırın; gümrük beyannamesi hazırlanırken ek ödemeleri proforma belgelerine yansıtın. Beş yıllık izleme takvimi oluşturun (sona erme tarihi: 19 Temmuz 2030).</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> GTP 6802.23 altındaki granit ithalatında %55, GTP 6802.93 altında ise %66 oranında dampinge karşı kesin vergi uygulanması, ithalatçıların maliyetlerini artırmakta ve ithalatçılar aleyhine sonuç doğurmaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250719-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Mısır ve Bahreyn menşeli cam elyafı takviye malzemelerine dampinge karşı kesin önlem</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Mısır Arap Cumhuriyeti ve Bahreyn Krallığından ithal edilen cam elyafı takviye malzemelerine (GTIP 7019.11, 7019.12, 7019.13, 7019.15, 7019.19) dampinge karşı kesin önlem uygulamaya başladı. Soruşturma sonucunda bu ürünlerin dampingli olduğu ve yerli üretimi zarara uğrattığı tespit edildi.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/26</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Mısır ve Bahreyn'den cam elyafı takviye malzemelerine dampinge karşı kesin önlem</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Mısır Arap Cumhuriyeti ve Bahreyn Krallığı menşeli cam elyafı takviye malzemelerine yönelik tamamlanan damping soruşturması kapsamında kesin önlem uygulanmasına karar vermiştir. Önlemler, tabloda gösterilen oranlar üzerinden gümrük idareleri tarafından tahsil edilecektir.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2024/26 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Mısır ve Bahreyn menşeli cam elyafı takviye malzemeleri (GTP 7019.11, 7019.12, 7019.13, 7019.15, 7019.19) ithalatında tabloda belirtilen oranlarda damping karşı kesin önlemler uygulanır (Madde 5/1).</div>
+<div class='kiymet'>• Gümrük idareleri, serbest dolaşıma giriş rejimindeki ithalatında karşısında gösterilen oranlarda önlemleri tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Uygulama GTP ve tablodaki eşya tanımına dayalı olup, Türk Gümrük Tarife Cetvelinde yapılacak değişiklikler bu tebliğ hükümlerinin uygulanmasına engel teşkil etmez (Madde 5/2-3).</div>
+<div class='kiymet'>• Önemler yürürlük tarihinden itibaren 5 yıl sonra otomatik olarak yürürlükten kalkar (Madde 5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatılırsa, önlemler soruşturma sonuçlanıncaya kadar devam eder (Madde 5/5).</div>
 <p><b>Ürün:</b> Cam elyafı takviye malzemeleri</p>
-<p><b>GTİP:</b><br><span class='gtip'>7019.11</span><span class='gtip'>7019.12</span><span class='gtip'>7019.13</span><span class='gtip'>7019.15</span><span class='gtip'>7019.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Cam elyafı takviye malzemeleri üreten ve ithal eden şirketler, inşaat, otomotiv ve endüstriyel uygulamalar sektörleri</p>
-<p><b>Ne yapmalısın:</b> Mısır ve Bahreyn'den gelen cam elyafı ürünlerinin CIF değerlerini tebliğdeki tabloya karşı doğrula; ek-1 tabloya erişerek ürün kodları bazında uygulanacak kesin önlem oranlarını belirle; gümrük beyannamelerinde bu oranların doğru tahsil edildiğini kontrol et; mevcut stok ve transit mallar için Gümrük Müdürlüğü ile durumu netleştir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Dampinge karşı kesin önlem uygulanması, belirtilen ürünlerin ithal maliyetini artıracak ve bu kaynaktan gelen malların rekabet gücünü azaltacak. Tebliğde tablonun ek dosyada yer alması nedeniyle oranlar bu metinden okunamadığından, muhasebe ve gümrük planlaması güncellemesi için ek-1'e erişim zorunlu.</div>
+<p><b>GTİP:</b><br><span class='gtip'>7019.11</span><span class='gtip'>7019.12</span><span class='gtip'>7019.15</span><span class='gtip'>7019.19</span></p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>7019.11 → <b>kaynakta belirtilmemis</b></div>
+<div class='kiymet'>7019.12 → <b>kaynakta belirtilmemis</b></div>
+<p><b>Kimi ilgilendirir:</b> Mısır ve Bahreyn'den cam elyafı takviye malzemesi ithal eden işletmeler</p>
+<p><b>Ne yapmalısın:</b> Tablodaki GTİP kodlarını ve eşya tanımını kontrol ederek mevcut ithalat portföyünüzü ve yolda olan sevkiyatlarınızı belirleyin. Tabloda yer alan dampinge karşı önlem oranlarını proforma faturalar üzerinden ithalatçıyla paylaşın. Gümrük müşavirinizle birlikte, damping önlemi tutarının beyanname düzeyinde doğru hesaplandığını teyit edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250719-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

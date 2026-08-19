@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,26 +33,33 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>12.11.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>12.11.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Polistiren ithalatında damping karşı kesin önlemler uygulanacak</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin, Tayvan, Hindistan, Kore, Rusya ve Tayland'dan ithal edilen genel amaçlı ve yüksek etkili polistirenlere karşı damping soruşturmasını tamamladı. 3903.19 ve 3903.90.90 GTIP kodları altındaki ürünlere yüzde 3,50 ile 25,51 arasında değişen kesin önlemler uygulanacak.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/18</p>
-<p><b>Ürün:</b> Polistiren (genel amaçlı polistiren ve yüksek etkili polistiren)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Polistiren ithalatında kesin dampinge karşı önlemler yürürlüğe girdi</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin, Tayvan, Hindistan, Kore, Rusya ve Tayland menşeli polistiren ürünlerine (GPPS ve HIPS) yönelik damping soruşturmasını sonuçlandırarak 3903.19.00.00.00 ve 3903.90.90.00.00 gümrük tarife istatistik pozisyonları kapsamında kesin dampinge karşı önlemleri yürürlüğe koydu. Ülke ve firma bazında değişen oranlarda ek gümrük vergisi tahsil edilecektir.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2024/18 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Çin Halk Cumhuriyeti, Çin Tayvanı, Hindistan, Kore, Rusya ve Tayland menşeli GPPS polistireni ile Çin Tayvanı ve Kore menşeli HIPS polistireni dampingli olarak tespit edildi (Madde 4/2).</div>
+<div class='kiymet'>• Gümrük idareleri, belirtilen ülkelerden ithal edilen polistirene tabloda gösterilen oranlarda dampinge karşı kesin önlemleri tahsil eder (Madde 5/1).</div>
+<div class='kiymet'>• Önlemler yürürlük tarihinden itibaren 5 yıl sonra otomatik olarak sona erer (Madde 5/4).</div>
+<div class='kiymet'>• Sona erme tarihinden önce nihai gözden geçirme soruşturması başlatılırsa, önlemler soruşturma sonuçlanıncaya kadar devam eder (Madde 5/5).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (Madde 6/1).</div>
+<p><b>Ürün:</b> Polistiren: genel amaçlı polistiren (GPPS) ve yüksek etkili polistiren (HIPS)</p>
 <p><b>GTİP:</b><br><span class='gtip'>3903.19.00.00.19</span><span class='gtip'>3903.19.00.00.13</span><span class='gtip'>3903.90.90.00.00</span></p>
-<p><b>Kimi ilgilendirir:</b> Polistiren ürünü ithal eden plastik işleme, inşaat malzemeleri ve paketleme sektörleri</p>
-<p><b>Ne yapmalısın:</b> Söz konusu GTIP kodlarında yürütülen veya planlanan ithalatların menşe ülkesi ve tedarikçi firma bilgisini kontrol et, uygulanacak ön ödeme oranını tabloda belirle, gümrük ihtarını ve ödeme yükümlülüğünü iç prosedürlere entegre et.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Söz konusu ürünlerin ithal maliyeti kesin önlemler oranında artacak. Menşe ülke ve tedarikçiye bağlı olarak 3,50 ile 25,51 arasında değişen ek gümrük yükü, fiyat rekabetini sınırlandıracak ve yerli üreticilere koruma sağlayacak.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Çin, Tayvan, Hindistan, Kore, Rusya ve Tayland'dan polistiren ithal eden plastik hammadde tedarikçileri ile bu malzemeleri kullanan imalatçılar</p>
+<p><b>Ne yapmalısın:</b> Söz konusu ülkelerden yapılan polistiren sevkiyatlarının CIF bedeline tabloda belirtilen oranlar uygulanmalıdır. Mevcut tedarikçi listede yer alıyorsa daha düşük oran, 'Diğerleri' kategorisinde ise daha yüksek oranlar geçerli olacaktır; ek gümrük yükümlülüğü CIF bedel üzerinden hesaplanmalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> İthalatçılar, söz konusu ülkelerden yapılan polistiren alımlarında mevcut gümrük vergisine ilaveten, dampinge karşı önlem kapsamında CIF bedelin %3,50 ile %25,51 arasında değişen oranlarda ek mali yük üstlenecektir. Bu durum hammadde maliyetlerini artırmakta olup ürün fiyatlandırması ve kâr marjlarının yeniden değerlendirilmesi gerekmektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251112-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

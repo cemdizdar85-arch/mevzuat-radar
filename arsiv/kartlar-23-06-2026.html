@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,18 +35,30 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>23.06.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class='etiket' style='color:var(--amber)'>★ FIRSAT PENCERESİ — süreyi kaçırma</div>
-<h3>Sigorta Bilgi ve Gözetim Merkezi Yönetmeliği'nde kurum tanımları ve veri aktarım süreleri güncellendi</h3>
-<p><b>Ne oldu:</b> Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumu (SEDDK), Sigorta Bilgi ve Gözetim Merkezi Yönetmeliği'nin çeşitli maddelerinde değişikliğe gitmiştir. Değişikliklerin odağında; kurum ve yönetim tanımlarının güncellenmesi, veri aktarım sürelerinin sıkılaştırılması (üretim verilerinde eş zamanlılık, hasar verilerinde daha hızlı güncelleme) ve aşım bedeli uygulamasının yeniden yapılandırılması yer almaktadır.</p>
-<p><b>Neyi değiştiriyor:</b> 9/8/2008 tarihli ve 26962 sayılı Resmî Gazete'de yayımlanan Sigorta Bilgi ve Gözetim Merkezi Yönetmeliği</p>
-<p><b>Ürün:</b> Sigorta ve reasürans hizmetlerine ilişkin veri yönetimi ve gözetim</p>
-<p><b>Kimi ilgilendirir:</b> Sigorta şirketleri, reasürans şirketleri, emeklilik şirketleri, Türkiye Sigorta, Reasürans ve Emeklilik Şirketleri Birliği, Doğal Afet Sigortaları Kurumu, Tarım Sigortaları Havuzu, sigorta acenteleri, brokerler, eksperler ve gözetim merkezine erişim yetkisi bulunan kuruluşlar</p>
-<p><b>Ne yapmalısın:</b> Sigorta ve reasürans şirketi olarak üretim verilerinizi artık eş zamanlı gönderecek şekilde (günde bir kez değil) hazırlık yapmanız gerekmektedir. Muallak tazminat verilerinin gün sonuna kadar, diğer hasar verilerinin ise eş zamanlı olarak aktarılması zorunlu hale gelecektir. Mevcut veri gönderim süreçlerinizi ve sistem entegrasyonlarınızı yeni zaman takvimine uygun şekilde yeniden yapılandırmanız yerinde olacaktır. Aşım bedeli açısından ise Yönetim Komitesi kararıyla belirlenecek sistem kullanım sınırlarını takip etmeniz ve bu sınırların aşılması halinde bedel ödemeye hazırlıklı olmanız gerekmektedir.</p>
-<p><b>Yürürlük:</b> 16 nci madde 01.08.2026'da, diğer maddeler yayımı tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Veri aktarım sürelerinin sıkılaştırılması (eş zamanlılık) sigorta şirketlerinin sistem ve operasyon maliyetlerini artıracaktır; bununla birlikte gözetim kurumunun gerçek zamanlı veri erişimi sağlaması, pazar denetiminin etkinliğini artıracağından düzenlemenin destekleyici bir yönü de bulunmaktadır. Aşım bedeli mekanizması ise aşırı sistem kullanımını caydırmaya yönelik bir disiplin aracı olup, kurallara uyumlu kullanıcılar açısından herhangi bir etkisi bulunmamaktadır.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Sigorta Bilgi ve Gözetim Merkezi Yönetmeliğinde Kurumsal ve Teknik Değişiklikler</h3>
+<p><b>Ne oldu:</b> Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumu, Sigorta Bilgi ve Gözetim Merkezi Yönetmeliğinde kapsamlı değişiklikler yaptı. Kurum kimliğine ilişkin tanımlar yenilendi, veri aktarım süreleri hızlandırıldı (günlük gecikmeler yerine eş zamanlı/gün sonu raporlamaya geçildi) ve merkezin yönetişim ile finansman yapısı yeniden düzenlendi.</p>
+<p><b>Hangi tebliğ:</b> Sigorta Bilgi ve Gözetim Merkezi Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>3 üncü madde</span><span class='hap eski'>Müsteşarlık</span><span class='ok'>→</span><span class='hap yeni'>Kurum</span> <span style='color:var(--dim);font-size:11px'>(metinde 14 yerde)</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>Yönetmelik</span><span class='ok'>→</span><span class='hap yeni'>Bu Yönetmelik</span></div>
+<div class='karsi'><span class='kon'>Değişen ibare</span><span class='hap eski'>en çok bir günlük gecikmeyle</span><span class='ok'>→</span><span class='hap yeni'>üretim verilerinin eş zamanlı olarak</span></div>
+<div class='karsi'><span class='kon'>28 inci madde</span><span class='hap eski'>Hazine Müsteşarlığının bağlı olduğu Bakan</span><span class='ok'>→</span><span class='hap yeni'>Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumu Başkanı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Üretim verileri sigorta şirketleri tarafından eş zamanlı olarak merkeze iletilmek zorunda (m.16/2, m.23/2).</div>
+<div class='kiymet'>• Güncel muallak tazminat verileri gün sonuna kadar, diğer hasar verileri eş zamanlı olarak merkeze iletilmesi zorunlu (m.16/3, m.23/3).</div>
+<div class='kiymet'>• Merkez bünyesinde trafik kazalarında kusur değerlendirmesi yapmak üzere tutanak değerlendirme komisyonu kurulur (m.10/4).</div>
+<div class='kiymet'>• Sistem kullanım sınırlarını aşan üye şirket, yetkili kullanıcı veya özellikli kuruluştan aşım bedeli alınabilir (m.22/6).</div>
+<div class='kiymet'>• Aşım bedeline ilişkin itirazlar tebliğ tarihinden itibaren 15 gün içinde yapılır; Yönetim Komitesi 30 gün içinde karar verir (m.22/8).</div>
+<div class='kiymet'>• Madde 16 (merkez şube açma yetkisi) 01.08.2026'da yürürlüğe girer; diğer tüm maddeler yayım tarihinde yürürlüğe girer (m.21).</div>
+<p><b>Ürün:</b> Sigorta ve reasürans sektörü (yönetmelik ve veri gözetimi)</p>
+<p><b>Kimi ilgilendirir:</b> Sigorta şirketleri, reasürans şirketleri, emeklilik şirketleri, sigorta acenteleri ve brokerleri, sigorta eksperleri, Türkiye Sigorta Reasürans ve Emeklilik Şirketleri Birliği, Doğal Afet Sigortaları Kurumu, Tarım Sigortaları Havuzu</p>
+<p><b>Ne yapmalısın:</b> Veri raporlama sürecini gözden geçirip eş zamanlı aktarıma hazırlanılmalı; muallak hasar verilerinin gün sonu teslimi sistem yapılandırmasıyla kontrol edilmeli; aşım bedeli hesaplama yöntemlerine ilişkin Yönetim Komitesi kararı beklenerek süreç yakından takip edilmelidir.</p>
+<p><b>Yürürlük:</b> 16 ncı maddesi: 01.08.2026 · Diğer maddeleri: yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Veri raporlamasının hızlandırılması (eş zamanlı/gün sonu) operasyonel uyum gerektirmekte ve sistem yükseltme maliyeti doğurmaktadır. Aşım bedeli mekanizması, sistemi aşırı kullananlara mali yükümlülük getirmektedir. Merkez yönetişiminin güçlendirilmesi (Kurum'un üstünlüğü) ise işleyişi daha net bir çerçeveye kavuşturmaktadır.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260623-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260623-2.html'>Neyin nesi değişti? →</a></div>
 </div>
 

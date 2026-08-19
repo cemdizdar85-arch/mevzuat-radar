@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,35 +33,44 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>28.03.2026 — Resmî Gazete'deki 2 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>28.03.2026 tarihli Resmî Gazete'de 2 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Avukatlık asgari ücret tarifesi sulh ceza işlerinde değişti</h3>
-<p><b>Ne oldu:</b> Türkiye Barolar Birliği, avukatlık asgari ücret tarifesinin sulh ceza hâkimliklerindeki işlere ilişkin 14. madde beşinci fıkrasını yeniden düzenlemişti. Yeni kurala göre, idari para cezasının tarifenin maktu ücretinden az olması halinde hâkim, ceza tutarı kadarından avukatlık ücretine hükmeder.</p>
-<p><b>Neyi değiştiriyor:</b> 4/11/2025 tarihli ve 33067 sayılı Resmî Gazete'de yayımlanan Avukatlık Asgari Ücret Tarifesi</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Avukatlık asgari ücret tarifesinde tekzip ve idari para cezası işlemlerine ilişkin düzenleme</h3>
+<p><b>Ne oldu:</b> Türkiye Barolar Birliği, avukatlık ücretinin hesaplanmasına ilişkin tarifede değişikliğe gitti. Buna göre sulh ceza mahkemelerinde görülen tekzip, internet içeriğinin kaldırılması ve idari para cezasına itiraz davalarında, ücret cezanın miktarını aşması hâlinde ceza tutarına indirilecek.</p>
+<p><b>Hangi tebliğ:</b> 4/11/2025 tarihli ve 33067 sayılı Resmî Gazete'de yayımlanan Avukatlık Asgari Ücret Tarifesi sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Sulh ceza mahkemesinde tekzip, internet yayın içeriğinden çıkarma ve idari para cezası işlemlerinde avukat ücreti, başvurunun kabulü veya itiraz karşısında kaldırılması halinde maktu ücret kuralı geçerli olacak; ancak ceza tutarı maktu ücretin altındaysa idari para cezası kadar ücret alınacak (Madde 1).</div>
+<div class='kiymet'>• Tarife 28/3/2026 tarihinde yürürlüğe girer (Madde 2).</div>
 <p><b>Ürün:</b> Avukatlık hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> Sulh ceza hâkimliklerinde müvekkil temsili yapan avukatlar</p>
-<p><b>Ne yapmalısın:</b> Sulh ceza işlerinde idari para cezasının tutarının tarifenin maktu ücreti ile karşılaştırıldığından emin ol; ceza düşük ise ücreti ceza tutarı üzerinden hesapla.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Küçük tutarlı cezalara karşı avukatın tarifeli ücreti uygulanmadığından, bu işlerde gelir azalabilir. Ancak tarifenin üstündeki cezalarda standart ücret korunur.</div>
+<p><b>Kimi ilgilendirir:</b> Sulh ceza mahkemelerinde müdafilik yapan avukatlar</p>
+<p><b>Ne yapmalısın:</b> Tekzip, içerik kaldırma ve idari para cezası davalarına ilişkin yeni ücret tarifesini gözden geçirin; müvekkillerle yapılan sözleşmelerde ceza tutarının maktu ücreti aşması durumunda tarifenin uygulanacağı hususuna yer verin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Düşük tutarlı cezalarda avukat lehine bir düzenleme söz konusu; zira ücret ceza tutarına göre belirlenebiliyor. Yüksek tutarlı cezalarda ise avukat aleyhine bir durum ortaya çıkıyor, çünkü maktu ücretin üzerinde bir tahsilat yapılamıyor. Ücrete ilişkin belirsizlik azalmakla birlikte, düşük tutarlı işlerdeki kazanç sınırlandırılmış oluyor.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260328-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Uzlaşma komisyonlarının vergi cezası konusu yapabileceği tutarlar belirlendi</h3>
-<p><b>Ne oldu:</b> Hazine ve Maliye Bakanlığı, vergi ziyaı ile usulsüzlük ve özel usulsüzlük cezalarında uzlaşma yetkisini taşıyacak komisyonları ve bu komisyonların yetki sınırlarını tanımladı. 2026 yılı için 5.000 lira eşiğinin 40.000 liraya yükseltildiği belirtildi.</p>
-<p><b>Ürün:</b> kaynakta belirtilmemis</p>
-<p><b>Kimi ilgilendirir:</b> Vergi dairelerine müracaat edecek mükelleflerin ceza uzlaşmaları yapan avukatlar ve muhasebeciler; ithalatçı, ihracatçı ve üretim firmalarının vergi uyum yönetimi sorumlular</p>
-<p><b>Ne yapmalısın:</b> Ceza ihbarnamesindeki tutarı kontrol et; 40.000 lira (2026) eşiğinin altında ise defterdarlık seviyesi, üstünde ise koordinasyon veya merkezi komisyon başvurusunu hazırla. Aynı dönemde birden fazla ceza varsa en yüksek tutarı içeren ihbarnameyi referans al.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Tebliğ, mevcut uzlaşma hakkının işletilme koşullarını ve komisyon hiyerarşisini açıklığa kavuşturmuştur. 2026 için 40.000 lira eşiğinin belirlenmesi, hangi kademede görüşüleceğini önceden planlayabilmeyi sağlar; ancak ceza tutarlarında değişim söz konusu değildir.</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Vergi uzlaşma komisyonlarının yetki sınırları ve usulsüzlük cezası eşikleri</h3>
+<p><b>Ne oldu:</b> Gelir İdaresi Başkanlığı, vergi ziyaı ile usulsüzlük ve özel usulsüzlük cezalarına ilişkin uzlaşma komisyonlarının yetki alanlarını belirleyen bir tebliğ yayımladı. 2026 yılında uzlaşmaya konu edilebilecek usulsüzlük/özel usulsüzlük cezası eşiği 40.000 liraya yükseltildi.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Vergi ziyaı cezası taşıyan ihbarnamede yetkili komisyon, ceza tutarına göre belirlenecek; vergi dairesi seviyesini aşan talep defterdarlığa, onun yetkisini aşan talep koordinasyon veya merkezi komisyona gidecek (Madde 3/1).</div>
+<div class='kiymet'>• Usulsüzlük ve özel usulsüzlük cezası için 2026 yılında 40.000 lira eşik geçen tutarlar uzlaşma kapsamına girebilecek (Madde 4/3).</div>
+<div class='kiymet'>• Aynı ihbarnameye ilişkin birden fazla ceza kesilmişse yetkili komisyon en yüksek tutarlı cezaya göre belirlenecek; diğer cezalar da aynı komisyonda görüşülecek (Madde 3/2).</div>
+<div class='kiymet'>• Usulsüzlük ve özel usulsüzlük cezası tutarları her yıl bir önceki yıl yeniden değerleme oranında artırılarak uygulanacak; tutarlar Hazine ve Maliye Bakanlığı tarafından Resmî Gazete'de ilan edilecek (Madde 4/3).</div>
+<div class='kiymet'>• Vergi ziyaı cezası ile usulsüzlük/özel usulsüzlük cezası birlikte kesilmişse yetkili komisyon vergi ziyaı cezası tutarına göre belirlenecek (Madde 4/4).</div>
+<p><b>Ürün:</b> Vergi cezaları (usulsüzlük, özel usulsüzlük, vergi ziyaı)</p>
+<p><b>Kimi ilgilendirir:</b> Vergi mükellefleri, mali müşavirler, vergi danışmanları ve denetim elemanları</p>
+<p><b>Ne yapmalısın:</b> Mevcut uzlaşma taleplerinizin tutarını 2026 eşikleriyle (usulsüzlük/özel usulsüzlük için 40.000 lira; vergi ziyaı için ceza tutarına göre) karşılaştırarak yetkili komisyon basamağını kontrol edin. Talebiniz ilgili müdürlüğe yapılmış olsa dahi ceza tutarı defterdarlık eşiğini aşıyorsa başvurunuzu defterdarlık uzlaşma komisyonuna yönlendirin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/03/20260328-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

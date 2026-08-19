@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,24 +33,34 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>07.11.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>07.11.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>AB ülkelerinden sentetik mensucat ithalatında dampinge karşı önlemlerin yeniden düzenlenmesi</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, daha önce başlatılan ara gözden geçirme soruşturmasını tamamladı. AB menşeli sentetik filament ve devamsız lif dokuma mensucatına uygulanan dampinge karşı önlemlerin kapsamı değiştirildi; bazı firmalar sıfır oranında uygulanacak önceki listeden çıkarıldı, bazıları eklenirken Tessitura Uboldi Luigi genel oranlarla tarh edilen kategoriye geçirildi.</p>
-<p><b>Neyi değiştiriyor:</b> Tebliğ No: 2024/8 (20/2/2024 tarihli, Resmî Gazete Sayı: 32466)</p>
-<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyim için olanlar) ve sentetik/suni devamsız liflerden dokunmuş mensucat</p>
-<p><b>Kimi ilgilendirir:</b> Almanya, Avusturya, Belçika, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Hırvatistan, Hollanda, İrlanda, İspanya, İsveç, İtalya, Letonya, Litvanya, Lüksemburg, Macaristan, Malta, Polonya, Portekiz, Romanya, Slovakya ve Slovenya menşeli mensucat ihraçcıları; bu ülkelerden ithal yapan giyim ve tekstil işletmeleri.</p>
-<p><b>Ne yapmalısın:</b> Söz konusu ülkelerden sentetik filament ve devamsız lif mensucat ithalatlarını kontrol et; özellikle Tessitura Uboldi Luigi'den gelen beyanları %42,44/%21,13 (filament) ve %44 (devamsız lif) tarifesiyle karşılaştır. Tablo-1 ve Tablo-2'deki yeni firma listesini gümrük müşevirliğin sistemine yansıt.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Sentetik mensucat ithalatında dampinge karşı önlemlerde firma bazında değişiklikler</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Avrupa Birliği ülkelerinden ithal edilen sentetik filament ve devamsız lif mensucata uyguladığı dampinge karşı önlemleri gözden geçirmiştir. Soruşturma sonucunda bazı firmalar damping önlemlerinden muaf tutulurken, Tessitura Uboldi Luigi S.r.l. firmasının muafiyet statüsü kaldırılmıştır.</p>
+<p><b>Hangi tebliğ:</b> Tebliğ No: 2024/8 ve Tebliğ No: 2025/11 sayılı Tebliği değiştiriyor</p>
+<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-3.htm' target='_blank' rel='noopener'>17.07.2025 tarihli Resmî Gazete</a> (Tebliğ 2024/8)</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (7/11/2025). (Madde 7/1)</div>
+<div class='kiymet'>• Tablo-1'de yer alan firmaların AB menşeli 54.07 GTP mensucat ithalatında sıfır damping önlemi uygulanır; Üretici/İhracatçı Belgesi ibraz edilmesi gerekir. (Madde 6/1)</div>
+<div class='kiymet'>• Tessitura Uboldi Luigi S.r.l., 54.07 GTP mensucat ithalatında İtalya 'Diğerleri' oranlarına (%42,44 ve %21,13) tabi tutulur. (Madde 6/2)</div>
+<div class='kiymet'>• Tablo-2'de yer alan firmaların 55.13-55.16 GTP mensucat ithalatında sıfır damping önlemi uygulanır; Üretici/İhracatçı Belgesi ibraz edilmesi gerekir. (Madde 6/4)</div>
+<div class='kiymet'>• Tessitura Uboldi Luigi S.r.l., 55.13-55.16 GTP mensucat ithalatında İtalya 'Diğerleri' oranına (%44) tabi tutulur. (Madde 6/5)</div>
+<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyim için olanlar) ve sentetik veya suni devamsız liflerden dokunmuş mensucat</p>
+<p><b>GTİP:</b><br><span class='gtip'>54.07</span><span class='gtip'>55.13</span><span class='gtip'>55.14</span><span class='gtip'>55.15</span><span class='gtip'>55.16</span></p>
+<p><b>Kimi ilgilendirir:</b> Avrupa Birliği ülkelerinden sentetik mensucat ithal eden tekstil ve giyim üreticileri; özellikle İtalya, Hollanda, Avusturya ve Portekiz menşeli ihracat yapan firmalar</p>
+<p><b>Ne yapmalısın:</b> Söz konusu ülkelerden 54.07, 55.13-55.16 GTP kodlu mensucat ithal ediyorsanız Tablo-1 ve Tablo-2'yi kontrol ediniz. Firmanıza göre sıfır damping oranı (Üretici/İhracatçı Belgesi ile) ya da 'Diğerleri' oranı (%21,13, %42,44 veya %44) uygulanacaktır. Tessitura Uboldi'den gelen yüklemelere bu tarihten itibaren artık sıfır damping oranı uygulanmayacaktır.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · karisik):</b> Tablo-1 ve Tablo-2'de yer alan firmalar için damping önleminin kaldırılması (sıfır oran) ithalatçı lehine bir durum oluşturarak maliyeti düşürmektedir. Ancak Tessitura Uboldi Luigi S.r.l. için muafiyetin geri alınması ithalatçı aleyhine işlemekte ve yüksek oranlar (%21,13-44) ithalat maliyetine eklenmektedir. Ağırlık sınıflarına göre farklı oranların uygulanması (54.07'de 110 gr/m² eşiği) seçici bir avantaj sağlamaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/11/20251107-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,17 +35,30 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>16.05.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>İş Sağlığı ve Güvenliği Genel Müdürlüğü Döner Sermaye İşletmesi Yönetmeliği</h3>
-<p><b>Ne oldu:</b> Çalışma ve Sosyal Güvenlik Bakanlığı, İş Sağlığı ve Güvenliği Genel Müdürlüğü Döner Sermaye İşletmesi'nin faaliyet alanlarını, gelir-gider usullerini ve idari-mali işlemlerini düzenleyen yönetmeliği yayımladı. İşletmeye 95 milyon TL sermaye tahsis edildi.</p>
-<p><b>Ürün:</b> Yönetmelik – İş sağlığı ve güvenliği hizmetleri</p>
-<p><b>Kimi ilgilendirir:</b> İş Sağlığı ve Güvenliği Genel Müdürlüğü personeli, muhasebe yetkilileri, harcama yetkilileri, işletme müdürleri, ticari ve insan kaynakları birimleri</p>
-<p><b>Ne yapmalısın:</b> İşletmenin bütçe taslağını, kesin hesabını ve yıllık iş programlarını yönetmelik hükümlerine uygun şekilde hazırlayın. Mali ve muhasebe işlemlerini ilgili mevzuata uygun biçimde yürütün. Taşınır mal işlemlerini 9014 sayılı Cumhurbaşkanı Kararı çerçevesinde düzenleyin.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, mevcut işletmenin işleyişini düzenlemekte olup ithalatçıları doğrudan etkilememektedir. Mali yönetim ve denetim prosedürlerini standartlaştırmaktadır.</div>
+<h3>İş Sağlığı ve Güvenliği Genel Müdürlüğü Döner Sermaye İşletmesi Yönetmeliği yeniden düzenlendi</h3>
+<p><b>Ne oldu:</b> Çalışma ve Sosyal Güvenlik Bakanlığı, İş Sağlığı ve Güvenliği Genel Müdürlüğü Döner Sermaye İşletmesinin yönetim, bütçe, muhasebe ve denetim işlemlerini yeni bir yönetmelikle düzenlemektedir. Yönetmelik; işletmenin faaliyet alanlarını, gelir-gider işlemlerini, personel yapısını ve mali kontrol usullerini kapsamlı biçimde belirlemektedir.</p>
+<p><b>Hangi tebliğ:</b> 31.03.2010 tarihli ve 27538 sayılı Resmî Gazete'de yayımlanan Çalışma ve Sosyal Güvenlik Bakanlığı İş Sağlığı ve Güvenliği Genel Müdürlüğü Döner Sermaye İşletmesi Yönetmeliği sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• İşletmeye 95.000.000 TL sermaye tahsis edilmiş ve bağış-yardımlar bu tutara eklenir (Madde 5).</div>
+<div class='kiymet'>• Döner sermaye faaliyetlerinden elde edilen kârlar, ödenmiş sermaye tahsis edilen tutara ulaşıncaya kadar sermayeye eklenir; sonrası Hazineye gelir kaydedilir (Madde 6/2-3).</div>
+<div class='kiymet'>• İşletme, iş sağlığı ve güvenliği konusunda araştırma, eğitim, danışmanlık, piyasa gözetimi, belgelendirme ve yetki belgesi üretimi işlemlerini yürütür (Madde 7).</div>
+<div class='kiymet'>• Genel Müdür işletmenin harcama yetkilisidir ve yetkisini alt kademe yöneticilere devredebilir (Madde 11).</div>
+<div class='kiymet'>• Harcama yetkilisi ve muhasebe yetkilisi görevi aynı kişide birleşemez (Madde 16).</div>
+<div class='kiymet'>• Bütçe taslağı kasım ayı sonuna kadar Bakana sunulur, Bakanın onayıyla yürürlüğe girer (Madde 18).</div>
+<div class='kiymet'>• Mal ve hizmet satış bedelleri Bakan onayıyla mali yılın başında yürürlüğe girer (Madde 21).</div>
+<div class='kiymet'>• İşletme, Kamu İhale Kanunu ve ilgili yönetmelikler uyarınca alım ve satım işlemlerini yürütür (Madde 22).</div>
+<div class='kiymet'>• İşletme tarafından üretilen mal ve hizmetlerde ticari indirim dışında ücretsiz veya indirimli fiyat uygulanamaz (Madde 23).</div>
+<p><b>Ürün:</b> Bu yönetmelik herhangi bir ürün veya mal tanımı içermemekte olup, döner sermaye işletmesinin kuruluşuna, yönetimine ve mali işlemlerine ilişkin bir düzenleme metnidir.</p>
+<p><b>Kimi ilgilendirir:</b> Çalışma ve Sosyal Güvenlik Bakanlığı İş Sağlığı ve Güvenliği Genel Müdürlüğü döner sermaye işletmesi personelini, muhasebe ve mali işler sorumlularını, harcama yetkililerini ve bunların bağlı bulunduğu kurum ve kuruluşları ilgilendirmektedir.</p>
+<p><b>Ne yapmalısın:</b> Yürürlükteki yönetmelik ve kurallar esas alınarak; işletme müdürü, muhasebe yetkilisi, harcama yetkilisi ve gider-gelir gerçekleştirme görevlilerinin görev tanımları gözden geçirilmeli, uyum durumu kontrol edilmelidir. Bütçe ve ön mali kontrol süreçlerinin yeni usullere göre uygulanması için hazırlık yapılmalı, mali yıl başında satış bedeli ve fiyat tarifelerinin Bakan onayından geçirilmesi sağlanmalıdır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--dim);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--dim)'>Ne anlama geliyor (yorum · notr):</b> Yönetmelik, önceki mevzuatın yerine yürürlüğe girmiş olup İş Sağlığı ve Güvenliği Genel Müdürlüğü döner sermaye işletmesinin yönetim, personel, bütçe ve muhasebe işlemlerine ilişkin usul ve esasları netleştirmektedir. İthalatçıları veya dış ticaret işlemlerini doğrudan etkilememektedir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260516-2.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 

@@ -1,50 +1,91 @@
-﻿[
-    {
-        "dosya":  "20250717-2.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-2.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması eşik değerleri güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, 2023/2 nolu tebliğin birinci maddesindeki gözetim eşik tablosunu değiştirdi. Yeni eşikler 60 gün sonra yürürlüğe girecek.",
-        "degistirilen_teblig":  "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2023/2)",
-        "eski_yeni":  [
-
-                      ],
-        "eski_karsilastirma":  null,
-        "gtip_kodlari":  null,
-        "urun_tanimi":  "kaynakta belirtilmemis",
-        "kimi_ilgilendirir":  "İthalatçılar, gümrük müşevirler, ithal malı ticareti yapan işletmeler",
-        "ne_yapmali":  "Mevcut sevkiyatlarınız için hangi ürün gruplarının etkilendiğini öğrenene kadar yeni tabloyu incele. Eğer değişiklik senin gözetim yükünü arttırıyorsa, Ocak-Temmuz arası faturaları gözden geçir ve riskli kalemler için ek belgelendirmeyi simüle et.",
-        "yururluk":  "yayımını takip eden 60. gün",
-        "kesin_kiymetler":  {
-
-                            },
-        "kiyaslar":  [
-
-                     ],
-        "etki":  null,
-        "guven_notu":  "Tebliğ metninde değişen esik tablosu gösterilmemiştir. Sadece \u0027tablo aşağıdaki şekilde değiştirilmiştir\u0027 denilmektedir ancak yeni tablo veya eski-yeni karşılaştırma metinde yoktur. İthalatçılar için somut etki değerlendirilemez. Resmi Gazete görüntüsünün tablo kısmı işlenememektedir. GTIP kodları ve birim değerler tespit edilememiştir. | Ana tebligin eski metni RG arsivinde bulunamadi (27.01.2023)"
+[
+  {
+    "dosya": "20250717-2.htm",
+    "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-2.htm",
+    "baslik_sade": "GTIP 8541.42.00.00.00 birim gümrük kıymetinde değişiklik",
+    "ne_oldu": "Bir modül hâlinde birleştirilmemiş veya panolarda düzenlenmemiş fotovoltaik hücrelerin birim gümrük kıymeti 60 ABD Doları/Kg'den 170 ABD Doları/Kg'ye yükseltilmiştir.",
+    "teblig_no": null,
+    "degisen_maddeler": null,
+    "degistirilen_teblig": "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2023/2)",
+    "onceki_belge": {
+      "teblig_no": "2023/2",
+      "tarih": "04.05.2024",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/05/20240504-3.htm",
+      "tur": "degisiklik"
     },
-    {
-        "dosya":  "20250717-3.htm",
-        "kaynak":  "https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-3.htm",
-        "baslik_sade":  "İthalatta gözetim uygulaması: birim kıymetler tablosu güncellendi",
-        "ne_oldu":  "Ticaret Bakanlığı, ithalatçıların beyanlarında uygulanacak gözetim eşiklerini belirleyen tabloda değişiklik yaptı. Yeni değerler 60 gün sonra yürürlüğe girecek.",
-        "degistirilen_teblig":  "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2024/8)",
-        "eski_yeni":  [
-
-                      ],
-        "eski_karsilastirma":  null,
-        "gtip_kodlari":  null,
-        "urun_tanimi":  "kaynakta belirtilmemiş (tablo görselinden okunamadı)",
-        "kimi_ilgilendirir":  "Tüm ithalatçılar ve gümrük müşaviri firmalar",
-        "ne_yapmali":  "Tebliğin tam metnini inceleyerek tablonun hangi satırlarında değişiklik yapıldığını teyit edin; mevcut beyanlarınızın yeni eşiklere uygunluğunu kontrol edin.",
-        "yururluk":  "yayımını takip eden 60. gün",
-        "kesin_kiymetler":  {
-
-                            },
-        "kiyaslar":  [
-
-                     ],
-        "etki":  null,
-        "guven_notu":  "Kaynakta yayımlanan tablonun görüntüsü veya detaylı içeriği mevcut değildir. Madde 1\u0027de \u0027aşağıdaki şekilde değiştirilmiştir\u0027 denilmesine rağmen yeni tablo değerleri metin içinde sunulmamıştır. GTIP kodları ve birim kıymetler Resmi Gazete\u0027nin tam sayısından okunmalıdır. Tebliğin etkin yönü (ithalatçı yararına/aleyhine) tablodaki gerçek rakamlar olmadan tayin edilemez. | Ana tebligin eski metni RG arsivinde bulunamadi (08.08.2024)"
-    }
+    "eski_yeni": [
+      {
+        "konu": "GTIP 8541.42.00.00.00 birim gümrük kıymeti",
+        "eski": "60 ABD Doları/Kg",
+        "yeni": "170 ABD Doları/Kg"
+      }
+    ],
+    "eski_karsilastirma": "27.01.2023",
+    "kilit_hukumler": [
+      "Tebliğ, yayımından itibaren altmış gün sonra yürürlüğe giriyor (Madde 2)."
+    ],
+    "gtip_kodlari": "8541.42.00.00.00",
+    "urun_tanimi": "Kristal silisyum fotovoltaik hücreler",
+    "kimi_ilgilendirir": "Güneş paneli ve fotovoltaik sistem ithal eden elektrikli teçhizat üreticileri",
+    "ne_yapmali": "Gümrük müşaviriyle birlikte Temmuz sonu sevkiyatlarında yeni eşik (170 $/Kg) ile mevcut deklarasyonlarınızı karşılaştırın; eşiğin altındaki beyanlar ek belgelendirme gerektirecektir.",
+    "yururluk": "yayımını takip eden 60. gün",
+    "kesin_kiymetler": {
+      "8541.42.00.00.00": "170 ABD Doları/Kg"
+    },
+    "kiyaslar": [],
+    "etki": {
+      "yon": "ithalatci aleyhine",
+      "aciklama": "Kıymet limitinin yükseltilmesi, daha fazla ithalatın gözetim belgesi gerektirmesi anlamına gelmekte olup ithalatçıların işlemlerini daha zor ve maliyetli hâle getirmektedir."
+    },
+    "guven_notu": "Tablo görüntüsünde yalnızca GTIP 8541.42.00.00.00 kodu ve 170 ABD Doları/Kg değeri net okunmaktadır. Orijinal Tebliğ 2023/2'nin tam tablosu (diğer GTIP kodları ve eşikleri) kaynakta bulunmadığından, tablo 1'de değişen diğer satırlar belirlenememiştir. | Yorum, eski-yeni metin karsilastirmasina dayanir | Karsilastirma 27.01.2023 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
+  },
+  {
+    "dosya": "20250717-3.htm",
+    "kaynak": "https://www.resmigazete.gov.tr/eskiler/2025/07/20250717-3.htm",
+    "baslik_sade": "İthalat gözetim uygulamasında iki kalemde birim kıymet artışı",
+    "ne_oldu": "Her iki kalemde birim kıymet sınırı 85 ABD Doları/Kg'den 170 ABD Doları/Kg'ye yükseltilmiştir. Bu değişiklik, gözetim uygulamasının kapsamını daraltmıştır.",
+    "teblig_no": null,
+    "degisen_maddeler": null,
+    "degistirilen_teblig": "İthalatta Gözetim Uygulanmasına İlişkin Tebliğ (Tebliğ No: 2024/8)",
+    "onceki_belge": {
+      "teblig_no": "2024/8",
+      "tarih": "08.08.2024",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2024/08/20240808-7.htm",
+      "tur": "asil"
+    },
+    "eski_yeni": [
+      {
+        "konu": "GTIP 3818.00.10.00.00 - Dope edilmiş silisyum birim kıymeti",
+        "eski": "85 ABD Dolari/Kg*",
+        "yeni": "170 ABD Dolari/Kg*"
+      },
+      {
+        "konu": "GTIP 3818.00.90.00.00 - Diğerleri birim kıymeti",
+        "eski": "85 ABD Dolari/Kg*",
+        "yeni": "170 ABD Dolari/Kg*"
+      }
+    ],
+    "eski_karsilastirma": "08.08.2024",
+    "kilit_hukumler": [
+      "Tebliğ, yayım tarihini takip eden 60. günde yürürlüğe girer (MADDE 2)."
+    ],
+    "gtip_kodlari": [
+      "3818.00.10.00.00",
+      "3818.00.90.00.00"
+    ],
+    "urun_tanimi": "Mavi boya ve diğer boyalar (seramik ve inşaat malzemeleri endüstrisinde kullanılan kimyasal ürünler)",
+    "kimi_ilgilendirir": "Mavi boya veya boya ürünü ithal eden kimya, seramik ve inşaat malzemesi firmaları",
+    "ne_yapmali": "Eylül başından itibaren yapacağınız beyannamelerde malları 170 dolar/kg eşiğine göre kontrol edin; bu değerin altındaki gönderimler için ek belge ve denetim hazırlığı yapın.",
+    "yururluk": "yayımını takip eden 60. gün",
+    "kesin_kiymetler": {
+      "3818.00.90.00.00": "170 ABD Doları/Kilogram",
+      "3818.00.10.00.00": "170 ABD Doları/Kilogram"
+    },
+    "kiyaslar": [],
+    "etki": {
+      "yon": "ithalatci lehine",
+      "aciklama": "Birim kıymet eşiğinin yükselmesi, daha düşük değerli ürünlerin gözetim belgesi gerekliliğinden muaf tutulmasını sağlayarak ithalatçıların işlem yükünü azaltmaktadır."
+    },
+    "guven_notu": "Tabloda eski değer gösterilmediğinden, değişikliğin önceki eşik seviyesi kaynakta belirtilmemiş. 8/8/2024 tarihli orijinal Tebliğ No: 2024/8 metnine bakılması önerilir. | Yorum, eski-yeni metin karsilastirmasina dayanir | Karsilastirma 08.08.2024 tarihli RG'deki ana teblig metniyle yapildi (arada baska degisiklik olduysa zinciri kaynaktan kontrol edin)"
+  }
 ]

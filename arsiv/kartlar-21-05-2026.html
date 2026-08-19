@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,20 +35,29 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>21.05.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Çin menşeli kaynak makineleri ithalatında nihai gözden geçirme soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, 8515.39 gümrük tarife pozisyonunda yer alan ve 13 kilogram ile altındaki kaynak makinelerinin Çin'den ithalatına yönelik nihai gözden geçirme soruşturması başlattı. Hâlihazırda uygulanan dampinge karşı kesin önlem (firma bazında 29-154 ABD doları/adet aralığında) soruşturma süresince yürürlükte kalmaya devam edecek.</p>
-<p><b>Ürün:</b> Aksesuarları hariç net ağırlığı 13 kilogram ve altında olan kaynak makineleri</p>
+<h3>Çin menşeli kaynak makineleri ithalatında dampinge karşı nihai gözden geçirme soruşturması açıldı</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 8515.39 gümrük tarife pozisyonunda sınıflandırılan, net ağırlığı 13 kg ve altında olan Çin menşeli kaynak makineleri için dampinge karşı nihai gözden geçirme soruşturması (NGGS) başlatmıştır. Soruşturma, mevcut dampinge karşı kesin önlemin (29-154 ABD doları/adet aralığında) yürürlük süresi dolmadan önce yeniden değerlendirilmesi amacıyla açılmıştır.</p>
+<p><b>Hangi tebliğ:</b> 2015/44 ve 2021/19 sayılı Tebliği değiştiriyor</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma bu Tebliğin yayım tarihinde (21 Mayıs 2026) resmen başlamıştır (Madde 15).</div>
+<div class='kiymet'>• Mevcut dampinge karşı kesin önlem (29-154 ABD doları/adet) soruşturma sonuçlanıncaya kadar yürürlükte kalmaya devam eder (Madde 14).</div>
+<div class='kiymet'>• Soruşturma konusu ürünün ihracatçısı, ithalatçısı, yerli üreticisi ve temsilci kuruluşlar soru formlarına 37 gün içinde cevap vermek zorundadır (Madde 12/1).</div>
+<div class='kiymet'>• Bildirimi almayan ilgili taraflar 37 gün içinde cevaplarını sunabilir; teblig tarihinden itibaren başlayan bu süre sona erdikten sonra verilen cevaplar dikkate alınmayabilir (Madde 12/2).</div>
+<div class='kiymet'>• Gerekli bilgi ve belgeleri sağlamayan, erişimi reddeden veya yanlış bilgi veren taraflar iş birliğine gelmemiş sayılarak soruşturma onlara karşı olumsuz verilerle sonuçlandırılabilir (Madde 13).</div>
+<div class='kiymet'>• Çin'de yerleşik üreticiler piyasa ekonomisi koşullarında faaliyet yaptığını 12 nci maddede belirtilen süreler içinde ispat edebilirlerse Yönetmeliğin 5. maddesi, aksi takdirde 7. maddesi uygulanır; emsal ülke olarak Türkiye seçilir (Madde 9).</div>
+<div class='kiymet'>• Yurt dışında yerleşik taraflar soru formu cevaplarını yasal temsilci vasıtasıyla gönderiyorsa apostil tasdikli veya konsolosça onaylanmış vekaletname sunmak gerekir (Madde 11/4).</div>
+<div class='kiymet'>• Tüm yazışmalar Türkçe yapılacak; Türkçe dışında sunulan belgeler (soru formu yanıtları hariç) dikkate alınmaz (Madde 11/5).</div>
+<p><b>Ürün:</b> Yalnızca aksesuarları hariç olmak üzere, net ağırlığı 13 kg ve altında olan kaynak makineleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>8515.39</span></p>
 <p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
-<div class='kiymet'>8515.39 → <b>29-154 ABD Doları/adet (firma bazında değişken)</b></div>
-<p><b>Kimi ilgilendirir:</b> Çin'den kaynak makinesi ithal eden firmalar, ihracatçılar ve yerli kaynak makinesi üreticileri</p>
-<p><b>Ne yapmalısın:</b> Yürütülmekte olan sevkiyatların fiyatlandırmasını 29-154 ABD doları/adet bandına göre gözden geçirin. Soruşturmaya ilişkin soru formu cevaplarınızı, bildirimin tebliğ edildiği veya tebliğin yayımlandığı tarihten itibaren 37 gün içinde ilgili KEP adreslerine iletin. İhracatçı veya yabancı üretici konumundaysanız ve piyasa ekonomisi koşullarında faaliyet gösterdiğinizi ileri sürmek istiyorsanız, Yönetmelik Ek-1'de belirtilen ölçütler doğrultusunda delillerinizi hazırlayın.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Mevcut dampinge karşı kesin önlem, soruşturma sonuçlanana kadar yürürlükte kalacak. Piyasa ekonomisi koşullarını ispatlayamayan üreticiler açısından, normal değerin Türkiye emsal ülke alınarak belirlenmesi daha kısıtlayıcı bir sonuç doğurabilir. Cevap formlarını eksik veya geç gönderen ithalatçılar ise daha az avantajlı şartlarla değerlendirilecektir.</div>
+<div class='kiymet'>8515.39 → <b>29-154 ABD Doları/adet (mevcut önlem, soruşturma sonuçlanıncaya kadar)</b></div>
+<p><b>Kimi ilgilendirir:</b> Çin Halk Cumhuriyeti menşeli kaynak makinesi ihraç eden şirketler, bu ürünleri Türkiye'ye ithal eden gümrük müşavirleri ve distribütörler ile yerli kaynak makinesi üreticileri</p>
+<p><b>Ne yapmalısın:</b> İthalatçılar ve ihracatçılar, 37 gün içinde (21 Mayıs'tan 27 Haziran 2026'ya kadar) ticaretbakanligi@hs01.kep.tr veya ithebys@ticaret.gov.tr adreslerine soru formuna ilişkin cevaplarını ve görüşlerini iletmelidir. Yurt dışı merkezli firmaların cevaplarını yazılı, eklerini ise elektronik ortamda (CD/USB) göndermesi; yasal temsilci kullanılması hâlinde apostil tasdikli vekaletname sunulması gerekmektedir. Bildirim almayan taraflar da aynı 37 günlük süre içinde başvurabilir. Piyasa ekonomisi statüsü talep edecek firmaların ise bu iddialarına ilişkin kanıtlarını yine bu süre içinde sunmaları gerekmektedir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Nihai gözden geçirme:</b> süresi dolmak üzere olan mevcut önlemin kalkıp kalkmayacağının incelenmesi; inceleme bitene kadar önlem yürürlükte kalır. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260521-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>

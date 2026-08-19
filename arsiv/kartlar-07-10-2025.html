@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,23 +33,46 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>07.10.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>07.10.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Yurt dışı fuar düzenleme koşullarında değişiklik: nakit teminat, belgeler, cezalar</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, yurt dışında fuar düzenleyen organizatörler için 2010 yılındaki tebliği revize etti. Teminat tutarı, gerekli belgeler, personel nitelikleri, başvuru süreleri ve yaptırımlar yeniden düzenlenmiş; bazı tanımlar ve hükümler sadeleştirilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> Yurt Dışında Fuar Düzenlenmesine ve Değerlendirilmesine İlişkin Tebliğ (İhracat: 2010/5)</p>
-<p><b>Ürün:</b> Yurt dışı fuar düzenleme ve pazarlama hizmetleri; ihraç ürünlerinin tanıtımı</p>
-<p><b>Kimi ilgilendirir:</b> Yurt dışında fuar düzenleyen organizatörler, İhracatçı Birlikleri, fuarcılık birimlerine sahip kuruluşlar, Türkiye'de yerleşik üretici ve imalatçılar</p>
-<p><b>Ne yapmalısın:</b> Yurt dışı fuar düzenleme iznine sahip firmanız varsa, 01.06.2026 öncesinde 5. madde şartlarına tam uyumunu kontrol et (personel eğitim durumu, yabancı dil belgeleri, ISO 9001, teminat tutarı). Yeni başvuru yapacaksan tüm belgeler hazırla ve başvuruyu fuar tarihinden en 3 ay öncesinde sun. Geçici belge adayıysan ek hükümleri sorgula.</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>Yurt dışında fuar düzenleme kurallarında değişiklik: katılımcı tanımı, belgeler ve yasaklar</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, 2010 yılından bu yana yürürlükte olan fuar düzenleme tebliğini kapsamlı biçimde güncelledi. Katılımcı tanımı ve istenen belgeler yeniden düzenlendi, teminat tutarı netleştirildi, ISO sertifikası zorunlu belgeler arasına eklendi ve disiplin cezaları ağırlaştırıldı.</p>
+<p><b>Hangi tebliğ:</b> Yurt Dışında Fuar Düzenlenmesine ve Değerlendirilmesine İlişkin Tebliğ (İhracat: 2010/5) sayılı Tebliği değiştiriyor</p>
+<p><b>Neler değişti:</b></p>
+<div class='kiymet'>• GEÇİCİ MADDE 2 eklendi</div>
+<div class='kiymet'>• bir madde yürürlükten kaldırıldı</div>
+<div class='kiymet'>• 12 nci maddesi baştan yazıldı</div>
+<p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(tebliğ metninden, çift okumayla doğrulanmış)</span></p>
+<div class='karsi'><span class='kon'>geçici 1 inci madde</span><span class='hap eski'>21 inci fıkrasındaki İzleme Raporu</span><span class='ok'>→</span><span class='hap yeni'>yirmi ikinci fıkrasındaki İzleme Raporu</span></div>
+<div class='karsi'><span class='kon'>4 üncü madde</span><span class='hap eski'>şirket ana sözleşmesi</span><span class='ok'>→</span><span class='hap yeni'>şirket sözleşmesine/esas sözleşmeye</span></div>
+<div class='karsi'><span class='kon'>14 üncü madde</span><span class='hap eski'>Yurtdışı Fuar Katılımlarının Desteklenmesine İlişkin Karar hükümlerine aykırı fiillerde bulunarak</span><span class='ok'>→</span><span class='hap yeni'>yurt dışı fuar organizasyonları çerçevesinde kusurları ile</span></div>
+<div class='karsi'><span class='kon'>15 inci madde</span><span class='hap eski'>T.C. Ziraat Bankasındaki</span><span class='ok'>→</span><span class='hap yeni'>T.C. Ziraat Bankası A.Ş.’deki ya da Ziraat Katılım Bankası A.Ş.’deki</span></div>
+<div class='karsi'><span class='kon'>21 inci madde</span><span class='hap eski'>Ekonomi Bakanı</span><span class='ok'>→</span><span class='hap yeni'>Ticaret Bakanı</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Yurt dışı fuar organizasyonu başlama tarihinden en az üç ay önce başvuru zorunlu; aksi halde değerlendirmeye alınmaz (m.9/2).</div>
+<div class='kiymet'>• 500 bin ABD Doları teminat veya eşdeğer banka mektubunu T.C. Ziraat Bankası A.Ş. ya da Ziraat Katılım Bankası A.Ş.'ye yatırması şart (m.5/1-b).</div>
+<div class='kiymet'>• İSO 9001 Kalite Yönetim Sistemi Belgesi ibraz etmesi zorunlu (m.5/1-h).</div>
+<div class='kiymet'>• Şirkette istihdam edilen en az beş personelin dört yıllık yükseköğretim mezunu olması ve personelin en az üçünün Almanca, Arapça, Çince, İspanyolca, Fransızca, İngilizce, Portekizce, Rusça'dan birinde YDS C düzeyi belgesi bulunması gerekli (m.5/1-e, m.5/1-f).</div>
+<div class='kiymet'>• Milli Katılım Organizasyonu on katılımcıdan az katılımla yapılırsa veya Türk katılımcı oranı %70'i aşarsa sonraki yıl aynı fuarın izni verilmez (m.9/7).</div>
+<div class='kiymet'>• Yabancı Firma Katılımlı Sektörel Fuar yirmiden az katılımcı veya yabancı oranı %20'den az ise sonraki yıl aynı ülke/sektörde izin yok (m.9/10).</div>
+<div class='kiymet'>• Bakanlık onayı olmadan fuar yapan organizatör 3 ile 12 ay arasında müracaat yapamaz (m.9/19).</div>
+<div class='kiymet'>• Belgesi iptal edilen organizatör bir yıl, iki kez iptal edilen ise beş yıl geçici belge talebinde bulunamaz (m.12/2, m.13/4).</div>
+<div class='kiymet'>• Ülke imajını zarar veren, yanıltıcı bilgi veren veya başka mevzuatta destek alan organizatörün belgesi iptal edilir ve iki yıl geçici belge düzenlenmez (m.14/1).</div>
+<p><b>Ürün:</b> Yurt dışı fuar organizasyonu hizmetleri</p>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>kaynakta belirtilmemis → <b>500.000 ABD Doları (teminat tutarı)</b></div>
+<p><b>Kimi ilgilendirir:</b> Yurt dışında fuar düzenleyen firma ve kuruluşlar, İhracatçı Birlikleri, fuar organizatörleri</p>
+<p><b>Ne yapmalısın:</b> Mevcut geçici belgeniz varsa, 1 Haziran 2026 tarihine kadar ISO 9001 belgesini ve sosyal güvenlik kayıtlarınızı hazırlayın. Başvuru yapacaksanız süreci üç ay önceden başlatın. Personel listesini Ek-2 formuna uygun şekilde düzenleyin; en az beş kişinin dört yıllık üniversite mezunu olması, bunlardan en az üçünün de YDS C düzeyinde yabancı dil belgesine sahip bulunması gerekmektedir.</p>
 <p><b>Yürürlük:</b> yayımı tarihinde</p>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/10/20251007-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20251007-4.html'>Neyin nesi değişti? →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

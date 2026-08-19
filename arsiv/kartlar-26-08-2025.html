@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,25 +33,34 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>26.08.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>26.08.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>BAE, İtalya ve Mısır menşeli koagüle suni deri ithalatına karşı soruşturma açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Birleşik Arap Emirlikleri, İtalya ve Mısır'dan yapılan koagüle suni deri (5603.14 ve 3921.13 GTIP kodları) ithalatının, Çin'e uygulanan dampinge karşı önlemleri etkisiz kıldığı gerekçesiyle resmi soruşturma başlattı. Soruşturma, İthalat Genel Müdürlüğü tarafından yürütülecektir.</p>
-<p><b>Ürün:</b> Poliüretanla kaplanmış, sıvanmış veya lamine edilmiş dokumaya elverişli suni ve sentetik liflerden 150 gr/m² ağırlığı aşan dokunmamış mensucat ile dokumaya elverişli maddelerden mesnedi bulunan 150 gr/m² ağırlığı aşan deri taklitleri (koagüle suni deri)</p>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<h3>BAE, İtalya ve Mısır'dan koagüle suni deri ithalatına dampinge karşı önlem soruşturması açılıyor</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, dampinge karşı mevcut koruma önlemlerinin Birleşik Arap Emirlikleri, İtalya ve Mısır'dan yapılan ithalatlar yoluyla etkisiz kılındığını tespit etti. 5603.14 ve 3921.13 gümrük tarife pozisyonlarındaki 'koagüle suni deri' (poliüretanla kaplanmış sentetik lifli dokunmamış mensucat ve deri taklit ürünleri) için resmi soruşturma açıldı.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma Ticaret Bakanlığı İthalat Genel Müdürlüğü tarafından yürütülecektir (m.7/2).</div>
+<div class='kiymet'>• Soru formlarına cevap süresi: bildirimin gönderildiği tarihten itibaren 37 gün; bildirimi almayanlara ise tebliğ yayımından itibaren 37 gün (m.9/1).</div>
+<div class='kiymet'>• Diğer ilgili taraflar (yerli üreticiler, ithalatçılar, sendikalar, dernekler) görüşlerini tebliğ yayımından itibaren soruşturma süreci boyunca yazılı sunabilirler (m.9/3).</div>
+<div class='kiymet'>• İş birliğine gelinmemesi halinde (bilgi verilmemesi, yanlış bilgi, reddetme) karar mevcut veriler üzerinden alınır (m.10/1).</div>
+<div class='kiymet'>• Geçici önlem soruşturma süresi içinde uygulanabilir; kesin önlem geriye 90 gün ile sınırlı şekilde uygulanır (m.11/1).</div>
+<div class='kiymet'>• Soruşturma, tebliğ yayımı tarihinde başlamış kabul edilir (m.13/1).</div>
+<div class='kiymet'>• Tebliğ yayımı tarihinde yürürlüğe girer (m.14/1).</div>
+<p><b>Ürün:</b> Koagüle suni deri: 5603.14 pozisyonunda sınıflandırılan poliüretanla kaplanmış, sıvanmış veya lamine edilmiş dokumaya elverişli suni ve sentetik liflerden metrekare ağırlığı 150 gramı geçen dokunmamış mensucat; 3921.13 pozisyonunda sınıflandırılan dokumaya elverişli maddelerden mesnedi bulunan, metrekare ağırlığı 150 gramı geçen deri taklit ürünleri.</p>
 <p><b>GTİP:</b><br><span class='gtip'>5603.14</span><span class='gtip'>3921.13</span></p>
-<p><b>Kimi ilgilendirir:</b> Koagüle suni deri ithalatçıları, BAE, İtalya ve Mısır'dan kaynaklı ürün tedarik eden işletmeler, yerli üreticiler</p>
-<p><b>Ne yapmalısın:</b> Söz konusu ülkelerden gelen sevkiyatlarının birim fiyatlarını ve belgelerini gözden geçir. İthalatçıysanız, Bakanlığın https://www.ticaret.gov.tr/ithalat adresinden soruşturma dosyasını takip et. Soru formu alırsan otuz gün içinde Türkçe olarak yanıt ver; tercüme gerektiriyorsa tasdikli tercüme ekle. Büyükelçiliklerin bildirimini bekleme; bildirim ulaşmasa bile soruşturmaya katılmak için başvur.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturma döneminde BAE, İtalya ve Mısır menşeli ürünlere ilave denetim ve muhtemelen geçici gözetim bedeli uygulanacağı beklenir. Özellikle Mısır'dan yapılan ithalatın 2022-2023'te dramatik maliyet düşüşü (4,3 $/kg'dan 2,5 $/kg'a) ve hacim artışı (%1.632), soruşturmanın temelini oluşturmuştur; beyan ve belgeleriniz sıkı incelemeye tabi olabilir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Koagüle suni deri ithal eden giyim, ayakkabı, kuru temizleme, otomotiv ve dekoratif tekstil işletmeleri; söz konusu ürünleri yurt dışında üreten firma ve ihracatçılar; BAE, İtalya ve Mısır'daki Türk büyükelçilikleri; yerli üreticiler ve meslek kuruluşları.</p>
+<p><b>Ne yapmalısın:</b> Mevcut ithalatçılar ve yabancı üretici/ihracatçılar bildirimleri bekleyin; diğer taraflar https://www.ticaret.gov.tr/ithalat adresinden 'Ticaret Politikası Savunma Araçları' → 'İzleme ve Önlemlerin Etkisiz Kılınması' → 'Soruşturmalar' bölümüne girerek soru formlarını alın. Soru formuna yazılı cevapları 37 gün içinde (yayımdan itibaren) ya KEP adresi ticaretbakanligi@hs01.kep.tr ya da e-posta oeksorusturma@ticaret.gov.tr'ye, yurt dışı firmalar ise posta adresine gönder. Türkçe diğer belgeler 37 gün içinde Genel Müdürlüğe yazılı ulaştır.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> BAE, İtalya ve Mısır'dan yapılan ithalatlar daha düşük fiyatlarla piyasaya girmiş (İtalya 6,6 ABD doları/kg, Mısır 4,3 ABD doları/kg, genel ortalama 7,5 ABD doları/kg); soruşturma sonrası dampinge karşı yeni önlem uygulanması halinde bu menşelerdeki ithalat maliyeti artacak, beyan ve ödeme sistemi katılaşacaktır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/08/20250826-4.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

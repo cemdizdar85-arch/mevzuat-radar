@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -25,25 +33,34 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 </style></head><body><div class="wrap">
 <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="destekler.html">Destek Radarı</a> · <a href="radar.html">Bugün RG'de</a> · Günün Kartları · <a href="arsiv/index.html">Arşiv</a></div>
 <h1>Günün Hap Kartları</h1>
-<div class='alt'>11.10.2025 — Resmî Gazete'deki 1 düzenleme, 30 saniyede okunur kartlar hâlinde.</div>
+<div class='alt'>11.10.2025 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
-<div class="etiket">■ MEVZUAT DEĞİŞİKLİĞİ</div>
+<div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
 <h3>Çin menşeli diş freze makinelerine damping soruşturması açıldı</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Redon Teknoloji A.Ş.'nin başvurusu üzerine Çin menşeli diş freze/kazıyıcı makinelerine yönelik damping soruşturması açılmasına karar verdi. 2024 yılı verilerine dayanan soruşturmada, söz konusu ürünlerin maliyetin altında fiyatlandırıldığı ve bu durumun yerli üreticiyi zarara uğrattığı tespit edildi.</p>
-<p><b>Ürün:</b> Dişçilikte kullanılan diş freze/kazıyıcı makineleri</p>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Çin'den ithal edilen dişçilik diş freze/kazıyıcı makinelerine yönelik damping soruşturması başlattı. Araştırma, yerli üretici Redon Teknoloji A.Ş.'nin başvurusu üzerine açılmış; damping marjının yasaklanan eşik değeri aştığı ve ithalatın yerli üretici zararına yol açtığı saptanmıştır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Soruşturma Ticaret Bakanlığı İthalat Genel Müdürlüğü Damping ve Sübvansiyon Dairesi tarafından yürütülür (m.11).</div>
+<div class='kiymet'>• Bildirimi alan ilgili taraflar soru formuna 37 gün içinde cevap vermek zorundadır; posta süresi dâhil (m.12/1).</div>
+<div class='kiymet'>• Bildirimi almayan taraflar, tebliğ yayım tarihinden itibaren 37 gün içinde cevap ve görüşlerini sunabilir (m.12/2).</div>
+<div class='kiymet'>• Türkiye'de yerleşik firmalar KEP adresi kullanarak, yurt dışında yerleşik firmalar yazılı ve elektronik ortamda (CD/USB) başvuru yapacaktır (m.11/2-3).</div>
+<div class='kiymet'>• İş birliğine gelmeyen taraf için soruşturma sonucu daha az avantajlı olabilir; eksik veriye göre karar verilebilir (m.13).</div>
+<div class='kiymet'>• Geçici önlem uygulanabilir; kesin önlem geriye dönük uygulanır (m.14/1).</div>
+<div class='kiymet'>• Soruşturma tebliğ yayım tarihinde başlamış sayılır (m.15).</div>
+<div class='kiymet'>• Tebliğ yayım tarihinde yürürlüğe girer (m.16).</div>
+<p><b>Ürün:</b> Çin menşeli dişçilikte kullanılan diş freze/kazıyıcı makineleri</p>
 <p><b>GTİP:</b><br><span class='gtip'>9018.41</span><span class='gtip'>9018.49</span><span class='gtip'>8479.89.97.90.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Diş freze/kazıyıcı makineleri ithalatçıları, Çin'deki üretici ve ihracatçılar, bu makineleri yurt içinde üreten firmalar</p>
-<p><b>Ne yapmalısın:</b> Çin menşeli diş freze makinesi ithalatçıları, soru formlarını 37 gün içinde yanıtlayarak Damping ve Sübvansiyon Dairesi'ne göndermelidir. Tüm faturalı sevkiyatlar, belirtilen GTİP kodları üzerinden kontrol edilmelidir. Yurt dışında bulunan firmalar ise yasal temsilcileri aracılığıyla kep@hs01.kep.tr ve ithebys@ticaret.gov.tr adreslerine bilgi sunabilir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Soruşturmanın açılması, ithalatçılar için belgelendirme ve yanıt verme yükümlülüğü getirecektir. Damping marjının doğrulanması halinde ileriye dönük vergilendirme ve kısıtlamalar uygulanabilecek; ithalatçıların bu süreçte fiyat ve tedarik stratejilerini yeniden değerlendirmesi gerekmektedir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Sübvansiyon:</b> ihracatçı ülkenin kendi üreticisine verdiği devlet desteği; destekli mal Türkiye'de haksız rekabet yaratırsa telafi edici önlem alınabilir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<p><b>Kimi ilgilendirir:</b> Dişçilik ekipmanı ithalatçıları, Çin menşeli diş makinesi tedarikçileri, yerli diş freze/kazıyıcı makine üreticileri</p>
+<p><b>Ne yapmalısın:</b> Söz konusu ürün ithalatçıları soru formlarını indir ve 37 gün içinde doldur; Çin'deki üretici/ihracatçılar yasal temsilci aracılığıyla vekaletname (apostil tasdikli) ile cevap gönder. Dosyalama işlemleri için Ticaret Bakanlığı KEP adresini veya EBYS e-postasını (ithebys@ticaret.gov.tr) kullan. Kurumlar arası rekabet pazarlamada bu ürün grubundaki fiyatlandırma ve stok politikasını gözden geçir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2025/10/20251011-5.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
+
 <div class="cta"><h3>Bu kartlardan hangisi SENİN kodlarına dokunuyor?</h3>
 <p>Yakında: GTİP kodlarını kaydet, sadece seni etkileyen kart cebine gelsin. Şimdilik: firmanın tüm yükümlülüklerini 3 dakikada gör.</p>
 <a class="btn" href="index.html#app">Ücretsiz Yükümlülük Karnesi →</a></div>
 <div class='dip'>Tetikte hap bilgi motoru · Çift geçiş + hakem model çapraz kontrolü · Bilgilendirme amaçlıdır, kaynak tebliğ esastır.</div>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></div></body></html>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="menu.js" defer></script></div></body></html>

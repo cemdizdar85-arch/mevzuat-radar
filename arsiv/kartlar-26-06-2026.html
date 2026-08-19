@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,23 +35,33 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>26.06.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>7019.12 GTP rüzgar türbini kanadı fitillerinin dampinge karşı önlemden muaf tutulması</h3>
-<p><b>Ne oldu:</b> Rüzgar türbini kanadı üretiminde kullanılan 7019.12 GTP fitillerine yönelik dampinge karşı önlem tamamen kaldırılmış, ancak bu ürünlerin ithalatında özel belge ibrazı zorunlu hale getirilmiştir.</p>
-<p><b>Neyi değiştiriyor:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/18)</p>
+<h3>7019.12 GTİP rüzgâr türbini kanadı fitillerine dampinge karşı önlemden muafiyet</h3>
+<p><b>Ne oldu:</b> Rüzgâr türbini kanadı üretiminde kullanılan cam elyaftan dokunmuş mensucatta yer alan fitiller, 7019.12 GTİP altında %14,63 oranındaki dampinge karşı önlemden muaf tutulmuştur. Bu ürünlerin ithalatında ayrıca Sanayi Sicil Belgesi ibrazı zorunluluğu getirilmiştir.</p>
+<p><b>Hangi tebliğ:</b> İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/18) sayılı Tebliği değiştiriyor</p>
 <p><b>Eskiden → Şimdi</b> <span style='font-size:11px;color:var(--dim)'>(19.07.2025 tarihli RG'deki eski metinle karşılaştırıldı)</span></p>
-<div class='kiymet'>• 7019.12 GTP - Fitiller için dampinge karşı önlem kapsamı: <span style='color:var(--dim);text-decoration:line-through'>Fitiller: %14,63 önlem (tüm ithalatçılar)</span> → <b>Fitiller: Rüzgar türbini kanadı üretiminde kullanılan cam elyaftan dokunmuş mensucatta kullanılan fitiller damping önleminden hariç bırakılmıştır</b></div>
-<div class='kiymet'>• 7019.12 GTP ithalatında gerekli belgeler: <span style='color:var(--dim);text-decoration:line-through'>Belirtilmemiş</span> → <b>Rüzgar türbini kanadı üretiminde kullanılan fitiller için: Üretici/İhracatçı Belgesi ile birlikte, Üretim Konusu'nda "cam elyaftan mensucat (rüzgar türbinlerinin kompozit kanatlarında kullanılan)" ibaresi bulunan Sanayi Sicil Belgesi ibrazı zorunlu</b></div>
-<p><b>Ürün:</b> Cam elyaf ürünleri (iplikler, fitiller, takviye tabakası)</p>
+<div class='karsi'><span class='kon'>7019.12 GTP Fitiller - dampinge karşı önlem kapsamı</span><span class='hap eski'>Tüm fitiller %14,63 oranında dampinge karşı önleme tabi</span><span class='ok'>→</span><span class='hap yeni'>Rüzgâr türbini kanadı üretiminde kullanılan cam elyaftan dokunmuş mensucatta kullanılan fitiller dampinge karşı önlemden hariç bırakılmıştır</span></div>
+<div class='karsi'><span class='kon'>7019.12 GTP ithalatında gerekli belgeler</span><span class='hap eski'>Madde 5'de fitillerle ilgili özel belge şartı bulunmamaktadır</span><span class='ok'>→</span><span class='hap yeni'>Madde 5 fıkra 6: Üretici/İhracatçı Belgesi ve Sanayi Sicil Belgesi (Üretim Konusu kısmında cam elyaftan mensucat rüzgâr türbinlerinin kompozit kanatlarında kullanılan ibaresi) gereklidir</span></div>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Rüzgâr türbini kanadı üretiminde kullanılan cam elyaftan dokunmuş mensucatta kullanılan fitillerden %14,63 dampinge karşı önlem alınması muaf kılındı (Madde 1).</div>
+<div class='kiymet'>• 7019.12 GTIP'sinden rüzgâr türbini kanadı amaçlı cam elyafından dokunmuş mensucat fitili ithal eden kişi, İthalatta Haksız Rekabetin Önlenmesine İlişkin Tebliğ (Tebliğ No: 2025/1) kapsamında Üretici/İhracatçı Belgesi sunmalı (Madde 2).</div>
+<div class='kiymet'>• Rüzgâr türbini kanadı amaçlı fitil ithalatçısı, ek olarak 'cam elyaftan mensucat (rüzgâr türbinlerinin kompozit kanatlarında kullanılan)' kayıtlı geçerli Sanayi Sicil Belgesi ibraz etmelidir (Madde 2).</div>
+<div class='kiymet'>• Tebliğ yayımı tarihinde yürürlüğe girmiştir (Madde 3).</div>
+<p><b>Ürün:</b> Cam liflerinden imal edilmiş iplikler, fitiller ve takviye tabakaları</p>
 <p><b>GTİP:</b><br><span class='gtip'>7019.11</span><span class='gtip'>7019.12</span><span class='gtip'>7019.15</span><span class='gtip'>7019.19</span></p>
-<p><b>Kimi ilgilendirir:</b> Cam elyaf ithal eden seramik ve inşaat malzemecileri; rüzgâr türbini üretim zincirindeki tedarikçiler</p>
-<p><b>Ne yapmalısın:</b> Mevcut cam elyaf ithalatlarınızı GTIP kodlarıyla eşleştirin. Rüzgâr türbini kanadı üretimi amacıyla 7019.12 kodlu fitil ithal ediyorsanız, Sanayi Sicil Belgesini gümrük başvurusuyla birlikte hazırlayın ve söz konusu üretim konusunun belgede açıkça yer aldığından emin olun.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Rüzgar türbini kanadı fitillerini ithal edenlere %14,63 oranındaki dampinge karşı önlemin uygulanmayacak olması ithalatçıların maliyetlerini azaltırken, belge şartı ise kontrol mekanizması olarak devreye girmektedir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir.</div>
+<p><b>Birim kıymetler (çapraz doğrulanmış):</b></p>
+<div class='kiymet'>7019.11 → <b>%9,58 (CIF Bedelin Yüzdesi - Dampinge Karşı Önlem)</b></div>
+<div class='kiymet'>7019.15 → <b>%20 (CIF Bedelin Yüzdesi - Dampinge Karşı Önlem)</b></div>
+<div class='kiymet'>7019.19 → <b>%23,61 (CIF Bedelin Yüzdesi - Dampinge Karşı Önlem)</b></div>
+<div class='kiymet'>7019.12 → <b>%14,63 (CIF Bedelin Yüzdesi - Dampinge Karşı Önlem; rüzgâr türbini kanadı amaçlı fitiller muaf)</b></div>
+<p><b>Kimi ilgilendirir:</b> Cam elyafı ürünü ithal eden inşaat malzemesi, enerji (rüzgâr türbini) ve tekstil sektörü işletmeleri</p>
+<p><b>Ne yapmalısın:</b> Mısır, Bahreyn ve diğer menşe ülkelerden cam elyafı ürünü (7019.11, 7019.12, 7019.15, 7019.19) ithal eden sevkiyatların CIF bedelini yeni oranlarla karşılaştırın. Rüzgâr türbini kanadı amaçlı 7019.12 ithalatlarında Üretici/İhracatçı Belgesi ile Sanayi Sicil Belgesi şartlarının gümrük belgelendirmesi öncesinde sağlandığını teyit edin.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--green);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--green)'>Ne anlama geliyor (yorum · ithalatci lehine):</b> Rüzgâr türbini kanadı üretiminde kullanılan belirli fitiller için dampinge karşı önlemin kaldırılması, bu ürünlerin ithalatını kolaylaştırmaktadır. Bununla birlikte, Sanayi Sicil Belgesi şartı yeni bir idari yük oluşturmaktadır.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTİP:</b> Gümrük Tarife İstatistik Pozisyonu; her ürüne gümrükte verilen kimlik numarası gibi bir koddur, hangi ürünün hangi vergiye ve kurala tabi olduğu bu kodla belirlenir. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/06/20260626-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a> · <a href='arsiv/degisim/20260626-3.html'>Neyin nesi değişti? →</a></div>
 </div>
 

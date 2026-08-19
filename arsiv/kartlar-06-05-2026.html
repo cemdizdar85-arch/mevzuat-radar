@@ -16,6 +16,14 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 .kart p{margin:6px 0;font-size:13.5px;color:var(--muted)}.kart p b{color:var(--ink)}
 .gtip{display:inline-block;background:rgba(255,194,75,.12);color:var(--accent2);border-radius:7px;padding:2px 8px;font-size:11.5px;margin:2px 4px 2px 0;font-variant-numeric:tabular-nums}
 .kiymet{font-size:12.5px;color:var(--muted);margin:2px 0;font-variant-numeric:tabular-nums}.kiymet b{color:var(--ink)}
+.karsi{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.karsi .kon{color:var(--muted);margin-right:2px}
+.hap{display:inline-block;border-radius:8px;padding:2px 9px;line-height:1.65;white-space:nowrap}
+.hap.eski{background:rgba(255,255,255,.05);color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(255,107,94,.55)}
+.hap.yeni{background:rgba(255,194,75,.14);color:var(--accent2);font-weight:700}
+.hap.defter{background:rgba(61,220,151,.12);color:var(--green);font-weight:700}
+.karsi .ok{color:var(--dim)}
+.karsi .kaynak{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 .kiyas{background:rgba(61,220,151,.09);border:1px solid rgba(61,220,151,.3);color:var(--green);border-radius:9px;padding:8px 12px;font-size:12.5px;margin:8px 0}
 .meta{font-size:11px;color:var(--dim);margin-top:10px}.meta a{color:var(--accent2)}
 .cta{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(255,194,75,.07)),var(--panel);border:1px solid rgba(255,194,75,.3);border-radius:16px;padding:24px;margin-top:30px}
@@ -27,19 +35,24 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-.9px;margin:4px 0 4px;font-w
 <h1>Günün Hap Kartları</h1>
 <div class='alt'>06.05.2026 tarihli Resmî Gazete'de 1 düzenleme — o günün kaydı.</div>
 <div id="nobet" style="display:none;font-size:12.5px;color:var(--green,#3ddc97);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0"></div>
-<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(d=>{var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";}).catch(()=>{});</script>
+<script>fetch("veri/kart-durum.json?"+Date.now()).then(r=>r.json()).then(function(d){var e=document.getElementById("nobet");e.style.display="block";e.innerHTML="🟢 Nöbet sürüyor — Resmî Gazete son tarama: <b>"+d.sonTarama+"</b>. Kart gerektiren yeni düzenleme çıkmadığı günlerde liste değişmez.";return fetch("veri/rg-gun-durum.json?"+Date.now()).then(function(r){return r.json()}).then(function(g){if(g&&g.sebep){e.innerHTML+="<br><span style=\"color:var(--dim)\">"+g.gun+" — "+g.sebep+"</span>";}}).catch(function(){});}).catch(function(){});</script>
 <div class="uyari">Kartlar, ekibimizin geliştirdiği çift kontrollü okuma sistemiyle doğrudan Resmî Gazete metninden üretilir; her değer <b>iki bağımsız okuma + anlaşmazlıkta üçüncü kontrol</b> ile doğrulanır. Güvenle doğrulanamayan değer karta yazılmaz. Bilgilendirme amaçlıdır — işlem öncesi kaynak tebliği açın.</div>
 <div class="kart">
 <div class='etiket'>■ MEVZUAT DEĞİŞİKLİĞİ</div>
-<h3>Kosova menşeli sentetik filament mensucat ithalatında haksız rekabet soruşturması açılıyor</h3>
-<p><b>Ne oldu:</b> Ticaret Bakanlığı, Kosova menşeli sentetik filament iplikten dokunmuş giyimlik mensucat ithalatının, mevcut dampinge karşı önlemleri etkisiz kılıp kılmadığını tespit etmek amacıyla re'sen bir soruşturma başlattı. İstatistiklere göre Kosova'dan yapılan ithalat 2023'te 23,4 tondan 2025'te 1.112 tona yükselmiş ve fiyatlar Çin menşeli ürünlere yaklaşmıştır.</p>
-<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyimlik olanlar)</p>
-<p><b>GTİP:</b><br><span class='gtip'>54.07</span></p>
-<p><b>Kimi ilgilendirir:</b> Tekstil ve giyim sektöründe sentetik filament mensucat ithal eden firmalar, özellikle Kosova'dan tedarik sağlayanlar</p>
-<p><b>Ne yapmalısın:</b> Kosova menşeli sevkiyatlarındaki fiyat ve miktar trendlerini takip edin; mevcut dampinge karşı önlemler kapsamındaki beyanlarınızı gözden geçirin; soruşturma duyurusunu ve takvimini yakından izleyin, zira sonuç ek gözetim veya yeni bir vergilendirmeye yol açabilir.</p>
-<p><b>Yürürlük:</b> yayimi tarihinde</p>
-<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Kosova menşeli ithalatın hızla artması ve fiyatların Çin ürünlerine yaklaşması, mevcut dampinge karşı önlemlerin etkisiz kaldığına ilişkin bulguları güçlendiriyor. Soruşturma sonucunda yeni vergilendirme veya gözetim uygulaması getirilebilir; bu durum ithalatçıların maliyetlerini artıracak ve tedarik planlamalarını değiştirecektir.</div>
-<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
+<h3>Kosova menşeli sentetik filament mensucat ithalatında haksız rekabet soruşturması</h3>
+<p><b>Ne oldu:</b> Ticaret Bakanlığı, Kosova menşeli, 54.07 GTP kodlu sentetik filament iplikten dokunmuş mensucat (giyim amaçlı) ithalatında mevcut dampinge karşı önlemlerin etkisizleştirildiğini tespit etmiştir. Bu tespit doğrultusunda re'sen soruşturma başlatılmış olup söz konusu ithalat, ÇHC menşeli ithalata uygulanan önlem tutarında teminata bağlanmıştır.</p>
+<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>
+<div class='kiymet'>• Kosova menşeli bahse konu eşya ithalatı, ÇHC menşeli ithalata uygulanan dampinge karşı önlem tutarında teminata bağlanmış ve soruşturma Genel Müdürlük tarafından yürütülecektir (m.7/2-3).</div>
+<div class='kiymet'>• Soru formuna cevap veren tarafların bildirimin gönderildiği tarihten itibaren posta dâhil 37 gün, bildirimi almayanlar ise bu Tebliğin yayım tarihinden itibaren 37 gün içinde cevaplandırması gerekir (m.9/1).</div>
+<div class='kiymet'>• Soruşturma ile ilgili ek bilgi, belge ve görüşler Tebliğ yayım tarihinden itibaren en geç 37 gün içinde yazılı olarak Genel Müdürlüğe iletilmelidir (m.9/2).</div>
+<div class='kiymet'>• Taraflardan birinin gerekli bilgiyi sağlayamaması, yanlış bilgi vermesi ya da reddetmesi durumunda karar mevcut verilere göre alınır (m.10/1).</div>
+<div class='kiymet'>• Soruşturma bu Tebliğin yayım tarihinde başlamış kabul edilir; Tebliğ yayım tarihinde yürürlüğe girer (m.12-13).</div>
+<p><b>Ürün:</b> Sentetik filament iplikten dokunmuş mensucat (giyim amaçlı olanlar)</p>
+<p><b>Kimi ilgilendirir:</b> Kosova, ÇHC, Güney Kore, Tayland, Malezya ve Çin Tayvanı menşeli mensucat ithalatçıları; muhabir firmalar; anılan ülkelerdeki üretici ve ihracatçılar</p>
+<p><b>Ne yapmalısın:</b> Soru formları belirtilen süreler içinde yanıtlanmalı ve destekleyici belgeler Genel Müdürlüğe iletilmelidir; söz konusu ürün ithalatında ÇHC'ye uygulanan önlem oranı (110 gr/m² üzeri için %42,44; 110 gr/m² ve altı için %21,13) esas alınarak teminat yükümlülüğü hesaplanmalı; raporlama sistemi bu soruşturma kapsamında güncellenmelidir.</p>
+<p><b>Yürürlük:</b> yayımı tarihinde</p>
+<div style='border:1px solid var(--amber);border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:var(--amber)'>Ne anlama geliyor (yorum · ithalatci aleyhine):</b> Kosova menşeli ithalata ÇHC önlem oranında teminat yükümlülüğü getirilmesi, bu yeni kaynak ülkeden yapılan ithalatta maliyeti artırarak rekabeti sıkılaştıracaktır. İthalatçıların mensucat fiyatlandırmasını ve tedarik planlamasını yeniden gözden geçirmesi gerekmektedir.</div>
+<div class='sozluk' style='margin:10px 0;padding:10px 13px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--dim);line-height:1.6'><b style='color:var(--muted)'>📖 Bu karttaki terimler ne demek?</b> <b>GTP:</b> Gümrük Tarife Pozisyonu; ürün kodunun (GTİP'in) baş hanelerinden oluşan üst gruptur. <b>Damping:</b> bir malın Türkiye'ye, kendi ülkesindeki satış fiyatının altında fiyatla satılması; 'dampinge karşı önlem' de bu haksız ucuzluğa karşı yerli üreticiyi korumak için o ülkeden ithalata getirilen ek vergidir. <b>Menşe:</b> ürünün üretildiği/elde edildiği ülke ('Çin menşeli' = Çin'de üretilmiş); ithalatta hangi ülkeye hangi verginin uygulanacağını menşe belirler.</div>
 <div class='meta'><a href='https://www.resmigazete.gov.tr/eskiler/2026/05/20260506-3.htm' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>
 </div>
 
