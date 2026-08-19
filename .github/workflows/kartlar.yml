@@ -51,6 +51,10 @@ on:
         description: "Bugunu kaynak degismese de yeniden uret (API harcar)"
         type: boolean
         default: false
+      derinlestir:
+        description: "Kac ESKI gunu derinlestirmek icin yeniden uretsin (0 = kapali). Uzun metinli gunler once."
+        type: string
+        default: "0"
 
 permissions:
   contents: write
@@ -171,6 +175,51 @@ jobs:
             Sort-Object { try { [datetime]::ParseExact($_.Name,'dd-MM-yyyy',$null) } catch { [datetime]'1900-01-01' } } -Descending)
           $islenecek = New-Object System.Collections.Generic.List[string]
           foreach($a in $adaylar){ if($islenecek.Count -ge 5){ break }; $islenecek.Add($a.Name) }
+
+          # ================= DERINLESTIRME PARTISI (19.08.2026) =================
+          # Cem: "en ince ayrintiya kadar okuyup anlatmali - hepsini tekrar yap".
+          # 12.000 karakter kirpmasi duzeltildi; kirpilmis gunlerin kartlari eksik
+          # bilgiyle uretilmisti. Bu giris, ESKI gunleri sirayla yeniden urettirir.
+          # SIRA: kaynak metni UZUN olan gun once - kirpmadan en cok zarar goren o.
+          # ADAY OLCUTU: kartinda kilit_hukumler alani HIC OLMAYAN gun (yani yeni
+          # istemle uretilmemis). Boylece parti tekrar tekrar ayni gunu islemez.
+          $derinAdet = 0
+          [int]::TryParse("${{ github.event.inputs.derinlestir }}", [ref]$derinAdet) | Out-Null
+          if($derinAdet -gt 0){
+            Write-Host ("DERINLESTIRME: en fazla {0} eski gun yeniden uretilecek." -f $derinAdet)
+            $derinAdaylar = @()
+            foreach($ad in (Get-ChildItem "motor/arsiv" -Directory -ErrorAction SilentlyContinue)){
+              if($islenecek -contains $ad.Name){ continue }
+              $htmler = @(Get-ChildItem $ad.FullName -Filter *.htm -ErrorAction SilentlyContinue)
+              if(-not $htmler.Count){ continue }
+              $kj = "motor/kartlar/$($ad.Name)/kartlar.json"
+              if(-not (Test-Path $kj)){ continue }
+              try { $kk = @((ConvertFrom-Json -InputObject (Get-Content $kj -Raw -Encoding UTF8))) } catch { continue }
+              if(-not $kk.Count){ continue }
+              # ELLE DOGRULANMIS gun ASLA yeniden uretilmez: 11.07 tebliglerinde
+              # tablolar GORSEL, urun adlari Tarife Cetveli kasasindan elle
+              # bulundu; model o kasayi gormez, yeniden uretim halusinasyonu
+              # geri getirir (30.07 "altin" vakasi bu sinifti).
+              $elle = $false
+              foreach($x in $kk){ if($x.elle_dogrulandi -eq $true){ $elle = $true; break } }
+              if($elle){ continue }
+              # kilit_hukumler alani VARSA bu gun zaten yeni istemle uretilmis
+              $yeniUretilmis = $true
+              foreach($x in $kk){ if($null -eq ($x.PSObject.Properties.Name | Where-Object { $_ -eq 'kilit_hukumler' })){ $yeniUretilmis = $false; break } }
+              if($yeniUretilmis){ continue }
+              $uzunluk = 0
+              foreach($hf in $htmler){ $uzunluk += $hf.Length }
+              $derinAdaylar += [pscustomobject]@{ gun=$ad.Name; uzunluk=$uzunluk }
+            }
+            $secilen = @($derinAdaylar | Sort-Object uzunluk -Descending | Select-Object -First $derinAdet)
+            if($secilen.Count){
+              Write-Host ("Derinlestirilecek gun: " + (($secilen | ForEach-Object { $_.gun }) -join ', '))
+              Write-Host ("Bekleyen derinlestirme adayi: {0}" -f $derinAdaylar.Count)
+              foreach($sx in $secilen){ $islenecek.Add($sx.gun) }
+            } else {
+              Write-Host "Derinlestirme adayi kalmadi - tum gunler yeni istemle uretilmis."
+            }
+          }
           if($adaylar.Count -gt $islenecek.Count){
             Write-Host ("Bekleyen gun: {0} - bu kosuda {1} tanesi islenecek, kalani yarin." -f $adaylar.Count, $islenecek.Count)
           }
