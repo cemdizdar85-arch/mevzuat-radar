@@ -93,14 +93,14 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · <a href="radar.html">Bugün RG'de</a> · <b style="color:var(--ink)">Alacak Radarı</b></div>
 
   <!-- 19.08 Cem: rozet iki türü de kapsasın ve soyut korku yerine ÖLÇÜLMÜŞ rakam
-       göstersin. Sayı canlı JSON'daki son30 alanından basılır (motor/alacak-arsiv-bol.ps1
-       her hasattan sonra tam arşivden hesaplar). Veri inmezse aşağıdaki rakamsız
-       metin kalır — rakam ASLA gömülü yazılmaz. -->
+       göstersin. Sayı alacak_vitrin() RPC'sinin son30 alanından basılır (kasadaki
+       TAM arşivden, sunucuda sayılır). Veri gelmezse aşağıdaki rakamsız metin
+       kalır — rakam ASLA gömülü yazılmaz. -->
   <div><span class="gozalici" id="aiRozet">🚨 Müşterin iflas veya konkordato ilan etti mi?</span></div>
   <h1>Müşterin battı, senin haberin yok</h1>
   <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
 
-  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: 5.728 ilan</b>, VKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
+  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: <span id="aiAdet2">…</span> ilan</b>, VKN/TCKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
 
   <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
@@ -112,16 +112,17 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        (40 kart sonrası); asıl ürün eylemi olduğu için akışın ÜSTÜNE taşındı. -->
   <div class="kutu" style="margin-top:18px">
     <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
-    <label>Müşteri / borçlu listeni yükle — <b style="color:var(--accent2)">1 yıllık arşivde (5.728 ilan) taranır</b></label>
+    <label>Müşteri / borçlu listeni yükle — <b style="color:var(--accent2)">1 yıllık arşivin tamamında (<span id="aiAdet1">…</span> ilan) taranır</b></label>
     <label class="yukle" id="yukleKutu">
       <div class="ikon">📄</div>
       <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
-      <div class="alt">Cari listeni (VKN'li) yükle; <b style="color:var(--muted)">bilgisayarından çıkmaz</b>, tarayıcıda okunur. VKN'leri otomatik ayıklarız.</div>
+      <div class="alt">Cari listeni (VKN'li) yükle. <b style="color:var(--muted)">Dosyan bize ulaşmaz</b>: tarayıcıda okunur, yalnızca ayıkladığımız VKN/TCKN'ler sorgu olarak gider; unvan, adres, bakiye sütunların <b style="color:var(--muted)">bizde hiç görünmez</b> ve saklanmaz.</div>
       <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
     </label>
     <div class="yukle-durum" id="yukleDurum"></div>
-    <div class="ayrac">ya da tek borçlu sorgula</div>
-    <label for="giris"><b style="color:var(--ink)">Bir VKN ya da bir firma adı</b> yaz. En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Çok sayıda borçlu için yukarıdan <b style="color:var(--ink)">Excel/CSV yükle</b>.</label>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6;text-align:center">Toplu taramada ücretsiz deneme <b style="color:var(--muted)">listenin ilk 25 satırı</b> ve <b style="color:var(--muted)">3 eşleşme</b> ile sınırlıdır. Tamamı + işaretlenmiş Excel çıktısı <a href="radar-fiyat.html?nereden=alacak-excel" style="color:var(--accent2);font-weight:700">abonelikte</a>.</div>
+    <div class="ayrac">ya da tek borçlu sorgula — <b style="color:var(--green)">ücretsiz</b></div>
+    <label for="giris"><b style="color:var(--ink)">Bir VKN, TCKN ya da bir firma adı</b> yaz — <b style="color:var(--green)">tek kayıt sorgusu ücretsizdir</b>. En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Çok sayıda borçlu için yukarıdan <b style="color:var(--ink)">Excel/CSV yükle</b>.</label>
     <input type="text" id="giris" class="gir" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font:inherit;font-size:15px" placeholder="ör. 280365097 ya da PERGEL METAL (demo verisinde eşleşir)" onkeydown="if(event.key==='Enter')kontrol()">
     <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
     <div class="ipucu">Deneme için örnek VKN 280365097'yi arayabilirsin. Gerçek kullanımda kendi borçlunu yaz ya da listeni yükle.</div>
@@ -173,7 +174,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <div id="aiMakro" style="margin:0 0 14px"></div>
   <div id="aiListe" style="padding-bottom:96px"></div>
   <script>
-  var AI_L=[], AI_TUR='hepsi';
+  var AI_L=[], AI_ILLER=[], AI_TUR='hepsi';
   function aiFold(s){ return String(s==null?'':s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/\s+/g,' ').trim(); }
   function aiKac(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   // m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet
@@ -263,41 +264,82 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var iki=function(n){return String(n).padStart(2,'0');};
     return {sonGun:iki(d.getDate())+'.'+iki(d.getMonth()+1)+'.'+d.getFullYear(), kalan:kalan};
   }
-  // 19.08 ARSIV AYRIMI: sayfa acilisinda yalniz SON 400 ilan iner (~283 KB).
-  // 5.728 ilanlik 1 yillik tam arsiv (4 MB) YALNIZ tarama yapilinca yuklenir
-  // (arsivYukle), boylece acilis hizli kalir. Bkz motor/alacak-arsiv-bol.ps1
+  /* ====================================================================
+     19.08 GIZLI KASA (Cem: "bilgiler gizli olsun kimse gormesin").
+     ONCEKI HALI: veri/alacak-arsiv.json = 4 MB'lik ACIK dosya; 5.728 ilan,
+     2.083 borclu adi, 2.066 VKN, 1.657 TCKN tek tikla indirilebiliyordu.
+     Yani rakip de dahil herkes en degerli varligimizi kopyalayabiliyordu.
+     SIMDI: arsiv Supabase'de, tabloya kimse dogrudan erisemiyor (RLS acik,
+     policy yok). Disariya yalnizca TAVANLI uc RPC aciliyor:
+       alacak_vitrin() -> en yeni 60 ilan + toplu istatistik (bu blok)
+       alacak_ara()    -> tek sorgu, en fazla 25 satir  (ucretsiz)
+       alacak_toplu()  -> liste tarama, abone degilse 25 girdi / 3 acik kayit
+     TCKN hicbir RPC'den GERI DONMEZ; yalniz esleme icin kullanilir.
+     Sema: radar-app/sql/2026-08-19-alacak-gizli-arsiv.sql
+     ==================================================================== */
+  var SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
+  var SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  function sbJeton(){
+    try{
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i); if(k.indexOf('-auth-token')<0) continue;
+        var ham=localStorage.getItem(k)||'';
+        if(ham.indexOf('base64-')===0){ ham=atob(ham.slice(7)); }
+        var v=JSON.parse(ham);
+        var t=(v&&v.access_token)||(v&&v.currentSession&&v.currentSession.access_token);
+        if(t) return t;
+      }
+    }catch(e){}
+    return null;
+  }
+  async function sbRpc(ad, govde){
+    var j=sbJeton();
+    var r=await fetch(SB_URL+'/rest/v1/rpc/'+ad,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(j||SB_KEY),'Content-Type':'application/json'},
+      body:JSON.stringify(govde||{})
+    });
+    var g=await r.text();
+    if(!r.ok){ var h=''; try{ h=(JSON.parse(g).hint)||(JSON.parse(g).message)||''; }catch(e){} var hata=new Error(h||('HTTP '+r.status)); hata.kod=h; throw hata; }
+    return g?JSON.parse(g):null;
+  }
   var AI_ARSIV_ADET=0;
-  fetch('veri/alacak-ilan-canli.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+  sbRpc('alacak_vitrin',{}).then(function(d){
+    if(!d) throw new Error('bos');
     AI_L=(d.ilanlar||[]);
-    AI_ARSIV_ADET=(d.arsivAdet||AI_L.length);
-    var m=/([0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9:]+)/.exec(d.guncelleme||'');
+    AI_ILLER=(d.iller||[]);
+    AI_ARSIV_ADET=(d.adet||AI_L.length);
     var e=document.getElementById('aiDamga');
-    if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN ile aranabilir</span> · son güncelleme: <b style="color:var(--ink)">'+(m?m[1]:(d.guncelleme||'—'))+'</b>';
+    if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN/TCKN ile aranabilir</span>';
+    // RAKAM DISIPLINI: arsiv adedi tek yerden (kasadan) basilir, sayfaya elle yazilmaz.
+    ['aiAdet1','aiAdet2'].forEach(function(id){ var n=document.getElementById(id); if(n) n.textContent=AI_ARSIV_ADET.toLocaleString('tr-TR'); });
     // ROZET: yalnız ölçülmüş sayı basılır; alan yoksa rakamsız metin olduğu gibi kalır.
     var rz=document.getElementById('aiRozet');
     if(rz && d.son30>0){
-      rz.innerHTML='🚨 Son '+(d.son30Gun||30)+' günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?';
+      rz.innerHTML='🚨 Son 30 günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?';
     }
     aiMakro(); aiCiz();
-  }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
+  }).catch(function(){
+    var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.';
+    var l=document.getElementById('aiListe'); if(l) l.innerHTML='<div class="uyari">İlan akışı şu an yüklenemedi. Borçlu araması yukarıdaki kutudan yine denenebilir; sorun sürerse birazdan yenile.</div>';
+  });
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
   // elimizdeki resmî ilan havuzundan MAKRO eğilim. Sektör YOK (ilan metninde,
   // yapısal değil); yalnız il + tür (gerçek alanlar). Tek firma hükmü DEĞİL.
   function aiMakro(){
     var box=document.getElementById('aiMakro'); if(!box || !AI_L.length) return;
-    var ilMap={};
-    AI_L.forEach(function(x){ var il=((x.il||'').trim())||'Belirtilmemiş'; if(!ilMap[il])ilMap[il]={k:0,i:0,t:0}; ilMap[il].t++; if(x.tur==='konkordato')ilMap[il].k++; else if(x.tur==='iflas')ilMap[il].i++; });
-    var iller=Object.keys(ilMap).map(function(il){return {il:il,d:ilMap[il]};}).sort(function(a,b){return b.d.t-a.d.t;});
-    var top=iller.slice(0,6), maxT=(top[0]?top[0].d.t:1);
-    var ko=AI_L.filter(function(x){return x.tur==='konkordato';}).length;
-    var ifl=AI_L.filter(function(x){return x.tur==='iflas';}).length;
+    // 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)
+    // sunucuda toplanip geliyor — hem daha dogru hem de tek satir veri sizdirmiyor.
+    var top=(AI_ILLER||[]).slice(0,6).map(function(o){ return {il:o.il, d:{t:o.t,k:o.k,i:o.i}}; });
+    if(!top.length) return;
+    var maxT=(top[0]?top[0].d.t:1);
     var satir=top.map(function(o){
       var yuzde=Math.round(o.d.t/maxT*100);
       return '<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="color:var(--ink)">'+aiKac(o.il)+'</b><span style="color:var(--dim)">'+o.d.t+' ilan · <span style="color:var(--amber)">'+o.d.k+' konk.</span> / <span style="color:var(--red)">'+o.d.i+' iflas</span></span></div><div style="height:6px;background:var(--panel);border-radius:4px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+yuzde+'%;background:var(--grad)"></div></div></div>';
     }).join('');
     box.innerHTML='<div class="kutu" style="margin:0">'
-      +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 BU ÇEKİMİN MAKRO SİNYALİ</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">En yeni '+AI_L.length+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
+      +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 MAKRO SİNYAL · SON 1 YIL</div>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Arşivdeki '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
       +satir
       +'<div id="aiResmi"></div>'
       +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
@@ -528,10 +570,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // acilisi hafif kalsin diye ayri dosyada. Bir kez inince bellekte tutulur.
 // 19.08 Cem: yüklenen Excel, tarama sonucu işlenmiş olarak GERİ VERİLİR.
 // SheetJS zaten yüklü (okuma için); yazma da aynı kütüphaneyle yapılır.
-// Dosya tarayıcıda üretilir — hiçbir veri sunucuya gitmez.
+// Dosya tarayıcıda üretilir. 19.08 sonrası eşleştirme sunucuda yapılıyor; sunucuya
+// giden TEK şey ayıklanan VKN/TCKN listesidir — dosyanın kendisi hiç gönderilmez.
 function taramaExcelIndir(){
   const satirlar = window.SON_TARAMA || [];
   if(!satirlar.length){ alert('Önce bir tarama yap.'); return; }
+  // 19.08 FİYAT KAPISI (Cem: "tek tek arama açık olsun, Excel atıp alma paralı").
+  // Asıl kilit sunucuda: abone olmayana zaten en fazla 3 açık kayıt döner, geri
+  // kalanı maskeli gelir ve Excel'e girmez. Burası yalnız dürüst uyarıdır.
+  if(!window.SON_TARAMA_ABONE){
+    location.href = 'radar-fiyat.html?nereden=alacak-excel';
+    return;
+  }
   try{
     const ws = XLSX.utils.json_to_sheet(satirlar);
     ws['!cols'] = [{wch:18},{wch:26},{wch:38},{wch:13},{wch:12},{wch:12},{wch:34},{wch:16},{wch:30},{wch:12},{wch:52},{wch:38}];
@@ -540,20 +590,6 @@ function taramaExcelIndir(){
     const d = new Date(), iki = n => String(n).padStart(2,'0');
     XLSX.writeFile(wb, 'alacak-taramasi-'+d.getFullYear()+iki(d.getMonth()+1)+iki(d.getDate())+'.xlsx');
   }catch(e){ alert('Excel oluşturulamadı: '+e.message); }
-}
-
-let ARSIV = null;
-async function arsivYukle(){
-  if(ARSIV) return ARSIV;
-  try{
-    const r = await fetch('veri/alacak-arsiv.json?cb='+Date.now());
-    const j = await r.json();
-    ARSIV = (j.ilanlar||[]);
-  }catch(e){
-    // arsiv inmezse en azindan akistaki son ilanlarla tara (sessiz dusus)
-    ARSIV = (typeof AI_L!=='undefined' && Array.isArray(AI_L)) ? AI_L : [];
-  }
-  return ARSIV;
 }
 
 let ILAN = null;
@@ -657,41 +693,62 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     const temizler = sorgular.filter(q=>!eslesmisSorgu.has(q.ham));
     if(temizler.length){ html += `<div class="belg" style="margin-top:6px">Diğer ${temizler.length} kayıtta ilan yok (bu örnek veriye göre).</div>`; }
   }
-  // 19.08 TCKN DÜRÜSTLÜĞÜ (Cem: "şahıs TC oluyor, 11 haneli"): arşivde TCKN
-  // BİLİNÇLİ OLARAK saklanmıyor (KVKK; alacak-borclu-cek.ps1'deki kural), yani
-  // TCKN ile arayan sessizce "eşleşme yok" görüyordu. Artık açıkça söylüyoruz.
-  const tcknSorgu = sorgular.filter(q => q.vkn.length === 11);
-  if(tcknSorgu.length){
-    html += '<div class="uyari" style="margin-top:10px"><b style="color:var(--amber)">TC kimlik numarasıyla arama:</b> '
-      + tcknSorgu.length + ' kayıt TCKN olarak girildi. Gerçek kişilerin TC kimlik numaralarını <b>kişisel veri koruması gereği arşivimizde saklamıyoruz</b>, bu yüzden TCKN eşleştirmesi yapılamaz. '
-      + 'Şahıs işletmesi borçlular için <b>ad-soyad</b> ile arayın (en az iki kelime, ör. "AHMET YILMAZ"); '
-      + 'ilan metninde kişi adı geçiyorsa yakalanır. Kesin kontrol için ilan.gov.tr\'de de arayabilirsiniz.</div>';
-  }
+  // 19.08 TCKN: Cem'in B kararıyla şahıs borçlular için TCKN de eşleştiriliyor.
+  // KVKK dengesi: TCKN yalnız kasada tutulur, EŞLEŞME için kullanılır ve hiçbir
+  // yanıtta GERİ DÖNMEZ — ne ekranda ne Excel'de yazılır (sema: alacak_toplu).
 
   // 19.08 CANLI HAVUZ TARAMASI: yüklenen liste yalnız örnek veriyle değil, son
   // çekimlerdeki resmî ilan akışıyla (AI_L) da eşleştirilir. VKN alanı yalnız
   // dört kontrol kapısından geçen tekil VKN'lerde dolu; unvan eşleşmesi sadece
   // çıkarılmış BORÇLU adına bakar (başlıkta alacaklı adları da geçer, oraya bakılmaz).
+  // ===================== ARŞİV TARAMASI — GİZLİ KASA =====================
+  // 19.08: arşiv artık tarayıcıya İNMİYOR. Eşleştirme sunucuda yapılır, geri
+  // dönen tek şey EŞLEŞEN kayıtlardır. Tek kayıt sorgusu ücretsiz (alacak_ara,
+  // 25 satıra kadar açık); liste taraması alacak_toplu'dan geçer ve abone
+  // değilse ilk 25 girdi taranıp en fazla 3 kayıt açık gelir. Fiyat kapısı
+  // sunucuda: tarayıcı kodu değiştirilse bile kilit açılmaz.
+  window.SON_TARAMA_ABONE = false;
+  window.SON_TARAMA_KILITLI = 0;
   try{
-    const canli = await arsivYukle();
-    const canliBulunan = [];
-    for(const x of canli){
-      const xv = rakam(x.vkn||''), xt = rakam(x.tckn||''), xb = trFold(x.borclu||'');
-      // VKN (10 hane) ya da TCKN (11 hane, 19.08 Cem kararıyla saklanıyor) birebir
-      const vknEs = sorgular.find(q => vknEsle(q,xv) || (xt && q.vkn.length===11 && q.vkn===xt));
-      const adEs = vknEs ? null : sorgular.find(q => adSorguUygun(q) && xb && xb.includes(q.unvan));
-      const es = vknEs || adEs;
-      if(es) canliBulunan.push({x, es, tip: vknEs?'vkn':'ad'});
+    let kayitlar = [], abone = false, atlanan = 0, eslesme = 0, kasaCalisti = true;
+    if(toplu===true){
+      const tk = await sbRpc('alacak_toplu', { p_liste: sorgular.map(q=>q.ham) });
+      kayitlar = (tk && tk.kayitlar) || []; abone = !!(tk && tk.abone);
+      atlanan = (tk && tk.atlanan) || 0; eslesme = (tk && tk.eslesme) || 0;
+    } else {
+      const tek = await sbRpc('alacak_ara', { p_sorgu: sorgular[0].ham });
+      abone = true; // tek sorguda kilit yok
+      kayitlar = (tek||[]).map(r => ({
+        sorgu: sorgular[0].ham, gizli:false, tip:r.tip, tur:r.tur, tarih:r.tarih_str,
+        baslik:r.baslik, borclu:r.borclu, vkn:r.vkn, kurum:r.kurum, il:r.il, url:r.url
+      }));
+      eslesme = kayitlar.length;
     }
-    if(canliBulunan.length){
-      html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+canli.length.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl)</span></h2>';
-      for(const esk of canliBulunan.slice(0,20)){
-        const x = esk.x, es = esk.es, tip = esk.tip;
+    window.SON_TARAMA_ABONE = abone;
+    window.SON_TARAMA_KILITLI = kayitlar.filter(k=>k.gizli).length;
+    window.SON_TARAMA_ATLANAN = atlanan;
+
+    if(kayitlar.length){
+      html += '<h2 style="margin-top:22px">Arşiv eşleşmeleri <span style="font-size:12px;color:var(--dim);font-weight:600">· '+AI_ARSIV_ADET.toLocaleString('tr-TR')+' resmî ilan tarandı (son 1 yıl)</span></h2>';
+      for(const k of kayitlar){
+        const turAdi = k.tur==='konkordato'?'Konkordato':(k.tur==='iflas'?'İflas':'İlan');
+        if(k.gizli){
+          // KİLİTLİ KART: eşleşme VAR, kim olduğu abonelikte. Sayı gizlenmez —
+          // "kaç riskli var" ücretsiz, "kimler" abonelikte (Cem 19.08 kararı).
+          html += '<div class="kart risk" style="opacity:.92">'
+            +'<span class="rozet risk">🔒 '+turAdi+' eşleşmesi · abonelikte açılır</span>'
+            +'<h3 style="filter:blur(4px);user-select:none">'+aiKac(k.borclu||'••••••••')+'</h3>'
+            +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
+            +'<div class="belg">Bu kayıtta <b style="color:var(--ink)">gerçek bir eşleşme</b> var. Borçlunun adı, mahkeme/dosya bilgisi, yasal süresi ve ilan bağlantısı abonelikte görünür.</div>'
+            +'</div>';
+          continue;
+        }
+        const x = { tur:k.tur, baslik:k.baslik||'', tarih:k.tarih||'' };
         let sureHtml='', xlSure='', xlSonGun='', xlHap='';
         try{
           const kural = aiSure(x);
           if(kural && (kural.gun||kural.ay)){
-            const g = aiSonTarih(x.tarih, kural);
+            const g = aiSonTarih(k.tarih, kural);
             if(g && g.kalan>=0){
               sureHtml = '<div class="sure">⏳ <b>'+kural.tip+': '+(g.kalan===0?'son gün BUGÜN':g.kalan+' gün kaldı')+'</b> ('+kural.madde+' · '+kural.aciklama+', son gün '+g.sonGun+'; kesin süreyi ilan metninden teyit et)</div>';
               xlSure = kural.tip+' ('+kural.madde+' · '+kural.aciklama+')'; xlSonGun = g.sonGun;
@@ -700,58 +757,91 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           if(kural && kural.hap){ sureHtml += '<div class="belg">💊 '+kural.hap+'</div>'; xlHap = kural.hap; }
         }catch(e){}
         window.SON_TARAMA.push({
-          'Sorgu': es.ham,
-          'Durum': tip==='vkn' ? 'RİSK (VKN/TCKN birebir)' : 'OLASI (unvan benzerliği)',
-          'Borçlu': x.borclu || x.baslik || '',
-          'VKN': x.vkn || '',
-          'Tür': x.tur==='konkordato' ? 'Konkordato' : (x.tur==='iflas' ? 'İflas' : 'İlan'),
-          'İlan tarihi': x.tarih || '',
-          'Mahkeme / dosya': x.kurum || '',
-          'İl': x.il || '',
+          'Sorgu': k.sorgu,
+          'Durum': k.tip==='vkn' ? 'RİSK (VKN/TCKN birebir)' : 'OLASI (unvan benzerliği)',
+          'Borçlu': k.borclu || k.baslik || '',
+          'VKN': k.vkn || '',
+          'Tür': turAdi,
+          'İlan tarihi': k.tarih || '',
+          'Mahkeme / dosya': k.kurum || '',
+          'İl': k.il || '',
           'Yasal süre': xlSure,
           'Son gün': xlSonGun,
           'Ne yapmalı': xlHap,
-          'İlan linki': x.url || ''
+          'İlan linki': k.url || ''
         });
         html += '<div class="kart risk">'
-          +'<span class="rozet risk">'+(tip==='vkn'?'⚠ Risk, ':'⚠ OLASI eşleşme, ')+(x.tur==='konkordato'?'Konkordato':(x.tur==='iflas'?'İflas':'İlan'))+(tip==='vkn'?' · VKN birebir eşleşti':' · unvan benzerliği')+'</span>'
-          +'<h3>'+aiKac(x.borclu||x.baslik)+'</h3>'
-          +(tip==='ad'?'<div class="belg" style="border-color:rgba(255,194,75,.35)">Bu eşleşme unvan benzerliğine dayalıdır; aynı adı taşıyan <b>farklı bir firma</b> olabilir. VKN ile doğrula, ilan metnini oku.</div>':'')
-          +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(es.ham)+(x.vkn?' · VKN '+aiKac(x.vkn):'')+'</span></div>'
-          +'<div class="satir"><b>Kurum</b><span>'+aiKac(x.kurum||'—')+'</span></div>'
-          +'<div class="satir"><b>Yer / ilan tarihi</b><span>'+aiKac([x.il,x.tarih].filter(Boolean).join(' · ')||'—')+'</span></div>'
+          +'<span class="rozet risk">'+(k.tip==='vkn'?'⚠ Risk, ':'⚠ OLASI eşleşme, ')+turAdi+(k.tip==='vkn'?' · VKN birebir eşleşti':' · unvan benzerliği')+'</span>'
+          +'<h3>'+aiKac(k.borclu||k.baslik||'—')+'</h3>'
+          +(k.tip==='ad'?'<div class="belg" style="border-color:rgba(255,194,75,.35)">Bu eşleşme unvan benzerliğine dayalıdır; aynı adı taşıyan <b>farklı bir firma</b> olabilir. VKN ile doğrula, ilan metnini oku.</div>':'')
+          +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
+          +'<div class="satir"><b>Kurum</b><span>'+aiKac(k.kurum||'—')+'</span></div>'
+          +'<div class="satir"><b>Yer / ilan tarihi</b><span>'+aiKac([k.il,k.tarih].filter(Boolean).join(' · ')||'—')+'</span></div>'
           +sureHtml
-          +(x.url?'<div class="belg"><a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">Resmî ilan metni →</a></div>':'')
+          +(k.url?'<div class="belg"><a href="'+aiKac(k.url)+'" target="_blank" rel="noopener">Resmî ilan metni →</a></div>':'')
           +'</div>';
       }
-    } else if(canli.length){
-      html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşiv de tarandı ('+canli.length.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
+      if(window.SON_TARAMA_KILITLI || atlanan){
+        html += '<div class="kutu" style="margin-top:12px;border-color:rgba(255,194,75,.4)">'
+          +'<div style="font-size:14.5px;font-weight:800;color:var(--amber);margin-bottom:6px">🔒 '
+          + (window.SON_TARAMA_KILITLI ? window.SON_TARAMA_KILITLI+' eşleşme daha kilitli' : 'Listenin tamamı taranmadı') + '</div>'
+          +'<div style="font-size:13px;color:var(--muted);line-height:1.6">'
+          + (atlanan ? 'Ücretsiz taramada listenin <b style="color:var(--ink)">ilk 25 satırı</b> taranır; senin dosyanda <b style="color:var(--ink)">'+atlanan+' satır daha</b> var. ' : '')
+          + 'Abonelikte <b style="color:var(--ink)">5.000 satıra kadar</b> tek seferde taranır, bütün eşleşmeler açık gelir ve sonucu <b style="color:var(--ink)">işaretlenmiş Excel</b> olarak indirirsin.</div>'
+          +'<div style="margin-top:12px"><a href="radar-fiyat.html" class="btn" style="text-decoration:none;display:inline-block;margin:0">Abonelik seçeneklerini gör →</a></div></div>';
+      }
+    } else if(kasaCalisti){
+      html += '<div class="belg" style="margin-top:10px">Son 1 yıllık arşiv de tarandı ('+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan): borçlu adı/VKN çıkarılabilen ilanlarda eşleşme çıkmadı. Kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>';
     }
-  }catch(e){}
+  }catch(e){
+    // ÖLÇEMEDİĞİNE KUSUR DEME: kasaya ulaşılamadıysa "temiz" DENMEZ, açıkça söylenir.
+    const kisa = /KISA_SORGU/.test(e.message||'') , hizli = /COK_HIZLI/.test(e.message||'');
+    html += '<div class="uyari" style="margin-top:10px">'
+      + (kisa ? '<b style="color:var(--amber)">Sorgu çok kısa:</b> tam VKN/TCKN yaz ya da unvanı en az iki kelimeyle gir (tek kelime yanlış firma getirir).'
+       : hizli ? '<b style="color:var(--amber)">Çok hızlı sorgu:</b> bir dakika bekleyip yeniden dene.'
+       : '<b style="color:var(--amber)">Arşiv taraması yapılamadı.</b> Bu <b>“ilanı yok”</b> demek değildir — arşive şu an ulaşılamadı. Birazdan yeniden dene.')
+      + '</div>';
+  }
 
   // 19.08: eşleşmeyen sorgular da Excel'e "TEMİZ" olarak girer — kullanıcı
   // yüklediği listenin TAMAMINI işaretlenmiş halde geri alsın (satır kaybı olmasın).
   try{
     const eslesenler = new Set(window.SON_TARAMA.map(r=>r['Sorgu']));
-    for(const q of sorgular){
-      if(!eslesenler.has(q.ham)){
-        window.SON_TARAMA.push({
-          'Sorgu': q.ham, 'Durum': 'TEMİZ (arşivde ilan bulunamadı)', 'Borçlu':'', 'VKN':'',
-          'Tür':'', 'İlan tarihi':'', 'Mahkeme / dosya':'', 'İl':'',
-          'Yasal süre':'', 'Son gün':'', 'Ne yapmalı':'', 'İlan linki':''
-        });
-      }
-    }
+    // ÖLÇMEDİĞİNE "TEMİZ" DEME: ücretsiz katmanda listenin yalnız ilk 25 satırı
+    // taranır; taranmayan satır TEMİZ değil TARANMADI olarak işaretlenir.
+    const atl = window.SON_TARAMA_ATLANAN || 0;
+    const taranmisSon = sorgular.length - atl;
+    sorgular.forEach(function(q, i){
+      if(eslesenler.has(q.ham)) return;
+      window.SON_TARAMA.push({
+        'Sorgu': q.ham,
+        'Durum': (i < taranmisSon) ? 'TEMİZ (arşivde ilan bulunamadı)' : 'TARANMADI (ücretsiz sınır — abonelikte taranır)',
+        'Borçlu':'', 'VKN':'',
+        'Tür':'', 'İlan tarihi':'', 'Mahkeme / dosya':'', 'İl':'',
+        'Yasal süre':'', 'Son gün':'', 'Ne yapmalı':'', 'İlan linki':''
+      });
+    });
     if(window.SON_TARAMA.length){
       const riskli = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('RİSK')===0).length;
       const olasi  = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('OLASI')===0).length;
+      const temiz  = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('TEMİZ')===0).length;
+      const taranmadi = window.SON_TARAMA.filter(r=>r['Durum'].indexOf('TARANMADI')===0).length;
+      const kilitli = window.SON_TARAMA_KILITLI || 0;
+      const abn = window.SON_TARAMA_ABONE;
       html += '<div class="kutu" style="margin-top:16px;text-align:center">'
-        + '<div style="font-size:13.5px;color:var(--muted);margin-bottom:10px">Taradığın listenin tamamı ('
-        + window.SON_TARAMA.length + ' satır) durum sütunlarıyla işaretlendi: <b style="color:var(--red)">'
+        + '<div style="font-size:13.5px;color:var(--muted);margin-bottom:10px">Listenin '
+        + window.SON_TARAMA.length + ' satırı durum sütunuyla işaretlendi: <b style="color:var(--red)">'
         + riskli + ' risk</b> · <b style="color:var(--amber)">' + olasi + ' olası</b> · <b style="color:var(--green)">'
-        + (window.SON_TARAMA.length - riskli - olasi) + ' temiz</b></div>'
-        + '<button class="btn" onclick="taramaExcelIndir()" style="margin:0">📥 Sonucu Excel olarak indir</button>'
-        + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Dosya bilgisayarında oluşturulur; veri sunucuya gitmez.</div></div>';
+        + temiz + ' temiz</b>'
+        + (kilitli ? ' · <b style="color:var(--amber)">'+kilitli+' kilitli</b>' : '')
+        + (taranmadi ? ' · <b style="color:var(--dim)">'+taranmadi+' taranmadı</b>' : '')
+        + '</div>'
+        + (abn
+            ? '<button class="btn" onclick="taramaExcelIndir()" style="margin:0">📥 Sonucu Excel olarak indir</button>'
+              + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Excel dosyası bilgisayarında oluşturulur; yüklediğin dosya bize hiç ulaşmadı.</div>'
+            : '<a href="radar-fiyat.html?nereden=alacak-excel" class="btn" style="margin:0;text-decoration:none;display:inline-block">🔒 İşaretlenmiş Excel’i indir · abonelikte</a>'
+              + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Tek tek firma araması ücretsizdir. Listeyi toplu tarayıp <b style="color:var(--muted)">işaretlenmiş dosyayı geri almak</b> abonelikte.</div>')
+        + '</div>';
     }
   }catch(e){}
   box.innerHTML = html;

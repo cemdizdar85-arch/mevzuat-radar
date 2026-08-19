@@ -48,14 +48,18 @@ jobs:
         shell: pwsh
         run: ./motor/alacak-borclu-cek.ps1
 
-      # 19.08 ARSIV AYRIMI: 1 yillik arsiv (5.728 ilan / 4 MB) sayfa acilisinda
-      # inmesin diye ikiye bolunur — canli dosya son 400 ilan (~283 KB), tam arsiv
-      # ayri dosyada ve YALNIZ tarama yapilinca yuklenir. Hasat + borclu turundan
-      # SONRA kosar: yeni ilanlari arsive isler, canliyi 400'e kirpar (idempotent).
-      - name: Alacak arsivini guncelle (canli/arsiv ayrimi)
+      # 19.08 GIZLI KASA (Cem: "bilgiler gizli olsun kimse gormesin"): arsiv artik
+      # depoda ACIK JSON olarak DURMAZ. Gunluk hasat + borclu turundan sonra bu
+      # adim ilanlari Supabase'e (alacak_ilan tablosu) yazar; tabloya disaridan
+      # kimse erisemez, veri yalnizca tavanli RPC'lerden cikar. alacak_yaz()
+      # coalesce'li oldugu icin bos gelen borclu/VKN eskisini SILMEZ.
+      # SUPABASE_SERVICE_KEY secret'i yoksa betik "ATLANDI" yazar (kor kalma kurali).
+      - name: Alacak arsivini kasaya yaz (Supabase)
         continue-on-error: true
         shell: pwsh
-        run: ./motor/alacak-arsiv-bol.ps1
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/alacak-supabase-yukle.ps1
 
       # 19.08 Cem onayi: Cagri Radari - TUBITAK + KOSGEB + AB (Ufuk Avrupa) acik
       # destek cagrilari (destekler.html canli bolum + tesvik sihirbazi "diger

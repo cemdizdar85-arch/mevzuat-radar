@@ -64,3 +64,17 @@ veri/bulten-gunluk-son-kosu.txt
 # 17.08 - onarim betiklerinin aldigi yedekler (kiymetler.json.yedek-20260817-193741
 # gibi). Yerelde kalir; depoya girerse her onarim kosusu bir kopya daha birakir.
 *.yedek-*
+
+# ============================================================================
+# 19.08 GIZLI KASA — Cem: "bilgiler gizli olsun kimse gormesin, en onemli bu".
+# Alacak arsivi (5.728 ilan + 2.083 borclu adi + 2.066 VKN + 1.657 TCKN) 4 MB'lik
+# ACIK bir dosya olarak depoda duruyordu; rakip dahil herkes tek tikla
+# indirebiliyordu. Arsiv artik YALNIZ Supabase'de (public.alacak_ilan; RLS acik,
+# policy yok) ve disariya sadece tavanli RPC'lerden cikiyor.
+#   sema     : radar-app/sql/2026-08-19-alacak-gizli-arsiv.sql
+#   yazma ucu: motor/alacak-supabase-yukle.ps1
+# Bu dosyalar yerelde/robotta ARA CIKTIDIR, depoya bir daha girmez.
+# ============================================================================
+veri/alacak-arsiv.json
+veri/alacak-ilan-canli.json
+veri/alacak-ilan-canli.json.yedek
