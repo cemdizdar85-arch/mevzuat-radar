@@ -36,5 +36,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/kasa-desen-olcum.json ]; then git add veri/kasa-desen-olcum.json || true; fi
           git diff --cached --quiet || git commit -m "Kasa desen olcumu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

@@ -62,5 +62,5 @@ jobs:
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Uslup turu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

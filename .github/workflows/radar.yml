@@ -31,8 +31,8 @@ jobs:
           git diff --cached --quiet || git commit -m "Gunluk RG taramasi ($(date +%d.%m.%Y))"
           # 30.07: pull--rebase VARDI ama yine dustu - rebase ile push arasindaki
           # saniyede baska robot push'layinca yaris kaybediliyor. Denemeli dongu.
-          git pull --rebase || true
-          n=0; until git push; do n=$((n+1)); [ $n -ge 4 ] && exit 1; sleep 5; git pull --rebase || true; done
+          git pull --rebase --autostash || true
+          n=0; until git push; do n=$((n+1)); [ $n -ge 4 ] && exit 1; sleep 5; git pull --rebase --autostash || true; done
       # 13.08 KOR KALMA SIGORTASI (Cem: "haber beklemeden") - kirmizi kosu aninda mail
       - name: KIRMIZI NOBETCI - dususte Cem'e mail
         if: failure()

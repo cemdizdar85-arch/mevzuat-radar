@@ -39,5 +39,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/nabiz-raporu.json || true
           git diff --cached --quiet || git commit -m "Nabiz raporu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

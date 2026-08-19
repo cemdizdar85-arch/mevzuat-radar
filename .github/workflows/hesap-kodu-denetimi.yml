@@ -47,7 +47,7 @@ jobs:
           git diff --cached --quiet || git commit -m "Hesap kodu denetimi [veri-operasyonu]"
           # push yarisi kaybedilirse 3 kez dene, yine olmazsa KIRMIZI
           for i in 1 2 3; do
-            git pull --rebase && git push && exit 0
+            git pull --rebase --autostash && git push && exit 0
             echo "push denemesi $i tutmadi, tekrar..."
             sleep 5
           done

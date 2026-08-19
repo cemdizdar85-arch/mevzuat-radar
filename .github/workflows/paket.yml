@@ -48,7 +48,7 @@ jobs:
           git add veri/tasiyici-son-log.txt 2>/dev/null || true
           if git diff --cached --quiet; then echo "log degisiklik yok"; else
             git commit -m "Tasiyici kosu logu (tani)"
-            for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 8; done
+            for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep 8; done
           fi
       - name: Depo temizligini kaydet
         if: always()    # 24.07: hata dosyasi (tasiyici-hata.json) kirmizi kosuda da commit'lensin - kor kalma yasak
@@ -64,7 +64,7 @@ jobs:
           else
             git commit -m "Paket sorulari kilitli havuza tasindi [veri-operasyonu]"
             for i in 1 2 3; do
-              git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+              git pull --rebase --autostash origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
               echo "push denemesi $i basarisiz, tekrar..."
               sleep 5
             done

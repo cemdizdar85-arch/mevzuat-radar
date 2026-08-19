@@ -32,5 +32,5 @@ jobs:
           git add veri/sik-istatistigi.json 2>/dev/null || true
           git add veri/sik-istatistigi-raporu.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Sik istatistigi [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          for i in 1 2 3; do git pull --rebase --autostash && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1

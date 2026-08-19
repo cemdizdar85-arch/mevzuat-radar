@@ -47,5 +47,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           for f in veri/denetim-500.md veri/denetim-500.json; do if [ -f "$f" ]; then git add "$f" || true; fi; done
           git diff --cached --quiet || git commit -m "Buyuk denetim: 500 soru dengeli ornek + makine kapilari [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

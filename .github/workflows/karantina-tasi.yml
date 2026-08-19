@@ -60,5 +60,5 @@ jobs:
           git add -A veri/fabrika/ || true
           if [ -f veri/karantina-tasima.json ]; then git add veri/karantina-tasima.json || true; fi
           git diff --cached --quiet || git commit -m "Karantina kasaya tasindi (yayin=false) [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

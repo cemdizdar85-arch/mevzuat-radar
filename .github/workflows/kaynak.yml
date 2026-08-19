@@ -229,5 +229,5 @@ jobs:
           git add veri/.kaynak-hash.json 2>/dev/null || true
           git add veri/*.json
           git diff --cached --quiet || git commit -m "Kaynak nobetcisi: kaynak/veri guncellendi ($(date +%d.%m.%Y))"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push

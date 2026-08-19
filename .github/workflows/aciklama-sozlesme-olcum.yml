@@ -37,5 +37,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/aciklama-sozlesme-olcum.json ]; then git add veri/aciklama-sozlesme-olcum.json || true; fi
           git diff --cached --quiet || git commit -m "Aciklama sozlesmesi olcumu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

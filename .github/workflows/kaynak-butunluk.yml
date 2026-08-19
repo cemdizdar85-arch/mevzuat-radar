@@ -33,7 +33,7 @@ jobs:
           if [ ! -f veri/kaynak-butunluk.json ]; then echo "!! RAPOR YOK"; exit 1; fi
           git add veri/kaynak-butunluk.json
           git diff --cached --quiet || git commit -m "Kaynak butunluk raporu [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && break; sleep 7; done
+          for i in 1 2 3; do git pull --rebase --autostash && git push && break; sleep 7; done
       - name: Karari uygula
         if: always()
         run: |

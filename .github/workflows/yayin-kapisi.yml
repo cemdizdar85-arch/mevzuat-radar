@@ -40,8 +40,11 @@ jobs:
           if [ ! -f veri/yayin-kapisi.json ]; then echo "!! KARAR DOSYASI YOK"; exit 1; fi
           git add veri/yayin-kapisi.json
           git diff --cached --quiet || git commit -m "Yayin kapisi karari [veri-operasyonu]"
+          # 19.08: --autostash SART (kartlar.yml 18.08 dersi). Onceki adimlarin
+          # biraktigi izlenmeyen degisiklikler rebase'i "unstaged changes" diye
+          # durduruyordu; uc deneme de AYNI sebepten dusuyor, kosu KIRMIZI bitiyordu.
           for i in 1 2 3; do
-            git pull --rebase && git push && break
+            git pull --rebase --autostash && git push && break
             echo "push denemesi $i tutmadi"; sleep 5
             if [ $i -eq 3 ]; then echo "!! PUSH TUTMADI"; exit 1; fi
           done

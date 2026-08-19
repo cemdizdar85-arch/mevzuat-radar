@@ -31,5 +31,5 @@ jobs:
           if [ ! -f veri/sinav-ders-envanteri.json ]; then echo "!! RAPOR YOK"; exit 1; fi
           git add veri/sinav-ders-envanteri.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Sinav ders envanteri [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          for i in 1 2 3; do git pull --rebase --autostash && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1

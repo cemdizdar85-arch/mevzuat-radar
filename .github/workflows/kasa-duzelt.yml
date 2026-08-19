@@ -35,5 +35,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/kasa-duzeltme.json || true
           git diff --cached --quiet || git commit -m "Kasa duzeltmeleri uygulandi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

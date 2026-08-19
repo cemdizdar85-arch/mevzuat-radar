@@ -60,5 +60,5 @@ jobs:
             exit 0
           fi
           git commit -m "Ithalat Rejimi nobeti: GTIP vergi verisi kaynaktan tazelendi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push

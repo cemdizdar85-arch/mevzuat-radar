@@ -36,5 +36,5 @@ jobs:
           if [ -f veri/standart-damga.json ]; then git add veri/standart-damga.json || true; fi
           if [ -f veri/standart-damga-rapor.json ]; then git add veri/standart-damga-rapor.json || true; fi
           git diff --cached --quiet || git commit -m "Standart damgasi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

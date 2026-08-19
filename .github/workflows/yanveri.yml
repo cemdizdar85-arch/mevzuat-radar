@@ -57,5 +57,5 @@ jobs:
           fi
           ADET=$(grep -o '"u"' veri/gtip-damping.json 2>/dev/null | wc -l | tr -d ' ')
           git commit -m "Yan veri nobeti: damping/subvansiyon listesi tazelendi ($ADET kayit) [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push

@@ -30,5 +30,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/duyuru-durum.json veri/duyuru-yeni.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Duyuru nobeti [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

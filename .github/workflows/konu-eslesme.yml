@@ -50,5 +50,5 @@ jobs:
           if [ -f veri/siklik-kunyesi.json ]; then git add veri/siklik-kunyesi.json || true; fi
           if [ -f veri/konu-eslesme.json ]; then git add veri/konu-eslesme.json || true; fi
           git diff --cached --quiet || git commit -m "Konu etiket hizalamasi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

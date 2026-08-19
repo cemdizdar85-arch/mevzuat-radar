@@ -51,5 +51,5 @@ jobs:
           fi
           ISARET=$(grep -o '"isaretlenenSoru":[[:space:]]*[0-9]*' veri/soru-dayanak-raporu.json | grep -o '[0-9]*$' || echo "?")
           git commit -m "Soru-dayanak nobeti: $ISARET soru mevzuat-degisti notuyla cekildi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push

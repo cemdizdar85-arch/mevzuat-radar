@@ -42,5 +42,5 @@ jobs:
           # YALNIZ rapor (sayilar). Soru icerigi tasiyan hicbir dosya commit'lenmez.
           if [ -f veri/taslak-goster-raporu.json ]; then git add veri/taslak-goster-raporu.json || true; fi
           git diff --cached --quiet || git commit -m "Taslak gosterici raporu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

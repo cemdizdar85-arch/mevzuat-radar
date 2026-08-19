@@ -214,7 +214,7 @@ jobs:
             echo "Degisiklik yok - commit yok."
           else
             git commit -m "Günlük kanun aynası: değişen kanun(lar) yeniden yutuldu $(date -u +%Y-%m-%d)"
-            git pull --rebase origin main || true
+            git pull --rebase --autostash origin main || true
             git push || echo "UYARI: push olmadi (uzak dal ilerlemis olabilir) - veri Supabase'de guvende, sonraki kosu telafi eder."
           fi
       # KIRMIZI KAPI. Rapor commit'lendikten SONRA calisir: veri kaydedilmis
@@ -248,7 +248,7 @@ jobs:
           git add veri/gtip-durum.json veri/gozetim-bekleyen.json 2>$null
           if(git status --porcelain veri/gtip-durum.json veri/gozetim-bekleyen.json){
             git commit -m "gozetim: yururluk gunu gelen mutabakatli degisiklik basildi [veri-operasyonu]"
-            git pull --rebase; git push
+            git pull --rebase --autostash; git push
           }
       - name: KAPI — gozetim tebligi degisti mi
         if: always()
@@ -286,7 +286,7 @@ jobs:
           git add veri/gtip-durum.json
           if(git status --porcelain veri/gtip-durum.json){
             git commit -m "gozetim onarici: iki bagimsiz okuma mutabakatiyla otomatik guncelleme [veri-operasyonu]"
-            git pull --rebase; git push
+            git pull --rebase --autostash; git push
           } else { Write-Host "onarici veri degistirmedi (mutabakat yok ya da anahtar yok)." }
       # GUVEN KATMANI C: hasat VE commit sonrasi retrieval sigortasi — altin
       # setteki her soru icin beklenen kaynak top-6'da bulunmali. Dusen vaka =

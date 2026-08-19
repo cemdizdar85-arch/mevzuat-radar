@@ -72,5 +72,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add -A veri/mevzuat/ || true
           git diff --cached --quiet || git commit -m "Yonetmelik kurtarma: 6 SMMM yonetmeligi yutuldu [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          for i in 1 2 3; do git pull --rebase --autostash && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1

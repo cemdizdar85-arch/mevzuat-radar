@@ -55,7 +55,7 @@ jobs:
           git add veri/k2-son-log.txt 2>/dev/null || true
           if git diff --cached --quiet; then echo "log yok"; else
             git commit -m "K2 kosu logu (tani)"
-            for i in 1 2 3 4 5; do git pull --rebase origin main && git push && break; sleep 10; done
+            for i in 1 2 3 4 5; do git pull --rebase --autostash origin main && git push && break; sleep 10; done
           fi
       - name: Sonuclari kaydet (3-deneme push)
         run: |
@@ -65,7 +65,7 @@ jobs:
           if git diff --cached --quiet; then echo "Degisiklik yok."; exit 0; fi
           git commit -m "Soru Denetcisi K2: bagimsiz icerik dogrulamasi (kasaya/karantina)"
           for i in 1 2 3 4 5; do
-            git pull --rebase origin main && git push && { echo "push OK ($i)"; exit 0; }
+            git pull --rebase --autostash origin main && git push && { echo "push OK ($i)"; exit 0; }
             echo "push denemesi $i basarisiz, tekrar..."; sleep 15
           done
           echo "HATA: 5 denemede pushlanamadi."; exit 1

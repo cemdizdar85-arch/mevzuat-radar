@@ -34,5 +34,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/b7-tani.json ]; then git add veri/b7-tani.json || true; fi
           git diff --cached --quiet || git commit -m "B7 tani raporu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

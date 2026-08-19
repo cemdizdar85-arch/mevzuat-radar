@@ -22,5 +22,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/yayindan-cekme-raporu.json || true
           git diff --cached --quiet || git commit -m "Yayindan cekme raporu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

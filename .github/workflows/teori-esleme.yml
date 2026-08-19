@@ -37,5 +37,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/teori-esleme-raporu.json ]; then git add veri/teori-esleme-raporu.json || true; fi
           git diff --cached --quiet || git commit -m "Teori esleme olcumu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

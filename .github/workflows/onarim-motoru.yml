@@ -89,7 +89,7 @@ jobs:
           git add veri/onarim-motor-raporu.json
           git diff --cached --quiet || git commit -m "Onarim motoru raporu [veri-operasyonu]"
           for i in 1 2 3; do
-            git pull --rebase && git push && exit 0
+            git pull --rebase --autostash && git push && exit 0
             echo "push denemesi $i tutmadi"; sleep 7
           done
           echo "!! PUSH TUTMADI - PARALI kosunun raporu depoya yazilamadi."; exit 1

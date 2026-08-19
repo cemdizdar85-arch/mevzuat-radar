@@ -42,7 +42,7 @@ jobs:
           if git diff --cached --quiet; then echo "Yeni soru yok."; exit 0; fi
           git commit -m "Soru fabrikasi: yeni ozgun sorular (onay bekliyor) $(TZ=Europe/Istanbul date +%d.%m.%Y)"
           for i in 1 2 3; do
-            git pull --rebase origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
+            git pull --rebase --autostash origin main && git push && { echo "push OK (deneme $i)"; exit 0; }
             echo "push denemesi $i basarisiz, tekrar..."
             sleep 5
           done

@@ -37,5 +37,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/kalite-tarama.json ]; then git add veri/kalite-tarama.json || true; fi
           git diff --cached --quiet || git commit -m "Kasa kalite taramasi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

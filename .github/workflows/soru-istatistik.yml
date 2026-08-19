@@ -37,5 +37,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/soru-istatistik.json ]; then git add veri/soru-istatistik.json || true; fi
           git diff --cached --quiet || git commit -m "Soru istatistigi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

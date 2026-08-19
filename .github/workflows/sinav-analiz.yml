@@ -99,5 +99,5 @@ jobs:
           # kaydini tutmuyorsa kurulmus sayilmaz.
           for f in veri/sgs-analiz.json veri/smmm-analiz.json veri/sinav-arsiv.json veri/sinav-analiz-fatura.json veri/sinav-analiz-log.txt veri/sinav-analiz-emir.json; do git add "$f" 2>/dev/null || true; done
           git diff --cached --quiet || git commit -m "Sinav analizi: SGS donem etiketleme ($(TZ=Europe/Istanbul date +%d.%m.%Y))"
-          git pull --rebase origin main || true
+          git pull --rebase --autostash origin main || true
           git push || true

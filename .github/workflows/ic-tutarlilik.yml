@@ -42,5 +42,5 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add veri/ic-tutarlilik-raporu.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Ic-tutarlilik raporu [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true

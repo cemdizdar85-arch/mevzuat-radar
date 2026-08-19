@@ -31,7 +31,7 @@ jobs:
           if [ ! -f veri/iki-sinav-konu-raporu.json ]; then echo "!! RAPOR YOK"; exit 1; fi
           git add veri/iki-sinav-konu-raporu.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Iki sinav konu raporu [veri-operasyonu]"
-          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 7; done
+          for i in 1 2 3; do git pull --rebase --autostash && git push && exit 0; sleep 7; done
           echo "!! PUSH TUTMADI"; exit 1
 
 # durtme: 05.08 gece - #28in 36 sorusu yazildiktan SONRA taze olcum

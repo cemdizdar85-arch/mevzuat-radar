@@ -39,5 +39,5 @@ jobs:
           if [ -f veri/gunun-tuzagi.json ]; then git add veri/gunun-tuzagi.json || true; fi
           if [ -f veri/tuzak-gecmisi.json ]; then git add veri/tuzak-gecmisi.json || true; fi
           git diff --cached --quiet || git commit -m "Gunun Tuzagi [veri-operasyonu]"
-          git pull --rebase || true
+          git pull --rebase --autostash || true
           git push || true
