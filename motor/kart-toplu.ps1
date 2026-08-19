@@ -337,10 +337,23 @@ D) Turkce imla KUSURSUZ ve TAM DIAKRITIKLI: ciktinin HER kelimesi Turkce karakte
 E) baslik_sade: iyi bir ekonomi muhabirinin atacagi baslik. Olgusal, 8-14 kelime, urun grubunu soyler.
 F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastir" gibi. Emir kipi SEN kipiyle ve dogal: "kontrol et", "hazirla", "karsilastir". Site standardi SEN kipidir - "kontrol edin/hazirlayin" (siz) YASAK. Garanti dili de YASAK: "kesinlikle", "mutlaka ...ecektir" yerine kaynaga yaslan ("Teblig uyarinca eklenmesi zorunlu").
 G) kimi_ilgilendirir: sektoru/rolu isimlendir ("seramik ithal eden insaat malzemecileri" gibi), "ilgili firmalar" deme.
+I) KILIT HUKUMLER (19.08 - Cem: "cok fazla bilgi var ama biz cok bir sey anlatmiyoruz"):
+   Belge YENI bir yonetmelik/kanun ya da kapsamli bir duzenlemeyse (yalnizca tablo/kiymet
+   degisikligi DEGILSE), okuyucunun is planini kuran SOMUT hukumleri "kilit_hukumler"
+   dizisine yaz. Her madde SU BICIMDE olacak: tek cumle + sonunda parantez icinde MADDE
+   numarasi. Ornek: "Mevcut isletmeler faaliyetlerine devam edebilmek icin 1/7/2027'ye
+   kadar yetki belgesi almak zorunda (Gecici m.1/1)."
+   ONCELIK SIRASI: (1) gecis sureleri ve son tarihler, (2) kimin neyi almasi/yapmasi
+   gerektigi, (3) sayisal esikler (asgari adet, yas, kilometre, tavan/oran, sure),
+   (4) yasaklar ve yaptirimlar. 5-9 madde yaz; onemliden onemsize sirala.
+   KURAL: her madde METINDE ACIKCA yazan bir hukmu anlatir; madde numarasi
+   veremiyorsan O MADDEYI HIC YAZMA. Sayi/tarih uydurma - kaynakta ne varsa o.
+   Tablo/kiymet degisikligi tebliglerinde bu alan BOS DIZI olur (kilit hukum orada
+   zaten eski->yeni satirlaridir).
 H) OKUYUCU HICBIR KISALTMAYI/KODU BILMIYOR varsay (Cem kurali 19.08): metinde arac sinifi (M1, N1G gibi), belge turu, sistem adi veya sektore ozgu kisaltma geciyorsa ILK gectigi yerde bir cumleyle halk diliyle acikla ("M1: surucu koltugu disinda en fazla 8 koltuklu yolcu araclari - otomobiller" gibi). Aciklamayi kaynak metindeki tanimdan yap; kaynakta tanim yoksa kisaltmayi acmadan birak ve guven_notu'na yaz. Yaygin dis ticaret terimlerini (GTIP, damping, gozetim, tarife kontenjani, mense, korunma onlemi, ek mali yukumluluk) ACIKLAMA - onlari site otomatik sozlukle acikliyor, senin aciklaman cift olur.
 
 JSON semasi:
-{"baslik_sade":"tek cumle, olgusal","ne_oldu":"1-2 cumle","degistirilen_teblig":"degistirilen ana teblig no/adi veya bos","eski_rg":"GG.AA.YYYY veya bos","eski_yeni":[{"konu":"degisen kalem","eski":"kaynaktan eski hal","yeni":"kaynaktan yeni hal"}],"gtip_kodlari":["tum kodlar"],"urun_tanimi":"esya grubu","kimi_ilgilendirir":"kim","ne_yapmali":"somut adim","yururluk":"kalipli","birim_kiymetler":[{"gtip":"kod","deger":"or: 1.000 ABD Dolari/Ton"}],"etki":{"yon":"kalipli","aciklama":"1-2 cumle yorum"},"guven_notu":"emin olamadiklarin"}
+{"baslik_sade":"tek cumle, olgusal","ne_oldu":"1-2 cumle","degistirilen_teblig":"degistirilen ana teblig no/adi veya bos","eski_rg":"GG.AA.YYYY veya bos","eski_yeni":[{"konu":"degisen kalem","eski":"kaynaktan eski hal","yeni":"kaynaktan yeni hal"}],"kilit_hukumler":["somut hukum cumlesi (madde numarasi parantez icinde)"],"gtip_kodlari":["tum kodlar"],"urun_tanimi":"esya grubu","kimi_ilgilendirir":"kim","ne_yapmali":"somut adim","yururluk":"kalipli","birim_kiymetler":[{"gtip":"kod","deger":"or: 1.000 ABD Dolari/Ton"}],"etki":{"yon":"kalipli","aciklama":"1-2 cumle yorum"},"guven_notu":"emin olamadiklarin"}
 
 TEBLIG METNI:
 "@
@@ -844,6 +857,12 @@ $metin
       onceki_belge = (OncekiBelge $k1.degistirilen_teblig ([datetime]::ParseExact($Gun,'dd-MM-yyyy',$null)))
       eski_yeni = $eskiYeniFinal
       eski_karsilastirma = $eskiKarUrl
+      # KILIT HUKUMLER (19.08): yalniz MADDE ATIFLI satirlar gecer. Atifsiz cumle
+      # "metinde acikca yaziyor" iddiasini dogrulanabilir kilmaz - kaynaga
+      # goturmeyen hukum karta yazilmaz (rakam disiplini kurali).
+      kilit_hukumler = @(@($k1.kilit_hukumler) | Where-Object {
+                          "$_".Trim() -and ("$_" -match '\bm\.\s?\d|MADDE\s?\d|madde\s?\d|Gecici|Geçici')
+                        } | Select-Object -First 9)
       gtip_kodlari = $gtipFinal; urun_tanimi = $k1.urun_tanimi
       kimi_ilgilendirir = $k1.kimi_ilgilendirir; ne_yapmali = $k1.ne_yapmali
       yururluk = $yurFinal
@@ -1246,6 +1265,15 @@ function KartBloguHtml($liste){
   # Eski deger metinde yoksa UYDURULMAZ - onceki resmi belgenin linki verilir.
   if($k.onceki_belge){
     [void]$s.AppendLine("<div class='kiymet' style='color:var(--dim)'>Bu tebliğin bir önceki hâli: <a href='$($k.onceki_belge.url)' target='_blank' rel='noopener'>$($k.onceki_belge.tarih) tarihli Resmî Gazete</a> (Tebliğ $($k.onceki_belge.teblig_no))</div>")
+  }
+  # KILIT HUKUMLER (19.08 - Cem: "yetki belgesi ne zamana kadar, ne gerekiyor -
+  # cok fazla bilgi var ama biz cok bir sey anlatmiyoruz"). Yeni/kapsamli
+  # duzenlemelerde okuyucunun takvimini kuran somut hukumler; her satir madde
+  # atifli, atifsiz satir motorda zaten eleniyor.
+  $kilit = @($k.kilit_hukumler | Where-Object { "$_".Trim() })
+  if($kilit.Count){
+    [void]$s.AppendLine("<p><b>Kilit hükümler</b> <span style='font-size:11px;color:var(--dim)'>(kaynak metinden, madde atıflı)</span></p>")
+    foreach($kh in $kilit){ [void]$s.AppendLine("<div class='kiymet'>• $kh</div>") }
   }
   if($k.urun_tanimi){ [void]$s.AppendLine("<p><b>Ürün:</b> $($k.urun_tanimi)</p>") }
   # 17.08 BOS BASLIK KUSURU: eskiden kosul "@($k.gtip_kodlari).Count" idi ve
