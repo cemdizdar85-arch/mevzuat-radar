@@ -1,5 +1,21 @@
 # MEVZUAT YUTMA LİSTESİ
 
+## ✅ 19.08.2026 — FUAR MEVZUATI YUTULDU (Cem emri; site teyit turlarının son açık kalemi)
+*Sebep: bilgi.html'in fuar desteği hapı (19.08 turunda tek doğrulanamayan blok) ambarda olmayan
+kaynaklara dayanıyordu.*
+
+| Metin | Kaynak | Sonuç |
+|---|---|---|
+| İhracat Destekleri Hakkında Karar (5973 s. CB Kararı) | mevzuat.gov.tr **20.5.5973** konsolide PDF (metin tabanlı!; RG 18.08.2022/31927, 8191/2024 değişikliği işli) | **59 belge, kapsama %99,3**; manifest `ihracat5973` — 20.5 deseni günlük aynada İNER (ilk CB Kararı örneği) |
+| Fuar Desteklerine İlişkin Genelge | ticaret.gov.tr resmî PDF (2025 değişiklikleri işli) | **85 belge, kapsama %99,7**; manifest `fuar-genelge` (HAZIR; ayna indiremez, elle tazelenir) |
+
+Teyit turu sonucu (bilgi.html fuar hapı, 14 iddia metinden okundu): %50/%70/%75 (Karar) ✓ ·
+üst limit (TÜFE+Yİ-ÜFE)/2 (m.30) ✓ · aynı fuara 10 defa + yılda 5 (örgütte 10) + prestijli 2 ✓ ·
+3 ay DYS başvuru ✓ · liste ekleme 1 ay ✓ · değerlendirme formu şartı ✓ · banka kanalı ✓ ·
+aracı firma faturası ret ✓ · NACE/İBGS ✓ · stant men ✓ · pazarlamacının üreticisi 6102 şirketi ✓ ·
+çifte destek yaptırımı ✓ — **tek kusur: "eksik belge 2 ay (+2 ay uzatılabilir)" iddiasının uzatma
+kısmı Genelgede YOK (hiç ek süre hükmü yok), sayfadan çıkarıldı.**
+
 ## ✅ 19.08.2026 — CB TEVKİFAT KARARLARI ÜÇLÜSÜ YUTULDU (Cem emri; 9707 alarmının kalıcı kapanışı)
 *Sebep: hizmet/fiyatfarkı teyit turunda kvk.txt dipnotu "9707 sayılı CB Kararına bakınız" deyince
 oranların eskiyip eskimediği ancak dış araştırmayla çözülebildi — stopaj oranlarının kendisi
