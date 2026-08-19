@@ -281,7 +281,11 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         +'</div>';
     }).catch(function(){});
   }
-  function aiFiltre(t, kaydir){ AI_TUR=t; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir){ var el=document.getElementById('aiFiltreKutu'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+  // 19.08 Cem: "sayfalarca aşağı akan veri" — akış artık 8 kartla başlar,
+  // gerisi "Devamını göster" ile 20'şer açılır. Tür değişince sayaç sıfırlanır.
+  var AI_GOSTER=8;
+  function aiDaha(){ AI_GOSTER+=20; aiCiz(); }
+  function aiFiltre(t, kaydir){ AI_TUR=t; AI_GOSTER=8; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir){ var el=document.getElementById('aiFiltreKutu'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); } }
   function aiCiz(){
     var kutu=document.getElementById('aiListe'); if(!kutu) return;
     var q=aiFold((document.getElementById('aiAra')||{}).value||'');
@@ -306,7 +310,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       }
     }
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
-    kutu.innerHTML = suz.slice(0,40).map(function(x){
+    kutu.innerHTML = suz.slice(0,AI_GOSTER).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
       var sure='', kural=aiSure(x);
       if(kural){
@@ -335,7 +339,9 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         ((x.borclu||x.vkn)?'<div style="margin-top:5px;font-size:13px;background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.2);border-radius:7px;padding:5px 9px">🏢 <b style="color:var(--accent2)">Borçlu:</b> '+(x.borclu?'<b style="color:var(--ink)">'+aiKac(x.borclu)+'</b>':'<span style="color:var(--dim)">ilan metninde</span>')+(x.vkn?' <span style="color:var(--muted)">· VKN '+aiKac(x.vkn)+'</span>':'')+'</div>':'')+
         sure+
         '<div style="font-size:12px;color:var(--muted);margin-top:6px">'+aiKac(x.kurum||'')+' · <a href="'+aiKac(x.url)+'" target="_blank" rel="noopener">ilan metni →</a></div></div>';
-    }).join('') + (suz.length>40?'<div class="ipucu">İlk 40 gösteriliyor ('+suz.length+' sonuç), aramayı daralt.</div>':'');
+    }).join('') + (suz.length>AI_GOSTER
+      ? '<div style="text-align:center;margin:12px 0"><button type="button" onclick="aiDaha()" style="background:var(--panel);border:1px solid var(--line2);color:var(--ink);font:inherit;font-weight:700;font-size:13.5px;padding:11px 22px;border-radius:11px;cursor:pointer">Devamını göster · kalan '+(suz.length-AI_GOSTER)+' ilan ↓</button></div>'
+      : '');
   }
   </script>
 
