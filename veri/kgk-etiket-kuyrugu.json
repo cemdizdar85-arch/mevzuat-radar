@@ -1,6 +1,6 @@
-{
-    "tarih":  "19.08.2026",
-    "aciklama":  "KGK etiketleme kuyrugu (Cem: 94 kitapcigi siraya al). Arsivde 104 kitapcik PDF; konu etiketi yalniz 10 kayitta (1.640 soru). Cogu PDF ayni sinavin A/B + sabah/ogle varyanti - etiketleme A-kitapcigi (ya da tek varyant) uzerinden yapilir, cevap anahtari PDF ile eslestirilir. KGK konu haritasi bu is bitmeden TAM sayilmaz (uc-sinav kurali).",
+﻿{
+    "tarih":  "19.08.2026 (1. vardiya bitti)",
+    "aciklama":  "KGK etiketleme kuyrugu (Cem: 94 kitapcigi siraya al). Arsivde 104 kitapcik PDF; konu etiketi yalniz 10 kayitta (1.640 soru). Cogu PDF ayni sinavin A/B + sabah/ogle varyanti - etiketleme A-kitapcigi (ya da tek varyant) uzerinden yapilir, cevap anahtari PDF ile eslestirilir. KGK konu haritasi bu is bitmeden TAM sayilmaz (uc-sinav kurali). --- 1. VARDIYA 19.08 TAMAM: 11967 (23 Kasim 2024, 120) + 11544 (19 Kasim 2023, 240) + 11769 (29 Haziran 2024, 240) = 600 soru etiketlendi; cevap anahtarlari kitapcik txt SONLARINDA gomulu cikti (ders: \u0027anahtar yok\u0027 varsayimi yanlisti, her kitapcigin son sayfalarina bakilir). Etiketli sinav kaydi 10 -\u003e 13.",
     "kural":  "Vardiya basina ~4-6 kitapcik: txt oku -\u003e her soruya modul+konu+cevap etiketi -\u003e etiket/\u003cid\u003e.json formatinda kaydet -\u003e kgk-analiz.json yeniden birlestirilir -\u003e karne yeniden kosulur.",
     "etiketli_10":  [
                         {
