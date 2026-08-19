@@ -20,6 +20,14 @@ var GtipAra = (function(){
   }
   function hazir(){ return !!IDX; }
   function tanim(kod){ return TANIM ? (TANIM[kod] || null) : null; }
+  // Bir kod önekiyle başlayan TGTC kodları — "böyle bir kod yok" uyarısında
+  // kullanıcıya EN YAKIN GERÇEK kodları göstermek için (uydurma yok, cetvelden).
+  function onekli(onek, ust){
+    if(!TANIM) return [];
+    const p = (''+onek).replace(/\./g,'');
+    if(!p) return [];
+    return Object.keys(TANIM).filter(k => k.replace(/\./g,'').startsWith(p)).slice(0, ust||8);
+  }
   function ara(ham){
     const q = trFold((''+ham).trim());
     const parcalar = q.split(/\s+/).filter(t => t.length >= 2);
@@ -58,5 +66,5 @@ var GtipAra = (function(){
     yukleniyor: '<div style="font-size:12.5px;color:var(--muted);margin-top:6px">⏳ Tarife cetveli yükleniyor (ilk açılışta bir kez)…</div>',
     bos: '<div style="font-size:13px;color:var(--muted);margin-top:6px">Eşleşme çıkmadı. Resmî tanımlar teknik dille yazılır, eş anlamlı dene (ör. "cep telefonu" → "telefon", "buzdolabı" → "soğutucu") ya da malzemesiyle ara.</div>'
   };
-  return { yukle, hazir, tanim, ara, kartlarHtml, trFold, htmlEsc, harfliMi, MESAJ };
+  return { yukle, hazir, tanim, onekli, ara, kartlarHtml, trFold, htmlEsc, harfliMi, MESAJ };
 })();

@@ -195,7 +195,7 @@ function balikKart(kod){
   }
   const b = BALIK.kodlar[anahtar];
   const tablo = (arr, ulke) => arr.map((o,i)=> (o===null||o===undefined) ? '' :
-    `<div class="satir"><b style="font-weight:600">${ulke[i]}</b><span style="color:${o===0?'var(--green)':'var(--muted)'};font-weight:${o===0?'700':'600'}">%${o}</span></div>`).filter(Boolean).join('');
+    `<div class="satir"><b style="font-weight:600">${ulke[i]}</b><span style="color:${o===0?'var(--green)':'var(--muted)'};font-weight:${o===0?'700':'600'}">${yuz(o)}</span></div>`).filter(Boolean).join('');
   const gvHtml = tablo(b.gv, BALIK.gvUlke);
   const emyVar = b.emy.some(x=>x!==null && x!==0);
   const emyHtml = emyVar ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">
@@ -427,6 +427,17 @@ function adAraToggle(){
 let ARA_ZAMANLAYICI = null;
 function adAraCalis(){ clearTimeout(ARA_ZAMANLAYICI); ARA_ZAMANLAYICI = setTimeout(adAraYap, 220); }
 function htmlEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// 19.08.2026 — ORAN BİÇİMİ. Rejim Excel'i oranı kayan noktayla tutuyor
+// (muz GV'si dosyada 50.009399999999999); ekrana "%50.0094" diye düşüyordu.
+// Hem nokta yanlış (Türkçede ayraç virgüldür) hem de 4 hane anlamsız.
+// Yuvarla → sondaki sıfırları at → virgülle yaz. Oran ÜRETMEZ, yalnız yazar.
+function yuz(n){
+  if(n===null || n===undefined || n==='') return '';
+  const x = +n;
+  if(!isFinite(x)) return '%'+n;
+  return '%' + (Math.round(x*100)/100).toFixed(2).replace(/\.?0+$/,'').replace('.',',');
+}
 // PowerShell ConvertTo-Json tek elemanlı diziyi string'e, boş diziyi {} yapar → her zaman dizi olarak normalize et.
 function asArr(v){ return Array.isArray(v) ? v : (v===null || v===undefined || v==='' || typeof v==='object') ? [] : [v]; }
 function adAraYap(){
@@ -446,6 +457,97 @@ function adAraSec(kod){
   sorgula();
   document.getElementById('sonuc').scrollIntoView({behavior:'smooth', block:'start'});
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+// 19.08.2026 — KOD TUTMUYORSA SUSMA.
+// Ölçümde çıktı: var olmayan ama çok makul bir kod yazılınca (ör.
+// 8703.23.19.00.00) sayfa KDV/ÖTV/KKDF/damga kartlarını basıyor, vergi kartını
+// SESSİZCE atlıyordu. Kullanıcı bunu "demek gümrük vergisi yok" diye okur —
+// düz olumsuz iddianın en sinsi hâli: hiç konuşmamak. İki ayrı durum var:
+//   (a) kod Gümrük Tarife Cetveli'nde HİÇ YOK → geçersiz kod, en yakın kodları göster
+//   (b) cetvelde var ama İthalat Rejimi listelerinde yok → aynı 8'li pozisyonun
+//       oran ARALIĞI "emsal" etiketiyle verilir, kesin diye SUNULMAZ.
+// (b)'nin ölçülen sebebi: iki resmî kaynak ulusal haneleri farklı diziyor —
+// Rejim Excel'i 9503.00.10.00.11 yazıyor, TGTC 9503.00.10.11.00. Cetveldeki
+// 15.717 kodun 63'ü (%0,4) bu durumda: 20'si fasıl 95, 14'ü fasıl 99.
+// Cetvel dosyası 5 MB ve tembel yüklenir; kart bu yüzden sonradan doldurulur.
+// ────────────────────────────────────────────────────────────────────────────
+function noktali12(say){
+  return say.length===12 ? say.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/,'$1.$2.$3.$4.$5') : say;
+}
+function oranVarMi(nk){
+  if(VERGI && VERGI[nk]) return true;
+  if(TARIM && TARIM[nk]) return true;
+  if(BALIK && BALIK.kodlar && BALIK.kodlar[nk]) return true;
+  return false;
+}
+// Aynı 8'li pozisyondaki kodların oran aralığı. UYDURMAZ: yalnız var olan
+// kayıtların en düşük/en yüksek değerini toplar, tek değere düşerse onu verir.
+function emsalOran(say){
+  if(!VERGI) return null;
+  const p = say.slice(0,8);
+  const kard = Object.keys(VERGI).filter(k => k.replace(/\./g,'').startsWith(p));
+  if(!kard.length) return null;
+  const gv=[], igv=[];
+  kard.forEach(k=>{ const v=VERGI[k];
+    if(v[0]!==null && v[0]!==undefined){ gv.push(v[0], v[1]); }
+    if(v[2]!==null && v[2]!==undefined){ igv.push(v[2], v[3]); }
+  });
+  return {
+    adet: kard.length,
+    poz : p.replace(/(\d{4})(\d{2})(\d{2})/,'$1.$2.$3'),
+    gvMin : gv.length ? Math.min.apply(null,gv) : null,
+    gvMax : gv.length ? Math.max.apply(null,gv) : null,
+    igvMin: igv.length ? Math.min.apply(null,igv) : null,
+    igvMax: igv.length ? Math.max.apply(null,igv) : null
+  };
+}
+function kodUyariBloku(q){
+  const say = q.replace(/\./g,'');
+  if(say.length !== 12) return '';        // kısmi sorguda önek eşleşmesi zaten çalışıyor
+  const nk = noktali12(say);
+  if(oranVarMi(nk)) return '';            // oran bulundu, uyarıya gerek yok
+  setTimeout(function(){ GtipAra.yukle().then(function(){
+    const el = document.getElementById('kodUyari');
+    if(!el) return;
+    const aralik = function(mn,mx){ return mn===mx ? yuz(mn) : (yuz(mn)+' – '+yuz(mx)); };
+    if(!GtipAra.tanim(nk)){
+      const yakin = GtipAra.onekli(say.slice(0,8), 6);
+      el.innerHTML = '<div style="margin:0 0 12px;padding:14px;border:1px solid var(--red);border-radius:12px;background:#170a0a">'
+        + '<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--red);margin-bottom:6px">⛔ BÖYLE BİR GTİP KODU YOK</div>'
+        + '<div style="font-size:13px;color:var(--muted)"><b style="color:var(--ink)">' + nk + '</b> Gümrük Tarife Cetveli’nde geçmiyor; '
+        + 'büyük ihtimalle son haneler yanlış. <b style="color:var(--ink)">Aşağıdaki vergi/KDV/ÖTV kartlarını bu koda ait sanma</b> — '
+        + 'gümrük vergisi oranı ölçülemedi, "vergi yok" demek değil.</div>'
+        + (yakin.length
+            ? '<div style="font-size:12px;color:var(--dim);margin-top:10px">Aynı pozisyonda cetvelde gerçekten olan kodlar, tıkla sorgula:</div>'
+              + GtipAra.kartlarHtml(yakin, 'adAraSec', 6)
+            : '<div style="font-size:12px;color:var(--dim);margin-top:10px">Bu pozisyonda cetvelde hiç kod yok; ilk 8 haneyi de kontrol et.</div>')
+        + '</div>';
+      return;
+    }
+    const e = emsalOran(say);
+    if(e && (e.gvMin!==null || e.igvMin!==null)){
+      el.innerHTML = '<div style="margin:0 0 12px;padding:14px;border:1px solid var(--amber);border-radius:12px;background:#17120a">'
+        + '<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ BU TAM KODUN ORANI ÖLÇÜLEMEDİ, EMSAL VERİLİYOR</div>'
+        + '<div style="font-size:13px;color:var(--muted)"><b style="color:var(--ink)">' + nk + '</b> Gümrük Tarife Cetveli’nde var, '
+        + 'ama İthalat Rejimi listelerinde bu haliyle geçmiyor (iki resmî kaynak ulusal haneleri farklı dizebiliyor). '
+        + 'Aşağıdaki oran, <b style="color:var(--ink)">aynı ' + e.poz + ' pozisyonundaki ' + e.adet + ' kodun</b> aralığıdır — '
+        + '<b style="color:var(--amber)">bu kodun kesin oranı değildir.</b></div>'
+        + (e.gvMin!==null  ? '<div class="satir"><b>Gümrük Vergisi (emsal)</b><span>' + aralik(e.gvMin,e.gvMax) + '</span></div>' : '')
+        + (e.igvMin!==null ? '<div class="satir"><b>İGV (emsal)</b><span>' + aralik(e.igvMin,e.igvMax) + '</span></div>' : '')
+        + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Beyandan önce tam kodun Rejim Kararı’ndaki karşılığını gümrük müşavirinle teyit et.</div>'
+        + '</div>';
+    } else {
+      el.innerHTML = '<div style="margin:0 0 12px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">'
+        + '<div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">⚠ GÜMRÜK VERGİSİ ORANI ÖLÇÜLEMEDİ</div>'
+        + '<div style="font-size:13px;color:var(--muted)"><b style="color:var(--ink)">' + nk + '</b> cetvelde var ama İthalat Rejimi '
+        + 'listelerinde karşılığı bulunamadı ve aynı pozisyonda emsal de yok (fasıl 99 gibi özel kodlarda olur). '
+        + '<b style="color:var(--ink)">Oran ölçülemedi</b> — "vergi yok" demek değil; gümrük müşavirine sor.</div></div>';
+    }
+  }); }, 0);
+  return '<div id="kodUyari"></div>';
+}
+
 // sonuç kartının üstünde resmî eşya tanımını göster (tam kod sorgulandıysa)
 function tanimBloku(kod){
   setTimeout(() => { GtipAra.yukle().then(() => {
@@ -488,9 +590,9 @@ function tarimKart(kod){
   let satir = ulkeler.map(u=>{
     const o = t[u];
     const renk = o===enDusuk ? 'var(--green)' : (o===enYuksek && enYuksek>enDusuk ? 'var(--amber)' : 'var(--muted)');
-    return `<div class="satir"><b style="font-weight:600">${u}</b><span style="color:${renk};font-weight:700">%${o}</span></div>`;
+    return `<div class="satir"><b style="font-weight:600">${u}</b><span style="color:${renk};font-weight:700">${yuz(o)}</span></div>`;
   }).join('');
-  const fark = enYuksek>enDusuk ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">💡 Bu tarım ürününde menşe ülkeye göre gümrük vergisi <b style="color:var(--ink)">%${enDusuk} ile %${enYuksek}</b> arasında değişiyor, yeşil en avantajlı menşe, sarı en yüksek. Doğru ülkeden almak ciddi fark yaratır.</p>` : `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Bu kodda tüm menşelerde gümrük vergisi %${enDusuk}.</p>`;
+  const fark = enYuksek>enDusuk ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">💡 Bu tarım ürününde menşe ülkeye göre gümrük vergisi <b style="color:var(--ink)">${yuz(enDusuk)} ile ${yuz(enYuksek)}</b> arasında değişiyor, yeşil en avantajlı menşe, sarı en yüksek. Doğru ülkeden almak ciddi fark yaratır.</p>` : `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Bu kodda tüm menşelerde gümrük vergisi ${yuz(enDusuk)}.</p>`;
   // TARIM PAYI (EMY) bölümü — varsa
   let emyHtml = '';
   const emy = EMY_TARIM ? EMY_TARIM[kod] : null;
@@ -554,7 +656,7 @@ function dampingKart(q){
 function vergiKart(kod){
   if(!VERGI || !VERGI[kod]) return askiyaKart(kod) + nihaiKart(kod) + balikKart(kod) + gekapKart(kod) + savunmaKart(kod) + tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
   const v = VERGI[kod];
-  const rng = (mn,mx)=> mn===mx ? ('%'+mn) : ('%'+mn+' – %'+mx);
+  const rng = (mn,mx)=> mn===mx ? yuz(mn) : (yuz(mn)+' – '+yuz(mx));
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
   const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;   // [abSta,katar,bae,eagu,otdu,gyu,du] ya da null
 
@@ -565,13 +667,13 @@ function vergiKart(kod){
   if((ulkeSatir || igvSatir) && seciliGrup){
     // Gümrük Vergisi — ülkeye özel varsa kesin, yoksa aralık
     if(ulkeSatir && ulkeSatir[idx]!==null && ulkeSatir[idx]!==undefined){
-      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">%${ulkeSatir[idx]}</span></div>`;
+      sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${yuz(ulkeSatir[idx])}</span></div>`;
     } else if(v[0]!==null && v[0]!==undefined){
       sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${rng(v[0],v[1])}</span></div>`;
     }
     // İGV — ülkeye özel varsa kesin, yoksa aralık
     if(igvSatir && igvSatir[idx]!==null && igvSatir[idx]!==undefined){
-      sat += `<div class="satir"><b>İlave Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">%${igvSatir[idx]}</span></div>`;
+      sat += `<div class="satir"><b>İlave Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${yuz(igvSatir[idx])}</span></div>`;
     } else if(v[2]!==null && v[2]!==undefined){
       sat += `<div class="satir"><b>İlave Gümrük Vergisi (İGV)</b><span>${rng(v[2],v[3])}</span></div>`;
     }
@@ -628,7 +730,7 @@ function etkiHesapla(kod, sid){
   if(!tutar){ out.innerHTML = ''; return; }  // bos: sessizce temizle (yazarken kirmizi uyari cikmasin)
   const v = VERGI && VERGI[kod];
   if(!v){ out.innerHTML = 'Bu kod için oran verisi yok.'; return; }
-  const tl = n => n.toLocaleString('tr-TR');
+  const tl = n => Math.round(n).toLocaleString('tr-TR');   // 19.08: kuruş artığı gösterme
   const seciliGrup = (document.getElementById('ulkeGrup')||{}).value || '';
   const ulkeSatir = VERGI_ULKE ? VERGI_ULKE[kod] : null;
   let sat = '', notEk = '';
@@ -640,9 +742,9 @@ function etkiHesapla(kod, sid){
     const igvU = igvSatir ? igvSatir[idx] : null;
     if((gv!==null && gv!==undefined) || (igvU!==null && igvU!==undefined)){
       let gvTutar = 0, igvTutar = 0;
-      if(gv!==null && gv!==undefined){ gvTutar = tutar*gv/100; sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(gvTutar)} TL (kesin, %${gv})</span></div>`; }
+      if(gv!==null && gv!==undefined){ gvTutar = tutar*gv/100; sat += `<div class="satir"><b>Gümrük Vergisi (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(gvTutar)} TL (kesin, ${yuz(gv)})</span></div>`; }
       else if(v[0]!=null){ const mn=tutar*v[0]/100, mx=tutar*v[1]/100; gvTutar=mn; sat += `<div class="satir"><b>Gümrük Vergisi</b><span>${mn===mx?tl(mn)+' TL':tl(mn)+' – '+tl(mx)+' TL'}</span></div>`; }
-      if(igvU!==null && igvU!==undefined){ igvTutar = tutar*igvU/100; sat += `<div class="satir"><b>İGV (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(igvTutar)} TL (kesin, %${igvU})</span></div>`; }
+      if(igvU!==null && igvU!==undefined){ igvTutar = tutar*igvU/100; sat += `<div class="satir"><b>İGV (seçtiğin ülke)</b><span style="color:var(--green);font-weight:700">${tl(igvTutar)} TL (kesin, ${yuz(igvU)})</span></div>`; }
       else if(v[2]!=null){ const mn=tutar*v[2]/100, mx=tutar*v[3]/100; igvTutar=mn; sat += `<div class="satir"><b>İGV</b><span>${mn===mx?tl(mn)+' TL':tl(mn)+' – '+tl(mx)+' TL'}</span></div>`; }
       const toplam = gvTutar + igvTutar;
       sat += `<div class="satir"><b>Tahmini yıllık toplam (GV+İGV)</b><span style="color:var(--amber);font-weight:700">~${tl(toplam)} TL</span></div>`;
@@ -722,7 +824,7 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
       Gözetim tebliğleri <b>sık değişir</b>; beyandan önce
       <a href="https://www.mevzuat.gov.tr/" target="_blank" rel="noopener">mevzuat.gov.tr</a>'den
       ya da gümrük müşavirinden teyit et.`;
-    s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + `<div class="kart yok"><div class="et">■ İZLEDİĞİMİZ TEBLİĞLERDE GÖZETİM YOK</div>
+    s.innerHTML = tanimBloku(q) + kodUyariBloku(q) + abdMisillemeKart() + dHtml + `<div class="kart yok"><div class="et">■ İZLEDİĞİMİZ TEBLİĞLERDE GÖZETİM YOK</div>
       <h3>${q} kodu, izlediğimiz gözetim tebliğlerinde geçmiyor.</h3>
       <p style="color:var(--muted);font-size:13.5px;margin:0 0 4px">${gozNot} Vergiler aşağıda:</p>${vHtml}</div>` + ctaHtml();
     return;
@@ -754,7 +856,7 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
   }
-  s.innerHTML = tanimBloku(q) + abdMisillemeKart() + dHtml + html + ctaHtml();
+  s.innerHTML = tanimBloku(q) + kodUyariBloku(q) + abdMisillemeKart() + dHtml + html + ctaHtml();
 }
 function ctaHtml(){
   return `<div class="cta" id="takipKutu">
