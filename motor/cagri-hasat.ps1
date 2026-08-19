@@ -210,16 +210,23 @@ try {
   # ASC siralamada ilk sayfalar gecmis cut-off'lu eski konular; TUM sayfalar gezilir.
   $abListe = @(); $sayfa = 1; $toplamAB = -1
   while($sayfa -le 10){
-    & $curlKomut -sS -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
-      -F "query=<$sorguDosya;type=application/json" `
-      -F "languages=<$dilDosya;type=application/json" `
-      -F "sort=<$siraDosya;type=application/json" `
-      -o $sediaDosya
-    if(-not (Test-Path $sediaDosya)){ break }
-    $sediaHam = Get-Content $sediaDosya -Raw -Encoding UTF8
-    # cift anahtar temizligi (DATASOURCE/datasource) - iki dizilis de olabilir
-    $sediaHam = $sediaHam -replace ',"datasource":\[[^\]]*\]','' -replace '"datasource":\[[^\]]*\],',''
-    $sedia = $sediaHam | ConvertFrom-Json
+    # baglanti ortada kopabiliyor (19.08: sayfa 2'de Recv failure -> kesik JSON) - 2 deneme
+    $sedia = $null
+    foreach($deneme in 1,2){
+      Remove-Item $sediaDosya -ErrorAction SilentlyContinue
+      & $curlKomut -sS -m 90 -X POST "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=$sayfa" `
+        -F "query=<$sorguDosya;type=application/json" `
+        -F "languages=<$dilDosya;type=application/json" `
+        -F "sort=<$siraDosya;type=application/json" `
+        -o $sediaDosya
+      if(-not (Test-Path $sediaDosya)){ continue }
+      $sediaHam = Get-Content $sediaDosya -Raw -Encoding UTF8
+      # cift anahtar temizligi (DATASOURCE/datasource) - iki dizilis de olabilir
+      $sediaHam = $sediaHam -replace ',"datasource":\[[^\]]*\]','' -replace '"datasource":\[[^\]]*\],',''
+      try { $sedia = $sediaHam | ConvertFrom-Json; break }
+      catch { Write-Host ("  sayfa {0} deneme {1}: kesik/bozuk yanit, yeniden denenecek" -f $sayfa, $deneme); Start-Sleep -Seconds 2 }
+    }
+    if(-not $sedia){ throw "SEDIA sayfa $sayfa iki denemede de okunamadi" }
     if($sedia.totalResults -lt 1){ break }
     $toplamAB = $sedia.totalResults
     $abOlduMu = $true
@@ -267,7 +274,15 @@ try {
     $abAdet = [Math]::Min(60, $abGelecekli)
     $kaynakDurum["AB (Ufuk Avrupa)"] = "OK (portalda açık $toplamAB konu; gelecek son-tarihli $abGelecekli, en yakın $abAdet tanesi listede)"
   }
-} catch { Write-Host ("  SEDIA hatasi: {0}" -f $_.Exception.Message) }
+} catch {
+  # YARIM OLCUM TAM OLCUM DEGILDIR (19.08 dersi): sayfa ortasinda kopan cekim
+  # bayragi TRUE birakirsa eksik liste "OK" yazilir VE eski-veri sigortasi
+  # devreye girmez. Kopunca olculemedi sayilir. Mesaj kisa kesilir (kesik JSON
+  # istisna metnine tum govdeyi gomuyor - 1 MB'lik log dokmesin).
+  $abOlduMu = $false
+  $kisa = "$($_.Exception.Message)"; if($kisa.Length -gt 200){ $kisa = $kisa.Substring(0,200) + "..." }
+  Write-Host ("  SEDIA hatasi: {0}" -f $kisa)
+}
 if(-not $abOlduMu){ $kaynakDurum["AB (Ufuk Avrupa)"] = "ÖLÇÜLEMEDİ" }
 Write-Host ("AB: {0}" -f $kaynakDurum["AB (Ufuk Avrupa)"])
 
@@ -315,7 +330,12 @@ try {
     $kaAdet = @($kaListe).Count
     $kaynakDurum["Kalkınma Ajansları"] = "OK (26 ajansta güncel $kaToplam destek, $kaAdet tanesi listede)"
   }
-} catch { Write-Host ("  ka.gov.tr hatasi: {0}" -f $_.Exception.Message) }
+} catch {
+  # ayni yarim-olcum korumasi: sayfa ortasinda kopan KA cekimi de olculemedi sayilir
+  $kaOlduMu = $false
+  $kisa = "$($_.Exception.Message)"; if($kisa.Length -gt 200){ $kisa = $kisa.Substring(0,200) + "..." }
+  Write-Host ("  ka.gov.tr hatasi: {0}" -f $kisa)
+}
 if(-not $kaOlduMu){ $kaynakDurum["Kalkınma Ajansları"] = "ÖLÇÜLEMEDİ" }
 Write-Host ("KALKINMA AJANSLARI: {0}" -f $kaynakDurum["Kalkınma Ajansları"])
 
