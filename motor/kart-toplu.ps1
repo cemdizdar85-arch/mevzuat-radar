@@ -335,6 +335,7 @@ D) Turkce imla KUSURSUZ ve TAM DIAKRITIKLI: ciktinin HER kelimesi Turkce karakte
 E) baslik_sade: iyi bir ekonomi muhabirinin atacagi baslik. Olgusal, 8-14 kelime, urun grubunu soyler.
 F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastir" gibi. Emir kipi SEN kipiyle ve dogal: "kontrol et", "hazirla", "karsilastir". Site standardi SEN kipidir - "kontrol edin/hazirlayin" (siz) YASAK. Garanti dili de YASAK: "kesinlikle", "mutlaka ...ecektir" yerine kaynaga yaslan ("Teblig uyarinca eklenmesi zorunlu").
 G) kimi_ilgilendirir: sektoru/rolu isimlendir ("seramik ithal eden insaat malzemecileri" gibi), "ilgili firmalar" deme.
+H) OKUYUCU HICBIR KISALTMAYI/KODU BILMIYOR varsay (Cem kurali 19.08): metinde arac sinifi (M1, N1G gibi), belge turu, sistem adi veya sektore ozgu kisaltma geciyorsa ILK gectigi yerde bir cumleyle halk diliyle acikla ("M1: surucu koltugu disinda en fazla 8 koltuklu yolcu araclari - otomobiller" gibi). Aciklamayi kaynak metindeki tanimdan yap; kaynakta tanim yoksa kisaltmayi acmadan birak ve guven_notu'na yaz. Yaygin dis ticaret terimlerini (GTIP, damping, gozetim, tarife kontenjani, mense, korunma onlemi, ek mali yukumluluk) ACIKLAMA - onlari site otomatik sozlukle acikliyor, senin aciklaman cift olur.
 
 JSON semasi:
 {"baslik_sade":"tek cumle, olgusal","ne_oldu":"1-2 cumle","degistirilen_teblig":"degistirilen ana teblig no/adi veya bos","eski_rg":"GG.AA.YYYY veya bos","eski_yeni":[{"konu":"degisen kalem","eski":"kaynaktan eski hal","yeni":"kaynaktan yeni hal"}],"gtip_kodlari":["tum kodlar"],"urun_tanimi":"esya grubu","kimi_ilgilendirir":"kim","ne_yapmali":"somut adim","yururluk":"kalipli","birim_kiymetler":[{"gtip":"kod","deger":"or: 1.000 ABD Dolari/Ton"}],"etki":{"yon":"kalipli","aciklama":"1-2 cumle yorum"},"guven_notu":"emin olamadiklarin"}
@@ -997,6 +998,7 @@ $arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.C
 #  YALNIZ O GUNUN kartlarini. Ikisi ayni cizimi kullandigi icin kart uretimi
 #  fonksiyona alindi - yoksa arsiv de havuzu basiyordu (16.08'de bir kez oldu).
 # ============================================================================
+. (Join-Path $here 'terim-sozlugu.ps1')
 function KartBloguHtml($liste){
   $b = New-Object System.Text.StringBuilder
   foreach($k in @($liste)){
@@ -1107,6 +1109,9 @@ function KartBloguHtml($liste){
     }
     [void]$s.AppendLine("<div style='border:1px solid $renk;border-radius:10px;padding:10px 13px;margin:9px 0;font-size:12.5px;color:var(--muted)'><b style='color:$renk'>Ne anlama geliyor (yorum · $($k.etki.yon)):</b> $($k.etki.aciklama)</div>")
   }
+  # Terim sozlugu: kartta gecen dis ticaret terimleri halk diliyle (Cem 19.08)
+  $sozlukHtml = TerimSozluguHtml $k
+  if($sozlukHtml){ [void]$s.AppendLine($sozlukHtml) }
   [void]$s.AppendLine("<div class='meta'><a href='$($k.kaynak)' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>")
   [void]$s.AppendLine('</div>')
   }
