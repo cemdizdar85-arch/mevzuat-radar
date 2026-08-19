@@ -95,7 +95,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   <h1>Müşterin batmadan haber al</h1>
   <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
 
-  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Aşağıdaki canlı akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) canlı ilan havuzunda ve örnek veride anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
+  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: 5.728 ilan</b>, VKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
 
   <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
@@ -107,7 +107,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        (40 kart sonrası); asıl ürün eylemi olduğu için akışın ÜSTÜNE taşındı. -->
   <div class="kutu" style="margin-top:18px">
     <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
-    <label>Müşteri / borçlu listeni yükle (muhasebe programından tek tuşla Excel al)</label>
+    <label>Müşteri / borçlu listeni yükle — <b style="color:var(--accent2)">1 yıllık arşivde (5.728 ilan) taranır</b></label>
     <label class="yukle" id="yukleKutu">
       <div class="ikon">📄</div>
       <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
@@ -148,7 +148,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 
   <!-- 31.07 Cem onayi: iflas/konkordato ilanlari CANLI (ihale taktigi: gunde 2 cekim,
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
-  <h2 style="margin:26px 0 4px">📡 Son iflas &amp; konkordato ilanları <span style="font-size:13px;color:var(--dim);font-weight:600">· canlı akış · günde iki kez otomatik güncellenir</span></h2>
+  <h2 style="margin:26px 0 4px">📡 İflas &amp; konkordato arşivi <span style="font-size:13px;color:var(--dim);font-weight:600">· son 1 yıl · günde iki kez otomatik güncellenir</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
   <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
        arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
@@ -267,7 +267,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     AI_ARSIV_ADET=(d.arsivAdet||AI_L.length);
     var m=/([0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9:]+)/.exec(d.guncelleme||'');
     var e=document.getElementById('aiDamga');
-    if(e) e.innerHTML='son güncelleme: <b style="color:var(--ink)">'+(m?m[1]:(d.guncelleme||'—'))+'</b> · akışta son '+AI_L.length+' ilan · <b style="color:var(--ink)">arşivde '+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> (1 yıl)';
+    if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN ile aranabilir</span> · son güncelleme: <b style="color:var(--ink)">'+(m?m[1]:(d.guncelleme||'—'))+'</b>';
     aiMakro(); aiCiz();
   }).catch(function(){ var e=document.getElementById('aiDamga'); if(e) e.textContent='Canlı akış şu an yüklenemedi, birazdan yenile.'; });
   // 15.08 Cem "kendi verimizden yoğunluk sinyali": TCMB EVDS göçü oturana kadar,
@@ -287,7 +287,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     }).join('');
     box.innerHTML='<div class="kutu" style="margin:0">'
       +'<div style="font-size:12.5px;font-weight:800;color:var(--accent2);letter-spacing:.6px">📊 BU ÇEKİMİN MAKRO SİNYALİ</div>'
-      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">Coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
+      +'<div style="font-size:12.5px;color:var(--muted);margin:6px 0 10px">En yeni '+AI_L.length+' ilanda coğrafi yoğunluk (en çok ilan çıkan iller):</div>'
       +satir
       +'<div id="aiResmi"></div>'
       +'<div style="font-size:11px;color:var(--dim);margin-top:10px">Kaynak: bu çekimdeki resmî ilan havuzu, kendi ölçümümüz. <b style="color:var(--muted)">Makro eğilimdir</b>, tek bir firma hakkında hüküm değildir. Sektör bilgisi ilan metnindedir.</div>'
@@ -333,7 +333,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
           + (aramaMetni?' <span style="color:var(--dim)">· "'+aiKac(aramaMetni)+'"</span>':'')
           + '<div style="margin-top:6px;font-size:12.5px"><a href="radar-app.html?niyet=alacak" style="color:var(--accent2);font-weight:700;text-decoration:none">🔔 Bu borçlu için yeni ilan düştüğünde ilk sen duy, ücretsiz üye ol →</a></div>';
       } else {
-        sy.innerHTML='Havuzda <b style="color:var(--ink)">'+AI_L.length+'</b> ilan · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. Borçlunu aramak için yukarıdaki <b style="color:var(--ink)">alacak taraması</b> kutusunu kullan.';
+        sy.innerHTML='Arşivde <b style="color:var(--ink)">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+'</b> ilan var (son 1 yıl); aşağıda <b style="color:var(--ink)">en yeni '+AI_L.length+'</b> tanesi listeleniyor · <b style="color:var(--amber)">'+ko+'</b> konkordato · <b style="color:var(--red)">'+ifl+'</b> iflas. <b style="color:var(--ink)">Borçlu araması arşivin tamamında yapılır</b> — yukarıdaki alacak taraması kutusunu kullan.';
       }
     }
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
@@ -433,15 +433,32 @@ function vknGecerli(s){
   return v[9] === (10 - (sum % 10)) % 10;
 }
 // metinden VKN/TCKN ayıkla — telefon/geçersiz sayılar kontrol hanesinden ELENİR
+// 19.08 ÖLÇÜLDÜ (Cem: "ne yüklerse yüklesin VKN'yi çözecek misin?"): şablon
+// şart değil — dosyanın TAMAMI metne çevrilip taranır. İki gerçek kusur test
+// sırasında yakalandı ve kapatıldı:
+//  (1) ayraçlı yazım — "988 036 2936" / "3.090.556.687" / "988-036-2936" hiç
+//      yakalanmıyordu (bazı muhasebe programları böyle yazdırır),
+//  (2) Excel baştaki SIFIRI siler ("0123456789" -> 123456789, 9 hane) ve VKN
+//      sessizce kaybolurdu; artık 9 haneli sayılar sayılıp kullanıcı uyarılır.
+// Checksum (VKN/TCKN) her adayı süzer: telefon, tutar, cari kod elenir.
 function vknCikar(metin){
-  const ham = new Set(); const re = /\b(\d{10,11})\b/g; let m;
+  const ham = new Set();
+  let m;
+  const re = /\b(\d{10,11})\b/g;                    // bitişik yazım
   while ((m = re.exec(metin)) !== null){ ham.add(m[1]); }
+  const re2 = /\d[\d\s.\-]{8,16}\d/g;               // ayraçlı yazım
+  while ((m = re2.exec(metin)) !== null){
+    const sade = m[0].replace(/[\s.\-]/g,'');
+    if(sade.length===10 || sade.length===11) ham.add(sade);
+  }
   const gecerli = [], elenen = [];
   for(const n of ham){
     if((n.length===10 && vknGecerli(n)) || (n.length===11 && tcknGecerli(n))) gecerli.push(n);
     else elenen.push(n);
   }
-  return { gecerli, elenen };
+  // Excel'in sıfırı yuttuğu şüphesi: 9 haneli sayı sayısı
+  const dokuz = (metin.match(/\b\d{9}\b/g)||[]).length;
+  return { gecerli, elenen, dokuzHaneli: dokuz };
 }
 function yukleDurum(html, renk){ const el=document.getElementById('yukleDurum'); el.innerHTML=html; el.style.color=renk||'var(--green)'; el.classList.add('gor'); }
 
@@ -475,7 +492,8 @@ async function dosyaSecildi(file){
 
   if(!sonuc.gecerli.length){
     const ekNot = sonuc.elenen.length ? ' ('+sonuc.elenen.length+' sayı bulundu ama VKN/TCKN kontrolünden geçmedi, telefon/tutar olabilir)' : '';
-    yukleDurum('Dosyada geçerli VKN/TCKN bulamadım'+ekNot+'. Elle de yazabilirsin.', 'var(--amber)'); return;
+    const sifirNot = sonuc.dokuzHaneli ? ' <b>Dosyada '+sonuc.dokuzHaneli+' adet 9 haneli sayı var — Excel VKN\'nin başındaki sıfırı silmiş olabilir; VKN sütununu "Metin" biçimine çevirip yeniden kaydet.</b>' : '';
+    yukleDurum('Dosyada geçerli VKN/TCKN bulamadım'+ekNot+'.'+sifirNot+' Elle de yazabilirsin.', 'var(--amber)'); return;
   }
   // 19.08 Cem kurgusu: elle giriş TEK kayıt, toplu iş DOSYAYLA gelir ve dosya
   // yüklenir yüklenmez kendiliğinden taranır (listeyi kutuya dökmek yok).
