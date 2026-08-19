@@ -112,6 +112,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <h2 id="acik-cagrilar" style="font-size:19px;letter-spacing:-.4px;margin:26px 0 4px">🔴 Şu an açık çağrılar</h2>
     <p style="font-size:13px;color:var(--dim);margin:0 0 12px">Robot her gün kurum sitelerinden çeker; burada gördüğün çağrı <b style="color:var(--ink)">bugün açık</b> demektir. <span id="cagriDamga"></span></p>
     <div id="cagriListe"></div>
+
+    <!-- 19.08 Cem: "ticaret bakanligi ihracat desteklerini ekleyelim" — 5973 kural
+         tabanlı (katalog kartlarında), TARİHLİ tek parçası fuar listesi burada.
+         473KB veri TIKLAYINCA yüklenir (lazy); arama istemcide. -->
+    <details class="kart" style="padding:14px 18px" id="fuarGrubu">
+      <summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">Ticaret Bakanlığı — Fuar Desteği <span style="color:var(--dim);font-weight:600" id="fuarSayi">· listeyi aç, fuarını ara</span></summary>
+      <p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Yurt dışı fuar desteği (5973 s. Karar) yalnız <b style="color:var(--ink)">Bakanlığın destek listesindeki</b> fuarlar için ödenir — gitmeden kontrol et. Başvuru penceresi hâlâ açık olan (bitişinin üzerinden 3 ay geçmemiş) ve gelecek fuarlar aranabilir; <b style="color:var(--ink)">başvuru fuar bitiminden 3 ay içinde DYS'den</b>. Tutar/oran için <a id="fuarKaynak" href="https://ticaret.gov.tr/ihracat/fuarlar" target="_blank" rel="noopener">resmî liste</a> + yukarıdaki katalogda Fuar Desteği kartı.</p>
+      <input id="fuarAra" placeholder="fuar adı, şehir ya da ülke yaz… (ör. Düsseldorf, CES, mobilya)" style="width:100%;padding:11px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font-size:15px;font-family:inherit;margin:8px 0">
+      <div id="fuarSonuc" style="font-size:13px;color:var(--muted)"></div>
+    </details>
   </div>
 
   <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
@@ -397,6 +407,35 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   document.getElementById('cagriDamga').textContent = cd.guncelleme || '';
   document.getElementById('acikCagrilar').style.display = 'block';
 }).catch(()=>{});
+
+// ---- FUAR DESTEĞİ ARAMASI (Ticaret Bakanlığı, 19.08) ----
+// veri/fuar-destek.json ~470KB: grup AÇILINCA bir kez çekilir (lazy).
+let FUAR = null;
+const fuarNorm = s => (s||'').toLocaleLowerCase('tr').replace(/[İI]/g,'i').replace(/̇/g,'')
+  .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u');
+function fuarCiz(){
+  const q = fuarNorm(document.getElementById('fuarAra').value.trim());
+  const kutu = document.getElementById('fuarSonuc');
+  if(!FUAR){ kutu.textContent = 'Liste yükleniyor…'; return; }
+  const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : ''; };
+  const eslesen = q.length<2 ? [] : FUAR.fuarlar.filter(f => fuarNorm(f.fuar+' '+f.sehir+' '+f.ulke+' '+f.konu).indexOf(q)>=0);
+  if(q.length<2){ kutu.innerHTML = '<span style="color:var(--dim)">En az 2 harf yaz; '+FUAR.fuarlar.length+' fuar içinde arar.</span>'; return; }
+  if(!eslesen.length){ kutu.innerHTML = '<b style="color:var(--red)">Bu aramayla destekli fuar bulunamadı.</b> <span style="color:var(--dim)">Listede olmayan fuara katılım desteklenmez (Genelge); gitmeden resmî listeyle de teyitleş.</span>'; return; }
+  kutu.innerHTML = '<div style="margin:4px 0 6px"><b style="color:var(--green)">'+eslesen.length+' destekli fuar</b>'+(eslesen.length>30?' <span style="color:var(--dim)">(ilk 30 gösteriliyor, aramayı daralt)</span>':'')+'</div>'
+    + eslesen.slice(0,30).map(f => '<div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">'
+      + '<span><b style="color:var(--ink)">'+f.fuar+'</b> <span class="rozet">'+(f.tur==='milli'?'MİLLİ KATILIM':'BİREYSEL')+'</span><br><span style="font-size:12px;color:var(--dim)">'+f.sehir+' / '+f.ulke+(f.konu?' · '+f.konu:'')+'</span></span>'
+      + '<span style="white-space:nowrap;text-align:right;font-size:12.5px">'+(f.baslangic?gd(f.baslangic)+' –':'')+' '+gd(f.bitis)+'</span></div>').join('');
+}
+document.getElementById('fuarGrubu').addEventListener('toggle', function(){
+  if(!this.open || FUAR) return;
+  fetch('veri/fuar-destek.json?'+Date.now()).then(r=>r.json()).then(d=>{
+    FUAR = d;
+    document.getElementById('fuarSayi').textContent = '· '+d.fuarlar.length+' fuar aranabilir (başvuru penceresi açık)';
+    if(d.kaynakSayfa) document.getElementById('fuarKaynak').href = d.kaynakSayfa;
+    fuarCiz();
+  }).catch(()=>{ document.getElementById('fuarSonuc').textContent = 'Liste yüklenemedi, sayfayı yenile.'; });
+});
+document.getElementById('fuarAra').addEventListener('input', fuarCiz);
 
 // ---- DESTEK SİHİRBAZI ----
 const DC = {};
