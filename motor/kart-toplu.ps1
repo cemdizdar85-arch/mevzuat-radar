@@ -971,10 +971,38 @@ function VitrinKucult([string]$s){
   }
   return $sb.ToString()
 }
+#  --- IKINCI KAT: KURUM ICI DUZENLEME FRENI (19.08.2026) ---
+#  VAKA: 19.08 kosusu "Izmir Kavram Meslek Yuksekokulu Ihale Yonetmeliginde
+#  kurum adi degisikligi" kartini VITRINE CIKARDI - kapi 'ihale' kelimesine
+#  takildi. Sonraki kosuda model basligi baska kelimelerle yazdi ve kart
+#  kendiliginden dustu: yani kapi kartin ISINE gore degil, o gunku BASLIK
+#  KELIMESINE gore karar veriyordu (zar atma).
+#  KURAL: kart bir kurumun KENDI ic duzenlemesinden (universite/yuksekokul/
+#  arastirma merkezi vb.) soz ediyorsa, vitrine cikmak icin GUCLU bir
+#  isletme/mali kelime sart; 'destek', 'ihale', 'sermaye' gibi ZAYIF kelimeler
+#  tek basina yetmez (ITU "Uzay DESTEK Sistemleri" ornegi: buradaki destek
+#  devlet destegi degil, teknik sistem adi).
+#  OLCULDU (245 kart): kurum-ici kelimesi tasiyip kapidan gecen 5 kart var;
+#  yeni kapiyla 2si duser (ITU Uzay Merkezi yonetmeligi, CASGEM doner sermaye
+#  yonetmeligi), 3u KALIR (KDV vakif universite hastaneleri, SGK klinik
+#  arastirma odemeleri, Dijital Donusum destek programi). Kalan 240 kart
+#  etkilenmez - fren yalnizca kurum-ici kelime varken devreye girer.
+$VITRIN_KURUM_ICI = @('universite','yuksekokul','fakulte','enstitu','konservatuar',
+  'rektor','akademi','ogrenci','ogretim uyesi','ogretim elemani','lisansustu','arastirma merkezi')
+#  Zayif kelimeler: baska baglamda da gecen, tek basina isletme ilgisi
+#  KANITLAMAYAN kokler. Guclu kume = VITRIN_ILGI eksi bunlar.
+$VITRIN_ZAYIF = @('destek','desteg','sermaye','ihale','denetim','lisans',
+  'uretim','uretici','sigorta','kiralama','ticari')
 function VitrinUygun($kk){
   $metin = VitrinKucult ("{0} {1}" -f $kk.baslik_sade, $kk.kimi_ilgilendirir)
-  foreach($w in $VITRIN_ILGI){ if($metin.Contains($w)){ return $true } }
-  return $false
+  $eslesen = @($VITRIN_ILGI | Where-Object { $metin.Contains($_) })
+  if(-not $eslesen.Count){ return $false }
+  $kurumIci = $false
+  foreach($w in $VITRIN_KURUM_ICI){ if($metin.Contains($w)){ $kurumIci = $true; break } }
+  if(-not $kurumIci){ return $true }
+  # kurum ici duzenleme: yalnizca GUCLU kelime tasiyorsa vitrine cikar
+  $guclu = @($eslesen | Where-Object { $VITRIN_ZAYIF -notcontains $_ })
+  return [bool]$guclu.Count
 }
 $vitrinAday = @($havuz | Where-Object { VitrinUygun $_ })
 $vitrinDisi = $havuz.Count - $vitrinAday.Count
