@@ -1,0 +1,938 @@
+{
+    "tarih":  "19.08.2026 09:42",
+    "durum":  "TAMAM",
+    "aciklama":  "Karne 70+30 KAYNAK YOK satirlarinin GM elle ayiklamasi (19.08, Cem onayi). 2 ajan x 50 satir, ambar okumali; VAR hukumleri kanit alintili. CAPRAZ KONTROL DUZELTMESI: ajanlarin THP/MSUGT-yok iddiasi KISMEN yanlis - ambar 269 THP kod kaydini tek tek tutuyor (kaynak_ad \"THP 690 - DONEM KARI VEYA ZARARI\" bicimi; eq-arama bulamiyor). Yevmiye-pratigi sinifindaki GERCEK-YOK hukumlerine bu serh dusuldu.",
+    "sayim":  {
+                  "VAR_artefakt":  59,
+                  "GERCEK_YOK":  39,
+                  "BELIRSIZ":  2
+              },
+    "artefakt_siniflari":  "kisa kelime korlugu (aval) + yazim bozuk etiket + farkli adlandirma (yenileme fonu VUK 328) + TEORI notlari hic aranmamis + OTV K. kisaltmasi + dun yutulan II-15.1/III-52.1 teyitleri (7 satir)",
+    "teori_notu_ihtiyaclari":  [
+                                   "monografi cozum adimlari (acilis-kapanis, donem sonu, finansal kiralamali, ticari isletme - 6 satiri + yevmiye-pratigi ailesini kapsar)",
+                                   "oran analizinden kalem/tutar turetme",
+                                   "islemlerin bilanco esitligine/aktif toplamina etkisi (cek cirosu, tahsilat)",
+                                   "faaliyet kar marji hesabi",
+                                   "finansal kaldirac ve ek borclanma kapasitesi",
+                                   "FASB-IASB Norwalk mutabakati",
+                                   "vergi hukukunda tiplestirme",
+                                   "maliye teorisyenleri kisi-katki eslestirme",
+                                   "kameralizm",
+                                   "mali suruklenme",
+                                   "Accountancy Europe",
+                                   "grafik/finansal veri yorumlama",
+                                   "ic kontrol bilesenleri ve kontrol faaliyeti turleri (onceki tur bulgusu)",
+                                   "finansal-yonetim-maliyet muhasebesi ayrimi (onceki tur bulgusu)"
+                               ],
+    "mevzuat_boslugu":  [
+                            "SPK II-5.1 Izahname ve Ihrac Belgesi Tebligi (muafiyet halleri) - ambarda YOK, teyitli (II-5 aramasi III-52.1e eslesiyor, dikkat)",
+                            "MSUGT-1 gelir tablosu FORMAT bolumu (onceki turdan; sorulari TEORI notlari karsiladi ama bolum yok)"
+                        ],
+    "belirsiz":  [
+                     "gazete ilaniyla bildirim 15 gun (dayanak cozulemedi)",
+                     "listeden silmeye itiraz 15 gun (SMMM Yon. m.34/36/37 okundu, 15 gunluk itiraz hukmu bulunamadi)"
+                 ],
+    "thp_serhi":  "Yevmiye-pratigi konulu ~16 GERCEK-YOK satiri icin ambar THP kod aciklamalari VAR; eksik olan yevmiye KURGUSU anlatimi - monografi teori notu yazilirsa bu aile de kapanir",
+    "kayitlar":  [
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Ekonomi",
+                         "konu":  "alman merkantilizmi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: Alman merkantilizmi (kameralizm) — mevcut \u0027TEORI - Merkantilizm\u0027 notu genel merkantilizmi anlatiyor, Alman kolu/kameralizm hic gecmiyor (\u0027kameraliz\u0027 aramasi 0 kayit); nota bolum eklenmeli"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Ekonomi",
+                         "konu":  "fayda fonksiyonu optimizasyonu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Marjinal fayda ve tuketici dengesi",
+                         "kanit":  "Azalan marjinal fayda, esit marjinal fayda ilkesi ve talep egrisinin turetilmesi",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Ekonomi",
+                         "konu":  "tam rekabet firma optimizasyonu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - piyasa yapilari",
+                         "kanit":  "firma FIYAT ALICIDIR... kar maksimumu P=MC noktasindadir; uzun donemde ekonomik kar sifira iner",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Ekonomi",
+                         "konu":  "tuketici tercih aksiyomlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Farksizlik egrileri ve tuketici tercihi varsayimlari",
+                         "kanit":  "Tercih varsayimlari (butunluk, gecislilik, konvekslik) ve egrilerin ozellikleri",
+                         "oneri":  "karne \u0027aksiyom\u0027 kelimesini aradigi icin kacirmis; not \u0027varsayim\u0027 terimiyle anlatiyor"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "ab hibeleri vergi istisnasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Kamu Finansmanı ve Borç Yönetimi K. (4749 s.K.) m.15 [2/2]",
+                         "kanit":  "Avrupa Birliğinden sağlanan hibelerin temini, devri, tadili ve kullanımına ilişkin işlem ve kâğıtlar istisnalardan yararlanır",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "anonim sirkete ayni sermaye olabilecekler",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.342",
+                         "kanit":  "Hizmet edimleri, kişisel emek, ticari itibar ve vadesi gelmemiş alacaklar sermaye olamaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "bono aval",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.700",
+                         "kanit":  "Poliçede bedelin ödenmesi, aval suretiyle tamamen veya kısmen teminat altına alınabilir",
+                         "oneri":  "karnenin 5-harf-alti korlugu: \u0027aval\u0027 aranmamis; TTK m.700-702 ambarda"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "borclu temerrudu imkanlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.) m.125",
+                         "kanit":  "alacaklı, her zaman borcun ifasını ve gecikme sebebiyle tazminat isteme hakkına sahiptir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "gazete ilaniyla bildirim suresi (15 gun)",
+                         "karar":  "BELIRSIZ",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "konu adindan hangi mevzuata ait oldugu cozulemedi; \u0027gazete\u0027+\u0027onbeş/on beş gün\u0027 taramalari (Anayasa, Bankacilik K., Hal K., İİK) konuyla eslesmedi; cikmis sorunun kendisi bulunup dayanagi tespit edilmeli"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "irade sakatligi korkutma",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.) m.37",
+                         "kanit":  "Taraflardan biri, diğerinin veya üçüncü bir kişinin korkutması sonucu bir sözleşme yapmışsa, sözleşmeyle bağlı değildir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "irade sakatligi yanilma",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.) m.29",
+                         "kanit":  "G. İrade bozuklukları I. Yanılma 1. Yanılmanın hükümleri",
+                         "oneri":  "TBK m.30-35 (yanilma hukumleri) de ambarda (TBK m.1-649 tam)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "isci sendikasi kurabilecekler",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sendikalar ve TİS K. (6356 s.K.) m.6",
+                         "kanit":  "Fiil ehliyetine sahip ve fiilen çalışan gerçek veya tüzel kişiler sendika kurma hakkına sahiptir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "kacakciliga istirak cezasi (yari oran)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: VUK m.360 (kacakcilik sucuna istirakte menfaati olmayana verilecek cezanin yarisi) — ambardaki \u0027VUK — Ceza sistemi (m.341-376)\u0027 ozet kaydi yalniz \u0027istirakte bir kat\u0027 (vergi ziyai cezasi) diyor, m.360 yari-oran hukmunu anlatmiyor; ozet kayda islenmeli"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "kdv tarh yeri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "KDVK (3065 s.K.) m.43 - ÜÇÜNCÜ BÖLÜM Tarh İşlemleri Tarh yeri",
+                         "kanit":  "Katma Değer Vergisi, mükellefin iş yerinin bulunduğu yer vergi dairesince tarholunur",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "listeden silmeye itiraz suresi (15 gun)",
+                         "karar":  "BELIRSIZ",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "aday kaynak SMMM ve YMM Calisma Usul Yonetmeligi (calisanlar listesinden silinme m.34/36/37 ambarda) fakat 15 gunluk itiraz suresi hukmu okunan kayitlarda bulunamadi; ilgili madde elle teyit edilmeli"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "otv kanununda duzenlenmeyen kurum",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "ÖTV K. (4760 s.K.)",
+                         "kanit":  "(alinti alinmadi; 4760 kayitlari kaynak_ad duzeyinde dogrulandi: m.1, m.2, m.3, m.4...)",
+                         "oneri":  "karne muhtemelen \u0027Tüketim\u0027 yerine \u0027ÖTV\u0027 kisaltmasiyla kayitli oldugu icin kacirmis; negatif-tip soru, dayanak kanunun kendisi"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "policede kapital faizi kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.675",
+                         "kanit":  "Görüldüğünde veya görüldüğünden belirli bir süre sonra ödenmesi şart kılınan poliçeye faiz şartı konulabilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "sendikadan ayrilmama alacaklari (sendikal tazminat)",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sendikalar ve TİS K. (6356 s.K.) m.25 [1/2]",
+                         "kanit":  "çalışma şartları veya çalıştırmaya son verilmesi bakımından herhangi bir ayrım yapamaz",
+                         "oneri":  "m.25 sendika ozgurlugunun guvencesi/sendikal tazminat maddesi; iki parca halinde ambarda"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "tacir sayilmayanlar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.16",
+                         "kanit":  "bir tüzel kişi eliyle işletsinler, kendileri tacir sayılmazlar",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "tacir sayilmayanlar (il ozel idaresi)",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.16",
+                         "kanit":  "Devlet, il özel idaresi, belediye ve köy... kendileri tacir sayılmazlar",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "tacir sifati tasimayanlar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.16",
+                         "kanit":  "bir tüzel kişi eliyle işletsinler, kendileri tacir sayılmazlar",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "vergi hukukunda tipleistirme",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: vergi hukukunda tiplestirme (tipiklik) kavrami — doktrin terimi, kanun metninde gecmez (\u0027tipleştirme\u0027 aramasi 0)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Hukuk",
+                         "konu":  "ymm tasdik yasaklari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "SMMM K. (3568 s.K.) m.45 [1/2]",
+                         "kanit":  "yakınlıktaki akrabaları olan serbest muhasebeci mali müşavirlerin baktığı işleri tasdik edemezler",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "disliyici etki",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Dislama (crowding out) etkisi",
+                         "kanit":  "Kamu harcamalarinin ozel yatirimi dislamasi ve etkinligini belirleyen kosullar",
+                         "oneri":  "karne artefakti: konu etiketi \u0027disliyici\u0027 yazim bozuk, not \u0027dislama\u0027 adiyla var"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "dolayli vergi kaldirilmasinin yansimasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Verginin yansimasi ve capraz yansima",
+                         "kanit":  "Yansima asamalari, ileriye/geriye yansima ve capraz (esiksel) yansima",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "kamu harcamalari artis teorileri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Wagner Kanunu (kamu harcamalarinin artisi)",
+                         "kanit":  "Wagner yasasi ve kamu harcamalarindaki artisin gercek/gorunurde ayrimi",
+                         "oneri":  "Peacock-Wiseman/Baumol gibi diger teoriler icin notun kapsami elle kontrol edilebilir"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "mali surukleme",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: mali suruklenme (fiscal drag) ve soguk artan oranlilik — ambar taramasinda yalniz cikmis soru kaydi var, anlatan not yok"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "maliye teorisyenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: maliye teorisyenleri ve katkilari eslestirmesi (Musgrave, Samuelson, Buchanan, Wagner, Peacock-Wiseman) — tekil teoriler icin notlar var ama kisi-katki eslestirme notu yok"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "sermaye giderleri (butce siniflamasi)",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Butce siniflandirmasi: kurumsal, fonksiyonel, finansman tipi, ekonomik",
+                         "kanit":  "Analitik butce siniflandirmasinin dort ayagi ve sermaye giderleri",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Maliye",
+                         "konu":  "stagflasyonda maliye politikasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Stagflasyon ve maliye politikasi ikilemi",
+                         "kanit":  "Stagflasyonun tanimi, sebebi ve politika ikilemi",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "690 hesabin borcuna kapatilmayanlar",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: MSUGT Sira No:1 Tekduzen Hesap Plani aciklamalari (690 Donem Kari veya Zarari hesabinin isleyisi) — ambarda MSUGT\u0027den yalniz Sira No:2 var, Sira No:1 (THP) yok; metin~\u0027690\u0027 \u0026 MSUGT aramasi 0"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "accountancy europe uyeligi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: TURMOB\u0027un uluslararasi uyelikleri (IFAC, Accountancy Europe, Edinburgh Grubu) — mevzuat degil kurum bilgisi; ambarda yalniz cikmis soru kayitlari var"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "akreditifli ithalat avans kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Siparis avansi ve mahsubu (Finansal Muhasebe)",
+                         "kanit":  "verilen avans \u0027159 VERILEN SIPARIS AVANSLARI\u0027 (yurt disi ise \u0027159\u0027 altinda izlenir)",
+                         "oneri":  "notta \u0027akreditif\u0027 kelimesi gecmiyor; akreditif ornegi eklenirse karne de yakalar"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "aktiflesen gider",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Kapasite artirici harcamalarin amortismani",
+                         "kanit":  "Aktiflestirilecek harcama / donem gideri ayrimi ve amortisman suresi",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "alinan siparis avanslarinin nitelikleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Siparis avansi ve mahsubu (Finansal Muhasebe)",
+                         "kanit":  "\u0027340 ALINAN SIPARIS AVANSLARI\u0027 (uzun vadeliyse \u0027440\u0027) hesabinda PASIF olarak izlenir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "avans mahsuplu ilk madde alimi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Siparis avansi ve mahsubu (Finansal Muhasebe)",
+                         "kanit":  "stok hesabi borclandirilir, \u0027159 Verilen Siparis Avanslari\u0027 ALACAKLANDIRILARAK kapatilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "avansli satis teslim kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Siparis avansi ve mahsubu (Finansal Muhasebe)",
+                         "kanit":  "\u0027340 Alinan Siparis Avanslari\u0027 BORCLANDIRILARAK kapatilir, karsiliginda \u0027600 Yurt Ici Satislar\u0027 alacaklandirilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "azalan bakiyelerden esit tutara gecis",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından",
+                         "kanit":  "azalan bakiyeler usulüne göre amortisman ayrılmaya başlandıktan sonra normal amortisman usulüne geçilebilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "azalan bakiyelerden normale gecis amortismani",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.) muk. m.320 - Maliye Bakanlığı yetkilidir. c) Amortisman usulünü seçme bakımından",
+                         "kanit":  "azalan bakiyeler usulüne göre amortisman ayrılmaya başlandıktan sonra normal amortisman usulüne geçilebilir",
+                         "oneri":  "ayrica \u0027TEORI - Azalan bakiyeler usulunde son yil (VUK muk. m.315)\u0027 notu da ambarda"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "bagli ortaklik-istirak siniflamasi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: MSUGT Sira No:1 THP (24 Mali Duran Varliklar grubu: 240 Bağlı Menkul Kıymetler / 242 İştirakler / 245 Bağlı Ortaklıklar pay esikleri) — THP ambarda yok; TMS 28 var ama THP yuzde esiklerini (%10/%50) anlatmaz"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "banka kredisi faiz tahakkuku",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: banka kredisi donem sonu faiz tahakkuku kaydi (300 Banka Kredileri / 381 Gider Tahakkukları / 780 Finansman Giderleri) — THP isleyis aciklamalari ambarda yok, mevcut TEORI notlari bu kaydi kapsamiyor"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "bilanco duran varlik siniflamasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Donen varlik siniflamasi (standartlar acisindan)",
+                         "kanit":  "Bir varligin donen (cari) sayilma olcutleri ve faaliyet dongusu",
+                         "oneri":  "donen sayilmayan = duran; ayni olcut setiyle cozulur"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "bilanco esitliginden cikarim",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: bilanco esitligi (Varlik = Yabanci Kaynak + Oz Kaynak) ve islem etkileri — ambarda yalniz cikmis soru kaydi var, anlatan not yok"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "calisma kagitlarinin yararlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 230 p.3 - Çalışma Kâğıtlarının Niteliği ve Amaçları",
+                         "kanit":  "Çalışma kâğıtları, aşağıdakiler dâhil, birtakım ilâve amaçlara da katkıda bulunur",
+                         "oneri":  "karne artefakti: metinde \u0027kâğıt\u0027 (şapkalı â) yazildigi icin ASCII \u0027kagit\u0027 aramasi kacirmis olabilir"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "cari oran ve asit-test hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Asit-test (likidite) oranlari",
+                         "kanit":  "Cari oran, asit-test ve nakit orani; hangisi neyi eler",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "cari oran-asit test hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Asit-test (likidite) oranlari",
+                         "kanit":  "Cari oran, asit-test ve nakit orani; hangisi neyi eler",
+                         "oneri":  "ustteki satirla ayni konu; karnede mukerrer etiket"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "cek cirosunun bilanco esitligine etkisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: islem etkisi analizi — cek cirosu ve benzeri islemlerin bilanco esitligine/aktif toplamina etkisi (\u0027TEORI - Cari orani artiran/azaltan islemler\u0027 yakin ama bilanco esitligi etkisini anlatmiyor)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "denetim amaci-prosedur eslestirmesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Birikmis amortismanin denetimi",
+                         "kanit":  "Amortisman denetiminde uygulanan prosedurler ve yonetim beyanlari",
+                         "oneri":  "BDS 500 (denetim prosedurleri) de ambarda tam"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "denetim kaniti kiyaslamasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 500 p.A31 - Açıklayıcı Hükümler ve Uygulama - Denetim Kanıtı Olarak Kullanılacak Bilgiler - Güvenilirlik",
+                         "kanit":  "Doğrudan denetçi tarafından elde edilen denetim kanıtı ... daha güvenilirdir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "donem ayirici gelir duzeltme kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Gider donem ayirimi duzeltmesi (donemsellik)",
+                         "kanit":  "Pesin odenen/tahakkuk etmis gider ve gelirlerin donem sonu duzeltmeleri",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "donem ayirici gelir duzeltmesi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: dönem ayırıcı hesaplar ve dönem sonu gelir/gider düzeltme kayıtları (181/380); MSUGT\u0027nin yalnız kavram/ilke bölümü ambarda, hesap planı açıklamaları yok"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "duzenleyici hesap borclandirma (reeskont)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: 1 Sıra No.lu MSUGT Tekdüzen Hesap Planı açıklamaları (122/222 reeskont hesapları); VUK m.281 ambarda ama düzenleyici hesap mekaniğini anlatmıyor"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "etik catismada danisilacak taraflar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Etik Kurallar p.115.2",
+                         "kanit":  "şüpheye düşen bir denetçiye yetkili mercilere danışması önerilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "faaliyet kar marjini etkilemeyenler",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: kârlılık oranları ve faaliyet kâr marjı hesabı"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "gelir tablosu gruplamasi (mk satis zarari)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: MSUGT gelir tablosu formatı ve hesap planı açıklamaları (655 hesabı); ambardaki MSUGT yalnız kavram/ilke bölümü"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "gorus beyaninin rapordaki konumu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 700 p.1 - Kapsam",
+                         "kanit":  "denetçinin finansal tablolara ilişkin görüş oluşturma sorumluluğunu düzenler",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "hazine bonosu tahsili vergi kesintili kayit",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: menkul kıymet faiz gelirinin stopajlı tahsil kaydı (GVK geç. m.67 ambarda, kayıt tekniği yok)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "hile kaynakli yanlislikta denetci tutumu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 240 p.2 - Hilenin Ayırt Edici Özellikleri",
+                         "kanit":  "Hata ile hileyi birbirinden ayıran unsur ... eylemin kasıtlı olarak yapılıp yapılmadığıdır",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "hile ucgeni tesvik unsuru",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 240 p.12 - Tanımlar",
+                         "kanit":  "Hile yapmaya teşvik eden, hile için baskı oluşturan veya hile yapma fırsatı sağlayan",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "islem etkisi (tahsilatin aktif toplamina etkisi)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: işlemlerin bilanço eşitliği ve aktif toplamına etkisi"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "kaldirac siniriyla kredi kapasitesi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: finansal kaldıraç oranı ve ek borçlanma kapasitesi hesabı"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "kayittan islem cikarimi (hisse satis zarari)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: yevmiye kaydından işlemi geri okuma (kayıttan işlem çıkarma) tekniği"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "kayittan islem cikarimi (teminat iadesi)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: yevmiye kaydından işlemi geri okuma (kayıttan işlem çıkarma) tekniği"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "kira stopaji brutlestirme kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: net tutardan brütleştirme ve kira stopajı kaydı (GVK m.94 ambarda, brütleştirme/kayıt tekniği yok)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "kiralanan varlige asansor (ozel maliyet) kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.) m.272",
+                         "kanit":  "faaliyetini icra için vücuda getirdiği tesisata ait giderler de bu hükümdedir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "mesleki supphecilik",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 200 p.7 - Finansal Tabloların Denetimi",
+                         "kanit":  "denetçinin mesleki muhakemesini kullanmasını, mesleki şüpheciliğini sürdürmesini",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "norwalk uzlasisi (fasb-iasb)",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: FASB-IASB Norwalk Mutabakatı ve uluslararası muhasebe uyumu (mevzuat değil, standart tarihçesi)"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "orneklemede kabul edilemez hata payi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 530 Ek-2 2 - Kabul edilebilir sapma oranında artış",
+                         "kanit":  "Kabul edilebilir sapma oranı azaldıkça, daha geniş örneklem büyüklüğü gerekir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "sermaye artisli kar-zarar hesabi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: sermaye artırımı kayıtları ve kâr-zarar/özkaynak hesap ilişkisi"
+                     },
+                     {
+                         "karne":  "SGS",
+                         "ders":  "Muhasebe",
+                         "konu":  "yenileme fonu kullanimdan vazgecme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.) m.328",
+                         "kanit":  "satışın yapıldığı tarihi takip eden üçüncü takvim yılının sonuna kadar pasifte geçici bir hesapta tutulabilir",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "acilistan kapanisa muhasebe monografisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları (açılış-kapanış dahil); ambarda \u0027monografi\u0027 0 kayıt"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "banka kredisi faiz tahakkuku",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: banka kredisi dönem sonu faiz tahakkuku kaydı (300/381/780)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "donem sonu genel monografi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları (dönem sonu envanter-kapanış)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "finansal kiralamali monografi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları (finansal kiralama kayıtları; VUK muk. m.290 ambarda ama monografi tekniği yok)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "gelir gider hesaplarinin 690 aktarimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: dönem sonu kapanış kayıtları (6\u0027lı grup hesapların 690\u0027a devri)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "icsel bilgi aciklamasinin ertelenmesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "kdv hesaplari kapama",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: 191/391 KDV hesaplarının dönem sonu mahsup ve kapama kaydı"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "kdv hesaplasmasi kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: 191/391 KDV hesaplarının dönem sonu mahsup ve kapama kaydı"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "muhasebe monografisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "sayim noksani borc senedi mahsubu",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: 197/397 sayım ve tesellüm noksan/fazlalarının mahsup kayıtları"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "stok fire kaydi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: stok fire ve değer düşüklüğü kayıtları"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "ticari isletme monografisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları (ticari işletme)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Muhasebe",
+                         "konu":  "ticari isletme muhasebe monografisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: monografi çözüm adımları (ticari işletme)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Tablolar ve Analizi",
+                         "konu":  "grafik yorumlama",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: finansal veri/grafik yorumlama teknikleri (soru türü, mevzuat karşılığı yok)"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Tablolar ve Analizi",
+                         "konu":  "icsel bilgi erteleme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Tablolar ve Analizi",
+                         "konu":  "oranlardan kalem turetme",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: oran analizinden bilanço/gelir tablosu kalemi türetme teknikleri"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Finansal Tablolar ve Analizi",
+                         "konu":  "oranlardan tutar turetme",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "teori notu: oran analizinden bilanço/gelir tablosu kalemi türetme teknikleri"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Hukuk",
+                         "konu":  "icsel bilgi erteleme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Maliyet Muhasebesi",
+                         "konu":  "icsel bilgi aciklamasinin ertelenmesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Muhasebe Denetimi",
+                         "konu":  "denetim ustlenememe halleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Bagimsiz Denetim Yonetmeligi m.26 [1/2]",
+                         "kanit":  "denetim üstlenen bağımsız denetçiler aşağıda belirtilen denetimleri üstlenemezler",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Muhasebe Denetimi",
+                         "konu":  "icsel bilgi aciklama ertelemesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Muhasebe Denetimi",
+                         "konu":  "sermaye azalmasinda kurul tedbirleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.) m.376",
+                         "kanit":  "zarar sebebiyle karşılıksız kaldığı anlaşılırsa, yönetim kurulu, genel kurulu hemen toplantıya çağırır",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "finansal tablo/muhasebe usulsuzlugu sucu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.111",
+                         "kanit":  "Yasal defterlerde, muhasebe kayıtlarında ve finansal tablo ve raporlarda usulsüzlük",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "halka arz tanimlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.3 [1/5]",
+                         "kanit":  "Halka arz: Sermaye piyasası araçlarının satın alınması için her türlü yoldan yapılan genel bir çağrı",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "izahname kap borsa tanimlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.3 [2/5]",
+                         "kanit":  "Kamuyu Aydınlatma Platformu: ... bilgilerin elektronik imzalı olarak iletildiği ... elektronik sistemi",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "izahname muafiyeti",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "",
+                         "oneri":  "mevzuat: SPK II-5.1 İzahname ve İhraç Belgesi Tebliği (muafiyet hâlleri); SerPK m.4 ambarda ama muafiyet listesi tebliğde — dikkat: \u0027II-5\u0027 araması III-52.1\u0027e de eşleşiyor, tebliğ gerçekten yok"
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "semsiye fon turleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Yatirim Fonlarina Iliskin Esaslar Tebligi (III-52.1) m.4 [1/2]",
+                         "kanit":  "Şemsiye fon, katılma payları tek bir içtüzük kapsamında ihraç edilen tüm fonları kapsayan yatırım fonudur",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Sermaye Piyasası Mevzuatı",
+                         "konu":  "spk tedbir yetkileri ve tedrici tasfiye",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.) m.96; m.86 [1/4]",
+                         "kanit":  "öngöreceği diğer her türlü tedbiri almaya yetkilidir ... tedricî tasfiye işlemleri YTM tarafından yürütülür",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Vergi Mevzuatı ve Uygulaması",
+                         "konu":  "icsel bilgi aciklama ertelemesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Ozel Durumlar Tebligi (II-15.1) m.6 [1/2]",
+                         "kanit":  "İçsel bilgilerin kamuya açıklanmasının ertelenme sebepleri ortadan kalkar kalkmaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "karne":  "YETERLILIK",
+                         "ders":  "Vergi Mevzuatı ve Uygulaması",
+                         "konu":  "sermaye azaltimi vergilendirmesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "KVK (5520 s.K.) m.32/B [1/2]",
+                         "kanit":  "beş tam yıl geçtikten sonra herhangi bir şekilde sermaye azaltımına konu edilmesi",
+                         "oneri":  ""
+                     }
+                 ]
+}
