@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260818165829
+Start time: 20260819064806
 Username: runnervmzvulz\runner
 RunAs User: runnervmzvulz\runner
 Configuration Name: 
 Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3a9c7fe8-ba6f-4dee-88bd-23e17d0a04c6.ps1'
-Process ID: 2202
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8478296b-248a-44bb-a0f3-25aeaea6b215.ps1'
+Process ID: 1989
 PSVersion: 7.6.4
 PSEdition: Core
 GitCommitId: 7.6.4
@@ -25,15 +25,183 @@ PS>TerminatingError(Invoke-WebRequest): "
   "hint": null,
   "message": "canceling statement due to statement timeout"
 }"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
   ...100/3264
   ...500/3264
   ...600/3264
   ...700/3264
   ...800/3264
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
   ...900/3264
   ...1000/3264
   ...1100/3264
   ...1200/3264
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
   ...1300/3264
   ...1400/3264
   ...1600/3264
@@ -54,35 +222,35 @@ PS>TerminatingError(Invoke-WebRequest): "
   ...3100/3264
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2557
-  KAYNAK YOK (once yut)    : 70
+  URET (kaynak var)        : 2549
+  KAYNAK YOK (once yut)    : 78
   MEVZUAT-DISI (elle yaz)  : 637
   -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
     2 soru | Muhasebe                   | azalan bakiyelerden normale gecis amortismani
+    2 soru | Ekonomi                    | cari islemler hesabi
     1 soru | Ekonomi                    | alman merkantilizmi
-    1 soru | Muhasebe                   | azalan bakiyelerden esit tutara gecis
-    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
-    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
-    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
-    1 soru | Muhasebe                   | bilanco esitliginden cikarim
-    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
-    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
     1 soru | Muhasebe                   | cari oran-asit test hesabi
+    1 soru | Muhasebe                   | cari oran ve asit-test hesabi
+    1 soru | Muhasebe                   | calisma kagitlarinin yararlari
+    1 soru | Muhasebe                   | bilanco duran varlik siniflamasi
+    1 soru | Muhasebe                   | banka kredisi faiz tahakkuku
+    1 soru | Muhasebe                   | bagli ortaklik-istirak siniflamasi
+    1 soru | Muhasebe                   | azalan bakiyelerden esit tutara gecis
+    1 soru | Muhasebe                   | avansli satis teslim kaydi
+    1 soru | Muhasebe                   | avans mahsuplu ilk madde alimi
+    1 soru | Muhasebe                   | alinan siparis avanslarinin nitelikleri
+    1 soru | Muhasebe                   | aktiflesen gider
+    1 soru | Muhasebe                   | akreditifli ithalat avans kaydi
+    1 soru | Muhasebe                   | accountancy europe uyeligi
+    1 soru | Muhasebe                   | 690 hesabin borcuna kapatilmayanlar
     1 soru | Muhasebe                   | cek cirosunun bilanco esitligine etkisi
     1 soru | Muhasebe                   | denetim amaci-prosedur eslestirmesi
     1 soru | Muhasebe                   | denetim kaniti kiyaslamasi
-    1 soru | Muhasebe                   | donem ayirici gelir duzeltme kaydi
-    1 soru | Muhasebe                   | donem ayirici gelir duzeltmesi
-    1 soru | Muhasebe                   | duzenleyici hesap borclandirma (reeskont)
-    1 soru | Muhasebe                   | etik catismada danisilacak taraflar
-    1 soru | Muhasebe                   | faaliyet kar marjini etkilemeyenler
-    1 soru | Muhasebe                   | orneklemede kabul edilemez hata payi
-    1 soru | Muhasebe                   | norwalk uzlasisi (fasb-iasb)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260818175944
+End time: 20260819074858
 **********************
