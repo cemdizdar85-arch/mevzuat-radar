@@ -44,6 +44,30 @@ $TarihNokta = "$($parcalar[0]).$($parcalar[1]).$($parcalar[2])"
 function NormD([string]$s){ if(-not $s){ return "" }; return (($s -replace "\s+"," ").Trim().ToLowerInvariant()) }
 
 # ============================================================================
+#  METNI SIGDIR (19.08.2026 - Cem: "en ince ayrintiya kadar okuyup anlatmali")
+#
+#  ESKI DAVRANIS: metin 12.000 karakterde KESILIYORDU - hep BASTAN. Mevzuat
+#  metinlerinde ise GECIS HUKUMLERI, YURURLUK ve CEZA maddeleri HEP SONDADIR.
+#  15.08 arac kiralama yonetmeligi 43.705 karakter; modele ilk 12.000'i gitti,
+#  yani "mevcut isletmeler 1/7/2027'ye kadar yetki belgesi almali" (Gecici m.1)
+#  hukmunu model HIC GORMEDI. Kart da bu yuzden sig cikti. Arsivdeki 255
+#  belgenin 52'si bu sekilde kirpilmis.
+#
+#  YENI: tavan yukseltildi VE tavan asilirsa metnin BASI ile SONU birlikte
+#  gonderilir (ortadan kirpilir) - gecis/yururluk/ceza hukumleri asla dusmez.
+#  Atlanan bolum okuyucuya degil MODELE isaretlenir ki uydurmasin.
+# ============================================================================
+function MetniSigdir([string]$m, [int]$tavan){
+  if(-not $m){ return "" }
+  if($m.Length -le $tavan){ return $m }
+  $basPay = [int]($tavan * 0.65)
+  $sonPay = $tavan - $basPay
+  return ($m.Substring(0, $basPay) +
+          " ... [BU BELGENIN ORTA BOLUMU YER DARLIGI NEDENIYLE ATLANDI - ATLANAN KISIM HAKKINDA HUKUM YAZMA] ... " +
+          $m.Substring($m.Length - $sonPay))
+}
+
+# ============================================================================
 #  GORSEL BICIMI (17.08.2026 - OLCULDU, kart uretimini kiran seydi)
 #
 #  Eski kural: ".png ise image/png, DEGILSE image/jpeg". Oysa RG tebliglerinin
@@ -337,6 +361,19 @@ D) Turkce imla KUSURSUZ ve TAM DIAKRITIKLI: ciktinin HER kelimesi Turkce karakte
 E) baslik_sade: iyi bir ekonomi muhabirinin atacagi baslik. Olgusal, 8-14 kelime, urun grubunu soyler.
 F) ne_yapmali: genel gecer tavsiye degil, SOMUT is: "Subat sevkiyatlarinin proforma bedellerini yeni esikle karsilastir" gibi. Emir kipi SEN kipiyle ve dogal: "kontrol et", "hazirla", "karsilastir". Site standardi SEN kipidir - "kontrol edin/hazirlayin" (siz) YASAK. Garanti dili de YASAK: "kesinlikle", "mutlaka ...ecektir" yerine kaynaga yaslan ("Teblig uyarinca eklenmesi zorunlu").
 G) kimi_ilgilendirir: sektoru/rolu isimlendir ("seramik ithal eden insaat malzemecileri" gibi), "ilgili firmalar" deme.
+J) UC SART BIRLIKTE (19.08 Cem: "en ince ayrintiya kadar okuyup KISA ve OZ
+   anlatmali, bunu HIC BILMEYEN anlayacak sekilde"):
+   1. AYRINTIYI KACIRMA: metnin TAMAMINI oku - ozellikle SON bolumdeki gecis
+      hukumleri, yururluk ve ceza maddeleri. Okuyucunun takvimini kuran tarih
+      oradadir; "yeni duzenleme yayimlandi" demek yetmez, NE ZAMANA KADAR NE
+      YAPILACAGINI soyle.
+   2. KISA VE OZ: her kilit hukum TEK cumle, en fazla 25 kelime. Iki fikir
+      varsa iki ayri madde yaz. Sus payi, giris cumlesi, tekrar YOK.
+   3. HIC BILMEYEN ANLASIN: hukuk cumlesini kopyalama, halk diliyle yaz.
+      "on sekiz yasini doldurmus olmasi gerekir" degil "sorumlunun 18 yasindan
+      buyuk olmasi gerekiyor". Kacinilmaz bir terim/kisaltma geciyorsa ILK
+      gectigi yerde parantezle bir kez ac: "MERSIS (Ticaret Bakanliginin
+      merkezi sicil kayit sistemi)". Kurum adini kisaltmayla birakma.
 I) KILIT HUKUMLER (19.08 - Cem: "cok fazla bilgi var ama biz cok bir sey anlatmiyoruz"):
    Belge YENI bir yonetmelik/kanun ya da kapsamli bir duzenlemeyse (yalnizca tablo/kiymet
    degisikligi DEGILSE), okuyucunun is planini kuran SOMUT hukumleri "kilit_hukumler"
@@ -512,7 +549,7 @@ function EskiMetinBul([string]$rgTarih, [string]$tebligNo, [string]$tebligAd = "
   # metin (+ htm ise gorseller: eski tablolar goruntude olabilir)
   $metinE = DosyaMetni $cachYol
   if($null -eq $metinE){ return $null }
-  if($metinE.Length -gt 9000){ $metinE = $metinE.Substring(0,9000) }
+  $metinE = MetniSigdir $metinE 30000
   $gorsellerE = @()
   if($cachYol.ToLowerInvariant().EndsWith('.pdf')){
     # Gomulu-font PDF: metin cozulemiyorsa icerik SAYFA GORUNTUSU olarak verilir
@@ -574,7 +611,7 @@ foreach($d in $dosyalar){
     $html = [System.Text.Encoding]::GetEncoding(1254).GetString($ham)
     $metin = ($html -replace "(?is)<script.*?</script>","" -replace "(?is)<style.*?</style>","" -replace "<[^>]+>"," " -replace "&nbsp;"," " -replace "\s+"," ").Trim()
     $metin = [System.Net.WebUtility]::HtmlDecode($metin)
-    if($metin.Length -gt 12000){ $metin = $metin.Substring(0,12000) }
+    $metin = MetniSigdir $metin 60000
 
     $gorseller = @()
     $imgler = [regex]::Matches($html,'(?i)<img[^>]+src="([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 3
