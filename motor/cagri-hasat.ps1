@@ -319,13 +319,67 @@ try {
 if(-not $kaOlduMu){ $kaynakDurum["Kalkınma Ajansları"] = "ÖLÇÜLEMEDİ" }
 Write-Host ("KALKINMA AJANSLARI: {0}" -f $kaynakDurum["Kalkınma Ajansları"])
 
+# --- 5) TKDK / IPARD (19.08 Cem: "TKDK/IPARD ekle") -------------------------
+# Basvuru cagri ilanlari /ProjeIslemleri/CagriIlanArsiv'de EN YENISI USTTE;
+# tarihler yalniz ilan PDF'inde -> pdftotext (CI'da poppler kurulu; yerelde Git
+# mingw64'te var). PDF'in Turkce harfleri metinde dusebilir ("Bavurular") ->
+# desenler ASCII-toleransli yazildi; "son teslim tarihi" zaten saf ASCII.
+Write-Host "TKDK cagri ilanlari okunuyor..."
+$tkdkAdet = 0; $tkdkOlduMu = $false
+$tkdkKok = "https://www.tkdk.gov.tr"
+$pdf2txt = $null
+$pdfAday = Get-Command pdftotext -ErrorAction SilentlyContinue
+if($pdfAday){ $pdf2txt = $pdfAday.Source }
+elseif(Test-Path "C:\Program Files\Git\mingw64\bin\pdftotext.exe"){ $pdf2txt = "C:\Program Files\Git\mingw64\bin\pdftotext.exe" }
+if(-not $pdf2txt){
+  Write-Host "  pdftotext yok - TKDK olculemedi (tarihsiz cagri 'acik' diye gosterilmez)"
+} else {
+  try {
+    $arsivDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-arsiv.html"
+    & $curlKomut -sS -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $arsivDosya "$tkdkKok/ProjeIslemleri/CagriIlanArsiv"
+    $arsivHtml = if(Test-Path $arsivDosya){ Get-Content $arsivDosya -Raw -Encoding UTF8 } else { "" }
+    $ilanlar = [regex]::Matches($arsivHtml, '"(/Dokuman/ipard-[^"]*cagri-ilani-\d+)"') |
+      ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique -First 2
+    if(@($ilanlar).Count){ $tkdkOlduMu = $true }   # arsiv okunabildi
+    foreach($ilanYolu in $ilanlar){
+      $no = ""; if($ilanYolu -match 'ipard-iii-(\d+)-'){ $no = $Matches[1] }
+      $pdfDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-ilan.pdf"
+      $txtDosya = Join-Path ([IO.Path]::GetTempPath()) "tkdk-ilan.txt"
+      Remove-Item $pdfDosya,$txtDosya -ErrorAction SilentlyContinue
+      & $curlKomut -sSL -m 90 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $pdfDosya ($tkdkKok + $ilanYolu)
+      if(-not (Test-Path $pdfDosya)){ continue }
+      & $pdf2txt $pdfDosya $txtDosya 2>$null
+      if(-not (Test-Path $txtDosya)){ continue }
+      $metin = (Get-Content $txtDosya -Raw -Encoding UTF8) -replace '\s+',' '
+      $acilisTk = ""; $sonTk = ""; $tarihlerTk = @()
+      if($metin -match 'Ba.?vurular\s+(\d{2}\.\d{2}\.\d{4})\s+tarihi'){ $acilisTk = TrTarihCoz $Matches[1] }
+      if($metin -match 'son teslim tarihi\s*(\d{2}\.\d{2}\.\d{4})'){ $sonTk = TrTarihCoz $Matches[1] }
+      if($metin -match 'Online Proje Ba.?vuru Sistemi\s+(\d{2}\.\d{2}\.\d{4})'){
+        $o = TrTarihCoz $Matches[1]; if($o){ $tarihlerTk += [ordered]@{ etiket="Online sistem kapanış"; tarih=$o } }
+      }
+      # yalniz son teslimi GELECEKTE olan ilan "acik"tir; tarih cozulemeyen ilan gosterilmez
+      if(-not $sonTk){ continue }
+      try { if([datetime]::ParseExact($sonTk,"yyyy-MM-dd",$null) -lt $bugun){ continue } } catch { continue }
+      $cagrilar += [ordered]@{
+        kaynak="TKDK (IPARD)"; kod=(&{ if($no){"IPARD III $no. Çağrı"} else {""} }); baslik="IPARD III $no. Başvuru Çağrı İlanı"
+        durum="acik"; acilis=$acilisTk; sonTarih=$sonTk; tarihler=$tarihlerTk
+        url=($tkdkKok + $ilanYolu)
+      }
+      $tkdkAdet++
+    }
+  } catch { Write-Host ("  TKDK hatasi: {0}" -f $_.Exception.Message); $tkdkOlduMu = $false }
+}
+$kaynakDurum["TKDK (IPARD)"] = if($tkdkOlduMu){ "OK ($tkdkAdet açık ilan — çağrı aralarında 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
+Write-Host ("TKDK: {0}" -f $kaynakDurum["TKDK (IPARD)"])
+
 # --- kor kalma + eski veriyi koruma -----------------------------------------
-$KAYNAK_SAYISI = 4
+$KAYNAK_SAYISI = 5
 $olculenler = @()
 if($tubitakOlduMu){ $olculenler += "TÜBİTAK" }
 if($kosgebOlduMu){ $olculenler += "KOSGEB" }
 if($abOlduMu){ $olculenler += "AB (Ufuk Avrupa)" }
 if($kaOlduMu){ $olculenler += "Kalkınma Ajansları" }
+if($tkdkOlduMu){ $olculenler += "TKDK (IPARD)" }
 if(-not $olculenler.Count){
   Write-Host "HATA: kaynaklarin hicbiri olculemedi - dosyaya DOKUNULMADI (eski veri korunur)"
   exit 1
@@ -353,6 +407,7 @@ $cikti = [ordered]@{
     [ordered]@{ ad="KOSGEB"; url="https://www.kosgeb.gov.tr/site/tr/genel/duyurular"; durum=$kaynakDurum["KOSGEB"] }
     [ordered]@{ ad="AB (Ufuk Avrupa)"; url="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals"; durum=$kaynakDurum["AB (Ufuk Avrupa)"] }
     [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"] }
+    [ordered]@{ ad="TKDK (IPARD)"; url="https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv"; durum=$kaynakDurum["TKDK (IPARD)"] }
   )
   cagrilar = $cagrilar
 }
