@@ -12,7 +12,11 @@ $UA = "Mozilla/5.0 (compatible; TetikteSmoke/1.0)"
 # sayfa -> sayfada MUTLAKA gecmesi gereken imza metni
 $SAYFALAR = [ordered]@{
   "/"                    = "Yükümlülük Karnesi"
-  "/index.html"          = "Tüm araçlar"
+  # 19.08: imza "Tüm araçlar"dı; yeni acilis tasarimi o ibareyi kaldirdi ve
+  # smoke gunlerce kirmizi kaldi. Yeni imza SLOGAN - Cem kilidi ("slogan zaten
+  # her yerde"), tasarim degisse de kalir. Ders: imza metni SIK DEGISEN metin
+  # degil, KIMLIK metni olmali.
+  "/index.html"          = "Tetikte olan kaçırmaz"
   "/gtip.html"           = "GTİP"
   "/soru-cevap.html"     = "Net Cevap"
   "/kartlar.html"        = "Hap Kartları"
@@ -77,6 +81,6 @@ if($env:RESEND_KEY){
   $sat = ($kirmizi | ForEach-Object { "<li>$_</li>" }) -join ""
   $html = "<h3>Smoke Nobetcisi ALARM</h3><p>tetikte.com gunluk saglik taramasinda $($kirmizi.Count) sorun:</p><ul>$sat</ul><p>Hemen bak — ziyaretci gormeden duzelt. Tetikte</p>"
   $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE SMOKE ALARM: $($kirmizi.Count) sayfa sorunlu"; html=$html } | ConvertTo-Json -Depth 3
-  try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "mail hatasi: $_" }
+  try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "mail hatasi: $_" }
 }
 exit 1

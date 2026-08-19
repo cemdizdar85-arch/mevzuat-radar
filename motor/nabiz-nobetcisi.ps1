@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 #  NABIZ NOBETCISI v3 — olcer + KENDI KURTARIR (Cem 31.07: "kosmama sansi
 #  olmamasi lazim; surekli hatayla ben ugrasamam, en iyi onlemi al").
 #  KATMAN 1 (kosu nabzi): kritik robotun son BASARILI kosusunun yasi.
@@ -217,7 +217,7 @@ if($env:RESEND_KEY){
   $sat = ($kirmizi | ForEach-Object { "<li>$_</li>" }) -join ""
   $html = "<h3>Nabiz Nobetcisi ALARM</h3><p>Otomatik kurtarma denendi ama cozulemedi:</p><ul>$sat</ul><p>Actions sekmesinden ilgili robotun loguna bak. Tetikte</p>"
   $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject=$konu; html=$html } | ConvertTo-Json -Depth 3
-  try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "MAIL (resend) gonderildi" } catch { Write-Host "resend hatasi: $_" }
+  try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "MAIL (resend) gonderildi" } catch { Write-Host "resend hatasi: $_" }
 } else {
   $mb = @{
     access_key = "5b227e56-94fb-4123-a39a-4286f63db14a"

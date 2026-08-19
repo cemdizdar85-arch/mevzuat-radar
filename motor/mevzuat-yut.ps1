@@ -311,7 +311,7 @@ try {
         $sat = ($etkilenen | Select-Object -First 20 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)</li>" }) -join ""
         $html = "<h3>Etki Zinciri uyarisi</h3><p>Bugun degisen kanun(lar): <b>$($degisen -join ', ')</b>. Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).</p><ul>$sat</ul><p>Tetikte — kanun aynasi</p>"
         $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE ETKI ZINCIRI: degisen kanun $($etkilenen.Count) icerigi etkiliyor"; html=$html } | ConvertTo-Json -Depth 3
-        try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "etki maili hatasi: $_" }
+        try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "etki maili hatasi: $_" }
       }
     } else { Write-Host "ETKI ZINCIRI: degisen kanunlara atif yapan icerik yok." }
   }
@@ -350,7 +350,7 @@ try {
           $sat2 = ($askiAday | Select-Object -First 25 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.ders)) — kanun $($_.kanun_no)</li>" }) -join ""
           $html2 = "<h3>Soru Etki Zinciri</h3><p>Degisen kanun(lar) <b>$($kanunNolar -join ', ')</b> nedeniyle <b>$($askiAday.Count)</b> yayindaki soru OTOMATIK ASKIYA alindi. Okuyucu hatti yeniden dogrulayinca insan karariyla acilir.</p><ul>$sat2</ul><p>Tetikte — soru sigortasi</p>"
           $mb2 = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE SORU ASKISI: kanun degisti, $($askiAday.Count) soru yayindan cekildi"; html=$html2 } | ConvertTo-Json -Depth 3
-          try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb2)) -ContentType "application/json" | Out-Null } catch { Write-Host "soru-aski maili hatasi: $_" }
+          try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb2)) -ContentType "application/json" | Out-Null } catch { Write-Host "soru-aski maili hatasi: $_" }
         }
       } else { Write-Host "SORU ETKI ZINCIRI: degisen kanunlara dayanan yayinda soru yok." }
     }

@@ -73,7 +73,7 @@ if($karantina.Count -gt 0){
     $satirlar = ($karantina | ForEach-Object { "<li><b>$($_.id)</b> ($($_.konu)) — ciddiyet $($_.ciddiyet)/5<br>Delil-1: $($_.delil1)<br>Delil-2: $($_.delil2)</li>" }) -join ""
     $html = "<h3>Karsit-Profesor haftalik raporu</h3><p>$($secilen.Count) kayit sorgulandi; $($karantina.Count) kayit IKI bagimsiz kosuda da curutuldu ve karantinaya alindi. Icerik CANLIDA duruyor — karar sizin: duzelt / kaldir / robot yaniliyor.</p><ul>$satirlar</ul><p>Tetikte — hata avcisi</p>"
     $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="TETIKTE HATA AVCISI: $($karantina.Count) supheli kayit (insan karari gerekli)"; html=$html } | ConvertTo-Json -Depth 3
-    try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "rapor maili gitti" } catch { Write-Host "mail hatasi: $_" }
+    try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null; Write-Host "rapor maili gitti" } catch { Write-Host "mail hatasi: $_" }
   }
 } else {
   Write-Host "TEMIZ HAFTA: orneklemdeki hicbir kayit iki oyla curutulmedi."

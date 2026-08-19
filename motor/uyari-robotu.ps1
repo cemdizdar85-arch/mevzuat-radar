@@ -139,7 +139,7 @@ Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/firma_uyarilari" -Headers $
 Write-Host ("Yazilan yeni uyari: {0}" -f $yeni.Count)
 
 # --- mail (Resend, opsiyonel) ---
-$RK = $env:RESEND_KEY; $RF = $env:RESEND_FROM
+$RK = ("$env:RESEND_KEY" -replace '[^\x21-\x7E]',''); $RF = $env:RESEND_FROM
 if($RK -and $RF){
   $sent=0
   foreach($fid in $mailKuyruk.Keys){

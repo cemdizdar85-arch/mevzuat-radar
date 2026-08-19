@@ -92,7 +92,7 @@ $gitti = $false
 if($env:RESEND_KEY){
   $html = '<p><b>' + $satir + '</b></p><pre>' + $mesaj + '</pre>'
   $mb = @{ from=$env:RESEND_FROM; to=@('cemdizdar85@hotmail.com'); subject=$satir; html=$html } | ConvertTo-Json -Depth 3
-  try { Invoke-RestMethod -Method Post -Uri 'https://api.resend.com/emails' -Headers @{ Authorization="Bearer $($env:RESEND_KEY)" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType 'application/json' -TimeoutSec 60 | Out-Null; $gitti = $true; Write-Host 'Mail (resend) gonderildi.' } catch { Write-Host "resend hatasi: $($_.Exception.Message)" }
+  try { Invoke-RestMethod -Method Post -Uri 'https://api.resend.com/emails' -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType 'application/json' -TimeoutSec 60 | Out-Null; $gitti = $true; Write-Host 'Mail (resend) gonderildi.' } catch { Write-Host "resend hatasi: $($_.Exception.Message)" }
 }
 if(-not $gitti){
   $govde = @{ access_key=$WEB3; subject=$satir; from_name='Tetikte Sabah Raporu'; email='cemdizdar85@hotmail.com'; message=$mesaj } | ConvertTo-Json
