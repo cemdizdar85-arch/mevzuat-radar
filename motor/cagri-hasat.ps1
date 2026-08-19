@@ -554,8 +554,45 @@ if($hamleHtml -and $hamleHtml.Length -gt 5000){
 $kaynakDurum["HAMLE"] = if($hamleOlduMu){ "OK ($hamleAdet açık çağrı — çağrı aralarında 0 olması normal)" } else { "ÖLÇÜLEMEDİ" }
 Write-Host ("HAMLE: {0}" -f $kaynakDurum["HAMLE"])
 
+# --- 7) KKYDP / RG destek tebligleri (19.08 Cem: "KKYDP'yi RG deseniyle
+# baglayalim") ----------------------------------------------------------------
+# KKYDP basvuru donemleri kurumun portalindan degil RG'de TEBLIG ile acilir
+# (kirsalkalkinma.tarimorman.gov.tr 502 veriyor, bakanlik sayfasi SharePoint/JS).
+# Ayri robot yerine MEVCUT RG taramasi kullanilir: arac/rg-tarama.ps1 her sabah
+# fihristi zaten cekiyor; oraya eklenen desen yakaladigi tebligleri
+# veri/rg-destek-cagri.json havuzuna yaziyor. Burada o havuz okunur - EK ISTEK YOK.
+# Teblig yayimindan sonra 120 gun listede tutulur (basvuru penceresi tipik olarak
+# birkac ay); tarih tebligin kendi metnindedir, uydurulmaz.
+Write-Host "KKYDP / RG destek teblig havuzu okunuyor..."
+$kkydpAdet = 0; $kkydpOlduMu = $false
+$rgHavuzYolu = Join-Path $kokDizin "veri\rg-destek-cagri.json"
+if(Test-Path $rgHavuzYolu){
+  try {
+    $rgHavuz = Get-Content $rgHavuzYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+    $kkydpOlduMu = $true    # havuz okunabildi; bos olmasi NORMAL (teblig yilda birkac kez cikar)
+    foreach($teblig in @($rgHavuz.tebligler)){
+      if(-not $teblig.url){ continue }
+      $yayimT = ""
+      try { $yayimT = ([datetime]::ParseExact("$($teblig.yayim)","dd.MM.yyyy",$null)).ToString("yyyy-MM-dd") } catch {}
+      # yayimdan 120 gun sonra listeden duser (basvuru penceresi kapanmis sayilir)
+      if($yayimT){
+        try { if([datetime]::ParseExact($yayimT,"yyyy-MM-dd",$null) -lt $bugun.AddDays(-120)){ continue } } catch {}
+      }
+      $cagrilar += [ordered]@{
+        kaynak="KKYDP / RG tebliği"; kod="RG"; baslik=$teblig.baslik; durum="acik"
+        acilis=$yayimT; sonTarih=""
+        tarihler=@()
+        url=$teblig.url
+      }
+      $kkydpAdet++
+    }
+  } catch { Write-Host "  RG havuzu okunamadi" }
+}
+$kaynakDurum["KKYDP / RG tebliği"] = if($kkydpOlduMu){ "OK ($kkydpAdet açık tebliğ — RG taramasından; 0 olması normal, tebliğ yılda birkaç kez çıkar)" } else { "ÖLÇÜLEMEDİ" }
+Write-Host ("KKYDP: {0}" -f $kaynakDurum["KKYDP / RG tebliği"])
+
 # --- kor kalma + eski veriyi koruma -----------------------------------------
-$KAYNAK_SAYISI = 6
+$KAYNAK_SAYISI = 7
 $olculenler = @()
 if($tubitakOlduMu){ $olculenler += "TÜBİTAK" }
 if($kosgebOlduMu){ $olculenler += "KOSGEB" }
@@ -563,6 +600,7 @@ if($abOlduMu){ $olculenler += "AB" }
 if($kaOlduMu){ $olculenler += "Kalkınma Ajansları" }
 if($tkdkOlduMu){ $olculenler += "TKDK (IPARD)" }
 if($hamleOlduMu){ $olculenler += "HAMLE" }
+if($kkydpOlduMu){ $olculenler += "KKYDP / RG tebliği" }
 if(-not $olculenler.Count){
   Write-Host "HATA: kaynaklarin hicbiri olculemedi - dosyaya DOKUNULMADI (eski veri korunur)"
   exit 1
@@ -616,6 +654,7 @@ $cikti = [ordered]@{
     [ordered]@{ ad="Kalkınma Ajansları"; url="https://ka.gov.tr/destekler"; durum=$kaynakDurum["Kalkınma Ajansları"]; sonUretim=(SaglikDamgasi "Kalkınma") }
     [ordered]@{ ad="TKDK (IPARD)"; url="https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv"; durum=$kaynakDurum["TKDK (IPARD)"]; sonUretim=(SaglikDamgasi "TKDK") }
     [ordered]@{ ad="HAMLE"; url="https://www.hamle.gov.tr/Home/CagriPlani"; durum=$kaynakDurum["HAMLE"]; sonUretim=(SaglikDamgasi "HAMLE") }
+    [ordered]@{ ad="KKYDP / RG tebliği"; url="https://www.resmigazete.gov.tr"; durum=$kaynakDurum["KKYDP / RG tebliği"]; sonUretim=(SaglikDamgasi "KKYDP / RG tebliği") }
   )
   cagrilar = $cagrilar
 }

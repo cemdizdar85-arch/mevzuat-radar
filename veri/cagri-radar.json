@@ -1,5 +1,5 @@
 ﻿{
-    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 14:38.",
+    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 15:47.",
     "kaynaklar":  [
                       {
                           "ad":  "TÜBİTAK",
@@ -16,7 +16,7 @@
                       {
                           "ad":  "AB",
                           "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
-                          "durum":  "OK (portalda 1247 konu tarandi; tarihi gecerli 645 — açık 375, yakında 270; listede en yakın 100)",
+                          "durum":  "OK (portalda 1247 konu tarandi; tarihi gecerli 643 — açık 374, yakında 269; listede en yakın 100)",
                           "sonUretim":  "2026-08-19"
                       },
                       {
@@ -36,6 +36,12 @@
                           "url":  "https://www.hamle.gov.tr/Home/CagriPlani",
                           "durum":  "OK (1 açık çağrı — çağrı aralarında 0 olması normal)",
                           "sonUretim":  "2026-08-19"
+                      },
+                      {
+                          "ad":  "KKYDP / RG tebliği",
+                          "url":  "https://www.resmigazete.gov.tr",
+                          "durum":  "OK (0 açık tebliğ — RG taramasından; 0 olması normal, tebliğ yılda birkaç kez çıkar)",
+                          "sonUretim":  ""
                       }
                   ],
     "cagrilar":  [
@@ -1459,18 +1465,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı İmalat Sanayinde Dönüşüm Teknik Destek Programı İlanı",
-                         "durum":  "acik",
-                         "acilis":  "2026-02-06",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVJvrbeRY7p6n-KdCIbjumZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
                          "baslik":  "MEVKA 2026 Yılı Kırsal Kalkınma Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-03-02",
@@ -1479,18 +1473,6 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXweafIXfar6SAtnHgXBWW5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
-                         "baslik":  "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-08-03",
-                         "sonTarih":  "2026-10-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1507,6 +1489,18 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Turizm Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-03-02",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qeKP7JDtDU8NmcD6I7_LswRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
                          "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-02-18",
@@ -1519,14 +1513,26 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Turizm Teknik Destek Programı",
+                         "baslik":  "MEVKA 2026 Yılı İmalat Sanayinde Dönüşüm Teknik Destek Programı İlanı",
                          "durum":  "acik",
-                         "acilis":  "2026-03-02",
+                         "acilis":  "2026-02-06",
                          "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qeKP7JDtDU8NmcD6I7_LswRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVJvrbeRY7p6n-KdCIbjumZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-08-03",
+                         "sonTarih":  "2026-10-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1615,18 +1621,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "FKA",
-                         "baslik":  "2026 Yılı Yönetim Danışmanlığı Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-03-13",
-                         "sonTarih":  "2026-12-25",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXpXKzdPdqS3UEwB6PyTf9NQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "FKA",
                          "baslik":  "Fırat Turu Destek Programı (2025-2026)",
                          "durum":  "acik",
                          "acilis":  "2025-07-28",
@@ -1635,6 +1629,18 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qezYcM-p074WPsHoyogixSVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "FKA",
+                         "baslik":  "2026 Yılı Yönetim Danışmanlığı Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-03-13",
+                         "sonTarih":  "2026-12-25",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXpXKzdPdqS3UEwB6PyTf9NQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",

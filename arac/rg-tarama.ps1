@@ -108,6 +108,53 @@ $fj = [ordered]@{
 [IO.File]::WriteAllText($firsatYol, (ConvertTo-Json -InputObject $fj -Depth 4), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("-> veri/firsat-guncel.json ({0} firsat maddesi)" -f $firsatGrup.Count)
 
+
+# ---- DESTEK CAGRI NOBETCISI (19.08 Cem: "KKYDP'yi RG deseniyle baglayalim") --
+# KKYDP (Kirsal Kalkinma Yatirimlarinin Desteklenmesi) basvuru donemleri
+# kurumun portalindan degil RG'de TEBLIG ile acilir (portal 502 veriyordu,
+# bakanlik sayfasi SharePoint/JS). Bu blok RG fihristinde destek/hibe programi
+# acan tebligleri yakalar ve BIRIKIMLI dosyaya yazar; cagri-hasat.ps1 bu dosyayi
+# okuyup Destek Radari'na "RG tebligi" kaynagi olarak dusurur.
+# Ek istek YOK: fihrist zaten yukarida cekildi.
+# DIKKAT: bu dosyanin Norm() fonksiyonu TURKCE HARFLERI KORUR (yalniz I/i + kucuk harf).
+# Kaliplar bu yuzden TURKCE yazilir; ASCII yazilirsa (kirsal) HICBIR ZAMAN eslesmez ve
+# robot sessizce 0 bulur - 19.08 tohum taramasi bu kusuru yakaladi (KOSGEB kanal vakasi gibi).
+$destekKaliplar = @(
+  "kırsal kalkınma destekleri", "kırsal kalkınma yatırımlarının desteklenmesi",
+  "kırsal kalkınmada uzman eller", "kırsal kalkınma programı",
+  "tarıma dayalı ekonomik yatırım", "kırsal ekonomik altyapı"
+)
+$destekVuran = @()
+foreach($md in $madde){
+  $n = Norm $md.baslik
+  foreach($kalip in $destekKaliplar){
+    if($n.Contains((Norm $kalip))){ $destekVuran += [ordered]@{ baslik=$md.baslik; url=$md.url; yayim=$Tarih }; break }
+  }
+}
+$destekYol = Join-Path (Split-Path -Parent $PSScriptRoot) "veri/rg-destek-cagri.json"
+$eskiKayitlar = @()
+if(Test-Path $destekYol){
+  try {
+    $eskiDosya = Get-Content $destekYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $eskiKayitlar = @($eskiDosya.tebligler | ForEach-Object { [ordered]@{ baslik=$_.baslik; url=$_.url; yayim=$_.yayim } })
+  } catch {}
+}
+# birikimli havuz: mukerrer URL ayiklanir, 400 gunden eski teblig duser
+$havuz = @{}; $birikim = @()
+foreach($k in @($destekVuran + $eskiKayitlar)){
+  if(-not $k.url -or $havuz.ContainsKey("$($k.url)")){ continue }
+  $yeterinceTaze = $true
+  try { $yeterinceTaze = ([datetime]::ParseExact("$($k.yayim)","dd.MM.yyyy",$null) -ge (Get-Date).AddDays(-400)) } catch {}
+  if(-not $yeterinceTaze){ continue }
+  $havuz["$($k.url)"] = 1
+  $birikim += $k
+}
+$dj = [ordered]@{
+  guncelleme = "RG fihristinden destek/hibe programi acan tebligler (birikimli). Son tarama: $Tarih."
+  tebligler = $birikim
+}
+[IO.File]::WriteAllText($destekYol, (ConvertTo-Json -InputObject $dj -Depth 4), (New-Object Text.UTF8Encoding($false)))
+Write-Host ("-> veri/rg-destek-cagri.json ({0} teblig havuzda, bugun {1} yeni)" -f $birikim.Count, $destekVuran.Count)
 # ---- SABIT NOBETCISI: sitedeki vergi/sermaye sabitlerini degistiren teblig ----
 # cikinca Cem'e mail atar (veri/vergi-sabitleri.json elle guncellenir - guven kurali)
 $nobetKaliplar = @("gelir vergisi genel tebli", "kurumlar vergisi genel tebli", "yeniden değerleme oran", "asgari ücret", "harçlar kanunu genel tebli", "vergi usul kanunu genel tebli", "ihracı kayda bağlı", "ihracı yasak", "ön izne bağlı", "kıdem tazminatı", "geri kazanım katılım payı", "ithalat rejimi", "ilave gümrük vergisi", "katma değer vergisi oranlar", "özel tüketim vergisi", "kaynak kullanımını destekleme", "çifte vergilendirme", "gecikme zammı", "damga vergisi", "sınai mülkiyet", "prime esas kazanç", "sosyal sigortalar ve genel sağlık", "asgari sermaye", "türk ticaret kanununda değişiklik", "tevkifat oran", "kâr payı", "kar payı dağıt")

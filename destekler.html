@@ -149,6 +149,16 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       <p style="font-size:12px;color:var(--dim);margin:8px 0 4px">İŞKUR'un işverene açık teşvik ve programlarının <b style="color:var(--ink)">kurumdaki güncel listesi</b> (robot her gün çeker; İŞKUR yeni program açınca burada belirir). Başvuru E-Şube ya da il müdürlüğünden. <b style="color:var(--ink)">SGK prim teşvikleri (5510 ve 4447 geçici maddeler) bu listede değildir</b> — oranları dönemsel değişir, müşavirinle teyitleş.</p>
       <div id="iskurSonuc" style="font-size:13px;color:var(--muted)"></div>
     </details>
+
+    <!-- 19.08 Cem: "UR-GE için EİB pilotu bağlayın" — ihracatçı birlikleri yeni
+         destek kaynağı değil (5973'ün başvuru mercii), ama UR-GE proje çağrıları
+         ve ticaret/alım heyeti takvimi yalnız birlik duyurularında ilan ediliyor.
+         Pilot: Ege İhracatçı Birlikleri (İzmir). Tutarsa 13 birliğe genişler. -->
+    <details class="kart" style="padding:14px 18px" id="urgeGrubu">
+      <summary style="cursor:pointer;font-weight:800;font-size:14px;list-style:none">UR-GE ve Ticaret Heyetleri <span style="color:var(--dim);font-weight:600" id="urgeSayi">· aç, son duyuruları gör</span></summary>
+      <p style="font-size:12px;color:var(--dim);margin:8px 0 4px"><b style="color:var(--ink)">Pilot: Ege İhracatçı Birlikleri (İzmir).</b> UR-GE proje katılım çağrıları ve sektörel ticaret/alım heyetleri 5973 s. Karar kapsamında desteklenir; duyuru yalnız birlik kanalından çıkar, başvuru üyesi olduğun birlik + DYS üzerinden yürür. Son 120 günün duyuruları listelenir; başka bölgedeysen kendi birliğinin duyurularını da izle.</p>
+      <div id="urgeSonuc" style="font-size:13px;color:var(--muted)"></div>
+    </details>
   </div>
 
   <p style="font-size:13px;color:var(--dim);margin:22px 0 8px">Ya da tüm programlara kendin göz at:</p>
@@ -422,6 +432,7 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
   const ka  = liste.filter(c=>c.kaynak==='Kalkınma Ajansları');
   const hm  = liste.filter(c=>(c.kaynak||'').indexOf('HAMLE')===0);
   const tk  = liste.filter(c=>c.kaynak==='TKDK (IPARD)');
+  const kk  = liste.filter(c=>(c.kaynak||'').indexOf('KKYDP')===0);
   const ab  = liste.filter(c=>(c.kaynak||'').indexOf('AB')===0);
   const abAcik = ab.filter(c=>c.durum!=='yakinda');
   const abYakin = ab.filter(c=>c.durum==='yakinda');
@@ -432,6 +443,8 @@ fetch('veri/cagri-radar.json?'+Date.now()).then(r=>r.json()).then(cd=>{
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Yatırım teşvikinin <b style="color:var(--ink)">en üst kademesi</b> (TYKH): öncelikli ürün listesindeki yatırımlara %40 yatırıma katkı, makine desteği ve stratejik hamle kapısı. Çağrı dönemseldir, ön başvuru + kesin başvuru iki aşamalıdır — tarihler aşağıda. Sihirbaz sana "Teknoloji Hamlesi adayısın" dediyse asıl kapı burasıdır.</p>')
     + grup('Kalkınma Ajansları', ka, false,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">26 bölge ajansının güncel destekleri (mali, teknik, fizibilite). Çağrı <b style="color:var(--ink)">bölge bazlıdır</b>: kısaltma ajansı gösterir (İZKA=İzmir, MEVKA=Konya-Karaman…), kendi bölgendekine başvurabilirsin; başvuru KAYS üzerinden. 9903 teşvik belgen varsa m.33 tek-kapı kuralını unutma.</p>')
+    + grup('KKYDP / Tarım Bakanlığı destek tebliğleri', kk, true,
+      '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">Kırsal Kalkınma Yatırımlarının Desteklenmesi (KKYDP) başvuru dönemleri <b style="color:var(--ink)">Resmî Gazete&rsquo;de tebliğle</b> açılır; robot RG fihristini her sabah tarıyor. Başvuru tarihleri ve kapsam tebliğ metnindedir. TKDK/IPARD&rsquo;dan ayrı programdır.</p>')
     + grup('TKDK — IPARD (tarım-gıda hibeleri)', tk, true,
       '<p style="font-size:12px;color:var(--dim);margin:8px 0 4px">AB ortak finansmanlı geri ödemesiz kırsal kalkınma hibeleri; başvuru ilindeki TKDK İl Koordinatörlüğüne, desteklenen sektörler ve iller ilan PDF\'inde yazar. IPARD dosyası ciddi hazırlık ister, erken başla; 9903 belgesiyle aynı harcamada m.33 tek-kapı kuralına dikkat.</p>')
     + grup('AB — şu an açık çağrılar', abAcik, false,
@@ -532,6 +545,27 @@ document.getElementById('iskurGrubu').addEventListener('toggle', function(){
     document.getElementById('iskurSonuc').innerHTML = blok('TEŞVİKLER', bol('Teşvik')) + blok('PROGRAMLAR', bol('Program'))
       + '<p style="font-size:11.5px;color:var(--dim);margin-top:10px">'+(d.guncelleme||'')+' '+(d.not||'')+'</p>';
   }).catch(()=>{ document.getElementById('iskurSonuc').textContent = 'Liste yüklenemedi, sayfayı yenile.'; });
+});
+
+// ---- UR-GE / TİCARET HEYETLERİ (EİB pilotu, 19.08) ----
+let URGE = null;
+document.getElementById('urgeGrubu').addEventListener('toggle', function(){
+  if(!this.open || URGE) return;
+  fetch('veri/eib-urge.json?'+Date.now()).then(r=>r.json()).then(d=>{
+    URGE = d;
+    const gd = t => { const p=(t||'').split('-'); return p.length===3 ? p[2]+'.'+p[1]+'.'+p[0] : ''; };
+    document.getElementById('urgeSayi').textContent = '· '+d.kayitlar.length+' duyuru (son 120 gün)';
+    // aynı duyuru birden çok sorguda çıkabilir: başlığa göre tekilleştir
+    const gorulen = new Set(); const tekil = [];
+    d.kayitlar.forEach(k=>{ if(!gorulen.has(k.baslik)){ gorulen.add(k.baslik); tekil.push(k); } });
+    document.getElementById('urgeSonuc').innerHTML = tekil.length
+      ? tekil.map(k=>'<div style="padding:7px 0;border-bottom:1px solid var(--line)">'
+          + '<a href="'+k.url+'" target="_blank" rel="noopener" style="font-weight:600;font-size:13px">'+k.baslik+'</a>'
+          + ' <span class="rozet">'+k.konu+'</span>'
+          + '<div style="font-size:11.5px;color:var(--dim);margin-top:2px">'+gd(k.tarih)+(k.ozet?' · '+k.ozet.slice(0,120)+'…':'')+'</div></div>').join('')
+        + '<p style="font-size:11.5px;color:var(--dim);margin-top:10px">'+(d.guncelleme||'')+'</p>'
+      : '<span style="color:var(--dim)">Son 120 günde UR-GE/heyet duyurusu yok.</span>';
+  }).catch(()=>{ document.getElementById('urgeSonuc').textContent = 'Liste yüklenemedi, sayfayı yenile.'; });
 });
 
 // ---- DESTEK SİHİRBAZI ----

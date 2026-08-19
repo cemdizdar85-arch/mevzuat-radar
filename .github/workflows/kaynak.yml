@@ -1,4 +1,4 @@
-﻿# Bu dosyanin GitHub'daki yolu: .github/workflows/kaynak.yml
+# Bu dosyanin GitHub'daki yolu: .github/workflows/kaynak.yml
 # Kaynak Nobetcisi: resmi kaynaklari haftalik izler; degisince Cem'e mail atar
 # ve (deterministik olanlari) yeniden hasat edip commit'ler.
 name: Kaynak Nobetcisi
@@ -97,11 +97,20 @@ jobs:
         shell: pwsh
         run: ./motor/iskur-tesvik-hasat.ps1
 
-      - name: Cagri/fuar/exim/kgf/iskur hasadi dustuyse Cem'e haber ver
-        if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure' || steps.kgf.outcome == 'failure' || steps.iskur.outcome == 'failure'
+      # 19.08 Cem: UR-GE icin EIB pilotu. Ihracatci birlikleri 5973'un basvuru
+      # mercii; UR-GE proje cagrilari + ticaret/alim heyeti takvimi yalniz birlik
+      # duyurularinda cikiyor. Once tek birlik (Ege/Izmir) - tutarsa 13'e genisler.
+      - name: EIB UR-GE / heyet duyurulari (yalniz sabah)
+        id: urge
+        if: github.event.schedule != '13 14 * * *'
+        continue-on-error: true
+        shell: pwsh
+        run: ./motor/eib-urge-hasat.ps1
+      - name: Cagri/fuar/exim/kgf/iskur/urge hasadi dustuyse Cem'e haber ver
+        if: steps.cagri.outcome == 'failure' || steps.fuar.outcome == 'failure' || steps.exim.outcome == 'failure' || steps.kgf.outcome == 'failure' || steps.iskur.outcome == 'failure' || steps.urge.outcome == 'failure'
         shell: pwsh
         run: |
-          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari / fuar hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }} / kgf: ${{ steps.kgf.outcome }} / iskur: ${{ steps.iskur.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
+          $p = @{ access_key='5b227e56-94fb-4123-a39a-4286f63db14a'; subject='TETIKTE - Cagri Radari / fuar hasadi dustu'; from_name='Tetikte Nobetci'; email='cemdizdar85@hotmail.com'; message="Cagri Radari hasadi (cagri: ${{ steps.cagri.outcome }} / fuar: ${{ steps.fuar.outcome }} / exim: ${{ steps.exim.outcome }} / kgf: ${{ steps.kgf.outcome }} / iskur: ${{ steps.iskur.outcome }} / urge: ${{ steps.urge.outcome }}) dustu; dusen dosya GUNCELLENMEDI (eski veri durur). Muhtemel sebep: kaynak sayfa/xlsx yapisi degisti ya da GitHub IP engeli. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" } | ConvertTo-Json
           try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
 
       # 13.08 Cem onayi: Kamu Ihale Bulteni'nden iptal + duzeltme ilanlari.
