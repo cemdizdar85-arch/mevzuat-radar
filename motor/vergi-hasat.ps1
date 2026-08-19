@@ -85,6 +85,13 @@ foreach($kod in ($tumKod | Sort-Object)){
   if($igv.ContainsKey($kod)){ $o=$igv[$kod]; $igvMin=($o|Measure-Object -Min).Minimum; $igvMax=($o|Measure-Object -Max).Maximum }
   $vergi[$kod] = @($gvMin,$gvMax,$igvMin,$igvMax)
 }
+# ASGARI SAYI KAPISI (19.08, Cem emri): bos/bozuk kaynak YESIL yazamaz. rejim.yml
+# yayin adimi always() kostugu icin kirmizi exit tek basina yetmez - esik altinda
+# dosyaya HIC dokunulmaz. Esik = bugunun ~%65'i (bugun GV 14302, IGV 4705).
+if($gv.Count -lt 10000 -or $igv.Count -lt 3000){
+  Write-Host ("KIRMIZI: GV=" + $gv.Count + " (esik 10000) | IGV=" + $igv.Count + " (esik 3000) - gtip-vergi.json YAZILMADI") -ForegroundColor Red
+  exit 1
+}
 $veriDir = Join-Path $kok "veri"; New-Item -ItemType Directory -Force $veriDir | Out-Null
 ($vergi | ConvertTo-Json -Depth 3 -Compress) | Out-File (Join-Path $veriDir "gtip-vergi.json") -Encoding utf8
 

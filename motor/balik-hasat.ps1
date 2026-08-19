@@ -60,6 +60,11 @@ $out = [ordered]@{
 }
 $veriDir = Join-Path $kok "veri"
 $hedef = Join-Path $veriDir "gtip-balik.json"
+# ASGARI SAYI KAPISI (19.08): esik altinda dosya YAZILMAZ (bugun 569, esik ~%70).
+if($cikti.Count -lt 400){
+  Write-Host ("KIRMIZI: yalniz " + $cikti.Count + " kod (esik 400) - gtip-balik.json YAZILMADI") -ForegroundColor Red
+  exit 1
+}
 ($out | ConvertTo-Json -Depth 5 -Compress) | Out-File $hedef -Encoding utf8
 ""
 "BALIK HASAT BITTI. $($cikti.Count) kod"

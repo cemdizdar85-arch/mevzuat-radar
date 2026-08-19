@@ -72,6 +72,11 @@ Write-Host ("{0}: {1} kod" -f $ek1.Name, $igv.Count)
 
 $cikti = [ordered]@{}
 foreach($kod in ($igv.Keys | Sort-Object)){ $cikti[$kod] = $igv[$kod] }
+# ASGARI SAYI KAPISI (19.08): esik altinda dosya YAZILMAZ (bugun 4592, esik ~%65).
+if($cikti.Count -lt 3000){
+  Write-Host ("KIRMIZI: yalniz " + $cikti.Count + " kod (esik 3000) - gtip-igv-ulke.json YAZILMADI") -ForegroundColor Red
+  exit 1
+}
 $veriDir = Join-Path $kok "veri"; New-Item -ItemType Directory -Force $veriDir | Out-Null
 ($cikti | ConvertTo-Json -Depth 3 -Compress) | Out-File (Join-Path $veriDir "gtip-igv-ulke.json") -Encoding utf8
 

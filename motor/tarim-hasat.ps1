@@ -118,6 +118,11 @@ foreach($d in $tarimDosyalar){
 
 $cikti = [ordered]@{}
 foreach($kod in ($tarim.Keys | Sort-Object)){ $cikti[$kod] = $tarim[$kod] }
+# ASGARI SAYI KAPISI (19.08): esik altinda dosya YAZILMAZ (bugun 2712, esik ~%65).
+if($cikti.Count -lt 2000){
+  Write-Host ("KIRMIZI: yalniz " + $cikti.Count + " kod (esik 2000) - gtip-vergi-tarim.json YAZILMADI") -ForegroundColor Red
+  exit 1
+}
 $veriDir = Join-Path $kok "veri"; New-Item -ItemType Directory -Force $veriDir | Out-Null
 ($cikti | ConvertTo-Json -Depth 4 -Compress) | Out-File (Join-Path $veriDir "gtip-vergi-tarim.json") -Encoding utf8
 

@@ -70,6 +70,11 @@ foreach($h in $satirlar){
   if($anlamli){ $emy[$kodN] = $degerler }
 }
 
+# ASGARI SAYI KAPISI (19.08): esik altinda dosya YAZILMAZ (bugun 179, esik ~%55).
+if($emy.Count -lt 100){
+  Write-Host ("KIRMIZI: yalniz " + $emy.Count + " kod (esik 100) - gtip-emy-tarim.json YAZILMADI") -ForegroundColor Red
+  exit 1
+}
 $veriDir = Join-Path $kok "veri"; New-Item -ItemType Directory -Force $veriDir | Out-Null
 ($emy | ConvertTo-Json -Depth 4 -Compress) | Out-File (Join-Path $veriDir "gtip-emy-tarim.json") -Encoding utf8
 
