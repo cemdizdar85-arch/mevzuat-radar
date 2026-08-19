@@ -1242,7 +1242,7 @@ $arsivUst  = "<div class='alt'>$TarihNokta tarihli Resmî Gazete'de $($kartlar.C
 #  fonksiyona alindi - yoksa arsiv de havuzu basiyordu (16.08'de bir kez oldu).
 # ============================================================================
 . (Join-Path $here 'terim-sozlugu.ps1')
-function KartBloguHtml($liste){
+function KartBloguHtml($liste, [string]$degisimOnEk = 'arsiv/degisim/'){
   $b = New-Object System.Text.StringBuilder
   foreach($k in @($liste)){
   $s = $b   # kart govdesi $s'e yazar - yerel StringBuilder'a yonlendir
@@ -1376,7 +1376,16 @@ function KartBloguHtml($liste){
   # Terim sozlugu: kartta gecen dis ticaret terimleri halk diliyle (Cem 19.08)
   $sozlukHtml = TerimSozluguHtml $k
   if($sozlukHtml){ [void]$s.AppendLine($sozlukHtml) }
-  [void]$s.AppendLine("<div class='meta'><a href='$($k.kaynak)' target='_blank' rel='noopener'>Kaynak tebliğ →</a></div>")
+  # "Neyin nesi degisti" sayfasi (19.08 - Cem: "eski hali/yeni hali, ne degisti").
+  # Sayfa yalniz eski->yeni cifti olan kartlar icin uretiliyor; yoksa bag da yok.
+  $degisimBag = ""
+  if("$($k.dosya)".Trim()){
+    $dAd = ("$($k.dosya)" -replace '\.htm$','') + ".html"
+    if(Test-Path (Join-Path $kok ("arsiv\degisim\" + $dAd))){
+      $degisimBag = " · <a href='$degisimOnEk$dAd'>Neyin nesi değişti? →</a>"
+    }
+  }
+  [void]$s.AppendLine("<div class='meta'><a href='$($k.kaynak)' target='_blank' rel='noopener'>Kaynak tebliğ →</a>$degisimBag</div>")
   [void]$s.AppendLine('</div>')
   }
   return $b.ToString()
