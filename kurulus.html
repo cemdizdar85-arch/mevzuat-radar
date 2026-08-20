@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hangi şirketi kurmalısın? Şahıs, limited, anonim — 10 soruda sana özel öneri | Tetikte</title>
-<meta name="description" content="Şahıs mı, limited mi, anonim mi? 10 soruya cevap ver; sana uygun şirket türünü senin rakamlarınla vergi kıyası yaparak, gerekçesi ve adım adım kuruluş yoluyla söyleyelim.">
+<title>Hangi şirketi kurmalısın? Şahıs, limited, anonim — 11 soruda sana özel öneri | Tetikte</title>
+<meta name="description" content="Şahıs mı, limited mi, anonim mi? 11 soruya cevap ver; sana uygun şirket türünü senin rakamlarınla vergi kıyası yaparak, gerekçesi ve adım adım kuruluş yoluyla söyleyelim.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.13);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffc24b;--green:#3ddc97}
@@ -77,10 +77,10 @@ details.kacc>.ic{padding:2px 0 14px}
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="destekler.html">Destek Radarı</a> · <a href="bilgi.html">Bilgi Havuzu</a> · Şirket Kuruluşu</div>
   <h1>Hangi şirketi kurmalısın?</h1>
-  <p class="lead">Bu karar <b style="color:var(--ink)">her yıl ödeyeceğin vergiyi, sigortanı ve şirketi bir gün satarsan cebinde kalacak parayı</b> belirler. Ve çoğu kişi onu 5 dakikada, yanlış kurar. Biz liste vermeyiz: <b style="color:var(--ink)">10 soru, 1 dakika</b>, sana uygun türü senin rakamlarınla vergi hesabı yaparak, gerekçesiyle söyleriz.</p>
+  <p class="lead">Bu karar <b style="color:var(--ink)">her yıl ödeyeceğin vergiyi, sigortanı ve şirketi bir gün satarsan cebinde kalacak parayı</b> belirler. Ve çoğu kişi onu 5 dakikada, yanlış kurar. Biz liste vermeyiz: <b style="color:var(--ink)">11 soru, 1 dakika</b>, sana uygun türü senin rakamlarınla vergi hesabı yaparak, gerekçesiyle söyleriz.</p>
 
   <div class="kart" style="border-left-color:var(--accent2)" id="sihirbaz">
-    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 10 soruda söyleyelim</h3>
+    <h3 style="margin-top:0">🧭 Sana hangisi uygun? 11 soruda söyleyelim</h3>
     <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted)">Cevapla, sana uygun türü <b style="color:var(--ink)">gerekçesiyle</b> önerelim; diğerlerine göre avantajın ne olur, onu da söyleyelim.</p>
     <div class="soru acik" data-k="ortak">
       <b style="font-size:14px">1. Kaç kişi kuruyorsunuz?</b>
@@ -151,8 +151,15 @@ details.kacc>.ic{padding:2px 0 14px}
         <button class="sbtn kck" data-v="hayir">Hayır, işleteceğim</button>
       </div>
     </div>
+    <div class="soru" data-k="opsiyon">
+      <b style="font-size:14px">10. Çalışanlarına ileride hisse / pay senedi opsiyonu vermeyi düşünüyor musun?</b>
+      <div class="sec" style="margin:8px 0 14px">
+        <button class="sbtn kck" data-v="evet">Evet, ekip için opsiyon planlıyorum</button>
+        <button class="sbtn kck" data-v="hayir">Hayır, düşünmüyorum</button>
+      </div>
+    </div>
     <div class="soru" data-k="sermaye">
-      <b style="font-size:14px">10. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
+      <b style="font-size:14px">11. Kuruluşa ayırabileceğin sermaye hangi bantta?</b>
       <div class="sec" style="margin:8px 0 14px">
         <button class="sbtn kck" data-v="dusuk">Asgari düzeyde başlamak istiyorum</button>
         <button class="sbtn kck" data-v="orta"><span data-sabit="ltd">50.000</span> TL'yi ayırabilirim</button>
@@ -422,7 +429,7 @@ document.getElementById('sihirbaz').addEventListener('click',e=>{
 // ---- AŞAMALI AKIŞ (12.08 Cem: "önce bilgileri al, bölümler sırayla açılsın") ----
 // Sorular cevaplandıkça sıradaki açılır; hepsi bitince öneri düğmesi belirir.
 // Motor değişmedi: oner() CEVAP'ı okur, görünürlük yalnız sunumdur.
-const AKIS_SIRA = ['ortak','genc','istur','borc','calisan','ciro','_kar','cek','satis','sermaye'];
+const AKIS_SIRA = ['ortak','genc','istur','borc','calisan','ciro','_kar','cek','satis','opsiyon','sermaye'];
 function akisCevapli(k){
   if(k==='_kar'){ const ki=document.getElementById('karInput'); return !!(ki && (ki.value||'').replace(/[^\d]/g,'')); }
   return !!CEVAP[k];
@@ -463,7 +470,7 @@ akisIlerle();
 
 function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus')) return;
   const out = document.getElementById('oneri');
-  const gerekli = ['ortak','satis','sermaye','istur','borc','calisan','genc','cek','ciro'];
+  const gerekli = ['ortak','satis','sermaye','istur','borc','calisan','genc','cek','ciro','opsiyon'];
   // 12.08 Cem: eski soru 3 "borclanma/stok/calisan" uc kavrami tek soruya sikistiriyordu
   // ve CALISAN basit usulu kapatir gibi davraniyordu - oysa GVK m.47/1: "yardimci isci
   // ve cirak kullanmak bu sarti bozmaz". Artik is TURU ile borc/ekip YUKU ayri sorulur.
@@ -485,7 +492,11 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   if(CEVAP.ortak==='tek'){ p.sahis+=2; p.ltd+=1; neden.sahis.push('Tek başınasın, şahıs işletmesi en hızlı ve en az maliyetli kapı.'); }
   else { p.sahis=-99; p.ltd+=2; p.as+=1; neden.ltd.push('Ortaklı yapı tüzel kişilik ister, şahıs işletmesi bu senaryoda zaten mümkün değil.'); }
 
-  if(CEVAP.satis==='evet'){ p.as+=3; neden.as.push('Satış/yatırım planın var: AŞ\'de pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisna (GVK mük. m.80) ve pay devri notersiz. LTD\'de satış her durumda vergili, bu fark satış gününde ciddi para eder.'); }
+  if(CEVAP.satis==='evet'){
+    p.as+=3;
+    neden.as.push('Satış/yatırım planın var: AŞ\'de pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisna (GVK mük. m.80). Pay devri de kolay: nama yazılı pay ciro + zilyetliğin devriyle el değiştirir (TTK m.490), noter ya da genel kurul onayı gerekmez. LTD\'de ise HER pay devrinde -yatırım turu, opsiyon kullanımı, nihai satış- noter onaylı sözleşme + genel kurul onayı şart (TTK m.595); birden fazla yatırım turu bekliyorsan bu prosedür her seferinde tekrar eder.');
+    neden.as.push('Fon kaynağın SPK lisanslı bir kitle fonlaması platformuysa dikkat: LTD olarak kurup başvurabilirsin ama toplanan fon saklayıcı hesaptan sana aktarılmadan önce AŞ\'ye dönüşmen SPK Kitle Fonlaması Tebliği (III-35/A.2) gereği zorunlu; bu dönüşümü sonradan yapmak yerine baştan AŞ kurmak zaman ve masraf kazandırır.');
+  }
   else if(CEVAP.satis==='belki'){ p.as+=1; neden.as.push('Satış ihtimalin varsa AŞ kapısını açık tutmak mantıklı, sonradan tür değiştirmek mümkün ama masraflı.'); }
   else { p.ltd+=1; p.sahis+=1; }
 
@@ -509,6 +520,15 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     } else {
       neden.as.push('Sermaye endişen AŞ kapısını kapatmasın: {{as}} TL taahhüdün kuruluşta yalnız 1/4\'ü ({{blokaj}} TL) bankada bloke edilir, kalanı 24 ay içinde ödenir (TTK m.344). Satış planın için istisna saatini bugünden başlatmak, yarın tür değiştirmekten çok daha ucuz.');
     }
+  }
+
+  // ÇALIŞANA PAY OPSİYONU (20.08 Cem, yeni: GVK m.17, 7582 s. Kanun ile 04.06.2026'dan
+  // itibaren, 335 Seri No'lu GV Tebliği RG 04.07.2026/33300). Pay senedi yalnız AŞ'nin
+  // çıkarabileceği bir araç - LTD'nin esas sermaye payı senede bağlanamaz - o yüzden
+  // istisna metinde tür şartı yazmasa da pratikte AŞ'ye özgü kalıyor.
+  if(CEVAP.opsiyon==='evet'){
+    p.as+=2;
+    neden.as.push('Çalışanlarına ileride pay/opsiyon vermeyi planlıyorsun: teknogirişim niteliğindeki işverenin çalışana verdiği pay senedi, yıllık brüt ücretin 2 katına kadarki kısımda gelir vergisinden istisna (GVK m.17, 7582 s. Kanun; 335 Seri No\'lu GV Tebliği) — 2 yıl içinde elden çıkarılırsa istisnanın tamamı, 3-4 yılda %75\'i, 5-6 yılda %25\'i geri alınır, 6 yıldan sonra hiç alınmaz. Pay senedi TTK\'da yalnız AŞ\'nin çıkarabileceği bir araç; LTD\'nin esas sermaye payı bu şekilde senede bağlanamaz, dolayısıyla bu istisna pratikte AŞ\'ye özgü kalıyor.');
   }
 
   if(riskYuksek){ p.ltd+=2; p.as+=1; p.sahis-=2; neden.ltd.push('Borç/stok riski taşıyan işte sınırlı sorumluluk şart, şahısta tüm kişisel malvarlığınla sorumlu olursun.'); }
@@ -548,7 +568,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
   }
 
   // ---- VERGİ KIYASI (kaynak: veri/vergi-sabitleri.json — GİB tarifesi + KVK) ----
-  let hesapHtml = '', notYolA = '', notYolB = '';
+  let hesapHtml = '', notYolA = '', notYolB = '', notYolC = '';
   if(SABIT && kar>0){
     // 12.08 Cem: ortakli senaryoda tablo tek kisilik sahis matematigi basiyordu.
     // Dogrusu: adi ortaklikta kar ortaklara bolunur, genc istisnasi SARTI TASIYAN
@@ -574,18 +594,21 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     hesapHtml = `
       <div style="margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17">
         <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:4px">💰 ${SABIT.yil} VERGİ KIYASI, ${TLf(kar)} TL kâr hedefine göre</div>
-        <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Bu tablo <b style="color:var(--ink)">iki ayrı yolun</b> vergisini karşılaştırır, ikisi birden ödenmez; hangi türü kurarsan <b style="color:var(--ink)">onun satırı</b> senin vergindir.<!--KAZANANNOT--></div>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Bu tablo <b style="color:var(--ink)">üç ayrı yolun</b> (şahıs / LTD / AŞ) vergisini karşılaştırır, üçü birden ödenmez; hangi türü kurarsan <b style="color:var(--ink)">onun satırı</b> senin vergindir.<!--KAZANANNOT--></div>
         <div class="satir"><b>${ortakSay>1 ? `YOL A · Adi ortaklık kurarsan, ortakların toplam gelir vergisi<br><span style="font-size:11px;font-weight:400">kâr <select onchange="CEVAP._os=this.value;oner()" style="background:#0a0f17;color:var(--ink);border:1px solid var(--line2);border-radius:7px;padding:2px 4px;font-family:inherit">${[2,3,4,5].map(n=>`<option value="${n}" ${n===ortakSay?'selected':''}>${n}</option>`).join('')}</select> ortağa eşit bölüşüldü varsayımı</span>` : 'YOL A · Şahıs kurarsan, gelir vergisi'}</b><span>~${TLf(sahisVergi)} TL${istisna? `<br><span style="font-size:11px">(${ortakSay>1 ? `ortak başına ${TLf(istisnaPay)} TL genç istisnası düşüldü, şartları TÜM ortaklar taşımalı, mük. m.20/3` : TLf(istisna)+' TL genç girişimci istisnası düşüldü'})</span>`:''}</span></div>
-        <div class="satir"><b>YOL B · Şirket (LTD/AŞ) kurarsan, kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
-        <div class="satir"><b>YOL B · Kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
-        <div class="satir"><b>YOL B toplamı</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        <div class="satir"><b>YOL B · LTD kurarsan, kurumlar vergisi (%${SABIT.kvOran})</b><span>~${TLf(kv)} TL</span></div>
+        <div class="satir"><b>YOL B · LTD, kâr çekme stopajı (%${SABIT.karPayiStopaj})</b><span>${dagitilan>0 ? '~'+TLf(stopaj)+' TL' : 'yok (kâr şirkette kalıyor)'}</span></div>
+        <div class="satir"><b>YOL B toplamı · LTD kurarsan</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        <div class="satir"><b>YOL C toplamı · AŞ kurarsan</b><span style="font-weight:700;color:var(--amber)">~${TLf(sirketVergi)} TL</span></div>
+        <div style="font-size:11px;color:var(--dim);margin-top:2px">YOL B ve YOL C birebir aynı çıkıyor: kurumlar vergisi oranı (KVK m.32) ve kâr payı stopajı LTD ile AŞ'de özdeş. Yani bu iki tür arasındaki seçimi vergi değil, sermaye/satış planı/ortak sayısı gibi diğer faktörler belirliyor — vergi kıyası yalnız "şirket mi, şahıs mı" sorusuna cevap verir.</div>
         ${CEVAP.genc==='evet' ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;padding:8px;border:1px solid var(--line2);border-radius:8px">⚠ Genç girişimci istisnası şirket tarafında <b>uygulanmaz</b>: GVK mük. m.20 istisnayı yalnız <b>gelir vergisi</b> mükellefi <b>gerçek kişilere</b> tanır; LTD/AŞ ise kurumlar vergisi mükellefidir, ortağın 29 yaşından küçük olması kurumlar vergisini ve stopajı değiştirmez. İki sütun arasındaki farkın büyük kısmı bu istisnadan gelir; şirket kurarsan bu avantajı kullanamazsın.</div>` : ''}
         <div style="font-size:11px;color:var(--dim);margin-top:6px">Kaba kıyastır: indirim/istisnalar, giderler, SGK primleri ve büyük kâr dağıtımlarında çıkabilecek ilave beyan vergisi hariç. Sigorta notu: LTD ortağı zorunlu Bağ-Kur'ludur; AŞ'de yalnız yönetim kurulu üyesi ortak Bağ-Kur'lu olur. Kaynak: GİB ${SABIT.yil} tarifesi · KVK m.32 · 9286 s. CB Kararı. Kesin hesap muhasebecinle.</div>
       </div>`;
     // 12.08 Cem: "AŞ önerildi ama ~0 TL satırına bakıp 0 vergi ödeyeceğim sandım" —
     // öneri belli olunca kutuya "senin yolun bu satır" notu basılır (aşağıda replace).
     notYolA = ` <b style="color:var(--green)">Aşağıdaki önerimiz ${ortakSay>1?'adi ortaklık/şahıs':'şahıs'} → senin vergin YOL A satırıdır (~${TLf(sahisVergi)} TL).</b>`;
-    notYolB = ` <b style="color:var(--amber)">Aşağıdaki önerimiz şirket → senin vergin YOL B toplamıdır (~${TLf(sirketVergi)} TL); YOL A satırındaki düşük rakam yalnız kıyas içindir, şirket kurarsan onu ödemezsin.</b>`;
+    notYolB = ` <b style="color:var(--amber)">Aşağıdaki önerimiz LTD → senin vergin YOL B toplamıdır (~${TLf(sirketVergi)} TL); YOL A satırındaki düşük rakam yalnız kıyas içindir, LTD kurarsan onu ödemezsin.</b>`;
+    notYolC = ` <b style="color:var(--amber)">Aşağıdaki önerimiz AŞ → senin vergin YOL C toplamıdır (~${TLf(sirketVergi)} TL); YOL A satırındaki düşük rakam yalnız kıyas içindir, AŞ kurarsan onu ödemezsin.</b>`;
     // İMALATÇI / İHRACATÇI: KV oranı %25 değil (KVK m.32/7-8). 12.08: kutu artık
     // HEDEFLİ - imalat şıkkını seçene tam blok, ticaret seçene yalnız ihracat satırı;
     // hizmet işlerinde gösterilmez (yazılım ihracatçısının yeri m.10/ğ kutusu).
@@ -612,7 +635,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
 
   const sira = Object.keys(p).sort((a,b)=>p[b]-p[a]);
   const kazanan = sira[0], ikinci = sira[1];
-  if(hesapHtml) hesapHtml = hesapHtml.replace('<!--KAZANANNOT-->', kazanan==='sahis' ? notYolA : notYolB);
+  if(hesapHtml) hesapHtml = hesapHtml.replace('<!--KAZANANNOT-->', kazanan==='sahis' ? notYolA : (kazanan==='as' ? notYolC : notYolB));
   const AD = {sahis:'Şahıs işletmesi', ltd:'Limited şirket (LTD)', as:'Anonim şirket (AŞ)'};
   const OKU = {
     sahis:'Okuma ödevin: Bilgi Havuzu\'ndan <a href="bilgi.html#hap-gecis">"Şahıstan şirkete ne zaman geçmeliyim?"</a> kartını oku, büyüme sinyallerini bil.',
@@ -623,7 +646,10 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     .map(n=>`<div class="adim"><div class="no">✓</div><div><p style="margin:0;color:var(--muted)">${n}</p></div></div>`).join('');
 
   // satış planı var ama öneri AŞ değilse: bedelini açıkça söyle (sessiz çelişki bırakma)
+  // 20.08 Cem: bu uyarı kartın altına gömülüyordu, gerekçeleri okuyup vazgeçen kaçırıyordu —
+  // artık ayrı degiskende tutulup basligin hemen altina, gerekcelerden ONCE basiliyor.
   let uyariHtml = '';
+  let satisUyariHtml = '';
   if(CEVAP.ciro==='yuksek' && kazanan==='sahis'){
     uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
       ⚠ <b style="color:var(--amber)">Ciro uyarısı:</b> beklentin bilanço esası haddini aşıyor (VUK m.177). Şahıs olarak kurabilirsin, yasak yok, ama birinci sınıf tüccar sayılır, <b style="color:var(--ink)">şirketle aynı defter/muhasebe düzenine</b> geçersin ve tüm bunları <b style="color:var(--ink)">sınırsız şahsi sorumlulukla</b> taşırsın. Not: had aşımı tek yılda olmuşsa ve sınırın biraz üzerindeyse (VUK m.179, %20'ye kadar sapma + süreklilik kuralı) sınıf değişimi otomatik gerçekleşmeyebilir; kesin durumunu muhasebecinle netleştir. Bu ölçekte LTD'yi ciddi düşün.</div>`;
@@ -639,8 +665,8 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     uyariHtml += `<div style="margin-top:12px;font-size:12px;color:var(--dim)">ℹ Bilgin olsun: asgari sermaye tutarları 2024'te beş kat artırıldı (LTD {{ltd}} / AŞ {{as}} TL) ve ileride yeniden artırılması gündeme gelebilir, bugün asgariyle kuranlar yarın artırım zorunluluğuyla karşılaşabilir (mevcut şirketlerin {{uyum}} uyum yükümlülüğü gibi). Şu an açıklanmış yeni bir tutar yok; gücün yetiyorsa asgarinin üstünde sermayeyle kurmak seni ileriye taşır.</div>`;
   }
   if(CEVAP.satis==='evet' && kazanan!=='as'){
-    uyariHtml += `<div style="margin-top:12px;padding:12px 14px;border:1px solid rgba(255,194,75,.35);border-left:4px solid var(--amber);border-radius:11px;background:rgba(255,194,75,.07);font-size:13px;color:var(--muted)">
-      ⚠ <b style="color:var(--amber)">Satış planın için kritik uyarı:</b> bu türle kurarsan, satış günü kazancın <b style="color:var(--ink)">vergiye tabi</b> olur, 2 yıllık satış istisnası yalnız AŞ pay senedinde işler. Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">dönüşümde 2 yıllık istisna süresinin ne zaman başladığı vergi idaresiyle tartışmalıdır</b> (özelgeler ağırlıkla senet bastırma tarihini esas alır), satış planı ihtilaflı içtihada emanet edilmez. Unutma: AŞ için kuruluşta peşin gereken tutar {{as}} TL değil, ¼'ü = <b style="color:var(--ink)">{{blokaj}} TL</b> (kalanı 24 ayda ödenir). Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
+    satisUyariHtml = `<div style="margin:10px 0 2px;padding:14px 16px;border:2px solid var(--amber);border-radius:12px;background:rgba(255,194,75,.12);font-size:13.5px;color:var(--ink)">
+      🚨 <b style="color:var(--amber);font-size:14px">Satış planın var, bunu atlama:</b> puanlamamız <b>${AD[kazanan]}</b> dedi ama satış/yatırım planın olduğu için <b style="color:var(--ink)">ikinci adayın AŞ'ı ciddi düşün</b>: pay senedini 2 tam yıl elde tutan gerçek kişi ortağın satış kazancı gelir vergisinden istisna (GVK mük. m.80); ${AD[kazanan]}'de satış her durumda vergiye tabi. Pay devri de AŞ'de kolay: nama yazılı pay ciro + zilyetliğin devriyle el değiştirir (TTK m.490), noter/genel kurul onayı gerekmez — LTD'de ise HER devirde (yatırım turu, opsiyon, nihai satış) noter onaylı sözleşme + genel kurul onayı şart (TTK m.595), birden fazla yatırım turu bekliyorsan bu her seferinde tekrar eder. Fon kaynağın SPK lisanslı kitle fonlaması platformuysa dikkat: LTD ile başvurabilirsin ama toplanan fon sana aktarılmadan önce AŞ'ye dönüşmen SPK Kitle Fonlaması Tebliği (III-35/A.2) gereği zorunlu. Sermaye seni caydırmasın: AŞ için kuruluşta peşin gereken tutar {{as}} TL değil, ¼'ü = <b style="color:var(--ink)">{{blokaj}} TL</b> (kalanı 24 ayda ödenir, TTK m.344). Sonradan AŞ'ye dönüşmek mümkün ama masraflıdır ve <b style="color:var(--ink)">dönüşümde 2 yıllık istisna süresinin ne zaman başladığı vergi idaresiyle tartışmalıdır</b> (özelgeler ağırlıkla senet bastırma tarihini esas alır), satış planı ihtilaflı içtihada emanet edilmez. Satış planın ciddiyse bu hesabı kurmadan ÖNCE muhasebecinle yap.</div>`;
   }
 
   // ---- ALTERNATİF YOLLAR (12.08): öneri motoru 3 ana türü kıyaslar; bu kutular
@@ -716,7 +742,7 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
       <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
-      <p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]}, koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>
+      ${satisUyariHtml || `<p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]}, koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>`}
       ${gerekce}
       ${uyariHtml}
       ${hesapHtml ? `<details class="kacc" open><summary>💰 Vergi kıyası, senin rakamlarınla</summary><div class="ic">${hesapHtml}</div></details>` : ''}
@@ -750,7 +776,7 @@ function oneriGonder(tur){
     from_name: 'Tetikte',
     email: mail,
     'Önerilen tür': AD[tur],
-    'Ortaklık': CEVAP.ortak||'', 'Satış/yatırım planı': CEVAP.satis||'',
+    'Ortaklık': CEVAP.ortak||'', 'Satış/yatırım planı': CEVAP.satis||'', 'Çalışana opsiyon planı': CEVAP.opsiyon||'',
     'Sermaye bandı': CEVAP.sermaye||'', 'İş türü': CEVAP.istur||'', 'Borç': CEVAP.borc||'', 'Çalışan': CEVAP.calisan||'', 'Genç girişimci': CEVAP.genc||'',
     'Kâr hedefi (TL)': (document.getElementById('karInput').value||'').replace(/[^\d]/g,''),
     'Kâr politikası': CEVAP.cek||'',
