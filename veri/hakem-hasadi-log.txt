@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260819064829
-Username: runnervmzvulz\runner
-RunAs User: runnervmzvulz\runner
+Start time: 20260820184036
+Username: runnervm76f27\runner
+RunAs User: runnervm76f27\runner
 Configuration Name: 
-Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/69ed4a49-aa75-4f5b-a623-ab91399bc29a.ps1'
-Process ID: 2321
-PSVersion: 7.6.4
+Machine: runnervm76f27 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/95adc59b-3ceb-405a-92f9-2ec75f458195.ps1'
+Process ID: 2314
+PSVersion: 7.6.5
 PSEdition: Core
-GitCommitId: 7.6.4
+GitCommitId: 7.6.5
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -18,6 +18,15 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Aday parti (ended+basarili): 370
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "type": "error",
+  "error": {
+    "type": "not_found_error",
+    "message": "Batch msgbatch_011v19qB46SkzA1Z8u8DaqH1 has no available results."
+  },
+  "request_id": "req_011CeEVN3EjVGoyinLjqwreC"
+}"
   HAKEM msgbatch_01WUrJ1MUSCa9oa  240 yargi  (07/29/2026 07:27:57)
   HAKEM msgbatch_01LMPDpHXXuum4D  92 yargi  (07/29/2026 07:45:05)
   HAKEM msgbatch_01AFLaEX5RBrqbu  400 yargi  (07/29/2026 12:18:04)
@@ -93,7 +102,7 @@ PS>TerminatingError(ConvertFrom-Json): "Conversion from JSON failed with error: 
   HAKEM msgbatch_01Emhidzhim9ZvE  400 yargi  (08/05/2026 20:08:37)
   HAKEM msgbatch_01YGSoUQjL54zLe  100 yargi  (08/05/2026 20:13:05)
 
-hakem partisi: 66   atlanan (hakem degil): 304   cekilemeyen: 0
+hakem partisi: 66   atlanan (hakem degil): 303   cekilemeyen: 1
 TEKIL YARGI: 16284 soru
   destek_evet        8053
   destek_yetersiz    7256
@@ -105,5 +114,5 @@ TEKIL YARGI: 16284 soru
 -> veri/hakem-hasadi.json  (16284 yargi, 1950 kirmizi)
 **********************
 PowerShell transcript end
-End time: 20260819065134
+End time: 20260820184245
 **********************

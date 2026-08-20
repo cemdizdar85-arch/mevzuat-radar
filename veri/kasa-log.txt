@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260820020504
+Start time: 20260820184051
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/cb7ed366-8b4b-419c-9056-7b847d7705b5.ps1'
-Process ID: 2181
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/60fb83fa-7ac2-4d70-b777-0b88ccafe4f8.ps1'
+Process ID: 2311
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -18,164 +18,17 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 KASA SAYIMI basliyor... (kuyruk yenileme)
-  TOPLAM: 30569 soru
-  ...1000
-  ...2000
-  ...3000
-  ...4000
-  ...5000
-  ...6000
-  ...7000
-  ...8000
-  ...9000
-  ...10000
-  ...11000
-  ...12000
-  ...13000
-  ...14000
-  ...15000
-  ...16000
-  ...17000
-  ...18000
-  ...19000
-  ...20000
-  ...21000
-  ...22000
-  ...23000
-  ...24000
-  ...25000
-  ...26000
-  ...27000
-  ...28000
-  ...29000
-  ...30000
-  cekilen: 30569
-
-================ KASA SAYIMI ================
-  TOPLAM SORU : 30569
-
-  --- sinav bazinda
-     SGS        15827
-     SMMM       12576
-     KGK        2166
-
-  --- ders bazinda
-     Finansal Muhasebe                  9180
-     Maliyet Muhasebesi                 5377
-     Finansal Tablolar ve Analizi       2187
-     Hukuk                              2108
-     Yabanci Dil                        1560
-     Mali Tablolar Analizi              1526
-     Muhasebe Standartlari              1017
-     Denetim Standartlari               967
-     Muh. ve Mali Müş. Meslek Hukuku    922
-     Turkce                             911
-     Denetim                            903
-     Is ve Sosyal Guvenlik Hukuku       456
-     Sermaye Piyasası Mevzuatı          445
-     Ticaret Hukuku                     440
-     Borclar Hukuku                     426
-     Meslek Hukuku                      358
-     Vergi Hukuku                       348
-     Maliye                             346
-     Ekonomi                            212
-     Ataturk Ilke ve Inkilap Tarihi     194
-     Vergi Mevzuatı ve Uygulaması       187
-     Muhasebe Denetimi                  163
-     Matematik                          154
-     Finansal Yonetim                   103
-     Kurumsal Yonetim                   76
-     Surdurulebilirlik                  3
-
-  --- kaynak tipi (bag kurulabilirlik)
-     mevzuata dayanan (madde bagi kurulabilir) : 22323
-     mevzuat disi (dil/matematik/teori)        : 8246
-
-  --- EN YOGUN 20 KONU (kota sisteminin girdisi)
-     1389x  Hukuk|is sozlesmesi feshi
-      506x  Maliyet Muhasebesi|ortak maliyet dagitimi
-      484x  Finansal Tablolar ve Analizi|dikey yuzde analizi
-      342x  Finansal Tablolar ve Analizi|finansal oran analizi
-      317x  Maliyet Muhasebesi|satilan mamul maliyeti
-      317x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
-      217x  Maliyet Muhasebesi|yardimci gider yeri dagitimi
-      216x  Finansal Tablolar ve Analizi|trend analizi
-      211x  Maliyet Muhasebesi|gug yukleme katsayisi
-      203x  Maliyet Muhasebesi|yan urun maliyeti
-      182x  Maliyet Muhasebesi|gug yukleme orani
-      176x  Finansal Tablolar ve Analizi|cari oran
-      156x  Finansal Muhasebe|supheli alacak karsiligi
-      134x  Finansal Muhasebe|gelecek aylara ait gider
-      123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
-      113x  Finansal Muhasebe|gider yansitma kaydi
-      113x  Finansal Muhasebe|amortisman ayirma
-      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
-      100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|borc senedi reeskontu
-
-  --- tekil konu sayisi: 2264
-
-  --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-     bakilan          30569
-     placeholder      43
-     hepsiYuvarlak    267
-     klise            37
-     tekduzeTuzak     0
-     toplamIzli       340
-     IZLI ORAN      : %1.1
--> veri/koku-izli.json  (340 kimlik, uslup turu icin)
--> veri/kasa-ornek.json  (4 ornek soru, tam metin)
-     KASADA yayin=false (denetim bekleyen) : 30569
-     ...cekilen 1000
-     ...cekilen 2000
-     ...cekilen 3000
-     ...cekilen 4000
-     ...cekilen 5000
-     ...cekilen 6000
-     ...cekilen 7000
-     ...cekilen 8000
-     ...cekilen 9000
-     ...cekilen 10000
-     ...cekilen 11000
-     ...cekilen 12000
-     ...cekilen 13000
-     ...cekilen 14000
-     ...cekilen 15000
-     ...cekilen 16000
-     ...cekilen 17000
-     ...cekilen 18000
-     ...cekilen 19000
-     ...cekilen 20000
-     ...cekilen 21000
-     GUVENLIK DURDURMASI: 20.000 asildi
-     cekilen yayin=false kayit: 21000
-     UYARI: sayim 30569 diyor, cekim 21000 getirdi - EKSIK.
-       Denetim                            1
-       Finansal Muhasebe                  1
-       Finansal Tablolar ve Analizi       1
-       Hukuk                              1
-       Kurumsal Yonetim                   1
-       Mali Tablolar Analizi              1
-       Maliyet Muhasebesi                 1
-       Muhasebe Standartlari              1
-       Sermaye Piyasası Mevzuatı          1
-       Yabanci Dil                        1
--> veri/denetim-kuyrugu.json  (21000 kimlik, profesor -idler icin)
-     tam metin cekilen: 10 (istenen 10)
--> veri/yeni-uretim-ornek.json  (10 yeni soru, GM okumasi icin)
--> veri/pilot-ornek.json  (10 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
--> veri/pilot-kuyrugu.json  (5256 kimlik, hakem -idler icin)
-   KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
-     standart (STD)    : 1302
-     hesap plani (THP) : 996
-     toplam            : 5256
-     standart+THP orani: %43.7
-
--> veri/kasa-sayim.json
--> veri/vitrin-sayilar.json  (soru 30569, hakem 16284)
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "57014",
+  "details": null,
+  "hint": null,
+  "message": "canceling statement due to statement timeout"
+}"
+KRITIK: toplam sayilamadi - Response status code does not indicate success: 500 (Internal Server Error).
 PS>$global:?
-True
+False
 **********************
 PowerShell transcript end
-End time: 20260820020633
+End time: 20260820184109
 **********************
