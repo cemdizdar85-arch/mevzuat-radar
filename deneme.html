@@ -1374,6 +1374,12 @@ function duvarGoster(){
   if(uk){ uk.classList.remove('gizli'); uk.scrollIntoView({behavior:'smooth', block:'center'}); }
 }
 function duvaraTakildiMi(){
+  /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 siler - ELLE DOKUNMA) ==== */
+  /* 20.08 Cem: perde koduyla giren deneme cihazi soru duvarina takilmaz.
+     NOT: bu duvari kaldirmak KASAYI acmaz - soru_havuzu okumasi RLS ile
+     paket_uyeler satirina bagli; deneyen kisi yine yalniz ucretsiz bankayi gorur. */
+  try{ if(localStorage.getItem('mrOnizleme') === '1') return false; }catch(e){}
+  /* ==== ONIZLEME-SINIRSIZ-SONU ==== */
   if(window.UYE_MODU){
     if(window.PAKETLI) return false;                 // Sinav Paketi: sinirsiz
     return uyeGunluk() >= UYE_GUNLUK_HAK;            // ucretsiz uye: gunde 15

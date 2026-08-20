@@ -25,6 +25,23 @@ if($menu -notmatch $deseni){
   Write-Host "1/2 PERDE KALKTI (menu.js)."
 }
 
+# ---- 20.08 ONIZLEME SINIRSIZLIGI (Cem: "perde koduyla girene sinirsiz ver, acilista kapat")
+#      ?kapi ile giren deneme cihazlari sayac tanimiyordu; perde kalkarken bu da kapanir.
+$onizDeseni = '(?s)[ 	]*/* ==== ONIZLEME-SINIRSIZ-BASI.*?ONIZLEME-SINIRSIZ-SONU[^
+]**/[ 	]*?
+'
+foreach($dosya in @('menu.js','deneme.html')){
+  $yol = Join-Path $kok $dosya
+  $icerik = [IO.File]::ReadAllText($yol)
+  if($icerik -match $onizDeseni){
+    $icerik = [regex]::Replace($icerik, $onizDeseni, '')
+    [IO.File]::WriteAllText($yol, $icerik, (New-Object Text.UTF8Encoding($false)))
+    Write-Host "ONIZLEME SINIRSIZLIGI KAPANDI ($dosya) - herkes normal hakka dondu."
+  } else {
+    Write-Host "Onizleme isareti yok ($dosya) - zaten kapali."
+  }
+}
+
 $robots = @"
 User-agent: *
 Allow: /
@@ -36,8 +53,8 @@ Write-Host "2/2 ROBOTS ACILDI (Allow: / + sitemap)."
 
 if(-not (Test-Path "$kok\sitemap.xml")){ Write-Host "UYARI: sitemap.xml YOK - robots ona isaret ediyor!" }
 
-git add menu.js robots.txt
-git commit -m "GONG: perde kalkti, robots acildi - tetikte.com YAYINDA"
+git add menu.js deneme.html robots.txt
+git commit -m "GONG: perde kalkti, onizleme sinirsizligi kapandi, robots acildi - tetikte.com YAYINDA"
 git pull --rebase origin main
 git push origin HEAD:main
 Write-Host ""

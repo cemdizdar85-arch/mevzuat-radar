@@ -292,6 +292,13 @@ function ttSorguKapisi(anahtar){
 }
 function ttSorguHakki(anahtar){
   try {
+    /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
+    /* 20.08 Cem: "perde koduyla girene sinirsiz ver, acilista kapat".
+       ?kapi=... ile bir kez giren DENEME cihazinda arac sayaci hic islemez;
+       deneyen kisi uye olmadan butun araclari sinirsiz kullanir. Perde kalkinca
+       bu blok da gong.ps1 tarafindan silinir - o an herkes normal 5 hakka doner. */
+    if (localStorage.getItem('mrOnizleme') === '1') return true;
+    /* ==== ONIZLEME-SINIRSIZ-SONU ==== */
     var uye = Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token') > -1; });
     if (uye) return true;
     // 31.07 Cem onayi: sayac AYLIK sifirlanir (NYT/Similarweb modeli - ayda 5 hak;
