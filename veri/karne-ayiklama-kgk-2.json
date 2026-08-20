@@ -1,0 +1,820 @@
+{
+    "tarih":  "19.08.2026",
+    "durum":  "TAMAM",
+    "aciklama":  "KGK TAM-ARSIV karnesi (29 sinav/6.080 soru/5.147 tekil konu) ayiklamasi - 2. tur. Karne ham sonucu: URET 5.013 / KAYNAK YOK 134 / hata 0. 134un 35i onceki hukumlerle (1. tur ayiklama + yutmalar) URETe dondu; kalan 98 satir bu raporda ayiklandi: VAR 61 (karne korlugu) / GERCEK-YOK 36 / BELIRSIZ 1. NIHAI: URET 5.109 (~%99,3) / gercek bosluk 36+1.",
+    "sayim":  {
+                  "karne_ham_URET":  5013,
+                  "karne_ham_YOK":  134,
+                  "onceki_hukumle_donen":  35,
+                  "yeni_VAR":  61,
+                  "yeni_GERCEK_YOK":  36,
+                  "BELIRSIZ":  1,
+                  "nihai_URET":  5109
+              },
+    "mevzuat_yutma_adaylari":  [
+                                   "Kavramsal Cerceve (KGK Finansal Raporlamaya Iliskin Kavramsal Cerceve) - EN ONCELIKLI, Muhasebe Standartlari dersinin cekirdegi, ambarda HIC yok",
+                                   "SEDDK kurulus duzenlemesi (47 sayili CBK) - 3 soru",
+                                   "SPK Borclanma Araclari Tebligi VII-128.8 - 2 soru",
+                                   "SPK Varantlar Tebligi VII-128.3"
+                               ],
+    "teori_notu_adaylari":  [
+                                "kurumsal yonetim teorisi (TEK NOT 9 satir kapatiyor: etmenler/etkenler, Anglo-Sakson model, adillik, mulkiyet yapisi)",
+                                "Borsa Istanbul piyasalari + seans + piyasa yapiciligi (3)",
+                                "idare hukuku sakatlik halleri: fonksiyon gaspi + usulde paralellik (3)",
+                                "Basel III (2)",
+                                "Solvency II (2)",
+                                "volatilite (2)",
+                                "reasurans ve konservasyon (2)",
+                                "tekiller: esya kavrami, nispilik, soyutluk, coklu urun basabas, hesap kavrami, iscilik siniflamasi, finansin temel ilkeleri, finansal piyasa siniflamasi"
+                            ],
+    "belirsiz":  [
+                     "riskten kacinma istisnasi - konu adi mugslak, soru metni gorulmeden karar kurulamadi"
+                 ],
+    "karne_korlugu_teyidi":  "Kisa kelime/kisaltma korlugu bas rolde: aval, CAPM, MM, BDS/TMS numaralari, THP 641, IIK/TMK/IYUK/TCK/SMK - besi de ambarda TAM oldugu halde karne 24 satiri yok saymisti. Ayrica GDS 3000 makullük vs mantiklilik ceviri farki.",
+    "kayitlar":  [
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "calisma kagitlari fonksiyonlari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 230",
+                         "kanit":  "BDS 230 p.2-3 \u0027Çalışma Kâğıtlarının Niteliği ve Amaçları\u0027 ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "denetim riski dengelemesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 200",
+                         "kanit":  "BDS 200 denetim riski bileşenleri (önemli yanlışlık x tespit riski) ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "dengelenen yanlisliklar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 450",
+                         "kanit":  "BDS 450 yanlışlıkların değerlendirilmesi ambarda; karne \u0027dengelenen\u0027 kelimesini aramış",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "denetim",
+                         "konu":  "mantiklilik analizi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 520; GDS 3000",
+                         "kanit":  "BDS 520 analitik prosedürler tam; \u0027makullük\u0027 GDS 3000 p.19\u0027da geçiyor",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "onemli risk uyarlamalari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 315 / BDS 330",
+                         "kanit":  "BDS seti tam yutuldu; önemli risk ve müdahaleleri 315/330\u0027da",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "orneklemede gruplandirma",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 530",
+                         "kanit":  "BDS 530 ekleriyle ambarda; gruplandırma=tabakalandırma örnekleme kapsamında",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Denetim",
+                         "konu":  "tamlik kaniti zorlugu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BDS 315 / BDS 500",
+                         "kanit":  "yönetim beyanları (tamlık) ve kanıt hükümleri BDS setinde tam",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "begenme kosullu satis",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.)",
+                         "kanit":  "TBK tam ambarda; beğenme koşuluyla satış m.249 vd.",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "cari hesap sona erme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.)",
+                         "kanit":  "TTK tam ambarda; cari hesap m.89-101, sona erme halleri dahil",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "fonksiyon gaspi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "metin araması \u0027fonksiyon gasp\u0027 0 sonuç; idare hukuku doktrin konusu",
+                         "oneri":  "Teori notu: Idari islemin sakatlik halleri (yetki gaspi, fonksiyon gaspi, usulde paralellik)"
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "ilamsiz icra yollari",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "İİK (2004 s.K.)",
+                         "kanit":  "İİK tam ambarda (m.1-358 görüldü); ilamsız takip m.42 vd.",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "kiymetli evrak soyutlugu",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027soyutluk\u0027 yalnız sınav kitapçıklarında; TTK metni ilkeyi adıyla anlatmıyor",
+                         "oneri":  "Teori notu: Kiymetli evrakin ozellikleri (soyutluk/mucerretlik, tedavul kabiliyeti)"
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "sahista yanilma",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TCK (5237 s.K.)",
+                         "kanit":  "TCK ambarda; hata hükümleri m.30 — doktrin adıyla geçmiyor, karne körlüğü",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "tasinmaz mulkiyeti kazanimi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMK (4721 s.K.)",
+                         "kanit":  "TMK tam ambarda; taşınmaz mülkiyetinin kazanılması m.705 vd.",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuatı",
+                         "konu":  "usulde paralellik",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "metin araması \u0027usulde paralellik\u0027 0 sonuç; yazılı kaynağı olmayan idare hukuku ilkesi",
+                         "oneri":  "Teori notu: Idari islemin sakatlik halleri (fonksiyon gaspi ile ayni not)"
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "aval kavrami",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.)",
+                         "kanit":  "TTK tam ambarda; aval m.700-702 — 4 harfli \u0027aval\u0027 karne körlüğü",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "bagislamadan donme suresi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.)",
+                         "kanit":  "TBK tam ambarda; bağışlamayı geri alma ve süresi m.295-297",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "borcta vade uzatimi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.)",
+                         "kanit":  "TBK tam ambarda; ifa zamanı/vade ve kefalette uzatma hükümleri mevcut",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "esya kavrami",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "TMK eşyayı tanımlamaz; eşya kavramı/unsurları doktrin konusu, ambarda anlatan yok",
+                         "oneri":  "Teori notu: Esya hukuku temel kavramlari (esya kavrami, unsurlari, turleri)"
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "hisimlik dereceleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMK (4721 s.K.)",
+                         "kanit":  "TMK tam ambarda; hısımlık ve dereceleri m.17-18",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "genel hukuk mevzuati",
+                         "konu":  "icra takibi yapilamayanlar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "İİK (2004 s.K.)",
+                         "kanit":  "İİK tam ambarda; haczedilemezlik/Devlet malları m.82 vd.",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "iflasin takiplere etkisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "İİK (2004 s.K.)",
+                         "kanit":  "İİK tam ambarda; iflasın takiplere etkisi m.193-194",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "genel hukuk mevzuati",
+                         "konu":  "kacakcilikta uzlasma yasagi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.)",
+                         "kanit":  "VUK tam ambarda; uzlaşma ek m.1 kaçakçılık (m.359) istisnası",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "kisitlinin kefaleti",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TBK (6098 s.K.); TMK (4721 s.K.)",
+                         "kanit":  "kefalet ehliyeti TBK m.583 vd. + TMK vesayet izin hükümleri ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "markanin resen terkini",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "SMK (6769 s.K.)",
+                         "kanit":  "SMK tam ambarda (m.1-53 görüldü); marka sicil/terkin hükümleri",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "nispilik ilkesi istisnalari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027nispilik\u0027 yalnız sınav kitapçığında; ilkeyi ve istisnalarını anlatan kaynak yok",
+                         "oneri":  "Teori notu: Borc iliskisinin nispiligi ve istisnalari (serh, ucuncu kisi yararina sozlesme)"
+                     },
+                     {
+                         "ders":  "genel hukuk mevzuati",
+                         "konu":  "tescilin bildirici etkisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TTK (6102 s.K.)",
+                         "kanit":  "TTK tam ambarda; ticaret sicili tescilin etkileri m.36",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "usulde paralellik ilkesi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "metin araması 0 sonuç; idare hukuku doktrin ilkesi",
+                         "oneri":  "Teori notu: Idari islemin sakatlik halleri (fonksiyon gaspi ile ayni not)"
+                     },
+                     {
+                         "ders":  "genel hukuk mevzuati",
+                         "konu":  "vergi kanunlarinin yorumu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.)",
+                         "kanit":  "VUK tam ambarda; vergi kanunlarının uygulanması ve ispat m.3",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "vergi yargilamasi ilkeleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "İYUK (2577 s.K.)",
+                         "kanit":  "İYUK tam ambarda; re\u0027sen araştırma/yazılılık ilkeleri madde metinlerinde",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Genel Hukuk Mevzuati",
+                         "konu":  "vesayet halleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMK (4721 s.K.)",
+                         "kanit":  "TMK tam ambarda; vesayeti gerektiren haller m.404 vd.",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "anuite birikim hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - paranin zaman degeri",
+                         "kanit":  "metin araması: \u0027anüite\u0027 bu notta geçiyor",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "iceriden ogrenen ticareti",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.)",
+                         "kanit":  "6362 tam ambarda; bilgi suistimali m.106",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "kurumsal yonetim etkenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "KY\u0027nin ortaya çıkış etmenleri teori; ambarda anlatan not yok (Anglo araması 0)",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ortaya cikis etmenleri, 4 ilke, Anglo-Sakson/Kita Avrupasi sistemleri, mulkiyet yapilari)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "kurumsal yonetim etmenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk; II-17.1 tebliği etmenleri anlatmaz",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "sermaye butcelemesi yontemleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - sermaye butcelemesi NPV IRR",
+                         "kanit":  "not başlığı doğrudan konu; teori envanterinde mevcut",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+                         "konu":  "temettu iliskisizlik teorisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - temettu politikasi",
+                         "kanit":  "metin araması: \u0027Modigliani\u0027 bu notta geçiyor",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "kurumsal yonetim ve finansal yonetim",
+                         "konu":  "anglo sakson sistemi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027anglo sakson\u0027 metin araması 0 sonuç",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "kurumsal yonetim ve finansal yonetim",
+                         "konu":  "kurumsal yonetim etmenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "adillik ilkesi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027adillik\u0027 yalnız sınav kitapçıklarında; 4 KY ilkesini anlatan kaynak yok",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not - adillik/seffaflik/hesap verebilirlik/sorumluluk)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "anglo sakson sistemi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk (2 soru çıkmış)",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "capm beta",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - risk getiri portfoy",
+                         "kanit":  "CAPM/beta risk-getiri-portföy notunun çekirdek konusu; 4 harfli CAPM karne körlüğü",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "dupont semasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Oz kaynak karliligi, aktif karliligi ve kaldirac iliskisi",
+                         "kanit":  "metin araması: \u0027DuPont\u0027 bu notlarda ve finansal analiz oranlari notunda geçiyor",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "finansin temel ilkeleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027finansın temel\u0027 metin araması 0; ilke listesi bütün olarak anlatılmıyor (2 soru)",
+                         "oneri":  "Teori notu: Finansin temel ilkeleri (risk-getiri dengesi, paranin zaman degeri, cesitlendirme...)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "kar payi ilgisizlik teorisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - temettu politikasi",
+                         "kanit":  "Modigliani-Miller ilgisizlik önermesi bu notta",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "komite uyelik kisiti",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Kurumsal Yonetim Tebligi (II-17.1)",
+                         "kanit":  "II-17.1 tam ambarda; komite üyelik kısıtları tebliğ/eki hükümlerinde",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "kurumsal yonetim etkenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "kurumsal yonetim etmenleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "matriks yapilanma",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TFRS 8",
+                         "kanit":  "metin araması: TFRS 8 p.9-10 \u0027matriks yapı\u0027 anlatımı mevcut",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "mm temettu ilgisizlik teorisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - temettu politikasi",
+                         "kanit":  "Modigliani metin aramasıyla doğrulandı; MM kısaltması karne körlüğü",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "mulkiyet yapisi zafiyeti",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "KY mülkiyet yapıları teori; ambarda anlatan not yok",
+                         "oneri":  "Teori notu: Kurumsal yonetim teorisi (ayni not - mulkiyet yapilari bolumu)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "piyasa vade siniflamasi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "para/sermaye piyasası ayrımını öğreten kaynak yok (\u0027para piyasası\u0027 yalnız GV tebliğ/sınav)",
+                         "oneri":  "Teori notu: Finansal piyasalarin siniflandirilmasi (vade, orgutlenme, teslim esasi)"
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "portfoy cesitlendirmesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - risk getiri portfoy",
+                         "kanit":  "çeşitlendirme/sistematik risk bu notun çekirdek konusu",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "reel faiz hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Paranin yansizligi (para yanilgisi)",
+                         "kanit":  "metin araması: \u0027reel faiz\u0027 bu notta ve Taylor prensibi notunda geçiyor",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "riskten kacinma istisnasi",
+                         "karar":  "BELIRSIZ",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "konu adı muğlak; \u0027riskten kaçınma\u0027 yalnız TFRS 17/TFRS 2 bağlamında bulundu, soru bağlamı bilinmeden karar kurulamaz",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "sabit gider siniflamasi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - kaldirac ve basabas",
+                         "kanit":  "sabit/değişken gider ayrımı bu not + değişken maliyetleme TEORI notlarında",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "sermaye butcelemesi kapsami",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - sermaye butcelemesi NPV IRR",
+                         "kanit":  "not başlığı doğrudan konu",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+                         "konu":  "temettu ilisksizlik teorisi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - temettu politikasi",
+                         "kanit":  "aynı MM konusu (konu adında yazım hatası: ilisksizlik)",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe Standartları",
+                         "konu":  "devlet tesvigi muhasebesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMS 20",
+                         "kanit":  "TMS 20 tam ambarda (ön bölüm + paragraflar görüldü)",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe Standartları",
+                         "konu":  "kavramsal cerceve revizyonu",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "kaynak_ad/baslik \u0027çerçeve\u0027 araması 0 — Kavramsal Çerçeve hiç yutulmamış",
+                         "oneri":  "Mevzuat: Finansal Raporlamaya Iliskin Kavramsal Cerceve (KGK, 2018 revizyonu) yutulmali"
+                     },
+                     {
+                         "ders":  "Muhasebe Standartları",
+                         "konu":  "kayik tfrs uyumu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BOBI FRS; Etik Kurallar",
+                         "kanit":  "BOBİ FRS kapsam hükümleri (m.1-2) + Etik Kurallar p.400.12-13 KAYİK tanımı ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "muhasebe standartlari",
+                         "konu":  "deger dusuklugu hesaplanmayan",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TMS 36",
+                         "kanit":  "TMS 36 tam ambarda; kapsam dışı varlıklar standardın giriş hükümlerinde",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe Standartlari",
+                         "konu":  "iadeli satis hasilati",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TFRS 15",
+                         "kanit":  "TFRS 15 tam ambarda; iade hakkı tanınan satışlar standart kapsamında",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "bagli ortaklik temettusu",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "THP 641",
+                         "kanit":  "THP 641 - BAĞLI ORTAKLIKLARDAN TEMETTÜ GELİRLERİ kaydı ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "brut kar hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "MSUGT 1 ilke - Gelir Tablosu İlkeleri; TEORI - Marj oranlarindan satis maliyetinin bulunmasi",
+                         "kanit":  "gelir tablosu ilkeleri + marj hesap notları ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "cek ciro kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "THP 101",
+                         "kanit":  "THP kayıtları ambarda (101 Alınan Çekler); ciro yevmiyesi THP işleyişi",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "muhasebe",
+                         "konu":  "coklu urun basabas",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027çoklu ürün\u0027 ve \u0027satış karması\u0027 metin aramaları 0; başabaş notu tek ürün",
+                         "oneri":  "Teori notu: Coklu urun (satis karmasi) basabas analizi — mevcut kaldirac-basabas notuna ek de olabilir"
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "dovizli kredi degerleme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.)",
+                         "kanit":  "VUK tam ambarda; yabancı para değerleme m.280",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "dovizli makine alimi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.)",
+                         "kanit":  "VUK m.280 + maliyet bedeli m.262 ambarda; THP kayıtları mevcut",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "dovizli mevduat degerleme",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "VUK (213 s.K.)",
+                         "kanit":  "VUK m.280 yabancı para değerleme ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "muhasebe",
+                         "konu":  "hesap kavrami",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027hesap kavramı\u0027 metin araması 0; temel işleyiş kurallarını anlatan not yok (2 soru)",
+                         "oneri":  "Teori notu: Hesap kavrami ve hesaplarin isleyis kurallari (borc/alacak, acma/kapama)"
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "hisse satis yevmiyesi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "THP 110",
+                         "kanit":  "THP kayıtları ambarda (110 Hisse Senetleri + 645/655 kar-zarar hesapları)",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "muhasebe",
+                         "konu":  "kdv dahil kar hesabi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - yuzde kar zarar faiz hesaplari",
+                         "kanit":  "yüzde/kar-zarar hesap teknikleri bu notta; KDV ayrıştırma yüzde işlemi",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "nakit cikissiz giderler",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "BOBI FRS m.7",
+                         "kanit":  "metin araması: \u0027nakit çıkışı gerektirmeyen\u0027 BOBİ FRS m.7 nakit akış bölümünde",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "muhasebe",
+                         "konu":  "oz sermaye kiyaslamasiyla kar",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "GVK (193 s.K.)",
+                         "kanit":  "GVK tam ambarda; bilanço esasında öz sermaye kıyaslamasıyla kazanç m.38",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "stopajli hizmet kaydi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "THP; GVK (193 s.K.)",
+                         "kanit":  "THP kayıtları (193/360) + GVK m.94 tevkifat ambarda",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Muhasebe",
+                         "konu":  "ustabasi ucreti siniflama",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027ustabaşı\u0027 yalnız sınav kitapçıklarında; direkt/endirekt işçilik sınıflamasını anlatan not yok",
+                         "oneri":  "Teori notu: Iscilik giderlerinin siniflandirilmasi (direkt/endirekt iscilik ornekleri)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "basel iii hedefleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027Basel\u0027 metin araması tüm ambarda 0 sonuç",
+                         "oneri":  "Teori notu: Basel duzenlemeleri (I-II-III) ve Basel III\u0027un hedefleri"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "bist acilis seansi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027açılış seansı\u0027 0; Borsa İstanbul işleyişini anlatan kaynak yok (BIST kısaltması karne körlüğü değil, gerçek boşluk)",
+                         "oneri":  "Teori notu: Borsa Istanbul piyasalari ve seans yapisi (acilis/kapanis seansi, piyasa yapiciligi)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "halka arz sayilma esikleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Sermaye Piyasası K. (6362 s.K.)",
+                         "kanit":  "6362 tam ambarda; halka açık sayılma m.16",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "konservasyon tanimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027konservasyon\u0027 yalnız KİK 4734\u0027te (restorasyon anlamı); sigortacılık anlamı yok",
+                         "oneri":  "Teori notu: Reasurans temel kavramlari (konservasyon, sesyon, retrosesyon) — onceki turun reasurans adayiyla birlestirilebilir"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "opsiyon spekulatoru",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - turev urunler forward futures opsiyon swap",
+                         "kanit":  "opsiyon tarafları/amaçları bu notun çekirdek konusu",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "riskten kacinma hedging",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Teori Notu - turev urunler forward futures opsiyon swap",
+                         "kanit":  "hedging amacı türev ürünler notunda; ayrıca doviz kuru riski yonetimi notu",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "seddk gorev yetkileri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027SEDDK\u0027 tüm ambarda 0 sonuç; kuruluş CBK\u0027sı hiç yutulmamış",
+                         "oneri":  "Mevzuat: SEDDK kurulus duzenlemesi (47 sayili CBK ile eklenen teskilat hukumleri) yutulmali"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "seddk gorevleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk",
+                         "oneri":  "Mevzuat: SEDDK kurulus duzenlemesi (ayni yutma)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "seddk yapisi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk (üç ayrı soru SEDDK\u0027dan çıkmış)",
+                         "oneri":  "Mevzuat: SEDDK kurulus duzenlemesi (ayni yutma)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "solvency ii amaclari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027olvency\u0027 metin araması 0 sonuç (2 soru çıkmış)",
+                         "oneri":  "Teori notu: Solvency II ve sigortacilikta sermaye yeterliligi"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "tahvilde kardan pay",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027iştirakli tahvil\u0027 0; kâra iştirakli tahvili tanımlayan kaynak yok",
+                         "oneri":  "Mevzuat: SPK Borclanma Araclari Tebligi (VII-128.8) yutulmali"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "tahvile kardan pay",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk",
+                         "oneri":  "Mevzuat: SPK Borclanma Araclari Tebligi (VII-128.8) yutulmali"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "tezgahustu islem tanimi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Yatirim Hizmetleri ve Faaliyetleri Tebligi (III-37.1)",
+                         "kanit":  "metin araması: \u0027tezgahüstü\u0027 III-37.1 m.3 ve m.19\u0027da",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+                         "konu":  "volatilite tanimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027volatilite\u0027 tüm ambarda 0 sonuç (2 soru çıkmış)",
+                         "oneri":  "Teori notu: Volatilite kavrami ve risk olcutleri (standart sapma, ima edilen volatilite)"
+                     },
+                     {
+                         "ders":  "sermaye piyasasi bankacilik sigortacilik",
+                         "konu":  "rizikonun sigortalanabilirligi",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "TEORI - Rizikonun sigortalanabilirlik ozellikleri",
+                         "kanit":  "not başlığı doğrudan konu; teori envanterinde mevcut",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "basel iii hedefleri",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk (iki ayrı dönemde soru)",
+                         "oneri":  "Teori notu: Basel duzenlemeleri (ayni not)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "borsa istanbul piyasalari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "kaynak_ad \u0027borsa\u0027 araması 0; piyasa yapısını anlatan kaynak yok",
+                         "oneri":  "Teori notu: Borsa Istanbul piyasalari ve seans yapisi (ayni not)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "gayrinakdi kredi ornekleri",
+                         "karar":  "VAR",
+                         "ambar_kaynak_ad":  "Bankacılık K. (5411 s.K.)",
+                         "kanit":  "5411 tam ambarda (298 kayıt); kredi sayılan işlemler m.48",
+                         "oneri":  ""
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "konservasyon tanimi",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "aynı boşluk (iki ayrı dönemde soru)",
+                         "oneri":  "Teori notu: Reasurans temel kavramlari (ayni not)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "piyasa yapiciligi amaclari",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "terim 6362 m.108/II-5.1\u0027de geçiyor ama amaçlarını anlatan öğretici kaynak yok",
+                         "oneri":  "Teori notu: Borsa Istanbul piyasalari ve seans yapisi (ayni not - piyasa yapiciligi bolumu)"
+                     },
+                     {
+                         "ders":  "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+                         "konu":  "varant nakavt kavrami",
+                         "karar":  "GERCEK-YOK",
+                         "ambar_kaynak_ad":  "",
+                         "kanit":  "\u0027nakavt\u0027 0; varant yalnız III-52.1/III-37.1\u0027de anılıyor, tanım tebliği yok",
+                         "oneri":  "Mevzuat: SPK Varantlar ve Yatirim Kurulusu Sertifikalari Tebligi (VII-128.3) yutulmali"
+                     }
+                 ]
+}
