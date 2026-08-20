@@ -289,6 +289,18 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var bugun=new Date(); bugun.setHours(0,0,0,0);
     return {gosterim:p[2]+'.'+p[1]+'.'+p[0], kalan:Math.round((d-bugun)/86400000)};
   }
+  // 20.08: grup konkordatosunda karttaki borclu alani ilanin İLK borclusudur.
+  // Kullanici 2. borclunun VKN'siyle aradiysa basligi onun adi olmali — yoksa
+  // "ben Merintas'i aradim, bana Cihan Lazerbicak cikti" der ve HAKLI olur.
+  // (Cem'in "aman farkli firma batmis gibi gostermeyelim" kuralinin devami.)
+  function aiEslesenBorclu(k){
+    var say=String(k.sorgu||'').replace(/\D/g,'');
+    if(say.length>=10 && Array.isArray(k.borclular)){
+      var b=k.borclular.find(function(x){ return x && x.vkn===say; });
+      if(b && b.ad) return b.ad;
+    }
+    return k.borclu||k.baslik||'—';
+  }
   function aiIlanAyrinti(k){
     var h='';
     var TIP={gecici:'geçici mühlet',kesin:'kesin mühlet',uzatma:'mühlet uzatması'};
@@ -834,7 +846,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
         window.SON_TARAMA.push({
           'Sorgu': k.sorgu,
           'Durum': k.tip==='vkn' ? 'RİSK (VKN/TCKN birebir)' : 'OLASI (unvan benzerliği)',
-          'Borçlu': k.borclu || k.baslik || '',
+          'Borçlu': aiEslesenBorclu(k),
           'VKN': k.vkn || '',
           'Tür': turAdi,
           'İlan tarihi': k.tarih || '',
@@ -851,7 +863,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
         });
         html += '<div class="kart risk">'
           +'<span class="rozet risk">'+(k.tip==='vkn'?'⚠ Risk, ':'⚠ OLASI eşleşme, ')+turAdi+(k.tip==='vkn'?' · VKN birebir eşleşti':' · unvan benzerliği')+'</span>'
-          +'<h3>'+aiKac(k.borclu||k.baslik||'—')+'</h3>'
+          +'<h3>'+aiKac(aiEslesenBorclu(k))+'</h3>'
           +(k.tip==='ad'?'<div class="belg" style="border-color:rgba(255,194,75,.35)">Bu eşleşme unvan benzerliğine dayalıdır; aynı adı taşıyan <b>farklı bir firma</b> olabilir. VKN ile doğrula, ilan metnini oku.</div>':'')
           +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
           +'<div class="satir"><b>Kurum</b><span>'+aiKac(k.mahkeme||k.kurum||'—')+(k.esas_no?' · '+aiKac(k.esas_no):'')+'</span></div>'
