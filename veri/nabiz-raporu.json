@@ -1,13 +1,15 @@
 {
-  "tarih": "20.08.2026 05:19",
-  "durum": "ALARM",
-  "kirmizi": 1,
-  "kurtarma": 0,
+  "tarih": "20.08.2026 06:27",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 1,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 783.5 saat once (esik 30s)). Actions loguna bak."
+  "maddeler": [],
+  "kurtarilan": [
+    "Gunluk Kanun Aynasi -> son basarili kosu 784.6 saat once (esik 30s) -> kurtarma: tetiklendi"
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan_anahtar": [
+    "KOSU:mevzuat.yml"
+  ]
 }
