@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260820140044
+Start time: 20260820162000
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c646db03-5a81-4f6b-bc0c-94dd72a59c5b.ps1'
-Process ID: 10634
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b95393b8-e2a4-4250-bc57-021a8ab3bfae.ps1'
+Process ID: 10601
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -39,8 +39,167 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   inemeyen  : 0
 -> veri/teblig-damga.json
 
-TEMIZ: izlenen tebliglerin hicbiri degismemis - gtip-durum.json guncel.
+======================================================================
+  76 GOZETIM TEBLIGI DEGISTI - veri/gtip-durum.json ESKIDI
+======================================================================
+  mevzuatNo 8602  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8602.pdf
+  mevzuatNo 8624  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8624.pdf
+  mevzuatNo 8814  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8814.pdf
+  mevzuatNo 8823  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8823.pdf
+  mevzuatNo 8824  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8824.pdf
+  mevzuatNo 8826  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8826.pdf
+  mevzuatNo 8950  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.8950.pdf
+  mevzuatNo 9026  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.9026.pdf
+  mevzuatNo 9387  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.9387.pdf
+  mevzuatNo 9891  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.9891.pdf
+  mevzuatNo 10811  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.10811.pdf
+  mevzuatNo 10812  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.10812.pdf
+  mevzuatNo 10813  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.10813.pdf
+  mevzuatNo 10998  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.10998.pdf
+  mevzuatNo 11001  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11001.pdf
+  mevzuatNo 11002  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11002.pdf
+  mevzuatNo 11147  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11147.pdf
+  mevzuatNo 11183  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11183.pdf
+  mevzuatNo 11184  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11184.pdf
+  mevzuatNo 11185  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11185.pdf
+  mevzuatNo 11266  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11266.pdf
+  mevzuatNo 11481  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11481.pdf
+  mevzuatNo 11482  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.11482.pdf
+  mevzuatNo 12041  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12041.pdf
+  mevzuatNo 12074  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12074.pdf
+  mevzuatNo 12100  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12100.pdf
+  mevzuatNo 12227  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12227.pdf
+  mevzuatNo 12228  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12228.pdf
+  mevzuatNo 12229  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12229.pdf
+  mevzuatNo 12387  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12387.pdf
+  mevzuatNo 12810  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12810.pdf
+  mevzuatNo 12811  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.12811.pdf
+  mevzuatNo 13304  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.13304.pdf
+  mevzuatNo 13584  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.13584.pdf
+  mevzuatNo 14977  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.14977.pdf
+  mevzuatNo 15125  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.15125.pdf
+  mevzuatNo 15291  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.15291.pdf
+  mevzuatNo 15407  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.15407.pdf
+  mevzuatNo 15779  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.15779.pdf
+  mevzuatNo 16331  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.16331.pdf
+  mevzuatNo 16640  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.16640.pdf
+  mevzuatNo 16766  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.16766.pdf
+  mevzuatNo 17286  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.17286.pdf
+  mevzuatNo 18311  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.18311.pdf
+  mevzuatNo 18721  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.18721.pdf
+  mevzuatNo 19554  (60487 -> 259488 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.19554.pdf
+  mevzuatNo 20073  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.20073.pdf
+  mevzuatNo 20268  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.20268.pdf
+  mevzuatNo 21461  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.21461.pdf
+  mevzuatNo 23112  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23112.pdf
+  mevzuatNo 23478  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23478.pdf
+  mevzuatNo 23603  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23603.pdf
+  mevzuatNo 23610  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23610.pdf
+  mevzuatNo 23705  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23705.pdf
+  mevzuatNo 23794  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23794.pdf
+  mevzuatNo 23898  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23898.pdf
+  mevzuatNo 23911  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.23911.pdf
+  mevzuatNo 24425  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24425.pdf
+  mevzuatNo 24442  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24442.pdf
+  mevzuatNo 24606  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24606.pdf
+  mevzuatNo 24675  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24675.pdf
+  mevzuatNo 24685  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24685.pdf
+  mevzuatNo 24686  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24686.pdf
+  mevzuatNo 24758  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.24758.pdf
+  mevzuatNo 31140  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.31140.pdf
+  mevzuatNo 33764  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33764.pdf
+  mevzuatNo 33765  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33765.pdf
+  mevzuatNo 33884  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33884.pdf
+  mevzuatNo 33983  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.33983.pdf
+  mevzuatNo 34056  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34056.pdf
+  mevzuatNo 34072  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34072.pdf
+  mevzuatNo 34284  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34284.pdf
+  mevzuatNo 34376  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34376.pdf
+  mevzuatNo 34520  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.34520.pdf
+  mevzuatNo 38831  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.38831.pdf
+  mevzuatNo 40841  (60487 -> 60487 bayt)
+     https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.40841.pdf
+
+  YAPILACAK: tablo-hasat.ps1 yeniden kosmali (API gerekir - tablolari
+  modele okutuyor). O kosana kadar GTIP aracindaki gozetim verisi
+  ESKIDIR; arac zaten hasat tarihini ekranda gosteriyor.
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260820142225
+End time: 20260820163516
 **********************
