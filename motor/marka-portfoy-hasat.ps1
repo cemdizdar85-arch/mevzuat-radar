@@ -193,8 +193,10 @@ function Hesapla($m){
   $tescilliMi = ($d -match '(?i)regist')                       # Registered
   $bittiMi    = ($d -match '(?i)(ended|expir|withdraw|refus|invalid|surrender)')
   $o = [ordered]@{ hal='bilinmiyor'; donem_sonu=''; kalan_gun=$null; ek_sure_sonu=''; not='' }
-  if(-not $bt){ $o.not = 'Basvuru tarihi okunamadi.'; return $o }
-  if($bittiMi){ $o.hal='dusmus'; $o.not = 'Sicilde "' + $d + '" gorunuyor - koruma sona ermis.'; return $o }
+  # NOT metinleri KULLANICIYA gider (sayfa + mail) -> duzgun Turkce yazilir;
+  # betik BOM'lu UTF-8 oldugu icin hem PS 5.1 hem pwsh 7 dogru okur.
+  if(-not $bt){ $o.not = 'Başvuru tarihi okunamadı.'; return $o }
+  if($bittiMi){ $o.hal='dusmus'; $o.not = 'Sicilde "' + $d + '" görünüyor — koruma sona ermiş. Aynı ibareyi tekrar tescil ettirebilirsin; ancak marka düştükten sonraki 2 yıl içinde başkası da alabilir (SMK m.6/8).'; return $o }
   # sonraki 10 yillik donem sonu
   $n = 1; while($bt.AddYears(10*$n) -lt $simdi){ $n++ }
   $donemSonu = $bt.AddYears(10*$n)
@@ -204,8 +206,8 @@ function Hesapla($m){
   $o.ek_sure_sonu = $donemSonu.AddMonths(6).ToString('dd.MM.yyyy')
   if(-not $tescilliMi){
     $o.hal = 'surecte'
-    $o.not = 'Basvuru asamasi (sicil durumu: ' + $d + ').'
-    if($m.yayim){ $ys = (DdmmToDate $m.yayim); if($ys){ $o.not += ' Bultende yayim ' + $m.yayim + '; ucuncu kisilerin itiraz suresi ' + $ys.AddMonths(2).ToString('dd.MM.yyyy') + ' (m.18).' } }
+    $o.not = 'Başvuru aşaması (sicil durumu: ' + $d + ').'
+    if($m.yayim){ $ys = (DdmmToDate $m.yayim); if($ys){ $o.not += ' Bültende yayım ' + $m.yayim + '; üçüncü kişilerin itiraz süresi ' + $ys.AddMonths(2).ToString('dd.MM.yyyy') + ' tarihinde doluyor (m.18: yayımdan 2 ay).' } }
     return $o
   }
   # tescilli
@@ -216,16 +218,16 @@ function Hesapla($m){
     $o.donem_sonu   = $oncekiSonu.ToString('dd.MM.yyyy')
     $o.kalan_gun    = [int]($oncekiSonu - $simdi).TotalDays      # negatif: kac gun once doldu
     $o.ek_sure_sonu = $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy')
-    $o.not = 'Koruma donemi ' + $oncekiSonu.ToString('dd.MM.yyyy') + ' tarihinde doldu; sicil hala tescilli gosteriyor. Yenilediysen sonraki bitis ' + $donemSonu.ToString('dd.MM.yyyy') + '. Yenilemediysen 6 aylik ek sure ' + $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy') + ' gunune kadar (ek ucretle, m.23/3) - sicilden teyit et.'
+    $o.not = 'Koruma dönemi ' + $oncekiSonu.ToString('dd.MM.yyyy') + ' tarihinde doldu; sicil hâlâ tescilli gösteriyor. Yenilediysen sıradaki bitiş ' + $donemSonu.ToString('dd.MM.yyyy') + '. Yenilemediysen 6 aylık ek süren ' + $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy') + ' gününe kadar (ek ücretle, m.23/3) — sicilden teyit et, o tarih de geçerse hak sona erer (m.28/1-a).'
     return $o
   }
   if($o.kalan_gun -le $YenilemeGun){
     $o.hal = 'yenileme-penceresi'
-    $o.not = 'Yenileme penceresi ACIK: koruma ' + $o.donem_sonu + ' tarihinde bitiyor (' + $o.kalan_gun + ' gun). Talep son 6 ayda verilir; kacarsan ' + $o.ek_sure_sonu + ' tarihine kadar ek ucretle (m.23).'
+    $o.not = 'Yenileme penceresi AÇIK: koruma ' + $o.donem_sonu + ' tarihinde bitiyor (' + $o.kalan_gun + ' gün). Talep bitişten önceki 6 ay içinde verilir; kaçırırsan ' + $o.ek_sure_sonu + ' tarihine kadar ek ücretle yenilenebilir (m.23).'
     return $o
   }
   $o.hal = 'guvende'
-  $o.not = 'Sonraki koruma bitisi ' + $o.donem_sonu + ' (' + $o.kalan_gun + ' gun). Onceki donemler yenilenmis kabul edildi (sicil durumu tescilli).'
+  $o.not = 'Sıradaki koruma bitişi ' + $o.donem_sonu + ' (' + $o.kalan_gun + ' gün). Sicil "tescilli" gösterdiği için önceki dönemler yenilenmiş kabul edildi.'
   return $o
 }
 function PortfoyKur($unvan){
