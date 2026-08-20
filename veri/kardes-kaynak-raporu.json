@@ -1,35 +1,6 @@
 {
-  "tarih": "19.08.2026 06:47",
-  "durum": "TAMAM",
-  "kasa": 30569,
-  "konu": 2255,
-  "kume": 325,
-  "en_buyuk_bes": [
-    {
-      "konu": "ortak maliyet dagitimi",
-      "soru": 506,
-      "madde": 2
-    },
-    {
-      "konu": "gelecek aylara ait gider",
-      "soru": 134,
-      "madde": 2
-    },
-    {
-      "konu": "gelecek aylara ait giderler",
-      "soru": 87,
-      "madde": 2
-    },
-    {
-      "konu": "dikey yuzde analizi",
-      "soru": 74,
-      "madde": 3
-    },
-    {
-      "konu": "alacak senedi reeskontu",
-      "soru": 74,
-      "madde": 2
-    }
-  ],
-  "not": "Elle yazilan 5 kume yerine OLCUMLE cikarildi. Motor bu dosyayi okur; dosya yoksa elle liste kullanilir."
+  "tarih": "20.08.2026 18:43",
+  "durum": "HATA",
+  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
+  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}"
 }
