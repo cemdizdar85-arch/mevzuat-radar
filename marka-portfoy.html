@@ -202,6 +202,10 @@ function sonucCiz(s, jeton){
         '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+'</div></div>';
     }).join('')+'</div>';
   h+='<div class="mini" style="margin-top:6px">Eşleştirilen sicil unvanları: '+(v||'—')+'</div>';
+  h+='<div class="kutu" style="margin-top:16px;background:linear-gradient(135deg,rgba(245,165,36,.08),transparent)">'+
+     '<div style="font-weight:800;font-size:15.5px;margin-bottom:4px">Bu tarihleri takvimine sen yazma</div>'+
+     '<p class="mini" style="margin:0 0 10px">Bu tarama bugünün fotoğrafı. Nöbete alırsan robot her gün bakar: <b style="color:var(--ink)">yenileme penceresi açılınca</b>, <b style="color:var(--ink)">markana benzer yeni başvuru düşünce</b> (itiraz süresi yayımdan 2 ay, m.18) ve sicil durumu değişince e-posta gelir.</p>'+
+     '<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" style="text-decoration:none" href="radar-app.html?niyet=marka">Nöbete al →</a><a class="btn ghost" style="text-decoration:none" href="radar-fiyat.html">Fiyatlar</a></div></div>';
   h+='<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost" id="t_aktar">↓ Bu markaları panoma aktar</button>'+(jeton?'<span class="mini" style="align-self:center">Bağlantın: <a href="?jeton='+encodeURIComponent(jeton)+'">?jeton='+kac(jeton.slice(0,8))+'…</a></span>':'')+'</div>';
   $('#t_sonuc').innerHTML=h;
   const btn=$('#t_aktar');
