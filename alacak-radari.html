@@ -838,7 +838,11 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           'VKN': k.vkn || '',
           'Tür': turAdi,
           'İlan tarihi': k.tarih || '',
-          'Mahkeme / dosya': k.kurum || '',
+          // 20.08: ayrıştırılan alanlar Excel'e de düşsün — müşavir kartı
+          // ekranda okumadan dosyayı müşterisine yolluyor.
+          'Mahkeme / dosya': [k.mahkeme || k.kurum || '', k.esas_no || ''].filter(Boolean).join(' · '),
+          'Mühlet bitişi': k.muhlet_bitis ? (aiGunFark(k.muhlet_bitis)||{}).gosterim || '' : '',
+          'Komiser': k.komiser || '',
           'İl': k.il || '',
           'Yasal süre': xlSure,
           'Son gün': xlSonGun,

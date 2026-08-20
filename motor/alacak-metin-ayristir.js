@@ -296,18 +296,25 @@ async function kos() {
   const ilanlar = obj.ilanlar || [];
   const zorla = bayrak('zorla');
   const tavan = parseInt(deger('adet') || '0', 10) || Infinity;
-  let say = 0, sayac = { metin: 0, borclu: 0, vkn: 0, esas: 0, muhlet: 0, komiser: 0 };
+  let say = 0, yok = 0, sayac = { metin: 0, borclu: 0, vkn: 0, esas: 0, muhlet: 0, komiser: 0 };
 
   for (const x of ilanlar) {
     if (x.tur !== 'iflas' && x.tur !== 'konkordato') continue;
     if (say >= tavan) break;
     if (x.metin && !zorla) continue;
+    // 20.08 OLCULDU: 25 ilanin metni kaynakta YOK — API 200 doner ama
+    // result.id null gelir (ilan ilan.gov.tr'den kaldirilmis). Damgalanir,
+    // yoksa her kosuda bosuna 25 istek gider. --zorla yine dener.
+    if (x.metin_yok && !zorla) continue;
     const id = (String(x.url || '').match(/\/ilan\/(\d+)\//) || [])[1];
     if (!id) continue;
     let j = {};
     try { j = JSON.parse(await detayCek(id)); } catch (e) { continue; }
     const metin = metinTemizle(j && j.result && j.result.content);
-    if (!metin || metin.length < 40) continue;
+    if (!metin || metin.length < 40) {
+      if (j && j.result && j.result.id === null) { x.metin_yok = 'kaynakta-yok'; yok++; }
+      continue;
+    }
     say++;
     const r = ayristir(metin);
     x.metin = r.metin; sayac.metin++;
@@ -331,6 +338,7 @@ async function kos() {
     await new Promise(r2 => setTimeout(r2, 120));
   }
   fs.writeFileSync(hedef, JSON.stringify(obj, null, 1), 'utf8');
+  console.log('Kaynakta metni olmayan (damgalandi): ' + yok);
   console.log('Taranan: ' + say + ' · metin: ' + sayac.metin + ' · borçlu adı: ' + sayac.borclu + ' · VKN: ' + sayac.vkn + ' · esas no: ' + sayac.esas + ' · mühlet: ' + sayac.muhlet + ' · komiser: ' + sayac.komiser);
 
   // yaz -> geri oku -> karşılaştır (pazarlıksız kural)
