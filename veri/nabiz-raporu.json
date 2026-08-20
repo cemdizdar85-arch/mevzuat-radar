@@ -1,20 +1,13 @@
 {
-  "tarih": "19.08.2026 19:13",
+  "tarih": "20.08.2026 05:19",
   "durum": "ALARM",
-  "kirmizi": 4,
-  "kurtarma": 1,
+  "kirmizi": 1,
+  "kurtarma": 0,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "HAZIR kaynak dosyasi YOK: tevkifat14592 (GVK 94 Tevkifat Oranlari BKK (2009/14592))",
-    "HAZIR kaynak dosyasi YOK: tevkifat14593 (KVK 30 Tevkifat Oranlari BKK (2009/14593))",
-    "HAZIR kaynak dosyasi YOK: fuar-genelge (Fuar Desteklerine Iliskin Genelge (5973 uygulama))",
-    "HAZIR kaynak dosyasi YOK: tevkifat14594 (KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594))"
+    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 783.5 saat once (esik 30s)). Actions loguna bak."
   ],
-  "kurtarilan": [
-    "Gunluk Kanun Aynasi -> son basarili kosu 773.4 saat once (esik 30s) -> kurtarma: tetiklendi"
-  ],
-  "kurtarilan_anahtar": [
-    "KOSU:mevzuat.yml"
-  ]
+  "kurtarilan": [],
+  "kurtarilan_anahtar": []
 }
