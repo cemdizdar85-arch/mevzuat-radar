@@ -301,6 +301,17 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     }
     return k.borclu||k.baslik||'—';
   }
+  // "Eşleşen kaydın: 6170606186 · VKN 2091426181" yanıltıcıydı — ikincisi
+  // ilanın İLK borçlusunun VKN'si. Sorgu zaten VKN ise tekrar basılmaz;
+  // grup ilanında aranan VKN farklıysa ilanın ana kaydı ayrıca yazılır.
+  function aiVknEki(k){
+    var say=String(k.sorgu||'').replace(/\D/g,'');
+    if(!k.vkn) return '';
+    if(say===k.vkn) return '';
+    if(Array.isArray(k.borclular) && k.borclular.some(function(b){return b&&b.vkn===say;}))
+      return ' · ilan kaydı VKN '+aiKac(k.vkn);
+    return ' · VKN '+aiKac(k.vkn);
+  }
   function aiIlanAyrinti(k){
     var h='';
     var TIP={gecici:'geçici mühlet',kesin:'kesin mühlet',uzatma:'mühlet uzatması'};
@@ -865,7 +876,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           +'<span class="rozet risk">'+(k.tip==='vkn'?'⚠ Risk, ':'⚠ OLASI eşleşme, ')+turAdi+(k.tip==='vkn'?' · VKN birebir eşleşti':' · unvan benzerliği')+'</span>'
           +'<h3>'+aiKac(aiEslesenBorclu(k))+'</h3>'
           +(k.tip==='ad'?'<div class="belg" style="border-color:rgba(255,194,75,.35)">Bu eşleşme unvan benzerliğine dayalıdır; aynı adı taşıyan <b>farklı bir firma</b> olabilir. VKN ile doğrula, ilan metnini oku.</div>':'')
-          +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
+          +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+aiVknEki(k)+'</span></div>'
           +'<div class="satir"><b>Kurum</b><span>'+aiKac(k.mahkeme||k.kurum||'—')+(k.esas_no?' · '+aiKac(k.esas_no):'')+'</span></div>'
           +'<div class="satir"><b>Yer / ilan tarihi</b><span>'+aiKac([k.il,k.tarih].filter(Boolean).join(' · ')||'—')+'</span></div>'
           +aiIlanAyrinti(k)
