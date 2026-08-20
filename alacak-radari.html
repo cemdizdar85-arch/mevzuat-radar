@@ -6,7 +6,7 @@
 <title>Alacak Radarı — müşterin batmadan haber al | Tetikte</title>
 <meta name="description" content="Borçlularını gir; biri konkordato/iflas ilan edince İİK süreleriyle uyarı al. Alacağını süresinde kaydet, müzakere hakkını kaybetme.">
 <style>
-:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d141e;--panel2:#0a0f17;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.14);--ink:#eef2f7;--muted:#93a1b3;--dim:#7d8b9d;--accent:#f5a524;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e;--amber:#ffb020;--green:#3ddc97}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--accent2)}
@@ -97,35 +97,51 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        TAM arşivden, sunucuda sayılır). Veri gelmezse aşağıdaki rakamsız metin
        kalır — rakam ASLA gömülü yazılmaz. -->
   <div><span class="gozalici" id="aiRozet">🚨 Müşterin iflas veya konkordato ilan etti mi?</span></div>
-  <h1>Müşterin battı, senin haberin yok</h1>
-  <p class="lead">Borçlu ve müşteri portföyünü vergi kimlik numarasıyla bir kez tanımla. Haklarında <b style="color:var(--ink)">konkordato veya iflas</b> ilanı yayımlandığında aynı gün haberdar ol; İcra ve İflas Kanunu'ndaki yasal süreleri ve yapılacak işlemleri uyarıyla birlikte hazır bul. <b style="color:var(--ink)">Alacak kaydını süresinde yaptır; müzakere ve oy hakkını koru.</b></p>
+  <h1>Sana borcu olan firma battı, senin haberin yok</h1>
+  <p class="lead">Vergi kimlik numarasını yaz, son 1 yılın tamamında (<b style="color:var(--accent2)"><span id="aiAdet3">…</span> resmî ilan</b>) ara — <b style="color:var(--green)">tek sorgu ücretsiz</b>.</p>
 
-  <div class="uyari"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: <span id="aiAdet2">…</span> ilan</b>, VKN/TCKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
-
-  <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler -->
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 2px">
-    <button type="button" onclick="aiFiltre('konkordato',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,176,32,.16),rgba(255,176,32,.06));border:1px solid rgba(255,176,32,.4);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">📄 Konkordato ilanları <span style="color:var(--amber)">→</span></button>
-    <button type="button" onclick="aiFiltre('iflas',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,94,.16),rgba(255,107,94,.06));border:1px solid rgba(255,107,94,.42);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">⚖️ İflas ilanları <span style="color:var(--red)">→</span></button>
-  </div>
-
-  <!-- 19.08 Cem: "Excel'i göremedim" — tarama kutusu canlı akışın ALTINA gömülüydü
-       (40 kart sonrası); asıl ürün eylemi olduğu için akışın ÜSTÜNE taşındı. -->
-  <div class="kutu" style="margin-top:18px">
+  <!-- 20.08 Cem + rakip incelemesi (Creditsafe / The Gazette / Companies House):
+       self-servis alacak ürünlerinde ilk ekranda TEK eylem var, o da arama.
+       Veri kaynağı + hukuki çerçeve metni sayfa dibindeki katlanır bloğa indi;
+       Excel yükleme tek sorgunun ALTINA ikincil kapı oldu (Gazette deseni:
+       tek kutu üstte, ayrıntılar altta). Tür düğmeleri arşiv başlığına taşındı. -->
+  <div class="kutu" style="margin-top:16px">
     <div class="pbar"><i></i><i></i><i></i><b>alacak taraması · tetikte.com</b></div>
-    <label>Müşteri / borçlu listeni yükle — <b style="color:var(--accent2)">1 yıllık arşivin tamamında (<span id="aiAdet1">…</span> ilan) taranır</b></label>
-    <label class="yukle" id="yukleKutu">
-      <div class="ikon">📄</div>
-      <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
-      <div class="alt">Cari listeni (VKN'li) yükle. <b style="color:var(--muted)">Dosyan bize ulaşmaz</b>: tarayıcıda okunur, yalnızca ayıkladığımız VKN/TCKN'ler sorgu olarak gider; unvan, adres, bakiye sütunların <b style="color:var(--muted)">bizde hiç görünmez</b> ve saklanmaz.</div>
-      <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
-    </label>
-    <div class="yukle-durum" id="yukleDurum"></div>
-    <div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6;text-align:center">Toplu taramada ücretsiz deneme <b style="color:var(--muted)">listenin ilk 25 satırı</b> ve <b style="color:var(--muted)">3 eşleşme</b> ile sınırlıdır. Tamamı + işaretlenmiş Excel çıktısı <a href="radar-fiyat.html?nereden=alacak-excel" style="color:var(--accent2);font-weight:700">abonelikte</a>.</div>
-    <div class="ayrac">ya da tek borçlu sorgula — <b style="color:var(--green)">ücretsiz</b></div>
-    <label for="giris"><b style="color:var(--ink)">Bir VKN, TCKN ya da bir firma adı</b> yaz — <b style="color:var(--green)">tek kayıt sorgusu ücretsizdir</b>. En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Çok sayıda borçlu için yukarıdan <b style="color:var(--ink)">Excel/CSV yükle</b>.</label>
+    <label for="giris"><b style="color:var(--ink)">Bir VKN, TCKN ya da firma adı</b> yaz — <b style="color:var(--accent2)">arşivin tamamında (<span id="aiAdet1">…</span> ilan)</b> aranır</label>
     <input type="text" id="giris" class="gir" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font:inherit;font-size:15px" placeholder="ör. 280365097 ya da PERGEL METAL (demo verisinde eşleşir)" onkeydown="if(event.key==='Enter')kontrol()">
     <button class="btn" onclick="kontrol()">Alacaklarımı tara →</button>
-    <div class="ipucu">Deneme için örnek VKN 280365097'yi arayabilirsin. Gerçek kullanımda kendi borçlunu yaz ya da listeni yükle.</div>
+    <div class="ipucu">En kesin sonuç VKN iledir; firma adında en az iki kelime kullan (tek kelimelik ad, karışıklığı önlemek için taranmaz). Deneme için örnek VKN <b style="color:var(--muted)">280365097</b>.</div>
+    <div class="ayrac">çok borçlun mu var?</div>
+    <details id="topluKutu" style="border:1px solid var(--line);border-radius:12px;padding:0 14px;background:var(--panel2)">
+      <summary style="cursor:pointer;padding:12px 0;font-weight:700;font-size:13.5px;color:var(--ink)">📄 Excel / CSV listeni yükle — hepsini tek seferde tara</summary>
+      <div style="padding-bottom:14px">
+        <label class="yukle" id="yukleKutu">
+          <div class="ikon">📄</div>
+          <div class="bas2">Excel, CSV ya da PDF sürükle / seç</div>
+          <div class="alt">Cari listeni (VKN'li) yükle. <b style="color:var(--muted)">Dosyan bize ulaşmaz</b>: tarayıcıda okunur, yalnızca ayıkladığımız VKN/TCKN'ler sorgu olarak gider; unvan, adres, bakiye sütunların <b style="color:var(--muted)">bizde hiç görünmez</b> ve saklanmaz.</div>
+          <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
+        </label>
+        <div class="yukle-durum" id="yukleDurum"></div>
+        <div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6;text-align:center">Toplu taramada ücretsiz deneme <b style="color:var(--muted)">listenin ilk 25 satırı</b> ve <b style="color:var(--muted)">3 eşleşme</b> ile sınırlıdır. Tamamı + işaretlenmiş Excel çıktısı <a href="radar-fiyat.html?nereden=alacak-excel" style="color:var(--accent2);font-weight:700">abonelikte</a>.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- 20.08: "bu ne işe yarar" sorusunun üç kutuluk cevabı (Red Flag Alert'in
+       Acquire/Onboard/Monitor deseninin sade hâli). Süre İİK m.299'dan. -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:14px 0 2px">
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">1 · ARA</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İlan var mı, aynı saniyede gör</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">2 · LİSTENİ BIRAK</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Sistem her gün senin yerine tarar</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">3 · UYARI GELSİN</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İlan çıktığı gün, 15 günlük süresiyle</div>
+    </div>
   </div>
 
   <div id="sonuc"></div>
@@ -156,6 +172,12 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
        birikimli havuz, tarih damgasi). VKN eslestirme motoru ayri - o tohumla calisir. -->
   <h2 style="margin:26px 0 4px">📡 İflas &amp; konkordato arşivi <span style="font-size:13px;color:var(--dim);font-weight:600">· son 1 yıl · günde iki kez otomatik güncellenir</span></h2>
   <div class="ipucu" id="aiDamga" style="margin:0 0 10px">tarih damgası yükleniyor…</div>
+  <!-- Cem 15.08: türü üstten basıp sonucu getiren belirgin hızlı düğmeler.
+       20.08: ilk ekran tek eyleme (arama) indirildiği için arşiv başlığına taşındı. -->
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px">
+    <button type="button" onclick="aiFiltre('konkordato',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,176,32,.16),rgba(255,176,32,.06));border:1px solid rgba(255,176,32,.4);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">📄 Konkordato ilanları <span style="color:var(--amber)">→</span></button>
+    <button type="button" onclick="aiFiltre('iflas',true)" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,94,.16),rgba(255,107,94,.06));border:1px solid rgba(255,107,94,.42);color:var(--ink);font:inherit;font-weight:800;font-size:15px;padding:14px 16px;border-radius:13px;cursor:pointer">⚖️ İflas ilanları <span style="color:var(--red)">→</span></button>
+  </div>
   <!-- 14.08 Cem: İhale Radarı deseni. Canlı akışta 287 ilan vardı ama 10'u görünüp
        arama/filtre/sayaç yoktu; kullanıcı kendi borçlusunu bulamıyordu. VKN aracı
        yalnız tohumla eşleşiyor; asıl canlı veriyi ancak ad/il aramasıyla ölçeriz. -->
@@ -312,7 +334,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var e=document.getElementById('aiDamga');
     if(e) e.innerHTML='<b style="color:var(--accent2);font-size:15px">'+AI_ARSIV_ADET.toLocaleString('tr-TR')+' ilan</b> <span style="color:var(--muted)">son 1 yılın tamamı, VKN/TCKN ile aranabilir</span>';
     // RAKAM DISIPLINI: arsiv adedi tek yerden (kasadan) basilir, sayfaya elle yazilmaz.
-    ['aiAdet1','aiAdet2'].forEach(function(id){ var n=document.getElementById(id); if(n) n.textContent=AI_ARSIV_ADET.toLocaleString('tr-TR'); });
+    ['aiAdet1','aiAdet2','aiAdet3'].forEach(function(id){ var n=document.getElementById(id); if(n) n.textContent=AI_ARSIV_ADET.toLocaleString('tr-TR'); });
     // ROZET: yalnız ölçülmüş sayı basılır; alan yoksa rakamsız metin olduğu gibi kalır.
     var rz=document.getElementById('aiRozet');
     if(rz && d.son30>0){
@@ -452,6 +474,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <p style="font-size:13px;color:var(--muted);line-height:1.65;margin:0;padding-bottom:14px">Basın İlan Kurumu Resmî İlan Portalı'nda (ilan.gov.tr) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanlarından. Akış her gün iki kez otomatik güncellenir; kartların altındaki "ilan metni" bağlantısı resmî kaynağa gider.</p>
   </details>
   <div style="font-size:13px;color:var(--muted);margin:12px 0 0">📖 Alacaklı olarak İİK'daki tüm hakların, süreler ve iflastan önce erken uyarı kaynakları: <a href="alacakli-rehberi.html" style="font-weight:700">Alacaklı Rehberi →</a></div>
+
+  <!-- 20.08: hero'daki uzun "Veri kaynağı / Hukuki çerçeve" bloğu buraya indi.
+       Kanıt satışı destekler ama vuruştan SONRA gelir (Gazette/Creditsafe deseni). -->
+  <details style="background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 15px;margin:18px 0 0">
+    <summary style="cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:var(--ink)">Veri kaynağı ve hukuki dayanak</summary>
+    <div class="uyari" style="border:0;background:none;padding:0 0 14px;margin:0"><b style="color:var(--ink)">Veri kaynağı:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (<b style="color:var(--muted)">ilan.gov.tr</b>) yayımlanan mahkeme kaynaklı iflas ve konkordato ilanları. Elimizde <b style="color:var(--ink)">son 1 yılın tamamı var: <span id="aiAdet2">…</span> ilan</b>, VKN/TCKN ile aranabilir; akış <b style="color:var(--ink)">her gün iki kez otomatik güncellenir</b>. Bu sayfadaki eşleştirme aracı, yüklenen listeyi (Excel/CSV veya VKN girişi) <b style="color:var(--ink)">arşivin tamamında</b> anında tarar; <b style="color:var(--ink)">kayıtlı borçlu listesiyle sürekli izleme ve otomatik uyarı abonelik kapsamında</b> sunulur.<br><b style="color:var(--ink)">Hukuki çerçeve:</b> Konkordatoda ilan sureti, adresi borçlunun kayıtlarında bulunan alacaklılara posta yoluyla da gönderilir (İİK m.299/301). Yasal süreler ise <b style="color:var(--ink)">posta tarihinden değil, ilan tarihinden itibaren işler</b>; adresi kayıtlarda bulunmayan alacaklıya gönderim yapılmaz, iflas ilanlarında (m.219) posta hükmü bulunmaz. Alacak Radarı, ilanı yayımlandığı gün tespit ederek bu süre riskini ortadan kaldırmak için tasarlanmıştır. Bilgilendirme amaçlıdır; hukuki danışmanlık yerine geçmez.</div>
+  </details>
 
   <div class="dip">Kaynak: Basın İlan Kurumu Resmî İlan Portalı (ilan.gov.tr) · İcra ve İflas Kanunu m.288/294/299 · Tetikte. Kartlardaki süreler bilgilendirme amaçlıdır; kesin süre ve işlemler için ilan metnine ve avukatına danış.</div>
 </div>
