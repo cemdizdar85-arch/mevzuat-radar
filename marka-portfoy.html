@@ -171,6 +171,10 @@ const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishab
 const $=s=>document.querySelector(s);
 const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ETIKET={ 'ek-sure':['EK SÜREDE','r'], 'yenileme-penceresi':['YENİLEME AÇIK','a'], 'surecte':['SÜREÇTE','n'], 'guvende':['GÜVENDE','g'], 'dusmus':['DÜŞMÜŞ','n'], 'bilinmiyor':['?','n'] };
+// Robot sicil durumunu TMview'den Ingilizce sabit koda cevirir (translate'siz uc);
+// kullaniciya Turkcesi gosterilir.
+const DURUM_TR={ 'Registered':'tescilli', 'Filed':'başvuru aşamasında', 'Ended':'sona ermiş', 'Expired':'süresi dolmuş', 'Withdrawn':'geri çekilmiş', 'Refused':'reddedilmiş', 'Application published':'yayımlanmış', 'Application opposed':'itiraz edilmiş', 'Invalid':'hükümsüz', 'Surrendered':'vazgeçilmiş' };
+const durumTr=d=>DURUM_TR[d]||d;
 let ZAMANLAYICI=null, DENEME=0;
 
 function durumYaz(m){ $('#t_durum').innerHTML=m; }
@@ -194,7 +198,7 @@ function sonucCiz(s, jeton){
   h+='<div style="margin-top:14px">'+s.markalar.map(m=>{
       const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
       return '<div class="kart '+e[1]+'"><div style="font-size:15px;font-weight:800">'+kac(m.ad)+' <span class="rz">'+e[0]+'</span></div>'+
-        '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicil durumu '+kac(m.durum)+'</div>'+
+        '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicilde '+kac(durumTr(m.durum))+'</div>'+
         '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+'</div></div>';
     }).join('')+'</div>';
   h+='<div class="mini" style="margin-top:6px">Eşleştirilen sicil unvanları: '+(v||'—')+'</div>';
