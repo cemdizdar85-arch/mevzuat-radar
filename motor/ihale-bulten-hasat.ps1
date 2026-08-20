@@ -242,7 +242,16 @@ function AlanBul($etiketler, [string]$desen){
   return ""
 }
 function IlanlariCoz([string]$metin, [string]$bolumBasi, [string]$bolumSonu, [string]$tur){
-  $i = $metin.IndexOf($bolumBasi, 20000)   # icindekiler tablosunu atla
+  # 20.08 OLCULDU: 01.06.2026 backfill'inde bu satir COKTU - "startIndex koleksiyon
+  # boyutundan kucuk olmali". Sebep: bulten KISA geldiginde metin 20.000 karakteri
+  # bulmuyor ve IndexOf araligin disina cikiyor; o gun 0 kayit alindi. Sabit sayi
+  # varsayimi bu dosyada daha once de vurmustu (ayni varsayim 77 ilani sessizce
+  # sifirlamisti). Baslangic noktasi metnin boyuna gore KIRPILIR.
+  if(-not $metin){ return @() }
+  $bas = [math]::Min(20000, [math]::Max(0, $metin.Length - 1))
+  $i = $metin.IndexOf($bolumBasi, $bas)   # icindekiler tablosunu atla
+  # Kisa bultende icindekiler tablosu da yoktur: bastan aranir.
+  if($i -lt 0 -and $bas -gt 0 -and $metin.Length -lt 20000){ $i = $metin.IndexOf($bolumBasi) }
   if($i -lt 0){ return @() }
   $j = if($bolumSonu){ $metin.IndexOf($bolumSonu, $i + 100) } else { -1 }
   if($j -lt 0){ $j = $metin.Length }

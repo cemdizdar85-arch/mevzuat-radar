@@ -22,7 +22,7 @@
 # kayitta 18,5 MB oldu ve sayfa TAMAMINI indiriyor. Tavan konur; sessiz
 # kirpma YASAK: kac firma disarida kaldigi hem ekrana hem dosyaya yazilir.
 # Kalici cozum aramayi sunucuya almak (RPC); tavan o gune kadarki fren.
-param([switch]$Yaz, [int]$AsgariGoster = 1, [int]$Tavan = 2500, [int]$IhaleTavan = 12)
+param([switch]$Yaz, [int]$AsgariGoster = 1, [int]$DetayTavan = 700, [int]$IhaleTavan = 10)
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
@@ -122,17 +122,26 @@ foreach($k in $grup.Keys){
 # TUZAK: [ordered]@{} bir OrderedDictionary; Sort-Object -Property onu siralamiyor
 # (hepsi ayni sirada kaliyordu). Scriptblock ile siralanir.
 $firmalar = @($firmalar | Sort-Object { [int]$_.ihaleSayisi } -Descending)
+# 20.08 (3 aylik derinlikte olculdu): dosyayi sisiren sey FIRMA SAYISI degil,
+# her firmanin ICINE gomulu ihale listesi. Firmanin ozet satiri ~150 bayt,
+# ihale satiri ~430. Bu yuzden firma LISTESI KIRPILMAZ - kirpilsaydi 8.500
+# firma arananamaz olurdu, sayfanin isi de zaten "rakibimi bul". Kirpilan sey
+# DETAY: yalnizca en cok is alan $DetayTavan firmanin ihale listesi yazilir,
+# gerisi ozet rakamlariyla (kac ihale, toplam bedel, ort kirim) gorunur.
+# Sessiz kirpma yok: kac firmanin listesi yazilmadigi ekrana ve dosyaya gecer.
 $firmaToplam = $firmalar.Count
-if($firmaToplam -gt $Tavan){
-  $firmalar = @($firmalar | Select-Object -First $Tavan)
-  Write-Host ("   not: {0} firma tavan disinda kaldi (en az ihale alanlar)" -f ($firmaToplam-$Tavan))
-}
-# her firmanin ihale listesi de kirpilir - agirligin buyuk kismi orada
-$kirpilanIhale = 0
-foreach($f in $firmalar){
+$detaysiz = 0; $kirpilanIhale = 0
+for($fi=0; $fi -lt $firmalar.Count; $fi++){
+  $f = $firmalar[$fi]
   $l = @($f.ihaleler)
+  if($fi -ge $DetayTavan){
+    if($l.Count){ $detaysiz++ }
+    $f.ihaleler = @()
+    continue
+  }
   if($l.Count -gt $IhaleTavan){ $kirpilanIhale += ($l.Count - $IhaleTavan); $f.ihaleler = @($l | Select-Object -First $IhaleTavan) }
 }
+if($detaysiz){ Write-Host ("   not: {0} firmanin ihale listesi yazilmadi (ozet rakamlari duruyor, en cok is alan {1} firmada detay var)" -f $detaysiz, $DetayTavan) }
 if($kirpilanIhale){ Write-Host ("   not: {0} ihale satiri firma basina {1} tavaniyla kirpildi" -f $kirpilanIhale, $IhaleTavan) }
 Write-Host ("`nyazilacak firma: {0}" -f $firmalar.Count)
 Write-Host "--- en cok kazanan 5 ---"

@@ -102,7 +102,12 @@ foreach ($x in $kayitlar) {
   })
 }
 # ayni anahtardan iki kayit varsa sonuncusu gecerlidir (havuz kurali)
-$tekil = [ordered]@{}
+# TUZAK (olculdu 20.08): PowerShell'in hashtable/ordered sozlugu BUYUK-KUCUK HARF
+# AYIRMAZ; Postgres'in text karsilastirmasi ayirir. "...LIMITED SIRKETI" ile
+# "...Limited Sirketi" iki AYRI kayitken sozlukte tek anahtara duserler ve biri
+# sessizce dusurulur. 45.410 gonderilirken kasada 45.411 cikmasinin sebebi buydu:
+# fark bir kayitti ama sessizdi. Ordinal (harf duyarli) sozluk kullanilir.
+$tekil = New-Object 'System.Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
 foreach ($h in $hazir) { $tekil[$h.anahtar] = $h }
 $gonderilecek = @($tekil.Values)
 Write-Host ("HAZIR : {0:N0} tekil kayit (anahtarsiz atlanan: {1})" -f $gonderilecek.Count, $anahtarsiz)

@@ -16,7 +16,7 @@
 #  sozlesmeli/ayni para birimli ihalede. Kisimli ihale IKN bazinda TEK sayilir
 #  (firma ozetindeki ayni tuzak). -Yaz verilmedikce dosya yazmaz.
 # ============================================================================
-param([switch]$Yaz, [int]$Tavan = 400)
+param([switch]$Yaz, [int]$DetayTavan = 400, [int]$IhaleTavan = 10)
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
@@ -96,8 +96,20 @@ $idareler | Select-Object -First 5 | ForEach-Object {
 if($Yaz){
   # site dosyasi buyume siniri
   # NOT: yerel adi $yaz KOYMA - switch param $Yaz ile ayni degisken (PS harf duyarsiz)
+  # 20.08 (3 aylik derinlik): eskiden yalniz en cok ihale acan 400 idare
+  # yaziliyordu - 6.659 idare arananamaz haldeydi. Firma ozetindeki ayrimin
+  # aynisi: idare LISTESI kirpilmaz (ozet rakamlari herkes icin durur),
+  # kirpilan sey her idarenin icine gomulu IHALE LISTESI. Sessiz kirpma yok.
   $cikanlar = @($idareler)
-  if($cikanlar.Count -gt $Tavan){ $cikanlar = @($cikanlar[0..($Tavan-1)]) }
+  $detaysiz = 0; $kirpilanIhale = 0
+  for($ii=0; $ii -lt $cikanlar.Count; $ii++){
+    $it = $cikanlar[$ii]
+    $l = @($it.ihaleler)
+    if($ii -ge $DetayTavan){ if($l.Count){ $detaysiz++ }; $it.ihaleler = @(); continue }
+    if($l.Count -gt $IhaleTavan){ $kirpilanIhale += ($l.Count - $IhaleTavan); $it.ihaleler = @($l | Select-Object -First $IhaleTavan) }
+  }
+  if($detaysiz){ Write-Host ("   not: {0} idarenin ihale listesi yazilmadi (ozet rakamlari duruyor, en cok ihale acan {1} idarede detay var)" -f $detaysiz, $DetayTavan) }
+  if($kirpilanIhale){ Write-Host ("   not: {0} ihale satiri idare basina {1} tavaniyla kirpildi" -f $kirpilanIhale, $IhaleTavan) }
   $yol = Join-Path $kok "veri\ihale-idare-ozet.json"
   $cikti = [ordered]@{
     guncelleme = "Kaynak: Kamu İhale Bülteni — Sonuç İlanları (KİK). Son çekim: " + (Get-Date -Format "dd.MM.yyyy HH:mm") + "."
@@ -107,5 +119,5 @@ if($Yaz){
   }
   ($cikti | ConvertTo-Json -Depth 6) | Out-File $yol -Encoding utf8
   $geri = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
-  Write-Host ("`n-> {0} · {1:N0} KB · {2}/{3} idare (tavan {4})" -f $yol, ((Get-Item $yol).Length/1KB), @($geri.idareler).Count, $idareler.Count, $Tavan)
+  Write-Host ("`n-> {0} · {1:N0} KB · {2}/{3} idare (detay tavani {4})" -f $yol, ((Get-Item $yol).Length/1KB), @($geri.idareler).Count, $idareler.Count, $DetayTavan)
 } else { Write-Host "`n(olcum modu - yazmak icin -Yaz)" }
