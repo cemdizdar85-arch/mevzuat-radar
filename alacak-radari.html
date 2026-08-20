@@ -787,9 +787,15 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
     } else {
       const tek = await sbRpc('alacak_ara', { p_sorgu: sorgular[0].ham });
       abone = true; // tek sorguda kilit yok
+      // 20.08: metin ayristirmasindan gelen alanlar da TASINIR — burada
+      // kopyalanmayan alan karta hic ulasmaz (ilk denemede mahkeme/muhlet
+      // bos gorunmesinin sebebi buydu).
       kayitlar = (tek||[]).map(r => ({
         sorgu: sorgular[0].ham, gizli:false, tip:r.tip, tur:r.tur, tarih:r.tarih_str,
-        baslik:r.baslik, borclu:r.borclu, vkn:r.vkn, kurum:r.kurum, il:r.il, url:r.url
+        baslik:r.baslik, borclu:r.borclu, vkn:r.vkn, kurum:r.kurum, il:r.il, url:r.url,
+        esas_no:r.esas_no, mahkeme:r.mahkeme, muhlet_tip:r.muhlet_tip, muhlet_ay:r.muhlet_ay,
+        muhlet_baslangic:r.muhlet_baslangic, muhlet_bitis:r.muhlet_bitis,
+        komiser:r.komiser, itiraz_gun:r.itiraz_gun, borclular:r.borclular
       }));
       eslesme = kayitlar.length; eslesenSorgu = kayitlar.length ? 1 : 0;
     }
