@@ -20,9 +20,14 @@ param([switch]$Yaz, [int]$Tavan = 400)
 $ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$kaynak = Join-Path $kok "veri\ihale-sonuc.json"
-if(-not (Test-Path $kaynak)){ Write-Host "ihale-sonuc.json yok"; if($Yaz){ exit 1 }; return }
-$s = @((Get-Content $kaynak -Raw -Encoding UTF8 | ConvertFrom-Json).sonuclar)
+# AMBAR ARTIK DEPODA DEGIL (20.08.2026): veri/ihale-sonuc.json 28,2 MB'lik ACIK
+# dosyaydi ve public depoda duruyordu - 24.043 sonuc ilani, 6.844 firma, kirim
+# gecmisi. Ham kayit Supabase kasasinda (RLS acik, policy YOK); buraya yalniz
+# service_role ile, ihale_dokum ucundan gelir. Donen sekil eskisinin AYNISI,
+# bu yuzden asagidaki hesap kismina hic dokunulmadi.
+. (Join-Path $here 'ihale-ambar-oku.ps1')
+$s = @(Ihale-AmbarOku -Kok $kok)
+if(-not $s.Count){ Write-Host 'ambar bos/okunamadi - cikiliyor'; if($Yaz){ exit 1 }; return }
 Write-Host ("kaynak: {0} sonuc ilani" -f $s.Count)
 
 function IdareAnahtar([string]$ad){ ("$ad".ToUpper() -replace '[^A-ZÇĞİÖŞÜ0-9 ]',' ' -replace '\s+',' ').Trim() }

@@ -212,3 +212,24 @@ revoke all on function public.ihale_sayi() from public, anon, authenticated;
 --    select * from public.ihale_sayi();
 --  Yukleme sonrasi beklenen: kayit 24.043 · olculen ~5.993 · kisimli ~17.863
 -- ============================================================================
+
+-- ---------------------------------------------------------------- BOLUM 6/6
+--  GORUNUM SIZINTISI (20.08.2026 - olculdu, tahmin degil)
+--
+--  Tablo kilitliydi (RLS acik, policy yok) ama GORUNUM aciktu: Postgres'te bir
+--  view, SAHIBININ yetkisiyle calisir; alttaki tablonun RLS'i devreye girmez.
+--  Anon anahtarla /rest/v1/ihale_sonuc_v?select=ikn,kirim_yuzde&limit=5
+--  cagrildiginda 5 GERCEK KAYIT dondu - yani kasanin arka kapisi acik kalmis.
+--
+--  DERS (alacak kasasindan tanidik): "tabloyu kilitledim" yetmez, o tabloyu
+--  gosteren HER YOL olculur. Bos tabloda test etmek de yanilticidir - bos ile
+--  kilitli ayni gorunur; olcum VERI YUKLENDIKTEN SONRA tekrarlanmali.
+--
+--  Iki kapi birden kapatilir:
+--    security_invoker = on  -> gorunum artik CAGIRANIN yetkisiyle calisir,
+--                              yani alttaki tablonun RLS'i uygulanir
+--    revoke                 -> PostgREST'in gorunumu hic servis etmemesi icin
+-- ---------------------------------------------------------------------------
+alter view public.ihale_sonuc_v set (security_invoker = on);
+revoke all on public.ihale_sonuc_v from anon, authenticated;
+revoke all on public.ihale_sonuc   from anon, authenticated;

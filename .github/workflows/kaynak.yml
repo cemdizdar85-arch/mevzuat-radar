@@ -187,6 +187,18 @@ jobs:
         shell: pwsh
         run: ./motor/ihale-sonuc-ayristir.ps1 -Yaz
 
+      # 20.08 GIZLI KASA: ham sonuc ilani ARTIK DEPOYA YAZILMAZ. Ayristirici
+      # gunun kayitlarini uretir, bu adim Supabase'e basar; birikim orada olur
+      # (veri/ihale-sonuc.json artik gitignore'da, kosudan kosuya tasinmaz).
+      # Ozet adimlari asagida kasadan okur. Anahtar yoksa adim "atlandi" der.
+      - name: Kamu Ihale Bulteni — SONUC ilanlarini gizli kasaya yaz
+        if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/ihale-supabase-yukle.ps1
+
       # Ham sonuc verisi 1,7 MB - siteye OZET gider (kirim medyani + rekabet).
       # Kartlar "bu is gercekte kaca yapiliyor" satirini bundan cizer.
       - name: Sonuc ilanlarindan ozet uret (karta giden veri)
@@ -194,6 +206,8 @@ jobs:
         if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
         continue-on-error: true
         shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/ihale-sonuc-ozet.ps1 -Yaz
 
       # Rakip firma analizi (firma-analizi.html): sonuc ilanlarindaki yuklenici
@@ -203,6 +217,8 @@ jobs:
         if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
         continue-on-error: true
         shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/ihale-firma-ozet.ps1 -Yaz
 
       # Idare analizi (idare-analizi.html): sonuc ilanlarini KURUM bazinda
@@ -212,6 +228,8 @@ jobs:
         if: github.event.schedule != '13 14 * * *' && steps.bultensonuc.outcome == 'success'
         continue-on-error: true
         shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./motor/ihale-idare-ozet.ps1 -Yaz
 
       # TBB Risk Merkezi aylik bulten izleme (alacak-radari makro resmi katman).
