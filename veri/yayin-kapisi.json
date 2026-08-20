@@ -1,8 +1,347 @@
 {
-  "tarih": "20.08.2026 18:43",
-  "karar": "DURDU",
-  "sebep": "kapi kosarken hata aldi - olculemeyen sey guvenli sayilmaz",
-  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
-  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
-  "satir": 70
+  "tarih": "20.08.2026 19:11",
+  "karar": "YAYIN YOK - olculecek soru bulunamadi",
+  "kasa_toplam": 30569,
+  "yayinda_soru": 0,
+  "kirmizi_soru_tum_kasa": 15025,
+  "kirmizi_soru_yayinda": 0,
+  "temiz_soru_toplam": 15544,
+  "temiz_ders_dagilimi": {
+    "|Finansal Muhasebe": 5071,
+    "|Maliyet Muhasebesi": 3412,
+    "|Hukuk": 1708,
+    "|Finansal Tablolar ve Analizi": 1664,
+    "|Mali Tablolar Analizi": 1042,
+    "|Muhasebe Standartlari": 648,
+    "|Muh. ve Mali Müş. Meslek Hukuku": 600,
+    "|Sermaye Piyasası Mevzuatı": 352,
+    "|Denetim Standartlari": 346,
+    "|Muhasebe Denetimi": 91,
+    "|Vergi Mevzuatı ve Uygulaması": 79,
+    "|Kurumsal Yonetim": 61,
+    "|Finansal Yonetim": 55,
+    "|Denetim": 51,
+    "|Turkce": 48,
+    "|Matematik": 47,
+    "|Maliye": 47,
+    "|Yabanci Dil": 47,
+    "|Borclar Hukuku": 40,
+    "|Meslek Hukuku": 30,
+    "|Is ve Sosyal Guvenlik Hukuku": 28,
+    "|Ticaret Hukuku": 25,
+    "|Ekonomi": 23,
+    "|Vergi Hukuku": 16,
+    "|Ataturk Ilke ve Inkilap Tarihi": 10,
+    "|Surdurulebilirlik": 3
+  },
+  "kapilar_tum_kasa": {
+    "K1_d3": 0,
+    "K2_kanun_kopyasi": 234,
+    "K3_yz_kokusu": 143,
+    "K4_hesap_kodu": 10946,
+    "K5_dogrusu_yok": 10366,
+    "K6_ayni_cumle": 7,
+    "K7_muglak_ifade": 52,
+    "K8_liste_eksik": 803,
+    "K9_eskimis_kurum": 8,
+    "K10_eski_terim": 0
+  },
+  "kapilar_yayinda": {
+    "K1_d3": 0,
+    "K2_kanun_kopyasi": 0,
+    "K3_yz_kokusu": 0,
+    "K4_hesap_kodu": 0,
+    "K5_dogrusu_yok": 0,
+    "K6_ayni_cumle": 0,
+    "K7_muglak_ifade": 0,
+    "K8_liste_eksik": 0,
+    "K9_eskimis_kurum": 0,
+    "K10_eski_terim": 0
+  },
+  "toplam_ihlal_tum_kasa": 22559,
+  "toplam_ihlal_yayinda": 0,
+  "ornekler": [
+    {
+      "kapi": "K8_liste_eksik",
+      "soru_id": "00034ecd-ea03-45fb-9802-66c70c0eb43a",
+      "ders": "Hukuk",
+      "yayinda": false,
+      "detay": "sinir sorusu ama Kural parcasinda listenin kalani sayilmamis (D18)"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "000585d7",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "000617ca",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 1"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "770 yazilan 'alacaklandırılır.\n\nAkılda kalsın' resmi 'Genel Yönetim Giderleri'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "000aa943-facf-431f-8a90-5559531a6a99",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "180 yazilan 'erteleme hesabı' resmi 'Gelecek Aylara Ait Giderler'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "00155510-8386-4a2d-bbd7-ee002d4eb4ae",
+      "ders": "Maliyet Muhasebesi",
+      "yayinda": false,
+      "detay": "151 yazilan 'yapılmaz. Toplu maliyet tek hesapta' resmi 'YARI MAMULLER-ÜRETİM'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "001df7f2",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0021f87f",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "198 yazilan 'kullanılmaz. TUZAK' resmi 'DİĞER ÇEŞİTLİ DÖNEN VARLIKLAR'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0022c88f-9b09-42e3-ac04-6d01d885ea89",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "257 yazilan 'Verilen Sipariş Avansları' resmi 'Birikmiş Amortismanlar (-)'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "002b7029-08cb-45ac-baf6-852eaa33a146",
+      "ders": "Muhasebe Standartlari",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "002e2dd2",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K2_kanun_kopyasi",
+      "soru_id": "00308718-bc37-422f-859d-127bfaf94f9c",
+      "ders": "Maliyet Muhasebesi",
+      "yayinda": false,
+      "detay": "kanun kopyasi dili"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0036b78e-1127-4b05-b620-efdf1eb1f075",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "370 yazilan 'değil' resmi 'DÖNEM KARI VERGİ VE DİĞER YASAL YÜKÜMLÜLÜK KARŞILIKLARI'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "100 yazilan 'kabul edilerek trend' resmi 'Kasa'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "340 yazilan 'çıkması' resmi 'ALINAN SİPARİŞ AVANSLARI'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "0038f1e9",
+      "ders": "Mali Tablolar Analizi",
+      "yayinda": false,
+      "detay": "100 yazilan 'formülüyle hesaplanır' resmi 'Kasa'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "003c5ba2",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "004658d6-0c82-4e1c-b3d9-a2d9cda53804",
+      "ders": "Hukuk",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 1"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "004c2ce7",
+      "ders": "Sermaye Piyasası Mevzuatı",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "004f7bef",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K8_liste_eksik",
+      "soru_id": "0057b5c3",
+      "ders": "Denetim",
+      "yayinda": false,
+      "detay": "sinir sorusu ama Kural parcasinda listenin kalani sayilmamis (D18)"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0057b5c3",
+      "ders": "Denetim",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "005a56ee-05d8-47d3-a5d2-dec535e8d11f",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 1"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "00607348-f3b7-4d15-b86a-0db1ce35c403",
+      "ders": "Denetim Standartlari",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "00607348-f3b7-4d15-b86a-0db1ce35c403",
+      "ders": "Denetim Standartlari",
+      "yayinda": false,
+      "detay": "540 yazilan 'paragraf' resmi 'YASAL YEDEKLER'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "00607348-f3b7-4d15-b86a-0db1ce35c403",
+      "ders": "Denetim Standartlari",
+      "yayinda": false,
+      "detay": "540 yazilan 'paragraf' resmi 'YASAL YEDEKLER'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "00607348-f3b7-4d15-b86a-0db1ce35c403",
+      "ders": "Denetim Standartlari",
+      "yayinda": false,
+      "detay": "540 yazilan 'paragraf' resmi 'YASAL YEDEKLER'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "00645bf8",
+      "ders": "Borclar Hukuku",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "00666a28-48a4-433d-ad5f-6c6bf6b93fd3",
+      "ders": "Maliyet Muhasebesi",
+      "yayinda": false,
+      "detay": "480 yazilan 'uretimde gerçekleşen sabit yine' resmi 'GELECEK YILLARA AİT GELİRLER'"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "0067c2e8",
+      "ders": "Yabanci Dil",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "006936cc-a3e3-400d-923d-570cbbf54c91",
+      "ders": "Hukuk",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 1"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "006f27c9-23ed-4ae7-94f4-66c8292c1e3c",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K2_kanun_kopyasi",
+      "soru_id": "00716ff4-7804-4c0e-bb7c-f868b0528545",
+      "ders": "Maliyet Muhasebesi",
+      "yayinda": false,
+      "detay": "kanun kopyasi dili"
+    },
+    {
+      "kapi": "K5_dogrusu_yok",
+      "soru_id": "007c23f8",
+      "ders": "Turkce",
+      "yayinda": false,
+      "detay": "yanlis sik 4, duzeltici aciklama 0"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "007eea26-ffee-4ac4-b886-d4869b099286",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "661 yazilan 'değil' resmi 'UZUN VADELİ BORÇLANMA GİDERLERİ (-)'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "007eea26-ffee-4ac4-b886-d4869b099286",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "780 yazilan 'kullanılır. Doğrusu' resmi 'Finansman Giderleri Hesabı'"
+    },
+    {
+      "kapi": "K4_hesap_kodu",
+      "soru_id": "007eea26-ffee-4ac4-b886-d4869b099286",
+      "ders": "Finansal Muhasebe",
+      "yayinda": false,
+      "detay": "798 yazilan 'alacağa' resmi 'GİDER ÇEŞİTLERİ YANSITMA HESABI'"
+    }
+  ],
+  "kural": "KARAR yayindaki sorulara bakar (ogrenciye giden odur). ENVANTER tum kasayi kapsar - Cem 27.478 soruya degil bu rapora bakar.",
+  "not": "Bu kapi kasaya DOKUNMAZ, yalniz olcer. Kirmizi sorulari yayindan indirmek ayri ve Cem onayli bir adimdir."
 }
