@@ -49,8 +49,14 @@ textarea{resize:vertical;min-height:44px}
 <div class="wrap" id="wrap"><div class="bos">Yükleniyor…</div></div>
 <div class="toast" id="toast"></div>
 
+<!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
+     Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
+     duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
+     SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
+<script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = window.supabase || {};
+if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 const SB_URL='https://bjrleanjpyujtajmazxn.supabase.co';
 const SB_KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 const sb = createClient(SB_URL, SB_KEY);

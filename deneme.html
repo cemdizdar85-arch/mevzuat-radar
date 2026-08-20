@@ -1965,8 +1965,14 @@ function hataGonder(){
 
 <!-- ÜYE MODU: kilitli kasadan (Supabase soru_havuzu, RLS: yalnız paketli üye) tam banka.
      Paralı sorular public depoda YOKTUR; giriş yapmadan bu sorgu boş döner. -->
+<!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
+     Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
+     duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
+     SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
+<script src="kutuphane/supabase-2.112.3.js"></script>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = window.supabase || {};
+if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
 // Karne kodu modul disinda calisiyor - istemciyi oraya da acmak gerek.
 window.sb = sb;
