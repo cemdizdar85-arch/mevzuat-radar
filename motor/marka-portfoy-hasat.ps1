@@ -211,7 +211,12 @@ function Hesapla($m){
   # tescilli
   if($n -gt 1 -and ([int]($simdi - $oncekiSonu).TotalDays) -le 180){
     $o.hal = 'ek-sure'
-    $o.not = 'Koruma donemi ' + $oncekiSonu.ToString('dd.MM.yyyy') + ' tarihinde doldu; sicil hala tescilli gosteriyor. Yenilediysen sonraki bitis ' + $o.donem_sonu + '. Yenilemediysen 6 aylik ek sure ' + $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy') + ' gunune kadar (ek ucretle, m.23/3) - sicilden teyit et.'
+    # Ekranda/mailde gosterilecek tarih SONRAKI donem (2036) degil, DOLAN donem
+    # olmali - yoksa "ek surede ama bitis 2036" gibi celiskili gorunuyordu.
+    $o.donem_sonu   = $oncekiSonu.ToString('dd.MM.yyyy')
+    $o.kalan_gun    = [int]($oncekiSonu - $simdi).TotalDays      # negatif: kac gun once doldu
+    $o.ek_sure_sonu = $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy')
+    $o.not = 'Koruma donemi ' + $oncekiSonu.ToString('dd.MM.yyyy') + ' tarihinde doldu; sicil hala tescilli gosteriyor. Yenilediysen sonraki bitis ' + $donemSonu.ToString('dd.MM.yyyy') + '. Yenilemediysen 6 aylik ek sure ' + $oncekiSonu.AddMonths(6).ToString('dd.MM.yyyy') + ' gunune kadar (ek ucretle, m.23/3) - sicilden teyit et.'
     return $o
   }
   if($o.kalan_gun -le $YenilemeGun){
