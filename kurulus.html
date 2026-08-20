@@ -742,7 +742,9 @@ function oner(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('kurulus
     <div style="margin-top:18px;padding:16px;border:1px solid rgba(61,220,151,.35);border-left:5px solid var(--green);border-radius:12px;background:rgba(61,220,151,.06)">
       <div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:var(--green)">■ SANA ÖNERİMİZ</div>
       <h3 style="margin:6px 0 4px;font-size:19px">${AD[kazanan]}</h3>
-      ${satisUyariHtml || `<p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]}, koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>`}
+      ${satisUyariHtml || (CEVAP.satis==='evet' && kazanan==='as'
+        ? `<p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: Limited şirket (LTD) — satış/yatırım planın olduğu için asıl kıyasın bununla; aşağıdaki gerekçeler de AŞ'yi LTD'yle karşılaştırıyor (şahısta "hisse satışı" diye bir şey yok, o işletme devridir, ayrı bir konu).</p>`
+        : `<p style="margin:0 0 6px;font-size:13px;color:var(--dim)">İkinci aday: ${AD[ikinci]}, koşulların değişirse (özellikle satış/yatırım planı) o kapı açık.</p>`)}
       ${gerekce}
       ${uyariHtml}
       ${hesapHtml ? `<details class="kacc" open><summary>💰 Vergi kıyası, senin rakamlarınla</summary><div class="ic">${hesapHtml}</div></details>` : ''}
