@@ -30,6 +30,9 @@ const fs = require('fs');
 const path = require('path');
 
 const KOK = path.join(__dirname, '..');
+// PowerShell'in Out-File -Encoding utf8'i BOM yazar; JSON.parse BOM'u kabul
+// etmez (20.08: arsiv kosusu bu yuzden coktu). Okurken kirpilir.
+const jsonOku = (y) => JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
 const ARG = process.argv.slice(2);
 const bayrak = (ad) => ARG.includes('--' + ad);
 const deger = (ad) => { const i = ARG.indexOf('--' + ad); return i >= 0 ? ARG[i + 1] : null; };
@@ -270,7 +273,7 @@ function ayristir(metin) {
 async function test() {
   const dosya = path.join(process.env.SP || __dirname, 'ornek-ilanlar.json');
   let ornek;
-  try { ornek = JSON.parse(fs.readFileSync(dosya, 'utf8')); }
+  try { ornek = jsonOku(dosya); }
   catch (e) { console.log('örnek dosyası yok: ' + dosya); process.exit(1); }
   for (const o of ornek) {
     const r = ayristir(o.metin);
@@ -289,13 +292,15 @@ async function test() {
 async function kos() {
   const hedef = path.join(KOK, deger('hedef') || 'veri/alacak-ilan-canli.json');
   if (!fs.existsSync(hedef)) { console.log('hedef yok: ' + hedef); process.exit(0); }
-  const obj = JSON.parse(fs.readFileSync(hedef, 'utf8'));
+  const obj = jsonOku(hedef);
   const ilanlar = obj.ilanlar || [];
   const zorla = bayrak('zorla');
+  const tavan = parseInt(deger('adet') || '0', 10) || Infinity;
   let say = 0, sayac = { metin: 0, borclu: 0, vkn: 0, esas: 0, muhlet: 0, komiser: 0 };
 
   for (const x of ilanlar) {
     if (x.tur !== 'iflas' && x.tur !== 'konkordato') continue;
+    if (say >= tavan) break;
     if (x.metin && !zorla) continue;
     const id = (String(x.url || '').match(/\/ilan\/(\d+)\//) || [])[1];
     if (!id) continue;
@@ -323,13 +328,13 @@ async function kos() {
     if (r.muhlet_bitis) x.muhlet_bitis = r.muhlet_bitis;
     if (r.komiser) { x.komiser = r.komiser; sayac.komiser++; }
     if (r.itiraz_gun) x.itiraz_gun = r.itiraz_gun;
-    await new Promise(r2 => setTimeout(r2, 200));
+    await new Promise(r2 => setTimeout(r2, 120));
   }
   fs.writeFileSync(hedef, JSON.stringify(obj, null, 1), 'utf8');
   console.log('Taranan: ' + say + ' · metin: ' + sayac.metin + ' · borçlu adı: ' + sayac.borclu + ' · VKN: ' + sayac.vkn + ' · esas no: ' + sayac.esas + ' · mühlet: ' + sayac.muhlet + ' · komiser: ' + sayac.komiser);
 
   // yaz -> geri oku -> karşılaştır (pazarlıksız kural)
-  const geri = JSON.parse(fs.readFileSync(hedef, 'utf8')).ilanlar || [];
+  const geri = jsonOku(hedef).ilanlar || [];
   const say2 = (f) => geri.filter(f).length;
   console.log('-> geri okuma: metinli ' + say2(k => k.metin) + ' · borçlu adlı ' + say2(k => k.borclu) + ' · VKN\'li ' + say2(k => k.vkn) + ' · mühlet bitişli ' + say2(k => k.muhlet_bitis) + ' / toplam ' + geri.length);
 }
