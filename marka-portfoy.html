@@ -43,7 +43,24 @@ body{position:relative}body::before{content:"";position:absolute;top:0;left:0;ri
   <h1>Bütün markaların, bütün tarihlerin tek ekranda</h1>
   <p class="lead">Markalarını bir kez gir; <b>koruma bitişi, yenileme penceresi ve itiraz süresi</b> tek panoda, <b>en acil olan en üstte</b>. Yenilemeyi de itirazı da kaçırma. Bilgiler tarayıcında kalır (mrPortfoy).</p>
 
+  <!-- 20.08: UNVANDAN OTOMATIK TARAMA. TURKPATENT'te vergi no ile arama yok;
+       aranabilen alan sahip adi (unvan). TMview CORS'a kapali oldugu icin sorguyu
+       robot yapar (motor/marka-portfoy-hasat.ps1), sayfa jetonla sonucu okur. -->
+  <div class="kutu" style="border-color:rgba(245,165,36,.35)">
+    <div style="font-weight:800;font-size:16px;margin-bottom:4px">🔎 Firmanın markalarını sicilden getir</div>
+    <p class="mini" style="margin:0 0 10px">Unvanı yaz, TÜRKPATENT kayıtlarındaki <b style="color:var(--ink)">bütün markaları</b> tarihleriyle birlikte getirelim: hangisi güvende, hangisinin yenileme penceresi açıldı, hangisi düşmüş. <b style="color:var(--ink)">Vergi numarasıyla arama yok</b> — sicil unvan üzerinden tutuluyor, o yüzden firma adını isteriz.</p>
+    <div class="grid">
+      <div><label>Firma / kişi unvanı *</label><input class="gir" id="t_unvan" placeholder="ör. ARÇELİK ANONİM ŞİRKETİ"></div>
+      <div><label>E-posta <span class="mini">(sonucu yollayalım, beklemeyesin)</span></label><input class="gir" id="t_mail" type="email" placeholder="ornek@firma.com"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" id="t_btn">Sicilde ara</button><button class="btn ghost" id="t_ornek">Örnek: ARÇELİK</button></div>
+    <div id="t_durum" class="mini" style="margin-top:10px"></div>
+    <div id="t_sonuc"></div>
+  </div>
+
   <div class="kutu">
+    <div style="font-weight:800;font-size:15px;margin-bottom:2px">✍️ Ya da elle ekle</div>
+    <p class="mini" style="margin:0 0 8px">Sicilde bulamadıysan ya da yeni başvurunu takip edeceksen.</p>
     <div class="grid">
       <div><label>Marka adı *</label><input class="gir" id="ad" placeholder="ör. TETİKTE"></div>
       <div><label>Başvuru / tescil no <span class="mini">(varsa)</span></label><input class="gir" id="no" placeholder="ör. 2026-097164"></div>
@@ -138,6 +155,99 @@ function ciz(){
   }).join('');
 }
 ciz();
+</script>
+
+<!-- ======================================================================
+     UNVANDAN SICIL TARAMASI (20.08.2026)
+     TMview CORS'a KAPALI (olculdu: tetikte.com origin'inden fetch = "Failed to
+     fetch"), yani sorguyu tarayici yapamaz. Akis: RPC marka_talep_ac -> jeton ->
+     robot (motor/marka-portfoy-hasat.ps1) sorguyu yapip sonucu yazar -> sayfa
+     RPC marka_talep_sonuc(jeton) ile okur. Tablolar disari kapali (policy yok),
+     giris yalniz bu iki SECURITY DEFINER fonksiyon (alacak kasasi deseni).
+     ====================================================================== -->
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+const $=s=>document.querySelector(s);
+const kac=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ETIKET={ 'ek-sure':['EK SÜREDE','r'], 'yenileme-penceresi':['YENİLEME AÇIK','a'], 'surecte':['SÜREÇTE','n'], 'guvende':['GÜVENDE','g'], 'dusmus':['DÜŞMÜŞ','n'], 'bilinmiyor':['?','n'] };
+let ZAMANLAYICI=null, DENEME=0;
+
+function durumYaz(m){ $('#t_durum').innerHTML=m; }
+
+function sonucCiz(s, jeton){
+  if(!s || !s.markalar || !s.markalar.length){
+    $('#t_sonuc').innerHTML='<div class="uyari" style="margin-top:12px">Bu unvan adına <b>TÜRKPATENT sicilinde marka bulunamadı</b>. Unvanı sicildeki yazımıyla (ör. "… SANAYİ VE TİCARET ANONİM ŞİRKETİ") dene; kayıt gerçekten yoksa marka <b>korumasız</b> demektir — aynı ismi başkası tescil ettirebilir (SMK m.6).</div>';
+    return;
+  }
+  const v=(s.varyantlar||[]).slice(0,6).map(x=>'<span class="rz" style="margin:2px 4px 2px 0;display:inline-block">'+kac(x)+'</span>').join('');
+  const kutu=(b,l,renk)=>'<div><div class="b" style="color:'+renk+'">'+b+'</div><div class="l">'+l+'</div></div>';
+  const acil=(s.yenileme||0)+(s.ek_surede||0);
+  let h='<div class="ozetK" style="margin-top:14px">'+
+    kutu(s.sayi,'marka','var(--ink)')+
+    kutu(s.tescilli||0,'tescilli','var(--green)')+
+    kutu(acil,'işlem gerektiren',acil?'var(--amber)':'var(--ink)')+
+    kutu(s.dusmus||0,'düşmüş','var(--dim)')+'</div>';
+  if(acil) h+='<div class="uyari" style="margin-top:12px"><b>'+acil+' markanın yenileme tarihi kapıda.</b> Yenileme talebi koruma bitişinden önceki 6 ay içinde verilir; kaçırılırsa 6 ay ek süre + ek ücret, o da kaçarsa marka hakkı sona erer (SMK m.23, m.28/1-a).</div>';
+  h+='<div style="margin-top:14px">'+s.markalar.map(m=>{
+      const e=ETIKET[m.hal]||ETIKET.bilinmiyor;
+      return '<div class="kart '+e[1]+'"><div style="font-size:15px;font-weight:800">'+kac(m.ad)+' <span class="rz">'+e[0]+'</span></div>'+
+        '<div class="mini" style="margin-top:2px">'+kac(m.no)+' · başvuru '+kac(m.tarih)+(m.sinif?' · sınıf '+kac(m.sinif):'')+' · sicil durumu '+kac(m.durum)+'</div>'+
+        '<div style="margin-top:6px;font-size:13px;color:var(--muted);line-height:1.6">'+kac(m.not)+'</div></div>';
+    }).join('')+'</div>';
+  h+='<div class="mini" style="margin-top:6px">Eşleştirilen sicil unvanları: '+(v||'—')+'</div>';
+  h+='<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost" id="t_aktar">↓ Bu markaları panoma aktar</button>'+(jeton?'<span class="mini" style="align-self:center">Bağlantın: <a href="?jeton='+encodeURIComponent(jeton)+'">?jeton='+kac(jeton.slice(0,8))+'…</a></span>':'')+'</div>';
+  $('#t_sonuc').innerHTML=h;
+  const btn=$('#t_aktar');
+  if(btn) btn.onclick=()=>{
+    // Sicilden geleni elle-pano bicimine cevir (tarih gg.aa.yyyy -> yyyy-aa-gg)
+    const tersTarih=t=>{ const p=String(t||'').split('.'); return p.length===3?(p[2]+'-'+p[1]+'-'+p[0]):''; };
+    const eski=(()=>{ try{ return JSON.parse(localStorage.getItem('mrPortfoy')||'[]'); }catch(e){ return []; } })();
+    const varNo=new Set(eski.map(x=>x.no).filter(Boolean));
+    let n=0;
+    s.markalar.forEach(m=>{ if(m.hal==='dusmus'||varNo.has(m.no)) return;
+      eski.push({ ad:m.ad, no:m.no, tarih:tersTarih(m.tarih), durum:(/regist/i.test(m.durum)?'tescil':(m.yayim?'yayim':'basvuru')), sinif:m.sinif||'', ytarih:tersTarih(m.yayim) }); n++; });
+    localStorage.setItem('mrPortfoy',JSON.stringify(eski));
+    btn.textContent=n+' marka panoya eklendi ✓';
+    if(typeof ciz==='function') ciz();
+    window.scrollTo({top:document.getElementById('ozet').offsetTop-40,behavior:'smooth'});
+  };
+}
+
+async function yokla(jeton){
+  DENEME++;
+  const {data,error}=await sb.rpc('marka_talep_sonuc',{p_jeton:jeton});
+  if(error){ durumYaz('<span style="color:var(--red)">Sonuç okunamadı: '+kac(error.message)+'</span>'); clearInterval(ZAMANLAYICI); return; }
+  if(!data || data.durum==='yok'){ durumYaz('Bu bağlantıya ait tarama bulunamadı.'); clearInterval(ZAMANLAYICI); return; }
+  if(data.durum==='hazir'){ clearInterval(ZAMANLAYICI); durumYaz('✅ <b style="color:var(--ink)">'+kac(data.unvan)+'</b> için sicil taraması hazır.'); sonucCiz(data.sonuc, jeton); return; }
+  if(data.durum==='hata'){ clearInterval(ZAMANLAYICI); durumYaz('<span style="color:var(--red)">Tarama yapılamadı: '+kac(data.hata||'bilinmeyen hata')+'</span>'); return; }
+  const dk=Math.floor(DENEME*10/60);
+  durumYaz('⏳ Sırada… TÜRKPATENT kayıtları taranıyor'+(dk?(' ('+dk+' dk)'):'')+'. Sayfayı açık bırakabilirsin; e-posta yazdıysan sonucu yollayacağız.'+(DENEME>30?' <b>Tarama beklenenden uzun sürüyor — bağlantını kaydet, birazdan tekrar aç.</b>':''));
+  if(DENEME>60) clearInterval(ZAMANLAYICI);
+}
+
+function izle(jeton){
+  localStorage.setItem('mrSonJeton',jeton);
+  DENEME=0; if(ZAMANLAYICI) clearInterval(ZAMANLAYICI);
+  yokla(jeton);
+  ZAMANLAYICI=setInterval(()=>yokla(jeton),10000);
+}
+
+$('#t_btn').onclick=async()=>{
+  const unvan=$('#t_unvan').value.trim(), mail=$('#t_mail').value.trim();
+  if(unvan.length<3){ durumYaz('<span style="color:var(--red)">Unvanı yaz (en az 3 karakter).</span>'); return; }
+  if(mail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ durumYaz('<span style="color:var(--red)">E-posta geçerli görünmüyor.</span>'); return; }
+  $('#t_btn').disabled=true; $('#t_sonuc').innerHTML=''; durumYaz('Sıraya alınıyor…');
+  const {data,error}=await sb.rpc('marka_talep_ac',{p_unvan:unvan,p_email:mail||null});
+  $('#t_btn').disabled=false;
+  if(error){ durumYaz('<span style="color:var(--red)">Sıraya alınamadı: '+kac(error.message)+'</span>'); return; }
+  izle(data);
+};
+$('#t_ornek').onclick=()=>{ $('#t_unvan').value='ARÇELİK ANONİM ŞİRKETİ'; };
+
+// URL'de jeton varsa (mailden gelen bag) ya da son taramamiz varsa dogrudan ac
+const url=new URLSearchParams(location.search);
+if(url.get('jeton')) izle(url.get('jeton'));
 </script>
 </body>
 </html>
