@@ -1,0 +1,79 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/gozetim.yml
+#
+# GOZETIM NOBETI — izlenen gozetim teblig listesi bir daha SESSIZCE geride kalmasin.
+#
+# NEDEN VAR (20.08.2026):
+# 11.07'de gozetim hasat motoru kuruldu ve ayni gun 182 teblig'lik esleme tablosu
+# depoya girdi. Ama motora okuyacagi tebligler ELLE veriliyordu: "2026/* hepsi +
+# elle yazilmis 9 eski teblig". "182'nin kacini okuduk" sorusu 11 Temmuz'dan
+# 19 Agustos'a kadar HIC sorulmadi. Sorulunca cikan: 54. Site aylardir gozetim
+# tebliglerinin ucte birini izliyordu ve bunu kimse bilmiyordu.
+#
+# Bu nobet o sorunun kendiliginden sorulmasi icindir.
+#
+# NEDEN DEGER YAZMIYOR:
+# Once otomatik YAZAN bir surum yazildi ve denendi. Tablo sutunu secerken
+# 2023/8'de "sira no" kolonunu birim kiymet sanip 13 kodun degerini 1,2,3,4…
+# diye yanlis okudu. Denenmeseydi veriyi bozacakti. Nobetci artik deger YAZMAZ;
+# eksigi ve celiskiyi gorunur kilar, okuma insan kararlidir.
+# (Ayni ders: pdftotext -layout sutunlari kaydiriyor; -table dogru okuyor ama
+#  xpdf'e ozel ve CI'da yok. Nobet bu yuzden PDF'e hic dokunmuyor.)
+#
+# KIRMIZI OLCUSU:
+#   eslemede kayitli olup veri/gtip-durum.json'da OLMAYAN bir teblig,
+#   motor/hafiza/gozetim-bekleyen-elle.json listesinde de yoksa -> KIRMIZI + MAIL.
+#   Yani "bilerek disarida" olan her teblig GEREKCESIYLE yazili olmak zorunda.
+#   Ayrica kaynagi olmadigi icin beklemede olan bir teblig birden metin sunmaya
+#   baslarsa da kirmizi yanar — demek ki teblig yasiyor ve okunmasi gerekiyor.
+#
+# PARA HARCAMAZ: yalniz mevzuat.gov.tr'den belge basligi cekiyor, LLM yok.
+name: Gozetim Nobeti
+
+on:
+  schedule:
+    # 08:10 TR — rejim nobetinden (07:40) sonra, gunun kalanini bosaltmadan.
+    - cron: "10 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gozetim:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Nobetci kossun
+        id: nobet
+        run: node motor/gozetim-nobeti.js .
+
+      - name: Raporu yayinla
+        if: always()
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/gozetim-nobet-raporu.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - commit yok."
+            exit 0
+          fi
+          git commit -m "Gozetim nobeti raporu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase --autostash && git push && break; sleep 7; done
+
+      # KOR KALMA SIGORTASI — kirmizi kosu aninda Cem'e mail
+      - name: KIRMIZI NOBETCI - dususte mail
+        if: failure()
+        shell: pwsh
+        run: |
+          $r = ""
+          try { $r = (Get-Content veri/gozetim-nobet-raporu.json -Raw) } catch {}
+          $p = @{
+            access_key = '5b227e56-94fb-4123-a39a-4286f63db14a'
+            subject    = 'TETIKTE - gozetim teblig listesinde gerekcesiz eksik'
+            from_name  = 'Tetikte Nobetci'
+            email      = 'cemdizdar85@hotmail.com'
+            message    = "Gozetim nobeti KIRMIZI bitti. Ya gerekcesi yazili olmayan bir teblig eksik, ya da kaynagi yok diye beklemedeki bir teblig metin sunmaya basladi.`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`n`nRapor:`n$r"
+          } | ConvertTo-Json
+          try { Invoke-RestMethod -Uri 'https://api.web3forms.com/submit' -Method Post -ContentType 'application/json' -Body $p | Out-Null } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }

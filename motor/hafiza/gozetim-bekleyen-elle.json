@@ -1,0 +1,409 @@
+{
+ "aciklama": "Eslemede kayitli olup gtip-durum.json\"a HENUZ alinmamis gozetim tebligleri, GEREKCESIYLE. Nobetci (motor/gozetim-nobeti.js) bu listeye bakar: listede OLMAYAN bir eksik cikarsa KIRMIZI yanar. \"okunmadi\" turundekiler is kuyrugudur, kirmizi degildir; \"kaynak-yok\" turundekiler kaynak dirilirse haber verir.",
+ "uretim": "20.08.2026",
+ "adet": 79,
+ "dagilim": {
+  "okunmadi": 70,
+  "kaynak-yok": 5,
+  "suresi-dolmus": 1,
+  "ek-listesi": 2,
+  "gorsel-tablo": 1
+ },
+ "teblig": {
+  "2004/18": {
+   "mevzuatNo": "8602",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2004/3": {
+   "mevzuatNo": "8823",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2004/4": {
+   "mevzuatNo": "8824",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2004/5": {
+   "mevzuatNo": "8826",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2004/8": {
+   "mevzuatNo": "8786",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2004/9": {
+   "mevzuatNo": "8624",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2005/12": {
+   "mevzuatNo": "9026",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2005/17": {
+   "mevzuatNo": "9387",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2005/4": {
+   "mevzuatNo": "8814",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2005/9": {
+   "mevzuatNo": "8950",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2006/11": {
+   "mevzuatNo": "10322",
+   "tur": "kaynak-yok",
+   "gerekce": "mevzuat.gov.tr birleşik metin sunmuyor (PDF ve .doc yok). Yürürlükte olup olmadığı TEYİT EDİLEMEDİ."
+  },
+  "2006/17": {
+   "mevzuatNo": "10811",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2006/18": {
+   "mevzuatNo": "10812",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2006/19": {
+   "mevzuatNo": "10813",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2006/2": {
+   "mevzuatNo": "9891",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2006/21": {
+   "mevzuatNo": "10878",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/10": {
+   "mevzuatNo": "11001",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/11": {
+   "mevzuatNo": "11002",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/13": {
+   "mevzuatNo": "11147",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/16": {
+   "mevzuatNo": "11183",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/17": {
+   "mevzuatNo": "11184",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/18": {
+   "mevzuatNo": "11185",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/19": {
+   "mevzuatNo": "11266",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/26": {
+   "mevzuatNo": "11482",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/27": {
+   "mevzuatNo": "11481",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/4": {
+   "mevzuatNo": "10995",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2007/7": {
+   "mevzuatNo": "10998",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/10": {
+   "mevzuatNo": "12074",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/11": {
+   "mevzuatNo": "12100",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/14": {
+   "mevzuatNo": "12227",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/15": {
+   "mevzuatNo": "12228",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/16": {
+   "mevzuatNo": "12229",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/19": {
+   "mevzuatNo": "12387",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2008/9": {
+   "mevzuatNo": "12041",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2009/11": {
+   "mevzuatNo": "13584",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2009/3": {
+   "mevzuatNo": "12810",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2009/4": {
+   "mevzuatNo": "12811",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2009/9": {
+   "mevzuatNo": "13304",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2010/4": {
+   "mevzuatNo": "13971",
+   "tur": "kaynak-yok",
+   "gerekce": "mevzuat.gov.tr birleşik metin sunmuyor (PDF ve .doc yok). Yürürlükte olup olmadığı TEYİT EDİLEMEDİ."
+  },
+  "2011/10": {
+   "mevzuatNo": "15407",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2011/6": {
+   "mevzuatNo": "14977",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2011/8": {
+   "mevzuatNo": "15125",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2011/9": {
+   "mevzuatNo": "15291",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2012/1": {
+   "mevzuatNo": "15779",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2012/2": {
+   "mevzuatNo": "16331",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2012/5": {
+   "mevzuatNo": "16640",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2012/7": {
+   "mevzuatNo": "16766",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2013/1": {
+   "mevzuatNo": "17210",
+   "tur": "kaynak-yok",
+   "gerekce": "mevzuat.gov.tr birleşik metin sunmuyor (PDF ve .doc yok). Yürürlükte olup olmadığı TEYİT EDİLEMEDİ."
+  },
+  "2013/12": {
+   "mevzuatNo": "18721",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2013/5": {
+   "mevzuatNo": "17286",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2013/7": {
+   "mevzuatNo": "18311",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2014/1": {
+   "mevzuatNo": "19554",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2014/2": {
+   "mevzuatNo": "20073",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2014/3": {
+   "mevzuatNo": "20268",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2015/1": {
+   "mevzuatNo": "33983",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2015/7": {
+   "mevzuatNo": "21085",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2016/1": {
+   "mevzuatNo": "21461",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2016/6": {
+   "mevzuatNo": "23112",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/10": {
+   "mevzuatNo": "23911",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/11": {
+   "mevzuatNo": "23794",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/12": {
+   "mevzuatNo": "23898",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/5": {
+   "mevzuatNo": "23478",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/6": {
+   "mevzuatNo": "23603",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/7": {
+   "mevzuatNo": "23705",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2017/8": {
+   "mevzuatNo": "23610",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/11": {
+   "mevzuatNo": "24685",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/12": {
+   "mevzuatNo": "24686",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/13": {
+   "mevzuatNo": "24675",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/14": {
+   "mevzuatNo": "24758",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/15": {
+   "mevzuatNo": "31140",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/3": {
+   "mevzuatNo": "24425",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/4": {
+   "mevzuatNo": "24442",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2018/9": {
+   "mevzuatNo": "24606",
+   "tur": "okunmadi",
+   "gerekce": "Resmî birleşik metni var (.doc) ama henüz okunmadı. Sıradaki iş."
+  },
+  "2020/7": {
+   "mevzuatNo": "34511",
+   "tur": "suresi-dolmus",
+   "gerekce": "Tebliğ \"31/12/2020 tarihine kadar\" diyor; süresi dolmuş. Bilerek alınmadı."
+  },
+  "2020/9": {
+   "mevzuatNo": "36094",
+   "tur": "ek-listesi",
+   "gerekce": "Kayda alma tebliği; kodlar EK-1 ekinde, tebliğ gövdesinde tablo yok. Ayrı iş."
+  },
+  "2022/1": {
+   "mevzuatNo": "39126",
+   "tur": "ek-listesi",
+   "gerekce": "Kayda alma tebliği; kodlar EK-1 ekinde, tebliğ gövdesinde tablo yok. Ayrı iş."
+  },
+  "2024/1": {
+   "mevzuatNo": "40757",
+   "tur": "kaynak-yok",
+   "gerekce": "mevzuat.gov.tr birleşik metin sunmuyor (PDF ve .doc yok). Yürürlükte olup olmadığı TEYİT EDİLEMEDİ."
+  },
+  "2024/10": {
+   "mevzuatNo": "41008",
+   "tur": "kaynak-yok",
+   "gerekce": "mevzuat.gov.tr birleşik metin sunmuyor (PDF ve .doc yok). Yürürlükte olup olmadığı TEYİT EDİLEMEDİ."
+  },
+  "2024/4": {
+   "mevzuatNo": "40840",
+   "tur": "gorsel-tablo",
+   "gerekce": "Tablo PDF içinde görsel; metinde tek bir GTİP kodu geçmiyor. OCR ister."
+  }
+ }
+}

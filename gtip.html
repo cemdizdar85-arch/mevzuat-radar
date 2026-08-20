@@ -125,7 +125,7 @@ let SON_SORGU = "";   // en son sorgulanan kod (takip için)
 // revalorizasyonu işlendi (9 tebliğ tablosu değişti + 6 yeni tebliğ eklendi;
 // RG görsel tablolarından elle okundu, yürürlük 10.08.2026).
 // Ekranda gösterilir — kullanıcı verinin ne kadar taze olduğunu BİLMELİ.
-const GOZETIM_HASAT = "19.08.2026";
+const GOZETIM_HASAT = "20.08.2026";
 
 let VERI = null, RADAR = null, VERGI = null, DAMPING = null, VERGI_ULKE = null, IGV_ULKE = null, ULKE_GRUP_ETIKET = null, TARIM = null, EMY_TARIM = null, KDV = null, OTV = null, EKVERGI = null, BALIK = null, ASKIYA = null, NIHAI = null, IHRKISIT = null;
 Promise.all([
@@ -658,6 +658,16 @@ function dampingKart(q){
 }
 
 // vergi kartı üret: [gvMin,gvMax,igvMin,igvMax] + varsa ülke-bazlı kesin oran
+// 20.08.2026 — Kayit POZISYON duzeyindeyse kullaniciya acikca soyle.
+// 2015/8 (8431.41), 2017/13 (9608.10), 2004/15 (6802.23) gibi teblig kodlari
+// 12 hane degil; eslesme dogru ama tam kodun tanimi tebligdekiyle birebir
+// uyuyor mu, bunu kullanici teyit etmeli.
+function pozisyonNotu(kod, say2){
+  const kn = (kod||'').replace(/\./g,'');
+  if(!say2 || kn.length >= say2.length) return '';
+  return '<p style="color:var(--amber);font-size:12.5px;margin:8px 0 0">Bu tebliğ kodu <b>' + kod +
+    '</b> pozisyonu düzeyinde yazmış; senin girdiğin tam kod bu pozisyonun altında kalıyor. Ürün tanımı tebliğdekiyle birebir uyuyor mu, resmî metinden teyit et.</p>';
+}
 function vergiKart(kod){
   if(!VERGI || !VERGI[kod]) return askiyaKart(kod) + nihaiKart(kod) + balikKart(kod) + gekapKart(kod) + savunmaKart(kod) + tarimKart(kod) + otvKart(kod) + denetimKart(kod) + kdvKart(kod) + kkdfKart(kod) + ihracatKart(kod);  // sanayi GV yoksa da tarım + ÖTV + KDV göster
   const v = VERGI[kod];
@@ -794,7 +804,29 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
   SON_SORGU = q;
   const say2 = q.replace(/\./g,'');
   const dHtml = dampingKart(q);   // damping uyarısı (varsa en üstte)
-  const kodlar = Object.keys(VERI).filter(k => k===q || k.replace(/\./g,'').startsWith(say2));
+  // 20.08.2026 — POZİSYON DÜZEYİ EŞLEŞME.
+  // Bazı gözetim tebliğleri kodu 12 hane değil POZİSYON düzeyinde yazar
+  // (2015/8 → 8431.41 · 2017/13 → 9608.10 · 2004/15 → 6802.23). Eski süzgeç
+  // yalnız "anahtar, sorgunun öneki mi" diye bakıyordu; 12 haneli bir sorgu
+  // bu kayıtlarla HİÇ eşleşmiyordu — pozisyon kayıtları ölü duruyordu.
+  // Artık ters yön de kontrol ediliyor: sorgu, anahtarla BAŞLIYORSA da eşleşir.
+  const kodlar = Object.keys(VERI).filter(k => {
+    const kn = k.replace(/\./g,'');
+    return k===q || kn.startsWith(say2) || (kn.length>=4 && kn.length<say2.length && say2.startsWith(kn));
+  })
+  // Ayni teblig hem tam kodla hem pozisyonla eslesebilir → teblig basina
+  // EN OZEL (en uzun) anahtari tut, ayni karti iki kez basma.
+  .filter((k, _i, hepsi) => {
+    const kn = k.replace(/\./g,'');
+    const tebligleri = new Set((VERI[k]||[]).map(x => x && x.teblig).filter(Boolean));
+    return !hepsi.some(d => {
+      if(d === k) return false;
+      const dn = d.replace(/\./g,'');
+      if(dn.length <= kn.length) return false;
+      const dt = new Set((VERI[d]||[]).map(x => x && x.teblig).filter(Boolean));
+      return [...tebligleri].every(t => dt.has(t));
+    });
+  });
   if(!kodlar.length){
     // gözetim yok ama vergi olabilir: tam koda ya da önekine bak
     const vk = VERGI ? Object.keys(VERGI).filter(k=>k===q || k.replace(/\./g,'').startsWith(say2)) : [];
@@ -857,7 +889,7 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
       <div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
       <div class="satir"><b>Resmî metin</b><span><a href="${k.kaynak}" target="_blank" rel="noopener">mevzuat.gov.tr →</a></span></div>`).join('');
     html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
-      <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${kiyasHtml}
+      <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${pozisyonNotu(kod, say2)}${kiyasHtml}
       <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Anlamı: bu koddan ithalatta, birim kıymet belirtilen değerin altındaysa gözetim belgesi gerekir; işlem gümrükte bu değer esas alınarak yürür.</p>
       ${vergiKart(kod)}</div>`;
   }
