@@ -198,6 +198,47 @@ function muhletCikar(metin) {
   return out;
 }
 
+// --- KARAR DURUMU (20.08, Cem: "karar durumu filtresi YAP") -----------------
+// Rakip konkordatoilanlari.com karar durumuna göre filtreliyor; bizde yoktu.
+// muhlet_tip yetmez: "alacaklılara çağrı" (~331 ilan) ve "ret" onda hiç yok,
+// oysa alacaklı için EN KRİTİK olan çağrı ilanıdır — 15 günlük kayıt süresi
+// oradan işler (İİK m.299). Sıra: en belirleyici kalıp önce.
+// Kaynak: 5.775 ilanın başlık dağılımı ölçülerek çıkarıldı, uydurulmadı.
+const DURUMLAR = [
+  ['alacak_cagrisi', /alacaklar[ıi]n[ıi]\s*bildirme|alacakl[ıi]lara\s*[çc]a[ğg]r[ıi]|alacakl[ıi]lar[ıi]\s*davet|bildirmeye\s*davet|kay[ıi]t\s*ilan/i],
+  ['ret_kaldirma',   /reddine|reddi|kald[ıi]r[ıi]lmas|feshine|feshi\b|iptaline/i],
+  ['tasdik',         /tasdik(?:ine|i\b|\s*karar)/i],
+  ['iflas_tasfiye',  /iflas[ıi]n[ıi]n\s*a[çc][ıi]lmas|iflas\s*karar|s[ıi]ra\s*cetvel|basit\s*tasfiye|tasfiyesinin\s*a[çc][ıi]lmas|masa\b/i],
+  ['uzatma',         /uzat[ıi]lmas|uzatma/i],
+  ['kesin_muhlet',   /kes[İIi]n\s*m[üu]hlet/i],
+  ['gecici_muhlet',  /ge[çc][İIi]c[İIi]\s*m[üu]hlet/i],
+  ['durusma',        /duru[şs]ma\s*g[üu]n/i],
+  ['muhlet',         /m[üu]hlet/i]
+];
+function kararDurumu(baslik, metin) {
+  const b = String(baslik || '');
+  const m = String(metin || '').slice(0, 1500);
+  let bulunan = null;
+  for (const [ad, rx] of DURUMLAR) if (rx.test(b)) { bulunan = ad; break; }
+  // 20.08 ÖLÇÜM: "Konkordato mühlet kararının ilanen tebliği" 520 ilanda geçiyor
+  // ve geçici mi kesin mi SÖYLEMİYOR. Başlık belirsiz kaldıysa metne bakılır —
+  // karar metninde hangisi olduğu yazar. Belirsizi belirsiz bırakmak, filtreyi
+  // en kalabalık kümede işe yaramaz hale getirirdi.
+  // 20.08 ÖLÇÜLEN KUSUR: metin yedeği "ret"i 1.405 ilana basmıştı — çünkü
+  // geçici mühlet ilanının STANDART cümlesi "…konkordato talebinin REDDİNİ
+  // isteyebilecekleri" (İİK m.288). Yani mühlet verilmiş, ret sanılmış.
+  // Ret / kaldırma / tasdik / iflas YALNIZ BAŞLIKTAN belirlenir: bunlar ilanın
+  // türüdür, kurum başlığa yazar. Metin yedeği yalnız mühletin HANGİSİ olduğunu
+  // (geçici mi kesin mi uzatma mı) çözmek için çalışır.
+  if (!bulunan || bulunan === 'muhlet') {
+    for (const ad of ['uzatma', 'kesin_muhlet', 'gecici_muhlet']) {
+      const rx = DURUMLAR.find(d => d[0] === ad)[1];
+      if (rx.test(m)) return ad;
+    }
+  }
+  return bulunan || 'diger';
+}
+
 function komiserCikar(metin) {
   const m = /komiser(?:i|leri|liğine)?\s*(?:olarak|:)?\s*([^.;]{5,240}?)(?:'?[üu]n\s*atan|atanmas|atand|görevlendir|karar\s*veril)/i.exec(metin);
   if (!m) return '';
@@ -208,8 +249,9 @@ function komiserCikar(metin) {
 }
 
 // --- ana ayrıştırıcı --------------------------------------------------------
-function ayristir(metin) {
+function ayristir(metin, baslik) {
   const r = { metin: metin, borclular: [], vknler: [], tcknler: [] };
+  r.karar_durumu = kararDurumu(baslik, metin);
 
   let m = /ESAS\s*NO\s*:?\s*(\d{4}\s*\/\s*\d+)/i.exec(metin) || /Say[ıi]\s*:?\s*(\d{4}\s*\/\s*\d+)\s*Esas/i.exec(metin) || /(\d{4}\s*\/\s*\d+)\s*Esas/i.exec(metin);
   if (m) r.esas_no = m[1].replace(/\s+/g, '') + ' Esas';
@@ -276,8 +318,9 @@ async function test() {
   try { ornek = jsonOku(dosya); }
   catch (e) { console.log('örnek dosyası yok: ' + dosya); process.exit(1); }
   for (const o of ornek) {
-    const r = ayristir(o.metin);
+    const r = ayristir(o.metin, o.baslik);
     console.log('\n===== [' + o.id + '] ' + o.baslik.slice(0, 55) + ' =====');
+    console.log('  karar      :', r.karar_durumu || '—');
     console.log('  esas_no    :', r.esas_no || '—');
     console.log('  sicil_no   :', r.sicil_no || '—');
     console.log('  mahkeme    :', r.mahkeme || '—');
@@ -316,8 +359,9 @@ async function kos() {
       continue;
     }
     say++;
-    const r = ayristir(metin);
+    const r = ayristir(metin, x.baslik);
     x.metin = r.metin; sayac.metin++;
+    if (r.karar_durumu) x.karar_durumu = r.karar_durumu;
     if (r.esas_no) { x.esas_no = r.esas_no; sayac.esas++; }
     if (r.sicil_no) x.sicil_no = r.sicil_no;
     if (r.mahkeme) x.mahkeme = r.mahkeme;
@@ -337,6 +381,15 @@ async function kos() {
     if (r.itiraz_gun) x.itiraz_gun = r.itiraz_gun;
     await new Promise(r2 => setTimeout(r2, 120));
   }
+  // 20.08: karar_durumu BASLIKTAN da cikarilabilir — metni olmayan (kaynakta
+  // silinmis) ilanlar da filtreye girsin diye tum kayitlar damgalanir.
+  let dmg = 0;
+  for (const x of ilanlar) {
+    if (x.tur !== 'iflas' && x.tur !== 'konkordato') continue;
+    if (x.karar_durumu) continue;
+    x.karar_durumu = kararDurumu(x.baslik, x.metin); dmg++;
+  }
+  if (dmg) console.log('Yalniz basliktan damgalanan: ' + dmg);
   fs.writeFileSync(hedef, JSON.stringify(obj, null, 1), 'utf8');
   console.log('Kaynakta metni olmayan (damgalandi): ' + yok);
   console.log('Taranan: ' + say + ' · metin: ' + sayac.metin + ' · borçlu adı: ' + sayac.borclu + ' · VKN: ' + sayac.vkn + ' · esas no: ' + sayac.esas + ' · mühlet: ' + sayac.muhlet + ' · komiser: ' + sayac.komiser);

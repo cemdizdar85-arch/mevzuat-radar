@@ -70,6 +70,7 @@ for ($i = 0; $i -lt $kayitlar.Count; $i += $PARTI) {
       muhlet_baslangic = "$($_.muhlet_baslangic)"
       muhlet_bitis     = "$($_.muhlet_bitis)"
       komiser    = "$($_.komiser)";    itiraz_gun = "$($_.itiraz_gun)"
+      karar_durumu = "$($_.karar_durumu)"
       borclular  = @($_.borclular);    vknler     = @($_.vknler)
       tcknler    = @($_.tcknler)
     }

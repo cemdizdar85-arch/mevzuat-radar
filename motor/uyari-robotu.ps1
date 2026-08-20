@@ -53,6 +53,9 @@ function IhaleMi($x){
 }
 
 # --- veri kaynaklari ---
+# (alacak nobetinin sayaclari burada tanimlanir: 'firma yok' dali da ozete yaziyor)
+$alacakEslesme = @{}
+$izlenen = @()
 $ihale = @(); try { $ihale = (Get-Content (Join-Path $kok "veri\ihale-yurtici.json") -Raw -Encoding UTF8 | ConvertFrom-Json).ilanlar } catch {}
 $kartlar = @(); try { $kartlar = (Get-Content (Join-Path $kok "veri\kartlar-guncel.json") -Raw -Encoding UTF8 | ConvertFrom-Json).kartlar } catch {}
 # 30.07 (#63): yapilandirma/af firsat penceresi - RG tarayicisi yazar
@@ -75,8 +78,60 @@ $firmalar = @($firmalarHam)
 if(-not $firmalar.Count){
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAMAM"; firma=0; yeni_uyari=0
     not="Henuz firma eklenmemis - panelden '+ Firma ekle' ile baslanir."
-    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count } })
+    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count; izlenen_borclu=$izlenen.Count; alacak_eslesme=@($alacakEslesme.Keys).Count } })
   Write-Host "Firma yok."; exit 0
+}
+
+# --- 3) ALACAK: izlenen borclu VKN/TCKN'lerinde konkordato/iflas ilani ------
+# 20.08 OLCULEN ACIK (Cem "rakiplerde olup bizde olmayan"): panel borclu_vkn
+# ALIYOR, kartta "AKTIF" yaziyor ve 599 TL/ay abonelik TAM DA BUNUN icin
+# satiliyordu — ama bu robot borclu_vkn'i HIC okumuyordu (dosyada tek gecis
+# yoktu) ve "iflas/konkordato" kelimeleri IHALE_DISI eleme listesindeydi.
+# Yani satilan nobet tutulmuyordu. firmalar tablosu o gun 0 kayitti, kimse
+# magdur olmadi; acilistan once kapatildi.
+#
+# KAYNAK KASADIR, yerel dosya DEGIL: gunluk hasat dosyasi yalniz son ~400
+# ilani tasir, kasada 5.775 ilan var (arsiv derinligi orada).
+$alacakEslesme = @{}   # vkn/tckn -> ilan listesi
+$izlenen = @()
+foreach($f in $firmalar){ foreach($v in @($f.borclu_vkn)){
+  $t = ("$v" -replace '\D',''); if($t.Length -ge 10){ $izlenen += $t }
+} }
+$izlenen = @($izlenen | Select-Object -Unique)
+if($izlenen.Count){
+  # PostgREST: vkn/tckn dogrudan, vknler/tcknler DIZI icinde (ov = overlap).
+  # Grup konkordatosunda 2./3. borclunun VKN'si yalniz dizide durur.
+  $liste = ($izlenen -join ',')
+  $dizi  = '{' + $liste + '}'
+  $alan  = 'ilan_no,baslik,kurum,il,tarih_str,tur,url,borclu,vkn,vknler,tckn,tcknler,esas_no,mahkeme,muhlet_tip,muhlet_bitis,komiser,itiraz_gun,borclular'
+  $uri   = "$SB_URL/rest/v1/alacak_ilan?select=$alan&or=(vkn.in.($liste),tckn.in.($liste),vknler.ov.$dizi,tcknler.ov.$dizi)&order=tarih.desc&limit=500"
+  try {
+    $ham = Invoke-RestMethod -Method Get -Uri $uri -Headers $H -TimeoutSec 90
+    foreach($il in @($ham)){
+      # ilan hangi izlenen numaralara degiyorsa hepsine yazilir
+      $degen = @()
+      foreach($t in $izlenen){
+        if("$($il.vkn)" -eq $t -or "$($il.tckn)" -eq $t){ $degen += $t; continue }
+        if(@($il.vknler) -contains $t -or @($il.tcknler) -contains $t){ $degen += $t }
+      }
+      foreach($t in $degen){
+        if(-not $alacakEslesme.ContainsKey($t)){ $alacakEslesme[$t] = @() }
+        $alacakEslesme[$t] += $il
+      }
+    }
+    Write-Host ("Alacak: {0} izlenen numara -> {1} ilan eslesti" -f $izlenen.Count, @($ham).Count)
+  } catch {
+    # KOR KALMA: kasa okunamazsa sessiz gecme, ozete yaz
+    Write-Host ("Alacak kasasi okunamadi: {0}" -f $_.Exception.Message)
+  }
+}
+# Ilanin borclular[] listesinde aranan numara hangisiyse ONUN adi yazilir —
+# grup konkordatosunda ilanin ilk borclusunu yazmak "baska firma batmis"
+# izlenimi verir (ayni ders 20.08'de kart basliginda da yasandi).
+function AlacakAd($il, $t){
+  foreach($b in @($il.borclular)){ if("$($b.vkn)" -eq $t -and "$($b.ad)"){ return "$($b.ad)" } }
+  if("$($il.borclu)"){ return "$($il.borclu)" }
+  return "VKN $t"
 }
 
 # --- mevcut uyarilar (tekrar yazmamak icin anahtar seti) ---
@@ -112,6 +167,24 @@ foreach($f in $firmalar){
       $bulunan += @{ tur="rg"; baslik="$($k.baslik)"; detay=("$($k.ne_oldu)"); url=$k.url; onem=$onem }
       break
     } } }
+  # 3) ALACAK (izlenen borclu VKN/TCKN) — en yuksek onem: sure isliyor
+  foreach($v in @($f.borclu_vkn)){
+    $t = ("$v" -replace '\D',''); if($t.Length -lt 10){ continue }
+    foreach($il in @($alacakEslesme[$t])){
+      if(-not $il){ continue }
+      $ad  = AlacakAd $il $t
+      $bas = "$ad — $($il.baslik) · $($il.tarih_str)"
+      # detay: sureyi hesaplamaz, ILANDA YAZANI tasir (m.299/m.219 sureleri
+      # sayfadaki kartta hesaplaniyor; robot uydurmaz, kayda goturur).
+      $par = @()
+      if("$($il.mahkeme)" -or "$($il.kurum)"){ $par += (@("$($il.mahkeme)","$($il.kurum)") | Where-Object { $_ } | Select-Object -First 1) }
+      if("$($il.esas_no)"){ $par += "$($il.esas_no)" }
+      if("$($il.muhlet_bitis)"){ $par += "mühlet bitişi $($il.muhlet_bitis)" }
+      if("$($il.komiser)"){ $par += "komiser: $($il.komiser)" }
+      $par += "İlan tarihinden itibaren süre işler — alacak kaydını geciktirme"
+      $bulunan += @{ tur="alacak"; baslik=$bas; detay=($par -join " · "); url=$il.url; onem="yuksek" }
+    }
+  }
   # yalniz YENI olanlari kuyruga al
   foreach($b in $bulunan){
     $ak = "$($f.id)|$($b.tur)|$($b.baslik)"
@@ -128,7 +201,7 @@ foreach($f in $firmalar){
 if($yeni.Count -eq 0){
   OzetYaz ([ordered]@{ tarih=(Get-Date -Format "dd.MM.yyyy HH:mm"); durum="TAMAM"; firma=$firmalar.Count; yeni_uyari=0
     not="Bugun yeni eslesme yok - mukerrer kilidi eskiyi tekrar yazmaz."
-    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count } })
+    veri=[ordered]@{ rg_karti=@($kartlar).Count; ihale_ilani=@($ihale).Count; izlenen_borclu=$izlenen.Count; alacak_eslesme=@($alacakEslesme.Keys).Count } })
   Write-Host "Yeni uyari yok."; exit 0
 }
 
@@ -148,7 +221,7 @@ if($RK -and $RF){
     # basligi + "neden aliyorsunuz" satiri sart — spam puani ve sikayet riski duser.
     $html = "<h2>Radar uyariniz — $($m.ad)</h2><p>Firmanizi ilgilendiren yeni gelismeler:</p><p>" + ($m.satirlar -join "<br>") + "</p><p><a href='https://tetikte.com/radar-app.html'>Panele git &rarr;</a></p><p style='color:#888;font-size:12px'>Tetikte — bir Dizdar Denetim A.S. yazilimidir. Bu maili radar aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin.</p>"
     $duz = "Radar uyariniz — $($m.ad)`n`nFirmanizi ilgilendiren yeni gelismeler:`n" + ($m.satirlar -join "`n") + "`n`nPanel: https://tetikte.com/radar-app.html`n`nTetikte — bir Dizdar Denetim A.S. yazilimidir. Bu maili radar aboneliginiz icin aliyorsunuz; bildirimi kapatmak icin bu maile 'iptal' yanitini verin."
-    $mb = @{ from=$RF; to=@($m.email); reply_to="cem@dizdardenetim.com"; subject="Radar: firmanizi ilgilendiren $($m.satirlar.Count) yeni gelisme"; html=$html; text=$duz; headers=@{ "List-Unsubscribe"="<mailto:cem@dizdardenetim.com?subject=iptal>" } } | ConvertTo-Json -Depth 4
+    $mb = @{ from=$RF; to=@($m.email); reply_to="cem@dizdardenetim.com"; subject=$(if($m.satirlar -match '[ALACAK]'){ "Radar: izlediginiz borcluda konkordato/iflas ilani" } else { "Radar: firmanizi ilgilendiren $($m.satirlar.Count) yeni gelisme" }); html=$html; text=$duz; headers=@{ "List-Unsubscribe"="<mailto:cem@dizdardenetim.com?subject=iptal>" } } | ConvertTo-Json -Depth 4
     try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization="Bearer $RK"; "Content-Type"="application/json" } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -TimeoutSec 60 | Out-Null; $sent++ } catch { Write-Host "Mail hata ($($m.email)): $($_.Exception.Message)" }
   }
   Write-Host ("Gonderilen mail: {0}" -f $sent)
@@ -158,6 +231,6 @@ OzetYaz ([ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm"); durum = "TAMAM"
   firma = $firmalar.Count; yeni_uyari = $yeni.Count; mail_gonderilen = $sent
   mail_notu = if($RK -and $RF){ "RESEND takili" } else { "RESEND anahtari yok - uyarilar panele yazildi, mail atlandi" }
-  veri = [ordered]@{ rg_karti = @($kartlar).Count; ihale_ilani = @($ihale).Count }
+  veri = [ordered]@{ rg_karti = @($kartlar).Count; ihale_ilani = @($ihale).Count; izlenen_borclu = $izlenen.Count; alacak_eslesme = @($alacakEslesme.Keys).Count }
 })
 Write-Host ("TAMAM: {0} firma, {1} yeni uyari." -f $firmalar.Count, $yeni.Count)
