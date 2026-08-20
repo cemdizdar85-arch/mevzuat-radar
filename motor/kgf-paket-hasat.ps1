@@ -22,7 +22,11 @@ $ciktiYolu = Join-Path $kokDizin "veri\kgf-paket.json"
 $curlKomut = if(Get-Command curl.exe -ErrorAction SilentlyContinue){ "curl.exe" } else { "curl" }
 
 $anaDosya = Join-Path ([IO.Path]::GetTempPath()) "kgf-ana.html"
-& $curlKomut -sSL -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $anaDosya "https://www.kgf.com.tr"
+# 20.08 OLCULDU: kgf.com.tr'nin onundeki Sucuri Cloudproxy govdeyi ARTIK
+# istenmeden gzip'liyor; --compressed olmadan curl ham gzip yaziyor, HTML
+# okunamiyor ve menude 0 paket bulunuyordu (kor kalma dogru calisti: dosyaya
+# dokunulmadi + alarm gitti). --compressed sunucu sikistirmasa da zararsiz.
+& $curlKomut -sSL --compressed -m 60 -A "Mozilla/5.0 (TetikteRobotu; +https://tetikte.com)" -o $anaDosya "https://www.kgf.com.tr"
 if(-not (Test-Path $anaDosya)){ Write-Host "HATA: kgf.com.tr cekilemedi"; exit 1 }
 $anaHtml = Get-Content $anaDosya -Raw -Encoding UTF8
 

@@ -1,41 +1,41 @@
 ﻿{
-    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 19.08.2026 15:47.",
+    "guncelleme":  "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 20.08.2026 09:01.",
     "kaynaklar":  [
                       {
                           "ad":  "TÜBİTAK",
                           "url":  "https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari",
                           "durum":  "OK (6 çağrı)",
-                          "sonUretim":  "2026-08-19"
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "KOSGEB",
                           "url":  "https://www.kosgeb.gov.tr",
                           "durum":  "OK (1 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)",
-                          "sonUretim":  "2026-08-19"
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "AB",
                           "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
-                          "durum":  "OK (portalda 1247 konu tarandi; tarihi gecerli 643 — açık 374, yakında 269; listede en yakın 100)",
-                          "sonUretim":  "2026-08-19"
+                          "durum":  "OK (portalda 1248 konu tarandi; tarihi gecerli 645 — açık 375, yakında 270; listede en yakın 100)",
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "Kalkınma Ajansları",
                           "url":  "https://ka.gov.tr/destekler",
                           "durum":  "OK (26 ajansta güncel 94 destek, 26 tanesi listede)",
-                          "sonUretim":  "2026-08-19"
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "TKDK (IPARD)",
                           "url":  "https://www.tkdk.gov.tr/ProjeIslemleri/CagriIlanArsiv",
                           "durum":  "OK (1 açık ilan — çağrı aralarında 0 olması normal)",
-                          "sonUretim":  "2026-08-19"
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "HAMLE",
                           "url":  "https://www.hamle.gov.tr/Home/CagriPlani",
                           "durum":  "OK (1 açık çağrı — çağrı aralarında 0 olması normal)",
-                          "sonUretim":  "2026-08-19"
+                          "sonUretim":  "2026-08-20"
                       },
                       {
                           "ad":  "KKYDP / RG tebliği",
@@ -983,6 +983,19 @@
                      },
                      {
                          "kaynak":  "AB",
+                         "kod":  "HORIZON-EIT-2026-PRIZE-WIP",
+                         "baslik":  "Women Leadership Category",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-02",
+                         "sonTarih":  "2026-12-01",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "EDF-EDIP-P-2026-2027-FNLC-SA",
                          "baslik":  "Support for the functioning of SEAPs, including  for the purpose of establishing, managing and maintaining defence industrial readiness pools",
                          "durum":  "yakinda",
@@ -993,19 +1006,6 @@
 
                                       ],
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-P-2026-2027-FNLC-SA-SEAP"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-EURATOM-2027-01",
-                         "baslik":  "Key enabling technologies for fusion power plants (European Partnership on Fusion Energy)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-09-15",
-                         "sonTarih":  "2027-03-04",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EURATOM-2027-01-01"
                      },
                      {
                          "kaynak":  "AB",
@@ -1100,6 +1100,19 @@
                      },
                      {
                          "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-06",
+                         "baslik":  "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-09-22",
+                         "sonTarih":  "2027-02-02",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"
+                     },
+                     {
+                         "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-01",
                          "baslik":  "Innovative advanced materials and new production processes – reducing dependencies on Critical and Strategic Raw Materials (IA) (Innovative Advanced Materials for the EU and Processes4Planet partnerships)",
                          "durum":  "yakinda",
@@ -1127,19 +1140,6 @@
                      {
                          "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-02-two-stage",
-                         "baslik":  "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-09-22",
-                         "sonTarih":  "2027-02-02",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-02-two-stage",
                          "baslik":  "Efficient energy input from renewable sources and energy management in the process industries (IA) (Processes4Planet and Innovative Advanced Materials for the EU partnerships)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
@@ -1152,8 +1152,8 @@
                      },
                      {
                          "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-01",
-                         "baslik":  "Technologies for innovative processing of raw materials (IA)",
+                         "kod":  "HORIZON-CL4-2027-02-two-stage",
+                         "baslik":  "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
                          "acilis":  "2026-09-22",
@@ -1161,12 +1161,12 @@
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage"
                      },
                      {
                          "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-06",
-                         "baslik":  "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)",
+                         "kod":  "HORIZON-CL4-2027-01",
+                         "baslik":  "Unlocking the potential of academic intellectual assets for industry, SMEs and startups (CSA)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
                          "acilis":  "2026-09-22",
@@ -1174,7 +1174,7 @@
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42"
                      },
                      {
                          "kaynak":  "AB",
@@ -1192,7 +1192,7 @@
                      {
                          "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-01",
-                         "baslik":  "Unlocking the potential of academic intellectual assets for industry, SMEs and startups (CSA)",
+                         "baslik":  "Technologies for innovative processing of raw materials (IA)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
                          "acilis":  "2026-09-22",
@@ -1200,7 +1200,7 @@
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16"
                      },
                      {
                          "kaynak":  "AB",
@@ -1231,45 +1231,6 @@
                      {
                          "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-11-17",
-                         "sonTarih":  "2027-03-18",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "Horizon scanning and foresight in future enabling digital technologies (CSA)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-11-17",
-                         "sonTarih":  "2027-03-18",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-11-17",
-                         "sonTarih":  "2027-03-18",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-04",
                          "baslik":  "Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
@@ -1279,32 +1240,6 @@
 
                                       ],
                          "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-11-17",
-                         "sonTarih":  "2027-03-18",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08"
-                     },
-                     {
-                         "kaynak":  "AB",
-                         "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "International cooperation in AI (IA)",
-                         "durum":  "yakinda",
-                         "program":  "Ufuk Avrupa",
-                         "acilis":  "2026-11-17",
-                         "sonTarih":  "2027-03-18",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06"
                      },
                      {
                          "kaynak":  "AB",
@@ -1335,6 +1270,71 @@
                      {
                          "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Energy efficiency and sustainability of AI data processing in Data Centres (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
+                         "baslik":  "International cooperation in AI (IA)",
+                         "durum":  "yakinda",
+                         "program":  "Ufuk Avrupa",
+                         "acilis":  "2026-11-17",
+                         "sonTarih":  "2027-03-18",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06"
+                     },
+                     {
+                         "kaynak":  "AB",
+                         "kod":  "HORIZON-CL4-2027-04",
                          "baslik":  "Advanced and Innovative hardware components for Virtual Worlds (RIA) (Virtual Worlds Partnership)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
@@ -1361,7 +1361,7 @@
                      {
                          "kaynak":  "AB",
                          "kod":  "HORIZON-CL4-2027-04",
-                         "baslik":  "Energy efficiency and sustainability of AI data processing in Data Centres (IA)",
+                         "baslik":  "Horizon scanning and foresight in future enabling digital technologies (CSA)",
                          "durum":  "yakinda",
                          "program":  "Ufuk Avrupa",
                          "acilis":  "2026-11-17",
@@ -1369,7 +1369,7 @@
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09"
+                         "url":  "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
                      },
                      {
                          "kaynak":  "AB",
@@ -1465,30 +1465,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Kırsal Kalkınma Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-03-02",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXweafIXfar6SAtnHgXBWW5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
-                         "baslik":  "Kreatif Endüstriler Teknik Destek Programı (2026)",
-                         "durum":  "acik",
-                         "acilis":  "2026-08-06",
-                         "sonTarih":  "2026-12-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
                          "baslik":  "MEVKA 2026 Yılı Turizm Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-03-02",
@@ -1500,15 +1476,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "MEVKA",
-                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
                          "durum":  "acik",
-                         "acilis":  "2026-02-18",
-                         "sonTarih":  "2026-12-31",
+                         "acilis":  "2026-08-03",
+                         "sonTarih":  "2026-10-02",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1525,14 +1501,38 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "ANKARAKA",
-                         "baslik":  "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
+                         "baslik":  "Kreatif Endüstriler Teknik Destek Programı (2026)",
                          "durum":  "acik",
-                         "acilis":  "2026-08-03",
-                         "sonTarih":  "2026-10-02",
+                         "acilis":  "2026-08-06",
+                         "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Kırsal Kalkınma Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-03-02",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXweafIXfar6SAtnHgXBWW5QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "MEVKA",
+                         "baslik":  "MEVKA 2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-02-18",
+                         "sonTarih":  "2026-12-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcuisqgE7t_yJl1SwXQAu3FQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1584,15 +1584,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "ANKARAKA",
-                         "baslik":  "2026 Yılı Kırsal İşletmeler Teknik Destek Programı",
+                         "kod":  "CKA",
+                         "baslik":  "2026 Yılı Fizibilite Desteği Programı",
                          "durum":  "acik",
-                         "acilis":  "2026-04-07",
-                         "sonTarih":  "2026-12-30",
+                         "acilis":  "2026-03-01",
+                         "sonTarih":  "2026-12-31",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qSpWSxO9g0EdbxYGjF1IaCVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXRXLHQRty3d_1yA2oJR-f1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1608,15 +1608,15 @@
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "CKA",
-                         "baslik":  "2026 Yılı Fizibilite Desteği Programı",
+                         "kod":  "ANKARAKA",
+                         "baslik":  "2026 Yılı Kırsal İşletmeler Teknik Destek Programı",
                          "durum":  "acik",
-                         "acilis":  "2026-03-01",
-                         "sonTarih":  "2026-12-31",
+                         "acilis":  "2026-04-07",
+                         "sonTarih":  "2026-12-30",
                          "tarihler":  [
 
                                       ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXRXLHQRty3d_1yA2oJR-f1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qSpWSxO9g0EdbxYGjF1IaCVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1645,6 +1645,18 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "GMKA",
+                         "baslik":  "GMKA Yönetim Danışmanlığı Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-03-01",
+                         "sonTarih":  "2026-10-31",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbozn-hyzesrsCTT-GDVwZxQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "GMKA",
                          "baslik":  "GMKA Beşeri ve Sosyal Gelişim Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-03-01",
@@ -1665,18 +1677,6 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "GMKA",
-                         "baslik":  "GMKA Yönetim Danışmanlığı Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-03-01",
-                         "sonTarih":  "2026-10-31",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbozn-hyzesrsCTT-GDVwZxQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",
@@ -1729,18 +1729,6 @@
                      {
                          "kaynak":  "Kalkınma Ajansları",
                          "kod":  "OKA",
-                         "baslik":  "2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
-                         "durum":  "acik",
-                         "acilis":  "2026-01-15",
-                         "sonTarih":  "2026-12-25",
-                         "tarihler":  [
-
-                                      ],
-                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbW5pY_yog_KHajYGalkKLZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-                     },
-                     {
-                         "kaynak":  "Kalkınma Ajansları",
-                         "kod":  "OKA",
                          "baslik":  "2026 Yılı Anadoludakiler: Turizm ve Yöresel Değerler Teknik Destek Programı",
                          "durum":  "acik",
                          "acilis":  "2026-01-15",
@@ -1761,6 +1749,18 @@
 
                                       ],
                          "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+                     },
+                     {
+                         "kaynak":  "Kalkınma Ajansları",
+                         "kod":  "OKA",
+                         "baslik":  "2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
+                         "durum":  "acik",
+                         "acilis":  "2026-01-15",
+                         "sonTarih":  "2026-12-25",
+                         "tarihler":  [
+
+                                      ],
+                         "url":  "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbW5pY_yog_KHajYGalkKLZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
                      },
                      {
                          "kaynak":  "Kalkınma Ajansları",

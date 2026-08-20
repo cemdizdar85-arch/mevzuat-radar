@@ -286,7 +286,15 @@ jobs:
           git config user.name "mevzuat-radar-bot"
           git config user.email "actions@users.noreply.github.com"
           git add veri/.kaynak-hash.json 2>/dev/null || true
-          git add veri/*.json
+          # 20.08 DERSI (kosu #64 boyle KAYBOLDU): "git add veri/*.json" once TUM
+          # pathspec'leri dogrular; iclerinden BIRI .gitignore'da ise komut tumuyle
+          # duser (exit 1) ve HICBIR dosya eklenmez -> commit yok, push yok, adim
+          # kirmizi. 19.08 gizli kasa kararindan sonra veri/alacak-arsiv.json ile
+          # veri/alacak-ilan-canli.json yok sayilanlar listesine girdi ama kosu
+          # onlari hala uretiyor; ertesi sabah 12 beslemenin hasadi da bu yuzden
+          # yayinlanamadi. Listeyi artik git'in kendisi cikariyor:
+          # --exclude-standard yok sayilanlari eler, kalanlari eklemek serbest.
+          git ls-files -z --modified --others --exclude-standard -- 'veri/*.json' | xargs -0 -r git add --
           git diff --cached --quiet || git commit -m "Kaynak nobetcisi: kaynak/veri guncellendi ($(date +%d.%m.%Y))"
           git pull --rebase --autostash || true
           git push
