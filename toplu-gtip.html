@@ -74,8 +74,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <label>1. YOL: EXCEL'DEN KOPYALA-YAPIŞTIR</label>
     <textarea class="gir" id="yapistir" placeholder="Excel'de A-B-C-D sütunlarını seç → Ctrl+C → buraya Ctrl+V&#10;örn:&#10;8516.71.00.00.11&#9;Çin&#9;1.250.000&#9;Kahve makinesi"></textarea>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px">
-      <label style="margin:0">2. YOL: CSV DOSYASI YÜKLE</label>
-      <input type="file" id="csvDosya" accept=".csv,.txt,.tsv" style="font-size:13px;color:var(--muted)">
+      <label style="margin:0">2. YOL: DOSYA YÜKLE (.xlsx ya da .csv)</label>
+      <input type="file" id="csvDosya" accept=".xlsx,.csv,.txt,.tsv" style="font-size:13px;color:var(--muted)">
     </div>
     <button class="btn" onclick="hesapla()">📊 Listeyi hesapla</button>
     <div class="hata" id="hata"></div>
@@ -180,6 +180,81 @@ function uyeMi(){ try{ return Object.keys(localStorage).some(k=>k.indexOf('-auth
 
 // ============ HESAP + TABLO ============
 let SON_SATIRLAR=null;
+// ============================================================================
+//  .xlsx OKUYUCU — kutuphanesiz, tarayici ici.
+//  Musavirin elindeki dosya .xlsx; "once CSV'ye cevir" demek kullaniciyi kaybettirir.
+//  xlsx = ZIP. Tarayicinin DecompressionStream('deflate-raw') ucu ile aciliyor,
+//  sayfaya tek satir dis kod girmiyor ve "verin tarayicidan cikmaz" sozu bozulmuyor.
+//  Cikti, yapistirma kutusuyla AYNI bicim (sekmeyle ayrilmis satirlar) — boylece
+//  ayristirma mantigi tek yerde kalir.
+// ============================================================================
+function xlsxEntity(t){
+  return t.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+          .replace(/&quot;/g,'"').replace(/&apos;/g,"'")
+          .replace(/&#(\d+);/g,(m,d)=>String.fromCharCode(d))
+          .replace(/&#x([0-9a-f]+);/gi,(m,d)=>String.fromCharCode(parseInt(d,16)));
+}
+function xlsxSutun(ref){                       // "BC12" -> 54
+  const h=(ref.match(/^[A-Z]+/)||['A'])[0];
+  let n=0; for(const c of h) n=n*26+(c.charCodeAt(0)-64);
+  return n-1;
+}
+async function zipAc(bayt){
+  const dv=new DataView(bayt.buffer, bayt.byteOffset, bayt.byteLength);
+  let eocd=-1;
+  for(let i=bayt.length-22;i>=0 && i>bayt.length-66000;i--){ if(dv.getUint32(i,true)===0x06054b50){ eocd=i; break; } }
+  if(eocd<0) throw new Error('zip sonu bulunamadı');
+  const adet=dv.getUint16(eocd+10,true), cdBas=dv.getUint32(eocd+16,true);
+  const cikti={};
+  let p=cdBas;
+  for(let i=0;i<adet;i++){
+    if(dv.getUint32(p,true)!==0x02014b50) break;
+    const yontem=dv.getUint16(p+10,true), sikBoy=dv.getUint32(p+20,true);
+    const adBoy=dv.getUint16(p+28,true), ekBoy=dv.getUint16(p+30,true), yorumBoy=dv.getUint16(p+32,true);
+    const yerel=dv.getUint32(p+42,true);
+    const ad=new TextDecoder().decode(bayt.subarray(p+46,p+46+adBoy));
+    const yAdBoy=dv.getUint16(yerel+26,true), yEkBoy=dv.getUint16(yerel+28,true);
+    const veriBas=yerel+30+yAdBoy+yEkBoy;
+    const ham=bayt.subarray(veriBas, veriBas+sikBoy);
+    if(/^xl\/(worksheets\/sheet\d+|sharedStrings)\.xml$/.test(ad)){
+      if(yontem===0) cikti[ad]=new TextDecoder().decode(ham);
+      else if(yontem===8){
+        if(typeof DecompressionStream!=='function') throw new Error('tarayıcı desteklemiyor');
+        const ak=new Blob([ham]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+        cikti[ad]=new TextDecoder().decode(new Uint8Array(await new Response(ak).arrayBuffer()));
+      } else throw new Error('bilinmeyen sıkıştırma');
+    }
+    p+=46+adBoy+ekBoy+yorumBoy;
+  }
+  return cikti;
+}
+async function xlsxMetin(dosya){
+  const parcalar=await zipAc(new Uint8Array(await dosya.arrayBuffer()));
+  const sayfalar=Object.keys(parcalar).filter(a=>/worksheets/.test(a)).sort();
+  if(!sayfalar.length) throw new Error('sayfa bulunamadı');
+  const ssXml=parcalar['xl/sharedStrings.xml']||'';
+  const ortak=(ssXml.match(/<si>[\s\S]*?<\/si>/g)||[]).map(si=>
+    ((si.match(/<t[^>]*>[\s\S]*?<\/t>/g)||[]).map(t=>xlsxEntity(t.replace(/<[^>]*>/g,''))).join('')));
+  const xml=parcalar[sayfalar[0]];
+  const satirlar=[];
+  for(const rm of (xml.match(/<row[\s\S]*?<\/row>|<row[^>]*\/>/g)||[])){
+    const hucre=[];
+    for(const cm of (rm.match(/<c [^>]*>[\s\S]*?<\/c>|<c [^>]*\/>/g)||[])){
+      const ref=(cm.match(/r="([A-Z]+\d+)"/)||[])[1]||'A1';
+      const tip=(cm.match(/t="([^"]+)"/)||[])[1]||'';
+      let d='';
+      const v=cm.match(/<v>([\s\S]*?)<\/v>/);
+      const is=cm.match(/<is>[\s\S]*?<\/is>/);
+      if(tip==='s' && v) d=ortak[+v[1]]||'';
+      else if(is) d=(is[0].match(/<t[^>]*>[\s\S]*?<\/t>/g)||[]).map(t=>xlsxEntity(t.replace(/<[^>]*>/g,''))).join('');
+      else if(v) d=xlsxEntity(v[1]);
+      hucre[xlsxSutun(ref)]=d;
+    }
+    if(hucre.length) satirlar.push(Array.from(hucre,x=>x===undefined?'':x).join('\t'));
+  }
+  if(!satirlar.length) throw new Error('satır çıkmadı');
+  return satirlar.join('\n');
+}
 function hesapla(){
   const h=document.getElementById('hata'); h.textContent='';
   const dosya=document.getElementById('csvDosya').files[0];
@@ -202,7 +277,11 @@ function hesapla(){
       ciz(kalemler);
     });
   };
-  if(dosya){ const fr=new FileReader(); fr.onload=()=>devam(fr.result); fr.readAsText(dosya,'utf-8'); }
+  if(dosya){
+    if(/\.xlsx$/i.test(dosya.name)){
+      xlsxMetin(dosya).then(devam).catch(e=>{ h.textContent='Excel dosyası okunamadı ('+e.message+'). Sütunları kopyalayıp yapıştırmayı dene.'; });
+    } else { const fr=new FileReader(); fr.onload=()=>devam(fr.result); fr.readAsText(dosya,'utf-8'); }
+  }
   else devam(yap);
 }
 function satirHesap(k){
@@ -243,6 +322,12 @@ function ciz(kalemler){
     return `<tr class="${kilit?'kilit':''}"><td>${s.dkod}${s.tam?'':'*'}${s.gozetim?' <span title="gözetim var">👁️</span>':''}</td><td>${mens}</td><td class="n">${gvS}</td><td class="n">${igvS}</td><td class="n">${dS}</td><td class="n">${s.kdv.t}</td><td class="n"><b>${yukS}</b></td><td class="n">${tlS}</td><td style="color:var(--muted)">${htmlEsc(s.k.aciklama)}</td></tr>`;
   }).join('');
   const kilitli=satirlar.length>acikSinir;
+  // 20.08: kilitli kalemlerin TL yuku ayrica toplanir — kilit metni rakamla konussun.
+  let kilitliYuk=0, kilitliTutarli=0;
+  if(kilitli) satirlar.slice(acikSinir).forEach(s=>{
+    if(s.olculemedi||s.veriYok||!s.tutar) return;
+    kilitliYuk += s.tutar*s.yukLo/100; kilitliTutarli++;
+  });
   document.getElementById('sonuc').innerHTML=`<div class="form">
     <h2 style="margin:0 0 4px;font-size:20px">📊 ${satirlar.length} kalem hesaplandı</h2>
     <div style="font-size:13px;color:var(--muted);margin:0 0 12px">${tutarli?`Tutar girilen ${tutarli} kalemde toplam <b style="color:var(--ink)">${fmtS(toplamTutar)}</b> için geri gelmeyen yük <b style="color:var(--red)">≈ ${fmtS(toplamYuk)}</b> (girdiğin para biriminde; KDV hariç, KDV indirilir/iade alınır).`:''} ${olculemeyen?`<b style="color:var(--amber)">${olculemeyen} kalem ölçülemedi.</b>`:''}</div>
@@ -250,7 +335,7 @@ function ciz(kalemler){
       <thead><tr><th>GTİP</th><th>Menşe</th><th class="n">Gümrük V.</th><th class="n">İGV</th><th class="n">Damping</th><th class="n">KDV</th><th class="n">Geri gelmeyen yük</th><th class="n">Yük tutarı</th><th>Açıklama</th></tr></thead>
       <tbody>${html}</tbody>
     </table></div>
-    ${kilitli?`<div style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin-top:10px"><b style="color:var(--ink)">İlk 5 kalem açık, kalan ${satirlar.length-5} kalem ücretsiz üyelikte.</b> <a href="radar-app.html?niyet=gtip" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol, tam tabloyu aç →</a></div>`:''}
+    ${kilitli?`<div style="border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:12px;padding:12px 15px;margin-top:10px"><b style="color:var(--ink)">İlk 5 kalem açık, kalan ${satirlar.length-5} kalem ücretsiz üyelikte.</b>${kilitliTutarli?` Kapalı kalemlerde ${kilitliTutarli===satirlar.length-5?'':'tutar girdiğin '}${kilitliTutarli} kalem için geri gelmeyen yük <b style="color:var(--red)">≈ ${fmtS(kilitliYuk)}</b>.`:''} <a href="radar-app.html?niyet=gtip" style="color:var(--accent2);font-weight:700">Ücretsiz üye ol, tam tabloyu aç →</a></div>`:''}
     <div style="font-size:11.5px;color:var(--dim);margin-top:12px;line-height:1.6">(*) kod kısaltılmış girildi, ilk eşleşen alt kod kullanıldı ya da ülke-bazlı kesin sütun yoktu (aralık üst sınırı). (sp*) spesifik damping ($/ton gibi) yüzdeye dahil değildir. (†) ABD menşeli bazı mallarda misilleme ek vergisi (2018/11973). 👁️ gözetim var: birim kıymet eşiğin altındaysa matrah yükseltilir. KDV menşeden bağımsızdır ve indirilir; "geri gelmeyen yük" = gümrük V. + İGV + damping. Menşe sütunu boş/eşleşmeyen satırlarda resmî kural gereği "Diğer Ülkeler" oranı kullanılmıştır; AB/STA menşeli + belgeli malda gerçek oran daha düşüktür, <a href="senaryo-raporu.html">Menşe Senaryo Raporu</a>'ndan karşılaştır.</div>
     <div style="margin-top:14px">${uye
       ? `<button class="btn ghost" onclick="sonucIndir()">📥 Sonucu CSV indir</button>`

@@ -74,6 +74,18 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   </div>
   <div class="ipucu">Tam kod ya da başlangıcını yazabilirsin (ör. 6907 → o grubun tüm kodları).</div>
 
+  <!-- 20.08.2026 — TOPLU ARAC BAGLANTISI. Olculdu: bu sayfadan toplu araca giden
+       tek link gizli "Araçlar" cekmecesinin icindeydi (gorunur degil). Listeyle
+       gelen kullanici kodlari tek tek yazmaya baslamadan once bunu gormeli. -->
+  <div style="margin-top:10px;padding:11px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span style="font-size:18px">📑</span>
+    <div style="flex:1;min-width:200px;font-size:13px;color:var(--muted)">
+      <b style="color:var(--ink)">Elinde liste mi var?</b> Tek tek yazma —
+      Excel'ini yapıştır, hepsinin vergisini tek tabloda gör.
+    </div>
+    <a href="toplu-gtip.html" style="color:var(--accent2);font-weight:700;font-size:13.5px;text-decoration:none;white-space:nowrap">Toplu GTİP Kontrolü →</a>
+  </div>
+
   <div style="margin-top:10px">
     <a href="#" onclick="adAraToggle();return false" style="display:inline-block;font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:700">🔍 Kodunu bilmiyor musun? Ürünün adıyla ara →</a>
     <div id="adAraKutu" style="display:none;margin-top:10px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:#0a0f17">
@@ -926,6 +938,15 @@ function ctaHtml(){
     </label>
     <p id="takipSonuc" style="margin:10px 0 0;font-size:13px;font-weight:600;display:none"></p>
     <p style="margin:12px 0 0;font-size:12px;color:var(--dim)">Birden çok kodun mu var? <a href="karne.html">Ücretsiz Yükümlülük Karnesi</a> ile firmanın tüm profilini çıkar.</p>
+  </div>
+  <!-- Sonucu goren kullanici en sicak an burasidir: degeri gordu, simdi listesini sorabilir. -->
+  <div style="margin-top:12px;padding:14px;border:1px solid rgba(255,194,75,.35);border-radius:12px;background:rgba(255,194,75,.06)">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--amber);margin-bottom:6px">📑 TEK KOD DEĞİL, LİSTE Mİ?</div>
+    <div style="font-size:13.5px;color:var(--muted)">Beyanname ya da sipariş listen Excel'de duruyorsa tek tek yazma:
+      <b style="color:var(--ink)">sütunları yapıştır ya da dosyayı yükle</b>, her kalemin gümrük vergisi, İGV, damping ve KDV'si
+      tek tabloda çıksın, tutar girdiysen TL yükü de hesaplansın.
+      <span style="color:var(--dim)">Verin tarayıcıdan çıkmaz.</span></div>
+    <div style="margin-top:10px"><a href="toplu-gtip.html" style="display:inline-block;background:var(--grad);color:#03101f;font-weight:800;font-size:13.5px;padding:10px 18px;border-radius:11px;text-decoration:none">Toplu GTİP Kontrolü'nü aç →</a></div>
   </div>`;
 }
 
