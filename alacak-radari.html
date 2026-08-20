@@ -387,6 +387,8 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       body:JSON.stringify(govde||{})
     });
     var g=await r.text();
+    // 20.08 Cem "veriler kayboldu mu": suresi gecmis oturum jetonu 401 dondurunce SAYFANIN TAMAMI bosaliyordu (vitrin de kamuya acik oldugu halde). Jetonla 401 alindiysa anon anahtarla bir kez daha denenir; 403 (fiyat kapisi) DOKUNULMAZ.
+    if(r.status===401 && j){ r=await fetch(SB_URL+'/rest/v1/rpc/'+ad,{ method:'POST', headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'}, body:JSON.stringify(govde||{}) }); g=await r.text(); }
     if(!r.ok){ var h=''; try{ h=(JSON.parse(g).hint)||(JSON.parse(g).message)||''; }catch(e){} var hata=new Error(h||('HTTP '+r.status)); hata.kod=h; throw hata; }
     return g?JSON.parse(g):null;
   }
@@ -491,7 +493,20 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
   // gerisi "Devamını göster" ile 20'şer açılır. Tür değişince sayaç sıfırlanır.
   var AI_GOSTER=8;
   function aiDaha(){ AI_GOSTER+=20; aiCiz(); }
-  function aiFiltre(t, kaydir){ AI_TUR=t; AI_GOSTER=8; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir){ var el=document.getElementById('aiFiltreKutu'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+  function aiFiltre(t, kaydir){ AI_TUR=t; AI_GOSTER=8; var g=document.getElementById('aiTurler'); if(g){ [].forEach.call(g.querySelectorAll('.tbtn'),function(b){ b.classList.toggle('on', b.dataset.t===t); }); } aiCiz(); if(kaydir) aiKaydir('aiFiltreKutu'); }
+  // 20.08 Cem "konkordato basiyorum ilanlar asagiya gelmiyor": scrollIntoView({behavior:'smooth'})
+  // bazi tarayici/ayarlarda HIC ateslenmiyordu — buton olu gorunuyordu. Once yumusak denenir,
+  // 450 ms sonra hala kimildamadiysa aninda goturulur. Olculen: yumusak 0 px, aninda 1471 px.
+  function aiKaydir(id){
+    var el=document.getElementById(id); if(!el) return;
+    var hedef=Math.max(0, el.getBoundingClientRect().top + (window.pageYOffset||document.documentElement.scrollTop||0) - 12);
+    var basla=window.pageYOffset||document.documentElement.scrollTop||0;
+    try{ window.scrollTo({top:hedef, behavior:'smooth'}); }catch(e){ window.scrollTo(0,hedef); return; }
+    setTimeout(function(){
+      var simdi=window.pageYOffset||document.documentElement.scrollTop||0;
+      if(Math.abs(simdi-basla)<8 && Math.abs(hedef-basla)>8) window.scrollTo(0,hedef);
+    },450);
+  }
   function aiCiz(){
     var kutu=document.getElementById('aiListe'); if(!kutu) return;
     var q=aiFold((document.getElementById('aiAra')||{}).value||'');
