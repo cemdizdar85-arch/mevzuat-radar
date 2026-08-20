@@ -328,10 +328,27 @@ jobs:
             # 16.08 DUZELTME: eskiden burada her halukarda "RG sakin / ilgili teblig
             # yok" yaziyordu - teblig INDIGI ve uretimin COKTUGU gunlerde bile.
             # Robot kendi sonucunu dogrulamadan mazeret uyduruyordu. Artik gunun
-            # arsivinde .htm var mi diye BAKILIR ve iki hal ayri yazilir.
-            GUNKLASOR="motor/arsiv/$(TZ=Europe/Istanbul date +%d-%m-%Y)"
-            if ls "$GUNKLASOR"/*.htm >/dev/null 2>&1; then
-              MESAJ="Hap kartlar: $BUGUN - ILGILI TEBLIG VARDI AMA KART URETILEMEDI (uretim hatasi), nobet damgasi guncellendi"
+            # arsivinde .htm var mi diye BAKILIR ve uc hal ayri yazilir.
+            #
+            # 20.08 UCUNCU HAL - YANLIS ALARM. 16.08'in duzeltmesi kaynak damgasi
+            # gelmeden once yazilmisti. Damga kapisi (19.08) devreye girince gunun
+            # ILK kosusu kartlari uretiyor, ayni gunun YEDEK kosulari (06:20/09:20/
+            # 15:00) kaynak degismedigi icin uretimi BILEREK atliyor. O kosularda
+            # kartlar-guncel.json degismiyor, arsivde .htm ise duruyor - ve robot
+            # her seferinde "URETIM HATASI" diye commit atiyordu. 20.08 sabahi
+            # canli goruldu (f4e98521): kart 01:46'da sorunsuz uretilmisti.
+            # Bu, 16.08 kusurunun aynasi: robot bu kez basarisini hata sandi.
+            # AYIRT EDICI ISARET: kaynak-damga.json YALNIZ en az 1 kart uretilmis
+            # gunlere yazilir (kart-toplu.ps1: "Kart cikmadiysa damga YAZILMAZ").
+            # Dosya varsa o gun uretilmistir, bu kosu bilerek atlanmistir.
+            # NOT: gercek uretim cokusunde "Hap kartlari uret" adimi exit 1 verir
+            # ve BU ADIM HIC KOSMAZ - yani buradan "uretim hatasi" yazilamaz.
+            GUN=$(TZ=Europe/Istanbul date +%d-%m-%Y)
+            GUNKLASOR="motor/arsiv/$GUN"
+            if [ -f "motor/kartlar/$GUN/kaynak-damga.json" ]; then
+              MESAJ="Hap kartlar: $BUGUN - kartlar bugun zaten uretilmisti, kaynak degismedi; uretim atlandi (damga kapisi), nobet damgasi guncellendi"
+            elif ls "$GUNKLASOR"/*.htm >/dev/null 2>&1; then
+              MESAJ="Hap kartlar: $BUGUN - teblig indi ama kart cikmadi (0 kart), nobet damgasi guncellendi"
             else
               MESAJ="Hap kartlar: $BUGUN - RG fihristinde anahtarlarimiza uyan teblig yok, nobet damgasi guncellendi"
             fi
