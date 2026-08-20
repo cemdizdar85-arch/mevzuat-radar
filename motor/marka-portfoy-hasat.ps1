@@ -332,7 +332,10 @@ $ozet = [ordered]@{
   vitrin_talebi = $talepIslenen
   mail = $mailAtilan
   resend = [bool]$env:RESEND_KEY
-  ornekler = @($ornekler)
+  # DIKKAT: Generic.List'i hashtable degeri olarak @(...) ile sarmak PowerShell'de
+  # "Argument types do not match" ile duser (olculdu: hem @{} hem [ordered]@{}).
+  # ToArray() calisan tek bicim - Actions kosusu #2 bunun yuzunden dustu.
+  ornekler = $ornekler.ToArray()
   not = "Unvan -> TMview autocomplete varyantlari -> fAName (OR) -> TR marka portfoyu. Koruma bitisi basvuru+10*n (SMK m.23); tescilli kayitta onceki donemler yenilenmis kabul edilir."
 }
 Set-Content -LiteralPath $raporYol -Value (ConvertTo-Json -InputObject $ozet -Depth 6) -Encoding UTF8 -NoNewline
