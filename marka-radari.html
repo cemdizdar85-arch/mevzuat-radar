@@ -42,6 +42,7 @@ h1{font-size:clamp(24px,4.5vw,32px);letter-spacing:-1px;margin:4px 0 8px;font-we
 .dip{font-size:11.5px;color:var(--dim);margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
 
 /* ——— tetikte ortak katman (tüm araçlarda tutarlı) ——— */
+.gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
 :root{--mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
 body{position:relative}
 body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;background:radial-gradient(58% 100% at 50% 0,rgba(245,165,36,.12),transparent 72%);pointer-events:none;z-index:0}
@@ -60,8 +61,28 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
 <body>
 <div class="wrap">
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · <a href="gtip.html">GTİP Kontrolü</a> · <a href="ceza-asistani.html">Ceza Asistanı</a> · Marka Radarı</div>
+  <!-- 20.08 (Cem "aynı iskeleti ihale ve radara koy"): Alacak Radarı iskeleti —
+       rozet + cümle başlık + tek satır özet + ilk ekranda asıl eylem + 3 adım,
+       uzun hukuk anlatımı aşağıda. Başlık zaten cümleydi, asıl kutu zaten ilk
+       ekrandaydı; eksik olan rozet, kısa özet ve 3 adımdı. -->
+  <div><span class="gozalici">⏰ Markan sessizce düşebilir · süre başvurudan itibaren 10 yıl</span></div>
   <h1>Marka Yenileme Radarı, markan ne zaman düşüyor?</h1>
-  <p class="lead">Tescilli markanın koruması <b>başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b>düşer</b>; düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b>son 6 ay</b>; kaçarsan <b>6 ay ek süre (ek ücretle)</b>. Markanın bitiş tarihini ve şu anki durumunu gör; unutmamak için takibe al.</p>
+  <p class="lead">Marka adını ve başvuru tarihini yaz; bitiş tarihini, yenileme penceresini ve şu anki durumunu gör — <b style="color:var(--green)">ücretsiz</b>.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0 14px">
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">1 · HESAPLA</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Koruma ne zaman bitiyor, gör</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">2 · TAKİBE AL</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Markanı bir kez tanımla, unut</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">3 · UYARI GELSİN</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Yenileme penceresi açıldığı gün</div>
+    </div>
+  </div>
 
   <div class="form">
     <div class="satirlar">
@@ -103,7 +124,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     <div class="h"><span class="no">m.6/8</span><div>Marka yenilenmeyip düşerse bile <b>2 yıllık itiraz kalkanın</b> var: sona ermeden itibaren 2 yıl içinde başkası aynı/benzer markaya başvurursa, <b>itiraz etmen ve markayı bu 2 yılda kullanmış olman şartıyla</b> başvuru reddedilir. 2 yıl dolunca kalkan düşer, yenilememek yine de hak kaybıdır.</div></div>
   </div>
 
-  <div class="uyari"><b>Bilgilendirme amaçlıdır.</b> Kesin tarih ve ücretler için <b>marka vekili</b> veya TÜRKPATENT sicil kaydı esastır. Bu araç başvuru tarihi + 10 yıl üzerinden tahmini gösterir; kısmi yenileme, ortak marka gibi özel haller değişebilir.</div>
+  <div class="uyari"><b style="color:var(--ink)">Süre nasıl işler:</b> Tescilli markanın koruması <b style="color:var(--ink)">başvuru tarihinden 10 yıl</b> sürer. Yenilemezsen marka <b style="color:var(--ink)">düşer</b>; düştükten sonra başkası aynısını alabilir. Yenileme penceresi <b style="color:var(--ink)">son 6 ay</b>; kaçarsan <b style="color:var(--ink)">6 ay ek süre (ek ücretle)</b>.<br><b>Bilgilendirme amaçlıdır.</b> Kesin tarih ve ücretler için <b>marka vekili</b> veya TÜRKPATENT sicil kaydı esastır. Bu araç başvuru tarihi + 10 yıl üzerinden tahmini gösterir; kısmi yenileme, ortak marka gibi özel haller değişebilir.</div>
   <div style="background:rgba(255,194,75,.09);border:1px solid rgba(255,194,75,.32);border-radius:12px;padding:13px 15px;margin:16px 0;font-size:13px;color:#93a1b3;line-height:1.6">
     <b style="color:#ffc24b">⚠️ Önce şunu bil (ÜLKESELLİK İLKESİ):</b> Türkiye'de tescilli markan <b style="color:#eef2f7">YALNIZCA Türkiye'de</b> korunur. Başka ülkede korunması için o ülkede ayrıca tescil gerekir. "TÜRKPATENT'e tescilledim, tüm dünyada korunuyorum" doğru değildir.
   </div>

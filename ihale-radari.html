@@ -154,9 +154,39 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     /* Ortak dil kalibi (30.07): sapka - alacak sablonuyla ayni */
     .gozalici{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:1.2px;color:var(--accent2);border:1px solid rgba(255,194,75,.35);background:rgba(255,194,75,.07);border-radius:999px;padding:6px 13px;margin:6px 0 10px;text-transform:uppercase}
   </style>
-  <div><span class="gozalici">📣 Sektörüne uyan ihale var mı?</span></div>
-  <h1>İhale Radarı, yurt içi + yurt dışı</h1>
-  <p class="lead">Profilini bir kez gir; hem Türkiye hem Avrupa tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b>, tek ekranda, başka yere bakmadan.</p>
+  <!-- 20.08: Alacak Radarı'ndaki iskelet (Cem "aynı iskeleti ihale ve radara koy").
+       Ölçülen rakiplerde (Creditsafe / The Gazette / Companies House) self-servis
+       ürünün ilk ekranında TEK eylem vardır ve o aramadır; ürün adı başlık ve
+       uzun kurumsal metin AŞAĞI iner. Rozetteki sayı JSON'dan basılır —
+       sayfaya gömülü rakam yazılmaz (rakam disiplini). -->
+  <div><span class="gozalici" id="ihRozet">📣 Sektörüne uyan ihale var mı?</span></div>
+  <h1>Senin işini yapan ihale açıldı, haberin yok</h1>
+  <p class="lead">Ürününü ya da işini yaz; Türkiye ve Avrupa ihalelerinde <b style="color:var(--ink)">aynı anda</b> ara — <b style="color:var(--green)">ücretsiz</b>.</p>
+
+  <div class="kutu" style="margin:14px 0 4px">
+    <label for="ihAra"><b style="color:var(--ink)">Ürün ya da iş adı</b> yaz — güncel ihale listesinde aranır</label>
+    <input type="text" id="ihAra" placeholder="ör. jeneratör, asansör, diş malzeme, motorin" style="width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0a0f17;color:var(--ink);font:inherit;font-size:15px" onkeydown="if(event.key==='Enter')ihHeroAra()">
+    <button class="btn" onclick="ihHeroAra()" style="margin-top:10px">İhaleleri tara →</button>
+    <div class="belg" style="margin-top:8px">Yurt içi liste ilan.gov.tr'den, Avrupa listesi AB TED'den gelir; ikisi de her gün sabah-akşam yenilenir. Eksiksiz resmî kaynak <a href="https://ekapv2.kik.gov.tr" target="_blank" rel="noopener">EKAP</a>'tır.</div>
+  </div>
+
+  <!-- "Bu ne işe yarar" üç kutuda (Alacak Radarı'yla aynı desen) -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0 2px">
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">1 · ARA</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İşine uyan ihale var mı, hemen gör</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">2 · PROFİLİNİ GİR</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">İlin, sektörün, yerli malı durumun</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.6px;color:var(--dim);margin-bottom:5px">3 · UYARI GELSİN</div>
+      <div style="font-size:13.5px;color:var(--ink);line-height:1.5">Sana uyan ilan çıktığı gün, tek özet</div>
+    </div>
+  </div>
+
+  <p class="lead" style="margin-top:14px">Profilini bir kez gir; hem Türkiye hem Avrupa tarafında <b style="color:var(--ink)">kim katılabilir/katılamaz</b>, <b style="color:var(--ink)">yerli malı avantajın</b>, teminatın ve <b style="color:var(--ink)">kaybedersen itiraz yolun</b>, tek ekranda, başka yere bakmadan.</p>
 
   <!-- 31.07 Cem (kesin karar): "guncel diyecegiz, tekrar konusmayalim" -
        robot gunde 2 cekiyor (03:13+17:13), tarih damgasi iddiayi kanitlar. -->
@@ -177,16 +207,50 @@ h2::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gr
     var m=disMi?IH_DAMGA.dis:IH_DAMGA.ic;
     if(m) e.innerHTML=m;
   }
+  // 20.08: rozet ölçülmüş rakam gösterir; iki kaynak da inince yazılır.
+  // Veri gelmezse rozetteki rakamsız metin OLDUĞU GİBİ kalır (uydurma yok).
+  var IH_SAYI={ic:null,dis:null};
+  function ihRozetYaz(){
+    var e=document.getElementById('ihRozet'); if(!e) return;
+    if(IH_SAYI.ic===null && IH_SAYI.dis===null) return;
+    var p=[];
+    if(IH_SAYI.ic!==null) p.push('<b style="color:var(--ink)">'+IH_SAYI.ic.toLocaleString('tr-TR')+'</b> Türkiye');
+    if(IH_SAYI.dis)       p.push('<b style="color:var(--ink)">'+IH_SAYI.dis.toLocaleString('tr-TR')+'</b> Avrupa');
+    e.innerHTML='📣 Şu an listede '+p.join(' + ')+' ihale ilanı · seninki var mı?';
+  }
+  // Hero kutusu köprüdür: mevcut yurt içi arama alanını doldurur, çizdirir ve
+  // listeye kaydırır. Arama DOM'u taşınmadı — sekme mantığına bağlı olduğu için
+  // taşımak çalışan filtreyi kırardı.
+  function ihHeroAra(){
+    var q=(document.getElementById('ihAra')||{}).value||'';
+    try{ if(typeof tab==='function') tab('ic'); }catch(e){}
+    var k=document.getElementById('yiKelime');
+    if(k){ k.value=q; if(typeof yurtIciCiz==='function') yurtIciCiz(); }
+    var hedef=document.getElementById('yiListe')||document.getElementById('yiKelime');
+    if(hedef){
+      var y=Math.max(0, hedef.getBoundingClientRect().top + (window.pageYOffset||document.documentElement.scrollTop||0) - 90);
+      var basla=window.pageYOffset||document.documentElement.scrollTop||0;
+      try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); return; }
+      // Alacak Radarı dersi: scrollIntoView/smooth bazı tarayıcılarda hiç
+      // ateşlenmiyor — 450 ms sonra kımıldamadıysa anında götür.
+      setTimeout(function(){
+        var s=window.pageYOffset||document.documentElement.scrollTop||0;
+        if(Math.abs(s-basla)<8 && Math.abs(y-basla)>8) window.scrollTo(0,y);
+      },450);
+    }
+  }
   fetch('veri/ihale-yurtici.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
     var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
     var n=(d.ilanlar||[]).length;
     if(m) IH_DAMGA.ic='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · Türkiye listesinde '+n+' ilan';
+    IH_SAYI.ic=n; ihRozetYaz();
     ihDamgaYaz();
   }).catch(function(){});
   fetch('veri/ihale-ted.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
     var m=/Son çekim: ([0-9.]+ [0-9:]+)/.exec(d.guncelleme||'');
     var n=(d.ihaleler||[]).length;
     if(m) IH_DAMGA.dis='son çekim: <b style="color:var(--ink)">'+m[1]+'</b> · Avrupa (TED) listesinde '+n+' ilan';
+    IH_SAYI.dis=n; ihRozetYaz();
     ihDamgaYaz();
   }).catch(function(){});
   </script>
