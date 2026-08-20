@@ -36,7 +36,7 @@ param(
   [switch]$kuru,                 # yazma yok, yalniz olc
   [string]$Unvan = "",           # elle test: tek unvan sorgula, Supabase'e dokunma
   [int]$TalepAdet = 40,          # bir kosuda islenecek bekleyen vitrin talebi
-  [int]$MaxKayit = 600,          # unvan basina cekilecek azami marka
+  [int]$MaxKayit = 1500,         # unvan basina cekilecek azami marka (Arcelik 1.120 - tam kapsar)
   [int]$YenilemeGun = 180,       # kac gun kala uyari (m.23: son 6 ay)
   [int]$BeklemeMs = 200,
   [switch]$YalnizTalep,          # sik kosan kuyruk isleyici (marka-talep.yml, 10 dk)
@@ -85,10 +85,22 @@ function Jstr($s){ if($null -eq $s){ return '""' }; return (ConvertTo-Json ([str
 # PS 5.1'de (try{...}catch{...}) IFADE olarak kullanilamaz (pwsh 7'de olur) -
 # betik hem yerelde (5.1) hem Actions'ta (pwsh) kossun diye tarih cevirisi fonksiyonda.
 function DTarih($v){ if(-not $v){ return '' }; try{ return ([datetime]$v).ToString('dd.MM.yyyy') }catch{ return '' } }
+# 20.08 OLCUM: TMview cok istekten sonra BOT KORUMASI devreye sokuyor - HTTP 200
+# dondurur ama govde JSON degil, JS challenge SAYFASIDIR. Bu sessizce yutulursa
+# "bu firmanin markasi yok" gibi YANLIS bir cevap uretirdik. O yuzden govde JSON
+# degilse HATA firlatilir; ust katman talebi 'hata' isaretler, "0 marka" demez.
+function JsonMu($t){ $s = "$t".TrimStart(); return ($s.StartsWith('{') -or $s.StartsWith('[')) }
 function TmvIstek($govdeJson){
   $b = [Text.Encoding]::UTF8.GetBytes($govdeJson)
-  $w = Invoke-WebRequest -Uri $TMV -Method Post -Headers $TH -ContentType "application/json" -Body $b -TimeoutSec 60 -UseBasicParsing
-  return ([Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) | ConvertFrom-Json)
+  $son = $null
+  for($deneme=1; $deneme -le 3; $deneme++){
+    $w = Invoke-WebRequest -Uri $TMV -Method Post -Headers $TH -ContentType "application/json" -Body $b -TimeoutSec 60 -UseBasicParsing
+    $t = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
+    if(JsonMu $t){ return ($t | ConvertFrom-Json) }
+    $son = $t
+    Start-Sleep -Seconds (5 * $deneme)
+  }
+  throw ("TMview JSON yerine sayfa dondurdu (bot korumasi olabilir, {0} bayt) - sonuc uretilmedi." -f "$son".Length)
 }
 # Sahip adi varyantlari: once tam unvan, bos donerse cekirdek, o da bossa ilk kelime
 function Varyantlar($unvan){
@@ -101,10 +113,16 @@ function Varyantlar($unvan){
   if($ilk.Length -ge 4){ $adaylar += $ilk }
   foreach($sorgu in ($adaylar | Select-Object -Unique)){
     if(-not "$sorgu".Trim()){ continue }
-    try{
-      $w = Invoke-WebRequest -Uri ($TMAC + [uri]::EscapeDataString($sorgu)) -Headers $TH -TimeoutSec 30 -UseBasicParsing
-      $liste = ([Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()) | ConvertFrom-Json)
-    }catch{ continue }
+    $liste = $null
+    for($d=1; $d -le 3 -and -not $liste; $d++){
+      try{
+        $w = Invoke-WebRequest -Uri ($TMAC + [uri]::EscapeDataString($sorgu)) -Headers $TH -TimeoutSec 30 -UseBasicParsing
+        $ham = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())
+        if(JsonMu $ham){ $liste = ($ham | ConvertFrom-Json); $script:AcCalisti = $true }
+        else { Start-Sleep -Seconds (5 * $d) }   # bot korumasi sayfasi - bekle, tekrar dene
+      }catch{ Start-Sleep -Seconds (3 * $d) }
+    }
+    if($null -eq $liste){ continue }
     foreach($o in @($liste)){
       $ad = "$($o.text)"; if(-not $ad){ continue }
       $nAd = Norm $ad
@@ -135,10 +153,12 @@ function SahipMarkalari($varyantlar){
   $adDizi = '[' + ((@($varyantlar) | ForEach-Object { Jstr $_ }) -join ',') + ']'
   $alanDizi = '[' + ((@($ALAN) | ForEach-Object { Jstr $_ }) -join ',') + ']'
   $sayfa = 1; $gorulen = @{}
+  $script:SonToplam = 0     # TMview'in bildirdigi GERCEK toplam (tavandan bagimsiz)
   while($true){
     if(($sayfa * 100) -gt $MaxKayit + 100){ break }
     $g = '{"page":"' + $sayfa + '","pageSize":"100","criteria":"C","basicSearch":"","fAName":' + $adDizi + ',"fOffices":["TR"],"sortColumn":"applicationDate","desc":true,"fields":' + $alanDizi + '}'
     try{ $j = TmvIstek $g }catch{ break }
+    if($sayfa -eq 1 -and $j.totalResults){ $script:SonToplam = [int]$j.totalResults }
     $kayit = @($j.tradeMarks)
     if($kayit.Count -eq 0){ break }
     foreach($k in $kayit){
@@ -204,7 +224,14 @@ function Hesapla($m){
   return $o
 }
 function PortfoyKur($unvan){
+  $script:AcCalisti = $false
   $vars = Varyantlar $unvan
+  # Autocomplete hic JSON dondurmediyse (bot korumasi) sonuc URETILMEZ: "marka yok"
+  # demek yanlis olurdu. Olcemedigimize kusur deme disiplini.
+  if(-not $script:AcCalisti){ throw "TMview sahip-adi ucu su an yanit vermedi (bot korumasi/gecici) - tarama yapilamadi." }
+  # Varyant cikmadiysa kullanicinin yazdigi unvani oldugu gibi de bir dene:
+  # sicilde tam o yazimla kayitli olabilir (autocomplete bazen esitlemiyor).
+  if(@($vars).Count -eq 0){ $vars = @($unvan) }
   $mrk  = SahipMarkalari $vars
   $liste = New-Object System.Collections.Generic.List[object]
   foreach($m in $mrk){
@@ -217,6 +244,9 @@ function PortfoyKur($unvan){
     varyantlar  = @($vars)
     markalar    = $sirali
     sayi        = @($sirali).Count
+    # Sicildeki GERCEK toplam (TMview totalResults). Tavan nedeniyle 'sayi' bundan
+    # kucuk kalabilir - sayfa "N kayittan ilk M'si" der; uydurma sayi gostermeyiz.
+    toplam      = $(if($script:SonToplam -gt 0){ [int]$script:SonToplam } else { @($sirali).Count })
     tescilli    = @($sirali | Where-Object { $_.durum -match '(?i)regist' }).Count
     yenileme    = @($sirali | Where-Object { $_.hal -eq 'yenileme-penceresi' }).Count
     ek_surede   = @($sirali | Where-Object { $_.hal -eq 'ek-sure' }).Count
@@ -230,7 +260,7 @@ if($Unvan){
   $p = PortfoyKur $Unvan
   Write-Host ("UNVAN: {0}" -f $p.unvan)
   Write-Host ("Varyant ({0}): {1}" -f @($p.varyantlar).Count, (@($p.varyantlar) -join ' | '))
-  Write-Host ("Marka {0} - tescilli {1} - yenileme penceresi {2} - ek sure {3} - dusmus {4} - surecte {5}" -f $p.sayi,$p.tescilli,$p.yenileme,$p.ek_surede,$p.dusmus,$p.surecte)
+  Write-Host ("Sicildeki toplam: {0} - islenen: {1} - tescilli {2} - yenileme penceresi {3} - ek sure {4} - dusmus {5} - surecte {6}" -f $p.toplam,$p.sayi,$p.tescilli,$p.yenileme,$p.ek_surede,$p.dusmus,$p.surecte)
   foreach($m in (@($p.markalar) | Select-Object -First 15)){ Write-Host ("  [{0}] {1} ({2}) sinif {3} - {4} - {5}" -f $m.hal,$m.ad,$m.no,$m.sinif,$m.durum,$m.donem_sonu) }
   return
 }
@@ -305,7 +335,7 @@ foreach($t in $talepler){
   $sonucJson = $null; $hata = $null
   try{ $p = PortfoyKur $unv }catch{ $hata = $_.Exception.Message; $p = $null }
   if($p){
-    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; markalar=@($p.markalar | Select-Object -First 200) }
+    $sonucJson = [ordered]@{ unvan=$p.unvan; varyantlar=@($p.varyantlar); sayi=$p.sayi; toplam=$p.toplam; tescilli=$p.tescilli; yenileme=$p.yenileme; ek_surede=$p.ek_surede; dusmus=$p.dusmus; surecte=$p.surecte; markalar=@($p.markalar | Select-Object -First 300) }
   }
   $talepIslenen++
   if(-not $kuru){

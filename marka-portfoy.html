@@ -183,11 +183,13 @@ function sonucCiz(s, jeton){
   const v=(s.varyantlar||[]).slice(0,6).map(x=>'<span class="rz" style="margin:2px 4px 2px 0;display:inline-block">'+kac(x)+'</span>').join('');
   const kutu=(b,l,renk)=>'<div><div class="b" style="color:'+renk+'">'+b+'</div><div class="l">'+l+'</div></div>';
   const acil=(s.yenileme||0)+(s.ek_surede||0);
+  const toplam=(s.toplam&&s.toplam>s.sayi)?s.toplam:s.sayi;
   let h='<div class="ozetK" style="margin-top:14px">'+
-    kutu(s.sayi,'marka','var(--ink)')+
+    kutu(toplam,'marka','var(--ink)')+
     kutu(s.tescilli||0,'tescilli','var(--green)')+
     kutu(acil,'işlem gerektiren',acil?'var(--amber)':'var(--ink)')+
     kutu(s.dusmus||0,'düşmüş','var(--dim)')+'</div>';
+  if(toplam>s.sayi) h+='<div class="mini" style="margin-top:8px">Sicilde bu unvan(lar) adına <b style="color:var(--ink)">'+toplam+'</b> kayıt var; aşağıdaki sayımlar <b style="color:var(--ink)">en yeni '+s.sayi+'</b> kayıt üzerinden yapıldı.</div>';
   if(acil) h+='<div class="uyari" style="margin-top:12px"><b>'+acil+' markanın yenileme tarihi kapıda.</b> Yenileme talebi koruma bitişinden önceki 6 ay içinde verilir; kaçırılırsa 6 ay ek süre + ek ücret, o da kaçarsa marka hakkı sona erer (SMK m.23, m.28/1-a).</div>';
   h+='<div style="margin-top:14px">'+s.markalar.map(m=>{
       const e=ETIKET[m.hal]||ETIKET.bilinmiyor;

@@ -57,7 +57,10 @@ foreach($f in $firmalar){
       $uyariMetni="durumu degisti: $($onceki.durum) -> $($r.durum)"; $tip="durum-degisikligi"
     }
     # yenileme yaklasti (tescilli + basvuru+10yil'a <= yenilemeGun)
-    if(-not $uyariMetni -and $r.durum -match '(?i)regist' ){
+    # 20.08 DUZELTME: bu betik TMview'i translate=true ile cagiriyor, yani durum
+    # TURKCE geliyor ("Tescilli") - salt 'regist' araniyordu ve yenileme dali HIC
+    # calismiyordu (sessiz olu dal). Iki dil de karsilanir hale getirildi.
+    if(-not $uyariMetni -and $r.durum -match '(?i)(regist|tescil)' ){
       $bt=DdmmToDate $r.tarih
       if($bt){ $bitis=$bt.AddYears(10); $kalan=[int]($bitis-$simdi).TotalDays; if($kalan -le $yenilemeGun -and $kalan -ge -180){ $uyariMetni="yenileme yaklasiyor: koruma bitisi $($bitis.ToString('dd.MM.yyyy')) ($kalan gun)"; $tip="yenileme" } }
     }
