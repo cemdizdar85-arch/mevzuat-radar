@@ -48,6 +48,16 @@ jobs:
         shell: pwsh
         run: ./motor/alacak-borclu-cek.ps1
 
+      # 20.08 (Cem: "ilan aciklamasi bu kadar mi, neden batti bulamiyor muyuz"):
+      # ilan METNI artik saklaniyor ve icinden ilanin KENDISINDE yazan alanlar
+      # cikariliyor — esas no, sicil no, mahkeme, muhlet tipi/baslangici/bitisi,
+      # komiser, itiraz suresi, COK BORCLULU ilanlarda borclular[] listesi.
+      # ps1 adiminin kacirdigi borclulari da yakalar (o "tek VKN varsa yaz"
+      # kuralindan dolayi grup konkordatolarini eliyordu), o yuzden ondan SONRA.
+      - name: Alacak ilan metnini ayristir (esas no, muhlet, komiser, borclular)
+        continue-on-error: true
+        run: node motor/alacak-metin-ayristir.js
+
       # 19.08 GIZLI KASA (Cem: "bilgiler gizli olsun kimse gormesin"): arsiv artik
       # depoda ACIK JSON olarak DURMAZ. Gunluk hasat + borclu turundan sonra bu
       # adim ilanlari Supabase'e (alacak_ilan tablosu) yazar; tabloya disaridan

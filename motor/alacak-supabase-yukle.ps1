@@ -61,6 +61,17 @@ for ($i = 0; $i -lt $kayitlar.Count; $i += $PARTI) {
       il     = "$($_.il)";     ilce   = "$($_.ilce)";   tarih = "$($_.tarih)"
       tur    = "$($_.tur)";    url    = "$($_.url)"
       borclu = "$($_.borclu)"; vkn    = "$($_.vkn)";    tckn  = "$($_.tckn)"
+      # 20.08: metin + ilanin kendisinde yazan alanlar (alacak-metin-ayristir.js).
+      # SQL kolonlari yoksa alacak_yaz bunlari sessizce yok sayar — once
+      # radar-app/sql/2026-08-20-alacak-metin-alanlari.sql kosulmali.
+      metin      = "$($_.metin)";      esas_no    = "$($_.esas_no)"
+      sicil_no   = "$($_.sicil_no)";   mahkeme    = "$($_.mahkeme)"
+      muhlet_tip = "$($_.muhlet_tip)"; muhlet_ay  = "$($_.muhlet_ay)"
+      muhlet_baslangic = "$($_.muhlet_baslangic)"
+      muhlet_bitis     = "$($_.muhlet_bitis)"
+      komiser    = "$($_.komiser)";    itiraz_gun = "$($_.itiraz_gun)"
+      borclular  = @($_.borclular);    vknler     = @($_.vknler)
+      tcknler    = @($_.tcknler)
     }
   })
   try {

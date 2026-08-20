@@ -276,6 +276,41 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     }
     return null;
   }
+  // 20.08 (Cem: "ilan açıklaması bu kadar mı, neden battı bulamıyor muyuz"):
+  // ilan metni artık kasada ayrıştırılıyor. "Neden battı" hiçbir resmî ilanda
+  // yazmaz (İİK m.288 ilanı hukuki bildirimdir) — ama borçlunun SÜREÇTEKİ YERİ
+  // yazar: mühlet ne zaman başladı/doluyor, komiser kim, itiraz kaç gün, grup
+  // konkordatosunda başka kim var. Alan yoksa satır HİÇ basılmaz (boş güvenli).
+  // Ham metin dışarı çıkmaz; TCKN sunucuda maskelenir (alacak_borclu_maskele).
+  function aiGunFark(iso){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(String(iso||''))) return null;
+    var p=iso.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]);
+    if(isNaN(d.getTime())) return null;
+    var bugun=new Date(); bugun.setHours(0,0,0,0);
+    return {gosterim:p[2]+'.'+p[1]+'.'+p[0], kalan:Math.round((d-bugun)/86400000)};
+  }
+  function aiIlanAyrinti(k){
+    var h='';
+    var TIP={gecici:'geçici mühlet',kesin:'kesin mühlet',uzatma:'mühlet uzatması'};
+    if(k.muhlet_tip || k.muhlet_bitis){
+      var parca=[];
+      if(k.muhlet_ay) parca.push(k.muhlet_ay+' aylık');
+      if(k.muhlet_tip) parca.push(TIP[k.muhlet_tip]||k.muhlet_tip);
+      var bit=aiGunFark(k.muhlet_bitis), bas=aiGunFark(k.muhlet_baslangic);
+      var sag=parca.join(' ')||'mühlet';
+      if(bas) sag+=' · '+bas.gosterim;
+      if(bit) sag+=' → '+bit.gosterim+(bit.kalan>=0?' ('+bit.kalan+' gün var)':' (doldu)');
+      h+='<div class="satir"><b>Mühlet</b><span>'+aiKac(sag)+'</span></div>';
+    }
+    if(k.komiser) h+='<div class="satir"><b>Komiser</b><span>'+aiKac(k.komiser)+'</span></div>';
+    if(k.itiraz_gun) h+='<div class="satir"><b>İlana itiraz</b><span>'+aiKac(k.itiraz_gun)+' gün (İİK m.288)</span></div>';
+    var bl=Array.isArray(k.borclular)?k.borclular:[];
+    if(bl.length>1){
+      var ad=bl.map(function(b){ return b.tckn_var ? (b.ad||'—')+' (şahıs)' : (b.ad||(b.vkn?'VKN '+b.vkn:'—')); });
+      h+='<div class="belg">👥 <b>Bu ilanda '+bl.length+' borçlu var</b> (grup konkordatosu): '+aiKac(ad.join(' · '))+'. Alacağın hangisindeyse süre onun için de işler.</div>';
+    }
+    return h;
+  }
   function aiSonTarih(tarihStr, opt){
     if(!opt || (!opt.gun && !opt.ay)) return null;
     var p=(tarihStr||'').split('.'); if(p.length!==3) return null;
@@ -809,8 +844,9 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           +'<h3>'+aiKac(k.borclu||k.baslik||'—')+'</h3>'
           +(k.tip==='ad'?'<div class="belg" style="border-color:rgba(255,194,75,.35)">Bu eşleşme unvan benzerliğine dayalıdır; aynı adı taşıyan <b>farklı bir firma</b> olabilir. VKN ile doğrula, ilan metnini oku.</div>':'')
           +'<div class="satir"><b>Eşleşen kaydın</b><span>'+aiKac(k.sorgu)+(k.vkn?' · VKN '+aiKac(k.vkn):'')+'</span></div>'
-          +'<div class="satir"><b>Kurum</b><span>'+aiKac(k.kurum||'—')+'</span></div>'
+          +'<div class="satir"><b>Kurum</b><span>'+aiKac(k.mahkeme||k.kurum||'—')+(k.esas_no?' · '+aiKac(k.esas_no):'')+'</span></div>'
           +'<div class="satir"><b>Yer / ilan tarihi</b><span>'+aiKac([k.il,k.tarih].filter(Boolean).join(' · ')||'—')+'</span></div>'
+          +aiIlanAyrinti(k)
           +sureHtml
           +(k.url?'<div class="belg"><a href="'+aiKac(k.url)+'" target="_blank" rel="noopener">Resmî ilan metni →</a></div>':'')
           +'</div>';
