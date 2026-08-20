@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260820130458
-Username: runnervmzvulz\runner
-RunAs User: runnervmzvulz\runner
+Start time: 20260820152839
+Username: runnervm76f27\runner
+RunAs User: runnervm76f27\runner
 Configuration Name: 
-Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/950f6ca7-14d4-4595-82c7-b02043b8c736.ps1'
-Process ID: 2124
-PSVersion: 7.6.4
+Machine: runnervm76f27 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/4d2ca955-ab2a-41d8-ae98-756a767cc60e.ps1'
+Process ID: 2305
+PSVersion: 7.6.5
 PSEdition: Core
-GitCommitId: 7.6.4
+GitCommitId: 7.6.5
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -42,12 +42,27 @@ Taranan sayfa: 54
   songun.html                5 dayanak
 
 Tekil (kanun, madde) cifti: 75 - ambarda araniyor...
-  ambarda BULUNAN : 73
-  BULUNAMAYAN     : 2
+  ambarda BULUNAN : 58
+  BULUNAMAYAN     : 17
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
+     213 m.112   [ambarda-yok]
+     213 m.116   [ambarda-yok]
+     213 m.153   [ambarda-yok]
+     213 m.177   [ambarda-yok]
+     213 m.179   [ambarda-yok]
+     213 m.333   [ambarda-yok]
+     213 m.339   [ambarda-yok]
+     213 m.344   [ambarda-yok]
+     213 m.352   [ambarda-yok]
+     213 m.353   [ambarda-yok]
+     213 m.359   [ambarda-yok]
+     213 m.369   [ambarda-yok]
      213 m.370   [ambarda-yok]
+     213 m.371   [ambarda-yok]
      213 m.372   [ambarda-yok]
+     213 m.374   [ambarda-yok]
+     213 m.376   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
   olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
@@ -56,5 +71,5 @@ Tekil (kanun, madde) cifti: 75 - ambarda araniyor...
 -> veri/dayanak-haritasi.json  (22 sayfa, 75 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260820130527
+End time: 20260820152915
 **********************
