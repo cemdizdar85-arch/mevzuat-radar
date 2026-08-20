@@ -190,6 +190,13 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         <button type="button" class="tbtn" data-t="konkordato" onclick="aiFiltre('konkordato')">Konkordato</button>
         <button type="button" class="tbtn" data-t="iflas" onclick="aiFiltre('iflas')">İflas</button>
       </div>
+      <!-- 20.08 Cem "karar durumu filtresi YAP" (rakip incelemesi: konkordato-
+           ilanlari.com karar durumuna göre süzüyor, bizde yalnız tür vardı).
+           Alacaklı için asıl ayrım budur: geçici mühlette itiraz 7 gün, kesin
+           mühlette alacak kaydı, alacak çağrısında 15 gün, RET'te iş bitmiş
+           olabilir. Düğmeler ve sayılar KASADAN basılır (rakam disiplini);
+           sayacı 0 olan durum hiç gösterilmez. -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px" id="aiDurumlar"></div>
     </div>
     <div id="aiSayac" style="margin-top:9px;font-size:13.5px;color:var(--muted)"></div>
   </div>
@@ -383,10 +390,50 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(!r.ok){ var h=''; try{ h=(JSON.parse(g).hint)||(JSON.parse(g).message)||''; }catch(e){} var hata=new Error(h||('HTTP '+r.status)); hata.kod=h; throw hata; }
     return g?JSON.parse(g):null;
   }
-  var AI_ARSIV_ADET=0;
+  var AI_ARSIV_ADET=0, AI_DURUM=null;
+  // 20.08 KARAR DURUMU: etiketler kullanıcı diliyle, sıra ALACAKLI ÖNCELİĞİNE
+  // göre — önce süresi işleyenler (çağrı/mühlet), sonra biten süreçler.
+  var AI_DURUM_ADI={
+    alacak_cagrisi:['Alacak çağrısı','var(--red)'],
+    gecici_muhlet :['Geçici mühlet','var(--amber)'],
+    kesin_muhlet  :['Kesin mühlet','var(--amber)'],
+    uzatma        :['Mühlet uzatma','var(--muted)'],
+    tasdik        :['Tasdik','var(--green)'],
+    ret_kaldirma  :['Ret / kaldırma','var(--muted)'],
+    iflas_tasfiye :['İflas / tasfiye','var(--red)'],
+    durusma       :['Duruşma günü','var(--dim)'],
+    muhlet        :['Mühlet (türü belirsiz)','var(--dim)'],
+    diger         :['Diğer','var(--dim)']
+  };
+  function aiDurumCubugu(sayilar){
+    var g=document.getElementById('aiDurumlar'); if(!g||!sayilar) return;
+    var h='<button type="button" class="tbtn'+(AI_DURUM?'':' on')+'" onclick="aiDurumSec(null)">Tüm kararlar</button>';
+    Object.keys(AI_DURUM_ADI).forEach(function(k){
+      var n=sayilar[k]||0; if(!n) return;   // ölçülmemiş durum düğme olmaz
+      var ad=AI_DURUM_ADI[k];
+      h+='<button type="button" class="tbtn'+(AI_DURUM===k?' on':'')+'" onclick="aiDurumSec(\''+k+'\')">'
+        +'<span style="color:'+ad[1]+'">'+ad[0]+'</span> <b style="color:var(--dim);font-weight:700">'+n.toLocaleString('tr-TR')+'</b></button>';
+    });
+    g.innerHTML=h;
+  }
+  // Durum seçimi SUNUCUDAN çeker: vitrin listesi 60 tavanlı, istemcide süzmek
+  // "kesin mühlet 1.361 ilan" derken ekranda 3 tane göstermek olurdu.
+  function aiDurumSec(k){
+    AI_DURUM=k; AI_GOSTER=8;
+    var g=document.getElementById('aiDurumlar');
+    if(g) g.style.opacity='.5';
+    sbRpc('alacak_vitrin', k?{p_durum:k}:{}).then(function(d){
+      if(d && d.ilanlar){ AI_L=d.ilanlar; aiCiz(); aiDurumCubugu(d.durumlar); }
+    }).catch(function(e){
+      var s=document.getElementById('aiSayac');
+      if(s) s.innerHTML='<span style="color:var(--red)">Durum süzgeci getirilemedi: '+aiKac(e.message||'bilinmeyen hata')+'</span>';
+    }).then(function(){ if(g) g.style.opacity='1'; });
+    aiKaydir('aiFiltreKutu');
+  }
   sbRpc('alacak_vitrin',{}).then(function(d){
     if(!d) throw new Error('bos');
     AI_L=(d.ilanlar||[]);
+    aiDurumCubugu(d.durumlar);
     AI_ILLER=(d.iller||[]);
     AI_ARSIV_ADET=(d.adet||AI_L.length);
     var e=document.getElementById('aiDamga');
@@ -458,7 +505,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     var ifl=AI_L.filter(function(x){return x.tur==='iflas';}).length;
     var sy=document.getElementById('aiSayac');
     if(sy){
-      if(q || AI_TUR!=='hepsi'){
+      if(AI_DURUM && !q && AI_TUR==='hepsi'){
+        var da=AI_DURUM_ADI[AI_DURUM]||[AI_DURUM,'var(--muted)'];
+        sy.innerHTML='<b style="color:'+da[1]+';font-size:16px">'+da[0]+'</b> kararı taşıyan en yeni <b style="color:var(--ink)">'+AI_L.length+'</b> ilan listeleniyor. <span style="color:var(--dim)">Sayılar arşivin tamamındandır; liste en yeni 60 ile sınırlıdır.</span>';
+      } else if(q || AI_TUR!=='hepsi'){
         var etiket = AI_TUR==='konkordato'?' konkordato':(AI_TUR==='iflas'?' iflas':'');
         var aramaMetni=((document.getElementById('aiAra')||{}).value||'').trim();
         sy.innerHTML='<b style="color:var(--accent2);font-size:16px">'+suz.length+'</b>'+etiket+' ilan bu aramaya uyuyor'
@@ -471,6 +521,10 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
     if(!suz.length){ kutu.innerHTML='<div class="uyari">Bu aramaya uyan ilan yok. Farklı bir ad/il dene ya da türü değiştir. Bu, "ilanı yok" anlamına gelmez, yalnız bu çekimdeki havuzda yok demektir, kesin bilgi ilan.gov.tr ve ilan metnindedir.</div>'; return; }
     kutu.innerHTML = suz.slice(0,AI_GOSTER).map(function(x){
       var t=TUR[x.tur]||TUR.diger;
+      // 20.08: karar durumu kartta da gorunur — listede "hangi asamada" bilgisi
+      // turden (konkordato/iflas) daha ayirt edici.
+      var dr=AI_DURUM_ADI[x.karar];
+      var drRozet = dr ? '<span style="font-size:10.5px;font-weight:800;letter-spacing:.4px;color:'+dr[1]+';border:1px solid currentColor;border-radius:20px;padding:2px 7px;margin-left:6px;opacity:.85">'+dr[0].toLocaleUpperCase('tr')+'</span>' : '';
       var sure='', kural=aiSure(x);
       if(kural){
         if(kural.not){
@@ -492,7 +546,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
         }
       }
       return '<div class="kutu" style="padding:13px 16px;margin-bottom:9px">'+
-        '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+
+        '<span style="display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.06);color:'+t[1]+'">'+t[0]+'</span>'+drRozet+
         ' <span style="font-size:11.5px;color:var(--dim)">'+aiKac(x.il||'')+' · '+aiKac(x.tarih||'')+'</span>'+
         '<div style="font-size:13.5px;color:var(--ink);margin-top:5px;line-height:1.5">'+aiKac(x.baslik)+'</div>'+
         ((x.borclu||x.vkn)?'<div style="margin-top:5px;font-size:13px;background:rgba(255,107,94,.08);border:1px solid rgba(255,107,94,.2);border-radius:7px;padding:5px 9px">🏢 <b style="color:var(--accent2)">Borçlu:</b> '+(x.borclu?'<b style="color:var(--ink)">'+aiKac(x.borclu)+'</b>':'<span style="color:var(--dim)">ilan metninde</span>')+(x.vkn?' <span style="color:var(--muted)">· VKN '+aiKac(x.vkn)+'</span>':'')+'</div>':'')+
