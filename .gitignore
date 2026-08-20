@@ -85,3 +85,7 @@ veri/ihale-sonuc.json
 
 # 20.08 - dahili pazarlama plani, depo PUBLIC oldugu icin ASLA girmez (video-kilit)
 video/
+
+# 20.08 GECMIS TEMIZLIGI SONRASI KORUMA: RG PDF arsivi buyuk ve gecmisi sisiriyordu,
+# gecmisten silindi; yerel diskte yasar, depoya bir daha girmez.
+motor/arsiv/
