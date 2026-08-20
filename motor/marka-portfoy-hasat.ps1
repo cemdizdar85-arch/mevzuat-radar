@@ -309,7 +309,8 @@ foreach($t in $talepler){
   }
   $talepIslenen++
   if(-not $kuru){
-    $govde = [ordered]@{ durum=$(if($hata){'hata'}else{'hazir'}); sonuc=$sonucJson; hata=$hata; islendi_at=(Get-Date).ToString('o') }
+    $tDurum = 'hazir'; if($hata){ $tDurum = 'hata' }
+    $govde = [ordered]@{ durum=$tDurum; sonuc=$sonucJson; hata=$hata; islendi_at=(Get-Date).ToString('o') }
     SbGonder ("marka_talep?jeton=eq." + [uri]::EscapeDataString("$($t.jeton)")) "Patch" $govde @{ Prefer='return=minimal' } | Out-Null
   }
   if($p -and "$($t.email)" -match '^[^@\s]+@[^@\s]+\.[^@\s]+$'){
@@ -320,9 +321,12 @@ foreach($t in $talepler){
 }
 }   # <- if(-not $YalnizUye)
 
+# pwsh 7 hashtable literali icinde $(if(){}else{}) alt ifadesi "Argument types do
+# not match" ile dustu (Actions kosusu #1) - degiskene alindi.
+$mod = 'CANLI'; if($kuru){ $mod = 'KURU' }
 $ozet = [ordered]@{
   tarih = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  mod = $(if($kuru){'KURU'}else{'CANLI'})
+  mod = $mod
   uye_firma = $uyeIslenen
   uye_yenileme_uyarisi = $uyeUyari
   vitrin_talebi = $talepIslenen
