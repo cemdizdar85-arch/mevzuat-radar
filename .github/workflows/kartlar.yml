@@ -262,8 +262,10 @@ jobs:
 
       - name: Gozetim teblig zincirini tazele
         continue-on-error: true
-        shell: pwsh
-        run: ./motor/rg-gozetim-cikar.ps1 -Uygula
+        # 20.08.2026: PS surumu etiketleri karistiriyordu (160 kaydin 15i yanlisti;
+        # gercek yururlukten kaldirma "asil", degisiklik tebligleri "mulga" oluyordu).
+        # Node surumu kodlama-guvenli ve yazmadan once kendi ciktisini denetliyor.
+        run: node motor/gozetim-zincir-cikar.js . -uygula
 
       - name: Yapisal denetci (kart yayini oncesi guvenlik)
         shell: pwsh

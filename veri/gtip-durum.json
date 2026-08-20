@@ -1142,29 +1142,31 @@
                          ],
     "8703.21.10.90.19":  [
                              {
-                                 "deger":  "5.078 ABD Doları/Adet",
-                                 "teblig":  "2026/17",
-                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5"
-                             },
-                             {
-                                 "deger":  "12.000 ABD Doları/Adet",
-                                 "teblig":  "2026/17",
-                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5"
-                             },
-                             {
-                                 "deger":  "25.000 ABD Doları/Adet",
-                                 "teblig":  "2026/17",
-                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5"
-                             },
-                             {
-                                 "deger":  "35.000 ABD Doları/Adet",
-                                 "teblig":  "2026/17",
-                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5"
-                             },
-                             {
                                  "deger":  "44.890 ABD Doları/Adet",
                                  "teblig":  "2026/17",
-                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5"
+                                 "kaynak":  "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=44969\u0026MevzuatTur=9\u0026MevzuatTertip=5",
+                                 "bantlar":  [
+                                                 {
+                                                     "kosul":  "motor gücü 18 kW’yı geçmeyen ATV’ler",
+                                                     "deger":  "5.078 ABD Doları/Adet"
+                                                 },
+                                                 {
+                                                     "kosul":  "18 kW’ı geçen fakat 37 kW’ı geçmeyen",
+                                                     "deger":  "12.000 ABD Doları/Adet"
+                                                 },
+                                                 {
+                                                     "kosul":  "37 kW’ı geçen fakat 75 kW’ı geçmeyen",
+                                                     "deger":  "25.000 ABD Doları/Adet"
+                                                 },
+                                                 {
+                                                     "kosul":  "75 kW’ı geçen fakat 130 kW’ı geçmeyen",
+                                                     "deger":  "35.000 ABD Doları/Adet"
+                                                 },
+                                                 {
+                                                     "kosul":  "130 kW’ı geçen",
+                                                     "deger":  "44.890 ABD Doları/Adet"
+                                                 }
+                                             ]
                              }
                          ],
     "8708.21.90.00.00":  [

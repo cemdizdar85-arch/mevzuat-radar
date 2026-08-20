@@ -795,6 +795,21 @@ function etkiHesapla(kod, sid){
   else dene(25);
 })();
 
+// 20.08.2026 — BIR KODDA BIRDEN COK ESIK.
+// 2026/17'de 8703.21.10.90.19 kodu tek satir degil: motor gucune gore BES ayri
+// birim kiymet tasiyor (5.078 / 12.000 / 25.000 / 35.000 / 44.890 $/adet).
+// Kart basligindaki deger EN YUKSEK banttir — gozetim esigin ALTINDA kalinca
+// dogar, yuksek esik fazla uyarir (guvenli taraf). Bantlar burada acikca
+// listelenir ki kullanici kendi motor gucune bakip dogrusunu gorsun.
+function bantHtml(k){
+  if(!k || !k.bantlar || !k.bantlar.length) return '';
+  const satir = k.bantlar.map(b => `<div class="satir" style="padding-left:10px"><b style="font-weight:600;color:var(--muted)">${htmlEsc(b.kosul)}</b><span style="font-weight:600">${htmlEsc(b.deger)}</span></div>`).join('');
+  return `<div style="margin:8px 0 4px;padding:10px 12px;border:1px solid var(--amber);border-radius:11px;background:#17120a">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--amber);margin-bottom:6px">⚠ BU KODDA TEK EŞİK YOK, ${k.bantlar.length} AYRI EŞİK VAR</div>
+    <div style="font-size:12.5px;color:var(--muted);margin-bottom:6px">Tebliğ bu kodu alt kırılımlara ayırmış. Yukarıdaki <b style="color:var(--ink)">en yüksek</b> eşiktir; seninkini aşağıdan seç:</div>
+    ${satir}
+  </div>`;
+}
 function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip')) return;
   const s = document.getElementById('sonuc');
   const q = (document.getElementById('gtip').value||'').replace(/[^\d.]/g,'').trim();
@@ -886,7 +901,7 @@ function sorgula(){ if(typeof ttSorguKapisi==='function' && !ttSorguKapisi('gtip
       }
     }
     let satirlar = kayitlar.map(k=>`<div class="satir"><b>Birim kıymet</b><span>${k.deger}</span></div>
-      <div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
+      ${bantHtml(k)}<div class="satir"><b>Dayanak</b><span>Gözetim Tebliği ${k.teblig}</span></div>
       <div class="satir"><b>Resmî metin</b><span><a href="${k.kaynak}" target="_blank" rel="noopener">mevzuat.gov.tr →</a></span></div>`).join('');
     html += `<div class="kart"><div class="et">■ GÖZETİM VAR · ${kod}</div>
       <h3>Bu kod ithalatta gözetim kapsamında.</h3>${satirlar}${pozisyonNotu(kod, say2)}${kiyasHtml}
