@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260819064552
-Username: runnervmzvulz\runner
-RunAs User: runnervmzvulz\runner
+Start time: 20260820020504
+Username: runnervm76f27\runner
+RunAs User: runnervm76f27\runner
 Configuration Name: 
-Machine: runnervmzvulz (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8c399e5b-1c3f-4668-8c29-86e44caf0ee2.ps1'
-Process ID: 2184
-PSVersion: 7.6.4
+Machine: runnervm76f27 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/cb7ed366-8b4b-419c-9056-7b847d7705b5.ps1'
+Process ID: 2181
+PSVersion: 7.6.5
 PSEdition: Core
-GitCommitId: 7.6.4
+GitCommitId: 7.6.5
 OS: Ubuntu 24.04.4 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -108,29 +108,22 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
       134x  Finansal Muhasebe|gelecek aylara ait gider
       123x  Muh. ve Mali Müş. Meslek Hukuku|oda organlari
       113x  Finansal Muhasebe|gider yansitma kaydi
-      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       113x  Finansal Muhasebe|amortisman ayirma
+      113x  Finansal Tablolar ve Analizi|karsilastirmali tablolar analizi
       100x  Muh. ve Mali Müş. Meslek Hukuku|oda gelirleri
-       95x  Finansal Muhasebe|hisse senedi satisi
+       95x  Finansal Muhasebe|borc senedi reeskontu
 
   --- tekil konu sayisi: 2264
 
   --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-     bakilan          21000
-     placeholder      26
-     hepsiYuvarlak    199
-     klise            27
+     bakilan          30569
+     placeholder      43
+     hepsiYuvarlak    267
+     klise            37
      tekduzeTuzak     0
-     toplamIzli       246
-     IZLI ORAN      : %1.2
--> veri/koku-izli.json  (246 kimlik, uslup turu icin)
+     toplamIzli       340
+     IZLI ORAN      : %1.1
+-> veri/koku-izli.json  (340 kimlik, uslup turu icin)
 -> veri/kasa-ornek.json  (4 ornek soru, tam metin)
      KASADA yayin=false (denetim bekleyen) : 30569
      ...cekilen 1000
@@ -179,10 +172,10 @@ PS>TerminatingError(Invoke-WebRequest): "
      standart+THP orani: %43.7
 
 -> veri/kasa-sayim.json
--> veri/vitrin-sayilar.json  (soru 30569, hakem 7224)
+-> veri/vitrin-sayilar.json  (soru 30569, hakem 16284)
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260819065048
+End time: 20260820020633
 **********************
