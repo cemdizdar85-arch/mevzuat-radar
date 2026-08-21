@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260820184056
+Start time: 20260821083221
 Username: runnervm76f27\runner
 RunAs User: runnervm76f27\runner
 Configuration Name: 
 Machine: runnervm76f27 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/fd2345a2-1eaf-44cc-8ddf-519a6c200305.ps1'
-Process ID: 2399
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/9354b97a-318c-45bc-a252-a45b0a67f60d.ps1'
+Process ID: 2319
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,7 +17,7 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Taranan sayfa: 54
+Taranan sayfa: 55
   alacak-radari.html         3 dayanak
   alacakli-rehberi.html      7 dayanak
   asgari-kv.html             1 dayanak
@@ -42,204 +42,12 @@ Taranan sayfa: 54
   songun.html                5 dayanak
 
 Tekil (kanun, madde) cifti: 78 - ambarda araniyor...
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
->> TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-  ambarda BULUNAN : 45
-  BULUNAMAYAN     : 33
+  ambarda BULUNAN : 76
+  BULUNAMAYAN     : 2
 
   BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
-     193 m.1   [sorgu-hatasi]
-     193 m.13   [sorgu-hatasi]
-     193 m.17   [sorgu-hatasi]
-     193 m.47   [sorgu-hatasi]
-     193 m.65   [sorgu-hatasi]
-     193 m.89   [sorgu-hatasi]
-     193 m.9   [sorgu-hatasi]
-     2004 m.288   [sorgu-hatasi]
-     2004 m.294   [sorgu-hatasi]
-     2004 m.299   [sorgu-hatasi]
-     2004 m.301   [sorgu-hatasi]
-     2004 m.302   [sorgu-hatasi]
-     2004 m.303   [sorgu-hatasi]
-     2004 m.305   [sorgu-hatasi]
-     2004 m.306   [sorgu-hatasi]
-     2004 m.308   [sorgu-hatasi]
-     213 m.112   [sorgu-hatasi]
-     213 m.116   [sorgu-hatasi]
-     213 m.153   [sorgu-hatasi]
-     213 m.177   [sorgu-hatasi]
-     213 m.179   [sorgu-hatasi]
-     213 m.333   [sorgu-hatasi]
-     213 m.339   [sorgu-hatasi]
-     213 m.344   [ambarda-yok]
-     213 m.352   [ambarda-yok]
-     213 m.353   [ambarda-yok]
-     213 m.359   [ambarda-yok]
-     213 m.369   [ambarda-yok]
      213 m.370   [ambarda-yok]
-     213 m.371   [ambarda-yok]
      213 m.372   [ambarda-yok]
-     213 m.374   [ambarda-yok]
-     213 m.376   [ambarda-yok]
 
   NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
   olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
@@ -248,5 +56,5 @@ PS>TerminatingError(Invoke-WebRequest): "
 -> veri/dayanak-haritasi.json  (22 sayfa, 78 tekil dayanak)
 **********************
 PowerShell transcript end
-End time: 20260820184538
+End time: 20260821083246
 **********************
